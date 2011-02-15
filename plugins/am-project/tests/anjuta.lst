@@ -120,8 +120,9 @@ PROPERTY (URL): http://www.anjuta.org/
             TARGET (): anjuta_doc
                 PROPERTY (Installation directory): anjuta_docdir
                 SOURCE (): doc/ScintillaDoc.html
-            TARGET (): anjuta.1
-            TARGET (): anjuta-launcher.1
+            TARGET (): man_MANS
+                SOURCE (): doc/anjuta.1
+                SOURCE (): doc/anjuta-launcher.1
         GROUP (): libanjuta
             PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
             PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade/modules catalogdir = $(datadir)/glade/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
@@ -164,6 +165,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): libanjuta/interfaces/ianjuta-file-manager.c
                     SOURCE (): libanjuta/interfaces/ianjuta-file-savable.c
                     SOURCE (): libanjuta/interfaces/ianjuta-help.c
+                    SOURCE (): libanjuta/interfaces/ianjuta-indenter.c
                     SOURCE (): libanjuta/interfaces/ianjuta-indicable.c
                     SOURCE (): libanjuta/interfaces/ianjuta-iterable.c
                     SOURCE (): libanjuta/interfaces/ianjuta-iterable-tree.c
@@ -191,134 +193,75 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): libanjuta/interfaces/ianjuta-vcs.c
                     SOURCE (): libanjuta/interfaces/ianjuta-wizard.c
                     SOURCE (): libanjuta/interfaces/libanjuta-iface-marshallers.c
-                TARGET (): ianjuta-buildable.h
+                TARGET (): libanjuta_interfaces_include
                     PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-builder.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debug-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger-breakpoint.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger-instruction.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger-memory.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger-register.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-debugger-variable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-document.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-document-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-assist.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-cell.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-cell-style.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-comment.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-convert.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-factory.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-folds.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-glade-signal.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-goto.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-hover.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-language.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-line-mode.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-search.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-selection.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-tip.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-view.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-editor-zoom.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-environment.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-file.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-file-loader.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-file-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-file-savable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-help.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-indicable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-iterable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-iterable-tree.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-language.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-loader.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-markable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-message-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-message-view.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-plugin-factory.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-preferences.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-print.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-project.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-project-backend.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-project-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-provider.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-snippets-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-stream.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-stream-loader.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-stream-savable.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-symbol.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-symbol-manager.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-symbol-query.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-terminal.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-todo.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-vcs.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): ianjuta-wizard.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): libanjuta-iface-marshallers.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): libanjuta-interfaces.h
-                    PROPERTY (Installation directory): libanjuta_interfaces_includedir
-                TARGET (): libanjuta.idl
+                    SOURCE (): libanjuta/interfaces/ianjuta-buildable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-builder.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debug-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger-breakpoint.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger-instruction.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger-memory.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger-register.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-debugger-variable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-document.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-document-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-assist.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-cell.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-cell-style.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-comment.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-convert.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-factory.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-folds.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-glade-signal.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-goto.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-hover.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-language.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-line-mode.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-search.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-selection.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-tip.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-view.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-editor-zoom.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-environment.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-file.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-file-loader.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-file-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-file-savable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-help.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-indenter.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-indicable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-iterable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-iterable-tree.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-language.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-loader.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-markable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-message-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-message-view.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-plugin-factory.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-preferences.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-print.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-project.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-project-backend.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-project-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-provider.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-snippets-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-stream.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-stream-loader.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-stream-savable.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-symbol.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-symbol-manager.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-symbol-query.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-terminal.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-todo.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-vcs.h
+                    SOURCE (): libanjuta/interfaces/ianjuta-wizard.h
+                    SOURCE (): libanjuta/interfaces/libanjuta-iface-marshallers.h
+                    SOURCE (): libanjuta/interfaces/libanjuta-interfaces.h
+                TARGET (): idl
                     PROPERTY (Installation directory): idldir
+                    SOURCE (): libanjuta/interfaces/libanjuta.idl
             TARGET (): libanjuta-3.la
                 PROPERTY (Installation directory): libdir
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
@@ -432,94 +375,53 @@ PROPERTY (URL): http://www.anjuta.org/
             TARGET (): catalog
                 PROPERTY (Installation directory): catalogdir
                 SOURCE (): libanjuta/anjuta-glade.xml
-            TARGET (): libanjuta.h
+            TARGET (): libanjutainclude
                 PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-debug.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-shell.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-status.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-encodings.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-convert.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-plugin.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-plugin-description.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-plugin-manager.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-plugin-handle.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-profile.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-profile-manager.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-utils.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-preferences-dialog.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-preferences.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-ui.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-launcher.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-session.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-save-prompt.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-serializer.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): resources.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-vcs-status-tree-view.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-vcs-status.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-command.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-async-command.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-async-notify.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-sync-command.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-version.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-project.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-command-queue.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-drop-entry.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-tabber.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-command-bar.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-dock.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-dock-pane.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-file-list.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-pkg-config-chooser.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-pkg-config.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-column-text-view.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-file-drop-entry.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-entry.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-token.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-enum-types.h
-                PROPERTY (Installation directory): libanjutaincludedir
-            TARGET (): anjuta-marshal.h
-                PROPERTY (Installation directory): libanjutaincludedir
+                SOURCE (): libanjuta/libanjuta.h
+                SOURCE (): libanjuta/anjuta-debug.h
+                SOURCE (): libanjuta/anjuta-shell.h
+                SOURCE (): libanjuta/anjuta-status.h
+                SOURCE (): libanjuta/anjuta-encodings.h
+                SOURCE (): libanjuta/anjuta-convert.h
+                SOURCE (): libanjuta/anjuta-plugin.h
+                SOURCE (): libanjuta/anjuta-plugin-description.h
+                SOURCE (): libanjuta/anjuta-plugin-manager.h
+                SOURCE (): libanjuta/anjuta-plugin-handle.h
+                SOURCE (): libanjuta/anjuta-profile.h
+                SOURCE (): libanjuta/anjuta-profile-manager.h
+                SOURCE (): libanjuta/anjuta-utils.h
+                SOURCE (): libanjuta/anjuta-preferences-dialog.h
+                SOURCE (): libanjuta/anjuta-preferences.h
+                SOURCE (): libanjuta/anjuta-ui.h
+                SOURCE (): libanjuta/anjuta-launcher.h
+                SOURCE (): libanjuta/anjuta-session.h
+                SOURCE (): libanjuta/anjuta-save-prompt.h
+                SOURCE (): libanjuta/anjuta-serializer.h
+                SOURCE (): libanjuta/resources.h
+                SOURCE (): libanjuta/anjuta-vcs-status-tree-view.h
+                SOURCE (): libanjuta/anjuta-vcs-status.h
+                SOURCE (): libanjuta/anjuta-command.h
+                SOURCE (): libanjuta/anjuta-async-command.h
+                SOURCE (): libanjuta/anjuta-async-notify.h
+                SOURCE (): libanjuta/anjuta-sync-command.h
+                SOURCE (): libanjuta/anjuta-version.h
+                SOURCE (): libanjuta/anjuta-project.h
+                SOURCE (): libanjuta/anjuta-command-queue.h
+                SOURCE (): libanjuta/anjuta-drop-entry.h
+                SOURCE (): libanjuta/anjuta-tabber.h
+                SOURCE (): libanjuta/anjuta-command-bar.h
+                SOURCE (): libanjuta/anjuta-dock.h
+                SOURCE (): libanjuta/anjuta-dock-pane.h
+                SOURCE (): libanjuta/anjuta-file-list.h
+                SOURCE (): libanjuta/anjuta-pkg-config-chooser.h
+                SOURCE (): libanjuta/anjuta-pkg-config.h
+                SOURCE (): libanjuta/anjuta-column-text-view.h
+                SOURCE (): libanjuta/anjuta-file-drop-entry.h
+                SOURCE (): libanjuta/anjuta-entry.h
+                SOURCE (): libanjuta/anjuta-token.h
+                SOURCE (): libanjuta/anjuta-pkg-config-chooser.h
+                SOURCE (): libanjuta/anjuta-enum-types.h
+                SOURCE (): libanjuta/anjuta-marshal.h
             TARGET (): pkgconfig
                 PROPERTY (Installation directory): pkgconfigdir
                 SOURCE (): libanjuta/libanjuta-3.0.pc
@@ -1488,8 +1390,9 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): python_plugin_pixmaps
                     PROPERTY (Installation directory): python_plugin_pixmapsdir
                     SOURCE (): plugins/language-support-python/python_plugin.png
-                TARGET (): anjuta-python-autocomplete.py
+                TARGET (): scripts
                     PROPERTY (Installation directory): scriptsdir
+                    SOURCE (): plugins/language-support-python/anjuta-python-autocomplete.py
                 TARGET (): python_plugin_plugin
                     PROPERTY (Installation directory): python_plugin_plugindir
                     SOURCE (): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
@@ -1503,6 +1406,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-python/python-assist.h
                     SOURCE (): plugins/language-support-python/python-utils.c
                     SOURCE (): plugins/language-support-python/python-utils.h
+                    SOURCE (): plugins/language-support-python/python-indentation.c
+                    SOURCE (): plugins/language-support-python/python-indentation.h
             GROUP (): language-support-vala
                 PROPERTY (Installation directories): vala_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(VALA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"language-support-vala\" --no-warn
@@ -2534,14 +2439,11 @@ PROPERTY (URL): http://www.anjuta.org/
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
                 GROUP (): scripts
                     PROPERTY (Installation directories): toolsdir = $(anjuta_data_dir)/tools
-                    TARGET (): prepare-changelog.pl
-                        PROPERTY (Installation directory): toolsdir
-                    TARGET (): find-fixmes.pl
-                        PROPERTY (Installation directory): toolsdir
-                    TARGET (): translation-status.pl
-                        PROPERTY (Installation directory): toolsdir
                     TARGET (): tools
                         PROPERTY (Installation directory): toolsdir
+                        SOURCE (): plugins/tools/scripts/prepare-changelog.pl
+                        SOURCE (): plugins/tools/scripts/find-fixmes.pl
+                        SOURCE (): plugins/tools/scripts/translation-status.pl
                         SOURCE (): plugins/tools/scripts/tools-2.xml
                 TARGET (): tools_glade
                     PROPERTY (Installation directory): tools_gladedir
