@@ -1194,7 +1194,7 @@ enum {
 
 /* create a tree model with the target types */
 static GtkListStore *
-build_types_store (AnjutaPmProject *project)
+build_types_store (AnjutaPmProject *project, AnjutaProjectNodeType store_type)
 {
     GtkListStore *store;
     GtkTreeIter iter;
@@ -1213,7 +1213,7 @@ build_types_store (AnjutaPmProject *project)
         AnjutaProjectNodeType type;
 
         type = anjuta_project_node_info_type ((AnjutaProjectNodeInfo *)node->data);
-        if (type & ANJUTA_PROJECT_TARGET)
+        if ((store_type == 0) || ((type & ANJUTA_PROJECT_TYPE_MASK) == store_type) && !(type & ANJUTA_PROJECT_READ_ONLY))
         {
             name = anjuta_project_node_info_name ((AnjutaProjectNodeInfo *)node->data);
             pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
@@ -1287,7 +1287,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	gtk_widget_show (groups_view);
 
 	/* setup target types combo box */
-	types_store = build_types_store (plugin->project);
+	types_store = build_types_store (plugin->project, ANJUTA_PROJECT_TARGET);
 	gtk_combo_box_set_model (GTK_COMBO_BOX (target_type_combo), 
 							GTK_TREE_MODEL (types_store));
 
