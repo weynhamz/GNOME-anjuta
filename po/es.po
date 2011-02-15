@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-01-31 18:30+0000\n"
-"PO-Revision-Date: 2011-02-01 12:30+0100\n"
+"POT-Creation-Date: 2011-02-14 05:04+0000\n"
+"PO-Revision-Date: 2011-02-15 15:19+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -201,7 +201,7 @@ msgstr "Tailandés"
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
 #: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:105
-#: ../plugins/mk-project/mk-project.c:152
+#: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "Desconocido"
 
@@ -585,7 +585,7 @@ msgid "Column %i"
 msgstr "Columna %i"
 
 #. Column label
-#: ../libanjuta/anjuta-column-text-view.c:69 ../plugins/git/anjuta-git.ui.h:38
+#: ../libanjuta/anjuta-column-text-view.c:69
 msgid "Column 1"
 msgstr "Columna 1"
 
@@ -598,7 +598,9 @@ msgid "Text to show the user what to enter into the entry"
 msgstr "Texto para mostrar al usuario qué introducir en la entrada"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that droppedfiles should be relative to"
+#, fuzzy
+#| msgid "Path that droppedfiles should be relative to"
+msgid "Path that dropped files should be relative to"
 msgstr "Ruta a la que los archivos soltados deberían ser relativos"
 
 #: ../libanjuta/anjuta-file-list.c:101
@@ -866,48 +868,48 @@ msgstr "Conjunto de escala"
 msgid "Whether this tag affects font scaling"
 msgstr "Si esta etiqueta afecta al escalado de tipografías"
 
-#: ../plugins/am-project/amp-group.c:528
+#: ../plugins/am-project/amp-group.c:542
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/am-project/amp-group.c:542
+#: ../plugins/am-project/amp-group.c:556
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos o los "
 "caracteres «#$:%+,-.=@^_`~»"
 
-#: ../plugins/am-project/amp-group.c:571
+#: ../plugins/am-project/amp-group.c:586
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
 #: ../plugins/am-project/am-project.c:1569
 #: ../plugins/am-project/am-project.c:1599
 #: ../plugins/am-project/am-project.c:1651
-#: ../plugins/mk-project/mk-project.c:1109
-#: ../plugins/mk-project/mk-project.c:1182
-#: ../plugins/mk-project/mk-project.c:1259
+#: ../plugins/mk-project/mk-project.c:678
+#: ../plugins/mk-project/mk-project.c:755
+#: ../plugins/mk-project/mk-project.c:829
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
-#: ../plugins/am-project/amp-target.c:246
+#: ../plugins/am-project/amp-target.c:266
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/am-project/amp-target.c:260
+#: ../plugins/am-project/amp-target.c:280
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
 "«/» o «.»"
 
-#: ../plugins/am-project/amp-target.c:275
+#: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/am-project/amp-target.c:284
+#: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 "El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
@@ -1900,7 +1902,7 @@ msgid "Options"
 msgstr "Opciones"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:48
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Opciones:"
@@ -3537,8 +3539,8 @@ msgid "Repeat quick search"
 msgstr "Repetir la búsqueda rápida"
 
 #: ../plugins/document-manager/plugin.c:275 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:961
-#: ../plugins/language-support-python/plugin.c:1179
+#: ../plugins/language-support-cpp-java/plugin.c:962
+#: ../plugins/language-support-python/plugin.c:323
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -4158,7 +4160,7 @@ msgstr "Global"
 msgid "Root directory if no project is open:"
 msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:44
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -4224,7 +4226,7 @@ msgid "File Information"
 msgstr "Información del archivo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:47
 #: ../plugins/project-manager/dialogs.c:568
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
@@ -4299,20 +4301,19 @@ msgid "Missing name"
 msgstr "Falta el nombre"
 
 #: ../plugins/dir-project/dir-project.c:780
-#: ../plugins/am-project/am-project.c:89
-#: ../plugins/mk-project/mk-project.c:138
+#: ../plugins/am-project/am-project.c:89 ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/dir-project/dir-project.c:783
-#: ../plugins/am-project/am-project.c:96
-#: ../plugins/mk-project/mk-project.c:145
+#: ../plugins/am-project/am-project.c:96 ../plugins/mk-project/mk-project.c:70
 msgid "Source"
 msgstr "Origen"
 
 #: ../plugins/dir-project/dir-project.c:899
 #: ../plugins/dir-project/dir-project.c:909
-#: ../plugins/mk-project/mk-project.c:1385
+#: ../plugins/mk-project/mk-project.c:977
+#: ../plugins/mk-project/mk-project.c:987
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "El proyecto no permite configurar las propiedades"
@@ -4596,20 +4597,18 @@ msgstr "Bibliotecas adicionales:"
 #: ../plugins/am-project/am-properties.c:219
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
-#, fuzzy
 #| msgid "Additional libraries:"
 msgid "Additional libraries for this target."
-msgstr "Bibliotecas adicionales:"
+msgstr "Bibliotecas adicionales para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
 msgstr "Objetos adicionales:"
 
 #: ../plugins/am-project/am-properties.c:227
-#, fuzzy
 #| msgid "No properties available for this target"
 msgid "Additional object files for this target."
-msgstr "Sin propiedades disponibles para este destino"
+msgstr "Archivos de objeto adicionales para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:235
 #: ../plugins/am-project/am-properties.c:387
@@ -4978,10 +4977,9 @@ msgid "<b>Add Files:</b>"
 msgstr "<b>Añadir archivos:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#, fuzzy
 #| msgid "<b>Branch:</b>"
 msgid "<b>Branch name:</b>"
-msgstr "<b>Rama:</b>"
+msgstr "<b>Nombre de la rama:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:3
 msgid "<b>Branches:</b>"
@@ -5135,126 +5133,125 @@ msgid "Check out the branch after it is created"
 msgstr "Descargar (checkout) la rama después de que se haya creado"
 
 #: ../plugins/git/anjuta-git.ui.h:37
-msgid "Column 0"
-msgstr "Columna 0"
-
-#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Commit on fast-forward merges"
 msgstr "Commit al mezclar en modo rápido"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Do not commit"
 msgstr "No efectuar commit"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Do not follow tags"
 msgstr "No seguir etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "E-mail:"
 msgstr "Correo-e:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:41
 msgid "Fetch remote branches after creation"
 msgstr "Obtener ramas remotas después de crearlas"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:42
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Hard"
 msgstr "Duro"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:45
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Mensaje de registro:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Mixed"
 msgstr "Mezclado"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Push all branches and tags"
 msgstr "Empujar todas las ramas y etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Push all tags"
 msgstr "Empujar todas las etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:53 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:51 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Ajustar a base (rebase)"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Repository head; Drop or type a different revision here"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:53
+msgid "Repository head; Drop or type a different revision here "
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Repository origin; Drop or type a different revision here"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Show source revision in log message"
 msgstr "Mostrar la revisión de los fuentes en el mensaje de log"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Sign this tag"
 msgstr "Firmar esta etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Soft"
 msgstr "Blando"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Squash"
 msgstr "Aplastar (squash)"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
 msgstr "Guardar (stash) cambios indexados"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:60
 #, fuzzy
 #| msgid "This commit concludes a failed merge (use -i)"
 msgid "This commit concludes a failed merged (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:62
-#, fuzzy
+#: ../plugins/git/anjuta-git.ui.h:61
 #| msgid "Use a custom log message"
 msgid "Use a custom log message:"
-msgstr "Usar un mensaje de registro personalizado"
+msgstr "Usar un mensaje de registro personalizado:"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Use custom author information:"
 msgstr "Usar información personalizada del autor:"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:63
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "View the Log for File/Folder:"
 msgstr "Ver el registro para el/la archivo/carpeta:"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Todo el proyecto; arrastrar un archivo aquí o escribir una ruta para ver un "
 "archivo o carpeta de registro"
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Todo el proyecto; arrastrar un archivo aquí para ver un archivo o carpeta de "
 "registro"
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "page 1"
 msgstr "página 1"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:67
 msgid "page 2"
 msgstr "página 2"
 
@@ -5277,7 +5274,6 @@ msgid "Add Remote"
 msgstr "Añadir remota"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
-#, fuzzy
 #| msgid "Apply mailbox files"
 msgid "Apply Mailbox Files"
 msgstr "Aplicar archivos del buzón de correo"
@@ -5294,24 +5290,23 @@ msgstr "No se ha seleccionado ningún grupo"
 msgid "Check Out Files"
 msgstr "Descargar (checkout) archivos"
 
-#: ../plugins/git/git-commit-pane.c:123
+#: ../plugins/git/git-commit-pane.c:124
 #: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
-#, fuzzy
 #| msgid "Please enter a tag name."
 msgid "Please enter a log message."
-msgstr "Introduzca un nombre de etiqueta."
+msgstr "Introducir un mensaje de registro."
 
-#: ../plugins/git/git-commit-pane.c:144
+#: ../plugins/git/git-commit-pane.c:145
 #, fuzzy
 #| msgid "Please enter the commit author's name."
 msgid "Please enter the commit author's name"
 msgstr "Introduzca el nombre del autor del cambio."
 
-#: ../plugins/git/git-commit-pane.c:148
+#: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
 msgstr "Introduzca el correo-e del autor del cambio."
 
-#: ../plugins/git/git-commit-pane.c:304 ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
 msgid "Commit"
 msgstr "Efectuar"
 
@@ -5354,10 +5349,9 @@ msgid "Create Tag"
 msgstr "Crear etiqueta"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#, fuzzy
 #| msgid "No group selected"
 msgid "No remote selected."
-msgstr "No se ha seleccionado ningún grupo"
+msgstr "No se seleccionó ninguna remota."
 
 #: ../plugins/git/git-delete-tags-pane.c:49
 msgid "No tags selected."
@@ -5384,7 +5378,7 @@ msgstr "<b>Etiqueta:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:222 ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
 msgstr "Mezclar"
 
@@ -5398,13 +5392,11 @@ msgid "Git Error"
 msgstr "Error de git"
 
 #: ../plugins/git/git-pane.c:210
-#, fuzzy
 #| msgid "Warning"
 msgid "Git Warning"
-msgstr "Advertencia"
+msgstr "Advertencia de git"
 
 #: ../plugins/git/git-patch-series-pane.c:167
-#| msgid "Create patch series"
 msgid "Generate Patch Series"
 msgstr "Generar series de parches"
 
@@ -5421,10 +5413,9 @@ msgid "Push"
 msgstr "Empujar"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#, fuzzy
 #| msgid "No group selected"
 msgid "No remote selected"
-msgstr "No se ha seleccionado ningún grupo"
+msgstr "No se seleccionó ninguna remota"
 
 #: ../plugins/git/git-remove-files-pane.c:157
 msgid "Remove Files"
@@ -5473,7 +5464,6 @@ msgid "No staged files selected."
 msgstr "No se ha seleccionado ningún objetivo"
 
 #: ../plugins/git/plugin.c:65
-#| msgid "Branches"
 msgid "Branch tools"
 msgstr "Herramientas de ramas"
 
@@ -5482,13 +5472,11 @@ msgid "Create a branch"
 msgstr "Crear una rama"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
-#, fuzzy
 #| msgid "Git: Deleted selected branches."
 msgid "Delete selected branches"
-msgstr "Git: Ramas seleccionadas borradas."
+msgstr "Eliminar las ramas seleccionadas"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
-#| msgid "Switch to another branch"
 msgid "Switch to the selected branch"
 msgstr "Cambiar a la rama seleccionada"
 
@@ -5499,7 +5487,6 @@ msgid "Merge a revision into the current branch"
 msgstr "Mezclar este «commit» en la rama actual"
 
 #: ../plugins/git/plugin.c:109
-#| msgid "Tools"
 msgid "Tag tools"
 msgstr "Herramientas de etiqueta"
 
@@ -5508,7 +5495,6 @@ msgid "Create a tag"
 msgstr "Crear una etiqueta"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
-#| msgid "Git: Deleted selected tags."
 msgid "Delete selected tags"
 msgstr "Eliminar las etiquetas seleccionadas"
 
@@ -5521,10 +5507,9 @@ msgid "Commit changes"
 msgstr "Efectuar cambios"
 
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 #| msgid "_Diff uncommitted changes"
 msgid "Diff uncommitted changes"
-msgstr "_Diff de los cambios sin subir"
+msgstr "Diff de los cambios sin subir"
 
 #: ../plugins/git/plugin.c:155
 #, fuzzy
@@ -5538,7 +5523,6 @@ msgid "Add"
 msgstr "Añadir"
 
 #: ../plugins/git/plugin.c:171
-#| msgid "Add files to the repository"
 msgid "Add files to the index"
 msgstr "Añadir archivos al índice"
 
@@ -5547,17 +5531,14 @@ msgid "Remove files from the repository"
 msgstr "Quitar archivos del repositorio"
 
 #: ../plugins/git/plugin.c:186
-#| msgid "Check Out Files"
 msgid "Check out"
 msgstr "Descargar"
 
 #: ../plugins/git/plugin.c:187
-#| msgid "Revert uncommitted changes to files"
 msgid "Revert changes in unstaged files"
 msgstr "Revertir los cambios en los archivos no reservados"
 
 #: ../plugins/git/plugin.c:194
-#| msgid "Unstage Files"
 msgid "Unstage"
 msgstr "Quitar la reserva"
 
@@ -5578,13 +5559,11 @@ msgid "Mark selected conflicted files as resolved"
 msgstr "Marcar como resuelto el conflicto entre archivos"
 
 #: ../plugins/git/plugin.c:214
-#, fuzzy
 #| msgid "_Remote repository"
 msgid "Remote repository tools"
-msgstr "Repositorio _remoto"
+msgstr "Herramientas del repositorio remoto"
 
 #: ../plugins/git/plugin.c:222
-#| msgid "Add a remote branch"
 msgid "Add a remote"
 msgstr "Añadir una remota"
 
@@ -5595,7 +5574,6 @@ msgid "Add a remote repository"
 msgstr "Añadir al repositorio"
 
 #: ../plugins/git/plugin.c:230
-#| msgid "Git: Deleted selected tags."
 msgid "Delete selected remote"
 msgstr "Eliminar la remota seleccionada"
 
@@ -5642,17 +5620,14 @@ msgid "Continue a rebase with resolved conflicts"
 msgstr "_Continuar con los conflictos resueltos…"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-#| msgid "_Skip"
 msgid "Skip"
 msgstr "Omitir"
 
 #: ../plugins/git/plugin.c:287
-#| msgid "Mark the current head revision as bad"
 msgid "Skip the current revision"
 msgstr "Omitir la revisión actual"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-#| msgid "_Abort"
 msgid "Abort"
 msgstr "Abortar"
 
@@ -5663,10 +5638,9 @@ msgid "Abort the rebase and return the repository to its previous state"
 msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
 
 #: ../plugins/git/plugin.c:306
-#, fuzzy
 #| msgid "Stash to Apply"
 msgid "Stash tools"
-msgstr "Estado guardado (stash) para aplicar"
+msgstr "Herramientas de guardado (stash)"
 
 #: ../plugins/git/plugin.c:314
 #, fuzzy
@@ -5739,15 +5713,13 @@ msgid "Delete all stashes in this repository"
 msgstr "Selecciona todo el texto en el editor"
 
 #: ../plugins/git/plugin.c:366
-#| msgid "Revision: "
 msgid "Revision tools"
 msgstr "Herramientas de revisión"
 
 #: ../plugins/git/plugin.c:374
-#, fuzzy
 #| msgid "_Show commit diff"
 msgid "Show commit diff"
-msgstr "_Mostrar el diff del commit"
+msgstr "Mostrar el diff del commit"
 
 #: ../plugins/git/plugin.c:375
 #, fuzzy
@@ -5766,13 +5738,11 @@ msgid "Merge an individual commit from another branch"
 msgstr "Mezclar este «commit» en la rama actual"
 
 #: ../plugins/git/plugin.c:390
-#, fuzzy
 #| msgid "_Reset/Revert"
 msgid "Reset/Revert"
-msgstr "_Restablecer/revertir"
+msgstr "Restablecer/revertir"
 
 #: ../plugins/git/plugin.c:398
-#, fuzzy
 #| msgid "Reset Tree"
 msgid "Reset tree"
 msgstr "Restablecer árbol"
@@ -6043,7 +6013,7 @@ msgid_plural "%d Errors"
 msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
-#: ../plugins/mk-project/mk-project.c:715
+#: ../plugins/mk-project/mk-project.c:460
 #, fuzzy, c-format
 #| msgid "Unable to parse project file"
 msgid "Unable to parse make file"
@@ -6060,16 +6030,14 @@ msgid "Add _Package"
 msgstr "Añadir _paquete"
 
 #: ../plugins/mk-project/mk-project.ui.h:3
-#, fuzzy
 #| msgid "Add _Module"
 msgid "Add _module"
 msgstr "Añadir _módulo"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
-#, fuzzy
 #| msgid "Package"
 msgid "Packages"
-msgstr "Paquete"
+msgstr "Paquetes"
 
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Select package"
@@ -6159,21 +6127,13 @@ msgstr "_Parchear…"
 msgid "Patch files/directories"
 msgstr "Parcheararchivos/directorios"
 
-#: ../plugins/project-import/plugin.c:68
-msgid ""
-"Generation of project file failed. Cannot find an appropriate project "
-"template to use. Please make sure your version of Anjuta is up-to-date."
-msgstr ""
-"Ha fallado la generación del archivo del proyecto. No se puede encontrar una "
-"plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
-"Anjuta está actualizada."
-
-#: ../plugins/project-import/plugin.c:88
+#: ../plugins/project-import/plugin.c:79
+#: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/plugin.c:136
+#: ../plugins/project-import/plugin.c:218
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6182,16 +6142,16 @@ msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
 "de escritura al directorio del proyecto."
 
-#: ../plugins/project-import/plugin.c:200
+#: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "Seleccione un «backend» de proyecto para abrir %s."
 
-#: ../plugins/project-import/plugin.c:205
+#: ../plugins/project-import/plugin.c:287
 msgid "Open With"
 msgstr "Abrir con"
 
-#: ../plugins/project-import/plugin.c:220
+#: ../plugins/project-import/plugin.c:302
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6201,8 +6161,8 @@ msgstr ""
 "(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
 "más moderna de Anjuta."
 
-#: ../plugins/project-import/plugin.c:290
-#: ../plugins/project-import/plugin.c:346
+#: ../plugins/project-import/plugin.c:368
+#: ../plugins/project-import/plugin.c:424
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
@@ -6260,10 +6220,9 @@ msgid "Import"
 msgstr "Importar"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#, fuzzy
 #| msgid "Library"
 msgid "Add Library"
-msgstr "Biblioteca"
+msgstr "Añadir biblioteca"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
 msgid "Add Source"
@@ -6284,16 +6243,14 @@ msgid "More options:"
 msgstr "Más opciones:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
-#, fuzzy
 #| msgid "Directory"
 msgid "New Directory"
-msgstr "Directorio"
+msgstr "Carpeta nueva"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
-#, fuzzy
 #| msgid "Library"
 msgid "New Library"
-msgstr "Biblioteca"
+msgstr "Biblioteca nueva"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
 msgid "New Target"
@@ -6358,9 +6315,9 @@ msgid "_Select file to add&#x2026;"
 msgstr "_Seleccionar archivo para añadir&#x2026;"
 
 #: ../plugins/project-manager/project-model.c:184
-#: ../plugins/project-manager/plugin.c:1322
-#: ../plugins/project-manager/plugin.c:1442
-#: ../plugins/project-manager/plugin.c:1622 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/project-manager/plugin.c:1324
+#: ../plugins/project-manager/plugin.c:1446
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2134
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -6369,7 +6326,7 @@ msgstr "Proyecto"
 msgid "GbfProject Object"
 msgstr "Objeto GbfProjec"
 
-#: ../plugins/project-manager/project-model.c:839
+#: ../plugins/project-manager/project-model.c:727
 msgid "No project loaded"
 msgstr "No se ha cargado ningún proyecto"
 
@@ -6620,7 +6577,7 @@ msgstr "_Ordenar"
 msgid "Sort shortcuts"
 msgstr "Ordenar atajos"
 
-#: ../plugins/project-manager/plugin.c:1307
+#: ../plugins/project-manager/plugin.c:1309
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6629,33 +6586,33 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1317
+#: ../plugins/project-manager/plugin.c:1319
 msgid "Update project view…"
 msgstr "Actualizar vista del proyecto…"
 
-#: ../plugins/project-manager/plugin.c:1360
+#: ../plugins/project-manager/plugin.c:1362
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1530
+#: ../plugins/project-manager/plugin.c:1526
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1597
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1609
+#: ../plugins/project-manager/plugin.c:1605
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2333
+#: ../plugins/project-manager/plugin.c:2329
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2336
+#: ../plugins/project-manager/plugin.c:2332
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -9914,40 +9871,40 @@ msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:967
-#: ../plugins/language-support-python/plugin.c:1185
+#: ../plugins/language-support-cpp-java/plugin.c:968
+#: ../plugins/language-support-python/plugin.c:329
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:968
-#: ../plugins/language-support-python/plugin.c:1186
+#: ../plugins/language-support-cpp-java/plugin.c:969
+#: ../plugins/language-support-python/plugin.c:330
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:974
+#: ../plugins/language-support-cpp-java/plugin.c:975
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:975
+#: ../plugins/language-support-cpp-java/plugin.c:976
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:980
+#: ../plugins/language-support-cpp-java/plugin.c:981
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:981
+#: ../plugins/language-support-cpp-java/plugin.c:982
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1021
+#: ../plugins/language-support-cpp-java/plugin.c:1022
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1196
-#: ../plugins/language-support-cpp-java/plugin.c:1226
+#: ../plugins/language-support-cpp-java/plugin.c:1197
+#: ../plugins/language-support-cpp-java/plugin.c:1227
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9955,11 +9912,11 @@ msgstr "C/C++/Java/Vala"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-python/plugin.c:909
+#: ../plugins/language-support-python/plugin.c:83
 msgid "Python support warning"
 msgstr "Aviso del soporte de Python"
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:91
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -9971,16 +9928,16 @@ msgstr ""
 "Python.\n"
 "Instálelas y compruebe la ruta de Python en las preferencias."
 
-#: ../plugins/language-support-python/plugin.c:920
+#: ../plugins/language-support-python/plugin.c:94
 msgid "Do not show that warning again"
 msgstr "No mostrar esa advertencia de nuevo"
 
-#: ../plugins/language-support-python/plugin.c:1267
+#: ../plugins/language-support-python/plugin.c:386
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:1376
-#: ../plugins/language-support-python/plugin.c:1385
+#: ../plugins/language-support-python/plugin.c:494
+#: ../plugins/language-support-python/plugin.c:503
 #: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
@@ -10275,6 +10232,17 @@ msgstr "Caracteres mínimos para autocompletado "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "Column 0"
+#~ msgstr "Columna 0"
+
+#~ msgid ""
+#~ "Generation of project file failed. Cannot find an appropriate project "
+#~ "template to use. Please make sure your version of Anjuta is up-to-date."
+#~ msgstr ""
+#~ "Ha fallado la generación del archivo del proyecto. No se puede encontrar "
+#~ "una plantilla de proyecto apropiada para usar. Asegúrese de que su "
+#~ "versión de Anjuta está actualizada."
 
 #, fuzzy
 #~| msgid "Repository Head"
