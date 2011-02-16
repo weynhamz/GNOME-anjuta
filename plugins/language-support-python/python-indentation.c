@@ -601,12 +601,11 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
  */
 
 static gchar*
-get_current_statement (IAnjutaEditor *editor, gint line_num, gint *found_line_num)
+get_current_statement (IAnjutaEditor *editor, gint line_num)
 {
 	gchar point_ch;
 	IAnjutaIterable *iter = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-	gchar statement[1024];
-	gint counter=0;
+	GString* statement = g_string_new (NULL);
 
 	do
 	{
@@ -614,7 +613,8 @@ get_current_statement (IAnjutaEditor *editor, gint line_num, gint *found_line_nu
 
 		if (!ianjuta_iterable_next (iter, NULL) )
 			break;
-	} while (point_ch == ' ' || point_ch == '\t'); // Whitespace
+	} 
+	while (g_ascii_isspace (point_ch) && point_ch != '\n');
 
 	if (!ianjuta_iterable_previous (iter, NULL))
 		return "";
@@ -622,15 +622,15 @@ get_current_statement (IAnjutaEditor *editor, gint line_num, gint *found_line_nu
 	do
 	{
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-		statement[counter++] = point_ch;
+		g_string_append_c (statement, point_ch);
 
 		if (!ianjuta_iterable_next (iter, NULL) )
 			break;
-	} while (isalpha(point_ch) || isdigit(point_ch)); // FIXME: Is this UTF-8 compatible?
-	statement[counter-1] = '\0';
+	} 
+	while (g_ascii_isalpha(point_ch) || g_ascii_isdigit(point_ch));
 
 	g_object_unref (iter);
-	return g_strdup_printf("%s", statement);
+	return g_string_free (statement, FALSE);
 }
 
 static gchar 
@@ -680,11 +680,11 @@ get_line_indentation_base (PythonPlugin *plugin,
                            gint *line_indent_spaces,
                            gboolean *colon_indent)
 {
-	IAnjutaIterable *iter;
 	gchar point_ch;
 	gint line_indent = 0;
 	gint currentline = line_num - 1;
-	gchar *last_line_statement;
+	gchar *statement;
+	gchar *current_statement;
 
 	*incomplete_statement = 0;
 	*line_indent_spaces = 0;
@@ -692,17 +692,26 @@ get_line_indentation_base (PythonPlugin *plugin,
 	if (currentline <= 1)
 		return 0;
 
-	iter = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-
 	point_ch = get_last_char (editor, currentline, &currentline);
-	last_line_statement = get_current_statement (editor, currentline, &currentline);
+	statement = get_current_statement (editor, currentline);
+	current_statement = get_current_statement (editor, line_num);
 
-	if (!g_strcmp0(last_line_statement, "return") || 
-	    !g_strcmp0(last_line_statement, "break") ||
-	    !g_strcmp0(last_line_statement, "pass") || 
-	    !g_strcmp0(last_line_statement, "raise") || 	    
-	    !g_strcmp0(last_line_statement, "continue") )
-	{					
+	if (g_str_equal(statement, "return") || 
+	    g_str_equal(statement, "break") ||
+	    g_str_equal(statement, "pass") || 
+	    g_str_equal(statement, "raise") || 	    
+	    g_str_equal(statement, "continue"))
+	{
+		if (get_line_indentation (editor, currentline)>= INDENT_SIZE)
+			line_indent = get_line_indentation (editor, currentline) - INDENT_SIZE;
+
+	}
+	else if ((g_str_has_prefix(current_statement, "def") && point_ch != ':') ||
+	         g_str_has_prefix(current_statement, "else") ||
+	         g_str_has_prefix(current_statement, "elif") ||
+	         g_str_has_prefix(current_statement, "except") ||
+	         g_str_has_prefix(current_statement, "finally"))
+	{
 		if (get_line_indentation (editor, currentline)>= INDENT_SIZE)
 			line_indent = get_line_indentation (editor, currentline) - INDENT_SIZE;
 	}
@@ -717,6 +726,9 @@ get_line_indentation_base (PythonPlugin *plugin,
 			line--;
 		line_indent = get_line_indentation (editor, line);
 	}
+
+	g_free (statement);
+	g_free (current_statement);
 
 	return line_indent;
 }
@@ -774,17 +786,10 @@ get_line_auto_indentation (PythonPlugin *plugin, IAnjutaEditor *editor,
 
 	iter = ianjuta_editor_get_line_begin_position (editor, line, NULL);
 
-	/*	if (is_iter_inside_string (iter))
-	{
-		line_indent = get_line_indentation (editor, line - 1);
-}
-else
-{*/
 	line_indent = get_line_indentation_base (plugin, editor, line,
 	                                         &incomplete_statement, 
 	                                         line_indent_spaces,
 	                                         &colon_indent);
-	/*}*/
 
 	/* Determine what the first non-white char in the line is */
 	do
@@ -794,11 +799,6 @@ else
 		 * or string does not count as inside. If inside, just align with
 		 * previous indentation.
 		 */
-		/*if (is_iter_inside_string (iter))
-		{
-			line_indent = get_line_indentation (editor, line - 1);
-			break;
-	}*/
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 		                                   0, NULL);
 		if (iter_is_newline (iter, ch))
