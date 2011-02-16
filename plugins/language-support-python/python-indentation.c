@@ -617,7 +617,11 @@ get_current_statement (IAnjutaEditor *editor, gint line_num)
 	while (g_ascii_isspace (point_ch) && point_ch != '\n');
 
 	if (!ianjuta_iterable_previous (iter, NULL))
-		return "";
+	{
+		g_object_unref (iter);
+		g_string_free (statement, TRUE);
+		return g_strdup("");
+	}
 
 	do
 	{
@@ -652,6 +656,7 @@ get_last_char (IAnjutaEditor *editor, gint line_num, gint *found_line_num)
 	while (point_ch == ' ' || point_ch == '\n' || point_ch == '\r' || point_ch == '\t'); // Whitespace
 
 	*found_line_num = ianjuta_editor_get_line_from_position (editor, iter, NULL);
+	g_object_unref (iter);
 	return point_ch;
 }
 
