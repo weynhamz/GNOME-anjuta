@@ -55,17 +55,18 @@ res = proj.get_resource(respath)
 
 position = int(offset_arg)
 
-if option == "autocomplete":
-	proposals = codeassist.code_assist(proj, source_code, position, resource=res, maxfixes=10)
-	proposals = codeassist.sorted_proposals(proposals)
+try:
+	if option == "autocomplete":
+		proposals = codeassist.code_assist(proj, source_code, position, resource=res, maxfixes=10)
+		proposals = codeassist.sorted_proposals(proposals)
 
-	for proposal in proposals:
-		print proposal
+		for proposal in proposals:
+			print proposal
 
-elif option == "calltip":
-	proposals = codeassist.get_doc(proj, source_code, position, resource=res, maxfixes=10)
-	print proposals
+	elif option == "calltip":
+		proposals = codeassist.get_doc(proj, source_code, position, resource=res, maxfixes=10)
+		print proposals
+except:
+	pass
 
 proj.close()
-
-
