@@ -352,6 +352,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	GtkTreeIter iter;
 	GList *item;
 	gchar *tooltip = NULL;
+	gboolean editable = TRUE;
 
 	if (prop->native != NULL)
 	{
@@ -362,9 +363,11 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 		label = gtk_label_new (_(prop->name));
 	}
 
+	editable = prop->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY ? FALSE : TRUE;
+	
 	if (prop->detail != NULL)
 	{
-		if (prop->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY)
+		if (!editable)
 		{
 			tooltip = g_strconcat (_(prop->detail), _(" This property is not modifiable."), NULL);
 		}
@@ -387,12 +390,21 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	{
 	case ANJUTA_PROJECT_PROPERTY_STRING:
 	case ANJUTA_PROJECT_PROPERTY_LIST:
-		entry = gtk_entry_new ();
-		gtk_entry_set_text (GTK_ENTRY (entry), prop->value != NULL ? prop->value : "");
+		if (editable)
+		{
+			entry = gtk_entry_new ();
+			gtk_entry_set_text (GTK_ENTRY (entry), prop->value != NULL ? prop->value : "");
+		}
+		else
+		{
+			entry = gtk_label_new (prop->value != NULL ? prop->value : "");
+			gtk_misc_set_alignment (GTK_MISC (entry), 0, 0.5);
+		}
 		break;
 	case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 		entry = gtk_check_button_new ();
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry), (prop->value != NULL) && (*prop->value == '1'));
+		gtk_widget_set_sensitive (entry, editable);
 		break;
 	case ANJUTA_PROJECT_PROPERTY_MAP:
 			model = GTK_TREE_MODEL (gtk_list_store_newv (LIST_COLUMNS_NB, column_type));
@@ -438,6 +450,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
+			gtk_widget_set_sensitive (entry, editable);
 			gtk_container_add (GTK_CONTAINER (entry), view);
 			
 			break;
@@ -653,21 +666,24 @@ on_properties_dialog_response (GtkWidget *dialog,
 			{
 			case ANJUTA_PROJECT_PROPERTY_STRING:
 			case ANJUTA_PROJECT_PROPERTY_LIST:
-				text = gtk_entry_get_text (GTK_ENTRY (entry->entry));
-				if (*text == '\0')
+				if (GTK_IS_ENTRY (entry->entry))
 				{
-					if ((prop->value != NULL) && (*prop->value != '\0'))
+					text = gtk_entry_get_text (GTK_ENTRY (entry->entry));
+					if (*text == '\0')
 					{
-						/* Remove */
-						ianjuta_project_set_property (table->project->project, table->node, prop, NULL, NULL);
+						if ((prop->value != NULL) && (*prop->value != '\0'))
+						{
+							/* Remove */
+							ianjuta_project_set_property (table->project->project, table->node, prop, NULL, NULL);
+						}
 					}
-				}
-				else
-				{
-					if (g_strcmp0 (prop->value, text) != 0)
+					else
 					{
-						/* Modified */
-						ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
+						if (g_strcmp0 (prop->value, text) != 0)
+						{
+							/* Modified */
+							ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
+						}
 					}
 				}
 				break;
@@ -1212,8 +1228,8 @@ build_types_store (AnjutaPmProject *project, AnjutaProjectNodeType store_type)
         const gchar *name;
         AnjutaProjectNodeType type;
 
-        type = anjuta_project_node_info_type ((AnjutaProjectNodeInfo *)node->data);
-        if ((store_type == 0) || ((type & ANJUTA_PROJECT_TYPE_MASK) == store_type) && !(type & ANJUTA_PROJECT_READ_ONLY))
+		type = anjuta_project_node_info_type ((AnjutaProjectNodeInfo *)node->data);
+        if (((store_type == 0) || ((type & ANJUTA_PROJECT_TYPE_MASK) == store_type)) && !(type & ANJUTA_PROJECT_READ_ONLY))
         {
             name = anjuta_project_node_info_name ((AnjutaProjectNodeInfo *)node->data);
             pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),
