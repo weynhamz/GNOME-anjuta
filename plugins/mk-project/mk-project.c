@@ -702,7 +702,7 @@ mkp_project_load_node (MkpProject *project, AnjutaProjectNode *node, GError **er
 	{
 	case ANJUTA_PROJECT_ROOT:
 		project->loading++;
-		DEBUG_PRINT("*** Loading project: %p root file: %p directory: \n", project, project->root_file, project->file);
+		DEBUG_PRINT("*** Loading project: %p root file: %p\n", project, project->root_file);
 		return mkp_project_load_root (project, node, error);
 	case ANJUTA_PROJECT_GROUP:
 		project->loading++;
