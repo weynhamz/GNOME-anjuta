@@ -266,12 +266,16 @@ static GtkActionEntry actions_search[] = {
   { "ActionEditSearchQuickSearch", GTK_STOCK_FIND, N_("_Quick Search"),
 	"<control>f", N_("Quick editor embedded search"),
     G_CALLBACK (on_show_search)},
-  { "ActionEditSearchQuickSearchAgain", GTK_STOCK_FIND, N_("Search Next"),
-	"<control><shift>f", N_("Search for next appearance of term."),
+  { "ActionEditSearchQuickSearchAgain", GTK_STOCK_FIND, N_("Find _Next"),
+	"<control>g", N_("Search for next appearance of term."),
     G_CALLBACK (on_repeat_quicksearch)},
-  { "ActionEditSearchDocmanReplace", GTK_STOCK_FIND, N_("Search and Replace"),
-	"<control><shift>h", N_("Search and replace"),
+  { "ActionEditSearchReplace", GTK_STOCK_FIND, N_("Find and R_eplace…"),
+	"<control>h", N_("Search and replace"),
     G_CALLBACK (on_search_and_replace)},
+  { "ActionEditSearchFindPrevious", GTK_STOCK_FIND, N_("Find _Previous"),
+	"<control><shift>g",
+	N_("Repeat the last Find command"),
+	G_CALLBACK (on_search_previous)},	
   { "ActionSearchboxPopupClearHighlight", GTK_STOCK_FIND, N_("Clear Highlight"),
 	NULL, N_("Clear all highlighted text"),
 	G_CALLBACK (on_search_popup_clear_highlight)}
@@ -866,9 +870,11 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
 								   "ActionEditSearchQuickSearchAgain");
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
+								   "ActionEditSearchFindPrevious");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSearch",
-									"ActionEditSearchDocmanReplace");
+									"ActionEditSearchReplace");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
 								   "ActionSearchboxPopupClearHighlight");

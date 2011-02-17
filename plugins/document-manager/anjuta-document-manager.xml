@@ -46,7 +46,8 @@
 						<placeholder name="PlaceholderQuickSearchMenu">
 							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
 							<menuitem name="QuickReSearch" action="ActionEditSearchQuickSearchAgain"/>
-							<menuitem name="DocmanReplace" action="ActionEditSearchDocmanReplace"/>
+							<menuitem name="QuickSearchPrevious" action="ActionEditSearchFindPrevious"/>							
+							<menuitem name="QuickReplace" action="ActionEditSearchReplace"/>
 							<separator name="separator8"/>
 						</placeholder>
 					</menu>

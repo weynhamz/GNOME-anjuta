@@ -887,6 +887,23 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 	search_box_incremental_search (SEARCH_BOX (search_box), TRUE);
 }
 
+void
+on_search_previous (GtkAction *action, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	GtkWidget *search_box;
+
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+
+	search_box = plugin->search_box;
+	if (!gtk_widget_get_parent (search_box))
+		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
+
+	if (!gtk_widget_get_visible (search_box))
+		gtk_widget_show (search_box);
+	search_box_incremental_search (SEARCH_BOX (search_box), FALSE);
+}
+
 void 
 on_search_and_replace (GtkAction *action, gpointer user_data)
 {
