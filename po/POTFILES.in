@@ -192,10 +192,6 @@ plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
 [type: gettext/xml]plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
-[type: gettext/glade]plugins/search/anjuta-search.ui
-plugins/search/plugin.c
-plugins/search/search-replace.c
-plugins/search/search-replace_backend.c
 plugins/snippets-manager/plugin.c
 plugins/snippets-manager/snippets-browser.c
 plugins/snippets-manager/snippets-editor.c

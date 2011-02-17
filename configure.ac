@@ -808,7 +808,6 @@ plugins/code-analyzer/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
-plugins/search/Makefile
 plugins/message-view/Makefile
 plugins/gdb/Makefile
 plugins/gdb/images/Makefile
