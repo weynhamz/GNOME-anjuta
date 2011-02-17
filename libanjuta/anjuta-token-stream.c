@@ -79,6 +79,9 @@ struct _AnjutaTokenStream
 
 	/* Current directory */
 	GFile *current_directory;
+
+	/* Current file */
+	GFile *current_file;
 };
 
 /* Helpers functions
@@ -280,6 +283,21 @@ anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
 }
 
 
+/**
+ * anjuta_token_stream_get_current_file:
+ * @stream: a #AnjutaTokenStream object.
+ *
+ * Return the current file.
+ *
+ * Return value: The current file.
+ */
+GFile*
+anjuta_token_stream_get_current_file (AnjutaTokenStream *stream)
+{
+	g_return_val_if_fail (stream != NULL, NULL);
+	
+	return stream->current_file;
+}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -297,7 +315,7 @@ anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
  * Return value: The newly created stream.
  */
 AnjutaTokenStream *
-anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaToken *content, GFile *filename)
+anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaToken *content, GFile *file)
 {
 	AnjutaTokenStream *child;
 
@@ -313,13 +331,15 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 	if (child->last == content) child->last = NULL;
 
 	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
-	if (filename == NULL)
+	if (file == NULL)
 	{
 		child->current_directory = parent == NULL ? NULL : (parent->current_directory == NULL ? NULL : g_object_ref (parent->current_directory));
+		child->current_file = NULL;
 	}
 	else
 	{
-		child->current_directory = g_file_get_parent (filename);
+		child->current_directory = g_file_get_parent (file);
+		child->current_file = g_object_ref (file);
 	}
 
 	return child;
@@ -341,6 +361,7 @@ anjuta_token_stream_pop (AnjutaTokenStream *stream)
 	g_return_val_if_fail (stream != NULL, NULL);
 
 	if (stream->current_directory) g_object_unref (stream->current_directory);
+	if (stream->current_file) g_object_unref (stream->current_file);
 	parent = stream->parent;
 	g_free (stream);
 

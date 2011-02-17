@@ -204,6 +204,8 @@ PKG_PROG_PKG_CONFIG\(	{ RETURN (PKG_PROG_PKG_CONFIG);}
 
 {WSNL}                    { RETURN (SPACE); }
 
+\\\n                    { RETURN (SPACE); }
+
 =|<|>|<=|>=             { RETURN (OPERATOR); }
 
 {NAME}                    { RETURN (WORD); }
