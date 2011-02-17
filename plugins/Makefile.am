@@ -31,7 +31,6 @@ SUBDIRS = . \
 	project-wizard \
 	python-loader \
 	run-program \
-	search \
 	snippets-manager \
 	sourceview \
 	starter \
