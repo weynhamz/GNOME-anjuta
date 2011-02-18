@@ -242,7 +242,8 @@ save_dialog_data (RunDialog* dlg)
 	if (arg != NULL)
 	{
 		/* Remove empty string in list, allow it only as first item */
-		if (*(gchar *)(plugin->recent_args->data) == '\0') plugin->recent_args = g_list_delete_link (plugin->recent_args, plugin->recent_args);
+		if ((plugin->recent_args != NULL) &&
+			(*(gchar *)(plugin->recent_args->data) == '\0')) plugin->recent_args = g_list_delete_link (plugin->recent_args, plugin->recent_args);
 		find = g_list_find_custom(plugin->recent_args, arg, (GCompareFunc)strcmp);
 		if (find)
 		{
