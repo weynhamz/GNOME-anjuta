@@ -18,7 +18,7 @@ AM_CPPFLAGS = \
 lib_LTLIBRARIES = libanjuta-3.la 
 libanjuta_3_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_3_la_LIBADD = \
-	interfaces/libanjuta-interfaces.la \
+	libanjuta-interfaces.la \
 	$(ANJUTA_LIBS) \
 	$(XML_LIBS) \
 	$(GDL_LIBS)
@@ -309,10 +309,10 @@ Anjuta_3_0_gir_FILES = $(anjuta_introspection_sources)
 Anjuta_3_0_gir_SCANNERFLAGS = --c-include=libanjuta/libanjuta.h
 INTROSPECTION_GIRS += Anjuta-3.0.gir
 
-IAnjuta-3.0.gir: interfaces/libanjuta-interfaces.la libanjuta-3.la Anjuta-3.0.gir
+IAnjuta-3.0.gir: libanjuta-interfaces.la libanjuta-3.la Anjuta-3.0.gir
 IAnjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0 Anjuta-3.0
 IAnjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) -I$(top_srcdir)
-IAnjuta_3_0_gir_LIBS = interfaces/libanjuta-interfaces.la libanjuta-3.la
+IAnjuta_3_0_gir_LIBS = libanjuta-interfaces.la libanjuta-3.la
 IAnjuta_3_0_gir_FILES = $(ianjuta_introspection_sources)
 IAnjuta_3_0_gir_SCANNERFLAGS = --add-include-path=$(top_srcdir)/libanjuta/ --symbol-prefix=ianjuta --c-include=libanjuta/interfaces/libanjuta-interfaces.h
 INTROSPECTION_GIRS += IAnjuta-3.0.gir
