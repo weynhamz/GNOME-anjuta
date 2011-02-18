@@ -426,6 +426,47 @@ language_support_get_signal_parameter (const gchar* type_name, GList** names)
 	return real_name;
 }
 
+static GString*
+language_support_generate_c_signature (const gchar* widget,
+									   GSignalQuery query,
+									   gboolean swapped,
+									   const gchar* handler)
+{
+	GList* names = NULL;
+	GString* str = g_string_new ("\n");
+	const gchar* widget_param = language_support_get_signal_parameter (widget,
+		                                                               &names);
+	int i;
+	g_string_append (str, g_type_name (query.return_type));
+	if (!swapped)
+		g_string_append_printf (str, "\n%s (%s *%s", handler, widget, widget_param);
+	else
+		g_string_append_printf (str, "\n%s (gpointer user_data, %s *%s", handler, widget, widget_param);				
+	for (i = 0; i < query.n_params; i++)
+	{
+		const gchar* type_name = g_type_name (query.param_types[i]);
+		const gchar* param_name = language_support_get_signal_parameter (type_name,
+			                                                             &names);
+	
+		if (query.param_types[i] <= G_TYPE_DOUBLE)
+		{	                                                                
+			g_string_append_printf (str, ", %s %s", type_name, param_name);
+		}
+		else
+		{	                                                                
+			g_string_append_printf (str, ", %s *%s", type_name, param_name);
+		}
+	}
+	if (!swapped)
+		g_string_append (str, ", gpointer user_data)");
+	else
+		g_string_append (str, ")");
+
+	anjuta_util_glist_strings_free (names);
+
+	return str;
+}
+
 static void
 on_glade_drop (IAnjutaEditor* editor,
                IAnjutaIterable* iterator,
@@ -459,45 +500,24 @@ on_glade_drop (IAnjutaEditor* editor,
 	{
 		case LS_FILE_C:
 		{
-			GList* names = NULL;
-			GString* str = g_string_new ("\nstatic ");
-			const gchar* widget_param = language_support_get_signal_parameter (widget,
-			                                                                   &names);
-			int i;
-			g_string_append (str, g_type_name (query.return_type));
-			if (!swapped)
-				g_string_append_printf (str, "\n%s (%s *%s", handler, widget, widget_param);
-			else
-				g_string_append_printf (str, "\n%s (gpointer user_data, %s *%s", handler, widget, widget_param);				
-			for (i = 0; i < query.n_params; i++)
-			{
-				const gchar* type_name = g_type_name (query.param_types[i]);
-				const gchar* param_name = language_support_get_signal_parameter (type_name,
-				                                                                 &names);
-				
-				if (query.param_types[i] <= G_TYPE_DOUBLE)
-				{	                                                                
-					g_string_append_printf (str, ", %s %s", type_name, param_name);
-				}
-				else
-				{	                                                                
-					g_string_append_printf (str, ", %s *%s", type_name, param_name);
-				}
-			}
-			if (!swapped)
-				g_string_append (str, ", gpointer user_data)");
-			else
-				g_string_append (str, ")");
-
+			GString* str = language_support_generate_c_signature (widget, query,
+																  swapped, handler);
 			g_string_append (str, "\n{\n\n}\n");
-
 			ianjuta_editor_insert (editor, iterator,
 			                       str->str, -1, NULL);
 			g_string_free (str, TRUE);
-			anjuta_util_glist_strings_free (names);
 			break;
 		}
 		case LS_FILE_CHDR:
+		{
+			GString* str = language_support_generate_c_signature (widget, query,
+																  swapped, handler);
+			g_string_append (str, ";\n");
+			ianjuta_editor_insert (editor, iterator,
+			                       str->str, -1, NULL);
+			g_string_free (str, TRUE);
+			break;
+		}
 		default:
 			break;
 	}
