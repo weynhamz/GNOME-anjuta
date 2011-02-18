@@ -1,5 +1,4 @@
-
-SUBDIRS = interfaces 
+include interfaces/Makefile.am.iface
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
@@ -124,7 +123,44 @@ libanjuta_3_la_SOURCES= \
 	anjuta-entry.h \
 	anjuta-entry.c
 
+# interfaces
+noinst_LTLIBRARIES = libanjuta-interfaces.la
+libanjuta_interfaces_la_LIBADD = $(ANJUTA_LIBS) $(XML_LIBS)
 
+libanjuta_interfaces_includedir = $(includedir)/libanjuta-3.0/libanjuta/interfaces
+libanjuta_interfaces_include_HEADERS =  $(libanjuta_interfaces_include)
+
+BUILT_SOURCES = iface-built.stamp
+
+iface-built.stamp: interfaces/libanjuta.idl interfaces/anjuta-idl-compiler.pl
+	savedir=`pwd` && \
+	cd $(srcdir) && perl interfaces/anjuta-idl-compiler.pl libanjuta  interfaces/libanjuta.idl && \
+	echo 'GInterface' > hierarchy.txt && grep -e '^[[:space:]|\t]*interface' \
+	interfaces/libanjuta.idl  | sed -e 's/\binterface\b\s*/\t/' | sed -e 's/\t/    /g' \
+	>> hierarchy.txt && \
+	touch iface-built.stamp && \
+	echo "changing to $$savedir" && \
+	cd $$savedir && \
+	make
+
+files_idl = interfaces/libanjuta.idl
+idldir = $(libanjuta_interfaces_includedir)
+idl_HEADERS = $(files_idl)
+
+ianjuta-marshal.h: interfaces/ianjuta-marshal.list
+	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/interfaces/ianjuta-marshal.list --header > xgen-gmc \
+	&& cp xgen-gmc $(@F) \
+	&& rm -f xgen-gmc
+
+ianjuta-marshal.c: interfaces/ianjuta-marshal.h interfaces/ianjuta-marshal.list
+	$(AM_V_GEN)echo "#include \"ianjuta-marshal.h\"" > xgenc-gmc \
+	&& @GLIB_GENMARSHAL@ \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/interfaces/ianjuta-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
+
+# Glade module
 if HAVE_PLUGIN_GLADE
 
 # For now install in our own prefix
@@ -146,6 +182,8 @@ catalogdir = $(datadir)/glade/catalogs
 catalog_DATA = anjuta-glade.xml
 
 endif
+
+# libanjuta
 
 libanjutaincludedir=$(includedir)/libanjuta-3.0/libanjuta
 
@@ -199,7 +237,7 @@ libanjutainclude_HEADERS = \
 	anjuta-enum-types.h \
 	anjuta-marshal.h
 
-BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
+BUILT_SOURCES += anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
 anjuta-marshal.h: anjuta-marshal.list
 	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
@@ -261,7 +299,7 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
-ianjuta_introspection_sources = $(srcdir)/interfaces/ianjuta-*.c $(srcdir)/interfaces/ianjuta-*.h
+ianjuta_introspection_sources = $(libanjuta_interfaces_la_SOURCES) $(libanjuta_interfaces_include)
 
 Anjuta-3.0.gir: libanjuta-3.la
 Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
@@ -285,7 +323,7 @@ gir_DATA = $(INTROSPECTION_GIRS)
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
-CLEANFILES = $(dist_gir_DATA) $(typelib_DATA)
+CLEANFILES = $(dist_gir_DATA) $(typelib_DATA) interfaces/libanjuta-interfaces.h
 endif
 
 

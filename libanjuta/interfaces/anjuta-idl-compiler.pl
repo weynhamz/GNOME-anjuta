@@ -19,9 +19,9 @@
 use strict;
 use Data::Dumper;
 
-if (@ARGV != 1)
+if (@ARGV != 2)
 {
-	die "Usage: perl anjuta-idl-compiler.pl module_name";
+	die "Usage: perl anjuta-idl-compiler.pl module_name idl_file";
 }
 
 ## Types starting with prefix mentioned in
@@ -146,7 +146,7 @@ my $type_map = {
 };
 
 my $module_name = $ARGV[0];
-my $idl_file = "$module_name.idl";
+my $idl_file = $ARGV[1];
 open (INFILE, "<$idl_file")
 	or die "Can not open IDL file for reading";
 
@@ -1549,17 +1549,11 @@ sub write_makefile
 	$iface_sources .= "\\\n\t$s";
     }
     
-    my $iface_rules = "noinst_LTLIBRARIES = $module_name-interfaces.la\n";
-    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \$(MODULE_LIBS)\n";
-##    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
-    $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
-    $iface_rules .= "${module_name}_interfaces_includedir = \$(MODULE_INCLUDEDIR)\n";
-    $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n";
+    my $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
+    $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n\n";
     
-    my $contents = `cat Makefile.am.iface`;
-    $contents =~ s/\@\@IFACE_RULES\@\@/$iface_rules/;
-    my $filename = "Makefile.am";
-	write_file ($filename, $contents);
+    my $filename = "Makefile.am.iface";
+	write_file ($filename, $iface_rules);
 }
 
 sub write_file

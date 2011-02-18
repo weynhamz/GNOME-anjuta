@@ -785,7 +785,6 @@ po/Makefile.in
 libanjuta/Makefile
 libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
-libanjuta/interfaces/Makefile
 src/Makefile
 pixmaps/Makefile
 pixmaps/16x16/Makefile

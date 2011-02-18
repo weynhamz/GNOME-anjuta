@@ -6,7 +6,7 @@ test -z "$srcdir" && srcdir=.
 
 echo "Generating initial interface files"
 sh -c "cd $srcdir/libanjuta/interfaces && \
-perl anjuta-idl-compiler.pl libanjuta && \
+perl anjuta-idl-compiler.pl libanjuta $srcdir/libanjuta/interfaces/libanjuta.idl && \
 touch iface-built.stamp"
 
 test -n "$srcdir" || srcdir=`dirname "$0"`
