@@ -19,9 +19,9 @@
 use strict;
 use Data::Dumper;
 
-if (@ARGV != 2)
+if (@ARGV != 1)
 {
-	die "Usage: perl anjuta-idl-compiler.pl module_name idl_file";
+	die "Usage: perl anjuta-idl-compiler.pl module_name";
 }
 
 ## Types starting with prefix mentioned in
@@ -146,7 +146,7 @@ my $type_map = {
 };
 
 my $module_name = $ARGV[0];
-my $idl_file = $ARGV[1];
+my $idl_file = "$module_name.idl";
 open (INFILE, "<$idl_file")
 	or die "Can not open IDL file for reading";
 
@@ -1551,9 +1551,25 @@ sub write_makefile
     
     my $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
     $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n\n";
+
+    my $gir_headers = "";
+    foreach my $h (@header_files)
+    {
+	$gir_headers .= "\\\n\tinterfaces/$h";
+    }
+    my $gir_sources = "";
+    foreach my $s (@source_files)
+    {
+	$gir_sources .= "\\\n\tinterfaces/$s";
+    }
     
+    my $gir_rules .= "${module_name}_source_files = $gir_sources\n";
+    $gir_rules .= "${module_name}_header_files = $gir_headers\n\n";
+
     my $filename = "Makefile.am.iface";
 	write_file ($filename, $iface_rules);
+	my $gir_filename = "Makefile.am.gir";
+	write_file ($gir_filename, $gir_rules);	
 }
 
 sub write_file

@@ -783,6 +783,7 @@ AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
 libanjuta/Makefile
+libanjuta/interfaces/Makefile
 libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
 src/Makefile
