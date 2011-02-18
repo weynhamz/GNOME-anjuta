@@ -442,6 +442,8 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GladePluginPriv *priv;
+	GList* projects;
+	GList* project;
 
 	priv = ANJUTA_PLUGIN_GLADE (plugin)->priv;
 
@@ -455,7 +457,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (plugin->shell,
 	                                      G_CALLBACK (on_session_save), plugin);
 
-	g_signal_handlers_disconnect_by_func (priv->editor,
+	g_signal_handlers_disconnect_by_func (priv->app,
 	                                      G_CALLBACK(on_api_help), plugin);
 
 	/* Remove widgets */
@@ -466,6 +468,14 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	                            priv->paned,
 	                            NULL);
 
+	/* Close all views */
+	projects = glade_app_get_projects ();
+	for (project = projects; project != NULL; project = g_list_next (project))
+	{
+		GtkWidget* doc = g_object_get_data (G_OBJECT (project->data), "design_view");
+		gtk_widget_destroy (doc);
+	}
+	
 	priv->uiid = 0;
 	priv->action_group = NULL;
 
