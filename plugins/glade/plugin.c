@@ -603,7 +603,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		GObject *glade_obj = G_OBJECT (glade_obj_node->data);
 		if (GTK_IS_WINDOW (glade_obj))
 		{
-			glade_project_selection_set (project, glade_obj, TRUE);
+			/* Workaround for bgo#642647 */
+			if (gtk_widget_get_visible (GTK_WIDGET (anjuta_plugin_get_shell (ANJUTA_PLUGIN (ifile)))))
+				glade_project_selection_set (project, glade_obj, TRUE);
 			break;
 		}
 	}
