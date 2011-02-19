@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-14 05:04+0000\n"
-"PO-Revision-Date: 2011-02-15 15:19+0100\n"
+"POT-Creation-Date: 2011-02-15 20:27+0000\n"
+"PO-Revision-Date: 2011-02-18 11:18+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -926,7 +926,7 @@ msgstr "Construir"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "Build Directory:"
-msgstr "Directorio de construcción:"
+msgstr "Carpeta de construcción:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
 msgid "Configuration:"
@@ -979,7 +979,7 @@ msgstr "Seleccionar programa que ejecutar:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Select a build directory"
-msgstr "Seleccionar un directorio de construcción"
+msgstr "Seleccionar una carpeta de construcción"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Translate messages"
@@ -1060,11 +1060,11 @@ msgstr "El ejecutable «%s» no está actualizado."
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:171
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+se\\s+ingresa\\s+\\al\\s+directorio\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+se\\s+ingresa\\s+\\al\\s+carpeta\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:172
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+carpeta\\s+'(.+)'"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -1073,11 +1073,11 @@ msgstr "make(\\[\\d+\\])?:\\s+Entrando\\s+en\\s+\\el\\s+directorio\\s+'(.+)'"
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:180
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+se\\s+\\sale\\s+del\\s+directorio\\s+`(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+se\\s+\\sale\\s+del\\s+carpeta\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:181
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make(\\[\\d+\\])?:\\s+Saliendo\\s+\\del\\s+directorio\\s+'(.+)'"
+msgstr "make(\\[\\d+\\])?:\\s+Saliendo\\s+\\del\\s+carpeta\\s+'(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:871
 #, c-format
@@ -1283,8 +1283,8 @@ msgstr "Eliminar configuración"
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
-"Limpiar el proyecto (distclean) y eliminar el directorio de configuración si "
-"es posible"
+"Limpiar el proyecto (distclean) y eliminar la carpeta de configuración si es "
+"posible"
 
 #: ../plugins/build-basic-autotools/plugin.c:2548
 #: ../plugins/build-basic-autotools/plugin.c:2576
@@ -1779,15 +1779,15 @@ msgstr "Preferencias del CVS"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:8
 msgid "CVS: Add file/directory"
-msgstr "CVS: Añadir archivo/directorio"
+msgstr "CVS: añadir archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:9
 msgid "CVS: Commit file/directory"
-msgstr "CVS: Efectuar archivo/directorio"
+msgstr "CVS: efectuar archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 msgid "CVS: Diff file/directory"
-msgstr "CVS: Diferencias del archivo/directorio"
+msgstr "CVS: diferencias del archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:11
 msgid "CVS: Import"
@@ -1795,11 +1795,11 @@ msgstr "CVS: Importar"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:12
 msgid "CVS: Log file/directory"
-msgstr "CVS: Archivo de registro/directorio"
+msgstr "CVS: archivo de registro/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:13
 msgid "CVS: Remove file/directory"
-msgstr "CVS: Eliminar archivo/directorio"
+msgstr "CVS: eliminar archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:14
 msgid "CVS: Status"
@@ -1807,11 +1807,11 @@ msgstr "CVS: Estado"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:15
 msgid "CVS: Status from file/directory"
-msgstr "CVS: Estado del archivo/directorio"
+msgstr "CVS: estado del archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:16
 msgid "CVS: Update file/directory"
-msgstr "CVS: Actualizar archivo/directorio"
+msgstr "CVS: actualizar archivo/carpeta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:17
 msgid "CVSROOT:"
@@ -1820,32 +1820,32 @@ msgstr "CVSROOT:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:18
 #: ../plugins/subversion/anjuta-subversion.ui.h:5
 msgid "Choose file or directory to add:"
-msgstr "Elegir archivo o directorio para añadir:"
+msgstr "Elegir archivo o carpeta que añadir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:19
 msgid "Choose file or directory to commit:"
-msgstr "Elegir un archivo o directorio que efectuar:"
+msgstr "Elegir un archivo o carpeta que efectuar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "Choose file or directory to diff:"
-msgstr "Elegir el archivo o directorio del que sacar diferencias:"
+msgstr "Elegir el archivo o carpeta del que sacar diferencias:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:21
 msgid "Choose file or directory to get log for:"
-msgstr "Elegir el archivo o directorio del que obtener el registro:"
+msgstr "Elegir el archivo o carpeta del que obtener el registro:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:22
 msgid "Choose file or directory to get the status from:"
-msgstr "Elegir el archivo o directorio del que obtener el estado:"
+msgstr "Elegir el archivo o carpeta del que obtener el estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to remove:"
-msgstr "Elegir el archivo o directorio que quitar:"
+msgstr "Elegir el archivo o carpeta que quitar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Choose file or directory to update:"
-msgstr "Elegir el archivo o directorio para actualizar:"
+msgstr "Elegir el archivo o carpeta que actualizar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:25
 msgid "Compression Level (0=off, 10=max):"
@@ -1853,11 +1853,11 @@ msgstr "Nivel de compresión (0=ninguna, 10=máx):"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
 msgid "Create new directories"
-msgstr "Crear directorios nuevos"
+msgstr "Crear carpetas nuevas"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:27
 msgid "Delete empty directories"
-msgstr "Borrar directorios vacíos"
+msgstr "Borrar carpetas vacías"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:28
 #: ../plugins/subversion/anjuta-subversion.ui.h:13
@@ -1926,7 +1926,7 @@ msgstr "Ruta hasta el comando «cvs»"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:42
 msgid "Project root directory:"
-msgstr "Directorio raíz del proyecto:"
+msgstr "Carpeta raíz del proyecto:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 msgid "Release tag:"
@@ -2051,7 +2051,7 @@ msgstr "_Añadir"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:56
 msgid "Add a new file/directory to the CVS tree"
-msgstr "Añadir un archivo/directorio nuevo al árbol CVS"
+msgstr "Añadir un archivo/carpeta nueva al árbol CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -2063,7 +2063,7 @@ msgstr "_Eliminar"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:64
 msgid "Remove a file/directory from CVS tree"
-msgstr "Eliminar un archivo/directorio del árbol CVS"
+msgstr "Eliminar un archivo/carpeta del árbol CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -2112,7 +2112,7 @@ msgstr "_Ver estado"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:96 ../plugins/cvs-plugin/plugin.c:155
 msgid "Show the status of a file/directory"
-msgstr "Muestra el estado de un archivo/directorio"
+msgstr "Muestra el estado de un archivo/carpeta"
 
 #. Action name
 #. Stock icon, if any
@@ -2124,7 +2124,7 @@ msgstr "_Mostrar registro"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:104 ../plugins/cvs-plugin/plugin.c:163
 msgid "Show the log of a file/directory"
-msgstr "Muestra el registro de un archivo/directorio"
+msgstr "Muestra el registro de un archivo/carpeta"
 
 #. Action name
 #. Stock icon, if any
@@ -2317,7 +2317,7 @@ msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
 msgid "Select one directory"
-msgstr "Seleccionar un directorio"
+msgstr "Seleccionar una carpeta"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
 msgid "Serial Line Connection"
@@ -2338,7 +2338,7 @@ msgstr "Señal:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
 msgid "Source Directories"
-msgstr "Directorios de fuentes"
+msgstr "Carpetas de fuentes"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
 msgid "Start Debugger"
@@ -4128,7 +4128,7 @@ msgstr "<b>Abrir con</b>"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
-msgstr "Elegir el directorio que mostrar si no hay ningún proyecto abierto"
+msgstr "Elegir la carpeta que mostrar si no hay ningún proyecto abierto"
 
 #: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
@@ -4158,7 +4158,7 @@ msgstr "Global"
 
 #: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
-msgstr "Directorio raíz si no hay ningún proyecto abierto:"
+msgstr "Carpeta raíz si no hay ningún proyecto abierto:"
 
 #: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:44
 msgid "Loading..."
@@ -4182,7 +4182,7 @@ msgstr "_Renombrar"
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
-msgstr "Renombrar el archivo o directorio"
+msgstr "Renombrar el archivo o carpeta"
 
 #: ../plugins/file-manager/plugin.c:294
 msgid "File manager popup actions"
@@ -4573,7 +4573,7 @@ msgstr "Construir el objetivo pero no instalarlo."
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
 msgid "Installation directory:"
-msgstr "Directorio de instalación:"
+msgstr "Carpeta de instalación:"
 
 #: ../plugins/am-project/am-properties.c:203
 #: ../plugins/am-project/am-properties.c:363
@@ -4597,7 +4597,6 @@ msgstr "Bibliotecas adicionales:"
 #: ../plugins/am-project/am-properties.c:219
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
-#| msgid "Additional libraries:"
 msgid "Additional libraries for this target."
 msgstr "Bibliotecas adicionales para este objetivo."
 
@@ -4606,7 +4605,6 @@ msgid "Additional objects:"
 msgstr "Objetos adicionales:"
 
 #: ../plugins/am-project/am-properties.c:227
-#| msgid "No properties available for this target"
 msgid "Additional object files for this target."
 msgstr "Archivos de objeto adicionales para este objetivo."
 
@@ -4977,7 +4975,6 @@ msgid "<b>Add Files:</b>"
 msgstr "<b>Añadir archivos:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#| msgid "<b>Branch:</b>"
 msgid "<b>Branch name:</b>"
 msgstr "<b>Nombre de la rama:</b>"
 
@@ -5221,7 +5218,6 @@ msgid "This commit concludes a failed merged (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
 #: ../plugins/git/anjuta-git.ui.h:61
-#| msgid "Use a custom log message"
 msgid "Use a custom log message:"
 msgstr "Usar un mensaje de registro personalizado:"
 
@@ -5274,7 +5270,6 @@ msgid "Add Remote"
 msgstr "Añadir remota"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
-#| msgid "Apply mailbox files"
 msgid "Apply Mailbox Files"
 msgstr "Aplicar archivos del buzón de correo"
 
@@ -5292,7 +5287,6 @@ msgstr "Descargar (checkout) archivos"
 
 #: ../plugins/git/git-commit-pane.c:124
 #: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
-#| msgid "Please enter a tag name."
 msgid "Please enter a log message."
 msgstr "Introducir un mensaje de registro."
 
@@ -5349,7 +5343,6 @@ msgid "Create Tag"
 msgstr "Crear etiqueta"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#| msgid "No group selected"
 msgid "No remote selected."
 msgstr "No se seleccionó ninguna remota."
 
@@ -5392,7 +5385,6 @@ msgid "Git Error"
 msgstr "Error de git"
 
 #: ../plugins/git/git-pane.c:210
-#| msgid "Warning"
 msgid "Git Warning"
 msgstr "Advertencia de git"
 
@@ -5413,7 +5405,6 @@ msgid "Push"
 msgstr "Empujar"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#| msgid "No group selected"
 msgid "No remote selected"
 msgstr "No se seleccionó ninguna remota"
 
@@ -5472,7 +5463,6 @@ msgid "Create a branch"
 msgstr "Crear una rama"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
-#| msgid "Git: Deleted selected branches."
 msgid "Delete selected branches"
 msgstr "Eliminar las ramas seleccionadas"
 
@@ -5507,7 +5497,6 @@ msgid "Commit changes"
 msgstr "Efectuar cambios"
 
 #: ../plugins/git/plugin.c:154
-#| msgid "_Diff uncommitted changes"
 msgid "Diff uncommitted changes"
 msgstr "Diff de los cambios sin subir"
 
@@ -5559,7 +5548,6 @@ msgid "Mark selected conflicted files as resolved"
 msgstr "Marcar como resuelto el conflicto entre archivos"
 
 #: ../plugins/git/plugin.c:214
-#| msgid "_Remote repository"
 msgid "Remote repository tools"
 msgstr "Herramientas del repositorio remoto"
 
@@ -5638,7 +5626,6 @@ msgid "Abort the rebase and return the repository to its previous state"
 msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
 
 #: ../plugins/git/plugin.c:306
-#| msgid "Stash to Apply"
 msgid "Stash tools"
 msgstr "Herramientas de guardado (stash)"
 
@@ -5717,7 +5704,6 @@ msgid "Revision tools"
 msgstr "Herramientas de revisión"
 
 #: ../plugins/git/plugin.c:374
-#| msgid "_Show commit diff"
 msgid "Show commit diff"
 msgstr "Mostrar el diff del commit"
 
@@ -5738,12 +5724,10 @@ msgid "Merge an individual commit from another branch"
 msgstr "Mezclar este «commit» en la rama actual"
 
 #: ../plugins/git/plugin.c:390
-#| msgid "_Reset/Revert"
 msgid "Reset/Revert"
 msgstr "Restablecer/revertir"
 
 #: ../plugins/git/plugin.c:398
-#| msgid "Reset Tree"
 msgid "Reset tree"
 msgstr "Restablecer árbol"
 
@@ -6030,12 +6014,10 @@ msgid "Add _Package"
 msgstr "Añadir _paquete"
 
 #: ../plugins/mk-project/mk-project.ui.h:3
-#| msgid "Add _Module"
 msgid "Add _module"
 msgstr "Añadir _módulo"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
-#| msgid "Package"
 msgid "Packages"
 msgstr "Paquetes"
 
@@ -6045,7 +6027,7 @@ msgstr "Seleccionar el paquete"
 
 #: ../plugins/patch/patch-plugin.c:94
 msgid "File/Directory to patch"
-msgstr "Archivo/Directorio para parchear"
+msgstr "Archivo/carpeta que parchear"
 
 #: ../plugins/patch/patch-plugin.c:97
 msgid "Patch file"
@@ -6061,7 +6043,7 @@ msgstr "Parchear"
 
 #: ../plugins/patch/patch-plugin.c:186
 msgid "Please select the directory where the patch should be applied"
-msgstr "Seleccione el directorio donde el parche debería ser aplicado"
+msgstr "Seleccione la carpeta donde el parche debería aplicarse"
 
 #: ../plugins/patch/patch-plugin.c:197
 #, c-format
@@ -6101,7 +6083,7 @@ msgstr "Ejecución en seco"
 
 #: ../plugins/patch/patch-plugin.ui.h:2
 msgid "File/Directory to patch:"
-msgstr "Archivo/Directorio para parchear:"
+msgstr "Archivo/carpeta que parchear:"
 
 #: ../plugins/patch/patch-plugin.ui.h:4
 msgid "Patch file:"
@@ -6125,7 +6107,7 @@ msgstr "_Parchear…"
 
 #: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
-msgstr "Parcheararchivos/directorios"
+msgstr "Parchear archivos/carpetas"
 
 #: ../plugins/project-import/plugin.c:79
 #: ../plugins/project-import/plugin.c:183
@@ -6140,7 +6122,7 @@ msgid ""
 "the project directory."
 msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura al directorio del proyecto."
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6157,9 +6139,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para el directorio dado "
-"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6220,7 +6202,6 @@ msgid "Import"
 msgstr "Importar"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#| msgid "Library"
 msgid "Add Library"
 msgstr "Añadir biblioteca"
 
@@ -6243,12 +6224,10 @@ msgid "More options:"
 msgstr "Más opciones:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
-#| msgid "Directory"
 msgid "New Directory"
 msgstr "Carpeta nueva"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
-#| msgid "Library"
 msgid "New Library"
 msgstr "Biblioteca nueva"
 
@@ -6527,7 +6506,7 @@ msgstr "Cerrar proyecto"
 
 #: ../plugins/project-manager/plugin.c:931
 msgid "New _Directory"
-msgstr "_Directorio nuevo"
+msgstr "_Carpeta nueva"
 
 #: ../plugins/project-manager/plugin.c:936
 msgid "New _Target"
@@ -6633,7 +6612,7 @@ msgstr "Esta propiedad no es modificable."
 
 #: ../plugins/project-manager/dialogs.c:520
 msgid "Directory properties"
-msgstr "Propiedades del directorio"
+msgstr "Propiedades de la carpeta"
 
 #: ../plugins/project-manager/dialogs.c:523
 msgid "Target properties"
@@ -6761,7 +6740,7 @@ msgid ""
 "leading dash. Please fix it."
 msgstr ""
 "El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de directorio. Además, no puede tener un guión "
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -6775,7 +6754,7 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"El directorio «%s» no está vacío. La creación del proyecto podría fallar si "
+"La carpeta «%s» no está vacía. La creación del proyecto podría fallar si "
 "algunos archivos no se pudiesen escribir. ¿Quiere continuar?"
 
 #: ../plugins/project-wizard/druid.c:685
@@ -6874,7 +6853,7 @@ msgstr "Saltando %s: el archivo ya existe"
 #: ../plugins/project-wizard/install.c:503
 #, c-format
 msgid "Creating %s … Failed to create directory"
-msgstr "Creando %s … Falló al crear el directorio"
+msgstr "Creando %s … Falló al crear la carpeta"
 
 #: ../plugins/project-wizard/install.c:519
 #, c-format
@@ -6904,7 +6883,7 @@ msgstr "Asistente para proyecto nuevo"
 
 #: ../plugins/project-wizard/property.c:340
 msgid "Select directory"
-msgstr "Seleccionar directorio"
+msgstr "Seleccionar carpeta"
 
 #: ../plugins/project-wizard/property.c:348
 msgid "Select file"
@@ -6922,7 +6901,7 @@ msgstr "Elegir icono"
 
 #: ../plugins/project-wizard/property.c:481
 msgid "Choose directory"
-msgstr "Elegir un directorio"
+msgstr "Elegir una carpeta"
 
 #: ../plugins/project-wizard/property.c:485
 msgid "Choose file"
@@ -7622,11 +7601,11 @@ msgstr "Proyecto basado en Makefile"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:3
 msgid "Project directory, output file etc."
-msgstr "Directorio del proyecto, archivo de salida, etc."
+msgstr "Carpeta del proyecto, archivo de salida, etc."
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:4
 msgid "Project directory:"
-msgstr "Directorio del proyecto:"
+msgstr "Carpeta del proyecto:"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:5
 msgid "Project name:"
@@ -7718,7 +7697,7 @@ msgstr "Biblioteca compartida y estática"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
-msgstr "Elija un directorio de trabajo"
+msgstr "Elija una carpeta de trabajo"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Environment Variables:"
@@ -7738,13 +7717,13 @@ msgstr "Ejecutar en un terminal"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Working Directory:"
-msgstr "Directorio de trabajo:"
+msgstr "Carpeta de trabajo:"
 
 #. Only local directory are supported
 #: ../plugins/run-program/execute.c:108
 #, c-format
 msgid "Program directory '%s' is not local"
-msgstr "El directorio del programa «%s» no es local"
+msgstr "La carpeta del programa «%s» no es local"
 
 #: ../plugins/run-program/parameters.c:303
 msgid "Load Target to run"
@@ -7813,7 +7792,7 @@ msgstr "Hacia atrás"
 
 #: ../plugins/search/anjuta-search.ui.h:3
 msgid "Choose Directories:"
-msgstr "Elegir directorios:"
+msgstr "Elegir carpetas:"
 
 #: ../plugins/search/anjuta-search.ui.h:4
 msgid "Choose Files:"
@@ -7853,7 +7832,7 @@ msgstr "Ignorar archivos binarios"
 
 #: ../plugins/search/anjuta-search.ui.h:12
 msgid "Ignore Directories:"
-msgstr "Ignorar directorios:"
+msgstr "Ignorar carpetas:"
 
 #: ../plugins/search/anjuta-search.ui.h:13
 msgid "Ignore Files:"
@@ -7861,7 +7840,7 @@ msgstr "Ignorar archivos:"
 
 #: ../plugins/search/anjuta-search.ui.h:14
 msgid "Ignore Hidden Directories"
-msgstr "Ignorar directorios ocultos"
+msgstr "Ignorar carpetas ocultas"
 
 #: ../plugins/search/anjuta-search.ui.h:15
 msgid "Ignore Hidden Files"
@@ -7973,7 +7952,7 @@ msgstr "_Buscar en archivos…"
 
 #: ../plugins/search/plugin.c:86
 msgid "Search for a string in multiple files or directories"
-msgstr "Buscar una cadena en múltiples archivos o directorios"
+msgstr "Buscar una cadena en múltiples archivos o carpetas"
 
 #: ../plugins/search/plugin.c:102
 msgid "Searching…"
@@ -8465,7 +8444,7 @@ msgstr "Documentación en línea de la API de GNOME"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
-msgstr "Añadir archivo/directorio"
+msgstr "Añadir archivo/carpeta"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:2
 msgid "Branch/Tag URL:"
@@ -8485,7 +8464,7 @@ msgstr "Diff de las revisiones seleccionadas"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Diff file/directory"
-msgstr "Diferencias del archivo/directorio"
+msgstr "Diferencias del archivo/carpeta"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:12
 msgid "Diff to Previous"
@@ -8497,7 +8476,7 @@ msgstr "Revisión final:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:16
 msgid "File or directory to diff:"
-msgstr "Archivo o directorio para hacer un diff:"
+msgstr "Archivo o carpeta para hacer un diff:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:17
 msgid "File/URL to Remove:"
@@ -8541,7 +8520,7 @@ msgstr "Recordar esta decisión"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:32
 msgid "Remove file/directory"
-msgstr "Quitar archivo/directorio"
+msgstr "Quitar archivo/carpeta"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Repository Head"
@@ -8617,7 +8596,7 @@ msgstr "Confiar en el servidor"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:52
 msgid "Update file/directory"
-msgstr "Actualizar archivo/directorio"
+msgstr "Actualizar archivo/carpeta"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:53
 msgid "Use first path"
@@ -8667,7 +8646,7 @@ msgstr "_Añadir…"
 #. short-cut
 #: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
-msgstr "Añadir un archivo/directorio nuevo al árbol Subversion"
+msgstr "Añadir un archivo/carpeta nuevo al árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
@@ -8679,7 +8658,7 @@ msgstr "_Quitar…"
 #. short-cut
 #: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
-msgstr "Eliminar un archivo/directorio del árbol Subversion"
+msgstr "Eliminar un archivo/carpeta del árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
@@ -9214,7 +9193,7 @@ msgstr "Lista de variables"
 
 #: ../plugins/tools/anjuta-tools.ui.h:20
 msgid "Working directory:"
-msgstr "Directorio de trabajo:"
+msgstr "Carpeta de trabajo:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:21
 msgid "_Variable…"
@@ -9354,7 +9333,7 @@ msgstr "URI seleccionada en el complemento del gestor de archivos"
 
 #: ../plugins/tools/variable.c:87
 msgid "Selected directory in the file manager plugin"
-msgstr "Directorio seleccionado en el complemento del gestor de archivos"
+msgstr "Carpeta seleccionado en el complemento del gestor de archivos"
 
 #: ../plugins/tools/variable.c:88
 msgid "Selected full file name in the file manager plugin"
@@ -9390,7 +9369,7 @@ msgstr "URI seleccionada en el complemento del gestor de proyectos"
 
 #: ../plugins/tools/variable.c:94
 msgid "Selected directory in the project manager plugin"
-msgstr "Directorio seleccionado en el complemento del gestor de proyectos"
+msgstr "Carpeta seleccionado en el complemento del gestor de proyectos"
 
 #: ../plugins/tools/variable.c:95
 msgid "Selected full file name in the project manager plugin"
@@ -9430,7 +9409,7 @@ msgstr "Nombre de archivo editado actualmente sin la extensión"
 
 #: ../plugins/tools/variable.c:102
 msgid "Currently edited file directory"
-msgstr "Directorio de archivo editado actualmente"
+msgstr "Carpeta de archivo editado actualmente"
 
 #: ../plugins/tools/variable.c:103
 msgid "Currently selected text in editor"
@@ -10032,7 +10011,7 @@ msgstr "Complemento de parches"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
 msgid "Patches files and directories."
-msgstr "Parchea archivos y directorios."
+msgstr "Parchea archivos y carpetas."
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:2
 msgid "Use external program from Anjuta"
@@ -10211,11 +10190,11 @@ msgstr "Añadir una llave después de la llamada de autocompletado de la funció
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
 msgid "Gir repository's directory:   "
-msgstr "Directorio gir del repositorio:   "
+msgstr "Carpeta gir del repositorio:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
 msgid "Gjs repository's directory:   "
-msgstr "Directorio gjs del repositorio:   "
+msgstr "Carpeta gjs del repositorio:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
@@ -10223,7 +10202,7 @@ msgstr "Resaltar punto y coma perdido"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
 msgid "JS Find dirs"
-msgstr "Directorios de búsqueda de JS"
+msgstr "Carpetas de búsqueda de JS"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
