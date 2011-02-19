@@ -141,7 +141,6 @@ on_api_help (GladeEditor* editor,
 static void
 glade_do_close (GladePlugin *plugin, GladeProject *project)
 {
-	on_pointer_mode_changed (project, NULL, plugin);
 	glade_app_remove_project (project);
 }
 
@@ -168,6 +167,8 @@ on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 	plugin->priv->file_count--;
 	if (plugin->priv->file_count <= 0)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+	else
+		on_pointer_mode_changed (project, NULL, plugin);
 }
 
 static void
@@ -226,9 +227,9 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				if (file != NULL)
 				{
 					files = g_list_prepend (files, g_file_get_uri (file));
+					g_object_unref (file);
 					/* uri is not freed here */
 				}
-				g_object_unref (file);
 			}
 		}
 		g_list_free (docwids);
@@ -611,13 +612,18 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GladePluginPriv *priv;
-	GList* projects;
-	GList* project;
 
 	priv = ANJUTA_PLUGIN_GLADE (plugin)->priv;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Dectivating Glade plugin…");
 
+	if (glade_app_get_projects ())
+	{
+		/* Cannot deactivate plugin if there are still files open */
+		return FALSE;
+	}
+
+	
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (plugin->shell,
 	                                      G_CALLBACK (on_shell_destroy),
@@ -630,21 +636,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	                                      G_CALLBACK(on_api_help), plugin);
 
 	/* Remove widgets */
-	anjuta_shell_remove_widget (plugin->shell,
+	anjuta_shell_remove_widget (anjuta_plugin_get_shell (plugin),
 	                            priv->palette_box,
 	                            NULL);
-	anjuta_shell_remove_widget (plugin->shell,
+	anjuta_shell_remove_widget (anjuta_plugin_get_shell (plugin),
 	                            priv->paned,
 	                            NULL);
 
-	/* Close all views */
-	projects = glade_app_get_projects ();
-	for (project = projects; project != NULL; project = g_list_next (project))
-	{
-		GtkWidget* doc = g_object_get_data (G_OBJECT (project->data), "design_view");
-		gtk_widget_destroy (doc);
-	}
-	
 	priv->uiid = 0;
 	priv->action_group = NULL;
 
