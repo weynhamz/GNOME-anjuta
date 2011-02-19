@@ -303,6 +303,8 @@ on_filter_button_tooltip (GtkWidget* widget,
 	else
 		g_assert_not_reached ();
 
+	g_free (temp);
+
 	return TRUE;
 }
 
