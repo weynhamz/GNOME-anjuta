@@ -10,8 +10,8 @@
 [+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
-#ifndef _[+NameCUppper+]_
-#define _[+NameCUppper+]_
+#ifndef _[+NameCUpper+]_
+#define _[+NameCUpper+]_
 
 #include <gtk/gtk.h>
 
