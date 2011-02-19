@@ -56,8 +56,11 @@ pyl_ianjuta_plugin_factory_new_plugin (IAnjutaPluginFactory *factory,
 			if (module_path != NULL)
 				{
 					PyObject *sys_path = PySys_GetObject ("path");
+#if PY_MAJOR_VERSION >= 3
+					PyObject *path = PyBytes_FromString (module_path);
+#else
 					PyObject *path = PyString_FromString (module_path);
-
+#endif
 					if (PySequence_Contains(sys_path, path) == 0)
 						PyList_Insert (sys_path, 0, path);
 
