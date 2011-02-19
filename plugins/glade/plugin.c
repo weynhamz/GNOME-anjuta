@@ -50,9 +50,13 @@ struct _GladePluginPriv
 	
 	GtkWidget *view_box;
 	GtkWidget *paned;
+	GtkWidget *palette_box;
 	gint editor_watch_id;
 	gboolean destroying;
 
+	GtkWidget *selector_toggle;
+	GtkWidget *resize_toggle;
+	
 	/* File count, disable plugin when NULL */
 	guint file_count;
 
@@ -65,6 +69,11 @@ enum {
 	PROJECT_COL,
 	N_COLUMNS
 };
+
+static void
+on_pointer_mode_changed (GladeProject *project,
+                         GParamSpec   *pspec, 
+                         GladePlugin  *plugin);
 
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
@@ -81,6 +90,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		if (!view->is_project_added)
 		{
 			glade_app_add_project (project);
+			g_signal_connect (G_OBJECT (project), "notify::pointer-mode",
+			                  G_CALLBACK (on_pointer_mode_changed), glade_plugin);
 			view->is_project_added = TRUE;
 		}
 		/* Change view components */
@@ -130,6 +141,7 @@ on_api_help (GladeEditor* editor,
 static void
 glade_do_close (GladePlugin *plugin, GladeProject *project)
 {
+	on_pointer_mode_changed (project, NULL, plugin);
 	glade_app_remove_project (project);
 }
 
@@ -296,6 +308,79 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	g_list_free (item);
 }
 
+static void
+on_selector_button_toggled (GtkToggleToolButton * button, GladePlugin *plugin)
+{
+	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle)))
+	{
+		glade_project_set_add_item (active_project, NULL);
+		glade_project_set_pointer_mode (active_project, GLADE_POINTER_SELECT);
+	}
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), TRUE);
+}
+
+static void
+on_drag_resize_button_toggled (GtkToggleToolButton *button,
+                               GladePlugin         *plugin)
+{
+	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle)))
+		glade_project_set_pointer_mode (active_project, GLADE_POINTER_DRAG_RESIZE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), TRUE);
+
+}
+
+static void
+on_pointer_mode_changed (GladeProject *project,
+                         GParamSpec   *pspec, 
+                         GladePlugin  *plugin)
+{
+	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
+
+	if (!active_project)
+	{
+		gtk_widget_set_sensitive (plugin->priv->selector_toggle, FALSE);
+		gtk_widget_set_sensitive (plugin->priv->resize_toggle, FALSE);
+		return;
+	}
+	else if (active_project != project)
+		return;
+
+	gtk_widget_set_sensitive (plugin->priv->selector_toggle, TRUE);
+	gtk_widget_set_sensitive (plugin->priv->resize_toggle, TRUE);
+
+	g_signal_handlers_block_by_func (plugin->priv->selector_toggle, 
+	                                 on_selector_button_toggled, plugin);
+	g_signal_handlers_block_by_func (plugin->priv->resize_toggle, 
+	                                 on_drag_resize_button_toggled, plugin);
+
+	if (glade_project_get_pointer_mode (project) == GLADE_POINTER_SELECT)
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), FALSE);
+	}
+	else if (glade_project_get_pointer_mode (project) == GLADE_POINTER_DRAG_RESIZE)
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
+	                              }
+	else
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
+	}
+
+	g_signal_handlers_unblock_by_func (plugin->priv->selector_toggle, 
+	                                   on_selector_button_toggled, plugin);
+	g_signal_handlers_unblock_by_func (plugin->priv->resize_toggle, 
+	                                   on_drag_resize_button_toggled, plugin);
+}
+
 /* Progress callbacks */
 static void
 glade_plugin_parse_began (GladeProject *project,
@@ -353,6 +438,58 @@ glade_plugin_load_progress (GladeProject *project,
 	g_free (project_name);                  
 }
 
+static GtkWidget *
+create_selector_tool_button ()
+{
+  GtkWidget *button;
+  GtkWidget *image;
+  gchar *image_path;
+
+  image_path =
+      g_build_filename (glade_app_get_pixmaps_dir (), "selector.png", NULL);
+  image = gtk_image_new_from_file (image_path);
+  g_free (image_path);
+
+  button = gtk_toggle_button_new ();
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
+
+  gtk_button_set_image (GTK_BUTTON (button), image);
+
+  gtk_widget_set_tooltip_text (button,
+                               _("Select widgets in the workspace"));
+
+  gtk_widget_show (button);
+  gtk_widget_show (image);
+
+  return button;
+}
+
+static GtkWidget *
+create_drag_resize_tool_button ()
+{
+  GtkWidget *button;
+  GtkWidget *image;
+  gchar *image_path;
+
+  image_path =
+      g_build_filename (glade_app_get_pixmaps_dir (), "drag-resize.png", NULL);
+  image = gtk_image_new_from_file (image_path);
+  g_free (image_path);
+
+  button = gtk_toggle_button_new ();
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
+
+  gtk_button_set_image (GTK_BUTTON (button), image);
+
+  gtk_widget_set_tooltip_text (button,
+                               _("Drag and resize widgets in the workspace"));
+
+  gtk_widget_show (button);
+  gtk_widget_show (image);
+
+  return button;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -360,6 +497,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GladePlugin *glade_plugin;
 	GladePluginPriv *priv;
 	AnjutaStatus* status;
+	GtkWidget* button_box;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
@@ -393,6 +531,37 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv->editor = GTK_WIDGET(glade_editor_new());
 	
 	priv->palette = glade_palette_new();
+	priv->palette_box = gtk_vbox_new (FALSE, 5);
+	priv->selector_toggle = create_selector_tool_button ();
+	priv->resize_toggle = create_drag_resize_tool_button ();
+	button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_pack_start (GTK_BOX (button_box),
+	                    priv->selector_toggle,
+	                    FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (button_box),
+	                    priv->resize_toggle,
+	                    FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (priv->palette_box),
+	                    button_box,
+	                    FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (priv->palette_box),
+	                    priv->palette,
+	                    TRUE, TRUE, 0);
+	                   
+	                    
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->selector_toggle),
+	                              TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->resize_toggle),
+	                              FALSE);
+	
+	g_signal_connect (G_OBJECT (priv->selector_toggle), "toggled",
+                    G_CALLBACK (on_selector_button_toggled), plugin);
+	g_signal_connect (G_OBJECT (priv->resize_toggle), "toggled",
+                    G_CALLBACK (on_drag_resize_button_toggled), plugin);
+
+	
+	glade_palette_set_show_selector_button (GLADE_PALETTE (priv->palette),
+	                                        FALSE);
 
 	gtk_paned_add1 (GTK_PANED(priv->paned), priv->inspector);
 	gtk_paned_add2 (GTK_PANED(priv->paned), priv->editor);
@@ -415,13 +584,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_widget_show (priv->inspector);
 	
 	/* Add widgets */
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
+	anjuta_shell_add_widget (anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin)),
 	                         priv->paned,
 	                         "AnjutaGladeTree", _("Widgets"),
 	                         "glade-plugin-widgets",
 	                         ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                         priv->palette,
+	anjuta_shell_add_widget (anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin)),
+	                         priv->palette_box,
 	                         "AnjutaGladePalette", _("Palette"),
 	                         "glade-plugin-palette",
 	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
@@ -462,7 +631,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
-	                            priv->palette,
+	                            priv->palette_box,
 	                            NULL);
 	anjuta_shell_remove_widget (plugin->shell,
 	                            priv->paned,
@@ -656,7 +825,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	}
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (iwizard), project);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (iwizard)->shell,
-	                            priv->palette, NULL);
+	                            priv->palette_box, NULL);
 }
 
 static void
