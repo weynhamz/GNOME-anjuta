@@ -414,8 +414,11 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
 	GList* child;
 	GtkWidget* current_tab = g_list_nth_data (tabber->priv->children, tabber->priv->active_page);
-	GtkWidget* first = tabber->priv->children->data;
-	
+	GtkWidget* first = NULL;
+
+	if (tabber->priv->children) 
+		first = tabber->priv->children->data;
+
 	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 	{
 		GtkWidget* tab = GTK_WIDGET (child->data);
