@@ -6,17 +6,17 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-15 20:27+0000\n"
-"PO-Revision-Date: 2011-02-18 11:18+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-02-16 21:18+0000\n"
+"PO-Revision-Date: 2011-02-19 13:02+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -882,9 +882,9 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:586
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1569
-#: ../plugins/am-project/am-project.c:1599
-#: ../plugins/am-project/am-project.c:1651
+#: ../plugins/am-project/am-project.c:1561
+#: ../plugins/am-project/am-project.c:1591
+#: ../plugins/am-project/am-project.c:1643
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -900,8 +900,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
-"«/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-», «/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -912,8 +912,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -1655,7 +1655,7 @@ msgstr "Tipo"
 #: ../plugins/class-gen/window.c:755 ../plugins/class-gen/window.c:763
 #: ../plugins/class-gen/window.c:771 ../plugins/class-gen/window.c:781
 #: ../plugins/class-gen/window.c:791 ../plugins/class-gen/window.c:803
-#: ../plugins/project-manager/dialogs.c:426
+#: ../plugins/project-manager/dialogs.c:438
 #: ../plugins/run-program/parameters.c:757
 #: ../plugins/snippets-manager/plugin.c:757
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -1699,7 +1699,7 @@ msgstr "Marshaller"
 #: ../plugins/class-gen/window.c:748 ../plugins/class-gen/window.c:764
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:433
+#: ../plugins/project-manager/dialogs.c:445
 #: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "Valor"
@@ -3191,7 +3191,7 @@ msgid "Close file"
 msgstr "Cerrar archivo"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:576
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -3540,7 +3540,7 @@ msgstr "Repetir la búsqueda rápida"
 
 #: ../plugins/document-manager/plugin.c:275 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:962
-#: ../plugins/language-support-python/plugin.c:323
+#: ../plugins/language-support-python/plugin.c:448
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -4227,7 +4227,7 @@ msgstr "Información del archivo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:47
-#: ../plugins/project-manager/dialogs.c:568
+#: ../plugins/project-manager/dialogs.c:581
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -4238,7 +4238,7 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:590
+#: ../plugins/project-manager/dialogs.c:603
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -4362,7 +4362,7 @@ msgstr "Script"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1585
+#: ../plugins/am-project/am-project.c:1577
 #, c-format
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
@@ -5051,10 +5051,9 @@ msgid "<b>Repository to push to:</b>"
 msgstr "<b>Repositorio sobre el que actualizar:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:20
-#, fuzzy
 #| msgid "<b>Revision:</b>"
 msgid "<b>Revision to merge with:</b>"
-msgstr "<b>Revisión:</b>"
+msgstr "<b>Revisión con la que mezclar:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "<b>Revision:</b>"
@@ -5256,10 +5255,9 @@ msgid "Add Files"
 msgstr "Añadir archivos"
 
 #: ../plugins/git/git-add-remote-pane.c:52
-#, fuzzy
 #| msgid "Please enter a tag name."
 msgid "Please enter a remote name."
-msgstr "Introduzca un nombre de etiqueta."
+msgstr "Introduzca el nombre de una remota."
 
 #: ../plugins/git/git-add-remote-pane.c:55
 msgid "Please enter a URL"
@@ -5291,10 +5289,9 @@ msgid "Please enter a log message."
 msgstr "Introducir un mensaje de registro."
 
 #: ../plugins/git/git-commit-pane.c:145
-#, fuzzy
 #| msgid "Please enter the commit author's name."
 msgid "Please enter the commit author's name"
-msgstr "Introduzca el nombre del autor del cambio."
+msgstr "Introduzca el nombre del autor del cambio"
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
@@ -5431,10 +5428,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
-#, fuzzy
 #| msgid "Mark conflicted files as resolved"
 msgid "No conflicted files selected."
-msgstr "Marcar como resuelto el conflicto entre archivos"
+msgstr "No se seleccionó ningún archivo en conflicto."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
@@ -5591,7 +5587,7 @@ msgstr "Empujar los cambios contra un repositorio remoto"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "Ajustar a base contra la remota seleccionada"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
@@ -5708,10 +5704,9 @@ msgid "Show commit diff"
 msgstr "Mostrar el diff del commit"
 
 #: ../plugins/git/plugin.c:375
-#, fuzzy
 #| msgid "_View selected revision"
 msgid "Show a diff of the selected revision"
-msgstr "_Ver la revisión seleccionada"
+msgstr "Mostrar un diff de la revisión seleccionada"
 
 #: ../plugins/git/plugin.c:382
 msgid "Cherry pick"
@@ -6121,8 +6116,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6139,9 +6134,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
-"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
-"moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
+"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
+"más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6492,7 +6487,7 @@ msgid "_Properties"
 msgstr "_Propiedades"
 
 #: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/dialogs.c:517
+#: ../plugins/project-manager/dialogs.c:530
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
@@ -6606,76 +6601,76 @@ msgstr "Proyecto cargado"
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/dialogs.c:369
+#: ../plugins/project-manager/dialogs.c:372
 msgid " This property is not modifiable."
 msgstr "Esta propiedad no es modificable."
 
-#: ../plugins/project-manager/dialogs.c:520
+#: ../plugins/project-manager/dialogs.c:533
 msgid "Directory properties"
 msgstr "Propiedades de la carpeta"
 
-#: ../plugins/project-manager/dialogs.c:523
+#: ../plugins/project-manager/dialogs.c:536
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/dialogs.c:526
+#: ../plugins/project-manager/dialogs.c:539
 msgid "Source properties"
 msgstr "Propiedades de los fuentes"
 
-#: ../plugins/project-manager/dialogs.c:529
+#: ../plugins/project-manager/dialogs.c:542
 msgid "Module properties"
 msgstr "Propiedades del módulo"
 
-#: ../plugins/project-manager/dialogs.c:532
+#: ../plugins/project-manager/dialogs.c:545
 msgid "Package properties"
 msgstr "Propiedades del paquete"
 
-#: ../plugins/project-manager/dialogs.c:535
+#: ../plugins/project-manager/dialogs.c:548
 msgid "Unknown properties"
 msgstr "Propiedades desconocidas"
 
-#: ../plugins/project-manager/dialogs.c:930
-#: ../plugins/project-manager/dialogs.c:941
+#: ../plugins/project-manager/dialogs.c:946
+#: ../plugins/project-manager/dialogs.c:957
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/dialogs.c:942
+#: ../plugins/project-manager/dialogs.c:958
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/dialogs.c:1156
-#: ../plugins/project-manager/dialogs.c:1166
+#: ../plugins/project-manager/dialogs.c:1172
+#: ../plugins/project-manager/dialogs.c:1182
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1167
+#: ../plugins/project-manager/dialogs.c:1183
 msgid "The selected node cannot contain source files."
 msgstr "El nodo seleccionado no puede contener archivos de fuentes."
 
-#: ../plugins/project-manager/dialogs.c:1353
-#: ../plugins/project-manager/dialogs.c:1364
+#: ../plugins/project-manager/dialogs.c:1369
+#: ../plugins/project-manager/dialogs.c:1380
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/dialogs.c:1365
+#: ../plugins/project-manager/dialogs.c:1381
 msgid "No group selected"
 msgstr "No se seleccionó ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1524
-#: ../plugins/project-manager/dialogs.c:1535
+#: ../plugins/project-manager/dialogs.c:1540
+#: ../plugins/project-manager/dialogs.c:1551
 msgid "Cannot add modules"
 msgstr "No se pueden añadir los módulos"
 
-#: ../plugins/project-manager/dialogs.c:1536
+#: ../plugins/project-manager/dialogs.c:1552
 msgid "No target has been selected"
 msgstr "No se seleccionó ningún objetivo"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1739
+#: ../plugins/project-manager/dialogs.c:1755
 msgid "Missing module name"
 msgstr "Falta el nombre del módulo"
 
-#: ../plugins/project-manager/dialogs.c:1801
+#: ../plugins/project-manager/dialogs.c:1817
 msgid "Cannot add packages"
 msgstr "No se pueden añadir los paquetes"
 
@@ -6739,8 +6734,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
+"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -7363,8 +7358,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 msgid "Require Package:"
@@ -8033,8 +8028,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el "
-"principio del documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+"el principio del documento?"
 
 #: ../plugins/search/search-replace.c:1096
 #, c-format
@@ -9851,12 +9846,12 @@ msgstr "Tamaño de sangría en espacios:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:968
-#: ../plugins/language-support-python/plugin.c:329
+#: ../plugins/language-support-python/plugin.c:454
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
 #: ../plugins/language-support-cpp-java/plugin.c:969
-#: ../plugins/language-support-python/plugin.c:330
+#: ../plugins/language-support-python/plugin.c:455
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
@@ -9891,11 +9886,11 @@ msgstr "C/C++/Java/Vala"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-python/plugin.c:83
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Python support warning"
 msgstr "Aviso del soporte de Python"
 
-#: ../plugins/language-support-python/plugin.c:91
+#: ../plugins/language-support-python/plugin.c:92
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -9907,16 +9902,16 @@ msgstr ""
 "Python.\n"
 "Instálelas y compruebe la ruta de Python en las preferencias."
 
-#: ../plugins/language-support-python/plugin.c:94
+#: ../plugins/language-support-python/plugin.c:95
 msgid "Do not show that warning again"
 msgstr "No mostrar esa advertencia de nuevo"
 
-#: ../plugins/language-support-python/plugin.c:386
+#: ../plugins/language-support-python/plugin.c:511
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:494
-#: ../plugins/language-support-python/plugin.c:503
+#: ../plugins/language-support-python/plugin.c:616
+#: ../plugins/language-support-python/plugin.c:625
 #: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
