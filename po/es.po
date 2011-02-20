@@ -6,8 +6,8 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
@@ -15,8 +15,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2011-02-16 21:18+0000\n"
-"PO-Revision-Date: 2011-02-19 18:06+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"PO-Revision-Date: 2011-02-20 18:19+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -598,7 +598,6 @@ msgid "Text to show the user what to enter into the entry"
 msgstr "Texto para mostrar al usuario qué introducir en la entrada"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
-#, fuzzy
 #| msgid "Path that droppedfiles should be relative to"
 msgid "Path that dropped files should be relative to"
 msgstr "Ruta a la que los archivos soltados deberían ser relativos"
@@ -6425,30 +6424,26 @@ msgid "_Project"
 msgstr "_Proyecto"
 
 #: ../plugins/project-manager/plugin.c:892
-#, fuzzy
 #| msgid "Directory"
 msgid "New _Directory…"
-msgstr "Directorio"
+msgstr "_Carpeta nueva…"
 
 #: ../plugins/project-manager/plugin.c:892
 #: ../plugins/project-manager/plugin.c:931
-#, fuzzy
 #| msgid "Add a new file/directory to the CVS tree"
 msgid "Add a new directory to the project"
-msgstr "Añadir un archivo/directorio nuevo al árbol CVS"
+msgstr "Añadir una carpeta nueva al proyecto"
 
 #: ../plugins/project-manager/plugin.c:897
-#, fuzzy
 #| msgid "New Target"
 msgid "New _Target…"
-msgstr "Objetivo nuevo"
+msgstr "_Objetivo nuevo…"
 
 #: ../plugins/project-manager/plugin.c:897
 #: ../plugins/project-manager/plugin.c:936
-#, fuzzy
 #| msgid "Add a target to project"
 msgid "Add a new target to the project"
-msgstr "Añadir un objetivo al proyecto"
+msgstr "Añadir un objetivo nuevo al proyecto"
 
 #: ../plugins/project-manager/plugin.c:902
 msgid "Add _Source File…"
@@ -11648,7 +11643,7 @@ msgstr "Símbolo"
 #~ msgstr "Diseñador de IGU Glade"
 
 #~ msgid "Tab position:"
-#~ msgstr "Posición de las solapas:"
+#~ msgstr "Posición de las pestañas:"
 
 #~ msgid "No Messages"
 #~ msgstr "Sin mensajes"
@@ -11985,7 +11980,7 @@ msgstr "Símbolo"
 #~ "Iconos\n"
 #~ "Texto e iconos\n"
 #~ "Ajustes de la barra de herramientas de GNOME\n"
-#~ "Solapas"
+#~ "Pestañas"
 
 #~| msgid "Repository authorization"
 #~ msgid "Repositiory origin"
