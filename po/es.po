@@ -6,8 +6,8 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
@@ -15,8 +15,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
 "POT-Creation-Date: 2011-02-16 21:18+0000\n"
-"PO-Revision-Date: 2011-02-19 13:02+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"PO-Revision-Date: 2011-02-19 18:06+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3238,7 +3238,7 @@ msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:4
 msgid "Editor tabs"
-msgstr "Solapas del editor"
+msgstr "Pestañas del editor"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
@@ -5051,7 +5051,6 @@ msgid "<b>Repository to push to:</b>"
 msgstr "<b>Repositorio sobre el que actualizar:</b>"
 
 #: ../plugins/git/anjuta-git.ui.h:20
-#| msgid "<b>Revision:</b>"
 msgid "<b>Revision to merge with:</b>"
 msgstr "<b>Revisión con la que mezclar:</b>"
 
@@ -5255,7 +5254,6 @@ msgid "Add Files"
 msgstr "Añadir archivos"
 
 #: ../plugins/git/git-add-remote-pane.c:52
-#| msgid "Please enter a tag name."
 msgid "Please enter a remote name."
 msgstr "Introduzca el nombre de una remota."
 
@@ -5289,7 +5287,6 @@ msgid "Please enter a log message."
 msgstr "Introducir un mensaje de registro."
 
 #: ../plugins/git/git-commit-pane.c:145
-#| msgid "Please enter the commit author's name."
 msgid "Please enter the commit author's name"
 msgstr "Introduzca el nombre del autor del cambio"
 
@@ -5428,7 +5425,6 @@ msgid ""
 msgstr ""
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
-#| msgid "Mark conflicted files as resolved"
 msgid "No conflicted files selected."
 msgstr "No se seleccionó ningún archivo en conflicto."
 
@@ -5704,7 +5700,6 @@ msgid "Show commit diff"
 msgstr "Mostrar el diff del commit"
 
 #: ../plugins/git/plugin.c:375
-#| msgid "_View selected revision"
 msgid "Show a diff of the selected revision"
 msgstr "Mostrar un diff de la revisión seleccionada"
 
@@ -5911,7 +5906,7 @@ msgstr "Advertencias:"
 
 #: ../plugins/message-view/anjuta-msgman.c:75
 msgid "Close all message tabs"
-msgstr "Cerrar todas las solapas de mensajes"
+msgstr "Cerrar todas las pestañas de mensajes"
 
 #: ../plugins/message-view/message-view.c:497
 msgid "Icon"
@@ -9722,7 +9717,7 @@ msgstr "Sesión"
 
 #: ../src/preferences.ui.h:12
 msgid "Tabs"
-msgstr "Solapas"
+msgstr "Pestañas"
 
 #: ../src/preferences.ui.h:14
 msgid "Text + Icons"
