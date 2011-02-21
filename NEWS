@@ -1,3 +1,37 @@
+Anjuta 2.91.90 "Prepare for the gladification" (Beta 1)-- Johannes Schmid
+
+New:
+- Signal dragging support for python
+- Glade usuability fixes
+- New inline search/replace from Eugenia (Women Outreach program)
+
+Bugs fixed:
+530060 Have a "replace all" option in search and replace
+553772 Unable to move or resize widget placed inside a layout widget
+568047 Glade plugin does not allow adding notebook containers with less than 3 tabs.
+631260 Composer window broken after defining ActionGroup
+633786 plugin.c:59: warning: implicit declaration of function 'PyString_FromString' when compiling anjuta
+642647 Crash if anjuta is launched with a project that needs the glade plugin.
+642719 Prototype generator for C header files
+638787 wrong set on gtk_source_view_set_smart_home_end
+642763 Fix memory in message-view plugin
+516685 New artwork for splash screen
+549440 LIBADD is added at the wrong position in Makefile.am if it doesn't exist
+565358 documentation files appear in "other files" target
+566248 ianjuta_project_manager_get_elements returns weird data
+569992 support makefiles named GNUmakefile.am
+637981 Port Makefile backend to the new API
+640969 Allow importing projects with 3rd party project backends
+641181 error building out-of-tree plugins that only include libanjuta/libanjuta.h
+642640 NULL pointer dereference and memory leak in parameter.c
+642750 [PATCH] NULL pointer dereference in anjuta-tabber.c
+570912 Cannot remove module/package
+642723 Small in C header template 
+
+Thanks to: Abderrahim Kitouni, Aron Xu, Christian Kirbach, Daniel Mustieles,
+Eugenia Gabrielova, Fran Diéguez, James Liggett, Jorge González, Kjartan Maraas,
+Marco Diego Aurélio Mesquita, Nanci de Brito Bonfim, Sébastien Granjoux
+
 Anjuta 2.91.6 "To all the dead poets" (31 January 2010) -- Johannes Schmid
 
 New:

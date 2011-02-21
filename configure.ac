@@ -4,7 +4,7 @@ AC_PREREQ([2.64])
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 91)
-m4_define(anjuta_micro_version, 6)
+m4_define(anjuta_micro_version, 90)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
@@ -32,21 +32,21 @@ ANJUTA_VERSION=anjuta_version
 AC_SUBST(ANJUTA_VERSION)
 
 dnl Anjuta core
-GLIB_REQUIRED=2.25.15
-GTK_REQUIRED=2.29.4
+GLIB_REQUIRED=2.28.0
+GTK_REQUIRED=3.0.0
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
-GDA_REQUIRED=4.1.6
-VTE_REQUIRED=0.13.1
+GDA_REQUIRED=4.2.0
+VTE_REQUIRED=0.27.6
 LIBXML_REQUIRED=2.4.23
-GDL_REQUIRED=2.91.1
+GDL_REQUIRED=2.91.4
 LIBWNCK_REQUIRED=2.12
 
 dnl GtkSourceView
-GTKSOURCEVIEW_REQUIRED=2.91.4
+GTKSOURCEVIEW_REQUIRED=2.91.5
 
 dnl Devhelp
-LIBDEVHELP_REQUIRED=2.90.6
+LIBDEVHELP_REQUIRED=2.91.6
 
 dnl Glade
 GLADEUI_REQUIRED=3.9.0
