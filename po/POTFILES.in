@@ -204,7 +204,6 @@ plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
 [type: gettext/glade]plugins/sourceview/anjuta-editor-sourceview.ui
 plugins/starter/plugin.c
-plugins/starter/starter.c
 [type: gettext/glade]plugins/subversion/anjuta-subversion.ui
 plugins/subversion/plugin.c
 plugins/subversion/subversion-add-dialog.c
@@ -279,7 +278,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/starter/anjuta-starter.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
-[type: gettext/ini]plugins/search/anjuta-search.plugin.in
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in
 [type: gettext/ini]plugins/symbol-db/symbol-db.plugin.in
