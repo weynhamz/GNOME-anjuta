@@ -1326,7 +1326,7 @@ sdb_engine_scan_files_2 (GFile *gfile,
 	 */
 }
 
-/* Scans with ctags and produce an output 'tags' file [shared memory file]
+/* Scan with ctags and produce an output 'tags' file [shared memory file]
  * containing language symbols. This function will call ctags 
  * executale and then sdb_engine_populate_db_by_tags () when it'll detect some
  * output.
@@ -3206,7 +3206,7 @@ symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe,
 			    		"project_version %s, project_directory %s", node_file, 
 					   	priv->db_directory, project_name, project_version, 
 			    		priv->project_directory);
-			return -1;
+			continue;
 		}
 		
 		/* note: we don't use g_strdup () here because we'll free the filtered_files_path

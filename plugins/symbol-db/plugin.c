@@ -533,7 +533,7 @@ static void
 on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
-	DEBUG_PRINT ("%s", "on_editor_destroy ()");
+
 	if (!sdb_plugin->editor_connected)
 	{
 		DEBUG_PRINT ("%s", "on_editor_destroy (): returning….");
@@ -1170,10 +1170,12 @@ do_import_system_sources_after_abort (SymbolDBPlugin *sdb_plugin,
 		g_object_unref (gfile_info);		
 	}
 
+/* FIXME HERE currently disabled */
+#if 0	
 	symbol_db_system_parse_aborted_package (sdb_plugin->sdbs, 
 									 to_scan_array,
 									 languages_array);
-	
+#endif	
 	/* no need to free the GPtrArray, Huston. They'll be auto-destroyed in that
 	 * function 
 	 */
@@ -1886,11 +1888,74 @@ on_isymbol_manager_prj_scan_end (SymbolDBEngine *dbe,
 }
 
 static void
-on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
-    								gint process_id,
-    								IAnjutaSymbolManager *sm)
+on_isymbol_manager_sys_scan_begin (SymbolDBEngine *dbe, gint process_id, 
+                                   SymbolDBPlugin *sdb_plugin)
 {
+	sdb_plugin->current_pkg_scanned = g_async_queue_pop (sdb_plugin->global_scan_aqueue);
+
+	if (sdb_plugin->current_pkg_scanned == NULL)
+		return;
+
+	DEBUG_PRINT ("==================================>\n"
+				 "begin %s", sdb_plugin->current_pkg_scanned->package_name);
+	gtk_widget_show (sdb_plugin->progress_bar_system);
+}
+
+static void
+on_isymbol_manager_sys_single_scan_end (SymbolDBEngine *dbe, SymbolDBPlugin *sdb_plugin)
+{
+	PackageScanData *pkg_scan;
+
+	g_return_if_fail (sdb_plugin->current_pkg_scanned != NULL);
+	
+	DEBUG_PRINT ("scan queue single scan %s length %d", 
+	             sdb_plugin->current_pkg_scanned->package_name,
+	             g_async_queue_length (sdb_plugin->global_scan_aqueue));
+
+
+	pkg_scan = sdb_plugin->current_pkg_scanned;
+	pkg_scan->files_done++;
+
+	gtk_widget_show (sdb_plugin->progress_bar_system);
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system),
+								   (gdouble)pkg_scan->files_done / 
+	                               (gdouble)pkg_scan->files_length);
+	
+}
+
+static void
+on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
+    							 gint process_id,
+    							 SymbolDBPlugin *sdb_plugin)
+{
+	IAnjutaSymbolManager *sm;
+	PackageScanData *pkg_scan;
+
+	g_return_if_fail (sdb_plugin->current_pkg_scanned != NULL);
+
+	DEBUG_PRINT ("<==================================\nscan end %s. Queue now is %d", 
+	             sdb_plugin->current_pkg_scanned->package_name,
+	             g_async_queue_length (sdb_plugin->global_scan_aqueue));
+	
+	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
+									 IAnjutaSymbolManager, NULL);
+	
 	g_signal_emit_by_name (sm, "sys-scan-end", process_id);
+
+	/* free the scan data */
+
+	/* FIXME: signals must be emitted in the correct order they're pushed to queue,
+	 * otherwise scan-end will be emitted before single-file-scan-end 
+	 */
+#if 0	
+	pkg_scan = sdb_plugin->current_pkg_scanned;
+	g_free (pkg_scan->package_name);
+	g_free (pkg_scan->package_version);
+	g_free (pkg_scan);
+	
+	sdb_plugin->current_pkg_scanned = NULL;
+#endif
+	gtk_widget_hide (sdb_plugin->progress_bar_system);
 }
 
 static gboolean
@@ -1976,10 +2041,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	}
 	
 	g_free (anjuta_cache_path);
-	
+
+	sdb_plugin->global_scan_aqueue = g_async_queue_new ();
 	/* create the object that'll manage the globals population */
 	sdb_plugin->sdbs = symbol_db_system_new (sdb_plugin, sdb_plugin->sdbe_globals);
-
+#if 0
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbs), "scan-package-start",
 					  G_CALLBACK (on_system_scan_package_start), plugin);	
 	
@@ -1988,7 +2054,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbs), "single-file-scan-end",
 					  G_CALLBACK (on_system_single_file_scan_end), plugin);	
-	
+#endif	
 	/* beign necessary to listen to many scan-end signals, we'll build up a method
 	 * to manage them with just one signal connection
 	 */
@@ -2000,13 +2066,20 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
 		  		G_CALLBACK (on_scan_end_manager), sdb_plugin);
 
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
+				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
+	
 	/* connect signals for interface to receive them */
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "scan-end",
 				G_CALLBACK (on_isymbol_manager_sys_scan_end), sdb_plugin);
-	
-	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_project), "scan-end",
-				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
 
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "scan-begin",
+				G_CALLBACK (on_isymbol_manager_sys_scan_begin), sdb_plugin);
+
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "single-file-scan-end",
+				G_CALLBACK (on_isymbol_manager_sys_single_scan_end), sdb_plugin);	
+	
+	
 	/* connect signals for project loading and element adding */
 	g_signal_connect (G_OBJECT (pm), "element-added",
 					  G_CALLBACK (on_project_element_added), sdb_plugin);
@@ -2251,6 +2324,10 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	}
 	sdb_plugin->sdbe_project = NULL;
 
+	/* FIXME: fix the global queue elements freeing */
+	g_async_queue_unref (sdb_plugin->global_scan_aqueue);
+	sdb_plugin->global_scan_aqueue = NULL;
+	
 	/* this must be done *before* destroying sdbe_globals */
 	g_object_unref (sdb_plugin->sdbs);
 	sdb_plugin->sdbs = NULL;
@@ -2490,10 +2567,21 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 	SymbolDBPlugin *sdb_plugin;
 	IAnjutaLanguage *lang_manager;
 	GPtrArray *files_array;
-	GList *node;
+	PackageScanData *pkg_scan_data;
+	
 
 	g_return_val_if_fail (isymbol_manager != NULL, FALSE);
+
+	/* DEBUG */
+	GList *node;
+	node = files;
+	while (node != NULL)
+	{
+		DEBUG_PRINT ("++adding %s", node->data);
+		node = node->next;
+	}
 	
+	/*  FIXME: pkg_version comes with \n at the end. This should be avoided */
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
 	lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell, IAnjutaLanguage, 
 										NULL);	
@@ -2504,19 +2592,17 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 		return FALSE;
 	}
 
-	files_array = g_ptr_array_sized_new (g_list_length (files));
-	g_ptr_array_set_free_func (files_array, g_free);
+	files_array = anjuta_util_convert_string_list_to_array (files);
 
-	node = files;
-	while (node != NULL)
-	{
-		g_ptr_array_add (files_array, g_strdup (node->data));
-
-		node = node->next;
-	}
+	pkg_scan_data = g_new0 (PackageScanData, 1);
 	
-	symbol_db_engine_add_new_files_async (sdb_plugin->sdbe_globals, lang_manager, 
-	    pkg_name, pkg_version, files_array);	
+	g_async_queue_push (sdb_plugin->global_scan_aqueue, pkg_scan_data);
+	pkg_scan_data->files_length = g_list_length (files);
+	pkg_scan_data->package_name = g_strdup (pkg_name);
+	pkg_scan_data->package_version = g_strdup (pkg_version);
+	
+	pkg_scan_data->proc_id = symbol_db_engine_add_new_files_async (sdb_plugin->sdbe_globals, lang_manager, 
+	    pkg_name, pkg_version, files_array);
 
 	g_ptr_array_unref (files_array);
 	
@@ -2540,6 +2626,7 @@ isymbol_manager_activate_package (IAnjutaSymbolManager *isymbol_manager,
 	    								 pkg_version) == TRUE)
 	{
 		/* FIXME: Activate package in database */
+		DEBUG_PRINT ("STUB");
 		return TRUE;
 	}
 
@@ -2562,6 +2649,7 @@ isymbol_manager_deactivate_package (IAnjutaSymbolManager *isymbol_manager,
 	if (symbol_db_engine_project_exists (sdb_plugin->sdbe_globals, pkg_name, 
 	    								 pkg_version) == TRUE)
 	{
+		DEBUG_PRINT ("STUB");
 		/* FIXME: deactivate package in database */
 	}
 }

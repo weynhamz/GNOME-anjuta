@@ -53,6 +53,16 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
  */
 #define CTAGS_PATH	PACKAGE_BIN_DIR"/anjuta-tags"
 
+
+typedef struct _PackageScanData {
+	gchar *package_name;
+	gchar *package_version;
+	gint proc_id;
+	gint files_length;
+	gint files_done;
+		
+} PackageScanData;
+
 struct _SymbolDBPlugin {
 	AnjutaPlugin parent;
 	AnjutaUI *ui;
@@ -92,6 +102,9 @@ struct _SymbolDBPlugin {
 	
 	/* global's one */
 	SymbolDBEngine *sdbe_globals;
+	GAsyncQueue *global_scan_aqueue;
+	PackageScanData *current_pkg_scanned;
+	
 	
 	/* system's population object */
 	SymbolDBSystem *sdbs;
