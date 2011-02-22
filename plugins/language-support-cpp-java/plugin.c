@@ -524,30 +524,32 @@ on_glade_drop (IAnjutaEditor* editor,
 	g_signal_query (id, &query);
 
 	if (!language_support_has_symbol (lang_plugin, handler))
-	switch (lang_plugin->filetype)
 	{
-		case LS_FILE_C:
+		switch (lang_plugin->filetype)
 		{
-			GString* str = language_support_generate_c_signature (widget, query,
-																  swapped, handler);
-			g_string_append (str, "\n{\n\n}\n");
-			ianjuta_editor_insert (editor, iterator,
-			                       str->str, -1, NULL);
-			g_string_free (str, TRUE);
-			break;
+			case LS_FILE_C:
+			{
+				GString* str = language_support_generate_c_signature (widget, query,
+																	  swapped, handler);
+				g_string_append (str, "\n{\n\n}\n");
+				ianjuta_editor_insert (editor, iterator,
+					                   str->str, -1, NULL);
+				g_string_free (str, TRUE);
+				break;
+			}
+			case LS_FILE_CHDR:
+			{
+				GString* str = language_support_generate_c_signature (widget, query,
+																	  swapped, handler);
+				g_string_append (str, ";\n");
+				ianjuta_editor_insert (editor, iterator,
+					                   str->str, -1, NULL);
+				g_string_free (str, TRUE);
+				break;
+			}
+			default:
+				break;
 		}
-		case LS_FILE_CHDR:
-		{
-			GString* str = language_support_generate_c_signature (widget, query,
-																  swapped, handler);
-			g_string_append (str, ";\n");
-			ianjuta_editor_insert (editor, iterator,
-			                       str->str, -1, NULL);
-			g_string_free (str, TRUE);
-			break;
-		}
-		default:
-			break;
 	}
 	g_strfreev (data);
 }
