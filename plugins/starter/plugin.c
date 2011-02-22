@@ -209,6 +209,53 @@ create_starter_widget (StarterPlugin* plugin)
 
 /* Remove the starter plugin once a document was opened */
 static void
+on_value_added_current_project (AnjutaPlugin *plugin, const gchar *name,
+							   const GValue *value, gpointer data)
+{
+	GObject* project = g_value_get_object (value);
+	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
+	
+	if (project)
+	{
+		if (splugin->starter)
+		{
+			DEBUG_PRINT ("Hiding starter");
+			anjuta_shell_remove_widget (shell, splugin->starter, NULL);
+		}
+		splugin->starter = NULL;
+	}
+}
+
+static void
+on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
+								 gpointer data)
+{
+	AnjutaShell* shell = anjuta_plugin_get_shell (plugin);
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
+	IAnjutaDocumentManager* docman = anjuta_shell_get_interface (shell,
+	                                                             IAnjutaDocumentManager,
+	                                                             NULL);
+	
+	if (!ianjuta_document_manager_get_doc_widgets (docman,
+	                                               NULL))
+	{
+		DEBUG_PRINT ("Showing starter");
+		splugin->starter = create_starter_widget (splugin);
+		anjuta_shell_add_widget (shell, splugin->starter,
+		                         "AnjutaStarter",
+		                         _("Start"),
+		                         GTK_STOCK_ABOUT,
+		                         ANJUTA_SHELL_PLACEMENT_CENTER,
+		                         NULL);
+		anjuta_shell_present_widget (shell, splugin->starter, NULL);
+		anjuta_shell_maximize_widget (shell, "AnjutaStarter", NULL);
+		g_object_unref (splugin->starter);
+	}
+}
+
+/* Remove the starter plugin once a document was opened */
+static void
 on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 							   const GValue *value, gpointer data)
 {
@@ -228,8 +275,8 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 }
 
 static void
-on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
-								 gpointer data)
+on_value_removed_current_project (AnjutaPlugin *plugin, const gchar *name,
+                                  gpointer data)
 {
 	AnjutaShell* shell = anjuta_plugin_get_shell (plugin);
 	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
@@ -288,6 +335,12 @@ activate_plugin (AnjutaPlugin *plugin)
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 NULL);
+	splugin->project_watch_id = 
+		anjuta_plugin_add_watch (plugin,
+								  IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
+								 on_value_added_current_project,
+								 on_value_removed_current_project,
+								 NULL);
 	on_value_removed_current_editor (plugin, NULL, splugin);
 
 	g_signal_connect (anjuta_plugin_get_shell (plugin),
@@ -301,10 +354,15 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	
+	StarterPlugin* splugin = ANJUTA_PLUGIN_STARTER (plugin);
 	DEBUG_PRINT ("StarterPlugin: Deactivating starter plugin...");
-	if (ANJUTA_PLUGIN_STARTER (plugin)->starter)
-		anjuta_shell_remove_widget (plugin->shell, ANJUTA_PLUGIN_STARTER (plugin)->starter, NULL);
+	if (splugin->starter)
+		anjuta_shell_remove_widget (anjuta_plugin_get_shell (plugin),
+		                            splugin->starter, NULL);
+
+	anjuta_plugin_remove_watch (plugin, splugin->editor_watch_id, FALSE);
+	anjuta_plugin_remove_watch (plugin, splugin->project_watch_id, FALSE);	
+	
 	return TRUE;
 }
 

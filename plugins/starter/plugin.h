@@ -18,6 +18,7 @@ struct _StarterPlugin{
 	AnjutaPlugin parent;
 	GtkWidget *starter;
 	gint editor_watch_id;
+	gint project_watch_id;
 };
 
 struct _StarterPluginClass{
