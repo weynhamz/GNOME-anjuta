@@ -468,8 +468,8 @@ language_support_generate_c_signature (const gchar* widget,
 	return str;
 }
 
-static gboolean
-language_support_has_symbol (CppJavaPlugin* lang_plugin,
+static IAnjutaIterable *
+language_support_find_symbol (CppJavaPlugin* lang_plugin,
 							 const gchar* handler)
 {
 	IAnjutaSymbolManager *isymbol_manager = anjuta_shell_get_interface (
@@ -482,14 +482,14 @@ language_support_has_symbol (CppJavaPlugin* lang_plugin,
                                      	 IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
                                      	 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
                                      	 NULL);
+	IAnjutaSymbolField field = IANJUTA_SYMBOL_FIELD_FILE_POS;
+	ianjuta_symbol_query_set_fields (symbol_query, 1, &field, NULL);
 
 	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
                                  		 NULL);
-	IAnjutaIterable* iter = ianjuta_symbol_query_search_file (symbol_query,
-                         				            		  handler, file, NULL);
 
-	if (iter)
-		g_object_unref (iter);
+	IAnjutaIterable *iter = ianjuta_symbol_query_search_file (symbol_query,
+                         				            		  handler, file, NULL);
 
 	return iter;
 }
@@ -523,7 +523,8 @@ on_glade_drop (IAnjutaEditor* editor,
 
 	g_signal_query (id, &query);
 
-	if (!language_support_has_symbol (lang_plugin, handler))
+	IAnjutaIterable *iter;
+	if ((iter = language_support_find_symbol (lang_plugin, handler)) == NULL)
 	{
 		switch (lang_plugin->filetype)
 		{
@@ -550,6 +551,13 @@ on_glade_drop (IAnjutaEditor* editor,
 			default:
 				break;
 		}
+	} else {
+		/* Symbol found, going there */
+		ianjuta_editor_goto_line (editor, ianjuta_symbol_get_int (
+															IANJUTA_SYMBOL (iter),
+															IANJUTA_SYMBOL_FIELD_FILE_POS,
+															NULL), NULL);		
+		g_object_unref (iter);
 	}
 	g_strfreev (data);
 }
