@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-indenter.h>
 
@@ -467,6 +468,32 @@ language_support_generate_c_signature (const gchar* widget,
 	return str;
 }
 
+static gboolean
+language_support_has_symbol (CppJavaPlugin* lang_plugin,
+							 const gchar* handler)
+{
+	IAnjutaSymbolManager *isymbol_manager = anjuta_shell_get_interface (
+										  ANJUTA_PLUGIN (lang_plugin)->shell,
+										  IAnjutaSymbolManager,
+										  NULL);
+
+	IAnjutaSymbolQuery *symbol_query = ianjuta_symbol_manager_create_query (
+										 isymbol_manager,
+                                     	 IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
+                                     	 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+                                     	 NULL);
+
+	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
+                                 		 NULL);
+	IAnjutaIterable* iter = ianjuta_symbol_query_search_file (symbol_query,
+                         				            		  handler, file, NULL);
+
+	if (iter)
+		g_object_unref (iter);
+
+	return iter;
+}
+
 static void
 on_glade_drop (IAnjutaEditor* editor,
                IAnjutaIterable* iterator,
@@ -495,7 +522,8 @@ on_glade_drop (IAnjutaEditor* editor,
 	id = g_signal_lookup (signal, type);
 
 	g_signal_query (id, &query);
-	
+
+	if (!language_support_has_symbol (lang_plugin, handler))
 	switch (lang_plugin->filetype)
 	{
 		case LS_FILE_C:
