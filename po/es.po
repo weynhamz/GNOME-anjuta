@@ -6,17 +6,17 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-16 21:18+0000\n"
-"PO-Revision-Date: 2011-02-20 18:19+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-02-21 22:29+0000\n"
+"PO-Revision-Date: 2011-02-22 14:04+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,11 +215,11 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
-#: ../libanjuta/anjuta-plugin.c:327
+#: ../libanjuta/anjuta-plugin.c:332
 msgid "Anjuta shell that will contain the plugin"
 msgstr "El shell de Anjuta que contendrá el complemento"
 
@@ -423,7 +423,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:611
+#: ../plugins/document-manager/plugin.c:636
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Guardar"
@@ -598,7 +598,6 @@ msgid "Text to show the user what to enter into the entry"
 msgstr "Texto para mostrar al usuario qué introducir en la entrada"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
-#| msgid "Path that droppedfiles should be relative to"
 msgid "Path that dropped files should be relative to"
 msgstr "Ruta a la que los archivos soltados deberían ser relativos"
 
@@ -899,8 +898,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -911,8 +910,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -1631,7 +1630,7 @@ msgstr "Adivinar por el tipo"
 
 #: ../plugins/class-gen/window.c:694 ../plugins/class-gen/window.c:705
 #: ../plugins/class-gen/window.c:779 ../plugins/class-gen/window.c:789
-#: ../plugins/class-gen/window.c:802 ../plugins/search/anjuta-search.ui.h:26
+#: ../plugins/class-gen/window.c:802
 msgid "Scope"
 msgstr "Rango"
 
@@ -1655,7 +1654,7 @@ msgstr "Tipo"
 #: ../plugins/class-gen/window.c:771 ../plugins/class-gen/window.c:781
 #: ../plugins/class-gen/window.c:791 ../plugins/class-gen/window.c:803
 #: ../plugins/project-manager/dialogs.c:438
-#: ../plugins/run-program/parameters.c:757
+#: ../plugins/run-program/parameters.c:758
 #: ../plugins/snippets-manager/plugin.c:757
 #: ../plugins/snippets-manager/snippets-browser.c:530
 #: ../plugins/snippets-manager/snippets-editor.c:37
@@ -1699,7 +1698,7 @@ msgstr "Marshaller"
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:445
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:474
+#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "Valor"
 
@@ -1709,7 +1708,7 @@ msgid "Module"
 msgstr "Módulo"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1033
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1072
 msgid "Automatic"
 msgstr "Automático"
 
@@ -1894,7 +1893,6 @@ msgstr "Nombre del módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/search/anjuta-search.ui.h:22
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -2158,6 +2156,8 @@ msgid ""
 "The project needs to be reconfigured after enabling this option. Please run "
 "Build->Configure!"
 msgstr ""
+"Debe reconfigurar en proyecto después de activar esta opción. Ejecute "
+"Construir->Configurar"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:5
 msgid "c++-analyzer:"
@@ -2956,7 +2956,7 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:951
+#: ../plugins/document-manager/plugin.c:990
 msgid "Line"
 msgstr "Línea"
 
@@ -3135,11 +3135,7 @@ msgstr "Examinador API"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/search/search-replace.c:1034
-#: ../plugins/search/search-replace.c:1700
-#: ../plugins/search/search-replace.c:1707
-#: ../plugins/search/search-replace.c:1719
-#: ../plugins/search/search-replace.c:2037 ../plugins/symbol-db/plugin.c:2139
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2139
 #: ../plugins/symbol-db/plugin.c:2191
 msgid "Search"
 msgstr "Buscar"
@@ -3171,7 +3167,7 @@ msgstr "Quitar marcador"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:445
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -3517,7 +3513,7 @@ msgstr "H_istórico siguiente"
 msgid "Go to next history"
 msgstr "Ir al siguiente histórico"
 
-#: ../plugins/document-manager/plugin.c:265 ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:265
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -3530,356 +3526,406 @@ msgid "Quick editor embedded search"
 msgstr "Búsqueda empotrada rápida del editor"
 
 #: ../plugins/document-manager/plugin.c:269
-msgid "Quick _ReSearch"
-msgstr "_Repetir búsqueda rápida"
+msgid "Find _Next"
+msgstr "Buscar siguie_nte"
 
 #: ../plugins/document-manager/plugin.c:270
-msgid "Repeat quick search"
-msgstr "Repetir la búsqueda rápida"
+msgid "Search for next appearance of term."
+msgstr ""
 
-#: ../plugins/document-manager/plugin.c:275 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:962
+#: ../plugins/document-manager/plugin.c:272
+msgid "Find and R_eplace…"
+msgstr "Buscar y _reemplazar…"
+
+#: ../plugins/document-manager/plugin.c:273
+#| msgid "Search and Replace"
+msgid "Search and replace"
+msgstr "Buscar y reemplazar"
+
+#: ../plugins/document-manager/plugin.c:275
+msgid "Find _Previous"
+msgstr "Buscar _anterior"
+
+#: ../plugins/document-manager/plugin.c:277
+msgid "Repeat the last Find command"
+msgstr "Repetir el último comando de búsqueda"
+
+#: ../plugins/document-manager/plugin.c:279
+#| msgid "Highlight"
+msgid "Clear Highlight"
+msgstr "Limpiar resaltado"
+
+#: ../plugins/document-manager/plugin.c:280
+msgid "Clear all highlighted text"
+msgstr "Limpiar todo el texto resaltado"
+
+#: ../plugins/document-manager/plugin.c:286
+#| msgid "Case sensitive"
+msgid "Case Sensitive"
+msgstr "Sensible a capitalización"
+
+#: ../plugins/document-manager/plugin.c:287
+msgid "Match case in search results."
+msgstr "Coincidir con capitalización en los resultados de la búsqueda."
+
+#: ../plugins/document-manager/plugin.c:290
+#| msgid "Highlight"
+msgid "Highlight All"
+msgstr "Resaltar todo"
+
+#: ../plugins/document-manager/plugin.c:291
+#| msgid "Highlight current line"
+msgid "Highlight all occurrences"
+msgstr "Resaltar todas las ocurrencias"
+
+#: ../plugins/document-manager/plugin.c:297 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:982
 #: ../plugins/language-support-python/plugin.c:448
 msgid "_Edit"
 msgstr "_Editar"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:298
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:305
 msgid "_Add Editor View"
 msgstr "_Añadir vista del editor"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:306
 msgid "Add one more view of current document"
 msgstr "Añade una vista más del documento actual"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:308
 msgid "_Remove Editor View"
 msgstr "_Quitar vista del editor"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:309
 msgid "Remove current view of the document"
 msgstr "Quita la vista actual del documento"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:311
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:312
 msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:314
 msgid "_Redo"
 msgstr "_Rehacer"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:315
 msgid "Redo the last undone action"
 msgstr "Rehace la última acción deshecha"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:317
 msgid "C_ut"
 msgstr "C_ortar"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:318
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta el texto seleccionado al portapapeles"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:298 ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:320 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:321
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:301 ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:323 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:324
 msgid "Paste the content of clipboard at the current position"
 msgstr "Pega el contenido del portapapeles a la posición actual"
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:332
 msgid "_Clear"
 msgstr "_Borrar"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:333
 msgid "Delete the selected text from the editor"
 msgstr "Borra el texto seleccionado del editor"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:336
 msgid "_Auto-Complete"
 msgstr "_Autocompletar"
 
-#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/document-manager/plugin.c:337
 msgid "Auto-complete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:343
 msgid "_Line Number Margin"
 msgstr "Margen de _números línea"
 
-#: ../plugins/document-manager/plugin.c:321
+#: ../plugins/document-manager/plugin.c:344
 msgid "Show/Hide line numbers"
 msgstr "Mostrar/Ocultar número de línea en el margen"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:346
 msgid "_Marker Margin"
 msgstr "_Margen de marcadores"
 
-#: ../plugins/document-manager/plugin.c:324
+#: ../plugins/document-manager/plugin.c:347
 msgid "Show/Hide marker margin"
 msgstr "Mostrar/Ocultar marcadores de márgenes"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:349
 msgid "_Code Fold Margin"
 msgstr "Margen de plegado del _código"
 
-#: ../plugins/document-manager/plugin.c:327
+#: ../plugins/document-manager/plugin.c:350
 msgid "Show/Hide code fold margin"
 msgstr "Mostrar/Ocultar margen de persiana de código"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:352
 msgid "_Indentation Guides"
 msgstr "Guías de _sangría"
 
-#: ../plugins/document-manager/plugin.c:330
+#: ../plugins/document-manager/plugin.c:353
 msgid "Show/Hide indentation guides"
 msgstr "Mostrar/Ocultar las guías de sangría"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:355
 msgid "_White Space"
 msgstr "_Espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:333
+#: ../plugins/document-manager/plugin.c:356
 msgid "Show/Hide white spaces"
 msgstr "Mostrar/Ocultar espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:358
 msgid "_Line End Characters"
 msgstr "Mostrar fin de _línea"
 
-#: ../plugins/document-manager/plugin.c:336
+#: ../plugins/document-manager/plugin.c:359
 msgid "Show/Hide line end characters"
 msgstr "Mostrar/ocultar los caracteres de fin de línea"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:361
 msgid "Line _Wrapping"
 msgstr "_Ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:339
+#: ../plugins/document-manager/plugin.c:362
 msgid "Enable/disable line wrapping"
 msgstr "Activar/desactivar ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:367
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:368
 msgid "Zoom in: Increase font size"
 msgstr "Ampliar: Incrementar el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:370
 msgid "Zoom Out"
 msgstr "Reducir"
 
-#: ../plugins/document-manager/plugin.c:348
+#: ../plugins/document-manager/plugin.c:371
 msgid "Zoom out: Decrease font size"
 msgstr "Reducir: Reducir el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:353
+#: ../plugins/document-manager/plugin.c:376
 msgid "_Highlight Mode"
 msgstr "Modo de _resaltado"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Close All Folds"
 msgstr "_Cerrar todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:358
+#: ../plugins/document-manager/plugin.c:381
 msgid "Close all code folds in the editor"
 msgstr "Cierra todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:383
 msgid "_Open All Folds"
 msgstr "_Abrir todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:384
 msgid "Open all code folds in the editor"
 msgstr "Abrir todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Toggle Current Fold"
 msgstr "_Cambiar pliegue actual"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:387
 msgid "Toggle current code fold in the editor"
 msgstr "Cambiar pliegue actual del código en el editor"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:392
 msgid "_Documents"
 msgstr "_Documentos"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:393
 msgid "Previous Document"
 msgstr "Documento anterior"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:394
 msgid "Switch to previous document"
 msgstr "Cambiar al documento anterior"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:396
 msgid "Next Document"
 msgstr "Siguiente documento"
 
-#: ../plugins/document-manager/plugin.c:374
+#: ../plugins/document-manager/plugin.c:397
 msgid "Switch to next document"
 msgstr "Cambiar al siguiente documento"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:402
 msgid "Bookmar_k"
 msgstr "_Marcar"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:403
 msgid "_Toggle Bookmark"
 msgstr "Cam_biar marcador"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:404
 msgid "Toggle bookmark at the current line position"
 msgstr "Conmutar un marcador en la posición de línea actual"
 
-#: ../plugins/document-manager/plugin.c:383
+#: ../plugins/document-manager/plugin.c:406
 msgid "_Previous Bookmark"
 msgstr "Marcador _anterior"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:407
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ir al marcador anterior en este documento"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:409
 msgid "_Next Bookmark"
 msgstr "Marcador _siguiente"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:410
 msgid "Jump to the next bookmark in the file"
 msgstr "Ir al siguiente marcador en este documento"
 
-#: ../plugins/document-manager/plugin.c:389
+#: ../plugins/document-manager/plugin.c:412
 msgid "_Clear All Bookmarks"
 msgstr "_Vacía todos los marcadores"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:413
 msgid "Clear bookmarks"
 msgstr "Vaciar marcadores"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:432
 msgid "Editor file operations"
 msgstr "Operaciones de edición de archivos"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:433
 msgid "Editor print operations"
 msgstr "Operaciones de edición de impresión"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:434
 msgid "Editor text transformation"
 msgstr "Transformación del editor de texto"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:435
 msgid "Editor text selection"
 msgstr "Selección de texto del editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:437
 msgid "Editor code commenting"
 msgstr "Comentado de código del editor"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:438
 msgid "Editor navigations"
 msgstr "Navegación con el editor"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:439
 msgid "Editor edit operations"
 msgstr "Operaciones de edición del editor"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:440
 msgid "Editor zoom operations"
 msgstr "Operaciones de ampliación del editor"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:441
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de resaltado de sintaxis del editor"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:442
 msgid "Editor text formating"
 msgstr "Formateado del texto del editor"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:443
 msgid "Simple searching"
 msgstr "Busqueda simple"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
-#: ../plugins/document-manager/plugin.c:421
-#: ../plugins/document-manager/plugin.c:1749
-#: ../plugins/document-manager/plugin.c:2171
-#: ../plugins/document-manager/plugin.c:2180
+#: ../plugins/document-manager/plugin.c:444
+#: ../plugins/document-manager/plugin.c:1788
+#: ../plugins/document-manager/plugin.c:2210
+#: ../plugins/document-manager/plugin.c:2219
 msgid "Documents"
 msgstr "Documentos"
 
-#: ../plugins/document-manager/plugin.c:426
+#: ../plugins/document-manager/plugin.c:449
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:451
+#| msgid "Toggle Breakpoint"
+msgid "Toggle search options"
+msgstr "Conmutar opciones de búsqueda"
+
+#: ../plugins/document-manager/plugin.c:640
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:621
+#: ../plugins/document-manager/plugin.c:646
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:975
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:979
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:946
-#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:985
+#: ../plugins/document-manager/plugin.c:988
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:991
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:992
 msgid "Mode"
 msgstr "Modo"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1591
+#: ../plugins/document-manager/plugin.c:1630
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1605
+#: ../plugins/document-manager/plugin.c:1644
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
-#: ../plugins/document-manager/search-box.c:383
+#: ../plugins/document-manager/search-box.c:362
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
-#: ../plugins/document-manager/search-box.c:389
+#: ../plugins/document-manager/search-box.c:368
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3888,10 +3934,32 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.ui.h:17
-msgid "Match case"
-msgstr "Coincidir con capitalización"
+#: ../plugins/document-manager/search-box.c:401
+#, fuzzy, c-format
+#| msgid "Search for \"%s\" reached the end and was continued at the top."
+msgid "Search for \"%s\" reached the end and was continued at the bottom."
+msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
+
+#: ../plugins/document-manager/search-box.c:407
+#, fuzzy, c-format
+#| msgid ""
+#| "Search for \"%s\" reached the end and was continued at the top but no new "
+#| "match was found."
+msgid ""
+"Search for \"%s\" reached the end and was continued at the bottom but no new "
+"match was found."
+msgstr ""
+"La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
+"encontró ninguna ocurrencia más."
+
+#: ../plugins/document-manager/search-box.c:725
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: ../plugins/document-manager/search-box.c:730
+#| msgid "Replace All"
+msgid "Replace all"
+msgstr "Reemplazar todo"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3920,7 +3988,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Esta función no está implementada para los widgets de la clase «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/starter.c:111
+#: ../plugins/starter/plugin.c:155
 #, c-format
 msgid "Open '%s'"
 msgstr "Abrir «%s»"
@@ -3992,7 +4060,7 @@ msgid "Document Manager"
 msgstr "Administrador de documentación"
 
 #: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
-#: ../plugins/run-program/parameters.c:311
+#: ../plugins/run-program/parameters.c:312
 msgid "All files"
 msgstr "Todos los archivos"
 
@@ -4232,7 +4300,6 @@ msgid "Name:"
 msgstr "Nombre:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:413
 msgid "New File"
 msgstr "Archivo nuevo"
 
@@ -5462,10 +5529,9 @@ msgid "Switch to the selected branch"
 msgstr "Cambiar a la rama seleccionada"
 
 #: ../plugins/git/plugin.c:98
-#, fuzzy
 #| msgid "Merge this commit into the current branch"
 msgid "Merge a revision into the current branch"
-msgstr "Mezclar este «commit» en la rama actual"
+msgstr "Mezclar una revisión en la rama actual"
 
 #: ../plugins/git/plugin.c:109
 msgid "Tag tools"
@@ -5547,10 +5613,9 @@ msgid "Add a remote"
 msgstr "Añadir una remota"
 
 #: ../plugins/git/plugin.c:223
-#, fuzzy
 #| msgid "Add to repository"
 msgid "Add a remote repository"
-msgstr "Añadir al repositorio"
+msgstr "Añadir un repositorio remoto"
 
 #: ../plugins/git/plugin.c:230
 msgid "Delete selected remote"
@@ -5813,29 +5878,39 @@ msgstr "Remotas"
 msgid "Stash"
 msgstr "Guardar (stash)"
 
-#: ../plugins/glade/plugin.c:375
+#: ../plugins/glade/plugin.c:460
+#, fuzzy
+#| msgid "Select all text in the editor"
+msgid "Select widgets in the workspace"
+msgstr "Selecciona todo el texto en el editor"
+
+#: ../plugins/glade/plugin.c:486
+msgid "Drag and resize widgets in the workspace"
+msgstr "Arrastrar y redimensionar widgets en el espacio de trabajo"
+
+#: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:420
+#: ../plugins/glade/plugin.c:590
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:425
+#: ../plugins/glade/plugin.c:595
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:541
+#: ../plugins/glade/plugin.c:718
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:587
+#: ../plugins/glade/plugin.c:764
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:642
+#: ../plugins/glade/plugin.c:821
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5912,8 +5987,8 @@ msgid "Icon"
 msgstr "Icono"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:383 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:515 ../plugins/message-view/plugin.c:526
+#: ../plugins/message-view/plugin.c:385 ../plugins/message-view/plugin.c:398
+#: ../plugins/message-view/plugin.c:517 ../plugins/message-view/plugin.c:528
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -6110,8 +6185,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6128,9 +6203,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6199,10 +6274,9 @@ msgid "Add Source"
 msgstr "Añadir fuente"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
-#, fuzzy
 #| msgid "Close other documents"
 msgid "Browse other nodes"
-msgstr "Cerrar otros documentos"
+msgstr "Explorar otros nodos"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
 msgid "Modules:"
@@ -6424,24 +6498,20 @@ msgid "_Project"
 msgstr "_Proyecto"
 
 #: ../plugins/project-manager/plugin.c:892
-#| msgid "Directory"
 msgid "New _Directory…"
 msgstr "_Carpeta nueva…"
 
 #: ../plugins/project-manager/plugin.c:892
 #: ../plugins/project-manager/plugin.c:931
-#| msgid "Add a new file/directory to the CVS tree"
 msgid "Add a new directory to the project"
 msgstr "Añadir una carpeta nueva al proyecto"
 
 #: ../plugins/project-manager/plugin.c:897
-#| msgid "New Target"
 msgid "New _Target…"
 msgstr "_Objetivo nuevo…"
 
 #: ../plugins/project-manager/plugin.c:897
 #: ../plugins/project-manager/plugin.c:936
-#| msgid "Add a target to project"
 msgid "Add a new target to the project"
 msgstr "Añadir un objetivo nuevo al proyecto"
 
@@ -6724,8 +6794,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -7348,8 +7418,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 msgid "Require Package:"
@@ -7710,11 +7780,11 @@ msgstr "Carpeta de trabajo:"
 msgid "Program directory '%s' is not local"
 msgstr "La carpeta del programa «%s» no es local"
 
-#: ../plugins/run-program/parameters.c:303
+#: ../plugins/run-program/parameters.c:304
 msgid "Load Target to run"
 msgstr "Cargar objetivo que ejecutar"
 
-#: ../plugins/run-program/parameters.c:620
+#: ../plugins/run-program/parameters.c:621
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
@@ -7765,281 +7835,6 @@ msgstr "Ejecutar operaciones"
 #: ../plugins/run-program/org.gnome.anjuta.run.gschema.xml.in.h:1
 msgid "Command used for starting a terminal"
 msgstr "Comando usado para iniciar una terminal"
-
-#: ../plugins/search/anjuta-search.ui.h:1
-msgid "Actions"
-msgstr "Acciones"
-
-#: ../plugins/search/anjuta-search.ui.h:2
-#: ../plugins/search/search-replace.c:91
-msgid "Backward"
-msgstr "Hacia atrás"
-
-#: ../plugins/search/anjuta-search.ui.h:3
-msgid "Choose Directories:"
-msgstr "Elegir carpetas:"
-
-#: ../plugins/search/anjuta-search.ui.h:4
-msgid "Choose Files:"
-msgstr "Elegir archivos:"
-
-#: ../plugins/search/anjuta-search.ui.h:5
-msgid "Expand regex back references"
-msgstr "Expandir referencias hacia atrás de regex"
-
-#: ../plugins/search/anjuta-search.ui.h:6
-msgid "File Filter"
-msgstr "Filtro de archivo"
-
-#: ../plugins/search/anjuta-search.ui.h:7
-msgid "Find & Replace"
-msgstr "Buscar y reemplazar"
-
-#: ../plugins/search/anjuta-search.ui.h:8
-#: ../plugins/search/search-replace.c:90
-msgid "Forward"
-msgstr "Hacia adelante"
-
-#. the order of these matters - it must match the order of the corresponding
-#. radio buttons on another page
-#: ../plugins/search/anjuta-search.ui.h:9
-#: ../plugins/search/search-replace.c:89
-msgid "Full Buffer"
-msgstr "Rellenar búfer"
-
-#: ../plugins/search/anjuta-search.ui.h:10
-msgid "Greedy matching"
-msgstr "Coincidencia voraz"
-
-#: ../plugins/search/anjuta-search.ui.h:11
-msgid "Ignore Binary Files"
-msgstr "Ignorar archivos binarios"
-
-#: ../plugins/search/anjuta-search.ui.h:12
-msgid "Ignore Directories:"
-msgstr "Ignorar carpetas:"
-
-#: ../plugins/search/anjuta-search.ui.h:13
-msgid "Ignore Files:"
-msgstr "Ignorar archivos:"
-
-#: ../plugins/search/anjuta-search.ui.h:14
-msgid "Ignore Hidden Directories"
-msgstr "Ignorar carpetas ocultas"
-
-#: ../plugins/search/anjuta-search.ui.h:15
-msgid "Ignore Hidden Files"
-msgstr "Ignorar archivos ocultos"
-
-#: ../plugins/search/anjuta-search.ui.h:16
-msgid "Match at start of word"
-msgstr "Coincidir con el inicio de palabra"
-
-#: ../plugins/search/anjuta-search.ui.h:18
-msgid "Match complete lines"
-msgstr "Coincidir con líneas completas"
-
-#: ../plugins/search/anjuta-search.ui.h:19
-msgid "Match complete words"
-msgstr "Coincidir con palabras completas"
-
-#: ../plugins/search/anjuta-search.ui.h:20
-msgid "Maximum Actions"
-msgstr "Acciones máximas"
-
-#: ../plugins/search/anjuta-search.ui.h:21
-msgid "No Limit"
-msgstr "Sin límite"
-
-#: ../plugins/search/anjuta-search.ui.h:23
-msgid "Parameters"
-msgstr "Parámetros"
-
-#: ../plugins/search/anjuta-search.ui.h:24
-msgid "Regular expression"
-msgstr "Expresión regular"
-
-#: ../plugins/search/anjuta-search.ui.h:25
-msgid "Replace With:"
-msgstr "Reemplazar con:"
-
-#: ../plugins/search/anjuta-search.ui.h:27
-msgid "Search Action:"
-msgstr "Acción de búsqueda:"
-
-#: ../plugins/search/anjuta-search.ui.h:28
-msgid "Search Direction:"
-msgstr "Dirección de búsqueda:"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:30
-msgid "Search Expression"
-msgstr "Buscar expresión"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:32
-msgid "Search Expression:"
-msgstr "Buscar expresión:"
-
-#: ../plugins/search/anjuta-search.ui.h:33
-msgid "Search In:"
-msgstr "Buscar en:"
-
-#: ../plugins/search/anjuta-search.ui.h:34
-msgid "Search Recursively"
-msgstr "Buscar recursivamente"
-
-#: ../plugins/search/anjuta-search.ui.h:35
-msgid "Search Target"
-msgstr "Buscar objetivo"
-
-#. User can select variables that contain lists of files, so this is a combined noun
-#: ../plugins/search/anjuta-search.ui.h:37
-msgid "Search variable"
-msgstr "Buscar variable"
-
-#: ../plugins/search/plugin.c:68
-msgid "_Find…"
-msgstr "_Buscar…"
-
-#: ../plugins/search/plugin.c:69
-msgid "Search for a string or regular expression in the editor"
-msgstr "Buscar una cadena o expresión regular en el editor"
-
-#: ../plugins/search/plugin.c:71
-msgid "Find _Next"
-msgstr "Buscar siguie_nte"
-
-#: ../plugins/search/plugin.c:72 ../plugins/search/plugin.c:76
-msgid "Repeat the last Find command"
-msgstr "Repetir el último comando de búsqueda"
-
-#: ../plugins/search/plugin.c:74
-msgid "Find _Previous"
-msgstr "Buscar _anterior"
-
-#: ../plugins/search/plugin.c:78
-msgid "Find and R_eplace…"
-msgstr "Buscar y _reemplazar…"
-
-#: ../plugins/search/plugin.c:80
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
-
-#: ../plugins/search/plugin.c:82 ../plugins/search/plugin.c:83
-msgid "Search and Replace"
-msgstr "Buscar y reemplazar"
-
-#: ../plugins/search/plugin.c:85
-msgid "Fin_d in Files…"
-msgstr "_Buscar en archivos…"
-
-#: ../plugins/search/plugin.c:86
-msgid "Search for a string in multiple files or directories"
-msgstr "Buscar una cadena en múltiples archivos o carpetas"
-
-#: ../plugins/search/plugin.c:102
-msgid "Searching…"
-msgstr "Buscando…"
-
-#: ../plugins/search/search-replace.c:96
-msgid "Current Buffer"
-msgstr "Búfer actual"
-
-#: ../plugins/search/search-replace.c:97
-msgid "Current Selection"
-msgstr "Selección actual"
-
-#: ../plugins/search/search-replace.c:98
-msgid "Current Block"
-msgstr "Bloque actual"
-
-#: ../plugins/search/search-replace.c:99
-msgid "Current Function"
-msgstr "Función actual"
-
-#: ../plugins/search/search-replace.c:100
-msgid "All Open Buffers"
-msgstr "Todos los búferes abiertos"
-
-#: ../plugins/search/search-replace.c:101
-msgid "All Project Files"
-msgstr "Todos los archivos del proyecto"
-
-#. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:103
-msgid "Specify File Patterns"
-msgstr "Especificar patrones de archivo"
-
-#: ../plugins/search/search-replace.c:108
-msgid "Select next match"
-msgstr "Seleccionar la siguiente coincidencia"
-
-#: ../plugins/search/search-replace.c:109
-msgid "Bookmark all matched lines"
-msgstr "Marcar todas las líneas que hayan coincidido"
-
-#: ../plugins/search/search-replace.c:110
-msgid "Mark all matches"
-msgstr "Marcar todas las coincidencias"
-
-#: ../plugins/search/search-replace.c:111
-msgid "List matches in find pane"
-msgstr "Listar las coincidencias en el panel de búsqueda"
-
-#: ../plugins/search/search-replace.c:112
-msgid "Replace next match"
-msgstr "Reemplazar la siguiente coincidencia"
-
-#: ../plugins/search/search-replace.c:113
-msgid "Replace all matches"
-msgstr "Reemplazar todas las coincidencias"
-
-#. Avoid space in translated string
-#: ../plugins/search/search-replace.c:312
-msgid "Find:"
-msgstr "Buscar:"
-
-#: ../plugins/search/search-replace.c:494
-msgid "Replace"
-msgstr "Reemplazar"
-
-#: ../plugins/search/search-replace.c:623
-msgid "Search complete"
-msgstr "Búsqueda completada"
-
-#: ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1714
-msgid "Replace All"
-msgstr "Reemplazar todo"
-
-#: ../plugins/search/search-replace.c:1076
-#, c-format
-msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-"el principio del documento?"
-
-#: ../plugins/search/search-replace.c:1096
-#, c-format
-msgid "The match \"%s\" was not found."
-msgstr "No se ha encontrado ninguna coincidencia con «%s»."
-
-#: ../plugins/search/search-replace.c:1111
-msgid "The maximum number of results has been reached."
-msgstr "Se ha alcanzado el máximo número de resultados."
-
-#: ../plugins/search/search-replace.c:1124
-#, c-format
-msgid "%d match has been replaced."
-msgid_plural "%d matches have been replaced."
-msgstr[0] "Se ha reemplazado %d coincidencia."
-msgstr[1] "Se han reemplazado %d coincidencias."
-
-#: ../plugins/search/search-replace.c:1289
-msgid "Unable to build user interface for Search and Replace"
-msgstr "No se pudo construir la interfaz de usuario para «Buscar y reemplazar»"
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:304
@@ -8293,14 +8088,14 @@ msgstr "El archivo «%s» es de sólo lectura. ¿Editarlo de todas formas?"
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:273
+#: ../plugins/sourceview/sourceview-io.c:271
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 "No se puede guardar el archivo porque el nombre de archivo aún no se ha "
 "especificado"
 
-#: ../plugins/sourceview/sourceview-io.c:503
+#: ../plugins/sourceview/sourceview-io.c:501
 #, c-format
 msgid "New file %d"
 msgstr "Archivo nuevo %d"
@@ -8398,34 +8193,10 @@ msgstr "Usar tipografía del tema"
 msgid "View"
 msgstr "Vista"
 
-#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:353
-#: ../plugins/starter/anjuta-starter.plugin.in.h:1
-msgid "Starter"
-msgstr "Iniciado"
-
-#: ../plugins/starter/starter.c:394
-msgid "Create File/Project"
-msgstr "Crear archivo/proyecto"
-
-#: ../plugins/starter/starter.c:428
-msgid "Recent Projects"
-msgstr "Proyectos recientes"
-
-#: ../plugins/starter/starter.c:459
-msgid "Links"
-msgstr "Enlaces"
-
-#: ../plugins/starter/starter.c:478
-msgid "Anjuta Home Page"
-msgstr "Página web de Anjuta"
-
-#: ../plugins/starter/starter.c:484
-msgid "Anjuta Manual"
-msgstr "Manual de Anjuta"
-
-#: ../plugins/starter/starter.c:490
-msgid "GNOME Online API Documentation"
-msgstr "Documentación en línea de la API de GNOME"
+#: ../plugins/starter/plugin.c:252
+#| msgid "Started"
+msgid "Start"
+msgstr "Iniciar"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -9835,40 +9606,40 @@ msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:968
+#: ../plugins/language-support-cpp-java/plugin.c:988
 #: ../plugins/language-support-python/plugin.c:454
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:969
+#: ../plugins/language-support-cpp-java/plugin.c:989
 #: ../plugins/language-support-python/plugin.c:455
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:975
+#: ../plugins/language-support-cpp-java/plugin.c:995
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:976
+#: ../plugins/language-support-cpp-java/plugin.c:996
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:981
+#: ../plugins/language-support-cpp-java/plugin.c:1001
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:982
+#: ../plugins/language-support-cpp-java/plugin.c:1002
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1022
+#: ../plugins/language-support-cpp-java/plugin.c:1042
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1197
-#: ../plugins/language-support-cpp-java/plugin.c:1227
+#: ../plugins/language-support-cpp-java/plugin.c:1217
+#: ../plugins/language-support-cpp-java/plugin.c:1247
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9979,16 +9750,17 @@ msgid "A Subversion client plugin based on libsvn"
 msgstr "Un complemento de Subversion basado en libsvn"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
-msgid "Glade File"
-msgstr "Archivo glade"
-
-#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
 msgstr "Complemento de Glade para Anjuta."
 
-#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade interface designer"
 msgstr "Diseñador de interfaces Glade"
+
+#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+#| msgid "Interface file"
+msgid "User interface file"
+msgstr "Archivo de interfaz de usuario"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -10042,6 +9814,10 @@ msgstr "Editor GtkSourceView"
 msgid "The default editor based on GtkSourceView"
 msgstr "El editor predeterminado basado en GtkSourceview"
 
+#: ../plugins/starter/anjuta-starter.plugin.in.h:1
+msgid "Starter"
+msgstr "Iniciado"
+
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
 msgstr "Página de bienvenida con las acciones más comunes."
@@ -10059,14 +9835,6 @@ msgstr ""
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
 msgstr "Asistente de proyectos"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:1
-msgid "Component for searching"
-msgstr "Componente para buscar"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:2
-msgid "Searching"
-msgstr "Buscando"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
@@ -10196,6 +9964,219 @@ msgstr "Caracteres mínimos para autocompletado "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "Quick _ReSearch"
+#~ msgstr "_Repetir búsqueda rápida"
+
+#~ msgid "Repeat quick search"
+#~ msgstr "Repetir la búsqueda rápida"
+
+#~ msgid "Match case"
+#~ msgstr "Coincidir con capitalización"
+
+#~ msgid "Actions"
+#~ msgstr "Acciones"
+
+#~ msgid "Backward"
+#~ msgstr "Hacia atrás"
+
+#~ msgid "Choose Directories:"
+#~ msgstr "Elegir carpetas:"
+
+#~ msgid "Choose Files:"
+#~ msgstr "Elegir archivos:"
+
+#~ msgid "Expand regex back references"
+#~ msgstr "Expandir referencias hacia atrás de regex"
+
+#~ msgid "File Filter"
+#~ msgstr "Filtro de archivo"
+
+#~ msgid "Find & Replace"
+#~ msgstr "Buscar y reemplazar"
+
+#~ msgid "Forward"
+#~ msgstr "Hacia adelante"
+
+#~ msgid "Full Buffer"
+#~ msgstr "Rellenar búfer"
+
+#~ msgid "Greedy matching"
+#~ msgstr "Coincidencia voraz"
+
+#~ msgid "Ignore Binary Files"
+#~ msgstr "Ignorar archivos binarios"
+
+#~ msgid "Ignore Directories:"
+#~ msgstr "Ignorar carpetas:"
+
+#~ msgid "Ignore Files:"
+#~ msgstr "Ignorar archivos:"
+
+#~ msgid "Ignore Hidden Directories"
+#~ msgstr "Ignorar carpetas ocultas"
+
+#~ msgid "Ignore Hidden Files"
+#~ msgstr "Ignorar archivos ocultos"
+
+#~ msgid "Match at start of word"
+#~ msgstr "Coincidir con el inicio de palabra"
+
+#~ msgid "Match complete lines"
+#~ msgstr "Coincidir con líneas completas"
+
+#~ msgid "Match complete words"
+#~ msgstr "Coincidir con palabras completas"
+
+#~ msgid "Maximum Actions"
+#~ msgstr "Acciones máximas"
+
+#~ msgid "No Limit"
+#~ msgstr "Sin límite"
+
+#~ msgid "Parameters"
+#~ msgstr "Parámetros"
+
+#~ msgid "Regular expression"
+#~ msgstr "Expresión regular"
+
+#~ msgid "Replace With:"
+#~ msgstr "Reemplazar con:"
+
+#~ msgid "Search Action:"
+#~ msgstr "Acción de búsqueda:"
+
+#~ msgid "Search Direction:"
+#~ msgstr "Dirección de búsqueda:"
+
+#~ msgid "Search Expression"
+#~ msgstr "Buscar expresión"
+
+#~ msgid "Search Expression:"
+#~ msgstr "Buscar expresión:"
+
+#~ msgid "Search In:"
+#~ msgstr "Buscar en:"
+
+#~ msgid "Search Recursively"
+#~ msgstr "Buscar recursivamente"
+
+#~ msgid "Search Target"
+#~ msgstr "Buscar objetivo"
+
+#~ msgid "Search variable"
+#~ msgstr "Buscar variable"
+
+#~ msgid "_Find…"
+#~ msgstr "_Buscar…"
+
+#~ msgid "Search for a string or regular expression in the editor"
+#~ msgstr "Buscar una cadena o expresión regular en el editor"
+
+#~ msgid ""
+#~ "Search for and replace a string or regular expression with another string"
+#~ msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
+
+#~ msgid "Fin_d in Files…"
+#~ msgstr "_Buscar en archivos…"
+
+#~ msgid "Search for a string in multiple files or directories"
+#~ msgstr "Buscar una cadena en múltiples archivos o carpetas"
+
+#~ msgid "Searching…"
+#~ msgstr "Buscando…"
+
+#~ msgid "Current Buffer"
+#~ msgstr "Búfer actual"
+
+#~ msgid "Current Selection"
+#~ msgstr "Selección actual"
+
+#~ msgid "Current Block"
+#~ msgstr "Bloque actual"
+
+#~ msgid "Current Function"
+#~ msgstr "Función actual"
+
+#~ msgid "All Open Buffers"
+#~ msgstr "Todos los búferes abiertos"
+
+#~ msgid "All Project Files"
+#~ msgstr "Todos los archivos del proyecto"
+
+#~ msgid "Specify File Patterns"
+#~ msgstr "Especificar patrones de archivo"
+
+#~ msgid "Select next match"
+#~ msgstr "Seleccionar la siguiente coincidencia"
+
+#~ msgid "Bookmark all matched lines"
+#~ msgstr "Marcar todas las líneas que hayan coincidido"
+
+#~ msgid "Mark all matches"
+#~ msgstr "Marcar todas las coincidencias"
+
+#~ msgid "List matches in find pane"
+#~ msgstr "Listar las coincidencias en el panel de búsqueda"
+
+#~ msgid "Replace next match"
+#~ msgstr "Reemplazar la siguiente coincidencia"
+
+#~ msgid "Replace all matches"
+#~ msgstr "Reemplazar todas las coincidencias"
+
+#~ msgid "Find:"
+#~ msgstr "Buscar:"
+
+#~ msgid "Search complete"
+#~ msgstr "Búsqueda completada"
+
+#~ msgid "The match \"%s\" was not found. Wrap search around the document?"
+#~ msgstr ""
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
+
+#~ msgid "The match \"%s\" was not found."
+#~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
+
+#~ msgid "The maximum number of results has been reached."
+#~ msgstr "Se ha alcanzado el máximo número de resultados."
+
+#~ msgid "%d match has been replaced."
+#~ msgid_plural "%d matches have been replaced."
+#~ msgstr[0] "Se ha reemplazado %d coincidencia."
+#~ msgstr[1] "Se han reemplazado %d coincidencias."
+
+#~ msgid "Unable to build user interface for Search and Replace"
+#~ msgstr ""
+#~ "No se pudo construir la interfaz de usuario para «Buscar y reemplazar»"
+
+#~ msgid "Create File/Project"
+#~ msgstr "Crear archivo/proyecto"
+
+#~ msgid "Recent Projects"
+#~ msgstr "Proyectos recientes"
+
+#~ msgid "Links"
+#~ msgstr "Enlaces"
+
+#~ msgid "Anjuta Home Page"
+#~ msgstr "Página web de Anjuta"
+
+#~ msgid "Anjuta Manual"
+#~ msgstr "Manual de Anjuta"
+
+#~ msgid "GNOME Online API Documentation"
+#~ msgstr "Documentación en línea de la API de GNOME"
+
+#~ msgid "Glade File"
+#~ msgstr "Archivo glade"
+
+#~ msgid "Component for searching"
+#~ msgstr "Componente para buscar"
+
+#~ msgid "Searching"
+#~ msgstr "Buscando"
 
 #~ msgid "Column 0"
 #~ msgstr "Columna 0"
@@ -10890,9 +10871,6 @@ msgstr "Símbolo"
 #~ msgid "Show in main window"
 #~ msgstr "Mostrar la ventana principal"
 
-#~ msgid "Highlight"
-#~ msgstr "Resaltado"
-
 #~ msgid "Items that are due today"
 #~ msgstr "Elementos que caducan hoy"
 
@@ -11060,9 +11038,6 @@ msgstr "Símbolo"
 
 #~ msgid "Configure file"
 #~ msgstr "Archivo de configuración"
-
-#~ msgid "Interface file"
-#~ msgstr "Archivo de interfaz"
 
 #~ msgid "GLib mkenums"
 #~ msgstr "mkenums de GLib"
@@ -12994,9 +12969,6 @@ msgstr "Símbolo"
 
 #~ msgid "Editor bookmarks"
 #~ msgstr "Marcadores del editor"
-
-#~ msgid "Case sensitive"
-#~ msgstr "Coincidir con capitalización"
 
 #~ msgid "Failed to write data to file."
 #~ msgstr "Falló al escribir los datos al archivo."
