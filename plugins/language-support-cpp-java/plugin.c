@@ -66,6 +66,15 @@
 #define PREF_INDENT_MODELINE "cpp-indent-modeline"
 #define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
 
+/* Callback generator defines */
+#define C_SEPARATOR "\n"
+#define C_BODY "\n{\n\n}\n"
+#define C_OFFSET 4
+
+#define CHDR_SEPARATOR " "
+#define CHDR_BODY ";\n"
+#define CHDR_OFFSET 1
+
 static gpointer parent_class;
 
 static void
@@ -541,30 +550,35 @@ on_glade_drop (IAnjutaEditor* editor,
                CppJavaPlugin* lang_plugin)
 {
 	GStrv split_signal_data = g_strsplit(signal_data, ":", 5);
+	char *handler = split_signal_data[2];
 	/**
 	 * Split signal data format:
-	 * widget = data[0];
-	 * signal = data[1];
-	 * handler = data[2];
-	 * user_data = data[3];
-	 * swapped = g_str_equal (data[4], "1");
+	 * widget = split_signaldata[0];
+	 * signal = split_signaldata[1];
+	 * handler = split_signaldata[2];
+	 * user_data = split_signaldata[3];
+	 * swapped = g_str_equal (split_signaldata[4], "1");
 	 */
 
 	IAnjutaIterable *iter;
-	if ((iter = language_support_find_symbol (lang_plugin, split_signal_data[2])) == NULL)
+	if ((iter = language_support_find_symbol (lang_plugin, handler)) == NULL)
 	{
 		switch (lang_plugin->filetype)
 		{
 			case LS_FILE_C:
 			{
 				language_support_add_c_callback (editor, iterator, split_signal_data,
-												 "\n", "\n{\n\n}\n", 4);
+												 C_SEPARATOR,
+												 C_BODY,
+												 C_OFFSET);
 				break;
 			}
 			case LS_FILE_CHDR:
 			{
 				language_support_add_c_callback (editor, iterator, split_signal_data,
-												 " ", ";\n", 1);
+												 CHDR_SEPARATOR,
+												 CHDR_BODY,
+												 CHDR_OFFSET);
 				break;
 			}
 			default:
