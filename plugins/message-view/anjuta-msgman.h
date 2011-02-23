@@ -37,15 +37,16 @@ typedef struct _AnjutaMsgmanClass AnjutaMsgmanClass;
 struct _AnjutaMsgman
 {
 	GtkNotebook parent;
+
 	AnjutaMsgmanPriv *priv;
-	
-	/* Signal */
-	void (*view_changed) (AnjutaMsgman *obj);
 };
 
 struct _AnjutaMsgmanClass
 {
 	GtkNotebookClass parent_class;
+
+	/* Signal */
+	void (*view_changed) (AnjutaMsgman *obj);
 };
 
 GType anjuta_msgman_get_type (void);
