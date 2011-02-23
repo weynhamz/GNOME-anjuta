@@ -536,6 +536,11 @@ on_glade_drop (IAnjutaEditor* editor,
 				ianjuta_editor_insert (editor, iterator,
 					                   str->str, -1, NULL);
 				g_string_free (str, TRUE);
+				/* Will now set the caret position to the center of the new callback */
+				ianjuta_editor_goto_line (editor,
+										  ianjuta_editor_get_line_from_position (
+														editor, iterator, NULL) + 4, NULL);
+
 				break;
 			}
 			case LS_FILE_CHDR:
