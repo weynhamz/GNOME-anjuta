@@ -428,7 +428,8 @@ language_support_get_signal_parameter (const gchar* type_name, GList** names)
 }
 
 static GString*
-language_support_generate_c_signature (const gchar* widget,
+language_support_generate_c_signature (const gchar* separator,
+									   const gchar* widget,
 									   GSignalQuery query,
 									   gboolean swapped,
 									   const gchar* handler)
@@ -440,9 +441,12 @@ language_support_generate_c_signature (const gchar* widget,
 	int i;
 	g_string_append (str, g_type_name (query.return_type));
 	if (!swapped)
-		g_string_append_printf (str, "\n%s (%s *%s", handler, widget, widget_param);
+		g_string_append_printf (str, "%s%s (%s *%s",
+									 separator, handler, widget, widget_param);
 	else
-		g_string_append_printf (str, "\n%s (gpointer user_data, %s *%s", handler, widget, widget_param);				
+		g_string_append_printf (str, "%s%s (gpointer user_data, %s *%s",
+									 separator, handler, widget, widget_param);
+
 	for (i = 0; i < query.n_params; i++)
 	{
 		const gchar* type_name = g_type_name (query.param_types[i]);
@@ -468,6 +472,42 @@ language_support_generate_c_signature (const gchar* widget,
 	return str;
 }
 
+static void
+language_support_add_c_callback (IAnjutaEditor* editor,
+               					 IAnjutaIterable* position,
+				                 GStrv split_signal_data,
+								 const gchar* separator,
+								 const gchar* body,
+								 gint offset)
+{
+	GSignalQuery query;
+	
+	const gchar* widget = split_signal_data[0];
+	const gchar* signal = split_signal_data[1];
+	const gchar* handler = split_signal_data[2];
+	//const gchar* user_data = split_signal_data[3]; // Currently unused
+	gboolean swapped = g_str_equal (split_signal_data[4], "1");
+
+	GType type = g_type_from_name (widget);
+	guint id = g_signal_lookup (signal, type);
+
+	g_signal_query (id, &query);
+
+	GString* str = language_support_generate_c_signature (separator, widget, query, swapped, handler);
+
+	g_string_append (str, body);
+
+	ianjuta_editor_insert (editor, position,
+		                   str->str, -1, NULL);
+
+	g_string_free (str, TRUE);
+
+	/* Will now set the caret position offset */
+	ianjuta_editor_goto_line (editor,
+							  ianjuta_editor_get_line_from_position (
+											editor, position, NULL) + offset, NULL);
+}
+               
 static IAnjutaIterable *
 language_support_find_symbol (CppJavaPlugin* lang_plugin,
 							 const gchar* handler)
@@ -500,57 +540,31 @@ on_glade_drop (IAnjutaEditor* editor,
                const gchar* signal_data,
                CppJavaPlugin* lang_plugin)
 {
-	GSignalQuery query;
-	GType type;
-	guint id;
-	
-	const gchar* widget;
-	const gchar* signal;
-	const gchar* handler;
-	const gchar* user_data;
-	gboolean swapped;
-
-	GStrv data = g_strsplit(signal_data, ":", 5);
-	
-	widget = data[0];
-	signal = data[1];
-	handler = data[2];
-	user_data = data[3];
-	swapped = g_str_equal (data[4], "1");
-	
-	type = g_type_from_name (widget);
-	id = g_signal_lookup (signal, type);
-
-	g_signal_query (id, &query);
+	GStrv split_signal_data = g_strsplit(signal_data, ":", 5);
+	/**
+	 * Split signal data format:
+	 * widget = data[0];
+	 * signal = data[1];
+	 * handler = data[2];
+	 * user_data = data[3];
+	 * swapped = g_str_equal (data[4], "1");
+	 */
 
 	IAnjutaIterable *iter;
-	if ((iter = language_support_find_symbol (lang_plugin, handler)) == NULL)
+	if ((iter = language_support_find_symbol (lang_plugin, split_signal_data[2])) == NULL)
 	{
 		switch (lang_plugin->filetype)
 		{
 			case LS_FILE_C:
 			{
-				GString* str = language_support_generate_c_signature (widget, query,
-																	  swapped, handler);
-				g_string_append (str, "\n{\n\n}\n");
-				ianjuta_editor_insert (editor, iterator,
-					                   str->str, -1, NULL);
-				g_string_free (str, TRUE);
-				/* Will now set the caret position to the center of the new callback */
-				ianjuta_editor_goto_line (editor,
-										  ianjuta_editor_get_line_from_position (
-														editor, iterator, NULL) + 4, NULL);
-
+				language_support_add_c_callback (editor, iterator, split_signal_data,
+												 "\n", "\n{\n\n}\n", 4);
 				break;
 			}
 			case LS_FILE_CHDR:
 			{
-				GString* str = language_support_generate_c_signature (widget, query,
-																	  swapped, handler);
-				g_string_append (str, ";\n");
-				ianjuta_editor_insert (editor, iterator,
-					                   str->str, -1, NULL);
-				g_string_free (str, TRUE);
+				language_support_add_c_callback (editor, iterator, split_signal_data,
+												 " ", ";\n", 1);
 				break;
 			}
 			default:
@@ -564,7 +578,7 @@ on_glade_drop (IAnjutaEditor* editor,
 															NULL), NULL);		
 		g_object_unref (iter);
 	}
-	g_strfreev (data);
+	g_strfreev (split_signal_data);
 }
 
 /* Enable/Disable language-support */
