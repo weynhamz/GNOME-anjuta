@@ -232,6 +232,8 @@ amp_am_scanner_parse_end (AmpAmScanner *scanner)
 		}
 		else
 		{
+			scanner->eof = anjuta_token_stream_get_current_file (scanner->stream) != NULL;
+
 			/* Continue parsing the parent file */
 			return 1;
 		}

@@ -97,6 +97,7 @@ projectparser_SOURCES = \
 
 projectparser_LDADD = \
 	libam-project.la \
+	$(GIO_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 

@@ -39,15 +39,16 @@
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
-
-//REMOVE GLADE #include <glade/glade.h>
+#include <libanjuta/interfaces/ianjuta-indenter.h>
 
 #include "plugin.h"
 #include "python-utils.h"
 #include "python-assist.h"
+#include "python-indentation.h"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
@@ -65,838 +66,12 @@
 /* Preferences keys */
 
 #define PREF_SCHEMA "org.gnome.anjuta.python"
-#define PREF_INDENT_AUTOMATIC "python-indent-automatic"
-#define PREF_INDENT_ADAPTIVE "python-indent-adaptive"
-#define PREF_INDENT_TAB_INDENTS "python-indent-tab-indents"
-#define PREF_INDENT_STATEMENT_SIZE "python-indent-statement-size"
-#define PREF_INDENT_BRACE_SIZE "python-indent-brace-size"
+
 
 #define PREF_NO_ROPE_WARNING "python-no-rope-warning"
 #define PREF_INTERPRETER_PATH "python-interpreter-path"
 
-#define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
-
-#define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
-
-#define INDENT_SIZE \
-	(plugin->param_statement_indentation >= 0? \
-		plugin->param_statement_indentation : \
-		g_settings_get_int (plugin->settings, PREF_INDENT_STATEMENT_SIZE))
-
-#define BRACE_INDENT \
-	(plugin->param_brace_indentation >= 0? \
-		plugin->param_brace_indentation : \
-		g_settings_get_int (plugin->settings, PREF_INDENT_BRACE_SIZE))
-
-#define CASE_INDENT (INDENT_SIZE)
-#define LABEL_INDENT (INDENT_SIZE)
-
 static gpointer parent_class;
-
-static gboolean
-iter_is_newline (IAnjutaIterable *iter, gchar ch)
-{
-	if (ch == '\n' || ch == '\r')
-		return TRUE;
-	return FALSE;
-}
-
-/* Returns TRUE if iter was moved */
-static gboolean
-skip_iter_to_newline_head (IAnjutaIterable *iter, gchar ch)
-{
-	gboolean ret_val = FALSE;
-	
-	if (ch == '\n')
-	{
-		/* Possibly at tail */
-		if (ianjuta_iterable_previous (iter, NULL))
-		{
-			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-											0, NULL);
-			if (ch != '\r')
-				/* Already at head, undo iter */
-				ianjuta_iterable_next (iter, NULL);
-			else
-				/* Correctly at head */
-				ret_val = TRUE;
-		}
-	}
-	return ret_val;
-}
-
-/* Returns TRUE if iter was moved */
-static gboolean
-skip_iter_to_newline_tail (IAnjutaIterable *iter, gchar ch)
-{
-	gboolean ret_val = FALSE;
-	
-	if (ch == '\r')
-	{
-		/* Possibly at head */
-		if (ianjuta_iterable_previous (iter, NULL))
-		{
-			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-											0, NULL);
-			if (ch != '\n')
-				/* Already at tail, undo iter */
-				ianjuta_iterable_next (iter, NULL);
-			else
-				/* Correctly at tail */
-				ret_val = TRUE;
-		}
-	}
-	return ret_val;
-}
-
-/* Jumps to the reverse matching brace of the given brace character */
-
-static gint
-get_line_indentation (IAnjutaEditor *editor, gint line_num)
-{
-	IAnjutaIterable *line_begin, *line_end;
-	gchar *line_string, *idx;
-	gint line_indent = 0;
-	
-	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	/*
-	DEBUG_PRINT ("%s: line begin = %d, line end = %d", __FUNCTION__,
-				 line_begin, line_end);
-	*/
-	if (ianjuta_iterable_compare (line_begin, line_end, NULL) == 0)
-	{
-		g_object_unref (line_begin);
-		g_object_unref (line_end);
-		return 0;
-	}
-	
-	line_string = ianjuta_editor_get_text (editor, line_begin, line_end,
-												NULL);
-	g_object_unref (line_begin);
-	g_object_unref (line_end);
-	
-	/* DEBUG_PRINT ("line_string = '%s'", line_string); */
-	
-	if (!line_string)
-		return 0;
-	
-	idx = line_string;
-	
-	/* Find first non-white space */
-	while (*idx != '\0' && isspace (*idx))
-	{
-		if (*idx == '\t')
-			line_indent += TAB_SIZE;
-		else
-			line_indent++;
-		idx++; /* Since we are looking for first non-space char, simple
-				* increment of the utf8 chars would do */
-	}
-	g_free (line_string);
-	return line_indent;
-}
-
-static gchar *
-get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_indent_spaces)
-{
-	gint i;
-	gchar *indent_string;
-		
-	if ((spaces + line_indent_spaces) <= 0)
-		return NULL;
-	
-	if (USE_SPACES_FOR_INDENTATION)
-	{
-		indent_string = g_new0 (gchar, spaces + line_indent_spaces + 1);
-		for (i = 0; i < (spaces + line_indent_spaces); i++)
-			indent_string[i] = ' ';
-	}
-	else
-	{
-		gint num_tabs = spaces / TAB_SIZE;
-		gint num_spaces = spaces % TAB_SIZE;
-		indent_string = g_new0 (gchar, num_tabs + num_spaces + line_indent_spaces + 1);
-		
-		for (i = 0; i < num_tabs; i++)
-			indent_string[i] = '\t';
-		for (; i < num_tabs + (num_spaces + line_indent_spaces); i++)
-			indent_string[i] = ' ';
-	}
-	return indent_string;
-}
-
-static void
-set_indentation_param_emacs (PythonPlugin* plugin, const gchar *param,
-					   const gchar *value)
-{
-	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
-	if (strcasecmp (param, "indent-tabs-mode") == 0)
-	{
-		if (strcasecmp (value, "t") == 0)
-		{
-			plugin->param_use_spaces = 0;
-			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-										   FALSE, NULL);
-		}
-		else if (strcasecmp (value, "nil") == 0)
-		{
-			plugin->param_use_spaces = 1;
-			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-										   TRUE, NULL);
-		}
-	}
-	else if (strcasecmp (param, "c-basic-offset") == 0)
-	{
-		plugin->param_statement_indentation = atoi (value);
-	}
-	else if (strcasecmp (param, "tab-width") == 0)
-	{
-		plugin->param_tab_size = atoi (value);
-		ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
-									plugin->param_tab_size, NULL);
-	}
-}
-
-static void
-set_indentation_param_vim (PythonPlugin* plugin, const gchar *param,
-					   const gchar *value)
-{
-	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
-	if (g_str_equal (param, "expandtab") ||
-		g_str_equal (param, "et"))
-	{
-			plugin->param_use_spaces = 1;
-			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-										   TRUE, NULL);
-	}
-	else if (g_str_equal (param, "noexpandtabs") ||
-			 g_str_equal (param, "noet"))
-	{
-	  	plugin->param_use_spaces = 0;
-			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-										   FALSE, NULL);
-	}
-	if (!value)
-		return;
-	else if (g_str_equal (param, "shiftwidth") ||
-			 g_str_equal (param, "sw"))
-	{
-		plugin->param_statement_indentation = atoi (value);
-	}
-	else if (g_str_equal (param, "softtabstop") ||
-			 g_str_equal (param, "sts") ||
-			 g_str_equal (param, "tabstop") ||
-			 g_str_equal (param, "ts"))
-	{
-		plugin->param_tab_size = atoi (value);
-		ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
-									plugin->param_tab_size, NULL);
-	}
-}
-
-static void
-parse_mode_line_emacs (PythonPlugin *plugin, const gchar *modeline)
-{
-	gchar **strv, **ptr;
-	
-	strv = g_strsplit (modeline, ";", -1);
-	ptr = strv;
-	while (*ptr)
-	{
-		gchar **keyval;
-		keyval = g_strsplit (*ptr, ":", 2);
-		if (keyval[0] && keyval[1])
-		{
-			g_strstrip (keyval[0]);
-			g_strstrip (keyval[1]);
-			set_indentation_param_emacs (plugin, g_strchug (keyval[0]),
-                                   g_strchug (keyval[1]));
-		}
-		g_strfreev (keyval);
-		ptr++;
-	}
-	g_strfreev (strv);
-}
-
-static void
-parse_mode_line_vim (PythonPlugin *plugin, const gchar *modeline)
-{
-	gchar **strv, **ptr;
-	
-	strv = g_strsplit (modeline, " ", -1);
-	ptr = strv;
-	while (*ptr)
-	{
-		gchar **keyval;
-		keyval = g_strsplit (*ptr, "=", 2);
-		if (keyval[0])
-		{
-			g_strstrip (keyval[0]);
-      if (keyval[1])
-      {
-			  g_strstrip (keyval[1]);
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     g_strchug (keyval[1]));
-      }
-      else
-			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                     NULL);        
-		}
-		g_strfreev (keyval);
-		ptr++;
-	}
-	g_strfreev (strv);
-}
-
-static gchar *
-extract_mode_line (const gchar *comment_text, gboolean* vim)
-{
-	/* Search for emacs-like modelines */
-	gchar *begin_modeline, *end_modeline;
-	begin_modeline = strstr (comment_text, "-*-");
-	if (begin_modeline)
-	{
-		begin_modeline += 3;
-		end_modeline = strstr (begin_modeline, "-*-");
-		if (end_modeline)
-		{
-		  *vim = FALSE;
-				return g_strndup (begin_modeline, end_modeline - begin_modeline);
-		}
-	}
-	/* Search for vim-like modelines */
-	begin_modeline = strstr (comment_text, "vim:set");
-	if (begin_modeline)
-	{
-		begin_modeline += 7;
-		end_modeline = strstr (begin_modeline, ":");
-		/* Check for escape characters */
-		while (end_modeline)
-		{
-			 if (!g_str_equal ((end_modeline - 1), "\\"))
-				break;
-			end_modeline++;
-			end_modeline = strstr (end_modeline, ":");
-		}
-		if (end_modeline)
-		{
-			gchar* vim_modeline = g_strndup (begin_modeline, end_modeline - begin_modeline);
-			*vim = TRUE;
-			return vim_modeline;
-		}
-	}
-	return NULL;
-}
-
-#define MINI_BUFFER_SIZE 3
-
-static void
-initialize_indentation_params (PythonPlugin *plugin)
-{
-	IAnjutaIterable *iter;
-	GString *comment_text;
-	gboolean comment_begun = FALSE;
-	gboolean line_comment = FALSE;
-	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
-	
-	/* Initialize indentation parameters */
-	plugin->param_tab_size = -1;
-	plugin->param_statement_indentation = -1;
-	plugin->param_brace_indentation = -1;
-	plugin->param_case_indentation = -1;
-	plugin->param_label_indentation = -1;
-	plugin->param_use_spaces = -1;
-	
-	/* Find the first comment text in the buffer */
-	comment_text = g_string_new (NULL);
-	iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
-											  NULL);
-	do
-	{
-		gboolean shift_buffer = TRUE;
-		gint i;
-		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-												 0, NULL);
-		
-		for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-		{
-			if (mini_buffer[i] == '\0')
-			{
-				mini_buffer[i] = ch;
-				shift_buffer = FALSE;
-				break;
-			}
-		}
-		if (shift_buffer == TRUE)
-		{
-			/* Shift buffer and add */
-			for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-				mini_buffer [i] = mini_buffer[i+1];
-			mini_buffer[i] = ch;
-		}
-		
-		if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
-		{
-			comment_begun = TRUE;
-			/* Reset buffer */
-			mini_buffer[0] = mini_buffer[1] = '\0';
-		}
-		else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
-		{
-			comment_begun = TRUE;
-			line_comment = TRUE;
-		}
-		else if (!comment_begun && mini_buffer[1] != '\0')
-		{
-			/* The buffer doesn't begin with a comment */
-			break;
-		}
-		else if (comment_begun)
-		{
-			if ((line_comment && ch == '\n') ||
-				(!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
-			{
-				break;
-			}
-		}
-		
-		if (comment_begun)
-			g_string_append_c (comment_text, ch);
-		
-	}
-	while (ianjuta_iterable_next (iter, NULL));
-	
-	/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
-	if (comment_text->len > 0)
-	{
-		
-		/* First comment found */
-    gboolean vim;
-		gchar *modeline = extract_mode_line (comment_text->str, &vim);
-		if (modeline)
-		{
-      if (!vim)
-			  parse_mode_line_emacs (plugin, modeline);
-      else
-        parse_mode_line_vim (plugin, modeline);
-			g_free (modeline);
-		}
-	}
-	g_string_free (comment_text, TRUE);
-	g_object_unref (iter);
-}
-
-static gint
-set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gint line_indent_spaces)
-{
-	IAnjutaIterable *line_begin, *line_end, *indent_position;
-	IAnjutaIterable *current_pos;
-	gint carat_offset, nchars = 0, nchars_removed = 0;
-	gchar *old_indent_string = NULL, *indent_string = NULL;
-	
-	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
-	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	
-	/*
-	DEBUG_PRINT ("line begin = %d, line end = %d, current_pos = %d",
-				 line_begin, line_end, current_pos);
-	*/
-	indent_position = ianjuta_iterable_clone (line_begin, NULL);
-	
-	if (ianjuta_iterable_compare (line_end, line_begin, NULL) > 0)
-	{
-		gchar *idx;
-		gchar *line_string = ianjuta_editor_get_text (editor, line_begin,
-														   line_end, NULL);
-		
-		//DEBUG_PRINT ("line_string = '%s'", line_string);
-		if (line_string)
-		{
-			idx = line_string;
-			
-			/* Find first non-white space */
-			while (*idx != '\0' && isspace (*idx))
-			{
-				idx = g_utf8_find_next_char (idx, NULL);
-				ianjuta_iterable_next (indent_position, NULL);
-			}
-			g_free (line_string);
-		}
-	}
-	/* Indent iter defined at this point, Identify how much is current
-	 * position is beyound this point. We need to restore it later after
-	 * indentation
-	*/
-	current_pos = ianjuta_editor_get_position (editor, NULL);
-	carat_offset = ianjuta_iterable_diff (indent_position, current_pos, NULL);
-	//DEBUG_PRINT ("carat offset is = %d", carat_offset);
-	
-	/* Set new indentation */
-	if ((indentation + line_indent_spaces) > 0)
-	{
-		indent_string = get_line_indentation_string (editor, indentation, line_indent_spaces);
-		nchars = indent_string ? g_utf8_strlen (indent_string, -1) : 0;
-		
-		/* Only indent if there is something to indent with */
-		if (indent_string)
-		{
-			/* Get existing indentation */
-			if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
-			{
-				old_indent_string =
-					ianjuta_editor_get_text (editor, line_begin,
-												  indent_position, NULL);
-				
-				//DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
-				nchars_removed = g_utf8_strlen (old_indent_string, -1);
-			}
-			
-			/* Only indent if there was no indentation before or old
-			 * indentation string was different from the new indent string
-			 */
-			if (old_indent_string == NULL ||
-				strcmp (old_indent_string, indent_string) != 0)
-			{
-				/* Remove the old indentation string, if there is any */
-				if (old_indent_string)
-					ianjuta_editor_erase (editor, line_begin,
-										  indent_position, NULL);
-				
-				/* Insert the new indentation string */
-				ianjuta_editor_insert (editor, line_begin,
-									   indent_string, -1, NULL);
-			}
-		}
-	}
-	
-	/* If indentation == 0, we really didn't enter the previous code block,
-	 * but we may need to clear existing indentation.
-	 */
-	if ((indentation + line_indent_spaces) == 0)
-	{
-		/* Get existing indentation */
-		if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
-		{
-			old_indent_string =
-				ianjuta_editor_get_text (editor, line_begin,
-											  indent_position, NULL);
-			nchars_removed = g_utf8_strlen (old_indent_string, -1);
-		}
-		if (old_indent_string)
-			ianjuta_editor_erase (editor, line_begin, indent_position, NULL);
-	}
-	
-	/* Restore current position */
-	if (carat_offset >= 0)
-	{
-		/* If the cursor was not before the first non-space character in
-		 * the line, restore it's position after indentation.
-		 */
-		gint i;
-		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-		for (i = 0; i < nchars + carat_offset; i++)
-			ianjuta_iterable_next (pos, NULL);
-		ianjuta_editor_goto_position (editor, pos, NULL);
-		g_object_unref (pos);
-	}
-	else /* cursor_offset < 0 */
-	{
-		/* If the cursor was somewhere in the old indentation spaces,
-		 * home the cursor to first non-space character in the line (or
-		 * end of line if there is no non-space characters in the line.
-		 */
-		gint i;
-		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-		for (i = 0; i < nchars; i++)
-			ianjuta_iterable_next (pos, NULL);
-		ianjuta_editor_goto_position (editor, pos, NULL);
-		g_object_unref (pos);
-	}
-
-	g_object_unref (current_pos);
-	g_object_unref (indent_position);
-	g_object_unref (line_begin);
-	g_object_unref (line_end);
-	
-	g_free (old_indent_string);
-	g_free (indent_string);
-	return nchars;
-}
-
-/*  incomplete_statement:
- *  1 == COMPLETE STATEMENT
- *  0 == INCOMPLETE STATEMENT
- * -1 == UNKNOWN
- */
-
-static gchar*
-get_current_statement (IAnjutaEditor *editor, gint line_num, gint *found_line_num)
-{
-	gchar point_ch;
-	IAnjutaIterable *iter = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-	gchar statement[1024];
-	gint counter=0;
-
-	do
-	{
-		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-
-		if (!ianjuta_iterable_next (iter, NULL) )
-			break;
-	} while (point_ch == ' ' || point_ch == '\t'); // Whitespace
-
-	if (!ianjuta_iterable_previous (iter, NULL))
-		return "";
-	
-	do
-	{
-		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-		statement[counter++] = point_ch;
-		
-		if (!ianjuta_iterable_next (iter, NULL) )
-			break;
-	} while (isalpha(point_ch) || isdigit(point_ch)); // FIXME: Is this UTF-8 compatible?
-	statement[counter-1] = '\0';
-
-	g_object_unref (iter);
-	return g_strdup_printf("%s", statement);
-}
-
-static gchar 
-get_last_char (IAnjutaEditor *editor, gint line_num, gint *found_line_num)
-{
-	gchar point_ch;
-	IAnjutaIterable *iter = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-
-	do
-	{
-		if (ianjuta_iterable_previous (iter, NULL) )
-		{
-			point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-												 NULL); 
-		}
-		else
-			break;
-	} 
-	while (point_ch == ' ' || point_ch == '\n' || point_ch == '\r' || point_ch == '\t'); // Whitespace
-
-	*found_line_num = ianjuta_editor_get_line_from_position (editor, iter, NULL);
-	return point_ch;
-}
-
-static gboolean
-spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end);
-
-static gboolean
-is_spaces_only (IAnjutaEditor *editor, gint line_num)
-{
-		IAnjutaIterable* begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
-		IAnjutaIterable* end = ianjuta_editor_get_line_end_position (editor, line_num , NULL);
-
-		if (spaces_only (editor, begin, end))
-		{
-			return TRUE;
-		}
-
-	return FALSE;
-}
-
-static gint
-get_line_indentation_base (PythonPlugin *plugin,
-						   IAnjutaEditor *editor,
-						   gint line_num,
-						   gint *incomplete_statement,
-						   gint *line_indent_spaces,
-						   gboolean *colon_indent)
-{
-	IAnjutaIterable *iter;
-	gchar point_ch;
-	gint line_indent = 0;
-	gint currentline = line_num - 1;
-	gchar *last_line_statement;
-	
-	*incomplete_statement = 0;
-	*line_indent_spaces = 0;
-	
-	if (currentline <= 1)
-		return 0;
-	
-	iter = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-
-	point_ch = get_last_char (editor, currentline, &currentline);
-	last_line_statement = get_current_statement (editor, currentline, &currentline);
-
-	if (!g_strcmp0(last_line_statement, "return") || 
-	    !g_strcmp0(last_line_statement, "break") ||
-	    !g_strcmp0(last_line_statement, "pass") || 
-	    !g_strcmp0(last_line_statement, "raise") || 	    
-	    !g_strcmp0(last_line_statement, "continue") )
-	{					
-		if (get_line_indentation (editor, currentline)>= INDENT_SIZE)
-			line_indent = get_line_indentation (editor, currentline) - INDENT_SIZE;
-	}
-	else if (point_ch == ':')
-	{
-        line_indent = get_line_indentation (editor, currentline) + INDENT_SIZE;
-	}
-	else
-	{
-		gint line = currentline;
-		while (is_spaces_only(editor, line) && line >= 0)
-			line--;
-		line_indent = get_line_indentation (editor, line);
-	}
-
-	return line_indent;
-}
-
-static gboolean
-spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end)
-{
-	gboolean empty = TRUE;
-	gchar* idx;
-	gchar* text = ianjuta_editor_get_text (editor, begin, end, NULL);
-
-	if (text == NULL)
-		return TRUE;
-	
-
-	for (idx = text; *idx != '\0'; idx++)
-	{
-		if (!isspace(*idx))
-		{
-			empty = FALSE;
-			break;
-		}
-	}
-	g_free(text);
-	return empty;
-}
-
-static gint
-get_line_auto_indentation (PythonPlugin *plugin, IAnjutaEditor *editor,
-						   gint line, gint *line_indent_spaces)
-{
-	IAnjutaIterable *iter;
-	gint line_indent = 0;
-	gint incomplete_statement = -1;
-	gboolean colon_indent = FALSE;
-	
-	g_return_val_if_fail (line > 0, 0);
-
-	if (line == 1) /* First line */
-	{
-		return 0;
-	}
-	else
-	{
-		IAnjutaIterable* begin = ianjuta_editor_get_line_begin_position (editor, line -1 , NULL);
-		IAnjutaIterable* end = ianjuta_editor_get_line_end_position (editor, line -1 , NULL);
-
-		if (spaces_only (editor, begin, end))
-		{
-			set_line_indentation (editor, line -1, 0, 0);
-		}
-		g_object_unref (begin);
-		g_object_unref (end);
-	}
-	
-	iter = ianjuta_editor_get_line_begin_position (editor, line, NULL);
-
-/*	if (is_iter_inside_string (iter))
-	{
-		line_indent = get_line_indentation (editor, line - 1);
-	}
-	else
-	{*/
-		line_indent = get_line_indentation_base (plugin, editor, line,
-												 &incomplete_statement, 
-												 line_indent_spaces,
-												 &colon_indent);
-	/*}*/
-
-	/* Determine what the first non-white char in the line is */
-	do
-	{
-		gchar ch;
-		/* Check if we are *inside* comment or string. Begining of comment
-		 * or string does not count as inside. If inside, just align with
-		 * previous indentation.
-		 */
-		/*if (is_iter_inside_string (iter))
-		{
-			line_indent = get_line_indentation (editor, line - 1);
-			break;
-		}*/
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-										   0, NULL);
-		if (iter_is_newline (iter, ch))
-		{
-			skip_iter_to_newline_tail (iter, ch);
-			
-			/* First levels are excused from incomplete statement indent */
-			if (incomplete_statement == 1 && line_indent > 0)
-				line_indent += INDENT_SIZE;
-			break;
-		}
-		
-		else if (!isspace (ch))
-		{
-			/* First levels are excused from incomplete statement indent */
-			if (incomplete_statement == 1 && line_indent > 0)
-				line_indent += INDENT_SIZE;
-			break;
-		}
-
-	}
-	while (ianjuta_iterable_next (iter, NULL));
-	g_object_unref (iter);
-	
-	return line_indent;
-}
-
-static void
-on_editor_char_inserted_cpp (IAnjutaEditor *editor,
-							 IAnjutaIterable *insert_pos,
-							 gchar ch,
-							 PythonPlugin *plugin)
-{
-	IAnjutaIterable *iter;
-	gboolean should_auto_indent = FALSE;
-
-	iter = ianjuta_iterable_clone (insert_pos, NULL);
-
-	/* If autoindent is enabled*/
-	if (g_settings_get_boolean (plugin->settings, PREF_INDENT_AUTOMATIC))
-	{
-		if (iter_is_newline (iter, ch))
-		{
-			skip_iter_to_newline_head (iter, ch);
-			/* All newline entries means enable indenting */
-			should_auto_indent = TRUE;
-		}
-
-		if (should_auto_indent)
-		{
-			gint insert_line;
-			gint line_indent;
-			gint line_indent_spaces;
-		
-			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
-			initialize_indentation_params (plugin);
-			
-			insert_line = ianjuta_editor_get_lineno (editor, NULL);
-			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &line_indent_spaces);
-			set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
-			ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
-		}
-	}
-	
-
-	g_object_unref (iter);
-}
 
 static void
 on_check_finished (AnjutaLauncher* launcher,
@@ -956,8 +131,128 @@ check_support (PythonPlugin *python_plugin)
 		g_free (command);
 	}
 }
-	                                            
 
+/* Glade support */
+static gchar*
+language_support_check_param_name (const gchar* name,
+                                   GList** names)
+{
+	gint index = 0;
+	GString* real_name = g_string_new (name);
+	while (g_list_find_custom (*names, real_name->str, (GCompareFunc) strcmp))
+	{
+		g_string_free (real_name, TRUE);
+		real_name = g_string_new (name);
+		g_string_append_printf (real_name, "%d", ++index);
+	}
+	*names = g_list_append (*names, real_name->str);
+	return g_string_free (real_name, FALSE);
+}
+
+static const gchar*
+language_support_get_signal_parameter (const gchar* type_name, GList** names)
+{
+	const gchar* c;
+	const gchar* param_name = NULL;
+	GString* param_string;
+	gchar* real_name;
+	/* Search for the second upper character */
+	for (c = type_name + 1; *c != '\0'; c++)
+	{
+		if (g_ascii_isupper (*c))
+		{
+			param_name = c;
+			break;
+		}
+	}
+	if (param_name && strlen (param_name))
+	{
+		param_string = g_string_new (param_name);
+		g_string_down (param_string);
+	}
+	else
+	{
+		param_string = g_string_new ("arg");
+	}
+	real_name = language_support_check_param_name (g_string_free (param_string, FALSE), names);
+
+	return real_name;
+}
+
+static void
+on_glade_drop (IAnjutaEditor* editor,
+               IAnjutaIterable* iterator,
+               const gchar* signal_data,
+               PythonPlugin* lang_plugin)
+{
+	GSignalQuery query;
+	GType type;
+	guint id;
+	
+	const gchar* widget;
+	const gchar* signal;
+	const gchar* handler;
+	const gchar* user_data;
+	gboolean swapped;
+	GList* names = NULL;
+	GString* str = g_string_new (NULL);
+	int i;
+	IAnjutaIterable* start, * end;
+	
+	GStrv data = g_strsplit(signal_data, ":", 5);
+	
+	widget = data[0];
+	signal = data[1];
+	handler = data[2];
+	user_data = data[3];
+	swapped = g_str_equal (data[4], "1");
+	
+	type = g_type_from_name (widget);
+	id = g_signal_lookup (signal, type);
+
+	g_signal_query (id, &query);
+
+	g_string_append_printf (str, "\ndef %s (self", handler);
+	for (i = 0; i < query.n_params; i++)
+	{
+		const gchar* type_name = g_type_name (query.param_types[i]);
+		const gchar* param_name = language_support_get_signal_parameter (type_name,
+		                                                                 &names);
+
+		g_string_append_printf (str, ", %s", param_name);
+	}
+	g_string_append (str, "):\n");
+
+	ianjuta_editor_insert (editor, iterator,
+	                       str->str, -1, NULL);
+
+	/* Indent code correctly */
+	start = iterator;
+	end = ianjuta_iterable_clone (iterator, NULL);
+	ianjuta_iterable_set_position (end, 
+	                               ianjuta_iterable_get_position (iterator, NULL)
+	                           		+ g_utf8_strlen (str->str, -1),
+	                               NULL);
+	ianjuta_indenter_indent (IANJUTA_INDENTER (lang_plugin),
+	                         start, end, NULL);
+	g_object_unref (end);
+
+	g_string_free (str, TRUE);
+	anjuta_util_glist_strings_free (names);
+	
+	g_strfreev (data);
+}
+
+static void
+on_editor_char_inserted_python (IAnjutaEditor *editor,
+                                IAnjutaIterable *insert_pos,
+                                gchar ch,
+                                PythonPlugin *plugin)
+{
+	python_indent (plugin, editor, insert_pos, ch);
+}
+
+                         
 static void
 install_support (PythonPlugin *lang_plugin)
 {	
@@ -983,15 +278,12 @@ install_support (PythonPlugin *lang_plugin)
 		ianjuta_language_get_name_from_editor (lang_manager, 
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 	
-	DEBUG_PRINT("Language support installed for: %s",
-				lang_plugin->current_language);
-	
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Python")))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
-						  G_CALLBACK (on_editor_char_inserted_cpp),
+						  G_CALLBACK (on_editor_char_inserted_python),
 						  lang_plugin);
 	}
 	else
@@ -999,7 +291,7 @@ install_support (PythonPlugin *lang_plugin)
 		return;
 	}
 	
-	initialize_indentation_params (lang_plugin);
+	python_indent_init (lang_plugin);
 	/* Disable editor intern auto-indent */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
 								    FALSE, NULL);
@@ -1012,7 +304,6 @@ install_support (PythonPlugin *lang_plugin)
 
 		const gchar *project_root;
 		gchar *editor_filename;		
-		GValue value = {0,};
 
 		check_support (lang_plugin);
 		
@@ -1022,9 +313,7 @@ install_support (PythonPlugin *lang_plugin)
 		
 		g_assert (lang_plugin->assist == NULL);
 
-		anjuta_shell_get_value (ANJUTA_PLUGIN (lang_plugin)->shell,
-						IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
-		project_root = ANJUTA_PLUGIN_PYTHON(plugin)->project_root_directory; //g_value_get_string (&value);
+		project_root = ANJUTA_PLUGIN_PYTHON(plugin)->project_root_directory;
 		editor_filename = ANJUTA_PLUGIN_PYTHON(plugin)->current_editor_filename;
 
 		lang_plugin->assist = python_assist_new (iassist,
@@ -1034,7 +323,16 @@ install_support (PythonPlugin *lang_plugin)
 		                                         editor_filename,
 		                                         project_root);
 	}	
-		
+
+	if (IANJUTA_IS_EDITOR_GLADE_SIGNAL (lang_plugin->current_editor))
+	{
+		g_signal_connect (lang_plugin->current_editor,
+		                  "drop-possible", G_CALLBACK (gtk_true), NULL);
+		g_signal_connect (lang_plugin->current_editor,
+		                  "drop", G_CALLBACK (on_glade_drop),
+		                  lang_plugin);
+	}
+
 	lang_plugin->support_installed = TRUE;
 }
 
@@ -1048,7 +346,7 @@ uninstall_support (PythonPlugin *lang_plugin)
 		(g_str_equal (lang_plugin->current_language, "Python")))
 	{
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
-									G_CALLBACK (on_editor_char_inserted_cpp),
+									G_CALLBACK (on_editor_char_inserted_python),
 									lang_plugin);
 	}
 	
@@ -1057,7 +355,15 @@ uninstall_support (PythonPlugin *lang_plugin)
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
 	}
-	
+
+	if (IANJUTA_IS_EDITOR_GLADE_SIGNAL (lang_plugin->current_editor))
+	{
+		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+			                                  gtk_true, NULL);
+		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+			                                  on_glade_drop, lang_plugin);
+	}
+
 	lang_plugin->support_installed = FALSE;
 }
 
@@ -1071,12 +377,12 @@ on_editor_language_changed (IAnjutaEditor *editor,
 }
 
 static void
-on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
-							   const GValue *value, gpointer data)
+on_editor_added (AnjutaPlugin *plugin, const gchar *name,
+                 const GValue *value, gpointer data)
 {
 	PythonPlugin *lang_plugin;
 	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
-	lang_plugin = (PythonPlugin*) (plugin);
+	lang_plugin = ANJUTA_PLUGIN_PYTHON(plugin);
 
 	
 	if (IANJUTA_IS_EDITOR(doc))
@@ -1093,7 +399,7 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 		IAnjutaEditor* editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 		GFile* current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), 
 		                                                    NULL);
-
+		
 		if (current_editor_file)
 		{		
 			lang_plugin->current_editor_filename = g_file_get_path (current_editor_file);
@@ -1101,19 +407,19 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 		}
 		
 		install_support (lang_plugin);
+		g_signal_connect (lang_plugin->current_editor, "language-changed",
+		                  G_CALLBACK (on_editor_language_changed),
+		                  plugin);
 	}
-	
-	g_signal_connect (lang_plugin->current_editor, "language-changed",
-					  G_CALLBACK (on_editor_language_changed),
-					  plugin);
 }
 
 static void
-on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
-								 gpointer data)
+on_editor_removed (AnjutaPlugin *plugin, const gchar *name,
+                 gpointer data)
 {
 	PythonPlugin *lang_plugin;
-	lang_plugin = (PythonPlugin*) (plugin);
+	lang_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
+	
 	if (lang_plugin->current_editor)
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
@@ -1121,56 +427,19 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 
 	uninstall_support (lang_plugin);
 
+
 	g_free (lang_plugin->current_editor_filename);
 	lang_plugin->current_editor_filename = NULL;
 	lang_plugin->current_editor = NULL;
+	lang_plugin->current_language = NULL;
 }
 
 static void
 on_auto_indent (GtkAction *action, gpointer data)
-{
-	gint line_start, line_end;
-	gint insert_line;
-	gint line_indent;
-	gboolean has_selection;
-	
-	PythonPlugin *lang_plugin;
-	IAnjutaEditor *editor;
-	lang_plugin = (PythonPlugin*) (data);
-	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
-	
-	has_selection = ianjuta_editor_selection_has_selection
-						(IANJUTA_EDITOR_SELECTION (editor), NULL);
-	if (has_selection)
-	{
-		IAnjutaIterable *sel_start, *sel_end;
-		sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
-														NULL);
-		sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
-													NULL);
-		line_start = ianjuta_editor_get_line_from_position (editor, sel_start, NULL);
-		line_end = ianjuta_editor_get_line_from_position (editor, sel_end, NULL);
-		g_object_unref (sel_start);
-		g_object_unref (sel_end);
-	}
-	else
-	{
-		line_start = ianjuta_editor_get_lineno (IANJUTA_EDITOR(editor), NULL);
-		line_end = line_start;
-	}
-	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
-	initialize_indentation_params (lang_plugin);
-	
-	for (insert_line = line_start; insert_line <= line_end; insert_line++)
-	{
-		gint line_indent_spaces = 0;
-		line_indent = get_line_auto_indentation (lang_plugin, editor,
-												 insert_line,
-												 &line_indent_spaces);
-		/* DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent); */
-		set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
-	}
-	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
+{	
+	PythonPlugin *lang_plugin = ANJUTA_PLUGIN_PYTHON (data);
+
+	python_indent_auto (lang_plugin, NULL, NULL);
 }
 
 static GtkActionEntry actions[] = {
@@ -1188,25 +457,6 @@ static GtkActionEntry actions[] = {
 	}
 };
 
-static void
-register_stock_icons (AnjutaPlugin *plugin)
-{
-	static gboolean registered = FALSE;
-
-	if (registered)
-		return;
-	registered = TRUE;
-	
-	/* Register stock icons */
-	BEGIN_REGISTER_ICON (plugin);
-//	REGISTER_ICON_FULL (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
-//	REGISTER_ICON_FULL (ANJUTA_PIXMAP_COMPLETE, ANJUTA_STOCK_COMPLETE);	
-//	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
-//	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOINDENT, ANJUTA_STOCK_AUTOINDENT);
-	END_REGISTER_ICON;
-}
-
-// CODE from git PLUGIN
 static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name, 
 					   const GValue *value, gpointer user_data)
@@ -1249,12 +499,6 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 
 	python_plugin = (PythonPlugin*) plugin;
-
-	if (!initialized)
-	{
-		register_stock_icons (plugin);
-	}
-
 	
 	python_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
@@ -1282,8 +526,8 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	
 	python_plugin->editor_watch_id = anjuta_plugin_add_watch (plugin,
 														   IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-														   on_value_added_current_editor,
-														   on_value_removed_current_editor,
+														   on_editor_added,
+														   on_editor_removed,
 														   NULL);
 	return TRUE;
 }
@@ -1295,7 +539,6 @@ python_plugin_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	PythonPlugin *lang_plugin;
 	lang_plugin = (PythonPlugin*) (plugin);
-	DEBUG_PRINT ("%s", "PythonPlugin: Dectivating PythonPlugin plugin ...");
 
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->editor_watch_id,
@@ -1308,8 +551,6 @@ python_plugin_deactivate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_PYTHON(plugin)->action_group);
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_PYTHON(plugin)->uiid);
-	
-	DEBUG_PRINT ("%s", "PythonPlugin: Deactivated plugin.");
 	
 	return TRUE;
 }
@@ -1367,9 +608,8 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 {
 	/* Add preferences */
 	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
-	gchar *objects[] = {"python_preferences_dialog", NULL};
-	plugin->bxml = gtk_builder_new();
-	gtk_builder_add_objects_from_file(plugin->bxml, PROPERTIES_FILE_UI, objects, NULL);
+	plugin->bxml = gtk_builder_new ();
+	gtk_builder_add_from_file (plugin->bxml, PROPERTIES_FILE_UI, NULL);
 	anjuta_preferences_add_from_builder (prefs,
 	                                     plugin->bxml,
 	                                     plugin->settings,
@@ -1393,10 +633,27 @@ ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
-//ANJUTA_PLUGIN_BOILERPLATE (PythonPlugin, python_plugin);
+static void
+iindenter_indent (IAnjutaIndenter* indenter,
+                  IAnjutaIterable* start,
+                  IAnjutaIterable* end,
+                  GError** e)
+{
+	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (indenter);
+
+	python_indent_auto (plugin,
+	                    start, end);
+}
+
+static void
+iindenter_iface_init (IAnjutaIndenterIface* iface)
+{
+	iface->indent = iindenter_indent;
+}
 
 ANJUTA_PLUGIN_BEGIN (PythonPlugin, python_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_ADD_INTERFACE(iindenter, IANJUTA_TYPE_INDENTER);
 ANJUTA_PLUGIN_END;
 
 

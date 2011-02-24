@@ -1549,17 +1549,27 @@ sub write_makefile
 	$iface_sources .= "\\\n\t$s";
     }
     
-    my $iface_rules = "noinst_LTLIBRARIES = $module_name-interfaces.la\n";
-    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \$(MODULE_LIBS)\n";
-##    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
-    $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
-    $iface_rules .= "${module_name}_interfaces_includedir = \$(MODULE_INCLUDEDIR)\n";
-    $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n";
+    my $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
+    $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n\n";
+
+    my $gir_headers = "";
+    foreach my $h (@header_files)
+    {
+	$gir_headers .= "\\\n\tinterfaces/$h";
+    }
+    my $gir_sources = "";
+    foreach my $s (@source_files)
+    {
+	$gir_sources .= "\\\n\tinterfaces/$s";
+    }
     
-    my $contents = `cat Makefile.am.iface`;
-    $contents =~ s/\@\@IFACE_RULES\@\@/$iface_rules/;
-    my $filename = "Makefile.am";
-	write_file ($filename, $contents);
+    my $gir_rules .= "${module_name}_source_files = $gir_sources\n";
+    $gir_rules .= "${module_name}_header_files = $gir_headers\n\n";
+
+    my $filename = "Makefile.am.iface";
+	write_file ($filename, $iface_rules);
+	my $gir_filename = "Makefile.am.gir";
+	write_file ($gir_filename, $gir_rules);	
 }
 
 sub write_file

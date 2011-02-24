@@ -336,6 +336,8 @@ row_activated (GtkTreeView       *tree_view,
 	g_free (uri);
 }
 
+static void on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean complete, GError *error, GbfProjectView *view);
+
 static void
 dispose (GObject *object)
 {
@@ -350,6 +352,13 @@ dispose (GObject *object)
 	}
 	if (view->model)
 	{
+		AnjutaPmProject *old_project;
+
+		old_project = gbf_project_model_get_project (view->model);
+		if (old_project != NULL)
+		{
+			g_signal_handlers_disconnect_by_func (old_project, G_CALLBACK (on_node_loaded), view);
+		}
 		g_object_unref (G_OBJECT (view->model));
 		view->model = NULL;
 	}
@@ -1055,29 +1064,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		switch (anjuta_project_node_get_node_type (node->data))
-		{
-		case ANJUTA_PROJECT_GROUP:
-			gbf_project_model_add_target_group (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_TARGET:
-			gbf_project_model_add_target (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_SOURCE:
-			gbf_project_model_add_source (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_MODULE:
-			gbf_project_model_add_module (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_PACKAGE:
-			gbf_project_model_add_package (view->model, node->data, iter);
-			break;
-		case ANJUTA_PROJECT_ROOT:
-			gbf_project_model_add_root (view->model, node->data, iter);
-			break;
-		default:
-			break;
-		}
+		gbf_project_model_add_node (view->model, node->data, iter);
 	}
 
 	/* Expand parent, needed if the parent hasn't any children when it was created */
@@ -1106,6 +1093,19 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 
 /* Shorcuts functions
  *---------------------------------------------------------------------------*/
+
+void
+gbf_project_view_sort_shortcuts (GbfProjectView *view)
+{
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
+	                                      GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
+	                                      GTK_SORT_ASCENDING);
+	gbf_project_model_sort_shortcuts (view->model);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (view->model),
+	                                      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+	                                      GTK_SORT_ASCENDING);
+	
+}
 
 GList *
 gbf_project_view_get_shortcut_list (GbfProjectView *view)
@@ -1430,7 +1430,8 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 
 				if (!gbf_project_model_find_child_name (view->model, &iter, NULL, anjuta_project_node_get_name (node)))
 				{
-					gbf_project_model_add_root (view->model, node, &iter);
+					gbf_project_model_add_node (view->model, node, NULL);
+					gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
 				}
 				else
 				{
@@ -1457,7 +1458,7 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 				path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->model), &iter);
 				filter = GTK_TREE_MODEL_FILTER (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 				child_path = gtk_tree_model_filter_convert_child_path_to_path (filter, path);
-				gtk_tree_view_expand_row (GTK_TREE_VIEW (view), child_path, FALSE);
+				if (child_path != NULL) gtk_tree_view_expand_row (GTK_TREE_VIEW (view), child_path, FALSE);
 				gtk_tree_path_free (child_path);
 				gtk_tree_path_free (path);
 			}
@@ -1484,6 +1485,14 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 void 
 gbf_project_view_set_project (GbfProjectView *view, AnjutaPmProject *project)
 {
+	AnjutaPmProject *old_project;
+
+	old_project = gbf_project_model_get_project (view->model);
+	if (old_project != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (old_project, G_CALLBACK (on_node_loaded), view);
+	}
+
 	g_signal_connect (project, "loaded", G_CALLBACK (on_node_loaded), view);
 
 	gbf_project_model_set_project (view->model, project);

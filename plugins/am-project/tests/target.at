@@ -9,14 +9,16 @@ AT_DATA([empty/Makefile.am],
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty1
-        TARGET (0:0): target1
+[[    GROUP (): empty1
+        TARGET (): target1
             PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = target1
+
+bin_PROGRAMS = \
+	target1
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
@@ -31,16 +33,18 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty2
-        TARGET (0:0): target1
+[[    GROUP (): empty2
+        TARGET (): target1
             PROPERTY (Installation directory): bindir
-        TARGET (0:1): target2
+        TARGET (): target2
             PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = target1 \
+
+bin_PROGRAMS = \
+	target1 \
 	target2
 ]])
 AT_PARSER_CHECK([load empty1 \
@@ -56,14 +60,16 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty3
-        TARGET (0:0): target2
+[[    GROUP (): empty3
+        TARGET (): target2
             PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = target2
+
+bin_PROGRAMS = \
+	target2
 ]])
 AT_PARSER_CHECK([load empty2 \
 		 move empty3 \
@@ -78,12 +84,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty4
+[[    GROUP (): empty4
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS =
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
@@ -99,14 +104,16 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (0): empty5
-        TARGET (0:0): target1
+[[    GROUP (): empty5
+        TARGET (): target1
             PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
-bin_PROGRAMS = target1
+
+bin_PROGRAMS = \
+	target1
 ]])
 AT_PARSER_CHECK([load empty4 \
 		 move empty5 \
@@ -115,6 +122,72 @@ AT_PARSER_CHECK([load empty4 \
 		 save])
 AT_CHECK([diff -b empty5/Makefile.am reference])
 AT_PARSER_CHECK([load empty5 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty6
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            SOURCE (): source1
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+
+bin_PROGRAMS =  \
+	target1 \
+	target2
+
+target1_SOURCES =  \
+	source1
+]])
+AT_PARSER_CHECK([load empty5 \
+		 move empty6 \
+		 add source 0:0 source1 \
+		 add target 0 target2 prog \
+		 list \
+		 save])
+AT_CHECK([diff -b empty6/Makefile.am reference])
+AT_PARSER_CHECK([load empty6 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty7
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            SOURCE (): source1
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (C compiler flags): -g
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+
+bin_PROGRAMS =  \
+	target1 \
+	target2
+
+target1_SOURCES =  \
+	source1
+
+target2_CFLAGS = -g
+]])
+AT_PARSER_CHECK([load empty6 \
+		 move empty7 \
+		 set 0:1 ccflags '\-g' \
+		 list \
+		 save])
+AT_CHECK([diff -b empty7/Makefile.am reference])
+AT_PARSER_CHECK([load empty7 \
 		 list])
 AT_CHECK([diff -b output expect])
 

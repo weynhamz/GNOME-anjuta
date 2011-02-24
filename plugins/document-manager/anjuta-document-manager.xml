@@ -46,6 +46,8 @@
 						<placeholder name="PlaceholderQuickSearchMenu">
 							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
 							<menuitem name="QuickReSearch" action="ActionEditSearchQuickSearchAgain"/>
+							<menuitem name="QuickSearchPrevious" action="ActionEditSearchFindPrevious"/>							
+							<menuitem name="QuickReplace" action="ActionEditSearchReplace"/>
 							<separator name="separator8"/>
 						</placeholder>
 					</menu>
@@ -152,5 +154,33 @@
 			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
 		</menu>
 		<menuitem name="Close" action="ActionFileClose" />
+	</popup>
+	<popup name="PopupDocumentManager">
+		<menuitem name="Cut" action="ActionEditCut" />
+		<menuitem name="Copy" action="ActionEditCopy" />
+		<menuitem name="Paste" action="ActionEditPaste" />
+		<separator name="separator26"/>
+		<menu name="Goto" action="ActionMenuGoto">
+				<separator name="separator27"/>
+				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
+				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
+		</menu>
+		<menu name="MenuView" action="ActionMenuView">
+			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
+			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
+			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+			<separator name="separator28"/>
+			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
+		</menu>
+		<menuitem name="Close" action="ActionFileClose" />
+	</popup>
+	<popup name="SearchboxPopup">
+		<menuitem name="CaseCheck" action="ActionSearchboxPopupCaseCheck" />
+		<separator name="separator29"/>
+		<menuitem name="HighlightAll" action="ActionSearchboxPopupHighlightAll" />
+		<menuitem name="ClearHighlight" action="ActionSearchboxPopupClearHighlight" />
 	</popup>
 </ui>

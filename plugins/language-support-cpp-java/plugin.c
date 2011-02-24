@@ -38,12 +38,15 @@
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
+#include <libanjuta/interfaces/ianjuta-indenter.h>
 
 #include "plugin.h"
 #include "cpp-java-utils.h"
 #include "cpp-java-indentation.h"
 #include "cpp-packages.h"
+
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
@@ -64,6 +67,15 @@
 #define PREF_INDENT_MODELINE "cpp-indent-modeline"
 #define PREF_USER_PACKAGES "cpp-user-packages"
 #define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
+
+/* Callback generator defines */
+#define C_SEPARATOR "\n"
+#define C_BODY "\n{\n\n}\n"
+#define C_OFFSET 4
+
+#define CHDR_SEPARATOR " "
+#define CHDR_BODY ";\n"
+#define CHDR_OFFSET 1
 
 static gpointer parent_class;
 
@@ -426,82 +438,163 @@ language_support_get_signal_parameter (const gchar* type_name, GList** names)
 	return real_name;
 }
 
+static GString*
+language_support_generate_c_signature (const gchar* separator,
+									   const gchar* widget,
+									   GSignalQuery query,
+									   gboolean swapped,
+									   const gchar* handler)
+{
+	GList* names = NULL;
+	GString* str = g_string_new ("\n");
+	const gchar* widget_param = language_support_get_signal_parameter (widget,
+		                                                               &names);
+	int i;
+	g_string_append (str, g_type_name (query.return_type));
+	if (!swapped)
+		g_string_append_printf (str, "%s%s (%s *%s",
+									 separator, handler, widget, widget_param);
+	else
+		g_string_append_printf (str, "%s%s (gpointer user_data, %s *%s",
+									 separator, handler, widget, widget_param);
+
+	for (i = 0; i < query.n_params; i++)
+	{
+		const gchar* type_name = g_type_name (query.param_types[i]);
+		const gchar* param_name = language_support_get_signal_parameter (type_name,
+			                                                             &names);
+	
+		if (query.param_types[i] <= G_TYPE_DOUBLE)
+		{	                                                                
+			g_string_append_printf (str, ", %s %s", type_name, param_name);
+		}
+		else
+		{	                                                                
+			g_string_append_printf (str, ", %s *%s", type_name, param_name);
+		}
+	}
+	if (!swapped)
+		g_string_append (str, ", gpointer user_data)");
+	else
+		g_string_append (str, ")");
+
+	anjuta_util_glist_strings_free (names);
+
+	return str;
+}
+
+static void
+language_support_add_c_callback (IAnjutaEditor* editor,
+               					 IAnjutaIterable* position,
+				                 GStrv split_signal_data,
+								 const gchar* separator,
+								 const gchar* body,
+								 gint offset)
+{
+	GSignalQuery query;
+	
+	const gchar* widget = split_signal_data[0];
+	const gchar* signal = split_signal_data[1];
+	const gchar* handler = split_signal_data[2];
+	//const gchar* user_data = split_signal_data[3]; // Currently unused
+	gboolean swapped = g_str_equal (split_signal_data[4], "1");
+
+	GType type = g_type_from_name (widget);
+	guint id = g_signal_lookup (signal, type);
+
+	g_signal_query (id, &query);
+
+	GString* str = language_support_generate_c_signature (separator, widget, query, swapped, handler);
+
+	g_string_append (str, body);
+
+	ianjuta_editor_insert (editor, position,
+		                   str->str, -1, NULL);
+
+	g_string_free (str, TRUE);
+
+	/* Will now set the caret position offset */
+	ianjuta_editor_goto_line (editor,
+							  ianjuta_editor_get_line_from_position (
+											editor, position, NULL) + offset, NULL);
+}
+               
+static IAnjutaIterable *
+language_support_find_symbol (CppJavaPlugin* lang_plugin,
+							 const gchar* handler)
+{
+	IAnjutaSymbolManager *isymbol_manager = anjuta_shell_get_interface (
+										  ANJUTA_PLUGIN (lang_plugin)->shell,
+										  IAnjutaSymbolManager,
+										  NULL);
+
+	IAnjutaSymbolQuery *symbol_query = ianjuta_symbol_manager_create_query (
+										 isymbol_manager,
+                                     	 IANJUTA_SYMBOL_QUERY_SEARCH_FILE,
+                                     	 IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+                                     	 NULL);
+	IAnjutaSymbolField field = IANJUTA_SYMBOL_FIELD_FILE_POS;
+	ianjuta_symbol_query_set_fields (symbol_query, 1, &field, NULL);
+
+	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
+                                 		 NULL);
+
+	IAnjutaIterable *iter = ianjuta_symbol_query_search_file (symbol_query,
+                         				            		  handler, file, NULL);
+
+	return iter;
+}
+
 static void
 on_glade_drop (IAnjutaEditor* editor,
                IAnjutaIterable* iterator,
                const gchar* signal_data,
                CppJavaPlugin* lang_plugin)
 {
-	GSignalQuery query;
-	GType type;
-	guint id;
-	
-	const gchar* widget;
-	const gchar* signal;
-	const gchar* handler;
-	const gchar* user_data;
-	gboolean swapped;
+	GStrv split_signal_data = g_strsplit(signal_data, ":", 5);
+	char *handler = split_signal_data[2];
+	/**
+	 * Split signal data format:
+	 * widget = split_signaldata[0];
+	 * signal = split_signaldata[1];
+	 * handler = split_signaldata[2];
+	 * user_data = split_signaldata[3];
+	 * swapped = g_str_equal (split_signaldata[4], "1");
+	 */
 
-	GStrv data = g_strsplit(signal_data, ":", 5);
-	
-	widget = data[0];
-	signal = data[1];
-	handler = data[2];
-	user_data = data[3];
-	swapped = g_str_equal (data[4], "1");
-	
-	type = g_type_from_name (widget);
-	id = g_signal_lookup (signal, type);
-
-	g_signal_query (id, &query);
-	
-	switch (lang_plugin->filetype)
+	IAnjutaIterable *iter;
+	if ((iter = language_support_find_symbol (lang_plugin, handler)) == NULL)
 	{
-		case LS_FILE_C:
+		switch (lang_plugin->filetype)
 		{
-			GList* names = NULL;
-			GString* str = g_string_new ("\nstatic ");
-			const gchar* widget_param = language_support_get_signal_parameter (widget,
-			                                                                   &names);
-			int i;
-			g_string_append (str, g_type_name (query.return_type));
-			if (!swapped)
-				g_string_append_printf (str, "\n%s (%s *%s", handler, widget, widget_param);
-			else
-				g_string_append_printf (str, "\n%s (gpointer user_data, %s *%s", handler, widget, widget_param);				
-			for (i = 0; i < query.n_params; i++)
+			case LS_FILE_C:
 			{
-				const gchar* type_name = g_type_name (query.param_types[i]);
-				const gchar* param_name = language_support_get_signal_parameter (type_name,
-				                                                                 &names);
-				
-				if (query.param_types[i] <= G_TYPE_DOUBLE)
-				{	                                                                
-					g_string_append_printf (str, ", %s %s", type_name, param_name);
-				}
-				else
-				{	                                                                
-					g_string_append_printf (str, ", %s *%s", type_name, param_name);
-				}
+				language_support_add_c_callback (editor, iterator, split_signal_data,
+												 C_SEPARATOR,
+												 C_BODY,
+												 C_OFFSET);
+				break;
 			}
-			if (!swapped)
-				g_string_append (str, ", gpointer user_data)");
-			else
-				g_string_append (str, ")");
-
-			g_string_append (str, "\n{\n\n}\n");
-
-			ianjuta_editor_insert (editor, iterator,
-			                       str->str, -1, NULL);
-			g_string_free (str, TRUE);
-			anjuta_util_glist_strings_free (names);
-			break;
+			case LS_FILE_CHDR:
+			{
+				language_support_add_c_callback (editor, iterator, split_signal_data,
+												 CHDR_SEPARATOR,
+												 CHDR_BODY,
+												 CHDR_OFFSET);
+				break;
+			}
+			default:
+				break;
 		}
-		case LS_FILE_CHDR:
-		default:
-			break;
+	} else {
+		/* Symbol found, going there */
+		ianjuta_editor_goto_line (editor, ianjuta_symbol_get_int (
+															IANJUTA_SYMBOL (iter),
+															IANJUTA_SYMBOL_FIELD_FILE_POS,
+															NULL), NULL);		
+		g_object_unref (iter);
 	}
-	g_strfreev (data);
+	g_strfreev (split_signal_data);
 }
 
 /* Enable/Disable language-support */
@@ -790,7 +883,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 
-	cpp_auto_indentation (editor, lang_plugin);
+	cpp_auto_indentation (editor, lang_plugin, NULL, NULL);
 }
 
 /* Automatic comments */
@@ -1304,8 +1397,28 @@ ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
+static void
+iindenter_indent (IAnjutaIndenter* indenter,
+                  IAnjutaIterable* start,
+                  IAnjutaIterable* end,
+                  GError** e)
+{
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (indenter);
+
+	cpp_auto_indentation (IANJUTA_EDITOR (plugin->current_editor),
+	                      plugin,
+	                      start, end);
+}
+
+static void
+iindenter_iface_init (IAnjutaIndenterIface* iface)
+{
+	iface->indent = iindenter_indent;
+}
+
 ANJUTA_PLUGIN_BEGIN (CppJavaPlugin, cpp_java_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_ADD_INTERFACE(iindenter, IANJUTA_TYPE_INDENTER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (CppJavaPlugin, cpp_java_plugin);

@@ -31,24 +31,21 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 {
 	Git *plugin;
 	GtkEntry *name_entry;
-	GtkToggleButton *revision_radio;
-	GtkEntry *revision_entry;
+	AnjutaEntry *revision_entry;
 	GtkToggleButton *force_check;
 	GtkToggleButton *sign_check;
 	GtkToggleButton *annotate_check;
 	AnjutaColumnTextView *log_view;
 	gchar *name;
-	gchar *revision;
+	const gchar *revision;
 	gchar *log;
 	GitTagCreateCommand *create_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
 	                                                "name_entry"));
-	revision_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                            "revision_radio"));
-	revision_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                    "revision_entry"));
+	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                       "revision_entry"));
 	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                         "force_check"));
 	sign_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
@@ -58,7 +55,7 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                            "log_view"));
 	name = gtk_editable_get_chars (GTK_EDITABLE (name_entry), 0, -1);
-	revision = NULL;
+	revision = anjuta_entry_get_text (revision_entry);
 	log = NULL;
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
@@ -70,21 +67,8 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 		return;
 	}
 
-	if (gtk_toggle_button_get_active (revision_radio))
-	{
-		revision = gtk_editable_get_chars (GTK_EDITABLE (revision_entry), 0, 
-		                                   -1);
-
-		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-		                           GTK_WIDGET (revision_entry), revision,
-		                           _("Please enter a revision.")))
-		{
-			g_free (name);
-			g_free (revision);
-
-			return;
-		}
-	}
+	if (g_utf8_strlen (revision, -1) == 0)
+		revision = NULL;
 
 	if (gtk_toggle_button_get_active (annotate_check))
 	{
@@ -95,7 +79,6 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 		                           _("Please enter a log message.")))
 		{
 			g_free (name);
-			g_free (revision);
 			g_free (log);
 
 			return;
@@ -122,7 +105,6 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 
 
 	g_free (name);
-	g_free (revision);
 	g_free (log);
 
 	git_pane_remove_from_dock (GIT_PANE (self));
@@ -143,7 +125,6 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	GError *error = NULL;
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;
-	GtkWidget *revision_radio;
 	GtkWidget *revision_entry;
 	GtkWidget *annotate_check;
 	GtkWidget *log_view;
@@ -164,8 +145,6 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	                                                "ok_button"));
 	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
 	                                                    "cancel_button"));
-	revision_radio = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                     "revision_radio"));
 	revision_entry = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "revision_entry"));
 	annotate_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
@@ -180,10 +159,6 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
-
-	g_signal_connect (G_OBJECT (revision_radio), "toggled",
-	                  G_CALLBACK (set_widget_sensitive),
-	                  revision_entry);
 
 	g_signal_connect (G_OBJECT (annotate_check), "toggled",
 	                  G_CALLBACK (set_widget_sensitive),

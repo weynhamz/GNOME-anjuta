@@ -1,6 +1,5 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * cpp-java-indentation.h
+ * python-indentation.h
  *
  * Copyright (C) 2011 - Johannes Schmid
  *
@@ -18,22 +17,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef PYTHON_INDENTATION_H
+#define PYTHON_INDENTATION_H
+
 #include "plugin.h"
 
-void
-cpp_indentation (IAnjutaEditor *editor,
-                 IAnjutaIterable *insert_pos,
-                 gchar ch,
-                 CppJavaPlugin *plugin);
+#include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
-void
-cpp_auto_indentation (IAnjutaEditor *editor,
-                      CppJavaPlugin *plugin,
-                      IAnjutaIterable *start,
-                      IAnjutaIterable *end);
+void python_indent_init (PythonPlugin* lang_plugin);
 
-void
-java_indentation (IAnjutaEditor *editor,
-                  IAnjutaIterable *insert_pos,
-                  gchar ch,
-                  CppJavaPlugin *plugin);
+void python_indent (PythonPlugin* lang_plugin, 
+                    IAnjutaEditor* editor, 
+                    IAnjutaIterable* insert_pos,
+                    gchar ch);
+
+void python_indent_auto (PythonPlugin* lang_plugin,
+                         IAnjutaIterable* start,
+                         IAnjutaIterable* end);
+
+#endif

@@ -33,10 +33,12 @@
 
 static gchar* output_file = NULL;
 static FILE* output_stream = NULL;
+gboolean no_id = FALSE;
 
 static GOptionEntry entries[] =
 {
   { "output", 'o', 0, G_OPTION_ARG_FILENAME, &output_file, "Output file (default stdout)", "output_file" },
+  { "no-id", 0, 0, G_OPTION_ARG_NONE, &no_id, "Do not display node ID", "" },
   { NULL }
 };
 
@@ -144,7 +146,7 @@ list_source (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode
 	
 	file = anjuta_project_node_get_file (source);
 	rel_path = g_file_get_relative_path (anjuta_project_node_get_file (root), file);
-	print ("%*sSOURCE (%s): %s", indent * INDENT, "", path, rel_path);
+	print ("%*sSOURCE (%s): %s", indent * INDENT, "", no_id ? "" : path, rel_path);
 	
 	list_property (project, source, indent + 1);
 	
@@ -154,7 +156,7 @@ list_source (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode
 static void
 list_target (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode *target, gint indent, const gchar *path)
 {
-	print ("%*sTARGET (%s): %s", indent * INDENT, "", path, anjuta_project_node_get_name (target)); 
+	print ("%*sTARGET (%s): %s", indent * INDENT, "", no_id ? "" : path, anjuta_project_node_get_name (target)); 
 
 	list_property (project, target, indent + 1);
 
@@ -182,7 +184,7 @@ list_group (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode 
 		root = anjuta_project_node_get_file (parent);
 		rel_path = g_file_get_relative_path (root, anjuta_project_node_get_file (group));
 	}
-	print ("%*sGROUP (%s): %s", indent * INDENT, "", path, rel_path);
+	print ("%*sGROUP (%s): %s", indent * INDENT, "", no_id ? "" : path, rel_path);
 	g_free (rel_path);
 
 	list_property (project, group, indent + 1);
@@ -193,14 +195,14 @@ list_group (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode 
 static void
 list_package (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode *package, gint indent, const gchar *path)
 {
-	print ("%*sPACKAGE (%s): %s", indent * INDENT, "", path, anjuta_project_node_get_name (package)); 
+	print ("%*sPACKAGE (%s): %s", indent * INDENT, "", no_id ? "" : path, anjuta_project_node_get_name (package)); 
 	list_property (project, package, indent + 1);
 }
 
 static void
 list_module (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode *module, gint indent, const gchar *path)
 {
-	print ("%*sMODULE (%s): %s", indent * INDENT, "", path, anjuta_project_node_get_name (module));
+	print ("%*sMODULE (%s): %s", indent * INDENT, "", no_id ? "" : path, anjuta_project_node_get_name (module));
 
 	list_property (project, module, indent + 1);
 	
@@ -686,7 +688,9 @@ main(int argc, char *argv[])
 				item = get_project_property (project, node, command[2]);
 				if (item != NULL)
 				{
-					ianjuta_project_set_property (project, node, item, command[3], NULL);
+					gchar *value = g_shell_unquote (command[3], NULL);
+					ianjuta_project_set_property (project, node, item, value, NULL);
+					g_free (value);
 				}
 			}
 			command += 3;

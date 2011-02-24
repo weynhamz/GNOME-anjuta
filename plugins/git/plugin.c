@@ -86,7 +86,7 @@ AnjutaCommandBarEntry branch_entries[] =
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
 		"Switch",
-		N_("Switch to this branch"),
+		N_("Switch to the selected branch"),
 		N_("Switch to the selected branch"),
 		GTK_STOCK_JUMP_TO,
 		G_CALLBACK (on_switch_branch_button_clicked)

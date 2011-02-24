@@ -13,8 +13,8 @@ AT_DATA([include/module/target.am],
 bin_PROGRAMS = target1
 ]])
 AT_DATA([expect],
-[[    GROUP (0): include
-        TARGET (0:0): target1
+[[    GROUP (): include
+        TARGET (): target1
             PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load include \

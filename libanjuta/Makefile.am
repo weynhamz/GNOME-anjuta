@@ -1,5 +1,6 @@
+include interfaces/Makefile.am.gir
 
-SUBDIRS = interfaces 
+SUBDIRS = interfaces
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
@@ -118,7 +119,7 @@ libanjuta_3_la_SOURCES= \
 	anjuta-pkg-config.h \
 	anjuta-pkg-config.c \
 	anjuta-pkg-scanner.h \
-	anjuta-pkg-scanner.c \	
+	anjuta-pkg-scanner.c \
 	anjuta-column-text-view.h \
 	anjuta-column-text-view.c \
 	anjuta-file-drop-entry.h \
@@ -126,7 +127,7 @@ libanjuta_3_la_SOURCES= \
 	anjuta-entry.h \
 	anjuta-entry.c
 
-
+# Glade module
 if HAVE_PLUGIN_GLADE
 
 # For now install in our own prefix
@@ -148,6 +149,8 @@ catalogdir = $(datadir)/glade/catalogs
 catalog_DATA = anjuta-glade.xml
 
 endif
+
+# libanjuta
 
 libanjutaincludedir=$(includedir)/libanjuta-3.0/libanjuta
 
@@ -193,14 +196,16 @@ libanjuta_include = \
 	anjuta-pkg-scanner.h \
 	anjuta-column-text-view.h \
 	anjuta-file-drop-entry.h \
-	anjuta-entry.h
-	anjuta-token.h
+	anjuta-entry.h \
+	anjuta-token.h \
+	anjuta-pkg-config-chooser.h
+
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
 	anjuta-enum-types.h \
 	anjuta-marshal.h
 
-BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
+BUILT_SOURCES = anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
 anjuta-marshal.h: anjuta-marshal.list
 	$(AM_V_GEN)@GLIB_GENMARSHAL@ \
@@ -262,7 +267,7 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 if HAVE_INTROSPECTION
 anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
-ianjuta_introspection_sources = $(srcdir)/interfaces/ianjuta-*.c $(srcdir)/interfaces/ianjuta-*.h
+ianjuta_introspection_sources = $(libanjuta_source_files) $(libanjuta_header_files)
 
 Anjuta-3.0.gir: libanjuta-3.la
 Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0

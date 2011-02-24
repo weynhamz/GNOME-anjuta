@@ -609,6 +609,8 @@ message_view_serialize (MessageView *view, AnjutaSerializer *serializer)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
 	
 	if (!anjuta_serializer_write_string (serializer, "label",
 										 view->privat->label))
@@ -649,6 +651,8 @@ message_view_deserialize (MessageView *view, AnjutaSerializer *serializer)
 {
 	GtkTreeModel *model;
 	gint messages, i;
+
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
 	
 	if (!anjuta_serializer_read_string (serializer, "label",
 										&view->privat->label, TRUE))
@@ -690,6 +694,8 @@ void message_view_next(MessageView* view)
 	GtkTreeModel *model;
 	GtkTreeSelection *select;
 
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+	
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
@@ -734,6 +740,8 @@ void message_view_previous(MessageView* view)
 	GtkTreeSelection *select;
 	GtkTreePath *path;
 
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+	
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
@@ -786,7 +794,10 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 	GtkTreeModel *model;
 	gboolean ok;
 
-	if (uri == NULL) return FALSE;
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+	
+	if (uri == NULL) 
+		return FALSE;
 
 	file = g_file_new_for_uri (uri);
 	os = G_OUTPUT_STREAM (
@@ -845,8 +856,10 @@ void message_view_save(MessageView* view)
 {
 	GtkWindow* parent;
 	gchar* uri;
-     
-       	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view)));	
+
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+
+	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view)));	
 
 	uri = ask_user_for_save_uri (parent);
 	if (uri)
@@ -865,6 +878,8 @@ void message_view_copy(MessageView* view)
 	GtkTreeModel *model;
 	GtkTreeSelection *select;
 
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+	
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
@@ -1241,17 +1256,23 @@ message_view_tree_view_filter (GtkTreeModel *model, GtkTreeIter  *iter,
 MessageViewFlags
 message_view_get_flags (MessageView* view)
 {
+	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), MESSAGE_VIEW_SHOW_NORMAL);
+
 	return view->privat->flags;
 }
 
 void message_view_set_flags (MessageView* view, MessageViewFlags flags)
 {
+	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
+	                  
 	view->privat->flags = flags;
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(view->privat->filter));
 }
 
 gint message_view_get_count (MessageView* view, MessageViewFlags flags)
 {
+	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), 0);
+	
 	switch (flags)
 	{
 		case MESSAGE_VIEW_SHOW_NORMAL:

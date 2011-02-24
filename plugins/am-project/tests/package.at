@@ -24,11 +24,11 @@ AT_PARSER_CHECK([load empty \
 		 add package 0 package1 \
 		 list \
 	 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty1/configure.ac reference.ac])
 AT_PARSER_CHECK([load empty1 \
 	 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -49,11 +49,11 @@ AT_PARSER_CHECK([load empty1 \
 	 add package 0 package2 after 0:0\
 	 list \
 	 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty2/configure.ac reference.ac])
 AT_PARSER_CHECK([load empty2 \
 	 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -72,11 +72,11 @@ AT_PARSER_CHECK([load empty2 \
 	 remove 0:0 \
 	 list \
 	 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty3/configure.ac reference.ac])
 AT_PARSER_CHECK([load empty3 \
 	 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -94,11 +94,11 @@ AT_PARSER_CHECK([load empty3 \
 	 remove 0:0 \
 	 list \
 	 save])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 AT_CHECK([diff -b empty4/configure.ac reference.ac])
 AT_PARSER_CHECK([load empty4 \
 	 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 

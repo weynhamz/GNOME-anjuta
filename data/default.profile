@@ -37,13 +37,6 @@
                  value="IAnjutaMessageManager"/>
     </plugin>
 -->
-    <plugin name="Search Plugin"
-            url="http://anjuta.org/plugins/"
-            mandatory="yes">
-		<require group="Anjuta Plugin"
-                 attribute="Location"
-                 value="anjuta-search:SearchPlugin"/>
-    </plugin>
     <plugin name="File Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">

@@ -33,6 +33,7 @@ AnjutaTokenStream *anjuta_token_stream_pop (AnjutaTokenStream *stream);
 
 AnjutaToken* anjuta_token_stream_get_root (AnjutaTokenStream *stream);
 GFile* anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream);
+GFile* anjuta_token_stream_get_current_file (AnjutaTokenStream *stream);
 
 AnjutaToken* anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length);
 gint anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_size);

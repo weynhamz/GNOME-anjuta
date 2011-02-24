@@ -88,10 +88,11 @@ typedef struct _AnjutaToken AnjutaToken;
 
 typedef void (*AnjutaTokenForeachFunc) (AnjutaToken *token, gpointer data);
 
+
 AnjutaToken *anjuta_token_new_string (AnjutaTokenType type, const gchar *value);
-AnjutaToken *anjuta_token_new_with_string (AnjutaTokenType type, gchar *value, gsize length);
+AnjutaToken *anjuta_token_new_string_len (AnjutaTokenType type, gchar *value, gsize length);
 AnjutaToken *anjuta_token_new_static (AnjutaTokenType type, const gchar *value);
-AnjutaToken *anjuta_token_new_fragment (gint type, const gchar *pos, gsize length);
+AnjutaToken *anjuta_token_new_static_len (gint type, const gchar *pos, gsize length);
 
 AnjutaToken* anjuta_token_free_children (AnjutaToken *token);
 AnjutaToken* anjuta_token_free (AnjutaToken *token);
@@ -101,9 +102,10 @@ gint anjuta_token_get_type (AnjutaToken *token);
 void anjuta_token_set_flags (AnjutaToken *token, gint flags);
 void anjuta_token_clear_flags (AnjutaToken *token, gint flags);
 gint anjuta_token_get_flags (AnjutaToken *token);
+void anjuta_token_set_string (AnjutaToken *token, const char *value, gsize length);
 const gchar *anjuta_token_get_string (AnjutaToken *token);
-void anjuta_token_set_string (AnjutaToken *token, const char *value, guint length);
-guint anjuta_token_get_length (AnjutaToken *token);
+void anjuta_token_set_length (AnjutaToken *token, gsize length);
+gsize anjuta_token_get_length (AnjutaToken *token);
 
 AnjutaToken *anjuta_token_next (AnjutaToken *token);
 AnjutaToken *anjuta_token_previous (AnjutaToken *token);

@@ -1,8 +1,18 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkWindow" id="python_preferences_dialog">
+    <property name="can_focus">False</property>
     <property name="title" translatable="yes">window1</property>
     <child>
       <object class="GtkNotebook" id="preferences">
@@ -11,31 +21,36 @@
         <child>
           <object class="GtkFrame" id="page2">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="border_width">5</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>
             <child>
               <object class="GtkVBox" id="vbox1111">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
-                  <object class="GtkTable" id="table15">
+                  <object class="GtkVBox" id="vbox3">
                     <property name="visible">True</property>
-                    <property name="border_width">10</property>
-                    <property name="n_rows">3</property>
-                    <property name="column_spacing">5</property>
-                    <property name="row_spacing">5</property>
+                    <property name="can_focus">False</property>
+                    <property name="spacing">5</property>
                     <child>
                       <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-indent-automatic">
                         <property name="label" translatable="yes">Enable smart indentation</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
+                        <property name="margin_left">10</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="y_options"></property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -44,17 +59,17 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
+                        <property name="margin_left">10</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
-                        <property name="y_options"></property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
                       </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -66,15 +81,18 @@
                 <child>
                   <object class="GtkFrame" id="frame48">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkAlignment" id="alignment5">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="left_padding">12</property>
                         <child>
                           <object class="GtkTable" id="table18">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="n_rows">2</property>
                             <property name="n_columns">2</property>
                             <property name="column_spacing">5</property>
@@ -83,6 +101,7 @@
                               <object class="GtkSpinButton" id="preferences_spin:int:0:1:python-indent-brace-size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adjustment2</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </object>
@@ -99,6 +118,7 @@
                               <object class="GtkSpinButton" id="preferences_spin:int:4:1:python-indent-statement-size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="adjustment">adjustment1</property>
                                 <property name="climb_rate">1</property>
                                 <property name="numeric">True</property>
                               </object>
@@ -112,6 +132,7 @@
                             <child>
                               <object class="GtkLabel" id="label12353">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Brace indentation size in spaces:</property>
                               </object>
@@ -124,6 +145,7 @@
                             <child>
                               <object class="GtkLabel" id="label123">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Statement indentation size in spaces:</property>
                               </object>
@@ -138,15 +160,17 @@
                     <child type="label">
                       <object class="GtkLabel" id="label12355">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Indentation parameters</property>
                         <attributes>
-                          <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                          <attribute name="weight" value="bold"/>
                         </attributes>
                       </object>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -155,9 +179,10 @@
             <child type="label">
               <object class="GtkLabel" id="label12321">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Smart Indentation</property>
                 <attributes>
-                  <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                  <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
             </child>
@@ -166,6 +191,7 @@
         <child type="tab">
           <object class="GtkLabel" id="label12351">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="label" translatable="yes">Smart Indentation</property>
           </object>
           <packing>
@@ -175,9 +201,11 @@
         <child>
           <object class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
               <object class="GtkFrame" id="frame45">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="border_width">5</property>
                 <property name="label_xalign">0</property>
                 <property name="label_yalign">0</property>
@@ -185,25 +213,8 @@
                 <child>
                   <object class="GtkVBox" id="vbox1118">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="spacing">5</property>
-                    <child>
-                      <object class="GtkHBox" id="hbox1122">
-                        <property name="visible">True</property>
-                        <property name="border_width">5</property>
-                        <property name="spacing">5</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
                     <child>
                       <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-enable">
                         <property name="label" translatable="yes">Enable code completion</property>
@@ -211,11 +222,15 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="border_width">5</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="position">1</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -225,11 +240,15 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="border_width">5</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="position">2</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -239,26 +258,28 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="border_width">5</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="position">3</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
                       </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                 </child>
                 <child type="label">
                   <object class="GtkLabel" id="label12334">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="xalign">0</property>
                     <property name="yalign">0</property>
                     <property name="label" translatable="yes">Autocompletion</property>
                     <attributes>
-                      <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                      <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
                 </child>
@@ -272,6 +293,7 @@
             <child>
               <object class="GtkFrame" id="frame1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="border_width">5</property>
                 <property name="label_xalign">0</property>
                 <property name="label_yalign">0</property>
@@ -279,9 +301,11 @@
                 <child>
                   <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkHBox" id="hbox1">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-calltip-enable">
                             <property name="label" translatable="yes">Show calltips</property>
@@ -289,10 +313,13 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="border_width">5</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
@@ -303,9 +330,10 @@
                 <child type="label">
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Calltips</property>
                     <attributes>
-                      <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                      <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
                 </child>
@@ -324,6 +352,7 @@
         <child type="tab">
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="label" translatable="yes">Autocomplete</property>
           </object>
           <packing>
@@ -334,26 +363,30 @@
         <child>
           <object class="GtkFrame" id="page1">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="border_width">5</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>
             <child>
               <object class="GtkVBox" id="vbox2">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkTable" id="table1">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="border_width">10</property>
-                    <property name="n_rows">3</property>
                     <property name="column_spacing">5</property>
                     <property name="row_spacing">5</property>
                     <child>
                       <object class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <object class="GtkLabel" id="label8">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Path: </property>
                           </object>
                           <packing>
@@ -366,19 +399,15 @@
                           <object class="GtkEntry" id="preferences_entry:text:/usr/bin/python:1:python-interpreter-path">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="invisible_char">●</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
                       </object>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                   <packing>
@@ -387,37 +416,15 @@
                     <property name="position">0</property>
                   </packing>
                 </child>
-                <child>
-                  <object class="GtkFrame" id="frame2">
-                    <property name="visible">True</property>
-                    <property name="label_xalign">0</property>
-                    <property name="shadow_type">none</property>
-                    <child>
-                      <object class="GtkAlignment" id="alignment2">
-                        <property name="visible">True</property>
-                        <property name="left_padding">12</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="label_item">
-                      <placeholder/>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
               </object>
             </child>
             <child type="label">
               <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Interpreter</property>
                 <attributes>
-                  <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
+                  <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
             </child>
@@ -429,37 +436,12 @@
         <child type="tab">
           <object class="GtkLabel" id="label5">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="label" translatable="yes">Environment</property>
           </object>
           <packing>
             <property name="position">2</property>
             <property name="tab_fill">False</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="window1">
-    <property name="title" translatable="yes">window1</property>
-    <child>
-      <object class="GtkHBox" id="top_widget">
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow1">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
-            <property name="shadow_type">in</property>
-            <child>
-              <object class="GtkTextView" id="textview1">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="position">0</property>
           </packing>
         </child>
       </object>

@@ -761,7 +761,6 @@ sourceview_instance_init(Sourceview* sv)
 					 G_CALLBACK(on_backspace),sv);
 
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
-	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 
 	/* Apply Preferences */
 	sourceview_prefs_init(sv);

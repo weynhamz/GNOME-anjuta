@@ -21,6 +21,7 @@
 
 #include "anjuta-debug.h" 
 #include "anjuta-marshal.h"
+#include "anjuta-enum-types.h"
 
 #include <string.h>
 
@@ -80,7 +81,9 @@ anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
 	prop->type = type;
 	prop->value = g_strdup (value);
 	prop->native = native;
+	prop->flags = native->flags;
 	prop->detail = native->detail;
+	
 	return prop;
 }
 
@@ -703,6 +706,7 @@ anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	if (property->name == NULL) property->name = native->name;
 	property->type = native->type;
 	property->native = native;
+	property->flags = native->flags;
 	property->detail = native->detail;
 
 	/* Get properties list */
@@ -728,7 +732,15 @@ anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	{
 		removed = (AnjutaProjectProperty *)found->data;
 		node->custom_properties = g_list_delete_link (node->custom_properties, found);
+		/* If name is not owned by the property, remove it as the
+		 * property can be associated with another one, having a
+		 * different name */
+		if ((removed->native != NULL) && (removed->name == removed->native->name))
+		{
+			removed->name = NULL;
+		}
 	}
+
 
 	return removed;
 }
@@ -830,7 +842,8 @@ enum {
 	PROP_FILE,
 	PROP_STATE,
 	PROP_TYPE,
-	PROP_DATA
+	PROP_NATIVE_PROPERTIES,
+	PROP_CUSTOM_PROPERTIES
 };
 
 
@@ -887,26 +900,76 @@ anjuta_project_node_finalize (GObject *object)
 
 static void 
 anjuta_project_node_get_gobject_property (GObject    *object,
-	      guint       prop_id,
-	      GValue     *value,
-	      GParamSpec *pspec)
+                                          guint       prop_id,
+                                          GValue     *value,
+                                          GParamSpec *pspec)
 {
-	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+	switch (prop_id) {
+		case PROP_NAME:
+			g_value_set_string (value, anjuta_project_node_get_name (node));
+			break;
+		case PROP_FILE:
+			g_value_set_object (value, node->file);
+			break;
+		case PROP_STATE:
+			g_value_set_flags (value, anjuta_project_node_get_state (node));
+			break;
+		case PROP_TYPE:
+			g_value_set_flags (value, anjuta_project_node_get_node_type (node));
+			break;
+		case PROP_NATIVE_PROPERTIES:
+			g_value_set_pointer (value, node->native_properties);
+			break;
+		case PROP_CUSTOM_PROPERTIES:
+			g_value_set_pointer (value, node->custom_properties);
+			break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
 }
 
 static void 
 anjuta_project_node_set_gobject_property (GObject      *object,
-	      guint         prop_id,
-	      const GValue *value,
-	      GParamSpec   *pspec)
+                                          guint         prop_id,
+                                          const GValue *value,
+                                          GParamSpec   *pspec)
 {
-	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
+	switch (prop_id) {
+		case PROP_NAME:
+			if (node->name != NULL)
+				g_free (node->name);
+			node->name = g_value_dup_string (value);
+			break;
+		case PROP_FILE:
+			if (node->file != NULL)
+				g_object_unref (node->file);
+			node->file = g_value_dup_object (value);
+			break;
+		case PROP_STATE:
+			anjuta_project_node_set_state (node, g_value_get_flags (value));
+			break;
+		case PROP_TYPE:
+			node->type = g_value_get_flags (value);
+			break;
+		case PROP_NATIVE_PROPERTIES:
+			node->native_properties = g_value_get_pointer (value);
+			break;
+		/* XXX: We may need to copy this instead */
+		case PROP_CUSTOM_PROPERTIES:
+			node->custom_properties = g_value_get_pointer (value);
+			break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
 }
 
 static void
 anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+	GParamSpec* pspec;
 	
 	object_class->finalize = anjuta_project_node_finalize;
 	object_class->dispose = anjuta_project_node_dispose;
@@ -948,42 +1011,64 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 	    G_TYPE_POINTER,
 		G_TYPE_ERROR);
 
-	g_object_class_install_property 
-                (G_OBJECT_CLASS (klass), PROP_TYPE,
-                 g_param_spec_pointer ("type", 
-                                       "Type",
-                                       "Node type",
-                                       G_PARAM_READWRITE));
+	pspec = g_param_spec_flags ("type",
+	                            "Type",
+	                            "Node type",
+	                            ANJUTA_TYPE_PROJECT_NODE_TYPE,
+	                            0,
+	                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_TYPE,
+	                                 pspec);
 
-	g_object_class_install_property 
-                (G_OBJECT_CLASS (klass), PROP_STATE,
-                 g_param_spec_pointer ("state", 
-                                       "Stroject",
-                                       "GbfProject Object",
-                                       G_PARAM_READWRITE));
+	pspec = g_param_spec_flags ("state",
+	                            "State",
+	                            "Node state",
+	                            ANJUTA_TYPE_PROJECT_NODE_STATE,
+	                            0,
+	                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_STATE,
+	                                 pspec);
 
-	g_object_class_install_property 
-                (G_OBJECT_CLASS (klass), PROP_DATA,
-                 g_param_spec_pointer ("project", 
-                                       "Project",
-                                       "GbfProject Object",
-                                       G_PARAM_READWRITE));
+	pspec = g_param_spec_string ("name",
+	                             "Name",
+	                             "Node name",
+	                             "",
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_NAME,
+	                                 pspec);
 
-	g_object_class_install_property 
-                (G_OBJECT_CLASS (klass), PROP_NAME,
-                 g_param_spec_string ("name", 
-                                      "Name",
-                                      "GbfProject Object",
-				       "",
-                                       G_PARAM_READWRITE));
+	pspec = g_param_spec_object ("file",
+	                             "File",
+	                             "The GFile for the node",
+	                             G_TYPE_FILE,
+	                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_FILE,
+	                                 pspec);
 
-	g_object_class_install_property 
-                (G_OBJECT_CLASS (klass), PROP_FILE,
-                 g_param_spec_object ("file", 
-                                       "PDroject",
-                                       "GbfProject Object",
-				       G_TYPE_FILE,
-                                       G_PARAM_READWRITE));
+/**
+ * AnjutaProjectNode:native-properties:
+ *
+ * type: GLib.List<Anjuta.ProjectProperty>
+ * Transfer: none
+ */
+	pspec = g_param_spec_pointer ("native-properties",
+	                              "Native properties",
+	                              "The list of all possible properties",
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_NATIVE_PROPERTIES,
+	                                 pspec);
+/**
+ * AnjutaProjectNode:custom-properties:
+ *
+ * Type: GLib.List<Anjuta.ProjectProperty>
+ * Transfer: none
+ */
+	pspec = g_param_spec_pointer ("custom-properties",
+	                              "Custom properties",
+	                              "The list of overriden properties",
+	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_CUSTOM_PROPERTIES,
+	                                 pspec);
 
 }
 

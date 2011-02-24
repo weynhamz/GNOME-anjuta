@@ -120,15 +120,77 @@ OTHER       [^ \t\r\v\n#\[\]\\(),=><$_A-Za-z_]+
 
 dnl                     { RETURN (DNL); }
 
-PKG_CHECK_MODULES\(     { RETURN (PKG_CHECK_MODULES); }
+AC_ARG_ENABLE\(			{ RETURN (AC_ARG_ENABLE);}
+
+AC_C_CONST				{ RETURN (AC_C_CONST);}
+
+AC_CHECK_FUNCS\(		{ RETURN (AC_CHECK_FUNCS);}
+
+AC_CHECK_HEADERS\(		{ RETURN (AC_CHECK_HEADERS);}
+
+AC_CHECK_LIB\(			{ RETURN (AC_CHECK_LIB);}
+
+AC_CHECK_PROG\(			{ RETURN (AC_CHECK_PROG);}
+
+AC_CONFIG_FILES\(       { RETURN (AC_CONFIG_FILES); }
+
+AC_CONFIG_HEADERS\(		{ RETURN (AC_CONFIG_HEADERS); }
+
+AC_CONFIG_MACRO_DIR\(   { RETURN (AC_CONFIG_MACRO_DIR); }
+
+AC_CONFIG_SRCDIR\(		{ RETURN (AC_CONFIG_SRCDIR); }
+
+AC_EGREP_HEADER\(		{ RETURN (AC_EGREP_HEADER); }
+
+AC_EXEEXT				{ RETURN (AC_EXEEXT); }
+
+AC_HEADER_STDC			{ RETURN (AC_HEADER_STDC); }
+
+AC_INIT\(               { RETURN (AC_INIT); }
+ 
+AC_OBJEXT				{ RETURN (AC_OBJEXT); }
 
 AC_OUTPUT\(             { RETURN (OBSOLETE_AC_OUTPUT); }
  
 AC_OUTPUT               { RETURN (AC_OUTPUT); }
 
-AC_INIT\(               { RETURN (AC_INIT); }
- 
-AC_CONFIG_FILES\(       { RETURN (AC_CONFIG_FILES); }
+AC_PREREQ\(				{ RETURN (AC_PREREQ); }
+
+AC_PROG_CC				{ RETURN (AC_PROG_CC);}
+
+AC_PROG_CPP				{ RETURN (AC_PROG_CPP);}
+
+AC_PROG_CXX				{ RETURN (AC_PROG_CXX);}
+
+IT_PROG_INTLTOOL\(		{ RETURN (IT_PROG_INTLTOOL);}
+                  
+AC_PROG_LEX				{ RETURN (AC_PROG_LEX);}
+                  
+AC_PROG_RANLIB			{ RETURN (AC_PROG_RANLIB);}
+                  
+AC_PROG_YACC			{ RETURN (AC_PROG_YACC);}	
+                  
+AC_SUBST\(				{ RETURN (AC_SUBST);}
+          
+AC_TYPE_SIZE_T			{ RETURN (AC_TYPE_SIZE_T);}
+          
+AC_TYPE_OFF_T			{ RETURN (AC_TYPE_OFF_T);}
+          
+AM_INIT_AUTOMAKE\(		{ RETURN (AM_INIT_AUTOMAKE);}
+                  
+AM_GLIB_GNU_GETTEXT\(   { RETURN (AM_GLIB_GNU_GETTEXT);}
+                     
+AM_MAINTAINER_MODE		{ RETURN (AM_MAINTAINER_MODE);}
+                     
+AM_PROG_LIBTOOL			{ RETURN (AM_PROG_LIBTOOL);}
+                     
+LT_INIT\(				{ RETURN (LT_INIT);}	
+         
+LT_PREREQ\(				{ RETURN (LT_PREREQ);}
+
+PKG_CHECK_MODULES\(     { RETURN (PKG_CHECK_MODULES); }
+
+PKG_PROG_PKG_CONFIG\(	{ RETURN (PKG_PROG_PKG_CONFIG);}	   
 
 {NAME}                  { RETURN (NAME); }
 
@@ -141,6 +203,8 @@ AC_CONFIG_FILES\(       { RETURN (AC_CONFIG_FILES); }
 <SPACE_LIST>{
 
 {WSNL}                    { RETURN (SPACE); }
+
+\\\n                    { RETURN (SPACE); }
 
 =|<|>|<=|>=             { RETURN (OPERATOR); }
 

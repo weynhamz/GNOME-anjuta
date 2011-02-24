@@ -53,7 +53,7 @@ AnjutaToken *anjuta_token_replace_nth_word (AnjutaToken *list, guint n, AnjutaTo
 AnjutaToken *anjuta_token_insert_word_before (AnjutaToken *list, AnjutaToken *sibling, AnjutaToken *baby);
 AnjutaToken *anjuta_token_insert_word_after (AnjutaToken *list, AnjutaToken *sibling, AnjutaToken *baby);
 AnjutaToken *anjuta_token_remove_word (AnjutaToken *token);
-AnjutaToken *anjuta_token_remove_list (AnjutaToken *name);
+AnjutaToken *anjuta_token_remove_list (AnjutaToken *token);
 
 AnjutaToken *anjuta_token_insert_token_list (gboolean after, AnjutaToken *list,...);
 AnjutaToken *anjuta_token_find_type (AnjutaToken *list, gint flags, AnjutaTokenType* types);

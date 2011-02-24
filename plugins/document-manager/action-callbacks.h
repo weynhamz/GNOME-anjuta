@@ -94,6 +94,12 @@ void on_editor_remove_view_activate (GtkAction *action, gpointer user_data);
 
 void on_show_search (GtkAction *action, gpointer user_data);
 void on_repeat_quicksearch (GtkAction *action, gpointer user_data);
+void on_search_previous (GtkAction *action, gpointer user_data);
+void on_search_and_replace (GtkAction *action, gpointer user_data);
+
+void on_search_popup_case_sensitive_toggle (GtkAction *action, gpointer user_data);
+void on_search_popup_highlight_toggle (GtkAction *action, gpointer user_data);
+void on_search_popup_clear_highlight (GtkAction *action, gpointer user_data);
 
 void on_next_document (GtkAction *action, gpointer user_data);
 void on_previous_document (GtkAction *action, gpointer user_data);

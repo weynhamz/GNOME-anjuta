@@ -8,7 +8,7 @@ AT_DATA([empty/Makefile.am],
 ]])
 AT_DATA([expect],
 [[PROPERTY (Name): empty
-    GROUP (0): empty
+    GROUP (): empty
 ]])
 AT_PARSER_CHECK([load empty \
 		 set : name empty \
@@ -23,7 +23,7 @@ AT_CHECK([diff -b output expect])
 
 AT_DATA([expect],
 [[PROPERTY (Name): empty2
-    GROUP (0): empty
+    GROUP (): empty
 ]])
 AT_PARSER_CHECK([load empty \
 		 set : name empty2 \
@@ -39,7 +39,7 @@ AT_CHECK([diff -b output expect])
 AT_DATA([expect],
 [[PROPERTY (Name): empty2
 PROPERTY (Version): 0.1
-    GROUP (0): empty
+    GROUP (): empty
 ]])
 AT_PARSER_CHECK([load empty \
 		 set : version 0.1 \
@@ -56,7 +56,7 @@ AT_DATA([expect],
 [[PROPERTY (Name): empty2
 PROPERTY (Version): 0.1
 PROPERTY (Package name): empty3
-    GROUP (0): empty
+    GROUP (): empty
 ]])
 AT_PARSER_CHECK([load empty \
 		 set : pack empty3 \
@@ -79,7 +79,7 @@ AT_DATA([simple/Makefile.am],
 ]])
 AT_DATA([expect],
 [[PROPERTY (Name): simple
-    GROUP (0): simple
+    GROUP (): simple
 ]])
 AT_PARSER_CHECK([load simple \
 		list])
@@ -101,7 +101,7 @@ AT_DATA([expect],
 [[PROPERTY (Name): rygel
 PROPERTY (Version): m4_esyscmd(GNOME_TAG_PATTERN=RYGEL build-aux/git-version-gen .tarball-version)
 PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=Rygel
-    GROUP (0): rygel
+    GROUP (): rygel
 ]])
 AT_PARSER_CHECK([load rygel \
 		list])

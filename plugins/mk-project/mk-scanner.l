@@ -208,7 +208,7 @@ mkp_scanner_parse_variable (MkpScanner *scanner, AnjutaToken *variable)
     anjuta_token_stream_append_token (scanner->stream, content);
 
     group = mkp_project_get_variable_token (scanner->project, variable);
-    fprintf(stdout, "get variable %s is %p\n", anjuta_token_evaluate (variable), group);
+    //fprintf(stdout, "get variable %s is %p\n", anjuta_token_evaluate (variable), group);
     if (group != NULL)
     {
         //AnjutaToken *token;
@@ -217,8 +217,8 @@ mkp_scanner_parse_variable (MkpScanner *scanner, AnjutaToken *variable)
         //token = anjuta_token_group_into_token (group);
         //anjuta_token_set_type (token, ANJUTA_TOKEN_CONTENT);
         //anjuta_token_dump (token);
-        fprintf (stdout,"variable %s\n", anjuta_token_get_string (variable));
-        anjuta_token_dump (group);
+        //fprintf (stdout,"variable %s\n", anjuta_token_get_string (variable));
+        //anjuta_token_dump (group);
         mkp_scanner_parse_token (scanner, group, NULL);
         //anjuta_token_free (token);
     }

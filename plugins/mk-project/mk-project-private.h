@@ -36,36 +36,29 @@ struct _MkpProperty {
 };
 
 struct _MkpProject {
-	GObject         parent;
+	AnjutaProjectNode	parent;
 
 	/* uri of the project; this can be a full uri, even though we
 	 * can only work with native local files */
-	GFile			*root_file;
-
-	/* project data */
-	AnjutaTokenFile		*make_file;		/* make file */
-
-	MkpProperty			*property;
-	
-	MkpGroup              *root_node;         	/* tree containing project data;
-								 * each GNode's data is a
-								 * AmpNode, and the root of
-								 * the tree is the root group. */
+	GFile				*root_file;
 
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
-	GHashTable		*groups;
-	GHashTable		*files;
-	GHashTable		*variables;
+	GHashTable			*groups;
+	GHashTable			*files;
+	GHashTable			*variables;
 
-	GHashTable		*rules;
-	GHashTable		*suffix;
-	
+	GHashTable			*rules;
+	GHashTable			*suffix;
+
 	/* project files monitors */
-	GHashTable         *monitors;
+	GHashTable			*monitors;
+
+	/* Number of not loaded node */
+	gint				loading;
 
 	/* Keep list style */
-	AnjutaTokenStyle *space_list;
-	AnjutaTokenStyle *arg_list;
+	AnjutaTokenStyle	*space_list;
+	AnjutaTokenStyle	*arg_list;
 };
 
 struct _MkpRule {
@@ -79,10 +72,10 @@ struct _MkpRule {
 
 gchar *mkp_project_token_evaluate (MkpProject *project, AnjutaToken *token);
 
-MkpTarget* mkp_target_new (const gchar *name, AnjutaProjectNodeType type);
+AnjutaProjectNode* mkp_target_new (const gchar *name, AnjutaProjectNodeType type);
 void mkp_target_free (MkpTarget *node);
-void mkp_target_add_token (MkpGroup *node, AnjutaToken *token);
-MkpSource* mkp_source_new (GFile *file);
+void mkp_target_add_token (MkpTarget *node, AnjutaToken *token);
+AnjutaProjectNode* mkp_source_new (GFile *file);
 
 G_END_DECLS
 

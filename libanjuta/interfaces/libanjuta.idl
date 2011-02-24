@@ -6444,3 +6444,35 @@ typedef gint Id;
 	   */
 	   GList* get_languages ();
 }
+
+/**
+ * SECTION:ianjuta-indenter
+ * @title: IAnjutaIndenter
+ * @short_description: Interface for automatic indentation
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-indenter.h
+ * 
+ */
+
+interface IAnjutaIndenter
+{
+  #include <libanjuta/interfaces/ianjuta-iterable.h>
+
+	/**
+	 * ianjuta_indenter_indent
+	 * @obj: Self
+	 * @start: Start of the area to indent
+	 * @end: End of the area to indent
+	 * @error: Error propagation
+	 *
+	 * Indent the area between @start and @end according to the indentation rules
+	 * of the programming language. Usually implemented by language support plugins.
+	 * Only one indenter can be loaded at a time.
+	 * Note: Indenters always affect full lines, so start and end will be moved
+	 * according to the next line start/end.
+	 */
+	 void indent (IAnjutaIterable* start, IAnjutaIterable* end);
+}
+
+

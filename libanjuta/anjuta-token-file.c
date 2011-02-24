@@ -117,7 +117,7 @@ anjuta_token_file_load (AnjutaTokenFile *file, GError **error)
 	{
 		AnjutaToken *token;
 			
-		token =	anjuta_token_new_with_string (ANJUTA_TOKEN_FILE, content, length);
+		token =	anjuta_token_new_string_len (ANJUTA_TOKEN_FILE, content, length);
 		anjuta_token_prepend_child (file->save, token);
 		
 		token =	anjuta_token_new_static (ANJUTA_TOKEN_FILE, content);
@@ -332,7 +332,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 		AnjutaToken *start = NULL;
 		
 		value = g_new (gchar, added);
-		add = anjuta_token_prepend_child (file->save, anjuta_token_new_with_string (ANJUTA_TOKEN_NAME, value, added));
+		add = anjuta_token_prepend_child (file->save, anjuta_token_new_string_len (ANJUTA_TOKEN_NAME, value, added));
 		
 		/* Find token position */
 		if (prev != NULL)
@@ -342,7 +342,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 		}
 
 		/* Insert token */
-		add = anjuta_token_new_fragment (ANJUTA_TOKEN_NAME, value, added);
+		add = anjuta_token_new_static_len (ANJUTA_TOKEN_NAME, value, added);
 		if (start == NULL)
 		{
 			anjuta_token_prepend_child (file->content, add);
@@ -375,6 +375,58 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	
 	return TRUE;
 }
+
+/**
+ * anjuta_token_file_get_token_position:
+ * @file: #AnjutaTokenFile object
+ * @token: token
+ *
+ * Returns the position of the token in the file. This position is a number
+ * which doesn't correspond to a line number or a character but respect the
+ * order of token in the file.
+ *
+ * Returns: The position of the token or 0 if the token is not in the file.
+ */
+gsize
+anjuta_token_file_get_token_position (AnjutaTokenFile *file, AnjutaToken *token)
+{
+	AnjutaToken *content;
+	const gchar *string;
+	gsize pos = 1;
+	
+
+	do
+	{
+		string = anjuta_token_get_string (token); 
+		if (string != NULL) break;
+
+		/* token is a group or an empty token, looks for group members or
+		 * following token */
+		token = anjuta_token_next_after_children (token);
+	} while (token != NULL);
+
+	for (content = file->content; content != NULL; content = anjuta_token_next (content))
+	{
+		const gchar *start;
+		gsize len;
+
+		start = anjuta_token_get_string (content); 
+		len = anjuta_token_get_length (content);
+
+		if ((string >= start) && ((string - start) < len))
+		{
+			pos += string - start;
+			break;
+		}
+		else
+		{
+			pos += len;
+		}
+	}
+
+	return content == NULL ? 0 : pos;
+}
+
 
 gboolean
 anjuta_token_file_get_token_location (AnjutaTokenFile *file, AnjutaTokenFileLocation *location, AnjutaToken *token)

@@ -63,6 +63,8 @@ struct _AnjutaPmProject
 	guint incomplete_node;
 
 	gboolean loaded;
+
+	gint node_capabilities;
 	
 	/* project properties dialog */
 	GtkWidget *properties_dialog;

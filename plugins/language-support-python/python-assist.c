@@ -798,8 +798,8 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	}
 	
 	/* Check if we actually want autocompletion at all */
-	if (!g_settings_get_string (assist->priv->settings,
-	                            PREF_AUTOCOMPLETE_ENABLE))
+	if (!g_settings_get_boolean (assist->priv->settings,
+	                             PREF_AUTOCOMPLETE_ENABLE))
 	{
 		python_assist_none (self, assist);
 		return;

@@ -314,7 +314,8 @@ anjuta_session_set_string_list (AnjutaSession *session,
 	node = value;
 	while (node)
 	{
-		if (node->data && strlen (node->data) > 0)
+		/* Keep empty string */
+		if (node->data != NULL)
 		{
 			if (first_item)
 				first_item = FALSE;
@@ -440,8 +441,8 @@ anjuta_session_get_string_list (AnjutaSession *session,
 			ptr = str;
 			while (*ptr)
 			{
-				if (strlen (*ptr) > 0)
-					value = g_list_prepend (value, g_strdup (*ptr));
+				/* Keep empty string */
+				value = g_list_prepend (value, g_strdup (*ptr));
 				ptr++;
 			}
 			g_strfreev (str);

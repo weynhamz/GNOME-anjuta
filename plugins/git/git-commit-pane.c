@@ -30,7 +30,7 @@ static void
 on_amend_check_toggled (GtkToggleButton *button, GitCommitPane *self)
 {
 	Git *plugin;
-	GtkTextView *log_view;
+	AnjutaColumnTextView *log_view;
 	GtkTextBuffer *log_text_buffer;
 	gchar *commit_message_path;
 	GIOChannel *io_channel;
@@ -38,9 +38,12 @@ on_amend_check_toggled (GtkToggleButton *button, GitCommitPane *self)
 	GtkTextIter end_iter;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                  "log_view"));
-	log_text_buffer = gtk_text_view_get_buffer (log_view);
+	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                            "log_view"));
+	log_text_buffer = anjuta_column_text_view_get_buffer (log_view);
+
+	/* Make sure to clear any pre-existing text */
+	gtk_text_buffer_set_text (log_text_buffer, "", 0);
 
 	if (gtk_toggle_button_get_active (button))
 	{
@@ -72,8 +75,6 @@ on_amend_check_toggled (GtkToggleButton *button, GitCommitPane *self)
 		g_free (commit_message_path);
 		g_io_channel_unref (io_channel);
 	}
-	else
-		gtk_text_buffer_set_text (log_text_buffer, "", 0);
 }
 
 static void
@@ -93,7 +94,7 @@ static void
 on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 {
 	Git *plugin;
-	GtkTextView *log_view;
+	AnjutaColumnTextView *log_view;
 	GtkToggleButton *amend_check;
 	GtkToggleButton *failed_merge_check;
 	GtkToggleButton *use_custom_author_info_check;
@@ -106,15 +107,15 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 	GitCommitCommand *commit_command;
 	
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE(self)));
-	log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                  "log_view"));
+	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                            "log_view"));
 	amend_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                         "amend_check"));
 	failed_merge_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                "failed_merge_check"));
 	use_custom_author_info_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                          "use_custom_author_info_check"));
-	log = git_pane_get_log_from_text_view (log_view);
+	log = anjuta_column_text_view_get_text (log_view);
 	author_name = NULL;
 	author_email = NULL;
 
@@ -197,9 +198,6 @@ git_commit_pane_init (GitCommitPane *self)
 	gchar *objects[] = {"commit_pane",
 						NULL};
 	GError *error = NULL;
-	GtkTextView *log_view;
-	GtkTextBuffer *log_text_buffer;
-	GtkLabel *column_label;
 	GtkWidget *amend_check;
 	GtkWidget *use_custom_author_info_check;
 	GtkWidget *ok_button;
@@ -216,11 +214,6 @@ git_commit_pane_init (GitCommitPane *self)
 		g_error_free (error);
 	}
 
-	log_view = GTK_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                  "log_view"));
-	log_text_buffer = gtk_text_view_get_buffer (log_view);
-	column_label = GTK_LABEL (gtk_builder_get_object (self->priv->builder,
-	                                                  "column_label"));
 	amend_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                  "amend_check"));
 	use_custom_author_info_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
@@ -233,10 +226,6 @@ git_commit_pane_init (GitCommitPane *self)
 	g_signal_connect (G_OBJECT (amend_check), "toggled",
 	                  G_CALLBACK (on_amend_check_toggled),
 	                  self);
-
-	g_signal_connect (G_OBJECT (log_text_buffer), "mark-set",
-	                  G_CALLBACK (git_pane_set_log_view_column_label),
-	                  column_label);
 
 	g_signal_connect (G_OBJECT (use_custom_author_info_check), "toggled",
 	                  G_CALLBACK (on_use_custom_author_info_check_toggled),

@@ -41,89 +41,171 @@
 static gpointer parent_class;
 
 static gboolean
-project_import_generate_file (AnjutaProjectImportPlugin* import_plugin, ProjectImportDialog *import_dialog,
+project_import_generate_file (AnjutaPluginDescription *backend, ProjectImportDialog *import_dialog,
                               GFile *project_file)
 {
 	/* Of course we could do some more intelligent stuff here
-	and check which plugins are really needed but for now we just
-	take a default project file. */
+	 * and check which plugins are really needed */
 	
-	GFile* source_file;
-	
-	if (!strcmp (import_plugin->backend_id, "automake"))
-		source_file = g_file_new_for_path (AM_PROJECT_FILE);
-	else if (!strcmp (import_plugin->backend_id, "make"))
-		source_file = g_file_new_for_path (MKFILE_PROJECT_FILE);
-	else if (!strcmp (import_plugin->backend_id, "directory"))
-		source_file = g_file_new_for_path (DIRECTORY_PROJECT_FILE);
-	else
-	{
-		/* We shouldn't get here, unless someone has upgraded their GBF */
-		/* but not Anjuta.                                              */
-		
-		/* show the dialog since it may be hidden */
-		gtk_widget_show (GTK_WIDGET (import_dialog));
-
-		anjuta_util_dialog_error (GTK_WINDOW (import_dialog),
-		                          _("Generation of project file failed. Cannot "
-		                            "find an appropriate project template to "
-		                            "use. Please make sure your version of "
-		                            "Anjuta is up-to-date."));
-		return FALSE;
-	}
-	
+	GFile* source_file = NULL;
+	gchar *backend_id = NULL;
 	GError* error = NULL;
 
-	if (!g_file_copy (source_file, project_file, 
-			G_FILE_COPY_NONE,
-			NULL,
-			NULL,
-			NULL,
-			&error))
+	if (!anjuta_plugin_description_get_string (backend, "Project", "Supported-Project-Types", &backend_id))
 	{
-		if (error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
+		if (!strcmp (backend_id, "automake"))
+			source_file = g_file_new_for_path (AM_PROJECT_FILE);
+		else if (!strcmp (backend_id, "make"))
+			source_file = g_file_new_for_path (MKFILE_PROJECT_FILE);
+		else if (!strcmp (backend_id, "directory"))
+			source_file = g_file_new_for_path (DIRECTORY_PROJECT_FILE);
+	}
+	g_free (backend_id);
+	
+	if (source_file != NULL)
+	{
+		/* Use a default project file */
+		if (!g_file_copy (source_file, project_file, 
+				G_FILE_COPY_NONE,
+				NULL,
+				NULL,
+				NULL,
+				&error))
 		{
-			gchar *prjfile = g_file_get_parse_name (project_file);
-			if (anjuta_util_dialog_boolean_question (GTK_WINDOW (ANJUTA_PLUGIN(import_plugin)->shell),
-					_("A file named \"%s\" already exists. "
-					  "Do you want to replace it?"), prjfile))
+			if (error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
 			{
-				g_error_free (error);
-				error = NULL;
-				g_file_copy (source_file, project_file,
-						G_FILE_COPY_OVERWRITE,
-						NULL,
-						NULL,
-						NULL,
-						&error);
+				gchar *prjfile = g_file_get_parse_name (project_file);
+				if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog),
+						_("A file named \"%s\" already exists. "
+						  "Do you want to replace it?"), prjfile))
+				{
+					g_error_free (error);
+					error = NULL;
+					g_file_copy (source_file, project_file,
+							G_FILE_COPY_OVERWRITE,
+							NULL,
+							NULL,
+							NULL,
+							&error);
+				}
+				g_free (prjfile);
 			}
-			g_free (prjfile);
+		}
+
+		if (!error)
+		{
+			time_t ctime = time(NULL);
+			GFileInfo* file_info = g_file_info_new();
+			g_file_info_set_attribute_uint64(file_info, 
+					"time::modified",
+					ctime);
+			g_file_info_set_attribute_uint64(file_info, 
+					"time::created",
+					ctime);
+			g_file_info_set_attribute_uint64(file_info, 
+					"time::access",
+					ctime);
+			g_file_set_attributes_from_info (project_file, 
+					file_info,
+					G_FILE_QUERY_INFO_NONE,
+					NULL, NULL);
+
+			g_object_unref (G_OBJECT(file_info));;
 		}
 	}
+	else
+	{
+		/* For unknown project backend we use the directory project file and
+		 * replace the backend plugin with the right one */
 
+		gchar *content;
+		gsize length;
+
+		source_file = g_file_new_for_path (DIRECTORY_PROJECT_FILE);
+		if (g_file_load_contents (source_file, NULL, &content, &length, NULL, &error))
+		{
+			GString *buffer;
+			const gchar *pos;
+			const gchar *plugin;
+			const gchar *end_plugin;
+			gssize len;
+
+			buffer = g_string_new_len (content, length);
+			pos = buffer->str;
+			len = buffer->len;
+			for (;;)
+			{
+				plugin = g_strstr_len (pos, len, "<plugin ");
+				if (plugin == NULL) break;
+				
+				end_plugin = g_strstr_len (plugin, len - (plugin - pos), "</plugin>");
+				if (end_plugin == NULL) break;
+				
+				if (g_strstr_len (plugin, end_plugin - plugin, "\"IAnjutaProjectBackend\"") != NULL) break;
+
+				pos = end_plugin + 9;
+				len -= (end_plugin + 9 - pos);
+			}
+
+			if ((plugin == NULL) || (end_plugin == NULL))
+			{
+				g_set_error (&error, ianjuta_project_backend_error_quark(),0, "Unable to find backend plugin");
+			}
+			else
+			{
+				/* Replace directory backend with right one */
+				GString *str;
+				GFileOutputStream *stream;
+				gchar *name = NULL;
+				gchar *plugin_id = NULL;
+
+				anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Name", &name);
+				anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &plugin_id);
+
+				str = g_string_new (NULL);
+				g_string_printf (str, "<plugin name= \"%s\"\n"
+				                 "            mandatory=\"yes\">\n"
+				             	 "         <require group=\"Anjuta Plugin\"\n"
+				                 "                  attribute=\"Location\"\n"
+				                 "                  value=\"%s\"/>\n"
+				                 "    ", name, plugin_id);
+					
+				g_string_erase (buffer, plugin - buffer->str, end_plugin - plugin);
+				g_string_insert_len (buffer, plugin - buffer->str, str->str, str->len);
+
+				g_string_free (str, TRUE);
+
+				stream = g_file_create (project_file, G_FILE_CREATE_NONE, NULL, &error);
+				if (stream == NULL && error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
+				{
+					gchar *prjfile = g_file_get_parse_name (project_file);
+					if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog),
+							_("A file named \"%s\" already exists. "
+							  "Do you want to replace it?"), prjfile))
+					{
+						g_error_free (error);
+						error = NULL;
+						stream = g_file_replace (project_file, NULL, FALSE, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &error);
+					}
+					g_free (prjfile);
+				}
+					
+				if (stream != NULL)
+				{
+					gsize written;
+					
+					g_output_stream_write_all (G_OUTPUT_STREAM (stream), buffer->str, buffer->len, &written, NULL, &error);
+					g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+				}
+			}
+
+			g_string_free (buffer, TRUE);
+			g_free (content);
+		}
+	}
 	g_object_unref (source_file);
 
-	if (!error)
-	{
-		time_t ctime = time(NULL);
-		GFileInfo* file_info = g_file_info_new();
-		g_file_info_set_attribute_uint64(file_info, 
-				"time::modified",
-				ctime);
-		g_file_info_set_attribute_uint64(file_info, 
-				"time::created",
-				ctime);
-		g_file_info_set_attribute_uint64(file_info, 
-				"time::access",
-				ctime);
-		g_file_set_attributes_from_info (project_file, 
-				file_info,
-				G_FILE_QUERY_INFO_NONE,
-				NULL, NULL);
-
-		g_object_unref (G_OBJECT(file_info));;
-	}
-	else
+	if (error)
 	{
 		gchar *prjfile;
 
@@ -136,8 +218,8 @@ project_import_generate_file (AnjutaProjectImportPlugin* import_plugin, ProjectI
 				_("A file named \"%s\" cannot be written: %s. "
 				  "Check if you have write access to the project directory."),
 				  prjfile, error->message);
-
 		g_free (prjfile);
+		g_error_free (error);
 		
 		return FALSE;
 
@@ -227,10 +309,6 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 		return FALSE;
 	}
 
-	if (!anjuta_plugin_description_get_string (backend, "Project", "Supported-Project-Types", &import_plugin->backend_id))
-	{
-		import_plugin->backend_id = g_strdup ("unknown");
-	}
 
 	name = project_import_dialog_get_name (import_dialog);
 	project_file_name = g_strconcat (name, ".", "anjuta", NULL);
@@ -241,7 +319,7 @@ project_import_import_project (AnjutaProjectImportPlugin *import_plugin, Project
 	
 	IAnjutaFileLoader* loader;
 	
-	if (!project_import_generate_file (import_plugin, import_dialog, project_file))
+	if (!project_import_generate_file (backend, import_dialog, project_file))
 	{
 		g_object_unref (project_file);
 		return FALSE;
@@ -423,9 +501,6 @@ finalize (GObject *obj)
 {
 	AnjutaProjectImportPlugin *import_plugin = (AnjutaProjectImportPlugin *)obj;
 
-	if (import_plugin->backend_id)
-		g_free (import_plugin->backend_id);
-	
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 

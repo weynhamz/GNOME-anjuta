@@ -4,6 +4,8 @@
 namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class AsyncCommand : Anjuta.Command {
+		[CCode (has_construct_function = false)]
+		protected AsyncCommand ();
 		public static string get_error_message (Anjuta.Command command);
 		public void @lock ();
 		public static void set_error_message (Anjuta.Command command, string error_message);
@@ -51,6 +53,8 @@ namespace Anjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class Command : GLib.Object {
+		[CCode (has_construct_function = false)]
+		protected Command ();
 		public virtual void cancel ();
 		public virtual string get_error_message ();
 		public bool is_running ();
@@ -95,6 +99,8 @@ namespace Anjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class DockPane : GLib.Object {
+		[CCode (has_construct_function = false)]
+		protected DockPane ();
 		public void notify_multiple_selection_changed ();
 		public void notify_single_selection_changed ();
 		public virtual void refresh ();
@@ -111,6 +117,8 @@ namespace Anjuta {
 	[Compact]
 	[CCode (copy_function = "g_boxed_copy", free_function = "g_boxed_free", type_id = "anjuta_encoding_get_type ()", cheader_filename = "libanjuta/libanjuta.h")]
 	public class Encoding {
+		[CCode (has_construct_function = false)]
+		protected Encoding ();
 		public Anjuta.Encoding copy ();
 		public void free ();
 		public unowned string get_charset ();
@@ -148,6 +156,8 @@ namespace Anjuta {
 		public void set_relative_path (string path);
 		[NoAccessorMethod]
 		public string relative_path { owned get; set; }
+		[NoAccessorMethod]
+		public bool show_add_button { get; set; }
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class GluePlugin : GLib.TypeModule {
@@ -184,6 +194,8 @@ namespace Anjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class Plugin : GLib.Object {
+		[CCode (has_construct_function = false)]
+		protected Plugin ();
 		public virtual bool activate ();
 		public uint add_watch (string name, [CCode (delegate_target_pos = 3.1)] Anjuta.PluginValueAdded added, [CCode (delegate_target_pos = 3.1)] Anjuta.PluginValueRemoved removed);
 		public virtual bool deactivate ();
@@ -320,11 +332,11 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class ProjectNode : GLib.InitiallyUnowned {
 		public weak Anjuta.ProjectNode children;
-		public weak GLib.List<weak void*> custom_properties;
-		public weak GLib.List<weak void*> native_properties;
 		public weak Anjuta.ProjectNode next;
 		public weak Anjuta.ProjectNode parent;
 		public weak Anjuta.ProjectNode prev;
+		[CCode (has_construct_function = false)]
+		protected ProjectNode ();
 		public void check ();
 		public bool clear_state (Anjuta.ProjectNodeState state);
 		public void dump ();
@@ -340,13 +352,15 @@ namespace Anjuta {
 		public Anjuta.ProjectProperty remove_property (Anjuta.ProjectProperty property);
 		public bool set_state (Anjuta.ProjectNodeState state);
 		[NoAccessorMethod]
+		public GLib.List<weak Anjuta.ProjectProperty> custom_properties { owned get; set; }
+		[NoAccessorMethod]
 		public GLib.File file { owned get; set; }
 		public string name { get; set; }
 		[NoAccessorMethod]
-		public void* project { get; set; }
-		public void* state { get; set; }
+		public GLib.List<weak Anjuta.ProjectProperty> native_properties { owned get; set; }
+		public Anjuta.ProjectNodeState state { get; set; }
 		[NoAccessorMethod]
-		public void* type { get; set; }
+		public Anjuta.ProjectNodeType type { get; set; }
 		public virtual signal void loaded (void* object, GLib.Error p0);
 		public virtual signal void updated (void* object, GLib.Error p0);
 	}
@@ -356,6 +370,8 @@ namespace Anjuta {
 		public weak string mime_type;
 		public weak string name;
 		public Anjuta.ProjectNodeType type;
+		[CCode (has_construct_function = false)]
+		public ProjectNodeInfo (Anjuta.ProjectNodeType type, string name, string mime_type);
 		public Anjuta.ProjectNodeInfo copy ();
 		public void free ();
 		public unowned string mime ();
@@ -369,6 +385,8 @@ namespace Anjuta {
 		public weak Anjuta.ProjectProperty native;
 		public Anjuta.ProjectValueType type;
 		public weak string value;
+		[CCode (has_construct_function = false)]
+		public ProjectProperty (string name, Anjuta.ProjectValueType type, string value, Anjuta.ProjectProperty native);
 		public Anjuta.ProjectProperty copy ();
 		public void free ();
 	}
@@ -432,6 +450,8 @@ namespace Anjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class SyncCommand : Anjuta.Command {
+		[CCode (has_construct_function = false)]
+		protected SyncCommand ();
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class Tabber : Gtk.Container, Atk.Implementor, Gtk.Buildable {
@@ -1218,6 +1238,12 @@ namespace IAnjuta {
 		public static GLib.Quark error_quark ();
 		public abstract void open_all () throws GLib.Error;
 		public abstract void toggle_current () throws GLib.Error;
+	}
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public interface EditorGladeSignal : IAnjuta.Editor, GLib.Object {
+		public static GLib.Quark error_quark ();
+		public virtual signal void drop (GLib.Object iterator, string signal_data);
+		public virtual signal bool drop_possible (GLib.Object iterator);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorGoto : IAnjuta.Editor, GLib.Object {

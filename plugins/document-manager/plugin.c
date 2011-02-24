@@ -266,10 +266,32 @@ static GtkActionEntry actions_search[] = {
   { "ActionEditSearchQuickSearch", GTK_STOCK_FIND, N_("_Quick Search"),
 	"<control>f", N_("Quick editor embedded search"),
     G_CALLBACK (on_show_search)},
-  { "ActionEditSearchQuickSearchAgain", GTK_STOCK_FIND, N_("Quick _ReSearch"),
-	"<control><shift>f", N_("Repeat quick search"),
-    G_CALLBACK (on_repeat_quicksearch)}
+  { "ActionEditSearchQuickSearchAgain", GTK_STOCK_FIND, N_("Find _Next"),
+	"<control>g", N_("Search for next appearance of term."),
+    G_CALLBACK (on_repeat_quicksearch)},
+  { "ActionEditSearchReplace", GTK_STOCK_FIND, N_("Find and R_eplace…"),
+	"<control>h", N_("Search and replace"),
+    G_CALLBACK (on_search_and_replace)},
+  { "ActionEditSearchFindPrevious", GTK_STOCK_FIND, N_("Find _Previous"),
+	"<control><shift>g",
+	N_("Repeat the last Find command"),
+	G_CALLBACK (on_search_previous)},	
+  { "ActionSearchboxPopupClearHighlight", GTK_STOCK_FIND, N_("Clear Highlight"),
+	NULL, N_("Clear all highlighted text"),
+	G_CALLBACK (on_search_popup_clear_highlight)}
 };
+
+static GtkToggleActionEntry actions_searchbox_popup[] = {
+  { "ActionSearchboxPopupCaseCheck", GTK_STOCK_FIND, 
+    N_("Case Sensitive"), NULL, 
+    N_("Match case in search results."),
+	G_CALLBACK (on_search_popup_case_sensitive_toggle)},
+  { "ActionSearchboxPopupHighlightAll", GTK_STOCK_FIND, 
+    N_("Highlight All"), NULL, 
+    N_("Highlight all occurrences"),
+	G_CALLBACK (on_search_popup_highlight_toggle)}
+};
+
 
 static GtkActionEntry actions_edit[] = {
   { "ActionMenuEdit", NULL, N_("_Edit"), NULL, NULL, NULL},/* menu title */
@@ -315,6 +337,7 @@ static GtkActionEntry actions_edit[] = {
 	 N_("Auto-complete the current word"), G_CALLBACK (on_autocomplete_activate)
 	}
 };
+
 
 static GtkToggleActionEntry actions_view[] = {
   { "ActionViewEditorLinenumbers", NULL, N_("_Line Number Margin"), NULL,
@@ -423,7 +446,9 @@ static struct ActionGroupInfo action_groups[] = {
 };
 
 static struct ActionToggleGroupInfo action_toggle_groups[] = {
-	{ actions_view, G_N_ELEMENTS (actions_view), "ActionGroupEditorView", N_("Editor view settings") }
+	{ actions_view, G_N_ELEMENTS (actions_view), "ActionGroupEditorView", N_("Editor view settings") },
+	{ actions_searchbox_popup, G_N_ELEMENTS(actions_searchbox_popup), 
+	  "ActionGroupEditorSearchOptions", N_("Toggle search options")	}
 };
 
 // void pref_set_style_combo(DocmanPlugin *plugin);
@@ -845,9 +870,23 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
 								   "ActionEditSearchQuickSearchAgain");
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
+								   "ActionEditSearchFindPrevious");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorSearch",
+									"ActionEditSearchReplace");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
+								   "ActionSearchboxPopupClearHighlight");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
 								   "ActionEditGotoLine");	
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearchOptions",
+								   "ActionSearchboxPopupCaseCheck");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearchOptions",
+								   "ActionSearchboxPopupHighlightAll");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 
 	/* IAnjutaEditorAssist */
@@ -1765,9 +1804,9 @@ activate_plugin (AnjutaPlugin *plugin)
 											"/PopupDocumentManager");
 	g_assert (popup_menu != NULL && GTK_IS_MENU (popup_menu));
 	anjuta_docman_set_popup_menu (ANJUTA_DOCMAN (docman), popup_menu);
+
 	if (!initialized)
 	{
-		//search_and_replace_init (ANJUTA_DOCMAN (docman));
 	}
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",

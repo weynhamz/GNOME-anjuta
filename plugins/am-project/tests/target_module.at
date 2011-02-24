@@ -31,7 +31,7 @@ AT_PARSER_CHECK([load simple \
 		 save])
 AT_PARSER_CHECK([load simple1 \
 		 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -56,7 +56,7 @@ AT_PARSER_CHECK([load simple1 \
 		 save])
 AT_PARSER_CHECK([load simple2 \
 		 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -79,7 +79,7 @@ AT_PARSER_CHECK([load simple2 \
 		 save])
 AT_PARSER_CHECK([load simple3 \
 		 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 
@@ -99,7 +99,7 @@ AT_PARSER_CHECK([load simple3 \
 		 save])
 AT_PARSER_CHECK([load simple4 \
 		 list])
-AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - expect]])
+AT_CHECK([diff output expect])
 
 
 

@@ -11,6 +11,9 @@ starter_pixmaps_DATA = starter_logo.png
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-starter.la
 
+uidir = $(anjuta_glade_dir)
+ui_DATA = starter.ui
+
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
@@ -26,13 +29,13 @@ libanjuta_starter_la_LIBADD = \
 
 libanjuta_starter_la_SOURCES= \
 	plugin.c \
-	plugin.h \
-	starter.h \
-	starter.c
+	plugin.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(starter_plugin_DATA) \
-	$(starter_pixmaps_DATA) 
+	$(starter_pixmaps_DATA) \
+	$(ui_DATA)
 
 -include $(top_srcdir)/git.mk
+

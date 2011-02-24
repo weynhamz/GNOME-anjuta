@@ -93,8 +93,7 @@ static GtkActionEntry actions_goto[] = {
     G_CALLBACK (on_save_message)}
 };
 
-static void on_view_changed(AnjutaMsgman* msgman, GtkWidget* page,
-                            gint page_num, MessageViewPlugin* plugin)
+static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 {
 	MessageView* view = anjuta_msgman_get_current_view (msgman);
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
@@ -104,7 +103,7 @@ static void on_view_changed(AnjutaMsgman* msgman, GtkWidget* page,
 								   "ActionMessagePrev");
 	GtkAction* action_copy = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessageCopy");
-	gboolean sensitive = (anjuta_msgman_get_current_view(msgman) != NULL);
+	gboolean sensitive = (view != NULL);
 	if (sensitive)
 		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 GTK_WIDGET(msgman), NULL);
@@ -113,19 +112,19 @@ static void on_view_changed(AnjutaMsgman* msgman, GtkWidget* page,
 	g_object_set (G_OBJECT (action_copy), "sensitive", sensitive, NULL);
 
 	/* Toggle buttons */
-	gtk_widget_set_sensitive (plugin->normal, view != NULL);	
-	gtk_widget_set_sensitive (plugin->info, view != NULL);
-	gtk_widget_set_sensitive (plugin->warn, view != NULL);
-	gtk_widget_set_sensitive (plugin->error, view != NULL);
+	gtk_widget_set_sensitive (plugin->normal, sensitive);	
+	gtk_widget_set_sensitive (plugin->info, sensitive);
+	gtk_widget_set_sensitive (plugin->warn, sensitive);
+	gtk_widget_set_sensitive (plugin->error, sensitive);
 	if (view)
 	{
 		MessageViewFlags flags =
-			message_view_get_flags (view);
+						message_view_get_flags (view);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->normal), flags & MESSAGE_VIEW_SHOW_NORMAL);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->info), flags & MESSAGE_VIEW_SHOW_INFO);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->warn), flags & MESSAGE_VIEW_SHOW_WARNING);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(plugin->error), flags & MESSAGE_VIEW_SHOW_ERROR);
-	}	
+	}
 }
 
 static gpointer parent_class;
@@ -174,7 +173,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
 	mv_plugin->msgman = 
 		anjuta_msgman_new(popup);
-	g_signal_connect(mv_plugin->msgman, "switch-page", 
+	g_signal_connect(mv_plugin->msgman, "view-changed", 
 					 G_CALLBACK(on_view_changed), mv_plugin);
 	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessageNext");
@@ -303,6 +302,8 @@ on_filter_button_tooltip (GtkWidget* widget,
 	else
 		g_assert_not_reached ();
 
+	g_free (temp);
+
 	return TRUE;
 }
 
@@ -310,6 +311,7 @@ static void
 on_filter_buttons_toggled (GtkWidget* button, MessageViewPlugin *plugin)
 {
 	MessageViewFlags flags = 0;
+	MessageView* view = anjuta_msgman_get_current_view (ANJUTA_MSGMAN(plugin->msgman));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->normal)))
 		flags |= MESSAGE_VIEW_SHOW_NORMAL;
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->info)))
@@ -318,8 +320,9 @@ on_filter_buttons_toggled (GtkWidget* button, MessageViewPlugin *plugin)
 		flags |= MESSAGE_VIEW_SHOW_WARNING;
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(plugin->error)))
 		flags |= MESSAGE_VIEW_SHOW_ERROR;
-	message_view_set_flags (anjuta_msgman_get_current_view (ANJUTA_MSGMAN(plugin->msgman)),
-	                        flags);
+	if (view)
+		message_view_set_flags (view,
+		                        flags);
 }
 
 static GtkWidget*

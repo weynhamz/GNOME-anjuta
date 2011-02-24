@@ -46,6 +46,14 @@ struct _AnjutaMsgmanPage
 	GtkWidget *close_icon;
 };
 
+enum
+{
+	VIEW_CHANGED,
+	LAST_SIGNAL
+};
+
+guint msgman_signal[LAST_SIGNAL];
+
 typedef struct _AnjutaMsgmanPage AnjutaMsgmanPage;
 
 static void
@@ -227,13 +235,43 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 }
 
 static void
+anjuta_msgman_switch_page (GtkNotebook* notebook,
+                           GtkWidget* page,
+                           guint page_num)
+{
+	GTK_NOTEBOOK_CLASS (parent_class)->switch_page (notebook, page, page_num);
+
+	g_signal_emit_by_name (ANJUTA_MSGMAN (notebook),
+	                       "view-changed");
+}
+
+static void
 anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GtkNotebookClass *notebook_class = GTK_NOTEBOOK_CLASS (klass);
 	
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->finalize = anjuta_msgman_finalize;
 	gobject_class->dispose = anjuta_msgman_dispose;
+
+	notebook_class->switch_page = anjuta_msgman_switch_page;
+
+	/**
+	 * AnjutaMsgMan::view-changed:
+	 * @msgman: #AnjutaMsgMan
+	 * 
+	 * Emitted when the current view changes
+	 */
+
+	msgman_signal[VIEW_CHANGED] = g_signal_new ("view-changed",
+	                                            G_OBJECT_CLASS_TYPE (klass),
+	                                            G_SIGNAL_RUN_LAST,
+	                                            G_STRUCT_OFFSET (AnjutaMsgmanClass, view_changed),
+	                                            NULL, NULL,
+	                                            g_cclosure_marshal_VOID__VOID,
+	                                            G_TYPE_NONE, 
+	                                            0);
 }
 
 static void
@@ -318,6 +356,8 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	gtk_notebook_append_page (GTK_NOTEBOOK (msgman), mv, NULL);
 
+	g_signal_emit_by_name (msgman, "view-changed");
+
 	anjuta_tabber_add_tab (ANJUTA_TABBER(msgman->priv->tabber), page->box);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
@@ -342,17 +382,15 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 }
 
 void
-anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *passed_view)
+anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *view)
 {
-	MessageView *view;
-
-	view = passed_view;
 	if (!view)
 		view = anjuta_msgman_get_current_view (msgman);
 
 	g_return_if_fail (view != NULL);
 	gtk_widget_destroy (GTK_WIDGET (view));
-	anjuta_msgman_set_current_view(msgman, NULL);
+
+	g_signal_emit_by_name (msgman, "view-changed");
 }
 
 void
@@ -378,6 +416,8 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 	
 	g_list_free (msgman->priv->views);
 	g_list_free (views);
+
+	g_signal_emit_by_name (msgman, "view-changed");
 	
 	msgman->priv->views = NULL;
 }

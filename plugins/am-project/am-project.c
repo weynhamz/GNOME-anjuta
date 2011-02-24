@@ -99,7 +99,7 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	NULL,
 	NULL},
 
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_UNKNOWN | ANJUTA_PROJECT_READ_ONLY,
 	/* Translator: Unknown here is a target type, if not unknown it can
 	 * be a program or a shared library by example */
 	N_("Unknown"),
@@ -134,14 +134,14 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	"application/x-python"},
 	AM_TOKEN__PYTHON,
 	"_PYTHON",
-	NULL},
+	"python"},
 	
 	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_JAVA,
 	N_("Java Module"),
 	"application/x-java"},
 	AM_TOKEN__JAVA,
 	"_JAVA",
-	NULL},
+	"java"},
 	
 	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_LISP,
 	N_("Lisp Module"),
@@ -895,7 +895,7 @@ project_load_target (AmpProject *project, AnjutaToken *name, AnjutaTokenType tok
 					AnjutaProjectProperty *prop;
 					
 					prop = (AnjutaProjectProperty *)anjuta_project_node_remove_property (ANJUTA_PROJECT_NODE (orphan), (AnjutaProjectProperty *)properties->data);
-					
+
 					amp_node_property_add (ANJUTA_PROJECT_NODE (target), prop);
 				}
 
@@ -1030,7 +1030,7 @@ project_load_sources (AmpProject *project, AnjutaToken *name, AnjutaToken *list,
 }
 
 static AnjutaToken*
-project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, AnjutaProjectNode *parent, GHashTable *orphan_properties)
+project_load_data (AmpProject *project, AnjutaToken *name, AnjutaTokenType token_type, AnjutaToken *list, AnjutaProjectNode *parent, GHashTable *orphan_properties)
 {
 	gchar *install = NULL;
 	AmpTargetNode *target;
@@ -1051,14 +1051,6 @@ project_load_data (AmpProject *project, AnjutaToken *name, AnjutaToken *list, An
 
 	target_id = anjuta_token_evaluate (name);
 	split_automake_variable (target_id, &flags, &install, NULL);
-	/*if (target_id)
-	{
-		gchar *end = strrchr (target_id, '_');
-		if (end)
-		{
-			*end = '\0';
-		}
-	}*/
 	
 	amp_group_node_add_token (AMP_GROUP_NODE (parent), name, AM_GROUP_TARGET);
 
@@ -1296,18 +1288,18 @@ amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaTok
 		project_load_subdirs (project, list, ANJUTA_PROJECT_NODE (group), TRUE);
 		break;
 	case AM_TOKEN__DATA:
-		project_load_data (project, name, list, ANJUTA_PROJECT_NODE (group), orphan_properties);
-		break;
 	case AM_TOKEN__HEADERS:
-	case AM_TOKEN__LIBRARIES:
 	case AM_TOKEN__LISP:
-	case AM_TOKEN__LTLIBRARIES:
 	case AM_TOKEN__MANS:
-	case AM_TOKEN__PROGRAMS:
 	case AM_TOKEN__PYTHON:
 	case AM_TOKEN__JAVA:
 	case AM_TOKEN__SCRIPTS:
 	case AM_TOKEN__TEXINFOS:
+		project_load_data (project, name, variable, list, ANJUTA_PROJECT_NODE (group), orphan_properties);
+		break;
+	case AM_TOKEN__LIBRARIES:
+	case AM_TOKEN__LTLIBRARIES:
+	case AM_TOKEN__PROGRAMS:
 		project_load_target (project, name, variable, list, ANJUTA_PROJECT_NODE (group), orphan_properties);
 		break;
 	case AM_TOKEN__SOURCES:

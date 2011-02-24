@@ -63,6 +63,7 @@ void amp_target_node_register (GTypeModule *module);
 
 void amp_target_node_add_token (AmpTargetNode *target, AmTokenType type, AnjutaToken *token);
 GList * amp_target_node_get_token (AmpTargetNode *target, AmTokenType type);
+GList * amp_target_node_get_all_token (AmpTargetNode *target);
 void amp_target_node_set_type (AmpTargetNode *target, AmTokenType type);
 AnjutaTokenType amp_target_node_get_first_token_type (AmpTargetNode *target);
 AnjutaTokenType amp_target_node_get_next_token_type (AmpTargetNode *target, AnjutaTokenType type);

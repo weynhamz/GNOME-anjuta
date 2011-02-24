@@ -1,5 +1,6 @@
 AT_SETUP([Load anjuta project])
 AT_PARSER_CHECK([load ../../$at_top_srcdir \
 		 list])
-AT_CHECK([diff output ../../$at_srcdir/anjuta.lst])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' ../../$at_srcdir/anjuta.lst > anjuta.lst]])
+AT_CHECK([[sed 's/^\(\s*\w\+\s*(\)[0-9:]\+\()\)/\1\2/' output | diff - anjuta.lst]])
 AT_CLEANUP

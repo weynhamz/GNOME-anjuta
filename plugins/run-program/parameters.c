@@ -229,7 +229,7 @@ save_environment_variables (RunProgramPlugin *plugin, GtkTreeModel *model)
 static void
 save_dialog_data (RunDialog* dlg)
 {
-	const gchar *arg;
+	gchar *arg;
 	const gchar *filename;
 	gchar *uri;
 	GList *find;
@@ -237,16 +237,20 @@ save_dialog_data (RunDialog* dlg)
 	RunProgramPlugin *plugin = dlg->plugin;
 
 	/* Save arguments */
-	arg = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->args))));
+	arg = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->args)))));
+	arg = g_strstrip (arg);
 	if (arg != NULL)
 	{
+		/* Remove empty string in list, allow it only as first item */
+		if ((plugin->recent_args != NULL) &&
+			(*(gchar *)(plugin->recent_args->data) == '\0')) plugin->recent_args = g_list_delete_link (plugin->recent_args, plugin->recent_args);
 		find = g_list_find_custom(plugin->recent_args, arg, (GCompareFunc)strcmp);
 		if (find)
 		{
 			g_free (find->data);
 			plugin->recent_args = g_list_delete_link (plugin->recent_args, find);
 		}
-		plugin->recent_args = g_list_prepend (plugin->recent_args, g_strdup (arg));
+		plugin->recent_args = g_list_prepend (plugin->recent_args, arg);
 	}	
 
 	/* Save target */

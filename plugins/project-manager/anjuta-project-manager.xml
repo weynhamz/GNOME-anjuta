@@ -34,6 +34,8 @@
 		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
 		<separator name="separator3"/>
 		<menuitem name="Properties" action="ActionPopupProjectProperties"/>
+		<separator name="separator4"/>
+		<menuitem name="SortShortcut" action="ActionPopupProjectSortShortcut"/>
 	</popup>
 	<popup name="PopupFileManager">
 		<placeholder name="PlaceholderPopupFileProject">

@@ -1,3 +1,69 @@
+Anjuta 2.91.90 "Prepare for the gladification" (Beta 1)-- Johannes Schmid
+
+New:
+- Signal dragging support for python
+- Glade usuability fixes
+- New inline search/replace from Eugenia (Women Outreach program)
+
+Bugs fixed:
+530060 Have a "replace all" option in search and replace
+553772 Unable to move or resize widget placed inside a layout widget
+568047 Glade plugin does not allow adding notebook containers with less than 3 tabs.
+631260 Composer window broken after defining ActionGroup
+633786 plugin.c:59: warning: implicit declaration of function 'PyString_FromString' when compiling anjuta
+642647 Crash if anjuta is launched with a project that needs the glade plugin.
+642719 Prototype generator for C header files
+638787 wrong set on gtk_source_view_set_smart_home_end
+642763 Fix memory in message-view plugin
+516685 New artwork for splash screen
+549440 LIBADD is added at the wrong position in Makefile.am if it doesn't exist
+565358 documentation files appear in "other files" target
+566248 ianjuta_project_manager_get_elements returns weird data
+569992 support makefiles named GNUmakefile.am
+637981 Port Makefile backend to the new API
+640969 Allow importing projects with 3rd party project backends
+641181 error building out-of-tree plugins that only include libanjuta/libanjuta.h
+642640 NULL pointer dereference and memory leak in parameter.c
+642750 [PATCH] NULL pointer dereference in anjuta-tabber.c
+570912 Cannot remove module/package
+642723 Small in C header template 
+
+Thanks to: Abderrahim Kitouni, Aron Xu, Christian Kirbach, Daniel Mustieles,
+Eugenia Gabrielova, Fran Diéguez, James Liggett, Jorge González, Kjartan Maraas,
+Marco Diego Aurélio Mesquita, Nanci de Brito Bonfim, Sébastien Granjoux
+
+Anjuta 2.91.6 "To all the dead poets" (31 January 2010) -- Johannes Schmid
+
+New:
+- Support for dragging signals from glade into the code (C only)
+- Improvements in project-manager
+- More features in git-plugin
+
+Bugs fixed:
+638506 Homepage: FAQ Mailinglist link is wrong
+639786 quick bookmark deletion
+640277 editor position history doesn't work with shortcut
+618142 Anjuta Snippets Plug-in
+627131 Autocompletion duplicates characters
+639795 Editing variabile after inserting snippet bug
+638980 Crash when closing project
+608578 Anjuta is unable to import Gnumeric source tree
+611206 doesn't recognize newer AC_INIT
+615990 path is missing when add a source to the target
+616041 Add Source -> Cannot add source files -> Core Dump
+618617 Project view doesn't make sense
+638368 test-suite fails
+639342 Anjuta crash when loading libgee
+640348 minor mistake in UI string
+640726 anjuta stops updating session information
+581613 Unable to import a tarball into Anjuta 2.4.2
+639093 I can't start a new project properly 
+
+Thanks to: Chao-Hsiung Liao, Christian Kirbach, Daniel Muestieles,
+Daniel Mustieles, Dragos Dena, Fran Diéguez, James Liggett, 
+Jorge González, Kjartan Maraas, Massimo Corà, Matej Urbančič, 
+Michael Kotsarinis, Rakesh Pandit, Sébastien Granjoux
+
 Anjuta 2.91.5 "Moving forward" (11 Januar 2010) -- Johannes Schmid
 
 Updates:

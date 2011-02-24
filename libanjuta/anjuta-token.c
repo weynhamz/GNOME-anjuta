@@ -110,7 +110,6 @@ typedef struct _AnjutaTokenData AnjutaTokenData;
 
 struct _AnjutaTokenData
 {
-	AnjutaTokenData *data;
 	AnjutaTokenType type;	
 	gint flags;
 	gchar *pos;
@@ -317,7 +316,6 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 	static gchar type[] = "\0";
 	const gchar *string;
 	gsize length;
-	const gchar *newline;
 	
 	type[0] = parent;
 	fprintf (stderr, "%*s%s %p", indent, "", type, token);
@@ -325,44 +323,54 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 	    anjuta_token_get_type (token));
 	string = anjuta_token_get_string (token);
 	length = anjuta_token_get_length (token);
-	newline = string == NULL ? NULL : g_strrstr_len (string, length, "\n");
-	if (newline == NULL)
+	if (string == NULL)
 	{
 		/* Value doesn't contain a newline */	
-		fprintf (stderr, "\"%.*s\"",
-	    	length,
-	    	string);
+		fprintf (stderr, "(%lu)", length);
 	}
 	else
 	{
-		/* Value contains a newline, take care of indentation */
-		newline++;
-		fprintf (stderr, "\"%.*s",
-	    	newline - string,
-	    	string);
-		for (;;)
+		const gchar *newline;
+		
+		newline = g_strrstr_len (string, length, "\n");
+		if (newline == NULL)
 		{
-			length -= newline - string;
-			string = newline;
-
-			newline = g_strrstr_len (string, length, "\n");
-			if (newline == NULL) break;
-			
-			newline++;
-			fprintf (stderr, "%*s  %.*s",
-			    indent, "",
-			    newline - string,
-    			string);
+			/* Value doesn't contain a newline */	
+			fprintf (stderr, "\"%.*s\"",
+				length,
+		    	string);
 		}
-		fprintf (stderr, "%*s  %.*s\"",
-			    indent, "",
-			    length,
-    			string);
+		else
+		{
+			/* Value contains a newline, take care of indentation */
+			newline++;
+			fprintf (stderr, "\"%.*s",
+	    		newline - string,
+		    	string);
+			for (;;)
+			{
+				length -= newline - string;
+				string = newline;
+
+				newline = g_strrstr_len (string, length, "\n");
+				if (newline == NULL) break;
+			
+				newline++;
+				fprintf (stderr, "%*s  %.*s",
+				    indent, "",
+					newline - string,
+	    			string);
+			}
+			fprintf (stderr, "%*s  %.*s\"",
+				    indent, "",
+					length,
+	    			string);
+		}
 	}
 	fprintf (stderr, " %p/%p (%p/%p) %s\n",
-	    token->last, token->children,
+		token->last, token->children,
 		token->group, token->parent,
-	    anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED ? " (removed)" : "");
+		anjuta_token_get_flags (token) & ANJUTA_TOKEN_REMOVED ? " (removed)" : "");
 }
 
 static AnjutaToken*
@@ -450,7 +458,7 @@ anjuta_token_get_flags (AnjutaToken *token)
 }
 
 void
-anjuta_token_set_string (AnjutaToken *token, const gchar *data, guint length)
+anjuta_token_set_string (AnjutaToken *token, const gchar *data, gsize length)
 {
 	if (!(token->data.flags & ANJUTA_TOKEN_STATIC))
 	{
@@ -467,7 +475,13 @@ anjuta_token_get_string (AnjutaToken *token)
 	return token->data.pos;
 }
 
-guint
+void
+anjuta_token_set_length (AnjutaToken *token, gsize length)
+{
+	token->data.length = length;
+}
+
+gsize
 anjuta_token_get_length (AnjutaToken *token)
 {
 	return token->data.length;
@@ -1492,7 +1506,7 @@ AnjutaToken *anjuta_token_new_string (AnjutaTokenType type, const gchar *value)
 }
 
 AnjutaToken*
-anjuta_token_new_with_string (AnjutaTokenType type, gchar *value, gsize length)
+anjuta_token_new_string_len (AnjutaTokenType type, gchar *value, gsize length)
 {
 	AnjutaToken *token;
 	
@@ -1513,7 +1527,7 @@ anjuta_token_new_with_string (AnjutaTokenType type, gchar *value, gsize length)
 }
 
 AnjutaToken *
-anjuta_token_new_fragment (gint type, const gchar *pos, gsize length)
+anjuta_token_new_static_len (gint type, const gchar *pos, gsize length)
 {
 	AnjutaToken *token;
 
@@ -1528,7 +1542,7 @@ anjuta_token_new_fragment (gint type, const gchar *pos, gsize length)
 
 AnjutaToken *anjuta_token_new_static (AnjutaTokenType type, const char *value)
 {
-	return anjuta_token_new_fragment (type, value, value == NULL ? 0 : strlen (value));	
+	return anjuta_token_new_static_len (type, value, value == NULL ? 0 : strlen (value));	
 }
 
 AnjutaToken*

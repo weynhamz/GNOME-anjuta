@@ -97,6 +97,8 @@ void			gbf_project_view_set_shortcut_list (GbfProjectView *view,
 void			gbf_project_view_set_expanded_list (GbfProjectView *view,
 								GList   *expanded);
 
+void			gbf_project_view_sort_shortcuts (GbfProjectView *view);
+
 void            gbf_project_view_update_tree (GbfProjectView *view,
                                                     AnjutaProjectNode *parent,
                                                     GtkTreeIter *iter);

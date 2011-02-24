@@ -287,6 +287,20 @@ amp_group_node_get_token (AmpGroupNode *group, AmpGroupNodeTokenCategory categor
 	return group->tokens[category];
 }
 
+GList * 
+amp_group_node_get_all_token (AmpGroupNode *group)
+{
+	gint i;
+	GList *tokens = NULL;
+
+	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
+	{
+		tokens = g_list_concat (tokens, g_list_copy (group->tokens[i]));
+	}
+	
+	return tokens;
+}
+
 AnjutaToken*
 amp_group_node_get_first_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category)
 {
@@ -548,6 +562,7 @@ amp_group_node_new (GFile *file, gboolean dist_only, GError **error)
 	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
 	node->base.file = g_object_ref (file);
 	node->dist_only = dist_only;
+	memset (node->tokens, 0, sizeof (node->tokens));
 
     return node;	
 }
