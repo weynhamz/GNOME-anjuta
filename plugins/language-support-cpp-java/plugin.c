@@ -509,6 +509,9 @@ language_support_add_c_callback (IAnjutaEditor* editor,
 	ianjuta_editor_insert (editor, position,
 		                   str->str, -1, NULL);
 
+	/* Emit code-added signal, so symbols will be updated */
+	g_signal_emit_by_name (G_OBJECT (editor), "code-added", position, str);
+
 	g_string_free (str, TRUE);
 
 	/* Will now set the caret position offset */

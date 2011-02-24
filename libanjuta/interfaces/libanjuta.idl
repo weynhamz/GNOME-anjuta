@@ -1274,6 +1274,17 @@ interface IAnjutaEditor
 		COMMENT,
 		STRING
 	}
+
+	/**
+	 * IAnjutaEditor::code-added:
+	 * @position: The iter position where @ch is added.
+	 * @code: The code that has been added.
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when code is added inside the editor.
+	 * The newly added code is @code which has been inserted at @position.
+	 */
+	void   ::code_added (IAnjutaIterable *position, gchar *code);
 	
 	/**
 	 * IAnjutaEditor::char-added:
