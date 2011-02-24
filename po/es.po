@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-21 22:29+0000\n"
-"PO-Revision-Date: 2011-02-22 14:04+0100\n"
+"POT-Creation-Date: 2011-02-22 19:41+0000\n"
+"PO-Revision-Date: 2011-02-24 20:38+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -898,8 +898,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
-"«/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-», «/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -910,8 +910,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -3538,7 +3538,6 @@ msgid "Find and R_eplace…"
 msgstr "Buscar y _reemplazar…"
 
 #: ../plugins/document-manager/plugin.c:273
-#| msgid "Search and Replace"
 msgid "Search and replace"
 msgstr "Buscar y reemplazar"
 
@@ -3551,7 +3550,6 @@ msgid "Repeat the last Find command"
 msgstr "Repetir el último comando de búsqueda"
 
 #: ../plugins/document-manager/plugin.c:279
-#| msgid "Highlight"
 msgid "Clear Highlight"
 msgstr "Limpiar resaltado"
 
@@ -3560,7 +3558,6 @@ msgid "Clear all highlighted text"
 msgstr "Limpiar todo el texto resaltado"
 
 #: ../plugins/document-manager/plugin.c:286
-#| msgid "Case sensitive"
 msgid "Case Sensitive"
 msgstr "Sensible a capitalización"
 
@@ -3569,12 +3566,10 @@ msgid "Match case in search results."
 msgstr "Coincidir con capitalización en los resultados de la búsqueda."
 
 #: ../plugins/document-manager/plugin.c:290
-#| msgid "Highlight"
 msgid "Highlight All"
 msgstr "Resaltar todo"
 
 #: ../plugins/document-manager/plugin.c:291
-#| msgid "Highlight current line"
 msgid "Highlight all occurrences"
 msgstr "Resaltar todas las ocurrencias"
 
@@ -3877,7 +3872,6 @@ msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
 #: ../plugins/document-manager/plugin.c:451
-#| msgid "Toggle Breakpoint"
 msgid "Toggle search options"
 msgstr "Conmutar opciones de búsqueda"
 
@@ -3957,7 +3951,6 @@ msgid "Replace"
 msgstr "Reemplazar"
 
 #: ../plugins/document-manager/search-box.c:730
-#| msgid "Replace All"
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
@@ -5273,10 +5266,9 @@ msgstr "Aplastar (squash)"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
-msgstr "Guardar (stash) cambios indexados"
+msgstr "Guardar («stash») cambios indexados"
 
 #: ../plugins/git/anjuta-git.ui.h:60
-#, fuzzy
 #| msgid "This commit concludes a failed merge (use -i)"
 msgid "This commit concludes a failed merged (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
@@ -5338,10 +5330,9 @@ msgstr "Aplicar archivos del buzón de correo"
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
-#, fuzzy
 #| msgid "No group selected"
 msgid "No stash selected."
-msgstr "No se ha seleccionado ningún grupo"
+msgstr "No se ha seleccionado ningún estado guardado («stash»)"
 
 #: ../plugins/git/git-checkout-pane.c:147
 msgid "Check Out Files"
@@ -5496,7 +5487,7 @@ msgstr "No se seleccionó ningún archivo en conflicto."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
-msgstr "Guardar (stash) cambios sin subir"
+msgstr "Guardar («stash») cambios sin subir"
 
 #: ../plugins/git/git-status-pane.c:368
 msgid "Changes to be committed"
@@ -5529,7 +5520,6 @@ msgid "Switch to the selected branch"
 msgstr "Cambiar a la rama seleccionada"
 
 #: ../plugins/git/plugin.c:98
-#| msgid "Merge this commit into the current branch"
 msgid "Merge a revision into the current branch"
 msgstr "Mezclar una revisión en la rama actual"
 
@@ -5599,7 +5589,6 @@ msgid "Resolve conflicts"
 msgstr "Resolver conflictos"
 
 #: ../plugins/git/plugin.c:203
-#, fuzzy
 #| msgid "Mark conflicted files as resolved"
 msgid "Mark selected conflicted files as resolved"
 msgstr "Marcar como resuelto el conflicto entre archivos"
@@ -5613,7 +5602,6 @@ msgid "Add a remote"
 msgstr "Añadir una remota"
 
 #: ../plugins/git/plugin.c:223
-#| msgid "Add to repository"
 msgid "Add a remote repository"
 msgstr "Añadir un repositorio remoto"
 
@@ -5652,16 +5640,16 @@ msgstr "Ajustar a base contra la remota seleccionada"
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
+"Iniciar una operación «rebase» relativa al repositorio remoto seleccionado"
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
 msgid "Continue"
 msgstr "Continuar"
 
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 #| msgid "_Continue with resolved conflicts"
 msgid "Continue a rebase with resolved conflicts"
-msgstr "_Continuar con los conflictos resueltos…"
+msgstr "Continuar un «rebase» con los conflictos resueltos"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
 msgid "Skip"
@@ -5683,7 +5671,7 @@ msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
-msgstr "Herramientas de guardado (stash)"
+msgstr "Herramientas de guardado («stash»)"
 
 #: ../plugins/git/plugin.c:314
 #, fuzzy
@@ -5698,10 +5686,9 @@ msgid "Save uncommitted changes without committing them"
 msgstr "Revertir los cambios sin subir en los archivos"
 
 #: ../plugins/git/plugin.c:322
-#, fuzzy
 #| msgid "Apply the selected stash"
 msgid "Apply selected stash"
-msgstr "Aplicar el estado guardado (stash) seleccionado"
+msgstr "Aplicar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:323
 #, fuzzy
@@ -5747,7 +5734,7 @@ msgstr "Abandonar el estado guardado (stash) seleccionado"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
-msgstr "Limpiar los estados guardados (stash)"
+msgstr "Limpiar los estados guardados («stash»)"
 
 #: ../plugins/git/plugin.c:355
 #, fuzzy
@@ -5800,10 +5787,9 @@ msgid "Revert a commit"
 msgstr "Revertir un commit"
 
 #: ../plugins/git/plugin.c:414
-#, fuzzy
 #| msgid "Patches"
 msgid "Patch series"
-msgstr "Parches"
+msgstr "Serie de parches"
 
 #: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
 msgid "Generate a patch series"
@@ -5818,10 +5804,9 @@ msgid "Apply mailbox files"
 msgstr "Aplicar archivos del buzón de correo"
 
 #: ../plugins/git/plugin.c:439
-#, fuzzy
 #| msgid "Apply mailbox files"
 msgid "Apply patches from mailbox files"
-msgstr "Aplicar archivos del buzón de correo"
+msgstr "Aplicar parches del buzón de correo"
 
 #: ../plugins/git/plugin.c:447
 #, fuzzy
@@ -5876,7 +5861,7 @@ msgstr "Remotas"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
-msgstr "Guardar (stash)"
+msgstr "Guardar («stash»)"
 
 #: ../plugins/glade/plugin.c:460
 #, fuzzy
@@ -6068,10 +6053,9 @@ msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
-#, fuzzy
 #| msgid "Select Package to add:"
 msgid "<b>Select Package to add:</b>"
-msgstr "Seleccionar un paquete para añadir:"
+msgstr "<b>Seleccionar un paquete para añadir:</b>"
 
 #: ../plugins/mk-project/mk-project.ui.h:2
 msgid "Add _Package"
@@ -6185,8 +6169,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6203,9 +6187,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
-"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
-"moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
+"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
+"más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6274,7 +6258,6 @@ msgid "Add Source"
 msgstr "Añadir fuente"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
-#| msgid "Close other documents"
 msgid "Browse other nodes"
 msgstr "Explorar otros nodos"
 
@@ -6317,10 +6300,9 @@ msgid "Source files:"
 msgstr "Archivos de código:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
-#, fuzzy
 #| msgid "Specify _where to create the target:"
 msgid "Specify _where to create the directory:"
-msgstr "Especificar _donde crear el objetivo:"
+msgstr "Especificar _dónde crear la carpeta:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "Specify _where to create the target:"
@@ -6339,10 +6321,9 @@ msgid "TargetTypes"
 msgstr "Tipos de objetivo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
-#, fuzzy
 #| msgid "Directory"
 msgid "_Directory name:"
-msgstr "Directorio"
+msgstr "_Nombre de la carpeta:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:19
 msgid "_Module name:"
@@ -6794,8 +6775,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
+"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -7418,8 +7399,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 msgid "Require Package:"
@@ -8194,7 +8175,6 @@ msgid "View"
 msgstr "Vista"
 
 #: ../plugins/starter/plugin.c:252
-#| msgid "Started"
 msgid "Start"
 msgstr "Iniciar"
 
@@ -9758,7 +9738,6 @@ msgid "Glade interface designer"
 msgstr "Diseñador de interfaces Glade"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
-#| msgid "Interface file"
 msgid "User interface file"
 msgstr "Archivo de interfaz de usuario"
 
@@ -10133,8 +10112,8 @@ msgstr "Símbolo"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-#~ "el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
+#~ "desde el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
