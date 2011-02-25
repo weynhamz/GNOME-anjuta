@@ -35,6 +35,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
+#include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
@@ -481,48 +482,143 @@ language_support_generate_c_signature (const gchar* separator,
 	return str;
 }
 
-static void
-language_support_add_c_callback (IAnjutaEditor* editor,
-               					 IAnjutaIterable* position,
-				                 GStrv split_signal_data,
-								 const gchar* separator,
-								 const gchar* body,
-								 gint offset)
+const gchar* SOURCE_EXT[] =
 {
-	GSignalQuery query;
-	
-	const gchar* widget = split_signal_data[0];
-	const gchar* signal = split_signal_data[1];
-	const gchar* handler = split_signal_data[2];
-	//const gchar* user_data = split_signal_data[3]; // Currently unused
-	gboolean swapped = g_str_equal (split_signal_data[4], "1");
+	".c",
+	".cc",
+	".C",
+	".cpp",
+	".cxx",
+	".ccg",
+	NULL
+};
 
-	GType type = g_type_from_name (widget);
-	guint id = g_signal_lookup (signal, type);
+const gchar* HEADER_EXT[] =
+{
+	".h",
+	".hh",
+	".H",
+	".hpp",
+	".hxx",
+	".hg",
+	NULL
+};
 
-	g_signal_query (id, &query);
+static GFile*
+language_support_get_header_file (IAnjutaEditor* editor)
+{
+	GFile *file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+	GFile *parent = g_file_get_parent (file);
+	gchar *parent_uri = g_file_get_uri (parent);
+	gchar *basename = g_file_get_basename (file);
+	g_object_unref (file);
+	g_object_unref (parent);
+	gchar *ext = strstr (basename, ".");
+	GFile *ret = NULL;
 
-	GString* str = language_support_generate_c_signature (separator, widget, query, swapped, handler);
+	if (ext)
+	{
+		int i;
+		for (i = 0; SOURCE_EXT[i] != NULL; i++)
+		{
+			if (g_str_equal (ext, SOURCE_EXT[i]))
+			{
+				int j;
+				for (j = 0; HEADER_EXT[j] != NULL; j++)
+				{
+					gchar* filename;
+					gchar* uri;
+					GFile* new_file;
+					*ext = '\0';
+					filename = g_strdup_printf ("%s%s", basename, HEADER_EXT[j]);
+					uri = g_build_filename (parent_uri, filename, NULL);
+					new_file = g_file_new_for_uri (uri);
+					g_free (uri);
+					g_free(filename);
+					if (g_file_query_exists (new_file, NULL))
+					{
+            			ret = new_file;
+						goto end;
+					}
+					g_object_unref (new_file);
+				}
+				break;
+			}
+			if (g_str_equal (ext, HEADER_EXT[i]))
+			{
+				int j;
+				for (j = 0; SOURCE_EXT[j] != NULL; j++)
+				{
+					gchar* filename;
+					gchar* uri;
+					GFile* new_file;
+					*ext = '\0';
+					filename = g_strdup_printf ("%s%s", basename, SOURCE_EXT[j]);
+					uri = g_build_filename (parent_uri, filename, NULL);
+					new_file = g_file_new_for_uri (uri);
+					g_free (uri);
+					g_free(filename);
+					if (g_file_query_exists (new_file, NULL))
+					{
+            			ret = new_file;
+						goto end;
+					}
+					g_object_unref (new_file);
+				}
+				break;
+			}
+		}
+	}
 
-	g_string_append (str, body);
+end:
+	g_free(basename);
+	g_free (parent_uri);
 
-	ianjuta_editor_insert (editor, position,
-		                   str->str, -1, NULL);
-
-	/* Emit code-added signal, so symbols will be updated */
-	g_signal_emit_by_name (G_OBJECT (editor), "code-added", position, str);
-
-	g_string_free (str, TRUE);
-
-	/* Will now set the caret position offset */
-	ianjuta_editor_goto_line (editor,
-							  ianjuta_editor_get_line_from_position (
-											editor, position, NULL) + offset, NULL);
+  return ret;
 }
-               
-static IAnjutaIterable *
+
+static IAnjutaEditor*
+language_support_get_editor_from_file (CppJavaPlugin* lang_plugin,
+													  GFile *file)
+{
+	IAnjutaDocumentManager *document_manager = anjuta_shell_get_interface (
+										  ANJUTA_PLUGIN (lang_plugin)->shell,
+										  IAnjutaDocumentManager,
+										  NULL);
+
+	IAnjutaDocument *document = ianjuta_document_manager_find_document_with_file
+                                                        (document_manager,
+                                                         file,
+                                                         NULL);
+
+	return IANJUTA_EDITOR (document);
+}
+
+static IAnjutaIterable*
+language_support_get_mark_position (IAnjutaEditor* editor, gchar* mark)
+{
+	IAnjutaEditorCell *search_start = IANJUTA_EDITOR_CELL (
+										ianjuta_editor_get_start_position(editor, NULL));
+	IAnjutaEditorCell *search_end = IANJUTA_EDITOR_CELL (
+										ianjuta_editor_get_end_position(editor, NULL));
+	IAnjutaEditorCell *result_start;
+	IAnjutaEditorCell *result_end;
+
+	ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (editor),
+								   mark, FALSE,
+								   search_start, search_end,
+								   &result_start,
+								   &result_end, NULL);
+
+	g_object_unref (result_start);
+
+	return IANJUTA_ITERABLE (result_end);
+}
+
+static IAnjutaIterable*
 language_support_find_symbol (CppJavaPlugin* lang_plugin,
-							 const gchar* handler)
+							  IAnjutaEditor* editor,
+							  const gchar* handler)
 {
 	IAnjutaSymbolManager *isymbol_manager = anjuta_shell_get_interface (
 										  ANJUTA_PLUGIN (lang_plugin)->shell,
@@ -537,13 +633,148 @@ language_support_find_symbol (CppJavaPlugin* lang_plugin,
 	IAnjutaSymbolField field = IANJUTA_SYMBOL_FIELD_FILE_POS;
 	ianjuta_symbol_query_set_fields (symbol_query, 1, &field, NULL);
 
-	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
+	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (editor),
                                  		 NULL);
 
 	IAnjutaIterable *iter = ianjuta_symbol_query_search_file (symbol_query,
                          				            		  handler, file, NULL);
 
+	g_object_unref (file);
+	g_object_unref (symbol_query);
+
 	return iter;
+}
+
+static gboolean
+language_support_get_callback_strings (gchar** separator,
+									   gchar** body,
+									   gint* offset,
+									   CppFileType filetype)
+{
+	switch (filetype)
+	{
+		case LS_FILE_C:
+		{
+			*separator = C_SEPARATOR;
+			*body = C_BODY;
+			*offset = C_OFFSET;
+			break;
+		}
+		case LS_FILE_CHDR:
+		{
+			*separator = CHDR_SEPARATOR;
+			*body = CHDR_BODY;
+			*offset = CHDR_OFFSET;
+			break;
+		}
+		default:
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+static IAnjutaIterable*
+language_support_get_header_editor_and_mark (CppJavaPlugin* lang_plugin,
+											 IAnjutaEditor* editor,
+											 gchar* mark,
+											 IAnjutaEditor** header_editor)
+{
+	IAnjutaIterable* mark_position;
+	GFile *header_file = language_support_get_header_file (editor);
+
+	/* Yes, we have a header */
+	if (header_file)
+	{
+		*header_editor = language_support_get_editor_from_file (lang_plugin,
+																header_file);
+		/* We'll now search for the mark */
+
+		mark_position = language_support_get_mark_position (*header_editor, mark);
+
+		g_object_unref (header_file);
+	}
+
+	return mark_position;
+}
+
+static void
+language_support_add_c_callback (CppJavaPlugin* lang_plugin,
+               					 IAnjutaEditor* editor,
+               					 IAnjutaIterable* position,
+				                 GStrv split_signal_data,
+								 CppFileType filetype)
+{
+	GSignalQuery query;
+
+	gchar* separator;
+	gchar* body;
+	gint offset;
+
+	const gchar* widget = split_signal_data[0];
+	const gchar* signal = split_signal_data[1];
+	const gchar* handler = split_signal_data[2];
+	//const gchar* user_data = split_signal_data[3]; // Currently unused
+	gboolean swapped = g_str_equal (split_signal_data[4], "1");
+
+	GType type = g_type_from_name (widget);
+	guint id = g_signal_lookup (signal, type);
+
+	g_signal_query (id, &query);
+
+
+	if (!language_support_get_callback_strings (&separator, &body, &offset, filetype))
+		return;
+
+
+
+	GString* str = language_support_generate_c_signature (separator, widget,
+														  query, swapped, handler);
+
+	g_string_append (str, body);
+
+	ianjuta_editor_insert (editor, position,
+		                   str->str, -1, NULL);
+
+	/* Code was inserted, we'll now check if we should add a prototype to the header */
+	if (filetype == LS_FILE_C)
+	{
+		IAnjutaEditor* header_editor;
+		IAnjutaIterable* mark_position;
+		mark_position = language_support_get_header_editor_and_mark (lang_plugin,
+																	 editor,
+																	 "/* Callbacks */", 
+																	 &header_editor);
+		if (mark_position)
+		{
+			/* Check if there's a the prototype to the header */
+			IAnjutaIterable* symbol;
+			symbol = language_support_find_symbol (lang_plugin, header_editor, handler);
+
+			if (symbol)
+			{
+				g_object_unref (symbol);
+			} else {
+				/* Add prototype to the header */
+				language_support_add_c_callback (lang_plugin, header_editor, mark_position,
+												 split_signal_data, LS_FILE_CHDR);
+
+			}
+
+			g_object_unref (mark_position);
+		}
+	}
+
+	gchar *string = g_string_free (str, FALSE);
+	/* Emit code-added signal, so symbols will be updated */
+	g_signal_emit_by_name (G_OBJECT (editor), "code-added", position, string);
+
+	if (string) g_free (string);
+
+	/* Will now set the caret position offset */
+	ianjuta_editor_goto_line (editor,
+							  ianjuta_editor_get_line_from_position (
+											editor, position, NULL) + offset, NULL);
 }
 
 static void
@@ -564,29 +795,13 @@ on_glade_drop (IAnjutaEditor* editor,
 	 */
 
 	IAnjutaIterable *iter;
-	if ((iter = language_support_find_symbol (lang_plugin, handler)) == NULL)
+	iter = language_support_find_symbol (lang_plugin,
+										 IANJUTA_EDITOR (lang_plugin->current_editor),
+										 handler);
+	if (iter == NULL)
 	{
-		switch (lang_plugin->filetype)
-		{
-			case LS_FILE_C:
-			{
-				language_support_add_c_callback (editor, iterator, split_signal_data,
-												 C_SEPARATOR,
-												 C_BODY,
-												 C_OFFSET);
-				break;
-			}
-			case LS_FILE_CHDR:
-			{
-				language_support_add_c_callback (editor, iterator, split_signal_data,
-												 CHDR_SEPARATOR,
-												 CHDR_BODY,
-												 CHDR_OFFSET);
-				break;
-			}
-			default:
-				break;
-		}
+		language_support_add_c_callback (lang_plugin, editor, iterator, split_signal_data,
+										 lang_plugin->filetype);
 	} else {
 		/* Symbol found, going there */
 		ianjuta_editor_goto_line (editor, ianjuta_symbol_get_int (
@@ -758,36 +973,10 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	lang_plugin->current_editor = NULL;
 }
 
-const gchar* SOURCE_EXT[] =
-{
-	".c",
-	".cc",
-	".C",
-	".cpp",
-	".cxx",
-	".ccg",
-	NULL
-};
-
-const gchar* HEADER_EXT[] =
-{
-	".h",
-	".hh",
-	".H",
-	".hpp",
-	".hxx",
-	".hg",
-	NULL
-};
-
 static void
 on_swap_activate (GtkAction* action, gpointer data)
 {
 	GFile* file;
-	GFile* parent;
-	gchar* parent_uri;
-	gchar* basename;
-	gchar* ext;
 	CppJavaPlugin *lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	IAnjutaDocumentManager* docman =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN(lang_plugin)->shell,
@@ -798,75 +987,18 @@ on_swap_activate (GtkAction* action, gpointer data)
 	
 	file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
 								  NULL);
-	parent = g_file_get_parent (file);
-	parent_uri = g_file_get_uri (parent);
-	basename = g_file_get_basename (file);
-	g_object_unref (file);
-	g_object_unref (parent);
-	ext = strstr (basename, ".");
-	if (ext)
+
+	GFile* new_file = language_support_get_header_file (
+										IANJUTA_EDITOR (lang_plugin->current_editor));
+
+	if (g_file_query_exists (new_file, NULL))
 	{
-		int i;
-		for (i = 0; SOURCE_EXT[i] != NULL; i++)
-		{
-			if (g_str_equal (ext, SOURCE_EXT[i]))
-			{
-				int j;
-				for (j = 0; HEADER_EXT[j] != NULL; j++)
-				{
-					gchar* filename;
-					gchar* uri;
-					GFile* new_file;
-					*ext = '\0';
-					filename = g_strdup_printf ("%s%s", basename, HEADER_EXT[j]);
-					uri = g_build_filename (parent_uri, filename, NULL);
-					new_file = g_file_new_for_uri (uri);
-					g_free (uri);
-					g_free(filename);
-					if (g_file_query_exists (new_file, NULL))
-					{
-						ianjuta_document_manager_goto_file_line (docman,
-																 new_file,
-																 -1,
-																 NULL);
-						g_object_unref (new_file);
-						break;
-					}
-					g_object_unref (new_file);
-				}
-				break;
-			}
-			if (g_str_equal (ext, HEADER_EXT[i]))
-			{
-				int j;
-				for (j = 0; SOURCE_EXT[j] != NULL; j++)
-				{
-					gchar* filename;
-					gchar* uri;
-					GFile* new_file;
-					*ext = '\0';
-					filename = g_strdup_printf ("%s%s", basename, SOURCE_EXT[j]);
-					uri = g_build_filename (parent_uri, filename, NULL);
-					new_file = g_file_new_for_uri (uri);
-					g_free (uri);
-					g_free(filename);
-					if (g_file_query_exists (new_file, NULL))
-					{
-						ianjuta_document_manager_goto_file_line (docman,
-																 new_file,
-																 -1,
-																 NULL);
-						g_object_unref (new_file);
-						break;
-					}
-					g_object_unref (new_file);
-				}
-				break;
-			}
-		}
+		ianjuta_document_manager_goto_file_line (docman,
+												 new_file,
+												 -1,
+												 NULL);
+		g_object_unref (new_file);
 	}
-	g_free(basename);
-	g_free (parent_uri);
 }
 
 static void

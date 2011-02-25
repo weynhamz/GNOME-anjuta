@@ -348,9 +348,8 @@ static GtkActionEntry actions_search[] = {
 };
 
 static gboolean
-editor_buffer_symbols_update (SymbolDBPlugin *sdb_plugin)
+editor_buffer_symbols_update (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin)
 {
-	IAnjutaEditor *ed;
 	gchar *current_buffer = NULL;
 	gsize buffer_size = 0;
 	GFile* file;
@@ -366,14 +365,12 @@ editor_buffer_symbols_update (SymbolDBPlugin *sdb_plugin)
 	if (sdb_plugin->need_symbols_update == FALSE)
 		return TRUE;
 
-	if (sdb_plugin->current_editor) 
+	if (editor) 
 	{
-		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
-		
-		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
+		buffer_size = ianjuta_editor_get_length (editor, NULL);
+		current_buffer = ianjuta_editor_get_text_all (editor, NULL);
 				
-		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
+		file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 	} 
 	else
 		return FALSE;
@@ -467,7 +464,8 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
 		return TRUE;
 
-	return editor_buffer_symbols_update (sdb_plugin);
+	return editor_buffer_symbols_update (IANJUTA_EDITOR (sdb_plugin->current_editor),
+										 sdb_plugin);
 }
 
 static void
@@ -567,7 +565,7 @@ on_code_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar *code,
 			   SymbolDBPlugin *sdb_plugin)
 {
 	sdb_plugin->need_symbols_update = TRUE;
-	editor_buffer_symbols_update (sdb_plugin);
+	editor_buffer_symbols_update (editor, sdb_plugin);
 }
 
 static void
