@@ -214,6 +214,11 @@ public class ValaPlugin : Plugin {
 				var file_savable = (IAnjuta.FileSavable) current_editor;
 				file_savable.saved.connect (on_file_saved);
 			}
+			if (current_editor is IAnjuta.EditorGladeSignal) {
+				var gladesig = current_editor as IAnjuta.EditorGladeSignal;
+				gladesig.drop_possible.connect (on_drop_possible);
+				gladesig.drop.connect (on_drop);
+			}
 		}
 		report.update_errors (current_editor);
 	}
@@ -227,7 +232,11 @@ public class ValaPlugin : Plugin {
 			var file_savable = (IAnjuta.FileSavable) current_editor;
 			file_savable.saved.disconnect (on_file_saved);
 		}
-
+		if (current_editor is IAnjuta.EditorGladeSignal) {
+			var gladesig = current_editor as IAnjuta.EditorGladeSignal;
+			gladesig.drop_possible.disconnect (on_drop_possible);
+			gladesig.drop.disconnect (on_drop);
+		}
 		current_editor = null;
 	}
 
@@ -258,6 +267,70 @@ public class ValaPlugin : Plugin {
 		} else if (ch == ')') {
 			editortip.cancel ();
 		}
+	}
+
+	public bool on_drop_possible (IAnjuta.EditorGladeSignal editor, IAnjuta.Iterable position) {
+		// TODO: it'd  be better to check if we are inside a namespace or class
+		return true;
+	}
+
+	public void on_drop (IAnjuta.EditorGladeSignal editor, IAnjuta.Iterable position, string signal_data) {
+		var data = signal_data.split (":");
+		var widget_name = data[0];
+		var signal_name = data[1].replace ("-", "_");
+		var handler_name = data[2];
+		var swapped = (data[4] == "1");
+		var builder = new StringBuilder ();
+
+		if (data[2] != handler_name && !swapped) {
+			builder.append_printf ("[CCode (cname=\"%s\", instance_pos=-1)]\n", data[2]);
+		} else if (data[2] != handler_name) {
+			builder.append_printf ("[CCode (cname=\"%s\")]\n", data[2]);
+		} else if (!swapped) {
+			builder.append ("[CCode (instance_pos=-1)]\n");
+		}
+
+		var widget = lookup_symbol_by_cname (widget_name);
+		var sigs = symbol_lookup_inherited (widget, signal_name, false);
+
+		if (sigs == null || !(sigs.data is Vala.Signal))
+			return;
+
+		Vala.Signal sig = (Vala.Signal) sigs.data;
+
+		builder.append_printf ("void %s (", handler_name);
+
+		if (swapped) {
+			builder.append_printf ("%s sender", widget.get_full_name ());
+
+			foreach (var param in sig.get_parameters ()) {
+				builder.append_printf (", %s %s", param.variable_type.data_type.get_full_name (), param.name);
+			}
+		} else {
+			foreach (var param in sig.get_parameters ()) {
+				builder.append_printf ("%s %s, ", param.variable_type.data_type.get_full_name (), param.name);
+			}
+
+			builder.append_printf ("%s sender", widget.get_full_name ());
+		}
+
+		builder.append_printf (") {\n\n}\n");
+
+		editor.insert (position, builder.str, -1);
+	}
+
+	Vala.Symbol? lookup_symbol_by_cname (string cname, Vala.Symbol parent=context.root) {
+		var sym = parent.scope.lookup (cname);
+		if (sym != null)
+			return sym;
+
+		var symtab = parent.scope.get_symbol_table ();
+		foreach (var name in symtab.get_keys ()) {
+			if (cname.has_prefix (name)) {
+				return lookup_symbol_by_cname (cname.substring (name.length), parent.scope.lookup (name));
+			}
+		}
+		return null;
 	}
 
 	internal Vala.Block get_current_block (IAnjuta.Editor editor) requires (editor is IAnjuta.File) {
