@@ -98,6 +98,7 @@ typedef struct _EngineScanDataAsync {
 	GPtrArray *files_list;
 	GPtrArray *real_files_list;
 	gboolean symbols_update;
+	gint scan_id;
 	
 } EngineScanDataAsync;
 
@@ -857,9 +858,10 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
 	tags_total_DEBUG += tags_num_DEBUG;
 	elapsed_total_DEBUG += elapsed_DEBUG;
-	DEBUG_PRINT ("elapsed: %f for (%d) [%f sec/symbol] [av %f sec/symbol]", elapsed_DEBUG,
+/*	DEBUG_PRINT ("elapsed: %f for (%d) [%f sec/symbol] [av %f sec/symbol]", elapsed_DEBUG,
 				 tags_num_DEBUG, elapsed_DEBUG / tags_num_DEBUG, 
 				 elapsed_total_DEBUG / tags_total_DEBUG);
+*/				 
 #endif
 	
 	/* notify listeners that another file has been scanned */
@@ -1000,13 +1002,8 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 						g_async_queue_push_unlocked (priv->signals_aqueue, 
 													GINT_TO_POINTER(tmp_updated));
 						g_async_queue_unlock (priv->signals_aqueue);
-					}
-					
-					
-					/* emit signal. The end of files-group can be cannot be
-					 * determined by the caller. This is the only way.
-					 */
-					DEBUG_PRINT ("%s", "EMITTING scan-end");
+					}		
+										
 #ifdef DEBUG	
 					if (priv->first_scan_timer_DEBUG != NULL)
 					{
@@ -1016,7 +1013,6 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 						priv->first_scan_timer_DEBUG = NULL;
 					}
 #endif
-					
 					g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(SCAN_END + 1));
 				}
 				
@@ -1064,16 +1060,16 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 		gpointer sign = NULL;
 		gsize real_signal;
 
-		while (priv->signals_aqueue != NULL &&  
-		    (sign = g_async_queue_try_pop (priv->signals_aqueue)) != NULL)  
+		while (priv->signals_aqueue != NULL &&
+		    (sign = g_async_queue_try_pop (priv->signals_aqueue)) != NULL)
 		{
-			if (sign == NULL) 
+			if (sign == NULL)
 			{
 				return g_async_queue_length (priv->signals_aqueue) > 0 ? TRUE : FALSE;
 			}
-	
+
 			real_signal = (gsize)sign -1;
-	
+			
 			switch (real_signal) 
 			{
 				case SINGLE_FILE_SCAN_END:
@@ -1100,6 +1096,8 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					/* get the process id from the queue */
 					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_aqueue));
 					priv->is_scanning = FALSE;
+
+					DEBUG_PRINT ("%s", "EMITTING scan-end");
 					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
 				}
 					break;
@@ -1124,7 +1122,7 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 					g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, tmp);
 					break;
 			}
-		}		
+		}
 		/* reset to 0 the retries */
 		priv->trigger_closure_retries = 0;
 	}
@@ -1343,7 +1341,8 @@ sdb_engine_scan_files_2 (GFile *gfile,
  */
 static gboolean
 sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
-						 const GPtrArray *real_files_list, gboolean symbols_update)
+						 const GPtrArray *real_files_list, gboolean symbols_update,
+                         gint scan_id)
 {
 	SymbolDBEnginePriv *priv;
 	gint i;
@@ -1361,8 +1360,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	/* Enter scanning state */
 	priv->is_scanning = TRUE; 
 	DEBUG_PRINT ("%s", "EMITTING scan begin.");
-	g_signal_emit_by_name (dbe, "scan-begin",
-	                       anjuta_launcher_get_child_pid (priv->ctags_launcher));
+
+	g_signal_emit_by_name (dbe, "scan-begin", scan_id);
 
 #ifdef DEBUG	
 	if (priv->first_scan_timer_DEBUG == NULL)
@@ -1457,14 +1456,15 @@ on_scan_files_async_end (SymbolDBEngine *dbe, gint process_id, gpointer user_dat
 		return;
 
 	sdb_engine_scan_files_1 (dbe, esda->files_list, esda->real_files_list, 
-	    esda->symbols_update);
+	    esda->symbols_update, esda->scan_id);
 
 	sdb_engine_scan_data_destroy (esda);	
 }
 
 static gboolean
 sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
-						 const GPtrArray *real_files_list, gboolean symbols_update)
+							const GPtrArray *real_files_list, gboolean symbols_update,
+                            gint scan_id)
 {
 	SymbolDBEnginePriv *priv;
 	g_return_val_if_fail (files_list != NULL, FALSE);
@@ -1493,6 +1493,7 @@ sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		else
 			esda->real_files_list = NULL;
 		esda->symbols_update = symbols_update;
+		esda->scan_id = scan_id;
 
 		g_async_queue_push (priv->waiting_scan_aqueue, esda);
 		return TRUE;
@@ -1501,7 +1502,7 @@ sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	/* there's no scan active right now nor data waiting on the queue. 
 	 * Proceed with normal scan.
 	 */
-	sdb_engine_scan_files_1 (dbe, files_list, real_files_list, symbols_update);
+	sdb_engine_scan_files_1 (dbe, files_list, real_files_list, symbols_update, scan_id);
 
 	return TRUE;
 }
@@ -3077,10 +3078,6 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	priv->scan_process_id++;	
 	ret_id = priv->scan_process_id;
 	
-	/* add the current scan_process id into a queue */
-	g_async_queue_push (priv->scan_process_id_aqueue, 
-						GINT_TO_POINTER(priv->scan_process_id));
-
 	SDB_UNLOCK(priv);
 	return ret_id;
 }
@@ -3168,7 +3165,7 @@ symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe,
 	SymbolDBEnginePriv *priv;
 	GPtrArray * filtered_files_path;
 	gboolean ret_code;
-	gint ret_id;
+	gint ret_id, scan_id;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	g_return_val_if_fail (files_path != NULL, FALSE);
@@ -3219,10 +3216,16 @@ symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe,
 	 * AnjutaLauncher and ctags in server mode. After the ctags cmd has been 
 	 * executed, the populating process'll take place.
 	 */
-	ret_code = sdb_engine_scan_files_async (dbe, filtered_files_path, NULL, FALSE);
+	scan_id = sdb_engine_get_unique_scan_id (dbe);
+	ret_code = sdb_engine_scan_files_async (dbe, filtered_files_path, NULL, FALSE, scan_id);
 	
 	if (ret_code == TRUE)
-		ret_id = sdb_engine_get_unique_scan_id (dbe);
+	{
+		ret_id = scan_id;
+		/* add the current scan_process id into a queue */
+		g_async_queue_push (priv->scan_process_id_aqueue, 
+							GINT_TO_POINTER(scan_id));		
+	}
 	else
 		ret_id = -1;
 
@@ -4930,7 +4933,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	SymbolDBEnginePriv *priv;
 	UpdateFileSymbolsData *update_data;
 	gboolean ret_code;
-	gint ret_id;
+	gint ret_id, scan_id;
 	gint i;
 	GPtrArray * ready_files;
 	
@@ -4984,9 +4987,16 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_update_files_symbols_end), update_data);
 
-	ret_code = sdb_engine_scan_files_async (dbe, ready_files, NULL, TRUE);
+	scan_id = sdb_engine_get_unique_scan_id (dbe);
+	ret_code = sdb_engine_scan_files_async (dbe, ready_files, NULL, TRUE, scan_id);
+	
 	if (ret_code == TRUE)
-		ret_id = sdb_engine_get_unique_scan_id (dbe);
+	{
+		ret_id = scan_id;
+		/* add the current scan_process id into a queue */
+		g_async_queue_push (priv->scan_process_id_aqueue, 
+							GINT_TO_POINTER (scan_id));
+	}
 	else
 		ret_id = -1;
 	
@@ -5319,7 +5329,7 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 {
 	SymbolDBEnginePriv *priv;
 	gint i;
-	gint ret_id;
+	gint ret_id, scan_id;
 	gboolean ret_code;
 	/* array that'll represent the /dev/shm/anjuta-XYZ files */
 	GPtrArray *temp_files;
@@ -5427,14 +5437,20 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	 	 */
 		g_signal_connect (G_OBJECT (dbe), "scan-end",
 						  G_CALLBACK (on_scan_update_buffer_end), real_files_list);
-	
-		ret_code = sdb_engine_scan_files_async (dbe, temp_files, real_files_on_db, TRUE);
+
+		scan_id = sdb_engine_get_unique_scan_id (dbe);		
+		ret_code = sdb_engine_scan_files_async (dbe, temp_files, real_files_on_db, TRUE, scan_id);
+		
 		if (ret_code == TRUE)
-			ret_id = sdb_engine_get_unique_scan_id (dbe);
+		{
+			ret_id = scan_id;
+			/* add the current scan_process id into a queue */
+			g_async_queue_push (priv->scan_process_id_aqueue, 
+								GINT_TO_POINTER (scan_id));			
+		}
 		else
 			ret_id = -1;
-	}
-	
+	}	
 	
 	g_ptr_array_unref (temp_files);	
 	g_ptr_array_unref (real_files_on_db);
