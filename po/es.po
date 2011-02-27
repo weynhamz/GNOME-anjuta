@@ -6,17 +6,17 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-22 19:41+0000\n"
-"PO-Revision-Date: 2011-02-24 20:38+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-02-24 19:39+0000\n"
+"PO-Revision-Date: 2011-02-27 12:39+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1875,7 +1875,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2171
+#: ../plugins/symbol-db/plugin.c:2190
 msgid "Local"
 msgstr "Local"
 
@@ -2172,6 +2172,8 @@ msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
 "paths are configured correctly in the preferences"
 msgstr ""
+"No se pudo encontrar el analizador «clang», compruebe si está instalado y si "
+"las rutas están correctamente configuradas en las preferencias"
 
 #: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
 msgid "CLang Analyzer"
@@ -2948,7 +2950,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2129 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -3135,8 +3137,8 @@ msgstr "Examinador API"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2139
-#: ../plugins/symbol-db/plugin.c:2191
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2158
+#: ../plugins/symbol-db/plugin.c:2210
 msgid "Search"
 msgstr "Buscar"
 
@@ -3531,7 +3533,7 @@ msgstr "Buscar siguie_nte"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Search for next appearance of term."
-msgstr ""
+msgstr "Buscar la siguiente ocurrencia del término."
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "Find and R_eplace…"
@@ -3574,7 +3576,7 @@ msgid "Highlight all occurrences"
 msgstr "Resaltar todas las ocurrencias"
 
 #: ../plugins/document-manager/plugin.c:297 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:982
+#: ../plugins/language-support-cpp-java/plugin.c:1056
 #: ../plugins/language-support-python/plugin.c:448
 msgid "_Edit"
 msgstr "_Editar"
@@ -3929,13 +3931,13 @@ msgstr ""
 "encontró ninguna ocurrencia más."
 
 #: ../plugins/document-manager/search-box.c:401
-#, fuzzy, c-format
+#, c-format
 #| msgid "Search for \"%s\" reached the end and was continued at the top."
 msgid "Search for \"%s\" reached the end and was continued at the bottom."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
 #: ../plugins/document-manager/search-box.c:407
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Search for \"%s\" reached the end and was continued at the top but no new "
 #| "match was found."
@@ -4211,7 +4213,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2183
+#: ../plugins/symbol-db/plugin.c:2202
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Global"
@@ -4500,6 +4502,8 @@ msgstr "Opciones del enlazador:"
 #: ../plugins/am-project/am-properties.c:100
 msgid "Common additional linker flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales del enlazador para todos los objetivos en este "
+"grupo."
 
 #: ../plugins/am-project/am-properties.c:105
 #: ../plugins/am-project/am-properties.c:232
@@ -4511,6 +4515,8 @@ msgstr "Opciones de preprocesado de C:"
 #: ../plugins/am-project/am-properties.c:108
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales del preprocesador de C para todos los objetivos "
+"en este grupo."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:240
@@ -4522,6 +4528,7 @@ msgstr "Opciones del compilador de C:"
 #: ../plugins/am-project/am-properties.c:116
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales de C para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:248
@@ -4533,6 +4540,8 @@ msgstr "Opciones del compilador de C++:"
 #: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales del preprocesador de C++ para todos los "
+"objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:129
 #: ../plugins/am-project/am-properties.c:256
@@ -4544,6 +4553,7 @@ msgstr "Opciones del compilador de Java:"
 #: ../plugins/am-project/am-properties.c:132
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales de Java para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:137
 #: ../plugins/am-project/am-properties.c:264
@@ -4555,6 +4565,7 @@ msgstr "Opciones del compilador de Vala:"
 #: ../plugins/am-project/am-properties.c:140
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales de Vala para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:145
 #: ../plugins/am-project/am-properties.c:272
@@ -4566,6 +4577,8 @@ msgstr "Opciones del compilador de Fortran:"
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales de Fortran para todos los objetivos en este "
+"grupo."
 
 #: ../plugins/am-project/am-properties.c:153
 #: ../plugins/am-project/am-properties.c:280
@@ -4578,6 +4591,8 @@ msgstr "Opciones del compilador de C:"
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
+"Opciones comunes adicionales de Objective C para todos los objetivos en este "
+"grupo."
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:288
@@ -4612,6 +4627,8 @@ msgstr "Carpetas de instalación:"
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
 msgstr ""
+"Lista de las carpetas de instalación personalizadas usadas por los objetivos "
+"en este grupo."
 
 #: ../plugins/am-project/am-properties.c:192
 #: ../plugins/am-project/am-properties.c:352
@@ -4670,18 +4687,16 @@ msgstr "Archivos de objeto adicionales para este objetivo."
 #: ../plugins/am-project/am-properties.c:235
 #: ../plugins/am-project/am-properties.c:387
 #: ../plugins/am-project/am-properties.c:539
-#, fuzzy
 #| msgid "No properties available for this target"
 msgid "Additional C preprocessor flags for this target."
-msgstr "Sin propiedades disponibles para este destino"
+msgstr "Opciones adicionales de preprocesado de C para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:243
 #: ../plugins/am-project/am-properties.c:395
 #: ../plugins/am-project/am-properties.c:547
-#, fuzzy
 #| msgid "No properties available for this target"
 msgid "Additional C compiler flags for this target."
-msgstr "Sin propiedades disponibles para este destino"
+msgstr "Opciones de compilación adicionales de C para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:251
 #: ../plugins/am-project/am-properties.c:403
@@ -4710,10 +4725,9 @@ msgstr "Opciones de compilación adicionales de Fortran para este objetivo."
 #: ../plugins/am-project/am-properties.c:283
 #: ../plugins/am-project/am-properties.c:435
 #: ../plugins/am-project/am-properties.c:587
-#, fuzzy
 #| msgid "Objective C compiler flags:"
 msgid "Additional Objective C compiler flags for this target."
-msgstr "Opciones del compilador de C:"
+msgstr "Opciones de compilación adicionales de Objective C para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:291
 #: ../plugins/am-project/am-properties.c:443
@@ -4741,10 +4755,9 @@ msgstr "Dependencias adicionales:"
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
-#, fuzzy
 #| msgid "Additional dependencies:"
 msgid "Additional dependencies for this target."
-msgstr "Dependencias adicionales:"
+msgstr "Dependencias adicionales para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:312
 #: ../plugins/am-project/am-properties.c:464
@@ -4791,6 +4804,8 @@ msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
 msgstr ""
+"No renombrar el objetivo con un prefijo adicional, usado para evitar "
+"sobreescribir el programa del sistema."
 
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:488
@@ -5246,7 +5261,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:54
 msgid "Repository origin; Drop or type a different revision here"
-msgstr ""
+msgstr "Origen del repositorio; soltar o escribir aquí una revisión diferente"
 
 #: ../plugins/git/anjuta-git.ui.h:55
 msgid "Show source revision in log message"
@@ -5269,7 +5284,6 @@ msgid "Stash indexed changes"
 msgstr "Guardar («stash») cambios indexados"
 
 #: ../plugins/git/anjuta-git.ui.h:60
-#| msgid "This commit concludes a failed merge (use -i)"
 msgid "This commit concludes a failed merged (use -i)"
 msgstr "Este commit finaliza con una mezcla fallida (use -i)"
 
@@ -5330,7 +5344,6 @@ msgstr "Aplicar archivos del buzón de correo"
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
-#| msgid "No group selected"
 msgid "No stash selected."
 msgstr "No se ha seleccionado ningún estado guardado («stash»)"
 
@@ -5476,10 +5489,13 @@ msgid "<b>Selected Remote:</b>"
 msgstr "<b>Remota seleccionada:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
+#, fuzzy
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
+"No se seleccionó ninguna remota; usando el origen de forma predeterminada.\n"
+"Para "
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
@@ -5498,10 +5514,9 @@ msgid "Changed but not updated"
 msgstr "Cambiado pero no actualizado"
 
 #: ../plugins/git/git-unstage-pane.c:51
-#, fuzzy
 #| msgid "No target has been selected"
 msgid "No staged files selected."
-msgstr "No se ha seleccionado ningún objetivo"
+msgstr "No se seleccionó ningún archivo reservado."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5579,17 +5594,15 @@ msgid "Unstage"
 msgstr "Quitar la reserva"
 
 #: ../plugins/git/plugin.c:195
-#, fuzzy
 #| msgid "Remove files from the commit index"
 msgid "Remove staged files from the index"
-msgstr "Quitar archivos del índice del commit"
+msgstr "Quitar archivos reservados del índice"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
 msgstr "Resolver conflictos"
 
 #: ../plugins/git/plugin.c:203
-#| msgid "Mark conflicted files as resolved"
 msgid "Mark selected conflicted files as resolved"
 msgstr "Marcar como resuelto el conflicto entre archivos"
 
@@ -5628,10 +5641,9 @@ msgid "Fetch"
 msgstr "Obtener"
 
 #: ../plugins/git/plugin.c:255
-#, fuzzy
 #| msgid "Push changes to a remote repository"
 msgid "Fetch changes from remote repositories"
-msgstr "Empujar los cambios contra un repositorio remoto"
+msgstr "Obtener los cambios desde repositorios remotos"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
@@ -5647,7 +5659,6 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: ../plugins/git/plugin.c:279
-#| msgid "_Continue with resolved conflicts"
 msgid "Continue a rebase with resolved conflicts"
 msgstr "Continuar un «rebase» con los conflictos resueltos"
 
@@ -5664,20 +5675,18 @@ msgid "Abort"
 msgstr "Abortar"
 
 #: ../plugins/git/plugin.c:295
-#, fuzzy
 #| msgid "Abort the rebase and put the repository in its original state"
 msgid "Abort the rebase and return the repository to its previous state"
-msgstr "Abortar el «rebase» y dejar el repositorio en su estado original"
+msgstr "Abortar el «rebase» y volver al estado anterior del repositorio"
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
 msgstr "Herramientas de guardado («stash»)"
 
 #: ../plugins/git/plugin.c:314
-#, fuzzy
 #| msgid "_Stash uncommitted changes…"
 msgid "Stash uncommitted changes"
-msgstr "Gua_rdar (stash) cambios sin subir…"
+msgstr "Guardar («stash») cambios sin subir"
 
 #: ../plugins/git/plugin.c:315
 #, fuzzy
@@ -5686,7 +5695,6 @@ msgid "Save uncommitted changes without committing them"
 msgstr "Revertir los cambios sin subir en los archivos"
 
 #: ../plugins/git/plugin.c:322
-#| msgid "Apply the selected stash"
 msgid "Apply selected stash"
 msgstr "Aplicar el estado guardado («stash») seleccionado"
 
@@ -5787,7 +5795,6 @@ msgid "Revert a commit"
 msgstr "Revertir un commit"
 
 #: ../plugins/git/plugin.c:414
-#| msgid "Patches"
 msgid "Patch series"
 msgstr "Serie de parches"
 
@@ -5804,7 +5811,6 @@ msgid "Apply mailbox files"
 msgstr "Aplicar archivos del buzón de correo"
 
 #: ../plugins/git/plugin.c:439
-#| msgid "Apply mailbox files"
 msgid "Apply patches from mailbox files"
 msgstr "Aplicar parches del buzón de correo"
 
@@ -5963,7 +5969,7 @@ msgstr "Estilo de indicador de mensaje de advertencia:"
 msgid "Warnings:"
 msgstr "Advertencias:"
 
-#: ../plugins/message-view/anjuta-msgman.c:75
+#: ../plugins/message-view/anjuta-msgman.c:83
 msgid "Close all message tabs"
 msgstr "Cerrar todas las pestañas de mensajes"
 
@@ -5972,12 +5978,12 @@ msgid "Icon"
 msgstr "Icono"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:385 ../plugins/message-view/plugin.c:398
-#: ../plugins/message-view/plugin.c:517 ../plugins/message-view/plugin.c:528
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
 msgstr "Mensajes"
 
-#: ../plugins/message-view/message-view.c:856
+#: ../plugins/message-view/message-view.c:869
 #, c-format
 msgid "Error writing %s"
 msgstr "Error al escribir %s"
@@ -6014,32 +6020,32 @@ msgstr "_Guardar mensaje"
 msgid "Save message"
 msgstr "Guardar mensaje"
 
-#: ../plugins/message-view/plugin.c:169
+#: ../plugins/message-view/plugin.c:168
 msgid "Next/Previous Message"
 msgstr "Siguiente/Anterior mensaje"
 
-#: ../plugins/message-view/plugin.c:269
+#: ../plugins/message-view/plugin.c:268
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d mensaje"
 msgstr[1] "%d mensajes"
 
-#: ../plugins/message-view/plugin.c:278
+#: ../plugins/message-view/plugin.c:277
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d información"
 msgstr[1] "%d informaciones"
 
-#: ../plugins/message-view/plugin.c:287
+#: ../plugins/message-view/plugin.c:286
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d advertencias"
 msgstr[1] "%d advertencias"
 
-#: ../plugins/message-view/plugin.c:296
+#: ../plugins/message-view/plugin.c:295
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -6053,7 +6059,6 @@ msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
-#| msgid "Select Package to add:"
 msgid "<b>Select Package to add:</b>"
 msgstr "<b>Seleccionar un paquete para añadir:</b>"
 
@@ -6300,7 +6305,6 @@ msgid "Source files:"
 msgstr "Archivos de código:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
-#| msgid "Specify _where to create the target:"
 msgid "Specify _where to create the directory:"
 msgstr "Especificar _dónde crear la carpeta:"
 
@@ -6321,7 +6325,6 @@ msgid "TargetTypes"
 msgstr "Tipos de objetivo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
-#| msgid "Directory"
 msgid "_Directory name:"
 msgstr "_Nombre de la carpeta:"
 
@@ -6340,7 +6343,7 @@ msgstr "_Seleccionar archivo para añadir&#x2026;"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1324
 #: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2153
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -8174,7 +8177,7 @@ msgstr "Usar tipografía del tema"
 msgid "View"
 msgstr "Vista"
 
-#: ../plugins/starter/plugin.c:252
+#: ../plugins/starter/plugin.c:273
 msgid "Start"
 msgstr "Iniciar"
 
@@ -8766,43 +8769,43 @@ msgstr "_Buscar símbolo…"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1010
+#: ../plugins/symbol-db/plugin.c:1029
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1015
+#: ../plugins/symbol-db/plugin.c:1034
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1046
+#: ../plugins/symbol-db/plugin.c:1065
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1048
+#: ../plugins/symbol-db/plugin.c:1067
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1798
+#: ../plugins/symbol-db/plugin.c:1817
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/symbol-db/plugin.c:2204
+#: ../plugins/symbol-db/plugin.c:2138 ../plugins/symbol-db/plugin.c:2223
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2213
+#: ../plugins/symbol-db/plugin.c:2232
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2240
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2529 ../plugins/symbol-db/plugin.c:2547
+#: ../plugins/symbol-db/plugin.c:2548 ../plugins/symbol-db/plugin.c:2566
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
@@ -9586,40 +9589,40 @@ msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:988
+#: ../plugins/language-support-cpp-java/plugin.c:1062
 #: ../plugins/language-support-python/plugin.c:454
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:989
+#: ../plugins/language-support-cpp-java/plugin.c:1063
 #: ../plugins/language-support-python/plugin.c:455
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:995
+#: ../plugins/language-support-cpp-java/plugin.c:1069
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:996
+#: ../plugins/language-support-cpp-java/plugin.c:1070
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1001
+#: ../plugins/language-support-cpp-java/plugin.c:1075
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1002
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1042
+#: ../plugins/language-support-cpp-java/plugin.c:1116
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1217
-#: ../plugins/language-support-cpp-java/plugin.c:1247
+#: ../plugins/language-support-cpp-java/plugin.c:1291
+#: ../plugins/language-support-cpp-java/plugin.c:1321
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
