@@ -303,7 +303,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 					}					
 					else
 					{
-						search_end = ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL);
+						search_end = IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL));
 						ianjuta_iterable_previous (IANJUTA_ITERABLE (search_end), NULL);
 						ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
 					}				
@@ -321,7 +321,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 					}
 					else
 					{
-						search_end = ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL);
+						search_end = IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL));
 						ianjuta_iterable_previous (IANJUTA_ITERABLE (search_end), NULL);
 						ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
 					}
@@ -398,13 +398,13 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 				{
 					found = TRUE;
 					anjuta_status_push (private->status, 
-					                    _("Search for \"%s\" reached the end and was continued at the bottom."), search_text);
+					                    _("Search for \"%s\" reached top and was continued at the bottom."), search_text);
 				}
 				else if (ianjuta_editor_selection_has_selection (selection, NULL))
 				{
 					anjuta_status_pop (private->status);
 					anjuta_status_push (private->status, 
-					                    _("Search for \"%s\" reached the end and was continued at the bottom but no new match was found."), search_text);
+					                    _("Search for \"%s\" reached top and was continued at the bottom but no new match was found."), search_text);
 				}				
 			}
 		}
@@ -495,7 +495,7 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 		if (!highlight_start)
 		{
 			highlight_start = 
-				ianjuta_iterable_clone (IANJUTA_ITERABLE (result_begin), NULL);
+				IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (result_begin), NULL));
 		} 
 		else if (ianjuta_iterable_compare (IANJUTA_ITERABLE (result_begin),
 											IANJUTA_ITERABLE (highlight_start), NULL) == 0)
@@ -623,7 +623,7 @@ static gboolean
 on_search_entry_icon_pressed (GtkWidget* widget, GtkEntryIconPosition pos, 
 								GdkEvent* event, SearchBox * search_box)
 {
-	do_popup_menu (widget, event, search_box);
+	do_popup_menu (widget, (GdkEventButton*)event, search_box);
 	return TRUE;
 }
 
