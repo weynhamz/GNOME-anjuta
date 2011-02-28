@@ -865,7 +865,11 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 #endif
 	
 	/* notify listeners that another file has been scanned */
-	g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1));
+	DBESignal *dbesig = g_slice_new0 (DBESignal);
+	dbesig->value = GINT_TO_POINTER (SINGLE_FILE_SCAN_END +1);
+	dbesig->process_id = priv->current_scan_process_id;
+	
+	g_async_queue_push (priv->signals_aqueue, dbesig);
 	
 	/* we've done with tag_file but we don't need to tagsClose (tag_file); */
 }
@@ -922,8 +926,13 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 				
 				/* get the scan flag from the queue. We need it to know whether
 				 * an update of symbols must be done or not */
-				scan_flag = GPOINTER_TO_INT(g_async_queue_try_pop (priv->scan_aqueue));
-				real_file = g_async_queue_try_pop (priv->scan_aqueue);
+				DBESignal *dbesig = g_async_queue_try_pop (priv->scan_aqueue);
+				scan_flag = GPOINTER_TO_INT(dbesig->value);
+				g_slice_free (DBESignal, dbesig);
+
+				dbesig = g_async_queue_try_pop (priv->scan_aqueue);
+				real_file = dbesig->value;
+				g_slice_free (DBESignal, dbesig);
 				
 				/* and now call the populating function */
 				if (scan_flag == DO_UPDATE_SYMS ||
@@ -973,23 +982,40 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 					{
 						/* we must be sure to insert both signals at once */
 						g_async_queue_lock (priv->signals_aqueue);
+
+						DBESignal *dbesig1 = g_slice_new0 (DBESignal);
+						DBESignal *dbesig2 = g_slice_new0 (DBESignal);
 						
-						/* the +1 is because asyn_queue doesn't want NULL values */
+						dbesig1->value = GINT_TO_POINTER (SYMBOL_INSERTED + 1);
+						dbesig1->process_id = priv->current_scan_process_id;
+
+						dbesig2->value = GINT_TO_POINTER (tmp_inserted);
+						dbesig2->process_id = priv->current_scan_process_id;
+						
 						g_async_queue_push_unlocked (priv->signals_aqueue, 
-													 GINT_TO_POINTER(SYMBOL_INSERTED + 1));
+													 dbesig1);
 						g_async_queue_push_unlocked (priv->signals_aqueue, 
-													 GINT_TO_POINTER(tmp_inserted));
+													 dbesig2);
+						
 						g_async_queue_unlock (priv->signals_aqueue);
 					}
-					
+						
 					while ((tmp_updated = GPOINTER_TO_INT(
 							g_async_queue_try_pop (priv->updated_syms_id_aqueue))) > 0)
 					{
 						g_async_queue_lock (priv->signals_aqueue);
-						g_async_queue_push_unlocked (priv->signals_aqueue, GINT_TO_POINTER
-													 (SYMBOL_UPDATED + 1));
-						g_async_queue_push_unlocked (priv->signals_aqueue, 
-													 GINT_TO_POINTER(tmp_updated));
+
+						DBESignal *dbesig1 = g_slice_new0 (DBESignal);
+						DBESignal *dbesig2 = g_slice_new0 (DBESignal);
+
+						dbesig1->value = GINT_TO_POINTER (SYMBOL_UPDATED + 1);
+						dbesig1->process_id = priv->current_scan_process_id;
+
+						dbesig2->value = GINT_TO_POINTER (tmp_updated);
+						dbesig2->process_id = priv->current_scan_process_id;
+						
+						g_async_queue_push_unlocked (priv->signals_aqueue, dbesig1);
+						g_async_queue_push_unlocked (priv->signals_aqueue, dbesig2);
 						g_async_queue_unlock (priv->signals_aqueue);
 					}
 
@@ -997,10 +1023,18 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 							g_async_queue_try_pop (priv->updated_scope_syms_id_aqueue))) > 0)
 					{
 						g_async_queue_lock (priv->signals_aqueue);
-						g_async_queue_push_unlocked (priv->signals_aqueue, GINT_TO_POINTER (
-													 SYMBOL_SCOPE_UPDATED + 1));
-						g_async_queue_push_unlocked (priv->signals_aqueue, 
-													GINT_TO_POINTER(tmp_updated));
+
+						DBESignal *dbesig1 = g_slice_new0 (DBESignal);
+						DBESignal *dbesig2 = g_slice_new0 (DBESignal);
+
+						dbesig1->value = GINT_TO_POINTER (SYMBOL_SCOPE_UPDATED + 1);
+						dbesig1->process_id = priv->current_scan_process_id;
+
+						dbesig2->value = GINT_TO_POINTER (tmp_updated);
+						dbesig2->process_id = priv->current_scan_process_id;
+						
+						g_async_queue_push_unlocked (priv->signals_aqueue, dbesig1);
+						g_async_queue_push_unlocked (priv->signals_aqueue, dbesig2);
 						g_async_queue_unlock (priv->signals_aqueue);
 					}		
 										
@@ -1013,7 +1047,13 @@ sdb_engine_ctags_output_thread (gpointer data, gpointer user_data)
 						priv->first_scan_timer_DEBUG = NULL;
 					}
 #endif
-					g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(SCAN_END + 1));
+		
+					DBESignal *dbesig1 = g_slice_new0 (DBESignal);
+
+					dbesig1->value = GINT_TO_POINTER (SCAN_END + 1);
+					dbesig1->process_id = priv->current_scan_process_id;
+					
+					g_async_queue_push (priv->signals_aqueue, dbesig1);
 				}
 				
 				/* truncate the file to 0 length */
@@ -1056,26 +1096,36 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 	if (priv->signals_aqueue != NULL && 
 	    g_async_queue_length (priv->signals_aqueue) > 0)
 	{
-		gpointer tmp;
-		gpointer sign = NULL;
+		DBESignal *dbesig;
 		gsize real_signal;
+		gint process_id;
 
 		while (priv->signals_aqueue != NULL &&
-		    (sign = g_async_queue_try_pop (priv->signals_aqueue)) != NULL)
+		    (dbesig = g_async_queue_try_pop (priv->signals_aqueue)) != NULL)
 		{
-			if (sign == NULL)
+			if (dbesig == NULL)
 			{
 				return g_async_queue_length (priv->signals_aqueue) > 0 ? TRUE : FALSE;
 			}
 
-			real_signal = (gsize)sign -1;
+			real_signal = GPOINTER_TO_INT (dbesig->value) -1;
+			process_id = dbesig->process_id;
 			
 			switch (real_signal) 
 			{
 				case SINGLE_FILE_SCAN_END:
+				{
 					g_signal_emit (dbe, signals[SINGLE_FILE_SCAN_END], 0);
+				}
 					break;
-		
+
+				case SCAN_BEGIN:
+				{
+					DEBUG_PRINT ("%s", "EMITTING scan begin.");
+					g_signal_emit (dbe, signals[SCAN_BEGIN], 0, process_id);
+				}
+					break;
+					
 				case SCAN_END:
 				{
 					/* reset count */
@@ -1093,35 +1143,59 @@ sdb_engine_timeout_trigger_signals (gpointer user_data)
 						priv->is_first_population = FALSE;
 					}
 
-					/* get the process id from the queue */
-					gint int_tmp = GPOINTER_TO_INT(g_async_queue_pop (priv->scan_process_id_aqueue));
 					priv->is_scanning = FALSE;
 
 					DEBUG_PRINT ("%s", "EMITTING scan-end");
-					g_signal_emit (dbe, signals[SCAN_END], 0, int_tmp);
+					g_signal_emit (dbe, signals[SCAN_END], 0, process_id);
 				}
 					break;
 	
 				case SYMBOL_INSERTED:
-					tmp = g_async_queue_try_pop (priv->signals_aqueue);
-					g_signal_emit (dbe, signals[SYMBOL_INSERTED], 0, tmp);
+				{
+					DBESignal *dbesig2; 
+					
+					dbesig2 = g_async_queue_try_pop (priv->signals_aqueue);
+					g_signal_emit (dbe, signals[SYMBOL_INSERTED], 0, dbesig2->value);
+
+					g_slice_free (DBESignal, dbesig2);
+				}
 					break;
 	
 				case SYMBOL_UPDATED:
-					tmp = g_async_queue_try_pop (priv->signals_aqueue);
-					g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, tmp);
+				{
+					DBESignal *dbesig2;
+					
+					dbesig2 = g_async_queue_try_pop (priv->signals_aqueue);
+					g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, dbesig2->value);
+
+					g_slice_free (DBESignal, dbesig2);
+				}
 					break;
 	
 				case SYMBOL_SCOPE_UPDATED:
-					tmp = g_async_queue_try_pop (priv->signals_aqueue);
-					g_signal_emit (dbe, signals[SYMBOL_SCOPE_UPDATED], 0, tmp);
+				{
+					DBESignal *dbesig2;
+					
+					dbesig2 = g_async_queue_try_pop (priv->signals_aqueue);
+					g_signal_emit (dbe, signals[SYMBOL_SCOPE_UPDATED], 0, dbesig2->value);
+
+					g_slice_free (DBESignal, dbesig2);
+				}
 					break;
 	
 				case SYMBOL_REMOVED:
-					tmp = g_async_queue_try_pop (priv->signals_aqueue);
-					g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, tmp);
+				{
+					DBESignal *dbesig2;
+					
+					dbesig2 = g_async_queue_try_pop (priv->signals_aqueue);
+					g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, dbesig2->value);
+
+					g_slice_free (DBESignal, dbesig2);					
+				}
 					break;
 			}
+
+			g_slice_free (DBESignal, dbesig);
 		}
 		/* reset to 0 the retries */
 		priv->trigger_closure_retries = 0;
@@ -1274,28 +1348,49 @@ sdb_engine_scan_files_2 (GFile *gfile,
 	
 	if (symbols_update == TRUE) 
 	{
+		DBESignal *dbesig;
+		
 		/* will this be the last file in the list? */
 		if (partial_count + 1 >= files_list_len) 
 		{
+			dbesig = g_slice_new0 (DBESignal);
+			dbesig->value = GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT);
+			dbesig->process_id = priv->current_scan_process_id;
+			
 			/* yes */
-			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DO_UPDATE_SYMS_AND_EXIT));
+			g_async_queue_push (priv->scan_aqueue, dbesig);
 		}
 		else 
 		{
+			dbesig = g_slice_new0 (DBESignal);
+			dbesig->value = GINT_TO_POINTER (DO_UPDATE_SYMS);
+			dbesig->process_id = priv->current_scan_process_id;
+
 			/* no */
-			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DO_UPDATE_SYMS));
+			g_async_queue_push (priv->scan_aqueue, dbesig);
 		}
 	}
 	else 
 	{
+		DBESignal *dbesig;
+		
 		if (partial_count + 1 >= files_list_len) 
 		{
+			dbesig = g_slice_new0 (DBESignal);
+			dbesig->value = GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT);
+			dbesig->process_id = priv->current_scan_process_id;
+			
 			/* yes */
-			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_UPDATE_SYMS_AND_EXIT));
+			g_async_queue_push (priv->scan_aqueue, dbesig);
 		}
-		else {
+		else 
+		{
+			dbesig = g_slice_new0 (DBESignal);
+			dbesig->value = GINT_TO_POINTER (DONT_UPDATE_SYMS);
+			dbesig->process_id = priv->current_scan_process_id;
+			
 			/* no */
-			g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_UPDATE_SYMS));
+			g_async_queue_push (priv->scan_aqueue, dbesig);
 		}
 	}
 
@@ -1303,15 +1398,26 @@ sdb_engine_scan_files_2 (GFile *gfile,
 	 * them! */
 	if (real_file != NULL)
 	{
-		g_async_queue_push (priv->scan_aqueue, 
-							real_file);
+		DBESignal *dbesig;
+		
+		dbesig = g_slice_new0 (DBESignal);
+		dbesig->value = real_file;
+		dbesig->process_id = priv->current_scan_process_id;
+
+		g_async_queue_push (priv->scan_aqueue, dbesig);
 	}
 	else 
 	{
+		DBESignal *dbesig;
+		
+		dbesig = g_slice_new0 (DBESignal);
+		dbesig->value = GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS);
+		dbesig->process_id = priv->current_scan_process_id;
+		
 		/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
 		 * is not a fake file scan 
 		 */
-		g_async_queue_push (priv->scan_aqueue, GINT_TO_POINTER (DONT_FAKE_UPDATE_SYMS));
+		g_async_queue_push (priv->scan_aqueue, dbesig);
 	}	
 	
 	/* we don't need ginfo object anymore, bye */
@@ -1358,10 +1464,17 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 
 	
 	/* Enter scanning state */
-	priv->is_scanning = TRUE; 
-	DEBUG_PRINT ("%s", "EMITTING scan begin.");
+	priv->is_scanning = TRUE;
 
-	g_signal_emit_by_name (dbe, "scan-begin", scan_id);
+	priv->current_scan_process_id = scan_id;
+	
+	DBESignal *dbesig;
+
+	dbesig = g_slice_new0 (DBESignal);
+	dbesig->value = GINT_TO_POINTER (SCAN_BEGIN + 1);
+	dbesig->process_id = priv->current_scan_process_id;
+	
+	g_async_queue_push (priv->signals_aqueue, dbesig);	
 
 #ifdef DEBUG	
 	if (priv->first_scan_timer_DEBUG == NULL)
@@ -1612,8 +1725,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	 * within a process. A call to scan_files () will put inside the queue an id
 	 * returned and emitted by scan-end.
 	 */
-	sdbe->priv->scan_process_id_aqueue = g_async_queue_new ();
-	sdbe->priv->scan_process_id = 1;
+	sdbe->priv->scan_process_id_sequence = sdbe->priv->current_scan_process_id = 1;
 	
 	/* the scan_aqueue? It will contain mainly 
 	 * ints that refer to the force_update status.
@@ -1915,10 +2027,10 @@ sdb_engine_finalize (GObject * object)
 	
 	dbe = SYMBOL_DB_ENGINE (object);
 	priv = dbe->priv;
-
+/*/ FIXME a crash here ?!
 	g_signal_handler_disconnect (dbe, priv->waiting_scan_handler);
 	priv->waiting_scan_handler = 0;
-	
+//*/
 	if (priv->thread_pool)
 	{
 		g_thread_pool_free (priv->thread_pool, TRUE, TRUE);
@@ -1952,12 +2064,6 @@ sdb_engine_finalize (GObject * object)
 		sdb_engine_disconnect_from_db (dbe);	
 	
 	sdb_engine_free_cached_queries (dbe);
-	
-	if (priv->scan_process_id_aqueue)
-	{
-		g_async_queue_unref (priv->scan_process_id_aqueue);
-		priv->scan_process_id_aqueue = NULL;
-	}
 	
 	if (priv->scan_aqueue)
 	{
@@ -2045,7 +2151,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[DB_CONNECTED]
 		= g_signal_new ("db-connected",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, db_connected),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
@@ -2053,7 +2159,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[DB_DISCONNECTED]
 		= g_signal_new ("db-disconnected",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, db_disconnected),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
@@ -2061,7 +2167,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SCAN_BEGIN]
 		= g_signal_new ("scan-begin",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, scan_begin),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
@@ -2079,7 +2185,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SCAN_END]
 		= g_signal_new ("scan-end",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, scan_end),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
@@ -2089,7 +2195,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SYMBOL_INSERTED]
 		= g_signal_new ("symbol-inserted",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, symbol_inserted),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
@@ -2099,7 +2205,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SYMBOL_UPDATED]
 		= g_signal_new ("symbol-updated",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, symbol_updated),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
@@ -2109,7 +2215,7 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SYMBOL_SCOPE_UPDATED]
 		= g_signal_new ("symbol-scope-updated",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, symbol_scope_updated),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
@@ -2119,13 +2225,13 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 	signals[SYMBOL_REMOVED]
 		= g_signal_new ("symbol-removed",
 						G_OBJECT_CLASS_TYPE (object_class),
-						G_SIGNAL_RUN_FIRST,
+						G_SIGNAL_RUN_LAST,
 						G_STRUCT_OFFSET (SymbolDBEngineClass, symbol_removed),
 						NULL, NULL,
 						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
 						1,
 						G_TYPE_INT);	
-}
+}   
 
 GType
 sdb_engine_get_type (void)
@@ -3075,8 +3181,8 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	
 	SDB_LOCK(priv);
 	
-	priv->scan_process_id++;	
-	ret_id = priv->scan_process_id;
+	priv->scan_process_id_sequence++;	
+	ret_id = priv->scan_process_id_sequence;
 	
 	SDB_UNLOCK(priv);
 	return ret_id;
@@ -3222,9 +3328,6 @@ symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe,
 	if (ret_code == TRUE)
 	{
 		ret_id = scan_id;
-		/* add the current scan_process id into a queue */
-		g_async_queue_push (priv->scan_process_id_aqueue, 
-							GINT_TO_POINTER(scan_id));		
 	}
 	else
 		ret_id = -1;
@@ -4696,10 +4799,20 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		const GValue *val;
 		gint tmp;
 		val = gda_data_model_get_value_at (data_model, 0, i, NULL);
-		tmp = g_value_get_int (val);	
+		tmp = g_value_get_int (val);
+		DBESignal *dbesig1;
+		DBESignal *dbesig2;
+
+		dbesig1 = g_slice_new (DBESignal);
+		dbesig1->value = GINT_TO_POINTER (SYMBOL_REMOVED + 1);
+		dbesig1->process_id = priv->current_scan_process_id;
+
+		dbesig2 = g_slice_new (DBESignal);
+		dbesig2->value = GINT_TO_POINTER (tmp);
+		dbesig2->process_id = priv->current_scan_process_id;
 		
-		g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(SYMBOL_REMOVED + 1));
-		g_async_queue_push (priv->signals_aqueue, GINT_TO_POINTER(tmp));
+		g_async_queue_push (priv->signals_aqueue, dbesig1);
+		g_async_queue_push (priv->signals_aqueue, dbesig2);
 	}
 
 	g_object_unref (data_model);
@@ -4993,9 +5106,6 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 	if (ret_code == TRUE)
 	{
 		ret_id = scan_id;
-		/* add the current scan_process id into a queue */
-		g_async_queue_push (priv->scan_process_id_aqueue, 
-							GINT_TO_POINTER (scan_id));
 	}
 	else
 		ret_id = -1;
@@ -5444,9 +5554,6 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 		if (ret_code == TRUE)
 		{
 			ret_id = scan_id;
-			/* add the current scan_process id into a queue */
-			g_async_queue_push (priv->scan_process_id_aqueue, 
-								GINT_TO_POINTER (scan_id));			
 		}
 		else
 			ret_id = -1;

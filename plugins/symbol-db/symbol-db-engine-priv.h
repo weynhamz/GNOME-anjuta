@@ -153,6 +153,13 @@ typedef struct _static_query_node
 /* normalize with iface naming */
 typedef IAnjutaSymbolType SymType;
 
+typedef struct _DBESignal
+{
+	gpointer value; 
+	gint process_id;
+	
+} DBESignal;
+
 /* the SymbolDBEngine Private structure */
 struct _SymbolDBEnginePriv
 {
@@ -167,8 +174,8 @@ struct _SymbolDBEnginePriv
 	gchar *cnc_string;
 
 	/* Scanning */
-	gint scan_process_id;
-	GAsyncQueue *scan_process_id_aqueue;
+	gint scan_process_id_sequence;
+	gint current_scan_process_id;
 	
 	GAsyncQueue *scan_aqueue;	
 	GAsyncQueue *updated_syms_id_aqueue;

@@ -1896,8 +1896,8 @@ on_isymbol_manager_sys_scan_begin (SymbolDBEngine *dbe, gint process_id,
 	if (sdb_plugin->current_pkg_scanned == NULL)
 		return;
 
-	DEBUG_PRINT ("==================================>\n"
-				 "begin %s", sdb_plugin->current_pkg_scanned->package_name);
+	DEBUG_PRINT ("==%d==>\n"
+				 "begin %s", process_id, sdb_plugin->current_pkg_scanned->package_name);
 	gtk_widget_show (sdb_plugin->progress_bar_system);
 }
 
@@ -1906,21 +1906,19 @@ on_isymbol_manager_sys_single_scan_end (SymbolDBEngine *dbe, SymbolDBPlugin *sdb
 {
 	PackageScanData *pkg_scan;
 
-	g_return_if_fail (sdb_plugin->current_pkg_scanned != NULL);
+	/* ignore signals when scan-end has already been received */
+	if (sdb_plugin->current_pkg_scanned == NULL)
+	{
+		return;
+	}
 	
-	DEBUG_PRINT ("scan queue single scan %s length %d", 
-	             sdb_plugin->current_pkg_scanned->package_name,
-	             g_async_queue_length (sdb_plugin->global_scan_aqueue));
-
-
 	pkg_scan = sdb_plugin->current_pkg_scanned;
 	pkg_scan->files_done++;
 
 	gtk_widget_show (sdb_plugin->progress_bar_system);
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (sdb_plugin->progress_bar_system),
 								   (gdouble)pkg_scan->files_done / 
-	                               (gdouble)pkg_scan->files_length);
-	
+	                               (gdouble)pkg_scan->files_length);	
 }
 
 static void
@@ -1933,7 +1931,8 @@ on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
 
 	g_return_if_fail (sdb_plugin->current_pkg_scanned != NULL);
 
-	DEBUG_PRINT ("<==================================\nscan end %s. Queue now is %d", 
+	DEBUG_PRINT ("<==%d==\nscan end %s. Queue now is %d", 
+	             process_id,
 	             sdb_plugin->current_pkg_scanned->package_name,
 	             g_async_queue_length (sdb_plugin->global_scan_aqueue));
 	
@@ -1942,19 +1941,13 @@ on_isymbol_manager_sys_scan_end (SymbolDBEngine *dbe,
 	
 	g_signal_emit_by_name (sm, "sys-scan-end", process_id);
 
-	/* free the scan data */
-
-	/* FIXME: signals must be emitted in the correct order they're pushed to queue,
-	 * otherwise scan-end will be emitted before single-file-scan-end 
-	 */
-#if 0	
 	pkg_scan = sdb_plugin->current_pkg_scanned;
 	g_free (pkg_scan->package_name);
 	g_free (pkg_scan->package_version);
 	g_free (pkg_scan);
 	
 	sdb_plugin->current_pkg_scanned = NULL;
-#endif
+
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
 }
 
@@ -2070,14 +2063,15 @@ symbol_db_activate (AnjutaPlugin *plugin)
 				G_CALLBACK (on_isymbol_manager_prj_scan_end), sdb_plugin);
 	
 	/* connect signals for interface to receive them */
+	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "single-file-scan-end",
+				G_CALLBACK (on_isymbol_manager_sys_single_scan_end), sdb_plugin);	
+	
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "scan-end",
 				G_CALLBACK (on_isymbol_manager_sys_scan_end), sdb_plugin);
 
 	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "scan-begin",
 				G_CALLBACK (on_isymbol_manager_sys_scan_begin), sdb_plugin);
 
-	g_signal_connect (G_OBJECT (sdb_plugin->sdbe_globals), "single-file-scan-end",
-				G_CALLBACK (on_isymbol_manager_sys_single_scan_end), sdb_plugin);	
 	
 	
 	/* connect signals for project loading and element adding */
@@ -2324,7 +2318,14 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	}
 	sdb_plugin->sdbe_project = NULL;
 
-	/* FIXME: fix the global queue elements freeing */
+	PackageScanData *pkg_scan_data;
+	while ((pkg_scan_data = g_async_queue_try_pop (sdb_plugin->global_scan_aqueue)) != NULL)
+	{
+		g_free (pkg_scan_data->package_name);
+		g_free (pkg_scan_data->package_version);
+		g_free (pkg_scan_data);		
+	}
+	
 	g_async_queue_unref (sdb_plugin->global_scan_aqueue);
 	sdb_plugin->global_scan_aqueue = NULL;
 	
@@ -2577,7 +2578,6 @@ isymbol_manager_add_package (IAnjutaSymbolManager *isymbol_manager,
 	node = files;
 	while (node != NULL)
 	{
-		DEBUG_PRINT ("++adding %s", node->data);
 		node = node->next;
 	}
 	
