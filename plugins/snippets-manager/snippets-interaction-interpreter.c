@@ -764,7 +764,8 @@ snippets_interaction_destroy (SnippetsInteraction *snippets_interaction)
 void                 
 snippets_interaction_insert_snippet (SnippetsInteraction *snippets_interaction,
                                      SnippetsDB *snippets_db,
-                                     AnjutaSnippet *snippet)
+                                     AnjutaSnippet *snippet,
+                                     gboolean editing_session)
 {
 	SnippetsInteractionPrivate *priv = NULL;
 	gchar *indent = NULL, *cur_line = NULL, *snippet_default_content = NULL;
@@ -812,9 +813,10 @@ snippets_interaction_insert_snippet (SnippetsInteraction *snippets_interaction,
 	ianjuta_document_grab_focus (IANJUTA_DOCUMENT (priv->cur_editor), NULL);
 
 	priv->cur_snippet = snippet;
-	start_snippet_editing_session (snippets_interaction, 
-	                               cur_pos, 
-	                               g_utf8_strlen (snippet_default_content, -1));
+	if (editing_session)
+		start_snippet_editing_session (snippets_interaction, 
+		                               cur_pos, 
+		                               g_utf8_strlen (snippet_default_content, -1));
 
 	g_free (indent);
 	g_free (snippet_default_content);
@@ -889,7 +891,7 @@ snippets_interaction_trigger_insert_request (SnippetsInteraction *snippets_inter
 	if (ANJUTA_IS_SNIPPET (snippet))
 	{
 		ianjuta_editor_erase (priv->cur_editor, rewind_iter, cur_pos, NULL);
-		snippets_interaction_insert_snippet (snippets_interaction, snippets_db, snippet);
+		snippets_interaction_insert_snippet (snippets_interaction, snippets_db, snippet, TRUE);
 	}
 
 	g_free (trigger);

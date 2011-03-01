@@ -61,7 +61,8 @@ void                 snippets_interaction_start                  (SnippetsIntera
 void                 snippets_interaction_destroy                (SnippetsInteraction *snippets_interaction);
 void                 snippets_interaction_insert_snippet         (SnippetsInteraction *snippets_interaction,
                                                                   SnippetsDB *snippets_db,
-                                                                  AnjutaSnippet *snippet);
+                                                                  AnjutaSnippet *snippet,
+                                                                  gboolean editing_session);
 void                 snippets_interaction_trigger_insert_request (SnippetsInteraction *snippets_interaction,
                                                                   SnippetsDB *snippets_db);
 void                 snippets_interaction_set_editor              (SnippetsInteraction *snippets_interaction,

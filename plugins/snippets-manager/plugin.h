@@ -88,7 +88,7 @@ struct _SnippetsManagerPluginClass
 
 /* To insert a snippet to the editor. */
 gboolean
-snippet_insert (SnippetsManagerPlugin * plugin, const gchar *keyword);
+snippet_insert (SnippetsManagerPlugin * plugin, const gchar *keyword, gboolean editing_session);
 
 
 #endif /* __SNIPPETS_MANAGER_PLUGIN_H__ */

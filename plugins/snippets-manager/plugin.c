@@ -111,7 +111,8 @@ typedef struct _GlobalVariablesUpdateData
 
 gboolean
 snippet_insert (SnippetsManagerPlugin * plugin, 
-                const gchar *trigger)
+                const gchar *trigger,
+                gboolean editing_session)
 {
 	AnjutaSnippet *requested_snippet = NULL;
 	SnippetsManagerPlugin *snippets_manager_plugin = NULL;
@@ -130,7 +131,8 @@ snippet_insert (SnippetsManagerPlugin * plugin,
 	/* Get the default content of the snippet */
 	snippets_interaction_insert_snippet (snippets_manager_plugin->snippets_interaction,
 	                                     snippets_manager_plugin->snippets_db,
-	                                     requested_snippet);
+	                                     requested_snippet,
+	                                     editing_session);
 
 	return TRUE;
 }
@@ -466,10 +468,13 @@ snippets_manager_plugin_class_init (GObjectClass * klass)
 /* IAnjutaSnippetsManager interface */
 
 static gboolean 
-isnippets_manager_iface_insert (IAnjutaSnippetsManager* snippets_manager, const gchar* key, GError** err)
+isnippets_manager_iface_insert (IAnjutaSnippetsManager* snippets_manager, 
+                                const gchar* key, 
+                                gboolean editing_session,
+                                GError** err)
 {
 	SnippetsManagerPlugin* plugin = ANJUTA_PLUGIN_SNIPPETS_MANAGER (snippets_manager);
-	snippet_insert (plugin, key);
+	snippet_insert (plugin, key, editing_session);
 	return TRUE;
 }
 

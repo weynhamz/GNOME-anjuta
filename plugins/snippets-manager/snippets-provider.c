@@ -741,7 +741,8 @@ snippets_provider_activate (IAnjutaProvider *self,
 	/* Insert the snippet */
 	snippets_interaction_insert_snippet (priv->snippets_interaction,
 	                                     priv->snippets_db,
-	                                     snippet);
+	                                     snippet,
+	                                     TRUE);
 
 	stop_listening (ANJUTA_SNIPPETS_PROVIDER (self));
 }

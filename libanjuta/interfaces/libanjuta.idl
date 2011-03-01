@@ -5548,12 +5548,15 @@ interface IAnjutaSnippetsManager
 	/**
 	 * ianjuta_snippets_manager_insert:
 	 * @key: Trigger-key of the snippet
+	 * @editing_session: If after inserting the snippet there should be an editing
+	 * session. Mark as FALSE if not interested in the dynamic capabilities of the
+	 * snippet.
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
 	 * Insert snippet in the current editor.
 	 */
-	gboolean insert (const gchar* key);
+	gboolean insert (const gchar* key, gboolean editing_session);
 }
 
 /**
