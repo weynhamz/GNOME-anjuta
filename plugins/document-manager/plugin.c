@@ -289,7 +289,11 @@ static GtkToggleActionEntry actions_searchbox_popup[] = {
   { "ActionSearchboxPopupHighlightAll", GTK_STOCK_FIND, 
     N_("Highlight All"), NULL, 
     N_("Highlight all occurrences"),
-	G_CALLBACK (on_search_popup_highlight_toggle)}
+	G_CALLBACK (on_search_popup_highlight_toggle)},
+  { "ActionSearchboxRegexSearch", GTK_STOCK_FIND,
+	N_("RegEx Search"), NULL,
+	N_("Regular expression search"),
+	G_CALLBACK (on_search_popup_regex_search)}
 };
 
 
@@ -888,6 +892,14 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearchOptions",
 								   "ActionSearchboxPopupHighlightAll");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearchOptions",
+								   "ActionSearchboxRegexSearch");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	/*
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearchType",
+								   "ActionSearchboxNormalSearch");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+*/
 
 	/* IAnjutaEditorAssist */
 	flag = IANJUTA_IS_EDITOR_ASSIST (doc);

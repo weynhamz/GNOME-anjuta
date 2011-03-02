@@ -101,6 +101,8 @@ void on_search_popup_case_sensitive_toggle (GtkAction *action, gpointer user_dat
 void on_search_popup_highlight_toggle (GtkAction *action, gpointer user_data);
 void on_search_popup_clear_highlight (GtkAction *action, gpointer user_data);
 
+void on_search_popup_regex_search (GtkAction *action, gpointer user_data);
+
 void on_next_document (GtkAction *action, gpointer user_data);
 void on_previous_document (GtkAction *action, gpointer user_data);
 

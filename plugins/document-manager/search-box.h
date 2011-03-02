@@ -63,6 +63,7 @@ gboolean search_box_incremental_search (SearchBox* search_box, gboolean search_f
 void search_box_clear_highlight (SearchBox * search_box);
 void search_box_toggle_highlight (SearchBox * search_box, gboolean status);
 void search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status);
+void search_box_toggle_regex (SearchBox * search_box, gboolean status);
 
 G_END_DECLS
 

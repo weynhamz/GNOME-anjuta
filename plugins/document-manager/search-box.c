@@ -65,6 +65,7 @@ struct _SearchBoxPrivate
 	GtkWidget* popup_menu;
 	gboolean case_sensitive;
 	gboolean highlight_all;	
+	gboolean regex_mode;
 
 	/* Incremental search */
 	IAnjutaIterable* last_start;
@@ -241,6 +242,39 @@ on_search_focus_out (GtkWidget* widget, GdkEvent* event, SearchBox* search_box)
 }
 
 
+
+static gboolean
+incremental_regex_search (const gchar* search_entry, const gchar* editor_text, gint * start_pos, gint * end_pos)
+{
+	GRegex * regex;
+	GMatchInfo *match_info;
+	gboolean result;
+	GError * err = NULL;
+
+	regex = g_regex_new (search_entry, 0, 0, &err);
+	if (err)
+	{
+		g_message ("%s",err->message);
+		g_error_free (err);
+		g_regex_unref(regex);
+		return FALSE;
+	}
+
+	g_regex_match (regex, editor_text, 0, &match_info);
+	result = g_match_info_fetch_pos(match_info, 0, start_pos, end_pos);
+
+	*start_pos = g_utf8_pointer_to_offset(editor_text, &editor_text[*start_pos]);
+	*end_pos = g_utf8_pointer_to_offset(editor_text, &editor_text[*end_pos]);
+
+	if (regex)
+		g_regex_unref(regex);
+	if (match_info)
+		g_match_info_free (match_info);
+
+	return result;
+
+}
+
 gboolean
 search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 {
@@ -293,7 +327,27 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 		{
 			gchar* selected_text =
 				ianjuta_editor_selection_get (selection, NULL);
-			if (private->case_sensitive)
+
+			if (private->regex_mode)
+			{
+				gint start_pos, end_pos;
+				gboolean result = incremental_regex_search (search_text, selected_text, &start_pos, &end_pos);
+
+				if (result)
+				{
+					if (search_forward)
+					{
+						ianjuta_iterable_next (IANJUTA_ITERABLE (search_start), NULL);
+					}
+					else
+					{
+						search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_selection_get_end (selection, NULL));
+						ianjuta_iterable_previous (IANJUTA_ITERABLE (search_end), NULL);
+						ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
+					}
+				}
+			}
+			else if (private->case_sensitive)
 			{
 				if (g_str_has_prefix (selected_text, search_text))
 				{
@@ -333,7 +387,126 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 		}
 	}
 
-	if (search_forward)
+	if (private->regex_mode)
+	{
+		gint start_pos, end_pos;
+		gchar * text_to_search, * text_to_reverse;
+		gboolean result;
+
+		if (search_forward)
+		{
+			text_to_search = ianjuta_editor_get_text (private->current_editor,
+													IANJUTA_ITERABLE(search_start),
+													IANJUTA_ITERABLE(search_end), NULL);
+			result = incremental_regex_search (search_text, text_to_search, &start_pos, &end_pos);
+
+			start_pos += ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_start), NULL);
+			end_pos += ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_start), NULL);
+
+		}
+		else
+		{
+			text_to_reverse = ianjuta_editor_get_text (private->current_editor,
+													IANJUTA_ITERABLE(search_end),
+													IANJUTA_ITERABLE(search_start), NULL);
+
+			if (g_utf8_validate (text_to_reverse, strlen(text_to_reverse), NULL))
+			{
+				text_to_search = g_utf8_strreverse(text_to_reverse, strlen( text_to_reverse ));
+
+				result = incremental_regex_search (search_text, text_to_search, &start_pos, &end_pos);
+
+				start_pos = ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_end), NULL) - start_pos;
+				end_pos = ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_end), NULL) - end_pos;
+			}
+
+		}
+
+		if (result && start_pos >= 0)
+		{
+
+			result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
+			result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
+
+			if (ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_start), start_pos, NULL) &&
+				ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_end), end_pos, NULL))
+			{
+				found = TRUE;
+				anjuta_status_pop (ANJUTA_STATUS (private->status));
+			}
+			else
+			{
+				result_start = NULL;
+				result_end = NULL;
+			}
+		}
+		else
+		{
+			/* Try to wrap search around */
+			if (search_forward)
+			{
+				ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
+
+				text_to_search = ianjuta_editor_get_text (private->current_editor,
+													IANJUTA_ITERABLE(search_start),
+													IANJUTA_ITERABLE(search_end), NULL);
+
+				result = incremental_regex_search (search_text, text_to_search, &start_pos, &end_pos);
+
+				start_pos += ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_start), NULL);
+				end_pos += ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_start), NULL);
+			}
+			else
+			{
+				search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (private->current_editor,
+																	   NULL));
+				search_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
+
+				text_to_reverse = ianjuta_editor_get_text (private->current_editor,
+													IANJUTA_ITERABLE(search_end),
+													IANJUTA_ITERABLE(search_start), NULL);
+
+				if (g_utf8_validate (text_to_reverse, strlen(text_to_reverse), NULL))
+				{
+					text_to_search = g_utf8_strreverse(text_to_reverse, strlen( text_to_reverse ));
+
+					result = incremental_regex_search (search_text, text_to_search, &start_pos, &end_pos);
+
+					start_pos = ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_end), NULL) - start_pos;
+					end_pos = ianjuta_iterable_get_position(IANJUTA_ITERABLE(search_end), NULL) - end_pos;
+				}
+			}
+
+			result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
+			result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
+
+			if (ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_start), start_pos, NULL) &&
+				ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_end), end_pos, NULL))
+			{
+				if (ianjuta_iterable_compare (IANJUTA_ITERABLE (result_start),
+				                              real_start, NULL) != 0)
+				{
+					found = TRUE;
+					anjuta_status_push (private->status,
+					                    _("Search for \"%s\" reached the end and wrapped around."), search_text);
+				}
+				else if (ianjuta_editor_selection_has_selection (selection, NULL))
+				{
+					anjuta_status_pop (private->status);
+					anjuta_status_push (private->status,
+					                    _("Search for \"%s\" reached the end and wrapped around but no new match was found."), search_text);
+				}
+			}
+
+		}
+
+	}
+	else if (search_forward)
 	{
 		if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (private->current_editor),
 		                                   search_text, private->case_sensitive,
@@ -348,6 +521,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 		{
 			/* Try to continue on top */
 			ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
+
 			if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (private->current_editor),
 			                                   search_text, private->case_sensitive,
 			                                   search_start, search_end, 
@@ -385,8 +559,10 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 		else
 		{
 			/* Try to continue on buttom */
-			ianjuta_iterable_last (IANJUTA_ITERABLE (search_end), NULL);
-			ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);			
+			search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (private->current_editor,
+																	   NULL));
+			search_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+																	   NULL));
 			if (ianjuta_editor_search_backward (IANJUTA_EDITOR_SEARCH (private->current_editor),
 			                                   search_text, private->case_sensitive,
 			                                   search_end, search_start, 
@@ -422,7 +598,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 	search_box_set_entry_color (search_box, found);	
 	g_object_unref (real_start);
 	g_object_unref (search_end);
-		
+
 	if (private->last_start)
 	{
 		g_object_unref (private->last_start);
@@ -456,6 +632,11 @@ search_box_toggle_highlight (SearchBox * search_box, gboolean status)
 		return;
 
 	private->highlight_all = status;
+
+	if (!status)
+	{
+		ianjuta_indicable_clear(IANJUTA_INDICABLE(private->current_editor), NULL);
+	}
 }
 
 void 
@@ -467,6 +648,18 @@ search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status)
 		return;
 
 	private->case_sensitive = status;
+}
+
+void
+search_box_toggle_regex (SearchBox * search_box, gboolean status)
+{
+	SearchBoxPrivate* private = GET_PRIVATE(search_box);
+
+	if (!private->current_editor)
+		return;
+
+	private->regex_mode = status;
+
 }
 
 static void
@@ -513,7 +706,12 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 static void
 on_search_box_document_changed (GtkWidget * widget, SearchBox * search_box)
 {
-	search_box_incremental_search (search_box, TRUE);
+	SearchBoxPrivate* private = GET_PRIVATE(search_box);
+
+	if (!private->regex_mode)
+	{
+		search_box_incremental_search (search_box, TRUE);
+	}
 }
 
 static void
@@ -529,6 +727,7 @@ on_search_box_forward_search (GtkWidget * widget, SearchBox * search_box)
 	{
 		search_box_incremental_search (search_box, TRUE);
 	}
+
 }
 
 static void
@@ -731,6 +930,11 @@ search_box_init (SearchBox *object)
 	gtk_button_set_relief (GTK_BUTTON (private->replace_all_button), GTK_RELIEF_NONE);
 	g_signal_connect (G_OBJECT(private->replace_all_button), "clicked", 
 					G_CALLBACK (on_replace_all_activated), object);
+
+	/* Popup Menu Options */
+	private->regex_mode = FALSE;
+	private->highlight_all = FALSE;
+	private->case_sensitive = FALSE;
 
 	/* Initialize search_box grid */
 	private->grid = gtk_grid_new();
