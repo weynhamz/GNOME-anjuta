@@ -204,6 +204,7 @@ plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
 [type: gettext/glade]plugins/sourceview/anjuta-editor-sourceview.ui
 plugins/starter/plugin.c
+[type: gettext/glade]plugins/starter/starter.ui
 [type: gettext/glade]plugins/subversion/anjuta-subversion.ui
 plugins/subversion/plugin.c
 plugins/subversion/subversion-add-dialog.c
