@@ -343,12 +343,24 @@ void
 anjuta_pkg_config_chooser_set_active_packages (AnjutaPkgConfigChooser* chooser, GList* packages)
 {
 	GList* pkg;
+	GtkTreeIter iter;
 
 	g_return_if_fail (ANJUTA_IS_PKG_CONFIG_CHOOSER (chooser));
+
+	/* Deselect all packages */
+	if (gtk_tree_model_get_iter_first (chooser->priv->model, &iter))
+	{
+		do
+		{
+			gtk_list_store_set (GTK_LIST_STORE (chooser->priv->model), &iter,
+				                    COLUMN_ACTIVE, FALSE, -1);
+		}
+		while (gtk_tree_model_iter_next (chooser->priv->model,
+		                                 &iter));
+	}
 	
 	for (pkg = packages; pkg != NULL; pkg = g_list_next (pkg))
 	{
-		GtkTreeIter iter;
 		if (chooser->priv->scanning)
 		{
 			chooser->priv->selected_cache = g_list_append (chooser->priv->selected_cache,
