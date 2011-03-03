@@ -98,8 +98,8 @@ projectparser_SOURCES = \
 projectparser_LDADD = \
 	libam-project.la \
 	$(GIO_LIBS) \
-	$(LIBANJUTA_LIBS)
-
+	$(LIBANJUTA_LIBS) \
+	$(ANJUTA_LIBS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

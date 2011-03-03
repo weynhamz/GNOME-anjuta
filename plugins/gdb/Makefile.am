@@ -50,7 +50,8 @@ libanjuta_gdb_la_SOURCES = \
 
 noinst_PROGRAMS = gdbmi-test
 gdbmi_test_SOURCES = gdbmi-test.c gdbmi.c gdbmi.h debugger.h
-gdbmi_test_LDADD = $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
+gdbmi_test_LDADD = $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS) $(ANJUTA_LIBS)
+
 # This last line do nothing but it is needed to avoid the error
 # gdbmi.o created with both libtool and without
 # Need AM_PROG_CC_C_0 in configure.in too
