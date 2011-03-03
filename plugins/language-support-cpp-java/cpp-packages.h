@@ -47,6 +47,7 @@ struct _CppPackages
 	AnjutaPlugin* plugin;
 	AnjutaCommandQueue* queue;
 	gboolean loading;
+	guint idle_id;
 };
 
 GType cpp_packages_get_type (void) G_GNUC_CONST;

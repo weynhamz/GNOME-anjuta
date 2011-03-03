@@ -244,64 +244,15 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 		return;
 
 	ianjuta_symbol_manager_deactivate_all (sm, NULL);
-	packages->loading = TRUE;
-	
 	pkgs = ianjuta_project_manager_get_packages (pm, NULL);
 	for (pkg = pkgs; pkg != NULL; pkg = g_list_next (pkg))
 	{
 		cpp_packages_activate_package (sm, pkg->data, &packages_to_add);
 	}
 	g_list_free (pkgs);
-	packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
-	for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
+	if (packages_to_add)
 	{
-		PackageData* pkg_data = pkg->data;
-		AnjutaCommand* command =
-			anjuta_pkg_scanner_new (pkg_data->pkg, pkg_data->version);
-		g_signal_connect (command, "command-finished",
-		                  G_CALLBACK (on_package_ready), sm);
-		anjuta_command_queue_push (packages->queue, command);
-	}
-	g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
-	g_list_free (packages_to_add);
-
-	g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
-	/* Make sure the pointer is valid when the queue finishes */
-	g_object_ref (packages);
-	anjuta_command_queue_start (packages->queue);
-}
-
-static void
-cpp_packages_load_user (CppPackages* packages, gboolean force)
-{
-	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA(packages->plugin);
-	AnjutaShell* shell = anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin));
-	IAnjutaSymbolManager* sm =
-		anjuta_shell_get_interface (shell, IAnjutaSymbolManager, NULL);
-	gboolean loaded = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (shell), 
-	                                                      USER_LOADED));
-	
-	if (!loaded && !force)
-	{
-		gchar* packages_str = g_settings_get_string (plugin->settings,
-		                                             PREF_USER_PACKAGES);
-		GStrv pkgs = g_strsplit (packages_str, ";", -1);
-		gchar** package;
-		GList* packages_to_add = NULL;
-		GList* pkg;
-
 		packages->loading = TRUE;
-		
-		ianjuta_symbol_manager_deactivate_all (sm, NULL);
-
-		for (package = pkgs; *package != NULL; package++)
-		{
-			g_message ("Activating: %s", *package);
-			cpp_packages_activate_package (sm, *package, &packages_to_add);
-		}
-		g_strfreev (pkgs);
-		g_free (packages_str);
-
 		packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
 		for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
 		{
@@ -315,14 +266,80 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 		g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
 		g_list_free (packages_to_add);
 
-		g_object_set_data (G_OBJECT (shell), 
-		                   USER_LOADED, GINT_TO_POINTER (TRUE));
-
 		g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
 		/* Make sure the pointer is valid when the queue finishes */
 		g_object_ref (packages);
 		anjuta_command_queue_start (packages->queue);
 	}
+}
+
+static void
+cpp_packages_load_user (CppPackages* packages, gboolean force)
+{
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA(packages->plugin);
+	AnjutaShell* shell = anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin));
+	IAnjutaSymbolManager* sm =
+		anjuta_shell_get_interface (shell, IAnjutaSymbolManager, NULL);
+	gboolean loaded = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (shell), 
+	                                                      USER_LOADED));
+	
+	if (!loaded || force)
+	{
+		gchar* packages_str = g_settings_get_string (plugin->settings,
+		                                             PREF_USER_PACKAGES);
+		GStrv pkgs = g_strsplit (packages_str, ";", -1);
+		gchar** package;
+		GList* packages_to_add = NULL;
+		GList* pkg;
+		
+		ianjuta_symbol_manager_deactivate_all (sm, NULL);
+
+		for (package = pkgs; *package != NULL; package++)
+		{
+			g_message ("Activating: %s", *package);
+			cpp_packages_activate_package (sm, *package, &packages_to_add);
+		}
+		g_strfreev (pkgs);
+		g_free (packages_str);
+
+		if (packages_to_add)
+		{
+			packages->loading = TRUE;
+			packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+			for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
+			{
+				PackageData* pkg_data = pkg->data;
+				AnjutaCommand* command =
+					anjuta_pkg_scanner_new (pkg_data->pkg, pkg_data->version);
+				g_signal_connect (command, "command-finished",
+						          G_CALLBACK (on_package_ready), sm);
+				anjuta_command_queue_push (packages->queue, command);
+			}
+			g_list_foreach (packages_to_add, (GFunc) pkg_data_free, NULL);
+			g_list_free (packages_to_add);
+
+			g_object_set_data (G_OBJECT (shell), 
+				               USER_LOADED, GINT_TO_POINTER (TRUE));
+
+			g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
+			/* Make sure the pointer is valid when the queue finishes */
+			g_object_ref (packages);
+			anjuta_command_queue_start (packages->queue);
+		}
+	}
+}
+
+static gboolean
+cpp_packages_idle_load_user (CppPackages* packages)
+{
+	if (packages->loading)
+		return TRUE;
+
+	cpp_packages_load (packages, TRUE);
+	packages->idle_id = 0;
+	g_object_unref (packages);
+
+	return FALSE;
 }
 
 void 
@@ -355,8 +372,19 @@ cpp_packages_load (CppPackages* packages, gboolean force)
 	else
 	{
 		if (packages->loading)
+		{
+			if (!packages->idle_id)
+			{
+				packages->idle_id = g_idle_add ((GSourceFunc)cpp_packages_idle_load_user, packages);
+				g_object_ref (packages);
+			}
 			return;
-		cpp_packages_load_user (packages, force);
+		}
+		else
+		{
+			g_message ("Loading user packages");
+			cpp_packages_load_user (packages, force);
+		}
 	}
 
 	g_signal_connect (plugin->settings, "changed::PREF_LIBC",
@@ -370,6 +398,7 @@ static void
 cpp_packages_init (CppPackages *packages)
 {	
 	packages->loading = FALSE;
+	packages->idle_id = 0;
 }
 
 static void
