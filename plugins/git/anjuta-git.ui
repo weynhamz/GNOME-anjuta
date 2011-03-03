@@ -30,8 +30,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Add Files:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Add Files:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -68,8 +70,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -151,8 +155,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Remote name:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Remote name:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -187,8 +193,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;URL:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">URL:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -237,8 +245,10 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -320,8 +330,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Mailbox files to apply:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Mailbox files to apply:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -359,8 +371,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -486,8 +500,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Branches&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Branches</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -540,8 +556,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -623,8 +641,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Commit to cherry pick:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Commit to cherry pick:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -702,8 +722,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -783,8 +805,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Log Message:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Log Message:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -936,8 +960,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1019,8 +1045,10 @@
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Branch name:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Branch name:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1058,8 +1086,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Revision&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Revision</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1108,8 +1138,10 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1191,8 +1223,10 @@
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Tag name:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Tag name:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1230,8 +1264,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Revision&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Revision</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1331,8 +1367,10 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1874,8 +1912,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Revision to merge with:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Revision to merge with:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -1968,8 +2008,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2053,8 +2095,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Generate patches relative to:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Generate patches relative to:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2088,8 +2132,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Folder to create patches in:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Folder to create patches in:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2138,8 +2184,10 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2217,8 +2265,10 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="xpad">1</property>
-            <property name="label" translatable="yes">&lt;b&gt;Repository to pull from:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Repository to pull from:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2364,8 +2414,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2450,8 +2502,10 @@
           <object class="GtkLabel" id="label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Repository to push to:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Repository to push to:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2517,8 +2571,10 @@
               <object class="GtkLabel" id="label5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;Branches:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Branches:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
               </object>
             </child>
           </object>
@@ -2580,8 +2636,10 @@
               <object class="GtkLabel" id="label6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;Tags:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Tags:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
               </object>
             </child>
           </object>
@@ -2669,8 +2727,10 @@
           <object class="GtkLabel" id="label7">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2785,8 +2845,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Remote Repositories:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Remote Repositories:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2824,8 +2886,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Remove Files:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Remove Files:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2862,8 +2926,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -2945,8 +3011,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Revision:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Revision:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3029,8 +3097,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Mode:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Mode:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3112,8 +3182,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Commit to revert:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Commit to revert:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3161,8 +3233,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3242,8 +3316,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Stash Message (Optional):&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Stash Message (Optional):</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3281,8 +3357,10 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Options:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Options:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3404,8 +3482,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Stashed Changes:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Stashed Changes:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3482,8 +3562,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Repository Status:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Repository Status:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
@@ -3619,8 +3701,10 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;b&gt;Tags:&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Tags:</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
         </child>
       </object>
