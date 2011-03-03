@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.64])
+AC_PREREQ(2.65)
 
 m4_define(anjuta_major_version,  2)
 m4_define(anjuta_minor_version, 91)
@@ -8,11 +8,7 @@ m4_define(anjuta_micro_version, 90)
 m4_define(anjuta_nano_version, 0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version.anjuta_nano_version)
 
-AC_INIT([anjuta],
-        [anjuta_version],
-        [http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta],
-        [anjuta],
-        [http://www.anjuta.org/])
+AC_INIT([anjuta],[anjuta_version],[http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta],[anjuta],[http://www.anjuta.org/])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_SRCDIR([src/main.c])
@@ -83,7 +79,8 @@ AC_PROG_YACC
 if [["$YACC" != "bison"]]; then
 	AC_MSG_ERROR(bison is required)
 fi
-AC_LANG_C
+AC_LANG([C])
+AC_LANG([C++])
 AC_PROG_CXX
 AM_PROG_CC_C_O
 
@@ -237,7 +234,7 @@ dnl Check for vala
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(vala,
-	AC_HELP_STRING([--disable-vala],[Disable vala support]),
+	AS_HELP_STRING([--disable-vala],[Disable vala support]),
 	[ if test "$enableval" = "no"; then
 		user_disabled_vala=1
 	  fi ],

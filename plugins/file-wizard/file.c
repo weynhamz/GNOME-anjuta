@@ -466,12 +466,12 @@ insert_notice(IAnjutaSnippetsManager* snippets_manager, const gchar* license_typ
 	gchar *name;
 
 	name = g_utf8_strdown (license_type, -1);
-	ianjuta_snippets_manager_insert(snippets_manager, name, NULL);
+	ianjuta_snippets_manager_insert(snippets_manager, name, FALSE, NULL);
 	g_free (name);
 }
 
 static void
 insert_header(IAnjutaSnippetsManager* snippets_manager, gint source_type)
 {
-	ianjuta_snippets_manager_insert (snippets_manager, "top_com", NULL);
+	ianjuta_snippets_manager_insert (snippets_manager, "top_com", FALSE, NULL);
 }

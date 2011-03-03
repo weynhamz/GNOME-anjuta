@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-02-16 21:18+0000\n"
-"PO-Revision-Date: 2011-02-22 19:06+0700\n"
+"POT-Creation-Date: 2011-03-01 16:19+0000\n"
+"PO-Revision-Date: 2011-03-02 07:22+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -203,11 +203,11 @@ msgstr "ไม่สามารถเรียกคำสั่ง: \"%s\""
 msgid "execvp failed"
 msgstr "execvp ล้มเหลว"
 
-#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Anjuta Shell"
 msgstr "เชลล์แอนจูตา"
 
-#: ../libanjuta/anjuta-plugin.c:327
+#: ../libanjuta/anjuta-plugin.c:332
 msgid "Anjuta shell that will contain the plugin"
 msgstr "เชลล์แอนจูตาที่จะบรรจุปลั๊กอิน"
 
@@ -406,7 +406,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "ถ้าคุณยังไม่บันทึก สิ่งที่คุณเปลี่ยนแปลงจะสูญหายทั้งหมด"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:611
+#: ../plugins/document-manager/plugin.c:636
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "บันทึก"
@@ -1588,7 +1588,7 @@ msgstr "เดาจากชนิด"
 
 #: ../plugins/class-gen/window.c:694 ../plugins/class-gen/window.c:705
 #: ../plugins/class-gen/window.c:779 ../plugins/class-gen/window.c:789
-#: ../plugins/class-gen/window.c:802 ../plugins/search/anjuta-search.ui.h:26
+#: ../plugins/class-gen/window.c:802
 msgid "Scope"
 msgstr "ขอบเขต"
 
@@ -1612,8 +1612,8 @@ msgstr "ชนิด"
 #: ../plugins/class-gen/window.c:771 ../plugins/class-gen/window.c:781
 #: ../plugins/class-gen/window.c:791 ../plugins/class-gen/window.c:803
 #: ../plugins/project-manager/dialogs.c:438
-#: ../plugins/run-program/parameters.c:757
-#: ../plugins/snippets-manager/plugin.c:757
+#: ../plugins/run-program/parameters.c:758
+#: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
@@ -1656,7 +1656,7 @@ msgstr "Marshaller"
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:445
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:474
+#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "ค่า"
 
@@ -1666,7 +1666,7 @@ msgid "Module"
 msgstr "มอดูล"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1033
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1072
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
@@ -1828,7 +1828,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "ไม่สนใจแฟ้ม .cvsrc (แนะนำ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2171
+#: ../plugins/symbol-db/plugin.c:2190
 msgid "Local"
 msgstr "เฉพาะที่"
 
@@ -1846,7 +1846,6 @@ msgstr "ชื่อมอดูล:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/search/anjuta-search.ui.h:22
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
@@ -2366,13 +2365,13 @@ msgstr "จุด_พัก"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1823
 msgid "Toggle Breakpoint"
-msgstr "สลับจุดพัก"
+msgstr "เปิด/ปิดจุดพัก"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1825
 msgid "Toggle breakpoint at the current location"
-msgstr "สลับจุดพักที่ตำแหน่งปัจจุบัน"
+msgstr "เปิด/ปิดจุดพักที่ตำแหน่งปัจจุบัน"
 
 #. Action name
 #. Stock icon, if any
@@ -2895,7 +2894,7 @@ msgstr "เฟรม"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2129 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2148 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2903,7 +2902,7 @@ msgstr "แฟ้ม"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:951
+#: ../plugins/document-manager/plugin.c:990
 msgid "Line"
 msgstr "บรรทัด"
 
@@ -3081,12 +3080,8 @@ msgstr "เบราว์เซอร์ API"
 msgid "Contents"
 msgstr "เนื้อหา"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/search/search-replace.c:1034
-#: ../plugins/search/search-replace.c:1700
-#: ../plugins/search/search-replace.c:1707
-#: ../plugins/search/search-replace.c:1719
-#: ../plugins/search/search-replace.c:2037 ../plugins/symbol-db/plugin.c:2139
-#: ../plugins/symbol-db/plugin.c:2191
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2158
+#: ../plugins/symbol-db/plugin.c:2210
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -3117,7 +3112,7 @@ msgstr "ลบที่คั่นหน้า"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:445
 msgid "Bookmarks"
 msgstr "ที่คั่นหน้า"
 
@@ -3462,7 +3457,7 @@ msgstr "ประวัติ_ถัดไป"
 msgid "Go to next history"
 msgstr "ไปยังประวัติถัดไป"
 
-#: ../plugins/document-manager/plugin.c:265 ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:265
 msgid "_Search"
 msgstr "_ค้นหา"
 
@@ -3475,366 +3470,425 @@ msgid "Quick editor embedded search"
 msgstr "การค้นหาอย่างเร็วแบบฝังในเครื่องมือแก้ไข"
 
 #: ../plugins/document-manager/plugin.c:269
-msgid "Quick _ReSearch"
-msgstr "_ค้นหาซ้ำอย่างเร็ว"
+msgid "Find _Next"
+msgstr "หา_ถัดไป"
 
 #: ../plugins/document-manager/plugin.c:270
-msgid "Repeat quick search"
-msgstr "ทำซ้ำการค้นหาอย่างเร็ว"
+msgid "Search for next appearance of term."
+msgstr "ค้นหาคำเดิมต่อไป"
 
-#: ../plugins/document-manager/plugin.c:275 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:962
+#: ../plugins/document-manager/plugin.c:272
+msgid "Find and R_eplace…"
+msgstr "หาและแ_ทนที่…"
+
+#: ../plugins/document-manager/plugin.c:273
+msgid "Search and replace"
+msgstr "ค้นหาและแทนที่"
+
+#: ../plugins/document-manager/plugin.c:275
+msgid "Find _Previous"
+msgstr "หา_ก่อนหน้า"
+
+#: ../plugins/document-manager/plugin.c:277
+msgid "Repeat the last Find command"
+msgstr "ทำซ้ำคำสั่งหาล่าสุด"
+
+#: ../plugins/document-manager/plugin.c:279
+msgid "Clear Highlight"
+msgstr "ล้างการเน้น"
+
+#: ../plugins/document-manager/plugin.c:280
+msgid "Clear all highlighted text"
+msgstr "ล้างการเน้นข้อความทั้งหมด"
+
+#: ../plugins/document-manager/plugin.c:286
+msgid "Case Sensitive"
+msgstr "ตัวพิมพ์ใหญ่-เล็กตรงกัน"
+
+#: ../plugins/document-manager/plugin.c:287
+msgid "Match case in search results."
+msgstr "ค้นหาข้อความโดยตัวพิมพ์ใหญ่-เล็กตรงกัน"
+
+#: ../plugins/document-manager/plugin.c:290
+msgid "Highlight All"
+msgstr "เน้นทั้งหมด"
+
+#: ../plugins/document-manager/plugin.c:291
+msgid "Highlight all occurrences"
+msgstr "เน้นข้อความที่พบทั้งหมด"
+
+#: ../plugins/document-manager/plugin.c:297 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1056
 #: ../plugins/language-support-python/plugin.c:448
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:298
 msgid "_Editor"
 msgstr "เครื่องมือแ_ก้ไข"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:305
 msgid "_Add Editor View"
 msgstr "เ_พิ่มมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:306
 msgid "Add one more view of current document"
 msgstr "เพิ่มมุมมองของเอกสารปัจจุบันอีกหนึ่งมุมมอง"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:308
 msgid "_Remove Editor View"
 msgstr "_ลบมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:309
 msgid "Remove current view of the document"
 msgstr "ลบมุมมองปัจจุบันของเอกสาร"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:311
 msgid "U_ndo"
 msgstr "เรี_ยกคืน"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:312
 msgid "Undo the last action"
 msgstr "เรียกคืนปฏิบัติการล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:314
 msgid "_Redo"
 msgstr "_ทำซ้ำ"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:315
 msgid "Redo the last undone action"
 msgstr "ทำซ้ำปฏิบัติการที่เรียกคืนล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:317
 msgid "C_ut"
 msgstr "_ตัด"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:318
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "ตัดข้อความที่เลือกจากเครื่องมือแก้ไขไปยังคลิปบอร์ด"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:298 ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:320 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "_คัดลอก"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:321
 msgid "Copy the selected text to the clipboard"
 msgstr "คัดลอกข้อความที่เลือกไปยังคลิปบอร์ด"
 
-#: ../plugins/document-manager/plugin.c:301 ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:323 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "_แปะ"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:324
 msgid "Paste the content of clipboard at the current position"
 msgstr "แปะเนื้อหาของคลิปบอร์ด ณ ตำแหน่งปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:332
 msgid "_Clear"
 msgstr "_ล้าง"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:333
 msgid "Delete the selected text from the editor"
 msgstr "ลบข้อความที่เลือกออกจากเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:336
 msgid "_Auto-Complete"
 msgstr "เ_ติมเต็มคำอัตโนมัติ"
 
-#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/document-manager/plugin.c:337
 msgid "Auto-complete the current word"
 msgstr "เติมเต็มคำปัจจุบันโดยอัตโนมัติ"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:343
 msgid "_Line Number Margin"
 msgstr "ขอบแสดงเลข_บรรทัด"
 
-#: ../plugins/document-manager/plugin.c:321
+#: ../plugins/document-manager/plugin.c:344
 msgid "Show/Hide line numbers"
 msgstr "แสดง/ซ่อน เลขบรรทัด"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:346
 msgid "_Marker Margin"
 msgstr "ขอบเ_ครื่องหมาย"
 
-#: ../plugins/document-manager/plugin.c:324
+#: ../plugins/document-manager/plugin.c:347
 msgid "Show/Hide marker margin"
 msgstr "แสดง/ซ่อน ขอบสำหรับทำเครื่องหมาย"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:349
 msgid "_Code Fold Margin"
 msgstr "_ขอบพับโค้ด"
 
-#: ../plugins/document-manager/plugin.c:327
+#: ../plugins/document-manager/plugin.c:350
 msgid "Show/Hide code fold margin"
 msgstr "แสดง/ซ่อน ขอบสำหรับพับโค้ด"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:352
 msgid "_Indentation Guides"
 msgstr "แ_นวการร่นย่อหน้า"
 
-#: ../plugins/document-manager/plugin.c:330
+#: ../plugins/document-manager/plugin.c:353
 msgid "Show/Hide indentation guides"
 msgstr "แสดง/ซ่อน เส้นแนวการร่นย่อหน้า"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:355
 msgid "_White Space"
 msgstr "_ช่องว่าง"
 
-#: ../plugins/document-manager/plugin.c:333
+#: ../plugins/document-manager/plugin.c:356
 msgid "Show/Hide white spaces"
 msgstr "แสดง/ซ่อน ช่องว่าง"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:358
 msgid "_Line End Characters"
 msgstr "_อักขระปิดบรรทัด"
 
-#: ../plugins/document-manager/plugin.c:336
+#: ../plugins/document-manager/plugin.c:359
 msgid "Show/Hide line end characters"
 msgstr "แสดง/ซ่อน อักขระปิดบรรทัด"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:361
 msgid "Line _Wrapping"
 msgstr "การ_ตัดบรรทัด"
 
-#: ../plugins/document-manager/plugin.c:339
+#: ../plugins/document-manager/plugin.c:362
 msgid "Enable/disable line wrapping"
 msgstr "เปิด/ปิดการตัดบรรทัด"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:367
 msgid "Zoom In"
 msgstr "แสดงขยาย"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:368
 msgid "Zoom in: Increase font size"
 msgstr "แสดงขยาย: เพิ่มขนาดตัวอักษร"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:370
 msgid "Zoom Out"
 msgstr "แสดงย่อ"
 
-#: ../plugins/document-manager/plugin.c:348
+#: ../plugins/document-manager/plugin.c:371
 msgid "Zoom out: Decrease font size"
 msgstr "แสดงย่อ: ลดขนาดตัวอักษร"
 
-#: ../plugins/document-manager/plugin.c:353
+#: ../plugins/document-manager/plugin.c:376
 msgid "_Highlight Mode"
 msgstr "โหมดเ_น้น"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Close All Folds"
 msgstr "ปิ_ดทุกพับ"
 
-#: ../plugins/document-manager/plugin.c:358
+#: ../plugins/document-manager/plugin.c:381
 msgid "Close all code folds in the editor"
 msgstr "ปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:383
 msgid "_Open All Folds"
 msgstr "_เปิดทุกพับ"
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:384
 msgid "Open all code folds in the editor"
 msgstr "เปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Toggle Current Fold"
-msgstr "_สลับพับปัจจุบัน"
+msgstr "_เปิด/ปิดการพับปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:387
 msgid "Toggle current code fold in the editor"
-msgstr "สลับการปิด/เปิดโค้ดที่พับปัจจุบันในเครื่องมือแก้ไข"
+msgstr "เปิด/ปิดโค้ดที่พับปัจจุบันในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:392
 msgid "_Documents"
 msgstr "เ_อกสาร"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:393
 msgid "Previous Document"
 msgstr "เอกสารก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:394
 msgid "Switch to previous document"
 msgstr "ย้ายไปเอกสารก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:396
 msgid "Next Document"
 msgstr "เอกสารถัดไป"
 
-#: ../plugins/document-manager/plugin.c:374
+#: ../plugins/document-manager/plugin.c:397
 msgid "Switch to next document"
 msgstr "ย้ายไปเอกสารถัดไป"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:402
 msgid "Bookmar_k"
 msgstr "_ที่คั่นหน้า"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:403
 msgid "_Toggle Bookmark"
 msgstr "_เปิด/ปิดการคั่นหน้า"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:404
 msgid "Toggle bookmark at the current line position"
 msgstr "เปิด/ปิดการคั่นหน้าที่ตำแหน่งบรรทัดปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:383
+#: ../plugins/document-manager/plugin.c:406
 msgid "_Previous Bookmark"
 msgstr "ที่คั่นหน้า_ก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:407
 msgid "Jump to the previous bookmark in the file"
 msgstr "กระโดดไปที่คั่นหน้าก่อนหน้าในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:409
 msgid "_Next Bookmark"
 msgstr "ที่คั่นหน้า_ถัดไป"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:410
 msgid "Jump to the next bookmark in the file"
 msgstr "กระโดดไปที่คั่นหน้าถัดไปในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:389
+#: ../plugins/document-manager/plugin.c:412
 msgid "_Clear All Bookmarks"
 msgstr "_ลบที่คั่นหน้าทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:413
 msgid "Clear bookmarks"
 msgstr "ลบที่คั่นหน้าทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:432
 msgid "Editor file operations"
 msgstr "การกระทำเกี่ยวกับแฟ้มของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:433
 msgid "Editor print operations"
 msgstr "การกระทำเกี่ยวกับการพิมพ์ของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:434
 msgid "Editor text transformation"
 msgstr "การแปลงข้อความของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:435
 msgid "Editor text selection"
 msgstr "การเลือกข้อความของเครื่องมือแก้ไข"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:437
 msgid "Editor code commenting"
 msgstr "การแสดงคำอธิบายโค้ดของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:438
 msgid "Editor navigations"
 msgstr "การท่องดูของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:439
 msgid "Editor edit operations"
 msgstr "การกระทำเกี่ยวกับการแก้ไขของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:440
 msgid "Editor zoom operations"
 msgstr "การทำงานแสดงย่อ-ขยายของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:441
 msgid "Editor syntax highlighting styles"
 msgstr "รูปแบบการเน้นไวยากรณ์ของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:442
 msgid "Editor text formating"
 msgstr "การจัดรูปแบบข้อความของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:443
 msgid "Simple searching"
 msgstr "การค้นหาแบบง่าย"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
-#: ../plugins/document-manager/plugin.c:421
-#: ../plugins/document-manager/plugin.c:1749
-#: ../plugins/document-manager/plugin.c:2171
-#: ../plugins/document-manager/plugin.c:2180
+#: ../plugins/document-manager/plugin.c:444
+#: ../plugins/document-manager/plugin.c:1788
+#: ../plugins/document-manager/plugin.c:2210
+#: ../plugins/document-manager/plugin.c:2219
 msgid "Documents"
 msgstr "เอกสาร"
 
-#: ../plugins/document-manager/plugin.c:426
+#: ../plugins/document-manager/plugin.c:449
 msgid "Editor view settings"
 msgstr "ค่าตั้งมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:451
+msgid "Toggle search options"
+msgstr "เปิด/ปิดตัวเลือกของการค้นหา"
+
+#: ../plugins/document-manager/plugin.c:640
 msgid "Reload"
 msgstr "เรียกใหม่"
 
-#: ../plugins/document-manager/plugin.c:621
+#: ../plugins/document-manager/plugin.c:646
 msgid "Go to"
 msgstr "ไปยัง"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:975
 msgid "OVR"
 msgstr "ทับ"
 
-#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:979
 msgid "INS"
 msgstr "แทรก"
 
-#: ../plugins/document-manager/plugin.c:946
-#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:985
+#: ../plugins/document-manager/plugin.c:988
 msgid "Zoom"
 msgstr "แสดงย่อ-ขยาย"
 
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:991
 msgid "Col"
 msgstr "คอลัมน์"
 
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:992
 msgid "Mode"
 msgstr "โหมด"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1591
+#: ../plugins/document-manager/plugin.c:1630
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "บันทึก %s โดยอัตโนมัติไม่สำเร็จ"
 
-#: ../plugins/document-manager/plugin.c:1605
+#: ../plugins/document-manager/plugin.c:1644
 msgid "Autosave completed"
 msgstr "บันทึกอัตโนมัติเรียบร้อย"
 
-#: ../plugins/document-manager/search-box.c:383
+#: ../plugins/document-manager/search-box.c:362
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม"
 
-#: ../plugins/document-manager/search-box.c:389
+#: ../plugins/document-manager/search-box.c:368
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
 msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม แต่ไม่พบข้อความที่ตรง"
 
-#: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.ui.h:17
-msgid "Match case"
-msgstr "ตัวพิมพ์ใหญ่-เล็กตรงกัน"
+#: ../plugins/document-manager/search-box.c:401
+#, c-format
+msgid "Search for \"%s\" reached top and was continued at the bottom."
+msgstr "การค้นหา \"%s\" ชนต้นแฟ้ม และเริ่มหาต่อจากท้ายแฟ้ม"
+
+#: ../plugins/document-manager/search-box.c:407
+#, c-format
+msgid ""
+"Search for \"%s\" reached top and was continued at the bottom but no new "
+"match was found."
+msgstr "การค้นหา \"%s\" ชนต้นแฟ้ม และเริ่มหาต่อจากท้ายแฟ้ม แต่ไม่พบข้อความที่ตรง"
+
+#: ../plugins/document-manager/search-box.c:725
+msgid "Replace"
+msgstr "แทนที่"
+
+#: ../plugins/document-manager/search-box.c:730
+msgid "Replace all"
+msgstr "แทนที่ทั้งหมด"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3863,7 +3917,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "ฟังก์ชันนี้ยังไม่ทำสำหรับวิดเจ็ตของคลาส '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/starter.c:111
+#: ../plugins/starter/plugin.c:155
 #, c-format
 msgid "Open '%s'"
 msgstr "เปิด '%s'"
@@ -3934,7 +3988,7 @@ msgid "Document Manager"
 msgstr "เครื่องมือจัดการเอกสาร"
 
 #: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
-#: ../plugins/run-program/parameters.c:311
+#: ../plugins/run-program/parameters.c:312
 msgid "All files"
 msgstr "ทุกแฟ้ม"
 
@@ -4092,7 +4146,7 @@ msgid "Filter"
 msgstr "ตัวกรอง"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2183
+#: ../plugins/symbol-db/plugin.c:2202
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "ส่วนกลาง"
@@ -4174,7 +4228,6 @@ msgid "Name:"
 msgstr "ชื่อ:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:413
 msgid "New File"
 msgstr "แฟ้มใหม่"
 
@@ -4468,8 +4521,7 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"แฟล็กเพิ่มเติมทั่วไปของเครื่องมือสร้างตัววิเคราะห์ศัพท์ Lex หรือ Flex "
-"สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
+"แฟล็กเพิ่มเติมทั่วไปของเครื่องมือสร้างตัววิเคราะห์ศัพท์ Lex หรือ Flex สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -5668,29 +5720,37 @@ msgstr "แม่ข่าย"
 msgid "Stash"
 msgstr "Stash"
 
-#: ../plugins/glade/plugin.c:375
+#: ../plugins/glade/plugin.c:460
+msgid "Select widgets in the workspace"
+msgstr "เลือกวิดเจ็ตในพื้นที่ทำงาน"
+
+#: ../plugins/glade/plugin.c:486
+msgid "Drag and resize widgets in the workspace"
+msgstr "ลากและปรับขนาดวิดเจ็ตในพื้นที่ทำงาน"
+
+#: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
 msgstr "กำลังโหลด Glade…"
 
-#: ../plugins/glade/plugin.c:420
+#: ../plugins/glade/plugin.c:590
 msgid "Widgets"
 msgstr "วิดเจ็ต"
 
-#: ../plugins/glade/plugin.c:425
+#: ../plugins/glade/plugin.c:595
 msgid "Palette"
 msgstr "กล่องเครื่องมือ"
 
-#: ../plugins/glade/plugin.c:541
+#: ../plugins/glade/plugin.c:718
 #, c-format
 msgid "Not local file: %s"
 msgstr "ไม่ใช่แฟ้มในเครื่อง: %s"
 
-#: ../plugins/glade/plugin.c:587
+#: ../plugins/glade/plugin.c:764
 #, c-format
 msgid "Could not open %s"
 msgstr "เปิด %s ไม่ได้"
 
-#: ../plugins/glade/plugin.c:642
+#: ../plugins/glade/plugin.c:821
 msgid "Could not create a new glade project."
 msgstr "สร้างโครงการ glade โครงการใหม่ไม่ได้"
 
@@ -5758,7 +5818,7 @@ msgstr "รูปแบบของตัวบ่งชี้ของข้อ
 msgid "Warnings:"
 msgstr "คำเตือน:"
 
-#: ../plugins/message-view/anjuta-msgman.c:75
+#: ../plugins/message-view/anjuta-msgman.c:83
 msgid "Close all message tabs"
 msgstr "ปิดแท็บข้อความทั้งหมด"
 
@@ -5767,12 +5827,12 @@ msgid "Icon"
 msgstr "ไอคอน"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:383 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:515 ../plugins/message-view/plugin.c:526
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
 msgstr "ข้อความ"
 
-#: ../plugins/message-view/message-view.c:856
+#: ../plugins/message-view/message-view.c:869
 #, c-format
 msgid "Error writing %s"
 msgstr "เกิดข้อผิดพลาดขณะเขียน %s"
@@ -5809,29 +5869,29 @@ msgstr "_บันทึกข้อความ"
 msgid "Save message"
 msgstr "บันทึกข้อความ"
 
-#: ../plugins/message-view/plugin.c:169
+#: ../plugins/message-view/plugin.c:168
 msgid "Next/Previous Message"
 msgstr "ข้อความถัดไป/ก่อนหน้า"
 
-#: ../plugins/message-view/plugin.c:269
+#: ../plugins/message-view/plugin.c:268
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "ข้อความ %d ข้อความ"
 
-#: ../plugins/message-view/plugin.c:278
+#: ../plugins/message-view/plugin.c:277
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "ข้อมูล %d รายการ"
 
-#: ../plugins/message-view/plugin.c:287
+#: ../plugins/message-view/plugin.c:286
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "คำเตือน %d รายการ"
 
-#: ../plugins/message-view/plugin.c:296
+#: ../plugins/message-view/plugin.c:295
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
@@ -6123,7 +6183,7 @@ msgstr "เ_ลือกแฟ้มที่จะเพิ่ม&#x2026;"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1324
 #: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2153
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "โครงการ"
@@ -7513,11 +7573,11 @@ msgstr "ไดเรกทอรีทำงาน:"
 msgid "Program directory '%s' is not local"
 msgstr "ไดเรกทอรีโปรแกรม '%s' ไม่ได้อยู่ในเครื่องนี้"
 
-#: ../plugins/run-program/parameters.c:303
+#: ../plugins/run-program/parameters.c:304
 msgid "Load Target to run"
 msgstr "โหลดเป้าหมายที่จะเรียกทำงาน"
 
-#: ../plugins/run-program/parameters.c:620
+#: ../plugins/run-program/parameters.c:621
 #, c-format
 msgid "Missing file %s"
 msgstr "ขาดแฟ้ม %s"
@@ -7569,280 +7629,8 @@ msgstr "การกระทำเกี่ยวกับการเรีย
 msgid "Command used for starting a terminal"
 msgstr "คำสั่งสำหรับเปิดเทอร์มินัล"
 
-#: ../plugins/search/anjuta-search.ui.h:1
-msgid "Actions"
-msgstr "การกระทำ"
-
-#: ../plugins/search/anjuta-search.ui.h:2
-#: ../plugins/search/search-replace.c:91
-msgid "Backward"
-msgstr "ถอยหลัง"
-
-#: ../plugins/search/anjuta-search.ui.h:3
-msgid "Choose Directories:"
-msgstr "เลือกไดเรกทอรี:"
-
-#: ../plugins/search/anjuta-search.ui.h:4
-msgid "Choose Files:"
-msgstr "เลือกแฟ้ม:"
-
-#: ../plugins/search/anjuta-search.ui.h:5
-msgid "Expand regex back references"
-msgstr "ขยายการอ้างอิงกลับในนิพจน์เรกิวลาร์"
-
-#: ../plugins/search/anjuta-search.ui.h:6
-msgid "File Filter"
-msgstr "ตัวกรองแฟ้ม"
-
-#: ../plugins/search/anjuta-search.ui.h:7
-msgid "Find & Replace"
-msgstr "หาและแทนที่"
-
-#: ../plugins/search/anjuta-search.ui.h:8
-#: ../plugins/search/search-replace.c:90
-msgid "Forward"
-msgstr "ไปข้างหน้า"
-
-#. the order of these matters - it must match the order of the corresponding
-#. radio buttons on another page
-#: ../plugins/search/anjuta-search.ui.h:9
-#: ../plugins/search/search-replace.c:89
-msgid "Full Buffer"
-msgstr "เต็มบัฟเฟอร์"
-
-#: ../plugins/search/anjuta-search.ui.h:10
-msgid "Greedy matching"
-msgstr "ค้นหาแบบจับคู่มากที่สุด"
-
-#: ../plugins/search/anjuta-search.ui.h:11
-msgid "Ignore Binary Files"
-msgstr "ละเลยแฟ้มไบนารี"
-
-#: ../plugins/search/anjuta-search.ui.h:12
-msgid "Ignore Directories:"
-msgstr "ละเลยไดเรกทอรี:"
-
-#: ../plugins/search/anjuta-search.ui.h:13
-msgid "Ignore Files:"
-msgstr "ละเลยแฟ้ม:"
-
-#: ../plugins/search/anjuta-search.ui.h:14
-msgid "Ignore Hidden Directories"
-msgstr "ละเลยไดเรกทอรีซ่อน"
-
-#: ../plugins/search/anjuta-search.ui.h:15
-msgid "Ignore Hidden Files"
-msgstr "ละเลยแฟ้มซ่อน"
-
-#: ../plugins/search/anjuta-search.ui.h:16
-msgid "Match at start of word"
-msgstr "จับคู่ที่ต้นคำ"
-
-#: ../plugins/search/anjuta-search.ui.h:18
-msgid "Match complete lines"
-msgstr "จับคู่ทั้งบรรทัด"
-
-#: ../plugins/search/anjuta-search.ui.h:19
-msgid "Match complete words"
-msgstr "จับคู่ทั้งคำ"
-
-#: ../plugins/search/anjuta-search.ui.h:20
-msgid "Maximum Actions"
-msgstr "การกระทำสูงสุด"
-
-#: ../plugins/search/anjuta-search.ui.h:21
-msgid "No Limit"
-msgstr "ไม่จำกัด"
-
-#: ../plugins/search/anjuta-search.ui.h:23
-msgid "Parameters"
-msgstr "พารามิเตอร์"
-
-#: ../plugins/search/anjuta-search.ui.h:24
-msgid "Regular expression"
-msgstr "นิพจน์เรกิวลาร์"
-
-#: ../plugins/search/anjuta-search.ui.h:25
-msgid "Replace With:"
-msgstr "แทนที่ด้วย:"
-
-#: ../plugins/search/anjuta-search.ui.h:27
-msgid "Search Action:"
-msgstr "การกระทำขณะค้นหา:"
-
-#: ../plugins/search/anjuta-search.ui.h:28
-msgid "Search Direction:"
-msgstr "ทิศทางการค้นหา:"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:30
-msgid "Search Expression"
-msgstr "นิพจน์ค้นหา"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:32
-msgid "Search Expression:"
-msgstr "นิพจน์ค้นหา:"
-
-#: ../plugins/search/anjuta-search.ui.h:33
-msgid "Search In:"
-msgstr "ค้นหาใน:"
-
-#: ../plugins/search/anjuta-search.ui.h:34
-msgid "Search Recursively"
-msgstr "ค้นหาในไดเรกทอรีย่อยด้วย"
-
-#: ../plugins/search/anjuta-search.ui.h:35
-msgid "Search Target"
-msgstr "เป้าหมายการค้นหา"
-
-#. User can select variables that contain lists of files, so this is a combined noun
-#: ../plugins/search/anjuta-search.ui.h:37
-msgid "Search variable"
-msgstr "ตัวแปรของการค้นหา"
-
-#: ../plugins/search/plugin.c:68
-msgid "_Find…"
-msgstr "_หา…"
-
-#: ../plugins/search/plugin.c:69
-msgid "Search for a string or regular expression in the editor"
-msgstr "ค้นหาสตริงหรือนิพจน์เรกิวลาร์ในเครื่องมือแก้ไข"
-
-#: ../plugins/search/plugin.c:71
-msgid "Find _Next"
-msgstr "หา_ถัดไป"
-
-#: ../plugins/search/plugin.c:72 ../plugins/search/plugin.c:76
-msgid "Repeat the last Find command"
-msgstr "ทำซ้ำคำสั่งหาล่าสุด"
-
-#: ../plugins/search/plugin.c:74
-msgid "Find _Previous"
-msgstr "หา_ก่อนหน้า"
-
-#: ../plugins/search/plugin.c:78
-msgid "Find and R_eplace…"
-msgstr "หาและแ_ทนที่…"
-
-#: ../plugins/search/plugin.c:80
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr "ค้นหาสตริงหรือนิพจน์เรกิวลาร์ และแทนที่ด้วยสตริงอื่น"
-
-#: ../plugins/search/plugin.c:82 ../plugins/search/plugin.c:83
-msgid "Search and Replace"
-msgstr "ค้นหาและแทนที่"
-
-#: ../plugins/search/plugin.c:85
-msgid "Fin_d in Files…"
-msgstr "_หาในแฟ้ม…"
-
-#: ../plugins/search/plugin.c:86
-msgid "Search for a string in multiple files or directories"
-msgstr "ค้นหาสตริงในหลายๆ แฟ้มหรือไดเรกทอรี"
-
-#: ../plugins/search/plugin.c:102
-msgid "Searching…"
-msgstr "การค้นหา…"
-
-#: ../plugins/search/search-replace.c:96
-msgid "Current Buffer"
-msgstr "บัฟเฟอร์ปัจจุบัน"
-
-#: ../plugins/search/search-replace.c:97
-msgid "Current Selection"
-msgstr "สิ่งที่เลือกปัจจุบัน"
-
-#: ../plugins/search/search-replace.c:98
-msgid "Current Block"
-msgstr "บล็อคปัจจุบัน"
-
-#: ../plugins/search/search-replace.c:99
-msgid "Current Function"
-msgstr "ฟังก์ชันปัจจุบัน"
-
-#: ../plugins/search/search-replace.c:100
-msgid "All Open Buffers"
-msgstr "บัฟเฟอร์ที่เปิดอยู่ทั้งหมด"
-
-#: ../plugins/search/search-replace.c:101
-msgid "All Project Files"
-msgstr "แฟ้มโครงการทั้งหมด"
-
-#. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:103
-msgid "Specify File Patterns"
-msgstr "ระบุแพตเทิร์นของแฟ้ม"
-
-#: ../plugins/search/search-replace.c:108
-msgid "Select next match"
-msgstr "เลือกข้อความถัดไปที่ตรงกัน"
-
-#: ../plugins/search/search-replace.c:109
-msgid "Bookmark all matched lines"
-msgstr "คั่นทุกบรรทัดที่ตรง"
-
-#: ../plugins/search/search-replace.c:110
-msgid "Mark all matches"
-msgstr "ทำเครื่องหมายข้อความที่ตรงทั้งหมด"
-
-#: ../plugins/search/search-replace.c:111
-msgid "List matches in find pane"
-msgstr "แสดงรายชื่อข้อความที่ตรงในช่องค้นหา"
-
-#: ../plugins/search/search-replace.c:112
-msgid "Replace next match"
-msgstr "แทนที่ข้อความถัดไปที่ตรงกัน"
-
-#: ../plugins/search/search-replace.c:113
-msgid "Replace all matches"
-msgstr "แทนที่ข้อความที่ตรงทั้งหมด"
-
-#. Avoid space in translated string
-#: ../plugins/search/search-replace.c:312
-msgid "Find:"
-msgstr "หา:"
-
-#: ../plugins/search/search-replace.c:494
-msgid "Replace"
-msgstr "แทนที่"
-
-#: ../plugins/search/search-replace.c:623
-msgid "Search complete"
-msgstr "ค้นหาเสร็จสมบูรณ์"
-
-#: ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1714
-msgid "Replace All"
-msgstr "แทนที่ทั้งหมด"
-
-#: ../plugins/search/search-replace.c:1076
-#, c-format
-msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "ไม่พบข้อความ \"%s\" ที่ตรง จะวนเอกสารหาใหม่หรือไม่?"
-
-#: ../plugins/search/search-replace.c:1096
-#, c-format
-msgid "The match \"%s\" was not found."
-msgstr "ไม่พบข้อความ \"%s\" ที่ตรง"
-
-#: ../plugins/search/search-replace.c:1111
-msgid "The maximum number of results has been reached."
-msgstr "จำนวนผลลัพธ์เกินค่าสูงสุดที่กำหนดไว้"
-
-#: ../plugins/search/search-replace.c:1124
-#, c-format
-msgid "%d match has been replaced."
-msgid_plural "%d matches have been replaced."
-msgstr[0] "แทนที่ไป %d แห่ง"
-
-#: ../plugins/search/search-replace.c:1289
-msgid "Unable to build user interface for Search and Replace"
-msgstr "ไม่สามารถสร้างส่วนติดต่อผู้ใช้สำหรับกล่องโต้ตอบ \"ค้นหาและแทนที่\""
-
 #: ../plugins/snippets-manager/plugin.c:62
-#: ../plugins/snippets-manager/plugin.c:304
+#: ../plugins/snippets-manager/plugin.c:306
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr "ข้อความสั้น"
@@ -7889,26 +7677,26 @@ msgstr "_ส่งออกข้อความสั้น …"
 msgid "Export snippets from the database"
 msgstr "ส่งออกข้อความสั้นจากฐานข้อมูล"
 
-#: ../plugins/snippets-manager/plugin.c:329
+#: ../plugins/snippets-manager/plugin.c:331
 msgid "Snippets Manager actions"
 msgstr "การกระทำของเครื่องมือจัดการข้อความสั้น"
 
-#: ../plugins/snippets-manager/plugin.c:773
+#: ../plugins/snippets-manager/plugin.c:778
 msgid "Command?"
 msgstr "คำสั่ง?"
 
-#: ../plugins/snippets-manager/plugin.c:789
+#: ../plugins/snippets-manager/plugin.c:794
 msgid "Variable text"
 msgstr "ข้อความตัวแปร"
 
-#: ../plugins/snippets-manager/plugin.c:807
+#: ../plugins/snippets-manager/plugin.c:812
 #: ../plugins/snippets-manager/snippets-editor.c:40
 msgid "Instant value"
 msgstr "ค่าตัวอย่าง"
 
-#: ../plugins/snippets-manager/plugin.c:936
-#: ../plugins/snippets-manager/plugin.c:973
-#: ../plugins/snippets-manager/snippets-provider.c:753
+#: ../plugins/snippets-manager/plugin.c:941
+#: ../plugins/snippets-manager/plugin.c:978
+#: ../plugins/snippets-manager/snippets-provider.c:754
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
 msgstr "โค้ดสั้น"
@@ -8088,12 +7876,12 @@ msgstr "แฟ้ม \"%s\" อ่านอย่างได้เดียว!
 msgid "Could not save %s: %s"
 msgstr "ไม่สามารถบันทึก %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:273
+#: ../plugins/sourceview/sourceview-io.c:271
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "ไม่สามารถบันทึกแฟ้มได้เพราะชื่อแฟ้มยังไม่ได้ระบุ"
 
-#: ../plugins/sourceview/sourceview-io.c:503
+#: ../plugins/sourceview/sourceview-io.c:501
 #, c-format
 msgid "New file %d"
 msgstr "แฟ้มใหม่ %d"
@@ -8191,34 +7979,9 @@ msgstr "ใช้แบบอักษรของธีม"
 msgid "View"
 msgstr "มุมมอง"
 
-#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:353
-#: ../plugins/starter/anjuta-starter.plugin.in.h:1
-msgid "Starter"
-msgstr "เครื่องมือเรียกทำงาน"
-
-#: ../plugins/starter/starter.c:394
-msgid "Create File/Project"
-msgstr "สร้างแฟ้ม/โครงการ"
-
-#: ../plugins/starter/starter.c:428
-msgid "Recent Projects"
-msgstr "โครงการล่าสุด"
-
-#: ../plugins/starter/starter.c:459
-msgid "Links"
-msgstr "ลิงก์"
-
-#: ../plugins/starter/starter.c:478
-msgid "Anjuta Home Page"
-msgstr "เว็บไซต์ของแอนจูตา"
-
-#: ../plugins/starter/starter.c:484
-msgid "Anjuta Manual"
-msgstr "คู่มือแอนจูตา"
-
-#: ../plugins/starter/starter.c:490
-msgid "GNOME Online API Documentation"
-msgstr "เอกสาร API ออนไลน์ของ GNOME"
+#: ../plugins/starter/plugin.c:273
+msgid "Start"
+msgstr "เริ่ม"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -8808,43 +8571,43 @@ msgstr "_หาสัญลักษณ์…"
 msgid "Find Symbol"
 msgstr "หาสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:1010
+#: ../plugins/symbol-db/plugin.c:1029
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1015
+#: ../plugins/symbol-db/plugin.c:1034
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1046
+#: ../plugins/symbol-db/plugin.c:1065
 #, c-format
 msgid "Generating inheritances…"
 msgstr "กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1048
+#: ../plugins/symbol-db/plugin.c:1067
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1798
+#: ../plugins/symbol-db/plugin.c:1817
 msgid "Populating symbol database…"
 msgstr "กำลังเติมข้อมูลฐานข้อมูลสัญลักษณ์…"
 
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/symbol-db/plugin.c:2204
+#: ../plugins/symbol-db/plugin.c:2138 ../plugins/symbol-db/plugin.c:2223
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2213
+#: ../plugins/symbol-db/plugin.c:2232
 msgid "SymbolDb popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2240
 msgid "SymbolDb menu actions"
 msgstr "การกระทำในเมนูของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2529 ../plugins/symbol-db/plugin.c:2547
+#: ../plugins/symbol-db/plugin.c:2548 ../plugins/symbol-db/plugin.c:2566
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "ฐานข้อมูลสัญลักษณ์"
@@ -9291,7 +9054,7 @@ msgstr "เ_ต็มจอ"
 
 #: ../src/anjuta-actions.h:48
 msgid "Toggle fullscreen mode"
-msgstr "สลับโหมดเต็มจอ"
+msgstr "เปิด/ปิดโหมดเต็มจอ"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
@@ -9599,38 +9362,38 @@ msgid "Statement indentation size in spaces:"
 msgstr "ขนาดการร่นย่อหน้าถ้อยแถลงในหน่วยจำนวนช่องว่าง:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:968
+#: ../plugins/language-support-cpp-java/plugin.c:1062
 #: ../plugins/language-support-python/plugin.c:454
 msgid "Auto-Indent"
 msgstr "ร่นย่อหน้าอัตโนมัติ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:969
+#: ../plugins/language-support-cpp-java/plugin.c:1063
 #: ../plugins/language-support-python/plugin.c:455
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "ร่นบรรทัดปัจจุบันหรือข้อความที่เลือกอยู่โดยอัตโนมัติ ขึ้นอยู่กับค่าตั้งการร่นย่อหน้า"
 
-#: ../plugins/language-support-cpp-java/plugin.c:975
+#: ../plugins/language-support-cpp-java/plugin.c:1069
 msgid "Comment/Uncomment"
 msgstr "ทำ/เลิกทำ หมายเหตุ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:976
+#: ../plugins/language-support-cpp-java/plugin.c:1070
 msgid "Comment or uncomment current selection"
 msgstr "ทำหรือเลิกทำสิ่งที่เลือกอยู่ให้เป็นหมายเหตุ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:981
+#: ../plugins/language-support-cpp-java/plugin.c:1075
 msgid "Swap .h/.c"
 msgstr "สลับ .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:982
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 msgid "Swap C header and source files"
 msgstr "สลับแฟ้มส่วนหัวกับซอร์สภาษา C"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1022
+#: ../plugins/language-support-cpp-java/plugin.c:1116
 msgid "C++/Java Assistance"
 msgstr "เครื่องมือช่วย C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1197
-#: ../plugins/language-support-cpp-java/plugin.c:1227
+#: ../plugins/language-support-cpp-java/plugin.c:1291
+#: ../plugins/language-support-cpp-java/plugin.c:1321
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9739,16 +9502,18 @@ msgid "A Subversion client plugin based on libsvn"
 msgstr "ปลั๊กอินลูกข่าย Subversion โดยใช้ libsvn"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
-msgid "Glade File"
-msgstr "แฟ้ม Glade"
-
-#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
 msgstr "ปลั๊กอิน Glade สำหรับแอนจูตา"
 
-#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade interface designer"
 msgstr "เครื่องมือออกแบบส่วนติดต่อ Glade"
+
+# msgid "Unable to build user interface for New File"
+# c-format
+#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+msgid "User interface file"
+msgstr "แฟ้มส่วนติดต่อผู้ใช้"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -9802,6 +9567,10 @@ msgstr "เครื่องมือแก้ไข GtkSourceView"
 msgid "The default editor based on GtkSourceView"
 msgstr "เครื่องมือแก้ไขปริยาย โดยใช้ GtkSourceView"
 
+#: ../plugins/starter/anjuta-starter.plugin.in.h:1
+msgid "Starter"
+msgstr "เครื่องมือเรียกทำงาน"
+
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
 msgstr "หน้าต้อนรับพร้อมการกระทำทั่วไป"
@@ -9817,14 +9586,6 @@ msgstr "ปลั๊กอินรองรับ C++ และ Java สำห�
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
 msgstr "เครื่องมือช่วยสร้างโครงการ"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:1
-msgid "Component for searching"
-msgstr "องค์ประกอบสำหรับการค้นหา"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:2
-msgid "Searching"
-msgstr "การค้นหา"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
@@ -9952,3 +9713,212 @@ msgstr "จำนวนอักขระต่ำสุดที่จะเร
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "สัญลักษณ์"
+
+#~ msgid "Quick _ReSearch"
+#~ msgstr "_ค้นหาซ้ำอย่างเร็ว"
+
+#~ msgid "Repeat quick search"
+#~ msgstr "ทำซ้ำการค้นหาอย่างเร็ว"
+
+#~ msgid "Match case"
+#~ msgstr "ตัวพิมพ์ใหญ่-เล็กตรงกัน"
+
+#~ msgid "Actions"
+#~ msgstr "การกระทำ"
+
+#~ msgid "Backward"
+#~ msgstr "ถอยหลัง"
+
+#~ msgid "Choose Directories:"
+#~ msgstr "เลือกไดเรกทอรี:"
+
+#~ msgid "Choose Files:"
+#~ msgstr "เลือกแฟ้ม:"
+
+#~ msgid "Expand regex back references"
+#~ msgstr "ขยายการอ้างอิงกลับในนิพจน์เรกิวลาร์"
+
+#~ msgid "File Filter"
+#~ msgstr "ตัวกรองแฟ้ม"
+
+#~ msgid "Find & Replace"
+#~ msgstr "หาและแทนที่"
+
+#~ msgid "Forward"
+#~ msgstr "ไปข้างหน้า"
+
+#~ msgid "Full Buffer"
+#~ msgstr "เต็มบัฟเฟอร์"
+
+#~ msgid "Greedy matching"
+#~ msgstr "ค้นหาแบบจับคู่มากที่สุด"
+
+#~ msgid "Ignore Binary Files"
+#~ msgstr "ละเลยแฟ้มไบนารี"
+
+#~ msgid "Ignore Directories:"
+#~ msgstr "ละเลยไดเรกทอรี:"
+
+#~ msgid "Ignore Files:"
+#~ msgstr "ละเลยแฟ้ม:"
+
+#~ msgid "Ignore Hidden Directories"
+#~ msgstr "ละเลยไดเรกทอรีซ่อน"
+
+#~ msgid "Ignore Hidden Files"
+#~ msgstr "ละเลยแฟ้มซ่อน"
+
+#~ msgid "Match at start of word"
+#~ msgstr "จับคู่ที่ต้นคำ"
+
+#~ msgid "Match complete lines"
+#~ msgstr "จับคู่ทั้งบรรทัด"
+
+#~ msgid "Match complete words"
+#~ msgstr "จับคู่ทั้งคำ"
+
+#~ msgid "Maximum Actions"
+#~ msgstr "การกระทำสูงสุด"
+
+#~ msgid "No Limit"
+#~ msgstr "ไม่จำกัด"
+
+#~ msgid "Parameters"
+#~ msgstr "พารามิเตอร์"
+
+#~ msgid "Regular expression"
+#~ msgstr "นิพจน์เรกิวลาร์"
+
+#~ msgid "Replace With:"
+#~ msgstr "แทนที่ด้วย:"
+
+#~ msgid "Search Action:"
+#~ msgstr "การกระทำขณะค้นหา:"
+
+#~ msgid "Search Direction:"
+#~ msgstr "ทิศทางการค้นหา:"
+
+#~ msgid "Search Expression"
+#~ msgstr "นิพจน์ค้นหา"
+
+#~ msgid "Search Expression:"
+#~ msgstr "นิพจน์ค้นหา:"
+
+#~ msgid "Search In:"
+#~ msgstr "ค้นหาใน:"
+
+#~ msgid "Search Recursively"
+#~ msgstr "ค้นหาในไดเรกทอรีย่อยด้วย"
+
+#~ msgid "Search Target"
+#~ msgstr "เป้าหมายการค้นหา"
+
+#~ msgid "Search variable"
+#~ msgstr "ตัวแปรของการค้นหา"
+
+#~ msgid "_Find…"
+#~ msgstr "_หา…"
+
+#~ msgid "Search for a string or regular expression in the editor"
+#~ msgstr "ค้นหาสตริงหรือนิพจน์เรกิวลาร์ในเครื่องมือแก้ไข"
+
+#~ msgid ""
+#~ "Search for and replace a string or regular expression with another string"
+#~ msgstr "ค้นหาสตริงหรือนิพจน์เรกิวลาร์ และแทนที่ด้วยสตริงอื่น"
+
+#~ msgid "Fin_d in Files…"
+#~ msgstr "_หาในแฟ้ม…"
+
+#~ msgid "Search for a string in multiple files or directories"
+#~ msgstr "ค้นหาสตริงในหลายๆ แฟ้มหรือไดเรกทอรี"
+
+#~ msgid "Searching…"
+#~ msgstr "การค้นหา…"
+
+#~ msgid "Current Buffer"
+#~ msgstr "บัฟเฟอร์ปัจจุบัน"
+
+#~ msgid "Current Selection"
+#~ msgstr "สิ่งที่เลือกปัจจุบัน"
+
+#~ msgid "Current Block"
+#~ msgstr "บล็อคปัจจุบัน"
+
+#~ msgid "Current Function"
+#~ msgstr "ฟังก์ชันปัจจุบัน"
+
+#~ msgid "All Open Buffers"
+#~ msgstr "บัฟเฟอร์ที่เปิดอยู่ทั้งหมด"
+
+#~ msgid "All Project Files"
+#~ msgstr "แฟ้มโครงการทั้งหมด"
+
+#~ msgid "Specify File Patterns"
+#~ msgstr "ระบุแพตเทิร์นของแฟ้ม"
+
+#~ msgid "Select next match"
+#~ msgstr "เลือกข้อความถัดไปที่ตรงกัน"
+
+#~ msgid "Bookmark all matched lines"
+#~ msgstr "คั่นทุกบรรทัดที่ตรง"
+
+#~ msgid "Mark all matches"
+#~ msgstr "ทำเครื่องหมายข้อความที่ตรงทั้งหมด"
+
+#~ msgid "List matches in find pane"
+#~ msgstr "แสดงรายชื่อข้อความที่ตรงในช่องค้นหา"
+
+#~ msgid "Replace next match"
+#~ msgstr "แทนที่ข้อความถัดไปที่ตรงกัน"
+
+#~ msgid "Replace all matches"
+#~ msgstr "แทนที่ข้อความที่ตรงทั้งหมด"
+
+#~ msgid "Find:"
+#~ msgstr "หา:"
+
+#~ msgid "Search complete"
+#~ msgstr "ค้นหาเสร็จสมบูรณ์"
+
+#~ msgid "The match \"%s\" was not found. Wrap search around the document?"
+#~ msgstr "ไม่พบข้อความ \"%s\" ที่ตรง จะวนเอกสารหาใหม่หรือไม่?"
+
+#~ msgid "The match \"%s\" was not found."
+#~ msgstr "ไม่พบข้อความ \"%s\" ที่ตรง"
+
+#~ msgid "The maximum number of results has been reached."
+#~ msgstr "จำนวนผลลัพธ์เกินค่าสูงสุดที่กำหนดไว้"
+
+#~ msgid "%d match has been replaced."
+#~ msgid_plural "%d matches have been replaced."
+#~ msgstr[0] "แทนที่ไป %d แห่ง"
+
+#~ msgid "Unable to build user interface for Search and Replace"
+#~ msgstr "ไม่สามารถสร้างส่วนติดต่อผู้ใช้สำหรับกล่องโต้ตอบ \"ค้นหาและแทนที่\""
+
+#~ msgid "Create File/Project"
+#~ msgstr "สร้างแฟ้ม/โครงการ"
+
+#~ msgid "Recent Projects"
+#~ msgstr "โครงการล่าสุด"
+
+#~ msgid "Links"
+#~ msgstr "ลิงก์"
+
+#~ msgid "Anjuta Home Page"
+#~ msgstr "เว็บไซต์ของแอนจูตา"
+
+#~ msgid "Anjuta Manual"
+#~ msgstr "คู่มือแอนจูตา"
+
+#~ msgid "GNOME Online API Documentation"
+#~ msgstr "เอกสาร API ออนไลน์ของ GNOME"
+
+#~ msgid "Glade File"
+#~ msgstr "แฟ้ม Glade"
+
+#~ msgid "Component for searching"
+#~ msgstr "องค์ประกอบสำหรับการค้นหา"
+
+#~ msgid "Searching"
+#~ msgstr "การค้นหา"

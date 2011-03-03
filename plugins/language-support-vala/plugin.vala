@@ -174,7 +174,10 @@ public class ValaPlugin : Plugin {
 	public void editor_value_added (Anjuta.Plugin plugin, string name, Value value) {
 		debug("editor value added");
 		assert (current_editor == null);
-		assert (value.get_object() is IAnjuta.Editor);
+		if (!(value.get_object() is IAnjuta.Editor)) {
+			/* a glade document, for example, isn't an editor */
+			return;
+		}
 
 		current_editor = value.get_object() as IAnjuta.Editor;
 		var current_file = value.get_object() as IAnjuta.File;

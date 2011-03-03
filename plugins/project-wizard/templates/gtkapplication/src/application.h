@@ -40,6 +40,8 @@ struct _[+NameCClass+]
 GType [+NameCLower+]_get_type (void) G_GNUC_CONST;
 [+NameCClass+] *[+NameCLower+]_new (void);
 
+/* Callbacks */
+
 G_END_DECLS
 
 #endif /* _APPLICATION_H_ */

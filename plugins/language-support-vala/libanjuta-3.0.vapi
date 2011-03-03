@@ -1242,8 +1242,8 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorGladeSignal : IAnjuta.Editor, GLib.Object {
 		public static GLib.Quark error_quark ();
-		public virtual signal void drop (GLib.Object iterator, string signal_data);
-		public virtual signal bool drop_possible (GLib.Object iterator);
+		public virtual signal void drop (IAnjuta.Iterable iterator, string signal_data);
+		public virtual signal bool drop_possible (IAnjuta.Iterable iterator);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface EditorGoto : IAnjuta.Editor, GLib.Object {

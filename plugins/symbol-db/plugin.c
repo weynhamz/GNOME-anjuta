@@ -348,13 +348,10 @@ static GtkActionEntry actions_search[] = {
 };
 
 static gboolean
-on_editor_buffer_symbols_update_timeout (gpointer user_data)
+editor_buffer_symbols_update (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin)
 {
-	SymbolDBPlugin *sdb_plugin;
-	IAnjutaEditor *ed;
 	gchar *current_buffer = NULL;
 	gsize buffer_size = 0;
-	gdouble seconds_elapsed;
 	GFile* file;
 	gchar * local_path;
 	GPtrArray *real_files_list;
@@ -363,48 +360,27 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	gint i;
 	gint proc_id ;
 	
-	g_return_val_if_fail (user_data != NULL, FALSE);
-	
-	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
-		
-	if (sdb_plugin->current_editor == NULL)
-		return FALSE;
-	
-	/* check the timer. If it's elapsed enought time since the last time the user
-	 * typed in something, than proceed with updating, elsewhere don't do nothing 
-	 */
-	if (sdb_plugin->update_timer == NULL)
+	/* we won't proceed with the updating of the symbols if we didn't type in 
+	   anything */
+	if (sdb_plugin->need_symbols_update == FALSE)
 		return TRUE;
-	
-	seconds_elapsed = g_timer_elapsed (sdb_plugin->update_timer, NULL);
 
-	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
-		return TRUE;
-		
-		
-	 /* we won't proceed with the updating of the symbols if we didn't type in 
-	 	anything */
-	 if (sdb_plugin->need_symbols_update == FALSE)
-	 	return TRUE;
-	
-	if (sdb_plugin->current_editor) 
+	if (editor) 
 	{
-		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
-		
-		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
+		buffer_size = ianjuta_editor_get_length (editor, NULL);
+		current_buffer = ianjuta_editor_get_text_all (editor, NULL);
 				
-		file = ianjuta_file_get_file (IANJUTA_FILE (ed), NULL);
+		file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 	} 
 	else
 		return FALSE;
 
 	if (file == NULL)
 		return FALSE;
-	
+
 	/* take the path reference */
 	local_path = g_file_get_path (file);
-	
+
 	/* ok that's good. Let's have a last check: is the current file present
 	 * on the buffer_update_files?
 	 */
@@ -439,7 +415,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 											text_buffers,
 											buffer_sizes);
 	}
-	
+
 	if (proc_id > 0)
 	{		
 		/* good. All is ready for a buffer scan. Add the file_scan into the arrays */
@@ -447,7 +423,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		g_ptr_array_add (sdb_plugin->buffer_update_files, local_path_dup);	
 		/* add the id too */
 		g_ptr_array_add (sdb_plugin->buffer_update_ids, GINT_TO_POINTER (proc_id));
-		
+
 		/* add a task so that scan_end_manager can manage this */
 		g_tree_insert (sdb_plugin->proc_id_tree, GINT_TO_POINTER (proc_id),
 					   GINT_TO_POINTER (TASK_BUFFER_UPDATE));		
@@ -459,10 +435,37 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 
 	/* no need to free local_path, it'll be automatically freed later by the buffer_update
 	 * function */
-	
+
 	sdb_plugin->need_symbols_update = FALSE;
 
 	return proc_id > 0 ? TRUE : FALSE;
+}
+static gboolean
+on_editor_buffer_symbols_update_timeout (gpointer user_data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	gdouble seconds_elapsed;
+
+	g_return_val_if_fail (user_data != NULL, FALSE);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
+		
+	if (sdb_plugin->current_editor == NULL)
+		return FALSE;
+	
+	/* check the timer. If it's elapsed enought time since the last time the user
+	 * typed in something, than proceed with updating, elsewhere don't do nothing 
+	 */
+	if (sdb_plugin->update_timer == NULL)
+		return TRUE;
+	
+	seconds_elapsed = g_timer_elapsed (sdb_plugin->update_timer, NULL);
+
+	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
+		return TRUE;
+
+	return editor_buffer_symbols_update (IANJUTA_EDITOR (sdb_plugin->current_editor),
+										 sdb_plugin);
 }
 
 static void
@@ -555,6 +558,14 @@ static void
 on_editor_update_ui (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin) 
 {
 	g_timer_reset (sdb_plugin->update_timer);
+}
+
+static void
+on_code_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar *code,
+			   SymbolDBPlugin *sdb_plugin)
+{
+	sdb_plugin->need_symbols_update = TRUE;
+	editor_buffer_symbols_update (editor, sdb_plugin);
 }
 
 static void
@@ -726,6 +737,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_signal_connect (G_OBJECT (editor), "char-added",
 						  G_CALLBACK (on_char_added),
 						  sdb_plugin);
+		g_signal_connect (G_OBJECT (editor), "code-added",
+						  G_CALLBACK (on_code_added),
+						  sdb_plugin);
 		g_signal_connect (G_OBJECT(editor), "update_ui",
 						  G_CALLBACK (on_editor_update_ui),
 						  sdb_plugin);
@@ -747,6 +761,9 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 										  user_data);
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_char_added),
+										  user_data);
+	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
+										  G_CALLBACK (on_code_added),
 										  user_data);
 	g_object_weak_unref (G_OBJECT(key),
 						 (GWeakNotify) (on_editor_destroy),

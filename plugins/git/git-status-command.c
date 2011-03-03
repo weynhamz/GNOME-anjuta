@@ -27,7 +27,7 @@
 #define STATUS_REGEX "(modified|new file|deleted|unmerged|both modified|both added|both deleted):   (.*)"
 #define UNTRACKED_FILES_REGEX "(?:#\\t)(.*)"
 #define SECTION_COMMIT_REGEX "Changes to be committed:"
-#define SECTION_NOT_UPDATED_REGEX "Changed but not updated:"
+#define SECTION_NOT_UPDATED_REGEX "Changed but not updated:|Changes not staged for commit:"
 #define SECTION_UNTRACKED_REGEX "Untracked files:"
 
 struct _GitStatusCommandPriv

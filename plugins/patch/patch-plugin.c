@@ -151,7 +151,7 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	gchar* tmp;
 	gchar* directory;
 	gchar* patch_file;
-	GString* command = g_string_new (NULL);
+	GString* command;
 	gchar* message;
 	IAnjutaMessageManager *mesg_manager;
 	
@@ -161,7 +161,22 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 		(ANJUTA_PLUGIN (p_plugin)->shell,	IAnjutaMessageManager, NULL);
 	
 	g_return_if_fail (mesg_manager != NULL);
+
+	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
+	if (!g_file_test (tmp, G_FILE_TEST_IS_DIR))
+	{
+		g_free (tmp);
+		anjuta_util_dialog_error(GTK_WINDOW(p_plugin->dialog), 
+			_("Please select the directory where the patch should be applied"));
+		return;
+	}
+	directory = g_shell_quote (tmp);
+	g_free (tmp);
 	
+	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));
+	patch_file = g_shell_quote (tmp);
+	g_free (tmp);
+
 	p_plugin->mesg_view =
 		ianjuta_message_manager_add_view (mesg_manager, _("Patch"), 
 		ICON_FILE, NULL);
@@ -171,21 +186,7 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	g_signal_connect (G_OBJECT (p_plugin->mesg_view), "buffer-flushed",
 						  G_CALLBACK (on_msg_buffer), p_plugin);
 
-	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
-	directory = g_shell_quote (tmp);
-	g_free (tmp);
-	
-	tmp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));
-	patch_file = g_shell_quote (tmp);
-	g_free (tmp);
-	
-	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
-	{
-		g_string_free (command, TRUE);
-		anjuta_util_dialog_error(GTK_WINDOW(p_plugin->dialog), 
-			_("Please select the directory where the patch should be applied"));
-		return;
-	}
+	command = g_string_new (NULL);
 	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p_plugin->dry_run_check)))
 		g_string_printf (command, "patch --dry-run -d %s -p %d -f -i %s",

@@ -1274,6 +1274,17 @@ interface IAnjutaEditor
 		COMMENT,
 		STRING
 	}
+
+	/**
+	 * IAnjutaEditor::code-added:
+	 * @position: The iter position where @ch is added.
+	 * @code: The code that has been added.
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when code is added inside the editor.
+	 * The newly added code is @code which has been inserted at @position.
+	 */
+	void   ::code_added (IAnjutaIterable *position, gchar *code);
 	
 	/**
 	 * IAnjutaEditor::char-added:
@@ -2406,24 +2417,24 @@ interface IAnjutaEditor
 	{
 		/* IAnjutaEditorGladeSignal::drop-possible
 		 * @obj: self
-		 * @iter: a IAnjutaIterator of the position where drop would happen
+		 * @iter: a IAnjutaIterable of the position where drop would happen
 		 *
 		 * Emitted when a signal is dragged over the editor
 		 *
 		 * Return value: TRUE if a signal handler can be dropped, FALSE otherwise
 		 */
-		gboolean ::drop_possible (GObject* iterator);
+		gboolean ::drop_possible (IAnjutaIterable* iterator);
 		
 		/* IAnjutaEditorGladeSignal::drop
 		 * @obj: self
-		 * @iter: a IAnjutaIterator of the position where drop happens
+		 * @iter: a IAnjutaIterable of the position where drop happens
 		 * @signal_data: Signal data in form "widget:signal:handler", e.g.
 		 * "GtkToggleButton:toggled:on_toggle_button_toggled"
 		 *
 		 * Emitted when a signal was received per drag & drop
 		 *
 		 */
-		void ::drop (GObject* iterator, const gchar* signal_data);
+		void ::drop (IAnjutaIterable* iterator, const gchar* signal_data);
 	}	
 }
 
@@ -5537,12 +5548,15 @@ interface IAnjutaSnippetsManager
 	/**
 	 * ianjuta_snippets_manager_insert:
 	 * @key: Trigger-key of the snippet
+	 * @editing_session: If after inserting the snippet there should be an editing
+	 * session. Mark as FALSE if not interested in the dynamic capabilities of the
+	 * snippet.
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
 	 * Insert snippet in the current editor.
 	 */
-	gboolean insert (const gchar* key);
+	gboolean insert (const gchar* key, gboolean editing_session);
 }
 
 /**
