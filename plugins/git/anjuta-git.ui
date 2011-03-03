@@ -835,7 +835,7 @@
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkCheckButton" id="amend_check">
-                    <property name="label" translatable="yes">Amernd the previous commit</property>
+                    <property name="label" translatable="yes">Amend the previous commit</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -851,7 +851,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="failed_merge_check">
-                    <property name="label" translatable="yes">This commit concludes a failed merged (use -i)</property>
+                    <property name="label" translatable="yes">This commit concludes a failed merge (use -i)</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

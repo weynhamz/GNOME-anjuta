@@ -163,7 +163,7 @@ static GtkActionEntry actions_file[] = {
 	N_("Close all files"),
     G_CALLBACK (on_close_all_file_activate)},
   { "ActionFileCloseOther", GTK_STOCK_CLOSE, N_("Close Others"), "<shift><control>o",
-	N_("Close others documents"),
+	N_("Close other documents"),
     G_CALLBACK (on_close_other_file_activate)},	
   { "ActionFileReload", GTK_STOCK_REVERT_TO_SAVED, N_("Reload F_ile"), NULL,
 	N_("Reload current file"),

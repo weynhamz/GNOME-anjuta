@@ -418,7 +418,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="browse_button">
-                    <property name="label" translatable="yes">_Select file to add&#x2026;</property>
+                    <property name="label" translatable="yes">_Select file to add…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -596,7 +596,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="new_package_button">
-                    <property name="label" translatable="yes">_New library&#x2026;</property>
+                    <property name="label" translatable="yes">_New library…</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
