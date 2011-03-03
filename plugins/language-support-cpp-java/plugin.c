@@ -1384,17 +1384,17 @@ on_project_packages_toggled (GtkToggleButton* button,
                              CppJavaPlugin* plugin)
 {
 	GtkWidget* pkg_config;
-	gboolean sensitive = !gtk_toggle_button_get_active (button);
+	gboolean active = gtk_toggle_button_get_active (button);
 	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
 
-	gtk_widget_set_sensitive (pkg_config, sensitive);
-	anjuta_pkg_config_chooser_show_active_only (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
-	                                            !sensitive);
+	gtk_widget_set_sensitive (pkg_config, !active);
 
 	anjuta_pkg_config_chooser_set_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
 	                                               NULL);
-	if (!sensitive)
+	if (!active)
 	{
+		anjuta_pkg_config_chooser_show_active_only (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
+		                                            FALSE);
 		cpp_java_plugin_select_user_packages (plugin, ANJUTA_PKG_CONFIG_CHOOSER (pkg_config));
 		cpp_packages_load (plugin->packages, TRUE);
 	}
@@ -1402,6 +1402,9 @@ on_project_packages_toggled (GtkToggleButton* button,
 	{
 		anjuta_pkg_config_chooser_set_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
 		                                               NULL);
+		anjuta_pkg_config_chooser_show_active_only (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
+		                                            TRUE);
+
 	}
 }
 
@@ -1421,7 +1424,6 @@ cpp_java_plugin_update_user_packages (CppJavaPlugin* plugin,
 		}
 		pkg_string = g_string_append (pkg_string, pkg->data);
 	}
-	g_message ("Packages: %s", pkg_string->str);
 	g_settings_set_string (plugin->settings, PREF_USER_PACKAGES,
 	                       pkg_string->str);
 	g_string_free (pkg_string, TRUE);
@@ -1496,7 +1498,6 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PACKAGES));
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_project_packages_toggled),
 	                  plugin);
-	on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
 	on_project_packages_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
 	
 	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));

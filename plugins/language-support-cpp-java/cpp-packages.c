@@ -175,6 +175,7 @@ on_queue_finished (AnjutaCommandQueue* queue, CppPackages* packages)
 {
 	g_object_unref (queue);
 	packages->loading = FALSE;
+	g_object_unref (packages);
 }
 
 static void
@@ -251,6 +252,7 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 		cpp_packages_activate_package (sm, pkg->data, &packages_to_add);
 	}
 	g_list_free (pkgs);
+	packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
 	for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
 	{
 		PackageData* pkg_data = pkg->data;
@@ -264,6 +266,8 @@ cpp_packages_load_real (CppPackages* packages, GError* error, IAnjutaProjectMana
 	g_list_free (packages_to_add);
 
 	g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
+	/* Make sure the pointer is valid when the queue finishes */
+	g_object_ref (packages);
 	anjuta_command_queue_start (packages->queue);
 }
 
@@ -298,6 +302,7 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 		g_strfreev (pkgs);
 		g_free (packages_str);
 
+		packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
 		for (pkg = packages_to_add; pkg != NULL; pkg = g_list_next (pkg))
 		{
 			PackageData* pkg_data = pkg->data;
@@ -313,7 +318,9 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 		g_object_set_data (G_OBJECT (shell), 
 		                   USER_LOADED, GINT_TO_POINTER (TRUE));
 
-		g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), NULL);
+		g_signal_connect (packages->queue, "finished", G_CALLBACK (on_queue_finished), packages);
+		/* Make sure the pointer is valid when the queue finishes */
+		g_object_ref (packages);
 		anjuta_command_queue_start (packages->queue);
 	}
 }
@@ -362,7 +369,6 @@ cpp_packages_load (CppPackages* packages, gboolean force)
 static void
 cpp_packages_init (CppPackages *packages)
 {	
-	packages->queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
 	packages->loading = FALSE;
 }
 
