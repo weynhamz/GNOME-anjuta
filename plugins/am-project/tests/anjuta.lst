@@ -127,9 +127,13 @@ PROPERTY (URL): http://www.anjuta.org/
             PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
             PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade/modules catalogdir = $(datadir)/glade/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
             GROUP (): interfaces
-                PROPERTY (Installation directories): libanjuta_interfaces_includedir = /libanjuta-3.0/libanjuta/interfaces idldir = /libanjuta-3.0/libanjuta/interfaces
+                PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta-interfaces\"
+                PROPERTY (Installation directories): libanjuta_interfaces_includedir = $(includedir)/libanjuta-3.0/libanjuta/interfaces idldir = $(libanjuta_interfaces_includedir)
                 TARGET (): libanjuta-interfaces.la
                     PROPERTY (Do not install): true
+                    PROPERTY (Libraries): $(ANJUTA_LIBS) $(XML_LIBS)
+                    MODULE (): ANJUTA
+                    MODULE (): XML
                     SOURCE (): libanjuta/interfaces/ianjuta-buildable.c
                     SOURCE (): libanjuta/interfaces/ianjuta-builder.c
                     SOURCE (): libanjuta/interfaces/ianjuta-debug-manager.c
@@ -1995,32 +1999,6 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/run-program/execute.h
                     SOURCE (): plugins/run-program/utils.c
                     SOURCE (): plugins/run-program/utils.h
-            GROUP (): search
-                PROPERTY (Installation directories): search_gladedir = $(anjuta_glade_dir) search_pixmapsdir = $(anjuta_image_dir) search_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir) search_uidir = $(anjuta_ui_dir)
-                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-search\"
-                TARGET (): search_glade
-                    PROPERTY (Installation directory): search_gladedir
-                    SOURCE (): plugins/search/anjuta-search.ui
-                TARGET (): search_pixmaps
-                    PROPERTY (Installation directory): search_pixmapsdir
-                    SOURCE (): plugins/search/anjuta-search-plugin.svg
-                    SOURCE (): plugins/search/anjuta-search-plugin-48.png
-                TARGET (): search_plugin
-                    PROPERTY (Installation directory): search_plugindir
-                    SOURCE (): plugins/search/$(plugin_in_files:.plugin.in=.plugin)
-                TARGET (): libanjuta-search.la
-                    PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    PROPERTY (Libraries): $(LIBANJUTA_LIBS)
-                    SOURCE (): plugins/search/plugin.c
-                    SOURCE (): plugins/search/plugin.h
-                    SOURCE (): plugins/search/search-replace.c
-                    SOURCE (): plugins/search/search-replace.h
-                    SOURCE (): plugins/search/search-replace_backend.c
-                    SOURCE (): plugins/search/search-replace_backend.h
-                TARGET (): search_ui
-                    PROPERTY (Installation directory): search_uidir
-                    SOURCE (): plugins/search/anjuta-search.xml
             GROUP (): snippets-manager
                 PROPERTY (Installation directories): snippets_manager_gladedir = $(anjuta_glade_dir) default_snippetsdir = $(anjuta_data_dir) snippets_manager_pixmapsdir = $(anjuta_image_dir) snippets_manager_uidir = $(anjuta_ui_dir) snippets_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) $(XML_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
@@ -2113,7 +2091,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/sourceview/sourceview-provider.h
                     SOURCE (): plugins/sourceview/sourceview-provider.c
             GROUP (): starter
-                PROPERTY (Installation directories): starter_plugindir = $(anjuta_plugin_dir) starter_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
+                PROPERTY (Installation directories): starter_plugindir = $(anjuta_plugin_dir) starter_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir) uidir = $(anjuta_glade_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"starter\"
                 TARGET (): starter_plugin
                     PROPERTY (Installation directory): starter_plugindir
@@ -2128,8 +2106,9 @@ PROPERTY (URL): http://www.anjuta.org/
                     MODULE (): GDL
                     SOURCE (): plugins/starter/plugin.c
                     SOURCE (): plugins/starter/plugin.h
-                    SOURCE (): plugins/starter/starter.h
-                    SOURCE (): plugins/starter/starter.c
+                TARGET (): ui
+                    PROPERTY (Installation directory): uidir
+                    SOURCE (): plugins/starter/starter.ui
             GROUP (): subversion
                 PROPERTY (Installation directories): subversion_gladedir = $(anjuta_glade_dir) subversion_pixmapsdir = $(anjuta_image_dir) subversion_uidir = $(anjuta_ui_dir) subversion_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(SVN_CFLAGS) $(SVN_INCLUDE)
