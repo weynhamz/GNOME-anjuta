@@ -187,6 +187,8 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/sdl.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/vala-gtk.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/gtkapplication.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
