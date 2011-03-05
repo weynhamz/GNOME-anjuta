@@ -365,6 +365,8 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (): libanjuta/anjuta-pkg-config-chooser.c
                 SOURCE (): libanjuta/anjuta-pkg-config.h
                 SOURCE (): libanjuta/anjuta-pkg-config.c
+                SOURCE (): libanjuta/anjuta-pkg-scanner.h
+                SOURCE (): libanjuta/anjuta-pkg-scanner.c
                 SOURCE (): libanjuta/anjuta-column-text-view.h
                 SOURCE (): libanjuta/anjuta-column-text-view.c
                 SOURCE (): libanjuta/anjuta-file-drop-entry.h
@@ -419,6 +421,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (): libanjuta/anjuta-file-list.h
                 SOURCE (): libanjuta/anjuta-pkg-config-chooser.h
                 SOURCE (): libanjuta/anjuta-pkg-config.h
+                SOURCE (): libanjuta/anjuta-pkg-scanner.h
                 SOURCE (): libanjuta/anjuta-column-text-view.h
                 SOURCE (): libanjuta/anjuta-file-drop-entry.h
                 SOURCE (): libanjuta/anjuta-entry.h
@@ -490,7 +493,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/am-project/command-queue.h
                 TARGET (): projectparser
                     PROPERTY (Do not install): true
-                    PROPERTY (Libraries): libam-project.la $(GIO_LIBS) $(LIBANJUTA_LIBS)
+                    PROPERTY (Libraries): libam-project.la $(GIO_LIBS) $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
                     SOURCE (): plugins/am-project/projectparser.c
             GROUP (): build-basic-autotools
                 PROPERTY (Installation directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
@@ -975,7 +978,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/gdb/preferences.h
                 TARGET (): gdbmi-test
                     PROPERTY (Do not install): true
-                    PROPERTY (Libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
+                    PROPERTY (Libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS) $(ANJUTA_LIBS)
                     PROPERTY (C compiler flags): $(AM_CFLAGS)
                     MODULE (): XML
                     SOURCE (): plugins/gdb/gdbmi-test.c
@@ -1322,6 +1325,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-cpp-java/cpp-java-utils.h
                     SOURCE (): plugins/language-support-cpp-java/cpp-java-indentation.c
                     SOURCE (): plugins/language-support-cpp-java/cpp-java-indentation.h
+                    SOURCE (): plugins/language-support-cpp-java/cpp-packages.c
+                    SOURCE (): plugins/language-support-cpp-java/cpp-packages.h
             GROUP (): language-support-js
                 PROPERTY (Installation directories): js_support_plugin_gladedir = $(anjuta_glade_dir) js_support_plugin_uidir = $(anjuta_ui_dir) js_support_plugin_pixmapsdir = $(anjuta_image_dir) js_support_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/ $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" -DGJS_PATH=\"$(gjsdir)\" -DG_LOG_DOMAIN=\"language-support-js\"
