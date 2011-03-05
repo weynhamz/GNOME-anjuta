@@ -53,7 +53,9 @@ libanjuta_language_cpp_java_la_SOURCES = \
 	cpp-java-utils.c \
 	cpp-java-utils.h \
 	cpp-java-indentation.c \
-	cpp-java-indentation.h 
+	cpp-java-indentation.h \
+	cpp-packages.c \
+	cpp-packages.h
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
@@ -66,6 +68,7 @@ libanjuta_language_cpp_java_la_LIBADD = \
 	cxxparser/libcxxparser.la
 	
 prefs_ui_files = anjuta-language-cpp-java.ui
+prefs_keyfile = language-support-cpp-java.gschema-part.xml
 prefs_name = org.gnome.anjuta.cpp
 include $(top_srcdir)/scripts/build-schemas.mk
 
@@ -74,6 +77,7 @@ EXTRA_DIST = \
 	$(cpp_java_plugin_DATA) \
 	$(cpp_java_ui_DATA) \
 	$(cpp_java_pixmaps_DATA) \
-	$(cpp_java_glade_DATA)
+	$(cpp_java_glade_DATA) \
+	$(prefs_keyfile)
 
 -include $(top_srcdir)/git.mk

@@ -4,7 +4,7 @@
  * Copyright (C) Massimo Cora' 2007-2008 <maxcvs@email.it>
  * 
  * anjuta is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
@@ -184,8 +184,8 @@ symbol_db_engine_project_exists (SymbolDBEngine *dbe, /*gchar* workspace, */
  * symbol_db_engine_open_db () before.
  * The function must be called from within the main thread.
  * 
- * @note if some file fails to enter into the db the function will return without
- * 		  processing the remaining files.
+ * @note if some file fails to enter into the db the function will just skip them.
+ * 
  * @param project_name something like 'foo_project', or 'helloworld_project'. Can be NULL,
  *        for example when you're populating after abort.
  * @param project_directory something like the base path '/home/user/projects/foo_project/'

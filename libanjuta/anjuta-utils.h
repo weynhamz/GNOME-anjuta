@@ -158,6 +158,14 @@ GList *		anjuta_util_convert_gfile_list_to_path_list (GList *list);
 GList *		anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
 															 const gchar *parent);
 
+/* the returned GPtrArray should be freed with g_ptr_array_unref (). 
+ * The GPtrArray is created with g_free () destroy function as parameter.
+ */ 
+GPtrArray * anjuta_util_convert_string_list_to_array(GList *list);
+
+/* list all files in a given directory */
+void		anjuta_util_list_all_dir_children	    (GList **children, GFile *dir);
+
 /* Helper functions to load a GtkBuilder file and get widgets */
 GtkBuilder *anjuta_util_builder_new					(const gchar *filename, 
 					                                GError **error);

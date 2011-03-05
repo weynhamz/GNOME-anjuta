@@ -71,9 +71,9 @@ symbol_db_util_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_fi
 	SymbolDBEnginePriv *priv;
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (full_local_file_path != NULL, NULL);
-		
-	priv = dbe->priv;
 	
+	priv = dbe->priv;
+
 	g_return_val_if_fail (priv->project_directory != NULL, NULL);
 	
 	if (priv->db_directory == NULL ||

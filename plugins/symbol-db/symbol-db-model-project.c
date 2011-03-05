@@ -301,7 +301,7 @@ sdb_model_project_get_query_value (SymbolDBModel *model,
 					 file_name, file_line);
 			}
 		}
-		DEBUG_PRINT ("Output string: %s", label->str);
+/*		DEBUG_PRINT ("Output string: %s", label->str);*/
 		g_value_take_string (value, label->str);
 		g_string_free (label, FALSE);
 		return TRUE;

@@ -2262,7 +2262,7 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 	for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 	{
 		path = g_file_get_path (current_file->data);
-		
+
 		/* Ignore files with invalid paths */
 		if (path)
 			path_list = g_list_append (path_list, path);
@@ -2462,3 +2462,65 @@ anjuta_util_clone_string_gptrarray (const GPtrArray* source)
 
 	return dest;
 }
+
+void
+anjuta_util_list_all_dir_children (GList **children, GFile *dir)
+{
+	GFileEnumerator *list;
+					
+	list = g_file_enumerate_children (dir,
+	    G_FILE_ATTRIBUTE_STANDARD_NAME,
+	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+	    NULL,
+	    NULL);
+
+	if (list != NULL)
+	{
+		GFileInfo *info;
+		
+		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
+		{
+			const gchar *name;
+			GFile *file;
+
+			name = g_file_info_get_name (info);
+			file = g_file_get_child (dir, name);
+			g_object_unref (info);
+
+			if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
+			{
+				anjuta_util_list_all_dir_children (children, file);
+				g_object_unref (file);
+			}
+			else
+			{
+				*children = g_list_prepend (*children, file);
+			}
+		}
+		g_file_enumerator_close (list, NULL, NULL);
+		g_object_unref (list);
+	}
+}
+
+GPtrArray * 
+anjuta_util_convert_string_list_to_array (GList *list)
+{
+	GList *node;
+	GPtrArray *res;
+
+	g_return_val_if_fail (list != NULL, NULL);
+	
+	res = g_ptr_array_new_with_free_func (g_free);
+	
+	node = list;
+	while (node != NULL)
+	{
+		g_ptr_array_add (res, g_strdup (node->data));
+
+		node = g_list_next (node);
+	}
+
+	return res;
+}
+
+
