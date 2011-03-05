@@ -53,6 +53,7 @@ typedef enum {
 	NPW_REQUIRED_PROGRAM_TAG,
 	NPW_REQUIRED_PACKAGE_TAG,
 	NPW_ICON_TAG,
+	NPW_ORDER_TAG,
 	NPW_PAGE_TAG,
 	NPW_PROPERTY_TAG,
 	NPW_ITEM_TAG,
@@ -74,6 +75,7 @@ static NPWStringMapping npw_tag_mapping [] = {
 		{"_description", NPW_DESCRIPTION_TAG},
 		{"description", NPW_DESCRIPTION_TAG},
 		{"icon", NPW_ICON_TAG},
+		{"order", NPW_ORDER_TAG},
 		{"category", NPW_CATEGORY_TAG},
 		{"required-program", NPW_REQUIRED_PROGRAM_TAG},
 		{"required-package", NPW_REQUIRED_PACKAGE_TAG},
@@ -388,6 +390,7 @@ parse_header_start (GMarkupParseContext* context,
 			case NPW_NAME_TAG:
 			case NPW_DESCRIPTION_TAG:
 			case NPW_ICON_TAG:
+			case NPW_ORDER_TAG:
 			case NPW_CATEGORY_TAG:
 			case NPW_REQUIRED_PROGRAM_TAG:
 			case NPW_REQUIRED_PACKAGE_TAG:
@@ -491,6 +494,9 @@ parse_header_text (GMarkupParseContext* context,
 			npw_header_set_iconfile (parser->header, filename);
 			g_free (path);
 			g_free (filename);
+			break;
+		case NPW_ORDER_TAG:
+			npw_header_set_order (parser->header, text);
 			break;
 		case NPW_CATEGORY_TAG:
 			npw_header_set_category (parser->header, text);

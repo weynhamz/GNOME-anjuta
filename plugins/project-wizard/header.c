@@ -26,6 +26,7 @@
 #include <config.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "header.h"
 
@@ -43,6 +44,7 @@ struct _NPWHeader {
 	gint description_lang;
 	gchar* iconfile;
 	gchar* category;
+	guint  order;
 	gchar* filename;
 	GList* required_programs;
 	GList* required_packages;
@@ -150,6 +152,18 @@ npw_header_get_iconfile (const NPWHeader* self)
 }
 
 void
+npw_header_set_order (NPWHeader* self, const gchar* order)
+{
+	self->order = strtoul (order, NULL, 10);
+}
+
+const guint
+npw_header_get_order (const NPWHeader* self)
+{
+	return self->order;
+}
+
+void
 npw_header_add_required_program (NPWHeader* self, const gchar* program)
 {
 	self->required_programs =
@@ -230,7 +244,22 @@ npw_header_list_free (GList* list)
 static gint
 compare_header_name (NPWHeader *a, NPWHeader *b)
 {
-	return g_utf8_collate (npw_header_get_name (a), npw_header_get_name (b));
+	if (npw_header_get_order (a) == npw_header_get_order (b))
+	{
+		return g_utf8_collate (npw_header_get_name (a), npw_header_get_name (b));
+	}
+	else if (npw_header_get_order (a) == 0)
+	{
+		return 1;
+	}
+	else if (npw_header_get_order (b) == 0)
+	{
+		return -1;
+	}
+	else
+	{
+		return npw_header_get_order (a) - npw_header_get_order (b);
+	}
 }
 
 GList *

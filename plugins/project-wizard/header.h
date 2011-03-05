@@ -44,6 +44,9 @@ const gchar* npw_header_get_description (const NPWHeader* self);
 void npw_header_set_iconfile (NPWHeader* this, const gchar* confile);
 const gchar* npw_header_get_iconfile (const NPWHeader* self);
 
+void npw_header_set_order (NPWHeader* this, const gchar *order);
+const guint npw_header_get_order (const NPWHeader* self);
+
 void npw_header_add_required_program (NPWHeader* self, const gchar* program);
 
 /* Returns list of missing programs, or NULL if none is missing
