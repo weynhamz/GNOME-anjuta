@@ -390,47 +390,6 @@ case $host_os in
 esac
 
 
-AC_C_CONST
-AC_OBJEXT
-AC_EXEEXT
-
-AC_TYPE_SIZE_T
-AC_TYPE_OFF_T
-
-AC_MSG_CHECKING("for fpos_t")
-AC_EGREP_HEADER(fpos_t, stdio.h, AC_MSG_RESULT(yes),
-[
-    AC_MSG_RESULT(no)
-    AC_DEFINE(fpos_t, long, [fpos_t is type long])
-])
-
-AC_MSG_CHECKING("for clock_t")
-AC_EGREP_HEADER(clock_t, time.h, AC_MSG_RESULT(yes),
-[
-    AC_MSG_RESULT(no)
-    AC_DEFINE(clock_t, long, [clock_t is type long])
-])
-
-CHECK_HEADER_DEFINE(L_tmpnam, stdio.h,, AC_DEFINE(L_tmpnam, 20, [L_tmpname is 20]))
-
-CHECK_HEADER_DEFINE(INT_MAX, limits.h,,
-    CHECK_HEADER_DEFINE(MAXINT, limits.h,
-        AC_DEFINE(INT_MAX, MAXINT, [Maximum int size]), AC_DEFINE(INT_MAX, 32767, [Maximum int size])))
-
-AC_MSG_CHECKING(if struct stat contains st_ino)
-AC_LANG([C])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/stat.h>]], [[
-    struct stat st;
-    stat(".", &st);
-    if (st.st_ino > 0)
-        exit(0);
-]])],[have_st_ino=yes],[have_st_ino=no])
-AC_MSG_RESULT($have_st_ino)
-if test yes = "$have_st_ino"; then
-    AC_DEFINE(HAVE_STAT_ST_INO,,[Have stat st_ino])
-fi
-
-
 dnl Check for bind in libsocket (needed on Solaris)
 AC_CHECK_LIB(socket, bind)
 
@@ -475,38 +434,6 @@ else
         AC_DEFINE_UNQUOTED(TMPDIR, "$tmpdir", [Directory for temporary files])
     else
         AC_MSG_WARN($tmpdir does not exist)
-    fi
-fi
-
-AC_CHECK_FUNCS(strerror opendir)
-AC_CHECK_FUNCS(clock times, break)
-AC_CHECK_FUNCS(remove, have_remove=yes,
-    CHECK_HEADER_DEFINE(remove, unistd.h,, AC_DEFINE(remove, unlink, [Remove is unlink])))
-
-AC_CHECK_FUNCS(truncate, have_truncate=yes)
-dnl === Cannot nest AC_CHECK_FUNCS() calls
-if test "$have_truncate" != yes  ; then
-    AC_CHECK_FUNCS(ftruncate, have_ftruncate=yes)
-    if test "$have_ftruncate" != yes ; then
-        AC_CHECK_FUNCS(chsize)
-    fi
-fi
-
-AC_CHECK_FUNCS(setenv, have_setenv=yes)
-dnl === Cannot nest AC_CHECK_FUNCS() calls
-if test "$have_setenv" != yes ; then
-    AC_CHECK_FUNCS(putenv, have_putenv=yes)
-    if test "$have_putenv" = yes ; then
-        AC_EGREP_HEADER(putenv, stdlib.h, have_putenv_prototype=yes)
-        if test "$have_putenv_prototype" = yes ; then
-            AC_MSG_CHECKING("putenv prototype")
-            AC_EGREP_HEADER([[^A-Za-zo-9_]putenv[   ]*\(.*const.*\)[    ]*;],
-                stdlib.h, AC_MSG_RESULT(correct),
-                [
-                    AC_MSG_RESULT(no const)
-                    AC_DEFINE(NON_CONST_PUTENV_PROTOTYPE,,[putenv has non constant prototype])
-                ])
-        fi
     fi
 fi
 
