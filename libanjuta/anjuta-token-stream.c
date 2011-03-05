@@ -325,10 +325,21 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 	child->begin = 0;
 	child->parent = parent;
 
-	child->next = anjuta_token_next (content);
-	child->start = child->next;
-	child->last = anjuta_token_last (content);
-	if (child->last == content) child->last = NULL;
+	/* If content is empty, anjuta_token_next returns following token which is
+	 * wrong */
+	if (anjuta_token_is_empty (content))
+	{
+		child->next = NULL;
+		child->start = NULL;
+		child->last = NULL;
+	}
+	else
+	{
+		child->next = anjuta_token_next (content);
+		child->start = child->next;
+		child->last = anjuta_token_last (content);
+		if (child->last == content) child->last = NULL;
+	}
 
 	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
 	if (file == NULL)

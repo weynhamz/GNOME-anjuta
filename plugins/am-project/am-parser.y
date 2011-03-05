@@ -224,10 +224,14 @@ definition:
         amp_am_scanner_update_variable (scanner, $$);
 	}
 	| head_list  equal_token {
+		AnjutaToken *list;
+		list = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_insert_after ($2, list);
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_DEFINITION, NULL);
         anjuta_token_merge_own_children ($1);
         anjuta_token_merge ($$, $1);
         anjuta_token_merge ($$, $2);
+		anjuta_token_merge ($$, list);
 		amp_am_scanner_update_variable (scanner, $$);
 	}
 	;

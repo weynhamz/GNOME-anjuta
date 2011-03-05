@@ -1347,6 +1347,9 @@ amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaTok
 	default:
 		break;
 	}
+
+	/* Keep the autotools variable as a normal variable too */
+    amp_group_node_update_variable (group, variable);
 }
 
 /* Map function

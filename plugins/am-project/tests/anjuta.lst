@@ -128,7 +128,7 @@ PROPERTY (URL): http://www.anjuta.org/
             PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade/modules catalogdir = $(datadir)/glade/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
             GROUP (): interfaces
                 PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta-interfaces\"
-                PROPERTY (Installation directories): libanjuta_interfaces_includedir = $(includedir)/libanjuta-3.0/libanjuta/interfaces idldir = $(libanjuta_interfaces_includedir)
+                PROPERTY (Installation directories): libanjuta_interfaces_includedir = $(includedir)/libanjuta-3.0/libanjuta/interfaces idldir = /libanjuta-3.0/libanjuta/interfaces
                 TARGET (): libanjuta-interfaces.la
                     PROPERTY (Do not install): true
                     PROPERTY (Libraries): $(ANJUTA_LIBS) $(XML_LIBS)
@@ -706,7 +706,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
-                    SOURCE (): plugins/debug-manager/$(BUILT_SOURCES)
+                    SOURCE (): plugins/debug-manager/anjuta-marshal.c
+                    SOURCE (): plugins/debug-manager/anjuta-marshal.h
                     SOURCE (): plugins/debug-manager/plugin.c
                     SOURCE (): plugins/debug-manager/plugin.h
                     SOURCE (): plugins/debug-manager/start.c
@@ -1389,7 +1390,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-js/prefs.h
             GROUP (): language-support-python
                 PROPERTY (Installation directories): python_plugin_uidir = $(anjuta_ui_dir) python_plugin_gladedir = $(anjuta_glade_dir) python_plugin_pixmapsdir = $(anjuta_image_dir) scriptsdir = $(anjuta_plugin_dir) python_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-                PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir)\" -DG_LOG_DOMAIN=\"language-support-python\"
+                PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\" \" -DG_LOG_DOMAIN=\"language-support-python\"
                 TARGET (): python_plugin_ui
                     PROPERTY (Installation directory): python_plugin_uidir
                     SOURCE (): plugins/language-support-python/python-plugin.xml
@@ -1575,7 +1576,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/project-manager/project.c
                     SOURCE (): plugins/project-manager/dialogs.c
                     SOURCE (): plugins/project-manager/dialogs.h
-                    SOURCE (): plugins/project-manager/$(BUILT_SOURCES)
+                    SOURCE (): plugins/project-manager/project-marshal.c
+                    SOURCE (): plugins/project-manager/project-marshal.h
             GROUP (): project-wizard
                 PROPERTY (Installation directories): wizard_gladedir = $(anjuta_glade_dir) wizard_uidir = $(anjuta_ui_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
                 PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DANJUTA_BINDIR=\"$(bindir)\" -DANJUTA_LIBDIR=\"$(libdir)\" -DG_LOG_DOMAIN=\"libanjuta-project-wizard\"
@@ -2075,7 +2077,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     PROPERTY (Libraries): $(GIO_LIBS) $(SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): SOURCEVIEW
-                    SOURCE (): plugins/sourceview/$(BUILT_SOURCES)
+                    SOURCE (): plugins/sourceview/anjuta-marshal.c
+                    SOURCE (): plugins/sourceview/anjuta-marshal.h
                     SOURCE (): plugins/sourceview/plugin.c
                     SOURCE (): plugins/sourceview/plugin.h
                     SOURCE (): plugins/sourceview/sourceview.c

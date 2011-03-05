@@ -477,8 +477,7 @@ amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable)
 
 	arg = anjuta_token_first_item (variable);
 	name = g_strstrip (anjuta_token_evaluate (arg));
-	arg = anjuta_token_next_item (arg);
-	value = anjuta_token_next_item (arg);
+	value = anjuta_token_last_item (variable);
 
 	var = (AmpVariable *)g_hash_table_lookup (group->variables, name);
 	if (var != NULL)
