@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 23:46+0100\n"
-"PO-Revision-Date: 2011-03-03 23:52+0100\n"
+"POT-Creation-Date: 2011-03-05 14:02+0100\n"
+"PO-Revision-Date: 2011-03-05 14:01+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -40,7 +40,8 @@ msgstr "A bővítménymodul (%s) nem található"
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr "Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
+msgstr ""
+"Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
@@ -207,7 +208,7 @@ msgstr "Nem hajtható végre a parancs: „%s”"
 msgid "execvp failed"
 msgstr "az execvp meghiúsult"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2369
 msgid "Anjuta Shell"
 msgstr "Anjuta héj"
 
@@ -215,12 +216,12 @@ msgstr "Anjuta héj"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta héj, amely tartalmazni fogja a bővítményt"
 
-#: ../libanjuta/anjuta-plugin-manager.c:733
+#: ../libanjuta/anjuta-plugin-manager.c:737
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "A bővítmény („%s”) nem kapcsolható ki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:764
+#: ../libanjuta/anjuta-plugin-manager.c:768
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -233,24 +234,24 @@ msgstr ""
 "hibaüzenet:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:901
+#: ../libanjuta/anjuta-plugin-manager.c:905
 msgid "Load"
 msgstr "Betöltés"
 
-#: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:1988
+#: ../libanjuta/anjuta-plugin-manager.c:927
+#: ../libanjuta/anjuta-plugin-manager.c:1992
 msgid "Available Plugins"
 msgstr "Elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1040 ../src/anjuta-app.c:940
 msgid "Preferred plugins"
 msgstr "Előnyben részesített bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1150
+#: ../libanjuta/anjuta-plugin-manager.c:1154
 msgid "Only show user activatable plugins"
 msgstr "Csak a felhasználó által aktiválható bővítmények mutatása"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1197
+#: ../libanjuta/anjuta-plugin-manager.c:1201
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -260,69 +261,75 @@ msgstr ""
 "bővítmény közül az egyik kiválasztására kérte. Az előnyben részesített "
 "bővítmény eltávolítása lehetővé teszi másik bővítmény kiválasztását."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1223
+#: ../libanjuta/anjuta-plugin-manager.c:1227
 msgid "Forget selected plugin"
 msgstr "Kiválasztott bővítmény elfelejtése"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1357
-#: ../libanjuta/anjuta-plugin-manager.c:1508 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1361
+#: ../libanjuta/anjuta-plugin-manager.c:1512 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Válasszon ki egy bővítményt"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1358
-#: ../libanjuta/anjuta-plugin-manager.c:1509
+#: ../libanjuta/anjuta-plugin-manager.c:1362
+#: ../plugins/debug-manager/queue.c:530
+msgid "Please select a plugin to activate"
+msgstr "Válasszon ki egy aktiválandó bővítményt"
+
+#: ../libanjuta/anjuta-plugin-manager.c:1376
+#, c-format
+msgid "No plugin is able to load other plugins in %s"
+msgstr ""
+"Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
+
+#: ../libanjuta/anjuta-plugin-manager.c:1513
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Válasszon ki egy aktiválandó bővítményt</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1372
-#, c-format
-msgid "No plugin is able to load other plugins in %s"
-msgstr "Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
-
-#: ../libanjuta/anjuta-plugin-manager.c:2015
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Remember this selection"
 msgstr "Ezen döntés megjegyzése"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2346
+#: ../libanjuta/anjuta-plugin-manager.c:2350
 msgid "Profiles"
 msgstr "Profilok"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2347
+#: ../libanjuta/anjuta-plugin-manager.c:2351
 msgid "Current stack of profiles"
 msgstr "Aktuális profilhalmaz"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2352
+#: ../libanjuta/anjuta-plugin-manager.c:2356
 msgid "Available plugins"
 msgstr "Elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2353
+#: ../libanjuta/anjuta-plugin-manager.c:2357
 msgid "Currently available plugins found in plugin paths"
 msgstr "A bővítményútvonalakon talált elérhető bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2359
+#: ../libanjuta/anjuta-plugin-manager.c:2363
 msgid "Activated plugins"
 msgstr "Aktív bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2360
+#: ../libanjuta/anjuta-plugin-manager.c:2364
 msgid "Currently activated plugins"
 msgstr "Jelenleg aktivált bővítmények"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2370
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Anjuta héj, amelyhez a bővítmények készültek"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2374
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Anjuta Status"
 msgstr "Anjuta állapot"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2375
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
+msgstr ""
+"A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2535
+#: ../libanjuta/anjuta-plugin-manager.c:2539
 msgid "Loaded:"
 msgstr "Betöltve:"
 
@@ -428,9 +435,12 @@ msgstr "_Változtatások eldobása"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] "%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
-msgstr[1] "%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
+msgid_plural ""
+"There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
+msgstr[1] ""
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -673,7 +683,8 @@ msgstr "Betűkészlet-család"
 
 #: ../libfoocanvas/foo-canvas-text.c:231
 msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr "A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
+msgstr ""
+"A betűkészlet-család megnevezése, például Sans, Helvetica, Times, Monospace"
 
 #: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
 msgid "Font style"
@@ -708,8 +719,10 @@ msgid "Rise"
 msgstr "Eltolás"
 
 #: ../libfoocanvas/foo-canvas-text.c:312
-msgid "Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr "Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
+msgid ""
+"Offset of text above the baseline (below the baseline if rise is negative)"
+msgstr ""
+"Szöveg eltolása az alapvonal fölé (ha az eltolás negatív, az alapvonal alá)"
 
 #: ../libfoocanvas/foo-canvas-text.c:322
 msgid "Strikethrough"
@@ -853,7 +866,8 @@ msgid "Please specify group name"
 msgstr "Adja meg a csoportnevet"
 
 #: ../plugins/am-project/amp-group.c:556
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+msgid ""
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "A csoportnév csak betűket, számokat, illetve „#$:%+,-.=@^_`~” karaktereket "
 "tartalmazhat"
@@ -876,7 +890,8 @@ msgid "Please specify target name"
 msgstr "Adja meg a cél nevét"
 
 #: ../plugins/am-project/amp-target.c:280
-msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+msgid ""
+"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "A célnév csak betűket, számokat, illetve „_”, „-”, „.” vagy „/” karaktereket "
 "tartalmazhat"
@@ -1149,12 +1164,14 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1854
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
+msgstr ""
+"„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
 
 #: ../plugins/build-basic-autotools/plugin.c:1989
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr "Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
+msgstr ""
+"Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
 
 #: ../plugins/build-basic-autotools/plugin.c:2470
 #: ../plugins/build-basic-autotools/plugin.c:2544
@@ -1251,7 +1268,8 @@ msgid "Remove Configuration"
 msgstr "Konfiguráció eltávolítása"
 
 #: ../plugins/build-basic-autotools/plugin.c:2535
-msgid "Clean project (distclean) and remove configuration directory if possible"
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt tisztítása (distclean) és a konfigurációs könyvtár eltávolítása, ha "
 "lehetséges"
@@ -1459,6 +1477,8 @@ msgstr "Általános osztálytulajdonságok"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
 #: ../plugins/project-wizard/templates/library.wiz.in.h:16
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:18
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
@@ -1504,6 +1524,8 @@ msgstr "JavaScript osztály"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:20
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -1839,7 +1861,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr ".cvsrc fájl mellőzése (javasolt)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2188
+#: ../plugins/symbol-db/plugin.c:2161
 msgid "Local"
 msgstr "Helyi"
 
@@ -2804,10 +2826,6 @@ msgstr "Hibakereső műveletek"
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr "Nem található a MIME-típust (%s) támogató hibakereső bővítmény"
 
-#: ../plugins/debug-manager/queue.c:530
-msgid "Please select a plugin to activate"
-msgstr "Válasszon ki egy aktiválandó bővítményt"
-
 #: ../plugins/debug-manager/registers.c:462
 msgid "Register"
 msgstr "Regiszter"
@@ -2914,7 +2932,7 @@ msgstr "Keret"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2146 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -3100,8 +3118,8 @@ msgstr "API-böngésző"
 msgid "Contents"
 msgstr "Tartalom"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2156
-#: ../plugins/symbol-db/plugin.c:2208
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
+#: ../plugins/symbol-db/plugin.c:2181
 msgid "Search"
 msgstr "Keresés"
 
@@ -3288,7 +3306,7 @@ msgid "Close Others"
 msgstr "Többi bezárása"
 
 #: ../plugins/document-manager/plugin.c:166
-msgid "Close others documents"
+msgid "Close other documents"
 msgstr "Többi dokumentum bezárása"
 
 #: ../plugins/document-manager/plugin.c:168
@@ -3548,7 +3566,7 @@ msgid "Regular expression search"
 msgstr "Reguláris kifejezések keresése"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1188
+#: ../plugins/language-support-cpp-java/plugin.c:1197
 #: ../plugins/language-support-python/plugin.c:448
 msgid "_Edit"
 msgstr "S_zerkesztés"
@@ -3926,7 +3944,8 @@ msgstr "„%s” keresése elérte a fájl elejét, folytatva a végétől."
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
-msgstr "„%s” keresése elérte a fájl elejét, folytatva a végétől, de nincs új találat."
+msgstr ""
+"„%s” keresése elérte a fájl elejét, folytatva a végétől, de nincs új találat."
 
 #: ../plugins/document-manager/search-box.c:924
 msgid "Replace"
@@ -4193,7 +4212,7 @@ msgid "Filter"
 msgstr "Szűrő"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2200
+#: ../plugins/symbol-db/plugin.c:2173
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Globális"
@@ -4210,11 +4229,11 @@ msgstr "Betöltés…"
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../plugins/file-manager/file-view.c:656
+#: ../plugins/file-manager/file-view.c:652
 msgid "Base URI"
 msgstr "Alap URI"
 
-#: ../plugins/file-manager/file-view.c:657
+#: ../plugins/file-manager/file-view.c:653
 msgid "URI of the top-most path displayed"
 msgstr "A legfelső megjelenített könyvtár URI címe"
 
@@ -4429,12 +4448,16 @@ msgstr "Projektnév, tartalmazhat szóközöket, például: „GNU Autoconf”"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "Verzió:"
 
 #: ../plugins/am-project/am-properties.c:59
-msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr "Projektverzió, általában néhány pontokkal elválasztott szám, például „1.0.0”"
+msgid ""
+"Project version, typically a few numbers separated by dot by example '1.0.0'"
+msgstr ""
+"Projektverzió, általában néhány pontokkal elválasztott szám, például „1.0.0”"
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
@@ -4553,7 +4576,8 @@ msgid "Objective C compiler flags:"
 msgstr "Objective C fordító jelzői:"
 
 #: ../plugins/am-project/am-properties.c:156
-msgid "Common additional Objective C compiler flags for all targets in this group."
+msgid ""
+"Common additional Objective C compiler flags for all targets in this group."
 msgstr "Általános további Objective C fordítójelzők a csoport minden céljához."
 
 #: ../plugins/am-project/am-properties.c:161
@@ -4695,7 +4719,8 @@ msgstr "A cél további Objective C fordítójelzői."
 #: ../plugins/am-project/am-properties.c:291
 #: ../plugins/am-project/am-properties.c:443
 #: ../plugins/am-project/am-properties.c:595
-msgid "Additional Lex or Flex lexical analyser generator flags for this target."
+msgid ""
+"Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr "A cél további Lex vagy Flex lexikális elemzőgenerátor-jelzői."
 
 #: ../plugins/am-project/am-properties.c:299
@@ -4961,7 +4986,8 @@ msgstr "Hiba a folyamatnak való szignálküldés közben."
 
 #: ../plugins/gdb/plugin.c:118
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
 "A(z) %s nevű FIFO fájl létrehozása meghiúsult. A program terminál nélkül fog "
 "futni."
@@ -5019,8 +5045,8 @@ msgid "Add signed off by line"
 msgstr "„signed-off-by” sor hozzáadása"
 
 #: ../plugins/git/anjuta-git.ui.h:3
-msgid "Amernd the previous commit"
-msgstr "Előző revízió javítása"
+msgid "Amend the previous commit"
+msgstr "Előző változat javítása"
 
 # fixme
 #: ../plugins/git/anjuta-git.ui.h:4
@@ -5072,11 +5098,11 @@ msgstr "Véglegesítés gyors egyesítésekkor"
 
 #: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit to cherry pick:"
-msgstr "Mazsolázandó revízió:"
+msgstr "Mazsolázandó változat:"
 
 #: ../plugins/git/anjuta-git.ui.h:16
 msgid "Commit to revert:"
-msgstr "Visszavonandó revízió:"
+msgstr "Visszavonandó változat:"
 
 #: ../plugins/git/anjuta-git.ui.h:17
 msgid "Do not commit"
@@ -5222,8 +5248,9 @@ msgid "Tags:"
 msgstr "Címkék:"
 
 #: ../plugins/git/anjuta-git.ui.h:57
-msgid "This commit concludes a failed merged (use -i)"
-msgstr "Ez a revízió egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
+msgid "This commit concludes a failed merge (use -i)"
+msgstr ""
+"Ez a változat egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Use a custom log message:"
@@ -5239,14 +5266,16 @@ msgid "View the Log for File/Folder:"
 msgstr "Fájl/mappa naplójának megjelenítése:"
 
 #: ../plugins/git/anjuta-git.ui.h:62
-msgid "Whole project; Drop a file here or type a path to view a file or folder log"
+msgid ""
+"Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Teljes projekt; Ejtsen ide egy fájlt, vagy írjon be egy útvonalat fájl- vagy "
 "mappanapló megjelenítéséhez"
 
 #: ../plugins/git/anjuta-git.ui.h:63
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr "Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
+msgstr ""
+"Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
 
 #: ../plugins/git/anjuta-git.ui.h:64
 msgid "page 1"
@@ -5293,11 +5322,11 @@ msgstr "Adjon meg egy naplóüzenetet."
 
 #: ../plugins/git/git-commit-pane.c:145
 msgid "Please enter the commit author's name"
-msgstr "Adja meg a revízió szerzőjének nevét"
+msgstr "Adja meg a változat szerzőjének nevét"
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
-msgstr "Adja meg a revízió szerzőjének e-mail címét."
+msgstr "Adja meg a változat szerzőjének e-mail címét."
 
 #: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
 msgid "Commit"
@@ -5307,14 +5336,25 @@ msgstr "Véglegesítés"
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
 msgid "Please enter a revision."
-msgstr "Adjon meg egy revíziót."
+msgstr "Adjon meg egy változatot."
 
 # FIXME: jobb ötlet? :)
 #: ../plugins/git/git-cherry-pick-pane.c:173
 msgid "Cherry Pick"
 msgstr "Mazsolázás"
 
-#: ../plugins/git/git-diff-pane.c:103
+#. Translators: default file name for git diff's output
+#: ../plugins/git/git-diff-pane.c:33
+msgid "Uncommitted Changes.diff"
+msgstr "Nem véglegesített változtatások.diff"
+
+#. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
+#: ../plugins/git/git-diff-pane.c:71
+#, c-format
+msgid "Commit %s.diff"
+msgstr "%s verzió.diff"
+
+#: ../plugins/git/git-diff-pane.c:104
 msgid "No revision selected"
 msgstr "Nincs kijelölve revízió"
 
@@ -5324,7 +5364,7 @@ msgstr "Visszaállítás"
 
 #: ../plugins/git/git-revert-pane.c:48
 msgid "Please enter a commit."
-msgstr "Adjon meg egy revíziót."
+msgstr "Adjon meg egy változatot."
 
 #: ../plugins/git/git-revert-pane.c:162
 msgid "Revert"
@@ -5469,7 +5509,7 @@ msgstr "Váltás a kiválasztott ágra"
 
 #: ../plugins/git/plugin.c:98
 msgid "Merge a revision into the current branch"
-msgstr "Revízió egyesítése a jelenlegi ágba"
+msgstr "Változat egyesítése a jelenlegi ágba"
 
 #: ../plugins/git/plugin.c:109
 msgid "Tag tools"
@@ -5594,7 +5634,7 @@ msgstr "Kihagyás"
 
 #: ../plugins/git/plugin.c:287
 msgid "Skip the current revision"
-msgstr "Az aktuális fejrevízió kihagyása"
+msgstr "Az aktuális revízió kihagyása"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
 msgid "Abort"
@@ -5662,7 +5702,7 @@ msgstr "Revízió eszközei"
 
 #: ../plugins/git/plugin.c:374
 msgid "Show commit diff"
-msgstr "Revízió diff megjelenítése"
+msgstr "Változat diff megjelenítése"
 
 #: ../plugins/git/plugin.c:375
 msgid "Show a diff of the selected revision"
@@ -5675,7 +5715,7 @@ msgstr "Mazsolázás"
 
 #: ../plugins/git/plugin.c:383
 msgid "Merge an individual commit from another branch"
-msgstr "Adott revízió egyesítése másik ágból"
+msgstr "Adott változat egyesítése másik ágból"
 
 #: ../plugins/git/plugin.c:390
 msgid "Reset/Revert"
@@ -5691,11 +5731,11 @@ msgstr "Fa visszaállítása egy korábbi revízióra"
 
 #: ../plugins/git/plugin.c:406
 msgid "Revert commit"
-msgstr "Revízió visszavonása"
+msgstr "Változat visszavonása"
 
 #: ../plugins/git/plugin.c:407
 msgid "Revert a commit"
-msgstr "Egy revízió visszavonása"
+msgstr "Egy változat visszavonása"
 
 #: ../plugins/git/plugin.c:414
 msgid "Patch series"
@@ -5726,7 +5766,8 @@ msgid "Skip the current patch in the series"
 msgstr "A sorozat jelenlegi foltjának kihagyása"
 
 #: ../plugins/git/plugin.c:463
-msgid "Stop applying the patch series and return the tree to its previous state"
+msgid ""
+"Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 "A sorozat alkalmazásának megszakítása, és a tároló visszaállítása az előző "
 "állapotba"
@@ -6086,7 +6127,8 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "A megadott URI („%s”) nem tölthető le. A visszaadott hiba: „%s”"
 
 #: ../plugins/project-import/project-import.ui.h:1
@@ -6107,6 +6149,8 @@ msgstr "A megadott URI („%s”) nem tölthető le. A visszaadott hiba: „%s�
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:13
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Cél:"
@@ -6216,17 +6260,17 @@ msgid "_Module name:"
 msgstr "M_odulnév:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-msgid "_New library&#x2026;"
-msgstr "Új _programkönyvtár…"
+msgid "_New library…"
+msgstr "Új pr_ogramkönyvtár…"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
-msgid "_Select file to add&#x2026;"
+msgid "_Select file to add…"
 msgstr "_Válassza ki a hozzáadandó fájlt…"
 
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1324
 #: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2151
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projekt"
@@ -6830,6 +6874,7 @@ msgstr "Általános minimális, egyszerű projekt"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
 #: ../plugins/project-wizard/templates/library.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "Add C++ support:"
 msgstr "C++ támogatás:"
 
@@ -6844,6 +6889,8 @@ msgstr "C++ támogatás:"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:3
 #: ../plugins/project-wizard/templates/java.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:4
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:1
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:4
 msgid "Add shared library support:"
 msgstr "Osztott programkönyvtárak támogatása:"
 
@@ -6854,8 +6901,10 @@ msgstr "Osztott programkönyvtárak támogatása:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
+msgstr ""
+"C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
@@ -6868,6 +6917,8 @@ msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használh
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:4
 #: ../plugins/project-wizard/templates/java.wiz.in.h:5
 #: ../plugins/project-wizard/templates/python.wiz.in.h:5
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:6
 msgid "Adds support for building shared libraries in your project"
 msgstr "Támogatást ad osztott programkönyvtárak felépítéséhez a projektben"
 
@@ -6887,6 +6938,8 @@ msgstr "Támogatást ad osztott programkönyvtárak felépítéséhez a projektb
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:8
 msgid "Author:"
 msgstr "Szerző:"
 
@@ -6906,6 +6959,8 @@ msgstr "Szerző:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:9
 msgid "Basic information"
 msgstr "Alapvető információk"
 
@@ -6925,6 +6980,8 @@ msgstr "Alapvető információk"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:10
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Berkeley Software Distribution licenc (BSD)"
 
@@ -6958,6 +7015,8 @@ msgstr "Ellenőrizze a projekt által igényelt csomagokat"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:11
 msgid "Configure external packages"
 msgstr "Külső csomagok beállítása"
 
@@ -6975,6 +7034,8 @@ msgstr "Külső csomagok beállítása"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:12
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:12
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "Külső csomagok beállítása:"
 
@@ -6994,6 +7055,8 @@ msgstr "Külső csomagok beállítása:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
 msgid "Email address:"
 msgstr "E-mail cím:"
 
@@ -7014,6 +7077,8 @@ msgstr "E-mail cím:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
 #: ../plugins/project-wizard/templates/library.wiz.in.h:15
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:17
 msgid "General Project Information"
 msgstr "Általános projektinformációk"
 
@@ -7037,6 +7102,8 @@ msgstr "Általános (minimális)"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:21
 msgid "License"
 msgstr "Licenc"
 
@@ -7056,6 +7123,8 @@ msgstr "Licenc"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:22
 msgid "No license"
 msgstr "Nincs licenc"
 
@@ -7075,6 +7144,8 @@ msgstr "Nincs licenc"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 msgid "Options for project build system"
 msgstr "A projektet felépítő rendszer beállításai"
 
@@ -7095,6 +7166,8 @@ msgstr "A projektet felépítő rendszer beállításai"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:24
 msgid "Project Name:"
 msgstr "Projektnév:"
 
@@ -7115,6 +7188,8 @@ msgstr "Projektnév:"
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
 msgid "Project options"
 msgstr "Projektbeállítások"
 
@@ -7150,6 +7225,8 @@ msgstr "Igényelt csomagok:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
 msgid "Select code license"
 msgstr "Válassza ki a kód licencét"
 
@@ -7167,6 +7244,8 @@ msgstr "Válassza ki a kód licencét"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 "A pkg-config segítségével más csomagokból származó támogató "
@@ -7188,6 +7267,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "projekt neve"
 
@@ -7208,6 +7289,7 @@ msgstr "Általános projekt"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:3
 msgid "Add internationalization:"
 msgstr "Nemzetköziesítés támogatása:"
 
@@ -7224,10 +7306,12 @@ msgstr "Nemzetköziesítés támogatása:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:7
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
-msgstr "Nemzetköziesítés támogatása, így a projekt lefordítható különböző nyelvekre"
+msgstr ""
+"Nemzetköziesítés támogatása, így a projekt lefordítható különböző nyelvekre"
 
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
 msgid "Generic"
@@ -7257,14 +7341,18 @@ msgstr "Python webprojekt a Django webes keretrendszer használatával"
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:2
 msgid "Add gtk-doc system:"
 msgstr "A gtk-doc rendszer használata:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:10
 msgid "GTK+ (simple)"
 msgstr "GTK+ (egyszerű)"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:19
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7275,20 +7363,25 @@ msgstr ""
 ">= 2.2.0”"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 msgid "Require Package:"
 msgstr "Csomag megkövetelése:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
 msgid "Simple GTK+ project"
 msgstr "Egyszerű GTK+ projekt"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
 msgstr "GtkBuilder használata a felülethez:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
 "from xml files at runtime"
@@ -7300,6 +7393,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
 #: ../plugins/project-wizard/templates/java.wiz.in.h:30
 #: ../plugins/project-wizard/templates/python.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:32
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "A gtk-doc segítségével GObject alapú osztályok API dokumentációi készíthetők "
@@ -7447,7 +7541,8 @@ msgid "Xlib dock"
 msgstr "Xlib dokk"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
-msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Általános, natívan fordított, a GNU Java Compilert (gcj) használó Java "
 "projekt"
@@ -7600,6 +7695,14 @@ msgstr "Válassza ki az összeállítandó programkönyvtár típusát"
 #: ../plugins/project-wizard/templates/library.wiz.in.h:29
 msgid "Shared and Static library"
 msgstr "Osztott és statikus programkönyvtár"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
+msgid "Full features Gtk+ Application with file handling"
+msgstr "Teljes felszereltségű Gtk+ alkalmazás fájlkezeléssel"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
+msgid "GTK+ (Application)"
+msgstr "GTK+ (alkalmazás)"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
@@ -7786,7 +7889,8 @@ msgid "<b>Error:</b> You must choose at least one language for the snippet!"
 msgstr "<b>Hiba:</b> legalább egy nyelvet ki kell választani a töredékhez."
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
-msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr "<b>Hiba:</b> az aktiválókulcs már használatban van az egyik nyelvhez."
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
@@ -8655,43 +8759,43 @@ msgstr "S_zimbólum keresése…"
 msgid "Find Symbol"
 msgstr "Szimbólum keresése"
 
-#: ../plugins/symbol-db/plugin.c:1027
+#: ../plugins/symbol-db/plugin.c:1032
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: öröklődések előállítása…"
 
-#: ../plugins/symbol-db/plugin.c:1032
+#: ../plugins/symbol-db/plugin.c:1037
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr "%s: %d fájl megvizsgálva, összesen %d"
 
-#: ../plugins/symbol-db/plugin.c:1063
+#: ../plugins/symbol-db/plugin.c:1068
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Öröklődések előállítása…"
 
-#: ../plugins/symbol-db/plugin.c:1065
+#: ../plugins/symbol-db/plugin.c:1070
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr "%d fájl megvizsgálva, összesen %d"
 
-#: ../plugins/symbol-db/plugin.c:1815
+#: ../plugins/symbol-db/plugin.c:1729
 msgid "Populating symbol database…"
 msgstr "Szimbólum-adatbázis feltöltése…"
 
-#: ../plugins/symbol-db/plugin.c:2136 ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
 msgid "Symbols"
 msgstr "Szimbólumok"
 
-#: ../plugins/symbol-db/plugin.c:2230
+#: ../plugins/symbol-db/plugin.c:2203
 msgid "SymbolDb popup actions"
 msgstr "Szimbólum-DB felugró műveletek"
 
-#: ../plugins/symbol-db/plugin.c:2238
+#: ../plugins/symbol-db/plugin.c:2211
 msgid "SymbolDb menu actions"
 msgstr "Szimbólum-DB menüműveletek"
 
-#: ../plugins/symbol-db/plugin.c:2546 ../plugins/symbol-db/plugin.c:2564
+#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Szimbólum-adatbázis"
@@ -8965,7 +9069,8 @@ msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:89
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected file name in the file manager plugin"
@@ -8993,7 +9098,8 @@ msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:96
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:97
 msgid "Selected file name in the project manager plugin"
@@ -9289,7 +9395,8 @@ msgstr "Ne nyissa meg az utolsó projektet és fájlokat indításkor"
 
 #: ../src/main.c:99
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
+msgstr ""
+"Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
 #: ../src/main.c:138
 msgid "- Integrated Development Environment"
@@ -9359,7 +9466,8 @@ msgstr "Eszköztárgombok címkéi:"
 
 #: ../plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr "Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
+msgstr ""
+"Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "API Tags (C/C++)"
@@ -9430,64 +9538,73 @@ msgid "Line up parentheses"
 msgstr "Zárójelek felsorakoztatása"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+msgid "Load API tags for C standard library"
+msgstr "API címkék betöltése a C szabványos programkönyvtárhoz"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+msgid "Load API tags for C++ standard template library"
+msgstr "API címkék betöltése a C++ szabványos sablonkönyvtárhoz"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 msgid "Parenthesis indentation"
 msgstr "Zárójelek behúzása"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr "vim/emacs módsorok előnyben részesítése a behúzási beállításokkal szemben"
+msgstr ""
+"vim/emacs módsorok előnyben részesítése a behúzási beállításokkal szemben"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
 msgstr "Gyorstippek mutatása"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Intelligens behúzás"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr "Utasításbehúzás mérete szóközökben:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1194
+#: ../plugins/language-support-cpp-java/plugin.c:1203
 #: ../plugins/language-support-python/plugin.c:454
 msgid "Auto-Indent"
 msgstr "Automatikus behúzás"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1195
+#: ../plugins/language-support-cpp-java/plugin.c:1204
 #: ../plugins/language-support-python/plugin.c:455
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Az aktuális sor vagy kijelölés automatikus behúzása a behúzási beállítások "
 "alapján"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1201
+#: ../plugins/language-support-cpp-java/plugin.c:1210
 msgid "Comment/Uncomment"
 msgstr "Megjegyzés ki/be"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1202
+#: ../plugins/language-support-cpp-java/plugin.c:1211
 msgid "Comment or uncomment current selection"
 msgstr "Jelenlegi kijelölés megjegyzéssé tétele be/ki"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1207
+#: ../plugins/language-support-cpp-java/plugin.c:1216
 msgid "Swap .h/.c"
 msgstr "Váltás .h/.c között"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1208
+#: ../plugins/language-support-cpp-java/plugin.c:1217
 msgid "Swap C header and source files"
 msgstr "Váltás a C fejléc- és forrásfájlok között"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1248
+#: ../plugins/language-support-cpp-java/plugin.c:1257
 msgid "C++/Java Assistance"
 msgstr "C++/Java segéd"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1423
-#: ../plugins/language-support-cpp-java/plugin.c:1453
+#: ../plugins/language-support-cpp-java/plugin.c:1491
+#: ../plugins/language-support-cpp-java/plugin.c:1525
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9808,4 +9925,3 @@ msgstr "Karakterek minimális száma kiegészítéshez "
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Szimbólum"
-
