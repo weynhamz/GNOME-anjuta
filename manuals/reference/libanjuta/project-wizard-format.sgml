@@ -153,6 +153,18 @@
 			project, it is typically the programming language name,
 			like C or C++.
 		</para>
+		<para>
+			<emphasis>order</emphasis>
+			<programlisting>
+&lt;_order&gt;
+	number					
+&lt;/_order&gt;
+			</programlisting>
+			number is used to order project in the project
+			selection view. If this element is not specified order
+			is equal to 0. In this case, the projects are added
+			at the end ordered according to their names.
+		</para>
 	</sect1>
 	<sect1 id="page-block">
 		<title>Wizard pages</title>
