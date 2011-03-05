@@ -26,6 +26,10 @@
  * @include: libanjuta/anjuta-plugin-manager.h
  * 
  */
+ 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
 
 #include <sys/types.h>
 #include <dirent.h>
@@ -730,7 +734,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				if (!anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_plugin)))
 				{
 					anjuta_util_dialog_info (GTK_WINDOW (priv->shell),
-								 _("Plugin '%s' does not want to be deactivated"),
+								 dgettext (GETTEXT_PACKAGE, "Plugin '%s' does not want to be deactivated"),
 								 anjuta_plugin_handle_get_name (plugin));
 				}
 			}
@@ -761,7 +765,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				{
 					if (error)
 					{
-						gchar* message = g_strdup_printf (_("Could not load %s\n"
+						gchar* message = g_strdup_printf (dgettext (GETTEXT_PACKAGE, "Could not load %s\n"
 							"This usually means that your installation is corrupted. The "
 							"error message leading to this was:\n%s"), 
 														  anjuta_plugin_handle_get_name (selected_plugin),
@@ -898,7 +902,7 @@ create_plugin_tree (void)
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
 			  G_CALLBACK (plugin_toggled), store);
-	column = gtk_tree_view_column_new_with_attributes (_("Load"),
+	column = gtk_tree_view_column_new_with_attributes (dgettext (GETTEXT_PACKAGE, "Load"),
 													   renderer,
 													   "active", 
 													   COL_ENABLED,
@@ -920,7 +924,7 @@ create_plugin_tree (void)
 										COL_NAME);
 	gtk_tree_view_column_set_sizing (column,
 									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Available Plugins"));
+	gtk_tree_view_column_set_title (column, dgettext (GETTEXT_PACKAGE, "Available Plugins"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree), column);
 
@@ -1033,7 +1037,7 @@ create_remembered_plugins_tree (void)
 										COL_REM_NAME);
 	gtk_tree_view_column_set_sizing (column,
 									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Preferred plugins"));
+	gtk_tree_view_column_set_title (column, dgettext (GETTEXT_PACKAGE, "Preferred plugins"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree), column);
 	
@@ -1147,7 +1151,7 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	
-	checkbutton = gtk_check_button_new_with_label (_("Only show user activatable plugins"));
+	checkbutton = gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Only show user activatable plugins"));
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton), 10);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
 	gtk_box_pack_start (GTK_BOX (vbox), checkbutton, FALSE, FALSE, 0);
@@ -1194,7 +1198,7 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	vbox = gtk_vbox_new (FALSE, 10);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	
-	display_label = gtk_label_new (_("These are the plugins selected by you "
+	display_label = gtk_label_new (dgettext (GETTEXT_PACKAGE, "These are the plugins selected by you "
 									 "when Anjuta prompted to choose one of "
 									 "many suitable plugins. Removing the "
 									 "preferred plugin will let Anjuta prompt "
@@ -1220,7 +1224,7 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-	forget_button = gtk_button_new_with_label (_("Forget selected plugin"));
+	forget_button = gtk_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Forget selected plugin"));
 	gtk_widget_set_sensitive (forget_button, FALSE);
 	gtk_box_pack_end (GTK_BOX (hbox), forget_button, FALSE, FALSE, 0);
 	
@@ -1354,8 +1358,8 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 		}
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
-								  _("Select a plugin"),
-								  _("<b>Please select a plugin to activate</b>"),
+								  dgettext (GETTEXT_PACKAGE, "Select a plugin"),
+								  dgettext (GETTEXT_PACKAGE, "Please select a plugin to activate"),
 								  descs);
 		g_list_free (descs);
 	}
@@ -1369,7 +1373,7 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 	/* No plugin implementing this interface found */
 	g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
 					 ANJUTA_PLUGIN_MANAGER_MISSING_FACTORY,
-					 _("No plugin is able to load other plugins in %s"), language);
+					 dgettext (GETTEXT_PACKAGE, "No plugin is able to load other plugins in %s"), language);
 	
 	return NULL;
 }
@@ -1505,8 +1509,8 @@ anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 		}
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
-									  _("Select a plugin"),
-									  _("<b>Please select a plugin to activate</b>"),
+									  dgettext (GETTEXT_PACKAGE, "Select a plugin"),
+									  dgettext (GETTEXT_PACKAGE, "<b>Please select a plugin to activate</b>"),
 									  descs);
 		g_list_free (descs);
 		return obj;
@@ -1985,7 +1989,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_sizing (column,
 									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Available Plugins"));
+	gtk_tree_view_column_set_title (column, dgettext (GETTEXT_PACKAGE, "Available Plugins"));
 
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
@@ -2012,7 +2016,7 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 					 GTK_DIALOG(dlg));
 
 	remember_checkbox =
-		gtk_check_button_new_with_label (_("Remember this selection"));
+		gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Remember this selection"));
 	gtk_container_set_border_width (GTK_CONTAINER (remember_checkbox), 10);
 	gtk_widget_show (remember_checkbox);
 	gtk_box_pack_start (GTK_BOX (content_area), remember_checkbox,
@@ -2343,27 +2347,27 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 	g_object_class_install_property (object_class,
 	                                 PROP_PROFILES,
 	                                 g_param_spec_pointer ("profiles",
-	                                                       _("Profiles"),
-	                                                       _("Current stack of profiles"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Profiles"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Current stack of profiles"),
 	                                                       G_PARAM_READABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_AVAILABLE_PLUGINS,
 	                                 g_param_spec_pointer ("available-plugins",
-	                                                       _("Available plugins"),
-	                                                       _("Currently available plugins found in plugin paths"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Available plugins"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Currently available plugins found in plugin paths"),
 	                                                       G_PARAM_READABLE));
 
 	g_object_class_install_property (object_class,
 	                                 PROP_ACTIVATED_PLUGINS,
 	                                 g_param_spec_pointer ("activated-plugins",
-	                                                       _("Activated plugins"),
-	                                                       _("Currently activated plugins"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Activated plugins"),
+	                                                       dgettext (GETTEXT_PACKAGE, "Currently activated plugins"),
 	                                                       G_PARAM_READABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_SHELL,
 	                                 g_param_spec_object ("shell",
-														  _("Anjuta Shell"),
-														  _("Anjuta shell for which the plugins are made"),
+														  dgettext (GETTEXT_PACKAGE, "Anjuta Shell"),
+														  dgettext (GETTEXT_PACKAGE, "Anjuta shell for which the plugins are made"),
 														  G_TYPE_OBJECT,
 														  G_PARAM_READABLE |
 														  G_PARAM_WRITABLE |
@@ -2371,8 +2375,8 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 	g_object_class_install_property (object_class,
 	                                 PROP_STATUS,
 	                                 g_param_spec_object ("status",
-														  _("Anjuta Status"),
-														  _("Anjuta status to use in loading and unloading of plugins"),
+														  dgettext (GETTEXT_PACKAGE, "Anjuta Status"),
+														  dgettext (GETTEXT_PACKAGE, "Anjuta status to use in loading and unloading of plugins"),
 														  ANJUTA_TYPE_STATUS,
 														  G_PARAM_READABLE |
 														  G_PARAM_WRITABLE |
@@ -2532,7 +2536,7 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 									 icon_filename, NULL);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
 			/* Avoid space in translated string */
-			label = g_strconcat (_("Loaded:"), " ", title, "...", NULL);
+			label = g_strconcat (dgettext (GETTEXT_PACKAGE, "Loaded:"), " ", title, "...", NULL);
 			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
 			if (!icon_pixbuf)
 				g_warning ("Plugin does not define Icon: No such file %s",

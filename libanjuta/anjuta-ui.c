@@ -1390,7 +1390,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	
 	/* Columns */
 	column = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (column, _("Action"));
+	gtk_tree_view_column_set_title (column, dgettext (GETTEXT_PACKAGE, "Action"));
 
 	renderer = gtk_cell_renderer_pixbuf_new ();
 	gtk_tree_view_column_pack_start (column, renderer, FALSE);
@@ -1411,7 +1411,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
 					  G_CALLBACK (visibility_toggled), tree_view);
-	column = gtk_tree_view_column_new_with_attributes (_("Visible"),
+	column = gtk_tree_view_column_new_with_attributes (dgettext (GETTEXT_PACKAGE, "Visible"),
 													   renderer,
 													   "active",
 													   COLUMN_VISIBLE,
@@ -1431,7 +1431,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 #endif
 	column = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (column, _("Shortcut"));
+	gtk_tree_view_column_set_title (column, dgettext (GETTEXT_PACKAGE, "Shortcut"));
 	renderer = g_object_new (GTK_TYPE_CELL_RENDERER_ACCEL,
 							"editable", TRUE,
 							NULL);
