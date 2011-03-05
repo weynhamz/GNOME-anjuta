@@ -41,11 +41,11 @@ void amp_am_scanner_free (AmpAmScanner *scanner);
 
 AnjutaToken *amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToken *content, GFile *filename, GError **error);
 
-void amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list);
+void amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaToken *variable);
 void amp_am_scanner_include (AmpAmScanner *scanner, AnjutaToken *name);
 void amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable);
 
-void amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list, GHashTable *orphan_properties);
+void amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaToken *variable, GHashTable *orphan_properties);
 
 
 void amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s);

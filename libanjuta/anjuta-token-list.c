@@ -649,20 +649,18 @@ anjuta_token_remove_word (AnjutaToken *token)
 
 /**
  * anjuta_token_remove_list:
- * @token: a #AnjutaToken a list element
+ * @token: a #AnjutaToken corresponding to a list
  *
  * Remove a complete list of token.
  *
  * Return value: A #AnjutaToken representing the following token
  */
 AnjutaToken *
-anjuta_token_remove_list (AnjutaToken *token)
+anjuta_token_remove_list (AnjutaToken *list)
 {
-	AnjutaToken *list;
 	AnjutaToken *next;
 	AnjutaToken *prev;
 
-	list = anjuta_token_list (token);
 	anjuta_token_set_flags (list, ANJUTA_TOKEN_REMOVED);
 
 	prev = anjuta_token_previous_item (list);

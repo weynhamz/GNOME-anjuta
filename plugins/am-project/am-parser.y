@@ -192,7 +192,7 @@ am_variable:
 		if ($3 != NULL) anjuta_token_set_type ($3, ANJUTA_TOKEN_NEXT);
 		anjuta_token_merge ($$, $4);
 		anjuta_token_merge ($$, $5);
-		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($2), $2, anjuta_token_last_item ($$));
+		amp_am_scanner_set_am_variable (scanner, $$);
 	}
 	| optional_space automake_token optional_space equal_token
 	{
@@ -202,7 +202,7 @@ am_variable:
 		$$ = anjuta_token_new_static (amp_am_automake_variable ($2), NULL);
 		anjuta_token_merge ($$, $2);
 		anjuta_token_merge ($$, list);
-		amp_am_scanner_set_am_variable (scanner, amp_am_automake_variable ($2), $2, anjuta_token_last_item ($$));
+		amp_am_scanner_set_am_variable (scanner, $$);
 	}
 	;
 

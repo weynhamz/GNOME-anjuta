@@ -193,4 +193,50 @@ AT_CHECK([diff -b output expect])
 
 
 
+AT_DATA([expect],
+[[    GROUP (): empty8
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (C compiler flags): -g
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+
+bin_PROGRAMS =  \
+	target2
+
+target2_CFLAGS = -g
+]])
+AT_PARSER_CHECK([load empty7 \
+		 move empty8 \
+		 remove 0:0 \
+		 list \
+		 save])
+AT_CHECK([diff -b empty8/Makefile.am reference])
+AT_PARSER_CHECK([load empty8 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty9
+]])
+AT_DATA([reference],
+[[## Process this file with automake to produce Makefile.in
+
+]])
+AT_PARSER_CHECK([load empty8 \
+		 move empty9 \
+		 remove 0:0 \
+		 list \
+		 save])
+AT_CHECK([diff -b empty9/Makefile.am reference])
+AT_PARSER_CHECK([load empty9 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AT_CLEANUP

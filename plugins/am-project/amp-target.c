@@ -383,7 +383,7 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 				if ((prop->token_type == AM_TOKEN_DIR) && (g_strcmp0 (prop->base.name, installdir) == 0))
 				{
 					/* Remove directory variable */
-					anjuta_token_remove_list (prop->token);
+					anjuta_token_remove_list (anjuta_token_list (prop->token));
 					amp_group_node_update_makefile (AMP_GROUP_NODE (parent), prop->token);
 					break;
 				}

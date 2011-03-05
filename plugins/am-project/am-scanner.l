@@ -260,9 +260,9 @@ amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s)
 }
 
 void
-amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaTokenType variable, AnjutaToken *name, AnjutaToken *list)
+amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
-    amp_project_set_am_variable (scanner->project, scanner->group, variable, name, list, scanner->orphan_properties);
+    amp_project_set_am_variable (scanner->project, scanner->group, variable, scanner->orphan_properties);
 }
 
 void
