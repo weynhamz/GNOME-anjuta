@@ -333,6 +333,7 @@ static void
 cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 {
 	GtkWidget *dialog;
+	gchar *path;
 	
 	switch (prop->type)
 	{
@@ -343,6 +344,15 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 												 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				      							 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				      							 NULL);
+		path = g_strdup(gtk_entry_get_text(GTK_ENTRY(prop->widget)));
+		while (g_file_test(path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR) == FALSE)
+		{
+			char* tmp = g_path_get_dirname(path);
+			g_free(path);
+			path = tmp;
+		}
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
+		g_free(path);
 		break;
 	case NPW_FILE_PROPERTY:
 		dialog = gtk_file_chooser_dialog_new (_("Select file"),
