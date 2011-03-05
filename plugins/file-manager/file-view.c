@@ -581,10 +581,6 @@ file_view_init (AnjutaFileView *object)
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (object));
 	g_signal_connect (selection, "changed",
 					  G_CALLBACK (file_view_selection_changed), object);
-	
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (object), FALSE);
-	
-	g_object_set (object, "has-tooltip", TRUE, NULL);
 
 	/* DND */
 	gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW(object),
@@ -710,5 +706,9 @@ file_view_class_init (AnjutaFileViewClass *klass)
 GtkWidget*
 file_view_new (void)
 {
-	return g_object_new (ANJUTA_TYPE_FILE_VIEW, NULL);
+	return g_object_new (ANJUTA_TYPE_FILE_VIEW, 
+	                     "headers-visible", FALSE,
+	                     "has-tooltip", TRUE,
+	                     "enable-search", FALSE,
+	                     NULL);
 }
