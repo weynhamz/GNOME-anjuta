@@ -632,7 +632,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">•</property>
-                <property name="help_text">Drop or enter revision here</property>
+                <property name="help_text" translatable="yes">Drop or enter revision here</property>
               </object>
             </child>
           </object>
@@ -1074,10 +1074,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
-                <property name="text" translatable="yes">Repository head; Drop or type a different revision here </property>
+                <property name="text" translatable="yes">Repository head; Drop or type a different revision here</property>
                 <property name="invisible_char_set">True</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="help_text">Repository head; Drop or type a different revision here </property>
+                <property name="help_text" translatable="yes">Repository head; Drop or type a different revision here</property>
               </object>
             </child>
           </object>
@@ -1255,7 +1255,7 @@
                 <property name="text" translatable="yes">Repository head; Drop or type a different revision here</property>
                 <property name="invisible_char_set">True</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="help_text">Repository head; Drop or type a different revision here</property>
+                <property name="help_text" translatable="yes">Repository head; Drop or type a different revision here</property>
               </object>
             </child>
           </object>
@@ -1710,20 +1710,20 @@
                                 <child>
                                   <object class="GtkTreeViewColumn" id="graph_column">
                                     <property name="resizable">True</property>
-                                    <property name="title">Graph</property>
+                                    <property name="title" translatable="yes">Graph</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="short_log_column">
                                     <property name="resizable">True</property>
-                                    <property name="title">Short Log</property>
+                                    <property name="title" translatable="yes">Short Log</property>
                                     <property name="expand">True</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="author_column">
                                     <property name="resizable">True</property>
-                                    <property name="title">Author</property>
+                                    <property name="title" translatable="yes">Author</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="author_renderer"/>
                                     </child>
@@ -1732,7 +1732,7 @@
                                 <child>
                                   <object class="GtkTreeViewColumn" id="date_column">
                                     <property name="resizable">True</property>
-                                    <property name="title">Date</property>
+                                    <property name="title" translatable="yes">Date</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="date_renderer"/>
                                     </child>
@@ -1767,23 +1767,23 @@
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                                    <property name="title">Graph</property>
+                                    <property name="title" translatable="yes">Graph</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="loading_spinner_column">
-                                    <property name="title">Short Log</property>
+                                    <property name="title" translatable="yes">Short Log</property>
                                     <property name="expand">True</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="treeviewcolumn4">
-                                    <property name="title">Author</property>
+                                    <property name="title" translatable="yes">Author</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="treeviewcolumn5">
-                                    <property name="title">Date</property>
+                                    <property name="title" translatable="yes">Date</property>
                                   </object>
                                 </child>
                               </object>
@@ -1903,7 +1903,7 @@
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="help_text">Drop or type a revision here</property>
+                <property name="help_text" translatable="yes">Drop or type a revision here</property>
               </object>
             </child>
           </object>
@@ -2086,7 +2086,7 @@
                 <property name="invisible_char">•</property>
                 <property name="text" translatable="yes">Repository origin; Drop or type a different revision here</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="help_text">Repository origin; Drop or type a different revision here</property>
+                <property name="help_text" translatable="yes">Repository origin; Drop or type a different revision here</property>
               </object>
             </child>
           </object>
@@ -3002,7 +3002,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">•</property>
-                <property name="help_text">Previous commit; Drop or enter a different revision here</property>
+                <property name="help_text" translatable="yes">Previous commit; Drop or enter a different revision here</property>
               </object>
             </child>
           </object>
@@ -3173,7 +3173,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">•</property>
-                <property name="help_text">Drop or type a revision here</property>
+                <property name="help_text" translatable="yes">Drop or type a revision here</property>
               </object>
             </child>
           </object>
