@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-03-05 17:03+0000\n"
-"PO-Revision-Date: 2011-03-06 13:33+0100\n"
+"POT-Creation-Date: 2011-03-06 12:39+0000\n"
+"PO-Revision-Date: 2011-03-06 16:36+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -870,23 +870,23 @@ msgstr "Conjunto de escala"
 msgid "Whether this tag affects font scaling"
 msgstr "Si esta etiqueta afecta al escalado de tipografías"
 
-#: ../plugins/am-project/amp-group.c:542
+#: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/am-project/amp-group.c:556
+#: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos o los "
 "caracteres «#$:%+,-.=@^_`~»"
 
-#: ../plugins/am-project/amp-group.c:586
+#: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1572
-#: ../plugins/am-project/am-project.c:1602
-#: ../plugins/am-project/am-project.c:1654
+#: ../plugins/am-project/am-project.c:1575
+#: ../plugins/am-project/am-project.c:1605
+#: ../plugins/am-project/am-project.c:1657
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -1717,14 +1717,12 @@ msgid "Automatic"
 msgstr "Automático"
 
 #: ../plugins/class-gen/window.c:793
-#| msgid "Western"
 msgid "Getter"
-msgstr ""
+msgstr "«Getter»"
 
 #: ../plugins/class-gen/window.c:794
-#| msgid "Starter"
 msgid "Setter"
-msgstr ""
+msgstr "«Setter»"
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
@@ -3325,7 +3323,6 @@ msgid "Close Others"
 msgstr "Cerrar otros"
 
 #: ../plugins/document-manager/plugin.c:166
-#| msgid "Close others documents"
 msgid "Close other documents"
 msgstr "Cerrar otros documentos"
 
@@ -3577,12 +3574,10 @@ msgid "Highlight all occurrences"
 msgstr "Resaltar todas las ocurrencias"
 
 #: ../plugins/document-manager/plugin.c:294
-#| msgid "Search"
 msgid "RegEx Search"
 msgstr "Búsqueda ExpReg"
 
 #: ../plugins/document-manager/plugin.c:295
-#| msgid "Regular expression"
 msgid "Regular expression search"
 msgstr "Búsqueda de expresión regular"
 
@@ -3929,15 +3924,11 @@ msgstr "Completado el autoguardado"
 
 #: ../plugins/document-manager/search-box.c:496
 #, c-format
-#| msgid "Search for \"%s\" reached the end and was continued at the top."
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
 #: ../plugins/document-manager/search-box.c:502
 #, c-format
-#| msgid ""
-#| "Search for \"%s\" reached the end and was continued at the top but no new "
-#| "match was found."
 msgid ""
 "Search for \"%s\" reached the end and wrapped around but no new match was "
 "found."
@@ -3961,15 +3952,11 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:577
 #, c-format
-#| msgid "Search for \"%s\" reached the end and was continued at the bottom."
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el final."
 
 #: ../plugins/document-manager/search-box.c:583
 #, c-format
-#| msgid ""
-#| "Search for \"%s\" reached the end and was continued at the bottom but no "
-#| "new match was found."
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
@@ -4452,7 +4439,7 @@ msgstr "Script"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1588
+#: ../plugins/am-project/am-project.c:1591
 #, c-format
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
@@ -4859,6 +4846,9 @@ msgid ""
 "program subdir/app installed in bin directory it will be installed in bin/"
 "subdir/app not in bin/app."
 msgstr ""
+"Mantener relativa la ruta del objetivo para instalarlo. Por ejemplo, si "
+"tiene un «subdir/app» instalado en la carpeta «bin», se instalará en la "
+"carpeta «bin/subdir/app» en lugar de en «bin/app»."
 
 #: ../plugins/am-project/am-properties.c:376
 #: ../plugins/am-project/am-properties.c:528
@@ -4874,6 +4864,8 @@ msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
+"Sección donde están instaladas las páginas del manual. Los nombres de "
+"sección válidos son los dígitos de «0» a «9» y las letras «l» y «n»."
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -5089,7 +5081,6 @@ msgid "Add signed off by line"
 msgstr "Añadir la línea «asignado por»"
 
 #: ../plugins/git/anjuta-git.ui.h:3
-#| msgid "Amend the previous commit"
 msgid "Amend the previous commit"
 msgstr "Corregir el commit anterior"
 
@@ -5140,7 +5131,7 @@ msgstr "Commit al mezclar en modo rápido"
 
 #: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit to cherry pick:"
-msgstr ""
+msgstr "Commit a un «cherry-pick»:"
 
 #: ../plugins/git/anjuta-git.ui.h:16
 msgid "Commit to revert:"
@@ -5185,7 +5176,6 @@ msgid "Log Message:"
 msgstr "Mensaje de registro:"
 
 #: ../plugins/git/anjuta-git.ui.h:27
-#| msgid "<b>Select file to add:</b>"
 msgid "Mailbox files to apply:"
 msgstr "Archivos de buzón de correo que aplicar:"
 
@@ -5242,7 +5232,6 @@ msgid "Repository to pull from:"
 msgstr "Repositorio desde el que actualizar:"
 
 #: ../plugins/git/anjuta-git.ui.h:44
-#| msgid "<b>Repository to push to:</b>"
 msgid "Repository to push to:"
 msgstr "Repositorio sobre el que actualizar:"
 
@@ -5272,7 +5261,6 @@ msgid "Squash"
 msgstr "Aplastar (squash)"
 
 #: ../plugins/git/anjuta-git.ui.h:52
-#| msgid "Stash Message (Optional)"
 msgid "Stash Message (Optional):"
 msgstr "Mensaje guardado («stash»; opcional):"
 
@@ -5281,7 +5269,6 @@ msgid "Stash indexed changes"
 msgstr "Guardar («stash») cambios indexados"
 
 #: ../plugins/git/anjuta-git.ui.h:54
-#| msgid "Stash indexed changes"
 msgid "Stashed Changes:"
 msgstr "Cambios guardados («stashed»):"
 
@@ -5294,7 +5281,6 @@ msgid "Tags:"
 msgstr "Etiquetas:"
 
 #: ../plugins/git/anjuta-git.ui.h:57
-#| msgid "This commit concludes a failed merged (use -i)"
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Este commit finaliza una mezcla fallida (use -i)"
 
@@ -5438,7 +5424,6 @@ msgstr "No se seleccionó ninguna etiqueta"
 
 #: ../plugins/git/git-diff-stash-pane.c:40
 #, c-format
-#| msgid "Standard diff"
 msgid "Stash %i.diff"
 msgstr "Guardar («stash») %i.diff"
 
@@ -5511,13 +5496,13 @@ msgid "<b>Selected Remote:</b>"
 msgstr "<b>Remota seleccionada:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
-#, fuzzy
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
 "No se seleccionó ninguna remota; usando el origen de forma predeterminada.\n"
-"Para "
+"Para empujar en una remota diferente, seleccione una de la lista superior de "
+"remotas."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
@@ -5584,10 +5569,9 @@ msgid "Diff uncommitted changes"
 msgstr "Diff de los cambios sin subir"
 
 #: ../plugins/git/plugin.c:155
-#, fuzzy
 #| msgid "Show uncommitted changes"
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Mostrar los cambios sin subir"
+msgstr "Mostrar un «diff» en un editor de los cambios sin efectuar"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
@@ -5651,10 +5635,9 @@ msgid "Push changes to a remote repository"
 msgstr "Empujar los cambios contra un repositorio remoto"
 
 #: ../plugins/git/plugin.c:247
-#, fuzzy
 #| msgid "Push changes to a remote repository"
 msgid "Pull changes from a remote repository"
-msgstr "Empujar los cambios contra un repositorio remoto"
+msgstr "Actualizar los cambios desde un repositorio remoto"
 
 #: ../plugins/git/plugin.c:254
 msgid "Fetch"
@@ -5706,66 +5689,58 @@ msgid "Stash uncommitted changes"
 msgstr "Guardar («stash») cambios sin subir"
 
 #: ../plugins/git/plugin.c:315
-#, fuzzy
 #| msgid "Revert uncommitted changes to files"
 msgid "Save uncommitted changes without committing them"
-msgstr "Revertir los cambios sin subir en los archivos"
+msgstr "Guardar los cambios no efectuados sin efectuarlos"
 
 #: ../plugins/git/plugin.c:322
 msgid "Apply selected stash"
 msgstr "Aplicar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:323
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree"
-msgstr "Aplicar los cambios guardados (stash) al árbol de trabajo"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo"
 
 #: ../plugins/git/plugin.c:330
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stash and restore index"
-msgstr "Aplicar los cambios guardados (stash) al árbol de trabajo"
+msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Aplicar los cambios guardados (stash) al árbol de trabajo"
+msgstr ""
+"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Diff selected stash"
-msgstr "Abandonar el estado guardado (stash) seleccionado"
+msgstr "Diff de los cambios guardados («stash») seleccionados "
 
 #: ../plugins/git/plugin.c:339
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Show a diff of the selected stash"
-msgstr "Abandonar el estado guardado (stash) seleccionado"
+msgstr "Mostrar un «diff» de los cambios guardados («stash»)"
 
 #: ../plugins/git/plugin.c:346
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Drop selected stash"
-msgstr "Abandonar el estado guardado (stash) seleccionado"
+msgstr "Abandonar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:347
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Delete the selected stash"
-msgstr "Abandonar el estado guardado (stash) seleccionado"
+msgstr "Eliminar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
 msgstr "Limpiar los estados guardados («stash»)"
 
 #: ../plugins/git/plugin.c:355
-#, fuzzy
 #| msgid "Select all text in the editor"
 msgid "Delete all stashes in this repository"
-msgstr "Selecciona todo el texto en el editor"
+msgstr "Eliminar todos los cambios guardados («stash») en este repositorio"
 
 #: ../plugins/git/plugin.c:366
 msgid "Revision tools"
@@ -5784,7 +5759,6 @@ msgid "Cherry pick"
 msgstr "Aplicar los cambios"
 
 #: ../plugins/git/plugin.c:383
-#| msgid "Merge this commit into the current branch"
 msgid "Merge an individual commit from another branch"
 msgstr "Mezclar un «commit» individual de otra rama"
 
@@ -5797,7 +5771,6 @@ msgid "Reset tree"
 msgstr "Restablecer árbol"
 
 #: ../plugins/git/plugin.c:399
-#| msgid "Reset repository head to this revision"
 msgid "Reset tree to a previous revision"
 msgstr "Restablecer el árbol a una revisión anterior"
 
@@ -5830,27 +5803,24 @@ msgid "Apply patches from mailbox files"
 msgstr "Aplicar parches del buzón de correo"
 
 #: ../plugins/git/plugin.c:447
-#, fuzzy
 #| msgid "Continue applying a series after resolving conflicts"
 msgid "Continue applying patches with resolved conflicts"
 msgstr ""
 "Continuar aplicando la serie de parches después de resolver los conflictos"
 
 #: ../plugins/git/plugin.c:455
-#, fuzzy
 #| msgid "Skip the current patch in the series and continue"
 msgid "Skip the current patch in the series"
-msgstr "Omitir el parche actual de la serie y continuar"
+msgstr "Omitir el parche actual de la serie"
 
 #: ../plugins/git/plugin.c:463
-#, fuzzy
 #| msgid ""
 #| "Stop applying the series and return the repository to its original state"
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 "Parar la aplicación de la serie de parches y devolver el repositorio a su "
-"estado original"
+"estado anterior"
 
 #: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
@@ -6063,7 +6033,6 @@ msgstr[1] "%d errores"
 
 #: ../plugins/mk-project/mk-project.c:460
 #, c-format
-#| msgid "Unable to parse project file"
 msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo make"
 
@@ -6302,7 +6271,6 @@ msgid "Package list:"
 msgstr "Lista de paquetes:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#| msgid "Select the _target for the module:"
 msgid "Select the _target for the library:"
 msgstr "Seleccionar el _objetivo para la biblioteca:"
 
