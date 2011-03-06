@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-03-05 15:35+0000\n"
-"PO-Revision-Date: 2011-03-05 18:01+0100\n"
+"POT-Creation-Date: 2011-03-05 17:03+0000\n"
+"PO-Revision-Date: 2011-03-06 13:33+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1717,16 +1717,14 @@ msgid "Automatic"
 msgstr "Automático"
 
 #: ../plugins/class-gen/window.c:793
-#, fuzzy
 #| msgid "Western"
 msgid "Getter"
-msgstr "Occidental"
+msgstr ""
 
 #: ../plugins/class-gen/window.c:794
-#, fuzzy
 #| msgid "Starter"
 msgid "Setter"
-msgstr "Iniciado"
+msgstr ""
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
@@ -3327,7 +3325,6 @@ msgid "Close Others"
 msgstr "Cerrar otros"
 
 #: ../plugins/document-manager/plugin.c:166
-#, fuzzy
 #| msgid "Close others documents"
 msgid "Close other documents"
 msgstr "Cerrar otros documentos"
@@ -3580,16 +3577,14 @@ msgid "Highlight all occurrences"
 msgstr "Resaltar todas las ocurrencias"
 
 #: ../plugins/document-manager/plugin.c:294
-#, fuzzy
 #| msgid "Search"
 msgid "RegEx Search"
-msgstr "Buscar"
+msgstr "Búsqueda ExpReg"
 
 #: ../plugins/document-manager/plugin.c:295
-#, fuzzy
 #| msgid "Regular expression"
 msgid "Regular expression search"
-msgstr "Expresión regular"
+msgstr "Búsqueda de expresión regular"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
@@ -3933,13 +3928,13 @@ msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
 #: ../plugins/document-manager/search-box.c:496
-#, fuzzy, c-format
+#, c-format
 #| msgid "Search for \"%s\" reached the end and was continued at the top."
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
 #: ../plugins/document-manager/search-box.c:502
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Search for \"%s\" reached the end and was continued at the top but no new "
 #| "match was found."
@@ -3965,13 +3960,13 @@ msgstr ""
 "encontró ninguna ocurrencia más."
 
 #: ../plugins/document-manager/search-box.c:577
-#, fuzzy, c-format
+#, c-format
 #| msgid "Search for \"%s\" reached the end and was continued at the bottom."
 msgid "Search for \"%s\" reached top and was continued at the bottom."
-msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
+msgstr "La búsqueda de «%s» llegó al final y continuó por el final."
 
 #: ../plugins/document-manager/search-box.c:583
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Search for \"%s\" reached the end and was continued at the bottom but no "
 #| "new match was found."
@@ -3979,7 +3974,7 @@ msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 msgstr ""
-"La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
+"La búsqueda de «%s» llegó al final y continuó por el final pero no se "
 "encontró ninguna ocurrencia más."
 
 #: ../plugins/document-manager/search-box.c:924
@@ -4642,6 +4637,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
+"«Flex» para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4655,6 +4652,8 @@ msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
+"Opciones comunes adicionales y generales del compilador de computación Yacc "
+"o Bison para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:177
 msgid "Installation directories:"
@@ -4695,12 +4694,14 @@ msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
 msgstr ""
+"Debe ser una carpeta estándar o una personalizada definida en las "
+"propiedades de grupo."
 
 #: ../plugins/am-project/am-properties.c:211
 #: ../plugins/am-project/am-properties.c:371
 #: ../plugins/am-project/am-properties.c:523
 msgid "Additional linker flags for this target."
-msgstr ""
+msgstr "Opciones adicionales del enlazador para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:216
 msgid "Additional libraries:"
@@ -4768,14 +4769,15 @@ msgstr "Opciones de compilación adicionales de Objective C para este objetivo."
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
-"Opciones adicionales generales del analizador léxico «Lex» o «Flex» para "
-"este objetivo."
+"Opciones adicionales del analizador léxico «Lex» o «Flex» para este objetivo."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yac or Bison parser generator flags for this target."
 msgstr ""
+"Opciones adicionales del compilador de computación Yacc o Bison para este "
+"objetivo."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
@@ -5087,7 +5089,6 @@ msgid "Add signed off by line"
 msgstr "Añadir la línea «asignado por»"
 
 #: ../plugins/git/anjuta-git.ui.h:3
-#, fuzzy
 #| msgid "Amend the previous commit"
 msgid "Amend the previous commit"
 msgstr "Corregir el commit anterior"
@@ -5101,7 +5102,6 @@ msgid "Append fetch data"
 msgstr "Añadir fecha de obtención"
 
 #: ../plugins/git/anjuta-git.ui.h:6
-#| msgid "Add signed-off-by line"
 msgid "Append signed-of- by line"
 msgstr "Añadir la línea «firmado por»"
 
@@ -5139,7 +5139,6 @@ msgid "Commit on fast-forward merges"
 msgstr "Commit al mezclar en modo rápido"
 
 #: ../plugins/git/anjuta-git.ui.h:15
-#| msgid "Commit to Cherry Pick:"
 msgid "Commit to cherry pick:"
 msgstr ""
 
@@ -5164,7 +5163,6 @@ msgid "Fetch remote branches after creation"
 msgstr "Obtener ramas remotas después de crearlas"
 
 #: ../plugins/git/anjuta-git.ui.h:21
-#| msgid "<b>Folder to create patches in:</b>"
 msgid "Folder to create patches in:"
 msgstr "Carpeta donde crear los parches:"
 
@@ -5174,7 +5172,6 @@ msgid "Force"
 msgstr "Forzar"
 
 #: ../plugins/git/anjuta-git.ui.h:23
-#| msgid "<b>Generate patches relative to:</b>"
 msgid "Generate patches relative to:"
 msgstr "Generar parches relativos a:"
 
@@ -5188,10 +5185,9 @@ msgid "Log Message:"
 msgstr "Mensaje de registro:"
 
 #: ../plugins/git/anjuta-git.ui.h:27
-#, fuzzy
 #| msgid "<b>Select file to add:</b>"
 msgid "Mailbox files to apply:"
-msgstr "<b>Seleccione archivos para añadir:</b>"
+msgstr "Archivos de buzón de correo que aplicar:"
 
 #: ../plugins/git/anjuta-git.ui.h:28
 msgid "Mixed"
@@ -5214,7 +5210,6 @@ msgid "Rebase"
 msgstr "Ajustar a base (rebase)"
 
 #: ../plugins/git/anjuta-git.ui.h:36
-#| msgid "<b>Remote Repositories:</b>"
 msgid "Remote Repositories:"
 msgstr "Repositorios remotos:"
 
@@ -5232,7 +5227,7 @@ msgstr "Estado del repositorio:"
 
 #: ../plugins/git/anjuta-git.ui.h:40
 msgid "Repository head; Drop or type a different revision here"
-msgstr ""
+msgstr "Inicio del repositorio; soltar o escribir aquí una revisión diferente"
 
 #: ../plugins/git/anjuta-git.ui.h:41
 msgid "Repository head; Drop or type a different revision here "
@@ -5247,10 +5242,9 @@ msgid "Repository to pull from:"
 msgstr "Repositorio desde el que actualizar:"
 
 #: ../plugins/git/anjuta-git.ui.h:44
-#, fuzzy
 #| msgid "<b>Repository to push to:</b>"
 msgid "Repository to push to:"
-msgstr "<b>Repositorio sobre el que actualizar:</b>"
+msgstr "Repositorio sobre el que actualizar:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 #: ../plugins/subversion/subversion-log-dialog.c:151
@@ -5278,20 +5272,18 @@ msgid "Squash"
 msgstr "Aplastar (squash)"
 
 #: ../plugins/git/anjuta-git.ui.h:52
-#, fuzzy
 #| msgid "Stash Message (Optional)"
 msgid "Stash Message (Optional):"
-msgstr "Mensaje guardado (stash; opcional)"
+msgstr "Mensaje guardado («stash»; opcional):"
 
 #: ../plugins/git/anjuta-git.ui.h:53
 msgid "Stash indexed changes"
 msgstr "Guardar («stash») cambios indexados"
 
 #: ../plugins/git/anjuta-git.ui.h:54
-#, fuzzy
 #| msgid "Stash indexed changes"
 msgid "Stashed Changes:"
-msgstr "Guardar (stash) cambios indexados"
+msgstr "Cambios guardados («stashed»):"
 
 #: ../plugins/git/anjuta-git.ui.h:55
 msgid "Tag name:"
@@ -5302,10 +5294,9 @@ msgid "Tags:"
 msgstr "Etiquetas:"
 
 #: ../plugins/git/anjuta-git.ui.h:57
-#, fuzzy
 #| msgid "This commit concludes a failed merged (use -i)"
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "Este commit finaliza con una mezcla fallida (use -i)"
+msgstr "Este commit finaliza una mezcla fallida (use -i)"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Use a custom log message:"
@@ -5446,10 +5437,10 @@ msgid "No tags selected."
 msgstr "No se seleccionó ninguna etiqueta"
 
 #: ../plugins/git/git-diff-stash-pane.c:40
-#, fuzzy, c-format
+#, c-format
 #| msgid "Standard diff"
 msgid "Stash %i.diff"
-msgstr "Diff estándar"
+msgstr "Guardar («stash») %i.diff"
 
 #: ../plugins/git/git-log-pane.c:560
 #, c-format
@@ -5793,10 +5784,9 @@ msgid "Cherry pick"
 msgstr "Aplicar los cambios"
 
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 #| msgid "Merge this commit into the current branch"
 msgid "Merge an individual commit from another branch"
-msgstr "Mezclar este «commit» en la rama actual"
+msgstr "Mezclar un «commit» individual de otra rama"
 
 #: ../plugins/git/plugin.c:390
 msgid "Reset/Revert"
@@ -5807,10 +5797,9 @@ msgid "Reset tree"
 msgstr "Restablecer árbol"
 
 #: ../plugins/git/plugin.c:399
-#, fuzzy
 #| msgid "Reset repository head to this revision"
 msgid "Reset tree to a previous revision"
-msgstr "Restablecer la cabecera del repositorio a esta revisión"
+msgstr "Restablecer el árbol a una revisión anterior"
 
 #: ../plugins/git/plugin.c:406
 msgid "Revert commit"
@@ -6073,10 +6062,10 @@ msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
 #: ../plugins/mk-project/mk-project.c:460
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unable to parse project file"
 msgid "Unable to parse make file"
-msgstr "No se pudo analizar el archivo de proyecto"
+msgstr "No se pudo analizar el archivo make"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Add _Package"
@@ -6313,10 +6302,9 @@ msgid "Package list:"
 msgstr "Lista de paquetes:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#, fuzzy
 #| msgid "Select the _target for the module:"
 msgid "Select the _target for the library:"
-msgstr "Seleccionar el _objetivo para el módulo:"
+msgstr "Seleccionar el _objetivo para la biblioteca:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
 msgid "Select the _target for the new source files:"
@@ -6355,7 +6343,6 @@ msgid "_Module name:"
 msgstr "Nombre del _módulo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-#| msgid "New _Library…"
 msgid "_New library…"
 msgstr "_Biblioteca nueva…"
 
@@ -6865,13 +6852,6 @@ msgid "Install missing packages"
 msgstr "Instalar los paquetes que faltan"
 
 #: ../plugins/project-wizard/druid.c:928
-#| msgid ""
-#| "The missing programs are usually part of some distrubution packages and "
-#| "can be searched for in your Application Manager. Similarly, the "
-#| "development packages are contained in special packages that your "
-#| "distribution provides to allow development of projects based on them. "
-#| "They usually end with a \"-dev\" or \"-devel\" suffix in package names "
-#| "and can be found by searching in your Application Manager."
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7806,7 +7786,7 @@ msgstr "Biblioteca compartida y estática"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
 msgid "Full features Gtk+ Application with file handling"
-msgstr ""
+msgstr "Características completas de aplicación GTK+ con gestión de archivos"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
 msgid "GTK+ (Application)"
@@ -8272,7 +8252,6 @@ msgid "FAQ"
 msgstr "P+F"
 
 #: ../plugins/starter/starter.ui.h:4
-#| msgid "started:"
 msgid "Getting started:"
 msgstr "Para empezar:"
 
