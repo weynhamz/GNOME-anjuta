@@ -136,8 +136,8 @@ anjuta_command_bar_add_action_group (AnjutaCommandBar *self,
 	{
 		if (entries[i].type == ANJUTA_COMMAND_BAR_ENTRY_BUTTON)
 		{
-			action = gtk_action_new (entries[i].action_name, entries[i].label, 
-			                         entries[i].tooltip, entries[i].stock_icon);
+			action = gtk_action_new (entries[i].action_name, _(entries[i].label), 
+			                         _(entries[i].tooltip), entries[i].stock_icon);
 			button = gtk_button_new();
 
 			gtk_action_group_add_action (action_group, action);
@@ -168,7 +168,7 @@ anjuta_command_bar_add_action_group (AnjutaCommandBar *self,
 		}
 		else
 		{
-			frame_label_text = g_strdup_printf ("<b>%s</b>", entries[i].label);
+			frame_label_text = g_strdup_printf ("<b>%s</b>", _(entries[i].label));
 			frame_label = gtk_label_new (NULL);
 			frame = gtk_frame_new (NULL);
 			
