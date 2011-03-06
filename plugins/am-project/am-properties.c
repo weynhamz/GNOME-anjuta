@@ -296,7 +296,7 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		{N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
-			N_("Additional Yac or Bison parser generator flags for this target.")},
+			N_("Additional Yacc or Bison parser generator flags for this target.")},
 		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -448,7 +448,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		{N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
-			N_("Additional Yac or Bison parser generator flags for this target.")},
+			N_("Additional Yacc or Bison parser generator flags for this target.")},
 		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -600,7 +600,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		{N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
-			N_("Additional Yac or Bison parser generator flags for this target.")},
+			N_("Additional Yacc or Bison parser generator flags for this target.")},
 		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
 		AM_PROPERTY_IN_MAKEFILE
 	},
