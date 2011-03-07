@@ -783,7 +783,10 @@ anjuta_bookmarks_session_save (AnjutaBookmarks* bookmarks, AnjutaSession* sessio
 	gtk_list_store_clear (GTK_LIST_STORE (priv->model));
 
 	if (priv->query_scope)
+	{
 		g_object_unref (priv->query_scope);
+		priv->query_scope = NULL;
+	}
 }
 
 void 
