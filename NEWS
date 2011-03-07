@@ -1,4 +1,42 @@
-Anjuta 2.91.90 "Prepare for the gladification" (Beta 1)-- Johannes Schmid
+Anjuta 2.91.91 "Less bugs, more fun" (Beta 2) (7 March 2011) -- Johannes Schmid
+
+New:
+- Signal dragging support for Vala (Abderrahim Kitouni)
+- Improved C++ signal dropping features (Marco Diego Aurélio Mesquita)
+- Regular expression inline search (Eugenia Gabrielova)
+
+Bugs fixed:
+623735 	Move pkg-config symbol parsing to language-support-cpp-java
+638836 	language-support-vala: refactor to work with latest project manager
+336856 	Search and replace is not simple
+565275  Quick Search should be able to search backward
+565276 	highlight all matches in Quick Search
+568047 	Glade plugin does not allow adding notebook containers with less than 3 tabs.
+638134 	Redesign of Single and Multi-File Search & Replace
+643205 	Updates symbols on glade signal drop.
+644014 	Typo at translation message
+640545 	File-wizard screws up file notice
+642763 	Fix memory in message-view plugin
+627105 	Mark default diff filenames for translation
+642749 	Status window doesn't work
+643707 	Please remove unnecessary markup from .ui files
+644050 	Some strings are not marked for translation in the .ui file
+636410 	Unable to delete data target
+639440 	[PATCH] Strings not translated when plugin manager is used form apps
+643245 	Create a prototype in the header file when a signal is dropped in a C source file.
+643828 	A few typos
+641331 	Add a (non-alphabetical) sorting order to wizard files 
+
+Thanks to:
+Abderrahim Kitouni, Akom Chotiphantawanon, Daniel Mustieles
+Daniele Forsi, Dragos Dena, Eugenia Gabrielova, Gabor Kelemen,
+James Liggett, Jorge González, Marco Diego Aurélio Mesquita,
+Massimo Corà, Mathieu Dupuy, Sébastien Granjoux, Yuri Myasoedov
+
+Special thanks to all the translators for spotting typos and non-translatable strings!
+
+
+Anjuta 2.91.90 "Prepare for the gladification" (Beta 1) (21 February 2011) -- Johannes Schmid
 
 New:
 - Signal dragging support for python
