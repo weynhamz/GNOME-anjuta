@@ -291,8 +291,8 @@ static GtkToggleActionEntry actions_searchbox_popup[] = {
     N_("Highlight all occurrences"),
 	G_CALLBACK (on_search_popup_highlight_toggle)},
   { "ActionSearchboxRegexSearch", GTK_STOCK_FIND,
-	N_("Regular Expression Search"), NULL,
-	N_("Regular Expression search"),
+	N_("Regular Expression"), NULL,
+	N_("Search using regular expressions"),
 	G_CALLBACK (on_search_popup_regex_search)}
 };
 

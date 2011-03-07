@@ -389,6 +389,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 			}
 			g_free (selected_text);
 		}
+		g_object_unref (selection_start);
 	}
 
 	if (private->regex_mode)
@@ -675,8 +676,7 @@ search_box_toggle_regex (SearchBox * search_box, gboolean status)
 static void
 search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward)
 {
-
-	IAnjutaEditorCell * result_begin, * result_end, * highlight_start;
+	IAnjutaEditorCell * highlight_start;
 	IAnjutaEditorSelection * selection;
 	gboolean entry_found;
 
@@ -688,7 +688,7 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 	/* Search through editor and highlight instances of search_entry */
 	while ((entry_found = search_box_incremental_search (search_box, search_forward)) == TRUE)
 	{
-
+		IAnjutaEditorCell * result_begin, * result_end;
 		selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
 
 		result_begin = 
@@ -704,16 +704,21 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 		else if (ianjuta_iterable_compare (IANJUTA_ITERABLE (result_begin),
 											IANJUTA_ITERABLE (highlight_start), NULL) == 0)
 		{
-			private->highlight_complete = TRUE;
-			return; 
+			g_object_unref (result_begin);
+			g_object_unref (result_end);
+			g_object_unref (highlight_start);
+			break;
 		}
 
 		ianjuta_indicable_set(IANJUTA_INDICABLE(private->current_editor), 
 								IANJUTA_ITERABLE (result_begin), 
 								IANJUTA_ITERABLE (result_end),
 								IANJUTA_INDICABLE_IMPORTANT, NULL);
+		g_object_unref (result_begin);
+		g_object_unref (result_end);
 	}
-
+	if (highlight_start)
+		g_object_unref (highlight_start);
 	private->highlight_complete = TRUE;
 
 }
