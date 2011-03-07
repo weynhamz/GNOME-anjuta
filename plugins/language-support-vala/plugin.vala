@@ -362,6 +362,18 @@ public class ValaPlugin : Plugin {
 		builder.append_printf (") {\n\n}\n");
 
 		editor.insert (position, builder.str, -1);
+
+		var indenter = shell.get_object ("IAnjutaIndenter") as IAnjuta.Indenter;
+		if (indenter != null) {
+			var end = position.clone ();
+			end.set_position (end.get_position () + builder.str.char_count ());
+			indenter.indent (position, end);
+		}
+
+		var inside = editor.get_line_end_position (editor.get_line_from_position (position) + 2);
+		editor.goto_position (inside);
+		if (indenter != null)
+			indenter.indent (inside, inside);
 	}
 
 	Vala.Symbol? lookup_symbol_by_cname (string cname, Vala.Symbol parent=context.root) {

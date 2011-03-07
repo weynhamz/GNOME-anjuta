@@ -3,7 +3,7 @@ Location=python_plugin:PythonPlugin
 Icon=python_plugin.png
 _Name=Python support Plugin
 _Description=Python support plugin for code completion, auto indentation etc.
-Interfaces=IAnjutaLanguageSupport
+Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
 UserActivatable=no
 
 [Language Support]

@@ -193,6 +193,15 @@ namespace Anjuta {
 		public virtual signal void package_deactivated (string package);
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public class PkgScanner : Anjuta.AsyncCommand {
+		[CCode (type = "AnjutaCommand*", has_construct_function = false)]
+		public PkgScanner (string package, string version);
+		public unowned string get_package ();
+		public unowned string get_version ();
+		public string package { get; set construct; }
+		public string version { get; set construct; }
+	}
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public class Plugin : GLib.Object {
 		[CCode (has_construct_function = false)]
 		protected Plugin ();
@@ -467,6 +476,7 @@ namespace Anjuta {
 		public TokenFile (GLib.File file);
 		public void free ();
 		public bool get_token_location (Anjuta.TokenFileLocation location, Anjuta.Token token);
+		public size_t get_token_position (Anjuta.Token token);
 		public bool is_dirty ();
 		public void move (GLib.File new_file);
 		public bool save () throws GLib.Error;
@@ -627,12 +637,13 @@ namespace Anjuta {
 		public void dump_link ();
 		public string evaluate ();
 		public int get_flags ();
-		public uint get_length ();
+		public size_t get_length ();
 		public unowned string get_string ();
 		public int get_type ();
 		public bool is_empty ();
 		public void set_flags (int flags);
-		public void set_string (string value, uint length);
+		public void set_length (size_t length);
+		public void set_string (string value, size_t length);
 		public void set_type (int type);
 	}
 	[CCode (type_id = "ANJUTA_TYPE_TOKEN_FILE_LOCATION", cheader_filename = "libanjuta/libanjuta.h")]
@@ -719,6 +730,7 @@ namespace Anjuta {
 		PROJECT,
 		PRIMARY,
 		EXECUTABLE,
+		READ_ONLY,
 		ID_MASK,
 		FLAG_MASK,
 		TYPE_MASK,
@@ -925,6 +937,8 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static void debug_init ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public static string pkg_config_get_version (string package);
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool pkg_config_ignore_package (string name);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static string res_get_data_dir ();
@@ -996,6 +1010,8 @@ namespace Anjuta {
 	public static bool util_is_project_file (string filename);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool util_is_template_file (string filename);
+	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
+	public static void util_list_all_dir_children (GLib.List<weak void*> children, GLib.File dir);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool util_package_is_installed (string lib, bool show);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -1167,6 +1183,7 @@ namespace IAnjuta {
 		public abstract string get_current_word () throws GLib.Error;
 		public abstract int get_length () throws GLib.Error;
 		public abstract IAnjuta.Iterable get_line_begin_position (int line) throws GLib.Error;
+		public abstract IAnjuta.Iterable get_line_end_position (int line) throws GLib.Error;
 		public abstract int get_line_from_position (IAnjuta.Iterable position) throws GLib.Error;
 		public abstract int get_lineno () throws GLib.Error;
 		public abstract int get_offset () throws GLib.Error;
@@ -1188,6 +1205,7 @@ namespace IAnjuta {
 		public virtual signal void backspace ();
 		public virtual signal void changed (IAnjuta.Iterable position, bool added, int length, int lines, string text);
 		public virtual signal void char_added (IAnjuta.Iterable position, char ch);
+		public virtual signal void code_added (IAnjuta.Iterable position, string code);
 		public virtual signal void cursor_moved ();
 		public virtual signal void line_marks_gutter_clicked (int location);
 	}
@@ -1355,6 +1373,11 @@ namespace IAnjuta {
 		public abstract void search (string query) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public interface Indenter : GLib.Object {
+		public static GLib.Quark error_quark ();
+		public abstract void indent (IAnjuta.Iterable start, IAnjuta.Iterable end) throws GLib.Error;
+	}
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Indicable : GLib.Object {
 		public abstract void clear () throws GLib.Error;
 		public static GLib.Quark error_quark ();
@@ -1501,7 +1524,7 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface SnippetsManager : GLib.Object {
 		public static GLib.Quark error_quark ();
-		public abstract bool insert (string key) throws GLib.Error;
+		public abstract bool insert (string key, bool editing_session) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface Stream : GLib.Object {
@@ -1530,9 +1553,9 @@ namespace IAnjuta {
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public interface SymbolManager : GLib.Object {
 		public abstract bool activate_package (string pkg_name, string pkg_version) throws GLib.Error;
-		public abstract bool add_and_activate_package (string pkg_name, string pkg_version, GLib.List<weak void*> files) throws GLib.Error;
 		public abstract bool add_package (string pkg_name, string pkg_version, GLib.List<weak void*> files) throws GLib.Error;
-		public abstract bool deactivate_package (string pkg_name, string pkg_version) throws GLib.Error;
+		public abstract void deactivate_all () throws GLib.Error;
+		public abstract void deactivate_package (string pkg_name, string pkg_version) throws GLib.Error;
 		public static GLib.Quark error_quark ();
 		public virtual signal void prj_scan_end (int process_id);
 		public virtual signal void sys_scan_end (int process_id);
@@ -1858,6 +1881,8 @@ namespace IAnjuta {
 		FIELD_TYPE,
 		FIELD_TYPE_NAME,
 		FIELD_FILE_PATH,
+		FIELD_PROJECT_NAME,
+		FIELD_PROJECT_VERSION,
 		FIELD_IMPLEMENTATION,
 		FIELD_ACCESS,
 		FIELD_KIND,

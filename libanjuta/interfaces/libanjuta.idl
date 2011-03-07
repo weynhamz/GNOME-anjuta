@@ -1589,15 +1589,15 @@ interface IAnjutaEditor
 	IAnjutaIterable* get_line_begin_position (gint line);
 	
 	/**
-	* ianjuta_editor_get_line_end_position:
-	* @obj: Self
-	* @line: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	* 
-	* Returns: fixme
-	*/
+	 * ianjuta_editor_get_line_end_position:
+	 * @obj: Self
+	 * @line: fixme
+	 * @err: Error propagation and reporting.
+	 *
+	 * fixme
+	 *
+	 * Returns: (transfer full): fixme
+	 */
 	IAnjutaIterable *get_line_end_position (gint line);
 	
 	/**
