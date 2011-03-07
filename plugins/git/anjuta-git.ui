@@ -1903,7 +1903,7 @@
                 <property name="invisible_char">●</property>
                 <property name="invisible_char_set">True</property>
                 <property name="secondary_icon_stock">gtk-clear</property>
-                <property name="help_text" translatable="yes">Drop or type a revision here</property>
+                <property name="help_text" translatable="yes">Drop or enter revision here</property>
               </object>
             </child>
           </object>
