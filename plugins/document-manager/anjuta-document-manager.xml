@@ -183,6 +183,6 @@
 		<menuitem name="HighlightAll" action="ActionSearchboxPopupHighlightAll" />
 		<menuitem name="ClearHighlight" action="ActionSearchboxPopupClearHighlight" />
 		<separator name="separator30"/>
-		<menuitem name="Regex Search" action="ActionSearchboxRegexSearch" />
+		<menuitem name="RegexSearch" action="ActionSearchboxRegexSearch" />
 	</popup>
 </ui>
