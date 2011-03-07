@@ -64,7 +64,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		var names = member_access_split.split (match_info.fetch(1));
 
 		var syms = plugin.lookup_symbol (construct_member_access (names), match_info.fetch(2),
-		                                 true, plugin.get_current_block(editor));
+		                                 true, plugin.get_current_context (editor) as Vala.Block);
 
 		var proposals = new GLib.List<IAnjuta.EditorAssistProposal?>();
 		foreach (var symbol in syms) {
@@ -134,7 +134,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		var creation_method = (match_info.fetch(1) != "");
 		var names = member_access_split.split (match_info.fetch(2));
 		var syms = plugin.lookup_symbol (construct_member_access (names), match_info.fetch(3),
-		                                 false, plugin.get_current_block (editor));
+		                                 false, plugin.get_current_context (editor) as Vala.Block);
 
 		foreach (var sym in syms) {
 			Vala.List<Vala.Parameter> parameters = null;

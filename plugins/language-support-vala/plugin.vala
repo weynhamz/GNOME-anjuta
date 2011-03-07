@@ -269,9 +269,47 @@ public class ValaPlugin : Plugin {
 		}
 	}
 
+	/* tries to find the opening brace of the scope the current position before calling
+	 * get_current_context since the source_reference of a class or namespace only
+	 * contain the declaration not the entire "content" */
+	Vala.Symbol? get_scope (IAnjuta.Editor editor, IAnjuta.Iterable position) {
+		var braces = new List<string> ();
+
+		do {
+			var current_char = (position as IAnjuta.EditorCell).get_character ();
+			if (current_char == "}") {
+				braces.prepend (current_char);
+			} else if (current_char == "{") {
+				if (braces != null && braces.data == "}") {
+					braces.delete_link (braces);
+				} else {
+					// a scope which contains the current position
+					do {
+						position.previous ();
+						current_char = (position as IAnjuta.EditorCell).get_character ();
+					} while (! current_char.get_char ().isalnum ());
+
+					return get_current_context (editor, position);
+				}
+			}
+		} while (position.previous ());
+
+		return null;
+	}
+
 	public bool on_drop_possible (IAnjuta.EditorGladeSignal editor, IAnjuta.Iterable position) {
-		// TODO: it'd  be better to check if we are inside a namespace or class
-		return true;
+		var scope = get_current_context (editor, position);
+		if (scope is Vala.Block) {
+			return false;
+		} else if (scope == null) {
+			scope = get_scope (editor, position.clone ());
+			if (scope == null || scope is Vala.Namespace || scope is Vala.Class)
+				return true;
+
+			return false;
+		}
+
+		return false;
 	}
 
 	public void on_drop (IAnjuta.EditorGladeSignal editor, IAnjuta.Iterable position, string signal_data) {
@@ -280,11 +318,20 @@ public class ValaPlugin : Plugin {
 		var signal_name = data[1].replace ("-", "_");
 		var handler_name = data[2];
 		var swapped = (data[4] == "1");
+		var scope = get_scope (editor, position.clone ());
 		var builder = new StringBuilder ();
 
-		if (data[2] != handler_name && !swapped) {
+		var scope_prefix = "";
+		if (scope != null) {
+			scope_prefix = scope.get_lower_case_cprefix ();
+			if (handler_name.has_prefix (scope_prefix))
+				handler_name = handler_name.substring (scope_prefix.length);
+		}
+		var handler_cname = scope_prefix + handler_name;
+
+		if (data[2] != handler_cname && !swapped) {
 			builder.append_printf ("[CCode (cname=\"%s\", instance_pos=-1)]\n", data[2]);
-		} else if (data[2] != handler_name) {
+		} else if (data[2] != handler_cname) {
 			builder.append_printf ("[CCode (cname=\"%s\")]\n", data[2]);
 		} else if (!swapped) {
 			builder.append ("[CCode (instance_pos=-1)]\n");
@@ -292,10 +339,8 @@ public class ValaPlugin : Plugin {
 
 		var widget = lookup_symbol_by_cname (widget_name);
 		var sigs = symbol_lookup_inherited (widget, signal_name, false);
-
 		if (sigs == null || !(sigs.data is Vala.Signal))
 			return;
-
 		Vala.Signal sig = (Vala.Signal) sigs.data;
 
 		builder.append_printf ("void %s (", handler_name);
@@ -333,7 +378,7 @@ public class ValaPlugin : Plugin {
 		return null;
 	}
 
-	internal Vala.Block get_current_block (IAnjuta.Editor editor) requires (editor is IAnjuta.File) {
+	internal Vala.Symbol get_current_context (IAnjuta.Editor editor, IAnjuta.Iterable? position=null) requires (editor is IAnjuta.File) {
 		var file = editor as IAnjuta.File;
 
 		var path = file.get_file().get_path();
@@ -353,7 +398,15 @@ public class ValaPlugin : Plugin {
 				context.add_source_file(source);
 				update_file(source);
 			}
-			return locator.locate(source, editor.get_lineno(), editor.get_column());
+			int line; int column;
+			if (position == null) {
+				line = editor.get_lineno ();
+				column = editor.get_column ();
+			} else {
+				line = editor.get_line_from_position (position);
+				column = editor.get_line_begin_position (line).diff (position);
+			}
+			return locator.locate(source, line, column);
 		}
 	}
 

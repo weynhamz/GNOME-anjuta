@@ -17,40 +17,83 @@
 
 /* Finds the innermost block containing the given location */
 public class BlockLocator : Vala.CodeVisitor {
-	double location;
-	Vala.Block innermost = null;
-	double innermost_begin;
-	double innermost_end;
+	struct Location {
+		int line;
+		int column;
+		public Location (int line, int column) {
+			this.line = line;
+			this.column = column;
+		}
+		public bool inside (Vala.SourceReference src) {
+			var begin = Location (src.first_line, src.first_column);
+			var end = Location (src.last_line, src.last_column);
 
-	public Vala.Block locate (Vala.SourceFile file, int line, int column) {
-		// XXX : assumes that line length < 1000
-		location = line + column / 1000.0;
+			return begin.before (this) && this.before(end);
+		}
+		public bool before (Location other) {
+			if (line > other.line)
+				return false;
+			if (line == other.line && column > other.column)
+				return false;
+			return true;
+		}
+	}
+
+	Location location;
+	Vala.Symbol innermost;
+	Location innermost_begin;
+	Location innermost_end;
+
+	public Vala.Symbol locate (Vala.SourceFile file, int line, int column) {
+		location = Location (line, column);
 		innermost = null;
 		file.accept_children(this);
 		return innermost;
 	}
-	public override void visit_block (Vala.Block b) {
-		var begin = b.source_reference.first_line + b.source_reference.first_column / 1000.0;
-		var end = b.source_reference.last_line + b.source_reference.last_column / 1000.0;
 
-		if (begin <= location && location <= end)
-			if (innermost == null || (innermost_begin <= begin && innermost_end >= end))
-				innermost = b;
-		b.accept_children(this);
+	bool update_location (Vala.Symbol s) {
+		if (!location.inside (s.source_reference))
+			return false;
+
+		var begin = Location (s.source_reference.first_line, s.source_reference.first_column);
+		var end = Location (s.source_reference.last_line, s.source_reference.last_column);
+
+		if (innermost == null || (innermost_begin.before(begin) && end.before(innermost_end))) {
+				innermost = s;
+				innermost_begin = begin;
+				innermost_end = end;
+				return true;
+		}
+
+		return false;
+	}
+
+	public override void visit_block (Vala.Block b) {
+		if (update_location (b))
+			b.accept_children(this);
 	}
 
 	public override void visit_namespace (Vala.Namespace ns) {
+		update_location (ns);
 		ns.accept_children(this);
 	}
 	public override void visit_class (Vala.Class cl) {
+		/* the location of a class contains only its declaration, not its content */
+		if (update_location (cl))
+			return;
 		cl.accept_children(this);
 	}
 	public override void visit_struct (Vala.Struct st) {
+		if (update_location (st))
+			return;
 		st.accept_children(this);
 	}
 	public override void visit_interface (Vala.Interface iface) {
+		if (update_location (iface))
+			return;
 		iface.accept_children(this);
 	}
+
 	public override void visit_method (Vala.Method m) {
 		m.accept_children(this);
 	}
@@ -76,7 +119,7 @@ public class BlockLocator : Vala.CodeVisitor {
 		stmt.accept_children(this);
 	}
 	public override void visit_switch_section (Vala.SwitchSection section) {
-		visit_block(section);
+		visit_block (section);
 	}
 	public override void visit_while_statement (Vala.WhileStatement stmt) {
 		stmt.accept_children(this);
