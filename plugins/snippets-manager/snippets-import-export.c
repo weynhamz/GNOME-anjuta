@@ -27,7 +27,6 @@
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-utils.h>
 
-
 static void
 add_or_update_snippet (SnippetsDB *snippets_db,
                        AnjutaSnippet *snippet,
@@ -54,7 +53,9 @@ add_or_update_snippet (SnippetsDB *snippets_db,
 		/* If there is already an entry for (trigger, cur_lang) we remove it so
 		   we can update it. */
 		if (snippets_db_get_snippet (snippets_db, trigger, cur_lang))
+		{
 			snippets_db_remove_snippet (snippets_db, trigger, cur_lang, FALSE);
+		}
 
 	}
 
@@ -138,7 +139,7 @@ snippets_manager_import_snippets (SnippetsDB *snippets_db,
 {
 	GtkWidget *file_chooser = NULL;
 	GtkFileFilter *native_filter = NULL, *other_filter = NULL, *cur_filter = NULL;
-
+	
 	/* Assertions */
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db));
 
@@ -178,14 +179,193 @@ snippets_manager_import_snippets (SnippetsDB *snippets_db,
 	gtk_widget_destroy (file_chooser);
 }
 
+static void
+snippets_view_name_text_data_func (GtkTreeViewColumn *column,
+                                   GtkCellRenderer *renderer,
+                                   GtkTreeModel *tree_model,
+                                   GtkTreeIter *iter,
+                                   gpointer user_data)
+{
+	gchar *name = NULL;
+	
+	/* Assertions */
+	g_return_if_fail (GTK_IS_CELL_RENDERER_TEXT (renderer));
+	g_return_if_fail (GTK_IS_TREE_MODEL (tree_model));
+	
+	/* Get the name */
+	gtk_tree_model_get (tree_model, iter,
+	                    SNIPPETS_DB_MODEL_COL_NAME, &name,
+	                    -1);
+	                    
+	g_object_set (renderer, "text", name, NULL);
+	g_free (name);
+}
+
+static void
+snippets_view_trigger_data_func (GtkTreeViewColumn *column,
+                                 GtkCellRenderer *renderer,
+								 GtkTreeModel *tree_model,
+								 GtkTreeIter *iter, 
+								 gpointer user_data)
+{
+	gchar *trigger = NULL;
+
+	/* Assertions */
+	g_return_if_fail (GTK_IS_CELL_RENDERER_TEXT (renderer));
+	g_return_if_fail (GTK_IS_TREE_MODEL (tree_model));
+
+	/* Get trigger key */
+	gtk_tree_model_get (tree_model, iter, 
+						SNIPPETS_DB_MODEL_COL_TRIGGER, &trigger,
+						-1);
+	
+	g_object_set (renderer, "text", trigger, NULL);
+	g_free (trigger);
+}
+
+static void
+snippets_view_languages_data_func (GtkTreeViewColumn *column,
+                                   GtkCellRenderer *renderer,
+								   GtkTreeModel *tree_model,
+								   GtkTreeIter *iter, 
+								   gpointer user_data)
+{
+	gchar *languages = NULL;
+
+	/* Assertions */
+	g_return_if_fail (GTK_IS_CELL_RENDERER_TEXT (renderer));
+	g_return_if_fail (GTK_IS_TREE_MODEL (tree_model));
+
+	/* Get languages */
+	gtk_tree_model_get (tree_model, iter, 
+						SNIPPETS_DB_MODEL_COL_LANGUAGES, &languages,
+						-1);
+	
+	g_object_set (renderer, "text", languages, NULL);
+	g_free (languages);
+}
+
+static void 
+handle_toggle (GtkCellRendererToggle *cell_renderer,
+                    gchar                 *path,
+                    gpointer               user_data)
+{
+	gboolean active = TRUE;
+
+	/* Assertions */
+	g_return_if_fail (GTK_IS_CELL_RENDERER_TOGGLE (cell_renderer));
+	g_print("%s\n", path);
+}
+
 void snippets_manager_export_snippets (SnippetsDB *snippets_db,
                                        AnjutaShell *anjuta_shell)
 {
-	GtkWidget *file_chooser = NULL;
-	GtkFileFilter *filter = NULL;
+	GtkWidget	 		*file_chooser = NULL;
+	GtkFileFilter 		*filter = NULL;
+	GtkWidget 			*snippets_chooser = NULL;
+	GtkWidget 			*snippets_tree_view = NULL;
+	GtkWidget			*scrolled_box = NULL;
+	GtkCellRenderer 	*text_renderer = NULL, *toggle_renderer = NULL;
+	GtkTreeViewColumn	*column = NULL;
+	GtkTreeModel		*model = NULL;
 
 	/* Assertions */
 	g_return_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db));
+	
+
+	/* Create view and set model */
+	snippets_tree_view = gtk_tree_view_new();
+	model = gtk_tree_model_filter_new (GTK_TREE_MODEL(snippets_db), NULL);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (snippets_tree_view),
+	                         model);
+	g_object_unref (model);
+	
+	/* Column 1 -- Name */
+	column =                         gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title  (column, "Name");
+	gtk_tree_view_append_column     (GTK_TREE_VIEW (snippets_tree_view), 
+	                                 column);
+	
+	toggle_renderer = gtk_cell_renderer_toggle_new();
+	gtk_cell_renderer_toggle_set_active (GTK_CELL_RENDERER_TOGGLE (toggle_renderer), TRUE);
+ /*	TODO get some column to be some column in the model
+	gtk_tree_view_column_add_attribute (column,
+	                                    toggle_renderer,
+	                                    "active", SOME_COLUMN);*/
+	g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (handle_toggle), NULL);
+
+	gtk_tree_view_column_pack_start (column,
+	                                 toggle_renderer,
+								     TRUE);
+
+	text_renderer =                  gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start (column, 
+	                                 text_renderer,
+									 TRUE);
+
+	gtk_tree_view_column_set_cell_data_func (column, text_renderer,
+	                                         snippets_view_name_text_data_func,
+	                                         snippets_tree_view, NULL);
+
+
+	/* Column 2 -- Trigger Key */
+	
+	column =                         gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title  (column, "Trigger");
+	gtk_tree_view_append_column     (GTK_TREE_VIEW (snippets_tree_view), 
+	                                 column);
+	text_renderer =                  gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start (column, 
+	                                 text_renderer,
+									 TRUE);
+
+	gtk_tree_view_column_set_cell_data_func (column, text_renderer,
+	                                         snippets_view_trigger_data_func,
+	                                         snippets_tree_view, NULL);
+
+ 	/* Column 3 -- Languages */
+	column =                         gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title  (column, "Languages");
+	gtk_tree_view_append_column     (GTK_TREE_VIEW (snippets_tree_view), 
+	                                 column);
+	text_renderer =                  gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start (column, 
+	                                 text_renderer,
+									 TRUE);
+
+	gtk_tree_view_column_set_cell_data_func (column, text_renderer,
+	                                         snippets_view_languages_data_func,
+	                                         snippets_tree_view, NULL);
+
+	/* Dialog for snippets chooser */
+	snippets_chooser = gtk_dialog_new_with_buttons ("Select Snippets",
+													GTK_WINDOW (anjuta_shell),
+													GTK_DIALOG_MODAL,
+													NULL);
+	/* Add the tree-view to dialog */
+	
+	scrolled_box = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_set_border_width (GTK_CONTAINER(scrolled_box), 0);
+	gtk_widget_set_size_request (scrolled_box, 300, 600);
+	/* TODO make it resize with the main dialog */
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolled_box), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC); 	
+	
+	gtk_container_add (GTK_CONTAINER (scrolled_box),
+					   snippets_tree_view);
+
+	gtk_container_add (GTK_CONTAINER ( gtk_dialog_get_content_area (GTK_DIALOG ( snippets_chooser))), 
+					   scrolled_box);
+	gtk_widget_show (snippets_tree_view);
+	gtk_widget_show (scrolled_box);
+
+	gtk_dialog_add_button (GTK_DIALOG (snippets_chooser), "OK", GTK_RESPONSE_DELETE_EVENT);
+	
+	/* Wait for the dialog to be closed */
+	if (gtk_dialog_run (GTK_DIALOG (snippets_chooser)) == GTK_RESPONSE_DELETE_EVENT)
+	{
+		/*TODO select snippets for exporting*/
+		gtk_widget_destroy (snippets_chooser);
+	}
 
 	file_chooser = gtk_file_chooser_dialog_new (_("Export Snippets"),
 	                                            GTK_WINDOW (anjuta_shell),
@@ -193,7 +373,6 @@ void snippets_manager_export_snippets (SnippetsDB *snippets_db,
 	                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                                            GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 	                                            NULL);
-
 	/* Set up the filter */
 	filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (filter, "Native format");
