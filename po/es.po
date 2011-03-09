@@ -6,17 +6,17 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-03-06 12:39+0000\n"
-"PO-Revision-Date: 2011-03-06 16:36+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-03-07 19:39+0000\n"
+"PO-Revision-Date: 2011-03-08 11:35+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -902,8 +902,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -914,8 +914,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -1712,7 +1712,7 @@ msgid "Module"
 msgstr "Módulo"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1084
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "Automático"
 
@@ -1893,14 +1893,14 @@ msgstr "Nombre del módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Opciones"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:37
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Opciones:"
@@ -1939,7 +1939,7 @@ msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Revision:"
 msgstr "Revisión:"
@@ -2956,7 +2956,7 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:1002
+#: ../plugins/document-manager/plugin.c:997
 msgid "Line"
 msgstr "Línea"
 
@@ -3574,12 +3574,14 @@ msgid "Highlight all occurrences"
 msgstr "Resaltar todas las ocurrencias"
 
 #: ../plugins/document-manager/plugin.c:294
-msgid "RegEx Search"
-msgstr "Búsqueda ExpReg"
+#| msgid "Search Expression"
+msgid "Regular Expression"
+msgstr "Expresión regular"
 
 #: ../plugins/document-manager/plugin.c:295
-msgid "Regular expression search"
-msgstr "Búsqueda de expresión regular"
+#| msgid "Search for a string or regular expression in the editor"
+msgid "Search using regular expressions"
+msgstr "Buscar usando expresiones regulares"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
@@ -3869,9 +3871,9 @@ msgstr "Busqueda simple"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:448
-#: ../plugins/document-manager/plugin.c:1800
-#: ../plugins/document-manager/plugin.c:2222
-#: ../plugins/document-manager/plugin.c:2231
+#: ../plugins/document-manager/plugin.c:1795
+#: ../plugins/document-manager/plugin.c:2217
+#: ../plugins/document-manager/plugin.c:2226
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3891,43 +3893,43 @@ msgstr "Recargar"
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:987
+#: ../plugins/document-manager/plugin.c:982
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:991
+#: ../plugins/document-manager/plugin.c:986
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:997
-#: ../plugins/document-manager/plugin.c:1000
+#: ../plugins/document-manager/plugin.c:992
+#: ../plugins/document-manager/plugin.c:995
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:1003
+#: ../plugins/document-manager/plugin.c:998
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:1004
+#: ../plugins/document-manager/plugin.c:999
 msgid "Mode"
 msgstr "Modo"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1642
+#: ../plugins/document-manager/plugin.c:1637
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1656
+#: ../plugins/document-manager/plugin.c:1651
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
-#: ../plugins/document-manager/search-box.c:496
+#: ../plugins/document-manager/search-box.c:494
 #, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
-#: ../plugins/document-manager/search-box.c:502
+#: ../plugins/document-manager/search-box.c:500
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and wrapped around but no new match was "
@@ -3936,12 +3938,12 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:536
+#: ../plugins/document-manager/search-box.c:543
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
-#: ../plugins/document-manager/search-box.c:542
+#: ../plugins/document-manager/search-box.c:549
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3950,12 +3952,12 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:577
+#: ../plugins/document-manager/search-box.c:584
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el final."
 
-#: ../plugins/document-manager/search-box.c:583
+#: ../plugins/document-manager/search-box.c:590
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -3964,11 +3966,11 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el final pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:924
+#: ../plugins/document-manager/search-box.c:983
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/document-manager/search-box.c:929
+#: ../plugins/document-manager/search-box.c:988
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
@@ -4238,7 +4240,7 @@ msgstr "Global"
 msgid "Root directory if no project is open:"
 msgstr "Carpeta raíz si no hay ningún proyecto abierto:"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -4304,7 +4306,7 @@ msgid "File Information"
 msgstr "Información del archivo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:581
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
@@ -4502,7 +4504,7 @@ msgstr ""
 "Nombre del paquete; sólo puede contener caracteres alfanuméricos y guiones "
 "bajos. Si no se proporciona se generará desde el nombre del proyecto."
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "URL:"
 
@@ -4624,8 +4626,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
-"«Flex» para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
+"para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4761,7 +4763,8 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
-msgid "Additional Yac or Bison parser generator flags for this target."
+#| msgid "Additional Yac or Bison parser generator flags for this target."
+msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
 "Opciones adicionales del compilador de computación Yacc o Bison para este "
 "objetivo."
@@ -5097,224 +5100,254 @@ msgid "Append signed-of- by line"
 msgstr "Añadir la línea «firmado por»"
 
 #: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/subversion/subversion-log-dialog.c:132
+msgid "Author"
+msgstr "Autor"
+
+#: ../plugins/git/anjuta-git.ui.h:8
 msgid "Branch name:"
 msgstr "Nombre de la rama:"
 
-#: ../plugins/git/anjuta-git.ui.h:8
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Branch:"
 msgstr "Rama:"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "Ramas"
 
-#: ../plugins/git/anjuta-git.ui.h:10
+#: ../plugins/git/anjuta-git.ui.h:11
 msgid "Branches must be fully merged"
 msgstr "Las ramas se deben mezclar completamente"
 
-#: ../plugins/git/anjuta-git.ui.h:11
+#: ../plugins/git/anjuta-git.ui.h:12
 msgid "Branches:"
 msgstr "Ramas:"
 
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Cambios:"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:14
 msgid "Check out the branch after it is created"
 msgstr "Descargar (checkout) la rama después de que se haya creado"
 
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit on fast-forward merges"
 msgstr "Commit al mezclar en modo rápido"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Commit to cherry pick:"
 msgstr "Commit a un «cherry-pick»:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:17
 msgid "Commit to revert:"
 msgstr "Commit que revertir:"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/subversion/subversion-log-dialog.c:141
+msgid "Date"
+msgstr "Fecha"
+
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "Do not commit"
 msgstr "No efectuar commit"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Do not follow tags"
 msgstr "No seguir etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:19
+#: ../plugins/git/anjuta-git.ui.h:21
+#| msgid "Drop a file or enter a path here"
+msgid "Drop or enter revision here"
+msgstr "Suelte o escriba una revisión aquí"
+
+#: ../plugins/git/anjuta-git.ui.h:22
+#| msgid "Repository head; Drop or type a different revision here"
+msgid "Drop or type a revision here"
+msgstr "Suelte o escriba una revisión aquí"
+
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
 msgstr "Correo-e:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Fetch remote branches after creation"
 msgstr "Obtener ramas remotas después de crearlas"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:25
 msgid "Folder to create patches in:"
 msgstr "Carpeta donde crear los parches:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:26
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:27
 msgid "Generate patches relative to:"
 msgstr "Generar parches relativos a:"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:28
+msgid "Graph"
+msgstr "Gráfico"
+
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Hard"
 msgstr "Duro"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:31
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Mensaje de registro:"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Mailbox files to apply:"
 msgstr "Archivos de buzón de correo que aplicar:"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
 msgstr "Mezclado"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:34
 msgid "Mode:"
 msgstr "Modo:"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:38
+#| msgid "Repository origin; Drop or type a different revision here"
+msgid "Previous commit; Drop or enter a different revision here"
+msgstr "Commit anterior; suelte o escriba una revisión diferente aquí"
+
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
 msgstr "Empujar todas las ramas y etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "Push all tags"
 msgstr "Empujar todas las etiquetas"
 
-#: ../plugins/git/anjuta-git.ui.h:35 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Ajustar a base (rebase)"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "Remote Repositories:"
 msgstr "Repositorios remotos:"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Remote name:"
 msgstr "Nombre remoto:"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:44
 msgid "Remove Files:"
 msgstr "Quitar archivos:"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Repository Status:"
 msgstr "Estado del repositorio:"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Repository head; Drop or type a different revision here"
-msgstr "Inicio del repositorio; soltar o escribir aquí una revisión diferente"
+msgstr "Inicio del repositorio; suelte o escriba aquí una revisión diferente"
 
-#: ../plugins/git/anjuta-git.ui.h:41
-msgid "Repository head; Drop or type a different revision here "
-msgstr "Inicio del repositorio; soltar o escribir aquí una revisión diferente "
-
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
-msgstr "Origen del repositorio; soltar o escribir aquí una revisión diferente"
+msgstr "Origen del repositorio; suelte o escriba aquí una revisión diferente"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Repository to pull from:"
 msgstr "Repositorio desde el que actualizar:"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Repository to push to:"
 msgstr "Repositorio sobre el que actualizar:"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:50
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Revisión"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:51
 msgid "Revision to merge with:"
 msgstr "Revisión con la que mezclar:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/subversion/subversion-log-dialog.c:160
+msgid "Short Log"
+msgstr "Registro corto"
+
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Show source revision in log message"
 msgstr "Mostrar la revisión de los fuentes en el mensaje de log"
 
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Sign this tag"
 msgstr "Firmar esta etiqueta"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Soft"
 msgstr "Blando"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Squash"
 msgstr "Aplastar (squash)"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Stash Message (Optional):"
 msgstr "Mensaje guardado («stash»; opcional):"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
 msgstr "Guardar («stash») cambios indexados"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Stashed Changes:"
 msgstr "Cambios guardados («stashed»):"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
 msgstr "Nombre de la etiqueta:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Tags:"
 msgstr "Etiquetas:"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Este commit finaliza una mezcla fallida (use -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Use a custom log message:"
 msgstr "Usar un mensaje de registro personalizado:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Use custom author information:"
 msgstr "Usar información personalizada del autor:"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:67
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "View the Log for File/Folder:"
 msgstr "Ver el registro para el/la archivo/carpeta:"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Todo el proyecto; arrastrar un archivo aquí o escribir una ruta para ver un "
 "archivo o carpeta de registro"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Todo el proyecto; arrastrar un archivo aquí para ver un archivo o carpeta de "
 "registro"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
 msgstr "página 1"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "page 2"
 msgstr "página 2"
 
@@ -5569,7 +5602,6 @@ msgid "Diff uncommitted changes"
 msgstr "Diff de los cambios sin subir"
 
 #: ../plugins/git/plugin.c:155
-#| msgid "Show uncommitted changes"
 msgid "Show a diff of uncommitted changes in an editor"
 msgstr "Mostrar un «diff» en un editor de los cambios sin efectuar"
 
@@ -5635,7 +5667,6 @@ msgid "Push changes to a remote repository"
 msgstr "Empujar los cambios contra un repositorio remoto"
 
 #: ../plugins/git/plugin.c:247
-#| msgid "Push changes to a remote repository"
 msgid "Pull changes from a remote repository"
 msgstr "Actualizar los cambios desde un repositorio remoto"
 
@@ -5689,7 +5720,6 @@ msgid "Stash uncommitted changes"
 msgstr "Guardar («stash») cambios sin subir"
 
 #: ../plugins/git/plugin.c:315
-#| msgid "Revert uncommitted changes to files"
 msgid "Save uncommitted changes without committing them"
 msgstr "Guardar los cambios no efectuados sin efectuarlos"
 
@@ -5698,38 +5728,30 @@ msgid "Apply selected stash"
 msgstr "Aplicar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:323
-#| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree"
 msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo"
 
 #: ../plugins/git/plugin.c:330
-#| msgid "Apply stashed changes to the working tree"
 msgid "Apply stash and restore index"
 msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
-#| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
-"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
-#| msgid "Drop the selected stash"
 msgid "Diff selected stash"
 msgstr "Diff de los cambios guardados («stash») seleccionados "
 
 #: ../plugins/git/plugin.c:339
-#| msgid "Drop the selected stash"
 msgid "Show a diff of the selected stash"
 msgstr "Mostrar un «diff» de los cambios guardados («stash»)"
 
 #: ../plugins/git/plugin.c:346
-#| msgid "Drop the selected stash"
 msgid "Drop selected stash"
 msgstr "Abandonar el estado guardado («stash») seleccionado"
 
 #: ../plugins/git/plugin.c:347
-#| msgid "Drop the selected stash"
 msgid "Delete the selected stash"
 msgstr "Eliminar el estado guardado («stash») seleccionado"
 
@@ -5738,7 +5760,6 @@ msgid "Clear all stashes"
 msgstr "Limpiar los estados guardados («stash»)"
 
 #: ../plugins/git/plugin.c:355
-#| msgid "Select all text in the editor"
 msgid "Delete all stashes in this repository"
 msgstr "Eliminar todos los cambios guardados («stash») en este repositorio"
 
@@ -5803,19 +5824,15 @@ msgid "Apply patches from mailbox files"
 msgstr "Aplicar parches del buzón de correo"
 
 #: ../plugins/git/plugin.c:447
-#| msgid "Continue applying a series after resolving conflicts"
 msgid "Continue applying patches with resolved conflicts"
 msgstr ""
 "Continuar aplicando la serie de parches después de resolver los conflictos"
 
 #: ../plugins/git/plugin.c:455
-#| msgid "Skip the current patch in the series and continue"
 msgid "Skip the current patch in the series"
 msgstr "Omitir el parche actual de la serie"
 
 #: ../plugins/git/plugin.c:463
-#| msgid ""
-#| "Stop applying the series and return the repository to its original state"
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
@@ -6152,8 +6169,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6170,9 +6187,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6756,8 +6773,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -7414,8 +7431,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
@@ -8629,18 +8646,6 @@ msgstr "Subversion: Obteniendo diff…"
 #: ../plugins/subversion/subversion-log-dialog.c:119
 msgid "Diff"
 msgstr "Diff"
-
-#: ../plugins/subversion/subversion-log-dialog.c:132
-msgid "Author"
-msgstr "Autor"
-
-#: ../plugins/subversion/subversion-log-dialog.c:141
-msgid "Date"
-msgstr "Fecha"
-
-#: ../plugins/subversion/subversion-log-dialog.c:160
-msgid "Short Log"
-msgstr "Registro corto"
 
 #: ../plugins/subversion/subversion-log-dialog.c:257
 msgid "Subversion: Retrieving log…"
@@ -10005,6 +10010,16 @@ msgstr "Caracteres mínimos para autocompletado "
 msgid "Symbol"
 msgstr "Símbolo"
 
+#~ msgid "RegEx Search"
+#~ msgstr "Búsqueda ExpReg"
+
+#~ msgid "Regular expression search"
+#~ msgstr "Búsqueda de expresión regular"
+
+#~ msgid "Repository head; Drop or type a different revision here "
+#~ msgstr ""
+#~ "Inicio del repositorio; soltar o escribir aquí una revisión diferente "
+
 #~ msgid "_New library&#x2026;"
 #~ msgstr "Biblioteca _nueva&#x2026;"
 
@@ -10137,9 +10152,6 @@ msgstr "Símbolo"
 #~ msgid "Search Direction:"
 #~ msgstr "Dirección de búsqueda:"
 
-#~ msgid "Search Expression"
-#~ msgstr "Buscar expresión"
-
 #~ msgid "Search Expression:"
 #~ msgstr "Buscar expresión:"
 
@@ -10157,9 +10169,6 @@ msgstr "Símbolo"
 
 #~ msgid "_Find…"
 #~ msgstr "_Buscar…"
-
-#~ msgid "Search for a string or regular expression in the editor"
-#~ msgstr "Buscar una cadena o expresión regular en el editor"
 
 #~ msgid ""
 #~ "Search for and replace a string or regular expression with another string"
@@ -10221,8 +10230,8 @@ msgstr "Símbolo"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
-#~ "desde el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
@@ -10445,9 +10454,6 @@ msgstr "Símbolo"
 
 #~ msgid "Git: Fetch complete."
 #~ msgstr "Git: Obtención complea."
-
-#~ msgid "Graph"
-#~ msgstr "Gráfico"
 
 #~ msgid "Short log"
 #~ msgstr "Registro corto"
