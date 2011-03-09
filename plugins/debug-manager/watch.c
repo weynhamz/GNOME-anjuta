@@ -67,6 +67,19 @@ typedef struct _InspectDialog InspectDialog;
 #define VALUE_ENTRY "value_entry"
 #define AUTO_UPDATE_CHECK "auto_update_check"
 
+
+enum targets {
+	TARGET_STRING,
+	TARGET_URL
+};
+
+static const GtkTargetEntry drag_targets[] = {
+	{"application-x/anjuta", GTK_TARGET_SAME_APP, TARGET_STRING},
+	{ "STRING",        GTK_TARGET_SAME_APP, TARGET_STRING },
+	{ "text/plain",    GTK_TARGET_SAME_APP, TARGET_STRING },
+	{ "text/uri-list", GTK_TARGET_SAME_APP, TARGET_URL }
+};
+
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -354,6 +367,31 @@ on_debug_tree_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer 
 	return FALSE;
 }
 
+static void
+on_debug_tree_drag_data_received (GtkWidget        *widget,
+								  GdkDragContext   *context,
+								  gint              x,
+								  gint              y,
+								  GtkSelectionData *selection_data,
+								  guint             info,
+								  guint             timestamp,
+								  gpointer          user_data)
+{
+	const gchar* signal_data = (gchar*) gtk_selection_data_get_data (selection_data);
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, FALSE, FALSE, -1};
+
+	if (signal_data != NULL)
+	{
+		var.expression = signal_data;
+		debug_tree_add_watch (((ExprWatch *)user_data)->debug_tree, &var, FALSE);
+	}
+
+	gtk_drag_finish (context, FALSE, FALSE, timestamp);
+
+	return;
+}
+
+
 /* Actions table
  *---------------------------------------------------------------------------*/
 
@@ -457,7 +495,10 @@ create_expr_watch_gui (ExprWatch * ew)
 											G_N_ELEMENTS (toggle_watch),
 											GETTEXT_PACKAGE, TRUE, ew);
 	g_signal_connect (debug_tree_get_tree_widget (ew->debug_tree), "button-press-event", G_CALLBACK (on_debug_tree_button_press), ew);  
-	
+
+	gtk_drag_dest_set(debug_tree_get_tree_widget (ew->debug_tree), GTK_DEST_DEFAULT_ALL, drag_targets, sizeof (drag_targets) / sizeof (drag_targets[0]), GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK);
+	g_signal_connect (debug_tree_get_tree_widget (ew->debug_tree), "drag_data_received", G_CALLBACK (on_debug_tree_drag_data_received), ew);
+
 	gtk_widget_show_all (ew->scrolledwindow);
 }
 
