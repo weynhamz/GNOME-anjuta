@@ -264,7 +264,7 @@ anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)
 	guint added;
 
 	/* Find all token needing an update */
-	
+
 	/* Find following tokens */
 	for (last = token; last != NULL; last = anjuta_token_next (last))
 	{

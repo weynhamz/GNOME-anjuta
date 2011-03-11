@@ -338,17 +338,19 @@ amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GErro
 	token = amp_module_node_get_token (module);
 	if (token != NULL)
 	{
+		AnjutaToken *eol;
+		
 		token = anjuta_token_list (token);
 		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
-		token = anjuta_token_next_item (token);
-		if (anjuta_token_get_type (token) == ANJUTA_TOKEN_EOL)
+		eol = anjuta_token_next_item (token);
+		if (anjuta_token_get_type (eol) == ANJUTA_TOKEN_EOL)
 		{
-			anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+			anjuta_token_set_flags (eol, ANJUTA_TOKEN_REMOVED);
 		}
-		token = anjuta_token_next_item (token);
-		if (anjuta_token_get_type (token) == ANJUTA_TOKEN_EOL)
+		eol = anjuta_token_next_item (eol);
+		if (anjuta_token_get_type (eol) == ANJUTA_TOKEN_EOL)
 		{
-			anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
+			anjuta_token_set_flags (eol, ANJUTA_TOKEN_REMOVED);
 		}
 
 		amp_project_update_configure (project, token);

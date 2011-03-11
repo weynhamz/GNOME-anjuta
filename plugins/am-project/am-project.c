@@ -1515,6 +1515,13 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 	{
 		amp_target_node_set_type (AMP_TARGET_NODE (new_node), anjuta_project_node_get_full_type (old_node));
 	}
+	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_PACKAGE)
+	{
+		// FIXME: We should probably copy the version number too because it will not
+		// be updated when the node is reloaded. So later when updating the old_node,
+		// the value will be overwritten with the new node empty value.
+		amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
+	}
 	/* Keep old parent, Needed for source node to find project root node */
 	new_node->parent = old_node->parent;
 
