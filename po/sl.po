@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&component=core application\n"
 "POT-Creation-Date: 2011-03-09 20:28+0000\n"
-"PO-Revision-Date: 2011-03-10 17:04+0100\n"
+"PO-Revision-Date: 2011-03-11 20:07+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -594,9 +594,8 @@ msgid "Column 1"
 msgstr "Stolpec 1"
 
 #: ../libanjuta/anjuta-entry.c:241
-#, fuzzy
 msgid "Help text"
-msgstr "Pomoč"
+msgstr "Besedilo pomoči"
 
 #: ../libanjuta/anjuta-entry.c:242
 msgid "Text to show the user what to enter into the entry"
@@ -611,9 +610,8 @@ msgid "Drop a file or enter a path here"
 msgstr ""
 
 #: ../libanjuta/anjuta-file-list.c:274
-#, fuzzy
 msgid "Select Files"
-msgstr "Izbor datoteke"
+msgstr "Izbor datotek"
 
 #: ../libanjuta/anjuta-file-list.c:540
 msgid "Path that all files in the list should be relative to"
@@ -625,7 +623,7 @@ msgstr "Pokaži gumb za dodajanje"
 
 #: ../libanjuta/anjuta-file-list.c:548
 msgid "Display an Add button"
-msgstr ""
+msgstr "Pokaži gumb za dodajanje"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../libfoocanvas/foo-canvas-text.c:177
@@ -946,9 +944,8 @@ msgid "Continue on errors"
 msgstr "Nadaljuj ob napakah"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
-#, fuzzy
 msgid "Highlight build warnings and errors in editor"
-msgstr "Poudari sporočila mest v urejevalniku"
+msgstr "Poudari opozorila izgradnje in napake v urejevalniku"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Install"
@@ -1367,11 +1364,13 @@ msgid "Build Autotools"
 msgstr "Izgradi autotools"
 
 #: ../plugins/build-basic-autotools/program.c:269
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while setting up build environment:\n"
 " %s"
-msgstr "Napaka med zapiranjem projekta: %s"
+msgstr ""
+"Napaka med nastavljanjem okolja izgradnje:\n"
+"%s"
 
 #: ../plugins/build-basic-autotools/program.c:342
 msgid "Command aborted"
@@ -1423,9 +1422,8 @@ msgid "Class Generator"
 msgstr "Ustvarjalnik razredov"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
-#, fuzzy
 msgid "Class Methods"
-msgstr "Elementi razreda"
+msgstr "Razredni načini"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
@@ -1436,23 +1434,20 @@ msgid "Class Options:"
 msgstr "Možnosti razreda:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
-#, fuzzy
 msgid "Class Scope:"
-msgstr "Ime razreda:"
+msgstr "Področje razreda:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
-#, fuzzy
 msgid "Constants/Variables"
-msgstr "Spremenljivke"
+msgstr "Konstante in spremenljivke"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "Create"
 msgstr "Ustvari"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#, fuzzy
 msgid "GLib.Object"
-msgstr "Predmet sličice"
+msgstr "GLib.Predmet"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "GObject Class\t"
@@ -1498,23 +1493,20 @@ msgid "Header File:"
 msgstr "Datoteka glave:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#, fuzzy
 msgid "Imports"
 msgstr "Uvozi"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
-#, fuzzy
 msgid "Initializer Arguments:"
-msgstr "_Zaženi odložišče"
+msgstr "Argumenti začenjanja:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Inline the declaration and implementation"
 msgstr "Izpis določil in vključitev v vrstici"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
-#, fuzzy
 msgid "JavaScript Class"
-msgstr "JavaScript"
+msgstr "Razred JavaScript"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 #: ../plugins/file-wizard/file.c:105
@@ -1561,9 +1553,8 @@ msgid "Properties"
 msgstr "Lastnosti"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:35
-#, fuzzy
 msgid "Python Class"
-msgstr "Python"
+msgstr "Razred Python"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:36
 msgid "Signals"
@@ -1578,9 +1569,8 @@ msgid "Source/Header Headings:"
 msgstr "Naslovi vira/glave:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
-#, fuzzy
 msgid "Vala Class"
-msgstr "Osnovni razred:"
+msgstr "Razred Vala"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:40
 #: ../plugins/mk-project/mk-project.ui.h:7
@@ -1588,9 +1578,8 @@ msgid "Variables"
 msgstr "Spremenljivke"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
-#, fuzzy
 msgid "is Sub-Class"
-msgstr "Osnovni razred:"
+msgstr "je podrejeni razred"
 
 #: ../plugins/class-gen/generator.c:133
 #, c-format
@@ -2175,13 +2164,12 @@ msgid "CVS popup operations"
 msgstr "CVS pojavna opravila"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
-#, fuzzy
 msgid "CLang Paths"
-msgstr "Spremeni opazovanje"
+msgstr "Poti CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
 msgid "Enable CLang code analyzer"
-msgstr ""
+msgstr "Omogoči preučevalnik kode CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
 msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
@@ -2201,9 +2189,8 @@ msgstr ""
 
 #: ../plugins/code-analyzer/plugin.c:226
 #: ../plugins/code-analyzer/plugin.c:234
-#, fuzzy
 msgid "CLang Analyzer"
-msgstr "Spremeni vrednost"
+msgstr "Preučevalnik CLang"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
@@ -3152,9 +3139,8 @@ msgstr "Opravila pomoči"
 
 #: ../plugins/devhelp/plugin.c:353
 #: ../plugins/devhelp/plugin.c:470
-#, fuzzy
 msgid "API Browser"
-msgstr "Prebrskaj ..."
+msgstr "Brskalnik API"
 
 #: ../plugins/devhelp/plugin.c:364
 msgid "Contents"
@@ -3168,9 +3154,8 @@ msgstr "Iskanje"
 
 #: ../plugins/devhelp/plugin.c:388
 #: ../plugins/devhelp/plugin.c:475
-#, fuzzy
 msgid "API"
-msgstr "PID"
+msgstr "API"
 
 #: ../plugins/document-manager/action-callbacks.c:314
 #, c-format
@@ -3349,7 +3334,6 @@ msgid "Close all files"
 msgstr "Zapri vse datoteke"
 
 #: ../plugins/document-manager/plugin.c:165
-#, fuzzy
 msgid "Close Others"
 msgstr "Zapri ostale"
 
@@ -3561,14 +3545,13 @@ msgstr "Najdi _naslednje"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Search for next appearance of term."
-msgstr ""
+msgstr "Poišči naslednjo pojavitev pojma."
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "Find and R_eplace…"
 msgstr "Najdi in _zamenjaj ..."
 
 #: ../plugins/document-manager/plugin.c:273
-#, fuzzy
 msgid "Search and replace"
 msgstr "Poišči in zamenjaj"
 
@@ -3581,42 +3564,37 @@ msgid "Repeat the last Find command"
 msgstr "Ponovi zadnji ukaz iskanja"
 
 #: ../plugins/document-manager/plugin.c:279
-#, fuzzy
 msgid "Clear Highlight"
-msgstr "Poudari"
+msgstr "Počisti poudarjanje"
 
 #: ../plugins/document-manager/plugin.c:280
 msgid "Clear all highlighted text"
-msgstr ""
+msgstr "Počisti poudarjeno besedilo"
 
 #: ../plugins/document-manager/plugin.c:286
-#, fuzzy
 msgid "Case Sensitive"
-msgstr "Občutljivo"
+msgstr "Razlikovanje velikosti črk"
 
 #: ../plugins/document-manager/plugin.c:287
 msgid "Match case in search results."
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:290
-#, fuzzy
 msgid "Highlight All"
-msgstr "Poudari"
+msgstr "Poudari vse"
 
 #: ../plugins/document-manager/plugin.c:291
-#, fuzzy
 msgid "Highlight all occurrences"
-msgstr "Poudari trenutno vrstico"
+msgstr "Poudari vse pojavitve"
 
 #: ../plugins/document-manager/plugin.c:294
-#, fuzzy
 msgid "Regular Expression"
 msgstr "Logični izraz"
 
 #: ../plugins/document-manager/plugin.c:295
 #, fuzzy
 msgid "Search using regular expressions"
-msgstr "Poišči niza ali logični izraz v urejevalniku"
+msgstr "Iskanje in zamenjava s pomočjo logičnih izrazov"
 
 #: ../plugins/document-manager/plugin.c:301
 #: ../src/anjuta-actions.h:30
@@ -3833,7 +3811,7 @@ msgstr "_Zaznamek"
 #: ../plugins/document-manager/plugin.c:407
 #, fuzzy
 msgid "_Toggle Bookmark"
-msgstr "_Naslednji zaznamek"
+msgstr "Preklopi zaznamek"
 
 #: ../plugins/document-manager/plugin.c:408
 #, fuzzy
@@ -3924,7 +3902,7 @@ msgstr "Nastavitve pogleda urejevalnika"
 #: ../plugins/document-manager/plugin.c:455
 #, fuzzy
 msgid "Toggle search options"
-msgstr "Preklop prekinitvenih točk"
+msgstr "Preklopi iskanje z razlikovanjem velikih in malih črk"
 
 #: ../plugins/document-manager/plugin.c:644
 msgid "Reload"
@@ -4000,7 +3978,6 @@ msgid "Replace"
 msgstr "Zamenjaj"
 
 #: ../plugins/document-manager/search-box.c:988
-#, fuzzy
 msgid "Replace all"
 msgstr "Zamenjaj vse"
 
@@ -4615,7 +4592,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:576
 #, fuzzy
 msgid "Fortran compiler flags:"
-msgstr "Zastavice prevajalnika Fortran:"
+msgstr "Zastavice Fortran prevajalnika:"
 
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
@@ -4657,7 +4634,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:177
 #, fuzzy
 msgid "Installation directories:"
-msgstr "Mapa za namestitev:"
+msgstr "Izvorne mape"
 
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
@@ -4706,7 +4683,7 @@ msgstr "Dodatne knjižnice:"
 #: ../plugins/am-project/am-properties.c:531
 #, fuzzy
 msgid "Additional libraries for this target."
-msgstr "Dodatne knjižnice:"
+msgstr "Na voljo ni lastnosti za ta cilj"
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
@@ -4789,7 +4766,7 @@ msgstr "Dodatne odvisnosti:"
 #: ../plugins/am-project/am-properties.c:706
 #, fuzzy
 msgid "Additional dependencies for this target."
-msgstr "Dodatne odvisnosti:"
+msgstr "Na voljo ni lastnosti za ta cilj"
 
 #: ../plugins/am-project/am-properties.c:312
 #: ../plugins/am-project/am-properties.c:464
@@ -5059,9 +5036,8 @@ msgid "Gdb Debugger"
 msgstr "Razhroščevalnik Gdb"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-#, fuzzy
 msgid "Add Files:"
-msgstr "Dodaj datoteko"
+msgstr "Dodaj datoteke:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 #, fuzzy
@@ -5111,7 +5087,7 @@ msgstr "Veje morajo biti popolnoma združene"
 #: ../plugins/git/anjuta-git.ui.h:12
 #, fuzzy
 msgid "Branches:"
-msgstr "Veje"
+msgstr "Veje:"
 
 #: ../plugins/git/anjuta-git.ui.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
@@ -5193,7 +5169,7 @@ msgstr "Dnevniško sporočilo:"
 #: ../plugins/git/anjuta-git.ui.h:32
 #, fuzzy
 msgid "Mailbox files to apply:"
-msgstr "Poštni predal s popravki:"
+msgstr "Uporabi dovoljenja za priložene datoteke"
 
 #: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
@@ -5223,22 +5199,22 @@ msgstr "Postavi izhodišče"
 #: ../plugins/git/anjuta-git.ui.h:42
 #, fuzzy
 msgid "Remote Repositories:"
-msgstr "_Oddaljeno odložišče"
+msgstr "Spremenjena skladišča"
 
 #: ../plugins/git/anjuta-git.ui.h:43
 #, fuzzy
 msgid "Remote name:"
-msgstr "Ime modula:"
+msgstr "Ime oddaljene naprave"
 
 #: ../plugins/git/anjuta-git.ui.h:44
 #, fuzzy
 msgid "Remove Files:"
-msgstr "Odstrani datoteko"
+msgstr "_Odstrani datoteke"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 #, fuzzy
 msgid "Repository Status:"
-msgstr "Odložišče:"
+msgstr "Stanje Anjute"
 
 #: ../plugins/git/anjuta-git.ui.h:46
 #, fuzzy
@@ -5299,7 +5275,7 @@ msgstr "Založi določene spremembe"
 #: ../plugins/git/anjuta-git.ui.h:60
 #, fuzzy
 msgid "Stashed Changes:"
-msgstr "Založi določene spremembe"
+msgstr "Git: spremembe zaloge so bile uporabljene."
 
 #: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
@@ -5308,7 +5284,7 @@ msgstr "Ime oznake:"
 #: ../plugins/git/anjuta-git.ui.h:62
 #, fuzzy
 msgid "Tags:"
-msgstr "Oznake"
+msgstr "Oznake:"
 
 #: ../plugins/git/anjuta-git.ui.h:63
 msgid "This commit concludes a failed merge (use -i)"
@@ -5347,12 +5323,12 @@ msgstr "stran 2"
 #: ../plugins/git/git-add-files-pane.c:157
 #, fuzzy
 msgid "Add Files"
-msgstr "Dodaj datoteko"
+msgstr "Dodaj datoteke"
 
 #: ../plugins/git/git-add-remote-pane.c:52
 #, fuzzy
 msgid "Please enter a remote name."
-msgstr "Vnesite ime oznake."
+msgstr "Vnesite ime veje."
 
 #: ../plugins/git/git-add-remote-pane.c:55
 #, fuzzy
@@ -5362,7 +5338,7 @@ msgstr "Vnesite naslov URL."
 #: ../plugins/git/git-add-remote-pane.c:179
 #, fuzzy
 msgid "Add Remote"
-msgstr "Oddaljeno"
+msgstr "Dodaj oddaljeno vejo"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
 #, fuzzy
@@ -5374,7 +5350,7 @@ msgstr "Uporabi datoteke poštnega predala"
 #: ../plugins/git/git-drop-stash-pane.c:48
 #, fuzzy
 msgid "No stash selected."
-msgstr "Ni izbrane skupine"
+msgstr "Uporabi izbrano zalogo"
 
 #: ../plugins/git/git-checkout-pane.c:147
 msgid "Check Out Files"
@@ -5385,7 +5361,7 @@ msgstr "Odjavi datoteke"
 #: ../plugins/git/git-merge-pane.c:70
 #, fuzzy
 msgid "Please enter a log message."
-msgstr "Vnesite ime oznake."
+msgstr "Uporabi sporočilom dnevnika po meri."
 
 #: ../plugins/git/git-commit-pane.c:145
 #, fuzzy
@@ -5398,9 +5374,8 @@ msgstr "Vnesite elektronski naslov avtorja uveljavitve."
 
 #: ../plugins/git/git-commit-pane.c:293
 #: ../plugins/git/plugin.c:146
-#, fuzzy
 msgid "Commit"
-msgstr "_Uveljavi"
+msgstr "Uveljavi"
 
 #: ../plugins/git/git-cherry-pick-pane.c:53
 #: ../plugins/git/git-merge-pane.c:56
@@ -5425,24 +5400,20 @@ msgid "Commit %s.diff"
 msgstr "Uveljavi %s.diff"
 
 #: ../plugins/git/git-diff-pane.c:104
-#, fuzzy
 msgid "No revision selected"
-msgstr "Ni izbrane skupine"
+msgstr "Ni izbrane predelave"
 
 #: ../plugins/git/git-reset-pane.c:167
-#, fuzzy
 msgid "Reset"
-msgstr "_Povrni"
+msgstr "Ponastavi"
 
 #: ../plugins/git/git-revert-pane.c:48
-#, fuzzy
 msgid "Please enter a commit."
-msgstr "Vnesite pot."
+msgstr "Vnesite uveljavitev."
 
 #: ../plugins/git/git-revert-pane.c:162
-#, fuzzy
 msgid "Revert"
-msgstr "_Povrni ..."
+msgstr "Povrni"
 
 #: ../plugins/git/git-create-branch-pane.c:51
 msgid "Please enter a branch name."
@@ -5457,14 +5428,13 @@ msgid "Create Tag"
 msgstr "Ustvari oznako"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#, fuzzy
 msgid "No remote selected."
-msgstr "Ni izbrane skupine"
+msgstr "Ni izbranega oddaljenega mesta."
 
 #: ../plugins/git/git-delete-tags-pane.c:49
 #, fuzzy
 msgid "No tags selected."
-msgstr "Ni izbrane skupine"
+msgstr "Izbris {0} izbrane značke ?"
 
 #: ../plugins/git/git-diff-stash-pane.c:40
 #, fuzzy, c-format
@@ -5499,14 +5469,12 @@ msgid "Git"
 msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
-#, fuzzy
 msgid "Git Error"
-msgstr "Napaka"
+msgstr "Napaka Git"
 
 #: ../plugins/git/git-pane.c:210
-#, fuzzy
 msgid "Git Warning"
-msgstr "Opozorilo"
+msgstr "Opozorilo Git"
 
 #: ../plugins/git/git-patch-series-pane.c:167
 #, fuzzy
@@ -5531,12 +5499,11 @@ msgstr "Objavi"
 #: ../plugins/git/git-rebase-pane.c:61
 #, fuzzy
 msgid "No remote selected"
-msgstr "Ni izbrane skupine"
+msgstr "/Oddaljeno/Pokaži izbrane"
 
 #: ../plugins/git/git-remove-files-pane.c:157
-#, fuzzy
 msgid "Remove Files"
-msgstr "Odstrani datoteko"
+msgstr "Odstrani datoteke"
 
 #: ../plugins/git/git-repository-selector.c:66
 msgid "Remote"
@@ -5547,9 +5514,8 @@ msgid "URL"
 msgstr "Naslov URL"
 
 #: ../plugins/git/git-repository-selector.c:100
-#, fuzzy
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Oddaljeno:</b> %s"
+msgstr "<b>Izbrano oddaljeno mesto:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
@@ -5560,29 +5526,31 @@ msgstr ""
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 #, fuzzy
 msgid "No conflicted files selected."
-msgstr "Označi datoteke v sporu kot razrešene"
+msgstr "Ni izbrane datoteke."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
 msgstr "Založi neuveljavljene spremembe"
 
 #: ../plugins/git/git-status-pane.c:368
+#, fuzzy
 msgid "Changes to be committed"
-msgstr ""
+msgstr "Spremembe dokumenta \"%s\" bodo trajno izgubljene."
 
 #: ../plugins/git/git-status-pane.c:377
+#, fuzzy
 msgid "Changed but not updated"
-msgstr ""
+msgstr "Ime gostitelja '%s' vsebuje '[' vendar ne tudi ']'"
 
 #: ../plugins/git/git-unstage-pane.c:51
 #, fuzzy
 msgid "No staged files selected."
-msgstr "Ni izbranega cilja"
+msgstr "Ni izbrane datoteke."
 
 #: ../plugins/git/plugin.c:65
 #, fuzzy
 msgid "Branch tools"
-msgstr "Veje"
+msgstr "Skrbniška orodja"
 
 #: ../plugins/git/plugin.c:73
 #: ../plugins/git/plugin.c:74
@@ -5593,7 +5561,7 @@ msgstr "Ustvari vejo"
 #: ../plugins/git/plugin.c:82
 #, fuzzy
 msgid "Delete selected branches"
-msgstr "Git: izbrane veje so izbrisane."
+msgstr "Veje pripravljene za brisanje:"
 
 #: ../plugins/git/plugin.c:89
 #: ../plugins/git/plugin.c:90
@@ -5602,14 +5570,12 @@ msgid "Switch to the selected branch"
 msgstr "Preklopi na drugo vejo"
 
 #: ../plugins/git/plugin.c:98
-#, fuzzy
 msgid "Merge a revision into the current branch"
 msgstr "Združi uveljavitve v trenutno vejo"
 
 #: ../plugins/git/plugin.c:109
-#, fuzzy
 msgid "Tag tools"
-msgstr "Orodja"
+msgstr "Orodja označevanja"
 
 #: ../plugins/git/plugin.c:117
 #: ../plugins/git/plugin.c:118
@@ -5618,29 +5584,24 @@ msgstr "Ustvari oznako"
 
 #: ../plugins/git/plugin.c:125
 #: ../plugins/git/plugin.c:126
-#, fuzzy
 msgid "Delete selected tags"
-msgstr "Git: izbrane oznake so izbrisane."
+msgstr "Izbriši izbrane onake"
 
 #: ../plugins/git/plugin.c:138
-#, fuzzy
 msgid "Changes"
-msgstr "Spremembe:"
+msgstr "Spremembe"
 
 #: ../plugins/git/plugin.c:147
-#, fuzzy
 msgid "Commit changes"
 msgstr "Uveljavi spremembe"
 
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 msgid "Diff uncommitted changes"
-msgstr "_Primerjaj neuveljavljene spremembe"
+msgstr "Primerjaj neuveljavljene spremembe"
 
 #: ../plugins/git/plugin.c:155
-#, fuzzy
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Pokaži neuveljavljene spremembe"
+msgstr "Pokaži razlike neuveljavljenih sprememb"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
@@ -5648,16 +5609,14 @@ msgid "Add"
 msgstr "Dodaj"
 
 #: ../plugins/git/plugin.c:171
-#, fuzzy
 msgid "Add files to the index"
-msgstr "Dodaj datoteke v odložišče"
+msgstr "Dodaj datoteke v kazalo"
 
 #: ../plugins/git/plugin.c:179
 msgid "Remove files from the repository"
 msgstr "Odstrani datoteke iz odložišča"
 
 #: ../plugins/git/plugin.c:186
-#, fuzzy
 msgid "Check out"
 msgstr "Odjavi datoteke"
 
@@ -5679,17 +5638,17 @@ msgstr "Odstrani datoteke iz določila uveljavitve"
 #: ../plugins/git/plugin.c:202
 #, fuzzy
 msgid "Resolve conflicts"
-msgstr "_Razreši spore ..."
+msgstr "Razreši spore"
 
 #: ../plugins/git/plugin.c:203
 #, fuzzy
 msgid "Mark selected conflicted files as resolved"
-msgstr "Označi datoteke v sporu kot razrešene"
+msgstr "Izbor datotek za oznako razrešeno:"
 
 #: ../plugins/git/plugin.c:214
 #, fuzzy
 msgid "Remote repository tools"
-msgstr "_Oddaljeno odložišče"
+msgstr "Objavi spremembe v oddaljeno skladišče"
 
 #: ../plugins/git/plugin.c:222
 #, fuzzy
@@ -5699,17 +5658,17 @@ msgstr "Dodaj oddaljeno vejo"
 #: ../plugins/git/plugin.c:223
 #, fuzzy
 msgid "Add a remote repository"
-msgstr "Dodaj v odložišče"
+msgstr "Dodaj v skladišče"
 
 #: ../plugins/git/plugin.c:230
 #, fuzzy
 msgid "Delete selected remote"
-msgstr "Git: izbrane oznake so izbrisane."
+msgstr "/Oddaljeno/Pokaži izbrane"
 
 #: ../plugins/git/plugin.c:231
 #, fuzzy
 msgid "Delete a remote"
-msgstr "Izbriši oddaljeno vejo"
+msgstr "/Oddaljeno/Iz_briši ..."
 
 #: ../plugins/git/plugin.c:239
 msgid "Push changes to a remote repository"
@@ -5718,7 +5677,7 @@ msgstr "Objavi spremembe v oddaljeno odložišče"
 #: ../plugins/git/plugin.c:247
 #, fuzzy
 msgid "Pull changes from a remote repository"
-msgstr "Objavi spremembe v oddaljeno odložišče"
+msgstr "Objavi spremembe v oddaljeno skladišče"
 
 #: ../plugins/git/plugin.c:254
 #, fuzzy
@@ -5731,8 +5690,9 @@ msgid "Fetch changes from remote repositories"
 msgstr "Objavi spremembe v oddaljeno odložišče"
 
 #: ../plugins/git/plugin.c:270
+#, fuzzy
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "Oddaljena veja za ponovno vzpostavitev izhodišča:"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
@@ -5742,29 +5702,29 @@ msgstr ""
 #: ../plugins/git/plugin.c:446
 #, fuzzy
 msgid "Continue"
-msgstr "_Nadaljuj"
+msgstr "Nadaljuj"
 
 #: ../plugins/git/plugin.c:279
 #, fuzzy
 msgid "Continue a rebase with resolved conflicts"
-msgstr "_Nadaljuj z razrešenimi spori"
+msgstr "Nadaljuj z vzpostavljanjem izhodišča, ki je bil prekinjen zaradi sporov"
 
 #: ../plugins/git/plugin.c:286
 #: ../plugins/git/plugin.c:454
 #, fuzzy
 msgid "Skip"
-msgstr "Pre_skoči"
+msgstr "Preskoči"
 
 #: ../plugins/git/plugin.c:287
 #, fuzzy
 msgid "Skip the current revision"
-msgstr "Označi trenutno glavno predelavo kot slabo"
+msgstr "_Preskoči trenutni popravek"
 
 #: ../plugins/git/plugin.c:294
 #: ../plugins/git/plugin.c:462
 #, fuzzy
 msgid "Abort"
-msgstr "_Prekliči"
+msgstr "Prekliči"
 
 #: ../plugins/git/plugin.c:295
 #, fuzzy
@@ -5774,17 +5734,17 @@ msgstr "Prekini vzpostavljanje izhodišča in postavi odložišče v prvotno sta
 #: ../plugins/git/plugin.c:306
 #, fuzzy
 msgid "Stash tools"
-msgstr "Uporaba zaloge"
+msgstr "Skrbniška orodja"
 
 #: ../plugins/git/plugin.c:314
 #, fuzzy
 msgid "Stash uncommitted changes"
-msgstr "_Založi neuveljavljene spremembe ..."
+msgstr "Založi neuveljavljene spremembe"
 
 #: ../plugins/git/plugin.c:315
 #, fuzzy
 msgid "Save uncommitted changes without committing them"
-msgstr "Povrni neuveljavljene spremembe v datoteke"
+msgstr "Shrani neuveljavljene spremembe in jih uporabi kasneje"
 
 #: ../plugins/git/plugin.c:322
 #, fuzzy
@@ -5809,12 +5769,12 @@ msgstr "Uporabi založene spremembe v delovni različici"
 #: ../plugins/git/plugin.c:338
 #, fuzzy
 msgid "Diff selected stash"
-msgstr "Zavrzi izbrano zalogo"
+msgstr "Uporabi izbrano zalogo"
 
 #: ../plugins/git/plugin.c:339
 #, fuzzy
 msgid "Show a diff of the selected stash"
-msgstr "Zavrzi izbrano zalogo"
+msgstr "Pokaži vsebino izbrane zaloge v urejevalniku"
 
 #: ../plugins/git/plugin.c:346
 #, fuzzy
@@ -5824,7 +5784,7 @@ msgstr "Zavrzi izbrano zalogo"
 #: ../plugins/git/plugin.c:347
 #, fuzzy
 msgid "Delete the selected stash"
-msgstr "Zavrzi izbrano zalogo"
+msgstr "Uporabi izbrano zalogo"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
@@ -5838,7 +5798,7 @@ msgstr "Izbor celotnega besedila v urejevalniku"
 #: ../plugins/git/plugin.c:366
 #, fuzzy
 msgid "Revision tools"
-msgstr "Predelava"
+msgstr "Skrbniška orodja"
 
 #: ../plugins/git/plugin.c:374
 #, fuzzy
@@ -5848,7 +5808,7 @@ msgstr "_Pokaži primerjavo uveljavitve"
 #: ../plugins/git/plugin.c:375
 #, fuzzy
 msgid "Show a diff of the selected revision"
-msgstr "_Preglej izbrane predelave"
+msgstr "Pokaži izbran zaznamek v orodni vrstici"
 
 #: ../plugins/git/plugin.c:382
 #, fuzzy
@@ -5858,7 +5818,7 @@ msgstr "Odbiranje"
 #: ../plugins/git/plugin.c:383
 #, fuzzy
 msgid "Merge an individual commit from another branch"
-msgstr "Združi uveljavitve v trenutno vejo"
+msgstr "Združi spremembe iz druge veje v trenutno"
 
 #: ../plugins/git/plugin.c:390
 #, fuzzy
@@ -5873,7 +5833,7 @@ msgstr "Počisti razporeditev"
 #: ../plugins/git/plugin.c:399
 #, fuzzy
 msgid "Reset tree to a previous revision"
-msgstr "Počisti glavo odložišča na to predelavo"
+msgstr "Počisti glavo skladišča na to predelavo"
 
 #: ../plugins/git/plugin.c:406
 #, fuzzy
@@ -5887,7 +5847,7 @@ msgstr "Povrni uveljavitev"
 #: ../plugins/git/plugin.c:414
 #, fuzzy
 msgid "Patch series"
-msgstr "Popravki"
+msgstr "Ustvari nize popravkov"
 
 #: ../plugins/git/plugin.c:422
 #: ../plugins/git/plugin.c:423
@@ -5896,9 +5856,8 @@ msgid "Generate a patch series"
 msgstr "Ustvari nize popravkov"
 
 #: ../plugins/git/plugin.c:430
-#, fuzzy
 msgid "Mailbox files"
-msgstr "Uporabi datoteke poštnega predala"
+msgstr "Datoteke poštnega predala"
 
 #: ../plugins/git/plugin.c:438
 msgid "Apply mailbox files"
@@ -5930,41 +5889,36 @@ msgid "Branch"
 msgstr "Veja"
 
 #: ../plugins/git/plugin.c:696
-#, fuzzy
 msgid "Git Tasks"
-msgstr "Naloge"
+msgstr "Opravila Git"
 
 #: ../plugins/git/plugin.c:758
-#, fuzzy
 msgid "Status"
 msgstr "Stanje"
 
 #: ../plugins/git/plugin.c:764
-#, fuzzy
 msgid "Log"
-msgstr "Nizka"
+msgstr "Dnevnik"
 
 #: ../plugins/git/plugin.c:775
 msgid "Tags"
 msgstr "Oznake"
 
 #: ../plugins/git/plugin.c:781
-#, fuzzy
 msgid "Remotes"
-msgstr "Oddaljeno"
+msgstr "Oddaljena mesta"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Zaloga"
 
 #: ../plugins/glade/plugin.c:460
-#, fuzzy
 msgid "Select widgets in the workspace"
-msgstr "Izbor celotnega besedila v urejevalniku"
+msgstr "Izbor gradnikov na delovni površini"
 
 #: ../plugins/glade/plugin.c:486
 msgid "Drag and resize widgets in the workspace"
-msgstr ""
+msgstr "S potegom miške spremeni velikost gradnikov na delovni površini"
 
 #: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
@@ -6150,23 +6104,21 @@ msgstr[2] "%d napaki"
 msgstr[3] "%d napake"
 
 #: ../plugins/mk-project/mk-project.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to parse make file"
-msgstr "Ni mogoče razčleniti datoteke projekta"
+msgstr "Ni mogoče razčleniti datoteke make"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Add _Package"
 msgstr "Dodaj _paket"
 
 #: ../plugins/mk-project/mk-project.ui.h:2
-#, fuzzy
 msgid "Add _module"
 msgstr "Dodaj _modul"
 
 #: ../plugins/mk-project/mk-project.ui.h:4
-#, fuzzy
 msgid "Packages"
-msgstr "Paket"
+msgstr "Paketi"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
 msgid "Select Package to add:"
@@ -6346,18 +6298,16 @@ msgid "Import"
 msgstr "Uvozi"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#, fuzzy
 msgid "Add Library"
-msgstr "Knjižnica"
+msgstr "Dodaj knjižnico"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
 msgid "Add Source"
 msgstr "Dodaj vir"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
-#, fuzzy
 msgid "Browse other nodes"
-msgstr "Zapri ostale dokumente"
+msgstr "Prebrskaj druga vozlišča"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
 msgid "Modules:"
@@ -6368,14 +6318,12 @@ msgid "More options:"
 msgstr "Več možnosti:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
-#, fuzzy
 msgid "New Directory"
-msgstr "Mapa za izgradnjo:"
+msgstr "Nova mapa"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
-#, fuzzy
 msgid "New Library"
-msgstr "Knjižnica"
+msgstr "Nova knjižnica"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
 msgid "New Target"
@@ -6386,9 +6334,8 @@ msgid "Package list:"
 msgstr "Seznam paketov:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#, fuzzy
 msgid "Select the _target for the library:"
-msgstr "Izbor _cilja za modul:"
+msgstr "Izbor _cilja za knjižnico:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
 msgid "Select the _target for the new source files:"
@@ -6399,9 +6346,8 @@ msgid "Source files:"
 msgstr "Izvorne datoteke:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
-#, fuzzy
 msgid "Specify _where to create the directory:"
-msgstr "_Mesto ustvarjanja cilja:"
+msgstr "Določi _mesto ustvarjanja mape:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "Specify _where to create the target:"
@@ -6420,18 +6366,16 @@ msgid "TargetTypes"
 msgstr "Vrste ciljev"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
-#, fuzzy
 msgid "_Directory name:"
-msgstr "Ime projekta:"
+msgstr "_Ime mape:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:19
 msgid "_Module name:"
 msgstr "Ime _modula:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-#, fuzzy
 msgid "_New library…"
-msgstr "Nov pospeševalnik ..."
+msgstr "_Nova knjižnica ..."
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
 msgid "_Select file to add…"
@@ -6580,26 +6524,22 @@ msgid "_Project"
 msgstr "_Projekt"
 
 #: ../plugins/project-manager/plugin.c:892
-#, fuzzy
 msgid "New _Directory…"
-msgstr "Nov pospeševalnik ..."
+msgstr "Nova _mapa ..."
 
 #: ../plugins/project-manager/plugin.c:892
 #: ../plugins/project-manager/plugin.c:931
-#, fuzzy
 msgid "Add a new directory to the project"
-msgstr "Dodaj novo datoteko/mapo v CVS"
+msgstr "Dodaj novo mapo k projektu"
 
 #: ../plugins/project-manager/plugin.c:897
-#, fuzzy
 msgid "New _Target…"
-msgstr "Nov cilj"
+msgstr "Nov _cilj ..."
 
 #: ../plugins/project-manager/plugin.c:897
 #: ../plugins/project-manager/plugin.c:936
-#, fuzzy
 msgid "Add a new target to the project"
-msgstr "Dodaj cilj k projektu"
+msgstr "Dodaj nov cilj k projektu"
 
 #: ../plugins/project-manager/plugin.c:902
 msgid "Add _Source File…"
@@ -6608,28 +6548,24 @@ msgstr "Dodaj _izvorno datoteko ..."
 #: ../plugins/project-manager/plugin.c:902
 #: ../plugins/project-manager/plugin.c:941
 #: ../plugins/project-manager/plugin.c:956
-#, fuzzy
 msgid "Add a source file to a target"
 msgstr "Dodaj izvorno datoteko k projektu"
 
 #: ../plugins/project-manager/plugin.c:907
-#, fuzzy
 msgid "Add _Library…"
-msgstr "Dodaj _cilj ..."
+msgstr "Dodaj _knjižnico ..."
 
 #: ../plugins/project-manager/plugin.c:907
 msgid "Add a module to a target"
 msgstr "Dodaj modul k cilju"
 
 #: ../plugins/project-manager/plugin.c:912
-#, fuzzy
 msgid "New _Library…"
-msgstr "Knjižnica"
+msgstr "Nova _knjižnica ..."
 
 #: ../plugins/project-manager/plugin.c:912
-#, fuzzy
 msgid "Add a new package to the project"
-msgstr "Dodaj paket k projektu"
+msgstr "Dodaj nov paket k projektu"
 
 #: ../plugins/project-manager/plugin.c:917
 #: ../plugins/project-manager/plugin.c:961
@@ -6650,38 +6586,32 @@ msgid "Close project"
 msgstr "Zapri projekt"
 
 #: ../plugins/project-manager/plugin.c:931
-#, fuzzy
 msgid "New _Directory"
-msgstr "Mapa za izgradnjo:"
+msgstr "Nova _mapa"
 
 #: ../plugins/project-manager/plugin.c:936
-#, fuzzy
 msgid "New _Target"
-msgstr "Nov cilj"
+msgstr "Nov _cilj"
 
 #: ../plugins/project-manager/plugin.c:941
 msgid "Add _Source File"
 msgstr "Dodaj _izvorno datoteko"
 
 #: ../plugins/project-manager/plugin.c:946
-#, fuzzy
 msgid "Add _Library"
-msgstr "Knjižnica"
+msgstr "Dodaj _knjižnico"
 
 #: ../plugins/project-manager/plugin.c:946
-#, fuzzy
 msgid "Add a library to a target"
-msgstr "Dodaj modul k cilju"
+msgstr "Dodaj knjižnico k cilju"
 
 #: ../plugins/project-manager/plugin.c:951
-#, fuzzy
 msgid "New _Library"
-msgstr "Knjižnica"
+msgstr "Nova _knjižnica"
 
 #: ../plugins/project-manager/plugin.c:951
-#, fuzzy
 msgid "Add a new library to the project"
-msgstr "Dodaj novo datoteko/mapo v CVS"
+msgstr "Dodaj novo knjižnico k projektu"
 
 #: ../plugins/project-manager/plugin.c:956
 msgid "_Add to Project"
@@ -6704,9 +6634,8 @@ msgid "_Sort"
 msgstr "_Razvrsti"
 
 #: ../plugins/project-manager/plugin.c:971
-#, fuzzy
 msgid "Sort shortcuts"
-msgstr "Tipkovne bližnjice"
+msgstr "Razvrsti tipkovne bližnjice"
 
 #: ../plugins/project-manager/plugin.c:1309
 #, c-format
@@ -6756,12 +6685,11 @@ msgstr "Izbor virov ..."
 
 #: ../plugins/project-manager/dialogs.c:372
 msgid " This property is not modifiable."
-msgstr ""
+msgstr "Lastnosti ni mogoče spreminjati"
 
 #: ../plugins/project-manager/dialogs.c:533
-#, fuzzy
 msgid "Directory properties"
-msgstr "Lastnosti projekta"
+msgstr "Lastnosti mape"
 
 #: ../plugins/project-manager/dialogs.c:536
 msgid "Target properties"
@@ -6772,19 +6700,16 @@ msgid "Source properties"
 msgstr "Lastnosti vira"
 
 #: ../plugins/project-manager/dialogs.c:542
-#, fuzzy
 msgid "Module properties"
-msgstr "Lastnosti vira"
+msgstr "Lastnosti modula"
 
 #: ../plugins/project-manager/dialogs.c:545
-#, fuzzy
 msgid "Package properties"
-msgstr "Lastnosti cilja"
+msgstr "Lastnosti paketa"
 
 #: ../plugins/project-manager/dialogs.c:548
-#, fuzzy
 msgid "Unknown properties"
-msgstr "Lastnosti prekinitvene točke"
+msgstr "Neznane lastnosti"
 
 #: ../plugins/project-manager/dialogs.c:946
 #: ../plugins/project-manager/dialogs.c:957
@@ -6801,7 +6726,6 @@ msgid "Cannot add source files"
 msgstr "Ni mogoče dodati izvornih datotek"
 
 #: ../plugins/project-manager/dialogs.c:1183
-#, fuzzy
 msgid "The selected node cannot contain source files."
 msgstr "Izbrano vozlišče ne sme vsebovati izvornih datotek."
 
@@ -6876,14 +6800,14 @@ msgstr ""
 "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
 #: ../plugins/project-wizard/druid.c:646
-#, fuzzy, c-format
+#, c-format
 msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
-msgstr "Polje \"%s\" sme vsebovati le črke, številke in znake \"#$:%+,.=@^_`~\". Pri tem prva črka ne sme biti vezaj."
+msgstr "Polje \"%s\" sme vsebovati le črke, številke in znake \"#$:%%+,.=@^_`~\". Pri tem prva črka ne sme biti vezaj."
 
 #: ../plugins/project-wizard/druid.c:651
-#, fuzzy, c-format
+#, c-format
 msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
-msgstr "Polje \"%s\" sme vsebovati le črke, številke, znake \"#$:%+,.=@^_`~\" in ločilnike map. Pri tem prva črka ne sme biti vezaj."
+msgstr "Polje \"%s\" sme vsebovati le črke, številke, znake \"#$:%%+,.=@^_`~\" in ločilnike map. Pri tem prva črka ne sme biti vezaj."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -6935,9 +6859,8 @@ msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
 #: ../plugins/project-wizard/druid.c:928
-#, fuzzy
 msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
-msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Podobno paketi za razvoj kode, običajno pripadajo posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo pripone -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
+msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Prav tako običajno pripadajo paketi za razvoj kode posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo končnice -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
 #: ../plugins/project-wizard/druid.c:936
 msgid "Missing components"
@@ -7516,16 +7439,14 @@ msgstr "Zahtevani paketi:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
-#, fuzzy
 msgid "Simple GTK+ project"
-msgstr "Izvorni GTK+ projekt"
+msgstr "Enostavni projekt GTK+"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
-#, fuzzy
 msgid "Use GtkBuilder for user interface:"
-msgstr "Ustvari GtkBuilder vmesniško datoteko"
+msgstr "Za uporabniški vmesnik uporabi GtkBuilder:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
@@ -7642,9 +7563,8 @@ msgid "Whether the plugin has menus or toolbars"
 msgstr "Ali ima vstavek menije ali orodne vrstice"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
-#, fuzzy
 msgid "A minimal GTKmm project"
-msgstr "Izvorni GTK+ projekt"
+msgstr "Osnovni projekt GTKmm"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
 msgid "GTKmm (Simple)"
@@ -8263,41 +8183,36 @@ msgid "View"
 msgstr "Pogled"
 
 #: ../plugins/starter/plugin.c:273
-#, fuzzy
 msgid "Start"
-msgstr "Zagnano"
+msgstr "Začetek"
 
 #: ../plugins/starter/starter.ui.h:1
 msgid "Anjuta Manual"
 msgstr "Priročnik programa Anjuta"
 
 #: ../plugins/starter/starter.ui.h:2
-#, fuzzy
 msgid "Create a new project"
-msgstr "Ustvari datoteko/projekt"
+msgstr "Ustvari nov projekt"
 
 #: ../plugins/starter/starter.ui.h:3
 msgid "FAQ"
-msgstr ""
+msgstr "Pogosta vprašanja"
 
 #: ../plugins/starter/starter.ui.h:4
-#, fuzzy
 msgid "Getting started:"
-msgstr "zagnano:"
+msgstr "Kako začeti:"
 
 #: ../plugins/starter/starter.ui.h:5
-#, fuzzy
 msgid "Import an existing project"
-msgstr "Uvozi obstoječi autotools projekt v Anjuto"
+msgstr "Uvozi obstoječi projekt"
 
 #: ../plugins/starter/starter.ui.h:6
 msgid "Recent projects:"
 msgstr "Nedavni projekti:"
 
 #: ../plugins/starter/starter.ui.h:7
-#, fuzzy
 msgid "Tutorials"
-msgstr "turško"
+msgstr "Priročniki"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -10033,692 +9948,466 @@ msgstr "Simbol"
 
 #~ msgid "Help display"
 #~ msgstr "Prikaz pomoči"
-
 #~ msgid "Quick _ReSearch"
 #~ msgstr "_Hitro ponovno iskanje"
-
 #~ msgid "Repeat quick search"
 #~ msgstr "Ponovi hitro iskanje"
-
 #~ msgid "_Add Bookmark"
 #~ msgstr "_Dodaj zaznamek"
-
 #~ msgid "Match case"
 #~ msgstr "Upoštevaj velikost črk"
-
 #~ msgid "Install directories:"
 #~ msgstr "Mape namestitve:"
-
 #~ msgid "Add Remote Branch"
 #~ msgstr "Dodaj oddaljeno vejo"
-
 #~ msgid "Apply Stash"
 #~ msgstr "Uporabi zalogo"
-
 #~ msgid "Author/Grep"
 #~ msgstr "Avtor/Grep"
-
 #~ msgid "Bad revision:"
 #~ msgstr "Slaba predelava:"
-
 #~ msgid "Branch to switch to:"
 #~ msgstr "Preklop na vejo:"
-
 #~ msgid "Branches to delete:"
 #~ msgstr "Veje pripravljene za brisanje:"
-
 #~ msgid "Check out all local changes"
 #~ msgstr "Odjavi vse krajevne spremembe"
-
 #~ msgid "Create Branch"
 #~ msgstr "Ustvari vejo"
-
 #~ msgid "Delete Branch"
 #~ msgstr "Izbriši vejo"
-
 #~ msgid "Delete Remote Branch"
 #~ msgstr "Izbriši oddaljeno vejo"
-
 #~ msgid "Delete Tags"
 #~ msgstr "Izbriši oznake"
-
 #~ msgid "Filters"
 #~ msgstr "Filtri"
-
 #~ msgid "From:"
 #~ msgstr "Od:"
-
 #~ msgid "Good revision:"
 #~ msgstr "Dobra predelava:"
-
 #~ msgid "Grep:"
 #~ msgstr "Grep:"
-
 #~ msgid "Head"
 #~ msgstr "Glava"
-
 #~ msgid "Ignore Files"
 #~ msgstr "Prezri datoteke"
-
 #~ msgid "Previous commit"
 #~ msgstr "Predhodna uveljavitev"
-
 #~ msgid "Remote branch to rebase from:"
 #~ msgstr "Oddaljena veja za ponovno vzpostavitev izhodišča:"
-
 #~ msgid "Remote to delete:"
 #~ msgstr "Oddaljeno za brisanje:"
-
 #~ msgid "Repository origin"
 #~ msgstr "Izvor odložišča"
-
 #~ msgid "Reset to:"
 #~ msgstr "Počisti na:"
-
 #~ msgid "Restore index"
 #~ msgstr "Povrni določila"
-
 #~ msgid "Revert Commit"
 #~ msgstr "Povrni uveljavitev"
-
 #~ msgid "Revision/Tag:"
 #~ msgstr "Predelava/oznaka:"
-
 #~ msgid "Select Files to Check Out:"
 #~ msgstr "Izbor datotek za odjavo:"
-
 #~ msgid "Select Files to Ignore:"
 #~ msgstr "Izbor prezrtih datotek:"
-
 #~ msgid "Select Files to Unstage:"
 #~ msgstr "Izbor datotek za počiščenje oznake pripravljenosti:"
-
 #~ msgid "Select Mailbox File"
 #~ msgstr "Izbor datoteke poštnega predala"
-
 #~ msgid "Select a Folder"
 #~ msgstr "Izbira mape"
-
 #~ msgid "Select file to add:"
 #~ msgstr "Izbor datoteke za dodajanje:"
-
 #~ msgid "Select file to remove:"
 #~ msgstr "Izbor datoteke za brisanje:"
-
 #~ msgid "Show the contents of the selected stash in an editor"
 #~ msgstr "Pokaži vsebino izbrane zaloge v urejevalniku"
-
 #~ msgid "Stash the working tree's uncommitted changes"
 #~ msgstr "Založi neuveljavljene spremembe delovne različice"
-
 #~ msgid "Switch to Another Branch"
 #~ msgstr "Preklopi na drugo vejo"
-
 #~ msgid "Tag/Commit"
 #~ msgstr "Označi/Uveljavi"
-
 #~ msgid "Tags to delete:"
 #~ msgstr "Oznake pripravljene za brisanje:"
-
 #~ msgid "To:"
 #~ msgstr "Za:"
-
 #~ msgid "View log"
 #~ msgstr "Pogled beležnice"
-
 #~ msgid "page 3"
 #~ msgstr "stran 3"
-
 #~ msgid "Git: File staged for add."
 #~ msgstr "Git: datoteke so pripravljene za dodajanje."
-
 #~ msgid "Please select a file."
 #~ msgstr "Izberite datoteko."
-
 #~ msgid "Git: Added remote branch \"%s\"."
 #~ msgstr "Git: dodana je oddaljena veja \"%s\"."
-
 #~ msgid "Git: Fetching…"
 #~ msgstr "Git: prebiranje ..."
-
 #~ msgid "Please select a mailbox file."
 #~ msgstr "Izberite datoteko elektronske pošte."
-
 #~ msgid "Git: File retrieved."
 #~ msgstr "Git: datoteka je pridobljena."
-
 #~ msgid "Git: Files checked out."
 #~ msgstr "Git: datoteke so odjavljene."
-
 #~ msgid "Git: Commit complete."
 #~ msgstr "Git: uveljavitev je končana."
-
 #~ msgid "Git: Created branch \"%s\"."
 #~ msgstr "Git: ustvarjena je veja \"%s\"."
-
 #~ msgid "Git: Created tag \"%s\"."
 #~ msgstr "Git: ustvarjena je oznaka \"%s\"."
-
 #~ msgid "Please select branches to delete"
 #~ msgstr "Izberite vejo za brisanje"
-
 #~ msgid "Git: Fetch complete."
 #~ msgstr "Git: pridobivanje je končano."
-
 #~ msgid "Short log"
 #~ msgstr "Kratko beleženje"
-
 #~ msgid "Git: Retrieving log…"
 #~ msgstr "Git: pridobivanje dnevnika ..."
-
 #~ msgid "Select a file"
 #~ msgstr "Izbor datoteke"
-
 #~ msgid "Git: Merge complete."
 #~ msgstr "Git: združitev je končana."
-
 #~ msgid "Git: Pull complete."
 #~ msgstr "Git: sprejemanje je končano."
-
 #~ msgid "Please select a remote to pull from."
 #~ msgstr "Vnesite oddaljeni naslov odložišča za sprejemanje."
-
 #~ msgid "Please enter the URL of the repository to pull from."
 #~ msgstr "Vnesite naslov URL odložišča za sprejemanje."
-
 #~ msgid "Git: Push complete."
 #~ msgstr "Git: objavljanje končano."
-
 #~ msgid "Please select a remote to push to."
 #~ msgstr "Izberite oddaljeno odložišče za objavo."
-
 #~ msgid "Please enter the URL of the repository to push to."
 #~ msgstr "Vnesite naslov URL odložišča za objavo."
-
 #~ msgid "Git: Pushing…"
 #~ msgstr "Git: objavljanje ..."
-
 #~ msgid "Git: Rebasing"
 #~ msgstr "Git: postavljanje izhodišča"
-
 #~ msgid "Git: File removed."
 #~ msgstr "Git: datoteka je odstranjena."
-
 #~ msgid "Git: Resolve complete."
 #~ msgstr "Git: razrešitev je končana."
-
 #~ msgid "Git: Stash dropped."
 #~ msgstr "Git: zaloga je zavržena."
-
 #~ msgid "Git: All stashes cleared."
 #~ msgstr "Git: vse zaloge so počiščene."
-
 #~ msgid "Git: Branch checkout complete."
 #~ msgstr "Git: odjavljanje veje je končano."
-
 #~ msgid "There are no branches available."
 #~ msgstr "Na voljo ni nobene veje."
-
 #~ msgid "Please select a stash"
 #~ msgstr "Izberite zalogo"
-
 #~ msgid "Git: Changes stored in a stash."
 #~ msgstr "Git: spremembe shranjene v zalogi."
-
 #~ msgid "Git: Stashed changes applied."
 #~ msgstr "Git: spremembe zaloge so bile uporabljene."
-
 #~ msgid "Git: Diff complete."
 #~ msgstr "Git: primerjava je končana."
-
 #~ msgid "Git: Files unstaged."
 #~ msgstr "Git: datoteke so počiščene pripravljenosti."
-
 #~ msgid "_Git"
 #~ msgstr "_Git"
-
 #~ msgid "_Changes"
 #~ msgstr "_Spremembe"
-
 #~ msgid "Commit changes to the local repository"
 #~ msgstr "Uveljavljanje sprememb v krajevno odložišče"
-
 #~ msgid "_Stash"
 #~ msgstr "_Založi"
-
 #~ msgid "Save uncommitted changes and re-apply them later"
 #~ msgstr "Shrani neuveljavljene spremembe in jih uporabi kasneje"
-
 #~ msgid "_Apply stashed changes…"
 #~ msgstr "_Uporabi založene spremembe ..."
-
 #~ msgid "_View log…"
 #~ msgstr "_Pogled dnevnika ..."
-
 #~ msgid "View change history"
 #~ msgstr "Preglej zgodovino sprememb"
-
 #~ msgid "_Push…"
 #~ msgstr "_Objavi ..."
-
 #~ msgid "_Pull…"
 #~ msgstr "_Sprejmi ..."
-
 #~ msgid "Update the working copy"
 #~ msgstr "Posodobi delovno različico"
-
 #~ msgid "Update remote branches"
 #~ msgstr "Posodobi oddaljene veje"
-
 #~ msgid "_Files"
 #~ msgstr "_Datoteke"
-
 #~ msgid "_Ignore…"
 #~ msgstr "_Prezri ..."
-
 #~ msgid "Ignore files"
 #~ msgstr "Prezri datoteke"
-
 #~ msgid "_Check out files…"
 #~ msgstr "_Odjavi datoteke ..."
-
 #~ msgid "_Unstage files…"
 #~ msgstr "_Počisti pripravljenost ..."
-
 #~ msgid "Create patch series…"
 #~ msgstr "Ustvari nize popravkov ..."
-
 #~ msgid "Generate patch files for submission upstream"
 #~ msgstr "Ustvari datoteke popravkov za pošiljanje na višjo vejo"
-
 #~ msgid "_Apply…"
 #~ msgstr "_Uporabi ..."
-
 #~ msgid "Start applying a patch series"
 #~ msgstr "Začni uporabljati nize popravkov"
-
 #~ msgid "_Skip current patch"
 #~ msgstr "_Preskoči trenutni popravek"
-
 #~ msgid "_Branches"
 #~ msgstr "_Veje"
-
 #~ msgid "_Create branch…"
 #~ msgstr "_Ustvari vejo ..."
-
 #~ msgid "_Delete branch…"
 #~ msgstr "_Izbriši vejo ..."
-
 #~ msgid "Delete branches"
 #~ msgstr "Izbriši veje"
-
 #~ msgid "_Switch to another branch…"
 #~ msgstr "_Preklopi na drugo vejo ..."
-
 #~ msgid "_Merge…"
 #~ msgstr "_Združi ..."
-
 #~ msgid "Merge changes from another branch into the current one"
 #~ msgstr "Združi spremembe iz druge veje v trenutno"
-
 #~ msgid "_Rebase"
 #~ msgstr "_Postavi izhodišče"
-
 #~ msgid "Merge your changes with an upstream remote branch"
 #~ msgstr "Združi spremembe z višjo oddaljeno vejo"
-
 #~ msgid "_Start…"
 #~ msgstr "_Začni ..."
-
 #~ msgid "Start a rebase"
 #~ msgstr "Zagon vzpostavitve izhodišča"
-
 #~ msgid "Continue a rebase that stopped because of conflicts"
 #~ msgstr ""
 #~ "Nadaljuj z vzpostavljanjem izhodišča, ki je bil prekinjen zaradi sporov"
-
 #~ msgid "Skip the current conflicted commit and continue"
 #~ msgstr "Preskoči trenutno uveljavitev v sporu in nadaljuj"
-
 #~ msgid "_Cherry pick…"
 #~ msgstr "_Odbiranje ..."
-
 #~ msgid ""
 #~ "Selectively merge individual changes from other branches into the current "
 #~ "one"
 #~ msgstr "Izbirno združi posamezne spremembe iz druge veje v trenutno"
-
 #~ msgid "_Remote branches"
 #~ msgstr "_Oddaljene veje"
-
 #~ msgid "_Delete…"
 #~ msgstr "_Izbriši ..."
-
 #~ msgid "_Create tag…"
 #~ msgstr "_Ustvari oznako ..."
-
 #~ msgid "_Delete tag…"
 #~ msgstr "_Izbriši oznako ..."
-
 #~ msgid "Delete tags"
 #~ msgstr "Izbriši oznake"
-
 #~ msgid "_Reset tree…"
 #~ msgstr "_Ponovno razporedi ..."
-
 #~ msgid "Reset repository head to any past state"
 #~ msgstr "Počisti glavo odložišča na predhodno stanje"
-
 #~ msgid "_Revert commit…"
 #~ msgstr "_Povrni uveljavitev ..."
-
 #~ msgid "Bisect"
 #~ msgstr "Razdeli"
-
 #~ msgid "Start a bisect operation"
 #~ msgstr "Prični z razdeljevanjem"
-
 #~ msgid "Stop the bisect and bring the tree back to normal"
 #~ msgstr "Zaustavi razdeljevanje in povrni različico v prvotno stanje"
-
 #~ msgid "_Good"
 #~ msgstr "_Dobro"
-
 #~ msgid "Mark the current head revision as good"
 #~ msgstr "Označi trenutno glavno predelavo kot dobro"
-
 #~ msgid "_Bad"
 #~ msgstr "_Slabo"
-
 #~ msgid "Create a new git repository or reinitialize an existing one"
 #~ msgstr "Ustvari novo git odložišče ali pa ponovno naloži obstoječe"
-
 #~ msgid "Show changes introduced by this commit"
 #~ msgstr "Pokaži spremembe vpeljane s to uveljavitvijo"
-
 #~ msgid "View a copy of this file at this revision"
 #~ msgstr "Pregled kopije datoteke te predelane različice"
-
 #~ msgid "Create a branch with the selected revision as its head"
 #~ msgstr "Ustvari vejo z izbrano različico kot glavno predelavo"
-
 #~ msgid "Create a tag at this revision"
 #~ msgstr "Ustvari oznako te predelave"
-
 #~ msgid "Revert this commit"
 #~ msgstr "Povrni to uveljavitev"
-
 #~ msgid "_Bisect"
 #~ msgstr "_Razdeli"
-
 #~ msgid "_Set good revision"
 #~ msgstr "_Določi kot dobro predelavo"
-
 #~ msgid "Mark this revision as good"
 #~ msgstr "Označi predelano različico kot dobro"
-
 #~ msgid "_Set bad revision"
 #~ msgstr "_Določi kot slabo predelavo"
-
 #~ msgid "Mark this revision as bad"
 #~ msgstr "Označi predelano različico kot slabo"
-
 #~ msgid "View changes to this file or folder"
 #~ msgstr "Pregled sprememb te datoteke ali mape"
-
 #~ msgid "Add this file or folder to the repository"
 #~ msgstr "Dodaj datoteke in mape v odložišče"
-
 #~ msgid "Remove this file or folder from the repository"
 #~ msgstr "Odstrani datoteke in mape iz odložišča"
-
 #~ msgid "Top level git menu item"
 #~ msgstr "Predmet vrhnje ravni menija git"
-
 #~ msgid "Git operations"
 #~ msgstr "Git opravila"
-
 #~ msgid "Git log operations"
 #~ msgstr "Git opravila beleženja"
-
 #~ msgid "Git FM operations"
 #~ msgstr "GIT FM opravila"
-
 #~ msgid "Git Log"
 #~ msgstr "GIT beleženje"
-
 #~ msgid "You need to select a to do item before you can edit it"
 #~ msgstr "Izbrati morate predmet naloge preden ga lahko uredite"
-
 #~ msgid "Add Item"
 #~ msgstr "Dodaj predmet"
-
 #~ msgid "Edit Item"
 #~ msgstr "Uredi predmet"
-
 #~ msgid "Summary:"
 #~ msgstr "Povzetek:"
-
 #~ msgid "Category:"
 #~ msgstr "Kategorija:"
-
 #~ msgid "Edit Categories"
 #~ msgstr "Uredi kategorije"
-
 #~ msgid "Due date:"
 #~ msgstr "_Do datuma:"
-
 #~ msgid "Notify when due"
 #~ msgstr "Obvesti ob zaključnem datumu"
-
 #~ msgid "Priority:"
 #~ msgstr "Prednost:"
-
 #~ msgid "Comment:"
 #~ msgstr "Opomba:"
-
 #~ msgid "Completed"
 #~ msgstr "Končano"
-
 #~ msgid "N/A"
 #~ msgstr "N/A"
-
 #~ msgid "stopped:"
 #~ msgstr "zaustavljeno:"
-
 #~ msgid "You need to select a to-do item before you can remove it"
 #~ msgstr "Izbrati je treba predmet naloge, preden ga je mogoče odstraniti"
-
 #~ msgid "Are you sure you want to remove the selected to-do item?"
 #~ msgstr "Ali ste prepričani, da želite odstraniti predmet naloge?"
-
 #~ msgid "Are you sure you want to remove all the completed to-do items?"
 #~ msgstr "Ali ste prepričani, da želite odstraniti vse predmete naloge?"
-
 #~ msgid ""
 #~ "Are you sure you want to remove all the completed to-do items in the "
 #~ "category \"%s\"?"
 #~ msgstr ""
 #~ "Ali ste prepričani, da želite odstraniti vse opravljene naloge v "
 #~ "kategoriji \"%s\"?"
-
 #~ msgid "Export task list"
 #~ msgstr "Izvozi seznam opravil"
-
 #~ msgid "XML"
 #~ msgstr "XML"
-
 #~ msgid "Plain Text"
 #~ msgstr "Običajno besedilo"
-
 #~ msgid "HTML"
 #~ msgstr "HTML"
-
 #~ msgid "Export current category only"
 #~ msgstr "Izvoz le trenutne kategorije"
-
 #~ msgid "HTML export options:"
 #~ msgstr "HTML možnosti izvoza:"
-
 #~ msgid "Embed default (CSS) style sheet"
 #~ msgstr "Vstavi privzeto slogovno obliko (CSS)"
-
 #~ msgid "Custom (CSS) style sheet"
 #~ msgstr "Slog oblikovanja (CSS) po meri"
-
 #~ msgid "All"
 #~ msgstr "Vse"
-
 #~ msgid "_Export"
 #~ msgstr "_Izvozi"
-
 #~ msgid "Priority"
 #~ msgstr "Prednost"
-
 #~ msgid "Due date"
 #~ msgstr "Datum konca"
-
 #~ msgid "Summary"
 #~ msgstr "Povzetek"
-
 #~ msgid "No permission to read the file."
 #~ msgstr "Ni dovoljenja za branje datoteke."
-
 #~ msgid "Failed to read file"
 #~ msgstr "Napaka med branjem datoteke"
-
 #~ msgid "Failed to parse XML structure"
 #~ msgstr "Napaka med razčlenjevanjem XML zgradbe"
-
 #~ msgid "File is not a valid gtodo file"
 #~ msgstr "Datoteka ni veljavna gtodo datoteka"
-
 #~ msgid "Personal"
 #~ msgstr "Osebno"
-
 #~ msgid "Business"
 #~ msgstr "Službeno"
-
 #~ msgid "Unfiled"
 #~ msgstr "Nezapolnjeno"
-
 #~ msgid "No Gtodo Client to save."
 #~ msgstr "Ni Gtodo odjemalcev za shranjevanje."
-
 #~ msgid "No filename supplied."
 #~ msgstr "Ni določenega imena datoteke."
-
 #~ msgid "Medium"
 #~ msgstr "Srednje"
-
 #~ msgid "High"
 #~ msgstr "Visoka"
-
 #~ msgid "When you delete the category \"%s\", all containing items are lost"
 #~ msgstr "Kadar izbrišete kategorijo \"%s\", izgubite tudi vse predmete"
-
 #~ msgid "Delete"
 #~ msgstr "Izbriši"
-
 #~ msgid "<New category (%d)>"
 #~ msgstr "<Nova kategorija (%d)>"
-
 #~ msgid "The following item is due in %i minute:"
-
 #~ msgid_plural "The following item is due in %i minutes:"
 #~ msgstr[0] "Predmeti, ki bodo časovno zaključeni v %i minutah:"
 #~ msgstr[1] "Predmeti, ki bodo časovno zaključeni v %i minuti:"
 #~ msgstr[2] "Predmeti, ki bodo časovno zaključeni v %i minutah:"
 #~ msgstr[3] "Predmeti, ki bodo časovno zaključeni v %i minutah:"
-
 #~ msgid "The following item is due:"
 #~ msgstr "Predmeti, ki so prešli zaključni datum:"
-
 #~ msgid "_Do not show again"
 #~ msgstr "_Ne prikaži znova"
-
 #~ msgid "_Tasks"
 #~ msgstr "_Naloge"
-
 #~ msgid "Hide _Completed Items"
 #~ msgstr "Skrij _končane predmete"
-
 #~ msgid "Hide completed to-do items"
 #~ msgstr "Skrij opravljena opravila"
-
 #~ msgid "Hide Items Past _Due Date"
 #~ msgstr "Skrij predmete po _zaključnem datumu"
-
 #~ msgid "Hide items that are past due date"
 #~ msgstr "Skrij predmete katerih čas zaključka je pretekel"
-
 #~ msgid "Hide Items Without _End Date"
 #~ msgstr "Skrij predmete brez _končnega datuma"
-
 #~ msgid "Hide items without an end date"
 #~ msgstr "Skrij predmete brez končnega datuma"
-
 #~ msgid "Task manager"
 #~ msgstr "Upravljalnik nalog"
-
 #~ msgid "Task manager view"
 #~ msgstr "Pogled upravljalnika nalog"
-
 #~ msgid "To-do Manager"
 #~ msgstr "Upravljalnik opravil"
-
 #~ msgid "To-do List Preferences"
 #~ msgstr "Možnosti seznama opravil"
-
 #~ msgid "Interface"
 #~ msgstr "Vmesnik"
-
 #~ msgid "Show due date column"
 #~ msgstr "Pokaži stolpec zaključnega datuma"
-
 #~ msgid "Show category column"
 #~ msgstr "Pokaži stolpec kategorij"
-
 #~ msgid "Show priority column"
 #~ msgstr "Pokaži stolpec prednosti"
-
 #~ msgid "Show in main window"
 #~ msgstr "Pokaži v glavnem oknu"
-
 #~ msgid "Items that are due today"
 #~ msgstr "Predmeti katerih čas zaključka preteče danes"
-
 #~ msgid "Items that are past due"
 #~ msgstr "Predmeti katerih čas zaključka je že pretekel"
-
 #~ msgid "Items that are due in the next %i day"
-
 #~ msgid_plural "Items that are due in the next %i days"
 #~ msgstr[0] "Predmeti katerih čas zaključka preteče v %i dneh."
 #~ msgstr[1] "Predmeti katerih čas zaključka preteče v %i dnevu."
 #~ msgstr[2] "Predmeti katerih čas zaključka preteče v %i dneh."
 #~ msgstr[3] "Predmeti katerih čas zaključka preteče v %i dneh."
-
 #~ msgid "Miscellaneous"
 #~ msgstr "Razno"
-
 #~ msgid "Auto-purge completed items"
 #~ msgstr "Samodejno počisti zaključene predmete"
-
 #~ msgid "Purge items after"
 #~ msgstr "Počisti predmete po"
-
 #~ msgid "days."
 #~ msgstr "dni."
-
 #~ msgid "Auto-Purge"
 #~ msgstr "Samodejno čiščenje opravil"
-
 #~ msgid "Notification"
 #~ msgstr "Obvestilo"
-
 #~ msgid "Allow to-do items to notify me when they are due in %i minute"
-
 #~ msgid_plural ""
 #~ "Allow to-do items to notify me when they are due in %i minutes"
 #~ msgstr[0] ""
@@ -10729,16 +10418,12 @@ msgstr "Simbol"
 #~ "Dovoli nalogam obveščanje, kadar manjka do zaključka še %i minuti."
 #~ msgstr[3] ""
 #~ "Dovoli nalogam obveščanje, kadar manjka do zaključka še %i minute."
-
 #~ msgid "Open a Task List"
 #~ msgstr "Odpri seznam nalog"
-
 #~ msgid "Create a Task List"
 #~ msgstr "Ustvari seznam nalog"
-
 #~ msgid "No Date"
 #~ msgstr "Brez datuma"
-
 #~ msgid ""
 #~ "Generation of project file failed. Cannot find an appropriate project "
 #~ "template to use. Please make sure your version of Anjuta is up-to-date."
@@ -10746,265 +10431,179 @@ msgstr "Simbol"
 #~ "Ustvarjanje projektne datoteke ni uspelo. Ni mogoče najti ustrezne "
 #~ "predloge projekta. Prepričajte se, da uporabljate zadnjo različico "
 #~ "programa Anjuta."
-
 #~ msgid "Add Module"
 #~ msgstr "Dodaj modul"
-
 #~ msgid "Add Package"
 #~ msgstr "Dodaj paket"
-
 #~ msgid "New Group"
 #~ msgstr "Nova skupina"
-
 #~ msgid "Specify _where to create the group:"
 #~ msgstr "_Mesto ustvarjanja skupine:"
-
 #~ msgid "_Add package&#x2026;"
 #~ msgstr "_Dodaj paket&#x2026;"
-
 #~ msgid "_Group name:"
 #~ msgstr "_Ime skupine:"
-
 #~ msgid "_Select file to add&#x2026;"
 #~ msgstr "_Izbor datoteke za dodajanje&#x2026;"
-
 #~ msgid "Add _Group…"
 #~ msgstr "Dodaj _skupino ..."
-
 #~ msgid "Add a group to project"
 #~ msgstr "Dodaj skupino k projektu"
-
 #~ msgid "Add _Module…"
 #~ msgstr "Dodaj _modul ..."
-
 #~ msgid "Add _Package…"
 #~ msgstr "Dodaj _paket ..."
-
 #~ msgid "_Refresh"
 #~ msgstr "_Osveži"
-
 #~ msgid "Refresh project manager tree"
 #~ msgstr "Osveži razvrstitev urejevalnika projekta"
-
 #~ msgid "Add _Group"
 #~ msgstr "Dodaj _skupino"
-
 #~ msgid "Add _Target"
 #~ msgstr "Dodaj _cilj"
-
 #~ msgid "Add a module to target"
 #~ msgstr "Dodaj modul k cilju"
-
 #~ msgid "Full Name:"
 #~ msgstr "Polno Ime:"
-
 #~ msgid "Group properties"
 #~ msgstr "Lastnosti skupine"
-
 #~ msgid "No"
 #~ msgstr "Ne"
-
 #~ msgid "GTK+"
 #~ msgstr "GTK+"
-
 #~ msgid "A generic GTKmm (C++) project"
 #~ msgstr "Izvorni GTKmm (C++) projekt"
-
 #~ msgid "GTKmm"
 #~ msgstr "GTKmm"
-
 #~ msgid "Actions"
 #~ msgstr "Dejanja"
-
 #~ msgid "Backward"
 #~ msgstr "Nazaj"
-
 #~ msgid "Choose Directories:"
 #~ msgstr "Izbor map:"
-
 #~ msgid "Choose Files:"
 #~ msgstr "Izbor datotek:"
-
 #~ msgid "Expand regex back references"
 #~ msgstr "Razširi povratne povezave logičnih izrazov"
-
 #~ msgid "File Filter"
 #~ msgstr "Filter datotek"
-
 #~ msgid "Find & Replace"
 #~ msgstr "Poišči in zamenjaj"
-
 #~ msgid "Forward"
 #~ msgstr "Naprej"
-
 #~ msgid "Full Buffer"
 #~ msgstr "Polni medpomnilnik"
-
 #~ msgid "Greedy matching"
 #~ msgstr "Pohlepno parjenje"
-
 #~ msgid "Ignore Binary Files"
 #~ msgstr "Prezri binarne datoteke"
-
 #~ msgid "Ignore Directories:"
 #~ msgstr "Prezri mape:"
-
 #~ msgid "Ignore Files:"
 #~ msgstr "Prezri datoteke:"
-
 #~ msgid "Ignore Hidden Directories"
 #~ msgstr "Prezri skrite mape"
-
 #~ msgid "Ignore Hidden Files"
 #~ msgstr "Prezri skrite datoteke"
-
 #~ msgid "Match at start of word"
 #~ msgstr "Primerjaj začetek besede"
-
 #~ msgid "Match complete lines"
 #~ msgstr "Primerjaj celotne vrstice"
-
 #~ msgid "Match complete words"
 #~ msgstr "Primerjaj celotne besede"
-
 #~ msgid "Maximum Actions"
 #~ msgstr "Največja dejanja"
-
 #~ msgid "No Limit"
 #~ msgstr "Brez omejitev"
-
 #~ msgid "Parameters"
 #~ msgstr "Parametri"
-
 #~ msgid "Replace With:"
 #~ msgstr "Zamenjaj z:"
-
 #~ msgid "Search Action:"
 #~ msgstr "Dejanje iskanja:"
-
 #~ msgid "Search Direction:"
 #~ msgstr "Smer iskanja:"
-
 #~ msgid "Search Expression"
 #~ msgstr "Izraz iskanja"
-
 #~ msgid "Search Expression:"
 #~ msgstr "Izraz iskanja:"
-
 #~ msgid "Search In:"
 #~ msgstr "Poišči v:"
-
 #~ msgid "Search Recursively"
 #~ msgstr "Poišči po strukturi map"
-
 #~ msgid "Search Target"
 #~ msgstr "Poišči cilj"
-
 #~ msgid "Search variable"
 #~ msgstr "Spremenljivka iskanja"
-
 #~ msgid "_Find…"
 #~ msgstr "_Poišči ..."
-
 #~ msgid ""
 #~ "Search for and replace a string or regular expression with another string"
 #~ msgstr "Poišči in zamenjaj niz ali logični izraz z drugim nizom"
-
 #~ msgid "Fin_d in Files…"
 #~ msgstr "Najdi v _datotekah ..."
-
 #~ msgid "Search for a string in multiple files or directories"
 #~ msgstr "Poišči niz v več datotekah in mapah"
-
 #~ msgid "Searching…"
 #~ msgstr "Iskanje ..."
-
 #~ msgid "Current Buffer"
 #~ msgstr "Trenutni medpomnilnik"
-
 #~ msgid "Current Selection"
 #~ msgstr "Trenutna izbira"
-
 #~ msgid "Current Block"
 #~ msgstr "Trenutni blok"
-
 #~ msgid "Current Function"
 #~ msgstr "Trenutna funkcija"
-
 #~ msgid "All Open Buffers"
 #~ msgstr "Vsi odprti medpomnilniki"
-
 #~ msgid "All Project Files"
 #~ msgstr "Vse datoteke projekta"
-
 #~ msgid "Specify File Patterns"
 #~ msgstr "Določi vzorec datotek"
-
 #~ msgid "Select next match"
 #~ msgstr "Izberi naslednji zadetek"
-
 #~ msgid "Bookmark all matched lines"
 #~ msgstr "Ustvari zaznamek vseh primerjalnih vrstic"
-
 #~ msgid "Mark all matches"
 #~ msgstr "Označi vse zadetke"
-
 #~ msgid "List matches in find pane"
 #~ msgstr "Izpiši zadetke na pladnju iskanja"
-
 #~ msgid "Replace next match"
 #~ msgstr "Zamenjaj naslednji zadetek"
-
 #~ msgid "Replace all matches"
 #~ msgstr "Zamenjaj vse zadetke"
-
 #~ msgid "Find:"
 #~ msgstr "Najdi:"
-
 #~ msgid "Search complete"
 #~ msgstr "Iskanje je končano."
-
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr "Niza \"%s\" ni mogoče najti. Ali naj začnem od začetka?"
-
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "Niza \"%s\" ni mogoče najti."
-
 #~ msgid "The maximum number of results has been reached."
 #~ msgstr "Doseženo je največje število zadetkov."
-
 #~ msgid "%d match has been replaced."
-
 #~ msgid_plural "%d matches have been replaced."
 #~ msgstr[0] "%d zadetkov je zamenjanih."
 #~ msgstr[1] "%d zadetek je zamenjan."
 #~ msgstr[2] "%d zadetka sta zamenjana."
 #~ msgstr[3] "%d zadetki so zamenjani."
-
 #~ msgid "Unable to build user interface for Search and Replace"
 #~ msgstr "Ni mogoče izgraditi uporabniškega vmesnika za iskanje in zamenjavo"
-
 #~ msgid "Links"
 #~ msgstr "Povezave"
-
 #~ msgid "Anjuta Home Page"
 #~ msgstr "Spletna stran programa"
-
 #~ msgid "GNOME Online API Documentation"
 #~ msgstr "Spletna dokumentacija Gnome API"
-
 #~ msgid "Package is not parseable"
 #~ msgstr "Paketa ni mogoče razčleniti"
-
 #~ msgid "Automatically scan project's packages"
 #~ msgstr "Samodejno preišči pakete projekta"
-
 #~ msgid "Available API tags"
 #~ msgstr "Razpoložljive API oznake"
-
 #~ msgid "Checking if package is parseable…"
 #~ msgstr "Preverjanje, ali je paket mogoče razčleniti ..."
-
 #~ msgid ""
 #~ "This option enables the default packages required by your opened project, "
 #~ "e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU "
@@ -11013,234 +10612,161 @@ msgstr "Simbol"
 #~ "Možnost omogoča določitev paketov, ki jih projekt zahteva (primer: Glib "
 #~ "in GTK+ v primeru, da ustvarjate projekt na Gtk+ (zahteva več "
 #~ "procesorskega dela)"
-
 #~ msgid "Gdb"
 #~ msgstr "Gdb"
-
 #~ msgid "Glade File"
 #~ msgstr "Glade datoteka"
-
 #~ msgid "Task Manager"
 #~ msgstr "Upravljalnik nalog"
-
 #~ msgid "Todo Plugin for Anjuta."
 #~ msgstr "Vstavek Todo opravil za Anjuto."
-
 #~ msgid "Component for searching"
 #~ msgstr "Komponenta za iskanje"
-
 #~ msgid "Searching"
 #~ msgstr "Iskanje"
-
 #~ msgid "C++/GObject Class"
 #~ msgstr "Razred C++/GObject"
-
 #~ msgid "Anjuta JS Debugger Plugin"
 #~ msgstr "Vstavek razhroščevalnika JS"
-
 #~ msgid ""
 #~ "Are you sure you want to reset the preferences to\n"
 #~ "their default settings?"
 #~ msgstr ""
 #~ "Ali zares želite povrniti nastavitve na\n"
 #~ "privzete vrednosti?"
-
 #~ msgid "Invalid GbfAmConfigValue type"
 #~ msgstr "Neveljavna vrsta GbfAmConfigValue"
-
 #~ msgid "Generic rule"
 #~ msgstr "Izvorno pravilo"
-
 #~ msgid "Extra target"
 #~ msgstr "Dodatni cilj"
-
 #~ msgid "Configure file"
 #~ msgstr "Datoteka nastavitev"
-
 #~ msgid "GLib mkenums"
 #~ msgstr "GLib mkenums"
-
 #~ msgid "GLib genmarshal"
 #~ msgstr "GLib genmarshal"
-
 #~ msgid "Intl rule"
 #~ msgstr "Intl pravilo"
-
 #~ msgid "Group doesn't exist"
 #~ msgstr "Skupina ne obstaja"
-
 #~ msgid "Target doesn't exist"
 #~ msgstr "Cilj ne obstaja"
-
 #~ msgid "Invalid or remote path (only local paths supported)"
 #~ msgstr "Neveljavna ali oddaljena pot (podprte so le krajevne poti)"
-
 #~ msgid "Malformed project"
 #~ msgstr "Slabo oblikovan projekt"
-
 #~ msgid "Parent group doesn't exist"
 #~ msgstr "Nadrejena skupina ne obstaja"
-
 #~ msgid "Group already exists"
 #~ msgstr "Skupina že obstaja"
-
 #~ msgid "Group couldn't be created"
 #~ msgstr "Skupine ni mogoče ustvariti"
-
 #~ msgid "Group couldn't be removed"
 #~ msgstr "Skupine ni mogoče odstraniti"
-
 #~ msgid "Target already exists"
 #~ msgstr "Cilj že obstaja"
-
 #~ msgid "General failure in target creation"
 #~ msgstr "Splošna napaka med ustvarjanjem cilja"
-
 #~ msgid "Newly created target could not be identified"
 #~ msgstr "Ni mogoče prepoznati novo ustvarjenega cilja"
-
 #~ msgid "Target couldn't be removed"
 #~ msgstr "Cilja ni mogoče odstraniti"
-
 #~ msgid "Source doesn't exist"
 #~ msgstr "Vir ne obstaja"
-
 #~ msgid ""
 #~ "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 #~ msgstr "Ime vira lahko vsebuje le črke, številke, '_', '-' ali '.'"
-
 #~ msgid "Source file is already in given target"
 #~ msgstr "Izvorna datoteke je že v danem cilju"
-
 #~ msgid "General failure in adding source file"
 #~ msgstr "Splošna napaka med dodajanjem izvorne datoteke"
-
 #~ msgid "Newly added source file could not be identified"
 #~ msgstr "Ni mogoče prepoznati novo dodane datoteke virov"
-
 #~ msgid "Source couldn't be removed"
 #~ msgstr "Vira ni mogoče odstraniti"
-
 #~ msgid "Project directory"
 #~ msgstr "Mapa projekta"
-
 #~ msgid "Enter new module"
 #~ msgstr "Vnesite nov modul"
-
 #~ msgid ""
 #~ "Are you sure you want to remove module \"%s\" and all its associated "
 #~ "packages?"
 #~ msgstr "Ali zares želite odstraniti modul \"%s\" in vse povezane pakete?"
-
 #~ msgid "Are you sure you want to remove package \"%s\"?"
 #~ msgstr "Ali zares želite odstraniti paket \"%s\"?"
-
 #~ msgid "Enter new variable"
 #~ msgstr "Vstavite novo spremenljivko"
-
 #~ msgid "Are you sure you want to remove variable \"%s\"?"
 #~ msgstr "Ali zares želite odstraniti spremenljivko \"%s\"?"
-
 #~ msgid "Project:"
 #~ msgstr "Projekt:"
-
 #~ msgid "URI:"
 #~ msgstr "Naslov URI:"
-
 #~ msgid "Module/Packages"
 #~ msgstr "Modul/paketi"
-
 #~ msgid "Version"
 #~ msgstr "Različica"
-
 #~ msgid "Use"
 #~ msgstr "Uporabi"
-
 #~ msgid "Group name:"
 #~ msgstr "Ime skupine:"
-
 #~ msgid "Advanced"
 #~ msgstr "Napredno"
-
 #~ msgid "gcj compiler flags (ahead-of-time):"
 #~ msgstr "Zastavice gcj prevajalnika (pred-časom):"
-
 #~ msgid "Java compiler flags (just-in-time):"
 #~ msgstr "Zastavice Java prevajalnika (pravočasno):"
-
 #~ msgid "Includes (deprecated):"
 #~ msgstr "Vključuje (opuščeno):"
-
 #~ msgid "C preprocessor flags"
 #~ msgstr "Zastavice C predprocesorja"
-
 #~ msgid "C++ compiler flags"
 #~ msgstr "Zastavice C++ prevajalnika"
-
 #~ msgid "gcj compiler flags (ahead-of-time)"
 #~ msgstr "Zastavice gcj prevajalnika"
-
 #~ msgid "Dependencies:"
 #~ msgstr "Odvisnosti:"
-
 #~ msgid "Advanced options"
 #~ msgstr "Napredne možnosti"
-
 #~ msgid "Target name:"
 #~ msgstr "Ime cilja:"
-
 #~ msgid "Advanced…"
 #~ msgstr "Napredno ..."
-
 #~ msgid "Invalid GbfMkfileConfigValue type"
 #~ msgstr "Neveljavna vrsta GbfMkfileConfigValue"
-
 #~ msgid "Group coudn't be removed"
 #~ msgstr "Skupine ni mogoče odstraniti"
-
 #~ msgid "Target couldn't be created"
 #~ msgstr "Cilja ni mogoče ustvariti"
-
 #~ msgid "Target coudn't be removed"
 #~ msgstr "Cilja ni mogoče odstraniti"
-
 #~ msgid "Source file must be inside the project directory"
 #~ msgstr "Izvorna datoteka mora biti znotraj mape projekta"
-
 #~ msgid "Source is already in target"
 #~ msgstr "Vir je že v cilju"
-
 #~ msgid "Source couldn't be added"
 #~ msgstr "Vira ni mogoče dodati"
-
 #~ msgid "Includes:"
 #~ msgstr "Vključuje:"
-
 #~ msgid "Tooltips in list"
 #~ msgstr "Namigi na seznamu"
-
 #~ msgid "Messages options"
 #~ msgstr "Možnosti sporočil"
-
 #~ msgid "Number of first characters to show:"
 #~ msgstr "Število prikazanih prvih znakov:"
-
 #~ msgid "Number of last characters to show:"
 #~ msgstr "Število prikazanih zadnjih znakov:"
-
 #~ msgid "Truncate long messages"
 #~ msgstr "Razdeli dolga sporočila"
-
 #~ msgid "No properties available for this group"
 #~ msgstr "Na voljo ni lastnosti za to skupino"
-
 #~ msgid ""
 #~ "Field \"%s\" must start with a letter, a digit or an underscore and "
 #~ "contain only letters, digits, underscore, minus and dot. Please fix it."
 #~ msgstr ""
 #~ "Polje \"%s\" se mora začeti s črko, številko ali pa vezajem in sme "
 #~ "vsebovati le črke, številke, vezaje, znak minus in piko. Popravite ime."
-
 #~ msgid ""
 #~ "Field \"%s\" must start with a letter, a digit, an underscore or a "
 #~ "directory separator and contain only letters, digits, underscore, "
@@ -11249,64 +10775,44 @@ msgstr "Simbol"
 #~ "Polje \"%s\" se mora začeti s črko, številko, vezajem ali pa ločilnikom "
 #~ "mape in sme vsebovati le črke, številke, vezaje, ločilnik mape, znak "
 #~ "minus in piko. Popravite ime."
-
 #~ msgid "Basic Search & Replace"
 #~ msgstr "Osnovno iskanje in zamenjava"
-
 #~ msgid "Modify"
 #~ msgstr "Spremeni"
-
 #~ msgid "New Name:"
 #~ msgstr "Novo ime:"
-
 #~ msgid "Setting"
 #~ msgstr "Nastavitev"
-
 #~ msgid "Basic Search"
 #~ msgstr "Osnovno iskanje"
-
 #~ msgid "Print line numbers"
 #~ msgstr "Natisni številke vrstic"
-
 #~ msgid "Print options"
 #~ msgstr "Možnosti tiskanja"
-
 #~ msgid "Print page footer"
 #~ msgstr "Natisni nogo strani"
-
 #~ msgid "Print page header"
 #~ msgstr "Natisni glavo strani"
-
 #~ msgid "Printing"
 #~ msgstr "Tiskanje"
-
 #~ msgid "Wrap long lines to fit on paper"
 #~ msgstr "Prelomi vrstice na širino papirja"
-
 #~ msgid "Default project directory:"
 #~ msgstr "Privzeta mapa projekta:"
-
 #~ msgid "Developer email address:"
 #~ msgstr "Elektronski naslov programerja:"
-
 #~ msgid "Developer name:"
 #~ msgstr "Ime programerja:"
-
 #~ msgid "Project Defaults"
 #~ msgstr "Privzete lastnosti projekta"
-
 #~ msgid "Select project directory"
 #~ msgstr "Izbor mape projekta"
-
 #~ msgid "Makefile backend"
 #~ msgstr "Hrbtni del Makefile"
-
 #~ msgid "Makefile backend for project manager"
 #~ msgstr "Hrbtni del Makefile za upravljanje s projekti"
-
 #~ msgid ""
 #~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-
 #~ msgid_plural ""
 #~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
 #~ "b>"
@@ -11321,46 +10827,32 @@ msgstr "Simbol"
 #~ msgstr[3] ""
 #~ "<b>Odprti so %d predmeti s spremenjeno vsebino. Ali jih želite shraniti?</"
 #~ "b>"
-
 #~ msgid "<b>Autocompletion</b>"
 #~ msgstr "<b>Samodejno dopolnjevanje</b>"
-
 #~ msgid "<b>Calltips</b>"
 #~ msgstr "<b>Namigi kodnih zapisov</b>"
-
 #~ msgid "<b>Indentation parameters</b>"
 #~ msgstr "<b>Parametri zamika</b>"
-
 #~ msgid "<b>Smart Indentation</b>"
 #~ msgstr "<b>Pametno zamikanje</b>"
-
 #~ msgid "Edit…"
 #~ msgstr "Uredi ..."
-
 #~ msgid "Macro details:"
 #~ msgstr "Podrobnosti makra:"
-
 #~ msgid "Macro text:"
 #~ msgstr "Besedilo makra:"
-
 #~ msgid "Macros:"
 #~ msgstr "Makri:"
-
 #~ msgid "Shortcut:"
 #~ msgstr "Bližnjica:"
-
 #~ msgid "Press macro shortcut…"
 #~ msgstr "Pritisnite bližnjico makra ..."
-
 #~ msgid "Press shortcut"
 #~ msgstr "Pritisni bližnjico"
-
 #~ msgid "Anjuta macros"
 #~ msgstr "Anjuta makri"
-
 #~ msgid "My macros"
 #~ msgstr "Moji makri"
-
 #~ msgid ""
 #~ "Name:\t %s\n"
 #~ "Category:\t %s\n"
@@ -11369,70 +10861,48 @@ msgstr "Simbol"
 #~ "Ime:\t %s\n"
 #~ "Kategorija:\t %s\n"
 #~ "Bližnjica:\t %c\n"
-
 #~ msgid "Insert macro"
 #~ msgstr "Vstavi makro"
-
 #~ msgid "Add/Edit macro"
 #~ msgstr "Dodaj/uredi makro"
-
 #~ msgid "%Y-%m-%d"
 #~ msgstr "%d.%m.%Y"
-
 #~ msgid "%Y"
 #~ msgstr "%Y"
-
 #~ msgid "Macros"
 #~ msgstr "Makri"
-
 #~ msgid "_Insert Macro…"
 #~ msgstr "_Vstavi makro ..."
-
 #~ msgid "Insert a macro using a shortcut"
 #~ msgstr "Vstavite makro z uporabo bližnjice"
-
 #~ msgid "_Add Macro…"
 #~ msgstr "_Dodaj makro ..."
-
 #~ msgid "Add a macro"
 #~ msgstr "Dodaj makro"
-
 #~ msgid "Macros…"
 #~ msgstr "Makri ..."
-
 #~ msgid "Add/Edit/Remove macros"
 #~ msgstr "Dodaj/uredi/odstrani makro"
-
 #~ msgid "Macro operations"
 #~ msgstr "Makro opravila"
-
 #~ msgid "Autocompletion (C/C++/Java only)"
 #~ msgstr "Samodejno dopolnjevanje (le C/C++/Java)"
-
 #~ msgid "<b>Rope Options</b>"
 #~ msgstr "<b>Možnosti pritrjevanja</b>"
-
 #~ msgid "Insert predefined macros into Editor"
 #~ msgstr "Vstavi predhodno določene makre v urejevalnik"
-
 #~ msgid "Macro Plugin"
 #~ msgstr "Makro vstavek"
-
 #~ msgid "A GNOME applet project"
 #~ msgstr "Izvorni GNOME apletni projekt"
-
 #~ msgid "Applet Title:"
 #~ msgstr "Naslov apleta:"
-
 #~ msgid "Display description of the applet"
 #~ msgstr "Pokaži opis apleta"
-
 #~ msgid "Display title of the applet"
 #~ msgstr "Pokaži naslov apleta"
-
 #~ msgid "GNOME Applet"
 #~ msgstr "Gnome Aplet"
-
 #~ msgid ""
 #~ "The following pretty printers, without a register functions, have been "
 #~ "disabled:\n"
@@ -11440,3 +10910,4 @@ msgstr "Simbol"
 #~ msgstr ""
 #~ "Navedeni oblikovni tiskalniki, brez vpisnih funkcij, so onemogočeni:\n"
 #~ " %s"
+
