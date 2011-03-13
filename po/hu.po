@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-05 14:02+0100\n"
-"PO-Revision-Date: 2011-03-05 14:01+0100\n"
+"POT-Creation-Date: 2011-03-13 10:41+0100\n"
+"PO-Revision-Date: 2011-03-13 10:41+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -861,23 +861,23 @@ msgstr "Méretezés beállítása"
 msgid "Whether this tag affects font scaling"
 msgstr "Az elem befolyásolja-e a betű méretezését"
 
-#: ../plugins/am-project/amp-group.c:542
+#: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "Adja meg a csoportnevet"
 
-#: ../plugins/am-project/amp-group.c:556
+#: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "A csoportnév csak betűket, számokat, illetve „#$:%+,-.=@^_`~” karaktereket "
 "tartalmazhat"
 
-#: ../plugins/am-project/amp-group.c:586
+#: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1561
-#: ../plugins/am-project/am-project.c:1591
-#: ../plugins/am-project/am-project.c:1643
+#: ../plugins/am-project/am-project.c:1582
+#: ../plugins/am-project/am-project.c:1612
+#: ../plugins/am-project/am-project.c:1664
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -1698,7 +1698,7 @@ msgid "Module"
 msgstr "Modul"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1084
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "Automatikus"
 
@@ -1879,14 +1879,14 @@ msgstr "Modulnév:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Beállítások"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:37
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Beállítások:"
@@ -1925,7 +1925,7 @@ msgid "Reset sticky tags"
 msgstr "Ragadós címkék visszaállítása"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Revision:"
 msgstr "Revízió:"
@@ -2940,7 +2940,7 @@ msgstr "Fájl"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:1002
+#: ../plugins/document-manager/plugin.c:997
 msgid "Line"
 msgstr "Sor"
 
@@ -3025,51 +3025,51 @@ msgstr "Szálműveletek"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:364
+#: ../plugins/debug-manager/watch.c:402
 msgid "Ins_pect/Evaluate…"
 msgstr "_Vizsgálat/Kiértékelés…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:366
+#: ../plugins/debug-manager/watch.c:404
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Egy kifejezés vagy változó vizsgálata/kiértékelése"
 
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:410
 msgid "Add Watch…"
 msgstr "Megfigyelő hozzáadása…"
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:418
 msgid "Remove Watch"
 msgstr "Figyelő eltávolítása"
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:426
 msgid "Update Watch"
 msgstr "Figyelő frissítése"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:434
 msgid "Change Value"
 msgstr "Érték módosítása"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:442
 msgid "Update all"
 msgstr "Összes frissítése"
 
-#: ../plugins/debug-manager/watch.c:412
+#: ../plugins/debug-manager/watch.c:450
 msgid "Remove all"
 msgstr "Összes eltávolítása"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:423
+#: ../plugins/debug-manager/watch.c:461
 msgid "Automatic update"
 msgstr "Automatikus frissítés"
 
-#: ../plugins/debug-manager/watch.c:449 ../plugins/debug-manager/watch.c:455
+#: ../plugins/debug-manager/watch.c:487 ../plugins/debug-manager/watch.c:493
 msgid "Watch operations"
 msgstr "Figyelőműveletek"
 
-#: ../plugins/debug-manager/watch.c:527
+#: ../plugins/debug-manager/watch.c:568
 msgid "Watches"
 msgstr "Figyelőpontok"
 
@@ -3558,12 +3558,12 @@ msgid "Highlight all occurrences"
 msgstr "Minden előfordulás kiemelése"
 
 #: ../plugins/document-manager/plugin.c:294
-msgid "RegEx Search"
-msgstr "RegEx keresés"
+msgid "Regular Expression"
+msgstr "Reguláris kifejezés"
 
 #: ../plugins/document-manager/plugin.c:295
-msgid "Regular expression search"
-msgstr "Reguláris kifejezések keresése"
+msgid "Search using regular expressions"
+msgstr "Keresés reguláris kifejezésekkel"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
@@ -3853,9 +3853,9 @@ msgstr "Egyszerű keresés"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:448
-#: ../plugins/document-manager/plugin.c:1800
-#: ../plugins/document-manager/plugin.c:2222
-#: ../plugins/document-manager/plugin.c:2231
+#: ../plugins/document-manager/plugin.c:1795
+#: ../plugins/document-manager/plugin.c:2217
+#: ../plugins/document-manager/plugin.c:2226
 msgid "Documents"
 msgstr "Dokumentumok"
 
@@ -3875,43 +3875,43 @@ msgstr "Újratöltés"
 msgid "Go to"
 msgstr "Ugrás"
 
-#: ../plugins/document-manager/plugin.c:987
+#: ../plugins/document-manager/plugin.c:982
 msgid "OVR"
 msgstr "ÁTÍR"
 
-#: ../plugins/document-manager/plugin.c:991
+#: ../plugins/document-manager/plugin.c:986
 msgid "INS"
 msgstr "BESZ"
 
-#: ../plugins/document-manager/plugin.c:997
-#: ../plugins/document-manager/plugin.c:1000
+#: ../plugins/document-manager/plugin.c:992
+#: ../plugins/document-manager/plugin.c:995
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: ../plugins/document-manager/plugin.c:1003
+#: ../plugins/document-manager/plugin.c:998
 msgid "Col"
 msgstr "Oszl."
 
-#: ../plugins/document-manager/plugin.c:1004
+#: ../plugins/document-manager/plugin.c:999
 msgid "Mode"
 msgstr "Mód"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1642
+#: ../plugins/document-manager/plugin.c:1637
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "A(z) %s automatikus mentése meghiúsult"
 
-#: ../plugins/document-manager/plugin.c:1656
+#: ../plugins/document-manager/plugin.c:1651
 msgid "Autosave completed"
 msgstr "Az automatikus mentés kész"
 
-#: ../plugins/document-manager/search-box.c:496
+#: ../plugins/document-manager/search-box.c:494
 #, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "„%s” keresése elérte a fájl végét, folytatva az elejétől."
 
-#: ../plugins/document-manager/search-box.c:502
+#: ../plugins/document-manager/search-box.c:500
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and wrapped around but no new match was "
@@ -3920,12 +3920,12 @@ msgstr ""
 "„%s” keresése elérte a fájl végét, folytatva az elejétől, de nincs új "
 "találat."
 
-#: ../plugins/document-manager/search-box.c:536
+#: ../plugins/document-manager/search-box.c:543
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "„%s” keresése elérte a fájl végét, folytatva az elejétől."
 
-#: ../plugins/document-manager/search-box.c:542
+#: ../plugins/document-manager/search-box.c:549
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3934,12 +3934,12 @@ msgstr ""
 "„%s” keresése elérte a fájl végét, folytatva az elejétől, de nincs új "
 "találat."
 
-#: ../plugins/document-manager/search-box.c:577
+#: ../plugins/document-manager/search-box.c:584
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "„%s” keresése elérte a fájl elejét, folytatva a végétől."
 
-#: ../plugins/document-manager/search-box.c:583
+#: ../plugins/document-manager/search-box.c:590
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -3947,11 +3947,11 @@ msgid ""
 msgstr ""
 "„%s” keresése elérte a fájl elejét, folytatva a végétől, de nincs új találat."
 
-#: ../plugins/document-manager/search-box.c:924
+#: ../plugins/document-manager/search-box.c:983
 msgid "Replace"
 msgstr "Csere"
 
-#: ../plugins/document-manager/search-box.c:929
+#: ../plugins/document-manager/search-box.c:988
 msgid "Replace all"
 msgstr "Összes cseréje"
 
@@ -4221,7 +4221,7 @@ msgstr "Globális"
 msgid "Root directory if no project is open:"
 msgstr "Gyökérkönyvtár, ha nincs megnyitva projekt:"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Betöltés…"
 
@@ -4287,7 +4287,7 @@ msgid "File Information"
 msgstr "Fájlinformációk"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:581
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
@@ -4422,7 +4422,7 @@ msgstr "Parancsfájl"
 msgid "Package"
 msgstr "Csomag"
 
-#: ../plugins/am-project/am-project.c:1577
+#: ../plugins/am-project/am-project.c:1598
 #, c-format
 msgid "Unable to parse project file"
 msgstr "Nem lehet feldolgozni a projektfájlt"
@@ -4483,7 +4483,7 @@ msgstr ""
 "Csomagnév, csak alfanumerikus és aláhúzás karaktert tartalmazhat. A "
 "projektnévből kerül előállításra, ha nincs megadva."
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "URL:"
 
@@ -4726,7 +4726,7 @@ msgstr "A cél további Lex vagy Flex lexikális elemzőgenerátor-jelzői."
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
-msgid "Additional Yac or Bison parser generator flags for this target."
+msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr "A cél további Yacc vagy Bison feldolgozógenerátor-jelzői."
 
 #: ../plugins/am-project/am-properties.c:304
@@ -5063,225 +5063,252 @@ msgid "Append signed-of- by line"
 msgstr "„signed-off-by” sor hozzáfűzése"
 
 #: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/subversion/subversion-log-dialog.c:132
+msgid "Author"
+msgstr "Szerző"
+
+#: ../plugins/git/anjuta-git.ui.h:8
 msgid "Branch name:"
 msgstr "Ág neve:"
 
-#: ../plugins/git/anjuta-git.ui.h:8
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Branch:"
 msgstr "Ág:"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "Ágak"
 
-#: ../plugins/git/anjuta-git.ui.h:10
+#: ../plugins/git/anjuta-git.ui.h:11
 msgid "Branches must be fully merged"
 msgstr "Az ágakat teljesen egyesíteni kell"
 
-#: ../plugins/git/anjuta-git.ui.h:11
+#: ../plugins/git/anjuta-git.ui.h:12
 msgid "Branches:"
 msgstr "Ágak:"
 
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Módosítások:"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:14
 msgid "Check out the branch after it is created"
 msgstr "Az ág lekérése a létrehozása után"
 
 # fixme
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit on fast-forward merges"
 msgstr "Véglegesítés gyors egyesítésekkor"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Commit to cherry pick:"
 msgstr "Mazsolázandó változat:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:17
 msgid "Commit to revert:"
 msgstr "Visszavonandó változat:"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/subversion/subversion-log-dialog.c:141
+msgid "Date"
+msgstr "Dátum"
+
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "Do not commit"
 msgstr "Ne véglegesítse"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Do not follow tags"
 msgstr "Ne kövesse a címkéket"
 
-#: ../plugins/git/anjuta-git.ui.h:19
+#: ../plugins/git/anjuta-git.ui.h:21
+msgid "Drop or enter revision here"
+msgstr "Ejtsen ide vagy írjon be egy revíziót"
+
+#: ../plugins/git/anjuta-git.ui.h:22
+msgid "Drop or type a revision here"
+msgstr "Ejtsen ide vagy írjon be egy revíziót"
+
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
 msgstr "E-mail:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Fetch remote branches after creation"
 msgstr "Távoli ágak lekérése létrehozás után"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:25
 msgid "Folder to create patches in:"
 msgstr "A foltok létrehozása ezen könyvtárban:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:26
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Kényszerítés"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:27
 msgid "Generate patches relative to:"
 msgstr "Foltok létrehozása ehhez képest:"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:28
+msgid "Graph"
+msgstr "Grafikon"
+
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Hard"
 msgstr "Merev"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:31
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Naplóüzenet:"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:32
 msgid "Mailbox files to apply:"
 msgstr "Alkalmazandó postafiókfájlok:"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
 msgstr "Vegyes"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:34
 msgid "Mode:"
 msgstr "Mód:"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:38
+msgid "Previous commit; Drop or enter a different revision here"
+msgstr "Előző változat; ejtsen ide vagy írjon be másik revíziót"
+
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
 msgstr "Minden ág és címke beküldése"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "Push all tags"
 msgstr "Minden címke beküldése"
 
-#: ../plugins/git/anjuta-git.ui.h:35 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Rebase"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "Remote Repositories:"
 msgstr "Távoli tárolók:"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "Remote name:"
 msgstr "Távoli ágnév:"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:44
 msgid "Remove Files:"
 msgstr "Fájlok eltávolítása:"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Repository Status:"
 msgstr "Tároló állapota:"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Repository head; Drop or type a different revision here"
 msgstr "Tároló feje; ejtsen ide vagy írjon be másik revíziót"
 
-#: ../plugins/git/anjuta-git.ui.h:41
-msgid "Repository head; Drop or type a different revision here "
-msgstr "Tároló feje; ejtsen ide vagy írjon be másik revíziót"
-
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
 msgstr "Tároló eredete; ejtsen ide vagy írjon be másik revíziót"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Repository to pull from:"
 msgstr "A pullhoz használandó tároló:"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Repository to push to:"
 msgstr "A pushhoz használandó tároló:"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:50
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Revízió"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:51
 msgid "Revision to merge with:"
 msgstr "Egyesítés ezzel a revízióval:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/subversion/subversion-log-dialog.c:160
+msgid "Short Log"
+msgstr "Rövid napló"
+
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Show source revision in log message"
 msgstr "Forrásrevízió megjelenítése naplóüzenetben"
 
-#: ../plugins/git/anjuta-git.ui.h:49
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Sign this tag"
 msgstr "Ezen címke aláírása"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Soft"
 msgstr "Puha"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Squash"
 msgstr "Squash"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Stash Message (Optional):"
 msgstr "Félretételi üzenet (elhagyható):"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
 msgstr "Indexelt változtatások félretétele"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Stashed Changes:"
 msgstr "Félretett változtatások:"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
 msgstr "Címke neve:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:62
 msgid "Tags:"
 msgstr "Címkék:"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "This commit concludes a failed merge (use -i)"
 msgstr ""
 "Ez a változat egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Use a custom log message:"
 msgstr "Egyéni naplóüzenet használata:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Use custom author information:"
 msgstr "Egyéni szerzőinformációk használata:"
 
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:67
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "View the Log for File/Folder:"
 msgstr "Fájl/mappa naplójának megjelenítése:"
 
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Teljes projekt; Ejtsen ide egy fájlt, vagy írjon be egy útvonalat fájl- vagy "
 "mappanapló megjelenítéséhez"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
 msgstr "1. oldal"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "page 2"
 msgstr "2. oldal"
 
@@ -6789,7 +6816,7 @@ msgstr "Hiányzó komponensek"
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
 msgstr ""
-"A projektasszisztens felhasználói felülete nem állítható össze %s "
+"A projektvarázsló felhasználói felülete nem állítható össze a(z) %s "
 "olvasásával."
 
 #: ../plugins/project-wizard/install.c:406
@@ -6834,31 +6861,31 @@ msgstr "Nem nyerhető ki a projektsablon (%s): %s"
 
 #: ../plugins/project-wizard/plugin.c:276
 msgid "New Project Assistant"
-msgstr "Új projektasszisztens"
+msgstr "Új projekt varázsló"
 
-#: ../plugins/project-wizard/property.c:340
+#: ../plugins/project-wizard/property.c:341
 msgid "Select directory"
 msgstr "Válasszon könyvtárat"
 
-#: ../plugins/project-wizard/property.c:348
+#: ../plugins/project-wizard/property.c:358
 msgid "Select file"
 msgstr "Válasszon fájlt"
 
-#: ../plugins/project-wizard/property.c:398 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Válasszon képfájlt"
 
-#: ../plugins/project-wizard/property.c:423
-#: ../plugins/project-wizard/property.c:511 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:433
+#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Válasszon ikont"
 
-#: ../plugins/project-wizard/property.c:481
+#: ../plugins/project-wizard/property.c:491
 msgid "Choose directory"
 msgstr "Válasszon könyvtárat"
 
-#: ../plugins/project-wizard/property.c:485
+#: ../plugins/project-wizard/property.c:495
 msgid "Choose file"
 msgstr "Válasszon fájlt"
 
@@ -8570,18 +8597,6 @@ msgstr "Subversion: Diff lekérése…"
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/subversion/subversion-log-dialog.c:132
-msgid "Author"
-msgstr "Szerző"
-
-#: ../plugins/subversion/subversion-log-dialog.c:141
-msgid "Date"
-msgstr "Dátum"
-
-#: ../plugins/subversion/subversion-log-dialog.c:160
-msgid "Short Log"
-msgstr "Rövid napló"
-
 #: ../plugins/subversion/subversion-log-dialog.c:257
 msgid "Subversion: Retrieving log…"
 msgstr "Subversion: Napló lekérése…"
@@ -9701,11 +9716,11 @@ msgstr "Dokumentumkezelési képességeket biztosít"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistant Plugin"
-msgstr "Anjuta fájlasszisztens bővítmény"
+msgstr "Anjuta fájlvarázsló bővítmény"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistant"
-msgstr "Fájlasszisztens"
+msgstr "Fájlvarázsló"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:2
 msgid "File manager for project and single files"
@@ -9765,7 +9780,7 @@ msgstr "Autotoolst használó létező projekt importálása az Anjuta-ba"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project Import Assistant"
-msgstr "Projektimportáló asszisztens"
+msgstr "Projektimportáló varázsló"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 msgid "Project from Existing Sources"
@@ -9797,7 +9812,7 @@ msgstr "C++ és Java bővítmény kódkiegészítéshez, automatikus behúzásho
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
-msgstr "Projektasszisztens"
+msgstr "Projektvarázsló"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
