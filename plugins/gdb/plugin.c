@@ -242,6 +242,13 @@ gdb_plugin_initialize (GdbPlugin *this)
 	debugger_set_pretty_printers (this->debugger, this->pretty_printers);
 }
 
+/* Helper functions
+ *---------------------------------------------------------------------------*/
+
+gchar *quote_expression (const gchar *expression) {
+	return g_strconcat("\"", expression, "\"", NULL);
+}
+
 /* Callback for saving session
  *---------------------------------------------------------------------------*/
 
@@ -1149,7 +1156,7 @@ idebugger_variable_destroy (IAnjutaDebuggerVariable *plugin, const gchar *name, 
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_delete_variable (gdb->debugger, name);
+	debugger_delete_variable (gdb->debugger, quote_expression(name));
 
 	return TRUE;
 }
@@ -1169,7 +1176,7 @@ idebugger_variable_assign (IAnjutaDebuggerVariable *plugin, const gchar *name, c
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_assign_variable (gdb->debugger, name, value);
+	debugger_assign_variable (gdb->debugger, quote_expression(name), value);
 
 	return TRUE;
 }
@@ -1179,7 +1186,7 @@ idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_list_variable_children (gdb->debugger, name, from, callback, user_data);
+	debugger_list_variable_children (gdb->debugger, quote_expression(name), from, callback, user_data);
 
 	return TRUE;
 }
@@ -1189,7 +1196,7 @@ idebugger_variable_create (IAnjutaDebuggerVariable *plugin, const gchar *name, I
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_create_variable (gdb->debugger, name, callback, user_data);
+	debugger_create_variable (gdb->debugger, quote_expression(name), callback, user_data);
 
 	return TRUE;
 }

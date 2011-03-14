@@ -124,7 +124,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 			/* Add in watch window */
 			new_expr = debug_tree_get_first (dlg.tree);
 
-			if (new_expr != NULL)
+			if ((new_expr != NULL) && (strlen(new_expr) != 0))
 			{
 		    	var.expression = new_expr;
 				debug_tree_add_watch (ew->debug_tree, &var, FALSE);
@@ -250,6 +250,10 @@ on_debug_tree_inspect (GtkAction *action, gpointer user_data)
 	if (expression == NULL)
 	{
 		expression = ianjuta_editor_get_current_word (IANJUTA_EDITOR (te), NULL);
+	}
+	if (g_regex_match_simple("^\\s*$", expression,G_REGEX_MULTILINE | G_REGEX_DOLLAR_ENDONLY, G_REGEX_MATCH_ANCHORED))
+	{
+		expression = NULL;
 	}
 	
 	debug_tree_inspect_evaluate_dialog (ew, expression);
