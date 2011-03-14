@@ -692,6 +692,10 @@ on_debug_tree_variable_changed (GtkCellRendererText *cell,
 			var.expression = text;
 			debug_tree_add_watch (tree, &var, TRUE);
 		}
+		else
+		{
+			debug_tree_add_dummy (tree, NULL);
+		}
 	}
 }
 
