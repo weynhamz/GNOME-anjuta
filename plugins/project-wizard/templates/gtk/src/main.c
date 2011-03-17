@@ -87,7 +87,6 @@ main (int argc, char *argv[])
 #endif
 [+ENDIF+]
 	
-	gtk_set_locale ();
 	gtk_init (&argc, &argv);
 
 	window = create_window ();
