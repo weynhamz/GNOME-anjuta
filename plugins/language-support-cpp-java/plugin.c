@@ -682,7 +682,7 @@ language_support_get_header_editor_and_mark (CppJavaPlugin* lang_plugin,
 											 gchar* mark,
 											 IAnjutaEditor** header_editor)
 {
-	IAnjutaIterable* mark_position;
+	IAnjutaIterable* mark_position = NULL;
 	GFile *header_file = language_support_get_header_file (editor);
 
 	/* Yes, we have a header */
