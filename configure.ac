@@ -802,7 +802,6 @@ plugins/project-wizard/templates/python/po/Makefile
 plugins/project-wizard/templates/pygtk/Makefile
 plugins/project-wizard/templates/pygtk/src/Makefile
 plugins/project-wizard/templates/pygtk/po/Makefile
-plugins/project-wizard/templates/pygtk/data/Makefile
 plugins/project-wizard/templates/vala-gtk/Makefile
 plugins/project-wizard/templates/vala-gtk/src/Makefile
 plugins/project-wizard/templates/wxwin/Makefile

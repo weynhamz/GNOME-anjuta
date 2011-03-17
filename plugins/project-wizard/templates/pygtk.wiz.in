@@ -2,14 +2,14 @@
     <project-wizard>
 	    <_name>PyGTK (automake)</_name>
 	    <_description>PyGTK project using automake</_description>
-	    <icon>pygtk-logo.png</icon>
+	    <icon>gtk-logo.png</icon>
 	    <category>Python</category>
 	    <order>1</order>
 	    <required-program>automake</required-program>
 	    <required-program>autoconf</required-program>
 	    <required-program>make</required-program>
 	    <required-program>python</required-program>
-	    <required-package>gtk+-2.0 >= 2.8</required-package>
+	    <required-package>gtk+-3.0</required-package>
 	    <!-- Not working: <required-package>python-gtk2</required-package>-->
     </project-wizard>
 
@@ -35,6 +35,7 @@
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="0"/>
 		<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
+		<property type="hidden" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
 	</page>
 
 [+IF (=(get "HavePackage") "1")+]
@@ -69,10 +70,15 @@
 			    <file source="main.py" destination="[+NameHLower+].py" executable="yes"/>
 			    <file source="Makefile.am.tpl" destination="Makefile.am"/>
 		    </directory>
-		    <directory source="data">
-			    <file source="project.ui" destination="[+NameHLower+].ui"/>
-		    </directory>
 	    </directory>
+		<directory source="gtk" destination="[+Destination+]">
+			<directory source="src">
+[+IF (=(get "HaveBuilderUI") "1")+]				
+				<file source="project.ui" destination="[+NameHLower+].ui"/>
+[+ENDIF+]
+			</directory>
+		</directory>
+
 	    <directory source="licenses" destination="[+Destination+]">
 		    <file source="[+License+]" destination="COPYING"/>	
 	    </directory>

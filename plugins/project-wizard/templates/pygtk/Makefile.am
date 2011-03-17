@@ -1,5 +1,5 @@
 
-SUBDIRS = src po data
+SUBDIRS = src po
 
 wizard_filesdir = $(anjuta_data_dir)/project/pygtk
 wizard_files_DATA = \
