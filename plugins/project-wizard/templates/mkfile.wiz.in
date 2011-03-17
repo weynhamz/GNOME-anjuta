@@ -4,6 +4,7 @@
 		<_description>Makefile-based project</_description>
 		<icon>mkfile-logo.png</icon>
 		<category>C</category>
+		<order>10</order>
 		<required-program>make</required-program>
 	</project-wizard>
 	

@@ -4,7 +4,7 @@
 		<_description>Full features Gtk+ Application with file handling</_description>
 		<icon>gtk-logo.png</icon>
 		<category>C</category>
-		<order>1000</order>
+		<order>2</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

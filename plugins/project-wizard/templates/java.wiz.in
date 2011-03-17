@@ -4,6 +4,7 @@
 		<_description>A generic java project using automake project management</_description>
 		<icon>java-logo.png</icon>
 		<category>Java</category>
+		<order>1000</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

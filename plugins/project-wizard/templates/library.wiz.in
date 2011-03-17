@@ -4,6 +4,7 @@
 		<_description>A shared or a static library project</_description>
 		<icon>terminal-logo.png</icon>
 		<category>C</category>
+		<order>3</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

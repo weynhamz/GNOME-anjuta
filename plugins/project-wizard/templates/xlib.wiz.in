@@ -4,6 +4,7 @@
 		<_description>A generic Xlib project</_description>
 		<icon>xlib-logo.png</icon>
 		<category>C</category>
+		<order>7</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

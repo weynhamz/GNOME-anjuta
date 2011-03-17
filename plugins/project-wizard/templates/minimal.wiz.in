@@ -4,6 +4,7 @@
 		<_description>A generic minimal and flat project</_description>
 		<icon>terminal-logo.png</icon>
 		<category>C</category>
+		<order>4</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

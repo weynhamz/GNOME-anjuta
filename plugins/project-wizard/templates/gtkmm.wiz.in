@@ -4,6 +4,7 @@
 		<_description>A minimal GTKmm project</_description>
 		<icon>gtk-logo.png</icon>
 		<category>C++</category>
+		<order>1</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

@@ -4,6 +4,7 @@
 	    <_description>PyGTK project using automake</_description>
 	    <icon>pygtk-logo.png</icon>
 	    <category>Python</category>
+	    <order>1</order>
 	    <required-program>automake</required-program>
 	    <required-program>autoconf</required-program>
 	    <required-program>make</required-program>

@@ -4,6 +4,7 @@
 		<_description>A sample SDL project</_description>
 		<icon>appwiz_sdl.png</icon>
 		<category>C</category>
+		<order>5</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

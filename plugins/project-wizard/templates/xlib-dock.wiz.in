@@ -4,6 +4,7 @@
 		<_description>A generic Xlib dock applet</_description>
 		<icon>xlib-logo.png</icon>
 		<category>C</category>
+		<order>6</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>

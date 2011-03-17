@@ -4,6 +4,7 @@
 		<_description>Anjuta plugin project that uses libanjuta framework</_description>
 		<icon>anjuta-plugin-logo.png</icon>
 		<category>C</category>
+		<order>6</order>
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>
