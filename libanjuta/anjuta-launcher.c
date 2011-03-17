@@ -664,27 +664,20 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 static gboolean
 is_password_prompt (const gchar* line)
 {
-	const gchar* password = "assword";
-	const gchar* passphrase = "assphrase";
-	
-	if (strlen (line) < strlen (password)
-		|| strlen (line) < strlen (passphrase))
-			return FALSE;
-	
-	if (g_strstr_len(line, 80, password) != NULL
-		|| g_strstr_len(line, 80, passphrase) != NULL)
-	{
-		int i;
-		for (i = strlen(line) - 1; i != 0; --i)
-		{
-			if (line[i] == ':')
-					return TRUE;
-			if (g_ascii_isspace(line[i]))
-				continue;
-			else
-				return FALSE;
-		}
-	}
+	const gchar* regex = "[Pp]assword.*:";
+	/* 
+	 * Translators: This regex should match the password prompts of
+	 * at least the "su" and the "sudo" command line utility in your
+	 * language and possible other things like "ssh".
+	 * More information on the regular expression syntax can be
+	 * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
+	 */
+	const gchar* i18n_regex = _("[Pp]assword.*:");
+	if (g_regex_match_simple (regex, line, 0, 0))
+		return TRUE;
+	else if (g_regex_match_simple (i18n_regex, line, 0, 0))
+		return TRUE;
+
 	return FALSE;
 }
 
