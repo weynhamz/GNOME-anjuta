@@ -131,15 +131,17 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 			                          G_FILE_ATTRIBUTE_STANDARD_ICON,
 			                          G_FILE_QUERY_INFO_NONE,
 			                          NULL, NULL);
-			icon = g_file_info_get_icon (info);
-			if (icon)
+			if (info)
 			{
-				GtkWidget* image = gtk_image_new_from_gicon (icon,
-				                                             GTK_ICON_SIZE_BUTTON);
-				gtk_box_pack_start (GTK_BOX (button_box), image, FALSE, FALSE, 0);
+				icon = g_file_info_get_icon (info);
+				if (icon)
+				{
+					GtkWidget* image = gtk_image_new_from_gicon (icon,
+						                                         GTK_ICON_SIZE_BUTTON);
+					gtk_box_pack_start (GTK_BOX (button_box), image, FALSE, FALSE, 0);
+				}
+				g_object_unref (info);
 			}
-			g_object_unref (info);
-
 			gtk_container_add (GTK_CONTAINER (button), button_box);
 			gtk_widget_show_all (button);
 			
