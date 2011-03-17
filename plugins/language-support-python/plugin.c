@@ -212,10 +212,12 @@ on_glade_drop (IAnjutaEditor* editor,
 
 	g_signal_query (id, &query);
 
-	g_string_append_printf (str, "\ndef %s (self", handler);
+	g_string_append_printf (str, "\ndef %s (self, %s", handler,
+	                        language_support_get_signal_parameter (widget,
+	                                                               &names));
 	for (i = 0; i < query.n_params; i++)
 	{
-		const gchar* type_name = g_type_name (query.param_types[i]);
+				const gchar* type_name = g_type_name (query.param_types[i]);
 		const gchar* param_name = language_support_get_signal_parameter (type_name,
 		                                                                 &names);
 
@@ -496,7 +498,7 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 
 	PythonPlugin *python_plugin;
-	static gboolean initialized = FALSE;
+	static gboolean initialized = FALSE;	
 
 	python_plugin = (PythonPlugin*) plugin;
 	
