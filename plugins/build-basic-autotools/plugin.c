@@ -1695,17 +1695,19 @@ build_install_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname,
 	gchar* root = get_root_install_command(plugin);
 	gchar *build_dir = build_dir_from_source (plugin, dirname);
 	BuildProgram *prog;
-
+	gchar *command = g_shell_quote (CHOOSE_COMMAND (plugin, INSTALL));
+	
 	prog = build_program_new_with_command (build_dir,
 	                                       "%s %s",
 	                                       root,
-	                                       CHOOSE_COMMAND (plugin, INSTALL));
+	                                       command);
 	build_program_set_callback (prog, callback, user_data);	
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
 	
 	g_free (build_dir);
 	g_free(root);
+	g_free (command);
 	
 	return context;
 }
