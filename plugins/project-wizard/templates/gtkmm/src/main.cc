@@ -13,6 +13,8 @@
 #include <gtkmm.h>
 #include <iostream>
 
+#include "config.h"
+
 [+IF (=(get "HaveI18n") "1")+]
 #ifdef ENABLE_NLS
 #  include <libintl.h>
