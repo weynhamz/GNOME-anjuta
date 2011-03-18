@@ -17,7 +17,7 @@ AM_CFLAGS =\
 	 -g
 
 VALAFLAGS = [+IF (not (= (get "PackageModule2") ""))+] --pkg [+(string-substitute (get "PackageModule2") " " " --pkg ")+] [+ENDIF+] \
-	--pkg gtk+-3.0
+	--pkg gtk+-3.0 --vapidir . --pkg config
 
 bin_PROGRAMS = [+NameHLower+]
 

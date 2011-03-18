@@ -58,6 +58,7 @@
 			<directory source="src">
 				<file source="main.vala" destination="[+NameHLower+].vala"/>
 				<file source="project.ui" destination="[+NameHLower+].ui"/>
+				<file source="config.vapi" destination="config.vapi"/>
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
 		</directory>
