@@ -245,8 +245,29 @@ gdb_plugin_initialize (GdbPlugin *this)
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-gchar *quote_expression (const gchar *expression) {
-	return g_strconcat("\"", expression, "\"", NULL);
+static gchar *
+quote_expression (const gchar *expression) {
+	GRegex *regex;
+	gchar *aux, *aux2;
+	gchar *quoted;
+	
+	/* This part is for expressions with an actual \" inside */
+	regex = g_regex_new ("\\\\\"", G_REGEX_MULTILINE, 0, NULL);
+	aux = g_regex_replace_literal (regex, expression, -1, 0, "\\\\\\\"", 0, NULL);
+	g_regex_unref (regex);
+
+	/* This part is for expressions with an " inside */
+	regex = g_regex_new ("(?<!\\\\)\"", G_REGEX_MULTILINE, 0, NULL);
+	aux2 = g_regex_replace_literal (regex, aux, -1, 0, "\\\"", 0, NULL);
+	g_regex_unref (regex);
+	g_free (aux);
+
+	/* Converts newlines in spaces */
+	g_strdelimit (aux2, "\n", ' ');
+	quoted = g_strconcat ("\"",aux2, "\"", NULL); 
+	g_free (aux2);
+	
+	return quoted;
 }
 
 /* Callback for saving session
@@ -1155,8 +1176,11 @@ static gboolean
 idebugger_variable_destroy (IAnjutaDebuggerVariable *plugin, const gchar *name, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *quoted;
 
-	debugger_delete_variable (gdb->debugger, quote_expression(name));
+	quoted = quote_expression (name);
+	debugger_delete_variable (gdb->debugger, quoted);
+	g_free (quoted);
 
 	return TRUE;
 }
@@ -1175,8 +1199,11 @@ static gboolean
 idebugger_variable_assign (IAnjutaDebuggerVariable *plugin, const gchar *name, const gchar *value, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *quoted;
 
-	debugger_assign_variable (gdb->debugger, quote_expression(name), value);
+	quoted = quote_expression (name);
+	debugger_assign_variable (gdb->debugger, quoted, value);
+	g_free (quoted);
 
 	return TRUE;
 }
@@ -1185,9 +1212,12 @@ static gboolean
 idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, guint from, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *quoted;
 
-	debugger_list_variable_children (gdb->debugger, quote_expression(name), from, callback, user_data);
-
+	quoted = quote_expression (name);
+	debugger_list_variable_children (gdb->debugger, quoted, from, callback, user_data);
+	g_free (quoted);
+	
 	return TRUE;
 }
 
@@ -1195,8 +1225,11 @@ static gboolean
 idebugger_variable_create (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerVariableCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *quoted;
 
-	debugger_create_variable (gdb->debugger, quote_expression(name), callback, user_data);
+	quoted = quote_expression (name);
+	debugger_create_variable (gdb->debugger, quoted, callback, user_data);
+	g_free (quoted);
 
 	return TRUE;
 }
