@@ -348,14 +348,15 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 					child_alloc.width = child_equal;
 			}
 			child_alloc.height = child_req.height - tabber->priv->tab_vborder;
-			child_alloc.x = x + padding + begin_tab;
 			switch (gtk_widget_get_direction (widget))
 			{
 				case GTK_TEXT_DIR_RTL:
-					x = child_alloc.x - child_alloc.width - 2 * padding - end_tab;
+					child_alloc.x = x - padding - begin_tab - child_alloc.width;
+					x = child_alloc.x - 2 * padding - end_tab;
 					break;
 				case GTK_TEXT_DIR_LTR:
 				default:
+					child_alloc.x = x + padding + begin_tab;
 					x = child_alloc.x + child_alloc.width + 2 * padding + end_tab;
 			}
 			child_alloc.y = allocation->y +
