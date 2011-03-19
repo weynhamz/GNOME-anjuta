@@ -7,29 +7,7 @@ jsdir = $(pkgdatadir)
 js_DATA = \
 	main.js
 
-AM_CPPFLAGS = \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
-	-DTYPELIBDIR=\"$(TYPELIBDIR)\"
-
-AM_CFLAGS =\
-	 -Wall\
-	 -g \
-	 $(GJS_CFLAGS)\
-	 -DPKGLIBDIR=\"$(pkglibdir)\" \
-	 -DJSDIR=\"$(pkgdatadir)\"
-
-bin_PROGRAMS = [+NameHLower+]
-
-[+NameCLower+]_SOURCES = \
-	main.c \
-	debug.c debug.h
-
-[+NameCLower+]_LDFLAGS = \
-	$(GJS_LIBS) \
-	-R $(FIREFOX_JS_LIBDIR) -rdynamic
-
-[+NameCLower+]_LDADD = \
-	$(GJS_LIBS)
+bin_SCRIPTs = main.js
 
 EXTRA_DIST = $(js_DATA)
 

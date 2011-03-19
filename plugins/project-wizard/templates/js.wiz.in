@@ -40,9 +40,6 @@
 		</directory>
 		<directory source="js_minimal" destination="[+Destination+]">
 			<directory source="src" destination="src">
-				<file source="main.c"/>
-				<file source="debug.h"/>
-				<file source="debug.c"/>
 				<file source="main.js"/>
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>

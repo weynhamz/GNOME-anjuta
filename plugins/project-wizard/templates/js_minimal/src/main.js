@@ -1,6 +1,5 @@
+#!/usr/bin/gjs
+
 const GLib = imports.gi.GLib;
 
-function start() {
-        print("Hello World!");
-}
-
+print("Hello World!");

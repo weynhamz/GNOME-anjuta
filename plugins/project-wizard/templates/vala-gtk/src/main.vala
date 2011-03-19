@@ -15,16 +15,18 @@ using Gtk;
 
 public class Main : Object 
 {
+[+IF (=(get "HaveBuilderUI") "1")+]
 	/* 
 	 * Uncomment this line when you are done testing and building a tarball
 	 * or installing
 	 */
 	//const string UI_FILE = Config.PACKAGE_DATA_DIR + "/" + "[+NameHLower+].ui";
 	const string UI_FILE = "src/[+NameHLower+].ui";
+[+ENDIF+]
 
-	
 	public Main ()
 	{
+[+IF (=(get "HaveBuilderUI") "1")+]
 		try 
 		{
 			var builder = new Builder ();
@@ -37,10 +39,16 @@ public class Main : Object
 		catch (Error e) {
 			stderr.printf ("Could not load UI: %s\n", e.message);
 		} 
+[+ELSE+]
+		Window window = new Window();
+		window.set_title ("Hello World");
+		window.show_all();
+		window.destroy.connect(on_destroy);
+[+ENDIF+]
 	}
 
 	[CCode (instance_pos = -1)]
-	public void on_destroy (Window window) 
+	public void on_destroy (Widget window) 
 	{
 		Gtk.main_quit();
 	}

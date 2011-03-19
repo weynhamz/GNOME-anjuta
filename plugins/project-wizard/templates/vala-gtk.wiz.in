@@ -35,6 +35,7 @@
 		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
 		<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
 		<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
+		<property type="boolean" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
 	</page>
 	
 	[+IF (=(get "HavePackageExtra") "1")+]
@@ -57,7 +58,9 @@
 			<file source="configure.ac.tpl" destination="configure.ac"/>
 			<directory source="src">
 				<file source="main.vala" destination="[+NameHLower+].vala"/>
+[+IF (=(get "HaveBuilderUI") "1")+]				
 				<file source="project.ui" destination="[+NameHLower+].ui"/>
+[+ENDIF+]
 				<file source="config.vapi" destination="config.vapi"/>
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
