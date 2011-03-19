@@ -444,7 +444,7 @@ sdb_engine_get_statement_by_query_id (SymbolDBEngine * dbe, static_query_type qu
 
 		if (error)
 		{
-			g_warning (error->message);
+			g_warning ("%s", error->message);
 			g_error_free (error);
 			return NULL;
 		}
