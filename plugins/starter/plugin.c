@@ -45,6 +45,8 @@ static gpointer parent_class;
 #define PROJECT_WIZARD_ID "anjuta-project-wizard:NPWPlugin"
 #define PROJECT_IMPORT_ID "anjuta-project-import:AnjutaProjectImportPlugin"
 
+#define RECENT_LIMIT 3
+
 void
 on_new_project_clicked (GtkButton *button, gpointer user_data);
 void
@@ -99,14 +101,15 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 {
 	GtkRecentManager *manager;
 	GList *list;
-	gint limit = 1000;
 	gint i = 0;
 	
 	manager = gtk_recent_manager_get_default ();
 
 	list = gtk_recent_manager_get_items (manager);
+	
+	list = g_list_reverse (list);
 
-	while (i < limit && list != NULL)
+	while (i < RECENT_LIMIT && list != NULL)
 	{
 		if (strcmp (gtk_recent_info_get_mime_type (list->data), "application/x-anjuta") == 0)
 		{
@@ -127,6 +130,13 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 			gtk_box_pack_end (GTK_BOX (button_box), label, FALSE, FALSE, 0);
 			
 			file = g_file_new_for_uri (gtk_recent_info_get_uri (list->data));
+
+			if (!g_file_query_exists (file, NULL))
+			{
+				list = g_list_next (list);
+				continue;
+			}
+
 			info = g_file_query_info (file,
 			                          G_FILE_ATTRIBUTE_STANDARD_ICON,
 			                          G_FILE_QUERY_INFO_NONE,
@@ -164,8 +174,8 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 			g_signal_connect (button, "clicked",
 							  G_CALLBACK (on_recent_project_clicked),
 							  plugin);
+			i++;
 		}
-		i++;
 		list = g_list_next (list);
 	}
 
