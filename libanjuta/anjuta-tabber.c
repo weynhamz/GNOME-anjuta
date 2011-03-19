@@ -320,9 +320,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
-			GtkRequisition child_req;
 			GtkAllocation child_alloc;
-			gtk_widget_get_child_requisition (child_widget, &child_req);
 			gint natural;
 			gint minimal;
 			gint begin_tab = tab;
@@ -347,7 +345,8 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 				else
 					child_alloc.width = child_equal;
 			}
-			child_alloc.height = child_req.height - tabber->priv->tab_vborder;
+			child_alloc.height = allocation->height
+				- 2 * (ythickness + focus_width + tabber->priv->tab_vborder);
 			switch (gtk_widget_get_direction (widget))
 			{
 				case GTK_TEXT_DIR_RTL:
