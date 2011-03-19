@@ -746,6 +746,70 @@ static AmpProperty AmpDataTargetProperties[] = {
 static GList* AmpDataTargetPropertyList = NULL;
 
 
+static AmpProperty AmpScriptTargetProperties[] = {
+	{
+		{N_("Do not install:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build but do not install the target.")},
+		AM_TOKEN__PROGRAMS,	 3, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Installation directory:"),
+			ANJUTA_PROJECT_PROPERTY_STRING,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("It has to be a standard directory or a custom one defined in group properties.")},
+		AM_TOKEN__PROGRAMS, 	6, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Additional dependencies:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
+			N_("Additional dependencies for this target.")},
+		AM_TOKEN_TARGET_DEPENDENCIES, 0, "EXTRA_DIST",
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Include in distribution:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Include this target in the distributed package.")},
+		AM_TOKEN__PROGRAMS, 	2, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Build for check only:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Build this target only when running automatic tests.")},
+		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Do not use prefix:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
+		AM_TOKEN__PROGRAMS, 	1, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{
+		{N_("Keep target path:"),
+			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
+			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
+			N_("Keep relative target path for installing it. "
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app.")},
+		AM_TOKEN__PROGRAMS, 	0, NULL,
+		AM_PROPERTY_IN_MAKEFILE
+	},
+	{}
+};
+
+static GList* AmpScriptTargetPropertyList = NULL;
+
+
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
@@ -1086,6 +1150,8 @@ amp_get_target_property_list (AnjutaProjectNodeType type)
 		return amp_create_property_list (&AmpManTargetPropertyList, AmpManTargetProperties);
 	case ANJUTA_PROJECT_DATA:
 		return amp_create_property_list (&AmpDataTargetPropertyList, AmpDataTargetProperties);
+	case ANJUTA_PROJECT_SCRIPT:
+		return amp_create_property_list (&AmpScriptTargetPropertyList, AmpScriptTargetProperties);
 	default:
 		return amp_create_property_list (&AmpTargetNodePropertyList, AmpTargetNodeProperties);
 	}
