@@ -86,7 +86,7 @@ snippet_dispose (GObject* snippet)
 	GList* iter = NULL;
 	gpointer p;
 	AnjutaSnippetVariable* cur_snippet_var;
-
+	
 	/* Delete the trigger_key, snippet_language, snippet_name and snippet_content fields */
 	g_free (anjuta_snippet->priv->trigger_key);
 	anjuta_snippet->priv->trigger_key = NULL;
