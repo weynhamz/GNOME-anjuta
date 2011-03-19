@@ -40,7 +40,7 @@
 		</directory>
 		<directory source="js_minimal" destination="[+Destination+]">
 			<directory source="src" destination="src">
-				<file source="main.js"/>
+				<file source="main.js" executable="yes"/>
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			</directory>
 		</directory>
