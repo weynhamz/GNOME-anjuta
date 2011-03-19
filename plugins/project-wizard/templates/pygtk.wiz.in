@@ -35,7 +35,7 @@
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="0"/>
 		<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
-		<property type="hidden" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
+		<property type="boolean" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
 	</page>
 
 [+IF (=(get "HavePackage") "1")+]

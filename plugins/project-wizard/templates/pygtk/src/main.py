@@ -20,11 +20,18 @@ UI_FILE = "[+NameHLower+].ui"
 
 class GUI:
 	def __init__(self):
+[+IF (=(get "HaveBuilderUI") "1")+]
 		self.builder = Gtk.Builder()
 		self.builder.add_from_file(UI_FILE)
 		self.builder.connect_signals(self)
 
 		window = self.builder.get_object('window')
+[+ELSE+]
+		window = Gtk.Window()
+		window.set_title ("Hello World")
+		window.connect_after('destroy', self.destroy)
+[+ENDIF+]
+
 		window.show_all()
 
 	def destroy(window, self):
