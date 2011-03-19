@@ -178,7 +178,7 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	"_DATA",
 	"data"},
 	
-	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_EXECUTABLE | ANJUTA_PROJECT_SCRIPT,
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SCRIPT,
 	N_("Script"),
 	"text/x-shellscript"},
 	AM_TOKEN__SCRIPTS,
@@ -1030,7 +1030,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *parent, AnjutaToke
 }
 
 static AnjutaToken*
-project_load_data (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *variable, GHashTable *orphan_properties)
+project_load_data (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *variable, GHashTable *orphan_properties, gint data_flags)
 {
 	gchar *install = NULL;
 	AmpTargetNode *target;
@@ -1091,7 +1091,7 @@ project_load_data (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = amp_node_new (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT | data_flags, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			if (source != NULL)
 			{
@@ -1304,9 +1304,11 @@ amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaTok
 	case AM_TOKEN__MANS:
 	case AM_TOKEN__PYTHON:
 	case AM_TOKEN__JAVA:
-	case AM_TOKEN__SCRIPTS:
 	case AM_TOKEN__TEXINFOS:
-		project_load_data (project, ANJUTA_PROJECT_NODE (group), variable, orphan_properties);
+		project_load_data (project, ANJUTA_PROJECT_NODE (group), variable, orphan_properties, 0);
+		break;
+	case AM_TOKEN__SCRIPTS:
+		project_load_data (project, ANJUTA_PROJECT_NODE (group), variable, orphan_properties, ANJUTA_PROJECT_EXECUTABLE);
 		break;
 	case AM_TOKEN__LIBRARIES:
 	case AM_TOKEN__LTLIBRARIES:

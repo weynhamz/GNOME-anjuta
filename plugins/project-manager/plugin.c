@@ -1860,13 +1860,31 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 							   AnjutaProjectNodeType element_type,
 							   GError **err)
 {
+	GList *nodes, *node;
 	ProjectManagerPlugin *plugin;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
-	return gbf_project_util_replace_by_file (gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type)); 
+	/* Get all nodes */
+	nodes = gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type);
+
+	/* Replace all nodes by their corresponding URI */
+	for (node = g_list_first (nodes); node != NULL; node = g_list_next (node))
+	{
+		if (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (node->data)) == ANJUTA_PROJECT_TARGET)
+		{
+			/* Take care of different build directory */
+			node->data = get_element_file_from_node (plugin, ANJUTA_PROJECT_NODE (node->data), IANJUTA_BUILDER_ROOT_URI);
+		}
+		else
+		{
+            node->data = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (node->data)));
+		}
+	}
+
+	return nodes;
 }
 
 static AnjutaProjectNodeType
