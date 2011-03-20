@@ -222,6 +222,9 @@ anjuta_pkg_config_chooser_init (AnjutaPkgConfigChooser *chooser)
 	                                                   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (chooser), column);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (chooser), FALSE);
+
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (chooser),
+					 COLUMN_NAME);
 	
 	/* Create launcher */
 	chooser->priv->scanning = TRUE;
