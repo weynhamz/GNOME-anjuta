@@ -147,7 +147,7 @@ on_notify_autocompletion (GSettings* settings,
 		GList* node;
 		for (node = gtk_source_completion_get_providers(completion); node != NULL; node = g_list_next (node))
 		{
-			if (GTK_IS_SOURCE_COMPLETION_WORDS(node->data))
+			if (GTK_SOURCE_IS_COMPLETION_WORDS(node->data))
 			{
 				DEBUG_PRINT ("Unregister word completion provider");
 				gtk_source_completion_words_unregister (GTK_SOURCE_COMPLETION_WORDS(node->data),

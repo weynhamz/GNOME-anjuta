@@ -29,7 +29,7 @@ sourceview_provider_iface_init (GtkSourceCompletionProviderIface* provider);
 G_DEFINE_TYPE_WITH_CODE (SourceviewProvider,
 			 sourceview_provider,
 			 G_TYPE_OBJECT,
-			 G_IMPLEMENT_INTERFACE (GTK_TYPE_SOURCE_COMPLETION_PROVIDER,
+			 G_IMPLEMENT_INTERFACE (GTK_SOURCE_TYPE_COMPLETION_PROVIDER,
 			                        sourceview_provider_iface_init))
 
 static void

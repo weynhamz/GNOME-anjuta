@@ -84,7 +84,7 @@ static gboolean	anjuta_view_key_press_event	(GtkWidget         *widget,
 static gboolean	anjuta_view_button_press_event (GtkWidget         *widget,
 			                                    GdkEventButton       *event);
 
-G_DEFINE_TYPE(AnjutaView, anjuta_view, GTK_TYPE_SOURCE_VIEW)
+G_DEFINE_TYPE(AnjutaView, anjuta_view, GTK_SOURCE_TYPE_VIEW)
 
 static gboolean
 scroll_to_cursor_real (AnjutaView *view)

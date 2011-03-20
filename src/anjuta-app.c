@@ -727,7 +727,7 @@ anjuta_app_key_press_event (GtkWidget   *widget,
 		grand_parent_class = g_type_class_peek_parent (parent_class);
 
 	/* Special case the editor - it catches all shortcuts otherwise */
-	if (GTK_IS_SOURCE_VIEW (focus))
+	if (GTK_SOURCE_IS_VIEW (focus))
 		if (gtk_window_activate_key (window, event))
 			return TRUE;
 	switch (event->keyval)
