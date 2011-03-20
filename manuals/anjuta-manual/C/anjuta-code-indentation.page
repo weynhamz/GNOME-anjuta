@@ -1,0 +1,33 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-code-indentation">
+
+  <info>
+    <link type="guide" xref="index#anjuta-code" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Auto indentation</title>
+
+<section>
+<title>Configuring auto-indentation</title>
+
+<section>
+<title>Manual configuration</title>
+</section>
+
+<section>
+<title>Modelines</title>
+</section>
+
+</section>
+
+<section>
+<title>Indenting blocks of code</title>
+</section>
+
+</page>

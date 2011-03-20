@@ -1,0 +1,46 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-glade-start">
+
+  <info>
+    <link type="guide" xref="index#anjuta-glade" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Getting started with the user interface editor</title>
+
+<section>
+<title>Start the user-interface editor</title>
+
+<section>
+<title>Create a new user-interface file</title>
+</section>
+
+<section>
+<title>Open an existing user-interface file</title>
+</section>
+
+</section>
+
+<section>
+<title>Add widgets</title>
+
+<section>
+<title>Organize widgets in containers</title>
+</section>
+
+<section>
+<title>Common widgets and what they are used for</title>
+</section>
+
+</section>
+
+<section>
+<title>Add widget properties</title>
+</section>
+
+</page>

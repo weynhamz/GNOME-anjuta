@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide" style="2column"
+      id="index">
+
+  <info>
+    <title type="link">Anjuta</title>
+    <title type="text">Anjuta Integrated Development Environment</title>
+
+    <revision pkgversion="0.1" version="0.1" date="2011-03-20" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+
+<!--  
+   <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" /> 
+-->
+  </info>  
+  
+  <title>
+    <media type="image" mime="image/png" src="figures/anjuta.png">
+    </media>
+    Anjuta Integrated Development Environment
+  </title>
+  <p>Welcome to the <app>anjuta</app> help guide.</p>
+
+  <section id="anjuta-project-management" style="2column" groups="first second third">
+    <title>Project Management</title>
+  </section>
+
+  <section id="anjuta-build" style="2column" groups="first second third">
+    <title>Building and running</title>
+  </section>
+
+  <section id="anjuta-code" style="2column">
+    <title>Coding and code navigation</title>
+  </section> 
+
+  <section id="anjuta-debug" style="2column" groups="first second third">
+    <title>Debugging</title>
+  </section>
+ 
+  <section id="anjuta-glade" style="2column" groups="first second">
+    <title>User interface editor</title>
+  </section>
+
+</page>
+

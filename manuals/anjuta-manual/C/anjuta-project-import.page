@@ -1,0 +1,30 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-import-project">
+
+  <info>
+    <link type="guide" xref="index#anjuta-project-management" group="first"/>
+    <link type="seealso" xref="anjuta-project-create"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Import an existing project</title>
+
+<section>
+<title>Import from a local directory</title>
+</section>
+
+<section>
+<title>Import from source code repository (git or subversion)</title>
+</section>
+
+<section>
+<title>Import non-automake projects</title>
+</section>
+
+</page>
+

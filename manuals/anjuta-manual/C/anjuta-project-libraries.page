@@ -1,0 +1,43 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-project-libraries">
+
+  <info>
+    <link type="guide" xref="index#anjuta-project-management" groups="third"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Add a new library</title>
+
+<section>
+<title>C/C++</title>
+
+<section>
+<title>Using an existing Module</title>
+</section>
+
+<section>
+<title>Using a new Module</title>
+
+</section>
+
+</section>
+
+<section>
+<title>Vala</title>
+</section>
+
+<section>
+<title>Python</title>
+</section>
+
+<section>
+<title>JavaScript</title>
+</section>
+
+</page>
+

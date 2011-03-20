@@ -1,0 +1,24 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-code-help">
+
+  <info>
+    <link type="guide" xref="index#anjuta-code" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Using the API reference</title>
+
+<section>
+<title>Browsing the API reference</title>
+</section>
+
+<section>
+<title>Jump to the API reference using shortcuts in the editor</title>
+</section>
+
+</page>

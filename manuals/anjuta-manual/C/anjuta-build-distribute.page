@@ -1,0 +1,24 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-build-distribute">
+
+  <info>
+    <link type="guide" xref="index#anjuta-build" group="third"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Create a package</title>
+
+<section>
+<title>Create a tarball</title>
+</section>
+
+<section>
+<title>Package your application for distributions</title>
+</section>
+
+</page>

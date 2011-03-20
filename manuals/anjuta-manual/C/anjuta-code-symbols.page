@@ -1,0 +1,25 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="anjuta-build-indentation">
+
+  <info>
+    <link type="guide" xref="index#anjuta-code" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <credit type="author">
+      <name>Johannes Schmid</name>
+      <email>jhs@gnome.org</email>
+    </credit>
+  </info>
+
+  <title>Code navigation using the symbol-browser</title>
+
+<section>
+<title>Using the symbol browser</title>
+
+</section>
+
+<section>
+<title>Navigating in the editor</title>
+</section>
+
+</page>
