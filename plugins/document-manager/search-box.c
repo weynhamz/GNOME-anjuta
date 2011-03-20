@@ -816,7 +816,8 @@ on_search_box_replace (GtkWidget * widget, SearchBox * search_box)
 					g_free(replacement_text);
 			}
 		}
-		else if (g_str_equal (selection_text, search_text))
+		else if ((private->case_sensitive && g_str_equal (selection_text, search_text)) ||
+		         (!private->case_sensitive && strcasecmp (selection_text, search_text) == 0))
 		{
 			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
 			ianjuta_editor_selection_replace (selection, replace_text, strlen(replace_text), NULL);
