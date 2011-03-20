@@ -13,10 +13,12 @@
 from gi.repository import Gtk, GdkPixbuf, Gdk
 import os, sys
 
+[+IF (=(get "HaveBuilderUI") "1")+]
 #Comment the first line and uncomment the second before installing
 #or making the tarball (alternatively, use project variables)
 UI_FILE = "[+NameHLower+].ui"
 #UI_FILE = "/usr/local/share/[+NameHLower+]/ui/[+NameHLower+].ui"
+[+ENDIF+]
 
 class GUI:
 	def __init__(self):
