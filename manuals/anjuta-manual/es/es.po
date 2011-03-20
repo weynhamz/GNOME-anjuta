@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-03-20 17:39+0000\n"
-"PO-Revision-Date: 2011-03-20 20:56+0100\n"
+"POT-Creation-Date: 2011-03-20 20:26+0000\n"
+"PO-Revision-Date: 2011-03-20 22:12+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,12 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:22(None)
-msgid "@@image: 'figures/anjuta.png'; md5=THIS FILE DOESN'T EXIST"
-msgstr "@@image: 'figures/anjuta.png'; md5=THIS FILE DOESN'T EXIST"
+msgid ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
+msgstr ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
 
 #: C/index.page:7(title)
-#| msgid "Anjuta Team"
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -39,12 +40,15 @@ msgid "jhs@gnome.org"
 msgstr "jhs@gnome.org"
 
 #: C/index.page:21(title)
+#| msgid ""
+#| "<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta.png\"></"
+#| "media> Anjuta Integrated Development Environment"
 msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta.png\"></media> "
-"Anjuta Integrated Development Environment"
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></"
+"media> Anjuta Integrated Development Environment"
 msgstr ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta.png\"></media> "
-"Entorno integrado de desarrollo Anjuta"
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></"
+"media> Entorno integrado de desarrollo Anjuta"
 
 #: C/index.page:26(p)
 msgid "Welcome to the <app>anjuta</app> help guide."
@@ -55,12 +59,10 @@ msgid "Project Management"
 msgstr "Gestión de proyectos"
 
 #: C/index.page:33(title)
-#| msgid "Building an executable"
 msgid "Building and running"
 msgstr "Construir y ejecutar"
 
 #: C/index.page:37(title)
-#| msgid "Clean a configuration"
 msgid "Coding and code navigation"
 msgstr "Programar y código de navegación"
 
@@ -69,7 +71,6 @@ msgid "Debugging"
 msgstr "Depurar"
 
 #: C/index.page:45(title)
-#| msgid "Glade Interface Designer"
 msgid "User interface editor"
 msgstr "Editor de interfaces de usuario"
 
@@ -77,6 +78,9 @@ msgstr "Editor de interfaces de usuario"
 #: C/index.page:0(None)
 msgid "translator-credits"
 msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007-2009"
+
+#~ msgid "@@image: 'figures/anjuta.png'; md5=THIS FILE DOESN'T EXIST"
+#~ msgstr "@@image: 'figures/anjuta.png'; md5=THIS FILE DOESN'T EXIST"
 
 #~ msgid "Anjuta IDE Manual"
 #~ msgstr "Manual del EID Anjuta"
