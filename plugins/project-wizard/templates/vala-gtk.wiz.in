@@ -8,7 +8,8 @@
 		<required-program>automake</required-program>
 		<required-program>autoconf</required-program>
 		<required-program>make</required-program>
-		<required-package>gtk+-3.0 >= 2.90.3</required-package>
+		<required-program>valac</required-program>		
+		<required-package>gtk+-3.0</required-package>
 	</project-wizard>
 	
 	<page name="basic" _label="Basic information" _description="General Project Information">
