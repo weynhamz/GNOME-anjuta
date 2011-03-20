@@ -374,7 +374,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 			}
 			else
 			{
-				files_load = g_list_prepend (files_load, g_strdup (file));
+				files_load = g_list_prepend (files_load, g_file_get_uri (files[i]));
 			}
 		}
 		if (files_load)
