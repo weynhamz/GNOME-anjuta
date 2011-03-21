@@ -1,3 +1,30 @@
+Anjuta 2.91.92 "Toronto-style" (RC1) (21 March 2011) -- Johannes Schmid
+
+Updated:
+- Lots of little fixes on the templates
+
+Bugs fixed:
+643379 	Glade drag and drop support for Vala
+307515 	drag and drop variable symbol onto watches for simple expressions
+336856 	Search and replace is not simple
+565275 	Quick Search should be able to search backward
+565276 	highlight all matches in Quick Search
+638134 	Redesign of Single and Multi-File Search & Replace
+645311 	Adjust to GtkSourceView API break
+644050 	Some strings are not marked for translation in the .ui file
+643621 	Anjuta catalog makes glade complain.
+644595 	Patches from Mandriva package
+645049 	Password detection not working on non-english locales
+645076 	Run dialog doesn't work with python project
+570912 	Cannot remove module/package
+644294 	old version of gtk+ specified for gtkmm projects 
+
+Thanks to:
+Abderrahim Kitouni, Bruce Cowan, Chao-Hsiung Liao, Daniel Mustieles,
+Daniel Nylander, Dirgita, Fran Dieguez, Fran Diéguez, Gabor Kelemen,
+Garrett Regier, Jorge González, Mario Blättermann, Matej Urbančič,
+Nanci de Brito Bonfim, Piotr Drąg, Sébastien Granjoux
+
 Anjuta 2.91.91 "Less bugs, more fun" (Beta 2) (7 March 2011) -- Johannes Schmid
 
 New:
