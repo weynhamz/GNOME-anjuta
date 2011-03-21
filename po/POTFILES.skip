@@ -1,5 +1,8 @@
 anjuta.glade
 anjuta.desktop.in
+plugins/am-project/ac-parser.c
+plugins/am-project/am-parser.c
+plugins/mk-project/mk-parser.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.ui
 plugins/project-wizard/templates/gnome/src/main.c
