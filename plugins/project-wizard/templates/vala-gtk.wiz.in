@@ -33,7 +33,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="hidden" name="HavePackage" default="1"/>
-		<property type="hidden" name="PackageModule1" default="gtk+-2.0 >= 2.16"/>
+		<property type="hidden" name="PackageModule1" default="gtk+-3.0"/>
 		<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
 		<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 		<property type="boolean" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
