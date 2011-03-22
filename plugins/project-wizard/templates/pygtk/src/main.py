@@ -16,7 +16,7 @@ import os, sys
 [+IF (=(get "HaveBuilderUI") "1")+]
 #Comment the first line and uncomment the second before installing
 #or making the tarball (alternatively, use project variables)
-UI_FILE = "[+NameHLower+].ui"
+UI_FILE = "src/[+NameHLower+].ui"
 #UI_FILE = "/usr/local/share/[+NameHLower+]/ui/[+NameHLower+].ui"
 [+ENDIF+]
 
