@@ -1166,6 +1166,7 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
 	
 	tree = create_plugin_tree ();
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree), FALSE);
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree)));
 
 	populate_plugin_model (plugin_manager, store, NULL,
