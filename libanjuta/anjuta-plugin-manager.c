@@ -1164,7 +1164,7 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
 
 	toolbar = gtk_toolbar_new ();
-	gtk_style_context_add_class (gtk_widget_get_style_context (toolbar), "inline-toolbar");
+	gtk_style_context_add_class (gtk_widget_get_style_context (toolbar), GTK_STYLE_CLASS_INLINE_TOOLBAR);
 	gtk_style_context_set_junction_sides (gtk_widget_get_style_context (toolbar), GTK_JUNCTION_TOP);
 	gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
 	gtk_widget_show (toolbar);
@@ -1174,7 +1174,6 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	gtk_widget_show (toolitem);
 
 	checkbutton = gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Only show user activatable plugins"));
-	gtk_style_context_add_class(gtk_widget_get_style_context(checkbutton), "inline-toolbar");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
 	gtk_container_add (GTK_CONTAINER (toolitem), checkbutton);
 	
