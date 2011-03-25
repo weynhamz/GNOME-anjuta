@@ -919,7 +919,7 @@ create_plugin_tree (void)
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
 										COL_ICON);
 	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "markup",
 										COL_NAME);
 	gtk_tree_view_column_set_sizing (column,
