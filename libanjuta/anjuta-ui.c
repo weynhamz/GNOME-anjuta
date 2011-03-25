@@ -1418,6 +1418,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 													   "visible",
 													   COLUMN_SHOW_VISIBLE,
 													   NULL);
+	gtk_tree_view_column_set_alignment (column, 0.5f);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
 #if 0
 	renderer = gtk_cell_renderer_toggle_new ();
