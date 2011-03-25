@@ -159,7 +159,13 @@ anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 	
 	dlg->priv = g_new0 (AnjutaPreferencesDialogPrivate, 1);
 
-	hbox = gtk_hbox_new (FALSE, 0);	
+	gtk_container_set_border_width (GTK_CONTAINER(dlg), 6);
+
+	hbox = g_object_new(GTK_TYPE_HBOX,
+	                    "border-width", 6,
+	                    "spacing", 6,
+	                    "visible", TRUE,
+	                    NULL);
 	
 	dlg->priv->treeview = gtk_tree_view_new ();
 	gtk_widget_show (dlg->priv->treeview);
@@ -200,8 +206,6 @@ anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (dlg->priv->notebook), FALSE);
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (dlg->priv->notebook), 
 				      FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (dlg->priv->notebook),
-					8);
 	
 	gtk_box_pack_start (GTK_BOX (hbox), dlg->priv->notebook,
 			    TRUE, TRUE, 0);
