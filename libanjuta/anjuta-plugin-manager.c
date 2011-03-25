@@ -1146,24 +1146,37 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	GtkWidget *checkbutton;
 	GtkWidget *tree;
 	GtkWidget *scrolled;
+	GtkWidget *toolbar;
+	GtkWidget *toolitem;
 	GtkListStore *store;
 	
 	/* Plugins page */
 	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
-	
-	checkbutton = gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Only show user activatable plugins"));
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton), 10);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
-	gtk_box_pack_start (GTK_BOX (vbox), checkbutton, FALSE, FALSE, 0);
-	
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
+
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
 									     GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
 									GTK_POLICY_NEVER,
 									GTK_POLICY_AUTOMATIC);
+	gtk_style_context_set_junction_sides (gtk_widget_get_style_context (scrolled), GTK_JUNCTION_BOTTOM);
 	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
+
+	toolbar = gtk_toolbar_new ();
+	gtk_style_context_add_class (gtk_widget_get_style_context (toolbar), "inline-toolbar");
+	gtk_style_context_set_junction_sides (gtk_widget_get_style_context (toolbar), GTK_JUNCTION_TOP);
+	gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
+	gtk_widget_show (toolbar);
+
+	toolitem = gtk_tool_item_new ();
+	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), GTK_TOOL_ITEM (toolitem), 0);
+	gtk_widget_show (toolitem);
+
+	checkbutton = gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Only show user activatable plugins"));
+	gtk_style_context_add_class(gtk_widget_get_style_context(checkbutton), "inline-toolbar");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
+	gtk_container_add (GTK_CONTAINER (toolitem), checkbutton);
 	
 	tree = create_plugin_tree ();
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree), TRUE);
