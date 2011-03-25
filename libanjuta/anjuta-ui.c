@@ -1452,9 +1452,12 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 					  tree_view);
 	
 	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_set_border_width (GTK_CONTAINER (sw), 6);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw),
+	                                     GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (sw), tree_view);
 	gtk_widget_show_all (sw);
 	return sw;
