@@ -919,6 +919,7 @@ create_plugin_tree (void)
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
 										COL_ICON);
 	renderer = gtk_cell_renderer_text_new ();
+	g_object_set(renderer, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "markup",
 										COL_NAME);
@@ -1160,7 +1161,7 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
 									     GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
-									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_NEVER,
 									GTK_POLICY_AUTOMATIC);
 	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
 	
