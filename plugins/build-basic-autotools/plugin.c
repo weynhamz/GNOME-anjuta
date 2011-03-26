@@ -1695,19 +1695,33 @@ build_install_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname,
 	gchar* root = get_root_install_command(plugin);
 	gchar *build_dir = build_dir_from_source (plugin, dirname);
 	BuildProgram *prog;
-	gchar *command = g_shell_quote (CHOOSE_COMMAND (plugin, INSTALL));
-	
-	prog = build_program_new_with_command (build_dir,
-	                                       "%s %s",
-	                                       root,
-	                                       command);
+
+	/* Check if we need to quote the command (only after " -c" argument)
+	 * FIXME: it will be better to use a format string here to know if we need to
+	 * quote the command or not */
+	if ((root != NULL) && (strlen (root) > 3) && (strcmp (root + strlen(root) - 3, " -c") == 0))
+	{
+		gchar *command = g_shell_quote (CHOOSE_COMMAND (plugin, INSTALL));
+
+		prog = build_program_new_with_command (build_dir,
+			                                   "%s %s",
+	    		                               root,
+	        		                           command);
+		g_free (command);
+	}
+	else
+	{
+		prog = build_program_new_with_command (build_dir,
+			                                   "%s %s",
+		                                       root,
+	        		                           CHOOSE_COMMAND (plugin, INSTALL));
+	}
 	build_program_set_callback (prog, callback, user_data);	
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
 	
 	g_free (build_dir);
 	g_free(root);
-	g_free (command);
 	
 	return context;
 }
