@@ -5,10 +5,10 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 2.31.x\n"
+"Project-Id-Version: anjuta 2.91.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-02 20:36+0100\n"
-"PO-Revision-Date: 2011-02-02 20:53+0100\n"
+"POT-Creation-Date: 2011-03-26 18:45+0100\n"
+"PO-Revision-Date: 2011-03-26 19:14+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -189,34 +189,45 @@ msgstr "Thailandsk"
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
 #: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:105
-#: ../plugins/mk-project/mk-project.c:152
+#: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../libanjuta/anjuta-launcher.c:1172 ../libanjuta/resources.c:267
+#.
+#. * Translators: This regex should match the password prompts of
+#. * at least the "su" and the "sudo" command line utility in your
+#. * language and possible other things like "ssh".
+#. * More information on the regular expression syntax can be
+#. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
+#.
+#: ../libanjuta/anjuta-launcher.c:675
+msgid "[Pp]assword.*:"
+msgstr "[Pp]assord.*:"
+
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Kan ikke kjøre kommando: «%s»"
 
-#: ../libanjuta/anjuta-launcher.c:1173
+#: ../libanjuta/anjuta-launcher.c:1166
 msgid "execvp failed"
 msgstr "execvp feilet"
 
-#: ../libanjuta/anjuta-plugin.c:326 ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2369
 msgid "Anjuta Shell"
 msgstr "Anjuta skall"
 
-#: ../libanjuta/anjuta-plugin.c:327
+#: ../libanjuta/anjuta-plugin.c:332
 msgid "Anjuta shell that will contain the plugin"
-msgstr ""
+msgstr "Anjuta-skall som vil inneholde tillegget"
 
-#: ../libanjuta/anjuta-plugin-manager.c:733
+#: ../libanjuta/anjuta-plugin-manager.c:737
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
-msgstr ""
+msgstr "Tillegg «%s» vil ikke slås av"
 
-#: ../libanjuta/anjuta-plugin-manager.c:764
+#: ../libanjuta/anjuta-plugin-manager.c:768
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -224,94 +235,101 @@ msgid ""
 "leading to this was:\n"
 "%s"
 msgstr ""
+"Kunne ikke laste %s\n"
+"Dette betyr vanligvis at installasjonen er ødelagt. Feilmeldingen som ledet til dette var:\n"
+"%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:901
+#: ../libanjuta/anjuta-plugin-manager.c:905
 msgid "Load"
 msgstr "Last"
 
-#: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:1988
+#: ../libanjuta/anjuta-plugin-manager.c:927
+#: ../libanjuta/anjuta-plugin-manager.c:1992
 msgid "Available Plugins"
 msgstr "Tilgjengelige tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1040 ../src/anjuta-app.c:940
 msgid "Preferred plugins"
 msgstr "Foretrukne tillegg:"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1150
+#: ../libanjuta/anjuta-plugin-manager.c:1154
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "Kun vis tillegg som kan slås på av bruker"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1197
+#: ../libanjuta/anjuta-plugin-manager.c:1201
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
 
-#: ../libanjuta/anjuta-plugin-manager.c:1223
+#: ../libanjuta/anjuta-plugin-manager.c:1227
 msgid "Forget selected plugin"
 msgstr "Glem valgt tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1357
-#: ../libanjuta/anjuta-plugin-manager.c:1508 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1361
+#: ../libanjuta/anjuta-plugin-manager.c:1512 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Velg et tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1358
-#: ../libanjuta/anjuta-plugin-manager.c:1509
-msgid "<b>Please select a plugin to activate</b>"
-msgstr "<b>Vennligst velg et tillegg som skal slås på</b>"
+#: ../libanjuta/anjuta-plugin-manager.c:1362
+#: ../plugins/debug-manager/queue.c:530
+msgid "Please select a plugin to activate"
+msgstr "Vennligst velg et tillegg som skal slås på"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1372
+#: ../libanjuta/anjuta-plugin-manager.c:1376
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Ingen tillegg kan laste andre tillegg i %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2015
+#: ../libanjuta/anjuta-plugin-manager.c:1513
+msgid "<b>Please select a plugin to activate</b>"
+msgstr "<b>Vennligst velg et tillegg som skal slås på</b>"
+
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Remember this selection"
 msgstr "Husk dette valget"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2346
+#: ../libanjuta/anjuta-plugin-manager.c:2350
 msgid "Profiles"
 msgstr "Profiler"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2347
+#: ../libanjuta/anjuta-plugin-manager.c:2351
 msgid "Current stack of profiles"
 msgstr "Aktiv stabel med profiler"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2352
+#: ../libanjuta/anjuta-plugin-manager.c:2356
 msgid "Available plugins"
 msgstr "Tilgjengelige tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2353
+#: ../libanjuta/anjuta-plugin-manager.c:2357
 msgid "Currently available plugins found in plugin paths"
 msgstr "Tilgjengelige tillegg funnet i gjeldende stier"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2359
+#: ../libanjuta/anjuta-plugin-manager.c:2363
 msgid "Activated plugins"
 msgstr "Aktiverte tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2360
+#: ../libanjuta/anjuta-plugin-manager.c:2364
 msgid "Currently activated plugins"
 msgstr "Aktive tillegg"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2370
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Anjuta-skall som tilleggene er laget for"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2374
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Anjuta Status"
 msgstr "Anjuta status"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2375
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Status for Anjuta som brukes ved lasting og utlasting av tillegg"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2535
+#: ../libanjuta/anjuta-plugin-manager.c:2539
 msgid "Loaded:"
 msgstr "Lastet:"
 
@@ -383,7 +401,7 @@ msgstr "Kategori"
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
 #: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:4 ../src/anjuta-app.c:927
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
 #: ../src/preferences.ui.h:8
 msgid "General"
 msgstr "Generell"
@@ -401,7 +419,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Hvis du ikke lagrer vil alle endringene gå tapt."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:611
+#: ../plugins/document-manager/plugin.c:640
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
 msgstr "Lagre"
@@ -557,7 +575,7 @@ msgid "Column %i"
 msgstr "Kolonne %i"
 
 #. Column label
-#: ../libanjuta/anjuta-column-text-view.c:69 ../plugins/git/anjuta-git.ui.h:38
+#: ../libanjuta/anjuta-column-text-view.c:69
 msgid "Column 1"
 msgstr "Kolonne 1"
 
@@ -570,7 +588,7 @@ msgid "Text to show the user what to enter into the entry"
 msgstr "Tekst som skal vise bruker hva som skal skrives i oppføringen"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that droppedfiles should be relative to"
+msgid "Path that dropped files should be relative to"
 msgstr "Sti som slupne filer skal være relative til"
 
 #: ../libanjuta/anjuta-file-list.c:101
@@ -838,42 +856,42 @@ msgstr "Skalering satt"
 msgid "Whether this tag affects font scaling"
 msgstr ""
 
-#: ../plugins/am-project/amp-group.c:528
+#: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "Vennligst oppgi et gruppenavn"
 
-#: ../plugins/am-project/amp-group.c:542
+#: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 
-#: ../plugins/am-project/amp-group.c:571
+#: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1569
-#: ../plugins/am-project/am-project.c:1599
-#: ../plugins/am-project/am-project.c:1651
-#: ../plugins/mk-project/mk-project.c:1109
-#: ../plugins/mk-project/mk-project.c:1182
-#: ../plugins/mk-project/mk-project.c:1259
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1614
+#: ../plugins/am-project/am-project.c:1666
+#: ../plugins/mk-project/mk-project.c:678
+#: ../plugins/mk-project/mk-project.c:755
+#: ../plugins/mk-project/mk-project.c:829
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "Prosjektet eksisterer ikke eller stien er ugyldig"
 
-#: ../plugins/am-project/amp-target.c:246
+#: ../plugins/am-project/amp-target.c:266
 msgid "Please specify target name"
 msgstr "Oppgi navn på målet"
 
-#: ../plugins/am-project/amp-target.c:260
+#: ../plugins/am-project/amp-target.c:280
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:275
+#: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:284
+#: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 
@@ -1132,200 +1150,200 @@ msgid ""
 "you want to do that ?"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1854
+#: ../plugins/build-basic-autotools/plugin.c:1856
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:1989
+#: ../plugins/build-basic-autotools/plugin.c:1991
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2572
-#: ../plugins/build-basic-autotools/plugin.c:2582
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2574
+#: ../plugins/build-basic-autotools/plugin.c:2584
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "_Build"
 msgstr "_Bygg"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2476
 msgid "_Build Project"
 msgstr "_Bygg prosjekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2477
 msgid "Build whole project"
 msgstr "Kompiler hele prosjektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2482
 msgid "_Install Project"
 msgstr "_Installer prosjekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2481
+#: ../plugins/build-basic-autotools/plugin.c:2483
 msgid "Install whole project"
 msgstr "_Installer hele prosjektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "_Clean Project"
 msgstr "R_ydd opp i prosjekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2489
 msgid "Clean whole project"
 msgstr "Rydd opp i hele prosjektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2494
 msgid "C_onfigure Project…"
 msgstr "K_onfigurer prosjekt …"
 
-#: ../plugins/build-basic-autotools/plugin.c:2493
+#: ../plugins/build-basic-autotools/plugin.c:2495
 msgid "Configure project"
 msgstr "Konfigurer prosjektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "Build _Tarball"
 msgstr "Lag _arkiv"
 
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2501
 msgid "Build project tarball distribution"
 msgstr "Bygg tar-arkiv for distribusjon av prosjektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2506
 msgid "_Build Module"
 msgstr "_Bygg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2505
+#: ../plugins/build-basic-autotools/plugin.c:2507
 msgid "Build module associated with current file"
 msgstr "Bygg modul som er assosisert med aktiv fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
+#: ../plugins/build-basic-autotools/plugin.c:2512
 msgid "_Install Module"
 msgstr "_Installer modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
+#: ../plugins/build-basic-autotools/plugin.c:2513
 msgid "Install module associated with current file"
 msgstr "Installer modul assosiert med denne filen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2518
 msgid "_Clean Module"
 msgstr "_Rydd opp modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2519
 msgid "Clean module associated with current file"
 msgstr "Rydd opp i modulen som er assosiert med denne filen"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "Co_mpile File"
 msgstr "Ko_mpiler fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2525
 msgid "Compile current editor file"
 msgstr "Kompiler filen som er åpen for redigering"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2530
 msgid "Select Configuration"
 msgstr "Velg konfigurasjon"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2531
 msgid "Select current configuration"
 msgstr "Velg aktiv konfigurasjon"
 
-#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2536
 msgid "Remove Configuration"
 msgstr "Fjern konfigurasjon"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2537
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Rydd i prosjektet (distclean) og fjern konfigurasjonskatalogen hvis mulig"
 
-#: ../plugins/build-basic-autotools/plugin.c:2548
-#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2578
 msgid "_Compile"
 msgstr "_Kompiler"
 
-#: ../plugins/build-basic-autotools/plugin.c:2549
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2579
 msgid "Compile file"
 msgstr "Kompiler fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2555
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2585
 msgid "Build module"
 msgstr "Kompiler modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2588
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2590
+#: ../plugins/build-basic-autotools/plugin.c:2648
 #, c-format
 msgid "_Install"
 msgstr "_Installer"
 
-#: ../plugins/build-basic-autotools/plugin.c:2561
-#: ../plugins/build-basic-autotools/plugin.c:2589
+#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2591
 msgid "Install module"
 msgstr "Installer modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2594
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2596
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Clean"
 msgstr "R_ydd"
 
-#: ../plugins/build-basic-autotools/plugin.c:2567
-#: ../plugins/build-basic-autotools/plugin.c:2595
+#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2597
 msgid "Clean module"
 msgstr "Rydd i modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2600
+#: ../plugins/build-basic-autotools/plugin.c:2602
 msgid "_Cancel command"
 msgstr "Avbryt _kommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2603
 msgid "Cancel build command"
 msgstr "Avbryt bygg-kommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Kompiler (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2648
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installer (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Rydd opp (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2663
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpiler (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2663
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpiler"
 
-#: ../plugins/build-basic-autotools/plugin.c:3195
+#: ../plugins/build-basic-autotools/plugin.c:3197
 msgid "Build commands"
 msgstr "Kommandoer for kompilering"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3204
+#: ../plugins/build-basic-autotools/plugin.c:3206
 msgid "Build popup commands"
 msgstr "Byggkommandoer i oppsprettmenyer"
 
-#: ../plugins/build-basic-autotools/plugin.c:3593
-#: ../plugins/build-basic-autotools/plugin.c:3601
+#: ../plugins/build-basic-autotools/plugin.c:3595
+#: ../plugins/build-basic-autotools/plugin.c:3603
 msgid "Build Autotools"
 msgstr ""
 
@@ -1343,95 +1361,91 @@ msgid "Command aborted"
 msgstr "Kommando stoppet"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:1
-msgid "<b>Class Elements</b>"
-msgstr "<b>Klasseelementer</b>"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "Add to Project"
 msgstr "Legg til i prosjekt"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "Add to Repository"
 msgstr "Legg til pakkelager"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
 msgid "Author Email Address:"
 msgstr "Utviklers e-post:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
 msgid "Author Name:"
 msgstr "Navn på utvikler:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:6
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
 msgid "Author/Date-Time"
 msgstr "Forfatter/Dato-klokkeslett"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:7
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:6
 msgid "Author/Date/Time"
 msgstr "Forfatter/Dato/Klokkeslett"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:8
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:7
 msgid "Base Class Inheritance:"
 msgstr "Av for grunnklasse:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:8
 msgid "Base Class:"
 msgstr "Grunnklasse:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 msgid "Class Elements"
 msgstr "Klasseelementer"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:11
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
 msgid "Class Function Prefix:"
 msgstr "Prefiks for klassefunksjon:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:11
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
 msgstr "Klassegenerator"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
 msgid "Class Methods"
 msgstr "Klassemetoder"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Name:"
 msgstr "Klassenavn:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Options:"
 msgstr "Alternativer for klasse:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Class Scope:"
 msgstr "Klasseomfang:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "Constants/Variables"
 msgstr "Konstanter/variabler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "Create"
 msgstr "Opprett"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 msgid "GLib.Object"
 msgstr "Glib.Objekt"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "GObject Class\t"
 msgstr "GObject-klasse\t"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "GObject Prefix and Type:"
 msgstr "Prefiks og type for GObject:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "General Class Properties"
 msgstr "Generelle egenskaper for klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 #: ../plugins/file-wizard/file.c:104
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
@@ -1449,35 +1463,37 @@ msgstr "Generelle egenskaper for klasse"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
 #: ../plugins/project-wizard/templates/library.wiz.in.h:16
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:18
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 msgid "Generic C++ Class"
 msgstr "Vanlig C++-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Header File:"
 msgstr "Header-fil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "Imports"
 msgstr "Importer"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 #, fuzzy
 msgid "Initializer Arguments:"
 msgstr "_Initier lager"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Inline the declaration and implementation"
 msgstr ""
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "JavaScript Class"
 msgstr "JavaScript-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 #: ../plugins/file-wizard/file.c:105
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
@@ -1495,56 +1511,58 @@ msgstr "JavaScript-klasse"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:20
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
 msgid "License:"
 msgstr "Lisens:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 msgid "Member Functions/Variables"
 msgstr "Medlemsfunksjoner/variabler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:33
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "Methods"
 msgstr "Metoder"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:34
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:33
 msgid "No License"
 msgstr "Ingen lisens"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:35
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:34
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:36
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:35
 msgid "Python Class"
 msgstr "Python-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:37
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:36
 msgid "Signals"
 msgstr "Signaler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:38
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:37
 msgid "Source File:"
 msgstr "Kildekodefil:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:38
 msgid "Source/Header Headings:"
 msgstr ""
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:40
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
 msgid "Vala Class"
 msgstr "Vala-klasse"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:40
 #: ../plugins/mk-project/mk-project.ui.h:7
 msgid "Variables"
 msgstr "Variabler"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:42
+#: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
 msgid "is Sub-Class"
 msgstr "er en underklasse"
 
@@ -1588,7 +1606,7 @@ msgstr "Gjett fra type"
 
 #: ../plugins/class-gen/window.c:694 ../plugins/class-gen/window.c:705
 #: ../plugins/class-gen/window.c:779 ../plugins/class-gen/window.c:789
-#: ../plugins/class-gen/window.c:802 ../plugins/search/anjuta-search.ui.h:26
+#: ../plugins/class-gen/window.c:802
 msgid "Scope"
 msgstr "Omfang"
 
@@ -1611,9 +1629,9 @@ msgstr "Type"
 #: ../plugins/class-gen/window.c:755 ../plugins/class-gen/window.c:763
 #: ../plugins/class-gen/window.c:771 ../plugins/class-gen/window.c:781
 #: ../plugins/class-gen/window.c:791 ../plugins/class-gen/window.c:803
-#: ../plugins/project-manager/dialogs.c:426
-#: ../plugins/run-program/parameters.c:757
-#: ../plugins/snippets-manager/plugin.c:757
+#: ../plugins/project-manager/dialogs.c:438
+#: ../plugins/run-program/parameters.c:758
+#: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
@@ -1655,8 +1673,8 @@ msgstr ""
 #: ../plugins/class-gen/window.c:748 ../plugins/class-gen/window.c:764
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:433
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:474
+#: ../plugins/project-manager/dialogs.c:445
+#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:474
 msgid "Value"
 msgstr "Verdi"
 
@@ -1666,7 +1684,7 @@ msgid "Module"
 msgstr "Modul"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1033
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -1824,7 +1842,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Overse .cvsrc-filen (anbefalt)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2171
+#: ../plugins/symbol-db/plugin.c:2161
 msgid "Local"
 msgstr "Lokal"
 
@@ -1842,14 +1860,14 @@ msgstr "Modulnavn:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/search/anjuta-search.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Alternativer"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:37
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
 msgstr "Alternativer:"
@@ -1889,6 +1907,7 @@ msgid "Reset sticky tags"
 msgstr "Nullstill klebrige tagger"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Revision:"
 msgstr "Revisjon:"
@@ -2777,10 +2796,6 @@ msgstr "Alternativer for feilsøking"
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
 msgstr ""
 
-#: ../plugins/debug-manager/queue.c:530
-msgid "Please select a plugin to activate"
-msgstr "Vennligst velg et tillegg som skal slås på"
-
 #: ../plugins/debug-manager/registers.c:462
 msgid "Register"
 msgstr "Register"
@@ -2887,7 +2902,7 @@ msgstr "Ramme"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2129 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2895,7 +2910,7 @@ msgstr "Fil"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:951
+#: ../plugins/document-manager/plugin.c:997
 msgid "Line"
 msgstr "Linje"
 
@@ -2981,51 +2996,51 @@ msgstr "Trådoperasjoner"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:364
+#: ../plugins/debug-manager/watch.c:406
 msgid "Ins_pect/Evaluate…"
 msgstr "Ins_pisere/evaluere …"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:366
+#: ../plugins/debug-manager/watch.c:408
 msgid "Inspect or evaluate an expression or variable"
 msgstr ""
 
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:414
 msgid "Add Watch…"
 msgstr "Legg til overvåker …"
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
 msgstr "Fjern overvåker"
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
 msgstr "Oppdater overvåker"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:438
 msgid "Change Value"
 msgstr "Endre verdi"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:446
 msgid "Update all"
 msgstr "Oppdater alle"
 
-#: ../plugins/debug-manager/watch.c:412
+#: ../plugins/debug-manager/watch.c:454
 msgid "Remove all"
 msgstr "Fjern alle"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:423
+#: ../plugins/debug-manager/watch.c:465
 msgid "Automatic update"
 msgstr "Automatisk oppdatering"
 
-#: ../plugins/debug-manager/watch.c:449 ../plugins/debug-manager/watch.c:455
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
 msgstr "Operasjoner for overvåking"
 
-#: ../plugins/debug-manager/watch.c:527
+#: ../plugins/debug-manager/watch.c:572
 msgid "Watches"
 msgstr "Overvåkere"
 
@@ -3074,12 +3089,8 @@ msgstr "Bla gjennom API"
 msgid "Contents"
 msgstr "Innhold"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/search/search-replace.c:1034
-#: ../plugins/search/search-replace.c:1700
-#: ../plugins/search/search-replace.c:1707
-#: ../plugins/search/search-replace.c:1719
-#: ../plugins/search/search-replace.c:2037 ../plugins/symbol-db/plugin.c:2139
-#: ../plugins/symbol-db/plugin.c:2191
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
+#: ../plugins/symbol-db/plugin.c:2181
 msgid "Search"
 msgstr "Søk"
 
@@ -3110,7 +3121,7 @@ msgstr "Fjern bokmerke"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:449
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
@@ -3129,7 +3140,7 @@ msgid "Close file"
 msgstr "Lukk fil"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:576
 msgid "Path:"
 msgstr "Sti:"
 
@@ -3266,8 +3277,8 @@ msgid "Close Others"
 msgstr "Lukk andres"
 
 #: ../plugins/document-manager/plugin.c:166
-msgid "Close others documents"
-msgstr "Lukk andres dokumenter"
+msgid "Close other documents"
+msgstr "Lukk andre dokumenter"
 
 #: ../plugins/document-manager/plugin.c:168
 msgid "Reload F_ile"
@@ -3456,7 +3467,7 @@ msgstr ""
 msgid "Go to next history"
 msgstr "Gå til neste historikkoppføring"
 
-#: ../plugins/document-manager/plugin.c:265 ../plugins/search/plugin.c:67
+#: ../plugins/document-manager/plugin.c:265
 msgid "_Search"
 msgstr "_Søk"
 
@@ -3469,356 +3480,423 @@ msgid "Quick editor embedded search"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:269
-msgid "Quick _ReSearch"
-msgstr "Hu_rtigsøk på nytt"
+msgid "Find _Next"
+msgstr "Finn _neste"
 
 #: ../plugins/document-manager/plugin.c:270
-msgid "Repeat quick search"
-msgstr "Gjenta hurtigsøk"
+msgid "Search for next appearance of term."
+msgstr "Søk etter neste instans av termen."
 
-#: ../plugins/document-manager/plugin.c:275 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:961
-#: ../plugins/language-support-python/plugin.c:1179
+#: ../plugins/document-manager/plugin.c:272
+msgid "Find and R_eplace…"
+msgstr "Søk og _erstatt …"
+
+#: ../plugins/document-manager/plugin.c:273
+msgid "Search and replace"
+msgstr "Søk og erstatt"
+
+#: ../plugins/document-manager/plugin.c:275
+msgid "Find _Previous"
+msgstr "Finn f_orrige"
+
+#: ../plugins/document-manager/plugin.c:277
+msgid "Repeat the last Find command"
+msgstr "Gjenta forrige søkekommando"
+
+#: ../plugins/document-manager/plugin.c:279
+msgid "Clear Highlight"
+msgstr "Fjern utheving"
+
+#: ../plugins/document-manager/plugin.c:280
+msgid "Clear all highlighted text"
+msgstr "Fjern all uthevet tekst"
+
+#: ../plugins/document-manager/plugin.c:286
+#, fuzzy
+msgid "Case Sensitive"
+msgstr "Følsom"
+
+#: ../plugins/document-manager/plugin.c:287
+msgid "Match case in search results."
+msgstr ""
+
+#: ../plugins/document-manager/plugin.c:290
+msgid "Highlight All"
+msgstr "Uthev alle"
+
+#: ../plugins/document-manager/plugin.c:291
+msgid "Highlight all occurrences"
+msgstr "Uthev alle instanser"
+
+#: ../plugins/document-manager/plugin.c:294
+msgid "Regular Expression"
+msgstr "Regulært uttrykk"
+
+#: ../plugins/document-manager/plugin.c:295
+msgid "Search using regular expressions"
+msgstr "Søk med regulære uttrykk"
+
+#: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1197
+#: ../plugins/language-support-python/plugin.c:450
 msgid "_Edit"
 msgstr "R_ediger"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:302
 msgid "_Editor"
 msgstr "R_edigering"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:309
 msgid "_Add Editor View"
 msgstr "_Legg til redigeringsvisning"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:310
 msgid "Add one more view of current document"
 msgstr "Legg til en eller flere visninger av aktivt dokument"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:312
 msgid "_Remove Editor View"
 msgstr "Fjern _redigeringsvisning"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:313
 msgid "Remove current view of the document"
 msgstr "Fjern denne visningen av dokumentet"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:315
 msgid "U_ndo"
 msgstr "A_ngre"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:316
 msgid "Undo the last action"
 msgstr "Angre forrige handling"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:318
 msgid "_Redo"
 msgstr "_Gjenopprett"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:319
 msgid "Redo the last undone action"
 msgstr "Gjenopprett forrige angrede handling"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:321
 msgid "C_ut"
 msgstr "Klipp _ut"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:322
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:298 ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:324 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:325
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopier valgt tekst til utklippstavlen"
 
-#: ../plugins/document-manager/plugin.c:301 ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:327 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "_Lim inn"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:328
 msgid "Paste the content of clipboard at the current position"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:336
 msgid "_Clear"
 msgstr "_Tøm"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:337
 msgid "Delete the selected text from the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:340
 msgid "_Auto-Complete"
 msgstr "_Automatisk fullføring"
 
-#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/document-manager/plugin.c:341
 msgid "Auto-complete the current word"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:347
 msgid "_Line Number Margin"
 msgstr "Marg for _linjenummer"
 
-#: ../plugins/document-manager/plugin.c:321
+#: ../plugins/document-manager/plugin.c:348
 msgid "Show/Hide line numbers"
 msgstr "Vis/skjul linjenummer"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:350
 msgid "_Marker Margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:324
+#: ../plugins/document-manager/plugin.c:351
 msgid "Show/Hide marker margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:353
 msgid "_Code Fold Margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:327
+#: ../plugins/document-manager/plugin.c:354
 msgid "Show/Hide code fold margin"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:356
 msgid "_Indentation Guides"
 msgstr "Regler for _innrykk"
 
-#: ../plugins/document-manager/plugin.c:330
+#: ../plugins/document-manager/plugin.c:357
 msgid "Show/Hide indentation guides"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:359
 msgid "_White Space"
 msgstr "_Mellomrom"
 
-#: ../plugins/document-manager/plugin.c:333
+#: ../plugins/document-manager/plugin.c:360
 msgid "Show/Hide white spaces"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:362
 msgid "_Line End Characters"
 msgstr "Tegn for slutt på _linjen"
 
-#: ../plugins/document-manager/plugin.c:336
+#: ../plugins/document-manager/plugin.c:363
 msgid "Show/Hide line end characters"
 msgstr "Vis/skjul tegn for slutt på linjen"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:365
 msgid "Line _Wrapping"
 msgstr "Linje_bryting"
 
-#: ../plugins/document-manager/plugin.c:339
+#: ../plugins/document-manager/plugin.c:366
 msgid "Enable/disable line wrapping"
 msgstr "Aktiver/deaktiver linjebryting"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:371
 msgid "Zoom In"
 msgstr "Zoom inn"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:372
 msgid "Zoom in: Increase font size"
 msgstr "Zoom inn: Øk skriftstørrelsen"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:374
 msgid "Zoom Out"
 msgstr "Zoom ut"
 
-#: ../plugins/document-manager/plugin.c:348
+#: ../plugins/document-manager/plugin.c:375
 msgid "Zoom out: Decrease font size"
 msgstr "Zoom ut: Minsk skriftstørelsen"
 
-#: ../plugins/document-manager/plugin.c:353
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Highlight Mode"
 msgstr "Ut_hevingsmodus"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:384
 msgid "_Close All Folds"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:358
+#: ../plugins/document-manager/plugin.c:385
 msgid "Close all code folds in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:387
 msgid "_Open All Folds"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:388
 msgid "Open all code folds in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:390
 msgid "_Toggle Current Fold"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:391
 msgid "Toggle current code fold in the editor"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:396
 msgid "_Documents"
 msgstr "_Dokumenter"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:397
 msgid "Previous Document"
 msgstr "Forrige dokument"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:398
 msgid "Switch to previous document"
 msgstr "Bytt til forrige dokument"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:400
 msgid "Next Document"
 msgstr "Neste dokumenter"
 
-#: ../plugins/document-manager/plugin.c:374
+#: ../plugins/document-manager/plugin.c:401
 msgid "Switch to next document"
 msgstr "Bytt til neste dokument"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:406
 msgid "Bookmar_k"
 msgstr "Bokmer_ke"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:407
 msgid "_Toggle Bookmark"
 msgstr "_Slå av/på bokmerke"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:408
 msgid "Toggle bookmark at the current line position"
 msgstr "Slå av/på bokmerke ved denne linjeposisjonen"
 
-#: ../plugins/document-manager/plugin.c:383
+#: ../plugins/document-manager/plugin.c:410
 msgid "_Previous Bookmark"
 msgstr "_Forrige bokmerke"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:411
 msgid "Jump to the previous bookmark in the file"
 msgstr "Gå til forrige bokmerke i filen"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:413
 msgid "_Next Bookmark"
 msgstr "_Neste bokmerke"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:414
 msgid "Jump to the next bookmark in the file"
 msgstr "Gå til neste bokmerke i filen"
 
-#: ../plugins/document-manager/plugin.c:389
+#: ../plugins/document-manager/plugin.c:416
 msgid "_Clear All Bookmarks"
 msgstr "Tø_m alle bokmerker"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:417
 msgid "Clear bookmarks"
 msgstr "Tøm bokmerker"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:436
 msgid "Editor file operations"
 msgstr "Filoperasjoner for redigering"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:437
 msgid "Editor print operations"
 msgstr "Utskriftsoperasjoner for redigering"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:438
 msgid "Editor text transformation"
 msgstr "Teksttransformering for redigering"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:439
 msgid "Editor text selection"
 msgstr "Tekstmerking for redigering"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:441
 msgid "Editor code commenting"
 msgstr "Kommentarer i koden for redigering"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:442
 msgid "Editor navigations"
 msgstr "Navigasjon under redigering"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:443
 msgid "Editor edit operations"
 msgstr "Redigeringsoperasjoner for redigering"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:444
 msgid "Editor zoom operations"
 msgstr "Zoom-operasjoner for redigering"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:445
 msgid "Editor syntax highlighting styles"
 msgstr "Stiler for syntaksutheving under redigering"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:446
 msgid "Editor text formating"
 msgstr "Tekstformatering for redigering"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:447
 msgid "Simple searching"
 msgstr "Enkelt søk"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
-#: ../plugins/document-manager/plugin.c:421
-#: ../plugins/document-manager/plugin.c:1749
-#: ../plugins/document-manager/plugin.c:2171
-#: ../plugins/document-manager/plugin.c:2180
+#: ../plugins/document-manager/plugin.c:448
+#: ../plugins/document-manager/plugin.c:1795
+#: ../plugins/document-manager/plugin.c:2217
+#: ../plugins/document-manager/plugin.c:2226
 msgid "Documents"
 msgstr "Dokumenter"
 
-#: ../plugins/document-manager/plugin.c:426
+#: ../plugins/document-manager/plugin.c:453
 msgid "Editor view settings"
 msgstr "Innstillinger for redigeringsvisning"
 
-#: ../plugins/document-manager/plugin.c:615
+#: ../plugins/document-manager/plugin.c:455
+msgid "Toggle search options"
+msgstr "Slå av/på søkealternativer"
+
+#: ../plugins/document-manager/plugin.c:644
 msgid "Reload"
 msgstr "Gjenles"
 
-#: ../plugins/document-manager/plugin.c:621
+#: ../plugins/document-manager/plugin.c:650
 msgid "Go to"
 msgstr "Gå til"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:982
 msgid "OVR"
 msgstr "OVER"
 
-#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:986
 msgid "INS"
 msgstr "INN"
 
-#: ../plugins/document-manager/plugin.c:946
-#: ../plugins/document-manager/plugin.c:949
+#: ../plugins/document-manager/plugin.c:992
+#: ../plugins/document-manager/plugin.c:995
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../plugins/document-manager/plugin.c:952
+#: ../plugins/document-manager/plugin.c:998
 msgid "Col"
 msgstr "Kol"
 
-#: ../plugins/document-manager/plugin.c:953
+#: ../plugins/document-manager/plugin.c:999
 msgid "Mode"
 msgstr "Modus"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1591
+#: ../plugins/document-manager/plugin.c:1637
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Automatisk lagring feilet for %s"
 
-#: ../plugins/document-manager/plugin.c:1605
+#: ../plugins/document-manager/plugin.c:1651
 msgid "Autosave completed"
 msgstr "Automatisk lagring fullført"
 
-#: ../plugins/document-manager/search-box.c:383
+#: ../plugins/document-manager/search-box.c:494
+#, c-format
+msgid "Search for \"%s\" reached the end and wrapped around."
+msgstr "Søk etter «%s» nådde slutten og ble fortsatt fra start."
+
+#: ../plugins/document-manager/search-box.c:500
+#, c-format
+msgid ""
+"Search for \"%s\" reached the end and wrapped around but no new match was "
+"found."
+msgstr ""
+"Søk etter «%s» nådde slutten og ble fortsatt fra start men ingen nye treff "
+"ble funnet."
+
+#: ../plugins/document-manager/search-box.c:543
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "Søk etter «%s» nådde slutten og ble fortsatt fra start."
 
-#: ../plugins/document-manager/search-box.c:389
+#: ../plugins/document-manager/search-box.c:549
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3827,10 +3905,25 @@ msgstr ""
 "Søk etter «%s» nådde slutten og ble fortsatt fra start men ingen nye treff "
 "ble funnet."
 
-#: ../plugins/document-manager/search-box.c:446
-#: ../plugins/search/anjuta-search.ui.h:17
-msgid "Match case"
-msgstr "Skill mellom små/store bokstaver"
+#: ../plugins/document-manager/search-box.c:584
+#, c-format
+msgid "Search for \"%s\" reached top and was continued at the bottom."
+msgstr "Søk etter «%s» nådde starten og ble fortsatt fra slutt."
+
+#: ../plugins/document-manager/search-box.c:590
+#, c-format
+msgid ""
+"Search for \"%s\" reached top and was continued at the bottom but no new "
+"match was found."
+msgstr "Søk etter «%s» nådde start og ble fortsatt fra slutten men ingen nye treff ble funnet."
+
+#: ../plugins/document-manager/search-box.c:984
+msgid "Replace"
+msgstr "Erstatt"
+
+#: ../plugins/document-manager/search-box.c:989
+msgid "Replace all"
+msgstr "Erstatt alle"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3859,7 +3952,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Denne funksjonen er ikke implementert for komponenter med klasse «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/starter.c:111
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "Åpne «%s»"
@@ -3931,7 +4024,7 @@ msgid "Document Manager"
 msgstr "Dokumenthåndterer"
 
 #: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
-#: ../plugins/run-program/parameters.c:311
+#: ../plugins/run-program/parameters.c:312
 msgid "All files"
 msgstr "Alle filer"
 
@@ -4090,7 +4183,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2183
+#: ../plugins/symbol-db/plugin.c:2173
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Global"
@@ -4099,7 +4192,7 @@ msgstr "Global"
 msgid "Root directory if no project is open:"
 msgstr "Rotkatalog hvis ingen prosjekter er åpne:"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Laster …"
 
@@ -4107,11 +4200,11 @@ msgstr "Laster …"
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../plugins/file-manager/file-view.c:656
+#: ../plugins/file-manager/file-view.c:652
 msgid "Base URI"
 msgstr "Basis-URI"
 
-#: ../plugins/file-manager/file-view.c:657
+#: ../plugins/file-manager/file-view.c:653
 msgid "URI of the top-most path displayed"
 msgstr ""
 
@@ -4163,19 +4256,18 @@ msgid "File Information"
 msgstr "Informasjon om fil"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:49
-#: ../plugins/project-manager/dialogs.c:568
+#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/project-manager/dialogs.c:581
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "Navn:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
-#: ../plugins/starter/starter.c:413
 msgid "New File"
 msgstr "Ny fil"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:590
+#: ../plugins/project-manager/dialogs.c:603
 msgid "Type:"
 msgstr "Type:"
 
@@ -4238,20 +4330,19 @@ msgid "Missing name"
 msgstr "Mangler navn"
 
 #: ../plugins/dir-project/dir-project.c:780
-#: ../plugins/am-project/am-project.c:89
-#: ../plugins/mk-project/mk-project.c:138
+#: ../plugins/am-project/am-project.c:89 ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Gruppe"
 
 #: ../plugins/dir-project/dir-project.c:783
-#: ../plugins/am-project/am-project.c:96
-#: ../plugins/mk-project/mk-project.c:145
+#: ../plugins/am-project/am-project.c:96 ../plugins/mk-project/mk-project.c:70
 msgid "Source"
 msgstr "Kildekode"
 
 #: ../plugins/dir-project/dir-project.c:899
 #: ../plugins/dir-project/dir-project.c:909
-#: ../plugins/mk-project/mk-project.c:1385
+#: ../plugins/mk-project/mk-project.c:977
+#: ../plugins/mk-project/mk-project.c:987
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Prosjektet tillater ikke å sette egenskaper"
@@ -4300,7 +4391,7 @@ msgstr "Skript"
 msgid "Package"
 msgstr "Pakke"
 
-#: ../plugins/am-project/am-project.c:1585
+#: ../plugins/am-project/am-project.c:1600
 #, c-format
 msgid "Unable to parse project file"
 msgstr "Kan ikke lese prosjektfil"
@@ -4323,9 +4414,11 @@ msgstr "Prosjektnavn kan ikke inneholde mellomrom. Som f.eks. 'GNU Autoconf'"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "Versjon:"
 
@@ -4354,7 +4447,7 @@ msgid ""
 "It is generated from the project name if not provided."
 msgstr ""
 
-#: ../plugins/am-project/am-properties.c:81
+#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "URL:"
 
@@ -4489,6 +4582,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:352
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:751
 msgid "Do not install:"
 msgstr "Ikke installer:"
 
@@ -4496,6 +4590,7 @@ msgstr "Ikke installer:"
 #: ../plugins/am-project/am-properties.c:355
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
 msgstr ""
 
@@ -4503,6 +4598,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:360
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:759
 msgid "Installation directory:"
 msgstr "Installasjonskatalog:"
 
@@ -4510,6 +4606,7 @@ msgstr "Installasjonskatalog:"
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:515
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:762
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4519,7 +4616,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:371
 #: ../plugins/am-project/am-properties.c:523
 msgid "Additional linker flags for this target."
-msgstr ""
+msgstr "Ekstra flagg for lenking av dette målet."
 
 #: ../plugins/am-project/am-properties.c:216
 msgid "Additional libraries:"
@@ -4528,25 +4625,22 @@ msgstr "Flere bibliotek:"
 #: ../plugins/am-project/am-properties.c:219
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
-#, fuzzy
 msgid "Additional libraries for this target."
-msgstr "Legg til internasjonalisering:"
+msgstr "Ekstra biblioteker for dette målet."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
 msgstr "Flere objekter:"
 
 #: ../plugins/am-project/am-properties.c:227
-#, fuzzy
 msgid "Additional object files for this target."
-msgstr "Ingen egenskaper tilgjengelig for dette målet"
+msgstr "Ekstra objektfiler for dette målet."
 
 #: ../plugins/am-project/am-properties.c:235
 #: ../plugins/am-project/am-properties.c:387
 #: ../plugins/am-project/am-properties.c:539
-#, fuzzy
 msgid "Additional C preprocessor flags for this target."
-msgstr "Ingen egenskaper tilgjengelig for dette målet"
+msgstr "Ekstra flagg til C-preprosessering for dette målet."
 
 #: ../plugins/am-project/am-properties.c:243
 #: ../plugins/am-project/am-properties.c:395
@@ -4596,23 +4690,25 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
-msgid "Additional Yac or Bison parser generator flags for this target."
-msgstr ""
+#, fuzzy
+msgid "Additional Yacc or Bison parser generator flags for this target."
+msgstr "Ingen egenskaper tilgjengelig for dette målet"
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
 #: ../plugins/am-project/am-properties.c:608
 #: ../plugins/am-project/am-properties.c:656
 #: ../plugins/am-project/am-properties.c:703
-#, fuzzy
+#: ../plugins/am-project/am-properties.c:767
 msgid "Additional dependencies:"
-msgstr "Avhengigheter for tillegg:"
+msgstr "Ekstra avhengigheter:"
 
 #: ../plugins/am-project/am-properties.c:307
 #: ../plugins/am-project/am-properties.c:459
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:770
 #, fuzzy
 msgid "Additional dependencies for this target."
 msgstr "Avhengigheter for tillegg:"
@@ -4621,6 +4717,7 @@ msgstr "Avhengigheter for tillegg:"
 #: ../plugins/am-project/am-properties.c:464
 #: ../plugins/am-project/am-properties.c:616
 #: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:775
 #, fuzzy
 msgid "Include in distribution:"
 msgstr "Beskrivelse av tillegg:"
@@ -4629,6 +4726,7 @@ msgstr "Beskrivelse av tillegg:"
 #: ../plugins/am-project/am-properties.c:467
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
 msgstr ""
 
@@ -4636,6 +4734,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:472
 #: ../plugins/am-project/am-properties.c:624
 #: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:783
 #, fuzzy
 msgid "Build for check only:"
 msgstr "Bygg-katalog:"
@@ -4644,6 +4743,7 @@ msgstr "Bygg-katalog:"
 #: ../plugins/am-project/am-properties.c:475
 #: ../plugins/am-project/am-properties.c:627
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
 msgstr ""
 
@@ -4652,6 +4752,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:632
 #: ../plugins/am-project/am-properties.c:664
 #: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:791
 msgid "Do not use prefix:"
 msgstr ""
 
@@ -4660,6 +4761,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:635
 #: ../plugins/am-project/am-properties.c:667
 #: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:794
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4669,6 +4771,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:488
 #: ../plugins/am-project/am-properties.c:640
 #: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
 msgstr ""
 
@@ -4676,6 +4779,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:491
 #: ../plugins/am-project/am-properties.c:643
 #: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:802
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4689,7 +4793,7 @@ msgstr "Biblioteker:"
 
 #: ../plugins/am-project/am-properties.c:672
 msgid "Manual section:"
-msgstr ""
+msgstr "Avsnitt i håndbok:"
 
 #: ../plugins/am-project/am-properties.c:675
 msgid ""
@@ -4721,10 +4825,13 @@ msgid ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
+"Kan ikke finne: %s.\n"
+"Kan ikke initiere feilsøking.\n"
+"Sjekk at Anjuta er korrekt installert."
 
 #: ../plugins/gdb/debugger.c:1130
 msgid "Getting ready to start debugging session…\n"
-msgstr ""
+msgstr "Forbereder start av feilsøkingsøkt …\n"
 
 #: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
@@ -4740,11 +4847,11 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
-msgstr ""
+msgstr "Det oppsto en feil under start av feilsøking.\n"
 
 #: ../plugins/gdb/debugger.c:1161
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr ""
+msgstr "Sjekk at «gdb» er installert på systemet.\n"
 
 #: ../plugins/gdb/debugger.c:1482
 msgid "Program exited normally\n"
@@ -4830,7 +4937,7 @@ msgstr "Avbryter prosessen …\n"
 
 #: ../plugins/gdb/debugger.c:3996
 msgid "more children"
-msgstr ""
+msgstr "flere barn"
 
 #: ../plugins/gdb/debugger.c:4249
 #, c-format
@@ -4887,268 +4994,277 @@ msgid "Gdb Debugger"
 msgstr "Gdb feilsøkingsprogram"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-msgid "<b>Add Files:</b>"
-msgstr "<b>Legg til filer:</b>"
+msgid "Add Files:"
+msgstr "Legg til filer:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
-msgid "<b>Branch name:</b>"
-msgstr "<b>Navn på gren:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:3
-msgid "<b>Branches:</b>"
-msgstr "<b>Grener:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:4
-msgid "<b>Branches</b>"
-msgstr "<b>Grener</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:5
-msgid "<b>Commit to cherry pick:</b>"
-msgstr "<b>Innsjekking som skal velges:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:6
-msgid "<b>Commit to revert:</b>"
-msgstr "<b>Innsjekking som skal reverseres:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:7
-msgid "<b>Folder to create patches in:</b>"
-msgstr "<b>Mappe patcher skal lages i:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:8
-msgid "<b>Generate patches relative to:</b>"
-msgstr "<b>Lag patcher relativt til:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:9
-msgid "<b>Log Message:</b>"
-msgstr "<b>Loggmelding:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:10
-msgid "<b>Mailbox files to apply:</b>"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:11
-msgid "<b>Mode:</b>"
-msgstr "<b>Modus:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:12
-msgid "<b>Options:</b>"
-msgstr "<b>Alternativer:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:13
-msgid "<b>Options</b>"
-msgstr "<b>Alternativer</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:14
-msgid "<b>Remote Repositories:</b>"
-msgstr "<b>Eksterne lager:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:15
-msgid "<b>Remote name:</b>"
-msgstr "<b>Ekstern navn:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:16
-msgid "<b>Remove Files:</b>"
-msgstr "<b>Fjern filer:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:17
-msgid "<b>Repository Status:</b>"
-msgstr "<b>Status for lager:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:18
-msgid "<b>Repository to pull from:</b>"
-msgstr "<b>Lager det skal hentes fra:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:19
-msgid "<b>Repository to push to:</b>"
-msgstr "<b>Lager å sende til:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:20
-msgid "<b>Revision to merge with:</b>"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:21
-msgid "<b>Revision:</b>"
-msgstr "<b>Revisjon:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:22
-msgid "<b>Revision</b>"
-msgstr "<b>Revisjon</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:23
-#, fuzzy
-msgid "<b>Stash Message (Optional):</b>"
-msgstr "<b>Alternativer for meldinger</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:24
-#, fuzzy
-msgid "<b>Stashed Changes:</b>"
-msgstr "_Forkast endringer"
-
-#: ../plugins/git/anjuta-git.ui.h:25
-msgid "<b>Tag name:</b>"
-msgstr "<b>Navn på tagg:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:26
-msgid "<b>Tags:</b>"
-msgstr "<b>Tagger</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:27
-msgid "<b>URL:</b>"
-msgstr "<b>URL:</b>"
-
-#: ../plugins/git/anjuta-git.ui.h:28
 msgid "Add signed off by line"
 msgstr "Legg til signed-off-by linje"
 
-#: ../plugins/git/anjuta-git.ui.h:29
-#, fuzzy
-msgid "Amernd the previous commit"
+#: ../plugins/git/anjuta-git.ui.h:3
+msgid "Amend the previous commit"
 msgstr "Rett opp forrige innsjekking"
 
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/git/anjuta-git.ui.h:4
 msgid "Annotate this tag:"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:5
 msgid "Append fetch data"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:32
-#, fuzzy
+#: ../plugins/git/anjuta-git.ui.h:6
 msgid "Append signed-of- by line"
 msgstr "Legg til signed-off-by linje"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:7
+#: ../plugins/subversion/subversion-log-dialog.c:132
+msgid "Author"
+msgstr "Forfatter"
+
+#: ../plugins/git/anjuta-git.ui.h:8
+msgid "Branch name:"
+msgstr "Navn på gren:"
+
+#: ../plugins/git/anjuta-git.ui.h:9
 msgid "Branch:"
 msgstr "Gren:"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
+msgid "Branches"
+msgstr "Grener"
+
+#: ../plugins/git/anjuta-git.ui.h:11
 msgid "Branches must be fully merged"
 msgstr "Grener må være fullt flettet"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:12
+msgid "Branches:"
+msgstr "Grener:"
+
+#: ../plugins/git/anjuta-git.ui.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:4
 msgid "Changes:"
 msgstr "Endringer:"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:14
 msgid "Check out the branch after it is created"
 msgstr "Sjekk ut grenen etter at den er opprettet"
 
-#: ../plugins/git/anjuta-git.ui.h:37
-msgid "Column 0"
-msgstr "Kolonne 0"
-
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit on fast-forward merges"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:16
+msgid "Commit to cherry pick:"
+msgstr "Innsjekking som skal velges:"
+
+#: ../plugins/git/anjuta-git.ui.h:17
+msgid "Commit to revert:"
+msgstr "Innsjekking som skal reverseres:"
+
+#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/subversion/subversion-log-dialog.c:141
+msgid "Date"
+msgstr "Dato"
+
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "Do not commit"
 msgstr "Ikke sjekk inn"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Do not follow tags"
 msgstr "Ikke følg grener"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:21
+msgid "Drop or enter revision here"
+msgstr "Slipp eller oppgi en revisjon her"
+
+#: ../plugins/git/anjuta-git.ui.h:22
+msgid "Drop or type a revision here"
+msgstr "Slipp eller oppgi en revisjon her"
+
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
 msgstr "E-post:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Fetch remote branches after creation"
 msgstr "Hent eksterne grener etter oppretting"
 
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:25
+msgid "Folder to create patches in:"
+msgstr "Mappe patcher skal lages i:"
+
+#: ../plugins/git/anjuta-git.ui.h:26
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
 msgstr "Tving"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:27
+msgid "Generate patches relative to:"
+msgstr "Lag patcher relativt til:"
+
+#: ../plugins/git/anjuta-git.ui.h:28
+msgid "Graph"
+msgstr "Graf"
+
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Hard"
 msgstr "Hard"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:31
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
 msgid "Log Message:"
 msgstr "Loggmelding:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:32
+#, fuzzy
+msgid "Mailbox files to apply:"
+msgstr "Postboksfiler"
+
+#: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
 msgstr "Blandet"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:34
+msgid "Mode:"
+msgstr "Modus:"
+
+#: ../plugins/git/anjuta-git.ui.h:38
+msgid "Previous commit; Drop or enter a different revision here"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:40
 msgid "Push all tags"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:53 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Nullstill"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:42
+msgid "Remote Repositories:"
+msgstr "Eksterne lager:"
+
+#: ../plugins/git/anjuta-git.ui.h:43
+msgid "Remote name:"
+msgstr "Ekstern navn:"
+
+#: ../plugins/git/anjuta-git.ui.h:44
+msgid "Remove Files:"
+msgstr "Fjern filer:"
+
+#: ../plugins/git/anjuta-git.ui.h:45
+msgid "Repository Status:"
+msgstr "Status for lager:"
+
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Repository head; Drop or type a different revision here"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:48
+msgid "Repository to pull from:"
+msgstr "Lager det skal hentes fra:"
+
+#: ../plugins/git/anjuta-git.ui.h:49
+msgid "Repository to push to:"
+msgstr "Lager å sende til:"
+
+#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/subversion/subversion-log-dialog.c:151
+msgid "Revision"
+msgstr "Revisjon"
+
+#: ../plugins/git/anjuta-git.ui.h:51
+msgid "Revision to merge with:"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/subversion/subversion-log-dialog.c:160
+msgid "Short Log"
+msgstr "Kort logg"
+
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Show source revision in log message"
 msgstr "Vis kildekoderevisjon i loggmeldingen"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Sign this tag"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Soft"
 msgstr "Myk"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Squash"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:60
+#: ../plugins/git/anjuta-git.ui.h:58
+#, fuzzy
+msgid "Stash Message (Optional):"
+msgstr "<b>Alternativer for meldinger</b>"
+
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
 msgstr ""
 
+#: ../plugins/git/anjuta-git.ui.h:60
+#, fuzzy
+msgid "Stashed Changes:"
+msgstr "_Forkast endringer"
+
 #: ../plugins/git/anjuta-git.ui.h:61
-msgid "This commit concludes a failed merged (use -i)"
-msgstr ""
+#, fuzzy
+msgid "Tag name:"
+msgstr "_Navn på mål:"
 
 #: ../plugins/git/anjuta-git.ui.h:62
+#, fuzzy
+msgid "Tags:"
+msgstr "Oppgaver"
+
+#: ../plugins/git/anjuta-git.ui.h:63
+msgid "This commit concludes a failed merge (use -i)"
+msgstr ""
+
+#: ../plugins/git/anjuta-git.ui.h:65
 #, fuzzy
 msgid "Use a custom log message:"
 msgstr "Bruk forrige melding"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Use custom author information:"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:67
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "View the Log for File/Folder:"
 msgstr "Vis logg for fil/mappe:"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:66
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 
-#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
 msgstr "side 1"
 
-#: ../plugins/git/anjuta-git.ui.h:68
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "page 2"
 msgstr "side 2"
 
@@ -5184,21 +5300,20 @@ msgstr "Ingen gruppe valgt"
 msgid "Check Out Files"
 msgstr "Sjekk ut filer"
 
-#: ../plugins/git/git-commit-pane.c:123
+#: ../plugins/git/git-commit-pane.c:124
 #: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
 msgid "Please enter a log message."
 msgstr "Vennligst skriv inn en loggmelding."
 
-#: ../plugins/git/git-commit-pane.c:144
-#, fuzzy
+#: ../plugins/git/git-commit-pane.c:145
 msgid "Please enter the commit author's name"
-msgstr "Vennligst oppgi navn på forfatter av innsjekkingen."
+msgstr "Vennligst oppgi navn på forfatter av innsjekkingen"
 
-#: ../plugins/git/git-commit-pane.c:148
+#: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
 msgstr "Vennligst oppgi e-post til forfatter av innsjekkingen."
 
-#: ../plugins/git/git-commit-pane.c:304 ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
 msgid "Commit"
 msgstr "Sjekk inn"
 
@@ -5212,19 +5327,29 @@ msgstr "Oppgi en revisjon."
 msgid "Cherry Pick"
 msgstr ""
 
-#: ../plugins/git/git-diff-pane.c:103
+#. Translators: default file name for git diff's output
+#: ../plugins/git/git-diff-pane.c:33
 #, fuzzy
+msgid "Uncommitted Changes.diff"
+msgstr "_Forkast endringer"
+
+#. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
+#: ../plugins/git/git-diff-pane.c:71
+#, fuzzy, c-format
+msgid "Commit %s.diff"
+msgstr "_Forkast endringer"
+
+#: ../plugins/git/git-diff-pane.c:104
 msgid "No revision selected"
-msgstr "Ingen gruppe valgt"
+msgstr "Ingen revisjon valgt"
 
 #: ../plugins/git/git-reset-pane.c:167
 msgid "Reset"
 msgstr "Nullstill"
 
 #: ../plugins/git/git-revert-pane.c:48
-#, fuzzy
 msgid "Please enter a commit."
-msgstr "Vennligst oppgi en sti."
+msgstr "Vennligst oppgi en innsjekking."
 
 #: ../plugins/git/git-revert-pane.c:162
 msgid "Revert"
@@ -5272,7 +5397,7 @@ msgstr "<b>Tagg:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Ekstern:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:222 ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
 msgstr "Flett"
 
@@ -5355,9 +5480,8 @@ msgid "No staged files selected."
 msgstr "Ingen mål er valgt"
 
 #: ../plugins/git/plugin.c:65
-#, fuzzy
 msgid "Branch tools"
-msgstr "Grener"
+msgstr "Verktøy for grener"
 
 #: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
 msgid "Create a branch"
@@ -5376,25 +5500,22 @@ msgid "Merge a revision into the current branch"
 msgstr ""
 
 #: ../plugins/git/plugin.c:109
-#, fuzzy
 msgid "Tag tools"
-msgstr "Verktøy"
+msgstr "Verktøy for tagging"
 
 #: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
 msgid "Create a tag"
-msgstr ""
+msgstr "Lag en tagg"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
-#, fuzzy
 msgid "Delete selected tags"
-msgstr "Erstatt utvalg"
+msgstr "Slett valgte tagger"
 
 #: ../plugins/git/plugin.c:138
 msgid "Changes"
 msgstr "Endringer"
 
 #: ../plugins/git/plugin.c:147
-#, fuzzy
 msgid "Commit changes"
 msgstr "Sjekk inn endringer"
 
@@ -5449,9 +5570,8 @@ msgid "Mark selected conflicted files as resolved"
 msgstr ""
 
 #: ../plugins/git/plugin.c:214
-#, fuzzy
 msgid "Remote repository tools"
-msgstr "Ekste_rnt lager"
+msgstr "Verktøy for eksterne lagre"
 
 #: ../plugins/git/plugin.c:222
 msgid "Add a remote"
@@ -5510,9 +5630,8 @@ msgid "Skip"
 msgstr "Hopp over"
 
 #: ../plugins/git/plugin.c:287
-#, fuzzy
 msgid "Skip the current revision"
-msgstr "Skriv ut aktiv fil"
+msgstr "Hopp over aktiv revisjon"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
 msgid "Abort"
@@ -5684,14 +5803,9 @@ msgstr "Status"
 msgid "Log"
 msgstr "Logg"
 
-#: ../plugins/git/plugin.c:770
-msgid "Branches"
-msgstr "Grener"
-
 #: ../plugins/git/plugin.c:775
-#, fuzzy
 msgid "Tags"
-msgstr "Oppgaver"
+msgstr "Tagger"
 
 #: ../plugins/git/plugin.c:781
 msgid "Remotes"
@@ -5702,29 +5816,38 @@ msgstr "Eksterne lager"
 msgid "Stash"
 msgstr "Tilstand"
 
-#: ../plugins/glade/plugin.c:375
+#: ../plugins/glade/plugin.c:460
+#, fuzzy
+msgid "Select widgets in the workspace"
+msgstr "Velg all tekst i redigeringsvinduet"
+
+#: ../plugins/glade/plugin.c:486
+msgid "Drag and resize widgets in the workspace"
+msgstr ""
+
+#: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
 msgstr "Laster Glade …"
 
-#: ../plugins/glade/plugin.c:420
+#: ../plugins/glade/plugin.c:590
 msgid "Widgets"
 msgstr "Komponenter"
 
-#: ../plugins/glade/plugin.c:425
+#: ../plugins/glade/plugin.c:595
 msgid "Palette"
 msgstr "Palett"
 
-#: ../plugins/glade/plugin.c:541
+#: ../plugins/glade/plugin.c:718
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ikke en lokal fil: %s"
 
-#: ../plugins/glade/plugin.c:587
+#: ../plugins/glade/plugin.c:764
 #, c-format
 msgid "Could not open %s"
 msgstr "Kunne ikke åpne %s"
 
-#: ../plugins/glade/plugin.c:642
+#: ../plugins/glade/plugin.c:821
 msgid "Could not create a new glade project."
 msgstr "Kunne ikke lage nytt glade-prosjekt."
 
@@ -5794,7 +5917,7 @@ msgstr ""
 msgid "Warnings:"
 msgstr "Advarsler:"
 
-#: ../plugins/message-view/anjuta-msgman.c:75
+#: ../plugins/message-view/anjuta-msgman.c:83
 msgid "Close all message tabs"
 msgstr "Lukk alle meldingsfaner"
 
@@ -5803,12 +5926,12 @@ msgid "Icon"
 msgstr "Ikon"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:383 ../plugins/message-view/plugin.c:396
-#: ../plugins/message-view/plugin.c:515 ../plugins/message-view/plugin.c:526
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
 msgstr "Meldinger"
 
-#: ../plugins/message-view/message-view.c:856
+#: ../plugins/message-view/message-view.c:869
 #, c-format
 msgid "Error writing %s"
 msgstr "Feil ved skriving til %s"
@@ -5845,58 +5968,58 @@ msgstr "_Lagre melding"
 msgid "Save message"
 msgstr "Lagre melding"
 
-#: ../plugins/message-view/plugin.c:169
+#: ../plugins/message-view/plugin.c:168
 msgid "Next/Previous Message"
 msgstr "Neste/forrige melding"
 
-#: ../plugins/message-view/plugin.c:269
+#: ../plugins/message-view/plugin.c:268
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
 msgstr[0] "%d melding"
 msgstr[1] "%d meldinger"
 
-#: ../plugins/message-view/plugin.c:278
+#: ../plugins/message-view/plugin.c:277
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
 msgstr[0] "%d infomelding"
 msgstr[1] "%d infomeldinger"
 
-#: ../plugins/message-view/plugin.c:287
+#: ../plugins/message-view/plugin.c:286
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
 msgstr[0] "%d advarsel"
 msgstr[1] "%d advarsler"
 
-#: ../plugins/message-view/plugin.c:296
+#: ../plugins/message-view/plugin.c:295
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
 msgstr[0] "%d feil"
 msgstr[1] "%d feil"
 
-#: ../plugins/mk-project/mk-project.c:715
+#: ../plugins/mk-project/mk-project.c:460
 #, c-format
 msgid "Unable to parse make file"
 msgstr "Kan ikke lese make-fil"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
-msgid "<b>Select Package to add:</b>"
-msgstr "<b>Velg pakke som skal legges til:</b>"
-
-#: ../plugins/mk-project/mk-project.ui.h:2
 msgid "Add _Package"
 msgstr "Legg til _pakke"
 
-#: ../plugins/mk-project/mk-project.ui.h:3
+#: ../plugins/mk-project/mk-project.ui.h:2
 msgid "Add _module"
 msgstr "Legg til _modul"
 
-#: ../plugins/mk-project/mk-project.ui.h:5
+#: ../plugins/mk-project/mk-project.ui.h:4
 msgid "Packages"
 msgstr "Pakker"
+
+#: ../plugins/mk-project/mk-project.ui.h:5
+msgid "Select Package to add:"
+msgstr "Velg pakke som skal legges til:"
 
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Select package"
@@ -5916,41 +6039,41 @@ msgstr "Oppdaterer fil:"
 msgid "Patches"
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:166 ../plugins/patch/patch-plugin.ui.h:3
-msgid "Patch"
-msgstr ""
-
-#: ../plugins/patch/patch-plugin.c:186
+#: ../plugins/patch/patch-plugin.c:170
 msgid "Please select the directory where the patch should be applied"
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:197
+#: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:3
+msgid "Patch"
+msgstr ""
+
+#: ../plugins/patch/patch-plugin.c:198
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:209
+#: ../plugins/patch/patch-plugin.c:210
 #, fuzzy
 msgid "Patching…\n"
 msgstr "_Lim inn"
 
-#: ../plugins/patch/patch-plugin.c:219
+#: ../plugins/patch/patch-plugin.c:220
 #, fuzzy
 msgid "Patching…"
 msgstr "_Lim inn"
 
-#: ../plugins/patch/patch-plugin.c:224
+#: ../plugins/patch/patch-plugin.c:225
 msgid "There are unfinished jobs: please wait until they are finished."
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:266
+#: ../plugins/patch/patch-plugin.c:267
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:272
+#: ../plugins/patch/patch-plugin.c:273
 #, fuzzy
 msgid "Patching complete"
 msgstr "Status for fil"
@@ -5993,42 +6116,37 @@ msgstr "_Lim inn"
 msgid "Patch files/directories"
 msgstr "Opprett nye kataloger"
 
-#: ../plugins/project-import/plugin.c:68
-msgid ""
-"Generation of project file failed. Cannot find an appropriate project "
-"template to use. Please make sure your version of Anjuta is up-to-date."
-msgstr ""
-
-#: ../plugins/project-import/plugin.c:88
+#: ../plugins/project-import/plugin.c:79
+#: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "En fil med navn «%s» eksisterer allerede. Vil du erstatte den?"
 
-#: ../plugins/project-import/plugin.c:136
+#: ../plugins/project-import/plugin.c:218
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
 
-#: ../plugins/project-import/plugin.c:200
+#: ../plugins/project-import/plugin.c:282
 #, fuzzy, c-format
 msgid "Please select a project backend to open %s."
 msgstr "Velg et tillegg for å åpne <b>%s</b>."
 
-#: ../plugins/project-import/plugin.c:205
+#: ../plugins/project-import/plugin.c:287
 msgid "Open With"
 msgstr "Åpne med"
 
-#: ../plugins/project-import/plugin.c:220
+#: ../plugins/project-import/plugin.c:302
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 
-#: ../plugins/project-import/plugin.c:290
-#: ../plugins/project-import/plugin.c:346
+#: ../plugins/project-import/plugin.c:368
+#: ../plugins/project-import/plugin.c:424
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
@@ -6052,6 +6170,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:13
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Mål:"
@@ -6121,22 +6241,20 @@ msgid "Package list:"
 msgstr "Pakkeliste:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#, fuzzy
 msgid "Select the _target for the library:"
-msgstr "Velg oppføring som skal lagres:"
+msgstr "Velg må_l for biblioteket:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
 msgid "Select the _target for the new source files:"
-msgstr ""
+msgstr "Velg _mål for de nye kildekodefilene:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:12
 msgid "Source files:"
 msgstr "Kildekodefiler:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
-#, fuzzy
 msgid "Specify _where to create the directory:"
-msgstr "Oppgi h_vor målet skal lages:"
+msgstr "Oppgi h_vor katalogen skal lages:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "Specify _where to create the target:"
@@ -6163,17 +6281,17 @@ msgid "_Module name:"
 msgstr "Navn på _modul:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-msgid "_New library&#x2026;"
-msgstr "_Nytt bibliotek&#x2026;"
+msgid "_New library…"
+msgstr "_Nytt bibliotek …"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
-msgid "_Select file to add&#x2026;"
-msgstr "_Velg fil som skal legges til&#x2026;"
+msgid "_Select file to add…"
+msgstr "_Velg fil som skal legges til …"
 
 #: ../plugins/project-manager/project-model.c:184
-#: ../plugins/project-manager/plugin.c:1322
-#: ../plugins/project-manager/plugin.c:1442
-#: ../plugins/project-manager/plugin.c:1622 ../plugins/symbol-db/plugin.c:2134
+#: ../plugins/project-manager/plugin.c:1324
+#: ../plugins/project-manager/plugin.c:1446
+#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Prosjekt"
@@ -6204,46 +6322,39 @@ msgstr ""
 "\n"
 
 #: ../plugins/project-manager/plugin.c:671
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne følgende mål fra prosjektet?\n\n"
 
 #: ../plugins/project-manager/plugin.c:674
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne følgende kildekodefil fra prosjektet?\n\n"
 
 #: ../plugins/project-manager/plugin.c:677
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne følgende pakke fra prosjektet?\n\n"
 
 #: ../plugins/project-manager/plugin.c:680
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
-msgstr ""
-"Er du sikker på at du vil fjerne følgende gruppe fra prosjektet?\n"
-"\n"
+msgstr "Er du sikker på at du vil fjerne følgende modul fra prosjektet?\n\n"
 
 #: ../plugins/project-manager/plugin.c:683
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
-msgstr "Er du sikker på at du vil slette alle stoppunkter?"
+msgstr "Er du sikker på at du vil fjerne følgende elementer fra prosjektet?\n\n"
 
 #: ../plugins/project-manager/plugin.c:700
-#, fuzzy, c-format
+#, c-format
 msgid "Group: %s\n"
-msgstr "Gruppe:"
+msgstr "Gruppe: %s\n"
 
 #: ../plugins/project-manager/plugin.c:703
 #, c-format
@@ -6359,7 +6470,7 @@ msgid "_Properties"
 msgstr "E_genskaper:        "
 
 #: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/dialogs.c:517
+#: ../plugins/project-manager/dialogs.c:530
 msgid "Project properties"
 msgstr "Egenskaper for prosjekt"
 
@@ -6425,41 +6536,41 @@ msgstr "_Sorter"
 msgid "Sort shortcuts"
 msgstr "Sorter snarveier"
 
-#: ../plugins/project-manager/plugin.c:1307
+#: ../plugins/project-manager/plugin.c:1309
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:1317
+#: ../plugins/project-manager/plugin.c:1319
 msgid "Update project view…"
 msgstr "Oppdater prosjektvisning …"
 
-#: ../plugins/project-manager/plugin.c:1360
+#: ../plugins/project-manager/plugin.c:1362
 #, c-format
 msgid "Loading project: %s"
 msgstr "Laster prosjekt: %s"
 
-#: ../plugins/project-manager/plugin.c:1530
+#: ../plugins/project-manager/plugin.c:1526
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Feil ved lukking av prosjekt: %s"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1597
 msgid "Project manager actions"
 msgstr "Handlinger for prosjektleder"
 
-#: ../plugins/project-manager/plugin.c:1609
+#: ../plugins/project-manager/plugin.c:1605
 #, fuzzy
 msgid "Project manager popup actions"
 msgstr "Prosjektkonfigurasjon"
 
-#: ../plugins/project-manager/plugin.c:2333
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr "Initierer prosjekt …"
 
-#: ../plugins/project-manager/plugin.c:2336
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr "Prosjekt lastet"
 
@@ -6474,76 +6585,76 @@ msgstr "Prosjekt lastet"
 msgid "Select sources…"
 msgstr "Velg kilder …"
 
-#: ../plugins/project-manager/dialogs.c:369
+#: ../plugins/project-manager/dialogs.c:372
 msgid " This property is not modifiable."
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:520
+#: ../plugins/project-manager/dialogs.c:533
 msgid "Directory properties"
 msgstr "Egenskaper for katalog"
 
-#: ../plugins/project-manager/dialogs.c:523
+#: ../plugins/project-manager/dialogs.c:536
 msgid "Target properties"
 msgstr "Egenskaper for mål"
 
-#: ../plugins/project-manager/dialogs.c:526
+#: ../plugins/project-manager/dialogs.c:539
 msgid "Source properties"
 msgstr "Egenskaper for kildekode"
 
-#: ../plugins/project-manager/dialogs.c:529
+#: ../plugins/project-manager/dialogs.c:542
 msgid "Module properties"
 msgstr "Egenskaper for modul"
 
-#: ../plugins/project-manager/dialogs.c:532
+#: ../plugins/project-manager/dialogs.c:545
 msgid "Package properties"
 msgstr "Egenskaper for pakke"
 
-#: ../plugins/project-manager/dialogs.c:535
+#: ../plugins/project-manager/dialogs.c:548
 msgid "Unknown properties"
 msgstr "Ukjente egenskaper"
 
-#: ../plugins/project-manager/dialogs.c:930
-#: ../plugins/project-manager/dialogs.c:941
+#: ../plugins/project-manager/dialogs.c:946
+#: ../plugins/project-manager/dialogs.c:957
 msgid "Cannot add group"
 msgstr "Kan ikke legge til gruppe"
 
-#: ../plugins/project-manager/dialogs.c:942
+#: ../plugins/project-manager/dialogs.c:958
 msgid "No parent group selected"
 msgstr "Ingen opphavsgruppe valgt"
 
-#: ../plugins/project-manager/dialogs.c:1156
-#: ../plugins/project-manager/dialogs.c:1166
+#: ../plugins/project-manager/dialogs.c:1172
+#: ../plugins/project-manager/dialogs.c:1182
 msgid "Cannot add source files"
 msgstr "Kan ikke legge til kildefiler"
 
-#: ../plugins/project-manager/dialogs.c:1167
+#: ../plugins/project-manager/dialogs.c:1183
 msgid "The selected node cannot contain source files."
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1353
-#: ../plugins/project-manager/dialogs.c:1364
+#: ../plugins/project-manager/dialogs.c:1369
+#: ../plugins/project-manager/dialogs.c:1380
 msgid "Cannot add target"
 msgstr "Kan ikke legge til mål"
 
-#: ../plugins/project-manager/dialogs.c:1365
+#: ../plugins/project-manager/dialogs.c:1381
 msgid "No group selected"
 msgstr "Ingen gruppe valgt"
 
-#: ../plugins/project-manager/dialogs.c:1524
-#: ../plugins/project-manager/dialogs.c:1535
+#: ../plugins/project-manager/dialogs.c:1540
+#: ../plugins/project-manager/dialogs.c:1551
 msgid "Cannot add modules"
 msgstr "Kan ikke legge til moduler"
 
-#: ../plugins/project-manager/dialogs.c:1536
+#: ../plugins/project-manager/dialogs.c:1552
 msgid "No target has been selected"
 msgstr "Ingen mål er valgt"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1739
+#: ../plugins/project-manager/dialogs.c:1755
 msgid "Missing module name"
 msgstr "Mangler navn på modul"
 
-#: ../plugins/project-manager/dialogs.c:1801
+#: ../plugins/project-manager/dialogs.c:1817
 msgid "Cannot add packages"
 msgstr "Kan ikke legge til pakker"
 
@@ -6727,29 +6838,29 @@ msgstr "Klarte ikke å hente prosjektmal %s: %s"
 msgid "New Project Assistant"
 msgstr "Ny prosjektassistent"
 
-#: ../plugins/project-wizard/property.c:340
+#: ../plugins/project-wizard/property.c:341
 msgid "Select directory"
 msgstr "Velg katalog"
 
-#: ../plugins/project-wizard/property.c:348
+#: ../plugins/project-wizard/property.c:358
 msgid "Select file"
 msgstr "Velg fil"
 
-#: ../plugins/project-wizard/property.c:398 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:522
 msgid "Select an Image File"
 msgstr "Velg en bildefil"
 
-#: ../plugins/project-wizard/property.c:423
-#: ../plugins/project-wizard/property.c:511 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:433
+#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr "Velg ikon"
 
-#: ../plugins/project-wizard/property.c:481
+#: ../plugins/project-wizard/property.c:491
 msgid "Choose directory"
 msgstr "Velg katalog"
 
-#: ../plugins/project-wizard/property.c:485
+#: ../plugins/project-wizard/property.c:495
 msgid "Choose file"
 msgstr "Velg fil"
 
@@ -6765,6 +6876,7 @@ msgstr "Et vanlig lite og flatt prosjekt"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
 #: ../plugins/project-wizard/templates/library.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "Add C++ support:"
 msgstr "Legg til C++-støtte:"
 
@@ -6779,6 +6891,8 @@ msgstr "Legg til C++-støtte:"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:3
 #: ../plugins/project-wizard/templates/java.wiz.in.h:4
 #: ../plugins/project-wizard/templates/python.wiz.in.h:4
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:1
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:4
 msgid "Add shared library support:"
 msgstr "Legg til støtte for delte biblioteker:"
 
@@ -6789,6 +6903,7 @@ msgstr "Legg til støtte for delte biblioteker:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 
@@ -6803,6 +6918,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:4
 #: ../plugins/project-wizard/templates/java.wiz.in.h:5
 #: ../plugins/project-wizard/templates/python.wiz.in.h:5
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:6
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
 
@@ -6822,6 +6939,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
 #: ../plugins/project-wizard/templates/library.wiz.in.h:6
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:8
 msgid "Author:"
 msgstr "Forfatter:"
 
@@ -6841,6 +6960,8 @@ msgstr "Forfatter:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:7
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:9
 msgid "Basic information"
 msgstr "Grunnleggende informasjon"
 
@@ -6860,6 +6981,8 @@ msgstr "Grunnleggende informasjon"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:10
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr ""
 
@@ -6893,6 +7016,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/python.wiz.in.h:11
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
 #: ../plugins/project-wizard/templates/library.wiz.in.h:11
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:11
 msgid "Configure external packages"
 msgstr "Konfigurer eksterne pakker"
 
@@ -6910,6 +7035,8 @@ msgstr "Konfigurer eksterne pakker"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:12
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:12
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:12
 msgid "Configure external packages:"
 msgstr "Konfigurer eksterne pakker:"
 
@@ -6929,6 +7056,8 @@ msgstr "Konfigurer eksterne pakker:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
 #: ../plugins/project-wizard/templates/library.wiz.in.h:14
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
 msgid "Email address:"
 msgstr "E-postadresse:"
 
@@ -6949,6 +7078,8 @@ msgstr "E-postadresse:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
 #: ../plugins/project-wizard/templates/library.wiz.in.h:15
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:17
 msgid "General Project Information"
 msgstr "Generell informasjon om prosjektet"
 
@@ -6972,6 +7103,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
 #: ../plugins/project-wizard/templates/library.wiz.in.h:19
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:21
 msgid "License"
 msgstr "Lisens"
 
@@ -6991,6 +7124,8 @@ msgstr "Lisens"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
 #: ../plugins/project-wizard/templates/library.wiz.in.h:20
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:22
 msgid "No license"
 msgstr "Ingen lisens"
 
@@ -7010,6 +7145,8 @@ msgstr "Ingen lisens"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
 #: ../plugins/project-wizard/templates/library.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 msgid "Options for project build system"
 msgstr ""
 
@@ -7030,6 +7167,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
 #: ../plugins/project-wizard/templates/library.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:24
 msgid "Project Name:"
 msgstr "Prosjektnavn:"
 
@@ -7050,6 +7189,8 @@ msgstr "Prosjektnavn:"
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
 #: ../plugins/project-wizard/templates/library.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
 msgid "Project options"
 msgstr "Alternativer for prosjekt"
 
@@ -7085,6 +7226,8 @@ msgstr "Pakker som kreves:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
 #: ../plugins/project-wizard/templates/library.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
 msgid "Select code license"
 msgstr "Velg lisens for kode"
 
@@ -7100,8 +7243,10 @@ msgstr "Velg lisens for kode"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
 
@@ -7118,9 +7263,11 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "Prosjektnavn"
 
@@ -7141,6 +7288,7 @@ msgstr "Et generisk prosjekt"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
 #: ../plugins/project-wizard/templates/library.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:3
 msgid "Add internationalization:"
 msgstr "Legg til internasjonalisering:"
 
@@ -7157,6 +7305,7 @@ msgstr "Legg til internasjonalisering:"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
 #: ../plugins/project-wizard/templates/library.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:7
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
@@ -7190,14 +7339,18 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:2
 #: ../plugins/project-wizard/templates/java.wiz.in.h:2
 #: ../plugins/project-wizard/templates/python.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:2
 msgid "Add gtk-doc system:"
 msgstr "Legg til gtk-doc-systemet:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:10
 msgid "GTK+ (simple)"
 msgstr "GTK+ (enkel)"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:19
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -7205,21 +7358,30 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 msgid "Require Package:"
 msgstr "Krever pakke:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
 msgid "Simple GTK+ project"
 msgstr "Enkelt GTK+-prosjekt"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 #, fuzzy
 msgid "Use GtkBuilder for user interface:"
 msgstr "Kan ikke laste brukergrensesnittfil: %s"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
 "from xml files at runtime"
@@ -7229,6 +7391,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
 #: ../plugins/project-wizard/templates/java.wiz.in.h:30
 #: ../plugins/project-wizard/templates/python.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:32
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
@@ -7528,6 +7691,14 @@ msgstr "Velg type bibliotek som skal bygges"
 msgid "Shared and Static library"
 msgstr "Delt og statisk bibliotek"
 
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
+msgid "Full features Gtk+ Application with file handling"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
+msgid "GTK+ (Application)"
+msgstr ""
+
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
 msgstr "Velg arbeidskatalog"
@@ -7558,11 +7729,11 @@ msgstr "Arbeidskatalog:"
 msgid "Program directory '%s' is not local"
 msgstr "Programkatalog «%s» er ikke lokal"
 
-#: ../plugins/run-program/parameters.c:303
+#: ../plugins/run-program/parameters.c:304
 msgid "Load Target to run"
 msgstr ""
 
-#: ../plugins/run-program/parameters.c:620
+#: ../plugins/run-program/parameters.c:621
 #, c-format
 msgid "Missing file %s"
 msgstr "Mangler filen %s"
@@ -7614,282 +7785,8 @@ msgstr "Kjør operasjoner"
 msgid "Command used for starting a terminal"
 msgstr ""
 
-#: ../plugins/search/anjuta-search.ui.h:1
-msgid "Actions"
-msgstr "Handlinger"
-
-#: ../plugins/search/anjuta-search.ui.h:2
-#: ../plugins/search/search-replace.c:91
-msgid "Backward"
-msgstr "Bakover"
-
-#: ../plugins/search/anjuta-search.ui.h:3
-msgid "Choose Directories:"
-msgstr "Velg kataloger:"
-
-#: ../plugins/search/anjuta-search.ui.h:4
-msgid "Choose Files:"
-msgstr "Velg filer:"
-
-#: ../plugins/search/anjuta-search.ui.h:5
-msgid "Expand regex back references"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:6
-msgid "File Filter"
-msgstr "Filfilter"
-
-#: ../plugins/search/anjuta-search.ui.h:7
-msgid "Find & Replace"
-msgstr "Søk og erstatt"
-
-#: ../plugins/search/anjuta-search.ui.h:8
-#: ../plugins/search/search-replace.c:90
-msgid "Forward"
-msgstr "Send videre"
-
-#. the order of these matters - it must match the order of the corresponding
-#. radio buttons on another page
-#: ../plugins/search/anjuta-search.ui.h:9
-#: ../plugins/search/search-replace.c:89
-msgid "Full Buffer"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:10
-msgid "Greedy matching"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:11
-msgid "Ignore Binary Files"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:12
-msgid "Ignore Directories:"
-msgstr "Ignorer kataloger:"
-
-#: ../plugins/search/anjuta-search.ui.h:13
-msgid "Ignore Files:"
-msgstr "Ignorer filer:"
-
-#: ../plugins/search/anjuta-search.ui.h:14
-msgid "Ignore Hidden Directories"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:15
-msgid "Ignore Hidden Files"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:16
-msgid "Match at start of word"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:18
-msgid "Match complete lines"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:19
-msgid "Match complete words"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:20
-msgid "Maximum Actions"
-msgstr ""
-
-#: ../plugins/search/anjuta-search.ui.h:21
-msgid "No Limit"
-msgstr "Ingen grense"
-
-#: ../plugins/search/anjuta-search.ui.h:23
-msgid "Parameters"
-msgstr "Parametere"
-
-#: ../plugins/search/anjuta-search.ui.h:24
-msgid "Regular expression"
-msgstr "Vanlig uttrykk"
-
-#: ../plugins/search/anjuta-search.ui.h:25
-msgid "Replace With:"
-msgstr "Erstatt med:"
-
-#: ../plugins/search/anjuta-search.ui.h:27
-msgid "Search Action:"
-msgstr "Handling ved søk:"
-
-#: ../plugins/search/anjuta-search.ui.h:28
-msgid "Search Direction:"
-msgstr "Søkeretning:"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:30
-msgid "Search Expression"
-msgstr "Søkeuttrykk"
-
-#. This is "the search expression" (noun)
-#: ../plugins/search/anjuta-search.ui.h:32
-msgid "Search Expression:"
-msgstr "Søkeuttrykk:"
-
-#: ../plugins/search/anjuta-search.ui.h:33
-msgid "Search In:"
-msgstr "Søk i:"
-
-#: ../plugins/search/anjuta-search.ui.h:34
-msgid "Search Recursively"
-msgstr "Søk rekursivt"
-
-#: ../plugins/search/anjuta-search.ui.h:35
-msgid "Search Target"
-msgstr "Søkemål"
-
-#. User can select variables that contain lists of files, so this is a combined noun
-#: ../plugins/search/anjuta-search.ui.h:37
-msgid "Search variable"
-msgstr "Søkevariabel"
-
-#: ../plugins/search/plugin.c:68
-msgid "_Find…"
-msgstr "_Søk …"
-
-#: ../plugins/search/plugin.c:69
-msgid "Search for a string or regular expression in the editor"
-msgstr ""
-
-#: ../plugins/search/plugin.c:71
-msgid "Find _Next"
-msgstr "Finn _neste"
-
-#: ../plugins/search/plugin.c:72 ../plugins/search/plugin.c:76
-msgid "Repeat the last Find command"
-msgstr "Gjenta forrige søkekommando"
-
-#: ../plugins/search/plugin.c:74
-msgid "Find _Previous"
-msgstr "Finn f_orrige"
-
-#: ../plugins/search/plugin.c:78
-msgid "Find and R_eplace…"
-msgstr "Søk og _erstatt …"
-
-#: ../plugins/search/plugin.c:80
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr ""
-"Søk etter, og erstatt en streng eller regulært uttrykk med en annen streng"
-
-#: ../plugins/search/plugin.c:82 ../plugins/search/plugin.c:83
-msgid "Search and Replace"
-msgstr "Søk og erstatt"
-
-#: ../plugins/search/plugin.c:85
-msgid "Fin_d in Files…"
-msgstr "_Finn i filer …"
-
-#: ../plugins/search/plugin.c:86
-msgid "Search for a string in multiple files or directories"
-msgstr "Søk etter en streng i flere filer eller kataloger"
-
-#: ../plugins/search/plugin.c:102
-msgid "Searching…"
-msgstr "Søker …"
-
-#: ../plugins/search/search-replace.c:96
-msgid "Current Buffer"
-msgstr "Aktiv buffer"
-
-#: ../plugins/search/search-replace.c:97
-msgid "Current Selection"
-msgstr "Aktivt utvalg"
-
-#: ../plugins/search/search-replace.c:98
-msgid "Current Block"
-msgstr "Denne blokken"
-
-#: ../plugins/search/search-replace.c:99
-msgid "Current Function"
-msgstr "Denne funksjonen"
-
-#: ../plugins/search/search-replace.c:100
-msgid "All Open Buffers"
-msgstr "Alle åpne buffere"
-
-#: ../plugins/search/search-replace.c:101
-msgid "All Project Files"
-msgstr "Alle filer i prosjektet"
-
-#. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:103
-msgid "Specify File Patterns"
-msgstr "Oppgi filmønstre"
-
-#: ../plugins/search/search-replace.c:108
-msgid "Select next match"
-msgstr "Valgt neste treff"
-
-#: ../plugins/search/search-replace.c:109
-msgid "Bookmark all matched lines"
-msgstr "Lag bokmerker for alle linjer med treff"
-
-#: ../plugins/search/search-replace.c:110
-msgid "Mark all matches"
-msgstr "Merk alle treff"
-
-#: ../plugins/search/search-replace.c:111
-msgid "List matches in find pane"
-msgstr "Vis treff i søkeområdet"
-
-#: ../plugins/search/search-replace.c:112
-msgid "Replace next match"
-msgstr "Erstatt neste treff"
-
-#: ../plugins/search/search-replace.c:113
-msgid "Replace all matches"
-msgstr "Erstatt alle treff"
-
-#. Avoid space in translated string
-#: ../plugins/search/search-replace.c:312
-msgid "Find:"
-msgstr "Finn:"
-
-#: ../plugins/search/search-replace.c:494
-msgid "Replace"
-msgstr "Erstatt"
-
-#: ../plugins/search/search-replace.c:623
-msgid "Search complete"
-msgstr "Søk fullført"
-
-#: ../plugins/search/search-replace.c:1037
-#: ../plugins/search/search-replace.c:1714
-msgid "Replace All"
-msgstr "Erstatt alle"
-
-#: ../plugins/search/search-replace.c:1076
-#, c-format
-msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "Ingen treff på «%s». Begynn på nytt fra starten av dokumentet?"
-
-#: ../plugins/search/search-replace.c:1096
-#, c-format
-msgid "The match \"%s\" was not found."
-msgstr "Ingen treff på «%s»."
-
-#: ../plugins/search/search-replace.c:1111
-msgid "The maximum number of results has been reached."
-msgstr "Maksimalt antall treff er nådd."
-
-#: ../plugins/search/search-replace.c:1124
-#, c-format
-msgid "%d match has been replaced."
-msgid_plural "%d matches have been replaced."
-msgstr[0] "%d treff har blitt erstattet."
-msgstr[1] "%d treff har blitt erstattet."
-
-#: ../plugins/search/search-replace.c:1289
-msgid "Unable to build user interface for Search and Replace"
-msgstr "Kan ikke bygge brukergrensesnitt for søk og erstatt"
-
 #: ../plugins/snippets-manager/plugin.c:62
-#: ../plugins/snippets-manager/plugin.c:304
+#: ../plugins/snippets-manager/plugin.c:306
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
 msgstr ""
@@ -7936,28 +7833,28 @@ msgstr ""
 msgid "Export snippets from the database"
 msgstr ""
 
-#: ../plugins/snippets-manager/plugin.c:329
+#: ../plugins/snippets-manager/plugin.c:331
 #, fuzzy
 msgid "Snippets Manager actions"
 msgstr "Handlinger for prosjektleder"
 
-#: ../plugins/snippets-manager/plugin.c:773
+#: ../plugins/snippets-manager/plugin.c:778
 msgid "Command?"
 msgstr "Kommando?"
 
-#: ../plugins/snippets-manager/plugin.c:789
+#: ../plugins/snippets-manager/plugin.c:794
 msgid "Variable text"
 msgstr "Variabel tekst"
 
-#: ../plugins/snippets-manager/plugin.c:807
+#: ../plugins/snippets-manager/plugin.c:812
 #: ../plugins/snippets-manager/snippets-editor.c:40
 #, fuzzy
 msgid "Instant value"
 msgstr "Inspisere/evaluere"
 
-#: ../plugins/snippets-manager/plugin.c:936
-#: ../plugins/snippets-manager/plugin.c:973
-#: ../plugins/snippets-manager/snippets-provider.c:753
+#: ../plugins/snippets-manager/plugin.c:941
+#: ../plugins/snippets-manager/plugin.c:978
+#: ../plugins/snippets-manager/snippets-provider.c:754
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
 msgstr ""
@@ -8137,12 +8034,12 @@ msgstr "Filen «%s» er skrivebeskyttet! Rediger likevel?"
 msgid "Could not save %s: %s"
 msgstr "Kunne ikke lagre %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:273
+#: ../plugins/sourceview/sourceview-io.c:271
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Kunne ikke lagre filen fordi filnavnet ikke er oppgitt ennå"
 
-#: ../plugins/sourceview/sourceview-io.c:503
+#: ../plugins/sourceview/sourceview-io.c:501
 #, c-format
 msgid "New file %d"
 msgstr "Ny fil %d"
@@ -8242,34 +8139,41 @@ msgstr "Bruk skrift fra tema"
 msgid "View"
 msgstr "Visning"
 
-#: ../plugins/starter/plugin.c:70 ../plugins/starter/starter.c:353
-#: ../plugins/starter/anjuta-starter.plugin.in.h:1
-msgid "Starter"
-msgstr "Starter"
+#: ../plugins/starter/plugin.c:285
+#, fuzzy
+msgid "Start"
+msgstr "Startet"
 
-#: ../plugins/starter/starter.c:394
-msgid "Create File/Project"
-msgstr "Lag fil/prosjekt"
-
-#: ../plugins/starter/starter.c:428
-msgid "Recent Projects"
-msgstr "Siste prosjekter"
-
-#: ../plugins/starter/starter.c:459
-msgid "Links"
-msgstr "Lenker"
-
-#: ../plugins/starter/starter.c:478
-msgid "Anjuta Home Page"
-msgstr "Anjuta hjemmeside"
-
-#: ../plugins/starter/starter.c:484
+#: ../plugins/starter/starter.ui.h:1
 msgid "Anjuta Manual"
 msgstr "Brukerhåndbok for Anjuta"
 
-#: ../plugins/starter/starter.c:490
-msgid "GNOME Online API Documentation"
-msgstr "GNOME API-dokumentasjon på nettet"
+#: ../plugins/starter/starter.ui.h:2
+#, fuzzy
+msgid "Create a new project"
+msgstr "Lag fil/prosjekt"
+
+#: ../plugins/starter/starter.ui.h:3
+msgid "FAQ"
+msgstr ""
+
+#: ../plugins/starter/starter.ui.h:4
+msgid "Getting started:"
+msgstr ""
+
+#: ../plugins/starter/starter.ui.h:5
+#, fuzzy
+msgid "Import an existing project"
+msgstr "Importer prosjekt"
+
+#: ../plugins/starter/starter.ui.h:6
+#, fuzzy
+msgid "Recent projects:"
+msgstr "Siste prosjekter"
+
+#: ../plugins/starter/starter.ui.h:7
+msgid "Tutorials"
+msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -8683,22 +8587,6 @@ msgstr "Brukervalg for CVS"
 msgid "Diff"
 msgstr "Forskjeller"
 
-#: ../plugins/subversion/subversion-log-dialog.c:132
-msgid "Author"
-msgstr "Forfatter"
-
-#: ../plugins/subversion/subversion-log-dialog.c:141
-msgid "Date"
-msgstr "Dato"
-
-#: ../plugins/subversion/subversion-log-dialog.c:151
-msgid "Revision"
-msgstr "Revisjon"
-
-#: ../plugins/subversion/subversion-log-dialog.c:160
-msgid "Short Log"
-msgstr "Kort logg"
-
 #: ../plugins/subversion/subversion-log-dialog.c:257
 msgid "Subversion: Retrieving log…"
 msgstr "Subversion: Henter logg …"
@@ -8887,45 +8775,45 @@ msgstr "_Søk etter symbol …"
 msgid "Find Symbol"
 msgstr "Finn symbol"
 
-#: ../plugins/symbol-db/plugin.c:1010
+#: ../plugins/symbol-db/plugin.c:1032
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:1015
+#: ../plugins/symbol-db/plugin.c:1037
 #, c-format
 msgid "%s: %d files scanned out of %d"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:1046
+#: ../plugins/symbol-db/plugin.c:1068
 #, c-format
 msgid "Generating inheritances…"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:1048
+#: ../plugins/symbol-db/plugin.c:1070
 #, c-format
 msgid "%d files scanned out of %d"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:1798
+#: ../plugins/symbol-db/plugin.c:1729
 msgid "Populating symbol database…"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/symbol-db/plugin.c:2204
+#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
 msgid "Symbols"
 msgstr "Symboler"
 
-#: ../plugins/symbol-db/plugin.c:2213
+#: ../plugins/symbol-db/plugin.c:2203
 #, fuzzy
 msgid "SymbolDb popup actions"
 msgstr "CVS-operasjoner"
 
-#: ../plugins/symbol-db/plugin.c:2221
+#: ../plugins/symbol-db/plugin.c:2211
 #, fuzzy
 msgid "SymbolDb menu actions"
 msgstr "Eksempel-tillegg"
 
-#: ../plugins/symbol-db/plugin.c:2529 ../plugins/symbol-db/plugin.c:2547
+#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Symboldatabase"
@@ -9674,67 +9562,75 @@ msgid "Line up parentheses"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
+msgid "Load API tags for C standard library"
+msgstr ""
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+msgid "Load API tags for C++ standard template library"
+msgstr ""
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 #, fuzzy
 msgid "Parenthesis indentation"
 msgstr "Smart innrykk"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Prefer vim/emacs modelines over indentation settings"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 #, fuzzy
 msgid "Show calltips"
 msgstr "Vis utklippstavle"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
 msgstr "Smart innrykk"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Statement indentation size in spaces:"
 msgstr ""
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:967
-#: ../plugins/language-support-python/plugin.c:1185
+#: ../plugins/language-support-cpp-java/plugin.c:1203
+#: ../plugins/language-support-python/plugin.c:456
 msgid "Auto-Indent"
 msgstr "Automatisk innrykk"
 
-#: ../plugins/language-support-cpp-java/plugin.c:968
-#: ../plugins/language-support-python/plugin.c:1186
+#: ../plugins/language-support-cpp-java/plugin.c:1204
+#: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:974
+#: ../plugins/language-support-cpp-java/plugin.c:1210
 #, fuzzy
 msgid "Comment/Uncomment"
 msgstr "Kommentar:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:975
+#: ../plugins/language-support-cpp-java/plugin.c:1211
 #, fuzzy
 msgid "Comment or uncomment current selection"
 msgstr "Aktivt utvalg"
 
-#: ../plugins/language-support-cpp-java/plugin.c:980
+#: ../plugins/language-support-cpp-java/plugin.c:1216
 msgid "Swap .h/.c"
 msgstr "Bytt .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:981
+#: ../plugins/language-support-cpp-java/plugin.c:1217
 #, fuzzy
 msgid "Swap C header and source files"
 msgstr "Kan ikke legge til kildefiler"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1021
+#: ../plugins/language-support-cpp-java/plugin.c:1257
 msgid "C++/Java Assistance"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:1196
-#: ../plugins/language-support-cpp-java/plugin.c:1226
+#: ../plugins/language-support-cpp-java/plugin.c:1491
+#: ../plugins/language-support-cpp-java/plugin.c:1525
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -9742,28 +9638,28 @@ msgstr "C/C++/Java/Vala"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-python/plugin.c:909
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Python support warning"
 msgstr ""
 
-#: ../plugins/language-support-python/plugin.c:917
+#: ../plugins/language-support-python/plugin.c:92
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
 
-#: ../plugins/language-support-python/plugin.c:920
+#: ../plugins/language-support-python/plugin.c:95
 msgid "Do not show that warning again"
 msgstr "Ikke vis denne advarselen igjen"
 
-#: ../plugins/language-support-python/plugin.c:1267
+#: ../plugins/language-support-python/plugin.c:513
 #, fuzzy
 msgid "Python Assistance"
 msgstr "Prosjektveiviser"
 
-#: ../plugins/language-support-python/plugin.c:1376
-#: ../plugins/language-support-python/plugin.c:1385
+#: ../plugins/language-support-python/plugin.c:618
+#: ../plugins/language-support-python/plugin.c:627
 #: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
@@ -9845,16 +9741,16 @@ msgid "A Subversion client plugin based on libsvn"
 msgstr ""
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
-msgid "Glade File"
-msgstr "Glade-fil"
-
-#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade Plugin for Anjuta."
 msgstr "Glade-tillegg for Anjuta."
 
-#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+#: ../plugins/glade/anjuta-glade.plugin.in.h:2
 msgid "Glade interface designer"
 msgstr "Glade brukergrensesnittbygger"
+
+#: ../plugins/glade/anjuta-glade.plugin.in.h:3
+msgid "User interface file"
+msgstr "Brukergrensesnittfil"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 #, fuzzy
@@ -9911,6 +9807,10 @@ msgstr ""
 msgid "The default editor based on GtkSourceView"
 msgstr ""
 
+#: ../plugins/starter/anjuta-starter.plugin.in.h:1
+msgid "Starter"
+msgstr "Starter"
+
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
 msgstr ""
@@ -9926,14 +9826,6 @@ msgstr ""
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
 msgstr "Prosjektveiviser"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:1
-msgid "Component for searching"
-msgstr "Komponent for søk"
-
-#: ../plugins/search/anjuta-search.plugin.in.h:2
-msgid "Searching"
-msgstr "Søker"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 #, fuzzy
