@@ -122,6 +122,26 @@ on_treeview_has_child_toggled (GtkTreeModel *model,
 	g_free (symbol_name);
 }
 
+static gboolean
+symbol_db_view_search_equal_func (GtkTreeModel *model, gint column,
+                                  const gchar *key, GtkTreeIter *iter,
+                                  gpointer search_data)
+{
+	gchar *pattern, *str;
+	gboolean res;
+
+	gtk_tree_model_get (model, iter, column, &str, -1);
+	
+	pattern = g_strdup_printf (".*%s.*", key);
+	res = g_regex_match_simple (pattern, str, G_REGEX_CASELESS, 0);
+
+	g_free (pattern);
+	g_free (str);
+
+	return !res;
+}
+
+
 static void
 on_search_entry_changed (GtkEntry *entry, SymbolDBModelSearch *model)
 {
@@ -207,6 +227,13 @@ symbol_db_view_new (SymbolViewType view_type,
 	gtk_container_add (GTK_CONTAINER (sw), dbv);
 	gtk_widget_show (sw);
 
+	/* Search */
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (dbv),
+	                                     symbol_db_view_search_equal_func,
+	                                     NULL, NULL);
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (dbv),
+	                                 SYMBOL_DB_MODEL_PROJECT_COL_LABEL);
+	
 	if (view_type == SYMBOL_DB_VIEW_SEARCH)
 	{
 		entry = gtk_entry_new ();
