@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=anjuta&component=core application\n"
-"POT-Creation-Date: 2011-03-05 09:28+0000\n"
-"PO-Revision-Date: 2011-03-24 00:55+0200\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2011-03-23 23:02+0000\n"
+"PO-Revision-Date: 2011-03-28 01:19+0300\n"
+"Last-Translator: Peteris Krisjanis <pecisk@gmail.com>\n"
+"Language-Team: American English <lata-l10n@googlesgroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -197,13 +197,26 @@ msgstr "Taizemiešu"
 msgid "Unknown"
 msgstr "Nezināms"
 
-#: ../libanjuta/anjuta-launcher.c:1172 ../libanjuta/resources.c:267
+#.
+#. * Translators: This regex should match the password prompts of
+#. * at least the "su" and the "sudo" command line utility in your
+#. * language and possible other things like "ssh".
+#. * More information on the regular expression syntax can be
+#. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
+#.
+#: ../libanjuta/anjuta-launcher.c:675
+#, fuzzy
+#| msgid "Password:"
+msgid "[Pp]assword.*:"
+msgstr "Parole:"
+
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Neizdodas izpildīt komandu: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1173
+#: ../libanjuta/anjuta-launcher.c:1166
 msgid "execvp failed"
 msgstr "execvp neizdevās"
 
@@ -229,8 +242,8 @@ msgid ""
 "%s"
 msgstr ""
 "Neizdevās ielādēt %s\n"
-"Tas parasti nozīmē, ka jūsu instalācija ir bojāta. Kļūdas, kas noveda "
-"pie tā, paziņojums bija:\n"
+"Tas parasti nozīmē, ka jūsu instalācija ir bojāta. Kļūdas, kas noveda pie "
+"tā, paziņojums bija:\n"
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:905
@@ -257,10 +270,8 @@ msgid ""
 "you again to choose different plugin."
 msgstr ""
 "Šie ir spraudņi, kurus jūs izvēlējāties tad, kad Anjuta piedāvāja izvēlēties "
-"vienu no "
-"vairākiem piemērotajiem spraudņiem. Izņemot jūsu izvēlēto spraudni, jūs "
-"atļausiet "
-"Anjuta atkal jums piedāvāt izvēli starp dažādiem spraudņiem."
+"vienu no vairākiem piemērotajiem spraudņiem. Izņemot jūsu izvēlēto spraudni, "
+"jūs atļausiet Anjuta atkal jums piedāvāt izvēli starp dažādiem spraudņiem."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1227
 msgid "Forget selected plugin"
@@ -479,11 +490,9 @@ msgid ""
 "from your distribution, or install the missing packages manually."
 msgstr ""
 "Jums acīmredzot nav instalēta PackageKit sistēma. PackageKit ir "
-"nepieciešama, "
-"lai uzinstalētu trūkstošās pakotnes. Lūdzu, instalējiet \"packagekit-gnome\" "
-"pakotni "
-"no jūsu distributīva programmatūras kanāliem, vai arī instalējiet trūkstošās "
-"pakotnes pašrocīgi."
+"nepieciešama, lai uzinstalētu trūkstošās pakotnes. Lūdzu, instalējiet "
+"\"packagekit-gnome\" pakotni no jūsu distributīva programmatūras kanāliem, "
+"vai arī instalējiet trūkstošās pakotnes pašrocīgi."
 
 #: ../libanjuta/anjuta-utils.c:512
 #, c-format
@@ -525,8 +534,8 @@ msgid ""
 "installed. It can be downloaded from http://anjuta.org."
 msgstr ""
 "Neizdevās parādīt palīdzību.  Lūdzu, pārliecinieties ka Anjuta "
-"dokumentācijas pakotne "
-"ir uzinstalēta. To var lejupielādēt no vietnes http://anjuta.org."
+"dokumentācijas pakotne ir uzinstalēta. To var lejupielādēt no vietnes http://"
+"anjuta.org."
 
 #: ../libanjuta/anjuta-utils.c:2330
 #, c-format
@@ -589,7 +598,6 @@ msgid "Column 1"
 msgstr "Kolonna 1"
 
 #: ../libanjuta/anjuta-entry.c:241
-#| msgid "Help"
 msgid "Help text"
 msgstr "Palīdzības teksts"
 
@@ -606,7 +614,6 @@ msgid "Drop a file or enter a path here"
 msgstr "Šeit iemet failu vai ievadi ceļu"
 
 #: ../libanjuta/anjuta-file-list.c:274
-#| msgid "Select file"
 msgid "Select Files"
 msgstr "Izvēlēties failus"
 
@@ -643,7 +650,7 @@ msgstr "Bilžu buferis, ko renderēt."
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "Logvadīkla nav atrasta: %ss"
 
 #: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
@@ -655,7 +662,6 @@ msgid "X"
 msgstr "X"
 
 #: ../libfoocanvas/foo-canvas.c:1234 ../libfoocanvas/foo-canvas.c:1235
-#| msgid "%Y"
 msgid "Y"
 msgstr "Y"
 
@@ -664,7 +670,6 @@ msgid "Markup"
 msgstr "Marķējums"
 
 #: ../libfoocanvas/foo-canvas-text.c:187
-#| msgid "Text to render"
 msgid "Marked up text to render"
 msgstr "Marķētais teksts, ko renderēt"
 
@@ -678,7 +683,6 @@ msgid "Font description as a string"
 msgstr "Fonta apraksts kā virkne"
 
 #: ../libfoocanvas/foo-canvas-text.c:221
-#| msgid "Description"
 msgid "Font description"
 msgstr "Fonta apraksts"
 
@@ -711,12 +715,10 @@ msgid "Font stretch"
 msgstr "Fonta izstiepums"
 
 #: ../libfoocanvas/foo-canvas-text.c:289 ../libfoocanvas/foo-canvas-text.c:290
-#| msgid "Font"
 msgid "Font size"
 msgstr "Fonta izmērs"
 
 #: ../libfoocanvas/foo-canvas-text.c:300
-#| msgid "Contents"
 msgid "Font points"
 msgstr "Fonta punkti"
 
@@ -725,7 +727,6 @@ msgid "Font size in points"
 msgstr "Fonta izmērs punktos"
 
 #: ../libfoocanvas/foo-canvas-text.c:311
-#| msgid "_Reset"
 msgid "Rise"
 msgstr "Pacēlums"
 
@@ -743,7 +744,6 @@ msgid "Whether to strike through the text"
 msgstr "Vai pārsvītrot tekstu"
 
 #: ../libfoocanvas/foo-canvas-text.c:331
-#| msgid "Underlined"
 msgid "Underline"
 msgstr "Pasvītrojums"
 
@@ -752,7 +752,6 @@ msgid "Style of underline for this text"
 msgstr "Pasvītrojuma stils šim tekstam"
 
 #: ../libfoocanvas/foo-canvas-text.c:341
-#| msgid "Save"
 msgid "Scale"
 msgstr "Mērogs"
 
@@ -762,7 +761,6 @@ msgstr "Fonta izmērs, kas relatīvs attiecībā uz noklusēto izmēru"
 
 #: ../libfoocanvas/foo-canvas-text.c:402 ../libfoocanvas/foo-canvas-text.c:410
 #: ../libfoocanvas/foo-canvas-text.c:418
-#| msgid "Colour"
 msgid "Color"
 msgstr "Krāsa"
 
@@ -779,7 +777,6 @@ msgid "Text color, as an R/G/B/A combined integer"
 msgstr "Teksta krāsa, kā R/G/B/A vērtību kominētais veselais skaitlis"
 
 #: ../libfoocanvas/foo-canvas-text.c:432
-#| msgid "Open with"
 msgid "Text width"
 msgstr "Teksta platums"
 
@@ -844,7 +841,6 @@ msgid "Whether this tag affects the font size"
 msgstr "Vai šī birka ietekmē fonta izmēru"
 
 #: ../libfoocanvas/foo-canvas-text.c:473
-#| msgid "_Reset"
 msgid "Rise set"
 msgstr "Pacēlums iestatīts"
 
@@ -861,7 +857,6 @@ msgid "Whether this tag affects strikethrough"
 msgstr "Vai šī birka ietekmē pārsvītrojumu"
 
 #: ../libfoocanvas/foo-canvas-text.c:481
-#| msgid "Underlined"
 msgid "Underline set"
 msgstr "Pasvītrojums iestatīts"
 
@@ -877,23 +872,23 @@ msgstr "Mērogs iestatīts"
 msgid "Whether this tag affects font scaling"
 msgstr "Vai šī birka ietkmē fonta mērogu"
 
-#: ../plugins/am-project/amp-group.c:542
+#: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "Lūdzu, norādiet grupas nosaukumu"
 
-#: ../plugins/am-project/amp-group.c:556
+#: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "Grupas nosaukums var saturēt tikai burtciparu vai \"#$:%+,-.=@^_`~\" "
 "rakstzīmes"
 
-#: ../plugins/am-project/amp-group.c:586
+#: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1561
-#: ../plugins/am-project/am-project.c:1591
-#: ../plugins/am-project/am-project.c:1643
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1614
+#: ../plugins/am-project/am-project.c:1666
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -926,7 +921,6 @@ msgid "Arguments:"
 msgstr "Argumenti:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
-#| msgid "_Build"
 msgid "Build"
 msgstr "Būvēšana"
 
@@ -935,7 +929,6 @@ msgid "Build Directory:"
 msgstr "Būvēšanas direktorija:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
-#| msgid "Confirmation"
 msgid "Configuration:"
 msgstr "Konfigurācija:"
 
@@ -956,7 +949,6 @@ msgid "Highlight build warnings and errors in editor"
 msgstr "Izcelt būvēšanas brīdinājumus un kļūdas redaktorā"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
-#| msgid "_Install"
 msgid "Install"
 msgstr "Instalēt"
 
@@ -965,7 +957,6 @@ msgid "Install as root:"
 msgstr "Instalēt kā root:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
-#| msgid "Configure project"
 msgid "Regenerate project"
 msgstr "Pārģenerēt projektu"
 
@@ -1069,11 +1060,11 @@ msgstr "Palaižamā vienība '%s' nav visjaunākā."
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:171
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:172
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -1082,11 +1073,11 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:180
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:181
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
 
 #: ../plugins/build-basic-autotools/plugin.c:871
 #, c-format
@@ -1109,7 +1100,6 @@ msgid "warning:"
 msgstr "brīdinājums:"
 
 #: ../plugins/build-basic-autotools/plugin.c:946
-#| msgid "Warning"
 msgid "warning:-old"
 msgstr "brīdinājums (vecs):"
 
@@ -1179,206 +1169,205 @@ msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr ""
-"Pirms izmantot šo jauno konfigurāciju, noklusētā ir jāizņem. Vai "
-"jūs to vēlaties darīt?"
+"Pirms izmantot šo jauno konfigurāciju, noklusētā ir jāizņem. Vai jūs to "
+"vēlaties darīt?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1854
+#: ../plugins/build-basic-autotools/plugin.c:1856
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Neizdodas kompilēt \"%s\": šim failu tipam nav definēts, kā to kompilēt."
 
-#: ../plugins/build-basic-autotools/plugin.c:1989
+#: ../plugins/build-basic-autotools/plugin.c:1991
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Neizdodas konfigurēt projektu: %s trūkst konfigurācijas skripta."
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2572
-#: ../plugins/build-basic-autotools/plugin.c:2582
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2472
+#: ../plugins/build-basic-autotools/plugin.c:2546
+#: ../plugins/build-basic-autotools/plugin.c:2556
+#: ../plugins/build-basic-autotools/plugin.c:2574
+#: ../plugins/build-basic-autotools/plugin.c:2584
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "_Build"
 msgstr "_Būvēt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2476
 msgid "_Build Project"
 msgstr "_Būvēt projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2477
 msgid "Build whole project"
 msgstr "Būvēt visu projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2482
 msgid "_Install Project"
 msgstr "_Instalēt projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2481
+#: ../plugins/build-basic-autotools/plugin.c:2483
 msgid "Install whole project"
 msgstr "Instalēt visu projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "_Clean Project"
 msgstr "_Attīrīt projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2489
 msgid "Clean whole project"
 msgstr "Attīrīt visu projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
-#| msgid "Configure Project"
+#: ../plugins/build-basic-autotools/plugin.c:2494
 msgid "C_onfigure Project…"
 msgstr "K_onfigurēt projektu..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2493
+#: ../plugins/build-basic-autotools/plugin.c:2495
 msgid "Configure project"
 msgstr "Konfigurēt projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2500
 msgid "Build _Tarball"
 msgstr "Būvēt _tar arhīvu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2501
 msgid "Build project tarball distribution"
 msgstr "Būvēt projekta tar arhīvu programmatūras izplatīšanai"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2506
 msgid "_Build Module"
 msgstr "_Būvēt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2505
+#: ../plugins/build-basic-autotools/plugin.c:2507
 msgid "Build module associated with current file"
 msgstr "Būvēt ar pašreizējo failu saistīto moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
+#: ../plugins/build-basic-autotools/plugin.c:2512
 msgid "_Install Module"
 msgstr "_Instalēt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
+#: ../plugins/build-basic-autotools/plugin.c:2513
 msgid "Install module associated with current file"
 msgstr "Instalēt ar pašreizējo failu saistīto moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2518
 msgid "_Clean Module"
 msgstr "_Attīrīt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2519
 msgid "Clean module associated with current file"
 msgstr "Attīrīt ar pašreizējo failu saistīto moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "Co_mpile File"
 msgstr "Ko_mpilēt failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2525
 msgid "Compile current editor file"
 msgstr "Kompilēt pašlaik rediģēto failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2530
 msgid "Select Configuration"
 msgstr "Izvēlieties konfigurāciju"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2531
 msgid "Select current configuration"
 msgstr "Izvēlieties pašreizējo konfigurāciju"
 
-#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2536
 msgid "Remove Configuration"
 msgstr "Izņemiet konfigurāciju"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2537
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Attīriet projektu (distclean) un izņemiet konfigurācijas direktoriju, ja tas "
 "ir iespējams"
 
-#: ../plugins/build-basic-autotools/plugin.c:2548
-#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2550
+#: ../plugins/build-basic-autotools/plugin.c:2578
 msgid "_Compile"
 msgstr "_Kompilēt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2549
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2551
+#: ../plugins/build-basic-autotools/plugin.c:2579
 msgid "Compile file"
 msgstr "Kompilēt failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2555
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2557
+#: ../plugins/build-basic-autotools/plugin.c:2585
 msgid "Build module"
 msgstr "Būvēt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2588
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2562
+#: ../plugins/build-basic-autotools/plugin.c:2590
+#: ../plugins/build-basic-autotools/plugin.c:2648
 #, c-format
 msgid "_Install"
 msgstr "_Instalēt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2561
-#: ../plugins/build-basic-autotools/plugin.c:2589
+#: ../plugins/build-basic-autotools/plugin.c:2563
+#: ../plugins/build-basic-autotools/plugin.c:2591
 msgid "Install module"
 msgstr "Instalēt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2594
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2568
+#: ../plugins/build-basic-autotools/plugin.c:2596
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Clean"
 msgstr "_Attīrīt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2567
-#: ../plugins/build-basic-autotools/plugin.c:2595
+#: ../plugins/build-basic-autotools/plugin.c:2569
+#: ../plugins/build-basic-autotools/plugin.c:2597
 msgid "Clean module"
 msgstr "Attīrīt moduli"
 
-#: ../plugins/build-basic-autotools/plugin.c:2600
+#: ../plugins/build-basic-autotools/plugin.c:2602
 msgid "_Cancel command"
 msgstr "_Atsaukt komandu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2603
 msgid "Cancel build command"
 msgstr "Atsaukt būvēšanas komandu"
 
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2641
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Buvēt (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2648
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalēt (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Attīrīt (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2663
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpile (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2663
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpilēt"
 
-#: ../plugins/build-basic-autotools/plugin.c:3195
+#: ../plugins/build-basic-autotools/plugin.c:3197
 msgid "Build commands"
 msgstr ""
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3204
+#: ../plugins/build-basic-autotools/plugin.c:3206
 msgid "Build popup commands"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/plugin.c:3593
-#: ../plugins/build-basic-autotools/plugin.c:3601
+#: ../plugins/build-basic-autotools/plugin.c:3595
+#: ../plugins/build-basic-autotools/plugin.c:3603
 msgid "Build Autotools"
 msgstr ""
 
@@ -1404,7 +1393,6 @@ msgid "Add to Repository"
 msgstr "Pievienot krātuvei"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
-#| msgid "Author Email:"
 msgid "Author Email Address:"
 msgstr "Autora e-pasta adrese:"
 
@@ -1458,7 +1446,6 @@ msgid "Class Scope:"
 msgstr "Klases tvērums:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
-#| msgid "Variables"
 msgid "Constants/Variables"
 msgstr "Konstantes/mainīgie"
 
@@ -1467,7 +1454,6 @@ msgid "Create"
 msgstr "Izveidot"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#| msgid "Pixbuf Object"
 msgid "GLib.Object"
 msgstr "GLib.Object"
 
@@ -1480,7 +1466,6 @@ msgid "GObject Prefix and Type:"
 msgstr "GObject prefikss and tips:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
-#| msgid "Group properties"
 msgid "General Class Properties"
 msgstr "Vispārīgie klases iestatījumi"
 
@@ -1520,7 +1505,6 @@ msgid "Imports"
 msgstr "Importi"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
-#| msgid "Arguments:"
 msgid "Initializer Arguments:"
 msgstr "Inicalizētāja argumenti:"
 
@@ -1569,7 +1553,6 @@ msgid "Methods"
 msgstr "Metodes"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:33
-#| msgid "License"
 msgid "No License"
 msgstr "Nav licences"
 
@@ -1634,8 +1617,7 @@ msgid ""
 "can get it from http://autogen.sourceforge.net."
 msgstr ""
 "Neizdevās atrast autogen 5. versiju; lūdzu, uzinstalējiet autogen pakotni. "
-"Jūs "
-"to varat iegūt no http://autogen.sourceforge.net."
+"Jūs to varat iegūt no http://autogen.sourceforge.net."
 
 #: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:453
 #, c-format
@@ -1649,7 +1631,6 @@ msgstr "Uzminēt no tipa"
 #: ../plugins/class-gen/window.c:694 ../plugins/class-gen/window.c:705
 #: ../plugins/class-gen/window.c:779 ../plugins/class-gen/window.c:789
 #: ../plugins/class-gen/window.c:802
-#| msgid "Stopped"
 msgid "Scope"
 msgstr "Tvērums"
 
@@ -1689,7 +1670,6 @@ msgid "Arguments"
 msgstr "Argumenti"
 
 #: ../plugins/class-gen/window.c:716
-#| msgid "Nordic"
 msgid "Nick"
 msgstr "Iesauka"
 
@@ -1698,18 +1678,15 @@ msgid "Blurb"
 msgstr "Anot."
 
 #: ../plugins/class-gen/window.c:718
-#| msgid "Type"
 msgid "GType"
 msgstr "GType"
 
 #: ../plugins/class-gen/window.c:719
-#| msgid "Parameters:"
 msgid "ParamSpec"
 msgstr "Param. spec."
 
 #. Somehow redundant with marshaller, but required for default handler
 #: ../plugins/class-gen/window.c:721 ../plugins/class-gen/window.c:731
-#| msgid "Files"
 msgid "Flags"
 msgstr "Karogi"
 
@@ -1731,17 +1708,15 @@ msgid "Module"
 msgstr "Modulis"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1084
+#: ../plugins/class-gen/window.c:792 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "Automātisks"
 
 #: ../plugins/class-gen/window.c:793
-#| msgid "Western"
 msgid "Getter"
 msgstr "Ieguvējs"
 
 #: ../plugins/class-gen/window.c:794
-#| msgid "State"
 msgid "Setter"
 msgstr "Iestatītājs"
 
@@ -1775,10 +1750,8 @@ msgstr ""
 "<b>Lūdzu, ņemiet vērā ka: </b>\n"
 "\n"
 "Nospiežot 'Labi', fails tiks izdzēsts gan no diska, gan no CVS. Protams, "
-"fails tiks"
-"izņemts no CVS tikai pēc CVS commit komandas izmantošanas. <b>Jūs esat "
-"brīdināts!"
-"</b>"
+"fails tiksizņemts no CVS tikai pēc CVS commit komandas izmantošanas. <b>Jūs "
+"esat brīdināts!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 msgid "Be verbose"
@@ -1787,12 +1760,10 @@ msgstr "Rādīt detalizētāku informāciju"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:5
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:1
-#| msgid "Browse..."
 msgid "Browse…"
 msgstr "Pārlūkot..."
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
-#| msgid "Options"
 msgid "CVS Options"
 msgstr "CVS opcijas"
 
@@ -1901,7 +1872,6 @@ msgstr "Ignorēt .cvsrc failu (ieteicams)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
 #: ../plugins/symbol-db/plugin.c:2161
-#| msgid "Load"
 msgid "Local"
 msgstr "Vietējs"
 
@@ -1919,16 +1889,15 @@ msgstr "Moduļa nosaukums:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
 msgstr "Opcijas"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:37
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
-#| msgid "Options"
 msgid "Options:"
 msgstr "Opcijas:"
 
@@ -1958,7 +1927,6 @@ msgid "Release tag:"
 msgstr "Laidiena birka:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:44
-#| msgid "Add to Repository"
 msgid "Repository:"
 msgstr "Krātuve:"
 
@@ -1967,7 +1935,7 @@ msgid "Reset sticky tags"
 msgstr "Atiestatīt lipīgās birkas"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Revision:"
 msgstr "Revīzija:"
@@ -2098,13 +2066,13 @@ msgstr "Izņemt failu/direktoriju no CVS koka"
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "_Commit"
-msgstr ""
+msgstr "_Nodot"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:72 ../plugins/cvs-plugin/plugin.c:131
 msgid "Commit your changes to the CVS tree"
-msgstr ""
+msgstr "Nodot jūsu veiktās izmaiņas CVS kokā"
 
 #. Action name
 #. Stock icon, if any
@@ -2208,7 +2176,6 @@ msgstr ""
 "un vai ceļi iestatījumos ir norādīti korekti."
 
 #: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-#| msgid "Change Value"
 msgid "CLang Analyzer"
 msgstr "CLang analizētājs"
 
@@ -2230,7 +2197,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
 msgid "Add Watch"
-msgstr ""
+msgstr "Pievienot novērotāju"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
 msgid "Address:"
@@ -2255,7 +2222,7 @@ msgstr "CPU reģistri"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
 msgid "Change Watch"
-msgstr ""
+msgstr "Mainīt novērotāju"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 msgid "Connect to remote target"
@@ -2270,7 +2237,6 @@ msgid "Debugger command:"
 msgstr "Atkļūdotāja komanda:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
-#| msgid "Debugger"
 msgid "Debugger:"
 msgstr "Atkļūdotājs:"
 
@@ -2462,7 +2428,6 @@ msgstr "Pārslēgt pārtraukuma punktu pašreizējā vietā"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1831
-#| msgid "Breakpoints"
 msgid "Add Breakpoint…"
 msgstr "Pievienot pārtraukuma punktu..."
 
@@ -2644,7 +2609,6 @@ msgid "Pauses the execution of the program"
 msgstr "Pauzēt programmas izpildi"
 
 #: ../plugins/debug-manager/plugin.c:460
-#| msgid "Running..."
 msgid "Running…"
 msgstr "Izpilda..."
 
@@ -2723,7 +2687,6 @@ msgid "Say goodbye to the debugger"
 msgstr "Atvadies no atkļūdotāja"
 
 #: ../plugins/debug-manager/plugin.c:963
-#| msgid "Add Source"
 msgid "Add source paths…"
 msgstr "Pievienot pirmkoda atrašanās ceļus..."
 
@@ -2781,7 +2744,6 @@ msgstr "Koplietotās bibliotēkas"
 
 #: ../plugins/debug-manager/plugin.c:1025
 #: ../plugins/debug-manager/plugin.c:1141
-#| msgid "Shared Library"
 msgid "Show shared library mappings"
 msgstr "Rādīt koplietoto bibliotēku sasaistes"
 
@@ -2791,7 +2753,6 @@ msgid "Show kernel signals"
 msgstr "Rādīt kodola signālus"
 
 #: ../plugins/debug-manager/plugin.c:1039
-#| msgid "_Continue"
 msgid "_Continue/Suspend"
 msgstr "_Turpināt/atlikt"
 
@@ -2967,7 +2928,6 @@ msgid "View Source"
 msgstr "Rādīt pirmkodu"
 
 #: ../plugins/debug-manager/stack_trace.c:595
-#| msgid "callers in stack trace"
 msgid "Get Stack trace"
 msgstr "Iegūt steka trasējumu"
 
@@ -2991,7 +2951,7 @@ msgstr "Fails"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
-#: ../plugins/document-manager/plugin.c:1002
+#: ../plugins/document-manager/plugin.c:997
 msgid "Line"
 msgstr "Rinda"
 
@@ -3037,12 +2997,12 @@ msgstr "Neizdevās atvērt failu %s\n"
 #: ../plugins/debug-manager/start.c:969
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
-msgstr ""
+msgstr "Neizdevās atvērt %s. Nevar palaist atkļūdotāju."
 
 #: ../plugins/debug-manager/start.c:979
 #, c-format
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
-msgstr ""
+msgstr "Neizdevās noteikt %s MIME tipu. Nevar palaist atkļūdotāju."
 
 #: ../plugins/debug-manager/start.c:1340
 msgid "Path"
@@ -3053,16 +3013,18 @@ msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
+"Programma darbojas.\n"
+"Vai jūs joprojām vēlaties apturēt atkļūdotāju?"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/threads.c:382
 msgid "Set current thread"
-msgstr ""
+msgstr "Iestatīt pašreizējo pavedienu"
 
 #: ../plugins/debug-manager/threads.c:436
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ../plugins/debug-manager/threads.c:506
 msgid "Thread"
@@ -3070,102 +3032,100 @@ msgstr "Pavediens"
 
 #: ../plugins/debug-manager/threads.c:616
 msgid "Thread operations"
-msgstr ""
+msgstr "Pavediena darbības"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:364
+#: ../plugins/debug-manager/watch.c:406
 msgid "Ins_pect/Evaluate…"
-msgstr ""
+msgstr "Ins_picēt/novērtēt..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:366
+#: ../plugins/debug-manager/watch.c:408
 msgid "Inspect or evaluate an expression or variable"
-msgstr ""
+msgstr "Inspicēt vai novērtēt izteiksmi vai mainīgo"
 
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:414
 msgid "Add Watch…"
-msgstr ""
+msgstr "Pievienot novērotāju..."
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
-msgstr "Noņemt novērošanu"
+msgstr "Noņemt novērotāju"
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
-msgstr ""
+msgstr "Atjaunināt novērotāju"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:438
 msgid "Change Value"
 msgstr "Mainīt vērtību"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:446
 msgid "Update all"
 msgstr "Atjaunināt visu"
 
-#: ../plugins/debug-manager/watch.c:412
+#: ../plugins/debug-manager/watch.c:454
 msgid "Remove all"
 msgstr "Izmest visu"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:423
+#: ../plugins/debug-manager/watch.c:465
 msgid "Automatic update"
-msgstr ""
+msgstr "Automātiski atjaunināt"
 
-#: ../plugins/debug-manager/watch.c:449 ../plugins/debug-manager/watch.c:455
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
-msgstr ""
+msgstr "Novērotāju darbības"
 
-#: ../plugins/debug-manager/watch.c:527
+#: ../plugins/debug-manager/watch.c:572
 msgid "Watches"
-msgstr ""
+msgstr "Novērotāji"
 
 #: ../plugins/devhelp/plugin.c:206
 msgid "Search Help:"
-msgstr ""
+msgstr "Meklēt palīdzībā:"
 
 #: ../plugins/devhelp/plugin.c:227 ../plugins/document-manager/plugin.c:243
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:322
-#, fuzzy
 #| msgid "Goto"
 msgid "_Go to"
-msgstr "Iet uz"
+msgstr "_Iet uz"
 
 #: ../plugins/devhelp/plugin.c:236
 msgid "_API Reference"
-msgstr ""
+msgstr "_API reference"
 
 #: ../plugins/devhelp/plugin.c:238
 msgid "Browse API Pages"
-msgstr ""
+msgstr "Pārlūkot API lapas"
 
 #: ../plugins/devhelp/plugin.c:248
 msgid "_Context Help"
-msgstr "_Konteksta palīgs"
+msgstr "_Konteksta palīdzības"
 
 #: ../plugins/devhelp/plugin.c:250
 msgid "Search help for the current word in the editor"
-msgstr ""
+msgstr "Meklēt palīdzību par pašreizējo vārdu redaktorā"
 
 #: ../plugins/devhelp/plugin.c:260
 msgid "_Search Help"
-msgstr ""
+msgstr "_Meklēt palīdzībā"
 
 #: ../plugins/devhelp/plugin.c:262
 msgid "Search for a term in help"
-msgstr ""
+msgstr "Meklēt terminu palīdzības dokumentācijā"
 
 #: ../plugins/devhelp/plugin.c:334
 msgid "Help operations"
-msgstr ""
+msgstr "Palīdzības darbības"
 
 #: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
-#, fuzzy
 #| msgid "Browse..."
 msgid "API Browser"
-msgstr "Pārlūkot..."
+msgstr "API pārlūks"
 
 #: ../plugins/devhelp/plugin.c:364
 msgid "Contents"
@@ -3178,7 +3138,7 @@ msgstr "Meklēt"
 
 #: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: ../plugins/document-manager/action-callbacks.c:314
 #, c-format
@@ -3186,22 +3146,22 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
+"Vai jūs tiešām vēlaties pārlādēt '%s'?\n"
+"Jebkuras nesaglabātās izmaiņas tiks zaudētas."
 
 #: ../plugins/document-manager/action-callbacks.c:323
 msgid "_Reload"
 msgstr "Pā_rlādēt"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:334
-#, fuzzy
 #| msgid "_Add Bookmark"
 msgid "Add bookmark"
-msgstr "Pievienot grām_atzīmi"
+msgstr "Pievienot grāmatzīmi"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
-#, fuzzy
 #| msgid "Remove all"
 msgid "Remove bookmark"
-msgstr "Izmest visu"
+msgstr "Izņemt grāmatzīmi"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
@@ -3210,10 +3170,9 @@ msgid "Bookmarks"
 msgstr "Grāmatzīmes"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:362
-#, fuzzy
 #| msgid "_Rename"
 msgid "Rename"
-msgstr "Pā_rdēvēt"
+msgstr "Pārsaukt"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:363
 #: ../plugins/git/plugin.c:178
@@ -3223,7 +3182,7 @@ msgstr "Izņemt"
 
 #: ../plugins/document-manager/anjuta-docman.c:454
 msgid "Close file"
-msgstr ""
+msgstr "Aizvērt failu"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
 #: ../plugins/project-manager/dialogs.c:576
@@ -3247,6 +3206,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
+"Fails '%s' jau eksistē.\n"
+"Vai jūs vēlaties mēģināt aizvietot to ar šobrīd saglabājamo?"
 
 #: ../plugins/document-manager/anjuta-docman.c:731
 msgid "_Replace"
@@ -3254,39 +3215,36 @@ msgstr "_Aizvietot"
 
 #: ../plugins/document-manager/anjuta-docman.c:1449
 msgid "[read-only]"
-msgstr ""
+msgstr "[Tikai lasāms]"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:1
-#, fuzzy
 #| msgid "Author Name:"
 msgid "Autosave"
-msgstr "Autora vārds:"
+msgstr "Automātiski saglabāt"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
-#, fuzzy
 #| msgid "Goto"
 msgid "Bottom"
-msgstr "Iet uz"
+msgstr "Apakšā"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:3
 msgid "Do not show tabs"
-msgstr ""
+msgstr "Nerādīt cilnes"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:4
-#, fuzzy
 #| msgid "Editor"
 msgid "Editor tabs"
-msgstr "Redaktors"
+msgstr "Redaktora cilnes"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
-msgstr ""
+msgstr "Aktivizēt failu automātisku saglabāšanu"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:6
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:7
 msgid "Left"
-msgstr ""
+msgstr "Pa kreisi"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:7
 msgid "Position:"
@@ -3294,37 +3252,35 @@ msgstr "Pozīcija:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
-#, fuzzy
 #| msgid "High"
 msgid "Right"
-msgstr "Augsts"
+msgstr "Pa labi"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:9
 msgid "Save files interval in minutes"
-msgstr ""
+msgstr "Failu saglabāšanas intervāls minūtēs"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:10
 msgid "Save session interval in minutes"
-msgstr ""
+msgstr "Sesijas saglabāšanas intervāls minūtēs"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:11
 msgid "Sorted by most recent use"
-msgstr ""
+msgstr "Sakārtoti pēc pēdējās lietošanas"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:12
 msgid "Sorted in alphabetical order"
-msgstr ""
+msgstr "Sakārtoti alfabēta secībā"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:13
 msgid "Sorted in opening order"
-msgstr ""
+msgstr "Sakārtoti atvēršanas secībā"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
-#, fuzzy
 #| msgid "To"
 msgid "Top"
-msgstr "Kam"
+msgstr "Augšā"
 
 #: ../plugins/document-manager/plugin.c:151
 msgid "_Save"
@@ -3332,10 +3288,9 @@ msgstr "_Saglabāt"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Save current file"
-msgstr ""
+msgstr "Saglabāt pašreizējo failu"
 
 #: ../plugins/document-manager/plugin.c:153
-#, fuzzy
 #| msgid "Save _As..."
 msgid "Save _As…"
 msgstr "S_aglabāt kā..."
@@ -3346,19 +3301,19 @@ msgstr "Saglabāt pašreizējo failu ar citu nosaukumu"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save A_ll"
-msgstr ""
+msgstr "S_aglabāt visu"
 
 #: ../plugins/document-manager/plugin.c:157
 msgid "Save all currently open files, except new files"
-msgstr ""
+msgstr "Saglabāt visus pašreiz atvērtos failus, izņemot jaunos failus"
 
 #: ../plugins/document-manager/plugin.c:159
 msgid "_Close File"
-msgstr ""
+msgstr "_Aizvērt failu"
 
 #: ../plugins/document-manager/plugin.c:160
 msgid "Close current file"
-msgstr ""
+msgstr "Aizvērt pašreizējo failu"
 
 #: ../plugins/document-manager/plugin.c:162
 msgid "Close All"
@@ -3370,31 +3325,29 @@ msgstr "Aizvērt visus failus"
 
 #: ../plugins/document-manager/plugin.c:165
 msgid "Close Others"
-msgstr ""
+msgstr "Aizvērt citus"
 
 #: ../plugins/document-manager/plugin.c:166
-#, fuzzy
 #| msgid "Close the current file"
 msgid "Close other documents"
-msgstr "Aizvērt pašreizējo failu"
+msgstr "Aizvērt citus dokumentus"
 
 #: ../plugins/document-manager/plugin.c:168
 msgid "Reload F_ile"
-msgstr ""
+msgstr "Pārlādēt f_ailu"
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Reload current file"
-msgstr ""
+msgstr "Pārlādēt pašreizējo failu"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "Recent _Files"
 msgstr "Pēdējie _faili"
 
 #: ../plugins/document-manager/plugin.c:175
-#, fuzzy
 #| msgid "Print"
 msgid "_Print…"
-msgstr "Drukāt"
+msgstr "_Drukāt…"
 
 #: ../plugins/document-manager/plugin.c:176
 msgid "Print the current file"
@@ -3402,13 +3355,12 @@ msgstr "Drukāt pašreizējo failu"
 
 #: ../plugins/document-manager/plugin.c:183
 msgid "_Print Preview"
-msgstr ""
+msgstr "Drukas _priekšskatījums"
 
 #: ../plugins/document-manager/plugin.c:184
-#, fuzzy
 #| msgid "Save the current file with a different name"
 msgid "Preview the current file in print format"
-msgstr "Saglabāt pašreizējo failu ar citu nosaukumu"
+msgstr "Priekšskatīt pašreizējo failu drukāšanas formātā"
 
 #: ../plugins/document-manager/plugin.c:189
 msgid "_Transform"
@@ -3417,51 +3369,52 @@ msgstr "Pārveido_t"
 #. menu title
 #: ../plugins/document-manager/plugin.c:190
 msgid "_Make Selection Uppercase"
-msgstr ""
+msgstr "_Pārveidot atlasīto uz lielajiem burtiem"
 
 #: ../plugins/document-manager/plugin.c:191
 msgid "Make the selected text uppercase"
-msgstr ""
+msgstr "Pārveidot atlasīto tekstu uz lielajiem burtiem"
 
 #: ../plugins/document-manager/plugin.c:193
 msgid "Make Selection Lowercase"
-msgstr ""
+msgstr "Pārveidot atlasīto tekstu uz mazajiem burtiem"
 
 #: ../plugins/document-manager/plugin.c:194
 msgid "Make the selected text lowercase"
-msgstr ""
+msgstr "Pārveidot atlasīto tekstu uz mazajiem burtiem"
 
 #: ../plugins/document-manager/plugin.c:196
 msgid "Convert EOL to CRLF"
-msgstr ""
+msgstr "Konvertēt EOL uz CRLF"
 
 #: ../plugins/document-manager/plugin.c:197
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr ""
+msgstr "Konvertēt rindas beigas rakstzīmes uz DOS EOL (CRLF)"
 
 #: ../plugins/document-manager/plugin.c:199
 msgid "Convert EOL to LF"
-msgstr ""
+msgstr "Konvertēt EOL uz LF "
 
 #: ../plugins/document-manager/plugin.c:200
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr ""
+msgstr "Konvertēt rindas beigas rakstzīmes uz Unix EOL (LF)"
 
 #: ../plugins/document-manager/plugin.c:202
 msgid "Convert EOL to CR"
-msgstr ""
+msgstr "Konvertēt EOL uz CR"
 
 #: ../plugins/document-manager/plugin.c:203
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr ""
+msgstr "Konvertēt rindas beigas rakstzīmes uz Mac OS EOL (CR)"
 
 #: ../plugins/document-manager/plugin.c:205
 msgid "Convert EOL to Majority EOL"
-msgstr ""
+msgstr "Konvertēt EOL uz vairākuma EOL"
 
 #: ../plugins/document-manager/plugin.c:206
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr ""
+"Konvertēt rindas beigas rakstszīmes uz visvairāk atrasto EOL tipu failā"
 
 #: ../plugins/document-manager/plugin.c:211
 msgid "_Select"
@@ -3491,21 +3444,21 @@ msgstr "Ko_mentēt"
 #. such as '//' or '#') and comments a block of lines.
 #: ../plugins/document-manager/plugin.c:225
 msgid "_Block Comment/Uncomment"
-msgstr ""
+msgstr "Izveidot/noņemt _bloka veida komentāru"
 
 #: ../plugins/document-manager/plugin.c:226
 msgid "Block comment the selected text"
-msgstr ""
+msgstr "Izveidot bloka veida komentāru atlasītajam tekstam"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
 #: ../plugins/document-manager/plugin.c:230
 msgid "Bo_x Comment/Uncomment"
-msgstr ""
+msgstr "Izveidot/noņemt _kastes veida komentāru"
 
 #: ../plugins/document-manager/plugin.c:231
 msgid "Box comment the selected text"
-msgstr ""
+msgstr "Izveidot kastes veida komentāru atlasītajam tekstam"
 
 #. Stream comment: Uses 'stream comment' (comment that affects a stream of
 #. characters -- has start and end comment code) and comments any code from
@@ -3513,22 +3466,21 @@ msgstr ""
 #. lines).
 #: ../plugins/document-manager/plugin.c:237
 msgid "_Stream Comment/Uncomment"
-msgstr ""
+msgstr "Izveidot/noņemt _virknes tipa komentāru"
 
 #: ../plugins/document-manager/plugin.c:238
 msgid "Stream comment the selected text"
-msgstr ""
+msgstr "Izveidot virknes tipa komentāru atlasītajam tekstam"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:244
-#, fuzzy
 #| msgid "Show Line Numbers"
 msgid "_Line Number…"
-msgstr "Rādīt līniju numurus"
+msgstr "_Rindas numurs"
 
 #: ../plugins/document-manager/plugin.c:245
 msgid "Go to a particular line in the editor"
-msgstr ""
+msgstr "Iet uz norādīto rindu redaktorā"
 
 #: ../plugins/document-manager/plugin.c:247
 msgid "Matching _Brace"
@@ -3540,37 +3492,36 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:250
 msgid "_Start of Block"
-msgstr ""
+msgstr "Bloka _sākums"
 
 #: ../plugins/document-manager/plugin.c:251
 msgid "Go to the start of the current block"
-msgstr ""
+msgstr "Doties uz pašreizējā bloka sākumu"
 
 #: ../plugins/document-manager/plugin.c:253
 msgid "_End of Block"
-msgstr ""
+msgstr "Bloka _beigas"
 
 #: ../plugins/document-manager/plugin.c:254
 msgid "Go to the end of the current block"
-msgstr ""
+msgstr "Doties uz pašreizējā bloka beigām"
 
 #: ../plugins/document-manager/plugin.c:256
 msgid "Previous _History"
-msgstr ""
+msgstr "_Iepriekšējais ieraksts vēsturē"
 
 #: ../plugins/document-manager/plugin.c:257
-#, fuzzy
 #| msgid "Add to Repository"
 msgid "Go to previous history"
-msgstr "Pievienot repozitorijam"
+msgstr "Doties uz iepriekšējo ierakstu vēsturē"
 
 #: ../plugins/document-manager/plugin.c:259
 msgid "Next Histor_y"
-msgstr ""
+msgstr "_Nākamais ieraksts vēsturē"
 
 #: ../plugins/document-manager/plugin.c:260
 msgid "Go to next history"
-msgstr ""
+msgstr "Doties uz nākamo ierakstu vēsturē"
 
 #: ../plugins/document-manager/plugin.c:265
 msgid "_Search"
@@ -3578,112 +3529,105 @@ msgstr "_Meklēt"
 
 #: ../plugins/document-manager/plugin.c:266
 msgid "_Quick Search"
-msgstr ""
+msgstr "Ā_trā meklēšana"
 
 #: ../plugins/document-manager/plugin.c:267
 msgid "Quick editor embedded search"
-msgstr ""
+msgstr "Ātra redaktorā ievietota meklēšana"
 
 #: ../plugins/document-manager/plugin.c:269
 msgid "Find _Next"
-msgstr "Atrast _nākamo"
+msgstr "Meklēt _nākamo"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Search for next appearance of term."
-msgstr ""
+msgstr "Mēklēt nākošo termina parādīšanās vietu."
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "Find and R_eplace…"
-msgstr ""
+msgstr "Atrast un aiz_vietot..."
 
 #: ../plugins/document-manager/plugin.c:273
-#, fuzzy
 #| msgid "Search complete"
 msgid "Search and replace"
-msgstr "Meklēšana pabeigta"
+msgstr "Meklēt un aizvietot"
 
 #: ../plugins/document-manager/plugin.c:275
 msgid "Find _Previous"
-msgstr "Atrast ie_priekšējo"
+msgstr "Meklēt ie_priekšējo"
 
 #: ../plugins/document-manager/plugin.c:277
 msgid "Repeat the last Find command"
-msgstr ""
+msgstr "Atkārtot pēdējo meklēšanas komandu"
 
 #: ../plugins/document-manager/plugin.c:279
-#, fuzzy
 #| msgid "Highlight"
 msgid "Clear Highlight"
-msgstr "Izcelt"
+msgstr "Noņemt izcēlumu"
 
 #: ../plugins/document-manager/plugin.c:280
 msgid "Clear all highlighted text"
-msgstr ""
+msgstr "Noņemt izcēlumu visam tekstam"
 
 #: ../plugins/document-manager/plugin.c:286
-#, fuzzy
 #| msgid "Sensitive"
 msgid "Case Sensitive"
-msgstr "Jūtīga"
+msgstr "Reģistrjūtīgs"
 
 #: ../plugins/document-manager/plugin.c:287
 msgid "Match case in search results."
-msgstr ""
+msgstr "Reģistrjūtīgā meklēšana."
 
 #: ../plugins/document-manager/plugin.c:290
-#, fuzzy
 #| msgid "Highlight"
 msgid "Highlight All"
-msgstr "Izcelt"
+msgstr "Izcelt visu"
 
 #: ../plugins/document-manager/plugin.c:291
-#, fuzzy
 #| msgid "Highlight current line"
 msgid "Highlight all occurrences"
-msgstr "Izcelt esošo rindu"
+msgstr "Izcelt visus gadījumus"
 
 #: ../plugins/document-manager/plugin.c:294
-#, fuzzy
-#| msgid "Search"
-msgid "RegEx Search"
-msgstr "Meklēt"
+#| msgid "Regular expression"
+msgid "Regular Expression"
+msgstr "Regulāra izteiksme"
 
 #: ../plugins/document-manager/plugin.c:295
-#, fuzzy
-#| msgid "Regular expression"
-msgid "Regular expression search"
-msgstr "Regulāra izteiksme"
+#| msgid "Invalid regular expression: '%s': %s"
+msgid "Search using regular expressions"
+msgstr "Meklēšana izmantojot regulāras izteiksmes"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
-#: ../plugins/language-support-python/plugin.c:448
+#: ../plugins/language-support-python/plugin.c:450
 msgid "_Edit"
-msgstr "R_ediģēt"
+msgstr "_Rediģēt"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:302
 msgid "_Editor"
-msgstr ""
+msgstr "_Redaktors"
 
 #: ../plugins/document-manager/plugin.c:309
 msgid "_Add Editor View"
-msgstr ""
+msgstr "_Pievienot redaktora skatu"
 
 #: ../plugins/document-manager/plugin.c:310
 msgid "Add one more view of current document"
-msgstr ""
+msgstr "Pievienot vēl vienu skatu pašreizējam dokumentam"
 
 #: ../plugins/document-manager/plugin.c:312
 msgid "_Remove Editor View"
-msgstr ""
+msgstr "_Noņemt redaktora skatu"
 
 #: ../plugins/document-manager/plugin.c:313
 msgid "Remove current view of the document"
-msgstr ""
+msgstr "Noņemt pašreizējo dokumenta skatu"
 
 #: ../plugins/document-manager/plugin.c:315
 msgid "U_ndo"
-msgstr ""
+msgstr "_Atsaukt"
 
 #: ../plugins/document-manager/plugin.c:316
 msgid "Undo the last action"
@@ -3691,11 +3635,11 @@ msgstr "Atsaukt pēdējo darbību"
 
 #: ../plugins/document-manager/plugin.c:318
 msgid "_Redo"
-msgstr "Pā_rdarīt"
+msgstr "Ata_tsaukt"
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "Redo the last undone action"
-msgstr "Restaurēt pēdējo atsaukto darbību"
+msgstr "Atcelt darbības atsaukšanu"
 
 #: ../plugins/document-manager/plugin.c:321
 msgid "C_ut"
@@ -3703,7 +3647,7 @@ msgstr "I_zgriezt"
 
 #: ../plugins/document-manager/plugin.c:322
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr ""
+msgstr "Pārvietot izvēlēto tekstu no redaktora uz starpliktuvi"
 
 #. Action name
 #. Stock icon, if any
@@ -3713,15 +3657,15 @@ msgstr "_Kopēt"
 
 #: ../plugins/document-manager/plugin.c:325
 msgid "Copy the selected text to the clipboard"
-msgstr "Kopēt izvēlēto tekstu uz starpkabatu"
+msgstr "Kopēt izvēlēto tekstu uz starpliktuvi"
 
 #: ../plugins/document-manager/plugin.c:327 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
-msgstr "_Ievietot"
+msgstr "_Ielīmēt"
 
 #: ../plugins/document-manager/plugin.c:328
 msgid "Paste the content of clipboard at the current position"
-msgstr ""
+msgstr "Ielīmēt starpliktuves saturu pašreizējā pozīcijā"
 
 #: ../plugins/document-manager/plugin.c:336
 msgid "_Clear"
@@ -3729,33 +3673,32 @@ msgstr "_Attīrīt"
 
 #: ../plugins/document-manager/plugin.c:337
 msgid "Delete the selected text from the editor"
-msgstr ""
+msgstr "Dzēst atlasīto tekstu no redaktora"
 
 #: ../plugins/document-manager/plugin.c:340
-#, fuzzy
 #| msgid "Completed"
 msgid "_Auto-Complete"
-msgstr "Pabeigts"
+msgstr "_Automātiski pabeigt"
 
 #: ../plugins/document-manager/plugin.c:341
 msgid "Auto-complete the current word"
-msgstr ""
+msgstr "Automātiski pabeigt pašreizējo vārdu"
 
 #: ../plugins/document-manager/plugin.c:347
 msgid "_Line Number Margin"
-msgstr ""
+msgstr "_Rindas numuru mala"
 
 #: ../plugins/document-manager/plugin.c:348
 msgid "Show/Hide line numbers"
-msgstr ""
+msgstr "Rādīt/slēpt rindu numurus"
 
 #: ../plugins/document-manager/plugin.c:350
 msgid "_Marker Margin"
-msgstr ""
+msgstr "_Marķieru mala"
 
 #: ../plugins/document-manager/plugin.c:351
 msgid "Show/Hide marker margin"
-msgstr ""
+msgstr "Rādīt/slēpt marķieru malu"
 
 #: ../plugins/document-manager/plugin.c:353
 msgid "_Code Fold Margin"
@@ -3775,47 +3718,47 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:359
 msgid "_White Space"
-msgstr ""
+msgstr "_Atstarpe"
 
 #: ../plugins/document-manager/plugin.c:360
 msgid "Show/Hide white spaces"
-msgstr ""
+msgstr "Rādīt/slēpt atstarpju zīmes"
 
 #: ../plugins/document-manager/plugin.c:362
 msgid "_Line End Characters"
-msgstr ""
+msgstr "_Rindas beigas rakstzīmes"
 
 #: ../plugins/document-manager/plugin.c:363
 msgid "Show/Hide line end characters"
-msgstr ""
+msgstr "Rādīt/slēpt rindas beigas rakstzīmes"
 
 #: ../plugins/document-manager/plugin.c:365
 msgid "Line _Wrapping"
-msgstr ""
+msgstr "Rindu _pārnese"
 
 #: ../plugins/document-manager/plugin.c:366
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Aktivizēt/deaktivizēt rindu pārnesi"
 
 #: ../plugins/document-manager/plugin.c:371
 msgid "Zoom In"
-msgstr "Palielināt"
+msgstr "Tuvināt"
 
 #: ../plugins/document-manager/plugin.c:372
 msgid "Zoom in: Increase font size"
-msgstr ""
+msgstr "Tuvināt, palielinot fonta izmēru"
 
 #: ../plugins/document-manager/plugin.c:374
 msgid "Zoom Out"
-msgstr "Samazināt"
+msgstr "Tālināt"
 
 #: ../plugins/document-manager/plugin.c:375
 msgid "Zoom out: Decrease font size"
-msgstr ""
+msgstr "Tālināt, samazinot fontu izmēru"
 
 #: ../plugins/document-manager/plugin.c:380
 msgid "_Highlight Mode"
-msgstr "_Izgaismošanas metode"
+msgstr "_Izcelšanas veids"
 
 #: ../plugins/document-manager/plugin.c:384
 msgid "_Close All Folds"
@@ -3847,202 +3790,207 @@ msgstr "_Dokumenti"
 
 #: ../plugins/document-manager/plugin.c:397
 msgid "Previous Document"
-msgstr ""
+msgstr "Iepriekšējais dokuments"
 
 #: ../plugins/document-manager/plugin.c:398
 msgid "Switch to previous document"
-msgstr ""
+msgstr "Pārslēgties uz iepriekšējo dokumentu"
 
 #: ../plugins/document-manager/plugin.c:400
 msgid "Next Document"
-msgstr ""
+msgstr "Nākamais dokuments"
 
 #: ../plugins/document-manager/plugin.c:401
 msgid "Switch to next document"
-msgstr ""
+msgstr "Pārslēgties uz nākamo dokumentu"
 
 #: ../plugins/document-manager/plugin.c:406
 msgid "Bookmar_k"
-msgstr ""
+msgstr "Grāmatzīm_e"
 
 #: ../plugins/document-manager/plugin.c:407
-#, fuzzy
 #| msgid "_Add Bookmark"
 msgid "_Toggle Bookmark"
-msgstr "Pievienot grām_atzīmi"
+msgstr "_Pievienot grāmatzīmi"
 
 #: ../plugins/document-manager/plugin.c:408
 msgid "Toggle bookmark at the current line position"
-msgstr ""
+msgstr "Pievienot grāmatzīmi pašreizējai rindai"
 
 #: ../plugins/document-manager/plugin.c:410
 msgid "_Previous Bookmark"
-msgstr ""
+msgstr "_Iepriekšējā grāmatzīme"
 
 #: ../plugins/document-manager/plugin.c:411
 msgid "Jump to the previous bookmark in the file"
-msgstr ""
+msgstr "Pārlekt uz iepriekšējo grāmatzīmi failā"
 
 #: ../plugins/document-manager/plugin.c:413
 msgid "_Next Bookmark"
-msgstr ""
+msgstr "_Nākamā grāmatzīme"
 
 #: ../plugins/document-manager/plugin.c:414
 msgid "Jump to the next bookmark in the file"
-msgstr ""
+msgstr "Pārlekt uz nākamo grāmatzīmi failā"
 
 #: ../plugins/document-manager/plugin.c:416
 msgid "_Clear All Bookmarks"
-msgstr ""
+msgstr "_Attīrīt no visām grāmatzīmēm"
 
 #: ../plugins/document-manager/plugin.c:417
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Attīrīt no visām grāmatzīmēm"
 
 #: ../plugins/document-manager/plugin.c:436
 msgid "Editor file operations"
-msgstr ""
+msgstr "Redaktora failu darbības"
 
 #: ../plugins/document-manager/plugin.c:437
 msgid "Editor print operations"
-msgstr ""
+msgstr "Redaktora drukāšanas darbības"
 
 #: ../plugins/document-manager/plugin.c:438
 msgid "Editor text transformation"
-msgstr ""
+msgstr "Redaktora teksta transformācija"
 
 #: ../plugins/document-manager/plugin.c:439
 msgid "Editor text selection"
-msgstr ""
+msgstr "Redaktora teksta atlasīšana"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
 #: ../plugins/document-manager/plugin.c:441
 msgid "Editor code commenting"
-msgstr ""
+msgstr "Redaktora teksta komentēšana"
 
 #: ../plugins/document-manager/plugin.c:442
 msgid "Editor navigations"
-msgstr ""
+msgstr "Redaktora navigācija"
 
 #: ../plugins/document-manager/plugin.c:443
 msgid "Editor edit operations"
-msgstr ""
+msgstr "Redaktora rediģēšanas darbības"
 
 #: ../plugins/document-manager/plugin.c:444
 msgid "Editor zoom operations"
-msgstr ""
+msgstr "Redaktora tālummaiņas operācijas"
 
 #: ../plugins/document-manager/plugin.c:445
 msgid "Editor syntax highlighting styles"
-msgstr ""
+msgstr "Redaktora sintakses izcelšanas stili"
 
 #: ../plugins/document-manager/plugin.c:446
 msgid "Editor text formating"
-msgstr ""
+msgstr "Redaktora teksta formatēšana"
 
 #: ../plugins/document-manager/plugin.c:447
 msgid "Simple searching"
-msgstr ""
+msgstr "Vienkārša meklēšana"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:448
-#: ../plugins/document-manager/plugin.c:1800
-#: ../plugins/document-manager/plugin.c:2222
-#: ../plugins/document-manager/plugin.c:2231
+#: ../plugins/document-manager/plugin.c:1795
+#: ../plugins/document-manager/plugin.c:2217
+#: ../plugins/document-manager/plugin.c:2226
 msgid "Documents"
 msgstr "Dokumenti"
 
 #: ../plugins/document-manager/plugin.c:453
 msgid "Editor view settings"
-msgstr ""
+msgstr "Redaktora skata iestatījumi"
 
 #: ../plugins/document-manager/plugin.c:455
 msgid "Toggle search options"
-msgstr ""
+msgstr "Pārslēgt meklēšanas opcijas"
 
 #: ../plugins/document-manager/plugin.c:644
 msgid "Reload"
 msgstr "Pārlādēt"
 
 #: ../plugins/document-manager/plugin.c:650
-#, fuzzy
 #| msgid "Goto"
 msgid "Go to"
 msgstr "Iet uz"
 
-#: ../plugins/document-manager/plugin.c:987
+#: ../plugins/document-manager/plugin.c:982
 msgid "OVR"
 msgstr "PĀR"
 
-#: ../plugins/document-manager/plugin.c:991
+#: ../plugins/document-manager/plugin.c:986
 msgid "INS"
 msgstr "IEV"
 
-#: ../plugins/document-manager/plugin.c:997
-#: ../plugins/document-manager/plugin.c:1000
+#: ../plugins/document-manager/plugin.c:992
+#: ../plugins/document-manager/plugin.c:995
 msgid "Zoom"
-msgstr "Palielinājums"
+msgstr "Tālummaiņa"
 
-#: ../plugins/document-manager/plugin.c:1003
+#: ../plugins/document-manager/plugin.c:998
 msgid "Col"
-msgstr "Col"
+msgstr "Rinda"
 
-#: ../plugins/document-manager/plugin.c:1004
+#: ../plugins/document-manager/plugin.c:999
 msgid "Mode"
 msgstr "Režīms"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1642
+#: ../plugins/document-manager/plugin.c:1637
 #, c-format
 msgid "Autosave failed for %s"
-msgstr ""
+msgstr "Neizdevās automātiski saglabāt %s"
 
-#: ../plugins/document-manager/plugin.c:1656
+#: ../plugins/document-manager/plugin.c:1651
 msgid "Autosave completed"
-msgstr ""
+msgstr "Automātiskā saglabāšana pabeigta"
 
-#: ../plugins/document-manager/search-box.c:496
+#: ../plugins/document-manager/search-box.c:494
 #, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
-msgstr ""
+msgstr "Meklējot \"%s\", tika sasniegtas beigas, un sākts no sākuma."
 
-#: ../plugins/document-manager/search-box.c:502
+#: ../plugins/document-manager/search-box.c:500
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and wrapped around but no new match was "
 "found."
 msgstr ""
+"Meklējot \"%s\", tika sasniegtas beigas, un sākts no sākuma, bet nekas jauns "
+"netika atrasts."
 
-#: ../plugins/document-manager/search-box.c:536
+#: ../plugins/document-manager/search-box.c:543
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
-msgstr ""
+msgstr "Meklējot \"%s\", tika sasniegtas beigas un sākts atkal no sākuma."
 
-#: ../plugins/document-manager/search-box.c:542
+#: ../plugins/document-manager/search-box.c:549
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
 msgstr ""
+"Meklējot \"%s\", tika sasniegtas beigas un sākts atkal no sākuma, bet nekas "
+"jauns "
+"netika atrasts."
 
-#: ../plugins/document-manager/search-box.c:577
+#: ../plugins/document-manager/search-box.c:584
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
-msgstr ""
+msgstr "Meklējot \"%s\", tika sasniegts sākums, un turpināts no beigām."
 
-#: ../plugins/document-manager/search-box.c:583
+#: ../plugins/document-manager/search-box.c:590
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 msgstr ""
+"Meklējot \"%s\", tika sasniegts sākums, un turpināts no beigām, bet nekas "
+"jauns "
+"netika atrasts."
 
-#: ../plugins/document-manager/search-box.c:924
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "Aizvietot"
 
-#: ../plugins/document-manager/search-box.c:929
-#, fuzzy
+#: ../plugins/document-manager/search-box.c:989
 #| msgid "Replace All"
 msgid "Replace all"
 msgstr "Aizvietot visus"
@@ -4059,23 +4007,23 @@ msgstr "Aizvietot visus"
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
 msgid "No items found"
-msgstr "Nav atrasta neviena vienība"
+msgstr "Nekas nav atrasts"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
-#, fuzzy, c-format
+#, c-format
 #| msgid "No recently used resource found with URI `%s'"
 msgid "No recently used resource found with URI \"%s\""
-msgstr "Nav atrasts neviens nesen lietots resurss ar URI '%s'"
+msgstr "Nav atrasts neviens nesen lietots resurss ar URI \"%s\""
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr "Šī funkcija nav realizēta klases '%s' logdaļām"
+msgstr "Šī funkcija nav realizēta klases '%s' logvadīklām"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:155
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "Atvērt '%s'"
@@ -4093,7 +4041,7 @@ msgstr "Nezināma vienība"
 #, c-format
 msgctxt "recent menu label"
 msgid "_%d. %s"
-msgstr ""
+msgstr "_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
@@ -4102,7 +4050,7 @@ msgstr ""
 #, c-format
 msgctxt "recent menu label"
 msgid "%d. %s"
-msgstr ""
+msgstr "%d. %s"
 
 #: ../plugins/file-loader/plugin.c:116
 #, c-format
@@ -4111,6 +4059,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Neizdodas atvērt \"%s\".\n"
+"\n"
+"%s"
 
 #: ../plugins/file-loader/plugin.c:257
 #, c-format
@@ -4124,6 +4075,14 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
+"<b>Neizdodas atvērt \"%s\"</b>.\n"
+"\n"
+"Nav spraudņa, noklusētās darbības vai lietotnes, kas būtu nokonfigurēta, "
+"lai atvērtu šo failu tipu.\n"
+"\n"
+"MIME tips: %s\n"
+"\n"
+"Jums vajadzētu mēģināt atvērt to ar sekojošiem spraudņiem vai lietotnēm."
 
 #: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
@@ -4133,7 +4092,7 @@ msgstr "Atvērt ar:"
 #: ../plugins/file-loader/plugin.c:286
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
-msgstr ""
+msgstr "Dokumentu pārvaldnieks"
 
 #: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:312
@@ -4142,62 +4101,61 @@ msgstr "Visi faili"
 
 #: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
-msgstr ""
+msgstr "Anjuta projekti"
 
 #: ../plugins/file-loader/plugin.c:508
 msgid "C/C++ source files"
-msgstr ""
+msgstr "C/C++ pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:520
 msgid "C# source files"
-msgstr ""
+msgstr "C# pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:526
 msgid "Java source files"
-msgstr ""
+msgstr "Java pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:532
 msgid "Pascal source files"
-msgstr ""
+msgstr "Pascal pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:537
 msgid "PHP source files"
-msgstr ""
+msgstr "PHP pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:544
 msgid "Perl source files"
-msgstr ""
+msgstr "Perl pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:550
 msgid "Python source files"
-msgstr ""
+msgstr "Python pirmkoda faili"
 
 #: ../plugins/file-loader/plugin.c:555
 msgid "Hypertext markup files"
-msgstr ""
+msgstr "Hiperteksta marķēšanas faili"
 
 #: ../plugins/file-loader/plugin.c:564
-#, fuzzy
 #| msgid "Select file"
 msgid "Shell script files"
-msgstr "Izvēlieties failu"
+msgstr "Čaulas skriptu faili"
 
 #: ../plugins/file-loader/plugin.c:569
 msgid "Makefiles"
-msgstr ""
+msgstr "Būvēšanas faili (Makefile)"
 
 #: ../plugins/file-loader/plugin.c:575
 msgid "Lua files"
-msgstr ""
+msgstr "Lua faili"
 
 #: ../plugins/file-loader/plugin.c:580
 msgid "Diff files"
-msgstr ""
+msgstr "Atšķirību faili (Diff)"
 
 #: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
-msgstr ""
+msgstr "Neizdevās aktivizēt spraudni: %s"
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
@@ -4205,13 +4163,12 @@ msgstr "Jau_ns"
 
 #: ../plugins/file-loader/plugin.c:886
 msgid "New empty file"
-msgstr ""
+msgstr "Jauns tukšs fails"
 
 #: ../plugins/file-loader/plugin.c:892
-#, fuzzy
 #| msgid "_Open"
 msgid "_Open…"
-msgstr "_Atvērt"
+msgstr "_Atvērt..."
 
 #: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
@@ -4219,7 +4176,7 @@ msgstr "_Atvērt"
 
 #: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
-msgstr ""
+msgstr "Atvērt a_r"
 
 #: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
@@ -4228,7 +4185,7 @@ msgstr "Atvērt ar"
 #: ../plugins/file-loader/plugin.c:1243 ../plugins/file-loader/plugin.c:1249
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
-msgstr ""
+msgstr "Failu ielādētājs"
 
 #: ../plugins/file-loader/plugin.c:1253
 msgid "New"
@@ -4236,7 +4193,7 @@ msgstr "Jauns"
 
 #: ../plugins/file-loader/plugin.c:1254
 msgid "New file, project and project components."
-msgstr ""
+msgstr "Jauns fails, projekts un projektu komponentes."
 
 #: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1301
 msgid "Open"
@@ -4248,11 +4205,11 @@ msgstr "Atvē_rt nesenos"
 
 #: ../plugins/file-loader/plugin.c:1266 ../plugins/file-loader/plugin.c:1303
 msgid "Open recent file"
-msgstr ""
+msgstr "Atvērt nesen lietotu failu"
 
 #: ../plugins/file-loader/plugin.c:1272
 msgid "Open recent files"
-msgstr ""
+msgstr "Atvērt nesen lietotus failus"
 
 #: ../plugins/file-loader/plugin.c:1302
 msgid "Open a file"
@@ -4267,51 +4224,50 @@ msgstr "Fails nav atrasts"
 #: ../plugins/file-loader/plugin.c:1437
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
-msgstr ""
+msgstr "Lūdzu, izvēlēties spraudni, lai atvērtu <b>%s</b>."
 
 #: ../plugins/file-loader/plugin.c:1441
-#, fuzzy
 #| msgid "Open With"
 msgid "<b>Open With</b>"
-msgstr "Atvērt ar"
+msgstr "<b>Atvērt ar</b>"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
 msgstr ""
+"Izvēlieties direktoriju, kuru rādīt, ja neviens projekts vēl nav atvērts"
 
 #: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
-msgstr ""
+msgstr "Nerādīt rezerves kopiju failus"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 msgid "Do not show binary files (.o, .la, etc.)"
-msgstr ""
+msgstr "Nerādīt bināros failus (piemēram, .o, .la)"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 msgid "Do not show hidden files"
-msgstr ""
+msgstr "Nerādīt slēptos failus"
 
 #: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show unversioned files"
-msgstr ""
+msgstr "Nerādīt failus bez versijām"
 
 #: ../plugins/file-manager/file-manager.ui.h:6
-#, fuzzy
 #| msgid "File"
 msgid "Filter"
-msgstr "Fails"
+msgstr "Filtrs"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
 #: ../plugins/symbol-db/plugin.c:2173
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
-msgstr ""
+msgstr "Globāli"
 
 #: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Root directory if no project is open:"
-msgstr ""
+msgstr "Saknes direktorija, ja projekts nav atvērts:"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Ielādē..."
 
@@ -4321,19 +4277,19 @@ msgstr "Faila nosaukums"
 
 #: ../plugins/file-manager/file-view.c:652
 msgid "Base URI"
-msgstr ""
+msgstr "Pamata URI"
 
 #: ../plugins/file-manager/file-view.c:653
 msgid "URI of the top-most path displayed"
-msgstr ""
+msgstr "Paša augšējā ceļa URI"
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "_Rename"
-msgstr "Pā_rdēvēt"
+msgstr "Pā_rsaukt"
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
-msgstr ""
+msgstr "Pārsaukt failu vai direktoriju"
 
 #: ../plugins/file-manager/plugin.c:294
 msgid "File manager popup actions"
@@ -4350,34 +4306,35 @@ msgstr "Failu pārvaldnieks"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:1
 msgid "Add License Information"
-msgstr ""
+msgstr "Pievienot informāciju par licenci"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
 msgid "Add to project"
-msgstr ""
+msgstr "Pievienot projektam"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:3
 msgid "Add to repository"
-msgstr ""
+msgstr "Pievienot krātuvei"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:4
 msgid "Create corresponding header file"
-msgstr ""
+msgstr "Izveidot atbilstošu galvenes failu"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
 msgstr ""
+"Ievadiet faila nosaukumu.\n"
+"Paplašinājums tiks pievienots atbilstoši izvēlētajam tipam."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#, fuzzy
 #| msgid "Information"
 msgid "File Information"
-msgstr "Informācija"
+msgstr "Informācija par failu"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:581
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
@@ -4394,78 +4351,75 @@ msgstr "Tips:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:13
 msgid "Use Template for the Header file"
-msgstr ""
+msgstr "Izmantot veidni par pamatu galvenes failam"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C Source File"
-msgstr ""
+msgstr "C pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C/C++ Header File"
-msgstr ""
+msgstr "C/C++ galvenes fails"
 
 #: ../plugins/file-wizard/file.c:86
 msgid "C++ Source File"
-msgstr ""
+msgstr "C++ pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:87
 msgid "C# Source File"
-msgstr ""
+msgstr "C# pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Java Source File"
-msgstr ""
+msgstr "Java pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Perl Source File"
-msgstr ""
+msgstr "Perl pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:90
 msgid "Python Source File"
-msgstr ""
+msgstr "Python pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:91
 msgid "Shell Script File"
-msgstr ""
+msgstr "Čaulas skripta fails"
 
 #: ../plugins/file-wizard/file.c:92
-#, fuzzy
 #| msgid "Source File:"
 msgid "Vala Source File"
-msgstr "Avota fails:"
+msgstr "Vala pirmkoda fails"
 
 #: ../plugins/file-wizard/file.c:93
 msgid "Other"
-msgstr "Cits"
+msgstr "Citi"
 
 #: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
-msgstr ""
+msgstr "BSD publiskā licence"
 
 #: ../plugins/file-wizard/file.c:183
 msgid "Unable to build user interface for New File"
-msgstr ""
+msgstr "Neizdevās izveidot lietotāja saskarni jaunajam failam"
 
 #: ../plugins/dir-project/dir-project.c:133
 #: ../plugins/dir-project/dir-project.c:156
-#, fuzzy, c-format
+#, c-format
 #| msgid "Missing"
 msgid "Missing name"
-msgstr "Trūkst"
+msgstr "Trūkst nosaukuma"
 
 #: ../plugins/dir-project/dir-project.c:780
 #: ../plugins/am-project/am-project.c:89 ../plugins/mk-project/mk-project.c:66
-#, fuzzy
 #| msgid "Group:"
 msgid "Group"
-msgstr "Grupa:"
+msgstr "Grupa"
 
 #: ../plugins/dir-project/dir-project.c:783
 #: ../plugins/am-project/am-project.c:96 ../plugins/mk-project/mk-project.c:70
-#, fuzzy
 #| msgid "Source:"
 msgid "Source"
-msgstr "Avots:"
+msgstr "Avots"
 
 #: ../plugins/dir-project/dir-project.c:899
 #: ../plugins/dir-project/dir-project.c:909
@@ -4473,7 +4427,7 @@ msgstr "Avots:"
 #: ../plugins/mk-project/mk-project.c:987
 #, c-format
 msgid "Project doesn't allow to set properties"
-msgstr ""
+msgstr "Projekts neļauj korekti iestatīt parametrus"
 
 #: ../plugins/am-project/am-project.c:112
 msgid "Shared Library"
@@ -4485,21 +4439,20 @@ msgstr "Statiskā bibliotēka"
 
 #: ../plugins/am-project/am-project.c:133
 msgid "Python Module"
-msgstr ""
+msgstr "Python modulis"
 
 #: ../plugins/am-project/am-project.c:140
 msgid "Java Module"
-msgstr ""
+msgstr "Java modulis"
 
 #: ../plugins/am-project/am-project.c:147
-#, fuzzy
 #| msgid "Module"
 msgid "Lisp Module"
-msgstr "Modulis"
+msgstr "Lisp modulis"
 
 #: ../plugins/am-project/am-project.c:154
 msgid "Header Files"
-msgstr ""
+msgstr "Galvenes faili"
 
 #: ../plugins/am-project/am-project.c:161
 msgid "Man Documentation"
@@ -4507,7 +4460,7 @@ msgstr "Man dokumentācija"
 
 #: ../plugins/am-project/am-project.c:168
 msgid "Info Documentation"
-msgstr ""
+msgstr "Info dokumentācija"
 
 #: ../plugins/am-project/am-project.c:175
 msgid "Miscellaneous Data"
@@ -4518,20 +4471,20 @@ msgid "Script"
 msgstr "Skripts"
 
 #: ../plugins/am-project/am-project.c:196
-#, fuzzy
 #| msgid "Packages"
 msgid "Package"
-msgstr "Pakotnes"
+msgstr "Pakotne"
 
-#: ../plugins/am-project/am-project.c:1577
-#, fuzzy, c-format
+#: ../plugins/am-project/am-project.c:1600
+#, c-format
 #| msgid "Unable to update project"
 msgid "Unable to parse project file"
-msgstr "Nespēju atjaunināt projektu"
+msgstr "Neizdevās parsēt projekta failu"
 
 #: ../plugins/am-project/am-properties.c:51
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr ""
+"Projekta nosaukums - tas var saturēt tukšumus, piemēram, 'GNU Autoconf'"
 
 #: ../plugins/am-project/am-properties.c:56
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4547,10 +4500,10 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "Versija:"
@@ -4559,255 +4512,273 @@ msgstr "Versija:"
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr ""
+"Projekta versija, parasti pāris skaitļi, kas atdalīti ar punktu, piemēram '1."
+"0.0'"
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
-msgstr ""
+msgstr "Kļūdu ziņošanas URL:"
 
 #: ../plugins/am-project/am-properties.c:67
 msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
 msgstr ""
+"E-pasta adrese vai saite uz tīmekļa lapu, kur lietotājs var ziņot par kļūdu. "
+"Šī "
+"iespēja nav obligāta."
 
 #: ../plugins/am-project/am-properties.c:72
 msgid "Package name:"
-msgstr ""
+msgstr "Pakotnes nosaukums:"
 
 #: ../plugins/am-project/am-properties.c:75
 msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
 msgstr ""
+"Pakotnes nosaukums - tas var saturēt tikai burtciparu un pasvītras "
+"rakstzīmes. "
+"To ģenerē no projekta nosaukuma, ja to nenorāda atsevišķi."
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../plugins/am-project/am-properties.c:84
 msgid "An link to the project web page if provided."
-msgstr ""
+msgstr "Saite uz projekta tīmekļa lapu, ja tā ir norādīta."
 
 #: ../plugins/am-project/am-properties.c:97
 #: ../plugins/am-project/am-properties.c:208
 #: ../plugins/am-project/am-properties.c:368
 #: ../plugins/am-project/am-properties.c:520
 msgid "Linker flags:"
-msgstr ""
+msgstr "Saišu redaktora karogi:"
 
 #: ../plugins/am-project/am-properties.c:100
 msgid "Common additional linker flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus saišu redaktora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:105
 #: ../plugins/am-project/am-properties.c:232
 #: ../plugins/am-project/am-properties.c:384
 #: ../plugins/am-project/am-properties.c:536
 msgid "C preprocessor flags:"
-msgstr ""
+msgstr "C priekšprocesora karogi:"
 
 #: ../plugins/am-project/am-properties.c:108
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus C priekšprocesora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:240
 #: ../plugins/am-project/am-properties.c:392
 #: ../plugins/am-project/am-properties.c:544
 msgid "C compiler flags:"
-msgstr ""
+msgstr "C kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:116
 msgid "Common additional C compiler flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus C kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:248
 #: ../plugins/am-project/am-properties.c:400
 #: ../plugins/am-project/am-properties.c:552
 msgid "C++ compiler flags:"
-msgstr ""
+msgstr "C++ kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus C++ kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:129
 #: ../plugins/am-project/am-properties.c:256
 #: ../plugins/am-project/am-properties.c:408
 #: ../plugins/am-project/am-properties.c:560
 msgid "Java compiler flags:"
-msgstr ""
+msgstr "Java kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:132
 msgid "Common additional Java compiler flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus Java kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:137
 #: ../plugins/am-project/am-properties.c:264
 #: ../plugins/am-project/am-properties.c:416
 #: ../plugins/am-project/am-properties.c:568
 msgid "Vala compiler flags:"
-msgstr ""
+msgstr "Vala kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:140
 msgid "Common additional Vala compiler flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus Vala kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:145
 #: ../plugins/am-project/am-properties.c:272
 #: ../plugins/am-project/am-properties.c:424
 #: ../plugins/am-project/am-properties.c:576
 msgid "Fortran compiler flags:"
-msgstr ""
+msgstr "Fortran kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
-msgstr ""
+msgstr "Kopīgi papildus Fortran kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:153
 #: ../plugins/am-project/am-properties.c:280
 #: ../plugins/am-project/am-properties.c:432
 #: ../plugins/am-project/am-properties.c:584
 msgid "Objective C compiler flags:"
-msgstr ""
+msgstr "Objective C kompilatora karogi:"
 
 #: ../plugins/am-project/am-properties.c:156
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
+"Kopīgi papildus Objective C kompilatora karogi visiem mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:288
 #: ../plugins/am-project/am-properties.c:440
 #: ../plugins/am-project/am-properties.c:592
 msgid "Lex/Flex flags:"
-msgstr ""
+msgstr "Lex/Flex karogi:"
 
 #: ../plugins/am-project/am-properties.c:164
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
+"Kopīgi papildus Lex vai Flex leksiskā analizatora ģeneratora karogi visiem "
+"mērķiem šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
 #: ../plugins/am-project/am-properties.c:448
 #: ../plugins/am-project/am-properties.c:600
 msgid "Yacc/Bison flags:"
-msgstr ""
+msgstr "Yacc/Bison karogi:"
 
 #: ../plugins/am-project/am-properties.c:172
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
+"Kopīgi papildus Yacc vai Bison parsētāja ģeneratora karogi visiem mērķiem "
+"šajā grupā."
 
 #: ../plugins/am-project/am-properties.c:177
 msgid "Installation directories:"
-msgstr ""
+msgstr "Instalācijas direktorijas:"
 
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
-msgstr ""
+msgstr "Šīs grupas mērķu izmantoto pielāgoto instalāciju direktoriju saraksts"
 
 #: ../plugins/am-project/am-properties.c:192
 #: ../plugins/am-project/am-properties.c:352
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:751
 msgid "Do not install:"
-msgstr ""
+msgstr "Neinstalēt:"
 
 #: ../plugins/am-project/am-properties.c:195
 #: ../plugins/am-project/am-properties.c:355
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
-msgstr ""
+msgstr "Būvēt, bet neinstalēt mērķi."
 
 #: ../plugins/am-project/am-properties.c:200
 #: ../plugins/am-project/am-properties.c:360
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
-#, fuzzy
+#: ../plugins/am-project/am-properties.c:759
 #| msgid "Working directory:"
 msgid "Installation directory:"
-msgstr "Darba direktorija:"
+msgstr "Instalācijas direktorija:"
 
 #: ../plugins/am-project/am-properties.c:203
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:515
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:762
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
 msgstr ""
+"Tai jābūt standarta direktorijai, vai pielāgotā, kura definēta grupas "
+"parametros."
 
 #: ../plugins/am-project/am-properties.c:211
 #: ../plugins/am-project/am-properties.c:371
 #: ../plugins/am-project/am-properties.c:523
 msgid "Additional linker flags for this target."
-msgstr ""
+msgstr "Papildus saišu redaktora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:216
 msgid "Additional libraries:"
-msgstr ""
+msgstr "Papildus bibliotēkas:"
 
 #: ../plugins/am-project/am-properties.c:219
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
 msgid "Additional libraries for this target."
-msgstr ""
+msgstr "Papildus bibliotēkas šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
-msgstr ""
+msgstr "Papildus objekti:"
 
 #: ../plugins/am-project/am-properties.c:227
 msgid "Additional object files for this target."
-msgstr ""
+msgstr "Papildus objektu faili šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:235
 #: ../plugins/am-project/am-properties.c:387
 #: ../plugins/am-project/am-properties.c:539
 msgid "Additional C preprocessor flags for this target."
-msgstr ""
+msgstr "Papildus C priekšprocesora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:243
 #: ../plugins/am-project/am-properties.c:395
 #: ../plugins/am-project/am-properties.c:547
 msgid "Additional C compiler flags for this target."
-msgstr ""
+msgstr "Papildus C kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:251
 #: ../plugins/am-project/am-properties.c:403
 #: ../plugins/am-project/am-properties.c:555
 msgid "Additional C++ compiler flags for this target."
-msgstr ""
+msgstr "Papildus C++ kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:259
 #: ../plugins/am-project/am-properties.c:411
 #: ../plugins/am-project/am-properties.c:563
 msgid "Additional Java compiler flags for this target."
-msgstr ""
+msgstr "Papildus Java kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:267
 #: ../plugins/am-project/am-properties.c:419
 #: ../plugins/am-project/am-properties.c:571
 msgid "Additional Vala compiler flags for this target."
-msgstr ""
+msgstr "Papildus Vala kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:275
 #: ../plugins/am-project/am-properties.c:427
 #: ../plugins/am-project/am-properties.c:579
 msgid "Additional Fortran compiler flags for this target."
-msgstr ""
+msgstr "Papildus Fortran kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:283
 #: ../plugins/am-project/am-properties.c:435
 #: ../plugins/am-project/am-properties.c:587
 msgid "Additional Objective C compiler flags for this target."
-msgstr ""
+msgstr "Papildus Objective C kompilatora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:291
 #: ../plugins/am-project/am-properties.c:443
@@ -4815,122 +4786,142 @@ msgstr ""
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
+"Papildus Lex vai Flex leksiskā analizatora ģeneratora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
-msgid "Additional Yac or Bison parser generator flags for this target."
-msgstr ""
+msgid "Additional Yacc or Bison parser generator flags for this target."
+msgstr "Papildus Yacc vai Bison parsētāja ģeneratora karogi šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
 #: ../plugins/am-project/am-properties.c:608
 #: ../plugins/am-project/am-properties.c:656
 #: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:767
 msgid "Additional dependencies:"
-msgstr ""
+msgstr "Papildus atkarības:"
 
 #: ../plugins/am-project/am-properties.c:307
 #: ../plugins/am-project/am-properties.c:459
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:770
 msgid "Additional dependencies for this target."
-msgstr ""
+msgstr "Papildus atkarības šim mērķim."
 
 #: ../plugins/am-project/am-properties.c:312
 #: ../plugins/am-project/am-properties.c:464
 #: ../plugins/am-project/am-properties.c:616
 #: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:775
 msgid "Include in distribution:"
-msgstr ""
+msgstr "Iekļaut distribūcijā:"
 
 #: ../plugins/am-project/am-properties.c:315
 #: ../plugins/am-project/am-properties.c:467
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
-msgstr ""
+msgstr "Iekļaut mērķi izplatītajā pakotnē."
 
 #: ../plugins/am-project/am-properties.c:320
 #: ../plugins/am-project/am-properties.c:472
 #: ../plugins/am-project/am-properties.c:624
 #: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:783
 msgid "Build for check only:"
-msgstr ""
+msgstr "Būvēt tikai pārbaudes gadījumā:"
 
 #: ../plugins/am-project/am-properties.c:323
 #: ../plugins/am-project/am-properties.c:475
 #: ../plugins/am-project/am-properties.c:627
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
-msgstr ""
+msgstr "Būvēt šo mērķi tikai darbinot automātiskos testus."
 
 #: ../plugins/am-project/am-properties.c:328
 #: ../plugins/am-project/am-properties.c:480
 #: ../plugins/am-project/am-properties.c:632
 #: ../plugins/am-project/am-properties.c:664
 #: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:791
 msgid "Do not use prefix:"
-msgstr ""
+msgstr "Nelietot prefiksu:"
 
 #: ../plugins/am-project/am-properties.c:331
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:635
 #: ../plugins/am-project/am-properties.c:667
 #: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:794
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
 msgstr ""
+"Nepārsaukt mērķi, pievienojot tam prefiksu; parasti to izmanto, lai "
+"nepārrakstītu "
+"sistēmas programmu."
 
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:488
 #: ../plugins/am-project/am-properties.c:640
 #: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
-msgstr ""
+msgstr "Paturēt mērķa ceļu:"
 
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:491
 #: ../plugins/am-project/am-properties.c:643
 #: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:802
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
 "subdir/app not in bin/app."
 msgstr ""
+"Paturēt relatīvo mērķa ceļu instalējot to. Piemēram, ja jums ir instalēta "
+"programma subdir/app instalēta bin direktorijā, tad tā tiks instalēta "
+"bin/subdir/app, nevis bin/app."
 
 #: ../plugins/am-project/am-properties.c:376
 #: ../plugins/am-project/am-properties.c:528
 msgid "Libraries:"
-msgstr ""
+msgstr "Bibliotēkas:"
 
 #: ../plugins/am-project/am-properties.c:672
 msgid "Manual section:"
-msgstr ""
+msgstr "Rokasgrāmatas sekcija:"
 
 #: ../plugins/am-project/am-properties.c:675
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
+"Sekcija, kurā tiks instalētas rokasgrāmatas (man) lapas. Pareizi sekciju "
+"nosaukumi "
+"ir cipari no '0' līdz '9', un burti 'I' un 'n'. "
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
-msgstr ""
+msgstr "Pieejamie noformētāji"
 
 #. The %s argument is a program name, anjuta by example
 #: ../plugins/gdb/debugger.c:729
 #, c-format
 msgid "Loading Executable: %s\n"
-msgstr ""
+msgstr "Ielādē izpildāmo failu: %s\n"
 
 #. The %s argument is a file name
 #: ../plugins/gdb/debugger.c:760
 #, c-format
 msgid "Loading Core: %s\n"
-msgstr ""
+msgstr "Ielādē kodolu: %s\n"
 
 #: ../plugins/gdb/debugger.c:985
 #, c-format
@@ -4939,63 +4930,69 @@ msgid ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
+"Neizdevās sameklēt: %s.\n"
+"Neizdevās inicializēt atkļūdotāju.\n"
+"Pārliecinieties, ka Anjuta ir uzinstalēta korekti."
 
 #: ../plugins/gdb/debugger.c:1130
 msgid "Getting ready to start debugging session…\n"
-msgstr ""
+msgstr "Gatavojas sākt atkļūdošanas sesiju...\n"
 
 #: ../plugins/gdb/debugger.c:1136
 msgid "Loading Executable: "
-msgstr ""
+msgstr "Ielādē izpildāmo failu: "
 
 #: ../plugins/gdb/debugger.c:1145
 msgid "No executable specified.\n"
-msgstr ""
+msgstr "Nav norādīts izpildāmais fails.\n"
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
+"Atveriet izpildāmo failu vai pievienojiet procesam, lai sāktu atkļūdošanu.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
-msgstr ""
+msgstr "Bija kļūda palaižot atkļūdotāju.\n"
 
 #: ../plugins/gdb/debugger.c:1161
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr ""
+msgstr "Pārliecinieties, ka 'gdb' ir instalēts jūsu sistēmā.\n"
 
 #: ../plugins/gdb/debugger.c:1482
 msgid "Program exited normally\n"
-msgstr ""
+msgstr "Programma normāli beidza darbu\n"
 
 #: ../plugins/gdb/debugger.c:1493
 #, c-format
 msgid "Program exited with error code %s\n"
-msgstr ""
+msgstr "Programma beidza darbu ar kļūdas kodu %s\n"
 
 #. The program has reached one breakpoint and will stop
 #: ../plugins/gdb/debugger.c:1508
 #, c-format
 msgid "Breakpoint number %s hit\n"
-msgstr ""
+msgstr "Skarts pārtraukuma punkts numur %s\n"
 
 #: ../plugins/gdb/debugger.c:1517
 msgid "Function finished\n"
-msgstr ""
+msgstr "Funkcija pabeigta\n"
 
 #: ../plugins/gdb/debugger.c:1523
 msgid "Stepping finished\n"
-msgstr ""
+msgstr "Soļošana pabeigta\n"
 
 #: ../plugins/gdb/debugger.c:1529
 msgid "Location reached\n"
-msgstr ""
+msgstr "Vieta sasniegta\n"
 
 #: ../plugins/gdb/debugger.c:1926
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
+"Ir pievienota programma.\n"
+"Vai jūs joprojām vēlaties apturēt atkļūdotāju?"
 
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
@@ -5005,71 +5002,76 @@ msgid ""
 "Unable to connect to remote target, %s\n"
 "Do you want to try again?"
 msgstr ""
+"Neizdevās savienoties ar attālināto mērķi, %s\n"
+"Vai jūs vēlaties mēģināt vēlreiz?"
 
 #: ../plugins/gdb/debugger.c:2105
 msgid "Debugger connected\n"
-msgstr ""
+msgstr "Savienojums ar atkļūdotāju izveidots\n"
 
 #: ../plugins/gdb/debugger.c:2179
 msgid "Program attached\n"
-msgstr ""
+msgstr "Programma pievienota\n"
 
 #: ../plugins/gdb/debugger.c:2200
 #, c-format
 msgid "Attaching to process: %d…\n"
-msgstr ""
+msgstr "Pievieno procesam: %d...\n"
 
 #: ../plugins/gdb/debugger.c:2226
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
+"Process jau darbojas.\n"
+"Vai jūs vēlētos pātraukt to un pievienot jaunu procesu?"
 
 #: ../plugins/gdb/debugger.c:2243
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Anjuta nevar pievienot tai pašai."
 
 #: ../plugins/gdb/debugger.c:2293
 msgid "Program terminated\n"
-msgstr ""
+msgstr "Programma pārtraukta\n"
 
 #: ../plugins/gdb/debugger.c:2308
 msgid "Program detached\n"
-msgstr ""
+msgstr "Programma atvienota\n"
 
 #: ../plugins/gdb/debugger.c:2328
 #, c-format
 msgid "Detaching the process…\n"
-msgstr ""
+msgstr "Atvieno procesu...\n"
 
 #: ../plugins/gdb/debugger.c:2351
 msgid "Interrupting the process\n"
-msgstr ""
+msgstr "Pārtrauc procesu\n"
 
 #: ../plugins/gdb/debugger.c:3996
-#, fuzzy
 #| msgid "Children"
 msgid "more children"
-msgstr "Bērni"
+msgstr "vairāk bērnu"
 
 #: ../plugins/gdb/debugger.c:4249
 #, c-format
 msgid "Sending signal %s to the process: %d"
-msgstr ""
+msgstr "Sūta signālu %s procesam: %d"
 
 #: ../plugins/gdb/debugger.c:4275
 msgid "Error whilst signaling the process."
-msgstr ""
+msgstr "Kļūda signalizējot procesam."
 
 #: ../plugins/gdb/plugin.c:118
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
+"Neizdevās izveidot FIFO failu ar nosaukumu %s. Programma darbosies bez "
+"termināļa."
 
 #: ../plugins/gdb/plugin.c:202
 msgid "Cannot start terminal for debugging."
-msgstr ""
+msgstr "Neizdodas palaist termināli atkļūdošanai."
 
 #. Translators: pretty printer file is a script containing functions allowing gdb
 #. * to display variable content in a simpler way, typically removing
@@ -5086,13 +5088,18 @@ msgid ""
 "rows. Most of the time the register function name contains the word "
 "\"register\"."
 msgstr ""
+"Reģistra funkcija netika automātiski atrasta sekojošajos "
+"noformētāju failos:\n"
+"%s\n"
+"Jums nepieciešams pašam aizpildīt reģistra funkcijas kolonnas "
+"pirms rindu aktivizēšanas. Vairākums gadījumos reģistra funkcija "
+"satur vārdu \"register\"."
 
 #: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
-msgstr ""
+msgstr "Izvēlieties noformētāja failu"
 
 #: ../plugins/gdb/preferences.c:358
-#, fuzzy
 #| msgid "Active"
 msgid "Activate"
 msgstr "Aktīvs"
@@ -5100,418 +5107,430 @@ msgstr "Aktīvs"
 #. Translators: The "Register Function" column contains the name of a
 #. * function used to register pretty printers in gdb.
 #: ../plugins/gdb/preferences.c:372
-#, fuzzy
 #| msgid "Function"
 msgid "Register Function"
-msgstr "Funkcija"
+msgstr "Ŗeģistrēšanas funkcija"
 
 #: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
-#, fuzzy
 #| msgid "Debugger"
 msgid "Gdb Debugger"
-msgstr "Atkļūdotājs"
+msgstr "Gdb atkļūdotājs"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-#, fuzzy
 #| msgid "Address:"
 msgid "Add Files:"
-msgstr "Adrese:"
+msgstr "Pievienot failus:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add signed off by line"
-msgstr ""
+msgstr "Pievienot apstiprinājuma parakstu"
 
 #: ../plugins/git/anjuta-git.ui.h:3
 msgid "Amend the previous commit"
-msgstr ""
+msgstr "Labot iepriekšējo nodevumu"
 
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "Annotate this tag:"
-msgstr ""
+msgstr "Anotēt šo birku:"
 
 #: ../plugins/git/anjuta-git.ui.h:5
 msgid "Append fetch data"
-msgstr ""
+msgstr "Pievienot iegūtos datus"
 
 #: ../plugins/git/anjuta-git.ui.h:6
 msgid "Append signed-of- by line"
-msgstr ""
+msgstr "Pievienot apstiprinājuma parakstu"
 
 #: ../plugins/git/anjuta-git.ui.h:7
-#, fuzzy
-#| msgid "Project name:"
-msgid "Branch name:"
-msgstr "Projekta nosaukums:"
+#: ../plugins/subversion/subversion-log-dialog.c:132
+msgid "Author"
+msgstr "Autors"
 
 #: ../plugins/git/anjuta-git.ui.h:8
-msgid "Branch:"
-msgstr ""
+#| msgid "Project name:"
+msgid "Branch name:"
+msgstr "Zara nosaukums:"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
-#, fuzzy
+#: ../plugins/git/anjuta-git.ui.h:9
+msgid "Branch:"
+msgstr "Zars:"
+
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 #| msgid "Patches"
 msgid "Branches"
-msgstr "Ielāpi"
-
-#: ../plugins/git/anjuta-git.ui.h:10
-msgid "Branches must be fully merged"
-msgstr ""
+msgstr "Zari"
 
 #: ../plugins/git/anjuta-git.ui.h:11
-#, fuzzy
-#| msgid "Patches"
-msgid "Branches:"
-msgstr "Ielāpi"
+msgid "Branches must be fully merged"
+msgstr "Zariem jābūt pilnībā apvienotiem"
 
 #: ../plugins/git/anjuta-git.ui.h:12
-#: ../plugins/subversion/anjuta-subversion.ui.h:4
-#, fuzzy
-#| msgid "Change Value"
-msgid "Changes:"
-msgstr "Mainīt vērtību"
+#| msgid "Patches"
+msgid "Branches:"
+msgstr "Zari:"
 
 #: ../plugins/git/anjuta-git.ui.h:13
-msgid "Check out the branch after it is created"
-msgstr ""
+#: ../plugins/subversion/anjuta-subversion.ui.h:4
+#| msgid "Change Value"
+msgid "Changes:"
+msgstr "Izmaiņas:"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-msgid "Commit on fast-forward merges"
-msgstr ""
+msgid "Check out the branch after it is created"
+msgstr "Atvērt zaru pēc tam, kad tas ir izveidots"
 
 #: ../plugins/git/anjuta-git.ui.h:15
-msgid "Commit to cherry pick:"
-msgstr ""
+msgid "Commit on fast-forward merges"
+msgstr "Veidot nodevumu pie ātrajām apvienošanām"
 
 #: ../plugins/git/anjuta-git.ui.h:16
-msgid "Commit to revert:"
-msgstr ""
+msgid "Commit to cherry pick:"
+msgstr "Nodevumu, kuru izvēlēties:"
 
 #: ../plugins/git/anjuta-git.ui.h:17
-msgid "Do not commit"
-msgstr ""
+msgid "Commit to revert:"
+msgstr "Nodevums, kuru atsaukt:"
 
 #: ../plugins/git/anjuta-git.ui.h:18
-msgid "Do not follow tags"
-msgstr ""
+#: ../plugins/subversion/subversion-log-dialog.c:141
+msgid "Date"
+msgstr "Datums"
 
 #: ../plugins/git/anjuta-git.ui.h:19
-#, fuzzy
-#| msgid "Author Email:"
-msgid "E-mail:"
-msgstr "Autora e-pasts:"
+msgid "Do not commit"
+msgstr "Nenodot"
 
 #: ../plugins/git/anjuta-git.ui.h:20
-msgid "Fetch remote branches after creation"
-msgstr ""
+msgid "Do not follow tags"
+msgstr "Nesekot birkām"
 
 #: ../plugins/git/anjuta-git.ui.h:21
-msgid "Folder to create patches in:"
-msgstr ""
+#| msgid "Drop a file or enter a path here"
+msgid "Drop or enter revision here"
+msgstr "Iemet vai ievadi revīzīju šeit"
 
 #: ../plugins/git/anjuta-git.ui.h:22
-#: ../plugins/subversion/anjuta-subversion.ui.h:19
-msgid "Force"
-msgstr ""
+#| msgid "Drop a file or enter a path here"
+msgid "Drop or type a revision here"
+msgstr "Iemet vai ievadi revīzīju šeit"
 
 #: ../plugins/git/anjuta-git.ui.h:23
-msgid "Generate patches relative to:"
-msgstr ""
+#| msgid "Author Email:"
+msgid "E-mail:"
+msgstr "E-pasts:"
 
 #: ../plugins/git/anjuta-git.ui.h:24
-msgid "Hard"
-msgstr "Grūts"
+msgid "Fetch remote branches after creation"
+msgstr "Iegūt attālinātos zarus pēc izveidošanas"
+
+#: ../plugins/git/anjuta-git.ui.h:25
+msgid "Folder to create patches in:"
+msgstr "Mapē, kurā veidot ielāpus:"
 
 #: ../plugins/git/anjuta-git.ui.h:26
-#: ../plugins/subversion/anjuta-subversion.ui.h:21
-#, fuzzy
-#| msgid "Message"
-msgid "Log Message:"
-msgstr "Ziņojums"
+#: ../plugins/subversion/anjuta-subversion.ui.h:19
+msgid "Force"
+msgstr "Piespiest"
 
 #: ../plugins/git/anjuta-git.ui.h:27
-msgid "Mailbox files to apply:"
-msgstr ""
+msgid "Generate patches relative to:"
+msgstr "Ģenerēt ielāpus, relatīvus attiecībā uz:"
 
 #: ../plugins/git/anjuta-git.ui.h:28
-msgid "Mixed"
-msgstr ""
+msgid "Graph"
+msgstr "Grafs"
 
 #: ../plugins/git/anjuta-git.ui.h:29
+msgid "Hard"
+msgstr "Ciets"
+
+#: ../plugins/git/anjuta-git.ui.h:31
+#: ../plugins/subversion/anjuta-subversion.ui.h:21
+#| msgid "Message"
+msgid "Log Message:"
+msgstr "Žurnāla ieraksts:"
+
+#: ../plugins/git/anjuta-git.ui.h:32
+msgid "Mailbox files to apply:"
+msgstr "Piemērot pastkastes (Mailbox) failiem:"
+
+#: ../plugins/git/anjuta-git.ui.h:33
+msgid "Mixed"
+msgstr "Miksēts"
+
+#: ../plugins/git/anjuta-git.ui.h:34
 msgid "Mode:"
 msgstr "Režīms:"
 
-#: ../plugins/git/anjuta-git.ui.h:33
-msgid "Push all branches and tags"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:34
-msgid "Push all tags"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:35 ../plugins/git/plugin.c:262
-msgid "Rebase"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:36
-msgid "Remote Repositories:"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:37
-#, fuzzy
-#| msgid "Rule name:"
-msgid "Remote name:"
-msgstr "Noteikuma vārds:"
-
 #: ../plugins/git/anjuta-git.ui.h:38
-#, fuzzy
-#| msgid "Remove all"
-msgid "Remove Files:"
-msgstr "Izmest visu"
+msgid "Previous commit; Drop or enter a different revision here"
+msgstr "Iepriekšējais nodevums; šeit iemetiet vai ievadiet citu revīziju"
 
 #: ../plugins/git/anjuta-git.ui.h:39
-msgid "Repository Status:"
-msgstr ""
+msgid "Push all branches and tags"
+msgstr "Stumt visus zarus un birkas"
 
 #: ../plugins/git/anjuta-git.ui.h:40
-msgid "Repository head; Drop or type a different revision here"
-msgstr ""
+msgid "Push all tags"
+msgstr "Stumt visas birkas"
 
-#: ../plugins/git/anjuta-git.ui.h:41
-msgid "Repository head; Drop or type a different revision here "
-msgstr ""
+#: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
+msgid "Rebase"
+msgstr "Pārbāzēt"
 
 #: ../plugins/git/anjuta-git.ui.h:42
-msgid "Repository origin; Drop or type a different revision here"
-msgstr ""
+msgid "Remote Repositories:"
+msgstr "Attālinātās krātuves:"
 
 #: ../plugins/git/anjuta-git.ui.h:43
-msgid "Repository to pull from:"
-msgstr ""
+#| msgid "Rule name:"
+msgid "Remote name:"
+msgstr "Atālināts nosaukums:"
 
 #: ../plugins/git/anjuta-git.ui.h:44
-msgid "Repository to push to:"
-msgstr ""
+#| msgid "Remove all"
+msgid "Remove Files:"
+msgstr "Izņemt failus:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
+msgid "Repository Status:"
+msgstr "Krātuves statuss:"
+
+#: ../plugins/git/anjuta-git.ui.h:46
+msgid "Repository head; Drop or type a different revision here"
+msgstr "Krātuves galvene; šeit iemetiet vai ievadiet citu revīziju"
+
+#: ../plugins/git/anjuta-git.ui.h:47
+msgid "Repository origin; Drop or type a different revision here"
+msgstr "Krātuves pirmavots; šeit iemetiet vai ievadiet citu revīziju"
+
+#: ../plugins/git/anjuta-git.ui.h:48
+msgid "Repository to pull from:"
+msgstr "Krātuve, no kurienes vilkt datus:"
+
+#: ../plugins/git/anjuta-git.ui.h:49
+msgid "Repository to push to:"
+msgstr "Krātuve, uz kurieni stumt datus:"
+
+#: ../plugins/git/anjuta-git.ui.h:50
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Revīzija"
 
-#: ../plugins/git/anjuta-git.ui.h:46
-msgid "Revision to merge with:"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:48
-msgid "Show source revision in log message"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:49
-msgid "Sign this tag"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:50
-msgid "Soft"
-msgstr ""
-
 #: ../plugins/git/anjuta-git.ui.h:51
-msgid "Squash"
-msgstr ""
-
-#: ../plugins/git/anjuta-git.ui.h:52
-msgid "Stash Message (Optional):"
-msgstr ""
+msgid "Revision to merge with:"
+msgstr "Revīzija, ar kuru apvienot:"
 
 #: ../plugins/git/anjuta-git.ui.h:53
-msgid "Stash indexed changes"
-msgstr ""
+#: ../plugins/subversion/subversion-log-dialog.c:160
+msgid "Short Log"
+msgstr "Īss žurnāla ieraksts"
 
 #: ../plugins/git/anjuta-git.ui.h:54
-msgid "Stashed Changes:"
-msgstr ""
+msgid "Show source revision in log message"
+msgstr "Rādīt pirmkoda revīziju žurnāla ierakstā"
 
 #: ../plugins/git/anjuta-git.ui.h:55
-#, fuzzy
-#| msgid "Rule name:"
-msgid "Tag name:"
-msgstr "Noteikuma vārds:"
+msgid "Sign this tag"
+msgstr "Parakstīt šo birku"
 
 #: ../plugins/git/anjuta-git.ui.h:56
-#, fuzzy
-#| msgid "Tasks"
-msgid "Tags:"
-msgstr "Uzdevumi"
+msgid "Soft"
+msgstr "Mīksts"
 
 #: ../plugins/git/anjuta-git.ui.h:57
-msgid "This commit concludes a failed merge (use -i)"
-msgstr ""
+msgid "Squash"
+msgstr "Sažmiegt"
+
+#: ../plugins/git/anjuta-git.ui.h:58
+msgid "Stash Message (Optional):"
+msgstr "Slēptuves ieraksts (neobligāts):"
 
 #: ../plugins/git/anjuta-git.ui.h:59
-#, fuzzy
-#| msgid "Add time stamps to log messages"
-msgid "Use a custom log message:"
-msgstr "Pievienot laika spiedolu žurnāla ierakstos"
+msgid "Stash indexed changes"
+msgstr "Slēptuves indeksētās izmaiņas"
 
 #: ../plugins/git/anjuta-git.ui.h:60
-msgid "Use custom author information:"
-msgstr ""
+msgid "Stashed Changes:"
+msgstr "Slēptās izmaiņas:"
 
 #: ../plugins/git/anjuta-git.ui.h:61
-#: ../plugins/subversion/anjuta-subversion.ui.h:59
-msgid "View the Log for File/Folder:"
-msgstr ""
+#| msgid "Rule name:"
+msgid "Tag name:"
+msgstr "Birkas nosaukums:"
 
 #: ../plugins/git/anjuta-git.ui.h:62
+#| msgid "Tasks"
+msgid "Tags:"
+msgstr "Birkas"
+
+#: ../plugins/git/anjuta-git.ui.h:63
+msgid "This commit concludes a failed merge (use -i)"
+msgstr "Šis nodevums noslēdz neizdevušos apvienošanu (izmanto -i)"
+
+#: ../plugins/git/anjuta-git.ui.h:65
+#| msgid "Add time stamps to log messages"
+msgid "Use a custom log message:"
+msgstr "Izmantot pielāgotu žurnāla ierakstu:"
+
+#: ../plugins/git/anjuta-git.ui.h:66
+msgid "Use custom author information:"
+msgstr "Izmantot pielāgotu informāciju par autoru:"
+
+#: ../plugins/git/anjuta-git.ui.h:67
+#: ../plugins/subversion/anjuta-subversion.ui.h:59
+msgid "View the Log for File/Folder:"
+msgstr "Aplūkot žurnālu failam/mapei:"
+
+#: ../plugins/git/anjuta-git.ui.h:68
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
+"Viss projekts; šeit iemetiet failu vai ievadiet ceļu, lai redzētu faila vai "
+"mapes žurnālu"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
+"Viss projekts; šeit iemetiet failu, lai redzētu faila vai mapes žurnālu"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
-msgstr ""
+msgstr "lapa 1"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:71
 msgid "page 2"
-msgstr ""
+msgstr "lapa 2"
 
 #: ../plugins/git/git-add-files-pane.c:157
-#, fuzzy
 #| msgid "Files"
 msgid "Add Files"
-msgstr "Faili"
+msgstr "Pievienot failus"
 
 #: ../plugins/git/git-add-remote-pane.c:52
 msgid "Please enter a remote name."
-msgstr ""
+msgstr "Lūdzu, ievadiet attālināto nosaukumu."
 
 #: ../plugins/git/git-add-remote-pane.c:55
 msgid "Please enter a URL"
-msgstr ""
+msgstr "Lūdzu, ievadiet URL"
 
 #: ../plugins/git/git-add-remote-pane.c:179
-#, fuzzy
 #| msgid "Remove"
 msgid "Add Remote"
-msgstr "Izņemt"
+msgstr "Pievienot attālināto"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
 msgid "Apply Mailbox Files"
-msgstr ""
+msgstr "Pielāgot no pastkastīšu failiem"
 
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
-#, fuzzy
 #| msgid "Copy the selection"
 msgid "No stash selected."
-msgstr "Kopēt izvēlēto"
+msgstr "Nav izvēlēta neviena slēptuve."
 
 #: ../plugins/git/git-checkout-pane.c:147
 msgid "Check Out Files"
-msgstr ""
+msgstr "Iegūt failus"
 
 #: ../plugins/git/git-commit-pane.c:124
 #: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
 msgid "Please enter a log message."
-msgstr ""
+msgstr "Lūdzu, ievadiet žurnāla ierakstu."
 
 #: ../plugins/git/git-commit-pane.c:145
 msgid "Please enter the commit author's name"
-msgstr ""
+msgstr "Lūdzu, ievadiet nodevuma autora nosaukumu"
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
-msgstr ""
+msgstr "Lūdzu, ievadi nodevuma autora e-pasta adresi."
 
 #: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
-#, fuzzy
 #| msgid "Co_mment"
 msgid "Commit"
-msgstr "Ko_mentēt"
+msgstr "Nodot"
 
 #: ../plugins/git/git-cherry-pick-pane.c:53 ../plugins/git/git-merge-pane.c:56
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
 msgid "Please enter a revision."
-msgstr ""
+msgstr "Lūdzu, ievadiet revīziju."
 
 #: ../plugins/git/git-cherry-pick-pane.c:173
 msgid "Cherry Pick"
-msgstr ""
+msgstr "Atlasīt nodevumu"
 
 #. Translators: default file name for git diff's output
 #: ../plugins/git/git-diff-pane.c:33
 msgid "Uncommitted Changes.diff"
-msgstr ""
+msgstr "Nenodotās izmaiņas.diff"
 
 #. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
 #: ../plugins/git/git-diff-pane.c:71
 #, c-format
 msgid "Commit %s.diff"
-msgstr ""
+msgstr "Nodevums %s.diff"
 
 #: ../plugins/git/git-diff-pane.c:104
 msgid "No revision selected"
-msgstr ""
+msgstr "Nav izvēlēta neviena revīzija"
 
 #: ../plugins/git/git-reset-pane.c:167
-#, fuzzy
 #| msgid "_Reset"
 msgid "Reset"
-msgstr "Pā_rstatīt"
+msgstr "Atiestatīt"
 
 #: ../plugins/git/git-revert-pane.c:48
 msgid "Please enter a commit."
-msgstr ""
+msgstr "Lūdzu, ievadiet nodevumu."
 
 #: ../plugins/git/git-revert-pane.c:162
-#, fuzzy
 #| msgid "_Reset"
 msgid "Revert"
-msgstr "Pā_rstatīt"
+msgstr "Atgriezt"
 
 #: ../plugins/git/git-create-branch-pane.c:51
 msgid "Please enter a branch name."
-msgstr ""
+msgstr "Lūdzu, ievadiet zara nosaukumu."
 
 #: ../plugins/git/git-create-tag-pane.c:63
 msgid "Please enter a tag name."
-msgstr ""
+msgstr "Lūdzu, ievadiet birkas nosaukumu."
 
 #: ../plugins/git/git-create-tag-pane.c:218
 msgid "Create Tag"
-msgstr ""
+msgstr "Izveidot birku"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
 msgid "No remote selected."
-msgstr ""
+msgstr "Nav izvēlēta attālinātā."
 
 #: ../plugins/git/git-delete-tags-pane.c:49
 msgid "No tags selected."
-msgstr ""
+msgstr "Nav izvēlēta neviena birka."
 
 #: ../plugins/git/git-diff-stash-pane.c:40
 #, c-format
 msgid "Stash %i.diff"
-msgstr ""
+msgstr "Slēptuve %i.diff"
 
 #: ../plugins/git/git-log-pane.c:560
 #, c-format
 msgid "<b>Branch:</b> %s"
-msgstr ""
+msgstr "<b>Zars:</b> %s"
 
 #: ../plugins/git/git-log-pane.c:565
 #, c-format
 msgid "<b>Tag:</b> %s"
-msgstr ""
+msgstr "<b>Birka:</b> %s"
 
 #: ../plugins/git/git-log-pane.c:570
 #, c-format
 msgid "<b>Remote:</b> %s"
-msgstr ""
+msgstr "<b>Attālinātā:</b> %s"
 
 #: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
@@ -5520,162 +5539,153 @@ msgstr "Apvienot"
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
 #: ../plugins/git/plugin.c:700 ../plugins/git/git.plugin.in.h:1
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
-#, fuzzy
 #| msgid "Error"
 msgid "Git Error"
-msgstr "Kļūda"
+msgstr "Git kļūda"
 
 #: ../plugins/git/git-pane.c:210
-#, fuzzy
 #| msgid "Warning"
 msgid "Git Warning"
-msgstr "Brīdinājums"
+msgstr "Git brīdinājums"
 
 #: ../plugins/git/git-patch-series-pane.c:167
 msgid "Generate Patch Series"
-msgstr ""
+msgstr "Ģenerēt ielāpu sērijas"
 
 #: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
-msgstr ""
+msgstr "Lūdzu, ievadiet URL."
 
 #: ../plugins/git/git-pull-pane.c:235 ../plugins/git/plugin.c:246
 msgid "Pull"
-msgstr ""
+msgstr "Vilkt"
 
 #: ../plugins/git/git-push-pane.c:434 ../plugins/git/plugin.c:238
 msgid "Push"
-msgstr ""
+msgstr "Stumt"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#, fuzzy
 #| msgid "Copy the selection"
 msgid "No remote selected"
-msgstr "Kopēt izvēlēto"
+msgstr "Nav izvelēta neviena attālinātā krātuve"
 
 #: ../plugins/git/git-remove-files-pane.c:157
-#, fuzzy
 #| msgid "Remove all"
 msgid "Remove Files"
-msgstr "Izmest visu"
+msgstr "Izņemt failus"
 
 #: ../plugins/git/git-repository-selector.c:66
-#, fuzzy
 #| msgid "Remove"
 msgid "Remote"
-msgstr "Izņemt"
+msgstr "Attālinātā"
 
 #: ../plugins/git/git-repository-selector.c:81
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../plugins/git/git-repository-selector.c:100
-#, fuzzy
 #| msgid "<b>Scope</b>"
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Vēriens</b>"
+msgstr "<b>Izvēlētā attālinātā:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
+"Nav izvēlēta attālinātā; izmanto pirmavotu pēc noklusējuma.\n"
+"Lai stumtu uz citu attālināto, izvēlieties vienu no attālināto saraksta "
+"augstāk."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
-msgstr ""
+msgstr "Nav izvēlēts neviens fails ar konfliktiem."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
-msgstr ""
+msgstr "Slēpt nenodotās izmaiņas"
 
 #: ../plugins/git/git-status-pane.c:368
 msgid "Changes to be committed"
-msgstr ""
+msgstr "Nododamās izmaiņas"
 
 #: ../plugins/git/git-status-pane.c:377
 msgid "Changed but not updated"
-msgstr ""
+msgstr "Izmainīts, bet ne atjaunināts"
 
 #: ../plugins/git/git-unstage-pane.c:51
 msgid "No staged files selected."
-msgstr ""
+msgstr "Nav izvēlēti pievienotie faili."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
-msgstr ""
+msgstr "Zaru rīki"
 
 #: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
 msgid "Create a branch"
-msgstr ""
+msgstr "Izveidot zaru"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
 msgid "Delete selected branches"
-msgstr ""
+msgstr "Dzēst izvēlētos zarus"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
-msgstr ""
+msgstr "Pārslēgties uz izvēlēto zaru"
 
 #: ../plugins/git/plugin.c:98
 msgid "Merge a revision into the current branch"
-msgstr ""
+msgstr "Apvienot revīziju ar pašreizējo zaru"
 
 #: ../plugins/git/plugin.c:109
-#, fuzzy
 #| msgid "Tools"
 msgid "Tag tools"
-msgstr "Rīki"
+msgstr "Birku rīki"
 
 #: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
-#, fuzzy
 #| msgid "Create"
 msgid "Create a tag"
-msgstr "Izveidot"
+msgstr "Izveidot birku"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
 msgid "Delete selected tags"
-msgstr ""
+msgstr "Dzēst izvēlētās birkas"
 
 #: ../plugins/git/plugin.c:138
-#, fuzzy
 #| msgid "Change Value"
 msgid "Changes"
-msgstr "Mainīt vērtību"
+msgstr "Izmaiņas"
 
 #: ../plugins/git/plugin.c:147
-#, fuzzy
 #| msgid "_Discard changes"
 msgid "Commit changes"
-msgstr "_Atcelt izmaiņas"
+msgstr "Nodot izmaiņas"
 
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 #| msgid "_Discard changes"
 msgid "Diff uncommitted changes"
-msgstr "_Atcelt izmaiņas"
+msgstr "Parādīt nenodoto izmaiņu atšķirības"
 
 #: ../plugins/git/plugin.c:155
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr ""
+msgstr "Parādīt nenodoto izmaiņu atšķirības redaktorā"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
-#, fuzzy
 #| msgid "_Add"
 msgid "Add"
-msgstr "_Pievienot"
+msgstr "Pievienot"
 
 #: ../plugins/git/plugin.c:171
 msgid "Add files to the index"
-msgstr ""
+msgstr "Pievienot failus indeksam"
 
 #: ../plugins/git/plugin.c:179
 msgid "Remove files from the repository"
-msgstr ""
+msgstr "Izņemt failus no krātuves"
 
 #: ../plugins/git/plugin.c:186
 msgid "Check out"
@@ -5683,304 +5693,284 @@ msgstr ""
 
 #: ../plugins/git/plugin.c:187
 msgid "Revert changes in unstaged files"
-msgstr ""
+msgstr "Atgriezt izmaiņas noņemtajos failos"
 
 #: ../plugins/git/plugin.c:194
-#, fuzzy
 #| msgid "Use"
 msgid "Unstage"
-msgstr "Lietot"
+msgstr "Noņemt"
 
 #: ../plugins/git/plugin.c:195
 msgid "Remove staged files from the index"
-msgstr ""
+msgstr "Noņemt pievienotos failus no indeksa"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
-msgstr ""
+msgstr "Atrisināt konfliktus"
 
 #: ../plugins/git/plugin.c:203
 msgid "Mark selected conflicted files as resolved"
-msgstr ""
+msgstr "Atzīmēt konfliktus izvēlētajos failos kā atrisinātus"
 
 #: ../plugins/git/plugin.c:214
 msgid "Remote repository tools"
-msgstr ""
+msgstr "Attālinātās krātuves rīki"
 
 #: ../plugins/git/plugin.c:222
 msgid "Add a remote"
-msgstr ""
+msgstr "Pievienot attālināto"
 
 #: ../plugins/git/plugin.c:223
-#, fuzzy
 #| msgid "Add to Repository"
 msgid "Add a remote repository"
-msgstr "Pievienot repozitorijam"
+msgstr "Pievienot attālināto krātuvi"
 
 #: ../plugins/git/plugin.c:230
 msgid "Delete selected remote"
-msgstr ""
+msgstr "Dzēst izvēlēto attālināto"
 
 #: ../plugins/git/plugin.c:231
-#, fuzzy
 #| msgid "Delete Data"
 msgid "Delete a remote"
-msgstr "Dzēst datus"
+msgstr "Dzēst attālināto"
 
 #: ../plugins/git/plugin.c:239
 msgid "Push changes to a remote repository"
-msgstr ""
+msgstr "Stumt izmaiņas uz attālināto krātuvi"
 
 #: ../plugins/git/plugin.c:247
 msgid "Pull changes from a remote repository"
-msgstr ""
+msgstr "Vilkt izmaiņas no attālinātās krātuves"
 
 #: ../plugins/git/plugin.c:254
-#, fuzzy
 #| msgid "Patch"
 msgid "Fetch"
-msgstr "Ielāps"
+msgstr "Saņemt"
 
 #: ../plugins/git/plugin.c:255
 msgid "Fetch changes from remote repositories"
-msgstr ""
+msgstr "Saņemt izmaiņas no attālinātajām krātuvēm"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "Pārbāzēšana attiecībā uz izvēlēto attālināto"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
+"Sākt pārbāzēšanas darbību relatīvi attiecībā uz izvēlēto attālināto krātuvi"
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
-#, fuzzy
 #| msgid "_Continue"
 msgid "Continue"
-msgstr "_Turpināt"
+msgstr "Turpināt"
 
 #: ../plugins/git/plugin.c:279
 msgid "Continue a rebase with resolved conflicts"
-msgstr ""
+msgstr "Turpināt pārbāzēšanu ar atrisinātiem konfliktiem"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-#, fuzzy
 #| msgid "_Skip"
 msgid "Skip"
-msgstr "Izlai_st"
+msgstr "Izlaist"
 
 #: ../plugins/git/plugin.c:287
-#, fuzzy
 #| msgid "Save the current file"
 msgid "Skip the current revision"
-msgstr "Saglabāt pašreizējo failu"
+msgstr "Izlaist pašreizējo revīziju"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-#, fuzzy
 #| msgid "_Abort"
 msgid "Abort"
-msgstr "Pārtr_aukt"
+msgstr "Pātraukt"
 
 #: ../plugins/git/plugin.c:295
 msgid "Abort the rebase and return the repository to its previous state"
-msgstr ""
+msgstr "Pārtraukt pārbāzēšanu un atgriezt krātuvi iepriekšējā stāvoklī"
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
-msgstr ""
+msgstr "Slēptuves rīki"
 
 #: ../plugins/git/plugin.c:314
 msgid "Stash uncommitted changes"
-msgstr ""
+msgstr "Slēpt nenodotās izmaiņas"
 
 #: ../plugins/git/plugin.c:315
 msgid "Save uncommitted changes without committing them"
-msgstr ""
+msgstr "Saglabāt izmaiņas bez to nodošanas"
 
 #: ../plugins/git/plugin.c:322
 msgid "Apply selected stash"
-msgstr ""
+msgstr "Piemērot izvēlēto slēptuvi"
 
 #: ../plugins/git/plugin.c:323
 msgid "Apply stashed changes back into the working tree"
-msgstr ""
+msgstr "Piemērot slēptās izmaiņas atpakaļ darba kokā"
 
 #: ../plugins/git/plugin.c:330
 msgid "Apply stash and restore index"
-msgstr ""
+msgstr "Piemērot slēptuvi un atjaunot indeksu"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
+msgstr "Piemērot slēptās izmaiņas atpakaļ darba kokā un indeksā"
 
 #: ../plugins/git/plugin.c:338
-#, fuzzy
 #| msgid "Delete Data"
 msgid "Diff selected stash"
-msgstr "Dzēst datus"
+msgstr "Rādīt atšķirības slēptuvei"
 
 #: ../plugins/git/plugin.c:339
 msgid "Show a diff of the selected stash"
-msgstr ""
+msgstr "Rādīt atšķirības izvēlētajai slēptuvei"
 
 #: ../plugins/git/plugin.c:346
-#, fuzzy
 #| msgid "Delete Data"
 msgid "Drop selected stash"
-msgstr "Dzēst datus"
+msgstr "Dzēst izvēlēto slēptuvi"
 
 #: ../plugins/git/plugin.c:347
 msgid "Delete the selected stash"
-msgstr ""
+msgstr "Dzēst izvēlēto slēptuvi"
 
 #: ../plugins/git/plugin.c:354
-#, fuzzy
 #| msgid "Close all files"
 msgid "Clear all stashes"
-msgstr "Aizvērt visus failus"
+msgstr "Attīrīt visas slēptuves"
 
 #: ../plugins/git/plugin.c:355
 msgid "Delete all stashes in this repository"
-msgstr ""
+msgstr "Dzēst visas slēptuves krātuvē"
 
 #: ../plugins/git/plugin.c:366
-#, fuzzy
 #| msgid "Revision"
 msgid "Revision tools"
-msgstr "Revīzija"
+msgstr "Revīzijas rīki"
 
 #: ../plugins/git/plugin.c:374
 msgid "Show commit diff"
-msgstr ""
+msgstr "Rādīt nodevuma atšķirības"
 
 #: ../plugins/git/plugin.c:375
 msgid "Show a diff of the selected revision"
-msgstr ""
+msgstr "Rādīt atšķirības izvēlētajai revīzijai"
 
 #: ../plugins/git/plugin.c:382
 msgid "Cherry pick"
-msgstr ""
+msgstr "Atlasīt nodevumu"
 
 #: ../plugins/git/plugin.c:383
 msgid "Merge an individual commit from another branch"
-msgstr ""
+msgstr "Apvienot atsevišķu nodevumu no cita zara"
 
 #: ../plugins/git/plugin.c:390
 msgid "Reset/Revert"
-msgstr ""
+msgstr "Atiestatīt/Atgriezt"
 
 #: ../plugins/git/plugin.c:398
-#, fuzzy
 #| msgid "_Reset"
 msgid "Reset tree"
-msgstr "Pā_rstatīt"
+msgstr "Atiestatīt koku"
 
 #: ../plugins/git/plugin.c:399
 msgid "Reset tree to a previous revision"
-msgstr ""
+msgstr "Atiestatīt koku iepriekšējās revīzijas stāvoklī"
 
 #: ../plugins/git/plugin.c:406
 msgid "Revert commit"
-msgstr ""
+msgstr "Atgriezt nosūtijumu"
 
 #: ../plugins/git/plugin.c:407
 msgid "Revert a commit"
-msgstr ""
+msgstr "Atgriezt nosūtījumu"
 
 #: ../plugins/git/plugin.c:414
-#, fuzzy
 #| msgid "Patches"
 msgid "Patch series"
-msgstr "Ielāpi"
+msgstr "Ielāpu sērija"
 
 #: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
 msgid "Generate a patch series"
-msgstr ""
+msgstr "Ģenerēt ielāpu sēriju"
 
 #: ../plugins/git/plugin.c:430
-#, fuzzy
 #| msgid "All files"
 msgid "Mailbox files"
-msgstr "Visi faili"
+msgstr "Pastkastīšu faili"
 
 #: ../plugins/git/plugin.c:438
-#, fuzzy
 #| msgid "All files"
 msgid "Apply mailbox files"
-msgstr "Visi faili"
+msgstr "Pielāgot no pastkastīšu failiem"
 
 #: ../plugins/git/plugin.c:439
 msgid "Apply patches from mailbox files"
-msgstr ""
+msgstr "Pielāgot ielāpus no pastkastīšu failiem"
 
 #: ../plugins/git/plugin.c:447
 msgid "Continue applying patches with resolved conflicts"
-msgstr ""
+msgstr "Turpināt pielāgot ielāpus ar atrisinātiem konfliktiem"
 
 #: ../plugins/git/plugin.c:455
 msgid "Skip the current patch in the series"
-msgstr ""
+msgstr "Izlaist pašreizējo ielāpu sērijā"
 
 #: ../plugins/git/plugin.c:463
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
+"Apturēt ielāpu sērijas pielāgošanu un atgriezt koku iepriekšējā stāvoklī"
 
 #: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
-msgstr ""
+msgstr "Zars"
 
 #: ../plugins/git/plugin.c:696
-#, fuzzy
 #| msgid "Tasks"
 msgid "Git Tasks"
-msgstr "Uzdevumi"
+msgstr "Git uzdevumi"
 
 #: ../plugins/git/plugin.c:758
-#, fuzzy
 #| msgid "State"
 msgid "Status"
-msgstr "Stāvoklis"
+msgstr "Statuss"
 
 #: ../plugins/git/plugin.c:764
-#, fuzzy
 #| msgid "Low"
 msgid "Log"
-msgstr "Zems"
+msgstr "Žurnāls"
 
 #: ../plugins/git/plugin.c:775
-#, fuzzy
 #| msgid "Tasks"
 msgid "Tags"
-msgstr "Uzdevumi"
+msgstr "Birkas"
 
 #: ../plugins/git/plugin.c:781
-#, fuzzy
 #| msgid "Remove"
 msgid "Remotes"
-msgstr "Izņemt"
+msgstr "Attālinātās"
 
 #: ../plugins/git/plugin.c:787
-#, fuzzy
 #| msgid "State"
 msgid "Stash"
-msgstr "Stāvoklis"
+msgstr "Slēptuve"
 
 #: ../plugins/glade/plugin.c:460
 msgid "Select widgets in the workspace"
-msgstr ""
+msgstr "Izvēlēties logvadīklas darba vietā"
 
 #: ../plugins/glade/plugin.c:486
 msgid "Drag and resize widgets in the workspace"
-msgstr ""
+msgstr "Vilkt un mainīt izmēru logvadīklām darba vietā"
 
 #: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
-msgstr ""
+msgstr "Ielādē Glade..."
 
 #: ../plugins/glade/plugin.c:590
 msgid "Widgets"
-msgstr "Sīkrīki"
+msgstr "Logvadīklas"
 
 #: ../plugins/glade/plugin.c:595
 msgid "Palette"
@@ -5989,96 +5979,90 @@ msgstr "Palete"
 #: ../plugins/glade/plugin.c:718
 #, c-format
 msgid "Not local file: %s"
-msgstr ""
+msgstr "Nav lokāls fails: %ss"
 
 #: ../plugins/glade/plugin.c:764
 #, c-format
 msgid "Could not open %s"
-msgstr ""
+msgstr "Neizdevās atvērt %s"
 
 #: ../plugins/glade/plugin.c:821
 msgid "Could not create a new glade project."
-msgstr ""
+msgstr "Neizdevās izveidot jaunu glade projektu."
 
 #: ../plugins/glade/anjuta-design-document.c:166
 #: ../plugins/glade/anjuta-design-document.c:193
 #, c-format
 msgid "Glade project '%s' saved"
-msgstr ""
+msgstr "Glade projekts '%s' saglabāts"
 
 #: ../plugins/glade/anjuta-design-document.c:173
 #: ../plugins/glade/anjuta-design-document.c:200
 msgid "Invalid Glade file name"
-msgstr ""
+msgstr "Nederīgs Glade faila nosaukums"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
-#, fuzzy
 #| msgid "Signal"
 msgid "Diagonal"
-msgstr "Signāls"
+msgstr "Diagonāli"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
 msgid "Error message indicator style:"
-msgstr ""
+msgstr "Kļūdas ziņojuma indikatora stils:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
 msgid "Errors:"
-msgstr ""
+msgstr "Kļūdas:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
-#, fuzzy
 #| msgid "Editor"
 msgid "Indicators"
-msgstr "Redaktors"
+msgstr "Indikatori"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
-#, fuzzy
 #| msgid "Messages"
 msgid "Message colors"
-msgstr "Ziņojumi"
+msgstr "Ziņojuma krāsas"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
 msgid "Normal message indicator style:"
-msgstr ""
+msgstr "Normāla ziņojuma indiktora stils:"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
 msgid "Strike-Out"
-msgstr ""
+msgstr "Pārsvītrots"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
-#, fuzzy
 #| msgid "Underlined"
 msgid "Underline-Plain"
-msgstr "Pasvītrots"
+msgstr "Vienkāršs pasvītrojums"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-#, fuzzy
 #| msgid "Underlined"
 msgid "Underline-Squiggle"
-msgstr "Pasvītrots"
+msgstr "Vilnīšveida pasvītrojums"
 
 #. text style in editor, TT is for typewriter text
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
-#, fuzzy
 #| msgid "Underlined"
 msgid "Underline-TT"
-msgstr "Pasvītrots"
+msgstr "Teletaipa pasvītrojums"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
 msgid "Warning message indicator style:"
-msgstr ""
+msgstr "Brīdinājuma ziņojuma indikatora stils:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:21
 msgid "Warnings:"
-msgstr ""
+msgstr "Brīdinājumi:"
 
 #: ../plugins/message-view/anjuta-msgman.c:83
 msgid "Close all message tabs"
-msgstr ""
+msgstr "Aizvērt visas paziņojumu cilnes"
 
 #: ../plugins/message-view/message-view.c:497
 msgid "Icon"
@@ -6093,15 +6077,15 @@ msgstr "Ziņojumi"
 #: ../plugins/message-view/message-view.c:869
 #, c-format
 msgid "Error writing %s"
-msgstr ""
+msgstr "Kļūda rakstot %s"
 
 #: ../plugins/message-view/plugin.c:79
 msgid "_Copy Message"
-msgstr ""
+msgstr "_Kopēt ziņojumu"
 
 #: ../plugins/message-view/plugin.c:80
 msgid "Copy message"
-msgstr ""
+msgstr "Kopēt ziņojumu"
 
 #: ../plugins/message-view/plugin.c:83
 msgid "_Next Message"
@@ -6125,57 +6109,57 @@ msgstr "_Saglabāt ziņojumu"
 
 #: ../plugins/message-view/plugin.c:92
 msgid "Save message"
-msgstr ""
+msgstr "Saglabāt ziņojumu"
 
 #: ../plugins/message-view/plugin.c:168
 msgid "Next/Previous Message"
-msgstr ""
+msgstr "Nākamais/iepriekšējais ziņojums"
 
 #: ../plugins/message-view/plugin.c:268
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d ziņojums"
+msgstr[1] "%d ziņojumi"
+msgstr[2] "%d ziņojumu"
 
 #: ../plugins/message-view/plugin.c:277
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d inform. ziņojums"
+msgstr[1] "%d inform. ziņojumi"
+msgstr[2] "%d inform. ziņojumu"
 
 #: ../plugins/message-view/plugin.c:286
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d brīdinājums"
+msgstr[1] "%d brīdinājumi"
+msgstr[2] "%d brīdinājumu"
 
 #: ../plugins/message-view/plugin.c:295
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d kļūdas ziņojums"
+msgstr[1] "%d kļūdas ziņojumi"
+msgstr[2] "%d kļūdas ziņojumu"
 
 #: ../plugins/mk-project/mk-project.c:460
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unable to update project"
 msgid "Unable to parse make file"
-msgstr "Nespēju atjaunināt projektu"
+msgstr "Neizdevās parsēt veidošanas failu"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Add _Package"
-msgstr ""
+msgstr "Pievienot _pakotni"
 
 #: ../plugins/mk-project/mk-project.ui.h:2
 msgid "Add _module"
-msgstr ""
+msgstr "Pievienot _moduli"
 
 #: ../plugins/mk-project/mk-project.ui.h:4
 msgid "Packages"
@@ -6183,19 +6167,19 @@ msgstr "Pakotnes"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
 msgid "Select Package to add:"
-msgstr ""
+msgstr "Izvēlieties pakotni, kuru pievienot:"
 
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Select package"
-msgstr ""
+msgstr "Izvēlieties pakotni"
 
 #: ../plugins/patch/patch-plugin.c:94
 msgid "File/Directory to patch"
-msgstr ""
+msgstr "Fails/direktorija, kuru lāpīt"
 
 #: ../plugins/patch/patch-plugin.c:97
 msgid "Patch file"
-msgstr ""
+msgstr "Ielāpa fails"
 
 #: ../plugins/patch/patch-plugin.c:117
 msgid "Patches"
@@ -6203,7 +6187,7 @@ msgstr "Ielāpi"
 
 #: ../plugins/patch/patch-plugin.c:170
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
+msgstr "Lūdzu, izvēlieties direktoriju, uz kuru ielāps būtu jāpiemēro"
 
 #: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:3
 msgid "Patch"
@@ -6212,21 +6196,20 @@ msgstr "Ielāps"
 #: ../plugins/patch/patch-plugin.c:198
 #, c-format
 msgid "Patching %s using %s\n"
-msgstr ""
+msgstr "Lāpa %s izmantojot %s\n"
 
 #: ../plugins/patch/patch-plugin.c:210
 msgid "Patching…\n"
-msgstr ""
+msgstr "Lāpa...\n"
 
 #: ../plugins/patch/patch-plugin.c:220
-#, fuzzy
 #| msgid "Patch"
 msgid "Patching…"
-msgstr "Ielāps"
+msgstr "Lāpa..."
 
 #: ../plugins/patch/patch-plugin.c:225
 msgid "There are unfinished jobs: please wait until they are finished."
-msgstr ""
+msgstr "Ir nepabeigti darbi: lūdzu, uzgaidiet, kāmēr tie tiks pabeigti."
 
 #: ../plugins/patch/patch-plugin.c:267
 msgid ""
@@ -6234,27 +6217,30 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
+"Lāpīšana neizdevusies.\n"
+"Lūdzu, aplūkojiet kļūdas paziņojumus.\n"
+"Pārbaudiet un izņemiet jebkurus noraidītos failus.\n"
 
 #: ../plugins/patch/patch-plugin.c:273
 msgid "Patching complete"
-msgstr ""
+msgstr "Lāpīšana pabeigta"
 
 #: ../plugins/patch/patch-plugin.ui.h:1
 #: ../plugins/subversion/anjuta-subversion.ui.h:14
 msgid "Dry run"
-msgstr ""
+msgstr "Testēšana"
 
 #: ../plugins/patch/patch-plugin.ui.h:2
 msgid "File/Directory to patch:"
-msgstr ""
+msgstr "Fails/direktorija, kuru lāpīt:"
 
 #: ../plugins/patch/patch-plugin.ui.h:4
 msgid "Patch file:"
-msgstr ""
+msgstr "Ielāpa fails:"
 
 #: ../plugins/patch/patch-plugin.ui.h:5
 msgid "Patch level:"
-msgstr ""
+msgstr "Ielāpa līmenis:"
 
 #. Action name
 #. Stock icon, if any
@@ -6265,20 +6251,19 @@ msgstr "_Rīki"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:61
-#, fuzzy
 #| msgid "Patch"
 msgid "_Patch…"
-msgstr "Ielāps"
+msgstr "_Ielāps..."
 
 #: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
-msgstr ""
+msgstr "Lāpa failus/direktorijas"
 
 #: ../plugins/project-import/plugin.c:79
 #: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
-msgstr ""
+msgstr "Fails \"%s\" jau eksistē. Vai vēlaties to aizvietot?"
 
 #: ../plugins/project-import/plugin.c:218
 #, c-format
@@ -6286,11 +6271,14 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
+"Fails \"%s\" nevar tikt ierakstīts: %s. Pārbaudiet, vai jums ir ieraksta "
+"tiesības "
+"projekta direktorijā."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
-msgstr ""
+msgstr "Lūdzu, izvēlieties projekta aizmuguri, lai atvērtu %s."
 
 #: ../plugins/project-import/plugin.c:287
 msgid "Open With"
@@ -6302,13 +6290,16 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
+"Neizdevās atrast pareizu projekta aizmuguri dotajai direktorijai (%s). "
+"Lūdzu, "
+"izvēlieties citu direktoriju, vai mēģiniet uzlabot Anjuta uz jaunāku versiju."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
-msgstr ""
+msgstr "Neizdevās pārbaudīt padoto URI \"%s\". Atgrieztā kļūda bija \"%s\""
 
 #: ../plugins/project-import/project-import.ui.h:1
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
@@ -6335,54 +6326,47 @@ msgid "Destination:"
 msgstr "Mērķis:"
 
 #: ../plugins/project-import/project-import.ui.h:2
-#, fuzzy
 #| msgid "Import Project"
 msgid "Import from folder"
-msgstr "Importēt projektu"
+msgstr "Importēt no mapes"
 
 #: ../plugins/project-import/project-import.ui.h:3
 msgid "Import from version control system"
-msgstr ""
+msgstr "Importēt no versiju kontroles sistēmas"
 
 #: ../plugins/project-import/project-import.ui.h:4
-#, fuzzy
 #| msgid "Import Project"
 msgid "Import options"
-msgstr "Importēt projektu"
+msgstr "Importēšanas opcijas"
 
 #: ../plugins/project-import/project-import.ui.h:5
-#, fuzzy
 #| msgid "_Location:"
 msgid "Location:"
-msgstr "_Atrašanās vieta:"
+msgstr "Atrašanās vieta:"
 
 #: ../plugins/project-import/project-import.ui.h:6
-#, fuzzy
 #| msgid "Project name:"
 msgid "Project name"
-msgstr "Projekta nosaukums:"
+msgstr "Projekta nosaukums"
 
 #: ../plugins/project-import/project-import-dialog.c:292
-#, fuzzy
 #| msgid "Import Project"
 msgid "Import project"
 msgstr "Importēt projektu"
 
 #: ../plugins/project-import/project-import-dialog.c:296
-#, fuzzy
 #| msgid "_Export"
 msgid "Import"
-msgstr "_Eksportēt"
+msgstr "Importēt"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#, fuzzy
 #| msgid "Shared Library"
 msgid "Add Library"
-msgstr "Koplietotā bibliotēka"
+msgstr "Pievienot bibliotēku"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
 msgid "Add Source"
-msgstr "Pievienot avotu"
+msgstr "Pievienot pirmkodu"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
 msgid "Browse other nodes"
@@ -6781,11 +6765,11 @@ msgstr ""
 msgid "Project manager popup actions"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2329
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr ""
 
-#: ../plugins/project-manager/plugin.c:2332
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr ""
 
@@ -7057,31 +7041,31 @@ msgstr "Nespēju atjaunināt projektu"
 msgid "New Project Assistant"
 msgstr ""
 
-#: ../plugins/project-wizard/property.c:340
+#: ../plugins/project-wizard/property.c:341
 msgid "Select directory"
 msgstr "Izvēlēties direktoriju"
 
-#: ../plugins/project-wizard/property.c:348
+#: ../plugins/project-wizard/property.c:358
 msgid "Select file"
 msgstr "Izvēlieties failu"
 
-#: ../plugins/project-wizard/property.c:398 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:522
 #, fuzzy
 #| msgid "Select file"
 msgid "Select an Image File"
 msgstr "Izvēlieties failu"
 
-#: ../plugins/project-wizard/property.c:423
-#: ../plugins/project-wizard/property.c:511 ../plugins/tools/editor.c:556
+#: ../plugins/project-wizard/property.c:433
+#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
 msgstr ""
 
-#: ../plugins/project-wizard/property.c:481
+#: ../plugins/project-wizard/property.c:491
 msgid "Choose directory"
 msgstr ""
 
-#: ../plugins/project-wizard/property.c:485
+#: ../plugins/project-wizard/property.c:495
 msgid "Choose file"
 msgstr ""
 
@@ -7466,9 +7450,9 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
@@ -7486,10 +7470,10 @@ msgstr ""
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr ""
@@ -7595,12 +7579,16 @@ msgstr "Aizvērt projektu"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
@@ -8372,7 +8360,7 @@ msgstr ""
 msgid "View"
 msgstr "Skats"
 
-#: ../plugins/starter/plugin.c:273
+#: ../plugins/starter/plugin.c:285
 #, fuzzy
 #| msgid "Started"
 msgid "Start"
@@ -8841,18 +8829,6 @@ msgstr ""
 msgid "Diff"
 msgstr "Diff"
 
-#: ../plugins/subversion/subversion-log-dialog.c:132
-msgid "Author"
-msgstr "Autors"
-
-#: ../plugins/subversion/subversion-log-dialog.c:141
-msgid "Date"
-msgstr "Datums"
-
-#: ../plugins/subversion/subversion-log-dialog.c:160
-msgid "Short Log"
-msgstr ""
-
 #: ../plugins/subversion/subversion-log-dialog.c:257
 #, fuzzy
 #| msgid "Subversion Log"
@@ -9137,7 +9113,6 @@ msgstr "Terminālis"
 
 #: ../plugins/terminal/terminal.c:877
 #, c-format
-#| msgid "Unable to update project"
 msgid "Unable to execute command"
 msgstr "Neizdodas izpildīt komandu"
 
@@ -9198,7 +9173,6 @@ msgid "Working directory:"
 msgstr "Darba direktorija:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:21
-#| msgid "Variable"
 msgid "_Variable…"
 msgstr "_Mainīgais..."
 
@@ -9244,15 +9218,14 @@ msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
 msgstr ""
-"Šo saīsni jau izmanto cits Anjuta komponents. Vai jūs tomēr vēlaties "
-"to paturēt?"
+"Šo saīsni jau izmanto cits Anjuta komponents. Vai jūs tomēr vēlaties to "
+"paturēt?"
 
 #: ../plugins/tools/editor.c:908
 msgid "Unable to edit script"
 msgstr "Neizdevās rediģēt skriptu"
 
 #: ../plugins/tools/editor.c:1044
-#| msgid "New accelerator..."
 msgid "New accelerator…"
 msgstr "Jauns paātrinātājs..."
 
@@ -9324,12 +9297,10 @@ msgid "Tool operations"
 msgstr "Rīku operācijas"
 
 #: ../plugins/tools/variable.c:84
-#| msgid "Project"
 msgid "Project root URI"
 msgstr "Projekta saknes URI"
 
 #: ../plugins/tools/variable.c:85
-#| msgid "Project Name:"
 msgid "Project root path"
 msgstr "Projekta saknes ceļš"
 
@@ -9684,7 +9655,6 @@ msgid "Anjuta"
 msgstr "Anjuta"
 
 #: ../src/preferences.ui.h:1
-#| msgid "<b>Appearance</b>"
 msgid "Appearance"
 msgstr "Izskats"
 
@@ -9706,7 +9676,6 @@ msgid "GNOME toolbar setting"
 msgstr "GNOME rīkjoslas iestatījums"
 
 #: ../src/preferences.ui.h:9
-#| msgid "Icon"
 msgid "Icons"
 msgstr "Ikonas"
 
@@ -9715,12 +9684,10 @@ msgid "Icons only"
 msgstr "Tikai ikonas"
 
 #: ../src/preferences.ui.h:11
-#| msgid "Version"
 msgid "Session"
 msgstr "Sesija"
 
 #: ../src/preferences.ui.h:12
-#| msgid "Tasks"
 msgid "Tabs"
 msgstr "Cilnes"
 
@@ -9737,7 +9704,6 @@ msgid "Text beside icons"
 msgstr "Teksts blakus ikonām"
 
 #: ../src/preferences.ui.h:17
-#| msgid "Text"
 msgid "Text only"
 msgstr "Tikai teksts"
 
@@ -9765,13 +9731,11 @@ msgid "Add a space after function call autocompletion"
 msgstr "Pievienot tukšumzīmi pēc funkcijas izsaukuma automātiskas pabeigšanas"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#| msgid "Completed"
 msgid "Auto-complete"
 msgstr "Automātiska pabeigšana"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-#| msgid "Automatic"
 msgid "Autocompletion"
 msgstr "Automātiska pabeigšana"
 
@@ -9786,7 +9750,6 @@ msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-#| msgid "Calls"
 msgid "Calltips"
 msgstr "Izsaukumu paskaidres"
 
@@ -9805,7 +9768,6 @@ msgid "Enable smart indentation"
 msgstr "Aktivizēt gudro atkāpju veidošanu"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-#| msgid "Insert"
 msgid "Indent:"
 msgstr "Atkāpe:"
 
@@ -9856,12 +9818,12 @@ msgstr "Atkāpes izmērs tukšumos:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1203
-#: ../plugins/language-support-python/plugin.c:454
+#: ../plugins/language-support-python/plugin.c:456
 msgid "Auto-Indent"
 msgstr "Automātiski veidot atkāpi"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1204
-#: ../plugins/language-support-python/plugin.c:455
+#: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Automātiski veidot atkāpi pašreizējai rindai vai atlasei balstoties uz "
@@ -9872,7 +9834,6 @@ msgid "Comment/Uncomment"
 msgstr "Komentēt/atkomentēt"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1211
-#| msgid "Current selection"
 msgid "Comment or uncomment current selection"
 msgstr "Komentēt vai atkomentēt pašreizējo atlasi"
 
@@ -9917,14 +9878,13 @@ msgstr ""
 msgid "Do not show that warning again"
 msgstr "Nerādiet šo brīdinājumu vēlreiz"
 
-#: ../plugins/language-support-python/plugin.c:511
+#: ../plugins/language-support-python/plugin.c:513
 msgid "Python Assistance"
 msgstr "Python asistēšana"
 
-#: ../plugins/language-support-python/plugin.c:616
-#: ../plugins/language-support-python/plugin.c:625
+#: ../plugins/language-support-python/plugin.c:618
+#: ../plugins/language-support-python/plugin.c:627
 #: ../plugins/language-support-python/python-assist.c:934
-#| msgid "Path"
 msgid "Python"
 msgstr "Python"
 
@@ -9945,7 +9905,6 @@ msgid "Interpreter"
 msgstr "Interpretators"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:13
-#| msgid "Path:"
 msgid "Path: "
 msgstr "Ceļš: "
 
@@ -9954,7 +9913,6 @@ msgid "GtkSourceView Editor"
 msgstr "GtkSourceView redaktors"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-#| msgid "Debugger"
 msgid "GNU Debugger"
 msgstr "GNU atkļūdotājs"
 
@@ -10093,7 +10051,6 @@ msgid "Anjuta Class Generator Plugin"
 msgstr "Anjuta klašu ģeneratora spraudnis"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
-#| msgid "Tasks"
 msgid "Class"
 msgstr "Klase"
 
@@ -10155,13 +10112,11 @@ msgstr "Projekta managera jauna Autotools aizmugure"
 
 #: ../plugins/js-debugger/plugin.c:122
 #, c-format
-#| msgid "Error"
 msgid "Error: %s"
 msgstr "Kļūda: %s"
 
 #: ../plugins/js-debugger/plugin.c:142
 #: ../plugins/js-debugger/debugger-js.c:548
-#| msgid "Error contains"
 msgid "Error: cant bind port"
 msgstr "Kļūda: nevar piesaistīt portu"
 
@@ -10175,7 +10130,6 @@ msgstr "JavaScript atkļūdošanas spraudnis"
 
 #: ../plugins/language-support-js/plugin.c:329
 #: ../plugins/language-support-js/plugin.c:338
-#| msgid "Script"
 msgid "JavaScript"
 msgstr "JavaScript"
 
@@ -10184,7 +10138,6 @@ msgid "JS"
 msgstr "JS"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
-#| msgid "Sample Plugin"
 msgid "JS Support Plugin"
 msgstr "JS atbalsta spraudnis"
 
@@ -10219,6 +10172,11 @@ msgstr "Minimālais rakstzīmju skaits pabeigšanai"
 #: ../plugins/symbol-db/symbol-db-views.c:182
 msgid "Symbol"
 msgstr "Simbols"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgid "RegEx Search"
+#~ msgstr "Meklēt"
 
 #~ msgid "<b>Options</b>"
 #~ msgstr "<b>Iespējas</b>"
@@ -10282,9 +10240,6 @@ msgstr "Simbols"
 
 #~ msgid "To:"
 #~ msgstr "Uz:"
-
-#~ msgid "Graph"
-#~ msgstr "Grafiks"
 
 #~ msgid "_Add..."
 #~ msgstr "_Pievienot..."
@@ -10511,9 +10466,6 @@ msgstr "Simbols"
 
 #~ msgid "Source filename contains"
 #~ msgstr "Pirmkoda faila nosaukums satur"
-
-#~ msgid "Invalid regular expression: '%s': %s"
-#~ msgstr "Nederīga regulārā izteiksme '%s': %s"
 
 #~ msgid "Valgrind Suppression Rules"
 #~ msgstr "Valgrind apspiešanas noteikumi"
