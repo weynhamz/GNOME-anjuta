@@ -170,7 +170,7 @@ about_free_credit(void)
 }
 
 GtkWidget *
-about_box_new ()
+about_box_new (GtkWindow *parent)
 {
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
@@ -196,6 +196,9 @@ about_box_new ()
 									NULL);
 	
 	dialog = gtk_about_dialog_new();
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+
 	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
@@ -220,7 +223,7 @@ about_box_new ()
 }
 
 static void
-on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
+on_about_plugin_activate (GtkMenuItem *item, AnjutaShell *shell)
 {
 	gchar *name = NULL;
 	gchar *authors = NULL;
@@ -230,7 +233,10 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	gchar *d = NULL;
 	GdkPixbuf *pix = NULL;
 	GtkWidget *dialog;
-	
+	AnjutaPluginDescription *desc;
+
+	desc = g_object_get_data (G_OBJECT (item), "plugin-desc");
+
 	anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
 												 "Name", &name);
 	anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
@@ -252,6 +258,9 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 		authors_v = g_strsplit(authors, ",", -1);
 	}
 	dialog = gtk_about_dialog_new();
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(shell));
+	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+	
 	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), name);
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
 	if (license)
@@ -310,9 +319,11 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 			{
 				item = gtk_menu_item_new_with_label (label);
 				gtk_widget_show (item);
+
+				g_object_set_data (G_OBJECT (item), "plugin-desc", desc);
 				g_signal_connect (G_OBJECT (item), "activate",
 								  G_CALLBACK (on_about_plugin_activate),
-								  desc);
+								  shell);
 				gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 				g_free (authors);
 				g_free (license);

@@ -175,9 +175,9 @@ on_url_faqs_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_about_activate (GtkAction * action, gpointer user_data)
-{
-	GtkWidget *about_dlg = about_box_new ();
+on_about_activate (GtkAction * action, AnjutaApp *app)
+{	
+	GtkWidget *about_dlg = about_box_new (GTK_WINDOW (app));
 
 	g_signal_connect_swapped(about_dlg, "response",
 		G_CALLBACK(gtk_widget_destroy), about_dlg);
