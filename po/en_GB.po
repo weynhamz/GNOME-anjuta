@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-10 16:49+0000\n"
-"PO-Revision-Date: 2011-03-10 16:57+0100\n"
+"POT-Creation-Date: 2011-03-30 15:19+0100\n"
+"PO-Revision-Date: 2011-03-30 15:20+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: British English <en@li.org>\n"
 "Language: en_GB\n"
@@ -197,13 +197,24 @@ msgstr "Thai"
 msgid "Unknown"
 msgstr "Unknown"
 
-#: ../libanjuta/anjuta-launcher.c:1172 ../libanjuta/resources.c:267
+#.
+#. * Translators: This regex should match the password prompts of
+#. * at least the "su" and the "sudo" command line utility in your
+#. * language and possible other things like "ssh".
+#. * More information on the regular expression syntax can be
+#. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
+#.
+#: ../libanjuta/anjuta-launcher.c:675
+msgid "[Pp]assword.*:"
+msgstr "[Pp]assword.*:"
+
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Cannot execute command: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1173
+#: ../libanjuta/anjuta-launcher.c:1166
 msgid "execvp failed"
 msgstr "execvp failed"
 
@@ -864,9 +875,9 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1575
-#: ../plugins/am-project/am-project.c:1605
-#: ../plugins/am-project/am-project.c:1657
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1614
+#: ../plugins/am-project/am-project.c:1666
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -1149,200 +1160,200 @@ msgstr ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1854
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "Cannot compile \"%s\": No compile rule defined for this file type."
 
-#: ../plugins/build-basic-autotools/plugin.c:1989
+#: ../plugins/build-basic-autotools/plugin.c:2005
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Cannot configure project: Missing configure script in %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2572
-#: ../plugins/build-basic-autotools/plugin.c:2582
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2560
+#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2588
+#: ../plugins/build-basic-autotools/plugin.c:2598
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build"
 msgstr "_Build"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Build Project"
 msgstr "_Build Project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Build whole project"
 msgstr "Build whole project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Install Project"
 msgstr "_Install Project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2481
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Install whole project"
 msgstr "Install whole project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "_Clean Project"
 msgstr "_Clean Project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Clean whole project"
 msgstr "Clean whole project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "C_onfigure Project…"
 msgstr "C_onfigure Project…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2493
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Configure project"
 msgstr "Configure project"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build project tarball distribution"
 msgstr "Build project tarball distribution"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2520
 msgid "_Build Module"
 msgstr "_Build Module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2505
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "Build module associated with current file"
 msgstr "Build module associated with current file"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
+#: ../plugins/build-basic-autotools/plugin.c:2526
 msgid "_Install Module"
 msgstr "_Install Module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
+#: ../plugins/build-basic-autotools/plugin.c:2527
 msgid "Install module associated with current file"
 msgstr "Install module associated with current file"
 
-#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2532
 msgid "_Clean Module"
 msgstr "_Clean Module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2533
 msgid "Clean module associated with current file"
 msgstr "Clean module associated with current file"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2538
 msgid "Co_mpile File"
 msgstr "Co_mpile File"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2539
 msgid "Compile current editor file"
 msgstr "Compile current editor file"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "Select Configuration"
 msgstr "Select Configuration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Select current configuration"
 msgstr "Select current configuration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2550
 msgid "Remove Configuration"
 msgstr "Remove Configuration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Clean project (distclean) and remove configuration directory if possible"
 
-#: ../plugins/build-basic-autotools/plugin.c:2548
-#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2592
 msgid "_Compile"
 msgstr "_Compile"
 
-#: ../plugins/build-basic-autotools/plugin.c:2549
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2565
+#: ../plugins/build-basic-autotools/plugin.c:2593
 msgid "Compile file"
 msgstr "Compile file"
 
-#: ../plugins/build-basic-autotools/plugin.c:2555
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2571
+#: ../plugins/build-basic-autotools/plugin.c:2599
 msgid "Build module"
 msgstr "Build module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2588
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2604
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install"
 msgstr "_Install"
 
-#: ../plugins/build-basic-autotools/plugin.c:2561
-#: ../plugins/build-basic-autotools/plugin.c:2589
+#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2605
 msgid "Install module"
 msgstr "Install module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2594
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2582
+#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean"
 msgstr "_Clean"
 
-#: ../plugins/build-basic-autotools/plugin.c:2567
-#: ../plugins/build-basic-autotools/plugin.c:2595
+#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2611
 msgid "Clean module"
 msgstr "Clean module"
 
-#: ../plugins/build-basic-autotools/plugin.c:2600
+#: ../plugins/build-basic-autotools/plugin.c:2616
 msgid "_Cancel command"
 msgstr "_Cancel command"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2617
 msgid "Cancel build command"
 msgstr "Cancel build command"
 
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Install (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Clean (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpile"
 
-#: ../plugins/build-basic-autotools/plugin.c:3195
+#: ../plugins/build-basic-autotools/plugin.c:3211
 msgid "Build commands"
 msgstr "Build commands"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3204
+#: ../plugins/build-basic-autotools/plugin.c:3220
 msgid "Build popup commands"
 msgstr "Build popup commands"
 
-#: ../plugins/build-basic-autotools/plugin.c:3593
-#: ../plugins/build-basic-autotools/plugin.c:3601
+#: ../plugins/build-basic-autotools/plugin.c:3609
+#: ../plugins/build-basic-autotools/plugin.c:3617
 msgid "Build Autotools"
 msgstr "Build Autotools"
 
@@ -3007,51 +3018,51 @@ msgstr "Thread operations"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:402
+#: ../plugins/debug-manager/watch.c:406
 msgid "Ins_pect/Evaluate…"
 msgstr "Ins_pect/Evaluate…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:408
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspect or evaluate an expression or variable"
 
-#: ../plugins/debug-manager/watch.c:410
+#: ../plugins/debug-manager/watch.c:414
 msgid "Add Watch…"
 msgstr "Add Watch…"
 
-#: ../plugins/debug-manager/watch.c:418
+#: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
 msgstr "Remove Watch"
 
-#: ../plugins/debug-manager/watch.c:426
+#: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
 msgstr "Update Watch"
 
-#: ../plugins/debug-manager/watch.c:434
+#: ../plugins/debug-manager/watch.c:438
 msgid "Change Value"
 msgstr "Change Value"
 
-#: ../plugins/debug-manager/watch.c:442
+#: ../plugins/debug-manager/watch.c:446
 msgid "Update all"
 msgstr "Update all"
 
-#: ../plugins/debug-manager/watch.c:450
+#: ../plugins/debug-manager/watch.c:454
 msgid "Remove all"
 msgstr "Remove all"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:461
+#: ../plugins/debug-manager/watch.c:465
 msgid "Automatic update"
 msgstr "Automatic update"
 
-#: ../plugins/debug-manager/watch.c:487 ../plugins/debug-manager/watch.c:493
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
 msgstr "Watch operations"
 
-#: ../plugins/debug-manager/watch.c:568
+#: ../plugins/debug-manager/watch.c:572
 msgid "Watches"
 msgstr "Watches"
 
@@ -3548,7 +3559,7 @@ msgstr "Search using regular expressions"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
-#: ../plugins/language-support-python/plugin.c:448
+#: ../plugins/language-support-python/plugin.c:450
 msgid "_Edit"
 msgstr "_Edit"
 
@@ -3929,11 +3940,11 @@ msgstr ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "Replace"
 
-#: ../plugins/document-manager/search-box.c:988
+#: ../plugins/document-manager/search-box.c:989
 msgid "Replace all"
 msgstr "Replace all"
 
@@ -3964,7 +3975,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "This function is not implemented for widgets of class '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:155
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "Open '%s'"
@@ -4404,7 +4415,7 @@ msgstr "Script"
 msgid "Package"
 msgstr "Package"
 
-#: ../plugins/am-project/am-project.c:1591
+#: ../plugins/am-project/am-project.c:1600
 #, c-format
 msgid "Unable to parse project file"
 msgstr "Unable to parse project file"
@@ -4427,10 +4438,10 @@ msgstr "Project name, it can contain spaces by example 'GNU Autoconf'"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "Version:"
@@ -4606,6 +4617,7 @@ msgstr "List of custom installation directories used by targets in this group."
 #: ../plugins/am-project/am-properties.c:352
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:751
 msgid "Do not install:"
 msgstr "Do not install:"
 
@@ -4613,6 +4625,7 @@ msgstr "Do not install:"
 #: ../plugins/am-project/am-properties.c:355
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
 msgstr "Build but do not install the target."
 
@@ -4620,6 +4633,7 @@ msgstr "Build but do not install the target."
 #: ../plugins/am-project/am-properties.c:360
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:759
 msgid "Installation directory:"
 msgstr "Installation directory:"
 
@@ -4627,6 +4641,7 @@ msgstr "Installation directory:"
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:515
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:762
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4719,6 +4734,7 @@ msgstr "Additional Yacc or Bison parser generator flags for this target."
 #: ../plugins/am-project/am-properties.c:608
 #: ../plugins/am-project/am-properties.c:656
 #: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:767
 msgid "Additional dependencies:"
 msgstr "Additional dependencies:"
 
@@ -4727,6 +4743,7 @@ msgstr "Additional dependencies:"
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:770
 msgid "Additional dependencies for this target."
 msgstr "Additional dependencies for this target."
 
@@ -4734,6 +4751,7 @@ msgstr "Additional dependencies for this target."
 #: ../plugins/am-project/am-properties.c:464
 #: ../plugins/am-project/am-properties.c:616
 #: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:775
 msgid "Include in distribution:"
 msgstr "Include in distribution:"
 
@@ -4741,6 +4759,7 @@ msgstr "Include in distribution:"
 #: ../plugins/am-project/am-properties.c:467
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
 msgstr "Include this target in the distributed package."
 
@@ -4748,6 +4767,7 @@ msgstr "Include this target in the distributed package."
 #: ../plugins/am-project/am-properties.c:472
 #: ../plugins/am-project/am-properties.c:624
 #: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:783
 msgid "Build for check only:"
 msgstr "Build for check only:"
 
@@ -4755,6 +4775,7 @@ msgstr "Build for check only:"
 #: ../plugins/am-project/am-properties.c:475
 #: ../plugins/am-project/am-properties.c:627
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
 msgstr "Build this target only when running automatic tests."
 
@@ -4763,6 +4784,7 @@ msgstr "Build this target only when running automatic tests."
 #: ../plugins/am-project/am-properties.c:632
 #: ../plugins/am-project/am-properties.c:664
 #: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:791
 msgid "Do not use prefix:"
 msgstr "Do not use prefix:"
 
@@ -4771,6 +4793,7 @@ msgstr "Do not use prefix:"
 #: ../plugins/am-project/am-properties.c:635
 #: ../plugins/am-project/am-properties.c:667
 #: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:794
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4782,6 +4805,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:488
 #: ../plugins/am-project/am-properties.c:640
 #: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
 msgstr "Keep target path:"
 
@@ -4789,14 +4813,15 @@ msgstr "Keep target path:"
 #: ../plugins/am-project/am-properties.c:491
 #: ../plugins/am-project/am-properties.c:643
 #: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:802
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
 "subdir/app not in bin/app."
 msgstr ""
 "Keep relative target path for installing it. For example if you have a "
-"program subdir/app installed in bin directory it will be installed in "
-"bin/subdir/app not in bin/app."
+"program subdir/app installed in bin directory it will be installed in bin/"
+"subdir/app not in bin/app."
 
 #: ../plugins/am-project/am-properties.c:376
 #: ../plugins/am-project/am-properties.c:528
@@ -6553,11 +6578,11 @@ msgstr "Project manager actions"
 msgid "Project manager popup actions"
 msgstr "Project manager popup actions"
 
-#: ../plugins/project-manager/plugin.c:2329
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr "Initialising Project…"
 
-#: ../plugins/project-manager/plugin.c:2332
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr "Project Loaded"
 
@@ -6695,7 +6720,8 @@ msgid ""
 "it."
 msgstr ""
 "Field \"%s\" must contains only letters, digits or the following characters "
-"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
+"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
+"it."
 
 #: ../plugins/project-wizard/druid.c:651
 #, c-format
@@ -6704,9 +6730,9 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"Field \"%s\" must contains only letters, digits, the following characters \"#$:"
-"%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading "
-"dash. Please fix it."
+"Field \"%s\" must contains only letters, digits, the following characters \"#"
+"$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
+"leading dash. Please fix it."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -6779,8 +6805,8 @@ msgstr ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
 "packages are contained in special packages that your distribution provides "
-"to allow development of projects based on them. They usually end with a "
-"\"-dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
 "your Application Manager."
 
 #: ../plugins/project-wizard/druid.c:936
@@ -7241,9 +7267,9 @@ msgstr "Select code licence"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr "Use pkg-config to add library support from other packages"
@@ -7261,10 +7287,10 @@ msgstr "Use pkg-config to add library support from other packages"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "project name"
@@ -7373,12 +7399,16 @@ msgstr "Simple GTK+ project"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
 msgstr "Use GtkBuilder for user interface:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
@@ -8138,7 +8168,7 @@ msgstr "Use theme font"
 msgid "View"
 msgstr "View"
 
-#: ../plugins/starter/plugin.c:273
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "Start"
 
@@ -9547,12 +9577,12 @@ msgstr "Statement indentation size in spaces:"
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1203
-#: ../plugins/language-support-python/plugin.c:454
+#: ../plugins/language-support-python/plugin.c:456
 msgid "Auto-Indent"
 msgstr "Auto-Indent"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1204
-#: ../plugins/language-support-python/plugin.c:455
+#: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Auto-indent current line or selection based on indentation settings"
 
@@ -9604,12 +9634,12 @@ msgstr ""
 msgid "Do not show that warning again"
 msgstr "Do not show that warning again"
 
-#: ../plugins/language-support-python/plugin.c:511
+#: ../plugins/language-support-python/plugin.c:513
 msgid "Python Assistance"
 msgstr "Python Assistance"
 
-#: ../plugins/language-support-python/plugin.c:616
-#: ../plugins/language-support-python/plugin.c:625
+#: ../plugins/language-support-python/plugin.c:618
+#: ../plugins/language-support-python/plugin.c:627
 #: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
