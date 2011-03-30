@@ -1784,11 +1784,6 @@ PROPERTY (URL): http://www.anjuta.org/
                             TARGET (): wizard_files
                                 PROPERTY (Installation directory): wizard_filesdir
                                 SOURCE (): plugins/project-wizard/templates/pygtk/po/POTFILES.in
-                        GROUP (): data
-                            PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk/data
-                            TARGET (): wizard_files
-                                PROPERTY (Installation directory): wizard_filesdir
-                                SOURCE (): plugins/project-wizard/templates/pygtk/data/project.ui
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/pygtk/configure.ac.tpl
@@ -1887,11 +1882,8 @@ PROPERTY (URL): http://www.anjuta.org/
                             PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/js_minimal/src
                             TARGET (): wizard_files
                                 PROPERTY (Installation directory): wizard_filesdir
-                                SOURCE (): plugins/project-wizard/templates/js_minimal/src/main.c
                                 SOURCE (): plugins/project-wizard/templates/js_minimal/src/main.js
                                 SOURCE (): plugins/project-wizard/templates/js_minimal/src/Makefile.am.tpl
-                                SOURCE (): plugins/project-wizard/templates/js_minimal/src/debug.c
-                                SOURCE (): plugins/project-wizard/templates/js_minimal/src/debug.h
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/js_minimal/autogen.sh
@@ -1907,6 +1899,7 @@ PROPERTY (URL): http://www.anjuta.org/
                                 SOURCE (): plugins/project-wizard/templates/vala-gtk/src/main.vala
                                 SOURCE (): plugins/project-wizard/templates/vala-gtk/src/Makefile.am.tpl
                                 SOURCE (): plugins/project-wizard/templates/vala-gtk/src/project.ui
+                                SOURCE (): plugins/project-wizard/templates/vala-gtk/src/config.vapi
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/vala-gtk/configure.ac.tpl
