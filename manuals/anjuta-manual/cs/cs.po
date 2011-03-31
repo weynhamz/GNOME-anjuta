@@ -1,0 +1,78 @@
+# Czech translation for anjuta.
+# Copyright (C) 2011 anjuta's COPYRIGHT HOLDER
+# This file is distributed under the same license as the anjuta package.
+# Lucas Lommer <llommer@svn.gnome.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta master\n"
+"POT-Creation-Date: 2011-03-29 08:24+0000\n"
+"PO-Revision-Date: 2011-03-29 08:24+0000\n"
+"Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/index.page:22(None)
+msgid ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
+msgstr ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
+
+#: C/index.page:7(title)
+msgid "Anjuta"
+msgstr "Anjuta"
+
+#: C/index.page:8(title)
+msgid "Anjuta Integrated Development Environment"
+msgstr "Integrované vývojové prostředí Anjuta"
+
+#: C/index.page:12(name)
+msgid "Johannes Schmid"
+msgstr "Johannes Schmid"
+
+#: C/index.page:13(email)
+msgid "jhs@gnome.org"
+msgstr "jhs@gnome.org"
+
+#: C/index.page:21(title)
+msgid ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></"
+"media> Anjuta Integrated Development Environment"
+msgstr ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></"
+"media> Integrované vývojové prostředí Anjuta"
+
+#: C/index.page:26(p)
+msgid "Welcome to the <app>anjuta</app> help guide."
+msgstr "Vítejte v příručce aplikace <app>anjuta</app>"
+
+#: C/index.page:29(title)
+msgid "Project Management"
+msgstr "Správa projektu"
+
+#: C/index.page:33(title)
+msgid "Building and running"
+msgstr "Sestavování a běh"
+
+#: C/index.page:37(title)
+msgid "Coding and code navigation"
+msgstr "Programování a navigace v kódu"
+
+#: C/index.page:41(title)
+msgid "Debugging"
+msgstr "Ladění"
+
+#: C/index.page:45(title)
+msgid "User interface editor"
+msgstr "Editor uživatelského rozhraní"
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: C/index.page:0(None)
+msgid "translator-credits"
+msgstr "Lucas Lommer <llommer@svn.gnome.org>, 2011"
+
