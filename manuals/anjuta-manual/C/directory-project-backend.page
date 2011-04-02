@@ -1,0 +1,40 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="directory-project-backend">
+
+  <info>
+    <link type="guide" xref="project-manager#backend"/>
+    <desc>
+      Directory project back end.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Directory Project Back end Plugin</title>
+
+  <p>
+    This is the simplest project back end. There is no project file. It 
+    works like a file viewer considering as source files, all files matching
+    some typical source extensions by example <file>.c</file>,
+    <file>.py</file>.
+    Directories are kept in order to group source files but there is no
+    target.
+  </p>
+
+  <p>
+    This back end is an useful work around if your project has not a
+    corresponding back end in <app>Anjuta</app> or if this back end
+    does not fully support your project.
+  </p>
+
+  <p>
+    It is not possible to add or change anything with such project. But
+    if you create a source file in the project directory with the
+    right extension it will be added automatically.
+  </p>
+
+</page>
+

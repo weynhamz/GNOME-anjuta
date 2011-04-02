@@ -1,0 +1,58 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="introduction">
+
+  <info>
+    <title>Introduction</title>
+    <desc>Introduction to <app>Anjuta</app> Integrated Development Environment</desc>
+    <link type="guide" xref="index"/>
+    <title type="sort">aaa</title>
+  </info>
+
+  <title>Introduction</title>
+
+  <p>
+    <app>Anjuta</app> is a versatile Integrated Development Environment (IDE)
+    for the GNOME desktop. It features a number of advanced programming
+    facilities includes project management, application wizards, interactive
+    debugging, integrated Glade UI designer, integrated Devhelp API help, class
+    generator, powerful source editor, symbols browsing, Git support, 
+    C/C++, python and Vala support and more.
+  </p>
+
+  <p>
+    <app>Anjuta</app> has a flexible and advanced docking system
+    that allows you to lay out all views in whatever way you like. You can drag
+    and drop the views using drag bars and rearrange the layout
+  </p>
+
+  <p>
+    <app>Anjuta</app> has been designed to be simple to operate yet powerful
+    enough to fulfill all your programming needs. We have added many new features
+    to <app>Anjuta</app> over the course of its development. Our focus is on
+    delivering power and usability at the same time and making your software
+    development enjoyable without overloading your senses. We intend to
+    continue improving and stabilizing <app>Anjuta</app> to give you the best
+    IDE experience possible.
+  </p>
+
+  <p>
+    We hope you will have a good time using <app>Anjuta</app>. If not, please
+    help us make it better by reporting bugs and suggestions - this will help
+    to improve the software, as well as helping the open source community.
+  </p>
+
+  <p>
+    The following screenshot illustrates some of the things you will find in
+    <app>Anjuta</app>.
+  </p>
+
+  <figure>
+    <title><app>Anjuta</app> in action</title>
+    <desc><app>Anjuta</app> main window</desc>
+    <media type="image" mime="image/png" src="figures/anjuta-in-action.png">
+      <p><app>Anjuta</app> main window</p>
+    </media>
+  </figure>
+
+</page>

@@ -1,0 +1,140 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-module">
+
+  <info>
+    <link type="guide" xref="index#anjuta-project-management" groups="third"/>
+    <link type="next" xref="project-manager-package"/>
+    <link type="seealso" xref="project-manager-library"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add or remove libraries to a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Add or remove new libraries</title>
+
+  <p>
+    On Linux, most libraries are packaged to be easily used.
+    When you need such library, <app>Anjuta</app> provides
+    a easy interface to add it. If not check the Add not
+    packaged libraries page. 
+  </p>
+
+  <section>
+    <title>Add packaged libraries in a new Module</title>
+
+    <p>
+      Such library cannot be added directly to your program you need to first
+      create a module for it which is just a group of libraries.
+    </p>
+
+    <steps>
+      <item>
+        <p>
+ 	  Select the program where you want to add the new library in
+          the <gui>project view</gui>, click on the right mouse button to
+          make the <gui>project context menu</gui> appear and select
+          <gui>Add Library</gui>. Then click on the <gui>New Library</gui>
+          button on this dialog.
+        </p>
+        <p> 
+          Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+          <gui>New Library</gui></guiseq>
+        </p>
+      </item>
+      <item>
+        <p>
+          You will get a list of all packaged libraries installed on your
+          system. You can check one or more libraries. 
+        </p>
+        <note style="tip">
+          <p>
+            If the library you want does not appear here, perhaps it
+            is because it is not installed on your system.
+            Launch the application you
+            use to install new programs and search for the library name.
+            The needed package often have a "dev" or "devel" suffix and
+            should include header files and a pkg-config file with a
+            <file>.pc</file> extension.
+          </p>
+        </note>
+        <p>
+          After selecting a first library, a module name will be
+          automatically generated but you can change it. When it is
+          done, click on <gui>Add</gui> button to create the new module
+          with the selected libraries.
+        </p>
+      </item>
+      <item>
+        <p>
+          Look at the next page to know how to add this new module
+          to your target.
+        </p>
+      </item>
+    </steps>
+  
+  </section>
+
+  <section>
+    <title>Add packaged libraries in an existing Module</title>
+
+    <steps>
+      <item>
+        <p>
+ 	  Select the module where you want to add the new library in
+          the <gui>project view</gui>, click on the right mouse button to
+          make the <gui>project context menu</gui> appear and select
+          <gui>New Library</gui>.
+        </p>
+        <p> 
+          Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+          <gui>New Library</gui></guiseq>
+        </p>
+      </item>
+      <item>
+        <p>
+          In the list of all packaged libraries, check the additional
+          libraries wanted. Check that expected module name is selected
+          is the bottom text box.
+          Then click on <gui>Add</gui> button to update the module. 
+        </p>
+      </item>
+      <item>
+        <p>
+          Look at the next page to know how to add the module
+          to your target.
+        </p>
+      </item>
+    </steps>
+  
+  </section>
+
+  <section>
+    <title>Remove a packaged library from a Module</title>
+
+    <steps>
+      <item>
+        <p>
+          Select the library you want to remove in the
+          <gui>project view</gui> , click on the right mouse button to
+          make the <gui>project context menu</gui> appear and select
+          <gui>Remove</gui>.
+        </p>
+      </item>
+      <item>
+        <p>
+	  Confirm the removal. This library will be removed from the project
+          files.
+        </p>
+      </item>
+    </steps>
+
+  </section>
+
+</page>
+

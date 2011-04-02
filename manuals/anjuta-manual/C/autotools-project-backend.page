@@ -1,0 +1,47 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="autotools-project-backend">
+
+  <info>
+    <link type="guide" xref="project-manager#backend"/>
+    <desc>
+      Autotools project back end.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>GNU Autotools Project Back end Plugin</title>
+
+  <p>
+    This is the most common project format on Linux. It has been designed to
+    distribute source code packages on a wide range of Unix like systems.
+    If you have already install a program using <cmd>configure</cmd>,
+    <cmd>make</cmd> and <cmd>make install</cmd>, you probably have already
+    used it as an user.
+  </p>
+
+  <p> 
+    It is typically a bit more difficult to use as a developer.
+    Hopefully, it is the default and the more advanced back end for
+    <app>Anjuta</app>. All features of the project manager are enabled
+    when using it.
+    You should be able to have a project using it without writing a line in
+    <file>configure.ac</file> nor any <file>Makefile.am</file> files.
+  </p> 
+
+  <note style="bug">
+    <p>
+      Autotools files give more information than makefile but the back end
+      does not support every tricks. If you find a project that
+      cannot be read correctly, filling a bug report will be appreciate.
+      In the meantime, as a work around, you can use the directory back end
+      project instead, it much more limited but should find all source files.
+    </p>
+  </note>
+
+
+</page>
+

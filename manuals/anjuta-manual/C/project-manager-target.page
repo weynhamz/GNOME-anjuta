@@ -1,0 +1,93 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-target">
+
+  <info>
+    <link type="guide" xref="index#anjuta-project-management" group="second"/>
+    <link type="seealso" xref="project-manager"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add or remove target to a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Add or remove targets</title>
+
+  <p>
+    If the project back end supports it you can add or remove targets in your
+    project without editing the project file. A target groups
+    files, it is typically used to represent a program, having as children
+    all its source files.
+  </p>
+
+  <section>
+    <title>Add a target</title>
+
+    <steps>
+      <item>
+        <p>
+ 	  Select the directory where you want to add the new target in
+          the <gui>project view</gui>, click on the right mouse button to
+          make the <gui>project context menu</gui> appear and select
+          <gui>New Target</gui>.
+        </p>
+        <p> 
+          Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+          <gui>New Target</gui></guiseq>
+        </p>
+      </item>
+      <item>
+        <p>
+	  You can select another directory in the bottom <gui>directory tree view</gui>.
+        </p>
+        <p>
+          Enter a target name and select the type of the target in the
+          drop-down list below. Depending on your project back end, various
+          type of target are possible. 
+        </p>
+        <note style="tip">
+          <p>
+            Target name could are typically restricted to letters, digits and
+            underscore, so it's safer to avoid other characters.
+          </p>
+        </note>
+      </item>
+      <item>
+        <p>
+          When the target name, type and parent are chosen click on
+          <gui>Add</gui> button to create this new target.
+        </p>
+      </item>
+    </steps>
+
+  </section>
+
+  <section>
+    <title>Remove a target</title>
+
+    <steps>
+      <item>
+        <p>
+          Select the target you want to remove in the
+          <gui>project view</gui>, click on the right mouse button to
+          make the <gui>project context menu</gui> appear and select
+          <gui>Remove</gui>.
+        </p>
+      </item>
+      <item>
+        <p>
+	  Confirm the removal. The target and all its properties will be
+          remove from the project file. All files stay untouched on your
+          hard disk.
+        </p>
+      </item>
+    </steps>
+  </section>
+
+
+</page>
+

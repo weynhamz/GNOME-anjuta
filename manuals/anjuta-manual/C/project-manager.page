@@ -1,0 +1,33 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="project-manager">
+
+  <info>
+    <desc>
+      Project manager.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Project manager plugin</title>
+
+  <p>
+    <app>Anjuta</app> supports several already existing project format
+    through plugin back ends. The main one is the autotools format commonly
+    used on Linux.
+  </p>
+
+  <p>
+    Whatever is the underline back end, the graphical interface is the same
+    but some functions can be disabled.
+  </p>
+
+  <section id="backend" >
+    <title>Project Back end Plugin</title>
+  </section>
+
+</page>
+

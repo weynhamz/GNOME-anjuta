@@ -4,8 +4,9 @@
       id="index">
 
   <info>
+    <desc>Help for Anjuta DevStudio.</desc>
     <title type="link">Anjuta</title>
-    <title type="text">Anjuta Integrated Development Environment</title>
+    <title type="text">Anjuta DevStudio</title>
 
     <revision pkgversion="0.1" version="0.1" date="2011-03-20" status="incomplete"/>
     <credit type="author">
@@ -19,11 +20,9 @@
   </info>  
   
   <title>
-    <media type="image" mime="image/png" src="figures/anjuta_logo.png">
-    </media>
-    Anjuta Integrated Development Environment
+    <media type="image" mime="image/png" src="figures/anjuta_logo.png">Anjuta logo</media>
+    Anjuta DevStudio
   </title>
-  <p>Welcome to the <app>anjuta</app> help guide.</p>
 
   <section id="anjuta-project-management" style="2column" groups="first second third">
     <title>Project Management</title>

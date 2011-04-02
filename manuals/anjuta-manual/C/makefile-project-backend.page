@@ -1,0 +1,52 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="makefile-project-backend">
+
+  <info>
+    <link type="guide" xref="project-manager#backend"/>
+    <desc>
+      Makefile project back end.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Makefile Project Back end Plugin</title>
+
+  <p>
+    A makefile is probably the most common way to build a software on all
+    kind of platforms. A makefile contains a list or rules describing which
+    commands have to be run in order to generate a target from a list of
+    dependencies. When building a program, the target is an object file
+    and the dependencies are the source files. The target of one rule
+    can be a dependency of another one, allowing to carry on several rules
+    to make a final target.
+  </p>
+
+  <p>
+    It is a low level and general tool making it difficult to find all
+    source files and targets of a project.
+    So <app>Anjuta</app> has a limited support of makefile, reading only one
+    makefile in the top project directory and extracting source files
+    and targets.
+  </p>
+
+  <note style="bug">
+    <p>
+      If the project back end is not able to find all source files you can
+      try to use the directory back end instead. It does not recognize any
+      targets but should get all source files.
+    </p>
+  </note>
+
+  <p>
+    Changing properties, adding or removing targets and source files are
+    disabled with this back end as writing the makefile is not implemented.
+    It has to be changed by hand using the text editor.
+    When the makefile is saved, it is automatically reloaded though.
+  </p>
+
+</page>
+

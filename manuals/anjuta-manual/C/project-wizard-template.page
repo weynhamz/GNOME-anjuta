@@ -1,0 +1,33 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="project-wizard-template">
+
+  <info>
+    <link type="seealso" xref="project-wizard-create"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Project wizard template.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Project wizard template</title>
+
+  <p>
+    A project template is composed of a bunch of files which can be processed
+    by a powerful template processing engine  called <app>autogen</app>. One
+    of this file with a <file>.wiz</file> extension described all project
+    properties and needed files.
+  </p>
+
+  <p>
+    This <file>.wiz</file> file is looking like a XML file and is documented 
+    <link href="http://library.gnome.org/devel/libanjuta/stable/project-wizard-format.html">here</link>.
+  </p> 
+
+
+</page>
+
