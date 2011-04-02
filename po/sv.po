@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-20 00:27+0100\n"
-"PO-Revision-Date: 2011-03-20 00:34+0100\n"
+"POT-Creation-Date: 2011-04-02 11:39+0200\n"
+"PO-Revision-Date: 2011-04-02 12:47+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -605,15 +605,15 @@ msgstr "Hjälptext"
 
 #: ../libanjuta/anjuta-entry.c:242
 msgid "Text to show the user what to enter into the entry"
-msgstr ""
+msgstr "Text att visa användaren vad som ska matas in i fältet"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
 msgid "Path that dropped files should be relative to"
-msgstr ""
+msgstr "Sökväg som släppta filer ska vara relativa till"
 
 #: ../libanjuta/anjuta-file-list.c:101
 msgid "Drop a file or enter a path here"
-msgstr ""
+msgstr "Släpp en fil eller ange en sökväg här"
 
 #: ../libanjuta/anjuta-file-list.c:274
 msgid "Select Files"
@@ -621,7 +621,7 @@ msgstr "Välj filer"
 
 #: ../libanjuta/anjuta-file-list.c:540
 msgid "Path that all files in the list should be relative to"
-msgstr ""
+msgstr "Sökväg som alla filer i listan ska vara relativa till"
 
 #: ../libanjuta/anjuta-file-list.c:547
 msgid "Show Add button"
@@ -1174,207 +1174,209 @@ msgstr "Bygg %d: %s"
 msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
 msgstr "Innan den nya konfigurationen kan användas så måste standardkonfigurationen tas bort. Vill du göra det?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1856
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "Kan inte kompilera \"%s\": Ingen kompileringsregel har definierats för denna filtyp."
 
-#: ../plugins/build-basic-autotools/plugin.c:1991
+#: ../plugins/build-basic-autotools/plugin.c:2005
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Kan inte konfigurera projektet: Saknar configure-skript i %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
-#: ../plugins/build-basic-autotools/plugin.c:2546
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2574
-#: ../plugins/build-basic-autotools/plugin.c:2584
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2560
+#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2588
+#: ../plugins/build-basic-autotools/plugin.c:2598
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build"
 msgstr "_Bygg"
 
-#: ../plugins/build-basic-autotools/plugin.c:2476
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Build Project"
 msgstr "Bygg _projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Build whole project"
 msgstr "Bygg hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Install Project"
 msgstr "Insta_llera projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Install whole project"
 msgstr "Installera hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "_Clean Project"
 msgstr "_Töm projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Clean whole project"
 msgstr "Töm hela projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2494
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "C_onfigure Project…"
 msgstr "K_onfigurera projekt..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2495
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Configure project"
 msgstr "Konfigurera projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2500
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Build _Tarball"
 msgstr "Bygg _tar-arkiv"
 
-#: ../plugins/build-basic-autotools/plugin.c:2501
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build project tarball distribution"
 msgstr "Bygg tar-arkivsdistribution av projektet"
 
-#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2520
 msgid "_Build Module"
 msgstr "_Bygg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2507
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "Build module associated with current file"
 msgstr "Bygg modul associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2526
 msgid "_Install Module"
 msgstr "_Installera modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2527
 msgid "Install module associated with current file"
 msgstr "Installera modul associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2532
 msgid "_Clean Module"
 msgstr "_Töm modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2519
+#: ../plugins/build-basic-autotools/plugin.c:2533
 msgid "Clean module associated with current file"
 msgstr "Töm modulen associerad med aktuell fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2538
 msgid "Co_mpile File"
 msgstr "Ko_mpilera fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2525
+#: ../plugins/build-basic-autotools/plugin.c:2539
 msgid "Compile current editor file"
 msgstr "Kompilera aktuell redigerarfil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "Select Configuration"
 msgstr "Välj konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2531
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Select current configuration"
 msgstr "Välj aktuell konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
+#: ../plugins/build-basic-autotools/plugin.c:2550
 msgid "Remove Configuration"
 msgstr "Ta bort konfiguration"
 
-#: ../plugins/build-basic-autotools/plugin.c:2537
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Töm projektet (distclean) och ta bort konfigurationskatalog om möjligt"
 
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2578
+#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2592
 msgid "_Compile"
 msgstr "_Kompilera"
 
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2579
+#: ../plugins/build-basic-autotools/plugin.c:2565
+#: ../plugins/build-basic-autotools/plugin.c:2593
 msgid "Compile file"
 msgstr "Kompilera fil"
 
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2585
+#: ../plugins/build-basic-autotools/plugin.c:2571
+#: ../plugins/build-basic-autotools/plugin.c:2599
 msgid "Build module"
 msgstr "Bygg modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2562
-#: ../plugins/build-basic-autotools/plugin.c:2590
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2604
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install"
 msgstr "_Installera"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2591
+#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2605
 msgid "Install module"
 msgstr "Installera modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2568
-#: ../plugins/build-basic-autotools/plugin.c:2596
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2582
+#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean"
 msgstr "Tö_m"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
-#: ../plugins/build-basic-autotools/plugin.c:2597
+#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2611
 msgid "Clean module"
 msgstr "Töm modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:2602
+#: ../plugins/build-basic-autotools/plugin.c:2616
 msgid "_Cancel command"
 msgstr "_Avbryt kommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2603
+#: ../plugins/build-basic-autotools/plugin.c:2617
 msgid "Cancel build command"
 msgstr "Avbryt byggkommando"
 
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Bygg (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installera (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Töm (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpilera (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpilera"
 
-#: ../plugins/build-basic-autotools/plugin.c:3197
+#: ../plugins/build-basic-autotools/plugin.c:3211
 msgid "Build commands"
 msgstr "Byggkommandon"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3206
+#: ../plugins/build-basic-autotools/plugin.c:3220
 msgid "Build popup commands"
 msgstr "Bygg popup-kommandon"
 
-#: ../plugins/build-basic-autotools/plugin.c:3595
-#: ../plugins/build-basic-autotools/plugin.c:3603
+#: ../plugins/build-basic-autotools/plugin.c:3609
+#: ../plugins/build-basic-autotools/plugin.c:3617
 msgid "Build Autotools"
 msgstr "Bygg Autotools"
 
 #: ../plugins/build-basic-autotools/program.c:269
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while setting up build environment:\n"
 " %s"
-msgstr "Fel vid stängning av projekt: %s"
+msgstr ""
+"Fel vid konfiguration av byggmiljön:\n"
+" %s"
 
 #: ../plugins/build-basic-autotools/program.c:342
 msgid "Command aborted"
@@ -1586,9 +1588,8 @@ msgid "Variables"
 msgstr "Variabler"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
-#, fuzzy
 msgid "is Sub-Class"
-msgstr "Basklass:"
+msgstr "är underklass"
 
 #: ../plugins/class-gen/generator.c:133
 #, c-format
@@ -2176,29 +2177,28 @@ msgstr "CLang-sökvägar"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
 msgid "Enable CLang code analyzer"
-msgstr ""
+msgstr "Aktivera analysator för CLang-källkod"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
 msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
-msgstr ""
+msgstr "Projektet behöver konfigureras om efter att detta alternativ aktiverats. Kör Bygg->Konfigurera!"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:5
 msgid "c++-analyzer:"
-msgstr ""
+msgstr "c++-analysator:"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "ccc-analyzer:"
-msgstr ""
+msgstr "ccc-analysator:"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
-msgstr ""
+msgstr "Kunde inte hitta clang-analysator. Kontrollera om den är installerad och att sökvägarna är korrekt konfigurerade i inställningarna"
 
 #: ../plugins/code-analyzer/plugin.c:226
 #: ../plugins/code-analyzer/plugin.c:234
-#, fuzzy
 msgid "CLang Analyzer"
-msgstr "Språkhanterare"
+msgstr "CLang-analysator"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
@@ -3342,7 +3342,6 @@ msgid "Close all files"
 msgstr "Stäng alla filer"
 
 #: ../plugins/document-manager/plugin.c:165
-#, fuzzy
 msgid "Close Others"
 msgstr "Stäng andra"
 
@@ -3554,7 +3553,7 @@ msgstr "Sök _nästa"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Search for next appearance of term."
-msgstr ""
+msgstr "Sök efter nästa förekomst av termen."
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "Find and R_eplace…"
@@ -3573,13 +3572,12 @@ msgid "Repeat the last Find command"
 msgstr "Upprepa det senaste sökkommandot"
 
 #: ../plugins/document-manager/plugin.c:279
-#, fuzzy
 msgid "Clear Highlight"
-msgstr "Färgmarkera"
+msgstr "Töm markering"
 
 #: ../plugins/document-manager/plugin.c:280
 msgid "Clear all highlighted text"
-msgstr ""
+msgstr "Töm all markerad text"
 
 #: ../plugins/document-manager/plugin.c:286
 msgid "Case Sensitive"
@@ -3587,7 +3585,7 @@ msgstr "Skiftlägeskänslig"
 
 #: ../plugins/document-manager/plugin.c:287
 msgid "Match case in search results."
-msgstr ""
+msgstr "Matcha skiftläge i sökresultaten."
 
 #: ../plugins/document-manager/plugin.c:290
 msgid "Highlight All"
@@ -3822,9 +3820,8 @@ msgid "_Toggle Bookmark"
 msgstr "_Växla bokmärke"
 
 #: ../plugins/document-manager/plugin.c:408
-#, fuzzy
 msgid "Toggle bookmark at the current line position"
-msgstr "Lägg till ett bokmärke på aktuell radposition"
+msgstr "Växla bokmärke på aktuell radposition"
 
 #: ../plugins/document-manager/plugin.c:410
 msgid "_Previous Bookmark"
@@ -3951,12 +3948,12 @@ msgid "Autosave completed"
 msgstr "Automatisk sparning färdig"
 
 #: ../plugins/document-manager/search-box.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början."
 
 #: ../plugins/document-manager/search-box.c:500
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached the end and wrapped around but no new match was found."
 msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början men inga nya sökträffar hittades."
 
@@ -3971,20 +3968,20 @@ msgid "Search for \"%s\" reached the end and was continued at the top but no new
 msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början men inga nya sökträffar hittades."
 
 #: ../plugins/document-manager/search-box.c:584
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
-msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början."
+msgstr "Sökningen efter \"%s\" nådde början och fortsatte från slutet."
 
 #: ../plugins/document-manager/search-box.c:590
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom but no new match was found."
-msgstr "Sökningen efter \"%s\" nådde slutet och fortsatte från början men inga nya sökträffar hittades."
+msgstr "Sökningen efter \"%s\" nådde början och fortsatte från slutet men inga nya sökträffar hittades."
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../plugins/document-manager/search-box.c:988
+#: ../plugins/document-manager/search-box.c:989
 msgid "Replace all"
 msgstr "Ersätt alla"
 
@@ -4475,7 +4472,7 @@ msgstr "Kan inte tolka projektfilen"
 
 #: ../plugins/am-project/am-properties.c:51
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
-msgstr ""
+msgstr "Projektnamn, det får innehålla blanksteg, t.ex. \"GNU Autoconf\""
 
 #: ../plugins/am-project/am-properties.c:56
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4501,15 +4498,15 @@ msgstr "Version:"
 
 #: ../plugins/am-project/am-properties.c:59
 msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr ""
+msgstr "Projektversion, oftast ett par siffror separerade med punkt, t.ex. \"1.0.0\""
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
-msgstr ""
+msgstr "URL till felrapport:"
 
 #: ../plugins/am-project/am-properties.c:67
 msgid "An email address or a link to a web page where the user can report bug. It is optional."
-msgstr ""
+msgstr "En e-postadress eller en länk till en webbsida där användaren kan rapportera fel. Detta är valfritt."
 
 #: ../plugins/am-project/am-properties.c:72
 msgid "Package name:"
@@ -4526,7 +4523,7 @@ msgstr "URL:"
 
 #: ../plugins/am-project/am-properties.c:84
 msgid "An link to the project web page if provided."
-msgstr ""
+msgstr "En länk till projektets webbsida, om en sådan tillhandahålls."
 
 #: ../plugins/am-project/am-properties.c:97
 #: ../plugins/am-project/am-properties.c:208
@@ -4537,7 +4534,7 @@ msgstr "Flaggor för länkare:"
 
 #: ../plugins/am-project/am-properties.c:100
 msgid "Common additional linker flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria länkningsflaggor för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:105
 #: ../plugins/am-project/am-properties.c:232
@@ -4548,7 +4545,7 @@ msgstr "Flaggor för C-preprocessor:"
 
 #: ../plugins/am-project/am-properties.c:108
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för C-preprocessor för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:240
@@ -4559,7 +4556,7 @@ msgstr "Flaggor för C-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:116
 msgid "Common additional C compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för C-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:248
@@ -4570,7 +4567,7 @@ msgstr "Flaggor för C++-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för C++-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:129
 #: ../plugins/am-project/am-properties.c:256
@@ -4581,7 +4578,7 @@ msgstr "Flaggor för Java-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:132
 msgid "Common additional Java compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Java-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:137
 #: ../plugins/am-project/am-properties.c:264
@@ -4592,19 +4589,18 @@ msgstr "Flaggor för Vala-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:140
 msgid "Common additional Vala compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Vala-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:145
 #: ../plugins/am-project/am-properties.c:272
 #: ../plugins/am-project/am-properties.c:424
 #: ../plugins/am-project/am-properties.c:576
-#, fuzzy
 msgid "Fortran compiler flags:"
 msgstr "Flaggor för Fortran-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Fortran-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:153
 #: ../plugins/am-project/am-properties.c:280
@@ -4615,7 +4611,7 @@ msgstr "Flaggor för Objective C-kompilator:"
 
 #: ../plugins/am-project/am-properties.c:156
 msgid "Common additional Objective C compiler flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Objective C-kompilator för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:288
@@ -4626,7 +4622,7 @@ msgstr "Flaggor för Lex/Flex:"
 
 #: ../plugins/am-project/am-properties.c:164
 msgid "Common additional Lex or Flex lexical analyser generator flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Lex eller Flex för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4637,7 +4633,7 @@ msgstr "Flaggor för Yacc/Bison:"
 
 #: ../plugins/am-project/am-properties.c:172
 msgid "Common additional Yacc or Bison parser generator flags for all targets in this group."
-msgstr ""
+msgstr "Vanliga och valfria flaggor för Yacc eller Bison för alla mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:177
 msgid "Installation directories:"
@@ -4645,7 +4641,7 @@ msgstr "Installationskataloger:"
 
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
-msgstr ""
+msgstr "Lista över anpassade installationskataloger som används av mål i denna grupp."
 
 #: ../plugins/am-project/am-properties.c:192
 #: ../plugins/am-project/am-properties.c:352
@@ -4661,7 +4657,7 @@ msgstr "Installera inte:"
 #: ../plugins/am-project/am-properties.c:690
 #: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
-msgstr ""
+msgstr "Bygg men installera inte målet."
 
 #: ../plugins/am-project/am-properties.c:200
 #: ../plugins/am-project/am-properties.c:360
@@ -4677,13 +4673,13 @@ msgstr "Installationskatalog:"
 #: ../plugins/am-project/am-properties.c:698
 #: ../plugins/am-project/am-properties.c:762
 msgid "It has to be a standard directory or a custom one defined in group properties."
-msgstr ""
+msgstr "Det måste vara en standardkatalog eller en anpassad som definierats i gruppegenskaperna."
 
 #: ../plugins/am-project/am-properties.c:211
 #: ../plugins/am-project/am-properties.c:371
 #: ../plugins/am-project/am-properties.c:523
 msgid "Additional linker flags for this target."
-msgstr ""
+msgstr "Ytterligare länkningsflaggor för detta mål."
 
 #: ../plugins/am-project/am-properties.c:216
 msgid "Additional libraries:"
@@ -4692,75 +4688,70 @@ msgstr "Ytterligare bibliotek:"
 #: ../plugins/am-project/am-properties.c:219
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
-#, fuzzy
 msgid "Additional libraries for this target."
-msgstr "Ytterligare bibliotek:"
+msgstr "Ytterligare bibliotek för detta mål."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
 msgstr "Ytterligare objekt:"
 
 #: ../plugins/am-project/am-properties.c:227
-#, fuzzy
 msgid "Additional object files for this target."
-msgstr "Inga egenskaper tillgängliga för det här målet"
+msgstr "Ytterligare objektfiler för detta mål."
 
 #: ../plugins/am-project/am-properties.c:235
 #: ../plugins/am-project/am-properties.c:387
 #: ../plugins/am-project/am-properties.c:539
-#, fuzzy
 msgid "Additional C preprocessor flags for this target."
-msgstr "Inga egenskaper tillgängliga för det här målet"
+msgstr "Ytterligare flaggor för C-preprocessor för detta mål."
 
 #: ../plugins/am-project/am-properties.c:243
 #: ../plugins/am-project/am-properties.c:395
 #: ../plugins/am-project/am-properties.c:547
-#, fuzzy
 msgid "Additional C compiler flags for this target."
-msgstr "Inga egenskaper tillgängliga för det här målet"
+msgstr "Ytterligare flaggor för C-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:251
 #: ../plugins/am-project/am-properties.c:403
 #: ../plugins/am-project/am-properties.c:555
 msgid "Additional C++ compiler flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för C++-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:259
 #: ../plugins/am-project/am-properties.c:411
 #: ../plugins/am-project/am-properties.c:563
 msgid "Additional Java compiler flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för Java-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:267
 #: ../plugins/am-project/am-properties.c:419
 #: ../plugins/am-project/am-properties.c:571
 msgid "Additional Vala compiler flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för Vala-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:275
 #: ../plugins/am-project/am-properties.c:427
 #: ../plugins/am-project/am-properties.c:579
 msgid "Additional Fortran compiler flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för Fortran-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:283
 #: ../plugins/am-project/am-properties.c:435
 #: ../plugins/am-project/am-properties.c:587
-#, fuzzy
 msgid "Additional Objective C compiler flags for this target."
-msgstr "Flaggor för Objective C-kompilator:"
+msgstr "Ytterligare flaggor för Objective C-kompilator för detta mål."
 
 #: ../plugins/am-project/am-properties.c:291
 #: ../plugins/am-project/am-properties.c:443
 #: ../plugins/am-project/am-properties.c:595
 msgid "Additional Lex or Flex lexical analyser generator flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för Lex eller Flex för detta mål."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yacc or Bison parser generator flags for this target."
-msgstr ""
+msgstr "Ytterligare flaggor för Yacc eller Bison för detta mål."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
@@ -4777,9 +4768,8 @@ msgstr "Ytterligare beroenden:"
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
 #: ../plugins/am-project/am-properties.c:770
-#, fuzzy
 msgid "Additional dependencies for this target."
-msgstr "Ytterligare beroenden:"
+msgstr "Ytterligare beroenden för detta mål."
 
 #: ../plugins/am-project/am-properties.c:312
 #: ../plugins/am-project/am-properties.c:464
@@ -4795,7 +4785,7 @@ msgstr "Inkludera i distribution:"
 #: ../plugins/am-project/am-properties.c:714
 #: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
-msgstr ""
+msgstr "Inkludera detta mål i distributionspaketet."
 
 #: ../plugins/am-project/am-properties.c:320
 #: ../plugins/am-project/am-properties.c:472
@@ -4811,7 +4801,7 @@ msgstr "Bygg endast för kontroll:"
 #: ../plugins/am-project/am-properties.c:722
 #: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
-msgstr ""
+msgstr "Bygg detta mål endast när automatiska tester körs."
 
 #: ../plugins/am-project/am-properties.c:328
 #: ../plugins/am-project/am-properties.c:480
@@ -4837,7 +4827,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:735
 #: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
-msgstr ""
+msgstr "Behåll målsökvägen:"
 
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:491
@@ -5078,9 +5068,8 @@ msgid "Append fetch data"
 msgstr "Lägg till hämtat data"
 
 #: ../plugins/git/anjuta-git.ui.h:6
-#, fuzzy
 msgid "Append signed-of- by line"
-msgstr "Lägg till signed-off vid rad"
+msgstr "Lägg till signed-of- vid rad"
 
 #: ../plugins/git/anjuta-git.ui.h:7
 #: ../plugins/subversion/subversion-log-dialog.c:132
@@ -5146,11 +5135,11 @@ msgstr "Följ inte taggar"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "Drop or enter revision here"
-msgstr ""
+msgstr "Släpp eller ange revision här"
 
 #: ../plugins/git/anjuta-git.ui.h:22
 msgid "Drop or type a revision here"
-msgstr ""
+msgstr "Släpp eller skriv en revision här"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
@@ -5187,9 +5176,8 @@ msgid "Log Message:"
 msgstr "Loggmeddelande:"
 
 #: ../plugins/git/anjuta-git.ui.h:32
-#, fuzzy
 msgid "Mailbox files to apply:"
-msgstr "Brevlådefil som innehåller patchar:"
+msgstr "Brevlådefiler att tillämpa:"
 
 #: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
@@ -5201,7 +5189,7 @@ msgstr "Läge:"
 
 #: ../plugins/git/anjuta-git.ui.h:38
 msgid "Previous commit; Drop or enter a different revision here"
-msgstr ""
+msgstr "Föregående incheckning; Släpp eller ange en annan revision här"
 
 #: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
@@ -5239,7 +5227,7 @@ msgstr "Återställ förrådet till denna revision"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
-msgstr ""
+msgstr "Förrådets origin; Dra eller ange en annan revision här"
 
 #: ../plugins/git/anjuta-git.ui.h:48
 msgid "Repository to pull from:"
@@ -5256,7 +5244,7 @@ msgstr "Revision"
 
 #: ../plugins/git/anjuta-git.ui.h:51
 msgid "Revision to merge with:"
-msgstr ""
+msgstr "Revision att slå samman med:"
 
 #: ../plugins/git/anjuta-git.ui.h:53
 #: ../plugins/subversion/subversion-log-dialog.c:160
@@ -5280,18 +5268,16 @@ msgid "Squash"
 msgstr "Squash"
 
 #: ../plugins/git/anjuta-git.ui.h:58
-#, fuzzy
 msgid "Stash Message (Optional):"
-msgstr "Lagringsmeddelande (valfritt)"
+msgstr "Lagringsmeddelande (valfritt):"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
 msgstr "Lagra indexerade ändringar"
 
 #: ../plugins/git/anjuta-git.ui.h:60
-#, fuzzy
 msgid "Stashed Changes:"
-msgstr "Lagra indexerade ändringar"
+msgstr "Lagrade ändringar:"
 
 #: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
@@ -5306,9 +5292,8 @@ msgid "This commit concludes a failed merge (use -i)"
 msgstr "Denna incheckning innehåller en misslyckad sammanfogning (använd -i)"
 
 #: ../plugins/git/anjuta-git.ui.h:65
-#, fuzzy
 msgid "Use a custom log message:"
-msgstr "Använd ett anpassat loggmeddelande"
+msgstr "Använd ett anpassat loggmeddelande:"
 
 #: ../plugins/git/anjuta-git.ui.h:66
 msgid "Use custom author information:"
@@ -5321,11 +5306,11 @@ msgstr "Visa loggen för fil/mapp:"
 
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid "Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr ""
+msgstr "Hela projektet; Släpp en fil här eller skriv en sökväg för att visa en fil eller mapplogg"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr ""
+msgstr "Hela projektet; Släpp en fil här för att visa en fil eller mapplogg"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
@@ -5340,31 +5325,26 @@ msgid "Add Files"
 msgstr "Lägg till filer"
 
 #: ../plugins/git/git-add-remote-pane.c:52
-#, fuzzy
 msgid "Please enter a remote name."
-msgstr "Ange ett taggnamn."
+msgstr "Ange ett namn för fjärrgren."
 
 #: ../plugins/git/git-add-remote-pane.c:55
-#, fuzzy
 msgid "Please enter a URL"
-msgstr "Ange en URL."
+msgstr "Ange en URL"
 
 #: ../plugins/git/git-add-remote-pane.c:179
-#, fuzzy
 msgid "Add Remote"
-msgstr "Fjärr"
+msgstr "Lägg till fjärrgren"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
-#, fuzzy
 msgid "Apply Mailbox Files"
 msgstr "Tillämpa brevlådefiler"
 
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
-#, fuzzy
 msgid "No stash selected."
-msgstr "Ingen grupp vald"
+msgstr "Ingen lagring har valts."
 
 #: ../plugins/git/git-checkout-pane.c:147
 msgid "Check Out Files"
@@ -5377,9 +5357,8 @@ msgid "Please enter a log message."
 msgstr "Ange ett loggmeddelande."
 
 #: ../plugins/git/git-commit-pane.c:145
-#, fuzzy
 msgid "Please enter the commit author's name"
-msgstr "Ange upphovsmannens namn för incheckningen."
+msgstr "Ange upphovsmannens namn för incheckningen"
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
@@ -5403,15 +5382,14 @@ msgstr "Cherry Pick"
 
 #. Translators: default file name for git diff's output
 #: ../plugins/git/git-diff-pane.c:33
-#, fuzzy
 msgid "Uncommitted Changes.diff"
-msgstr "Lagra ej incheckade ändringar"
+msgstr "Ej incheckade ändringar.diff"
 
 #. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
 #: ../plugins/git/git-diff-pane.c:71
 #, c-format
 msgid "Commit %s.diff"
-msgstr ""
+msgstr "Incheckning %s.diff"
 
 #: ../plugins/git/git-diff-pane.c:104
 msgid "No revision selected"
@@ -5422,9 +5400,8 @@ msgid "Reset"
 msgstr "Återställ"
 
 #: ../plugins/git/git-revert-pane.c:48
-#, fuzzy
 msgid "Please enter a commit."
-msgstr "Ange en sökväg."
+msgstr "Ange en incheckning."
 
 #: ../plugins/git/git-revert-pane.c:162
 msgid "Revert"
@@ -5443,19 +5420,17 @@ msgid "Create Tag"
 msgstr "Skapa tagg"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#, fuzzy
 msgid "No remote selected."
-msgstr "Ingen grupp vald"
+msgstr "Ingen fjärrgren har valts."
 
 #: ../plugins/git/git-delete-tags-pane.c:49
-#, fuzzy
 msgid "No tags selected."
-msgstr "Ingen grupp vald"
+msgstr "Inga taggar har valts."
 
 #: ../plugins/git/git-diff-stash-pane.c:40
-#, fuzzy, c-format
+#, c-format
 msgid "Stash %i.diff"
-msgstr "Standard diff"
+msgstr "Stash %i.diff"
 
 #: ../plugins/git/git-log-pane.c:560
 #, c-format
@@ -5493,9 +5468,8 @@ msgid "Git Warning"
 msgstr "Git-varning"
 
 #: ../plugins/git/git-patch-series-pane.c:167
-#, fuzzy
 msgid "Generate Patch Series"
-msgstr "Skapa patchserie"
+msgstr "Generera patchserie"
 
 #: ../plugins/git/git-pull-pane.c:66
 #: ../plugins/git/git-push-pane.c:94
@@ -5513,9 +5487,8 @@ msgid "Push"
 msgstr "Skicka"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#, fuzzy
 msgid "No remote selected"
-msgstr "Ingen grupp vald"
+msgstr "Ingen fjärrgren har valts"
 
 #: ../plugins/git/git-remove-files-pane.c:157
 msgid "Remove Files"
@@ -5530,20 +5503,20 @@ msgid "URL"
 msgstr "URL"
 
 #: ../plugins/git/git-repository-selector.c:100
-#, fuzzy
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Fjärr:</b> %s"
+msgstr "<b>Vald fjärrgren:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
+"Ingen fjärrgren har valts; använder origin som standard.\n"
+"Välj från fjärrlistan ovan för att checka in till en annan fjärrgren."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
-#, fuzzy
 msgid "No conflicted files selected."
-msgstr "Markera filer i konflikt som lösta"
+msgstr "Inga filer i konflikt har markerats."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
@@ -5551,11 +5524,11 @@ msgstr "Lagra ej incheckade ändringar"
 
 #: ../plugins/git/git-status-pane.c:368
 msgid "Changes to be committed"
-msgstr ""
+msgstr "Ändringar att checkas in"
 
 #: ../plugins/git/git-status-pane.c:377
 msgid "Changed but not updated"
-msgstr ""
+msgstr "Ändrad men inte uppdaterad"
 
 #: ../plugins/git/git-unstage-pane.c:51
 #, fuzzy
@@ -5573,20 +5546,17 @@ msgstr "Skapa en gren"
 
 #: ../plugins/git/plugin.c:81
 #: ../plugins/git/plugin.c:82
-#, fuzzy
 msgid "Delete selected branches"
-msgstr "Git: Tog bort markerade grenar."
+msgstr "Ta bort markerade grenar"
 
 #: ../plugins/git/plugin.c:89
 #: ../plugins/git/plugin.c:90
-#, fuzzy
 msgid "Switch to the selected branch"
-msgstr "Växla till en annan gren"
+msgstr "Växla till markerade grenen"
 
 #: ../plugins/git/plugin.c:98
-#, fuzzy
 msgid "Merge a revision into the current branch"
-msgstr "Sammanfoga denna incheckning till den aktuella grenen"
+msgstr "Sammanfoga en revision till den aktuella grenen"
 
 #: ../plugins/git/plugin.c:109
 msgid "Tag tools"
@@ -5611,14 +5581,12 @@ msgid "Commit changes"
 msgstr "Checka in ändringar"
 
 #: ../plugins/git/plugin.c:154
-#, fuzzy
 msgid "Diff uncommitted changes"
-msgstr "Kör _diff mot ej incheckade ändringar"
+msgstr "Kör diff mot ej incheckade ändringar"
 
 #: ../plugins/git/plugin.c:155
-#, fuzzy
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Visa ej incheckade ändringar"
+msgstr "Visa en diff för ej incheckade ändringar i en redigerare"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
@@ -5626,9 +5594,8 @@ msgid "Add"
 msgstr "Lägg till"
 
 #: ../plugins/git/plugin.c:171
-#, fuzzy
 msgid "Add files to the index"
-msgstr "Lägg till filer till förrådet"
+msgstr "Lägg till filer till indexet"
 
 #: ../plugins/git/plugin.c:179
 msgid "Remove files from the repository"
@@ -5654,37 +5621,30 @@ msgid "Remove staged files from the index"
 msgstr "Ta bort filer från incheckningsindexet"
 
 #: ../plugins/git/plugin.c:202
-#, fuzzy
 msgid "Resolve conflicts"
-msgstr "Lös _konflikter..."
+msgstr "Lös konflikter"
 
 #: ../plugins/git/plugin.c:203
-#, fuzzy
 msgid "Mark selected conflicted files as resolved"
-msgstr "Markera filer i konflikt som lösta"
+msgstr "Märk markerade filer i konflikt som lösta"
 
 #: ../plugins/git/plugin.c:214
-#, fuzzy
 msgid "Remote repository tools"
-msgstr "_Fjärrförråd"
+msgstr "Verktyg för fjärrförråd"
 
 #: ../plugins/git/plugin.c:222
-#, fuzzy
 msgid "Add a remote"
 msgstr "Lägg till en fjärrgren"
 
 #: ../plugins/git/plugin.c:223
-#, fuzzy
 msgid "Add a remote repository"
-msgstr "Lägg till i förråd"
+msgstr "Lägg till ett fjärrförråd"
 
 #: ../plugins/git/plugin.c:230
-#, fuzzy
 msgid "Delete selected remote"
-msgstr "Git: Tog bort markerade taggar."
+msgstr "Ta bort markerad fjärrgren"
 
 #: ../plugins/git/plugin.c:231
-#, fuzzy
 msgid "Delete a remote"
 msgstr "Ta bort en fjärrgren"
 
@@ -5693,18 +5653,16 @@ msgid "Push changes to a remote repository"
 msgstr "Skicka ändringar till ett fjärrförråd"
 
 #: ../plugins/git/plugin.c:247
-#, fuzzy
 msgid "Pull changes from a remote repository"
-msgstr "Skicka ändringar till ett fjärrförråd"
+msgstr "Hämta ändringar från ett fjärrförråd"
 
 #: ../plugins/git/plugin.c:254
 msgid "Fetch"
 msgstr "Hämta"
 
 #: ../plugins/git/plugin.c:255
-#, fuzzy
 msgid "Fetch changes from remote repositories"
-msgstr "Skicka ändringar till ett fjärrförråd"
+msgstr "Hämta ändringar från fjärrförråd"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
@@ -5730,9 +5688,8 @@ msgid "Skip"
 msgstr "Hoppa över"
 
 #: ../plugins/git/plugin.c:287
-#, fuzzy
 msgid "Skip the current revision"
-msgstr "Markera den aktuella huvudrevisionen som dålig"
+msgstr "Hoppa över aktuell revision"
 
 #: ../plugins/git/plugin.c:294
 #: ../plugins/git/plugin.c:462
@@ -5745,29 +5702,24 @@ msgid "Abort the rebase and return the repository to its previous state"
 msgstr "Avbryt rebase-åtgärden och återställ förrådet till dess ursprungliga tillstånd"
 
 #: ../plugins/git/plugin.c:306
-#, fuzzy
 msgid "Stash tools"
-msgstr "Lagring att tillämpa"
+msgstr "Lagringsverktyg"
 
 #: ../plugins/git/plugin.c:314
-#, fuzzy
 msgid "Stash uncommitted changes"
-msgstr "_Lagra ej incheckade ändringar..."
+msgstr "Lagra ej incheckade ändringar"
 
 #: ../plugins/git/plugin.c:315
-#, fuzzy
 msgid "Save uncommitted changes without committing them"
-msgstr "Återställ ej incheckade ändringar till filer"
+msgstr "Spara ej incheckade ändringar utan att checka in dem"
 
 #: ../plugins/git/plugin.c:322
-#, fuzzy
 msgid "Apply selected stash"
-msgstr "Tillämpa markerad stash"
+msgstr "Tillämpa markerad lagring"
 
 #: ../plugins/git/plugin.c:323
-#, fuzzy
 msgid "Apply stashed changes back into the working tree"
-msgstr "Tillämpa lagrade ändringar till arbetsträdet"
+msgstr "Tillämpa lagrade ändringar in i arbetsträdet"
 
 #: ../plugins/git/plugin.c:330
 #, fuzzy
@@ -5809,43 +5761,36 @@ msgid "Delete all stashes in this repository"
 msgstr "Markera all text i redigeraren"
 
 #: ../plugins/git/plugin.c:366
-#, fuzzy
 msgid "Revision tools"
-msgstr "Revision: "
+msgstr "Revisionsverktyg "
 
 #: ../plugins/git/plugin.c:374
-#, fuzzy
 msgid "Show commit diff"
-msgstr "_Visa diff för incheckning"
+msgstr "Visa diff för incheckning"
 
 #: ../plugins/git/plugin.c:375
-#, fuzzy
 msgid "Show a diff of the selected revision"
-msgstr "_Visa vald revision"
+msgstr "Visa en diff för markerad revision"
 
 #: ../plugins/git/plugin.c:382
-#, fuzzy
 msgid "Cherry pick"
-msgstr "Cherry Pick"
+msgstr "Cherry pick"
 
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 msgid "Merge an individual commit from another branch"
-msgstr "Sammanfoga denna incheckning till den aktuella grenen"
+msgstr "Sammanfoga en individuell incheckning från en annan gren"
 
 #: ../plugins/git/plugin.c:390
-#, fuzzy
 msgid "Reset/Revert"
-msgstr "_Nollställ/Återställ"
+msgstr "Nollställ/Återställ"
 
 #: ../plugins/git/plugin.c:398
 msgid "Reset tree"
 msgstr "Återställ träd"
 
 #: ../plugins/git/plugin.c:399
-#, fuzzy
 msgid "Reset tree to a previous revision"
-msgstr "Återställ förrådet till denna revision"
+msgstr "Återställ trädet till en tidigare revision"
 
 #: ../plugins/git/plugin.c:406
 msgid "Revert commit"
@@ -5856,15 +5801,13 @@ msgid "Revert a commit"
 msgstr "Återställ en incheckning"
 
 #: ../plugins/git/plugin.c:414
-#, fuzzy
 msgid "Patch series"
-msgstr "Patchar"
+msgstr "Patchserie"
 
 #: ../plugins/git/plugin.c:422
 #: ../plugins/git/plugin.c:423
-#, fuzzy
 msgid "Generate a patch series"
-msgstr "Skapa patchserie"
+msgstr "Generera en patchserie"
 
 #: ../plugins/git/plugin.c:430
 msgid "Mailbox files"
@@ -5875,9 +5818,8 @@ msgid "Apply mailbox files"
 msgstr "Tillämpa brevlådefiler"
 
 #: ../plugins/git/plugin.c:439
-#, fuzzy
 msgid "Apply patches from mailbox files"
-msgstr "Tillämpa brevlådefiler"
+msgstr "Tillämpa patchar från brevlådefiler"
 
 #: ../plugins/git/plugin.c:447
 #, fuzzy
@@ -5917,22 +5859,20 @@ msgid "Tags"
 msgstr "Taggar"
 
 #: ../plugins/git/plugin.c:781
-#, fuzzy
 msgid "Remotes"
-msgstr "Fjärr"
+msgstr "Fjärrgrenar"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Stash"
 
 #: ../plugins/glade/plugin.c:460
-#, fuzzy
 msgid "Select widgets in the workspace"
-msgstr "Markera all text i redigeraren"
+msgstr "Välj widgetar i arbetsytan"
 
 #: ../plugins/glade/plugin.c:486
 msgid "Drag and resize widgets in the workspace"
-msgstr ""
+msgstr "Dra och storleksändra widgetar i arbetsytan"
 
 #: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
@@ -6110,9 +6050,9 @@ msgstr[0] "%d fel"
 msgstr[1] "%d fel"
 
 #: ../plugins/mk-project/mk-project.c:460
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to parse make file"
-msgstr "Kan inte tolka projektfilen"
+msgstr "Kan inte tolka make-filen"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Add _Package"
@@ -6315,9 +6255,8 @@ msgid "Add Source"
 msgstr "Lägg till källkod"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
-#, fuzzy
 msgid "Browse other nodes"
-msgstr "Stäng andra dokument"
+msgstr "Bläddra i andra noder"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
 msgid "Modules:"
@@ -6344,9 +6283,8 @@ msgid "Package list:"
 msgstr "Paketlista:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#, fuzzy
 msgid "Select the _target for the library:"
-msgstr "Välj må_let för modulen:"
+msgstr "Välj må_let för biblioteket:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
 msgid "Select the _target for the new source files:"
@@ -6357,9 +6295,8 @@ msgid "Source files:"
 msgstr "Källkodsfiler:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
-#, fuzzy
 msgid "Specify _where to create the directory:"
-msgstr "Ange _var målet ska skapas:"
+msgstr "Ange _var katalogen ska skapas:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "Specify _where to create the target:"
@@ -6545,9 +6482,8 @@ msgstr "Ny _katalog..."
 
 #: ../plugins/project-manager/plugin.c:892
 #: ../plugins/project-manager/plugin.c:931
-#, fuzzy
 msgid "Add a new directory to the project"
-msgstr "Lägg till en ny fil/katalog till CVS-trädet"
+msgstr "Lägg till en ny katalog till projektet"
 
 #: ../plugins/project-manager/plugin.c:897
 msgid "New _Target…"
@@ -6555,9 +6491,8 @@ msgstr "Nytt _mål..."
 
 #: ../plugins/project-manager/plugin.c:897
 #: ../plugins/project-manager/plugin.c:936
-#, fuzzy
 msgid "Add a new target to the project"
-msgstr "Lägg till ett mål i projektet"
+msgstr "Lägg till ett nytt mål till projektet"
 
 #: ../plugins/project-manager/plugin.c:902
 msgid "Add _Source File…"
@@ -6821,12 +6756,12 @@ msgstr ""
 #: ../plugins/project-wizard/druid.c:646
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
-msgstr ""
+msgstr "Fältet \"%s\" får endast innehålla bokstäver, siffror eller följande tecken \"#$:%%+,.=@^_`~\". I tillägg får du inte ha ett inledande minustecken. Rätta till detta."
 
 #: ../plugins/project-wizard/druid.c:651
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
-msgstr ""
+msgstr "Fältet \"%s\" får endast innehålla bokstäver, siffror, följande tecken \"#$:%%+,.=@^_`~\" eller katalogavgränsare. I tillägg får du inte ha ett inledande minustecken. Rätta till detta."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -7467,9 +7402,8 @@ msgstr "Enkelt GTK+-projekt"
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
-#, fuzzy
 msgid "Use GtkBuilder for user interface:"
-msgstr "Skapa Gtk Builder-gränssnittsfil"
+msgstr "Använd GtkBuilder för användargränssnitt:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
@@ -7477,7 +7411,7 @@ msgstr "Skapa Gtk Builder-gränssnittsfil"
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid "Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime"
-msgstr ""
+msgstr "Använd GtkBuilder för att skapa användargränssnittet på ett grafiskt sätt och läsa in det från xml-filer vid körtid"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
@@ -7962,11 +7896,11 @@ msgstr "Standardvärde"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
-msgstr ""
+msgstr "<b>Fel:</b> Du måste välja minst ett språk för kodsnutten!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
 msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
-msgstr ""
+msgstr "<b>Fel:</b> Aktiveringstangenten används redan för ett av språken!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 #, fuzzy
@@ -7975,15 +7909,15 @@ msgstr "Källkodsfilnamn kan endast innehålla alfanumeriska tecken, \"_\", \"-\
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
-msgstr ""
+msgstr "<b>Fel:</b> Du har inte angivit en aktiveringstangent för kodsnutten!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
 msgid "<b>Error:</b> The snippet must belong to a group!"
-msgstr ""
+msgstr "<b>Fel:</b> Kodsnutten måste tillhöra en grupp!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "<b>Warning:</b> You should choose a name for the snippet!"
-msgstr ""
+msgstr "<b>Varning:</b> Du bör välja ett namn för kodsnutten!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
@@ -8125,18 +8059,16 @@ msgid "Line numbers"
 msgstr "Radnummer"
 
 #: ../plugins/sourceview/sourceview-print.c:115
-#, fuzzy
 msgid "Header"
-msgstr "Header_h"
+msgstr "Header"
 
 #: ../plugins/sourceview/sourceview-print.c:117
 msgid "Footer"
 msgstr "Sidfot"
 
 #: ../plugins/sourceview/sourceview-print.c:119
-#, fuzzy
 msgid "Highlight source code"
-msgstr "_Färgmarkeringsläge"
+msgstr "Färgmarkera källkod"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
 msgid "Color scheme:"
@@ -8209,9 +8141,8 @@ msgid "View"
 msgstr "Visning"
 
 #: ../plugins/starter/plugin.c:285
-#, fuzzy
 msgid "Start"
-msgstr "Startad"
+msgstr "Starta"
 
 #: ../plugins/starter/starter.ui.h:1
 msgid "Anjuta Manual"
@@ -8226,9 +8157,8 @@ msgid "FAQ"
 msgstr "Frågor och svar"
 
 #: ../plugins/starter/starter.ui.h:4
-#, fuzzy
 msgid "Getting started:"
-msgstr "startade:"
+msgstr "Kom igång:"
 
 #: ../plugins/starter/starter.ui.h:5
 msgid "Import an existing project"
@@ -9548,9 +9478,8 @@ msgid "Autocompletion"
 msgstr "Automatisk komplettering"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#, fuzzy
 msgid "Automatically load required libraries of the project"
-msgstr "Lägg automatiskt till resurser"
+msgstr "Läs automatiskt in nödvändiga bibliotek för projektet"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:5
@@ -9587,7 +9516,7 @@ msgstr "Indenteringsparametrar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Leading asterisk in multi-line comment"
-msgstr ""
+msgstr "Inledande asterisk i flerradig kommentar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Line up parentheses"
@@ -9595,11 +9524,11 @@ msgstr "Rada upp paranteser"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Load API tags for C standard library"
-msgstr ""
+msgstr "Läs in API-taggar för C-standardbibliotek"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Load API tags for C++ standard template library"
-msgstr ""
+msgstr "Läs in API-taggar för C++-standardmallbibliotek"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 msgid "Parenthesis indentation"
@@ -9607,7 +9536,7 @@ msgstr "Parantesindentering"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr ""
+msgstr "Föredra vim/emacs-modelines framför indragningsinställningar"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
@@ -9637,14 +9566,12 @@ msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Indentera automatiskt aktuell rad eller markering baserat på indenteringsinställningar"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1210
-#, fuzzy
 msgid "Comment/Uncomment"
-msgstr "Bo_xkommentar/Avkommentera"
+msgstr "Kommentera/Avkommentera"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1211
-#, fuzzy
 msgid "Comment or uncomment current selection"
-msgstr "Aktuell markering"
+msgstr "Kommentera eller avkommentera aktuell markering"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1216
 msgid "Swap .h/.c"
@@ -9778,9 +9705,8 @@ msgid "Glade interface designer"
 msgstr "Gränssnittsbyggaren Glade"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
-#, fuzzy
 msgid "User interface file"
-msgstr "Gränssnittsfil"
+msgstr "Användargränssnittsfil"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -9915,9 +9841,8 @@ msgid "Autotools backend"
 msgstr "Autotools-bakände"
 
 #: ../plugins/am-project/am-project.plugin.in.h:2
-#, fuzzy
 msgid "New Autotools backend for project manager"
-msgstr "Autotools-bakände för projekthanterare"
+msgstr "Ny Autotools-bakände för projekthanterare"
 
 #: ../plugins/js-debugger/plugin.c:122
 #, c-format
