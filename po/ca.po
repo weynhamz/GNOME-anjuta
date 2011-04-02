@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-29 00:16+0200\n"
-"PO-Revision-Date: 2011-03-26 22:44+0100\n"
+"POT-Creation-Date: 2011-04-02 20:02+0200\n"
+"PO-Revision-Date: 2011-04-02 20:01+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -805,7 +805,7 @@ msgstr "Estableix l'estil del tipus de lletra"
 
 #: ../libfoocanvas/foo-canvas-text.c:454
 msgid "Whether this tag affects the font style"
-msgstr "Si aquesta etiqueta afecta a l'estil del tipus de lletra"
+msgstr "Si aquesta etiqueta afecta l'estil del tipus de lletra"
 
 #: ../libfoocanvas/foo-canvas-text.c:457
 msgid "Font variant set"
@@ -829,7 +829,7 @@ msgstr "Estableix l'amplada del tipus de lletra"
 
 #: ../libfoocanvas/foo-canvas-text.c:466
 msgid "Whether this tag affects the font stretch"
-msgstr "Si aquesta etiqueta afecta a l'amplada del tipus de lletra"
+msgstr "Si aquesta etiqueta afecta l'amplada del tipus de lletra"
 
 #: ../libfoocanvas/foo-canvas-text.c:469
 msgid "Font size set"
@@ -845,7 +845,7 @@ msgstr "Estableix l'alçada"
 
 #: ../libfoocanvas/foo-canvas-text.c:474
 msgid "Whether this tag affects the rise"
-msgstr "Si aquesta etiqueta afecta a l'alçada"
+msgstr "Si aquesta etiqueta afecta l'alçada"
 
 #: ../libfoocanvas/foo-canvas-text.c:477
 msgid "Strikethrough set"
@@ -853,7 +853,7 @@ msgstr "Estableix el barrat"
 
 #: ../libfoocanvas/foo-canvas-text.c:478
 msgid "Whether this tag affects strikethrough"
-msgstr "Si aquesta etiqueta afecta al barrat"
+msgstr "Si aquesta etiqueta afecta el barrat"
 
 #: ../libfoocanvas/foo-canvas-text.c:481
 msgid "Underline set"
@@ -861,7 +861,7 @@ msgstr "Estableix el subratllat"
 
 #: ../libfoocanvas/foo-canvas-text.c:482
 msgid "Whether this tag affects underlining"
-msgstr "Si aquesta etiqueta afecta al subratllat"
+msgstr "Si aquesta etiqueta afecta el subratllat"
 
 #: ../libfoocanvas/foo-canvas-text.c:485
 msgid "Scale set"
@@ -869,7 +869,7 @@ msgstr "Estableix l'escala"
 
 #: ../libfoocanvas/foo-canvas-text.c:486
 msgid "Whether this tag affects font scaling"
-msgstr "Si aquesta etiqueta afecta a l'escala del tipus de lletra"
+msgstr "Si aquesta etiqueta afecta l'escala del tipus de lletra"
 
 #: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
@@ -1576,7 +1576,7 @@ msgstr "Fitxer de codi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:38
 msgid "Source/Header Headings:"
-msgstr "Encapçalaments per als fitxers de capçalera i de codi:"
+msgstr "Capçalera per als fitxers de capçalera i de codi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
 msgid "Vala Class"
@@ -1815,32 +1815,32 @@ msgstr "CVSROOT:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:18
 #: ../plugins/subversion/anjuta-subversion.ui.h:5
 msgid "Choose file or directory to add:"
-msgstr "Escolliu el fitxer o directori a afegir:"
+msgstr "Trieu el fitxer o directori a afegir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:19
 msgid "Choose file or directory to commit:"
-msgstr "Escolliu el fitxer o directori a publicar els canvis:"
+msgstr "Trieu el fitxer o directori a publicar els canvis:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "Choose file or directory to diff:"
-msgstr "Escolliu de quin directori o fitxer obtenir les diferències:"
+msgstr "Trieu de quin directori o fitxer obtenir les diferències:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:21
 msgid "Choose file or directory to get log for:"
-msgstr "Escolliu de quin fitxer o directori obtenir el registre:"
+msgstr "Trieu de quin fitxer o directori obtenir el registre:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:22
 msgid "Choose file or directory to get the status from:"
-msgstr "Escolliu de quin fitxer o directori obtenir l'estat:"
+msgstr "Trieu de quin fitxer o directori obtenir l'estat:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to remove:"
-msgstr "Escolliu quin fitxer o directori suprimir:"
+msgstr "Trieu quin fitxer o directori suprimir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Choose file or directory to update:"
-msgstr "Escolliu el fitxer o directori a actualitzar:"
+msgstr "Trieu el fitxer o directori a actualitzar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:25
 msgid "Compression Level (0=off, 10=max):"
@@ -3714,7 +3714,7 @@ msgstr "Mostra/oculta els caràcters de final de línia"
 
 #: ../plugins/document-manager/plugin.c:365
 msgid "Line _Wrapping"
-msgstr "Ajustar de _línia"
+msgstr "Ajust de _línia"
 
 #: ../plugins/document-manager/plugin.c:366
 msgid "Enable/disable line wrapping"
@@ -3863,7 +3863,7 @@ msgstr "Format del text de l'editor"
 
 #: ../plugins/document-manager/plugin.c:447
 msgid "Simple searching"
-msgstr "Cercant senzilla"
+msgstr "Cerca senzilla"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:448
@@ -4112,7 +4112,7 @@ msgstr "Fitxers HTML"
 
 #: ../plugins/file-loader/plugin.c:564
 msgid "Shell script files"
-msgstr "Fitxers d'script per a l'intèrpret d'ordres"
+msgstr "Fitxers de script per a l'intèrpret d'ordres"
 
 #: ../plugins/file-loader/plugin.c:569
 msgid "Makefiles"
@@ -4205,7 +4205,7 @@ msgstr "<b>Obre amb</b>"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
-msgstr "Escolliu el directori a mostrar si no hi ha cap projecte obert"
+msgstr "Trieu el directori a mostrar si no hi ha cap projecte obert"
 
 #: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Do not show backup files"
@@ -4354,7 +4354,7 @@ msgstr "Fitxer de codi Python"
 
 #: ../plugins/file-wizard/file.c:91
 msgid "Shell Script File"
-msgstr "Fitxer d'script per a l'intèrpret d'ordres"
+msgstr "Fitxer de script per a l'intèrpret d'ordres"
 
 #: ../plugins/file-wizard/file.c:92
 msgid "Vala Source File"
@@ -4629,8 +4629,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Indicadors comuns addicionals del generador d'anàlisis lèxic Lex o Flex per "
-"a tots els objectius d'aquest grup."
+"Indicadors comuns addicionals del generador d'anàlisi lèxic Lex o Flex per a "
+"tots els objectius d'aquest grup."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4644,7 +4644,7 @@ msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
-"Indicadors comuns addicionals del generador d'anàlisis Yacc o Bison per a "
+"Indicadors comuns addicionals del generador d'anàlisi Yacc o Bison per a "
 "tots els objectius d'aquest grup."
 
 #: ../plugins/am-project/am-properties.c:177
@@ -4767,15 +4767,15 @@ msgstr ""
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
-"Indicadors addicionals del generador d'anàlisis lèxic Lex o Flex per a "
-"aquest objectiu."
+"Indicadors addicionals del generador d'anàlisi lèxic Lex o Flex per a aquest "
+"objectiu."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
-"Indicadors addicionals del generador d'anàlisis Yacc o Bison per a aquest "
+"Indicadors addicionals del generador d'anàlisi Yacc o Bison per a aquest "
 "objectiu."
 
 #: ../plugins/am-project/am-properties.c:304
@@ -5310,7 +5310,7 @@ msgstr "Tou"
 
 #: ../plugins/git/anjuta-git.ui.h:57
 msgid "Squash"
-msgstr "Aixafar"
+msgstr "Aixafa"
 
 #: ../plugins/git/anjuta-git.ui.h:58
 msgid "Stash Message (Optional):"
@@ -5411,7 +5411,7 @@ msgstr "Introduïu el nom de l'autor de la publicació"
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
-msgstr "Introduïu l'adreça de correu electrònic de l'autor de la publicació."
+msgstr "Introduïu l'adreça electrònica de l'autor de la publicació."
 
 #: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
 msgid "Commit"
@@ -6947,15 +6947,15 @@ msgstr "Seleccioneu un fitxer d'imatge"
 #: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
 #: ../plugins/tools/editor.c:703
 msgid "Choose Icon"
-msgstr "Escolliu una icona"
+msgstr "Trieu una icona"
 
 #: ../plugins/project-wizard/property.c:491
 msgid "Choose directory"
-msgstr "Escolliu un directori"
+msgstr "Trieu un directori"
 
 #: ../plugins/project-wizard/property.c:495
 msgid "Choose file"
-msgstr "Escolliu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
 #: ../plugins/project-wizard/templates/js.wiz.in.h:1
@@ -7155,7 +7155,7 @@ msgstr "Configura els paquets externs:"
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
 msgid "Email address:"
-msgstr "Adreça de correu electrònic:"
+msgstr "Adreça electrònica:"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
@@ -7477,7 +7477,7 @@ msgstr "Un projecte GTK+ senzill"
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
-msgstr "Utilitza el GtkBuilder per a la interfície d'usuari"
+msgstr "Utilitza el GtkBuilder per a la interfície d'usuari:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
@@ -7515,7 +7515,7 @@ msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
-"Els altres connectors dels quals depen aquest connector, separats per comes. "
+"Els altres connectors dels quals depèn aquest connector, separats per comes. "
 "Poden ser el nom de la interfície primària o la ubicació del connector "
 "(biblioteca:classe)"
 
@@ -7812,7 +7812,7 @@ msgstr "GTK+ (aplicació)"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
-msgstr "Escolliu un directori de treball"
+msgstr "Trieu un directori de treball"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Environment Variables:"
@@ -9637,7 +9637,7 @@ msgstr "Paràmetres de sagnat"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Leading asterisk in multi-line comment"
-msgstr "Asterisc inicial en els comentaris multi-línia"
+msgstr "Asterisc inicial en els comentaris multilínia"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Line up parentheses"
@@ -11006,10 +11006,10 @@ msgstr "Símbol"
 #~ msgstr "Cerca i reemplaçament bàsic"
 
 #~ msgid "Choose Directories:"
-#~ msgstr "Escolliu els directoris:"
+#~ msgstr "Trieu els directoris:"
 
 #~ msgid "Choose Files:"
-#~ msgstr "Escolliu els fitxers:"
+#~ msgstr "Trieu els fitxers:"
 
 #~ msgid "Expand regex back references"
 #~ msgstr "Expandeix les referències d'expressions regulars"
@@ -12475,7 +12475,7 @@ msgstr "Símbol"
 #~ "Creeu-ne un primer."
 
 #~ msgid "Choose file where to save Valgrind log"
-#~ msgstr "Escolliu el fitxer on desar el registre del Valgrind"
+#~ msgstr "Trieu el fitxer on desar el registre del Valgrind"
 
 #~ msgid "Open Valgrind log file"
 #~ msgstr "Obre un fitxer de registre del Valgrind"
@@ -12508,7 +12508,7 @@ msgstr "Símbol"
 #~ msgstr "Camí al fitxer binari del Valgrind:"
 
 #~ msgid "Choose Valgrind Binary File Path..."
-#~ msgstr "Escolliu el camí al fitxer binari del Valgrind..."
+#~ msgstr "Trieu el camí al fitxer binari del Valgrind..."
 
 #~ msgid "lines above and below the target line."
 #~ msgstr "línies per sobre i per sota de la línia objectiu."
@@ -12612,7 +12612,7 @@ msgstr "Símbol"
 #~ msgstr "Fitxer de supressions:"
 
 #~ msgid "Choose Valgrind Suppressions File..."
-#~ msgstr "Escolliu el fitxer de supressió del Valgrind..."
+#~ msgstr "Trieu el fitxer de supressió del Valgrind..."
 
 #~ msgid "Helgrind"
 #~ msgstr "Helgrind"
