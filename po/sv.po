@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-03 11:37+0200\n"
-"PO-Revision-Date: 2011-04-03 11:38+0100\n"
+"PO-Revision-Date: 2011-04-03 17:36+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1440,14 +1440,12 @@ msgid "Class Options:"
 msgstr "Klassalternativ:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
-#, fuzzy
 msgid "Class Scope:"
-msgstr "Klassnamn:"
+msgstr "Klassomfång:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
-#, fuzzy
 msgid "Constants/Variables"
-msgstr "Lokala variabler"
+msgstr "Konstanter/Variabler"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "Create"
@@ -1501,14 +1499,12 @@ msgid "Header File:"
 msgstr "Header-fil:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#, fuzzy
 msgid "Imports"
-msgstr "Importera"
+msgstr "Importerar"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
-#, fuzzy
 msgid "Initializer Arguments:"
-msgstr "_Initiera förråd"
+msgstr "Argument till initierare:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Inline the declaration and implementation"
@@ -1733,14 +1729,12 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: ../plugins/class-gen/window.c:793
-#, fuzzy
 msgid "Getter"
-msgstr "Palett"
+msgstr "Hämtar"
 
 #: ../plugins/class-gen/window.c:794
-#, fuzzy
 msgid "Setter"
-msgstr "Palett"
+msgstr "Ställer in"
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
@@ -4835,7 +4829,7 @@ msgstr "Behåll målsökvägen:"
 #: ../plugins/am-project/am-properties.c:738
 #: ../plugins/am-project/am-properties.c:802
 msgid "Keep relative target path for installing it. By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
-msgstr ""
+msgstr "Behåll relativ målsökväg för installation. Till exempel om du har ett programs underkatalog/program installerat i bin-katalogen så kommer det att installeras i bin/underkatalog/program och inte i bin/program"
 
 #: ../plugins/am-project/am-properties.c:376
 #: ../plugins/am-project/am-properties.c:528
@@ -4843,13 +4837,12 @@ msgid "Libraries:"
 msgstr "Bibliotek:"
 
 #: ../plugins/am-project/am-properties.c:672
-#, fuzzy
 msgid "Manual section:"
-msgstr "Markering:"
+msgstr "Manuell sektion:"
 
 #: ../plugins/am-project/am-properties.c:675
 msgid "Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
-msgstr ""
+msgstr "Sektion där manualsidorna installeras. Giltiga sektionsnamn är siffrorna \"0\" till \"9\" samt bokstäverna \"l\" och \"n\". "
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -5112,9 +5105,8 @@ msgid "Commit on fast-forward merges"
 msgstr "Checka in på snabbspolade sammanfogningar"
 
 #: ../plugins/git/anjuta-git.ui.h:16
-#, fuzzy
 msgid "Commit to cherry pick:"
-msgstr "Checka in till Cherry Pick:"
+msgstr "Checka in till cherry pick:"
 
 #: ../plugins/git/anjuta-git.ui.h:17
 msgid "Commit to revert:"
@@ -5221,9 +5213,8 @@ msgid "Repository Status:"
 msgstr "Förrådsstatus:"
 
 #: ../plugins/git/anjuta-git.ui.h:46
-#, fuzzy
 msgid "Repository head; Drop or type a different revision here"
-msgstr "Återställ förrådet till denna revision"
+msgstr "Förrådshuvud; Släpp eller ange en annan revision här"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
@@ -5531,9 +5522,8 @@ msgid "Changed but not updated"
 msgstr "Ändrad men inte uppdaterad"
 
 #: ../plugins/git/git-unstage-pane.c:51
-#, fuzzy
 msgid "No staged files selected."
-msgstr "Inget mål har valts"
+msgstr "Inga köade filer har valts."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5606,19 +5596,16 @@ msgid "Check out"
 msgstr "Checka ut"
 
 #: ../plugins/git/plugin.c:187
-#, fuzzy
 msgid "Revert changes in unstaged files"
-msgstr "Återställ ej incheckade ändringar till filer"
+msgstr "Återställ ändringar i avköade filer"
 
 #: ../plugins/git/plugin.c:194
-#, fuzzy
 msgid "Unstage"
-msgstr "Avköa filer"
+msgstr "Avköa"
 
 #: ../plugins/git/plugin.c:195
-#, fuzzy
 msgid "Remove staged files from the index"
-msgstr "Ta bort filer från incheckningsindexet"
+msgstr "Ta bort köade filer från indexet"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
@@ -5666,11 +5653,11 @@ msgstr "Hämta ändringar från fjärrförråd"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "Rebase mot vald fjärrgren"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
-msgstr ""
+msgstr "Starta en rebase-åtgärd relativ till det valda fjärrförrådet"
 
 #: ../plugins/git/plugin.c:278
 #: ../plugins/git/plugin.c:446
@@ -5678,9 +5665,8 @@ msgid "Continue"
 msgstr "Fortsätt"
 
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 msgid "Continue a rebase with resolved conflicts"
-msgstr "_Fortsätt med lösta konflikter"
+msgstr "Fortsätt en rebase med lösta konflikter"
 
 #: ../plugins/git/plugin.c:286
 #: ../plugins/git/plugin.c:454
@@ -5697,9 +5683,8 @@ msgid "Abort"
 msgstr "Avbryt"
 
 #: ../plugins/git/plugin.c:295
-#, fuzzy
 msgid "Abort the rebase and return the repository to its previous state"
-msgstr "Avbryt rebase-åtgärden och återställ förrådet till dess ursprungliga tillstånd"
+msgstr "Avbryt rebase-åtgärden och återställ förrådet till dess tidigare tillstånd"
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
@@ -5722,43 +5707,36 @@ msgid "Apply stashed changes back into the working tree"
 msgstr "Tillämpa lagrade ändringar in i arbetsträdet"
 
 #: ../plugins/git/plugin.c:330
-#, fuzzy
 msgid "Apply stash and restore index"
-msgstr "Tillämpa lagrade ändringar till arbetsträdet"
+msgstr "Tillämpa lagrade ändringar och återställ index"
 
 #: ../plugins/git/plugin.c:331
-#, fuzzy
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Tillämpa lagrade ändringar till arbetsträdet"
+msgstr "Tillämpa lagrade ändringar tillbaka till arbetsträdet och indexet"
 
 #: ../plugins/git/plugin.c:338
-#, fuzzy
 msgid "Diff selected stash"
-msgstr "Förkasta markerad stash"
+msgstr "Kör diff med markerad lagring"
 
 #: ../plugins/git/plugin.c:339
-#, fuzzy
 msgid "Show a diff of the selected stash"
-msgstr "Förkasta markerad stash"
+msgstr "Visa en diff för markerad lagring"
 
 #: ../plugins/git/plugin.c:346
-#, fuzzy
 msgid "Drop selected stash"
-msgstr "Förkasta markerad stash"
+msgstr "Släpp markerad lagring"
 
 #: ../plugins/git/plugin.c:347
-#, fuzzy
 msgid "Delete the selected stash"
-msgstr "Förkasta markerad stash"
+msgstr "Ta bort markerad lagring"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
 msgstr "Töm alla stashar"
 
 #: ../plugins/git/plugin.c:355
-#, fuzzy
 msgid "Delete all stashes in this repository"
-msgstr "Markera all text i redigeraren"
+msgstr "Ta bort alla lagringar i detta förråd"
 
 #: ../plugins/git/plugin.c:366
 msgid "Revision tools"
@@ -5830,9 +5808,8 @@ msgid "Skip the current patch in the series"
 msgstr "Hoppa över aktuell patch i serien"
 
 #: ../plugins/git/plugin.c:463
-#, fuzzy
 msgid "Stop applying the patch series and return the tree to its previous state"
-msgstr "Stoppa verkställandet av serien och återställ förrådet till dess ursprungliga tillstånd "
+msgstr "Stoppa tillämpandet av patchserien och återställ trädet till dess tidigare tillstånd "
 
 #: ../plugins/git/plugin.c:554
 #: ../plugins/git/plugin.c:627
@@ -5840,9 +5817,8 @@ msgid "Branch"
 msgstr "Gren"
 
 #: ../plugins/git/plugin.c:696
-#, fuzzy
 msgid "Git Tasks"
-msgstr "Uppgifter"
+msgstr "Git-åtgärder"
 
 #: ../plugins/git/plugin.c:758
 msgid "Status"
@@ -6677,9 +6653,8 @@ msgid "Cannot add source files"
 msgstr "Kan inte lägga till källkodsfiler"
 
 #: ../plugins/project-manager/dialogs.c:1183
-#, fuzzy
 msgid "The selected node cannot contain source files."
-msgstr "Välj _målet för de nya källkodsfilerna:"
+msgstr "Den valda noden får inte innehålla källkodsfiler."
 
 #: ../plugins/project-manager/dialogs.c:1369
 #: ../plugins/project-manager/dialogs.c:1380
@@ -6811,9 +6786,8 @@ msgid "Install missing packages"
 msgstr "Installera saknade paket"
 
 #: ../plugins/project-wizard/druid.c:928
-#, fuzzy
 msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
-msgstr "De saknade programmen är oftast en del av några distributionspaket och kan sökas efter i din programhanterare. På samma sätt finns utvecklingspaketen i speciella paket som din distribution tillhandahåller för att tillåta utveckling av projekt baserade på dem. Dessa slutar oftast med \"-dev\" eller \"-devel\" i paketnamnen och kan hittas genom att söka efter dem i din programhanterare."
+msgstr "De saknade programmen är oftast en del av några distributionspaket och kan sökas efter i din programhanterare. På samma sätt finns utvecklingspaketen i speciella paket som din distribution tillhandahåller för att tillåta utveckling av projekt baserade på dem. Dessa har oftast namn som slutar med \"-dev\" eller \"-devel\" i paketnamnen och kan hittas genom att söka efter dem i din programhanterare."
 
 #: ../plugins/project-wizard/druid.c:936
 msgid "Missing components"
@@ -7706,7 +7680,7 @@ msgstr "Delat eller statiskt bibliotek"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
 msgid "Full features Gtk+ Application with file handling"
-msgstr ""
+msgstr "Fullständiga funktioner för Gtk+-program med filhantering"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
 msgid "GTK+ (Application)"
@@ -7901,9 +7875,8 @@ msgid "<b>Error:</b> The trigger key is already in use for one of the languages!
 msgstr "<b>Fel:</b> Aktiveringstangenten används redan för ett av språken!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-#, fuzzy
 msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
-msgstr "Källkodsfilnamn kan endast innehålla alfanumeriska tecken, \"_\", \"-\" eller \".\""
+msgstr "<b>Fel:</b> Aktiveringstangenten får endast innehålla alfanumeriska tecken och _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -7982,6 +7955,8 @@ msgid ""
 "The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
+"Aktiveringstangenten används för snabb infogning av kodsnutten. Ange aktiveringstangenten i redigeraren, följt av genvägen \"Infoga snabbt\" för att infoga en kodsnutt.\n"
+"<b>Varning: Måste vara unikt för språket. </b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
