@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-02 11:39+0200\n"
-"PO-Revision-Date: 2011-04-02 12:47+0100\n"
+"POT-Creation-Date: 2011-04-03 11:37+0200\n"
+"PO-Revision-Date: 2011-04-03 11:38+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -4514,7 +4514,7 @@ msgstr "Paketnamn:"
 
 #: ../plugins/am-project/am-properties.c:75
 msgid "Package name, it can contains only alphanumerics and underscore characters.It is generated from the project name if not provided."
-msgstr ""
+msgstr "Paketnamn, det kan endast innehålla alfanumeriska tecken och understreck. Det genereras från projektnamnet om inte angivit."
 
 #: ../plugins/am-project/am-properties.c:81
 #: ../plugins/git/anjuta-git.ui.h:64
@@ -4819,7 +4819,7 @@ msgstr "Använd inte prefix:"
 #: ../plugins/am-project/am-properties.c:730
 #: ../plugins/am-project/am-properties.c:794
 msgid "Do not rename the target with an optional prefix, used to avoid overwritting system program. "
-msgstr ""
+msgstr "Byt inte namn på målet med ett valfritt prefix. Används för att undvika att skriva över systemprogram."
 
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:488
@@ -5822,14 +5822,12 @@ msgid "Apply patches from mailbox files"
 msgstr "Tillämpa patchar från brevlådefiler"
 
 #: ../plugins/git/plugin.c:447
-#, fuzzy
 msgid "Continue applying patches with resolved conflicts"
-msgstr "Fortsätt att verkställa en serie efter konflikter har lösts"
+msgstr "Fortsätt att verkställa patchar med lösta konflikter"
 
 #: ../plugins/git/plugin.c:455
-#, fuzzy
 msgid "Skip the current patch in the series"
-msgstr "Hoppa över aktuell patch i serien och fortsätt"
+msgstr "Hoppa över aktuell patch i serien"
 
 #: ../plugins/git/plugin.c:463
 #, fuzzy
