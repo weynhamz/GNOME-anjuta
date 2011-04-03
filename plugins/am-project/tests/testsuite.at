@@ -1,5 +1,4 @@
 m4_include([empty.at])
-m4_include([anjuta.at])
 m4_include([group.at])
 m4_include([target.at])
 m4_include([source.at])
