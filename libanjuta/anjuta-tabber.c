@@ -678,6 +678,9 @@ anjuta_tabber_remove (GtkContainer* container, GtkWidget* widget)
 	gtk_widget_unparent (widget);
 	tabber->priv->children = g_list_remove (tabber->priv->children, widget);
 
+	if (tabber->priv->active_page > 0)
+		tabber->priv->active_page--;
+	
 	if (visible)
 		gtk_widget_queue_resize (GTK_WIDGET (tabber));
 }
