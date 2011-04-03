@@ -31,15 +31,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-31 19:39+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2011-03-31 17:39+0000\n"
 "PO-Revision-Date: 2011-03-31 09:48+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
@@ -544,8 +545,8 @@ msgstr ""
 #: ../libanjuta/anjuta-utils.c:1171
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
-"Es konnte kein Terminal gefunden werden. »xterm« wird verwendet, auch wenn "
-"es vielleicht nicht funktioniert"
+"Es konnte kein Terminal gefunden werden. »xterm« wird verwendet, auch wenn es "
+"vielleicht nicht funktioniert"
 
 # -- sigh, i think shell == prompt in German --
 #: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
@@ -553,8 +554,8 @@ msgstr ""
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr ""
-"Befehl kann nicht ausgeführt werden: %s (unter Verwendung der Befehlszeile "
-"%s) \n"
+"Befehl kann nicht ausgeführt werden: %s (unter Verwendung der Befehlszeile %"
+"s) \n"
 
 #: ../libanjuta/anjuta-utils.c:1892
 msgid ""
@@ -3972,8 +3973,7 @@ msgstr "Automatisches Speichern abgeschlossen"
 #: ../plugins/document-manager/search-box.c:494
 #, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
-msgstr ""
-"Die Suche nach »%s« wurde abgeschlossen und wird am Anfang fortgesetzt."
+msgstr "Die Suche nach »%s« wurde abgeschlossen und wird am Anfang fortgesetzt."
 
 #: ../plugins/document-manager/search-box.c:500
 #, c-format
@@ -4012,8 +4012,8 @@ msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 msgstr ""
-"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende "
-"fortgesetzt, es wurde aber keine Übereinstimmung gefunden."
+"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende fortgesetzt, "
+"es wurde aber keine Übereinstimmung gefunden."
 
 #: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
@@ -4042,8 +4042,7 @@ msgstr "Es konnten keine Begriffe gefunden werden"
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
 msgstr ""
-"Es konnte keine zuletzt verwendete Quelle mit der Adresse »%s« gefunden "
-"werden"
+"Es konnte keine zuletzt verwendete Quelle mit der Adresse »%s« gefunden werden"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
@@ -4755,7 +4754,7 @@ msgstr "Zusätzliche Bibliotheken für dieses Ziel."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
-msgstr "Zusätzliche Objekte:"
+msgstr "Zusätzliche Objekte:"
 
 #: ../plugins/am-project/am-properties.c:227
 msgid "Additional object files for this target."
@@ -4809,15 +4808,15 @@ msgstr "Zusätzliche Objective C-Compiler-Flags für dieses Ziel."
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
-"Zusätzliche Generator-Flags für die lexikalische Analyse mit Lex oder Flex "
-"für dieses Ziel."
+"Zusätzliche Generator-Flags für die lexikalische Analyse mit Lex oder Flex "
+"für dieses Ziel."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
-"Zusätzliche Generator-Flags für die Yac- und Bison-Parser für dieses Ziel."
+"Zusätzliche Generator-Flags für die Yac- und Bison-Parser für dieses Ziel."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
@@ -5147,7 +5146,7 @@ msgstr "Gegenzeichnung hinzufügen"
 
 #: ../plugins/git/anjuta-git.ui.h:3
 msgid "Amend the previous commit"
-msgstr "Letzte Einspielung ergänzen"
+msgstr "Letzte Einspielung ergänzen"
 
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "Annotate this tag:"
@@ -6533,7 +6532,7 @@ msgstr "Die Gruppe wird nicht im Dateisystem gelöscht."
 
 #: ../plugins/project-manager/plugin.c:731
 msgid "The source file will be deleted from the file system."
-msgstr "Die Quelldatei wird vom Dateisystem gelöscht werden."
+msgstr "Die Quelldatei wird vom Dateisystem gelöscht werden."
 
 #: ../plugins/project-manager/plugin.c:733
 msgid "The source file will not be deleted from the file system."
@@ -6847,8 +6846,8 @@ msgid ""
 "\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
 "it."
 msgstr ""
-"Das Feld »%s« darf nur Buchstaben, Ziffern und Zeichen aus der Menge »#$:%%"
-"+,.=@^_`~« enthalten. Zusätzlich darf es keinen voranstehenden Spiegelstrich "
+"Das Feld »%s« darf nur Buchstaben, Ziffern und Zeichen aus der Menge »#$:%%+,."
+"=@^_`~« enthalten. Zusätzlich darf es keinen voranstehenden Spiegelstrich "
 "geben. Bitte korrigieren Sie dies."
 
 #: ../plugins/project-wizard/druid.c:651
@@ -6935,8 +6934,8 @@ msgstr ""
 "und können in Ihrer Paketverwaltung gesucht werden. Ähnlich sind die "
 "Entwicklungspakete in speziellen Paketen enthalten, die Ihre Distribution "
 "zur Entwicklung zur Verfügung stellt. Diese erhalten üblicherweise den "
-"Zusatz »-dev« oder »-devel« und können über Ihre Anwendungsverwaltung "
-"gesucht werden."
+"Zusatz »-dev« oder »-devel« und können über Ihre Anwendungsverwaltung gesucht "
+"werden."
 
 #: ../plugins/project-wizard/druid.c:936
 msgid "Missing components"
@@ -8332,7 +8331,7 @@ msgstr "Ein neues Projekt erstellen"
 
 #: ../plugins/starter/starter.ui.h:3
 msgid "FAQ"
-msgstr "Häufig gestellte Fragen"
+msgstr "Häufig gestellte Fragen"
 
 #: ../plugins/starter/starter.ui.h:4
 msgid "Getting started:"
@@ -10323,8 +10322,8 @@ msgstr "Symbol"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "Die Zeichenkette »%s« wurde nicht gefunden. Suche am Anfang des "
-#~ "Dokumentes fortsetzen?"
+#~ "Die Zeichenkette »%s« wurde nicht gefunden. Suche am Anfang des Dokumentes "
+#~ "fortsetzen?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "Die Zeichenkette »%s« wurde nicht gefunden"
@@ -11118,7 +11117,7 @@ msgstr "Symbol"
 
 #~| msgid "Add a group to project"
 #~ msgid "Add a module to target"
-#~ msgstr "Ein Modul zum Ziel hinzufügen"
+#~ msgstr "Ein Modul zum Ziel hinzufügen"
 
 #~| msgid "Rule name:"
 #~ msgid "Full Name:"
@@ -11246,8 +11245,7 @@ msgstr "Symbol"
 #~ msgid ""
 #~ "Source file name can only contain alphanumeric, '_', '-' or '.' characters"
 #~ msgstr ""
-#~ "Quelldateiname darf nur alphanumerische, »_«, »-« oder ».«-Zeichen "
-#~ "enthalten"
+#~ "Quelldateiname darf nur alphanumerische, »_«, »-« oder ».«-Zeichen enthalten"
 
 #~ msgid "Source file is already in given target"
 #~ msgstr "Quelldatei ist bereits im vorgegebenen Ziel"
