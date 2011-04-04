@@ -6,7 +6,7 @@
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2009.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010.
+# Marek Černocký <marek@manet.cz>, 2010, 2011.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010, 2011.
 #
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-03-28 12:18+0000\n"
-"PO-Revision-Date: 2011-03-31 07:50+0200\n"
+"POT-Creation-Date: 2011-03-31 06:25+0000\n"
+"PO-Revision-Date: 2011-04-04 12:17+0200\n"
 "Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -209,10 +209,9 @@ msgstr "Neznámé"
 #. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
 #.
 #: ../libanjuta/anjuta-launcher.c:675
-#, fuzzy
 #| msgid "Password:"
 msgid "[Pp]assword.*:"
-msgstr "Heslo:"
+msgstr "[Hh]eslo.*:"
 
 #: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
@@ -610,7 +609,7 @@ msgstr "Cesta, ke které má být umístění přetažených souborů relativní
 
 #: ../libanjuta/anjuta-file-list.c:101
 msgid "Drop a file or enter a path here"
-msgstr "Přetáhněte sem soubor nebo zadejte cestu"
+msgstr "Upusťte sem soubor nebo zadejte cestu"
 
 #: ../libanjuta/anjuta-file-list.c:274
 msgid "Select Files"
@@ -876,13 +875,12 @@ msgid "Please specify group name"
 msgstr "Zadejte prosím název skupiny"
 
 #: ../plugins/am-project/amp-group.c:555
-#, fuzzy
 #| msgid "Group name can only contain alphanumeric, '_', '-' or '.' characters"
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
-"Název skupiny může obsahovat jen alfanumerické znaky nebo znaky \"#$:%+,-."
-"=@^_`~\""
+"Název skupiny může obsahovat jen alfanumerické znaky nebo znaky „#$:%+,-."
+"=@^_`~“"
 
 #: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
@@ -1104,7 +1102,6 @@ msgid "warning:"
 msgstr "varování:"
 
 #: ../plugins/build-basic-autotools/plugin.c:946
-#, fuzzy
 #| msgid "warning:"
 msgid "warning:-old"
 msgstr "varování:-old"
@@ -1120,7 +1117,6 @@ msgid "error:"
 msgstr "chyba:"
 
 #: ../plugins/build-basic-autotools/plugin.c:958
-#, fuzzy
 #| msgid "error:"
 msgid "error:-old"
 msgstr "chyba:-old"
@@ -1380,6 +1376,7 @@ msgid "Build Autotools"
 msgstr "Autotools pro sestavení"
 
 #: ../plugins/build-basic-autotools/program.c:269
+#, c-format
 msgid ""
 "Error while setting up build environment:\n"
 " %s"
@@ -1461,10 +1458,9 @@ msgid "Create"
 msgstr "Vytvořit"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#, fuzzy
 #| msgid "Pixbuf Object"
 msgid "GLib.Object"
-msgstr "Objekt GLib"
+msgstr "GLib.Object"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "GObject Class\t"
@@ -1722,15 +1718,13 @@ msgid "Automatic"
 msgstr "Automatický"
 
 #: ../plugins/class-gen/window.c:793
-#, fuzzy
 #| msgid "Western"
 msgid "Getter"
-msgstr "Západní"
+msgstr "Přijímá"
 
 #: ../plugins/class-gen/window.c:794
-#| msgid "Starter"
 msgid "Setter"
-msgstr "Úvod"
+msgstr "Nastavuje"
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
@@ -2162,7 +2156,6 @@ msgid "Enable CLang code analyzer"
 msgstr "Povolit Analyzátor kódu CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
-#, fuzzy
 msgid ""
 "The project needs to be reconfigured after enabling this option. Please run "
 "Build->Configure!"
@@ -2172,11 +2165,11 @@ msgstr ""
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:5
 msgid "c++-analyzer:"
-msgstr ""
+msgstr "analyzátor c++:"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "ccc-analyzer:"
-msgstr ""
+msgstr "analyzátor ccc:"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
@@ -4625,6 +4618,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
+"Společné dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro "
+"všechny cíle v této skupině."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4638,6 +4633,8 @@ msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
+"Společné dodatečné přepínače analyzátoru Yacc nebo Bison pro všechny cíle v "
+"této skupině."
 
 #: ../plugins/am-project/am-properties.c:177
 msgid "Installation directories:"
@@ -4700,7 +4697,7 @@ msgstr "Přidané knihovny:"
 msgid "Additional libraries for this target."
 msgstr "Dodatečné knihovny tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:224"
+#: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
 msgstr "Přidané objekty:"
 
@@ -4756,12 +4753,13 @@ msgstr "Dodatečné přepínače pro překladač jazyka C tohoto cíle."
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
+"Dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro tento cíl."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yacc or Bison parser generator flags for this target."
-msgstr ""
+msgstr "Dodatečné přepínače analyzátoru Yacc nebo Bison pro tento cíl."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
@@ -4832,6 +4830,8 @@ msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
 msgstr ""
+"Neprovádět přejmenování cíle za pomoci volitelné předpony, používá se k "
+"tomu, aby se zabránilo přepsání systémového programu."
 
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:488
@@ -5079,10 +5079,9 @@ msgid "Add Files:"
 msgstr "Přidat soubory:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#, fuzzy
 #| msgid "Add signed-off-by line"
 msgid "Add signed off by line"
-msgstr "Vložit řádek signed-off-by"
+msgstr "Přidat řádek vyhovující podmínkám (signed-off-by)"
 
 #: ../plugins/git/anjuta-git.ui.h:3
 msgid "Amend the previous commit"
@@ -5097,10 +5096,9 @@ msgid "Append fetch data"
 msgstr "Připojit stažená data"
 
 #: ../plugins/git/anjuta-git.ui.h:6
-#, fuzzy
 #| msgid "Add signed-off-by line"
 msgid "Append signed-of- by line"
-msgstr "Vložit řádek signed-off-by"
+msgstr "Připojit řádek signed-off-by"
 
 #: ../plugins/git/anjuta-git.ui.h:7
 #: ../plugins/subversion/subversion-log-dialog.c:132
@@ -5163,11 +5161,11 @@ msgstr "Nenásledovat značky"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "Drop or enter revision here"
-msgstr ""
+msgstr "Upustit nebo vložit revizi zde"
 
 #: ../plugins/git/anjuta-git.ui.h:22
 msgid "Drop or type a revision here"
-msgstr ""
+msgstr "Upustit nebo napsat revizi zde"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
@@ -5217,15 +5215,15 @@ msgstr "Režim:"
 
 #: ../plugins/git/anjuta-git.ui.h:38
 msgid "Previous commit; Drop or enter a different revision here"
-msgstr ""
+msgstr "Předchozí zařazení; zahodit nebo vložit rozdílnou revizi zde"
 
 #: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
-msgstr "Vložit všechny větve a značky"
+msgstr "Odeslat všechny větve a značky"
 
 #: ../plugins/git/anjuta-git.ui.h:40
 msgid "Push all tags"
-msgstr "Vložit všechny značky"
+msgstr "Odeslat všechny značky"
 
 #: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
 msgid "Rebase"
@@ -5248,14 +5246,13 @@ msgid "Repository Status:"
 msgstr "Stav repozitáře:"
 
 #: ../plugins/git/anjuta-git.ui.h:46
-#, fuzzy
 #| msgid "Reset repository head to this revision"
 msgid "Repository head; Drop or type a different revision here"
-msgstr "Vynulovat head repozitáře na tuto revizi"
+msgstr "Repozitář „head“; Upusťte nebo napište rozdílnou revizi zde"
 
 #: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
-msgstr ""
+msgstr "Repozitář „origin“; Upusťte nebo napište rozdílnou revizi zde"
 
 #: ../plugins/git/anjuta-git.ui.h:48
 msgid "Repository to pull from:"
@@ -5263,7 +5260,7 @@ msgstr "Repozitář, ze kterého chcete stahovat:"
 
 #: ../plugins/git/anjuta-git.ui.h:49
 msgid "Repository to push to:"
-msgstr "Repozitář, do kterého chcete vkládat:"
+msgstr "Repozitář, do kterého chcete odesílat:"
 
 #: ../plugins/git/anjuta-git.ui.h:50
 #: ../plugins/subversion/subversion-log-dialog.c:151
@@ -5304,10 +5301,9 @@ msgid "Stash indexed changes"
 msgstr "Indexované změny skrýše"
 
 #: ../plugins/git/anjuta-git.ui.h:60
-#, fuzzy
 #| msgid "Stash indexed changes"
 msgid "Stashed Changes:"
-msgstr "Indexované změny skrýše"
+msgstr "Skryté změny:"
 
 #: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
@@ -5338,10 +5334,13 @@ msgstr "Zobrazit záznam souboru/složky:"
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
+"Celý projekt; Zde upusťte soubor nebo napište cestu, aby se soubor nebo "
+"záznam složky zobrazil"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
+"Celý projekt; Zde upusťte soubor, aby se soubor nebo záznam složky zobrazil"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
@@ -5364,7 +5363,6 @@ msgid "Please enter a URL"
 msgstr "Zadejte prosím adresu URL"
 
 #: ../plugins/git/git-add-remote-pane.c:179
-#| msgid "Remote"
 msgid "Add Remote"
 msgstr "Přidat vzdálenou"
 
@@ -5411,15 +5409,13 @@ msgstr "Cherry pick"
 
 #. Translators: default file name for git diff's output
 #: ../plugins/git/git-diff-pane.c:33
-#, fuzzy
 #| msgid "Stash Uncommitted Changes"
 msgid "Uncommitted Changes.diff"
-msgstr "Skrýt nezařazené změny"
+msgstr "Nezařazené změny.diff"
 
 #. Translators: file name for an existing commits diff, %s is an SHASUM of a commit
 #: ../plugins/git/git-diff-pane.c:71
 #, c-format
-#| msgid "_Show commit diff"
 msgid "Commit %s.diff"
 msgstr "Zařadit %s.diff"
 
@@ -5432,10 +5428,9 @@ msgid "Reset"
 msgstr "Vynulovat"
 
 #: ../plugins/git/git-revert-pane.c:48
-#, fuzzy
 #| msgid "Please enter a path."
 msgid "Please enter a commit."
-msgstr "Zadejte prosím cestu."
+msgstr "Zadejte prosím zařazení."
 
 #: ../plugins/git/git-revert-pane.c:162
 msgid "Revert"
@@ -5454,20 +5449,19 @@ msgid "Create Tag"
 msgstr "Vytvořit značku"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#, fuzzy
 #| msgid "No group selected"
 msgid "No remote selected."
-msgstr "Není vybrána skupina"
+msgstr "Není vybrána žádný vzdálený."
 
 #: ../plugins/git/git-delete-tags-pane.c:49
 msgid "No tags selected."
 msgstr "Není vybrána značka"
 
 #: ../plugins/git/git-diff-stash-pane.c:40
-#, fuzzy, c-format
+#, c-format
 #| msgid "Standard diff"
 msgid "Stash %i.diff"
-msgstr "Standardní rozdílový soubor diff"
+msgstr "Skrýš %i.diff"
 
 #: ../plugins/git/git-log-pane.c:560
 #, c-format
@@ -5515,13 +5509,12 @@ msgstr "Stáhnout"
 
 #: ../plugins/git/git-push-pane.c:434 ../plugins/git/plugin.c:238
 msgid "Push"
-msgstr "Vložit"
+msgstr "Odeslat"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#, fuzzy
 #| msgid "No group selected"
 msgid "No remote selected"
-msgstr "Není vybrána skupina"
+msgstr "Není vybrána žádný vzdálený"
 
 #: ../plugins/git/git-remove-files-pane.c:157
 msgid "Remove Files"
@@ -5544,6 +5537,8 @@ msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
+"Není vybrán žádný vzdálený; použije se výchozí „origin“.\n"
+"Pro odeslání do jiného vyberte nějaký v předchozím seznamu Vzdálené."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
@@ -5562,10 +5557,9 @@ msgid "Changed but not updated"
 msgstr "Změněno ale neaktualizováno"
 
 #: ../plugins/git/git-unstage-pane.c:51
-#, fuzzy
 #| msgid "No target has been selected"
 msgid "No staged files selected."
-msgstr "Nebyl vybrán žádný cíl"
+msgstr "Nebyly vybrány žádné potvrzené soubory."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5612,10 +5606,9 @@ msgid "Diff uncommitted changes"
 msgstr "Provést diff nepotvrzených změn"
 
 #: ../plugins/git/plugin.c:155
-#, fuzzy
 #| msgid "Show uncommitted changes"
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Zobrazit nezařazené změny"
+msgstr "Zobrazit nezařazené změny (diff) v editoru"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
@@ -5635,22 +5628,19 @@ msgid "Check out"
 msgstr "Provést Check out"
 
 #: ../plugins/git/plugin.c:187
-#, fuzzy
 #| msgid "Revert uncommitted changes to files"
 msgid "Revert changes in unstaged files"
-msgstr "Vrátit nepotvrzené změny souborů"
+msgstr "Vrátit změny v nepotvrzených souborech"
 
 #: ../plugins/git/plugin.c:194
-#, fuzzy
 #| msgid "Unstage Files"
 msgid "Unstage"
-msgstr "Zrušit připravení souborů"
+msgstr "Zrušit potvrzení"
 
 #: ../plugins/git/plugin.c:195
-#, fuzzy
 #| msgid "Remove files from the commit index"
 msgid "Remove staged files from the index"
-msgstr "Odstranit soubory z indexu zařazených"
+msgstr "Odstranit potvrzené soubory z indexu"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
@@ -5665,10 +5655,9 @@ msgid "Remote repository tools"
 msgstr "Nástroje pro práci se vzdálenými repozitáři"
 
 #: ../plugins/git/plugin.c:222
-#, fuzzy
 #| msgid "Add a remote branch"
 msgid "Add a remote"
-msgstr "Přidat vzdálenou větev"
+msgstr "Přidat vzdálené"
 
 #: ../plugins/git/plugin.c:223
 msgid "Add a remote repository"
@@ -5684,7 +5673,7 @@ msgstr "Odstranit vzdálené"
 
 #: ../plugins/git/plugin.c:239
 msgid "Push changes to a remote repository"
-msgstr "Vložit změny do vzdáleného repozitáře"
+msgstr "Odeslat změny do vzdáleného repozitáře"
 
 #: ../plugins/git/plugin.c:247
 msgid "Pull changes from a remote repository"
@@ -5700,21 +5689,20 @@ msgstr "Získat změny ze vzdáleného repozitáře"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "Provést akci rebase proti výbranému vzdálenému zroji"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
-msgstr ""
+msgstr "Začít akci rebase telativně k vybranému vzdálenému repozitáři"
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
 msgid "Continue"
 msgstr "Pokračovat"
 
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 #| msgid "_Continue with resolved conflicts"
 msgid "Continue a rebase with resolved conflicts"
-msgstr "Pokračovat s vyřešenými konflikty"
+msgstr "Pokračovat v akci rebase s vyřešenými konflikty"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
 msgid "Skip"
@@ -5729,81 +5717,69 @@ msgid "Abort"
 msgstr "Zrušit"
 
 #: ../plugins/git/plugin.c:295
-#, fuzzy
 #| msgid "Abort the rebase and put the repository in its original state"
 msgid "Abort the rebase and return the repository to its previous state"
-msgstr "Přerušit rebase a vrátit repozitář do původního stavu"
+msgstr "Přerušit akci rebase a vrátit repozitář do předchozího stavu"
 
 #: ../plugins/git/plugin.c:306
-#, fuzzy
 #| msgid "Stash to Apply"
 msgid "Stash tools"
-msgstr "Skrýše k použití"
+msgstr "Nástroje skrýše"
 
 #: ../plugins/git/plugin.c:314
-#, fuzzy
 #| msgid "_Stash uncommitted changes…"
 msgid "Stash uncommitted changes"
-msgstr "_Skrýt nezařazené změny…"
+msgstr "Skrýt nezařazené změny"
 
 #: ../plugins/git/plugin.c:315
 msgid "Save uncommitted changes without committing them"
 msgstr "Uložit nezařazené změny bez jejich zařazení"
 
 #: ../plugins/git/plugin.c:322
-#, fuzzy
 #| msgid "Apply the selected stash"
 msgid "Apply selected stash"
-msgstr "Použít vybrané skryté"
+msgstr "Použít vybranou skrýš"
 
 #: ../plugins/git/plugin.c:323
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree"
-msgstr "Uplatnit skryté změny na pracovní strom"
+msgstr "Použít skryté změny zpátky do pracovního stromu"
 
 #: ../plugins/git/plugin.c:330
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stash and restore index"
-msgstr "Uplatnit skryté změny na pracovní strom"
+msgstr "Použít skrýš a obnovit index"
 
 #: ../plugins/git/plugin.c:331
-#, fuzzy
 #| msgid "Apply stashed changes to the working tree"
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Uplatnit skryté změny na pracovní strom"
+msgstr "Použít skryté změny zpátky do pracovního stromu a oindexovat"
 
 #: ../plugins/git/plugin.c:338
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Diff selected stash"
-msgstr "Odstranit vybrané skrýše"
+msgstr "Rozdíl (diff) vybrané skrýše"
 
 #: ../plugins/git/plugin.c:339
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Show a diff of the selected stash"
-msgstr "Odstranit vybrané skrýše"
+msgstr "Zobrazit rozdíl (diff) vybrané skrýše"
 
 #: ../plugins/git/plugin.c:346
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Drop selected stash"
-msgstr "Odstranit vybrané skrýše"
+msgstr "Odstranit vybranou skrýš"
 
 #: ../plugins/git/plugin.c:347
-#, fuzzy
 #| msgid "Drop the selected stash"
 msgid "Delete the selected stash"
-msgstr "Odstranit vybrané skrýše"
+msgstr "Vymazat vybranou skrýš"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
 msgstr "Vymazat všechny skrýše"
 
 #: ../plugins/git/plugin.c:355
-#| msgid "Select all text in the editor"
 msgid "Delete all stashes in this repository"
 msgstr "Vymazat všechny skrýše v historii"
 
@@ -5824,7 +5800,6 @@ msgid "Cherry pick"
 msgstr "Cherry pick"
 
 #: ../plugins/git/plugin.c:383
-#| msgid "Merge this commit into the current branch"
 msgid "Merge an individual commit from another branch"
 msgstr "Sloučit jednotlivá zařazení z jiných větví"
 
@@ -5902,24 +5877,22 @@ msgid "Tags"
 msgstr "Značky"
 
 #: ../plugins/git/plugin.c:781
-#, fuzzy
 #| msgid "Remote"
 msgid "Remotes"
-msgstr "Vzdálená"
+msgstr "Vzdálené"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Skrýš"
 
 #: ../plugins/glade/plugin.c:460
-#, fuzzy
 #| msgid "Select all text in the editor"
 msgid "Select widgets in the workspace"
 msgstr "Vybrat widgety na pracovní ploše"
 
 #: ../plugins/glade/plugin.c:486
 msgid "Drag and resize widgets in the workspace"
-msgstr ""
+msgstr "Přetažení a změna velikosti widgetů na pracovní ploše"
 
 #: ../plugins/glade/plugin.c:514
 msgid "Loading Glade…"
@@ -6811,6 +6784,8 @@ msgid ""
 "\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
 "it."
 msgstr ""
+"Pole „%s“ smí obsahovat jen písmena, číslice nebo znaky „#$:%%+,.=@^_`~“. "
+"Prvním znakem navíc nesmí být pomlčka. Opravte zadání prosím."
 
 #: ../plugins/project-wizard/druid.c:651
 #, c-format
@@ -6819,6 +6794,9 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
+"Pole „%s“ smí obsahovat jen písmena, číslice, znaky „#$:%%+,.=@^_`~“ nebo "
+"oddělovače adresářů. Prvním znakem navíc nesmí být pomlčka. Opravte zadání "
+"prosím."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -8255,10 +8233,9 @@ msgid "View"
 msgstr "Zobrazení"
 
 #: ../plugins/starter/plugin.c:285
-#, fuzzy
 #| msgid "Started"
 msgid "Start"
-msgstr "Začátek"
+msgstr "Úvod"
 
 #: ../plugins/starter/starter.ui.h:1
 msgid "Anjuta Manual"
@@ -9647,6 +9624,8 @@ msgstr "Odsazení závorek"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Prefer vim/emacs modelines over indentation settings"
 msgstr ""
+"Upřednostnit podpora řádku s režimem ve stylu vim/emacs před zabudovaným "
+"nastavením"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
