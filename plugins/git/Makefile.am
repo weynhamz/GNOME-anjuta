@@ -235,6 +235,7 @@ libanjuta_git_la_LIBADD = \
 
 EXTRA_DIST = \
 	$(git_glade_DATA) \
-	$(git_plugin_DATA)
+	$(git_plugin_DATA) \
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

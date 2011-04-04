@@ -30,7 +30,7 @@
   is not listed, feel free to contact the <app>Anjuta</app> developers 
   via the mailing lists
   </p>
-<terms>
+<steps>
     <item>
         <title>What does the name <app>Anjuta</app> stand for? It does 
       not look like one of those recursive names</title>
@@ -68,7 +68,7 @@
         <p>Double-click on the current tab to maximize the document window.
         Do the same again restore the previous state of all docked windows.</p>
     </item>
-</terms>
+</steps>
 
 </section>
 
