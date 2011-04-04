@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-04-03 15:36+0000\n"
+"POT-Creation-Date: 2011-04-04 10:20+0000\n"
 "PO-Revision-Date: 2011-04-04 01:06+0900\n"
 "Last-Translator: Jiro Matsuzawa <matsuzawa.jr@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -5456,7 +5456,7 @@ msgstr "タグの名前を入力してください"
 #: ../plugins/git/git-add-remote-pane.c:55
 #, fuzzy
 msgid "Please enter a URL"
-msgstr "URL をを入力してください"
+msgstr "URL を入力してください"
 
 #: ../plugins/git/git-add-remote-pane.c:179
 #, fuzzy
@@ -5610,7 +5610,7 @@ msgstr "パッチの生成"
 
 #: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
-msgstr "URL をを入力してください"
+msgstr "URL を入力してください"
 
 #: ../plugins/git/git-pull-pane.c:235 ../plugins/git/plugin.c:246
 msgid "Pull"
@@ -7986,7 +7986,7 @@ msgstr "必要な SDL_net:"
 
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:29
 msgid "Require SDL_ttf library"
-msgstr "使用する SDL_tiff ライブラリです"
+msgstr "使用する SDL_ttf ライブラリです"
 
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:30
 msgid "Require SDL_ttf:"
@@ -9988,7 +9988,7 @@ msgstr "自動インデント"
 #: ../plugins/language-support-python/plugin.c:457
 #, fuzzy
 msgid "Auto-indent current line or selection based on indentation settings"
-msgstr "現在の行またはインデント設定に従った選択範囲をを自動インデントします"
+msgstr "現在の行またはインデント設定に従った選択範囲を自動インデントします"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1210
 #, fuzzy
