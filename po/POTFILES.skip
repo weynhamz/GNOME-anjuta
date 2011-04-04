@@ -18,3 +18,9 @@ src/utilities.c
 src/shell.c
 plugins/symbol-db/anjuta-tags/js_parser/y.tab.c
 plugins/language-support-js/y.tab.c
+libfoocanvas/foo-canvas-text.c
+libfoocanvas/foo-canvas.c
+plugins/class-inheritance/class-callbacks.c
+plugins/class-inheritance/class-inherit.c
+plugins/class-inheritance/plugin.c
+
