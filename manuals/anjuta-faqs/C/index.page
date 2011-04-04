@@ -21,15 +21,15 @@
     </credit>
   </info>
 <title>FAQ</title>
+
+<section>
+<title>Frequently asked questions</title>
   <p>
   This is a list of the most frequently asked questions for the
   <app>Anjuta</app> C/C++ IDE. If you have got a question which
   is not listed, feel free to contact the <app>Anjuta</app> developers 
   via the mailing lists
   </p>
-
-<section>
-<title>Frequently asked questions</title>
 <terms>
     <item>
         <title>What does the name <app>Anjuta</app> stand for? It does 
@@ -47,6 +47,7 @@
         <p>It is available through the <app>anjuta-extras</app> package with can be download 
            from the anjuta website. After you installed it you will be prompted to choose
            an editor and you can change it in the preferences.</p>
+    <note><p>The scintilla editor is currently unavailable for GTK+ 3.0 and thus you cannot use it with Anjuta 3.0</p></note>
     </item>    
     <item>
         <title>Why doesn't <app>Anjuta</app> have my favourite XYZ feature?</title>
