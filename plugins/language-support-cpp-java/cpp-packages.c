@@ -161,7 +161,6 @@ on_package_ready (AnjutaCommand* command,
 	AnjutaPkgScanner* scanner = ANJUTA_PKG_SCANNER (command);
 	if (g_list_length (anjuta_pkg_scanner_get_files (scanner)))
 	{
-		g_message ("Adding package: %s", anjuta_pkg_scanner_get_package (scanner));
 		ianjuta_symbol_manager_add_package (sm,
 		                                    anjuta_pkg_scanner_get_package (scanner),
 		                                    anjuta_pkg_scanner_get_version (scanner),
@@ -296,7 +295,6 @@ cpp_packages_load_user (CppPackages* packages, gboolean force)
 
 		for (package = pkgs; *package != NULL; package++)
 		{
-			g_message ("Activating: %s", *package);
 			cpp_packages_activate_package (sm, *package, &packages_to_add);
 		}
 		g_strfreev (pkgs);
@@ -382,7 +380,6 @@ cpp_packages_load (CppPackages* packages, gboolean force)
 		}
 		else
 		{
-			g_message ("Loading user packages");
 			cpp_packages_load_user (packages, force);
 		}
 	}
