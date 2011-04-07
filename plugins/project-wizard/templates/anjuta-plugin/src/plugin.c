@@ -68,7 +68,7 @@ static gboolean
 [+IF (=(get "HasGladeFile") "1") +]
 	GtkWidget *wid;
 	GtkBuilder *builder;
-	GError *error;
+	GError *error = NULL;
 [+ENDIF+]
 	[+PluginClass+] *[+NameCLower+];
 	
