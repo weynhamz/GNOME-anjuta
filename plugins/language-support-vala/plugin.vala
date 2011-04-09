@@ -339,7 +339,7 @@ public class ValaPlugin : Plugin {
 			return;
 		Vala.Signal sig = (Vala.Signal) sigs.data;
 
-		builder.append_printf ("void %s (", handler_name);
+		builder.append_printf ("public void %s (", handler_name);
 
 		if (swapped) {
 			builder.append_printf ("%s sender", widget.get_full_name ());
@@ -362,7 +362,8 @@ public class ValaPlugin : Plugin {
 		var indenter = shell.get_object ("IAnjutaIndenter") as IAnjuta.Indenter;
 		if (indenter != null) {
 			var end = position.clone ();
-			end.set_position (end.get_position () + builder.str.char_count ());
+			/* -1 so we don't count the last newline (as that would indent the line after) */
+			end.set_position (end.get_position () + builder.str.char_count () - 1);
 			indenter.indent (position, end);
 		}
 
