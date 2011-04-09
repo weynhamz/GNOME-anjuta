@@ -95,9 +95,13 @@ public class BlockLocator : Vala.CodeVisitor {
 	}
 
 	public override void visit_method (Vala.Method m) {
+		if (update_location (m))
+			return;
 		m.accept_children(this);
 	}
 	public override void visit_creation_method (Vala.CreationMethod m) {
+		if (update_location (m))
+			return;
 		m.accept_children(this);
 	}
 	public override void visit_property (Vala.Property prop) {

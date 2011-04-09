@@ -273,41 +273,37 @@ public class ValaPlugin : Plugin {
 	 * get_current_context since the source_reference of a class or namespace only
 	 * contain the declaration not the entire "content" */
 	Vala.Symbol? get_scope (IAnjuta.Editor editor, IAnjuta.Iterable position) {
-		var braces = new List<string> ();
-
+		var depth = 0;
 		do {
 			var current_char = (position as IAnjuta.EditorCell).get_character ();
 			if (current_char == "}") {
-				braces.prepend (current_char);
+				depth++;
 			} else if (current_char == "{") {
-				if (braces != null && braces.data == "}") {
-					braces.delete_link (braces);
+				if (depth > 0) {
+					depth--;
 				} else {
 					// a scope which contains the current position
 					do {
 						position.previous ();
 						current_char = (position as IAnjuta.EditorCell).get_character ();
 					} while (! current_char.get_char ().isalnum ());
-
 					return get_current_context (editor, position);
 				}
 			}
 		} while (position.previous ());
-
 		return null;
 	}
 
 	public bool on_drop_possible (IAnjuta.EditorGladeSignal editor, IAnjuta.Iterable position) {
-		var scope = get_current_context (editor, position);
-		if (scope is Vala.Block) {
-			return false;
-		} else if (scope == null) {
-			scope = get_scope (editor, position.clone ());
-			if (scope == null || scope is Vala.Namespace || scope is Vala.Class)
-				return true;
+		var line = editor.get_line_from_position (position);
+		var column = editor.get_line_begin_position (line).diff (position);
+		debug ("line %d, column %d", line, column);
 
-			return false;
-		}
+		var scope = get_scope (editor, position.clone ());
+		if (scope != null)
+			debug ("drag is inside %s", scope.get_full_name ());
+		if (scope == null || scope is Vala.Namespace || scope is Vala.Class)
+			return true;
 
 		return false;
 	}
