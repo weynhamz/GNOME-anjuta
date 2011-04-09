@@ -49,6 +49,6 @@ DOC_FIGURES = figures/add_edit_macro.png \
               figures/stack.png\
               figures/symbol_browser.png\
               figures/tool-editor.png
-DOC_LINGUAS = de el es eu fr ja oc sv th uk zh_CN
+DOC_LINGUAS = de el es eu fr gl ja oc sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
