@@ -604,10 +604,23 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 
 #else /* DISABLE_EMBEDDED_DEVHELP */
 
+ 
+/*
+ * Set the DISPLAY variable, to be use by g_spawn_async.
+ */
+static void
+set_environment (gpointer display)
+{
+	g_setenv ("DISPLAY", display, TRUE);
+}
+
+
 static void
 ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
 	gchar *cmd[4];
+	gchar *display;
+	gboolean retval;
 	
 	if (!anjuta_util_prog_is_installed ("devhelp", TRUE))
 	{
@@ -626,14 +639,19 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	{
 		cmd[1] = NULL;
 	}
-	
-	gdk_spawn_on_screen (gdk_screen_get_default (),
-					     NULL,
-					     cmd,
-					     NULL,
-					     G_SPAWN_SEARCH_PATH,
-					     NULL,
-					     NULL, NULL, NULL);
+
+	display = gdk_screen_make_display_name (screen);
+
+	retval = g_spawn_async (NULL, /* working directory */
+				cmd,
+				NULL, /* envp */
+				G_SPAWN_SEARCH_PATH,
+				set_environment,
+				&display,
+				NULL,
+				NULL);
+
+	g_free (display);
 }
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
