@@ -640,7 +640,7 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 		cmd[1] = NULL;
 	}
 
-	display = gdk_screen_make_display_name (screen);
+	display = gdk_screen_make_display_name (gdk_screen_get_default ());
 
 	retval = g_spawn_async (NULL, /* working directory */
 				cmd,
