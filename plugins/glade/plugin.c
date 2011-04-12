@@ -251,15 +251,20 @@ glade_plugin_selection_changed (GladeProject *project,
 
 	if (glade_project_get_has_selection (project))
 	{
-		GList        *list;
-
+		GList *list;
+		GList *node;
+		
 		list = glade_project_selection_get (project);
 
-		glade_widget = glade_widget_get_from_gobject (G_OBJECT (list->data));
-
-		glade_widget_show (glade_widget);
+		for (node = list; node != NULL; node = g_list_next (node))
+		{
+			glade_widget = glade_widget_get_from_gobject (G_OBJECT (node->data));
+			glade_widget_show (glade_widget);
+		}
+		glade_editor_load_widget (GLADE_EDITOR (plugin->priv->editor), glade_widget);
 	}
-	glade_editor_load_widget (GLADE_EDITOR (plugin->priv->editor), glade_widget);
+	else
+		glade_editor_load_widget (GLADE_EDITOR (plugin->priv->editor), NULL);
 }
 
 static void
@@ -284,7 +289,6 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 
 	/* Change view components */
 	glade_palette_set_project (GLADE_PALETTE (priv->palette), project);
-	glade_inspector_set_project (GLADE_INSPECTOR (priv->inspector), project);
 
 	/* Connect signal */
 	g_signal_connect (project, "selection-changed",
@@ -300,11 +304,16 @@ static void
 inspector_item_activated_cb (GladeInspector     *inspector,
                              AnjutaPlugin       *plugin)
 {
-	GList *item = glade_inspector_get_selected_items (inspector);
-	g_assert (GLADE_IS_WIDGET (item->data) && (item->next == NULL));
+	GList *items = glade_inspector_get_selected_items (inspector);
+	GList *item;
+	g_assert (GLADE_IS_WIDGET (items->data) && (items->next == NULL));
 
 	/* switch to this widget in the workspace */
-	glade_widget_show (GLADE_WIDGET (item->data));
+	for (item = items; item != NULL; item = g_list_next (item))
+	{
+		glade_widget_hide (GLADE_WIDGET (item->data));
+		glade_widget_show (GLADE_WIDGET (item->data));
+	}
 
 	g_list_free (item);
 }
@@ -395,11 +404,14 @@ glade_plugin_parse_began (GladeProject *project,
 
 static void
 glade_plugin_parse_finished (GladeProject *project,
-                              AnjutaPlugin *plugin)
+                             AnjutaPlugin *plugin)
 {
 	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,                                                
 	                                                NULL);
+	GladePlugin* gplugin = ANJUTA_PLUGIN_GLADE (plugin);
 	anjuta_status_busy_pop (status);
+
+	glade_inspector_set_project (GLADE_INSPECTOR (gplugin->priv->inspector), project);
 }
 
 static void
