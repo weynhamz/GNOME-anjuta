@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 2.91.91\n"
+"Project-Id-Version: anjuta 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-12 17:41+0800\n"
-"PO-Revision-Date: 2011-03-11 21:29+0800\n"
+"POT-Creation-Date: 2011-04-15 20:01+0800\n"
+"PO-Revision-Date: 2011-04-15 09:29+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -28,7 +28,7 @@ msgstr "Anjuta 整合式開發環境"
 msgid "Develop software in an integrated development environment"
 msgstr "在整合式開發環境中開發軟體"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:204
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:207
 msgid "Integrated Development Environment"
 msgstr "整合式開發環境"
 
@@ -195,17 +195,30 @@ msgstr "泰語"
 msgid "Unknown"
 msgstr "未知"
 
-#: ../libanjuta/anjuta-launcher.c:1172 ../libanjuta/resources.c:267
+#.
+#. * Translators: This regex should match the password prompts of
+#. * at least the "su" and the "sudo" command line utility in your
+#. * language and possible other things like "ssh".
+#. * More information on the regular expression syntax can be
+#. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
+#.
+#: ../libanjuta/anjuta-launcher.c:675
+#, fuzzy
+#| msgid "Password:"
+msgid "[Pp]assword.*:"
+msgstr "密碼： "
+
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "無法執行指令：“%s”"
 
-#: ../libanjuta/anjuta-launcher.c:1173
+#: ../libanjuta/anjuta-launcher.c:1166
 msgid "execvp failed"
 msgstr "execvp 已失敗"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2369
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
@@ -234,20 +247,20 @@ msgstr ""
 msgid "Load"
 msgstr "載入"
 
-#: ../libanjuta/anjuta-plugin-manager.c:927
-#: ../libanjuta/anjuta-plugin-manager.c:1992
+#: ../libanjuta/anjuta-plugin-manager.c:928
+#: ../libanjuta/anjuta-plugin-manager.c:2007
 msgid "Available Plugins"
 msgstr "可用的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1040 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:940
 msgid "Preferred plugins"
 msgstr "偏好的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1154
+#: ../libanjuta/anjuta-plugin-manager.c:1176
 msgid "Only show user activatable plugins"
 msgstr "只顯示使用者可啟用的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1201
+#: ../libanjuta/anjuta-plugin-manager.c:1216
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -256,73 +269,73 @@ msgstr ""
 "這裡是在 Anjuta 提示您從許多合適的外掛程式中選擇一個時所選取的外掛程式。移除"
 "這些首選的外掛程式會讓 Anjuta 再度提示您選擇其他的外掛程式。"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1227
+#: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
 msgstr "忘掉已選取的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1361
-#: ../libanjuta/anjuta-plugin-manager.c:1512 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "選擇外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1362
+#: ../libanjuta/anjuta-plugin-manager.c:1377
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "請選擇欲啟用的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "在 %s 中沒有外掛程式可以載入其他的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1513
+#: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>請選擇欲啟用的外掛程式</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2019
+#: ../libanjuta/anjuta-plugin-manager.c:2034
 msgid "Remember this selection"
 msgstr "記得此選擇"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2350
+#: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Profiles"
 msgstr "設定組合"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2351
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Current stack of profiles"
 msgstr "設定組合的目前堆疊"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2356
+#: ../libanjuta/anjuta-plugin-manager.c:2371
 msgid "Available plugins"
 msgstr "可用的外掛"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2372
 msgid "Currently available plugins found in plugin paths"
 msgstr "目前在外掛程式路徑中找到可使用的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2363
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Activated plugins"
 msgstr "已使用的外掛"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2364
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Currently activated plugins"
 msgstr "目前使用中的外掛程式"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2370
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Anjuta shell for which the plugins are made"
 msgstr "製作外掛程式的 Anjuta shell"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2393
 msgid "Anjuta Status"
 msgstr "Anjuta 狀態"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Anjuta 狀態，用於外掛程式的載入與卸載"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2539
+#: ../libanjuta/anjuta-plugin-manager.c:2554
 msgid "Loaded:"
 msgstr "已載入："
 
@@ -397,7 +410,7 @@ msgstr "分類"
 msgid "General"
 msgstr "一般"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:237
+#: ../libanjuta/anjuta-preferences-dialog.c:241
 msgid "Anjuta Preferences"
 msgstr "Anjuta 偏好設定"
 
@@ -442,11 +455,11 @@ msgstr "動作"
 msgid "Visible"
 msgstr "可視的"
 
-#: ../libanjuta/anjuta-ui.c:1426
+#: ../libanjuta/anjuta-ui.c:1427
 msgid "Sensitive"
 msgstr "區分大小寫"
 
-#: ../libanjuta/anjuta-ui.c:1434
+#: ../libanjuta/anjuta-ui.c:1435
 msgid "Shortcut"
 msgstr "快捷鍵"
 
@@ -599,12 +612,11 @@ msgid "Display an Add button"
 msgstr "顯示加入按鈕"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../libfoocanvas/foo-canvas-text.c:177 ../src/preferences.ui.h:13
+#: ../src/preferences.ui.h:13
 msgid "Text"
 msgstr "文字"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-#: ../libfoocanvas/foo-canvas-text.c:178
 msgid "Text to render"
 msgstr "準備描繪的文字"
 
@@ -626,221 +638,6 @@ msgstr "無法找到元件：%s"
 msgid "Could not find application pixmap file: %s"
 msgstr "無法找到程式圖示檔：%s"
 
-#: ../libfoocanvas/foo-canvas.c:1227 ../libfoocanvas/foo-canvas.c:1228
-msgid "X"
-msgstr "X"
-
-#: ../libfoocanvas/foo-canvas.c:1234 ../libfoocanvas/foo-canvas.c:1235
-msgid "Y"
-msgstr "Y"
-
-#: ../libfoocanvas/foo-canvas-text.c:186
-msgid "Markup"
-msgstr "標記"
-
-#: ../libfoocanvas/foo-canvas-text.c:187
-msgid "Marked up text to render"
-msgstr "欲描繪的標記文字"
-
-#: ../libfoocanvas/foo-canvas-text.c:212
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
-msgid "Font"
-msgstr "字型"
-
-#: ../libfoocanvas/foo-canvas-text.c:213
-msgid "Font description as a string"
-msgstr "以字串方式表示字型"
-
-#: ../libfoocanvas/foo-canvas-text.c:221
-msgid "Font description"
-msgstr "字型描述"
-
-#: ../libfoocanvas/foo-canvas-text.c:222
-msgid "Font description as a PangoFontDescription struct"
-msgstr "以 PangoFontDescription 結構表示的字型"
-
-#: ../libfoocanvas/foo-canvas-text.c:230
-msgid "Font family"
-msgstr "字型族系"
-
-#: ../libfoocanvas/foo-canvas-text.c:231
-msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr "字型族系名稱，例如：Sans、Helvetica、Times、Monospace"
-
-#: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
-msgid "Font style"
-msgstr "字型樣式"
-
-#: ../libfoocanvas/foo-canvas-text.c:257 ../libfoocanvas/foo-canvas-text.c:258
-msgid "Font variant"
-msgstr "字型變化"
-
-#: ../libfoocanvas/foo-canvas-text.c:267 ../libfoocanvas/foo-canvas-text.c:268
-msgid "Font weight"
-msgstr "字型粗細"
-
-#: ../libfoocanvas/foo-canvas-text.c:279 ../libfoocanvas/foo-canvas-text.c:280
-msgid "Font stretch"
-msgstr "字型寬緊"
-
-#: ../libfoocanvas/foo-canvas-text.c:289 ../libfoocanvas/foo-canvas-text.c:290
-msgid "Font size"
-msgstr "字型大小"
-
-#: ../libfoocanvas/foo-canvas-text.c:300
-msgid "Font points"
-msgstr "字型點數"
-
-#: ../libfoocanvas/foo-canvas-text.c:301
-msgid "Font size in points"
-msgstr "以點數表示的字型大小"
-
-#: ../libfoocanvas/foo-canvas-text.c:311
-msgid "Rise"
-msgstr "升高"
-
-#: ../libfoocanvas/foo-canvas-text.c:312
-msgid ""
-"Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr "文字和底部基準線的距離 (如果升高的數值為負數，則表示低於基準線)"
-
-#: ../libfoocanvas/foo-canvas-text.c:322
-msgid "Strikethrough"
-msgstr "刪除線"
-
-#: ../libfoocanvas/foo-canvas-text.c:323
-msgid "Whether to strike through the text"
-msgstr "是否在文字中央加上刪除線"
-
-#: ../libfoocanvas/foo-canvas-text.c:331
-msgid "Underline"
-msgstr "底線"
-
-#: ../libfoocanvas/foo-canvas-text.c:332
-msgid "Style of underline for this text"
-msgstr "此文字的底線樣式"
-
-#: ../libfoocanvas/foo-canvas-text.c:341
-msgid "Scale"
-msgstr "縮放"
-
-#: ../libfoocanvas/foo-canvas-text.c:342
-msgid "Size of font, relative to default size"
-msgstr "目前的字型大小相對於原來大小的比例"
-
-#: ../libfoocanvas/foo-canvas-text.c:402 ../libfoocanvas/foo-canvas-text.c:410
-#: ../libfoocanvas/foo-canvas-text.c:418
-msgid "Color"
-msgstr "顏色"
-
-#: ../libfoocanvas/foo-canvas-text.c:403
-msgid "Text color, as string"
-msgstr "文字顏色，以字串方式表示"
-
-#: ../libfoocanvas/foo-canvas-text.c:411
-msgid "Text color, as a GdkColor"
-msgstr "文字顏色，以 GdkColor 方式表示"
-
-#: ../libfoocanvas/foo-canvas-text.c:419
-msgid "Text color, as an R/G/B/A combined integer"
-msgstr "文字顏色，以 R/G/B/A 數值合併後的整數表示"
-
-#: ../libfoocanvas/foo-canvas-text.c:432
-msgid "Text width"
-msgstr "文字寬度"
-
-#: ../libfoocanvas/foo-canvas-text.c:433
-msgid "Width of the rendered text"
-msgstr "所描繪的文字的寬度"
-
-#: ../libfoocanvas/foo-canvas-text.c:440
-msgid "Text height"
-msgstr "文字高度"
-
-#: ../libfoocanvas/foo-canvas-text.c:441
-msgid "Height of the rendered text"
-msgstr "所描繪的文字的高度"
-
-#: ../libfoocanvas/foo-canvas-text.c:449
-msgid "Font family set"
-msgstr "字型族系設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:450
-msgid "Whether this tag affects the font family"
-msgstr "此標籤是否影響字型族系"
-
-#: ../libfoocanvas/foo-canvas-text.c:453
-msgid "Font style set"
-msgstr "字型樣式設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:454
-msgid "Whether this tag affects the font style"
-msgstr "此標籤是否影響字型樣式"
-
-#: ../libfoocanvas/foo-canvas-text.c:457
-msgid "Font variant set"
-msgstr "字型變化設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:458
-msgid "Whether this tag affects the font variant"
-msgstr "此標籤是否影響字型變化"
-
-#: ../libfoocanvas/foo-canvas-text.c:461
-msgid "Font weight set"
-msgstr "字型粗細設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:462
-msgid "Whether this tag affects the font weight"
-msgstr "此標籤是否影響字型粗細"
-
-#: ../libfoocanvas/foo-canvas-text.c:465
-msgid "Font stretch set"
-msgstr "字型寬緊設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:466
-msgid "Whether this tag affects the font stretch"
-msgstr "此標籤是否影響字型寬緊"
-
-#: ../libfoocanvas/foo-canvas-text.c:469
-msgid "Font size set"
-msgstr "字型大小設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:470
-msgid "Whether this tag affects the font size"
-msgstr "此標籤是否影響字型大小"
-
-#: ../libfoocanvas/foo-canvas-text.c:473
-msgid "Rise set"
-msgstr "升高文字設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:474
-msgid "Whether this tag affects the rise"
-msgstr "此標籤是否影響文字升高的情況"
-
-#: ../libfoocanvas/foo-canvas-text.c:477
-msgid "Strikethrough set"
-msgstr "刪除線設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:478
-msgid "Whether this tag affects strikethrough"
-msgstr "此標籤是否影響刪除線的設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:481
-msgid "Underline set"
-msgstr "底線設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:482
-msgid "Whether this tag affects underlining"
-msgstr "此標籤是否影響底線的設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:485
-msgid "Scale set"
-msgstr "縮放設定"
-
-#: ../libfoocanvas/foo-canvas-text.c:486
-msgid "Whether this tag affects font scaling"
-msgstr "此標籤是否影響字型的縮放"
-
 #: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "請指定群組名稱"
@@ -853,9 +650,9 @@ msgstr "群組名稱只能包含英文字母或 \"#$:%+,-.=@^_`~\" 字元"
 #: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1582
-#: ../plugins/am-project/am-project.c:1612
-#: ../plugins/am-project/am-project.c:1664
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1614
+#: ../plugins/am-project/am-project.c:1666
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -1135,199 +932,199 @@ msgid ""
 "you want to do that ?"
 msgstr "在使用這個新組態之前，需要先移除預設的組態。是否要這麼做？"
 
-#: ../plugins/build-basic-autotools/plugin.c:1854
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "無法編譯「%s」：沒有為此檔案類型定義任何編譯規則。"
 
-#: ../plugins/build-basic-autotools/plugin.c:1989
+#: ../plugins/build-basic-autotools/plugin.c:2005
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "不能設定專案：%s 中遺失設定命令稿。"
 
-#: ../plugins/build-basic-autotools/plugin.c:2470
-#: ../plugins/build-basic-autotools/plugin.c:2544
-#: ../plugins/build-basic-autotools/plugin.c:2554
-#: ../plugins/build-basic-autotools/plugin.c:2572
-#: ../plugins/build-basic-autotools/plugin.c:2582
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2560
+#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2588
+#: ../plugins/build-basic-autotools/plugin.c:2598
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build"
 msgstr "建置(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2474
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Build Project"
 msgstr "建置專案(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2475
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Build whole project"
 msgstr "建置整個專案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2480
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Install Project"
 msgstr "安裝專案(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2481
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Install whole project"
 msgstr "安裝整個專案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "_Clean Project"
 msgstr "清理專案(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Clean whole project"
 msgstr "清除整個專案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2492
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "C_onfigure Project…"
 msgstr "設定專案(_O)…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2493
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Configure project"
 msgstr "設定專案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2498
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Build _Tarball"
 msgstr "建置 _Tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2499
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build project tarball distribution"
 msgstr "建置專案 tarball 發行套件"
 
-#: ../plugins/build-basic-autotools/plugin.c:2504
+#: ../plugins/build-basic-autotools/plugin.c:2520
 msgid "_Build Module"
 msgstr "建置模組(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2505
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "Build module associated with current file"
 msgstr "建置與目前檔案關聯的模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2510
+#: ../plugins/build-basic-autotools/plugin.c:2526
 msgid "_Install Module"
 msgstr "安裝模組(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2511
+#: ../plugins/build-basic-autotools/plugin.c:2527
 msgid "Install module associated with current file"
 msgstr "安裝與目前檔案關聯的模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2516
+#: ../plugins/build-basic-autotools/plugin.c:2532
 msgid "_Clean Module"
 msgstr "清除模組(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2533
 msgid "Clean module associated with current file"
 msgstr "清除與目前檔案關聯的模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2522
+#: ../plugins/build-basic-autotools/plugin.c:2538
 msgid "Co_mpile File"
 msgstr "編譯檔案(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2523
+#: ../plugins/build-basic-autotools/plugin.c:2539
 msgid "Compile current editor file"
 msgstr "編譯目前編輯器的檔案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2528
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "Select Configuration"
 msgstr "選擇組態"
 
-#: ../plugins/build-basic-autotools/plugin.c:2529
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Select current configuration"
 msgstr "選擇目前組態"
 
-#: ../plugins/build-basic-autotools/plugin.c:2534
+#: ../plugins/build-basic-autotools/plugin.c:2550
 msgid "Remove Configuration"
 msgstr "移除組態"
 
-#: ../plugins/build-basic-autotools/plugin.c:2535
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "清理專案 (distclean)，可能的話一併移除組態"
 
-#: ../plugins/build-basic-autotools/plugin.c:2548
-#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2592
 msgid "_Compile"
 msgstr "編譯(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2549
-#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2565
+#: ../plugins/build-basic-autotools/plugin.c:2593
 msgid "Compile file"
 msgstr "編譯檔案"
 
-#: ../plugins/build-basic-autotools/plugin.c:2555
-#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2571
+#: ../plugins/build-basic-autotools/plugin.c:2599
 msgid "Build module"
 msgstr "建置模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2560
-#: ../plugins/build-basic-autotools/plugin.c:2588
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2604
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install"
 msgstr "安裝(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2561
-#: ../plugins/build-basic-autotools/plugin.c:2589
+#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2605
 msgid "Install module"
 msgstr "安裝模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2566
-#: ../plugins/build-basic-autotools/plugin.c:2594
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2582
+#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean"
 msgstr "清理(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2567
-#: ../plugins/build-basic-autotools/plugin.c:2595
+#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2611
 msgid "Clean module"
 msgstr "清除模組"
 
-#: ../plugins/build-basic-autotools/plugin.c:2600
+#: ../plugins/build-basic-autotools/plugin.c:2616
 msgid "_Cancel command"
 msgstr "取消指令(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2617
 msgid "Cancel build command"
 msgstr "取消建置指令"
 
-#: ../plugins/build-basic-autotools/plugin.c:2639
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build (%s)"
 msgstr "建置(_B) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2646
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install (%s)"
 msgstr "安裝(%s)(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2653
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean (%s)"
 msgstr "清理(%s)(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "編譯(%s)(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2661
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile"
 msgstr "編譯(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:3195
+#: ../plugins/build-basic-autotools/plugin.c:3211
 msgid "Build commands"
 msgstr "建置命令"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3204
+#: ../plugins/build-basic-autotools/plugin.c:3220
 msgid "Build popup commands"
 msgstr "建置彈出式指令"
 
-#: ../plugins/build-basic-autotools/plugin.c:3593
-#: ../plugins/build-basic-autotools/plugin.c:3601
+#: ../plugins/build-basic-autotools/plugin.c:3609
+#: ../plugins/build-basic-autotools/plugin.c:3617
 msgid "Build Autotools"
 msgstr "建置 Autotools"
 
@@ -1402,10 +1199,8 @@ msgid "Class Options:"
 msgstr "類別選項："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
-#, fuzzy
-#| msgid "Class Name:"
 msgid "Class Scope:"
-msgstr "搜尋範圍(_S)"
+msgstr "類別範圍："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "Constants/Variables"
@@ -1675,35 +1470,16 @@ msgid "Automatic"
 msgstr "自動"
 
 #: ../plugins/class-gen/window.c:793
-#, fuzzy
-#| msgid "Western"
 msgid "Getter"
-msgstr "西歐語系"
+msgstr "取得器"
 
 #: ../plugins/class-gen/window.c:794
-#, fuzzy
-#| msgid "Starter"
 msgid "Setter"
-msgstr "起步"
+msgstr "設定器"
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
 msgstr "使用者介面的 XML 描述"
-
-#: ../plugins/class-inheritance/class-callbacks.c:208
-#, c-format
-msgid "Args: %s"
-msgstr "引數： %s"
-
-#: ../plugins/class-inheritance/class-inherit.c:1213
-#: ../plugins/debug-manager/sharedlib.c:144
-#: ../plugins/debug-manager/signals.c:332
-msgid "Update"
-msgstr "更新"
-
-#: ../plugins/class-inheritance/plugin.c:110
-msgid "Inheritance Graph"
-msgstr "繼承圖表"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid ""
@@ -2800,6 +2576,11 @@ msgstr "暫存器"
 msgid "Registers"
 msgstr "暫存器"
 
+#: ../plugins/debug-manager/sharedlib.c:144
+#: ../plugins/debug-manager/signals.c:332
+msgid "Update"
+msgstr "更新"
+
 #: ../plugins/debug-manager/sharedlib.c:166
 msgid "Shared Object"
 msgstr "共享物件"
@@ -2991,51 +2772,51 @@ msgstr "執行緒操作"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:402
+#: ../plugins/debug-manager/watch.c:406
 msgid "Ins_pect/Evaluate…"
 msgstr "查驗/評估(_P)…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:408
 msgid "Inspect or evaluate an expression or variable"
 msgstr "驗証或測試一些表示式或變數"
 
-#: ../plugins/debug-manager/watch.c:410
+#: ../plugins/debug-manager/watch.c:414
 msgid "Add Watch…"
 msgstr "加入監看…"
 
-#: ../plugins/debug-manager/watch.c:418
+#: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
 msgstr "移除監看"
 
-#: ../plugins/debug-manager/watch.c:426
+#: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
 msgstr "更新監看"
 
-#: ../plugins/debug-manager/watch.c:434
+#: ../plugins/debug-manager/watch.c:438
 msgid "Change Value"
 msgstr "更改值"
 
-#: ../plugins/debug-manager/watch.c:442
+#: ../plugins/debug-manager/watch.c:446
 msgid "Update all"
 msgstr "全部更新"
 
-#: ../plugins/debug-manager/watch.c:450
+#: ../plugins/debug-manager/watch.c:454
 msgid "Remove all"
 msgstr "全部移除"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:461
+#: ../plugins/debug-manager/watch.c:465
 msgid "Automatic update"
 msgstr "自動更新"
 
-#: ../plugins/debug-manager/watch.c:487 ../plugins/debug-manager/watch.c:493
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
 msgstr "監看操作"
 
-#: ../plugins/debug-manager/watch.c:568
+#: ../plugins/debug-manager/watch.c:572
 msgid "Watches"
 msgstr "監看"
 
@@ -3272,8 +3053,6 @@ msgid "Close Others"
 msgstr "關閉其他的"
 
 #: ../plugins/document-manager/plugin.c:166
-#, fuzzy
-#| msgid "Close others documents"
 msgid "Close other documents"
 msgstr "關閉其他的文件"
 
@@ -3524,20 +3303,16 @@ msgid "Highlight all occurrences"
 msgstr "標示全部出現的地方"
 
 #: ../plugins/document-manager/plugin.c:294
-#, fuzzy
-#| msgid "Search Expression"
 msgid "Regular Expression"
-msgstr "搜尋詞句"
+msgstr "正規表示式"
 
 #: ../plugins/document-manager/plugin.c:295
-#, fuzzy
-#| msgid "Search for a string or regular expression in the editor"
 msgid "Search using regular expressions"
-msgstr "在編輯器搜尋字串或正規表示式"
+msgstr "使用正規表示式搜尋"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
-#: ../plugins/language-support-python/plugin.c:448
+#: ../plugins/language-support-python/plugin.c:450
 msgid "_Edit"
 msgstr "編輯(_E)"
 
@@ -3912,11 +3687,11 @@ msgid ""
 "match was found."
 msgstr "搜尋「%s」已達頂端並將從結尾開始，但已找不到符合項目。"
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "取代"
 
-#: ../plugins/document-manager/search-box.c:988
+#: ../plugins/document-manager/search-box.c:989
 msgid "Replace all"
 msgstr "全部取代"
 
@@ -3947,7 +3722,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "此函式還未在視窗元件的類別‘%s’中實作"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:155
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "開啟「%s」"
@@ -4386,7 +4161,7 @@ msgstr "命令稿"
 msgid "Package"
 msgstr "套件"
 
-#: ../plugins/am-project/am-project.c:1598
+#: ../plugins/am-project/am-project.c:1600
 #, c-format
 msgid "Unable to parse project file"
 msgstr "無法解析專案檔案"
@@ -4409,10 +4184,10 @@ msgstr "專案名稱，可以包含空白，像是「GNU Autoconf」"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
 #: ../plugins/project-wizard/templates/python.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "版本:"
@@ -4577,6 +4352,7 @@ msgstr "這個群組中目標使用的自訂安裝目錄清單。"
 #: ../plugins/am-project/am-properties.c:352
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:751
 msgid "Do not install:"
 msgstr "不要安裝："
 
@@ -4584,6 +4360,7 @@ msgstr "不要安裝："
 #: ../plugins/am-project/am-properties.c:355
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
 msgstr "組建但不安裝目標。"
 
@@ -4591,6 +4368,7 @@ msgstr "組建但不安裝目標。"
 #: ../plugins/am-project/am-properties.c:360
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:759
 msgid "Installation directory:"
 msgstr "安裝目錄："
 
@@ -4598,6 +4376,7 @@ msgstr "安裝目錄："
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:515
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:762
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4679,16 +4458,15 @@ msgstr "這個目標的額外 Lex 或 Flex lexical 分析器產生器旗標。"
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
-#, fuzzy
-#| msgid "Additional Yac or Bison parser generator flags for this target."
 msgid "Additional Yacc or Bison parser generator flags for this target."
-msgstr "這個目標的額外 Yac 或 Bison 解析器產生器旗標。"
+msgstr "這個目標的額外 Yacc 或 Bison 解析器產生器旗標。"
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
 #: ../plugins/am-project/am-properties.c:608
 #: ../plugins/am-project/am-properties.c:656
 #: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:767
 msgid "Additional dependencies:"
 msgstr "額外的相依性："
 
@@ -4697,6 +4475,7 @@ msgstr "額外的相依性："
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:770
 msgid "Additional dependencies for this target."
 msgstr "這個目標的額外相依性。"
 
@@ -4704,6 +4483,7 @@ msgstr "這個目標的額外相依性。"
 #: ../plugins/am-project/am-properties.c:464
 #: ../plugins/am-project/am-properties.c:616
 #: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:775
 msgid "Include in distribution:"
 msgstr "包含於描述："
 
@@ -4711,6 +4491,7 @@ msgstr "包含於描述："
 #: ../plugins/am-project/am-properties.c:467
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
 msgstr "在散布的套件中包含這個目標。"
 
@@ -4718,6 +4499,7 @@ msgstr "在散布的套件中包含這個目標。"
 #: ../plugins/am-project/am-properties.c:472
 #: ../plugins/am-project/am-properties.c:624
 #: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:783
 msgid "Build for check only:"
 msgstr "只編譯於檢查之用："
 
@@ -4725,6 +4507,7 @@ msgstr "只編譯於檢查之用："
 #: ../plugins/am-project/am-properties.c:475
 #: ../plugins/am-project/am-properties.c:627
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
 msgstr "只在執行自動測試時組建這個目標。"
 
@@ -4733,6 +4516,7 @@ msgstr "只在執行自動測試時組建這個目標。"
 #: ../plugins/am-project/am-properties.c:632
 #: ../plugins/am-project/am-properties.c:664
 #: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:791
 msgid "Do not use prefix:"
 msgstr "不使用前綴："
 
@@ -4741,6 +4525,7 @@ msgstr "不使用前綴："
 #: ../plugins/am-project/am-properties.c:635
 #: ../plugins/am-project/am-properties.c:667
 #: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:794
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4750,6 +4535,7 @@ msgstr "不要以選擇性的前綴重新命名目標，用以避免覆蓋系統
 #: ../plugins/am-project/am-properties.c:488
 #: ../plugins/am-project/am-properties.c:640
 #: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
 msgstr "保留目標路徑："
 
@@ -4757,6 +4543,7 @@ msgstr "保留目標路徑："
 #: ../plugins/am-project/am-properties.c:491
 #: ../plugins/am-project/am-properties.c:643
 #: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:802
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -5068,16 +4855,12 @@ msgid "Do not follow tags"
 msgstr "不要跟隨標籤"
 
 #: ../plugins/git/anjuta-git.ui.h:21
-#, fuzzy
-#| msgid "Drop a file or enter a path here"
 msgid "Drop or enter revision here"
-msgstr "在這裡拖放檔案或輸入路徑"
+msgstr "在這裡拖放或輸入修訂版"
 
 #: ../plugins/git/anjuta-git.ui.h:22
-#, fuzzy
-#| msgid "Repository head; Drop or type a different revision here"
 msgid "Drop or type a revision here"
-msgstr "檔案庫 head；在這裡拖放或輸入不同的修訂版"
+msgstr "在這裡拖放或輸入修訂版"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
@@ -5126,10 +4909,8 @@ msgid "Mode:"
 msgstr "模式："
 
 #: ../plugins/git/anjuta-git.ui.h:38
-#, fuzzy
-#| msgid "Repository origin; Drop or type a different revision here"
 msgid "Previous commit; Drop or enter a different revision here"
-msgstr "檔案庫 origin；在這裡拖放或輸入不同的修訂版"
+msgstr "前一次提交；在這裡拖放或輸入不同的修訂版"
 
 #: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
@@ -5226,10 +5007,8 @@ msgid "Tags:"
 msgstr "標籤："
 
 #: ../plugins/git/anjuta-git.ui.h:63
-#, fuzzy
-#| msgid "This commit concludes a failed merged (use -i)"
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "這次提交由於合併失敗而終止（使用 -i）"
+msgstr "這次提交由於合併失敗而終止 (使用 -i)"
 
 #: ../plugins/git/anjuta-git.ui.h:65
 msgid "Use a custom log message:"
@@ -5773,37 +5552,37 @@ msgstr "遠端"
 msgid "Stash"
 msgstr "Stash"
 
-#: ../plugins/glade/plugin.c:460
+#: ../plugins/glade/plugin.c:472
 msgid "Select widgets in the workspace"
 msgstr "選擇工作區中的介面工具"
 
-#: ../plugins/glade/plugin.c:486
+#: ../plugins/glade/plugin.c:498
 msgid "Drag and resize widgets in the workspace"
 msgstr "拖曳並改變工作區中介面工具的大小"
 
-#: ../plugins/glade/plugin.c:514
+#: ../plugins/glade/plugin.c:526
 msgid "Loading Glade…"
 msgstr "正在載入 Glade…"
 
-#: ../plugins/glade/plugin.c:590
+#: ../plugins/glade/plugin.c:602
 msgid "Widgets"
 msgstr "視窗元件"
 
-#: ../plugins/glade/plugin.c:595
+#: ../plugins/glade/plugin.c:607
 msgid "Palette"
 msgstr "元件一覽表"
 
-#: ../plugins/glade/plugin.c:718
+#: ../plugins/glade/plugin.c:730
 #, c-format
 msgid "Not local file: %s"
 msgstr "不是本地檔案：%s"
 
-#: ../plugins/glade/plugin.c:764
+#: ../plugins/glade/plugin.c:776
 #, c-format
 msgid "Could not open %s"
 msgstr "無法開啟 %s"
 
-#: ../plugins/glade/plugin.c:821
+#: ../plugins/glade/plugin.c:833
 msgid "Could not create a new glade project."
 msgstr "無法建立新 Glade 專案。"
 
@@ -6231,8 +6010,6 @@ msgid "_Module name:"
 msgstr "模組名稱(_M):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-#, fuzzy
-#| msgid "New _Library…"
 msgid "_New library…"
 msgstr "新增程式庫(_L)…"
 
@@ -6524,11 +6301,11 @@ msgstr "專案管理員動作"
 msgid "Project manager popup actions"
 msgstr "專案管理員彈出式動作"
 
-#: ../plugins/project-manager/plugin.c:2329
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr "初始化專案…"
 
-#: ../plugins/project-manager/plugin.c:2332
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr "專案已載入"
 
@@ -7208,9 +6985,9 @@ msgstr "選擇原始碼授權"
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:28
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr "使用 pkg-config 從其他套件加入程式庫的支援"
@@ -7228,10 +7005,10 @@ msgstr "使用 pkg-config 從其他套件加入程式庫的支援"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:31
 #: ../plugins/project-wizard/templates/js.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:29
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "專案名稱"
@@ -7337,12 +7114,16 @@ msgstr "簡易 GTK+ 專案"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
 msgstr "使用 GtkBuilder 做使用者介面："
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
@@ -8042,6 +7823,10 @@ msgstr "編輯器"
 msgid "Enable autocompletion for document words"
 msgstr "啟用對文件文字的自動補齊"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+msgid "Font"
+msgstr "字型"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
 msgstr "字型："
@@ -8095,7 +7880,7 @@ msgstr "使用主題的字型"
 msgid "View"
 msgstr "顯示"
 
-#: ../plugins/starter/plugin.c:273
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "開始"
 
@@ -8112,10 +7897,8 @@ msgid "FAQ"
 msgstr "FAQ"
 
 #: ../plugins/starter/starter.ui.h:4
-#, fuzzy
-#| msgid "started:"
 msgid "Getting started:"
-msgstr "開始："
+msgstr "開始專案："
 
 #: ../plugins/starter/starter.ui.h:5
 msgid "Import an existing project"
@@ -9136,7 +8919,7 @@ msgstr "目前選擇區域"
 msgid "String"
 msgstr "字串"
 
-#: ../src/about.c:202
+#: ../src/about.c:205
 msgid "Copyright (c) Naba Kumar"
 msgstr "版權所有 © Naba Kumar"
 
@@ -9467,11 +9250,11 @@ msgstr "對齊括號"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Load API tags for C standard library"
-msgstr ""
+msgstr "從 C 標準程式庫載入 API 標籤"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
 msgid "Load API tags for C++ standard template library"
-msgstr ""
+msgstr "從 C++ 標準範本程式庫載入 API 標籤"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
 msgid "Parenthesis indentation"
@@ -9499,12 +9282,12 @@ msgstr "陳述的縮排大小(空白字元)："
 
 #. ANJUTA_STOCK_AUTOINDENT,
 #: ../plugins/language-support-cpp-java/plugin.c:1203
-#: ../plugins/language-support-python/plugin.c:454
+#: ../plugins/language-support-python/plugin.c:456
 msgid "Auto-Indent"
 msgstr "自動縮排"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1204
-#: ../plugins/language-support-python/plugin.c:455
+#: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "依縮排設定值自動縮排目前的行或選擇區域"
 
@@ -9555,12 +9338,12 @@ msgstr ""
 msgid "Do not show that warning again"
 msgstr "不再顯示這個警告"
 
-#: ../plugins/language-support-python/plugin.c:511
+#: ../plugins/language-support-python/plugin.c:513
 msgid "Python Assistance"
 msgstr "Python 助理"
 
-#: ../plugins/language-support-python/plugin.c:616
-#: ../plugins/language-support-python/plugin.c:625
+#: ../plugins/language-support-python/plugin.c:618
+#: ../plugins/language-support-python/plugin.c:627
 #: ../plugins/language-support-python/python-assist.c:934
 msgid "Python"
 msgstr "Python"
@@ -9608,14 +9391,6 @@ msgstr "API求助"
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
 msgstr "給 Anjuta 的 Devhelp 外掛程式。"
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
-msgid "A graph painter for the inheritance of the classes."
-msgstr "類別繼承關係的圖表繪製程式。"
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
-msgid "Class Inheritance"
-msgstr "類別繼承關係"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
@@ -9844,9 +9619,178 @@ msgstr "JS Find 目錄"
 msgid "Min character for completion "
 msgstr "自動補齊的最小字元"
 
-#: ../plugins/symbol-db/symbol-db-views.c:182
+#: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "符號"
+
+#~ msgid "X"
+#~ msgstr "X"
+
+#~ msgid "Y"
+#~ msgstr "Y"
+
+#~ msgid "Markup"
+#~ msgstr "標記"
+
+#~ msgid "Marked up text to render"
+#~ msgstr "欲描繪的標記文字"
+
+#~ msgid "Font description as a string"
+#~ msgstr "以字串方式表示字型"
+
+#~ msgid "Font description"
+#~ msgstr "字型描述"
+
+#~ msgid "Font description as a PangoFontDescription struct"
+#~ msgstr "以 PangoFontDescription 結構表示的字型"
+
+#~ msgid "Font family"
+#~ msgstr "字型族系"
+
+#~ msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
+#~ msgstr "字型族系名稱，例如：Sans、Helvetica、Times、Monospace"
+
+#~ msgid "Font style"
+#~ msgstr "字型樣式"
+
+#~ msgid "Font variant"
+#~ msgstr "字型變化"
+
+#~ msgid "Font weight"
+#~ msgstr "字型粗細"
+
+#~ msgid "Font stretch"
+#~ msgstr "字型寬緊"
+
+#~ msgid "Font size"
+#~ msgstr "字型大小"
+
+#~ msgid "Font points"
+#~ msgstr "字型點數"
+
+#~ msgid "Font size in points"
+#~ msgstr "以點數表示的字型大小"
+
+#~ msgid "Rise"
+#~ msgstr "升高"
+
+#~ msgid ""
+#~ "Offset of text above the baseline (below the baseline if rise is negative)"
+#~ msgstr "文字和底部基準線的距離 (如果升高的數值為負數，則表示低於基準線)"
+
+#~ msgid "Strikethrough"
+#~ msgstr "刪除線"
+
+#~ msgid "Whether to strike through the text"
+#~ msgstr "是否在文字中央加上刪除線"
+
+#~ msgid "Underline"
+#~ msgstr "底線"
+
+#~ msgid "Style of underline for this text"
+#~ msgstr "此文字的底線樣式"
+
+#~ msgid "Scale"
+#~ msgstr "縮放"
+
+#~ msgid "Size of font, relative to default size"
+#~ msgstr "目前的字型大小相對於原來大小的比例"
+
+#~ msgid "Color"
+#~ msgstr "顏色"
+
+#~ msgid "Text color, as string"
+#~ msgstr "文字顏色，以字串方式表示"
+
+#~ msgid "Text color, as a GdkColor"
+#~ msgstr "文字顏色，以 GdkColor 方式表示"
+
+#~ msgid "Text color, as an R/G/B/A combined integer"
+#~ msgstr "文字顏色，以 R/G/B/A 數值合併後的整數表示"
+
+#~ msgid "Text width"
+#~ msgstr "文字寬度"
+
+#~ msgid "Width of the rendered text"
+#~ msgstr "所描繪的文字的寬度"
+
+#~ msgid "Text height"
+#~ msgstr "文字高度"
+
+#~ msgid "Height of the rendered text"
+#~ msgstr "所描繪的文字的高度"
+
+#~ msgid "Font family set"
+#~ msgstr "字型族系設定"
+
+#~ msgid "Whether this tag affects the font family"
+#~ msgstr "此標籤是否影響字型族系"
+
+#~ msgid "Font style set"
+#~ msgstr "字型樣式設定"
+
+#~ msgid "Whether this tag affects the font style"
+#~ msgstr "此標籤是否影響字型樣式"
+
+#~ msgid "Font variant set"
+#~ msgstr "字型變化設定"
+
+#~ msgid "Whether this tag affects the font variant"
+#~ msgstr "此標籤是否影響字型變化"
+
+#~ msgid "Font weight set"
+#~ msgstr "字型粗細設定"
+
+#~ msgid "Whether this tag affects the font weight"
+#~ msgstr "此標籤是否影響字型粗細"
+
+#~ msgid "Font stretch set"
+#~ msgstr "字型寬緊設定"
+
+#~ msgid "Whether this tag affects the font stretch"
+#~ msgstr "此標籤是否影響字型寬緊"
+
+#~ msgid "Font size set"
+#~ msgstr "字型大小設定"
+
+#~ msgid "Whether this tag affects the font size"
+#~ msgstr "此標籤是否影響字型大小"
+
+#~ msgid "Rise set"
+#~ msgstr "升高文字設定"
+
+#~ msgid "Whether this tag affects the rise"
+#~ msgstr "此標籤是否影響文字升高的情況"
+
+#~ msgid "Strikethrough set"
+#~ msgstr "刪除線設定"
+
+#~ msgid "Whether this tag affects strikethrough"
+#~ msgstr "此標籤是否影響刪除線的設定"
+
+#~ msgid "Underline set"
+#~ msgstr "底線設定"
+
+#~ msgid "Whether this tag affects underlining"
+#~ msgstr "此標籤是否影響底線的設定"
+
+#~ msgid "Scale set"
+#~ msgstr "縮放設定"
+
+#~ msgid "Whether this tag affects font scaling"
+#~ msgstr "此標籤是否影響字型的縮放"
+
+#~ msgid "Args: %s"
+#~ msgstr "引數： %s"
+
+#~ msgid "Inheritance Graph"
+#~ msgstr "繼承圖表"
+
+#~ msgid "A graph painter for the inheritance of the classes."
+#~ msgstr "類別繼承關係的圖表繪製程式。"
+
+#~ msgid "Class Inheritance"
+#~ msgstr "類別繼承關係"
 
 #~| msgid "Search"
 #~ msgid "RegEx Search"
