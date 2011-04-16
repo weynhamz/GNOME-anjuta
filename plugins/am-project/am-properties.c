@@ -192,7 +192,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		{N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build but do not install the target.")},
+			N_("Build but do not install the target."),
+			"0"},
 		AM_TOKEN__PROGRAMS,	 3, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -201,8 +202,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
-		AM_TOKEN__PROGRAMS, 	6, NULL,
-		AM_PROPERTY_IN_MAKEFILE
+		AM_TOKEN__PROGRAMS, 	6, "bin",
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
 		{N_("Linker flags:"),
@@ -312,7 +313,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		{N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Include this target in the distributed package.")},
+			N_("Include this target in the distributed package."),
+			"0"},
 		AM_TOKEN__PROGRAMS, 	2, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -320,7 +322,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		{N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build this target only when running automatic tests.")},
+			N_("Build this target only when running automatic tests."),
+			"0"},
 		AM_TOKEN__PROGRAMS, 	4, 	NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -328,7 +331,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		{N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
+			"0"},
 		AM_TOKEN__PROGRAMS, 	1, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -337,7 +341,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
 			N_("Keep relative target path for installing it. "
-			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app.")},
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."),
+			"0"},
 		AM_TOKEN__PROGRAMS, 	0, NULL,
 		AM_PROPERTY_IN_MAKEFILE
 	},
@@ -352,8 +357,9 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		{N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build but do not install the target.")},
-		AM_TOKEN__PROGRAMS,	 3, NULL,
+			N_("Build but do not install the target."),
+			"0"},
+		AM_TOKEN__PROGRAMS,	 3, "noinst_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -361,8 +367,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
-		AM_TOKEN__PROGRAMS, 	6, NULL,
-		AM_PROPERTY_IN_MAKEFILE
+		AM_TOKEN__PROGRAMS, 	6, "bin_",
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
 		{N_("Linker flags:"),
@@ -464,24 +470,27 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		{N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Include this target in the distributed package.")},
-		AM_TOKEN__PROGRAMS, 	2, NULL,
+			N_("Include this target in the distributed package."),
+			"1"},
+		AM_TOKEN__PROGRAMS, 	2, "nodist_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build this target only when running automatic tests.")},
-		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+			N_("Build this target only when running automatic tests."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	4, 	"check_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
-		AM_TOKEN__PROGRAMS, 	1, NULL,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	1, "notrans_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -489,8 +498,9 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
 			N_("Keep relative target path for installing it. "
-			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app.")},
-		AM_TOKEN__PROGRAMS, 	0, NULL,
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	0, "nobase_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{}
@@ -504,8 +514,9 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		{N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build but do not install the target.")},
-		AM_TOKEN__PROGRAMS,	 3, NULL,
+			N_("Build but do not install the target."),
+			"0"},
+		AM_TOKEN__PROGRAMS,	 3, "noinst_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -513,8 +524,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
-		AM_TOKEN__PROGRAMS, 	6, NULL,
-		AM_PROPERTY_IN_MAKEFILE
+		AM_TOKEN__PROGRAMS, 	6, "lib",
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
 		{N_("Linker flags:"),
@@ -616,24 +627,27 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		{N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Include this target in the distributed package.")},
-		AM_TOKEN__PROGRAMS, 	2, NULL,
+			N_("Include this target in the distributed package."),
+			"1"},
+		AM_TOKEN__PROGRAMS, 	2, "nodist_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build this target only when running automatic tests.")},
-		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+			N_("Build this target only when running automatic tests."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	4, 	"check_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
-		AM_TOKEN__PROGRAMS, 	1, NULL,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	1, "notrans_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -641,8 +655,9 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
 			N_("Keep relative target path for installing it. "
-			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app.")},
-		AM_TOKEN__PROGRAMS, 	0, NULL,
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	0, "nobase_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{}
@@ -664,8 +679,9 @@ static AmpProperty AmpManTargetProperties[] = {
 		{N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
-		AM_TOKEN__PROGRAMS,	1, NULL,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
+			"0"},
+		AM_TOKEN__PROGRAMS,	1, "notrans_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -673,7 +689,7 @@ static AmpProperty AmpManTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. ")},
-		AM_TOKEN__PROGRAMS,	 5, NULL,
+		AM_TOKEN__PROGRAMS,	 5, "man_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{}
@@ -687,8 +703,9 @@ static AmpProperty AmpDataTargetProperties[] = {
 		{N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build but do not install the target.")},
-		AM_TOKEN__PROGRAMS,	 3, NULL,
+			N_("Build but do not install the target."),
+			"0"},
+		AM_TOKEN__PROGRAMS,	 3, "noinst_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -696,8 +713,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
-		AM_TOKEN__PROGRAMS, 	6, NULL,
-		AM_PROPERTY_IN_MAKEFILE
+		AM_TOKEN__PROGRAMS, 	6, "data",
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
 		{N_("Additional dependencies:"),
@@ -711,24 +728,27 @@ static AmpProperty AmpDataTargetProperties[] = {
 		{N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Include this target in the distributed package.")},
-		AM_TOKEN__PROGRAMS, 	2, NULL,
+			N_("Include this target in the distributed package."),
+			"1"},
+		AM_TOKEN__PROGRAMS, 	2, "nodist_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Build this target only when running automatic tests.")},
-		AM_TOKEN__PROGRAMS, 	4, 	NULL,
+			N_("Build this target only when running automatic tests."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	4, 	"check_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
-			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
-		AM_TOKEN__PROGRAMS, 	1, NULL,
+			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	1, "notrans_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
@@ -736,8 +756,9 @@ static AmpProperty AmpDataTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
 			N_("Keep relative target path for installing it. "
-			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app.")},
-		AM_TOKEN__PROGRAMS, 	0, NULL,
+			   "By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."),
+			"0"},
+		AM_TOKEN__PROGRAMS, 	0, "nobase_",
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{}

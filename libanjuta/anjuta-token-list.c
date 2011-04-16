@@ -288,7 +288,8 @@ anjuta_token_style_format (AnjutaTokenStyle *style, AnjutaToken *list)
 
 	for (item = list; (item != NULL) && (item != last); item = anjuta_token_next (item))
 	{
-		if (anjuta_token_get_flags (item) & ANJUTA_TOKEN_ADDED)
+		if ((anjuta_token_get_flags (item) & ANJUTA_TOKEN_ADDED) &&
+			!(anjuta_token_get_flags (item) & ANJUTA_TOKEN_REMOVED))
 		{
 			switch (anjuta_token_get_type (item))
 			{

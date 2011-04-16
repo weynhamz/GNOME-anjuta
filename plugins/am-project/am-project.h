@@ -133,6 +133,7 @@ gchar *amp_source_node_get_id (AmpSourceNode *source);
 GFile *amp_source_node_get_file (AmpSourceNode *source);
 
 gchar* canonicalize_automake_variable (const gchar *name);
+gboolean split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **primary);
 gchar* get_relative_path (GFile *parent, GFile *file);
 GFileType file_type (GFile *file, const gchar *filename);
 

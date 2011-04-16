@@ -322,7 +322,7 @@ canonicalize_automake_variable (const gchar *name)
 	return canon_name;
 }
 
-static gboolean
+gboolean
 split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **primary)
 {
 	GRegex *regex;

@@ -324,4 +324,151 @@ AT_CHECK([diff output expect])
 
 
 
+AT_DATA([expect],
+[[    GROUP (): empty11
+        PROPERTY (Installation directories): plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+	target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty10 \
+		move empty11 \
+		set 0:2 instdir 'plugindir' \
+		list \
+		save])
+AT_CHECK([diff -b empty11/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty11 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty12
+        PROPERTY (Installation directories): progdir = plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): progdir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+progdir =
+prog_PROGRAMS = \
+	target1
+
+bin_PROGRAMS = target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty11 \
+		move empty12 \
+		set 0:0 instdir 'progdir' \
+		list \
+		save])
+AT_CHECK([diff -b empty12/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty12 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty13
+        PROPERTY (Installation directories): plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+        target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty12 \
+		move empty13 \
+		set 0:0 instdir 'bindir' \
+		list \
+		save])
+AT_CHECK([diff -b empty13/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty13 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AT_CLEANUP

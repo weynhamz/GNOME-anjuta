@@ -345,7 +345,7 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 {
 	gboolean ok;
 	
-	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), error);
+	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), TRUE, error);
 	
 	/* Remove installation directory variable if the removed target was the
 	 * only one using it */

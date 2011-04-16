@@ -450,7 +450,6 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
-			gtk_widget_set_sensitive (entry, editable);
 			gtk_container_add (GTK_CONTAINER (entry), view);
 			
 			break;

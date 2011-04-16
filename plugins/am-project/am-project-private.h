@@ -29,7 +29,8 @@ G_BEGIN_DECLS
 
 typedef enum {
 	AM_PROPERTY_IN_CONFIGURE = 1 << 0,
-	AM_PROPERTY_IN_MAKEFILE = 1 << 1
+	AM_PROPERTY_IN_MAKEFILE = 1 << 1,
+	AM_PROPERTY_DIRECTORY = 1 << 2,			/* Directory property (having dir suffix) */
 } AmpPropertyFlag;
 
 
