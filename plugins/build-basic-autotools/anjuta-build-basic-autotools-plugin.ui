@@ -326,7 +326,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBox" id="preferences_combo:text:sudo, su -c:0:build-install-root-command">
+                          <object class="GtkComboBox" id="preferences_combo:text:sudo %s, su -c %q:0:build-install-root-command">
                             <property name="visible">True</property>
                             <property name="model">install_list</property>
                             <property name="active">0</property>

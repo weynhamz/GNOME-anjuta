@@ -72,7 +72,7 @@
 #define BUILD_PREFS_DIALOG "preferences-dialog-build"
 #define BUILD_PREFS_ROOT "preferences-build-container"
 #define INSTALL_ROOT_CHECK "preferences_toggle:bool:0:0:build-install-root"
-#define INSTALL_ROOT_ENTRY "preferences_combo:text:sudo, su -c:0:build-install-root-command"
+#define INSTALL_ROOT_ENTRY "preferences_combo:text:sudo %s, su -c %q:0:build-install-root-command"
 #define PARALLEL_MAKE_CHECK "preferences_toggle:bool:0:0:build-parallel-make"
 #define PARALLEL_MAKE_SPIN "preferences_spin:int:1:0:build-parallel-make-job"
 
@@ -1695,31 +1695,62 @@ build_install_dir (BasicAutotoolsPlugin *plugin, const gchar *dirname,
 	gchar* root = get_root_install_command(plugin);
 	gchar *build_dir = build_dir_from_source (plugin, dirname);
 	BuildProgram *prog;
+	GString *command;
 
-	/* Check if we need to quote the command (only after " -c" argument)
-	 * FIXME: it will be better to use a format string here to know if we need to
-	 * quote the command or not */
-	if ((root != NULL) && (strlen (root) > 3) && (strcmp (root + strlen(root) - 3, " -c") == 0))
+	if ((root != NULL) && (*root != '\0'))
 	{
-		gchar *command = g_shell_quote (CHOOSE_COMMAND (plugin, INSTALL));
-
-		prog = build_program_new_with_command (build_dir,
-			                                   "%s %s",
-	    		                               root,
-	        		                           command);
-		g_free (command);
+		gchar *first = root; 
+		gchar *ptr = root;
+		
+		/* Replace %s or %q by respectively, the install command or the
+		 * quoted install command. % character can be escaped by using two %. */
+		command = g_string_new (NULL);
+		while (*ptr)
+		{
+			if (*ptr++ == '%')
+			{
+				if (*ptr == 's')
+				{
+					/* Not quoted command */
+					g_string_append_len (command, first, ptr - 1 - first);
+					g_string_append (command, CHOOSE_COMMAND (plugin, INSTALL));
+					first = ptr + 1;
+				}
+				else if (*ptr == 'q')
+				{
+					/* quoted command */
+					gchar *quoted;
+					
+					quoted = g_shell_quote (CHOOSE_COMMAND (plugin, INSTALL));
+					g_string_append_len (command, first, ptr - 1 - first);
+					g_string_append (command, quoted);
+					g_free (quoted);
+					first = ptr + 1;
+				}
+				else if (*ptr == '%')
+				{
+					/* escaped % */
+					g_string_append_len (command, first, ptr - 1 - first);
+					first = ptr;
+				}
+				ptr++;
+			}
+		}
+		g_string_append (command, first);
 	}
 	else
 	{
-		prog = build_program_new_with_command (build_dir,
-			                                   "%s %s",
-		                                       root,
-	        		                           CHOOSE_COMMAND (plugin, INSTALL));
+		command = g_string_new (CHOOSE_COMMAND (plugin, INSTALL));
 	}
+
+	prog = build_program_new_with_command (build_dir,
+		                                   "%s",
+        		                           command->str);
 	build_program_set_callback (prog, callback, user_data);	
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
 	
+	g_string_free (command, TRUE);
 	g_free (build_dir);
 	g_free(root);
 	
