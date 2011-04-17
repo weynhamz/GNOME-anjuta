@@ -726,7 +726,7 @@ amp_project_write_target (AmpGroupNode *group, gint type, const gchar *name, gbo
 		pos = anjuta_token_find_group_property_position (group, type);
 	}
 
-	pos = anjuta_token_insert_token_list (FALSE, pos,
+	pos = anjuta_token_insert_token_list (after, pos,
 	    		ANJUTA_TOKEN_LIST, NULL,
 	    		type, name,
 	    		ANJUTA_TOKEN_SPACE, " ",
@@ -736,7 +736,8 @@ amp_project_write_target (AmpGroupNode *group, gint type, const gchar *name, gbo
 	    		NULL);
 	pos = anjuta_token_last_item (pos);
 	amp_group_node_update_makefile (group, pos);
-	
+
+	/* Return list token */
 	return pos;
 }
 
@@ -1298,6 +1299,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 	GList *list;
 	AnjutaToken *update = NULL;
 	AnjutaToken *existing_target_list;
+	gboolean after;
 	const gchar *target_dir;
 
 	g_return_val_if_fail (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET, NULL);
@@ -1366,6 +1368,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 
 
     // Check if the target already exist.
+	after = TRUE; 
 	for (item = amp_group_node_get_token (AMP_GROUP_NODE (group), AM_GROUP_TARGET); item != NULL; item = g_list_next (item))
 	{
 		existing_target_list = (AnjutaToken *)item->data;
@@ -1375,6 +1378,30 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 		same = strcmp (target_name,  new_name->str) == 0;
 		g_free (target_name);
 
+		if (after)
+		{
+			GList *list;
+			GList *item;
+			
+			list = amp_target_node_get_token (AMP_TARGET_NODE (node), ANJUTA_TOKEN_ARGUMENT);
+			for (item = g_list_first (list); item != NULL; item = g_list_next (item))
+			{
+				AnjutaToken *arg = (AnjutaToken *)item->data;
+				AnjutaToken *target_list;
+
+				if (arg != NULL)
+				{
+					target_list = anjuta_token_list (arg);
+					if (anjuta_token_list (target_list) == existing_target_list)
+					{
+						/* token in group_node are stored in reverse order */
+						after = FALSE;
+						break;
+					}
+				}
+			}
+		}
+		
 		if (same)
 		{
 			existing_target_list = anjuta_token_last_item (existing_target_list);
@@ -1387,8 +1414,8 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 	{
 		amp_target_node_delete_token (project, AMP_TARGET_NODE (node), FALSE, NULL);
 			
-		/* Add target is already existing list */
-		amp_target_add_in_list (project, existing_target_list, node, TRUE, NULL);
+		/* Add target in already existing list */
+		amp_target_add_in_list (project, existing_target_list, node, after, NULL);
 	}
 	else
 	{
@@ -1458,7 +1485,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 				/* Add target in new list */
 				style = anjuta_token_style_new_from_base (project->am_space_list);
 				anjuta_token_style_update (style, target_list);
-		
+
 				info = (AmpNodeInfo *)amp_project_get_type_info (project, anjuta_project_node_get_full_type (node));
 				target_list = amp_project_write_target (AMP_GROUP_NODE (group), info->token, new_name->str, after, sibling);
 
@@ -1480,7 +1507,6 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 	}
 
 
-	
 	/* Add directory variable if needed */
 	target_dir = NULL;
 	for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))

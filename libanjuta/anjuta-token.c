@@ -1003,6 +1003,7 @@ anjuta_token_merge (AnjutaToken *first, AnjutaToken *end)
 		anjuta_token_insert_before (end, first);
 	}
 	first->last = end;
+	if ((end->group != NULL) && (end->group != first) && (end->group->last == end)) end->group->last = first;
 	end->group = first;
 
 	return first;

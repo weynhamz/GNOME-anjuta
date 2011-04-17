@@ -471,4 +471,103 @@ AT_CHECK([diff -b output expect])
 
 
 
+AT_DATA([expect],
+[[    GROUP (): empty14
+        PROPERTY (Installation directories): progdir = plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): progdir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1
+
+progdir =
+prog_PROGRAMS = \
+	target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty13 \
+		move empty14 \
+		set 0:1 instdir 'progdir' \
+		list \
+		save])
+AT_CHECK([diff -b empty14/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty14 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty15
+        PROPERTY (Installation directories): plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+        target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty14 \
+		move empty15 \
+		set 0:1 instdir 'bindir' \
+		list \
+		save])
+AT_CHECK([diff -b empty15/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty15 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AT_CLEANUP
