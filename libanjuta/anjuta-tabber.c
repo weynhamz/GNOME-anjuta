@@ -514,7 +514,8 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 	
 	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 	{
-		anjuta_tabber_draw_tab (tabber, cr, child, FALSE);
+		if (child != current_tab)
+			anjuta_tabber_draw_tab (tabber, cr, child, FALSE);
 	}
 	anjuta_tabber_draw_tab (tabber, cr, current_tab, TRUE);
 	return GTK_WIDGET_CLASS (anjuta_tabber_parent_class)->draw (widget, cr);
