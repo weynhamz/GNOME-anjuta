@@ -390,6 +390,11 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 	GtkStyle* style = gtk_widget_get_style (GTK_WIDGET (tabber->priv->notebook));
 	GtkStyleContext* context = gtk_widget_get_style_context (GTK_WIDGET (tabber->priv->notebook));
 	GtkStateFlags state = current ? GTK_STATE_FLAG_ACTIVE : GTK_STATE_FLAG_NORMAL;
+
+	if (current)
+		gtk_widget_set_state_flags (tab, GTK_STATE_FLAG_ACTIVE, FALSE);
+	else
+		gtk_widget_unset_state_flags (tab, GTK_STATE_FLAG_ACTIVE);		
 	
 	xthickness = style->xthickness;
 	ythickness = style->ythickness;
@@ -501,11 +506,14 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 
 	current_tab = g_list_nth (tabber->priv->children, tabber->priv->active_page);
 	
-	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
+	for (child = tabber->priv->children; child != current_tab; child = g_list_next (child))
 	{
-		if (child != current_tab)
-			anjuta_tabber_draw_tab (tabber, cr, child, FALSE);
+		anjuta_tabber_draw_tab (tabber, cr, child, FALSE);
 	}
+	for (child = g_list_last (tabber->priv->children); child != current_tab; child = g_list_previous (child))
+	{
+		anjuta_tabber_draw_tab (tabber, cr, child, FALSE);
+	}	
 	anjuta_tabber_draw_tab (tabber, cr, current_tab, TRUE);
 	return GTK_WIDGET_CLASS (anjuta_tabber_parent_class)->draw (widget, cr);
 }
