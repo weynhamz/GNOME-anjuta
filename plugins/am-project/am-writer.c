@@ -815,7 +815,7 @@ amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GErro
 	if (sibling == NULL) after = TRUE;
 	
 	/* Add in Makefile.am */
-	targetname = g_strconcat (info->install, info->prefix, NULL);
+	targetname = g_strconcat (info->install, "_", info->prefix, NULL);
 
 	// Get token corresponding to sibling and check if the target are compatible
 	args = NULL;
@@ -1325,6 +1325,16 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 		AmpProperty *nat_prop = (AmpProperty *)item->data;
 		AmpProperty *cust_prop;
 
+		/* Check if property is enabled by another property */
+		if (nat_prop->link != NULL)
+		{
+			AnjutaProjectProperty *en_prop;
+
+			en_prop = anjuta_project_node_get_property (node, (AnjutaProjectProperty *)nat_prop->link);
+
+			if ((en_prop->value != NULL) && (*en_prop->value == '1')) continue;
+		}
+		
 		cust_prop = (AmpProperty *)anjuta_project_node_get_property (node, (AnjutaProjectProperty *)nat_prop);
 		if ((cust_prop == nat_prop) || (g_strcmp0 (cust_prop->base.value, nat_prop->base.value) == 0))
 		{
@@ -1332,6 +1342,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 			if (nat_prop->base.type == ANJUTA_PROJECT_PROPERTY_STRING)
 			{
 				g_string_append (new_name, nat_prop->suffix);
+				g_string_append_c (new_name, '_');
 			}
 		}
 		else
@@ -1350,6 +1361,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 				{
 					g_string_append (new_name, cust_prop->base.value);
 				}
+				g_string_append_c (new_name, '_');
 				break;
 			case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 				if ((cust_prop->base.value != NULL) && (g_strcmp0 (cust_prop->base.value, nat_prop->base.value) != 0))

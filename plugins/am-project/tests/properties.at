@@ -570,4 +570,100 @@ AT_CHECK([diff -b output expect])
 
 
 
+AT_DATA([expect],
+[[    GROUP (): empty16
+        PROPERTY (Installation directories): plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Do not install): true
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+        target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+noinst_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty15 \
+		move empty16 \
+		set 0:2 noinst 1 \
+		list \
+		save])
+AT_CHECK([diff -b empty16/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty16 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): empty17
+        PROPERTY (Installation directories): plugindir = 
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): libdir
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+        target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = 
+lib_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty16 \
+		move empty17 \
+		set 0:2 noinst 0 \
+		list \
+		save])
+AT_CHECK([diff -b empty17/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty17 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AT_CLEANUP

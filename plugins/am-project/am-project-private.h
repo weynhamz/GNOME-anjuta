@@ -30,7 +30,8 @@ G_BEGIN_DECLS
 typedef enum {
 	AM_PROPERTY_IN_CONFIGURE = 1 << 0,
 	AM_PROPERTY_IN_MAKEFILE = 1 << 1,
-	AM_PROPERTY_DIRECTORY = 1 << 2,			/* Directory property (having dir suffix) */
+	AM_PROPERTY_DIRECTORY = 1 << 2,						/* Directory property (having dir suffix) */
+	AM_PROPERTY_DISABLE_FOLLOWING = 1 << 3,		/* Disable following property if true */
 } AmpPropertyFlag;
 
 
@@ -41,6 +42,7 @@ struct _AmpProperty {
 	const gchar *suffix;
 	AmpPropertyFlag flags;
 	AnjutaToken *token;
+	AmpProperty *link;			/* Link to a boolean property disabling this one */
 };
 
 struct _AmpProject {

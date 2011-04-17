@@ -195,7 +195,7 @@ static AmpProperty AmpTargetNodeProperties[] = {
 			N_("Build but do not install the target."),
 			"0"},
 		AM_TOKEN__PROGRAMS,	 3, NULL,
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
 		{N_("Installation directory:"),
@@ -360,14 +360,14 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			N_("Build but do not install the target."),
 			"0"},
 		AM_TOKEN__PROGRAMS,	 3, "noinst_",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
 		{N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
-		AM_TOKEN__PROGRAMS, 	6, "bin_",
+		AM_TOKEN__PROGRAMS, 	6, "bin",
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
@@ -517,7 +517,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			N_("Build but do not install the target."),
 			"0"},
 		AM_TOKEN__PROGRAMS,	 3, "noinst_",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
 		{N_("Installation directory:"),
@@ -706,7 +706,7 @@ static AmpProperty AmpDataTargetProperties[] = {
 			N_("Build but do not install the target."),
 			"0"},
 		AM_TOKEN__PROGRAMS,	 3, "noinst_",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
 		{N_("Installation directory:"),
@@ -774,7 +774,7 @@ static AmpProperty AmpScriptTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Build but do not install the target.")},
 		AM_TOKEN__PROGRAMS,	 3, "noinst_",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
 		{N_("Installation directory:"),
@@ -843,10 +843,13 @@ amp_create_property_list (GList **list, AmpProperty *properties)
 	if (*list == NULL)
 	{
 		AmpProperty *prop;
+		AmpProperty *link = NULL;
 
 		for (prop = properties; prop->base.name != NULL; prop++)
 		{
+			prop->link = link;
 			*list = g_list_prepend (*list, prop);
+			link = prop->flags & AM_PROPERTY_DISABLE_FOLLOWING ? prop : NULL; 
 		}
 		*list = g_list_reverse (*list);
 	}
