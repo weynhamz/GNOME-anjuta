@@ -281,6 +281,17 @@ amp_group_node_add_token (AmpGroupNode *group, AnjutaToken *token, AmpGroupNodeT
 	group->tokens[category] = g_list_prepend (group->tokens[category], token);
 }
 
+void
+amp_group_node_remove_token (AmpGroupNode *group, AnjutaToken *token)
+{
+	gint i;
+
+	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
+	{
+		group->tokens[i] = g_list_remove (group->tokens[i], token);
+	}
+}
+
 GList *
 amp_group_node_get_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category)
 {

@@ -216,6 +216,20 @@ amp_target_node_add_token (AmpTargetNode *target, AmTokenType type, AnjutaToken 
 	target->tokens = tagged_token_list_insert (target->tokens, type, token);
 }
 
+void
+amp_target_node_remove_token (AmpTargetNode *target, AnjutaToken *token)
+{
+	GList *list;
+	
+	g_message ("amp_target_node_remove_token token %p", token);
+	for (list = target->tokens; list != NULL; list = g_list_next (list))
+	{
+		TaggedTokenItem *tagged = (TaggedTokenItem *)list->data;
+
+		tagged->tokens = g_list_remove (tagged->tokens, token);
+	}
+}
+
 GList *
 amp_target_node_get_token (AmpTargetNode *target, AmTokenType type)
 {
@@ -344,8 +358,11 @@ static gboolean
 amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GError **error)
 {
 	gboolean ok;
-	
-	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), TRUE, error);
+	GList * token_list;
+
+	token_list = amp_target_node_get_all_token (AMP_TARGET_NODE (target));
+	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), token_list, error);
+	g_list_free (token_list);
 	
 	/* Remove installation directory variable if the removed target was the
 	 * only one using it */

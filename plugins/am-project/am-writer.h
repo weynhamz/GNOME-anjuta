@@ -35,7 +35,7 @@ gboolean amp_group_node_create_token (AmpProject *project, AmpGroupNode *group, 
 gboolean amp_group_node_delete_token (AmpProject  *project, AmpGroupNode *group, GError **error);
 
 gboolean amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GError **error);
-gboolean amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, gboolean all, GError **error);
+gboolean amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GList *tokens, GError **error);
 
 gboolean amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GError **error);
 gboolean amp_source_node_delete_token (AmpProject  *project, AmpSourceNode *source, GError **error);

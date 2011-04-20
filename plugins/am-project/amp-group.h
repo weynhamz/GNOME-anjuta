@@ -63,6 +63,7 @@ AmpVariable* amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken 
 
 
 void amp_group_node_add_token (AmpGroupNode *group, AnjutaToken *token, AmpGroupNodeTokenCategory category);
+void amp_group_node_remove_token (AmpGroupNode *group, AnjutaToken *token);
 GList * amp_group_node_get_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category);
 GList * amp_group_node_get_all_token (AmpGroupNode *group);
 AnjutaToken* amp_group_node_get_first_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category);

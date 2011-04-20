@@ -62,6 +62,7 @@ typedef enum _AmpTargetNodeFlag
 void amp_target_node_register (GTypeModule *module);
 
 void amp_target_node_add_token (AmpTargetNode *target, AmTokenType type, AnjutaToken *token);
+void amp_target_node_remove_token (AmpTargetNode *target, AnjutaToken *token);
 GList * amp_target_node_get_token (AmpTargetNode *target, AmTokenType type);
 GList * amp_target_node_get_all_token (AmpTargetNode *target);
 void amp_target_node_set_type (AmpTargetNode *target, AmTokenType type);

@@ -771,7 +771,7 @@ amp_target_add_in_list (AmpProject *project, AnjutaToken *list, AnjutaProjectNod
 	anjuta_token_style_free (style);
 		
 	amp_group_node_update_makefile (parent, token);
-		
+
 	amp_target_node_add_token (AMP_TARGET_NODE (target), ANJUTA_TOKEN_ARGUMENT, token);
 	
 	return token;
@@ -900,9 +900,8 @@ amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GErro
 }
 
 gboolean 
-amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, gboolean all, GError **error)
+amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, GList *list, GError **error)
 {
-	GList *list;
 	GList *item;
 	GList *removed_dir = NULL;
 	AmpGroupNode *parent;
@@ -911,15 +910,7 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, gbool
 	parent = AMP_GROUP_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (target)));
 
 	/* Remove all associated token */
-	if (all)
-	{
-		list = amp_target_node_get_all_token (target);
-	}
-	else
-	{
-		list = amp_target_node_get_token (target, ANJUTA_TOKEN_ARGUMENT);
-	}
-	for (item = list; item != NULL; item = g_list_next (item))
+	for (item = list; item != NULL;	 item = g_list_next (item))
 	{
 		AnjutaToken *token = (AnjutaToken *)item->data;
 		AnjutaTokenStyle *style;
@@ -946,7 +937,7 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, gbool
 				gchar *value;
 				gint flags;
 				gchar *install = NULL;
-				
+
 				value = anjuta_token_evaluate (anjuta_token_first_word (variable));
 				split_automake_variable (value, &flags, &install, NULL);
 
@@ -988,8 +979,8 @@ amp_target_node_delete_token (AmpProject  *project, AmpTargetNode *target, gbool
 			amp_group_node_update_makefile (parent, token);
 			break;	
 		};
+		amp_target_node_remove_token (target, token);
 	}
-	if (all) g_list_free (list);
 
 	/* Check if we need to remove dir variable */
 	for (item = removed_dir; item != NULL; item = g_list_next(item))
@@ -1384,7 +1375,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 	for (item = amp_group_node_get_token (AMP_GROUP_NODE (group), AM_GROUP_TARGET); item != NULL; item = g_list_next (item))
 	{
 		existing_target_list = (AnjutaToken *)item->data;
-		gchar *target_name = anjuta_token_evaluate (anjuta_token_first_item (existing_target_list));
+		gchar *target_name = anjuta_token_evaluate (anjuta_token_first_word (existing_target_list));
 		gboolean same;
 
 		same = strcmp (target_name,  new_name->str) == 0;
@@ -1424,10 +1415,17 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 
 	if (existing_target_list != NULL)
 	{
-		amp_target_node_delete_token (project, AMP_TARGET_NODE (node), FALSE, NULL);
-			
+		GList *token_list;
+
+		/* Get old tokens */
+		token_list = g_list_copy (amp_target_node_get_token (AMP_TARGET_NODE (node), ANJUTA_TOKEN_ARGUMENT));
+
 		/* Add target in already existing list */
 		amp_target_add_in_list (project, existing_target_list, node, after, NULL);
+		
+		/* Remove old token */
+		amp_target_node_delete_token (project, AMP_TARGET_NODE (node), token_list, NULL);
+		g_list_free (token_list);
 	}
 	else
 	{
@@ -1455,10 +1453,9 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 					{
 						AnjutaToken *token;
 
-						token = anjuta_token_new_string (ANJUTA_TOKEN_ARGUMENT | ANJUTA_TOKEN_ADDED, new_name->str);
+						token = anjuta_token_new_string (ANJUTA_TOKEN_ADDED, new_name->str);
 						update = anjuta_token_insert_word_after (target_variable, old_token, token);
 						anjuta_token_remove_word (old_token);
-						item->data = token;
 						update = target_variable;
 					}
 				}
@@ -1528,6 +1525,15 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 		if ((prop->token_type == AM_TOKEN__PROGRAMS) && (((AmpProperty *)prop->base.native)->flags & AM_PROPERTY_DIRECTORY))
 		{
 			target_dir = prop->base.value;
+			if ((strlen (target_dir) <= 3) || (strcmp (target_dir + strlen(target_dir) - 3, "dir") != 0))
+			{
+				target_dir = g_strconcat (target_dir, "dir", NULL);
+				if ((prop->base.native != NULL) && (prop->base.value != prop->base.native->value))
+				{
+					g_free (prop->base.value);
+					prop->base.value = target_dir;
+				}
+			}
 			break;
 		}
 	}
@@ -1562,7 +1568,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 		}
 	}
 
-	if (target_dir != NULL)
+	if ((update != NULL) && (target_dir != NULL))
 	{
 		update = anjuta_token_insert_token_list (FALSE, update,
 					AM_TOKEN_DIR, NULL,
