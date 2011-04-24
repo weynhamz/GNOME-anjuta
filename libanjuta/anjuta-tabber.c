@@ -62,12 +62,6 @@ anjuta_tabber_init (AnjutaTabber *object)
 	gtk_widget_set_has_window (GTK_WIDGET(tabber), FALSE);
 }
 
-static void
-anjuta_tabber_finalize (GObject *object)
-{
-	G_OBJECT_CLASS (anjuta_tabber_parent_class)->finalize (object);
-}
-
 /**
  * anjuta_tabber_notebook_page_removed:
  *
@@ -93,6 +87,26 @@ anjuta_tabber_notebook_switch_page (GtkNotebook* notebook,
 	tabber->priv->active_page = page_num;
 	gtk_widget_queue_draw (GTK_WIDGET (tabber));
 }
+
+static void
+anjuta_tabber_finalize (GObject *object)
+{
+	G_OBJECT_CLASS (anjuta_tabber_parent_class)->finalize (object);
+}
+
+static void
+anjuta_tabber_dispose (GObject *object)
+{
+	AnjutaTabber* tabber = ANJUTA_TABBER (object);
+	g_signal_handlers_disconnect_by_func (tabber->priv->notebook,
+	                                      anjuta_tabber_notebook_page_removed,
+	                                      object);
+	g_signal_handlers_disconnect_by_func (tabber->priv->notebook,
+	                                      anjuta_tabber_notebook_switch_page,
+	                                      object);
+	
+	G_OBJECT_CLASS (anjuta_tabber_parent_class)->dispose (object);
+}	
 
 /**
  * anjuta_tabber_connect_notebook:
@@ -159,11 +173,13 @@ anjuta_tabber_get_preferred_width (GtkWidget* widget,
 	gint tab_curvature;
 	gint tab_overlap;
 	gint padding;
-	gint tab;
 	
 	GtkStyle* style = gtk_widget_get_style (widget);
 
 	xthickness = style->xthickness;
+
+	*minimum = 0;
+	*preferred = 0;
 	
 	gtk_widget_style_get (GTK_WIDGET (tabber->priv->notebook),
 	                      "focus-line-width", &focus_width,
@@ -172,32 +188,26 @@ anjuta_tabber_get_preferred_width (GtkWidget* widget,
 	                      NULL);
 
 	padding = xthickness + focus_width + tabber->priv->tab_hborder;
-	tab = tab_curvature - tab_overlap;
 	
 	for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 	{
 		gint child_min;
 		gint child_preferred;
+		gint extra_space = 2 * (tab_curvature - tab_overlap);
+		
+		if (child == g_list_first (tabber->priv->children))
+			extra_space += tab_overlap;
+		if (child == g_list_last (tabber->priv->children))
+			extra_space += tab_overlap;
 		
 		gtk_widget_get_preferred_width (GTK_WIDGET (child->data), &child_min, &child_preferred);
 		if (minimum)
 		{
-			*minimum += child_min + 2 * padding + 2 * tab;
+			*minimum += child_min + 2 * padding + extra_space;
 		}
 		if (preferred)
 		{
-			*preferred += child_preferred + 2 * padding + 2 *tab;
-		}
-	}
-	if (tabber->priv->children)
-	{
-		if (minimum)
-		{
-			*minimum += 2 * tab_overlap;
-		}
-				if (preferred)
-		{
-			*preferred += 2 * tab_overlap;
+			*preferred += child_preferred + 2 * padding + extra_space;
 		}
 	}
 }
@@ -257,7 +267,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 	gint ythickness;
 	gint x;
 	gint padding;
-	gint tab;
+	gint tab_space;
 	GtkStyle* style = gtk_widget_get_style (widget);
 
 	xthickness = style->xthickness;
@@ -270,7 +280,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 	                      NULL);
 
 	padding = xthickness + focus_width + tabber->priv->tab_hborder;
-	tab = tab_curvature - tab_overlap;
+	tab_space = tab_curvature - tab_overlap;
 	
 	gtk_widget_set_allocation (widget, allocation);
 
@@ -295,15 +305,15 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 
 	if (n_children > 0)
 	{
-		gint total_width = 0;
+		gint total_width = 2 * tab_overlap;
 		gboolean use_natural = FALSE;
 		gint child_equal;
 		gint extra_space = 0;
-		gint real_width = allocation->width - 2 * tab_overlap;
+		gint real_width = allocation->width;
 
 		/* Check if we have enough space for all widgets natural size */
 		child_equal = real_width / n_children - 
-			 n_children * 2 * (padding + tab);
+			 n_children * 2 * (padding + tab_space) - 2 * tab_overlap;
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
@@ -311,22 +321,23 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			gtk_widget_get_preferred_width (child_widget, NULL,
 			                                &natural);
 
-			total_width += natural;
+			total_width += natural + 2 * (padding + tab_space);
 			if (natural < child_equal)
 				extra_space += child_equal - natural;
 		}
-		use_natural = (total_width + n_children * 2 * (padding + tab)) <= real_width;
+		use_natural = (total_width <= real_width);
 		child_equal += extra_space / n_children;
+		
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
 			GtkAllocation child_alloc;
 			gint natural;
 			gint minimal;
-			gint begin_tab = tab;
-			gint end_tab = tab;
+			gint begin_tab = tab_space;
+			gint end_tab = tab_space;
 
-			if (child == tabber->priv->children)
+			if (child == g_list_first (tabber->priv->children))
 				begin_tab += tab_overlap;
 			if (child == g_list_last (tabber->priv->children))
 				end_tab += tab_overlap;
@@ -351,12 +362,12 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			{
 				case GTK_TEXT_DIR_RTL:
 					child_alloc.x = x - padding - begin_tab - child_alloc.width;
-					x = child_alloc.x - 2 * padding - end_tab;
+					x = child_alloc.x - padding - end_tab;
 					break;
 				case GTK_TEXT_DIR_LTR:
 				default:
 					child_alloc.x = x + padding + begin_tab;
-					x = child_alloc.x + child_alloc.width + 2 * padding + end_tab;
+					x = child_alloc.x + child_alloc.width + padding + end_tab;
 			}
 			child_alloc.y = allocation->y +
 				tabber->priv->tab_vborder + focus_width + ythickness;
@@ -717,6 +728,7 @@ anjuta_tabber_class_init (AnjutaTabberClass *klass)
 	GtkContainerClass* container_class = GTK_CONTAINER_CLASS (klass);
 	
 	object_class->finalize = anjuta_tabber_finalize;
+	object_class->dispose = anjuta_tabber_dispose;
 	object_class->set_property = anjuta_tabber_set_property;
 	object_class->get_property = anjuta_tabber_get_property;
 
