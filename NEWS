@@ -1,3 +1,21 @@
+Anjuta 3.0.1 "Don't panic!" (25 April 2011) -- Johannes Schmid
+
+Bugs fixed:
+645199 	Signal dnd issues
+563856 	generic Vala project type
+646530 	Anjuta crashes when closing tab other than current
+588387 	symbol-db-view-locals: better search
+645659 	Basic aesthetic improvements to preferences dialog
+645695 	install broken since deec63dfe4c2527d5adfed049eeac423307229d1
+645965 	Theming tweaks
+648361 	In the "Tools Editor" the Command-Browse button does not work
+648571  file manager variables don't work 
+
+Thanks to:
+Abderrahim Kitouni, Alexander Shopov, Andrej Žnidaršič, Carl-Anton Ingmarsson,
+Chao-Hsiung Liao, Christian Hergert, Cosimo Cecchi, Fran Diéguez,
+Mario Blättermann, Sébastien Granjoux
+
 Anjuta 3.0.0 "Three.Point.Zero" (4 April 2011) -- Johannes Schmid
 
 Summary of new features compared to 2.32.x:
