@@ -32,6 +32,7 @@
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -50,6 +51,7 @@
 enum {
 	ATP_PROJECT_ROOT_URI = 0,
 	ATP_PROJECT_ROOT_DIRECTORY,
+	ATP_FILE_MANAGER_CURRENT_GFILE,
 	ATP_FILE_MANAGER_CURRENT_URI,
 	ATP_FILE_MANAGER_CURRENT_DIRECTORY,
 	ATP_FILE_MANAGER_CURRENT_FULL_FILENAME,
@@ -83,6 +85,7 @@ static const struct
 } variable_list[] = {
  {IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, N_("Project root URI"), ATP_DEFAULT_VARIABLE},
  {"project_root_directory", N_("Project root path"), ATP_DIRECTORY_VARIABLE },
+ {IANJUTA_FILE_MANAGER_SELECTED_FILE, "File Manager file", ATP_NO_VARIABLE},
  {"file_manager_current_uri", N_("Selected URI in the file manager plugin"), ATP_DEFAULT_VARIABLE },
  {"file_manager_current_directory", N_("Selected directory in the file manager plugin"), ATP_DIRECTORY_VARIABLE },
  {"file_manager_current_full_filename", N_("Selected full file name in the file manager plugin"), ATP_FILE_VARIABLE },
@@ -230,10 +233,9 @@ atp_variable_get_id_from_name_part (const ATPVariable* this, const gchar* name, 
 /* Get Anjuta variables
  *---------------------------------------------------------------------------*/
 
-static gchar*
+static gpointer
 atp_variable_get_anjuta_variable (const ATPVariable *this, guint id)
 {
-	gchar* string;
 	GValue value = {0,};
 	GError* err = NULL;
 
@@ -247,11 +249,24 @@ atp_variable_get_anjuta_variable (const ATPVariable *this, guint id)
 	}
 	else
 	{
-		string = G_VALUE_HOLDS (&value, G_TYPE_STRING) ? g_value_dup_string (&value) : NULL;
+		gpointer ret;
+		
+		if (G_VALUE_HOLDS (&value, G_TYPE_STRING))
+		{
+			ret = g_value_dup_string (&value);
+		}
+		else if (G_VALUE_HOLDS (&value, G_TYPE_FILE))
+		{
+			ret = g_value_dup_object  (&value);
+		}
+		else
+		{
+			ret = NULL;
+		}
 		g_value_unset (&value);
-	}
 
-	return string;
+		return ret;
+	}
 }
 
 static gchar*
@@ -407,47 +422,79 @@ atp_variable_get_value_from_name_part (const ATPVariable* this, const gchar* nam
 gchar*
 atp_variable_get_value_from_id (const ATPVariable* this, guint id)
 {
-	char *val;
+	gchar *val = NULL;
+	GFile *file;
 
 	switch (id)
 	{
 	case ATP_PROJECT_ROOT_URI:
-	case ATP_FILE_MANAGER_CURRENT_URI:
 		val = atp_variable_get_anjuta_variable (this, id);
 		break;
 	case ATP_PROJECT_ROOT_DIRECTORY:
 		val = atp_variable_get_anjuta_variable (this, ATP_PROJECT_ROOT_URI);
 		val = get_path_from_uri (val);
 		break;
+	case ATP_FILE_MANAGER_CURRENT_URI:
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_uri (file);
+			g_object_unref (file);
+		}
+		break;
 	case ATP_FILE_MANAGER_CURRENT_DIRECTORY:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
-		val = remove_filename (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+			val = remove_filename (val);
+		}
 		break;
 	case ATP_FILE_MANAGER_CURRENT_FULL_FILENAME:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+		}
 		break;
 	case ATP_FILE_MANAGER_CURRENT_FULL_FILENAME_WITHOUT_EXT:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
-		val = remove_extension (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+			val = remove_extension (val);
+		}
 		break;
 	case ATP_FILE_MANAGER_CURRENT_FILENAME:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
-		val = remove_directory (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+			val = remove_directory (val);
+		}
 		break;
 	case ATP_FILE_MANAGER_CURRENT_FILENAME_WITHOUT_EXT:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
-		val = remove_directory (val);
-		val = remove_extension (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+			val = remove_directory (val);
+			val = remove_extension (val);
+		}
 		break;	
 	case ATP_FILE_MANAGER_CURRENT_EXTENSION:
-		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
-		val = get_path_from_uri (val);
-		val = remove_all_but_extension (val);
+		file = atp_variable_get_anjuta_variable (this, 	ATP_FILE_MANAGER_CURRENT_GFILE);
+		if (file != NULL)
+		{
+			val = g_file_get_path (file);			
+			g_object_unref (file);
+			val = remove_all_but_extension (val);
+		}
 		break;
 	case ATP_PROJECT_MANAGER_CURRENT_URI:
 		val = atp_variable_get_project_manager_variable (this, id);

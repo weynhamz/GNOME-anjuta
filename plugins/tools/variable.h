@@ -32,9 +32,10 @@ typedef struct _ATPVariable
 
 typedef enum {
 	ATP_DEFAULT_VARIABLE = 0,
-	ATP_DIRECTORY_VARIABLE = 1 << 1,	/* Variable is a directory */
-	ATP_FILE_VARIABLE = 1 << 2,		/* Variable is a filename */
+	ATP_DIRECTORY_VARIABLE = 1 << 1,		/* Variable is a directory */
+	ATP_FILE_VARIABLE = 1 << 2,					/* Variable is a filename */
 	ATP_INTERACTIVE_VARIABLE = 1 << 3,	/* Variable display a dialog */
+	ATP_GFILE_VARIABLE = 1 << 4,				/* Variable is a GFile */
 	ATP_NO_VARIABLE = 1 << 15
 } ATPFlags;
 	

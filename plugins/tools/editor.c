@@ -306,11 +306,13 @@ atp_variable_dialog_populate (ATPVariableDialog* this, ATPFlags flag)
 		GtkTreeIter iter;
 		gchar* value;
 		const gchar* value_col;
+		ATPFlags var_flags;
 
 		--i;
-		if ((flag == ATP_DEFAULT_VARIABLE) || (flag & atp_variable_get_flag (variable, i)))
+		var_flags = atp_variable_get_flag (variable, i);
+		if (!(var_flags & ATP_NO_VARIABLE) && ((flag == ATP_DEFAULT_VARIABLE) || (var_flags & flag)))
 		{
-			if (atp_variable_get_flag (variable, i) & ATP_INTERACTIVE_VARIABLE)
+			if (var_flags & ATP_INTERACTIVE_VARIABLE)
 			{
 				value = NULL;
 				value_col = _("ask at runtime");
