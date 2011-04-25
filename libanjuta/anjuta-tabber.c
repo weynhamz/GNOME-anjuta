@@ -116,12 +116,11 @@ anjuta_tabber_dispose (GObject *object)
  */
 static void
 anjuta_tabber_connect_notebook (AnjutaTabber* tabber)
-{
+{	
 	g_signal_connect (tabber->priv->notebook, "page-removed", 
 	                  G_CALLBACK(anjuta_tabber_notebook_page_removed), tabber);
 	g_signal_connect (tabber->priv->notebook, "switch-page", 
 	                  G_CALLBACK(anjuta_tabber_notebook_switch_page), tabber);
-	
 }
 
 static void
@@ -398,12 +397,11 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 
 	gint xpadding;
 	gint ypadding;
-	GtkStyle* style = gtk_widget_get_style (GTK_WIDGET (tabber->priv->notebook));
+	GtkStyle* style = gtk_widget_get_style (GTK_WIDGET (tabber));
 	GtkStyleContext* context = gtk_widget_get_style_context (GTK_WIDGET (tabber->priv->notebook));
-	GtkStateFlags state = current ? GTK_STATE_FLAG_ACTIVE : GTK_STATE_FLAG_NORMAL;
 
 	if (current)
-		gtk_widget_set_state_flags (tab, GTK_STATE_FLAG_ACTIVE, FALSE);
+		gtk_widget_set_state_flags (tab, GTK_STATE_FLAG_ACTIVE, TRUE);
 	else
 		gtk_widget_unset_state_flags (tab, GTK_STATE_FLAG_ACTIVE);		
 	
@@ -418,9 +416,17 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 
 	 /* Get border/padding for tab */
 	gtk_style_context_save (context);
+	gtk_style_context_add_class (context, GTK_STYLE_CLASS_NOTEBOOK);
 	gtk_style_context_add_region (context, GTK_STYLE_REGION_TAB,
 	                              region_flags);
-	gtk_style_context_set_state (context, state);
+	if (current)
+		gtk_style_context_set_state (context, GTK_STATE_FLAG_ACTIVE);
+	if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR)
+		gtk_style_context_set_junction_sides (context,
+			                                  GTK_JUNCTION_CORNER_TOPLEFT);
+	else
+		gtk_style_context_set_junction_sides (context,
+			                                  GTK_JUNCTION_CORNER_TOPRIGHT);		
 	
 	gtk_widget_get_allocation (widget, &widget_alloc);
 	gtk_widget_get_allocation (tab, &alloc);
@@ -478,7 +484,7 @@ anjuta_tabber_get_region_flags (gint page_num, gboolean is_last)
 	else
 		flags |= GTK_REGION_ODD;
 
-	if (page_num == 1)
+	if (page_num == 0)
 		flags |= GTK_REGION_FIRST;
 
 	if (is_last)
@@ -753,7 +759,7 @@ anjuta_tabber_class_init (AnjutaTabberClass *klass)
 	                                                      "GtkNotebook the tabber is associated with",
 	                                                      G_TYPE_OBJECT,
 	                                                      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
-
+	
 	g_type_class_add_private (klass, sizeof (AnjutaTabberPriv));
 }
 
