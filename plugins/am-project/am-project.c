@@ -2144,7 +2144,7 @@ amp_set_property_work (PmJob *job)
 	}
 	else if (flags & AM_PROPERTY_IN_MAKEFILE)
 	{
-		if (((AmpProperty *)job->property->native)->suffix != NULL)
+		if (((AnjutaProjectProperty *)job->property->native)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
 		{
 			amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
 		}

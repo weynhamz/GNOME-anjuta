@@ -1634,6 +1634,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 			/* Other properties having their own variable */
 			GString *new_value;
 			AnjutaToken *arg;
+			AnjutaToken *token;
 			const gchar *value;
 			AnjutaTokenStyle *style;
 
@@ -1730,6 +1731,16 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 				if (property->value != property->native->value) g_free (property->value);
 				property->value = g_string_free (new_value, FALSE);
 
+				break;
+			case ANJUTA_PROJECT_PROPERTY_MAP:
+
+				token =  anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, property->value);
+				anjuta_token_insert_word_after (args, NULL, token);
+
+				for (token = anjuta_token_next_word (token); token != NULL; token = anjuta_token_next_word (token))
+				{
+					anjuta_token_remove_word (token);
+				}
 				break;
 			default:				
 				break;

@@ -198,6 +198,7 @@ GFile *anjuta_project_node_get_file (const AnjutaProjectNode *node);
 GList *anjuta_project_node_get_native_properties (AnjutaProjectNode *node);
 GList *anjuta_project_node_get_custom_properties (AnjutaProjectNode *node);
 AnjutaProjectProperty *anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
+AnjutaProjectProperty *anjuta_project_node_get_map_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name);
 
 gboolean anjuta_project_node_set_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);
 gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState state);

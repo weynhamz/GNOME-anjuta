@@ -127,6 +127,7 @@ AnjutaToken *anjuta_token_prepend_items (AnjutaToken *list, AnjutaToken *item);
 AnjutaToken *anjuta_token_insert_after (AnjutaToken *sibling, AnjutaToken *token);
 AnjutaToken *anjuta_token_insert_before (AnjutaToken *sibling, AnjutaToken *token);
 AnjutaToken *anjuta_token_delete_parent (AnjutaToken *parent);
+void anjuta_token_remove_item (AnjutaToken *item);
 
 AnjutaToken *anjuta_token_merge (AnjutaToken *first, AnjutaToken *end);
 AnjutaToken *anjuta_token_merge_own_children (AnjutaToken *first);

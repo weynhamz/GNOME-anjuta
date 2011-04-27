@@ -176,7 +176,7 @@ static AmpProperty AmpGroupNodeProperties[] =
 	{
 		{N_("Installation directories:"),
 			ANJUTA_PROJECT_PROPERTY_MAP,
-			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("List of custom installation directories used by targets in this group.")},
 		AM_TOKEN_DIR, 0, NULL,
 		AM_PROPERTY_IN_MAKEFILE
@@ -1000,18 +1000,42 @@ AnjutaProjectProperty *
 amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value)
 {
 	AnjutaProjectProperty *new_prop;
+	gchar *name;
+	
 
-	new_prop = anjuta_project_node_get_property (node, prop);
-	if ((new_prop != NULL) && (new_prop->native != NULL))
+	if ((value != NULL) && (prop->type == ANJUTA_PROJECT_PROPERTY_MAP))
 	{
-		if ((new_prop->value != NULL) && (new_prop->value != new_prop->native->value)) g_free (new_prop->value);
-		new_prop->value = g_strdup (value);
+		name = strchr (value, '=');
+		if (name != NULL)
+		{
+			gsize len = name - value;
+		
+			name = g_strndup (value, len);
+			value += len + 1;
+		}
 	}
 	else
 	{
-		new_prop = amp_property_new (NULL, ((AmpProperty *)prop)->token_type, ((AmpProperty *)prop)->position, value, NULL);
-		anjuta_project_node_insert_property (node, prop, new_prop);
+		name = NULL;
 	}
+
+	new_prop = anjuta_project_node_get_map_property (node, prop, name);
+	if (new_prop != NULL)
+	{
+		if (new_prop->native != NULL)
+		{
+			/* Custom property already exist, replace value */
+			if ((new_prop->value != NULL) && (new_prop->value != new_prop->native->value)) g_free (new_prop->value);
+			new_prop->value = g_strdup (value);
+		}
+		else
+		{
+			/* Add new custom property */
+			new_prop = amp_property_new (name, ((AmpProperty *)new_prop)->token_type, ((AmpProperty *)prop)->position, value, NULL);
+			anjuta_project_node_insert_property (node, prop, new_prop);
+		}
+	}
+	g_free (name);
 
 	return new_prop;
 }

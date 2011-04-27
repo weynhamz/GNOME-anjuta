@@ -71,6 +71,8 @@ typedef struct _PropertyValue
 enum {
 	NAME_COLUMN,
 	VALUE_COLUMN,
+	EDITABLE_COLUMN,
+	PROPERTY_COLUMN,
 	LIST_COLUMNS_NB
 };
 
@@ -257,6 +259,23 @@ entry_changed_cb (GtkEditable *editable, gpointer user_data)
 }
 
 static void
+on_value_edited (GtkCellRendererText *cell,
+						  gchar *path_string,
+                          gchar *text,
+                          gpointer user_data)
+{
+	GtkTreeView *view = (GtkTreeView *)user_data;
+	GtkTreeIter iter;
+	GtkTreeModel * model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+	if (gtk_tree_model_get_iter_from_string (model, &iter, path_string))
+	{
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter, VALUE_COLUMN, text, -1);
+	}
+}
+
+static void
 on_row_changed(GtkTreeModel* model, GtkTreePath* path, GtkTreeIter* iter, gpointer data)
 {
 	GtkWidget* button = GTK_WIDGET(data);
@@ -345,7 +364,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	GtkWidget *entry = NULL;
 	GtkWidget *view;
 	static GType column_type[LIST_COLUMNS_NB] = {
-		G_TYPE_STRING, G_TYPE_STRING};
+		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER};
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeModel *model;
@@ -418,12 +437,22 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 				if (cust_prop->native == prop)
 				{
 					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-					gtk_list_store_set (GTK_LIST_STORE (model), &iter, NAME_COLUMN, cust_prop->name, VALUE_COLUMN, cust_prop->value, -1);
+					gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+					                    NAME_COLUMN, cust_prop->name,
+					                    VALUE_COLUMN, cust_prop->value,
+					                    EDITABLE_COLUMN, TRUE,
+					                    PROPERTY_COLUMN, cust_prop,
+					                    -1);
 				}
 			}
 			
 			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-			gtk_list_store_set (GTK_LIST_STORE (model), &iter, NAME_COLUMN, "", VALUE_COLUMN, "", -1);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+			                    NAME_COLUMN, "",
+			                    VALUE_COLUMN, "",
+			                    EDITABLE_COLUMN, TRUE,
+			                    PROPERTY_COLUMN, NULL,
+			                    -1);
 			
 			entry = gtk_frame_new (NULL);
 			gtk_frame_set_shadow_type (GTK_FRAME (entry), GTK_SHADOW_IN);
@@ -446,10 +475,13 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			    renderer,
 			    "text",
 			    VALUE_COLUMN,
+				"editable",
+			    EDITABLE_COLUMN,
 			    NULL);
+			g_signal_connect(renderer, "edited", (GCallback) on_value_edited, view);
 			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
-
+			
 			gtk_container_add (GTK_CONTAINER (entry), view);
 			
 			break;
@@ -655,7 +687,10 @@ on_properties_dialog_response (GtkWidget *dialog,
 			PropertyEntry *entry = (PropertyEntry *)item->data;
 			AnjutaProjectProperty *prop;
 			const gchar *text;
+			gboolean valid;
 			gboolean active;
+			GtkTreeIter iter;
+			GtkTreeModel *model;
 			
 			/* Get property value in node */
 			prop = anjuta_project_node_get_property (table->node, entry->property);
@@ -697,6 +732,21 @@ on_properties_dialog_response (GtkWidget *dialog,
 				}
 				break;
 			case ANJUTA_PROJECT_PROPERTY_MAP:
+				model = gtk_tree_view_get_model (GTK_TREE_VIEW (gtk_bin_get_child (GTK_BIN (entry->entry))));
+				for (valid = gtk_tree_model_get_iter_first (model, &iter); valid; valid = gtk_tree_model_iter_next (model, &iter))
+				{
+					AnjutaProjectProperty *cust_prop;
+					gchar *value;
+
+					value = NULL;
+					gtk_tree_model_get (model, &iter, VALUE_COLUMN, &value, PROPERTY_COLUMN, &cust_prop, -1);
+					if ((cust_prop != NULL) && (g_strcmp0 (cust_prop->value, value) != 0))
+					{
+						/* Modified */
+						ianjuta_project_set_property (table->project->project, table->node, cust_prop, value, NULL);
+					}
+					g_free (value);
+				}
 				break;
 			default:
 				break;

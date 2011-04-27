@@ -714,4 +714,54 @@ AT_PARSER_CHECK([load empty18 \
 		 list])
 AT_CHECK([diff -b output expect])
 
+
+
+AT_DATA([expect],
+[[    GROUP (): empty19
+        PROPERTY (Installation directories): plugindir = @plugindir@
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source2
+        TARGET (): target2
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Libraries): $(GDL_LIBS)
+            SOURCE (): source1
+        TARGET (): library1.la
+            PROPERTY (Installation directory): plugindir
+            PROPERTY (Build for check only): true
+            PROPERTY (Libraries): $(GDL_LIBS)
+]])
+AT_DATA([reference.am],
+[[
+bin_PROGRAMS = target1 \
+        target2
+
+target1_SOURCES =  \
+	source2
+
+target1_LDADD = $(GDL_LIBS)
+
+target2_SOURCES =  \
+	source1
+
+target2_LDADD = $(GDL_LIBS)
+
+plugindir = @plugindir@
+check_plugin_LTLIBRARIES =  \
+	library1.la
+
+library1_la_LIBADD = $(GDL_LIBS)
+]])
+AT_PARSER_CHECK([load empty18 \
+		move empty19 \
+		set 0 instdir 'plugindir=@plugindir@' \
+		list \
+		save])
+AT_CHECK([diff -b empty19/Makefile.am reference.am])
+AT_PARSER_CHECK([load empty19 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
 AT_CLEANUP
