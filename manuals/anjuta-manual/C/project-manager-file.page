@@ -8,7 +8,7 @@
     <link type="seealso" xref="project-manager-target"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Add or remove files to a project.
+      Add or remove files from a project.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -19,7 +19,7 @@
   <title>Add or remove files</title>
 
   <p>
-    If the project back end supports it you can add or remove files in your
+    If the project backend supports it, you can add or remove files in your
     project without editing the project file.
   </p>
 
@@ -41,10 +41,11 @@
 
         <note style="tip">
           <p>
-            The target allows you to group file and has a type defining the
-            use of the files inside. A program target contains source file
-            those will be compiled to create the target. While a data target
-            only group data files those will be installed in a common place.
+            The target allows you to group files, and has a type which defines
+            how the files are used inside. A program target contains source
+            files, which will be compiled to create the target.
+            On the other hand, a data target only groups data files which will
+            be installed in the same place.
           </p>
         </note>
       </item>
@@ -53,21 +54,21 @@
 	  You can select another target in the top <gui>target tree view</gui>.
         </p>
         <p>
-          Click on <gui>Select file to add</gui> button to get a file
+          Click on the <gui>Select file to add</gui> button to get a file
           chooser dialog where you can select several files.
         </p>
       </item>
       <item>
         <p>
-          When the target and the files are chosen click on <gui>Add</gui>
-          button to add those files in your project.
+          When you have chosen the target and the files, click on the <gui>Add</gui>
+          button to add those files to your project.
         </p>
       </item>
     </steps>
     
     <note style="tip">
       <p>
-        Some project format requires that the file is under the project
+        Some project formats require the file to be under the project
         directory. Added source files outside the project directory are
         automatically copied inside to fulfill this requirement.
       </p>
@@ -88,7 +89,7 @@
       </item>
       <item>
         <p>
-	  Confirm the removal. The file will only be removed from the project
+	  Confirm the removal. The file will only be removed from the project,
           not from your disk.
         </p>
       </item>

@@ -5,7 +5,7 @@
   <info>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Add or remove a non packaged libraries to a project.
+      Add or remove non-packaged libraries from a project.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -13,14 +13,14 @@
     </credit>
   </info>
 
-  <title>Add or remove non packaged libraries</title>
+  <title>Add or remove non-packaged libraries</title>
  
   <section>
-    <title>Add a non packaged library in a target</title>
+    <title>Add a non-packaged library to a target</title>
 
     <p>
-      In order to use a library in C, you need to tell to the compiler
-      where are the header files and to the linker where are the
+      In order to use a library in C, you need to tell the compiler
+      where the header files are, and tell the linker where to find the
       needed libraries. The issue is that your program will not compile
       on another computer if the header and the libraries are elsewhere.
     </p>
@@ -35,29 +35,30 @@
         </p>
         <p> 
           Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
-          <gui>Properties</gui></guiseq>. By default, It edits the
+          <gui>Properties</gui></guiseq>. By default, it edits the
           properties of the currently selected item in the project view.
           You can select a different node, by expanding
-          <gui>Browse other nodes</gui> and select another one.
+          <gui>Browse other nodes</gui> and selecting another one.
         </p>
       </item>
       <item>
         <p>
           If the header files are installed in a standard location
-          (<file>/usr/include</file>) you don't have to set this. Else
+          (<file>/usr/include</file>) you don't have to set this. If not,
           you need to add <input>-I<var>include_path</var></input> in
-          the <gui>C preprocessor flags</gui> property when using
-          <app>gcc</app>. You can add several paths separated with
-          space. These options will be used for all targets inside this
+          the <gui>C preprocessor flags</gui> property if you are using
+          <app>gcc</app> as your compiler. You can add several paths separated with
+          spaces. These options will be used for all targets inside this
           directory.
         </p>
         <p>
-          You could have to expand the <gui>More options</gui> to see this.
-          Click on <gui>Apply</gui> button when it's done.
+          You might have to expand the <gui>More options</gui> button to see this.
+          Click on the <gui>Apply</gui> button when you are done.
         </p>
       </item>
       <item>
         <p>
+	  Next, you need to add the library to a target.
  	  Select the target where you want to
           add the library in the <gui>project view</gui>, click on the
           right mouse button to make the <gui>project context menu</gui>
@@ -65,16 +66,16 @@
         </p>
         <p> 
           Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
-          <gui>Properties</gui></guiseq>. By default, It edits the
+          <gui>Properties</gui></guiseq>. By default, it edits the
           properties of the currently selected item in the project view.
           You can select a different node, by expanding
-          <gui>Browse other nodes</gui> and select another one.
+          <gui>Browse other nodes</gui> and selecting another one.
         </p>
       </item>
       <item>
         <p>
-          You need to set the <gui>Linker flags</gui> properties adding
-          <input>-l<var>library_name</var></input> for <app>gcc</app>.
+          You need to set the <gui>Linker flags</gui> property, adding
+          <input>-l<var>library_name</var></input> if your compiler is <app>gcc</app>.
           <var>library_name</var> is the name of the library file without the
           <file>lib</file> prefix and without the <file>.a</file> or
           <file>.so</file> extension.
@@ -94,18 +95,18 @@
     <steps>
       <item>
         <p>
-          Select the target having the library you want to remove in the
-          <gui>project view</gui> , click on the right mouse button to
+          Select the target that has the library you want to remove in the
+          <gui>project view</gui>, click on the right mouse button to
           make the <gui>project context menu</gui> appear and select
           <gui>Properties</gui>.
         </p>
       </item>
       <item>
         <p>
-	  Remove the properties the library from the
+	  Remove the library from the
           <gui>C preprocessor flags</gui> and <gui>Linker flags</gui>
-          properties. Click on <gui>Apply</gui> button to write the
-          changes in the project files.
+          properties. Click on the <gui>Apply</gui> button to write the
+          changes to the project files.
         </p>
       </item>
     </steps>

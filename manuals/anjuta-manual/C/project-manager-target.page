@@ -7,7 +7,7 @@
     <link type="seealso" xref="project-manager"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Add or remove target to a project.
+      Add or remove a target from a project.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -18,10 +18,10 @@
   <title>Add or remove targets</title>
 
   <p>
-    If the project back end supports it you can add or remove targets in your
+    If the project backend supports it, you can add or remove targets in your
     project without editing the project file. A target groups
-    files, it is typically used to represent a program, having as children
-    all its source files.
+    files together. It is typically used to represent a program, with
+    all its source files as its children.
   </p>
 
   <section>
@@ -37,7 +37,7 @@
         </p>
         <p> 
           Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
-          <gui>New Target</gui></guiseq>
+          <gui>New Target...</gui></guiseq>
         </p>
       </item>
       <item>
@@ -46,19 +46,19 @@
         </p>
         <p>
           Enter a target name and select the type of the target in the
-          drop-down list below. Depending on your project back end, various
-          type of target are possible. 
+          drop-down list below. Depending on your project backend, various
+          types of target are possible.
         </p>
         <note style="tip">
           <p>
-            Target name could are typically restricted to letters, digits and
-            underscore, so it's safer to avoid other characters.
+            Target names are typically restricted to letters, digits and
+            the underscore, so it's safer to avoid other characters.
           </p>
         </note>
       </item>
       <item>
         <p>
-          When the target name, type and parent are chosen click on
+          When you have chosen the target name, type and parent, click on the
           <gui>Add</gui> button to create this new target.
         </p>
       </item>
@@ -81,7 +81,7 @@
       <item>
         <p>
 	  Confirm the removal. The target and all its properties will be
-          remove from the project file. All files stay untouched on your
+          removed from the project file. All its files stay untouched on your
           hard disk.
         </p>
       </item>

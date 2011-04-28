@@ -19,7 +19,7 @@
 
   <p>
     New projects are created from templates. <app>Anjuta</app> will ask you
-    several informations like the type of the project, its name and more.
+    for various information, like the type of the project, its name and more.
   </p>
 
   <steps>
@@ -29,37 +29,38 @@
         <gui>New</gui><gui>Project</gui></guiseq>.
       </p>
       <p>
-        Or from <gui>Project</gui> from the drop-down list of the
+        Or from the drop-down list of the
         <gui>New</gui> button in the <gui>top tool bar</gui>, select
-        <guiseq><gui>File</gui><gui>New</gui><gui>Project</gui></guiseq>
+        <gui>Project</gui>
         to start the project wizard.
       </p>
     </item>
     <item>
       <p>
-        Select the icon representing the type of the project who want to
+        Select the icon representing the type of the project you want to
         create and click on <gui>Forward</gui>.
       </p>
       <note style="tip">
         <p>
-          Let the mouse over a project icon for a second and a small pop-up
-          message will appear showing more information about this project.
+          Leave the mouse over a project icon for a second and a small pop-up
+          message will appear showing more information about this type of
+          project.
         </p>
       </note>
     </item>
     <item>
       <p>
         Depending on the selected project type, you will have to enter
-        different informations. When it is done click on <gui>Forward</gui>.
+        different information. When you are done, click on <gui>Forward</gui>.
       </p>
       <p>
         All informations are grouped in pages, typically you will have
         to fill two or three pages. You can go back at any time using
-        the button <gui>Backward</gui>.
+        the button <gui>Back</gui>.
       </p>
       <note style="tip">
         <p>
-          Keep the mouse over the editable widget for a second to get a
+          Keep the mouse over the button or typing area for a second to get a
           small pop-up message with more details about the corresponding
           setting.
         </p>
@@ -67,9 +68,9 @@
     </item>
     <item>
       <p>
-        After filling all information pages, you will get a summary page listing
-        the main information about your project. Nothing is written on your disk
-        at this point. Click on <gui>Apply</gui> to write the project and open
+        After filling out all the information pages, you will get a summary page listing
+        the main information about your project. Nothing has been written to your disk
+        yet at this point. Click on <gui>Apply</gui> to save the project and open
         it in <app>Anjuta</app>.
       </p>
     </item>
@@ -79,7 +80,7 @@
     <p>
       Each project type corresponds to a template. <app>Anjuta</app> already
       includes several templates but you can add custom ones and even write
-      your own one. 
+      your own.
     </p>
   </note>
 

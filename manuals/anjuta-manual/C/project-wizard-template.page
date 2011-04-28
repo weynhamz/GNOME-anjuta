@@ -18,13 +18,13 @@
 
   <p>
     A project template is composed of a bunch of files which can be processed
-    by a powerful template processing engine  called <app>autogen</app>. One
-    of this file with a <file>.wiz</file> extension described all project
-    properties and needed files.
+    by a powerful template processing engine called <app>autogen</app>. A project
+    template file has a <file>.wiz</file> extension, and describes all the project
+    properties and files needed.
   </p>
 
   <p>
-    This <file>.wiz</file> file is looking like a XML file and is documented 
+    This <file>.wiz</file> file looks like a XML file and is documented
     <link href="http://library.gnome.org/devel/libanjuta/stable/project-wizard-format.html">here</link>.
   </p> 
 

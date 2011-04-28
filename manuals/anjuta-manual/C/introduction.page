@@ -14,16 +14,16 @@
   <p>
     <app>Anjuta</app> is a versatile Integrated Development Environment (IDE)
     for the GNOME desktop. It features a number of advanced programming
-    facilities includes project management, application wizards, interactive
+    facilities including project management, application wizards, interactive
     debugging, integrated Glade UI designer, integrated Devhelp API help, class
     generator, powerful source editor, symbols browsing, Git support, 
-    C/C++, python and Vala support and more.
+    C/C++, Python and Vala support and more.
   </p>
 
   <p>
     <app>Anjuta</app> has a flexible and advanced docking system
-    that allows you to lay out all views in whatever way you like. You can drag
-    and drop the views using drag bars and rearrange the layout
+    that allows you to lay out all the views in whatever way you like. You can drag
+    and drop the views using drag bars and rearrange the layout.
   </p>
 
   <p>

@@ -19,13 +19,13 @@
   <title>Import a project</title>
 
   <p>
-    <app>Anjuta</app> does not have his own project format. It load projects
-    using already existing format, like makefile or autotools, and does not
-    require that others developers use it.
-    Its own settings are stored in a file with <file>.anjuta</file> extension
+    <app>Anjuta</app> does not have its own project format. It loads projects
+    using already existing formats, like makefile or autotools, and does not
+    require that other developers use it.
+    Anjuta's own settings are stored in a file with the <file>.anjuta</file> extension
     and a hidden directory created in the project directory.
-    You need to import a project to create these files and use it in
-    <app>Anjuta</app>, this will not modify any project files.
+    To use a project in <app>Anjuta</app> and create these settings files, you
+    will need to import the project. This will not modify any project files.
   </p>
 
   <steps>
@@ -45,26 +45,27 @@
       </p>
       <p>
         Or Select <gui>Import from version control system</gui> if the
-        project need to be checkout from a server. Then select the
-        version control system, the server address and the directory
+        project needs to be checked out from a server. Then select the
+        version control system, the server address and the destination directory
         on your computer.
       </p>
     </item>
     <item>
       <p>
-        After selecting the existing project, the <gui>Project name</gui>
-        text box should be filled with project name but you can change it.
-        When it's done right click on <gui>Import</gui> button to download the
+        After selecting an existing project, the <gui>Project name</gui>
+        text box should be filled with the name of the project's directory,
+        but you can change it.
+        When it's done, click on the <gui>Import</gui> button to download the
         project if needed and create the files needed by <app>Anjuta</app>.
       </p>
     </item>
     <item>
       <p>
-        <app>Anjuta</app> try to automatically find the project back end
-        used by your project. But if several back ends are possible,
-        you will get a dialog asking you to choose a project back end
-        plugin. Read the project back end page to know which one is more
-        suitable.
+        <app>Anjuta</app> tries to automatically find the project backend
+        used by your project. But if several backends are possible,
+        you will get a dialog asking you to choose a project backend
+        plugin. Read the project backend description to find out which one to
+        choose.
       </p>
     </item>
   </steps>

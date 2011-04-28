@@ -15,18 +15,18 @@
   <title>Project manager plugin</title>
 
   <p>
-    <app>Anjuta</app> supports several already existing project format
-    through plugin back ends. The main one is the autotools format commonly
+    <app>Anjuta</app> supports several already existing project formats
+    through plugin backends. The main one is the autotools format commonly
     used on Linux.
   </p>
 
   <p>
-    Whatever is the underline back end, the graphical interface is the same
-    but some functions can be disabled.
+    Whatever the underlying backend, the graphical interface is the same
+    but some functions might be disabled.
   </p>
 
   <section id="backend" >
-    <title>Project Back end Plugin</title>
+    <title>Project Backend Plugin</title>
   </section>
 
 </page>
