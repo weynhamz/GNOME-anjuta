@@ -471,6 +471,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			    NULL);
 			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
+			renderer = gtk_cell_renderer_text_new ();
 			column = gtk_tree_view_column_new_with_attributes (_("Value"),
 			    renderer,
 			    "text",
@@ -739,6 +740,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					gchar *value;
 
 					value = NULL;
+					cust_prop = NULL;
 					gtk_tree_model_get (model, &iter, VALUE_COLUMN, &value, PROPERTY_COLUMN, &cust_prop, -1);
 					if ((cust_prop != NULL) && (g_strcmp0 (cust_prop->value, value) != 0))
 					{
