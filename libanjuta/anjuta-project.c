@@ -681,15 +681,24 @@ anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty
 AnjutaProjectProperty *
 anjuta_project_node_get_map_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name)
 {
-	GList *found;
+	GList *found = NULL;
 
-	/* Search in custom properties */
-	found = g_list_find_custom (node->custom_properties, property, find_property);
-	if (name != NULL)
+	/* Check if the property is already the right one */
+	if (property->native != NULL)
 	{
-		while ((found != NULL) && (strcmp (name, ((AnjutaProjectProperty *)found->data)->name) != 0))
+		found = g_list_find (node->custom_properties, property);
+	}
+	
+	/* Search in custom properties */
+	if (found == NULL)
+	{
+		found = g_list_find_custom (node->custom_properties, property, find_property);
+		if (name != NULL)
 		{
-			found = g_list_find_custom (g_list_next (found), property, find_property);
+			while ((found != NULL) && (strcmp (name, ((AnjutaProjectProperty *)found->data)->name) != 0))
+			{
+				found = g_list_find_custom (g_list_next (found), property, find_property);
+			}
 		}
 	}
 
