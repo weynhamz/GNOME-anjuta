@@ -581,7 +581,7 @@ dir_project_load_directory_callback (GObject      *source_object,
 			if (source == NULL)
 			{
 				/* Create a source for files */
-				source = project_node_new (data->proj, NULL, ANJUTA_PROJECT_SOURCE, file, NULL, NULL);
+				source = project_node_new (data->proj, NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, file, NULL, NULL);
 				anjuta_project_node_append (data->parent, source);
 			}
 		}

@@ -352,6 +352,7 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 			{
 				src_file = g_file_get_child (project->root_file, name);
 				source = MKP_SOURCE(mkp_source_new (src_file));
+				source->base.type = ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT;
 				g_object_unref (src_file);
 				anjuta_project_node_append (ANJUTA_PROJECT_NODE(target), ANJUTA_PROJECT_NODE(source));
 
