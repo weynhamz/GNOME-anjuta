@@ -1,0 +1,17 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:facet="http://projectmallard.org/facet/1.0/"
+      type="facets"
+      id="full-index">
+  <info>
+    <link type="guide" xref="index#full-index"/>
+    <facet:match key="all-pages"/>
+    <desc>Index of all Anjuta help topics.</desc>
+    <revision pkgversion="3.0" version="0.1" date="2011-05-01" status="incomplete"/>
+    <credit type="author">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Index of all help topics</title>
+</page>

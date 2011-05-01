@@ -2,11 +2,11 @@
       type="topic"
       id="introduction">
 
-  <info>
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <title>Introduction</title>
     <desc>Introduction to <app>Anjuta</app> Integrated Development Environment</desc>
     <link type="guide" xref="index"/>
-    <title type="sort">aaa</title>
   </info>
 
   <title>Introduction</title>

@@ -2,7 +2,8 @@
       type="topic" style="task"
       id="anjuta-project-files">
 
-  <info>
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="index#anjuta-project-management" group="second"/>
     <link type="seealso" xref="project-manager"/>
     <link type="seealso" xref="project-manager-target"/>

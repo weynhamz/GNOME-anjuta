@@ -2,7 +2,8 @@
       type="topic" style="task"
       id="project-manager-library">
 
-  <info>
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
       Add or remove non-packaged libraries from a project.

@@ -2,7 +2,8 @@
       type="topic" style="task"
       id="project-manager-module">
 
-  <info>
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="index#anjuta-project-management" groups="third"/>
     <link type="next" xref="project-manager-package"/>
     <link type="seealso" xref="project-manager-library"/>

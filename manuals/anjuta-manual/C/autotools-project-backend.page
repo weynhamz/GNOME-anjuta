@@ -2,7 +2,8 @@
       type="topic"
       id="autotools-project-backend">
 
-  <info>
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="project-manager#backend"/>
     <desc>
       Autotools project backend.
