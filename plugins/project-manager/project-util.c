@@ -67,7 +67,7 @@ gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type
     for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
     {
         GList *child_list;
-        
+
         if ((type_type == 0) || (anjuta_project_node_get_node_type (node) == type_type))
         {
             gint type;
