@@ -1,6 +1,6 @@
 include interfaces/Makefile.am.gir
 
-SUBDIRS = tests interfaces
+SUBDIRS = interfaces . tests
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
