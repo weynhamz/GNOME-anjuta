@@ -72,11 +72,11 @@ dnl Check for C Compiler
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_LEX
-if [["$LEX" != "flex"]]; then
+if test "$LEX" != "flex"; then
 	AC_MSG_ERROR(flex is required)
 fi
 AC_PROG_YACC
-if [["$YACC" != "bison"]]; then
+if test "$YACC" != "bison -y"; then
 	AC_MSG_ERROR(bison is required)
 fi
 AC_LANG([C])
