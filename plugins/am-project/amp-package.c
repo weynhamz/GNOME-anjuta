@@ -58,7 +58,7 @@ struct _AmpPackageNode {
  *---------------------------------------------------------------------------*/
 
 AmpPackageNode*
-amp_package_node_new (const gchar *name, GError **error)
+amp_package_node_new (const gchar *name)
 {
 	AmpPackageNode *node = NULL;
 
@@ -66,6 +66,12 @@ amp_package_node_new (const gchar *name, GError **error)
 	node->base.name = g_strdup (name);
 
 	return node;
+}
+
+AmpPackageNode*
+amp_package_node_new_valid (const gchar *name, GError **error)
+{
+	return amp_package_node_new (name);
 }
 
 void
@@ -124,7 +130,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 		/* Create a package node for the depedencies */
 		AnjutaProjectNode *pkg;
 
-		pkg = amp_node_new (ANJUTA_PROJECT_NODE (parent), ANJUTA_PROJECT_PACKAGE, NULL, dep->data, NULL);
+		pkg = ANJUTA_PROJECT_NODE (amp_package_node_new (dep->data));
 		anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), pkg);
 	}
 	anjuta_util_glist_strings_free (deps);
@@ -153,7 +159,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 				/* Create a source for files */
 				AnjutaProjectNode *source;
 
-				source = amp_node_new (ANJUTA_PROJECT_NODE (parent), ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
+				source = amp_node_new_valid (ANJUTA_PROJECT_NODE (parent), ANJUTA_PROJECT_SOURCE, (GFile *)file->data, NULL, NULL);
 				anjuta_project_node_append (ANJUTA_PROJECT_NODE (node), source);
 				g_object_unref ((GObject *)file->data);
 			}

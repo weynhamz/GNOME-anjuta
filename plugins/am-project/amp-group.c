@@ -170,7 +170,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 								/* Add new module */
 								AnjutaProjectNode *new_module;
 
-								new_module = amp_node_new (target, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
+								new_module = amp_node_new_valid (target, ANJUTA_PROJECT_MODULE, NULL, name, NULL);
 								anjuta_project_node_append (target, new_module);
 							}
 							g_free (cpp_flags);
@@ -538,9 +538,21 @@ amp_group_node_set_file (AmpGroupNode *group, GFile *new_file)
 }
 
 AmpGroupNode*
-amp_group_node_new (GFile *file, gboolean dist_only, GError **error)
+amp_group_node_new (GFile *file, gboolean dist_only)
 {
 	AmpGroupNode *node = NULL;
+	
+	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
+	node->base.file = g_object_ref (file);
+	node->dist_only = dist_only;
+	memset (node->tokens, 0, sizeof (node->tokens));
+
+    return node;	
+}
+
+AmpGroupNode* 
+amp_group_node_new_valid (GFile *file, gboolean dist_only, GError **error)
+{
 	gchar *name;
 
 	/* Validate group name */
@@ -568,13 +580,8 @@ amp_group_node_new (GFile *file, gboolean dist_only, GError **error)
 		}
 	}
 	g_free (name);
-	
-	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
-	node->base.file = g_object_ref (file);
-	node->dist_only = dist_only;
-	memset (node->tokens, 0, sizeof (node->tokens));
 
-    return node;	
+	return amp_group_node_new (file, dist_only);
 }
 
 void

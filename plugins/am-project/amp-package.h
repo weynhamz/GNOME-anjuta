@@ -43,7 +43,8 @@ GType amp_package_node_get_type (void) G_GNUC_CONST;
 
 void amp_package_node_register (GTypeModule *module);
 
-AmpPackageNode* amp_package_node_new (const gchar *name, GError **error);
+AmpPackageNode* amp_package_node_new (const gchar *name);
+AmpPackageNode* amp_package_node_new_valid (const gchar *name, GError **error);
 void amp_package_node_free (AmpPackageNode *node);
 void amp_package_node_set_version (AmpPackageNode *node, const gchar *compare, const gchar *version);
 AnjutaToken *amp_package_node_get_token (AmpPackageNode *node);

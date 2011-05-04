@@ -82,7 +82,7 @@ amp_module_node_update_node (AmpModuleNode *node, AmpModuleNode *new_node)
 }
 
 AmpModuleNode*
-amp_module_node_new (const gchar *name, GError **error)
+amp_module_node_new (const gchar *name)
 {
 	AmpModuleNode *module = NULL;
 
@@ -90,6 +90,12 @@ amp_module_node_new (const gchar *name, GError **error)
 	module->base.name = g_strdup (name);;
 
 	return module;
+}
+
+AmpModuleNode*
+amp_module_node_new_valid (const gchar *name, GError **error)
+{
+	return amp_module_node_new (name);
 }
 
 void

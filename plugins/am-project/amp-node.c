@@ -46,7 +46,7 @@
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode *
-amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
+amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node = NULL;
 	GFile *new_file = NULL;
@@ -65,10 +65,10 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 				}
 				file = new_file;
 			}
-			node = ANJUTA_PROJECT_NODE (amp_group_node_new (file, FALSE, error));
+			node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, FALSE, error));
 			break;
 		case ANJUTA_PROJECT_TARGET:
-			node = ANJUTA_PROJECT_NODE (amp_target_node_new (name, type, NULL, 0, error));
+			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, error));
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			/* Look for parent */
@@ -124,13 +124,13 @@ amp_node_new (AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file
 				}
 			}
 	
-			node = ANJUTA_PROJECT_NODE (amp_source_node_new (file, error));
+			node = ANJUTA_PROJECT_NODE (amp_source_node_new_valid (file, error));
 			break;
 		case ANJUTA_PROJECT_MODULE:
-			node = ANJUTA_PROJECT_NODE (amp_module_node_new (name, error));
+			node = ANJUTA_PROJECT_NODE (amp_module_node_new_valid (name, error));
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
-			node = ANJUTA_PROJECT_NODE (amp_package_node_new (name, error));
+			node = ANJUTA_PROJECT_NODE (amp_package_node_new_valid (name, error));
 			break;
 		default:
 			g_assert_not_reached ();

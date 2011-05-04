@@ -53,7 +53,8 @@ struct _AmpRootNodeClass {
 
 void amp_root_node_register (GTypeModule *module);
 
-AnjutaProjectNode* amp_root_node_new (GFile *file, GError **error);
+AnjutaProjectNode* amp_root_node_new (GFile *file);
+AnjutaProjectNode* amp_root_node_new_valid (GFile *file, GError **error);
 void amp_root_node_free (AmpRootNode *node);
 gboolean amp_root_node_set_file (AmpRootNode *source, GFile *new_file);
 

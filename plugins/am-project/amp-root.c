@@ -61,7 +61,7 @@ amp_root_node_set_file (AmpRootNode *root, GFile *new_file)
 }
 
 AnjutaProjectNode*
-amp_root_node_new (GFile *file, GError **error)
+amp_root_node_new (GFile *file)
 {
 	AmpRootNode *node = NULL;
 
@@ -69,6 +69,12 @@ amp_root_node_new (GFile *file, GError **error)
 	node->base.file = g_object_ref (file);
 
 	return ANJUTA_PROJECT_NODE (node);
+}
+
+AnjutaProjectNode*
+amp_root_node_new_valid (GFile *file, GError **error)
+{
+	return amp_root_node_new (file);
 }
 
 void

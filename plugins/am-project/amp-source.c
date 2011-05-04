@@ -75,7 +75,7 @@ amp_source_node_update_node (AmpSourceNode *node, AmpSourceNode *new_node)
 }
 
 AnjutaProjectNode*
-amp_source_node_new (GFile *file, GError **error)
+amp_source_node_new (GFile *file)
 {
 	AmpSourceNode *node = NULL;
 
@@ -83,6 +83,12 @@ amp_source_node_new (GFile *file, GError **error)
 	node->base.file = g_object_ref (file);
 
 	return ANJUTA_PROJECT_NODE (node);
+}
+
+AnjutaProjectNode*
+amp_source_node_new_valid (GFile *file, GError **error)
+{
+	return amp_source_node_new (file);
 }
 
 gboolean

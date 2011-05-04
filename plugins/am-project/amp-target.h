@@ -68,7 +68,8 @@ GList * amp_target_node_get_all_token (AmpTargetNode *target);
 void amp_target_node_set_type (AmpTargetNode *target, AmTokenType type);
 AnjutaTokenType amp_target_node_get_first_token_type (AmpTargetNode *target);
 AnjutaTokenType amp_target_node_get_next_token_type (AmpTargetNode *target, AnjutaTokenType type);
-AmpTargetNode* amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
+AmpTargetNode* amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags);
+AmpTargetNode* amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
 void amp_target_node_free (AmpTargetNode *node);
 void amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node);
 

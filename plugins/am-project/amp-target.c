@@ -268,9 +268,22 @@ amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node)
 }
 
 AmpTargetNode*
-amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
+amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags)
 {
-	AmpTargetNode *node = NULL;
+	AmpTargetNode *node;
+	
+	node = g_object_new (AMP_TYPE_TARGET_NODE, NULL);
+	amp_target_node_set_type (node, type);
+	node->base.name = g_strdup (name);
+	node->install = g_strdup (install);
+	node->flags = flags;
+	
+	return node;
+}
+
+AmpTargetNode*
+amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
+{
 	const gchar *basename;
 
 	/* Validate target name */
@@ -319,14 +332,8 @@ amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar 
 			return NULL;
 		}
 	}
-	
-	node = g_object_new (AMP_TYPE_TARGET_NODE, NULL);
-	amp_target_node_set_type (node, type);
-	node->base.name = g_strdup (name);
-	node->install = g_strdup (install);
-	node->flags = flags;
-	
-	return node;
+
+	return amp_target_node_new (name, type, install, flags);
 }
 
 void

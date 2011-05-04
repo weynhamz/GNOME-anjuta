@@ -87,7 +87,13 @@ struct _AmpNodeClass
 GType amp_node_get_type (void) G_GNUC_CONST;
 
 
-AnjutaProjectNode * amp_node_new				(AnjutaProjectNode *parent,
+AnjutaProjectNode * amp_node_new_valid				(AnjutaProjectNode *parent,
+				                                 AnjutaProjectNodeType type,
+				                                 GFile *file,
+				                                 const gchar *name,
+				                                 GError **error);
+
+AnjutaProjectNode * amp_node_new_valid		(AnjutaProjectNode *parent,
 				                                 AnjutaProjectNodeType type,
 				                                 GFile *file,
 				                                 const gchar *name,
