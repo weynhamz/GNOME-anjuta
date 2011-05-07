@@ -6,17 +6,17 @@
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-03-18 14:33+0000\n"
-"PO-Revision-Date: 2011-03-19 14:47+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-05-05 20:19+0000\n"
+"PO-Revision-Date: 2011-05-06 10:23+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr "EID Anjuta"
 msgid "Develop software in an integrated development environment"
 msgstr "Software de desarrollo en un entorno integrado de desarrollo"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:204
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:207
 msgid "Integrated Development Environment"
 msgstr "Entorno Integrado de Desarrollo"
 
@@ -213,7 +213,6 @@ msgstr "Desconocido"
 #. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
 #.
 #: ../libanjuta/anjuta-launcher.c:675
-#| msgid "Password:"
 msgid "[Pp]assword.*:"
 msgstr "[Cc]ontraseña.*:"
 
@@ -227,7 +226,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2369
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -257,20 +256,20 @@ msgstr ""
 msgid "Load"
 msgstr "Carga"
 
-#: ../libanjuta/anjuta-plugin-manager.c:927
-#: ../libanjuta/anjuta-plugin-manager.c:1992
+#: ../libanjuta/anjuta-plugin-manager.c:928
+#: ../libanjuta/anjuta-plugin-manager.c:2007
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1040 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:940
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1154
+#: ../libanjuta/anjuta-plugin-manager.c:1176
 msgid "Only show user activatable plugins"
 msgstr "Mostrar sólo los complementos activables por el usuario"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1201
+#: ../libanjuta/anjuta-plugin-manager.c:1216
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -281,75 +280,75 @@ msgstr ""
 "preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
 "diferente."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1227
+#: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
 msgstr "Olvidar el complemento seleccionado"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1361
-#: ../libanjuta/anjuta-plugin-manager.c:1512 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1362
+#: ../libanjuta/anjuta-plugin-manager.c:1377
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Seleccionar un complemento para activar"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1513
+#: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Seleccionar un complemento para activar</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2019
+#: ../libanjuta/anjuta-plugin-manager.c:2034
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2350
+#: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2351
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2356
+#: ../libanjuta/anjuta-plugin-manager.c:2371
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2372
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2363
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2364
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2370
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Anjuta shell for which the plugins are made"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2393
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2539
+#: ../libanjuta/anjuta-plugin-manager.c:2554
 msgid "Loaded:"
 msgstr "Cargado:"
 
@@ -426,7 +425,7 @@ msgstr "Categoría"
 msgid "General"
 msgstr "General"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:237
+#: ../libanjuta/anjuta-preferences-dialog.c:241
 msgid "Anjuta Preferences"
 msgstr "Preferencias de Anjuta"
 
@@ -478,11 +477,11 @@ msgstr "Acción"
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:1426
+#: ../libanjuta/anjuta-ui.c:1427
 msgid "Sensitive"
 msgstr "Distinguir mayúsculas"
 
-#: ../libanjuta/anjuta-ui.c:1434
+#: ../libanjuta/anjuta-ui.c:1435
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
@@ -638,12 +637,11 @@ msgid "Display an Add button"
 msgstr "Mostrar un botón «Añadir»"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../libfoocanvas/foo-canvas-text.c:177 ../src/preferences.ui.h:13
+#: ../src/preferences.ui.h:13
 msgid "Text"
 msgstr "Texto"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-#: ../libfoocanvas/foo-canvas-text.c:178
 msgid "Text to render"
 msgstr "Texto a renderizar"
 
@@ -665,240 +663,22 @@ msgstr "Widget no encontrado: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
-#: ../libfoocanvas/foo-canvas.c:1227 ../libfoocanvas/foo-canvas.c:1228
-msgid "X"
-msgstr "X"
-
-#: ../libfoocanvas/foo-canvas.c:1234 ../libfoocanvas/foo-canvas.c:1235
-msgid "Y"
-msgstr "Y"
-
-#: ../libfoocanvas/foo-canvas-text.c:186
-msgid "Markup"
-msgstr "Marcado"
-
-#: ../libfoocanvas/foo-canvas-text.c:187
-msgid "Marked up text to render"
-msgstr "Texto marcado para renderizar"
-
-#: ../libfoocanvas/foo-canvas-text.c:212
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
-msgid "Font"
-msgstr "Tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:213
-msgid "Font description as a string"
-msgstr "Descripción de la tipografía como una cadena"
-
-#: ../libfoocanvas/foo-canvas-text.c:221
-msgid "Font description"
-msgstr "Descripción de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:222
-msgid "Font description as a PangoFontDescription struct"
-msgstr "Descripción de la tipografía como una estructura PangoFontDescription"
-
-#: ../libfoocanvas/foo-canvas-text.c:230
-msgid "Font family"
-msgstr "Familia de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:231
-msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr ""
-"Nombre de la familia tipográfica, ej. Sans, Helvética, Times, Monospace"
-
-#: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
-msgid "Font style"
-msgstr "Estilo de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:257 ../libfoocanvas/foo-canvas-text.c:258
-msgid "Font variant"
-msgstr "Variante de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:267 ../libfoocanvas/foo-canvas-text.c:268
-msgid "Font weight"
-msgstr "Anchura de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:279 ../libfoocanvas/foo-canvas-text.c:280
-msgid "Font stretch"
-msgstr "Estiramiento de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:289 ../libfoocanvas/foo-canvas-text.c:290
-msgid "Font size"
-msgstr "Tamaño de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:300
-msgid "Font points"
-msgstr "Puntos de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:301
-msgid "Font size in points"
-msgstr "Tamaño de la tipografía en puntos"
-
-#: ../libfoocanvas/foo-canvas-text.c:311
-msgid "Rise"
-msgstr "Elevación"
-
-#: ../libfoocanvas/foo-canvas-text.c:312
-msgid ""
-"Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr ""
-"Desviación por encima del texto base (por debajo si el aumento es negativo)"
-
-#: ../libfoocanvas/foo-canvas-text.c:322
-msgid "Strikethrough"
-msgstr "Tachado"
-
-#: ../libfoocanvas/foo-canvas-text.c:323
-msgid "Whether to strike through the text"
-msgstr "Indica si se tacha el texto"
-
-#: ../libfoocanvas/foo-canvas-text.c:331
-msgid "Underline"
-msgstr "Subrayado"
-
-#: ../libfoocanvas/foo-canvas-text.c:332
-msgid "Style of underline for this text"
-msgstr "Estilo de subrayado para este texto"
-
-#: ../libfoocanvas/foo-canvas-text.c:341
-msgid "Scale"
-msgstr "Escala"
-
-#: ../libfoocanvas/foo-canvas-text.c:342
-msgid "Size of font, relative to default size"
-msgstr "Tamaño de la tipografía. Relativo al tamaño predeterminado"
-
-#: ../libfoocanvas/foo-canvas-text.c:402 ../libfoocanvas/foo-canvas-text.c:410
-#: ../libfoocanvas/foo-canvas-text.c:418
-msgid "Color"
-msgstr "Color"
-
-#: ../libfoocanvas/foo-canvas-text.c:403
-msgid "Text color, as string"
-msgstr "Color del texto, como cadena"
-
-#: ../libfoocanvas/foo-canvas-text.c:411
-msgid "Text color, as a GdkColor"
-msgstr "Color del texto, como un GdkColor"
-
-#: ../libfoocanvas/foo-canvas-text.c:419
-msgid "Text color, as an R/G/B/A combined integer"
-msgstr "Color del texto, como un entero R/G/B/A combinado"
-
-#: ../libfoocanvas/foo-canvas-text.c:432
-msgid "Text width"
-msgstr "Ancho del texto"
-
-#: ../libfoocanvas/foo-canvas-text.c:433
-msgid "Width of the rendered text"
-msgstr "Anchura del texto renderizado"
-
-#: ../libfoocanvas/foo-canvas-text.c:440
-msgid "Text height"
-msgstr "Altura del texto"
-
-#: ../libfoocanvas/foo-canvas-text.c:441
-msgid "Height of the rendered text"
-msgstr "Altura del texto renderizado"
-
-#: ../libfoocanvas/foo-canvas-text.c:449
-msgid "Font family set"
-msgstr "Conjunto de familia tipográfica"
-
-#: ../libfoocanvas/foo-canvas-text.c:450
-msgid "Whether this tag affects the font family"
-msgstr "Indica si esta etiqueta afecta a la familia de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:453
-msgid "Font style set"
-msgstr "Conjunto de estilo de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:454
-msgid "Whether this tag affects the font style"
-msgstr "Indica si esta etiqueta afecta el estilo de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:457
-msgid "Font variant set"
-msgstr "Conjunto de variante de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:458
-msgid "Whether this tag affects the font variant"
-msgstr "Indica si esta etiqueta afecta la variante de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:461
-msgid "Font weight set"
-msgstr "Conjunto de peso de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:462
-msgid "Whether this tag affects the font weight"
-msgstr "Indica si esta etiqueta afecta el peso de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:465
-msgid "Font stretch set"
-msgstr "Conjunto de estiramiento de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:466
-msgid "Whether this tag affects the font stretch"
-msgstr "Indica si esta etiqueta afecta el estiramiento de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:469
-msgid "Font size set"
-msgstr "Conjunto de tamaño de tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:470
-msgid "Whether this tag affects the font size"
-msgstr "Indica si esta etiqueta afecta el tamaño de la tipografía"
-
-#: ../libfoocanvas/foo-canvas-text.c:473
-msgid "Rise set"
-msgstr "Conjunto de elevación"
-
-#: ../libfoocanvas/foo-canvas-text.c:474
-msgid "Whether this tag affects the rise"
-msgstr "Indica si esta etiqueta afecta la elevación"
-
-#: ../libfoocanvas/foo-canvas-text.c:477
-msgid "Strikethrough set"
-msgstr "Conjunto de tachado"
-
-#: ../libfoocanvas/foo-canvas-text.c:478
-msgid "Whether this tag affects strikethrough"
-msgstr "Indica si esta etiqueta afecta el tachado"
-
-#: ../libfoocanvas/foo-canvas-text.c:481
-msgid "Underline set"
-msgstr "Conjunto de subrayado"
-
-#: ../libfoocanvas/foo-canvas-text.c:482
-msgid "Whether this tag affects underlining"
-msgstr "Indica si esta etiqueta afecta el subrayado"
-
-#: ../libfoocanvas/foo-canvas-text.c:485
-msgid "Scale set"
-msgstr "Conjunto de escala"
-
-#: ../libfoocanvas/foo-canvas-text.c:486
-msgid "Whether this tag affects font scaling"
-msgstr "Si esta etiqueta afecta al escalado de tipografías"
-
-#: ../plugins/am-project/amp-group.c:541
+#: ../plugins/am-project/amp-group.c:564
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/am-project/amp-group.c:555
+#: ../plugins/am-project/amp-group.c:578
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos o los "
 "caracteres «#$:%+,-.=@^_`~»"
 
-#: ../plugins/am-project/amp-group.c:585
+#: ../plugins/am-project/amp-group.c:603
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1582
-#: ../plugins/am-project/am-project.c:1612
-#: ../plugins/am-project/am-project.c:1664
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1666
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -906,28 +686,28 @@ msgstr ""
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
-#: ../plugins/am-project/amp-target.c:266
+#: ../plugins/am-project/amp-target.c:293
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/am-project/amp-target.c:280
+#: ../plugins/am-project/amp-target.c:307
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
-#: ../plugins/am-project/amp-target.c:295
+#: ../plugins/am-project/amp-target.c:322
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/am-project/amp-target.c:304
+#: ../plugins/am-project/amp-target.c:331
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -1186,204 +966,204 @@ msgstr ""
 "Antes de usar esta nueva configuración necesita quitar la predeterminada. "
 "¿Quiere hacerlo?"
 
-#: ../plugins/build-basic-autotools/plugin.c:1856
+#: ../plugins/build-basic-autotools/plugin.c:1901
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "No se puede compilar «%s»: No se definió una regla de compilación para este "
 "tipo de archivo."
 
-#: ../plugins/build-basic-autotools/plugin.c:1991
+#: ../plugins/build-basic-autotools/plugin.c:2036
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "No se puede configurar el proyecto: Falta el script de configuración en %s."
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
-#: ../plugins/build-basic-autotools/plugin.c:2546
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2574
-#: ../plugins/build-basic-autotools/plugin.c:2584
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2517
+#: ../plugins/build-basic-autotools/plugin.c:2591
+#: ../plugins/build-basic-autotools/plugin.c:2601
+#: ../plugins/build-basic-autotools/plugin.c:2619
+#: ../plugins/build-basic-autotools/plugin.c:2629
+#: ../plugins/build-basic-autotools/plugin.c:2686
 #, c-format
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/plugin.c:2476
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "_Build Project"
 msgstr "_Construir proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
+#: ../plugins/build-basic-autotools/plugin.c:2522
 msgid "Build whole project"
 msgstr "Construye el proyecto completo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
+#: ../plugins/build-basic-autotools/plugin.c:2527
 msgid "_Install Project"
 msgstr "_Instalar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
+#: ../plugins/build-basic-autotools/plugin.c:2528
 msgid "Install whole project"
 msgstr "Instala todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2533
 msgid "_Clean Project"
 msgstr "_Limpiar proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
+#: ../plugins/build-basic-autotools/plugin.c:2534
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2494
+#: ../plugins/build-basic-autotools/plugin.c:2539
 msgid "C_onfigure Project…"
 msgstr "C_onfigurar el proyecto…"
 
-#: ../plugins/build-basic-autotools/plugin.c:2495
+#: ../plugins/build-basic-autotools/plugin.c:2540
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:2500
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Build _Tarball"
 msgstr "Construir _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:2501
+#: ../plugins/build-basic-autotools/plugin.c:2546
 msgid "Build project tarball distribution"
 msgstr "Construye un paquete del proyecto para distribuirlo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid "_Build Module"
 msgstr "_Construir módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2507
+#: ../plugins/build-basic-autotools/plugin.c:2552
 msgid "Build module associated with current file"
 msgstr "Construye el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2557
 msgid "_Install Module"
 msgstr "_Instalar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2558
 msgid "Install module associated with current file"
 msgstr "Instala un módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2563
 msgid "_Clean Module"
 msgstr "_Limpiar módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2519
+#: ../plugins/build-basic-autotools/plugin.c:2564
 msgid "Clean module associated with current file"
 msgstr "Limpia el módulo asociado al archivo actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2569
 msgid "Co_mpile File"
 msgstr "Co_mpilar archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2525
+#: ../plugins/build-basic-autotools/plugin.c:2570
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
+#: ../plugins/build-basic-autotools/plugin.c:2575
 msgid "Select Configuration"
 msgstr "Seleccionar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2531
+#: ../plugins/build-basic-autotools/plugin.c:2576
 msgid "Select current configuration"
 msgstr "Seleccionar la configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
+#: ../plugins/build-basic-autotools/plugin.c:2581
 msgid "Remove Configuration"
 msgstr "Eliminar configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:2537
+#: ../plugins/build-basic-autotools/plugin.c:2582
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpiar el proyecto (distclean) y eliminar la carpeta de configuración si es "
 "posible"
 
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2578
+#: ../plugins/build-basic-autotools/plugin.c:2595
+#: ../plugins/build-basic-autotools/plugin.c:2623
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2579
+#: ../plugins/build-basic-autotools/plugin.c:2596
+#: ../plugins/build-basic-autotools/plugin.c:2624
 msgid "Compile file"
 msgstr "Compilar el archivo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2585
+#: ../plugins/build-basic-autotools/plugin.c:2602
+#: ../plugins/build-basic-autotools/plugin.c:2630
 msgid "Build module"
 msgstr "Construir un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2562
-#: ../plugins/build-basic-autotools/plugin.c:2590
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2607
+#: ../plugins/build-basic-autotools/plugin.c:2635
+#: ../plugins/build-basic-autotools/plugin.c:2693
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2591
+#: ../plugins/build-basic-autotools/plugin.c:2608
+#: ../plugins/build-basic-autotools/plugin.c:2636
 msgid "Install module"
 msgstr "Instalar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2568
-#: ../plugins/build-basic-autotools/plugin.c:2596
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2613
+#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2700
 #, c-format
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
-#: ../plugins/build-basic-autotools/plugin.c:2597
+#: ../plugins/build-basic-autotools/plugin.c:2614
+#: ../plugins/build-basic-autotools/plugin.c:2642
 msgid "Clean module"
 msgstr "Limpiar un módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:2602
+#: ../plugins/build-basic-autotools/plugin.c:2647
 msgid "_Cancel command"
 msgstr "Comando _cancelar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2603
+#: ../plugins/build-basic-autotools/plugin.c:2648
 msgid "Cancel build command"
 msgstr "Comando cancelar construcción"
 
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2686
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2693
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2700
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpiar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2708
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2708
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:3197
+#: ../plugins/build-basic-autotools/plugin.c:3242
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3206
+#: ../plugins/build-basic-autotools/plugin.c:3251
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:3595
-#: ../plugins/build-basic-autotools/plugin.c:3603
+#: ../plugins/build-basic-autotools/plugin.c:3640
+#: ../plugins/build-basic-autotools/plugin.c:3648
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
@@ -1669,7 +1449,7 @@ msgstr "Tipo"
 #: ../plugins/class-gen/window.c:755 ../plugins/class-gen/window.c:763
 #: ../plugins/class-gen/window.c:771 ../plugins/class-gen/window.c:781
 #: ../plugins/class-gen/window.c:791 ../plugins/class-gen/window.c:803
-#: ../plugins/project-manager/dialogs.c:438
+#: ../plugins/project-manager/dialogs.c:467
 #: ../plugins/run-program/parameters.c:758
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -1713,8 +1493,8 @@ msgstr "Marshaller"
 #: ../plugins/class-gen/window.c:748 ../plugins/class-gen/window.c:764
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:445
-#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:474
+#: ../plugins/project-manager/dialogs.c:475
+#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Valor"
 
@@ -1739,21 +1519,6 @@ msgstr "«Setter»"
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
 msgstr "Descripción XML de la interfaz de usuario"
-
-#: ../plugins/class-inheritance/class-callbacks.c:208
-#, c-format
-msgid "Args: %s"
-msgstr "Args: %s"
-
-#: ../plugins/class-inheritance/class-inherit.c:1213
-#: ../plugins/debug-manager/sharedlib.c:144
-#: ../plugins/debug-manager/signals.c:332
-msgid "Update"
-msgstr "Actualizar"
-
-#: ../plugins/class-inheritance/plugin.c:110
-msgid "Inheritance Graph"
-msgstr "Gráfico de herencia"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid ""
@@ -2566,7 +2331,7 @@ msgstr "Operaciones de los puntos de parada"
 msgid "_Go to address"
 msgstr "_Ir a la dirección"
 
-#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:468
+#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:470
 msgid "Variable"
 msgstr "Variable"
 
@@ -2861,6 +2626,11 @@ msgstr "Registro"
 #: ../plugins/debug-manager/registers.c:489
 msgid "Registers"
 msgstr "Registros"
+
+#: ../plugins/debug-manager/sharedlib.c:144
+#: ../plugins/debug-manager/signals.c:332
+msgid "Update"
+msgstr "Actualizar"
 
 #: ../plugins/debug-manager/sharedlib.c:166
 msgid "Shared Object"
@@ -3198,7 +2968,7 @@ msgid "Close file"
 msgstr "Cerrar archivo"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:576
+#: ../plugins/project-manager/dialogs.c:608
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -3976,11 +3746,11 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el final pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/document-manager/search-box.c:988
+#: ../plugins/document-manager/search-box.c:989
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
@@ -4011,7 +3781,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Esta función no está implementada para los widgets de la clase «%s»"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:157
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "Abrir «%s»"
@@ -4317,7 +4087,7 @@ msgstr "Información del archivo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
-#: ../plugins/project-manager/dialogs.c:581
+#: ../plugins/project-manager/dialogs.c:613
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -4327,7 +4097,7 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:603
+#: ../plugins/project-manager/dialogs.c:635
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -4451,10 +4221,16 @@ msgstr "Script"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1598
+#: ../plugins/am-project/am-project.c:1600
 #, c-format
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
+
+#: ../plugins/am-project/am-project.c:1614
+#, c-format
+#| msgid "Project doesn't exist or invalid path"
+msgid "Project doesn't exist or has an invalid path"
+msgstr "El proyecto no existe o tiene una ruta no válida"
 
 #: ../plugins/am-project/am-properties.c:51
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
@@ -4478,7 +4254,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "Versión:"
@@ -4523,9 +4299,9 @@ msgid "An link to the project web page if provided."
 msgstr "Un enlace a la página web del proyecto, si la tiene."
 
 #: ../plugins/am-project/am-properties.c:97
-#: ../plugins/am-project/am-properties.c:208
-#: ../plugins/am-project/am-properties.c:368
-#: ../plugins/am-project/am-properties.c:520
+#: ../plugins/am-project/am-properties.c:209
+#: ../plugins/am-project/am-properties.c:374
+#: ../plugins/am-project/am-properties.c:531
 msgid "Linker flags:"
 msgstr "Opciones del enlazador:"
 
@@ -4536,9 +4312,9 @@ msgstr ""
 "grupo."
 
 #: ../plugins/am-project/am-properties.c:105
-#: ../plugins/am-project/am-properties.c:232
-#: ../plugins/am-project/am-properties.c:384
-#: ../plugins/am-project/am-properties.c:536
+#: ../plugins/am-project/am-properties.c:233
+#: ../plugins/am-project/am-properties.c:390
+#: ../plugins/am-project/am-properties.c:547
 msgid "C preprocessor flags:"
 msgstr "Opciones de preprocesado de C:"
 
@@ -4549,9 +4325,9 @@ msgstr ""
 "en este grupo."
 
 #: ../plugins/am-project/am-properties.c:113
-#: ../plugins/am-project/am-properties.c:240
-#: ../plugins/am-project/am-properties.c:392
-#: ../plugins/am-project/am-properties.c:544
+#: ../plugins/am-project/am-properties.c:241
+#: ../plugins/am-project/am-properties.c:398
+#: ../plugins/am-project/am-properties.c:555
 msgid "C compiler flags:"
 msgstr "Opciones del compilador de C:"
 
@@ -4561,9 +4337,9 @@ msgstr ""
 "Opciones comunes adicionales de C para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:121
-#: ../plugins/am-project/am-properties.c:248
-#: ../plugins/am-project/am-properties.c:400
-#: ../plugins/am-project/am-properties.c:552
+#: ../plugins/am-project/am-properties.c:249
+#: ../plugins/am-project/am-properties.c:406
+#: ../plugins/am-project/am-properties.c:563
 msgid "C++ compiler flags:"
 msgstr "Opciones del compilador de C++:"
 
@@ -4574,9 +4350,9 @@ msgstr ""
 "objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:129
-#: ../plugins/am-project/am-properties.c:256
-#: ../plugins/am-project/am-properties.c:408
-#: ../plugins/am-project/am-properties.c:560
+#: ../plugins/am-project/am-properties.c:257
+#: ../plugins/am-project/am-properties.c:414
+#: ../plugins/am-project/am-properties.c:571
 msgid "Java compiler flags:"
 msgstr "Opciones del compilador de Java:"
 
@@ -4586,9 +4362,9 @@ msgstr ""
 "Opciones comunes adicionales de Java para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:137
-#: ../plugins/am-project/am-properties.c:264
-#: ../plugins/am-project/am-properties.c:416
-#: ../plugins/am-project/am-properties.c:568
+#: ../plugins/am-project/am-properties.c:265
+#: ../plugins/am-project/am-properties.c:422
+#: ../plugins/am-project/am-properties.c:579
 msgid "Vala compiler flags:"
 msgstr "Opciones del compilador de Vala:"
 
@@ -4598,9 +4374,9 @@ msgstr ""
 "Opciones comunes adicionales de Vala para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:145
-#: ../plugins/am-project/am-properties.c:272
-#: ../plugins/am-project/am-properties.c:424
-#: ../plugins/am-project/am-properties.c:576
+#: ../plugins/am-project/am-properties.c:273
+#: ../plugins/am-project/am-properties.c:430
+#: ../plugins/am-project/am-properties.c:587
 msgid "Fortran compiler flags:"
 msgstr "Opciones del compilador de Fortran:"
 
@@ -4611,9 +4387,9 @@ msgstr ""
 "grupo."
 
 #: ../plugins/am-project/am-properties.c:153
-#: ../plugins/am-project/am-properties.c:280
-#: ../plugins/am-project/am-properties.c:432
-#: ../plugins/am-project/am-properties.c:584
+#: ../plugins/am-project/am-properties.c:281
+#: ../plugins/am-project/am-properties.c:438
+#: ../plugins/am-project/am-properties.c:595
 msgid "Objective C compiler flags:"
 msgstr "Opciones del compilador de C:"
 
@@ -4625,9 +4401,9 @@ msgstr ""
 "grupo."
 
 #: ../plugins/am-project/am-properties.c:161
-#: ../plugins/am-project/am-properties.c:288
-#: ../plugins/am-project/am-properties.c:440
-#: ../plugins/am-project/am-properties.c:592
+#: ../plugins/am-project/am-properties.c:289
+#: ../plugins/am-project/am-properties.c:446
+#: ../plugins/am-project/am-properties.c:603
 msgid "Lex/Flex flags:"
 msgstr "Opciones de Lex/Flex:"
 
@@ -4636,13 +4412,13 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
-"«Flex» para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
+"para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:169
-#: ../plugins/am-project/am-properties.c:296
-#: ../plugins/am-project/am-properties.c:448
-#: ../plugins/am-project/am-properties.c:600
+#: ../plugins/am-project/am-properties.c:297
+#: ../plugins/am-project/am-properties.c:454
+#: ../plugins/am-project/am-properties.c:611
 msgid "Yacc/Bison flags:"
 msgstr "Opciones de Yacc/Bison:"
 
@@ -4665,30 +4441,34 @@ msgstr ""
 "en este grupo."
 
 #: ../plugins/am-project/am-properties.c:192
-#: ../plugins/am-project/am-properties.c:352
-#: ../plugins/am-project/am-properties.c:504
-#: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:357
+#: ../plugins/am-project/am-properties.c:514
+#: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:772
 msgid "Do not install:"
 msgstr "No instalar:"
 
 #: ../plugins/am-project/am-properties.c:195
-#: ../plugins/am-project/am-properties.c:355
-#: ../plugins/am-project/am-properties.c:507
-#: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:360
+#: ../plugins/am-project/am-properties.c:517
+#: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:775
 msgid "Build but do not install the target."
 msgstr "Construir el objetivo pero no instalarlo."
 
-#: ../plugins/am-project/am-properties.c:200
-#: ../plugins/am-project/am-properties.c:360
-#: ../plugins/am-project/am-properties.c:512
-#: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:201
+#: ../plugins/am-project/am-properties.c:366
+#: ../plugins/am-project/am-properties.c:523
+#: ../plugins/am-project/am-properties.c:712
+#: ../plugins/am-project/am-properties.c:780
 msgid "Installation directory:"
 msgstr "Carpeta de instalación:"
 
-#: ../plugins/am-project/am-properties.c:203
-#: ../plugins/am-project/am-properties.c:363
-#: ../plugins/am-project/am-properties.c:515
-#: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:204
+#: ../plugins/am-project/am-properties.c:369
+#: ../plugins/am-project/am-properties.c:526
+#: ../plugins/am-project/am-properties.c:715
+#: ../plugins/am-project/am-properties.c:783
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4696,145 +4476,153 @@ msgstr ""
 "Debe ser una carpeta estándar o una personalizada definida en las "
 "propiedades de grupo."
 
-#: ../plugins/am-project/am-properties.c:211
-#: ../plugins/am-project/am-properties.c:371
-#: ../plugins/am-project/am-properties.c:523
+#: ../plugins/am-project/am-properties.c:212
+#: ../plugins/am-project/am-properties.c:377
+#: ../plugins/am-project/am-properties.c:534
 msgid "Additional linker flags for this target."
 msgstr "Opciones adicionales del enlazador para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:216
+#: ../plugins/am-project/am-properties.c:217
 msgid "Additional libraries:"
 msgstr "Bibliotecas adicionales:"
 
-#: ../plugins/am-project/am-properties.c:219
-#: ../plugins/am-project/am-properties.c:379
-#: ../plugins/am-project/am-properties.c:531
+#: ../plugins/am-project/am-properties.c:220
+#: ../plugins/am-project/am-properties.c:385
+#: ../plugins/am-project/am-properties.c:542
 msgid "Additional libraries for this target."
 msgstr "Bibliotecas adicionales para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:224
+#: ../plugins/am-project/am-properties.c:225
 msgid "Additional objects:"
 msgstr "Objetos adicionales:"
 
-#: ../plugins/am-project/am-properties.c:227
+#: ../plugins/am-project/am-properties.c:228
 msgid "Additional object files for this target."
 msgstr "Archivos de objeto adicionales para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:235
-#: ../plugins/am-project/am-properties.c:387
-#: ../plugins/am-project/am-properties.c:539
+#: ../plugins/am-project/am-properties.c:236
+#: ../plugins/am-project/am-properties.c:393
+#: ../plugins/am-project/am-properties.c:550
 msgid "Additional C preprocessor flags for this target."
 msgstr "Opciones adicionales de preprocesado de C para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:243
-#: ../plugins/am-project/am-properties.c:395
-#: ../plugins/am-project/am-properties.c:547
+#: ../plugins/am-project/am-properties.c:244
+#: ../plugins/am-project/am-properties.c:401
+#: ../plugins/am-project/am-properties.c:558
 msgid "Additional C compiler flags for this target."
 msgstr "Opciones de compilación adicionales de C para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:251
-#: ../plugins/am-project/am-properties.c:403
-#: ../plugins/am-project/am-properties.c:555
+#: ../plugins/am-project/am-properties.c:252
+#: ../plugins/am-project/am-properties.c:409
+#: ../plugins/am-project/am-properties.c:566
 msgid "Additional C++ compiler flags for this target."
 msgstr "Opciones de compilación adicionales de C++ para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:259
-#: ../plugins/am-project/am-properties.c:411
-#: ../plugins/am-project/am-properties.c:563
+#: ../plugins/am-project/am-properties.c:260
+#: ../plugins/am-project/am-properties.c:417
+#: ../plugins/am-project/am-properties.c:574
 msgid "Additional Java compiler flags for this target."
 msgstr "Opciones de compilación adicionales de Java para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:267
-#: ../plugins/am-project/am-properties.c:419
-#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:268
+#: ../plugins/am-project/am-properties.c:425
+#: ../plugins/am-project/am-properties.c:582
 msgid "Additional Vala compiler flags for this target."
 msgstr "Opciones de compilación adicionales de Vala para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:275
-#: ../plugins/am-project/am-properties.c:427
-#: ../plugins/am-project/am-properties.c:579
+#: ../plugins/am-project/am-properties.c:276
+#: ../plugins/am-project/am-properties.c:433
+#: ../plugins/am-project/am-properties.c:590
 msgid "Additional Fortran compiler flags for this target."
 msgstr "Opciones de compilación adicionales de Fortran para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:283
-#: ../plugins/am-project/am-properties.c:435
-#: ../plugins/am-project/am-properties.c:587
+#: ../plugins/am-project/am-properties.c:284
+#: ../plugins/am-project/am-properties.c:441
+#: ../plugins/am-project/am-properties.c:598
 msgid "Additional Objective C compiler flags for this target."
 msgstr "Opciones de compilación adicionales de Objective C para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:291
-#: ../plugins/am-project/am-properties.c:443
-#: ../plugins/am-project/am-properties.c:595
+#: ../plugins/am-project/am-properties.c:292
+#: ../plugins/am-project/am-properties.c:449
+#: ../plugins/am-project/am-properties.c:606
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
 "Opciones adicionales del analizador léxico «Lex» o «Flex» para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:299
-#: ../plugins/am-project/am-properties.c:451
-#: ../plugins/am-project/am-properties.c:603
+#: ../plugins/am-project/am-properties.c:300
+#: ../plugins/am-project/am-properties.c:457
+#: ../plugins/am-project/am-properties.c:614
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
 "Opciones adicionales del compilador de computación Yacc o Bison para este "
 "objetivo."
 
-#: ../plugins/am-project/am-properties.c:304
-#: ../plugins/am-project/am-properties.c:456
-#: ../plugins/am-project/am-properties.c:608
-#: ../plugins/am-project/am-properties.c:656
-#: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:305
+#: ../plugins/am-project/am-properties.c:462
+#: ../plugins/am-project/am-properties.c:619
+#: ../plugins/am-project/am-properties.c:671
+#: ../plugins/am-project/am-properties.c:720
+#: ../plugins/am-project/am-properties.c:788
 msgid "Additional dependencies:"
 msgstr "Dependencias adicionales:"
 
-#: ../plugins/am-project/am-properties.c:307
-#: ../plugins/am-project/am-properties.c:459
-#: ../plugins/am-project/am-properties.c:611
-#: ../plugins/am-project/am-properties.c:659
-#: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:308
+#: ../plugins/am-project/am-properties.c:465
+#: ../plugins/am-project/am-properties.c:622
+#: ../plugins/am-project/am-properties.c:674
+#: ../plugins/am-project/am-properties.c:723
+#: ../plugins/am-project/am-properties.c:791
 msgid "Additional dependencies for this target."
 msgstr "Dependencias adicionales para este objetivo."
 
-#: ../plugins/am-project/am-properties.c:312
-#: ../plugins/am-project/am-properties.c:464
-#: ../plugins/am-project/am-properties.c:616
-#: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:313
+#: ../plugins/am-project/am-properties.c:470
+#: ../plugins/am-project/am-properties.c:627
+#: ../plugins/am-project/am-properties.c:728
+#: ../plugins/am-project/am-properties.c:796
 msgid "Include in distribution:"
 msgstr "Incluir en la distribución:"
 
-#: ../plugins/am-project/am-properties.c:315
-#: ../plugins/am-project/am-properties.c:467
-#: ../plugins/am-project/am-properties.c:619
-#: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:316
+#: ../plugins/am-project/am-properties.c:473
+#: ../plugins/am-project/am-properties.c:630
+#: ../plugins/am-project/am-properties.c:731
+#: ../plugins/am-project/am-properties.c:799
 msgid "Include this target in the distributed package."
 msgstr "Incluir este objetivo en el paquete distribuido."
 
-#: ../plugins/am-project/am-properties.c:320
-#: ../plugins/am-project/am-properties.c:472
-#: ../plugins/am-project/am-properties.c:624
-#: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:322
+#: ../plugins/am-project/am-properties.c:479
+#: ../plugins/am-project/am-properties.c:636
+#: ../plugins/am-project/am-properties.c:737
+#: ../plugins/am-project/am-properties.c:804
 msgid "Build for check only:"
 msgstr "Construir sólo para comprar:"
 
-#: ../plugins/am-project/am-properties.c:323
-#: ../plugins/am-project/am-properties.c:475
-#: ../plugins/am-project/am-properties.c:627
-#: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:325
+#: ../plugins/am-project/am-properties.c:482
+#: ../plugins/am-project/am-properties.c:639
+#: ../plugins/am-project/am-properties.c:740
+#: ../plugins/am-project/am-properties.c:807
 msgid "Build this target only when running automatic tests."
 msgstr "Construir este objetivo sólo cuando se ejecuten pruebas automáticas."
 
-#: ../plugins/am-project/am-properties.c:328
-#: ../plugins/am-project/am-properties.c:480
-#: ../plugins/am-project/am-properties.c:632
-#: ../plugins/am-project/am-properties.c:664
-#: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:331
+#: ../plugins/am-project/am-properties.c:488
+#: ../plugins/am-project/am-properties.c:645
+#: ../plugins/am-project/am-properties.c:679
+#: ../plugins/am-project/am-properties.c:746
+#: ../plugins/am-project/am-properties.c:812
 msgid "Do not use prefix:"
 msgstr "No usar prefijo:"
 
-#: ../plugins/am-project/am-properties.c:331
-#: ../plugins/am-project/am-properties.c:483
-#: ../plugins/am-project/am-properties.c:635
-#: ../plugins/am-project/am-properties.c:667
-#: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:334
+#: ../plugins/am-project/am-properties.c:491
+#: ../plugins/am-project/am-properties.c:648
+#: ../plugins/am-project/am-properties.c:682
+#: ../plugins/am-project/am-properties.c:749
+#: ../plugins/am-project/am-properties.c:815
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4842,17 +4630,19 @@ msgstr ""
 "No renombrar el objetivo con un prefijo adicional, usado para evitar "
 "sobreescribir el programa del sistema."
 
-#: ../plugins/am-project/am-properties.c:336
-#: ../plugins/am-project/am-properties.c:488
-#: ../plugins/am-project/am-properties.c:640
-#: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:340
+#: ../plugins/am-project/am-properties.c:497
+#: ../plugins/am-project/am-properties.c:654
+#: ../plugins/am-project/am-properties.c:755
+#: ../plugins/am-project/am-properties.c:820
 msgid "Keep target path:"
 msgstr "Mantener la ruta objetivo:"
 
-#: ../plugins/am-project/am-properties.c:339
-#: ../plugins/am-project/am-properties.c:491
-#: ../plugins/am-project/am-properties.c:643
-#: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:343
+#: ../plugins/am-project/am-properties.c:500
+#: ../plugins/am-project/am-properties.c:657
+#: ../plugins/am-project/am-properties.c:758
+#: ../plugins/am-project/am-properties.c:823
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4862,16 +4652,16 @@ msgstr ""
 "tiene un «subdir/app» instalado en la carpeta «bin», se instalará en la "
 "carpeta «bin/subdir/app» en lugar de en «bin/app»."
 
-#: ../plugins/am-project/am-properties.c:376
-#: ../plugins/am-project/am-properties.c:528
+#: ../plugins/am-project/am-properties.c:382
+#: ../plugins/am-project/am-properties.c:539
 msgid "Libraries:"
 msgstr "Bibliotecas:"
 
-#: ../plugins/am-project/am-properties.c:672
+#: ../plugins/am-project/am-properties.c:688
 msgid "Manual section:"
 msgstr "Selección manual:"
 
-#: ../plugins/am-project/am-properties.c:675
+#: ../plugins/am-project/am-properties.c:691
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -5743,8 +5533,7 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
-"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5874,37 +5663,37 @@ msgstr "Remotas"
 msgid "Stash"
 msgstr "Guardar («stash»)"
 
-#: ../plugins/glade/plugin.c:460
+#: ../plugins/glade/plugin.c:472
 msgid "Select widgets in the workspace"
 msgstr "Seleccionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:486
+#: ../plugins/glade/plugin.c:498
 msgid "Drag and resize widgets in the workspace"
 msgstr "Arrastrar y redimensionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:514
+#: ../plugins/glade/plugin.c:526
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:590
+#: ../plugins/glade/plugin.c:602
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:595
+#: ../plugins/glade/plugin.c:607
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:718
+#: ../plugins/glade/plugin.c:730
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:764
+#: ../plugins/glade/plugin.c:776
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:821
+#: ../plugins/glade/plugin.c:833
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -6176,8 +5965,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6194,9 +5983,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6533,7 +6322,7 @@ msgid "_Properties"
 msgstr "_Propiedades"
 
 #: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/dialogs.c:530
+#: ../plugins/project-manager/dialogs.c:562
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
@@ -6628,11 +6417,11 @@ msgstr "Acciones del administrador de proyectos"
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2329
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2332
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -6643,80 +6432,80 @@ msgstr "Proyecto cargado"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:290
+#: ../plugins/project-manager/dialogs.c:309
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/dialogs.c:372
+#: ../plugins/project-manager/dialogs.c:391
 msgid " This property is not modifiable."
 msgstr "Esta propiedad no es modificable."
 
-#: ../plugins/project-manager/dialogs.c:533
+#: ../plugins/project-manager/dialogs.c:565
 msgid "Directory properties"
 msgstr "Propiedades de la carpeta"
 
-#: ../plugins/project-manager/dialogs.c:536
+#: ../plugins/project-manager/dialogs.c:568
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/dialogs.c:539
+#: ../plugins/project-manager/dialogs.c:571
 msgid "Source properties"
 msgstr "Propiedades de los fuentes"
 
-#: ../plugins/project-manager/dialogs.c:542
+#: ../plugins/project-manager/dialogs.c:574
 msgid "Module properties"
 msgstr "Propiedades del módulo"
 
-#: ../plugins/project-manager/dialogs.c:545
+#: ../plugins/project-manager/dialogs.c:577
 msgid "Package properties"
 msgstr "Propiedades del paquete"
 
-#: ../plugins/project-manager/dialogs.c:548
+#: ../plugins/project-manager/dialogs.c:580
 msgid "Unknown properties"
 msgstr "Propiedades desconocidas"
 
-#: ../plugins/project-manager/dialogs.c:946
-#: ../plugins/project-manager/dialogs.c:957
+#: ../plugins/project-manager/dialogs.c:997
+#: ../plugins/project-manager/dialogs.c:1008
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/dialogs.c:958
+#: ../plugins/project-manager/dialogs.c:1009
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/dialogs.c:1172
-#: ../plugins/project-manager/dialogs.c:1182
+#: ../plugins/project-manager/dialogs.c:1223
+#: ../plugins/project-manager/dialogs.c:1233
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1183
+#: ../plugins/project-manager/dialogs.c:1234
 msgid "The selected node cannot contain source files."
 msgstr "El nodo seleccionado no puede contener archivos de fuentes."
 
-#: ../plugins/project-manager/dialogs.c:1369
-#: ../plugins/project-manager/dialogs.c:1380
+#: ../plugins/project-manager/dialogs.c:1420
+#: ../plugins/project-manager/dialogs.c:1431
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/dialogs.c:1381
+#: ../plugins/project-manager/dialogs.c:1432
 msgid "No group selected"
 msgstr "No se seleccionó ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1540
-#: ../plugins/project-manager/dialogs.c:1551
+#: ../plugins/project-manager/dialogs.c:1591
+#: ../plugins/project-manager/dialogs.c:1602
 msgid "Cannot add modules"
 msgstr "No se pueden añadir los módulos"
 
-#: ../plugins/project-manager/dialogs.c:1552
+#: ../plugins/project-manager/dialogs.c:1603
 msgid "No target has been selected"
 msgstr "No se seleccionó ningún objetivo"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1755
+#: ../plugins/project-manager/dialogs.c:1806
 msgid "Missing module name"
 msgstr "Falta el nombre del módulo"
 
-#: ../plugins/project-manager/dialogs.c:1817
+#: ../plugins/project-manager/dialogs.c:1868
 msgid "Cannot add packages"
 msgstr "No se pueden añadir los paquetes"
 
@@ -6780,8 +6569,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -6922,13 +6711,13 @@ msgstr "Seleccionar carpeta"
 msgid "Select file"
 msgstr "Seleccionar archivo"
 
-#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Seleccionar un archivo de imagen"
 
 #: ../plugins/project-wizard/property.c:433
-#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
-#: ../plugins/tools/editor.c:703
+#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:558
+#: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Elegir icono"
 
@@ -7323,7 +7112,7 @@ msgstr "Seleccionar la licencia del código"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
@@ -7345,7 +7134,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "nombre del proyecto"
@@ -7438,8 +7227,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
@@ -7455,6 +7244,7 @@ msgstr "Proyecto GTK+ sencillo"
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
 msgid "Use GtkBuilder for user interface:"
 msgstr "Usar GtkBuilder para la interfaz del usuario:"
@@ -7462,6 +7252,7 @@ msgstr "Usar GtkBuilder para la interfaz del usuario:"
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
@@ -8176,6 +7967,10 @@ msgstr "Editor"
 msgid "Enable autocompletion for document words"
 msgstr "Activar autocompletado para palabras de documentos"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+msgid "Font"
+msgstr "Tipografía"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
 msgstr "Tipografía:"
@@ -8229,7 +8024,7 @@ msgstr "Usar tipografía del tema"
 msgid "View"
 msgstr "Vista"
 
-#: ../plugins/starter/plugin.c:275
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "Iniciar"
 
@@ -9011,35 +8806,35 @@ msgstr "¿Está seguro de querer borrar la herramienta «%s»?"
 msgid "Tool"
 msgstr "Herramienta"
 
-#: ../plugins/tools/editor.c:316
+#: ../plugins/tools/editor.c:318
 msgid "ask at runtime"
 msgstr "preguntar en tiempo de ejecución"
 
-#: ../plugins/tools/editor.c:321
+#: ../plugins/tools/editor.c:323
 msgid "undefined"
 msgstr "indefinido"
 
-#: ../plugins/tools/editor.c:471
+#: ../plugins/tools/editor.c:473
 msgid "Meaning"
 msgstr "Significado"
 
-#: ../plugins/tools/editor.c:619
+#: ../plugins/tools/editor.c:621
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: ../plugins/tools/editor.c:791
+#: ../plugins/tools/editor.c:793
 msgid "You must provide a tool name!"
 msgstr "Debe proporcionar un nombre de herramienta."
 
-#: ../plugins/tools/editor.c:799
+#: ../plugins/tools/editor.c:801
 msgid "You must provide a tool command!"
 msgstr "Debe proporcionar un comando de herramienta."
 
-#: ../plugins/tools/editor.c:807
+#: ../plugins/tools/editor.c:809
 msgid "A tool with the same name already exists!"
 msgstr "Ya existe una herramienta con el mismo nombre."
 
-#: ../plugins/tools/editor.c:824
+#: ../plugins/tools/editor.c:826
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
@@ -9047,11 +8842,11 @@ msgstr ""
 "La combinación ya se usa en otro componente de Anjuta. ¿Quiere conservarlo "
 "de todas formas?"
 
-#: ../plugins/tools/editor.c:908
+#: ../plugins/tools/editor.c:910
 msgid "Unable to edit script"
 msgstr "No se puede editar el script"
 
-#: ../plugins/tools/editor.c:1044
+#: ../plugins/tools/editor.c:1046
 msgid "New accelerator…"
 msgstr "Acelerador nuevo…"
 
@@ -9122,115 +8917,115 @@ msgstr "No se puede abrir el archivo %s para escribir"
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
-#: ../plugins/tools/variable.c:84
+#: ../plugins/tools/variable.c:86
 msgid "Project root URI"
 msgstr "URI raíz del proyecto"
 
-#: ../plugins/tools/variable.c:85
+#: ../plugins/tools/variable.c:87
 msgid "Project root path"
 msgstr "Ruta raíz del proyecto"
 
-#: ../plugins/tools/variable.c:86
+#: ../plugins/tools/variable.c:89
 msgid "Selected URI in the file manager plugin"
 msgstr "URI seleccionada en el complemento del gestor de archivos"
 
-#: ../plugins/tools/variable.c:87
+#: ../plugins/tools/variable.c:90
 msgid "Selected directory in the file manager plugin"
 msgstr "Carpeta seleccionado en el complemento del gestor de archivos"
 
-#: ../plugins/tools/variable.c:88
+#: ../plugins/tools/variable.c:91
 msgid "Selected full file name in the file manager plugin"
 msgstr ""
 "Nombre de archivo completo seleccionado en el complemento del gestor de "
 "archivos"
 
-#: ../plugins/tools/variable.c:89
+#: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
 msgstr ""
 "Nombre de archivo completo, sin la extensión, seleccionado en el complemento "
 "del gestor de archivos"
 
-#: ../plugins/tools/variable.c:90
+#: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
 msgstr ""
 "Nombre de archivo seleccionado en el complemento del gestor de archivos"
 
-#: ../plugins/tools/variable.c:91
+#: ../plugins/tools/variable.c:94
 msgid "Selected file name without extension in the file manager plugin"
 msgstr ""
 "Archivo seleccionado sin la extensión en el complemento del gestor de "
 "archivos"
 
-#: ../plugins/tools/variable.c:92
+#: ../plugins/tools/variable.c:95
 msgid "Selected file's extension in the file manager plugin"
 msgstr ""
 "Extensión de archivo seleccionada en el complemento del gestor de archivos"
 
-#: ../plugins/tools/variable.c:93
+#: ../plugins/tools/variable.c:96
 msgid "Selected URI in the project manager plugin"
 msgstr "URI seleccionada en el complemento del gestor de proyectos"
 
-#: ../plugins/tools/variable.c:94
+#: ../plugins/tools/variable.c:97
 msgid "Selected directory in the project manager plugin"
 msgstr "Carpeta seleccionado en el complemento del gestor de proyectos"
 
-#: ../plugins/tools/variable.c:95
+#: ../plugins/tools/variable.c:98
 msgid "Selected full file name in the project manager plugin"
 msgstr ""
 "Nombre de archivo completo seleccionado en el complemento del gestor de "
 "proyectos"
 
-#: ../plugins/tools/variable.c:96
+#: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
 msgstr ""
 "Nombre de archivo completo, sin la extensión, seleccionado en el complemento "
 "del gestor de proyectos"
 
-#: ../plugins/tools/variable.c:97
+#: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
 msgstr ""
 "Nombre de archivo seleccionado en el complemento del gestor de proyectos"
 
-#: ../plugins/tools/variable.c:98
+#: ../plugins/tools/variable.c:101
 msgid "Selected file name without extension in the project manager plugin"
 msgstr ""
 "Archivo seleccionado sin la extensión en el complemento del gestor de "
 "proyectos"
 
-#: ../plugins/tools/variable.c:99
+#: ../plugins/tools/variable.c:102
 msgid "Selected file extension in the project manager plugin"
 msgstr ""
 "Extensión de archivo seleccionada en el complemento del gestor de proyectos"
 
-#: ../plugins/tools/variable.c:100
+#: ../plugins/tools/variable.c:103
 msgid "Currently edited file name"
 msgstr "Nombre de archivo editado actualmente"
 
-#: ../plugins/tools/variable.c:101
+#: ../plugins/tools/variable.c:104
 msgid "Currently edited file name without extension"
 msgstr "Nombre de archivo editado actualmente sin la extensión"
 
-#: ../plugins/tools/variable.c:102
+#: ../plugins/tools/variable.c:105
 msgid "Currently edited file directory"
 msgstr "Carpeta de archivo editado actualmente"
 
-#: ../plugins/tools/variable.c:103
+#: ../plugins/tools/variable.c:106
 msgid "Currently selected text in editor"
 msgstr "Texto seleccionado actualmente en el editor"
 
-#: ../plugins/tools/variable.c:104
+#: ../plugins/tools/variable.c:107
 msgid "Current word in editor"
 msgstr "Palabra actual en el editor"
 
-#: ../plugins/tools/variable.c:105
+#: ../plugins/tools/variable.c:108
 msgid "Current line in editor"
 msgstr "Línea actual en el editor"
 
-#: ../plugins/tools/variable.c:106
+#: ../plugins/tools/variable.c:109
 msgid "Ask the user to get additional parameters"
 msgstr "Preguntar al usuario para obtener parámetros adicionales"
 
-#: ../plugins/tools/variable.c:499
+#: ../plugins/tools/variable.c:546
 msgid "Command line parameters"
 msgstr "Parámetros del comando"
 
@@ -9291,7 +9086,7 @@ msgstr "Selección actual"
 msgid "String"
 msgstr "Cadena"
 
-#: ../src/about.c:202
+#: ../src/about.c:205
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
@@ -9776,14 +9571,6 @@ msgstr "Ayuda"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Complemento Devhelp para Anjuta."
 
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
-msgid "A graph painter for the inheritance of the classes."
-msgstr "Un dibujador de gráficas para la herencia de las clases."
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
-msgid "Class Inheritance"
-msgstr "Herencia de la clase"
-
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
 msgstr "Proporciona capacidades de gestión de documentos."
@@ -10015,9 +9802,182 @@ msgstr "Carpetas de búsqueda de JS"
 msgid "Min character for completion "
 msgstr "Caracteres mínimos para autocompletado "
 
-#: ../plugins/symbol-db/symbol-db-views.c:182
+#: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "X"
+#~ msgstr "X"
+
+#~ msgid "Y"
+#~ msgstr "Y"
+
+#~ msgid "Markup"
+#~ msgstr "Marcado"
+
+#~ msgid "Marked up text to render"
+#~ msgstr "Texto marcado para renderizar"
+
+#~ msgid "Font description as a string"
+#~ msgstr "Descripción de la tipografía como una cadena"
+
+#~ msgid "Font description"
+#~ msgstr "Descripción de la tipografía"
+
+#~ msgid "Font description as a PangoFontDescription struct"
+#~ msgstr ""
+#~ "Descripción de la tipografía como una estructura PangoFontDescription"
+
+#~ msgid "Font family"
+#~ msgstr "Familia de la tipografía"
+
+#~ msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
+#~ msgstr ""
+#~ "Nombre de la familia tipográfica, ej. Sans, Helvética, Times, Monospace"
+
+#~ msgid "Font style"
+#~ msgstr "Estilo de la tipografía"
+
+#~ msgid "Font variant"
+#~ msgstr "Variante de la tipografía"
+
+#~ msgid "Font weight"
+#~ msgstr "Anchura de la tipografía"
+
+#~ msgid "Font stretch"
+#~ msgstr "Estiramiento de la tipografía"
+
+#~ msgid "Font size"
+#~ msgstr "Tamaño de la tipografía"
+
+#~ msgid "Font points"
+#~ msgstr "Puntos de la tipografía"
+
+#~ msgid "Font size in points"
+#~ msgstr "Tamaño de la tipografía en puntos"
+
+#~ msgid "Rise"
+#~ msgstr "Elevación"
+
+#~ msgid ""
+#~ "Offset of text above the baseline (below the baseline if rise is negative)"
+#~ msgstr ""
+#~ "Desviación por encima del texto base (por debajo si el aumento es "
+#~ "negativo)"
+
+#~ msgid "Strikethrough"
+#~ msgstr "Tachado"
+
+#~ msgid "Whether to strike through the text"
+#~ msgstr "Indica si se tacha el texto"
+
+#~ msgid "Underline"
+#~ msgstr "Subrayado"
+
+#~ msgid "Style of underline for this text"
+#~ msgstr "Estilo de subrayado para este texto"
+
+#~ msgid "Scale"
+#~ msgstr "Escala"
+
+#~ msgid "Size of font, relative to default size"
+#~ msgstr "Tamaño de la tipografía. Relativo al tamaño predeterminado"
+
+#~ msgid "Color"
+#~ msgstr "Color"
+
+#~ msgid "Text color, as string"
+#~ msgstr "Color del texto, como cadena"
+
+#~ msgid "Text color, as a GdkColor"
+#~ msgstr "Color del texto, como un GdkColor"
+
+#~ msgid "Text color, as an R/G/B/A combined integer"
+#~ msgstr "Color del texto, como un entero R/G/B/A combinado"
+
+#~ msgid "Text width"
+#~ msgstr "Ancho del texto"
+
+#~ msgid "Width of the rendered text"
+#~ msgstr "Anchura del texto renderizado"
+
+#~ msgid "Text height"
+#~ msgstr "Altura del texto"
+
+#~ msgid "Height of the rendered text"
+#~ msgstr "Altura del texto renderizado"
+
+#~ msgid "Font family set"
+#~ msgstr "Conjunto de familia tipográfica"
+
+#~ msgid "Whether this tag affects the font family"
+#~ msgstr "Indica si esta etiqueta afecta a la familia de la tipografía"
+
+#~ msgid "Font style set"
+#~ msgstr "Conjunto de estilo de la tipografía"
+
+#~ msgid "Whether this tag affects the font style"
+#~ msgstr "Indica si esta etiqueta afecta el estilo de la tipografía"
+
+#~ msgid "Font variant set"
+#~ msgstr "Conjunto de variante de la tipografía"
+
+#~ msgid "Whether this tag affects the font variant"
+#~ msgstr "Indica si esta etiqueta afecta la variante de la tipografía"
+
+#~ msgid "Font weight set"
+#~ msgstr "Conjunto de peso de la tipografía"
+
+#~ msgid "Whether this tag affects the font weight"
+#~ msgstr "Indica si esta etiqueta afecta el peso de la tipografía"
+
+#~ msgid "Font stretch set"
+#~ msgstr "Conjunto de estiramiento de la tipografía"
+
+#~ msgid "Whether this tag affects the font stretch"
+#~ msgstr "Indica si esta etiqueta afecta el estiramiento de la tipografía"
+
+#~ msgid "Font size set"
+#~ msgstr "Conjunto de tamaño de tipografía"
+
+#~ msgid "Whether this tag affects the font size"
+#~ msgstr "Indica si esta etiqueta afecta el tamaño de la tipografía"
+
+#~ msgid "Rise set"
+#~ msgstr "Conjunto de elevación"
+
+#~ msgid "Whether this tag affects the rise"
+#~ msgstr "Indica si esta etiqueta afecta la elevación"
+
+#~ msgid "Strikethrough set"
+#~ msgstr "Conjunto de tachado"
+
+#~ msgid "Whether this tag affects strikethrough"
+#~ msgstr "Indica si esta etiqueta afecta el tachado"
+
+#~ msgid "Underline set"
+#~ msgstr "Conjunto de subrayado"
+
+#~ msgid "Whether this tag affects underlining"
+#~ msgstr "Indica si esta etiqueta afecta el subrayado"
+
+#~ msgid "Scale set"
+#~ msgstr "Conjunto de escala"
+
+#~ msgid "Whether this tag affects font scaling"
+#~ msgstr "Si esta etiqueta afecta al escalado de tipografías"
+
+#~ msgid "Args: %s"
+#~ msgstr "Args: %s"
+
+#~ msgid "Inheritance Graph"
+#~ msgstr "Gráfico de herencia"
+
+#~ msgid "A graph painter for the inheritance of the classes."
+#~ msgstr "Un dibujador de gráficas para la herencia de las clases."
+
+#~ msgid "Class Inheritance"
+#~ msgstr "Herencia de la clase"
 
 #~ msgid "RegEx Search"
 #~ msgstr "Búsqueda ExpReg"
@@ -10239,8 +10199,8 @@ msgstr "Símbolo"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
-#~ "desde el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
