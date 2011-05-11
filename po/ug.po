@@ -5,14 +5,15 @@
 # Sahran <sahran.ug@gmail.com>, 2010.
 # Zeper <zeper@msn.com>, 2010.
 # Bakhtiyar <bakhtiyar108@gmail.com>,2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-03-18 14:33+0000\n"
-"PO-Revision-Date: 2010-12-30:16:20+0000\n"
-"Last-Translator: Gheyret Kenji<gheyret@yahoo.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2011-05-01 19:20+0000\n"
+"PO-Revision-Date: 2011-05-09 16:24+0600\n"
+"Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr "Anjuta IDE(يۈرۈشلەشتۈرۈلگەن ئىجادىيەت مۇھى�
 msgid "Develop software in an integrated development environment"
 msgstr "يۈرۈشلەشتۈرۈلگەن ئىجادىيەت مۇھىتىدا يۇمشاق دېتال ئىجادىيىتى"
 
-#: ../anjuta.desktop.in.in.h:3 ../src/about.c:204
+#: ../anjuta.desktop.in.in.h:3 ../src/about.c:207
 msgid "Integrated Development Environment"
 msgstr "يۈرۈشلەشتۈرۈلگەن ئىجادىيەت مۇھىتى"
 
@@ -71,7 +72,8 @@ msgstr "سىز ئاچماقچى بولغان ھۆججەتتە ئىناۋەتسى
 msgid ""
 "Anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr "Anjuta سىز ئاچماقچى بولغان ھۆججەتنىڭ كودلىنىش ئۇسۇلىنى ئاپتوماتىك بىلەلمىدى."
+msgstr ""
+"Anjuta سىز ئاچماقچى بولغان ھۆججەتنىڭ كودلىنىش ئۇسۇلىنى ئاپتوماتىك بىلەلمىدى."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -111,7 +113,7 @@ msgstr "ئەرەبچە"
 
 #: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
 msgid "Greek"
-msgstr "گىرېكچە"
+msgstr "گرېكچە"
 
 #: ../libanjuta/anjuta-encodings.c:165
 msgid "Hebrew Visual"
@@ -161,7 +163,7 @@ msgstr "ياپونچە"
 #: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
 #: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
-msgstr "كورېيەچە"
+msgstr "كورىيەچە"
 
 #: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
 #: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
@@ -202,9 +204,8 @@ msgstr "نامەلۇم"
 #. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
 #.
 #: ../libanjuta/anjuta-launcher.c:675
-#| msgid "Password:"
 msgid "[Pp]assword.*:"
-msgstr ""
+msgstr "[Pp]assword.*:"
 
 #: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
@@ -216,7 +217,7 @@ msgstr "بۇيرۇقنى ئىجرا قىلغىلى بولمىدى: \"%s\""
 msgid "execvp failed"
 msgstr "execvp مەغلۇپ بولدى"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2369
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
@@ -236,7 +237,8 @@ msgid ""
 "This usually means that your installation is corrupted. The error message "
 "leading to this was:\n"
 "%s"
-msgstr "%s يۈكلىيەلمىدى\n"
+msgstr ""
+"%s يۈكلىيەلمىدى\n"
 "بۇ ئادەتتە خاتا ئورنىتىلغاندا كۆرۈلىدۇ. خاتالىق ئۇچۇرى تۆۋەندىكىدەك:\n"
 "%s"
 
@@ -244,99 +246,103 @@ msgstr "%s يۈكلىيەلمىدى\n"
 msgid "Load"
 msgstr "ئىشلىتىلىۋاتىدۇ"
 
-#: ../libanjuta/anjuta-plugin-manager.c:927
-#: ../libanjuta/anjuta-plugin-manager.c:1992
+#: ../libanjuta/anjuta-plugin-manager.c:928
+#: ../libanjuta/anjuta-plugin-manager.c:2007
 msgid "Available Plugins"
 msgstr "ئىشلىتىشكە بولىدىغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1040 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:940
 msgid "Preferred plugins"
 msgstr "ئامراق قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1154
+#: ../libanjuta/anjuta-plugin-manager.c:1176
 msgid "Only show user activatable plugins"
 msgstr "ئىشلەتكۈچى ئاكتىپلىيالايدىغان قىستۇرمىلارنىلا كۆرسىتىدۇ"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1201
+#: ../libanjuta/anjuta-plugin-manager.c:1216
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
-msgstr "بۇلار، نۇرغۇنلىغان قىستۇرمىلار ئىچىدىن سىز تاللىغان قىستۇرمىلارنىڭ تىزىمىدۇر. بۇنىڭ ئىچىدىكى قىستۇرمىنى ئۆچۈرسە، باشقا قىستۇرمىلارنى يەنە قايتا تاللاشقا توغرا كېلىدۇ."
+msgstr ""
+"بۇلار، نۇرغۇنلىغان قىستۇرمىلار ئىچىدىن سىز تاللىغان قىستۇرمىلارنىڭ "
+"تىزىمىدۇر. بۇنىڭ ئىچىدىكى قىستۇرمىنى ئۆچۈرسە، باشقا قىستۇرمىلارنى يەنە قايتا "
+"تاللاشقا توغرا كېلىدۇ."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1227
+#: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
 msgstr "تاللانغان قىستۇرمىنى ئۇنتۇپ كەت"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1361
-#: ../libanjuta/anjuta-plugin-manager.c:1512 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "قىستۇرما تاللاش"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1362
+#: ../libanjuta/anjuta-plugin-manager.c:1377
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "ئاكتىپلايدىغان قىستۇرمىنى تاللاڭ"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
+#: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "%s نىڭدا باشقا قىستۇرمىلارنى يۈكلىگىلى بولىدىغان قىستۇرما يوق"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1513
+#: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>ئاكتىپلايدىغان قىستۇرمىنى تاللاڭ</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2019
+#: ../libanjuta/anjuta-plugin-manager.c:2034
 msgid "Remember this selection"
 msgstr "بۇ تاللاشنى ئەستە تۇت"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2350
+#: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Profiles"
 msgstr "Profiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2351
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Current stack of profiles"
 msgstr "نۆۋەتتىكى سەپلىمىلەر ئويۇقى"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2356
+#: ../libanjuta/anjuta-plugin-manager.c:2371
 msgid "Available plugins"
 msgstr "ئىشلەتكىلى بولىدىغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2372
 msgid "Currently available plugins found in plugin paths"
 msgstr "قىستۇرما يولىدىن تېپىلغان، ئىشلەتكىلى بولىدىغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2363
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Activated plugins"
 msgstr "ئاكتىپلانغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2364
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Currently activated plugins"
 msgstr "نۆۋەتتىكى ئاكتىپلانغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2370
+#: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Anjuta shell for which the plugins are made"
 msgstr "قىستۇرما ياسايدىغان Anjuta shell"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2393
 msgid "Anjuta Status"
 msgstr "Anjuta ھالىتى"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "قىستۇرمىنى ئوقۇش ۋە ئوقۇغاننى چىقىرىۋېتىشتە ئىشلىتىلىدىغان Anjuta ھالىتى"
+msgstr ""
+"قىستۇرمىنى ئوقۇش ۋە ئوقۇغاننى چىقىرىۋېتىشتە ئىشلىتىلىدىغان Anjuta ھالىتى"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2539
+#: ../libanjuta/anjuta-plugin-manager.c:2554
 msgid "Loaded:"
 msgstr "يۈكلەنگىنى:"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
-msgstr "قىستۇرما باشقۇرغۇ"
+msgstr "قىستۇرما باشقۇرغۇچ"
 
 #: ../libanjuta/anjuta-profile.c:255
 msgid "The plugin manager to use for resolving plugins"
@@ -344,19 +350,19 @@ msgstr "قىستۇرمىنى بىر تەرەپ قىلىشتا ئىشلىتىلى
 
 #: ../libanjuta/anjuta-profile.c:263
 msgid "Profile Name"
-msgstr "Profile ئاتى"
+msgstr "سەپلىمە ئاتى"
 
 #: ../libanjuta/anjuta-profile.c:264
 msgid "Name of the plugin profile"
-msgstr "قىستۇرما profile ئاتى"
+msgstr "قىستۇرما سەپلىمىسى ئاتى"
 
 #: ../libanjuta/anjuta-profile.c:272
 msgid "Profile Plugins"
-msgstr "قىستۇرما profile"
+msgstr "قىستۇرما سەپلىمىسى"
 
 #: ../libanjuta/anjuta-profile.c:273
 msgid "List of plugins for this profile"
-msgstr "بۇ profile نىڭ قىستۇرما تىزىمى"
+msgstr "بۇ سەپلىمىنىڭ قىستۇرما تىزىملىكى"
 
 #: ../libanjuta/anjuta-profile.c:280
 msgid "Synchronization file"
@@ -364,7 +370,7 @@ msgstr "ماس قەدەم ھۆججەت"
 
 #: ../libanjuta/anjuta-profile.c:281
 msgid "File to syncronize the profile XML"
-msgstr "profile نىڭ XML ماس قەدەم ھۆججىتى"
+msgstr "سەپلىمىنىڭ XML ماس قەدەم ھۆججىتى"
 
 #: ../libanjuta/anjuta-profile.c:508
 msgid "Please select a plugin from the list"
@@ -375,7 +381,9 @@ msgstr "تىزىمدىن بىر قىستۇرما تاللاڭ"
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
-msgstr "'%s' نى ئوقۇش مەغلۇپ بولدى. XML نى تەھلىل قىلىشتا خاتالىق كۆرۈلدى. Anjuta قىستۇرمىلىرىنىڭ سەپلىمىسى خاتا ياكى بۇزۇلغان."
+msgstr ""
+"'%s' نى ئوقۇش مەغلۇپ بولدى. XML نى تەھلىل قىلىشتا خاتالىق كۆرۈلدى. Anjuta "
+"قىستۇرمىلىرىنىڭ سەپلىمىسى خاتا ياكى بۇزۇلغان."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -388,7 +396,8 @@ msgstr "%s: بۇنى «%s» دىن ئورنات\n"
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
-msgstr "'%s' نى ئوقۇش مەغلۇپ بولدى: تۆۋەندىكى مۇھىم قىستۇرمىلار يوق: \n"
+msgstr ""
+"'%s' نى ئوقۇش مەغلۇپ بولدى: تۆۋەندىكى مۇھىم قىستۇرمىلار يوق: \n"
 "%s"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:96
@@ -404,7 +413,7 @@ msgstr "كاتېگورىيە"
 msgid "General"
 msgstr "ئادەتتىكى"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:237
+#: ../libanjuta/anjuta-preferences-dialog.c:241
 msgid "Anjuta Preferences"
 msgstr "Anjuta مايىللىقى"
 
@@ -435,12 +444,14 @@ msgstr "ئۆزگەرتىشلەرنى تاشلىۋەت(_D)"
 msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] "%d تۈرنىڭ ئۆزگەرتىلىشى تېخى ساقلانمىدى.\n"
+msgstr[0] ""
+"%d تۈرنىڭ ئۆزگەرتىلىشى تېخى ساقلانمىدى.\n"
 " تاقاشتىن ئىلگىرى ساقلانسۇنمۇ؟"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr "بەزى بىر تۈرنىڭ ئۆزگەرتىشلىرى تېخى ساقلانمىدى. تاقاشتىن ئىلگىرى ساقلانسۇنمۇ؟"
+msgstr ""
+"بەزى بىر تۈرنىڭ ئۆزگەرتىشلىرى تېخى ساقلانمىدى. تاقاشتىن ئىلگىرى ساقلانسۇنمۇ؟"
 
 #: ../libanjuta/anjuta-ui.c:1393
 msgid "Action"
@@ -450,11 +461,11 @@ msgstr "مەشغۇلات"
 msgid "Visible"
 msgstr "كۆرۈنۈشچان"
 
-#: ../libanjuta/anjuta-ui.c:1426
+#: ../libanjuta/anjuta-ui.c:1427
 msgid "Sensitive"
-msgstr "چوڭ-كىچىك يېزىلىشى پەرقلەندۈرۈلسۇن"
+msgstr "سەزگۈر"
 
-#: ../libanjuta/anjuta-ui.c:1434
+#: ../libanjuta/anjuta-ui.c:1435
 msgid "Shortcut"
 msgstr "تېزلەتمە"
 
@@ -468,7 +479,10 @@ msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
 "from your distribution, or install the missing packages manually."
-msgstr "قارىغاندا سىز PackageKit نى قاچىلىماپسىز. كەم بوغچىلارنى قاچىلاشتا PackageKit كە ئېھتىياجلىق. سىز تارقىتىلمىدىن 'packagekit-gnome' نى قاچىلاڭ ياكى كەم بوغچىلارنى قول سېلىپ قاچىلاڭ."
+msgstr ""
+"قارىغاندا سىز PackageKit نى قاچىلىماپسىز. كەم بوغچىلارنى قاچىلاشتا "
+"PackageKit كە ئېھتىياجلىق. سىز تارقىتىلمىدىن 'packagekit-gnome' نى قاچىلاڭ "
+"ياكى كەم بوغچىلارنى قول سېلىپ قاچىلاڭ."
 
 #: ../libanjuta/anjuta-utils.c:512
 #, c-format
@@ -480,7 +494,8 @@ msgstr "ئورنىتىش مەغلۇپ بولدى: %s"
 msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
-msgstr "بوغچا \"%s\"  قاچىلانمىغان\n"
+msgstr ""
+"بوغچا \"%s\"  قاچىلانمىغان\n"
 "ئۇنى قاچىلاڭ."
 
 #: ../libanjuta/anjuta-utils.c:598
@@ -488,13 +503,15 @@ msgstr "بوغچا \"%s\"  قاچىلانمىغان\n"
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
-msgstr "قورال \"%s\" قاچىلانمىغان.\n"
+msgstr ""
+"قورال \"%s\" قاچىلانمىغان.\n"
 "ئۇنى قاچىلاڭ."
 
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1171
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr "تېرمىنالنى تاپقىلى بولمىدى؛ xterm نى ئىشلىتىڭ، ئۇ ئىشلىمەي قېلىشىمۇ مۇمكىن"
+msgstr ""
+"تېرمىنالنى تاپقىلى بولمىدى؛ xterm نى ئىشلىتىڭ، ئۇ ئىشلىمەي قېلىشىمۇ مۇمكىن"
 
 #: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
 #: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
@@ -506,7 +523,9 @@ msgstr "بۇيرۇقنى ئىجرا قىلغىلى بولمىدى:%s (shell %s �
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
-msgstr "ياردەم ئۇچۇرىنى كۆرسىتەلمىدى. Anjuta پۈتۈك بوغچىسىنىڭ قاچىلانغانلىقىنى جەزملەشتۈرۈڭ.\n"
+msgstr ""
+"ياردەم ئۇچۇرىنى كۆرسىتەلمىدى. Anjuta پۈتۈك بوغچىسىنىڭ قاچىلانغانلىقىنى "
+"جەزملەشتۈرۈڭ.\n"
 "بۇنى http://anjuta.org دىن چۈشۈرەلەيسىز."
 
 #: ../libanjuta/anjuta-utils.c:2330
@@ -517,7 +536,7 @@ msgstr "كۆرۈنمە يۈزى ھۆججىتىنى ئوقۇغىلى بولمىد
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
 #: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
-msgstr "ئۆزگەرتىلدى"
+msgstr "ئۆزگەرتكەن"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
 #: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
@@ -570,7 +589,6 @@ msgid "Column 1"
 msgstr "ئىستون 1"
 
 #: ../libanjuta/anjuta-entry.c:241
-#| msgid "Help"
 msgid "Help text"
 msgstr "ياردەم"
 
@@ -587,7 +605,6 @@ msgid "Drop a file or enter a path here"
 msgstr "بۇ يەرگە ھۆججەتتىن بىرنى تاشلاڭ ياكى يولنى كىرگۈزۈڭ"
 
 #: ../libanjuta/anjuta-file-list.c:274
-#| msgid "Select file"
 msgid "Select Files"
 msgstr "ھۆججەت تاللاش"
 
@@ -604,12 +621,11 @@ msgid "Display an Add button"
 msgstr "«قوش» توپچىسىنى كۆرسىتىدۇ"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../libfoocanvas/foo-canvas-text.c:177 ../src/preferences.ui.h:13
+#: ../src/preferences.ui.h:13
 msgid "Text"
 msgstr "تېكىست"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-#: ../libfoocanvas/foo-canvas-text.c:178
 msgid "Text to render"
 msgstr "سىزىدىغان تېكىست"
 
@@ -631,221 +647,6 @@ msgstr "ۋىجېت تېپىلمىدى: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "پروگراممىنىڭ pixmap ھۆججىتى تېپىلمىدى:%s"
 
-#: ../libfoocanvas/foo-canvas.c:1227 ../libfoocanvas/foo-canvas.c:1228
-msgid "X"
-msgstr "X"
-
-#: ../libfoocanvas/foo-canvas.c:1234 ../libfoocanvas/foo-canvas.c:1235
-msgid "Y"
-msgstr "Y"
-
-#: ../libfoocanvas/foo-canvas-text.c:186
-msgid "Markup"
-msgstr ""
-
-#: ../libfoocanvas/foo-canvas-text.c:187
-msgid "Marked up text to render"
-msgstr "سىزىدىغان تېكىست"
-
-#: ../libfoocanvas/foo-canvas-text.c:212
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
-msgid "Font"
-msgstr "خەت نۇسخا"
-
-#: ../libfoocanvas/foo-canvas-text.c:213
-msgid "Font description as a string"
-msgstr "خەت نۇسخىسىنىڭ يازمىچە چۈشەندۈرۈلۈشى"
-
-#: ../libfoocanvas/foo-canvas-text.c:221
-msgid "Font description"
-msgstr "خەت نۇسخىسىنىڭ چۈشەندۈرۈلۈشى"
-
-#: ../libfoocanvas/foo-canvas-text.c:222
-msgid "Font description as a PangoFontDescription struct"
-msgstr "خەت نۇسخىسىنىڭ PangoFontDescription struct چە چۈشەندۈرۈلۈشى"
-
-#: ../libfoocanvas/foo-canvas-text.c:230
-msgid "Font family"
-msgstr "خەت نۇسخىسى ئاتى"
-
-#: ../libfoocanvas/foo-canvas-text.c:231
-msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-msgstr "خەت نۇسخىسى ئاتى مەسىلەن: Sans, Helvetica, Times, Monospace"
-
-#: ../libfoocanvas/foo-canvas-text.c:247 ../libfoocanvas/foo-canvas-text.c:248
-msgid "Font style"
-msgstr "خەت نۇسخا ئۇسلۇبى"
-
-#: ../libfoocanvas/foo-canvas-text.c:257 ../libfoocanvas/foo-canvas-text.c:258
-msgid "Font variant"
-msgstr "خەت نۇسخىسىنىڭ باشقا ئاتى"
-
-#: ../libfoocanvas/foo-canvas-text.c:267 ../libfoocanvas/foo-canvas-text.c:268
-msgid "Font weight"
-msgstr "خەت نۇسخىسى توملۇقى"
-
-#: ../libfoocanvas/foo-canvas-text.c:279 ../libfoocanvas/foo-canvas-text.c:280
-msgid "Font stretch"
-msgstr "خەت نۇسخىسىنى سوزۇش"
-
-#: ../libfoocanvas/foo-canvas-text.c:289 ../libfoocanvas/foo-canvas-text.c:290
-msgid "Font size"
-msgstr "خەت چوڭلۇقى"
-
-#: ../libfoocanvas/foo-canvas-text.c:300
-msgid "Font points"
-msgstr "خەت نۇسخىسى نۇقتىسى"
-
-#: ../libfoocanvas/foo-canvas-text.c:301
-msgid "Font size in points"
-msgstr "خەت نۇسخىسى نۇقتا بىلەن ئىپادىلەنگەن چوڭلۇقى"
-
-#: ../libfoocanvas/foo-canvas-text.c:311
-msgid "Rise"
-msgstr "كۆتۈرۈش"
-
-#: ../libfoocanvas/foo-canvas-text.c:312
-msgid ""
-"Offset of text above the baseline (below the baseline if rise is negative)"
-msgstr "ئاساسىي سىزىق ئۈستىدىكى تېكىستنىڭ ئېغىشى(ئەگەر ئاساسىي سىزىق ئاستىدا بولسا مىنۇس بولىدۇ )"
-
-#: ../libfoocanvas/foo-canvas-text.c:322
-msgid "Strikethrough"
-msgstr "ئۆچۈرۈش سىزىقى"
-
-#: ../libfoocanvas/foo-canvas-text.c:323
-msgid "Whether to strike through the text"
-msgstr "تېكىستكە ئۆچۈرۈش سىزىقى قوللىنامدۇق يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:331
-msgid "Underline"
-msgstr "ئاستى سىزىق"
-
-#: ../libfoocanvas/foo-canvas-text.c:332
-msgid "Style of underline for this text"
-msgstr "تېكىستنىڭ ئاستى سىزىق ئۇسلۇبى"
-
-#: ../libfoocanvas/foo-canvas-text.c:341
-msgid "Scale"
-msgstr "نىسبىتى"
-
-#: ../libfoocanvas/foo-canvas-text.c:342
-msgid "Size of font, relative to default size"
-msgstr "خەتنىڭ چوڭلۇقى(كۆڭۈلدىكى قىممەتكە نىسبەتەن)"
-
-#: ../libfoocanvas/foo-canvas-text.c:402 ../libfoocanvas/foo-canvas-text.c:410
-#: ../libfoocanvas/foo-canvas-text.c:418
-msgid "Color"
-msgstr "رەڭ"
-
-#: ../libfoocanvas/foo-canvas-text.c:403
-msgid "Text color, as string"
-msgstr "تېكىست رەڭگى (يېزىق بىلەن ئىپادىلەنگەن)"
-
-#: ../libfoocanvas/foo-canvas-text.c:411
-msgid "Text color, as a GdkColor"
-msgstr "تېكىست رەڭگى(GdkColor بىلەن ئىپادىلەنگەن)"
-
-#: ../libfoocanvas/foo-canvas-text.c:419
-msgid "Text color, as an R/G/B/A combined integer"
-msgstr "تېكىست رەڭگى (R/G/B/A نىڭ بىرىكمىسى بىلەن ئىپادىلەنگەن پۈتۈن سان)"
-
-#: ../libfoocanvas/foo-canvas-text.c:432
-msgid "Text width"
-msgstr "تېكىست كەڭلىكى"
-
-#: ../libfoocanvas/foo-canvas-text.c:433
-msgid "Width of the rendered text"
-msgstr "سىزىدىغان تېكىستنىڭ كەڭلىكى"
-
-#: ../libfoocanvas/foo-canvas-text.c:440
-msgid "Text height"
-msgstr "تېكىست ئېگىزلىكى"
-
-#: ../libfoocanvas/foo-canvas-text.c:441
-msgid "Height of the rendered text"
-msgstr "سىزىدىغان تېكىستنىڭ ئېگىزلىكى"
-
-#: ../libfoocanvas/foo-canvas-text.c:449
-msgid "Font family set"
-msgstr "خەت نۇسخىسى ئاتىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:450
-msgid "Whether this tag affects the font family"
-msgstr "بۇ خەتكۈش خەت شەكلىگە تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:453
-msgid "Font style set"
-msgstr "خەت نۇسخىسى ئۇسلۇبىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:454
-msgid "Whether this tag affects the font style"
-msgstr "بۇ خەتكۈش خەت ئۇسلۇبىغا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:457
-msgid "Font variant set"
-msgstr "خەت نۇسخىسى باشقا ئاتىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:458
-msgid "Whether this tag affects the font variant"
-msgstr "بۇ خەتكۈش خەت نۇسخىسىغا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:461
-msgid "Font weight set"
-msgstr "خەت نۇسخىسى توملۇقىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:462
-msgid "Whether this tag affects the font weight"
-msgstr "بۇ خەتكۈش خەت توملۇقىغا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:465
-msgid "Font stretch set"
-msgstr "خەت نۇسخىسى سوزۇلۇشىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:466
-msgid "Whether this tag affects the font stretch"
-msgstr "بۇ خەتكۈش خەت كەڭلىكىگە تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:469
-msgid "Font size set"
-msgstr "خەت نۇسخىسى چوڭلۇقىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:470
-msgid "Whether this tag affects the font size"
-msgstr "بۇ خەتكۈش خەت چوڭلۇقىغا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:473
-msgid "Rise set"
-msgstr "كۆتۈرۈلۈشنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:474
-msgid "Whether this tag affects the rise"
-msgstr "بۇ خەتكۈش خەتنىڭ كۆتۈرۈلۈشىگە تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:477
-msgid "Strikethrough set"
-msgstr "ئۆچۈرۈش سىزىقىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:478
-msgid "Whether this tag affects strikethrough"
-msgstr "بۇ خەتكۈش ئۆچۈرۈش سىزىقىغا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:481
-msgid "Underline set"
-msgstr "ئاستى سىزىقىنى بەلگىلەش"
-
-#: ../libfoocanvas/foo-canvas-text.c:482
-msgid "Whether this tag affects underlining"
-msgstr "بۇ خەتكۈش ئاستى سىزىققا تەسىر قىلامدۇ يوق"
-
-#: ../libfoocanvas/foo-canvas-text.c:485
-msgid "Scale set"
-msgstr "نىسبەت بېكىتىش"
-
-#: ../libfoocanvas/foo-canvas-text.c:486
-msgid "Whether this tag affects font scaling"
-msgstr "بۇ خەتكۈش نىسبەتكە تەسىر قىلامدۇ يوق"
-
 #: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "گۇرۇپپا ئاتىنى بەلگىلەڭ"
@@ -853,14 +654,15 @@ msgstr "گۇرۇپپا ئاتىنى بەلگىلەڭ"
 #: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
-msgstr "گۇرۇپپا ئاتىدا پەقەت ھېرىپ، سان ياكى  \"#$:%+,-.=@^_`~\" لار بولۇشى كېرەك"
+msgstr ""
+"گۇرۇپپا ئاتىدا پەقەت ھېرىپ، سان ياكى  \"#$:%+,-.=@^_`~\" لار بولۇشى كېرەك"
 
 #: ../plugins/am-project/amp-group.c:585
 #: ../plugins/dir-project/dir-project.c:656
 #: ../plugins/dir-project/dir-project.c:769
-#: ../plugins/am-project/am-project.c:1582
-#: ../plugins/am-project/am-project.c:1612
-#: ../plugins/am-project/am-project.c:1664
+#: ../plugins/am-project/am-project.c:1584
+#: ../plugins/am-project/am-project.c:1614
+#: ../plugins/am-project/am-project.c:1666
 #: ../plugins/mk-project/mk-project.c:678
 #: ../plugins/mk-project/mk-project.c:755
 #: ../plugins/mk-project/mk-project.c:829
@@ -879,11 +681,14 @@ msgstr "نىشان ئاتىدا پەقەت ھېرىپ، سان ياكى  '_', '-
 
 #: ../plugins/am-project/amp-target.c:295
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr "ھەمبەھىرلەنگەن فۇنكسىيە ئامبىرىنىڭ نىشان نامى چوقۇم 'libxxx.la' شەكلىدە بۇلىشى كېرەك"
+msgstr ""
+"ھەمبەھىرلەنگەن فۇنكسىيە ئامبىرىنىڭ نىشان نامى چوقۇم 'libxxx.la' شەكلىدە "
+"بۇلىشى كېرەك"
 
 #: ../plugins/am-project/amp-target.c:304
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr "ستاتىك فۇنكسىيە ئامبىرىنىڭ نىشان نامى چوقۇم 'libxxx.a' شەكلىدە بۇلىشى كېرەك"
+msgstr ""
+"ستاتىك فۇنكسىيە ئامبىرىنىڭ نىشان نامى چوقۇم 'libxxx.a' شەكلىدە بۇلىشى كېرەك"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -915,7 +720,6 @@ msgid "Continue on errors"
 msgstr "خاتالىق بولسىمۇ داۋاملاشتۇر"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
-#| msgid "Highlight message locations in editor"
 msgid "Highlight build warnings and errors in editor"
 msgstr "تەھرىرلىگۈچتىكى قۇرۇش ئاگاھلاندۇرۇشىنى يورۇتۇپ كۆرسەت"
 
@@ -1139,211 +943,218 @@ msgstr "قۇرۇش %d:%s"
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
-msgstr "يېڭى سەپلىمىنى ئىشلىتىشتىن ئاۋۋال، كۆڭلىدىكىسىنى چىقىرىۋېتىش كېرەك. شۇنداق قىلىشنى خالامسىز؟"
+msgstr ""
+"يېڭى سەپلىمىنى ئىشلىتىشتىن ئاۋۋال، كۆڭلىدىكىسىنى چىقىرىۋېتىش كېرەك. شۇنداق "
+"قىلىشنى خالامسىز؟"
 
-#: ../plugins/build-basic-autotools/plugin.c:1856
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "\"%s\" compile قىلغىلى بولمىدى: بۇ ھۆججەت تىپى ئۈچۈن compile قائىدىسى بەلگىلەنمىگەن."
+msgstr ""
+"\"%s\" compile قىلغىلى بولمىدى: بۇ ھۆججەت تىپى ئۈچۈن compile قائىدىسى "
+"بەلگىلەنمىگەن."
 
-#: ../plugins/build-basic-autotools/plugin.c:1991
+#: ../plugins/build-basic-autotools/plugin.c:2005
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr "قۇرۇلۇشنى سەپلىگىلى بولمىدى: %s دىكى سەپلەش قوليازمىسى(script) يوق تۇرىدۇ."
+msgstr ""
+"قۇرۇلۇشنى سەپلىگىلى بولمىدى: %s دىكى سەپلەش قوليازمىسى(script) يوق تۇرىدۇ."
 
-#: ../plugins/build-basic-autotools/plugin.c:2472
-#: ../plugins/build-basic-autotools/plugin.c:2546
-#: ../plugins/build-basic-autotools/plugin.c:2556
-#: ../plugins/build-basic-autotools/plugin.c:2574
-#: ../plugins/build-basic-autotools/plugin.c:2584
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2486
+#: ../plugins/build-basic-autotools/plugin.c:2560
+#: ../plugins/build-basic-autotools/plugin.c:2570
+#: ../plugins/build-basic-autotools/plugin.c:2588
+#: ../plugins/build-basic-autotools/plugin.c:2598
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build"
 msgstr "قۇر(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2476
+#: ../plugins/build-basic-autotools/plugin.c:2490
 msgid "_Build Project"
 msgstr "قۇرۇلۇش قۇر(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2477
+#: ../plugins/build-basic-autotools/plugin.c:2491
 msgid "Build whole project"
 msgstr "بارلىق قۇرۇلۇشنى قۇرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2482
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "_Install Project"
 msgstr "قۇرۇلۇشنى ئورنات(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2483
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Install whole project"
 msgstr "بارلىق قۇرۇلۇشنى ئورنىتىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2502
 msgid "_Clean Project"
 msgstr "قۇرۇلۇشنى تازلا(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2489
+#: ../plugins/build-basic-autotools/plugin.c:2503
 msgid "Clean whole project"
 msgstr "بارلىق قۇرۇلۇشنى تازىلايدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2494
+#: ../plugins/build-basic-autotools/plugin.c:2508
 msgid "C_onfigure Project…"
 msgstr "قۇرۇلۇشنى تەڭشە(_O)..."
 
-#: ../plugins/build-basic-autotools/plugin.c:2495
+#: ../plugins/build-basic-autotools/plugin.c:2509
 msgid "Configure project"
 msgstr "قۇرۇلۇش تەڭشەيدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2500
+#: ../plugins/build-basic-autotools/plugin.c:2514
 msgid "Build _Tarball"
 msgstr "Tarball قۇر(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2501
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build project tarball distribution"
 msgstr "تارقىتىش قۇرۇلۇشى tarball نى قۇرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2506
+#: ../plugins/build-basic-autotools/plugin.c:2520
 msgid "_Build Module"
 msgstr "بۆلەك قۇر(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2507
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "Build module associated with current file"
 msgstr "نۆۋەتتىكى ھۆججەت بىلەن مۇناسىۋەتلىك بۆلەك قۇرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2526
 msgid "_Install Module"
 msgstr "بۆلەك ئورنات(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2513
+#: ../plugins/build-basic-autotools/plugin.c:2527
 msgid "Install module associated with current file"
 msgstr "نۆۋەتتىكى ھۆججەت بىلەن مۇناسىۋەتلىك بۆلەكنى ئورنىتىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2518
+#: ../plugins/build-basic-autotools/plugin.c:2532
 msgid "_Clean Module"
 msgstr "بۆلەكنى تازىلا(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2519
+#: ../plugins/build-basic-autotools/plugin.c:2533
 msgid "Clean module associated with current file"
 msgstr "نۆۋەتتىكى ھۆججەت بىلەن مۇناسىۋەتلىك بۆلەكنى تازىلايدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2524
+#: ../plugins/build-basic-autotools/plugin.c:2538
 msgid "Co_mpile File"
 msgstr "ھۆججەت compile قىل(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2525
+#: ../plugins/build-basic-autotools/plugin.c:2539
 msgid "Compile current editor file"
 msgstr "نۆۋەتتىكى تەھرىرلىگۈچتىكى ھۆججەتنى compile قىلىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2530
+#: ../plugins/build-basic-autotools/plugin.c:2544
 msgid "Select Configuration"
 msgstr "سەپلىمىنى تاللاش"
 
-#: ../plugins/build-basic-autotools/plugin.c:2531
+#: ../plugins/build-basic-autotools/plugin.c:2545
 msgid "Select current configuration"
 msgstr "نۆۋەتتىكى سەپلىمىنى تاللايدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2536
+#: ../plugins/build-basic-autotools/plugin.c:2550
 msgid "Remove Configuration"
 msgstr "سەپلىمىنى چىقىرىۋېتىش"
 
-#: ../plugins/build-basic-autotools/plugin.c:2537
+#: ../plugins/build-basic-autotools/plugin.c:2551
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
-msgstr "قۇرۇلۇشنى تازىلايدۇ (distclean) ھەمدە مۇمكىن بولسا سەپلىمە مۇندەرىجىسىنىمۇ ئۆچۈرىدۇ"
+msgstr ""
+"قۇرۇلۇشنى تازىلايدۇ (distclean) ھەمدە مۇمكىن بولسا سەپلىمە مۇندەرىجىسىنىمۇ "
+"ئۆچۈرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2550
-#: ../plugins/build-basic-autotools/plugin.c:2578
+#: ../plugins/build-basic-autotools/plugin.c:2564
+#: ../plugins/build-basic-autotools/plugin.c:2592
 msgid "_Compile"
 msgstr "compile(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2551
-#: ../plugins/build-basic-autotools/plugin.c:2579
+#: ../plugins/build-basic-autotools/plugin.c:2565
+#: ../plugins/build-basic-autotools/plugin.c:2593
 msgid "Compile file"
 msgstr "ھۆججەت compile قىلىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2557
-#: ../plugins/build-basic-autotools/plugin.c:2585
+#: ../plugins/build-basic-autotools/plugin.c:2571
+#: ../plugins/build-basic-autotools/plugin.c:2599
 msgid "Build module"
 msgstr "بۆلەك قۇرۇش"
 
-#: ../plugins/build-basic-autotools/plugin.c:2562
-#: ../plugins/build-basic-autotools/plugin.c:2590
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2576
+#: ../plugins/build-basic-autotools/plugin.c:2604
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install"
 msgstr "ئورنات(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2563
-#: ../plugins/build-basic-autotools/plugin.c:2591
+#: ../plugins/build-basic-autotools/plugin.c:2577
+#: ../plugins/build-basic-autotools/plugin.c:2605
 msgid "Install module"
 msgstr "بۆلەك ئورنىتىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2568
-#: ../plugins/build-basic-autotools/plugin.c:2596
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2582
+#: ../plugins/build-basic-autotools/plugin.c:2610
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean"
 msgstr "تازىلا(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2569
-#: ../plugins/build-basic-autotools/plugin.c:2597
+#: ../plugins/build-basic-autotools/plugin.c:2583
+#: ../plugins/build-basic-autotools/plugin.c:2611
 msgid "Clean module"
 msgstr "بۆلەكنى تازىلايدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2602
+#: ../plugins/build-basic-autotools/plugin.c:2616
 msgid "_Cancel command"
 msgstr "بۇيرۇقنى ئەمەلدىن قالدۇر(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2603
+#: ../plugins/build-basic-autotools/plugin.c:2617
 msgid "Cancel build command"
 msgstr "قۇرۇش بۇيرۇقنى ئەمەلدىن قالدۇرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:2641
+#: ../plugins/build-basic-autotools/plugin.c:2655
 #, c-format
 msgid "_Build (%s)"
 msgstr "قۇر(_B)(%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2648
+#: ../plugins/build-basic-autotools/plugin.c:2662
 #, c-format
 msgid "_Install (%s)"
 msgstr "ئورنات(_I)(%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2655
+#: ../plugins/build-basic-autotools/plugin.c:2669
 #, c-format
 msgid "_Clean (%s)"
 msgstr "تازلا(_C)(%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Compile(_M) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2663
+#: ../plugins/build-basic-autotools/plugin.c:2677
 #, c-format
 msgid "Co_mpile"
 msgstr "Compile(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:3197
+#: ../plugins/build-basic-autotools/plugin.c:3211
 msgid "Build commands"
 msgstr "قۇرۇش بۇيرۇقلىرى"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:3206
+#: ../plugins/build-basic-autotools/plugin.c:3220
 msgid "Build popup commands"
 msgstr "سەكرىمە بۇيرۇقلارنى قۇرىدۇ"
 
-#: ../plugins/build-basic-autotools/plugin.c:3595
-#: ../plugins/build-basic-autotools/plugin.c:3603
+#: ../plugins/build-basic-autotools/plugin.c:3609
+#: ../plugins/build-basic-autotools/plugin.c:3617
 msgid "Build Autotools"
 msgstr "Autotools قۇرۇش"
 
 #: ../plugins/build-basic-autotools/program.c:269
 #, c-format
-#| msgid "Error closing project: %s"
 msgid ""
 "Error while setting up build environment:\n"
 " %s"
-msgstr "قۇرۇش مۇھىتىنى تەڭشەۋاتقاندا خاتالىق كۆرۈلدى: \n"
+msgstr ""
+"قۇرۇش مۇھىتىنى تەڭشەۋاتقاندا خاتالىق كۆرۈلدى: \n"
 " %s"
 
 #: ../plugins/build-basic-autotools/program.c:342
@@ -1396,7 +1207,6 @@ msgid "Class Generator"
 msgstr "تىپ ھاسىل قىلغۇچ"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
-#| msgid "Class Elements"
 msgid "Class Methods"
 msgstr "تىپ ئۇسۇللىرى(Methods)"
 
@@ -1409,21 +1219,18 @@ msgid "Class Options:"
 msgstr "تىپ تاللانمىلىرى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
-#| msgid "Class Name:"
 msgid "Class Scope:"
 msgstr "تىپ دائىرىسى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
-#| msgid "Variables"
 msgid "Constants/Variables"
 msgstr "تۇراقلىق(مىقدار)/ئۆزگەرگۈچى(مىقدار)"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "Create"
-msgstr "ياساش"
+msgstr "ياسا"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
-#| msgid "Pixbuf Object"
 msgid "GLib.Object"
 msgstr "GLib.Object"
 
@@ -1471,18 +1278,16 @@ msgid "Header File:"
 msgstr "باش ھۆججەت:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
-#| msgid "Import"
 msgid "Imports"
 msgstr "ئەكىرىلمىلەر"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
-#| msgid "Arguments:"
 msgid "Initializer Arguments:"
 msgstr "دەسلەپلەشتۈرگۈچى ئۆزگەرگۈچىلەر:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "ئىچكى بايانات ۋە ئەمەلگە ئاشۇرۇش"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "JavaScript Class"
@@ -1533,7 +1338,6 @@ msgid "Properties"
 msgstr "خاسلىق"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:35
-#| msgid "Python Module"
 msgid "Python Class"
 msgstr "Python تىپى"
 
@@ -1547,10 +1351,9 @@ msgstr "مەنبە ھۆججىتى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:38
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "مەنبە/قاش قاشلىرى:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
-#| msgid "Base Class:"
 msgid "Vala Class"
 msgstr "Vala تىپى:"
 
@@ -1560,7 +1363,6 @@ msgid "Variables"
 msgstr "ئۆزگەرگۈچى مىقدار"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
-#| msgid "Base Class:"
 msgid "is Sub-Class"
 msgstr "تارماق تىپ:"
 
@@ -1590,7 +1392,9 @@ msgstr "autogen ئېنىقلىما ھۆججىتىگە يېزىش مەغلۇپ ب
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
-msgstr "autogen نىڭ 5-نەشرىنى تاپقىلى بولمىدى؛ augogen بوغچىسىنى قاچىلاڭ.  ئۇنىغا http://autogen.sourceforge.net دىن ئېرىشەلەيسىز."
+msgstr ""
+"autogen نىڭ 5-نەشرىنى تاپقىلى بولمىدى؛ augogen بوغچىسىنى قاچىلاڭ.  ئۇنىغا "
+"http://autogen.sourceforge.net دىن ئېرىشەلەيسىز."
 
 #: ../plugins/class-gen/plugin.c:253 ../plugins/class-gen/plugin.c:453
 #, c-format
@@ -1648,7 +1452,7 @@ msgstr "Nick"
 
 #: ../plugins/class-gen/window.c:717
 msgid "Blurb"
-msgstr ""
+msgstr "تەشۋىق"
 
 #: ../plugins/class-gen/window.c:718
 msgid "GType"
@@ -1661,19 +1465,19 @@ msgstr "ParamSpec"
 #. Somehow redundant with marshaller, but required for default handler
 #: ../plugins/class-gen/window.c:721 ../plugins/class-gen/window.c:731
 msgid "Flags"
-msgstr "تاللانمىلار"
+msgstr "بايراقلار"
 
 #: ../plugins/class-gen/window.c:732
 msgid "Marshaller"
-msgstr ""
+msgstr "رەتلىگۈچ"
 
 #: ../plugins/class-gen/window.c:748 ../plugins/class-gen/window.c:764
 #: ../plugins/class-gen/window.c:795 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:445
-#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:474
+#: ../plugins/run-program/parameters.c:767 ../plugins/tools/editor.c:476
 msgid "Value"
-msgstr "قىممىتى"
+msgstr "قىممەت"
 
 #: ../plugins/class-gen/window.c:772 ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/am-project/am-project.c:189
@@ -1686,33 +1490,16 @@ msgid "Automatic"
 msgstr "ئاپتوماتىك"
 
 #: ../plugins/class-gen/window.c:793
-#| msgid "Western"
 msgid "Getter"
 msgstr "Getter"
 
 #: ../plugins/class-gen/window.c:794
-#| msgid "State"
 msgid "Setter"
 msgstr "Setter"
 
 #: ../plugins/class-gen/window.c:1208
 msgid "XML description of the user interface"
 msgstr "ئىشلەتكۈچى كۆرۈنمە يۈزىنىڭ XML ئارقىلىق ئىپادىلىنىشى"
-
-#: ../plugins/class-inheritance/class-callbacks.c:208
-#, c-format
-msgid "Args: %s"
-msgstr "پارامېتىر: %s"
-
-#: ../plugins/class-inheritance/class-inherit.c:1213
-#: ../plugins/debug-manager/sharedlib.c:144
-#: ../plugins/debug-manager/signals.c:332
-msgid "Update"
-msgstr "يېڭىلا"
-
-#: ../plugins/class-inheritance/plugin.c:110
-msgid "Inheritance Graph"
-msgstr "مىراس گرافىك"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid ""
@@ -1721,9 +1508,12 @@ msgid ""
 "Pressing OK will delete the file from disk and from CVS. Of course, the file "
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
-msgstr "<b>دىققەت قىلىڭ:</b>\n"
+msgstr ""
+"<b>دىققەت قىلىڭ:</b>\n"
 "\n"
-"جەزملەشتۈرۈشنى باسسىڭىز ھۆججەت دىسكىدىن ۋە CVS دىن ئۆچۈرۈلىدۇ. ئەلۋەتتە سىز CVS نى ئىشلىتىپ ھۆججەتنى تاپشۇرۇشتىن ئاۋۋال ئۇ CVS دىن ئۆچۈرۈلمەيدۇ . <b>سىز ئەسكەرتىش تاپشۇرۇۋالغان!</b>"
+"جەزملەشتۈرۈشنى باسسىڭىز ھۆججەت دىسكىدىن ۋە CVS دىن ئۆچۈرۈلىدۇ. ئەلۋەتتە سىز "
+"CVS نى ئىشلىتىپ ھۆججەتنى تاپشۇرۇشتىن ئاۋۋال ئۇ CVS دىن ئۆچۈرۈلمەيدۇ . <b>سىز "
+"ئەسكەرتىش تاپشۇرۇۋالغان!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 msgid "Be verbose"
@@ -1865,7 +1655,7 @@ msgstr "بۆلەك ئاتى:"
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
-msgstr "تاللانمىلار"
+msgstr "تاللانما"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
 #: ../plugins/git/anjuta-git.ui.h:37
@@ -1971,7 +1761,7 @@ msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:441
 msgid "Vendor"
-msgstr "تەمىنلىگۈچى"
+msgstr "تارقاتقۇچى"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:444
 msgid "Release"
@@ -2023,7 +1813,7 @@ msgstr "CVS دەرىخىگە يېڭى ھۆججەت/مۇندەرىجە قوشىد
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:62
 msgid "_Remove"
-msgstr "ئۆچۈر(_R)"
+msgstr "چىقىرىۋەت(_R)"
 
 #. Display label
 #. short-cut
@@ -2054,7 +1844,7 @@ msgstr "يېڭىلا(_U)"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:80 ../plugins/cvs-plugin/plugin.c:139
 msgid "Syncronize your local copy with the CVS tree"
-msgstr "CVS دەرىخى بىلەن يەرلىك كۆچۈرۈلمىلەرنى ماسقەدەمداشلايدۇ"
+msgstr "CVS دەرىخى بىلەن يەرلىك كۆچۈرۈلمىلەرنى قەدەمداشلايدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -2113,7 +1903,6 @@ msgid "CVS popup operations"
 msgstr "CVS قاڭقىش مەشغۇلاتى"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
-#| msgid "Change Watch"
 msgid "CLang Paths"
 msgstr "CLang يولى"
 
@@ -2125,7 +1914,9 @@ msgstr "CLang كودى تەھلىل قىلغۇچنى قوزغىتىش"
 msgid ""
 "The project needs to be reconfigured after enabling this option. Please run "
 "Build->Configure!"
-msgstr "بۇ تاللانما قوزغىتىلسا قۇرۇلۇشنى قايتا سەپلىمىسە بولمايدۇ. قۇرۇش-›سەپلەش نى ئىجرا قىلىڭ"
+msgstr ""
+"بۇ تاللانما قوزغىتىلسا قۇرۇلۇشنى قايتا سەپلىمىسە بولمايدۇ. قۇرۇش-›سەپلەش نى "
+"ئىجرا قىلىڭ"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:5
 msgid "c++-analyzer:"
@@ -2139,10 +1930,11 @@ msgstr "ccc-تەھلىل قىلغۇچ:"
 msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
 "paths are configured correctly in the preferences"
-msgstr "CLang تەھلىل قىلغۇچى تېپىلمىدى. ئۇ ئورنىتىلدىمۇ، ئورنىتىلغان بولسا ئۇنىڭ يولى توغرا تەڭشەلدىمۇ تەكشۈرۈڭ.(تەڭشەكلەر مايىللىقنىڭ ئىچىدە بار)"
+msgstr ""
+"CLang تەھلىل قىلغۇچى تېپىلمىدى. ئۇ ئورنىتىلدىمۇ، ئورنىتىلغان بولسا ئۇنىڭ "
+"يولى توغرا تەڭشەلدىمۇ تەكشۈرۈڭ.(تەڭشەكلەر مايىللىقنىڭ ئىچىدە بار)"
 
 #: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-#| msgid "Change Value"
 msgid "CLang Analyzer"
 msgstr "CLang تەھلىل قىلغۇچ"
 
@@ -2154,8 +1946,12 @@ msgid ""
 "When optimizations are enabled, the debugger cannot always identify the "
 "source code corresponding to the instructions, so some commands can perform "
 "in a strange way, especially steps."
-msgstr "<span weight=\"bold\" size=\"larger\"> سىز سازلاش سەپلىمىسى ئىشلەتمەي پروگراممىنى سازلىماقچىمۇ؟</span>\n"
-"ئەلالاشتۇرۇش قوزغىتىلغاندىن كىيىن، سازلىغۇچ ھەمىشە بۇيرۇققا ماس كەلگەن ئەسلى كودنى تونۇيالمايدۇ. شۇڭلاشقا بەزى بۇيرۇقلار ناھايىتى غەلىتە ئىجرا بۇلىشى مۇمكىن، بولۇپمۇ قەدەم باسقۇچى."
+msgstr ""
+"<span weight=\"bold\" size=\"larger\"> سىز سازلاش سەپلىمىسى ئىشلەتمەي "
+"پروگراممىنى سازلىماقچىمۇ؟</span>\n"
+"ئەلالاشتۇرۇش قوزغىتىلغاندىن كىيىن، سازلىغۇچ ھەمىشە بۇيرۇققا ماس كەلگەن ئەسلى "
+"كودنى تونۇيالمايدۇ. شۇڭلاشقا بەزى بۇيرۇقلار ناھايىتى غەلىتە ئىجرا بۇلىشى "
+"مۇمكىن، بولۇپمۇ قەدەم باسقۇچى."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
 msgid "Add Watch"
@@ -2252,11 +2048,11 @@ msgstr "ئورنى"
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
 #: ../plugins/debug-manager/memory.c:180
 msgid "Memory"
-msgstr "ئىچكى ساقلىغۇچ"
+msgstr "ئەسلەك"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
 msgid "Pass:"
-msgstr ""
+msgstr "ئۆتۈش:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
 msgid "Port:"
@@ -2268,7 +2064,7 @@ msgstr "بېسىش:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
 msgid "Program Interrupt"
-msgstr ""
+msgstr "پروگرامما ئۈزۈلۈشى"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
 msgid "Remote debugging"
@@ -2350,7 +2146,7 @@ msgstr "ئاتى(_N):"
 #. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:51
 msgid "_Pass count:"
-msgstr ""
+msgstr "ئۆتكەن سانى:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid "_Process to attach to:"
@@ -2514,13 +2310,13 @@ msgstr "توختاش نۇقتىسى مەشغۇلاتى"
 msgid "_Go to address"
 msgstr "ئادرېسقا يۆتكەل(_G)"
 
-#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:468
+#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:470
 msgid "Variable"
 msgstr "ئۆزگىرىشچان"
 
 #: ../plugins/debug-manager/disassemble.c:851
 msgid "Disassembly"
-msgstr ""
+msgstr "تەتۈر ئاسسېمبىل"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #: ../plugins/project-wizard/druid.c:138
@@ -2767,7 +2563,9 @@ msgstr "ئومۇمىي دائىرىلىك ئۆزگەرگۈچى(مىقدار) ئ�
 
 #: ../plugins/debug-manager/plugin.c:1117
 msgid "Display all global and static variables of the program"
-msgstr "پروگراممىنىڭ ئومۇمىي دائىرىلىك ۋە تىنچ(static) ئۆزگەرگۈچى مىقدار ئۇچۇرىنى كۆرسىتىدۇ"
+msgstr ""
+"پروگراممىنىڭ ئومۇمىي دائىرىلىك ۋە تىنچ(static) ئۆزگەرگۈچى مىقدار ئۇچۇرىنى "
+"كۆرسىتىدۇ"
 
 #: ../plugins/debug-manager/plugin.c:1123
 msgid "Info _Current Frame"
@@ -2805,13 +2603,18 @@ msgstr "رېگىستىر"
 msgid "Registers"
 msgstr "رېگىستىرلەر"
 
+#: ../plugins/debug-manager/sharedlib.c:144
+#: ../plugins/debug-manager/signals.c:332
+msgid "Update"
+msgstr "يېڭىلا"
+
 #: ../plugins/debug-manager/sharedlib.c:166
 msgid "Shared Object"
 msgstr "ھەمبەھىرلەنگەن نەڭ"
 
 #: ../plugins/debug-manager/sharedlib.c:173
 msgid "From"
-msgstr "ئەۋەتكۈچى"
+msgstr "يوللىغۇچى"
 
 #: ../plugins/debug-manager/sharedlib.c:180
 msgid "To"
@@ -2835,7 +2638,7 @@ msgstr "توختا"
 
 #: ../plugins/debug-manager/signals.c:298
 msgid "Print"
-msgstr "بېسىپ چىقار"
+msgstr "باس"
 
 #: ../plugins/debug-manager/signals.c:299
 msgid "Pass"
@@ -2972,7 +2775,8 @@ msgstr "يول"
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
-msgstr "پروگرامما ئىجرا بولۇۋاتىدۇ.\n"
+msgstr ""
+"پروگرامما ئىجرا بولۇۋاتىدۇ.\n"
 "سىز يەنىلا سازلىغۇچنى توختاتماقچىمۇ؟"
 
 #. Action name
@@ -3081,7 +2885,6 @@ msgid "Help operations"
 msgstr "ياردەم مەشغۇلاتلىرى"
 
 #: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
-#| msgid "Browse…"
 msgid "API Browser"
 msgstr "API كۆرگۈ"
 
@@ -3103,7 +2906,8 @@ msgstr "API"
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
-msgstr "راستىنىلا '%s' نى قايتىدىن يۈكلەمسىز؟\n"
+msgstr ""
+"راستىنىلا '%s' نى قايتىدىن يۈكلەمسىز؟\n"
 "ساقلانمىغان ئۆزگەرتىشلەرنىڭ ھەممىسى يوقىلىدۇ."
 
 #: ../plugins/document-manager/action-callbacks.c:323
@@ -3159,7 +2963,8 @@ msgstr "باشقا ئاتتا ساقلا"
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
-msgstr "ھۆججەت '%s' مەۋجۇت.\n"
+msgstr ""
+"ھۆججەت '%s' مەۋجۇت.\n"
 "بۇنى ھازىر ساقلاۋاتقان ھۆججەتكە ئالماشتۇرماقچىمۇ؟"
 
 #: ../plugins/document-manager/anjuta-docman.c:731
@@ -3244,7 +3049,7 @@ msgstr "باشقا ئاتتا ساقلا(_A)…"
 
 #: ../plugins/document-manager/plugin.c:154
 msgid "Save the current file with a different name"
-msgstr "نۆۋەتتىكى ھۆججەتنى باشقا ئاتتا ساقلايدۇ"
+msgstr "نۆۋەتتىكى ھۆججەتنى باشقا ئاتتا ساقلا"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save A_ll"
@@ -3271,7 +3076,6 @@ msgid "Close all files"
 msgstr "ھەممە ھۆججەتنى تاقايدۇ"
 
 #: ../plugins/document-manager/plugin.c:165
-#| msgid "Close Other"
 msgid "Close Others"
 msgstr "باشقىلارنى تاقا"
 
@@ -3490,8 +3294,6 @@ msgid "Find and R_eplace…"
 msgstr "ئىزدە ۋە ئالماشتۇر(_E)…"
 
 #: ../plugins/document-manager/plugin.c:273
-#| msgid "%d match has been replaced."
-#| msgid_plural "%d matches have been replaced."
 msgid "Search and replace"
 msgstr "ئىزدەپ ۋە ئالماشتۇرۇش"
 
@@ -3504,7 +3306,6 @@ msgid "Repeat the last Find command"
 msgstr "ئەڭ ئاخىرقى ئىزدەش بۇيرۇقىنى تەكرارلايدۇ"
 
 #: ../plugins/document-manager/plugin.c:279
-#| msgid "Highlight"
 msgid "Clear Highlight"
 msgstr "يورۇتۇشنى تازىلا"
 
@@ -3513,7 +3314,6 @@ msgid "Clear all highlighted text"
 msgstr "بارلىق يورۇتۇلغان تېكىستنى تازىلايدۇ(يورۇتۇشنى يوق قىلىدۇ)"
 
 #: ../plugins/document-manager/plugin.c:286
-#| msgid "Sensitive"
 msgid "Case Sensitive"
 msgstr "چوڭ-كىچىك يېزىلىشى پەرقلەندۈر"
 
@@ -3522,24 +3322,20 @@ msgid "Match case in search results."
 msgstr "ئىزدىگەندە چوڭ كىچىك يېزىلىشىغا قارايدۇ."
 
 #: ../plugins/document-manager/plugin.c:290
-#| msgid "Highlight"
 msgid "Highlight All"
 msgstr "ھەممىنى يورۇت"
 
 #: ../plugins/document-manager/plugin.c:291
-#| msgid "Highlight current line"
 msgid "Highlight all occurrences"
 msgstr "بارلىرىنىڭ ھەممىسىنى يورۇت"
 
 #: ../plugins/document-manager/plugin.c:294
-#| msgid "Regular expression"
 msgid "Regular Expression"
 msgstr "مۇنتىزىم ئىپادە"
 
 #: ../plugins/document-manager/plugin.c:295
-#| msgid "Regular expression"
 msgid "Search using regular expressions"
-msgstr ""
+msgstr "مۇنتىزىم ئىپادە ئىشلىتىپ ئىزدەش"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
@@ -3582,7 +3378,7 @@ msgstr "قايتىلا(_R)"
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "Redo the last undone action"
-msgstr "ئاخىرقى يېنىۋالغان مەشغۇلاتتىن يېنىۋالىدۇ"
+msgstr "ئاخىرقى يېنىۋالغان مەشغۇلاتنى تەكرارلايدۇ"
 
 #: ../plugins/document-manager/plugin.c:321
 msgid "C_ut"
@@ -3751,12 +3547,10 @@ msgid "Bookmar_k"
 msgstr "خەتكۈش(_K)"
 
 #: ../plugins/document-manager/plugin.c:407
-#| msgid "_Next Bookmark"
 msgid "_Toggle Bookmark"
 msgstr "خەتكۈش قادا(_T)"
 
 #: ../plugins/document-manager/plugin.c:408
-#| msgid "Add a bookmark at the current line position"
 msgid "Toggle bookmark at the current line position"
 msgstr "ھازىرقى قۇردىكى ئورۇنغا خەتكۈچنى قادايدۇ"
 
@@ -3842,7 +3636,6 @@ msgid "Editor view settings"
 msgstr "تەھرىرلىگۈچ كۆرۈنۈش تەڭشىكى"
 
 #: ../plugins/document-manager/plugin.c:455
-#| msgid "Toggle Breakpoint"
 msgid "Toggle search options"
 msgstr "ئىزدەش تاللانمىسىنى ئالماشتۇر"
 
@@ -3887,19 +3680,17 @@ msgstr "ئۆزلۈكىدىن ساقلاش تاماملاندى"
 
 #: ../plugins/document-manager/search-box.c:494
 #, c-format
-#| msgid "Search for \"%s\" reached the end and was continued at the top."
 msgid "Search for \"%s\" reached the end and wrapped around."
 msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى."
 
 #: ../plugins/document-manager/search-box.c:500
 #, c-format
-#| msgid ""
-#| "Search for \"%s\" reached the end and was continued at the top but no new "
-#| "match was found."
 msgid ""
 "Search for \"%s\" reached the end and wrapped around but no new match was "
 "found."
-msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان يېڭى مەزمۇن تېپىلمىدى."
+msgstr ""
+"\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان "
+"يېڭى مەزمۇن تېپىلمىدى."
 
 #: ../plugins/document-manager/search-box.c:543
 #, c-format
@@ -3911,30 +3702,29 @@ msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قا�
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
-msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان مەزمۇن تېپىلمىدى."
+msgstr ""
+"\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان "
+"مەزمۇن تېپىلمىدى."
 
 #: ../plugins/document-manager/search-box.c:584
 #, c-format
-#| msgid "Search for \"%s\" reached the end and was continued at the top."
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى."
 
 #: ../plugins/document-manager/search-box.c:590
 #, c-format
-#| msgid ""
-#| "Search for \"%s\" reached the end and was continued at the top but no new "
-#| "match was found."
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
-msgstr "\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان مەزمۇن تېپىلمىدى."
+msgstr ""
+"\"%s\" نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان "
+"مەزمۇن تېپىلمىدى."
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:984
 msgid "Replace"
 msgstr "ئالماشتۇر"
 
-#: ../plugins/document-manager/search-box.c:988
-#| msgid "Replace All"
+#: ../plugins/document-manager/search-box.c:989
 msgid "Replace all"
 msgstr "ھەممىنى ئالماشتۇر"
 
@@ -3962,10 +3752,10 @@ msgstr "URI \"%s\" دىن يېقىندا ئىشلىتىلگەن مەنبە تې�
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr "فۇنكسىيە «%s» تۈردىكى ۋىجېت ئەمەلگە ئاشۇرۇلمىغان"
+msgstr "فۇنكسىيە “%s” تۈردىكى تۇلۇقتا ئەمەلگە ئاشمايدۇ"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:157
+#: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
 msgstr "'%s' ئاچ"
@@ -4000,7 +3790,8 @@ msgid ""
 "Cannot open \"%s\".\n"
 "\n"
 "%s"
-msgstr "«%s» نى ئاچقىلى بولمىدى.\n"
+msgstr ""
+"«%s» نى ئاچقىلى بولمىدى.\n"
 "\n"
 "%s"
 
@@ -4015,13 +3806,16 @@ msgid ""
 "MIME type: %s\n"
 "\n"
 "You may choose to try opening it with the following plugins or applications."
-msgstr "<b>نى ئاچقىلى بولمىدى. \"%s\"</b>.\n"
+msgstr ""
+"<b>نى ئاچقىلى بولمىدى. \"%s\"</b>.\n"
 "\n"
-"قىستۇرما يوق، كۆڭۈلدىكى مەشغۇلات ياكى پروگرامما بۇ ھۆججەت تىپىنى بىر تەرەپ قىلالايدۇ.  \n"
+"قىستۇرما يوق، كۆڭۈلدىكى مەشغۇلات ياكى پروگرامما بۇ ھۆججەت تىپىنى بىر تەرەپ "
+"قىلالايدۇ.  \n"
 "\n"
 "MIME تىپى: %s\n"
 "\n"
-"سىز تۆۋەندىكى قىستۇرمىلارنى ياكى پروگراممىلارنى ئىشلىتىش ئارقىلىق ئۇنى ئېچىشقا ئۇرۇنۇپ باقسىڭىز بولىدۇ."
+"سىز تۆۋەندىكى قىستۇرمىلارنى ياكى پروگراممىلارنى ئىشلىتىش ئارقىلىق ئۇنى "
+"ئېچىشقا ئۇرۇنۇپ باقسىڭىز بولىدۇ."
 
 #: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
@@ -4258,7 +4052,8 @@ msgstr "ماس كەلگەن تېما ھۆججەت قۇرۇش"
 msgid ""
 "Enter the File name.\n"
 "The extension will be added according to the type."
-msgstr "ھۆججەت ئاتىنى كىرگۈزۈڭ.\n"
+msgstr ""
+"ھۆججەت ئاتىنى كىرگۈزۈڭ.\n"
 "تىپقا ئاساسەن كېڭەيتىلمە ئاتى قوشۇلىدۇ."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
@@ -4401,14 +4196,15 @@ msgstr "قوليازما"
 msgid "Package"
 msgstr "بوغچا"
 
-#: ../plugins/am-project/am-project.c:1598
+#: ../plugins/am-project/am-project.c:1600
 #, c-format
 msgid "Unable to parse project file"
 msgstr "قۇرۇلۇش ھۆججىتىنى تۈرگە ئايرىيالمىدى"
 
 #: ../plugins/am-project/am-properties.c:51
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
-msgstr "قۇرۇلۇش ئاتى تەركىبىدە بوشلۇق بولمىسۇن. مەسىلەن «ئۇيغۇر دىيارى» دېگەندەك"
+msgstr ""
+"قۇرۇلۇش ئاتى تەركىبىدە بوشلۇق بولمىسۇن. مەسىلەن «ئۇيغۇر دىيارى» دېگەندەك"
 
 #: ../plugins/am-project/am-properties.c:56
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4427,7 +4223,7 @@ msgstr "قۇرۇلۇش ئاتى تەركىبىدە بوشلۇق بولمىسۇن
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
 msgstr "نەشرى:"
@@ -4435,7 +4231,9 @@ msgstr "نەشرى:"
 #: ../plugins/am-project/am-properties.c:59
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr "قۇرۇلۇش نەشرى، ئادەتتە رەقەملەر چېكىت بىلەن ئايرىلغان شەكىلدە ئىپادە قىلىنىدۇ. 1.0.3 دېگەندەك"
+msgstr ""
+"قۇرۇلۇش نەشرى، ئادەتتە رەقەملەر چېكىت بىلەن ئايرىلغان شەكىلدە ئىپادە "
+"قىلىنىدۇ. 1.0.3 دېگەندەك"
 
 #: ../plugins/am-project/am-properties.c:64
 msgid "Bug report URL:"
@@ -4445,7 +4243,9 @@ msgstr "كەمتۈك مەلۇم قىلىش URL:"
 msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
-msgstr "ئىشلەتكۈچى كەمتۈكنى مەلۇم قىلىدىغان ئېلخەت ئادرېسى ياكى تورتۇرانىڭ ئۇلانمىسى. بۇ ئىختىيار."
+msgstr ""
+"ئىشلەتكۈچى كەمتۈكنى مەلۇم قىلىدىغان ئېلخەت ئادرېسى ياكى تورتۇرانىڭ "
+"ئۇلانمىسى. بۇ ئىختىيار."
 
 #: ../plugins/am-project/am-properties.c:72
 msgid "Package name:"
@@ -4455,7 +4255,9 @@ msgstr "بوغچا ئاتى:"
 msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
-msgstr "بوغچا ئاتىدا پەقەتلا ھەرپ ۋە رەقەملەر ۋە پەس سىزىقلا بولسا بولىدۇ.بوغچا ئاتى كۆرسىتىلمىگەن بولسا، ئادەتتە قۇرۇلۇش ئاتىدىن ھاسىل قىلىنىدۇ."
+msgstr ""
+"بوغچا ئاتىدا پەقەتلا ھەرپ ۋە رەقەملەر ۋە پەس سىزىقلا بولسا بولىدۇ.بوغچا ئاتى "
+"كۆرسىتىلمىگەن بولسا، ئادەتتە قۇرۇلۇش ئاتىدىن ھاسىل قىلىنىدۇ."
 
 #: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
@@ -4474,7 +4276,9 @@ msgstr "ئۇلىغۇچ تاللانمىلىرى:"
 
 #: ../plugins/am-project/am-properties.c:100
 msgid "Common additional linker flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان ئۇلىغۇچ(linker) نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان ئۇلىغۇچ"
+"(linker) نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:105
 #: ../plugins/am-project/am-properties.c:232
@@ -4485,7 +4289,9 @@ msgstr "C ئالدىن بىر تەرەپ قىلغۇچ تاللانمىلىرى:"
 
 #: ../plugins/am-project/am-properties.c:108
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C ئالدىن بىر تەرەپ قىلغۇچ(C preprocessor) نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C ئالدىن بىر "
+"تەرەپ قىلغۇچ(C preprocessor) نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:240
@@ -4496,7 +4302,9 @@ msgstr "C تەھرىرلىگۈچ تاللانمىلىرى:"
 
 #: ../plugins/am-project/am-properties.c:116
 msgid "Common additional C compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C compiler "
+"نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:248
@@ -4507,7 +4315,9 @@ msgstr "C++ compiler تاللانمىلىرى:"
 
 #: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C++ compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان C++ compiler "
+"نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:129
 #: ../plugins/am-project/am-properties.c:256
@@ -4518,7 +4328,9 @@ msgstr "Java compiler نىڭ تاللانمىلىرى(flags):"
 
 #: ../plugins/am-project/am-properties.c:132
 msgid "Common additional Java compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Java compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Java "
+"compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:137
 #: ../plugins/am-project/am-properties.c:264
@@ -4529,19 +4341,22 @@ msgstr "Vala compiler تاللانمىلىرى(flags):"
 
 #: ../plugins/am-project/am-properties.c:140
 msgid "Common additional Vala compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Vala compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Vala "
+"compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:145
 #: ../plugins/am-project/am-properties.c:272
 #: ../plugins/am-project/am-properties.c:424
 #: ../plugins/am-project/am-properties.c:576
-#| msgid "Fortan compiler flags:"
 msgid "Fortran compiler flags:"
 msgstr "Fortan compiler تاللانمىلىرى(flags):"
 
 #: ../plugins/am-project/am-properties.c:148
 msgid "Common additional Fortran compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Fortran compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Fortran "
+"compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:153
 #: ../plugins/am-project/am-properties.c:280
@@ -4553,7 +4368,9 @@ msgstr "Objective C compiler تاللانمىلىرى(flags):"
 #: ../plugins/am-project/am-properties.c:156
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Objective C compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Objective C "
+"compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:288
@@ -4566,7 +4383,9 @@ msgstr "Lex/Flex تاللانمىلىرى(flags):"
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Lex ياكى Flex گرامماتىكىلىق تەھلىل ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Lex ياكى "
+"Flex گرامماتىكىلىق تەھلىل ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:169
 #: ../plugins/am-project/am-properties.c:296
@@ -4579,21 +4398,25 @@ msgstr "Yacc/Bison تاللانمىلىرى(flags):"
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
-msgstr "بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Yacc ياكى Bison ئانالىز ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ گۇرۇپپىدىكى بارلىق نىشانلارغا(targets) ئورتاق ئىشلىتىلىدىغان Yacc ياكى "
+"Bison ئانالىز ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:177
-#| msgid "Installation directory:"
 msgid "Installation directories:"
 msgstr "ئورنىتىش مۇندەرىجىلىرى:"
 
 #: ../plugins/am-project/am-properties.c:180
 msgid "List of custom installation directories used by targets in this group."
-msgstr "بۇ گۇرۇپپىدىكى نىشانلار ئىشلىتىدىغان ئىختىيارى ئورنىتىش مۇندەرىجىسىنىڭ تىزىمى."
+msgstr ""
+"بۇ گۇرۇپپىدىكى نىشانلار ئىشلىتىدىغان ئىختىيارى ئورنىتىش مۇندەرىجىسىنىڭ "
+"تىزىمى."
 
 #: ../plugins/am-project/am-properties.c:192
 #: ../plugins/am-project/am-properties.c:352
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:687
+#: ../plugins/am-project/am-properties.c:751
 msgid "Do not install:"
 msgstr "ئورناتما:"
 
@@ -4601,6 +4424,7 @@ msgstr "ئورناتما:"
 #: ../plugins/am-project/am-properties.c:355
 #: ../plugins/am-project/am-properties.c:507
 #: ../plugins/am-project/am-properties.c:690
+#: ../plugins/am-project/am-properties.c:754
 msgid "Build but do not install the target."
 msgstr "قۇرىدۇ بىراق نىشاننى ئورناتمايدۇ."
 
@@ -4608,6 +4432,7 @@ msgstr "قۇرىدۇ بىراق نىشاننى ئورناتمايدۇ."
 #: ../plugins/am-project/am-properties.c:360
 #: ../plugins/am-project/am-properties.c:512
 #: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:759
 msgid "Installation directory:"
 msgstr "ئورنىتىش مۇندەرىجىسى:"
 
@@ -4615,6 +4440,7 @@ msgstr "ئورنىتىش مۇندەرىجىسى:"
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:515
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:762
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4624,7 +4450,8 @@ msgstr "بۇ گۇرۇپپا خاسلىقىدا ئېنىقلانغان ئۆلچە
 #: ../plugins/am-project/am-properties.c:371
 #: ../plugins/am-project/am-properties.c:523
 msgid "Additional linker flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان linker نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان linker نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:216
 msgid "Additional libraries:"
@@ -4634,7 +4461,8 @@ msgstr "قوشۇمچە فۇنكسىيە ئامبارلىرى(libraries):"
 #: ../plugins/am-project/am-properties.c:379
 #: ../plugins/am-project/am-properties.c:531
 msgid "Additional libraries for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان قوشۇمچە فۇنكسىيە ئامبارلىرى(libraries)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان قوشۇمچە فۇنكسىيە ئامبارلىرى(libraries)."
 
 #: ../plugins/am-project/am-properties.c:224
 msgid "Additional objects:"
@@ -4648,63 +4476,80 @@ msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان قوشۇمچە نە
 #: ../plugins/am-project/am-properties.c:387
 #: ../plugins/am-project/am-properties.c:539
 msgid "Additional C preprocessor flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان C ئالدىن بىر تەرەپ قىلغۇچىنىڭ(C preprocessor) قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان C ئالدىن بىر تەرەپ قىلغۇچىنىڭ(C "
+"preprocessor) قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:243
 #: ../plugins/am-project/am-properties.c:395
 #: ../plugins/am-project/am-properties.c:547
 msgid "Additional C compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان C compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان C compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:251
 #: ../plugins/am-project/am-properties.c:403
 #: ../plugins/am-project/am-properties.c:555
 msgid "Additional C++ compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان C++  compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان C++  compiler نىڭ قوشۇمچە تاللانمىلىرى"
+"(flags)."
 
 #: ../plugins/am-project/am-properties.c:259
 #: ../plugins/am-project/am-properties.c:411
 #: ../plugins/am-project/am-properties.c:563
 msgid "Additional Java compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان Java compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان Java compiler نىڭ قوشۇمچە تاللانمىلىرى"
+"(flags)."
 
 #: ../plugins/am-project/am-properties.c:267
 #: ../plugins/am-project/am-properties.c:419
 #: ../plugins/am-project/am-properties.c:571
 msgid "Additional Vala compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان Vala compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان Vala compiler نىڭ قوشۇمچە تاللانمىلىرى"
+"(flags)."
 
 #: ../plugins/am-project/am-properties.c:275
 #: ../plugins/am-project/am-properties.c:427
 #: ../plugins/am-project/am-properties.c:579
 msgid "Additional Fortran compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان Fortran compiler نىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان Fortran compiler نىڭ قوشۇمچە تاللانمىلىرى"
+"(flags)."
 
 #: ../plugins/am-project/am-properties.c:283
 #: ../plugins/am-project/am-properties.c:435
 #: ../plugins/am-project/am-properties.c:587
-#| msgid "Objective C compiler flags:"
 msgid "Additional Objective C compiler flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىلىدىغان Objective C compiler نىڭ قوشۇمچە تاللانمىلىرى(flags).:"
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىلىدىغان Objective C compiler نىڭ قوشۇمچە "
+"تاللانمىلىرى(flags).:"
 
 #: ../plugins/am-project/am-properties.c:291
 #: ../plugins/am-project/am-properties.c:443
 #: ../plugins/am-project/am-properties.c:595
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان Lex ياكى Flex گرامماتىكىلىق تەھلىل ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان Lex ياكى Flex گرامماتىكىلىق تەھلىل "
+"ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:299
 #: ../plugins/am-project/am-properties.c:451
 #: ../plugins/am-project/am-properties.c:603
 msgid "Additional Yacc or Bison parser generator flags for this target."
-msgstr "بۇ نىشان(target)غا ئىشلىتىدىغان Yacc ياكى Bison ئانالىز ھاسىللىغۇچىنىڭ قوشۇمچە تاللانمىلىرى(flags)."
+msgstr ""
+"بۇ نىشان(target)غا ئىشلىتىدىغان Yacc ياكى Bison ئانالىز ھاسىللىغۇچىنىڭ "
+"قوشۇمچە تاللانمىلىرى(flags)."
 
 #: ../plugins/am-project/am-properties.c:304
 #: ../plugins/am-project/am-properties.c:456
 #: ../plugins/am-project/am-properties.c:608
 #: ../plugins/am-project/am-properties.c:656
 #: ../plugins/am-project/am-properties.c:703
+#: ../plugins/am-project/am-properties.c:767
 msgid "Additional dependencies:"
 msgstr "قوشۇمچە بېقىندىلار:"
 
@@ -4713,6 +4558,7 @@ msgstr "قوشۇمچە بېقىندىلار:"
 #: ../plugins/am-project/am-properties.c:611
 #: ../plugins/am-project/am-properties.c:659
 #: ../plugins/am-project/am-properties.c:706
+#: ../plugins/am-project/am-properties.c:770
 msgid "Additional dependencies for this target."
 msgstr "بۇ نىشان(target)غا ئىشلىتىلىدىغان قوشۇمچە بېقىندىلار."
 
@@ -4720,6 +4566,7 @@ msgstr "بۇ نىشان(target)غا ئىشلىتىلىدىغان قوشۇمچە 
 #: ../plugins/am-project/am-properties.c:464
 #: ../plugins/am-project/am-properties.c:616
 #: ../plugins/am-project/am-properties.c:711
+#: ../plugins/am-project/am-properties.c:775
 msgid "Include in distribution:"
 msgstr "تارقىتىلمىنىڭ ئىچىگە كىرسۇن:"
 
@@ -4727,6 +4574,7 @@ msgstr "تارقىتىلمىنىڭ ئىچىگە كىرسۇن:"
 #: ../plugins/am-project/am-properties.c:467
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:714
+#: ../plugins/am-project/am-properties.c:778
 msgid "Include this target in the distributed package."
 msgstr "بۇ نىشان تارقىتىلغان بوغچىنىڭ ئىچىگە كىرىدۇ."
 
@@ -4734,6 +4582,7 @@ msgstr "بۇ نىشان تارقىتىلغان بوغچىنىڭ ئىچىگە ك�
 #: ../plugins/am-project/am-properties.c:472
 #: ../plugins/am-project/am-properties.c:624
 #: ../plugins/am-project/am-properties.c:719
+#: ../plugins/am-project/am-properties.c:783
 msgid "Build for check only:"
 msgstr "تەكشۈرۈش ئۈچۈنلا قۇرسۇن:"
 
@@ -4741,6 +4590,7 @@ msgstr "تەكشۈرۈش ئۈچۈنلا قۇرسۇن:"
 #: ../plugins/am-project/am-properties.c:475
 #: ../plugins/am-project/am-properties.c:627
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:786
 msgid "Build this target only when running automatic tests."
 msgstr "بۇ نىشاننى پەقەت ئاپتوماتىك سىناقنى ئىجرا  قىلغاندىلا قۇرىدۇ."
 
@@ -4749,6 +4599,7 @@ msgstr "بۇ نىشاننى پەقەت ئاپتوماتىك سىناقنى ئى�
 #: ../plugins/am-project/am-properties.c:632
 #: ../plugins/am-project/am-properties.c:664
 #: ../plugins/am-project/am-properties.c:727
+#: ../plugins/am-project/am-properties.c:791
 msgid "Do not use prefix:"
 msgstr "ئالدى قوشۇلغۇچى ئىشلەتمىسۇن:"
 
@@ -4757,15 +4608,19 @@ msgstr "ئالدى قوشۇلغۇچى ئىشلەتمىسۇن:"
 #: ../plugins/am-project/am-properties.c:635
 #: ../plugins/am-project/am-properties.c:667
 #: ../plugins/am-project/am-properties.c:730
+#: ../plugins/am-project/am-properties.c:794
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
-msgstr "نىشان ئاتىنى خالىغان ئالدى قوشۇلغۇچىغا ئۆزگەرتىۋەتمەڭ، ئۇ سىستېما ھۆججەتلىرىنىڭ قاپلىنىپ كېتىشىنىڭ ئالدىنى ئېلىش ئۈچۈن ئىشلىتىلىدۇ. "
+msgstr ""
+"نىشان ئاتىنى خالىغان ئالدى قوشۇلغۇچىغا ئۆزگەرتىۋەتمەڭ، ئۇ سىستېما "
+"ھۆججەتلىرىنىڭ قاپلىنىپ كېتىشىنىڭ ئالدىنى ئېلىش ئۈچۈن ئىشلىتىلىدۇ. "
 
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:488
 #: ../plugins/am-project/am-properties.c:640
 #: ../plugins/am-project/am-properties.c:735
+#: ../plugins/am-project/am-properties.c:799
 msgid "Keep target path:"
 msgstr "نىشان يولنى ساقلاپ قېلىش:"
 
@@ -4773,15 +4628,18 @@ msgstr "نىشان يولنى ساقلاپ قېلىش:"
 #: ../plugins/am-project/am-properties.c:491
 #: ../plugins/am-project/am-properties.c:643
 #: ../plugins/am-project/am-properties.c:738
+#: ../plugins/am-project/am-properties.c:802
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
 "subdir/app not in bin/app."
-msgstr "ئورنىتىش ئۈچۈن نىسپىي يولنى ساقلاپ قالىدۇ. مەسىلەن سىزنىڭ bin مۇندەرىجىسىگە ئورنىتىدىغان پروگراممىڭىزنىڭ يولى subdir/app بولسا، ئۇ bin/app غا ئەمەس bin/subdir/app غا ئورنىتىلىدۇ."
+msgstr ""
+"ئورنىتىش ئۈچۈن نىسپىي يولنى ساقلاپ قالىدۇ. مەسىلەن سىزنىڭ bin مۇندەرىجىسىگە "
+"ئورنىتىدىغان پروگراممىڭىزنىڭ يولى subdir/app بولسا، ئۇ bin/app غا ئەمەس bin/"
+"subdir/app غا ئورنىتىلىدۇ."
 
 #: ../plugins/am-project/am-properties.c:376
 #: ../plugins/am-project/am-properties.c:528
-#| msgid "Library"
 msgid "Libraries:"
 msgstr "فۇنكسىيە ئامبارلىرى:"
 
@@ -4790,10 +4648,16 @@ msgid "Manual section:"
 msgstr "قوللانما بۆلىكى:"
 
 #: ../plugins/am-project/am-properties.c:675
+#, fuzzy
+#| msgid ""
+#| "Section where are installed the man pages. Valid section names are the "
+#| "digits ‘0ئ through ‘9ئ, and the letters ‘lئ and ‘nئ. "
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
+"man قوللانما بېتى ئورناتقان باب. ئىناۋەتلىك باب 0 دىن 9 غىچە رەقەم ۋە ‘lئ ۋە "
+"‘nئ ھەرپنى ئۆز ئىچىگە ئالىدۇ. "
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -4817,7 +4681,8 @@ msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
-msgstr "تاپالمىدى: %s.\n"
+msgstr ""
+"تاپالمىدى: %s.\n"
 "سازلىغۇچنى دەسلەپلەشتۈرەلمىدى.\n"
 "Anjuta توغرا ئورنىتىلغانمۇ تەكشۈرۈپ كۆرۈڭ."
 
@@ -4835,7 +4700,8 @@ msgstr "ئىجرا بولىدىغان ھۆججەت بەلگىلەنمىگەن.\n
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "سازلاشنى باشلاش ئۈچۈن بىر پروگراممىنى ئېچىڭ ياكى بىر پروگراممىغا قوشۇلۇڭ.\n"
+msgstr ""
+"سازلاشنى باشلاش ئۈچۈن بىر پروگراممىنى ئېچىڭ ياكى بىر پروگراممىغا قوشۇلۇڭ.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
@@ -4876,7 +4742,8 @@ msgstr "كۆرسىتىلگەن يەرگە يېتىپ كەلدى\n"
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
-msgstr "پروگرامما قوشۇلدى.\n"
+msgstr ""
+"پروگرامما قوشۇلدى.\n"
 "سىز يەنىلا سازلىغۇچنى توختاتماقچى مۇ؟"
 
 #. The %s argument is an error message returned by gdb.
@@ -4886,7 +4753,8 @@ msgstr "پروگرامما قوشۇلدى.\n"
 msgid ""
 "Unable to connect to remote target, %s\n"
 "Do you want to try again?"
-msgstr "يىراقتىكى نىشانغا باغلىنالمىدى،%s\n"
+msgstr ""
+"يىراقتىكى نىشانغا باغلىنالمىدى،%s\n"
 "قايتا سىناپ باقامسىز؟"
 
 #: ../plugins/gdb/debugger.c:2105
@@ -4906,7 +4774,8 @@ msgstr "ئىجراغا قوشۇلۇۋاتىدۇ: %d…\n"
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
-msgstr "ئىجرا ئاللىقاچان ئىجرا بولۇۋاتىدۇ.\n"
+msgstr ""
+"ئىجرا ئاللىقاچان ئىجرا بولۇۋاتىدۇ.\n"
 "ئۇنى ئاخىرلاشتۇرۇپ يېڭى ئىجراغا قوشۇلامسىز؟"
 
 #: ../plugins/gdb/debugger.c:2243
@@ -4947,7 +4816,9 @@ msgstr "ئىجراغا سىگنال يوللاۋاتقاندا خاتالىق ك
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
-msgstr "ئاتى %s بولغان FIFO ھۆججىتى قۇرۇش مەغلۇپ بولدى. پروگرامما تېرمىنالسىز ئىجرا قىلىنىدۇ."
+msgstr ""
+"ئاتى %s بولغان FIFO ھۆججىتى قۇرۇش مەغلۇپ بولدى. پروگرامما تېرمىنالسىز ئىجرا "
+"قىلىنىدۇ."
 
 #: ../plugins/gdb/plugin.c:202
 msgid "Cannot start terminal for debugging."
@@ -4967,9 +4838,12 @@ msgid ""
 "You need to fill yourself the register function columns before enabling the "
 "rows. Most of the time the register function name contains the word "
 "\"register\"."
-msgstr "خەتلەش فۇنكسىيىسى تۆۋەندىكى pretty printer ھۆججىتىدىن تېپىلدى:\n"
+msgstr ""
+"خەتلەش فۇنكسىيىسى تۆۋەندىكى pretty printer ھۆججىتىدىن تېپىلدى:\n"
 "%s\n"
-"قۇرنى ئاكتىپلاشتىن ئاۋۋال سىز خەتلەش فۇنكسىيە ئىستونىنى ئۆزىڭىز تولدۇرۇشىڭىز زۆرۈر. كوپ ھاللاردا خەتلەش فۇنكسىيىسى تەركىبىدە «register» دېگەن سوز بار بولىدۇ."
+"قۇرنى ئاكتىپلاشتىن ئاۋۋال سىز خەتلەش فۇنكسىيە ئىستونىنى ئۆزىڭىز تولدۇرۇشىڭىز "
+"زۆرۈر. كوپ ھاللاردا خەتلەش فۇنكسىيىسى تەركىبىدە «register» دېگەن سوز بار "
+"بولىدۇ."
 
 #: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
@@ -4990,13 +4864,12 @@ msgid "Gdb Debugger"
 msgstr "Gdb سازلىغۇچ"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-#| msgid "Add File"
 msgid "Add Files:"
 msgstr "ھۆججەت قوشۇش:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add signed off by line"
-msgstr ""
+msgstr "بىر قۇر ئىمزا قوش"
 
 #: ../plugins/git/anjuta-git.ui.h:3
 msgid "Amend the previous commit"
@@ -5004,15 +4877,15 @@ msgstr "ئالدىنقى تاپشۇرۇلمىنى تۈزىتىدۇ"
 
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "Annotate this tag:"
-msgstr ""
+msgstr "بۇ خەتكۈچنى شەرھلەش:"
 
 #: ../plugins/git/anjuta-git.ui.h:5
 msgid "Append fetch data"
-msgstr ""
+msgstr "ئېرىشكەن سانلىق-مەلۇماتنى قوشۇش"
 
 #: ../plugins/git/anjuta-git.ui.h:6
 msgid "Append signed-of- by line"
-msgstr ""
+msgstr "بىر قۇر ئىمزا قوشىدۇ"
 
 #: ../plugins/git/anjuta-git.ui.h:7
 #: ../plugins/subversion/subversion-log-dialog.c:132
@@ -5036,7 +4909,6 @@ msgid "Branches must be fully merged"
 msgstr "تارماقلار چوقۇم تولۇق بىرىككەن بولۇشى كېرەك"
 
 #: ../plugins/git/anjuta-git.ui.h:12
-#| msgid "Watches"
 msgid "Branches:"
 msgstr "تارماقلار:"
 
@@ -5047,19 +4919,19 @@ msgstr "ئۆزگىرىشلەر:"
 
 #: ../plugins/git/anjuta-git.ui.h:14
 msgid "Check out the branch after it is created"
-msgstr "تارماق قۇرۇلغاندىن كېيىن ئۇنى Check out قىل"
+msgstr "تارماق قۇرۇلغاندىن كېيىن ئۇنى تەكشۈرۈپ چىقىرىۋەت"
 
 #: ../plugins/git/anjuta-git.ui.h:15
 msgid "Commit on fast-forward merges"
-msgstr ""
+msgstr "تېز سۈرئەتتە بىرلەشتۈرگەندە تاپشۇر"
 
 #: ../plugins/git/anjuta-git.ui.h:16
 msgid "Commit to cherry pick:"
-msgstr ""
+msgstr "ئالدىن تاللانغاننى تاپشۇر:"
 
 #: ../plugins/git/anjuta-git.ui.h:17
 msgid "Commit to revert:"
-msgstr ""
+msgstr "ئەسلىگە ياندۇرۇش ئۈچۈن تاپشۇر:"
 
 #: ../plugins/git/anjuta-git.ui.h:18
 #: ../plugins/subversion/subversion-log-dialog.c:141
@@ -5072,15 +4944,15 @@ msgstr "تاپشۇرما"
 
 #: ../plugins/git/anjuta-git.ui.h:20
 msgid "Do not follow tags"
-msgstr ""
+msgstr "بەلگىگە ئەگەشمە"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "Drop or enter revision here"
-msgstr ""
+msgstr "تۈزىتىلمىنى بۇ يەرگە تاشلاڭ ياكى كىرگۈزۈڭ"
 
 #: ../plugins/git/anjuta-git.ui.h:22
 msgid "Drop or type a revision here"
-msgstr ""
+msgstr "تۈزىتىلمىنى بۇ يەرگە تاشلاڭ ياكى كىرگۈزۈڭ"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 msgid "E-mail:"
@@ -5130,7 +5002,7 @@ msgstr "ئۇسۇلى:"
 
 #: ../plugins/git/anjuta-git.ui.h:38
 msgid "Previous commit; Drop or enter a different revision here"
-msgstr ""
+msgstr "ئالدىنقى تاپشۇرۇلما؛ باشقا تۈزىتىلمىنى بۇ يەرگە تاشلاڭ ياكى كىرگۈزۈڭ"
 
 #: ../plugins/git/anjuta-git.ui.h:39
 msgid "Push all branches and tags"
@@ -5142,25 +5014,21 @@ msgstr "ھەممە خەتكۈشلەرنى قويۇش"
 
 #: ../plugins/git/anjuta-git.ui.h:41 ../plugins/git/plugin.c:262
 msgid "Rebase"
-msgstr ""
+msgstr "قايتا نىشانلا"
 
 #: ../plugins/git/anjuta-git.ui.h:42
-#| msgid "Repository:"
 msgid "Remote Repositories:"
 msgstr "يىراقتىكى خەزىنىلەر:"
 
 #: ../plugins/git/anjuta-git.ui.h:43
-#| msgid "Module name:"
 msgid "Remote name:"
 msgstr "يىراقتىكى ئاتى:"
 
 #: ../plugins/git/anjuta-git.ui.h:44
-#| msgid "Remove File"
 msgid "Remove Files:"
 msgstr "ھۆججەتلەرنى چىقىرىۋېتىش:"
 
 #: ../plugins/git/anjuta-git.ui.h:45
-#| msgid "Repository:"
 msgid "Repository Status:"
 msgstr "خەزىنە ھالىتى:"
 
@@ -5200,7 +5068,7 @@ msgstr "خاتىرە ئۇچۇرىدا مەنبەنىڭ تۈزىتىلمىسىن�
 
 #: ../plugins/git/anjuta-git.ui.h:55
 msgid "Sign this tag"
-msgstr ""
+msgstr "بۇ بەلگىگە ئىمزا قوي"
 
 #: ../plugins/git/anjuta-git.ui.h:56
 msgid "Soft"
@@ -5208,26 +5076,25 @@ msgstr "يۇمشاق"
 
 #: ../plugins/git/anjuta-git.ui.h:57
 msgid "Squash"
-msgstr ""
+msgstr "ياپىلاقلا"
 
 #: ../plugins/git/anjuta-git.ui.h:58
 msgid "Stash Message (Optional):"
-msgstr ""
+msgstr "Stash ئۇچۇرى(تاللاشچان):"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Stash indexed changes"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلىغان ئىندېكسنىڭ ئۆزگىرىشى"
 
 #: ../plugins/git/anjuta-git.ui.h:60
 msgid "Stashed Changes:"
-msgstr ""
+msgstr "ۋاقىتلىق ئۆزگىرىش:"
 
 #: ../plugins/git/anjuta-git.ui.h:61
 msgid "Tag name:"
 msgstr "خەتكۈش ئاتى:"
 
 #: ../plugins/git/anjuta-git.ui.h:62
-#| msgid "Tags"
 msgid "Tags:"
 msgstr "خەتكۈچلەر:"
 
@@ -5251,11 +5118,15 @@ msgstr "ھۆججەت/قىسقۇچ خاتىرىسىنى كۆرۈش:"
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid ""
 "Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr "تولۇق قۇرۇلۇش؛ ھۆججەت ياكى قىسقۇچ خاتىرىسىنى كۆرۈش ئۈچۈن، بۇ يەرگە ھۆججەتتىن بىرنى تاشلاڭ ياكى يولنى كىرگۈزۈڭ"
+msgstr ""
+"تولۇق قۇرۇلۇش؛ ھۆججەت ياكى قىسقۇچ خاتىرىسىنى كۆرۈش ئۈچۈن، بۇ يەرگە ھۆججەتتىن "
+"بىرنى تاشلاڭ ياكى يولنى كىرگۈزۈڭ"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr "تولۇق قۇرۇلۇش؛ ھۆججەت ياكى قىسقۇچ خاتىرىسىنى كۆرۈش ئۈچۈن، بۇ يەرگە ھۆججەتتىن بىرنى تاشلاڭ"
+msgstr ""
+"تولۇق قۇرۇلۇش؛ ھۆججەت ياكى قىسقۇچ خاتىرىسىنى كۆرۈش ئۈچۈن، بۇ يەرگە ھۆججەتتىن "
+"بىرنى تاشلاڭ"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
@@ -5266,22 +5137,18 @@ msgid "page 2"
 msgstr "2-بەت"
 
 #: ../plugins/git/git-add-files-pane.c:157
-#| msgid "Add File"
 msgid "Add Files"
 msgstr "ھۆججەت قوشۇش"
 
 #: ../plugins/git/git-add-remote-pane.c:52
-#| msgid "Please enter a filename!"
 msgid "Please enter a remote name."
 msgstr "يىراق ئاتىنى كىرگۈزۈڭ."
 
 #: ../plugins/git/git-add-remote-pane.c:55
-#| msgid "Please enter a filename!"
 msgid "Please enter a URL"
 msgstr "URL كىرگۈزۈڭ"
 
 #: ../plugins/git/git-add-remote-pane.c:179
-#| msgid "Remote"
 msgid "Add Remote"
 msgstr "يىراقنى قوشۇش"
 
@@ -5292,7 +5159,6 @@ msgstr "خەت ساندۇقى ھۆججەتلىرى"
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
-#| msgid "No group selected"
 msgid "No stash selected."
 msgstr "stash تاللانمىدى."
 
@@ -5302,12 +5168,10 @@ msgstr "ھۆججەتلەرنى Check Out قىلىش"
 
 #: ../plugins/git/git-commit-pane.c:124
 #: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
-#| msgid "Please enter a filename!"
 msgid "Please enter a log message."
 msgstr "ھۆججەت خاتىرە ئۇچۇرى كىرگۈزۈڭ."
 
 #: ../plugins/git/git-commit-pane.c:145
-#| msgid "Please enter a filename!"
 msgid "Please enter the commit author's name"
 msgstr "تاپشۇرغان ئاپتورنىڭ ئاتىنى كىرگۈزۈڭ"
 
@@ -5316,7 +5180,6 @@ msgid "Please enter the commit author's e-mail address."
 msgstr "تاپشۇرغۇچىنىڭ ئېلخەت ئادرېسىنى كىرگۈزۈڭ."
 
 #: ../plugins/git/git-commit-pane.c:293 ../plugins/git/plugin.c:146
-#| msgid "_Commit"
 msgid "Commit"
 msgstr "تاپشۇر(_C)"
 
@@ -5328,7 +5191,7 @@ msgstr "تۈزىتىلمىنى كىرگۈزۈڭ."
 
 #: ../plugins/git/git-cherry-pick-pane.c:173
 msgid "Cherry Pick"
-msgstr ""
+msgstr "ئالدىن تاللاش"
 
 #. Translators: default file name for git diff's output
 #: ../plugins/git/git-diff-pane.c:33
@@ -5342,22 +5205,18 @@ msgid "Commit %s.diff"
 msgstr "%s.diff نى تاپشۇر"
 
 #: ../plugins/git/git-diff-pane.c:104
-#| msgid "No group selected"
 msgid "No revision selected"
 msgstr "تۈزىتىلمە تاللانمىدى"
 
 #: ../plugins/git/git-reset-pane.c:167
-#| msgid "_Reset"
 msgid "Reset"
 msgstr "ئەسلىگە قايتۇر"
 
 #: ../plugins/git/git-revert-pane.c:48
-#| msgid "Please enter a filename!"
 msgid "Please enter a commit."
-msgstr ""
+msgstr "بىر تاپشۇرۇلما كىرگۈزۈڭ."
 
 #: ../plugins/git/git-revert-pane.c:162
-#| msgid "Remove"
 msgid "Revert"
 msgstr "ئەسلىگە ياندۇر"
 
@@ -5374,20 +5233,17 @@ msgid "Create Tag"
 msgstr "خەتكۈش قۇرۇش"
 
 #: ../plugins/git/git-delete-remote-pane.c:49
-#| msgid "No group selected"
 msgid "No remote selected."
 msgstr "يىراق تاللانمىدى"
 
 #: ../plugins/git/git-delete-tags-pane.c:49
-#| msgid "No group selected"
 msgid "No tags selected."
 msgstr "خەتكۈش تاللانمىدى."
 
 #: ../plugins/git/git-diff-stash-pane.c:40
 #, c-format
-#| msgid "Standard diff"
 msgid "Stash %i.diff"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاش %i.diff"
 
 #: ../plugins/git/git-log-pane.c:560
 #, c-format
@@ -5414,17 +5270,14 @@ msgid "Git"
 msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
-#| msgid "Error"
 msgid "Git Error"
 msgstr "Git خاتالىقى"
 
 #: ../plugins/git/git-pane.c:210
-#| msgid "Warning"
 msgid "Git Warning"
 msgstr "Git ئاگاھلاندۇرۇشى"
 
 #: ../plugins/git/git-patch-series-pane.c:167
-#| msgid "General Class Properties"
 msgid "Generate Patch Series"
 msgstr "بىر يۈرۈش ياماقلارنى ھاسىللاش"
 
@@ -5438,15 +5291,13 @@ msgstr "تارت"
 
 #: ../plugins/git/git-push-pane.c:434 ../plugins/git/plugin.c:238
 msgid "Push"
-msgstr "قويۇش"
+msgstr "باس"
 
 #: ../plugins/git/git-rebase-pane.c:61
-#| msgid "No group selected"
 msgid "No remote selected"
 msgstr "يىراق تاللانمىدى"
 
 #: ../plugins/git/git-remove-files-pane.c:157
-#| msgid "Remove File"
 msgid "Remove Files"
 msgstr "ھۆججەتلەرنى چىقىرىۋېتىش"
 
@@ -5466,7 +5317,8 @@ msgstr "<b>يىراقنى تاللاش:</b>"
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
-msgstr "يىراق تاللانمىدى؛ ئەسلىسى ئىشلىتىلىدۇ.\n"
+msgstr ""
+"يىراق تاللانمىدى؛ ئەسلىسى ئىشلىتىلىدۇ.\n"
 "باشقا بىر يىراققا ساقلاش ئۈچۈن، يۇقىرىقى تىزىمدىن بىرنى تاللاڭ."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
@@ -5475,7 +5327,7 @@ msgstr "توقۇنۇشقان ھۆججەتلەر تاللانمىدى."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاش تاپشۇرمىغان ئۆزگەرتىش"
 
 #: ../plugins/git/git-status-pane.c:368
 msgid "Changes to be committed"
@@ -5486,9 +5338,8 @@ msgid "Changed but not updated"
 msgstr "ئۆزگەرتىلدى بىراق يېڭىلانمىدى."
 
 #: ../plugins/git/git-unstage-pane.c:51
-#| msgid "No target has been selected"
 msgid "No staged files selected."
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەت تاللانمىدى."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5511,7 +5362,6 @@ msgid "Merge a revision into the current branch"
 msgstr "تۈزىتىلمىنى ھازىرقى تارماققا بىرىكتۈر"
 
 #: ../plugins/git/plugin.c:109
-#| msgid "Tools"
 msgid "Tag tools"
 msgstr "خەتكۈش قورالى"
 
@@ -5520,22 +5370,18 @@ msgid "Create a tag"
 msgstr "خەتكۈش قۇر"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
-#| msgid "Delete tags"
 msgid "Delete selected tags"
 msgstr "تاللانغان خەتكۈشلەرنى ئۆچۈر"
 
 #: ../plugins/git/plugin.c:138
-#| msgid "_Changes"
 msgid "Changes"
 msgstr "ئۆزگىرىشلەر"
 
 #: ../plugins/git/plugin.c:147
-#| msgid "_Changes"
 msgid "Commit changes"
 msgstr "ئۆزگىرىشلەرنى تاپشۇر"
 
 #: ../plugins/git/plugin.c:154
-#| msgid "_Discard changes"
 msgid "Diff uncommitted changes"
 msgstr "تاپشۇرۇلمىغان ئۆزگىرىشلەرنى سېلىشتۇر(_D)"
 
@@ -5549,7 +5395,6 @@ msgid "Add"
 msgstr "قوش"
 
 #: ../plugins/git/plugin.c:171
-#| msgid "Add files to the repository"
 msgid "Add files to the index"
 msgstr "ھۆججەتلەرنى ئىندېكسقا قوشىدۇ"
 
@@ -5558,23 +5403,20 @@ msgid "Remove files from the repository"
 msgstr "خەزىنىدىن  ھۆججەتلەرنى چىقىرىۋېتىدۇ"
 
 #: ../plugins/git/plugin.c:186
-#| msgid "_Check out files…"
 msgid "Check out"
-msgstr ""
+msgstr "خەزىنىدىن چىقىرىش(Check out)"
 
 #: ../plugins/git/plugin.c:187
 msgid "Revert changes in unstaged files"
-msgstr ""
+msgstr "تاپشۇرۇلمىغان باسقۇچلۇق ھۆججەتلەرنى ئەسلىگە كەلتۈر"
 
 #: ../plugins/git/plugin.c:194
-#| msgid "Use"
 msgid "Unstage"
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەتنى بىكار قىل"
 
 #: ../plugins/git/plugin.c:195
-#| msgid "Remove files from the repository"
 msgid "Remove staged files from the index"
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەتلەرنى ئىندېكستىن چىقىرىۋەت"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
@@ -5585,27 +5427,22 @@ msgid "Mark selected conflicted files as resolved"
 msgstr "توقۇنۇشقان ھۆججەتلەرگە ھەل قىلىندى بەلگىسىنى قوي"
 
 #: ../plugins/git/plugin.c:214
-#| msgid "Remove files from the repository"
 msgid "Remote repository tools"
 msgstr "يىراق خەزىنە قوراللىرى"
 
 #: ../plugins/git/plugin.c:222
-#| msgid "Add a breakpoint"
 msgid "Add a remote"
 msgstr "يىراقنى قوش"
 
 #: ../plugins/git/plugin.c:223
-#| msgid "Add to repository"
 msgid "Add a remote repository"
 msgstr "يىراقتىكى خەزىنىنى قوشىدۇ"
 
 #: ../plugins/git/plugin.c:230
-#| msgid "Delete the selected text from the editor"
 msgid "Delete selected remote"
 msgstr "تاللانغان يىراقنى ئۆچۈر"
 
 #: ../plugins/git/plugin.c:231
-#| msgid "Delete empty directories"
 msgid "Delete a remote"
 msgstr "يىراقنى ئۆچۈر"
 
@@ -5614,7 +5451,6 @@ msgid "Push changes to a remote repository"
 msgstr "ئۆزگىرىشلەرنى يىراقتىكى خەزىنىگە قويىدۇ"
 
 #: ../plugins/git/plugin.c:247
-#| msgid "Remove files from the repository"
 msgid "Pull changes from a remote repository"
 msgstr "يىراقتىكى خەزىنىدىن ئۆزگەرتىشلەرنى تارتىپ چىقىرىدۇ"
 
@@ -5623,39 +5459,36 @@ msgid "Fetch"
 msgstr "تۇت"
 
 #: ../plugins/git/plugin.c:255
-#| msgid "Remove files from the repository"
 msgid "Fetch changes from remote repositories"
 msgstr "يىراقتىكى خەزىنىدىن ئۆزگەرتىشلەرنى بىر-بىرلەپ تۇتىدۇ"
 
 #: ../plugins/git/plugin.c:270
 msgid "Rebase against selected remote"
-msgstr ""
+msgstr "تاللانغان يىراقتىكى ئۆزگىرىش ئاساسىغا نىسبەتەن"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
+"تاللانغان يىراقتىكى ئۆزگىرىش ئاساسىغا نىسبەتەن ئۆزگىرىش ئاساسى مەشغۇلاتىدىن "
+"بىرنى قوزغات"
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
-#| msgid "_Continue"
 msgid "Continue"
 msgstr "داۋاملاشتۇر"
 
 #: ../plugins/git/plugin.c:279
 msgid "Continue a rebase with resolved conflicts"
-msgstr ""
+msgstr "توقۇنۇشلار ھەل قىلغاندىن كېيىن ئۆزگىرىش ئاساسىنى داۋاملاشتۇرىدۇ"
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-#| msgid "_Skip"
 msgid "Skip"
-msgstr "ئۆتكۈزۈۋەت"
+msgstr "ئاتلا"
 
 #: ../plugins/git/plugin.c:287
-#| msgid "Print the current file"
 msgid "Skip the current revision"
-msgstr "نۆۋەتتىكى ئۆزگەرتىشنى ئۆتكۈزۈۋېتىدۇ"
+msgstr "نۆۋەتتىكى تۈزىتىلگەن نەشرىدىن ئاتلا"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-#| msgid "_About"
 msgid "Abort"
 msgstr "توختات"
 
@@ -5665,11 +5498,11 @@ msgstr "rebase نى توختىتىپ، خەزىنىنى ئەسلىدىكى ھا�
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
-msgstr ""
+msgstr "Stash قوراللىرى"
 
 #: ../plugins/git/plugin.c:314
 msgid "Stash uncommitted changes"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاپ تاپشۇرمىغان ئۆزگىرىشلەر"
 
 #: ../plugins/git/plugin.c:315
 msgid "Save uncommitted changes without committing them"
@@ -5677,55 +5510,49 @@ msgstr "تاپشۇرۇلمىغان ئۆزگىرىشلەرنى تاپشۇرماي
 
 #: ../plugins/git/plugin.c:322
 msgid "Apply selected stash"
-msgstr ""
+msgstr "تاللانغان ۋاقىتلىق ساقلاشقا قوللان"
 
 #: ../plugins/git/plugin.c:323
 msgid "Apply stashed changes back into the working tree"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلىغان ئۆزگەرتىشنى خىزمەت شېخىغا قوللان"
 
 #: ../plugins/git/plugin.c:330
 msgid "Apply stash and restore index"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنى قوللىنىپ ئىندېكسنى ئەسلىگە كەلتۈر"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلىغان ئۆزگەرتىشنى خىزمەت شېخى ۋە ئىندېكسقا قوللان"
 
 #: ../plugins/git/plugin.c:338
-#| msgid "Delete tags"
 msgid "Diff selected stash"
-msgstr ""
+msgstr "تاللانغان stash نى سېلىشتۇرۇش"
 
 #: ../plugins/git/plugin.c:339
 msgid "Show a diff of the selected stash"
-msgstr ""
+msgstr "تاللانغان stash تىكى پەرقلەرنى كۆرسىتىدۇ"
 
 #: ../plugins/git/plugin.c:346
-#| msgid "Delete tags"
 msgid "Drop selected stash"
-msgstr ""
+msgstr "تاللانغان stash نى ئۆچۈر"
 
 #: ../plugins/git/plugin.c:347
-#| msgid "Delete the selected text from the editor"
 msgid "Delete the selected stash"
-msgstr ""
+msgstr "تاللانغان stash نى ئۆچۈرىدۇ"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
-msgstr ""
+msgstr "بارلىق stash نى تازىلايدۇ"
 
 #: ../plugins/git/plugin.c:355
-#| msgid "Select all text in the editor"
 msgid "Delete all stashes in this repository"
-msgstr ""
+msgstr "بۇ خەزىنىدىكى بارلىق stash ئۆچۈرىدۇ"
 
 #: ../plugins/git/plugin.c:366
-#| msgid "Revision"
 msgid "Revision tools"
 msgstr "ئۆزگەرتىلمە قوراللىرى"
 
 #: ../plugins/git/plugin.c:374
-#| msgid "_Show commit diff"
 msgid "Show commit diff"
 msgstr "تاپشۇرمىنىڭ پەرقىنى كۆرسەت"
 
@@ -5735,19 +5562,17 @@ msgstr "تاللانغان تۈزىتىلمىلەرنىڭ پەرقىنى كۆر�
 
 #: ../plugins/git/plugin.c:382
 msgid "Cherry pick"
-msgstr ""
+msgstr "ئالدىن تاللاش"
 
 #: ../plugins/git/plugin.c:383
 msgid "Merge an individual commit from another branch"
 msgstr "باشقا بىر تارماقتىكى تاپشۇرۇلما بىلەن بىرىكتۈرىدۇ"
 
 #: ../plugins/git/plugin.c:390
-#| msgid "_Reset/Revert"
 msgid "Reset/Revert"
 msgstr "ئەسلىگە قايتۇر/كونىسىغا ياندۇر"
 
 #: ../plugins/git/plugin.c:398
-#| msgid "Reset Tree"
 msgid "Reset tree"
 msgstr "ئەسلىگە قايتۇرۇش دەرىخى"
 
@@ -5756,7 +5581,6 @@ msgid "Reset tree to a previous revision"
 msgstr "بۇرۇنقى تۈزىتىلمىلەرنىڭ ئەسلىگە قايتۇرۇش دەرىخى"
 
 #: ../plugins/git/plugin.c:406
-#| msgid "Revert a commit"
 msgid "Revert commit"
 msgstr "تاپشۇرمىنى كونىسىغا ياندۇر"
 
@@ -5765,17 +5589,14 @@ msgid "Revert a commit"
 msgstr "بىرلا تاپشۇرمىنى كونىسىغا ياندۇرىدۇ"
 
 #: ../plugins/git/plugin.c:414
-#| msgid "Watch operations"
 msgid "Patch series"
 msgstr "بىر قاتار ياماقلار"
 
 #: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
-#| msgid "General Class Properties"
 msgid "Generate a patch series"
 msgstr "بىر قاتار ياماقلارنى ھاسىل قىلىدۇ"
 
 #: ../plugins/git/plugin.c:430
-#| msgid "All files"
 msgid "Mailbox files"
 msgstr "خەت ساندۇقى ھۆججەتلىرى"
 
@@ -5789,34 +5610,30 @@ msgstr "خەت ساندۇقى ھۆججەتلىرىدىن كەلگەن ياماق
 
 #: ../plugins/git/plugin.c:447
 msgid "Continue applying patches with resolved conflicts"
-msgstr ""
+msgstr "توقۇنۇشلار ھەل قىلىنغان ياماقلارنى قوللىنىشنى داۋاملاشتۇرىدۇ"
 
 #: ../plugins/git/plugin.c:455
-#| msgid "Search help for the current word in the editor"
 msgid "Skip the current patch in the series"
-msgstr ""
+msgstr "قاتاردىكى نۆۋەتتىكى ياماقتىن ئاتلاپ داۋاملاشتۇر"
 
 #: ../plugins/git/plugin.c:463
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
-msgstr ""
+msgstr "ياماق قاتارىنى قوللىنىشنى توختىتىپ، ئامبارنىڭ ئەسلى ھالىتىگە قايت"
 
 #: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
 msgstr "تارماق"
 
 #: ../plugins/git/plugin.c:696
-#| msgid "Tasks"
 msgid "Git Tasks"
 msgstr "Git ۋەزىپىلىرى"
 
 #: ../plugins/git/plugin.c:758
-#| msgid "State"
 msgid "Status"
-msgstr "ھالەت"
+msgstr "ھالىتى"
 
 #: ../plugins/git/plugin.c:764
-#| msgid "Low"
 msgid "Log"
 msgstr "خاتىرە"
 
@@ -5825,46 +5642,44 @@ msgid "Tags"
 msgstr "خەتكۈشلەر"
 
 #: ../plugins/git/plugin.c:781
-#| msgid "Remote"
 msgid "Remotes"
 msgstr "يىراقلار"
 
 #: ../plugins/git/plugin.c:787
 msgid "Stash"
-msgstr ""
+msgstr "Stash"
 
-#: ../plugins/glade/plugin.c:460
-#| msgid "Select all text in the editor"
+#: ../plugins/glade/plugin.c:472
 msgid "Select widgets in the workspace"
 msgstr "خىزمەت بوشلۇقىدىكى ۋىجېتنى تاللا"
 
-#: ../plugins/glade/plugin.c:486
+#: ../plugins/glade/plugin.c:498
 msgid "Drag and resize widgets in the workspace"
 msgstr "خىزمەت بوشلۇقىدىكى ۋىجېتلارنى سۆرە ۋە چوڭلۇقنى ئۆزگەرت"
 
-#: ../plugins/glade/plugin.c:514
+#: ../plugins/glade/plugin.c:526
 msgid "Loading Glade…"
 msgstr "Glade نى ئوقۇۋاتىدۇ…"
 
-#: ../plugins/glade/plugin.c:590
+#: ../plugins/glade/plugin.c:602
 msgid "Widgets"
 msgstr "ۋىجېتلار"
 
-#: ../plugins/glade/plugin.c:595
+#: ../plugins/glade/plugin.c:607
 msgid "Palette"
 msgstr "رەڭ تاختىسى"
 
-#: ../plugins/glade/plugin.c:718
+#: ../plugins/glade/plugin.c:730
 #, c-format
 msgid "Not local file: %s"
 msgstr "يەرلىك ھۆججەت ئەمەس: %s"
 
-#: ../plugins/glade/plugin.c:764
+#: ../plugins/glade/plugin.c:776
 #, c-format
 msgid "Could not open %s"
 msgstr "%s نى ئاچالمىدى"
 
-#: ../plugins/glade/plugin.c:821
+#: ../plugins/glade/plugin.c:833
 msgid "Could not create a new glade project."
 msgstr "يېڭى glade قۇرۇلۇشى قۇرالمىدى."
 
@@ -5907,22 +5722,22 @@ msgstr "نورمال ئۇچۇر كۆرسەتكۈچىنىڭ ئۇسلۇبى:"
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
 msgid "Strike-Out"
-msgstr ""
+msgstr "ئۈستىگە چىق"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
 msgid "Underline-Plain"
-msgstr ""
+msgstr "ئاستى سىزىق - ئادەتتىكى تېكىست"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
 msgid "Underline-Squiggle"
-msgstr ""
+msgstr "ئاستى سىزىق - دولقۇنسىمان"
 
 #. text style in editor, TT is for typewriter text
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
 msgid "Underline-TT"
-msgstr ""
+msgstr "ئاستى سىزىق - TT"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
 msgid "Warning message indicator style:"
@@ -6013,7 +5828,6 @@ msgstr[0] "%d خاتالىق"
 
 #: ../plugins/mk-project/mk-project.c:460
 #, c-format
-#| msgid "Unable to parse project file"
 msgid "Unable to parse make file"
 msgstr "قۇرۇش ھۆججىتىنى يېشەلمىدى"
 
@@ -6022,28 +5836,24 @@ msgid "Add _Package"
 msgstr "بوغچا قوش(_P)"
 
 #: ../plugins/mk-project/mk-project.ui.h:2
-#| msgid "Build module"
 msgid "Add _module"
 msgstr "بۆلەك قوش(_M)"
 
 #: ../plugins/mk-project/mk-project.ui.h:4
-#| msgid "Package"
 msgid "Packages"
 msgstr "بوغچىلار"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
-#| msgid "Select Program to run:"
 msgid "Select Package to add:"
 msgstr "قوشىدىغان بوغچا تاللاڭ:"
 
 #: ../plugins/mk-project/mk-project.ui.h:6
-#| msgid "Select a file"
 msgid "Select package"
 msgstr "بوغچا تاللاش"
 
 #: ../plugins/patch/patch-plugin.c:94
 msgid "File/Directory to patch"
-msgstr ""
+msgstr "ياماق سالىدىغان ھۆججەت/مۇندەرىجە"
 
 #: ../plugins/patch/patch-plugin.c:97
 msgid "Patch file"
@@ -6083,7 +5893,8 @@ msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
-msgstr "ياماق سېلىش مەغلۇپ بولدى.\n"
+msgstr ""
+"ياماق سېلىش مەغلۇپ بولدى.\n"
 "مەغلۇبىيەت ئۇچۇرلىرىنى كۆرۈڭ.\n"
 "رەت قىلىنغان ھۆججەتلەرنى تەھلىل قىلىڭ ياكى چىقىرىۋېتىڭ.\n"
 
@@ -6094,7 +5905,7 @@ msgstr "ياماق سېلىش تاماملاندى"
 #: ../plugins/patch/patch-plugin.ui.h:1
 #: ../plugins/subversion/anjuta-subversion.ui.h:14
 msgid "Dry run"
-msgstr ""
+msgstr "مەشىق"
 
 #: ../plugins/patch/patch-plugin.ui.h:2
 msgid "File/Directory to patch:"
@@ -6135,12 +5946,14 @@ msgstr "\"%s\" دېگەن ئاتتىكى ھۆججەت مەۋجۇت. قاپلىۋ
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
-msgstr "\"%s\" دېگەن ئاتتىكى ھۆججەتنى يازغىلى بولمىدى: %s. بۇ مۇندەرىجىگە يېزىش ھوقۇقىڭىز بارمۇ تەكشۈرۈڭ."
+msgstr ""
+"\"%s\" دېگەن ئاتتىكى ھۆججەتنى يازغىلى بولمىدى: %s. بۇ مۇندەرىجىگە يېزىش "
+"ھوقۇقىڭىز بارمۇ تەكشۈرۈڭ."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
-msgstr ""
+msgstr "%s نى ئاچىدىغان قۇرۇلۇشنىڭ ئارقا ئۇچىنى تاللاڭ."
 
 #: ../plugins/project-import/plugin.c:287
 msgid "Open With"
@@ -6152,6 +5965,8 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
+"بەلگىلەنگەن مۇندەرىجە (%s) دە ئىناۋەتلىك قۇرۇلۇش ئارقا ئۇچىنى تاپالمىدى. "
+"باشقا مۇندەرىجىنى تاللاڭ ياكى Anjuta نى يېڭىراق نەشرىگە دەرىجە ئۆستۈرۈڭ."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6159,6 +5974,7 @@ msgstr ""
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
+"كۆرسىتىلگەن URI «%s» دىن چىقارغىلى(check out) بولمىدى. قايتۇرغان خاتالىق «%s»"
 
 #: ../plugins/project-import/project-import.ui.h:1
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
@@ -6213,7 +6029,6 @@ msgid "Import"
 msgstr "ئىمپورت قىل"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:1
-#| msgid "Library"
 msgid "Add Library"
 msgstr "ئامبار قوش"
 
@@ -6222,7 +6037,6 @@ msgid "Add Source"
 msgstr "مەنبە قوشۇش"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
-#| msgid "Close other documents"
 msgid "Browse other nodes"
 msgstr "باشقا تۈگۈنگە قارا"
 
@@ -6235,12 +6049,10 @@ msgid "More options:"
 msgstr "تېخىمۇ كوپ تاللانمىلار:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
-#| msgid "Build Directory:"
 msgid "New Directory"
 msgstr "يېڭى مۇندەرىجە:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
-#| msgid "Library"
 msgid "New Library"
 msgstr "يېڭى ئامبار"
 
@@ -6253,7 +6065,6 @@ msgid "Package list:"
 msgstr "بوغچا تىزىمى:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#| msgid "Select the items to save:"
 msgid "Select the _target for the library:"
 msgstr "ئامبارنىڭ نىشانىنى تاللاڭ(_T):"
 
@@ -6286,7 +6097,6 @@ msgid "TargetTypes"
 msgstr "TargetTypes"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
-#| msgid "Build Directory:"
 msgid "_Directory name:"
 msgstr "مۇندەرىجە ئاتى(_D):"
 
@@ -6295,12 +6105,10 @@ msgid "_Module name:"
 msgstr "بۆلەك ئاتى(_M):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
-#| msgid "New accelerator…"
 msgid "_New library…"
 msgstr "يېڭى فۇنكسىيە ئامبىرى(_L)…"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
-#| msgid "_Delete tag…"
 msgid "_Select file to add…"
 msgstr "قوشىدىغان ھۆججەتنى تاللاڭ(_S)…"
 
@@ -6333,42 +6141,48 @@ msgstr "قۇرۇلۇشنى يېڭىلاش مەغلۇپ بولدى: %s"
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:671
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:674
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:677
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بوغچىنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بوغچىنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:680
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بۆلەكنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بۆلەكنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:683
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
-msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
+msgstr ""
+"ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:700
@@ -6426,7 +6240,8 @@ msgstr "چىقىرىۋېتىشنى جەزملەش"
 msgid ""
 "Failed to remove '%s':\n"
 "%s"
-msgstr "'%s' چىقىرىۋېتىش مەغلۇپ بولدى:\n"
+msgstr ""
+"'%s' چىقىرىۋېتىش مەغلۇپ بولدى:\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:850
@@ -6439,24 +6254,20 @@ msgid "_Project"
 msgstr "قۇرۇلۇش(_P)"
 
 #: ../plugins/project-manager/plugin.c:892
-#| msgid "New accelerator…"
 msgid "New _Directory…"
 msgstr "يېڭى مۇندەرىجە(_D)…"
 
 #: ../plugins/project-manager/plugin.c:892
 #: ../plugins/project-manager/plugin.c:931
-#| msgid "Add a new file/directory to the CVS tree"
 msgid "Add a new directory to the project"
 msgstr "قۇرۇلۇشقا يېڭى مۇندەرىجە قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:897
-#| msgid "New Target"
 msgid "New _Target…"
 msgstr "يېڭى نىشان(_T)…"
 
 #: ../plugins/project-manager/plugin.c:897
 #: ../plugins/project-manager/plugin.c:936
-#| msgid "Add a target to project"
 msgid "Add a new target to the project"
 msgstr "قۇرۇلۇشقا يېڭى نىشان قوشىدۇ"
 
@@ -6467,12 +6278,10 @@ msgstr "مەنبە ھۆججەت قوش (_S)..."
 #: ../plugins/project-manager/plugin.c:902
 #: ../plugins/project-manager/plugin.c:941
 #: ../plugins/project-manager/plugin.c:956
-#| msgid "Add a source file to project"
 msgid "Add a source file to a target"
 msgstr "قۇرۇلۇشقا يېڭى مەنبە ھۆججەت قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:907
-#| msgid "Add _Target…"
 msgid "Add _Library…"
 msgstr "ئامبار قوش(_L)..."
 
@@ -6481,19 +6290,17 @@ msgid "Add a module to a target"
 msgstr "نىشانغا بىر بۆلەك قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:912
-#| msgid "Library"
 msgid "New _Library…"
 msgstr "يېڭى ئامبار(_L)…"
 
 #: ../plugins/project-manager/plugin.c:912
-#| msgid "Add a target to project"
 msgid "Add a new package to the project"
 msgstr "قۇرۇلۇشقا يېڭى بوغچا قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:917
 #: ../plugins/project-manager/plugin.c:961
 msgid "_Properties"
-msgstr "خاسلىق(_P)"
+msgstr "خاسلىقلار(_P)"
 
 #: ../plugins/project-manager/plugin.c:917
 #: ../plugins/project-manager/dialogs.c:530
@@ -6509,12 +6316,10 @@ msgid "Close project"
 msgstr "قۇرۇلۇش يېپىش"
 
 #: ../plugins/project-manager/plugin.c:931
-#| msgid "Build Directory:"
 msgid "New _Directory"
 msgstr "يېڭى مۇندەرىجە(_D)"
 
 #: ../plugins/project-manager/plugin.c:936
-#| msgid "New Target"
 msgid "New _Target"
 msgstr "يېڭى نىشان(_T)"
 
@@ -6523,22 +6328,18 @@ msgid "Add _Source File"
 msgstr "مەنبە ھۆججەت قوش(_S)"
 
 #: ../plugins/project-manager/plugin.c:946
-#| msgid "Library"
 msgid "Add _Library"
 msgstr "ئامبار قوش(_L)"
 
 #: ../plugins/project-manager/plugin.c:946
-#| msgid "Add a target to project"
 msgid "Add a library to a target"
 msgstr "نىشانغا ئامبار قوشىدۇ"
 
 #: ../plugins/project-manager/plugin.c:951
-#| msgid "Library"
 msgid "New _Library"
 msgstr "يېڭى ئامبار(_L)"
 
 #: ../plugins/project-manager/plugin.c:951
-#| msgid "Add a new file/directory to the CVS tree"
 msgid "Add a new library to the project"
 msgstr "قۇرۇلۇشقا يېڭى ئامبار قوشىدۇ"
 
@@ -6559,12 +6360,10 @@ msgid "Remove from project"
 msgstr "قۇرۇلۇشتىن چىقىرىۋەت"
 
 #: ../plugins/project-manager/plugin.c:971
-#| msgid "Soft"
 msgid "_Sort"
 msgstr "تەرتىپلە(_S)"
 
 #: ../plugins/project-manager/plugin.c:971
-#| msgid "Shortcuts"
 msgid "Sort shortcuts"
 msgstr "تېزلەتمىنى تەرتىپلەيدۇ"
 
@@ -6573,7 +6372,9 @@ msgstr "تېزلەتمىنى تەرتىپلەيدۇ"
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
-msgstr "قۇرۇلۇشنى تەھلىل قىلىش مەغلۇپ بولدى(قۇرۇلۇش ئوچۇق ئىكەن، بىراق قۇرۇلۇش كۆرۈنۈشى يوق ئىكەن)%s: %s\n"
+msgstr ""
+"قۇرۇلۇشنى تەھلىل قىلىش مەغلۇپ بولدى(قۇرۇلۇش ئوچۇق ئىكەن، بىراق قۇرۇلۇش "
+"كۆرۈنۈشى يوق ئىكەن)%s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1319
 msgid "Update project view…"
@@ -6595,13 +6396,13 @@ msgstr "قۇرۇلۇش باشقۇرغۇچىنىڭ مەشغۇلاتلىرى"
 
 #: ../plugins/project-manager/plugin.c:1605
 msgid "Project manager popup actions"
-msgstr ""
+msgstr "قۇرۇلۇش باشقۇرغۇچنىڭ سەكرىمە مەشغۇلاتى"
 
-#: ../plugins/project-manager/plugin.c:2329
+#: ../plugins/project-manager/plugin.c:2347
 msgid "Initializing Project…"
 msgstr "قۇرۇلۇشنى دەسلەپلەشتۈرۈۋاتىدۇ…"
 
-#: ../plugins/project-manager/plugin.c:2332
+#: ../plugins/project-manager/plugin.c:2350
 msgid "Project Loaded"
 msgstr "قۇرۇلۇش يۈكلەندى"
 
@@ -6621,7 +6422,6 @@ msgid " This property is not modifiable."
 msgstr " بۇ خاسلىقنى ئۆزگەرتكىلى بولىدۇ."
 
 #: ../plugins/project-manager/dialogs.c:533
-#| msgid "Group properties"
 msgid "Directory properties"
 msgstr "مۇندەرىجە خاسلىقى"
 
@@ -6634,17 +6434,14 @@ msgid "Source properties"
 msgstr "مەنبە خاسلىقى"
 
 #: ../plugins/project-manager/dialogs.c:542
-#| msgid "Group properties"
 msgid "Module properties"
 msgstr "بۆلەك خاسلىقى"
 
 #: ../plugins/project-manager/dialogs.c:545
-#| msgid "Properties"
 msgid "Package properties"
 msgstr "بوغچا خاسلىقى"
 
 #: ../plugins/project-manager/dialogs.c:548
-#| msgid "Breakpoint properties"
 msgid "Unknown properties"
 msgstr "نامەلۇم خاسلىقلار"
 
@@ -6731,32 +6528,29 @@ msgstr "%s نىڭدىن ھېچقانداق قۇرۇلۇش قېلىپى تېپى�
 msgid ""
 "\n"
 "Field \"%s\" is mandatory. Please enter it."
-msgstr "\n"
+msgstr ""
+"\n"
 "\"%s\" زۆرۈر تۈر. ئۇنى كىرگۈزۈڭ."
 
 #: ../plugins/project-wizard/druid.c:646
 #, c-format
-#| msgid ""
-#| "Field \"%s\" must contains only letters, digits or the following "
-#| "characters \"#$:%+,.=@^_`~\". In addition you cannot have a leading dash. "
-#| "Please fix it."
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
 "\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
 "it."
-msgstr "\"%s\" نىڭدا ھەرپلەر، رەقەملەر ياكى ئۇلارغا ئەگىشىپ \"#$:%%+,.=@^_`~\" لارلا بولۇشى كېرەك. ھەم ~ بىلەن باشلانماسلىقى كېرەك. تۈزىتىڭ."
+msgstr ""
+"\"%s\" نىڭدا ھەرپلەر، رەقەملەر ياكى ئۇلارغا ئەگىشىپ \"#$:%%+,.=@^_`~\" لارلا "
+"بولۇشى كېرەك. ھەم ~ بىلەن باشلانماسلىقى كېرەك. تۈزىتىڭ."
 
 #: ../plugins/project-wizard/druid.c:651
 #, c-format
-#| msgid ""
-#| "Field \"%s\" must contains only letters, digits, the following characters "
-#| "\"#$:%+,.=@^_`~\" or directory separators. In addition you cannot have a "
-#| "leading dash. Please fix it."
 msgid ""
 "Field \"%s\" must contains only letters, digits, the following characters \"#"
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
-msgstr "\"%s\" نىڭدا ھەرپلەر، رەقەملەر ۋە ئۇلارغا ئەگىشىپ \"#$:%%+,.=@^_`~\" لارلا بولۇشى كېرەك. ھەم ‹~› بىلەن باشلانماسلىقى كېرەك. تۈزىتىڭ."
+msgstr ""
+"\"%s\" نىڭدا ھەرپلەر، رەقەملەر ۋە ئۇلارغا ئەگىشىپ \"#$:%%+,.=@^_`~\" لارلا "
+"بولۇشى كېرەك. ھەم ‹~› بىلەن باشلانماسلىقى كېرەك. تۈزىتىڭ."
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
@@ -6768,7 +6562,9 @@ msgstr "نامەلۇم خاتالىق."
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
-msgstr "مۇندەرىجە \"%s\" قۇرۇق ئەمەس ئىكەن. بەزى ھۆججەتلەرنى يازغىلى بولمىغاچقا قۇرۇلۇش قۇرۇش مەغلۇپ بولدى. داۋاملاشتۇرامسىز؟"
+msgstr ""
+"مۇندەرىجە \"%s\" قۇرۇق ئەمەس ئىكەن. بەزى ھۆججەتلەرنى يازغىلى بولمىغاچقا "
+"قۇرۇلۇش قۇرۇش مەغلۇپ بولدى. داۋاملاشتۇرامسىز؟"
 
 #: ../plugins/project-wizard/druid.c:685
 #, c-format
@@ -6788,7 +6584,8 @@ msgstr "گۇمانلىق كىرگۈ"
 msgid ""
 "\n"
 "Missing programs: %s."
-msgstr "\n"
+msgstr ""
+"\n"
 "يوقالغان پروگراممىلار: %s."
 
 #: ../plugins/project-wizard/druid.c:903
@@ -6796,7 +6593,8 @@ msgstr "\n"
 msgid ""
 "\n"
 "Missing packages: %s."
-msgstr "\n"
+msgstr ""
+"\n"
 "يوقالغان بوغچىلار: %s."
 
 #: ../plugins/project-wizard/druid.c:912
@@ -6804,20 +6602,15 @@ msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
-msgstr "بۇ قۇرۇلۇشنى ياساشقا زۆرۈر بولغان بىر قىسىم پروگراممىلار ياكى ئىجادىيەت بوغچىلىرى يوق. قۇرۇلۇشنى ياشاشتىن بۇرۇن ئۇلار توغرا ئورنىتىلغانمۇ تەكشۈرۈڭ.\n"
+msgstr ""
+"بۇ قۇرۇلۇشنى ياساشقا زۆرۈر بولغان بىر قىسىم پروگراممىلار ياكى ئىجادىيەت "
+"بوغچىلىرى يوق. قۇرۇلۇشنى ياشاشتىن بۇرۇن ئۇلار توغرا ئورنىتىلغانمۇ تەكشۈرۈڭ.\n"
 
 #: ../plugins/project-wizard/druid.c:920
 msgid "Install missing packages"
 msgstr "يوقالغان ھۆججەتلەرنى ئورنات"
 
 #: ../plugins/project-wizard/druid.c:928
-#| msgid ""
-#| "The missing programs are usually part of some distrubution packages and "
-#| "can be searched for in your Application Manager. Similarly, the "
-#| "development packages are contained in special packages that your "
-#| "distribution provides to allow development of projects based on them. "
-#| "They usually end with a \"-dev\" or \"-devel\" suffix in package names "
-#| "and can be found by searching in your Application Manager."
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -6826,6 +6619,12 @@ msgid ""
 "dev\" or \"-devel\" suffix in package names and can be found by searching in "
 "your Application Manager."
 msgstr ""
+"كەم پروگراممىلار ئادەتتە بەزى تارقىتىش نەشرىدىكى يۇمشاق دېتال بوغچىسىنىڭ بىر "
+"قىسمى بولۇپ، پروگرامما باشقۇرغۇچتا ئىزدەپ تاپقىلى بولىدۇ. ئوخشاشلا، "
+"ئىجادكارلار بوغچىسىمۇ تارقىتىش نەشرى تەمىنلىگەن مۇشۇلار ئاساسىدا ئىجاد "
+"قىلىنغان ئالاھىدە يۇمشاق دېتال بوغچىسىدىمۇ بولىدۇ. ئۇلارنىڭ بوغچا ئاتى "
+"ئادەتتە \"-dev\" ياكى \"-devel\" ئارقا قوشۇلغۇچىسى بىلەن ئاخىرلىشىدۇ ھەمدە "
+"قوللىنىشچان پروگرامما باشقۇرغۇچتىن ئىزدەپ تاپقىلى بولىدۇ."
 
 #: ../plugins/project-wizard/druid.c:936
 msgid "Missing components"
@@ -6834,7 +6633,7 @@ msgstr "يوقالغان بۆلەكلەر"
 #: ../plugins/project-wizard/druid.c:1068
 #, c-format
 msgid "Unable to build project assistant user interface reading %s."
-msgstr ""
+msgstr "%s نى ئوقۇش ئۈچۈن قۇرۇلۇش ياردەمچىسى ئىشلەتكۈچى ئارايۈزى قۇرالمىدى. "
 
 #: ../plugins/project-wizard/install.c:406
 msgid "New project has been created successfully."
@@ -6888,13 +6687,13 @@ msgstr "مۇندەرىجە تاللا"
 msgid "Select file"
 msgstr "ھۆججەت تاللا"
 
-#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:522
+#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
-msgstr ""
+msgstr "سۈرەت ھۆججىتىنى تاللايدۇ"
 
 #: ../plugins/project-wizard/property.c:433
-#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:556
-#: ../plugins/tools/editor.c:703
+#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:558
+#: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "سىنبەلگە تاللا"
 
@@ -6947,7 +6746,9 @@ msgstr "ھەمبەھىر فۇنكسىيە قوللاشنى قوش:"
 #: ../plugins/project-wizard/templates/library.wiz.in.h:4
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "قۇرۇلۇشقا C++ نى قوللاشنى قوشىدۇ، بۇنىڭ بىلەن قۇرۇلۇشتىكى C++ مەنبە ھۆججەتلىرىنى ئىشلەتكىلى(built) بولىدۇ"
+msgstr ""
+"قۇرۇلۇشقا C++ نى قوللاشنى قوشىدۇ، بۇنىڭ بىلەن قۇرۇلۇشتىكى C++ مەنبە "
+"ھۆججەتلىرىنى ئىشلەتكىلى(built) بولىدۇ"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
@@ -6963,7 +6764,8 @@ msgstr "قۇرۇلۇشقا C++ نى قوللاشنى قوشىدۇ، بۇنىڭ �
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:2
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:6
 msgid "Adds support for building shared libraries in your project"
-msgstr "قۇرۇلۇشىڭىزغا ھەمبەھىر فۇنكسىيە ئامبىرىنى ياسىيالايدىغان ئىقتىدارنى قوشىدۇ"
+msgstr ""
+"قۇرۇلۇشىڭىزغا ھەمبەھىر فۇنكسىيە ئامبىرىنى ياسىيالايدىغان ئىقتىدارنى قوشىدۇ"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:6
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:6
@@ -7101,7 +6903,7 @@ msgstr "سىرتقى بوغچىلارنى سەپلەش:"
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
 msgid "Email address:"
-msgstr "ئېلخەت ئادرېسى:"
+msgstr "ئېلخەت مەنزىل:"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
@@ -7287,10 +7089,12 @@ msgstr "كود ئىجازەتنامىسىنى تاللاش"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:26
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
 msgid "Use pkg-config to add library support from other packages"
 msgstr ""
+"باشقا يۇمشاق دېتال بوغچىسىدىن ئامبار قوللاشنى قوشۇش ئۈچۈن pkg-config "
+"ئىشلىتىدۇ"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:27
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:27
@@ -7308,7 +7112,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
 #: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
 msgid "project name"
 msgstr "قۇرۇلۇش ئاتى"
@@ -7351,7 +7155,9 @@ msgstr "خەلقئارالاشتۇرۇشنى قوشۇش:"
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
-msgstr "خەلقئارالاشتۇرۇشنى قوشسىڭىز، قۇرۇلۇشىڭىزنى باشقا تىللارغا تەرجىمە قىلىشقا بولىدۇ"
+msgstr ""
+"خەلقئارالاشتۇرۇشنى قوشسىڭىز، قۇرۇلۇشىڭىزنى باشقا تىللارغا تەرجىمە قىلىشقا "
+"بولىدۇ"
 
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
 msgid "Generic"
@@ -7398,6 +7204,8 @@ msgid ""
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
+"قۇرۇلۇشىڭىز ئېھتىياجلىق بوغچا ئاتىنى كۆرسىتىدۇ. بوغچا نەشرىنىمۇ  "
+"بەلگىلىيەلەيسىز. مەسىلەن: 'libgnomeui-2.0' ياكى 'libgnomeui-2.0 >= 2.2.0' "
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
@@ -7407,26 +7215,28 @@ msgstr "زۆرۈر بوغچىلار:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
-#| msgid "Makefile project"
 msgid "Simple GTK+ project"
 msgstr "ئاددىي GTK+ قۇرۇلۇشى"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
-#| msgid "Unable to load user interface file: %s"
 msgid "Use GtkBuilder for user interface:"
 msgstr "كۆرۈنمەيۈزگە GtkBuilder ئىشلەت:"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid ""
 "Use GtkBuilder to create the user-interface in a graphical way and load it "
 "from xml files at runtime"
-msgstr "GtkBuilder ئىشلىتىپ كۆرۈنمە يۈزنى گرافىكىلىق قىلىشقا بولىدۇ ھەم ئىجرا بولۇۋاتقاندا ئۇنى xml ھۆججىتىدىن ئوقۇيدۇ"
+msgstr ""
+"GtkBuilder ئىشلىتىپ كۆرۈنمە يۈزنى گرافىكىلىق قىلىشقا بولىدۇ ھەم ئىجرا "
+"بولۇۋاتقاندا ئۇنى xml ھۆججىتىدىن ئوقۇيدۇ"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
@@ -7434,7 +7244,9 @@ msgstr "GtkBuilder ئىشلىتىپ كۆرۈنمە يۈزنى گرافىكىلى
 #: ../plugins/project-wizard/templates/python.wiz.in.h:28
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:32
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr "gtk-doc بولسا GObject ئاساسىدىكى تىپلارنىڭ فۇنكسىيە قوللانمىلىرىنى(API) نى compile قىلىشقا ئىشلىتىلىدۇ."
+msgstr ""
+"gtk-doc بولسا GObject ئاساسىدىكى تىپلارنىڭ فۇنكسىيە قوللانمىلىرىنى(API) نى "
+"compile قىلىشقا ئىشلىتىلىدۇ."
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:3
 msgid "Anjuta Plugin"
@@ -7449,14 +7261,16 @@ msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
+"پەش بىلەن ئايرىلغان بۇ قىستۇرما تايىنىدىغان باشقا قىستۇرما. ئاساسىي كۆرۈنۈش "
+"ئاتى ياكى قىستۇرما ئورنى (ئامبار: خىل) بولسىمۇ بولىدۇ"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 msgid "Create Gtk Builder interface file"
-msgstr ""
+msgstr "Gtk ياسىغۇچ(Builder) ئارايۈز ھۆججىتى قۇر"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:13
 msgid "Create a template Gtk Builder interface file"
-msgstr ""
+msgstr "Gtk ياسىغۇچ(Builder) ئارايۈز ھۆججىتى قۇرىدۇ"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:15
 msgid "Display description of the plugin"
@@ -7516,13 +7330,15 @@ msgstr "قىستۇرمىدا تىزىملىك ياكى/ۋە قورال بالد�
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:36
 msgid "Plugin interfaces to implement"
-msgstr ""
+msgstr "ئەمەلگە ئاشۇرماقچى بولغان قىستۇرما ئارايۈزى"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:38
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
+"قۇرۇلۇش ئاتى تەركىبىدە بوشلۇق بولسا بولمايدۇ، چۈنكى ئۇ نىشاننىڭ ئاتى"
+"(پروگرامما ياكى فۇنكسىيە ئامبىرى قاتارلىق) قىلىپ ئىشلىتىلىدۇ."
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:42
 msgid "Shell values to watch"
@@ -7566,16 +7382,18 @@ msgstr "Xlib"
 
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:1
 msgid "A generic Xlib dock applet"
-msgstr ""
+msgstr "ئادەتتىكى  Xlib dock قوللانچىقى"
 
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:28
 msgid "Xlib dock"
-msgstr ""
+msgstr "Xlib dock"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
+"بۇ GNU Java Compiler (gcj) ئىشلىتىلگەن، ئانا كود(native code) قا compile "
+"قىلىنىدىغان ئادەتتىكى java قۇرۇلۇشى"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:14
 msgid "GCJ needs to know which class contains the main() function"
@@ -7583,7 +7401,7 @@ msgstr "main() فۇنكسىيىسىنىڭ قايسى تىپنىڭ ئىچىدە �
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
 msgid "Generic gcj compiled java"
-msgstr ""
+msgstr "ئادەتتىكى ئانا كودقا compile قىلىنغان java"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:20
 #: ../plugins/project-wizard/templates/java.wiz.in.h:20
@@ -7777,7 +7595,8 @@ msgstr "%s ھۆججەت يوق"
 msgid ""
 "The program is running.\n"
 "Do you want to restart it?"
-msgstr "پروگرامما ئىجرا بولۇۋاتىدۇ.\n"
+msgstr ""
+"پروگرامما ئىجرا بولۇۋاتىدۇ.\n"
 "ئۇنى قايتا قوزغىتامسىز؟"
 
 #. Action name
@@ -7823,7 +7642,7 @@ msgstr "تېرمىنالنى باشلايدىغان بۇيرۇق"
 #: ../plugins/snippets-manager/plugin.c:306
 #: ../plugins/snippets-manager/snippets-browser.c:208
 msgid "Snippets"
-msgstr ""
+msgstr "كود بۆلەكلىرى"
 
 #. Translator: Appears in Edit->Snippets menu. It is used mainly for providing a
 #. shortcut for the trigger-key based insertion of snippets. It's called like this
@@ -7831,11 +7650,11 @@ msgstr ""
 #. the snippet gets inserted.
 #: ../plugins/snippets-manager/plugin.c:73
 msgid "_Trigger insert"
-msgstr ""
+msgstr "قوزغاتقۇچ قىستۇر(_T)"
 
 #: ../plugins/snippets-manager/plugin.c:75
 msgid "Insert a snippet using the trigger-key"
-msgstr ""
+msgstr "trigger-key ئىشلىتىپ كود بۆلىكىنى قىستۇرىدۇ"
 
 #. Translator: In a similar matter, it also appears in Edit->Snippets. It's another method
 #. for inserting snippets. In this case, you call Auto complete insert, start
@@ -7845,31 +7664,31 @@ msgstr ""
 #. inserted.
 #: ../plugins/snippets-manager/plugin.c:86
 msgid "_Auto complete insert"
-msgstr ""
+msgstr "ئاپتوماتىك تاماملاشنى قىستۇر(_A)"
 
 #: ../plugins/snippets-manager/plugin.c:88
 msgid "Insert a snippet using auto-completion"
-msgstr ""
+msgstr "ئاپتوماتىك تاماملاشنى ئىشلىتىپ كود بۆلىكىنى قىستۇرىدۇ"
 
 #: ../plugins/snippets-manager/plugin.c:93
 msgid "_Import snippets …"
-msgstr ""
+msgstr "كود بۆلىكىنى ئىمپورت قىلىش(_I)…"
 
 #: ../plugins/snippets-manager/plugin.c:95
 msgid "Import snippets to the database"
-msgstr ""
+msgstr "كود بۆلىكىنى ساندانغا كىرگۈزىدۇ"
 
 #: ../plugins/snippets-manager/plugin.c:100
 msgid "_Export snippets …"
-msgstr ""
+msgstr "كود بۆلىكىنى ئېكسپورت قىلىش(_E)…"
 
 #: ../plugins/snippets-manager/plugin.c:102
 msgid "Export snippets from the database"
-msgstr ""
+msgstr "كود بۆلىكىنى سانداندىن چىقىرىدۇ"
 
 #: ../plugins/snippets-manager/plugin.c:331
 msgid "Snippets Manager actions"
-msgstr ""
+msgstr "كود بۆلىكى باشقۇرغۇچنىڭ مەشغۇلاتى"
 
 #: ../plugins/snippets-manager/plugin.c:778
 msgid "Command?"
@@ -7889,11 +7708,11 @@ msgstr "ھازىر قىممەت"
 #: ../plugins/snippets-manager/snippets-provider.c:754
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:2
 msgid "Code Snippets"
-msgstr ""
+msgstr "كود بۆلەكلىرى"
 
 #: ../plugins/snippets-manager/snippets-browser.c:549
 msgid "Trigger"
-msgstr ""
+msgstr "قوزغاتقۇچ"
 
 #: ../plugins/snippets-manager/snippets-browser.c:560
 msgid "Languages"
@@ -7902,12 +7721,12 @@ msgstr "تىللار"
 #. Insert the Add Snippet menu item
 #: ../plugins/snippets-manager/snippets-browser.c:808
 msgid "Add Snippet …"
-msgstr ""
+msgstr "كود بۆلىكى قوشۇش…"
 
 #. Insert the Add Snippets Group menu item
 #: ../plugins/snippets-manager/snippets-browser.c:818
 msgid "Add Snippets Group …"
-msgstr ""
+msgstr "كود بۆلىكى گۇرۇپپىسى قوشۇش…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
 msgid "Default value"
@@ -7915,30 +7734,34 @@ msgstr "كۆڭۈلدىكى قىممەت"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
-msgstr ""
+msgstr "<b>خاتالىق:</b> كود بۆلىكىنىڭ تىلىنى تاللىشىڭىز كېرەك!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
 msgid ""
 "<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr ""
+"<b>خاتالىق:</b> بۇ trigger ئاچقۇچى تۆۋەندىكى تىلنىڭ بىرەرىگە ئاللىقاچان "
+"ئىشلىتىلىپتۇ"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid ""
 "<b>Error:</b> The trigger key can only contain alphanumeric characters and "
 "_ !"
 msgstr ""
+"<b>خاتالىق:</b> بۇ trigger ئاچقۇچى تەركىبىدە رەقەم ۋە ھەرپلەر ۋە _ لا بولۇشى "
+"كېرەك."
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
-msgstr ""
+msgstr "<b>خاتالىق:</b> كود بۆلىكى ئۈچۈن trigger ئاچقۇچىنى كىرگۈزمىدىڭىز!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:1
 msgid "<b>Error:</b> The snippet must belong to a group!"
-msgstr ""
+msgstr "<b>خاتالىق:</b> كود بۆلىكى چوقۇم بىرەر گۇرۇپپىغا تەۋە بولۇشى كېرەك!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:2
 msgid "<b>Warning:</b> You should choose a name for the snippet!"
-msgstr ""
+msgstr "<b>ئاگاھلاندۇرۇش:</b> كود بۆلىكىگە ئات قويۇشىڭىز كېرەك!"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:4
 msgid "Close"
@@ -7953,6 +7776,9 @@ msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
 msgstr ""
+"ھالقىلىق سۆزلەر كود بۆلىكىنى تېپىشقا ئىشلىتىلىدۇ. ئۇلار چوقۇم كود بۆلىكىنىڭ "
+"مەزمۇنى بىلەن يېقىن مۇناسىۋەتتە بولسۇن. ئۇلارنى بىر تال بوشلۇق بىلەن ئايرىپ "
+"كىرگۈزۈڭ."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:7
 msgid "Keywords:"
@@ -7968,37 +7794,39 @@ msgstr "ئالدىن كۆزەت"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
-msgstr ""
+msgstr "بۇ كود بۆلىكى تەۋە كود بۆلىكى گۇرۇپپىسىنى تاللايدۇ."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:13
 msgid "Select the languages for which you want to use this snippet."
-msgstr ""
+msgstr "بۇ كود بۆلىكى ئىشلىتىدىغان تىلنى تاللاڭ."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
 msgid ""
 "Select the name of the Snippet. \n"
 "The role of the name is purely informative."
 msgstr ""
+"كود بۆلىكىنىڭ ئاتىنى تاللاڭ.\n"
+"ئاتنىڭ رولى بەكمۇ مۇھىم."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:16
 msgid "Snippet Content"
-msgstr ""
+msgstr "كود بۆلىكىنىڭ مەزمۇنى"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
-msgstr ""
+msgstr "كود بۆلىكىنىڭ ئاتى:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Snippet Properties"
-msgstr ""
+msgstr "كود بۆلىكىنىڭ خاسلىقى"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Snippet Variables"
-msgstr ""
+msgstr "كود بۆلىكىنىڭ ئۆزگەرگۈچىلىرى"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
-msgstr ""
+msgstr "كود بۆلىكىنىڭ گۇرۇپپىسى:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:21
 msgid ""
@@ -8007,10 +7835,14 @@ msgid ""
 "snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
+"قوزغاتقۇچ كۇنۇپكىسى كود بۆلىكىنى تېز سۈرئەتتە قىستۇرۇشقا ئىشلىتىلىدۇ. "
+"تەھرىرلىگۈچتە قوزغاتقۇچ كۇنۇپكىسى بېسىلىپ، ئەگىشىپلا «تېز قىستۇر»نىڭ تېز "
+"كۇنۇپكىسى بېسىلسا كود بۆلىكىنى قىستۇرىدۇ.\n"
+"<b>ئاگاھلاندۇرۇش: ھەر بىر تىلدا چوقۇم بىردىنبىر بولۇشى لازىم.</b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Trigger Key:"
-msgstr ""
+msgstr "قوزغاتقۇچ كۇنۇپكا:"
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
 msgid "Anjuta variables"
@@ -8018,18 +7850,19 @@ msgstr "Anjuta ئۆزگەرگۈچىلىرى"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
-msgstr ""
+msgstr "كود بۆلىكى ئىمپورت قىل"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:190
 msgid "Export Snippets"
-msgstr ""
+msgstr "كود بۆلىكى ئېكسپورت قىل"
 
 #: ../plugins/sourceview/sourceview.c:480
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
 "Do you want to reload it?"
-msgstr "دىسكىدىكى ھۆججەت \"%s\" ھازىرقى يىغلەكتىكىدىن يېڭى ئىكەن.\n"
+msgstr ""
+"دىسكىدىكى ھۆججەت \"%s\" ھازىرقى يىغلەكتىكىدىن يېڭى ئىكەن.\n"
 "ئۇنى قايتا ئوقۇمسىز؟"
 
 #: ../plugins/sourceview/sourceview.c:517
@@ -8037,7 +7870,8 @@ msgstr "دىسكىدىكى ھۆججەت \"%s\" ھازىرقى يىغلەكتىك
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
 "Do you want to close it?"
-msgstr "دىسكىدىكى ھۆججەت \"%s\" ئۆچۈرۈلدى.\n"
+msgstr ""
+"دىسكىدىكى ھۆججەت \"%s\" ئۆچۈرۈلدى.\n"
 "ئۇنى ياپامسىز؟"
 
 #. Could not open <filename>: <error message>
@@ -8081,7 +7915,7 @@ msgstr "قۇر نومۇرى"
 
 #: ../plugins/sourceview/sourceview-print.c:115
 msgid "Header"
-msgstr "بەت قېشى"
+msgstr "ماۋزۇ"
 
 #: ../plugins/sourceview/sourceview-print.c:117
 msgid "Footer"
@@ -8105,7 +7939,11 @@ msgstr "تەھرىرلىگۈچ"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Enable autocompletion for document words"
-msgstr ""
+msgstr "پۈتۈك سۆزلىرىنى ئۆزلۈكىدىن تاماملاشنى قوزغات"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+msgid "Font"
+msgstr "خەت نۇسخا"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
@@ -8129,7 +7967,7 @@ msgstr "تارتىلىش ۋە ئاپتوماتىك فورمات(auto-format) ت�
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Right margin position in characters"
-msgstr ""
+msgstr "ھەرپ بىلەن ئىپادىلەنگەن ئوڭ گىرۋەكنىڭ كەڭلىكى"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show line numbers"
@@ -8141,7 +7979,7 @@ msgstr "سېلىنغان بەلگىلەرنى كۆرسەت"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Show right margin"
-msgstr ""
+msgstr "ئوڭ گىرۋەكنى كۆرسەت"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Tab size in spaces:"
@@ -8160,8 +7998,7 @@ msgstr "تېما خەت نۇسخىسى ئىشلەت"
 msgid "View"
 msgstr "كۆرۈنۈش"
 
-#: ../plugins/starter/plugin.c:275
-#| msgid "Started"
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "باشلا"
 
@@ -8170,7 +8007,6 @@ msgid "Anjuta Manual"
 msgstr "Anjuta قوللانمىسى"
 
 #: ../plugins/starter/starter.ui.h:2
-#| msgid "Create File/Project"
 msgid "Create a new project"
 msgstr "قۇرۇلۇش قۇرىدۇ"
 
@@ -8183,17 +8019,14 @@ msgid "Getting started:"
 msgstr "باشلاندى:"
 
 #: ../plugins/starter/starter.ui.h:5
-#| msgid "Import an existing autotools project to Anjuta"
 msgid "Import an existing project"
 msgstr "مەۋجۇت قۇرۇلۇشى ئىمپورت قىلىدۇ"
 
 #: ../plugins/starter/starter.ui.h:6
-#| msgid "Recent Projects"
 msgid "Recent projects:"
 msgstr "يېقىنقى قۇرۇلۇشلار:"
 
 #: ../plugins/starter/starter.ui.h:7
-#| msgid "Turkish"
 msgid "Tutorials"
 msgstr "ئوقۇشلۇق"
 
@@ -8243,7 +8076,7 @@ msgstr "بىرىنچى يول:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
-msgstr ""
+msgstr "ئىلگىرىكى نەشرىگە پەرۋا قىلما"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:22
 msgid "Merge changes into working copy"
@@ -8279,19 +8112,19 @@ msgstr "ھۆججەت/مۇندەرىجىنى چىقىرىۋەت"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Repository Head"
-msgstr ""
+msgstr "خەزىنە قېشى"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Repository authorization"
-msgstr ""
+msgstr "خەزىنە سالاھىيەت دەلىللەش"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Retrieving status…"
-msgstr ""
+msgstr "ھالەتنى ئوقۇۋاتىدۇ…"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:36
 msgid "Retrieving status……"
-msgstr ""
+msgstr "ھالەتنى ئوقۇۋاتىدۇ……"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:37
 msgid "Revert Changes"
@@ -8347,7 +8180,7 @@ msgstr "تارماق/خەتكۇچكە ئالماشتۇر"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:51
 msgid "Trust server"
-msgstr ""
+msgstr "ئىشەنچ مۇلازىمېتىرى"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:52
 msgid "Update file/directory"
@@ -8375,15 +8208,15 @@ msgstr "ھەممە قۇرۇلۇش"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:62
 msgid "Working Copy"
-msgstr ""
+msgstr "خىزمەتتىكى نۇسخا"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:63
 msgid "Working Copy Path:"
-msgstr ""
+msgstr "خىزمەتتىكى نۇسخا يولى:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:64
 msgid "realm"
-msgstr ""
+msgstr "ساھە"
 
 #. Action name
 #. Stock icon, if any
@@ -8431,13 +8264,13 @@ msgstr "ئۆزگىرىشلەرنى Subversion دەرىخىگە تاپشۇرىد�
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 msgid "_Revert…"
-msgstr "ئەسلىگە ياندۇر(_R)…"
+msgstr "ئەسلىگە قايتۇر(_R)…"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:86 ../plugins/subversion/plugin.c:169
 msgid "Revert changes to your working copy."
-msgstr ""
+msgstr "ئۆزگەرتىشنى خىزمەت نۇسخىڭىزغا ئەسلىگە قايتۇرىدۇ."
 
 #. Action name
 #. Stock icon, if any
@@ -8449,7 +8282,7 @@ msgstr "توقۇنۇشلارنى ھەل قىل(_R)…"
 #. short-cut
 #: ../plugins/subversion/plugin.c:94
 msgid "Resolve conflicts in your working copy."
-msgstr ""
+msgstr "خىزمەت نۇسخىڭىزدا توقۇنۇشنى ھەل قىلىدۇ."
 
 #. Action name
 #. Stock icon, if any
@@ -8461,7 +8294,7 @@ msgstr "يېڭىلا(_U)"
 #. short-cut
 #: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Syncronize your local copy with the Subversion tree"
-msgstr "Subversion دەرىخى بىلەن كومپيۇتېرىڭىزدىكى مەزمۇنلارنى ماسقەدەملەيدۇ"
+msgstr "Subversion دەرىخى بىلەن كومپيۇتېرىڭىزدىكى مەزمۇنلارنى قەدەمداشلايدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -8479,31 +8312,31 @@ msgstr "خەزىنىدىكى ھۆججەت/قىسقۇچلارنى كۆچۈرىد�
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:116
 msgid "Switch to a Branch/Tag…"
-msgstr "تارماق/خەتكۇچكە ئالماشتۇر"
+msgstr "تارماق/خەتكۈچكە ئالماشتۇر"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
-msgstr ""
+msgstr "يەرلىك نۇسخىنى ئامباردىكى تارماق ياكى بەلگىگە ئالماشتۇرىدۇ"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
 msgid "Merge…"
-msgstr "بىرىكتۈر…"
+msgstr "بىرلەشتۈر…"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:126
 msgid "Merge changes into your working copy"
-msgstr ""
+msgstr "ئۆزگەرتىشنى خىزمەت نۇسخىڭىزغا بىرلەشتۈرىدۇ"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 msgid "_View Log…"
-msgstr "خاتىرە كور(_V)…"
+msgstr "خاتىرە كۆرسەت(_V)…"
 
 #. Display label
 #. short-cut
@@ -8521,7 +8354,7 @@ msgstr "سېلىشتۇر(_Diff)…"
 #. short-cut
 #: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
-msgstr ""
+msgstr "يەرلىك بىلەن خەزىنىنى سېلىشتۇرىدۇ"
 
 #. Action name
 #. Stock icon, if any
@@ -8541,7 +8374,7 @@ msgstr "Subversion مەشغۇلاتلىرى"
 
 #: ../plugins/subversion/plugin.c:494
 msgid "Subversion popup operations"
-msgstr ""
+msgstr "Subversion نىڭ سەكرىمە مەشغۇلاتلىرى"
 
 #: ../plugins/subversion/plugin.c:526
 msgid "Subversion Log"
@@ -8580,7 +8413,7 @@ msgstr "نىشان يولنى كىرگۈزۈڭ."
 
 #: ../plugins/subversion/subversion-diff-dialog.c:46
 msgid "[Head/Working Copy]"
-msgstr ""
+msgstr "[باش/خىزمەتتىكى نۇسخا]"
 
 #: ../plugins/subversion/subversion-diff-dialog.c:61
 #: ../plugins/subversion/subversion-log-dialog.c:426
@@ -8619,7 +8452,7 @@ msgstr "ئىككىنچى يولنى كىرگۈزۈڭ."
 #: ../plugins/subversion/subversion-merge-dialog.c:107
 #: ../plugins/subversion/subversion-switch-dialog.c:102
 msgid "Please enter a working copy path."
-msgstr ""
+msgstr "خىزمەتتىكى نۇسخىنىڭ يولىنى كىرگۈزۈڭ."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:121
 msgid "Please enter the start revision."
@@ -8686,11 +8519,11 @@ msgstr "ئىناۋەتلىك ۋاقتى(ئاخىرى):"
 
 #: ../plugins/subversion/svn-command.c:208
 msgid "Issuer DN:"
-msgstr ""
+msgstr "گۇۋاھنامە تارقاتقۇچى ئالاھىدىلىك ئاتى:"
 
 #: ../plugins/subversion/svn-command.c:209
 msgid "DER certificate:"
-msgstr ""
+msgstr "DER گۇۋاھنامىسى:"
 
 #: ../plugins/subversion/svn-command.c:375
 #: ../plugins/subversion/svn-command.c:391
@@ -8742,24 +8575,24 @@ msgstr "يوقالغان: %s"
 #: ../plugins/subversion/svn-command.c:447
 #, c-format
 msgid "Obstructed: %s"
-msgstr ""
+msgstr "توسۇلغان: %s"
 
 #: ../plugins/symbol-db/plugin.c:326
 msgid "Tag De_claration"
-msgstr ""
+msgstr "بەلگە باياناتى(_C)"
 
 #: ../plugins/symbol-db/plugin.c:328
 msgid "Go to symbol declaration"
-msgstr ""
+msgstr "بەلگە باياناتىغا يۆتكەل"
 
 #. Translators: Go to the line where the tag is implemented
 #: ../plugins/symbol-db/plugin.c:335
 msgid "Tag _Implementation"
-msgstr ""
+msgstr "بەلگە ئېنىقلىمىسى(_I)"
 
 #: ../plugins/symbol-db/plugin.c:337
 msgid "Go to symbol definition"
-msgstr ""
+msgstr "بەلگە ئېنىقلىمىسىغا يۆتكەل"
 
 #: ../plugins/symbol-db/plugin.c:344
 msgid "_Find Symbol…"
@@ -8772,7 +8605,7 @@ msgstr "بەلگە ئىزدەيدۇ"
 #: ../plugins/symbol-db/plugin.c:1032
 #, c-format
 msgid "%s: Generating inheritances…"
-msgstr ""
+msgstr "%s: ۋارىسلىق قۇرۇۋاتىدۇ…"
 
 #: ../plugins/symbol-db/plugin.c:1037
 #, c-format
@@ -8782,7 +8615,7 @@ msgstr "%s: %d دانە ھۆججەت تەكشۈرۈلدى(جەمئىي %d ھۆج
 #: ../plugins/symbol-db/plugin.c:1068
 #, c-format
 msgid "Generating inheritances…"
-msgstr ""
+msgstr "ۋارىسلىق قۇرۇۋاتىدۇ…"
 
 #: ../plugins/symbol-db/plugin.c:1070
 #, c-format
@@ -8791,7 +8624,7 @@ msgstr "%d دانە ھۆججەت تەكشۈرۈلدى(جەمئىي %d ھۆججە
 
 #: ../plugins/symbol-db/plugin.c:1729
 msgid "Populating symbol database…"
-msgstr ""
+msgstr "بەلگە ساندان تولدۇرۇۋاتىدۇ…"
 
 #: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
 msgid "Symbols"
@@ -8799,11 +8632,11 @@ msgstr "بەلگىلەر"
 
 #: ../plugins/symbol-db/plugin.c:2203
 msgid "SymbolDb popup actions"
-msgstr ""
+msgstr "SymbolDb سەكرىمە مەشغۇلاتلىرى"
 
 #: ../plugins/symbol-db/plugin.c:2211
 msgid "SymbolDb menu actions"
-msgstr ""
+msgstr "SymbolDb نىڭ تىزىملىك مەشغۇلاتلىرى"
 
 #: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
@@ -8812,7 +8645,7 @@ msgstr "بەلگە ساندىنى"
 
 #: ../plugins/symbol-db/symbol-db-system.c:808
 msgid "Resuming glb scan."
-msgstr ""
+msgstr "glb تەكشۈرۈشنى داۋاملاشتۇرىدۇ."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Automatically update symbols without saving file"
@@ -8822,7 +8655,9 @@ msgstr "ھۆججەتنى ساقلىماي بەلگىلەرنى ئاپتومات�
 msgid ""
 "Automatically update the file's symbols without saving. The update occurs "
 "after 10 seconds without keypresses by the user."
-msgstr "ھۆججەتنىڭ بەلگىلىرىنى ساقلىماي ئاپتوماتىك يېڭىلايدۇ. ئىشلەتكۈچى 10 سېكۇنت كۇنۇپكا باسمىسا يېڭىلاش ئېلىپ بېرىلىدۇ."
+msgstr ""
+"ھۆججەتنىڭ بەلگىلىرىنى ساقلىماي ئاپتوماتىك يېڭىلايدۇ. ئىشلەتكۈچى 10 سېكۇنت "
+"كۇنۇپكا باسمىسا يېڭىلاش ئېلىپ بېرىلىدۇ."
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
 msgid "Parallel scan of project and global symbols"
@@ -8833,6 +8668,8 @@ msgid ""
 "This option means that the global system packages will be scanned "
 "simultaneously with the project's ones"
 msgstr ""
+"بۇ تاللانما ئومۇمىيەت سىستېما بوغچىلىرى قۇرۇلۇش بىلەن بىرلا ۋاقىتتا "
+"تەكشۈرىدىغانلىقىنى بىلدۈرىدۇ."
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
 msgid "Terminal options"
@@ -8879,11 +8716,11 @@ msgstr "بۇيرۇق:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Edit as script"
-msgstr ""
+msgstr "قوليازما سۈپىتىدە تەھرىرلە"
 
 #: ../plugins/tools/anjuta-tools.ui.h:4
 msgid "Edit command as script in Anjuta on close"
-msgstr ""
+msgstr "يېپىلغاندىن كېيىن Anjuta دا بۇيرۇقنى قوليازما سۈپىتىدە تەھرىرلەيدۇ"
 
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Parameters:"
@@ -8942,45 +8779,47 @@ msgstr "«%s» دېگەن قورالنى راستلا ئۆچۈرەمسىز؟"
 msgid "Tool"
 msgstr "قورال"
 
-#: ../plugins/tools/editor.c:316
+#: ../plugins/tools/editor.c:318
 msgid "ask at runtime"
 msgstr "ئىجرا ۋاقتىدا سورىسۇن"
 
-#: ../plugins/tools/editor.c:321
+#: ../plugins/tools/editor.c:323
 msgid "undefined"
 msgstr "ئېنىقلىمىسىز"
 
-#: ../plugins/tools/editor.c:471
+#: ../plugins/tools/editor.c:473
 msgid "Meaning"
 msgstr "مەنىسى"
 
-#: ../plugins/tools/editor.c:619
+#: ../plugins/tools/editor.c:621
 msgid "Disabled"
 msgstr "چەكلەنگەن"
 
-#: ../plugins/tools/editor.c:791
+#: ../plugins/tools/editor.c:793
 msgid "You must provide a tool name!"
 msgstr "قورال ئاتىنى دەپ بېرىشىڭىز كېرەك!"
 
-#: ../plugins/tools/editor.c:799
+#: ../plugins/tools/editor.c:801
 msgid "You must provide a tool command!"
 msgstr "قورال بۇيرۇقىنى دەپ بېرىشىڭىز كېرەك!"
 
-#: ../plugins/tools/editor.c:807
+#: ../plugins/tools/editor.c:809
 msgid "A tool with the same name already exists!"
 msgstr "ئوخشاش ئاتتىكى قورال مەۋجۇت!"
 
-#: ../plugins/tools/editor.c:824
+#: ../plugins/tools/editor.c:826
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
-msgstr "Anjuta دىكى باشقا بىر بۆلەك مەزكۇر تېزلەتمىنى ئىشلىتىۋاتىدۇ. شۇڭا ئۇنى ساقلاپ قالامسىز؟"
-
-#: ../plugins/tools/editor.c:908
-msgid "Unable to edit script"
 msgstr ""
+"Anjuta دىكى باشقا بىر بۆلەك مەزكۇر تېزلەتمىنى ئىشلىتىۋاتىدۇ. شۇڭا ئۇنى "
+"ساقلاپ قالامسىز؟"
 
-#: ../plugins/tools/editor.c:1044
+#: ../plugins/tools/editor.c:910
+msgid "Unable to edit script"
+msgstr "قوليازمىنى تەھرىرلىيەلمەيدۇ"
+
+#: ../plugins/tools/editor.c:1046
 msgid "New accelerator…"
 msgstr "يېڭى تېزلەتكۈچ…"
 
@@ -9036,7 +8875,7 @@ msgstr "قورال ئاتى يوقالغان"
 #: ../plugins/tools/fileop.c:258
 #, c-format
 msgid "Unexpected element \"%s\""
-msgstr ""
+msgstr "ئارزۇ قىلمىغان ئېلېمېنت «%s»"
 
 #: ../plugins/tools/fileop.c:537
 msgid "Error when loading external tools"
@@ -9051,99 +8890,104 @@ msgstr "%s نى يازىدىغانغا ئاچالمىدى"
 msgid "Tool operations"
 msgstr "قورال مەشغۇلاتلىرى"
 
-#: ../plugins/tools/variable.c:84
+#: ../plugins/tools/variable.c:86
 msgid "Project root URI"
 msgstr "قۇرۇلۇشنىڭ غول URI"
 
-#: ../plugins/tools/variable.c:85
+#: ../plugins/tools/variable.c:87
 msgid "Project root path"
 msgstr "قۇرۇلۇشنىڭ غول يولى"
 
-#: ../plugins/tools/variable.c:86
+#: ../plugins/tools/variable.c:89
 msgid "Selected URI in the file manager plugin"
 msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان URI"
 
-#: ../plugins/tools/variable.c:87
+#: ../plugins/tools/variable.c:90
 msgid "Selected directory in the file manager plugin"
 msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان مۇندەرىجە"
 
-#: ../plugins/tools/variable.c:88
+#: ../plugins/tools/variable.c:91
 msgid "Selected full file name in the file manager plugin"
 msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان تولۇق ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:89
+#: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق تولۇق ھۆججەت ئاتى"
+msgstr ""
+"ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق تولۇق ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:90
+#: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
 msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:91
+#: ../plugins/tools/variable.c:94
 msgid "Selected file name without extension in the file manager plugin"
-msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق ھۆججەت ئاتى"
+msgstr ""
+"ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:92
+#: ../plugins/tools/variable.c:95
 msgid "Selected file's extension in the file manager plugin"
 msgstr "ھۆججەت باشقۇرغۇچ قىستۇرمىسىدا تاللانغان ھۆججەتنىڭ كېڭەيتىلمە ئاتى"
 
-#: ../plugins/tools/variable.c:93
+#: ../plugins/tools/variable.c:96
 msgid "Selected URI in the project manager plugin"
 msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان URI"
 
-#: ../plugins/tools/variable.c:94
+#: ../plugins/tools/variable.c:97
 msgid "Selected directory in the project manager plugin"
 msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان مۇندەرىجە"
 
-#: ../plugins/tools/variable.c:95
+#: ../plugins/tools/variable.c:98
 msgid "Selected full file name in the project manager plugin"
 msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان تولۇق ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:96
+#: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق تولۇق ھۆججەت ئاتى"
+msgstr ""
+"قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق تولۇق ھۆججەت "
+"ئاتى"
 
-#: ../plugins/tools/variable.c:97
+#: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
 msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:98
+#: ../plugins/tools/variable.c:101
 msgid "Selected file name without extension in the project manager plugin"
-msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق ھۆججەت ئاتى"
+msgstr ""
+"قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان كېڭەيتىلمە ئاتى يوق ھۆججەت ئاتى"
 
-#: ../plugins/tools/variable.c:99
+#: ../plugins/tools/variable.c:102
 msgid "Selected file extension in the project manager plugin"
 msgstr "قۇرۇلۇش باشقۇرغۇچ قىستۇرمىسىدا تاللانغان ھۆججەت كېڭەيتىلمە ئاتى"
 
-#: ../plugins/tools/variable.c:100
+#: ../plugins/tools/variable.c:103
 msgid "Currently edited file name"
 msgstr "ھازىر تەھرىرلىنىۋاتقان ھۆججەتنىڭ ئاتى"
 
-#: ../plugins/tools/variable.c:101
+#: ../plugins/tools/variable.c:104
 msgid "Currently edited file name without extension"
 msgstr "ھازىر تەھرىرلىنىۋاتقان ھۆججەتنىڭ ئاتى(كېڭەيتىلمە ئاتى يوق)"
 
-#: ../plugins/tools/variable.c:102
+#: ../plugins/tools/variable.c:105
 msgid "Currently edited file directory"
 msgstr "ھازىر تەھرىرلىنىۋاتقان ھۆججەتنىڭ مۇندەرىجىسى"
 
-#: ../plugins/tools/variable.c:103
+#: ../plugins/tools/variable.c:106
 msgid "Currently selected text in editor"
 msgstr "تەھرىرلىگۈچتە تاللانغان ھازىرقى تېكىست"
 
-#: ../plugins/tools/variable.c:104
+#: ../plugins/tools/variable.c:107
 msgid "Current word in editor"
 msgstr "تەھرىرلىگۈچتىكى ھازىرقى سوز"
 
-#: ../plugins/tools/variable.c:105
+#: ../plugins/tools/variable.c:108
 msgid "Current line in editor"
 msgstr "تەھرىرلىگۈچتىكى ھازىرقى قۇر"
 
-#: ../plugins/tools/variable.c:106
+#: ../plugins/tools/variable.c:109
 msgid "Ask the user to get additional parameters"
-msgstr ""
+msgstr "قوشۇمچە پارامېتىرلارنى ئىشلەتكۈچىدىن سورايدۇ"
 
-#: ../plugins/tools/variable.c:499
+#: ../plugins/tools/variable.c:546
 msgid "Command line parameters"
 msgstr "بۇيرۇق قۇرى پارامېتىرلىرى"
 
@@ -9153,11 +8997,11 @@ msgstr "چىقىرىش بىلەن ئوخشاش"
 
 #: ../plugins/tools/tool.c:82
 msgid "Existing message pane"
-msgstr "مەۋجۇت ئۇچۇر كۆزنىكى"
+msgstr "مەۋجۇت ئۇچۇر كۆزنەكچە"
 
 #: ../plugins/tools/tool.c:83
 msgid "New message pane"
-msgstr "يېڭى ئۇچۇر كۆزنىكى"
+msgstr "يېڭى ئۇچۇر كۆزنەكچە"
 
 #: ../plugins/tools/tool.c:84
 msgid "New buffer"
@@ -9165,7 +9009,7 @@ msgstr "يېڭى يىغلەك"
 
 #: ../plugins/tools/tool.c:85
 msgid "Replace buffer"
-msgstr ""
+msgstr "يىغلەك ئالماشتۇر"
 
 #: ../plugins/tools/tool.c:86
 msgid "Insert into buffer"
@@ -9177,12 +9021,12 @@ msgstr "يىغلەككە قوشۇش"
 
 #: ../plugins/tools/tool.c:88
 msgid "Replace selection"
-msgstr ""
+msgstr "تاللانمىنى ئالماشتۇر"
 
 #. Translators: Checkbox if a dialog should be shown after some operation finishes, so translate as "to pop up a dialog"
 #: ../plugins/tools/tool.c:90
 msgid "Popup dialog"
-msgstr ""
+msgstr "سەكرىمە سۆزلەشكۈ"
 
 #: ../plugins/tools/tool.c:91
 msgid "Discard output"
@@ -9204,7 +9048,7 @@ msgstr "نۆۋەتتىكى تاللانغان مەزمۇن"
 msgid "String"
 msgstr "تېكىست"
 
-#: ../src/about.c:202
+#: ../src/about.c:205
 msgid "Copyright (c) Naba Kumar"
 msgstr "نەشر ھوقۇقى (c) Naba Kumar غا تەۋە"
 
@@ -9238,11 +9082,11 @@ msgstr "كۆرۈنۈش(_V)"
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
-msgstr ""
+msgstr "توختاش جايلاشتۇرۇشىنى ئەسلىگە قايتۇر(_R)"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr ""
+msgstr "كۆڭۈلدىكى widget توختاش جايلاشتۇرۇشىنى ئەسلىگە قايتۇرىدۇ"
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
@@ -9250,15 +9094,15 @@ msgstr "پۈتۈن ئېكران(_F)"
 
 #: ../src/anjuta-actions.h:48
 msgid "Toggle fullscreen mode"
-msgstr "پۈتۈن ئېكران شەكلىگە ئالمىشىش"
+msgstr "پۈتۈن ئېكران شەكلىگە ئالماش"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
-msgstr ""
+msgstr "توختاش جايلاشتۇرۇشىنى قۇلۇپلا(_L)"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr ""
+msgstr "نۆۋەتتىكى توختاش جايلاشتۇرۇشنى قۇلۇپلاپ، widget نى يۆتكىگىلى بولمايدۇ"
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
@@ -9282,11 +9126,11 @@ msgstr "Anjuta ئىشلەتكۈچى قوللانمىسى"
 
 #: ../src/anjuta-actions.h:67
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "يېڭى ئۆگەنچى يېتەكچىسى(_T)"
 
 #: ../src/anjuta-actions.h:68
 msgid "Anjuta Kick start tutorial"
-msgstr ""
+msgstr "Anjuta يېڭى ئۆگەنچى يېتەكچىسى"
 
 #: ../src/anjuta-actions.h:71
 msgid "_Advanced tutorial"
@@ -9298,11 +9142,11 @@ msgstr "Anjuta ئالىي ئوقۇشلۇقى"
 
 #: ../src/anjuta-actions.h:75
 msgid "_Frequently Asked Questions"
-msgstr "كوپ سورىلىدىغان سوئاللار(_F)"
+msgstr "كۆپ سورىلىدىغان سوئاللار(_F)"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta frequently asked questions"
-msgstr "Anjuta ھەققىدە كوپ سورىلىدىغان سوئاللار"
+msgstr "Anjuta ھەققىدە كۆپ سورىلىدىغان سوئاللار"
 
 #: ../src/anjuta-actions.h:79
 msgid "Anjuta _Home Page"
@@ -9377,7 +9221,7 @@ msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:75
 msgid "Do not show the splash screen"
-msgstr ""
+msgstr "قوزغىتىش ئېكرانىنى كۆرسەتمە"
 
 #: ../src/main.c:81
 msgid "Start a new instance and do not open the file in an existing instance"
@@ -9393,7 +9237,9 @@ msgstr "قوزغالغاندا ئەڭ ئاخىرقى قۇرۇلۇش ۋە ھۆج�
 
 #: ../src/main.c:99
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "Anjuta نى مۇۋاپىق تاقاپ، بارلىق بايلىقلارنى(resource) قويۇۋېتىدۇ(سازلاش ئۈچۈن)"
+msgstr ""
+"Anjuta نى مۇۋاپىق تاقاپ، بارلىق بايلىقلارنى(resource) قويۇۋېتىدۇ(سازلاش "
+"ئۈچۈن)"
 
 #: ../src/main.c:138
 msgid "- Integrated Development Environment"
@@ -9418,7 +9264,7 @@ msgstr "قوزغالغاندا ئەڭ ئاخىرقى دىئالوگنى يۈكل
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/preferences.ui.h:6
 msgid "Dock switcher style:"
-msgstr ""
+msgstr "توختاش ئالماشتۇرغۇچنىڭ ئۇسلۇبى:"
 
 #: ../src/preferences.ui.h:7
 msgid "GNOME toolbar setting"
@@ -9467,7 +9313,7 @@ msgstr "سازلاش سەپلىمىسى ئىشلىتىلمىگەن بولسا ئ
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "API Tags (C/C++)"
-msgstr "API خەتكۇچلىرى(C/C++)"
+msgstr "API خەتكۈچلىرى(C/C++)"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:1
@@ -9486,7 +9332,7 @@ msgstr "ئاپتوماتىك تولۇقلا"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:4
 msgid "Autocompletion"
-msgstr "ئاپتوماتىك تولۇقلاش"
+msgstr "ئۆزلۈكىدىن تاماملاش"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Automatically load required libraries of the project"
@@ -9500,7 +9346,7 @@ msgstr "تىرناقلارنىڭ تارتىلىش چوڭلۇقى(بوشلۇق ب
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:6
 msgid "Calltips"
-msgstr ""
+msgstr "چاقىرىش ئەسكەرتىشى"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:8
@@ -9527,11 +9373,11 @@ msgstr "تارتىلىش پارامېتىرلىرى"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
 msgid "Leading asterisk in multi-line comment"
-msgstr ""
+msgstr "كۆپ قۇرلۇق ئىزاھات يۇلتۇز بەلگىسى بىلەن باشلىنىدۇ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Line up parentheses"
-msgstr ""
+msgstr "تىرناق توغرىلا"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
 msgid "Load API tags for C standard library"
@@ -9548,17 +9394,19 @@ msgstr "تىرناقلارنىڭ تارتىلىشى"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
 msgid "Prefer vim/emacs modelines over indentation settings"
 msgstr ""
+"vim/emacs ئۇسۇلىنى ئالدىن ئىشلىتىپ قۇر تارايتىش بىلەن تارايتىش تەڭشىكىنى "
+"ئالماشتۇرىدۇ"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:14
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
 msgid "Show calltips"
-msgstr ""
+msgstr "چاقىرىش ئەسكەرتىشىنى كۆرسەت"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:15
 msgid "Smart Indentation"
-msgstr "زېرەك تارتىلىش"
+msgstr "ئىدراكلىق تارايتىش"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
@@ -9569,30 +9417,32 @@ msgstr "ئىپادىلەرنىڭ تارتىلىش چوڭلۇقى(بوشلۇق ب
 #: ../plugins/language-support-cpp-java/plugin.c:1203
 #: ../plugins/language-support-python/plugin.c:456
 msgid "Auto-Indent"
-msgstr "ئاپتوماتىك تارتىلىش"
+msgstr "ئاپتوماتىك تارايت"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1204
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
+"تارايتىش تەڭشىكىگە ئاساسەن نۆۋەتتىكى ياكى تاللانغان قۇرنى ئۆزلۈكىدىن "
+"تارايتىدۇ"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1210
-#| msgid "Bo_x Comment/Uncomment"
 msgid "Comment/Uncomment"
 msgstr "ئىزاھاتىنى بەلگىلەش/بىكار قىلىش"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1211
-#| msgid "Current selection"
 msgid "Comment or uncomment current selection"
-msgstr "نۆۋەتتىكى تاللانغان مەزمۇننىڭ ئىزاھات بەلگىسىنى ئۆچۈرىدۇ ياكى ئىزاھات بەلگىسى قوشىدۇ"
+msgstr ""
+"نۆۋەتتىكى تاللانغان مەزمۇننىڭ ئىزاھات بەلگىسىنى ئۆچۈرىدۇ ياكى ئىزاھات "
+"بەلگىسى قوشىدۇ"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1216
 msgid "Swap .h/.c"
-msgstr ""
+msgstr "ئالماشتۇر(.h/.c)"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1217
 msgid "Swap C header and source files"
-msgstr ""
+msgstr "C قاش ھۆججىتى بىلەن مەنبە ھۆججىتىنى ئالماشتۇرىدۇ"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1257
 msgid "C++/Java Assistance"
@@ -9617,6 +9467,8 @@ msgid ""
 "aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
+"python يولى خاتا ياكى python-rope (http://rope.sf.net) ئامبار ئىككىسىنى "
+"ئورناتمىدى python ھۆججىتىنى ئۆزلۈكىدىن تاماملاشقا ئېھتىياجلىق."
 
 #: ../plugins/language-support-python/plugin.c:95
 msgid "Do not show that warning again"
@@ -9646,7 +9498,7 @@ msgstr "مۇھىت"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:12
 msgid "Interpreter"
-msgstr ""
+msgstr "چۈشەندۈرگۈچ"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
@@ -9657,7 +9509,6 @@ msgid "GtkSourceView Editor"
 msgstr "GtkSourceView تەھرىرلىگۈچى"
 
 #: ../plugins/gdb/anjuta-gdb.plugin.in.h:1
-#| msgid "Debugger"
 msgid "GNU Debugger"
 msgstr "GNU سازلىغۇچ"
 
@@ -9676,14 +9527,6 @@ msgstr "API دىن ياردەم"
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Devhelp نىڭ Anjuta قىستۇرمىسى"
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
-msgid "A graph painter for the inheritance of the classes."
-msgstr ""
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
-msgid "Class Inheritance"
-msgstr "تىپ مىراسى"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
@@ -9714,7 +9557,6 @@ msgid "Glade interface designer"
 msgstr "Glade كۆرۈنمە يۈز لايىھىلىگۈچىسى"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:3
-#| msgid "Unable to load user interface file: %s"
 msgid "User interface file"
 msgstr "كۆرۈنمە يۈزى ھۆججىتى"
 
@@ -9772,7 +9614,7 @@ msgstr "GtkSourceview نىڭ ئۈستىگە قورۇلغان كۆڭۈلدىكى 
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:1
 msgid "Starter"
-msgstr ""
+msgstr "باشلىغۇچى"
 
 #: ../plugins/starter/anjuta-starter.plugin.in.h:2
 msgid "Welcome page with most common actions."
@@ -9785,6 +9627,8 @@ msgstr "C++ ۋە Java قوللايدىغان قىستۇرما"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr ""
+"C++ ۋە Java كودنى ئاپتوماتىك تولۇقلاش ۋە ئاپتوماتىك تارتىلىشنى قوللايدىغان "
+"قىستۇرمىسى"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Assistant"
@@ -9795,7 +9639,6 @@ msgid "Anjuta Class Generator Plugin"
 msgstr "Anjuta تىپ ھاسىل قىلىش قىستۇرمىسى"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
-#| msgid "Pass"
 msgid "Class"
 msgstr "تىپ"
 
@@ -9866,7 +9709,6 @@ msgid "Error: cant bind port"
 msgstr "خاتالىق: ئېغىزغا باغلىنالمىدى"
 
 #: ../plugins/js-debugger/js_debugger.plugin.in.h:1
-#| msgid "Javascript Debugger Plugin"
 msgid "Javascript Debugger"
 msgstr "Javascript سازلىغۇچىسى"
 
@@ -9905,19 +9747,184 @@ msgstr "Gjs خەزىنىسىنىڭ مۇندەرىجىسى:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Highlight missed semicolon"
-msgstr ""
+msgstr "چۈشۈپ قالغان چېكىتلىك پەشنى يورۇت"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
 msgid "JS Find dirs"
-msgstr ""
+msgstr "JS ئىزدەش مۇندەرىجىسى"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Min character for completion "
 msgstr "تاماملايدىغان ئەڭ كىچىك ھەرپ-بەلگە "
 
-#: ../plugins/symbol-db/symbol-db-views.c:182
+#: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "بەلگە"
+
+#~ msgid "X"
+#~ msgstr "X"
+
+#~ msgid "Y"
+#~ msgstr "Y"
+
+#~ msgid "Marked up text to render"
+#~ msgstr "سىزىدىغان تېكىست"
+
+#~ msgid "Font description as a string"
+#~ msgstr "خەت نۇسخىسىنىڭ يازمىچە چۈشەندۈرۈلۈشى"
+
+#~ msgid "Font description"
+#~ msgstr "خەت نۇسخىسىنىڭ چۈشەندۈرۈلۈشى"
+
+#~ msgid "Font description as a PangoFontDescription struct"
+#~ msgstr "خەت نۇسخىسىنىڭ PangoFontDescription struct چە چۈشەندۈرۈلۈشى"
+
+#~ msgid "Font family"
+#~ msgstr "خەت نۇسخىسى ئاتى"
+
+#~ msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
+#~ msgstr "خەت نۇسخىسى ئاتى مەسىلەن: Sans, Helvetica, Times, Monospace"
+
+#~ msgid "Font style"
+#~ msgstr "خەت نۇسخا ئۇسلۇبى"
+
+#~ msgid "Font variant"
+#~ msgstr "خەت نۇسخىسىنىڭ باشقا ئاتى"
+
+#~ msgid "Font weight"
+#~ msgstr "خەت نۇسخىسى توملۇقى"
+
+#~ msgid "Font stretch"
+#~ msgstr "خەت نۇسخىسىنى سوزۇش"
+
+#~ msgid "Font size"
+#~ msgstr "خەت چوڭلۇقى"
+
+#~ msgid "Font points"
+#~ msgstr "خەت نۇسخىسى نۇقتىسى"
+
+#~ msgid "Font size in points"
+#~ msgstr "خەت نۇسخىسى نۇقتا بىلەن ئىپادىلەنگەن چوڭلۇقى"
+
+#~ msgid "Rise"
+#~ msgstr "كۆتۈرۈش"
+
+#~ msgid ""
+#~ "Offset of text above the baseline (below the baseline if rise is negative)"
+#~ msgstr ""
+#~ "ئاساسىي سىزىق ئۈستىدىكى تېكىستنىڭ ئېغىشى(ئەگەر ئاساسىي سىزىق ئاستىدا "
+#~ "بولسا مىنۇس بولىدۇ )"
+
+#~ msgid "Strikethrough"
+#~ msgstr "ئۆچۈرۈش سىزىقى"
+
+#~ msgid "Whether to strike through the text"
+#~ msgstr "تېكىستكە ئۆچۈرۈش سىزىقى قوللىنامدۇق يوق"
+
+#~ msgid "Underline"
+#~ msgstr "ئاستى سىزىق"
+
+#~ msgid "Style of underline for this text"
+#~ msgstr "تېكىستنىڭ ئاستى سىزىق ئۇسلۇبى"
+
+#~ msgid "Scale"
+#~ msgstr "نىسبىتى"
+
+#~ msgid "Size of font, relative to default size"
+#~ msgstr "خەتنىڭ چوڭلۇقى(كۆڭۈلدىكى قىممەتكە نىسبەتەن)"
+
+#~ msgid "Color"
+#~ msgstr "رەڭ"
+
+#~ msgid "Text color, as string"
+#~ msgstr "تېكىست رەڭگى (يېزىق بىلەن ئىپادىلەنگەن)"
+
+#~ msgid "Text color, as a GdkColor"
+#~ msgstr "تېكىست رەڭگى(GdkColor بىلەن ئىپادىلەنگەن)"
+
+#~ msgid "Text color, as an R/G/B/A combined integer"
+#~ msgstr "تېكىست رەڭگى (R/G/B/A نىڭ بىرىكمىسى بىلەن ئىپادىلەنگەن پۈتۈن سان)"
+
+#~ msgid "Text width"
+#~ msgstr "تېكىست كەڭلىكى"
+
+#~ msgid "Width of the rendered text"
+#~ msgstr "سىزىدىغان تېكىستنىڭ كەڭلىكى"
+
+#~ msgid "Text height"
+#~ msgstr "تېكىست ئېگىزلىكى"
+
+#~ msgid "Height of the rendered text"
+#~ msgstr "سىزىدىغان تېكىستنىڭ ئېگىزلىكى"
+
+#~ msgid "Font family set"
+#~ msgstr "خەت نۇسخىسى ئاتىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font family"
+#~ msgstr "بۇ خەتكۈش خەت شەكلىگە تەسىر قىلامدۇ يوق"
+
+#~ msgid "Font style set"
+#~ msgstr "خەت نۇسخىسى ئۇسلۇبىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font style"
+#~ msgstr "بۇ خەتكۈش خەت ئۇسلۇبىغا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Font variant set"
+#~ msgstr "خەت نۇسخىسى باشقا ئاتىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font variant"
+#~ msgstr "بۇ خەتكۈش خەت نۇسخىسىغا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Font weight set"
+#~ msgstr "خەت نۇسخىسى توملۇقىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font weight"
+#~ msgstr "بۇ خەتكۈش خەت توملۇقىغا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Font stretch set"
+#~ msgstr "خەت نۇسخىسى سوزۇلۇشىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font stretch"
+#~ msgstr "بۇ خەتكۈش خەت كەڭلىكىگە تەسىر قىلامدۇ يوق"
+
+#~ msgid "Font size set"
+#~ msgstr "خەت نۇسخىسى چوڭلۇقىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the font size"
+#~ msgstr "بۇ خەتكۈش خەت چوڭلۇقىغا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Rise set"
+#~ msgstr "كۆتۈرۈلۈشنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects the rise"
+#~ msgstr "بۇ خەتكۈش خەتنىڭ كۆتۈرۈلۈشىگە تەسىر قىلامدۇ يوق"
+
+#~ msgid "Strikethrough set"
+#~ msgstr "ئۆچۈرۈش سىزىقىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects strikethrough"
+#~ msgstr "بۇ خەتكۈش ئۆچۈرۈش سىزىقىغا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Underline set"
+#~ msgstr "ئاستى سىزىقىنى بەلگىلەش"
+
+#~ msgid "Whether this tag affects underlining"
+#~ msgstr "بۇ خەتكۈش ئاستى سىزىققا تەسىر قىلامدۇ يوق"
+
+#~ msgid "Scale set"
+#~ msgstr "نىسبەت بېكىتىش"
+
+#~ msgid "Whether this tag affects font scaling"
+#~ msgstr "بۇ خەتكۈش نىسبەتكە تەسىر قىلامدۇ يوق"
+
+#~ msgid "Args: %s"
+#~ msgstr "پارامېتىر: %s"
+
+#~ msgid "Inheritance Graph"
+#~ msgstr "مىراس گرافىك"
+
+#~ msgid "Class Inheritance"
+#~ msgstr "تىپ مىراسى"
 
 #~ msgid "Help display"
 #~ msgstr "كۆرسىتىش ياردىمى"
@@ -9995,7 +10002,7 @@ msgstr "بەلگە"
 #~ msgstr "خەتكۈش سال(_C)..."
 
 #~ msgid "_Reset tree…"
-#~ msgstr "دەرخنى قايتا تەڭشە(_R)..."
+#~ msgstr "دەرەخنى قايتا تەڭشە(_R)..."
 
 #~ msgid "_Revert commit…"
 #~ msgstr "تاپشۇرمىنى ئەسلىگە كەلتۈر(_R)..."
