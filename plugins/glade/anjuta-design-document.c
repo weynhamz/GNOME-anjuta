@@ -308,7 +308,7 @@ static void
 idocument_redo(IAnjutaDocument* edit, GError** ee)
 {
 	GladeDesignView* view = GLADE_DESIGN_VIEW (edit);
-	glade_project_undo (glade_design_view_get_project (view));
+	glade_project_redo (glade_design_view_get_project (view));
 }
 
 /* Grab focus */
