@@ -468,8 +468,8 @@ sdb_model_iter_is_valid (GtkTreeModel *model, GtkTreeIter *iter)
 	gint offset;
 
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL (model), FALSE);
-	g_return_val_if_fail (iter->stamp == SYMBOL_DB_MODEL_STAMP, FALSE);
 	g_return_val_if_fail (iter != NULL, FALSE);
+	g_return_val_if_fail (iter->stamp == SYMBOL_DB_MODEL_STAMP, FALSE);
 
 	parent_node = (SymbolDBModelNode*) iter->user_data;
 	offset = GPOINTER_TO_INT (iter->user_data2);
