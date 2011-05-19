@@ -833,15 +833,26 @@ sdb_model_iter_n_children (GtkTreeModel *tree_model,
                            GtkTreeIter *iter)
 {
 	gint offset;
+	SymbolDBModelPriv *priv;
 	SymbolDBModelNode *node, *parent_node;
 	
-	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
-	                      FALSE);
-	
-	parent_node = (SymbolDBModelNode*) iter->user_data;
-	offset = GPOINTER_TO_INT (iter->user_data2);
-	
-	node = sdb_model_node_get_child (parent_node, offset);
+	g_return_val_if_fail (SYMBOL_DB_IS_MODEL (tree_model), 0);
+	priv = SYMBOL_DB_MODEL (tree_model)->priv;
+
+	if (iter)
+	{
+		g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter), 0);
+	}
+
+	if (iter == NULL)
+		node = priv->root;
+	else
+	{
+		parent_node = (SymbolDBModelNode*) iter->user_data;
+		offset = GPOINTER_TO_INT (iter->user_data2);
+		node = sdb_model_node_get_child (parent_node, offset);
+	}
+
 	if (node == NULL)
 		return 0;
 	if (!node->children_ensured)
