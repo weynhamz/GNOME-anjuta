@@ -508,22 +508,24 @@ AnjutaToken*
 amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable)
 {
 	guint length;
-	const gchar *string;
-	gchar *name;
+	gchar *string;
+	const gchar *name;
 	AmpVariable *var;
 		
-	length = anjuta_token_get_length (variable);
-	string = anjuta_token_get_string (variable);
+	string = anjuta_token_evaluate(variable);
+	length = strlen (string);
 	if (string[1] == '(')
 	{
-		name = g_strndup (string + 2, length - 3);
+		string[length - 1] = '\0';
+		name = string + 2;
 	}
 	else
 	{
-		name = g_strndup (string + 1, 1);
+		string[2] = '\0';
+		name = string + 1;
 	}
 	var = g_hash_table_lookup (group->variables, name);
-	g_free (name);
+	g_free (string);
 
 	return var != NULL ? var->value : NULL;
 }

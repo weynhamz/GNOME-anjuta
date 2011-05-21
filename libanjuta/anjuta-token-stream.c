@@ -64,7 +64,7 @@ struct _AnjutaTokenStream
 	AnjutaToken *last;
 
 	/* Read position in input stream */
-	AnjutaToken *next;
+	AnjutaToken *token;
 	gsize pos;
 
 	/* Write position in input stream */
@@ -128,11 +128,11 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
 
     for (end = stream->start; end != NULL;)
     {
-        if (anjuta_token_get_type (end) < ANJUTA_TOKEN_PARSED)
+        if ((anjuta_token_get_type (end) < ANJUTA_TOKEN_PARSED) || (anjuta_token_get_length (end) == 0))
         {
             gint toklen = anjuta_token_get_length (end);
             AnjutaToken *copy = anjuta_token_cut (end, stream->begin, length);
-    
+
             if (toklen >= (length + stream->begin))
             {
 
@@ -177,7 +177,7 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
             stream->begin = 0;
         }
     }
-    
+
     anjuta_token_stream_append_token (stream, frag);
 
     return frag;
@@ -199,36 +199,36 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
 {
     gint result = 0;
 
-    if (stream->next != NULL)
+    if (stream->token != NULL)
     {
-        gsize length = anjuta_token_get_length (stream->next);
+        gsize length = anjuta_token_get_length (stream->token);
 
-        if ((anjuta_token_get_type (stream->next) >= ANJUTA_TOKEN_PARSED) || (stream->pos >= length))
+        if ((anjuta_token_get_type (stream->token) >= ANJUTA_TOKEN_PARSED) || (stream->pos >= length))
         {
             for (;;)
             {
                 /* Last token */
-                if (stream->next == stream->last) return 0;
+                if (stream->token== stream->last) return 0;
 
-                if (anjuta_token_get_type (stream->next) >= ANJUTA_TOKEN_PARSED)
+                if (anjuta_token_get_type (stream->token) >= ANJUTA_TOKEN_PARSED)
                 {
-                    stream->next = anjuta_token_next (stream->next);
+                    stream->token = anjuta_token_next (stream->token);
                 }
                 else
                 {
-                    stream->next = anjuta_token_next (stream->next);
+                    stream->token = anjuta_token_next (stream->token);
                 }
 
-                if ((stream->next == NULL) || (anjuta_token_get_type (stream->next) == ANJUTA_TOKEN_EOV))
+                if ((stream->token == NULL) || (anjuta_token_get_type (stream->token) == ANJUTA_TOKEN_EOV))
                 {
                     /* Last token */
                     return 0;
                 }
-                else if ((anjuta_token_get_length (stream->next) != 0) && (anjuta_token_get_type (stream->next) < ANJUTA_TOKEN_PARSED))
+                else if ((anjuta_token_get_length (stream->token) != 0) && (anjuta_token_get_type (stream->token) < ANJUTA_TOKEN_PARSED))
                 {
                     /* Find some data */
                     stream->pos = 0;
-                    length = anjuta_token_get_length (stream->next);
+                    length = anjuta_token_get_length (stream->token);
                     break;  
                 }
             }
@@ -236,7 +236,7 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
 
         if (stream->pos < length)
         {
-            const gchar *start = anjuta_token_get_string (stream->next);
+            const gchar *start = anjuta_token_get_string (stream->token);
 
             length -= stream->pos;
             
@@ -324,22 +324,9 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 	child->pos = 0;
 	child->begin = 0;
 	child->parent = parent;
-
-	/* If content is empty, anjuta_token_next returns following token which is
-	 * wrong */
-	if (anjuta_token_is_empty (content))
-	{
-		child->next = NULL;
-		child->start = NULL;
-		child->last = NULL;
-	}
-	else
-	{
-		child->next = anjuta_token_next (content);
-		child->start = child->next;
-		child->last = anjuta_token_last (content);
-		if (child->last == content) child->last = NULL;
-	}
+	child->token = content;
+	child->start = child->token;
+	child->last = anjuta_token_last (content);
 
 	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
 	if (file == NULL)
@@ -358,7 +345,7 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 
 /**
  * anjuta_token_stream_pop:
- * @parent: a #AnjutaTokenStream object.
+ * @stream: a #AnjutaTokenStream object.
  *
  * Destroy the stream object and return the parent stream if it exists.
  *
@@ -377,4 +364,20 @@ anjuta_token_stream_pop (AnjutaTokenStream *stream)
 	g_free (stream);
 
 	return parent;
+}
+
+/**
+ * anjuta_token_stream_get_parent:
+ * @stream: a #AnjutaTokenStream object.
+ *
+ * Return the parent stream
+ *
+ * Return value: The parent stream or NULL if there is no parent.
+ */
+AnjutaTokenStream *
+anjuta_token_stream_get_parent (AnjutaTokenStream *stream)
+{
+	g_return_val_if_fail (stream != NULL, NULL);
+
+	return stream->parent;
 }

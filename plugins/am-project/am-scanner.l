@@ -53,7 +53,9 @@ struct _AmpAmScanner
 	AmpProject *project;
 	AmpGroupNode *group;
 	GHashTable *orphan_properties;
+	GList *am_variables;
 	gboolean eof;		/* TRUE to emit EOF at the end */
+	gboolean expansion;		/* Expand variables */
 };
 
 %}
@@ -208,6 +210,26 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static void
+amp_am_scanner_reparse_token (AmpAmScanner *scanner, AnjutaToken *token, GFile *filename)
+{
+	AnjutaToken *root;
+	AnjutaToken *list;
+	
+	if (token == NULL) return;
+	
+	token = anjuta_token_concat (token);
+	
+	yylex_init(&scanner->scanner);
+	yyset_extra (scanner, scanner->scanner);
+		
+	root = anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL);
+	list = amp_am_scanner_parse_token (scanner, root, token, filename, NULL);
+	list = anjuta_token_delete_parent (list);
+	anjuta_token_insert_before (token, list);
+	anjuta_token_free (token);
+}
+
 static gint
 amp_am_scanner_parse_end (AmpAmScanner *scanner)
 {
@@ -223,8 +245,9 @@ amp_am_scanner_parse_end (AmpAmScanner *scanner)
 			scanner->eof = FALSE;
 			return END_OF_FILE;
 		}
-       	yypop_buffer_state(scanner->scanner);
-        scanner->stream = anjuta_token_stream_pop (scanner->stream);
+
+		yypop_buffer_state(scanner->scanner);
+    	scanner->stream = anjuta_token_stream_pop (scanner->stream);
 
 		if (scanner->stream == NULL)
 		{
@@ -239,6 +262,27 @@ amp_am_scanner_parse_end (AmpAmScanner *scanner)
 		}
 	}
 }
+
+static GList *
+list_used_variable (AnjutaToken *token)
+{
+	AnjutaToken *last = anjuta_token_last (token);
+	GList *list = NULL;
+
+	for (;;)
+	{
+		if (anjuta_token_get_type (token) == ANJUTA_TOKEN_VARIABLE)
+		{
+			list = g_list_prepend (list, token);
+		}
+		if (token == last) break;
+		token = anjuta_token_next (token);
+	}
+	list = g_list_reverse (list);
+	
+	return list;
+}
+
 
 /* Parser functions
  *---------------------------------------------------------------------------*/
@@ -262,7 +306,15 @@ amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s)
 void
 amp_am_scanner_set_am_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
-    amp_project_set_am_variable (scanner->project, scanner->group, variable, scanner->orphan_properties);
+	if (!scanner->expansion)
+	{
+		/* Keep variable token to expand them at the end */
+		scanner->am_variables = g_list_prepend (scanner->am_variables, variable);
+	}
+	else
+	{
+	    amp_project_set_am_variable (scanner->project, scanner->group, variable, scanner->orphan_properties);
+	}
 }
 
 void
@@ -299,7 +351,7 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 	AnjutaToken *value;
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
-
+	
 	value = amp_group_node_get_variable_token (scanner->group, variable);
 	if (value != NULL)
 	{
@@ -316,6 +368,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 {
     AnjutaToken *first;
     AnjutaTokenStream *stream;
+	GList *variable;
 
     stream = anjuta_token_stream_push (scanner->stream, root, content, filename);
     first = anjuta_token_stream_get_root (stream);
@@ -348,6 +401,18 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
         } while (status == YYPUSH_MORE);
         amp_am_yypstate_delete (ps);
 
+		/* Evaluate autotools variable at the end */
+		if (scanner->expansion == FALSE)
+		{
+			scanner->expansion = TRUE;
+			scanner->am_variables = g_list_reverse (scanner->am_variables);
+			for (variable = g_list_first (scanner->am_variables); variable != NULL; variable = g_list_next (variable))
+			{
+				AnjutaToken *token = (AnjutaToken *)variable->data;
+
+				amp_am_scanner_reparse_token (scanner, token, filename);				
+			}
+		}
     }
 
     return first;
@@ -370,6 +435,10 @@ amp_am_scanner_new (AmpProject *project, AmpGroupNode *group)
 	/* Create hash table for sources list */
 	scanner->orphan_properties = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_target_node_free);
 
+	/* Create hash table for variable */
+	scanner->am_variables = NULL;
+	scanner->expansion = FALSE;
+
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);
 
@@ -385,6 +454,7 @@ amp_am_scanner_free (AmpAmScanner *scanner)
 
 	/* Free unused sources files */
 	g_hash_table_destroy (scanner->orphan_properties);
+	g_list_free (scanner->am_variables);
 
 	g_free (scanner);
 }

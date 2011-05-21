@@ -30,6 +30,7 @@ typedef struct _AnjutaTokenStream AnjutaTokenStream;
 
 AnjutaTokenStream *anjuta_token_stream_push (AnjutaTokenStream *stream, AnjutaToken *root, AnjutaToken *content, GFile *filename);
 AnjutaTokenStream *anjuta_token_stream_pop (AnjutaTokenStream *stream);
+AnjutaTokenStream *anjuta_token_stream_get_parent (AnjutaTokenStream *stream);
 
 AnjutaToken* anjuta_token_stream_get_root (AnjutaTokenStream *stream);
 GFile* anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream);

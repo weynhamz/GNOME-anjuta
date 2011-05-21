@@ -400,7 +400,7 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 	{
 		real_parent = NULL;
 	}
-	
+
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,

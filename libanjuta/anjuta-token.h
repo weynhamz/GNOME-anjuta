@@ -114,6 +114,7 @@ AnjutaToken *anjuta_token_parent (AnjutaToken *token);
 AnjutaToken *anjuta_token_list (AnjutaToken *token);
 AnjutaToken *anjuta_token_next_after_children (AnjutaToken *token);
 void anjuta_token_foreach_content (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data);
+void anjuta_token_foreach_token (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data);
 AnjutaToken *anjuta_token_foreach_post_order (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data);
 
 AnjutaToken *anjuta_token_first_item (AnjutaToken *list);
@@ -135,6 +136,7 @@ AnjutaToken *anjuta_token_merge_children (AnjutaToken *first, AnjutaToken *end);
 AnjutaToken *anjuta_token_merge_previous (AnjutaToken *first, AnjutaToken *end);
 AnjutaToken *anjuta_token_split (AnjutaToken *token, guint size);
 AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size);
+AnjutaToken *anjuta_token_concat(AnjutaToken *token);
 
 gchar *anjuta_token_evaluate (AnjutaToken *token);
 gboolean anjuta_token_is_empty (AnjutaToken *token);

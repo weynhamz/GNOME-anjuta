@@ -1132,7 +1132,8 @@ AnjutaToken *anjuta_token_split (AnjutaToken *token, guint size)
 	}
 }
 
-AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
+AnjutaToken *
+anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
 {
 	AnjutaToken *copy;
 
@@ -1165,8 +1166,106 @@ AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
 	return copy;
 }
 
+static void
+concat_token (AnjutaToken *token, gpointer user_data)
+{
+	AnjutaToken *first = (AnjutaToken *)user_data;
+
+	if (anjuta_token_get_length (token) > 0)
+	{
+		if (anjuta_token_get_string (first) == NULL)
+		{
+			anjuta_token_set_string (first, anjuta_token_get_string (token), anjuta_token_get_length (token));
+		}
+		else if ((first != NULL) && ((anjuta_token_get_string(first) + anjuta_token_get_length (first)) == anjuta_token_get_string (token)))
+		{
+			anjuta_token_set_string (first, anjuta_token_get_string (first), anjuta_token_get_length (first) + anjuta_token_get_length (token));
+		}
+		else
+		{
+			AnjutaToken *new;
+
+			new = anjuta_token_new_static_len (ANJUTA_TOKEN_CONTENT, anjuta_token_get_string (token), anjuta_token_get_length (token));
+			anjuta_token_insert_after (first, new);
+			anjuta_token_merge (first, new);
+		}
+	}
+}
+	
+
+AnjutaToken *
+anjuta_token_concat(AnjutaToken *token)
+{
+	AnjutaToken *new;
+
+	new = anjuta_token_new_static (ANJUTA_TOKEN_CONTENT, NULL);
+	anjuta_token_foreach_token (token, concat_token, new);
+	
+	anjuta_token_insert_token_before (token, new);
+	anjuta_token_free (token);
+
+	return new;
+}
+
 /* Token foreach
  *---------------------------------------------------------------------------*/
+
+void 
+anjuta_token_foreach_token (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
+{
+	if (token != NULL)
+	{
+		AnjutaToken *last_token;
+		gint child = 0;
+
+		last_token = token->last == NULL ? token : token->last;
+		while (token != NULL)
+		{
+			if (child == 0) func (token, user_data);
+
+			/* Check if we have found the last token */
+			if (token == last_token)
+			{
+				/* Find last token */
+				if (token->last == NULL)
+				{
+					break;
+				}	
+				/* Last token still include additional tokens */
+				last_token = token->last;
+			}
+
+			if (token->children != NULL)
+			{
+				/* Check children, only for last token */
+				child++;
+				token = token->children;
+			}
+			else if (token->next != NULL)
+			{
+				/* Get next sibling */
+				token = token->next;
+			}
+			else
+			{
+				/* Get parent */
+				for (;;)
+				{
+					child--;
+					token = token->parent;
+					if (token == NULL) break;
+					if (token->next != NULL) 
+					{
+						token = token->next;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	return;
+}
 
 void 
 anjuta_token_foreach_content (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
