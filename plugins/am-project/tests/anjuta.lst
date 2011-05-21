@@ -266,6 +266,12 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): idl
                     PROPERTY (Installation directory): idldir
                     SOURCE (): libanjuta/interfaces/libanjuta.idl
+            GROUP (): tests
+                TARGET (): anjuta-tabber-test
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): $(LIBANJUTA_CFLAGS)
+                    PROPERTY (Libraries): $(LIBANJUTA_LIBS)
+                    SOURCE (): libanjuta/tests/anjuta-tabber-test.c
             TARGET (): libanjuta-3.la
                 PROPERTY (Installation directory): libdir
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
