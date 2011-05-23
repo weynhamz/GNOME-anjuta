@@ -1,3 +1,13 @@
+Anjuta 3.0.2 "Summertime" (23 May 2011) -- Johannes Schmid
+
+Fixes:
+- Fix "Redo" in glade plugin
+- Make tabs look less ugly
+
+Bugs fixed:
+rh#705958 - sdb_model_iter_is_valid: Process /usr/bin/anjuta was killed by signal 11 (SIGSEGV)
+bgo #644047 - No Symbols shown in Global and Search
+
 Anjuta 3.0.1 "Don't panic!" (25 April 2011) -- Johannes Schmid
 
 Bugs fixed:
