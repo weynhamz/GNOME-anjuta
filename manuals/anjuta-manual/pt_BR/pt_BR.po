@@ -1,0 +1,77 @@
+# translation of anjuta-manual to Brazilian Portuguese
+# Marcelo Mauro de Oliveira <marcelusmaurus@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta-manual\n"
+"POT-Creation-Date: 2011-05-01 19:20+0000\n"
+"PO-Revision-Date: 2011-05-24 14:57-0200\n"
+"Last-Translator: Marcelo Mauro de Oliveira <marcelusmaurus@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.6.1\n"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/index.page:22(None)
+msgid ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
+msgstr ""
+"@@image: 'figures/anjuta_logo.png'; md5=8a71ddebc3f1be38da4f2973df1c5ad7"
+
+#: C/index.page:7(title)
+msgid "Anjuta"
+msgstr "Anjuta"
+
+#: C/index.page:8(title)
+msgid "Anjuta Integrated Development Environment"
+msgstr "Ambiente de desenvolvimento integrado Anjuta"
+
+#: C/index.page:12(name)
+msgid "Johannes Schmid"
+msgstr "Johannes Schmid"
+
+#: C/index.page:13(email)
+msgid "jhs@gnome.org"
+msgstr "jhs@gnome.org"
+
+#: C/index.page:21(title)
+msgid ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></"
+"media> Anjuta Integrated Development Environment"
+msgstr ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\"></media> "
+"Ambiente de desenvolvimento integrado Anjuta"
+
+#: C/index.page:26(p)
+msgid "Welcome to the <app>anjuta</app> help guide."
+msgstr "Bem vindos ao guia de ajuda do <app>anjuta</app>."
+
+#: C/index.page:29(title)
+msgid "Project Management"
+msgstr "Administração do Projeto"
+
+#: C/index.page:33(title)
+msgid "Building and running"
+msgstr "Montagem e execução"
+
+#: C/index.page:37(title)
+msgid "Coding and code navigation"
+msgstr "Codificação e navegação do código"
+
+#: C/index.page:41(title)
+msgid "Debugging"
+msgstr "Depuração"
+
+#: C/index.page:45(title)
+msgid "User interface editor"
+msgstr "Editor de interface do usuário"
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: C/index.page:0(None)
+msgid "translator-credits"
+msgstr "Marcelo Mauro de Oliveira <marcelusmaurus@gmail.com>"
