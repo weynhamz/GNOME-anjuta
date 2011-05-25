@@ -34,9 +34,6 @@
 
 #include "executer.h"
 
-#define PREF_USE_SB "build.use_scratchbox"
-#define PREF_SB_PATH "build.scratchbox.path"
-
 static gboolean
 get_program_parameters (BasicAutotoolsPlugin *plugin,
 						const gchar *pre_select_uri,
@@ -375,19 +372,8 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	else
 		cmd = g_strdup (target);
 
-	if (g_settings_get_boolean (settings, PREF_USE_SB))
-	{
-		const gchar* sb_path = g_settings_get_string (settings, PREF_SB_PATH);
-		/* we need to skip the /scratchbox/users part, maybe could be done more clever */
-		const gchar* real_dir = strstr(target, "/home");
-		gchar* oldcmd = cmd;
-		cmd = g_strdup_printf("%s/login -d %s \"%s\"", sb_path,
-									  real_dir, oldcmd);
-		g_free(oldcmd);
-		dir = g_strdup(real_dir);
-	}
-	else
-		dir = g_path_get_dirname (target);
+	dir = g_path_get_dirname (target);
+
 	if (run_in_terminal)
 	{
 		IAnjutaTerminal *term;
