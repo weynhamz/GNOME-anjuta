@@ -95,19 +95,32 @@ npw_check_autogen (void)
 	if (g_spawn_sync (NULL, args, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
 		NULL, NULL, &output, NULL, NULL, NULL))
 	{
-		gint ver[3];
-		gchar* ptr;
+		GRegex *re;
+		GMatchInfo *minfo;
+		gint ver[3] = {0, 0, 0};
 
-		/* Check autogen */
-		if (strstr(output, "The Automated Program Generator") == NULL) return FALSE;
+		/* Check autogen 5 version string
+		 * Examples:
+		 * autogen - The Automated Program Generator - Ver. 5.5.7
+		 * autogen (GNU AutoGen) - The Automated Program Generator - Ver. 5.11
+		 * autogen (GNU AutoGen) 5.11.9
+		 */
+		re = g_regex_new ("autogen.* (\\d+)\\.(\\d+)(?:\\.(\\d+))?", 0, 0, NULL);
+		g_regex_match (re, output, 0, &minfo);
+		if (g_match_info_matches (minfo)) {
+			gchar **match_strings;
 
-		/* Get version number */
-		ptr = strstr(output, "Ver. ");
-	       	if (ptr == NULL) return FALSE;
-		ptr += 5;
-		sscanf(ptr,"%d.%d.%d", &ver[0], &ver[1], &ver[2]);
+			match_strings = g_match_info_fetch_all (minfo);
+			ver[0] = g_ascii_strtoll (match_strings[1], NULL, 10);
+			ver[1] = g_ascii_strtoll (match_strings[2], NULL, 10);
+			ver[2] = g_ascii_strtoll (match_strings[3], NULL, 10); /* match_strings[3] may be NULL */
 
-		return (ver[0] == 5);
+			g_strfreev (match_strings);
+		}
+		g_match_info_free (minfo);
+		g_regex_unref (re);
+
+		return ver[0] == 5;
 	}
 
 	return FALSE;
