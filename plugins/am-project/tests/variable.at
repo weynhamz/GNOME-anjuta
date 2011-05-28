@@ -63,4 +63,25 @@ AT_CHECK([diff -b output expect])
 
 
 
+AS_MKDIR_P([variable4])
+AT_DATA([variable4/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([variable4/Makefile.am],
+[[
+bin_PROGRAMS = $(TARGETS)
+TARGETS = $(TARGETS1)
+TARGETS1 = target1
+]])
+AT_DATA([expect],
+[[    GROUP (): variable4
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+]])
+AT_PARSER_CHECK([load variable4 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AT_CLEANUP

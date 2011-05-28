@@ -139,6 +139,7 @@ AnjutaToken *anjuta_token_cut (AnjutaToken *token, guint pos, guint size);
 AnjutaToken *anjuta_token_concat(AnjutaToken *token);
 
 gchar *anjuta_token_evaluate (AnjutaToken *token);
+gchar *anjuta_token_evaluate_name (AnjutaToken *token);
 gboolean anjuta_token_is_empty (AnjutaToken *token);
 
 void anjuta_token_dump (AnjutaToken *token);

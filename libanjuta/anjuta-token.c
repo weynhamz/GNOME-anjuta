@@ -1482,6 +1482,21 @@ anjuta_token_evaluate (AnjutaToken *token)
 	return g_string_free (value, *(value->str) == '\0');
 }
 
+/* Does not evaluate content if token is a variable */
+gchar *
+anjuta_token_evaluate_name (AnjutaToken *token)
+{
+	GString *value = g_string_new (NULL);
+	AnjutaToken *children = token->children;
+
+	token->children = NULL;
+	anjuta_token_foreach_content (token, evaluate_token, value);
+	token->children = children;
+	
+	/* Return NULL and free data for an empty string */
+	return g_string_free (value, *(value->str) == '\0');
+}
+
 gboolean
 anjuta_token_is_empty (AnjutaToken *token)
 {
