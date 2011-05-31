@@ -85,6 +85,9 @@ file_model_get_filename (FileModel* model, GtkTreeIter* iter);
 void
 file_model_set_ivcs (FileModel* model, IAnjutaVcs *ivcs);
 
+void
+file_model_update_vcs_status (FileModel* model);
+
 G_END_DECLS
 
 #endif /* _FILE_MODEL_H_ */

@@ -76,6 +76,9 @@ file_view_get_selected (AnjutaFileView* view);
 void
 file_view_refresh (AnjutaFileView* view);
 
+void 
+file_view_refresh_vcs (AnjutaFileView* view);
+
 G_END_DECLS
 
 #endif /* _FILE_VIEW_H_ */

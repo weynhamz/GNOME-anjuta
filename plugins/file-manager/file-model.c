@@ -218,7 +218,7 @@ file_model_vcs_status_callback(GFile *file,
 				                    &dummy, -1);
 				if (dummy)
 					break;
-				if (g_file_equal (file, child_file))
+				if (file && child_file && g_file_equal (file, child_file))
 				{
 					if (priv->filter_unversioned &&
 					    (status == ANJUTA_VCS_STATUS_UNVERSIONED ||
@@ -385,6 +385,38 @@ file_model_update_file (FileModel* model,
 	g_free(display_name);
 }
 
+static gboolean
+file_model_update_file_foreach_func (GtkTreeModel* model,
+                                     GtkTreePath* path,
+                                     GtkTreeIter* iter,
+                                     gpointer user_data)
+{
+	GFile* file;
+	GFileInfo* info;
+	
+	gtk_tree_model_get (model, iter,
+	                    COLUMN_FILE, &file, -1);
+
+	if (!file)
+		return FALSE;
+	
+	info = g_file_query_info (file,
+	                          "standard::*",
+	                          G_FILE_QUERY_INFO_NONE,
+	                          NULL, NULL);
+	
+	file_model_update_file (FILE_MODEL (model), 
+	                        iter,
+	                        file,
+	                        info,
+	                        FALSE);
+	g_object_unref (info);
+	g_object_unref (file);
+	
+	/* Continue iterating */
+	return FALSE;
+}
+
 static void
 file_model_add_file (FileModel* model,
 					 GtkTreeIter* parent,
@@ -399,6 +431,12 @@ file_model_add_file (FileModel* model,
 		gtk_tree_store_append (store, &iter, parent);
 		file_model_update_file (model, &iter, file, file_info, TRUE);
 	}
+}
+
+void file_model_update_vcs_status (FileModel* model)
+{
+    gtk_tree_model_foreach (GTK_TREE_MODEL(model), 
+                            file_model_update_file_foreach_func, NULL);
 }
 
 static void
@@ -432,7 +470,7 @@ on_file_model_changed (GFileMonitor* monitor,
 			GFile* model_file;
 			gtk_tree_model_get (GTK_TREE_MODEL(model), &file_iter,
 								COLUMN_FILE, &model_file, -1);
-			if (g_file_equal (model_file, file))
+			if (model_file && file && g_file_equal (model_file, file))
 			{
 				g_object_unref (model_file);
 				found = TRUE;
