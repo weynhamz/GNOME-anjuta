@@ -5448,6 +5448,15 @@ interface IAnjutaVcs
 	{
 	  UNKOWN_ERROR
 	}
+	
+	/**
+	 * IAnjutaVcsStatus
+	 * @obj: Self
+ 	 *
+ 	 * This signal is emited when the git pull command is finished, and refreshes the tree of files with the new pulled files without the need to 
+ 	 * fold- unfold the tree.
+	 */
+	void	::status_changed();
 
 	/**
 	 * ianjuta_vcs_add:

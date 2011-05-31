@@ -31,10 +31,15 @@
 #include "file-view.h"
 #include "file-model.h"
 
+#define ANJUTA_TYPE_FILE_MANAGER             (file_manager_get_type (NULL))
+#define ANJUTA_FILE_MANAGER(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_FILE_MANAGER, AnjutaFileManager))
+#define ANJUTA_FILE_MANAGER_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_FILE_MANAGER, AnjutaFileManagerClass))
+#define ANJUTA_IS_FILE_MANAGER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_FILE_MANAGER))
+#define ANJUTA_IS_FILE_MANAGER_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_FILE_MANAGER))
+#define ANJUTA_FILE_MANAGER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_FILE_MANAGER, AnjutaFileManagerClass))
+
 typedef struct _AnjutaFileManager AnjutaFileManager;
 typedef struct _AnjutaFileManagerClass AnjutaFileManagerClass;
-
-extern GType file_manager_get_type (GTypeModule *module);
 
 struct _AnjutaFileManager {
 	AnjutaPlugin parent;
@@ -51,5 +56,7 @@ struct _AnjutaFileManager {
 struct _AnjutaFileManagerClass {
 	AnjutaPluginClass parent_class;
 };
+
+GType file_manager_get_type (GTypeModule *module);
 
 #endif
