@@ -703,6 +703,14 @@ file_view_class_init (AnjutaFileViewClass *klass)
 	widget_class->drag_data_get = file_view_drag_data_get;
 }
 
+void 
+file_view_refresh_vcs (AnjutaFileView* view)
+{
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+    file_model_update_vcs_status(priv->model);
+}
+
+
 GtkWidget*
 file_view_new (void)
 {

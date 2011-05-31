@@ -96,6 +96,13 @@ file_manager_set_default_uri (AnjutaFileManager* file_manager)
 	g_free(path);
 }
 
+static void 
+refresh_signal_cb(IAnjutaVcs* ivcs, gpointer data) 
+{
+    AnjutaFileManager* file_manager = ANJUTA_FILE_MANAGER(data);
+	file_view_refresh_vcs (file_manager->fv);
+}
+
 static IAnjutaVcs*
 get_vcs_plugin(AnjutaFileManager* file_manager, const gchar* root_uri)
 {
@@ -126,7 +133,7 @@ get_vcs_plugin(AnjutaFileManager* file_manager, const gchar* root_uri)
 		if (vcs_system)
 			break;
 	}
-	
+	       
 	if (vcs_system)
 	{
 		/* Load current language editor support plugins */
@@ -145,6 +152,11 @@ get_vcs_plugin(AnjutaFileManager* file_manager, const gchar* root_uri)
 													  &plugin_id);
 			ivcs = IANJUTA_VCS(anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
 																	   plugin_id));
+
+			g_signal_connect (G_OBJECT (ivcs), "status_changed",
+			                  G_CALLBACK (refresh_signal_cb),
+			                  file_manager);
+			
 			g_list_free (plugin_descs);
 		}
 	}

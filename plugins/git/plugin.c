@@ -888,6 +888,12 @@ git_class_init (GObjectClass *klass)
 	klass->dispose = git_dispose;
 }
 
+
+void git_plugin_status_changed_emit(AnjutaCommand *command, guint return_code, Git *plugin)
+{
+        g_signal_emit_by_name(plugin, "status-changed");
+}
+
 ANJUTA_PLUGIN_BEGIN (Git, git);
 ANJUTA_PLUGIN_ADD_INTERFACE (git_ivcs, IANJUTA_TYPE_VCS);
 ANJUTA_PLUGIN_END;
