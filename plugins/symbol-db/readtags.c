@@ -450,6 +450,14 @@ static tagFile *initialize (const char *const filePath, tagFileInfo *const info)
 		result->fp = fopen (filePath, "r");
 		if (result->fp == NULL)
 		{
+			/* free the result struct */
+			if (result->fields.list)
+				free (result->fields.list);
+			if (result->line.buffer)
+				free (result->line.buffer);
+			if (result->name.buffer)
+				free (result->name.buffer);
+
 			free (result);
 			result = NULL;
 			info->status.error_number = errno;
@@ -481,6 +489,14 @@ static tagFile *initialize_1 (const FILE* fd, tagFileInfo *const info)
 		result->fp = (FILE*)fd;
 		if (result->fp == NULL)
 		{
+			/* free the result struct */
+			if (result->fields.list)
+				free (result->fields.list);
+			if (result->line.buffer)
+				free (result->line.buffer);
+			if (result->name.buffer)
+				free (result->name.buffer);
+
 			free (result);
 			result = NULL;
 			info->status.error_number = errno;
