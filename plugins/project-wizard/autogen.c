@@ -113,7 +113,7 @@ npw_check_autogen (void)
 			match_strings = g_match_info_fetch_all (minfo);
 			ver[0] = g_ascii_strtoll (match_strings[1], NULL, 10);
 			ver[1] = g_ascii_strtoll (match_strings[2], NULL, 10);
-			ver[2] = g_ascii_strtoll (match_strings[3], NULL, 10); /* match_strings[3] may be NULL */
+			if (match_strings[3] != NULL) ver[2] = g_ascii_strtoll (match_strings[3], NULL, 10);
 
 			g_strfreev (match_strings);
 		}
