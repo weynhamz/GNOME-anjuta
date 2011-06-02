@@ -404,6 +404,12 @@ file_model_update_file_foreach_func (GtkTreeModel* model,
 	                          "standard::*",
 	                          G_FILE_QUERY_INFO_NONE,
 	                          NULL, NULL);
+
+	if (!info)
+	{
+		g_object_unref (file);
+		return FALSE;
+	}
 	
 	file_model_update_file (FILE_MODEL (model), 
 	                        iter,
