@@ -43,11 +43,14 @@ G_BEGIN_DECLS
 #define MKP_GROUP(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_GROUP, MkpGroup))
 #define MKP_TYPE_TARGET					   (mkp_target_get_type ())
 #define MKP_TARGET(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_TARGET, MkpTarget))
+#define MKP_TYPE_OBJECT					   (mkp_object_get_type ())
+#define MKP_OBJECT(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_OBJECT, MkpObject))
 #define MKP_TYPE_SOURCE					   (mkp_source_get_type ())
 #define MKP_SOURCE(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), MKP_TYPE_SOURCE, MkpSource))
 
 
 GType mkp_source_get_type (void) G_GNUC_CONST;
+GType mkp_object_get_type (void) G_GNUC_CONST;
 GType mkp_target_get_type (void) G_GNUC_CONST;
 GType mkp_group_get_type (void) G_GNUC_CONST;
 GType mkp_project_get_type (void) G_GNUC_CONST;
@@ -57,12 +60,14 @@ typedef struct _MkpProjectClass   MkpProjectClass;
 
 typedef struct _MkpGroup MkpGroup;
 typedef struct _MkpTarget MkpTarget;
+typedef struct _MkpObject MkpObject;
 typedef struct _MkpSource MkpSource;
 typedef struct _MkpProperty MkpProperty;
 typedef struct _MkpVariable MkpVariable;
 typedef struct _MkpRule MkpRule;
 
 typedef struct _MkpNodeClass MkpSourceClass;
+typedef struct _MkpNodeClass MkpObjectClass;
 typedef struct _MkpNodeClass MkpTargetClass;
 typedef struct _MkpNodeClass MkpGroupClass;
 
@@ -79,6 +84,10 @@ struct _MkpGroup {
 struct _MkpTarget {
 	AnjutaProjectNode base;
 	GList* tokens;
+};
+
+struct _MkpObject {
+	AnjutaProjectNode base;
 };
 
 struct _MkpSource {

@@ -75,6 +75,7 @@ gchar *mkp_project_token_evaluate (MkpProject *project, AnjutaToken *token);
 AnjutaProjectNode* mkp_target_new (const gchar *name, AnjutaProjectNodeType type);
 void mkp_target_free (MkpTarget *node);
 void mkp_target_add_token (MkpTarget *node, AnjutaToken *token);
+AnjutaProjectNode* mkp_object_new (const gchar *name);
 AnjutaProjectNode* mkp_source_new (GFile *file);
 
 G_END_DECLS

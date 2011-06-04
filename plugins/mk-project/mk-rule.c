@@ -68,11 +68,11 @@ mkp_rule_free (MkpRule *rule)
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-/* Find a source for target checking pattern rule. If no source is found,
+/* Find all dependencies for target checking pattern rule. If no source is found,
  * return target, else free target and return a newly allocated source name */
 
-static gchar *
-mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *parent, guint backtrack)
+static GList *
+mkp_project_find_dependencies (MkpProject *project, gchar *target, AnjutaProjectNode *parent, guint backtrack)
 {
 	GFile *child;
 	gboolean exist;
@@ -88,6 +88,7 @@ mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *
 			if (rule->pattern)
 			{
 				gchar *source;
+				GList *dependencies;
 				
 				if (rule->part == NULL)
 				{	
@@ -113,14 +114,12 @@ mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *
 					}
 				}
 					
-				source = mkp_project_find_source (project, source, parent, backtrack + 1);
-
-				if (source != NULL)
+				dependencies = mkp_project_find_dependencies (project, source, parent, backtrack + 1);
+				if (dependencies != NULL)
 				{
-					g_free (target);
-
-					return source;
+					return g_list_prepend (dependencies, target);
 				}
+				g_free (source);
 			}
 		}
 	}
@@ -132,12 +131,11 @@ mkp_project_find_source (MkpProject *project, gchar *target, AnjutaProjectNode *
 
 	if (!exist)
 	{
-		g_free (target);
 		return NULL;
 	}
 	else
 	{
-		return target;
+		return g_list_prepend (NULL, target);
 	}
 }
 
@@ -337,29 +335,53 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 		/* Add prerequisite */
 		for (arg = anjuta_token_first_word (prerequisite); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
-			MkpSource *source;
-			GFile *src_file;
+			AnjutaProjectNode *node;
 			gchar *name;
+			GList *dependencies;
 
 			name = anjuta_token_evaluate (arg);
 			if (name != NULL)
 			{
 				name = g_strstrip (name);
-				name = mkp_project_find_source (project, name, parent, 0);
-			}
+				dependencies = mkp_project_find_dependencies (project, name, parent, 0);
+				if (dependencies == NULL)
+				{
+					/* Add only one object node */
+					node = mkp_object_new (name);
+					node->type = ANJUTA_PROJECT_OBJECT | ANJUTA_PROJECT_PROJECT;
+					anjuta_project_node_append (ANJUTA_PROJECT_NODE(target), ANJUTA_PROJECT_NODE(node));
+					g_free (name);
+				}
+				else
+				{
+					GFile *src_file;
+					gchar *name;
+					
+					AnjutaProjectNode *parent = target;
+					while (g_list_next (dependencies) != NULL)
+					{
+						/* Create object nodes */
+						name = (gchar *)dependencies->data;
+						node = mkp_object_new (name);
+						node->type = ANJUTA_PROJECT_OBJECT | ANJUTA_PROJECT_PROJECT;
+						anjuta_project_node_append (parent, node);
+						g_free (name);
+						parent = node;
+						dependencies = g_list_delete_link (dependencies, dependencies);
+					}
 
-			if (name != NULL)
-			{
-				src_file = g_file_get_child (project->root_file, name);
-				source = MKP_SOURCE(mkp_source_new (src_file));
-				source->base.type = ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT;
-				g_object_unref (src_file);
-				anjuta_project_node_append (ANJUTA_PROJECT_NODE(target), ANJUTA_PROJECT_NODE(source));
-
-				g_free (name);
+					/* Create source node */
+					name = (gchar *)dependencies->data;
+					src_file = g_file_get_child (project->root_file, name);
+					node = mkp_source_new (src_file);
+					node->type = ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT;
+					g_object_unref (src_file);
+					anjuta_project_node_append (parent, node);
+					g_free (name);
+					g_list_free (dependencies);
+				}
 			}
 		}
-		
 	}
 }
 

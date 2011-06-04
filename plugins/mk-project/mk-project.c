@@ -196,7 +196,7 @@ file_type (GFile *file, const gchar *filename)
 	return type;
 }
 
-/* Group objects
+/* Group node
  *---------------------------------------------------------------------------*/
 
 static AnjutaProjectNode*
@@ -229,7 +229,7 @@ mkp_group_init (MkpGroup *obj)
 
 G_DEFINE_TYPE (MkpGroup, mkp_group, ANJUTA_TYPE_PROJECT_NODE);
 
-/* Target objects
+/* Target node
  *---------------------------------------------------------------------------*/
 
 void
@@ -272,7 +272,38 @@ mkp_target_init (MkpTarget *obj)
 
 G_DEFINE_TYPE (MkpTarget, mkp_target, ANJUTA_TYPE_PROJECT_NODE);
 
-/* Source objects
+/* Object node
+ *---------------------------------------------------------------------------*/
+
+AnjutaProjectNode*
+mkp_object_new (const gchar *name)
+{
+	MkpObject *node = NULL;
+
+	node = g_object_new (MKP_TYPE_OBJECT, NULL);
+	node->base.name = g_strdup (name);
+	node->base.type = ANJUTA_PROJECT_OBJECT;
+	node->base.state = 0;
+
+	return ANJUTA_PROJECT_NODE(node);
+}
+
+static void
+mkp_object_class_init (MkpObjectClass *klass)
+{
+
+}
+
+static void
+mkp_object_init (MkpObject *obj)
+{
+
+}
+
+G_DEFINE_TYPE (MkpObject, mkp_object, ANJUTA_TYPE_PROJECT_NODE);
+
+
+/* Source node
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode*
