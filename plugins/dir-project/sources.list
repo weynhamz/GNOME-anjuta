@@ -1,17 +1,17 @@
-*.c
+*.c: *.o
 *.h
-*.C
-*.cpp
+*.C: *.o
+*.cpp: *.o
 *.hpp
-*.cxx
-*.c++
-*.cc
+*.cxx: *.o
+*.c++: *.o
+*.cc: *.o
 *.java
 *.py
 *.pl
 *.rb
-*.y
-*.l
+*.y: *.o
+*.l: *.o
 *.vala
 *.gs
 *.in

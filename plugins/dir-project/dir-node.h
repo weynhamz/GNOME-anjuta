@@ -42,6 +42,12 @@ typedef struct _AnjutaDirGroupNode AnjutaDirGroupNode;
 GType anjuta_dir_group_node_get_type (void) G_GNUC_CONST;
 
 
+#define ANJUTA_TYPE_DIR_OBJECT_NODE			(anjuta_dir_object_node_get_type ())
+#define ANJUTA_DIR_OBJECT_NODE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_DIR_OBJECT_NODE, AnjutaDirObjectNode))
+
+typedef struct _AnjutaDirObjectNode AnjutaDirObjectNode;
+GType anjuta_dir_object_node_get_type (void) G_GNUC_CONST;
+
 
 #define ANJUTA_TYPE_DIR_SOURCE_NODE			(anjuta_dir_source_node_get_type ())
 #define ANJUTA_DIR_SOURCE_NODE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_DIR_SOURCE_NODE, AnjutaDirSourceNode))
@@ -54,6 +60,8 @@ GType anjuta_dir_source_node_get_type (void) G_GNUC_CONST;
 AnjutaProjectNode* dir_root_node_new (GFile *file);
 
 AnjutaProjectNode *dir_group_node_new (GFile *file, GObject *emitter);
+
+AnjutaProjectNode *dir_object_node_new (GFile *file);
 
 AnjutaProjectNode *dir_source_node_new (GFile *file);
 

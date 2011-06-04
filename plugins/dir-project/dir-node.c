@@ -76,7 +76,7 @@ anjuta_dir_root_node_class_init (AnjutaDirRootNodeClass *klass)
 
 
 
-/* Group objects
+/* Group node
  *---------------------------------------------------------------------------*/
 
 struct _AnjutaDirGroupNode {
@@ -172,8 +172,55 @@ anjuta_dir_group_node_class_init (AnjutaDirGroupNodeClass *klass)
 	object_class->finalize = anjuta_dir_group_node_finalize;
 }
 
+/* Object node
+ *---------------------------------------------------------------------------*/
 
-/* Source object
+struct _AnjutaDirObjectNode {
+	AnjutaProjectNode base;
+};
+
+
+AnjutaProjectNode*
+dir_object_node_new (GFile *file)
+{
+	AnjutaDirObjectNode *node = NULL;
+
+	node = g_object_new (ANJUTA_TYPE_DIR_OBJECT_NODE, NULL);
+	node->base.type = ANJUTA_PROJECT_OBJECT;
+	node->base.native_properties = NULL;
+	node->base.custom_properties = NULL;
+	node->base.name = NULL;
+	node->base.file = g_file_dup (file);
+	node->base.state = ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_REMOVE_FILE;
+
+	return ANJUTA_PROJECT_NODE (node);
+}
+
+/* GObjet implementation
+ *---------------------------------------------------------------------------*/
+
+typedef struct _AnjutaDirObjectNodeClass AnjutaDirObjectNodeClass;
+
+struct _AnjutaDirObjectNodeClass {
+	AnjutaProjectNodeClass parent_class;
+};
+
+G_DEFINE_TYPE (AnjutaDirObjectNode, anjuta_dir_object_node, ANJUTA_TYPE_PROJECT_NODE);
+
+static void
+anjuta_dir_object_node_init (AnjutaDirObjectNode *node)
+{
+}
+
+static void
+anjuta_dir_object_node_class_init (AnjutaDirObjectNodeClass *klass)
+{
+}
+
+
+
+/* Source node
  *---------------------------------------------------------------------------*/
 
 struct _AnjutaDirSourceNode {
