@@ -535,7 +535,7 @@ main(int argc, char *argv[])
 				}
 				else
 				{
-					project = IANJUTA_PROJECT (amp_project_new (file, NULL));
+					project = IANJUTA_PROJECT (amp_project_new (file, NULL, NULL));
 				}
 			}
 

@@ -61,6 +61,8 @@ libam_project_la_SOURCES = \
 	amp-target.c \
 	amp-source.h \
 	amp-source.c \
+	amp-object.c \
+	amp-object.h \
 	command-queue.c \
 	command-queue.h
 

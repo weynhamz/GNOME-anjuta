@@ -950,10 +950,10 @@ project_load_target (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken
 }
 
 static AnjutaToken*
-project_load_sources (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *variable, GHashTable *orphan_properties)
+project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken *variable, GHashTable *orphan_properties)
 {
 	AnjutaToken *arg;
-	GFile *parent_file = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)));
+	GFile *group_file = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (group)));
 	gchar *target_id = NULL;
 
 	target_id = anjuta_token_evaluate (anjuta_token_first_word (variable));
@@ -973,7 +973,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *parent, AnjutaToke
 		
 		find = target_id;
 		DEBUG_PRINT ("search for canonical %s", target_id);
-		anjuta_project_node_children_traverse (parent, find_canonical_target, &find);
+		anjuta_project_node_children_traverse (group, find_canonical_target, &find);
 		target = (gchar *)find != target_id ? (AnjutaProjectNode *)find : NULL;
 
 		/* Get orphan buffer if there is no target */
@@ -1002,14 +1002,54 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *parent, AnjutaToke
 		{
 			gchar *value;
 			AnjutaProjectNode *source;
+			AnjutaProjectNode *parent = target;
 			GFile *src_file;
+			GFileInfo* file_info;
 		
 			value = anjuta_token_evaluate (arg);
 			if (value == NULL) continue;
 
+			src_file = g_file_get_child (group_file, value);
+			if (project->lang_manager != NULL)
+			{
+				file_info = g_file_query_info (src_file,
+					                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				    	                                      G_FILE_QUERY_INFO_NONE,
+		    		    	                                  NULL,
+		        		    	                              NULL);
+				if (file_info)
+				{
+					gint id = ianjuta_language_get_from_mime_type (project->lang_manager,
+			    		                                           g_file_info_get_content_type (file_info),
+			        		                                       NULL);
+					if (id > 0)
+					{
+						const gchar *obj_ext = ianjuta_language_get_make_target (project->lang_manager, id, NULL);
+						if (obj_ext != NULL)
+						{
+							/* Create object node */
+							gchar *object_name;
+							gchar *ext;
+							GFile *obj_file;
+							AnjutaProjectNode *object;
+
+							ext = strrchr (value, '.');
+							if ((ext != NULL) && (ext != value)) *ext = '\0';
+							object_name = g_strconcat (value, obj_ext, NULL);
+							obj_file = g_file_get_child (group_file, object_name);
+							g_free (object_name);
+							object = amp_node_new_valid (group, ANJUTA_PROJECT_OBJECT | ANJUTA_PROJECT_PROJECT, obj_file, NULL, NULL); 
+							g_object_unref (obj_file);
+							anjuta_project_node_append (parent, object);
+							parent = object;
+						}
+					}
+					g_object_unref (file_info);
+				}
+			}
+			
 			/* Create source */
-			src_file = g_file_get_child (parent_file, value);
-			source = amp_node_new_valid (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = amp_node_new_valid (group, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
 			g_object_unref (src_file);
 			if (source != NULL)
 			{
@@ -1017,14 +1057,14 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *parent, AnjutaToke
 	
 				DEBUG_PRINT ("add target child %p", target);
 				/* Add as target child */
-				anjuta_project_node_append (target, source);
+				anjuta_project_node_append (parent, source);
 			}
 
 			g_free (value);
 		}
 	}
 
-	g_object_unref (parent_file);
+	g_object_unref (group_file);
 
 	return NULL;
 }
@@ -1524,6 +1564,11 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 		// the value will be overwritten with the new node empty value.
 		amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
 	}
+	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_ROOT)
+	{
+		// FIXME: It would be better to write a duplicate function to avoid this code
+		((AmpProject *)new_node)->lang_manager = (((AmpProject *)old_node)->lang_manager != NULL) ? g_object_ref (((AmpProject *)old_node)->lang_manager) : NULL;
+	}
 	/* Keep old parent, Needed for source node to find project root node */
 	new_node->parent = old_node->parent;
 
@@ -1887,7 +1932,7 @@ amp_project_dump (AmpProject *project, AnjutaProjectNode *node)
 
 
 AmpProject *
-amp_project_new (GFile *file, GError **error)
+amp_project_new (GFile *file, IAnjutaLanguage *language, GError **error)
 {
 	AmpProject *project;
 	GFile *new_file;
@@ -1896,6 +1941,8 @@ amp_project_new (GFile *file, GError **error)
 	new_file = g_file_dup (file);
 	amp_root_node_set_file (AMP_ROOT_NODE (project), new_file);
 	g_object_unref (new_file);
+
+	project->lang_manager = (language != NULL) ? g_object_ref (language) : NULL;
 	
 	return project;
 }
@@ -2399,6 +2446,9 @@ amp_project_dispose (GObject *object)
 	if (project->monitor) g_object_unref (project->monitor);
 	project->monitor = NULL;
 
+	if (project->lang_manager) g_object_unref (project->lang_manager);
+	project->lang_manager = NULL;
+	
 	G_OBJECT_CLASS (parent_class)->dispose (object);	
 }
 

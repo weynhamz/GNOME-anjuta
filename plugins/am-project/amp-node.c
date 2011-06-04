@@ -31,6 +31,7 @@
 #include "amp-package.h"
 #include "amp-group.h"
 #include "amp-target.h"
+#include "amp-object.h"
 #include "amp-source.h"
 
 #include <libanjuta/anjuta-debug.h>
@@ -69,6 +70,9 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, error));
+			break;
+		case ANJUTA_PROJECT_OBJECT:
+			node = ANJUTA_PROJECT_NODE (amp_object_node_new_valid (file, error));
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			/* Look for parent */
@@ -296,5 +300,6 @@ amp_node_register (GTypeModule *module)
 	amp_package_node_register (module);
 	amp_group_node_register (module);
 	amp_target_node_register (module);
+	amp_object_node_register (module);
 	amp_source_node_register (module);
 }

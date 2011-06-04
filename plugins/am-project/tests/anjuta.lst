@@ -267,10 +267,11 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (Installation directory): idldir
                     SOURCE (): libanjuta/interfaces/libanjuta.idl
             GROUP (): tests
+                PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDA_CFLAGS) $(LIBANJUTA_CFLAGS)
                 TARGET (): anjuta-tabber-test
                     PROPERTY (Do not install): true
                     PROPERTY (C compiler flags): $(LIBANJUTA_CFLAGS)
-                    PROPERTY (Libraries): $(LIBANJUTA_LIBS)
+                    PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
                     SOURCE (): libanjuta/tests/anjuta-tabber-test.c
             TARGET (): libanjuta-3.la
                 PROPERTY (Installation directory): libdir
@@ -495,6 +496,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/am-project/amp-target.c
                     SOURCE (): plugins/am-project/amp-source.h
                     SOURCE (): plugins/am-project/amp-source.c
+                    SOURCE (): plugins/am-project/amp-object.c
+                    SOURCE (): plugins/am-project/amp-object.h
                     SOURCE (): plugins/am-project/command-queue.c
                     SOURCE (): plugins/am-project/command-queue.h
                 TARGET (): projectparser

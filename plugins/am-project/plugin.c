@@ -54,9 +54,12 @@ static IAnjutaProject*
 iproject_backend_new_project (IAnjutaProjectBackend* backend, GFile *file, GError** err)
 {
 	IAnjutaProject *project;
+	IAnjutaLanguage* langman;
+
 	DEBUG_PRINT("create new amp project");	
 
-	project = (IAnjutaProject *)amp_project_new (file, err);
+	langman = anjuta_shell_get_interface (ANJUTA_PLUGIN (backend)->shell, IAnjutaLanguage, NULL);
+	project = (IAnjutaProject *)amp_project_new (file, langman, err);
 		
 	return project;
 }

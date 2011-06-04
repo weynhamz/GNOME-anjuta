@@ -24,6 +24,7 @@
 
 #include "am-project.h"
 #include "command-queue.h"
+#include <libanjuta/interfaces/ianjuta-language.h>
 
 G_BEGIN_DECLS
 
@@ -76,6 +77,9 @@ struct _AmpProject {
 
 	/* Command queue */
 	PmCommandQueue *queue;
+
+	/* Language Manager */
+	IAnjutaLanguage *lang_manager;
 };
 
 typedef struct _AmpNodeInfo AmpNodeInfo;

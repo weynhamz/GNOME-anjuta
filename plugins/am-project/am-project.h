@@ -30,6 +30,7 @@
 #include <libanjuta/anjuta-token.h>
 #include <libanjuta/anjuta-token-file.h>
 #include <libanjuta/anjuta-token-list.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 
 G_BEGIN_DECLS
 
@@ -46,6 +47,7 @@ typedef struct _AmpModuleNode AmpModuleNode;
 typedef struct _AmpPackageNode AmpPackageNode;
 typedef struct _AmpGroupNode AmpGroupNode;
 typedef struct _AmpTargetNode AmpTargetNode;
+typedef struct _AmpObjectNode AmpObjectNode;
 typedef struct _AmpSourceNode AmpSourceNode;
 
 struct _AmpProjectClass {
@@ -55,7 +57,7 @@ struct _AmpProjectClass {
 typedef struct _AmpProperty AmpProperty;
 
 GType         amp_project_get_type (void);
-AmpProject   *amp_project_new      (GFile *file, GError **error);
+AmpProject   *amp_project_new      (GFile *file, IAnjutaLanguage *language, GError **error);
 
 void amp_project_register (GTypeModule *module);
 
