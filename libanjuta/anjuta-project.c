@@ -610,6 +610,7 @@ anjuta_project_node_get_file (const AnjutaProjectNode *node)
 {
 	switch (node->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
+	case ANJUTA_PROJECT_OBJECT:	
 	case ANJUTA_PROJECT_TARGET:
 		if ((node->name) && (node->parent != NULL) && (node->parent->file != NULL))
 		{
