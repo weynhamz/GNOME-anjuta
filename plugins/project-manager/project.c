@@ -242,7 +242,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 	/* Remove project properties dialogs */
 	if (project->properties_dialog != NULL) gtk_widget_destroy (project->properties_dialog);
 	project->properties_dialog = NULL;
-	
+
 	return TRUE;
 }
 

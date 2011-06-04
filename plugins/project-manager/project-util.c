@@ -33,25 +33,6 @@
 #include "project-util.h"
 
 GList *
-gbf_project_util_all_child (AnjutaProjectNode *parent, AnjutaProjectNodeType type)
-{
-    AnjutaProjectNode *node;
-    GList *list = NULL;
- 
-    for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
-    {
-        if ((type == ANJUTA_PROJECT_UNKNOWN) || (anjuta_project_node_get_node_type (node) == type))
-        {
-            list = g_list_prepend (list, node);
-        }
-    }
- 
-    list = g_list_reverse (list);
- 
-    return list;
-}
- 
-GList *
 gbf_project_util_node_all (AnjutaProjectNode *parent, AnjutaProjectNodeType type)
 {
     AnjutaProjectNode *node;

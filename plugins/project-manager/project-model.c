@@ -596,7 +596,7 @@ gbf_project_model_add_target_shortcut (GbfProjectModel *model,
 	/* add sources */
 	parent = gbf_tree_data_get_node (target);
 	for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
-		gbf_project_model_add_node (model, node, &iter);
+		gbf_project_model_add_node (model, node, &iter, 0);
 
 	gtk_tree_path_free (root_path);
 
@@ -654,7 +654,7 @@ gbf_project_model_move_target_shortcut (GbfProjectModel *model,
 		/* add sources */
 		parent = gbf_tree_data_get_node (shortcut->shortcut);
 		for (node = anjuta_project_node_first_child (parent); node; node = anjuta_project_node_next_sibling (node))
-			gbf_project_model_add_node (model, node, iter);
+			gbf_project_model_add_node (model, node, iter, 0);
 
 	}
 
@@ -666,10 +666,11 @@ gbf_project_model_move_target_shortcut (GbfProjectModel *model,
 void
 gbf_project_model_add_node (GbfProjectModel    	   *model,
                             AnjutaProjectNode	   *node,
-                            GtkTreeIter            *parent)
+                            GtkTreeIter            *parent,
+                            AnjutaProjectNodeType only_type)
 {
 	GtkTreeIter iter;
-	GbfTreeData *data;
+	GbfTreeData *data = NULL;
 	AnjutaProjectNode *child;
 	AnjutaProjectNodeType child_types[] = {ANJUTA_PROJECT_GROUP,
 		ANJUTA_PROJECT_TARGET,
@@ -680,32 +681,49 @@ gbf_project_model_add_node (GbfProjectModel    	   *model,
 	AnjutaProjectNodeType *type;
 
 	if (node == NULL) return;
-	
-	data = gbf_tree_data_new_node (node);
-	gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
-	gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
-			    GBF_PROJECT_MODEL_COLUMN_DATA, data,
-			    -1);
 
-	/* add children */
-	for (type = child_types; *type != 0; type++)
+	
+	if ((only_type == 0) || (anjuta_project_node_get_node_type (node) == only_type))
 	{
-		for (child = anjuta_project_node_first_child (node); child != NULL; child = anjuta_project_node_next_sibling (child))
+		if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_OBJECT)
 		{
-			if (anjuta_project_node_get_node_type (child) == *type)
+			data = gbf_tree_data_new_node (node);
+			gtk_tree_store_append (GTK_TREE_STORE (model), &iter, parent);
+			gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+					    GBF_PROJECT_MODEL_COLUMN_DATA, data,
+					    -1);
+		}
+		else
+		{
+			/* Hidden node */
+			iter = *parent;
+		}
+		
+		/* add children */
+		for (type = child_types; *type != 0; type++)
+		{
+			for (child = anjuta_project_node_first_child (node); child != NULL; child = anjuta_project_node_next_sibling (child))
 			{
-				gbf_project_model_add_node (model, child, &iter);
+				gbf_project_model_add_node (model, child, &iter, *type);
 			}
 		}
-	}
 
-	/* Add shortcut if needed */
-	if ((data != NULL) && 
-	    model->priv->default_shortcut && 
-	    (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET) &&
-	    (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY))
+		/* Add shortcut if needed */
+		if ((data != NULL) && 
+	    		model->priv->default_shortcut && 
+	    		(anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET) &&
+	    		(anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_PRIMARY))
+		{
+			gbf_project_model_add_target_shortcut (model, NULL, data, NULL, NULL);
+		}
+	}
+	else if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_OBJECT)
 	{
-		gbf_project_model_add_target_shortcut (model, NULL, data, NULL, NULL);
+		/* Add only children */
+		for (child = anjuta_project_node_first_child (node); child != NULL; child = anjuta_project_node_next_sibling (child))
+		{
+			gbf_project_model_add_node (model, child, parent, only_type);
+		}
 	}
 }
 
@@ -715,7 +733,7 @@ load_project (GbfProjectModel *model, AnjutaPmProject *proj)
 	model->priv->proj = proj;
 	g_object_ref (proj);
 
-	gbf_project_model_add_node (model, anjuta_pm_project_get_root (proj), NULL);
+	gbf_project_model_add_node (model, anjuta_pm_project_get_root (proj), NULL, 0);
 }
 
 static void 

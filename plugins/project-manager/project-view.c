@@ -942,6 +942,32 @@ compare_node_name (gconstpointer a, gconstpointer b)
 	return g_strcmp0 (anjuta_project_node_get_name (node), name);
 }
 
+static GList *
+list_visible_children (AnjutaProjectNode *parent)
+{
+ 	AnjutaProjectNode *node;
+	GList *list = NULL;
+
+	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
+	{
+		if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_OBJECT)
+		{
+			list = g_list_prepend (list, node);    
+		}
+		else
+		{
+			/* object node are hidden, get their children instead */
+			GList *children = list_visible_children (node);
+
+			children = g_list_reverse (children);
+			list = g_list_concat (children, list);
+		}
+	}
+	list = g_list_reverse (list);
+ 
+	return list;
+}
+ 
 void
 gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, GtkTreeIter *iter)
 {
@@ -951,7 +977,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 	GbfTreeData *data = NULL;
 
 	/* Get all new nodes */
-	nodes = gbf_project_util_all_child (parent, ANJUTA_PROJECT_UNKNOWN);
+	nodes = list_visible_children (parent);
 
 	/* walk the tree nodes */
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (view->model), &child, iter))
@@ -1064,7 +1090,7 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 	/* add the remaining sources, targets and groups */
 	for (node = nodes; node; node = node->next)
 	{
-		gbf_project_model_add_node (view->model, node->data, iter);
+		gbf_project_model_add_node (view->model, node->data, iter, 0);
 	}
 
 	/* Expand parent, needed if the parent hasn't any children when it was created */
@@ -1430,7 +1456,7 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 
 				if (!gbf_project_model_find_child_name (view->model, &iter, NULL, anjuta_project_node_get_name (node)))
 				{
-					gbf_project_model_add_node (view->model, node, NULL);
+					gbf_project_model_add_node (view->model, node, NULL, 0);
 					gtk_tree_model_get_iter_first (GTK_TREE_MODEL (view->model), &iter);
 				}
 				else

@@ -30,9 +30,6 @@
 
 G_BEGIN_DECLS
 
-GList * gbf_project_util_all_child (AnjutaProjectNode *parent,
-                                        AnjutaProjectNodeType type);
-
 GList * gbf_project_util_node_all (AnjutaProjectNode *parent,
                                         AnjutaProjectNodeType type);
 

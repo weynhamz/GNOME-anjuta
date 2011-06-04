@@ -38,10 +38,10 @@
 
 #include "plugin.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-project-manager.xml"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-project-manager-plugin.ui"
+#define UI_FILE PACKAGE_DATA_DIR "/ui/anjuta-project-manager.xml"
+#define PREFS_GLADE PACKAGE_DATA_DIR "/glade/anjuta-project-manager-plugin.ui"
 #define ICON_FILE "anjuta-project-manager-plugin-48.png"
-#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
+#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR "/profiles/default.profile"
 #define PROJECT_PROFILE_NAME "project"
 
 #define INT_TO_GBOOLEAN(i) ((i) ? TRUE : FALSE)
@@ -1845,6 +1845,33 @@ get_tree_iter_from_file (ProjectManagerPlugin *plugin, GtkTreeIter* iter, GFile 
 	return found ? iter : NULL;
 }
 
+static gboolean
+project_node_compare (AnjutaProjectNode *node, gpointer data)
+{
+	GFile *file = (GFile *)data;
+
+	switch (anjuta_project_node_get_node_type (node))
+	{
+	case ANJUTA_PROJECT_GROUP:
+	case ANJUTA_PROJECT_SOURCE:
+	case ANJUTA_PROJECT_OBJECT:
+	case ANJUTA_PROJECT_TARGET:
+		return g_file_equal (anjuta_project_node_get_file (node), file);
+	default:
+		return FALSE;
+	}
+}
+
+static AnjutaProjectNode *
+get_node_from_file (const AnjutaProjectNode *root, GFile *file)
+{
+	AnjutaProjectNode *node;
+	
+	node = anjuta_project_node_traverse ((AnjutaProjectNode *)root, G_PRE_ORDER, project_node_compare, file);
+
+	return node;
+}
+
 static AnjutaProjectNodeType
 get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 {
@@ -1893,7 +1920,6 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {
 	ProjectManagerPlugin *plugin;
-	AnjutaProjectNode *target;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
 						  ANJUTA_PROJECT_UNKNOWN);
@@ -1902,17 +1928,20 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
 						  ANJUTA_PROJECT_UNKNOWN);
-	
-	target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_TARGET,  target_file);
 
-	if (target != NULL)
+	if (plugin->project !=  NULL)
 	{
-		return anjuta_project_node_get_node_type (target);
+		AnjutaProjectNode *node;
+
+		node = anjuta_pm_project_get_root  (plugin->project);
+		if (node != NULL)
+		{
+			node = get_node_from_file (node, target_file);
+			if (node != NULL) return anjuta_project_node_get_node_type (node);
+		}
 	}
-	else
-	{
-		return ANJUTA_PROJECT_UNKNOWN;
-	}
+	
+	return ANJUTA_PROJECT_UNKNOWN;
 }
 static GList*
 iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
@@ -1943,16 +1972,26 @@ iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
 							 GFile *element,
 							 GError **err)
 {
-	AnjutaProjectNodeType type;
 	ProjectManagerPlugin *plugin;
+	GFile *file = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	
-	type = get_element_type (plugin, element);
-	/* FIXME: */
-	return NULL;
+	if (plugin->project !=  NULL)
+	{
+		AnjutaProjectNode *node;
+
+		node = anjuta_pm_project_get_root  (plugin->project);
+		if (node != NULL)
+		{
+			node = get_node_from_file (node, element);
+			if (node != NULL) node = anjuta_project_node_parent (node);
+			if (node != NULL) file = g_object_ref (anjuta_project_node_get_file (node));
+		}
+	}
+
+	return file;
 }
 
 static GList*

@@ -86,7 +86,8 @@ AnjutaProjectNode *gbf_project_model_get_node        (GbfProjectModel *model,
 
 void             gbf_project_model_add_node         (GbfProjectModel    	   *model,
                                                      AnjutaProjectNode	   *package,
-                                                     GtkTreeIter            *parent);
+                                                     GtkTreeIter            *parent,
+                                                     AnjutaProjectNodeType only_type);
 
 void            gbf_project_model_add_target_shortcut       (GbfProjectModel *model,
                                                              GtkTreeIter     *shortcut,

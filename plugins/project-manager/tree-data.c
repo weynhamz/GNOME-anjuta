@@ -265,6 +265,49 @@ gbf_tree_data_new_target (AnjutaProjectNode *target)
 }
 
 GbfTreeData *
+gbf_tree_data_new_object (AnjutaProjectNode *node)
+{
+	GbfTreeData *data = g_slice_new0 (GbfTreeData);
+	GFileInfo *ginfo;
+	AnjutaProjectNode *parent;
+	
+	data->type = GBF_TREE_NODE_OBJECT;
+	data->node = node;
+
+	data->source = g_object_ref (anjuta_project_node_get_file (node));
+	
+	ginfo = g_file_query_info (data->source,
+	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+	    G_FILE_QUERY_INFO_NONE,
+	    NULL, NULL);
+	if (ginfo)
+	{
+		data->name = g_strdup (g_file_info_get_display_name (ginfo));
+	        g_object_unref(ginfo);
+	}
+	else
+	{
+		data->name = g_file_get_basename (data->source);
+	}
+
+	parent = anjuta_project_node_parent (node);
+	if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+	{
+		data->group = g_object_ref (anjuta_project_node_get_file (parent));
+	}
+	else if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
+	{
+		AnjutaProjectNode *group;
+		
+		group = anjuta_project_node_parent (parent);
+		data->group = g_object_ref (anjuta_project_node_get_file (group));
+		data->target = g_strdup (anjuta_project_node_get_name (parent));
+	}
+
+	return data;
+}
+
+GbfTreeData *
 gbf_tree_data_new_source (AnjutaProjectNode *source)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
@@ -355,6 +398,9 @@ gbf_tree_data_new_node (AnjutaProjectNode *node)
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			data = gbf_tree_data_new_target(node);
+			break;
+		case ANJUTA_PROJECT_OBJECT:
+			data = gbf_tree_data_new_object (node);
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			data = gbf_tree_data_new_source (node);
