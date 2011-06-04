@@ -58,7 +58,7 @@
 #define ANJUTA_PIXMAP_BUILD            "anjuta-build"
 #define ANJUTA_STOCK_BUILD             "anjuta-build"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.xml"
+#define UI_FILE PACKAGE_DATA_DIR "/ui/anjuta-build-basic-autotools-plugin.xml"
 #define MAX_BUILD_PANES 3
 #define PREF_SCHEMA "org.gnome.anjuta.build"
 #define PREF_INDICATORS_AUTOMATIC "build-indicators-automatic"
@@ -578,11 +578,11 @@ build_regex_load ()
 	if (patterns_list)
 		return;
 	
-	fp = fopen (PACKAGE_DATA_DIR"/build/automake-c.filters", "r");
+	fp = fopen (PACKAGE_DATA_DIR "/build/automake-c.filters", "r");
 	if (fp == NULL)
 	{
 		DEBUG_PRINT ("Failed to load filters: %s",
-				   PACKAGE_DATA_DIR"/build/automake-c.filters");
+				   PACKAGE_DATA_DIR "/build/automake-c.filters");
 		return;
 	}
 	while (!feof (fp) && !ferror (fp))
@@ -1824,70 +1824,93 @@ static BuildContext*
 build_compile_file (BasicAutotoolsPlugin *plugin, const gchar *filename)
 {
 	BuildContext *context = NULL;
-	gchar *build_dir;
-	gchar *src_dir;
-	gchar *target;
-	gchar *ext_ptr;
-	gboolean ret;	
+	GFile *file;
+	gchar *target = NULL;
+	gboolean ret;
+	IAnjutaProjectManager* projman;
 	
 	g_return_val_if_fail (filename != NULL, FALSE);
 	ret = FALSE;
 
-	src_dir = g_path_get_dirname (filename);
-	build_dir = build_dir_from_source (plugin, src_dir);
-	g_free (src_dir);
-	target = g_path_get_basename (filename);
-	ext_ptr = strrchr (target, '.');
-	if (ext_ptr)
-	{
-		GFile* file = g_file_new_for_path (filename);
-		GFileInfo* file_info = g_file_query_info (file,
-		                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-		                                          G_FILE_QUERY_INFO_NONE,
-		                                          NULL,
-		                                          NULL);
-		if (file_info)
-		{
-			const gchar *new_ext;
-			IAnjutaLanguage* langman =
-				anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-				                            IAnjutaLanguage,
+	file = g_file_new_for_path (filename);
+	
+	projman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+				                            IAnjutaProjectManager,
 				                            NULL);
-			gint id = ianjuta_language_get_from_mime_type (langman,
-			                                               g_file_info_get_content_type (file_info),
-			                                               NULL);
-			DEBUG_PRINT ("Found mime-type: %s", g_file_info_get_content_type (file_info));
-			if (id > 0)
+	if (projman != NULL)
+	{
+		/* Use the project manager to find the object file */		
+		GFile *target_file;
+		
+		target_file = ianjuta_project_manager_get_parent (projman, file, NULL);
+		if (target_file != NULL)
+		{
+			if (ianjuta_project_manager_get_target_type (projman, target_file, NULL) == ANJUTA_PROJECT_OBJECT)
 			{
-				new_ext = ianjuta_language_get_make_target (langman, id, NULL);
-				if (new_ext)
-				{
-					BuildProgram *prog;
-
-					DEBUG_PRINT ("New extension: %s", new_ext);
-
-					*ext_ptr = '\0';
-					prog = build_program_new_with_command (build_dir, "%s %s%s",
-					                                       CHOOSE_COMMAND (plugin, COMPILE),
-					                                       target, new_ext);
-					context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
-					ret = TRUE;
-				}
+				target = g_file_get_basename (target_file);
 			}
+			g_object_unref (target_file);
 		}
 	}
-	else {
+	else
+	{
+		/* Use language plugin trying to find an object file */	
+		IAnjutaLanguage* langman =	anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+			                                                      IAnjutaLanguage,
+			                                                      NULL);
+
+		if (langman != NULL)
+		{
+			GFileInfo* file_info;
+
+			file_info = g_file_query_info (file,
+				                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				                                          G_FILE_QUERY_INFO_NONE,
+		    		                                      NULL,
+		        		                                  NULL);
+			if (file_info)
+			{
+				gint id = ianjuta_language_get_from_mime_type (langman,
+			    	                                           g_file_info_get_content_type (file_info),
+			        	                                       NULL);
+				if (id > 0)
+				{
+					const gchar *obj_ext = ianjuta_language_get_make_target (langman, id, NULL);
+					gchar *basename;
+					gchar *ext;
+
+					basename = g_file_get_basename (file);
+					ext = strrchr (basename, '.');
+					if ((ext != NULL) && (ext != basename)) *ext = '\0';
+					target = g_strconcat (basename, obj_ext, NULL);
+					g_free (basename);
+				}
+			}
+			g_object_unref (file_info);
+		}
+	}
+	g_object_unref (file);
+		
+	if (target != NULL)
+	{
 		/* If file has no extension, take it as target itself */
 		BuildProgram *prog;
+		gchar *build_dir;
+		gchar *src_dir;
+
+		/* Find target directory */
+		src_dir = g_path_get_dirname (filename);
+		build_dir = build_dir_from_source (plugin, src_dir);
+		g_free (src_dir);
 
 		prog = build_program_new_with_command (build_dir, "%s %s",
 		                                       CHOOSE_COMMAND(plugin, COMPILE),
 		                                       target);
+		g_free (build_dir);
 		context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
 		ret = TRUE;
 	}
 	g_free (target);
-	g_free (build_dir);
 	
 	if (ret == FALSE)
 	{

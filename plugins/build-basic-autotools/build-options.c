@@ -30,7 +30,7 @@
 /* Constants
  *---------------------------------------------------------------------------*/
 
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.ui"
+#define BUILDER_FILE PACKAGE_DATA_DIR "/glade/anjuta-build-basic-autotools-plugin.ui"
 
 #define CONFIGURE_DIALOG "configure_dialog"
 #define RUN_AUTOGEN_CHECK "force_autogen_check"
