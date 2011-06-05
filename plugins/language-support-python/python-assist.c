@@ -29,6 +29,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
@@ -37,6 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h> 
+#include <libanjuta/anjuta-plugin.h>
 #include "python-assist.h"
 #include "python-utils.h"
 
@@ -51,6 +53,9 @@
 
 #define AUTOCOMPLETE_SCRIPT SCRIPTS_DIR"/anjuta-python-autocomplete.py"
 
+#define AUTOCOMPLETE_REGEX_IN_GET_OBJECT "get_object\\s*\\(\\s*['\"]\\w*$"
+#define FILE_LIST_DELIMITER "|"
+
 
 static void python_assist_iface_init(IAnjutaProviderIface* iface);
 
@@ -64,6 +69,7 @@ G_DEFINE_TYPE_WITH_CODE (PythonAssist,
 typedef struct
 {
 	gchar *name;
+	gchar *info;
 	gboolean is_func;
 	IAnjutaSymbolType type;
 } PythonAssistTag;
@@ -77,6 +83,7 @@ struct _PythonAssistPriv {
 	IAnjutaEditor* editor;
 	AnjutaLauncher* launcher;
 	AnjutaLauncher* calltip_launcher;	
+	AnjutaPlugin* plugin;
 
 	const gchar* project_root;
 	const gchar* editor_filename;
@@ -140,8 +147,8 @@ is_scope_context_character (gchar ch)
 
 static gchar* 
 python_assist_get_scope_context (IAnjutaEditor* editor,
-								   const gchar *scope_operator,
-								   IAnjutaIterable *iter)
+                                 const gchar *scope_operator,
+                                 IAnjutaIterable *iter)
 {
 	IAnjutaIterable* end;
 	gchar ch, *scope_chars = NULL;
@@ -298,7 +305,7 @@ static void
 python_assist_update_autocomplete (PythonAssist *assist)
 {
 	GList *node, *suggestions = NULL;
-	GList* completion_list = g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
+	GList *completion_list = g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
 	
 	for (node = completion_list; node != NULL; node = g_list_next (node))
 	{
@@ -309,12 +316,14 @@ python_assist_update_autocomplete (PythonAssist *assist)
 			proposal->label = g_strdup_printf ("%s()", tag->name);
 		else
 			proposal->label = g_strdup(tag->name);
-
+		
+		if (tag->info)
+			proposal->info = g_strdup(tag->info);
 		proposal->data = tag;
 		suggestions = g_list_prepend (suggestions, proposal);
 	}
 	suggestions = g_list_reverse (suggestions);
-	/* Hide is the only suggetions is exactly the typed word */
+	/* Hide if the only suggetions is exactly the typed word */
 	if (!(g_list_length (suggestions) == 1 && 
 	      g_str_equal (((PythonAssistTag*)(suggestions->data))->name, assist->priv->pre_word)))
 	{
@@ -399,7 +408,7 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 		GStrv cur_comp;
 		GList* suggestions = NULL;
 		GError *err = NULL;
-		GRegex* regex = g_regex_new ("(\\w+) \\((\\w+), (\\w+)\\)",
+		GRegex* regex = g_regex_new ("\\|(.+)\\|(.+)\\|(.+)\\|(.+)\\|(.+)\\|",
 		                             0, 0, &err);
 		if (err)
 		{
@@ -416,20 +425,36 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 			
 			g_regex_match (regex, *cur_comp, 0, &match_info);
 			if (g_match_info_matches (match_info) && 
-			    g_match_info_get_match_count (match_info) == 4)
+			    g_match_info_get_match_count (match_info) == 6)
 			{
 				gchar* type = g_match_info_fetch (match_info, 3); 
+				gchar* location = g_match_info_fetch (match_info, 4); 
+				gchar* info = g_match_info_fetch (match_info, 5); 
 				tag = g_new0 (PythonAssistTag, 1);
 				tag->name = g_match_info_fetch (match_info, 1);
+
+				/* info will be set to "_" if there is no relevant info */
+				tag->info = NULL; 
+				if (!g_str_equal(info, "_"))
+					tag->info = g_strdup(info);
+				
 
 				if (g_str_equal(type, "function") || g_str_equal (type, "builtin"))
 				{
 					tag->type = IANJUTA_SYMBOL_TYPE_FUNCTION;
 					tag->is_func = TRUE;
 				}
+				else if (g_str_equal(type, "builder_object"))
+				{
+					tag->type = IANJUTA_SYMBOL_TYPE_EXTERNVAR;
+					if (!g_str_equal(location, "_"))
+						tag->info = g_strdup(location);
+				}
 				else
 					tag->type = IANJUTA_SYMBOL_TYPE_VARIABLE;
 				g_free (type);
+				g_free (info);
+				g_free (location);
 				
 				if (!g_list_find_custom (suggestions, tag, completion_compare))
 				{
@@ -465,6 +490,8 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 	const gchar *project = assist->priv->project_root;
 	gchar *interpreter_path;
 	gchar *ropecommand;
+	GString *builder_file_paths = g_string_new("");
+	GList *project_files_list, *node;
 
 	gchar *source = ianjuta_editor_get_text_all (editor, NULL);
 	gchar *tmp_file;
@@ -482,12 +509,32 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 
 	if (!tmp_file)
 		return FALSE;
-	
-	ropecommand = g_strdup_printf("%s %s -o autocomplete -p \"%s\" -r \"%s\" -s \"%s\" -f %d", 
-	                              interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
-	                              cur_filename, tmp_file, offset);
 
+	/* Get a list of all the builder files in the project */
+	IAnjutaProjectManager *manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (assist->priv->plugin)->shell,
+								     IAnjutaProjectManager,
+								     NULL);
+	project_files_list = ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (manager), 
+								   ANJUTA_PROJECT_SOURCE, 
+								   NULL);
+	for (node = project_files_list; node != NULL; node = g_list_next (node))
+	{
+		gchar *file_path = g_file_get_path (node->data);
+		builder_file_paths = g_string_append (builder_file_paths, FILE_LIST_DELIMITER);
+		builder_file_paths = g_string_append (builder_file_paths, file_path);
+		g_free (file_path);
+		g_object_unref (node->data);
+	}
+	g_list_free (project_files_list);
+	
+	ropecommand = g_strdup_printf("%s %s -o autocomplete -p \"%s\" -r \"%s\" -s \"%s\" -f %d -b \"%s\"", 
+	                              interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
+	                              cur_filename, tmp_file, offset, builder_file_paths->str);
+
+	g_string_free (builder_file_paths, TRUE);
 	g_free (tmp_file);
+
+	DEBUG_PRINT("%s", ropecommand);
 
 	/* Exec command and wait for results */
 	assist->priv->launcher = anjuta_launcher_new ();
@@ -763,8 +810,9 @@ python_assist_none (IAnjutaProvider* self,
 	                                 NULL, TRUE, NULL);
 }
 
+/* returns TRUE if a '.', "'", or '"' preceeds the cursor position */
 static gint
-python_assist_dot (IAnjutaEditor* editor,
+python_assist_completion_trigger_char (IAnjutaEditor* editor,
                    IAnjutaIterable* cursor)
 {
 	IAnjutaIterable* iter = ianjuta_iterable_clone (cursor, NULL);
@@ -774,12 +822,11 @@ python_assist_dot (IAnjutaEditor* editor,
 	{
 		gchar c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 		                                        0, NULL);
-		retval = (c == '.');
+		retval = ((c == '.') || (c == '\'') || (c == '"'));
 	}
 	g_object_unref (iter);
 	return retval;
 }
-		    
 
 static void
 python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError** e)
@@ -787,7 +834,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	PythonAssist* assist = PYTHON_ASSIST (self);
 	IAnjutaIterable* start_iter = NULL;
 	gchar* pre_word;
-	gboolean dot;
+	gboolean completion_trigger_char;
 
 	/* Check for calltip */
 	if (assist->priv->itip && 
@@ -808,8 +855,7 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 	/* Check if this is a valid text region for completion */
 	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(cursor),
 	                                                                   NULL);
-	if (attrib == IANJUTA_EDITOR_STRING ||
-	    attrib == IANJUTA_EDITOR_COMMENT)
+	if (attrib == IANJUTA_EDITOR_COMMENT)
 	{
 		python_assist_none (self, assist);
 		return;
@@ -841,10 +887,14 @@ python_assist_populate (IAnjutaProvider* self, IAnjutaIterable* cursor, GError**
 		DEBUG_PRINT ("Cancelling autocomplete");
 		python_assist_destroy_completion_cache (assist);
 	}
-	dot = python_assist_dot (IANJUTA_EDITOR (assist->priv->iassist),
+
+	/* Autocompletion should not be triggered if we haven't started typing a word unless
+	 * we just typed . or ' or "
+	 */
+	completion_trigger_char = python_assist_completion_trigger_char (IANJUTA_EDITOR (assist->priv->iassist),
 	                         cursor);
-	if (((pre_word && strlen (pre_word) >= 3) || dot) && 
-	    python_assist_create_word_completion_cache (assist, cursor))
+	if ( (( (pre_word && strlen (pre_word) >= 3) || completion_trigger_char ) && 
+	    python_assist_create_word_completion_cache (assist, cursor)) )
 	{
 		DEBUG_PRINT ("New autocomplete for %s", pre_word);
 		if (assist->priv->start_iter)
@@ -1003,6 +1053,7 @@ PythonAssist *
 python_assist_new (IAnjutaEditorAssist *iassist,
                    IAnjutaSymbolManager *isymbol_manager,
                    IAnjutaDocumentManager *idocument_manager,
+                   AnjutaPlugin *plugin,
                    GSettings* settings,
                    const gchar *editor_filename,
                    const gchar *project_root)
@@ -1013,7 +1064,8 @@ python_assist_new (IAnjutaEditorAssist *iassist,
 	assist->priv->editor_filename = editor_filename;
 	assist->priv->settings = settings;
 	assist->priv->project_root = project_root;
-	assist->priv->editor=(IAnjutaEditor*)iassist;
+	assist->priv->editor = (IAnjutaEditor*)iassist;
+	assist->priv->plugin = plugin;
 	python_assist_install (assist, IANJUTA_EDITOR (iassist));
 	return assist;
 }

@@ -321,6 +321,7 @@ install_support (PythonPlugin *lang_plugin)
 		lang_plugin->assist = python_assist_new (iassist,
 		                                         sym_manager,
 		                                         docman,
+		                                         plugin,
 		                                         lang_plugin->settings,
 		                                         editor_filename,
 		                                         project_root);
