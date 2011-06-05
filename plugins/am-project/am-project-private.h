@@ -33,6 +33,7 @@ typedef enum {
 	AM_PROPERTY_IN_MAKEFILE = 1 << 1,
 	AM_PROPERTY_DIRECTORY = 1 << 2,						/* Directory property (having dir suffix) */
 	AM_PROPERTY_DISABLE_FOLLOWING = 1 << 3,		/* Disable following property if true */
+	AM_PROPERTY_COMPILATION_FLAG = 1 << 4			/* Target compilation flags, need a specific object */
 } AmpPropertyFlag;
 
 

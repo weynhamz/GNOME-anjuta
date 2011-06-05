@@ -906,6 +906,7 @@ project_load_target (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken
 					anjuta_project_node_append (ANJUTA_PROJECT_NODE (target), child);
 					g_object_unref (child);
 				}
+				amp_target_changed (target);
 				g_free (orig_key);
 				amp_target_node_free (orphan);
 			}
@@ -1062,6 +1063,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 
 			g_free (value);
 		}
+		amp_target_changed (target);
 	}
 
 	g_object_unref (group_file);
@@ -1232,6 +1234,7 @@ project_load_target_properties (AmpProject *project, AnjutaProjectNode *parent, 
 		/* Add property to target */
 		amp_node_property_add (parent, prop);
 		amp_target_node_add_token (AMP_TARGET_NODE (parent), type, variable);
+		amp_target_changed (AMP_TARGET_NODE (parent));
 	}
 
 	return NULL;

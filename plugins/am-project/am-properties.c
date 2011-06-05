@@ -392,7 +392,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C preprocessor flags for this target.")},
 		AM_TOKEN_TARGET_CPPFLAGS,	0, "_CPPFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("C compiler flags:"),
@@ -400,7 +400,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C compiler flags for this target.")},
 		AM_TOKEN_TARGET_CFLAGS, 0, 	"_CFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("C++ compiler flags:"),
@@ -408,7 +408,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional C++ compiler flags for this target.")},
 		AM_TOKEN_TARGET_CXXFLAGS,	0, "_CXXFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Java compiler flags:"),
@@ -416,7 +416,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Java compiler flags for this target.")},
 		AM_TOKEN_TARGET_JAVACFLAGS, 0, "_JAVACFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Vala compiler flags:"),
@@ -424,7 +424,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional Vala compiler flags for this target.")},
 		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Fortran compiler flags:"),	
@@ -432,7 +432,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
 		AM_TOKEN_TARGET_FCFLAGS, 0, "_FCFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Objective C compiler flags:"),
@@ -440,7 +440,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Objective C compiler flags for this target.")},
 		AM_TOKEN_TARGET_OBJCFLAGS, 0, "_OBJCFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Lex/Flex flags:"),
@@ -448,7 +448,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
 		AM_TOKEN_TARGET_LFLAGS, 0, "_LFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Yacc/Bison flags:"),
@@ -456,7 +456,7 @@ static AmpProperty AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Yacc or Bison parser generator flags for this target.")},
 		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Additional dependencies:"),
@@ -549,7 +549,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C preprocessor flags for this target.")},
 		AM_TOKEN_TARGET_CPPFLAGS,	0, "_CPPFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("C compiler flags:"),
@@ -557,7 +557,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C compiler flags for this target.")},
 		AM_TOKEN_TARGET_CFLAGS, 0, 	"_CFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("C++ compiler flags:"),
@@ -565,7 +565,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional C++ compiler flags for this target.")},
 		AM_TOKEN_TARGET_CXXFLAGS,	0, "_CXXFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Java compiler flags:"),
@@ -573,7 +573,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Java compiler flags for this target.")},
 		AM_TOKEN_TARGET_JAVACFLAGS, 0, "_JAVACFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Vala compiler flags:"),
@@ -581,7 +581,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional Vala compiler flags for this target.")},
 		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Fortran compiler flags:"),	
@@ -589,7 +589,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
 		AM_TOKEN_TARGET_FCFLAGS, 0, "_FCFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Objective C compiler flags:"),
@@ -597,7 +597,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Objective C compiler flags for this target.")},
 		AM_TOKEN_TARGET_OBJCFLAGS, 0, "_OBJCFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Lex/Flex flags:"),
@@ -605,7 +605,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
 		AM_TOKEN_TARGET_LFLAGS, 0, "_LFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Yacc/Bison flags:"),
@@ -613,7 +613,7 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Yacc or Bison parser generator flags for this target.")},
 		AM_TOKEN_TARGET_YFLAGS,	0, 	"_YFLAGS",
-		AM_PROPERTY_IN_MAKEFILE
+		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
 		{N_("Additional dependencies:"),

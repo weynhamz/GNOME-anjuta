@@ -267,6 +267,74 @@ amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node)
 	new_node->tokens = NULL;
 }
 
+/* The target has changed which could change its children */
+void
+amp_target_changed (AmpTargetNode *node)
+{
+	GList *item;
+	gboolean custom = FALSE;
+
+	for (item = ANJUTA_PROJECT_NODE (node)->custom_properties; item != NULL; item = g_list_next (item))
+	{
+		AmpProperty *prop = (AmpProperty *)item->data;
+
+		custom = ((AmpProperty *)prop->base.native)->flags & AM_PROPERTY_COMPILATION_FLAG;
+		if (custom) break;
+	}
+
+	if (custom)
+	{
+		/* Update object name if the target has some custom properties */
+		AnjutaProjectNode *child;
+
+		for (child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (node)); child != NULL; child = anjuta_project_node_next_sibling (child))
+		{
+			if (anjuta_project_node_get_node_type (child) == ANJUTA_PROJECT_OBJECT)
+			{
+				if (child->file != NULL)
+				{
+					AnjutaProjectNode *source = anjuta_project_node_first_child (child);
+
+					if (source != NULL)
+					{
+						gchar *obj_name;
+						const gchar *obj_ext;
+						
+						if (child->name != NULL)
+						{
+							g_free (child->name);
+							child->name = NULL;
+						}
+						obj_name = g_file_get_basename (child->file);
+						obj_ext = strrchr (obj_name, '.');
+						if ((obj_ext != NULL)  && (obj_ext != obj_name))
+						{
+							GFile *src_dir;
+							gchar *src_name;
+							gchar *src_ext;
+							gchar *new_name;
+							
+							src_dir = g_file_get_parent (source->file);
+							src_name = g_file_get_basename (source->file);
+							src_ext = strrchr (src_name, '.');
+							if ((src_ext != NULL) && (src_ext != src_name)) *src_ext = '\0';
+							new_name = g_strconcat (node->base.name, "-", src_name, obj_ext, NULL);
+
+							g_object_unref (child->file);
+							child->file = g_file_get_child (src_dir, new_name);
+
+							g_free (new_name);
+							g_free (src_name);
+							g_object_unref (src_dir);
+						}
+						g_free (obj_name);
+					}
+				}
+			}
+		}
+	}
+}
+
 AmpTargetNode*
 amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags)
 {

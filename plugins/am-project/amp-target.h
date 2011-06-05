@@ -72,6 +72,7 @@ AmpTargetNode* amp_target_node_new (const gchar *name, AnjutaProjectNodeType typ
 AmpTargetNode* amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error);
 void amp_target_node_free (AmpTargetNode *node);
 void amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node);
+void amp_target_changed (AmpTargetNode *node);
 
 G_END_DECLS
 
