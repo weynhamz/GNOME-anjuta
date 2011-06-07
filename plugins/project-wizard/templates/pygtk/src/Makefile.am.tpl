@@ -4,7 +4,7 @@
 
 [+IF (=(get "HaveBuilderUI") "1")+]
 uidir = $(datadir)/[+NameHLower+]/ui
-ui_DATA = ../data/[+NameHLower+].ui
+ui_DATA = [+NameHLower+].ui
 [+ENDIF+]
 
 ## The main script
