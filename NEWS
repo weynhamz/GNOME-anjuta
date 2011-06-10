@@ -1,3 +1,16 @@
+Anjuta 3.0.3 "Berg 2011" (10 June 2011) -- Johannes Schmid
+
+Bugs fixed:
+glade: Load widgets correctly on startup (bgo# 651670)
+project-wizard: bug #650930 - anjuta-3.x project wizard fails to detect autogen-5.11.x
+project-wizard: bug #652017 - Default pygtk Makefile.am has incorrect path for ui file
+file-manager: bgo#578511 - after vcs update the files' icons don't get updated
+build-basic-autotools rh#707734 - Remove reference to non-existing scratchbox option
+
+Thanks to:
+Alexandre Rostovtsev, Jason Siefken, Massimo Corà, Sébastien Granjoux,
+Tamara Atanasoska
+
 Anjuta 3.0.2 "Summertime" (23 May 2011) -- Johannes Schmid
 
 Fixes:
