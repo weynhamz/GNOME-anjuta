@@ -172,6 +172,43 @@ on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 }
 
 static void
+on_document_mapped (GtkWidget* doc, GladePlugin* plugin)
+{
+	GladeProject* project = glade_design_view_get_project (GLADE_DESIGN_VIEW (doc));
+	GladeEditor* editor = GLADE_EDITOR (plugin->priv->editor);
+	GList* glade_obj_node; 
+	GList* list = g_list_copy ((GList*)glade_project_get_objects (project));
+
+
+	gboolean first = TRUE;
+	
+	/* Select the all windows in the project, select the first */
+	for (glade_obj_node = list;
+	     glade_obj_node != NULL;
+	     glade_obj_node = g_list_next (glade_obj_node))
+	{
+		GObject *glade_obj = G_OBJECT (glade_obj_node->data);
+		GladeWidget* glade_widget = glade_widget_get_from_gobject (glade_obj);
+		if (glade_widget == glade_widget_get_toplevel (glade_widget))
+		{
+			glade_project_widget_visibility_changed (project, glade_widget, TRUE);
+			glade_editor_load_widget (editor, glade_widget);
+
+			if (first)
+			{
+				glade_project_selection_set (project, glade_obj, TRUE);
+				first = FALSE;
+			}
+		}
+	}
+	g_list_free (list);
+
+	/* Only do this on first map */
+	g_signal_handlers_disconnect_by_func (doc, G_CALLBACK (on_document_mapped),
+	                                      project);
+}
+
+static void
 on_shell_destroy (AnjutaShell* shell, GladePlugin *glade_plugin)
 {
 	glade_plugin->priv->destroying = TRUE;
@@ -282,8 +319,9 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 
 	/* Create document */
 	view = anjuta_design_document_new(glade_plugin, project);
-	g_signal_connect (G_OBJECT(view), "destroy",
+	g_signal_connect (view, "destroy",
 	                  G_CALLBACK (on_document_destroy), glade_plugin);
+	g_signal_connect (view, "map", G_CALLBACK (on_document_mapped), glade_plugin);
 	gtk_widget_show (view);
 	g_object_set_data (G_OBJECT (project), "design_view", view);
 
@@ -506,7 +544,6 @@ create_drag_resize_tool_button ()
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
 	GladePlugin *glade_plugin;
 	GladePluginPriv *priv;
 	AnjutaStatus* status;
@@ -516,7 +553,6 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	priv = glade_plugin->priv;
 
@@ -716,7 +752,6 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	gchar *filename;
 	IAnjutaDocumentManager* docman;
 	GList* docwids, *node;
-	GList *glade_obj_node;
 
 	g_return_if_fail (file != NULL);
 
@@ -784,20 +819,6 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
 	
-	/* Select the first window in the project */
-	for (glade_obj_node = (GList *) glade_project_get_objects (project);
-	     glade_obj_node != NULL;
-	     glade_obj_node = g_list_next (glade_obj_node))
-	{
-		GObject *glade_obj = G_OBJECT (glade_obj_node->data);
-		if (GTK_IS_WINDOW (glade_obj))
-		{
-			/* Workaround for bgo#642647 */
-			if (gtk_widget_get_visible (GTK_WIDGET (anjuta_plugin_get_shell (ANJUTA_PLUGIN (ifile)))))
-				glade_project_selection_set (project, glade_obj, TRUE);
-			break;
-		}
-	}
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->paned, NULL);
 }
 
