@@ -313,6 +313,10 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		/* Check if we have enough space for all widgets natural size */
 		child_equal = real_width / n_children - 
 			 n_children * 2 * (padding + tab_space) - 2 * tab_overlap;
+
+		if (child_equal < 0)
+			return;
+		
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
