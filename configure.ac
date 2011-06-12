@@ -293,10 +293,10 @@ AC_SUBST(LIBANJUTA_LIBS)
 
 dnl Setup FooCanvas Library flags
 dnl --------------------------
-LIBFOOCANVAS_CFLAGS='-I$(top_srcdir)'
-LIBFOOCANVAS_LIBS='$(top_builddir)/libfoocanvas/libanjuta-foocanvas.la'
-AC_SUBST(LIBFOOCANVAS_CFLAGS)
-AC_SUBST(LIBFOOCANVAS_LIBS)
+LIBGOOCANVAS_CFLAGS='-I$(top_srcdir)/libgoocanvas'
+LIBGOOCANVAS_LIBS='$(top_builddir)/libgoocanvas/libanjuta-goocanvas-2.0.la'
+AC_SUBST(LIBGOOCANVAS_CFLAGS)
+AC_SUBST(LIBGOOCANVAS_LIBS)
 
 dnl Checks for Xft/XRender for foocanvas
 dnl
@@ -714,6 +714,7 @@ libanjuta/tests/Makefile
 libanjuta/interfaces/Makefile
 libanjuta/libanjuta-3.0.pc
 libanjuta/anjuta-version.h
+libgoocanvas/Makefile
 src/Makefile
 pixmaps/Makefile
 pixmaps/16x16/Makefile
@@ -732,6 +733,7 @@ launcher/Makefile
 plugins/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
+plugins/class-inheritance/Makefile
 plugins/code-analyzer/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile

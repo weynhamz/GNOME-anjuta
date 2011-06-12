@@ -5,6 +5,7 @@ SUBDIRS = . \
 	am-project \
 	build-basic-autotools \
 	class-gen \
+	class-inheritance \
 	code-analyzer \
 	cvs-plugin \
 	devhelp \

@@ -6,7 +6,7 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 SUBDIRS = \
 	pixmaps scripts data \
-	doc libanjuta plugins src manuals mime launcher po
+	doc libanjuta plugins libgoocanvas src manuals mime launcher po
 
 anjutadocdir = $(docdir)
 anjutadoc_DATA = \
@@ -40,7 +40,7 @@ EXTRA_DIST = \
 
 gnomerelease:
 	scp *.tar.bz2 master.gnome.org:
-	
+
 sfrelease:
 	scp *.tar.bz2 clubfan@frs.sf.net:uploads
 
