@@ -22,7 +22,7 @@
 #define _CLASS_INHERIT_H
 
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libfoocanvas/libfoocanvas.h>
+#include <libgoocanvas/goocanvas.h>
 
 #include "plugin.h"
 
@@ -53,7 +53,7 @@ typedef struct
 	ClsNodeExpansionType expansion_status;
 
 	/* Holds canvas group item for either collapsed or expanded node */
-	FooCanvasItem* canvas_group;
+	GooCanvasItem* canvas_group;
 	
 	/* What expansion type is currently drawn */
 	ClsNodeExpansionType drawn_expansion_status;
@@ -76,14 +76,14 @@ typedef struct
 
 typedef struct {
 	Agedge_t *agedge;
-	FooCanvasItem *canvas_line;
+	GooCanvasItem *canvas_line;
 	ClsNode *cls_node_from;
 	ClsNode *cls_node_to;
 } ClsNodeEdge;
 
 typedef struct {
 	ClsNode *cls_node;
-	FooCanvasItem* canvas_node_item;
+	GooCanvasItem* canvas_node_item;
 
 	gint sym_id;
 	gchar *label;
@@ -97,7 +97,7 @@ typedef struct {
 	gint order;
 
 	/* Tooltip shown on item hover */
-	FooCanvasItem *tooltip;
+	GooCanvasItem *tooltip;
 
 	/* Tooltip timout id */
 	guint tooltip_timeout;

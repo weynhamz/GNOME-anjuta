@@ -22,9 +22,9 @@
 #include "plugin.h"
 #include "class-inherit.h"
 
-gint on_canvas_event (FooCanvasItem *item, GdkEvent *event, gpointer data);
-gint on_canvas_event_proxy (FooCanvasItem *item, GdkEvent *event,
-                            FooCanvasItem *proxy_item);
+gint on_canvas_event (GooCanvasItem *item, GdkEvent *event, gpointer data);
+gint on_canvas_event_proxy (GooCanvasItem *item, GdkEvent *event,
+                            GooCanvasItem *proxy_item);
 
 void on_update_menu_item_selected (GtkMenuItem *item, 
                                    AnjutaClassInheritance *plugin);
@@ -33,15 +33,15 @@ void on_style_set (GtkWidget *widget, GtkStyle  *previous_style,
 
 
 /* Callbacks for expanded class node */
-gint on_expanded_class_title_event (FooCanvasItem *item, GdkEvent *event,
+gint on_expanded_class_title_event (GooCanvasItem *item, GdkEvent *event,
                                     ClsNode *cls_node);
-gint on_expanded_class_item_event (FooCanvasItem *item, GdkEvent *event,
+gint on_expanded_class_item_event (GooCanvasItem *item, GdkEvent *event,
                                    gpointer data);
-gint on_expanded_class_more_event (FooCanvasItem *item, GdkEvent *event,
+gint on_expanded_class_more_event (GooCanvasItem *item, GdkEvent *event,
                                    ClsNode *cls_node);
 
 /* Callback for collapsed class node */
-gint on_collapsed_class_event (FooCanvasItem *item, GdkEvent *event,
+gint on_collapsed_class_event (GooCanvasItem *item, GdkEvent *event,
                                gpointer data);
 
 #endif /* _CLASS_CALLBACKS_H */

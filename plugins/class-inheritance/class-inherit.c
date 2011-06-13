@@ -70,19 +70,19 @@ typedef struct {
 	gdouble x1, y1, x2, y2;
 } ClsBox;
 
-static FooCanvasItem*
-create_canvas_arrow_item (FooCanvasGroup *canvas_group,
+static GooCanvasItem*
+create_canvas_arrow_item (GooCanvasItem *canvas_group,
                           CanvasArrowDir direction,
                           const GdkColor *fill_color,
                           /* Bounding box */
                           gint x1, gint y1, gint x2, gint y2)
 {
-	FooCanvasItem *item;
+	GooCanvasItem *item;
 	const gint offset = 4;
 
 	/* FIXME: Use direction to draw different arrows, now it only is down */
 	/* Arrows */
-	FooCanvasPoints *triangle = foo_canvas_points_new (4);
+	GooCanvasPoints *triangle = goo_canvas_points_new (4);
 	triangle->coords[0] = x1 + offset;
 	triangle->coords[1] = y1 + offset;
 	triangle->coords[2] = x2 - offset;
@@ -92,36 +92,34 @@ create_canvas_arrow_item (FooCanvasGroup *canvas_group,
 	triangle->coords[6] = x1 + offset;
 	triangle->coords[7] = y1 + offset;
 
-	item = foo_canvas_item_new (canvas_group,
-	                            foo_canvas_polygon_get_type (),
+	item = goo_canvas_polyline_new (canvas_group, TRUE, 0,
 	                            "points", triangle,
 	                            "fill_color_gdk", fill_color,
 	                            NULL);
-	foo_canvas_points_unref (triangle);
+	goo_canvas_points_unref (triangle);
 	return item;
 }
 
-static FooCanvasItem*
-create_canvas_line_item (FooCanvasGroup *canvas_group, GdkColor *fill_color,
+static GooCanvasItem*
+create_canvas_line_item (GooCanvasItem *canvas_group, GdkColor *fill_color,
                           gint x1, gint y1, gint x2, gint y2)
 {
-	FooCanvasItem *item;
-	FooCanvasPoints *points;
+	GooCanvasItem *item;
+	GooCanvasPoints *points;
 
-	points = foo_canvas_points_new (2);
+	points = goo_canvas_points_new (2);
 	points->coords[0] = x1;
 	points->coords[1] = y1;
 	points->coords[2] = x2;
 	points->coords[3] = y2;
 
 	item = 
-		foo_canvas_item_new (canvas_group,
-		                     foo_canvas_line_get_type(),
+		goo_canvas_polyline_new (canvas_group, TRUE, 0,
 		                     "points", points,
 		                     "fill_color_gdk",
 		                     fill_color,
 		                     NULL);
-	foo_canvas_points_unref (points);
+	goo_canvas_points_unref (points);
 	return item;
 }
 
@@ -141,7 +139,7 @@ cls_node_item_free (ClsNodeItem *cls_item)
 		g_source_remove (cls_item->tooltip_timeout);
 
 	if (cls_item->tooltip)
-		gtk_object_destroy (GTK_OBJECT (cls_item->tooltip));
+		g_object_unref (G_OBJECT (cls_item->tooltip));
 
 	g_free (cls_item);
 }
@@ -150,7 +148,7 @@ static void
 cls_node_edge_free (ClsNodeEdge *cls_edge)
 {
 	/* Delete agedeges here? */
-	gtk_object_destroy (GTK_OBJECT (cls_edge->canvas_line));
+	g_object_unref (G_OBJECT (cls_edge->canvas_line));
 	agdelete (cls_edge->cls_node_from->graph, cls_edge->agedge);
 	g_free (cls_edge);
 }
@@ -163,7 +161,7 @@ cls_node_free (ClsNode *cls_node)
 	g_hash_table_destroy (cls_node->edges_from);
 	g_hash_table_destroy (cls_node->members);
 	if (cls_node->canvas_group)
-		gtk_object_destroy (GTK_OBJECT (cls_node->canvas_group));
+		g_object_unref (G_OBJECT (cls_node->canvas_group));
 	agdelete (cls_node->graph, cls_node->agnode);
 	g_free (cls_node);
 }
@@ -278,7 +276,7 @@ cls_inherit_create_node (AnjutaClassInheritance *plugin,
 	if (!(sym = agfindattr(plugin->graph->proto->n, "fontname")))
 		sym = agnodeattr(plugin->graph, "fontname", "");
 	font_name =
-		pango_font_description_get_family (plugin->canvas->style->font_desc);
+		pango_font_description_get_family (gtk_widget_get_style (plugin->canvas)->font_desc);
 	agxset(cls_node->agnode, sym->index, (char*)font_name);
 
 	/* set the font-size */	
@@ -286,7 +284,7 @@ cls_inherit_create_node (AnjutaClassInheritance *plugin,
 		sym = agnodeattr(plugin->graph, "fontsize", "");
 
 	font_size =
-		pango_font_description_get_size (plugin->canvas->style->font_desc)/
+		pango_font_description_get_size (gtk_widget_get_style (plugin->canvas)->font_desc)/
 			PANGO_SCALE;
 
 	/* The above font size in points is with real screen DPI, but graphviz
@@ -551,8 +549,8 @@ on_cls_node_item_compare (ClsNodeItem *a, ClsNodeItem *b)
 static void
 cls_node_draw_expanded (ClsNode *cls_node)
 {
-	FooCanvasItem *canvas_item, *text_item;
-	gint item_height, j;
+	GooCanvasItem *canvas_item, *text_item;
+	gint item_height, j = 0;
 	GList *members, *member;
 
 	g_return_if_fail (cls_node->sym_manager != NULL);
@@ -560,11 +558,9 @@ cls_node_draw_expanded (ClsNode *cls_node)
 	                  cls_node->expansion_status == CLS_NODE_FULL_EXPANDED);
 		
 	if (cls_node->canvas_group)
-		gtk_object_destroy (GTK_OBJECT (cls_node->canvas_group));
+		g_object_unref (G_OBJECT (cls_node->canvas_group));
 	cls_node->canvas_group =
-		foo_canvas_item_new (foo_canvas_root
-		                     (FOO_CANVAS (cls_node->canvas)),
-		                     foo_canvas_group_get_type (),
+		goo_canvas_group_new (goo_canvas_get_root_item (GOO_CANVAS (cls_node->canvas)),
 		                     NULL);
 	cls_node->drawn_expansion_status = cls_node->expansion_status;
 	members = g_hash_table_get_values (cls_node->members);
@@ -577,41 +573,34 @@ cls_node_draw_expanded (ClsNode *cls_node)
 
 	/* Class title */
 	canvas_item =
-		foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-		                     foo_canvas_rect_get_type (),
-		                     "x1", 0.0,
-		                     "y1", 0.0,
-		                     "x2", (gdouble) cls_node->width,
-		                     "y2", (gdouble) item_height,
+		goo_canvas_rect_new (cls_node->canvas_group,
+		                     0.0, 0.0, (gdouble) cls_node->width,
+		                     (gdouble) item_height,
 		                     "fill_color_gdk",
 		                     &cls_node->plugin->style[STYLE_TITLE_BG],
 		                     NULL);
 	
-	g_signal_connect (GTK_OBJECT (canvas_item), "event",
+	g_signal_connect (G_OBJECT (canvas_item), "event",
 	                  G_CALLBACK (on_expanded_class_title_event),
 					  cls_node);
 	
 	/* Arrow on the right of class title */
-	create_canvas_arrow_item (FOO_CANVAS_GROUP (cls_node->canvas_group),
+	create_canvas_arrow_item (cls_node->canvas_group,
 	                          CLS_ARROW_DIR_DOWN,
 	                          &cls_node->plugin->style[STYLE_TITLE_FG],
 	                          cls_node->width - item_height,
 	                          0, cls_node->width, item_height);
 	/* Class title text */
 	text_item = 
-		foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-		                     foo_canvas_text_get_type (),
-		                     "text", cls_node->sym_name,
-		                     "justification", GTK_JUSTIFY_CENTER,
-		                     "anchor", GTK_ANCHOR_CENTER,
-		                     "x", (gdouble) 20.0,
-		                     "y", (gdouble) (j + 0.5) * item_height,
+		goo_canvas_text_new (cls_node->canvas_group,
+		                     cls_node->sym_name, (gdouble) 20.0,
+		                     (gdouble) (j + 0.5) * item_height,
+		                     -1, GOO_CANVAS_ANCHOR_CENTER,
 		                     "fill_color_gdk",
 		                     &cls_node->plugin->style[STYLE_TITLE_FG],
-		                     "anchor", GTK_ANCHOR_W,
 		                     NULL);
 	g_object_set_data (G_OBJECT (canvas_item), "__text__", text_item);
-	g_signal_connect (GTK_OBJECT (text_item), "event",
+	g_signal_connect (G_OBJECT (text_item), "event",
 	                  G_CALLBACK (on_canvas_event_proxy),
 					  canvas_item);
 	
@@ -623,50 +612,42 @@ cls_node_draw_expanded (ClsNode *cls_node)
 
 		/* Member item background */
 		node_item->canvas_node_item =
-			foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-			                     foo_canvas_rect_get_type (),
-			                     "x1", 0.0,
-			                     "y1", (gdouble) j * item_height,
-			                     "x2", (gdouble) cls_node->width,
-			                     "y2", (gdouble) (j + 1) * item_height,
+			goo_canvas_rect_new (cls_node->canvas_group,
+			                     0.0, (gdouble) j * item_height,
+			                     (gdouble) cls_node->width,
+			                     (gdouble) item_height,
 			                     "fill_color_gdk",
 			                     &cls_node->plugin->style[STYLE_ITEM_BG],
 			                     NULL);
-		g_signal_connect (GTK_OBJECT (node_item->canvas_node_item),
+		g_signal_connect (G_OBJECT (node_item->canvas_node_item),
 			              "event",
 						  G_CALLBACK (on_expanded_class_item_event),
 						  node_item);
 	
 		/* Member item text */
 		text_item =
-			foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-			                     foo_canvas_text_get_type (),
-			                     "text", node_item->label,
-			                     "justification", GTK_JUSTIFY_CENTER,
-			                     "anchor", GTK_ANCHOR_CENTER,
-			                     "x", (gdouble) 20.0,
-			                     "y", (gdouble) (j + 0.5) * item_height,
+			goo_canvas_text_new (cls_node->canvas_group,
+			                     node_item->label,
+			                     (gdouble) 20.0,
+			                     (gdouble) (j + 0.5) * item_height,
+			                     -1, GOO_CANVAS_ANCHOR_CENTER,
 			                     "fill_color_gdk",
 			                     &cls_node->plugin->style[STYLE_ITEM_FG],
-			                     "anchor", GTK_ANCHOR_W,
 			                     NULL);
 		g_object_set_data (G_OBJECT (node_item->canvas_node_item),
 		                   "__text__", text_item);
-		g_signal_connect (GTK_OBJECT (text_item), "event",
+		g_signal_connect (G_OBJECT (text_item), "event",
 		                  G_CALLBACK (on_canvas_event_proxy),
 		                  node_item->canvas_node_item);
 
 		/* Member item icon */
 		if (node_item->icon)
-			foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-			                     foo_canvas_pixbuf_get_type(),
-			                     "x", 2.0,
-			                     "y",
-			                     (gdouble) (j + 0.5) * item_height - 8,
-			                     "pixbuf", node_item->icon,
+			goo_canvas_image_new (cls_node->canvas_group,
+			                      node_item->icon,
+			                     2.0, (gdouble) (j + 0.5) * item_height - 8,
 			                     NULL);
 		if (node_item->order == 0 || j == 1) /* Variables and methods border */
-				create_canvas_line_item (FOO_CANVAS_GROUP (cls_node->canvas_group),
+				create_canvas_line_item (cls_node->canvas_group,
 				                         &cls_node->plugin->style[STYLE_FG],
 				                         0, j * item_height,
 				                         cls_node->width, j * item_height);
@@ -679,51 +660,46 @@ cls_node_draw_expanded (ClsNode *cls_node)
 	{
 		/* More expand item background */
 		canvas_item =
-			foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-			                     foo_canvas_rect_get_type (),
-			                     "x1", 0.0,
-			                     "y1", (gdouble) j * item_height,
-			                     "x2", (gdouble) cls_node->width,
-			                     "y2", (gdouble) (j + 1) * item_height,
+			goo_canvas_rect_new (cls_node->canvas_group,
+			                     0.0, (gdouble) j * item_height,
+			                     (gdouble) cls_node->width,
+			                     (gdouble) item_height,
 			                     "fill_color_gdk",
 			                     &cls_node->plugin->style[STYLE_TITLE_BG],
 			                     NULL);
 		
-		g_signal_connect (GTK_OBJECT (canvas_item), "event",
+		g_signal_connect (G_OBJECT (canvas_item), "event",
 			              G_CALLBACK (on_expanded_class_more_event),
 						  cls_node);
 	
 		/* More expand item text */
 		text_item = 
-			foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-			                     foo_canvas_text_get_type (),
-			                     "text",  NODE_SHOW_ALL_MEMBERS_STR,
-			                     "justification", GTK_JUSTIFY_CENTER,
-			                     "anchor", GTK_ANCHOR_CENTER,
-			                     "x", (gdouble) 20.0,
-			                     "y", (gdouble) (j + 0.5) * item_height,
+			goo_canvas_text_new (cls_node->canvas_group,
+			                     NODE_SHOW_ALL_MEMBERS_STR,
+			                     (gdouble) 20.0,
+			                     (gdouble) (j + 0.5) * item_height,
+			                     -1,
+			                     GOO_CANVAS_ANCHOR_CENTER,
 			                     "fill_color_gdk",
 			                     &cls_node->plugin->style[STYLE_TITLE_FG],
-			                     "anchor", GTK_ANCHOR_W,
 			                     NULL);
 		g_object_set_data (G_OBJECT (canvas_item), "__text__", text_item);
-		g_signal_connect (GTK_OBJECT (text_item), "event",
+		g_signal_connect (G_OBJECT (text_item), "event",
 			              G_CALLBACK (on_canvas_event_proxy),
 			              canvas_item);
 
-		create_canvas_line_item (FOO_CANVAS_GROUP (cls_node->canvas_group),
+		create_canvas_line_item (cls_node->canvas_group,
 		                         &cls_node->plugin->style[STYLE_FG],
 		                         0, j * item_height,
 		                         cls_node->width, j * item_height);
 	}
 	
 	/* make the outline bounds */
-	foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-	                     foo_canvas_rect_get_type (),
-	                     "x1", (gdouble) 0.0,
-	                     "y1", (gdouble) 0.0,
-	                     "x2", (gdouble) cls_node->width,
-	                     "y2", (gdouble) cls_node->height,
+	goo_canvas_rect_new (cls_node->canvas_group,
+	                     (gdouble) 0.0,
+	                     (gdouble) 0.0,
+	                     (gdouble) cls_node->width,
+	                     (gdouble) cls_node->height,
 	                     "outline_color_gdk",
 	                     &cls_node->plugin->style[STYLE_FG],
 	                     NULL);
@@ -732,7 +708,7 @@ cls_node_draw_expanded (ClsNode *cls_node)
 static void
 cls_node_draw_collapsed (ClsNode *cls_node) 
 {
-	FooCanvasItem *item, *text_item;
+	GooCanvasItem *item, *text_item;
 	gdouble text_width_value;
 
 	g_return_if_fail (cls_node->agnode != NULL);
@@ -744,53 +720,48 @@ cls_node_draw_collapsed (ClsNode *cls_node)
 
 	/* Switch to collapsed canvas item */
 	if (cls_node->canvas_group)
-		gtk_object_destroy (GTK_OBJECT (cls_node->canvas_group));
+		g_object_unref (G_OBJECT (cls_node->canvas_group));
 	cls_node->canvas_group =
-		foo_canvas_item_new (foo_canvas_root
-		                     (FOO_CANVAS (cls_node->canvas)),
-		                     foo_canvas_group_get_type (),
+		goo_canvas_group_new (goo_canvas_get_root_item (GOO_CANVAS (cls_node->canvas)),
 		                     NULL);
 	cls_node->drawn_expansion_status = CLS_NODE_COLLAPSED;
 	
 	item =
-		foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-		                     foo_canvas_rect_get_type (),
-		                     "x1", (gdouble) 0.0,
-		                     "y1", (gdouble) 0.0,
-		                     "x2", (gdouble) cls_node->width,
-		                     "y2", (gdouble) cls_node->height,
+		goo_canvas_rect_new (cls_node->canvas_group,
+		                     (gdouble) 0.0,
+		                     (gdouble) 0.0,
+		                     (gdouble) cls_node->width,
+		                     (gdouble) cls_node->height,
 		                     "fill_color_gdk",
 		                     &cls_node->plugin->style[STYLE_BG],
 		                     "outline_color_gdk",
 		                     &cls_node->plugin->style[STYLE_FG],
 		                     NULL);
-	g_signal_connect (GTK_OBJECT (item), "event",
+	g_signal_connect (G_OBJECT (item), "event",
 					  G_CALLBACK (on_collapsed_class_event),
 					  cls_node);
 
 	/* --- text --- */
 	text_item =
-		foo_canvas_item_new (FOO_CANVAS_GROUP (cls_node->canvas_group),
-		                     foo_canvas_text_get_type (),
-		                     "text", cls_node->sym_name,
-		                     "justification", GTK_JUSTIFY_CENTER,
-		                     "anchor", GTK_ANCHOR_CENTER,
-		                     "x", (gdouble) 0.0,
-		                     "y", (gdouble) cls_node->height/2,
+		goo_canvas_text_new (cls_node->canvas_group,
+		                     cls_node->sym_name,
+		                     (gdouble) 0.0,
+		                     (gdouble) cls_node->height/2,
+		                     -1,
+		                     GOO_CANVAS_ANCHOR_CENTER,
 		                     "fill_color_gdk",
 		                     &cls_node->plugin->style[STYLE_FG],
-		                     "anchor", GTK_ANCHOR_W,        
 		                     NULL );
 	g_object_set_data (G_OBJECT (item), "__text__", text_item);
-	g_signal_connect (GTK_OBJECT (text_item), "event",
+	g_signal_connect (G_OBJECT (text_item), "event",
 	                  G_CALLBACK (on_canvas_event_proxy), item);
 	
 	/* center the text in the node... */
 	g_object_get (text_item, "text_width", &text_width_value, NULL);
 						
-	foo_canvas_item_set (text_item,
-	                     "x", (gdouble)((cls_node->width/2 - text_width_value/2)),
-	                     NULL);
+	g_object_set (text_item,
+	              "x", (gdouble)((cls_node->width/2 - text_width_value/2)),
+	              NULL);
 }
 
 /* This function determins NODE_EDGE_ARROW_LENGTH long arrow destination
@@ -816,12 +787,12 @@ static void
 cls_node_draw_edge (ClsNode *cls_node_to, ClsNodeEdge *cls_edge, ClsNode *cls_node_from)
 {
 	Agedge_t *edge;
-	FooCanvasPoints *points;
+	GooCanvasPoints *points;
 	gint i, num_points;
 	
 	edge = cls_edge->agedge;
 	num_points = ED_spl(edge)->list->size;
-	points = foo_canvas_points_new(num_points + 1);
+	points = goo_canvas_points_new (num_points + 1);
 	
 	for (i = 0; i < num_points; i++)
 	{
@@ -854,26 +825,25 @@ cls_node_draw_edge (ClsNode *cls_node_to, ClsNodeEdge *cls_edge, ClsNode *cls_no
 	/* draw the line */
 	if (cls_edge->canvas_line)
 	{
-		foo_canvas_item_set (cls_edge->canvas_line, "points", points, NULL);
+		g_object_set (cls_edge->canvas_line, "points", points, NULL);
 	}
 	else
 	{
 		cls_edge->canvas_line =
-			foo_canvas_item_new (foo_canvas_root
-			                     (FOO_CANVAS (cls_node_from->canvas)), 
-			                     foo_canvas_line_get_type(),
-			                     "smooth", TRUE,
-			                     "last_arrowhead", TRUE,
-			                     "arrow_shape_a", (gdouble) 8.0,
-			                     "arrow_shape_b", (gdouble) 10.0,
-			                     "arrow_shape_c", (gdouble) 3.0,
-			                     "fill_color_gdk",
-			                     &cls_node_from->plugin->style[STYLE_FG],
-			                     "points", points,
-			                     NULL);
-		foo_canvas_item_lower_to_bottom (cls_edge->canvas_line);
+			goo_canvas_polyline_new (goo_canvas_get_root_item (GOO_CANVAS (cls_node_from->canvas)),
+			                         FALSE, 0, 
+					                 "smooth", TRUE,
+					                 "last_arrowhead", TRUE,
+					                 "arrow_shape_a", (gdouble) 8.0,
+					                 "arrow_shape_b", (gdouble) 10.0,
+					                 "arrow_shape_c", (gdouble) 3.0,
+					                 "fill_color_gdk",
+					                 &cls_node_from->plugin->style[STYLE_FG],
+					                 "points", points,
+					                 NULL);
+		goo_canvas_item_lower (cls_edge->canvas_line, NULL);
 	}
-	foo_canvas_points_unref (points);
+	goo_canvas_points_unref (points);
 }
 
 /* Ensures that a new canvas item is created for this node and moved to right
@@ -920,7 +890,7 @@ cls_node_ensure_draw (gpointer klass_id, ClsNode *cls_node, ClsBox *bounding_box
 	/* Move the canvas item to right place */
 	x = cls_node->x1;
 	y = cls_node->y1;
-	foo_canvas_item_set (cls_node->canvas_group, "x", x, "y", y, NULL);
+	g_object_set (cls_node->canvas_group, "x", x, "y", y, NULL);
 	g_hash_table_foreach (cls_node->edges_to, (GHFunc) cls_node_draw_edge, cls_node);
 }
 
@@ -943,9 +913,11 @@ cls_inherit_draw (AnjutaClassInheritance *plugin)
 	g_hash_table_foreach (plugin->nodes, (GHFunc) cls_node_ensure_draw, &bounds);
 	
 	/* Request extra 20px along x and y for 10px margin around the canvas */
-	foo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
+#if 0 /* FIXME: Disable for now */
+	goo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
 	                              bounds.x1 - 10, bounds.y1 - 10,
 	                              bounds.x2 + 10, bounds.y2 + 10);
+#endif
 	gvFreeLayout(plugin->gvc, plugin->graph);
 }
 
@@ -1178,12 +1150,14 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (s_window),
 	                                GTK_POLICY_AUTOMATIC, 
 	                                GTK_POLICY_AUTOMATIC);
-	plugin->canvas = foo_canvas_new ();
-	foo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
+	plugin->canvas = goo_canvas_new ();
+#if 0 /* FIXME: Disabled for now */
+	goo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
 	                              -CANVAS_MIN_SIZE/2, 
 	                              -CANVAS_MIN_SIZE/2,
 	                              CANVAS_MIN_SIZE/2,
 	                              CANVAS_MIN_SIZE/2);
+#endif
 	gtk_container_add (GTK_CONTAINER (s_window), plugin->canvas);
 
 	/* Initialize styles */
