@@ -172,11 +172,11 @@ build_program_get_basename (BuildProgram *prog)
 
 
 void
-build_program_set_working_directory (BuildProgram *prog, const gchar *directory)
+build_program_set_working_directory (BuildProgram *prog, GFile *directory)
 {
 	g_free (prog->work_dir);
 	
-	prog->work_dir = g_strdup (directory);
+	prog->work_dir = g_file_get_path (directory);
 }
 
 
@@ -306,7 +306,7 @@ build_program_new (void)
 }
 
 BuildProgram* 
-build_program_new_with_command (const gchar *directory, const gchar *command,...)
+build_program_new_with_command (GFile *directory, const gchar *command,...)
 {
 	BuildProgram *prog;
 	gchar *full_command;

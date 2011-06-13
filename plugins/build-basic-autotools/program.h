@@ -22,6 +22,7 @@
 #define PROGRAM_H
 
 #include <glib.h>
+#include <gio/gio.h>
 #include <libanjuta/interfaces/ianjuta-environment.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
 
@@ -38,13 +39,13 @@ struct _BuildProgram
 };
 
 BuildProgram* build_program_new (void);
-BuildProgram* build_program_new_with_command (const gchar *directory, const gchar *command,...);
+BuildProgram* build_program_new_with_command (GFile *directory, const gchar *command,...);
 void build_program_free (BuildProgram *proc);
 
 gboolean build_program_set_command (BuildProgram *proc, const gchar *command);
 const gchar *build_program_get_basename (BuildProgram *proc);
 
-void build_program_set_working_directory (BuildProgram *proc, const gchar *directory);
+void build_program_set_working_directory (BuildProgram *proc, GFile *directory);
 
 gboolean build_program_insert_arg (BuildProgram *proc, gint pos, const gchar *arg);
 gboolean build_program_replace_arg (BuildProgram *proc, gint pos, const gchar *arg);

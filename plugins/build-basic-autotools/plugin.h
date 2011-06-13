@@ -26,7 +26,7 @@
 
 #include "configuration-list.h"
 
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.ui"
+#define BUILDER_FILE PACKAGE_DATA_DIR "/glade/anjuta-build-basic-autotools-plugin.ui"
 
 extern GType basic_autotools_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_BASIC_AUTOTOOLS         (basic_autotools_plugin_get_type (NULL))
@@ -53,11 +53,11 @@ struct _BasicAutotoolsPlugin{
 	gint editor_watch_id;
 	
 	/* Watched values */
-	gchar *fm_current_filename;
-	gchar *pm_current_filename;
-	gchar *project_root_dir;
-	gchar *project_build_dir;
-	gchar *current_editor_filename;
+	GFile *fm_current_file;
+	GFile *pm_current_file;
+	GFile *current_editor_file;
+	GFile *project_root_dir;
+	GFile *project_build_dir;
 	IAnjutaEditor *current_editor;
 	
 	/* UI */

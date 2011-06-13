@@ -108,21 +108,10 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		node = exec_targets;
 		while (node)
 		{
-			gchar *local_path;
+			gchar *rel_path;
             gchar *uri;
-			const gchar *rel_path;
 
-			local_path = g_file_get_path ((GFile *)node->data);
-			if (local_path == NULL)
-			{
-				g_object_unref (node->data);
-				node = g_list_next (node);
-				continue;
-			}
-			
-			rel_path =
-				(gchar*)local_path +
-				 strlen (plugin->project_root_dir) + 1;
+			rel_path = g_file_get_relative_path (plugin->project_root_dir, (GFile *)node->data);
 			
             uri = g_file_get_uri ((GFile *)node->data);
 			gtk_list_store_append (store, &iter);
@@ -142,7 +131,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
       }
 
             g_free (uri);
-			g_free (local_path);
+			g_free (rel_path);
 			g_object_unref (node->data);
 			node = g_list_next (node);
 		}
@@ -219,13 +208,12 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 void
 execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 {
-	GSettings* settings = plugin->settings;
 	gboolean run_in_terminal, error_condition;
 	gchar *target = NULL, *args = NULL, *dir = NULL, *cmd = NULL;
 
 	g_return_if_fail (pre_select_uri != NULL ||
 					  plugin->project_root_dir != NULL ||
-					  plugin->current_editor_filename != NULL);
+					  plugin->current_editor_file != NULL);
 	
 	error_condition = FALSE;
 	if (pre_select_uri)
@@ -247,7 +235,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		else
 		{
 			/* Execute current file */
-			if (!plugin->current_editor_filename)
+			if (!plugin->current_editor_file)
 			{
 				error_condition = TRUE;
 				target = NULL;
@@ -258,7 +246,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			{
 				gchar *ext;
 				
-				target = g_strdup (plugin->current_editor_filename);
+				target = g_file_get_path (plugin->current_editor_file);
 				ext = strrchr (target, '.');
 				if (ext)
 				{
