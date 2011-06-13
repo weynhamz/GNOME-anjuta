@@ -1,3 +1,38 @@
+Anjuta 3.1.2 "Berg 2011" (13 June 2011) -- Johannes Schmid
+
+New:
+- Autocompletion for builder objects in python (Jason Siefken)
+- Improvements in autotools backend (Sebastien Granjoux)
+
+Bugs fixed:
+645199 	Signal dnd issues
+475261 	Change install directory
+563856 	generic Vala project type
+651670 	Glade file not rendering
+646530 	Anjuta crashes when closing tab other than current
+588387 	symbol-db-view-locals: better search
+651285 	Memory leak in symbol-db/readtags.c
+569994 	support includes in makefiles
+644047 	No Symbols shown in Global and Search Symbol pane
+645659 	Basic aesthetic improvements to preferences dialog
+645695 	install broken since deec63dfe4c2527d5adfed049eeac423307229d1
+645965 	Theming tweaks
+588757 	automake projects reject accented characters in paths
+640470 	Port Scintilla to Gtk+3
+642784 	New autotools backend has problems with variables in dependencies
+648361 	In the "Tools Editor" the Command-Browse button does not work
+648571 	file manager variables don't work
+650930 	anjuta-3.x project wizard fails to detect autogen-5.11.x
+652017 	Default pygtk Makefile.am has incorrect path for ui file
+651212  Auto-completion of Gtk.Builder objects
+
+Thanks to
+Abderrahim Kitouni, Abduxukur Abdurixit, Alexander Shopov, Alexandre Rostovtsev,
+Carl-Anton Ingmarsson, Carles Ferrando, Chao-Hsiung Liao, Christian Hergert,
+Cosimo Cecchi, Daniel Mustieles, Djavan Fagundes, Fran Diéguez, Jason Siefken,
+Kristjan SCHMIDT, Massimo Corà, Matej Urbančič, Muhammet Kara, Naba Kumar,
+Philip Chimento, Sébastien Granjoux, Tamara Atanasoska
+
 Anjuta 3.0.0 "Three.Point.Zero" (4 April 2011) -- Johannes Schmid
 
 Summary of new features compared to 2.32.x:
