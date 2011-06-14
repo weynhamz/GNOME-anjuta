@@ -2203,22 +2203,24 @@ build_configure_and_build (BasicAutotoolsPlugin *plugin, BuildFunc func, GFile *
 {
 	GFile *build_dir;
 	gboolean has_makefile;
+	gboolean has_makefile_am;
 
 	/* Get build directory and check for makefiles */
 	build_dir = build_file_from_file (plugin, file, NULL);
 	has_makefile = directory_has_makefile (build_dir);
+	has_makefile_am = directory_has_makefile_am (plugin, build_dir);
 	g_object_unref (build_dir);
-
-	if (!has_makefile && (plugin->project_root_dir != NULL))
-	{
-		/* Run configure first */
-		build_configure_dialog (plugin, func, file);
-	}
-	else
+	
+	if (has_makefile)
 	{
 		/* Some build functions have less arguments but
 		 * it is not a problem in C */
 		func (plugin, file, NULL, NULL, NULL);
+	}
+	else if (has_makefile_am && (plugin->project_root_dir != NULL))
+	{
+		/* Run configure first */
+		build_configure_dialog (plugin, func, file);
 	}
 }
 
