@@ -1504,16 +1504,51 @@ build_file_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **target)
 	}
 	else
 	{
-		GFile *parent;
+		GFile *parent = NULL;
 		GFile *build_file;
-
-		if (target != NULL) *target = g_file_get_basename (file);
+		IAnjutaProjectManager* projman;
 		
-		parent = g_file_get_parent (file);
-		build_file = build_file_from_directory (plugin, parent);
-		g_object_unref (parent);
+		projman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+					                            IAnjutaProjectManager,
+					                            NULL);
+		
+		if (projman != NULL)
+		{
+			/* Use the project manager to find the group file */
+			GFile *child;
+			
+			for (child = g_object_ref (file); child != NULL;)
+			{
+				GFile *group;
+				AnjutaProjectNodeType type;
 
-		return build_file;
+				type = ianjuta_project_manager_get_target_type (projman, child, NULL);
+				if (type == ANJUTA_PROJECT_GROUP) break;
+				group = ianjuta_project_manager_get_parent (projman, child, NULL);
+				g_object_unref (child);
+				child = group;
+			}
+			parent = child;
+		}
+		
+		if (parent == NULL)
+		{
+			/* Fallback use parent directory */
+			parent = g_file_get_parent (file);
+		}
+
+		if (parent != NULL)
+		{
+			if (target != NULL) *target = g_file_get_relative_path (parent, file);
+			build_file = build_file_from_directory (plugin, parent);
+			g_object_unref (parent);
+
+			return build_file;
+		}
+		else
+		{
+			return NULL;
+		}
 	}
 }
 
@@ -1852,7 +1887,7 @@ static BuildContext*
 build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 {
 	BuildContext *context = NULL;
-	gchar *target = NULL;
+	GFile *target = NULL;
 	gboolean ret;
 	IAnjutaProjectManager* projman;
 	
@@ -1865,16 +1900,14 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 	if (projman != NULL)
 	{
 		/* Use the project manager to find the object file */		
-		GFile *target_file;
-		
-		target_file = ianjuta_project_manager_get_parent (projman, file, NULL);
-		if (target_file != NULL)
+		target = ianjuta_project_manager_get_parent (projman, file, NULL);
+		if (target != NULL)
 		{
-			if (ianjuta_project_manager_get_target_type (projman, target_file, NULL) == ANJUTA_PROJECT_OBJECT)
+			if (ianjuta_project_manager_get_target_type (projman, target, NULL) != ANJUTA_PROJECT_OBJECT)
 			{
-				target = g_file_get_basename (target_file);
+				g_object_unref (target);
+				target = NULL;
 			}
-			g_object_unref (target_file);
 		}
 	}
 	else
@@ -1903,12 +1936,18 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 					const gchar *obj_ext = ianjuta_language_get_make_target (langman, id, NULL);
 					gchar *basename;
 					gchar *ext;
+					gchar *targetname;
+					GFile *parent;
 
 					basename = g_file_get_basename (file);
 					ext = strrchr (basename, '.');
 					if ((ext != NULL) && (ext != basename)) *ext = '\0';
-					target = g_strconcat (basename, obj_ext, NULL);
+					targetname = g_strconcat (basename, obj_ext, NULL);
 					g_free (basename);
+					parent = g_file_get_parent (file);
+					target = g_file_get_child (parent, targetname);
+					g_object_unref (parent);
+					g_free (targetname);
 				}
 			}
 			g_object_unref (file_info);
@@ -1920,21 +1959,20 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 		/* If file has no extension, take it as target itself */
 		BuildProgram *prog;
 		GFile *build_dir;
-		GFile *parent;
+		gchar *target_name;
 
 		/* Find target directory */
-		parent = g_file_get_parent (file);
-		build_dir = build_file_from_directory (plugin, parent);
-		g_object_unref (parent);
+		build_dir = build_file_from_file (plugin, target, &target_name);
 
 		prog = build_program_new_with_command (build_dir, "%s %s",
 		                                       CHOOSE_COMMAND(plugin, COMPILE),
-		                                       target);
+		                                       (target_name == NULL) ? "" : target_name);
+		g_free (target_name);
 		g_object_unref (build_dir);
 		context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
 		ret = TRUE;
+		g_object_unref (target);
 	}
-	g_free (target);
 	
 	if (ret == FALSE)
 	{
