@@ -6,7 +6,7 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 SUBDIRS = \
 	pixmaps scripts data \
-	doc libanjuta plugins libgoocanvas src manuals mime launcher po
+	doc libanjuta libgoocanvas plugins src manuals mime launcher po
 
 anjutadocdir = $(docdir)
 anjutadoc_DATA = \
