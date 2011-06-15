@@ -1030,6 +1030,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 						{
 							/* Create object node */
 							gchar *object_name;
+							gchar *basename;
 							gchar *ext;
 							GFile *obj_file;
 							AnjutaProjectNode *object;
@@ -1037,7 +1038,9 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 							ext = strrchr (value, '.');
 							if ((ext != NULL) && (ext != value)) *ext = '\0';
 							object_name = g_strconcat (value, obj_ext, NULL);
-							obj_file = g_file_get_child (group_file, object_name);
+							basename = g_path_get_basename (object_name);
+							obj_file = g_file_get_child (group_file, basename);
+							g_free (basename);
 							g_free (object_name);
 							object = amp_node_new_valid (group, ANJUTA_PROJECT_OBJECT | ANJUTA_PROJECT_PROJECT, obj_file, NULL, NULL); 
 							g_object_unref (obj_file);
