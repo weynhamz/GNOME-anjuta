@@ -44,6 +44,8 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 	plugin.h \
 	executer.c \
 	executer.h \
+	build.c \
+	build.h \
 	build-options.c \
 	build-options.h \
 	configuration-list.c \

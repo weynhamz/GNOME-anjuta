@@ -23,8 +23,10 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 #include "configuration-list.h"
+#include "program.h"
 
 #define BUILDER_FILE PACKAGE_DATA_DIR "/glade/anjuta-build-basic-autotools-plugin.ui"
 
@@ -87,5 +89,19 @@ struct _BasicAutotoolsPlugin{
 struct _BasicAutotoolsPluginClass{
 	AnjutaPluginClass parent_class;
 };
+
+typedef struct _BuildContext BuildContext;
+
+BuildContext* build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir, gboolean with_view);
+void build_context_destroy (BuildContext *context);
+
+void build_set_command_in_context (BuildContext* context, BuildProgram *prog);
+gboolean build_execute_command_in_context (BuildContext* context, GError **err);
+gboolean build_save_and_execute_command_in_context (BuildContext* context, GError **err);
+const gchar *build_context_get_work_dir (BuildContext* context);
+AnjutaPlugin *build_context_get_plugin (BuildContext* context);
+
+
+void build_update_configuration_menu (BasicAutotoolsPlugin *plugin);
 
 #endif
