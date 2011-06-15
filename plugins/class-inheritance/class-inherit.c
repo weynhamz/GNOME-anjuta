@@ -913,11 +913,9 @@ cls_inherit_draw (AnjutaClassInheritance *plugin)
 	g_hash_table_foreach (plugin->nodes, (GHFunc) cls_node_ensure_draw, &bounds);
 	
 	/* Request extra 20px along x and y for 10px margin around the canvas */
-#if 0 /* FIXME: Disable for now */
-	goo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
-	                              bounds.x1 - 10, bounds.y1 - 10,
-	                              bounds.x2 + 10, bounds.y2 + 10);
-#endif
+	goo_canvas_set_bounds (GOO_CANVAS (plugin->canvas),
+	                       bounds.x1 - 10, bounds.y1 - 10,
+	                       bounds.x2 + 10, bounds.y2 + 10);
 	gvFreeLayout(plugin->gvc, plugin->graph);
 }
 
@@ -1151,13 +1149,11 @@ cls_inherit_init (AnjutaClassInheritance *plugin)
 	                                GTK_POLICY_AUTOMATIC, 
 	                                GTK_POLICY_AUTOMATIC);
 	plugin->canvas = goo_canvas_new ();
-#if 0 /* FIXME: Disabled for now */
-	goo_canvas_set_scroll_region (FOO_CANVAS (plugin->canvas),
-	                              -CANVAS_MIN_SIZE/2, 
-	                              -CANVAS_MIN_SIZE/2,
-	                              CANVAS_MIN_SIZE/2,
-	                              CANVAS_MIN_SIZE/2);
-#endif
+	goo_canvas_set_bounds (GOO_CANVAS (plugin->canvas),
+	                       -CANVAS_MIN_SIZE/2, 
+	                       -CANVAS_MIN_SIZE/2,
+	                       CANVAS_MIN_SIZE/2,
+	                       CANVAS_MIN_SIZE/2);
 	gtk_container_add (GTK_CONTAINER (s_window), plugin->canvas);
 
 	/* Initialize styles */
