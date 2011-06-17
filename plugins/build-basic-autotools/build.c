@@ -91,7 +91,27 @@ directory_has_makefile_am (BasicAutotoolsPlugin *bb_plugin,  GFile *dir)
 	g_object_unref (file);
 
 	/* Check for Makefile.am or GNUmakefile.am */
-	file = g_file_get_child (dir,  "Makefile.am");
+	if (g_file_has_prefix (dir, bb_plugin->project_build_dir))
+	{
+		/* Check for Makefile.am in source directory not build directory */
+		gchar *relative;
+		GFile *src_dir;
+
+		relative = g_file_get_relative_path (bb_plugin->project_build_dir, dir);
+		src_dir = g_file_get_child (bb_plugin->project_root_dir, relative);
+		file = g_file_get_child (src_dir,  "Makefile.am");
+		g_object_unref (src_dir);
+		g_free (relative);
+	}
+	else if (g_file_equal (dir, bb_plugin->project_build_dir))
+	{
+		file = g_file_get_child (bb_plugin->project_root_dir,  "Makefile.am");
+	}
+	else
+	{
+		file = g_file_get_child (dir,  "Makefile.am");
+	}
+	
 	if (!g_file_query_exists (file, NULL))
 	{
 		g_object_unref (file);
