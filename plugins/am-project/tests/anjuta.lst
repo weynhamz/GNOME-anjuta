@@ -533,6 +533,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/build-basic-autotools/plugin.h
                     SOURCE (): plugins/build-basic-autotools/executer.c
                     SOURCE (): plugins/build-basic-autotools/executer.h
+                    SOURCE (): plugins/build-basic-autotools/build.c
+                    SOURCE (): plugins/build-basic-autotools/build.h
                     SOURCE (): plugins/build-basic-autotools/build-options.c
                     SOURCE (): plugins/build-basic-autotools/build-options.h
                     SOURCE (): plugins/build-basic-autotools/configuration-list.c
