@@ -110,13 +110,13 @@ anjuta_token_file_load (AnjutaTokenFile *file, GError **error)
 
 	anjuta_token_file_unload (file);
 	
+	file->save = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
+	file->content = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
+
 	if (g_file_load_contents (file->file, NULL, &content, &length, NULL, error))
 	{
 		AnjutaToken *token;
 	
-		file->save = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
-		file->content = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
-
 		token =	anjuta_token_new_string_len (ANJUTA_TOKEN_FILE, content, length);
 		anjuta_token_prepend_child (file->save, token);
 		
