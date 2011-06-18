@@ -326,7 +326,7 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
 	child->parent = parent;
 	child->token = content;
 	child->start = child->token;
-	child->last = anjuta_token_last (content);
+	child->last = content == NULL ? NULL : anjuta_token_last (content);
 
 	child->root = root == NULL ? anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL) : root;
 	if (file == NULL)
