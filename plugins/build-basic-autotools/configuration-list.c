@@ -403,7 +403,7 @@ build_configuration_list_set_build_uri (BuildConfigurationList *list, BuildConfi
 gchar *
 build_configuration_list_get_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg)
 {
-	if (cfg->build_uri != NULL)
+	if ((list->project_root_uri != NULL) && (cfg->build_uri != NULL))
 	{
 		GFile *root;
 		GFile *build;

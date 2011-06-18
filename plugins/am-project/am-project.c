@@ -453,6 +453,7 @@ amp_project_clear (AmpProject *project)
 	if (project->configure_file != NULL) anjuta_token_file_free (project->configure_file);
 	project->configure_file = NULL;
 	if (project->configure_token) anjuta_token_free (project->configure_token);
+	project->configure_token = NULL;
 }
 
 static void
@@ -520,7 +521,6 @@ AnjutaToken*
 amp_project_get_configure_token (AmpProject *project)
 {
 	return project->configure_token;
-
 }
 
 AnjutaToken *
@@ -1644,6 +1644,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	scanner = amp_ac_scanner_new (project);
 	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
 	amp_ac_scanner_free (scanner);
+	
 	if (project->configure_token == NULL)
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR, 
@@ -2247,7 +2248,7 @@ static gboolean
 iproject_load_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **error)
 {
 	PmJob *load_job;
-	
+
 	if (node == NULL) node = ANJUTA_PROJECT_NODE (obj);
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 
