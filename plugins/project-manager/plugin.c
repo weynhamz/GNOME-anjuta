@@ -1765,6 +1765,12 @@ file_is_inside_project (ProjectManagerPlugin *plugin, GFile *file)
 {
 	gchar *uri = g_file_get_uri (file);
 	gboolean inside = FALSE;
+
+	if (plugin->project_root_uri == NULL)
+	{
+		/* No project open */
+		return FALSE;
+	}
 	
 	if (strncmp (uri, plugin->project_root_uri,
 				 strlen (plugin->project_root_uri)) == 0)
@@ -1925,11 +1931,9 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 						  ANJUTA_PROJECT_UNKNOWN);
 	
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	
-	g_return_val_if_fail (file_is_inside_project (plugin, target_file),
-						  ANJUTA_PROJECT_UNKNOWN);
 
-	if (plugin->project !=  NULL)
+	/* Check that file belongs to the project */
+	if ((plugin->project != NULL) && file_is_inside_project (plugin, target_file))
 	{
 		AnjutaProjectNode *node;
 
