@@ -16,14 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
- #include <glib.h>
- 
-GList* anjuta_pkg_config_list_dependencies (const gchar* package, 
-                                            GError** error);
-GList* anjuta_pkg_config_get_directories (const gchar* pkg_name, 
-                                          gboolean no_deps, 
-                                          GError** error);
-gboolean anjuta_pkg_config_ignore_package (const gchar* name);
 
-gchar* anjuta_pkg_config_get_version (const gchar* package);
+#ifndef _ANJUTA_PKG_CONFIG_H_
+#define _ANJUTA_PKG_CONFIG_H_
+
+#include <glib.h>
+ 
+GList* 		anjuta_pkg_config_list_dependencies (const gchar* package, 
+                                            	 	GError** error);
+
+GList* 		anjuta_pkg_config_get_directories 	(const gchar* pkg_name, 
+                                          			gboolean no_deps, 
+                                          			GError** error);
+
+gboolean 	anjuta_pkg_config_ignore_package 	(const gchar* name);
+
+gchar* 		anjuta_pkg_config_get_version 		(const gchar* package);
+
+#endif
+
