@@ -608,7 +608,7 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 	projman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 				                            IAnjutaProjectManager,
 				                            NULL);
-	if (projman != NULL)
+	if ((projman != NULL) && ianjuta_project_manager_is_open (projman, NULL))
 	{
 		/* Use the project manager to find the object file */		
 		target = ianjuta_project_manager_get_parent (projman, file, NULL);
@@ -959,16 +959,16 @@ build_configure_and_build (BasicAutotoolsPlugin *plugin, BuildFunc func, GFile *
 	has_makefile_am = directory_has_makefile_am (plugin, build_dir);
 	g_object_unref (build_dir);
 	
-	if (has_makefile)
+	if (!has_makefile && has_makefile_am && (plugin->project_root_dir != NULL))
+	{
+		/* Run configure first */
+		build_configure_dialog (plugin, func, file);
+	}
+	else
 	{
 		/* Some build functions have less arguments but
 		 * it is not a problem in C */
 		func (plugin, file, NULL, NULL, NULL);
-	}
-	else if (has_makefile_am && (plugin->project_root_dir != NULL))
-	{
-		/* Run configure first */
-		build_configure_dialog (plugin, func, file);
 	}
 }
 
