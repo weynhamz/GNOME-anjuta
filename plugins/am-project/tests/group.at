@@ -147,4 +147,48 @@ AT_PARSER_CHECK([load empty1 \
 AT_CHECK([diff output expect])
 
 
+
+AS_MKDIR_P([single])
+AT_DATA([single/configure.ac],
+[[AC_CONFIG_FILES(
+Makefile
+)
+]])
+AT_DATA([single/Makefile.am],
+[[
+]])
+
+
+
+AT_DATA([expect],
+[[    GROUP (): single1
+        GROUP (): group1
+]])
+AT_DATA([reference.am],
+[[
+
+SUBDIRS = \
+	group1
+]])
+AT_DATA([reference.ac],
+[[AC_CONFIG_FILES(
+Makefile
+group1/Makefile
+)
+]])
+AT_PARSER_CHECK([load single \
+		 move single1 \
+		 add group 0 group1 \
+		 list \
+		 save])
+AT_CHECK([diff output expect])
+AT_CHECK([diff -b single1/configure.ac reference.ac])
+AT_CHECK([diff -b single1/Makefile.am reference.am])
+AT_CHECK([test -e single1/group1/Makefile.am])
+AT_PARSER_CHECK([load single1 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP

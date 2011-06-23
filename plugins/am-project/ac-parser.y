@@ -219,7 +219,9 @@ macro:
 space_list:
     /* empty */
     | space_list_body
-    | space_list_body spaces
+    | space_list_body spaces {
+		anjuta_token_set_type ($2, ANJUTA_TOKEN_LAST);
+	}
     ;
 
 space_list_body:
