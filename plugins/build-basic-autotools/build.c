@@ -799,7 +799,6 @@ build_configure_after_autogen (GObject *sender,
 		filename = g_build_filename (root_path, "configure", NULL);
 		has_configure = stat (filename, &conf_stat) == 0;
 		g_free (filename);
-		g_free (root_path);
 			
 		if (has_configure)
 		{
@@ -815,9 +814,9 @@ build_configure_after_autogen (GObject *sender,
 				BuildProgram *prog;
 				gchar *quote;
 				GFile *work_file;
-
+				
 				quote = shell_quotef ("%s%s%s",
-					     	plugin->project_root_dir,
+					     	root_path,
 					       	G_DIR_SEPARATOR_S,
 					       	CHOOSE_COMMAND (plugin, CONFIGURE));
 
@@ -839,9 +838,14 @@ build_configure_after_autogen (GObject *sender,
 				build_project_configured (sender, handle, NULL, pack);
 			}
 			
+			g_free (root_path);
 			return;
 		}
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Cannot configure project: Missing configure script in %s."), plugin->project_root_dir);
+		else
+		{
+			anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell), _("Cannot configure project: Missing configure script in %s."), root_path);
+			g_free (root_path);
+		}
 	}
 
 	if (pack)
@@ -863,9 +867,10 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
 		gchar *quote;
+		gchar *root_path = g_file_get_path (plugin->project_root_dir);
 
 		quote = shell_quotef ("%s%s%s",
-				plugin->project_root_dir,
+				root_path,
 			       	G_DIR_SEPARATOR_S,
 			       	CHOOSE_COMMAND (plugin, GENERATE));
 		prog = build_program_new_with_command (dir,
@@ -873,6 +878,7 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 											   quote,
 											   args);
 		g_free (quote);
+		g_free (root_path);
 	}
 	else
 	{
