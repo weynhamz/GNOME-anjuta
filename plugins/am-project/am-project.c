@@ -787,13 +787,13 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 		/* File list */
 		scanner = amp_ac_scanner_new (project);
 		
-		arg = anjuta_token_first_item (arg_list);
+		arg = anjuta_token_first_word (arg_list);
 		list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
 		anjuta_token_free_children (arg);
 		list = anjuta_token_delete_parent (list);
 		anjuta_token_prepend_items (arg, list);
 		amp_ac_scanner_free (scanner);
-		
+
 		for (item = anjuta_token_first_word (arg); item != NULL; item = anjuta_token_next_word (item))
 		{
 			gchar *value;

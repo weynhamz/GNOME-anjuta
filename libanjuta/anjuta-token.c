@@ -1058,8 +1058,14 @@ anjuta_token_merge_children (AnjutaToken *first, AnjutaToken *end)
 	anjuta_token_unlink_token (end);
 	if (end->last != NULL)
 	{
+		AnjutaToken *child;
+
 		first->last = end->last;
-		end->last->group = first;
+		for (child = anjuta_token_next (first); child != first->last; child = anjuta_token_next (child))
+		{
+			if (child->group == end) child->group = first;
+		}
+		first->last->group = first;
 	}
 	end->group = first;
 	anjuta_token_free (end);

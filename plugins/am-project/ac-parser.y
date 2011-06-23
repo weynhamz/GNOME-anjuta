@@ -338,8 +338,11 @@ arg_list:
     | spaces  arg_list_body  RIGHT_PAREN {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_LAST, NULL);
         anjuta_token_merge ($$, $3);
-        anjuta_token_merge ($1, $$);
-        $$ = $1;
+		anjuta_token_merge ($2, $$);
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+        anjuta_token_set_type ($1, ANJUTA_TOKEN_START);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge_children ($$, $2);
     }
     ;
 
