@@ -233,9 +233,10 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 	anjuta_shell_remove_value (project->plugin->shell,
 	                           IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
 	                           NULL);
-	
+
 	if (project->project) g_object_unref (project->project);
 	project->project = NULL;
+	project->root = NULL;
 	project->loaded = FALSE;
 	project->node_capabilities = 0;
 	
