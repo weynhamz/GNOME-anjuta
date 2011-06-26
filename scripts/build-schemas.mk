@@ -9,7 +9,7 @@ $(prefs_name).gschema.xml: $(prefs_ui_schemas)
 	mv -f $< $@
 
 %.gschema.xml: %.ui
-	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< $(prefs_name) $(srcdir)/$(prefs_keyfile) > $@
+	$(AM_V_GEN)$(top_srcdir)/scripts/builder2schema.pl $< $(prefs_name) $(prefs_keyfile:%=$(srcdir)/%) > $@
 
 # include the appropriate makefile rules for schema handling
 @GSETTINGS_RULES@
