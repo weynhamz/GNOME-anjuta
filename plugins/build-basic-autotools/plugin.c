@@ -1799,17 +1799,26 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 		
 		mod = build_module_from_file (bb_plugin, bb_plugin->current_editor_file, &target);
 
-		module_name = g_file_get_basename (mod);
-		module = escape_label (module_name);
-		g_free (module_name);
-		filename = escape_label (target);
-		g_free (target);
+		if (!g_file_equal (mod, bb_plugin->project_root_dir) && !g_file_equal (mod, bb_plugin->project_build_dir))
+		{
+			module_name = g_file_get_basename (mod);
+			module = escape_label (module_name);
+			g_free (module_name);
+		}
+		if (target != NULL)
+		{
+			filename = escape_label (target);
+			g_free (target);
+		}
 		has_makefile = directory_has_makefile (mod) || directory_has_makefile_am (bb_plugin, mod);
 		g_object_unref (mod);
 
 		mod = build_object_from_file (bb_plugin, bb_plugin->current_editor_file);
-		has_object = mod != NULL;
-		g_object_unref (mod);
+		if (mod != NULL)
+		{
+			has_object = TRUE;
+			g_object_unref (mod);
+		}
 	}
 	has_project = bb_plugin->project_root_dir != NULL;
 

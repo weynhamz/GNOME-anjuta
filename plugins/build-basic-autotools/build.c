@@ -189,26 +189,34 @@ static GFile *
 build_file_from_directory (BasicAutotoolsPlugin *plugin, GFile *directory)
 {
 	GFile *build_file;
-	
-	if ((plugin->project_root_dir != NULL) && 
-		(plugin->project_build_dir != NULL) && 
-	   !g_file_has_prefix (directory, plugin->project_build_dir) && 
-	   g_file_has_prefix (directory, plugin->project_root_dir))
+
+	if ((plugin->project_root_dir == NULL) || (plugin->project_build_dir == NULL))
 	{
+		/* No change if there is no project or no build directory */
+		build_file = g_object_ref (directory);
+	}
+	else if (g_file_has_prefix (directory, plugin->project_build_dir) || g_file_equal (directory, plugin->project_build_dir))
+	{
+		/* No change, already in build directory */
+		build_file = g_object_ref (directory);
+	}
+	else if (g_file_equal (directory, plugin->project_root_dir))
+	{
+		/* Use build directory instead of source directory */
+		build_file = g_object_ref (plugin->project_build_dir);
+	}
+	else if (g_file_has_prefix (directory, plugin->project_root_dir))
+	{
+		/* Get corresponding file in build directory */
 		gchar *relative;
 
 		relative = g_file_get_relative_path (plugin->project_root_dir, directory);
 		build_file = g_file_resolve_relative_path (plugin->project_build_dir, relative);
 		g_free (relative);
 	}
-	else if ((plugin->project_root_dir != NULL) && 
-		(plugin->project_build_dir != NULL) && 
-	   g_file_equal (directory, plugin->project_root_dir))
-	{
-		build_file = g_object_ref (plugin->project_build_dir);
-	}
 	else
 	{
+		/* File outside the project directory */
 		build_file = g_object_ref (directory);
 	}
 
@@ -271,7 +279,7 @@ build_file_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **target)
 			if (target != NULL) *target = g_file_get_relative_path (parent, file);
 			build_file = build_file_from_directory (plugin, parent);
 			g_object_unref (parent);
-
+			
 			return build_file;
 		}
 		else
@@ -749,7 +757,7 @@ build_project_configured (GObject *sender,
 	if (pack)
 	{
 		g_free (pack->args);
-		g_object_unref (pack->file);
+		if (pack->file != NULL) g_object_unref (pack->file);
 		g_free (pack);
 	}
 }
@@ -778,7 +786,7 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args
 	g_free (root_path);
 	pack->args = NULL;
 	pack->func = func;
-	pack->file = g_object_ref (file);
+	pack->file = (file != NULL) ? g_object_ref (file) : NULL;
 	build_program_set_callback (prog, build_project_configured, pack);
 	
 	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
@@ -861,7 +869,7 @@ build_configure_after_autogen (GObject *sender,
 	if (pack)
 	{
 		g_free (pack->args);
-		g_object_unref (pack->file);
+		if (pack->file != NULL) g_object_unref (pack->file);
 		g_free (pack);
 	}
 }
@@ -899,7 +907,7 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 	}
 	pack->args = g_strdup (args);
 	pack->func = func;
-	pack->file = g_object_ref (file);
+	pack->file = (file != NULL) ? g_object_ref (file) : NULL;
 	build_program_set_callback (prog, build_configure_after_autogen, pack);
 	
 	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
@@ -941,7 +949,7 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, GFile *fil
 		g_free (build_uri);
 	
 		args = build_configuration_get_args (config);
-		
+
 		if (run_autogen)
 		{
 			context = build_generate_dir (plugin, build_file, args, func, file);
