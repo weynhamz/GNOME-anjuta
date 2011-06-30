@@ -1991,7 +1991,11 @@ iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
 		{
 			node = get_node_from_file (node, element);
 			if (node != NULL) node = anjuta_project_node_parent (node);
-			if (node != NULL) file = g_object_ref (anjuta_project_node_get_file (node));
+			if (node != NULL)
+			{
+				file = anjuta_project_node_get_file (node);
+				if (file != NULL) g_object_ref (file);
+			}
 		}
 	}
 

@@ -30,6 +30,7 @@
 
 
 GFile * build_file_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **target);
+GFile * build_object_from_file (BasicAutotoolsPlugin *plugin, GFile *file);
 gboolean directory_has_makefile (GFile *dir);
 gboolean directory_has_makefile_am (BasicAutotoolsPlugin *bb_plugin,  GFile *dir);
 

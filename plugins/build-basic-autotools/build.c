@@ -281,6 +281,81 @@ build_file_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **target)
 	}
 }
 
+GFile *
+build_object_from_file (BasicAutotoolsPlugin *plugin, GFile *file)
+{
+	GFile *object = NULL;
+	IAnjutaProjectManager* projman;
+
+	/* Check that the GFile is a regular file */
+	if ((file == NULL) || (g_file_query_file_type (file, 0, NULL) == G_FILE_TYPE_DIRECTORY))
+	{
+		return NULL;
+	}
+	
+	projman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+				                            IAnjutaProjectManager,
+				                            NULL);
+	if ((projman != NULL) && ianjuta_project_manager_is_open (projman, NULL))
+	{
+		/* Use the project manager to find the object file */		
+		object = ianjuta_project_manager_get_parent (projman, file, NULL);
+		if (object != NULL)
+		{
+			if (ianjuta_project_manager_get_target_type (projman, object, NULL) != ANJUTA_PROJECT_OBJECT)
+			{
+				g_object_unref (object);
+				object = NULL;
+			}
+		}
+	}
+	else
+	{
+		/* Use language plugin trying to find an object file */	
+		IAnjutaLanguage* langman =	anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+			                                                      IAnjutaLanguage,
+			                                                      NULL);
+
+		if (langman != NULL)
+		{
+			GFileInfo* file_info;
+
+			file_info = g_file_query_info (file,
+				                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				                                          G_FILE_QUERY_INFO_NONE,
+		    		                                      NULL,
+		        		                                  NULL);
+			if (file_info)
+			{
+				gint id = ianjuta_language_get_from_mime_type (langman,
+			    	                                           g_file_info_get_content_type (file_info),
+			        	                                       NULL);
+				if (id > 0)
+				{
+					const gchar *obj_ext = ianjuta_language_get_make_target (langman, id, NULL);
+					gchar *basename;
+					gchar *ext;
+					gchar *targetname;
+					GFile *parent;
+
+					basename = g_file_get_basename (file);
+					ext = strrchr (basename, '.');
+					if ((ext != NULL) && (ext != basename)) *ext = '\0';
+					targetname = g_strconcat (basename, obj_ext, NULL);
+					g_free (basename);
+					parent = g_file_get_parent (file);
+					object = g_file_get_child (parent, targetname);
+					g_object_unref (parent);
+					g_free (targetname);
+				}
+			}
+			g_object_unref (file_info);
+		}
+	}
+
+	return object;
+}
+
 /* Save & Build
  *---------------------------------------------------------------------------*/
 
@@ -598,94 +673,29 @@ BuildContext*
 build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 {
 	BuildContext *context = NULL;
-	GFile *target = NULL;
-	gboolean ret;
-	IAnjutaProjectManager* projman;
+	BuildProgram *prog;
+	GFile *object;
+	gchar *target_name;
 	
 	g_return_val_if_fail (file != NULL, FALSE);
-	ret = FALSE;
-	
-	projman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-				                            IAnjutaProjectManager,
-				                            NULL);
-	if ((projman != NULL) && ianjuta_project_manager_is_open (projman, NULL))
-	{
-		/* Use the project manager to find the object file */		
-		target = ianjuta_project_manager_get_parent (projman, file, NULL);
-		if (target != NULL)
-		{
-			if (ianjuta_project_manager_get_target_type (projman, target, NULL) != ANJUTA_PROJECT_OBJECT)
-			{
-				g_object_unref (target);
-				target = NULL;
-			}
-		}
-	}
-	else
-	{
-		/* Use language plugin trying to find an object file */	
-		IAnjutaLanguage* langman =	anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-			                                                      IAnjutaLanguage,
-			                                                      NULL);
 
-		if (langman != NULL)
-		{
-			GFileInfo* file_info;
-
-			file_info = g_file_query_info (file,
-				                                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				                                          G_FILE_QUERY_INFO_NONE,
-		    		                                      NULL,
-		        		                                  NULL);
-			if (file_info)
-			{
-				gint id = ianjuta_language_get_from_mime_type (langman,
-			    	                                           g_file_info_get_content_type (file_info),
-			        	                                       NULL);
-				if (id > 0)
-				{
-					const gchar *obj_ext = ianjuta_language_get_make_target (langman, id, NULL);
-					gchar *basename;
-					gchar *ext;
-					gchar *targetname;
-					GFile *parent;
-
-					basename = g_file_get_basename (file);
-					ext = strrchr (basename, '.');
-					if ((ext != NULL) && (ext != basename)) *ext = '\0';
-					targetname = g_strconcat (basename, obj_ext, NULL);
-					g_free (basename);
-					parent = g_file_get_parent (file);
-					target = g_file_get_child (parent, targetname);
-					g_object_unref (parent);
-					g_free (targetname);
-				}
-			}
-			g_object_unref (file_info);
-		}
-	}
-		
-	if (target != NULL)
+	object = build_object_from_file (plugin, file);
+	if (object != NULL)
 	{
-		/* If file has no extension, take it as target itself */
-		BuildProgram *prog;
 		GFile *build_dir;
-		gchar *target_name;
-
+		
 		/* Find target directory */
-		build_dir = build_file_from_file (plugin, target, &target_name);
+		build_dir = build_file_from_file (plugin, object, &target_name);
 
 		prog = build_program_new_with_command (build_dir, "%s %s",
-		                                       CHOOSE_COMMAND(plugin, COMPILE),
-		                                       (target_name == NULL) ? "" : target_name);
+	    	                                   CHOOSE_COMMAND(plugin, COMPILE),
+	        	                               (target_name == NULL) ? "" : target_name);
 		g_free (target_name);
 		g_object_unref (build_dir);
 		context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
-		ret = TRUE;
-		g_object_unref (target);
+		g_object_unref (object);
 	}
-	
-	if (ret == FALSE)
+	else
 	{
 		/* FIXME: Prompt the user to create a Makefile with a wizard
 		   (if there is no Makefile in the directory) or to add a target
