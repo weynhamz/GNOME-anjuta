@@ -701,10 +701,7 @@ sdb_engine_get_file_defined_id (SymbolDBEngine* dbe,
 								const gchar* fake_file_on_db,
 								tagEntry* tag_entry)
 {
-	SymbolDBEnginePriv *priv;
 	GValue v = {0};
-	
-	priv = dbe->priv;	
 
 	gint file_defined_id = 0;
 	if (base_prj_path != NULL && g_str_has_prefix (tag_entry->file, base_prj_path))
@@ -2600,10 +2597,8 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
                                          const gchar* db_file,
                                          const gchar* cnc_string)
 {
-	SymbolDBEnginePriv *priv;
 	gdouble version;
 
-	priv = dbe->priv;
 	
 	version = sdb_engine_get_db_version (dbe);
 	DEBUG_PRINT ("Checking db version...");
@@ -3195,15 +3190,12 @@ symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe,
     							const gchar * project_version,
 							    const GPtrArray *sources_array)
 {
-	SymbolDBEnginePriv *priv;
 	GPtrArray *lang_array;
 	gint i;
 	
 	g_return_val_if_fail (dbe != NULL, FALSE);	
 	g_return_val_if_fail (lang_manager != NULL, FALSE);	
 	g_return_val_if_fail (sources_array != NULL, FALSE);
-
-	priv = dbe->priv;
 
 	lang_array = g_ptr_array_new_with_free_func (g_free);
 
@@ -4096,7 +4088,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 static void
 sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 {
-#if 0	
+#if 0
 	gint i;
 	SymbolDBEnginePriv *priv;
 	
@@ -5381,13 +5373,11 @@ void
 symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
                                                          const GPtrArray * files)
 {
-	SymbolDBEnginePriv *priv;	
 	gint i;
 	
 	g_return_if_fail (dbe != NULL);
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (files != NULL);
-	priv = dbe->priv;
 
 	for (i = 0; i < files->len; i++)
 	{
@@ -5398,14 +5388,12 @@ symbol_db_engine_remove_files (SymbolDBEngine * dbe, const gchar * project,
 static void
 on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 {
-	SymbolDBEnginePriv *priv;
 	GPtrArray *files_to_scan;
 	gint i;
 
 	g_return_if_fail (dbe != NULL);
 	g_return_if_fail (data != NULL);
 
-	priv = dbe->priv;
 	files_to_scan = (GPtrArray *) data;
 
 	for (i = 0; i < files_to_scan->len; i++)
@@ -5574,10 +5562,7 @@ symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe)
 void
 symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensitive)
 {
-	SymbolDBEnginePriv *priv;
-	
 	g_return_if_fail (dbe != NULL);
-	priv = dbe->priv;
 
 	if (case_sensitive == TRUE)
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 1");
