@@ -603,6 +603,75 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
+sdb_engine_get_tuple_id_by_unique_name2 (SymbolDBEngine * dbe, 
+										 static_query_type qtype,
+										 gchar * param_key1,
+										 GValue * value1,
+										 gchar * param_key2,
+										 GValue * value2)
+{
+	const GdaSet *plist;
+	const GdaStatement *stmt;
+	GdaHolder *param;
+	GdaDataModel *data_model;
+	const GValue *num;
+	gint table_id;
+	SymbolDBEnginePriv *priv;
+	
+	priv = dbe->priv;
+	
+	/* get prepared query */
+	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, qtype)) == NULL)
+	{
+		g_warning ("Query is null");
+		return -1;
+	}
+
+	plist = sdb_engine_get_query_parameters_list (dbe, qtype);
+	
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: param is NULL "
+				   "from pquery!\n");
+		return -1;
+	}
+	
+	gda_holder_set_value (param, value1, NULL);	
+
+	/* ...and the second one */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+				   "param is NULL from pquery!");
+		return -1;
+	}
+	
+	gda_holder_set_value (param, value2, NULL);	
+
+	/* execute the query with parameters just set */
+	data_model = gda_connection_statement_execute_select (priv->db_connection, 
+														  (GdaStatement*)stmt, 
+														  (GdaSet*)plist, NULL);
+		
+	if (!GDA_IS_DATA_MODEL (data_model) ||
+		gda_data_model_get_n_rows (GDA_DATA_MODEL (data_model)) <= 0)
+	{
+		if (data_model != NULL)
+			g_object_unref (data_model);
+	
+		return -1;
+	}
+
+	/* get and parse the results. */
+	num = gda_data_model_get_value_at (GDA_DATA_MODEL (data_model), 0, 0, NULL);
+
+	table_id = g_value_get_int (num);
+	g_object_unref (data_model);
+	return table_id;
+}
+
+/* ### Thread note: this function inherits the mutex lock ### */
+static GNUC_INLINE gint
 sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
@@ -4088,7 +4157,7 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe)
 static void
 sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 {
-#if 0
+#if 1
 	gint i;
 	SymbolDBEnginePriv *priv;
 	
@@ -4207,38 +4276,34 @@ sdb_engine_second_pass_update_heritage (SymbolDBEngine * dbe)
 			/* ok, search for the symbol_id of the base class */
 			if (namespace_name == NULL)
 			{
-				GValue *value1;
+				GValue v = {0, };
 
-				MP_LEND_OBJ_STR (priv, value1);
-				g_value_set_static_string (value1, klass_name);
+				SDB_GVALUE_SET_STATIC_STRING(v, klass_name);
 				
 				if ((base_klass_id =
 					 sdb_engine_get_tuple_id_by_unique_name (dbe,
 										 PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME,
 										 "klassname",
-										 value1)) < 0)
+										 &v)) < 0)
 				{
 					continue;
 				}
 			}
 			else
 			{
-				GValue *value1;
-				GValue *value2;
+				GValue v1 = {0, };
+				GValue v2 = {0, };
 
-				MP_LEND_OBJ_STR (priv, value1);
-				g_value_set_static_string (value1, klass_name);
-
-				MP_LEND_OBJ_STR (priv, value2);
-				g_value_set_static_string (value2, namespace_name);
+				SDB_GVALUE_SET_STATIC_STRING(v1, klass_name);
+				SDB_GVALUE_SET_STATIC_STRING(v2, namespace_name);				
 
 				if ((base_klass_id =
 					 sdb_engine_get_tuple_id_by_unique_name2 (dbe,
 						  PREP_QUERY_GET_SYMBOL_ID_BY_CLASS_NAME_AND_NAMESPACE,
 						  "klassname",
-						  value1,
+						  &v1,
 						  "namespacename",
-						  value2)) < 0)
+						  &v2)) < 0)
 				{
 					continue;
 				}
