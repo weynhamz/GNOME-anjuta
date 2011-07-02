@@ -925,6 +925,9 @@ check_and_warn_missing (NPWDruid *druid)
 
 		npw_druid_fill_error_page (druid, hbox,
 								   GTK_MESSAGE_WARNING,
+								   /* Translators: Application Manager is the program used to install
+								    * new application like apt on Ubuntu, yum on Fedora, zypper on
+								    * OpenSuSE and emerge on Gentoo */
 								  _("The missing programs are usually part of some distribution "
 									"packages and can be searched for in your Application Manager. "
 									"Similarly, the development packages are contained in special "
