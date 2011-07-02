@@ -1,17 +1,17 @@
 <page xmlns="http://projectmallard.org/1.0/"
       xmlns:facet="http://projectmallard.org/facet/1.0/"
       type="facets"
-      id="full-index">
+      id="widget-index">
   <info>
     <link type="guide" xref="index#reference"/>
-    <facet:match key="all-pages"/>
-    <desc>All help topics.</desc>
+    <facet:match key="all-widgets"/>
+    <desc>All windows and dialogs.</desc>
     <revision pkgversion="3.0" version="0.1" date="2011-05-01" status="incomplete"/>
     <credit type="author">
-      <name>Philip Chimento</name>
-      <email>philip.chimento@gmail.com</email>
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
     </credit>
   </info>
 
-  <title>Index</title>
+  <title>Windows and dialogs</title>
 </page>

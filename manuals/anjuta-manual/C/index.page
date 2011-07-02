@@ -28,8 +28,8 @@
     <title>Project Management</title>
   </section>
 
-  <section id="anjuta-build" style="2column" groups="first second third">
-    <title>Building and running</title>
+  <section id="anjuta-build" style="2column" groups="first second third fourth fifth sixth">
+    <title>Building Project</title>
   </section>
 
   <section id="anjuta-code" style="2column">
@@ -37,15 +37,15 @@
   </section> 
 
   <section id="anjuta-debug" style="2column" groups="first second third">
-    <title>Debugging</title>
+    <title>Running and Debugging</title>
   </section>
  
   <section id="anjuta-glade" style="2column" groups="first second">
     <title>User interface editor</title>
   </section>
 
-  <section id="full-index">
-    <title>Index</title>
+  <section id="reference">
+    <title>Reference</title>
   </section>
 
 </page>

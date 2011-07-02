@@ -1,0 +1,37 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-distribute">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-build" group="sixth"/>
+    <link type="seealso" xref="autotools-build-plugin"/>
+    <link type="seealso" xref="autotools-build-preferences-dialog"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Create a distribution package.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Create a distribution package</title>
+
+  <p>The standard way to distribute a autotools project is as a compressed
+  tar archive containing all source files. The user will have to decompress it, then
+  compile and install it on his system using the command sequence
+  <cmd>configure</cmd>, <cmd>make</cmd> and <cmd>make install</cmd>.
+  </p>
+
+  <steps>
+    <item>
+      <p>From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+      <gui>Build Tarball</gui></guiseq> to create a source distribution package.
+      </p>
+    </item>
+  </steps>
+
+</page>
+

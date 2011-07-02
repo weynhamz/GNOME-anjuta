@@ -1,0 +1,60 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-plugin">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Autotools build plugin
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Autotools build plugin</title>
+
+  <p>
+    This plugin is targeted at autotools projects but as they use make it is 
+    useful for other kind of projects using make.
+  </p>
+
+  <section>
+    <title>Make command used</title>
+    <p>Here is a list of the targets used by the plugin. They are implemented
+    in all autotools projects but you need to implement them if you use a custom
+    makefile.</p>
+    <terms>
+      <item>
+        <title><cmd>make <var>object_file_name</var></cmd></title>
+        <p>Use to compile an source file. The object file name is found by replacing
+        the source file extension with the corresponding object extension.</p>
+      </item>
+      <item>
+        <title><cmd>make</cmd></title>
+        <p>Use to build all targets in a directory.</p>
+      </item>
+      <item>
+        <title><cmd>make install</cmd></title>
+        <p>Use to install all targets in a directory.</p>
+      </item>
+      <item>
+        <title><cmd>make clean</cmd></title>
+        <p>Use to delete all file built in a directory.</p>
+      </item>
+      <item>
+        <title><cmd>make dist</cmd></title>
+        <p>Use to build a distributation package, called only in the project directory.</p>
+      </item>
+    </terms>    
+
+    <note style="tip">
+      <p>As make comes with default rules allowing it to compile and link a C
+      program without needing a makefile. You can compile a C program
+      from a single source file without a makefile nor a project.</p>
+    </note>
+  </section>
+
+</page>

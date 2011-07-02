@@ -1,0 +1,82 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-build">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-build" group="third"/>
+    <link type="seealso" xref="autotools-build-plugin"/>
+    <link type="seealso" xref="autotools-build-preferences-dialog"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Build targets or project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Build targets</title>
+  <p>
+    A target is a file created from source files, typically it is a program
+    or a library, but it could be a documentation if some processing is
+    needed. 
+  </p>
+  <p>
+    The build command compile all needed sources files and link them
+    with possibly some other files, like libraries, in order to create the target.
+    If some source files are already compiled and haven't been modified,
+    they are not be recompiled to gain time. There are several ways
+    to trigger a build.
+  </p>
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Build</gui></guiseq> or press <key>F7</key> to build all
+        target in the same directory than the current edited file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Build Project</gui></guiseq> or press <key>Shift+F7</key>
+        to build the complete project, all subdirectories are built recursively.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>file manager pane</gui>, select a file or a directory.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>file manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
+        to build all targets in the directory currently selected or the parent directory of the
+        currently selected file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>project manager pane</gui>, select a source file or a target.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>project manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
+        to build all targets in the directory containing the currently selected file or target.
+      </p>
+    </item>
+  </steps>
+
+</page>
+

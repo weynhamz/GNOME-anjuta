@@ -1,0 +1,63 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-preferences-dialog">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <facet:tag key="all-widgets" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="autotools-build-plugin"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Autotools build preferences dialog.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Autotools Build Preferences Dialog</title>
+
+  <p>
+    The dialog allows you to set global options for building files.
+  </p>
+
+  <terms>
+    <item>
+      <title><gui>Run several commands at a time</gui></title>
+      <p><app>make</app> is able to run several compilations at the same time.
+      It decrease the build time when having a multi-core processor but could
+      trigger some issues so this can be enabled or disabled with this check box.</p>
+    </item>
+    <item>
+      <title><gui>Continue on errors</gui></title>
+      <p>By default <app>make</app> stops as soon as it gets an error, it can be
+      faster to continue and get errors for all files in one step. You have to check this
+      check box to get this behavior.</p>
+    </item>
+    <item>
+      <title><gui>Translate messages</gui></title>
+      <p>By default errors and warnings message are translated. It has two
+      drawbacks though. In order to recognize errors and warnings the
+      translation of <app>Anjuta</app> and the compiler should perfectly match.
+      Moreover, it is often more difficult to find help on internet when
+      searching translated messages as they are much less common. Unchecking
+      this check box allows to disable translation.</p>
+    </item>
+    <item>
+      <title><gui>Highlight build warnings and errors in editor</gui></title>
+      <p>Errors and warnings during the build are displayed and highlighted in
+      the message window. By checking this option, they are higlighted in the
+      editor too.</p>
+    </item>
+    <item>
+      <title><gui>Install as root</gui></title>
+      <p>Installing a program needs to copy files in system directory which are
+      often not writable by the user. If this check box is checked, you can choose
+      to use <cmd>sudo</cmd> or <cmd>su</cmd> before installing the files
+      to acquire enough right to do it.</p>
+    </item>
+  </terms>
+
+</page>
+

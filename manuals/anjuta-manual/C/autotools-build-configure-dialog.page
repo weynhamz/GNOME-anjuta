@@ -1,0 +1,92 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-configure-dialog">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <facet:tag key="all-widgets" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="autotools-project-backend"/>
+    <link type="seealso" xref="autotools-build-configure"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Autotools configure dialog
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Autotools Configure Dialog</title>
+
+  <p>
+    The <gui>Configure</gui> dialog allows you to set the following options
+    and configure the project.
+  </p>
+
+  <terms>
+    <item>
+      <title><gui>Regenerate Project</gui></title>
+      <p>
+        If checked, the project will be completely regenerated, else only the
+        configure step is done. <app>Anjuta</app> automatically checks this
+        check box when needed so you can leave it in its current state.
+      </p>
+    </item>
+    <item>
+      <title><gui>Configuration</gui></title>
+      <p>
+        You can have several configurations having their own options and build
+        directory, this text box allows to name them.
+        Typically you have already defined a Default configuration,
+        a Debug configuration making programs easier to debug (keeping
+        intermediate variables and code ordering) and
+        an Optimized configuration generating faster programs but increasing
+        build time. You can define additional custom configurations.
+      </p>
+    </item>
+    <item>
+      <title><gui>Build Directory</gui></title>
+      <p>
+        Select here the build directory, it can be the project directory
+        or a subdirectory. This is particularly useful when switching between
+        different configurations to avoid rebuilding the whole project.
+      </p>
+      <note style="advanced">
+        <p>
+          With autotools, you cannot have one configuration using a different
+          directory if you already have one configuration using the project
+          directory. You need to remove it first.
+        </p>
+      </note>
+      <note style="bug">
+        <p>
+          Some autotools project cannot be built outside the project directory.
+          You can still use different configurations but they all have to use the
+          project directory and everything will be recompiled on each change
+          of the configuration.
+        </p>
+      </note>
+    </item>
+    <item>
+      <title><gui>Configure Options</gui></title>
+      <p>
+        This text box list all command line arguments used by the configure step.
+        All arguments are separated by spaces and must be quoted if they
+        contains a space. Each configuration fills this text box with default values
+        that you can modify.
+     </p>
+      <note style="advanced">
+        <p>
+          Each autotools project supports a common list of arguments but can
+          have specify arguments. You can have a list of all accepted arguments
+          by running <cmd>configure --help</cmd> on the command line. You need
+          to have configured your project at least one time to have the
+          <cmd>configure</cmd> script.
+        </p>
+      </note>
+    </item>
+  </terms>
+
+</page>
+

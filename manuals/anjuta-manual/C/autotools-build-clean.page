@@ -1,0 +1,73 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-clean">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-build" group="fourth"/>
+    <link type="seealso" xref="autotools-build-plugin"/>
+    <link type="seealso" xref="autotools-build-preferences-dialog"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Remove built files.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Clean targets</title>
+
+  <p>It can be useful to delete all files created by the build process. By
+  example if the all dependencies are not taken into account and
+  a modified file does not trigger a recompiling as it should, deleting
+  all files will fix this. There are several way to do this</p>
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Clean</gui></guiseq> to delete all files build in the
+        same directory than the current edited file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Clean Project</gui></guiseq> to delete all project built files,
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>file manager pane</gui>, select a file or a directory.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>file manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Clean</gui></guiseq>
+        to delete all files built in the directory currently selected or the parent directory of the
+        currently selected file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>project manager pane</gui>, select a source file or a target.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>project manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Clean</gui></guiseq>
+        to delete all built files in the directory containing the currently selected file or target.
+      </p>
+    </item>
+  </steps>
+
+</page>

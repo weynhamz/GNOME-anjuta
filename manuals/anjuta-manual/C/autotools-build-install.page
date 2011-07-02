@@ -1,0 +1,84 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-build-install">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-build" group="fifth"/>
+    <link type="seealso" xref="autotools-build-plugin"/>
+    <link type="seealso" xref="autotools-build-preferences-dialog"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Install targets or project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Install targets</title>
+
+  <p>Unless your project is very simple, it needs some data files like user
+  interface description files. These files are typically copied in standard
+  directories and read from there. It means that you cannot run your program
+  from the build directory. You need to install it in order to copy all these
+  files in the final place, by example in a subdirectory of <file>/usr/local</file>.
+  </p>
+
+  <p>There are several possibilities to install targets or a project.</p>
+
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Install</gui></guiseq> to install all files in the
+        same directory than the current edited file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
+        <gui>Install Project</gui></guiseq> to install all project files,
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>file manager pane</gui>, select a file or a directory.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>file manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Install</gui></guiseq>
+        to install all files in the directory currently selected or the parent directory of the
+        currently selected file.
+      </p>
+    </item>
+  </steps>
+  <steps>
+    <item>
+      <p>
+        From the <gui>project manager pane</gui>, select a source file or a target.
+      </p>
+    </item>
+    <item>
+      <p>
+        Click on the right mouse button to make the <gui>project manager context menu</gui> 
+        appears and select <guiseq><gui>Build</gui><gui>Install</gui></guiseq>
+        to install all files in the directory containing the currently selected file or target.
+      </p>
+    </item>
+  </steps>
+
+  <note style="tip">
+    <p>If you install the program in a system directory, you can have to use
+    <cmd>su</cmd> or <cmd>sudo</cmd> to have enough right.
+    See <link xref="autotools-build-preferences-dialog"/> for more information.</p>
+  </note>
+
+</page>
