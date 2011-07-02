@@ -33,8 +33,8 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-run-program.xml"
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-run-program.ui"
+#define UI_FILE PACKAGE_DATA_DIR "/ui/anjuta-run-program.xml"
+#define BUILDER_FILE PACKAGE_DATA_DIR "/glade/anjuta-run-program.ui"
 
 #define PARAMETERS_DIALOG "parameters_dialog"
 #define TERMINAL_CHECK_BUTTON "parameter_run_in_term_check"
@@ -618,7 +618,6 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	if (!gtk_builder_add_from_file (bxml, BUILDER_FILE, &error))
 	{
 		g_warning ("Couldn't load builder file: %s", error->message);
-		anjuta_util_dialog_error(parent, _("Missing file %s"), BUILDER_FILE);
 		g_error_free (error);
 		return NULL;
 	}

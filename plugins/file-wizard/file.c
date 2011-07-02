@@ -43,7 +43,7 @@
 #include "plugin.h"
 #include "file.h"
 
-#define BUILDER_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-file-wizard.ui"
+#define BUILDER_FILE_FILE PACKAGE_DATA_DIR "/glade/anjuta-file-wizard.ui"
 #define NEW_FILE_DIALOG "dialog.new.file"
 #define NEW_FILE_ENTRY "new.file.entry"
 #define NEW_FILE_TYPE "new.file.type"
@@ -174,13 +174,16 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 {
 	GtkComboBox *optionmenu;
 	GtkListStore *store;
+	GError* error = NULL;
 	gint i;
+
 
 	nfg = g_new0(NewFileGUI, 1);
 	nfg->bxml =  gtk_builder_new ();
-	if (!gtk_builder_add_from_file (nfg->bxml, BUILDER_FILE_FILE, NULL))
+	if (!gtk_builder_add_from_file (nfg->bxml, BUILDER_FILE_FILE, &error))
 	{
-		anjuta_util_dialog_error(NULL, _("Unable to build user interface for New File"));
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
 		g_free(nfg);
 		nfg = NULL;
 		return FALSE;

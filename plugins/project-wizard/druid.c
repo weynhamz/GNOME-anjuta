@@ -48,7 +48,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR"/project"
+#define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR "/project"
 
 /* Default property name useable in wizard file
  *---------------------------------------------------------------------------*/
@@ -60,7 +60,7 @@
 /* Widget and signal name found in glade file
  *---------------------------------------------------------------------------*/
 
-#define GTK_BUILDER_UI_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-wizard.ui"
+#define GTK_BUILDER_UI_FILE PACKAGE_DATA_DIR "/glade/anjuta-project-wizard.ui"
 
 #define NEW_PROJECT_DIALOG "druid_window"
 #define PROJECT_LIST "project_list"
@@ -1053,6 +1053,7 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 {
 	AnjutaShell *shell;
 	GtkBuilder *builder;
+	GError* error = NULL;		
 	GtkAssistant *assistant;
 	GtkWidget *page;
 	
@@ -1062,10 +1063,10 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 
 	/* Create GtkAssistant using GtkBuilder, glade doesn't seem to work*/
 	builder = gtk_builder_new ();
-	if (!gtk_builder_add_from_file (builder, GTK_BUILDER_UI_FILE, NULL))
+	if (!gtk_builder_add_from_file (builder, GTK_BUILDER_UI_FILE, &error))
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (shell),
-								  _("Unable to build project assistant user interface reading %s."), GTK_BUILDER_UI_FILE);
+		g_warning ("Couldn't load builder file: %s", error->message);
+		g_error_free (error);
 		return NULL;
 	}
 	assistant = GTK_ASSISTANT (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
