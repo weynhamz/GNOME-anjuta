@@ -1948,6 +1948,8 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 static void
 create_breakpoint_gui(BreakpointsDBase *bd)
 {
+	/* Translators: Enabled refers to a breakpoint. It is a column name, like
+	 * other words. */
 	static const gchar *column_names[COLUMNS_NB] =	{
 		N_("Enabled"), N_("Location"), N_("Address"), N_("Type"), 
 		N_("Condition"), N_("Pass count"), N_("State")};
