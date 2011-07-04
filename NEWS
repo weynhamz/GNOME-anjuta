@@ -1,3 +1,28 @@
+Anjuta 3.1.3 "Is this it?" (4 July 2011) -- Johannes Schmid
+
+New:
+ - Various improvements in the project wizard
+ - Git usuability improvements
+ - Auto-completion for Gtk.Builder objects in python plugin
+ - more mallard documentation
+
+Bugs fixed:
+649107 	Add an index of help topics to the Mallard manual
+651212 	Auto-completion of Gtk.Builder objects
+312667 	Why not allow people to compile a simple .cpp file not starting a project in a first place?
+588952 	build-menu disabled if sources are in subfolder
+590323 	Make the context menu "context"-aware
+645516 	Enabled (translation comment)
+646073 	Application Manager
+646192 	New File (translation comment)
+652773 	Anjuta (current git) fails to load abiword project
+652778 	Opening an automake based project with empty configure.in file fails.
+653364 	build failure on kfreebsd: Error on line 6 char 104: Invalid UTF-8 encoded text in
+647403 	Selecting Configure External Packages and selecting no packages causes segfault.
+
+Thanks to: Daniel Mustieles, Daniel Nylander, James Liggett, Johannes Schmid, 
+Jorge González, Massimo Corà, Matej Urbančič, Philip Chimento, Sébastien Granjoux
+
 Anjuta 3.1.2 "Berg 2011" (13 June 2011) -- Johannes Schmid
 
 New:
