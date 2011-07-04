@@ -129,7 +129,13 @@ help_activate (GtkWidget *parent, const gchar *doc_id, const gchar *item)
 void
 on_help_manual_activate (GtkAction *action, gpointer data)
 {
-	help_activate (data, "anjuta-manual", "anjuta-manual.xml");
+	GError* error = NULL;
+	if (!g_spawn_command_line_async ("yelp ghelp:anjuta-manual", &error) &&
+	    error)
+	{
+		g_warning ("Could open FAQ: %s", error->message);
+		g_error_free (error);
+	}
 }
 
 void
