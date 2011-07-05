@@ -2122,7 +2122,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 	
 	if (ba_plugin->fm_current_file)
 		g_object_unref (ba_plugin->fm_current_file);
-	ba_plugin->fm_current_file = g_value_get_object (value);
+	ba_plugin->fm_current_file = g_value_dup_object (value);
 
 	update_fm_module_ui (ba_plugin);
 }
