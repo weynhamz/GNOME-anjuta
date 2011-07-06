@@ -867,7 +867,7 @@ amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GErro
 			if ((value != NULL) && (strcmp (targetname, value) == 0))
 			{
 				g_free (value);
-				args = anjuta_token_last_item (anjuta_token_list ((AnjutaToken *)last->data));
+				args = anjuta_token_last_item ((AnjutaToken *)last->data);
 				break;
 			}
 			g_free (value);
@@ -1119,14 +1119,14 @@ amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GErro
 		GList *last;
 		for (last = amp_target_node_get_token (target, AM_TOKEN__SOURCES); last != NULL; last = g_list_next (last))
 		{
-			args = anjuta_token_last_item (anjuta_token_list ((AnjutaToken *)last->data));
+			args = anjuta_token_last_item ((AnjutaToken *)last->data);
 			break;
 		}
 		if (last == NULL)
 		{
 			for (last = amp_target_node_get_token (target, AM_TOKEN__DATA); last != NULL; last = g_list_next (last))
 			{
-				args = anjuta_token_last_item (anjuta_token_list ((AnjutaToken *)last->data));
+				args = anjuta_token_last_item ((AnjutaToken *)last->data);
 				break;
 			}
 		}

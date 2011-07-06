@@ -79,8 +79,7 @@ AT_DATA([reference],
 target1dir = $(target_dir)
 target1_DATA = data1.txt
 
-data_DATA = \
-	data4.txt \
+data_DATA = data4.txt \
 	data5.txt
 ]])
 AT_PARSER_CHECK([load data1 \
@@ -108,8 +107,7 @@ AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
 
 
-data_DATA = \
-	data4.txt \
+data_DATA = data4.txt \
 	data5.txt
 ]])
 AT_PARSER_CHECK([load data2 \
