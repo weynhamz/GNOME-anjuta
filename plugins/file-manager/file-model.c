@@ -670,6 +670,7 @@ file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
 	cancel = g_object_get_data (G_OBJECT(dir), "_cancel");
 	g_cancellable_cancel (cancel);
 	g_object_unref (cancel);
+	g_object_unref (dir);
 	
 	while (gtk_tree_model_iter_children (GTK_TREE_MODEL(model), &child, &real_iter))
 	{
