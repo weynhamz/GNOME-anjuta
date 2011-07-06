@@ -364,6 +364,7 @@ file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 									   G_FILE_QUERY_INFO_NONE,
 									   NULL, NULL);
 		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
+		g_object_unref (file);
 		strftime(time_str, 127, "%x %X", localtime(&time));
 		if (get_status_string(status))
 		{
