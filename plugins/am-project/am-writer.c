@@ -1075,14 +1075,30 @@ amp_source_node_create_token (AmpProject  *project, AmpSourceNode *source, GErro
 	after = TRUE;
 	for (sibling = anjuta_project_node_prev_sibling (ANJUTA_PROJECT_NODE (source)); sibling != NULL; sibling = anjuta_project_node_prev_sibling (sibling))
 	{
-		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE) break;
+		if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE)
+		{
+			break;
+		}
+		else if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_OBJECT)
+		{
+			sibling = anjuta_project_node_first_child (sibling);
+			break;
+		}
 	}
 	if (sibling == NULL)
 	{
 		after = FALSE;
 		for (sibling = anjuta_project_node_next_sibling (ANJUTA_PROJECT_NODE (source)); sibling != NULL; sibling = anjuta_project_node_next_sibling (sibling))
 		{
-			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE) break;
+			if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_SOURCE)
+			{
+				break;
+			}
+			else if (anjuta_project_node_get_node_type (sibling) == ANJUTA_PROJECT_OBJECT)
+			{
+				sibling = anjuta_project_node_first_child (sibling);
+				break;
+ 			}
 		}
 	}
 	if (sibling == NULL)
@@ -1291,7 +1307,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 	AnjutaToken *update = NULL;
 	AnjutaToken *existing_target_list;
 	gboolean after;
-	const gchar *target_dir;
+	gchar *target_dir;
 
 	g_return_val_if_fail (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_TARGET, NULL);
 
