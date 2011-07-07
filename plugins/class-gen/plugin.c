@@ -176,7 +176,7 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
                           gchar **new_source_file)
 {
 	IAnjutaProjectManager *manager;
-	GList *filenames;
+	GList *filenames = NULL;
 	GList *added_files;
 	GFile *file;
 	gboolean result;
@@ -187,7 +187,7 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	if (manager == NULL) 
 		return FALSE;
 
-	filenames = g_list_append (NULL, g_path_get_basename (header_file));
+	if (header_file != NULL) filenames = g_list_append (filenames, g_path_get_basename (header_file));
 	filenames = g_list_append (filenames, g_path_get_basename (source_file));
 	file = g_file_new_for_path (plugin->top_dir);
 	added_files = ianjuta_project_manager_add_sources (manager, filenames,
@@ -196,16 +196,17 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	g_list_foreach (filenames, (GFunc)g_free, NULL);
 	g_list_free (filenames);
 
-	result = g_list_length (added_files) == 2;
+	result = g_list_length (added_files) == ((header_file == NULL) ? 1 : 2);
 	if (result)
 	{
 		/*
 		 * Check if we're dealing with a programming language not having header
 		 * files.
 		 */
-		if (strcmp (header_file, source_file) == 0)
+		if (header_file == NULL)
 		{
-			*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+			*new_header_file = NULL;
+			*new_source_file = g_file_get_path((GFile *)added_files->data);
 		}
 		else
 		{
@@ -216,7 +217,7 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 
 	g_list_foreach (added_files, (GFunc)g_object_unref, NULL);
 	g_list_free (added_files);
-
+	
 	return result;
 }
 
@@ -233,7 +234,7 @@ cg_plugin_add_to_repository (AnjutaClassGenPlugin *plugin,
 	{
 		GList* files = NULL;
 		AnjutaAsyncNotify* notify = anjuta_async_notify_new ();
-		files = g_list_append (files, header_file);
+		if (header_file != NULL) files = g_list_append (files, header_file);
 		files = g_list_append (files, source_file);
 		ianjuta_vcs_add (vcs, files, notify, NULL);
 		g_list_free (files);
@@ -301,7 +302,6 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	const gchar *header_file;
 	const gchar *source_file;
 	IAnjutaFileLoader *loader;
-        gboolean header_is_source = FALSE;
 
 	plugin = (AnjutaClassGenPlugin *) user_data;
 	header_file = cg_generator_get_header_destination (generator);
@@ -310,27 +310,23 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaFileLoader, NULL);
 	
+	if (cg_window_get_add_to_project (plugin->window))
+	{
+		GFile* header = NULL;
+		GFile* source = g_file_new_for_path (source_file);
+		IAnjutaProjectManager *manager;
         /*
          * Check if we're workign with a programming language that
          * doesn't need header files.  If yes, don't create two tabs,
          * as the header and source will be the same file.
          */
-        if (g_strcmp0 (header_file, source_file) == 0)
-        {
-                header_is_source = TRUE;
-        }
-
-	if (cg_window_get_add_to_project (plugin->window))
-	{
-		GFile* header = g_file_new_for_path (header_file);
-		GFile* source = g_file_new_for_path (source_file);
-		IAnjutaProjectManager *manager;
-		if (header_is_source == TRUE)
+		if (header_file == NULL)
 		{
 			ianjuta_file_loader_load (loader, source, FALSE, NULL);
 		}
 		else
 		{
+			header = g_file_new_for_path (header_file);
 			ianjuta_file_loader_load (loader, header, FALSE, NULL);
 			ianjuta_file_loader_load (loader, source, FALSE, NULL);
 		}
@@ -343,7 +339,7 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaProjectManager, NULL);
 		if (manager)
 		{
-			if (header_is_source == TRUE)
+			if (header == NULL)
 			{
 			    g_signal_emit_by_name (G_OBJECT (manager), "element_added", source);
 			}
@@ -355,12 +351,12 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 
 		}
 
-		g_object_unref (header);
+		if (header != NULL) g_object_unref (header);
 		g_object_unref (source);
 	}
 	else
 	{
-		if (header_is_source == TRUE)
+		if (header_file == NULL)
 		{
 			/* We do not just use ianjuta_file_leader_load here to ensure that
 			 * the new documents are flagged as changed and no path is
@@ -408,8 +404,8 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 		}
 		else
 		{
-			header_file = g_build_filename (g_get_tmp_dir (),
-				cg_window_get_header_file (plugin->window), NULL);
+			header_file = cg_window_get_header_file (plugin->window) != NULL ? g_build_filename (g_get_tmp_dir (),
+				cg_window_get_header_file (plugin->window), NULL) : NULL;
 			source_file = g_build_filename (g_get_tmp_dir (),
 				cg_window_get_source_file (plugin->window), NULL);
 

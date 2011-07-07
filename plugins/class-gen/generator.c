@@ -99,8 +99,8 @@ cg_generator_autogen_source_func (NPWAutogen *autogen,
 	priv = CG_GENERATOR_PRIVATE (generator);
 
 	success = TRUE;
-	if (g_file_test (priv->header_destination,
-	                 G_FILE_TEST_IS_REGULAR) == FALSE)
+	if ((priv->header_destination != NULL) && (g_file_test (priv->header_destination,
+	                 G_FILE_TEST_IS_REGULAR) == FALSE))
 	{
 		if (g_file_test (priv->source_destination,
 		                 G_FILE_TEST_IS_REGULAR) == TRUE)
@@ -218,8 +218,9 @@ cg_generator_set_property (GObject *object,
 	{
 	case PROP_HEADER_TEMPLATE:
 		g_free (priv->header_template);
-		priv->header_template =
-			cg_generator_make_absolute (g_value_get_string (value));
+		priv->header_template = g_value_get_string (value) != NULL ?
+			cg_generator_make_absolute (g_value_get_string (value)) :
+			NULL;
 		break;
 	case PROP_SOURCE_TEMPLATE:
 		g_free (priv->source_template);
@@ -228,8 +229,9 @@ cg_generator_set_property (GObject *object,
 		break;
 	case PROP_HEADER_DESTINATION:
 		g_free (priv->header_destination);
-		priv->header_destination =
-			cg_generator_make_absolute (g_value_get_string (value));
+		priv->header_destination = g_value_get_string (value) != NULL ?
+			cg_generator_make_absolute (g_value_get_string (value)) :
+			NULL;
 		break;
 	case PROP_SOURCE_DESTINATION:
 		g_free (priv->source_destination);
@@ -404,7 +406,7 @@ cg_generator_run (CgGenerator *generator,
 
 		return FALSE;
 	}
-	else
+	else if ((priv->header_destination != NULL) && (priv->header_template != NULL))
 	{
 		npw_autogen_set_input_file (priv->autogen, priv->header_template,
 		                            NULL, NULL); /*"[+", "+]");*/
@@ -413,6 +415,17 @@ cg_generator_run (CgGenerator *generator,
 		return npw_autogen_execute (priv->autogen,
 		                            cg_generator_autogen_header_func,
 		                            generator, error);
+	}
+	else
+	{
+		/* No header file, generate source file */
+		npw_autogen_set_input_file (priv->autogen, priv->source_template,
+		                            NULL, NULL); /*"[+", "+]");*/
+		npw_autogen_set_output_file (priv->autogen, priv->source_destination);
+
+		return npw_autogen_execute (priv->autogen,
+	                              cg_generator_autogen_source_func,
+	                              generator, error);
 	}
 }
 

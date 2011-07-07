@@ -28,19 +28,19 @@
 
 #include <ctype.h>
 
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.ui"
+#define BUILDER_FILE PACKAGE_DATA_DIR "/glade/anjuta-class-gen-plugin.ui"
 
-#define CC_HEADER_TEMPLATE PACKAGE_DATA_DIR"/class-templates/cc-header.tpl"
-#define CC_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/cc-source.tpl"
+#define CC_HEADER_TEMPLATE PACKAGE_DATA_DIR "/class-templates/cc-header.tpl"
+#define CC_SOURCE_TEMPLATE PACKAGE_DATA_DIR "/class-templates/cc-source.tpl"
 
-#define GO_HEADER_TEMPLATE PACKAGE_DATA_DIR"/class-templates/go-header.tpl"
-#define GO_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/go-source.tpl"
+#define GO_HEADER_TEMPLATE PACKAGE_DATA_DIR "/class-templates/go-header.tpl"
+#define GO_SOURCE_TEMPLATE PACKAGE_DATA_DIR "/class-templates/go-source.tpl"
 
-#define PY_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/py-source.tpl"
+#define PY_SOURCE_TEMPLATE PACKAGE_DATA_DIR "/class-templates/py-source.tpl"
 
-#define JS_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/js-source.tpl"
+#define JS_SOURCE_TEMPLATE PACKAGE_DATA_DIR "/class-templates/js-source.tpl"
 
-#define VALA_SOURCE_TEMPLATE PACKAGE_DATA_DIR"/class-templates/vala-source.tpl"
+#define VALA_SOURCE_TEMPLATE PACKAGE_DATA_DIR "/class-templates/vala-source.tpl"
 
 typedef struct _CgWindowPrivate CgWindowPrivate;
 struct _CgWindowPrivate
@@ -1458,7 +1458,7 @@ cg_window_create_value_heap (CgWindow *window)
 	npw_value_set_value(value, LICENSES[license_index],
 	                         NPW_VALID_VALUE);
 
-	header_file = g_path_get_basename (cg_window_get_header_file (window));
+	header_file = cg_window_get_header_file (window) != NULL ? g_path_get_basename (cg_window_get_header_file (window)) : NULL;
 	source_file = g_path_get_basename (cg_window_get_source_file (window));
 	
 	value = npw_value_heap_find_value (values, "HeaderFile");
@@ -1492,11 +1492,11 @@ cg_window_get_header_template (CgWindow *window)
 	case 1:
 		return GO_HEADER_TEMPLATE;
 	case 2: /* Python */
-		return PY_SOURCE_TEMPLATE;
+		return NULL;
 	case 3: /* JavaScript */
-		return JS_SOURCE_TEMPLATE;
+		return NULL;
 	case 4: /* Vala */
-		return VALA_SOURCE_TEMPLATE;
+		return NULL;
 	default:
 		g_assert_not_reached ();
 		return NULL;
@@ -1513,7 +1513,7 @@ cg_window_get_header_file(CgWindow *window)
 	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file"));
 	
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
-	return gtk_entry_get_text (entry);
+	return gtk_widget_get_visible (GTK_WIDGET (entry)) == TRUE ? gtk_entry_get_text (entry) : NULL;
 }
 
 const gchar *
