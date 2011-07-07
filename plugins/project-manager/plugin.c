@@ -440,9 +440,9 @@ on_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 	
 	if (plugin->current_editor_uri)
 	{
-		gchar *path = g_path_get_dirname (plugin->current_editor_uri);
-		default_group = g_file_new_for_path (path);
-		g_free (path);
+		gchar *uri = g_path_get_dirname (plugin->current_editor_uri);
+		default_group = g_file_new_for_uri (uri);
+		g_free (uri);
 	}
 	
 	group =
@@ -495,9 +495,9 @@ on_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 	
 	if (plugin->current_editor_uri)
 	{
-		gchar *path = g_path_get_dirname (plugin->current_editor_uri);
-		default_group = g_file_new_for_path (path);
-		g_free (path);
+		gchar *uri = g_path_get_dirname (plugin->current_editor_uri);
+		default_group = g_file_new_for_uri (uri);
+		g_free (uri);
 	}
 	
 	target =
@@ -517,9 +517,9 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 	
 	if (plugin->current_editor_uri)
 	{
-		gchar *path = g_path_get_dirname (plugin->current_editor_uri);
-		default_group = g_file_new_for_path (path);
-		g_free (path);
+		gchar *uri = g_path_get_dirname (plugin->current_editor_uri);
+		default_group = g_file_new_for_uri (uri);
+		g_free (uri);
 		source_uri = plugin->current_editor_uri;
 	}
 	source =
