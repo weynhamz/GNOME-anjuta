@@ -12,7 +12,8 @@ DOC_PAGES = anjuta-code-assist.page \
 	anjuta-debug-watches.page \
 	anjuta-glade-signals.page \
 	anjuta-glade-start.page \
-	anjuta-run.page \
+	run-run.page \
+	run-parameters-dialog.page \
 	autotools-build-build.page \
 	autotools-build-clean.page \
 	autotools-build-compile.page \

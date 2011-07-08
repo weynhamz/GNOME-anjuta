@@ -28,16 +28,16 @@
     <title>Project Management</title>
   </section>
 
-  <section id="anjuta-build" style="2column" groups="first second third fourth fifth sixth">
-    <title>Building Project</title>
-  </section>
-
   <section id="anjuta-code" style="2column">
     <title>Coding and code navigation</title>
   </section> 
 
-  <section id="anjuta-debug" style="2column" groups="first second third">
-    <title>Running and Debugging</title>
+  <section id="anjuta-build" style="2column" groups="first second third fourth fifth sixth">
+    <title>Building Project</title>
+  </section>
+
+  <section id="anjuta-debug" style="2column" groups="first second third fourth fifth">
+    <title>Debugging Program</title>
   </section>
  
   <section id="anjuta-glade" style="2column" groups="first second">

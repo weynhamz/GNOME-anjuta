@@ -1,0 +1,69 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="run-parameters-dialog">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <facet:tag key="all-widgets" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="run-run"/>
+    <link type="seealso" xref="debug-run"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Run parameters dialog
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Run Parameters Dialog</title>
+
+  <p>The <gui>run parameter</gui> dialog allows you to define the current program and
+  several parameters.</p>
+
+  <terms>
+    <item>
+      <title><gui>Program</gui></title>
+      <p>This is the program that will be executed if you run a program with or
+      without the debugger. The drop-down list allows you to select programs
+      created by the current project, but you can click on the <gui>Browse</gui>
+      button to choose any other program.</p>
+    </item>
+    <item>
+      <title><gui>Arguments</gui></title>
+      <p>These are the command line arguments used by your
+      program. The drop-down list keeps an history of the last arguments
+      used.</p>
+    </item>
+    <item>
+      <title><gui>Working Directory</gui></title>
+      <p>The working directory is the current directory when your program will
+      be run.</p>
+    </item>
+    <item>
+      <title><gui>Environment Variables</gui></title>
+      <p>You can click on the drop-down section, to display all environment
+      variables those will be accessible by your program. By default, it
+      includes all the current environment variables, they are display in light
+      gray.</p>
+      <p>You can click on the <gui>New</gui> button to add a new
+      environment variable.</p>
+      <p>You can click on the <gui>Edit</gui> button to change the value
+      of the selected environment variable.</p>
+      <p>You can click on the <gui>Delete</gui> button to remove the
+      selected environment variable.</p>
+      <p>When a variable has not the same value than in the current
+      environment, it is displayed in black.</p>
+    </item>
+    <item>
+      <title><gui>Run in Terminal</gui></title>
+      <p>This has to be checked to run the program in a terminal allowing
+      you to provide inputs and see its outputs using the standard Unix
+      streams. It is not necessary for programs having a graphical interface.
+     </p>
+    </item>
+  </terms>
+
+</page>
+

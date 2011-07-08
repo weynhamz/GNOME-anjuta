@@ -1,0 +1,51 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="run-run">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-debug" group="first"/>
+    <link type="seealso" xref="run-parameters-dialog"/>
+    <link type="seealso" xref="autotools-build-install"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Run a program without the debugger.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Run a program</title>
+
+  <p>If <app>Anjuta</app> is used to start a program it checks that it is
+  up to date and build it if needed.</p>
+
+  <steps>
+    <item>
+      <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+        <gui>Run</gui></guiseq> or press <key>F3</key> to execute
+	the current program.</p>
+    </item>
+  </steps>
+
+  <p>The current program and several parameters can be set on the <gui>parameter</gui>
+  dialog. See <link xref="run-parameters-dialog"/> for more information.</p>
+
+  <steps>
+    <item>
+      <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+      <gui>Program Parameters...</gui></guiseq> to display the dialog. 
+      </p>
+    </item>
+  </steps>
+
+  <note style="tip">
+    <p>If your program needs data files, you probably have to install it
+    at least one time before running it.
+    See <link xref="autotools-build-install"/> for more information.</p>
+  </note>
+ 
+</page>
+
