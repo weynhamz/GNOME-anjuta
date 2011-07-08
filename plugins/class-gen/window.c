@@ -219,7 +219,26 @@ cg_window_fetch_string (CgWindow *window,
 	if (GTK_IS_ENTRY (widget))
 		return g_strdup (gtk_entry_get_text(GTK_ENTRY(widget)));
 	else if (GTK_IS_COMBO_BOX (widget))
-		return gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(widget));
+	{
+ 		GtkTreeIter iter;
+		
+		if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter))
+		{
+      		GtkTreeModel *model;
+			gchar *text;
+
+			model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
+			g_return_val_if_fail (GTK_IS_LIST_STORE (model), NULL);
+			
+			gtk_tree_model_get (model, &iter, 0, &text, -1);
+			
+			return text;
+		}
+		else
+		{
+			return NULL;
+		}
+	}
 	else
 		return NULL;
 }
