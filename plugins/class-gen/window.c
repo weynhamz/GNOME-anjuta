@@ -1532,7 +1532,7 @@ cg_window_get_header_file(CgWindow *window)
 	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file"));
 	
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
-	return gtk_widget_get_visible (GTK_WIDGET (entry)) == TRUE ? gtk_entry_get_text (entry) : NULL;
+	return gtk_widget_get_sensitive (GTK_WIDGET (entry)) == TRUE ? gtk_entry_get_text (entry) : NULL;
 }
 
 const gchar *
