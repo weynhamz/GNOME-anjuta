@@ -76,7 +76,7 @@ struct _AnjutaClassInheritance {
 	gint uiid;
 	
 	/* Style colors */
-	GdkColor style[N_STYLES];
+	guint style[N_STYLES];
 
 	/* Search queries */
 	IAnjutaSymbolQuery *query_project;

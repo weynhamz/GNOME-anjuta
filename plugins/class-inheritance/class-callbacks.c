@@ -81,23 +81,23 @@ on_expanded_class_title_event (GooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in title's area */
 		g_object_set (G_OBJECT (item),
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
 		                     NULL);
 		g_object_set (G_OBJECT (text_item),
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
 		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited title's area */
 		g_object_set (G_OBJECT (item),
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_BG],
 		                     NULL);
 		g_object_set (G_OBJECT (text_item),
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_FG],
 		                     NULL);
 		return TRUE;
 	default:
@@ -120,8 +120,8 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 	text_item =
 		goo_canvas_text_new (group, tooltip_text, 0, 0, -1,
 		                     GOO_CANVAS_ANCHOR_CENTER,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_ITEM_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_ITEM_FG],
 		                     NULL);
 	
 	g_object_get (text_item, "text_width", &text_width_value,
@@ -162,17 +162,17 @@ create_class_item_tooltip (ClsNode *cls_node, const gchar *tooltip_text)
 	fore_canvas_item =
 		goo_canvas_polyline_new (group, TRUE, 0,
 		                     "points", points,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_ITEM_BG],
-		                     "outline_color_gdk",
-		                     &cls_node->plugin->style[STYLE_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_ITEM_BG],
+		                     "stroke_color_rgba",
+		                     cls_node->plugin->style[STYLE_FG],
 		                     NULL);
 	/* shadow */
 	canvas_item =
 		goo_canvas_polyline_new (group, TRUE, 0,
 		                     "points", points,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_BG],
 		                     NULL);
 	goo_canvas_points_unref (points);
 
@@ -253,12 +253,12 @@ on_expanded_class_item_event (GooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
 		g_object_set (node_item->canvas_node_item,
-		                     "fill_color_gdk",
-		                     &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
+		                     "fill_color_rgba",
+		                     node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
+		                     "fill_color_rgba",
+		                     node_item->cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
 		                     NULL);
 		/* Show tooltip */
 		if (!node_item->tooltip)
@@ -274,12 +274,12 @@ on_expanded_class_item_event (GooCanvasItem *item, GdkEvent *event,
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		g_object_set (node_item->canvas_node_item,
-		                     "fill_color_gdk",
-		                     &node_item->cls_node->plugin->style[STYLE_ITEM_BG],
+		                     "fill_color_rgba",
+		                     node_item->cls_node->plugin->style[STYLE_ITEM_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &node_item->cls_node->plugin->style[STYLE_ITEM_FG],
+		                     "fill_color_rgba",
+		                     node_item->cls_node->plugin->style[STYLE_ITEM_FG],
 		                     NULL);
 		/* Hide tooltip */
 		if (node_item->tooltip_timeout)
@@ -318,23 +318,23 @@ on_expanded_class_more_event (GooCanvasItem *item, GdkEvent *event,
 		
 	case GDK_ENTER_NOTIFY:		/* mouse entered in more's area */
 		g_object_set (item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_PRELIGHT_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_PRELIGHT_FG],
 		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		g_object_set (item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_TITLE_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_TITLE_FG],
 		                     NULL);
 		return TRUE;
 	default:
@@ -371,24 +371,24 @@ on_collapsed_class_event (GooCanvasItem *item, GdkEvent *event, gpointer data)
 	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
 		/* Make the outline wide */
 		g_object_set (item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_ITEM_PRELIGHT_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_ITEM_PRELIGHT_FG],
 		                     NULL);
 		return TRUE;
 
 	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
 		/* Make the outline thin */
 		g_object_set (item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_BG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_BG],
 		                     NULL);
 		g_object_set (text_item,
-		                     "fill_color_gdk",
-		                     &cls_node->plugin->style[STYLE_FG],
+		                     "fill_color_rgba",
+		                     cls_node->plugin->style[STYLE_FG],
 		                     NULL);
 		return TRUE;
 	default:
@@ -408,6 +408,17 @@ on_update_menu_item_selected (GtkMenuItem *item,
 	cls_inherit_update (plugin);
 }
 
+static guint
+gdk_color_to_rgba (GdkColor *color)
+{
+	guint rgba = 0;
+	rgba |= (color->red) >> 8; rgba <<= 8;
+	rgba |= (color->green) >> 8; rgba <<= 8;
+	rgba |= (color->blue) >> 8; rgba <<= 8;
+	rgba |= 0xFF;
+	return rgba;
+}
+
 /*----------------------------------------------------------------------------
  * callback for theme/colors changes
  */
@@ -415,24 +426,22 @@ void
 on_style_set (GtkWidget *widget, GtkStyle  *previous_style,
 			  AnjutaClassInheritance *plugin)
 {
-#if 0
-	GtkStyle *style = plugin->canvas->style;
+	GtkStyle *style = gtk_widget_get_style (plugin->canvas);
 
-	plugin->style[STYLE_BG] = style->base[GTK_STATE_NORMAL];
-	plugin->style[STYLE_FG] = style->text[GTK_STATE_NORMAL];
-	plugin->style[STYLE_TITLE_FG] = style->fg[GTK_STATE_ACTIVE];
-	plugin->style[STYLE_TITLE_BG] = style->bg[GTK_STATE_ACTIVE];
-	plugin->style[STYLE_TITLE_PRELIGHT_FG] = style->fg[GTK_STATE_PRELIGHT];
-	plugin->style[STYLE_TITLE_PRELIGHT_BG] = style->bg[GTK_STATE_PRELIGHT];
-	plugin->style[STYLE_ITEM_FG] = style->text[GTK_STATE_NORMAL];
-	plugin->style[STYLE_ITEM_BG] = style->base[GTK_STATE_NORMAL];
-	plugin->style[STYLE_ITEM_PRELIGHT_FG] = style->text[GTK_STATE_SELECTED];
-	plugin->style[STYLE_ITEM_PRELIGHT_BG] = style->base[GTK_STATE_SELECTED];
+	plugin->style[STYLE_BG] = gdk_color_to_rgba (&style->base[GTK_STATE_NORMAL]);
+	plugin->style[STYLE_FG] = gdk_color_to_rgba (&style->text[GTK_STATE_NORMAL]);
+	plugin->style[STYLE_TITLE_FG] = gdk_color_to_rgba (&style->fg[GTK_STATE_ACTIVE]);
+	plugin->style[STYLE_TITLE_BG] = gdk_color_to_rgba (&style->bg[GTK_STATE_ACTIVE]);
+	plugin->style[STYLE_TITLE_PRELIGHT_FG] = gdk_color_to_rgba (&style->fg[GTK_STATE_PRELIGHT]);
+	plugin->style[STYLE_TITLE_PRELIGHT_BG] = gdk_color_to_rgba (&style->bg[GTK_STATE_PRELIGHT]);
+	plugin->style[STYLE_ITEM_FG] = gdk_color_to_rgba (&style->text[GTK_STATE_NORMAL]);
+	plugin->style[STYLE_ITEM_BG] = gdk_color_to_rgba (&style->base[GTK_STATE_NORMAL]);
+	plugin->style[STYLE_ITEM_PRELIGHT_FG] = gdk_color_to_rgba (&style->text[GTK_STATE_SELECTED]);
+	plugin->style[STYLE_ITEM_PRELIGHT_BG] = gdk_color_to_rgba (&style->base[GTK_STATE_SELECTED]);
 	
 	/* Use text background (normally white) for canvas background */
-	style->bg[GTK_STATE_NORMAL] = plugin->style[STYLE_BG];
+	/* FIXME: style->bg[GTK_STATE_NORMAL] = plugin->style[STYLE_BG]; */
 
 	/* FIXME: */
 	/* cls_inherit_update (plugin); */
-#endif
 }
