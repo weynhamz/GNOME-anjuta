@@ -1,19 +1,19 @@
 # translation of anjuta.help.master.po to Español
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-07-09 18:33+0000\n"
-"PO-Revision-Date: 2011-07-10 12:50+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-07-10 10:52+0000\n"
+"PO-Revision-Date: 2011-07-10 21:25+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -733,6 +733,10 @@ msgid ""
 "use <cmd>sudo</cmd> or <cmd>su</cmd> before installing the files to acquire "
 "enough right to do it."
 msgstr ""
+"Instalar programas necesita copiar archivos en carpetas del sistema que a "
+"menudo no son escribibles por el usuario. Si esta casilla está marcada, "
+"puede elegir usar <cmd>sudo</cmd> o <cmd>su</cmd> antes de instalar los "
+"archivos para obtener permisos para hacerlo."
 
 #: C/autotools-build-plugin.page:8(desc)
 #: C/autotools-build-plugin.page:17(title)
@@ -755,6 +759,9 @@ msgid ""
 "all autotools projects but you need to implement them if you use a custom "
 "makefile."
 msgstr ""
+"Esta es una lista de objetivos usados por el complemento. Están "
+"implementados en todos los proyectos de «autotools», pero necesita "
+"implementarlos si está usando un makefile personalizado."
 
 #: C/autotools-build-plugin.page:31(var)
 msgid "object_file_name"
@@ -769,6 +776,9 @@ msgid ""
 "Use to compile an source file. The object file name is found by replacing "
 "the source file extension with the corresponding object extension."
 msgstr ""
+"Úselo para compilar un archivo de fuentes. El nombre de archivo del objeto "
+"se obtiene reemplazando la extensión del archivo fuente con la extensión "
+"correspondiente del objeto."
 
 #: C/autotools-build-plugin.page:36(cmd)
 msgid "make"
@@ -890,6 +900,9 @@ msgid ""
 "<cmd>su</cmd> or <cmd>sudo</cmd> to have enough right. See <link xref="
 "\"autotools-build-preferences-dialog\"/> for more information."
 msgstr ""
+"Si instala un programa en una carpeta del sistema debe usar <cmd>su</cmd> o "
+"<cmd>sudo</cmd> para tener permisos. Consulte la <link xref=\"autotools-"
+"build-preferences-dialog\"/> para obtener más información"
 
 #: C/autotools-build-configure-dialog.page:11(desc)
 msgid "Autotools configure dialog"
@@ -942,6 +955,10 @@ msgid ""
 "subdirectory. This is particularly useful when switching between different "
 "configurations to avoid rebuilding the whole project."
 msgstr ""
+"Seleccione aquí la carpeta de construcción, que puede ser la carpeta del "
+"proyecto o una subcarpeta. Esto es especialmente útil cuando se cambia entre "
+"distintas configuraciones, para evitar tener que reconstruir el proyecto "
+"entero."
 
 #: C/autotools-build-configure-dialog.page:56(p)
 msgid ""
@@ -1103,6 +1120,9 @@ msgid ""
 "A target is a file created from source files, typically it is a program or a "
 "library, but it could be a documentation if some processing is needed."
 msgstr ""
+"Un objetivo es un archivo creado desde archivos de fuentes. Generalmente es "
+"un programa o una biblioteca, pero puede ser una documentación si se "
+"necesita algún procesado."
 
 #: C/autotools-build-build.page:26(p)
 msgid ""
@@ -1184,6 +1204,8 @@ msgid ""
 "These are the command line arguments used by your program. The drop-down "
 "list keeps an history of the last arguments used."
 msgstr ""
+"Estos son los argumentos de línea de comandos usados por su programa. La "
+"lista desplegable almacena un histórico de los últimos argumentos usados."
 
 #: C/run-parameters-dialog.page:40(gui)
 msgid "Working Directory"
@@ -1193,6 +1215,8 @@ msgstr "Carpeta de trabajo"
 msgid ""
 "The working directory is the current directory when your program will be run."
 msgstr ""
+"La carpeta de trabajo es la carpeta actual en la que se ejecutará su "
+"programa."
 
 #: C/run-parameters-dialog.page:45(gui)
 msgid "Environment Variables"
@@ -1204,29 +1228,40 @@ msgid ""
 "those will be accessible by your program. By default, it includes all the "
 "current environment variables, they are display in light gray."
 msgstr ""
+"Puede pulsar en la sección desplegable para mostrar todas las variables de "
+"entorno que serán accesibles por su programa. De manera predeterminada, "
+"incluye todas las variables de entorno, que se muestran en gris claro."
 
 #: C/run-parameters-dialog.page:50(p)
 msgid ""
 "You can click on the <gui>New</gui> button to add a new environment variable."
 msgstr ""
+"Puede pulsar en el botón <gui>Nueva</gui> para añadir una variable de "
+"entorno nueva."
 
 #: C/run-parameters-dialog.page:52(p)
 msgid ""
 "You can click on the <gui>Edit</gui> button to change the value of the "
 "selected environment variable."
 msgstr ""
+"Puede pulsar en el botón <gui>Editar</gui> para editar el valor de la "
+"variable de entorno seleccionada."
 
 #: C/run-parameters-dialog.page:54(p)
 msgid ""
 "You can click on the <gui>Delete</gui> button to remove the selected "
 "environment variable."
 msgstr ""
+"Puede pulsar en el botón <gui>Borrar</gui> para quitar la variable de "
+"entorno seleccionada."
 
 #: C/run-parameters-dialog.page:56(p)
 msgid ""
 "When a variable has not the same value than in the current environment, it "
 "is displayed in black."
 msgstr ""
+"Cuando una variable no tiene el mismo valor que en el entorno actual, se "
+"muestra en negro."
 
 #: C/run-parameters-dialog.page:60(gui)
 msgid "Run in Terminal"
@@ -1252,6 +1287,8 @@ msgid ""
 "If <app>Anjuta</app> is used to start a program it checks that it is up to "
 "date and build it if needed."
 msgstr ""
+"Si se usa <app>Anjuta</app> para iniciar un programa, se comprueba que está "
+"actualizado y lo construye si es necesario."
 
 #: C/run-run.page:27(p)
 msgid ""
@@ -1267,6 +1304,9 @@ msgid ""
 "The current program and several parameters can be set on the <gui>parameter</"
 "gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
 msgstr ""
+"En el diálogo <gui>Parámetros</gui> se pueden establecer el programa actual "
+"y varios parámetros. Consulte la <link xref=\"run-parameters-dialog\"/> para "
+"obtener más información."
 
 #: C/run-run.page:38(p)
 msgid ""
