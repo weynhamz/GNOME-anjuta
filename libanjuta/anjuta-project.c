@@ -360,6 +360,20 @@ anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 	}
 }
 
+AnjutaProjectNode *
+anjuta_project_node_parent_type(AnjutaProjectNode *node,  AnjutaProjectNodeType type)
+{
+	do
+	{
+		node = anjuta_project_node_parent (node);
+		if (node == NULL) break;
+	}
+	while (anjuta_project_node_get_node_type (node) != type);
+
+	return node;
+}
+
+
 
 /* Debugging functions
  *---------------------------------------------------------------------------*/

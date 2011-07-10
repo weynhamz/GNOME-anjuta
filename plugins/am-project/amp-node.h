@@ -122,7 +122,6 @@ gboolean						amp_node_erase					(AmpNode *node,
 											                       AmpProject *project,
 											                       GError **error);
 
-
 void amp_node_register (GTypeModule *module);
 
 G_END_DECLS

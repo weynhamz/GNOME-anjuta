@@ -76,10 +76,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			/* Look for parent */
-			if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
-			{
-				parent = anjuta_project_node_parent (parent);
-			}
+			parent = anjuta_project_node_parent_type (parent, ANJUTA_PROJECT_GROUP);
 			
 			if ((file == NULL) && (name != NULL))
 			{

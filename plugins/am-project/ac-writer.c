@@ -374,8 +374,8 @@ amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GE
 
 
 	/* Get parent module */
-	module = AMP_MODULE_NODE (anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package)));
-	if ((module == NULL) || (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (module)) != ANJUTA_PROJECT_MODULE)) return FALSE;
+	module = AMP_MODULE_NODE (anjuta_project_node_parent_type (ANJUTA_PROJECT_NODE (package), ANJUTA_PROJECT_MODULE));
+	if (module == NULL) return FALSE;
 
 
 	/* Add in configure.ac */
@@ -443,8 +443,8 @@ amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GE
 	AnjutaToken *token;
 
 	/* Get parent module */
-	module = anjuta_project_node_parent (ANJUTA_PROJECT_NODE (package));
-	if ((module == NULL) || (anjuta_project_node_get_node_type (module) != ANJUTA_PROJECT_MODULE))
+	module = anjuta_project_node_parent_type (ANJUTA_PROJECT_NODE (package), ANJUTA_PROJECT_MODULE);
+	if (module == NULL)
 	{
 		return FALSE;
 	}

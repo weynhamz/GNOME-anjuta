@@ -175,6 +175,7 @@ AnjutaProjectNode *anjuta_project_node_last_child (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_next_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_prev_sibling (AnjutaProjectNode *node);
 AnjutaProjectNode *anjuta_project_node_nth_child (AnjutaProjectNode *node, guint n);
+AnjutaProjectNode *anjuta_project_node_parent_type (AnjutaProjectNode *node, AnjutaProjectNodeType type);
 
 void anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeForeachFunc func, gpointer data);
 void anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data);
