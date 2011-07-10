@@ -32,6 +32,7 @@ libanjuta/resources.c
 plugins/am-project/amp-group.c
 plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
+plugins/build-basic-autotools/build.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c
