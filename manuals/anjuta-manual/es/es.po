@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-07-08 20:42+0000\n"
-"PO-Revision-Date: 2011-07-09 20:31+0200\n"
+"POT-Creation-Date: 2011-07-09 18:33+0000\n"
+"PO-Revision-Date: 2011-07-10 12:50+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgid ""
 "href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
 "html\">here</link>."
 msgstr ""
-"Este <file>.wiz</file> archivo parece como un archivo XML y está documentado "
+"Este archivo <file>.wiz</file> parece un archivo XML y está documentado "
 "<link href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-"
 "format.html\">aquí</link>."
 
@@ -136,9 +136,8 @@ msgid ""
 "Leave the mouse over a project icon for a second and a small pop-up message "
 "will appear showing more information about this type of project."
 msgstr ""
-"Posicione el ratón sobre un icono de projecto un segundo y aparecerá un "
-"pequeño mensaje automático mostrando más información acerca de ese tipo del "
-"proyecto."
+"Sitúe el ratón sobre un icono de proyecto un segundo y aparecerá un pequeño "
+"mensaje automático mostrando más información acerca de ese tipo del proyecto."
 
 #: C/project-wizard-create.page:53(p)
 msgid ""
@@ -194,7 +193,6 @@ msgid "Project manager."
 msgstr "Gestor de proyectos."
 
 #: C/project-manager.page:16(title)
-#| msgid "Project Management"
 msgid "Project manager plugin"
 msgstr "Complemento del gestor de proyectos"
 
@@ -203,7 +201,7 @@ msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
 msgstr ""
-"<app>Anjuta</app> contiene varios formatos de proyectos ya existentes a "
+"<app>Anjuta</app> soporta varios formatos de proyectos ya existentes a "
 "través de complementos de «backends». El principal es el formato «autotools» "
 "ampliamente usado en GNU/Linux."
 
@@ -227,7 +225,7 @@ msgstr "Añadir o quitar bibliotecas de un proyecto."
 # library=biblioteca, [inform]librería,
 #: C/project-manager-module.page:20(title)
 msgid "Add or remove new libraries"
-msgstr "Añador o quitar bibliotecas nuevas"
+msgstr "Añadir o quitar bibliotecas nuevas"
 
 #: C/project-manager-module.page:22(p)
 msgid ""
@@ -281,7 +279,7 @@ msgid ""
 "You can check one or more libraries."
 msgstr ""
 "Obtendrá una lista de todas las bibliotecas empaquetadas instaladas en su "
-"sistema. Puede comprobar una o más bibliotecas."
+"sistema. Puede marcar una o más bibliotecas."
 
 #: C/project-manager-module.page:58(p)
 msgid ""
@@ -713,7 +711,7 @@ msgstr ""
 
 #: C/autotools-build-preferences-dialog.page:48(gui)
 msgid "Highlight build warnings and errors in editor"
-msgstr ""
+msgstr "Resaltar avisos y errores de construcción en el editor"
 
 #: C/autotools-build-preferences-dialog.page:49(p)
 msgid ""
@@ -721,6 +719,8 @@ msgid ""
 "message window. By checking this option, they are higlighted in the editor "
 "too."
 msgstr ""
+"Se muestran y resaltan los errores y avisos de construcción en la ventana de "
+"mensajes. Activando esta opción, también se resaltan en el editor."
 
 #: C/autotools-build-preferences-dialog.page:54(gui)
 msgid "Install as root"
@@ -832,7 +832,7 @@ msgstr ""
 
 #: C/autotools-build-install.page:29(p)
 msgid "There are several possibilities to install targets or a project."
-msgstr ""
+msgstr "Existen distintas posibilidades para instalar objetivos o un proyecto."
 
 #: C/autotools-build-install.page:33(p)
 msgid ""
@@ -857,6 +857,8 @@ msgstr ""
 #: C/autotools-build-build.page:53(p)
 msgid "From the <gui>file manager pane</gui>, select a file or a directory."
 msgstr ""
+"Desde el <gui>panel del gestor de archivos</gui>, seleccione un archivo o "
+"carpeta."
 
 #: C/autotools-build-install.page:55(p)
 msgid ""
@@ -871,6 +873,8 @@ msgstr ""
 msgid ""
 "From the <gui>project manager pane</gui>, select a source file or a target."
 msgstr ""
+"Desde el <gui>panel del gestor de proyectos</gui>, seleccione un archivo de "
+"fuentes o un objetivo."
 
 #: C/autotools-build-install.page:70(p)
 msgid ""
@@ -900,6 +904,8 @@ msgid ""
 "The <gui>Configure</gui> dialog allows you to set the following options and "
 "configure the project."
 msgstr ""
+"El diálogo <gui>Configurar</gui> le permite establecer las siguientes "
+"opciones y configurar el proyecto."
 
 #: C/autotools-build-configure-dialog.page:29(gui)
 msgid "Regenerate Project"
@@ -1000,6 +1006,7 @@ msgstr ""
 #: C/autotools-build-compile.page:39(p)
 msgid "From the <gui>file manager pane</gui>, select a file."
 msgstr ""
+"Desde el <gui>panel del gestor de archivos</gui>, seleccione un archivo."
 
 #: C/autotools-build-compile.page:44(p)
 msgid ""
@@ -1011,6 +1018,8 @@ msgstr ""
 #: C/autotools-build-compile.page:53(p)
 msgid "From the <gui>project manager pane</gui>, select a source file."
 msgstr ""
+"Desde el <gui>panel del gestor de archivos</gui>, seleccione un archivo de "
+"fuentes."
 
 #: C/autotools-build-compile.page:58(p)
 msgid ""
@@ -1025,6 +1034,8 @@ msgid ""
 "You do not need to save your file before compiling it, it will be done "
 "automatically by <app>Anjuta</app> if needed."
 msgstr ""
+"No necesita guardar su archivo antes de compilarlo, <app>Anjuta</app> lo "
+"guardará automáticamente si es necesario."
 
 # built:=construcción
 #: C/autotools-build-clean.page:11(desc)
@@ -1149,6 +1160,8 @@ msgid ""
 "The <gui>run parameter</gui> dialog allows you to define the current program "
 "and several parameters."
 msgstr ""
+"El diálogo <gui>ejecutar parámetro</gui> le permite definir el programa "
+"actual y diversos parámetros."
 
 #: C/run-parameters-dialog.page:27(gui)
 msgid "Program"
@@ -1173,7 +1186,6 @@ msgid ""
 msgstr ""
 
 #: C/run-parameters-dialog.page:40(gui)
-#| msgid "Build Directory"
 msgid "Working Directory"
 msgstr "Carpeta de trabajo"
 
@@ -1217,7 +1229,6 @@ msgid ""
 msgstr ""
 
 #: C/run-parameters-dialog.page:60(gui)
-#| msgid "Running in the terminal"
 msgid "Run in Terminal"
 msgstr "Ejecutar en una terminal"
 
@@ -1243,10 +1254,6 @@ msgid ""
 msgstr ""
 
 #: C/run-run.page:27(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Compile</gui></guiseq> or press <key>F9</key> to compile the "
-#| "current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
 "guiseq> or press <key>F3</key> to execute the current program."
@@ -1262,9 +1269,6 @@ msgid ""
 msgstr ""
 
 #: C/run-run.page:38(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Install Project</gui></guiseq> to install all project files,"
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
 "Parameters...</gui></guiseq> to display the dialog."
