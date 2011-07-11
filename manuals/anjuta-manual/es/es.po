@@ -1,19 +1,19 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-07-10 10:52+0000\n"
-"PO-Revision-Date: 2011-07-10 21:25+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-07-10 19:27+0000\n"
+"PO-Revision-Date: 2011-07-11 20:06+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Transfer-Encoding: 8bits\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -748,6 +748,8 @@ msgid ""
 "This plugin is targeted at autotools projects but as they use make it is "
 "useful for other kind of projects using make."
 msgstr ""
+"Este complemento está orientado a los proyectos para «autotools» pero como "
+"usan «make» es útil para otro tipo de proyectos que también usen «make»."
 
 #: C/autotools-build-plugin.page:25(title)
 msgid "Make command used"
@@ -986,6 +988,11 @@ msgid ""
 "space. Each configuration fills this text box with default values that you "
 "can modify."
 msgstr ""
+"Esta caja de texto lista todos los argumentos de la línea de comandos que "
+"usa el paso de configuración («configure»). Todos los argumentos se separan "
+"por eespacios y deben estar entrecomillados si contienen espacios. Cada "
+"configuración rellena esta caja de texto con valores predeterminados que "
+"puede modificar."
 
 #: C/autotools-build-configure-dialog.page:80(p)
 msgid ""
@@ -1070,6 +1077,11 @@ msgid ""
 "file does not trigger a recompiling as it should, deleting all files will "
 "fix this. There are several way to do this"
 msgstr ""
+"Pueed ser útil eliminar todos los archivos creados durante el proceso de "
+"construcción. Por ejemplo, si todas las dependencias no se tienen en cuenta "
+"y un archivo modificado no dispara una recompilación, como debería, eliminar "
+"todos los archivos solucionaría el problema. Existen varias formas de "
+"hacerlo:"
 
 #: C/autotools-build-clean.page:28(p)
 msgid ""
@@ -1273,6 +1285,9 @@ msgid ""
 "provide inputs and see its outputs using the standard Unix streams. It is "
 "not necessary for programs having a graphical interface."
 msgstr ""
+"Esto se debe comprobar para ejecutar el programa en una terminal, "
+"permitiéndole proporcionar entradas y ver sus salidas, usando los flujos "
+"estándar de Unix. No es necesario para programas que tengan interfaz gráfica."
 
 #: C/run-run.page:11(desc)
 msgid "Run a program without the debugger."
@@ -1322,6 +1337,9 @@ msgid ""
 "one time before running it. See <link xref=\"autotools-build-install\"/> for "
 "more information."
 msgstr ""
+"Si su programa necesita archivos de datos, probablemente tenga que "
+"instalarlos, al menos una vez antes de ejecutarlo. Para obtener más "
+"información consulte la <link xref=\"autotools-build-install\"/>."
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
 #: C/anjuta-debug-watches.page:10(name) C/anjuta-debug-crash.page:10(name)
