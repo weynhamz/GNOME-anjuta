@@ -32,6 +32,9 @@
         <col id="0" translatable="yes">Lesser General Public License (LGPL)</col>
       </row>
       <row>
+        <col id="0" translatable="yes">Berkeley Software Distribution License (BSD)</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">No License</col>
       </row>
     </data>

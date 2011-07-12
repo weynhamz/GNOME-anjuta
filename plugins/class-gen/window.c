@@ -1287,6 +1287,7 @@ cg_window_create_value_heap (CgWindow *window)
 	static const gchar *LICENSES[] = {
 		"GPL",
 		"LGPL",
+		"BSD",
 		"NONE"
 	};
 
