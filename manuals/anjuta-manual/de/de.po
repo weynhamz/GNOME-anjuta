@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta doc\n"
-"POT-Creation-Date: 2011-07-05 17:58+0000\n"
-"PO-Revision-Date: 2011-07-05 20:02+0100\n"
+"POT-Creation-Date: 2011-07-08 20:42+0000\n"
+"PO-Revision-Date: 2011-07-13 22:56+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr "Alle Fenster und Dialoge."
 #: C/autotools-build-configure-dialog.page:15(name)
 #: C/autotools-build-compile.page:15(name)
 #: C/autotools-build-clean.page:15(name) C/autotools-build-build.page:15(name)
-#: C/anjuta-run.page:10(name)
+#: C/run-parameters-dialog.page:15(name) C/run-run.page:15(name)
 msgid "Sébastien Granjoux"
 msgstr "Sébastien Granjoux"
 
@@ -55,7 +55,8 @@ msgstr "Sébastien Granjoux"
 #: C/autotools-build-configure-dialog.page:16(email)
 #: C/autotools-build-compile.page:16(email)
 #: C/autotools-build-clean.page:16(email)
-#: C/autotools-build-build.page:16(email) C/anjuta-run.page:11(email)
+#: C/autotools-build-build.page:16(email)
+#: C/run-parameters-dialog.page:16(email) C/run-run.page:16(email)
 msgid "seb.sfo@free.fr"
 msgstr "seb.sfo@free.fr"
 
@@ -87,6 +88,9 @@ msgid ""
 "href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
 "html\">here</link>."
 msgstr ""
+"Diese <file>.wiz</file> sieht wie eine XML-Datei aus und ist <link href="
+"\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format.html"
+"\">hier</link> dokumentiert."
 
 #: C/project-wizard-create.page:10(desc)
 msgid "Create a new project from scratch."
@@ -101,12 +105,17 @@ msgid ""
 "New projects are created from templates. <app>Anjuta</app> will ask you for "
 "various information, like the type of the project, its name and more."
 msgstr ""
+"Neue Projekte werden aus Vorlagen erstellt. <app>Anjuta</app> bittet Sie um "
+"die Angabe verschiedener Informationen, wie den Typ des Projekts, dessen "
+"Namen und weiteres."
 
 #: C/project-wizard-create.page:28(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
 "gui><gui>Project</gui></guiseq>."
 msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
 
 #: C/project-wizard-create.page:32(p)
 msgid ""
@@ -119,30 +128,43 @@ msgid ""
 "Select the icon representing the type of the project you want to create and "
 "click on <gui>Forward</gui>."
 msgstr ""
+"Wählen Sie das Symbol aus, welches Ihr gewünschtes Projekt repräsentiert, und "
+"klicken Sie auf <gui>Weiter</gui>."
 
 #: C/project-wizard-create.page:45(p)
 msgid ""
 "Leave the mouse over a project icon for a second and a small pop-up message "
 "will appear showing more information about this type of project."
 msgstr ""
+"Fahren Sie mit der Maus über eines der Projektsymbole. Eine kleine Meldung "
+"erscheint, in der weitere Informationen über den jeweiligen Projekttyp "
+"angezeigt werden."
 
 #: C/project-wizard-create.page:53(p)
 msgid ""
 "Depending on the selected project type, you will have to enter different "
 "information. When you are done, click on <gui>Forward</gui>."
 msgstr ""
+"Abhängig vom Projekttyp müssen Sie verschiedene Informationen angeben. Sobald "
+"Sie fertig sind, klicken Sie auf <gui>Weiter</gui>."
 
 #: C/project-wizard-create.page:57(p)
 msgid ""
 "All informations are grouped in pages, typically you will have to fill two or "
 "three pages. You can go back at any time using the button <gui>Back</gui>."
 msgstr ""
+"Alle Informationen sind seitenweise organisiert. Typischerweise müssen Sie in "
+"zwei oder drei Seiten Angaben machen. Mit dem Knopf <gui>Zurück</gui> können "
+"Sie jederzeit zu einer vorherigen Seite zurückkehren."
 
 #: C/project-wizard-create.page:63(p)
 msgid ""
 "Keep the mouse over the button or typing area for a second to get a small pop-"
 "up message with more details about the corresponding setting."
 msgstr ""
+"Fahren Sie mit der Maus über einen Knopf oder ein Eingabefeld. Eine kleine "
+"Meldung erscheint, in der weitere Informationen über die jeweilige "
+"Einstellung angezeigt werden."
 
 #: C/project-wizard-create.page:71(p)
 msgid ""
@@ -151,6 +173,11 @@ msgid ""
 "your disk yet at this point. Click on <gui>Apply</gui> to save the project "
 "and open it in <app>Anjuta</app>."
 msgstr ""
+"Nachdem Ausfüllen der Informationsseiten wird eine zusammenfassende Liste mit "
+"den grundlegenden Informationen zu Ihrem Projekt angezeigt. Zu diesem "
+"Zeitpunkt wurde noch nichts auf der Festplatte gespeichert. Klicken Sie auf "
+"<gui>Anwenden</gui>, um das Projekt zu speichern und es in <app>Anjuta</app> "
+"zu öffnen."
 
 #: C/project-wizard-create.page:81(p)
 msgid ""
@@ -158,6 +185,9 @@ msgid ""
 "includes several templates but you can add custom ones and even write your "
 "own."
 msgstr ""
+"Jeder Projekttyp korrespondiert zu einer Vorlage. <app>Anjuta</app> liefert "
+"bereits verschiedene Vorlagen mit, aber Sie können auch benutzerdefinierte "
+"hinzufügen oder Ihre eigenen Vorlagen schreiben."
 
 #. Include page in index
 #: C/project-manager.page:7(desc)
@@ -174,12 +204,18 @@ msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
 msgstr ""
+"<app>Anjuta</app> unterstützt bereits vorhandene Projektformate über Plugin-"
+"Backends. Das wichtigste davon ist das Autotools-Format, das üblicherweise "
+"unter Linux verwendet wird."
 
 #: C/project-manager.page:24(p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but some "
 "functions might be disabled."
 msgstr ""
+"Was auch immer das darunterliegende Backend ist, die grafische "
+"Benutzeroberfläche wird immer die gleiche sein. Allerdings könnten einige "
+"Funktionen deaktiviert sein."
 
 #: C/project-manager.page:30(title)
 #, fuzzy
@@ -204,13 +240,16 @@ msgstr ""
 
 #: C/project-manager-module.page:31(title)
 msgid "Add packaged libraries in a new module"
-msgstr ""
+msgstr "Paketierte Bibliotheken in einem neuen Modul hinzufügen"
 
 #: C/project-manager-module.page:33(p)
 msgid ""
 "A library cannot be added directly to your program; you first need to create "
 "a module for it, which is just a group of libraries."
 msgstr ""
+"Eine Bibliothek kann nicht direkt zu Ihrem Programm hinzugefügt werden. "
+"Zunächst müssen Sie ein Modul dafür erstellen, welches aus einer Gruppe von "
+"Bibliotheken besteht."
 
 #: C/project-manager-module.page:40(p)
 msgid ""
@@ -225,12 +264,16 @@ msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
 "Library...</gui></guiseq>"
 msgstr ""
+"Wählen Sie <guiseq><gui>Projekt</gui><gui>Neue Bibliothek …</gui></guiseq> im "
+"<gui>Hauptmenü</gui>."
 
 #: C/project-manager-module.page:53(p)
 msgid ""
 "You will get a list of all the packaged libraries installed on your system. "
 "You can check one or more libraries."
 msgstr ""
+"Eine Liste aller auf Ihrem System installierten Bibliotheken wird angezeigt. "
+"Sie können eine oder mehrere Bibliotheken auswählen."
 
 #: C/project-manager-module.page:58(p)
 msgid ""
@@ -299,14 +342,16 @@ msgstr ""
 #: C/project-manager-library.page:8(desc)
 msgid "Add or remove non-packaged libraries from a project."
 msgstr ""
+"Nicht-paketierte Bibliotheken zu einem Projekt hinzufügen oder daraus "
+"entfernen."
 
 #: C/project-manager-library.page:17(title)
 msgid "Add or remove non-packaged libraries"
-msgstr ""
+msgstr "Nicht-paketierte Bibliotheken hinzufügen oder entfernen"
 
 #: C/project-manager-library.page:20(title)
 msgid "Add a non-packaged library to a target"
-msgstr "Eine nicht paketierte Biblithek zu einem Ziel hinzufügen"
+msgstr "Eine nicht paketierte Bibliothek zu einem Ziel hinzufügen"
 
 #: C/project-manager-library.page:22(p)
 msgid ""
@@ -373,7 +418,7 @@ msgstr ""
 
 #: C/project-manager-library.page:94(title)
 msgid "Remove a non packaged library from a target"
-msgstr ""
+msgstr "Eine nicht paketierte Bibliothek aus einem Ziel entfernen"
 
 #: C/project-manager-library.page:98(p)
 msgid ""
@@ -402,6 +447,9 @@ msgid ""
 "If the project backend supports it, you can add or remove files in your "
 "project without editing the project file."
 msgstr ""
+"Falls das Projekt-Backend dies unterstützt, können Sie Dateien zu Ihrem "
+"Projekt hinzufügen oder daraus entfernen, ohne die Projektdatei bearbeiten zu "
+"müssen."
 
 #: C/project-manager-file.page:28(title)
 msgid "Add files"
@@ -419,6 +467,8 @@ msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Source File</gui></guiseq>"
 msgstr ""
+"Oder wählen Sie <guiseq><gui>Projekt</gui><gui>Quelldatei hinzufügen</gui></"
+"guiseq> im <gui>Hauptmenü</gui>."
 
 #: C/project-manager-file.page:44(p)
 msgid ""
@@ -443,6 +493,8 @@ msgid ""
 "When you have chosen the target and the files, click on the <gui>Add</gui> "
 "button to add those files to your project."
 msgstr ""
+"Sobald Sie das Ziel und die Dateien ausgewählt haben, klicken Sie auf den "
+"Knopf <gui>Hinzufügen</gui>, um diese Dateien zu ihrem Projekt hinzuzufügen."
 
 #: C/project-manager-file.page:71(p)
 msgid ""
@@ -539,7 +591,7 @@ msgstr ""
 
 #: C/autotools-build-preferences-dialog.page:39(gui)
 msgid "Translate messages"
-msgstr ""
+msgstr "Meldungen übersetzen"
 
 #: C/autotools-build-preferences-dialog.page:40(p)
 msgid ""
@@ -561,11 +613,13 @@ msgid ""
 "message window. By checking this option, they are higlighted in the editor "
 "too."
 msgstr ""
+"Fehlermeldungen und Warnungen während des Erstellungsvorgangs werden im "
+"Meldungsfenster angezeigt und hervorgehoben. Wenn Sie diese Option "
+"aktivieren, geschieht dies auch im Editorfenster."
 
 #: C/autotools-build-preferences-dialog.page:54(gui)
-#, fuzzy
 msgid "Install as root"
-msgstr "Installieren eines Projekts"
+msgstr "Mit Administratorrechten installieren"
 
 #: C/autotools-build-preferences-dialog.page:55(p)
 msgid ""
@@ -612,6 +666,9 @@ msgid ""
 "Use to compile an source file. The object file name is found by replacing the "
 "source file extension with the corresponding object extension."
 msgstr ""
+"Verwenden Sie dies, um eine Quelldatei zu kompilieren. Der Name der "
+"Objektdatei wird gebildet, indem die Erweiterung der Quelldatei durch die "
+"korrespondierende Objektdatei-Erweiterung ersetzt wird."
 
 #: C/autotools-build-plugin.page:36(cmd)
 msgid "make"
@@ -619,7 +676,7 @@ msgstr "make"
 
 #: C/autotools-build-plugin.page:37(p)
 msgid "Use to build all targets in a directory."
-msgstr ""
+msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu erstellen."
 
 #: C/autotools-build-plugin.page:40(cmd)
 msgid "make install"
@@ -627,7 +684,7 @@ msgstr "make install"
 
 #: C/autotools-build-plugin.page:41(p)
 msgid "Use to install all targets in a directory."
-msgstr ""
+msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu installieren."
 
 #: C/autotools-build-plugin.page:44(cmd)
 msgid "make clean"
@@ -636,6 +693,7 @@ msgstr "make clean"
 #: C/autotools-build-plugin.page:45(p)
 msgid "Use to delete all file built in a directory."
 msgstr ""
+"Verwenden Sie dies, um alle in einem Ordner erstellten Dateien zu löschen."
 
 #: C/autotools-build-plugin.page:48(cmd)
 msgid "make dist"
@@ -645,6 +703,8 @@ msgstr "make dist"
 msgid ""
 "Use to build a distributation package, called only in the project directory."
 msgstr ""
+"Verwenden Sie dies, um ein verteilbares Paket zu erstellen. Es wird nur im "
+"Projektordner aufgerufen."
 
 #: C/autotools-build-plugin.page:54(p)
 msgid ""
@@ -652,6 +712,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
+"Da »make« über Standardregeln verfügt, ist es möglich, ein C-Programm ohne "
+"Makefile zu erstellen und zu linken. Sie können ein C-Programm aus einer "
+"einzelnen Quelldatei erstellen, ohne Makefile oder umgebendes Projekt."
 
 #: C/autotools-build-install.page:11(desc)
 #, fuzzy
@@ -659,9 +722,8 @@ msgid "Install targets or project."
 msgstr "Installieren eines Projekts"
 
 #: C/autotools-build-install.page:20(title)
-#, fuzzy
 msgid "Install targets"
-msgstr "Installieren eines Projekts"
+msgstr "Ziele installieren"
 
 #: C/autotools-build-install.page:22(p)
 msgid ""
@@ -708,6 +770,8 @@ msgstr ""
 msgid ""
 "From the <gui>project manager pane</gui>, select a source file or a target."
 msgstr ""
+"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei oder "
+"ein Ziel aus."
 
 #: C/autotools-build-install.page:70(p)
 msgid ""
@@ -834,7 +898,7 @@ msgstr ""
 
 #: C/autotools-build-compile.page:39(p)
 msgid "From the <gui>file manager pane</gui>, select a file."
-msgstr ""
+msgstr "Wählen Sie in der <gui>Dateiverwaltungsleiste</gui> eine Datei aus."
 
 #: C/autotools-build-compile.page:44(p)
 msgid ""
@@ -846,6 +910,7 @@ msgstr ""
 #: C/autotools-build-compile.page:53(p)
 msgid "From the <gui>project manager pane</gui>, select a source file."
 msgstr ""
+"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei aus."
 
 #: C/autotools-build-compile.page:58(p)
 msgid ""
@@ -860,11 +925,12 @@ msgid ""
 "You do not need to save your file before compiling it, it will be done "
 "automatically by <app>Anjuta</app> if needed."
 msgstr ""
+"Sie müssen Ihre Datei vor der Kompilierung nicht notwendigerweise speichern. "
+"Dies erledigt <app>Anjuta</app> automatisch, falls nötig."
 
 #: C/autotools-build-clean.page:11(desc)
-#, fuzzy
 msgid "Remove built files."
-msgstr "Eine Datei entfernen"
+msgstr "Erstellte Dateien entfernen."
 
 #: C/autotools-build-clean.page:20(title)
 #, fuzzy
@@ -923,6 +989,10 @@ msgid ""
 "A target is a file created from source files, typically it is a program or a "
 "library, but it could be a documentation if some processing is needed."
 msgstr ""
+"Ein Ziel ist eine Datei, die aus Quelldateien erstellt wird. Üblicherweise "
+"ist es ein Programm oder eine Bibliothek, aber es kann auch eine "
+"Dokumentation sein, falls Weiterverarbeitung in irgendeiner Form notwendig "
+"ist."
 
 #: C/autotools-build-build.page:26(p)
 msgid ""
@@ -962,17 +1032,137 @@ msgid ""
 "selected file or target."
 msgstr ""
 
-#: C/anjuta-run.page:15(title)
-msgid "Run your application"
-msgstr "Starten Ihrer Anwendung"
+#: C/run-parameters-dialog.page:11(desc)
+msgid "Run parameters dialog"
+msgstr "Ausführungsparameter-Dialog"
 
-#: C/anjuta-run.page:18(title)
-msgid "Configure the program parameters"
-msgstr "Die Programmparameter konfigurieren"
+#: C/run-parameters-dialog.page:20(title)
+msgid "Run Parameters Dialog"
+msgstr "Ausführungsparameter-Dialog"
 
-#: C/anjuta-run.page:22(title)
-msgid "Running in the terminal"
+#: C/run-parameters-dialog.page:22(p)
+msgid ""
+"The <gui>run parameter</gui> dialog allows you to define the current program "
+"and several parameters."
+msgstr ""
+
+#: C/run-parameters-dialog.page:27(gui)
+msgid "Program"
+msgstr "Programm"
+
+#: C/run-parameters-dialog.page:28(p)
+msgid ""
+"This is the program that will be executed if you run a program with or "
+"without the debugger. The drop-down list allows you to select programs "
+"created by the current project, but you can click on the <gui>Browse</gui> "
+"button to choose any other program."
+msgstr ""
+
+#: C/run-parameters-dialog.page:34(gui)
+msgid "Arguments"
+msgstr "Argumente"
+
+#: C/run-parameters-dialog.page:35(p)
+msgid ""
+"These are the command line arguments used by your program. The drop-down list "
+"keeps an history of the last arguments used."
+msgstr ""
+"Dies sind Befehlszeilenargumente, die von Ihrem Programm verwendet werden. "
+"Die Auswahlliste enthält eine Chronik der zuletzt verwendeten Argumente."
+
+#: C/run-parameters-dialog.page:40(gui)
+msgid "Working Directory"
+msgstr "Arbeitsordner"
+
+#: C/run-parameters-dialog.page:41(p)
+msgid ""
+"The working directory is the current directory when your program will be run."
+msgstr ""
+"Der Arbeitsordner ist der aktuelle Ordner bei der Ausführung Ihres Programms."
+
+#: C/run-parameters-dialog.page:45(gui)
+msgid "Environment Variables"
+msgstr "Umgebungsvariablen"
+
+#: C/run-parameters-dialog.page:46(p)
+msgid ""
+"You can click on the drop-down section, to display all environment variables "
+"those will be accessible by your program. By default, it includes all the "
+"current environment variables, they are display in light gray."
+msgstr ""
+
+#: C/run-parameters-dialog.page:50(p)
+msgid ""
+"You can click on the <gui>New</gui> button to add a new environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:52(p)
+msgid ""
+"You can click on the <gui>Edit</gui> button to change the value of the "
+"selected environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:54(p)
+msgid ""
+"You can click on the <gui>Delete</gui> button to remove the selected "
+"environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:56(p)
+msgid ""
+"When a variable has not the same value than in the current environment, it is "
+"displayed in black."
+msgstr ""
+
+#: C/run-parameters-dialog.page:60(gui)
+msgid "Run in Terminal"
 msgstr "Im Terminal ausführen"
+
+#: C/run-parameters-dialog.page:61(p)
+msgid ""
+"This has to be checked to run the program in a terminal allowing you to "
+"provide inputs and see its outputs using the standard Unix streams. It is not "
+"necessary for programs having a graphical interface."
+msgstr ""
+
+#: C/run-run.page:11(desc)
+msgid "Run a program without the debugger."
+msgstr "Ein Programm ohne Debugger ausführen."
+
+#: C/run-run.page:20(title)
+msgid "Run a program"
+msgstr "Ein Programm ausführen"
+
+#: C/run-run.page:22(p)
+msgid ""
+"If <app>Anjuta</app> is used to start a program it checks that it is up to "
+"date and build it if needed."
+msgstr ""
+
+#: C/run-run.page:27(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
+"guiseq> or press <key>F3</key> to execute the current program."
+msgstr ""
+
+#: C/run-run.page:33(p)
+msgid ""
+"The current program and several parameters can be set on the <gui>parameter</"
+"gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
+msgstr ""
+
+#: C/run-run.page:38(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
+"Parameters...</gui></guiseq> to display the dialog."
+msgstr ""
+
+#: C/run-run.page:45(p)
+msgid ""
+"If your program needs data files, you probably have to install it at least "
+"one time before running it. See <link xref=\"autotools-build-install\"/> for "
+"more information."
+msgstr ""
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
 #: C/anjuta-debug-watches.page:10(name) C/anjuta-debug-crash.page:10(name)
@@ -1062,7 +1252,6 @@ msgid "Add variables watches"
 msgstr "Benötigte Variablen anzeigen"
 
 #: C/anjuta-debug-crash.page:15(title)
-#, fuzzy
 msgid "Debug crashes in your application"
 msgstr "Fehlerdiagnose von Abstürzen in Ihrer Anwendung"
 
@@ -1090,7 +1279,6 @@ msgid "Conditional breakpoints"
 msgstr "Bedingte Haltepunkte"
 
 #: C/anjuta-code-symbols.page:15(title)
-#, fuzzy
 msgid "Code navigation using the symbol browser"
 msgstr "Navigieren durch den Code mit dem Symbolbrowser"
 
@@ -1132,7 +1320,7 @@ msgstr "Durchsuchen der API-Referenz"
 
 #: C/anjuta-code-help.page:22(title)
 msgid "Jump to the API reference using shortcuts in the editor"
-msgstr ""
+msgstr "Mit Tastenkürzeln im Editor zur API-Referenz springen"
 
 #: C/anjuta-code-assist.page:15(title)
 #, fuzzy
@@ -1150,8 +1338,8 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:23(None)
-msgid "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
-msgstr "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
+msgid "@@image: 'figures/anjuta_logo.png'; md5=82636133d39ac4a688facd76954b8b29"
+msgstr "translated"
 
 #: C/index.page:7(desc)
 msgid "Help for Anjuta DevStudio."
@@ -1179,17 +1367,17 @@ msgstr "Projektverwaltung"
 
 #: C/index.page:32(title)
 #, fuzzy
-msgid "Building Project"
-msgstr "Laden von Projekten"
-
-#: C/index.page:36(title)
-#, fuzzy
 msgid "Coding and code navigation"
 msgstr "Navigieren durch den Code mit dem Symbolbrowser"
 
+#: C/index.page:36(title)
+#, fuzzy
+msgid "Building Project"
+msgstr "Laden von Projekten"
+
 #: C/index.page:40(title)
-msgid "Running and Debugging"
-msgstr "Ausführen und Debuggen"
+msgid "Debugging Program"
+msgstr "Fehlerdiagnoseprogramm"
 
 #: C/index.page:44(title)
 msgid "User interface editor"
@@ -1206,6 +1394,18 @@ msgstr ""
 "Mario Blättermann <mariobl@freenet.de>, 2009, 2010, 2011\n"
 "Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010\n"
 "Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010"
+
+#~ msgid "Run your application"
+#~ msgstr "Starten Ihrer Anwendung"
+
+#~ msgid "Configure the program parameters"
+#~ msgstr "Die Programmparameter konfigurieren"
+
+#~ msgid "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
+#~ msgstr "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
+
+#~ msgid "Running and Debugging"
+#~ msgstr "Ausführen und Debuggen"
 
 #~ msgid "Add or remove targets"
 #~ msgstr "Ziele hinzufügen oder entfernen"
@@ -1313,19 +1513,9 @@ msgstr ""
 #~ msgid "<app>Anjuta</app> main window"
 #~ msgstr "<app>Anjuta</app>-Hauptfenster"
 
-#~ msgid ""
-#~ "@@image: 'figures/anjuta_logo.png'; md5=82636133d39ac4a688facd76954b8b29"
-#~ msgstr "translated"
-
-#~ msgid "Debugging"
-#~ msgstr "Fehlerdiagnose"
-
 #, fuzzy
 #~ msgid "Autotools project backend."
 #~ msgstr "Backend belegt"
-
-#~ msgid "Getting started with the debugger"
-#~ msgstr "Erste Schritte mit dem Debugger"
 
 #, fuzzy
 #~ msgid "Enable the debug configuration"
@@ -2643,9 +2833,6 @@ msgstr ""
 #~ "Ihren Drucker zu treffen, da andernfalls der Ausdruck nicht wie erwartet "
 #~ "sein kann."
 
-#~ msgid "Print Dialog"
-#~ msgstr "Druckdialog"
-
 #~ msgid ""
 #~ "Anjuta has a powerful Project Manager plugin which can open most <ulink "
 #~ "type=\"info\" url=\"info:automake\">automake/autoconf</ulink>-based "
@@ -2891,9 +3078,6 @@ msgstr ""
 #~ msgid "Group properties"
 #~ msgstr "Gruppeneigenschaften"
 
-#~ msgid "Group properties dialog"
-#~ msgstr "Eigenschaften-Dialog für Gruppen"
-
 #~ msgid "Target properties dialog"
 #~ msgstr "Eigenschaften-Dialog für Ziele"
 
@@ -2908,12 +3092,6 @@ msgstr ""
 
 #~ msgid "The command-line parameters"
 #~ msgstr "Die Befehlszeilenparameter"
-
-#~ msgid "The working directory"
-#~ msgstr "Der Arbeitsordner"
-
-#~ msgid "Environment variables"
-#~ msgstr "Umgebungsvariablen"
 
 #~ msgid ""
 #~ "Environment variables displayed in light gray are the current environment "
