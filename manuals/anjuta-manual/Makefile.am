@@ -31,6 +31,6 @@ DOC_PAGES = anjuta-code-assist.page \
 	widget-index.page
 	
 DOC_FIGURES = 
-DOC_LINGUAS = cs da de el es eu fr ja oc sl sv th uk zh_CN
+DOC_LINGUAS = cs da de el es eu fr ja oc pt_BR sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
