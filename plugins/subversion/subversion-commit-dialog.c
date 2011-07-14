@@ -132,6 +132,10 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 			g_signal_connect (G_OBJECT (commit_command), "command-finished",
 							  G_CALLBACK (on_commit_command_finished),
 							  data->plugin);
+
+			g_signal_connect (G_OBJECT (commit_command), "command-finished",
+							  G_CALLBACK (subversion_plugin_status_changed_emit),
+							  data->plugin);
 			
 			g_signal_connect (G_OBJECT (commit_command), "data-arrived",
 							  G_CALLBACK (on_command_info_arrived),

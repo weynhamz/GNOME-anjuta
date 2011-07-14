@@ -624,6 +624,11 @@ subversion_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
+void subversion_plugin_status_changed_emit(AnjutaCommand *command, guint return_code, Subversion *plugin)
+{
+        g_signal_emit_by_name(plugin, "status-changed");
+}
+
 ANJUTA_PLUGIN_BEGIN (Subversion, subversion);
 ANJUTA_PLUGIN_ADD_INTERFACE (subversion_ivcs, IANJUTA_TYPE_VCS);
 ANJUTA_PLUGIN_END;

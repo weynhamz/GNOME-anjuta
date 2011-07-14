@@ -27,6 +27,16 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <svn_client.h>
+#include <gio/gio.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-dock.h>
+#include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-command-queue.h>
 
 extern GType subversion_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_SUBVERSION         (subversion_get_type (NULL))
@@ -75,5 +85,7 @@ struct _Subversion{
 struct _SubversionClass{
 	AnjutaPluginClass parent_class;
 };
+
+void subversion_plugin_status_changed_emit(AnjutaCommand *command, guint return_code, Subversion *plugin);
 
 #endif
