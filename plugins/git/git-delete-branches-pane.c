@@ -55,7 +55,7 @@ on_ok_button_clicked (GtkButton *button, GitDeleteBranchesPane *self)
 			                                                      FALSE,
 			                                                      gtk_toggle_button_get_active (require_merged_check));
 
-			git_command_free_string_list (selected_local_branches);
+			anjuta_util_glist_strings_free (selected_local_branches);
 
 			g_signal_connect (G_OBJECT (local_delete_command), 
 			                  "command-finished",
@@ -79,7 +79,7 @@ on_ok_button_clicked (GtkButton *button, GitDeleteBranchesPane *self)
 			                                                       TRUE,
 			                                                       gtk_toggle_button_get_active (require_merged_check));
 
-			git_command_free_string_list (selected_remote_branches);
+			anjuta_util_glist_strings_free (selected_remote_branches);
 
 			g_signal_connect (G_OBJECT (remote_delete_command), 
 			                  "command-finished",

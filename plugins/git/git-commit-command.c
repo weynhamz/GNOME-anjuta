@@ -82,7 +82,7 @@ git_commit_command_finalize (GObject *object)
 	
 	self = GIT_COMMIT_COMMAND (object);
 	
-	git_command_free_string_list (self->priv->paths);
+	anjuta_util_glist_strings_free (self->priv->paths);
 	g_free (self->priv->log);
 	g_free (self->priv->author_name);
 	g_free (self->priv->author_email);

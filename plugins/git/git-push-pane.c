@@ -121,7 +121,7 @@ on_ok_button_clicked (GtkButton *button, GitPushPane *self)
 	                                     gtk_toggle_button_get_active (force_check));
 
 	g_free (repository);
-	git_command_free_string_list (selected_items);
+	anjuta_util_glist_strings_free (selected_items);
 
 	git_pane_create_message_view (plugin);
 

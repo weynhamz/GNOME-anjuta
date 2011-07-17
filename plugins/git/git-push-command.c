@@ -39,6 +39,7 @@ static void
 git_push_command_init (GitPushCommand *self)
 {
 	self->priv = g_new0 (GitPushCommandPriv, 1);
+	git_command_set_check_passwd_prompt (GIT_COMMAND (self), TRUE);
 }
 
 static void
@@ -49,7 +50,7 @@ git_push_command_finalize (GObject *object)
 	self = GIT_PUSH_COMMAND (object);
 	
 	g_free (self->priv->url);
-	git_command_free_string_list (self->priv->refs);
+	anjuta_util_glist_strings_free (self->priv->refs);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_push_command_parent_class)->finalize (object);

@@ -44,7 +44,7 @@ git_tag_delete_command_finalize (GObject *object)
 	
 	self = GIT_TAG_DELETE_COMMAND (object);
 	
-	git_command_free_string_list (self->priv->tags);
+	anjuta_util_glist_strings_free (self->priv->tags);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_tag_delete_command_parent_class)->finalize (object);

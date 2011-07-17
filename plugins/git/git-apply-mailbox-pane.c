@@ -63,7 +63,7 @@ on_ok_button_clicked (GtkButton *button, GitApplyMailboxPane *self)
 
 	anjuta_command_start (ANJUTA_COMMAND (apply_mailbox_command));
 
-	git_command_free_string_list (paths);
+	anjuta_util_glist_strings_free (paths);
 
 	git_pane_remove_from_dock (GIT_PANE (self));
 }

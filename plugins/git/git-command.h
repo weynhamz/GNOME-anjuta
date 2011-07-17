@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include <libanjuta/anjuta-sync-command.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-utils.h>
 
 G_BEGIN_DECLS
 
@@ -75,7 +76,10 @@ void git_command_send_output_to_info (GitCommand *git_command,
 									  
 /* Static helper methods */
 GList *git_command_copy_string_list (GList *path_list);
-void git_command_free_string_list (GList *path_list);
+
+/* Password handling */
+void git_command_set_check_passwd_prompt (GitCommand *git_command,
+                                          gboolean check);
 
 G_END_DECLS
 

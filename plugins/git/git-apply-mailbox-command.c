@@ -46,7 +46,7 @@ git_apply_mailbox_command_finalize (GObject *object)
 	
 	self = GIT_APPLY_MAILBOX_COMMAND (object);
 	
-	git_command_free_string_list (self->priv->mailbox_paths);
+	anjuta_util_glist_strings_free (self->priv->mailbox_paths);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_apply_mailbox_command_parent_class)->finalize (object);

@@ -42,6 +42,7 @@ static void
 git_pull_command_init (GitPullCommand *self)
 {
 	self->priv = g_new0 (GitPullCommandPriv, 1);
+	git_command_set_check_passwd_prompt (GIT_COMMAND (self), TRUE);
 }
 
 static void

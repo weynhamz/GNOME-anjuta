@@ -32,7 +32,7 @@ on_delete_tags_button_clicked (GtkAction *action, Git *plugin)
 		delete_command = git_tag_delete_command_new (plugin->project_root_directory,
 		                                             tags);
 
-		git_command_free_string_list (tags);
+		anjuta_util_glist_strings_free (tags);
 
 		g_signal_connect (G_OBJECT (delete_command), "command-finished",
 		                  G_CALLBACK (git_pane_report_errors),

@@ -347,6 +347,7 @@ git_command_init (GitCommand *self)
 	self->priv = g_new0 (GitCommandPriv, 1);
 	self->priv->launcher = anjuta_launcher_new ();
 	anjuta_launcher_set_encoding (self->priv->launcher, NULL);
+	anjuta_launcher_set_check_passwd_prompt (self->priv->launcher, FALSE);
 	
 	g_signal_connect (G_OBJECT (self->priv->launcher), "child-exited",
 					  G_CALLBACK (git_command_child_exited),
@@ -558,18 +559,10 @@ git_command_copy_string_list (GList *list)
 	return new_list;
 }
 
-void
-git_command_free_string_list (GList *list)
+void 
+git_command_set_check_passwd_prompt (GitCommand *git_command,
+                                     gboolean check)
 {
-	GList *current_path;
-	
-	current_path = list;
-	
-	while (current_path)
-	{
-		g_free (current_path->data);
-		current_path = g_list_next (current_path);
-	}
-	
-	g_list_free (list);
+	anjuta_launcher_set_check_passwd_prompt (git_command->priv->launcher, check);
 }
+

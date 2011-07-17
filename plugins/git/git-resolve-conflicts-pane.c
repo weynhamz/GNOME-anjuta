@@ -33,7 +33,7 @@ on_resolve_conflicts_button_clicked (GtkAction *action, Git *plugin)
 		add_command = git_add_command_new_list (plugin->project_root_directory,
 		                                        paths, FALSE);
 
-		git_command_free_string_list (paths);
+		anjuta_util_glist_strings_free (paths);
 
 		g_signal_connect (G_OBJECT (add_command), "command-finished",
 		                  G_CALLBACK (git_pane_report_errors),

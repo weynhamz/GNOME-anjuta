@@ -170,7 +170,7 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 	g_free (log);
 	g_free (author_name);
 	g_free (author_email);
-	git_command_free_string_list (selected_paths);
+	anjuta_util_glist_strings_free (selected_paths);
 
 	git_pane_create_message_view (plugin);
 

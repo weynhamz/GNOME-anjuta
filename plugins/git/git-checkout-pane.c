@@ -44,7 +44,7 @@ on_ok_button_clicked (GtkButton *button, GitCheckoutPane *self)
 	                                                   paths,
 	                                                   gtk_toggle_button_get_active (force_check));
 
-	git_command_free_string_list (paths);
+	anjuta_util_glist_strings_free (paths);
 
 	g_signal_connect (G_OBJECT (checkout_command), "command-finished",
 	                  G_CALLBACK (git_pane_report_errors),

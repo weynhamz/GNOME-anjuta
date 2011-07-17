@@ -34,7 +34,7 @@ on_unstage_button_clicked (GtkAction *action, Git *plugin)
 		                                             GIT_RESET_FILES_HEAD,
 		                                             paths);
 
-		git_command_free_string_list (paths);
+		anjuta_util_glist_strings_free (paths);
 
 		g_signal_connect (G_OBJECT (reset_command), "command-finished",
 		                  G_CALLBACK (git_pane_report_errors),
