@@ -39,7 +39,7 @@ plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
 libanjuta_language_vala_la_SOURCES = locator.vala plugin.vala provider.vala report.vala
-libanjuta_language_vala_la_VALAFLAGS = --pkg libvala-0.12 --pkg libanjuta-3.0
+libanjuta_language_vala_la_VALAFLAGS = --pkg $(LIBVALA) --pkg libanjuta-3.0
 
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
