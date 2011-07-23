@@ -245,6 +245,16 @@ public class ValaPlugin : Plugin {
 			if (source_file.filename != file.get_path())
 				continue;
 
+#if VALA_0_14
+			uint8[] contents;
+			try {
+				file.load_contents (null, out contents, null);
+				source_file.content = (string) contents;
+				update_file (source_file);
+			} catch (Error e) {
+				// ignore
+			}
+#else
 			string contents;
 			try {
 				file.load_contents (null, out contents, null, null);
@@ -253,6 +263,7 @@ public class ValaPlugin : Plugin {
 			} catch (Error e) {
 				// ignore
 			}
+#endif
 			return;
 		}
 	}
