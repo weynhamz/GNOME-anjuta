@@ -3,7 +3,9 @@ include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
 
 DOC_ID = anjuta-manual
-DOC_PAGES = anjuta-code-assist.page \
+DOC_PAGES = \
+	index.page \	
+	anjuta-code-assist.page \
 	anjuta-code-help.page \
 	anjuta-code-indentation.page \
 	anjuta-code-symbols.page \
@@ -43,7 +45,7 @@ DOC_PAGES = anjuta-code-assist.page \
 	project-wizard-template.page \
 	widget-index.page
 	
-DOC_FIGURES = 
+DOC_FIGURES = anjuta_logo.png
 DOC_LINGUAS = cs da de el es eu fr ja oc pt_BR sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
