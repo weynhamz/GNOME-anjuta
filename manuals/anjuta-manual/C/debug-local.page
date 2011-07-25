@@ -1,0 +1,71 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-local">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-data" group="third"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Examine local variables.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Local variables</title>
+
+  <p>Local variables of the current frame (the current function in which the
+  program control is present) are displayed in the <gui>Locals</gui> window.
+  During execution of the program (e.g. during single stepping), local
+  variables will be updated. If any variable value was changed in the last debugging step, its
+  value will be highlighted in red. Variables are presented in a tree form for easy
+  view.</p>
+
+  <section>
+    <title>Listing local variables</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Locals</gui></guiseq> to open the <gui>Local</gui>
+        window.</p>
+      </item>
+    </steps>
+
+    <p>All local variables are displayed in a tree view with children used to
+    represent structure or array members.</p>
+  
+    <terms>
+      <item>
+        <title>Variable</title>
+        <p>The name of the variable.</p>
+      </item>
+      <item>
+        <title>Value</title>
+        <p>The variable value</p>
+      </item>
+      <item>
+        <title>Type</title>
+        <p>The type of the variable</p>
+      </item>
+    </terms>
+  </section>
+
+  <section>
+    <title>Changing the value of a variable</title>
+
+    <steps>
+      <item>
+        <p>In the <gui>Local</gui> window, select the variable you want to
+        edit and double click in the <gui>Value</gui> column.</p>
+      </item>
+      <item>
+        <p>Type the new value</p>
+      </item>
+    </steps>
+  </section>
+
+</page>

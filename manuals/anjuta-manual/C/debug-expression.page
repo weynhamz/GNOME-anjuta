@@ -1,0 +1,37 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-expression">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-data" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Evaluate expressions and modify variables.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Examine expressions</title>
+
+  <section>
+    <title>Inspect an expression and modify a variable</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Inspect/Evaluate</gui></guiseq> or right click in the
+        <gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>.</p>
+      </item>
+      <item>
+        <p>If the expression is a variable name, you can change its value
+        by clicking on the <gui>Value</gui> column and enter a new value.</p>
+      </item>
+    </steps>
+
+  </section>
+
+</page>

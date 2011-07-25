@@ -1,0 +1,149 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-watch">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-data" group="second"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Monitor expressions and variables.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Watch expression</title>
+
+  <section>
+    <title>List watched expressions</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Watches</gui></guiseq> to open the <gui>Watches</gui>
+        window.</p>
+      </item>
+    </steps>
+
+    <p>Like local variables, all watches expression are displayed in a tree view with children used to
+    represent structure or array members.</p>
+  
+    <terms>
+      <item>
+        <title>Variable</title>
+        <p>The name of the variable or the expression.</p>
+      </item>
+      <item>
+        <title>Value</title>
+        <p>The variable or expression value.</p>
+      </item>
+      <item>
+        <title>Type</title>
+        <p>The type of the variable or of the expression result.</p>
+      </item>
+    </terms>
+  </section>
+
+  <section>
+    <title>Update watches</title>
+
+    <p>Watch expressions can be updated automatically as soon as the
+    program is stopped or on user request.</p>
+
+    <steps>
+      <item>
+        <p>In the <gui>Watches</gui> windows select the watch you want to
+        update automatically, right click and check that <gui>Automatic Update</gui>
+        if checked, if not select it.</p>
+      </item>
+    </steps>
+
+    <steps>
+      <item>
+        <p>In the <gui>Watches</gui> window, right click and select <gui>Update Watch</gui> to
+        update the selected watch.</p>
+      </item>
+    </steps>
+
+    <steps>
+      <item>
+        <p>In the <gui>Watches</gui> window, right click and select <gui>Update all</gui> to
+        update all watches at the same time.</p>
+      </item>
+    </steps>
+
+  </section>
+
+
+  <section>
+    <title>Add a watch on an expression</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Add Watch...</gui></guiseq> or in the <gui>Watches</gui>
+        windows right click and select <gui>Add Watch...</gui>.</p>
+      </item>
+      <item>
+        <p>Enter the expression to watch. Check <gui>Automatic Update</gui>
+        if you want that the expression is evaluated each time the program
+        is stopped.</p>
+      </item>
+    </steps>
+
+    <p>An expression can be evaluate and then added as a watch using:</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Inspect/Evaluate</gui></guiseq> or right click in the
+        <gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>.</p>
+      </item>
+      <item>
+        <p>Click on <gui>Add</gui> button to add this expression in the watches
+        list.</p>
+      </item>
+    </steps>
+
+  </section>
+
+  <section>
+    <title>Remove a watch</title>
+
+    <steps>
+      <item>
+        <p>In the <gui>Watches</gui> windows select the watch you want to remove
+        then right click and select <gui>Remove Watch</gui>.</p>
+      </item>
+    </steps>
+
+    <p>All watches can be removed at the same time.</p>
+
+    <steps>
+      <item>
+        <p>In the <gui>Watches</gui> right click and select <gui>Remove all</gui>.</p>
+      </item>
+    </steps>
+
+  </section>
+
+  <section>
+    <title>Changing the value of a variable</title>
+
+    <steps>
+      <item>
+        <p>If a watch expression corresponds to a variable you can change
+        its value. In the <gui>Watches</gui> window, select the variable you want to
+        edit and double click in the <gui>Value</gui> column.</p>
+      </item>
+      <item>
+        <p>Enter the new value.</p>
+      </item>
+    </steps>
+  </section>
+
+
+</page>

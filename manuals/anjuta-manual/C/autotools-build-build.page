@@ -43,7 +43,7 @@
     <item>
       <p>
         From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
-        <gui>Build Project</gui></guiseq> or press <key>Shift+F7</key>
+        <gui>Build Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></keyseq>
         to build the complete project, all subdirectories are built recursively.
       </p>
     </item>

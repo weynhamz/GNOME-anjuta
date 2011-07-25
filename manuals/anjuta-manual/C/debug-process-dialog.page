@@ -1,0 +1,39 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-process-dialog">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <facet:tag key="all-widgets" value="whatever"/> <!--Include page in index-->
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Attach to process dialog
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Attach to process Dialog</title>
+
+  <p>The <gui>process</gui> dialog allows you to select a currently running process</p>
+
+  <terms>
+    <item>
+      <title><gui>Hide paths</gui></title>
+      <p>This hides command pathes in the process list if checked.</p>
+    </item>
+    <item>
+      <title><gui>Hide process parameters</gui></title>
+      <p>This hides the command line arguments in the process list if checked.</p>
+    </item>
+    <item>
+      <title><gui>Display process tree</gui></title>
+      <p>If unchecked, the processes are displayed in a list. If checked the
+      processes are displayed in a tree.</p>
+    </item>
+  </terms>
+
+</page>
+

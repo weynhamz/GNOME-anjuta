@@ -1,0 +1,53 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-breakpoint-dialog">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <facet:tag key="all-widgets" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="debug-breakpoint"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Used to create or edit a breakpoint
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Breakpoint Dialog</title>
+
+  <terms>
+    <item>
+      <title><gui>Location</gui></title>
+      <p>This is the position of the breakpoint. This cannot be changed on a
+      existing breakpoint. It can be specified using the following
+      formats:</p>
+      <list>
+        <item><p><var>file_name:line_number</var></p></item>
+        <item><p><var>function_name</var></p></item>
+        <item><p><var>file_name:function_name</var></p></item>
+      </list>
+    </item>
+    <item>
+      <title><gui>Condition</gui></title>
+      <p>It is an expression which should evaluate to a boolean value TRUE(1) or
+      FALSE(0).
+      Every time the breakpoint is encountered during your program's execution,
+      the break condition will be evaluated. The debugger will break the execution
+      only if the evaluation result is the TRUE value.</p>
+      <p>If you leave this field blank the condition is considered as always
+      TRUE.</p>
+    </item>
+    <item>
+      <title><gui>Pass Count</gui></title>
+       <p>This is an integer (unsigned) value which tells the debugger to
+       skip the breakpoint that number of times before it is considered. It
+       has a higher priority than the condition. Only when the count reaches
+       zero will the debugger evaluate the condition if it is present.</p>
+    </item>
+  </terms>
+
+</page>
+

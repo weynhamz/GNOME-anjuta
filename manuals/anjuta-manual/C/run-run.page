@@ -9,7 +9,7 @@
     <link type="seealso" xref="autotools-build-install"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Run a program without the debugger.
+      Start a program without the debugger.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>

@@ -1,0 +1,194 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-breakpoint">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-execute" group="second"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Managing breakpoints.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Breakpoints</title>
+
+  <p>Breakpoints are used to stop the execution of the program at particular
+  points so that the state of the program can be examined at those locations.</p>
+
+  <section>
+    <title>Listing breakpoints</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui>
+        windows.</p>
+      </item>
+    </steps>
+
+    <p>This view has the following columns:</p>
+  
+    <terms>
+      <item>
+        <title>Location</title>
+        <p>This is the position of the breakpoint in the source file. When
+        the breakpoint is set by the debugger, you can get additional
+        information such as the function containing the breakpoint.</p>
+      </item>
+      <item>
+        <title>Address</title>
+        <p>This field is filled with the address of the breakpoint
+        when it is set by the debugger.</p>
+      </item>
+      <item>
+        <title>Type</title>
+        <p>This always displays "breakpoint". It will be used in a
+        future release supporting different kinds of breakpoints.</p>
+      </item>
+      <item>
+        <title>Condition</title>
+        <p>This is the breakpoint condition. It is empty if no condition
+        is defined.</p>
+      </item>
+      <item>
+        <title>Pass count</title>
+        <p>When the debugger is not running, this column displays the
+        pass count of the breakpoint, or zero if it is not defined.</p>
+        <p>When the debugger is running, if the pass count is zero,
+        this column displays the number of times this breakpoint has
+        been triggered. If the pass count is not zero, both numbers
+        are displayed. The pass count is the second number.</p>
+      </item>
+      <item>
+        <title>State</title>
+        <p>This is the state of the breakpoint. It may be</p>
+        <terms>
+          <item><title>Pending:</title><p>the breakpoint is not set in your program.</p></item>
+          <item><title>Permanent:</title><p>the breakpoint is set (its id number is given inside parenthesis).</p></item>
+          <item><title>Temporary:</title><p>the breakpoint is set but will be deleted if reached.</p></item>
+        </terms>
+      </item>
+    </terms>
+
+    <note style="tip">
+     <p>All breakpoints are kept across Anjuta sessions even if they correspond
+     to a non-existing locations by example in a source file of a shared library not
+     loaded yet. In this case their states are set as pending.</p>
+    </note>
+  </section>
+
+  <section>
+    <title>Setting breakpoints</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Add Breakpoint...</gui></guiseq> or right click in the
+        <gui>Breakpoint</gui> window and select <gui>Add Breakpoint...</gui>.
+        </p>
+      </item>
+      <item>
+        <p>Fill at least the <gui>Location</gui> which is the position of the
+        breakpoint, if a file is currently opened in the editor it is
+        fill to put a breakpoint in the current line by default.
+        See <link xref="debug-breakpoint-dialog"/> for more information.</p>
+      </item>
+    </steps>
+
+    <p>Another solution is to use the toggle breakpoint function. If there
+    is no breakpoint on the current line, it will add one. Else it will
+    remove it.</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Toggle Breakpoint</gui></guiseq> or right click in the
+        <gui>Editor</gui> window and select <gui>Toggle Breakpoint</gui>.
+        </p>
+      </item>
+    </steps>
+
+  </section>
+
+
+  <section>
+    <title>Editing breakpoints</title>
+
+    <steps>
+      <item>
+        <p>Select a breakpoint in the <gui>Breakpoint</gui> window.</p>
+      </item>
+      <item>
+        <p>Right click in the <gui>Breakpoint</gui> window and select
+        <gui>Edit Breakpoint...</gui>.
+        </p>
+      </item>
+      <item>
+        <p>Change the <gui>Condition</gui> and <gui>Pass Count</gui>
+        field and click on <gui>OK</gui> to commit the changes.
+        See <link xref="debug-breakpoint-dialog"/> for more information.</p>
+      </item>
+    </steps>
+
+  </section>
+
+
+  <section>
+    <title>Removing breakpoints</title>
+
+    <steps>
+      <item>
+        <p>Select a breakpoint in the <gui>Breakpoint</gui> window.</p>
+      </item>
+      <item>
+        <p>Right click in the <gui>Breakpoint</gui> window and select
+        <gui>Remove Breakpoint</gui>.
+        </p>
+      </item>
+    </steps>
+
+    <p>You can remove all breakpoints using:</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Remove All Breakpoints</gui></guiseq> or right click in
+        the <gui>Breakpoint</gui> window and select
+        <gui>Remove All Breakpoint</gui>.</p>
+      </item>
+    </steps>
+
+  </section>
+
+
+  <section>
+    <title>Enabling and disabling breakpoints</title>
+
+    <steps>
+      <item>
+        <p>Click on the <gui>Enable</gui> column  in the <gui>Breakpoint</gui>
+        window or right click in the <gui>Breakpoint</gui> window and
+        select <gui>Enable Breakpoint</gui> or <gui>Disable Breakpoint</gui>.</p>
+      </item>
+    </steps>
+
+    <p>You can disable all breakpoints using:</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Disable All Breakpoints</gui></guiseq> or right click in
+        the <gui>Breakpoint</gui> window and select
+        <gui>Disable All Breakpoint</gui>.</p>
+      </item>
+    </steps>
+
+  </section>
+  
+
+</page>

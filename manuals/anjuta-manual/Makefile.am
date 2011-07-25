@@ -7,11 +7,24 @@ DOC_PAGES = anjuta-code-assist.page \
 	anjuta-code-help.page \
 	anjuta-code-indentation.page \
 	anjuta-code-symbols.page \
-	anjuta-debug-breakpoints.page \
-	anjuta-debug-crash.page \
-	anjuta-debug-watches.page \
 	anjuta-glade-signals.page \
 	anjuta-glade-start.page \
+	debug-breakpoint-dialog.page \
+	debug-breakpoint.page \
+	debug-cpu.page \
+	debug-custom.page \
+	debug-data.page \
+	debug-execute.page \
+	debug-expression.page \
+	debug-information.page \
+	debug-local.page \
+	debug-process-dialog.page \
+	debug-run.page \
+	debug-stack.page \
+	debug-step.page \
+	debug-thread.page \
+	debug-tips.page \
+	debug-watch.page \
 	run-run.page \
 	run-parameters-dialog.page \
 	autotools-build-build.page \

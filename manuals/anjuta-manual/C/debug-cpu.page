@@ -1,0 +1,86 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-cpu">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-data" group="sixth"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Examine CPU informations.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>CPU</title>
+
+  <section>
+    <title>View CPU registers</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Registers</gui></guiseq> to open the <gui>Register</gui>
+        window.</p>
+      </item>
+    </steps>
+
+    <p>Register which value has changed since the last stop are in red. It is
+    possible ton change the value of any register by clicking in the value
+    column and entering a new value.</p>	
+
+  </section>
+
+  <section>
+    <title>View memory</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Memory</gui></guiseq> to open the <gui>Memory</gui>
+        window.</p>
+      </item>
+    </steps>
+
+    <p>The first column displays memory addresses in hexadecimal, the second
+    displays memory contents in hexadecimal and the last column shows
+    memory contents in ASCII.</p>
+    <p>The addressing space of even a 32-bit microprocessor is very large
+    (4 gigabytes), so it is very difficult to go to a particular address
+    with the scrollbar. But you can click on the right mouse button and select
+    <gui>Goto address</gui> to get a small edit box where you can enter an
+    address in hexadecimal.</p>
+  </section>
+
+
+  <section>
+    <title>View Disassembly</title>
+
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
+        <gui>Memory</gui></guiseq> to open the <gui>Memory</gui>
+        window.</p>
+      </item>
+    </steps>
+
+    <p>The first column displays addresses in hexadecimal. In the second column,
+    you can have a label starting at the beginning of the line and ending with
+    a colon or a assembly-language instruction indented by 4 space characters.</p>
+
+    <p>The position in the disassembly window will be changed to the program
+    counter value when the program is stopped.</p>
+
+    <p>The addressing space of even a 32-bit microprocessor is very large
+    (4 gigabytes), so it is very difficult to go to a particular address
+    with the scrollbar. But you can click on the right mouse button and select
+    <gui>Goto address</gui> to get a small edit box where you can enter an
+    address in hexadecimal.</p>
+  </section>
+
+
+</page>

@@ -1,0 +1,135 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-step">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="debug-execute" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Stopping and continuing.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Stop and step</title>
+
+  <p>Like a video editing session, the program can be executed in slow motion
+   with the ability to go forward, pause, stop, and so on. You cannot go
+   backward yet though. This is essential for tracking program behavior.</p>
+
+  <section>
+    <title>Step in</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Step In</gui></guiseq> or press <key>F5</key></p> or
+        click on the <gui>Step In</gui> icon in the toolbar.
+      </item>
+    </steps>
+
+    <p>Single stepping executes only one statement of the program (from the
+    place where it has stopped) and then returns control. If the statement
+    that is executed contains one function, the debugger tries to step
+    inside the functions (in the sequence in which the functions are executed).
+    Once the statement is executed and control is passed back, you can study
+    your program's state.</p>
+
+    <note style="advanced">
+     <p>If the <gui>Disassembly window</gui> has the focus when
+     this command is selected, it executes only one assembler instruction.</p>
+    </note>
+  </section>
+
+
+  <section>
+    <title>Step over</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Step Over</gui></guiseq> or press <key>F6</key> or
+        click on the <gui>Step Over</gui> icon in the toolbar.</p>
+      </item>
+    </steps>
+
+    <p>Stepping over is similar to step in except that it does not stop
+    inside any function in the statement being executed.</p>
+
+    <note style="advanced">
+      <p>If the <gui>Disassembly window</gui> has the focus when
+      this command is selected, it executes only one assembler instruction except
+      if this instruction is a call to a subroutine, in this case the program stops
+      when the subroutine is completed.</p>
+    </note>
+  </section>
+
+
+  <section>
+    <title>Step out</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Step Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq></p> or
+        click on the <gui>Step Out</gui> icon in the toolbar.
+      </item>
+    </steps>
+
+    <p>It executes the current function until it returns to the calling
+    function.</p>
+  </section>
+
+
+  <section>
+    <title>Run and continue</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Run/Continue</gui></guiseq> or press <key>F4</key></p> or
+        click on the <gui>Continue</gui> icon in the toolbar.
+      </item>
+    </steps>
+
+    <p>This command restarts the program until a breakpoint is encountered or
+    the program exits.</p>
+  </section>
+
+  <section>
+   <title>Run To</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Run to Cursor</gui></guiseq> or press <key>F8</key></p> or
+        click on the <gui>Run to</gui> icon in the toolbar.
+      </item>
+    </steps>
+
+    <p>This restarts the program until the line or the
+    address (if the <gui>Disassembly window</gui> has the focus) at
+    the cursor is reached.</p>
+  </section>
+  
+  <section>
+   <title>Stop Program</title>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+        <gui>Pause Program</gui></guiseq> or
+        click on the <gui>Pause</gui> icon in the toolbar.</p>
+      </item>
+    </steps>
+
+   <p>This interrupts the program and return control to the debugger allowing
+   perform all debugging tasks, like inspecting data, adding breakpoints...</p>
+  </section>
+
+
+</page>

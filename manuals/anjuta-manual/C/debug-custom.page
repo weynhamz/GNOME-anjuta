@@ -1,0 +1,42 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-custom">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-debug" group="sixth"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Use custom debugger command.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Custom command</title>
+
+  <p>Custom command can be send to the debugger using:</p>
+
+  <steps>
+    <item>
+      <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
+      <gui>Debugger Command</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Enter your command.</p>
+    </item>
+  </steps>
+
+  <p>The output of the command is displayed in the message window used by
+  the debugger.</p>
+
+  <note style="warning">
+    <p>The command is sent directly to the debugger without performing any checks.
+    By example if you set a breakpoint like this, it will not appear in the
+    <gui>Breakpoint</gui> window. It is better to avoid using this
+    command unless you know exactly what you are doing.</p>
+  </note>
+
+</page>

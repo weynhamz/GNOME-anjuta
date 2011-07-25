@@ -1,0 +1,107 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="debug-run">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="index#anjuta-debug" group="second"/>
+    <link type="seealso" xref="run-parameters-dialog"/>
+    <link type="seealso" xref="autotools-build-configure"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Start a program with the debugger.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Debug a program</title>
+  
+  <section>
+    <title>Start a program in the debugger</title>
+
+    <p>The current program is defined in the <gui>run parameter</gui> dialog.
+    See <link xref="run-parameters-dialog"/> for more information. This
+    program can be started in the debugger using:</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+        <gui>Debug Program</gui></guiseq> or press <keyseq><key>Shift</key><key>F12</key></keyseq></p>
+      </item>
+    </steps>
+
+    <note style="tip">
+      <p>A program can be more difficult to debug if it is highly optimized
+      or if debugging information are missing. This is defined in the
+      configure step. Normally, a Debug configuration with no optimization
+      and all debugging informations is defined. Anjuta display a warning
+      if this configuration is not used.
+      See <link xref="autotools-build-configure"/> for more information.</p>
+    </note>
+   </section>
+
+  <section>
+    <title>Debug an already running application</title>
+
+    <p>The debugger could be used on an already running application.</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+        <gui>Debug Process...</gui></guiseq>
+        to get a dialog listing all currently running process.</p>
+      </item>
+      <item>
+        <p>Select a process in the <gui>attach to process</gui> dialog
+        and click on <gui>Attach</gui> to start the debugger on this
+        process. See <link xref="debug-process-dialog"/> for more details.</p>
+      </item>
+    </steps>
+  </section>
+ 
+  <section>
+    <title>Debug a remote application</title>
+
+    <p>The debugger can be used to debug an application running on another
+    computer connected through a TCP or a serial connection.</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+        <gui>Debug Remote...</gui></guiseq></p>
+      </item>
+      <item>
+        <p>Select the type of the connection with the remote application,
+	<gui>Serial Line</gui> or <gui>TCP/IP</gui>.</p>
+      </item>
+      <item>
+        <p>For a TCP connection, fill <gui>Address</gui> and <gui>Port</gui>
+        field</p>
+        <p>For a serial connection, fill the text box below with the serial
+        device name, by example <cmd>/dev/ttyb</cmd>.</p>
+      </item>
+      <item>
+        <p>Click on <gui>Connect</gui> to start the debugger and connect to
+        the remote target.</p>
+      </item>
+    </steps>
+
+  </section>
+
+  <section>
+    <title>Stop the debugger</title>
+
+    <p>The debugger and the program can be stop at any time using:</p>
+
+    <steps>
+      <item>
+        <p>From the <gui>main menu</gui>, select <guiseq><gui>Run</gui>
+        <gui>Stop Debugger</gui></guiseq>.</p>
+      </item>
+    </steps>
+
+  </section>
+</page>
