@@ -1,3 +1,26 @@
+Anjuta 3.1.4 "Leaving on a jet-plane" (25 July 2011) -- Johannes Schmid
+
+Bugs fixed:
+654502 	Allow building with libvala-0.14 (0.13 development tree)
+646410 	Missing infrastructure for the new Mallard manual
+654073 	Please apply the kfreebsd patch to anjuta-extras
+654124 	Vala: add class wizard creates file twice.
+654445 	Add 'BSD' as a valid license in the Class Generator
+654099 	file manager plugin: fix leak for file
+654100 	file manager plugin: fix leak in row callapsed
+654559 	Weird pseudo-password dialog shown with half a commit message when I import a project
+654092 	Crash when adding a project file
+654095 	increase reference count of the selected file
+654560 	Contents of Preferences tabs seem to be packed to fill all vertical space, with ugly consequences
+631157 	unix is not defined on OpenBSD
+654455 	Fix build on OpenBSD
+
+Thanks to:
+Abderrahim Kitouni, Alban Browaeys, Daniel Mustieles, Dominique Leuenberger,
+Francisco Javier Fernández Serrador, Francisco Javier Serrador, 
+Jasper Lievisse Adriaanse, Jorge González, Marek Černocký, ario Blättermann,
+Piotr Drąg, Sébastien Granjoux, Tamara Atanasoska
+
 Anjuta 3.1.3 "Is this it?" (4 July 2011) -- Johannes Schmid
 
 New:
