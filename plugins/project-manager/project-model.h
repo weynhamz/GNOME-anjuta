@@ -71,7 +71,7 @@ gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,
 gboolean         gbf_project_model_find_file         (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,
                                                       GtkTreeIter       *parent,
-                                                      AnjutaProjectNodeType type,
+                                                       GbfTreeNodeType type,
                                                       GFile             *file);
 gboolean         gbf_project_model_find_node         (GbfProjectModel   *model,
                                                       GtkTreeIter       *iter,

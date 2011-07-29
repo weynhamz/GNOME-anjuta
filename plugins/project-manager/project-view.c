@@ -531,7 +531,7 @@ static gboolean
 draw (GtkWidget *widget, cairo_t *cr)
 {
 	GtkTreeModel *view_model;
-	GtkTreeModel *model;
+	GtkTreeModel *model = NULL;
 	GtkTreeView *tree_view;
 	gint event_handled = FALSE;
 

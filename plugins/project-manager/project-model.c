@@ -828,7 +828,7 @@ gboolean
 gbf_project_model_find_file (GbfProjectModel 	*model,
     GtkTreeIter		*found,
     GtkTreeIter		*parent,
-    AnjutaProjectNodeType type,
+     GbfTreeNodeType type,
     GFile		*file)
 {
 	GtkTreeIter iter;

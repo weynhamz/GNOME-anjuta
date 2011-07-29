@@ -141,7 +141,7 @@ gbf_tree_data_equal (GbfTreeData *data_a, GbfTreeData *data_b)
 }
 
 gboolean
-gbf_tree_data_equal_file (GbfTreeData *data, AnjutaProjectNodeType type, GFile *file)
+gbf_tree_data_equal_file (GbfTreeData *data,  GbfTreeNodeType type, GFile *file)
 {
 	gboolean equal = FALSE;
 
@@ -151,7 +151,7 @@ gbf_tree_data_equal_file (GbfTreeData *data, AnjutaProjectNodeType type, GFile *
 
 		if (node != NULL)
 		{
-			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == anjuta_project_node_get_node_type (node)))
+			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == data->type))
 			{
 				GFile* node_file = anjuta_project_node_get_file (node);
 				if (node_file && g_file_equal (node_file, file))
@@ -389,7 +389,7 @@ gbf_tree_data_new_package (AnjutaProjectNode *package)
 GbfTreeData *
 gbf_tree_data_new_node (AnjutaProjectNode *node)
 {
-	GbfTreeData *data;
+	GbfTreeData *data = NULL;
 	
 	switch (anjuta_project_node_get_node_type (node))
 	{

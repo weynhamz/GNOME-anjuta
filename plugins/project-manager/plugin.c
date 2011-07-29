@@ -449,8 +449,8 @@ on_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 		ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
 										   "", default_group,
 										   NULL);
-	g_object_unref (group);
-	g_object_unref (default_group);
+	if (group != NULL) g_object_unref (group);
+	if (default_group != NULL) g_object_unref (default_group);
 }
 
 static void
@@ -504,8 +504,9 @@ on_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 		ianjuta_project_manager_add_target (IANJUTA_PROJECT_MANAGER (plugin),
 											"", default_group,
 											NULL);
-	g_object_unref (target);
-	g_object_unref (default_group);
+
+	if (target != NULL) g_object_unref (target);
+	if (default_group != NULL) g_object_unref (default_group);
 }
 
 static void
@@ -526,8 +527,9 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 		ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
 											source_uri,
 											default_group, NULL);
-	g_object_unref (source);
-	g_object_unref (default_group);
+
+	if (source != NULL) g_object_unref (source);
+	if (default_group != NULL) g_object_unref (default_group);
 }
 
 static void

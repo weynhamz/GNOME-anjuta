@@ -69,7 +69,7 @@ gchar		  *gbf_tree_data_get_path		    (GbfTreeData           *data);
 gboolean       gbf_tree_data_equal              (GbfTreeData           *data_a,
                                                  GbfTreeData           *data_b);
 gboolean       gbf_tree_data_equal_file         (GbfTreeData           *data,
-                                                 AnjutaProjectNodeType type,
+                                                  GbfTreeNodeType type,
                                                  GFile                 *file);
 gboolean       gbf_tree_data_equal_name         (GbfTreeData           *data,
                                                  const gchar           *name);
