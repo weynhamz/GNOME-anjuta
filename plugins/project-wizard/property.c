@@ -58,6 +58,7 @@ struct _NPWProperty {
 	NPWPropertyType type;
 	NPWPropertyType restriction;
 	NPWPropertyOptions options;
+	gdouble range[3];
 	gchar* label;
 	gchar* description;
 	gchar* defvalue;
@@ -455,7 +456,9 @@ npw_property_create_widget (NPWProperty* prop)
 		}
 		break;
 	case NPW_INTEGER_PROPERTY:
-		entry = gtk_spin_button_new (NULL, 1, 0);
+		if (prop->range[1] == 0) prop->range[1] = 10000;
+		if (prop->range[2] == 0) prop->range[2] = 1;
+		entry = gtk_spin_button_new_with_range (prop->range[0], prop->range[1], prop->range[2]);
 		if (value)
 		{
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (entry), atoi (value));
@@ -618,6 +621,20 @@ npw_property_set_default (NPWProperty* prop, const gchar* value)
 		g_free (prop->defvalue);
 		prop->defvalue = (value == NULL) ? NULL : g_strdup (value);
 	}
+}
+
+gboolean
+npw_property_set_range (NPWProperty* prop, NPWPropertyRangeMark mark, const gchar* value)
+{
+	char *end;
+	double d;
+	gboolean ok;
+
+	d = strtod (value,  &end);
+	ok = (*end == ':')  || (*end == '\0');
+	if (ok) prop->range[mark] = d;
+
+	return ok;
 }
 
 static gboolean

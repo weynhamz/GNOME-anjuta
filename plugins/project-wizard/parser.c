@@ -97,6 +97,9 @@ typedef enum {
 	NPW_LABEL_ATTRIBUTE,
 	NPW_DESCRIPTION_ATTRIBUTE,
 	NPW_VALUE_ATTRIBUTE,
+	NPW_MIN_ATTRIBUTE,
+	NPW_MAX_ATTRIBUTE,
+	NPW_STEP_ATTRIBUTE,
 	NPW_SUMMARY_ATTRIBUTE,
 	NPW_TYPE_ATTRIBUTE,
 	NPW_RESTRICTION_ATTRIBUTE,
@@ -123,6 +126,9 @@ static NPWStringMapping npw_attribute_mapping [] = {
 		{"description", NPW_DESCRIPTION_ATTRIBUTE},
 		{"default", NPW_VALUE_ATTRIBUTE},
 		{"value", NPW_VALUE_ATTRIBUTE},
+		{"minimum", NPW_MIN_ATTRIBUTE},
+		{"maximum", NPW_MAX_ATTRIBUTE},
+		{"step", NPW_STEP_ATTRIBUTE},
 		{"type", NPW_TYPE_ATTRIBUTE},
 		{"restriction", NPW_RESTRICTION_ATTRIBUTE},
 		{"summary", NPW_SUMMARY_ATTRIBUTE},
@@ -766,6 +772,24 @@ parse_property (NPWPageParser* parser,
 			break;
 		case NPW_VALUE_ATTRIBUTE:
 			npw_property_set_default (parser->property, *values);
+			break;
+		case NPW_MIN_ATTRIBUTE:
+			if (!npw_property_set_range (parser->property, NPW_MIN_MARK, *values))
+			{
+				parser_warning (parser->ctx, "Invalid minimum attribute \"%s\"", *values);
+			}
+			break;
+		case NPW_MAX_ATTRIBUTE:
+			if (!npw_property_set_range (parser->property, NPW_MAX_MARK, *values))
+			{
+				parser_warning (parser->ctx, "Invalid maximum attribute \"%s\"", *values);
+			}
+			break;
+		case NPW_STEP_ATTRIBUTE:
+			if (!npw_property_set_range (parser->property, NPW_STEP_MARK, *values))
+			{
+				parser_warning (parser->ctx, "Invalid step attribute \"%s\"", *values);
+			}
 			break;
 		case NPW_SUMMARY_ATTRIBUTE:
 			npw_property_set_summary_option (parser->property, parse_boolean_string (*values));

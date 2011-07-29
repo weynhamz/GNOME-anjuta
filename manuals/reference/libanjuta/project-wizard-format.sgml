@@ -336,6 +336,20 @@
 				specified the property is empty.
 			</para>
 			<para>
+				minimum is the minimum value for an integer property.
+				If none is specified the minimum value is 0.
+			</para>
+			<para>
+				maximum is the maximum value for an integer property.
+				If none is specified the maximum value is 10000.
+			</para>
+			<para>
+				step is the increment step when clicking on the arrow buttons or
+				using the cursor key, you can always write another value in the
+				allowed range.
+				If none is specified the value is incremented or decremented by 1.
+			</para>
+			<para>
 				mandatory allow you to define if an empty value is
 				acceptable, by default it is allowed. If you set it to
 				yes and the user does not enter a value, he will get an

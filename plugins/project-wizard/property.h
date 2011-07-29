@@ -72,6 +72,13 @@ typedef enum {
 	NPW_TRUE = 1
 } NPWPropertyBooleanValue;
 
+typedef enum
+{
+	NPW_MIN_MARK = 0,
+	NPW_MAX_MARK = 1,
+	NPW_STEP_MARK = 2
+} NPWPropertyRangeMark;
+
 NPWProperty* npw_property_new (void);
 void npw_property_free (NPWProperty* prop);
 
@@ -99,6 +106,8 @@ void npw_property_set_widget (NPWProperty* prop, GtkWidget* widget);
 GtkWidget* npw_property_get_widget (const NPWProperty* prop);
 
 void npw_property_set_default (NPWProperty* prop, const gchar* value);
+
+gboolean npw_property_set_range (NPWProperty* prop, NPWPropertyRangeMark mark, const gchar* value);
 
 gboolean npw_property_update_value_from_widget (NPWProperty* prop);
 gboolean npw_property_save_value_from_widget (NPWProperty* prop);
