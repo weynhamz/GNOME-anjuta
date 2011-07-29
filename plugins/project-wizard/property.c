@@ -708,8 +708,11 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 			else
 				str_value = g_string_new (node->data);
 		}
-		value = str_value->str;
-		g_string_free (str_value, FALSE);
+		if (str_value != NULL)
+		{
+			value = str_value->str;
+			g_string_free (str_value, FALSE);
+		}
 		g_list_foreach (packages, (GFunc) g_free, NULL);
 		g_list_free (packages);	
 		break;
