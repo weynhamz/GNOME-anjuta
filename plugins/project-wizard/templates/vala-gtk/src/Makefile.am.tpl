@@ -19,12 +19,12 @@ AM_CFLAGS =\
 	 -g
 
 VALAFLAGS = [+IF (not (= (get "PackageModule2") ""))+] --pkg [+(string-substitute (get "PackageModule2") " " " --pkg ")+] [+ENDIF+] \
-	--pkg gtk+-3.0 --vapidir . --pkg config
+	--pkg gtk+-3.0
 
 bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_SOURCES = \
-	[+NameHLower+].vala
+	[+NameHLower+].vala config.vapi
 
 [+NameCLower+]_LDFLAGS = \
 	-Wl,--export-dynamic
