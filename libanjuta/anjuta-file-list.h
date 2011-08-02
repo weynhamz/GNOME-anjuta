@@ -39,12 +39,12 @@ typedef struct _AnjutaFileListPriv AnjutaFileListPriv;
 
 struct _AnjutaFileListClass
 {
-	GtkVBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 struct _AnjutaFileList
 {
-	GtkVBox parent_instance;
+	GtkBox parent_instance;
 
 	AnjutaFileListPriv *priv;
 };

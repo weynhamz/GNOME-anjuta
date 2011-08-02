@@ -48,7 +48,7 @@ typedef struct _MessageViewPrivate MessageViewPrivate;
 
 struct _MessageView
 {
-	GtkHBox parent;
+	GtkBox parent;
 		
 	/* private */
 	MessageViewPrivate* privat;
@@ -56,7 +56,7 @@ struct _MessageView
 
 struct _MessageViewClass
 {
-	GtkHBoxClass parent;
+	GtkBoxClass parent;
 };	
 
 typedef enum

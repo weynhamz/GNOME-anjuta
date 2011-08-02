@@ -39,12 +39,12 @@ typedef struct _AnjutaColumnTextViewPriv AnjutaColumnTextViewPriv;
 
 struct _AnjutaColumnTextViewClass
 {
-	GtkVBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 struct _AnjutaColumnTextView
 {
-	GtkVBox parent_instance;
+	GtkBox parent_instance;
 
 	AnjutaColumnTextViewPriv *priv;
 };

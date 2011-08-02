@@ -44,7 +44,7 @@ typedef struct _SnippetsBrowserClass SnippetsBrowserClass;
 
 struct _SnippetsBrowser
 {
-	GtkHBox parent;
+	GtkBox parent;
 
 	gboolean show_only_document_language_snippets;
 	AnjutaShell *anjuta_shell;
@@ -55,7 +55,7 @@ struct _SnippetsBrowser
 
 struct _SnippetsBrowserClass
 {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 
 	/* Signals */
 	void (*maximize_request)          (SnippetsBrowser *snippets_browser);

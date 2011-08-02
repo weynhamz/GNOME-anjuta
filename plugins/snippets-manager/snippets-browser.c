@@ -48,7 +48,7 @@ struct _SnippetsBrowserPrivate
 
 	GtkWidget *grip;
 
-	GtkVBox *snippets_view_vbox;
+	GtkBox *snippets_view_vbox;
 	GtkScrolledWindow *snippets_view_cont;
 	
 	GtkWidget *browser_hpaned;

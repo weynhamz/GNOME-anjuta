@@ -58,12 +58,12 @@ typedef struct _CgComboFlags CgComboFlags;
 
 struct _CgComboFlagsClass
 {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 struct _CgComboFlags
 {
-	GtkHBox parent_instance;
+	GtkBox parent_instance;
 };
 
 typedef enum _CgComboFlagsSelectionType

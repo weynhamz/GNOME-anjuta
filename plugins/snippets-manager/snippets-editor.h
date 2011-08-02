@@ -42,7 +42,7 @@ typedef struct _SnippetsEditorClass SnippetsEditorClass;
 
 struct _SnippetsEditor
 {
-	GtkHBox parent;
+	GtkBox parent;
 
 	/*< private >*/
 	SnippetsEditorPrivate *priv;
@@ -50,7 +50,7 @@ struct _SnippetsEditor
 
 struct _SnippetsEditorClass
 {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 
 	/* Signals */
 	void (*snippet_saved)    (SnippetsEditor *snippets_editor,

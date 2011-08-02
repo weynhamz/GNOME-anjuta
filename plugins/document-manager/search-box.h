@@ -42,12 +42,12 @@ typedef struct _SearchBox SearchBox;
 
 struct _SearchBoxClass
 {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 struct _SearchBox
 {
-	GtkHBox parent_instance;
+	GtkBox parent_instance;
 
 	GtkWidget* new;
 };

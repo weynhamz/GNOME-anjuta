@@ -71,7 +71,7 @@ enum {
 	LAST_SIGNAL
 };
 
-static GtkHBoxClass* parent_class = NULL;
+static GtkBoxClass* parent_class = NULL;
 static guint combo_flags_signals[LAST_SIGNAL];
 
 static CgComboFlagsCellInfo *

@@ -39,12 +39,12 @@ typedef struct _GitRepositorySelectorPriv GitRepositorySelectorPriv;
 
 struct _GitRepositorySelectorClass
 {
-	GtkVBoxClass parent_class;
+	GtkBoxClass parent_class;
 };
 
 struct _GitRepositorySelector
 {
-	GtkVBox parent_instance;
+	GtkBox parent_instance;
 
 	GitRepositorySelectorPriv *priv;
 };

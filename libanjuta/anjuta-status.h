@@ -37,13 +37,13 @@ typedef struct _AnjutaStatusClass AnjutaStatusClass;
 
 struct _AnjutaStatus
 {
-	GtkHBox parent;
+	GtkBox parent;
 	AnjutaStatusPriv *priv;
 };
 
 struct _AnjutaStatusClass
 {
-	GtkHBoxClass parent_class;
+	GtkBoxClass parent_class;
 	
 	/* signals */
 	void (*busy) (AnjutaStatus *status, gboolean state);
