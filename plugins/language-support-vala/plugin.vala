@@ -330,7 +330,11 @@ public class ValaPlugin : Plugin {
 
 		var scope_prefix = "";
 		if (scope != null) {
+#if VALA_0_14
+			scope_prefix = Vala.CCodeBaseModule.get_ccode_lower_case_prefix (scope);
+#else
 			scope_prefix = scope.get_lower_case_cprefix ();
+#endif
 			if (handler_name.has_prefix (scope_prefix))
 				handler_name = handler_name.substring (scope_prefix.length);
 		}
