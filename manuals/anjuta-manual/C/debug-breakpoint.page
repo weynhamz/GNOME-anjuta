@@ -17,8 +17,8 @@
 
   <title>Breakpoints</title>
 
-  <p>Breakpoints are used to stop the execution of the program at particular
-  points so that the state of the program can be examined at those locations.</p>
+  <p>Breakpoints are used to stop the execution of the program at a particular
+  point so that the state of the program can be examined at those locations.</p>
 
   <section>
     <title>Listing breakpoints</title>
@@ -27,7 +27,7 @@
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
         <gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui>
-        windows.</p>
+        window.</p>
       </item>
     </steps>
 
@@ -47,7 +47,7 @@
       </item>
       <item>
         <title>Type</title>
-        <p>This always displays "breakpoint". It will be used in a
+        <p>This always displays <gui>breakpoint</gui>. It will be used in a
         future release supporting different kinds of breakpoints.</p>
       </item>
       <item>
@@ -69,7 +69,7 @@
         <p>This is the state of the breakpoint. It may be</p>
         <terms>
           <item><title>Pending:</title><p>the breakpoint is not set in your program.</p></item>
-          <item><title>Permanent:</title><p>the breakpoint is set (its id number is given inside parenthesis).</p></item>
+          <item><title>Permanent:</title><p>the breakpoint is set (its id number is displayed in parentheses).</p></item>
           <item><title>Temporary:</title><p>the breakpoint is set but will be deleted if reached.</p></item>
         </terms>
       </item>
@@ -77,7 +77,7 @@
 
     <note style="tip">
      <p>All breakpoints are kept across Anjuta sessions even if they correspond
-     to a non-existing locations by example in a source file of a shared library not
+     to a non-existing locations, for example in a source file of a shared library not
      loaded yet. In this case their states are set as pending.</p>
     </note>
   </section>
@@ -93,15 +93,16 @@
         </p>
       </item>
       <item>
-        <p>Fill at least the <gui>Location</gui> which is the position of the
-        breakpoint, if a file is currently opened in the editor it is
-        fill to put a breakpoint in the current line by default.
+        <p>Fill in the <gui>Location</gui>, which is the position of the
+        breakpoint, and the other fields if desired.
+        If a file is currently opened in the editor, the <gui>Location</gui>
+        defaults to the current line.
         See <link xref="debug-breakpoint-dialog"/> for more information.</p>
       </item>
     </steps>
 
     <p>Another solution is to use the toggle breakpoint function. If there
-    is no breakpoint on the current line, it will add one. Else it will
+    is no breakpoint on the current line, it will add one. Otherwise, it will
     remove it.</p>
 
     <steps>
@@ -119,6 +120,10 @@
   <section>
     <title>Editing breakpoints</title>
 
+    <p>You can't change the location of a breakpoint; create a new breakpoint
+    instead. However, you can change the break condition or the pass count. To
+    edit a breakpoint:</p>
+
     <steps>
       <item>
         <p>Select a breakpoint in the <gui>Breakpoint</gui> window.</p>
@@ -129,8 +134,8 @@
         </p>
       </item>
       <item>
-        <p>Change the <gui>Condition</gui> and <gui>Pass Count</gui>
-        field and click on <gui>OK</gui> to commit the changes.
+        <p>Change the <gui>Condition</gui> or <gui>Pass Count</gui>
+        fields and click on <gui>OK</gui> when you are done.
         See <link xref="debug-breakpoint-dialog"/> for more information.</p>
       </item>
     </steps>
@@ -140,6 +145,11 @@
 
   <section>
     <title>Removing breakpoints</title>
+
+	<p>You can remove a breakpoint using the toggle breakpoint function
+	described above. However, if you want to remove more than one breakpoint
+	or the breakpoint is in a different file than the one you are editing,
+	you can use the breakpoint window:</p>
 
     <steps>
       <item>
@@ -152,14 +162,14 @@
       </item>
     </steps>
 
-    <p>You can remove all breakpoints using:</p>
+    <p>To remove all breakpoints:</p>
 
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Remove All Breakpoints</gui></guiseq> or right click in
+        <gui>Remove All Breakpoints</gui></guiseq> or right-click in
         the <gui>Breakpoint</gui> window and select
-        <gui>Remove All Breakpoint</gui>.</p>
+        <gui>Remove All Breakpoints</gui>.</p>
       </item>
     </steps>
 
@@ -169,9 +179,12 @@
   <section>
     <title>Enabling and disabling breakpoints</title>
 
+    <p>Sometimes you might want to disable a breakpoint temporarily instead of
+    deleting it altogether. To disable or re-enable a breakpoint:</p>
+
     <steps>
       <item>
-        <p>Click on the <gui>Enable</gui> column  in the <gui>Breakpoint</gui>
+        <p>Click on the <gui>Enable</gui> checkmark in the <gui>Breakpoint</gui>
         window or right click in the <gui>Breakpoint</gui> window and
         select <gui>Enable Breakpoint</gui> or <gui>Disable Breakpoint</gui>.</p>
       </item>
@@ -182,9 +195,9 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Disable All Breakpoints</gui></guiseq> or right click in
+        <gui>Disable All Breakpoints</gui></guiseq> or right-click in
         the <gui>Breakpoint</gui> window and select
-        <gui>Disable All Breakpoint</gui>.</p>
+        <gui>Disable All Breakpoints</gui>.</p>
       </item>
     </steps>
 

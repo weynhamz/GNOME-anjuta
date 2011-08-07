@@ -7,7 +7,7 @@
     <link type="guide" xref="debug-data" group="sixth"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Examine CPU informations.
+      Examine CPU information.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -28,7 +28,7 @@
       </item>
     </steps>
 
-    <p>Register which value has changed since the last stop are in red. It is
+    <p>Registers whose values have changed since the last stop are in red. It is
     possible to change the value of any register by clicking in the value
     column and entering a new value.</p>	
 
@@ -50,7 +50,7 @@
     memory contents in ASCII.</p>
     <p>The addressing space of even a 32-bit microprocessor is very large
     (4 gigabytes), so it is very difficult to go to a particular address
-    with the scrollbar. But you can click on the right mouse button and select
+    with the scrollbar. But you can click the right mouse button and select
     <gui>Go to address</gui> to get a small edit box where you can enter an
     address in hexadecimal.</p>
   </section>
@@ -63,7 +63,7 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
-        <gui>Memory</gui></guiseq> to open the <gui>Memory</gui>
+        <gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui>
         window.</p>
       </item>
     </steps>
@@ -77,8 +77,8 @@
 
     <p>The addressing space of even a 32-bit microprocessor is very large
     (4 gigabytes), so it is very difficult to go to a particular address
-    with the scrollbar. But you can click on the right mouse button and select
-    <gui>Goto address</gui> to get a small edit box where you can enter an
+    with the scrollbar. But you can click the right mouse button and select
+    <gui>Go to address</gui> to get a small edit box where you can enter an
     address in hexadecimal.</p>
   </section>
 

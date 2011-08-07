@@ -30,7 +30,7 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
-        <gui>Locals</gui></guiseq> to open the <gui>Local</gui>
+        <gui>Locals</gui></guiseq> to open the <gui>Locals</gui>
         window.</p>
       </item>
     </steps>
@@ -45,11 +45,11 @@
       </item>
       <item>
         <title>Value</title>
-        <p>The variable value</p>
+        <p>The variable value.</p>
       </item>
       <item>
         <title>Type</title>
-        <p>The type of the variable</p>
+        <p>The type of the variable.</p>
       </item>
     </terms>
   </section>
@@ -59,11 +59,11 @@
 
     <steps>
       <item>
-        <p>In the <gui>Local</gui> window, select the variable you want to
+        <p>In the <gui>Locals</gui> window, select the variable you want to
         edit and double click in the <gui>Value</gui> column.</p>
       </item>
       <item>
-        <p>Type the new value</p>
+        <p>Type the new value.</p>
       </item>
     </steps>
   </section>

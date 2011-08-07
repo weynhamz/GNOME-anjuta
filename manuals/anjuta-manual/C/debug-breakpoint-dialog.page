@@ -21,31 +21,35 @@
   <terms>
     <item>
       <title><gui>Location</gui></title>
-      <p>This is the position of the breakpoint. This cannot be changed on a
-      existing breakpoint. It can be specified using the following
+      <p>This is the position of the breakpoint. For an existing breakpoint, you
+      cannot change this. You can set a breakpoint at a certain line number, or
+      at the beginning of a function. Use one of the following
       formats:</p>
       <list>
-        <item><p><var>file_name:line_number</var></p></item>
+        <item><p><var>file_name</var>:<var>line_number</var></p></item>
         <item><p><var>function_name</var></p></item>
-        <item><p><var>file_name:function_name</var></p></item>
+        <item><p><var>file_name</var>:<var>function_name</var></p></item>
       </list>
     </item>
     <item>
       <title><gui>Condition</gui></title>
-      <p>It is an expression which should evaluate to a boolean value TRUE(1) or
-      FALSE(0).
+      <p>The break condition is an expression which should evaluate to a boolean
+      value <code>TRUE</code> (1) or <code>FALSE</code> (0).
       Every time the breakpoint is encountered during your program's execution,
       the break condition will be evaluated. The debugger will break the execution
-      only if the evaluation result is the TRUE value.</p>
-      <p>If you leave this field blank the condition is considered as always
-      TRUE.</p>
+      only if the result of the evaluation is <code>TRUE</code>.</p>
+      <p>If you leave this field blank the condition is always considered
+      <code>TRUE</code>.</p>
     </item>
     <item>
       <title><gui>Pass Count</gui></title>
-       <p>This is an integer (unsigned) value which tells the debugger to
-       skip the breakpoint that number of times before it is considered. It
-       has a higher priority than the condition. Only when the count reaches
-       zero will the debugger evaluate the condition if it is present.</p>
+       <p>The debugger can also skip the breakpoint a certain number of times
+       before breaking. If the pass count is not zero, then the debugger will
+       have to encounter the breakpoint this number of times before breaking.</p>
+       <p>The pass count
+       has a higher priority than the condition. Only when the pass count has been
+       reached will the debugger evaluate the condition if it is present and break
+       the program's execution.</p>
     </item>
   </terms>
 

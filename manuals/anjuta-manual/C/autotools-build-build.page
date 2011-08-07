@@ -19,15 +19,15 @@
 
   <title>Build targets</title>
   <p>
-    A target is a file created from source files, typically it is a program
-    or a library, but it could be a documentation if some processing is
-    needed. 
+    A target is a file created from source files. Typically, it is a program
+    or a library, but it could also be documentation if the documentation needs
+    processing, for example.
   </p>
   <p>
-    The build command compile all needed sources files and link them
-    with possibly some other files, like libraries, in order to create the target.
+    The build command compiles all needed source files, and possibly links them
+    with some other files, like libraries, in order to create the target.
     If some source files are already compiled and haven't been modified,
-    they are not be recompiled to gain time. There are several ways
+    they are not be recompiled, in order to save time. There are several ways
     to trigger a build.
   </p>
   <steps>
@@ -35,7 +35,7 @@
       <p>
         From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
         <gui>Build</gui></guiseq> or press <key>F7</key> to build all
-        target in the same directory than the current edited file.
+        targets in the same directory as the currently opened file.
       </p>
     </item>
   </steps>
@@ -44,7 +44,7 @@
       <p>
         From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
         <gui>Build Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></keyseq>
-        to build the complete project, all subdirectories are built recursively.
+        to build the complete project. All subdirectories are built recursively.
       </p>
     </item>
   </steps>
@@ -57,7 +57,7 @@
     <item>
       <p>
         Click on the right mouse button to make the <gui>file manager context menu</gui> 
-        appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
+        appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
         to build all targets in the directory currently selected or the parent directory of the
         currently selected file.
       </p>
@@ -72,7 +72,7 @@
     <item>
       <p>
         Click on the right mouse button to make the <gui>project manager context menu</gui> 
-        appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
+        appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq>
         to build all targets in the directory containing the currently selected file or target.
       </p>
     </item>

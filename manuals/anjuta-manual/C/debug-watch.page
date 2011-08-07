@@ -15,7 +15,12 @@
     </credit>
   </info>
 
-  <title>Watch expression</title>
+  <title>Watch expressions</title>
+
+  <p>Watch expressions, or watches for short, are expressions that the debugger
+  evaluates and prints the result of every time the program is stopped; for
+  example, after every <link xref="debug-step">single-step</link>
+  through the program.</p>
 
   <section>
     <title>List watched expressions</title>
@@ -28,7 +33,7 @@
       </item>
     </steps>
 
-    <p>Like local variables, all watches expression are displayed in a tree view with children used to
+    <p>Like local variables, all watch expressions are displayed in a tree with children used to
     represent structure or array members.</p>
   
     <terms>
@@ -53,13 +58,17 @@
     <p>Watch expressions can be updated automatically as soon as the
     program is stopped or on user request.</p>
 
+    <p>To set a watch expression to update automatically:</p>
+
     <steps>
       <item>
-        <p>In the <gui>Watches</gui> windows select the watch you want to
-        update automatically, right click and check that <gui>Automatic Update</gui>
-        if checked, if not select it.</p>
+        <p>In the <gui>Watches</gui> window, select the watch you want to
+        update automatically. Right-click and check that <gui>Automatic Update</gui>
+        if checked. If not, select it.</p>
       </item>
     </steps>
+
+    <p>To update a watch expression manually:</p>
 
     <steps>
       <item>
@@ -67,6 +76,8 @@
         update the selected watch.</p>
       </item>
     </steps>
+
+    <p>To update all watch expressions manually at once:</p>
 
     <steps>
       <item>
@@ -81,20 +92,22 @@
   <section>
     <title>Add a watch on an expression</title>
 
+    <p>To add an expression to the watch list:</p>
+
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
         <gui>Add Watch...</gui></guiseq> or in the <gui>Watches</gui>
-        windows right click and select <gui>Add Watch...</gui>.</p>
+        window, right-click and select <gui>Add Watch...</gui>.</p>
       </item>
       <item>
         <p>Enter the expression to watch. Check <gui>Automatic Update</gui>
-        if you want that the expression is evaluated each time the program
+        if you want the expression to be evaluated each time the program
         is stopped.</p>
       </item>
     </steps>
 
-    <p>An expression can be evaluate and then added as a watch using:</p>
+    <p>An expression can be evaluated and then added as a watch like this:</p>
 
     <steps>
       <item>
@@ -103,7 +116,7 @@
         <gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>.</p>
       </item>
       <item>
-        <p>Click on <gui>Add</gui> button to add this expression in the watches
+        <p>Click on <gui>Add</gui> button to add this expression to the watches
         list.</p>
       </item>
     </steps>
@@ -113,10 +126,12 @@
   <section>
     <title>Remove a watch</title>
 
+    <p>You can remove an expression from the watches list.</p>
+
     <steps>
       <item>
-        <p>In the <gui>Watches</gui> windows select the watch you want to remove
-        then right click and select <gui>Remove Watch</gui>.</p>
+        <p>In the <gui>Watches</gui> window, select the watch you want to remove,
+        then right-click and select <gui>Remove Watch</gui>.</p>
       </item>
     </steps>
 
@@ -124,7 +139,7 @@
 
     <steps>
       <item>
-        <p>In the <gui>Watches</gui> right click and select <gui>Remove all</gui>.</p>
+        <p>In the <gui>Watches</gui> window, right-click and select <gui>Remove all</gui>.</p>
       </item>
     </steps>
 
@@ -133,10 +148,12 @@
   <section>
     <title>Changing the value of a variable</title>
 
+    <p>If a watch expression corresponds to a variable, you can change
+    its value.</p>
+
     <steps>
       <item>
-        <p>If a watch expression corresponds to a variable you can change
-        its value. In the <gui>Watches</gui> window, select the variable you want to
+        <p>In the <gui>Watches</gui> window, select the variable you want to
         edit and double click in the <gui>Value</gui> column.</p>
       </item>
       <item>

@@ -7,7 +7,7 @@
     <link type="guide" xref="debug-data" group="seventh"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Examine additional program informations.
+      Examine additional program information.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -15,7 +15,10 @@
     </credit>
   </info>
 
-  <title>Miscellaneous informations</title>
+  <title>Miscellaneous information</title>
+
+  <p>The debugger can tell you various information about the program while it is
+  running.</p>
 
   <section>
     <title>View shared libraries</title>
@@ -27,9 +30,9 @@
       </item>
     </steps>
 
-    <p>This open a window which will list all shared libraries the program has loaded 
+    <p>This opens a window which will list all shared libraries the program has loaded 
     and their locations in memory. It also shows whether each library's symbol table is 
-    loaded or not (Yes/No).</p>
+    loaded or not.</p>
   </section>
 
 
@@ -39,11 +42,11 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Info</gui><gui>Kernels signals</gui></guiseq>.</p>
+        <gui>Info</gui><gui>Kernel signals</gui></guiseq>.</p>
       </item>
     </steps>
  
-    <p>This list all available signals with a small description and three
+    <p>This lists all available signals with a small description and three
     columns to specify what to do when a signal is received:</p>
 
     <terms>
@@ -54,16 +57,16 @@
       </item>
       <item>
         <title>Print</title>
-        <p>The debugger display the received signal.</p>
+        <p>The debugger displays the received signal.</p>
       </item>
       <item>
         <title>Pass</title>
-        <p>The debugger pass the signal to the program.</p>
+        <p>The debugger passes the signal to the program.</p>
       </item>
     </terms>
 
     <note style="bug">
-      <p>The context menu that is displayed when you click on the right mouse
+      <p>The context menu that is displayed when you click the right mouse
       button has all its items disabled because the corresponding functions
       are not implemented yet.</p>
     </note>
@@ -77,14 +80,14 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Info</gui><gui>Info Target files</gui></guiseq>.</p>
+        <gui>Info</gui><gui>Info Target Files</gui></guiseq>.</p>
       </item>
     </steps>
 
   </section>
 
   <section>
-   <title>Information about program</title>
+   <title>Information about the program</title>
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
@@ -99,7 +102,7 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Info</gui><gui>Kernel user struct</gui></guiseq>.</p>
+        <gui>Info</gui><gui>Info Kernel User Struct</gui></guiseq>.</p>
       </item>
     </steps>
   </section>
@@ -109,13 +112,13 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Info</gui><gui>Info Global Variable</gui></guiseq>.</p>
+        <gui>Info</gui><gui>Info Global Variables</gui></guiseq>.</p>
       </item>
     </steps>
   </section>
 
   <section>
-   <title>Information about the current frame</title>
+   <title>Information about the current stack frame</title>
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>

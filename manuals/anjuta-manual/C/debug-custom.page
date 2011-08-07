@@ -17,7 +17,7 @@
 
   <title>Custom command</title>
 
-  <p>Custom command can be send to the debugger using:</p>
+  <p>You can send a custom command to the debugger like this:</p>
 
   <steps>
     <item>
@@ -34,7 +34,7 @@
 
   <note style="warning">
     <p>The command is sent directly to the debugger without performing any checks.
-    By example if you set a breakpoint like this, it will not appear in the
+    For example, if you set a breakpoint like this, it will not appear in the
     <gui>Breakpoint</gui> window. It is better to avoid using this
     command unless you know exactly what you are doing.</p>
   </note>

@@ -20,15 +20,19 @@
   <section>
     <title>Inspect an expression and modify a variable</title>
 
+	<p>While you are debugging a program, you can find out the value
+	of an expression or variable while the program is paused.
+	It is also sometimes useful to change the value of a variable.</p>
+
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Inspect/Evaluate</gui></guiseq> or right click in the
-        <gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>.</p>
+        <gui>Inspect/Evaluate...</gui></guiseq> or right click in the
+        <gui>Editor</gui> window and select <gui>Inspect/Evaluate...</gui>.</p>
       </item>
       <item>
         <p>If the expression is a variable name, you can change its value
-        by clicking on the <gui>Value</gui> column and enter a new value.</p>
+        by clicking on the <gui>Value</gui> column and entering a new value.</p>
       </item>
     </steps>
 

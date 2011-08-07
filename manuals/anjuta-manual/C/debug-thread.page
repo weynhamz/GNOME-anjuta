@@ -21,8 +21,8 @@
     <title>List threads</title>
 
     <p>A program can be composed of several threads. All these threads are
-    executed independently having their own registers, stack and local
-    variables but sharing global variables.</p>
+    executed independently, having their own registers, stack and local
+    variables, but sharing global variables.</p>
 
     <steps>
       <item>
@@ -32,12 +32,12 @@
       </item>
     </steps>
 
-    <p>Each thread contains the following information:</p>	
+    <p>The window shows the following information about each thread:</p>
 
     <terms>
       <item>
         <title>Active</title>
-        <p>This contains a yellow arrow to represent the active thread.</p>
+        <p>This contains a yellow arrow that points to the active thread.</p>
       </item>
       <item>
         <title>ID</title>
@@ -70,12 +70,15 @@
   <section>
     <title>Change current thread</title>
 
+    <p>The current thread is the thread whose stack and local variables are
+    currently displayed in the debugger.</p>
+
     <steps>
       <item>
         <p>In the <gui>Thread</gui> window, select the thread you want.</p>
       </item>
       <item>
-        <p>Right click and select <gui>Set current thread</gui></p>
+        <p>Right-click and select <gui>Set current thread</gui>.</p>
       </item>
     </steps>
   </section>
@@ -89,7 +92,7 @@
         <p>In the <gui>Thread</gui> window, select the thread you want.</p>
       </item>
       <item>
-        <p>Double click or right click and select <gui>View Source</gui></p>
+        <p>Double-click, or right-click and select <gui>View Source</gui>.</p>
       </item>
     </steps>
   </section>

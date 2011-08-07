@@ -20,7 +20,7 @@
   <title>Run a program</title>
 
   <p>If <app>Anjuta</app> is used to start a program it checks that it is
-  up to date and build it if needed.</p>
+  up to date and builds it if needed.</p>
 
   <steps>
     <item>

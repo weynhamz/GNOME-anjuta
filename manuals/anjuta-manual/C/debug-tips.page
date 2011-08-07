@@ -15,22 +15,53 @@
     </credit>
   </info>
 
-  <title>Debug tips</title>
+  <title>Debugging tips</title>
 
   <section>
-  <title>Fix Glib/Gtk+ critical errors</title>
+  <title>Fixing GLib/GTK+ critical errors</title>
   
-  <p>A program can be stopped as soon as it gets a GLib critical errors if
-  the environment variable <sys>G_DEBUG</sys> has the value
-  <sys>fatal_criticals</sys>. This environment variable can be set in the
-  <link xref="run-parameters-dialog"/>.</p>
-  <p>Then you need to run the program with the debugger and use it until
-  you get the critical error. At that time, the debugger will stop your
-  program and you have to look at the
-  <link xref="debug-stack"/> to check where this error comes from.</p>
+  <p>Sometimes it can be difficult to track down where GLib critical errors are
+  occurring, since they do not stop the program.
+  You can set the program to stop as soon as it gets a GLib critical error, by setting
+  the environment variable <sys>G_DEBUG</sys> to the value
+  <sys>fatal_criticals</sys>.</p>
+
+  <steps>
+    <item>
+      <p>Open the <link xref="run-parameters-dialog"/> by selecting
+      <guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the
+      main menu.</p>
+    </item>
+    <item>
+      <p>Click the plus sign next to <gui>Environment Variables</gui> to expand
+      the list of environment variables.</p>
+    </item>
+    <item>
+      <p>Click <gui>New</gui> to add a new entry to the list.</p>
+    </item>
+    <item>
+      <p>Fill in <gui>Name</gui> with <input>G_DEBUG</input> and <gui>Value</gui>
+      with <input>fatal_criticals</input>.</p>
+    </item>
+    <item>
+      <p>Click <gui>Apply</gui> to confirm the changes.</p>
+    </item>
+    <item>
+      <p>Run the program with the debugger by selecting
+      <guiseq><gui>Run</gui><gui>Debug Program</gui></guiseq> from the main menu.</p>
+    </item>
+    <item>
+      <p>Use the program until the critical error occurs.</p>
+    </item>
+    <item>
+      <p>When the debugger stops your program, look at the
+      <link xref="debug-stack"/> to check where this error comes from.</p>
+    </item>
+  </steps>
+
   <p>The top function with frame number 0 is in GLib, so you have to look
-  down in the stack, typically the error comes from the first function in your
-  program.</p>
+  down in the stack. Typically the error originates from the topmost
+  function that belongs to your program.</p>
    
   </section>
 

@@ -18,8 +18,9 @@
   <title>Stop and step</title>
 
   <p>Like a video editing session, the program can be executed in slow motion
-   with the ability to go forward, pause, stop, and so on. You cannot go
-   backward yet though. This is essential for tracking program behavior.</p>
+   with the ability to go forward, pause, stop, and so on.
+   This is essential for tracking program behavior. You cannot go
+   backward yet, though.</p>
 
   <section>
     <title>Step in</title>
@@ -27,8 +28,8 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Step In</gui></guiseq> or press <key>F5</key></p> or
-        click on the <gui>Step In</gui> icon in the toolbar.
+        <gui>Step In</gui></guiseq> or press <key>F5</key> or
+        click on the <gui>Step In</gui> icon in the toolbar.</p>
       </item>
     </steps>
 
@@ -57,13 +58,13 @@
       </item>
     </steps>
 
-    <p>Stepping over is similar to step in except that it does not stop
+    <p>Stepping over is similar to stepping except that it does not stop
     inside any function in the statement being executed.</p>
 
     <note style="advanced">
       <p>If the <gui>Disassembly window</gui> has the focus when
-      this command is selected, it executes only one assembler instruction except
-      if this instruction is a call to a subroutine, in this case the program stops
+      this command is selected, it executes only one assembler instruction, except
+      if that instruction is a call to a subroutine, in which case the program stops
       when the subroutine is completed.</p>
     </note>
   </section>
@@ -75,12 +76,12 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Step Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq></p> or
-        click on the <gui>Step Out</gui> icon in the toolbar.
+        <gui>Step Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> or
+        click on the <gui>Step Out</gui> icon in the toolbar.</p>
       </item>
     </steps>
 
-    <p>It executes the current function until it returns to the calling
+    <p>Stepping out executes the current function until it returns to the calling
     function.</p>
   </section>
 
@@ -91,12 +92,12 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Run/Continue</gui></guiseq> or press <key>F4</key></p> or
-        click on the <gui>Continue</gui> icon in the toolbar.
+        <gui>Run/Continue</gui></guiseq> or press <key>F4</key> or
+        click on the <gui>Continue</gui> icon in the toolbar.</p>
       </item>
     </steps>
 
-    <p>This command restarts the program until a breakpoint is encountered or
+    <p>This command restarts the program and lets it run until a breakpoint is encountered or
     the program exits.</p>
   </section>
 
@@ -106,18 +107,18 @@
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui>
-        <gui>Run to Cursor</gui></guiseq> or press <key>F8</key></p> or
-        click on the <gui>Run to</gui> icon in the toolbar.
+        <gui>Run to Cursor</gui></guiseq> or press <key>F8</key> or
+        click on the <gui>Run to</gui> icon in the toolbar.</p>
       </item>
     </steps>
 
-    <p>This restarts the program until the line or the
+    <p>This restarts the program and lets it run until the line or the
     address (if the <gui>Disassembly window</gui> has the focus) at
     the cursor is reached.</p>
   </section>
   
   <section>
-   <title>Stop Program</title>
+   <title>Stopping the Program</title>
 
     <steps>
       <item>
@@ -127,8 +128,8 @@
       </item>
     </steps>
 
-   <p>This interrupts the program and return control to the debugger allowing
-   perform all debugging tasks, like inspecting data, adding breakpoints...</p>
+   <p>This interrupts the program and returns control to the debugger, allowing
+   you to perform debugging tasks, like inspecting data or adding breakpoints.</p>
   </section>
 
 

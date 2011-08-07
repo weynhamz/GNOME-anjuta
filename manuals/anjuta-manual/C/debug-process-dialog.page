@@ -15,14 +15,14 @@
     </credit>
   </info>
 
-  <title>Attach to process Dialog</title>
+  <title>Attach to Process Dialog</title>
 
-  <p>The <gui>process</gui> dialog allows you to select a currently running process</p>
+  <p>The <gui>Attach to process</gui> dialog allows you to select a currently running process.</p>
 
   <terms>
     <item>
       <title><gui>Hide paths</gui></title>
-      <p>This hides command pathes in the process list if checked.</p>
+      <p>This hides command paths in the process list if checked.</p>
     </item>
     <item>
       <title><gui>Hide process parameters</gui></title>
@@ -30,7 +30,7 @@
     </item>
     <item>
       <title><gui>Display process tree</gui></title>
-      <p>If unchecked, the processes are displayed in a list. If checked the
+      <p>If unchecked, the processes are displayed in a list. If checked, the
       processes are displayed in a tree.</p>
     </item>
   </terms>

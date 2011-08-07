@@ -7,7 +7,7 @@
     <link type="guide" xref="debug-data" group="fourth"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
     <desc>
-      Examine stack.
+      Examine the stack.
     </desc>
     <credit type="author">
       <name>Sébastien Granjoux</name>
@@ -22,7 +22,8 @@
 
     <p>A stack frame is the area of the stack associated to each function call.
     It lists all functions and their arguments in the sequence they were called.
-    Each stack frame is numbered starting from 0 for the current function.</p>
+    Each stack frame is numbered starting from 0 for the current function.
+    You can only view the stack frames while the debugger is running.</p>
 
     <steps>
       <item>
@@ -37,15 +38,15 @@
     <terms>
       <item>
         <title>Active</title>
-        <p>This contains a yellow arrow to represent the active stack frame, by
-        default it is the frame 0, the current function. All evaluations and
-        local variables are relative to this selected frame. You can change
+        <p>This contains a yellow arrow to represent the active stack frame. By
+        default it is frame 0, the current function. All evaluations and
+        local variables are relative to this active frame. You can change
         the active stack frame to examine local variables in other functions.</p>
       </item>
       <item>
         <title>Frame</title>
-        <p>This is the frame number stating from 0 for the current function.
-        The first function of your program, main for a C program by example,
+        <p>This is the frame number starting from 0 for the current function.
+        The first function of your program, for example <code>main()</code> in a C program,
         has the highest number.</p>
       </item>
       <item>
@@ -75,28 +76,28 @@
 
 
   <section>
-    <title>Change current stack frame</title>
+    <title>Change the current stack frame</title>
 
     <steps>
       <item>
         <p>In the <gui>Stack</gui> window, select the frame you want.</p>
       </item>
       <item>
-        <p>Right click and select <gui>Set current frame</gui></p>
+        <p>Right-click and select <gui>Set current frame</gui>.</p>
       </item>
     </steps>
   </section>
 
 
   <section>
-    <title>View current function</title>
+    <title>View the current function</title>
 
     <steps>
       <item>
         <p>In the <gui>Stack</gui> window, select the frame you want.</p>
       </item>
       <item>
-        <p>Double click or right click and select <gui>View Source</gui></p>
+        <p>Double-click, or right-click and select <gui>View Source</gui>.</p>
       </item>
     </steps>
   </section>
@@ -107,8 +108,8 @@
  
     <steps>
       <item>
-        <p>In the <gui>Stack</gui> window right click and select
-        <gui>Get stack trace</gui></p>
+        <p>In the <gui>Stack</gui> window, right-click and select
+        <gui>Get stack trace</gui>.</p>
       </item>
     </steps>
   </section>
