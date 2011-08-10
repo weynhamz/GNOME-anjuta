@@ -138,6 +138,7 @@ struct _AnjutaProjectNode
 {
 	GInitiallyUnowned parent_instance;
 
+	/*< private >*/
 	AnjutaProjectNode	*next;
 	AnjutaProjectNode *prev;
 	AnjutaProjectNode	*parent;
@@ -163,6 +164,10 @@ struct _AnjutaProjectNodeClass
 
 
 typedef gboolean (*AnjutaProjectNodeTraverseFunc) (AnjutaProjectNode *node, gpointer data);
+/**
+ * AnjutaProjectNodeForeachFunc:
+ * @data: (closure):
+ */
 typedef void (*AnjutaProjectNodeForeachFunc) (AnjutaProjectNode *node, gpointer data);
 
 

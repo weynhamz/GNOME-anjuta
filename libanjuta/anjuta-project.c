@@ -66,9 +66,9 @@
 
 /**
  * anjuta_project_property_new:
- * name: (transfer none):
- * value: (transfer none):
- * native: (allow-none) (transfer none):
+ * @name: (transfer none):
+ * @value: (transfer none):
+ * @native: (allow-none) (transfer none):
  *
  * Returns: (transfer full):
  */
@@ -80,9 +80,12 @@ anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
 	prop->name = g_strdup (name);
 	prop->type = type;
 	prop->value = g_strdup (value);
-	prop->native = native;
-	prop->flags = native->flags;
-	prop->detail = native->detail;
+
+	if (native != NULL) {
+		prop->native = native;
+		prop->flags = native->flags;
+		prop->detail = native->detail;
+	}
 	
 	return prop;
 }
@@ -124,6 +127,11 @@ anjuta_project_property_get_type (void)
 /* Moving in tree functions
  *---------------------------------------------------------------------------*/
 
+/**
+ * anjuta_project_node_parent:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_parent(AnjutaProjectNode *node)
 {
@@ -132,6 +140,11 @@ anjuta_project_node_parent(AnjutaProjectNode *node)
 	return node->parent;
 }
 
+/**
+ * anjuta_project_node_root:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_root (AnjutaProjectNode *node)
 {
@@ -145,6 +158,12 @@ anjuta_project_node_root (AnjutaProjectNode *node)
 	return node;
 }
 
+/**
+ * anjuta_project_node_first_child:
+ *
+ * Returns: (transfer none):
+ */
+
 AnjutaProjectNode *
 anjuta_project_node_first_child(AnjutaProjectNode *node)
 {
@@ -152,6 +171,12 @@ anjuta_project_node_first_child(AnjutaProjectNode *node)
 	
 	return node->children;
 }
+
+/**
+ * anjuta_project_node_last_child:
+ *
+ * Returns: (transfer none):
+ */
 
 AnjutaProjectNode *
 anjuta_project_node_last_child(AnjutaProjectNode *node)
@@ -166,6 +191,11 @@ anjuta_project_node_last_child(AnjutaProjectNode *node)
   return node;
 }
 
+/**
+ * anjuta_project_node_next_sibling:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_next_sibling (AnjutaProjectNode *node)
 {
@@ -174,6 +204,11 @@ anjuta_project_node_next_sibling (AnjutaProjectNode *node)
 	return node->next;
 }
 
+/**
+ * anjuta_project_node_prev_sibling:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_prev_sibling (AnjutaProjectNode *node)
 {
@@ -182,6 +217,11 @@ anjuta_project_node_prev_sibling (AnjutaProjectNode *node)
 	return node->prev;
 }
 
+/**
+ * anjuta_project_node_nth_child:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *anjuta_project_node_nth_child (AnjutaProjectNode *node, guint n)
 {
 	g_return_val_if_fail (node != NULL, NULL);
@@ -244,6 +284,12 @@ anjuta_project_node_pre_order_traverse (AnjutaProjectNode *node, AnjutaProjectNo
 }
 
 
+/**
+ * anjuta_project_node_traverse:
+ * @func: (scope call):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeTraverseFunc func, gpointer data)
 {
@@ -262,6 +308,12 @@ anjuta_project_node_traverse (AnjutaProjectNode *node, GTraverseType order, Anju
 	}
 }
 
+/**
+ * anjuta_project_node_children_traverse:
+ * @func: (scope call):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
 {
@@ -321,7 +373,10 @@ anjuta_project_node_pre_order_foreach (AnjutaProjectNode *node, AnjutaProjectNod
 	}
 }
 
-
+/**
+ * anjuta_project_node_foreach:
+ * @func: (scope call):
+ */
 void
 anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, AnjutaProjectNodeForeachFunc func, gpointer data)
 {
@@ -342,6 +397,10 @@ anjuta_project_node_foreach (AnjutaProjectNode *node, GTraverseType order, Anjut
 	}
 }
 
+/**
+ * anjuta_project_node_children_foreach:
+ * @func: (scope call):
+ */
 void
 anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
 {
@@ -360,6 +419,11 @@ anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNode
 	}
 }
 
+/**
+ * anjuta_project_node_parent_type:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_parent_type(AnjutaProjectNode *node,  AnjutaProjectNodeType type)
 {
@@ -548,8 +612,6 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 
 /**
  * anjuta_project_node_remove:
- * @parent:
- * @sibling: (allow-none) (transfer none):
  * @node: (transfer none):
  *
  * Returns: (transfer full):
@@ -574,12 +636,22 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 	return node;
 }
 
+/**
+ * anjuta_project_node_prepend:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 {
 	return anjuta_project_node_insert_before (parent, parent->children, node);	
 }
 
+/**
+ * anjuta_project_node_append:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
 anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 { 
@@ -619,6 +691,11 @@ anjuta_project_node_get_name (const AnjutaProjectNode *node)
 	return node->name;
 }
 
+/**
+ * anjuta_project_node_get_file:
+ *
+ * Returns: (transfer none):
+ */
 GFile*
 anjuta_project_node_get_file (const AnjutaProjectNode *node)
 {
@@ -650,12 +727,22 @@ anjuta_project_node_get_file (const AnjutaProjectNode *node)
 	return node->file;		
 }
 
+/**
+ * anjuta_project_node_get_custom_properties:
+ *
+ * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
+ */
 GList *
 anjuta_project_node_get_custom_properties (AnjutaProjectNode *node)
 {
 	return node->custom_properties;
 }
 
+/**
+ * anjuta_project_node_get_native_properties:
+ *
+ * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
+ */
 GList *
 anjuta_project_node_get_native_properties (AnjutaProjectNode *node)
 {
@@ -674,6 +761,11 @@ find_property (gconstpointer item, gconstpointer data)
 	return prop_a != prop_b;
 }
 
+/**
+ * anjuta_project_node_get_property:
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectProperty *
 anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property)
 {
@@ -744,6 +836,13 @@ anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState
 	node->state &= ~state;
 	return TRUE;
 }
+
+/**
+ * anjuta_project_node_insert_property:
+ * @property: (transfer full):
+ *
+ * Returns: (transfer none):
+ */
 
 AnjutaProjectProperty *
 anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *native, AnjutaProjectProperty *property)
@@ -1149,8 +1248,8 @@ anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 
 /**
  * anjuta_project_node_info_new:
- * name: (transfer none):
- * mime_type: (transfer none):
+ * @name: (transfer none):
+ * @mime_type: (transfer none):
  *
  * Returns: (transfer full):
  */
