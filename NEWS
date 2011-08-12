@@ -1,3 +1,19 @@
+Anjuta 3.1.5 "Sydney Edition" (13 July 2011) -- Johannes Schmid
+
+Officially brought to you about 20 000 km away from desktop-summit!
+
+Bugs fixed:
+654881 	Segmentation fault during project creation if no packages were selected
+651151 	vala plugin crashes when uncommenting source
+654502 	Allow building with libvala-0.14 (0.13 development tree)
+655743 	Usage of GtkHBoxClass and GtkHBox
+655998 	Main toolbar looks out-of-place
+655584 	Can't edit Integer Field
+
+Thanks to: Abderrahim Kitouni, Akom Chotiphantawanon, Alban Browaeys,
+Alexander Shopov, Daniel Mustieles, Dominique Leuenberger, Mario Blättermann, 
+Piotr Drąg, Sébastien Granjoux, Yuri Myasoedov
+
 Anjuta 3.1.4 "Leaving on a jet-plane" (25 July 2011) -- Johannes Schmid
 
 Bugs fixed:
