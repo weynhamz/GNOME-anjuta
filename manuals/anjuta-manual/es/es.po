@@ -1,19 +1,19 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-08 17:22+0000\n"
-"PO-Revision-Date: 2011-08-10 10:37+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-08-12 22:56+0000\n"
+"PO-Revision-Date: 2011-08-13 15:46+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -845,10 +845,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
-"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
-"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
-"proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
+"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
+"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
 
 #: C/autotools-build-install.page:11(desc)
 msgid "Install targets or project."
@@ -994,11 +993,10 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de "
-"depurar (manteniendo variables intermedias y ordenando el código) y una "
-"opción «optimizada» que genera programas más rápidos pero que aumenta el "
-"tiempo de construcción. Puede definir configuraciones personalizadas "
-"adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de depurar "
+"(manteniendo variables intermedias y ordenando el código) y una opción "
+"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
+"construcción. Puede definir configuraciones personalizadas adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(gui)
 msgid "Build Directory"
@@ -1668,6 +1666,9 @@ msgid ""
 "The top function with frame number 0 is in GLib, so you have to look down in "
 "the stack, typically the error comes from the first function in your program."
 msgstr ""
+"La función superior con el número 0 está en GLib, de tal forma que tiene que "
+"buscar hacia abajo en la pila, generalmente el error viene de la primera "
+"función en su programa."
 
 #: C/debug-thread.page:9(desc)
 msgid "Examine threads."
@@ -1789,7 +1790,7 @@ msgstr "Parar y continuar."
 
 #: C/debug-step.page:18(title)
 msgid "Stop and step"
-msgstr ""
+msgstr "Parar y pasos"
 
 #: C/debug-step.page:20(p)
 msgid ""
@@ -1797,6 +1798,10 @@ msgid ""
 "with the ability to go forward, pause, stop, and so on. You cannot go "
 "backward yet though. This is essential for tracking program behavior."
 msgstr ""
+"Al igual que una sesión de edición de vídeo, el programa se puede ejecutar a "
+"cámara lenta con la posibilidad de ir hacia adelante, pausarlo, detenerlo, "
+"etc. Aunque no puede ir hacia atrás. Esto es esencial para seguir el "
+"comportamiento del programa."
 
 #: C/debug-step.page:25(title)
 msgid "Step in"
@@ -1832,6 +1837,8 @@ msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
 "selected, it executes only one assembler instruction."
 msgstr ""
+"Si la <gui>Ventana de desensamblado</gui> tiene el foco al seleccionar este "
+"comando, solo se ejecuta una instrucción de ensamblador."
 
 #: C/debug-step.page:50(title)
 msgid "Step over"
@@ -1882,10 +1889,9 @@ msgstr ""
 "de herramientas."
 
 #: C/debug-step.page:83(p)
-#, fuzzy
 msgid ""
 "It executes the current function until it returns to the calling function."
-msgstr "Ejecuta la función actual hasta que retorna a la función llamadora."
+msgstr "Ejecuta la función actual hasta que vuelve a la función que la llamó."
 
 #: C/debug-step.page:89(title)
 msgid "Run and continue"
@@ -1937,6 +1943,8 @@ msgid ""
 "This restarts the program until the line or the address (if the "
 "<gui>Disassembly window</gui> has the focus) at the cursor is reached."
 msgstr ""
+"Reinicia el programa hasta la línea o la dirección (si la <gui>Ventana de "
+"desensamblado</gui> tiene el foco) al llegar a la posición del cursor."
 
 #: C/debug-step.page:120(title)
 msgid "Stop Program"
@@ -2149,6 +2157,8 @@ msgid ""
 "Select the type of the connection with the remote application, <gui>Serial "
 "Line</gui> or <gui>TCP/IP</gui>."
 msgstr ""
+"Seleccione el tipo de conexión con la aplicación remota, <gui>Línea serie</"
+"gui> o <gui>TCP/IP</gui>."
 
 #: C/debug-run.page:81(p)
 msgid "For a TCP connection, fill <gui>Address</gui> and <gui>Port</gui> field"
