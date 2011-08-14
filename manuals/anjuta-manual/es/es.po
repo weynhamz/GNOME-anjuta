@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-12 22:56+0000\n"
-"PO-Revision-Date: 2011-08-13 15:46+0200\n"
+"POT-Creation-Date: 2011-08-13 22:17+0000\n"
+"PO-Revision-Date: 2011-08-14 14:54+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2171,12 +2171,16 @@ msgid ""
 "For a serial connection, fill the text box below with the serial device "
 "name, by example <cmd>/dev/ttyb</cmd>."
 msgstr ""
+"Para una conexión serie, rellene la caja de texto de debajo con el nombre "
+"del dispositivo serie, por ejemplo <cmd>/dev/ttyb</cmd>."
 
 #: C/debug-run.page:87(p)
 msgid ""
 "Click on <gui>Connect</gui> to start the debugger and connect to the remote "
 "target."
 msgstr ""
+"Pulse <gui>Conectar</gui> para iniciar el depurador y conectar con el "
+"objetivo remoto."
 
 #: C/debug-run.page:95(title)
 msgid "Stop the debugger"
@@ -2274,6 +2278,8 @@ msgid ""
 "All local variables are displayed in a tree view with children used to "
 "represent structure or array members."
 msgstr ""
+"Todas las variables locales se muestran en una vista de árbol con los hijos "
+"representando estructuras o miembros de vectores («arrays»)."
 
 #: C/debug-local.page:44(p)
 msgid "The name of the variable."
@@ -2292,6 +2298,8 @@ msgid ""
 "In the <gui>Local</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
 msgstr ""
+"En la ventana <gui>Local</gui> seleccione la variable que quiere editar y "
+"pulse dos veces en la columna <gui>Valor</gui>."
 
 #: C/debug-local.page:66(p)
 msgid "Type the new value"
@@ -2323,6 +2331,9 @@ msgid ""
 "loaded and their locations in memory. It also shows whether each library's "
 "symbol table is loaded or not (Yes/No)."
 msgstr ""
+"Esto abrirá una ventana que listará todas las bibliotecas compartidas que el "
+"programa ha cargado y sus ubicaciones en memoria. También muestra si cada "
+"tabla de símbolos de la biblioteca está cargado o no (Sí/No)."
 
 #: C/debug-information.page:37(title)
 msgid "View signals"
@@ -2341,6 +2352,8 @@ msgid ""
 "This list all available signals with a small description and three columns "
 "to specify what to do when a signal is received:"
 msgstr ""
+"Esto lista todas las señales disponibles con una pequeña descripción y tres "
+"columnas para especificar qué hacer al recibir una señal:"
 
 #: C/debug-information.page:51(title)
 msgid "Stop"
@@ -2351,6 +2364,8 @@ msgid ""
 "The debugger stops the program execution when the program receives this "
 "signal."
 msgstr ""
+"El depurador detiene el programa en ejecución cuando el programa recibe esta "
+"señal."
 
 #: C/debug-information.page:56(title)
 msgid "Print"
@@ -2374,6 +2389,9 @@ msgid ""
 "has all its items disabled because the corresponding functions are not "
 "implemented yet."
 msgstr ""
+"El menú contextual que se muestra cuando pulsa con el botón derecho del "
+"ratón tiene todos sus elementos desactivados porque las funciones "
+"correspondientes no están aún implementadas."
 
 #: C/debug-information.page:75(title)
 msgid "Information about used files"
@@ -2597,6 +2615,8 @@ msgid ""
 "The position in the disassembly window will be changed to the program "
 "counter value when the program is stopped."
 msgstr ""
+"La posición en la ventana de desensamblado cambiará al contador valor del "
+"programa cuando se detenga el programa."
 
 #: C/debug-breakpoint.page:9(desc)
 msgid "Managing breakpoints."
@@ -2611,6 +2631,9 @@ msgid ""
 "Breakpoints are used to stop the execution of the program at particular "
 "points so that the state of the program can be examined at those locations."
 msgstr ""
+"Los puntos de parada se usan para detener la ejecución de un programa en "
+"determinados puntos, para que se pueda examinar el estado del programa en "
+"esas ubicaciones."
 
 #: C/debug-breakpoint.page:24(title)
 msgid "Listing breakpoints"
