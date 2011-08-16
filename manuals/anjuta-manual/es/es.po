@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-14 15:32+0000\n"
-"PO-Revision-Date: 2011-08-15 10:46+0200\n"
+"POT-Creation-Date: 2011-08-15 08:48+0000\n"
+"PO-Revision-Date: 2011-08-16 10:40+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1865,6 +1865,8 @@ msgid ""
 "Stepping over is similar to step in except that it does not stop inside any "
 "function in the statement being executed."
 msgstr ""
+"«Avanzar sobre» es similar a «avanzar» con la excepción de que no se detiene "
+"en ninguna función dentro de la declaración en ejecución."
 
 #: C/debug-step.page:64(p)
 msgid ""
@@ -1873,6 +1875,10 @@ msgid ""
 "instruction is a call to a subroutine, in this case the program stops when "
 "the subroutine is completed."
 msgstr ""
+"Si la <gui>Ventana de desensamblado</gui> tiene el foco al seleccionar este "
+"comando, solo ejecuta una instrucción de ensamblador excepto si esta "
+"instrucción es una llamada a una subrutina; en ese caso, el programa se "
+"detiene al finalizar la subrutina."
 
 #: C/debug-step.page:73(title)
 msgid "Step out"
@@ -2012,6 +2018,11 @@ msgid ""
 "are relative to this selected frame. You can change the active stack frame "
 "to examine local variables in other functions."
 msgstr ""
+"Esto contiene una flecha amarilla para representar el marco activo de la "
+"pila; de forma predeterminada es el marco 0, la función actual. Todas las "
+"evaluaciones y variables locales son relativas al marco seleccionado. Puede "
+"cambiar el marco activo de la pila para examinar las variables locales en "
+"otras funciones."
 
 #: C/debug-stack.page:46(title)
 msgid "Frame"
@@ -2023,6 +2034,9 @@ msgid ""
 "function of your program, main for a C program by example, has the highest "
 "number."
 msgstr ""
+"Este es el número de marco, comenzando por 0, de la función actual. La "
+"primera función de su programa, «main» para un programa en C, tiene el "
+"número más alto."
 
 #: C/debug-stack.page:53(p)
 msgid ""
@@ -2048,7 +2062,7 @@ msgstr "Los argumentos de la función."
 
 #: C/debug-stack.page:78(title)
 msgid "Change current stack frame"
-msgstr ""
+msgstr "Cambiar el marco actual de la pila"
 
 #: C/debug-stack.page:82(p) C/debug-stack.page:96(p)
 msgid "In the <gui>Stack</gui> window, select the frame you want."
@@ -2675,12 +2689,16 @@ msgid ""
 "This field is filled with the address of the breakpoint when it is set by "
 "the debugger."
 msgstr ""
+"Este campo se rellena con la dirección del punto de parada cuando está "
+"establecido por el depurador."
 
 #: C/debug-breakpoint.page:50(p)
 msgid ""
 "This always displays \"breakpoint\". It will be used in a future release "
 "supporting different kinds of breakpoints."
 msgstr ""
+"Esto siempre muestra «punto de parada». Se usará en una próxima versión, "
+"soportando distintos tipos de puntos de parada."
 
 #: C/debug-breakpoint.page:54(title) C/debug-breakpoint-dialog.page:34(gui)
 msgid "Condition"
@@ -2690,6 +2708,8 @@ msgstr "Condición"
 msgid ""
 "This is the breakpoint condition. It is empty if no condition is defined."
 msgstr ""
+"Esta es la condición del punto de parada. Está vacía si no se ha definido "
+"ninguna condición."
 
 #: C/debug-breakpoint.page:59(title)
 msgid "Pass count"
@@ -2700,6 +2720,8 @@ msgid ""
 "When the debugger is not running, this column displays the pass count of the "
 "breakpoint, or zero if it is not defined."
 msgstr ""
+"Cuando el depurador no se está ejecutando, esta columna muestra el conteo de "
+"pasadas del punto de parada, o cero si no está definido."
 
 #: C/debug-breakpoint.page:62(p)
 msgid ""
@@ -2715,7 +2737,7 @@ msgstr "Estado"
 
 #: C/debug-breakpoint.page:69(p)
 msgid "This is the state of the breakpoint. It may be"
-msgstr ""
+msgstr "Este es el estado del punto de parada. Puede ser"
 
 #: C/debug-breakpoint.page:71(title)
 msgid "Pending:"
