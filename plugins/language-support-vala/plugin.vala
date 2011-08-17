@@ -119,14 +119,28 @@ public class ValaPlugin : Plugin {
 	}
 
 	void add_project_files () {
-		var project = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
+		var pm = (IAnjuta.ProjectManager) shell.get_object("IAnjutaProjectManager");
+		var project = pm.get_current_project ();
+		var current_file = (current_editor as IAnjuta.File).get_file (); 
+		if (project == null)
+			return;
+
 		Vala.CodeContext.push (context);
 
-		var sources = project.get_elements(Anjuta.ProjectNodeType.SOURCE);
-		foreach (var src in sources) {
-			var path = src.get_path();
+		var current_src = project.get_root ().get_source_from_file (current_file);
+		if (current_src == null)
+			return;
+
+		var current_target = current_src.parent_type (Anjuta.ProjectNodeType.TARGET);
+
+		current_target.foreach (TraverseType.PRE_ORDER, (node) => {
+			if (!(Anjuta.ProjectNodeType.SOURCE in node.get_node_type ()))
+				return;
+
+			var path = node.get_file ().get_path ();
 			if (path == null)
-				continue;
+				return;
+
 			if (path.has_suffix (".vala") || path.has_suffix (".vapi") || path.has_suffix (".gs")) {
 				if (path in current_sources) {
 					debug ("file %s already added", path);
@@ -138,7 +152,8 @@ public class ValaPlugin : Plugin {
 			} else {
 				debug ("file %s skipped", path);
 			}
-		}
+		});
+
 		if (!context.has_package ("gobject-2.0")) {
 			context.add_external_package("glib-2.0");
 			context.add_external_package("gobject-2.0");
@@ -147,7 +162,7 @@ public class ValaPlugin : Plugin {
 			debug ("standard packages already added");
 		}
 
-		var packages = project.get_packages();
+		var packages = pm.get_packages();
 		foreach (var pkg in packages) {
 			if (context.has_package (pkg)) {
 				debug ("package %s skipped", pkg);
