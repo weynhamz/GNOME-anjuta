@@ -429,11 +429,13 @@ namespace Anjuta {
 		public unowned GLib.List<Anjuta.ProjectProperty> get_custom_properties ();
 		public unowned GLib.File get_file ();
 		public Anjuta.ProjectNodeType get_full_type ();
+		public unowned Anjuta.ProjectNode get_group_from_file (GLib.File directory);
 		public Anjuta.ProjectProperty get_map_property (Anjuta.ProjectProperty property, string name);
 		public unowned string get_name ();
 		public unowned GLib.List<Anjuta.ProjectProperty> get_native_properties ();
 		public Anjuta.ProjectNodeType get_node_type ();
 		public unowned Anjuta.ProjectProperty get_property (Anjuta.ProjectProperty property);
+		public unowned Anjuta.ProjectNode get_source_from_file (GLib.File file);
 		public Anjuta.ProjectNodeState get_state ();
 		public unowned Anjuta.ProjectNode insert_after (Anjuta.ProjectNode? sibling, Anjuta.ProjectNode node);
 		public unowned Anjuta.ProjectNode insert_before (Anjuta.ProjectNode? sibling, Anjuta.ProjectNode node);

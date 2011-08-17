@@ -912,8 +912,14 @@ anjuta_project_group_compare (AnjutaProjectNode *node, gpointer data)
 	}
 }
 
+/**
+ * anjuta_project_node_get_group_from_file:
+ * @func: (scope call):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
-anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory)
+anjuta_project_node_get_group_from_file (const AnjutaProjectNode *root, GFile *directory)
 {
 	AnjutaProjectNode *node;
 
@@ -962,8 +968,14 @@ anjuta_project_source_compare (AnjutaProjectNode *node, gpointer data)
 	}
 }
 
+/**
+ * anjuta_project_node_get_source_from_file:
+ * @func: (scope call):
+ *
+ * Returns: (transfer none):
+ */
 AnjutaProjectNode *
-anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file)
+anjuta_project_node_get_source_from_file (const AnjutaProjectNode *parent, GFile *file)
 {
 	AnjutaProjectNode *node;
 

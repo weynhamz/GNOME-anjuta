@@ -213,9 +213,9 @@ gboolean anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProject
 AnjutaProjectProperty *anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *native, AnjutaProjectProperty *property);
 AnjutaProjectProperty *anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *property);
 
-AnjutaProjectNode *anjuta_project_group_get_node_from_file (const AnjutaProjectNode *root, GFile *directory);
+AnjutaProjectNode *anjuta_project_node_get_group_from_file (const AnjutaProjectNode *root, GFile *directory);
 AnjutaProjectNode *anjuta_project_target_get_node_from_name (const AnjutaProjectNode *parent, const gchar *name);
-AnjutaProjectNode *anjuta_project_source_get_node_from_file (const AnjutaProjectNode *parent, GFile *file);
+AnjutaProjectNode *anjuta_project_node_get_source_from_file (const AnjutaProjectNode *parent, GFile *file);
 
 
 
