@@ -25,6 +25,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-environment-editor.h>
 #include <string.h>
 
 /* Constants
@@ -37,6 +38,7 @@
 #define CONFIGURATION_COMBO "configuration_combo_entry"
 #define BUILD_DIR_CHOOSER "build_dir_chooser"
 #define CONFIGURE_ARGS_ENTRY "configure_args_entry"
+#define ENVIRONMENT_EDITOR "environment_editor"
 #define OK_BUTTON "ok_button"
 
 #define GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK (build_gtk_file_chooser_create_directory_get_quark ())
@@ -55,6 +57,7 @@ struct _BuildConfigureDialog
 	GtkWidget *autogen;
 	GtkWidget *build_dir_chooser;
 	GtkWidget *args;
+	GtkWidget *env_editor;
 	GtkWidget *ok;
 	
 	BuildConfigurationList *config_list;
@@ -267,6 +270,7 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 		if (cfg != NULL)
 		{
 			const gchar *args;
+			GList *item;
 
 			args = build_configuration_get_args (cfg); 
 			gtk_entry_set_text (GTK_ENTRY (dlg->args), args == NULL ? "" : args);
@@ -274,6 +278,11 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
 			build_gtk_file_chooser_create_and_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
 			g_free (uri);
+
+			for (item = build_configuration_get_variables (cfg); item != NULL; item = g_list_next (item))
+			{
+				anjuta_environment_editor_set_variable (ANJUTA_ENVIRONMENT_EDITOR (dlg->env_editor), (gchar *)item->data);
+			}
 		}
 	}
 	g_free (name);
@@ -320,6 +329,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 	    RUN_AUTOGEN_CHECK, &dlg.autogen,
 	    BUILD_DIR_CHOOSER, &dlg.build_dir_chooser,
 	    CONFIGURE_ARGS_ENTRY, &dlg.args,
+	    ENVIRONMENT_EDITOR, &dlg.env_editor,
 	    OK_BUTTON, &dlg.ok,
 	    NULL);
 	g_object_unref (bxml);
@@ -335,13 +345,14 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 	fill_dialog(&dlg);
 	
 	response = gtk_dialog_run (GTK_DIALOG (dlg.win));
-	
+
 	if (response == GTK_RESPONSE_OK)
 	{
 		gchar *name;
 		gchar *uri;
 		const gchar *args;
 		GtkTreeIter iter;
+		gchar **mod_var;
 
 		*run_autogen = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dlg.autogen));
 		
@@ -364,6 +375,21 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		build_configuration_list_set_build_uri (dlg.config_list, cfg, uri);
 		build_gtk_file_chooser_keep_folder (GTK_FILE_CHOOSER (dlg.build_dir_chooser), uri);
 		g_free (uri);
+
+		mod_var = anjuta_environment_editor_get_modified_variables (ANJUTA_ENVIRONMENT_EDITOR (dlg.env_editor));
+		if (mod_var != NULL)
+		{
+			gchar **var;
+			/* Invert list */
+			for (var = mod_var; *var != NULL; var++);
+			do
+			{
+				var--;
+				build_configuration_set_variable (cfg, *var);
+			}
+			while (var != mod_var);
+			g_strfreev (mod_var);
+		}
 	}
 	gtk_widget_destroy (GTK_WIDGET(dlg.win));
 

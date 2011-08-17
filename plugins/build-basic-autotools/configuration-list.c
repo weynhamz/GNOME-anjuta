@@ -37,6 +37,7 @@ struct  _BuildConfiguration
 	gchar *name;
 	gchar *build_uri;
 	gchar *args;
+	GList *env;
 	gboolean translate;
 	BuildConfiguration *next;
 	BuildConfiguration *prev;
@@ -56,6 +57,7 @@ struct  _DefaultBuildConfiguration
 	gchar *name;
 	gchar *build_uri;
 	gchar *args;
+	gchar **env;
 };
 
 /* The name value is kept untranslated for saving in the session file or
@@ -65,11 +67,11 @@ struct  _DefaultBuildConfiguration
  * field as we need a translated value, so they are used in build
  * directory instead */
 const DefaultBuildConfiguration default_config[] = {
-	{N_("Default"), NULL, "--enable-maintainer-mode"},
-	{N_("Debug"), IANJUTA_BUILDER_CONFIGURATION_DEBUG, "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'"},
-	{N_("Profiling"), IANJUTA_BUILDER_CONFIGURATION_PROFILING, "--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'"},
-	{N_("Optimized"), IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED, "--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'"},
-	{NULL, NULL, NULL}
+	{N_("Default"), NULL, "--enable-maintainer-mode", NULL},
+	{N_("Debug"), IANJUTA_BUILDER_CONFIGURATION_DEBUG, "--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'", NULL},
+	{N_("Profiling"), IANJUTA_BUILDER_CONFIGURATION_PROFILING, "--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'", NULL},
+	{N_("Optimized"), IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED, "--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'", NULL},
+	{NULL, NULL, NULL, NULL}
 };
 
 /* Helper functions
@@ -147,6 +149,8 @@ build_configuration_list_free_list (BuildConfigurationList *list)
 		BuildConfiguration *next = cfg->next;
 		
 		if (cfg->args) g_free (cfg->args);
+		g_list_foreach (cfg->env, (GFunc)g_free, NULL);
+		g_list_free (cfg->env);
 		if (cfg->build_uri) g_free (cfg->build_uri);
 		if (cfg->name) g_free (cfg->name);
 		g_free (cfg);
@@ -287,6 +291,7 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 			cfg->build_uri = *str == '\0' ? NULL : g_strdup (str);
 			
 			cfg->args = NULL;
+			cfg->env = NULL;
 			
 			cfg->next = NULL;
 			cfg->prev = prev;
@@ -320,6 +325,7 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 			cfg->name = g_strdup (dcfg->name);
 			cfg->build_uri = g_strdup (dcfg->build_uri);
 			cfg->args = NULL;
+			cfg->env = NULL;
 			cfg->next = NULL;
 			cfg->prev = prev;
 			if (prev == NULL)
@@ -334,7 +340,17 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 		}
 		if ((cfg->args == NULL) && (dcfg->args))
 		{
-				cfg->args = g_strdup (dcfg->args);
+			cfg->args = g_strdup (dcfg->args);
+		}
+		if ((cfg->env == NULL) && (dcfg->env))
+		{
+			gchar **item;
+
+			for (item = dcfg->env; *item != NULL; item++)
+			{
+				cfg->env = g_list_prepend (cfg->env, g_strdup (*item));
+			}
+			cfg->env = g_list_reverse (cfg->env);
 		}
 	}	
 }
@@ -442,6 +458,39 @@ const gchar *
 build_configuration_get_args (BuildConfiguration *cfg)
 {
 	return cfg->args;
+}
+
+void
+build_configuration_set_variable (BuildConfiguration *cfg, const gchar *var)
+{
+	GList *item;
+	guint len = 0;
+	const gchar *equal;
+
+	equal = strchr (var, '=');
+	if (equal == NULL)
+	{
+		len = equal - var;
+	}
+	
+	/* Check if variable already exist */
+	for (item = cfg->env; item != NULL; item = g_list_next (item))
+	{
+		if (((len == 0) && (strcmp ((gchar *)item->data, var) == 0)) ||
+		    ((len > 0) && (strncmp ((gchar *)item->data, var, len) == 0) && (((gchar *)item->data)[len] == '=')))
+		{
+			g_free (item->data);
+			cfg->env = g_list_delete_link (cfg->env, item);
+		}
+	}
+
+	cfg->env = g_list_append (cfg->env, g_strdup (var));
+}
+
+GList *
+build_configuration_get_variables (BuildConfiguration *cfg)
+{
+	return cfg->env;
 }
 
 /* Constructor & Destructor

@@ -437,12 +437,17 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 	BuildContext *context;
 	gchar *root_path;
 	gboolean same;
-
+	BuildConfiguration *config;
+	GList *vars;
+	
 	context = build_get_context (bplugin, prog->work_dir, with_view);
 	root_path = g_file_get_path (bplugin->project_root_dir);
 	same = strcmp (prog->work_dir, root_path) != 0;
 	g_free (root_path);
 	
+	config = build_configuration_list_get_selected (bplugin->configurations);
+	vars = build_configuration_get_variables (config);
+
 	if (!same && directory_has_file (bplugin->project_root_dir, "config.status"))
 	{
 		BuildProgram *new_prog;
@@ -463,6 +468,7 @@ build_save_distclean_and_execute_command (BasicAutotoolsPlugin* bplugin, BuildPr
 		build_program_set_callback (new_prog, build_execute_after_command, prog);
 		prog = new_prog;
 	}
+	build_program_add_env_list (prog, vars);
 	
 	build_set_command_in_context (context, prog);
 
@@ -485,6 +491,12 @@ build_build_file_or_dir (BasicAutotoolsPlugin *plugin,
 	gchar *target;
 	BuildProgram *prog;
 	BuildContext *context;
+	BuildConfiguration *config;
+	GList *vars;
+
+	
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
 	
 	build_dir = build_file_from_file (plugin, file, &target);
 	prog = build_program_new_with_command (build_dir,
@@ -492,6 +504,7 @@ build_build_file_or_dir (BasicAutotoolsPlugin *plugin,
 										   CHOOSE_COMMAND (plugin, BUILD),
 										   target ? target : "");
 	build_program_set_callback (prog, callback, user_data);
+	build_program_add_env_list (prog, vars);
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
 	g_free (target);
@@ -511,13 +524,20 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, GFile *file,
 	gchar *target;
 	BuildProgram *prog;
 	BuildContext *context;
+	BuildConfiguration *config;
+	GList *vars;
 
+
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+	
 	build_dir = build_file_from_file (plugin, file, &target);
 	prog = build_program_new_with_command (build_dir,
 										   "%s %s",
 										   CHOOSE_COMMAND (plugin, IS_BUILT),
 										   target ? target : "");
 	build_program_set_callback (prog, callback, user_data);
+	build_program_add_env_list (prog, vars);
 	
 	context = build_save_and_execute_command (plugin, prog, FALSE, err);
 	
@@ -552,6 +572,8 @@ build_install_dir (BasicAutotoolsPlugin *plugin, GFile *dir,
 	GFile *build_dir;
 	BuildProgram *prog;
 	GString *command;
+	BuildConfiguration *config;
+	GList *vars;
 
 	if ((root != NULL) && (*root != '\0'))
 	{
@@ -599,11 +621,16 @@ build_install_dir (BasicAutotoolsPlugin *plugin, GFile *dir,
 		command = g_string_new (CHOOSE_COMMAND (plugin, INSTALL));
 	}
 
+
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+	
  	build_dir = build_file_from_file (plugin, dir, NULL);	
 	prog = build_program_new_with_command (build_dir,
 		                                   "%s",
         		                           command->str);
 	build_program_set_callback (prog, callback, user_data);	
+	build_program_add_env_list (prog, vars);
 	
 	context = build_save_and_execute_command (plugin, prog, TRUE, err);
 	
@@ -621,14 +648,22 @@ build_clean_dir (BasicAutotoolsPlugin *plugin, GFile *file,
 				 GError **err)
 {
 	BuildContext *context;
+	BuildProgram *prog;
 	GFile *build_dir;
+	BuildConfiguration *config;
+	GList *vars;
 
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+	
 	build_dir = build_file_from_file (plugin, file, NULL);
-	context = build_execute_command (plugin,
-									 build_program_new_with_command (build_dir,
-																	 "%s",
-																	 CHOOSE_COMMAND (plugin, CLEAN)),
-									 TRUE, err);
+
+	prog = build_program_new_with_command (build_dir,
+	                                       "%s",
+	                                       CHOOSE_COMMAND (plugin, CLEAN)),
+	build_program_add_env_list (prog, vars);
+	
+	context = build_execute_command (plugin, prog, TRUE, err);
 	g_object_unref (build_dir);
 	
 	return context;
@@ -650,12 +685,19 @@ build_distclean (BasicAutotoolsPlugin *plugin)
 {
 	BuildContext *context;
 	BuildProgram *prog;
+	BuildConfiguration *config;
+	GList *vars;
+
+
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
 
 	prog = build_program_new_with_command (plugin->project_build_dir,
 										   "%s",
 										   CHOOSE_COMMAND (plugin, DISTCLEAN));
 	build_program_set_callback (prog, build_remove_build_dir, plugin);
-
+	build_program_add_env_list (prog, vars);
+	
 	context = build_execute_command (plugin, prog, TRUE, NULL);
 	
 	return context;
@@ -667,12 +709,19 @@ BuildContext*
 build_tarball (BasicAutotoolsPlugin *plugin)
 {
 	BuildContext *context;
+	BuildProgram *prog;
+	BuildConfiguration *config;
+	GList *vars;
 
-	context = build_save_and_execute_command (plugin,
-									 build_program_new_with_command (plugin->project_build_dir,
-																	 "%s",
-																	 CHOOSE_COMMAND (plugin, BUILD_TARBALL)),
-									 TRUE, NULL);
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+
+	prog = build_program_new_with_command (plugin->project_build_dir,
+	                                       "%s",
+	                                       CHOOSE_COMMAND (plugin, BUILD_TARBALL)),
+	build_program_add_env_list (prog, vars);
+	
+	context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
 	
 	return context;
 }
@@ -691,6 +740,11 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 	if (object != NULL)
 	{
 		GFile *build_dir;
+		BuildConfiguration *config;
+		GList *vars;
+
+		config = build_configuration_list_get_selected (plugin->configurations);
+		vars = build_configuration_get_variables (config);
 		
 		/* Find target directory */
 		build_dir = build_file_from_file (plugin, object, &target_name);
@@ -700,6 +754,9 @@ build_compile_file (BasicAutotoolsPlugin *plugin, GFile *file)
 	        	                               (target_name == NULL) ? "" : target_name);
 		g_free (target_name);
 		g_object_unref (build_dir);
+
+		build_program_add_env_list (prog, vars);
+		
 		context = build_save_and_execute_command (plugin, prog, TRUE, NULL);
 		g_object_unref (object);
 	}
@@ -768,10 +825,15 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args
 {
 	BuildContext *context;
 	BuildProgram *prog;
+	BuildConfiguration *config;
+	GList *vars;
 	BuildConfigureAndBuild *pack = g_new0 (BuildConfigureAndBuild, 1);
 	gchar *quote;
 	gchar *root_path;
 
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+	
 	root_path = g_file_get_path (plugin->project_root_dir);
 	quote = shell_quotef ("%s%s%s",
 		       	root_path,
@@ -784,10 +846,12 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args
 										   args);
 	g_free (quote);
 	g_free (root_path);
+	
 	pack->args = NULL;
 	pack->func = func;
 	pack->file = (file != NULL) ? g_object_ref (file) : NULL;
 	build_program_set_callback (prog, build_project_configured, pack);
+	build_program_add_env_list (prog, vars);
 	
 	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
 	
@@ -807,6 +871,8 @@ build_configure_after_autogen (GObject *sender,
 	if (error == NULL)
 	{
 		BuildContext *context = (BuildContext *)handle;
+		BuildConfiguration *config;
+		GList *vars;
 		BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin *)build_context_get_plugin (context);
 		struct stat conf_stat, log_stat;
 		gchar *root_path;
@@ -821,6 +887,9 @@ build_configure_after_autogen (GObject *sender,
 		if (has_configure)
 		{
 			gboolean older;
+
+			config = build_configuration_list_get_selected (plugin->configurations);
+			vars = build_configuration_get_variables (config);
 			
 			filename = g_build_filename (build_context_get_work_dir (context), "config.status", NULL);
 			older =(stat (filename, &log_stat) != 0) || (log_stat.st_mtime < conf_stat.st_mtime);
@@ -846,7 +915,8 @@ build_configure_after_autogen (GObject *sender,
 				g_object_unref (work_file);
 				g_free (quote);
 				build_program_set_callback (prog, build_project_configured, pack);
-		
+				build_program_add_env_list (prog, vars);
+				
 				build_set_command_in_context (context, prog);
 				build_execute_command_in_context (context, NULL);
 			}
@@ -880,8 +950,14 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 {
 	BuildContext *context;
 	BuildProgram *prog;
+	BuildConfiguration *config;
+	GList *vars;
 	BuildConfigureAndBuild *pack = g_new0 (BuildConfigureAndBuild, 1);
+	
 
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+	
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
 		gchar *quote;
@@ -909,6 +985,7 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 	pack->func = func;
 	pack->file = (file != NULL) ? g_object_ref (file) : NULL;
 	build_program_set_callback (prog, build_configure_after_autogen, pack);
+	build_program_add_env_list (prog, vars);
 	
 	context = build_save_distclean_and_execute_command (plugin, prog, TRUE, NULL);
 	

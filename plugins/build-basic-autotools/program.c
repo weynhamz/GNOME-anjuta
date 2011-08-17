@@ -214,6 +214,37 @@ build_program_remove_arg (BuildProgram *prog, gint pos)
 }
 
 
+gboolean
+build_program_add_env_list (BuildProgram *prog, GList *vars)
+{
+	GList *item;
+	gboolean ok = TRUE;
+
+	for (item = vars; item != NULL; item = g_list_next (item))
+	{
+		const gchar *value;
+		gchar *equal;
+		gchar *name;
+
+		name = g_strdup ((gchar *)item->data);
+		equal = strchr (name, '=');
+		if (equal != NULL)
+		{
+			*equal = '\0';
+			value = equal + 1;
+		}
+		else
+		{
+			value = NULL;
+		}
+		
+		ok = ok && build_program_add_env (prog, name, value);
+		g_free (name);
+	}
+
+	return ok;
+}
+
 
 gboolean
 build_program_add_env (BuildProgram *prog, const gchar *name, const gchar *value)

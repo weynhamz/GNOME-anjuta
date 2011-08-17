@@ -125,7 +125,9 @@ libanjuta_3_la_SOURCES= \
 	anjuta-file-drop-entry.h \
 	anjuta-file-drop-entry.c \
 	anjuta-entry.h \
-	anjuta-entry.c
+	anjuta-entry.c \
+	anjuta-environment-editor.h \
+	anjuta-environment-editor.c
 
 # Glade module
 if HAVE_PLUGIN_GLADE

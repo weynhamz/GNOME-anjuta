@@ -54,6 +54,9 @@
 		 	</properties>
 		 </glade-widget-class>
 
+		 <glade-widget-class name="AnjutaEnvironmentEditor" title="Environment editor"
+		 generic-name="environment_editor" />
+
 	</glade-widget-classes>
 
 	<glade-widget-group name="Anjuta" title="Anjuta">
@@ -64,5 +67,6 @@
 		<glade-widget-class-ref name="AnjutaColumnTextView" />
 		<glade-widget-class-ref name="AnjutaFileDropEntry" />
 		<glade-widget-class-ref name="AnjutaEntry" />
+		<glade-widget-class-ref name="AnjutaEnvironmentEditor" />
 	</glade-widget-group>
 </glade-catalog>

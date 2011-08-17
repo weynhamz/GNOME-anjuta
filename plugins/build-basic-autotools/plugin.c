@@ -2067,12 +2067,24 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
-		gchar *key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
+		gchar *key;
+		GList *list;
 
+		key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
 		anjuta_session_set_string (session, "Build",
 			       key,
 			       build_configuration_get_args(cfg));
 		g_free (key);
+
+		list = build_configuration_get_variables (cfg);
+		if (list != NULL)
+		{
+			key = g_strconcat("BuildEnv/", build_configuration_get_name (cfg), NULL);
+			anjuta_session_set_string_list (session, "Build",
+				       key,
+			    	   list);
+			g_free (key);
+		}
 	}
 }
 
@@ -2100,15 +2112,35 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
-		gchar *key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
-		gchar *args = anjuta_session_get_string (session, "Build",
-				key);
+		gchar *key;
+		gchar *args;
+		GList *env;
+		
+		key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
+		args = anjuta_session_get_string (session, "Build", key);
 		g_free (key);
 		if (args != NULL)
 		{
 			build_configuration_set_args (cfg, args);
 			g_free (args);
 		}
+
+		key = g_strconcat("BuildEnv/", build_configuration_get_name (cfg), NULL);
+		env = anjuta_session_get_string_list (session, "Build",	key);
+		g_free (key);
+		if (env != NULL)
+		{
+			GList *item;
+
+			/* New variables are added at the beginning of the list */
+			for (item = env; item != NULL; item = g_list_next (item))
+			{
+				build_configuration_set_variable (cfg, (gchar *)item->data);
+				g_free (item->data);
+			}
+			g_list_free (env);
+		}
+
 	}
 
 	build_project_configured (G_OBJECT (plugin), NULL, NULL, NULL);

@@ -51,6 +51,7 @@ gboolean build_program_insert_arg (BuildProgram *proc, gint pos, const gchar *ar
 gboolean build_program_replace_arg (BuildProgram *proc, gint pos, const gchar *arg);
 gboolean build_program_remove_arg (BuildProgram *proc, gint pos);
 
+gboolean build_program_add_env_list (BuildProgram *proc, GList *vars);
 gboolean build_program_add_env (BuildProgram *proc, const gchar *name, const gchar *value);
 gboolean build_program_remove_env (BuildProgram *proc, const gchar *name);
 
