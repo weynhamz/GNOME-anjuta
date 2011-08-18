@@ -23,7 +23,9 @@ public class AnjutaReport : Vala.Report {
 		public string message;
 	}
 	public IAnjuta.DocumentManager docman { get; set; }
-	Vala.List<Error?> errors = new Vala.ArrayList<Error?>();
+	Vala.List<Error?> errors_list = new Vala.ArrayList<Error?>();
+	bool general_error = false;
+
 	public void update_errors (IAnjuta.Editor editor) {
 		var ind = editor as IAnjuta.Indicable;
 		var mark = editor as IAnjuta.Markable;
@@ -35,7 +37,7 @@ public class AnjutaReport : Vala.Report {
 		if (mark != null)
 			mark.delete_all_markers (IAnjuta.MarkableMarker.MESSAGE);
 
-		foreach (var e in errors) {
+		foreach (var e in errors_list) {
 			if (e.source.file.filename.has_suffix (((IAnjuta.Document)editor).get_filename ())) {
 				if (ind != null) {
 					/* begin_iter should be one cell before to select the first character */
@@ -55,8 +57,25 @@ public class AnjutaReport : Vala.Report {
 
 		}
 	}
-	public void clear_error_indicators () {
-		errors = new Vala.ArrayList<Error?>();
+	public void clear_error_indicators (Vala.SourceFile? file = null) {
+		if (file == null) {
+			errors_list = new Vala.ArrayList<Error?>();
+			errors = 0;
+		} else {
+			for (var i = 0; i < errors_list.size; i++) {
+				if (errors_list[i].source.file == file) {
+					if (errors_list[i].error)
+						errors --;
+					else
+						warnings --;
+
+					errors_list.remove_at (i);
+					i --;
+				}
+			}
+			assert (errors_list.size <= errors + warnings);
+		}
+
 		foreach (var doc in docman.get_doc_widgets ()) {
 			if (doc is IAnjuta.Indicable)
 				((IAnjuta.Indicable)doc).clear ();
@@ -65,22 +84,25 @@ public class AnjutaReport : Vala.Report {
 		}
 	}
 	public override void warn (Vala.SourceReference? source, string message) {
+		warnings ++;
+
 		if (source == null)
 			return;
 
-		lock (errors) {
-			errors.add(Error () {source = source, message = message, error = false});
+		lock (errors_list) {
+			errors_list.add(Error () {source = source, message = message, error = false});
 		}
 	}
 	public override void err (Vala.SourceReference? source, string message) {
-		if (source == null)
-			return;
+		errors ++;
 
-		lock (errors) {
-			errors.add(Error () {source = source, message = message, error = true});
+		if (source == null) {
+			general_error = true;
+			return;
 		}
-	}
-	public bool errors_found () {
-		return (errors.size != 0);
+
+		lock (errors_list) {
+			errors_list.add(Error () {source = source, message = message, error = true});
+		}
 	}
 }

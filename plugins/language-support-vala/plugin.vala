@@ -104,7 +104,7 @@ public class ValaPlugin : Plugin {
 						}
 					}
 
-					if (report.errors_found () || cancel.is_cancelled ()) {
+					if (report.get_errors () > 0 || cancel.is_cancelled ()) {
 						Vala.CodeContext.pop();
 						return;
 					}
@@ -535,7 +535,7 @@ public class ValaPlugin : Plugin {
 			var ns_ref = new Vala.UsingDirective (new Vala.UnresolvedSymbol (null, "GLib"));
 			file.add_using_directive (ns_ref);
 
-			report.clear_error_indicators ();
+			report.clear_error_indicators (file);
 
 			parse ();
 
