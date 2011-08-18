@@ -482,12 +482,13 @@ namespace Anjuta {
 	public class ProjectProperty {
 		public weak string detail;
 		public Anjuta.ProjectPropertyFlags flags;
+		public weak string id;
 		public string name;
 		public weak Anjuta.ProjectProperty native;
 		public Anjuta.ProjectValueType type;
 		public string value;
 		[CCode (has_construct_function = false)]
-		public ProjectProperty (string name, Anjuta.ProjectValueType type, string value, Anjuta.ProjectProperty? native);
+		public ProjectProperty (string id, string name, Anjuta.ProjectValueType type, string value, Anjuta.ProjectProperty? native);
 		public Anjuta.ProjectProperty copy ();
 		public void free ();
 	}

@@ -45,7 +45,8 @@
 static AmpProperty AmpProjectProperties[] =
 {
 	{
-		{N_("Name:"),
+		{"NAME",
+		N_("Name:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Project name, it can contain spaces by example 'GNU Autoconf'")},
@@ -53,7 +54,8 @@ static AmpProperty AmpProjectProperties[] =
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
-		{N_("Version:"),
+		{"VERSION",
+		N_("Version:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Project version, typically a few numbers separated by dot by example '1.0.0'")},
@@ -61,7 +63,8 @@ static AmpProperty AmpProjectProperties[] =
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
-		{N_("Bug report URL:"),
+		{"BUGREPORT",
+		N_("Bug report URL:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("An email address or a link to a web page where the user can report bug. It is optional.")},
@@ -69,7 +72,8 @@ static AmpProperty AmpProjectProperties[] =
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
-		{N_("Package name:"),
+		{"PACKAGE",
+		N_("Package name:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Package name, it can contains only alphanumerics and underscore characters."
@@ -78,7 +82,8 @@ static AmpProperty AmpProjectProperties[] =
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
-		{N_("URL:"),
+		{"URL",
+		N_("URL:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("An link to the project web page if provided.")},
@@ -94,7 +99,8 @@ static GList* AmpProjectPropertyList = NULL;
 static AmpProperty AmpGroupNodeProperties[] =
 {
 	{
-		{N_("Linker flags:"),
+		{"LDFLAGS",
+		N_("Linker flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional linker flags for all targets in this group.")},
@@ -102,7 +108,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C preprocessor flags:"),
+		{"CPPFLAGS",
+		N_("C preprocessor flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional C preprocessor flags for all targets in this group.")},
@@ -110,7 +117,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C compiler flags:"),
+		{"CFLAGS",
+		N_("C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional C compiler flags for all targets in this group.")},
@@ -118,7 +126,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C++ compiler flags:"),
+		{"CXXFLAGS",
+		N_("C++ compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional C++ compiler flags for all targets in this group.")},
@@ -126,7 +135,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Java compiler flags:"),
+		{"JAVAFLAGS",
+		N_("Java compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Java compiler flags for all targets in this group.")},
@@ -134,7 +144,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Vala compiler flags:"),
+		{"VALAFLAGS",
+		N_("Vala compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Vala compiler flags for all targets in this group.")},
@@ -142,7 +153,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortran compiler flags:"),
+		{"FCFLAGS",
+		N_("Fortran compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Fortran compiler flags for all targets in this group.")},
@@ -150,7 +162,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Objective C compiler flags:"),
+		{"OBJCFLAGS",
+		N_("Objective C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Objective C compiler flags for all targets in this group.")},
@@ -158,7 +171,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Lex/Flex flags:"),
+		{"LFLAGS",
+		N_("Lex/Flex flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Common additional Lex or Flex lexical analyser generator flags for all targets in this group.")},
@@ -166,7 +180,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Yacc/Bison flags:"),
+		{"YFLAGS",
+		N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Common additional Yacc or Bison parser generator flags for all targets in this group.")},
@@ -174,7 +189,8 @@ static AmpProperty AmpGroupNodeProperties[] =
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Installation directories:"),
+		{"INSTALLDIRS",
+		N_("Installation directories:"),
 			ANJUTA_PROJECT_PROPERTY_MAP,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("List of custom installation directories used by targets in this group.")},
@@ -189,7 +205,8 @@ static GList* AmpGroupNodePropertyList = NULL;
 
 static AmpProperty AmpTargetNodeProperties[] = {
 	{
-		{N_("Do not install:"),
+		{"NOINST",
+		N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Build but do not install the target."),
@@ -198,7 +215,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
-		{N_("Installation directory:"),
+		{"INSTALLDIR",
+		N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
@@ -206,7 +224,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
-		{N_("Linker flags:"),
+		{"LDFLAGS",
+		N_("Linker flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional linker flags for this target.")},
@@ -214,7 +233,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Additional libraries:"),
+		{"LIBADD",
+		N_("Additional libraries:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional libraries for this target.")},
@@ -222,7 +242,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Additional objects:"),	
+		{"LDADD",
+		N_("Additional objects:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional object files for this target.")},
@@ -230,7 +251,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C preprocessor flags:"),
+		{"CPPFLAGS",
+		N_("C preprocessor flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C preprocessor flags for this target.")},
@@ -238,7 +260,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C compiler flags:"),
+		{"CFLAGS",
+		N_("C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C compiler flags for this target.")},
@@ -246,7 +269,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C++ compiler flags:"),
+		{"CXXFLAGS",
+		N_("C++ compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional C++ compiler flags for this target.")},
@@ -254,7 +278,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Java compiler flags:"),
+		{"JAVAFLAGS",
+		N_("Java compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Java compiler flags for this target.")},
@@ -262,7 +287,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Vala compiler flags:"),
+		{"VALAFLAGS",
+		N_("Vala compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional Vala compiler flags for this target.")},
@@ -270,7 +296,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Fortran compiler flags:"),	
+		{"FCFLAGS",
+		N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
@@ -278,7 +305,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Objective C compiler flags:"),
+		{"OBJCFLAGS",
+		N_("Objective C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Objective C compiler flags for this target.")},
@@ -286,7 +314,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Lex/Flex flags:"),
+		{"LFLAGS",
+		N_("Lex/Flex flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
@@ -294,7 +323,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Yacc/Bison flags:"),
+		{"YFLAGS",
+		N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Yacc or Bison parser generator flags for this target.")},
@@ -302,7 +332,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional dependencies for this target.")},
@@ -310,7 +341,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Include in distribution:"),
+		{"DIST",
+		N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Include this target in the distributed package."),
@@ -319,7 +351,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Build for check only:"),
+		{"CHECKONLY",
+		N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Build this target only when running automatic tests."),
@@ -328,7 +361,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
@@ -337,7 +371,8 @@ static AmpProperty AmpTargetNodeProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Keep target path:"),
+		{"NOBASE",
+		N_("Keep target path:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY, 
 			N_("Keep relative target path for installing it. "
@@ -354,7 +389,8 @@ static GList* AmpTargetNodePropertyList = NULL;
 
 static AmpProperty AmpProgramTargetProperties[] = {
 	{
-		{N_("Do not install:"),
+		{"NOINST",
+		N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build but do not install the target."),
@@ -363,7 +399,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
-		{N_("Installation directory:"),
+		{"INSTALLDIR",
+		N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
@@ -371,7 +408,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
-		{N_("Linker flags:"),
+		{"LDFLAGS",
+		N_("Linker flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional linker flags for this target.")},
@@ -379,7 +417,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Libraries:"),	
+		{"LDADD",
+		N_("Libraries:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional libraries for this target.")},
@@ -387,7 +426,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C preprocessor flags:"),
+		{"CPPFLAGS",
+		N_("C preprocessor flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C preprocessor flags for this target.")},
@@ -395,7 +435,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("C compiler flags:"),
+		{"CFLAGS",
+		N_("C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C compiler flags for this target.")},
@@ -403,7 +444,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("C++ compiler flags:"),
+		{"CXXFLAGS",
+		N_("C++ compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional C++ compiler flags for this target.")},
@@ -411,7 +453,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Java compiler flags:"),
+		{"JAVAFLAGS",
+		N_("Java compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Java compiler flags for this target.")},
@@ -419,7 +462,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Vala compiler flags:"),
+		{"VALAFLAGS",
+		N_("Vala compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional Vala compiler flags for this target.")},
@@ -427,7 +471,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Fortran compiler flags:"),	
+		{"FCFLAGS",
+		N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
@@ -435,7 +480,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Objective C compiler flags:"),
+		{"OBJCFLAGS",
+		N_("Objective C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Objective C compiler flags for this target.")},
@@ -443,7 +489,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Lex/Flex flags:"),
+		{"LFLAGS",
+		N_("Lex/Flex flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
@@ -451,7 +498,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Yacc/Bison flags:"),
+		{"YFLAGS",
+		N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Yacc or Bison parser generator flags for this target.")},
@@ -459,7 +507,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional dependencies for this target.")},
@@ -467,7 +516,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Include in distribution:"),
+		{"DIST",
+		N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Include this target in the distributed package."),
@@ -476,7 +526,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Build for check only:"),
+		{"CHECK",
+		N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build this target only when running automatic tests."),
@@ -485,7 +536,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
@@ -494,7 +546,8 @@ static AmpProperty AmpProgramTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Keep target path:"),
+		{"NOBASE",
+		N_("Keep target path:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Keep relative target path for installing it. "
@@ -511,7 +564,8 @@ static GList* AmpProgramTargetPropertyList = NULL;
 
 static AmpProperty AmpLibraryTargetProperties[] = {
 		{
-		{N_("Do not install:"),
+		{"NOINST",
+		N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build but do not install the target."),
@@ -520,7 +574,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
-		{N_("Installation directory:"),
+		{"INSTALLDIR",
+		N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
@@ -528,7 +583,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
-		{N_("Linker flags:"),
+		{"LDFLAGS",
+		N_("Linker flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional linker flags for this target.")},
@@ -536,7 +592,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Libraries:"),	
+		{"LIBADD",
+		N_("Libraries:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional libraries for this target.")},
@@ -544,7 +601,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("C preprocessor flags:"),
+		{"CPPFLAGS",
+		N_("C preprocessor flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C preprocessor flags for this target.")},
@@ -552,7 +610,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("C compiler flags:"),
+		{"CFLAGS",
+		N_("C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional C compiler flags for this target.")},
@@ -560,7 +619,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("C++ compiler flags:"),
+		{"CXXFLAGS",
+		N_("C++ compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional C++ compiler flags for this target.")},
@@ -568,7 +628,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Java compiler flags:"),
+		{"JAVAFLAGS",
+		N_("Java compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Java compiler flags for this target.")},
@@ -576,7 +637,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Vala compiler flags:"),
+		{"VALAFLAGS",
+		N_("Vala compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Additional Vala compiler flags for this target.")},
@@ -584,7 +646,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Fortran compiler flags:"),	
+		{"FCFLAGS",
+		N_("Fortran compiler flags:"),	
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Fortran compiler flags for this target.")},
@@ -592,7 +655,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Objective C compiler flags:"),
+		{"OBJCFLAGS",
+		N_("Objective C compiler flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Objective C compiler flags for this target.")},
@@ -600,7 +664,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Lex/Flex flags:"),
+		{"LFLAGS",
+		N_("Lex/Flex flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Lex or Flex lexical analyser generator flags for this target.")},
@@ -608,7 +673,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Yacc/Bison flags:"),
+		{"YFLAGS",
+		N_("Yacc/Bison flags:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Additional Yacc or Bison parser generator flags for this target.")},
@@ -616,7 +682,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
 	},
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional dependencies for this target.")},
@@ -624,7 +691,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Include in distribution:"),
+		{"DIST",
+		N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Include this target in the distributed package."),
@@ -633,7 +701,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Build for check only:"),
+		{"CHECK",
+		N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build this target only when running automatic tests."),
@@ -642,7 +711,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
@@ -651,7 +721,8 @@ static AmpProperty AmpLibraryTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Keep target path:"),
+		{"NOBASE",
+		N_("Keep target path:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Keep relative target path for installing it. "
@@ -668,7 +739,8 @@ static GList* AmpLibraryTargetPropertyList = NULL;
 
 static AmpProperty AmpManTargetProperties[] = {
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Additional dependencies for this target.")},
@@ -676,7 +748,8 @@ static AmpProperty AmpManTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
@@ -685,7 +758,8 @@ static AmpProperty AmpManTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Manual section:"),
+		{"MAN",
+		N_("Manual section:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. ")},
@@ -700,7 +774,8 @@ static GList* AmpManTargetPropertyList = NULL;
 
 static AmpProperty AmpDataTargetProperties[] = {
 	{
-		{N_("Do not install:"),
+		{"NOINST",
+		N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build but do not install the target."),
@@ -709,7 +784,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
-		{N_("Installation directory:"),
+		{"INSTALLDIR",
+		N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
@@ -717,7 +793,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DIRECTORY
 	},
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional dependencies for this target.")},
@@ -725,7 +802,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Include in distribution:"),
+		{"DIST",
+		N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Include this target in the distributed package."),
@@ -734,7 +812,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Build for check only:"),
+		{"CHECK",
+		N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build this target only when running automatic tests."),
@@ -743,7 +822,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. "),
@@ -752,7 +832,8 @@ static AmpProperty AmpDataTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Keep target path:"),
+		{"NOBASE",
+		N_("Keep target path:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Keep relative target path for installing it. "
@@ -769,7 +850,8 @@ static GList* AmpDataTargetPropertyList = NULL;
 
 static AmpProperty AmpScriptTargetProperties[] = {
 	{
-		{N_("Do not install:"),
+		{"NOINST",
+		N_("Do not install:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_ONLY,
 			N_("Build but do not install the target.")},
@@ -777,7 +859,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_DISABLE_FOLLOWING
 	},
 	{
-		{N_("Installation directory:"),
+		{"INSTALLDIR",
+		N_("Installation directory:"),
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("It has to be a standard directory or a custom one defined in group properties.")},
@@ -785,7 +868,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Additional dependencies:"),
+		{"EXTRA_DIST",
+		N_("Additional dependencies:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,	
 			N_("Additional dependencies for this target.")},
@@ -793,7 +877,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Include in distribution:"),
+		{"DIST",
+		N_("Include in distribution:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Include this target in the distributed package.")},
@@ -801,7 +886,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Build for check only:"),
+		{"CHECK",
+		N_("Build for check only:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Build this target only when running automatic tests.")},
@@ -809,7 +895,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Do not use prefix:"),
+		{"NOTRANS",
+		N_("Do not use prefix:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 			N_("Do not rename the target with an optional prefix, used to avoid overwritting system program. ")},
@@ -817,7 +904,8 @@ static AmpProperty AmpScriptTargetProperties[] = {
 		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
-		{N_("Keep target path:"),
+		{"NOBASE",
+		N_("Keep target path:"),
 			ANJUTA_PROJECT_PROPERTY_BOOLEAN,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE, 
 			N_("Keep relative target path for installing it. "

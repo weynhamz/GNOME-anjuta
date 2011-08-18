@@ -46,6 +46,7 @@ typedef enum
 
 struct _AnjutaProjectProperty
 {
+	gchar *id;
 	gchar *name;
 	AnjutaProjectValueType type;
 	AnjutaProjectPropertyFlags flags;
@@ -56,7 +57,7 @@ struct _AnjutaProjectProperty
 
 GType anjuta_project_property_get_type (void);
 
-AnjutaProjectProperty *anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type, const gchar *value, AnjutaProjectProperty *native);
+AnjutaProjectProperty *anjuta_project_property_new (const gchar *id, const gchar *name, AnjutaProjectValueType type, const gchar *value, AnjutaProjectProperty *native);
 AnjutaProjectProperty * anjuta_project_property_copy (AnjutaProjectProperty *prop);
 void anjuta_project_property_free (AnjutaProjectProperty *prop);
 

@@ -66,6 +66,7 @@
 
 /**
  * anjuta_project_property_new:
+ * @id: (transfer none):
  * @name: (transfer none):
  * @value: (transfer none):
  * @native: (allow-none) (transfer none):
@@ -73,10 +74,11 @@
  * Returns: (transfer full):
  */
 AnjutaProjectProperty *
-anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
+anjuta_project_property_new (const gchar* id, const gchar *name, AnjutaProjectValueType type,
                              const gchar *value, AnjutaProjectProperty *native)
 {
 	AnjutaProjectProperty *prop = g_slice_new0(AnjutaProjectProperty);
+	prop->id = g_strdup (id);
 	prop->name = g_strdup (name);
 	prop->type = type;
 	prop->value = g_strdup (value);
@@ -93,7 +95,7 @@ anjuta_project_property_new (const gchar *name, AnjutaProjectValueType type,
 AnjutaProjectProperty *
 anjuta_project_property_copy (AnjutaProjectProperty *prop)
 {
-	return anjuta_project_property_new (prop->name, prop->type,
+	return anjuta_project_property_new (prop->id, prop->name, prop->type,
 	                                    prop->value, prop->native);
 }
 
