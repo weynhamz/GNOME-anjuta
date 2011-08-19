@@ -31,15 +31,13 @@ AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"language-support-vala\" \
 	--no-warn
 
-VALAFLAGS = --vapidir $(srcdir)
-
 # The plugin
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
 libanjuta_language_vala_la_SOURCES = locator.vala plugin.vala provider.vala report.vala
-libanjuta_language_vala_la_VALAFLAGS = --pkg $(LIBVALA) --pkg libanjuta-3.0
+libanjuta_language_vala_la_VALAFLAGS = --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
 
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

@@ -137,6 +137,9 @@ public class ValaPlugin : Plugin {
 			if (!(Anjuta.ProjectNodeType.SOURCE in node.get_node_type ()))
 				return;
 
+			if (node.get_file () == null)
+				return;
+
 			var path = node.get_file ().get_path ();
 			if (path == null)
 				return;
@@ -162,14 +165,57 @@ public class ValaPlugin : Plugin {
 			debug ("standard packages already added");
 		}
 
-		var packages = pm.get_packages();
+		string[] flags = {};
+		bool found = false;
+		foreach (unowned Anjuta.ProjectProperty prop in current_target.get_custom_properties ()) {
+			if (prop.native.id == "VALAFLAGS") {
+				GLib.Shell.parse_argv (prop.value, out flags);
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			/* Fall back to AM_VALAFLAGS */
+			var current_group = current_target.parent_type (Anjuta.ProjectNodeType.GROUP);
+			foreach (unowned Anjuta.ProjectProperty prop in current_group.get_custom_properties ()) {
+				if (prop.native.id == "VALAFLAGS") {
+					GLib.Shell.parse_argv (prop.value, out flags);
+					break;
+				}
+			}
+		}
+
+		string[] packages = {};
+		string[] vapidirs = {};
+
+		for (int i = 0; i < flags.length; i++) {
+			if (flags[i] == "--vapidir")
+				vapidirs += flags[++i];
+			else if (flags[i].has_prefix ("--vapidir="))
+				vapidirs += flags[i].substring ("--vapidir=".length);
+			else if (flags[i] == "--pkg")
+				packages += flags[++i];
+			else if (flags[i].has_prefix ("--pkg="))
+				packages += flags[i].substring ("--pkg=".length);
+			else
+				debug ("Unknown valac flag %s", flags[i]);
+		}
+
+		var srcdir = current_target.parent_type (Anjuta.ProjectNodeType.GROUP).get_file ().get_path ();
+		var top_srcdir = project.get_root ().get_file ().get_path ();
+		for (int i = 0; i < vapidirs.length; i++) {
+			vapidirs[i] = vapidirs[i].replace ("$(srcdir)", srcdir)
+			                         .replace ("$(top_srcdir)", top_srcdir);
+		}
+
+		context.vapi_directories = vapidirs;
 		foreach (var pkg in packages) {
 			if (context.has_package (pkg)) {
 				debug ("package %s skipped", pkg);
 			} else if (context.add_external_package(pkg)) {
 				debug ("package %s added", pkg);
 			} else {
-				/* TODO: try to look at VALAFLAGS */
 				debug ("package %s not found", pkg);
 			}
 		}
