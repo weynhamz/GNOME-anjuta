@@ -534,6 +534,7 @@ public class ValaPlugin : Plugin {
 			file.current_using_directives = new Vala.ArrayList<Vala.UsingDirective>();
 			var ns_ref = new Vala.UsingDirective (new Vala.UnresolvedSymbol (null, "GLib"));
 			file.add_using_directive (ns_ref);
+			context.root.add_using_directive (ns_ref);
 
 			report.clear_error_indicators (file);
 
