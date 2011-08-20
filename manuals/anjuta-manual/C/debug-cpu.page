@@ -29,7 +29,7 @@
     </steps>
 
     <p>Register which value has changed since the last stop are in red. It is
-    possible ton change the value of any register by clicking in the value
+    possible to change the value of any register by clicking in the value
     column and entering a new value.</p>	
 
   </section>
@@ -51,7 +51,7 @@
     <p>The addressing space of even a 32-bit microprocessor is very large
     (4 gigabytes), so it is very difficult to go to a particular address
     with the scrollbar. But you can click on the right mouse button and select
-    <gui>Goto address</gui> to get a small edit box where you can enter an
+    <gui>Go to address</gui> to get a small edit box where you can enter an
     address in hexadecimal.</p>
   </section>
 
