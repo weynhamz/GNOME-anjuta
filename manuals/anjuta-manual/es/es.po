@@ -1,19 +1,19 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-15 08:48+0000\n"
-"PO-Revision-Date: 2011-08-16 10:40+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-08-16 09:30+0000\n"
+"PO-Revision-Date: 2011-08-20 12:51+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -1837,6 +1837,11 @@ msgid ""
 "statement is executed and control is passed back, you can study your "
 "program's state."
 msgstr ""
+"El avance simple ejecuta solo una sentencia del programa (desde el lugar en "
+"el que se ha detenido) y devuelve el control. Si la sentencia ejecutada "
+"contiene una función, el depurador intenta avanzar dentro de las funciones "
+"(en la secuencia en la que se ejecutan). Una vez que la sentencia se ha "
+"ejecutado y se devuelve el control, puede estudiar el estado de su programa."
 
 #: C/debug-step.page:43(p)
 msgid ""
@@ -1998,6 +2003,10 @@ msgid ""
 "lists all functions and their arguments in the sequence they were called. "
 "Each stack frame is numbered starting from 0 for the current function."
 msgstr ""
+"Un marco de la pila es un área de la pila asociado a cada llamada de "
+"función. Lista todas las funciones y sus argumentos en la secuencia en la "
+"que se llamaron. Cada marco de la pila se numera comenzando por 0 para la "
+"función actual."
 
 #: C/debug-stack.page:29(p)
 msgid ""
@@ -2126,6 +2135,12 @@ msgid ""
 "not used. See <link xref=\"autotools-build-configure\"/> for more "
 "information."
 msgstr ""
+"Un programa puede ser más difícil de depurar si está muy optimizado o si "
+"falta información para su depuración. Esto se define en el paso de la "
+"configuración. Generalmente se define una configuración de depuración sin "
+"optimización y otra con toda la información de depuración. Anjuta muestra un "
+"aviso si no se está usando esta configuración. Para obtener más información "
+"consulte la <link xref=\"autotools-build-configure\"/>."
 
 #: C/debug-run.page:47(title)
 msgid "Debug an already running application"
@@ -2151,6 +2166,9 @@ msgid ""
 "<gui>Attach</gui> to start the debugger on this process. See <link xref="
 "\"debug-process-dialog\"/> for more details."
 msgstr ""
+"Seleccione un proceso en el diálogo <gui>acoplar al proceso</gui> y pulse "
+"<gui>Acoplar</gui> para comenzar la depuración de este proceso. Para obtener "
+"más detalles consulte la <link xref=\"debug-process-dialog\"/>."
 
 #: C/debug-run.page:66(title)
 msgid "Debug a remote application"
@@ -2280,6 +2298,12 @@ msgid ""
 "debugging step, its value will be highlighted in red. Variables are "
 "presented in a tree form for easy view."
 msgstr ""
+"Las variables locales del marco actual (la función actual en la uqe el "
+"control del programa está presente) se muestran en la ventana <gui>Locales</"
+"gui> Durante la ejecución del programa (ej. durante el avance simple) se "
+"actualizan las variables locales. Si el valor de una variable cambia en el "
+"último paso de depuración, su valor se resaltará en rojo. Las variables se "
+"presentan en forma de árbol para su mejor evaluación."
 
 #: C/debug-local.page:28(title)
 msgid "Listing local variables"
@@ -2560,6 +2584,10 @@ msgid ""
 "<gui>Breakpoint</gui> window. It is better to avoid using this command "
 "unless you know exactly what you are doing."
 msgstr ""
+"El comando se envía directamente al depurador sin realizar ninguna "
+"comprobación. Por ejemplo, si configura un punto de parada como este, no "
+"aparecerá en la ventana <gui>Punto de parada</gui>. Es mejor evitar usar "
+"este comando a no ser que sepa exactamente lo que está haciendo."
 
 #: C/debug-cpu.page:9(desc)
 msgid "Examine CPU informations."
@@ -2587,6 +2615,9 @@ msgid ""
 "possible ton change the value of any register by clicking in the value "
 "column and entering a new value."
 msgstr ""
+"Los registros cuyo valor ha cambiado desde la última parada están en rojo. "
+"Es posible cambiar el valor de cualquier registro pulsando en la columna de "
+"valor e introduciendo un valor nuevo."
 
 #: C/debug-cpu.page:38(title)
 msgid "View memory"
@@ -2618,6 +2649,11 @@ msgid ""
 "address</gui> to get a small edit box where you can enter an address in "
 "hexadecimal."
 msgstr ""
+"El espacio de direccionamiento, incluso de un microprocesador de 32-bit, es "
+"muy grande (4 gigabytes), de tal forma que es muy difícil ir a una dirección "
+"en particular con la barra de desplazamiento. Pero puede pulsar en el botón "
+"derecho del ratón y seleccionar <gui>Go to address</gui> para obtener una "
+"pequeña caja de texto donde puede introducir una dirección en hexadecimal."
 
 #: C/debug-cpu.page:60(title)
 msgid "View Disassembly"
@@ -2629,6 +2665,10 @@ msgid ""
 "you can have a label starting at the beginning of the line and ending with a "
 "colon or a assembly-language instruction indented by 4 space characters."
 msgstr ""
+"La primera columna muestra las direcciones en hexadecimal. En la segunda "
+"columna puede tener una etiqueta que comienza al principio de la línea y "
+"termina con dos puntos o con una instrucción en lenguaje de ensamblador, "
+"sangrada por 4 espacios."
 
 #: C/debug-cpu.page:75(p)
 msgid ""
@@ -2683,6 +2723,9 @@ msgid ""
 "breakpoint is set by the debugger, you can get additional information such "
 "as the function containing the breakpoint."
 msgstr ""
+"Esta es la posición del punto de parada en el archivo fuente. Cuando el "
+"punto de parada está configurado por el depurador puede obtener información "
+"adicional, tal como la función que contiene el punto de parada."
 
 #: C/debug-breakpoint.page:45(p)
 msgid ""
@@ -2730,6 +2773,10 @@ msgid ""
 "count is not zero, both numbers are displayed. The pass count is the second "
 "number."
 msgstr ""
+"Cuando el depurador está en ejecución, si el conteo de pasadas es cero, esta "
+"columna muestra el número de veces que se ha disparado este punto de parada. "
+"Se muestran ambos números si el conteo de pasadas no es cero. El conteo de "
+"pasadas es el segundo número."
 
 #: C/debug-breakpoint.page:68(title)
 msgid "State"
@@ -2745,7 +2792,7 @@ msgstr "Pendiente:"
 
 #: C/debug-breakpoint.page:71(p)
 msgid "the breakpoint is not set in your program."
-msgstr ""
+msgstr "el punto de parada no está establecido en su programa."
 
 #: C/debug-breakpoint.page:72(title)
 msgid "Permanent:"
@@ -2754,6 +2801,7 @@ msgstr "Permanente"
 #: C/debug-breakpoint.page:72(p)
 msgid "the breakpoint is set (its id number is given inside parenthesis)."
 msgstr ""
+"el punto de parada está establecido (su número de ID está entre paréntesis)."
 
 #: C/debug-breakpoint.page:73(title)
 msgid "Temporary:"
@@ -2762,6 +2810,7 @@ msgstr "Temporal:"
 #: C/debug-breakpoint.page:73(p)
 msgid "the breakpoint is set but will be deleted if reached."
 msgstr ""
+"el punto de parada está establecido pero se eliminará de llegarse a él."
 
 #: C/debug-breakpoint.page:79(p)
 msgid ""
@@ -2769,6 +2818,10 @@ msgid ""
 "non-existing locations by example in a source file of a shared library not "
 "loaded yet. In this case their states are set as pending."
 msgstr ""
+"Todos los puntos de parada se mantienen a lo largo de diferentes sesiones en "
+"Anjuta, incluso si corresponden con ubicaciones inexistentes tales como un "
+"archivo de fuentes de una biblioteca compartida que aún no está cargada. En "
+"este caso sus estados se marcan como pendientes."
 
 #: C/debug-breakpoint.page:86(title)
 msgid "Setting breakpoints"
@@ -2792,12 +2845,20 @@ msgid ""
 "breakpoint in the current line by default. See <link xref=\"debug-breakpoint-"
 "dialog\"/> for more information."
 msgstr ""
+"Rellene al menos la <gui>Ubicación</gui> que es la posición del punto de "
+"parada, si un archivo está actualmente abierto en el editor, la ubicación "
+"del punto de parada se rellena con la líne actual de forma predeterminada. "
+"Para obtener más información consulte la <link xref=\"debug-breakpoint-dialog"
+"\"/>."
 
 #: C/debug-breakpoint.page:103(p)
 msgid ""
 "Another solution is to use the toggle breakpoint function. If there is no "
 "breakpoint on the current line, it will add one. Else it will remove it."
 msgstr ""
+"Otra solución es usar la función de conmutación de punto de parada. Si no "
+"existe un punto de parada en la línea actual, añadirá uno. En caso contrario "
+"lo quitará."
 
 #: C/debug-breakpoint.page:109(p)
 msgid ""
@@ -2874,6 +2935,10 @@ msgid ""
 "right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
 "Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
 msgstr ""
+"Pulse enla columna <gui>Activar</gui> en la ventana de <gui>Punto de parada</"
+"gui> o pulse con el botón derecho del ratón en la ventana de <gui>Punto de "
+"parada</gui> y seleccione <gui>Activar punto de parada</gui> o "
+"<gui>Desactivar punto de parada</gui>."
 
 #: C/debug-breakpoint.page:180(p)
 msgid "You can disable all breakpoints using:"
@@ -2925,6 +2990,10 @@ msgid ""
 "execution, the break condition will be evaluated. The debugger will break "
 "the execution only if the evaluation result is the TRUE value."
 msgstr ""
+"Es una expresión que debería evaluar un valor booleano TRUE(1) o FALSE(0). "
+"Cada vez que se encuentra el punto de parada durante la ejecución de su "
+"programa, se evalua también la condición de parada. El depurador detendrá la "
+"ejecución sólo si el resultado de la evaluación es cierto («TRUE»)."
 
 #: C/debug-breakpoint-dialog.page:40(p)
 msgid ""
@@ -2942,6 +3011,10 @@ msgid ""
 "priority than the condition. Only when the count reaches zero will the "
 "debugger evaluate the condition if it is present."
 msgstr ""
+"Este es un valor entero (sin signo) que le dice al depurador que omita el "
+"punto de parada ese número de veces antes de considerarlo. Tiene una "
+"prioridad mayor que la condición. Sólo cuando el contador llega a cero, el "
+"depurador evaluará la condición, de estar presente."
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
 #: C/anjuta-code-symbols.page:10(name) C/anjuta-code-indentation.page:10(name)
