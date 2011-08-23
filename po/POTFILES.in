@@ -2,18 +2,24 @@
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
+libanjuta/anjuta-cell-renderer-captioned-image.c
 libanjuta/anjuta-c-module.c
-libanjuta/anjuta-c-plugin-factory.c
+libanjuta/anjuta-column-text-view.c
 libanjuta/anjuta-convert.c
+libanjuta/anjuta-c-plugin-factory.c
 libanjuta/anjuta-encodings.c
+libanjuta/anjuta-entry.c
+libanjuta/anjuta-environment-editor.c
+libanjuta/anjuta-file-drop-entry.c
+libanjuta/anjuta-file-list.c
 libanjuta/anjuta-launcher.c
 libanjuta/anjuta-plugin.c
 libanjuta/anjuta-plugin-description.c
 libanjuta/anjuta-plugin-handle.c
 libanjuta/anjuta-plugin-manager.c
-libanjuta/anjuta-profile.c
 libanjuta/anjuta-preferences.c
 libanjuta/anjuta-preferences-dialog.c
+libanjuta/anjuta-profile.c
 libanjuta/anjuta-save-prompt.c
 libanjuta/anjuta-serializer.c
 libanjuta/anjuta-session.c
@@ -22,14 +28,8 @@ libanjuta/anjuta-status.c
 libanjuta/anjuta-ui.c
 libanjuta/anjuta-utils.c
 libanjuta/anjuta-vcs-status-tree-view.c
-libanjuta/anjuta-column-text-view.c
-libanjuta/anjuta-entry.c
-libanjuta/anjuta-file-drop-entry.c
-libanjuta/anjuta-file-list.c
-libanjuta/anjuta-cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
-libanjuta/anjuta-environment-editor.c 
 plugins/am-project/amp-group.c
 plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
