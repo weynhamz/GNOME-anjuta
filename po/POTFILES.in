@@ -29,6 +29,7 @@ libanjuta/anjuta-file-list.c
 libanjuta/anjuta-cell-renderer-captioned-image.c
 libanjuta/e-splash.c
 libanjuta/resources.c
+libanjuta/anjuta-environment-editor.c 
 plugins/am-project/amp-group.c
 plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
