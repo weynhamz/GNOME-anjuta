@@ -377,7 +377,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		g_free (uri);
 
 		mod_var = anjuta_environment_editor_get_modified_variables (ANJUTA_ENVIRONMENT_EDITOR (dlg.env_editor));
-		if (mod_var != NULL)
+		if ((mod_var != NULL) && (*mod_var != NULL))
 		{
 			gchar **var;
 			/* Invert list */
@@ -388,8 +388,8 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 				build_configuration_set_variable (cfg, *var);
 			}
 			while (var != mod_var);
-			g_strfreev (mod_var);
 		}
+		g_strfreev (mod_var);
 	}
 	gtk_widget_destroy (GTK_WIDGET(dlg.win));
 
