@@ -12,6 +12,10 @@
       <name>Sébastien Granjoux</name>
       <email>seb.sfo@free.fr</email>
     </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
   </info>
 
   <title>Makefile project backend plugin</title>
