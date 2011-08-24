@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-20 10:53+0000\n"
-"PO-Revision-Date: 2011-08-20 12:56+0200\n"
+"POT-Creation-Date: 2011-08-24 19:26+0000\n"
+"PO-Revision-Date: 2011-08-24 21:38+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,11 +79,45 @@ msgstr "Ventanas y diálogos"
 msgid "Project wizard template."
 msgstr "Plantilla del asistente de proyectos."
 
-#: C/project-wizard-template.page:18(title)
+#: C/project-wizard-template.page:17(name)
+#: C/project-wizard-create.page:18(name) C/project-manager.page:15(name)
+#: C/project-manager-module.page:19(name)
+#: C/project-manager-library.page:16(name)
+#: C/project-manager-file.page:19(name)
+#: C/directory-project-backend.page:16(name)
+#: C/autotools-build-build.page:19(name) C/run-run.page:19(name)
+#: C/debug-watch.page:17(name) C/debug-tips.page:17(name)
+#: C/debug-thread.page:17(name) C/debug-step.page:17(name)
+#: C/debug-stack.page:17(name) C/debug-run.page:19(name)
+#: C/debug-process-dialog.page:17(name) C/debug-local.page:17(name)
+#: C/debug-information.page:17(name) C/debug-expression.page:17(name)
+#: C/debug-custom.page:17(name) C/debug-cpu.page:17(name)
+#: C/debug-breakpoint.page:17(name) C/debug-breakpoint-dialog.page:18(name)
+msgid "Philip Chimento"
+msgstr "Philip Chimento"
+
+#: C/project-wizard-template.page:18(email)
+#: C/project-wizard-create.page:19(email) C/project-manager.page:16(email)
+#: C/project-manager-module.page:20(email)
+#: C/project-manager-library.page:17(email)
+#: C/project-manager-file.page:20(email)
+#: C/directory-project-backend.page:17(email)
+#: C/autotools-build-build.page:20(email) C/run-run.page:20(email)
+#: C/debug-watch.page:18(email) C/debug-tips.page:18(email)
+#: C/debug-thread.page:18(email) C/debug-step.page:18(email)
+#: C/debug-stack.page:18(email) C/debug-run.page:20(email)
+#: C/debug-process-dialog.page:18(email) C/debug-local.page:18(email)
+#: C/debug-information.page:18(email) C/debug-expression.page:18(email)
+#: C/debug-custom.page:18(email) C/debug-cpu.page:18(email)
+#: C/debug-breakpoint.page:18(email) C/debug-breakpoint-dialog.page:19(email)
+msgid "philip.chimento@gmail.com"
+msgstr "philip.chimento@gmail.com"
+
+#: C/project-wizard-template.page:22(title)
 msgid "Project wizard template"
 msgstr "Plantilla del asistente de proyectos"
 
-#: C/project-wizard-template.page:20(p)
+#: C/project-wizard-template.page:24(p)
 msgid ""
 "A project template is composed of a bunch of files which can be processed by "
 "a powerful template processing engine called <app>autogen</app>. A project "
@@ -96,7 +130,7 @@ msgstr ""
 "tiene una extensión <file>.wiz</file> y describe toda las propiedades de un "
 "proyecto y los archivos necesarios."
 
-#: C/project-wizard-template.page:27(p)
+#: C/project-wizard-template.page:31(p)
 msgid ""
 "This <file>.wiz</file> file looks like a XML file and is documented <link "
 "href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
@@ -110,11 +144,11 @@ msgstr ""
 msgid "Create a new project from scratch."
 msgstr "Crear un proyecto nuevo desde el principio."
 
-#: C/project-wizard-create.page:19(title)
+#: C/project-wizard-create.page:23(title)
 msgid "Create a project"
 msgstr "Crear un proyecto"
 
-#: C/project-wizard-create.page:21(p)
+#: C/project-wizard-create.page:25(p)
 msgid ""
 "New projects are created from templates. <app>Anjuta</app> will ask you for "
 "various information, like the type of the project, its name and more."
@@ -122,7 +156,7 @@ msgstr ""
 "Los proyectos nuevos se crean desde las plantillas. <app>Anjuta</app> le "
 "pedirá diversa información, como el tipo de proyecto, su nombre y más."
 
-#: C/project-wizard-create.page:28(p)
+#: C/project-wizard-create.page:32(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
 "gui><gui>Project</gui></guiseq>."
@@ -130,7 +164,7 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Archivo</"
 "gui><gui>Nuevo</gui><gui>Proyecto</gui></guiseq>."
 
-#: C/project-wizard-create.page:32(p)
+#: C/project-wizard-create.page:36(p)
 msgid ""
 "Or from the drop-down list of the <gui>New</gui> button in the <gui>top tool "
 "bar</gui>, select <gui>Project</gui> to start the project wizard."
@@ -139,7 +173,7 @@ msgstr ""
 "herramientas superior</gui>, seleccione <gui>Proyecto</gui> para iniciar el "
 "asistente del proyecto."
 
-#: C/project-wizard-create.page:40(p)
+#: C/project-wizard-create.page:44(p)
 msgid ""
 "Select the icon representing the type of the project you want to create and "
 "click on <gui>Forward</gui>."
@@ -147,7 +181,7 @@ msgstr ""
 "Seleccione el icono que representa el tipo del proyecto que quiere crear y "
 "pulse <gui>Siguiente</gui>."
 
-#: C/project-wizard-create.page:45(p)
+#: C/project-wizard-create.page:49(p)
 msgid ""
 "Leave the mouse over a project icon for a second and a small pop-up message "
 "will appear showing more information about this type of project."
@@ -155,7 +189,7 @@ msgstr ""
 "Sitúe el ratón sobre un icono de proyecto un segundo y aparecerá un pequeño "
 "mensaje automático mostrando más información acerca de ese tipo del proyecto."
 
-#: C/project-wizard-create.page:53(p)
+#: C/project-wizard-create.page:57(p)
 msgid ""
 "Depending on the selected project type, you will have to enter different "
 "information. When you are done, click on <gui>Forward</gui>."
@@ -163,7 +197,7 @@ msgstr ""
 "Dependiendo del tipo del proyecto seleccionado, tendrá que introducir "
 "diferente información. Cuando lo haya hecho, pulse <gui>Siguiente</gui>."
 
-#: C/project-wizard-create.page:57(p)
+#: C/project-wizard-create.page:61(p)
 msgid ""
 "All informations are grouped in pages, typically you will have to fill two "
 "or three pages. You can go back at any time using the button <gui>Back</gui>."
@@ -172,7 +206,7 @@ msgstr ""
 "dos o tres páginas. Puede volver atrás en cualquier momento usando el botón "
 "<gui>Atrás</gui>."
 
-#: C/project-wizard-create.page:63(p)
+#: C/project-wizard-create.page:67(p)
 msgid ""
 "Keep the mouse over the button or typing area for a second to get a small "
 "pop-up message with more details about the corresponding setting."
@@ -181,7 +215,7 @@ msgstr ""
 "para obtener un pequeño mensaje automático con más detalles acerca del "
 "correspondiente ajuste."
 
-#: C/project-wizard-create.page:71(p)
+#: C/project-wizard-create.page:75(p)
 msgid ""
 "After filling out all the information pages, you will get a summary page "
 "listing the main information about your project. Nothing has been written to "
@@ -193,7 +227,7 @@ msgstr ""
 "punto, aún no se ha escrito nada en el disco. Pulse <gui>Aplicar</gui> para "
 "guardar el proyecto en <app>Anjuta</app>."
 
-#: C/project-wizard-create.page:81(p)
+#: C/project-wizard-create.page:85(p)
 msgid ""
 "Each project type corresponds to a template. <app>Anjuta</app> already "
 "includes several templates but you can add custom ones and even write your "
@@ -208,11 +242,11 @@ msgstr ""
 msgid "Project manager."
 msgstr "Gestor de proyectos."
 
-#: C/project-manager.page:16(title)
+#: C/project-manager.page:20(title)
 msgid "Project manager plugin"
 msgstr "Complemento del gestor de proyectos"
 
-#: C/project-manager.page:18(p)
+#: C/project-manager.page:22(p)
 msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
@@ -221,7 +255,7 @@ msgstr ""
 "través de complementos de «backends». El principal es el formato «autotools» "
 "ampliamente usado en GNU/Linux."
 
-#: C/project-manager.page:24(p)
+#: C/project-manager.page:28(p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but "
 "some functions might be disabled."
@@ -230,7 +264,7 @@ msgstr ""
 "pero algunas funciones pueden estar desactivadas."
 
 # Backend =?
-#: C/project-manager.page:30(title)
+#: C/project-manager.page:34(title)
 msgid "Project Backend Plugin"
 msgstr "Complemento de «backend» del proyecto"
 
@@ -239,11 +273,11 @@ msgid "Add or remove libraries from a project."
 msgstr "Añadir o quitar bibliotecas de un proyecto."
 
 # library=biblioteca, [inform]librería,
-#: C/project-manager-module.page:20(title)
+#: C/project-manager-module.page:24(title)
 msgid "Add or remove new libraries"
 msgstr "Añadir o quitar bibliotecas nuevas"
 
-#: C/project-manager-module.page:22(p)
+#: C/project-manager-module.page:26(p)
 msgid ""
 "On Linux, most libraries are packaged to be easily used. When you need one "
 "of these libraries, <app>Anjuta</app> provides an easy interface to add it. "
@@ -256,11 +290,11 @@ msgstr ""
 "necesita no es una de ellas, compruebe la página <app>Añadir bibliotecas no "
 "empaquetadas</app>."
 
-#: C/project-manager-module.page:31(title)
+#: C/project-manager-module.page:35(title)
 msgid "Add packaged libraries in a new module"
 msgstr "Añadir bibliotecas empaquetadas en un módulo nuevo"
 
-#: C/project-manager-module.page:33(p)
+#: C/project-manager-module.page:37(p)
 msgid ""
 "A library cannot be added directly to your program; you first need to create "
 "a module for it, which is just a group of libraries."
@@ -268,7 +302,7 @@ msgstr ""
 "No se puede añadir directamente una biblioteca a su programa; primero debe "
 "crear un módulo para ella, que es simplemente un grupo de bibliotecas."
 
-#: C/project-manager-module.page:40(p)
+#: C/project-manager-module.page:44(p)
 msgid ""
 "Select the program where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
@@ -281,7 +315,7 @@ msgstr ""
 "biblioteca</gui>. Después, pulse el botón <gui>Biblioteca nueva</gui> en "
 "este diálogo."
 
-#: C/project-manager-module.page:47(p) C/project-manager-module.page:96(p)
+#: C/project-manager-module.page:51(p) C/project-manager-module.page:100(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
 "Library...</gui></guiseq>"
@@ -289,7 +323,7 @@ msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Projecto</"
 "gui><gui>Biblioteca nueva...</gui></guiseq>"
 
-#: C/project-manager-module.page:53(p)
+#: C/project-manager-module.page:57(p)
 msgid ""
 "You will get a list of all the packaged libraries installed on your system. "
 "You can check one or more libraries."
@@ -297,7 +331,7 @@ msgstr ""
 "Obtendrá una lista de todas las bibliotecas empaquetadas instaladas en su "
 "sistema. Puede marcar una o más bibliotecas."
 
-#: C/project-manager-module.page:58(p)
+#: C/project-manager-module.page:62(p)
 msgid ""
 "If the library you want does not appear here, perhaps it is because it is "
 "not installed on your system. Launch the application you use to install new "
@@ -311,7 +345,7 @@ msgstr ""
 "necesita tiene un sufijo «dev» o «devel» y debe incluir los archivos de "
 "cabecera y un archivo pkg-config con una extensión <file>.pc</file>."
 
-#: C/project-manager-module.page:68(p)
+#: C/project-manager-module.page:72(p)
 msgid ""
 "After selecting one library, a module name will be automatically generated "
 "but you can change it. When you are done, click on the <gui>Add</gui> button "
@@ -322,7 +356,7 @@ msgstr ""
 "<gui>Añadir</gui> para crear el módulo nuevo con las bibliotecas "
 "seleccionadas."
 
-#: C/project-manager-module.page:76(p)
+#: C/project-manager-module.page:80(p)
 msgid ""
 "Read the <link xref=\"project-manager-package\">next page</link> to find out "
 "how to add this new module to your target."
@@ -330,11 +364,11 @@ msgstr ""
 "Para saber cómo añadir este nuevo módulo a su objetivo, consulte la <link "
 "xref=\"project-manager-package\">siguiente página</link>."
 
-#: C/project-manager-module.page:86(title)
+#: C/project-manager-module.page:90(title)
 msgid "Add packaged libraries in an existing module"
 msgstr "Añadir bibliotecas empaquetadas a un módulo exitente"
 
-#: C/project-manager-module.page:90(p)
+#: C/project-manager-module.page:94(p)
 msgid ""
 "Select the module where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
@@ -345,7 +379,7 @@ msgstr ""
 "el <gui>menú contextual del proyecto</gui> y seleccione <gui>Biblioteca "
 "nueva</gui>."
 
-#: C/project-manager-module.page:102(p)
+#: C/project-manager-module.page:106(p)
 msgid ""
 "In the list of all packaged libraries, check the additional libraries "
 "wanted. Check that expected module name is selected in the bottom text box. "
@@ -356,7 +390,7 @@ msgstr ""
 "esperado está seleccionado en la caja de verificación. Después, pulse el "
 "botón <gui>Añadir</gui> para actualizar el módulo."
 
-#: C/project-manager-module.page:110(p)
+#: C/project-manager-module.page:114(p)
 msgid ""
 "Read the <link xref=\"project-manager-package\">next page</link> to find out "
 "how to add the module to your target."
@@ -364,11 +398,11 @@ msgstr ""
 "Para saber cómo añadir el módulo a su objetivo, consulte la <link xref="
 "\"project-manager-package\">siguiente página</link>."
 
-#: C/project-manager-module.page:120(title)
+#: C/project-manager-module.page:124(title)
 msgid "Remove a packaged library from a module"
 msgstr "Quitar una biblioteca empaquetada de un módulo"
 
-#: C/project-manager-module.page:124(p)
+#: C/project-manager-module.page:128(p)
 msgid ""
 "Select the library you want to remove in the <gui>project view</gui> , click "
 "on the right mouse button to make the <gui>project context menu</gui> appear "
@@ -378,7 +412,7 @@ msgstr ""
 "gui>, pulse en el botón derecho del ratón para mostrar el <gui>menú "
 "contextual del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
-#: C/project-manager-module.page:132(p)
+#: C/project-manager-module.page:136(p)
 msgid ""
 "Confirm the removal. This library will be removed from the project file."
 msgstr ""
@@ -389,15 +423,15 @@ msgstr ""
 msgid "Add or remove non-packaged libraries from a project."
 msgstr "Añadir o quitar bibliotecas no empaquetada en un proyecto."
 
-#: C/project-manager-library.page:17(title)
+#: C/project-manager-library.page:21(title)
 msgid "Add or remove non-packaged libraries"
 msgstr "Añadir o quitar bibliotecas no empaquetadas"
 
-#: C/project-manager-library.page:20(title)
+#: C/project-manager-library.page:24(title)
 msgid "Add a non-packaged library to a target"
 msgstr "Añadir una biblioteca no empaquetada a un objetivo"
 
-#: C/project-manager-library.page:22(p)
+#: C/project-manager-library.page:26(p)
 msgid ""
 "In order to use a library in C, you need to tell the compiler where the "
 "header files are, and tell the linker where to find the needed libraries. "
@@ -409,7 +443,7 @@ msgstr ""
 "bibliotecas necesarias. El problema es que su programa puede que no compile "
 "en otro equipo si las cabeceras y las bibliotecas están en otra ubicación."
 
-#: C/project-manager-library.page:31(p)
+#: C/project-manager-library.page:35(p)
 msgid ""
 "Select the directory containing the program where you want to add the "
 "library in the <gui>project view</gui>, click on the right mouse button to "
@@ -421,7 +455,7 @@ msgstr ""
 "ratón para mostrar el <gui>menú contextual del proyecto</gui> y selecione "
 "<gui>Propiedades</gui>."
 
-#: C/project-manager-library.page:37(p) C/project-manager-library.page:68(p)
+#: C/project-manager-library.page:41(p) C/project-manager-library.page:72(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 "gui><gui>Properties</gui></guiseq>. By default, it edits the properties of "
@@ -434,7 +468,7 @@ msgstr ""
 "Puede seleccionar un nodo diferente, expandiendo <gui>Examinar otros nodos</"
 "gui> y seleciónando otro."
 
-#: C/project-manager-library.page:46(p)
+#: C/project-manager-library.page:50(p)
 msgid ""
 "If the header files are installed in a standard location (<file>/usr/"
 "include</file>) you don't have to set this. If not, you need to add <input>-"
@@ -450,7 +484,7 @@ msgstr ""
 "compilador. Puede añadir varias rutas, separadas con espacios, para todos "
 "estos objetivos dentro de esta carpeta."
 
-#: C/project-manager-library.page:55(p)
+#: C/project-manager-library.page:59(p)
 msgid ""
 "You might have to expand the <gui>More options</gui> button to see this. "
 "Click on the <gui>Apply</gui> button when you are done."
@@ -458,7 +492,7 @@ msgstr ""
 "Puede tener que expandir el botón <gui>Más opciones</gui> para verlo. Pulse "
 "el botón <gui>Aplicar</gui> cuando haya terminado."
 
-#: C/project-manager-library.page:61(p)
+#: C/project-manager-library.page:65(p)
 msgid ""
 "Next, you need to add the library to a target. Select the target where you "
 "want to add the library in the <gui>project view</gui>, click on the right "
@@ -470,7 +504,7 @@ msgstr ""
 "el botón derecho del ratón para mostrar el <gui>menú contextual del "
 "proyecto</gui> y seleccione <gui>Propiedades</gui>. "
 
-#: C/project-manager-library.page:77(p)
+#: C/project-manager-library.page:81(p)
 msgid ""
 "You need to set the <gui>Linker flags</gui> property, adding <input>-"
 "l<var>library_name</var></input> if your compiler is <app>gcc</app>. "
@@ -484,7 +518,7 @@ msgstr ""
 "prefijo <file>lib</file> y sin la extensión <file>.a</file> o <file>.so</"
 "file>."
 
-#: C/project-manager-library.page:84(p)
+#: C/project-manager-library.page:88(p)
 msgid ""
 "If the library is in not in a standard directory, <app>gcc</app> can look in "
 "additional directories with the option <input>-L<var>library_path</var></"
@@ -494,11 +528,11 @@ msgstr ""
 "buscar en carpetas adicionales usando la opción <input>-L<var>library_path</"
 "var></input>."
 
-#: C/project-manager-library.page:94(title)
+#: C/project-manager-library.page:98(title)
 msgid "Remove a non packaged library from a target"
 msgstr "Quitar un biblioteca no empaquetada desde un objetivo"
 
-#: C/project-manager-library.page:98(p)
+#: C/project-manager-library.page:102(p)
 msgid ""
 "Select the target that has the library you want to remove in the "
 "<gui>project view</gui>, click on the right mouse button to make the "
@@ -509,7 +543,7 @@ msgstr ""
 "mostrar el <gui>menú contextual del proyecto</gui> y seleccione "
 "<gui>Propiedades</gui>."
 
-#: C/project-manager-library.page:106(p)
+#: C/project-manager-library.page:110(p)
 msgid ""
 "Remove the library from the <gui>C preprocessor flags</gui> and <gui>Linker "
 "flags</gui> properties. Click on the <gui>Apply</gui> button to write the "
@@ -524,11 +558,11 @@ msgstr ""
 msgid "Add or remove files from a project."
 msgstr "Añadir o quitar archivos de un proyecto."
 
-#: C/project-manager-file.page:20(title)
+#: C/project-manager-file.page:24(title)
 msgid "Add or remove files"
 msgstr "Añadir o quitar archivos"
 
-#: C/project-manager-file.page:22(p)
+#: C/project-manager-file.page:26(p)
 msgid ""
 "If the project backend supports it, you can add or remove files in your "
 "project without editing the project file."
@@ -536,11 +570,11 @@ msgstr ""
 "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos en "
 "sus proyectos sin editar el archivo del proyecto."
 
-#: C/project-manager-file.page:28(title)
+#: C/project-manager-file.page:32(title)
 msgid "Add files"
 msgstr "Añadir archivos"
 
-#: C/project-manager-file.page:32(p)
+#: C/project-manager-file.page:36(p)
 msgid ""
 "Select the target where you want to add the new source file in the "
 "<gui>project view</gui>, click on the right mouse button to make the "
@@ -551,7 +585,7 @@ msgstr ""
 "mostrar el <gui>menú contextual del proyecto</gui> y selecione <gui>Añadir "
 "fuente</gui>."
 
-#: C/project-manager-file.page:38(p)
+#: C/project-manager-file.page:42(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Source File</gui></guiseq>"
@@ -559,7 +593,7 @@ msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Proyecto</"
 "gui><gui>Añadir fuente</gui></guiseq>"
 
-#: C/project-manager-file.page:44(p)
+#: C/project-manager-file.page:48(p)
 msgid ""
 "The target allows you to group files, and has a type which defines how the "
 "files are used inside. A program target contains source files, which will be "
@@ -571,13 +605,13 @@ msgstr ""
 "que se compilará para crear el objetivo. Por otra parte, un dato de objetivo "
 "sólo agrupa archivos de datos que se instalarán en el mismo lugar."
 
-#: C/project-manager-file.page:54(p)
+#: C/project-manager-file.page:58(p)
 msgid "You can select another target in the top <gui>target tree view</gui>."
 msgstr ""
 "Puede seleccionar otro objetivo en la parte superior de la <gui>vista de "
 "árbol objetivos</gui>."
 
-#: C/project-manager-file.page:57(p)
+#: C/project-manager-file.page:61(p)
 msgid ""
 "Click on the <gui>Select file to add</gui> button to get a file chooser "
 "dialog where you can select several files."
@@ -586,7 +620,7 @@ msgstr ""
 "obtener un diálogo de selección de archivos donde puede seleccionar varios "
 "archivos."
 
-#: C/project-manager-file.page:63(p)
+#: C/project-manager-file.page:67(p)
 msgid ""
 "When you have chosen the target and the files, click on the <gui>Add</gui> "
 "button to add those files to your project."
@@ -594,7 +628,7 @@ msgstr ""
 "Cuando haya elejido el objetivo y los archivos, pulse en el botón "
 "<gui>Añadir</gui> para añadir esos archivos a su proyecto."
 
-#: C/project-manager-file.page:71(p)
+#: C/project-manager-file.page:75(p)
 msgid ""
 "Some project formats require the file to be under the project directory. "
 "Added source files outside the project directory are automatically copied "
@@ -604,11 +638,11 @@ msgstr ""
 "del proyecto. Los archivos fuente añadidos fuera de la carpeta del proyecto "
 "se copian automáticamente dentro para cumplir con este requerimiento."
 
-#: C/project-manager-file.page:80(title)
+#: C/project-manager-file.page:84(title)
 msgid "Remove a file"
 msgstr "Quitar un archivo"
 
-#: C/project-manager-file.page:84(p)
+#: C/project-manager-file.page:88(p)
 msgid ""
 "Select the file you want to remove in the <gui>project view</gui>, click on "
 "the right mouse button to make the <gui>project context menu</gui> appear "
@@ -618,7 +652,7 @@ msgstr ""
 "pulse el botón derecho del ratón para mostrar el <gui>menú contextual del "
 "proyecto</gui> y seleccione <gui>Quitar</gui>."
 
-#: C/project-manager-file.page:92(p)
+#: C/project-manager-file.page:96(p)
 msgid ""
 "Confirm the removal. The file will only be removed from the project, not "
 "from your disk."
@@ -630,11 +664,11 @@ msgstr ""
 msgid "Directory project backend."
 msgstr "«Backend» de la carpeta del proyecto"
 
-#: C/directory-project-backend.page:17(title)
+#: C/directory-project-backend.page:21(title)
 msgid "Directory project backend plugin"
 msgstr "Complemento de la carpeta de proyecto del «backend»"
 
-#: C/directory-project-backend.page:19(p)
+#: C/directory-project-backend.page:23(p)
 msgid ""
 "This is the simplest project backend. There is no project file. It works "
 "like a file viewer, considering all files matching typical source extensions "
@@ -647,7 +681,7 @@ msgstr ""
 "ejemplo <file>.c</file>, <file>.py</file>). Las carpetas se mantienen en "
 "orden para agrupar los archivos fuente, pero no hay un objetivo."
 
-#: C/directory-project-backend.page:28(p)
+#: C/directory-project-backend.page:32(p)
 msgid ""
 "This backend is a useful workaround if your project does not have a "
 "corresponding backend in <app>Anjuta</app> or if the appropriate backend "
@@ -657,7 +691,7 @@ msgstr ""
 "correspindiente en <app>Anjuta</app>, o si el «backend» apropiado no soporta "
 "completamente su proyecto."
 
-#: C/directory-project-backend.page:34(p)
+#: C/directory-project-backend.page:38(p)
 msgid ""
 "It is not possible to add or change anything with a project using this "
 "backend. But if you create a source file in the project directory, with the "
@@ -898,7 +932,7 @@ msgstr ""
 "del proyecto."
 
 #: C/autotools-build-install.page:50(p) C/autotools-build-clean.page:45(p)
-#: C/autotools-build-build.page:53(p)
+#: C/autotools-build-build.page:57(p)
 msgid "From the <gui>file manager pane</gui>, select a file or a directory."
 msgstr ""
 "Desde el <gui>panel del gestor de archivos</gui>, seleccione un archivo o "
@@ -918,7 +952,7 @@ msgstr ""
 "actualmente seleccionado."
 
 #: C/autotools-build-install.page:65(p) C/autotools-build-clean.page:60(p)
-#: C/autotools-build-build.page:68(p)
+#: C/autotools-build-build.page:72(p)
 msgid ""
 "From the <gui>project manager pane</gui>, select a source file or a target."
 msgstr ""
@@ -1211,25 +1245,39 @@ msgstr ""
 msgid "Build targets or project."
 msgstr "Construir objetivos o proyecto."
 
-#: C/autotools-build-build.page:20(title)
+#: C/autotools-build-build.page:24(title)
 msgid "Build targets"
 msgstr "Construir objetivos"
 
-#: C/autotools-build-build.page:21(p)
+#: C/autotools-build-build.page:25(p)
+#, fuzzy
+#| msgid ""
+#| "A target is a file created from source files, typically it is a program "
+#| "or a library, but it could be a documentation if some processing is "
+#| "needed."
 msgid ""
-"A target is a file created from source files, typically it is a program or a "
-"library, but it could be a documentation if some processing is needed."
+"A target is a file created from source files. Typically, it is a program or "
+"a library, but it could also be documentation if the documentation needs "
+"processing, for example."
 msgstr ""
 "Un objetivo es un archivo creado desde archivos de fuentes. Generalmente es "
 "un programa o una biblioteca, pero puede ser una documentación si se "
 "necesita algún procesado."
 
-#: C/autotools-build-build.page:26(p)
+#: C/autotools-build-build.page:30(p)
+#, fuzzy
+#| msgid ""
+#| "The build command compile all needed sources files and link them with "
+#| "possibly some other files, like libraries, in order to create the target. "
+#| "If some source files are already compiled and haven't been modified, they "
+#| "are not be recompiled to gain time. There are several ways to trigger a "
+#| "build."
 msgid ""
-"The build command compile all needed sources files and link them with "
-"possibly some other files, like libraries, in order to create the target. If "
+"The build command compiles all needed source files, and possibly links them "
+"with some other files, like libraries, in order to create the target. If "
 "some source files are already compiled and haven't been modified, they are "
-"not be recompiled to gain time. There are several ways to trigger a build."
+"not be recompiled, in order to save time. There are several ways to trigger "
+"a build."
 msgstr ""
 "El comando de construcción compila todas las fuentes necesarias y las enlaza "
 "con otros posibles archivos, como bibliotecas, para crear el objetivo. Si "
@@ -1237,22 +1285,33 @@ msgstr ""
 "vuelve a compilar para ahorrar tiempo. Hay varias maneras de lanzar una "
 "construcción."
 
-#: C/autotools-build-build.page:35(p)
+#: C/autotools-build-build.page:39(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
+#| "gui></guiseq> or press <key>F7</key> to build all target in the same "
+#| "directory than the current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
-"gui></guiseq> or press <key>F7</key> to build all target in the same "
-"directory than the current edited file."
+"gui></guiseq> or press <key>F7</key> to build all targets in the same "
+"directory as the currently opened file."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
 "gui><gui>Construir</gui></guiseq> o pulse <key>F7</key> para construir todos "
 "los objetivos en la misma carpeta que la del fichero actual editado."
 
 # Traducir "built" como "compilar"
-#: C/autotools-build-build.page:44(p)
+#: C/autotools-build-build.page:48(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
+#| "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
+#| "keyseq> to build the complete project, all subdirectories are built "
+#| "recursively."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
 "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
-"keyseq> to build the complete project, all subdirectories are built "
+"keyseq> to build the complete project. All subdirectories are built "
 "recursively."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
@@ -1260,10 +1319,16 @@ msgstr ""
 "key><key>F7</key></keyseq> para construir el proyecto completo; se compilan "
 "recursivamente todas las subcarpetas."
 
-#: C/autotools-build-build.page:58(p)
+#: C/autotools-build-build.page:62(p)
+#, fuzzy
+#| msgid ""
+#| "Click on the right mouse button to make the <gui>file manager context "
+#| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
+#| "guiseq> to build all targets in the directory currently selected or the "
+#| "parent directory of the currently selected file."
 msgid ""
 "Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
+"gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
 "build all targets in the directory currently selected or the parent "
 "directory of the currently selected file."
 msgstr ""
@@ -1273,10 +1338,16 @@ msgstr ""
 "carpeta seleccionada actualmente o en la carpeta padre del archivo "
 "seleccionado actualmente."
 
-#: C/autotools-build-build.page:73(p)
+#: C/autotools-build-build.page:77(p)
+#, fuzzy
+#| msgid ""
+#| "Click on the right mouse button to make the <gui>project manager context "
+#| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
+#| "guiseq> to build all targets in the directory containing the currently "
+#| "selected file or target."
 msgid ""
 "Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
+"menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
 "guiseq> to build all targets in the directory containing the currently "
 "selected file or target."
 msgstr ""
@@ -1317,7 +1388,7 @@ msgstr ""
 "el proyecto actual, pero puede pulsar el botón <gui>Examinar</gui> para "
 "elegir otro programa."
 
-#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:69(title)
+#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
 msgid "Arguments"
 msgstr "Argumentos"
 
@@ -1403,19 +1474,23 @@ msgstr ""
 msgid "Start a program without the debugger."
 msgstr "Iniciar un programa sin el depurador."
 
-#: C/run-run.page:20(title)
+#: C/run-run.page:24(title)
 msgid "Run a program"
 msgstr "Ejecutar un programa"
 
-#: C/run-run.page:22(p)
+#: C/run-run.page:26(p)
+#, fuzzy
+#| msgid ""
+#| "If <app>Anjuta</app> is used to start a program it checks that it is up "
+#| "to date and build it if needed."
 msgid ""
 "If <app>Anjuta</app> is used to start a program it checks that it is up to "
-"date and build it if needed."
+"date and builds it if needed."
 msgstr ""
 "Si se usa <app>Anjuta</app> para iniciar un programa, se comprueba que está "
 "actualizado y lo construye si es necesario."
 
-#: C/run-run.page:27(p)
+#: C/run-run.page:31(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
 "guiseq> or press <key>F3</key> to execute the current program."
@@ -1424,7 +1499,7 @@ msgstr ""
 "gui><gui>Ejecutar</gui></guiseq> o pulse <key>F3</key> para ejecutar el "
 "programa actual."
 
-#: C/run-run.page:33(p)
+#: C/run-run.page:37(p)
 msgid ""
 "The current program and several parameters can be set on the <gui>parameter</"
 "gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
@@ -1433,7 +1508,7 @@ msgstr ""
 "y varios parámetros. Consulte la <link xref=\"run-parameters-dialog\"/> para "
 "obtener más información."
 
-#: C/run-run.page:38(p)
+#: C/run-run.page:42(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
 "Parameters...</gui></guiseq> to display the dialog."
@@ -1441,7 +1516,7 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
 "gui><gui>Parámetros del programa...</gui></guiseq> para mostrar el diálogo."
 
-#: C/run-run.page:45(p)
+#: C/run-run.page:49(p)
 msgid ""
 "If your program needs data files, you probably have to install it at least "
 "one time before running it. See <link xref=\"autotools-build-install\"/> for "
@@ -1455,15 +1530,24 @@ msgstr ""
 msgid "Monitor expressions and variables."
 msgstr "Monitorizar expresiones y variables."
 
-#: C/debug-watch.page:18(title)
-msgid "Watch expression"
-msgstr "Vigilar expresión"
+#: C/debug-watch.page:22(title)
+#| msgid "Watch expression"
+msgid "Watch expressions"
+msgstr "Vigilar expresiones"
 
-#: C/debug-watch.page:21(title)
+#: C/debug-watch.page:24(p)
+msgid ""
+"Watch expressions, or watches for short, are expressions that the debugger "
+"evaluates and prints the result of every time the program is stopped; for "
+"example, after every <link xref=\"debug-step\">single-step</link> through "
+"the program."
+msgstr ""
+
+#: C/debug-watch.page:30(title)
 msgid "List watched expressions"
 msgstr "Lista de expresiones vigiladas"
 
-#: C/debug-watch.page:25(p)
+#: C/debug-watch.page:34(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Watches</"
 "gui></guiseq> to open the <gui>Watches</gui> window."
@@ -1472,45 +1556,48 @@ msgstr ""
 "gui><gui>Vigilancias</gui></guiseq> para abrir la ventana <gui>Vigilancias</"
 "gui>."
 
-#: C/debug-watch.page:31(p)
+#: C/debug-watch.page:40(p)
+#| msgid ""
+#| "Like local variables, all watches expression are displayed in a tree view "
+#| "with children used to represent structure or array members."
 msgid ""
-"Like local variables, all watches expression are displayed in a tree view "
-"with children used to represent structure or array members."
+"Like local variables, all watch expressions are displayed in a tree with "
+"children used to represent structure or array members."
 msgstr ""
 "Al igual que las variables locales, las expresiones vigiladas se muestran en "
-"una vista en árbol con hijos usada para representar estructuras o elementos "
-"de un vector."
+"un árbol con hijos usado para representar estructuras o elementos de un "
+"vector."
 
-#: C/debug-watch.page:36(title) C/debug-local.page:43(title)
+#: C/debug-watch.page:45(title) C/debug-local.page:47(title)
 msgid "Variable"
 msgstr "Variable"
 
-#: C/debug-watch.page:37(p)
+#: C/debug-watch.page:46(p)
 msgid "The name of the variable or the expression."
 msgstr "El nombre de la variable o de la expresión."
 
-#: C/debug-watch.page:40(title) C/debug-local.page:47(title)
+#: C/debug-watch.page:49(title) C/debug-local.page:51(title)
 msgid "Value"
 msgstr "Valor"
 
-#: C/debug-watch.page:41(p)
+#: C/debug-watch.page:50(p)
 msgid "The variable or expression value."
 msgstr "El valor de la variable o de la expresión."
 
-#: C/debug-watch.page:44(title) C/debug-local.page:51(title)
-#: C/debug-breakpoint.page:49(title)
+#: C/debug-watch.page:53(title) C/debug-local.page:55(title)
+#: C/debug-breakpoint.page:53(title)
 msgid "Type"
 msgstr "Tipo"
 
-#: C/debug-watch.page:45(p)
+#: C/debug-watch.page:54(p)
 msgid "The type of the variable or of the expression result."
 msgstr "El tipo de la variable o del resultado de la expresión."
 
-#: C/debug-watch.page:51(title)
+#: C/debug-watch.page:60(title)
 msgid "Update watches"
 msgstr "Actualizar vigilancias"
 
-#: C/debug-watch.page:53(p)
+#: C/debug-watch.page:62(p)
 msgid ""
 "Watch expressions can be updated automatically as soon as the program is "
 "stopped or on user request."
@@ -1518,17 +1605,32 @@ msgstr ""
 "Las expresiones vigiladas se pueden actualizar automáticamente cuando el "
 "detiene el programa o a petición del usuario."
 
-#: C/debug-watch.page:58(p)
+#: C/debug-watch.page:65(p)
+msgid "To set a watch expression to update automatically:"
+msgstr ""
+"Para establecer una expresión para vigilar su actualización automática:"
+
+#: C/debug-watch.page:69(p)
+#, fuzzy
+#| msgid ""
+#| "In the <gui>Watches</gui> windows select the watch you want to update "
+#| "automatically, right click and check that <gui>Automatic Update</gui> if "
+#| "checked, if not select it."
 msgid ""
-"In the <gui>Watches</gui> windows select the watch you want to update "
-"automatically, right click and check that <gui>Automatic Update</gui> if "
-"checked, if not select it."
+"In the <gui>Watches</gui> window, select the watch you want to update "
+"automatically. Right-click and check that <gui>Automatic Update</gui> if "
+"checked. If not, select it."
 msgstr ""
 "En la ventana <gui>Vigilancias</gui>, seleccione la vigilancia que quiere "
 "actualizar automáticamente, pulse con el botón derecho y compruebe que "
 "<gui>Autoactualizar</gui> está marcada; si no lo está, márquela."
 
-#: C/debug-watch.page:66(p)
+#: C/debug-watch.page:75(p)
+#| msgid "Add a watch on an expression"
+msgid "To update a watch expression manually:"
+msgstr "Para actualizar una expresión vigilada manualmente:"
+
+#: C/debug-watch.page:79(p)
 msgid ""
 "In the <gui>Watches</gui> window, right click and select <gui>Update Watch</"
 "gui> to update the selected watch."
@@ -1537,7 +1639,11 @@ msgstr ""
 "seleccione <gui>Actualizar vigilancia</gui> para actualizar la vigilancia "
 "seleccionada."
 
-#: C/debug-watch.page:73(p)
+#: C/debug-watch.page:84(p)
+msgid "To update all watch expressions manually at once:"
+msgstr "Para actualizar todas las expresiones a la vez manualmente:"
+
+#: C/debug-watch.page:88(p)
 msgid ""
 "In the <gui>Watches</gui> window, right click and select <gui>Update all</"
 "gui> to update all watches at the same time."
@@ -1546,14 +1652,23 @@ msgstr ""
 "seleccione <gui>Actualizar todo</gui> para actualizar todas las vigilancias "
 "a la vez."
 
-#: C/debug-watch.page:82(title)
+#: C/debug-watch.page:97(title)
 msgid "Add a watch on an expression"
 msgstr "Añadir una vigilancia a una expresión"
 
-#: C/debug-watch.page:86(p)
+#: C/debug-watch.page:99(p)
+msgid "To add an expression to the watch list:"
+msgstr "Para añadir una expresión a la lista de vigilancias:"
+
+#: C/debug-watch.page:103(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
+#| "Watch...</gui></guiseq> or in the <gui>Watches</gui> windows right click "
+#| "and select <gui>Add Watch...</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
-"Watch...</gui></guiseq> or in the <gui>Watches</gui> windows right click and "
+"Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
 "select <gui>Add Watch...</gui>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
@@ -1561,19 +1676,24 @@ msgstr ""
 "<gui>Vigilancias</gui> pulse con el botón derecho y elija <gui>Añadir "
 "vigilancia...</gui>."
 
-#: C/debug-watch.page:91(p)
+#: C/debug-watch.page:108(p)
+#, fuzzy
+#| msgid ""
+#| "Enter the expression to watch. Check <gui>Automatic Update</gui> if you "
+#| "want that the expression is evaluated each time the program is stopped."
 msgid ""
 "Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
-"that the expression is evaluated each time the program is stopped."
+"the expression to be evaluated each time the program is stopped."
 msgstr ""
 "Introduzca la expresión que vigilar. Marque <gui>Autoactualizar</gui> si "
 "quiere que la expresión se evalúe cada vez que se detiene el programa."
 
-#: C/debug-watch.page:97(p)
-msgid "An expression can be evaluate and then added as a watch using:"
-msgstr "Una expresión se puede evaluar y añadirse como vigilancia usando:"
+#: C/debug-watch.page:114(p)
+#| msgid "An expression can be evaluate and then added as a watch using:"
+msgid "An expression can be evaluated and then added as a watch like this:"
+msgstr "Una expresión se puede evaluar y añadirse como vigilancia así:"
 
-#: C/debug-watch.page:101(p) C/debug-expression.page:25(p)
+#: C/debug-watch.page:118(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Inspect/"
 "Evaluate</gui></guiseq> or right click in the <gui>Editor</gui> window and "
@@ -1583,51 +1703,74 @@ msgstr ""
 "gui><gui>Inspeccionar/Evaluar</gui></guiseq> o pulse con el botón derecho en "
 "la ventana <gui>Editor</gui> y seleccione <gui>Inspeccionar/Evaluar</gui>."
 
-#: C/debug-watch.page:106(p)
+#: C/debug-watch.page:123(p)
+#| msgid ""
+#| "Click on <gui>Add</gui> button to add this expression in the watches list."
 msgid ""
-"Click on <gui>Add</gui> button to add this expression in the watches list."
+"Click on <gui>Add</gui> button to add this expression to the watches list."
 msgstr ""
 "Pulse el botón <gui>Añadir</gui> para añadir esta expresión a la lista de "
 "vigilancias."
 
-#: C/debug-watch.page:114(title)
+#: C/debug-watch.page:131(title)
 msgid "Remove a watch"
 msgstr "Quitar una vigilancia"
 
-#: C/debug-watch.page:118(p)
+#: C/debug-watch.page:133(p)
+#| msgid ""
+#| "Click on <gui>Add</gui> button to add this expression in the watches list."
+msgid "You can remove an expression from the watches list."
+msgstr "Puede quitar una expresión de la lista de vigilancias."
+
+#: C/debug-watch.page:137(p)
+#| msgid ""
+#| "In the <gui>Watches</gui> windows select the watch you want to remove "
+#| "then right click and select <gui>Remove Watch</gui>."
 msgid ""
-"In the <gui>Watches</gui> windows select the watch you want to remove then "
-"right click and select <gui>Remove Watch</gui>."
+"In the <gui>Watches</gui> window, select the watch you want to remove, then "
+"right-click and select <gui>Remove Watch</gui>."
 msgstr ""
 "En la ventana <gui>Vigilancias</gui>, seleccione la vigilancia que quiere "
-"quitar, pulse con el botón derecho del ratón y elija <gui>Quitar vigilancia</"
-"gui>."
+"quitar, después pulse con el botón derecho del ratón y seleccione "
+"<gui>Quitar vigilancia</gui>."
 
-#: C/debug-watch.page:123(p)
+#: C/debug-watch.page:142(p)
 msgid "All watches can be removed at the same time."
 msgstr "Se pueden quitar todas las vigilancias al mismo tiempo"
 
-#: C/debug-watch.page:127(p)
-msgid "In the <gui>Watches</gui> right click and select <gui>Remove all</gui>."
+#: C/debug-watch.page:146(p)
+#| msgid ""
+#| "In the <gui>Watches</gui> right click and select <gui>Remove all</gui>."
+msgid ""
+"In the <gui>Watches</gui> window, right-click and select <gui>Remove all</"
+"gui>."
 msgstr ""
-"Pulse con el botón derecho en <gui>Vigilancias</gui> y elija <gui>Eliminar "
-"todo</gui>."
+"En la ventana <gui>Vigilancias</gui> pulse con el botón derecho y seleccione "
+"<gui>Quitar todas</gui>."
 
-#: C/debug-watch.page:134(title) C/debug-local.page:58(title)
+#: C/debug-watch.page:153(title) C/debug-local.page:62(title)
 msgid "Changing the value of a variable"
 msgstr "Cambiar el valor de una variable"
 
-#: C/debug-watch.page:138(p)
+#: C/debug-watch.page:155(p)
 msgid ""
-"If a watch expression corresponds to a variable you can change its value. In "
-"the <gui>Watches</gui> window, select the variable you want to edit and "
+"If a watch expression corresponds to a variable, you can change its value."
+msgstr ""
+"Si una expresión vigilada se corresponde con una variable, entonces puede "
+"cambiar su valor."
+
+#: C/debug-watch.page:160(p)
+#| msgid ""
+#| "In the <gui>Local</gui> window, select the variable you want to edit and "
+#| "double click in the <gui>Value</gui> column."
+msgid ""
+"In the <gui>Watches</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
 msgstr ""
-"Si una vigilancia corresponde a una variable, puede cambiar su valor. En la "
-"ventana <gui>Vigilancias</gui>, seleccione la variable que quiere editar y "
-"pulse dos veces en la columna <gui>Valor</gui>."
+"En la ventana <gui>Vigilancias</gui> seleccione la variable que quiere "
+"editar y pulse dos veces en la columna <gui>Valor</gui>."
 
-#: C/debug-watch.page:143(p)
+#: C/debug-watch.page:164(p)
 msgid "Enter the new value."
 msgstr "Introducir un valor nuevo."
 
@@ -1635,42 +1778,104 @@ msgstr "Introducir un valor nuevo."
 msgid "Debugging tips and tricks."
 msgstr "Trucos y consejos para el depurado."
 
-#: C/debug-tips.page:18(title)
-msgid "Debug tips"
+#: C/debug-tips.page:22(title)
+#| msgid "Debug tips"
+msgid "Debugging tips"
 msgstr "Consejos para el depurado"
 
-#: C/debug-tips.page:21(title)
-msgid "Fix Glib/Gtk+ critical errors"
+#: C/debug-tips.page:25(title)
+#| msgid "Fix Glib/Gtk+ critical errors"
+msgid "Fixing GLib/GTK+ critical errors"
 msgstr "Corregir errores críticos de Glib/GTK+"
-
-#: C/debug-tips.page:23(p)
-msgid ""
-"A program can be stopped as soon as it gets a GLib critical errors if the "
-"environment variable <sys>G_DEBUG</sys> has the value <sys>fatal_criticals</"
-"sys>. This environment variable can be set in the <link xref=\"run-"
-"parameters-dialog\"/>."
-msgstr ""
-"Un programa se puede detener tan pronto como se obtiene un error crítico de "
-"GLib si la variable de entorno <sys>G_DEBUG</sys> tiene el valor "
-"<sys>fatal_criticals</sys>. Esta variable se puede establecer en la <link "
-"xref=\"run-parameters-dialog\"/>."
 
 #: C/debug-tips.page:27(p)
 msgid ""
-"Then you need to run the program with the debugger and use it until you get "
-"the critical error. At that time, the debugger will stop your program and "
-"you have to look at the <link xref=\"debug-stack\"/> to check where this "
-"error comes from."
+"Sometimes it can be difficult to track down where GLib critical errors are "
+"occurring, since they do not stop the program. You can set the program to "
+"stop as soon as it gets a GLib critical error, by setting the environment "
+"variable <sys>G_DEBUG</sys> to the value <sys>fatal_criticals</sys>."
+msgstr ""
+
+#: C/debug-tips.page:35(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
+#| "Parameters...</gui></guiseq> to display the dialog."
+msgid ""
+"Open the <link xref=\"run-parameters-dialog\"/> by selecting "
+"<guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the "
+"main menu."
+msgstr ""
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
+"gui><gui>Parámetros del programa...</gui></guiseq> para mostrar el diálogo."
+
+#: C/debug-tips.page:40(p)
+msgid ""
+"Click the plus sign next to <gui>Environment Variables</gui> to expand the "
+"list of environment variables."
+msgstr ""
+
+#: C/debug-tips.page:44(p)
+#, fuzzy
+#| msgid ""
+#| "Click on <gui>Add</gui> button to add this expression in the watches list."
+msgid "Click <gui>New</gui> to add a new entry to the list."
+msgstr ""
+"Pulse el botón <gui>Añadir</gui> para añadir esta expresión a la lista de "
+"vigilancias."
+
+#: C/debug-tips.page:47(p)
+msgid ""
+"Fill in <gui>Name</gui> with <input>G_DEBUG</input> and <gui>Value</gui> "
+"with <input>fatal_criticals</input>."
+msgstr ""
+
+#: C/debug-tips.page:51(p)
+msgid "Click <gui>Apply</gui> to confirm the changes."
+msgstr "Pulse <gui>Aplicar</gui> para confirmar los cambios."
+
+#: C/debug-tips.page:54(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
+#| "Debugger</gui></guiseq>."
+msgid ""
+"Run the program with the debugger by selecting <guiseq><gui>Run</"
+"gui><gui>Debug Program</gui></guiseq> from the main menu."
+msgstr ""
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
+"gui><gui>Detener el depurador</gui></guiseq>."
+
+#: C/debug-tips.page:58(p)
+msgid "Use the program until the critical error occurs."
+msgstr "Use el programa hasta que suceda el error crítico."
+
+#: C/debug-tips.page:61(p)
+#, fuzzy
+#| msgid ""
+#| "Then you need to run the program with the debugger and use it until you "
+#| "get the critical error. At that time, the debugger will stop your program "
+#| "and you have to look at the <link xref=\"debug-stack\"/> to check where "
+#| "this error comes from."
+msgid ""
+"When the debugger stops your program, look at the <link xref=\"debug-stack\"/"
+"> to check where this error comes from."
 msgstr ""
 "Después debe ejecutar el programa con el depurador y usarlo hasta que "
 "obtenga el error crítico. En ese momento, el depurador detendrá su programa "
 "y tendrá que mirar la <link xref=\"debug-stack\"/> para comprobar de dónde "
 "viene el error."
 
-#: C/debug-tips.page:31(p)
+#: C/debug-tips.page:66(p)
+#, fuzzy
+#| msgid ""
+#| "The top function with frame number 0 is in GLib, so you have to look down "
+#| "in the stack, typically the error comes from the first function in your "
+#| "program."
 msgid ""
 "The top function with frame number 0 is in GLib, so you have to look down in "
-"the stack, typically the error comes from the first function in your program."
+"the stack. Typically the error originates from the topmost function that "
+"belongs to your program."
 msgstr ""
 "La función superior con el número 0 está en GLib, de tal forma que tiene que "
 "buscar hacia abajo en la pila, generalmente el error viene de la primera "
@@ -1680,18 +1885,23 @@ msgstr ""
 msgid "Examine threads."
 msgstr "Examinar hilos."
 
-#: C/debug-thread.page:18(title)
+#: C/debug-thread.page:22(title)
 msgid "Threads"
 msgstr "Hilos"
 
-#: C/debug-thread.page:21(title)
+#: C/debug-thread.page:25(title)
 msgid "List threads"
 msgstr "Listar hilos"
 
-#: C/debug-thread.page:23(p)
+#: C/debug-thread.page:27(p)
+#, fuzzy
+#| msgid ""
+#| "A program can be composed of several threads. All these threads are "
+#| "executed independently having their own registers, stack and local "
+#| "variables but sharing global variables."
 msgid ""
 "A program can be composed of several threads. All these threads are executed "
-"independently having their own registers, stack and local variables but "
+"independently, having their own registers, stack and local variables, but "
 "sharing global variables."
 msgstr ""
 "Un programa se puede componer de varios hilos. Todos estos hilos se ejecutan "
@@ -1699,7 +1909,7 @@ msgstr ""
 "pila y sus propias variables locales, pero compartiendo las variables "
 "globales."
 
-#: C/debug-thread.page:29(p)
+#: C/debug-thread.page:33(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Thread</"
 "gui></guiseq> to open the <gui>Thread</gui> window."
@@ -1707,31 +1917,33 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Hilo</gui></guiseq>para abrir la ventana <gui>Hilo</gui> window."
 
-#: C/debug-thread.page:35(p)
-msgid "Each thread contains the following information:"
-msgstr "Cada hilo contiene la siguiente información:"
+#: C/debug-thread.page:39(p)
+#| msgid "Each thread contains the following information:"
+msgid "The window shows the following information about each thread:"
+msgstr "Cada ventana muestra la sigueinte información acerca de cada hilo:"
 
-#: C/debug-thread.page:39(title) C/debug-stack.page:39(title)
+#: C/debug-thread.page:43(title) C/debug-stack.page:44(title)
 msgid "Active"
 msgstr "Activo"
 
-#: C/debug-thread.page:40(p)
-msgid "This contains a yellow arrow to represent the active thread."
-msgstr "Esto contiene una flecha amarilla que representa el hilo activo."
+#: C/debug-thread.page:44(p)
+#| msgid "This contains a yellow arrow to represent the active thread."
+msgid "This contains a yellow arrow that points to the active thread."
+msgstr "Esto contiene una flecha amarilla que apunta al hilo activo."
 
-#: C/debug-thread.page:43(title)
+#: C/debug-thread.page:47(title)
 msgid "ID"
 msgstr "ID"
 
-#: C/debug-thread.page:44(p)
+#: C/debug-thread.page:48(p)
 msgid "This is a number corresponding to each thread."
 msgstr "Esto es el número correspondiente a cada hilo."
 
-#: C/debug-thread.page:47(title) C/debug-stack.page:52(title)
+#: C/debug-thread.page:51(title) C/debug-stack.page:57(title)
 msgid "File"
 msgstr "Archivo"
 
-#: C/debug-thread.page:48(p)
+#: C/debug-thread.page:52(p)
 msgid ""
 "The name of the file containing the function corresponding to the current "
 "frame of the current thread."
@@ -1739,96 +1951,107 @@ msgstr ""
 "El nombre del archivo que contiene la función correspondiente al marco o al "
 "hilo actual."
 
-#: C/debug-thread.page:52(title) C/debug-stack.page:57(title)
+#: C/debug-thread.page:56(title) C/debug-stack.page:62(title)
 msgid "Line"
 msgstr "Línea"
 
-#: C/debug-thread.page:53(p)
+#: C/debug-thread.page:57(p)
 msgid ""
 "The line number of the function corresponding to the current frame of the "
 "current thread."
 msgstr ""
 "El número de línea de la función correspondiente al marco o al hilo actual."
 
-#: C/debug-thread.page:57(title) C/debug-stack.page:61(title)
+#: C/debug-thread.page:61(title) C/debug-stack.page:66(title)
 msgid "Function"
 msgstr "Función"
 
-#: C/debug-thread.page:58(p)
+#: C/debug-thread.page:62(p)
 msgid ""
 "The name of the function corresponding to the frame of the current thread."
 msgstr "El nombre de la función correspondiente al marco o al hilo actual."
 
-#: C/debug-thread.page:62(title) C/debug-stack.page:65(title)
-#: C/debug-breakpoint.page:44(title)
+#: C/debug-thread.page:66(title) C/debug-stack.page:70(title)
+#: C/debug-breakpoint.page:48(title)
 msgid "Address"
 msgstr "Dirección"
 
-#: C/debug-thread.page:63(p)
+#: C/debug-thread.page:67(p)
 msgid ""
 "The address of the function corresponding to the frame of the current thread."
 msgstr "La dirección de la función correspondiente al marco o al hilo actual."
 
-#: C/debug-thread.page:71(title)
+#: C/debug-thread.page:75(title)
 msgid "Change current thread"
 msgstr "Cambiar el hilo actual"
 
-#: C/debug-thread.page:75(p) C/debug-thread.page:89(p)
+#: C/debug-thread.page:77(p)
+msgid ""
+"The current thread is the thread whose stack and local variables are "
+"currently displayed in the debugger."
+msgstr ""
+
+#: C/debug-thread.page:82(p) C/debug-thread.page:96(p)
 msgid "In the <gui>Thread</gui> window, select the thread you want."
 msgstr "En la ventana <gui>Thread</gui>, seleccione el hilo que quiere."
 
-#: C/debug-thread.page:78(p)
-msgid "Right click and select <gui>Set current thread</gui>"
+#: C/debug-thread.page:85(p)
+#| msgid "Right click and select <gui>Set current thread</gui>"
+msgid "Right-click and select <gui>Set current thread</gui>."
 msgstr ""
-"pulse con el botón derecho y seleccione <gui>Establecer el hilo actual</gui>"
+"Pulse con el botón derecho y seleccione <gui>Establecer el hilo actual</gui>."
 
-#: C/debug-thread.page:85(title) C/debug-stack.page:92(title)
+#: C/debug-thread.page:92(title)
 msgid "View current function"
 msgstr "Ver la función actual"
 
-#: C/debug-thread.page:92(p) C/debug-stack.page:99(p)
-msgid "Double click or right click and select <gui>View Source</gui>"
-msgstr "Pulse dos veces o pulse con el botón derecho en <gui>Ver fuente</gui>"
+#: C/debug-thread.page:99(p) C/debug-stack.page:104(p)
+#| msgid "Double click or right click and select <gui>View Source</gui>"
+msgid "Double-click, or right-click and select <gui>View Source</gui>."
+msgstr "Pulse dos veces o pulse con el botón derecho en <gui>Ver fuente</gui>."
 
 #: C/debug-step.page:9(desc)
 msgid "Stopping and continuing."
 msgstr "Parar y continuar."
 
-#: C/debug-step.page:18(title)
+#: C/debug-step.page:22(title)
 msgid "Stop and step"
 msgstr "Parar y pasos"
 
-#: C/debug-step.page:20(p)
+#: C/debug-step.page:24(p)
+#| msgid ""
+#| "Like a video editing session, the program can be executed in slow motion "
+#| "with the ability to go forward, pause, stop, and so on. You cannot go "
+#| "backward yet though. This is essential for tracking program behavior."
 msgid ""
 "Like a video editing session, the program can be executed in slow motion "
-"with the ability to go forward, pause, stop, and so on. You cannot go "
-"backward yet though. This is essential for tracking program behavior."
+"with the ability to go forward, pause, stop, and so on. This is essential "
+"for tracking program behavior. You cannot go backward yet, though."
 msgstr ""
 "Al igual que una sesión de edición de vídeo, el programa se puede ejecutar a "
 "cámara lenta con la posibilidad de ir hacia adelante, pausarlo, detenerlo, "
-"etc. Aunque no puede ir hacia atrás. Esto es esencial para seguir el "
-"comportamiento del programa."
+"etc. Esto es esencial para seguir el comportamiento del programa. Aunque no "
+"puede ir hacia atrás."
 
-#: C/debug-step.page:25(title)
+#: C/debug-step.page:30(title)
 msgid "Step in"
 msgstr "Avanzar"
 
-#: C/debug-step.page:29(p)
+#: C/debug-step.page:34(p)
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
+#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step In</"
-"gui></guiseq> or press <key>F5</key>"
+"gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</gui> icon "
+"in the toolbar."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Deùrar</"
-"gui><gui>Avanzar</gui></guiseq> or pulse <key>F5</key>"
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+"gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
+"icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
-#: C/debug-step.page:28(item)
-msgid ""
-"<placeholder-1/> or click on the <gui>Step In</gui> icon in the toolbar."
-msgstr ""
-"<placeholder-1/> o pulse en el icono <gui>Avanzar</gui> en la barra de "
-"herramientas."
-
-#: C/debug-step.page:35(p)
+#: C/debug-step.page:40(p)
 msgid ""
 "Single stepping executes only one statement of the program (from the place "
 "where it has stopped) and then returns control. If the statement that is "
@@ -1843,7 +2066,7 @@ msgstr ""
 "(en la secuencia en la que se ejecutan). Una vez que la sentencia se ha "
 "ejecutado y se devuelve el control, puede estudiar el estado de su programa."
 
-#: C/debug-step.page:43(p)
+#: C/debug-step.page:48(p)
 msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
 "selected, it executes only one assembler instruction."
@@ -1851,11 +2074,11 @@ msgstr ""
 "Si la <gui>Ventana de desensamblado</gui> tiene el foco al seleccionar este "
 "comando, solo se ejecuta una instrucción de ensamblador."
 
-#: C/debug-step.page:50(title)
+#: C/debug-step.page:55(title)
 msgid "Step over"
 msgstr "Avanzar sobre"
 
-#: C/debug-step.page:54(p)
+#: C/debug-step.page:59(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
 "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step Over</"
@@ -1865,109 +2088,131 @@ msgstr ""
 "gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
 "icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
-#: C/debug-step.page:60(p)
+#: C/debug-step.page:65(p)
+#| msgid ""
+#| "Stepping over is similar to step in except that it does not stop inside "
+#| "any function in the statement being executed."
 msgid ""
-"Stepping over is similar to step in except that it does not stop inside any "
+"Stepping over is similar to stepping except that it does not stop inside any "
 "function in the statement being executed."
 msgstr ""
 "«Avanzar sobre» es similar a «avanzar» con la excepción de que no se detiene "
 "en ninguna función dentro de la declaración en ejecución."
 
-#: C/debug-step.page:64(p)
+#: C/debug-step.page:69(p)
+#| msgid ""
+#| "If the <gui>Disassembly window</gui> has the focus when this command is "
+#| "selected, it executes only one assembler instruction except if this "
+#| "instruction is a call to a subroutine, in this case the program stops "
+#| "when the subroutine is completed."
 msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
-"selected, it executes only one assembler instruction except if this "
-"instruction is a call to a subroutine, in this case the program stops when "
+"selected, it executes only one assembler instruction, except if that "
+"instruction is a call to a subroutine, in which case the program stops when "
 "the subroutine is completed."
 msgstr ""
 "Si la <gui>Ventana de desensamblado</gui> tiene el foco al seleccionar este "
 "comando, solo ejecuta una instrucción de ensamblador excepto si esta "
-"instrucción es una llamada a una subrutina; en ese caso, el programa se "
+"instrucción es una llamada a una subrutina; en ese caso el programa se "
 "detiene al finalizar la subrutina."
 
-#: C/debug-step.page:73(title)
+#: C/debug-step.page:78(title)
 msgid "Step out"
 msgstr "Avanzar al final"
 
-#: C/debug-step.page:77(p)
+#: C/debug-step.page:82(p)
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
+#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step Out</"
-"gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq>"
+"gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> or "
+"click on the <gui>Step Out</gui> icon in the toolbar."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Avanzar al final</gui></guiseq> o pulse <keyseq><key>Mayús</"
-"key><key>F5</key></keyseq>"
+"gui><gui>Avanzar sobre</gui></guiseq> o pulse <keyseq><key>Mayús</"
+"key><key>F5</key></keyseq> o pulse en el icono <gui>Avanzar sobre</gui> en "
+"la barra de herramientas."
 
-#: C/debug-step.page:76(item)
+#: C/debug-step.page:88(p)
+#, fuzzy
+#| msgid ""
+#| "It executes the current function until it returns to the calling function."
 msgid ""
-"<placeholder-1/> or click on the <gui>Step Out</gui> icon in the toolbar."
-msgstr ""
-"<placeholder-1/> o pulse en el icono <gui>Avanzar al final</gui> en la barra "
-"de herramientas."
-
-#: C/debug-step.page:83(p)
-msgid ""
-"It executes the current function until it returns to the calling function."
+"Stepping out executes the current function until it returns to the calling "
+"function."
 msgstr "Ejecuta la función actual hasta que vuelve a la función que la llamó."
 
-#: C/debug-step.page:89(title)
+#: C/debug-step.page:94(title)
 msgid "Run and continue"
 msgstr "Ejecutar y continuar"
 
-#: C/debug-step.page:93(p)
+#: C/debug-step.page:98(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
+#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run/"
-"Continue</gui></guiseq> or press <key>F4</key>"
+"Continue</gui></guiseq> or press <key>F4</key> or click on the "
+"<gui>Continue</gui> icon in the toolbar."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Ejecutar/Continuar</gui></guiseq> o pulse <key>F4</key>"
+"gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
+"icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
-#: C/debug-step.page:92(item)
+#: C/debug-step.page:104(p)
+#, fuzzy
+#| msgid ""
+#| "This command restarts the program until a breakpoint is encountered or "
+#| "the program exits."
 msgid ""
-"<placeholder-1/> or click on the <gui>Continue</gui> icon in the toolbar."
-msgstr ""
-"<placeholder-1/> o pulse el icono <gui>Continuar</gui> en la barra de "
-"herramientas."
-
-#: C/debug-step.page:99(p)
-msgid ""
-"This command restarts the program until a breakpoint is encountered or the "
-"program exits."
+"This command restarts the program and lets it run until a breakpoint is "
+"encountered or the program exits."
 msgstr ""
 "Este comando reinicia el programa hasta que encuentra un punto de parada o "
 "el programa termina."
 
-#: C/debug-step.page:104(title)
+#: C/debug-step.page:109(title)
 msgid "Run To"
 msgstr "Ejecutar hasta"
 
-#: C/debug-step.page:108(p)
+#: C/debug-step.page:113(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
+#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run to "
-"Cursor</gui></guiseq> or press <key>F8</key>"
+"Cursor</gui></guiseq> or press <key>F8</key> or click on the <gui>Run to</"
+"gui> icon in the toolbar."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Ejecutar hasta cursor</gui></guiseq> or pulse <key>F8</key>"
+"gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
+"icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
-#: C/debug-step.page:107(item)
-msgid "<placeholder-1/> or click on the <gui>Run to</gui> icon in the toolbar."
-msgstr ""
-"<placeholder-1/> o pulse el icono <gui>Ejecutar hasta</gui> en la barra de "
-"herramientas."
-
-#: C/debug-step.page:114(p)
+#: C/debug-step.page:119(p)
+#, fuzzy
+#| msgid ""
+#| "This restarts the program until the line or the address (if the "
+#| "<gui>Disassembly window</gui> has the focus) at the cursor is reached."
 msgid ""
-"This restarts the program until the line or the address (if the "
-"<gui>Disassembly window</gui> has the focus) at the cursor is reached."
+"This restarts the program and lets it run until the line or the address (if "
+"the <gui>Disassembly window</gui> has the focus) at the cursor is reached."
 msgstr ""
 "Reinicia el programa hasta la línea o la dirección (si la <gui>Ventana de "
 "desensamblado</gui> tiene el foco) al llegar a la posición del cursor."
 
-#: C/debug-step.page:120(title)
-msgid "Stop Program"
+#: C/debug-step.page:125(title)
+#, fuzzy
+#| msgid "Stop Program"
+msgid "Stopping the Program"
 msgstr "Detener el programa"
 
-#: C/debug-step.page:124(p)
+#: C/debug-step.page:129(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Pause "
 "Program</gui></guiseq> or click on the <gui>Pause</gui> icon in the toolbar."
@@ -1976,39 +2221,52 @@ msgstr ""
 "gui><gui>Pausar el programa</gui></guiseq> o pulse el icono <gui>Pausar</"
 "gui> en la barra de herramientas."
 
-#: C/debug-step.page:130(p)
+#: C/debug-step.page:135(p)
+#, fuzzy
+#| msgid ""
+#| "This interrupts the program and return control to the debugger allowing "
+#| "perform all debugging tasks, like inspecting data, adding breakpoints..."
 msgid ""
-"This interrupts the program and return control to the debugger allowing "
-"perform all debugging tasks, like inspecting data, adding breakpoints..."
+"This interrupts the program and returns control to the debugger, allowing "
+"you to perform debugging tasks, like inspecting data or adding breakpoints."
 msgstr ""
 "Esto interrumpe el programa y devuelve el control al depurador, permitiendo "
 "realizar tareas de depuración como inspeccionar datos, añadir puntos de "
 "parada..."
 
 #: C/debug-stack.page:9(desc)
-msgid "Examine stack."
+#, fuzzy
+#| msgid "Examine stack."
+msgid "Examine the stack."
 msgstr "Examinar la pila."
 
-#: C/debug-stack.page:18(title)
+#: C/debug-stack.page:22(title)
 msgid "Stack"
 msgstr "Pila"
 
-#: C/debug-stack.page:21(title)
+#: C/debug-stack.page:25(title)
 msgid "List stack frames"
 msgstr "Listar los marcos de la pila"
 
-#: C/debug-stack.page:23(p)
+#: C/debug-stack.page:27(p)
+#, fuzzy
+#| msgid ""
+#| "A stack frame is the area of the stack associated to each function call. "
+#| "It lists all functions and their arguments in the sequence they were "
+#| "called. Each stack frame is numbered starting from 0 for the current "
+#| "function."
 msgid ""
 "A stack frame is the area of the stack associated to each function call. It "
 "lists all functions and their arguments in the sequence they were called. "
-"Each stack frame is numbered starting from 0 for the current function."
+"Each stack frame is numbered starting from 0 for the current function. You "
+"can only view the stack frames while the debugger is running."
 msgstr ""
 "Un marco de la pila es un área de la pila asociado a cada llamada de "
 "función. Lista todas las funciones y sus argumentos en la secuencia en la "
 "que se llamaron. Cada marco de la pila se numera comenzando por 0 para la "
 "función actual."
 
-#: C/debug-stack.page:29(p)
+#: C/debug-stack.page:34(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Stack</"
 "gui></guiseq> to open the <gui>Stack</gui> window."
@@ -2016,16 +2274,22 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Pila</gui></guiseq> para abrir la ventana <gui>Pila</gui>."
 
-#: C/debug-stack.page:35(p)
+#: C/debug-stack.page:40(p)
 msgid "Each stack frame contains the following information:"
 msgstr "Cada marco de la pila contiene la siguiente información:"
 
-#: C/debug-stack.page:40(p)
+#: C/debug-stack.page:45(p)
+#, fuzzy
+#| msgid ""
+#| "This contains a yellow arrow to represent the active stack frame, by "
+#| "default it is the frame 0, the current function. All evaluations and "
+#| "local variables are relative to this selected frame. You can change the "
+#| "active stack frame to examine local variables in other functions."
 msgid ""
-"This contains a yellow arrow to represent the active stack frame, by default "
-"it is the frame 0, the current function. All evaluations and local variables "
-"are relative to this selected frame. You can change the active stack frame "
-"to examine local variables in other functions."
+"This contains a yellow arrow to represent the active stack frame. By default "
+"it is frame 0, the current function. All evaluations and local variables are "
+"relative to this active frame. You can change the active stack frame to "
+"examine local variables in other functions."
 msgstr ""
 "Esto contiene una flecha amarilla para representar el marco activo de la "
 "pila; de forma predeterminada es el marco 0, la función actual. Todas las "
@@ -2033,63 +2297,82 @@ msgstr ""
 "cambiar el marco activo de la pila para examinar las variables locales en "
 "otras funciones."
 
-#: C/debug-stack.page:46(title)
+#: C/debug-stack.page:51(title)
 msgid "Frame"
 msgstr "Marco"
 
-#: C/debug-stack.page:47(p)
+#: C/debug-stack.page:52(p)
+#, fuzzy
+#| msgid ""
+#| "This is the frame number stating from 0 for the current function. The "
+#| "first function of your program, main for a C program by example, has the "
+#| "highest number."
 msgid ""
-"This is the frame number stating from 0 for the current function. The first "
-"function of your program, main for a C program by example, has the highest "
-"number."
+"This is the frame number starting from 0 for the current function. The first "
+"function of your program, for example <code>main()</code> in a C program, "
+"has the highest number."
 msgstr ""
 "Este es el número de marco, comenzando por 0, de la función actual. La "
 "primera función de su programa, «main» para un programa en C, tiene el "
 "número más alto."
 
-#: C/debug-stack.page:53(p)
+#: C/debug-stack.page:58(p)
 msgid ""
 "The name of the file containing the function corresponding to this frame."
 msgstr ""
 "El nombre del archivo que contiene la función correspondiente a este marco."
 
-#: C/debug-stack.page:58(p)
+#: C/debug-stack.page:63(p)
 msgid "The line number of the function corresponding to this frame."
 msgstr "El número de línea de la función correspondiente a este marco."
 
-#: C/debug-stack.page:62(p)
+#: C/debug-stack.page:67(p)
 msgid "The name of the function corresponding to this frame."
 msgstr "El nombre de la función correspondiente a este marco."
 
-#: C/debug-stack.page:66(p)
+#: C/debug-stack.page:71(p)
 msgid "The address of the function corresponding to this frame."
 msgstr "La dirección de la función correspondiente a este marco."
 
-#: C/debug-stack.page:70(p)
+#: C/debug-stack.page:75(p)
 msgid "The function arguments."
 msgstr "Los argumentos de la función."
 
-#: C/debug-stack.page:78(title)
-msgid "Change current stack frame"
+#: C/debug-stack.page:83(title)
+#, fuzzy
+#| msgid "Change current stack frame"
+msgid "Change the current stack frame"
 msgstr "Cambiar el marco actual de la pila"
 
-#: C/debug-stack.page:82(p) C/debug-stack.page:96(p)
+#: C/debug-stack.page:87(p) C/debug-stack.page:101(p)
 msgid "In the <gui>Stack</gui> window, select the frame you want."
 msgstr "En la ventana <gui>Pila</gui> seleccione el marco que quiere."
 
-#: C/debug-stack.page:85(p)
-msgid "Right click and select <gui>Set current frame</gui>"
+#: C/debug-stack.page:90(p)
+#, fuzzy
+#| msgid "Right click and select <gui>Set current frame</gui>"
+msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
 "Pulse con el botón derecho y seleccione <gui>Establecer el marco actual</gui>"
 
-#: C/debug-stack.page:106(title)
+#: C/debug-stack.page:97(title)
+#, fuzzy
+#| msgid "View current function"
+msgid "View the current function"
+msgstr "Ver la función actual"
+
+#: C/debug-stack.page:111(title)
 msgid "Get a stack trace"
 msgstr "Obtener un seguimiento de la pila"
 
-#: C/debug-stack.page:110(p)
+#: C/debug-stack.page:115(p)
+#, fuzzy
+#| msgid ""
+#| "In the <gui>Stack</gui> window right click and select <gui>Get stack "
+#| "trace</gui>"
 msgid ""
-"In the <gui>Stack</gui> window right click and select <gui>Get stack trace</"
-"gui>"
+"In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
+"gui>."
 msgstr ""
 "Pulse con el botón derecho en la ventana <gui>Pila</gui> y elija "
 "<gui>Obtener la traza de la pila</gui>"
@@ -2098,25 +2381,30 @@ msgstr ""
 msgid "Start a program with the debugger."
 msgstr "Iniciar un programa con el depurador."
 
-#: C/debug-run.page:20(title)
+#: C/debug-run.page:24(title)
 msgid "Debug a program"
 msgstr "Depurar un programa"
 
-#: C/debug-run.page:23(title)
+#: C/debug-run.page:27(title)
 msgid "Start a program in the debugger"
 msgstr "Iniciar un programa en el depurador."
 
-#: C/debug-run.page:25(p)
+#: C/debug-run.page:29(p)
+#, fuzzy
+#| msgid ""
+#| "The current program is defined in the <gui>run parameter</gui> dialog. "
+#| "See <link xref=\"run-parameters-dialog\"/> for more information. This "
+#| "program can be started in the debugger using:"
 msgid ""
-"The current program is defined in the <gui>run parameter</gui> dialog. See "
-"<link xref=\"run-parameters-dialog\"/> for more information. This program "
-"can be started in the debugger using:"
+"The current program is defined in the <gui>Program Parameters</gui> dialog. "
+"See <link xref=\"run-parameters-dialog\"/> for more information. This "
+"program can be started in the debugger like this:"
 msgstr ""
 "El programa actual se define en el diálogo <gui>Parámetros de ejecución</"
 "gui>. Consulte la <link xref=\"run-parameters-dialog\"/> para obtener más "
 "información. Este programa se puede iniciar en el depurador usando:"
 
-#: C/debug-run.page:31(p)
+#: C/debug-run.page:35(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
 "Program</gui></guiseq> or press <keyseq><key>Shift</key><key>F12</key></"
@@ -2126,13 +2414,22 @@ msgstr ""
 "gui><gui>Depurar programa</gui></guiseq> o pulse <keyseq><key>Mayús</"
 "key><key>F12</key></keyseq>"
 
-#: C/debug-run.page:37(p)
+#: C/debug-run.page:41(p)
+#, fuzzy
+#| msgid ""
+#| "A program can be more difficult to debug if it is highly optimized or if "
+#| "debugging information are missing. This is defined in the configure step. "
+#| "Normally, a Debug configuration with no optimization and all debugging "
+#| "informations is defined. Anjuta display a warning if this configuration "
+#| "is not used. See <link xref=\"autotools-build-configure\"/> for more "
+#| "information."
 msgid ""
 "A program can be more difficult to debug if it is highly optimized or if "
-"debugging information are missing. This is defined in the configure step. "
-"Normally, a Debug configuration with no optimization and all debugging "
-"informations is defined. Anjuta display a warning if this configuration is "
-"not used. See <link xref=\"autotools-build-configure\"/> for more "
+"debugging information is missing. Whether optimization and debugging "
+"information are enabled, is defined in the configure step. Normally, there "
+"is a Debug configuration available, that turns off optimization and includes "
+"all debugging information. Anjuta displays a warning if this configuration "
+"is not used. See <link xref=\"autotools-build-configure\"/> for more "
 "information."
 msgstr ""
 "Un programa puede ser más difícil de depurar si está muy optimizado o si "
@@ -2142,27 +2439,39 @@ msgstr ""
 "aviso si no se está usando esta configuración. Para obtener más información "
 "consulte la <link xref=\"autotools-build-configure\"/>."
 
-#: C/debug-run.page:47(title)
+#: C/debug-run.page:52(title)
 msgid "Debug an already running application"
 msgstr "Depurar una aplicación en ejecución"
 
-#: C/debug-run.page:49(p)
-msgid "The debugger could be used on an already running application."
+#: C/debug-run.page:54(p)
+#, fuzzy
+#| msgid "The debugger could be used on an already running application."
+msgid "The debugger can be used on an already running application."
 msgstr "El depurador se puede usar en un programa que ya esté en ejecución."
 
-#: C/debug-run.page:53(p)
+#: C/debug-run.page:58(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
+#| "Process...</gui></guiseq> to get a dialog listing all currently running "
+#| "process."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
 "Process...</gui></guiseq> to get a dialog listing all currently running "
-"process."
+"processes."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
 "gui><gui>Depurar proceso...</gui></guiseq> para obtener un diálogo que liste "
 "todos los procesos actualmente en ejecución ."
 
-#: C/debug-run.page:58(p)
+#: C/debug-run.page:63(p)
+#, fuzzy
+#| msgid ""
+#| "Select a process in the <gui>attach to process</gui> dialog and click on "
+#| "<gui>Attach</gui> to start the debugger on this process. See <link xref="
+#| "\"debug-process-dialog\"/> for more details."
 msgid ""
-"Select a process in the <gui>attach to process</gui> dialog and click on "
+"Select a process in the <gui>Attach to process</gui> dialog and click on "
 "<gui>Attach</gui> to start the debugger on this process. See <link xref="
 "\"debug-process-dialog\"/> for more details."
 msgstr ""
@@ -2170,19 +2479,23 @@ msgstr ""
 "<gui>Acoplar</gui> para comenzar la depuración de este proceso. Para obtener "
 "más detalles consulte la <link xref=\"debug-process-dialog\"/>."
 
-#: C/debug-run.page:66(title)
+#: C/debug-run.page:71(title)
 msgid "Debug a remote application"
 msgstr "Depurar una aplicación remota"
 
-#: C/debug-run.page:68(p)
+#: C/debug-run.page:73(p)
+#, fuzzy
+#| msgid ""
+#| "The debugger can be used to debug an application running on another "
+#| "computer connected through a TCP or a serial connection."
 msgid ""
 "The debugger can be used to debug an application running on another computer "
-"connected through a TCP or a serial connection."
+"connected through a TCP or serial connection."
 msgstr ""
 "El depurador se puede usar para depurar una aplicación que se esté "
 "ejecutando en otro equipo conectado mediante una conexión TCP o serie."
 
-#: C/debug-run.page:73(p)
+#: C/debug-run.page:78(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
 "Remote...</gui></guiseq>"
@@ -2190,29 +2503,42 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
 "gui><gui>Depurar remoto...</gui></guiseq>"
 
-#: C/debug-run.page:77(p)
+#: C/debug-run.page:82(p)
+#, fuzzy
+#| msgid ""
+#| "Select the type of the connection with the remote application, "
+#| "<gui>Serial Line</gui> or <gui>TCP/IP</gui>."
 msgid ""
-"Select the type of the connection with the remote application, <gui>Serial "
-"Line</gui> or <gui>TCP/IP</gui>."
+"Select the type of the connection to the remote application, <gui>Serial "
+"Line Connection</gui> or <gui>TCP/IP Connection</gui>."
 msgstr ""
 "Seleccione el tipo de conexión con la aplicación remota, <gui>Línea serie</"
 "gui> o <gui>TCP/IP</gui>."
 
-#: C/debug-run.page:81(p)
-msgid "For a TCP connection, fill <gui>Address</gui> and <gui>Port</gui> field"
+#: C/debug-run.page:86(p)
+#, fuzzy
+#| msgid ""
+#| "For a TCP connection, fill <gui>Address</gui> and <gui>Port</gui> field"
+msgid ""
+"For a TCP connection, fill in the <gui>Address</gui> and <gui>Port</gui> "
+"fields."
 msgstr ""
 "Para una conexión TCP, rellene los campos <gui>Dirección</gui> y "
 "<gui>puerto</gui>"
 
-#: C/debug-run.page:83(p)
+#: C/debug-run.page:88(p)
+#, fuzzy
+#| msgid ""
+#| "For a serial connection, fill the text box below with the serial device "
+#| "name, by example <cmd>/dev/ttyb</cmd>."
 msgid ""
-"For a serial connection, fill the text box below with the serial device "
-"name, by example <cmd>/dev/ttyb</cmd>."
+"For a serial connection, fill in the text box below with the serial device "
+"name, for example <cmd>/dev/ttyb</cmd>."
 msgstr ""
 "Para una conexión serie, rellene la caja de texto de debajo con el nombre "
 "del dispositivo serie, por ejemplo <cmd>/dev/ttyb</cmd>."
 
-#: C/debug-run.page:87(p)
+#: C/debug-run.page:92(p)
 msgid ""
 "Click on <gui>Connect</gui> to start the debugger and connect to the remote "
 "target."
@@ -2220,15 +2546,17 @@ msgstr ""
 "Pulse <gui>Conectar</gui> para iniciar el depurador y conectar con el "
 "objetivo remoto."
 
-#: C/debug-run.page:95(title)
+#: C/debug-run.page:100(title)
 msgid "Stop the debugger"
 msgstr "Detener el depurador"
 
-#: C/debug-run.page:97(p)
-msgid "The debugger and the program can be stop at any time using:"
+#: C/debug-run.page:102(p)
+#, fuzzy
+#| msgid "The debugger and the program can be stop at any time using:"
+msgid "The debugger and the program can be stopped at any time like this:"
 msgstr "Se puede parar el depurador y el programa en cualquier momento usando:"
 
-#: C/debug-run.page:101(p)
+#: C/debug-run.page:106(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
 "Debugger</gui></guiseq>."
@@ -2240,42 +2568,54 @@ msgstr ""
 msgid "Attach to process dialog"
 msgstr "Diálogo «Acoplar al proceso»"
 
-#: C/debug-process-dialog.page:18(title)
-msgid "Attach to process Dialog"
+#: C/debug-process-dialog.page:22(title)
+#, fuzzy
+#| msgid "Attach to process Dialog"
+msgid "Attach to Process Dialog"
 msgstr "Diálogo «Acoplar al proceso»"
 
-#: C/debug-process-dialog.page:20(p)
+#: C/debug-process-dialog.page:24(p)
+#, fuzzy
+#| msgid ""
+#| "The <gui>process</gui> dialog allows you to select a currently running "
+#| "process"
 msgid ""
-"The <gui>process</gui> dialog allows you to select a currently running "
-"process"
+"The <gui>Attach to process</gui> dialog allows you to select a currently "
+"running process."
 msgstr ""
 "El diálogo <gui>proceso</gui> le permite seleccionar un proceso actualmente "
 "en ejecución"
 
-#: C/debug-process-dialog.page:24(gui)
+#: C/debug-process-dialog.page:28(gui)
 msgid "Hide paths"
 msgstr "Ocultar rutas"
 
-#: C/debug-process-dialog.page:25(p)
-msgid "This hides command pathes in the process list if checked."
+#: C/debug-process-dialog.page:29(p)
+#, fuzzy
+#| msgid "This hides command pathes in the process list if checked."
+msgid "This hides command paths in the process list if checked."
 msgstr "Si está marcada, oculta las rutas de los comandos en el proceso."
 
-#: C/debug-process-dialog.page:28(gui)
+#: C/debug-process-dialog.page:32(gui)
 msgid "Hide process parameters"
 msgstr "Ocultar parámetros del proceso"
 
-#: C/debug-process-dialog.page:29(p)
+#: C/debug-process-dialog.page:33(p)
 msgid "This hides the command line arguments in the process list if checked."
 msgstr ""
 "Si está marcada, oculta los argumentos de línea de comandos del proceso."
 
-#: C/debug-process-dialog.page:32(gui)
+#: C/debug-process-dialog.page:36(gui)
 msgid "Display process tree"
 msgstr "Mostrar árbol de procesos"
 
-#: C/debug-process-dialog.page:33(p)
+#: C/debug-process-dialog.page:37(p)
+#, fuzzy
+#| msgid ""
+#| "If unchecked, the processes are displayed in a list. If checked the "
+#| "processes are displayed in a tree."
 msgid ""
-"If unchecked, the processes are displayed in a list. If checked the "
+"If unchecked, the processes are displayed in a list. If checked, the "
 "processes are displayed in a tree."
 msgstr ""
 "Si no está marcada, los procesos se muestran en una lista. Si está marcada, "
@@ -2285,11 +2625,11 @@ msgstr ""
 msgid "Examine local variables."
 msgstr "Examinar variables locales."
 
-#: C/debug-local.page:18(title)
+#: C/debug-local.page:22(title)
 msgid "Local variables"
 msgstr "Variables locales"
 
-#: C/debug-local.page:20(p)
+#: C/debug-local.page:24(p)
 msgid ""
 "Local variables of the current frame (the current function in which the "
 "program control is present) are displayed in the <gui>Locals</gui> window. "
@@ -2305,19 +2645,23 @@ msgstr ""
 "último paso de depuración, su valor se resaltará en rojo. Las variables se "
 "presentan en forma de árbol para su mejor evaluación."
 
-#: C/debug-local.page:28(title)
+#: C/debug-local.page:32(title)
 msgid "Listing local variables"
 msgstr "Listar las variables locales"
 
-#: C/debug-local.page:32(p)
+#: C/debug-local.page:36(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Locals</"
+#| "gui></guiseq> to open the <gui>Local</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Locals</"
-"gui></guiseq> to open the <gui>Local</gui> window."
+"gui></guiseq> to open the <gui>Locals</gui> window."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Locales</gui></guiseq>para abrir la ventana <gui>Local</gui>."
 
-#: C/debug-local.page:38(p)
+#: C/debug-local.page:42(p)
 msgid ""
 "All local variables are displayed in a tree view with children used to "
 "represent structure or array members."
@@ -2325,43 +2669,69 @@ msgstr ""
 "Todas las variables locales se muestran en una vista de árbol con los hijos "
 "representando estructuras o miembros de vectores («arrays»)."
 
-#: C/debug-local.page:44(p)
+#: C/debug-local.page:48(p)
 msgid "The name of the variable."
 msgstr "El nombre de la variable."
 
-#: C/debug-local.page:48(p)
-msgid "The variable value"
+#: C/debug-local.page:52(p)
+#, fuzzy
+#| msgid "The variable value"
+msgid "The variable value."
 msgstr "El valor de la variable"
 
-#: C/debug-local.page:52(p)
-msgid "The type of the variable"
+#: C/debug-local.page:56(p)
+#, fuzzy
+#| msgid "The type of the variable"
+msgid "The type of the variable."
 msgstr "El tipo de la variable"
 
-#: C/debug-local.page:62(p)
+#: C/debug-local.page:66(p)
+#, fuzzy
+#| msgid ""
+#| "In the <gui>Local</gui> window, select the variable you want to edit and "
+#| "double click in the <gui>Value</gui> column."
 msgid ""
-"In the <gui>Local</gui> window, select the variable you want to edit and "
+"In the <gui>Locals</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
 msgstr ""
 "En la ventana <gui>Local</gui> seleccione la variable que quiere editar y "
 "pulse dos veces en la columna <gui>Valor</gui>."
 
-#: C/debug-local.page:66(p)
-msgid "Type the new value"
+#: C/debug-local.page:70(p)
+#, fuzzy
+#| msgid "Type the new value"
+msgid "Type the new value."
 msgstr "Escriba el valor nuevo"
 
 #: C/debug-information.page:9(desc)
-msgid "Examine additional program informations."
+#, fuzzy
+#| msgid "Examine additional program informations."
+msgid "Examine additional program information."
 msgstr "Examinar la información adicional del programa."
 
-#: C/debug-information.page:18(title)
-msgid "Miscellaneous informations"
+#: C/debug-information.page:22(title)
+#, fuzzy
+#| msgid "Miscellaneous informations"
+msgid "Miscellaneous information"
 msgstr "Información variada"
 
-#: C/debug-information.page:21(title)
+#: C/debug-information.page:24(p)
+#, fuzzy
+#| msgid ""
+#| "The debugger stops the program execution when the program receives this "
+#| "signal."
+msgid ""
+"The debugger can tell you various information about the program while it is "
+"running."
+msgstr ""
+"El depurador detiene el programa en ejecución cuando el programa recibe esta "
+"señal."
+
+#: C/debug-information.page:28(title)
 msgid "View shared libraries"
 msgstr "Ver bibliotecas compartidas"
 
-#: C/debug-information.page:25(p)
+#: C/debug-information.page:32(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
 "gui><gui>Shared Libraries</gui></guiseq>."
@@ -2369,41 +2739,54 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Bibliotecas compartidas</gui></guiseq>."
 
-#: C/debug-information.page:30(p)
+#: C/debug-information.page:37(p)
+#, fuzzy
+#| msgid ""
+#| "This open a window which will list all shared libraries the program has "
+#| "loaded and their locations in memory. It also shows whether each "
+#| "library's symbol table is loaded or not (Yes/No)."
 msgid ""
-"This open a window which will list all shared libraries the program has "
+"This opens a window which will list all shared libraries the program has "
 "loaded and their locations in memory. It also shows whether each library's "
-"symbol table is loaded or not (Yes/No)."
+"symbol table is loaded or not."
 msgstr ""
 "Esto abrirá una ventana que listará todas las bibliotecas compartidas que el "
 "programa ha cargado y sus ubicaciones en memoria. También muestra si cada "
 "tabla de símbolos de la biblioteca está cargado o no (Sí/No)."
 
-#: C/debug-information.page:37(title)
+#: C/debug-information.page:44(title)
 msgid "View signals"
 msgstr "Ver señales"
 
-#: C/debug-information.page:41(p)
+#: C/debug-information.page:48(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#| "gui><gui>Kernels signals</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Kernels signals</gui></guiseq>."
+"gui><gui>Kernel signals</gui></guiseq>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Señales del núcleo</gui></guiseq>."
 
-#: C/debug-information.page:46(p)
+#: C/debug-information.page:53(p)
+#, fuzzy
+#| msgid ""
+#| "This list all available signals with a small description and three "
+#| "columns to specify what to do when a signal is received:"
 msgid ""
-"This list all available signals with a small description and three columns "
+"This lists all available signals with a small description and three columns "
 "to specify what to do when a signal is received:"
 msgstr ""
 "Esto lista todas las señales disponibles con una pequeña descripción y tres "
 "columnas para especificar qué hacer al recibir una señal:"
 
-#: C/debug-information.page:51(title)
+#: C/debug-information.page:58(title)
 msgid "Stop"
 msgstr "Detener"
 
-#: C/debug-information.page:52(p)
+#: C/debug-information.page:59(p)
 msgid ""
 "The debugger stops the program execution when the program receives this "
 "signal."
@@ -2411,49 +2794,64 @@ msgstr ""
 "El depurador detiene el programa en ejecución cuando el programa recibe esta "
 "señal."
 
-#: C/debug-information.page:56(title)
+#: C/debug-information.page:63(title)
 msgid "Print"
 msgstr "Imprimir"
 
-#: C/debug-information.page:57(p)
-msgid "The debugger display the received signal."
+#: C/debug-information.page:64(p)
+#, fuzzy
+#| msgid "The debugger display the received signal."
+msgid "The debugger displays the received signal."
 msgstr "El depurador muestra la señal recibida."
 
-#: C/debug-information.page:60(title)
+#: C/debug-information.page:67(title)
 msgid "Pass"
 msgstr "Pasar"
 
-#: C/debug-information.page:61(p)
-msgid "The debugger pass the signal to the program."
+#: C/debug-information.page:68(p)
+#, fuzzy
+#| msgid "The debugger pass the signal to the program."
+msgid "The debugger passes the signal to the program."
 msgstr "El depurador pasa la señal al programa."
 
-#: C/debug-information.page:66(p)
+#: C/debug-information.page:73(p)
+#, fuzzy
+#| msgid ""
+#| "The context menu that is displayed when you click on the right mouse "
+#| "button has all its items disabled because the corresponding functions are "
+#| "not implemented yet."
 msgid ""
-"The context menu that is displayed when you click on the right mouse button "
-"has all its items disabled because the corresponding functions are not "
+"The context menu that is displayed when you click the right mouse button has "
+"all its items disabled because the corresponding functions are not "
 "implemented yet."
 msgstr ""
 "El menú contextual que se muestra cuando pulsa con el botón derecho del "
 "ratón tiene todos sus elementos desactivados porque las funciones "
 "correspondientes no están aún implementadas."
 
-#: C/debug-information.page:75(title)
+#: C/debug-information.page:82(title)
 msgid "Information about used files"
 msgstr "Información sobre los archivos usados"
 
-#: C/debug-information.page:79(p)
+#: C/debug-information.page:86(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#| "gui><gui>Info Target files</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Target files</gui></guiseq>."
+"gui><gui>Info Target Files</gui></guiseq>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Archivos objetivo</gui></guiseq>."
 
-#: C/debug-information.page:87(title)
-msgid "Information about program"
+#: C/debug-information.page:94(title)
+#, fuzzy
+#| msgid "Information about program"
+msgid "Information about the program"
 msgstr "Información sobre el programa"
 
-#: C/debug-information.page:90(p)
+#: C/debug-information.page:97(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
 "gui><gui>Info Program</gui></guiseq>."
@@ -2461,35 +2859,45 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Programa</gui></guiseq>."
 
-#: C/debug-information.page:98(title)
+#: C/debug-information.page:105(title)
 msgid "Information about kernel structure"
 msgstr "Información sobre la estructura del núcleo"
 
-#: C/debug-information.page:101(p)
+#: C/debug-information.page:108(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#| "gui><gui>Kernel user struct</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Kernel user struct</gui></guiseq>."
+"gui><gui>Info Kernel User Struct</gui></guiseq>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>User struct del núcleo</gui></guiseq>."
 
-#: C/debug-information.page:108(title)
+#: C/debug-information.page:115(title)
 msgid "Information about global variables"
 msgstr "Información sobre variables globales"
 
-#: C/debug-information.page:111(p)
+#: C/debug-information.page:118(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#| "gui><gui>Info Global Variable</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Global Variable</gui></guiseq>."
+"gui><gui>Info Global Variables</gui></guiseq>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Variables globales</gui></guiseq>."
 
-#: C/debug-information.page:118(title)
-msgid "Information about the current frame"
+#: C/debug-information.page:125(title)
+#, fuzzy
+#| msgid "Information about the current frame"
+msgid "Information about the current stack frame"
 msgstr "Información sobre el marco actual"
 
-#: C/debug-information.page:121(p)
+#: C/debug-information.page:128(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
 "gui><gui>Info Current Frame</gui></guiseq>."
@@ -2497,11 +2905,11 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Info</gui><gui>Marco actual</gui></guiseq>."
 
-#: C/debug-information.page:128(title)
+#: C/debug-information.page:135(title)
 msgid "Information about the current function arguments"
 msgstr "Información sobre los argumentos de la función actual"
 
-#: C/debug-information.page:131(p)
+#: C/debug-information.page:138(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
 "gui><gui>Info Arguments</gui></guiseq>."
@@ -2513,18 +2921,44 @@ msgstr ""
 msgid "Evaluate expressions and modify variables."
 msgstr "Evaluar expresiones y modificar variables."
 
-#: C/debug-expression.page:18(title)
+#: C/debug-expression.page:22(title)
 msgid "Examine expressions"
 msgstr "Examinar expresiones"
 
-#: C/debug-expression.page:21(title)
+#: C/debug-expression.page:25(title)
 msgid "Inspect an expression and modify a variable"
 msgstr "Inspeccionar una expresión y modificar una variable"
 
-#: C/debug-expression.page:30(p)
+#: C/debug-expression.page:27(p)
+msgid ""
+"While you are debugging a program, you can find out the value of an "
+"expression or variable while the program is paused. It is also sometimes "
+"useful to change the value of a variable."
+msgstr ""
+
+#: C/debug-expression.page:33(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
+#| "gui><gui>Inspect/Evaluate</gui></guiseq> or right click in the "
+#| "<gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>."
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Inspect/"
+"Evaluate...</gui></guiseq> or right click in the <gui>Editor</gui> window "
+"and select <gui>Inspect/Evaluate...</gui>."
+msgstr ""
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+"gui><gui>Inspeccionar/Evaluar</gui></guiseq> o pulse con el botón derecho en "
+"la ventana <gui>Editor</gui> y seleccione <gui>Inspeccionar/Evaluar</gui>."
+
+#: C/debug-expression.page:38(p)
+#, fuzzy
+#| msgid ""
+#| "If the expression is a variable name, you can change its value by "
+#| "clicking on the <gui>Value</gui> column and enter a new value."
 msgid ""
 "If the expression is a variable name, you can change its value by clicking "
-"on the <gui>Value</gui> column and enter a new value."
+"on the <gui>Value</gui> column and entering a new value."
 msgstr ""
 "Si la expresión es un nombre de variable, puede cambiar su valor pulsando en "
 "la columna <gui>Valor</gui> e introduciendo el valor nuevo."
@@ -2549,15 +2983,17 @@ msgstr "Examinar datos"
 msgid "Use custom debugger command."
 msgstr "Usar un comando de depuración personalizado."
 
-#: C/debug-custom.page:18(title)
+#: C/debug-custom.page:22(title)
 msgid "Custom command"
 msgstr "Comando personalizado"
 
-#: C/debug-custom.page:20(p)
-msgid "Custom command can be send to the debugger using:"
+#: C/debug-custom.page:24(p)
+#, fuzzy
+#| msgid "Custom command can be send to the debugger using:"
+msgid "You can send a custom command to the debugger like this:"
 msgstr "Se puede enviar un comando personalizado al depurador usando:"
 
-#: C/debug-custom.page:24(p)
+#: C/debug-custom.page:28(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Debugger "
 "Command</gui></guiseq>."
@@ -2565,11 +3001,11 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Comando de depuración</gui></guiseq>."
 
-#: C/debug-custom.page:28(p)
+#: C/debug-custom.page:32(p)
 msgid "Enter your command."
 msgstr "Escriba el comando."
 
-#: C/debug-custom.page:32(p)
+#: C/debug-custom.page:36(p)
 msgid ""
 "The output of the command is displayed in the message window used by the "
 "debugger."
@@ -2577,10 +3013,16 @@ msgstr ""
 "La salida del comando se muestra en la ventana de mensajes usada por el "
 "depurador."
 
-#: C/debug-custom.page:36(p)
+#: C/debug-custom.page:40(p)
+#, fuzzy
+#| msgid ""
+#| "The command is sent directly to the debugger without performing any "
+#| "checks. By example if you set a breakpoint like this, it will not appear "
+#| "in the <gui>Breakpoint</gui> window. It is better to avoid using this "
+#| "command unless you know exactly what you are doing."
 msgid ""
 "The command is sent directly to the debugger without performing any checks. "
-"By example if you set a breakpoint like this, it will not appear in the "
+"For example, if you set a breakpoint like this, it will not appear in the "
 "<gui>Breakpoint</gui> window. It is better to avoid using this command "
 "unless you know exactly what you are doing."
 msgstr ""
@@ -2590,18 +3032,20 @@ msgstr ""
 "este comando a no ser que sepa exactamente lo que está haciendo."
 
 #: C/debug-cpu.page:9(desc)
-msgid "Examine CPU informations."
+#, fuzzy
+#| msgid "Examine CPU informations."
+msgid "Examine CPU information."
 msgstr "Examinar la información de la CPU."
 
-#: C/debug-cpu.page:18(title)
+#: C/debug-cpu.page:22(title)
 msgid "CPU"
 msgstr "CPU"
 
-#: C/debug-cpu.page:21(title)
+#: C/debug-cpu.page:25(title)
 msgid "View CPU registers"
 msgstr "Ver los registros de la CPU"
 
-#: C/debug-cpu.page:25(p)
+#: C/debug-cpu.page:29(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Registers</"
 "gui></guiseq> to open the <gui>Register</gui> window."
@@ -2609,13 +3053,14 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Registros</gui></guiseq> para abrir la ventana <gui>Registro</gui>."
 
-#: C/debug-cpu.page:31(p)
+#: C/debug-cpu.page:35(p)
+#, fuzzy
 #| msgid ""
 #| "Register which value has changed since the last stop are in red. It is "
-#| "possible ton change the value of any register by clicking in the value "
+#| "possible to change the value of any register by clicking in the value "
 #| "column and entering a new value."
 msgid ""
-"Register which value has changed since the last stop are in red. It is "
+"Registers whose values have changed since the last stop are in red. It is "
 "possible to change the value of any register by clicking in the value column "
 "and entering a new value."
 msgstr ""
@@ -2623,11 +3068,11 @@ msgstr ""
 "Es posible cambiar el valor de cualquier registro pulsando en la columna de "
 "valor e introduciendo un valor nuevo."
 
-#: C/debug-cpu.page:38(title)
+#: C/debug-cpu.page:42(title)
 msgid "View memory"
 msgstr "Ver la memoria"
 
-#: C/debug-cpu.page:42(p) C/debug-cpu.page:65(p)
+#: C/debug-cpu.page:46(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Memory</"
 "gui></guiseq> to open the <gui>Memory</gui> window."
@@ -2635,7 +3080,7 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Memoria</gui></guiseq> para abrir la ventana <gui>Memoria</gui>."
 
-#: C/debug-cpu.page:48(p)
+#: C/debug-cpu.page:52(p)
 msgid ""
 "The first column displays memory addresses in hexadecimal, the second "
 "displays memory contents in hexadecimal and the last column shows memory "
@@ -2645,17 +3090,18 @@ msgstr ""
 "muestra el contenido de la memoria en hexadecimal, y la última columna "
 "muestra en contenido de la memoria en ASCII."
 
-#: C/debug-cpu.page:51(p)
+#: C/debug-cpu.page:55(p) C/debug-cpu.page:82(p)
+#, fuzzy
 #| msgid ""
 #| "The addressing space of even a 32-bit microprocessor is very large (4 "
 #| "gigabytes), so it is very difficult to go to a particular address with "
 #| "the scrollbar. But you can click on the right mouse button and select "
-#| "<gui>Goto address</gui> to get a small edit box where you can enter an "
+#| "<gui>Go to address</gui> to get a small edit box where you can enter an "
 #| "address in hexadecimal."
 msgid ""
 "The addressing space of even a 32-bit microprocessor is very large (4 "
 "gigabytes), so it is very difficult to go to a particular address with the "
-"scrollbar. But you can click on the right mouse button and select <gui>Go to "
+"scrollbar. But you can click the right mouse button and select <gui>Go to "
 "address</gui> to get a small edit box where you can enter an address in "
 "hexadecimal."
 msgstr ""
@@ -2666,11 +3112,24 @@ msgstr ""
 "una pequeña caja de texto donde puede introducir una dirección en "
 "hexadecimal."
 
-#: C/debug-cpu.page:60(title)
+#: C/debug-cpu.page:64(title)
 msgid "View Disassembly"
 msgstr "Ver el desensamblado"
 
-#: C/debug-cpu.page:71(p)
+#: C/debug-cpu.page:69(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Memory</"
+#| "gui></guiseq> to open the <gui>Memory</gui> window."
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</"
+"gui><gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> "
+"window."
+msgstr ""
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
+"gui><gui>Memoria</gui></guiseq> para abrir la ventana <gui>Memoria</gui>."
+
+#: C/debug-cpu.page:75(p)
 msgid ""
 "The first column displays addresses in hexadecimal. In the second column, "
 "you can have a label starting at the beginning of the line and ending with a "
@@ -2681,7 +3140,7 @@ msgstr ""
 "termina con dos puntos o con una instrucción en lenguaje de ensamblador, "
 "sangrada por 4 espacios."
 
-#: C/debug-cpu.page:75(p)
+#: C/debug-cpu.page:79(p)
 msgid ""
 "The position in the disassembly window will be changed to the program "
 "counter value when the program is stopped."
@@ -2689,60 +3148,55 @@ msgstr ""
 "La posición en la ventana de desensamblado cambiará al contador valor del "
 "programa cuando se detenga el programa."
 
-#: C/debug-cpu.page:78(p)
-msgid ""
-"The addressing space of even a 32-bit microprocessor is very large (4 "
-"gigabytes), so it is very difficult to go to a particular address with the "
-"scrollbar. But you can click on the right mouse button and select <gui>Goto "
-"address</gui> to get a small edit box where you can enter an address in "
-"hexadecimal."
-msgstr ""
-"El espacio de direccionamiento, incluso de un microprocesador de 32-bit, es "
-"muy grande (4 gigabytes), de tal forma que es muy difícil ir a una dirección "
-"en particular con la barra de desplazamiento. Pero puede pulsar en el botón "
-"derecho del ratón y seleccionar <gui>Go to address</gui> para obtener una "
-"pequeña caja de texto donde puede introducir una dirección en hexadecimal."
-
 #: C/debug-breakpoint.page:9(desc)
 msgid "Managing breakpoints."
 msgstr "Gestionar los puntos de parada"
 
-#: C/debug-breakpoint.page:18(title)
+#: C/debug-breakpoint.page:22(title)
 msgid "Breakpoints"
 msgstr "Puntos de parada"
 
-#: C/debug-breakpoint.page:20(p)
+#: C/debug-breakpoint.page:24(p)
+#, fuzzy
+#| msgid ""
+#| "Breakpoints are used to stop the execution of the program at particular "
+#| "points so that the state of the program can be examined at those "
+#| "locations."
 msgid ""
-"Breakpoints are used to stop the execution of the program at particular "
-"points so that the state of the program can be examined at those locations."
+"Breakpoints are used to stop the execution of the program at a particular "
+"point so that the state of the program can be examined at those locations."
 msgstr ""
 "Los puntos de parada se usan para detener la ejecución de un programa en "
 "determinados puntos, para que se pueda examinar el estado del programa en "
 "esas ubicaciones."
 
-#: C/debug-breakpoint.page:24(title)
+#: C/debug-breakpoint.page:28(title)
 msgid "Listing breakpoints"
 msgstr "Listar puntos de parada"
 
-#: C/debug-breakpoint.page:28(p)
+#: C/debug-breakpoint.page:32(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
+#| "gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> "
+#| "windows."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-"gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> "
-"windows."
+"gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> window."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Puntos de parada</gui></guiseq> para abrir la ventana <gui>Punto de "
 "parada</gui>."
 
-#: C/debug-breakpoint.page:34(p)
+#: C/debug-breakpoint.page:38(p)
 msgid "This view has the following columns:"
 msgstr "Esta vista tiene las siguientes columnas:"
 
-#: C/debug-breakpoint.page:38(title) C/debug-breakpoint-dialog.page:23(gui)
+#: C/debug-breakpoint.page:42(title) C/debug-breakpoint-dialog.page:27(gui)
 msgid "Location"
 msgstr "Ubicación"
 
-#: C/debug-breakpoint.page:39(p)
+#: C/debug-breakpoint.page:43(p)
 msgid ""
 "This is the position of the breakpoint in the source file. When the "
 "breakpoint is set by the debugger, you can get additional information such "
@@ -2752,7 +3206,7 @@ msgstr ""
 "punto de parada está configurado por el depurador puede obtener información "
 "adicional, tal como la función que contiene el punto de parada."
 
-#: C/debug-breakpoint.page:45(p)
+#: C/debug-breakpoint.page:49(p)
 msgid ""
 "This field is filled with the address of the breakpoint when it is set by "
 "the debugger."
@@ -2760,30 +3214,34 @@ msgstr ""
 "Este campo se rellena con la dirección del punto de parada cuando está "
 "establecido por el depurador."
 
-#: C/debug-breakpoint.page:50(p)
+#: C/debug-breakpoint.page:54(p)
+#, fuzzy
+#| msgid ""
+#| "This always displays \"breakpoint\". It will be used in a future release "
+#| "supporting different kinds of breakpoints."
 msgid ""
-"This always displays \"breakpoint\". It will be used in a future release "
-"supporting different kinds of breakpoints."
+"This always displays <gui>breakpoint</gui>. It will be used in a future "
+"release supporting different kinds of breakpoints."
 msgstr ""
 "Esto siempre muestra «punto de parada». Se usará en una próxima versión, "
 "soportando distintos tipos de puntos de parada."
 
-#: C/debug-breakpoint.page:54(title) C/debug-breakpoint-dialog.page:34(gui)
+#: C/debug-breakpoint.page:58(title) C/debug-breakpoint-dialog.page:39(gui)
 msgid "Condition"
 msgstr "Condición"
 
-#: C/debug-breakpoint.page:55(p)
+#: C/debug-breakpoint.page:59(p)
 msgid ""
 "This is the breakpoint condition. It is empty if no condition is defined."
 msgstr ""
 "Esta es la condición del punto de parada. Está vacía si no se ha definido "
 "ninguna condición."
 
-#: C/debug-breakpoint.page:59(title)
+#: C/debug-breakpoint.page:63(title)
 msgid "Pass count"
 msgstr "Conteo de pasadas"
 
-#: C/debug-breakpoint.page:60(p)
+#: C/debug-breakpoint.page:64(p)
 msgid ""
 "When the debugger is not running, this column displays the pass count of the "
 "breakpoint, or zero if it is not defined."
@@ -2791,7 +3249,7 @@ msgstr ""
 "Cuando el depurador no se está ejecutando, esta columna muestra el conteo de "
 "pasadas del punto de parada, o cero si no está definido."
 
-#: C/debug-breakpoint.page:62(p)
+#: C/debug-breakpoint.page:66(p)
 msgid ""
 "When the debugger is running, if the pass count is zero, this column "
 "displays the number of times this breakpoint has been triggered. If the pass "
@@ -2803,44 +3261,51 @@ msgstr ""
 "Se muestran ambos números si el conteo de pasadas no es cero. El conteo de "
 "pasadas es el segundo número."
 
-#: C/debug-breakpoint.page:68(title)
+#: C/debug-breakpoint.page:72(title)
 msgid "State"
 msgstr "Estado"
 
-#: C/debug-breakpoint.page:69(p)
+#: C/debug-breakpoint.page:73(p)
 msgid "This is the state of the breakpoint. It may be"
 msgstr "Este es el estado del punto de parada. Puede ser"
 
-#: C/debug-breakpoint.page:71(title)
+#: C/debug-breakpoint.page:75(title)
 msgid "Pending:"
 msgstr "Pendiente:"
 
-#: C/debug-breakpoint.page:71(p)
+#: C/debug-breakpoint.page:75(p)
 msgid "the breakpoint is not set in your program."
 msgstr "el punto de parada no está establecido en su programa."
 
-#: C/debug-breakpoint.page:72(title)
+#: C/debug-breakpoint.page:76(title)
 msgid "Permanent:"
 msgstr "Permanente"
 
-#: C/debug-breakpoint.page:72(p)
-msgid "the breakpoint is set (its id number is given inside parenthesis)."
+#: C/debug-breakpoint.page:76(p)
+#, fuzzy
+#| msgid "the breakpoint is set (its id number is given inside parenthesis)."
+msgid "the breakpoint is set (its id number is displayed in parentheses)."
 msgstr ""
 "el punto de parada está establecido (su número de ID está entre paréntesis)."
 
-#: C/debug-breakpoint.page:73(title)
+#: C/debug-breakpoint.page:77(title)
 msgid "Temporary:"
 msgstr "Temporal:"
 
-#: C/debug-breakpoint.page:73(p)
+#: C/debug-breakpoint.page:77(p)
 msgid "the breakpoint is set but will be deleted if reached."
 msgstr ""
 "el punto de parada está establecido pero se eliminará de llegarse a él."
 
-#: C/debug-breakpoint.page:79(p)
+#: C/debug-breakpoint.page:83(p)
+#, fuzzy
+#| msgid ""
+#| "All breakpoints are kept across Anjuta sessions even if they correspond "
+#| "to a non-existing locations by example in a source file of a shared "
+#| "library not loaded yet. In this case their states are set as pending."
 msgid ""
 "All breakpoints are kept across Anjuta sessions even if they correspond to a "
-"non-existing locations by example in a source file of a shared library not "
+"non-existing locations, for example in a source file of a shared library not "
 "loaded yet. In this case their states are set as pending."
 msgstr ""
 "Todos los puntos de parada se mantienen a lo largo de diferentes sesiones en "
@@ -2848,11 +3313,11 @@ msgstr ""
 "archivo de fuentes de una biblioteca compartida que aún no está cargada. En "
 "este caso sus estados se marcan como pendientes."
 
-#: C/debug-breakpoint.page:86(title)
+#: C/debug-breakpoint.page:90(title)
 msgid "Setting breakpoints"
 msgstr "Establecer de puntos de parada"
 
-#: C/debug-breakpoint.page:90(p)
+#: C/debug-breakpoint.page:94(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
 "Breakpoint...</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
@@ -2863,12 +3328,18 @@ msgstr ""
 "derecho en la ventana <gui>Punto de parada</gui> y elija <gui>Añadir punto "
 "de parada...</gui>."
 
-#: C/debug-breakpoint.page:96(p)
+#: C/debug-breakpoint.page:100(p)
+#, fuzzy
+#| msgid ""
+#| "Fill at least the <gui>Location</gui> which is the position of the "
+#| "breakpoint, if a file is currently opened in the editor it is fill to put "
+#| "a breakpoint in the current line by default. See <link xref=\"debug-"
+#| "breakpoint-dialog\"/> for more information."
 msgid ""
-"Fill at least the <gui>Location</gui> which is the position of the "
-"breakpoint, if a file is currently opened in the editor it is fill to put a "
-"breakpoint in the current line by default. See <link xref=\"debug-breakpoint-"
-"dialog\"/> for more information."
+"Fill in the <gui>Location</gui>, which is the position of the breakpoint, "
+"and the other fields if desired. If a file is currently opened in the "
+"editor, the <gui>Location</gui> defaults to the current line. See <link xref="
+"\"debug-breakpoint-dialog\"/> for more information."
 msgstr ""
 "Rellene al menos la <gui>Ubicación</gui> que es la posición del punto de "
 "parada, si un archivo está actualmente abierto en el editor, la ubicación "
@@ -2876,16 +3347,21 @@ msgstr ""
 "Para obtener más información consulte la <link xref=\"debug-breakpoint-dialog"
 "\"/>."
 
-#: C/debug-breakpoint.page:103(p)
+#: C/debug-breakpoint.page:108(p)
+#, fuzzy
+#| msgid ""
+#| "Another solution is to use the toggle breakpoint function. If there is no "
+#| "breakpoint on the current line, it will add one. Else it will remove it."
 msgid ""
 "Another solution is to use the toggle breakpoint function. If there is no "
-"breakpoint on the current line, it will add one. Else it will remove it."
+"breakpoint on the current line, it will add one. Otherwise, it will remove "
+"it."
 msgstr ""
 "Otra solución es usar la función de conmutación de punto de parada. Si no "
 "existe un punto de parada en la línea actual, añadirá uno. En caso contrario "
 "lo quitará."
 
-#: C/debug-breakpoint.page:109(p)
+#: C/debug-breakpoint.page:114(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Toggle "
 "Breakpoint</gui></guiseq> or right click in the <gui>Editor</gui> window and "
@@ -2896,16 +3372,23 @@ msgstr ""
 "derecho en la ventana <gui>Editor</gui> y elija <gui>Conmutar punto de "
 "parada</gui>."
 
-#: C/debug-breakpoint.page:120(title)
+#: C/debug-breakpoint.page:125(title)
 msgid "Editing breakpoints"
 msgstr "Editar puntos de parada"
 
-#: C/debug-breakpoint.page:124(p) C/debug-breakpoint.page:146(p)
+#: C/debug-breakpoint.page:127(p)
+msgid ""
+"You can't change the location of a breakpoint; create a new breakpoint "
+"instead. However, you can change the break condition or the pass count. To "
+"edit a breakpoint:"
+msgstr ""
+
+#: C/debug-breakpoint.page:133(p) C/debug-breakpoint.page:160(p)
 msgid "Select a breakpoint in the <gui>Breakpoint</gui> window."
 msgstr ""
 "Seleccione un punto de parada en la ventana de <gui>Punto de parada</gui>."
 
-#: C/debug-breakpoint.page:127(p)
+#: C/debug-breakpoint.page:136(p)
 msgid ""
 "Right click in the <gui>Breakpoint</gui> window and select <gui>Edit "
 "Breakpoint...</gui>."
@@ -2913,21 +3396,34 @@ msgstr ""
 "Pulse con el botón derecho del ratón en la ventana de <gui>Punto de parada</"
 "gui> y seleccione <gui>Editar punto de parada...</gui>."
 
-#: C/debug-breakpoint.page:132(p)
+#: C/debug-breakpoint.page:141(p)
+#, fuzzy
+#| msgid ""
+#| "Change the <gui>Condition</gui> and <gui>Pass Count</gui> field and click "
+#| "on <gui>OK</gui> to commit the changes. See <link xref=\"debug-breakpoint-"
+#| "dialog\"/> for more information."
 msgid ""
-"Change the <gui>Condition</gui> and <gui>Pass Count</gui> field and click on "
-"<gui>OK</gui> to commit the changes. See <link xref=\"debug-breakpoint-dialog"
-"\"/> for more information."
+"Change the <gui>Condition</gui> or <gui>Pass Count</gui> fields and click on "
+"<gui>OK</gui> when you are done. See <link xref=\"debug-breakpoint-dialog\"/"
+"> for more information."
 msgstr ""
 "Cambie los campos <gui>Condición</gui> y el <gui>Conteo de pasadas</gui> y "
 "pulse <gui>Aceptar</gui> para efectuar los cambios. Para obtener más "
 "información consulte la <link xref=\"debug-breakpoint-dialog\"/>."
 
-#: C/debug-breakpoint.page:142(title)
+#: C/debug-breakpoint.page:151(title)
 msgid "Removing breakpoints"
 msgstr "Quitar puntos de parada"
 
-#: C/debug-breakpoint.page:149(p)
+#: C/debug-breakpoint.page:153(p)
+msgid ""
+"You can remove a breakpoint using the toggle breakpoint function described "
+"above. However, if you want to remove more than one breakpoint or the "
+"breakpoint is in a different file than the one you are editing, you can use "
+"the breakpoint window:"
+msgstr ""
+
+#: C/debug-breakpoint.page:163(p)
 msgid ""
 "Right click in the <gui>Breakpoint</gui> window and select <gui>Remove "
 "Breakpoint</gui>."
@@ -2935,29 +3431,47 @@ msgstr ""
 "Pulse con el botón derecho del ratón en la ventana de <gui>Punto de parada</"
 "gui> y seleccione <gui>Quitar punto de parada</gui>."
 
-#: C/debug-breakpoint.page:155(p)
-msgid "You can remove all breakpoints using:"
+#: C/debug-breakpoint.page:169(p)
+#, fuzzy
+#| msgid "You can remove all breakpoints using:"
+msgid "To remove all breakpoints:"
 msgstr "Puede quitar todos los puntos de parada usando:"
 
-#: C/debug-breakpoint.page:159(p)
+#: C/debug-breakpoint.page:173(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Remove "
+#| "All Breakpoints</gui></guiseq> or right click in the <gui>Breakpoint</"
+#| "gui> window and select <gui>Remove All Breakpoint</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Remove "
-"All Breakpoints</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
-"window and select <gui>Remove All Breakpoint</gui>."
+"All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
+"window and select <gui>Remove All Breakpoints</gui>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
 "gui><gui>Desactivar todos los puntos de parada</gui></guiseq> o pulse con el "
 "botón derecho en la ventana <gui>Punto de parada</gui> y seleccione "
 "<gui>Desactivar todos los puntos de parada</gui>."
 
-#: C/debug-breakpoint.page:170(title)
+#: C/debug-breakpoint.page:184(title)
 msgid "Enabling and disabling breakpoints"
 msgstr "Activar y desactivar puntos de parada"
 
-#: C/debug-breakpoint.page:174(p)
+#: C/debug-breakpoint.page:186(p)
 msgid ""
-"Click on the <gui>Enable</gui> column in the <gui>Breakpoint</gui> window or "
-"right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
+"Sometimes you might want to disable a breakpoint temporarily instead of "
+"deleting it altogether. To disable or re-enable a breakpoint:"
+msgstr ""
+
+#: C/debug-breakpoint.page:191(p)
+#, fuzzy
+#| msgid ""
+#| "Click on the <gui>Enable</gui> column in the <gui>Breakpoint</gui> window "
+#| "or right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
+#| "Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
+msgid ""
+"Click on the <gui>Enable</gui> checkmark in the <gui>Breakpoint</gui> window "
+"or right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
 "Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
 msgstr ""
 "Pulse enla columna <gui>Activar</gui> en la ventana de <gui>Punto de parada</"
@@ -2965,15 +3479,20 @@ msgstr ""
 "parada</gui> y seleccione <gui>Activar punto de parada</gui> o "
 "<gui>Desactivar punto de parada</gui>."
 
-#: C/debug-breakpoint.page:180(p)
+#: C/debug-breakpoint.page:197(p)
 msgid "You can disable all breakpoints using:"
 msgstr "Puede desactivar los puntos de parada usando:"
 
-#: C/debug-breakpoint.page:184(p)
+#: C/debug-breakpoint.page:201(p)
+#, fuzzy
+#| msgid ""
+#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
+#| "gui><gui>Disable All Breakpoints</gui></guiseq> or right click in the "
+#| "<gui>Breakpoint</gui> window and select <gui>Disable All Breakpoint</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Disable "
-"All Breakpoints</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
-"window and select <gui>Disable All Breakpoint</gui>."
+"All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
+"window and select <gui>Disable All Breakpoints</gui>."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Desactivar todos los puntos de parada</gui></guiseq> o pulse con el "
@@ -2984,57 +3503,89 @@ msgstr ""
 msgid "Used to create or edit a breakpoint"
 msgstr "Usado para crear o editar un punto de parada"
 
-#: C/debug-breakpoint-dialog.page:19(title)
+#: C/debug-breakpoint-dialog.page:23(title)
 msgid "Breakpoint Dialog"
 msgstr "Diálogo «Punto de parada»"
 
-#: C/debug-breakpoint-dialog.page:24(p)
+#: C/debug-breakpoint-dialog.page:28(p)
+#, fuzzy
+#| msgid ""
+#| "This is the position of the breakpoint. This cannot be changed on a "
+#| "existing breakpoint. It can be specified using the following formats:"
 msgid ""
-"This is the position of the breakpoint. This cannot be changed on a existing "
-"breakpoint. It can be specified using the following formats:"
+"This is the position of the breakpoint. For an existing breakpoint, you "
+"cannot change this. You can set a breakpoint at a certain line number, or at "
+"the beginning of a function. Use one of the following formats:"
 msgstr ""
 "Esta es la posición del punto de parada. No se puede cambiar en un punto de "
 "parada existente. Se puede especificar usando los siguientes formatos:"
 
-#: C/debug-breakpoint-dialog.page:28(var)
-msgid "file_name:line_number"
+#: C/debug-breakpoint-dialog.page:33(p)
+#, fuzzy
+#| msgid "file_name:line_number"
+msgid "<var>file_name</var>:<var>line_number</var>"
 msgstr "nombre_de_archivo:número_de_línea"
 
-#: C/debug-breakpoint-dialog.page:29(var)
+#: C/debug-breakpoint-dialog.page:34(var)
 msgid "function_name"
 msgstr "nombre_de_la_función"
 
-#: C/debug-breakpoint-dialog.page:30(var)
-msgid "file_name:function_name"
+#: C/debug-breakpoint-dialog.page:35(p)
+#, fuzzy
+#| msgid "file_name:function_name"
+msgid "<var>file_name</var>:<var>function_name</var>"
 msgstr "nombre_de_archivo:nombre_de_la_función"
 
-#: C/debug-breakpoint-dialog.page:35(p)
+#: C/debug-breakpoint-dialog.page:40(p)
+#, fuzzy
+#| msgid ""
+#| "It is an expression which should evaluate to a boolean value TRUE(1) or "
+#| "FALSE(0). Every time the breakpoint is encountered during your program's "
+#| "execution, the break condition will be evaluated. The debugger will break "
+#| "the execution only if the evaluation result is the TRUE value."
 msgid ""
-"It is an expression which should evaluate to a boolean value TRUE(1) or FALSE"
-"(0). Every time the breakpoint is encountered during your program's "
-"execution, the break condition will be evaluated. The debugger will break "
-"the execution only if the evaluation result is the TRUE value."
+"The break condition is an expression which should evaluate to a boolean "
+"value <code>TRUE</code> (1) or <code>FALSE</code> (0). Every time the "
+"breakpoint is encountered during your program's execution, the break "
+"condition will be evaluated. The debugger will break the execution only if "
+"the result of the evaluation is <code>TRUE</code>."
 msgstr ""
 "Es una expresión que debería evaluar un valor booleano TRUE(1) o FALSE(0). "
 "Cada vez que se encuentra el punto de parada durante la ejecución de su "
 "programa, se evalua también la condición de parada. El depurador detendrá la "
 "ejecución sólo si el resultado de la evaluación es cierto («TRUE»)."
 
-#: C/debug-breakpoint-dialog.page:40(p)
+#: C/debug-breakpoint-dialog.page:45(p)
+#, fuzzy
+#| msgid ""
+#| "If you leave this field blank the condition is considered as always TRUE."
 msgid ""
-"If you leave this field blank the condition is considered as always TRUE."
+"If you leave this field blank the condition is always considered <code>TRUE</"
+"code>."
 msgstr "Si deja el campo en blanco, la condición se considera siempre cierta."
 
-#: C/debug-breakpoint-dialog.page:44(gui)
+#: C/debug-breakpoint-dialog.page:49(gui)
 msgid "Pass Count"
 msgstr "Conteo de pasadas"
 
-#: C/debug-breakpoint-dialog.page:45(p)
+#: C/debug-breakpoint-dialog.page:50(p)
 msgid ""
-"This is an integer (unsigned) value which tells the debugger to skip the "
-"breakpoint that number of times before it is considered. It has a higher "
-"priority than the condition. Only when the count reaches zero will the "
-"debugger evaluate the condition if it is present."
+"The debugger can also skip the breakpoint a certain number of times before "
+"breaking. If the pass count is not zero, then the debugger will have to "
+"encounter the breakpoint this number of times before breaking."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:53(p)
+#, fuzzy
+#| msgid ""
+#| "This is an integer (unsigned) value which tells the debugger to skip the "
+#| "breakpoint that number of times before it is considered. It has a higher "
+#| "priority than the condition. Only when the count reaches zero will the "
+#| "debugger evaluate the condition if it is present."
+msgid ""
+"The pass count has a higher priority than the condition. Only when the pass "
+"count has been reached will the debugger evaluate the condition if it is "
+"present and break the program's execution."
 msgstr ""
 "Este es un valor entero (sin signo) que le dice al depurador que omita el "
 "punto de parada ese número de veces antes de considerarlo. Tiene una "
@@ -3227,6 +3778,93 @@ msgstr ""
 "Francisco Javier F. Serrador <fserrador@gmail.com>, 2011\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2011\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2011"
+
+#~ msgid ""
+#~ "If a watch expression corresponds to a variable you can change its value. "
+#~ "In the <gui>Watches</gui> window, select the variable you want to edit "
+#~ "and double click in the <gui>Value</gui> column."
+#~ msgstr ""
+#~ "Si una vigilancia corresponde a una variable, puede cambiar su valor. En "
+#~ "la ventana <gui>Vigilancias</gui>, seleccione la variable que quiere "
+#~ "editar y pulse dos veces en la columna <gui>Valor</gui>."
+
+#~ msgid ""
+#~ "A program can be stopped as soon as it gets a GLib critical errors if the "
+#~ "environment variable <sys>G_DEBUG</sys> has the value "
+#~ "<sys>fatal_criticals</sys>. This environment variable can be set in the "
+#~ "<link xref=\"run-parameters-dialog\"/>."
+#~ msgstr ""
+#~ "Un programa se puede detener tan pronto como se obtiene un error crítico "
+#~ "de GLib si la variable de entorno <sys>G_DEBUG</sys> tiene el valor "
+#~ "<sys>fatal_criticals</sys>. Esta variable se puede establecer en la <link "
+#~ "xref=\"run-parameters-dialog\"/>."
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#~ "In</gui></guiseq> or press <key>F5</key>"
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Deùrar</"
+#~ "gui><gui>Avanzar</gui></guiseq> or pulse <key>F5</key>"
+
+#~ msgid ""
+#~ "<placeholder-1/> or click on the <gui>Step In</gui> icon in the toolbar."
+#~ msgstr ""
+#~ "<placeholder-1/> o pulse en el icono <gui>Avanzar</gui> en la barra de "
+#~ "herramientas."
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
+#~ "Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq>"
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Avanzar al final</gui></guiseq> o pulse <keyseq><key>Mayús</"
+#~ "key><key>F5</key></keyseq>"
+
+#~ msgid ""
+#~ "<placeholder-1/> or click on the <gui>Step Out</gui> icon in the toolbar."
+#~ msgstr ""
+#~ "<placeholder-1/> o pulse en el icono <gui>Avanzar al final</gui> en la "
+#~ "barra de herramientas."
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run/"
+#~ "Continue</gui></guiseq> or press <key>F4</key>"
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Ejecutar/Continuar</gui></guiseq> o pulse <key>F4</key>"
+
+#~ msgid ""
+#~ "<placeholder-1/> or click on the <gui>Continue</gui> icon in the toolbar."
+#~ msgstr ""
+#~ "<placeholder-1/> o pulse el icono <gui>Continuar</gui> en la barra de "
+#~ "herramientas."
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run to "
+#~ "Cursor</gui></guiseq> or press <key>F8</key>"
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Ejecutar hasta cursor</gui></guiseq> or pulse <key>F8</key>"
+
+#~ msgid ""
+#~ "<placeholder-1/> or click on the <gui>Run to</gui> icon in the toolbar."
+#~ msgstr ""
+#~ "<placeholder-1/> o pulse el icono <gui>Ejecutar hasta</gui> en la barra "
+#~ "de herramientas."
+
+#~ msgid ""
+#~ "The addressing space of even a 32-bit microprocessor is very large (4 "
+#~ "gigabytes), so it is very difficult to go to a particular address with "
+#~ "the scrollbar. But you can click on the right mouse button and select "
+#~ "<gui>Goto address</gui> to get a small edit box where you can enter an "
+#~ "address in hexadecimal."
+#~ msgstr ""
+#~ "El espacio de direccionamiento, incluso de un microprocesador de 32-bit, "
+#~ "es muy grande (4 gigabytes), de tal forma que es muy difícil ir a una "
+#~ "dirección en particular con la barra de desplazamiento. Pero puede pulsar "
+#~ "en el botón derecho del ratón y seleccionar <gui>Go to address</gui> para "
+#~ "obtener una pequeña caja de texto donde puede introducir una dirección en "
+#~ "hexadecimal."
 
 #~ msgid "Stopping execution in a particular place"
 #~ msgstr "Detener la ejecución en un determinado lugar"
