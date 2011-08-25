@@ -31,7 +31,7 @@ js-parser/lex.yy.c : ${LEXFILE}
 	${LEXER} ${LEXCCFLAGS} ${LEXFILE}
 
 ctags-visitor.c: ctags-visitor.vala
-	$(VALAC) -g -h ctags-vala.h -C --pkg libvala-0.12 $^
+	$(VALAC) -g -h ctags-vala.h -C --pkg $(LIBVALA) $^
 
 anjuta_tags_SOURCES = \
 	main.c        \
