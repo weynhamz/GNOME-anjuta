@@ -1427,6 +1427,38 @@ sdb_engine_scan_files_2 (GFile *gfile,
 	 */
 }
 
+/*
+ * sdb_sort_files_list:
+ * file1: First file
+ * file2: second file
+ * 
+ * Returns: 
+ * -1 if file1 will be sorted before file2
+ * 0 if file1 and file2 are sorted equally
+ * 1 if file2 will be sorted before file1
+ */
+static gint sdb_sort_files_list (gconstpointer file1, gconstpointer file2)
+{
+	const gchar* filename1 = file1;
+	const gchar* filename2 = file2;
+
+	if (g_str_has_suffix (filename1, ".h") ||
+	    g_str_has_suffix (filename1, ".hxx") ||
+	    g_str_has_suffix (filename1, ".hh"))
+	{
+		return -1;
+	}
+	else if (g_str_has_suffix (filename2, ".h") ||
+	    g_str_has_suffix (filename2, ".hxx") ||
+	    g_str_has_suffix (filename2, ".hh"))
+	{
+		return 1;
+	}
+	
+	return 0;
+}
+	
+	
 /* Scan with ctags and produce an output 'tags' file [shared memory file]
  * containing language symbols. This function will call ctags 
  * executale and then sdb_engine_populate_db_by_tags () when it'll detect some
@@ -1516,6 +1548,11 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 
 		/* no need to free temp_file (alias shared_mem_str). It will be freed on plugin finalize */
 	}
+
+	/* Sort the files to have sources before headers */
+	g_ptr_array_sort (files_list, sdb_sort_files_list);
+	if (real_files_list)
+		g_ptr_array_sort (real_files_list, sdb_sort_files_list);
 	
 	for (i = 0; i < files_list->len; i++)
 	{
