@@ -1,19 +1,20 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-24 19:26+0000\n"
-"PO-Revision-Date: 2011-08-24 21:38+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-08-25 12:42+0000\n"
+"PO-Revision-Date: 2011-08-26 10:29+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -879,10 +880,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
-"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
-"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
-"proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
+"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
+"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
 
 #: C/autotools-build-install.page:11(desc)
 msgid "Install targets or project."
@@ -1028,11 +1028,10 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de "
-"depurar (manteniendo variables intermedias y ordenando el código) y una "
-"opción «optimizada» que genera programas más rápidos pero que aumenta el "
-"tiempo de construcción. Puede definir configuraciones personalizadas "
-"adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de depurar "
+"(manteniendo variables intermedias y ordenando el código) y una opción "
+"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
+"construcción. Puede definir configuraciones personalizadas adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(gui)
 msgid "Build Directory"
@@ -1531,7 +1530,6 @@ msgid "Monitor expressions and variables."
 msgstr "Monitorizar expresiones y variables."
 
 #: C/debug-watch.page:22(title)
-#| msgid "Watch expression"
 msgid "Watch expressions"
 msgstr "Vigilar expresiones"
 
@@ -1557,9 +1555,6 @@ msgstr ""
 "gui>."
 
 #: C/debug-watch.page:40(p)
-#| msgid ""
-#| "Like local variables, all watches expression are displayed in a tree view "
-#| "with children used to represent structure or array members."
 msgid ""
 "Like local variables, all watch expressions are displayed in a tree with "
 "children used to represent structure or array members."
@@ -1626,7 +1621,6 @@ msgstr ""
 "<gui>Autoactualizar</gui> está marcada; si no lo está, márquela."
 
 #: C/debug-watch.page:75(p)
-#| msgid "Add a watch on an expression"
 msgid "To update a watch expression manually:"
 msgstr "Para actualizar una expresión vigilada manualmente:"
 
@@ -1689,7 +1683,6 @@ msgstr ""
 "quiere que la expresión se evalúe cada vez que se detiene el programa."
 
 #: C/debug-watch.page:114(p)
-#| msgid "An expression can be evaluate and then added as a watch using:"
 msgid "An expression can be evaluated and then added as a watch like this:"
 msgstr "Una expresión se puede evaluar y añadirse como vigilancia así:"
 
@@ -1704,8 +1697,6 @@ msgstr ""
 "la ventana <gui>Editor</gui> y seleccione <gui>Inspeccionar/Evaluar</gui>."
 
 #: C/debug-watch.page:123(p)
-#| msgid ""
-#| "Click on <gui>Add</gui> button to add this expression in the watches list."
 msgid ""
 "Click on <gui>Add</gui> button to add this expression to the watches list."
 msgstr ""
@@ -1717,15 +1708,10 @@ msgid "Remove a watch"
 msgstr "Quitar una vigilancia"
 
 #: C/debug-watch.page:133(p)
-#| msgid ""
-#| "Click on <gui>Add</gui> button to add this expression in the watches list."
 msgid "You can remove an expression from the watches list."
 msgstr "Puede quitar una expresión de la lista de vigilancias."
 
 #: C/debug-watch.page:137(p)
-#| msgid ""
-#| "In the <gui>Watches</gui> windows select the watch you want to remove "
-#| "then right click and select <gui>Remove Watch</gui>."
 msgid ""
 "In the <gui>Watches</gui> window, select the watch you want to remove, then "
 "right-click and select <gui>Remove Watch</gui>."
@@ -1739,8 +1725,6 @@ msgid "All watches can be removed at the same time."
 msgstr "Se pueden quitar todas las vigilancias al mismo tiempo"
 
 #: C/debug-watch.page:146(p)
-#| msgid ""
-#| "In the <gui>Watches</gui> right click and select <gui>Remove all</gui>."
 msgid ""
 "In the <gui>Watches</gui> window, right-click and select <gui>Remove all</"
 "gui>."
@@ -1760,9 +1744,6 @@ msgstr ""
 "cambiar su valor."
 
 #: C/debug-watch.page:160(p)
-#| msgid ""
-#| "In the <gui>Local</gui> window, select the variable you want to edit and "
-#| "double click in the <gui>Value</gui> column."
 msgid ""
 "In the <gui>Watches</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
@@ -1779,12 +1760,10 @@ msgid "Debugging tips and tricks."
 msgstr "Trucos y consejos para el depurado."
 
 #: C/debug-tips.page:22(title)
-#| msgid "Debug tips"
 msgid "Debugging tips"
 msgstr "Consejos para el depurado"
 
 #: C/debug-tips.page:25(title)
-#| msgid "Fix Glib/Gtk+ critical errors"
 msgid "Fixing GLib/GTK+ critical errors"
 msgstr "Corregir errores críticos de Glib/GTK+"
 
@@ -1918,7 +1897,6 @@ msgstr ""
 "gui><gui>Hilo</gui></guiseq>para abrir la ventana <gui>Hilo</gui> window."
 
 #: C/debug-thread.page:39(p)
-#| msgid "Each thread contains the following information:"
 msgid "The window shows the following information about each thread:"
 msgstr "Cada ventana muestra la sigueinte información acerca de cada hilo:"
 
@@ -1927,7 +1905,6 @@ msgid "Active"
 msgstr "Activo"
 
 #: C/debug-thread.page:44(p)
-#| msgid "This contains a yellow arrow to represent the active thread."
 msgid "This contains a yellow arrow that points to the active thread."
 msgstr "Esto contiene una flecha amarilla que apunta al hilo activo."
 
@@ -1996,7 +1973,6 @@ msgid "In the <gui>Thread</gui> window, select the thread you want."
 msgstr "En la ventana <gui>Thread</gui>, seleccione el hilo que quiere."
 
 #: C/debug-thread.page:85(p)
-#| msgid "Right click and select <gui>Set current thread</gui>"
 msgid "Right-click and select <gui>Set current thread</gui>."
 msgstr ""
 "Pulse con el botón derecho y seleccione <gui>Establecer el hilo actual</gui>."
@@ -2006,7 +1982,6 @@ msgid "View current function"
 msgstr "Ver la función actual"
 
 #: C/debug-thread.page:99(p) C/debug-stack.page:104(p)
-#| msgid "Double click or right click and select <gui>View Source</gui>"
 msgid "Double-click, or right-click and select <gui>View Source</gui>."
 msgstr "Pulse dos veces o pulse con el botón derecho en <gui>Ver fuente</gui>."
 
@@ -2019,10 +1994,6 @@ msgid "Stop and step"
 msgstr "Parar y pasos"
 
 #: C/debug-step.page:24(p)
-#| msgid ""
-#| "Like a video editing session, the program can be executed in slow motion "
-#| "with the ability to go forward, pause, stop, and so on. You cannot go "
-#| "backward yet though. This is essential for tracking program behavior."
 msgid ""
 "Like a video editing session, the program can be executed in slow motion "
 "with the ability to go forward, pause, stop, and so on. This is essential "
@@ -2038,10 +2009,6 @@ msgid "Step in"
 msgstr "Avanzar"
 
 #: C/debug-step.page:34(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
-#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
-#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step In</"
 "gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</gui> icon "
@@ -2089,9 +2056,6 @@ msgstr ""
 "icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
 #: C/debug-step.page:65(p)
-#| msgid ""
-#| "Stepping over is similar to step in except that it does not stop inside "
-#| "any function in the statement being executed."
 msgid ""
 "Stepping over is similar to stepping except that it does not stop inside any "
 "function in the statement being executed."
@@ -2100,11 +2064,6 @@ msgstr ""
 "en ninguna función dentro de la declaración en ejecución."
 
 #: C/debug-step.page:69(p)
-#| msgid ""
-#| "If the <gui>Disassembly window</gui> has the focus when this command is "
-#| "selected, it executes only one assembler instruction except if this "
-#| "instruction is a call to a subroutine, in this case the program stops "
-#| "when the subroutine is completed."
 msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
 "selected, it executes only one assembler instruction, except if that "
@@ -2121,10 +2080,6 @@ msgid "Step out"
 msgstr "Avanzar al final"
 
 #: C/debug-step.page:82(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
-#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
-#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step Out</"
 "gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> or "
@@ -2313,8 +2268,8 @@ msgid ""
 "has the highest number."
 msgstr ""
 "Este es el número de marco, comenzando por 0, de la función actual. La "
-"primera función de su programa, «main» para un programa en C, tiene el "
-"número más alto."
+"primera función de su programa, «main» para un programa en C, tiene el número "
+"más alto."
 
 #: C/debug-stack.page:58(p)
 msgid ""
@@ -2935,6 +2890,9 @@ msgid ""
 "expression or variable while the program is paused. It is also sometimes "
 "useful to change the value of a variable."
 msgstr ""
+"Mientras esté depurando un programa, puede buscar el valor de una expresión "
+"o variable si el programa está parado. A veces, también es útil cambiar el "
+"valor de la variable."
 
 #: C/debug-expression.page:33(p)
 #, fuzzy
@@ -3117,17 +3075,14 @@ msgid "View Disassembly"
 msgstr "Ver el desensamblado"
 
 #: C/debug-cpu.page:69(p)
-#, fuzzy
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Memory</"
-#| "gui></guiseq> to open the <gui>Memory</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</"
 "gui><gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> "
 "window."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
-"gui><gui>Memoria</gui></guiseq> para abrir la ventana <gui>Memoria</gui>."
+"gui><gui>Desensamblado</gui></guiseq> para abrir la ventana "
+"<gui>Desensamblado</gui>."
 
 #: C/debug-cpu.page:75(p)
 msgid ""
@@ -3157,11 +3112,6 @@ msgid "Breakpoints"
 msgstr "Puntos de parada"
 
 #: C/debug-breakpoint.page:24(p)
-#, fuzzy
-#| msgid ""
-#| "Breakpoints are used to stop the execution of the program at particular "
-#| "points so that the state of the program can be examined at those "
-#| "locations."
 msgid ""
 "Breakpoints are used to stop the execution of the program at a particular "
 "point so that the state of the program can be examined at those locations."
@@ -3175,11 +3125,6 @@ msgid "Listing breakpoints"
 msgstr "Listar puntos de parada"
 
 #: C/debug-breakpoint.page:32(p)
-#, fuzzy
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-#| "gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> "
-#| "windows."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</"
 "gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> window."
@@ -3215,16 +3160,12 @@ msgstr ""
 "establecido por el depurador."
 
 #: C/debug-breakpoint.page:54(p)
-#, fuzzy
-#| msgid ""
-#| "This always displays \"breakpoint\". It will be used in a future release "
-#| "supporting different kinds of breakpoints."
 msgid ""
 "This always displays <gui>breakpoint</gui>. It will be used in a future "
 "release supporting different kinds of breakpoints."
 msgstr ""
-"Esto siempre muestra «punto de parada». Se usará en una próxima versión, "
-"soportando distintos tipos de puntos de parada."
+"Esto siempre muestra <gui>punto de parada</gui>. Se usará en una próxima "
+"versión, soportando distintos tipos de puntos de parada."
 
 #: C/debug-breakpoint.page:58(title) C/debug-breakpoint-dialog.page:39(gui)
 msgid "Condition"
@@ -3282,11 +3223,10 @@ msgid "Permanent:"
 msgstr "Permanente"
 
 #: C/debug-breakpoint.page:76(p)
-#, fuzzy
-#| msgid "the breakpoint is set (its id number is given inside parenthesis)."
 msgid "the breakpoint is set (its id number is displayed in parentheses)."
 msgstr ""
-"el punto de parada está establecido (su número de ID está entre paréntesis)."
+"el punto de parada está establecido (su número de ID se muestra entre "
+"paréntesis)."
 
 #: C/debug-breakpoint.page:77(title)
 msgid "Temporary:"
@@ -3382,6 +3322,9 @@ msgid ""
 "instead. However, you can change the break condition or the pass count. To "
 "edit a breakpoint:"
 msgstr ""
+"No puede cambiar la ubicación de un punto de parada; en su lugar cree un "
+"punto de parada nuevo. No obstante, puede cambiar la condición de parada o "
+"el conteo de pasadas. Para editar un punto de parada:"
 
 #: C/debug-breakpoint.page:133(p) C/debug-breakpoint.page:160(p)
 msgid "Select a breakpoint in the <gui>Breakpoint</gui> window."
@@ -3397,19 +3340,14 @@ msgstr ""
 "gui> y seleccione <gui>Editar punto de parada...</gui>."
 
 #: C/debug-breakpoint.page:141(p)
-#, fuzzy
-#| msgid ""
-#| "Change the <gui>Condition</gui> and <gui>Pass Count</gui> field and click "
-#| "on <gui>OK</gui> to commit the changes. See <link xref=\"debug-breakpoint-"
-#| "dialog\"/> for more information."
 msgid ""
 "Change the <gui>Condition</gui> or <gui>Pass Count</gui> fields and click on "
 "<gui>OK</gui> when you are done. See <link xref=\"debug-breakpoint-dialog\"/"
 "> for more information."
 msgstr ""
-"Cambie los campos <gui>Condición</gui> y el <gui>Conteo de pasadas</gui> y "
-"pulse <gui>Aceptar</gui> para efectuar los cambios. Para obtener más "
-"información consulte la <link xref=\"debug-breakpoint-dialog\"/>."
+"Cambie la <gui>Condición</gui> o el <gui>Conteo de pasadas</gui> y pulse "
+"<gui>Aceptar</gui> cuando haya terminado. Para obtener más información "
+"consulte la <link xref=\"debug-breakpoint-dialog\"/>."
 
 #: C/debug-breakpoint.page:151(title)
 msgid "Removing breakpoints"
@@ -3422,6 +3360,10 @@ msgid ""
 "breakpoint is in a different file than the one you are editing, you can use "
 "the breakpoint window:"
 msgstr ""
+"Puede quitar un punto de parada usando la función de conmutar punto de "
+"parada descrita anteriormente. No obstante, si quiere quitar más de un punto "
+"de parada, o si el punto de parada está en otro archivo diferente del que "
+"está editando, puede usar la ventana de punto de parada:"
 
 #: C/debug-breakpoint.page:163(p)
 msgid ""
@@ -3462,6 +3404,8 @@ msgid ""
 "Sometimes you might want to disable a breakpoint temporarily instead of "
 "deleting it altogether. To disable or re-enable a breakpoint:"
 msgstr ""
+"A veces puede querer desactivar un punto de parada temporalmente en lugar de "
+"eliminarlo. Para desactivar o reactivar un punto de parada:"
 
 #: C/debug-breakpoint.page:191(p)
 #, fuzzy
@@ -3521,20 +3465,16 @@ msgstr ""
 "parada existente. Se puede especificar usando los siguientes formatos:"
 
 #: C/debug-breakpoint-dialog.page:33(p)
-#, fuzzy
-#| msgid "file_name:line_number"
 msgid "<var>file_name</var>:<var>line_number</var>"
-msgstr "nombre_de_archivo:número_de_línea"
+msgstr "<var>nombre_de_archivo</var>:<var>número_de_línea</var>"
 
 #: C/debug-breakpoint-dialog.page:34(var)
 msgid "function_name"
 msgstr "nombre_de_la_función"
 
 #: C/debug-breakpoint-dialog.page:35(p)
-#, fuzzy
-#| msgid "file_name:function_name"
 msgid "<var>file_name</var>:<var>function_name</var>"
-msgstr "nombre_de_archivo:nombre_de_la_función"
+msgstr "<var>nombre_de_archivo</var>:<var>nombre_de_la_función</var>"
 
 #: C/debug-breakpoint-dialog.page:40(p)
 #, fuzzy
@@ -3556,13 +3496,12 @@ msgstr ""
 "ejecución sólo si el resultado de la evaluación es cierto («TRUE»)."
 
 #: C/debug-breakpoint-dialog.page:45(p)
-#, fuzzy
-#| msgid ""
-#| "If you leave this field blank the condition is considered as always TRUE."
 msgid ""
 "If you leave this field blank the condition is always considered <code>TRUE</"
 "code>."
-msgstr "Si deja el campo en blanco, la condición se considera siempre cierta."
+msgstr ""
+"Si deja el campo en blanco, la condición se considera siempre cierta "
+"(<code>TRUE</code>)."
 
 #: C/debug-breakpoint-dialog.page:49(gui)
 msgid "Pass Count"
@@ -3574,23 +3513,20 @@ msgid ""
 "breaking. If the pass count is not zero, then the debugger will have to "
 "encounter the breakpoint this number of times before breaking."
 msgstr ""
+"El depurador también puede omitir un punto de parada cierto número de veces "
+"antes de detenerlo. Si el conteo de pasadas no es cero, entonces el "
+"depurador tendrá que pasar por el punto de parada este número de veces antes "
+"de detener la ejecución."
 
 #: C/debug-breakpoint-dialog.page:53(p)
-#, fuzzy
-#| msgid ""
-#| "This is an integer (unsigned) value which tells the debugger to skip the "
-#| "breakpoint that number of times before it is considered. It has a higher "
-#| "priority than the condition. Only when the count reaches zero will the "
-#| "debugger evaluate the condition if it is present."
 msgid ""
 "The pass count has a higher priority than the condition. Only when the pass "
 "count has been reached will the debugger evaluate the condition if it is "
 "present and break the program's execution."
 msgstr ""
-"Este es un valor entero (sin signo) que le dice al depurador que omita el "
-"punto de parada ese número de veces antes de considerarlo. Tiene una "
-"prioridad mayor que la condición. Sólo cuando el contador llega a cero, el "
-"depurador evaluará la condición, de estar presente."
+"El conteo de pasadas tiene una prioridad mayor que la condición. Sólo cuando "
+"el contador llega a cero, el depurador evaluará la condición, de estar "
+"presente, y detiene la ejecución del programa."
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
 #: C/anjuta-code-symbols.page:10(name) C/anjuta-code-indentation.page:10(name)
