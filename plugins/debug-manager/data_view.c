@@ -369,7 +369,7 @@ static void
 dma_data_view_value_changed (GtkAdjustment *adj,
                              DmaDataView   *view)
 {
-	gboolean value;
+	gdouble value;
 
 	value = gtk_adjustment_get_value (adj);
 	view->start = ((gulong) value) - (((gulong) value) % view->bytes_by_line);
@@ -448,6 +448,8 @@ dma_data_view_size_allocate (GtkWidget *widget,
 	gint step;
 	guint border_width;
 	gboolean need_fill = FALSE;
+	
+	gtk_widget_set_allocation (widget, allocation);
 	
  	gtk_widget_get_child_requisition (view->range, &range_requisition);
 	border_width = gtk_container_get_border_width (GTK_CONTAINER (view));
@@ -877,6 +879,8 @@ static void
 dma_data_view_instance_init (DmaDataView *view)
 {
 	view->buffer = NULL;
+
+	gtk_widget_set_has_window (GTK_WIDGET (view), FALSE);
 }
 
 /* class_init intialize the class itself not the instance */
