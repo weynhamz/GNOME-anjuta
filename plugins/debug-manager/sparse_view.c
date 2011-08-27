@@ -73,14 +73,13 @@ enum {
 
 struct _DmaSparseViewPrivate
 {
-	GtkTextView parent;
-	
 	gboolean 	 show_line_numbers;
 	gboolean	 show_line_markers;
 	
 	DmaSparseBuffer* buffer;
 	DmaSparseIter start;
 	GtkAdjustment *vadjustment;
+	GtkAdjustment *dummy_vadjustment;
 
 	GtkWidget *goto_window;
 	GtkWidget *goto_entry;
@@ -460,11 +459,11 @@ marker_ianjuta_to_view (IAnjutaMarkableMarker marker)
 static void
 dma_sparse_view_initialize_marker (DmaSparseView *view)
 {
-	view->priv->marker_pixbuf[SPARSE_VIEW_BOOKMARK] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL);
-	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_DISABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL);
-	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_ENABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL);
-	view->priv->marker_pixbuf[SPARSE_VIEW_PROGRAM_COUNTER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL);
-	view->priv->marker_pixbuf[SPARSE_VIEW_LINEMARKER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_BOOKMARK] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR "/" MARKER_PIXMAP_BOOKMARK, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_DISABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR "/" MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_ENABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR "/" MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_PROGRAM_COUNTER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR "/" MARKER_PIXMAP_PROGRAM_COUNTER, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_LINEMARKER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR "/" MARKER_PIXMAP_LINEMARKER, NULL);
 }
 
 static void
@@ -542,6 +541,35 @@ dma_sparse_view_move_cursor (GtkTextView *text_view,
 	GTK_TEXT_VIEW_CLASS (dma_sparse_view_parent_class)->move_cursor (text_view,
 								 step, count,
 								 extend_selection);
+}
+
+static void
+dma_sparse_view_synchronize_iter (DmaSparseView *view, DmaSparseIter *iter)
+{
+	gdouble dist;
+	gdouble pos;
+	/* Need to change iterator according to adjustment */
+
+	pos = gtk_adjustment_get_value (view->priv->vadjustment);
+	dist = pos - (gdouble)dma_sparse_iter_get_address (iter);
+
+	if (dist != 0)
+	{
+		gdouble page_size = gtk_adjustment_get_page_size (view->priv->vadjustment);
+
+		if ((dist < 4.0 * page_size) && (dist > -4.0 * page_size))
+		{
+			gint count = (gint) (dist / gtk_adjustment_get_step_increment (view->priv->vadjustment));
+
+			dma_sparse_iter_forward_lines (iter, count);
+		}
+		else
+		{
+			dma_sparse_iter_move_at (iter, pos);
+			dma_sparse_iter_round (iter, FALSE);
+		}
+		gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)dma_sparse_iter_get_address (iter));
+	}
 }
 
 static void
@@ -804,6 +832,66 @@ dma_sparse_view_update_adjustement (DmaSparseView *view)
 	}
 }
 
+static void
+dma_sparse_view_value_changed (GtkAdjustment *adj,
+                               DmaSparseView *view)
+{
+	dma_sparse_view_synchronize_iter (view, &view->priv->start);
+	dma_sparse_view_refresh (view);
+}
+
+
+static void
+dma_sparse_view_notify_vadjustment (DmaSparseView *view,
+                                    GParamSpec *pspec,
+                                    gpointer    user_data) 
+{
+	GtkAdjustment *vadj = gtk_scrollable_get_vadjustment(GTK_SCROLLABLE(view));
+	
+	g_return_if_fail (vadj == NULL || GTK_IS_ADJUSTMENT (vadj));
+	
+	/* Skip notification if the adjustment has been set by this function below */
+	if (vadj == view->priv->dummy_vadjustment) return;
+	
+	g_return_if_fail (GTK_IS_ADJUSTMENT (vadj));
+
+	if (view->priv->vadjustment)
+	{
+		g_signal_handlers_disconnect_by_func (view->priv->vadjustment,
+		                                      dma_sparse_view_value_changed,
+		                                      view);
+		g_object_unref (view->priv->vadjustment);
+	}
+
+	if (vadj != NULL)
+	{
+		/* Steal the new GtkAdjustment from the GtkTextView widget and
+		 * replace it with a dummy adjustment */
+		g_object_ref_sink (vadj);
+
+		if (view->priv->dummy_vadjustment == NULL)
+		{
+			/* Create a dummy adjustment */
+			view->priv->dummy_vadjustment = g_object_ref_sink (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		}
+		gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (view), view->priv->dummy_vadjustment);
+
+		/* Connect to the real adjustment and configure it as we need */
+		g_signal_connect (vadj, "value_changed",
+		                  G_CALLBACK (dma_sparse_view_value_changed),
+		                  view);
+
+		if (view->priv->buffer != NULL)
+		{
+			gtk_adjustment_set_upper (vadj, dma_sparse_buffer_get_upper (view->priv->buffer));
+			gtk_adjustment_set_lower (vadj, dma_sparse_buffer_get_lower (view->priv->buffer));
+			gtk_adjustment_set_value (vadj, 0);
+		}
+	}
+	view->priv->vadjustment = vadj;
+	dma_sparse_view_update_adjustement (view);
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -811,6 +899,13 @@ void
 dma_sparse_view_set_sparse_buffer (DmaSparseView *view, DmaSparseBuffer *buffer)
 {
 	view->priv->buffer = buffer;
+	if (view->priv->vadjustment != NULL)
+	{
+		gtk_adjustment_set_upper (view->priv->vadjustment, dma_sparse_buffer_get_upper (view->priv->buffer));
+		gtk_adjustment_set_lower (view->priv->vadjustment, dma_sparse_buffer_get_lower (view->priv->buffer));
+		gtk_adjustment_set_value (view->priv->vadjustment, 0);
+		dma_sparse_view_update_adjustement (view);
+	}
 	dma_sparse_buffer_get_iterator_at_address (buffer, &view->priv->start, 0);
 	dma_sparse_view_refresh (view);
 }
@@ -944,7 +1039,7 @@ dma_sparse_view_size_allocate (GtkWidget *widget,
 	DmaSparseView *view;
 
 	view = DMA_SPARSE_VIEW (widget);
-	
+
 	GTK_WIDGET_CLASS (dma_sparse_view_parent_class)->size_allocate (widget, allocation);
 
 	dma_sparse_view_update_adjustement (view);
@@ -968,6 +1063,12 @@ dma_sparse_view_destroy (GtkWidget *object)
 		gtk_widget_destroy (view->priv->goto_window);
 		view->priv->goto_window = NULL;
 		view->priv->goto_entry = NULL;
+	}
+
+	if (view->priv->dummy_vadjustment)
+	{
+		g_object_unref (G_OBJECT (view->priv->dummy_vadjustment));
+		view->priv->dummy_vadjustment = NULL;
 	}
 	
 	GTK_WIDGET_CLASS (dma_sparse_view_parent_class)->destroy (object);
@@ -1083,6 +1184,9 @@ dma_sparse_view_init (DmaSparseView *view)
 
 	memset (view->priv->marker_pixbuf, 0, sizeof (view->priv->marker_pixbuf));
 
+	g_signal_connect (view, "notify::vadjustment",
+	                  G_CALLBACK (dma_sparse_view_notify_vadjustment), view);
+	
 	gtk_text_view_set_left_margin (GTK_TEXT_VIEW (view), 2);
 	gtk_text_view_set_right_margin (GTK_TEXT_VIEW (view), 2);	
 	
@@ -1108,6 +1212,7 @@ dma_sparse_view_class_init (DmaSparseViewClass * klass)
 	GObjectClass *gobject_class;
 	GtkWidgetClass   *widget_class;
 	GtkTextViewClass *text_view_class;
+	
 	g_return_if_fail (klass != NULL);
 	
 	gobject_class = (GObjectClass *) klass;
@@ -1153,8 +1258,8 @@ dma_sparse_view_new_with_buffer (DmaSparseBuffer *buffer)
 
 	view = g_object_new (DMA_SPARSE_VIEW_TYPE, NULL);
 	g_assert (view != NULL);
-	
-	DMA_SPARSE_VIEW(view)->priv->buffer = buffer;
+
+	dma_sparse_view_set_sparse_buffer (view, buffer);
 	dma_sparse_buffer_get_iterator_at_address (buffer, &(DMA_SPARSE_VIEW (view))->priv->start, 0);
 
 	return view;
