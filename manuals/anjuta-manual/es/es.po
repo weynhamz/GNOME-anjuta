@@ -1,21 +1,21 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2011.
 # 
-# Jorge González <jorgegonz@svn.gnome.org>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011., 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-26 19:10+0000\n"
-"PO-Revision-Date: 2011-08-27 12:36Centra4l\n"
+"POT-Creation-Date: 2011-08-28 10:09+0000\n"
+"PO-Revision-Date: 2011-08-28 12:59+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -881,9 +881,10 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
-"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
-"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
+"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
+"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
+"proyecto."
 
 #: C/autotools-build-install.page:11(desc)
 msgid "Install targets or project."
@@ -1029,10 +1030,11 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de depurar "
-"(manteniendo variables intermedias y ordenando el código) y una opción "
-"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
-"construcción. Puede definir configuraciones personalizadas adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de "
+"depurar (manteniendo variables intermedias y ordenando el código) y una "
+"opción «optimizada» que genera programas más rápidos pero que aumenta el "
+"tiempo de construcción. Puede definir configuraciones personalizadas "
+"adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(gui)
 msgid "Build Directory"
@@ -1250,7 +1252,6 @@ msgid "Build targets"
 msgstr "Construir objetivos"
 
 #: C/autotools-build-build.page:25(p)
-#, fuzzy
 #| msgid ""
 #| "A target is a file created from source files, typically it is a program "
 #| "or a library, but it could be a documentation if some processing is "
@@ -1261,11 +1262,10 @@ msgid ""
 "processing, for example."
 msgstr ""
 "Un objetivo es un archivo creado desde archivos de fuentes. Generalmente es "
-"un programa o una biblioteca, pero puede ser una documentación si se "
-"necesita algún procesado."
+"un programa o una biblioteca, pero también puede ser documentación si se "
+"necesita algún procesado, por ejemplo."
 
 #: C/autotools-build-build.page:30(p)
-#, fuzzy
 #| msgid ""
 #| "The build command compile all needed sources files and link them with "
 #| "possibly some other files, like libraries, in order to create the target. "
@@ -1281,12 +1281,11 @@ msgid ""
 msgstr ""
 "El comando de construcción compila todas las fuentes necesarias y las enlaza "
 "con otros posibles archivos, como bibliotecas, para crear el objetivo. Si "
-"algún archivo de fuentes ya está compilado y no se ha modificado, no se "
-"vuelve a compilar para ahorrar tiempo. Hay varias maneras de lanzar una "
+"algún archivo de fuentes ya está compilado y no se ha modificado, para "
+"ahorrar tiempo, no se vuelve a compilar. Hay varias maneras de lanzar una "
 "construcción."
 
 #: C/autotools-build-build.page:39(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
 #| "gui></guiseq> or press <key>F7</key> to build all target in the same "
@@ -1298,11 +1297,10 @@ msgid ""
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
 "gui><gui>Construir</gui></guiseq> o pulse <key>F7</key> para construir todos "
-"los objetivos en la misma carpeta que la del fichero actual editado."
+"los objetivos en la misma carpeta que la del archivo actualmente abierto."
 
 # Traducir "built" como "compilar"
 #: C/autotools-build-build.page:48(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
 #| "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
@@ -1315,12 +1313,11 @@ msgid ""
 "recursively."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
-"gui><gui>Construir projecto</gui></guiseq> o pulse <keyseq><key>Shift</"
-"key><key>F7</key></keyseq> para construir el proyecto completo; se compilan "
+"gui><gui>Construir projecto</gui></guiseq> o pulse <keyseq><key>Mayús</"
+"key><key>F7</key></keyseq> para construir el proyecto completo. Se compilan "
 "recursivamente todas las subcarpetas."
 
 #: C/autotools-build-build.page:62(p)
-#, fuzzy
 #| msgid ""
 #| "Click on the right mouse button to make the <gui>file manager context "
 #| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
@@ -1332,14 +1329,13 @@ msgid ""
 "build all targets in the directory currently selected or the parent "
 "directory of the currently selected file."
 msgstr ""
-"Pulse con el botón derecho del ratón para hacer que aparezca el <gui>menú "
-"contextual del gestor de proyecto</gui> y seleccione <guiseq><gui>Construir</"
+"Pulse con el botón derecho del ratón para mostrar el <gui>menú contextual "
+"del gestor de archivos</gui> y seleccione <guiseq><gui>Construir</"
 "gui><gui>Construir</gui></guiseq> para construir todos los archivos en la "
-"carpeta seleccionada actualmente o en la carpeta padre del archivo "
-"seleccionado actualmente."
+"carpeta actualmente seleccionada o en la carpeta padre del archivo "
+"actualmente seleccionado."
 
 #: C/autotools-build-build.page:77(p)
-#, fuzzy
 #| msgid ""
 #| "Click on the right mouse button to make the <gui>project manager context "
 #| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
@@ -1354,7 +1350,7 @@ msgstr ""
 "Pulse con el botón derecho del ratón para hacer que aparezca el <gui>menú "
 "contextual del gestor de proyecto</gui> y seleccione <guiseq><gui>Construir</"
 "gui><gui>Construir</gui></guiseq> para construir todos los objetivos de la "
-"carpeta que contiene el archivo o el objetivo seleccionado actualmente."
+"carpeta que contiene el archivo o el objetivo actualmente seleccionado."
 
 #: C/run-parameters-dialog.page:11(desc)
 msgid "Run parameters dialog"
@@ -1607,7 +1603,6 @@ msgstr ""
 "Para establecer una expresión para vigilar su actualización automática:"
 
 #: C/debug-watch.page:69(p)
-#, fuzzy
 #| msgid ""
 #| "In the <gui>Watches</gui> windows select the watch you want to update "
 #| "automatically, right click and check that <gui>Automatic Update</gui> if "
@@ -1618,8 +1613,9 @@ msgid ""
 "checked. If not, select it."
 msgstr ""
 "En la ventana <gui>Vigilancias</gui>, seleccione la vigilancia que quiere "
-"actualizar automáticamente, pulse con el botón derecho y compruebe que "
-"<gui>Autoactualizar</gui> está marcada; si no lo está, márquela."
+"actualizar automáticamente. Pulse con el botón derecho del ratón y compruebe "
+"que <gui>Actualizar automáticamente</gui> está marcada; si no lo está, "
+"márquela."
 
 #: C/debug-watch.page:75(p)
 msgid "To update a watch expression manually:"
@@ -1656,7 +1652,6 @@ msgid "To add an expression to the watch list:"
 msgstr "Para añadir una expresión a la lista de vigilancias:"
 
 #: C/debug-watch.page:103(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
 #| "Watch...</gui></guiseq> or in the <gui>Watches</gui> windows right click "
@@ -1668,11 +1663,10 @@ msgid ""
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
 "gui><gui>Añadir vigilancia...</gui></guiseq> o en la ventana "
-"<gui>Vigilancias</gui> pulse con el botón derecho y elija <gui>Añadir "
-"vigilancia...</gui>."
+"<gui>Vigilancias</gui> pulse con el botón derecho del ratón y elija "
+"<gui>Añadir vigilancia...</gui>."
 
 #: C/debug-watch.page:108(p)
-#, fuzzy
 #| msgid ""
 #| "Enter the expression to watch. Check <gui>Automatic Update</gui> if you "
 #| "want that the expression is evaluated each time the program is stopped."
@@ -1680,8 +1674,9 @@ msgid ""
 "Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
 "the expression to be evaluated each time the program is stopped."
 msgstr ""
-"Introduzca la expresión que vigilar. Marque <gui>Autoactualizar</gui> si "
-"quiere que la expresión se evalúe cada vez que se detiene el programa."
+"Introduzca la expresión para vigilar. Marque <gui>Actualización automática</"
+"gui> si quiere que la expresión se evalúe cada vez que se detiene el "
+"programa."
 
 #: C/debug-watch.page:114(p)
 msgid "An expression can be evaluated and then added as a watch like this:"
@@ -1781,7 +1776,6 @@ msgstr ""
 "variable de entorno <sys>G_DEBUG</sys> al valor <sys>fatal_criticals</sys>."
 
 #: C/debug-tips.page:35(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
 #| "Parameters...</gui></guiseq> to display the dialog."
@@ -1790,8 +1784,9 @@ msgid ""
 "<guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the "
 "main menu."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
-"gui><gui>Parámetros del programa...</gui></guiseq> para mostrar el diálogo."
+"Abra la <link xref=\"run-parameters-dialog\"/> seleccionando "
+"<guiseq><gui>Ejecutar</gui><gui>Parámetros del programa...</gui></guiseq> "
+"desde el menú principal."
 
 #: C/debug-tips.page:40(p)
 msgid ""
@@ -1818,7 +1813,6 @@ msgid "Click <gui>Apply</gui> to confirm the changes."
 msgstr "Pulse <gui>Aplicar</gui> para confirmar los cambios."
 
 #: C/debug-tips.page:54(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
 #| "Debugger</gui></guiseq>."
@@ -1826,15 +1820,14 @@ msgid ""
 "Run the program with the debugger by selecting <guiseq><gui>Run</"
 "gui><gui>Debug Program</gui></guiseq> from the main menu."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
-"gui><gui>Detener el depurador</gui></guiseq>."
+"Ejecute el programa con el depurador seleccionando <guiseq><gui>Ejecutar</"
+"gui><gui>Depurar programa</gui></guiseq> desde el menú principal."
 
 #: C/debug-tips.page:58(p)
 msgid "Use the program until the critical error occurs."
 msgstr "Use el programa hasta que suceda el error crítico."
 
 #: C/debug-tips.page:61(p)
-#, fuzzy
 #| msgid ""
 #| "Then you need to run the program with the debugger and use it until you "
 #| "get the critical error. At that time, the debugger will stop your program "
@@ -1844,13 +1837,10 @@ msgid ""
 "When the debugger stops your program, look at the <link xref=\"debug-stack\"/"
 "> to check where this error comes from."
 msgstr ""
-"Después debe ejecutar el programa con el depurador y usarlo hasta que "
-"obtenga el error crítico. En ese momento, el depurador detendrá su programa "
-"y tendrá que mirar la <link xref=\"debug-stack\"/> para comprobar de dónde "
-"viene el error."
+"Cuando el depurador detenga su programa, mire la <link xref=\"debug-stack\"/"
+"> para comprobar de dónde viene el error."
 
 #: C/debug-tips.page:66(p)
-#, fuzzy
 #| msgid ""
 #| "The top function with frame number 0 is in GLib, so you have to look down "
 #| "in the stack, typically the error comes from the first function in your "
@@ -1861,7 +1851,7 @@ msgid ""
 "belongs to your program."
 msgstr ""
 "La función superior con el número 0 está en GLib, de tal forma que tiene que "
-"buscar hacia abajo en la pila, generalmente el error viene de la primera "
+"buscar hacia abajo en la pila. Generalmente el error viene de la primera "
 "función en su programa."
 
 #: C/debug-thread.page:9(desc)
@@ -1877,7 +1867,6 @@ msgid "List threads"
 msgstr "Listar hilos"
 
 #: C/debug-thread.page:27(p)
-#, fuzzy
 #| msgid ""
 #| "A program can be composed of several threads. All these threads are "
 #| "executed independently having their own registers, stack and local "
@@ -2097,13 +2086,14 @@ msgstr ""
 "la barra de herramientas."
 
 #: C/debug-step.page:88(p)
-#, fuzzy
 #| msgid ""
 #| "It executes the current function until it returns to the calling function."
 msgid ""
 "Stepping out executes the current function until it returns to the calling "
 "function."
-msgstr "Ejecuta la función actual hasta que vuelve a la función que la llamó."
+msgstr ""
+"Avanzar al final ejecuta la función actual hasta que vuelve a la función que "
+"la llamó."
 
 #: C/debug-step.page:94(title)
 msgid "Run and continue"
@@ -2266,8 +2256,8 @@ msgid ""
 "has the highest number."
 msgstr ""
 "Este es el número de marco, comenzando por 0, de la función actual. La "
-"primera función de su programa, «main» para un programa en C, tiene el número "
-"más alto."
+"primera función de su programa, «main» para un programa en C, tiene el "
+"número más alto."
 
 #: C/debug-stack.page:58(p)
 msgid ""
@@ -2770,94 +2760,6 @@ msgstr ""
 "El menú contextual que se muestra cuando pulsa con el botón derecho del "
 "ratón tiene todos sus elementos desactivados porque las funciones "
 "correspondientes no están aún implementadas."
-
-#: C/debug-information.page:82(title)
-msgid "Information about used files"
-msgstr "Información sobre los archivos usados"
-
-#: C/debug-information.page:86(p)
-#, fuzzy
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-#| "gui><gui>Info Target files</gui></guiseq>."
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Target Files</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Archivos objetivo</gui></guiseq>."
-
-#: C/debug-information.page:94(title)
-#, fuzzy
-#| msgid "Information about program"
-msgid "Information about the program"
-msgstr "Información sobre el programa"
-
-#: C/debug-information.page:97(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Program</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Programa</gui></guiseq>."
-
-#: C/debug-information.page:105(title)
-msgid "Information about kernel structure"
-msgstr "Información sobre la estructura del núcleo"
-
-#: C/debug-information.page:108(p)
-#, fuzzy
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-#| "gui><gui>Kernel user struct</gui></guiseq>."
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Kernel User Struct</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>User struct del núcleo</gui></guiseq>."
-
-#: C/debug-information.page:115(title)
-msgid "Information about global variables"
-msgstr "Información sobre variables globales"
-
-#: C/debug-information.page:118(p)
-#, fuzzy
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-#| "gui><gui>Info Global Variable</gui></guiseq>."
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Global Variables</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Variables globales</gui></guiseq>."
-
-#: C/debug-information.page:125(title)
-#, fuzzy
-#| msgid "Information about the current frame"
-msgid "Information about the current stack frame"
-msgstr "Información sobre el marco actual"
-
-#: C/debug-information.page:128(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Current Frame</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Marco actual</gui></guiseq>."
-
-#: C/debug-information.page:135(title)
-msgid "Information about the current function arguments"
-msgstr "Información sobre los argumentos de la función actual"
-
-#: C/debug-information.page:138(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Arguments</gui></guiseq>."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Argumentos</gui></guiseq>."
 
 #: C/debug-expression.page:9(desc)
 msgid "Evaluate expressions and modify variables."
@@ -3701,6 +3603,82 @@ msgstr ""
 "Francisco Javier F. Serrador <fserrador@gmail.com>, 2011\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2011\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2011"
+
+#~ msgid "Information about used files"
+#~ msgstr "Información sobre los archivos usados"
+
+#, fuzzy
+#~| msgid ""
+#~| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~| "gui><gui>Info Target files</gui></guiseq>."
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Target Files</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>Archivos objetivo</gui></guiseq>."
+
+#, fuzzy
+#~| msgid "Information about program"
+#~ msgid "Information about the program"
+#~ msgstr "Información sobre el programa"
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Program</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>Programa</gui></guiseq>."
+
+#~ msgid "Information about kernel structure"
+#~ msgstr "Información sobre la estructura del núcleo"
+
+#, fuzzy
+#~| msgid ""
+#~| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~| "gui><gui>Kernel user struct</gui></guiseq>."
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Kernel User Struct</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>User struct del núcleo</gui></guiseq>."
+
+#~ msgid "Information about global variables"
+#~ msgstr "Información sobre variables globales"
+
+#, fuzzy
+#~| msgid ""
+#~| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~| "gui><gui>Info Global Variable</gui></guiseq>."
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Global Variables</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>Variables globales</gui></guiseq>."
+
+#, fuzzy
+#~| msgid "Information about the current frame"
+#~ msgid "Information about the current stack frame"
+#~ msgstr "Información sobre el marco actual"
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Current Frame</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>Marco actual</gui></guiseq>."
+
+#~ msgid "Information about the current function arguments"
+#~ msgstr "Información sobre los argumentos de la función actual"
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
+#~ "gui><gui>Info Arguments</gui></guiseq>."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
+#~ "gui><gui>Info</gui><gui>Argumentos</gui></guiseq>."
 
 #~ msgid ""
 #~ "If a watch expression corresponds to a variable you can change its value. "
