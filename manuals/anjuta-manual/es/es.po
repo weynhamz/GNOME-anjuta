@@ -3,14 +3,15 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2011.
-#
+# 
+# Jorge González <jorgegonz@svn.gnome.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-25 12:42+0000\n"
-"PO-Revision-Date: 2011-08-26 10:29+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-08-26 19:10+0000\n"
+"PO-Revision-Date: 2011-08-27 12:36Centra4l\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1478,10 +1479,6 @@ msgid "Run a program"
 msgstr "Ejecutar un programa"
 
 #: C/run-run.page:26(p)
-#, fuzzy
-#| msgid ""
-#| "If <app>Anjuta</app> is used to start a program it checks that it is up "
-#| "to date and build it if needed."
 msgid ""
 "If <app>Anjuta</app> is used to start a program it checks that it is up to "
 "date and builds it if needed."
@@ -1540,6 +1537,10 @@ msgid ""
 "example, after every <link xref=\"debug-step\">single-step</link> through "
 "the program."
 msgstr ""
+"Vigilancia de expresiones, o vigilancias para acortar, son expresiones que "
+"el depurador evalua e imprime su resultado cada vez que el programa se "
+"detiene; por ejemplo, después de cada <link xref=\"debug-step\">avance de un "
+"paso</link> en el programa."
 
 #: C/debug-watch.page:30(title)
 msgid "List watched expressions"
@@ -1774,6 +1775,10 @@ msgid ""
 "stop as soon as it gets a GLib critical error, by setting the environment "
 "variable <sys>G_DEBUG</sys> to the value <sys>fatal_criticals</sys>."
 msgstr ""
+"Algunas veces puede ser difícil seguir dónde suceden los errores críticos de "
+"GLib, ya que no detienen el programa. Puede configurar el programa para "
+"deternerse tan pronto como obtenga un error crítico de GLib, ajustando la "
+"variable de entorno <sys>G_DEBUG</sys> al valor <sys>fatal_criticals</sys>."
 
 #: C/debug-tips.page:35(p)
 #, fuzzy
@@ -1793,21 +1798,20 @@ msgid ""
 "Click the plus sign next to <gui>Environment Variables</gui> to expand the "
 "list of environment variables."
 msgstr ""
+"Pulse el signo más junto a <gui>Variables de entorno</gui> para expandir la "
+"lista de variables de entorno."
 
 #: C/debug-tips.page:44(p)
-#, fuzzy
-#| msgid ""
-#| "Click on <gui>Add</gui> button to add this expression in the watches list."
 msgid "Click <gui>New</gui> to add a new entry to the list."
-msgstr ""
-"Pulse el botón <gui>Añadir</gui> para añadir esta expresión a la lista de "
-"vigilancias."
+msgstr "Pulse <gui>Nuevo</gui> para a;adir una nueva entrada a la lista."
 
 #: C/debug-tips.page:47(p)
 msgid ""
 "Fill in <gui>Name</gui> with <input>G_DEBUG</input> and <gui>Value</gui> "
 "with <input>fatal_criticals</input>."
 msgstr ""
+"Rellene el <gui>Nombre</gui> con <input>G_DEBUG</input> y el <gui>Valor</"
+"gui> con <input>fatal_criticals</input>."
 
 #: C/debug-tips.page:51(p)
 msgid "Click <gui>Apply</gui> to confirm the changes."
@@ -1967,6 +1971,8 @@ msgid ""
 "The current thread is the thread whose stack and local variables are "
 "currently displayed in the debugger."
 msgstr ""
+"El hilo actual es el hilo para el cual la pila y variables locales se "
+"muestran actualmente en el depurador."
 
 #: C/debug-thread.page:82(p) C/debug-thread.page:96(p)
 msgid "In the <gui>Thread</gui> window, select the thread you want."
@@ -2119,16 +2125,12 @@ msgstr ""
 "icono <gui>Avanzar sobre</gui> en la barra de herramientas."
 
 #: C/debug-step.page:104(p)
-#, fuzzy
-#| msgid ""
-#| "This command restarts the program until a breakpoint is encountered or "
-#| "the program exits."
 msgid ""
 "This command restarts the program and lets it run until a breakpoint is "
 "encountered or the program exits."
 msgstr ""
-"Este comando reinicia el programa hasta que encuentra un punto de parada o "
-"el programa termina."
+"Este comando reinicia el programa y lo deja ejecutándose hasta que encuentra "
+"un punto de parada o el programa termina."
 
 #: C/debug-step.page:109(title)
 msgid "Run To"
@@ -2162,8 +2164,6 @@ msgstr ""
 "desensamblado</gui> tiene el foco) al llegar a la posición del cursor."
 
 #: C/debug-step.page:125(title)
-#, fuzzy
-#| msgid "Stop Program"
 msgid "Stopping the Program"
 msgstr "Detener el programa"
 
@@ -2190,8 +2190,6 @@ msgstr ""
 "parada..."
 
 #: C/debug-stack.page:9(desc)
-#, fuzzy
-#| msgid "Examine stack."
 msgid "Examine the stack."
 msgstr "Examinar la pila."
 
@@ -2294,8 +2292,6 @@ msgid "The function arguments."
 msgstr "Los argumentos de la función."
 
 #: C/debug-stack.page:83(title)
-#, fuzzy
-#| msgid "Change current stack frame"
 msgid "Change the current stack frame"
 msgstr "Cambiar el marco actual de la pila"
 
@@ -2304,15 +2300,12 @@ msgid "In the <gui>Stack</gui> window, select the frame you want."
 msgstr "En la ventana <gui>Pila</gui> seleccione el marco que quiere."
 
 #: C/debug-stack.page:90(p)
-#, fuzzy
-#| msgid "Right click and select <gui>Set current frame</gui>"
 msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
-"Pulse con el botón derecho y seleccione <gui>Establecer el marco actual</gui>"
+"Pulse con el botón derecho del ratón y seleccione <gui>Establecer el marco "
+"actual</gui>"
 
 #: C/debug-stack.page:97(title)
-#, fuzzy
-#| msgid "View current function"
 msgid "View the current function"
 msgstr "Ver la función actual"
 
@@ -2321,15 +2314,11 @@ msgid "Get a stack trace"
 msgstr "Obtener un seguimiento de la pila"
 
 #: C/debug-stack.page:115(p)
-#, fuzzy
-#| msgid ""
-#| "In the <gui>Stack</gui> window right click and select <gui>Get stack "
-#| "trace</gui>"
 msgid ""
 "In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
 "gui>."
 msgstr ""
-"Pulse con el botón derecho en la ventana <gui>Pila</gui> y elija "
+"Pulse con el botón derecho en la ventana <gui>Pila</gui> y seleccione "
 "<gui>Obtener la traza de la pila</gui>"
 
 #: C/debug-run.page:11(desc)
@@ -2399,10 +2388,8 @@ msgid "Debug an already running application"
 msgstr "Depurar una aplicación en ejecución"
 
 #: C/debug-run.page:54(p)
-#, fuzzy
-#| msgid "The debugger could be used on an already running application."
 msgid "The debugger can be used on an already running application."
-msgstr "El depurador se puede usar en un programa que ya esté en ejecución."
+msgstr "El depurador se puede usar en un programa que ya está en ejecución."
 
 #: C/debug-run.page:58(p)
 #, fuzzy
