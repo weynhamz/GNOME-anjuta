@@ -72,18 +72,15 @@ typedef enum
 	REMOVE_BREAK_COMMAND,
 	LIST_BREAK_COMMAND,
 	INFO_SHAREDLIB_COMMAND,
-	INFO_TARGET_COMMAND,
-	INFO_PROGRAM_COMMAND,
-	INFO_UDOT_COMMAND,
 	STEP_IN_COMMAND,   /* Program stopped */
 	STEP_OVER_COMMAND,
 	STEP_OUT_COMMAND,
 	RUN_COMMAND,		
 	RUN_TO_COMMAND,
-	RUN_FROM_COMMAND,			/* 0x20 */
+	RUN_FROM_COMMAND,
 	STEPI_IN_COMMAND,
 	STEPI_OVER_COMMAND,
-	RUN_TO_ADDRESS_COMMAND,
+	RUN_TO_ADDRESS_COMMAND,  /* 0x20 */
 	RUN_FROM_ADDRESS_COMMAND,
 	EXIT_COMMAND,
 	HANDLE_SIGNAL_COMMAND,
@@ -93,16 +90,13 @@ typedef enum
 	SET_THREAD_COMMAND,
 	INFO_THREAD_COMMAND,
 	INFO_SIGNAL_COMMAND,
-	INFO_FRAME_COMMAND,
-	INFO_ARGS_COMMAND,
-	INFO_VARIABLES_COMMAND,
-	SET_FRAME_COMMAND,			/* 0x30 */
+	SET_FRAME_COMMAND,	
 	LIST_FRAME_COMMAND,
 	DUMP_STACK_TRACE_COMMAND,
 	UPDATE_REGISTER_COMMAND,
 	WRITE_REGISTER_COMMAND,
 	EVALUATE_COMMAND,
-	INSPECT_COMMAND,
+	INSPECT_COMMAND,			/* 0x30 */
 	PRINT_COMMAND,
 	CREATE_VARIABLE,
 	EVALUATE_VARIABLE,
@@ -184,15 +178,6 @@ typedef enum
 	DMA_INFO_SHAREDLIB_COMMAND =
 		INFO_SHAREDLIB_COMMAND |
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
-	DMA_INFO_TARGET_COMMAND =
-		INFO_TARGET_COMMAND |
-		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
-	DMA_INFO_PROGRAM_COMMAND =
-		INFO_PROGRAM_COMMAND |
-		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
-	DMA_INFO_UDOT_COMMAND =
-		INFO_UDOT_COMMAND |
-		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
 	DMA_STEP_IN_COMMAND =
 		STEP_IN_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_STOPPED,
@@ -246,15 +231,6 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_INFO_SIGNAL_COMMAND =
 		INFO_SIGNAL_COMMAND |
-		NEED_PROGRAM_STOPPED,
-	DMA_INFO_FRAME_COMMAND =
-		INFO_FRAME_COMMAND |
-		NEED_PROGRAM_STOPPED,
-	DMA_INFO_ARGS_COMMAND =
-		INFO_ARGS_COMMAND |
-		NEED_PROGRAM_STOPPED,
-	DMA_INFO_VARIABLES_COMMAND =
-		INFO_VARIABLES_COMMAND |
 		NEED_PROGRAM_STOPPED,
 	DMA_SET_FRAME_COMMAND =
 		SET_FRAME_COMMAND |
@@ -560,30 +536,6 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
-	case INFO_FRAME_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
-	case INFO_ARGS_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
-	case INFO_TARGET_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
-	case INFO_PROGRAM_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
-	case INFO_UDOT_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
-	case INFO_VARIABLES_COMMAND:
-		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
-		cmd->user_data = va_arg (args, gpointer);
-		break;
 	case SET_FRAME_COMMAND:
 		cmd->data.frame.frame = va_arg (args, guint);
 		break;
@@ -874,42 +826,6 @@ dma_queue_handle_signal (DmaDebuggerQueue *self, const gchar* name, gboolean sto
 }
 
 gboolean
-dma_queue_info_frame (DmaDebuggerQueue *self, guint frame, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_FRAME_COMMAND, frame, callback, user_data));
-}
-
-gboolean
-dma_queue_info_args (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_ARGS_COMMAND, callback, user_data));
-}
-
-gboolean
-dma_queue_info_target (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_TARGET_COMMAND, callback, user_data));
-}
-
-gboolean
-dma_queue_info_program (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_PROGRAM_COMMAND, callback, user_data));
-}
-
-gboolean
-dma_queue_info_udot (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_UDOT_COMMAND, callback, user_data));
-}
-
-gboolean
-dma_queue_info_variables (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
-{
-	return dma_debugger_queue_append (self, dma_command_new (DMA_INFO_VARIABLES_COMMAND, callback, user_data));
-}
-
-gboolean
 dma_queue_set_frame (DmaDebuggerQueue *self, guint frame)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_SET_FRAME_COMMAND, frame));
@@ -1081,12 +997,6 @@ dma_command_free (DmaQueueCommand *cmd)
 	case SET_THREAD_COMMAND:
 	case INFO_SIGNAL_COMMAND:
 	case INFO_SHAREDLIB_COMMAND:
-	case INFO_FRAME_COMMAND:
-	case INFO_ARGS_COMMAND:
-	case INFO_TARGET_COMMAND:
-	case INFO_PROGRAM_COMMAND:
-	case INFO_UDOT_COMMAND:
-	case INFO_VARIABLES_COMMAND:
 	case LIST_REGISTER_COMMAND:
 	case UPDATE_REGISTER_COMMAND:
 	    break;
@@ -1347,24 +1257,6 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	case INFO_SHAREDLIB_COMMAND:
 		ret = ianjuta_debugger_info_sharedlib (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
 		break;
-	case INFO_FRAME_COMMAND:
-		ret = ianjuta_debugger_info_frame (debugger, 0, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
-	case INFO_ARGS_COMMAND:
-		ret = ianjuta_debugger_info_args (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
-	case INFO_TARGET_COMMAND:
-		ret = ianjuta_debugger_info_target (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
-	case INFO_PROGRAM_COMMAND:
-		ret = ianjuta_debugger_info_program (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
-	case INFO_UDOT_COMMAND:
-		ret = ianjuta_debugger_info_udot (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
-	case INFO_VARIABLES_COMMAND:
-		ret = ianjuta_debugger_info_variables (debugger, (IAnjutaDebuggerGListCallback)callback, queue, err);	
-		break;
 	case SET_FRAME_COMMAND:
 		ret = ianjuta_debugger_set_frame (debugger, cmd->data.frame.frame, err);	
 		break;
@@ -1479,12 +1371,6 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case INFO_THREAD_COMMAND:
 	case INFO_SIGNAL_COMMAND:
 	case INFO_SHAREDLIB_COMMAND:
-	case INFO_FRAME_COMMAND:
-	case INFO_ARGS_COMMAND:
-	case INFO_TARGET_COMMAND:
-	case INFO_PROGRAM_COMMAND:
-	case INFO_UDOT_COMMAND:
-	case INFO_VARIABLES_COMMAND:
 	case LIST_FRAME_COMMAND:
 	case DUMP_STACK_TRACE_COMMAND:
 	case LIST_REGISTER_COMMAND:

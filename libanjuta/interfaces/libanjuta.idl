@@ -4369,6 +4369,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get some information about the one stack frame.
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
@@ -4382,6 +4384,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get some informatin about a current functin arguments.
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
@@ -4395,6 +4399,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get back some information about the target
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
@@ -4408,6 +4414,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get some informatin about a current program.
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
@@ -4421,6 +4429,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get some informatin about OS structures.
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
@@ -4435,6 +4445,8 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* Get some informatin about variables.
+	* This function has been deprecated and is not used anymore in the
+	* debugger GUI.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/

@@ -164,13 +164,7 @@ void debugger_evaluate (Debugger *debugger, const gchar* name, IAnjutaDebuggerGC
 void debugger_list_local (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_info_signal (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_args (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_target (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_program (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_udot (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
-void debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListCallback func, gpointer user_data);
 void debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerMemoryCallback func, gpointer user_data);
 void debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerInstructionCallback func, gpointer user_data);
 

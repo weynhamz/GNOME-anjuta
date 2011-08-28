@@ -76,6 +76,8 @@ struct _GdbPluginClass
 	AnjutaPluginClass parent_class;
 };
 
+#define UNIMPLEMENTED  G_STMT_START { g_warning (G_STRLOC": unimplemented"); } G_STMT_END
+
 /* Terminal functions
  *---------------------------------------------------------------------------*/
 
@@ -729,61 +731,49 @@ idebugger_handle_signal (IAnjutaDebugger *plugin, const gchar* name, gboolean st
 static gboolean
 idebugger_info_frame (IAnjutaDebugger *plugin, guint frame, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_frame (this->debugger, frame, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
 idebugger_info_args (IAnjutaDebugger *plugin, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_args (this->debugger, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
 idebugger_info_target (IAnjutaDebugger *plugin, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_target (this->debugger, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
 idebugger_info_program (IAnjutaDebugger *plugin, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_program (this->debugger, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
 idebugger_info_udot (IAnjutaDebugger *plugin, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_udot (this->debugger, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean
 idebugger_info_variables (IAnjutaDebugger *plugin, IAnjutaDebuggerGListCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	UNIMPLEMENTED;
 
-	debugger_info_variables (this->debugger, callback, user_data);
-
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean

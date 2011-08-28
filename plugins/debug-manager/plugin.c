@@ -57,8 +57,7 @@
  *---------------------------------------------------------------------------*/
 
 #define ICON_FILE "anjuta-debug-manager-plugin-48.png"
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.xml"
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.ui"
+#define UI_FILE PACKAGE_DATA_DIR "/ui/anjuta-debug-manager.xml"
 
 /* Plugin type
  *---------------------------------------------------------------------------*/
@@ -829,55 +828,6 @@ on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plu
 	}
 }
 
-/* Info callbacks
- *---------------------------------------------------------------------------*/
-
-static void
-on_debugger_dialog_message (const gpointer data, gpointer user_data, GError* error)
-{
-	const GList *cli_result = data;
-	GtkWindow *parent = GTK_WINDOW (user_data);
-	if (g_list_length ((GList*)cli_result) < 1)
-		return;
-	gdb_info_show_list (parent, (GList*)cli_result, 0, 0);
-}
-
-static void
-on_info_targets_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_target (plugin->queue, on_debugger_dialog_message, plugin);
-}
-
-static void
-on_info_program_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_program (plugin->queue, on_debugger_dialog_message, plugin);
-}
-
-static void
-on_info_udot_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_udot (plugin->queue, on_debugger_dialog_message, plugin);
-}
-
-static void
-on_info_variables_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_variables (plugin->queue, on_debugger_dialog_message, plugin);
-}
-
-static void
-on_info_frame_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_frame (plugin->queue, 0, on_debugger_dialog_message, plugin);
-}
-
-static void
-on_info_args_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	dma_queue_info_args (plugin->queue, on_debugger_dialog_message, plugin);
-}
-
 /* Other informations
  *---------------------------------------------------------------------------*/
 
@@ -986,38 +936,6 @@ static GtkActionEntry actions_loaded[] =
 		NULL
 	},
 	{
-		"ActionGdbInfoTargetFiles",
-		NULL,
-		N_("Info _Target Files"),
-		NULL,
-		N_("Display information on the files the debugger is active with"),
-		G_CALLBACK (on_info_targets_activate)
-	},
-	{
-		"ActionGdbInfoProgram",
-		NULL,
-		N_("Info _Program"),
-		NULL,
-		N_("Display information on the execution status of the program"),
-		G_CALLBACK (on_info_program_activate)
-	},
-	{
-		"ActionGdbInfoKernelUserStruct",
-		NULL,
-		N_("Info _Kernel User Struct"),
-		NULL,
-		N_("Display the contents of kernel 'struct user' for current child"),
-		G_CALLBACK (on_info_udot_activate)
-	},
-/*	{
-		"ActionGdbExamineMemory",
-		NULL,
-		N_("Examine _Memory"),
-		NULL,
-		N_("Display accessible memory"),
-		G_CALLBACK (on_info_memory_activate)
-	},*/
-	{
 		"ActionGdbViewSharedlibs",
 		NULL,
 		N_("Shared Libraries"),
@@ -1108,30 +1026,6 @@ static GtkActionEntry actions_stopped[] =
 		NULL,
 		NULL,
 		NULL
-	},
-	{
-		"ActionGdbInfoGlobalVariables",
-		NULL,
-		N_("Info _Global Variables"),
-		NULL,
-		N_("Display all global and static variables of the program"),
-		G_CALLBACK (on_info_variables_activate)
-	},
-	{
-		"ActionGdbInfoCurrentFrame",
-		NULL,
-		N_("Info _Current Frame"),
-		NULL,
-		N_("Display information about the current frame of execution"),
-		G_CALLBACK (on_info_frame_activate)
-	},
-	{
-		"ActionGdbInfoFunctionArgs",
-		NULL,
-		N_("Info Function _Arguments"),
-		NULL,
-		N_("Display function arguments of the current frame"),
-		G_CALLBACK (on_info_args_activate)
 	},
 	{
 		"ActionGdbViewSharedlibs",

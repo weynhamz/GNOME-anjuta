@@ -3032,27 +3032,6 @@ debugger_info_finish (Debugger *debugger, const GDBMIValue *mi_results, const GL
 }
 
 void
-debugger_info_frame (Debugger *debugger, guint frame, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	gchar *buff;
-	
-	DEBUG_PRINT ("%s", "In function: debugger_info_frame()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	if (frame == 0)
-	{
-		buff = g_strdup_printf("info frame");
-	}
-	else
-	{
-		buff = g_strdup_printf ("info frame %d", frame);
-	}
-	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
-	g_free (buff);
-}
-
-void
 debugger_info_signal (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("%s", "In function: debugger_info_signal()");
@@ -3073,56 +3052,6 @@ debugger_info_sharedlib (Debugger *debugger, IAnjutaDebuggerGListCallback callba
 
 	buff = g_strdup_printf ("info sharedlib");
 	debugger_queue_command (debugger, buff, DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);	g_free (buff);
-}
-
-void
-debugger_info_args (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "In function: debugger_info_args()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info args", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
-}
-
-void
-debugger_info_target (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "In function: debugger_info_target()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info target", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
-}
-
-void
-debugger_info_program (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "In function: debugger_info_program()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info program", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
-}
-
-void
-debugger_info_udot (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "In function: debugger_info_udot()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info udot", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
-}
-
-void
-debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("%s", "In function: debugger_info_variables()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info variables", DEBUGGER_COMMAND_NO_ERROR, (DebuggerParserFunc)debugger_info_finish, (IAnjutaDebuggerCallback)callback, user_data);
 }
 
 static void

@@ -91,12 +91,6 @@ gboolean dma_queue_info_thread (DmaDebuggerQueue *self, gint thread, IAnjutaDebu
 gboolean dma_queue_info_signal (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_info_sharedlib (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_handle_signal (DmaDebuggerQueue *self, const gchar* name, gboolean stop, gboolean print, gboolean ignore);
-gboolean dma_queue_info_frame (DmaDebuggerQueue *self, guint frame, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_info_args (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_info_target (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_info_program (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_info_udot (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_info_variables (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_set_frame (DmaDebuggerQueue *self, guint frame);
 gboolean dma_queue_list_frame (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_dump_stack_trace (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
