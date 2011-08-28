@@ -52,8 +52,7 @@ dnl Glade
 GLADEUI_REQUIRED=3.9.2
 
 dnl Vala
-VALA12_REQUIRED=0.11.2
-VALA14_REQUIRED=0.13.3
+VALA_REQUIRED=0.13.3
 
 dnl Introspection
 GI_REQUIRED=0.9.5
@@ -255,14 +254,12 @@ else
 	AC_MSG_RESULT(no)
 	enable_vala="yes"
 	PKG_CHECK_MODULES(VALA,
-		[libvala-0.14 >= $VALA14_REQUIRED],LIBVALA="libvala-0.14",
-		[PKG_CHECK_MODULES(VALA,
-			[libvala-0.12 >= $VALA12_REQUIRED],LIBVALA="libvala-0.12")])
+		[libvala-0.14 >= $VALA_REQUIRED],LIBVALA="libvala-0.14")
 	AC_SUBST(LIBVALA)
 fi
 
 if test x$enable_vala = xyes; then
-	AC_PATH_PROGS(VALAC, [valac-0.14 valac-0.12 valac], valac)
+	AC_PATH_PROGS(VALAC, [valac-0.14 valac], valac)
 	AC_SUBST(VALAC)
 fi
 
