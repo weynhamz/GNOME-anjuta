@@ -491,7 +491,7 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	NPWDruidAddPropertyData data;
 
 	widget = gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), druid->next_page);
-	
+
 	/* Remove previous widgets */
 	gtk_container_foreach (GTK_CONTAINER (npw_page_get_widget (page)), cb_druid_destroy_widget, NULL);
  		
@@ -789,7 +789,7 @@ on_druid_get_new_page (NPWAutogen* gen, gpointer data)
 	NPWPage* page;
 
 	page = g_queue_peek_nth (druid->page_list, druid->next_page - PROPERTY_PAGE);
-
+	
 	if (npw_page_get_name (page) == NULL)
 	{
 		/* no page, display finish page */
@@ -958,6 +958,14 @@ on_druid_next (gint page, gpointer user_data)
 	return page == FINISH_PAGE ? -1 : PROGRESS_PAGE;
 }
 
+static gboolean
+on_druid_delayed_get_new_page (gpointer data)
+{
+	on_druid_get_new_page (NULL, data);
+
+	return FALSE;
+}
+	
 static void
 on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 {
@@ -1014,8 +1022,12 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 		}
 		else
 		{
-			/* Page is already in cache */
-			on_druid_get_new_page (NULL, (gpointer)druid);
+			/* Page is already in cache, change the page to display it */
+			/* The page change is delayed because in the latest version of
+			 * GtkAssistant, the page switch is not completely done when
+			 * the signal is called. A page change in the signal handler
+			 * will be partialy overwritten */
+			g_idle_add (on_druid_delayed_get_new_page, druid);
 		}
 	}
 	else if (current_page == ERROR_PAGE)
