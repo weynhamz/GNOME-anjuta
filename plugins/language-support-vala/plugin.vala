@@ -306,7 +306,6 @@ public class ValaPlugin : Plugin {
 			if (source_file.filename != file.get_path())
 				continue;
 
-#if VALA_0_14
 			uint8[] contents;
 			try {
 				file.load_contents (null, out contents, null);
@@ -315,16 +314,6 @@ public class ValaPlugin : Plugin {
 			} catch (Error e) {
 				// ignore
 			}
-#else
-			string contents;
-			try {
-				file.load_contents (null, out contents, null, null);
-				source_file.content = contents;
-				update_file (source_file);
-			} catch (Error e) {
-				// ignore
-			}
-#endif
 			return;
 		}
 	}
@@ -391,11 +380,7 @@ public class ValaPlugin : Plugin {
 
 		var scope_prefix = "";
 		if (scope != null) {
-#if VALA_0_14
 			scope_prefix = Vala.CCodeBaseModule.get_ccode_lower_case_prefix (scope);
-#else
-			scope_prefix = scope.get_lower_case_cprefix ();
-#endif
 			if (handler_name.has_prefix (scope_prefix))
 				handler_name = handler_name.substring (scope_prefix.length);
 		}
