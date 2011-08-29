@@ -1,4 +1,26 @@
-Anjuta 3.1.5 "Sydney Edition" (13 July 2011) -- Johannes Schmid
+Anjuta 3.1.90 "Whitsunday Islands" (29 August 2011) -- Johannes Schmid
+
+Changes:
+ - Some seldom used debugger menu items were removed (Sébastien Granjoux)
+ - A lot of fixes to the vala support (Abderrahim Kitouni)
+ - vala-0.14 (>= 0.13.3) is now required
+
+Bugs fixed:
+656584 	Error in DevHelp
+642187 	C++ symbols are not shown in symbol browser
+657023 	Build broken with vala-0.13.x
+566704 	Better UI for environment variables
+652047 	Support linking against libgda-5.0
+656585 	<FileName>.ui and INSTALL not created in a new project
+657134 	Missing file in POTFILES.in
+653259 	Empty lines in Locals during debugging
+
+Thanks to:
+Abderrahim Kitouni, Aron Xu, Daniel Mustieles, Dominique Leuenberger,
+Jorge González, Kjartan Maraas, Marek Černocký, Og B. Maciel, P. F. Chimento, 
+Piotr Drąg, Sébastien Granjoux
+
+Anjuta 3.1.5 "Sydney Edition" (13 August 2011) -- Johannes Schmid
 
 Officially brought to you about 20 000 km away from desktop-summit!
 
