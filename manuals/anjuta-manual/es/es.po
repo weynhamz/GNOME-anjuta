@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-08-28 10:09+0000\n"
-"PO-Revision-Date: 2011-08-28 12:59+0200\n"
+"POT-Creation-Date: 2011-08-28 11:02+0000\n"
+"PO-Revision-Date: 2011-08-29 13:25+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1252,10 +1252,6 @@ msgid "Build targets"
 msgstr "Construir objetivos"
 
 #: C/autotools-build-build.page:25(p)
-#| msgid ""
-#| "A target is a file created from source files, typically it is a program "
-#| "or a library, but it could be a documentation if some processing is "
-#| "needed."
 msgid ""
 "A target is a file created from source files. Typically, it is a program or "
 "a library, but it could also be documentation if the documentation needs "
@@ -1266,12 +1262,6 @@ msgstr ""
 "necesita algún procesado, por ejemplo."
 
 #: C/autotools-build-build.page:30(p)
-#| msgid ""
-#| "The build command compile all needed sources files and link them with "
-#| "possibly some other files, like libraries, in order to create the target. "
-#| "If some source files are already compiled and haven't been modified, they "
-#| "are not be recompiled to gain time. There are several ways to trigger a "
-#| "build."
 msgid ""
 "The build command compiles all needed source files, and possibly links them "
 "with some other files, like libraries, in order to create the target. If "
@@ -1286,10 +1276,6 @@ msgstr ""
 "construcción."
 
 #: C/autotools-build-build.page:39(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
-#| "gui></guiseq> or press <key>F7</key> to build all target in the same "
-#| "directory than the current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
 "gui></guiseq> or press <key>F7</key> to build all targets in the same "
@@ -1301,11 +1287,6 @@ msgstr ""
 
 # Traducir "built" como "compilar"
 #: C/autotools-build-build.page:48(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
-#| "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
-#| "keyseq> to build the complete project, all subdirectories are built "
-#| "recursively."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
 "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
@@ -1318,11 +1299,6 @@ msgstr ""
 "recursivamente todas las subcarpetas."
 
 #: C/autotools-build-build.page:62(p)
-#| msgid ""
-#| "Click on the right mouse button to make the <gui>file manager context "
-#| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
-#| "guiseq> to build all targets in the directory currently selected or the "
-#| "parent directory of the currently selected file."
 msgid ""
 "Click on the right mouse button to make the <gui>file manager context menu</"
 "gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
@@ -1336,11 +1312,6 @@ msgstr ""
 "actualmente seleccionado."
 
 #: C/autotools-build-build.page:77(p)
-#| msgid ""
-#| "Click on the right mouse button to make the <gui>project manager context "
-#| "menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
-#| "guiseq> to build all targets in the directory containing the currently "
-#| "selected file or target."
 msgid ""
 "Click on the right mouse button to make the <gui>project manager context "
 "menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
@@ -1603,10 +1574,6 @@ msgstr ""
 "Para establecer una expresión para vigilar su actualización automática:"
 
 #: C/debug-watch.page:69(p)
-#| msgid ""
-#| "In the <gui>Watches</gui> windows select the watch you want to update "
-#| "automatically, right click and check that <gui>Automatic Update</gui> if "
-#| "checked, if not select it."
 msgid ""
 "In the <gui>Watches</gui> window, select the watch you want to update "
 "automatically. Right-click and check that <gui>Automatic Update</gui> if "
@@ -1652,10 +1619,6 @@ msgid "To add an expression to the watch list:"
 msgstr "Para añadir una expresión a la lista de vigilancias:"
 
 #: C/debug-watch.page:103(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
-#| "Watch...</gui></guiseq> or in the <gui>Watches</gui> windows right click "
-#| "and select <gui>Add Watch...</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
 "Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
@@ -1667,9 +1630,6 @@ msgstr ""
 "<gui>Añadir vigilancia...</gui>."
 
 #: C/debug-watch.page:108(p)
-#| msgid ""
-#| "Enter the expression to watch. Check <gui>Automatic Update</gui> if you "
-#| "want that the expression is evaluated each time the program is stopped."
 msgid ""
 "Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
 "the expression to be evaluated each time the program is stopped."
@@ -1776,9 +1736,6 @@ msgstr ""
 "variable de entorno <sys>G_DEBUG</sys> al valor <sys>fatal_criticals</sys>."
 
 #: C/debug-tips.page:35(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
-#| "Parameters...</gui></guiseq> to display the dialog."
 msgid ""
 "Open the <link xref=\"run-parameters-dialog\"/> by selecting "
 "<guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the "
@@ -1813,9 +1770,6 @@ msgid "Click <gui>Apply</gui> to confirm the changes."
 msgstr "Pulse <gui>Aplicar</gui> para confirmar los cambios."
 
 #: C/debug-tips.page:54(p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
-#| "Debugger</gui></guiseq>."
 msgid ""
 "Run the program with the debugger by selecting <guiseq><gui>Run</"
 "gui><gui>Debug Program</gui></guiseq> from the main menu."
@@ -1828,11 +1782,6 @@ msgid "Use the program until the critical error occurs."
 msgstr "Use el programa hasta que suceda el error crítico."
 
 #: C/debug-tips.page:61(p)
-#| msgid ""
-#| "Then you need to run the program with the debugger and use it until you "
-#| "get the critical error. At that time, the debugger will stop your program "
-#| "and you have to look at the <link xref=\"debug-stack\"/> to check where "
-#| "this error comes from."
 msgid ""
 "When the debugger stops your program, look at the <link xref=\"debug-stack\"/"
 "> to check where this error comes from."
@@ -1841,10 +1790,6 @@ msgstr ""
 "> para comprobar de dónde viene el error."
 
 #: C/debug-tips.page:66(p)
-#| msgid ""
-#| "The top function with frame number 0 is in GLib, so you have to look down "
-#| "in the stack, typically the error comes from the first function in your "
-#| "program."
 msgid ""
 "The top function with frame number 0 is in GLib, so you have to look down in "
 "the stack. Typically the error originates from the topmost function that "
@@ -1867,10 +1812,6 @@ msgid "List threads"
 msgstr "Listar hilos"
 
 #: C/debug-thread.page:27(p)
-#| msgid ""
-#| "A program can be composed of several threads. All these threads are "
-#| "executed independently having their own registers, stack and local "
-#| "variables but sharing global variables."
 msgid ""
 "A program can be composed of several threads. All these threads are executed "
 "independently, having their own registers, stack and local variables, but "
@@ -2086,8 +2027,6 @@ msgstr ""
 "la barra de herramientas."
 
 #: C/debug-step.page:88(p)
-#| msgid ""
-#| "It executes the current function until it returns to the calling function."
 msgid ""
 "Stepping out executes the current function until it returns to the calling "
 "function."
@@ -2100,7 +2039,6 @@ msgid "Run and continue"
 msgstr "Ejecutar y continuar"
 
 #: C/debug-step.page:98(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
 #| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
@@ -2111,8 +2049,8 @@ msgid ""
 "<gui>Continue</gui> icon in the toolbar."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
-"icono <gui>Avanzar sobre</gui> en la barra de herramientas."
+"gui><gui>Ejecutar/Continuar</gui></guiseq>, pulse <key>F4</key> o pulse en "
+"el icono <gui>Continuar</gui> en la barra de herramientas."
 
 #: C/debug-step.page:104(p)
 msgid ""
@@ -2127,7 +2065,6 @@ msgid "Run To"
 msgstr "Ejecutar hasta"
 
 #: C/debug-step.page:113(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
 #| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
@@ -2138,11 +2075,10 @@ msgid ""
 "gui> icon in the toolbar."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Avanzar sobre</gui></guiseq> o pulse <key>F6</key> o pulse en el "
-"icono <gui>Avanzar sobre</gui> en la barra de herramientas."
+"gui><gui>Ejecutar hasta cursor</gui></guiseq>, pulse <key>F8</key> o pulse "
+"en el icono <gui>Ejecutar hasta</gui> en la barra de herramientas."
 
 #: C/debug-step.page:119(p)
-#, fuzzy
 #| msgid ""
 #| "This restarts the program until the line or the address (if the "
 #| "<gui>Disassembly window</gui> has the focus) at the cursor is reached."
@@ -2150,8 +2086,9 @@ msgid ""
 "This restarts the program and lets it run until the line or the address (if "
 "the <gui>Disassembly window</gui> has the focus) at the cursor is reached."
 msgstr ""
-"Reinicia el programa hasta la línea o la dirección (si la <gui>Ventana de "
-"desensamblado</gui> tiene el foco) al llegar a la posición del cursor."
+"Reinicia el programa y lo ejecuta hasta que se llega a la línea o la "
+"dirección (si la <gui>Ventana de desensamblado</gui> tiene el foco) en la "
+"posición del cursor."
 
 #: C/debug-step.page:125(title)
 msgid "Stopping the Program"
@@ -2167,7 +2104,6 @@ msgstr ""
 "gui> en la barra de herramientas."
 
 #: C/debug-step.page:135(p)
-#, fuzzy
 #| msgid ""
 #| "This interrupts the program and return control to the debugger allowing "
 #| "perform all debugging tasks, like inspecting data, adding breakpoints..."
@@ -2175,9 +2111,9 @@ msgid ""
 "This interrupts the program and returns control to the debugger, allowing "
 "you to perform debugging tasks, like inspecting data or adding breakpoints."
 msgstr ""
-"Esto interrumpe el programa y devuelve el control al depurador, permitiendo "
-"realizar tareas de depuración como inspeccionar datos, añadir puntos de "
-"parada..."
+"Interrumpe el programa y devuelve el control al depurador, permitiendo "
+"realizar tareas de depuración como inspeccionar datos o añadir puntos de "
+"parada."
 
 #: C/debug-stack.page:9(desc)
 msgid "Examine the stack."
@@ -2192,7 +2128,6 @@ msgid "List stack frames"
 msgstr "Listar los marcos de la pila"
 
 #: C/debug-stack.page:27(p)
-#, fuzzy
 #| msgid ""
 #| "A stack frame is the area of the stack associated to each function call. "
 #| "It lists all functions and their arguments in the sequence they were "
@@ -2207,7 +2142,8 @@ msgstr ""
 "Un marco de la pila es un área de la pila asociado a cada llamada de "
 "función. Lista todas las funciones y sus argumentos en la secuencia en la "
 "que se llamaron. Cada marco de la pila se numera comenzando por 0 para la "
-"función actual."
+"función actual. Sólo puede ver los marcos de la pila mientras el depurador "
+"se está ejecutando."
 
 #: C/debug-stack.page:34(p)
 msgid ""
@@ -2222,7 +2158,6 @@ msgid "Each stack frame contains the following information:"
 msgstr "Cada marco de la pila contiene la siguiente información:"
 
 #: C/debug-stack.page:45(p)
-#, fuzzy
 #| msgid ""
 #| "This contains a yellow arrow to represent the active stack frame, by "
 #| "default it is the frame 0, the current function. All evaluations and "
@@ -2234,8 +2169,8 @@ msgid ""
 "relative to this active frame. You can change the active stack frame to "
 "examine local variables in other functions."
 msgstr ""
-"Esto contiene una flecha amarilla para representar el marco activo de la "
-"pila; de forma predeterminada es el marco 0, la función actual. Todas las "
+"Contiene una flecha amarilla para representar el marco activo de la pila. De "
+"forma predeterminada es el marco 0, la función actual. Todas las "
 "evaluaciones y variables locales son relativas al marco seleccionado. Puede "
 "cambiar el marco activo de la pila para examinar las variables locales en "
 "otras funciones."
@@ -2245,7 +2180,6 @@ msgid "Frame"
 msgstr "Marco"
 
 #: C/debug-stack.page:52(p)
-#, fuzzy
 #| msgid ""
 #| "This is the frame number stating from 0 for the current function. The "
 #| "first function of your program, main for a C program by example, has the "
@@ -2256,8 +2190,8 @@ msgid ""
 "has the highest number."
 msgstr ""
 "Este es el número de marco, comenzando por 0, de la función actual. La "
-"primera función de su programa, «main» para un programa en C, tiene el "
-"número más alto."
+"primera función de su programa, <code>main()</code> para un programa en C, "
+"tiene el número más alto."
 
 #: C/debug-stack.page:58(p)
 msgid ""
@@ -2324,7 +2258,6 @@ msgid "Start a program in the debugger"
 msgstr "Iniciar un programa en el depurador."
 
 #: C/debug-run.page:29(p)
-#, fuzzy
 #| msgid ""
 #| "The current program is defined in the <gui>run parameter</gui> dialog. "
 #| "See <link xref=\"run-parameters-dialog\"/> for more information. This "
@@ -2334,9 +2267,9 @@ msgid ""
 "See <link xref=\"run-parameters-dialog\"/> for more information. This "
 "program can be started in the debugger like this:"
 msgstr ""
-"El programa actual se define en el diálogo <gui>Parámetros de ejecución</"
-"gui>. Consulte la <link xref=\"run-parameters-dialog\"/> para obtener más "
-"información. Este programa se puede iniciar en el depurador usando:"
+"El programa actual se define en el diálogo <gui>Parámetros del programa</"
+"gui>. Para obtener más información, consulte la <link xref=\"run-parameters-"
+"dialog\"/>. Este programa se puede iniciar en el depurador así:"
 
 #: C/debug-run.page:35(p)
 msgid ""
@@ -2349,7 +2282,6 @@ msgstr ""
 "key><key>F12</key></keyseq>"
 
 #: C/debug-run.page:41(p)
-#, fuzzy
 #| msgid ""
 #| "A program can be more difficult to debug if it is highly optimized or if "
 #| "debugging information are missing. This is defined in the configure step. "
@@ -2367,11 +2299,12 @@ msgid ""
 "information."
 msgstr ""
 "Un programa puede ser más difícil de depurar si está muy optimizado o si "
-"falta información para su depuración. Esto se define en el paso de la "
-"configuración. Generalmente se define una configuración de depuración sin "
-"optimización y otra con toda la información de depuración. Anjuta muestra un "
-"aviso si no se está usando esta configuración. Para obtener más información "
-"consulte la <link xref=\"autotools-build-configure\"/>."
+"falta información para su depuración. Si la información de optimización y "
+"depuración están activadas se define en el paso de configuración. "
+"Generalmente existe una configuración de depuración disponible que desactiva "
+"la optimización e incluye toda la información de depuración. Anjuta muestra "
+"un aviso si no se está usando esta configuración. Para obtener más "
+"información consulte la <link xref=\"autotools-build-configure\"/>."
 
 #: C/debug-run.page:52(title)
 msgid "Debug an already running application"
@@ -2382,7 +2315,6 @@ msgid "The debugger can be used on an already running application."
 msgstr "El depurador se puede usar en un programa que ya está en ejecución."
 
 #: C/debug-run.page:58(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
 #| "Process...</gui></guiseq> to get a dialog listing all currently running "
@@ -2393,8 +2325,8 @@ msgid ""
 "processes."
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ejecutar</"
-"gui><gui>Depurar proceso...</gui></guiseq> para obtener un diálogo que liste "
-"todos los procesos actualmente en ejecución ."
+"gui><gui>Depurar proceso...</gui></guiseq> para obtener un diálogo que lista "
+"todos los procesos actualmente en ejecución."
 
 #: C/debug-run.page:63(p)
 #, fuzzy

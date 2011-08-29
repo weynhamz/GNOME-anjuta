@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-08-28 10:01+0000\n"
-"PO-Revision-Date: 2011-08-28 12:59+0200\n"
+"POT-Creation-Date: 2011-08-28 11:02+0000\n"
+"PO-Revision-Date: 2011-08-29 13:10+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1459,7 +1459,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1171
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2425,7 +2425,7 @@ msgstr "Ejecutándose…"
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:482 ../plugins/debug-manager/plugin.c:969
 msgid "Run/_Continue"
-msgstr "Eje_cutar/Seguir"
+msgstr "Ejecutar/_Continuar"
 
 #. Display label
 #. short-cut
