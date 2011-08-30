@@ -15,6 +15,8 @@ PROPERTY (URL): http://www.anjuta.org/
         PACKAGE (): gdl-3.0
     MODULE (): GDA
         PACKAGE (): libgda-4.0
+    MODULE (): GDA
+        PACKAGE (): libgda-5.0
     MODULE (): VTE
         PACKAGE (): vte-2.90
     MODULE (): PLUGIN_DEVHELP
@@ -24,9 +26,11 @@ PROPERTY (URL): http://www.anjuta.org/
     MODULE (): SOURCEVIEW
         PACKAGE (): gtksourceview-3.0
     MODULE (): VALA
-        PACKAGE (): libvala-0.12
+        PACKAGE (): libvala-0.14
     MODULE (): PLUGIN_SYMBOL_DB
         PACKAGE (): libgda-4.0
+    MODULE (): PLUGIN_SYMBOL_DB
+        PACKAGE (): libgda-5.0
     MODULE (): APR
         PACKAGE (): apr-1
     MODULE (): APR_UTILS
@@ -380,6 +384,8 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (): libanjuta/anjuta-file-drop-entry.c
                 SOURCE (): libanjuta/anjuta-entry.h
                 SOURCE (): libanjuta/anjuta-entry.c
+                SOURCE (): libanjuta/anjuta-environment-editor.h
+                SOURCE (): libanjuta/anjuta-environment-editor.c
             TARGET (): libgladeanjuta.la
                 PROPERTY (Installation directory): gladeanjutadir
                 PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
@@ -1437,7 +1443,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-language-vala.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Vala compiler flags): --pkg libvala-0.12 --pkg libanjuta-3.0
+                    PROPERTY (Vala compiler flags): --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
                     MODULE (): VALA
@@ -2375,6 +2381,8 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                     PROPERTY (Libraries): $(GDA_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
                     MODULE (): GDA
+                    MODULE (): GDA
+                    MODULE (): PLUGIN_SYMBOL_DB
                     MODULE (): PLUGIN_SYMBOL_DB
                     SOURCE (): plugins/symbol-db/plugin.c
                     SOURCE (): plugins/symbol-db/plugin.h
