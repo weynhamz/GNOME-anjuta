@@ -1034,7 +1034,8 @@ on_system_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	}
 	else
 	{
-		message = g_strdup_printf (_("%s: %d files scanned out of %d"), 
+		/* Translators: %s is the name of a system library */
+		message = g_strdup_printf (ngettext ("%s: %d file scanned out of %d", "%s: %d files scanned out of %d", sdb_plugin->files_count_system_done), 
 							sdb_plugin->current_scanned_package,
 							sdb_plugin->files_count_system_done, 
 							sdb_plugin->files_count_system);
@@ -1067,7 +1068,7 @@ on_project_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
 	if (sdb_plugin->files_count_project_done >= sdb_plugin->files_count_project)
 		message = g_strdup_printf (_("Generating inheritances…"));
 	else
-		message = g_strdup_printf (_("%d files scanned out of %d"), 
+		message = g_strdup_printf (ngettext ("%d file scanned out of %d", "%d files scanned out of %d", sdb_plugin->files_count_project_done), 
 							   sdb_plugin->files_count_project_done, sdb_plugin->files_count_project);
 
 	if (sdb_plugin->files_count_project > 0)
