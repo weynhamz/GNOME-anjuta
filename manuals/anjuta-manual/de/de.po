@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta doc\n"
-"POT-Creation-Date: 2011-07-25 19:55+0000\n"
-"PO-Revision-Date: 2011-08-04 15:31+0100\n"
+"POT-Creation-Date: 2011-08-28 10:09+0000\n"
+"PO-Revision-Date: 2011-09-01 13:12+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,12 +85,45 @@ msgstr "Fenster und Dialoge"
 msgid "Project wizard template."
 msgstr "Vorlage für Optionen-Ordner"
 
-#: C/project-wizard-template.page:18(title)
+#: C/project-wizard-template.page:17(name)
+#: C/project-wizard-create.page:18(name) C/project-manager.page:15(name)
+#: C/project-manager-module.page:19(name)
+#: C/project-manager-library.page:16(name) C/project-manager-file.page:19(name)
+#: C/directory-project-backend.page:16(name)
+#: C/autotools-build-build.page:19(name) C/run-run.page:19(name)
+#: C/debug-watch.page:17(name) C/debug-tips.page:17(name)
+#: C/debug-thread.page:17(name) C/debug-step.page:17(name)
+#: C/debug-stack.page:17(name) C/debug-run.page:19(name)
+#: C/debug-process-dialog.page:17(name) C/debug-local.page:17(name)
+#: C/debug-information.page:17(name) C/debug-expression.page:17(name)
+#: C/debug-custom.page:17(name) C/debug-cpu.page:17(name)
+#: C/debug-breakpoint.page:17(name) C/debug-breakpoint-dialog.page:18(name)
+msgid "Philip Chimento"
+msgstr "Philip Chimento"
+
+#: C/project-wizard-template.page:18(email)
+#: C/project-wizard-create.page:19(email) C/project-manager.page:16(email)
+#: C/project-manager-module.page:20(email)
+#: C/project-manager-library.page:17(email)
+#: C/project-manager-file.page:20(email)
+#: C/directory-project-backend.page:17(email)
+#: C/autotools-build-build.page:20(email) C/run-run.page:20(email)
+#: C/debug-watch.page:18(email) C/debug-tips.page:18(email)
+#: C/debug-thread.page:18(email) C/debug-step.page:18(email)
+#: C/debug-stack.page:18(email) C/debug-run.page:20(email)
+#: C/debug-process-dialog.page:18(email) C/debug-local.page:18(email)
+#: C/debug-information.page:18(email) C/debug-expression.page:18(email)
+#: C/debug-custom.page:18(email) C/debug-cpu.page:18(email)
+#: C/debug-breakpoint.page:18(email) C/debug-breakpoint-dialog.page:19(email)
+msgid "philip.chimento@gmail.com"
+msgstr "philip.chimento@gmail.com"
+
+#: C/project-wizard-template.page:22(title)
 #, fuzzy
 msgid "Project wizard template"
 msgstr "Vorlage für Optionen-Ordner"
 
-#: C/project-wizard-template.page:20(p)
+#: C/project-wizard-template.page:24(p)
 msgid ""
 "A project template is composed of a bunch of files which can be processed by "
 "a powerful template processing engine called <app>autogen</app>. A project "
@@ -98,7 +131,7 @@ msgid ""
 "project properties and files needed."
 msgstr ""
 
-#: C/project-wizard-template.page:27(p)
+#: C/project-wizard-template.page:31(p)
 msgid ""
 "This <file>.wiz</file> file looks like a XML file and is documented <link "
 "href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
@@ -112,11 +145,11 @@ msgstr ""
 msgid "Create a new project from scratch."
 msgstr "Ein neues Projekt von Grund auf erstellen."
 
-#: C/project-wizard-create.page:19(title)
+#: C/project-wizard-create.page:23(title)
 msgid "Create a project"
 msgstr "Ein Projekt erstellen"
 
-#: C/project-wizard-create.page:21(p)
+#: C/project-wizard-create.page:25(p)
 msgid ""
 "New projects are created from templates. <app>Anjuta</app> will ask you for "
 "various information, like the type of the project, its name and more."
@@ -125,7 +158,7 @@ msgstr ""
 "die Angabe verschiedener Informationen, wie den Typ des Projekts, dessen "
 "Namen und weiteres."
 
-#: C/project-wizard-create.page:28(p)
+#: C/project-wizard-create.page:32(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
 "gui><gui>Project</gui></guiseq>."
@@ -133,13 +166,13 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/project-wizard-create.page:32(p)
+#: C/project-wizard-create.page:36(p)
 msgid ""
 "Or from the drop-down list of the <gui>New</gui> button in the <gui>top tool "
 "bar</gui>, select <gui>Project</gui> to start the project wizard."
 msgstr ""
 
-#: C/project-wizard-create.page:40(p)
+#: C/project-wizard-create.page:44(p)
 msgid ""
 "Select the icon representing the type of the project you want to create and "
 "click on <gui>Forward</gui>."
@@ -147,7 +180,7 @@ msgstr ""
 "Wählen Sie das Symbol aus, welches Ihr gewünschtes Projekt repräsentiert, und "
 "klicken Sie auf <gui>Weiter</gui>."
 
-#: C/project-wizard-create.page:45(p)
+#: C/project-wizard-create.page:49(p)
 msgid ""
 "Leave the mouse over a project icon for a second and a small pop-up message "
 "will appear showing more information about this type of project."
@@ -156,7 +189,7 @@ msgstr ""
 "erscheint, in der weitere Informationen über den jeweiligen Projekttyp "
 "angezeigt werden."
 
-#: C/project-wizard-create.page:53(p)
+#: C/project-wizard-create.page:57(p)
 msgid ""
 "Depending on the selected project type, you will have to enter different "
 "information. When you are done, click on <gui>Forward</gui>."
@@ -164,7 +197,7 @@ msgstr ""
 "Abhängig vom Projekttyp müssen Sie verschiedene Informationen angeben. Sobald "
 "Sie fertig sind, klicken Sie auf <gui>Weiter</gui>."
 
-#: C/project-wizard-create.page:57(p)
+#: C/project-wizard-create.page:61(p)
 msgid ""
 "All informations are grouped in pages, typically you will have to fill two or "
 "three pages. You can go back at any time using the button <gui>Back</gui>."
@@ -173,7 +206,7 @@ msgstr ""
 "zwei oder drei Seiten Angaben machen. Mit dem Knopf <gui>Zurück</gui> können "
 "Sie jederzeit zu einer vorherigen Seite zurückkehren."
 
-#: C/project-wizard-create.page:63(p)
+#: C/project-wizard-create.page:67(p)
 msgid ""
 "Keep the mouse over the button or typing area for a second to get a small pop-"
 "up message with more details about the corresponding setting."
@@ -182,7 +215,7 @@ msgstr ""
 "Meldung erscheint, in der weitere Informationen über die jeweilige "
 "Einstellung angezeigt werden."
 
-#: C/project-wizard-create.page:71(p)
+#: C/project-wizard-create.page:75(p)
 msgid ""
 "After filling out all the information pages, you will get a summary page "
 "listing the main information about your project. Nothing has been written to "
@@ -195,7 +228,7 @@ msgstr ""
 "<gui>Anwenden</gui>, um das Projekt zu speichern und es in <app>Anjuta</app> "
 "zu öffnen."
 
-#: C/project-wizard-create.page:81(p)
+#: C/project-wizard-create.page:85(p)
 msgid ""
 "Each project type corresponds to a template. <app>Anjuta</app> already "
 "includes several templates but you can add custom ones and even write your "
@@ -210,11 +243,11 @@ msgstr ""
 msgid "Project manager."
 msgstr "Projektverwaltung"
 
-#: C/project-manager.page:16(title)
+#: C/project-manager.page:20(title)
 msgid "Project manager plugin"
 msgstr "Projektverwaltung-Plugin"
 
-#: C/project-manager.page:18(p)
+#: C/project-manager.page:22(p)
 msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
@@ -223,7 +256,7 @@ msgstr ""
 "Backends. Das wichtigste davon ist das Autotools-Format, das üblicherweise "
 "unter Linux verwendet wird."
 
-#: C/project-manager.page:24(p)
+#: C/project-manager.page:28(p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but some "
 "functions might be disabled."
@@ -232,7 +265,7 @@ msgstr ""
 "Benutzeroberfläche wird immer die gleiche sein. Allerdings könnten einige "
 "Funktionen deaktiviert sein."
 
-#: C/project-manager.page:30(title)
+#: C/project-manager.page:34(title)
 #, fuzzy
 msgid "Project Backend Plugin"
 msgstr "Python-Plugin ausführen"
@@ -241,11 +274,11 @@ msgstr "Python-Plugin ausführen"
 msgid "Add or remove libraries from a project."
 msgstr "Bibliotheken zu einem Projekt hinzufügen oder daraus entfernen."
 
-#: C/project-manager-module.page:20(title)
+#: C/project-manager-module.page:24(title)
 msgid "Add or remove new libraries"
 msgstr "Neue Bibliotheken hinzufügen oder vorhandene entfernen"
 
-#: C/project-manager-module.page:22(p)
+#: C/project-manager-module.page:26(p)
 msgid ""
 "On Linux, most libraries are packaged to be easily used. When you need one of "
 "these libraries, <app>Anjuta</app> provides an easy interface to add it. If "
@@ -253,11 +286,11 @@ msgid ""
 "manager-library\">Add non-packaged libraries</link> page."
 msgstr ""
 
-#: C/project-manager-module.page:31(title)
+#: C/project-manager-module.page:35(title)
 msgid "Add packaged libraries in a new module"
 msgstr "Paketierte Bibliotheken in einem neuen Modul hinzufügen"
 
-#: C/project-manager-module.page:33(p)
+#: C/project-manager-module.page:37(p)
 msgid ""
 "A library cannot be added directly to your program; you first need to create "
 "a module for it, which is just a group of libraries."
@@ -266,7 +299,7 @@ msgstr ""
 "Zunächst müssen Sie ein Modul dafür erstellen, welches aus einer Gruppe von "
 "Bibliotheken besteht."
 
-#: C/project-manager-module.page:40(p)
+#: C/project-manager-module.page:44(p)
 msgid ""
 "Select the program where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
@@ -274,7 +307,7 @@ msgid ""
 "<gui>New Library</gui> button on this dialog."
 msgstr ""
 
-#: C/project-manager-module.page:47(p) C/project-manager-module.page:96(p)
+#: C/project-manager-module.page:51(p) C/project-manager-module.page:100(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
 "Library...</gui></guiseq>"
@@ -282,7 +315,7 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Projekt</gui><gui>Neue Bibliothek …</gui></guiseq> im "
 "<gui>Hauptmenü</gui>."
 
-#: C/project-manager-module.page:53(p)
+#: C/project-manager-module.page:57(p)
 msgid ""
 "You will get a list of all the packaged libraries installed on your system. "
 "You can check one or more libraries."
@@ -290,7 +323,7 @@ msgstr ""
 "Eine Liste aller auf Ihrem System installierten Bibliotheken wird angezeigt. "
 "Sie können eine oder mehrere Bibliotheken auswählen."
 
-#: C/project-manager-module.page:58(p)
+#: C/project-manager-module.page:62(p)
 msgid ""
 "If the library you want does not appear here, perhaps it is because it is not "
 "installed on your system. Launch the application you use to install new "
@@ -299,55 +332,55 @@ msgid ""
 "file with a <file>.pc</file> extension."
 msgstr ""
 
-#: C/project-manager-module.page:68(p)
+#: C/project-manager-module.page:72(p)
 msgid ""
 "After selecting one library, a module name will be automatically generated "
 "but you can change it. When you are done, click on the <gui>Add</gui> button "
 "to create the new module with the selected libraries."
 msgstr ""
 
-#: C/project-manager-module.page:76(p)
+#: C/project-manager-module.page:80(p)
 msgid ""
 "Read the <link xref=\"project-manager-package\">next page</link> to find out "
 "how to add this new module to your target."
 msgstr ""
 
-#: C/project-manager-module.page:86(title)
+#: C/project-manager-module.page:90(title)
 msgid "Add packaged libraries in an existing module"
 msgstr "Paketierte Bibliotheken in einem existierenden Modul hinzufügen"
 
-#: C/project-manager-module.page:90(p)
+#: C/project-manager-module.page:94(p)
 msgid ""
 "Select the module where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
 "menu</gui> appear and select <gui>New Library</gui>."
 msgstr ""
 
-#: C/project-manager-module.page:102(p)
+#: C/project-manager-module.page:106(p)
 msgid ""
 "In the list of all packaged libraries, check the additional libraries wanted. "
 "Check that expected module name is selected in the bottom text box. Then "
 "click on the <gui>Add</gui> button to update the module."
 msgstr ""
 
-#: C/project-manager-module.page:110(p)
+#: C/project-manager-module.page:114(p)
 msgid ""
 "Read the <link xref=\"project-manager-package\">next page</link> to find out "
 "how to add the module to your target."
 msgstr ""
 
-#: C/project-manager-module.page:120(title)
+#: C/project-manager-module.page:124(title)
 msgid "Remove a packaged library from a module"
 msgstr "Eine paketierte Bibliothek aus einem Modul entfernen"
 
-#: C/project-manager-module.page:124(p)
+#: C/project-manager-module.page:128(p)
 msgid ""
 "Select the library you want to remove in the <gui>project view</gui> , click "
 "on the right mouse button to make the <gui>project context menu</gui> appear "
 "and select <gui>Remove</gui>."
 msgstr ""
 
-#: C/project-manager-module.page:132(p)
+#: C/project-manager-module.page:136(p)
 #, fuzzy
 msgid "Confirm the removal. This library will be removed from the project file."
 msgstr ""
@@ -360,15 +393,15 @@ msgstr ""
 "Nicht-paketierte Bibliotheken zu einem Projekt hinzufügen oder daraus "
 "entfernen."
 
-#: C/project-manager-library.page:17(title)
+#: C/project-manager-library.page:21(title)
 msgid "Add or remove non-packaged libraries"
 msgstr "Nicht-paketierte Bibliotheken hinzufügen oder entfernen"
 
-#: C/project-manager-library.page:20(title)
+#: C/project-manager-library.page:24(title)
 msgid "Add a non-packaged library to a target"
 msgstr "Eine nicht paketierte Bibliothek zu einem Ziel hinzufügen"
 
-#: C/project-manager-library.page:22(p)
+#: C/project-manager-library.page:26(p)
 msgid ""
 "In order to use a library in C, you need to tell the compiler where the "
 "header files are, and tell the linker where to find the needed libraries. The "
@@ -376,14 +409,14 @@ msgid ""
 "and the libraries are elsewhere."
 msgstr ""
 
-#: C/project-manager-library.page:31(p)
+#: C/project-manager-library.page:35(p)
 msgid ""
 "Select the directory containing the program where you want to add the library "
 "in the <gui>project view</gui>, click on the right mouse button to make the "
 "<gui>project context menu</gui> appear and select <gui>Properties</gui>."
 msgstr ""
 
-#: C/project-manager-library.page:37(p) C/project-manager-library.page:68(p)
+#: C/project-manager-library.page:41(p) C/project-manager-library.page:72(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 "gui><gui>Properties</gui></guiseq>. By default, it edits the properties of "
@@ -391,7 +424,7 @@ msgid ""
 "node, by expanding <gui>Browse other nodes</gui> and selecting another one."
 msgstr ""
 
-#: C/project-manager-library.page:46(p)
+#: C/project-manager-library.page:50(p)
 msgid ""
 "If the header files are installed in a standard location (<file>/usr/include</"
 "file>) you don't have to set this. If not, you need to add <input>-"
@@ -401,13 +434,13 @@ msgid ""
 "targets inside this directory."
 msgstr ""
 
-#: C/project-manager-library.page:55(p)
+#: C/project-manager-library.page:59(p)
 msgid ""
 "You might have to expand the <gui>More options</gui> button to see this. "
 "Click on the <gui>Apply</gui> button when you are done."
 msgstr ""
 
-#: C/project-manager-library.page:61(p)
+#: C/project-manager-library.page:65(p)
 msgid ""
 "Next, you need to add the library to a target. Select the target where you "
 "want to add the library in the <gui>project view</gui>, click on the right "
@@ -415,7 +448,7 @@ msgid ""
 "<gui>Properties</gui>."
 msgstr ""
 
-#: C/project-manager-library.page:77(p)
+#: C/project-manager-library.page:81(p)
 msgid ""
 "You need to set the <gui>Linker flags</gui> property, adding <input>-"
 "l<var>library_name</var></input> if your compiler is <app>gcc</app>. "
@@ -424,25 +457,25 @@ msgid ""
 "extension."
 msgstr ""
 
-#: C/project-manager-library.page:84(p)
+#: C/project-manager-library.page:88(p)
 msgid ""
 "If the library is in not in a standard directory, <app>gcc</app> can look in "
 "additional directories with the option <input>-L<var>library_path</var></"
 "input>."
 msgstr ""
 
-#: C/project-manager-library.page:94(title)
+#: C/project-manager-library.page:98(title)
 msgid "Remove a non packaged library from a target"
 msgstr "Eine nicht paketierte Bibliothek aus einem Ziel entfernen"
 
-#: C/project-manager-library.page:98(p)
+#: C/project-manager-library.page:102(p)
 msgid ""
 "Select the target that has the library you want to remove in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
 "menu</gui> appear and select <gui>Properties</gui>."
 msgstr ""
 
-#: C/project-manager-library.page:106(p)
+#: C/project-manager-library.page:110(p)
 msgid ""
 "Remove the library from the <gui>C preprocessor flags</gui> and <gui>Linker "
 "flags</gui> properties. Click on the <gui>Apply</gui> button to write the "
@@ -453,11 +486,11 @@ msgstr ""
 msgid "Add or remove files from a project."
 msgstr "Dateien zu einem Projekt hinzufügen oder daraus entfernen."
 
-#: C/project-manager-file.page:20(title)
+#: C/project-manager-file.page:24(title)
 msgid "Add or remove files"
 msgstr "Dateien hinzufügen oder entfernen"
 
-#: C/project-manager-file.page:22(p)
+#: C/project-manager-file.page:26(p)
 msgid ""
 "If the project backend supports it, you can add or remove files in your "
 "project without editing the project file."
@@ -466,18 +499,18 @@ msgstr ""
 "Projekt hinzufügen oder daraus entfernen, ohne die Projektdatei bearbeiten zu "
 "müssen."
 
-#: C/project-manager-file.page:28(title)
+#: C/project-manager-file.page:32(title)
 msgid "Add files"
 msgstr "Dateien hinzufügen"
 
-#: C/project-manager-file.page:32(p)
+#: C/project-manager-file.page:36(p)
 msgid ""
 "Select the target where you want to add the new source file in the "
 "<gui>project view</gui>, click on the right mouse button to make the "
 "<gui>project context menu</gui> appear and select <gui>Add Source File</gui>."
 msgstr ""
 
-#: C/project-manager-file.page:38(p)
+#: C/project-manager-file.page:42(p)
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Source File</gui></guiseq>"
@@ -485,7 +518,7 @@ msgstr ""
 "Oder wählen Sie <guiseq><gui>Projekt</gui><gui>Quelldatei hinzufügen</gui></"
 "guiseq> im <gui>Hauptmenü</gui>."
 
-#: C/project-manager-file.page:44(p)
+#: C/project-manager-file.page:48(p)
 msgid ""
 "The target allows you to group files, and has a type which defines how the "
 "files are used inside. A program target contains source files, which will be "
@@ -493,17 +526,17 @@ msgid ""
 "data files which will be installed in the same place."
 msgstr ""
 
-#: C/project-manager-file.page:54(p)
+#: C/project-manager-file.page:58(p)
 msgid "You can select another target in the top <gui>target tree view</gui>."
 msgstr ""
 
-#: C/project-manager-file.page:57(p)
+#: C/project-manager-file.page:61(p)
 msgid ""
 "Click on the <gui>Select file to add</gui> button to get a file chooser "
 "dialog where you can select several files."
 msgstr ""
 
-#: C/project-manager-file.page:63(p)
+#: C/project-manager-file.page:67(p)
 msgid ""
 "When you have chosen the target and the files, click on the <gui>Add</gui> "
 "button to add those files to your project."
@@ -511,25 +544,25 @@ msgstr ""
 "Sobald Sie das Ziel und die Dateien ausgewählt haben, klicken Sie auf den "
 "Knopf <gui>Hinzufügen</gui>, um diese Dateien zu ihrem Projekt hinzuzufügen."
 
-#: C/project-manager-file.page:71(p)
+#: C/project-manager-file.page:75(p)
 msgid ""
 "Some project formats require the file to be under the project directory. "
 "Added source files outside the project directory are automatically copied "
 "inside to fulfill this requirement."
 msgstr ""
 
-#: C/project-manager-file.page:80(title)
+#: C/project-manager-file.page:84(title)
 msgid "Remove a file"
 msgstr "Eine Datei entfernen"
 
-#: C/project-manager-file.page:84(p)
+#: C/project-manager-file.page:88(p)
 msgid ""
 "Select the file you want to remove in the <gui>project view</gui>, click on "
 "the right mouse button to make the <gui>project context menu</gui> appear and "
 "select <gui>Remove</gui>."
 msgstr ""
 
-#: C/project-manager-file.page:92(p)
+#: C/project-manager-file.page:96(p)
 #, fuzzy
 msgid ""
 "Confirm the removal. The file will only be removed from the project, not from "
@@ -543,12 +576,12 @@ msgstr ""
 msgid "Directory project backend."
 msgstr "Aus dem Projektordner"
 
-#: C/directory-project-backend.page:17(title)
+#: C/directory-project-backend.page:21(title)
 #, fuzzy
 msgid "Directory project backend plugin"
 msgstr "Ordnerinhalt anzeigen (mit Plugin)"
 
-#: C/directory-project-backend.page:19(p)
+#: C/directory-project-backend.page:23(p)
 msgid ""
 "This is the simplest project backend. There is no project file. It works like "
 "a file viewer, considering all files matching typical source extensions (for "
@@ -556,14 +589,14 @@ msgid ""
 "are kept in order to group source files but there is no target."
 msgstr ""
 
-#: C/directory-project-backend.page:28(p)
+#: C/directory-project-backend.page:32(p)
 msgid ""
 "This backend is a useful workaround if your project does not have a "
 "corresponding backend in <app>Anjuta</app> or if the appropriate backend does "
 "not fully support your project."
 msgstr ""
 
-#: C/directory-project-backend.page:34(p)
+#: C/directory-project-backend.page:38(p)
 msgid ""
 "It is not possible to add or change anything with a project using this "
 "backend. But if you create a source file in the project directory, with the "
@@ -766,7 +799,7 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-install.page:50(p) C/autotools-build-clean.page:45(p)
-#: C/autotools-build-build.page:53(p)
+#: C/autotools-build-build.page:57(p)
 msgid "From the <gui>file manager pane</gui>, select a file or a directory."
 msgstr ""
 
@@ -779,7 +812,7 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-install.page:65(p) C/autotools-build-clean.page:60(p)
-#: C/autotools-build-build.page:68(p)
+#: C/autotools-build-build.page:72(p)
 msgid ""
 "From the <gui>project manager pane</gui>, select a source file or a target."
 msgstr ""
@@ -992,56 +1025,64 @@ msgstr ""
 msgid "Build targets or project."
 msgstr "Ein Ziel zum Projekt hinzufügen oder daraus entfernen."
 
-#: C/autotools-build-build.page:20(title)
+#: C/autotools-build-build.page:24(title)
 #, fuzzy
 msgid "Build targets"
 msgstr "Gruppen und Ziele"
 
-#: C/autotools-build-build.page:21(p)
+#: C/autotools-build-build.page:25(p)
+#, fuzzy
 msgid ""
-"A target is a file created from source files, typically it is a program or a "
-"library, but it could be a documentation if some processing is needed."
+"A target is a file created from source files. Typically, it is a program or a "
+"library, but it could also be documentation if the documentation needs "
+"processing, for example."
 msgstr ""
 "Ein Ziel ist eine Datei, die aus Quelldateien erstellt wird. Üblicherweise "
 "ist es ein Programm oder eine Bibliothek, aber es kann auch eine "
 "Dokumentation sein, falls Weiterverarbeitung in irgendeiner Form notwendig "
 "ist."
 
-#: C/autotools-build-build.page:26(p)
+#: C/autotools-build-build.page:30(p)
 msgid ""
-"The build command compile all needed sources files and link them with "
-"possibly some other files, like libraries, in order to create the target. If "
-"some source files are already compiled and haven't been modified, they are "
-"not be recompiled to gain time. There are several ways to trigger a build."
+"The build command compiles all needed source files, and possibly links them "
+"with some other files, like libraries, in order to create the target. If some "
+"source files are already compiled and haven't been modified, they are not be "
+"recompiled, in order to save time. There are several ways to trigger a build."
 msgstr ""
 
-#: C/autotools-build-build.page:35(p)
+#: C/autotools-build-build.page:39(p)
+#, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
-"gui></guiseq> or press <key>F7</key> to build all target in the same "
-"directory than the current edited file."
+"gui></guiseq> or press <key>F7</key> to build all targets in the same "
+"directory as the currently opened file."
 msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
 
-#: C/autotools-build-build.page:44(p)
+#: C/autotools-build-build.page:48(p)
+#, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
 "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
-"keyseq> to build the complete project, all subdirectories are built "
+"keyseq> to build the complete project. All subdirectories are built "
 "recursively."
 msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
 
-#: C/autotools-build-build.page:58(p)
+#: C/autotools-build-build.page:62(p)
 msgid ""
 "Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
+"gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
 "build all targets in the directory currently selected or the parent directory "
 "of the currently selected file."
 msgstr ""
 
-#: C/autotools-build-build.page:73(p)
+#: C/autotools-build-build.page:77(p)
 msgid ""
 "Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Build</gui></"
+"menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
 "guiseq> to build all targets in the directory containing the currently "
 "selected file or target."
 msgstr ""
@@ -1072,7 +1113,7 @@ msgid ""
 "button to choose any other program."
 msgstr ""
 
-#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:69(title)
+#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
 msgid "Arguments"
 msgstr "Argumente"
 
@@ -1143,35 +1184,35 @@ msgstr ""
 msgid "Start a program without the debugger."
 msgstr "Ein Programm ohne Debugger ausführen."
 
-#: C/run-run.page:20(title)
+#: C/run-run.page:24(title)
 msgid "Run a program"
 msgstr "Ein Programm ausführen"
 
-#: C/run-run.page:22(p)
+#: C/run-run.page:26(p)
 msgid ""
 "If <app>Anjuta</app> is used to start a program it checks that it is up to "
-"date and build it if needed."
+"date and builds it if needed."
 msgstr ""
 
-#: C/run-run.page:27(p)
+#: C/run-run.page:31(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
 "guiseq> or press <key>F3</key> to execute the current program."
 msgstr ""
 
-#: C/run-run.page:33(p)
+#: C/run-run.page:37(p)
 msgid ""
 "The current program and several parameters can be set on the <gui>parameter</"
 "gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
 msgstr ""
 
-#: C/run-run.page:38(p)
+#: C/run-run.page:42(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
 "Parameters...</gui></guiseq> to display the dialog."
 msgstr ""
 
-#: C/run-run.page:45(p)
+#: C/run-run.page:49(p)
 msgid ""
 "If your program needs data files, you probably have to install it at least "
 "one time before running it. See <link xref=\"autotools-build-install\"/> for "
@@ -1182,16 +1223,23 @@ msgstr ""
 msgid "Monitor expressions and variables."
 msgstr ""
 
-#: C/debug-watch.page:18(title)
-#, fuzzy
-msgid "Watch expression"
-msgstr "Ausdrücke"
+#: C/debug-watch.page:22(title)
+msgid "Watch expressions"
+msgstr "Ausdrücke überwachen"
 
-#: C/debug-watch.page:21(title)
+#: C/debug-watch.page:24(p)
+msgid ""
+"Watch expressions, or watches for short, are expressions that the debugger "
+"evaluates and prints the result of every time the program is stopped; for "
+"example, after every <link xref=\"debug-step\">single-step</link> through the "
+"program."
+msgstr ""
+
+#: C/debug-watch.page:30(title)
 msgid "List watched expressions"
 msgstr ""
 
-#: C/debug-watch.page:25(p)
+#: C/debug-watch.page:34(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Watches</"
 "gui></guiseq> to open the <gui>Watches</gui> window."
@@ -1199,91 +1247,107 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Ansicht</gui><gui>Überwachte Ausdrücke</"
 "gui><gui>Überwachte Ausdrücke</gui></guiseq> im <gui>Hauptmenü</gui>."
 
-#: C/debug-watch.page:31(p)
+#: C/debug-watch.page:40(p)
 msgid ""
-"Like local variables, all watches expression are displayed in a tree view "
-"with children used to represent structure or array members."
+"Like local variables, all watch expressions are displayed in a tree with "
+"children used to represent structure or array members."
 msgstr ""
 
-#: C/debug-watch.page:36(title) C/debug-local.page:43(title)
+#: C/debug-watch.page:45(title) C/debug-local.page:47(title)
 msgid "Variable"
 msgstr "Variable"
 
-#: C/debug-watch.page:37(p)
+#: C/debug-watch.page:46(p)
 msgid "The name of the variable or the expression."
 msgstr ""
 
-#: C/debug-watch.page:40(title) C/debug-local.page:47(title)
+#: C/debug-watch.page:49(title) C/debug-local.page:51(title)
 msgid "Value"
 msgstr "Wert"
 
-#: C/debug-watch.page:41(p)
+#: C/debug-watch.page:50(p)
 msgid "The variable or expression value."
 msgstr ""
 
-#: C/debug-watch.page:44(title) C/debug-local.page:51(title)
-#: C/debug-breakpoint.page:49(title)
+#: C/debug-watch.page:53(title) C/debug-local.page:55(title)
+#: C/debug-breakpoint.page:53(title)
 msgid "Type"
 msgstr "Typ"
 
-#: C/debug-watch.page:45(p)
+#: C/debug-watch.page:54(p)
 msgid "The type of the variable or of the expression result."
 msgstr ""
 
-#: C/debug-watch.page:51(title)
+#: C/debug-watch.page:60(title)
 msgid "Update watches"
 msgstr "Überwachte Ausdrücke aktualisieren"
 
-#: C/debug-watch.page:53(p)
+#: C/debug-watch.page:62(p)
 msgid ""
 "Watch expressions can be updated automatically as soon as the program is "
 "stopped or on user request."
 msgstr ""
 
-#: C/debug-watch.page:58(p)
-msgid ""
-"In the <gui>Watches</gui> windows select the watch you want to update "
-"automatically, right click and check that <gui>Automatic Update</gui> if "
-"checked, if not select it."
+#: C/debug-watch.page:65(p)
+msgid "To set a watch expression to update automatically:"
 msgstr ""
 
-#: C/debug-watch.page:66(p)
+#: C/debug-watch.page:69(p)
+msgid ""
+"In the <gui>Watches</gui> window, select the watch you want to update "
+"automatically. Right-click and check that <gui>Automatic Update</gui> if "
+"checked. If not, select it."
+msgstr ""
+
+#: C/debug-watch.page:75(p)
+msgid "To update a watch expression manually:"
+msgstr ""
+
+#: C/debug-watch.page:79(p)
 msgid ""
 "In the <gui>Watches</gui> window, right click and select <gui>Update Watch</"
 "gui> to update the selected watch."
 msgstr ""
 
-#: C/debug-watch.page:73(p)
+#: C/debug-watch.page:84(p)
+msgid "To update all watch expressions manually at once:"
+msgstr ""
+
+#: C/debug-watch.page:88(p)
 msgid ""
 "In the <gui>Watches</gui> window, right click and select <gui>Update all</"
 "gui> to update all watches at the same time."
 msgstr ""
 
-#: C/debug-watch.page:82(title)
+#: C/debug-watch.page:97(title)
 msgid "Add a watch on an expression"
 msgstr ""
 
-#: C/debug-watch.page:86(p)
+#: C/debug-watch.page:99(p)
+msgid "To add an expression to the watch list:"
+msgstr ""
+
+#: C/debug-watch.page:103(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
-"Watch...</gui></guiseq> or in the <gui>Watches</gui> windows right click and "
+"Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
 "select <gui>Add Watch...</gui>."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-watch.page:91(p)
+#: C/debug-watch.page:108(p)
 msgid ""
 "Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
-"that the expression is evaluated each time the program is stopped."
+"the expression to be evaluated each time the program is stopped."
 msgstr ""
 
-#: C/debug-watch.page:97(p)
-msgid "An expression can be evaluate and then added as a watch using:"
+#: C/debug-watch.page:114(p)
+msgid "An expression can be evaluated and then added as a watch like this:"
 msgstr ""
 
-#: C/debug-watch.page:101(p) C/debug-expression.page:25(p)
+#: C/debug-watch.page:118(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Inspect/"
@@ -1293,41 +1357,54 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-watch.page:106(p)
+#: C/debug-watch.page:123(p)
 msgid ""
-"Click on <gui>Add</gui> button to add this expression in the watches list."
+"Click on <gui>Add</gui> button to add this expression to the watches list."
 msgstr ""
 
-#: C/debug-watch.page:114(title)
+#: C/debug-watch.page:131(title)
 msgid "Remove a watch"
 msgstr "Einen überwachten Ausdruck entfernen"
 
-#: C/debug-watch.page:118(p)
-msgid ""
-"In the <gui>Watches</gui> windows select the watch you want to remove then "
-"right click and select <gui>Remove Watch</gui>."
+#: C/debug-watch.page:133(p)
+msgid "You can remove an expression from the watches list."
 msgstr ""
 
-#: C/debug-watch.page:123(p)
+#: C/debug-watch.page:137(p)
+msgid ""
+"In the <gui>Watches</gui> window, select the watch you want to remove, then "
+"right-click and select <gui>Remove Watch</gui>."
+msgstr ""
+
+#: C/debug-watch.page:142(p)
 msgid "All watches can be removed at the same time."
 msgstr ""
 
-#: C/debug-watch.page:127(p)
-msgid "In the <gui>Watches</gui> right click and select <gui>Remove all</gui>."
+#: C/debug-watch.page:146(p)
+#, fuzzy
+msgid ""
+"In the <gui>Watches</gui> window, right-click and select <gui>Remove all</"
+"gui>."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste in das <gui>Haltepunkt</gui>-Fenster "
+"und wählen Sie <gui>Haltepunkt entfernen</gui>."
 
-#: C/debug-watch.page:134(title) C/debug-local.page:58(title)
+#: C/debug-watch.page:153(title) C/debug-local.page:62(title)
 msgid "Changing the value of a variable"
 msgstr "Den Wert einer Variable ändern"
 
-#: C/debug-watch.page:138(p)
+#: C/debug-watch.page:155(p)
 msgid ""
-"If a watch expression corresponds to a variable you can change its value. In "
-"the <gui>Watches</gui> window, select the variable you want to edit and "
+"If a watch expression corresponds to a variable, you can change its value."
+msgstr ""
+
+#: C/debug-watch.page:160(p)
+msgid ""
+"In the <gui>Watches</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
 msgstr ""
 
-#: C/debug-watch.page:143(p)
+#: C/debug-watch.page:164(p)
 msgid "Enter the new value."
 msgstr "Geben Sie den neuen Wert ein."
 
@@ -1335,56 +1412,95 @@ msgstr "Geben Sie den neuen Wert ein."
 msgid "Debugging tips and tricks."
 msgstr "Tipps und Tricks zur Fehlerdiagnose."
 
-#: C/debug-tips.page:18(title)
-msgid "Debug tips"
+#: C/debug-tips.page:22(title)
+msgid "Debugging tips"
 msgstr "Debugging-Tipps"
 
-#: C/debug-tips.page:21(title)
-msgid "Fix Glib/Gtk+ critical errors"
-msgstr ""
-
-#: C/debug-tips.page:23(p)
-msgid ""
-"A program can be stopped as soon as it gets a GLib critical errors if the "
-"environment variable <sys>G_DEBUG</sys> has the value <sys>fatal_criticals</"
-"sys>. This environment variable can be set in the <link xref=\"run-parameters-"
-"dialog\"/>."
+#: C/debug-tips.page:25(title)
+msgid "Fixing GLib/GTK+ critical errors"
 msgstr ""
 
 #: C/debug-tips.page:27(p)
 msgid ""
-"Then you need to run the program with the debugger and use it until you get "
-"the critical error. At that time, the debugger will stop your program and you "
-"have to look at the <link xref=\"debug-stack\"/> to check where this error "
-"comes from."
+"Sometimes it can be difficult to track down where GLib critical errors are "
+"occurring, since they do not stop the program. You can set the program to "
+"stop as soon as it gets a GLib critical error, by setting the environment "
+"variable <sys>G_DEBUG</sys> to the value <sys>fatal_criticals</sys>."
 msgstr ""
 
-#: C/debug-tips.page:31(p)
+#: C/debug-tips.page:35(p)
+msgid ""
+"Open the <link xref=\"run-parameters-dialog\"/> by selecting "
+"<guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the main "
+"menu."
+msgstr ""
+
+#: C/debug-tips.page:40(p)
+msgid ""
+"Click the plus sign next to <gui>Environment Variables</gui> to expand the "
+"list of environment variables."
+msgstr ""
+
+#: C/debug-tips.page:44(p)
+msgid "Click <gui>New</gui> to add a new entry to the list."
+msgstr ""
+
+#: C/debug-tips.page:47(p)
+msgid ""
+"Fill in <gui>Name</gui> with <input>G_DEBUG</input> and <gui>Value</gui> with "
+"<input>fatal_criticals</input>."
+msgstr ""
+
+#: C/debug-tips.page:51(p)
+msgid "Click <gui>Apply</gui> to confirm the changes."
+msgstr ""
+
+#: C/debug-tips.page:54(p)
+#, fuzzy
+msgid ""
+"Run the program with the debugger by selecting <guiseq><gui>Run</"
+"gui><gui>Debug Program</gui></guiseq> from the main menu."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/debug-tips.page:58(p)
+msgid "Use the program until the critical error occurs."
+msgstr ""
+
+#: C/debug-tips.page:61(p)
+msgid ""
+"When the debugger stops your program, look at the <link xref=\"debug-stack\"/"
+"> to check where this error comes from."
+msgstr ""
+
+#: C/debug-tips.page:66(p)
 msgid ""
 "The top function with frame number 0 is in GLib, so you have to look down in "
-"the stack, typically the error comes from the first function in your program."
+"the stack. Typically the error originates from the topmost function that "
+"belongs to your program."
 msgstr ""
 
 #: C/debug-thread.page:9(desc)
 msgid "Examine threads."
 msgstr ""
 
-#: C/debug-thread.page:18(title)
+#: C/debug-thread.page:22(title)
 msgid "Threads"
 msgstr "Threads"
 
-#: C/debug-thread.page:21(title)
+#: C/debug-thread.page:25(title)
 msgid "List threads"
 msgstr ""
 
-#: C/debug-thread.page:23(p)
+#: C/debug-thread.page:27(p)
 msgid ""
 "A program can be composed of several threads. All these threads are executed "
-"independently having their own registers, stack and local variables but "
+"independently, having their own registers, stack and local variables, but "
 "sharing global variables."
 msgstr ""
 
-#: C/debug-thread.page:29(p)
+#: C/debug-thread.page:33(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Thread</"
 "gui></guiseq> to open the <gui>Thread</gui> window."
@@ -1392,118 +1508,121 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Thread</gui></guiseq>, um das "
 "<gui>Thread-Fenster</gui> zu öffnen."
 
-#: C/debug-thread.page:35(p)
-msgid "Each thread contains the following information:"
+#: C/debug-thread.page:39(p)
+msgid "The window shows the following information about each thread:"
 msgstr ""
 
-#: C/debug-thread.page:39(title) C/debug-stack.page:39(title)
+#: C/debug-thread.page:43(title) C/debug-stack.page:44(title)
 msgid "Active"
 msgstr "Aktiv"
 
-#: C/debug-thread.page:40(p)
-msgid "This contains a yellow arrow to represent the active thread."
+#: C/debug-thread.page:44(p)
+msgid "This contains a yellow arrow that points to the active thread."
 msgstr ""
 
-#: C/debug-thread.page:43(title)
+#: C/debug-thread.page:47(title)
 msgid "ID"
 msgstr ""
 
-#: C/debug-thread.page:44(p)
+#: C/debug-thread.page:48(p)
 msgid "This is a number corresponding to each thread."
 msgstr ""
 
-#: C/debug-thread.page:47(title) C/debug-stack.page:52(title)
+#: C/debug-thread.page:51(title) C/debug-stack.page:57(title)
 msgid "File"
 msgstr "Datei"
 
-#: C/debug-thread.page:48(p)
+#: C/debug-thread.page:52(p)
 msgid ""
 "The name of the file containing the function corresponding to the current "
 "frame of the current thread."
 msgstr ""
 
-#: C/debug-thread.page:52(title) C/debug-stack.page:57(title)
+#: C/debug-thread.page:56(title) C/debug-stack.page:62(title)
 msgid "Line"
 msgstr "Zeile"
 
-#: C/debug-thread.page:53(p)
+#: C/debug-thread.page:57(p)
 msgid ""
 "The line number of the function corresponding to the current frame of the "
 "current thread."
 msgstr ""
 
-#: C/debug-thread.page:57(title) C/debug-stack.page:61(title)
+#: C/debug-thread.page:61(title) C/debug-stack.page:66(title)
 msgid "Function"
 msgstr "Funktion"
 
-#: C/debug-thread.page:58(p)
+#: C/debug-thread.page:62(p)
 msgid ""
 "The name of the function corresponding to the frame of the current thread."
 msgstr ""
 
-#: C/debug-thread.page:62(title) C/debug-stack.page:65(title)
-#: C/debug-breakpoint.page:44(title)
+#: C/debug-thread.page:66(title) C/debug-stack.page:70(title)
+#: C/debug-breakpoint.page:48(title)
 msgid "Address"
 msgstr "Adresse"
 
-#: C/debug-thread.page:63(p)
+#: C/debug-thread.page:67(p)
 msgid ""
 "The address of the function corresponding to the frame of the current thread."
 msgstr ""
 
-#: C/debug-thread.page:71(title)
+#: C/debug-thread.page:75(title)
 msgid "Change current thread"
 msgstr ""
 
-#: C/debug-thread.page:75(p) C/debug-thread.page:89(p)
+#: C/debug-thread.page:77(p)
+msgid ""
+"The current thread is the thread whose stack and local variables are "
+"currently displayed in the debugger."
+msgstr ""
+
+#: C/debug-thread.page:82(p) C/debug-thread.page:96(p)
 msgid "In the <gui>Thread</gui> window, select the thread you want."
 msgstr ""
 
-#: C/debug-thread.page:78(p)
-msgid "Right click and select <gui>Set current thread</gui>"
+#: C/debug-thread.page:85(p)
+msgid "Right-click and select <gui>Set current thread</gui>."
 msgstr ""
 
-#: C/debug-thread.page:85(title) C/debug-stack.page:92(title)
+#: C/debug-thread.page:92(title)
 msgid "View current function"
 msgstr ""
 
-#: C/debug-thread.page:92(p) C/debug-stack.page:99(p)
-msgid "Double click or right click and select <gui>View Source</gui>"
+#: C/debug-thread.page:99(p) C/debug-stack.page:104(p)
+msgid "Double-click, or right-click and select <gui>View Source</gui>."
 msgstr ""
 
 #: C/debug-step.page:9(desc)
 msgid "Stopping and continuing."
 msgstr "Anhalten und Fortsetzen"
 
-#: C/debug-step.page:18(title)
+#: C/debug-step.page:22(title)
 msgid "Stop and step"
 msgstr ""
 
-#: C/debug-step.page:20(p)
+#: C/debug-step.page:24(p)
 msgid ""
 "Like a video editing session, the program can be executed in slow motion with "
-"the ability to go forward, pause, stop, and so on. You cannot go backward yet "
-"though. This is essential for tracking program behavior."
+"the ability to go forward, pause, stop, and so on. This is essential for "
+"tracking program behavior. You cannot go backward yet, though."
 msgstr ""
 
-#: C/debug-step.page:25(title)
+#: C/debug-step.page:30(title)
 msgid "Step in"
 msgstr ""
 
-#: C/debug-step.page:29(p)
+#: C/debug-step.page:34(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step In</"
-"gui></guiseq> or press <key>F5</key>"
+"gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</gui> icon "
+"in the toolbar."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:28(item)
-msgid "<placeholder-1/> or click on the <gui>Step In</gui> icon in the toolbar."
-msgstr ""
-
-#: C/debug-step.page:35(p)
+#: C/debug-step.page:40(p)
 msgid ""
 "Single stepping executes only one statement of the program (from the place "
 "where it has stopped) and then returns control. If the statement that is "
@@ -1513,17 +1632,17 @@ msgid ""
 "program's state."
 msgstr ""
 
-#: C/debug-step.page:43(p)
+#: C/debug-step.page:48(p)
 msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
 "selected, it executes only one assembler instruction."
 msgstr ""
 
-#: C/debug-step.page:50(title)
+#: C/debug-step.page:55(title)
 msgid "Step over"
 msgstr ""
 
-#: C/debug-step.page:54(p)
+#: C/debug-step.page:59(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step Over</"
@@ -1533,95 +1652,85 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:60(p)
+#: C/debug-step.page:65(p)
 msgid ""
-"Stepping over is similar to step in except that it does not stop inside any "
+"Stepping over is similar to stepping except that it does not stop inside any "
 "function in the statement being executed."
 msgstr ""
 
-#: C/debug-step.page:64(p)
+#: C/debug-step.page:69(p)
 msgid ""
 "If the <gui>Disassembly window</gui> has the focus when this command is "
-"selected, it executes only one assembler instruction except if this "
-"instruction is a call to a subroutine, in this case the program stops when "
+"selected, it executes only one assembler instruction, except if that "
+"instruction is a call to a subroutine, in which case the program stops when "
 "the subroutine is completed."
 msgstr ""
 
-#: C/debug-step.page:73(title)
+#: C/debug-step.page:78(title)
 msgid "Step out"
 msgstr ""
 
-#: C/debug-step.page:77(p)
+#: C/debug-step.page:82(p)
+#, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step Out</"
-"gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq>"
+"gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> or "
+"click on the <gui>Step Out</gui> icon in the toolbar."
 msgstr ""
-"Wählen Sie <guiseq><gui>Debug</gui><gui>Herausspringen</gui></guiseq> oder "
-"drücken Sie <keyseq><key>Shift</key><key>F5</key></keyseq>."
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:76(item)
+#: C/debug-step.page:88(p)
 msgid ""
-"<placeholder-1/> or click on the <gui>Step Out</gui> icon in the toolbar."
+"Stepping out executes the current function until it returns to the calling "
+"function."
 msgstr ""
 
-#: C/debug-step.page:83(p)
-msgid ""
-"It executes the current function until it returns to the calling function."
-msgstr ""
-
-#: C/debug-step.page:89(title)
-#, fuzzy
+#: C/debug-step.page:94(title)
 msgid "Run and continue"
-msgstr "Ausführen/Fortsetzen"
+msgstr "Ausführen und Fortsetzen"
 
-#: C/debug-step.page:93(p)
+#: C/debug-step.page:98(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run/"
-"Continue</gui></guiseq> or press <key>F4</key>"
+"Continue</gui></guiseq> or press <key>F4</key> or click on the <gui>Continue</"
+"gui> icon in the toolbar."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:92(item)
+#: C/debug-step.page:104(p)
 msgid ""
-"<placeholder-1/> or click on the <gui>Continue</gui> icon in the toolbar."
+"This command restarts the program and lets it run until a breakpoint is "
+"encountered or the program exits."
 msgstr ""
 
-#: C/debug-step.page:99(p)
-msgid ""
-"This command restarts the program until a breakpoint is encountered or the "
-"program exits."
-msgstr ""
-
-#: C/debug-step.page:104(title)
+#: C/debug-step.page:109(title)
 msgid "Run To"
 msgstr ""
 
-#: C/debug-step.page:108(p)
+#: C/debug-step.page:113(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run to "
-"Cursor</gui></guiseq> or press <key>F8</key>"
+"Cursor</gui></guiseq> or press <key>F8</key> or click on the <gui>Run to</"
+"gui> icon in the toolbar."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:107(item)
-msgid "<placeholder-1/> or click on the <gui>Run to</gui> icon in the toolbar."
-msgstr ""
-
-#: C/debug-step.page:114(p)
+#: C/debug-step.page:119(p)
 msgid ""
-"This restarts the program until the line or the address (if the "
-"<gui>Disassembly window</gui> has the focus) at the cursor is reached."
+"This restarts the program and lets it run until the line or the address (if "
+"the <gui>Disassembly window</gui> has the focus) at the cursor is reached."
 msgstr ""
 
-#: C/debug-step.page:120(title)
-msgid "Stop Program"
+#: C/debug-step.page:125(title)
+msgid "Stopping the Program"
 msgstr "Programm stoppen"
 
-#: C/debug-step.page:124(p)
+#: C/debug-step.page:129(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Pause "
@@ -1630,36 +1739,37 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-step.page:130(p)
+#: C/debug-step.page:135(p)
 msgid ""
-"This interrupts the program and return control to the debugger allowing "
-"perform all debugging tasks, like inspecting data, adding breakpoints..."
+"This interrupts the program and returns control to the debugger, allowing you "
+"to perform debugging tasks, like inspecting data or adding breakpoints."
 msgstr ""
 
 #: C/debug-stack.page:9(desc)
-msgid "Examine stack."
+msgid "Examine the stack."
 msgstr ""
 
-#: C/debug-stack.page:18(title)
+#: C/debug-stack.page:22(title)
 #, fuzzy
 msgid "Stack"
 msgstr "Stacktrace"
 
-#: C/debug-stack.page:21(title)
+#: C/debug-stack.page:25(title)
 #, fuzzy
 msgid "List stack frames"
 msgstr ""
 "Ungültige Verfolgungsinformationen:\n"
 "%s"
 
-#: C/debug-stack.page:23(p)
+#: C/debug-stack.page:27(p)
 msgid ""
 "A stack frame is the area of the stack associated to each function call. It "
 "lists all functions and their arguments in the sequence they were called. "
-"Each stack frame is numbered starting from 0 for the current function."
+"Each stack frame is numbered starting from 0 for the current function. You "
+"can only view the stack frames while the debugger is running."
 msgstr ""
 
-#: C/debug-stack.page:29(p)
+#: C/debug-stack.page:34(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Stack</"
@@ -1668,96 +1778,105 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-stack.page:35(p)
+#: C/debug-stack.page:40(p)
 msgid "Each stack frame contains the following information:"
 msgstr ""
 
-#: C/debug-stack.page:40(p)
+#: C/debug-stack.page:45(p)
 msgid ""
-"This contains a yellow arrow to represent the active stack frame, by default "
-"it is the frame 0, the current function. All evaluations and local variables "
-"are relative to this selected frame. You can change the active stack frame to "
+"This contains a yellow arrow to represent the active stack frame. By default "
+"it is frame 0, the current function. All evaluations and local variables are "
+"relative to this active frame. You can change the active stack frame to "
 "examine local variables in other functions."
 msgstr ""
 
-#: C/debug-stack.page:46(title)
+#: C/debug-stack.page:51(title)
 msgid "Frame"
 msgstr ""
 
-#: C/debug-stack.page:47(p)
+#: C/debug-stack.page:52(p)
 msgid ""
-"This is the frame number stating from 0 for the current function. The first "
-"function of your program, main for a C program by example, has the highest "
-"number."
+"This is the frame number starting from 0 for the current function. The first "
+"function of your program, for example <code>main()</code> in a C program, has "
+"the highest number."
 msgstr ""
 
-#: C/debug-stack.page:53(p)
+#: C/debug-stack.page:58(p)
 msgid ""
 "The name of the file containing the function corresponding to this frame."
 msgstr ""
 
-#: C/debug-stack.page:58(p)
+#: C/debug-stack.page:63(p)
 msgid "The line number of the function corresponding to this frame."
 msgstr ""
 
-#: C/debug-stack.page:62(p)
+#: C/debug-stack.page:67(p)
 msgid "The name of the function corresponding to this frame."
 msgstr ""
 
-#: C/debug-stack.page:66(p)
+#: C/debug-stack.page:71(p)
 msgid "The address of the function corresponding to this frame."
 msgstr ""
 
-#: C/debug-stack.page:70(p)
+#: C/debug-stack.page:75(p)
 msgid "The function arguments."
 msgstr "Die Funktionsargumente."
 
-#: C/debug-stack.page:78(title)
-msgid "Change current stack frame"
-msgstr ""
+#: C/debug-stack.page:83(title)
+#, fuzzy
+msgid "Change the current stack frame"
+msgstr "Informationen über die aktuellen Funktionsargumente"
 
-#: C/debug-stack.page:82(p) C/debug-stack.page:96(p)
+#: C/debug-stack.page:87(p) C/debug-stack.page:101(p)
 msgid "In the <gui>Stack</gui> window, select the frame you want."
 msgstr ""
 
-#: C/debug-stack.page:85(p)
-msgid "Right click and select <gui>Set current frame</gui>"
+#: C/debug-stack.page:90(p)
+msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
 
-#: C/debug-stack.page:106(title)
+#: C/debug-stack.page:97(title)
+#, fuzzy
+msgid "View the current function"
+msgstr "Informationen über die aktuellen Funktionsargumente"
+
+#: C/debug-stack.page:111(title)
 #, fuzzy
 msgid "Get a stack trace"
 msgstr ""
 "Ungültige Verfolgungsinformationen:\n"
 "%s"
 
-#: C/debug-stack.page:110(p)
+#: C/debug-stack.page:115(p)
+#, fuzzy
 msgid ""
-"In the <gui>Stack</gui> window right click and select <gui>Get stack trace</"
-"gui>"
+"In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
+"gui>."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste in das <gui>Haltepunkt</gui>-Fenster "
+"und wählen Sie <gui>Haltepunkt entfernen</gui>."
 
 #: C/debug-run.page:11(desc)
 #, fuzzy
 msgid "Start a program with the debugger."
 msgstr "Ein Programm ohne Debugger ausführen."
 
-#: C/debug-run.page:20(title)
+#: C/debug-run.page:24(title)
 msgid "Debug a program"
 msgstr "Ein Programm debuggen"
 
-#: C/debug-run.page:23(title)
+#: C/debug-run.page:27(title)
 msgid "Start a program in the debugger"
 msgstr "Ein Programm in einem Debugger starten"
 
-#: C/debug-run.page:25(p)
+#: C/debug-run.page:29(p)
 msgid ""
-"The current program is defined in the <gui>run parameter</gui> dialog. See "
-"<link xref=\"run-parameters-dialog\"/> for more information. This program can "
-"be started in the debugger using:"
+"The current program is defined in the <gui>Program Parameters</gui> dialog. "
+"See <link xref=\"run-parameters-dialog\"/> for more information. This program "
+"can be started in the debugger like this:"
 msgstr ""
 
-#: C/debug-run.page:31(p)
+#: C/debug-run.page:35(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
@@ -1767,51 +1886,53 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-run.page:37(p)
+#: C/debug-run.page:41(p)
 msgid ""
 "A program can be more difficult to debug if it is highly optimized or if "
-"debugging information are missing. This is defined in the configure step. "
-"Normally, a Debug configuration with no optimization and all debugging "
-"informations is defined. Anjuta display a warning if this configuration is "
-"not used. See <link xref=\"autotools-build-configure\"/> for more information."
+"debugging information is missing. Whether optimization and debugging "
+"information are enabled, is defined in the configure step. Normally, there is "
+"a Debug configuration available, that turns off optimization and includes all "
+"debugging information. Anjuta displays a warning if this configuration is not "
+"used. See <link xref=\"autotools-build-configure\"/> for more information."
 msgstr ""
 
-#: C/debug-run.page:47(title)
+#: C/debug-run.page:52(title)
 msgid "Debug an already running application"
 msgstr "Fehlerdiagnose in einer bereits laufenden Anwendung"
 
-#: C/debug-run.page:49(p)
-msgid "The debugger could be used on an already running application."
-msgstr ""
+#: C/debug-run.page:54(p)
+#, fuzzy
+msgid "The debugger can be used on an already running application."
+msgstr "Fehlerdiagnose in einer bereits laufenden Anwendung"
 
-#: C/debug-run.page:53(p)
+#: C/debug-run.page:58(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
 "Process...</gui></guiseq> to get a dialog listing all currently running "
-"process."
+"processes."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-run.page:58(p)
+#: C/debug-run.page:63(p)
 msgid ""
-"Select a process in the <gui>attach to process</gui> dialog and click on "
+"Select a process in the <gui>Attach to process</gui> dialog and click on "
 "<gui>Attach</gui> to start the debugger on this process. See <link xref="
 "\"debug-process-dialog\"/> for more details."
 msgstr ""
 
-#: C/debug-run.page:66(title)
+#: C/debug-run.page:71(title)
 msgid "Debug a remote application"
 msgstr "Fehlerdiagnose einer entfernten Anwendung"
 
-#: C/debug-run.page:68(p)
+#: C/debug-run.page:73(p)
 msgid ""
 "The debugger can be used to debug an application running on another computer "
-"connected through a TCP or a serial connection."
+"connected through a TCP or serial connection."
 msgstr ""
 
-#: C/debug-run.page:73(p)
+#: C/debug-run.page:78(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
@@ -1820,37 +1941,42 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-run.page:77(p)
+#: C/debug-run.page:82(p)
 msgid ""
-"Select the type of the connection with the remote application, <gui>Serial "
-"Line</gui> or <gui>TCP/IP</gui>."
+"Select the type of the connection to the remote application, <gui>Serial Line "
+"Connection</gui> or <gui>TCP/IP Connection</gui>."
 msgstr ""
 
-#: C/debug-run.page:81(p)
-msgid "For a TCP connection, fill <gui>Address</gui> and <gui>Port</gui> field"
-msgstr ""
-
-#: C/debug-run.page:83(p)
+#: C/debug-run.page:86(p)
 msgid ""
-"For a serial connection, fill the text box below with the serial device name, "
-"by example <cmd>/dev/ttyb</cmd>."
+"For a TCP connection, fill in the <gui>Address</gui> and <gui>Port</gui> "
+"fields."
 msgstr ""
 
-#: C/debug-run.page:87(p)
+#: C/debug-run.page:88(p)
+msgid ""
+"For a serial connection, fill in the text box below with the serial device "
+"name, for example <cmd>/dev/ttyb</cmd>."
+msgstr ""
+
+#: C/debug-run.page:92(p)
 msgid ""
 "Click on <gui>Connect</gui> to start the debugger and connect to the remote "
 "target."
 msgstr ""
 
-#: C/debug-run.page:95(title)
+#: C/debug-run.page:100(title)
 msgid "Stop the debugger"
-msgstr ""
+msgstr "Debugger anhalten"
 
-#: C/debug-run.page:97(p)
-msgid "The debugger and the program can be stop at any time using:"
+#: C/debug-run.page:102(p)
+#, fuzzy
+msgid "The debugger and the program can be stopped at any time like this:"
 msgstr ""
+"Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
+"Signal empfängt."
 
-#: C/debug-run.page:101(p)
+#: C/debug-run.page:106(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
@@ -1863,51 +1989,51 @@ msgstr ""
 msgid "Attach to process dialog"
 msgstr "Dialog »An Prozess anhängen«"
 
-#: C/debug-process-dialog.page:18(title)
-msgid "Attach to process Dialog"
-msgstr ""
+#: C/debug-process-dialog.page:22(title)
+msgid "Attach to Process Dialog"
+msgstr "Dialog »An Prozess anhängen«"
 
-#: C/debug-process-dialog.page:20(p)
+#: C/debug-process-dialog.page:24(p)
 msgid ""
-"The <gui>process</gui> dialog allows you to select a currently running process"
-msgstr ""
-
-#: C/debug-process-dialog.page:24(gui)
-msgid "Hide paths"
-msgstr ""
-
-#: C/debug-process-dialog.page:25(p)
-msgid "This hides command pathes in the process list if checked."
+"The <gui>Attach to process</gui> dialog allows you to select a currently "
+"running process."
 msgstr ""
 
 #: C/debug-process-dialog.page:28(gui)
-msgid "Hide process parameters"
-msgstr "Prozess-Parameter verstecken"
+msgid "Hide paths"
+msgstr "Pfade verbergen"
 
 #: C/debug-process-dialog.page:29(p)
-msgid "This hides the command line arguments in the process list if checked."
+msgid "This hides command paths in the process list if checked."
 msgstr ""
 
 #: C/debug-process-dialog.page:32(gui)
+msgid "Hide process parameters"
+msgstr "Prozess-Parameter verstecken"
+
+#: C/debug-process-dialog.page:33(p)
+msgid "This hides the command line arguments in the process list if checked."
+msgstr ""
+
+#: C/debug-process-dialog.page:36(gui)
 msgid "Display process tree"
 msgstr "Prozessbaum anzeigen"
 
-#: C/debug-process-dialog.page:33(p)
+#: C/debug-process-dialog.page:37(p)
 msgid ""
-"If unchecked, the processes are displayed in a list. If checked the processes "
-"are displayed in a tree."
+"If unchecked, the processes are displayed in a list. If checked, the "
+"processes are displayed in a tree."
 msgstr ""
 
 #: C/debug-local.page:9(desc)
-#, fuzzy
 msgid "Examine local variables."
-msgstr "Auflisten lokaler Variablen"
+msgstr "Lokale Variablen untersuchen."
 
-#: C/debug-local.page:18(title)
+#: C/debug-local.page:22(title)
 msgid "Local variables"
 msgstr "Lokale Variablen"
 
-#: C/debug-local.page:20(p)
+#: C/debug-local.page:24(p)
 msgid ""
 "Local variables of the current frame (the current function in which the "
 "program control is present) are displayed in the <gui>Locals</gui> window. "
@@ -1917,60 +2043,70 @@ msgid ""
 "in a tree form for easy view."
 msgstr ""
 
-#: C/debug-local.page:28(title)
+#: C/debug-local.page:32(title)
 msgid "Listing local variables"
 msgstr "Auflisten lokaler Variablen"
 
-#: C/debug-local.page:32(p)
+#: C/debug-local.page:36(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Locals</"
-"gui></guiseq> to open the <gui>Local</gui> window."
+"gui></guiseq> to open the <gui>Locals</gui> window."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-local.page:38(p)
+#: C/debug-local.page:42(p)
 msgid ""
 "All local variables are displayed in a tree view with children used to "
 "represent structure or array members."
 msgstr ""
 
-#: C/debug-local.page:44(p)
+#: C/debug-local.page:48(p)
 msgid "The name of the variable."
 msgstr "Der Name der Variable."
 
-#: C/debug-local.page:48(p)
-msgid "The variable value"
-msgstr "Der Wert der Variable"
-
 #: C/debug-local.page:52(p)
-msgid "The type of the variable"
-msgstr "Der Typ der Variable"
+msgid "The variable value."
+msgstr "Der Wert der Variable."
 
-#: C/debug-local.page:62(p)
+#: C/debug-local.page:56(p)
+msgid "The type of the variable."
+msgstr "Der Typ der Variable."
+
+#: C/debug-local.page:66(p)
 msgid ""
-"In the <gui>Local</gui> window, select the variable you want to edit and "
+"In the <gui>Locals</gui> window, select the variable you want to edit and "
 "double click in the <gui>Value</gui> column."
 msgstr ""
 
-#: C/debug-local.page:66(p)
-msgid "Type the new value"
-msgstr "Geben Sie den neuen Wert ein"
+#: C/debug-local.page:70(p)
+msgid "Type the new value."
+msgstr "Der Typ des neuen Werts."
 
 #: C/debug-information.page:9(desc)
-msgid "Examine additional program informations."
-msgstr ""
+#, fuzzy
+msgid "Examine additional program information."
+msgstr "Informationen des Prozessors untersuchen."
 
-#: C/debug-information.page:18(title)
-msgid "Miscellaneous informations"
+#: C/debug-information.page:22(title)
+msgid "Miscellaneous information"
 msgstr "Verschiedene Informationen"
 
-#: C/debug-information.page:21(title)
+#: C/debug-information.page:24(p)
+#, fuzzy
+msgid ""
+"The debugger can tell you various information about the program while it is "
+"running."
+msgstr ""
+"Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
+"Signal empfängt."
+
+#: C/debug-information.page:28(title)
 msgid "View shared libraries"
 msgstr ""
 
-#: C/debug-information.page:25(p)
+#: C/debug-information.page:32(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
@@ -1979,37 +2115,37 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-information.page:30(p)
+#: C/debug-information.page:37(p)
 msgid ""
-"This open a window which will list all shared libraries the program has "
+"This opens a window which will list all shared libraries the program has "
 "loaded and their locations in memory. It also shows whether each library's "
-"symbol table is loaded or not (Yes/No)."
+"symbol table is loaded or not."
 msgstr ""
 
-#: C/debug-information.page:37(title)
+#: C/debug-information.page:44(title)
 msgid "View signals"
 msgstr "Signale betrachten"
 
-#: C/debug-information.page:41(p)
+#: C/debug-information.page:48(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Kernels signals</gui></guiseq>."
+"gui><gui>Kernel signals</gui></guiseq>."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-information.page:46(p)
+#: C/debug-information.page:53(p)
 msgid ""
-"This list all available signals with a small description and three columns to "
-"specify what to do when a signal is received:"
+"This lists all available signals with a small description and three columns "
+"to specify what to do when a signal is received:"
 msgstr ""
 
-#: C/debug-information.page:51(title)
+#: C/debug-information.page:58(title)
 msgid "Stop"
 msgstr ""
 
-#: C/debug-information.page:52(p)
+#: C/debug-information.page:59(p)
 msgid ""
 "The debugger stops the program execution when the program receives this "
 "signal."
@@ -2017,128 +2153,68 @@ msgstr ""
 "Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
 "Signal empfängt."
 
-#: C/debug-information.page:56(title)
+#: C/debug-information.page:63(title)
 msgid "Print"
 msgstr ""
 
-#: C/debug-information.page:57(p)
-msgid "The debugger display the received signal."
+#: C/debug-information.page:64(p)
+msgid "The debugger displays the received signal."
 msgstr ""
 
-#: C/debug-information.page:60(title)
+#: C/debug-information.page:67(title)
 msgid "Pass"
 msgstr ""
 
-#: C/debug-information.page:61(p)
-msgid "The debugger pass the signal to the program."
+#: C/debug-information.page:68(p)
+#, fuzzy
+msgid "The debugger passes the signal to the program."
 msgstr ""
+"Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
+"Signal empfängt."
 
-#: C/debug-information.page:66(p)
+#: C/debug-information.page:73(p)
 msgid ""
-"The context menu that is displayed when you click on the right mouse button "
-"has all its items disabled because the corresponding functions are not "
+"The context menu that is displayed when you click the right mouse button has "
+"all its items disabled because the corresponding functions are not "
 "implemented yet."
 msgstr ""
 "Die Einträge des über einen Klick mit der rechten Maustaste erreichbare "
 "Kontextmenü sind derzeit deaktiviert, da die entsprechenden Funktionen noch "
 "nicht implementiert wurden."
 
-#: C/debug-information.page:75(title)
-msgid "Information about used files"
-msgstr "Informationen über benutzte Dateien"
-
-#: C/debug-information.page:79(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Target files</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/debug-information.page:87(title)
-msgid "Information about program"
-msgstr "Informationen zum Programm"
-
-#: C/debug-information.page:90(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Program</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/debug-information.page:98(title)
-msgid "Information about kernel structure"
-msgstr "Informationen über die Kernelstruktur"
-
-#: C/debug-information.page:101(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Kernel user struct</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/debug-information.page:108(title)
-msgid "Information about global variables"
-msgstr "Informationen über globale Variablen"
-
-#: C/debug-information.page:111(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Global Variable</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/debug-information.page:118(title)
-#, fuzzy
-msgid "Information about the current frame"
-msgstr "Informationen über die aktuellen Funktionsargumente"
-
-#: C/debug-information.page:121(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Current Frame</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/debug-information.page:128(title)
-msgid "Information about the current function arguments"
-msgstr "Informationen über die aktuellen Funktionsargumente"
-
-#: C/debug-information.page:131(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-"gui><gui>Info Arguments</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
 #: C/debug-expression.page:9(desc)
 msgid "Evaluate expressions and modify variables."
 msgstr ""
 
-#: C/debug-expression.page:18(title)
-#, fuzzy
+#: C/debug-expression.page:22(title)
 msgid "Examine expressions"
-msgstr "Ausdrücke"
+msgstr "Ausdrücke untersuchen"
 
-#: C/debug-expression.page:21(title)
+#: C/debug-expression.page:25(title)
 msgid "Inspect an expression and modify a variable"
 msgstr ""
 
-#: C/debug-expression.page:30(p)
+#: C/debug-expression.page:27(p)
+msgid ""
+"While you are debugging a program, you can find out the value of an "
+"expression or variable while the program is paused. It is also sometimes "
+"useful to change the value of a variable."
+msgstr ""
+
+#: C/debug-expression.page:33(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Inspect/"
+"Evaluate...</gui></guiseq> or right click in the <gui>Editor</gui> window and "
+"select <gui>Inspect/Evaluate...</gui>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/debug-expression.page:38(p)
 msgid ""
 "If the expression is a variable name, you can change its value by clicking on "
-"the <gui>Value</gui> column and enter a new value."
+"the <gui>Value</gui> column and entering a new value."
 msgstr ""
 
 #: C/debug-execute.page:9(desc)
@@ -2162,17 +2238,18 @@ msgstr ""
 msgid "Use custom debugger command."
 msgstr "Einen benutzerdefinierten Debugger-Befehl verwenden"
 
-#: C/debug-custom.page:18(title)
+#: C/debug-custom.page:22(title)
 msgid "Custom command"
 msgstr "Benutzerdefinierter Befehl"
 
-#: C/debug-custom.page:20(p)
-msgid "Custom command can be send to the debugger using:"
+#: C/debug-custom.page:24(p)
+#, fuzzy
+msgid "You can send a custom command to the debugger like this:"
 msgstr ""
 "Ein benutzerdefinierter Debugger-Befehl kann folgendermaßen an den Debugger "
 "gesendet werden:"
 
-#: C/debug-custom.page:24(p)
+#: C/debug-custom.page:28(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Debugger "
@@ -2181,21 +2258,22 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-custom.page:28(p)
+#: C/debug-custom.page:32(p)
 msgid "Enter your command."
 msgstr "Geben Sie Ihren Befehl ein."
 
-#: C/debug-custom.page:32(p)
+#: C/debug-custom.page:36(p)
 msgid ""
 "The output of the command is displayed in the message window used by the "
 "debugger."
 msgstr ""
 "Die Ausgabe des Befehls wird im Meldungsfenster des Debuggers angezeigt."
 
-#: C/debug-custom.page:36(p)
+#: C/debug-custom.page:40(p)
+#, fuzzy
 msgid ""
 "The command is sent directly to the debugger without performing any checks. "
-"By example if you set a breakpoint like this, it will not appear in the "
+"For example, if you set a breakpoint like this, it will not appear in the "
 "<gui>Breakpoint</gui> window. It is better to avoid using this command unless "
 "you know exactly what you are doing."
 msgstr ""
@@ -2205,18 +2283,19 @@ msgstr ""
 "es sei denn, Sie wissen genau, was Sie tun."
 
 #: C/debug-cpu.page:9(desc)
-msgid "Examine CPU informations."
+#, fuzzy
+msgid "Examine CPU information."
 msgstr "Informationen des Prozessors untersuchen."
 
-#: C/debug-cpu.page:18(title)
+#: C/debug-cpu.page:22(title)
 msgid "CPU"
 msgstr "CPU"
 
-#: C/debug-cpu.page:21(title)
+#: C/debug-cpu.page:25(title)
 msgid "View CPU registers"
 msgstr "Prozessorregister betrachten"
 
-#: C/debug-cpu.page:25(p)
+#: C/debug-cpu.page:29(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Registers</"
@@ -2225,18 +2304,18 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-cpu.page:31(p)
+#: C/debug-cpu.page:35(p)
 msgid ""
-"Register which value has changed since the last stop are in red. It is "
-"possible ton change the value of any register by clicking in the value column "
+"Registers whose values have changed since the last stop are in red. It is "
+"possible to change the value of any register by clicking in the value column "
 "and entering a new value."
 msgstr ""
 
-#: C/debug-cpu.page:38(title)
+#: C/debug-cpu.page:42(title)
 msgid "View memory"
 msgstr "Speicher betrachten"
 
-#: C/debug-cpu.page:42(p) C/debug-cpu.page:65(p)
+#: C/debug-cpu.page:46(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Memory</"
@@ -2245,7 +2324,7 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-cpu.page:48(p)
+#: C/debug-cpu.page:52(p)
 msgid ""
 "The first column displays memory addresses in hexadecimal, the second "
 "displays memory contents in hexadecimal and the last column shows memory "
@@ -2255,27 +2334,36 @@ msgstr ""
 "den Speicherinhalt wiederum hexadezimal, und die letzte Spalte zeigt den "
 "Speicherinhalt im ASCII-Format an."
 
-#: C/debug-cpu.page:51(p) C/debug-cpu.page:78(p)
+#: C/debug-cpu.page:55(p) C/debug-cpu.page:82(p)
 msgid ""
 "The addressing space of even a 32-bit microprocessor is very large (4 "
 "gigabytes), so it is very difficult to go to a particular address with the "
-"scrollbar. But you can click on the right mouse button and select <gui>Goto "
+"scrollbar. But you can click the right mouse button and select <gui>Go to "
 "address</gui> to get a small edit box where you can enter an address in "
 "hexadecimal."
 msgstr ""
 
-#: C/debug-cpu.page:60(title)
+#: C/debug-cpu.page:64(title)
 msgid "View Disassembly"
 msgstr ""
 
-#: C/debug-cpu.page:71(p)
+#: C/debug-cpu.page:69(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</"
+"gui><gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> window."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/debug-cpu.page:75(p)
 msgid ""
 "The first column displays addresses in hexadecimal. In the second column, you "
 "can have a label starting at the beginning of the line and ending with a "
 "colon or a assembly-language instruction indented by 4 space characters."
 msgstr ""
 
-#: C/debug-cpu.page:75(p)
+#: C/debug-cpu.page:79(p)
 msgid ""
 "The position in the disassembly window will be changed to the program counter "
 "value when the program is stopped."
@@ -2285,77 +2373,79 @@ msgstr ""
 msgid "Managing breakpoints."
 msgstr "Verwalten von Haltepunkten."
 
-#: C/debug-breakpoint.page:18(title)
+#: C/debug-breakpoint.page:22(title)
 msgid "Breakpoints"
 msgstr "Haltepunkte"
 
-#: C/debug-breakpoint.page:20(p)
+#: C/debug-breakpoint.page:24(p)
+#, fuzzy
 msgid ""
-"Breakpoints are used to stop the execution of the program at particular "
-"points so that the state of the program can be examined at those locations."
+"Breakpoints are used to stop the execution of the program at a particular "
+"point so that the state of the program can be examined at those locations."
 msgstr ""
 "Haltepunkte werden verwendet, um die Ausführung eines Programms an bestimmten "
 "Stellen zu unterbrechen, so dass der Status des Programms genauer untersucht "
 "werden kann."
 
-#: C/debug-breakpoint.page:24(title)
+#: C/debug-breakpoint.page:28(title)
 msgid "Listing breakpoints"
 msgstr "Haltepunkte auflisten"
 
-#: C/debug-breakpoint.page:28(p)
+#: C/debug-breakpoint.page:32(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-"gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> windows."
+"gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> window."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-breakpoint.page:34(p)
+#: C/debug-breakpoint.page:38(p)
 msgid "This view has the following columns:"
 msgstr "Die Ansicht gliedert sich in folgende Spalten:"
 
-#: C/debug-breakpoint.page:38(title) C/debug-breakpoint-dialog.page:23(gui)
+#: C/debug-breakpoint.page:42(title) C/debug-breakpoint-dialog.page:27(gui)
 msgid "Location"
 msgstr "Ort"
 
-#: C/debug-breakpoint.page:39(p)
+#: C/debug-breakpoint.page:43(p)
 msgid ""
 "This is the position of the breakpoint in the source file. When the "
 "breakpoint is set by the debugger, you can get additional information such as "
 "the function containing the breakpoint."
 msgstr ""
 
-#: C/debug-breakpoint.page:45(p)
+#: C/debug-breakpoint.page:49(p)
 msgid ""
 "This field is filled with the address of the breakpoint when it is set by the "
 "debugger."
 msgstr ""
 
-#: C/debug-breakpoint.page:50(p)
+#: C/debug-breakpoint.page:54(p)
+#, fuzzy
 msgid ""
-"This always displays \"breakpoint\". It will be used in a future release "
-"supporting different kinds of breakpoints."
+"This always displays <gui>breakpoint</gui>. It will be used in a future "
+"release supporting different kinds of breakpoints."
 msgstr ""
 "Hier wird stets »Haltepunkt« angezeigt. In zukünftigen Versionen können hier "
 "verschiedene Typen von Haltepunkten angezeigt werden."
 
-#: C/debug-breakpoint.page:54(title) C/debug-breakpoint-dialog.page:34(gui)
+#: C/debug-breakpoint.page:58(title) C/debug-breakpoint-dialog.page:39(gui)
 msgid "Condition"
 msgstr "Bedingung"
 
-#: C/debug-breakpoint.page:55(p)
+#: C/debug-breakpoint.page:59(p)
 msgid ""
 "This is the breakpoint condition. It is empty if no condition is defined."
 msgstr ""
 "Dies ist die Bedingung des Haltepunkts. Falls leer, ist keine Bedingung "
 "festgelegt."
 
-#: C/debug-breakpoint.page:59(title)
+#: C/debug-breakpoint.page:63(title)
 msgid "Pass count"
 msgstr "Durchgang"
 
-#: C/debug-breakpoint.page:60(p)
+#: C/debug-breakpoint.page:64(p)
 msgid ""
 "When the debugger is not running, this column displays the pass count of the "
 "breakpoint, or zero if it is not defined."
@@ -2363,7 +2453,7 @@ msgstr ""
 "Wenn der Debugger nicht läuft, zeigt diese Spalte die Nummer des Durchgangs "
 "des Haltepunkts an, oder 0, falls nichts festgelegt ist."
 
-#: C/debug-breakpoint.page:62(p)
+#: C/debug-breakpoint.page:66(p)
 msgid ""
 "When the debugger is running, if the pass count is zero, this column displays "
 "the number of times this breakpoint has been triggered. If the pass count is "
@@ -2374,43 +2464,45 @@ msgstr ""
 "Durchgangsnummer von 0 verschieden ist, werden beide Nummern angezeigt. Die "
 "Durchgangsnummer ist die zweite Zahl."
 
-#: C/debug-breakpoint.page:68(title)
+#: C/debug-breakpoint.page:72(title)
 msgid "State"
 msgstr "Status"
 
-#: C/debug-breakpoint.page:69(p)
+#: C/debug-breakpoint.page:73(p)
 msgid "This is the state of the breakpoint. It may be"
 msgstr "Dies ist der Status des Haltepunkts. Folgende Zustände sind möglich:"
 
-#: C/debug-breakpoint.page:71(title)
+#: C/debug-breakpoint.page:75(title)
 msgid "Pending:"
 msgstr "Ausstehend:"
 
-#: C/debug-breakpoint.page:71(p)
+#: C/debug-breakpoint.page:75(p)
 msgid "the breakpoint is not set in your program."
 msgstr "Der Haltepunkt ist in Ihrem Programm nicht festgelegt."
 
-#: C/debug-breakpoint.page:72(title)
+#: C/debug-breakpoint.page:76(title)
 msgid "Permanent:"
 msgstr "Permanent:"
 
-#: C/debug-breakpoint.page:72(p)
-msgid "the breakpoint is set (its id number is given inside parenthesis)."
+#: C/debug-breakpoint.page:76(p)
+#, fuzzy
+msgid "the breakpoint is set (its id number is displayed in parentheses)."
 msgstr "Der Haltepunkt ist gesetzt (Kennung ist in Klammern angegeben)."
 
-#: C/debug-breakpoint.page:73(title)
+#: C/debug-breakpoint.page:77(title)
 msgid "Temporary:"
 msgstr "Temporär:"
 
-#: C/debug-breakpoint.page:73(p)
+#: C/debug-breakpoint.page:77(p)
 msgid "the breakpoint is set but will be deleted if reached."
 msgstr ""
 "Der Haltepunkt ist gesetzt, wird aber gelöscht, sobald er erreicht wurde."
 
-#: C/debug-breakpoint.page:79(p)
+#: C/debug-breakpoint.page:83(p)
+#, fuzzy
 msgid ""
 "All breakpoints are kept across Anjuta sessions even if they correspond to a "
-"non-existing locations by example in a source file of a shared library not "
+"non-existing locations, for example in a source file of a shared library not "
 "loaded yet. In this case their states are set as pending."
 msgstr ""
 "Alle Haltepunkte bleiben über Anjuta-Sitzungen erhalten, selbst wenn sie auf "
@@ -2418,11 +2510,11 @@ msgstr ""
 "Bibliothek, die noch nicht geladen wurde. In diesem Fall wird der Status auf "
 "»Ausstehend« gesetzt."
 
-#: C/debug-breakpoint.page:86(title)
+#: C/debug-breakpoint.page:90(title)
 msgid "Setting breakpoints"
 msgstr "Haltepunkte setzen"
 
-#: C/debug-breakpoint.page:90(p)
+#: C/debug-breakpoint.page:94(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
@@ -2432,21 +2524,21 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-breakpoint.page:96(p)
+#: C/debug-breakpoint.page:100(p)
 msgid ""
-"Fill at least the <gui>Location</gui> which is the position of the "
-"breakpoint, if a file is currently opened in the editor it is fill to put a "
-"breakpoint in the current line by default. See <link xref=\"debug-breakpoint-"
-"dialog\"/> for more information."
+"Fill in the <gui>Location</gui>, which is the position of the breakpoint, and "
+"the other fields if desired. If a file is currently opened in the editor, the "
+"<gui>Location</gui> defaults to the current line. See <link xref=\"debug-"
+"breakpoint-dialog\"/> for more information."
 msgstr ""
 
-#: C/debug-breakpoint.page:103(p)
+#: C/debug-breakpoint.page:108(p)
 msgid ""
 "Another solution is to use the toggle breakpoint function. If there is no "
-"breakpoint on the current line, it will add one. Else it will remove it."
+"breakpoint on the current line, it will add one. Otherwise, it will remove it."
 msgstr ""
 
-#: C/debug-breakpoint.page:109(p)
+#: C/debug-breakpoint.page:114(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Toggle "
@@ -2456,15 +2548,22 @@ msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-breakpoint.page:120(title)
+#: C/debug-breakpoint.page:125(title)
 msgid "Editing breakpoints"
 msgstr "Haltepunkte bearbeiten"
 
-#: C/debug-breakpoint.page:124(p) C/debug-breakpoint.page:146(p)
+#: C/debug-breakpoint.page:127(p)
+msgid ""
+"You can't change the location of a breakpoint; create a new breakpoint "
+"instead. However, you can change the break condition or the pass count. To "
+"edit a breakpoint:"
+msgstr ""
+
+#: C/debug-breakpoint.page:133(p) C/debug-breakpoint.page:160(p)
 msgid "Select a breakpoint in the <gui>Breakpoint</gui> window."
 msgstr "Wählen Sie einen Haltepunkt im <gui>Haltepunkt</gui>-Fenster aus."
 
-#: C/debug-breakpoint.page:127(p)
+#: C/debug-breakpoint.page:136(p)
 msgid ""
 "Right click in the <gui>Breakpoint</gui> window and select <gui>Edit "
 "Breakpoint...</gui>."
@@ -2472,18 +2571,26 @@ msgstr ""
 "Klicken Sie mit der rechten Maustaste in das <gui>Haltepunkt</gui>-Fenster "
 "und wählen Sie <gui>Haltepunkt bearbeiten</gui>."
 
-#: C/debug-breakpoint.page:132(p)
+#: C/debug-breakpoint.page:141(p)
 msgid ""
-"Change the <gui>Condition</gui> and <gui>Pass Count</gui> field and click on "
-"<gui>OK</gui> to commit the changes. See <link xref=\"debug-breakpoint-dialog"
-"\"/> for more information."
+"Change the <gui>Condition</gui> or <gui>Pass Count</gui> fields and click on "
+"<gui>OK</gui> when you are done. See <link xref=\"debug-breakpoint-dialog\"/> "
+"for more information."
 msgstr ""
 
-#: C/debug-breakpoint.page:142(title)
+#: C/debug-breakpoint.page:151(title)
 msgid "Removing breakpoints"
 msgstr "Haltepunkte entfernen"
 
-#: C/debug-breakpoint.page:149(p)
+#: C/debug-breakpoint.page:153(p)
+msgid ""
+"You can remove a breakpoint using the toggle breakpoint function described "
+"above. However, if you want to remove more than one breakpoint or the "
+"breakpoint is in a different file than the one you are editing, you can use "
+"the breakpoint window:"
+msgstr ""
+
+#: C/debug-breakpoint.page:163(p)
 msgid ""
 "Right click in the <gui>Breakpoint</gui> window and select <gui>Remove "
 "Breakpoint</gui>."
@@ -2491,41 +2598,50 @@ msgstr ""
 "Klicken Sie mit der rechten Maustaste in das <gui>Haltepunkt</gui>-Fenster "
 "und wählen Sie <gui>Haltepunkt entfernen</gui>."
 
-#: C/debug-breakpoint.page:155(p)
-msgid "You can remove all breakpoints using:"
+#: C/debug-breakpoint.page:169(p)
+msgid "To remove all breakpoints:"
 msgstr "Sie können alle Haltepunkte folgendermaßen entfernen:"
 
-#: C/debug-breakpoint.page:159(p)
+#: C/debug-breakpoint.page:173(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Remove All "
-"Breakpoints</gui></guiseq> or right click in the <gui>Breakpoint</gui> window "
-"and select <gui>Remove All Breakpoint</gui>."
+"Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> window "
+"and select <gui>Remove All Breakpoints</gui>."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
 
-#: C/debug-breakpoint.page:170(title)
+#: C/debug-breakpoint.page:184(title)
 msgid "Enabling and disabling breakpoints"
 msgstr "Aktivieren und Deaktivieren von Haltepunkten"
 
-#: C/debug-breakpoint.page:174(p)
+#: C/debug-breakpoint.page:186(p)
 msgid ""
-"Click on the <gui>Enable</gui> column in the <gui>Breakpoint</gui> window or "
-"right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
-"Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
+"Sometimes you might want to disable a breakpoint temporarily instead of "
+"deleting it altogether. To disable or re-enable a breakpoint:"
 msgstr ""
 
-#: C/debug-breakpoint.page:180(p)
+#: C/debug-breakpoint.page:191(p)
+#, fuzzy
+msgid ""
+"Click on the <gui>Enable</gui> checkmark in the <gui>Breakpoint</gui> window "
+"or right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
+"Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/debug-breakpoint.page:197(p)
 msgid "You can disable all breakpoints using:"
 msgstr "Sie können alle Haltepunkte folgendermaßen deaktivieren:"
 
-#: C/debug-breakpoint.page:184(p)
+#: C/debug-breakpoint.page:201(p)
 #, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Disable "
-"All Breakpoints</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
-"window and select <gui>Disable All Breakpoint</gui>."
+"All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
+"window and select <gui>Disable All Breakpoints</gui>."
 msgstr ""
 "Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
 "im <gui>Hauptmenü</gui>."
@@ -2534,51 +2650,62 @@ msgstr ""
 msgid "Used to create or edit a breakpoint"
 msgstr ""
 
-#: C/debug-breakpoint-dialog.page:19(title)
+#: C/debug-breakpoint-dialog.page:23(title)
 msgid "Breakpoint Dialog"
 msgstr "Haltepunkt-Dialog"
 
-#: C/debug-breakpoint-dialog.page:24(p)
+#: C/debug-breakpoint-dialog.page:28(p)
 msgid ""
-"This is the position of the breakpoint. This cannot be changed on a existing "
-"breakpoint. It can be specified using the following formats:"
+"This is the position of the breakpoint. For an existing breakpoint, you "
+"cannot change this. You can set a breakpoint at a certain line number, or at "
+"the beginning of a function. Use one of the following formats:"
 msgstr ""
 
-#: C/debug-breakpoint-dialog.page:28(var)
-msgid "file_name:line_number"
+#: C/debug-breakpoint-dialog.page:33(p)
+#, fuzzy
+msgid "<var>file_name</var>:<var>line_number</var>"
 msgstr "Dateiname:Zeilennummer"
 
-#: C/debug-breakpoint-dialog.page:29(var)
+#: C/debug-breakpoint-dialog.page:34(var)
 msgid "function_name"
 msgstr "Funktionsname"
 
-#: C/debug-breakpoint-dialog.page:30(var)
-msgid "file_name:function_name"
-msgstr "Datei:Funktionsname"
-
 #: C/debug-breakpoint-dialog.page:35(p)
-msgid ""
-"It is an expression which should evaluate to a boolean value TRUE(1) or FALSE"
-"(0). Every time the breakpoint is encountered during your program's "
-"execution, the break condition will be evaluated. The debugger will break the "
-"execution only if the evaluation result is the TRUE value."
-msgstr ""
+#, fuzzy
+msgid "<var>file_name</var>:<var>function_name</var>"
+msgstr "Datei:Funktionsname"
 
 #: C/debug-breakpoint-dialog.page:40(p)
 msgid ""
-"If you leave this field blank the condition is considered as always TRUE."
+"The break condition is an expression which should evaluate to a boolean value "
+"<code>TRUE</code> (1) or <code>FALSE</code> (0). Every time the breakpoint is "
+"encountered during your program's execution, the break condition will be "
+"evaluated. The debugger will break the execution only if the result of the "
+"evaluation is <code>TRUE</code>."
 msgstr ""
-
-#: C/debug-breakpoint-dialog.page:44(gui)
-msgid "Pass Count"
-msgstr "Durchgang"
 
 #: C/debug-breakpoint-dialog.page:45(p)
 msgid ""
-"This is an integer (unsigned) value which tells the debugger to skip the "
-"breakpoint that number of times before it is considered. It has a higher "
-"priority than the condition. Only when the count reaches zero will the "
-"debugger evaluate the condition if it is present."
+"If you leave this field blank the condition is always considered <code>TRUE</"
+"code>."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:49(gui)
+msgid "Pass Count"
+msgstr "Durchgang"
+
+#: C/debug-breakpoint-dialog.page:50(p)
+msgid ""
+"The debugger can also skip the breakpoint a certain number of times before "
+"breaking. If the pass count is not zero, then the debugger will have to "
+"encounter the breakpoint this number of times before breaking."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:53(p)
+msgid ""
+"The pass count has a higher priority than the condition. Only when the pass "
+"count has been reached will the debugger evaluate the condition if it is "
+"present and break the program's execution."
 msgstr ""
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
@@ -2764,1852 +2891,7 @@ msgstr "Referenz"
 #: C/index.page:0(None)
 msgid "translator-credits"
 msgstr ""
-"Mario Blättermann <mariobl@freenet.de>, 2009, 2010, 2011\n"
+"Mario Blättermann <mariobl@freenet.de>, 2009-2011\n"
 "Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010\n"
 "Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010"
 
-#~ msgid "Stopping execution in a particular place"
-#~ msgstr "Anhalten der Ausführung an einer bestimmten Stelle"
-
-#~ msgid "Run your application"
-#~ msgstr "Starten Ihrer Anwendung"
-
-#~ msgid "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
-#~ msgstr "@@image: 'figures/anjuta_logo.png'; md5=THIS FILE DOESN'T EXIST"
-
-#~ msgid "Running and Debugging"
-#~ msgstr "Ausführen und Debuggen"
-
-#~ msgid "Add or remove targets"
-#~ msgstr "Ziele hinzufügen oder entfernen"
-
-#~ msgid "Add a target"
-#~ msgstr "Ein Ziel hinzufügen"
-
-#~ msgid "Add or remove packaged libraries from a target."
-#~ msgstr ""
-#~ "Paketierte Bibliotheken zu einem Ziel hinzufügen oder daraus entfernen."
-
-#, fuzzy
-#~ msgid "Add or remove packaged libraries"
-#~ msgstr "Bilder hinzufügen, entfernen oder hochladen"
-
-#, fuzzy
-#~ msgid "Add a packaged library to a target"
-#~ msgstr "Unterstützung für gemeinsam verwendete Bibliotheken hinzufügen:"
-
-#~ msgid "Remove a packaged library from a target"
-#~ msgstr "Eine paketierte Bibliothek aus einem Ziel entfernen"
-
-#, fuzzy
-#~ msgid "Confirm the removal. This library will be removed from the target."
-#~ msgstr ""
-#~ "Ein Bestätigungsdialog wird geöffnet, und die Datei wird aus dem Projekt "
-#~ "entfernt."
-
-#~ msgid "Import an existing project."
-#~ msgstr "Ein bereits existierendes Projekt importieren."
-
-#~ msgid "Import a project"
-#~ msgstr "Ein Projekt importieren"
-
-#, fuzzy
-#~ msgid "Makefile project backend."
-#~ msgstr "Backend belegt"
-
-#~ msgid "Introduction to <app>Anjuta</app> Integrated Development Environment"
-#~ msgstr "Einführung in die Integrierte Entwicklungsumgebung <app>Anjuta</app>"
-
-#~ msgid "aaa"
-#~ msgstr "aaa"
-
-#~ msgid ""
-#~ "<app>Anjuta</app> is a versatile Integrated Development Environment (IDE) "
-#~ "for the GNOME desktop. It features a number of advanced programming "
-#~ "facilities including project management, application wizards, interactive "
-#~ "debugging, integrated Glade UI designer, integrated Devhelp API help, "
-#~ "class generator, powerful source editor, symbols browsing, Git support, C/C"
-#~ "++, Python and Vala support and more."
-#~ msgstr ""
-#~ "<application>Anjuta</application> ist eine vielseitige integrierte "
-#~ "Entwicklungsumgebung (IDE) für die GNOME-Arbeitsumgebung. Sie stellt eine "
-#~ "Vielzahl an erweiterten Entwicklungsmethoden wie Projektverwaltung, "
-#~ "Programmassistenten, einen interaktiven Debugger, den Oberflächengestalter "
-#~ "Glade, die API-Hilfe Devhelp, einen Klassengenerator, einen mächtigen "
-#~ "Quelltexteditor, Symbolbrowser, Unterstützung für Git, C++, Python und "
-#~ "Vala und mehr zur Verfügung."
-
-#~ msgid ""
-#~ "<app>Anjuta</app> has been designed to be simple to operate yet powerful "
-#~ "enough to fulfill all your programming needs. We have added many new "
-#~ "features to <app>Anjuta</app> over the course of its development. Our "
-#~ "focus is on delivering power and usability at the same time and making "
-#~ "your software development enjoyable without overloading your senses. We "
-#~ "intend to continue improving and stabilizing <app>Anjuta</app> to give you "
-#~ "the best IDE experience possible."
-#~ msgstr ""
-#~ "<app>Anjuta</app> wurde entwickelt, um einfach aber doch mächtig genug zu "
-#~ "sein, um allen Bedürfnissen eines Programmierers nachzukommen. Wir haben "
-#~ "zu <app>Anjuta</app> im Verlauf der Entwicklung viele neue Funktionen "
-#~ "hinzugefügt. Unser Fokus liegt auf der gleichzeitigen Bereitstellung von "
-#~ "Funktionalität und Nutzbarkeit und darauf, Software-Entwicklung genießbar "
-#~ "zu machen, ohne Ihre Sinne zu überlasten. Wir planen <app>Anjuta</app> "
-#~ "weiterhin zu verbessern und stabiler zu machen, um Ihnen das bestmögliche "
-#~ "Entwicklungserlebnis zu vermitteln."
-
-#~ msgid ""
-#~ "We hope you will have a good time using <app>Anjuta</app>. If not, please "
-#~ "help us make it better by reporting bugs and suggestions - this will help "
-#~ "to improve the software, as well as helping the open source community."
-#~ msgstr ""
-#~ "Wir hoffen, dass Sie eine gute Zeit mit <app>Anjuta</app> haben. Bitte "
-#~ "melden Sie alle Probleme, auf die Sie bei der Nutzung von <app>Anjuta</"
-#~ "app> stoßen - das hilft sowohl dabei, die Software zu verbessern als auch "
-#~ "der Open-Source-Gemeinschaft."
-
-#~ msgid ""
-#~ "The following screenshot illustrates some of the things you will find in "
-#~ "<app>Anjuta</app>."
-#~ msgstr ""
-#~ "Im folgenden Bildschirmfoto sehen Sie einiges von dem, was Ihnen in "
-#~ "<app>Anjuta</app> begegnen werden."
-
-#~ msgid "<app>Anjuta</app> in action"
-#~ msgstr "<app>Anjuta</app> in Aktion"
-
-#~ msgid "<app>Anjuta</app> main window"
-#~ msgstr "<app>Anjuta</app>-Hauptfenster"
-
-#, fuzzy
-#~ msgid "Autotools project backend."
-#~ msgstr "Backend belegt"
-
-#, fuzzy
-#~ msgid "Enable the debug configuration"
-#~ msgstr "Debug-Informationen aktivieren"
-
-#~ msgid "Run the application in the debugger"
-#~ msgstr "Die Anwendung in einem Debugger ausführen"
-
-#~ msgid "Create a package"
-#~ msgstr "Ein Paket erstellen"
-
-#~ msgid "Create a tarball"
-#~ msgstr "Einen Tarball erstellen"
-
-#~ msgid "Package your application for distributions"
-#~ msgstr "Paketieren Ihrer Anwendung für Distributionen"
-
-#~ msgid "Configure the build system"
-#~ msgstr "Das Buildsystem konfigurieren"
-
-#~ msgid "Choose the configuration"
-#~ msgstr "Ändern der Konfiguration"
-
-#, fuzzy
-#~ msgid "Building the code"
-#~ msgstr "Ländercode"
-
-#~ msgid "Handling compiler errors"
-#~ msgstr "Umgang mit Compiler-Fehlern"
-
-#~ msgid "Configure the build system to make use of multi-core processors"
-#~ msgstr "Konfigurieren des Buildsystems für Mehrkern-Prozessoren"
-
-#~ msgid "Welcome to the <app>anjuta</app> help guide."
-#~ msgstr "Willkommen zum <app>Anjuta</app>-Handbuch."
-
-#, fuzzy
-#~ msgid "Add executable targets"
-#~ msgstr "Aktualisieren der Ziele...\n"
-
-#, fuzzy
-#~ msgid "Add data targets"
-#~ msgstr "_Demodulator hinzufügen"
-
-#~ msgid "C/C++"
-#~ msgstr "C/C++"
-
-#~ msgid "Using a new Module"
-#~ msgstr "Ein neues Modul verwenden"
-
-#~ msgid "JavaScript"
-#~ msgstr "JavaScript"
-
-#~ msgid "Import from a local directory"
-#~ msgstr "Aus einem lokalen lokalen Ordner importieren"
-
-#~ msgid "Import non-automake projects"
-#~ msgstr "Projekte importieren, die »automake« nicht verwenden"
-
-#~ msgid "Choosing the project type"
-#~ msgstr "Einen Projekttyp auswählen"
-
-#~ msgid "Configure your project"
-#~ msgstr "Konfigurieren Ihres Projekts"
-
-#~ msgid "Anjuta IDE Manual"
-#~ msgstr "Anjuta IDE-Handbuch"
-
-#~ msgid "v1.0.0"
-#~ msgstr "v1.0.0"
-
-#~ msgid "Manual for the Anjuta IDE"
-#~ msgstr "Handbuch für die Anjuta-IDE"
-
-#~ msgid "Naba"
-#~ msgstr "Naba"
-
-#~ msgid "Kumar"
-#~ msgstr "Kumar"
-
-#~ msgid "Andy"
-#~ msgstr "Andy"
-
-#~ msgid "Piper"
-#~ msgstr "Piper"
-
-#~ msgid "Biswapesh"
-#~ msgstr "Biswapesh"
-
-#~ msgid "Chattopadhyayr"
-#~ msgstr "Chattopadhyayr"
-
-#~ msgid "Johannes"
-#~ msgstr "Johannes"
-
-#~ msgid "Schmid"
-#~ msgstr "Schmid"
-
-#~ msgid "2001-2002"
-#~ msgstr "2001-2002"
-
-#~ msgid "2006-2008"
-#~ msgstr "2006-2008"
-
-#~ msgid "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
-#~ msgstr "Naba Kumar, Andy Piper, Biswapesh Chattopadhyay"
-
-#~ msgid ""
-#~ "Permission is granted to copy, distribute and/or modify this document "
-#~ "under the terms of the <citetitle>GNU Free Documentation License</"
-#~ "citetitle>, Version 1.1 or any later version published by the Free "
-#~ "Software Foundation with no Invariant Sections, no Front-Cover Texts, and "
-#~ "no Back-Cover Texts. You may obtain a copy of the <citetitle>GNU Free "
-#~ "Documentation License</citetitle> from the Free Software Foundation by "
-#~ "visiting <ulink type=\"http\" url=\"http://www.fsf.org\">their Web site</"
-#~ "ulink> or by writing to: Free Software Foundation, Inc., 51 Franklin "
-#~ "Street, Fifth Floor, Boston, MA 02110-1301, USA."
-#~ msgstr ""
-#~ "Das vorliegende Dokument kann gemäß den Bedingungen der GNU Free "
-#~ "Documentation License (GFDL), Version 1.1 oder jeder späteren, von der "
-#~ "Free Software Foundation veröffentlichten Version ohne unveränderbare "
-#~ "Abschnitte sowie ohne Texte auf dem vorderen und hinteren Buchdeckel "
-#~ "kopiert, verteilt und/oder modifiziert werden. Eine Kopie der GFDL finden "
-#~ "Sie unter diesem <ulink type=\"help\" url=\"ghelp:fdl\">Link</ulink>."
-
-#~ msgid ""
-#~ "Many of the names used by companies to distinguish their products and "
-#~ "services are claimed as trademarks. Where those names appear in any GNOME "
-#~ "documentation, and those trademarks are made aware to the members of the "
-#~ "GNOME Documentation Project, the names have been printed in caps or "
-#~ "initial caps."
-#~ msgstr ""
-#~ "Bei vielen der von Firmen zur Unterscheidung ihrer Produkte und "
-#~ "Dienstleistungen verwendeten Namen handelt es sich um Marken. An den "
-#~ "Stellen, an denen derartige Namen in einer GNOME-Dokumentation vorkommen "
-#~ "und wenn die Mitglieder des GNOME-Dokumentationsprojekts über diese Marken "
-#~ "informiert wurden, sind die Namen in Großbuchstaben oder mit großen "
-#~ "Anfangsbuchstaben geschrieben."
-
-#~ msgid "Anjuta Manual 2.1.0"
-#~ msgstr "Anjuta-Handbuch 2.1.0"
-
-#~ msgid "2007"
-#~ msgstr "2007"
-
-#~ msgid "Johannes Schmid<email>jhs@gnome.org</email>"
-#~ msgstr "Johannes Schmid<email>jhs@gnome.org</email>"
-
-#~ msgid ""
-#~ "Anjuta has a flexible and advanced docking system that allows you to lay "
-#~ "out all views in whatever way you like. You can drag and drop the views "
-#~ "using drag bars and rearrange the layout. The layouts are persistent for "
-#~ "each project so you can maintain different layouts for different projects. "
-#~ "All dock views are minimizable to avoid clutter in the main window. "
-#~ "Minimized views appear as icons on the left side of the main window. You "
-#~ "can configure all menu actions either by typing when the cursor is over a "
-#~ "menu item (the usual GNOME way) or through a dedicated shortcut "
-#~ "configuration user interface."
-#~ msgstr ""
-#~ "Anjuta hat ein flexibles und fortgeschrittenes Docking-System, das es "
-#~ "Ihnen erlaubt alle Ansichten so anzuordnen, wie Sie es wollen. Sie können "
-#~ "die Ansichten ziehen und ablegen, um das Layout neu anzuordnen. Die "
-#~ "Layouts sind den Projekten zugeordnet, damit verschiedene Layouts für "
-#~ "verschiedene Projekte gepflegt werden können. Alle Ansichten können "
-#~ "minimiert werden, um die Übersicht zu verbessern. Minimierte Ansichten "
-#~ "erscheinen als Symbole am linken Rand des Hauptfensters. Sie können alle "
-#~ "Menüaktionen konfigurieren, indem Sie entweder tippen, während der "
-#~ "Mauszeiger über einem Menüpunkt ist (der übliche Weg unter GNOME), oder "
-#~ "direkt durch einen Dialog zur Zuordnung der Tastenkombinationen."
-
-#~ msgid "Getting Familiar with Anjuta"
-#~ msgstr "Erste Schritte mit Anjuta"
-
-#~ msgid "Menus and shortcuts"
-#~ msgstr "Menüs und Tastenkombinationen"
-
-#~ msgid ""
-#~ "At the top of the <application>Anjuta</application> main window is the "
-#~ "menu bar. You can access almost all of Anjuta's functionality through menu "
-#~ "items. Operations have been grouped according to their type. For example, "
-#~ "file operations have been grouped into the <guisubmenu>File</guisubmenu> "
-#~ "menu."
-#~ msgstr ""
-#~ "Am oberen Rand des <application>Anjuta</application>-Hauptfensters ist die "
-#~ "Menüleiste. Durch sie ist nahezu die gesamte Funktionalität von Anjuta "
-#~ "durch Menüpunkte erreichbar. Aktionen wurden je nach Typ eingeteilt. "
-#~ "Dateioperationen beispielsweise finden Sie im <guisubmenu>Datei</"
-#~ "guisubmenu>-Menü."
-
-#~ msgid "Menubar"
-#~ msgstr "Menüleiste"
-
-#~ msgid ""
-#~ "Shortcut keys are available for many menu items. All shortcut keys are "
-#~ "shown alongside the corresponding menu items. Some other useful shortcuts "
-#~ "are listed here."
-#~ msgstr ""
-#~ "Tastenkombinationen sind für viele Menüpunkte verfügbar. Alle "
-#~ "Tastenkombinationen werden neben dem zugeordneten Menüpunkt angezeigt. "
-#~ "Einige weitere hilfreiche Tastenkombinationen sind hier aufgeführt."
-
-#~ msgid ""
-#~ "<emphasis>Switch Editor Page:</emphasis><keycombo><keycap>Ctrl</"
-#~ "keycap><keycap>Alt</keycap><keycap>Page Up</keycap></keycombo> (forward) "
-#~ "and <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Page Down</"
-#~ "keycap></keycombo> (backward). You can also switch pages by right-clicking "
-#~ "on the notebook tabs and selecting a filename from the pop-up menu (useful "
-#~ "when all the tabs in the editor are not visible at once). Some desktop "
-#~ "configurations may already have these shortcut keys assigned. In that "
-#~ "case, you will need to reconfigure them (not in Anjuta, because they are "
-#~ "fixed) if you want to use these shortcuts."
-#~ msgstr ""
-#~ "<emphasis>Editorseite wechseln:</emphasis><keycombo><keycap>Strg</"
-#~ "keycap><keycap>Alt</keycap><keycap>Bild ↑</keycap></keycombo> (vorwärts) "
-#~ "und <keycombo><keycap>Strg</keycap><keycap>Alt</keycap><keycap>Bild ↓</"
-#~ "keycap></keycombo> (rückwärts). Sie können auch Seiten wechseln, indem Sie "
-#~ "mit der rechten Maustaste auf die Karteireiter klicken und einen "
-#~ "Dateinamen aus dem Einblendmenü wählen (dies ist nützlich, wenn alle "
-#~ "Karteireiter nicht sofort sichtbar sind). Einige Arbeitsumgebungen haben "
-#~ "eventuell diese Tastenkombinationen zugewiesen. In diesem Fall müssen Sie "
-#~ "diese (nicht in Anjuta) anders belegen, wenn Sie sie in Anjuta verwenden "
-#~ "möchten."
-
-#~ msgid ""
-#~ "<emphasis>Context Help:</emphasis><keycombo><keycap>Shift</"
-#~ "keycap><keycap>F1</keycap></keycombo>. Place the cursor on the word (for "
-#~ "example, the function name) for which you want to get API help and type "
-#~ "this shortcut. Context help only works if you have <application>Devhelp</"
-#~ "application> installed; otherwise, the context help menu and toolbar "
-#~ "button will be inactive. You can get Devhelp from the "
-#~ "<application>Devhelp</application> website. You will also have to install "
-#~ "the related <application>Devhelp</application> books."
-#~ msgstr ""
-#~ "<emphasis>Kontexthilfe:</emphasis><keycombo><keycap>Umschalt</"
-#~ "keycap><keycap>F1</keycap></keycombo>. Bewegen Sie die Eingabemarke über "
-#~ "das Wort (z.B. ein Funktionsname), für das Sie die API-Hilfe aufrufen "
-#~ "möchten, und verwenden Sie diese Tastenkombination. Die Kontexthilfe "
-#~ "funktioniert nur, wenn <application>Devhelp</application> installiert ist; "
-#~ "Andernfalls sind das Menü Kontexthilfe und der Knopf in der Werkzeugleiste "
-#~ "deaktiviert. Sie können Devhelp von der <application>Devhelp</application>-"
-#~ "Webseite beziehen. Sie müssen dann auch die zugehörigen "
-#~ "<application>Devhelp</application>-Bücher installieren."
-
-#~ msgid ""
-#~ "<emphasis>Autocomplete:</emphasis><keycombo><keycap>Ctrl</"
-#~ "keycap><keycap>Enter</keycap></keycombo>. Type this shortcut with the "
-#~ "cursor placed at the end of an incomplete word and a list of words "
-#~ "matching the remaining part will appear. Scroll and select the right word "
-#~ "from the list if you find one."
-#~ msgstr ""
-#~ "<emphasis>Automatische Vervollständigung:</"
-#~ "emphasis><keycombo><keycap>Strg</keycap><keycap>Eingabetaste</keycap></"
-#~ "keycombo>. Positionieren Sie die Eingabemarke genau hinter ein "
-#~ "unvollständiges Wort und verwenden Sie diese Tastenkombination. Eine Liste "
-#~ "mit möglichen Vervollständigungen wird darauf hin eingeblendet. Sie können "
-#~ "in der Liste blättern, um die gewünschte Ergänzung zu suchen und "
-#~ "auszuwählen."
-
-#~ msgid ""
-#~ "<emphasis>More shortcuts:</emphasis> Look for the shortcut keys displayed "
-#~ "on the right side of menu item labels. Shortcuts can also be changed as "
-#~ "explained in the tip below."
-#~ msgstr ""
-#~ "<emphasis>Weitere Tastenkombinationen:</emphasis> Schauen Sie nach "
-#~ "Tastenkombinationen, die rechts neben Menüeinträgen dargestellt sind. "
-#~ "Tastenkombinationen können auch wie im Hinweis unten erklärt geändert "
-#~ "werden."
-
-#~ msgid "Customize shortcuts"
-#~ msgstr "Tastenkürzel anpassen"
-
-#~ msgid ""
-#~ "You can change the default shortcuts by choosing "
-#~ "<menuchoice><guisubmenu>Edit</guisubmenu><guimenuitem>Preferences</"
-#~ "guimenuitem></menuchoice> and selecting the <interface> Shortcuts</"
-#~ "interface> tab."
-#~ msgstr ""
-#~ "Tastenkombinationen können unter <menuchoice><guisubmenu>Bearbeiten</"
-#~ "guisubmenu><guimenuitem>Einstellungen</guimenuitem></menuchoice> im "
-#~ "Karteireiter <interface>Tastenkombinationen</interface> geändert werden."
-
-#~ msgid "Main Window"
-#~ msgstr "Hauptfenster"
-
-#~ msgid ""
-#~ "The main window contains several view windows which can be rearranged by "
-#~ "dragging on their title bars. They can also be minimized by clicking on "
-#~ "the minimize buttons on the left of title bars."
-#~ msgstr ""
-#~ "Das Hauptfenster enthält mehrere Ansichtsfenster, die sich durch Ziehen "
-#~ "ihrer jeweiligen Titelleiste neu anordnen lassen. Sie können auch durch "
-#~ "den Knopf links auf ihrer Titelleiste minimiert werden."
-
-#~ msgid ""
-#~ "The <interface>Documents window</interface> will have one document active "
-#~ "at a time (if there are any files opened). All file commands will apply to "
-#~ "this active document. You can switch to any document by clicking on its "
-#~ "tab. You can do the same by right-clicking on the page tabs and choosing "
-#~ "the document from the pop-up menu that will appear. This is especially "
-#~ "useful when you have a lot of files opened, but not all of them are "
-#~ "visible in the page tab area."
-#~ msgstr ""
-#~ "Das <interface>Dokumentenfenster</interface> hat jeweils nur ein Dokument "
-#~ "aktiv (wenn Dateien geöffnet sind). Alle Dateibefehle wirken sich auf das "
-#~ "aktive Dokument aus. Sie können zu jedem geöffneten Dokument durch einen "
-#~ "Mausklick auf den jeweiligen Karteireiter wechseln. Sie können auch das "
-#~ "gleiche tun, in dem Sie mit der rechten Maustaste auf einen beliebigen "
-#~ "Karteireiter klicken und das gewünschte Dokument aus dem erscheinenden "
-#~ "Einblendfenster wählen. Dies ist besonders dann nützlich, wenn viele "
-#~ "Dateien geöffnet sind, aber nicht alle zugehörigen Dateireiter sichtbar "
-#~ "sind."
-
-#~ msgid ""
-#~ "The <interface>Project window</interface> shows a tree of project files if "
-#~ "you have a project opened. Otherwise, the <interface>Project window</"
-#~ "interface> is usually hidden. Double-clicking on any item in the "
-#~ "<interface>Project window</interface> will open that file."
-#~ msgstr ""
-#~ "Das <interface>Projektfenster</interface> enthält den Baum der "
-#~ "Projektdateien, wenn ein Projekt geöffnet ist. Andernfalls ist das "
-#~ "<interface>Projektfenster</interface> normalerweise verborgen. Ein "
-#~ "Doppelklick auf ein beliebiges Objekt im  <interface>Projektfenster</"
-#~ "interface> öffnet diese Datei."
-
-#~ msgid ""
-#~ "The <interface>Files window</interface> shows a file tree. If no project "
-#~ "is open, the file tree usually points to the file system root but you can "
-#~ "change this in the preferences. If a project is open, the window shows all "
-#~ "files in the project. Double-clicking opens a file in the appropriate "
-#~ "application as configured in the GNOME MIME preferences. Right-clicking "
-#~ "opens a context menu which gives you choices about how to open the file."
-#~ msgstr ""
-#~ "Das <interface>Dateifenster</interface> enthält einen Dateibaum. Falls "
-#~ "kein Projekt geöffnet ist, so zeigt der Dateibaum normalerweise den "
-#~ "obersten Ordner des Dateisystems. Dies kann aber in den Einstellungen "
-#~ "angepasst werden. Wenn ein Projekt geöffnet ist, so werden im Fenster alle "
-#~ "Dateien des Projekts angezeigt. Ein Doppelklick auf eine Datei öffnet "
-#~ "diese mit der zugehörigen Anwendung, so wie es in den GNOME MIME-"
-#~ "Einstellungen festgelegt ist. Ein Rechtsklick öffnet ein Kontextmenü, das "
-#~ "Ihnen weitere Möglichkeiten zum Öffnen der Datei anbietet."
-
-#~ msgid ""
-#~ "The <interface>Symbols window</interface> shows a tree of available "
-#~ "symbols in the project generated from the <application>ctags</application> "
-#~ "parser. Double-clicking opens an editor window with the corresponding file "
-#~ "and line."
-#~ msgstr ""
-#~ "Das <interface>Symbolfenster</interface> zeigt einen Baum der verfügbaren "
-#~ "Symbole im Projekt, der durch Verarbeiten der  <application>ctags</"
-#~ "application> gebildet wird. Ein Doppelklick öffnet ein Editorfenster mit "
-#~ "der jeweiligen Datei in der entsprechenden Zeile."
-
-#~ msgid ""
-#~ "There is also a <interface>Search tab</interface> in the Symbols window "
-#~ "where you can search for symbols."
-#~ msgstr ""
-#~ "Es gibt auch einen <interface>Suchreiter</interface> im Symbolfenster, wo "
-#~ "Sie nach Symbolen suchen können."
-
-#~ msgid ""
-#~ "The <interface>Message window</interface> will list all the messages (both "
-#~ "<filename>stdout</filename> and <filename>stderr</filename> outputs) when "
-#~ "an external command is executed. The <interface>Message window</interface> "
-#~ "is usually hidden, but appears as soon as an external command is executed, "
-#~ "such as during file or project compilation, debugging sessions, searches, "
-#~ "and many other operations. <application>Anjuta</application> also adds its "
-#~ "own messages here when necessary."
-#~ msgstr ""
-#~ "Das <interface>Nachrichtenfenster</interface> stellt alle Ausgaben dar "
-#~ "(sowohl <filename>stdout</filename> als auch <filename>stderr</filename>) "
-#~ "dar, wenn ein externer Befehl ausgeführt wird. Das "
-#~ "<interface>Nachrichtenfenster</interface> ist normalerweise verborgen, "
-#~ "wird aber bei Ausführung externer Befehle eingeblendet, wie z.B. beim "
-#~ "Kompilieren einer Datei oder des Projekts, Fehleranalyse, Suche und vielen "
-#~ "weiteren Vorgängen. <application>Anjuta</application> fügt auch bei Bedarf "
-#~ "eigene Nachrichten hier ein."
-
-#~ msgid ""
-#~ "The colors used to display the messages are important. Messages displayed "
-#~ "in the standard foreground color (usually black) are normal messages. "
-#~ "Messages displayed in orange are warnings, and those displayed in red are "
-#~ "errors. Warning and error messages are <emphasis>linked</emphasis>: double-"
-#~ "clicking on such a message will take you to the particular file and line "
-#~ "number specified in the message."
-#~ msgstr ""
-#~ "Die Farbverwendung bei der Darstellung ist von Bedeutung. Nachrichten in "
-#~ "der voreingestellten Vordergrundfarbe (normalerweise schwarz) sind normale "
-#~ "Nachrichten. Orange Nachrichten sind Warnungen, und rote repräsentieren "
-#~ "Fehler. Warnungen und Fehlernachrichten sind <emphasis>verknüpft</"
-#~ "emphasis>: Ein Doppelklick auf eine solche Nachricht öffnet die "
-#~ "entsprechende Datei in der jeweiligen Zeilennummer."
-
-#~ msgid ""
-#~ "For example, when you compile a file which contains errors, some red "
-#~ "messages will appear showing what the problems are, and where they occur. "
-#~ "Double-clicking on such messages will open the file and highlight the line "
-#~ "containing the error."
-#~ msgstr ""
-#~ "Wenn Sie zum Beispiel eine Datei kompilieren, die Fehler enthält, so "
-#~ "werden rote Nachrichten die Probleme erläutern und auf die Fehlerstelle "
-#~ "hinweisen. Ein Doppelklick auf eine solche Nachricht öffnet die Datei und "
-#~ "hebt die Zeile mit dem Fehler hervor."
-
-#~ msgid ""
-#~ "The <interface>Terminal window</interface> is a terminal emulator where "
-#~ "you can type commands just like in the GNOME Terminal application."
-#~ msgstr ""
-#~ "Das <interface>Terminalfenster</interface> ist ein Terminal-Emulator, in "
-#~ "dem Sie wie im GNOME-Terminal Befehle eingeben können."
-
-#~ msgid "Session management"
-#~ msgstr "Sitzungsverwaltung"
-
-#~ msgid ""
-#~ "All settings, including window sizes and positions, are saved when you "
-#~ "exit <application>Anjuta</application>. Session management is still under "
-#~ "development, so you should not exit <application>Anjuta</application> with "
-#~ "any unsaved documents. <application>Anjuta</application> will display a "
-#~ "warning if you try to exit with unsaved documents still open."
-#~ msgstr ""
-#~ "Alle Einstellungen, einschließlich Fenstergrößen und -positionen, werden "
-#~ "beim Beenden von <application>Anjuta</application> gespeichert. Eine "
-#~ "Sitzungsverwaltung befindet sich noch in der Entwicklung, so dass Sie "
-#~ "<application>Anjuta</application> nicht mit ungespeicherten Dokumenten "
-#~ "beenden sollten. <application>Anjuta</application> wird Sie warnen, wenn "
-#~ "Sie beenden wollen, während noch ungespeicherte Dokumente geöffnet sind."
-
-#~ msgid "Creating a new file and inserting text"
-#~ msgstr "Anlegen einer neuen Datei und Einfügen von Text"
-
-#~ msgid "Creating a New File"
-#~ msgstr "Erstellen einer neuen Datei"
-
-#, fuzzy
-#~ msgid ""
-#~ "To create a new file, choose <menuchoice><guisubmenu>File</"
-#~ "guisubmenu><guimenuitem>New</guimenuitem></menuchoice> from the menu bar, "
-#~ "or click on the <guibutton>New File</guibutton> button on the main "
-#~ "toolbar. A new page will appear in the editor (or a new window if the "
-#~ "parent document is windowed). New documents will be named "
-#~ "<filename>newfile#1</filename>, <filename>newfile#2</filename>, "
-#~ "<filename>newfile#3</filename> and so on."
-#~ msgstr ""
-#~ "Um eine neue Datei anzulegen, wählen Sie <menuchoice><guisubmenu>Datei</"
-#~ "guisubmenu><guimenuitem>Neu</guimenuitem></menuchoice> in der Menüleiste, "
-#~ "oder klicken Sie auf den Knopf <guibutton>Neue Datei</guibutton> in der "
-#~ "Werkzeugleiste. Es wird daraufhin im Editor eine neue Seite angezeigt "
-#~ "(oder ein neues Fenster, falls das übergeordnete Dokument ??). Neue "
-#~ "Dokumente werden <filename>Neue Datei 1</filename>, <filename>Neue Datei "
-#~ "2</filename>, <filename>Neue Datei 3</filename> usw. benannt."
-
-#~ msgid ""
-#~ "You should save new documents as soon as possible to avoid any data loss "
-#~ "in case of a crash."
-#~ msgstr ""
-#~ "Sie sollten neue Dokumente so bald wie möglich speichern, um Datenverluste "
-#~ "in Folge von Abstürzen zu vermeiden."
-
-#~ msgid "File Wizard"
-#~ msgstr "Datei-Assistent"
-
-#~ msgid "New File Wizard"
-#~ msgstr "Erstellungsassistent für Dateien"
-
-#~ msgid "The Open File dialog"
-#~ msgstr "Der »Datei öffnen«-Dialog"
-
-#~ msgid ""
-#~ "A wizard can also be used to create a new file. To create a new file, "
-#~ "choose <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</"
-#~ "guisubmenu><guimenuitem>File</guimenuitem></menuchoice> from the menu bar. "
-#~ "This will open the New File dialog. Select the file type. Enter the "
-#~ "filename. The suffix will be automatically added. You can add license "
-#~ "information (according to your license choice) and a header. In case of a "
-#~ "C/C++ header file, you can also add an header template. Click "
-#~ "<guibutton>OK</guibutton> to validate the creation. <placeholder-1/>"
-#~ msgstr ""
-#~ "Ein Assistent kann auch dazu verwendet werden eine neue Datei zu "
-#~ "erstellen. Wählen Sie dazu <menuchoice><guisubmenu>Datei</"
-#~ "guisubmenu><guisubmenu>Neu</guisubmenu><guimenuitem>Datei</guimenuitem></"
-#~ "menuchoice> aus der Menüleiste. Der Dialog »Neue Datei« wird geöffnet. "
-#~ "Wählen Sie den Dateityp und geben Sie den Dateinamen ein. Die Endung wird "
-#~ "automatisch hinzugefügt. Sie können Lizenzinformationen und einen "
-#~ "Dateikopf hinzufügen. In Falle einer C/C++-Kopfdatei können sie auch eine "
-#~ "Kopfvorlage hinzufügen. Klicken Sie <guibutton>OK</guibutton>, um die "
-#~ "Erstellung zu bestätigen. <placeholder-1/>"
-
-#~ msgid ""
-#~ "<application>Anjuta</application> occasionally also creates new file "
-#~ "windows during some operations. For example, some Subversion operations "
-#~ "such as <command>Diff</command> and <command>View Log</command> create new "
-#~ "file windows and add the output there. You can save the contents of these "
-#~ "windows to real files if you like."
-#~ msgstr ""
-#~ "<application>Anjuta</application> erstellt gelegentlich während einiger "
-#~ "Vorgänge neue Dateifenster. Zum Beispiel erzeugen einige Subversion-"
-#~ "Vorgänge wie <command>Diff</command> und <command>Protokoll ansehen</"
-#~ "command> neue Dateifenster und geben die Ausgaben dort aus. Sie können bei "
-#~ "Bedarf den Inhalt dieser Fenster in Dateien abspeichern."
-
-#~ msgid "Inserting Macros"
-#~ msgstr "Einfügen von Makros"
-
-#~ msgid ""
-#~ "You can use <emphasis>macros</emphasis> to quickly edit repetitive "
-#~ "sequences of text."
-#~ msgstr ""
-#~ "Sie können <emphasis>Makros</emphasis> verwenden, um schnell wiederholende "
-#~ "Textpassagen zu bearbeiten."
-
-#~ msgid "The Macro plugin must be activated."
-#~ msgstr "Das Makro-Plugin muss aktiviert sein."
-
-#~ msgid "Inserting"
-#~ msgstr "Einfügen"
-
-#~ msgid ""
-#~ "Two types of macros are available: Anjuta macros and user macros "
-#~ "(displayed as \"My macros\"). Anjuta macros are not modifiable, but you "
-#~ "can define and modify your own user macros."
-#~ msgstr ""
-#~ "Es gibt zwei Arten Makros: Anjuta-Makros und Benutzer-Makros (sie werden "
-#~ "als »Meine Makros« angezeigt). Anjuta-Makros können nicht verändert "
-#~ "werden, aber Sie können Benutzer-Makros erstellen und bearbeiten."
-
-#~ msgid ""
-#~ "To insert a macro, move the cursor to the desired place. Select "
-#~ "<menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</"
-#~ "guisubmenu><guimenuitem>Macros...</guimenuitem></menuchoice>. A dialog "
-#~ "window appears. Select the desired macro in the list. The result of the "
-#~ "macro expansion is displayed in the window and a summary is shown in the "
-#~ "dialog window. Choose <guibutton>Insert</guibutton>. The expanded macro "
-#~ "text is inserted at the cursor position."
-#~ msgstr ""
-#~ "Zum Einfügen eines Makros positionieren Sie die Eingabemarke an die "
-#~ "gewünschte Stelle. Wählen Sie  <menuchoice><guisubmenu>Bearbeiten</"
-#~ "guisubmenu><guisubmenu>Makros</guisubmenu><guimenuitem>Makros …</"
-#~ "guimenuitem></menuchoice>. Es wird ein Dialog geöffnet. Wählen Sie das "
-#~ "gewünschte Makro aus der Liste. Das Ergebnis der Makro-Umsetzung wird im "
-#~ "Fenster dargestellt und eine Zusammenfassung wird im Dialogfenster "
-#~ "angezeigt. Wählen Sie <guibutton>Einfügen</guibutton>. Der umgesetzte "
-#~ "Makrotext wird an der aktuellen Position der Eingabemarke eingefügt."
-
-#~ msgid "Macro"
-#~ msgstr "Makro"
-
-#~ msgid "The Macro dialog"
-#~ msgstr "Der Makro-Dialog"
-
-#~ msgid ""
-#~ "Another way to insert a macro is to select <menuchoice><guisubmenu>Edit</"
-#~ "guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Insert Macro...</"
-#~ "guimenuitem></menuchoice>, then to press the desired macro shortcut. "
-#~ "<placeholder-1/>"
-#~ msgstr ""
-#~ "Eine andere Möglichkeit Makros einzufügen ist "
-#~ "<menuchoice><guisubmenu>Bearbeiten</guisubmenu><guisubmenu>Makros</"
-#~ "guisubmenu><guimenuitem>Makro einfügen …</guimenuitem></menuchoice> "
-#~ "auszuwählen, und dann die gewünschte Makro-Tastenkombination zu drücken. "
-#~ "<placeholder-1/>"
-
-#~ msgid "Defining Macros"
-#~ msgstr "Definieren von Makros"
-
-#~ msgid ""
-#~ "From the Insert Macro window, choose <guibutton>Add</guibutton> or select "
-#~ "<menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</"
-#~ "guisubmenu><guimenuitem>Add Macro... </guimenuitem></menuchoice>. The Add/"
-#~ "Edit window appears. Enter the macro name, choose or define a category and "
-#~ "enter a shortcut. Then edit text relative to your macro. The character ' | "
-#~ "' will indicate the cursor position after the macro insertion. Choose "
-#~ "<guibutton>OK</guibutton>. The macro is added to the list."
-#~ msgstr ""
-#~ "Wählen Sie im Fenster »Makro einfügen« <guibutton>Hinzufügen</guibutton> "
-#~ "oder wählen Sie <menuchoice><guisubmenu>Bearbeiten</"
-#~ "guisubmenu><guisubmenu>Makros</guisubmenu><guimenuitem>Makro hinzufügen … "
-#~ "</guimenuitem></menuchoice>. Daraufhin öffnet sich das Fenster »Hinzufügen/"
-#~ "Bearbeiten«. Geben Sie den Namen des Makros ein, wählen oder definieren "
-#~ "Sie eine Kategorie und legen Sie eine Tastenkombination fest. Bearbeiten "
-#~ "Sie dann Text relativ zu Ihrem Makro. Das Zeichen » | « deutet die "
-#~ "Position der Eingabemarke nach Ausführung des Makros an. Klicken Sie auf "
-#~ "<guibutton>OK</guibutton>. Das Makro wird zur Liste hinzugefügt."
-
-#~ msgid ""
-#~ "You can also erase a macro by selecting it in the list and choosing "
-#~ "<guibutton>Remove</guibutton>. This only works for user macros (My "
-#~ "Macros), of course."
-#~ msgstr ""
-#~ "Sie können auch ein Makro löschen, indem Sie es in der Liste auswählen und "
-#~ "<guibutton>Entfernen</guibutton> klicken. Dies ist natürlich nur mit "
-#~ "Benutzer-Makros (»Meine Makros«) möglich."
-
-#~ msgid "Add/Edit Macro"
-#~ msgstr "Makro hinzufügen/bearbeiten"
-
-#~ msgid "Add Edit dialog"
-#~ msgstr "Dialog zum Hinzufügen/Bearbeiten"
-
-#~ msgid ""
-#~ "Similarly, you can edit and modify a macro by selecting it in the list and "
-#~ "choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
-#~ msgstr ""
-#~ "Auf ähnliche Weise können Sie ein Makro bearbeiten und ändern, indem Sie "
-#~ "es in der Liste auswählen und <guibutton>Bearbeiten</guibutton> wählen. "
-#~ "<placeholder-1/>"
-
-#~ msgid "Macro Keywords"
-#~ msgstr "Makro-Schlüsselwörter"
-
-#~ msgid ""
-#~ "Macro keywords are available. They can be included in macro definitions. "
-#~ "These macro keywords start and finish with the character ' @ '."
-#~ msgstr ""
-#~ "Makro-Schlüsselwörter stehen zur Verfügung. Sie können in Makro-"
-#~ "Definitionen eingebunden werden. Makro-Schlüsselwörter beginnen und enden "
-#~ "jeweils mit dem Zeichen » @ «."
-
-#~ msgid "Keyword Macro"
-#~ msgstr "Schlüsselwort-Makro"
-
-#~ msgid "The Keyword macro"
-#~ msgstr "Das Schlüsselwort-Makro"
-
-#~ msgid ""
-#~ "Available macro keywords are @DATE_TIME@, @DATE_YMD@, @DATE_Y@, "
-#~ "@USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, "
-#~ "@TABSIZE@, @INDENTSIZE@, and @USETABS@. <placeholder-1/>"
-#~ msgstr ""
-#~ "Verfügbare Makro-Schlüsselwörter sind @DATE_TIME@, @DATE_YMD@, @DATE_Y@, "
-#~ "@USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, "
-#~ "@TABSIZE@, @INDENTSIZE@, und @USETABS@. <placeholder-1/>"
-
-#~ msgid "Opening and Saving Files"
-#~ msgstr "Öffnen und Speichern von Dateien"
-
-#~ msgid "Open File dialog"
-#~ msgstr "Dialog zum Öffnen von Dateien"
-
-#~ msgid ""
-#~ "<emphasis>Opening a file:</emphasis> To open an existing file, choose "
-#~ "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Open</guimenuitem></"
-#~ "menuchoice> from the menu bar, click on the <guibutton>Open</guibutton> "
-#~ "button on the toolbar, or press <keycombo><keycap>Ctrl</keycap><keycap>O</"
-#~ "keycap></keycombo>. This will display the <interface>Open File</interface> "
-#~ "dialog. <placeholder-1/> Select or enter the name of file you want to "
-#~ "open, then click <guibutton>Open</guibutton>. To open more than one file "
-#~ "at once, select multiple files to open by holding down the <keycap>Ctrl</"
-#~ "keycap> key and clicking each file in turn; then press <guibutton>Open</"
-#~ "guibutton>. If you change your mind, click <guibutton>Cancel</guibutton> "
-#~ "to dismiss the dialog without opening the file."
-#~ msgstr ""
-#~ "<emphasis>Eine Datei öffnen:</emphasis> Um eine bestehende Datei zu "
-#~ "öffnen, wählen Sie <menuchoice><guisubmenu>Datei</"
-#~ "guisubmenu><guimenuitem>Öffnen</guimenuitem></menuchoice> aus der "
-#~ "Menüleiste und klicken Sie auf den Knopf <guibutton>Öffnen</guibutton>, "
-#~ "oder verwenden sie die  Tastenkombination <keycombo><keycap>Strg</"
-#~ "keycap><keycap>O</keycap></keycombo>. Dies öffnet den Dialog "
-#~ "<interface>Datei öffnen</interface>. <placeholder-1/> Geben sie den Namen "
-#~ "der Datei ein, die Sie öffnen wollen, oder wählen Sie sie aus. Klicken sie "
-#~ "dann auf <guibutton>Öffnen</guibutton>. Um mehrere Dateien auf einmal zu "
-#~ "öffnen können Sie mehrere nacheinander auswählen, indem Sie <keycap>Strg</"
-#~ "keycap> gedrückt halten; Dann klicken sie auf <guibutton>Öffnen</"
-#~ "guibutton>. Wenn Sie Ihre Meinung geändert haben, können sie "
-#~ "<guibutton>Abbrechen</guibutton> drücken, um den Dialog zu schließen, ohne "
-#~ "eine Datei zu öffnen."
-
-#~ msgid "Open Multiple File dialog"
-#~ msgstr "Dialog zum Öffnen mehrerer Dateien"
-
-#~ msgid "The Open File dialog in multiple-select mode"
-#~ msgstr "Der Dialog »Datei öffnen« im Modus für mehrere Dateien"
-
-#~ msgid ""
-#~ "You can enable the <emphasis>Show Hidden Files</emphasis> option through "
-#~ "the pop-up menu that appears when you right-click in the Open File dialog. "
-#~ "This option will make hidden files (files starting with \".\") visible in "
-#~ "the file list. Clear the option to hide hidden files. The Open File dialog "
-#~ "also has a built-in file type filter. Select the appropriate file type "
-#~ "filter in the dialog and the file list will be limited to the files of the "
-#~ "selected type only."
-#~ msgstr ""
-#~ "Sie können die Einstellung <emphasis>Verborgene Dateien zeigen</emphasis> "
-#~ "im Einblendfenster aktivieren, das nach einem Rechtsklick im Dialog zum "
-#~ "Öffnen von Dateien erscheint. Mit dieser Einstellung werden verborgene "
-#~ "Dateien (ihr Name beginnt mit ».«) in der Dateiliste sichtbar. Nehmen Sie "
-#~ "diese Einstellung zurück, um verborgene Dateien nicht anzuzeigen. Der "
-#~ "Dialog zum Öffnen von Dateien besitzt auch einen eingebauten Typenfilter. "
-#~ "Wählen Sie den entsprechenden Dateitypenfilter im Dialog, und die "
-#~ "Dateiliste wird auf Dateien des gewählten Typs beschränkt."
-
-#~ msgid "The Save As File"
-#~ msgstr "Als Datei speichern"
-
-#~ msgid ""
-#~ "<emphasis>Saving a file:</emphasis> To save a file, choose "
-#~ "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save</guimenuitem></"
-#~ "menuchoice> from the menu bar, click on the <guibutton>Save</guibutton> "
-#~ "button on the toolbar, or press <keycombo><keycap>Ctrl</keycap><keycap>S</"
-#~ "keycap></keycombo>. This will save the file. If the file is new, a "
-#~ "<interface>Save As</interface> dialog will appear. Enter a filename and "
-#~ "click <guibutton>Save</guibutton> to save the new file with the name "
-#~ "supplied. <placeholder-1/>"
-#~ msgstr ""
-#~ "<emphasis>Speichern einer Datei:</emphasis> Wählen Sie zum Speichern einer "
-#~ "Datei <menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Speichern</"
-#~ "guimenuitem></menuchoice> aus der Menüzeile und klicken auf den Knopf  "
-#~ "<guibutton>Speichern</guibutton> in der Werkzeugleiste, oder drücken "
-#~ "<keycombo><keycap>Strg</keycap><keycap>S</keycap></keycombo>. Falls die "
-#~ "Datei neu ist, wird der Dialog <interface>Speichern unter</interface> "
-#~ "geöffnet. Geben Sie einen Dateinamen ein und klicken Sie auf "
-#~ "<guibutton>Speichern</guibutton>, um die neue Datei unter dem angegebenen "
-#~ "Namen abzuspeichern. <placeholder-1/>"
-
-#~ msgid "File autosave"
-#~ msgstr "Automatisches Speichern einer Datei"
-
-#~ msgid ""
-#~ "If you have enabled autosave, Anjuta will not autosave any new files. You "
-#~ "must first save them manually. The same applies to the <guimenuitem>Save "
-#~ "All</guimenuitem> option: Anjuta will not save new files, if you haven't "
-#~ "saved them first manually. <emphasis>You must save a file manually before "
-#~ "autosave or <guimenuitem>Save All</guimenuitem> will work with it.</"
-#~ "emphasis>"
-#~ msgstr ""
-#~ "Wenn automatisches Speichern aktiviert ist, so speichert Anjuta nicht "
-#~ "automatisch neue Dateien. Sie müssen diese zunächst selbst speichern. Das "
-#~ "gleiche gilt für die Einstellung <guimenuitem>Alle speichern</"
-#~ "guimenuitem>: Anjuta speichert nicht neue Dateien, solange Sie diese noch "
-#~ "nicht selbst gespeichert haben. <emphasis>Sie müssen zuerst eine Datei "
-#~ "selbst speichern, bevor automatisches Speichern oder <guimenuitem>Alle "
-#~ "speichern</guimenuitem> mit diesen funktioniert.</emphasis>"
-
-#~ msgid ""
-#~ "<emphasis>Saving a file with a different name:</emphasis> You can "
-#~ "explicitly save a file with a new filename. To do this, choose "
-#~ "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save As</"
-#~ "guimenuitem></menuchoice> from the menu bar. A <interface>Save As</"
-#~ "interface> dialog will appear prompting you to enter the new filename. "
-#~ "Enter the name and click <guibutton>Save</guibutton>."
-#~ msgstr ""
-#~ "<emphasis>Eine Datei unter anderem Namen speichern:</emphasis> Sie können "
-#~ "explizit eine Datei unter einem neuen Namen speichern. Wählen Sie dazu "
-#~ "<menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Speichern unter</"
-#~ "guimenuitem></menuchoice> aus der Menüzeile. Der Dialog <interface>Datei "
-#~ "speichern unter</interface> wird geöffnet und fragt Sie nach dem neuen "
-#~ "Dateinamen. Geben Sie den Namen ein und klicken Sie auf "
-#~ "<guibutton>Speichern</guibutton>."
-
-#~ msgid "File save as overwrite"
-#~ msgstr "Datei beim Speichern überschreiben"
-
-#~ msgid ""
-#~ "When you use <guimenuitem>Save As</guimenuitem> with an existing file, the "
-#~ "original is not deleted. It is left unchanged since the last save. If a "
-#~ "file with the new filename already exists, a confirmation dialog will "
-#~ "appear to ensure that you want to overwrite it. Clicking <guibutton>Yes</"
-#~ "guibutton> will overwrite the file with the file you are saving."
-#~ msgstr ""
-#~ "Wenn Sie <guimenuitem>Speichern unter</guimenuitem> mit einer bestehenden "
-#~ "Datei verwenden, so wird das Original nicht gelöscht. Es verbleibt seit "
-#~ "dem letzten Speichern unverändert. Falls eine Datei mit dem neuen "
-#~ "Dateinamen bereits besteht, dann wird ein Bestätigungsdialog angezeigt, um "
-#~ "sicherzustellen, dass Sie sie überschreiben wollen. Mit einem Klick auf "
-#~ "<guibutton>Ja</guibutton> wird die Datei mit derjenigen überschrieben, die "
-#~ "Sie speichern."
-
-#~ msgid ""
-#~ "<emphasis>Closing a file:</emphasis> To close a file, choose "
-#~ "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Close</guimenuitem></"
-#~ "menuchoice> from the menu bar, or click on the <guibutton>Close</"
-#~ "guibutton> button on the toolbar. (You can also close a file by clicking "
-#~ "the X in its filename tab.) This will close the current file. If the file "
-#~ "is not saved, or is a new file, then <application>Anjuta</application> "
-#~ "will prompt you to save the file before closing it."
-#~ msgstr ""
-#~ "<emphasis>Eine Datei schließen:</emphasis> Wählen Sie zum Schließen einer "
-#~ "Datei <menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Schließen</"
-#~ "guimenuitem></menuchoice> aus der Menüzeile, oder klicken Sie auf den "
-#~ "Knopf  <guibutton>Schließen</guibutton> in der Werkzeugleiste (Sie können "
-#~ "eine Datei auch durch Klick auf das Kreuz (»X«) im Reiter zum Dateinamen "
-#~ "schließen.). So wird die aktuelle Datei geschlossen. Falls die Datei neu "
-#~ "oder nicht gespeichert ist, so wird <application>Anjuta</application> "
-#~ "nachfragen, ob die Datei vor dem Schließen gespeichert werden soll."
-
-#~ msgid "Editing Files"
-#~ msgstr "Bearbeiten von Dateien"
-
-#~ msgid ""
-#~ "<application>Anjuta</application> has a number of features which help you "
-#~ "edit and work with source files. The following sections describe how to "
-#~ "use some of the interesting features available."
-#~ msgstr ""
-#~ "<application>Anjuta</application> verfügt über eine Reihe von "
-#~ "Funktionsmerkmalen, die Ihnen beim Bearbeiten von Quelldateien helfen. Die "
-#~ "folgenden abschnitte beschreiben, wie einige der interessanten "
-#~ "Funktionsmerkmale verwendet werden."
-
-#~ msgid "Editor Margins"
-#~ msgstr "Editorränder"
-
-#~ msgid "The Tags toolbar"
-#~ msgstr "Die Werkzeugleiste für Beschriftungen"
-
-#~ msgid ""
-#~ "<emphasis>Editor Margins:</emphasis> Editor margins appear to the left of "
-#~ "the editor and are used for some special purposes. There are three editor "
-#~ "margins available: the <emphasis>line number margin</emphasis>, the "
-#~ "<emphasis>marker margin</emphasis> and the <emphasis>code fold margin</"
-#~ "emphasis>. By default (that is, when you run <application>Anjuta</"
-#~ "application> for the first time) only the code fold margin will be "
-#~ "visible. The rest can be made visible via <menuchoice><guimenu>View</"
-#~ "guimenu><guisubmenu>Editor</guisubmenu></menuchoice>. <placeholder-1/>"
-#~ msgstr ""
-#~ "<emphasis>Editorränder:</emphasis> Editorränder befinden sich links des "
-#~ "Editors und werden für einige bestimmte Zwecke verwendet. Es stehen drei "
-#~ "Editorränder zur Verfügung: Der <emphasis>Zeilennummernrand</emphasis>, "
-#~ "der <emphasis>Markierungsrand</emphasis> und der <emphasis>Rand für "
-#~ "Textfaltungen</emphasis>. Per Voreinstellung (das heißt beim ersten Start "
-#~ "von <application>Anjuta</application>) ist nur der Rand für Textfaltungen "
-#~ "sichtbar. Die anderen beiden können über das Menü "
-#~ "<menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</guisubmenu></"
-#~ "menuchoice> sichtbar geschaltet werden. <placeholder-1/>"
-
-#~ msgid ""
-#~ "The <emphasis>line number margin</emphasis> is largest of all the three "
-#~ "margins (and is slightly darker then rest) and displays a document's line "
-#~ "numbers. The <emphasis>line number margin</emphasis> can be shown or "
-#~ "hidden by toggling <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guimenuitem>Line Numbers Margin</guimenuitem></menuchoice>. "
-#~ "Left-clicking on this margin will select an entire line (including the "
-#~ "trailing newline, if present). You can set font properties for the line "
-#~ "number margin in the preferences."
-#~ msgstr ""
-#~ "Der<emphasis>Rand für Zeilennummern</emphasis> ist der größte aller drei "
-#~ "Ränder (und etwas dunkler als die anderen) und gibt die Zeilennummern "
-#~ "eines Dokumentes an. Der <emphasis>Rand für Zeilennummern</emphasis> kann "
-#~ "über den Menüpunkt <menuchoice><guimenu>Ansicht</"
-#~ "guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Rand für "
-#~ "Zeilennummern</guimenuitem></menuchoice> angezeigt oder verborgen werden. "
-#~ "Ein Linksklick auf den Rand markiert eine ganze Zeile (einschließlich des "
-#~ "Zeilenumbruchs, sofern vorhanden). Sie können eine Schriftart für den "
-#~ "Zeilennummernrand in den Einstellungen festlegen."
-
-#~ msgid ""
-#~ "The <emphasis>marker margin</emphasis> can be shown or hidden via "
-#~ "<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guimenuitem>Markers Margin</guimenuitem></menuchoice>. This "
-#~ "margin displays graphical icons to mark the given line. The margin may "
-#~ "display bookmark markers (blue and rectangular), breakpoint markers (red "
-#~ "and circular) and line indicator markers (which look like a yellow pointed "
-#~ "arrow). A bookmark marker indicates a bookmarked line, and can be toggled "
-#~ "via <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</"
-#~ "guisubmenu><guimenuitem> Toggle Bookmark</guimenuitem></menuchoice> with "
-#~ "the cursor placed on that line. A breakpoint marker is used in the "
-#~ "debugger to indicate a debugging breakpoint (see the Debugging section for "
-#~ "more details). A line indicator marker is used to indicate the current "
-#~ "program position in the debugger."
-#~ msgstr ""
-#~ "Der <emphasis>Markierungsrand</emphasis> kann über den Menüpunkt "
-#~ "<menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guimenuitem>Markierungsrand</guimenuitem></menuchoice> "
-#~ "verborgen und angezeigt werden. Dieser Rand zeigt grafische Symbole zur "
-#~ "Markierung einer Zeile. Der Rand kann Markierungen für Lesezeichen (blau "
-#~ "und rechteckig), für Haltepunkte (rot und rund) sowie Zeilenangaben "
-#~ "enthalten (gelber spitzer Pfeil). Eine Markierung für Lesezeichen deutet "
-#~ "eine Zeile mit Lesezeichen an und kann über das Menü "
-#~ "<menuchoice><guimenu>Gehe zu</guimenu><guisubmenu>Lesezeichen</"
-#~ "guisubmenu><guimenuitem> Lesezeichen an/aus</guimenuitem></menuchoice> "
-#~ "ein- und ausgeschaltet werden, sofern sich die Eingabemarke in dieser "
-#~ "Zeile befindet. Eine Markierung für Haltepunkte wird bei der "
-#~ "Fehlerdiagnose verwendet, um einen Haltepunkt festzulegen (lesen Sie den "
-#~ "Abschnitt Fehlerdiagnose für weitere Informationen). Eine Markierung für "
-#~ "Zeilennummern gibt die aktuelle Programmposition während der "
-#~ "Fehlerdiagnose an."
-
-#~ msgid ""
-#~ "The <emphasis>code fold margin</emphasis> is where the folding tree is "
-#~ "visible. Clicking on folding tree nodes will fold or unfold code blocks. "
-#~ "An underline will also be drawn below a folded line to make it more "
-#~ "obvious that a block of code has been folded below the line. For more "
-#~ "details on code folding, see the section <emphasis>Code Folding</emphasis> "
-#~ "below."
-#~ msgstr ""
-#~ "Der <emphasis>Textfaltungsrand</emphasis> enthält gegebenenfalls den "
-#~ "Faltungsbaum. Ein Klick auf Knoten im Faltungsbaum klappt Code-Blöcke ein "
-#~ "oder aus. Es wird ein Unterstrich unter einer eingeklappten Zeile "
-#~ "angezeigt, um zu verdeutlichen, dass ein Code-Block unter der Zeile "
-#~ "eingeklappt wurde. Lesen Sie für weitere Informationen zum Falten den "
-#~ "Abschnitt <emphasis>Textfaltung</emphasis> weiter unten."
-
-#~ msgid "Invisible margin marker"
-#~ msgstr "Verborgener Markierungsrand"
-
-#~ msgid "Editor markers when the marker margin is invisible"
-#~ msgstr "Editorränder im Falle unsichtbarer Markierungsränder"
-
-#~ msgid ""
-#~ "If the marker margin is not visible, Anjuta displays markers by changing "
-#~ "the background color of a line. For example, if a breakpoint marker is set "
-#~ "in a line and the marker margin is not visible, that line will be "
-#~ "displayed with a red background. Similarly, for a bookmark marker and a "
-#~ "line indicator marker the background color of the line will be sky blue "
-#~ "and yellow, respectively. If you do not like this (perhaps due to some "
-#~ "contrasting themes), enable the marker margin via "
-#~ "<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guimenuitem>Marker Margin</guimenuitem></menuchoice>. "
-#~ "<placeholder-1/>"
-#~ msgstr ""
-#~ "Falls der Markierungsrand nicht sichtbar ist, zeigt Anjuta Markierungen "
-#~ "als Hintergrundfarbe einer Zeile an. Wenn zum Beispiel eine Markierung "
-#~ "eines Haltepunkts für eine Zeile gesetzt ist und der Markierungsrand nicht "
-#~ "sichtbar ist, so wird diese Zeile mit einem roten Hintergrund dargestellt. "
-#~ "Ähnlich wird für ein Lesezeichen und eine Zeilennummernmarkierung die "
-#~ "Hintergrundfarbe tiefblau bzw. gelb sein. Wenn Ihnen dies nicht gefällt "
-#~ "(eventuell. im Zusammenspiel mit dem aktuell verwendeten Thema), so können "
-#~ "Sie den Markierungsrand im Menü <menuchoice><guimenu>Ansicht</"
-#~ "guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Markierungsrand</"
-#~ "guimenuitem></menuchoice> einschalten. <placeholder-1/>"
-
-#~ msgid "Editor Guides"
-#~ msgstr "Bearbeitungshilfen"
-
-#~ msgid "Editor with guides"
-#~ msgstr "Editor mit Bearbeitungshilfen"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "Syntaxhervorhebung"
-
-#~ msgid ""
-#~ "<application>Anjuta</application> can highlight the syntax of many "
-#~ "different languages. This is usually done automatically by determining the "
-#~ "type of a file from its extension. If <application>Anjuta</application> "
-#~ "cannot determine the type of a file, there will be no syntax highlighting. "
-#~ "You can explicitly force a particular highlight style by selecting the "
-#~ "style from the menu <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guisubmenu> Highlight Mode</guisubmenu></menuchoice>."
-#~ msgstr ""
-#~ "<application>Anjuta</application> kann die Syntax von vielen verschiedenen "
-#~ "Sprachen hervorheben. Dies geschieht normalerweise automatisch durch "
-#~ "Erkennung der Dateiart anhand der Erweiterung. Falls <application>Anjuta</"
-#~ "application> einen Dateityp nicht erkennen kann, dann wird keine "
-#~ "Syntaxhervorhebung eingesetzt. Sie können explizit einen "
-#~ "Hervorhebungsmodus erzwingen, indem Sie den Stil im Menü "
-#~ "<menuchoice><guimenu>Ansicht</guimenu><guisubmenu>Editor</"
-#~ "guisubmenu><guisubmenu> Hervorhebungsmodus</guisubmenu></menuchoice> "
-#~ "wählen."
-
-#~ msgid ""
-#~ "Anjuta uses a properties file named <filename>$prefix/share/anjuta/"
-#~ "properties/anjuta.properties</filename>, which has the same format as a "
-#~ "SciTE properties file but does not use all properties. The style of each "
-#~ "element for all languages is defined in a file named <filename>$prefix/"
-#~ "share/anjuta/properties/styles.properties</filename>. It uses some common "
-#~ "properties defined by Anjuta in the file <filename>$home/.config/anjuta/"
-#~ "scintilla/editor-style.properties</filename>."
-#~ msgstr ""
-#~ "Anjuta verwendet eine Eigenschaftendatei mit dem Namen <filename>$prefix/"
-#~ "share/anjuta/properties/anjuta.properties</filename>, die das gleiche "
-#~ "Format wie eine SciTE-Eigenschaftendatei besitzt, aber nicht alle "
-#~ "Eigenschaften verwendet. Der Stil jedes Elements für alle Sprachen ist in "
-#~ "der Datei <filename>$prefix/share/anjuta/properties/styles.properties</"
-#~ "filename> hinterlegt. Sie verwendet einige gewöhnliche Eigenschaften, die "
-#~ "von Anjuta in der Datei <filename>$home/.config/anjuta/scintilla/editor-"
-#~ "style.properties</filename> festgelegt sind."
-
-#~ msgid "Code folding"
-#~ msgstr "Textfaltung"
-
-#~ msgid ""
-#~ "Anjuta can display <emphasis>code folds</emphasis> for source files in "
-#~ "block-structured languages (such as C, C++, Pascal, and Java). All code "
-#~ "blocks in a source file can be folded or unfolded by clicking on the fold "
-#~ "points in the code fold margin of the <interface>Editor</interface> window "
-#~ "(usually a +/- symbol or up/down arrow). These fold points automatically "
-#~ "appear for source files which use code blocks."
-#~ msgstr ""
-#~ "Anjuta kann <emphasis>Code-Faltungen</emphasis> für Quelldateien mit in "
-#~ "Blöcken strukturierten Sprachen (wie C, C++, Pascal, und Java) anzeigen. "
-#~ "Alle Code-Blöcke in Quelldateien können ein- und ausgeklappt werden, indem "
-#~ "auf die Faltungspunkte im Rand für Code-Faltung des <interface>Editor</"
-#~ "interface>-fensters geklickt wird (normalerweise ein »+/-«- Symbol oder "
-#~ "ein Pfeil nach oben/unten). Die Faltungspunkte erscheinen automatisch in "
-#~ "Quelldateien, die Code-Blöcke enthalten."
-
-#~ msgid ""
-#~ "Code folding is especially useful when editing large source files with "
-#~ "thousands of lines. Once the folds are closed, a document appears to "
-#~ "become smaller, facilitating easy browsing and editing of the file."
-#~ msgstr ""
-#~ "Code-Faltung ist besonders nützlich beim Bearbeiten von sehr großen "
-#~ "Quelldateien mit tausenden Zeilen. Sobald Teile eingeklappt sind, scheint "
-#~ "ein Dokument kleiner zu sein, und einfaches Durchsuchen und Bearbeiten "
-#~ "werden möglich."
-
-#~ msgid ""
-#~ "Please note that code folding and editor guides are only available in the "
-#~ "Scintilla-based editor."
-#~ msgstr ""
-#~ "Bitte beachten Sie, dass Code-Faltung und Bearbeitungshilfen nur im "
-#~ "Scintilla-Editor verfügbar sind."
-
-#~ msgid "Auto-formatting source code"
-#~ msgstr "Automatische Formatierung von Quelltext"
-
-#~ msgid ""
-#~ "Anjuta can automatically indent (auto-format) C or C++ source or header "
-#~ "files. This gives a clean look to the source code, increases legibility, "
-#~ "reduces the likelihood of syntax errors, and above all saves time. To auto-"
-#~ "indent the current source file, choose <menuchoice><guimenu>Edit</"
-#~ "guimenu><guimenuitem>Auto Indent </guimenuitem></menuchoice> on the menu "
-#~ "bar. You can change the style of formatting by customizing the choices in "
-#~ "the preferences."
-#~ msgstr ""
-#~ "Anjuta kann C- oder C++-Quelldateien oder Header-Dateien automatisch "
-#~ "formatieren (automatisch einrücken). Dies ermöglicht eine gute Übersicht "
-#~ "über den Quellcode, verbessert die Lesbarkeit, reduziert die "
-#~ "Wahrscheinlichkeit von Syntaxfehlern und spart vor allem Zeit. Zum "
-#~ "automatischen Einrücken wählen Sie <menuchoice><guimenu>Bearbeiten</"
-#~ "guimenu><guimenuitem>Automatisches Einrücken </guimenuitem></menuchoice> "
-#~ "in der Menüzeile. Sie können den Stil der Formatierung in den "
-#~ "Einstellungen selbst anpassen."
-
-#, fuzzy
-#~ msgid ""
-#~ "You can browse C and C++ source and header files using <emphasis>tags</"
-#~ "emphasis> in the files. A tag (or <emphasis>symbol</emphasis>) refers to a "
-#~ "named entity such as a function definition, structure, or macro. Anjuta "
-#~ "scans open C and C++ source and header files for available tags."
-#~ msgstr ""
-#~ "Sie können C- und C++-Quelldateien und -Headerdateien anhand von "
-#~ "<emphasis>tags??</emphasis> in den Dateien durchsuchen. A tag (oder "
-#~ "<emphasis>Symbol</emphasis>) refers to a named entity such as a function "
-#~ "definition, structure, or macro. Anjuta durchsucht offene C-und C++-"
-#~ "Quelldateien und Header-Dateien nach vorhandenen tags."
-
-#~ msgid "Symbol browser"
-#~ msgstr "Symbol-Browser"
-
-#, fuzzy
-#~ msgid ""
-#~ "<application>Anjuta</application> will automatically scan for tags in all "
-#~ "of the source and header files of any open project. You can jump to any "
-#~ "function definition, structure definition, class definition or other tag "
-#~ "without manually opening the containing file. You don't even have to know "
-#~ "which file the tag is found in. The symbol browser lists all available "
-#~ "symbols in the project. <placeholder-1/>"
-#~ msgstr ""
-#~ "<application>Anjuta</application> sucht automatisch nach tags in allen "
-#~ "Quell- und Header-Dateien eines geöffneten Projekts. Sie können zu jeder "
-#~ "Funktionsdefinition, Strukturdefinition, Klassendefinition oder anderen "
-#~ "tags springen, ohne die entsprechende Datei zuvor zu öffnen. Sie müssen "
-#~ "auch gar nicht wissen, in welcher Datei der Tag gefunden wurde. Der Symbol-"
-#~ "Browser listet alle im Projekt verfügbaren Symbole auf. <placeholder-1/>"
-
-#, fuzzy
-#~ msgid "Tag synchronization"
-#~ msgstr "Tag-Abgleich"
-
-#, fuzzy
-#~ msgid ""
-#~ "You don't have to worry about the synchronization and update of the tag "
-#~ "database. <application>Anjuta</application> will take care of everything. "
-#~ "You just have to decide which tag you want to go to!"
-#~ msgstr ""
-#~ "Sie müssen sich nicht um Abgleich und Aktualisierung der Tag-Datenbank "
-#~ "kümmern. <application>Anjuta</application> übernimmt dies alles. Sie "
-#~ "müssen lediglich entscheiden, welche Tags sie anspringen möchten!"
-
-#~ msgid "Searching for and Replacing text in files"
-#~ msgstr "Suchen und Ersetzen von Text in Dateien"
-
-#~ msgid "Searching"
-#~ msgstr "Suchen"
-
-#~ msgid ""
-#~ "To search for a <emphasis>string</emphasis> or <emphasis>regular "
-#~ "expression</emphasis> in the current file, choose "
-#~ "<menuchoice><guimenu>Edit</guimenu><guisubmenu>Search</"
-#~ "guisubmenu><guimenuitem>Find</guimenuitem></menuchoice> or press "
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>F</keycap></"
-#~ "keycombo>. This will open the <interface>Find</interface> dialog."
-#~ msgstr ""
-#~ "Um nach einer <emphasis>Zeichenkette</emphasis> oder einem "
-#~ "<emphasis>regulären Ausdruck</emphasis> in der aktuellen Datei zu suchen, "
-#~ "wählen Sie <menuchoice><guimenu>Bearbeiten</guimenu><guisubmenu>Suchen</"
-#~ "guisubmenu><guimenuitem>Finden</guimenuitem></menuchoice> oder drücken Sie "
-#~ "<keycombo><keycap>Strg</keycap><keycap>Alt</keycap><keycap>F</keycap></"
-#~ "keycombo>. Daraufhin wird der Dialog <interface>Finden</interface> "
-#~ "geöffnet."
-
-#~ msgid ""
-#~ "Use the text box to specify the string to search for, and select whether "
-#~ "it is a normal string or a regular expression. You can also specify the "
-#~ "direction of search, whether the search is case-sensitive or not, and the "
-#~ "scope of the search. Click <guibutton>Search</guibutton> to start "
-#~ "searching."
-#~ msgstr ""
-#~ "Geben Sie die zu suchende Zeichenkette in das Feld ein und wählen Sie, ob "
-#~ "es eine normale Zeichenkette oder ein regulärer Ausdruck ist. Sie können "
-#~ "auch die Suchrichtung, die Beachtung von Groß-/Kleinschreibung und den "
-#~ "Suchbereich festlegen. Klicken Sie zum Starten der Suche auf "
-#~ "<guibutton>Suchen</guibutton>."
-
-#~ msgid ""
-#~ "If the search is successful, Anjuta will jump to the matched text or "
-#~ "perform another action (according to the <guilabel>Search Action</"
-#~ "guilabel> you choose in the <guilabel>Search Target</guilabel> tab). If "
-#~ "the search is not successful, Anjuta will display a message indicating "
-#~ "that the search text was not found."
-#~ msgstr ""
-#~ "Bei erfolgreicher Suche springt Anjuta den Suchtreffer an oder führt eine "
-#~ "weitere Aktion aus (entsprechend der <guilabel>Suchaktion</guilabel>, die "
-#~ "Sie im Reiter <guilabel>Suchziel</guilabel> gewählt haben). Wenn die Suche "
-#~ "ohne Erfolg blieb, wird Anjuta eine Nachricht anzeigen, die darüber "
-#~ "informiert."
-
-#~ msgid ""
-#~ "If you want to search again, click the <guibutton>Search</guibutton> "
-#~ "button again or press <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></"
-#~ "keycombo>. This will find the next match (use <keycombo><keycap>Shift</"
-#~ "keycap><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> for the previous "
-#~ "match). You can even change the search text when you do this; enter the "
-#~ "new string in the <guilabel>Search Expression</guilabel> text box in the "
-#~ "search dialog."
-#~ msgstr ""
-#~ "Wenn Sie die Suche fortsetzen möchten, klicken Sie auf den Knopf "
-#~ "<guibutton>Suchen</guibutton> ein weiteres Mal oder drücken Sie "
-#~ "<keycombo><keycap>Strg</keycap><keycap>G</keycap></keycombo>. So wird der "
-#~ "nächste Suchtreffer aufgesucht (Verwenden Sie <keycombo><keycap>Umschalt</"
-#~ "keycap><keycap>Strg</keycap><keycap>G</keycap></keycombo> für den "
-#~ "vorhergehenden Suchtreffer). Sie können den Suchtext ändern, indem Sie die "
-#~ "neue Zeichenkette in das Textfeld <guilabel>Suchausdruck</guilabel> im "
-#~ "Suchdialog eingeben."
-
-#~ msgid "Search Text dialog"
-#~ msgstr "Dialog »Suchtext«"
-
-#~ msgid "To stop a long search, press the <guibutton>Stop</guibutton> button."
-#~ msgstr ""
-#~ "Drücken Sie zum Anhalten einer langen Suche den Knopf <guibutton>Stopp</"
-#~ "guibutton>."
-
-#~ msgid "Specifying Search Range"
-#~ msgstr "Festlegen des Suchbereichs"
-
-#~ msgid ""
-#~ "In the <interface>Search Target</interface> tab, define the search "
-#~ "location and the action to be performed if the search succeeds."
-#~ msgstr ""
-#~ "Legen Sie im Reiter <interface>Suchziel</interface> den Suchbereich und "
-#~ "die Aktion fest, die im Falle eines Sucherfolgs ausgeführt werden soll."
-
-#~ msgid "You can define the maximum number of actions to be performed."
-#~ msgstr ""
-#~ "Sie können die maximale Anzahl der auszuführenden Aktionen festlegen."
-
-#~ msgid "Search Target dialog"
-#~ msgstr "Dialog »Suchziel«"
-
-#~ msgid "You can select which text will be searched."
-#~ msgstr "Sie können wählen, nach welchem Text gesucht werden soll."
-
-#~ msgid "Search Target In choice"
-#~ msgstr "Auswahlmöglichkeiten für »Suchen in«"
-
-#~ msgid "Searching in Files"
-#~ msgstr "Suchen in Dateien"
-
-#~ msgid ""
-#~ "To find text in your project, set <guilabel>Search In</guilabel> to All "
-#~ "Project Files."
-#~ msgstr ""
-#~ "Setzen Sie zur Textsuche in Ihrem Projekt <guilabel>Suchen in</guilabel> "
-#~ "auf »Alle Projektdateien«."
-
-#~ msgid ""
-#~ "In the <guilabel>Search Expression</guilabel> tab, enter the text you want "
-#~ "to search for and specify search options, such as the <guilabel>Match "
-#~ "case</guilabel> or <guilabel>Match complete words</guilabel> options. "
-#~ "Click <guibutton>Search</guibutton> to start searching."
-#~ msgstr ""
-#~ "Geben Sie im Reiter <guilabel>Suchausdruck</guilabel> den zu suchenden "
-#~ "Text ein und legen Sie die Sucheinstellungen fest, wie z.B. "
-#~ "<guilabel>Groß-/Kleinschreibung berücksichtigen</guilabel> oder "
-#~ "<guilabel>Nur vollständige Wörter berücksichtigen</guilabel>. Starten Sie "
-#~ "die Suche mit  <guibutton>Suchen</guibutton>."
-
-#~ msgid ""
-#~ "To find text in a set of files, set <guilabel>Search In</guilabel> to "
-#~ "Specify File Patterns. Define the search variables. Click "
-#~ "<guibutton>Search</guibutton> to start searching."
-#~ msgstr ""
-#~ "Verwenden Sie zum Suchen von Text in mehreren Dateien das Feld "
-#~ "<guilabel>Suchen in</guilabel> zur Eingabe von Dateimustern. Legen Sie die "
-#~ "Suchvariablen fest. Klicken Sie anschließen zum Start der Suche auf "
-#~ "<guibutton>Suchen</guibutton>."
-
-#~ msgid "Search File Pattern"
-#~ msgstr "Dateisuchmuster"
-
-#~ msgid "Specifying a Search Action"
-#~ msgstr "Einen Suchvorgang angeben"
-
-#~ msgid "You can select which action will be performed when a search succeeds."
-#~ msgstr ""
-#~ "Sie können auswählen welche Aktion bei erfolgreicher Suche ausgeführt "
-#~ "werden soll."
-
-#~ msgid ""
-#~ "Depending on the previous selections (<guilabel>Search In</guilabel>, "
-#~ "<guilabel>Search Direction</guilabel> , and so on), some actions may be "
-#~ "unavailable."
-#~ msgstr ""
-#~ "Abhängig von der vorherigen Auswahl (<guilabel>Suche in</guilabel>, "
-#~ "<guilabel>Suchrichtung</guilabel> usw.) stehen einige Vorgänge nicht zur "
-#~ "Verfügung."
-
-#~ msgid "Search Target Action choice"
-#~ msgstr "Auswahlmöglichkeiten für die Aktion »Suchziel«"
-
-#~ msgid "Replacing"
-#~ msgstr "Ersetzen"
-
-#~ msgid ""
-#~ "Searching and replacing is similar to just finding text, except that you "
-#~ "also specify the replacement text in the <guilabel>Replace With</guilabel> "
-#~ "text box, and also specify whether or not you want to be prompted before "
-#~ "each replacement takes place (Replace First Match or Replace All Matches)."
-#~ msgstr ""
-#~ "Suchen und Ersetzen ist vergleichbar mit der Textsuche, mit dem "
-#~ "Unterschied, dass Sie auch den Ersatztext im Textfeld <guilabel>Ersetzen "
-#~ "durch</guilabel> eingeben können. Und Sie können auch festlegen, ob Sie "
-#~ "vor jeder Ersetzung gefragt werden möchten (»Ersten Treffer ersetzen« und "
-#~ "»Alle Treffer ersetzen«)."
-
-#~ msgid ""
-#~ "Choose <guibutton>Replace</guibutton> to replace the matched text or "
-#~ "<guibutton>Forward</guibutton> to jump to the next matched text."
-#~ msgstr ""
-#~ "Wählen Sie <guibutton>Ersetzen</guibutton> zum Ersetzen der "
-#~ "Übereinstimmung oder <guibutton>Weiter</guibutton>, um zur nächsten "
-#~ "Übereinstimmung zu gelangen."
-
-#~ msgid "Search Setting"
-#~ msgstr "Sucheinstellungen"
-
-#~ msgid "You may also save search options."
-#~ msgstr "Sie können Suchoptionen auch speichern."
-
-#~ msgid ""
-#~ "The item highlighted in red is the active item. The default item specifies "
-#~ "search settings which are loaded when Anjuta launches."
-#~ msgstr ""
-#~ "Das in rot hervorgehobene Objekt ist das aktive. Das vorausgewählte Objekt "
-#~ "gibt Sucheinstellungen vor, die beim Start von Anjuta geladen werden."
-
-#~ msgid "Search Setting dialog"
-#~ msgstr "Dialog zu den Sucheinstellungen"
-
-#~ msgid "Printing a file"
-#~ msgstr "Drucken einer Datei"
-
-#~ msgid "Print preview of a C file"
-#~ msgstr "Druckvorschau für eine C-Datei"
-
-#~ msgid "Print preview"
-#~ msgstr "Druckvorschau"
-
-#~ msgid ""
-#~ "You can perform a print preview by selecting <menuchoice><guisubmenu>File</"
-#~ "guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>. This "
-#~ "will render the current file and present a preview of the print. Source "
-#~ "code which is highlighted in the editor is also highlighted similarly in "
-#~ "the preview (and subsequent print). The <guilabel>Printing</guilabel> tab "
-#~ "of your editor plugin preferences contains additional options which let "
-#~ "you print with line numbers, wrapped lines and/or headers. <placeholder-1/>"
-#~ msgstr ""
-#~ "Sie können die Druckvorschau mit <menuchoice><guisubmenu>Datei</"
-#~ "guisubmenu><guimenuitem>Druckvorschau</guimenuitem></menuchoice> aufrufen. "
-#~ "Die aktuelle Datei wird abgebildet und eine Druckvorschau angezeigt. Im "
-#~ "Editor hervorgehobener Quelltext wird auch ähnlich in der Vorschau "
-#~ "hervorgehoben (und im Ausdruck). Der Reiter <guilabel>Drucken</guilabel> "
-#~ "in den Einstellungen der Editor-Plugins weitere Einstellungen, die den "
-#~ "Ausdruck mit Zeilennummern, umgebrochenen Zeilen und/oder Headern "
-#~ "ermöglichen. <placeholder-1/>"
-
-#~ msgid "Print preferences"
-#~ msgstr "Druckeinstellungen"
-
-#~ msgid ""
-#~ "When you are ready to print and satisfied with the preview, select "
-#~ "<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></"
-#~ "menuchoice> or <guibutton>Print</guibutton> from the print preview window. "
-#~ "This will bring up the actual print dialog as shown below. Select the "
-#~ "appropriate print parameters and press <guibutton>Print</guibutton> to "
-#~ "print the file."
-#~ msgstr ""
-#~ "Wenn Sie nun drucken möchten und mit der Vorschau zufrieden sind, wählen "
-#~ "Sie <menuchoice><guisubmenu>Datei</guisubmenu><guimenuitem>Drucken</"
-#~ "guimenuitem></menuchoice> oder <guibutton>Drucken</guibutton> im "
-#~ "Vorschaufenster. Der unten gezeigte Druckdialog wird daraufhin geöffnet. "
-#~ "Wählen Sie die passenden Druckeinstellungen und klicken Sie zum Drucken "
-#~ "der Datei auf <guibutton>Drucken</guibutton>."
-
-#~ msgid ""
-#~ "You can also set landscaped or portrait page layout and the paper size, "
-#~ "page orientation and paper type. Remember to set them up properly "
-#~ "according to your printer, otherwise printing may not look correct."
-#~ msgstr ""
-#~ "Sie können auch Hoch- oder Querformat, Papiergröße, Seitenorientierung und "
-#~ "Papiertyp festlegen. Vergessen Sie nicht die richtigen Einstellungen für "
-#~ "Ihren Drucker zu treffen, da andernfalls der Ausdruck nicht wie erwartet "
-#~ "sein kann."
-
-#~ msgid ""
-#~ "Anjuta has a powerful Project Manager plugin which can open most <ulink "
-#~ "type=\"info\" url=\"info:automake\">automake/autoconf</ulink>-based "
-#~ "projects. It might fail on some oddly-configured projects, but as long as "
-#~ "the project uses automake/autoconf in a typical way, it should work."
-#~ msgstr ""
-#~ "Anjuta verfügt über ein mächtiges Plugin zur Projektverwaltung, das die "
-#~ "meisten auf <ulink type=\"info\" url=\"info:automake\">automake/autoconf</"
-#~ "ulink> basierenden Projekte öffnen kann. In einigen ungewöhnlich "
-#~ "konfigurierten Projekten kann es fehlschlagen, aber solange das Projekt  "
-#~ "automake/autoconf auf typische Weise verwendet, sollte es funktionieren."
-
-#~ msgid ""
-#~ "The neat thing is that Anjuta does not store any project information "
-#~ "beyond what is already available in the project structure. That is, there "
-#~ "is no separate project data maintained by Anjuta and all project "
-#~ "processing is done directly within the project structure. This allows a "
-#~ "project to be maintained or developed outside Anjuta without any need to "
-#~ "convert to or from an Anjuta-specific format. Since technically Anjuta "
-#~ "projects are just automake projects, mixed development (with both Anjuta "
-#~ "and non-Anjuta users) or switching back and forth between Anjuta and other "
-#~ "tools is quite possible without any hindrance."
-#~ msgstr ""
-#~ "Das vorteilhafte ist, dass Anjuta nichts zusätzlich zu den in der "
-#~ "Projektstruktur hinterlegten Projektinformationen speichert. Das heißt, es "
-#~ "gibt keine separaten Projektdaten von Anjuta, und alle Projektarbeiten "
-#~ "geschehen direkt in der Projektstruktur. So ist es möglich, das Projekt "
-#~ "ohne Anjuta zu verwalten und zu entwickeln, ohne den Zwang, zu einem "
-#~ "Anjuta-eigenen Format umwandeln zu müssen. Technisch betrachtet sind "
-#~ "Anjuta-Projekte automake-Projekte, und so ist gemischte Entwicklung (mit "
-#~ "und ohne Anjuta-Anwender) als auch der Wechsel zwischen "
-#~ "Entwicklungsplattformen ohne Hindernisse möglich."
-
-#~ msgid "Creating a project from a template"
-#~ msgstr "Erstellen eines Projekts aus einer Vorlage"
-
-#~ msgid ""
-#~ "To create a project, choose the menu item <menuchoice><guisubmenu>File</"
-#~ "guisubmenu><guisubmenu>New</guisubmenu><guimenuitem>Project …</"
-#~ "guimenuitem></menuchoice> to start the application wizard. Read the first "
-#~ "page carefully. Click on <guibutton>Next</guibutton> to proceed."
-#~ msgstr ""
-#~ "Zum Erstellen eines neuen Projekts wählen Sie den Menüpunkt "
-#~ "<menuchoice><guisubmenu>Datei</guisubmenu><guisubmenu>Neu</"
-#~ "guisubmenu><guimenuitem>Projekt …</guimenuitem></menuchoice>, um so den "
-#~ "Projekt-Assistenten zu starten. Lesen Sie die erste Seite sorgsam. Klicken "
-#~ "Sie auf <guibutton>Vor</guibutton>, um fortzusetzen."
-
-#~ msgid ""
-#~ "Select the type of application you want to create in the second page. "
-#~ "Click on <guibutton>Next</guibutton> to proceed."
-#~ msgstr ""
-#~ "WÄhlen Sie die Art der zu erstellenden Anwendung auf der zweiten Seite. "
-#~ "Klicken Sie auf <guibutton>Vor</guibutton>, um fortzusetzen."
-
-#~ msgid ""
-#~ "The final step is to verify the information you have just supplied. Click "
-#~ "on <guibutton>Finish</guibutton> to start generating the project."
-#~ msgstr ""
-#~ "Im letzten Schritt sollen Sie die eingegebenen Informationen prüfen. "
-#~ "Klicken Sie zur Erstellung des Projekts auf <guibutton>Beenden</guibutton>."
-
-#~ msgid ""
-#~ "Once the project has been generated, you can try it out by building it and "
-#~ "executing it."
-#~ msgstr ""
-#~ "Sobald das Projekt erstellt wurde, können Sie es testen und es erstellen "
-#~ "oder ausführen."
-
-#~ msgid ""
-#~ "The import project feature only works if your existing project uses <ulink "
-#~ "type=\"info\" url=\"info:automake\">autoconf/automake</ulink> or, to a "
-#~ "very limited extent, a plain Makefile."
-#~ msgstr ""
-#~ "Der Importiervorgang funktioniert nur, wenn das bestehende Projekt <ulink "
-#~ "type=\"info\" url=\"info:automake\">autoconf/automake</ulink> oder in "
-#~ "gewissem Rahmen ein Makefile verwendet."
-
-#~ msgid "Loading and Saving Projects"
-#~ msgstr "Laden und Speichern von Projekten"
-
-#~ msgid ""
-#~ "To open a project, choose the menu item <menuchoice><guisubmenu>File</"
-#~ "guisubmenu><guimenuitem>Open …</guimenuitem></menuchoice>. Select the "
-#~ "project file (<filename>*.anjuta</filename>) in the dialog and click "
-#~ "<guibutton>OK</guibutton>."
-#~ msgstr ""
-#~ "Um ein Projekt zu öffnen, wählen Sie <menuchoice><guisubmenu>Datei</"
-#~ "guisubmenu><guimenuitem>Öffnen …</guimenuitem></menuchoice>. Wählen Sie "
-#~ "die Projektdatei (<filename>*.anjuta</filename>) im Dialog aus und klicken "
-#~ "Sie auf <guibutton>OK</guibutton>."
-
-#~ msgid ""
-#~ "If the project has recently been opened, then you will find it listed in "
-#~ "the menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent</"
-#~ "guisubmenu></menuchoice>. Choose the project filename from the list, and "
-#~ "the project will be opened."
-#~ msgstr ""
-#~ "Wenn ein Projekt jüngst geöffnet wurde, dann finden Sie es im Menü "
-#~ "<menuchoice><guisubmenu>Datei</guisubmenu><guisubmenu>Zuletzt geöffnet</"
-#~ "guisubmenu></menuchoice>. Wählen Sie den Dateinamen des Projekts aus der "
-#~ "Liste, und das Projekt wird geöffnet."
-
-#~ msgid "Saving Projects"
-#~ msgstr "Speichern von Projekten"
-
-#~ msgid ""
-#~ "The project is automatically saved when you close because all changes are "
-#~ "made directly in the project structure."
-#~ msgstr ""
-#~ "Das Projekt wird beim Schließen automatisch gespeichert, weil alle "
-#~ "Änderungen direkt in der Projektstruktur vorgenommen werden."
-
-#~ msgid "Project structure"
-#~ msgstr "Projektstruktur"
-
-#~ msgid "Project window"
-#~ msgstr "Projektfenster"
-
-#~ msgid "The Project window"
-#~ msgstr "Das Projektfenster"
-
-#~ msgid "Adding Groups"
-#~ msgstr "Hinzufügen von Gruppen"
-
-#~ msgid ""
-#~ "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</"
-#~ "guimenuitem></menuchoice> and a dialog to add a new group will pop up."
-#~ msgstr ""
-#~ "Wählen Sie <menuchoice><guisubmenu>Projekt</guisubmenu><guimenuitem>Gruppe "
-#~ "hinzufügen …</guimenuitem></menuchoice> und ein Dialog zum Hinzufügen "
-#~ "neuer Gruppen erscheint."
-
-#~ msgid "Select the group under which to add the new group."
-#~ msgstr ""
-#~ "Wählen Sie die Gruppe, innerhalb der die neue Gruppe hinzugefügt werden "
-#~ "soll."
-
-#~ msgid "Enter the name of the new group and click <guibutton>Add</guibutton>."
-#~ msgstr ""
-#~ "Geben Sie den namen der neuen Gruppe ein und klicken Sie auf "
-#~ "<guibutton>Hinzufügen</guibutton>."
-
-#~ msgid ""
-#~ "To add a new group (which is a directory in automake-based projects): "
-#~ "<placeholder-1/>"
-#~ msgstr ""
-#~ "So fügen Sie eine neue Gruppe hinzu (die einem Ordner in automake-"
-#~ "Projekten entspricht): <placeholder-1/>"
-
-#~ msgid ""
-#~ "With automake projects, a new directory with the given name will be "
-#~ "created under the parent group's directory."
-#~ msgstr ""
-#~ "In Automake-Projekten wird ein neuer Ordner mit dem angegebenen Namen im "
-#~ "Ordner der übergeordneten Gruppe erstellt."
-
-#~ msgid "Removing Groups"
-#~ msgstr "Entfernen von Gruppen"
-
-#~ msgid ""
-#~ "Right-click the group in the <interface>Project Manager</interface> view."
-#~ msgstr ""
-#~ "Klicken Sie mit der rechten Maustaste auf die Gruppe in der Ansicht "
-#~ "<interface>Projektverwaltung</interface>."
-
-#~ msgid "Select <guimenuitem>Remove</guimenuitem> from the context menu."
-#~ msgstr "Wählen Sie <guimenuitem>Entfernen</guimenuitem> im Kontextmenü."
-
-#~ msgid "To remove a group: <placeholder-1/>"
-#~ msgstr "So entfernen Sie eine Gruppe: <placeholder-1/>"
-
-#~ msgid "Select the target type."
-#~ msgstr "Wählen Sie den Zieltyp."
-
-#~ msgid "To add a new target: <placeholder-1/>"
-#~ msgstr "So fügen Sie ein neues Ziel hinzu: <placeholder-1/>"
-
-#~ msgid "Adding and Removing Files"
-#~ msgstr "Hinzufügen und Entfernen von Dateien"
-
-#~ msgid "Removing Source Files"
-#~ msgstr "Entfernen von Quelldateien"
-
-#~ msgid "The file is not deleted!"
-#~ msgstr "Die Datei wurde nicht entfernt!"
-
-#~ msgid ""
-#~ "The file is not deleted from the filesystem. It still exists, and you can "
-#~ "add it back again later if you so wish. The file is only removed from the "
-#~ "project listing, and will not take part in any project operations such as "
-#~ "compiling, building, or distribution."
-#~ msgstr ""
-#~ "Die Datei wird nicht aus dem Dateisystem entfernt. Sie ist noch vorhanden, "
-#~ "und Sie können Sie später wieder hinzufügen, falls gewünscht. Die Datei "
-#~ "wird nur aus der Projektliste entfernt und wird für Projektoperationen wie "
-#~ "Kompilieren, Erstellen oder Veröffentlichen von Distributionspaketen nicht "
-#~ "mehr berücksichtigt."
-
-#~ msgid ""
-#~ "<emphasis>$(prefix)</emphasis>: The installation prefix. The project is "
-#~ "installed under various subdirectories under this prefix. By default it "
-#~ "is /usr/local."
-#~ msgstr ""
-#~ "<emphasis>$(prefix)</emphasis>: Das Installationspräfix. Das Projekt wird "
-#~ "in verschiedenen Unterordnern unter diesem Präfix installiert. Vorgabe "
-#~ "ist /usr/local."
-
-#~ msgid ""
-#~ "<emphasis>$(bindir)</emphasis>: The installation directory for executable "
-#~ "binaries. All your executable and script targets will be installed in this "
-#~ "directory. By default, it is $(prefix)/bin."
-#~ msgstr ""
-#~ "<emphasis>$(bindir)</emphasis>: Der Installationsordner für ausführbare "
-#~ "Dateien. Alle Ihre ausführbaren Dateien und Skripte werden in diesen "
-#~ "Ordner installiert. Vorgabe ist $(prefix)/bin."
-
-#~ msgid ""
-#~ "<emphasis>$(libdir)</emphasis>: The installation directory for libraries. "
-#~ "All your library targets (both shared and static) will be installed in "
-#~ "this directory or a subdirectory below it. By default, it is $(prefix)/lib."
-#~ msgstr ""
-#~ "<emphasis>$(libdir)</emphasis>: Der Installationsordner für Bibliotheken. "
-#~ "Alle Ihre Bibliotheken (sowohl gemeinsame als auch statische) werden in "
-#~ "diesen Ordner oder in einen Unterordner davon installiert. Vorgabe ist "
-#~ "$(prefix)/lib."
-
-#~ msgid ""
-#~ "Some of the many common variables are listed here. For full list of them "
-#~ "see the <ulink url=\"info:automake\">automake info documentation</ulink>. "
-#~ "<placeholder-1/>"
-#~ msgstr ""
-#~ "Einige der am häufigsten vorkommenden Variablen werden hier aufgelistet. "
-#~ "Eine vollständige Liste finden Sie in der <ulink url=\"info:automake"
-#~ "\">Infoseite zu automake</ulink>. <placeholder-1/>"
-
-#~ msgid "Project properties"
-#~ msgstr "Projekteigenschaften"
-
-#~ msgid "Project properties dialog"
-#~ msgstr "Eigenschaften-Dialog für Projekte"
-
-#~ msgid "Group properties"
-#~ msgstr "Gruppeneigenschaften"
-
-#~ msgid "Compile and Build"
-#~ msgstr "Kompilieren und Erstellen"
-
-#~ msgid "Other operations"
-#~ msgstr "Weitere Operationen"
-
-#~ msgid "System-wide installation"
-#~ msgstr "Systemweite Installation"
-
-#~ msgid "The command-line parameters"
-#~ msgstr "Die Befehlszeilenparameter"
-
-#~ msgid ""
-#~ "Environment variables displayed in light gray are the current environment "
-#~ "variables. You can add, modify or remove environment variables here."
-#~ msgstr ""
-#~ "Aktuelle Umgebungsvariablen werden hier in Hellgrau dargestellt. Sie "
-#~ "können hier Umgebungsvariablen hinzufügen, ändern oder löschen."
-
-#~ msgid "Adding source directories"
-#~ msgstr "Hinzufügen von Quellordnern"
-
-#~ msgid "Execution"
-#~ msgstr "Ausführung"
-
-#~ msgid "Stack Window"
-#~ msgstr "Stack-Fenster"
-
-#~ msgid "Thread Window"
-#~ msgstr "Thread-Fenster"
-
-#~ msgid "Others"
-#~ msgstr "Sonstige"
-
-#~ msgid "Dynamically loaded Libraries"
-#~ msgstr "Dynamisch geladene Bibliotheken"
-
-#~ msgid "Kernel Signals window"
-#~ msgstr "Kernelsignale-Fenster"
-
-#~ msgid "Quick start"
-#~ msgstr "Schnellstart"
-
-#~ msgid "Glade general usage questions"
-#~ msgstr "Allgemeine Fragen zur Benutzung von Glade"
-
-#~ msgid "Widget name"
-#~ msgstr "Widget-Name"
-
-#~ msgid "Default signal"
-#~ msgstr "Vorgegebenes Signal"
-
-#~ msgid "Automatically add resources"
-#~ msgstr "Automatisch Ressourcen hinzufügen"
-
-#~ msgid "Handler template"
-#~ msgstr "Vorlage für Handler"
-
-#~ msgid "General"
-#~ msgstr "Allgemein"
-
-#~ msgid "File Manager"
-#~ msgstr "Dateimanager"
-
-#~ msgid "User-defined Tools"
-#~ msgstr "Benutzerdefinierte Werkzeuge"
-
-#~ msgid "The tools plugin has to be enabled to use this feature!"
-#~ msgstr ""
-#~ "Das Werkzeug-Plugin muss aktiviert sein, um diese Funktion nutzen zu "
-#~ "können."
-
-#~ msgid "Tools Examples"
-#~ msgstr "Werkzeug-Beispiele"
-
-#~ msgid ""
-#~ "This is a simple example how to use the tools plugin to integrate the "
-#~ "GNOME ChangeLog generation script."
-#~ msgstr ""
-#~ "Das ist ein einfaches Beispiel, wie man das Werkzeug-Plugin verwenden "
-#~ "kann, um das Generierungsskript für GNOME-Änderungsprotokolle einzubauen."
-
-#~ msgid "The tool editor"
-#~ msgstr "Der Werkzeugeditor"
-
-#~ msgid "Authors"
-#~ msgstr "Autoren"
-
-#~ msgid ""
-#~ "The <application>Anjuta</application> project was founded by Naba Kumar. "
-#~ "<ulink type=\"http\" url=\"http://anjuta.org/credits\">This page</ulink> "
-#~ "lists all Anjuta contributors."
-#~ msgstr ""
-#~ "Das <application>Anjuta</application>-Projekt wurde von Naba Kumar "
-#~ "begründet. Auf <ulink type=\"http\" url=\"http://anjuta.org/credits"
-#~ "\">dieser Seite</ulink> finden Sie alle Anjuta-Mitwirkenden."
-
-#~ msgid ""
-#~ "For more information on <application>Anjuta</application>, please visit "
-#~ "the project website at <ulink type=\"http\" url=\"http://anjuta.org/"
-#~ "\">http://anjuta.org</ulink>. Bug reports should be made using the Bug "
-#~ "Tracker at the project development site <ulink type=\"http\" url=\"http://"
-#~ "www.sourceforge.net/projects/anjuta\"> http://www.sourceforge.net/projects/"
-#~ "anjuta</ulink>."
-#~ msgstr ""
-#~ "Besuchen sie die Projekt Internet-Seite <ulink type=\"http\" url=\"http://"
-#~ "anjuta.org/\">http://anjuta.org</ulink> für weitere Informationen zu "
-#~ "<application>Anjuta</application>. Fehler sollten im "
-#~ "Fehlererfassungssystem auf der Entwicklungsseite zum Projekt <ulink type="
-#~ "\"http\" url=\"http://www.sourceforge.net/projects/anjuta\"> http://www."
-#~ "sourceforge.net/projects/anjuta</ulink> gemeldet werden."
-
-#~ msgid ""
-#~ "This manual was written by Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
-#~ "and Johannes Schmid. Please send all comments and suggestions regarding "
-#~ "this manual to the Anjuta Devel list <email>anjuta-devel-list@gnome.org</"
-#~ "email>. Comments may also be submitted via the project trackers at "
-#~ "SourceForge."
-#~ msgstr ""
-#~ "Dieses Handbuch wurde von Naba Kumar, Andy Piper, Biswapesh Chattopadhyay "
-#~ "und Johannes Schmid geschrieben. Bitte senden Sie alle Vorschläge und "
-#~ "Kommentare, die dieses Handbuch betreffen, an die Anjuta Devel-Mailing-"
-#~ "Liste <email>anjuta-devel-list@gnome.org</email>. Es können auch "
-#~ "Kommentare auf der Projektseite auf SourceForge abgegeben werden."
-
-#~ msgid ""
-#~ "This program is free software; you can redistribute it and/or modify it "
-#~ "under the terms of the <ulink type=\"ghelp\" url=\"gnome-help:gpl\">GNU "
-#~ "General Public License</ulink> as published by the Free Software "
-#~ "Foundation; either version 2 of the License, or (at your option) any later "
-#~ "version."
-#~ msgstr ""
-#~ "Dieses Programm ist freie Software; Sie können es weiterverbreiten und/"
-#~ "oder ändern unter den Bedingungen der <citetitle><ulink type=\"help\" url="
-#~ "\"gnome-help:gpl\">GNU General Public License</ulink></citetitle> wie sie "
-#~ "von der <ulink type=\"http\" url=\"http://www.fsf.org\">Free Software "
-#~ "Foundation</ulink> veröffentlicht wurde; entweder in Version 2 der Lizenz "
-#~ "oder (nach Ihrer Wahl) jeder neueren Version."
-
-#~ msgid ""
-#~ "This program is distributed in the hope that it will be useful, but "
-#~ "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
-#~ "or FITNESS FOR A PARTICULAR PURPOSE. See the <citetitle>GNU General Public "
-#~ "License</citetitle> for more details."
-#~ msgstr ""
-#~ "Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es "
-#~ "Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die "
-#~ "implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN "
-#~ "BESTIMMTEN ZWECK. Details finden Sie in der <citetitle>GNU General Public "
-#~ "License</citetitle>."
-
-#~ msgid ""
-#~ "A copy of the <citetitle>GNU General Public License</citetitle> is "
-#~ "included as an appendix to the <citetitle>GNOME Users Guide</citetitle>. "
-#~ "You may also obtain a copy of the <citetitle>GNU General Public License</"
-#~ "citetitle> from the Free Software Foundation by visiting <ulink type=\"http"
-#~ "\" url=\"http://www.fsf.org\"> their Web site</ulink> or by writing to "
-#~ "<address> Free Software Foundation, Inc. <street>51 Franklin Street</"
-#~ "street> Fifth Floor <city>Boston</city>, <state>MA</"
-#~ "state><postcode>02110-1301</postcode><country>USA</country></address>"
-#~ msgstr ""
-#~ "Eine Kopie der <citetitle><ulink type=\"help\" url=\"gnome-help:gpl\">GNU "
-#~ "General Public License</ulink></citetitle> ist im Anhang des "
-#~ "<citetitle>GNOME Benutzerhandbuchs</citetitle> enthalten. Sie können "
-#~ "außerdem eine Kopie der <citetitle><ulink type=\"help\" url=\"gnome-help:"
-#~ "gpl\">GNU General Public License</ulink></citetitle> von der Free Software "
-#~ "Foundation erhalten, indem Sie auf <ulink type=\"http\" url=\"http://www."
-#~ "fsf.org\">ihre Internetseite</ulink> gehen oder an die <address>Free "
-#~ "Software Foundation, Inc.<street>51 Franklin Street, Fifth Floor</"
-#~ "street><city>Boston</city>, <state>MA</state><postcode>02111-1301</"
-#~ "postcode><country>USA</country></address> schreiben."
