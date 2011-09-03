@@ -467,7 +467,7 @@ static void
 on_build_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err, gpointer user_data)
 {
 	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
-	
+
 	if (err == NULL)
 	{
 		/* Up to date, run program */
@@ -484,19 +484,20 @@ static void
 on_is_built_finished (GObject *builder, IAnjutaBuilderHandle handle, GError *err, gpointer user_data)
 {
 	RunProgramPlugin *plugin = (RunProgramPlugin *)user_data;
-	
+
 	if (err == NULL)
 	{
 		/* Up to date, run program */
 		run_program (plugin);
 	}
-	else if (err->code == IANJUTA_BUILDER_FAILED)
+	else if ((err->code != IANJUTA_BUILDER_ABORTED) && (err->code != IANJUTA_BUILDER_CANCELED))
 	{
 		/* Target is not up to date */
 		plugin->build_handle = ianjuta_builder_build (IANJUTA_BUILDER (builder), plugin->build_uri, on_build_finished, plugin, NULL);
 	}
 	else
 	{
+		/* Command cancelled */
 		g_free (plugin->build_uri);
 		plugin->build_uri = NULL;
 	}

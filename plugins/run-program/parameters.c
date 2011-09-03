@@ -786,6 +786,7 @@ run_parameters_dialog_or_try_execute (RunProgramPlugin *plugin, gboolean try_run
 	
 	run_dialog_init (&dlg, plugin);
 	const char *target = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg.target))));
+
 	if (try_run && target && *target)
 	{
 		save_dialog_data (&dlg);

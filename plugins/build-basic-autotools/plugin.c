@@ -944,7 +944,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 	if (context->program->callback != NULL)
 	{
 		GError *err = NULL;
-		
+
 		if (WIFEXITED (status))
 		{
 			if (WEXITSTATUS (status) != 0)
@@ -1257,7 +1257,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		build_context_destroy_command (context);
 		return FALSE;
 	}
-	
+
 	if (context->message_view)
 	{
 		gchar *command;
@@ -1415,7 +1415,7 @@ on_build_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	if (plugin->project_root_dir)
 	{
-		build_configure_and_build (plugin, build_build_file_or_dir, plugin->project_root_dir);
+		build_configure_and_build (plugin, build_build_file_or_dir, plugin->project_root_dir, NULL, NULL, NULL);
 	}
 }
 
@@ -1424,7 +1424,7 @@ on_install_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	if (plugin->project_root_dir)
 	{
-		build_configure_and_build (plugin, build_install_dir,  plugin->project_root_dir);
+		build_configure_and_build (plugin, build_install_dir,  plugin->project_root_dir, NULL, NULL, NULL);
 	}
 }
 
@@ -1440,13 +1440,13 @@ on_clean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 on_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_configure_dialog (plugin, NULL, NULL);
+	build_configure_dialog (plugin, NULL, NULL, NULL, NULL, NULL);
 }
 
 static void
 on_build_tarball (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_configure_and_build (plugin, (BuildFunc) build_tarball, NULL);	
+	build_configure_and_build (plugin, (BuildFunc) build_tarball, NULL, NULL, NULL, NULL);	
 }
 
 static void
@@ -1459,7 +1459,7 @@ on_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	module = build_module_from_file (plugin, plugin->current_editor_file, NULL);
 	if (module != NULL)
 	{
-		build_configure_and_build (plugin, build_build_file_or_dir, module);
+		build_configure_and_build (plugin, build_build_file_or_dir, module, NULL, NULL, NULL);
 		g_object_unref (module);
 	}
 }
@@ -1469,7 +1469,7 @@ on_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->current_editor_file != NULL);
 	
-	build_configure_and_build (plugin, build_install_dir,  plugin->current_editor_file);
+	build_configure_and_build (plugin, build_install_dir,  plugin->current_editor_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1485,7 +1485,7 @@ on_compile_file (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->current_editor_file != NULL);
 	
-	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->current_editor_file);
+	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->current_editor_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1525,7 +1525,7 @@ fm_compile (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->fm_current_file != NULL);
 
-	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->fm_current_file);
+	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->fm_current_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1537,7 +1537,7 @@ fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	module = build_module_from_file (plugin, plugin->fm_current_file, NULL);
 	if (module != NULL)
 	{
-		build_configure_and_build (plugin, build_build_file_or_dir, module);
+		build_configure_and_build (plugin, build_build_file_or_dir, module, NULL, NULL, NULL);
 		g_object_unref (module);
 	}
 }
@@ -1547,7 +1547,7 @@ fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->fm_current_file != NULL);
 	
-	build_configure_and_build (plugin, build_install_dir,  plugin->fm_current_file);
+	build_configure_and_build (plugin, build_install_dir,  plugin->fm_current_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1564,7 +1564,7 @@ pm_compile (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->pm_current_file != NULL);
 
-	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->pm_current_file);
+	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->pm_current_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1577,7 +1577,7 @@ pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	module = build_module_from_file (plugin, plugin->pm_current_file, NULL);
 	if (module != NULL)
 	{
-		build_configure_and_build (plugin, build_build_file_or_dir, module);
+		build_configure_and_build (plugin, build_build_file_or_dir, module, NULL, NULL, NULL);
 		g_object_unref (module);
 	}
 }
@@ -1587,7 +1587,7 @@ pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->pm_current_file != NULL);
 	
-	build_configure_and_build (plugin, build_install_dir,  plugin->pm_current_file);
+	build_configure_and_build (plugin, build_install_dir,  plugin->pm_current_file, NULL, NULL, NULL);
 }
 
 static void
@@ -2690,7 +2690,7 @@ ibuildable_configure (IAnjutaBuildable *manager, const gchar *directory,
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
 	
-	build_configure_dir (plugin, file, NULL, NULL, NULL);
+	build_configure_dir (plugin, file, NULL, NULL, NULL, NULL, NULL, NULL);
 	
 	g_object_unref (file);
 }
@@ -2705,7 +2705,7 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
 
-	build_generate_dir (plugin, file, NULL, NULL, NULL);
+	build_generate_dir (plugin, file, NULL, NULL, NULL, NULL, NULL, NULL);
 	
 	g_object_unref (file);
 }
@@ -2798,7 +2798,7 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	file = g_file_new_for_uri (uri);
 	if (file == NULL) return NULL;
 	
-	context = build_build_file_or_dir (plugin, file, callback, user_data, err);
+	context = build_configure_and_build (plugin, build_build_file_or_dir, plugin->project_root_dir, callback, user_data, NULL);
 	
 	g_object_unref (file);
 	

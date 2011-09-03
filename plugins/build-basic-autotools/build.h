@@ -73,25 +73,37 @@ BuildContext* build_configure_dir (BasicAutotoolsPlugin *plugin,
                                    GFile *dir,
                                    const gchar *args,
                                    BuildFunc func,
-                                   GFile *file);
+                                   GFile *file,
+                                   IAnjutaBuilderCallback callback,
+                                   gpointer user_data,
+                                   GError **error);
 
 BuildContext* build_generate_dir (BasicAutotoolsPlugin *plugin,
                                   GFile *dir,
                                   const gchar *args,
                                   BuildFunc func,
-                                  GFile *file);
+                                  GFile *file,
+                                  IAnjutaBuilderCallback callback,
+                                  gpointer user_data,
+                                  GError **error);
 
 void build_project_configured (GObject *sender,
                                IAnjutaBuilderHandle handle,
                                GError *error,
                                gpointer user_data);
 
-void build_configure_and_build (BasicAutotoolsPlugin *plugin,
+BuildContext* build_configure_and_build (BasicAutotoolsPlugin *plugin,
                                 BuildFunc func,
-                                GFile *file);
+                                GFile *file,
+                                IAnjutaBuilderCallback callback,
+                                gpointer user_data,
+                                GError **err);
 
-
-void build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, GFile *file);
+BuildContext* build_configure_dialog (BasicAutotoolsPlugin *plugin,
+                             BuildFunc func, GFile *file,
+                             IAnjutaBuilderCallback callback,
+                             gpointer user_data,
+                             GError **error);
 
 
 GList* build_list_configuration (BasicAutotoolsPlugin *plugin);
