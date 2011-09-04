@@ -62,4 +62,5 @@ EXTRA_DIST = \
 	anjuta-idl-compiler.pl
 
 
-CLEANFILES = libanjuta-interfaces.h
+CLEANFILES = libanjuta-interfaces.h iface-built.stamp
+
