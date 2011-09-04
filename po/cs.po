@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-07-15 16:40+0000\n"
-"PO-Revision-Date: 2011-07-15 18:38+0200\n"
+"POT-Creation-Date: 2011-08-31 20:59+0000\n"
+"PO-Revision-Date: 2011-09-04 13:11+0200\n"
 "Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,23 @@ msgstr "Vývoj softwaru v integrovaném vývojovém prostředí"
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
+#: ../src/preferences.ui.h:13
+msgid "Text"
+msgstr "Text"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
+msgid "Text to render"
+msgstr "Text, který vykreslit"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
+msgid "Pixbuf Object"
+msgstr "Objekt pixbuf"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
+msgid "The pixbuf to render."
+msgstr "Pixbuf, který vykreslit."
+
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
 msgid "Unable to find plugin module %s"
@@ -52,6 +69,29 @@ msgstr "Nelze nalézt registrační funkci %s zásuvného modulu pro %s"
 msgid "Unknown error in module %s"
 msgstr "Neznámá chyba v modulu %s"
 
+#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
+#, c-format
+msgid "Column %i"
+msgstr "Sloupec %i"
+
+#. Column label
+#: ../libanjuta/anjuta-column-text-view.c:69
+msgid "Column 1"
+msgstr "Sloupec 1"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr "Soubor, který se snažíte otevřít, obsahuje neplatnou bytovou sekvenci."
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"Anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"Anjuta nemůže automaticky zjistit kódování souboru, který chcete otevřít."
+
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
@@ -66,19 +106,6 @@ msgstr "Chybějící typ, který definuje zásuvný modul %s"
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "selhala registrace typu %2$s zásuvným modulem %1$s"
-
-#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
-#, c-format
-msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr "Soubor, který se snažíte otevřít, obsahuje neplatnou bytovou sekvenci."
-
-#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
-#, c-format
-msgid ""
-"Anjuta was not able to automatically determine the encoding of the file you "
-"want to open."
-msgstr ""
-"Anjuta nemůže automaticky zjistit kódování souboru, který chcete otevřít."
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -200,6 +227,68 @@ msgstr "Thajské"
 #: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "Neznámé"
+
+#: ../libanjuta/anjuta-entry.c:241
+msgid "Help text"
+msgstr "Text nápovědy"
+
+#: ../libanjuta/anjuta-entry.c:242
+msgid "Text to show the user what to enter into the entry"
+msgstr "Text ukazující uživateli, co zadat do pole"
+
+#. Create all needed widgets
+#: ../libanjuta/anjuta-environment-editor.c:543
+#: ../plugins/run-program/anjuta-run-program.ui.h:3
+msgid "Environment Variables:"
+msgstr "Proměnné prostředí:"
+
+#: ../libanjuta/anjuta-environment-editor.c:586
+#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:726
+#: ../plugins/class-gen/window.c:734 ../plugins/class-gen/window.c:748
+#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:766
+#: ../plugins/class-gen/window.c:774 ../plugins/class-gen/window.c:782
+#: ../plugins/class-gen/window.c:790 ../plugins/class-gen/window.c:800
+#: ../plugins/class-gen/window.c:810 ../plugins/class-gen/window.c:822
+#: ../plugins/project-manager/dialogs.c:467
+#: ../plugins/run-program/parameters.c:757
+#: ../plugins/snippets-manager/plugin.c:762
+#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
+msgid "Name"
+msgstr "Název"
+
+#: ../libanjuta/anjuta-environment-editor.c:595
+#: ../plugins/class-gen/window.c:767 ../plugins/class-gen/window.c:783
+#: ../plugins/class-gen/window.c:814 ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/debug-manager/registers.c:469
+#: ../plugins/project-manager/dialogs.c:475
+#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
+msgid "Value"
+msgstr "Hodnota"
+
+#: ../libanjuta/anjuta-file-drop-entry.c:206
+msgid "Path that dropped files should be relative to"
+msgstr "Cesta, ke které má být umístění přetažených souborů relativní"
+
+#: ../libanjuta/anjuta-file-list.c:101
+msgid "Drop a file or enter a path here"
+msgstr "Upusťte sem soubor nebo zadejte cestu"
+
+#: ../libanjuta/anjuta-file-list.c:274
+msgid "Select Files"
+msgstr "Vyberte soubory"
+
+#: ../libanjuta/anjuta-file-list.c:540
+msgid "Path that all files in the list should be relative to"
+msgstr "Cesta, ke které má být umístění všech souborů relativní"
+
+#: ../libanjuta/anjuta-file-list.c:547
+msgid "Show Add button"
+msgstr "Zobrazit „Přidat“"
+
+#: ../libanjuta/anjuta-file-list.c:548
+msgid "Display an Add button"
+msgstr "Zobrazit tlačítko Přidat"
 
 #.
 #. * Translators: This regex should match the password prompts of
@@ -346,6 +435,23 @@ msgstr ""
 msgid "Loaded:"
 msgstr "Načteno:"
 
+#: ../libanjuta/anjuta-preferences-dialog.c:96
+msgid "Category"
+msgstr "Kategorie"
+
+#. FIXME: Make the general page first
+#: ../libanjuta/anjuta-preferences-dialog.c:139
+#: ../libanjuta/anjuta-preferences-dialog.c:142
+#: ../plugins/code-analyzer/code-analyzer.ui.h:3
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
+#: ../src/preferences.ui.h:8
+msgid "General"
+msgstr "Obecné"
+
+#: ../libanjuta/anjuta-preferences-dialog.c:241
+msgid "Anjuta Preferences"
+msgstr "Předvolby Anjuty"
+
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
 msgstr "Správce zásuvných modulů"
@@ -405,23 +511,6 @@ msgid ""
 msgstr ""
 "Nelze přečíst „%s“: Následující vyžadované zásuvné moduly chybí:\n"
 "%s"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:96
-msgid "Category"
-msgstr "Kategorie"
-
-#. FIXME: Make the general page first
-#: ../libanjuta/anjuta-preferences-dialog.c:139
-#: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
-#: ../src/preferences.ui.h:8
-msgid "General"
-msgstr "Obecné"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:241
-msgid "Anjuta Preferences"
-msgstr "Předvolby Anjuty"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
@@ -584,65 +673,6 @@ msgstr "Bez verzí"
 msgid "Ignored"
 msgstr "Ignorováno"
 
-#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
-#, c-format
-msgid "Column %i"
-msgstr "Sloupec %i"
-
-#. Column label
-#: ../libanjuta/anjuta-column-text-view.c:69
-msgid "Column 1"
-msgstr "Sloupec 1"
-
-#: ../libanjuta/anjuta-entry.c:241
-msgid "Help text"
-msgstr "Text nápovědy"
-
-#: ../libanjuta/anjuta-entry.c:242
-msgid "Text to show the user what to enter into the entry"
-msgstr "Text ukazující uživateli, co zadat do pole"
-
-#: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that dropped files should be relative to"
-msgstr "Cesta, ke které má být umístění přetažených souborů relativní"
-
-#: ../libanjuta/anjuta-file-list.c:101
-msgid "Drop a file or enter a path here"
-msgstr "Upusťte sem soubor nebo zadejte cestu"
-
-#: ../libanjuta/anjuta-file-list.c:274
-msgid "Select Files"
-msgstr "Vyberte soubory"
-
-#: ../libanjuta/anjuta-file-list.c:540
-msgid "Path that all files in the list should be relative to"
-msgstr "Cesta, ke které má být umístění všech souborů relativní"
-
-#: ../libanjuta/anjuta-file-list.c:547
-msgid "Show Add button"
-msgstr "Zobrazit „Přidat“"
-
-#: ../libanjuta/anjuta-file-list.c:548
-msgid "Display an Add button"
-msgstr "Zobrazit tlačítko Přidat"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../src/preferences.ui.h:13
-msgid "Text"
-msgstr "Text"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-msgid "Text to render"
-msgstr "Text, který vykreslit"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
-msgid "Pixbuf Object"
-msgstr "Objekt pixbuf"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
-msgid "The pixbuf to render."
-msgstr "Pixbuf, který vykreslit."
-
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
@@ -773,7 +803,7 @@ msgid "sudo"
 msgstr "sudo"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:451
+#: ../plugins/build-basic-autotools/build.c:456
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -781,39 +811,39 @@ msgstr ""
 "Před použitím nového nastavení musí být odstraněno to výchozí. Chcete to "
 "provést?"
 
-#: ../plugins/build-basic-autotools/build.c:456
+#: ../plugins/build-basic-autotools/build.c:461
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "Příkaz byl zrušen uživatelem"
 
-#: ../plugins/build-basic-autotools/build.c:718
+#: ../plugins/build-basic-autotools/build.c:775
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Nelze zkompilovat „%s“: Pro tento typ souboru nejsou definována pravidla."
 
-#: ../plugins/build-basic-autotools/build.c:864
+#: ../plugins/build-basic-autotools/build.c:934
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Projekt nelze nastavit: Skript nastavení v %s schází."
 
-#: ../plugins/build-basic-autotools/configuration-list.c:68
+#: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:739
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "Výchozí"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:69
+#: ../plugins/build-basic-autotools/configuration-list.c:71
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
 msgstr "Ladění"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:70
+#: ../plugins/build-basic-autotools/configuration-list.c:72
 msgid "Profiling"
 msgstr "Profilování"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:71
+#: ../plugins/build-basic-autotools/configuration-list.c:73
 msgid "Optimized"
 msgstr "Optimalizováno"
 
@@ -1139,22 +1169,22 @@ msgstr "_Přeložit (%s)"
 msgid "Co_mpile"
 msgstr "_Přeložit"
 
-#: ../plugins/build-basic-autotools/plugin.c:2413
+#: ../plugins/build-basic-autotools/plugin.c:2445
 msgid "Build commands"
 msgstr "Příkazy sestavení"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2422
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "Build popup commands"
 msgstr "Příkazy sestavení v kontextových nabídkách"
 
-#: ../plugins/build-basic-autotools/plugin.c:2841
-#: ../plugins/build-basic-autotools/plugin.c:2849
+#: ../plugins/build-basic-autotools/plugin.c:2873
+#: ../plugins/build-basic-autotools/plugin.c:2881
 msgid "Build Autotools"
 msgstr "Autotools pro sestavení"
 
-#: ../plugins/build-basic-autotools/program.c:269
+#: ../plugins/build-basic-autotools/program.c:300
 #, c-format
 msgid ""
 "Error while setting up build environment:\n"
@@ -1163,7 +1193,7 @@ msgstr ""
 "Chyba při přípravě podmínek k sestavení:\n"
 " %s"
 
-#: ../plugins/build-basic-autotools/program.c:342
+#: ../plugins/build-basic-autotools/program.c:373
 msgid "Command aborted"
 msgstr "Příkaz se nezdařil"
 
@@ -1416,7 +1446,7 @@ msgstr "Soubor, do kterého bude zpracovaná šablona zapsána"
 msgid "Failed to write autogen definition file"
 msgstr "Selhal zápis definičního souboru pro AutoGen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1171
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1452,20 +1482,6 @@ msgstr "Implementace"
 msgid "Type"
 msgstr "Typ"
 
-#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:734 ../plugins/class-gen/window.c:748
-#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:766
-#: ../plugins/class-gen/window.c:774 ../plugins/class-gen/window.c:782
-#: ../plugins/class-gen/window.c:790 ../plugins/class-gen/window.c:800
-#: ../plugins/class-gen/window.c:810 ../plugins/class-gen/window.c:822
-#: ../plugins/project-manager/dialogs.c:467
-#: ../plugins/run-program/parameters.c:757
-#: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
-#: ../plugins/snippets-manager/snippets-editor.c:37
-msgid "Name"
-msgstr "Název"
-
 #: ../plugins/class-gen/window.c:717 ../plugins/class-gen/window.c:727
 #: ../plugins/class-gen/window.c:749 ../plugins/class-gen/window.c:759
 #: ../plugins/class-gen/window.c:775 ../plugins/class-gen/window.c:801
@@ -1498,14 +1514,6 @@ msgstr "Přepínače"
 #: ../plugins/class-gen/window.c:751
 msgid "Marshaller"
 msgstr "Marshaller"
-
-#: ../plugins/class-gen/window.c:767 ../plugins/class-gen/window.c:783
-#: ../plugins/class-gen/window.c:814 ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:475
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
-msgid "Value"
-msgstr "Hodnota"
 
 #: ../plugins/class-gen/window.c:791 ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/am-project/am-project.c:189
@@ -1660,7 +1668,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorovat soubor .cvsrc (doporučeno)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2161
+#: ../plugins/symbol-db/plugin.c:2162
 msgid "Local"
 msgstr "Místní"
 
@@ -2065,8 +2073,8 @@ msgid "Inspect/Evaluate"
 msgstr "Zkoumat/vyhodnotit"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/debug-manager/plugin.c:1031
-#: ../plugins/debug-manager/plugin.c:1147
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Kernel Signals"
 msgstr "Signály jádra"
 
@@ -2337,7 +2345,7 @@ msgstr "Operace s body přerušení"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:392
-#: ../plugins/debug-manager/sparse_view.c:501
+#: ../plugins/debug-manager/sparse_view.c:500
 msgid "_Go to address"
 msgstr "Pře_jít na adresu"
 
@@ -2363,259 +2371,209 @@ msgstr "Řádek"
 msgid "Locals"
 msgstr "Místní"
 
-#: ../plugins/debug-manager/plugin.c:340
+#: ../plugins/debug-manager/plugin.c:339
 msgid "Debugger Log"
 msgstr "Záznam ladicího programu"
 
-#: ../plugins/debug-manager/plugin.c:413 ../plugins/debug-manager/plugin.c:435
-#: ../plugins/debug-manager/plugin.c:460 ../plugins/debug-manager/plugin.c:487
-#: ../plugins/debug-manager/plugin.c:521 ../plugins/debug-manager/plugin.c:554
+#: ../plugins/debug-manager/plugin.c:412 ../plugins/debug-manager/plugin.c:434
+#: ../plugins/debug-manager/plugin.c:459 ../plugins/debug-manager/plugin.c:486
+#: ../plugins/debug-manager/plugin.c:520 ../plugins/debug-manager/plugin.c:553
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Ladicí program"
 
-#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:412
 msgid "Started"
 msgstr "Spuštěn"
 
-#: ../plugins/debug-manager/plugin.c:435
+#: ../plugins/debug-manager/plugin.c:434
 msgid "Loaded"
 msgstr "Načteno"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:456
-#: ../plugins/debug-manager/plugin.c:1159
+#: ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:1053
 msgid "Pa_use Program"
 msgstr "_Pozastavit program"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:1161
+#: ../plugins/debug-manager/plugin.c:456
+#: ../plugins/debug-manager/plugin.c:1055
 msgid "Pauses the execution of the program"
 msgstr "Pozastavit provádění programu"
 
-#: ../plugins/debug-manager/plugin.c:460
+#: ../plugins/debug-manager/plugin.c:459
 msgid "Running…"
 msgstr "Probíhá…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:483
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:482 ../plugins/debug-manager/plugin.c:969
 msgid "Run/_Continue"
 msgstr "Spustit/_Pokračovat"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:484
-#: ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:483 ../plugins/debug-manager/plugin.c:971
 msgid "Continue the execution of the program"
 msgstr "Pokračovat provádění programu"
 
-#: ../plugins/debug-manager/plugin.c:487
+#: ../plugins/debug-manager/plugin.c:486
 msgid "Stopped"
 msgstr "Zastaveno"
 
-#: ../plugins/debug-manager/plugin.c:521
+#: ../plugins/debug-manager/plugin.c:520
 msgid "Unloaded"
 msgstr "Uvolněno"
 
-#: ../plugins/debug-manager/plugin.c:563
+#: ../plugins/debug-manager/plugin.c:562
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "Ladicí program skončil s chybou %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:576
+#: ../plugins/debug-manager/plugin.c:575
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "Program dostal signál: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:915
+#: ../plugins/debug-manager/plugin.c:865
 msgid "_Debug"
 msgstr "_Ladění"
 
-#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:873
 msgid "_Start Debugger"
 msgstr "_Spustit ladicí program"
 
-#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:881
 msgid "_Debug Program"
 msgstr "La_dit program"
 
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:883
 msgid "Start debugger and load the program"
 msgstr "Spustit ladění a nahrát program"
 
-#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:889
 msgid "_Debug Process…"
 msgstr "La_dit proces…"
 
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Start debugger and attach to a running program"
 msgstr "Spustit ladění a připojit jej k běžícímu programu"
 
-#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:897
 msgid "Debug _Remote Target…"
 msgstr "Ladit _vzdálený cíl…"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Connect to a remote debugging target"
 msgstr "Připojit se na vzdálený cíl ladění"
 
-#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Stop Debugger"
 msgstr "Zastavit ladicí program"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Say goodbye to the debugger"
 msgstr "Rozloučit se s ladicím programem"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:913
 msgid "Add source paths…"
 msgstr "Přidat zdrojové cesty…"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Add additional source paths"
 msgstr "Přidat další zdrojové cesty"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:975
-#: ../plugins/debug-manager/plugin.c:1099
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Debugger Command…"
 msgstr "Příkaz ladicího programu…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:977
-#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:1019
 msgid "Custom debugger command"
 msgstr "Příkaz vlastního ladicího programu"
 
-#: ../plugins/debug-manager/plugin.c:983
-#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:991
-msgid "Info _Target Files"
-msgstr "Info Soubory _cíle"
-
-#: ../plugins/debug-manager/plugin.c:993
-msgid "Display information on the files the debugger is active with"
-msgstr "Zobrazit informace o souborech, které se účastní ladění"
-
-#: ../plugins/debug-manager/plugin.c:999
-msgid "Info _Program"
-msgstr "Info _Program"
-
-#: ../plugins/debug-manager/plugin.c:1001
-msgid "Display information on the execution status of the program"
-msgstr "Zobrazit informace o stavu provádění programu"
-
-#: ../plugins/debug-manager/plugin.c:1007
-msgid "Info _Kernel User Struct"
-msgstr "Info Struct user _jádra"
-
-#: ../plugins/debug-manager/plugin.c:1009
-msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "Zobrazit obsah „struct user“ jádra o aktuálním potomku"
-
-#: ../plugins/debug-manager/plugin.c:1023
-#: ../plugins/debug-manager/plugin.c:1139
+#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Shared Libraries"
 msgstr "Sdílené knihovny"
 
-#: ../plugins/debug-manager/plugin.c:1025
-#: ../plugins/debug-manager/plugin.c:1141
+#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:1035
 msgid "Show shared library mappings"
 msgstr "Zobrazit mapování sdílených knihoven"
 
-#: ../plugins/debug-manager/plugin.c:1033
-#: ../plugins/debug-manager/plugin.c:1149
+#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Show kernel signals"
 msgstr "Zobrazit signály jádra"
 
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:957
 msgid "_Continue/Suspend"
 msgstr "_Pokračovat/pozastavit"
 
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Continue or suspend the execution of the program"
 msgstr "Pokračovat v provádění nebo pozastavit program"
 
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Step _In"
 msgstr "Krok _dovnitř"
 
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:979
 msgid "Single step into function"
 msgstr "Jeden krok do funkce"
 
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Step O_ver"
 msgstr "Krok _přes"
 
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:987
 msgid "Single step over function"
 msgstr "Jeden krok přes funkci"
 
-#: ../plugins/debug-manager/plugin.c:1075
+#: ../plugins/debug-manager/plugin.c:993
 msgid "Step _Out"
 msgstr "Krok _ven"
 
-#: ../plugins/debug-manager/plugin.c:1077
+#: ../plugins/debug-manager/plugin.c:995
 msgid "Single step out of function"
 msgstr "Jeden krok ven z funkce"
 
-#: ../plugins/debug-manager/plugin.c:1083
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "_Run to Cursor"
 msgstr "Spustit ke ku_rzoru"
 
-#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1003
 msgid "Run to the cursor"
 msgstr "Spustit do kurzoru"
 
-#: ../plugins/debug-manager/plugin.c:1091
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "_Run from Cursor"
 msgstr "Spustit od ku_rzoru"
 
-#: ../plugins/debug-manager/plugin.c:1093
+#: ../plugins/debug-manager/plugin.c:1011
 msgid "Run from the cursor"
 msgstr "Spustit od kurzoru"
 
-#: ../plugins/debug-manager/plugin.c:1115
-msgid "Info _Global Variables"
-msgstr "Info _Globální proměnné"
-
-#: ../plugins/debug-manager/plugin.c:1117
-msgid "Display all global and static variables of the program"
-msgstr "Zobrazit všechny globální a statické proměnné programu"
-
-#: ../plugins/debug-manager/plugin.c:1123
-msgid "Info _Current Frame"
-msgstr "Info _Aktuální aktivační záznam"
-
-#: ../plugins/debug-manager/plugin.c:1125
-msgid "Display information about the current frame of execution"
-msgstr "Zobrazit informace o aktuálním aktivačním záznamu"
-
-#: ../plugins/debug-manager/plugin.c:1131
-msgid "Info Function _Arguments"
-msgstr "Info _Parametry funkce"
-
-#: ../plugins/debug-manager/plugin.c:1133
-msgid "Display function arguments of the current frame"
-msgstr "Zobrazit parametry funkce aktuálního aktivačního záznamu"
-
-#: ../plugins/debug-manager/plugin.c:1201
-#: ../plugins/debug-manager/plugin.c:1207
-#: ../plugins/debug-manager/plugin.c:1213
-#: ../plugins/debug-manager/plugin.c:1219
+#: ../plugins/debug-manager/plugin.c:1095
+#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:1113
 msgid "Debugger operations"
 msgstr "Operace ladicího programu"
 
@@ -2692,19 +2650,19 @@ msgstr "Signály jádra"
 msgid "Signal operations"
 msgstr "Operace se signály"
 
-#: ../plugins/debug-manager/sparse_view.c:1132
+#: ../plugins/debug-manager/sparse_view.c:1237
 msgid "Show Line Numbers"
 msgstr "Zobrazit čísla řádek"
 
-#: ../plugins/debug-manager/sparse_view.c:1133
+#: ../plugins/debug-manager/sparse_view.c:1238
 msgid "Whether to display line numbers"
 msgstr "Jestli zobrazovat čísla řádek"
 
-#: ../plugins/debug-manager/sparse_view.c:1140
+#: ../plugins/debug-manager/sparse_view.c:1245
 msgid "Show Line Markers"
 msgstr "Zobrazit značky řádky"
 
-#: ../plugins/debug-manager/sparse_view.c:1141
+#: ../plugins/debug-manager/sparse_view.c:1246
 msgid "Whether to display line marker pixbufs"
 msgstr "Jestli zobrazovat pixbuf značek řádky"
 
@@ -2735,7 +2693,7 @@ msgstr "Aktivační záznam"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2921,8 +2879,8 @@ msgstr "Procházení API"
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
-#: ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/symbol-db/plugin.c:2182
 msgid "Search"
 msgstr "Hledat"
 
@@ -4015,7 +3973,7 @@ msgid "Filter"
 msgstr "Filtr"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2174
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Globální"
@@ -4090,7 +4048,7 @@ msgid "File Information"
 msgstr "Informace o souboru"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:613
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
@@ -4232,11 +4190,11 @@ msgstr "Nelze analyzovat soubor projektu"
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekt neexistuje nebo má neplatnou cestu"
 
-#: ../plugins/am-project/am-properties.c:51
+#: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr "Název projektu, může obsahovat mezery, například „GNU Autoconf“"
 
-#: ../plugins/am-project/am-properties.c:56
+#: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
@@ -4258,17 +4216,17 @@ msgstr "Název projektu, může obsahovat mezery, například „GNU Autoconf“
 msgid "Version:"
 msgstr "Verze:"
 
-#: ../plugins/am-project/am-properties.c:59
+#: ../plugins/am-project/am-properties.c:61
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr ""
 "Verze projektu, obvykle několik čísel oddělených tečkou, například „1.0.0“"
 
-#: ../plugins/am-project/am-properties.c:64
+#: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
 msgstr "Adresa URL pro oznamování chyb:"
 
-#: ../plugins/am-project/am-properties.c:67
+#: ../plugins/am-project/am-properties.c:70
 msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
@@ -4276,11 +4234,11 @@ msgstr ""
 "Adresa elektronické pošty nebo stránky, prostřednictvím které může uživatel "
 "oznámit chybu. Volitelné."
 
-#: ../plugins/am-project/am-properties.c:72
+#: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
 msgstr "Název balíčku:"
 
-#: ../plugins/am-project/am-properties.c:75
+#: ../plugins/am-project/am-properties.c:79
 msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
@@ -4288,124 +4246,124 @@ msgstr ""
 "Název balíčku. Může obsahovat alfanumerické znaky nebo podtržítko. Pokud "
 "není zadán, bude založen na názvu projektu."
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "Adresa URL:"
 
-#: ../plugins/am-project/am-properties.c:84
+#: ../plugins/am-project/am-properties.c:89
 msgid "An link to the project web page if provided."
 msgstr "Odkaz na webovou stránku projektu, pokud existuje."
 
-#: ../plugins/am-project/am-properties.c:97
-#: ../plugins/am-project/am-properties.c:209
-#: ../plugins/am-project/am-properties.c:374
-#: ../plugins/am-project/am-properties.c:531
+#: ../plugins/am-project/am-properties.c:103
+#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:412
+#: ../plugins/am-project/am-properties.c:587
 msgid "Linker flags:"
 msgstr "Přepínače linkeru:"
 
-#: ../plugins/am-project/am-properties.c:100
+#: ../plugins/am-project/am-properties.c:106
 msgid "Common additional linker flags for all targets in this group."
 msgstr "Další přepínače linkeru společné pro všechny cíle v této skupině."
 
-#: ../plugins/am-project/am-properties.c:105
-#: ../plugins/am-project/am-properties.c:233
-#: ../plugins/am-project/am-properties.c:390
-#: ../plugins/am-project/am-properties.c:547
+#: ../plugins/am-project/am-properties.c:112
+#: ../plugins/am-project/am-properties.c:255
+#: ../plugins/am-project/am-properties.c:430
+#: ../plugins/am-project/am-properties.c:605
 msgid "C preprocessor flags:"
 msgstr "Přepínače preprocesoru jazyka C:"
 
-#: ../plugins/am-project/am-properties.c:108
+#: ../plugins/am-project/am-properties.c:115
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr ""
 "Další přepínače preprocesoru jazyka C společné pro všechny cíle v této "
 "skupině."
 
-#: ../plugins/am-project/am-properties.c:113
-#: ../plugins/am-project/am-properties.c:241
-#: ../plugins/am-project/am-properties.c:398
-#: ../plugins/am-project/am-properties.c:555
+#: ../plugins/am-project/am-properties.c:121
+#: ../plugins/am-project/am-properties.c:264
+#: ../plugins/am-project/am-properties.c:439
+#: ../plugins/am-project/am-properties.c:614
 msgid "C compiler flags:"
 msgstr "Přepínače překladače jazyka C:"
 
-#: ../plugins/am-project/am-properties.c:116
+#: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače překladače jazyka C společné pro všechny cíle v této skupině."
 
-#: ../plugins/am-project/am-properties.c:121
-#: ../plugins/am-project/am-properties.c:249
-#: ../plugins/am-project/am-properties.c:406
-#: ../plugins/am-project/am-properties.c:563
+#: ../plugins/am-project/am-properties.c:130
+#: ../plugins/am-project/am-properties.c:273
+#: ../plugins/am-project/am-properties.c:448
+#: ../plugins/am-project/am-properties.c:623
 msgid "C++ compiler flags:"
 msgstr "Přepínače překladače jazyka C++:"
 
-#: ../plugins/am-project/am-properties.c:124
+#: ../plugins/am-project/am-properties.c:133
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače překladače jazyka C++ společné pro všechny cíle v této "
 "skupině."
 
-#: ../plugins/am-project/am-properties.c:129
-#: ../plugins/am-project/am-properties.c:257
-#: ../plugins/am-project/am-properties.c:414
-#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:139
+#: ../plugins/am-project/am-properties.c:282
+#: ../plugins/am-project/am-properties.c:457
+#: ../plugins/am-project/am-properties.c:632
 msgid "Java compiler flags:"
 msgstr "Přepínače překladače jazyka Java:"
 
-#: ../plugins/am-project/am-properties.c:132
+#: ../plugins/am-project/am-properties.c:142
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače překladače jazyka Java společné pro všechny cíle v této "
 "skupině."
 
-#: ../plugins/am-project/am-properties.c:137
-#: ../plugins/am-project/am-properties.c:265
-#: ../plugins/am-project/am-properties.c:422
-#: ../plugins/am-project/am-properties.c:579
+#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:291
+#: ../plugins/am-project/am-properties.c:466
+#: ../plugins/am-project/am-properties.c:641
 msgid "Vala compiler flags:"
 msgstr "Přepínače překladače jazyka Vala:"
 
-#: ../plugins/am-project/am-properties.c:140
+#: ../plugins/am-project/am-properties.c:151
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače překladače jazyka Vala společné pro všechny cíle v této "
 "skupině."
 
-#: ../plugins/am-project/am-properties.c:145
-#: ../plugins/am-project/am-properties.c:273
-#: ../plugins/am-project/am-properties.c:430
-#: ../plugins/am-project/am-properties.c:587
+#: ../plugins/am-project/am-properties.c:157
+#: ../plugins/am-project/am-properties.c:300
+#: ../plugins/am-project/am-properties.c:475
+#: ../plugins/am-project/am-properties.c:650
 msgid "Fortran compiler flags:"
 msgstr "Přepínače pro překladač jazyka Fortran:"
 
-#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:160
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače pro překladač jazyka Fortran společné pro všechny cíle v "
 "této skupině."
 
-#: ../plugins/am-project/am-properties.c:153
-#: ../plugins/am-project/am-properties.c:281
-#: ../plugins/am-project/am-properties.c:438
-#: ../plugins/am-project/am-properties.c:595
+#: ../plugins/am-project/am-properties.c:166
+#: ../plugins/am-project/am-properties.c:309
+#: ../plugins/am-project/am-properties.c:484
+#: ../plugins/am-project/am-properties.c:659
 msgid "Objective C compiler flags:"
 msgstr "Přepínače překladače jazyka Objective C:"
 
-#: ../plugins/am-project/am-properties.c:156
+#: ../plugins/am-project/am-properties.c:169
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
 "Další přepínače překladače jazyka Objective C společné pro všechny cíle v "
 "této skupině."
 
-#: ../plugins/am-project/am-properties.c:161
-#: ../plugins/am-project/am-properties.c:289
-#: ../plugins/am-project/am-properties.c:446
-#: ../plugins/am-project/am-properties.c:603
+#: ../plugins/am-project/am-properties.c:175
+#: ../plugins/am-project/am-properties.c:318
+#: ../plugins/am-project/am-properties.c:493
+#: ../plugins/am-project/am-properties.c:668
 msgid "Lex/Flex flags:"
 msgstr "Přepínače Lex/Flex:"
 
-#: ../plugins/am-project/am-properties.c:164
+#: ../plugins/am-project/am-properties.c:178
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
@@ -4413,14 +4371,14 @@ msgstr ""
 "Společné dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro "
 "všechny cíle v této skupině."
 
-#: ../plugins/am-project/am-properties.c:169
-#: ../plugins/am-project/am-properties.c:297
-#: ../plugins/am-project/am-properties.c:454
-#: ../plugins/am-project/am-properties.c:611
+#: ../plugins/am-project/am-properties.c:184
+#: ../plugins/am-project/am-properties.c:327
+#: ../plugins/am-project/am-properties.c:502
+#: ../plugins/am-project/am-properties.c:677
 msgid "Yacc/Bison flags:"
 msgstr "Přepínače Yacc/Bison:"
 
-#: ../plugins/am-project/am-properties.c:172
+#: ../plugins/am-project/am-properties.c:187
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
@@ -4428,44 +4386,44 @@ msgstr ""
 "Společné dodatečné přepínače analyzátoru Yacc nebo Bison pro všechny cíle v "
 "této skupině."
 
-#: ../plugins/am-project/am-properties.c:177
+#: ../plugins/am-project/am-properties.c:193
 msgid "Installation directories:"
 msgstr "Instalační adresáře:"
 
-#: ../plugins/am-project/am-properties.c:180
+#: ../plugins/am-project/am-properties.c:196
 msgid "List of custom installation directories used by targets in this group."
 msgstr ""
 "Seznam vlastních adresářů instalace, které používají cíle v této skupině."
 
-#: ../plugins/am-project/am-properties.c:192
-#: ../plugins/am-project/am-properties.c:357
-#: ../plugins/am-project/am-properties.c:514
-#: ../plugins/am-project/am-properties.c:703
-#: ../plugins/am-project/am-properties.c:772
+#: ../plugins/am-project/am-properties.c:209
+#: ../plugins/am-project/am-properties.c:393
+#: ../plugins/am-project/am-properties.c:568
+#: ../plugins/am-project/am-properties.c:778
+#: ../plugins/am-project/am-properties.c:854
 msgid "Do not install:"
 msgstr "Neinstalovat:"
 
-#: ../plugins/am-project/am-properties.c:195
-#: ../plugins/am-project/am-properties.c:360
-#: ../plugins/am-project/am-properties.c:517
-#: ../plugins/am-project/am-properties.c:706
-#: ../plugins/am-project/am-properties.c:775
+#: ../plugins/am-project/am-properties.c:212
+#: ../plugins/am-project/am-properties.c:396
+#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:781
+#: ../plugins/am-project/am-properties.c:857
 msgid "Build but do not install the target."
 msgstr "Sestavit cíl, ale neinstalovat."
 
-#: ../plugins/am-project/am-properties.c:201
-#: ../plugins/am-project/am-properties.c:366
-#: ../plugins/am-project/am-properties.c:523
-#: ../plugins/am-project/am-properties.c:712
-#: ../plugins/am-project/am-properties.c:780
+#: ../plugins/am-project/am-properties.c:219
+#: ../plugins/am-project/am-properties.c:403
+#: ../plugins/am-project/am-properties.c:578
+#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:863
 msgid "Installation directory:"
 msgstr "Instalační adresář:"
 
-#: ../plugins/am-project/am-properties.c:204
-#: ../plugins/am-project/am-properties.c:369
-#: ../plugins/am-project/am-properties.c:526
-#: ../plugins/am-project/am-properties.c:715
-#: ../plugins/am-project/am-properties.c:783
+#: ../plugins/am-project/am-properties.c:222
+#: ../plugins/am-project/am-properties.c:406
+#: ../plugins/am-project/am-properties.c:581
+#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:866
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4473,151 +4431,151 @@ msgstr ""
 "Musí to být standardní adresář nebo nějaký vlastní, definovaný ve "
 "vlastnostech skupiny."
 
-#: ../plugins/am-project/am-properties.c:212
-#: ../plugins/am-project/am-properties.c:377
-#: ../plugins/am-project/am-properties.c:534
+#: ../plugins/am-project/am-properties.c:231
+#: ../plugins/am-project/am-properties.c:415
+#: ../plugins/am-project/am-properties.c:590
 msgid "Additional linker flags for this target."
 msgstr "Dodatečné přepínače linkeru pro tento cíl."
 
-#: ../plugins/am-project/am-properties.c:217
+#: ../plugins/am-project/am-properties.c:237
 msgid "Additional libraries:"
 msgstr "Přidané knihovny:"
 
-#: ../plugins/am-project/am-properties.c:220
-#: ../plugins/am-project/am-properties.c:385
-#: ../plugins/am-project/am-properties.c:542
+#: ../plugins/am-project/am-properties.c:240
+#: ../plugins/am-project/am-properties.c:424
+#: ../plugins/am-project/am-properties.c:599
 msgid "Additional libraries for this target."
 msgstr "Dodatečné knihovny tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:225
+#: ../plugins/am-project/am-properties.c:246
 msgid "Additional objects:"
 msgstr "Přidané objekty:"
 
-#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:249
 msgid "Additional object files for this target."
 msgstr "Dodatečné objekty tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:236
-#: ../plugins/am-project/am-properties.c:393
-#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:258
+#: ../plugins/am-project/am-properties.c:433
+#: ../plugins/am-project/am-properties.c:608
 msgid "Additional C preprocessor flags for this target."
 msgstr "Dodatečné přepínače preprocesoru jazyka C tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:244
-#: ../plugins/am-project/am-properties.c:401
-#: ../plugins/am-project/am-properties.c:558
+#: ../plugins/am-project/am-properties.c:267
+#: ../plugins/am-project/am-properties.c:442
+#: ../plugins/am-project/am-properties.c:617
 msgid "Additional C compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka C tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:252
-#: ../plugins/am-project/am-properties.c:409
-#: ../plugins/am-project/am-properties.c:566
+#: ../plugins/am-project/am-properties.c:276
+#: ../plugins/am-project/am-properties.c:451
+#: ../plugins/am-project/am-properties.c:626
 msgid "Additional C++ compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka C++ tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:260
-#: ../plugins/am-project/am-properties.c:417
-#: ../plugins/am-project/am-properties.c:574
+#: ../plugins/am-project/am-properties.c:285
+#: ../plugins/am-project/am-properties.c:460
+#: ../plugins/am-project/am-properties.c:635
 msgid "Additional Java compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka Java tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:268
-#: ../plugins/am-project/am-properties.c:425
-#: ../plugins/am-project/am-properties.c:582
+#: ../plugins/am-project/am-properties.c:294
+#: ../plugins/am-project/am-properties.c:469
+#: ../plugins/am-project/am-properties.c:644
 msgid "Additional Vala compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka Vala tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:276
-#: ../plugins/am-project/am-properties.c:433
-#: ../plugins/am-project/am-properties.c:590
+#: ../plugins/am-project/am-properties.c:303
+#: ../plugins/am-project/am-properties.c:478
+#: ../plugins/am-project/am-properties.c:653
 msgid "Additional Fortran compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka Fortran tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:284
-#: ../plugins/am-project/am-properties.c:441
-#: ../plugins/am-project/am-properties.c:598
+#: ../plugins/am-project/am-properties.c:312
+#: ../plugins/am-project/am-properties.c:487
+#: ../plugins/am-project/am-properties.c:662
 msgid "Additional Objective C compiler flags for this target."
 msgstr "Dodatečné přepínače pro překladač jazyka C tohoto cíle."
 
-#: ../plugins/am-project/am-properties.c:292
-#: ../plugins/am-project/am-properties.c:449
-#: ../plugins/am-project/am-properties.c:606
+#: ../plugins/am-project/am-properties.c:321
+#: ../plugins/am-project/am-properties.c:496
+#: ../plugins/am-project/am-properties.c:671
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
 "Dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro tento cíl."
 
-#: ../plugins/am-project/am-properties.c:300
-#: ../plugins/am-project/am-properties.c:457
-#: ../plugins/am-project/am-properties.c:614
+#: ../plugins/am-project/am-properties.c:330
+#: ../plugins/am-project/am-properties.c:505
+#: ../plugins/am-project/am-properties.c:680
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr "Dodatečné přepínače analyzátoru Yacc nebo Bison pro tento cíl."
 
-#: ../plugins/am-project/am-properties.c:305
-#: ../plugins/am-project/am-properties.c:462
-#: ../plugins/am-project/am-properties.c:619
-#: ../plugins/am-project/am-properties.c:671
-#: ../plugins/am-project/am-properties.c:720
-#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:336
+#: ../plugins/am-project/am-properties.c:511
+#: ../plugins/am-project/am-properties.c:686
+#: ../plugins/am-project/am-properties.c:743
+#: ../plugins/am-project/am-properties.c:797
+#: ../plugins/am-project/am-properties.c:872
 msgid "Additional dependencies:"
 msgstr "Dodatečné závislosti:"
 
-#: ../plugins/am-project/am-properties.c:308
-#: ../plugins/am-project/am-properties.c:465
-#: ../plugins/am-project/am-properties.c:622
-#: ../plugins/am-project/am-properties.c:674
-#: ../plugins/am-project/am-properties.c:723
-#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:339
+#: ../plugins/am-project/am-properties.c:514
+#: ../plugins/am-project/am-properties.c:689
+#: ../plugins/am-project/am-properties.c:746
+#: ../plugins/am-project/am-properties.c:800
+#: ../plugins/am-project/am-properties.c:875
 msgid "Additional dependencies for this target."
 msgstr "Dodatečné závislosti cíle."
 
-#: ../plugins/am-project/am-properties.c:313
-#: ../plugins/am-project/am-properties.c:470
-#: ../plugins/am-project/am-properties.c:627
-#: ../plugins/am-project/am-properties.c:728
-#: ../plugins/am-project/am-properties.c:796
+#: ../plugins/am-project/am-properties.c:345
+#: ../plugins/am-project/am-properties.c:520
+#: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:806
+#: ../plugins/am-project/am-properties.c:881
 msgid "Include in distribution:"
 msgstr "Zahrnout do balíčku:"
 
-#: ../plugins/am-project/am-properties.c:316
-#: ../plugins/am-project/am-properties.c:473
-#: ../plugins/am-project/am-properties.c:630
-#: ../plugins/am-project/am-properties.c:731
-#: ../plugins/am-project/am-properties.c:799
+#: ../plugins/am-project/am-properties.c:348
+#: ../plugins/am-project/am-properties.c:523
+#: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:809
+#: ../plugins/am-project/am-properties.c:884
 msgid "Include this target in the distributed package."
 msgstr "Zahrnout cíl do distribučního balíčku."
 
-#: ../plugins/am-project/am-properties.c:322
-#: ../plugins/am-project/am-properties.c:479
-#: ../plugins/am-project/am-properties.c:636
-#: ../plugins/am-project/am-properties.c:737
-#: ../plugins/am-project/am-properties.c:804
+#: ../plugins/am-project/am-properties.c:355
+#: ../plugins/am-project/am-properties.c:530
+#: ../plugins/am-project/am-properties.c:705
+#: ../plugins/am-project/am-properties.c:816
+#: ../plugins/am-project/am-properties.c:890
 msgid "Build for check only:"
 msgstr "Sestavit jen kvůli kontrole:"
 
-#: ../plugins/am-project/am-properties.c:325
-#: ../plugins/am-project/am-properties.c:482
-#: ../plugins/am-project/am-properties.c:639
-#: ../plugins/am-project/am-properties.c:740
-#: ../plugins/am-project/am-properties.c:807
+#: ../plugins/am-project/am-properties.c:358
+#: ../plugins/am-project/am-properties.c:533
+#: ../plugins/am-project/am-properties.c:708
+#: ../plugins/am-project/am-properties.c:819
+#: ../plugins/am-project/am-properties.c:893
 msgid "Build this target only when running automatic tests."
 msgstr "Sestavit tento cíl jen při běhu automatických testů."
 
-#: ../plugins/am-project/am-properties.c:331
-#: ../plugins/am-project/am-properties.c:488
-#: ../plugins/am-project/am-properties.c:645
-#: ../plugins/am-project/am-properties.c:679
-#: ../plugins/am-project/am-properties.c:746
-#: ../plugins/am-project/am-properties.c:812
+#: ../plugins/am-project/am-properties.c:365
+#: ../plugins/am-project/am-properties.c:540
+#: ../plugins/am-project/am-properties.c:715
+#: ../plugins/am-project/am-properties.c:752
+#: ../plugins/am-project/am-properties.c:826
+#: ../plugins/am-project/am-properties.c:899
 msgid "Do not use prefix:"
 msgstr "Nepoužívat předponu:"
 
-#: ../plugins/am-project/am-properties.c:334
-#: ../plugins/am-project/am-properties.c:491
-#: ../plugins/am-project/am-properties.c:648
-#: ../plugins/am-project/am-properties.c:682
-#: ../plugins/am-project/am-properties.c:749
-#: ../plugins/am-project/am-properties.c:815
+#: ../plugins/am-project/am-properties.c:368
+#: ../plugins/am-project/am-properties.c:543
+#: ../plugins/am-project/am-properties.c:718
+#: ../plugins/am-project/am-properties.c:755
+#: ../plugins/am-project/am-properties.c:829
+#: ../plugins/am-project/am-properties.c:902
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4625,19 +4583,19 @@ msgstr ""
 "Neprovádět přejmenování cíle za pomoci volitelné předpony, používá se k "
 "tomu, aby se zabránilo přepsání systémového programu."
 
-#: ../plugins/am-project/am-properties.c:340
-#: ../plugins/am-project/am-properties.c:497
-#: ../plugins/am-project/am-properties.c:654
-#: ../plugins/am-project/am-properties.c:755
-#: ../plugins/am-project/am-properties.c:820
+#: ../plugins/am-project/am-properties.c:375
+#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:725
+#: ../plugins/am-project/am-properties.c:836
+#: ../plugins/am-project/am-properties.c:908
 msgid "Keep target path:"
 msgstr "Zachovat cestu cíle:"
 
-#: ../plugins/am-project/am-properties.c:343
-#: ../plugins/am-project/am-properties.c:500
-#: ../plugins/am-project/am-properties.c:657
-#: ../plugins/am-project/am-properties.c:758
-#: ../plugins/am-project/am-properties.c:823
+#: ../plugins/am-project/am-properties.c:378
+#: ../plugins/am-project/am-properties.c:553
+#: ../plugins/am-project/am-properties.c:728
+#: ../plugins/am-project/am-properties.c:839
+#: ../plugins/am-project/am-properties.c:911
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4647,16 +4605,16 @@ msgstr ""
 "„podadresar/aplikace“ programu instalován do adresáře „bin“, instalace bude "
 "provedena do „bin/podadresar/aplikace“ a ne do „bin/aplikace“."
 
-#: ../plugins/am-project/am-properties.c:382
-#: ../plugins/am-project/am-properties.c:539
+#: ../plugins/am-project/am-properties.c:421
+#: ../plugins/am-project/am-properties.c:596
 msgid "Libraries:"
 msgstr "Knihovny:"
 
-#: ../plugins/am-project/am-properties.c:688
+#: ../plugins/am-project/am-properties.c:762
 msgid "Manual section:"
 msgstr "Sekce manuálu:"
 
-#: ../plugins/am-project/am-properties.c:691
+#: ../plugins/am-project/am-properties.c:765
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -4804,26 +4762,26 @@ msgstr "Probíhá odpojování procesu…\n"
 msgid "Interrupting the process\n"
 msgstr "Proces se přerušuje\n"
 
-#: ../plugins/gdb/debugger.c:3996
+#: ../plugins/gdb/debugger.c:3925
 msgid "more children"
 msgstr "další potomek"
 
-#: ../plugins/gdb/debugger.c:4249
+#: ../plugins/gdb/debugger.c:4178
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Procesu se posílá signál %s: %d"
 
-#: ../plugins/gdb/debugger.c:4275
+#: ../plugins/gdb/debugger.c:4204
 msgid "Error whilst signaling the process."
 msgstr "Chyba při signalizaci procesu."
 
-#: ../plugins/gdb/plugin.c:118
+#: ../plugins/gdb/plugin.c:120
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr "Nelze vytvořit soubor FIFO jménem %s. Program poběží bez terminálu."
 
-#: ../plugins/gdb/plugin.c:202
+#: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
 msgstr "Otevřít spustit terminál pro ladění."
 
@@ -6121,9 +6079,9 @@ msgid "_Select file to add…"
 msgstr "Vyberte _soubor, který chcete přidat…"
 
 #: ../plugins/project-manager/project-model.c:184
-#: ../plugins/project-manager/plugin.c:1324
-#: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1618 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/project-manager/plugin.c:1326
+#: ../plugins/project-manager/plugin.c:1448
+#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2125
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projekt"
@@ -6145,7 +6103,7 @@ msgstr "Obnovuje se strom symbolů…"
 msgid "Failed to refresh project: %s"
 msgstr "Nelze obnovit projekt: %s"
 
-#: ../plugins/project-manager/plugin.c:668
+#: ../plugins/project-manager/plugin.c:670
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6153,7 +6111,7 @@ msgstr ""
 "Opravdu chcete odstranit následující skupinu z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:671
+#: ../plugins/project-manager/plugin.c:673
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6161,7 +6119,7 @@ msgstr ""
 "Opravdu chcete odstranit z projektu následující cíl?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:674
+#: ../plugins/project-manager/plugin.c:676
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6169,7 +6127,7 @@ msgstr ""
 "Opravdu chcete odstranit z projektu následující zdrojový soubor?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:677
+#: ../plugins/project-manager/plugin.c:679
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6177,7 +6135,7 @@ msgstr ""
 "Opravdu chcete odstranit následující balíček z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:680
+#: ../plugins/project-manager/plugin.c:682
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6185,7 +6143,7 @@ msgstr ""
 "Opravdu chcete odstranit následující modul z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:683
+#: ../plugins/project-manager/plugin.c:685
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6193,57 +6151,57 @@ msgstr ""
 "Opravdu chcete odstranit z projektu následující části?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:700
+#: ../plugins/project-manager/plugin.c:702
 #, c-format
 msgid "Group: %s\n"
 msgstr "Skupina: %s\n"
 
-#: ../plugins/project-manager/plugin.c:703
+#: ../plugins/project-manager/plugin.c:705
 #, c-format
 msgid "Target: %s\n"
 msgstr "Cíl: %s\n"
 
-#: ../plugins/project-manager/plugin.c:706
+#: ../plugins/project-manager/plugin.c:708
 #, c-format
 msgid "Source: %s\n"
 msgstr "Zdroj: %s\n"
 
-#: ../plugins/project-manager/plugin.c:709
+#: ../plugins/project-manager/plugin.c:711
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "Zkratka: %s\n"
 
-#: ../plugins/project-manager/plugin.c:712
+#: ../plugins/project-manager/plugin.c:714
 #, c-format
 msgid "Module: %s\n"
 msgstr "Modul: %s\n"
 
-#: ../plugins/project-manager/plugin.c:715
+#: ../plugins/project-manager/plugin.c:717
 #, c-format
 msgid "Package: %s\n"
 msgstr "Balíček: %s\n"
 
-#: ../plugins/project-manager/plugin.c:727
+#: ../plugins/project-manager/plugin.c:729
 msgid "The group will be deleted from the file system."
 msgstr "Skupina bude odstraněna ze souborového systému."
 
-#: ../plugins/project-manager/plugin.c:729
+#: ../plugins/project-manager/plugin.c:731
 msgid "The group will not be deleted from the file system."
 msgstr "Skupina nebude odstraněna ze souborového systému."
 
-#: ../plugins/project-manager/plugin.c:731
+#: ../plugins/project-manager/plugin.c:733
 msgid "The source file will be deleted from the file system."
 msgstr "Zdrojový soubor bude odstraněn ze souborového systému."
 
-#: ../plugins/project-manager/plugin.c:733
+#: ../plugins/project-manager/plugin.c:735
 msgid "The source file will not be deleted from the file system."
 msgstr "Zdrojový soubor nebude odstraněn ze souborového systému."
 
-#: ../plugins/project-manager/plugin.c:738
+#: ../plugins/project-manager/plugin.c:740
 msgid "Confirm remove"
 msgstr "Potvrdit odstranění"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:786
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6253,130 +6211,130 @@ msgstr ""
 "%s"
 
 # FIXME: s/retried/retrieve/
-#: ../plugins/project-manager/plugin.c:850
+#: ../plugins/project-manager/plugin.c:852
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Nelze získat informace o URI %s: %s"
 
-#: ../plugins/project-manager/plugin.c:888
+#: ../plugins/project-manager/plugin.c:890
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../plugins/project-manager/plugin.c:892
+#: ../plugins/project-manager/plugin.c:894
 msgid "New _Directory…"
 msgstr "Nový a_dresář…"
 
-#: ../plugins/project-manager/plugin.c:892
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:894
+#: ../plugins/project-manager/plugin.c:933
 msgid "Add a new directory to the project"
 msgstr "Přidat  do projektu nový adresář"
 
-#: ../plugins/project-manager/plugin.c:897
+#: ../plugins/project-manager/plugin.c:899
 msgid "New _Target…"
 msgstr "Nový _cíl"
 
-#: ../plugins/project-manager/plugin.c:897
-#: ../plugins/project-manager/plugin.c:936
+#: ../plugins/project-manager/plugin.c:899
+#: ../plugins/project-manager/plugin.c:938
 msgid "Add a new target to the project"
 msgstr "Přidat do projektu nový cíl"
 
-#: ../plugins/project-manager/plugin.c:902
+#: ../plugins/project-manager/plugin.c:904
 msgid "Add _Source File…"
 msgstr "Přidat _zdrojový soubor…"
 
-#: ../plugins/project-manager/plugin.c:902
-#: ../plugins/project-manager/plugin.c:941
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:904
+#: ../plugins/project-manager/plugin.c:943
+#: ../plugins/project-manager/plugin.c:958
 msgid "Add a source file to a target"
 msgstr "Přidat cíli zdrojový soubor"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:909
 msgid "Add _Library…"
 msgstr "Přidat _knihovnu…"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:909
 msgid "Add a module to a target"
 msgstr "Přidat cíli nový modul"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:914
 msgid "New _Library…"
 msgstr "Nová _knihovna…"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:914
 msgid "Add a new package to the project"
 msgstr "Přidat do projektu nový balíček"
 
-#: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:919
+#: ../plugins/project-manager/plugin.c:963
 msgid "_Properties"
 msgstr "_Vlastnosti"
 
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:919
 #: ../plugins/project-manager/dialogs.c:562
 msgid "Project properties"
 msgstr "Vlastnosti projektu"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:924
 msgid "Close Pro_ject"
 msgstr "Zavřít p_rojekt"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:924
 msgid "Close project"
 msgstr "Zavřít projekt"
 
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:933
 msgid "New _Directory"
 msgstr "Nový _adresář"
 
-#: ../plugins/project-manager/plugin.c:936
+#: ../plugins/project-manager/plugin.c:938
 msgid "New _Target"
 msgstr "Nový _cíl"
 
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:943
 msgid "Add _Source File"
 msgstr "Přidat _zdrojový soubor"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:948
 msgid "Add _Library"
 msgstr "Přidat _knihovnu"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:948
 msgid "Add a library to a target"
 msgstr "Přidat cíli knihovnu"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:953
 msgid "New _Library"
 msgstr "Nová _knihovna"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:953
 msgid "Add a new library to the project"
 msgstr "Přidat do projektu novou knihovnu"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:958
 msgid "_Add to Project"
 msgstr "Přid_at do projektu"
 
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:963
 msgid "Properties of group/target/source"
 msgstr "Vlastnosti skupiny/cíle/zdroje"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:968
 msgid "Re_move"
 msgstr "_Odstranit"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:968
 msgid "Remove from project"
 msgstr "Odstranit z projektu"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:973
 msgid "_Sort"
 msgstr "_Seřadit"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:973
 msgid "Sort shortcuts"
 msgstr "Seřadit zkratky"
 
-#: ../plugins/project-manager/plugin.c:1309
+#: ../plugins/project-manager/plugin.c:1311
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6384,33 +6342,33 @@ msgid ""
 msgstr ""
 "Selhala analýza projektu (projekt je otevřen, ale nebude zobrazen) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1319
+#: ../plugins/project-manager/plugin.c:1321
 msgid "Update project view…"
 msgstr "Aktualizovat pohled na projekt…"
 
-#: ../plugins/project-manager/plugin.c:1362
+#: ../plugins/project-manager/plugin.c:1364
 #, c-format
 msgid "Loading project: %s"
 msgstr "Načítá se projekt: %s"
 
-#: ../plugins/project-manager/plugin.c:1526
+#: ../plugins/project-manager/plugin.c:1528
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Chyba při uzavírání projektu: %s"
 
-#: ../plugins/project-manager/plugin.c:1597
+#: ../plugins/project-manager/plugin.c:1599
 msgid "Project manager actions"
 msgstr "Akce správce projektu"
 
-#: ../plugins/project-manager/plugin.c:1605
+#: ../plugins/project-manager/plugin.c:1607
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
-#: ../plugins/project-manager/plugin.c:2394
+#: ../plugins/project-manager/plugin.c:2396
 msgid "Initializing Project…"
 msgstr "Nahrávání projektu…"
 
-#: ../plugins/project-manager/plugin.c:2397
+#: ../plugins/project-manager/plugin.c:2399
 msgid "Project Loaded"
 msgstr "Projekt byl nahrán"
 
@@ -6686,29 +6644,29 @@ msgstr "Nelze najít žádnou šablonu projektu v %s: %s"
 msgid "New Project Assistant"
 msgstr "Průvodce novým projektem"
 
-#: ../plugins/project-wizard/property.c:341
+#: ../plugins/project-wizard/property.c:342
 msgid "Select directory"
 msgstr "Vyberte složku"
 
-#: ../plugins/project-wizard/property.c:358
+#: ../plugins/project-wizard/property.c:359
 msgid "Select file"
 msgstr "Vybrat soubor"
 
-#: ../plugins/project-wizard/property.c:408 ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:409 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Vybrat soubor s obrázkem"
 
-#: ../plugins/project-wizard/property.c:433
-#: ../plugins/project-wizard/property.c:521 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:434
+#: ../plugins/project-wizard/property.c:524 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Zvolte ikonu"
 
-#: ../plugins/project-wizard/property.c:491
+#: ../plugins/project-wizard/property.c:494
 msgid "Choose directory"
 msgstr "Zvolte složku"
 
-#: ../plugins/project-wizard/property.c:495
+#: ../plugins/project-wizard/property.c:498
 msgid "Choose file"
 msgstr "Zvolte soubor"
 
@@ -7538,10 +7496,6 @@ msgstr "GTK+ (Aplikace)"
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
 msgstr "Vyberte pracovní složku"
-
-#: ../plugins/run-program/anjuta-run-program.ui.h:3
-msgid "Environment Variables:"
-msgstr "Proměnné prostředí:"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:4
 msgid "Program Parameters"
@@ -8580,38 +8534,47 @@ msgstr "Hledat symbol"
 msgid "%s: Generating inheritances…"
 msgstr "%s: Sestavování dědičností…"
 
-#: ../plugins/symbol-db/plugin.c:1037
+#. Translators: %s is the name of a system library
+#: ../plugins/symbol-db/plugin.c:1038
 #, c-format
-msgid "%s: %d files scanned out of %d"
-msgstr "%s: %d z %d souborů proskenováno"
+#| msgid "%s: %d files scanned out of %d"
+msgid "%s: %d file scanned out of %d"
+msgid_plural "%s: %d files scanned out of %d"
+msgstr[0] "%s: %d z %d souboru proskenován"
+msgstr[1] "%s: %d ze %d souborů proskenováno"
+msgstr[2] "%s: %d z %d souborů proskenováno"
 
-#: ../plugins/symbol-db/plugin.c:1068
+#: ../plugins/symbol-db/plugin.c:1069
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Sestavování dědičností…"
 
-#: ../plugins/symbol-db/plugin.c:1070
+#: ../plugins/symbol-db/plugin.c:1071
 #, c-format
-msgid "%d files scanned out of %d"
-msgstr "%d z %d souborů proskenováno"
+#| msgid "%d files scanned out of %d"
+msgid "%d file scanned out of %d"
+msgid_plural "%d files scanned out of %d"
+msgstr[0] "%d z %d souboru proskenován"
+msgstr[1] "%d ze %d souborů proskenováno"
+msgstr[2] "%d z %d souborů proskenováno"
 
-#: ../plugins/symbol-db/plugin.c:1729
+#: ../plugins/symbol-db/plugin.c:1730
 msgid "Populating symbol database…"
 msgstr "Naplňuje se databáze symbolů…"
 
-#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/symbol-db/plugin.c:2110 ../plugins/symbol-db/plugin.c:2195
 msgid "Symbols"
 msgstr "Symboly"
 
-#: ../plugins/symbol-db/plugin.c:2203
+#: ../plugins/symbol-db/plugin.c:2204
 msgid "SymbolDb popup actions"
 msgstr "Kontextové akce SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2211
+#: ../plugins/symbol-db/plugin.c:2212
 msgid "SymbolDb menu actions"
 msgstr "Akce nabídky SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
+#: ../plugins/symbol-db/plugin.c:2525 ../plugins/symbol-db/plugin.c:2543
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Databáze symbolů"
@@ -9730,4 +9693,3 @@ msgstr "Min. počet znaků pro dokončování "
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Symbol"
-
