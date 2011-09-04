@@ -3,11 +3,13 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
 AC_INIT([+NameHLower+], [+Version+])
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
+
+AM_INIT_AUTOMAKE([1.11])
 AM_MAINTAINER_MODE
+
+AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 AC_PATH_XTRA
@@ -19,17 +21,18 @@ AC_PROG_CXX
 
 [+IF (=(get "HaveI18n") "1")+]
 dnl ***************************************************************************
-dnl Internatinalization
+dnl Internationalization
 dnl ***************************************************************************
+IT_PROG_INTLTOOL([0.35.0])
+
 GETTEXT_PACKAGE=[+NameHLower+]
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.35.0])
 [+ENDIF+]
 
 [+IF (=(get "HaveSharedlib") "1")+]
-AM_PROG_LIBTOOL
+LT_INIT
 [+ENDIF+]
 
 [+IF (=(get "HavePackage") "1")+]

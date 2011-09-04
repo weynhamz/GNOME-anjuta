@@ -3,11 +3,13 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
 AC_INIT([+NameHLower+], [+Version+])
+
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([1.11 foreign])
 AM_MAINTAINER_MODE
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+
+AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 
