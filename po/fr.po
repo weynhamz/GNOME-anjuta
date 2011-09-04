@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-08-28 10:58+0000\n"
-"PO-Revision-Date: 2011-03-26 22:22+0100\n"
+"POT-Creation-Date: 2011-08-31 20:59+0000\n"
+"PO-Revision-Date: 2011-09-04 20:07+0200\n"
 "Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -1700,7 +1700,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorer les fichiers .cvsrc (recommandé)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2161
+#: ../plugins/symbol-db/plugin.c:2162
 msgid "Local"
 msgstr "Local"
 
@@ -2378,7 +2378,7 @@ msgstr "Opérations de point d'arrêt"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:392
-#: ../plugins/debug-manager/sparse_view.c:501
+#: ../plugins/debug-manager/sparse_view.c:500
 msgid "_Go to address"
 msgstr "_Aller à l'adresse"
 
@@ -2685,19 +2685,19 @@ msgstr "Signaux du noyaux"
 msgid "Signal operations"
 msgstr "Opérations sur les signaux"
 
-#: ../plugins/debug-manager/sparse_view.c:1132
+#: ../plugins/debug-manager/sparse_view.c:1237
 msgid "Show Line Numbers"
 msgstr "Afficher les numéros de ligne"
 
-#: ../plugins/debug-manager/sparse_view.c:1133
+#: ../plugins/debug-manager/sparse_view.c:1238
 msgid "Whether to display line numbers"
 msgstr "Indique s'il faut afficher des numéros de ligne"
 
-#: ../plugins/debug-manager/sparse_view.c:1140
+#: ../plugins/debug-manager/sparse_view.c:1245
 msgid "Show Line Markers"
 msgstr "Afficher les marqueurs de lignes"
 
-#: ../plugins/debug-manager/sparse_view.c:1141
+#: ../plugins/debug-manager/sparse_view.c:1246
 msgid "Whether to display line marker pixbufs"
 msgstr "Indique s'il faut afficher les pictogrammes des marqueurs de lignes"
 
@@ -2728,7 +2728,7 @@ msgstr "Cadre"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2915,8 +2915,8 @@ msgstr "Navigateur d'API"
 msgid "Contents"
 msgstr "Sommaire"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
-#: ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/symbol-db/plugin.c:2182
 msgid "Search"
 msgstr "Rechercher"
 
@@ -4013,7 +4013,7 @@ msgid "Filter"
 msgstr "Filtre"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2174
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Global"
@@ -6150,7 +6150,7 @@ msgstr "_Sélectionner un fichier à ajouter…"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1326
 #: ../plugins/project-manager/plugin.c:1448
-#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2125
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projet"
@@ -8633,38 +8633,43 @@ msgstr "Recherche de symbole"
 msgid "%s: Generating inheritances…"
 msgstr "%s : génération des héritages…"
 
-#: ../plugins/symbol-db/plugin.c:1037
+#. Translators: %s is the name of a system library
+#: ../plugins/symbol-db/plugin.c:1038
 #, c-format
-msgid "%s: %d files scanned out of %d"
-msgstr "%s : %d fichiers analysés sur %d"
+msgid "%s: %d file scanned out of %d"
+msgid_plural "%s: %d files scanned out of %d"
+msgstr[0] "%s : %d fichier analysé sur %d"
+msgstr[1] "%s : %d fichiers analysés sur %d"
 
-#: ../plugins/symbol-db/plugin.c:1068
+#: ../plugins/symbol-db/plugin.c:1069
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Génération des héritages…"
 
-#: ../plugins/symbol-db/plugin.c:1070
+#: ../plugins/symbol-db/plugin.c:1071
 #, c-format
-msgid "%d files scanned out of %d"
-msgstr "%d fichiers analysés sur %d"
+msgid "%d file scanned out of %d"
+msgid_plural "%d files scanned out of %d"
+msgstr[0] "%d fichier analysé sur %d"
+msgstr[1] "%d fichiers analysés sur %d"
 
-#: ../plugins/symbol-db/plugin.c:1729
+#: ../plugins/symbol-db/plugin.c:1730
 msgid "Populating symbol database…"
 msgstr "Remplissage de la base de données des symboles…"
 
-#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/symbol-db/plugin.c:2110 ../plugins/symbol-db/plugin.c:2195
 msgid "Symbols"
 msgstr "Symboles"
 
-#: ../plugins/symbol-db/plugin.c:2203
+#: ../plugins/symbol-db/plugin.c:2204
 msgid "SymbolDb popup actions"
 msgstr "Opérations contextuelles de la base de données des symboles"
 
-#: ../plugins/symbol-db/plugin.c:2211
+#: ../plugins/symbol-db/plugin.c:2212
 msgid "SymbolDb menu actions"
 msgstr "Actions de menus de la base de données des symboles"
 
-#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
+#: ../plugins/symbol-db/plugin.c:2525 ../plugins/symbol-db/plugin.c:2543
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de données des symboles"
@@ -9806,223 +9811,3 @@ msgstr "Minimum de caractères pour la complétion "
 msgid "Symbol"
 msgstr "Symbole"
 
-#~ msgid "Info _Target Files"
-#~ msgstr "Informations sur les fichiers _cibles"
-
-#~ msgid "Display information on the files the debugger is active with"
-#~ msgstr "Affiche des informations sur les fichiers en cours de débogage"
-
-#~ msgid "Info _Program"
-#~ msgstr "Informations sur le _programme"
-
-#~ msgid "Display information on the execution status of the program"
-#~ msgstr "Affiche des informations sur l'état d'exécution du programme"
-
-#~ msgid "Info _Kernel User Struct"
-#~ msgstr "Informations sur la « structure utilisateur » du _noyau"
-
-#~ msgid "Display the contents of kernel 'struct user' for current child"
-#~ msgstr ""
-#~ "Affiche le contenu de la « structure utilisateur » du noyau pour le fils "
-#~ "actuel"
-
-#~ msgid "Info _Global Variables"
-#~ msgstr "Informations sur les variables _globales"
-
-#~ msgid "Display all global and static variables of the program"
-#~ msgstr "Affiche toutes les variables globales et statiques du programme"
-
-#~ msgid "Info _Current Frame"
-#~ msgstr "Informations sur le cadre _actuel"
-
-#~ msgid "Display information about the current frame of execution"
-#~ msgstr "Affiche des informations au sujet du cadre actuel d'exécution"
-
-#~ msgid "Info Function _Arguments"
-#~ msgstr "Informations sur les _paramètres de la fonction"
-
-#~ msgid "Display function arguments of the current frame"
-#~ msgstr "Affiche les paramètres de la fonction du cadre actuel"
-
-#~ msgid "X"
-#~ msgstr "X"
-
-#~ msgid "Y"
-#~ msgstr "Y"
-
-#~ msgid "Markup"
-#~ msgstr "Texte balisé"
-
-#~ msgid "Marked up text to render"
-#~ msgstr "Texte balisé à rendre"
-
-#~ msgid "Font description as a string"
-#~ msgstr "Description de la police en tant que chaîne"
-
-#~ msgid "Font description"
-#~ msgstr "Description de police"
-
-#~ msgid "Font description as a PangoFontDescription struct"
-#~ msgstr "Description de la police en tant que structure PangoFontDescription"
-
-#~ msgid "Font family"
-#~ msgstr "Famille de la police"
-
-#~ msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
-#~ msgstr ""
-#~ "Nom de la famille de la police, par ex. Sans, Helvetica, Times, Monospace"
-
-#~ msgid "Font style"
-#~ msgstr "Style de la police"
-
-#~ msgid "Font variant"
-#~ msgstr "Variante de la police"
-
-#~ msgid "Font weight"
-#~ msgstr "Graisse de la police"
-
-#~ msgid "Font stretch"
-#~ msgstr "Étirement de la police"
-
-#~ msgid "Font size"
-#~ msgstr "Taille de la police"
-
-#~ msgid "Font points"
-#~ msgstr "Points de la police"
-
-#~ msgid "Font size in points"
-#~ msgstr "Taille de la police en points"
-
-#~ msgid "Rise"
-#~ msgstr "Élévation"
-
-#~ msgid ""
-#~ "Offset of text above the baseline (below the baseline if rise is negative)"
-#~ msgstr ""
-#~ "Décalage du texte au-dessus de la ligne de base (au-dessous si "
-#~ "l'élévation est négative)"
-
-#~ msgid "Strikethrough"
-#~ msgstr "Barré"
-
-#~ msgid "Whether to strike through the text"
-#~ msgstr "Indique s'il faut barrer le texte"
-
-#~ msgid "Underline"
-#~ msgstr "Souligné"
-
-#~ msgid "Style of underline for this text"
-#~ msgstr "Style de soulignement de ce texte"
-
-#~ msgid "Scale"
-#~ msgstr "Échelle"
-
-#~ msgid "Size of font, relative to default size"
-#~ msgstr "Taille de la police en fonction de la taille par défaut"
-
-#~ msgid "Color"
-#~ msgstr "Couleur"
-
-#~ msgid "Text color, as string"
-#~ msgstr "Couleur du texte, sous forme de chaîne"
-
-#~ msgid "Text color, as a GdkColor"
-#~ msgstr "Couleur du texte, en tant que GdkColor"
-
-#~ msgid "Text color, as an R/G/B/A combined integer"
-#~ msgstr "Couleur du texte, sous forme de combinaison d'entiers R/V/B/A"
-
-#~ msgid "Text width"
-#~ msgstr "Largeur du texte"
-
-#~ msgid "Width of the rendered text"
-#~ msgstr "Largeur du texte rendu"
-
-#~ msgid "Text height"
-#~ msgstr "Hauteur du texte"
-
-#~ msgid "Height of the rendered text"
-#~ msgstr "Hauteur du texte rendu"
-
-#~ msgid "Font family set"
-#~ msgstr "Famille de la police définie"
-
-#~ msgid "Whether this tag affects the font family"
-#~ msgstr "Indique si cette balise affecte la famille de la police"
-
-#~ msgid "Font style set"
-#~ msgstr "Style de la police défini"
-
-#~ msgid "Whether this tag affects the font style"
-#~ msgstr "Indique si cette balise affecte le style de la police"
-
-#~ msgid "Font variant set"
-#~ msgstr "Variante de la police définie"
-
-#~ msgid "Whether this tag affects the font variant"
-#~ msgstr "Indique si cette balise affecte la variante de la police"
-
-#~ msgid "Font weight set"
-#~ msgstr "Épaisseur de la police définie"
-
-#~ msgid "Whether this tag affects the font weight"
-#~ msgstr "Indique si cette balise affecte l'épaisseur de la police"
-
-#~ msgid "Font stretch set"
-#~ msgstr "Étirement de la police défini"
-
-#~ msgid "Whether this tag affects the font stretch"
-#~ msgstr "Indique si cette balise affecte l'étirement de la police"
-
-#~ msgid "Font size set"
-#~ msgstr "Taille de la police définie"
-
-#~ msgid "Whether this tag affects the font size"
-#~ msgstr "Indique si cette balise affecte la taille de la police"
-
-#~ msgid "Rise set"
-#~ msgstr "Élévation définie"
-
-#~ msgid "Whether this tag affects the rise"
-#~ msgstr "Indique si cette balise affecte l'élévation"
-
-#~ msgid "Strikethrough set"
-#~ msgstr "Barré défini"
-
-#~ msgid "Whether this tag affects strikethrough"
-#~ msgstr "Indique si cette balise affecte le barré"
-
-#~ msgid "Underline set"
-#~ msgstr "Soulignement défini"
-
-#~ msgid "Whether this tag affects underlining"
-#~ msgstr "Indique si cette balise affecte le soulignement"
-
-#~ msgid "Scale set"
-#~ msgstr "Échelle définie"
-
-#~ msgid "Whether this tag affects font scaling"
-#~ msgstr "Indique si cette balise affecte la mise à l'échelle de la police"
-
-#~ msgid "Args: %s"
-#~ msgstr "Args : %s"
-
-#~ msgid "Inheritance Graph"
-#~ msgstr "Graphe de l'héritage"
-
-#~ msgid "Unable to build user interface for New File"
-#~ msgstr "Impossible de construire l'interface de « Nouveau fichier »"
-
-#~ msgid "Unable to build project assistant user interface reading %s."
-#~ msgstr ""
-#~ "Impossible de construire l'interface de l'assistant de projet en lisant %"
-#~ "s."
-
-#~ msgid "Missing file %s"
-#~ msgstr "Le fichier %s est manquant"
-
-#~ msgid "A graph painter for the inheritance of the classes."
-#~ msgstr "Un dessinateur de graphe pour l'héritage des classes."
-
-#~ msgid "Class Inheritance"
-#~ msgstr "Héritage de classe"
