@@ -250,9 +250,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 gboolean
 anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
-	ianjuta_project_load_node (project->project, project->root, NULL);	
-
-	return TRUE;
+	return ianjuta_project_load_node (project->project, project->root, error);	
 }
 
 gint
@@ -351,7 +349,7 @@ anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 	
-	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name, NULL);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name, error);
 
 	return node;
 }
@@ -363,7 +361,7 @@ anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *paren
 	
 	g_return_val_if_fail (project->project != NULL, NULL);
 
-	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name, NULL);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name, error);
 
 	return node;
 }
@@ -384,7 +382,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 		file = g_file_new_for_uri (name);
 	}
 	
-	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, file, file == NULL ? name : NULL, NULL);
+	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, file, file == NULL ? name : NULL, error);
 
 	return node;
 }
@@ -392,9 +390,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 gboolean
 anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GError **error)
 {
-	ianjuta_project_remove_node (project->project, node, NULL);
-
-	return TRUE;
+	return ianjuta_project_remove_node (project->project, node, error);
 }
 
 gboolean
