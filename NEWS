@@ -1,3 +1,19 @@
+Anjuta 3.1.91 "On the way to Tokio" (5 September 2011) -- Johannes Schmid
+
+Updates:
+ - More improvements in vala plugin (Abderrahim Kitouni)
+ - Fix up problems with gtk+ 3.0 (Sébastien Granjoux)
+
+Bugs fixed:
+638525 	vala support crash on reading source file
+657491 	Only parse the source files of the current target
+657513 	anjuta fails to build in gnome 3.1
+657589 	tests fail in tarball releases because tarballs are missing anjuta.lst
+655756 	User should be notified if execution of a project fails
+656123 	plural forms needed
+657590 	Projects with libtool fails to regenerate
+657022 	make clean removes libanjuta-interfaces.h which breaks make clean; make
+
 Anjuta 3.1.90 "Whitsunday Islands" (29 August 2011) -- Johannes Schmid
 
 Changes:
