@@ -11,6 +11,15 @@ DOC_PAGES = \
 	anjuta-code-symbols.page \
 	anjuta-glade-signals.page \
 	anjuta-glade-start.page \
+	autotools-build-build.page \
+	autotools-build-clean.page \
+	autotools-build-compile.page \
+	autotools-build-configure-dialog.page \
+	autotools-build-configure.page \
+	autotools-build-distribute.page \
+	autotools-build-install.page \
+	autotools-build-plugin.page \
+	autotools-build-preferences-dialog.page \
 	debug-breakpoint-dialog.page \
 	debug-breakpoint.page \
 	debug-cpu.page \
@@ -27,25 +36,26 @@ DOC_PAGES = \
 	debug-thread.page \
 	debug-tips.page \
 	debug-watch.page \
-	run-run.page \
-	run-parameters-dialog.page \
-	autotools-build-build.page \
-	autotools-build-clean.page \
-	autotools-build-compile.page \
-	autotools-build-configure-dialog.page \
-	autotools-build-install.page \
-	autotools-build-plugin.page \
-	autotools-build-preferences-dialog.page \
 	directory-project-backend.page \
+	full-index.page \
+	introduction.page \
+	makefile-project-backend.page \
+	project-import.page \
 	project-manager-file.page \
 	project-manager-library.page \
 	project-manager-module.page \
+	project-manager-package.page \
 	project-manager.page \
+	project-manager-target.page \
 	project-wizard-create.page \
 	project-wizard-template.page \
+	run-parameters-dialog.page \
+	run-run.page \
 	widget-index.page
 	
-DOC_FIGURES = anjuta_logo.png
+DOC_FIGURES = figures/anjuta_logo.png \
+	      figures/anjuta-in-action.png
+
 DOC_LINGUAS = cs da de el es eu fr ja oc pt_BR sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
