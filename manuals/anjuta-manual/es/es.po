@@ -3,20 +3,21 @@
 # 
 # 
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011., 2011.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011., 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-09-05 17:40+0000\n"
-"PO-Revision-Date: 2011-09-05 23:24+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-09-05 23:18+0000\n"
+"PO-Revision-Date: 2011-09-06 11:40+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -425,22 +426,14 @@ msgstr ""
 "personalizables, e incluso escribir las suyas propias."
 
 #: C/project-manager-target.page:10(desc)
-#, fuzzy
-#| msgid "Add or remove libraries from a project."
 msgid "Add or remove a target from a project."
-msgstr "Añadir o quitar bibliotecas de un proyecto."
+msgstr "Añadir o quitar un objetivo de un proyecto."
 
 #: C/project-manager-target.page:23(title)
-#, fuzzy
-#| msgid "Add or remove files"
 msgid "Add or remove targets"
-msgstr "Añadir o quitar archivos"
+msgstr "Añadir o quitar objetivos"
 
 #: C/project-manager-target.page:25(p)
-#, fuzzy
-#| msgid ""
-#| "If the project backend supports it, you can add or remove files in your "
-#| "project without editing the project file."
 msgid ""
 "If the project backend supports it, you can add or remove targets in your "
 "project without editing the project file. A target groups files together. It "
@@ -448,52 +441,40 @@ msgid ""
 "children."
 msgstr ""
 "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos en "
-"sus proyectos sin editar el archivo del proyecto."
+"sus proyectos sin editar el archivo del proyecto. Un objetivo agrupa "
+"archivos en un conjunto. Generalmente se usa para representar un programa "
+"con todos sus archivos de fuentes como sus hijos."
 
 #: C/project-manager-target.page:33(title)
-#, fuzzy
-#| msgid "Clean targets"
 msgid "Add a target"
-msgstr "Limpiar objetivos"
+msgstr "Añadir un objetivo"
 
 #: C/project-manager-target.page:37(p)
-#, fuzzy
-#| msgid ""
-#| "Select the module where you want to add the new library in the "
-#| "<gui>project view</gui>, click on the right mouse button to make the "
-#| "<gui>project context menu</gui> appear and select <gui>New Library</gui>."
 msgid ""
 "Select the directory where you want to add the new target in the "
 "<gui>project view</gui>, click on the right mouse button to make the "
 "<gui>project context menu</gui> appear and select <gui>New Target</gui>."
 msgstr ""
-"Seleccione el módulo donde quiere añadir la biblioteca nueva en la "
-"<gui>vista de proyecto</gui>, pulse el botón derecho del ratón para mostrar "
-"el <gui>menú contextual del proyecto</gui> y seleccione <gui>Biblioteca "
-"nueva</gui>."
+"Seleccione la carpeta donde quiere añadir el objetivo nuevo en la <gui>vista "
+"de proyecto</gui>, pulse con el botón derecho del ratón para mostrar el "
+"<gui>menú contextual del proyecto</gui> y seleccione <gui>Objetivo nuevo</"
+"gui>."
 
 #: C/project-manager-target.page:43(p)
-#, fuzzy
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>New Library...</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
 "Target...</gui></guiseq>"
 msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Projecto</"
-"gui><gui>Biblioteca nueva...</gui></guiseq>"
+"gui><gui>Objetivo nuevo...</gui></guiseq>"
 
 #: C/project-manager-target.page:49(p)
-#, fuzzy
-#| msgid ""
-#| "You can select another target in the top <gui>target tree view</gui>."
 msgid ""
 "You can select another directory in the bottom <gui>directory tree view</"
 "gui>."
 msgstr ""
-"Puede seleccionar otro objetivo en la parte superior de la <gui>vista de "
-"árbol objetivos</gui>."
+"Puede seleccionar otra carpeta en la parte superior de la <gui>vista de "
+"árbol de carpetas</gui>."
 
 #: C/project-manager-target.page:52(p)
 msgid ""
@@ -511,36 +492,26 @@ msgstr ""
 "dígitos y el guión bajo, así que es mejor evitar otros caracteres."
 
 #: C/project-manager-target.page:65(p)
-#, fuzzy
-#| msgid ""
-#| "When you have chosen the target and the files, click on the <gui>Add</"
-#| "gui> button to add those files to your project."
 msgid ""
 "When you have chosen the target name, type and parent, click on the "
 "<gui>Add</gui> button to create this new target."
 msgstr ""
-"Cuando haya elejido el objetivo y los archivos, pulse en el botón "
-"<gui>Añadir</gui> para añadir esos archivos a su proyecto."
+"Cuando haya elegido el nombre del objetivo, escriba el padre y pulse el "
+"botón <gui>Añadir</gui> para crear este objetivo nuevo."
 
 #: C/project-manager-target.page:75(title)
-#| msgid "Remove a watch"
 msgid "Remove a target"
 msgstr "Quitar una objetivo"
 
 #: C/project-manager-target.page:79(p)
-#, fuzzy
-#| msgid ""
-#| "Select the file you want to remove in the <gui>project view</gui>, click "
-#| "on the right mouse button to make the <gui>project context menu</gui> "
-#| "appear and select <gui>Remove</gui>."
 msgid ""
 "Select the target you want to remove in the <gui>project view</gui>, click "
 "on the right mouse button to make the <gui>project context menu</gui> appear "
 "and select <gui>Remove</gui>."
 msgstr ""
-"Seleccione el archivo que quiere quitar en la <gui>vista de proyecto</gui>, "
-"pulse el botón derecho del ratón para mostrar el <gui>menú contextual del "
-"proyecto</gui> y seleccione <gui>Quitar</gui>."
+"Seleccione el objetivo que quiere quitar en la <gui>vista de proyecto</gui>, "
+"pulse con el botón derecho del ratón para mostrar el <gui>menú contextual "
+"del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-target.page:87(p)
 #, fuzzy
@@ -586,13 +557,11 @@ msgid "Project Backend Plugin"
 msgstr "Complemento de «backend» del proyecto"
 
 #: C/project-manager-package.page:9(desc)
-#, fuzzy
 #| msgid "Add or remove non-packaged libraries from a project."
 msgid "Add or remove packaged libraries from a target."
-msgstr "Añadir o quitar bibliotecas no empaquetada en un proyecto."
+msgstr "Añadir o quitar bibliotecas empaquetadas desde un objetivo."
 
 #: C/project-manager-package.page:22(title)
-#| msgid "Add or remove non-packaged libraries"
 msgid "Add or remove packaged libraries"
 msgstr "Añadir o quitar bibliotecas empaquetadas"
 
@@ -605,22 +574,16 @@ msgstr ""
 "añadirlo a un objetivo."
 
 #: C/project-manager-package.page:30(title)
-#, fuzzy
-#| msgid "Add a non-packaged library to a target"
 msgid "Add a packaged library to a target"
-msgstr "Añadir una biblioteca no empaquetada a un objetivo"
+msgstr "Añadir una biblioteca empaquetada a un objetivo"
 
 #: C/project-manager-package.page:32(p)
-#, fuzzy
-#| msgid ""
-#| "A library cannot be added directly to your program; you first need to "
-#| "create a module for it, which is just a group of libraries."
 msgid ""
 "Libraries cannot be added directly to a target. You need to put them into a "
 "module first and add this module to the target."
 msgstr ""
-"No se puede añadir directamente una biblioteca a su programa; primero debe "
-"crear un módulo para ella, que es simplemente un grupo de bibliotecas."
+"No se pueden añadir directamente bibliotecas a un objetivo. Primero debe "
+"crear un módulo y añadir el módulo a un objetivo."
 
 #: C/project-manager-package.page:39(p)
 #, fuzzy
@@ -639,7 +602,6 @@ msgstr ""
 "nueva</gui>."
 
 #: C/project-manager-package.page:45(p)
-#, fuzzy
 #| msgid ""
 #| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 #| "gui><gui>New Library...</gui></guiseq>"
@@ -648,7 +610,7 @@ msgid ""
 "Library...</gui></guiseq>"
 msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Projecto</"
-"gui><gui>Biblioteca nueva...</gui></guiseq>"
+"gui><gui>Añadir biblioteca...</gui></guiseq>"
 
 #: C/project-manager-package.page:51(p)
 #, fuzzy
@@ -669,45 +631,29 @@ msgstr ""
 "fuente</gui>."
 
 #: C/project-manager-package.page:57(p)
-#, fuzzy
-#| msgid ""
-#| "When you have chosen the target and the files, click on the <gui>Add</"
-#| "gui> button to add those files to your project."
 msgid ""
 "When you are done, click on the <gui>Add</gui> button to add the module."
 msgstr ""
-"Cuando haya elejido el objetivo y los archivos, pulse en el botón "
-"<gui>Añadir</gui> para añadir esos archivos a su proyecto."
+"Cuando haya terminado, pulse el botón <gui>Añadir</gui> para añadir el "
+"módulo."
 
 #: C/project-manager-package.page:66(title)
-#, fuzzy
-#| msgid "Remove a non packaged library from a target"
 msgid "Remove a packaged library from a target"
-msgstr "Quitar un biblioteca no empaquetada desde un objetivo"
+msgstr "Quitar un biblioteca empaquetada de un objetivo"
 
 #: C/project-manager-package.page:70(p)
-#, fuzzy
-#| msgid ""
-#| "Select the library you want to remove in the <gui>project view</gui> , "
-#| "click on the right mouse button to make the <gui>project context menu</"
-#| "gui> appear and select <gui>Remove</gui>."
 msgid ""
 "Select the library you want to remove in the <gui>project view</gui>, click "
 "on the right mouse button to make the <gui>project context menu</gui> "
 "appear, and select <gui>Remove</gui>."
 msgstr ""
-"Seleccione la bibliotecas que quiera quitar en la <gui>vista de proyecto</"
-"gui>, pulse en el botón derecho del ratón para mostrar el <gui>menú "
+"Seleccione la biblioteca que quiera quitar en la <gui>vista de proyecto</"
+"gui>, pulse con en el botón derecho del ratón para mostrar el <gui>menú "
 "contextual del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-package.page:78(p)
-#, fuzzy
-#| msgid ""
-#| "Confirm the removal. This library will be removed from the project file."
 msgid "Confirm the removal. This library will be removed from the target."
-msgstr ""
-"Confirme que quiere quitar la biblioteca. Esta biblioteca se quitará del "
-"archivo de proyecto."
+msgstr "Confirme que quiere quitarla. Esta biblioteca se quitará del objetivo."
 
 #: C/project-manager-module.page:11(desc)
 msgid "Add or remove libraries from a project."
@@ -816,9 +762,9 @@ msgid ""
 "menu</gui> appear and select <gui>New Library</gui>."
 msgstr ""
 "Seleccione el módulo donde quiere añadir la biblioteca nueva en la "
-"<gui>vista de proyecto</gui>, pulse el botón derecho del ratón para mostrar "
-"el <gui>menú contextual del proyecto</gui> y seleccione <gui>Biblioteca "
-"nueva</gui>."
+"<gui>vista de proyecto</gui>, pulse con el botón derecho del ratón para "
+"mostrar el <gui>menú contextual del proyecto</gui> y seleccione "
+"<gui>Biblioteca nueva</gui>."
 
 #: C/project-manager-module.page:106(p)
 msgid ""
@@ -849,8 +795,8 @@ msgid ""
 "on the right mouse button to make the <gui>project context menu</gui> appear "
 "and select <gui>Remove</gui>."
 msgstr ""
-"Seleccione la bibliotecas que quiera quitar en la <gui>vista de proyecto</"
-"gui>, pulse en el botón derecho del ratón para mostrar el <gui>menú "
+"Seleccione la biblioteca que quiera quitar en la <gui>vista de proyecto</"
+"gui>, pulse con el botón derecho del ratón para mostrar el <gui>menú "
 "contextual del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-module.page:136(p)
@@ -892,9 +838,9 @@ msgid ""
 "gui>."
 msgstr ""
 "Seleccione la carpeta que contiene el programa donde quiere añadir la "
-"biblioteca en la <gui>vista de proyecto</gui>, pulse el botón derecho del "
-"ratón para mostrar el <gui>menú contextual del proyecto</gui> y selecione "
-"<gui>Propiedades</gui>."
+"biblioteca en la <gui>vista de proyecto</gui>, pulse con el botón derecho "
+"del ratón para mostrar el <gui>menú contextual del proyecto</gui> y "
+"selecione <gui>Propiedades</gui>."
 
 #: C/project-manager-library.page:41(p) C/project-manager-library.page:72(p)
 msgid ""
@@ -942,7 +888,7 @@ msgid ""
 msgstr ""
 "Después, necesita añadir la biblioteca a un objetivo. Seleccione el objetivo "
 "donde quiere añadir la biblioteca en la <gui>vista de proyecto</gui>, pulse "
-"el botón derecho del ratón para mostrar el <gui>menú contextual del "
+"con el botón derecho del ratón para mostrar el <gui>menú contextual del "
 "proyecto</gui> y seleccione <gui>Propiedades</gui>. "
 
 #: C/project-manager-library.page:81(p)
@@ -1090,8 +1036,8 @@ msgid ""
 "and select <gui>Remove</gui>."
 msgstr ""
 "Seleccione el archivo que quiere quitar en la <gui>vista de proyecto</gui>, "
-"pulse el botón derecho del ratón para mostrar el <gui>menú contextual del "
-"proyecto</gui> y seleccione <gui>Quitar</gui>."
+"pulse con el botón derecho del ratón para mostrar el <gui>menú contextual "
+"del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-file.page:96(p)
 msgid ""
@@ -1103,13 +1049,12 @@ msgstr ""
 
 #: C/project-import.page:11(desc)
 msgid "Import an existing project."
-msgstr ""
+msgstr "Importar un proyecto existente."
 
 #: C/project-import.page:24(title)
-#, fuzzy
 #| msgid "Create a project"
 msgid "Import a project"
-msgstr "Crear un proyecto"
+msgstr "Importar un proyecto"
 
 #: C/project-import.page:26(p)
 msgid ""
@@ -1215,24 +1160,22 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/introduction.page:53(None)
-#, fuzzy
 #| msgid ""
 #| "@@image: 'figures/anjuta_logo.png'; md5=82636133d39ac4a688facd76954b8b29"
 msgid ""
 "@@image: 'figures/anjuta-in-action.png'; md5=a31f1c85a4a14032fcd30ab6f6d6b3c0"
 msgstr ""
-"@@image: 'figures/anjuta_logo.png'; md5=82636133d39ac4a688facd76954b8b29"
+"@@image: 'figures/anjuta-in-action.png'; md5=a31f1c85a4a14032fcd30ab6f6d6b3c0"
 
 #. Include page in index
 #: C/introduction.page:7(title) C/introduction.page:12(title)
-#, fuzzy
 #| msgid "Control execution"
 msgid "Introduction"
-msgstr "Controlar la ejecución"
+msgstr "Introducción"
 
 #: C/introduction.page:8(desc)
 msgid "Introduction to <app>Anjuta</app> Integrated Development Environment"
-msgstr ""
+msgstr "Introducción al Entorno integrado de desarrollo <app>Anjuta</app>"
 
 #: C/introduction.page:14(p)
 msgid ""
@@ -1274,22 +1217,24 @@ msgid ""
 "The following screenshot illustrates some of the things you will find in "
 "<app>Anjuta</app>."
 msgstr ""
+"La siguiente captura de pantalla ilustra algunas cosas que encontrará en "
+"<app>Anjuta</app>."
 
 #: C/introduction.page:51(title)
 msgid "<app>Anjuta</app> in action"
-msgstr ""
+msgstr "<app>Anjuta</app> en acción"
 
 #: C/introduction.page:52(desc) C/introduction.page:54(p)
 msgid "<app>Anjuta</app> main window"
-msgstr ""
+msgstr "Ventana principal de <app>Anjuta</app>"
 
 #: C/full-index.page:8(desc)
 msgid "All help topics."
-msgstr ""
+msgstr "Todos los temas de la ayuda."
 
 #: C/full-index.page:16(title)
 msgid "Index"
-msgstr ""
+msgstr "Índice"
 
 #: C/directory-project-backend.page:8(desc)
 msgid "Directory project backend."
@@ -3180,10 +3125,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
-"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
-"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
-"proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
+"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
+"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
 
 #: C/autotools-build-install.page:11(desc)
 msgid "Install targets or project."
@@ -3314,13 +3258,12 @@ msgstr ""
 
 #: C/autotools-build-configure.page:11(desc)
 msgid "Configure an autotools project and manage configurations."
-msgstr ""
+msgstr "Configurar un proyecto de autotools y gestionar configuraciones."
 
 #: C/autotools-build-configure.page:20(title)
-#, fuzzy
 #| msgid "Create a project"
 msgid "Configure a project"
-msgstr "Crear un proyecto"
+msgstr "Configurar un proyecto"
 
 #: C/autotools-build-configure.page:22(p)
 msgid ""
@@ -3331,13 +3274,11 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-configure.page:30(title)
-#, fuzzy
 #| msgid "Create a project"
 msgid "Configure the project"
-msgstr "Crear un proyecto"
+msgstr "Configurar el proyecto"
 
 #: C/autotools-build-configure.page:34(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
 #| "gui><gui>Project</gui></guiseq>."
@@ -3345,8 +3286,8 @@ msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Configure "
 "Project...</gui></guiseq>."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Archivo</"
-"gui><gui>Nuevo</gui><gui>Proyecto</gui></guiseq>."
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
+"gui><gui>Configurar proyecto...</gui></guiseq>."
 
 #: C/autotools-build-configure.page:40(p)
 msgid ""
@@ -3356,10 +3297,9 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-configure.page:47(p)
-#, fuzzy
 #| msgid "Click <gui>Apply</gui> to confirm the changes."
 msgid "Click on <gui>Execute</gui> to configure the project."
-msgstr "Pulse <gui>Aplicar</gui> para confirmar los cambios."
+msgstr "Pulse en <gui>Ejecutar</gui> para configurar el proyecto."
 
 #: C/autotools-build-configure.page:53(p)
 msgid ""
@@ -3368,13 +3308,11 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-configure.page:60(title)
-#, fuzzy
 #| msgid "Manual configuration"
 msgid "Change the configuration"
-msgstr "Configuración manual"
+msgstr "Cambiar la configuración"
 
 #: C/autotools-build-configure.page:64(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
 #| "gui><gui>Info Program</gui></guiseq>."
@@ -3382,8 +3320,9 @@ msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Select "
 "Configuration</gui><gui>Another configuration</gui></guiseq>."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Info</gui><gui>Programa</gui></guiseq>."
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
+"gui><gui>Seleccionar configuración</gui><gui>Otra configuración</gui></"
+"guiseq>."
 
 #: C/autotools-build-configure.page:71(p)
 msgid ""
@@ -3392,10 +3331,9 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-configure.page:79(title)
-#, fuzzy
 #| msgid "Configuration"
 msgid "Remove configuration"
-msgstr "Cnfiguración"
+msgstr "Quitar la configuración"
 
 #: C/autotools-build-configure.page:81(p)
 msgid ""
@@ -3404,7 +3342,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-build-configure.page:88(p)
-#, fuzzy
 #| msgid ""
 #| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
 #| "gui><gui>Debugger Command</gui></guiseq>."
@@ -3412,8 +3349,8 @@ msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Remove "
 "Configuration</gui></guiseq>."
 msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Depurar</"
-"gui><gui>Comando de depuración</gui></guiseq>."
+"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
+"gui><gui>Quitar configuración</gui></guiseq>."
 
 #: C/autotools-build-configure-dialog.page:11(desc)
 msgid "Autotools configure dialog"
@@ -3462,11 +3399,10 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de "
-"depurar (manteniendo variables intermedias y ordenando el código) y una "
-"opción «optimizada» que genera programas más rápidos pero que aumenta el "
-"tiempo de construcción. Puede definir configuraciones personalizadas "
-"adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de depurar "
+"(manteniendo variables intermedias y ordenando el código) y una opción "
+"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
+"construcción. Puede definir configuraciones personalizadas adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(gui)
 msgid "Build Directory"
