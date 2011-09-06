@@ -38,6 +38,11 @@ cg_transform_default_c_type_to_g_type (const gchar *c_type,
                                        const gchar **g_type_prefix,
                                        const gchar **g_type_name);
 
+gchar *
+cg_transform_custom_c_type (const gchar *c_type,
+                            gboolean upper_case,
+                            gchar separator);
+
 void
 cg_transform_custom_c_type_to_g_type (const gchar *c_type,
                                       gchar **g_type_prefix,

@@ -120,6 +120,67 @@ cg_transform_default_c_type_to_g_type (const gchar *c_type,
 	return FALSE;
 }
 
+/* This function tries to convert a c_type like GtkTreeIter to add a separator 
+ * between each word, then convert to upper case or lower case. */
+gchar *
+cg_transform_custom_c_type (const gchar *c_type,
+                            gboolean upper_case,
+                            gchar separator)
+{
+	GString *str;
+	const gchar *pos;
+	gchar (*tocase_func) (gchar);
+
+	if (upper_case)
+		tocase_func = g_ascii_toupper;
+	else
+		tocase_func = g_ascii_tolower;
+
+	str = g_string_sized_new (128);
+	for (pos = c_type; *pos != '\0'; ++ pos)
+	{
+		if (!g_ascii_isalnum (*pos))
+			continue;
+
+		if (isupper (*pos) &&				/* Upper case only */
+		    pos > c_type &&					/* Can't be first character, to check the previous character */
+		    !isupper (*(pos-1)))			/* Previous character is not upper case */
+		{
+			/* This will add the separator if the previous character is
+			 * not upper case and the current character is upper case */
+			g_string_append_c (str, separator);
+		}
+		else if (isupper (*pos) &&			/* Upper case only */
+		         pos-1 == c_type &&			/* Second character */
+		         *(pos+1) != '\0' &&		/* Next character shouldn't be the last */
+		         !isupper (*(pos+1)))		/* Next of next character is not upper case */
+		{
+			/* This will add the separator if the prefix is single character,
+			 * the current character is upper case and the next character is not
+			 * upper case
+			 * In summary, this will catch single character prefixes
+			 * Example: GObject -> G_OBJECT where O is the current character */
+			g_string_append_c (str, separator);
+		}
+		else if (isupper (*pos) &&			/* Upper case only */
+		         pos-1 > c_type &&			/* Can't be first two characters, to check the two previous characters */
+		         isupper (*(pos-1)) &&		/* Previous character is upper case */
+		         isupper (*(pos-2)) &&		/* Previous of previous character is upper case */
+		         *(pos+1) != '\0' &&		/* Next character shouldn't be the last */
+		         !isupper (*(pos+1)))		/* Next of next character is not upper case */
+		{
+			/* This will add the separator if there are three or more upper case
+			 * (the last one is this character) and the next one is not upper case */
+			/* Example: GtkUIManager -> GTK_UI_MANAGER where M is the current character */
+			g_string_append_c (str, separator);
+		}
+
+		g_string_append_c (str, tocase_func (*pos));
+	}
+
+	return g_string_free (str, FALSE);
+}
+
 /* This function tries to convert a custom c_type like GtkTreeIter to
  * a gobject type like GTK_TYPE_TREE_ITER. It does this by parsing the C type.
  * The code is mostly borrowed from old action-callbacks.c by Dave
@@ -130,72 +191,50 @@ cg_transform_custom_c_type_to_g_type (const gchar *c_type,
                                       gchar **g_type_name,
                                       gchar **g_func_prefix)
 {
-	size_t name_len;
-	gboolean first;
-	gboolean prefix;
-	GString *str_type_prefix = NULL;
-	GString *str_type_name = NULL;
-	GString *str_func_prefix = NULL;
-	
-	name_len = strlen (c_type);
+	gchar *c_type_transformed, **c_type_split;
 
-	if (g_type_prefix != NULL) str_type_prefix = g_string_sized_new (name_len);
-	if (g_type_name != NULL) str_type_name = g_string_sized_new (name_len);
-	if (g_type_prefix != NULL) str_func_prefix = g_string_sized_new (name_len);
-	
-	first = TRUE;
-	prefix = TRUE;
-	
-	for (; *c_type != '\0'; ++ c_type)
+	c_type_transformed = cg_transform_custom_c_type (c_type, TRUE, '_');
+
+	if (g_type_prefix != NULL || g_type_name != NULL)
 	{
-		if (first == TRUE)
-		{
-			if (g_func_prefix != NULL)
-				g_string_append_c (str_func_prefix, tolower (*c_type));
-			if (g_type_prefix != NULL)
-				g_string_append_c (str_type_prefix, toupper (*c_type));
+		c_type_split = g_strsplit (c_type_transformed, "_", 2);
 
-			first = FALSE;
+		/* If c_type is empty string, first string is NULL */
+		if (c_type_split[0])
+		{
+			if (g_type_prefix != NULL)
+				*g_type_prefix = c_type_split[0];
+			else
+				g_free (c_type_split[0]);
+
+			/* If prefix only, second string is NULL */
+			if (c_type_split[1])
+			{
+				if (g_type_name != NULL)
+					*g_type_name = c_type_split[1];
+				else
+					g_free (c_type_split[1]);
+			}
+			else if (g_type_name != NULL)
+				*g_type_name = g_strdup ("");
 		}
 		else
 		{
-			if (isupper (*c_type))
-			{
-				if (g_func_prefix != NULL)
-					g_string_append_c (str_func_prefix, '_');
+			if (g_type_prefix != NULL)
+				*g_type_prefix = g_strdup ("");
 
-				prefix = FALSE;
-			}
-
-			if (g_func_prefix != NULL)
-				g_string_append_c (str_func_prefix, tolower (*c_type));
-
-			if (prefix == TRUE)
-			{
-				if (g_type_prefix != NULL)
-					g_string_append_c (str_type_prefix, toupper (*c_type));
-			}
-			else
-			{
-				if (g_type_name != NULL)
-				{
-					if (isupper (*c_type) && str_type_name->len > 0)
-						g_string_append_c (str_type_name, '_');
-
-					g_string_append_c (str_type_name, toupper (*c_type));
-				}
-			}
+			if (g_type_name != NULL)
+				*g_type_name = g_strdup ("");
 		}
-	}
-	
-	if (g_type_prefix != NULL)
-		*g_type_prefix = g_string_free (str_type_prefix, FALSE);
 
-	if (g_type_name != NULL)
-		*g_type_name = g_string_free (str_type_name, FALSE);
+		/* Free only the array */
+		g_free (c_type_split);
+	}
 
 	if (g_func_prefix != NULL)
-		*g_func_prefix = g_string_free (str_func_prefix, FALSE);
+		*g_func_prefix = g_ascii_strdown (c_type_transformed, -1);
+
+	g_free (c_type_transformed);
 }
 
 /* This function tries to convert any possible C type to its corresponding

@@ -451,24 +451,7 @@ cg_window_top_notebook_switch_page_cb (G_GNUC_UNUSED GtkNotebook *notebook,
 static gchar *
 cg_window_class_name_to_file_name (const gchar *class_name)
 {
-	GString *str;
-	const gchar *pos;
-
-	str = g_string_sized_new (128);
-	for (pos = class_name; *pos != '\0'; ++ pos)
-	{
-		if (isupper(*pos))
-		{
-			if (str->len > 0) g_string_append_c (str, '-');
-			g_string_append_c (str, tolower (*pos));
-		}
-		else if (islower (*pos) || isdigit (*pos))
-		{
-			g_string_append_c (str, *pos);
-		}
-	}
-	
-	return g_string_free (str, FALSE);
+	return cg_transform_custom_c_type (class_name, FALSE, '-');
 }
 
 static void
