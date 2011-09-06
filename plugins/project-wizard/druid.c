@@ -914,12 +914,14 @@ check_and_warn_missing (NPWDruid *druid)
 		hbox = gtk_hbox_new (FALSE, 0);
 		gtk_widget_show (hbox);
 
+#ifdef ENABLE_PACKAGEKIT		
 		install_button =
 			gtk_button_new_with_label (_("Install missing packages"));
 		gtk_box_pack_end (GTK_BOX (hbox), install_button, FALSE, FALSE, 10);
 		g_signal_connect (install_button, "clicked",
 						  G_CALLBACK (on_install_button_clicked), druid);
 		gtk_widget_show (install_button);
+#endif
 
 		npw_druid_fill_error_page (druid, hbox,
 								   GTK_MESSAGE_WARNING,

@@ -290,6 +290,15 @@ PKG_CHECK_MODULES([PLUGIN_SYMBOL_DB],
      [PKG_CHECK_MODULES([PLUGIN_SYMBOL_DB],
          [libgda-4.0 >= $GDA4_REQUIRED])])
 
+dnl Disable packagekit support
+dnl -----------------------------------
+AC_ARG_ENABLE(packagekit,
+  [AC_HELP_STRING([--disable-packagekit],[build without PackageKit support])],,
+  [enable_packagekit=yes])
+if test "x$enable_packagekit" != "xno"; then
+  AC_DEFINE(ENABLE_PACKAGEKIT, 1, [define to enable PackageKit installer])
+fi
+
 dnl Setup Anjuta Library flags
 dnl --------------------------
 LIBANJUTA_CFLAGS='$(ANJUTA_CFLAGS) $(GDL_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
