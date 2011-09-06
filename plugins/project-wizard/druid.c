@@ -715,7 +715,6 @@ npw_druid_save_valid_values (NPWDruid* druid)
 									"<b>%s</b>\n\n%s",
 									_("Invalid entry"),
 									data.error->str);
-		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), ERROR_PAGE);
 		ok = FALSE;
 	}
 	else if (data.warning->len)
@@ -726,7 +725,6 @@ npw_druid_save_valid_values (NPWDruid* druid)
 									"<b>%s</b>\n\n%s",
 									_("Dubious entry"),
 									data.warning->str);
-		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), ERROR_PAGE);
 		ok = FALSE;
 	}
 	
@@ -939,8 +937,6 @@ check_and_warn_missing (NPWDruid *druid)
 									_("Missing components"),
 									missing_message->str);
 		g_string_free (missing_message, TRUE);
-		
-		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), ERROR_PAGE);
 	}
 	
 	return !missing_message;
@@ -965,7 +961,17 @@ on_druid_delayed_get_new_page (gpointer data)
 
 	return FALSE;
 }
+
+static gboolean
+on_druid_delayed_set_error_page (gpointer data)
+{
+	GtkAssistant * assistant = (GtkAssistant *)data;
 	
+	gtk_assistant_set_current_page (assistant, ERROR_PAGE);
+	
+	return FALSE;
+}
+
 static void
 on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 {
@@ -987,6 +993,11 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 				/* Check if necessary programs for this project is installed */
 				if (!check_and_warn_missing (druid))
 				{   
+					/* The page change is delayed because in the latest version of
+					 * GtkAssistant, the page switch is not completely done when
+					 * the signal is called. A page change in the signal handler
+					 * will be partialy overwritten */
+					g_idle_add (on_druid_delayed_set_error_page, druid->window);
 					return;
 				}   
 				
@@ -1002,7 +1013,11 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 			if (!npw_druid_save_valid_values (druid))
 			{
 				/* Display error */
-				gtk_assistant_set_current_page (assistant, ERROR_PAGE);
+				/* The page change is delayed because in the latest version of
+				 * GtkAssistant, the page switch is not completely done when
+				 * the signal is called. A page change in the signal handler
+				 * will be partialy overwritten */
+				g_idle_add (on_druid_delayed_set_error_page, druid->window);
 				
 				return;
 			}
