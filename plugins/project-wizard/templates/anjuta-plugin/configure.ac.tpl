@@ -7,7 +7,6 @@ AC_INIT([+NameHLower+], [+Version+])
 AM_CONFIG_HEADER(config.h)
 
 AM_INIT_AUTOMAKE([1.11])
-AM_MAINTAINER_MODE
 
 AC_PROG_CC
 

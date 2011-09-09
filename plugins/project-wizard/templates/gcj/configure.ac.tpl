@@ -7,7 +7,6 @@ AC_INIT([+NameHLower+], [+Version+])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([1.11])
-AM_MAINTAINER_MODE()
 
 AM_SILENT_RULES([yes])
 
