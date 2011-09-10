@@ -674,7 +674,6 @@ amp_group_node_init (AmpGroupNode *node)
 	node->base.native_properties = amp_get_group_property_list();
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
 						ANJUTA_PROJECT_CAN_ADD_TARGET |
-						ANJUTA_PROJECT_CAN_ADD_SOURCE |
 						ANJUTA_PROJECT_CAN_REMOVE |
 						ANJUTA_PROJECT_CAN_SAVE;
 	node->dist_only = FALSE;

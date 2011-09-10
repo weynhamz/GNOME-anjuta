@@ -165,7 +165,10 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 		need = ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_SOURCE:
-		need = ANJUTA_PROJECT_CAN_ADD_SOURCE;
+		/* Add node containing target too because target can contains module 
+		 * It would be probably better to check recursively if any children
+		 * can accept a module and keep all parents then. */	
+		need = ANJUTA_PROJECT_CAN_ADD_SOURCE | ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_MODULE:
 		/* Add node containing target too because target can contains module 
