@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-08-31 20:59+0000\n"
+"POT-Creation-Date: 2011-09-01 06:18+0000\n"
 "PO-Revision-Date: 2011-09-01 08:17+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -724,8 +724,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:390
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -736,8 +736,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:399
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -4386,8 +4386,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
-"«Flex» para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
+"para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:184
 #: ../plugins/am-project/am-properties.c:327
@@ -5507,8 +5507,7 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
-"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5940,8 +5939,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -5958,9 +5957,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6544,8 +6543,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:656
@@ -7177,8 +7176,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
@@ -7874,11 +7873,11 @@ msgstr "Preparando páginas para imprimir"
 
 #: ../plugins/sourceview/sourceview-print.c:111
 msgid "Wrap lines"
-msgstr "Ajustar líneas"
+msgstr "Ajustar líneas"
 
 #: ../plugins/sourceview/sourceview-print.c:113
 msgid "Line numbers"
-msgstr "Números de línea"
+msgstr "Números de línea"
 
 #: ../plugins/sourceview/sourceview-print.c:115
 msgid "Header"
@@ -8577,7 +8576,6 @@ msgstr "%s: Generando herencias…"
 #. Translators: %s is the name of a system library
 #: ../plugins/symbol-db/plugin.c:1038
 #, c-format
-#| msgid "%s: %d files scanned out of %d"
 msgid "%s: %d file scanned out of %d"
 msgid_plural "%s: %d files scanned out of %d"
 msgstr[0] "%s: %d archivo analizado de %d"
@@ -8590,7 +8588,6 @@ msgstr "Generando herencias…"
 
 #: ../plugins/symbol-db/plugin.c:1071
 #, c-format
-#| msgid "%d files scanned out of %d"
 msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d archivo analizado de %d"
@@ -9807,36 +9804,36 @@ msgstr "Símbolo"
 #~ msgstr "Texto marcado para renderizar"
 
 #~ msgid "Font description as a string"
-#~ msgstr "Descripción de la tipografía como una cadena"
+#~ msgstr "Descripción de la tipografía como una cadena"
 
 #~ msgid "Font description"
-#~ msgstr "Descripción de la tipografía"
+#~ msgstr "Descripción de la tipografía"
 
 #~ msgid "Font description as a PangoFontDescription struct"
 #~ msgstr ""
-#~ "Descripción de la tipografía como una estructura PangoFontDescription"
+#~ "Descripción de la tipografía como una estructura PangoFontDescription"
 
 #~ msgid "Font family"
-#~ msgstr "Familia de la tipografía"
+#~ msgstr "Familia de la tipografía"
 
 #~ msgid "Name of the font family, e.g. Sans, Helvetica, Times, Monospace"
 #~ msgstr ""
-#~ "Nombre de la familia tipográfica, ej. Sans, Helvética, Times, Monospace"
+#~ "Nombre de la familia tipográfica, ej. Sans, Helvética, Times, Monospace"
 
 #~ msgid "Font style"
-#~ msgstr "Estilo de la tipografía"
+#~ msgstr "Estilo de la tipografía"
 
 #~ msgid "Font variant"
-#~ msgstr "Variante de la tipografía"
+#~ msgstr "Variante de la tipografía"
 
 #~ msgid "Font weight"
-#~ msgstr "Anchura de la tipografía"
+#~ msgstr "Anchura de la tipografía"
 
 #~ msgid "Font stretch"
-#~ msgstr "Estiramiento de la tipografía"
+#~ msgstr "Estiramiento de la tipografía"
 
 #~ msgid "Font size"
-#~ msgstr "Tamaño de la tipografía"
+#~ msgstr "Tamaño de la tipografía"
 
 #~ msgid "Font points"
 #~ msgstr "Puntos de la tipografía"
@@ -9869,7 +9866,7 @@ msgstr "Símbolo"
 #~ msgstr "Escala"
 
 #~ msgid "Size of font, relative to default size"
-#~ msgstr "Tamaño de la tipografía. Relativo al tamaño predeterminado"
+#~ msgstr "Tamaño de la tipografía. Relativo al tamaño predeterminado"
 
 #~ msgid "Color"
 #~ msgstr "Color"
@@ -9899,37 +9896,37 @@ msgstr "Símbolo"
 #~ msgstr "Conjunto de familia tipográfica"
 
 #~ msgid "Whether this tag affects the font family"
-#~ msgstr "Indica si esta etiqueta afecta a la familia de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta a la familia de la tipografía"
 
 #~ msgid "Font style set"
 #~ msgstr "Conjunto de estilo de la tipografía"
 
 #~ msgid "Whether this tag affects the font style"
-#~ msgstr "Indica si esta etiqueta afecta el estilo de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta el estilo de la tipografía"
 
 #~ msgid "Font variant set"
 #~ msgstr "Conjunto de variante de la tipografía"
 
 #~ msgid "Whether this tag affects the font variant"
-#~ msgstr "Indica si esta etiqueta afecta la variante de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta la variante de la tipografía"
 
 #~ msgid "Font weight set"
 #~ msgstr "Conjunto de peso de la tipografía"
 
 #~ msgid "Whether this tag affects the font weight"
-#~ msgstr "Indica si esta etiqueta afecta el peso de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta el peso de la tipografía"
 
 #~ msgid "Font stretch set"
 #~ msgstr "Conjunto de estiramiento de la tipografía"
 
 #~ msgid "Whether this tag affects the font stretch"
-#~ msgstr "Indica si esta etiqueta afecta el estiramiento de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta el estiramiento de la tipografía"
 
 #~ msgid "Font size set"
 #~ msgstr "Conjunto de tamaño de tipografía"
 
 #~ msgid "Whether this tag affects the font size"
-#~ msgstr "Indica si esta etiqueta afecta el tamaño de la tipografía"
+#~ msgstr "Indica si esta etiqueta afecta el tamaño de la tipografía"
 
 #~ msgid "Rise set"
 #~ msgstr "Conjunto de elevación"
@@ -9953,7 +9950,7 @@ msgstr "Símbolo"
 #~ msgstr "Conjunto de escala"
 
 #~ msgid "Whether this tag affects font scaling"
-#~ msgstr "Si esta etiqueta afecta al escalado de tipografías"
+#~ msgstr "Si esta etiqueta afecta al escalado de tipografías"
 
 #~ msgid "Args: %s"
 #~ msgstr "Args: %s"
@@ -10198,8 +10195,8 @@ msgstr "Símbolo"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
-#~ "desde el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
