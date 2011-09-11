@@ -386,7 +386,7 @@ on_debug_tree_drag_data_received (GtkWidget        *widget,
 
 	if (signal_data != NULL)
 	{
-		var.expression = signal_data;
+		var.expression = (gchar *)signal_data;
 		debug_tree_add_watch (((ExprWatch *)user_data)->debug_tree, &var, FALSE);
 	}
 
@@ -541,7 +541,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	/* debug_tree_remove_all (ew->debug_tree); */
+	debug_tree_remove_all (ew->debug_tree);
 	list = anjuta_session_get_string_list (session, "Debugger", "Watch");
 	if (list != NULL)
 		debug_tree_add_full_watch_list (ew->debug_tree, list);
