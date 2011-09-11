@@ -1790,6 +1790,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	DEBUG_PRINT ("%s", "Updating module UI");
 
 	has_file = bb_plugin->current_editor_file != NULL;
+	has_project = bb_plugin->project_root_dir != NULL;
 	if (has_file)
 	{
 		GFile *mod;
@@ -1799,7 +1800,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 		
 		mod = build_module_from_file (bb_plugin, bb_plugin->current_editor_file, &target);
 
-		if (!g_file_equal (mod, bb_plugin->project_root_dir) && !g_file_equal (mod, bb_plugin->project_build_dir))
+		if (has_project && !g_file_equal (mod, bb_plugin->project_root_dir) && !g_file_equal (mod, bb_plugin->project_build_dir))
 		{
 			module_name = g_file_get_basename (mod);
 			module = escape_label (module_name);
@@ -1820,7 +1821,6 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 			g_object_unref (mod);
 		}
 	}
-	has_project = bb_plugin->project_root_dir != NULL;
 
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildBuildModule");
