@@ -22,6 +22,7 @@
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
 #define UI_FILE ANJUTA_DATA_DIR"/glade/[+NameHLower+].ui"
+#define TOP_WIDGET "top_widget"
 [+ENDIF+]
 
 static gpointer parent_class;
@@ -92,12 +93,20 @@ static gboolean
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
 	{
-		g_warning ("Couldn't load builder file: %s", error->message);
+		g_critical ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
 		return FALSE;
 	}
 
-	wid = gtk_builder_get_object (builder, "top_widget");
+	wid = gtk_builder_get_object (builder, TOP_WIDGET);
+	if (!wid)
+	{
+		g_critical ("Widget \"%s\" is missing in file %s.",
+				TOP_WIDGET, 
+                                UI_FILE);
+		return FALSE;
+	}
+
 	[+NameCLower+]->widget = wid;
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "[+PluginClass+]Widget", _("[+PluginClass+] widget"), NULL,

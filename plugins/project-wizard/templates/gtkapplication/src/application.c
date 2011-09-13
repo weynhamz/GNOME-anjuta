@@ -18,6 +18,7 @@
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
+#define TOP_WINDOW "window"
 [+ENDIF+]
 
 G_DEFINE_TYPE ([+NameCClass+], [+NameCLower+], GTK_TYPE_APPLICATION);
@@ -36,7 +37,7 @@ static void
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
 	{
-		g_warning ("Couldn't load builder file: %s", error->message);
+		g_critical ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
 	}
 
@@ -44,7 +45,13 @@ static void
 	gtk_builder_connect_signals (builder, NULL);
 
 	/* Get the window object from the ui file */
-	window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+	window = GTK_WIDGET (gtk_builder_get_object (builder, TOP_WINDOW));
+        if (!window)
+        {
+                g_critical ("Widget \"%s\" is missing in file %s.",
+				TOP_WINDOW,
+				UI_FILE);
+        }
 	g_object_unref (builder);
 [+ELSE+]
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
