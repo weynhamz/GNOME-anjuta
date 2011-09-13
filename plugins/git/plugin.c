@@ -648,33 +648,6 @@ git_register_stock_icons (AnjutaPlugin *plugin)
 		END_REGISTER_ICON
 }
 
-static void
-on_dock_window_mapped (GtkWidget *dock_window, Git *plugin)
-{
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                             plugin->command_bar_window, NULL);
-}
-
-static void
-on_dock_window_unmapped (GtkWidget *dock_window, Git *plugin)
-{
-	anjuta_shell_hide_dockable_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                                   plugin->command_bar_window, NULL);
-}
-
-static void
-on_shell_exiting (AnjutaShell *shell, Git *plugin)
-{
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_mapped),
-	                                      plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_unmapped),
-	                                      plugin);
-}
-
-
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
@@ -726,14 +699,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
 	                         _("Git"), "git-plugin", ANJUTA_SHELL_PLACEMENT_CENTER,
 	                         NULL);
-
-	g_signal_connect (G_OBJECT (git_plugin->dock_window), "map",
-	                  G_CALLBACK (on_dock_window_mapped),
-	                  git_plugin);
-
-	g_signal_connect (G_OBJECT (git_plugin->dock_window), "unmap",
-	                  G_CALLBACK (on_dock_window_unmapped),
-	                  git_plugin);
 
 	/* Create the branch list commands. There are two commands because some 
 	 * views need to be able to tell the difference between local and 
@@ -836,10 +801,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 														   on_editor_added,
 														   on_editor_removed,
 														   NULL);
-
-	g_signal_connect (G_OBJECT (plugin->shell), "exiting",
-	                  G_CALLBACK (on_shell_exiting),
-	                  git_plugin);
 	
 	
 	/* Git needs a working directory to work with; it can't take full paths,
@@ -871,18 +832,6 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (git_plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_mapped),
-	                                      plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (git_plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_unmapped),
-	                                      plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-	                                      G_CALLBACK (on_shell_exiting),
-	                                      git_plugin);
 
 	g_object_unref (git_plugin->local_branch_list_command);
 	g_object_unref (git_plugin->remote_branch_list_command);
