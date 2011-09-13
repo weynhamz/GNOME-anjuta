@@ -134,7 +134,7 @@ main (int argc, char *argv[])
 	GFile** files = NULL;
 	gint n_files = 0;
 	gint status;
-	
+
 	context = g_option_context_new (_("- Integrated Development Environment"));
 #ifdef ENABLE_NLS
 	setlocale (LC_ALL, "");
@@ -180,10 +180,11 @@ main (int argc, char *argv[])
 
 	g_set_application_name (_("Anjuta"));
 	anjuta = anjuta_new ();
+	if (no_client) g_application_set_flags (G_APPLICATION (anjuta), G_APPLICATION_NON_UNIQUE);
 	g_application_register (G_APPLICATION (anjuta), NULL, NULL);
 
 	
-	if (g_application_get_is_remote (G_APPLICATION (anjuta)) && !no_client)
+	if (g_application_get_is_remote (G_APPLICATION (anjuta)))
 	{	
 		if (files)
 		{
