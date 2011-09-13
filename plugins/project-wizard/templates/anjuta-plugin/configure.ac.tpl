@@ -31,7 +31,7 @@ AM_GLIB_GNU_GETTEXT
 LT_INIT
 [+ENDIF+]
 
-PKG_CHECK_MODULES(LIBANJUTA, [libanjuta-1.0])
+PKG_CHECK_MODULES(LIBANJUTA, [libanjuta-3.0])
 
 [+IF (=(get "HavePackage") "1")+]
 PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+]])
@@ -41,8 +41,8 @@ AC_SUBST([+NameCUpper+]_LIBS)
 
 dnl Setup Plugin directories
 dnl ------------------------
-anjutalibdir=`pkg-config --variable=libdir libanjuta-1.0`
-anjutadatadir=`pkg-config --variable=datadir libanjuta-1.0`
+anjutalibdir=`pkg-config --variable=libdir libanjuta-3.0`
+anjutadatadir=`pkg-config --variable=datadir libanjuta-3.0`
 AC_SUBST(anjutalibdir)
 AC_SUBST(anjutadatadir)
 anjuta_plugin_dir='$(anjutalibdir)/anjuta'
