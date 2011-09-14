@@ -32,6 +32,7 @@ AC_SUBST(BUGZILLA_VERSION)
 
 dnl Anjuta core
 GLIB_REQUIRED=2.28.0
+GLIB_NEW_REQUIRED=2.29.2
 GTK_REQUIRED=3.0.0
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
@@ -168,6 +169,14 @@ PKG_CHECK_MODULES([GDA],
 PKG_CHECK_MODULES([VTE],
    [vte-2.90 >= $VTE_REQUIRED])
 
+dnl Check for better module
+
+PKG_CHECK_MODULES([GLIB_NEW],
+   [glib-2.0 >= $GLIB_NEW_REQUIRED],
+   HAVE_GLIB_2_29_2=1,
+   HAVE_GLIB_2_29_2=0)
+AC_SUBST(HAVE_GLIB_2_29_2)
+AC_DEFINE_UNQUOTED([HAVE_GLIB_2_29_2], $HAVE_GLIB_2_29_2, [Define to 1 if glib is version 2.29.2 or greater])
 
 dnl Check for autogen
 dnl -----------------

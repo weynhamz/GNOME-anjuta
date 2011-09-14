@@ -180,11 +180,16 @@ main (int argc, char *argv[])
 
 	g_set_application_name (_("Anjuta"));
 	anjuta = anjuta_new ();
+#if GLIB_2_29_2 == 1
 	if (no_client) g_application_set_flags (G_APPLICATION (anjuta), G_APPLICATION_NON_UNIQUE);
+#endif
 	g_application_register (G_APPLICATION (anjuta), NULL, NULL);
 
-	
+#if GLIB_2_29_2 == 1	
 	if (g_application_get_is_remote (G_APPLICATION (anjuta)))
+#else
+	if (g_application_get_is_remote (G_APPLICATION (anjuta)) && !no_client)
+#endif
 	{	
 		if (files)
 		{
