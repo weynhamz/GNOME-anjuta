@@ -269,6 +269,7 @@ on_insert_text (GtkTextBuffer *buffer,
                 Sourceview    *sv)
 {
 	int i = 0, lines = 0;
+	gchar* signal_text;
 	SourceviewCell *cell = sourceview_cell_new (location, GTK_TEXT_VIEW (sv->priv->view));
 	IAnjutaIterable *iter = ianjuta_iterable_clone (IANJUTA_ITERABLE (cell), NULL);
 	GtkTextMark *mark = gtk_text_buffer_create_mark (buffer, NULL, location, TRUE);
@@ -292,10 +293,13 @@ on_insert_text (GtkTextBuffer *buffer,
 		if (text[i] == '\n')
 			lines ++;
 
+	/* text might not be NULL-terminated, so make sure to fix that. */
+	signal_text = g_strndup (text, len);
 	/* Send the "changed" signal and revalidate the iterator */
-	g_signal_emit_by_name (G_OBJECT (sv), "changed", iter, TRUE, len, lines, text);
+	g_signal_emit_by_name (G_OBJECT (sv), "changed", iter, TRUE, len, lines, signal_text);
+	g_free (signal_text);
+	
 	gtk_text_buffer_get_iter_at_mark (buffer, location, mark);
-
 }
 
 static void
