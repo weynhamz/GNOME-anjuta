@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-08-04 13:36+0000\n"
-"PO-Revision-Date: 2011-08-10 12:34+0700\n"
+"POT-Creation-Date: 2011-09-14 02:01+0000\n"
+"PO-Revision-Date: 2011-09-15 12:39+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,23 @@ msgstr "พัฒนาซอฟต์แวร์ด้วยชุดเคร
 msgid "Integrated Development Environment"
 msgstr "ชุดเครื่องมือพัฒนาเบ็ดเสร็จ"
 
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
+#: ../src/preferences.ui.h:13
+msgid "Text"
+msgstr "ข้อความ"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
+msgid "Text to render"
+msgstr "ข้อความที่จะวาด"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
+msgid "Pixbuf Object"
+msgstr "อ็อบเจกต์ Pixbuf"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
+msgid "The pixbuf to render."
+msgstr "pixbuf ที่จะวาด"
+
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
 msgid "Unable to find plugin module %s"
@@ -45,6 +62,28 @@ msgstr "ไม่สามารถหาฟังก์ชันลงทะเ
 msgid "Unknown error in module %s"
 msgstr "เกิดข้อผิดพลาดไม่ทราบสาเหตุในมอดูล %s"
 
+#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
+#, c-format
+msgid "Column %i"
+msgstr "คอลัมน์ %i"
+
+#. Column label
+#: ../libanjuta/anjuta-column-text-view.c:69
+msgid "Column 1"
+msgstr "คอลัมน์ 1"
+
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
+#, c-format
+msgid "The file you are trying to open contains an invalid byte sequence."
+msgstr "แฟ้มทึ่คุณพยายามเปิดนั้น มีลำดับไบต์ไม่ถูกต้องในเนื้อหา"
+
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
+#, c-format
+msgid ""
+"Anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr "แอนจูตาไม่สามารถระบุรหัสอักขระของแฟ้มที่คุณต้องการเปิดโดยอัตโนมัติได้"
+
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
@@ -59,18 +98,6 @@ msgstr "ขาดชนิดที่จะกำหนดโดยปลั๊
 #, c-format
 msgid "plugin %s fails to register type %s"
 msgstr "ปลั๊กอิน %s ล้มเหลวในการลงทะเบียนชนิด %s"
-
-#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
-#, c-format
-msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr "แฟ้มทึ่คุณพยายามเปิดนั้น มีลำดับไบต์ไม่ถูกต้องในเนื้อหา"
-
-#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
-#, c-format
-msgid ""
-"Anjuta was not able to automatically determine the encoding of the file you "
-"want to open."
-msgstr "แอนจูตาไม่สามารถระบุรหัสอักขระของแฟ้มที่คุณต้องการเปิดโดยอัตโนมัติได้"
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -192,6 +219,68 @@ msgstr "ไทย"
 #: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "ไม่ทราบ"
+
+#: ../libanjuta/anjuta-entry.c:241
+msgid "Help text"
+msgstr "ข้อความวิธีใช้"
+
+#: ../libanjuta/anjuta-entry.c:242
+msgid "Text to show the user what to enter into the entry"
+msgstr "ข้อความที่จะแสดงบอกผู้ใช้ว่าจะให้กรอกอะไรลงในช่องข้อความ"
+
+#. Create all needed widgets
+#: ../libanjuta/anjuta-environment-editor.c:543
+#: ../plugins/run-program/anjuta-run-program.ui.h:3
+msgid "Environment Variables:"
+msgstr "ตัวแปรสภาพแวดล้อม:"
+
+#: ../libanjuta/anjuta-environment-editor.c:586
+#: ../plugins/class-gen/window.c:699 ../plugins/class-gen/window.c:709
+#: ../plugins/class-gen/window.c:717 ../plugins/class-gen/window.c:731
+#: ../plugins/class-gen/window.c:741 ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:757 ../plugins/class-gen/window.c:765
+#: ../plugins/class-gen/window.c:773 ../plugins/class-gen/window.c:783
+#: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:805
+#: ../plugins/project-manager/dialogs.c:470
+#: ../plugins/run-program/parameters.c:757
+#: ../plugins/snippets-manager/plugin.c:762
+#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
+msgid "Name"
+msgstr "ชื่อ"
+
+#: ../libanjuta/anjuta-environment-editor.c:595
+#: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:766
+#: ../plugins/class-gen/window.c:797 ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/debug-manager/registers.c:469
+#: ../plugins/project-manager/dialogs.c:478
+#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
+msgid "Value"
+msgstr "ค่า"
+
+#: ../libanjuta/anjuta-file-drop-entry.c:206
+msgid "Path that dropped files should be relative to"
+msgstr "พาธตั้งต้นที่แฟ้มที่ลากมาวางควรจะสัมพัทธ์ด้วย"
+
+#: ../libanjuta/anjuta-file-list.c:101
+msgid "Drop a file or enter a path here"
+msgstr "วางแฟ้มหรือป้อนพาธที่นี่"
+
+#: ../libanjuta/anjuta-file-list.c:274
+msgid "Select Files"
+msgstr "เลือกแฟ้ม"
+
+#: ../libanjuta/anjuta-file-list.c:540
+msgid "Path that all files in the list should be relative to"
+msgstr "พาธตั้งต้นที่ทุกแฟ้มในรายชื่อควรจะสัมพัทธ์ด้วย"
+
+#: ../libanjuta/anjuta-file-list.c:547
+msgid "Show Add button"
+msgstr "แสดงปุ่ม \"เพิ่ม\""
+
+#: ../libanjuta/anjuta-file-list.c:548
+msgid "Display an Add button"
+msgstr "แสดงปุ่ม \"เพิ่ม\""
 
 #.
 #. * Translators: This regex should match the password prompts of
@@ -335,6 +424,23 @@ msgstr "สถานะแอนจูตาที่จะใช้ในกา
 msgid "Loaded:"
 msgstr "โหลดแล้ว:"
 
+#: ../libanjuta/anjuta-preferences-dialog.c:96
+msgid "Category"
+msgstr "ประเภท"
+
+#. FIXME: Make the general page first
+#: ../libanjuta/anjuta-preferences-dialog.c:139
+#: ../libanjuta/anjuta-preferences-dialog.c:142
+#: ../plugins/code-analyzer/code-analyzer.ui.h:3
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
+#: ../src/preferences.ui.h:8
+msgid "General"
+msgstr "ทั่วไป"
+
+#: ../libanjuta/anjuta-preferences-dialog.c:241
+msgid "Anjuta Preferences"
+msgstr "การปรับแต่งแอนจูตา"
+
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
 msgstr "เครื่องมือจัดการปลั๊กอิน"
@@ -394,23 +500,6 @@ msgid ""
 msgstr ""
 "อ่าน '%s' ไม่สำเร็จ: ขาดปลั๊กอินที่จำเป็นต่อไปนี้:\n"
 "%s"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:96
-msgid "Category"
-msgstr "ประเภท"
-
-#. FIXME: Make the general page first
-#: ../libanjuta/anjuta-preferences-dialog.c:139
-#: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
-#: ../src/preferences.ui.h:8
-msgid "General"
-msgstr "ทั่วไป"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:241
-msgid "Anjuta Preferences"
-msgstr "การปรับแต่งแอนจูตา"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
@@ -569,65 +658,6 @@ msgstr "ไม่มีการติดตามรุ่น"
 msgid "Ignored"
 msgstr "ละเลย"
 
-#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
-#, c-format
-msgid "Column %i"
-msgstr "คอลัมน์ %i"
-
-#. Column label
-#: ../libanjuta/anjuta-column-text-view.c:69
-msgid "Column 1"
-msgstr "คอลัมน์ 1"
-
-#: ../libanjuta/anjuta-entry.c:241
-msgid "Help text"
-msgstr "ข้อความวิธีใช้"
-
-#: ../libanjuta/anjuta-entry.c:242
-msgid "Text to show the user what to enter into the entry"
-msgstr "ข้อความที่จะแสดงบอกผู้ใช้ว่าจะให้กรอกอะไรลงในช่องข้อความ"
-
-#: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that dropped files should be relative to"
-msgstr "พาธตั้งต้นที่แฟ้มที่ลากมาวางควรจะสัมพัทธ์ด้วย"
-
-#: ../libanjuta/anjuta-file-list.c:101
-msgid "Drop a file or enter a path here"
-msgstr "วางแฟ้มหรือป้อนพาธที่นี่"
-
-#: ../libanjuta/anjuta-file-list.c:274
-msgid "Select Files"
-msgstr "เลือกแฟ้ม"
-
-#: ../libanjuta/anjuta-file-list.c:540
-msgid "Path that all files in the list should be relative to"
-msgstr "พาธตั้งต้นที่ทุกแฟ้มในรายชื่อควรจะสัมพัทธ์ด้วย"
-
-#: ../libanjuta/anjuta-file-list.c:547
-msgid "Show Add button"
-msgstr "แสดงปุ่ม \"เพิ่ม\""
-
-#: ../libanjuta/anjuta-file-list.c:548
-msgid "Display an Add button"
-msgstr "แสดงปุ่ม \"เพิ่ม\""
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../src/preferences.ui.h:13
-msgid "Text"
-msgstr "ข้อความ"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-msgid "Text to render"
-msgstr "ข้อความที่จะวาด"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
-msgid "Pixbuf Object"
-msgstr "อ็อบเจกต์ Pixbuf"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
-msgid "The pixbuf to render."
-msgstr "pixbuf ที่จะวาด"
-
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
@@ -755,44 +785,44 @@ msgid "sudo"
 msgstr "sudo"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:451
+#: ../plugins/build-basic-autotools/build.c:475
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr "ก่อนใช้การตั้งค่าใหม่นี้ ต้องลบค่าปริยายก่อน ยืนยันที่จะทำเช่นนั้นหรือไม่?"
 
-#: ../plugins/build-basic-autotools/build.c:456
+#: ../plugins/build-basic-autotools/build.c:480
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "คำสั่งถูกยกเลิกโดยผู้ใช้"
 
-#: ../plugins/build-basic-autotools/build.c:718
+#: ../plugins/build-basic-autotools/build.c:796
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "ไม่สามารถคอมไพล์ \"%s\": ไม่ได้กำหนดกฎคอมไพล์ไว้สำหรับแฟ้มชนิดนี้"
 
-#: ../plugins/build-basic-autotools/build.c:864
+#: ../plugins/build-basic-autotools/build.c:958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "ไม่สามารถตั้งค่าโครงการ: ขาดสคริปต์ตั้งค่าใน %s"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:68
-#: ../plugins/class-gen/window.c:739
+#: ../plugins/build-basic-autotools/configuration-list.c:70
+#: ../plugins/class-gen/window.c:722
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "ปริยาย"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:69
+#: ../plugins/build-basic-autotools/configuration-list.c:71
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
 msgstr "ดีบั๊ก"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:70
+#: ../plugins/build-basic-autotools/configuration-list.c:72
 msgid "Profiling"
 msgstr "วัดประสิทธิภาพ"
 
-#: ../plugins/build-basic-autotools/configuration-list.c:71
+#: ../plugins/build-basic-autotools/configuration-list.c:73
 msgid "Optimized"
 msgstr "ปรับประสิทธิภาพ"
 
@@ -1112,22 +1142,22 @@ msgstr "คอ_มไพล์ (%s)"
 msgid "Co_mpile"
 msgstr "คอ_มไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:2413
+#: ../plugins/build-basic-autotools/plugin.c:2445
 msgid "Build commands"
 msgstr "คำสั่งประกอบสร้าง"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2422
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "Build popup commands"
 msgstr "คำสั่งผุดขึ้นสำหรับประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2841
-#: ../plugins/build-basic-autotools/plugin.c:2849
+#: ../plugins/build-basic-autotools/plugin.c:2873
+#: ../plugins/build-basic-autotools/plugin.c:2881
 msgid "Build Autotools"
 msgstr "เครื่องมืออัตโนมัติสำหรับประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/program.c:269
+#: ../plugins/build-basic-autotools/program.c:300
 #, c-format
 msgid ""
 "Error while setting up build environment:\n"
@@ -1136,7 +1166,7 @@ msgstr ""
 "เกิดข้อผิดพลาดขณะตั้งค่าสภาพแวดล้อมของการประกอบสร้าง:\n"
 " %s"
 
-#: ../plugins/build-basic-autotools/program.c:342
+#: ../plugins/build-basic-autotools/program.c:373
 msgid "Command aborted"
 msgstr "เลิกทำคำสั่งแล้ว"
 
@@ -1389,7 +1419,7 @@ msgstr "แฟ้มที่จะเขียนเป็นผลลัพธ
 msgid "Failed to write autogen definition file"
 msgstr "เขียนแฟ้มข้อกำหนดของ autogen ไม่สำเร็จ"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1188
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1406,99 +1436,77 @@ msgstr "เรียก autogen ไม่สำเร็จ: %s"
 msgid "Guess from type"
 msgstr "เดาจากชนิด"
 
-#: ../plugins/class-gen/window.c:713 ../plugins/class-gen/window.c:724
-#: ../plugins/class-gen/window.c:798 ../plugins/class-gen/window.c:808
-#: ../plugins/class-gen/window.c:821
+#: ../plugins/class-gen/window.c:696 ../plugins/class-gen/window.c:707
+#: ../plugins/class-gen/window.c:781 ../plugins/class-gen/window.c:791
+#: ../plugins/class-gen/window.c:804
 msgid "Scope"
 msgstr "ขอบเขต"
 
-#: ../plugins/class-gen/window.c:714
+#: ../plugins/class-gen/window.c:697
 msgid "Implementation"
 msgstr "เนื้อหา"
 
-#: ../plugins/class-gen/window.c:715 ../plugins/class-gen/window.c:725
-#: ../plugins/class-gen/window.c:747 ../plugins/class-gen/window.c:799
-#: ../plugins/class-gen/window.c:809
+#: ../plugins/class-gen/window.c:698 ../plugins/class-gen/window.c:708
+#: ../plugins/class-gen/window.c:730 ../plugins/class-gen/window.c:782
+#: ../plugins/class-gen/window.c:792
 #: ../plugins/debug-manager/breakpoints.c:1954
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "ชนิด"
 
-#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:734 ../plugins/class-gen/window.c:748
-#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:766
-#: ../plugins/class-gen/window.c:774 ../plugins/class-gen/window.c:782
-#: ../plugins/class-gen/window.c:790 ../plugins/class-gen/window.c:800
-#: ../plugins/class-gen/window.c:810 ../plugins/class-gen/window.c:822
-#: ../plugins/project-manager/dialogs.c:467
-#: ../plugins/run-program/parameters.c:757
-#: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
-#: ../plugins/snippets-manager/snippets-editor.c:37
-msgid "Name"
-msgstr "ชื่อ"
-
-#: ../plugins/class-gen/window.c:717 ../plugins/class-gen/window.c:727
-#: ../plugins/class-gen/window.c:749 ../plugins/class-gen/window.c:759
-#: ../plugins/class-gen/window.c:775 ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:700 ../plugins/class-gen/window.c:710
+#: ../plugins/class-gen/window.c:732 ../plugins/class-gen/window.c:742
+#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:784
+#: ../plugins/class-gen/window.c:806
 #: ../plugins/debug-manager/stack_trace.c:712
 msgid "Arguments"
 msgstr "อาร์กิวเมนต์"
 
-#: ../plugins/class-gen/window.c:735
+#: ../plugins/class-gen/window.c:718
 msgid "Nick"
 msgstr "ชื่อเล่น"
 
-#: ../plugins/class-gen/window.c:736
+#: ../plugins/class-gen/window.c:719
 msgid "Blurb"
 msgstr "คำบรรยายสั้น"
 
-#: ../plugins/class-gen/window.c:737
+#: ../plugins/class-gen/window.c:720
 msgid "GType"
 msgstr "GType"
 
-#: ../plugins/class-gen/window.c:738
+#: ../plugins/class-gen/window.c:721
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:740 ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:723 ../plugins/class-gen/window.c:733
 msgid "Flags"
 msgstr "แฟล็ก"
 
-#: ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:734
 msgid "Marshaller"
 msgstr "Marshaller"
 
-#: ../plugins/class-gen/window.c:767 ../plugins/class-gen/window.c:783
-#: ../plugins/class-gen/window.c:814 ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:475
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
-msgid "Value"
-msgstr "ค่า"
-
-#: ../plugins/class-gen/window.c:791 ../plugins/cvs-plugin/cvs-callbacks.c:438
+#: ../plugins/class-gen/window.c:774 ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/am-project/am-project.c:189
 msgid "Module"
 msgstr "มอดูล"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:811 ../plugins/document-manager/plugin.c:1079
+#: ../plugins/class-gen/window.c:794 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
-#: ../plugins/class-gen/window.c:812
+#: ../plugins/class-gen/window.c:795
 msgid "Getter"
 msgstr "ฟังก์ชันอ่านค่า"
 
-#: ../plugins/class-gen/window.c:813
+#: ../plugins/class-gen/window.c:796
 msgid "Setter"
 msgstr "ฟังก์ชันกำหนดค่า"
 
-#: ../plugins/class-gen/window.c:1227
+#: ../plugins/class-gen/window.c:1210
 msgid "XML description of the user interface"
 msgstr "คำอธิบาย XML ของส่วนติดต่อผู้ใช้"
 
@@ -1633,7 +1641,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "ไม่สนใจแฟ้ม .cvsrc (แนะนำ)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2161
+#: ../plugins/symbol-db/plugin.c:2162
 msgid "Local"
 msgstr "เฉพาะที่"
 
@@ -2033,8 +2041,8 @@ msgid "Inspect/Evaluate"
 msgstr "ตรวจสอบ/ประมวลผล"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/debug-manager/plugin.c:1031
-#: ../plugins/debug-manager/plugin.c:1147
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Kernel Signals"
 msgstr "สัญญาณเคอร์เนล"
 
@@ -2305,7 +2313,7 @@ msgstr "การกระทำเกี่ยวกับจุดพัก"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:392
-#: ../plugins/debug-manager/sparse_view.c:501
+#: ../plugins/debug-manager/sparse_view.c:500
 msgid "_Go to address"
 msgstr "ไ_ปยังแอดเดรส"
 
@@ -2331,259 +2339,209 @@ msgstr "บรรทัด"
 msgid "Locals"
 msgstr "ตัวแปรเฉพาะที่"
 
-#: ../plugins/debug-manager/plugin.c:340
+#: ../plugins/debug-manager/plugin.c:339
 msgid "Debugger Log"
 msgstr "ปูมโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:413 ../plugins/debug-manager/plugin.c:435
-#: ../plugins/debug-manager/plugin.c:460 ../plugins/debug-manager/plugin.c:487
-#: ../plugins/debug-manager/plugin.c:521 ../plugins/debug-manager/plugin.c:554
+#: ../plugins/debug-manager/plugin.c:412 ../plugins/debug-manager/plugin.c:434
+#: ../plugins/debug-manager/plugin.c:459 ../plugins/debug-manager/plugin.c:486
+#: ../plugins/debug-manager/plugin.c:520 ../plugins/debug-manager/plugin.c:553
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "โปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:412
 msgid "Started"
 msgstr "เริ่มแล้ว"
 
-#: ../plugins/debug-manager/plugin.c:435
+#: ../plugins/debug-manager/plugin.c:434
 msgid "Loaded"
 msgstr "โหลดแล้ว"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:456
-#: ../plugins/debug-manager/plugin.c:1159
+#: ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:1053
 msgid "Pa_use Program"
 msgstr "_พักโปรแกรม"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:1161
+#: ../plugins/debug-manager/plugin.c:456
+#: ../plugins/debug-manager/plugin.c:1055
 msgid "Pauses the execution of the program"
 msgstr "หยุดพักการทำงานของโปรแกรม"
 
-#: ../plugins/debug-manager/plugin.c:460
+#: ../plugins/debug-manager/plugin.c:459
 msgid "Running…"
 msgstr "กำลังทำงาน…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:483
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:482 ../plugins/debug-manager/plugin.c:969
 msgid "Run/_Continue"
 msgstr "เรียกทำงาน/_ทำต่อไป"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:484
-#: ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:483 ../plugins/debug-manager/plugin.c:971
 msgid "Continue the execution of the program"
 msgstr "ให้โปรแกรมทำงานต่อไป"
 
-#: ../plugins/debug-manager/plugin.c:487
+#: ../plugins/debug-manager/plugin.c:486
 msgid "Stopped"
 msgstr "หยุดแล้ว"
 
-#: ../plugins/debug-manager/plugin.c:521
+#: ../plugins/debug-manager/plugin.c:520
 msgid "Unloaded"
 msgstr "ถอนออกแล้ว"
 
-#: ../plugins/debug-manager/plugin.c:563
+#: ../plugins/debug-manager/plugin.c:562
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "โปรแกรมดีบั๊กหยุดทำงานด้วยข้อผิดพลาด %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:576
+#: ../plugins/debug-manager/plugin.c:575
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "โปรแกรมได้รับสัญญาณ: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:915
+#: ../plugins/debug-manager/plugin.c:865
 msgid "_Debug"
 msgstr "_ดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:873
 msgid "_Start Debugger"
 msgstr "เ_รียกโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:881
 msgid "_Debug Program"
 msgstr "_ดีบั๊กโปรแกรม"
 
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:883
 msgid "Start debugger and load the program"
 msgstr "เรียกโปรแกรมดีบั๊กพร้อมโหลดโปรแกรม"
 
-#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:889
 msgid "_Debug Process…"
 msgstr "ดีบั๊กโ_พรเซส…"
 
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Start debugger and attach to a running program"
 msgstr "เริ่มโปรแกรมดีบั๊กและแนบกับโปรแกรมที่กำลังทำงาน"
 
-#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:897
 msgid "Debug _Remote Target…"
 msgstr "ดีบั๊กเป้าหมายในเ_ครือข่าย…"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Connect to a remote debugging target"
 msgstr "เชื่อมต่อไปยังเป้าหมายการดีบั๊กในเครือข่าย"
 
-#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Stop Debugger"
 msgstr "หยุดโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Say goodbye to the debugger"
 msgstr "บอกลาโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:913
 msgid "Add source paths…"
 msgstr "เพิ่มพาธของซอร์ส…"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Add additional source paths"
 msgstr "เพิ่มพาธของซอร์ส"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:975
-#: ../plugins/debug-manager/plugin.c:1099
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Debugger Command…"
 msgstr "คำสั่งโปรแกรมดีบั๊ก…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:977
-#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:1019
 msgid "Custom debugger command"
 msgstr "คำสั่งโปรแกรมดีบั๊กแบบกำหนดเอง"
 
-#: ../plugins/debug-manager/plugin.c:983
-#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "_Info"
 msgstr "_ข้อมูล"
 
-#: ../plugins/debug-manager/plugin.c:991
-msgid "Info _Target Files"
-msgstr "ข้อมูลแฟ้มปลาย_ทาง"
-
-#: ../plugins/debug-manager/plugin.c:993
-msgid "Display information on the files the debugger is active with"
-msgstr "แสดงข้อมูลของแฟ้มที่โปรแกรมดีบั๊กกำลังทำงานด้วย"
-
-#: ../plugins/debug-manager/plugin.c:999
-msgid "Info _Program"
-msgstr "ข้อมูลโ_ปรแกรม"
-
-#: ../plugins/debug-manager/plugin.c:1001
-msgid "Display information on the execution status of the program"
-msgstr "แสดงข้อมูลของสถานะการทำงานของโปรแกรม"
-
-#: ../plugins/debug-manager/plugin.c:1007
-msgid "Info _Kernel User Struct"
-msgstr "ข้อมูล User Struct ของเ_คอร์เนล"
-
-#: ../plugins/debug-manager/plugin.c:1009
-msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "แสดงเนื้อหาของ 'struct user' ของเคอร์เนลสำหรับโพรเซสลูกปัจจุบัน"
-
-#: ../plugins/debug-manager/plugin.c:1023
-#: ../plugins/debug-manager/plugin.c:1139
+#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Shared Libraries"
 msgstr "ไลบรารีใช้ร่วม"
 
-#: ../plugins/debug-manager/plugin.c:1025
-#: ../plugins/debug-manager/plugin.c:1141
+#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:1035
 msgid "Show shared library mappings"
 msgstr "แสดงผังการใช้ไลบรารีใช้ร่วม"
 
-#: ../plugins/debug-manager/plugin.c:1033
-#: ../plugins/debug-manager/plugin.c:1149
+#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Show kernel signals"
 msgstr "แสดงสัญญาณเคอร์เนล"
 
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:957
 msgid "_Continue/Suspend"
 msgstr "ทำ_ต่อไป/หยุดชั่วคราว"
 
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Continue or suspend the execution of the program"
 msgstr "ให้โปรแกรมทำงานต่อไปหรือหยุดชั่วคราว"
 
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Step _In"
 msgstr "ก้าวเ_ข้า"
 
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:979
 msgid "Single step into function"
 msgstr "ทำหนึ่งขั้นเข้าในฟังก์ชัน"
 
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Step O_ver"
 msgstr "ก้าวข้า_ม"
 
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:987
 msgid "Single step over function"
 msgstr "ทำหนึ่งขั้นข้ามฟังก์ชัน"
 
-#: ../plugins/debug-manager/plugin.c:1075
+#: ../plugins/debug-manager/plugin.c:993
 msgid "Step _Out"
 msgstr "ก้าว_ออก"
 
-#: ../plugins/debug-manager/plugin.c:1077
+#: ../plugins/debug-manager/plugin.c:995
 msgid "Single step out of function"
 msgstr "ทำหนึ่งขั้นออกจากฟังก์ชัน"
 
-#: ../plugins/debug-manager/plugin.c:1083
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "_Run to Cursor"
 msgstr "_ทำถึงเคอร์เซอร์"
 
-#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1003
 msgid "Run to the cursor"
 msgstr "ทำจนถึงเคอร์เซอร์"
 
-#: ../plugins/debug-manager/plugin.c:1091
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "_Run from Cursor"
 msgstr "_ทำตั้งแต่เคอร์เซอร์"
 
-#: ../plugins/debug-manager/plugin.c:1093
+#: ../plugins/debug-manager/plugin.c:1011
 msgid "Run from the cursor"
 msgstr "ทำตั้งแต่เคอร์เซอร์"
 
-#: ../plugins/debug-manager/plugin.c:1115
-msgid "Info _Global Variables"
-msgstr "ข้อมูลตัวแปรโ_กลบอล"
-
-#: ../plugins/debug-manager/plugin.c:1117
-msgid "Display all global and static variables of the program"
-msgstr "แสดงตัวแปรโกลบอลและสแตติกทั้งหมดของโปรแกรม"
-
-#: ../plugins/debug-manager/plugin.c:1123
-msgid "Info _Current Frame"
-msgstr "ข้อมูลเฟรม_ปัจจุบัน"
-
-#: ../plugins/debug-manager/plugin.c:1125
-msgid "Display information about the current frame of execution"
-msgstr "แสดงข้อมูลเกี่ยวกับเฟรมปัจจุบันของการทำงาน"
-
-#: ../plugins/debug-manager/plugin.c:1131
-msgid "Info Function _Arguments"
-msgstr "ข้อมูล_อาร์กิวเมนต์ฟังก์ชัน"
-
-#: ../plugins/debug-manager/plugin.c:1133
-msgid "Display function arguments of the current frame"
-msgstr "แสดงอาร์กิวเมนต์ของฟังก์ชันของเฟรมปัจจุบัน"
-
-#: ../plugins/debug-manager/plugin.c:1201
-#: ../plugins/debug-manager/plugin.c:1207
-#: ../plugins/debug-manager/plugin.c:1213
-#: ../plugins/debug-manager/plugin.c:1219
+#: ../plugins/debug-manager/plugin.c:1095
+#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:1113
 msgid "Debugger operations"
 msgstr "การกระทำเกี่ยวกับโปรแกรมดีบั๊ก"
 
@@ -2660,19 +2618,19 @@ msgstr "สัญญาณเคอร์เนล"
 msgid "Signal operations"
 msgstr "การกระทำเกี่ยวกับสัญญาณ"
 
-#: ../plugins/debug-manager/sparse_view.c:1132
+#: ../plugins/debug-manager/sparse_view.c:1237
 msgid "Show Line Numbers"
 msgstr "แสดงเลขบรรทัด"
 
-#: ../plugins/debug-manager/sparse_view.c:1133
+#: ../plugins/debug-manager/sparse_view.c:1238
 msgid "Whether to display line numbers"
 msgstr "จะแสดงเลขบรรทัดหรือไม่"
 
-#: ../plugins/debug-manager/sparse_view.c:1140
+#: ../plugins/debug-manager/sparse_view.c:1245
 msgid "Show Line Markers"
 msgstr "แสดงเครื่องหมายกำกับบรรทัด"
 
-#: ../plugins/debug-manager/sparse_view.c:1141
+#: ../plugins/debug-manager/sparse_view.c:1246
 msgid "Whether to display line marker pixbufs"
 msgstr "จะแสดงรูปเครื่องหมายกำกับบรรทัดหรือไม่"
 
@@ -2703,7 +2661,7 @@ msgstr "เฟรม"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2889,8 +2847,8 @@ msgstr "เบราว์เซอร์ API"
 msgid "Contents"
 msgstr "เนื้อหา"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
-#: ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/symbol-db/plugin.c:2182
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -2940,7 +2898,7 @@ msgid "Close file"
 msgstr "ปิดแฟ้ม"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:608
+#: ../plugins/project-manager/dialogs.c:611
 msgid "Path:"
 msgstr "พาธ:"
 
@@ -3975,7 +3933,7 @@ msgid "Filter"
 msgstr "ตัวกรอง"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2174
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "ส่วนกลาง"
@@ -4050,8 +4008,8 @@ msgid "File Information"
 msgstr "ข้อมูลแฟ้ม"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
-#: ../plugins/project-manager/dialogs.c:613
+#: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/project-manager/dialogs.c:616
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "ชื่อ:"
@@ -4061,7 +4019,7 @@ msgid "New File"
 msgstr "แฟ้มใหม่"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:635
+#: ../plugins/project-manager/dialogs.c:638
 msgid "Type:"
 msgstr "ชนิด:"
 
@@ -4192,11 +4150,11 @@ msgstr "ไม่สามารถแจงแฟ้มโครงการ"
 msgid "Project doesn't exist or has an invalid path"
 msgstr "โครงการไม่มีอยู่หรือพาธไม่ถูกต้อง"
 
-#: ../plugins/am-project/am-properties.c:51
+#: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr "ชื่อโครงการ มีช่องว่างได้ ตัวอย่างเช่น 'GNU Autoconf'"
 
-#: ../plugins/am-project/am-properties.c:56
+#: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
@@ -4218,26 +4176,26 @@ msgstr "ชื่อโครงการ มีช่องว่างได�
 msgid "Version:"
 msgstr "รุ่น:"
 
-#: ../plugins/am-project/am-properties.c:59
+#: ../plugins/am-project/am-properties.c:61
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr "รุ่นของโครงการ โดยปกติเป็นตัวเลขคั่นด้วยจุด ตัวอย่างเช่น '1.0.0'"
 
-#: ../plugins/am-project/am-properties.c:64
+#: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
 msgstr "URL สำหรับรายงานบั๊ก:"
 
-#: ../plugins/am-project/am-properties.c:67
+#: ../plugins/am-project/am-properties.c:70
 msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
 msgstr "ที่อยู่อีเมลหรือลิงก์ไปยังหน้าเว็บที่ผู้ใช้สามารถรายงานบั๊กได้ ข้อมูลนี้จะมีหรือไม่ก็ได้"
 
-#: ../plugins/am-project/am-properties.c:72
+#: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
 msgstr "ชื่อแพกเกจ:"
 
-#: ../plugins/am-project/am-properties.c:75
+#: ../plugins/am-project/am-properties.c:79
 msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
@@ -4245,317 +4203,317 @@ msgstr ""
 "ชื่อแพกเกจ สามารถใช้ได้เพียงตัวอักษร ตัวเลข และขีดล่างได้เท่านั้น ถ้าไม่ตั้งชื่อตรงนี้ "
 "ก็จะสร้างเอาจากชื่อโครงการ"
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "URL:"
 
-#: ../plugins/am-project/am-properties.c:84
+#: ../plugins/am-project/am-properties.c:89
 msgid "An link to the project web page if provided."
 msgstr "ลิงก์ไปหน้าเว็บของโครงการถ้ามี"
 
-#: ../plugins/am-project/am-properties.c:97
-#: ../plugins/am-project/am-properties.c:209
-#: ../plugins/am-project/am-properties.c:374
-#: ../plugins/am-project/am-properties.c:531
+#: ../plugins/am-project/am-properties.c:103
+#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:412
+#: ../plugins/am-project/am-properties.c:587
 msgid "Linker flags:"
 msgstr "แฟล็กของลิงเกอร์:"
 
-#: ../plugins/am-project/am-properties.c:100
+#: ../plugins/am-project/am-properties.c:106
 msgid "Common additional linker flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของลิงเกอร์สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:105
-#: ../plugins/am-project/am-properties.c:233
-#: ../plugins/am-project/am-properties.c:390
-#: ../plugins/am-project/am-properties.c:547
+#: ../plugins/am-project/am-properties.c:112
+#: ../plugins/am-project/am-properties.c:255
+#: ../plugins/am-project/am-properties.c:430
+#: ../plugins/am-project/am-properties.c:605
 msgid "C preprocessor flags:"
 msgstr "แฟล็กของ preprocessor ภาษาซี:"
 
-#: ../plugins/am-project/am-properties.c:108
+#: ../plugins/am-project/am-properties.c:115
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของ preprocessor ภาษาซีสำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:113
-#: ../plugins/am-project/am-properties.c:241
-#: ../plugins/am-project/am-properties.c:398
-#: ../plugins/am-project/am-properties.c:555
+#: ../plugins/am-project/am-properties.c:121
+#: ../plugins/am-project/am-properties.c:264
+#: ../plugins/am-project/am-properties.c:439
+#: ../plugins/am-project/am-properties.c:614
 msgid "C compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษาซี:"
 
-#: ../plugins/am-project/am-properties.c:116
+#: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษาซีสำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:121
-#: ../plugins/am-project/am-properties.c:249
-#: ../plugins/am-project/am-properties.c:406
-#: ../plugins/am-project/am-properties.c:563
+#: ../plugins/am-project/am-properties.c:130
+#: ../plugins/am-project/am-properties.c:273
+#: ../plugins/am-project/am-properties.c:448
+#: ../plugins/am-project/am-properties.c:623
 msgid "C++ compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษาซีพลัสพลัส:"
 
-#: ../plugins/am-project/am-properties.c:124
+#: ../plugins/am-project/am-properties.c:133
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษาซีพลัสพลัสสำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:129
-#: ../plugins/am-project/am-properties.c:257
-#: ../plugins/am-project/am-properties.c:414
-#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:139
+#: ../plugins/am-project/am-properties.c:282
+#: ../plugins/am-project/am-properties.c:457
+#: ../plugins/am-project/am-properties.c:632
 msgid "Java compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษาจาวา:"
 
-#: ../plugins/am-project/am-properties.c:132
+#: ../plugins/am-project/am-properties.c:142
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษาจาวาสำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:137
-#: ../plugins/am-project/am-properties.c:265
-#: ../plugins/am-project/am-properties.c:422
-#: ../plugins/am-project/am-properties.c:579
+#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:291
+#: ../plugins/am-project/am-properties.c:466
+#: ../plugins/am-project/am-properties.c:641
 msgid "Vala compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษา Vala:"
 
-#: ../plugins/am-project/am-properties.c:140
+#: ../plugins/am-project/am-properties.c:151
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษา Vala สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:145
-#: ../plugins/am-project/am-properties.c:273
-#: ../plugins/am-project/am-properties.c:430
-#: ../plugins/am-project/am-properties.c:587
+#: ../plugins/am-project/am-properties.c:157
+#: ../plugins/am-project/am-properties.c:300
+#: ../plugins/am-project/am-properties.c:475
+#: ../plugins/am-project/am-properties.c:650
 msgid "Fortran compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษาฟอร์แทรน:"
 
-#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:160
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษาฟอร์แทรนสำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:153
-#: ../plugins/am-project/am-properties.c:281
-#: ../plugins/am-project/am-properties.c:438
-#: ../plugins/am-project/am-properties.c:595
+#: ../plugins/am-project/am-properties.c:166
+#: ../plugins/am-project/am-properties.c:309
+#: ../plugins/am-project/am-properties.c:484
+#: ../plugins/am-project/am-properties.c:659
 msgid "Objective C compiler flags:"
 msgstr "แฟล็กของคอมไพเลอร์ภาษา Objective C:"
 
-#: ../plugins/am-project/am-properties.c:156
+#: ../plugins/am-project/am-properties.c:169
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr "แฟล็กเพิ่มเติมทั่วไปของคอมไพเลอร์ภาษา Objective C สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:161
-#: ../plugins/am-project/am-properties.c:289
-#: ../plugins/am-project/am-properties.c:446
-#: ../plugins/am-project/am-properties.c:603
+#: ../plugins/am-project/am-properties.c:175
+#: ../plugins/am-project/am-properties.c:318
+#: ../plugins/am-project/am-properties.c:493
+#: ../plugins/am-project/am-properties.c:668
 msgid "Lex/Flex flags:"
 msgstr "แฟล็กของ Lex/Flex:"
 
-#: ../plugins/am-project/am-properties.c:164
+#: ../plugins/am-project/am-properties.c:178
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
 "แฟล็กเพิ่มเติมทั่วไปของเครื่องมือสร้างตัววิเคราะห์ศัพท์ Lex หรือ Flex สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:169
-#: ../plugins/am-project/am-properties.c:297
-#: ../plugins/am-project/am-properties.c:454
-#: ../plugins/am-project/am-properties.c:611
+#: ../plugins/am-project/am-properties.c:184
+#: ../plugins/am-project/am-properties.c:327
+#: ../plugins/am-project/am-properties.c:502
+#: ../plugins/am-project/am-properties.c:677
 msgid "Yacc/Bison flags:"
 msgstr "แฟล็กของ Yacc/Bison:"
 
-#: ../plugins/am-project/am-properties.c:172
+#: ../plugins/am-project/am-properties.c:187
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
 "แฟล็กเพิ่มเติมทั่วไปของเครื่องมือสร้างตัวแจงอ่าน Yacc หรือ Bison สำหรับเป้าหมายทั้งหมดในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:177
+#: ../plugins/am-project/am-properties.c:193
 msgid "Installation directories:"
 msgstr "ไดเรกทอรีติดตั้ง:"
 
-#: ../plugins/am-project/am-properties.c:180
+#: ../plugins/am-project/am-properties.c:196
 msgid "List of custom installation directories used by targets in this group."
 msgstr "รายชื่อของไดเรกทอรีติดตั้งแบบกำหนดเองที่ใช้โดยเป้าหมายต่างๆ ในกลุ่มนี้"
 
-#: ../plugins/am-project/am-properties.c:192
-#: ../plugins/am-project/am-properties.c:357
-#: ../plugins/am-project/am-properties.c:514
-#: ../plugins/am-project/am-properties.c:703
-#: ../plugins/am-project/am-properties.c:772
+#: ../plugins/am-project/am-properties.c:209
+#: ../plugins/am-project/am-properties.c:393
+#: ../plugins/am-project/am-properties.c:568
+#: ../plugins/am-project/am-properties.c:778
+#: ../plugins/am-project/am-properties.c:854
 msgid "Do not install:"
 msgstr "ไม่ติดตั้ง:"
 
-#: ../plugins/am-project/am-properties.c:195
-#: ../plugins/am-project/am-properties.c:360
-#: ../plugins/am-project/am-properties.c:517
-#: ../plugins/am-project/am-properties.c:706
-#: ../plugins/am-project/am-properties.c:775
+#: ../plugins/am-project/am-properties.c:212
+#: ../plugins/am-project/am-properties.c:396
+#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:781
+#: ../plugins/am-project/am-properties.c:857
 msgid "Build but do not install the target."
 msgstr "ประกอบสร้างแต่ไม่ต้องติดตั้งเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:201
-#: ../plugins/am-project/am-properties.c:366
-#: ../plugins/am-project/am-properties.c:523
-#: ../plugins/am-project/am-properties.c:712
-#: ../plugins/am-project/am-properties.c:780
+#: ../plugins/am-project/am-properties.c:219
+#: ../plugins/am-project/am-properties.c:403
+#: ../plugins/am-project/am-properties.c:578
+#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:863
 msgid "Installation directory:"
 msgstr "ไดเรกทอรีติดตั้ง:"
 
-#: ../plugins/am-project/am-properties.c:204
-#: ../plugins/am-project/am-properties.c:369
-#: ../plugins/am-project/am-properties.c:526
-#: ../plugins/am-project/am-properties.c:715
-#: ../plugins/am-project/am-properties.c:783
+#: ../plugins/am-project/am-properties.c:222
+#: ../plugins/am-project/am-properties.c:406
+#: ../plugins/am-project/am-properties.c:581
+#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:866
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
 msgstr "ต้องเป็นไดเรกทอรีมาตรฐานหรือเป็นไดเรกทอรีที่กำหนดเองในคุณสมบัติของกลุ่ม"
 
-#: ../plugins/am-project/am-properties.c:212
-#: ../plugins/am-project/am-properties.c:377
-#: ../plugins/am-project/am-properties.c:534
+#: ../plugins/am-project/am-properties.c:231
+#: ../plugins/am-project/am-properties.c:415
+#: ../plugins/am-project/am-properties.c:590
 msgid "Additional linker flags for this target."
 msgstr "แฟล็กเพิ่มเติมของลิงเกอร์สำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:217
+#: ../plugins/am-project/am-properties.c:237
 msgid "Additional libraries:"
 msgstr "ไลบรารีเพิ่มเติม:"
 
-#: ../plugins/am-project/am-properties.c:220
-#: ../plugins/am-project/am-properties.c:385
-#: ../plugins/am-project/am-properties.c:542
+#: ../plugins/am-project/am-properties.c:240
+#: ../plugins/am-project/am-properties.c:424
+#: ../plugins/am-project/am-properties.c:599
 msgid "Additional libraries for this target."
 msgstr "ไลบรารีเพิ่มเติมสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:225
+#: ../plugins/am-project/am-properties.c:246
 msgid "Additional objects:"
 msgstr "อ็อบเจกต์เพิ่มเติม:"
 
-#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:249
 msgid "Additional object files for this target."
 msgstr "แฟ้มอ็อบเจกต์เพิ่มเติมสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:236
-#: ../plugins/am-project/am-properties.c:393
-#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:258
+#: ../plugins/am-project/am-properties.c:433
+#: ../plugins/am-project/am-properties.c:608
 msgid "Additional C preprocessor flags for this target."
 msgstr "แฟล็กเพิ่มเติมของ preprocessor ภาษาซีสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:244
-#: ../plugins/am-project/am-properties.c:401
-#: ../plugins/am-project/am-properties.c:558
+#: ../plugins/am-project/am-properties.c:267
+#: ../plugins/am-project/am-properties.c:442
+#: ../plugins/am-project/am-properties.c:617
 msgid "Additional C compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์ภาษาซีสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:252
-#: ../plugins/am-project/am-properties.c:409
-#: ../plugins/am-project/am-properties.c:566
+#: ../plugins/am-project/am-properties.c:276
+#: ../plugins/am-project/am-properties.c:451
+#: ../plugins/am-project/am-properties.c:626
 msgid "Additional C++ compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์ซีพลัสพลัสสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:260
-#: ../plugins/am-project/am-properties.c:417
-#: ../plugins/am-project/am-properties.c:574
+#: ../plugins/am-project/am-properties.c:285
+#: ../plugins/am-project/am-properties.c:460
+#: ../plugins/am-project/am-properties.c:635
 msgid "Additional Java compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์จาวาสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:268
-#: ../plugins/am-project/am-properties.c:425
-#: ../plugins/am-project/am-properties.c:582
+#: ../plugins/am-project/am-properties.c:294
+#: ../plugins/am-project/am-properties.c:469
+#: ../plugins/am-project/am-properties.c:644
 msgid "Additional Vala compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์ภาษา Vala สำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:276
-#: ../plugins/am-project/am-properties.c:433
-#: ../plugins/am-project/am-properties.c:590
+#: ../plugins/am-project/am-properties.c:303
+#: ../plugins/am-project/am-properties.c:478
+#: ../plugins/am-project/am-properties.c:653
 msgid "Additional Fortran compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์ภาษาฟอร์แทรนสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:284
-#: ../plugins/am-project/am-properties.c:441
-#: ../plugins/am-project/am-properties.c:598
+#: ../plugins/am-project/am-properties.c:312
+#: ../plugins/am-project/am-properties.c:487
+#: ../plugins/am-project/am-properties.c:662
 msgid "Additional Objective C compiler flags for this target."
 msgstr "แฟล็กเพิ่มเติมของคอมไพเลอร์ Objective C สำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:292
-#: ../plugins/am-project/am-properties.c:449
-#: ../plugins/am-project/am-properties.c:606
+#: ../plugins/am-project/am-properties.c:321
+#: ../plugins/am-project/am-properties.c:496
+#: ../plugins/am-project/am-properties.c:671
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr "แฟล็กเพิ่มเติมของเครื่องมือสร้างตัววิเคราะห์ศัพท์ Lex หรือ Flex สำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:300
-#: ../plugins/am-project/am-properties.c:457
-#: ../plugins/am-project/am-properties.c:614
+#: ../plugins/am-project/am-properties.c:330
+#: ../plugins/am-project/am-properties.c:505
+#: ../plugins/am-project/am-properties.c:680
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr "แฟล็กเพิ่มเติมของเครื่องมือสร้างตัวแจงอ่าน Yacc หรือ Bison สำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:305
-#: ../plugins/am-project/am-properties.c:462
-#: ../plugins/am-project/am-properties.c:619
-#: ../plugins/am-project/am-properties.c:671
-#: ../plugins/am-project/am-properties.c:720
-#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:336
+#: ../plugins/am-project/am-properties.c:511
+#: ../plugins/am-project/am-properties.c:686
+#: ../plugins/am-project/am-properties.c:743
+#: ../plugins/am-project/am-properties.c:797
+#: ../plugins/am-project/am-properties.c:872
 msgid "Additional dependencies:"
 msgstr "สิ่งที่ต้องใช้เพิ่มเติม:"
 
-#: ../plugins/am-project/am-properties.c:308
-#: ../plugins/am-project/am-properties.c:465
-#: ../plugins/am-project/am-properties.c:622
-#: ../plugins/am-project/am-properties.c:674
-#: ../plugins/am-project/am-properties.c:723
-#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:339
+#: ../plugins/am-project/am-properties.c:514
+#: ../plugins/am-project/am-properties.c:689
+#: ../plugins/am-project/am-properties.c:746
+#: ../plugins/am-project/am-properties.c:800
+#: ../plugins/am-project/am-properties.c:875
 msgid "Additional dependencies for this target."
 msgstr "สิ่งที่ต้องใช้เพิ่มเติมสำหรับเป้าหมายนี้"
 
-#: ../plugins/am-project/am-properties.c:313
-#: ../plugins/am-project/am-properties.c:470
-#: ../plugins/am-project/am-properties.c:627
-#: ../plugins/am-project/am-properties.c:728
-#: ../plugins/am-project/am-properties.c:796
+#: ../plugins/am-project/am-properties.c:345
+#: ../plugins/am-project/am-properties.c:520
+#: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:806
+#: ../plugins/am-project/am-properties.c:881
 msgid "Include in distribution:"
 msgstr "รวมในชุดจัดแจก:"
 
-#: ../plugins/am-project/am-properties.c:316
-#: ../plugins/am-project/am-properties.c:473
-#: ../plugins/am-project/am-properties.c:630
-#: ../plugins/am-project/am-properties.c:731
-#: ../plugins/am-project/am-properties.c:799
+#: ../plugins/am-project/am-properties.c:348
+#: ../plugins/am-project/am-properties.c:523
+#: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:809
+#: ../plugins/am-project/am-properties.c:884
 msgid "Include this target in the distributed package."
 msgstr "รวมเป้าหมายนี้ในแพกเกจที่จัดแจกด้วย"
 
-#: ../plugins/am-project/am-properties.c:322
-#: ../plugins/am-project/am-properties.c:479
-#: ../plugins/am-project/am-properties.c:636
-#: ../plugins/am-project/am-properties.c:737
-#: ../plugins/am-project/am-properties.c:804
+#: ../plugins/am-project/am-properties.c:355
+#: ../plugins/am-project/am-properties.c:530
+#: ../plugins/am-project/am-properties.c:705
+#: ../plugins/am-project/am-properties.c:816
+#: ../plugins/am-project/am-properties.c:890
 msgid "Build for check only:"
 msgstr "ประกอบสร้างสำหรับตรวจสอบเท่านั้น:"
 
-#: ../plugins/am-project/am-properties.c:325
-#: ../plugins/am-project/am-properties.c:482
-#: ../plugins/am-project/am-properties.c:639
-#: ../plugins/am-project/am-properties.c:740
-#: ../plugins/am-project/am-properties.c:807
+#: ../plugins/am-project/am-properties.c:358
+#: ../plugins/am-project/am-properties.c:533
+#: ../plugins/am-project/am-properties.c:708
+#: ../plugins/am-project/am-properties.c:819
+#: ../plugins/am-project/am-properties.c:893
 msgid "Build this target only when running automatic tests."
 msgstr "ประกอบสร้างเป้าหมายนี้เมื่อจะเรียกการทดสอบอัตโนมัติเท่านั้น"
 
-#: ../plugins/am-project/am-properties.c:331
-#: ../plugins/am-project/am-properties.c:488
-#: ../plugins/am-project/am-properties.c:645
-#: ../plugins/am-project/am-properties.c:679
-#: ../plugins/am-project/am-properties.c:746
-#: ../plugins/am-project/am-properties.c:812
+#: ../plugins/am-project/am-properties.c:365
+#: ../plugins/am-project/am-properties.c:540
+#: ../plugins/am-project/am-properties.c:715
+#: ../plugins/am-project/am-properties.c:752
+#: ../plugins/am-project/am-properties.c:826
+#: ../plugins/am-project/am-properties.c:899
 msgid "Do not use prefix:"
 msgstr "ไม่ใช้ prefix:"
 
-#: ../plugins/am-project/am-properties.c:334
-#: ../plugins/am-project/am-properties.c:491
-#: ../plugins/am-project/am-properties.c:648
-#: ../plugins/am-project/am-properties.c:682
-#: ../plugins/am-project/am-properties.c:749
-#: ../plugins/am-project/am-properties.c:815
+#: ../plugins/am-project/am-properties.c:368
+#: ../plugins/am-project/am-properties.c:543
+#: ../plugins/am-project/am-properties.c:718
+#: ../plugins/am-project/am-properties.c:755
+#: ../plugins/am-project/am-properties.c:829
+#: ../plugins/am-project/am-properties.c:902
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4563,19 +4521,19 @@ msgstr ""
 "ไม่ต้องเปลี่ยนชื่อเป้าหมายด้วยการเติมคำนำหน้าที่อาจจะมีการกำหนดมาให้ "
 "ใช้เพื่อหลีกเลี่ยงการเขียนทับโปรแกรมระบบ"
 
-#: ../plugins/am-project/am-properties.c:340
-#: ../plugins/am-project/am-properties.c:497
-#: ../plugins/am-project/am-properties.c:654
-#: ../plugins/am-project/am-properties.c:755
-#: ../plugins/am-project/am-properties.c:820
+#: ../plugins/am-project/am-properties.c:375
+#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:725
+#: ../plugins/am-project/am-properties.c:836
+#: ../plugins/am-project/am-properties.c:908
 msgid "Keep target path:"
 msgstr "เก็บพาธเป้าหมาย:"
 
-#: ../plugins/am-project/am-properties.c:343
-#: ../plugins/am-project/am-properties.c:500
-#: ../plugins/am-project/am-properties.c:657
-#: ../plugins/am-project/am-properties.c:758
-#: ../plugins/am-project/am-properties.c:823
+#: ../plugins/am-project/am-properties.c:378
+#: ../plugins/am-project/am-properties.c:553
+#: ../plugins/am-project/am-properties.c:728
+#: ../plugins/am-project/am-properties.c:839
+#: ../plugins/am-project/am-properties.c:911
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4584,16 +4542,16 @@ msgstr ""
 "เก็บพาธสัมพัทธ์ของเป้าหมายเพื่อใช้ในการติดตั้ง ตัวอย่างเช่น ถ้าคุณมีโปรแกรมชื่อ subdir/app "
 "ติดตั้งไว้ในไดเรกทอรี bin ก็จะติดตั้งโปรแกรมดังกล่าวลงใน bin/subdir/app ไม่ใช่ bin/app"
 
-#: ../plugins/am-project/am-properties.c:382
-#: ../plugins/am-project/am-properties.c:539
+#: ../plugins/am-project/am-properties.c:421
+#: ../plugins/am-project/am-properties.c:596
 msgid "Libraries:"
 msgstr "ไลบรารี:"
 
-#: ../plugins/am-project/am-properties.c:688
+#: ../plugins/am-project/am-properties.c:762
 msgid "Manual section:"
 msgstr "หมวดของคู่มือ:"
 
-#: ../plugins/am-project/am-properties.c:691
+#: ../plugins/am-project/am-properties.c:765
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -4740,26 +4698,26 @@ msgstr "กำลังแยกโพรเซสออก…\n"
 msgid "Interrupting the process\n"
 msgstr "กำลังขัดจังหวะโพรเซส\n"
 
-#: ../plugins/gdb/debugger.c:3996
+#: ../plugins/gdb/debugger.c:3925
 msgid "more children"
 msgstr "เพิ่มลูก"
 
-#: ../plugins/gdb/debugger.c:4249
+#: ../plugins/gdb/debugger.c:4178
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "กำลังส่งสัญญาณ %s ไปที่โพรเซส: %d"
 
-#: ../plugins/gdb/debugger.c:4275
+#: ../plugins/gdb/debugger.c:4204
 msgid "Error whilst signaling the process."
 msgstr "เกิดข้อผิดพลาดขณะส่งสัญญาณไปที่โพรเซส"
 
-#: ../plugins/gdb/plugin.c:118
+#: ../plugins/gdb/plugin.c:120
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr "สร้างแฟ้ม FIFO ชื่อ %s ไม่สำเร็จ โปรแกรมจะทำงานโดยไม่ใช้เทอร์มินัล"
 
-#: ../plugins/gdb/plugin.c:202
+#: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
 msgstr "ไม่สามารถเริ่มเทอร์มินัลสำหรับดีบั๊ก"
 
@@ -4838,7 +4796,7 @@ msgstr "ชื่อแขนง:"
 msgid "Branch:"
 msgstr "แขนง:"
 
-#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:805
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "แขนง"
 
@@ -5199,7 +5157,7 @@ msgid "Merge"
 msgstr "ผสาน"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/plugin.c:727 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:700 ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -5558,27 +5516,27 @@ msgstr "หยุดการปรับแก้ด้วยชุดลำด
 msgid "Branch"
 msgstr "แขนง"
 
-#: ../plugins/git/plugin.c:723
+#: ../plugins/git/plugin.c:696
 msgid "Git Tasks"
 msgstr "คำสั่ง Git"
 
-#: ../plugins/git/plugin.c:793
+#: ../plugins/git/plugin.c:758
 msgid "Status"
 msgstr "สถานะ"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:764
 msgid "Log"
 msgstr "ปูม"
 
-#: ../plugins/git/plugin.c:810
+#: ../plugins/git/plugin.c:775
 msgid "Tags"
 msgstr "แท็ก"
 
-#: ../plugins/git/plugin.c:816
+#: ../plugins/git/plugin.c:781
 msgid "Remotes"
 msgstr "แม่ข่าย"
 
-#: ../plugins/git/plugin.c:822
+#: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Stash"
 
@@ -6047,7 +6005,7 @@ msgstr "เ_ลือกแฟ้มที่จะเพิ่ม…"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1326
 #: ../plugins/project-manager/plugin.c:1448
-#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2125
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "โครงการ"
@@ -6235,7 +6193,7 @@ msgid "_Properties"
 msgstr "คุณ_สมบัติ"
 
 #: ../plugins/project-manager/plugin.c:919
-#: ../plugins/project-manager/dialogs.c:562
+#: ../plugins/project-manager/dialogs.c:565
 msgid "Project properties"
 msgstr "คุณสมบัติโครงการ"
 
@@ -6343,80 +6301,80 @@ msgstr "โหลดโครงการแล้ว"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:309
+#: ../plugins/project-manager/dialogs.c:312
 msgid "Select sources…"
 msgstr "เลือกซอร์ส…"
 
-#: ../plugins/project-manager/dialogs.c:391
+#: ../plugins/project-manager/dialogs.c:394
 msgid " This property is not modifiable."
 msgstr "คุณสมบัตินี้ไม่สามารถเปลี่ยนแปลงได้"
 
-#: ../plugins/project-manager/dialogs.c:565
+#: ../plugins/project-manager/dialogs.c:568
 msgid "Directory properties"
 msgstr "คุณสมบัติไดเรกทอรี"
 
-#: ../plugins/project-manager/dialogs.c:568
+#: ../plugins/project-manager/dialogs.c:571
 msgid "Target properties"
 msgstr "คุณสมบัติเป้าหมาย"
 
-#: ../plugins/project-manager/dialogs.c:571
+#: ../plugins/project-manager/dialogs.c:574
 msgid "Source properties"
 msgstr "คุณสมบัติซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:577
 msgid "Module properties"
 msgstr "คุณสมบัติมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:580
 msgid "Package properties"
 msgstr "คุณสมบัติแพกเกจ"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:583
 msgid "Unknown properties"
 msgstr "คุณสมบัติไม่ทราบชนิด"
 
-#: ../plugins/project-manager/dialogs.c:997
-#: ../plugins/project-manager/dialogs.c:1008
+#: ../plugins/project-manager/dialogs.c:1000
+#: ../plugins/project-manager/dialogs.c:1011
 msgid "Cannot add group"
 msgstr "ไม่สามารถเพิ่มกลุ่ม"
 
-#: ../plugins/project-manager/dialogs.c:1009
+#: ../plugins/project-manager/dialogs.c:1012
 msgid "No parent group selected"
 msgstr "ไม่ได้เลือกกลุ่มแม่ไว้"
 
-#: ../plugins/project-manager/dialogs.c:1223
-#: ../plugins/project-manager/dialogs.c:1233
+#: ../plugins/project-manager/dialogs.c:1226
+#: ../plugins/project-manager/dialogs.c:1236
 msgid "Cannot add source files"
 msgstr "ไม่สามารถเพิ่มแฟ้มซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1237
 msgid "The selected node cannot contain source files."
 msgstr "โหนดที่เลือกไม่สามารถบรรจุแฟ้มซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:1420
-#: ../plugins/project-manager/dialogs.c:1431
+#: ../plugins/project-manager/dialogs.c:1423
+#: ../plugins/project-manager/dialogs.c:1434
 msgid "Cannot add target"
 msgstr "ไม่สามารถเพิ่มเป้าหมาย"
 
-#: ../plugins/project-manager/dialogs.c:1432
+#: ../plugins/project-manager/dialogs.c:1435
 msgid "No group selected"
 msgstr "ไม่มีการเลือกกลุ่ม"
 
-#: ../plugins/project-manager/dialogs.c:1591
-#: ../plugins/project-manager/dialogs.c:1602
+#: ../plugins/project-manager/dialogs.c:1594
+#: ../plugins/project-manager/dialogs.c:1605
 msgid "Cannot add modules"
 msgstr "ไม่สามารถเพิ่มมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:1603
+#: ../plugins/project-manager/dialogs.c:1606
 msgid "No target has been selected"
 msgstr "ไม่มีการเลือกเป้าหมาย"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1806
+#: ../plugins/project-manager/dialogs.c:1809
 msgid "Missing module name"
 msgstr "ขาดชื่อของมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:1868
+#: ../plugins/project-manager/dialogs.c:1871
 msgid "Cannot add packages"
 msgstr "ไม่สามารถเพิ่มแพกเกจ"
 
@@ -6505,11 +6463,11 @@ msgstr "แฟ้ม \"%s\" มีอยู่แล้ว ต้องการ
 msgid "Invalid entry"
 msgstr "การกรอกข้อมูลไม่ถูกต้อง"
 
-#: ../plugins/project-wizard/druid.c:727
+#: ../plugins/project-wizard/druid.c:726
 msgid "Dubious entry"
 msgstr "การกรอกข้อมูลน่าสงสัย"
 
-#: ../plugins/project-wizard/druid.c:892
+#: ../plugins/project-wizard/druid.c:890
 #, c-format
 msgid ""
 "\n"
@@ -6518,7 +6476,7 @@ msgstr ""
 "\n"
 "ขาดโปรแกรม: %s"
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:901
 #, c-format
 msgid ""
 "\n"
@@ -6527,7 +6485,7 @@ msgstr ""
 "\n"
 "ขาดแพกเกจ: %s"
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:910
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -6536,7 +6494,7 @@ msgstr ""
 "โปรแกรมหรือแพกเกจสำหรับการพัฒนาบางอย่างที่ต้องใช้ในการประกอบสร้างโครงการนี้ขาดหายไป "
 "กรุณาแน่ใจว่าได้ติดตั้งสิ่งดังกล่าวแล้วอย่างถูกต้อง ก่อนที่จะสร้างโครงการ\n"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:919
 msgid "Install missing packages"
 msgstr "ติดตั้งแพกเกจที่ขาด"
 
@@ -7448,10 +7406,6 @@ msgstr "GTK+ (โปรแกรม)"
 msgid "Choose a working directory"
 msgstr "เลือกไดเรกทอรีทำงาน"
 
-#: ../plugins/run-program/anjuta-run-program.ui.h:3
-msgid "Environment Variables:"
-msgstr "ตัวแปรสภาพแวดล้อม:"
-
 #: ../plugins/run-program/anjuta-run-program.ui.h:4
 msgid "Program Parameters"
 msgstr "พารามิเตอร์ของโปรแกรม"
@@ -7737,7 +7691,7 @@ msgstr "นำเข้าข้อความสั้น"
 msgid "Export Snippets"
 msgstr "ส่งออกข้อความสั้น"
 
-#: ../plugins/sourceview/sourceview.c:480
+#: ../plugins/sourceview/sourceview.c:484
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -7746,7 +7700,7 @@ msgstr ""
 "แฟ้ม \"%s\" ในดิสก์ใหม่กว่าบัฟเฟอร์ปัจจุบัน\n"
 "คุณต้องการเรียกอ่านใหม่หรือไม่?"
 
-#: ../plugins/sourceview/sourceview.c:517
+#: ../plugins/sourceview/sourceview.c:521
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -7756,18 +7710,18 @@ msgstr ""
 "คุณต้องการปิดแฟ้มหรือไม่?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:554
+#: ../plugins/sourceview/sourceview.c:558
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "ไม่สามารถเปิด %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:608
+#: ../plugins/sourceview/sourceview.c:612
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "แฟ้ม \"%s\" อ่านอย่างได้เดียว! ยืนยันที่จะแก้ไขหรือไม่?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:667
+#: ../plugins/sourceview/sourceview.c:671
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "ไม่สามารถบันทึก %s: %s"
@@ -8488,38 +8442,41 @@ msgstr "หาสัญลักษณ์"
 msgid "%s: Generating inheritances…"
 msgstr "%s: กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1037
+#. Translators: %s is the name of a system library
+#: ../plugins/symbol-db/plugin.c:1038
 #, c-format
-msgid "%s: %d files scanned out of %d"
-msgstr "%s: สแกนแล้ว %d จาก %d แฟ้ม"
+msgid "%s: %d file scanned out of %d"
+msgid_plural "%s: %d files scanned out of %d"
+msgstr[0] "%s: สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1068
+#: ../plugins/symbol-db/plugin.c:1069
 #, c-format
 msgid "Generating inheritances…"
 msgstr "กำลังสร้างโครงสร้างการสืบทอดคุณสมบัติ…"
 
-#: ../plugins/symbol-db/plugin.c:1070
+#: ../plugins/symbol-db/plugin.c:1071
 #, c-format
-msgid "%d files scanned out of %d"
-msgstr "สแกนแล้ว %d จาก %d แฟ้ม"
+msgid "%d file scanned out of %d"
+msgid_plural "%d files scanned out of %d"
+msgstr[0] "สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1729
+#: ../plugins/symbol-db/plugin.c:1730
 msgid "Populating symbol database…"
 msgstr "กำลังเติมข้อมูลฐานข้อมูลสัญลักษณ์…"
 
-#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/symbol-db/plugin.c:2110 ../plugins/symbol-db/plugin.c:2195
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2203
+#: ../plugins/symbol-db/plugin.c:2204
 msgid "SymbolDb popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2211
+#: ../plugins/symbol-db/plugin.c:2212
 msgid "SymbolDb menu actions"
 msgstr "การกระทำในเมนูของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
+#: ../plugins/symbol-db/plugin.c:2525 ../plugins/symbol-db/plugin.c:2543
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "ฐานข้อมูลสัญลักษณ์"
@@ -9625,6 +9582,42 @@ msgstr "จำนวนอักขระต่ำสุดที่จะเร
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "สัญลักษณ์"
+
+#~ msgid "Info _Target Files"
+#~ msgstr "ข้อมูลแฟ้มปลาย_ทาง"
+
+#~ msgid "Display information on the files the debugger is active with"
+#~ msgstr "แสดงข้อมูลของแฟ้มที่โปรแกรมดีบั๊กกำลังทำงานด้วย"
+
+#~ msgid "Info _Program"
+#~ msgstr "ข้อมูลโ_ปรแกรม"
+
+#~ msgid "Display information on the execution status of the program"
+#~ msgstr "แสดงข้อมูลของสถานะการทำงานของโปรแกรม"
+
+#~ msgid "Info _Kernel User Struct"
+#~ msgstr "ข้อมูล User Struct ของเ_คอร์เนล"
+
+#~ msgid "Display the contents of kernel 'struct user' for current child"
+#~ msgstr "แสดงเนื้อหาของ 'struct user' ของเคอร์เนลสำหรับโพรเซสลูกปัจจุบัน"
+
+#~ msgid "Info _Global Variables"
+#~ msgstr "ข้อมูลตัวแปรโ_กลบอล"
+
+#~ msgid "Display all global and static variables of the program"
+#~ msgstr "แสดงตัวแปรโกลบอลและสแตติกทั้งหมดของโปรแกรม"
+
+#~ msgid "Info _Current Frame"
+#~ msgstr "ข้อมูลเฟรม_ปัจจุบัน"
+
+#~ msgid "Display information about the current frame of execution"
+#~ msgstr "แสดงข้อมูลเกี่ยวกับเฟรมปัจจุบันของการทำงาน"
+
+#~ msgid "Info Function _Arguments"
+#~ msgstr "ข้อมูล_อาร์กิวเมนต์ฟังก์ชัน"
+
+#~ msgid "Display function arguments of the current frame"
+#~ msgstr "แสดงอาร์กิวเมนต์ของฟังก์ชันของเฟรมปัจจุบัน"
 
 #~ msgid "X"
 #~ msgstr "X"
