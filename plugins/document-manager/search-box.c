@@ -707,6 +707,7 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 			g_object_unref (result_begin);
 			g_object_unref (result_end);
 			g_object_unref (highlight_start);
+			highlight_start = NULL;
 			break;
 		}
 
