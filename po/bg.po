@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-10 23:31+0300\n"
-"PO-Revision-Date: 2011-08-10 23:31+0300\n"
+"POT-Creation-Date: 2011-09-18 09:17+0300\n"
+"PO-Revision-Date: 2011-09-18 09:16+0300\n"
 "Last-Translator: Yavor Doganov <yavor@gnu.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -42,6 +42,23 @@ msgstr "Разработване на софтуер в интегрирана �
 msgid "Integrated Development Environment"
 msgstr "Интегрирана среда за разработка"
 
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
+#: ../src/preferences.ui.h:13
+msgid "Text"
+msgstr "Текст"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
+msgid "Text to render"
+msgstr "Текст за изобразяване"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
+msgid "Pixbuf Object"
+msgstr "Обект на буфер с пиксели"
+
+#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
+msgid "The pixbuf to render."
+msgstr "Буферът с пиксели за изобразяване."
+
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
 msgid "Unable to find plugin module %s"
@@ -59,20 +76,15 @@ msgstr ""
 msgid "Unknown error in module %s"
 msgstr "Неизвестна грешка в модул %s"
 
-#: ../libanjuta/anjuta-c-plugin-factory.c:108
+#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
 #, c-format
-msgid "Missing location of plugin %s"
-msgstr "Липсва местоположение на приставка %s"
+msgid "Column %i"
+msgstr "Колона %i"
 
-#: ../libanjuta/anjuta-c-plugin-factory.c:141
-#, c-format
-msgid "Missing type defined by plugin %s"
-msgstr "Липсва дефиниран тип от приставката %s"
-
-#: ../libanjuta/anjuta-c-plugin-factory.c:149
-#, c-format
-msgid "plugin %s fails to register type %s"
-msgstr "Приставката %s не може да регистрира тип %s"
+#. Column label
+#: ../libanjuta/anjuta-column-text-view.c:69
+msgid "Column 1"
+msgstr "Колона 1"
 
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
@@ -89,6 +101,21 @@ msgid ""
 msgstr ""
 "Anjuta не успя да определи автоматично кодирането на файла, който искате да "
 "отворите."
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:108
+#, c-format
+msgid "Missing location of plugin %s"
+msgstr "Липсва местоположение на приставка %s"
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:141
+#, c-format
+msgid "Missing type defined by plugin %s"
+msgstr "Липсва дефиниран тип от приставката %s"
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:149
+#, c-format
+msgid "plugin %s fails to register type %s"
+msgstr "Приставката %s не може да регистрира тип %s"
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
@@ -210,6 +237,68 @@ msgstr "Тайско"
 #: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
 msgstr "Неизвестно"
+
+#: ../libanjuta/anjuta-entry.c:241
+msgid "Help text"
+msgstr "Текст на помощта"
+
+#: ../libanjuta/anjuta-entry.c:242
+msgid "Text to show the user what to enter into the entry"
+msgstr "Текст какво да се попълни в полето, показван на потребителя"
+
+#. Create all needed widgets
+#: ../libanjuta/anjuta-environment-editor.c:543
+#: ../plugins/run-program/anjuta-run-program.ui.h:3
+msgid "Environment Variables:"
+msgstr "Променливи на обкръжението:"
+
+#: ../libanjuta/anjuta-environment-editor.c:586
+#: ../plugins/class-gen/window.c:699 ../plugins/class-gen/window.c:709
+#: ../plugins/class-gen/window.c:717 ../plugins/class-gen/window.c:731
+#: ../plugins/class-gen/window.c:741 ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:757 ../plugins/class-gen/window.c:765
+#: ../plugins/class-gen/window.c:773 ../plugins/class-gen/window.c:783
+#: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:805
+#: ../plugins/project-manager/dialogs.c:470
+#: ../plugins/run-program/parameters.c:757
+#: ../plugins/snippets-manager/plugin.c:762
+#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-editor.c:37
+msgid "Name"
+msgstr "Име"
+
+#: ../libanjuta/anjuta-environment-editor.c:595
+#: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:766
+#: ../plugins/class-gen/window.c:797 ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/debug-manager/registers.c:469
+#: ../plugins/project-manager/dialogs.c:478
+#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
+msgid "Value"
+msgstr "Стойност"
+
+#: ../libanjuta/anjuta-file-drop-entry.c:206
+msgid "Path that dropped files should be relative to"
+msgstr "Относителен път за довлачените файлове"
+
+#: ../libanjuta/anjuta-file-list.c:101
+msgid "Drop a file or enter a path here"
+msgstr "Довлачете файл или въведете път"
+
+#: ../libanjuta/anjuta-file-list.c:274
+msgid "Select Files"
+msgstr "Избор на файл"
+
+#: ../libanjuta/anjuta-file-list.c:540
+msgid "Path that all files in the list should be relative to"
+msgstr "Път, към който всички файлове в списъка трябва да се относителни"
+
+#: ../libanjuta/anjuta-file-list.c:547
+msgid "Show Add button"
+msgstr "Показване на бутона „Добавяне“"
+
+#: ../libanjuta/anjuta-file-list.c:548
+msgid "Display an Add button"
+msgstr "Показване на бутона „Добавяне“"
 
 # FIXME В бъдеще може и да се промени, но засега su, sudo, OpenSSH не са преведени
 #.
@@ -359,6 +448,23 @@ msgstr ""
 msgid "Loaded:"
 msgstr "Заредена:"
 
+#: ../libanjuta/anjuta-preferences-dialog.c:96
+msgid "Category"
+msgstr "Категория"
+
+#. FIXME: Make the general page first
+#: ../libanjuta/anjuta-preferences-dialog.c:139
+#: ../libanjuta/anjuta-preferences-dialog.c:142
+#: ../plugins/code-analyzer/code-analyzer.ui.h:3
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
+#: ../src/preferences.ui.h:8
+msgid "General"
+msgstr "Основни"
+
+#: ../libanjuta/anjuta-preferences-dialog.c:241
+msgid "Anjuta Preferences"
+msgstr "Настройки на Anjuta"
+
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
 msgstr "Мениджър на приставки"
@@ -420,23 +526,6 @@ msgid ""
 msgstr ""
 "Неуспех при четене на „%s“: следните задължителни приставки липсват:\n"
 "%s"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:96
-msgid "Category"
-msgstr "Категория"
-
-#. FIXME: Make the general page first
-#: ../libanjuta/anjuta-preferences-dialog.c:139
-#: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
-#: ../src/preferences.ui.h:8
-msgid "General"
-msgstr "Основни"
-
-#: ../libanjuta/anjuta-preferences-dialog.c:241
-msgid "Anjuta Preferences"
-msgstr "Настройки на Anjuta"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
@@ -598,65 +687,6 @@ msgstr "Без версия"
 msgid "Ignored"
 msgstr "Пренебрегнат"
 
-#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
-#, c-format
-msgid "Column %i"
-msgstr "Колона %i"
-
-#. Column label
-#: ../libanjuta/anjuta-column-text-view.c:69
-msgid "Column 1"
-msgstr "Колона 1"
-
-#: ../libanjuta/anjuta-entry.c:241
-msgid "Help text"
-msgstr "Текст на помощта"
-
-#: ../libanjuta/anjuta-entry.c:242
-msgid "Text to show the user what to enter into the entry"
-msgstr "Текст какво да се попълни в полето, показван на потребителя"
-
-#: ../libanjuta/anjuta-file-drop-entry.c:206
-msgid "Path that dropped files should be relative to"
-msgstr "Относителен път за довлачените файлове"
-
-#: ../libanjuta/anjuta-file-list.c:101
-msgid "Drop a file or enter a path here"
-msgstr "Довлачете файл или въведете път"
-
-#: ../libanjuta/anjuta-file-list.c:274
-msgid "Select Files"
-msgstr "Избор на файл"
-
-#: ../libanjuta/anjuta-file-list.c:540
-msgid "Path that all files in the list should be relative to"
-msgstr "Път, към който всички файлове в списъка трябва да се относителни"
-
-#: ../libanjuta/anjuta-file-list.c:547
-msgid "Show Add button"
-msgstr "Показване на бутона „Добавяне“"
-
-#: ../libanjuta/anjuta-file-list.c:548
-msgid "Display an Add button"
-msgstr "Показване на бутона „Добавяне“"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
-#: ../src/preferences.ui.h:13
-msgid "Text"
-msgstr "Текст"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
-msgid "Text to render"
-msgstr "Текст за изобразяване"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
-msgid "Pixbuf Object"
-msgstr "Обект на буфер с пиксели"
-
-#: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
-msgid "The pixbuf to render."
-msgstr "Буферът с пиксели за изобразяване."
-
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
@@ -791,7 +821,7 @@ msgid "sudo"
 msgstr "sudo"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:451
+#: ../plugins/build-basic-autotools/build.c:475
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -800,44 +830,44 @@ msgstr ""
 "премахната. Искате ли да направите това?"
 
 # SIGTERM
-#: ../plugins/build-basic-autotools/build.c:456
+#: ../plugins/build-basic-autotools/build.c:480
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "Командата е прекратена от потребителя"
 
-#: ../plugins/build-basic-autotools/build.c:718
+#: ../plugins/build-basic-autotools/build.c:796
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Не може да се компилира „%s“: няма дефинирано правило за този тип файл."
 
-#: ../plugins/build-basic-autotools/build.c:864
+#: ../plugins/build-basic-autotools/build.c:958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Не може да се конфигурира проекта: липсва скрипт „configure“ в %s."
 
 # Родът е различен в някои случаи, така че не става
 # Стандартен/Стандартна/Стандартно.  Grmbl.  
-#: ../plugins/build-basic-autotools/configuration-list.c:68
-#: ../plugins/class-gen/window.c:739
+#: ../plugins/build-basic-autotools/configuration-list.c:70
+#: ../plugins/class-gen/window.c:722
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
 msgstr "По подразбиране"
 
 # -g
-#: ../plugins/build-basic-autotools/configuration-list.c:69
+#: ../plugins/build-basic-autotools/configuration-list.c:71
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
 msgstr "Със символи за изчистване на грешки"
 
 # -pg
-#: ../plugins/build-basic-autotools/configuration-list.c:70
+#: ../plugins/build-basic-autotools/configuration-list.c:72
 msgid "Profiling"
 msgstr "Със символи за анализиращи програми"
 
 # -O2
-#: ../plugins/build-basic-autotools/configuration-list.c:71
+#: ../plugins/build-basic-autotools/configuration-list.c:73
 msgid "Optimized"
 msgstr "С оптимизация"
 
@@ -1175,22 +1205,22 @@ msgstr "Ко_мпилиране на (%s)"
 msgid "Co_mpile"
 msgstr "Ко_мпилиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:2413
+#: ../plugins/build-basic-autotools/plugin.c:2445
 msgid "Build commands"
 msgstr "Команди за компилиране"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2422
+#: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "Build popup commands"
 msgstr "Команди за компилиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:2841
-#: ../plugins/build-basic-autotools/plugin.c:2849
+#: ../plugins/build-basic-autotools/plugin.c:2873
+#: ../plugins/build-basic-autotools/plugin.c:2881
 msgid "Build Autotools"
 msgstr "Конфигурация и компилация"
 
-#: ../plugins/build-basic-autotools/program.c:269
+#: ../plugins/build-basic-autotools/program.c:300
 #, c-format
 msgid ""
 "Error while setting up build environment:\n"
@@ -1199,7 +1229,7 @@ msgstr ""
 "Грешка при настройване на средата за компилиране:\n"
 " %s"
 
-#: ../plugins/build-basic-autotools/program.c:342
+#: ../plugins/build-basic-autotools/program.c:373
 msgid "Command aborted"
 msgstr "Командата е отменена"
 
@@ -1453,7 +1483,7 @@ msgstr "Файл, където да се запише обработения ш�
 msgid "Failed to write autogen definition file"
 msgstr "Неуспех при запазването на файла с определения на autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1159
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1188
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -1470,100 +1500,78 @@ msgstr "Неуспех при изпълнение на autogen: %s"
 msgid "Guess from type"
 msgstr "Отгатване от типа"
 
-#: ../plugins/class-gen/window.c:713 ../plugins/class-gen/window.c:724
-#: ../plugins/class-gen/window.c:798 ../plugins/class-gen/window.c:808
-#: ../plugins/class-gen/window.c:821
+#: ../plugins/class-gen/window.c:696 ../plugins/class-gen/window.c:707
+#: ../plugins/class-gen/window.c:781 ../plugins/class-gen/window.c:791
+#: ../plugins/class-gen/window.c:804
 msgid "Scope"
 msgstr "Сфера"
 
-#: ../plugins/class-gen/window.c:714
+#: ../plugins/class-gen/window.c:697
 msgid "Implementation"
 msgstr "Реализация"
 
-#: ../plugins/class-gen/window.c:715 ../plugins/class-gen/window.c:725
-#: ../plugins/class-gen/window.c:747 ../plugins/class-gen/window.c:799
-#: ../plugins/class-gen/window.c:809
+#: ../plugins/class-gen/window.c:698 ../plugins/class-gen/window.c:708
+#: ../plugins/class-gen/window.c:730 ../plugins/class-gen/window.c:782
+#: ../plugins/class-gen/window.c:792
 #: ../plugins/debug-manager/breakpoints.c:1954
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Тип"
 
-#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:734 ../plugins/class-gen/window.c:748
-#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:766
-#: ../plugins/class-gen/window.c:774 ../plugins/class-gen/window.c:782
-#: ../plugins/class-gen/window.c:790 ../plugins/class-gen/window.c:800
-#: ../plugins/class-gen/window.c:810 ../plugins/class-gen/window.c:822
-#: ../plugins/project-manager/dialogs.c:467
-#: ../plugins/run-program/parameters.c:757
-#: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
-#: ../plugins/snippets-manager/snippets-editor.c:37
-msgid "Name"
-msgstr "Име"
-
-#: ../plugins/class-gen/window.c:717 ../plugins/class-gen/window.c:727
-#: ../plugins/class-gen/window.c:749 ../plugins/class-gen/window.c:759
-#: ../plugins/class-gen/window.c:775 ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:700 ../plugins/class-gen/window.c:710
+#: ../plugins/class-gen/window.c:732 ../plugins/class-gen/window.c:742
+#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:784
+#: ../plugins/class-gen/window.c:806
 #: ../plugins/debug-manager/stack_trace.c:712
 msgid "Arguments"
 msgstr "Аргументи"
 
-#: ../plugins/class-gen/window.c:735
+#: ../plugins/class-gen/window.c:718
 msgid "Nick"
 msgstr "Псевдоним"
 
-#: ../plugins/class-gen/window.c:736
+#: ../plugins/class-gen/window.c:719
 msgid "Blurb"
 msgstr "Кратко описание"
 
-#: ../plugins/class-gen/window.c:737
+#: ../plugins/class-gen/window.c:720
 msgid "GType"
 msgstr "GType"
 
-#: ../plugins/class-gen/window.c:738
+#: ../plugins/class-gen/window.c:721
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:740 ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:723 ../plugins/class-gen/window.c:733
 msgid "Flags"
 msgstr "Флагове"
 
 # FIXME
-#: ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:734
 msgid "Marshaller"
 msgstr "Marshaller"
 
-#: ../plugins/class-gen/window.c:767 ../plugins/class-gen/window.c:783
-#: ../plugins/class-gen/window.c:814 ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:475
-#: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
-msgid "Value"
-msgstr "Стойност"
-
-#: ../plugins/class-gen/window.c:791 ../plugins/cvs-plugin/cvs-callbacks.c:438
+#: ../plugins/class-gen/window.c:774 ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/am-project/am-project.c:189
 msgid "Module"
 msgstr "Модул"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:811 ../plugins/document-manager/plugin.c:1079
+#: ../plugins/class-gen/window.c:794 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
 msgstr "Автоматично"
 
-#: ../plugins/class-gen/window.c:812
+#: ../plugins/class-gen/window.c:795
 msgid "Getter"
 msgstr "Функция за извличане на стойност"
 
-#: ../plugins/class-gen/window.c:813
+#: ../plugins/class-gen/window.c:796
 msgid "Setter"
 msgstr "Функция за задаване на стойност"
 
-#: ../plugins/class-gen/window.c:1227
+#: ../plugins/class-gen/window.c:1210
 msgid "XML description of the user interface"
 msgstr "Описание на потребителския интерфейс в XML"
 
@@ -1702,7 +1710,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Пренебрегване на файла .cvsrc (препоръчително)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2161
+#: ../plugins/symbol-db/plugin.c:2162
 msgid "Local"
 msgstr "Локално"
 
@@ -2117,8 +2125,8 @@ msgid "Inspect/Evaluate"
 msgstr "Изследване/изчисляване"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
-#: ../plugins/debug-manager/plugin.c:1031
-#: ../plugins/debug-manager/plugin.c:1147
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Kernel Signals"
 msgstr "Сигнали на ядрото"
 
@@ -2389,7 +2397,7 @@ msgstr "Операции с точки на прекъсване"
 
 #. create goto menu_item.
 #: ../plugins/debug-manager/data_view.c:392
-#: ../plugins/debug-manager/sparse_view.c:501
+#: ../plugins/debug-manager/sparse_view.c:500
 msgid "_Go to address"
 msgstr "_Отиване на адрес"
 
@@ -2415,261 +2423,209 @@ msgstr "Редове"
 msgid "Locals"
 msgstr "Местни променливи"
 
-#: ../plugins/debug-manager/plugin.c:340
+#: ../plugins/debug-manager/plugin.c:339
 msgid "Debugger Log"
 msgstr "Дневник на дебъгера"
 
-#: ../plugins/debug-manager/plugin.c:413 ../plugins/debug-manager/plugin.c:435
-#: ../plugins/debug-manager/plugin.c:460 ../plugins/debug-manager/plugin.c:487
-#: ../plugins/debug-manager/plugin.c:521 ../plugins/debug-manager/plugin.c:554
+#: ../plugins/debug-manager/plugin.c:412 ../plugins/debug-manager/plugin.c:434
+#: ../plugins/debug-manager/plugin.c:459 ../plugins/debug-manager/plugin.c:486
+#: ../plugins/debug-manager/plugin.c:520 ../plugins/debug-manager/plugin.c:553
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Дебъгер"
 
-#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:412
 msgid "Started"
 msgstr "Стартиран"
 
-#: ../plugins/debug-manager/plugin.c:435
+#: ../plugins/debug-manager/plugin.c:434
 msgid "Loaded"
 msgstr "Зареден"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:456
-#: ../plugins/debug-manager/plugin.c:1159
+#: ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:1053
 msgid "Pa_use Program"
 msgstr "_Временно прекъсване на програмата"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:1161
+#: ../plugins/debug-manager/plugin.c:456
+#: ../plugins/debug-manager/plugin.c:1055
 msgid "Pauses the execution of the program"
 msgstr "Временно прекъсване на изпълнението на програмата"
 
-#: ../plugins/debug-manager/plugin.c:460
+#: ../plugins/debug-manager/plugin.c:459
 msgid "Running…"
 msgstr "Изпълнява се…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:483
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:482 ../plugins/debug-manager/plugin.c:969
 msgid "Run/_Continue"
 msgstr "Стартиране/_продължаване"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:484
-#: ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:483 ../plugins/debug-manager/plugin.c:971
 msgid "Continue the execution of the program"
 msgstr "Продължаване изпълнението на програмата"
 
-#: ../plugins/debug-manager/plugin.c:487
+#: ../plugins/debug-manager/plugin.c:486
 msgid "Stopped"
 msgstr "Спрян"
 
-#: ../plugins/debug-manager/plugin.c:521
+#: ../plugins/debug-manager/plugin.c:520
 msgid "Unloaded"
 msgstr "Не е зареден"
 
-#: ../plugins/debug-manager/plugin.c:563
+#: ../plugins/debug-manager/plugin.c:562
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "Програмата за изчистване на грешки прекъсна с грешка %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:576
+#: ../plugins/debug-manager/plugin.c:575
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "Програмата получи сигнал: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:915
+#: ../plugins/debug-manager/plugin.c:865
 msgid "_Debug"
 msgstr "_Дебъгер"
 
-#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:873
 msgid "_Start Debugger"
 msgstr "_Стартиране на дебъгера"
 
-#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:881
 msgid "_Debug Program"
 msgstr "Изчистване на _грешки в програмата"
 
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:883
 msgid "Start debugger and load the program"
 msgstr "Стартиране на дебъгера и зареждане на програмата"
 
-#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:889
 msgid "_Debug Process…"
 msgstr "_Изчистване на грешки в процес…"
 
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Start debugger and attach to a running program"
 msgstr "Стартиране на дебъгера и прикрепяне към изпълняваща се програма"
 
-#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:897
 msgid "Debug _Remote Target…"
 msgstr "Изчистване на грешки на _отдалечена цел…"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Connect to a remote debugging target"
 msgstr "Свързване към отдалечена цел"
 
-#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Stop Debugger"
 msgstr "Спиране на дебъгера"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Say goodbye to the debugger"
 msgstr "Приключване с откриването на грешки"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:913
 msgid "Add source paths…"
 msgstr "Добавяне на папки с изходен код…"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Add additional source paths"
 msgstr "Добавяне на допълнителни папки с изходен код"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:975
-#: ../plugins/debug-manager/plugin.c:1099
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Debugger Command…"
 msgstr "Команда към дебъгера…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:977
-#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:1019
 msgid "Custom debugger command"
 msgstr "Специфична команда към дебъгера"
 
-#: ../plugins/debug-manager/plugin.c:983
-#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "_Info"
 msgstr "_Информация"
 
-#: ../plugins/debug-manager/plugin.c:991
-msgid "Info _Target Files"
-msgstr "Информация за файловете-_цел"
-
-#: ../plugins/debug-manager/plugin.c:993
-msgid "Display information on the files the debugger is active with"
-msgstr "Показване информацията на активните файлове от дебъгера"
-
-#: ../plugins/debug-manager/plugin.c:999
-msgid "Info _Program"
-msgstr "Информация за _програмата"
-
-#: ../plugins/debug-manager/plugin.c:1001
-msgid "Display information on the execution status of the program"
-msgstr "Показване информация за състоянието на изпълнение на програмата"
-
-#: ../plugins/debug-manager/plugin.c:1007
-msgid "Info _Kernel User Struct"
-msgstr "Информация за структурата „user“ на _ядрото"
-
-#: ../plugins/debug-manager/plugin.c:1009
-msgid "Display the contents of kernel 'struct user' for current child"
-msgstr ""
-"Показване на съдържанието на структурата „struct user“ за текущия дъщерен "
-"процес"
-
-#: ../plugins/debug-manager/plugin.c:1023
-#: ../plugins/debug-manager/plugin.c:1139
+#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Shared Libraries"
 msgstr "Споделени библиотеки"
 
-#: ../plugins/debug-manager/plugin.c:1025
-#: ../plugins/debug-manager/plugin.c:1141
+#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:1035
 msgid "Show shared library mappings"
 msgstr "Показване на използваните споделени библиотеки"
 
-#: ../plugins/debug-manager/plugin.c:1033
-#: ../plugins/debug-manager/plugin.c:1149
+#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Show kernel signals"
 msgstr "Показване сигналите на ядрото"
 
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:957
 msgid "_Continue/Suspend"
 msgstr "_Спиране/продължаване"
 
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Continue or suspend the execution of the program"
 msgstr "Спиране или продължаване изпълнението на програмата"
 
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Step _In"
 msgstr "Стъпка _в"
 
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:979
 msgid "Single step into function"
 msgstr "Единична стъпка във функцията"
 
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Step O_ver"
 msgstr "Стъпка _през"
 
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:987
 msgid "Single step over function"
 msgstr "Единична стъпка през функцията"
 
-#: ../plugins/debug-manager/plugin.c:1075
+#: ../plugins/debug-manager/plugin.c:993
 msgid "Step _Out"
 msgstr "Стъпка _извън"
 
-#: ../plugins/debug-manager/plugin.c:1077
+#: ../plugins/debug-manager/plugin.c:995
 msgid "Single step out of function"
 msgstr "Единична стъпка извън функцията"
 
-#: ../plugins/debug-manager/plugin.c:1083
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "_Run to Cursor"
 msgstr "И_зпълнение до курсора"
 
-#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1003
 msgid "Run to the cursor"
 msgstr "Изпълнение до позицията на курсора"
 
-#: ../plugins/debug-manager/plugin.c:1091
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "_Run from Cursor"
 msgstr "И_зпълнение от курсора"
 
-#: ../plugins/debug-manager/plugin.c:1093
+#: ../plugins/debug-manager/plugin.c:1011
 msgid "Run from the cursor"
 msgstr "Изпълнение от позицията на курсора"
 
-#: ../plugins/debug-manager/plugin.c:1115
-msgid "Info _Global Variables"
-msgstr "Информация за _глобални променливи"
-
-#: ../plugins/debug-manager/plugin.c:1117
-msgid "Display all global and static variables of the program"
-msgstr "Показване на всички глобални и статични променливи на програмата"
-
-#: ../plugins/debug-manager/plugin.c:1123
-msgid "Info _Current Frame"
-msgstr "Информация за _текущата рамка от стека"
-
-#: ../plugins/debug-manager/plugin.c:1125
-msgid "Display information about the current frame of execution"
-msgstr "Показване на информация за текущата рамка, която се изпълнява"
-
-#: ../plugins/debug-manager/plugin.c:1131
-msgid "Info Function _Arguments"
-msgstr "Информация за _аргументите на функцията"
-
-#: ../plugins/debug-manager/plugin.c:1133
-msgid "Display function arguments of the current frame"
-msgstr "Показване аргументите на функцията от текущата рамка от стека"
-
-#: ../plugins/debug-manager/plugin.c:1201
-#: ../plugins/debug-manager/plugin.c:1207
-#: ../plugins/debug-manager/plugin.c:1213
-#: ../plugins/debug-manager/plugin.c:1219
+#: ../plugins/debug-manager/plugin.c:1095
+#: ../plugins/debug-manager/plugin.c:1101
+#: ../plugins/debug-manager/plugin.c:1107
+#: ../plugins/debug-manager/plugin.c:1113
 msgid "Debugger operations"
 msgstr "Операции за откриване на грешки"
 
@@ -2748,19 +2704,19 @@ msgstr "Сигнали на ядрото"
 msgid "Signal operations"
 msgstr "Операции за сигнали"
 
-#: ../plugins/debug-manager/sparse_view.c:1132
+#: ../plugins/debug-manager/sparse_view.c:1237
 msgid "Show Line Numbers"
 msgstr "Показване номерата на редовете"
 
-#: ../plugins/debug-manager/sparse_view.c:1133
+#: ../plugins/debug-manager/sparse_view.c:1238
 msgid "Whether to display line numbers"
 msgstr "Дали да се изобразяват номерата на редовете"
 
-#: ../plugins/debug-manager/sparse_view.c:1140
+#: ../plugins/debug-manager/sparse_view.c:1245
 msgid "Show Line Markers"
 msgstr "Показване на обозначителни знаци в редовете"
 
-#: ../plugins/debug-manager/sparse_view.c:1141
+#: ../plugins/debug-manager/sparse_view.c:1246
 msgid "Whether to display line marker pixbufs"
 msgstr "Дали да се изобразяват икони до редовете"
 
@@ -2791,7 +2747,7 @@ msgstr "Рамка"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:451 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2119 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2983,8 +2939,8 @@ msgstr "Разглеждане на програмните интерфейси"
 msgid "Contents"
 msgstr "Съдържание"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2129
-#: ../plugins/symbol-db/plugin.c:2181
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/symbol-db/plugin.c:2182
 msgid "Search"
 msgstr "Търсене"
 
@@ -3034,7 +2990,7 @@ msgid "Close file"
 msgstr "Затваряне на файл"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:608
+#: ../plugins/project-manager/dialogs.c:611
 msgid "Path:"
 msgstr "Път:"
 
@@ -3818,11 +3774,11 @@ msgstr ""
 "Търсенето за „%s“ достигна началото и продължи от края, но не бе открито "
 "друго съвпадение."
 
-#: ../plugins/document-manager/search-box.c:984
+#: ../plugins/document-manager/search-box.c:985
 msgid "Replace"
 msgstr "Заместване"
 
-#: ../plugins/document-manager/search-box.c:989
+#: ../plugins/document-manager/search-box.c:990
 msgid "Replace all"
 msgstr "Заместване на всички"
 
@@ -4084,7 +4040,7 @@ msgid "Filter"
 msgstr "Филтър"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2174
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Глобално"
@@ -4160,8 +4116,8 @@ msgid "File Information"
 msgstr "Информация за файл"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
-#: ../plugins/am-project/am-properties.c:48 ../plugins/git/anjuta-git.ui.h:35
-#: ../plugins/project-manager/dialogs.c:613
+#: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/project-manager/dialogs.c:616
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Име:"
@@ -4171,7 +4127,7 @@ msgid "New File"
 msgstr "Нов файл"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:635
+#: ../plugins/project-manager/dialogs.c:638
 msgid "Type:"
 msgstr "Тип:"
 
@@ -4302,11 +4258,11 @@ msgstr "Неуспех при анализирането на файла на п
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Проектът не съществува или пътят е неправилен"
 
-#: ../plugins/am-project/am-properties.c:51
+#: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr "Име на проекта, може да съдържа празни знаци, напр. „GNU Autoconf“"
 
-#: ../plugins/am-project/am-properties.c:56
+#: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
@@ -4328,16 +4284,16 @@ msgstr "Име на проекта, може да съдържа празни з
 msgid "Version:"
 msgstr "Версия:"
 
-#: ../plugins/am-project/am-properties.c:59
+#: ../plugins/am-project/am-properties.c:61
 msgid ""
 "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr "Версия на проекта, най-често числа разделени с точка, напр. „1.0.0“"
 
-#: ../plugins/am-project/am-properties.c:64
+#: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
 msgstr "Адрес за доклади за грешки:"
 
-#: ../plugins/am-project/am-properties.c:67
+#: ../plugins/am-project/am-properties.c:70
 msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
@@ -4345,11 +4301,11 @@ msgstr ""
 "Адрес на е-поща или Интернет адрес на страница, където потребителите да "
 "могат да докладват за грешки. Незадължителна стойност."
 
-#: ../plugins/am-project/am-properties.c:72
+#: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
 msgstr "Име на пакет:"
 
-#: ../plugins/am-project/am-properties.c:75
+#: ../plugins/am-project/am-properties.c:79
 msgid ""
 "Package name, it can contains only alphanumerics and underscore characters."
 "It is generated from the project name if not provided."
@@ -4357,120 +4313,120 @@ msgstr ""
 "Име на пакет. Може да съдържа само буквеноцифрови знаци и подчертаване. Ако "
 "не е указан, се генерира от името на проекта."
 
-#: ../plugins/am-project/am-properties.c:81 ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:64
 msgid "URL:"
 msgstr "Адрес:"
 
-#: ../plugins/am-project/am-properties.c:84
+#: ../plugins/am-project/am-properties.c:89
 msgid "An link to the project web page if provided."
 msgstr "Връзка към уеб страницата на проекта, ако е указана."
 
-#: ../plugins/am-project/am-properties.c:97
-#: ../plugins/am-project/am-properties.c:209
-#: ../plugins/am-project/am-properties.c:374
-#: ../plugins/am-project/am-properties.c:531
+#: ../plugins/am-project/am-properties.c:103
+#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:412
+#: ../plugins/am-project/am-properties.c:587
 msgid "Linker flags:"
 msgstr "Флагове за свързващата програма:"
 
-#: ../plugins/am-project/am-properties.c:100
+#: ../plugins/am-project/am-properties.c:106
 msgid "Common additional linker flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за свързващата програма за всички цели в групата."
 
 # Препроцесорът е един за C/C++/Objective-C.
-#: ../plugins/am-project/am-properties.c:105
-#: ../plugins/am-project/am-properties.c:233
-#: ../plugins/am-project/am-properties.c:390
-#: ../plugins/am-project/am-properties.c:547
+#: ../plugins/am-project/am-properties.c:112
+#: ../plugins/am-project/am-properties.c:255
+#: ../plugins/am-project/am-properties.c:430
+#: ../plugins/am-project/am-properties.c:605
 msgid "C preprocessor flags:"
 msgstr "Флагове за препроцесора:"
 
-#: ../plugins/am-project/am-properties.c:108
+#: ../plugins/am-project/am-properties.c:115
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr "Общи допълнителни флагове за препроцесора за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:113
-#: ../plugins/am-project/am-properties.c:241
-#: ../plugins/am-project/am-properties.c:398
-#: ../plugins/am-project/am-properties.c:555
+#: ../plugins/am-project/am-properties.c:121
+#: ../plugins/am-project/am-properties.c:264
+#: ../plugins/am-project/am-properties.c:439
+#: ../plugins/am-project/am-properties.c:614
 msgid "C compiler flags:"
 msgstr "Флагове за компилатора на C:"
 
-#: ../plugins/am-project/am-properties.c:116
+#: ../plugins/am-project/am-properties.c:124
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на C за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:121
-#: ../plugins/am-project/am-properties.c:249
-#: ../plugins/am-project/am-properties.c:406
-#: ../plugins/am-project/am-properties.c:563
+#: ../plugins/am-project/am-properties.c:130
+#: ../plugins/am-project/am-properties.c:273
+#: ../plugins/am-project/am-properties.c:448
+#: ../plugins/am-project/am-properties.c:623
 msgid "C++ compiler flags:"
 msgstr "Флагове за компилатора на C++:"
 
-#: ../plugins/am-project/am-properties.c:124
+#: ../plugins/am-project/am-properties.c:133
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на C++ за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:129
-#: ../plugins/am-project/am-properties.c:257
-#: ../plugins/am-project/am-properties.c:414
-#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:139
+#: ../plugins/am-project/am-properties.c:282
+#: ../plugins/am-project/am-properties.c:457
+#: ../plugins/am-project/am-properties.c:632
 msgid "Java compiler flags:"
 msgstr "Флагове за компилатора на Java:"
 
-#: ../plugins/am-project/am-properties.c:132
+#: ../plugins/am-project/am-properties.c:142
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на Java за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:137
-#: ../plugins/am-project/am-properties.c:265
-#: ../plugins/am-project/am-properties.c:422
-#: ../plugins/am-project/am-properties.c:579
+#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:291
+#: ../plugins/am-project/am-properties.c:466
+#: ../plugins/am-project/am-properties.c:641
 msgid "Vala compiler flags:"
 msgstr "Флагове за компилатора на Vala:"
 
-#: ../plugins/am-project/am-properties.c:140
+#: ../plugins/am-project/am-properties.c:151
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на Vala за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:145
-#: ../plugins/am-project/am-properties.c:273
-#: ../plugins/am-project/am-properties.c:430
-#: ../plugins/am-project/am-properties.c:587
+#: ../plugins/am-project/am-properties.c:157
+#: ../plugins/am-project/am-properties.c:300
+#: ../plugins/am-project/am-properties.c:475
+#: ../plugins/am-project/am-properties.c:650
 msgid "Fortran compiler flags:"
 msgstr "Флагове за компилатора на Fortran:"
 
-#: ../plugins/am-project/am-properties.c:148
+#: ../plugins/am-project/am-properties.c:160
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на Fortran за всички цели в групата."
 
-#: ../plugins/am-project/am-properties.c:153
-#: ../plugins/am-project/am-properties.c:281
-#: ../plugins/am-project/am-properties.c:438
-#: ../plugins/am-project/am-properties.c:595
+#: ../plugins/am-project/am-properties.c:166
+#: ../plugins/am-project/am-properties.c:309
+#: ../plugins/am-project/am-properties.c:484
+#: ../plugins/am-project/am-properties.c:659
 msgid "Objective C compiler flags:"
 msgstr "Флагове за компилатора на Objective C:"
 
-#: ../plugins/am-project/am-properties.c:156
+#: ../plugins/am-project/am-properties.c:169
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
 "Общи допълнителни флагове за компилатора на Objective C за всички цели в "
 "групата."
 
-#: ../plugins/am-project/am-properties.c:161
-#: ../plugins/am-project/am-properties.c:289
-#: ../plugins/am-project/am-properties.c:446
-#: ../plugins/am-project/am-properties.c:603
+#: ../plugins/am-project/am-properties.c:175
+#: ../plugins/am-project/am-properties.c:318
+#: ../plugins/am-project/am-properties.c:493
+#: ../plugins/am-project/am-properties.c:668
 msgid "Lex/Flex flags:"
 msgstr "Флагове за Lex/Flex:"
 
-#: ../plugins/am-project/am-properties.c:164
+#: ../plugins/am-project/am-properties.c:178
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
@@ -4478,14 +4434,14 @@ msgstr ""
 "Общи допълнителни флагове за синтактичния анализатор Lex/Flex за всички цели "
 "в групата."
 
-#: ../plugins/am-project/am-properties.c:169
-#: ../plugins/am-project/am-properties.c:297
-#: ../plugins/am-project/am-properties.c:454
-#: ../plugins/am-project/am-properties.c:611
+#: ../plugins/am-project/am-properties.c:184
+#: ../plugins/am-project/am-properties.c:327
+#: ../plugins/am-project/am-properties.c:502
+#: ../plugins/am-project/am-properties.c:677
 msgid "Yacc/Bison flags:"
 msgstr "Флагове за Yacc/Bison:"
 
-#: ../plugins/am-project/am-properties.c:172
+#: ../plugins/am-project/am-properties.c:187
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
@@ -4493,194 +4449,194 @@ msgstr ""
 "Общи допълнителни флагове за генератора на анализатори Yacc/Bison за всички "
 "цели в групата."
 
-#: ../plugins/am-project/am-properties.c:177
+#: ../plugins/am-project/am-properties.c:193
 msgid "Installation directories:"
 msgstr "Папки за инсталиране:"
 
-#: ../plugins/am-project/am-properties.c:180
+#: ../plugins/am-project/am-properties.c:196
 msgid "List of custom installation directories used by targets in this group."
 msgstr "Списък с допълнителни папки за инсталиране за цели в групата."
 
-#: ../plugins/am-project/am-properties.c:192
-#: ../plugins/am-project/am-properties.c:357
-#: ../plugins/am-project/am-properties.c:514
-#: ../plugins/am-project/am-properties.c:703
-#: ../plugins/am-project/am-properties.c:772
+#: ../plugins/am-project/am-properties.c:209
+#: ../plugins/am-project/am-properties.c:393
+#: ../plugins/am-project/am-properties.c:568
+#: ../plugins/am-project/am-properties.c:778
+#: ../plugins/am-project/am-properties.c:854
 msgid "Do not install:"
 msgstr "Да не се инсталират:"
 
-#: ../plugins/am-project/am-properties.c:195
-#: ../plugins/am-project/am-properties.c:360
-#: ../plugins/am-project/am-properties.c:517
-#: ../plugins/am-project/am-properties.c:706
-#: ../plugins/am-project/am-properties.c:775
+#: ../plugins/am-project/am-properties.c:212
+#: ../plugins/am-project/am-properties.c:396
+#: ../plugins/am-project/am-properties.c:571
+#: ../plugins/am-project/am-properties.c:781
+#: ../plugins/am-project/am-properties.c:857
 msgid "Build but do not install the target."
 msgstr "Компилиране на целта без инсталиране."
 
-#: ../plugins/am-project/am-properties.c:201
-#: ../plugins/am-project/am-properties.c:366
-#: ../plugins/am-project/am-properties.c:523
-#: ../plugins/am-project/am-properties.c:712
-#: ../plugins/am-project/am-properties.c:780
+#: ../plugins/am-project/am-properties.c:219
+#: ../plugins/am-project/am-properties.c:403
+#: ../plugins/am-project/am-properties.c:578
+#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:863
 msgid "Installation directory:"
 msgstr "Инсталационна папка:"
 
-#: ../plugins/am-project/am-properties.c:204
-#: ../plugins/am-project/am-properties.c:369
-#: ../plugins/am-project/am-properties.c:526
-#: ../plugins/am-project/am-properties.c:715
-#: ../plugins/am-project/am-properties.c:783
+#: ../plugins/am-project/am-properties.c:222
+#: ../plugins/am-project/am-properties.c:406
+#: ../plugins/am-project/am-properties.c:581
+#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:866
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
 msgstr ""
 "Трябва да е стандартна папка или избрана от вас в настройките на групата."
 
-#: ../plugins/am-project/am-properties.c:212
-#: ../plugins/am-project/am-properties.c:377
-#: ../plugins/am-project/am-properties.c:534
+#: ../plugins/am-project/am-properties.c:231
+#: ../plugins/am-project/am-properties.c:415
+#: ../plugins/am-project/am-properties.c:590
 msgid "Additional linker flags for this target."
 msgstr "Допълнителни флагове на свързващата програма за тази цел."
 
-#: ../plugins/am-project/am-properties.c:217
+#: ../plugins/am-project/am-properties.c:237
 msgid "Additional libraries:"
 msgstr "Допълнителни библиотеки:"
 
-#: ../plugins/am-project/am-properties.c:220
-#: ../plugins/am-project/am-properties.c:385
-#: ../plugins/am-project/am-properties.c:542
+#: ../plugins/am-project/am-properties.c:240
+#: ../plugins/am-project/am-properties.c:424
+#: ../plugins/am-project/am-properties.c:599
 msgid "Additional libraries for this target."
 msgstr "Допълнителни библиотеки за тази цел."
 
-#: ../plugins/am-project/am-properties.c:225
+#: ../plugins/am-project/am-properties.c:246
 msgid "Additional objects:"
 msgstr "Допълнителни обекти:"
 
-#: ../plugins/am-project/am-properties.c:228
+#: ../plugins/am-project/am-properties.c:249
 msgid "Additional object files for this target."
 msgstr "Допълнителни обектни файлове за тази цел."
 
-#: ../plugins/am-project/am-properties.c:236
-#: ../plugins/am-project/am-properties.c:393
-#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:258
+#: ../plugins/am-project/am-properties.c:433
+#: ../plugins/am-project/am-properties.c:608
 msgid "Additional C preprocessor flags for this target."
 msgstr "Допълнителни флагове на препроцесора на C за тази цел."
 
-#: ../plugins/am-project/am-properties.c:244
-#: ../plugins/am-project/am-properties.c:401
-#: ../plugins/am-project/am-properties.c:558
+#: ../plugins/am-project/am-properties.c:267
+#: ../plugins/am-project/am-properties.c:442
+#: ../plugins/am-project/am-properties.c:617
 msgid "Additional C compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на C за тази цел."
 
-#: ../plugins/am-project/am-properties.c:252
-#: ../plugins/am-project/am-properties.c:409
-#: ../plugins/am-project/am-properties.c:566
+#: ../plugins/am-project/am-properties.c:276
+#: ../plugins/am-project/am-properties.c:451
+#: ../plugins/am-project/am-properties.c:626
 msgid "Additional C++ compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на C++ за тази цел."
 
-#: ../plugins/am-project/am-properties.c:260
-#: ../plugins/am-project/am-properties.c:417
-#: ../plugins/am-project/am-properties.c:574
+#: ../plugins/am-project/am-properties.c:285
+#: ../plugins/am-project/am-properties.c:460
+#: ../plugins/am-project/am-properties.c:635
 msgid "Additional Java compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на Java за тази цел."
 
-#: ../plugins/am-project/am-properties.c:268
-#: ../plugins/am-project/am-properties.c:425
-#: ../plugins/am-project/am-properties.c:582
+#: ../plugins/am-project/am-properties.c:294
+#: ../plugins/am-project/am-properties.c:469
+#: ../plugins/am-project/am-properties.c:644
 msgid "Additional Vala compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на Vala за тази цел."
 
-#: ../plugins/am-project/am-properties.c:276
-#: ../plugins/am-project/am-properties.c:433
-#: ../plugins/am-project/am-properties.c:590
+#: ../plugins/am-project/am-properties.c:303
+#: ../plugins/am-project/am-properties.c:478
+#: ../plugins/am-project/am-properties.c:653
 msgid "Additional Fortran compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на Fortran за тази цел."
 
-#: ../plugins/am-project/am-properties.c:284
-#: ../plugins/am-project/am-properties.c:441
-#: ../plugins/am-project/am-properties.c:598
+#: ../plugins/am-project/am-properties.c:312
+#: ../plugins/am-project/am-properties.c:487
+#: ../plugins/am-project/am-properties.c:662
 msgid "Additional Objective C compiler flags for this target."
 msgstr "Допълнителни флагове на компилатора на Objective C за тази цел."
 
-#: ../plugins/am-project/am-properties.c:292
-#: ../plugins/am-project/am-properties.c:449
-#: ../plugins/am-project/am-properties.c:606
+#: ../plugins/am-project/am-properties.c:321
+#: ../plugins/am-project/am-properties.c:496
+#: ../plugins/am-project/am-properties.c:671
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr "Допълнителни флагове на синтактичния анализатор Lex/Flex за тази цел."
 
-#: ../plugins/am-project/am-properties.c:300
-#: ../plugins/am-project/am-properties.c:457
-#: ../plugins/am-project/am-properties.c:614
+#: ../plugins/am-project/am-properties.c:330
+#: ../plugins/am-project/am-properties.c:505
+#: ../plugins/am-project/am-properties.c:680
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
 "Допълнителни флагове на генератора на анализатори Yacc/Bison за тази цел."
 
-#: ../plugins/am-project/am-properties.c:305
-#: ../plugins/am-project/am-properties.c:462
-#: ../plugins/am-project/am-properties.c:619
-#: ../plugins/am-project/am-properties.c:671
-#: ../plugins/am-project/am-properties.c:720
-#: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:336
+#: ../plugins/am-project/am-properties.c:511
+#: ../plugins/am-project/am-properties.c:686
+#: ../plugins/am-project/am-properties.c:743
+#: ../plugins/am-project/am-properties.c:797
+#: ../plugins/am-project/am-properties.c:872
 msgid "Additional dependencies:"
 msgstr "Допълнителни зависимости:"
 
-#: ../plugins/am-project/am-properties.c:308
-#: ../plugins/am-project/am-properties.c:465
-#: ../plugins/am-project/am-properties.c:622
-#: ../plugins/am-project/am-properties.c:674
-#: ../plugins/am-project/am-properties.c:723
-#: ../plugins/am-project/am-properties.c:791
+#: ../plugins/am-project/am-properties.c:339
+#: ../plugins/am-project/am-properties.c:514
+#: ../plugins/am-project/am-properties.c:689
+#: ../plugins/am-project/am-properties.c:746
+#: ../plugins/am-project/am-properties.c:800
+#: ../plugins/am-project/am-properties.c:875
 msgid "Additional dependencies for this target."
 msgstr "Допълнителни зависимости за тази цел."
 
-#: ../plugins/am-project/am-properties.c:313
-#: ../plugins/am-project/am-properties.c:470
-#: ../plugins/am-project/am-properties.c:627
-#: ../plugins/am-project/am-properties.c:728
-#: ../plugins/am-project/am-properties.c:796
+#: ../plugins/am-project/am-properties.c:345
+#: ../plugins/am-project/am-properties.c:520
+#: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:806
+#: ../plugins/am-project/am-properties.c:881
 msgid "Include in distribution:"
 msgstr "Включване в разпространяваното:"
 
-#: ../plugins/am-project/am-properties.c:316
-#: ../plugins/am-project/am-properties.c:473
-#: ../plugins/am-project/am-properties.c:630
-#: ../plugins/am-project/am-properties.c:731
-#: ../plugins/am-project/am-properties.c:799
+#: ../plugins/am-project/am-properties.c:348
+#: ../plugins/am-project/am-properties.c:523
+#: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:809
+#: ../plugins/am-project/am-properties.c:884
 msgid "Include this target in the distributed package."
 msgstr "Включване на тази цел в разпространявания пакет."
 
-#: ../plugins/am-project/am-properties.c:322
-#: ../plugins/am-project/am-properties.c:479
-#: ../plugins/am-project/am-properties.c:636
-#: ../plugins/am-project/am-properties.c:737
-#: ../plugins/am-project/am-properties.c:804
+#: ../plugins/am-project/am-properties.c:355
+#: ../plugins/am-project/am-properties.c:530
+#: ../plugins/am-project/am-properties.c:705
+#: ../plugins/am-project/am-properties.c:816
+#: ../plugins/am-project/am-properties.c:890
 msgid "Build for check only:"
 msgstr "Компилиране само за тестове:"
 
-#: ../plugins/am-project/am-properties.c:325
-#: ../plugins/am-project/am-properties.c:482
-#: ../plugins/am-project/am-properties.c:639
-#: ../plugins/am-project/am-properties.c:740
-#: ../plugins/am-project/am-properties.c:807
+#: ../plugins/am-project/am-properties.c:358
+#: ../plugins/am-project/am-properties.c:533
+#: ../plugins/am-project/am-properties.c:708
+#: ../plugins/am-project/am-properties.c:819
+#: ../plugins/am-project/am-properties.c:893
 msgid "Build this target only when running automatic tests."
 msgstr "Компилиране на целта само при изпълнението на автоматични тестове."
 
-#: ../plugins/am-project/am-properties.c:331
-#: ../plugins/am-project/am-properties.c:488
-#: ../plugins/am-project/am-properties.c:645
-#: ../plugins/am-project/am-properties.c:679
-#: ../plugins/am-project/am-properties.c:746
-#: ../plugins/am-project/am-properties.c:812
+#: ../plugins/am-project/am-properties.c:365
+#: ../plugins/am-project/am-properties.c:540
+#: ../plugins/am-project/am-properties.c:715
+#: ../plugins/am-project/am-properties.c:752
+#: ../plugins/am-project/am-properties.c:826
+#: ../plugins/am-project/am-properties.c:899
 msgid "Do not use prefix:"
 msgstr "Без представка:"
 
-#: ../plugins/am-project/am-properties.c:334
-#: ../plugins/am-project/am-properties.c:491
-#: ../plugins/am-project/am-properties.c:648
-#: ../plugins/am-project/am-properties.c:682
-#: ../plugins/am-project/am-properties.c:749
-#: ../plugins/am-project/am-properties.c:815
+#: ../plugins/am-project/am-properties.c:368
+#: ../plugins/am-project/am-properties.c:543
+#: ../plugins/am-project/am-properties.c:718
+#: ../plugins/am-project/am-properties.c:755
+#: ../plugins/am-project/am-properties.c:829
+#: ../plugins/am-project/am-properties.c:902
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4688,19 +4644,19 @@ msgstr ""
 "Без преименуване на целта с представката. Използва се, за да се избегне "
 "презаписването на системните програми."
 
-#: ../plugins/am-project/am-properties.c:340
-#: ../plugins/am-project/am-properties.c:497
-#: ../plugins/am-project/am-properties.c:654
-#: ../plugins/am-project/am-properties.c:755
-#: ../plugins/am-project/am-properties.c:820
+#: ../plugins/am-project/am-properties.c:375
+#: ../plugins/am-project/am-properties.c:550
+#: ../plugins/am-project/am-properties.c:725
+#: ../plugins/am-project/am-properties.c:836
+#: ../plugins/am-project/am-properties.c:908
 msgid "Keep target path:"
 msgstr "Запазване на целевия път:"
 
-#: ../plugins/am-project/am-properties.c:343
-#: ../plugins/am-project/am-properties.c:500
-#: ../plugins/am-project/am-properties.c:657
-#: ../plugins/am-project/am-properties.c:758
-#: ../plugins/am-project/am-properties.c:823
+#: ../plugins/am-project/am-properties.c:378
+#: ../plugins/am-project/am-properties.c:553
+#: ../plugins/am-project/am-properties.c:728
+#: ../plugins/am-project/am-properties.c:839
+#: ../plugins/am-project/am-properties.c:911
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4710,16 +4666,16 @@ msgstr ""
 "програма в „subdir/app“ и я инсталирате в папката „bin“, тя ще се копира в "
 "„bin/subdir/app„, а не в „bin/app“."
 
-#: ../plugins/am-project/am-properties.c:382
-#: ../plugins/am-project/am-properties.c:539
+#: ../plugins/am-project/am-properties.c:421
+#: ../plugins/am-project/am-properties.c:596
 msgid "Libraries:"
 msgstr "Библиотеки:"
 
-#: ../plugins/am-project/am-properties.c:688
+#: ../plugins/am-project/am-properties.c:762
 msgid "Manual section:"
 msgstr "Ръчен избор:"
 
-#: ../plugins/am-project/am-properties.c:691
+#: ../plugins/am-project/am-properties.c:765
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -4869,20 +4825,20 @@ msgstr "Преустановяване на прикрепянето към пр
 msgid "Interrupting the process\n"
 msgstr "Прекъсване на процеса\n"
 
-#: ../plugins/gdb/debugger.c:3996
+#: ../plugins/gdb/debugger.c:3925
 msgid "more children"
 msgstr "още наследници"
 
-#: ../plugins/gdb/debugger.c:4249
+#: ../plugins/gdb/debugger.c:4178
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Изпращане сигнал %s към процеса: %d"
 
-#: ../plugins/gdb/debugger.c:4275
+#: ../plugins/gdb/debugger.c:4204
 msgid "Error whilst signaling the process."
 msgstr "Възникна грешка при изпращането на сигнал до процеса."
 
-#: ../plugins/gdb/plugin.c:118
+#: ../plugins/gdb/plugin.c:120
 #, c-format
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
@@ -4890,7 +4846,7 @@ msgstr ""
 "Неуспех при създаване на файл тип FIFO с име „%s“. Програмата ще стартира "
 "без терминал."
 
-#: ../plugins/gdb/plugin.c:202
+#: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
 msgstr "Не може да се стартира терминал за откриване на грешки."
 
@@ -4971,7 +4927,7 @@ msgstr "Име на клон:"
 msgid "Branch:"
 msgstr "Клон:"
 
-#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:805
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "Клонове"
 
@@ -5343,7 +5299,7 @@ msgid "Merge"
 msgstr "Обединяване"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/plugin.c:727 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:700 ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -5713,27 +5669,27 @@ msgstr ""
 msgid "Branch"
 msgstr "Клон"
 
-#: ../plugins/git/plugin.c:723
+#: ../plugins/git/plugin.c:696
 msgid "Git Tasks"
 msgstr "Задачи по Git"
 
-#: ../plugins/git/plugin.c:793
+#: ../plugins/git/plugin.c:758
 msgid "Status"
 msgstr "Състояние"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:764
 msgid "Log"
 msgstr "Журнал на подаването"
 
-#: ../plugins/git/plugin.c:810
+#: ../plugins/git/plugin.c:775
 msgid "Tags"
 msgstr "Етикети"
 
-#: ../plugins/git/plugin.c:816
+#: ../plugins/git/plugin.c:781
 msgid "Remotes"
 msgstr "Отдалечени клонове"
 
-#: ../plugins/git/plugin.c:822
+#: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Stash"
 
@@ -6208,7 +6164,7 @@ msgstr "Избор на файл за _добавяне…"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1326
 #: ../plugins/project-manager/plugin.c:1448
-#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2125
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Проект"
@@ -6398,7 +6354,7 @@ msgid "_Properties"
 msgstr "_Свойства"
 
 #: ../plugins/project-manager/plugin.c:919
-#: ../plugins/project-manager/dialogs.c:562
+#: ../plugins/project-manager/dialogs.c:565
 msgid "Project properties"
 msgstr "Свойства на проекта"
 
@@ -6508,81 +6464,81 @@ msgstr "Проектът е зареден"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:309
+#: ../plugins/project-manager/dialogs.c:312
 msgid "Select sources…"
 msgstr "Избор на файлове с изходен код…"
 
-#: ../plugins/project-manager/dialogs.c:391
+#: ../plugins/project-manager/dialogs.c:394
 msgid " This property is not modifiable."
 msgstr "Това свойство не може да се променя"
 
-#: ../plugins/project-manager/dialogs.c:565
+#: ../plugins/project-manager/dialogs.c:568
 msgid "Directory properties"
 msgstr "Свойства на папката"
 
-#: ../plugins/project-manager/dialogs.c:568
+#: ../plugins/project-manager/dialogs.c:571
 msgid "Target properties"
 msgstr "Свойства на целта"
 
-#: ../plugins/project-manager/dialogs.c:571
+#: ../plugins/project-manager/dialogs.c:574
 msgid "Source properties"
 msgstr "Свойства на кода"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:577
 msgid "Module properties"
 msgstr "Свойства на модула"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:580
 msgid "Package properties"
 msgstr "Свойства на пакета"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:583
 msgid "Unknown properties"
 msgstr "Непознати свойства"
 
-#: ../plugins/project-manager/dialogs.c:997
-#: ../plugins/project-manager/dialogs.c:1008
+#: ../plugins/project-manager/dialogs.c:1000
+#: ../plugins/project-manager/dialogs.c:1011
 msgid "Cannot add group"
 msgstr "Неуспех при добавянето на група"
 
-#: ../plugins/project-manager/dialogs.c:1009
+#: ../plugins/project-manager/dialogs.c:1012
 msgid "No parent group selected"
 msgstr "Няма избрана родителска група"
 
-#: ../plugins/project-manager/dialogs.c:1223
-#: ../plugins/project-manager/dialogs.c:1233
+#: ../plugins/project-manager/dialogs.c:1226
+#: ../plugins/project-manager/dialogs.c:1236
 msgid "Cannot add source files"
 msgstr "Неуспех при добавянето на файлове с изходен код"
 
-#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1237
 msgid "The selected node cannot contain source files."
 msgstr "Избраният възел не може да съдържа файлове с изходен код."
 
-#: ../plugins/project-manager/dialogs.c:1420
-#: ../plugins/project-manager/dialogs.c:1431
+#: ../plugins/project-manager/dialogs.c:1423
+#: ../plugins/project-manager/dialogs.c:1434
 msgid "Cannot add target"
 msgstr "Неуспех при добавянето на цел"
 
-#: ../plugins/project-manager/dialogs.c:1432
+#: ../plugins/project-manager/dialogs.c:1435
 msgid "No group selected"
 msgstr "Няма избрана група"
 
 # FIXME неуспех при -> неуспешно
-#: ../plugins/project-manager/dialogs.c:1591
-#: ../plugins/project-manager/dialogs.c:1602
+#: ../plugins/project-manager/dialogs.c:1594
+#: ../plugins/project-manager/dialogs.c:1605
 msgid "Cannot add modules"
 msgstr "Неуспешно добавяне на модули"
 
-#: ../plugins/project-manager/dialogs.c:1603
+#: ../plugins/project-manager/dialogs.c:1606
 msgid "No target has been selected"
 msgstr "Няма избрана цел"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1806
+#: ../plugins/project-manager/dialogs.c:1809
 msgid "Missing module name"
 msgstr "Липсва име на модул"
 
-#: ../plugins/project-manager/dialogs.c:1868
+#: ../plugins/project-manager/dialogs.c:1871
 msgid "Cannot add packages"
 msgstr "Неуспешно добавяне на пакети"
 
@@ -6671,11 +6627,11 @@ msgstr "Файлът „%s“ вече съществува. Искате ли �
 msgid "Invalid entry"
 msgstr "Невалиден запис"
 
-#: ../plugins/project-wizard/druid.c:727
+#: ../plugins/project-wizard/druid.c:726
 msgid "Dubious entry"
 msgstr "Съмнителен запис"
 
-#: ../plugins/project-wizard/druid.c:892
+#: ../plugins/project-wizard/druid.c:890
 #, c-format
 msgid ""
 "\n"
@@ -6684,7 +6640,7 @@ msgstr ""
 "\n"
 "Липсващи програми: %s."
 
-#: ../plugins/project-wizard/druid.c:903
+#: ../plugins/project-wizard/druid.c:901
 #, c-format
 msgid ""
 "\n"
@@ -6693,7 +6649,7 @@ msgstr ""
 "\n"
 "Липсващи пакети: %s."
 
-#: ../plugins/project-wizard/druid.c:912
+#: ../plugins/project-wizard/druid.c:910
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -6703,7 +6659,7 @@ msgstr ""
 "компилирането на този проект. Уверете се, че са инсталирани правилно преди "
 "генерирането на проекта.\n"
 
-#: ../plugins/project-wizard/druid.c:920
+#: ../plugins/project-wizard/druid.c:919
 msgid "Install missing packages"
 msgstr "Инсталиране на липсващите пакети"
 
@@ -7630,10 +7586,6 @@ msgstr "GTK+ (програма)"
 msgid "Choose a working directory"
 msgstr "Избор на работна папка"
 
-#: ../plugins/run-program/anjuta-run-program.ui.h:3
-msgid "Environment Variables:"
-msgstr "Променливи на обкръжението:"
-
 #: ../plugins/run-program/anjuta-run-program.ui.h:4
 msgid "Program Parameters"
 msgstr "Аргументи на програмата"
@@ -7927,7 +7879,7 @@ msgstr "Внасяне на отрязъци"
 msgid "Export Snippets"
 msgstr "Изнасяне на отрязъци"
 
-#: ../plugins/sourceview/sourceview.c:480
+#: ../plugins/sourceview/sourceview.c:484
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -7938,7 +7890,7 @@ msgstr ""
 
 # Минало несвършено е най-удачното време според мен, защото щом файлът е
 # зареден в буфер, значи е изтрит след като програмата е била стартирана.
-#: ../plugins/sourceview/sourceview.c:517
+#: ../plugins/sourceview/sourceview.c:521
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -7948,18 +7900,18 @@ msgstr ""
 "Искате ли да го затворите?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:554
+#: ../plugins/sourceview/sourceview.c:558
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Неуспех при отварянето на %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:608
+#: ../plugins/sourceview/sourceview.c:612
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Файлът „%s“ е само за четене. Редактиране въпреки това?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:667
+#: ../plugins/sourceview/sourceview.c:671
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Неуспех при запазването на %s: %s"
@@ -8691,38 +8643,43 @@ msgstr "Търсене на символ"
 msgid "%s: Generating inheritances…"
 msgstr "%s: Генериране на унаследяванията…"
 
-#: ../plugins/symbol-db/plugin.c:1037
+#. Translators: %s is the name of a system library
+#: ../plugins/symbol-db/plugin.c:1038
 #, c-format
-msgid "%s: %d files scanned out of %d"
-msgstr "%s: Сканирани %d файла от общо %d"
+msgid "%s: %d file scanned out of %d"
+msgid_plural "%s: %d files scanned out of %d"
+msgstr[0] "%s: Сканиран %d файл от общо %d"
+msgstr[1] "%s: Сканирани %d файла от общо %d"
 
-#: ../plugins/symbol-db/plugin.c:1068
+#: ../plugins/symbol-db/plugin.c:1069
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Генериране на унаследяванията…"
 
-#: ../plugins/symbol-db/plugin.c:1070
+#: ../plugins/symbol-db/plugin.c:1071
 #, c-format
-msgid "%d files scanned out of %d"
-msgstr "Сканирани %d файла от общо %d"
+msgid "%d file scanned out of %d"
+msgid_plural "%d files scanned out of %d"
+msgstr[0] "Сканиран %d файл от общо %d"
+msgstr[1] "Сканирани %d файла от общо %d"
 
-#: ../plugins/symbol-db/plugin.c:1729
+#: ../plugins/symbol-db/plugin.c:1730
 msgid "Populating symbol database…"
 msgstr "Създаване на базата от данни със символи…"
 
-#: ../plugins/symbol-db/plugin.c:2109 ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/symbol-db/plugin.c:2110 ../plugins/symbol-db/plugin.c:2195
 msgid "Symbols"
 msgstr "Символи"
 
-#: ../plugins/symbol-db/plugin.c:2203
+#: ../plugins/symbol-db/plugin.c:2204
 msgid "SymbolDb popup actions"
 msgstr "Операции по базата от данни със символи"
 
-#: ../plugins/symbol-db/plugin.c:2211
+#: ../plugins/symbol-db/plugin.c:2212
 msgid "SymbolDb menu actions"
 msgstr "Менюта за базата от данни със символи"
 
-#: ../plugins/symbol-db/plugin.c:2524 ../plugins/symbol-db/plugin.c:2542
+#: ../plugins/symbol-db/plugin.c:2525 ../plugins/symbol-db/plugin.c:2543
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "База от данни със символи"
@@ -9869,1547 +9826,3 @@ msgstr "Знак за автоматично дописване"
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Символ"
-
-#~ msgid "Unable to build user interface for New File"
-#~ msgstr "Неуспех при изграждането на потребителски интерфейс за нов файл"
-
-#~ msgid "Unable to build project assistant user interface reading %s."
-#~ msgstr ""
-#~ "Неуспех при изграждането на потребителския интерфейс на помощника за "
-#~ "проекти от %s."
-
-#~ msgid "Missing file %s"
-#~ msgstr "Липсва файл %s"
-
-#~ msgid ""
-#~ "Are you sure you want to reset the preferences to\n"
-#~ "their default settings?"
-#~ msgstr ""
-#~ "Сигурни ли сте, че искате да върнете настройките по\n"
-#~ "подразбиране?"
-
-#~ msgid ""
-#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-#~ msgid_plural ""
-#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
-#~ "b>"
-#~ msgstr[0] ""
-#~ "<b>Има %d обект с незапазени промени. Да се запазят ли преди затваряне?</"
-#~ "b>"
-#~ msgstr[1] ""
-#~ "<b>Има %d обекта с незапазени промени. Да се запазят ли преди затваряне?</"
-#~ "b>"
-
-#~ msgid "Help display"
-#~ msgstr "Показване на помощ"
-
-# Бутон за зареждане на library.g.o.
-#~ msgid "Online"
-#~ msgstr "В Интернет"
-
-#~ msgid "Quick _ReSearch"
-#~ msgstr "Бързо търсене _наново"
-
-#~ msgid "Repeat quick search"
-#~ msgstr "Повтаряне на бързото търсене"
-
-#~ msgid "_Add Bookmark"
-#~ msgstr "_Добавяне на отметка"
-
-#~ msgid "Match case"
-#~ msgstr "Зачитане на малки/главни"
-
-#~ msgid "Invalid GbfAmConfigValue type"
-#~ msgstr "Невалиден тип GbfAmConfigValue"
-
-#~ msgid "Generic rule"
-#~ msgstr "Обикновено правило"
-
-#~ msgid "Extra target"
-#~ msgstr "Допълнителна цел"
-
-# Не е „конфигурационен файл“ в общия смисъл на думата.
-#~ msgid "Configure file"
-#~ msgstr "Файл, генериран от „configure“"
-
-#~ msgid "GLib mkenums"
-#~ msgstr "Файл, генериран от glib-mkenums"
-
-#~ msgid "GLib genmarshal"
-#~ msgstr "Файл, генериран от glib-genmarshal"
-
-#~ msgid "Intl rule"
-#~ msgstr "Правило на „intltool“"
-
-#~ msgid "Group doesn't exist"
-#~ msgstr "Групата не съществува"
-
-#~ msgid "Target doesn't exist"
-#~ msgstr "Целта не съществува"
-
-#~ msgid "Invalid or remote path (only local paths supported)"
-#~ msgstr "Невалиден или отдалечен път (поддържат се само локални)"
-
-#~ msgid "Malformed project"
-#~ msgstr "Невалиден проект"
-
-#~ msgid "Parent group doesn't exist"
-#~ msgstr "Родителската група не съществува"
-
-#~ msgid "Group already exists"
-#~ msgstr "Групата вече съществува"
-
-#~ msgid "Group couldn't be created"
-#~ msgstr "Неуспех при създаването на групата"
-
-#~ msgid "Group couldn't be removed"
-#~ msgstr "Неуспех при премахването на групата"
-
-#~ msgid "Target already exists"
-#~ msgstr "Целта вече съществува"
-
-#~ msgid "General failure in target creation"
-#~ msgstr "Обща грешка при създаването на целта"
-
-#~ msgid "Newly created target could not be identified"
-#~ msgstr "Неуспех при идентифицирането на новосъздадената цел"
-
-#~ msgid "Target couldn't be removed"
-#~ msgstr "Неуспех при премахването на целта"
-
-#~ msgid "Source doesn't exist"
-#~ msgstr "Изходният код не съществува"
-
-#~ msgid "Source file is already in given target"
-#~ msgstr "Файлът с изходен код вече е дефиниран за дадената цел"
-
-#~ msgid "General failure in adding source file"
-#~ msgstr "Обща грешка при добавяне на файл с изходен код"
-
-#~ msgid "Newly added source file could not be identified"
-#~ msgstr ""
-#~ "Неуспех при идентифицирането на току що добавения файл с изходен код"
-
-#~ msgid "Source couldn't be removed"
-#~ msgstr "Неуспех при премахването на файл с изходен код"
-
-#~ msgid "Project directory"
-#~ msgstr "Папка на проекта"
-
-#~ msgid "Enter new module"
-#~ msgstr "Въведете нов модул"
-
-#~ msgid "Module/Packages"
-#~ msgstr "Модул/пакети"
-
-#~ msgid "Version"
-#~ msgstr "Версия"
-
-#~ msgid ""
-#~ "Are you sure you want to remove module \"%s\" and all its associated "
-#~ "packages?"
-#~ msgstr ""
-#~ "Сигурни ли сте, че искате да премахнете модула „%s“ и всички свързани с "
-#~ "него пакети?"
-
-#~ msgid "Are you sure you want to remove package \"%s\"?"
-#~ msgstr "Сигурни ли сте, че искате да премахнете пакета „%s“?"
-
-#~ msgid "Enter new variable"
-#~ msgstr "Въведете нова променлива"
-
-#~ msgid "Are you sure you want to remove variable \"%s\"?"
-#~ msgstr "Сигурни ли сте, че искате да премахнете променливата „%s“?"
-
-#~ msgid "Project:"
-#~ msgstr "Проект:"
-
-#~ msgid "URI:"
-#~ msgstr "Адрес:"
-
-#~ msgid "Use"
-#~ msgstr "Използване"
-
-#~ msgid "Group name:"
-#~ msgstr "Име на група:"
-
-#~ msgid "Advanced"
-#~ msgstr "За напреднали"
-
-# FIXME: JIT е установен термин, не съм сигурен за AOT.
-#~ msgid "gcj compiler flags (ahead-of-time):"
-#~ msgstr "Флагове за компилатора на Java (AOT):"
-
-#~ msgid "Java compiler flags (just-in-time):"
-#~ msgstr "Флагове за компилатора на Java (JIT):"
-
-# Това е променливата на Automake INCLUDES, която вече не бива да се
-# използва.
-# FIXME: Да видя как да го докладвам с подходящи промени в msgid.
-#~ msgid "Includes (deprecated):"
-#~ msgstr "Флагове на препроцесора (извън употреба):"
-
-#~ msgid "C preprocessor flags"
-#~ msgstr "Флагове на препроцесора"
-
-#~ msgid "C++ compiler flags"
-#~ msgstr "Флагове за компилатора на C"
-
-#~ msgid "gcj compiler flags (ahead-of-time)"
-#~ msgstr "Флагове за компилатора на Java (AOT)"
-
-#~ msgid "Dependencies:"
-#~ msgstr "Зависимости:"
-
-#~ msgid "Advanced options"
-#~ msgstr "Опции за напреднали"
-
-#~ msgid "Target name:"
-#~ msgstr "Име на цел:"
-
-#~ msgid "Advanced…"
-#~ msgstr "За напреднали…"
-
-#~ msgid "Invalid GbfMkfileConfigValue type"
-#~ msgstr "Невалиден тип GbfMkfileConfigValue"
-
-#~ msgid "Group coudn't be removed"
-#~ msgstr "Неуспех при премахването на групата"
-
-#~ msgid "Target couldn't be created"
-#~ msgstr "Неуспех при създаването на целта"
-
-#~ msgid "Target coudn't be removed"
-#~ msgstr "Неуспех при премахването на целта"
-
-#~ msgid "Source file must be inside the project directory"
-#~ msgstr "Файлът с изходен код трябва да е в папката на проекта"
-
-#~ msgid "Source is already in target"
-#~ msgstr "Файлът с изходен код вече е дефиниран за целта"
-
-#~ msgid "Source couldn't be added"
-#~ msgstr "Неуспех при добавянето на файл с изходен код"
-
-#~ msgid "Includes:"
-#~ msgstr "Флагове за препроцесора:"
-
-#~ msgid "Add Remote Branch"
-#~ msgstr "Добавяне на отдалечен клон"
-
-#~ msgid "Apply Stash"
-#~ msgstr "Прилагане на stash"
-
-#~ msgid "Author/Grep"
-#~ msgstr "Автор/grep"
-
-#~ msgid "Bad revision:"
-#~ msgstr "Лоша ревизия:"
-
-#~ msgid "Branch to switch to:"
-#~ msgstr "Превключване на клон:"
-
-#~ msgid "Branches to delete:"
-#~ msgstr "Клонове за изтриване:"
-
-#~ msgid "Check out all local changes"
-#~ msgstr "Изтегляне на всички локални промени"
-
-#~ msgid "Create Branch"
-#~ msgstr "Създаване на клон"
-
-#~ msgid "Delete Branch"
-#~ msgstr "Изтриване на клон"
-
-#~ msgid "Delete Remote Branch"
-#~ msgstr "Изтриване на отдалечен клон"
-
-#~ msgid "Delete Tags"
-#~ msgstr "Изтриване на етикети"
-
-#~ msgid "Filters"
-#~ msgstr "Филтри"
-
-#~ msgid "From:"
-#~ msgstr "От:"
-
-#~ msgid "Good revision:"
-#~ msgstr "Добра ревизия:"
-
-#~ msgid "Grep:"
-#~ msgstr "Grep:"
-
-#~ msgid "Ignore Files"
-#~ msgstr "Пренебрегване на файлове"
-
-#~ msgid "Previous commit"
-#~ msgstr "Предишно подаване"
-
-#~ msgid "Remote branch to rebase from:"
-#~ msgstr "Отдалечен клон, който да се ползва за основа (rebase):"
-
-#~ msgid "Remote to delete:"
-#~ msgstr "Отдалечен клон за изтриване:"
-
-#~ msgid "Repository origin"
-#~ msgstr "Произход на хранилището"
-
-#~ msgid "Reset to:"
-#~ msgstr "Връщане към:"
-
-#~ msgid "Restore index"
-#~ msgstr "Възстановяване на индекса"
-
-#~ msgid "Revert Commit"
-#~ msgstr "Отмяна на локално подаване"
-
-#~ msgid "Revision/Tag:"
-#~ msgstr "Ревизия/етикет:"
-
-#~ msgid "Select Files to Check Out:"
-#~ msgstr "Избор на файлове за изтегляне:"
-
-#~ msgid "Select Files to Ignore:"
-#~ msgstr "Избор на файлове за пренебрегване:"
-
-# Хмм…
-#~ msgid "Select Files to Unstage:"
-#~ msgstr "Избор на файлове за отмяна (unstage):"
-
-#~ msgid "Select Mailbox File"
-#~ msgstr "Избор на файл във формат mbox"
-
-#~ msgid "Select a Folder"
-#~ msgstr "Избор на папка"
-
-#~ msgid "Select file to add:"
-#~ msgstr "Избор на файл за добавяне:"
-
-#~ msgid "Select file to remove:"
-#~ msgstr "Избор на файл за премахване:"
-
-#~ msgid "Show the contents of the selected stash in an editor"
-#~ msgstr "Показване на съдържанието на избрания stash в редактор"
-
-#~ msgid "Stash the working tree's uncommitted changes"
-#~ msgstr "Скатаване (stash) на неподадените промени в работното копие"
-
-#~ msgid "Switch to Another Branch"
-#~ msgstr "Преминаване на друг клон"
-
-#~ msgid "Tag/Commit"
-#~ msgstr "Създаване на етикет/подаване"
-
-#~ msgid "Tags to delete:"
-#~ msgstr "Етикети за изтриване:"
-
-#~ msgid "To:"
-#~ msgstr "До:"
-
-#~ msgid "View log"
-#~ msgstr "Преглед на дневника"
-
-#~ msgid "page 3"
-#~ msgstr "стр 3"
-
-#~ msgid "Git: File staged for add."
-#~ msgstr "Git: Файлът е определен за добавяне."
-
-#~ msgid "Please select a file."
-#~ msgstr "Изберете файл."
-
-#~ msgid "Git: Added remote branch \"%s\"."
-#~ msgstr "Git: Добавен е отдалечен клон „%s“."
-
-#~ msgid "Git: Fetching…"
-#~ msgstr "Git: Изтегляне…"
-
-#~ msgid "Please select a mailbox file."
-#~ msgstr "Изберете файл във формат mbox."
-
-#~ msgid "Git: File retrieved."
-#~ msgstr "Git: Файлът е изтеглен."
-
-#~ msgid "Git: Files checked out."
-#~ msgstr "Git: Файловете са изтеглени."
-
-#~ msgid "Git: Commit complete."
-#~ msgstr "Git: Подаването завърши."
-
-#~ msgid "Git: Created branch \"%s\"."
-#~ msgstr "Git: Създаден е клон „%s“."
-
-#~ msgid "Git: Created tag \"%s\"."
-#~ msgstr "Git: Създаден е етикет „%s“."
-
-#~ msgid "Please select branches to delete"
-#~ msgstr "Изберете клонове за изтриване"
-
-#~ msgid "Git: Fetch complete."
-#~ msgstr "Git: Изтеглянето завърши."
-
-#~ msgid "Short log"
-#~ msgstr "Кратък дневник"
-
-#~ msgid "Git: Retrieving log…"
-#~ msgstr "Git: Извличане на дневник…"
-
-#~ msgid "Git: Merge complete."
-#~ msgstr "Git: Обединяването завърши."
-
-#~ msgid "Git: Pull complete."
-#~ msgstr "Git: Изтеглянето завърши."
-
-#~ msgid "Please select a remote to pull from."
-#~ msgstr "Въведете отдалечен клон на хранилището за изтегляне."
-
-#~ msgid "Please enter the URL of the repository to pull from."
-#~ msgstr "Въведете адреса на хранилището за изтегляне."
-
-#~ msgid "Git: Push complete."
-#~ msgstr "Git: Отдалеченото подаване завърши."
-
-#~ msgid "Please select a remote to push to."
-#~ msgstr "Изберете отдалечен клон за подаване."
-
-#~ msgid "Please enter the URL of the repository to push to."
-#~ msgstr "Въведете адреса на хранилището за подаване."
-
-#~ msgid "Git: Pushing…"
-#~ msgstr "Git: Отдалечено подаване…"
-
-#~ msgid "Git: Rebasing"
-#~ msgstr "Git: Базиране наново"
-
-#~ msgid "Git: File removed."
-#~ msgstr "Git: Файлът е премахнат."
-
-#~ msgid "Git: Resolve complete."
-#~ msgstr "Git: Разрешаването на конфликти завърши."
-
-#~ msgid "Git: Stash dropped."
-#~ msgstr "Git: Стекът със скатани промени (stash) е изчистен."
-
-#~ msgid "Git: All stashes cleared."
-#~ msgstr "Git: Всички заделени чрез stash промени са изчистени."
-
-#~ msgid "Git: Branch checkout complete."
-#~ msgstr "Git: Изтеглянето на клона завърши."
-
-#~ msgid "There are no branches available."
-#~ msgstr "Няма налични клонове"
-
-#~ msgid "Please select a stash"
-#~ msgstr "Изберете stash"
-
-#~ msgid "Git: Changes stored in a stash."
-#~ msgstr "Git: Промените са съхранени в stash."
-
-#~ msgid "Git: Stashed changes applied."
-#~ msgstr "Git: Приложени са промените, съхранени в stash."
-
-#~ msgid "Git: Diff complete."
-#~ msgstr "Git: Създаването на разлики завърши."
-
-#~ msgid "Git: Files unstaged."
-#~ msgstr "Git: Файловете са отменени."
-
-#~ msgid "_Git"
-#~ msgstr "_Git"
-
-#~ msgid "_Changes"
-#~ msgstr "_Промени"
-
-#~ msgid "Commit changes to the local repository"
-#~ msgstr "Подаване на промените в локалното хранилище"
-
-#~ msgid "_Stash"
-#~ msgstr "_Stash"
-
-#~ msgid "Save uncommitted changes and re-apply them later"
-#~ msgstr "Съхраняване на неподадените промени и прилагане наново по-късно"
-
-#~ msgid "_Apply stashed changes…"
-#~ msgstr "_Прилагане на скатаните (stash) промени…"
-
-#~ msgid "_View log…"
-#~ msgstr "Преглед на _дневника…"
-
-#~ msgid "View change history"
-#~ msgstr "Преглед на историята на промените"
-
-#~ msgid "_Push…"
-#~ msgstr "_Отдалечено подаване (push)…"
-
-#~ msgid "_Pull…"
-#~ msgstr "И_зтегляне (pull)…"
-
-#~ msgid "Update the working copy"
-#~ msgstr "Обновяване на работното копие"
-
-#~ msgid "Update remote branches"
-#~ msgstr "Обновяване на отдалечените клонове"
-
-#~ msgid "_Files"
-#~ msgstr "_Файлове"
-
-#~ msgid "_Ignore…"
-#~ msgstr "_Пренебрегнат…"
-
-#~ msgid "Ignore files"
-#~ msgstr "Пренебрегване на файлове"
-
-#~ msgid "_Check out files…"
-#~ msgstr "Изте_гляне на файлове…"
-
-#~ msgid "_Unstage files…"
-#~ msgstr "_Отмяна на файлове…"
-
-#~ msgid "Create patch series…"
-#~ msgstr "Създаване на последователни кръпки…"
-
-#~ msgid "Generate patch files for submission upstream"
-#~ msgstr "Създаване на файлове с кръпки за подаване до разработчиците"
-
-#~ msgid "_Apply…"
-#~ msgstr "_Прилагане…"
-
-#~ msgid "Start applying a patch series"
-#~ msgstr "Прилагане на серия кръпки"
-
-#~ msgid "_Skip current patch"
-#~ msgstr "_Пропускане на текущата кръпка"
-
-#~ msgid "_Branches"
-#~ msgstr "_Клонове"
-
-#~ msgid "_Create branch…"
-#~ msgstr "Създаване на _клон…"
-
-#~ msgid "_Delete branch…"
-#~ msgstr "Изтриване на к_лон…"
-
-#~ msgid "Delete branches"
-#~ msgstr "Изтриване на клонове"
-
-#~ msgid "_Switch to another branch…"
-#~ msgstr "Преминаване на _друг клон…"
-
-#~ msgid "_Merge…"
-#~ msgstr "_Обединяване…"
-
-#~ msgid "Merge changes from another branch into the current one"
-#~ msgstr "Обединяване на промените от друг клон в текущия"
-
-#~ msgid "_Rebase"
-#~ msgstr "_Базиране наново"
-
-#~ msgid "Merge your changes with an upstream remote branch"
-#~ msgstr "Обединяване на вашите промени с отдалечен клон"
-
-#~ msgid "_Start…"
-#~ msgstr "_Начало…"
-
-#~ msgid "Start a rebase"
-#~ msgstr "Начало на операция rebase"
-
-#~ msgid "Continue a rebase that stopped because of conflicts"
-#~ msgstr "Продължаване на операция rebase, преустановена заради конфликти"
-
-#~ msgid "Skip the current conflicted commit and continue"
-#~ msgstr "Пропускане на подаването на кофликт и продължаване"
-
-#~ msgid "_Cherry pick…"
-#~ msgstr "_Селективно подбиране…"
-
-#~ msgid ""
-#~ "Selectively merge individual changes from other branches into the current "
-#~ "one"
-#~ msgstr ""
-#~ "Селективно обединяване на индивидуални промени от други клонове в текущия"
-
-#~ msgid "_Remote branches"
-#~ msgstr "О_тдалечени клонове"
-
-#~ msgid "_Delete…"
-#~ msgstr "_Изтриване…"
-
-#~ msgid "_Create tag…"
-#~ msgstr "Създаване на _етикет…"
-
-#~ msgid "_Delete tag…"
-#~ msgstr "Изтриване на е_тикет…"
-
-#~ msgid "Delete tags"
-#~ msgstr "Изтриване на етикети"
-
-#~ msgid "_Reset tree…"
-#~ msgstr "Отмяна в _дървото…"
-
-#~ msgid "Reset repository head to any past state"
-#~ msgstr "Връщане на главата на хранилището спрямо минало състояние"
-
-#~ msgid "_Revert commit…"
-#~ msgstr "Отмяна на _подаване…"
-
-#~ msgid "Bisect"
-#~ msgstr "Разр_язване (bisect)"
-
-#~ msgid "Start a bisect operation"
-#~ msgstr "Начало на операция bisect"
-
-#~ msgid "Stop the bisect and bring the tree back to normal"
-#~ msgstr ""
-#~ "Преустановяване на операцията bisect и връщане на дървото в нормалното му "
-#~ "състояние"
-
-#~ msgid "_Good"
-#~ msgstr "_Добра"
-
-#~ msgid "Mark the current head revision as good"
-#~ msgstr "Маркиране на текущата ревизия като добра"
-
-#~ msgid "_Bad"
-#~ msgstr "_Лоша"
-
-#~ msgid "Create a new git repository or reinitialize an existing one"
-#~ msgstr ""
-#~ "Създаване на ново хранилище на Git или повторно инициализиране на "
-#~ "съществуващо такова"
-
-#~ msgid "Show changes introduced by this commit"
-#~ msgstr "Показване на разликите в това подаване"
-
-#~ msgid "View a copy of this file at this revision"
-#~ msgstr "Преглед на копие на този файл към тази ревизия"
-
-#~ msgid "Create a branch with the selected revision as its head"
-#~ msgstr "Създаване на клон спрямо избраната ревизия"
-
-#~ msgid "Create a tag at this revision"
-#~ msgstr "Създаване на етикет за тази ревизия"
-
-#~ msgid "Revert this commit"
-#~ msgstr "Отмяна на това подаване"
-
-#~ msgid "_Bisect"
-#~ msgstr "Разр_язване (bisect)"
-
-#~ msgid "_Set good revision"
-#~ msgstr "Задаване на _добра ревизия"
-
-#~ msgid "Mark this revision as good"
-#~ msgstr "Маркиране на тази ревизия като добра"
-
-#~ msgid "_Set bad revision"
-#~ msgstr "Задаване на _лоша ревизия"
-
-#~ msgid "Mark this revision as bad"
-#~ msgstr "Маркиране на тази ревизия като лоша"
-
-#~ msgid "View changes to this file or folder"
-#~ msgstr "Преглед на промените по този файл или папка"
-
-#~ msgid "Add this file or folder to the repository"
-#~ msgstr "Добавяне на този файл или папка към хранилището"
-
-#~ msgid "Remove this file or folder from the repository"
-#~ msgstr "Премахване на този файл или папка от хранилището"
-
-#~ msgid "Top level git menu item"
-#~ msgstr "Меню на Git от горното ниво"
-
-#~ msgid "Git operations"
-#~ msgstr "Операции с Git"
-
-#~ msgid "Git log operations"
-#~ msgstr "Операции на Git с дневника"
-
-#~ msgid "Git FM operations"
-#~ msgstr "Операции на Git с файлове "
-
-#~ msgid "Git Log"
-#~ msgstr "Дневник на Git"
-
-#~ msgid "<b>Handler template</b>"
-#~ msgstr "<b>Шаблон за обработка на сигнал</b>"
-
-#~ msgid "<b>Manage associations</b>"
-#~ msgstr "<b>Управление на свързвания</b>"
-
-#~ msgid "<b>New association</b>"
-#~ msgstr "<b>Ново свързване</b>"
-
-#~ msgid "Associate"
-#~ msgstr "Свързване"
-
-#~ msgid "Designer"
-#~ msgstr "Редактор на интерфейс"
-
-#~ msgid "Insert handler on edit"
-#~ msgstr "Вмъкване на обработка при редактиране"
-
-#~ msgid "Position type"
-#~ msgstr "Вид позиция"
-
-#~ msgid "Separated designer layout"
-#~ msgstr "Редактиране на интерфейса в отделен прозорец"
-
-#~ msgid "Special regexp"
-#~ msgstr "Специален регулярен израз"
-
-#~ msgid "Widget name"
-#~ msgstr "Име на графичен обект"
-
-#~ msgid "Association item has no designer"
-#~ msgstr "Свързаният елемент няма редактор на интерфейс"
-
-#~ msgid "Association item has no editor"
-#~ msgstr "Свързаният елемент няма редактор"
-
-#~ msgid "Bad association item option in the node %s"
-#~ msgstr "Лоша опция за свързване във възел %s"
-
-#~ msgid "no filename found in the node %s"
-#~ msgstr "липсва име на файл във възел %s"
-
-#~ msgid "invalid %s property value"
-#~ msgstr "невалидна стойност на свойство %s"
-
-#~ msgid "Association item filename has no path"
-#~ msgstr "Името на файла на свързания елемент не съдържа път"
-
-#~ msgid "No associations initialized: nothing to save"
-#~ msgstr "Няма инициализирани свързвания: нищо за запазване"
-
-#~ msgid "Couldn't save associations because project root isn't set"
-#~ msgstr ""
-#~ "Неуспех при запазването на свързванията — коренът на проекта не е зададен"
-
-#~ msgid "Failed to save associations"
-#~ msgstr "Неуспех при запазването на свързванията"
-
-#~ msgid "Current"
-#~ msgstr "Текуща"
-
-#~ msgid "Before end"
-#~ msgstr "Преди края"
-
-#~ msgid "After begin"
-#~ msgstr "След началото"
-
-#~ msgid "End of file"
-#~ msgstr "Края на файла"
-
-#~ msgid "Couldn't introspect the signal"
-#~ msgstr "Неуспех при самоанализирането на сигнала"
-
-#~ msgid "Python language isn't supported yet"
-#~ msgstr "Езикът Python все още не се поддържа"
-
-#~ msgid "Vala language isn't supported yet"
-#~ msgstr "Езикът Vala все още не се поддържа"
-
-#~ msgid "There is no associated editor for the designer"
-#~ msgstr "Липсва текстов редактор към редактора на интерфейс"
-
-#~ msgid "Unknown editor language \"%s\""
-#~ msgstr "Неизвестен за редактора език „%s“"
-
-#~ msgid "Error while adding a new handler stub: %s"
-#~ msgstr "Грешка при добавяне на нов шаблон за обработка: %s"
-
-#~ msgid "Couldn't find signal information"
-#~ msgstr "Неуспех при намирането на информация за сигнала"
-
-#~ msgid "Error while adding a new handler stub: No current editor"
-#~ msgstr "Грешка при добавяне на нов шаблон за обработка: Няма текущ редактор"
-
-#~ msgid ""
-#~ "To avoid this message turn off \"%s\" flag in Preferences->Glade GUI "
-#~ "Designer"
-#~ msgstr ""
-#~ "За да избегнете това съобщение, изключете „%s“ в „Настройки->Glade — "
-#~ "проектиране на графични интерфейси“"
-
-#~ msgid "Couldn't find an associated document"
-#~ msgstr "Неуспех при намирането на свързан документ"
-
-#~ msgid "Those documents are already associated"
-#~ msgstr "Тези документи вече са свързани"
-
-#~ msgid "Unable to read file: %s."
-#~ msgstr "Неуспех при четене на файл: %s."
-
-#~ msgid "Top level widget"
-#~ msgstr "Графичен обект от горно ниво"
-
-#~ msgid "Couldn't find a default signal name"
-#~ msgstr "Неуспех при намирането на стандартно име на сигнала"
-
-#~ msgid "Project %s has no deprecated widgets or version mismatches."
-#~ msgstr ""
-#~ "Проектът %s не съдържа изоставени графични обекти или несъответствие "
-#~ "между целевите версии."
-
-#~ msgid "There is no Glade project"
-#~ msgstr "Няма проект на Glade"
-
-#~ msgid "_Glade"
-#~ msgstr "_Glade"
-
-#~ msgid "Switch between designer/code"
-#~ msgstr "Превключване между редактор на интерфейс/код"
-
-#~ msgid "Insert handler stub"
-#~ msgstr "Вмъкване на шаблон за обработка"
-
-#~ msgid "Associate last designer and last editor"
-#~ msgstr ""
-#~ "Свързване на последния редактор на интерфейс и последния текстов редактор"
-
-#~ msgid "Associate last designer and editor"
-#~ msgstr "Свързване на последния редактор на интерфейс и текстов редактор"
-
-#~ msgid "Associations dialog…"
-#~ msgstr "Диалогов прозорец за свързвания…"
-
-#~ msgid "Versioning…"
-#~ msgstr "Версии…"
-
-#~ msgid "Switch between library versions and check deprecations"
-#~ msgstr ""
-#~ "Превключване между версии на библиотеките и проверка за изоставени обекти"
-
-#~ msgid "Set as default resource target"
-#~ msgstr "Задаване като стандартна цел за ресурса"
-
-#~ msgid "Current default target"
-#~ msgstr "Текуща стандартна цел"
-
-#~ msgid "Save the current file"
-#~ msgstr "Запазване на текущия файл"
-
-#~ msgid "Redo the last action"
-#~ msgstr "Отмяна на последното действие"
-
-#~ msgid "Cut the selection"
-#~ msgstr "Отрязване на избраното"
-
-#~ msgid "Copy the selection"
-#~ msgstr "Копиране на избраното"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "Поставяне от буфера за обмен"
-
-#~ msgid "Delete the selection"
-#~ msgstr "Изтриване на избраното"
-
-#~ msgid "Glade designer operations"
-#~ msgstr "Операции на редактора на графични интерфейси Glade"
-
-#~ msgid "Go back in undo history"
-#~ msgstr "Отиване назад в историята на промените"
-
-#~ msgid "Go forward in undo history"
-#~ msgstr "Отиване напред в историята на промените"
-
-#~ msgid "Glade Clipboard"
-#~ msgstr "Буфер за обмен на Glade"
-
-#~ msgid "Glade GUI Designer"
-#~ msgstr "Glade — проектиране на графични интерфейси"
-
-#~ msgid "You need to select a to do item before you can edit it"
-#~ msgstr "Трябва да изберете задача, за да я редактирате"
-
-#~ msgid "Add Item"
-#~ msgstr "Добавяне на задача"
-
-#~ msgid "Edit Item"
-#~ msgstr "Редактиране на задача"
-
-#~ msgid "Summary:"
-#~ msgstr "Обобщение:"
-
-#~ msgid "Category:"
-#~ msgstr "Категория:"
-
-#~ msgid "Edit Categories"
-#~ msgstr "Редактиране на категории"
-
-#~ msgid "Due date:"
-#~ msgstr "Срок за приключване:"
-
-#~ msgid "Notify when due"
-#~ msgstr "Уведомяване при достигане на срока"
-
-#~ msgid "Priority:"
-#~ msgstr "Приоритет:"
-
-#~ msgid "Comment:"
-#~ msgstr "Коментар:"
-
-#~ msgid "Completed"
-#~ msgstr "Завършена"
-
-#~ msgid "N/A"
-#~ msgstr "няма"
-
-#~ msgid "stopped:"
-#~ msgstr "спряна:"
-
-#~ msgid "You need to select a to-do item before you can remove it"
-#~ msgstr "Трябва да изберете задача, за да я премахнете"
-
-#~ msgid "Are you sure you want to remove the selected to-do item?"
-#~ msgstr "Сигурни ли сте, че искате да премахнете избраната задача?"
-
-#~ msgid "Are you sure you want to remove all the completed to-do items?"
-#~ msgstr "Сигурни ли сте, че искате да премахнете всички завършени задачи?"
-
-#~ msgid ""
-#~ "Are you sure you want to remove all the completed to-do items in the "
-#~ "category \"%s\"?"
-#~ msgstr ""
-#~ "Сигурни ли сте, че искате да премахнете всички завършени задачи в "
-#~ "категорията „%s“?"
-
-#~ msgid "Export task list"
-#~ msgstr "Изнасяне на списъка със задачи"
-
-#~ msgid "XML"
-#~ msgstr "XML"
-
-#~ msgid "Plain Text"
-#~ msgstr "Обикновен текст"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "Export current category only"
-#~ msgstr "Изнасяне само на текущата категория"
-
-#~ msgid "<b>HTML export options:</b>"
-#~ msgstr "<b>Опции за изнасяне във формат HTML</b>"
-
-#~ msgid "Embed default (CSS) style sheet"
-#~ msgstr "Вграждане на стандартна таблица със стилове (CSS)"
-
-#~ msgid "Custom (CSS) style sheet"
-#~ msgstr "Нестандартна таблица със стилове (CSS)"
-
-#~ msgid "All"
-#~ msgstr "Всички"
-
-#~ msgid "_Export"
-#~ msgstr "_Изнасяне"
-
-#~ msgid "Priority"
-#~ msgstr "Приоритет"
-
-#~ msgid "Due date"
-#~ msgstr "Срок на приключване"
-
-#~ msgid "Summary"
-#~ msgstr "Обобщение"
-
-#~ msgid "No permission to read the file."
-#~ msgstr "Няма права за четене на файла."
-
-#~ msgid "Failed to read file"
-#~ msgstr "Неуспех при четенето на файл"
-
-#~ msgid "Failed to parse XML structure"
-#~ msgstr "Неуспех при анализирането на структурата на XML"
-
-#~ msgid "File is not a valid gtodo file"
-#~ msgstr "Файлът не е валиден тип „gtodo“"
-
-#~ msgid "Personal"
-#~ msgstr "Лични"
-
-#~ msgid "Business"
-#~ msgstr "Бизнес"
-
-#~ msgid "Unfiled"
-#~ msgstr "Без категория"
-
-#~ msgid "No Gtodo Client to save."
-#~ msgstr "Няма клиент на Gtodo за запазване."
-
-#~ msgid "No filename supplied."
-#~ msgstr "Не е зададено име на файл."
-
-#~ msgid "Medium"
-#~ msgstr "Среден"
-
-#~ msgid "High"
-#~ msgstr "Висок"
-
-#~ msgid "When you delete the category \"%s\", all containing items are lost"
-#~ msgstr ""
-#~ "При изтриване на категорията „%s“ всички съдържащи се задачи ще бъдат "
-#~ "загубени"
-
-#~ msgid "Delete"
-#~ msgstr "Изтриване"
-
-#~ msgid "<New category (%d)>"
-#~ msgstr "<Нова категория (%d)>"
-
-#~ msgid "The following item is due in %i minute:"
-#~ msgid_plural "The following item is due in %i minutes:"
-#~ msgstr[0] "Следната задача трябва да бъде приключена до %i минута:"
-#~ msgstr[1] "Следната задача трябва да бъде приключена до %i минути:"
-
-#~ msgid "The following item is due:"
-#~ msgstr "Следната задача трябва да бъде приключена:"
-
-#~ msgid "_Do not show again"
-#~ msgstr "Да _не се показва отново"
-
-#~ msgid "_Tasks"
-#~ msgstr "_Задачи"
-
-#~ msgid "Hide _Completed Items"
-#~ msgstr "Скриване _завършените задачи"
-
-#~ msgid "Hide completed to-do items"
-#~ msgstr "Скриване на завършените задачи"
-
-#~ msgid "Hide Items Past _Due Date"
-#~ msgstr "Скриване на задачи с изпуснат _краен срок"
-
-#~ msgid "Hide items that are past due date"
-#~ msgstr "Скриване на задачи, за които е пропуснат крайния срок"
-
-#~ msgid "Hide Items Without _End Date"
-#~ msgstr "_Скриване на задачи без краен срок"
-
-#~ msgid "Hide items without an end date"
-#~ msgstr "Скриване на задачите без дата за завършване"
-
-#~ msgid "Task manager"
-#~ msgstr "Организатор на задачи"
-
-#~ msgid "Task manager view"
-#~ msgstr "Преглед на организатора на задачи"
-
-#~ msgid "To-do Manager"
-#~ msgstr "Организатор за задачи"
-
-#~ msgid "To-do List Preferences"
-#~ msgstr "Настройки на организатора за задачи"
-
-#~ msgid "Show due date column"
-#~ msgstr "Показване на колоната за краен срок"
-
-#~ msgid "Show category column"
-#~ msgstr "Показване колоната на категорията"
-
-#~ msgid "Show priority column"
-#~ msgstr "Показване колона на приоритета"
-
-#~ msgid "Tooltips in list"
-#~ msgstr "Подсказки в списъка"
-
-#~ msgid "Show in main window"
-#~ msgstr "Показване в главния прозорец"
-
-#~ msgid "Items that are due today"
-#~ msgstr "Задачи за приключване днес"
-
-#~ msgid "Items that are past due"
-#~ msgstr "Просрочени задачи"
-
-#~ msgid "Items that are due in the next %i day"
-#~ msgid_plural "Items that are due in the next %i days"
-#~ msgstr[0] "Задачи за приключване в следващия %i ден"
-#~ msgstr[1] "Задачи за приключване в следващите %i дни"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Разни"
-
-#~ msgid "Auto-purge completed items"
-#~ msgstr "Автоматично изтриване на завършените задачи"
-
-#~ msgid "Purge items after"
-#~ msgstr "Изтриване на задачите след"
-
-#~ msgid "days."
-#~ msgstr "дни."
-
-#~ msgid "Auto-Purge"
-#~ msgstr "Автоматично изтриване"
-
-#~ msgid "Notification"
-#~ msgstr "Уведомяване"
-
-#~ msgid "Allow to-do items to notify me when they are due in %i minute"
-#~ msgid_plural ""
-#~ "Allow to-do items to notify me when they are due in %i minutes"
-#~ msgstr[0] "Уведомления %i минута преди достигане на срока"
-#~ msgstr[1] "Уведомления %i минути преди достигане на срока"
-
-#~ msgid "Open a Task List"
-#~ msgstr "Отваряне на списък със задачи"
-
-#~ msgid "Create a Task List"
-#~ msgstr "Създаване на списък със задачи"
-
-#~ msgid "No Date"
-#~ msgstr "Без дата"
-
-#~ msgid "Edit…"
-#~ msgstr "Редактиране…"
-
-#~ msgid "Macro details:"
-#~ msgstr "Подробности за макрос:"
-
-#~ msgid "Macro text:"
-#~ msgstr "Текст на макрос:"
-
-#~ msgid "Macros:"
-#~ msgstr "Макроси:"
-
-#~ msgid "Shortcut:"
-#~ msgstr "Бърз клавиш:"
-
-#~ msgid "Press macro shortcut…"
-#~ msgstr "Натиснете бързия клавиш за макроса…"
-
-#~ msgid "Press shortcut"
-#~ msgstr "Натиснете бързия клавиш"
-
-#~ msgid "My macros"
-#~ msgstr "Мои макроси"
-
-#~ msgid ""
-#~ "Name:\t %s\n"
-#~ "Category:\t %s\n"
-#~ "Shortcut:\t %c\n"
-#~ msgstr ""
-#~ "Име:\t %s\n"
-#~ "Категория:\t %s\n"
-#~ "Бърз клавиш:\t %c\n"
-
-#~ msgid "Insert macro"
-#~ msgstr "Вмъкване на макрос"
-
-#~ msgid "Add/Edit macro"
-#~ msgstr "Добавяне/редактиране на макрос"
-
-# Форматът си остава същия -- това е за изходния код.
-#~ msgid "%Y-%m-%d"
-#~ msgstr "%Y-%m-%d"
-
-#~ msgid "%Y"
-#~ msgstr "%Y"
-
-#~ msgid "Macros"
-#~ msgstr "Макроси"
-
-#~ msgid "_Insert Macro…"
-#~ msgstr "_Вмъкване на макрос…"
-
-#~ msgid "Insert a macro using a shortcut"
-#~ msgstr "Вмъкване на макрос чрез бърз клавиш"
-
-#~ msgid "_Add Macro…"
-#~ msgstr "_Добавяне на макрос…"
-
-#~ msgid "Add a macro"
-#~ msgstr "Добавяне на макрос"
-
-#~ msgid "Macros…"
-#~ msgstr "Макроси…"
-
-#~ msgid "Add/Edit/Remove macros"
-#~ msgstr "Добавяне/редактиране/премахване на макроси"
-
-#~ msgid "Macro operations"
-#~ msgstr "Операции с макроси"
-
-#~ msgid "Messages options"
-#~ msgstr "Настройки на съобщенията"
-
-#~ msgid "Number of first characters to show:"
-#~ msgstr "Брой на първите знаци за показване:"
-
-#~ msgid "Number of last characters to show:"
-#~ msgstr "Брой на последните знаци за показване:"
-
-#~ msgid "Tab position:"
-#~ msgstr "Позиция на подпрозорците:"
-
-#~ msgid "Truncate long messages"
-#~ msgstr "Съкращаване на дълги съобщения"
-
-#~ msgid "No Messages"
-#~ msgstr "Няма съобщения"
-
-#~ msgid "No Infos"
-#~ msgstr "Няма уведомления"
-
-#~ msgid "No Warnings"
-#~ msgstr "Няма предупреждения"
-
-#~ msgid "No Errors"
-#~ msgstr "Няма грешки"
-
-#~ msgid ""
-#~ "Generation of project file failed. Cannot find an appropriate project "
-#~ "template to use. Please make sure your version of Anjuta is up-to-date."
-#~ msgstr ""
-#~ "Неуспех при генерирането на файл за проекта. Не може да бъде открит "
-#~ "подходящ шаблон за проекта. Уверете се, че не използвате остаряла версия "
-#~ "на Anjuta."
-
-#~ msgid "New Group"
-#~ msgstr "Нова група"
-
-#~ msgid "Specify _where to create the group:"
-#~ msgstr "Укажете къде да се създаде _групата:"
-
-#~ msgid "_Group name:"
-#~ msgstr "Име на _група:"
-
-#~ msgid "No properties available for this group"
-#~ msgstr "Няма налични свойства за тази група"
-
-#~ msgid "_Refresh"
-#~ msgstr "_Обновяване"
-
-#~ msgid "Refresh project manager tree"
-#~ msgstr "Обновяване на дървото"
-
-#~ msgid "Add a group to project"
-#~ msgstr "Добавяне на група към проекта"
-
-#~ msgid "Add _Group"
-#~ msgstr "Добавяне на _група"
-
-#~ msgid "Add _Target"
-#~ msgstr "Добавяне на _цел"
-
-#~ msgid ""
-#~ "Field \"%s\" must start with a letter, a digit or an underscore and "
-#~ "contain only letters, digits, underscore, minus and dot. Please fix it."
-#~ msgstr ""
-#~ "Полето „%s“ трябва да започва с буква, цифра или долна черта и може да "
-#~ "съдържа само букви, цифри, долна черта, минус и точка. Коригирайте го."
-
-#~ msgid ""
-#~ "Field \"%s\" must start with a letter, a digit, an underscore or a "
-#~ "directory separator and contain only letters, digits, underscore, "
-#~ "directory separator, minus and dot. Please fix it."
-#~ msgstr ""
-#~ "Полето „%s“ трябва да започва с буква, цифра, долна черта или сепаратор "
-#~ "за папки и може да съдържа само букви, цифри, долна черта, сепаратор за "
-#~ "папка, минус и точка. Коригирайте го."
-
-#~ msgid "No"
-#~ msgstr "Не"
-
-#~ msgid "A GNOME applet project"
-#~ msgstr "Аплет на GNOME"
-
-#~ msgid "A generic GTKmm (C++) project"
-#~ msgstr "Обикновен проект на GTKmm (C++)"
-
-#~ msgid "Applet Title:"
-#~ msgstr "Заглавие на аплета:"
-
-#~ msgid "Display description of the applet"
-#~ msgstr "Показване описанието на аплета"
-
-#~ msgid "Display title of the applet"
-#~ msgstr "Показване заглавието на аплета"
-
-#~ msgid "GNOME Applet"
-#~ msgstr "Аплет на GNOME"
-
-#~ msgid "GTK+"
-#~ msgstr "GTK+"
-
-#~ msgid "GTKmm"
-#~ msgstr "GTKmm"
-
-#~ msgid "Actions"
-#~ msgstr "Действия"
-
-#~ msgid "Backward"
-#~ msgstr "Назад"
-
-#~ msgid "Basic Search & Replace"
-#~ msgstr "Основно търсене и заместване"
-
-#~ msgid "Choose Directories:"
-#~ msgstr "Избор на папки:"
-
-#~ msgid "Choose Files:"
-#~ msgstr "Избор на файлове:"
-
-#~ msgid "Expand regex back references"
-#~ msgstr "Разкриване на връзки в шаблоните"
-
-#~ msgid "File Filter"
-#~ msgstr "Филтър на файл"
-
-#~ msgid "Find & Replace"
-#~ msgstr "Намиране и заместване"
-
-#~ msgid "Forward"
-#~ msgstr "Напред"
-
-#~ msgid "Full Buffer"
-#~ msgstr "Пълен буфер"
-
-#~ msgid "Greedy matching"
-#~ msgstr "„Алчно“ съвпадане"
-
-#~ msgid "Ignore Binary Files"
-#~ msgstr "Пропускане на двоични файлове"
-
-#~ msgid "Ignore Directories:"
-#~ msgstr "Пропускане на папки:"
-
-#~ msgid "Ignore Files:"
-#~ msgstr "Пропускане на файлове:"
-
-#~ msgid "Ignore Hidden Directories"
-#~ msgstr "Пропускане на скрити папки:"
-
-#~ msgid "Ignore Hidden Files"
-#~ msgstr "Пропускане на скрити файлове:"
-
-#~ msgid "Match at start of word"
-#~ msgstr "Търсене в началото на дума"
-
-#~ msgid "Match complete lines"
-#~ msgstr "Откриване на завършени редове"
-
-#~ msgid "Match complete words"
-#~ msgstr "Намиране началото на дума"
-
-#~ msgid "Modify"
-#~ msgstr "Променяне"
-
-#~ msgid "No Limit"
-#~ msgstr "Неограничено"
-
-#~ msgid "Parameters"
-#~ msgstr "Параметри"
-
-#~ msgid "Replace With:"
-#~ msgstr "Заместване с:"
-
-#~ msgid "Search Action:"
-#~ msgstr "Търсене на действие:"
-
-#~ msgid "Search Direction:"
-#~ msgstr "Посока на търсене:"
-
-#~ msgid "Search Expression"
-#~ msgstr "Израз за търсене"
-
-#~ msgid "Search Expression:"
-#~ msgstr "Израз за търсене:"
-
-#~ msgid "Search In:"
-#~ msgstr "Търсене в:"
-
-#~ msgid "Search Recursively"
-#~ msgstr "Рекурсивно търсене"
-
-#~ msgid "Search Target"
-#~ msgstr "Търсене на цел"
-
-#~ msgid "Search variable"
-#~ msgstr "Търсене на променлива"
-
-#~ msgid "Setting"
-#~ msgstr "Настройка"
-
-#~ msgid "_Find…"
-#~ msgstr "_Търсене…"
-
-#~ msgid ""
-#~ "Search for and replace a string or regular expression with another string"
-#~ msgstr "Търсене и заместване на низ или регулярен израз с друг низ"
-
-#~ msgid "Fin_d in Files…"
-#~ msgstr "Търсене във _файлове…"
-
-#~ msgid "Search for a string in multiple files or directories"
-#~ msgstr "Търсене на низ в множество файлове или папки"
-
-#~ msgid "Searching…"
-#~ msgstr "Търсене…"
-
-#~ msgid "Basic Search"
-#~ msgstr "Основно търсене"
-
-#~ msgid "Current Buffer"
-#~ msgstr "Текущ буфер"
-
-#~ msgid "Current Selection"
-#~ msgstr "Текущ избор"
-
-#~ msgid "Current Block"
-#~ msgstr "Текущ блок"
-
-#~ msgid "All Open Buffers"
-#~ msgstr "Всички отворени буфери"
-
-#~ msgid "All Project Files"
-#~ msgstr "Всички файлове на проекти"
-
-#~ msgid "Specify File Patterns"
-#~ msgstr "Зададени шаблони на файлове"
-
-#~ msgid "Select next match"
-#~ msgstr "Избор на следващото съвпадение"
-
-#~ msgid "Bookmark all matched lines"
-#~ msgstr "Добавяне към отметките на всички редове със съвпадения"
-
-#~ msgid "Mark all matches"
-#~ msgstr "Маркиране на всички съвпадения"
-
-#~ msgid "List matches in find pane"
-#~ msgstr "Изписване на съвпаденията в панела за търсене"
-
-#~ msgid "Replace next match"
-#~ msgstr "Заместване на следващо съвпадение"
-
-#~ msgid "Replace all matches"
-#~ msgstr "Заместване на всички съвпадения"
-
-#~ msgid "Find:"
-#~ msgstr "Търсене:"
-
-#~ msgid "Search complete"
-#~ msgstr "Търсенето завършено"
-
-#~ msgid "The match \"%s\" was not found. Wrap search around the document?"
-#~ msgstr "Съвпадението „%s“ не е намерено. Търсене из целия документ?"
-
-#~ msgid "The match \"%s\" was not found."
-#~ msgstr "Съвпадението „%s“ не е намерено."
-
-#~ msgid "The maximum number of results has been reached."
-#~ msgstr "Достигнат е максималния брой резултати."
-
-#~ msgid "%d match has been replaced."
-#~ msgid_plural "%d matches have been replaced."
-#~ msgstr[0] "%d съвпадение беше заместено"
-#~ msgstr[1] "%d съвпадения бяха заместени"
-
-#~ msgid "Unable to build user interface for Search and Replace"
-#~ msgstr ""
-#~ "Неуспех при изграждането на потребителския интерфейс за търсене и "
-#~ "заместване"
-
-#~ msgid "Print line numbers"
-#~ msgstr "Печатане на номерата на редовете"
-
-#~ msgid "Print options"
-#~ msgstr "Настройки за печат"
-
-#~ msgid "Print page footer"
-#~ msgstr "Печатане на долен колонтитул"
-
-#~ msgid "Print page header"
-#~ msgstr "Печатане на горен колонтитул"
-
-#~ msgid "Printing"
-#~ msgstr "Печат"
-
-#~ msgid "Wrap long lines to fit on paper"
-#~ msgstr "Пренасяне на дълги редове"
-
-#~ msgid "Links"
-#~ msgstr "Връзки"
-
-#~ msgid "Anjuta Home Page"
-#~ msgstr "Уеб-сайт на Anjuta"
-
-#~ msgid "GNOME Online API Documentation"
-#~ msgstr "Ръководства за разработчици на GNOME"
-
-#~ msgid "Package is not parseable"
-#~ msgstr "Пакетът не може да се анализира"
-
-#~ msgid "Automatically scan project's packages"
-#~ msgstr "Автоматично сканиране на пакетите на проекта"
-
-#~ msgid "Available API tags"
-#~ msgstr "Налични етикети на API"
-
-#~ msgid "Checking if package is parseable…"
-#~ msgstr "Проверка дали пакета е анализируем…"
-
-#~ msgid ""
-#~ "This option enables the default packages required by your opened project, "
-#~ "e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU "
-#~ "work)"
-#~ msgstr ""
-#~ "Тази опция включва стандартните пакети, изисквани от вашия проект, напр. "
-#~ "GLib и GTK+ ако създавате проект за GTK+ (възможно е да доведе до по-"
-#~ "голямо натоварване на процесора)"
-
-#~ msgid "Default project directory:"
-#~ msgstr "Стандартна папка за проекти:"
-
-#~ msgid "Developer email address:"
-#~ msgstr "Е-поща на разработчика:"
-
-#~ msgid "Developer name:"
-#~ msgstr "Име на разработчика:"
-
-#~ msgid "Project Defaults"
-#~ msgstr "Общи настройки за проекти"
-
-#~ msgid "Select project directory"
-#~ msgstr "Избор на папка за проектите"
-
-#~ msgid "Autocompletion (C/C++/Java only)"
-#~ msgstr "Автоматично дописване (само за C/C++/Java)"
-
-#~ msgid "Gdb"
-#~ msgstr "GDB"
-
-#~ msgid "Glade File"
-#~ msgstr "Файл на Glade"
-
-#~ msgid "Task Manager"
-#~ msgstr "Организатор на задачи"
-
-#~ msgid "Todo Plugin for Anjuta."
-#~ msgstr "Приставка за задачи."
-
-#~ msgid "Insert predefined macros into Editor"
-#~ msgstr "Вмъкване на предефинирани макроси в редактора"
-
-#~ msgid "Macro Plugin"
-#~ msgstr "Приставка за макроси"
-
-#~ msgid "Component for searching"
-#~ msgstr "Компонент за търсене"
-
-#~ msgid "Searching"
-#~ msgstr "Търсене"
-
-#~ msgid "C++/GObject Class"
-#~ msgstr "Клас на C++/GObject"
-
-#~ msgid "Makefile backend"
-#~ msgstr "Компонент за Makefile"
-
-#~ msgid "Makefile backend for project manager"
-#~ msgstr "Компонент „Makefile“ на приставката за управление на проекти"
-
-#~ msgid "Anjuta JS Debugger Plugin"
-#~ msgstr "Приставка на Anjuta за изчистване на грешки в JavaScript"
