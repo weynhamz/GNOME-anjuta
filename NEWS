@@ -1,3 +1,21 @@
+Anjuta 3.1.92 "Hot summer in Nagano" (18 September 2011) -- Johannes Schmid
+
+Bugs fixed:
+656470 	Dangling symlinks created by make install
+658229 	Inconsistent size of widgets in Properties Frames of Class Generator Dialog
+658262 	Extra separator between double upper case characters
+566700 	Default font for the Scintilla editor
+654320 	Vala: New Class Wizard - created file not added to project
+655295 	Add Target in Vala project does nothing.
+658903 	Anjuta Plugin wizard fails
+654463 	Disable "Install missing packages" button on OpenBSD
+
+Thanks to:
+Akom Chotiphantawanon, Alexander Shopov, Antonio Fernandes C. Neto,
+Arnel A. Borja, Bruce Cowan, Chao-Hsiung Liao, Duarte Loreto, Javier Jardón, 
+Jiro Matsuzawa, Joan Duran, Jorge González, Paul Seyfert, Sébastien Granjoux,
+Yinghua Wang
+
 Anjuta 3.1.91 "On the way to Tokio" (5 September 2011) -- Johannes Schmid
 
 Updates:
