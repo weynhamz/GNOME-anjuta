@@ -7,6 +7,9 @@ anjuta_ui_DATA =  anjuta-debug-manager.xml
 
 schema_in_files = org.gnome.anjuta.debug-manager.gschema.xml.in
 gsettings_SCHEMAS = $(schema_in_files:.gschema.xml.in=.gschema.xml)
+
+.PRECIOUS: $(gsettings_SCHEMAS)
+
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
 
@@ -95,7 +98,6 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
 	$(schema_in_files) \
-	$(schema_DATA) \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA) \
 	$(schema_in_files) \
@@ -103,7 +105,7 @@ EXTRA_DIST = \
 
 DISTCLEANFILES = \
 	$(anjuta_plugin_DATA) \
-	$(schema_DATA)
+	$(gsettings_SCHEMAS)
 
 SUBDIRS = \
 	images 

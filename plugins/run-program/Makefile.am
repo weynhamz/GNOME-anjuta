@@ -13,6 +13,9 @@ anjuta_pixmaps_DATA = \
 
 schema_in_files = org.gnome.anjuta.run.gschema.xml.in
 gsettings_SCHEMAS = $(schema_in_files:.gschema.xml.in=.gschema.xml)
+
+.PRECIOUS: $(gsettings_SCHEMAS)
+
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
 
@@ -53,5 +56,8 @@ EXTRA_DIST = \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA) \
 	$(schema_in_files)
+
+DISTCLEANFILES = \
+	$(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
