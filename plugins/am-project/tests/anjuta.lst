@@ -19,6 +19,8 @@ PROPERTY (URL): http://www.anjuta.org/
         PACKAGE (): libgda-5.0
     MODULE (): VTE
         PACKAGE (): vte-2.90
+    MODULE (): GLIB_NEW
+        PACKAGE (): glib-2.0
     MODULE (): PLUGIN_DEVHELP
         PACKAGE (): libdevhelp-3.0
     MODULE (): PLUGIN_GLADE
