@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2011-09-19 19:50+0000\n"
-"PO-Revision-Date: 2011-09-20 21:11+0100\n"
+"PO-Revision-Date: 2011-09-20 21:22+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -5271,28 +5271,24 @@ msgid ""
 msgstr ""
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
-#, fuzzy
 msgid "No conflicted files selected."
-msgstr "Ni izbrane datoteke."
+msgstr "Ni izbranih datotek v sporu."
 
 #: ../plugins/git/git-stash-changes-pane.c:158
 msgid "Stash Uncommitted Changes"
 msgstr "Založi neuveljavljene spremembe"
 
 #: ../plugins/git/git-status-pane.c:368
-#, fuzzy
 msgid "Changes to be committed"
-msgstr "Spremembe dokumenta \"%s\" bodo trajno izgubljene."
+msgstr "Spremembe pripravljene za uveljavitev"
 
 #: ../plugins/git/git-status-pane.c:377
-#, fuzzy
 msgid "Changed but not updated"
-msgstr "Ime gostitelja '%s' vsebuje '[' vendar ne tudi ']'"
+msgstr "Spremenjeno, vendar ne posodobljeno"
 
 #: ../plugins/git/git-unstage-pane.c:51
-#, fuzzy
 msgid "No staged files selected."
-msgstr "Ni izbrane datoteke."
+msgstr "Ni izbranih datoteke v pripravljenosti."
 
 #: ../plugins/git/plugin.c:65
 msgid "Branch tools"
@@ -5367,7 +5363,7 @@ msgstr "Odjavi datoteke"
 #: ../plugins/git/plugin.c:187
 #, fuzzy
 msgid "Revert changes in unstaged files"
-msgstr "V datotekah ROM so bile zaznane spremembe"
+msgstr "Povrni spremembe"
 
 #: ../plugins/git/plugin.c:194
 msgid "Unstage"
@@ -5375,7 +5371,7 @@ msgstr "Počisti pripravljenost"
 
 #: ../plugins/git/plugin.c:195
 msgid "Remove staged files from the index"
-msgstr "Odstrani datoteke iz določila uveljavitve"
+msgstr "Odstrani datoteke v pripravljenosti iz določila uveljavitve"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
@@ -5474,9 +5470,8 @@ msgid "Save uncommitted changes without committing them"
 msgstr "Shrani neuveljavljene spremembe brez uveljavitve v skladišče"
 
 #: ../plugins/git/plugin.c:322
-#, fuzzy
 msgid "Apply selected stash"
-msgstr "Ni izbrane zaloge."
+msgstr "Uveljavi izbrano zaloge."
 
 #: ../plugins/git/plugin.c:323
 msgid "Apply stashed changes back into the working tree"
@@ -5588,19 +5583,16 @@ msgid "Apply patches from mailbox files"
 msgstr "Uporabi datoteke poštnega predala"
 
 #: ../plugins/git/plugin.c:447
-#, fuzzy
 msgid "Continue applying patches with resolved conflicts"
-msgstr "Nadaljuj z uporabo nizov po razrešitvi sporov"
+msgstr "Nadaljuj z uveljavitvijo nizov popravkov z razrešenimi spori"
 
 #: ../plugins/git/plugin.c:455
-#, fuzzy
 msgid "Skip the current patch in the series"
-msgstr "Preskoči trenutni popravek v nizu in nadaljuj"
+msgstr "Preskoči trenutni popravek v nizu"
 
 #: ../plugins/git/plugin.c:463
-#, fuzzy
 msgid "Stop applying the patch series and return the tree to its previous state"
-msgstr "Zaustavi uporabo nizov in povrni odložišče v prvotno stanje"
+msgstr "Zaustavi uveljavitev nizov popravkov in povrni drevo v prvotno stanje"
 
 #: ../plugins/git/plugin.c:554
 #: ../plugins/git/plugin.c:627
@@ -8501,10 +8493,10 @@ msgstr "%s: ustvarjanje nasledstva ..."
 
 #. Translators: %s is the name of a system library
 #: ../plugins/symbol-db/plugin.c:1038
-#, fuzzy, c-format
+#, c-format
 msgid "%s: %d file scanned out of %d"
 msgid_plural "%s: %d files scanned out of %d"
-msgstr[0] "%s: preiskanih %d od %d datotek"
+msgstr[0] "%s: preučenih %d od %d datotek"
 msgstr[1] "%s: preučenih %d od %d datotek"
 msgstr[2] "%s: preučenih %d od %d datotek"
 msgstr[3] "%s: preučenih %d od %d datotek"
@@ -8515,10 +8507,10 @@ msgid "Generating inheritances…"
 msgstr "Ustvarjanje nasledstva ..."
 
 #: ../plugins/symbol-db/plugin.c:1071
-#, fuzzy, c-format
+#, c-format
 msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
-msgstr[0] "%s: preiskanih %d od %d datotek"
+msgstr[0] "preučenih %d od %d datotek"
 msgstr[1] "preučenih %d od %d datotek"
 msgstr[2] "preučenih %d od %d datotek"
 msgstr[3] "preučenih %d od %d datotek"
