@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2011-09-19 19:50+0000\n"
-"PO-Revision-Date: 2011-09-20 21:22+0100\n"
+"PO-Revision-Date: 2011-09-20 21:44+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -296,7 +296,7 @@ msgstr "Vrednost"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
 msgid "Path that dropped files should be relative to"
-msgstr ""
+msgstr "Relativna pot do spuščenih datotek"
 
 #: ../libanjuta/anjuta-file-list.c:101
 msgid "Drop a file or enter a path here"
@@ -308,7 +308,7 @@ msgstr "Izbor datotek"
 
 #: ../libanjuta/anjuta-file-list.c:540
 msgid "Path that all files in the list should be relative to"
-msgstr ""
+msgstr "Relativna pot do vseh datotek seznama"
 
 #: ../libanjuta/anjuta-file-list.c:547
 msgid "Show Add button"
@@ -326,9 +326,8 @@ msgstr "Pokaži gumb za dodajanje"
 #. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
 #.
 #: ../libanjuta/anjuta-launcher.c:675
-#, fuzzy
 msgid "[Pp]assword.*:"
-msgstr "Datoteke dokumentov passepartout (.pp)"
+msgstr "[Gg]esl.*:"
 
 #: ../libanjuta/anjuta-launcher.c:1165
 #: ../libanjuta/resources.c:267
@@ -3566,14 +3565,12 @@ msgid "Bookmar_k"
 msgstr "_Zaznamek"
 
 #: ../plugins/document-manager/plugin.c:407
-#, fuzzy
 msgid "_Toggle Bookmark"
-msgstr "Preklopi zaznamek"
+msgstr "_Preklopi zaznamek"
 
 #: ../plugins/document-manager/plugin.c:408
-#, fuzzy
 msgid "Toggle bookmark at the current line position"
-msgstr "Dodaj zaznamek na trenutni legi vrstice"
+msgstr "Preklopi zaznamek na trenutnem položaju vrstice"
 
 #: ../plugins/document-manager/plugin.c:410
 msgid "_Previous Bookmark"
@@ -3657,9 +3654,8 @@ msgid "Editor view settings"
 msgstr "Nastavitve pogleda urejevalnika"
 
 #: ../plugins/document-manager/plugin.c:455
-#, fuzzy
 msgid "Toggle search options"
-msgstr "Preklopi iskanje z razlikovanjem velikih in malih črk"
+msgstr "Preklopi možnost iskanja"
 
 #: ../plugins/document-manager/plugin.c:644
 msgid "Reload"
@@ -4220,7 +4216,7 @@ msgid "Unable to parse project file"
 msgstr "Ni mogoče razčleniti datoteke projekta"
 
 #: ../plugins/am-project/am-project.c:1666
-#, fuzzy, c-format
+#, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekt ne obstaja ali pa ni veljavna pot"
 
@@ -4260,7 +4256,7 @@ msgstr "Naslov URL poročila o hrošču:"
 
 #: ../plugins/am-project/am-properties.c:70
 msgid "An email address or a link to a web page where the user can report bug. It is optional."
-msgstr ""
+msgstr "Elektronski naslov ali povezava do spletne strani, kjer lahko uporabnik pošlje poročilo o hrošču. Možnost je izbirna."
 
 #: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
@@ -5488,33 +5484,28 @@ msgid "Apply stashed changes back into the working tree and the index"
 msgstr "Uporabi založene spremembe v delovni različici"
 
 #: ../plugins/git/plugin.c:338
-#, fuzzy
 msgid "Diff selected stash"
-msgstr "Ni izbrane zaloge."
+msgstr "Primerjaj izbrano zalogo"
 
 #: ../plugins/git/plugin.c:339
-#, fuzzy
 msgid "Show a diff of the selected stash"
-msgstr "Pokaži zalogo v zgodovini"
+msgstr "Pokaži primerjavo izbrane zaloge"
 
 #: ../plugins/git/plugin.c:346
-#, fuzzy
 msgid "Drop selected stash"
-msgstr "Ni izbrane zaloge."
+msgstr "Sprosti izbrano zalogo"
 
 #: ../plugins/git/plugin.c:347
-#, fuzzy
 msgid "Delete the selected stash"
-msgstr "Ni izbrane zaloge."
+msgstr "Izbriši izbrano zalogo"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
 msgstr "Počisti vse zaloge"
 
 #: ../plugins/git/plugin.c:355
-#, fuzzy
 msgid "Delete all stashes in this repository"
-msgstr "Izbor celotnega besedila v urejevalniku"
+msgstr "Izbriši vse zaloge v tem skladišču"
 
 #: ../plugins/git/plugin.c:366
 #, fuzzy
@@ -5541,7 +5532,7 @@ msgstr "Združi spremembe iz druge veje v trenutno"
 
 #: ../plugins/git/plugin.c:390
 msgid "Reset/Revert"
-msgstr ""
+msgstr "Počisti/Povrni"
 
 #: ../plugins/git/plugin.c:398
 msgid "Reset tree"
@@ -7144,7 +7135,7 @@ msgstr "Za uporabniški vmesnik uporabi GtkBuilder:"
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
 msgid "Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime"
-msgstr ""
+msgstr "Uporabite GtkBuilder za ustvarjanje grafičnega uporabniškega vmesnika in za nalaganje preko datotek xml med delovanjem."
 
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
