@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2011-09-19 19:50+0000\n"
-"PO-Revision-Date: 2011-09-20 21:44+0100\n"
+"PO-Revision-Date: 2011-09-20 21:59+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -1538,13 +1538,17 @@ msgstr "Modul"
 msgid "Automatic"
 msgstr "Samodejno"
 
+# 1 poizvedba metode (getter)
+# 2 sprememba metode (setter)
 #: ../plugins/class-gen/window.c:795
 msgid "Getter"
-msgstr ""
+msgstr "Pridobilnik metode"
 
+# 1 poizvedba metode (getter)
+# 2 sprememba metode (setter)
 #: ../plugins/class-gen/window.c:796
 msgid "Setter"
-msgstr ""
+msgstr "Spremenilnik metode"
 
 #: ../plugins/class-gen/window.c:1210
 msgid "XML description of the user interface"
@@ -3697,14 +3701,14 @@ msgid "Autosave completed"
 msgstr "Samodejno shranjevanje končano"
 
 #: ../plugins/document-manager/search-box.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached the end and wrapped around."
-msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha."
+msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha navzdol."
 
 #: ../plugins/document-manager/search-box.c:500
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached the end and wrapped around but no new match was found."
-msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha, vendar novih zadetkov ni bilo mogoče najti."
+msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha navzdol, vendar ni najdenih novih zadetkov."
 
 #: ../plugins/document-manager/search-box.c:543
 #, c-format
@@ -3717,14 +3721,14 @@ msgid "Search for \"%s\" reached the end and was continued at the top but no new
 msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha, vendar novih zadetkov ni bilo mogoče najti."
 
 #: ../plugins/document-manager/search-box.c:584
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
-msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha."
+msgstr "Iskanje niza \"%s\" je prišlo do začetka datoteke in se je nadaljevalo od spodaj navzgor."
 
 #: ../plugins/document-manager/search-box.c:590
-#, fuzzy, c-format
+#, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom but no new match was found."
-msgstr "Iskanje niza \"%s\" je prišlo do konca datoteke in se je nadaljevalo z vrha, vendar novih zadetkov ni bilo mogoče najti."
+msgstr "Iskanje niza \"%s\" je prišlo do začetka datoteke in se je nadaljevalo od spodaj navzgor, vendar ni najdenih novih zadetkov."
 
 #: ../plugins/document-manager/search-box.c:985
 msgid "Replace"
@@ -4295,9 +4299,8 @@ msgid "C preprocessor flags:"
 msgstr "Zastavice C predprocesorja:"
 
 #: ../plugins/am-project/am-properties.c:115
-#, fuzzy
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr "Splošne dodatne zastavice kodno strojnega prevajalnika C za vse cilje te skupine."
+msgstr "Splošne dodatne zastavice predopravilnika C za vse cilje te skupine."
 
 #: ../plugins/am-project/am-properties.c:121
 #: ../plugins/am-project/am-properties.c:264
@@ -4373,9 +4376,8 @@ msgid "Lex/Flex flags:"
 msgstr "Zastavice Lex/Flex:"
 
 #: ../plugins/am-project/am-properties.c:178
-#, fuzzy
 msgid "Common additional Lex or Flex lexical analyser generator flags for all targets in this group."
-msgstr "Splošne dodatne zastavice kodno strojnega prevajalnika C za vse cilje te skupine."
+msgstr "Splošne dodatne zastavice kodno strojnega prevajalnika Lex ali Flex za vse cilje te skupine."
 
 #: ../plugins/am-project/am-properties.c:184
 #: ../plugins/am-project/am-properties.c:327
@@ -4385,9 +4387,8 @@ msgid "Yacc/Bison flags:"
 msgstr "Zastavice Yacc/Bison :"
 
 #: ../plugins/am-project/am-properties.c:187
-#, fuzzy
 msgid "Common additional Yacc or Bison parser generator flags for all targets in this group."
-msgstr "Splošne dodatne zastavice kodno strojnega prevajalnika C za vse cilje te skupine."
+msgstr "Splošne dodatne zastavice razčlenjevalnika za vse cilje te skupine."
 
 #: ../plugins/am-project/am-properties.c:193
 msgid "Installation directories:"
@@ -4432,9 +4433,8 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:231
 #: ../plugins/am-project/am-properties.c:415
 #: ../plugins/am-project/am-properties.c:590
-#, fuzzy
 msgid "Additional linker flags for this target."
-msgstr "Dodatne zastavice kodno-strojnega prevajalnika C++ za ta cilj."
+msgstr "Dodatne zastavice povezovalnika za ta cilj."
 
 #: ../plugins/am-project/am-properties.c:237
 msgid "Additional libraries:"
@@ -5517,18 +5517,16 @@ msgid "Show commit diff"
 msgstr "Pokaži primerjave uveljavitve"
 
 #: ../plugins/git/plugin.c:375
-#, fuzzy
 msgid "Show a diff of the selected revision"
-msgstr "Prikaz sprememb za izbrano predelavo"
+msgstr "Pokaži primerjavo za izbrano predelavo"
 
 #: ../plugins/git/plugin.c:382
 msgid "Cherry pick"
 msgstr "Odbiranje"
 
 #: ../plugins/git/plugin.c:383
-#, fuzzy
 msgid "Merge an individual commit from another branch"
-msgstr "Združi spremembe iz druge veje v trenutno"
+msgstr "Združi posamezno uveljavitev iz druge veje"
 
 #: ../plugins/git/plugin.c:390
 msgid "Reset/Revert"
@@ -5556,7 +5554,6 @@ msgstr "Niz popravkov"
 
 #: ../plugins/git/plugin.c:422
 #: ../plugins/git/plugin.c:423
-#, fuzzy
 msgid "Generate a patch series"
 msgstr "Ustvari nize popravkov"
 
@@ -5569,9 +5566,8 @@ msgid "Apply mailbox files"
 msgstr "Uporabi datoteke poštnega predala"
 
 #: ../plugins/git/plugin.c:439
-#, fuzzy
 msgid "Apply patches from mailbox files"
-msgstr "Uporabi datoteke poštnega predala"
+msgstr "Uporabi popravke iz datotek poštnega predala"
 
 #: ../plugins/git/plugin.c:447
 msgid "Continue applying patches with resolved conflicts"
