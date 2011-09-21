@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-09-19 19:50+0000\n"
-"PO-Revision-Date: 2011-09-21 10:09+0100\n"
+"POT-Creation-Date: 2011-09-21 13:36+0000\n"
+"PO-Revision-Date: 2011-09-21 15:40+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -1988,7 +1988,7 @@ msgstr "ccc-preučevalnik:"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
-msgstr ""
+msgstr "Ni mogoče najti preučevalnika clang. Preverite ali je nameščen in ali so določene prave poti do programa v nastavitvah."
 
 #: ../plugins/code-analyzer/plugin.c:226
 #: ../plugins/code-analyzer/plugin.c:234
@@ -4226,7 +4226,7 @@ msgstr "Projekt ne obstaja ali pa ni veljavna pot"
 
 #: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
-msgstr ""
+msgstr "Ime projekta lahko vsebuje tudi presledke na primer 'GNU Autoconf'"
 
 #: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
@@ -4252,7 +4252,7 @@ msgstr "Različica:"
 
 #: ../plugins/am-project/am-properties.c:61
 msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr ""
+msgstr "Različica projekta, običajno je to nekaj števil, ločenih s piko, na primer '1.0.0'."
 
 #: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
@@ -4268,7 +4268,7 @@ msgstr "Ime paketa:"
 
 #: ../plugins/am-project/am-properties.c:79
 msgid "Package name, it can contains only alphanumerics and underscore characters.It is generated from the project name if not provided."
-msgstr ""
+msgstr "Ime paketa lahko vsebuje le črke, številke in vezaj. Ime je samodejno določeno iz imena projekta, če ni navedeno drugače."
 
 #: ../plugins/am-project/am-properties.c:86
 #: ../plugins/git/anjuta-git.ui.h:64
@@ -4427,7 +4427,7 @@ msgstr "Mapa za namestitev:"
 #: ../plugins/am-project/am-properties.c:791
 #: ../plugins/am-project/am-properties.c:866
 msgid "It has to be a standard directory or a custom one defined in group properties."
-msgstr ""
+msgstr "Biti mora običajna mapa ali pa mapa določena po meri med lastnostmi skupine."
 
 #: ../plugins/am-project/am-properties.c:231
 #: ../plugins/am-project/am-properties.c:415
@@ -4555,7 +4555,7 @@ msgstr "Izgradi le za preverjanje:"
 #: ../plugins/am-project/am-properties.c:819
 #: ../plugins/am-project/am-properties.c:893
 msgid "Build this target only when running automatic tests."
-msgstr ""
+msgstr "Izgradi cilj le kadar so zagnani samodejni testi."
 
 #: ../plugins/am-project/am-properties.c:365
 #: ../plugins/am-project/am-properties.c:540
