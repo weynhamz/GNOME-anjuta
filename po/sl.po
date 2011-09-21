@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2011-09-19 19:50+0000\n"
-"PO-Revision-Date: 2011-09-20 21:59+0100\n"
+"PO-Revision-Date: 2011-09-21 10:09+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -4287,9 +4287,8 @@ msgid "Linker flags:"
 msgstr "Zastavice povezovalnika:"
 
 #: ../plugins/am-project/am-properties.c:106
-#, fuzzy
 msgid "Common additional linker flags for all targets in this group."
-msgstr "Splošne dodatne zastavice kodno strojnega prevajalnika C za vse cilje te skupine."
+msgstr "Pogoste dodatne zastavice povezovalnika za vse cilje v tej skupini. "
 
 #: ../plugins/am-project/am-properties.c:112
 #: ../plugins/am-project/am-properties.c:255
@@ -4574,7 +4573,7 @@ msgstr "Ne uporabi predpone:"
 #: ../plugins/am-project/am-properties.c:829
 #: ../plugins/am-project/am-properties.c:902
 msgid "Do not rename the target with an optional prefix, used to avoid overwritting system program. "
-msgstr ""
+msgstr "Ne preimenuj cilja z izbrino predpono. Uporablja se za izogibanje prepisovanja sistemskih programov."
 
 #: ../plugins/am-project/am-properties.c:375
 #: ../plugins/am-project/am-properties.c:550
@@ -4590,7 +4589,7 @@ msgstr "Ohrani ciljno pot:"
 #: ../plugins/am-project/am-properties.c:839
 #: ../plugins/am-project/am-properties.c:911
 msgid "Keep relative target path for installing it. By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
-msgstr ""
+msgstr "Obdrži relativno pot cilja za namestitev. Na primer, če imate nameščeno podmapo/program programa v mapi bin, bo nameščen v bin/podmapa/program in ne v bin/program. "
 
 #: ../plugins/am-project/am-properties.c:421
 #: ../plugins/am-project/am-properties.c:596
@@ -4603,7 +4602,7 @@ msgstr "Ročni oddelek:"
 
 #: ../plugins/am-project/am-properties.c:765
 msgid "Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
-msgstr ""
+msgstr "Odsek, kjer so nameščene strani man. Veljavna imena odsekov so števila od ‘0’ do ‘9’  in črki ‘l’ in ‘n’  "
 
 #: ../plugins/gdb/anjuta-gdb.ui.h:1
 msgid "Available pretty printers"
@@ -4806,7 +4805,6 @@ msgid "Add Files:"
 msgstr "Dodaj datoteke:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
-#, fuzzy
 msgid "Add signed off by line"
 msgstr "Dodaj odpis po vrsticah"
 
@@ -4815,18 +4813,16 @@ msgid "Amend the previous commit"
 msgstr "Izboljšava predhodne uveljavitve"
 
 #: ../plugins/git/anjuta-git.ui.h:4
-#, fuzzy
 msgid "Annotate this tag:"
-msgstr "Podpiši oznako"
+msgstr "Zabeleži to oznako:"
 
 #: ../plugins/git/anjuta-git.ui.h:5
 msgid "Append fetch data"
 msgstr "Pripni prenesene podatke"
 
 #: ../plugins/git/anjuta-git.ui.h:6
-#, fuzzy
 msgid "Append signed-of- by line"
-msgstr "Dodaj podpis"
+msgstr "Pripni odpis po vrstici"
 
 #: ../plugins/git/anjuta-git.ui.h:7
 #: ../plugins/subversion/subversion-log-dialog.c:132
@@ -5060,11 +5056,11 @@ msgstr "Pregled dnevnika za datoteke ali mape:"
 
 #: ../plugins/git/anjuta-git.ui.h:68
 msgid "Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr ""
+msgstr "Celoten projekt, spustite datoteko tukaj ali vpišite pot za ogled dnevnika datoteke ali mape"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr ""
+msgstr "Celoten projekt, spustite datoteko tukaj za ogled dnevnika datoteke ali mape"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
@@ -5265,6 +5261,8 @@ msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
+"Ni izbrane oddaljene veje, zato bo privzeta uporaba izvorne.\n"
+"Za objavo na drugo oddaljeno vejo, jo izberite s seznama oddaljenih vej zgoraj."
 
 #: ../plugins/git/git-resolve-conflicts-pane.c:50
 msgid "No conflicted files selected."
@@ -5357,9 +5355,8 @@ msgid "Check out"
 msgstr "Odjavi datoteke"
 
 #: ../plugins/git/plugin.c:187
-#, fuzzy
 msgid "Revert changes in unstaged files"
-msgstr "Povrni spremembe"
+msgstr "Povrni spremembe med datotekami počiščenimi pripravljenosti"
 
 #: ../plugins/git/plugin.c:194
 msgid "Unstage"
@@ -5374,9 +5371,8 @@ msgid "Resolve conflicts"
 msgstr "Razreši spore"
 
 #: ../plugins/git/plugin.c:203
-#, fuzzy
 msgid "Mark selected conflicted files as resolved"
-msgstr "Izbor datotek za oznako razrešeno:"
+msgstr "Označi izbrane datoteke v sporu kot razrešene"
 
 #: ../plugins/git/plugin.c:214
 msgid "Remote repository tools"
@@ -5403,9 +5399,8 @@ msgid "Push changes to a remote repository"
 msgstr "Objavi spremembe v oddaljeno skladišče"
 
 #: ../plugins/git/plugin.c:247
-#, fuzzy
 msgid "Pull changes from a remote repository"
-msgstr "Objavi spremembe v oddaljeno skladišče"
+msgstr "Sprejmi spremembe iz oddaljenega odložišča"
 
 #: ../plugins/git/plugin.c:254
 msgid "Fetch"
@@ -5416,13 +5411,12 @@ msgid "Fetch changes from remote repositories"
 msgstr "Pridobivanje sprememb iz oddaljenih skladišč"
 
 #: ../plugins/git/plugin.c:270
-#, fuzzy
 msgid "Rebase against selected remote"
-msgstr "Krajevna različica napram drugi oddaljeni različici"
+msgstr "Postavi izhodišče glede na izbran oddaljen vir"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
-msgstr ""
+msgstr "Začni opravilo postavljanja izhodišča relativno na izbrano oddaljeno odložišče"
 
 #: ../plugins/git/plugin.c:278
 #: ../plugins/git/plugin.c:446
@@ -5430,9 +5424,8 @@ msgid "Continue"
 msgstr "Nadaljuj"
 
 #: ../plugins/git/plugin.c:279
-#, fuzzy
 msgid "Continue a rebase with resolved conflicts"
-msgstr "Nadaljuj z vzpostavljanjem izhodišča, ki je bil prekinjen zaradi sporov"
+msgstr "Nadaljuj s postavljanjem izhodišča z razrešenimi spori"
 
 #: ../plugins/git/plugin.c:286
 #: ../plugins/git/plugin.c:454
@@ -5449,9 +5442,8 @@ msgid "Abort"
 msgstr "Prekini"
 
 #: ../plugins/git/plugin.c:295
-#, fuzzy
 msgid "Abort the rebase and return the repository to its previous state"
-msgstr "Prekini vzpostavljanje izhodišča in postavi skladišče v prvotno stanje"
+msgstr "Prekini postavljanje izhodišča in postavi skladišče v prvotno stanje"
 
 #: ../plugins/git/plugin.c:306
 msgid "Stash tools"
@@ -5474,14 +5466,12 @@ msgid "Apply stashed changes back into the working tree"
 msgstr "Uporabi založene spremembe nazaj v delovno različici"
 
 #: ../plugins/git/plugin.c:330
-#, fuzzy
 msgid "Apply stash and restore index"
-msgstr "Uporabi založene spremembe v delovni različici"
+msgstr "Uporabi zalogo in obnovi kazalo"
 
 #: ../plugins/git/plugin.c:331
-#, fuzzy
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Uporabi založene spremembe v delovni različici"
+msgstr "Uveljavi založene spremembe nazaj v delovno drevo in kazalo"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5508,9 +5498,8 @@ msgid "Delete all stashes in this repository"
 msgstr "Izbriši vse zaloge v tem skladišču"
 
 #: ../plugins/git/plugin.c:366
-#, fuzzy
 msgid "Revision tools"
-msgstr "Orodja za delo z vejami"
+msgstr "Orodja predelav"
 
 #: ../plugins/git/plugin.c:374
 msgid "Show commit diff"
