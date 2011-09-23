@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta doc\n"
-"POT-Creation-Date: 2011-08-28 10:09+0000\n"
-"PO-Revision-Date: 2011-09-01 13:12+0100\n"
+"POT-Creation-Date: 2011-09-05 17:40+0000\n"
+"PO-Revision-Date: 2011-09-23 23:06+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,51 +28,62 @@ msgstr ""
 msgid "All windows and dialogs."
 msgstr "Alle Fenster und Dialoge."
 
-#: C/widget-index.page:11(name) C/project-wizard-template.page:13(name)
-#: C/project-wizard-create.page:14(name) C/project-manager.page:11(name)
+#: C/widget-index.page:11(name) C/run-run.page:15(name)
+#: C/run-parameters-dialog.page:15(name)
+#: C/project-wizard-template.page:13(name)
+#: C/project-wizard-create.page:14(name) C/project-manager-target.page:14(name)
+#: C/project-manager.page:11(name) C/project-manager-package.page:13(name)
 #: C/project-manager-module.page:15(name)
 #: C/project-manager-library.page:12(name) C/project-manager-file.page:15(name)
-#: C/directory-project-backend.page:12(name)
+#: C/project-import.page:15(name) C/makefile-project-backend.page:12(name)
+#: C/directory-project-backend.page:12(name) C/debug-watch.page:13(name)
+#: C/debug-tips.page:13(name) C/debug-thread.page:13(name)
+#: C/debug-step.page:13(name) C/debug-stack.page:13(name)
+#: C/debug-run.page:15(name) C/debug-process-dialog.page:13(name)
+#: C/debug-local.page:13(name) C/debug-information.page:13(name)
+#: C/debug-expression.page:13(name) C/debug-execute.page:13(name)
+#: C/debug-data.page:13(name) C/debug-custom.page:13(name)
+#: C/debug-cpu.page:13(name) C/debug-breakpoint.page:13(name)
+#: C/debug-breakpoint-dialog.page:14(name)
 #: C/autotools-build-preferences-dialog.page:14(name)
 #: C/autotools-build-plugin.page:12(name)
 #: C/autotools-build-install.page:15(name)
+#: C/autotools-build-distribute.page:15(name)
+#: C/autotools-build-configure.page:15(name)
 #: C/autotools-build-configure-dialog.page:15(name)
 #: C/autotools-build-compile.page:15(name)
 #: C/autotools-build-clean.page:15(name) C/autotools-build-build.page:15(name)
-#: C/run-parameters-dialog.page:15(name) C/run-run.page:15(name)
-#: C/debug-watch.page:13(name) C/debug-tips.page:13(name)
-#: C/debug-thread.page:13(name) C/debug-step.page:13(name)
-#: C/debug-stack.page:13(name) C/debug-run.page:15(name)
-#: C/debug-process-dialog.page:13(name) C/debug-local.page:13(name)
-#: C/debug-information.page:13(name) C/debug-expression.page:13(name)
-#: C/debug-execute.page:13(name) C/debug-data.page:13(name)
-#: C/debug-custom.page:13(name) C/debug-cpu.page:13(name)
-#: C/debug-breakpoint.page:13(name) C/debug-breakpoint-dialog.page:14(name)
 msgid "Sébastien Granjoux"
 msgstr "Sébastien Granjoux"
 
-#: C/widget-index.page:12(email) C/project-wizard-template.page:14(email)
-#: C/project-wizard-create.page:15(email) C/project-manager.page:12(email)
+#: C/widget-index.page:12(email) C/run-run.page:16(email)
+#: C/run-parameters-dialog.page:16(email)
+#: C/project-wizard-template.page:14(email)
+#: C/project-wizard-create.page:15(email)
+#: C/project-manager-target.page:15(email) C/project-manager.page:12(email)
+#: C/project-manager-package.page:14(email)
 #: C/project-manager-module.page:16(email)
 #: C/project-manager-library.page:13(email)
-#: C/project-manager-file.page:16(email)
-#: C/directory-project-backend.page:13(email)
+#: C/project-manager-file.page:16(email) C/project-import.page:16(email)
+#: C/makefile-project-backend.page:13(email)
+#: C/directory-project-backend.page:13(email) C/debug-watch.page:14(email)
+#: C/debug-tips.page:14(email) C/debug-thread.page:14(email)
+#: C/debug-step.page:14(email) C/debug-stack.page:14(email)
+#: C/debug-run.page:16(email) C/debug-process-dialog.page:14(email)
+#: C/debug-local.page:14(email) C/debug-information.page:14(email)
+#: C/debug-expression.page:14(email) C/debug-execute.page:14(email)
+#: C/debug-data.page:14(email) C/debug-custom.page:14(email)
+#: C/debug-cpu.page:14(email) C/debug-breakpoint.page:14(email)
+#: C/debug-breakpoint-dialog.page:15(email)
 #: C/autotools-build-preferences-dialog.page:15(email)
 #: C/autotools-build-plugin.page:13(email)
 #: C/autotools-build-install.page:16(email)
+#: C/autotools-build-distribute.page:16(email)
+#: C/autotools-build-configure.page:16(email)
 #: C/autotools-build-configure-dialog.page:16(email)
 #: C/autotools-build-compile.page:16(email)
 #: C/autotools-build-clean.page:16(email)
 #: C/autotools-build-build.page:16(email)
-#: C/run-parameters-dialog.page:16(email) C/run-run.page:16(email)
-#: C/debug-watch.page:14(email) C/debug-tips.page:14(email)
-#: C/debug-thread.page:14(email) C/debug-step.page:14(email)
-#: C/debug-stack.page:14(email) C/debug-run.page:16(email)
-#: C/debug-process-dialog.page:14(email) C/debug-local.page:14(email)
-#: C/debug-information.page:14(email) C/debug-expression.page:14(email)
-#: C/debug-execute.page:14(email) C/debug-data.page:14(email)
-#: C/debug-custom.page:14(email) C/debug-cpu.page:14(email)
-#: C/debug-breakpoint.page:14(email) C/debug-breakpoint-dialog.page:15(email)
 msgid "seb.sfo@free.fr"
 msgstr "seb.sfo@free.fr"
 
@@ -80,17 +91,17 @@ msgstr "seb.sfo@free.fr"
 msgid "Windows and dialogs"
 msgstr "Fenster und Dialoge"
 
-#: C/project-wizard-template.page:9(desc)
-#, fuzzy
-msgid "Project wizard template."
-msgstr "Vorlage für Optionen-Ordner"
+#: C/run-run.page:11(desc)
+msgid "Start a program without the debugger."
+msgstr "Ein Programm ohne Debugger ausführen."
 
-#: C/project-wizard-template.page:17(name)
-#: C/project-wizard-create.page:18(name) C/project-manager.page:15(name)
+#: C/run-run.page:19(name) C/project-wizard-template.page:17(name)
+#: C/project-wizard-create.page:18(name) C/project-manager-target.page:18(name)
+#: C/project-manager.page:15(name) C/project-manager-package.page:17(name)
 #: C/project-manager-module.page:19(name)
 #: C/project-manager-library.page:16(name) C/project-manager-file.page:19(name)
-#: C/directory-project-backend.page:16(name)
-#: C/autotools-build-build.page:19(name) C/run-run.page:19(name)
+#: C/project-import.page:19(name) C/makefile-project-backend.page:16(name)
+#: C/full-index.page:11(name) C/directory-project-backend.page:16(name)
 #: C/debug-watch.page:17(name) C/debug-tips.page:17(name)
 #: C/debug-thread.page:17(name) C/debug-step.page:17(name)
 #: C/debug-stack.page:17(name) C/debug-run.page:19(name)
@@ -98,30 +109,165 @@ msgstr "Vorlage für Optionen-Ordner"
 #: C/debug-information.page:17(name) C/debug-expression.page:17(name)
 #: C/debug-custom.page:17(name) C/debug-cpu.page:17(name)
 #: C/debug-breakpoint.page:17(name) C/debug-breakpoint-dialog.page:18(name)
+#: C/autotools-build-build.page:19(name)
 msgid "Philip Chimento"
 msgstr "Philip Chimento"
 
-#: C/project-wizard-template.page:18(email)
-#: C/project-wizard-create.page:19(email) C/project-manager.page:16(email)
+#: C/run-run.page:20(email) C/project-wizard-template.page:18(email)
+#: C/project-wizard-create.page:19(email)
+#: C/project-manager-target.page:19(email) C/project-manager.page:16(email)
+#: C/project-manager-package.page:18(email)
 #: C/project-manager-module.page:20(email)
 #: C/project-manager-library.page:17(email)
-#: C/project-manager-file.page:20(email)
-#: C/directory-project-backend.page:17(email)
-#: C/autotools-build-build.page:20(email) C/run-run.page:20(email)
-#: C/debug-watch.page:18(email) C/debug-tips.page:18(email)
-#: C/debug-thread.page:18(email) C/debug-step.page:18(email)
-#: C/debug-stack.page:18(email) C/debug-run.page:20(email)
-#: C/debug-process-dialog.page:18(email) C/debug-local.page:18(email)
-#: C/debug-information.page:18(email) C/debug-expression.page:18(email)
-#: C/debug-custom.page:18(email) C/debug-cpu.page:18(email)
-#: C/debug-breakpoint.page:18(email) C/debug-breakpoint-dialog.page:19(email)
+#: C/project-manager-file.page:20(email) C/project-import.page:20(email)
+#: C/makefile-project-backend.page:17(email) C/full-index.page:12(email)
+#: C/directory-project-backend.page:17(email) C/debug-watch.page:18(email)
+#: C/debug-tips.page:18(email) C/debug-thread.page:18(email)
+#: C/debug-step.page:18(email) C/debug-stack.page:18(email)
+#: C/debug-run.page:20(email) C/debug-process-dialog.page:18(email)
+#: C/debug-local.page:18(email) C/debug-information.page:18(email)
+#: C/debug-expression.page:18(email) C/debug-custom.page:18(email)
+#: C/debug-cpu.page:18(email) C/debug-breakpoint.page:18(email)
+#: C/debug-breakpoint-dialog.page:19(email)
+#: C/autotools-build-build.page:20(email)
 msgid "philip.chimento@gmail.com"
 msgstr "philip.chimento@gmail.com"
 
+#: C/run-run.page:24(title)
+msgid "Run a program"
+msgstr "Ein Programm ausführen"
+
+#: C/run-run.page:26(p)
+msgid ""
+"If <app>Anjuta</app> is used to start a program it checks that it is up to "
+"date and builds it if needed."
+msgstr ""
+
+#: C/run-run.page:31(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
+"guiseq> or press <key>F3</key> to execute the current program."
+msgstr ""
+
+#: C/run-run.page:37(p)
+msgid ""
+"The current program and several parameters can be set on the <gui>parameter</"
+"gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
+msgstr ""
+
+#: C/run-run.page:42(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
+"Parameters...</gui></guiseq> to display the dialog."
+msgstr ""
+
+#: C/run-run.page:49(p)
+msgid ""
+"If your program needs data files, you probably have to install it at least "
+"one time before running it. See <link xref=\"autotools-build-install\"/> for "
+"more information."
+msgstr ""
+
+#: C/run-parameters-dialog.page:11(desc)
+msgid "Run parameters dialog"
+msgstr "Ausführungsparameter-Dialog"
+
+#: C/run-parameters-dialog.page:20(title)
+msgid "Run Parameters Dialog"
+msgstr "Ausführungsparameter-Dialog"
+
+#: C/run-parameters-dialog.page:22(p)
+msgid ""
+"The <gui>run parameter</gui> dialog allows you to define the current program "
+"and several parameters."
+msgstr ""
+
+#: C/run-parameters-dialog.page:27(gui)
+msgid "Program"
+msgstr "Programm"
+
+#: C/run-parameters-dialog.page:28(p)
+msgid ""
+"This is the program that will be executed if you run a program with or "
+"without the debugger. The drop-down list allows you to select programs "
+"created by the current project, but you can click on the <gui>Browse</gui> "
+"button to choose any other program."
+msgstr ""
+
+#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
+msgid "Arguments"
+msgstr "Argumente"
+
+#: C/run-parameters-dialog.page:35(p)
+msgid ""
+"These are the command line arguments used by your program. The drop-down list "
+"keeps an history of the last arguments used."
+msgstr ""
+"Dies sind Befehlszeilenargumente, die von Ihrem Programm verwendet werden. "
+"Die Auswahlliste enthält eine Chronik der zuletzt verwendeten Argumente."
+
+#: C/run-parameters-dialog.page:40(gui)
+msgid "Working Directory"
+msgstr "Arbeitsordner"
+
+#: C/run-parameters-dialog.page:41(p)
+msgid ""
+"The working directory is the current directory when your program will be run."
+msgstr ""
+"Der Arbeitsordner ist der aktuelle Ordner bei der Ausführung Ihres Programms."
+
+#: C/run-parameters-dialog.page:45(gui)
+msgid "Environment Variables"
+msgstr "Umgebungsvariablen"
+
+#: C/run-parameters-dialog.page:46(p)
+msgid ""
+"You can click on the drop-down section, to display all environment variables "
+"those will be accessible by your program. By default, it includes all the "
+"current environment variables, they are display in light gray."
+msgstr ""
+
+#: C/run-parameters-dialog.page:50(p)
+msgid ""
+"You can click on the <gui>New</gui> button to add a new environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:52(p)
+msgid ""
+"You can click on the <gui>Edit</gui> button to change the value of the "
+"selected environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:54(p)
+msgid ""
+"You can click on the <gui>Delete</gui> button to remove the selected "
+"environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:56(p)
+msgid ""
+"When a variable has not the same value than in the current environment, it is "
+"displayed in black."
+msgstr ""
+
+#: C/run-parameters-dialog.page:60(gui)
+msgid "Run in Terminal"
+msgstr "Im Terminal ausführen"
+
+#: C/run-parameters-dialog.page:61(p)
+msgid ""
+"This has to be checked to run the program in a terminal allowing you to "
+"provide inputs and see its outputs using the standard Unix streams. It is not "
+"necessary for programs having a graphical interface."
+msgstr ""
+
+#: C/project-wizard-template.page:9(desc)
+msgid "Project wizard template."
+msgstr ""
+
 #: C/project-wizard-template.page:22(title)
-#, fuzzy
 msgid "Project wizard template"
-msgstr "Vorlage für Optionen-Ordner"
+msgstr ""
 
 #: C/project-wizard-template.page:24(p)
 msgid ""
@@ -238,6 +384,86 @@ msgstr ""
 "bereits verschiedene Vorlagen mit, aber Sie können auch benutzerdefinierte "
 "hinzufügen oder Ihre eigenen Vorlagen schreiben."
 
+#: C/project-manager-target.page:10(desc)
+msgid "Add or remove a target from a project."
+msgstr "Ein Ziel zum Projekt hinzufügen oder daraus entfernen."
+
+#: C/project-manager-target.page:23(title)
+msgid "Add or remove targets"
+msgstr "Ziele hinzufügen oder entfernen"
+
+#: C/project-manager-target.page:25(p)
+msgid ""
+"If the project backend supports it, you can add or remove targets in your "
+"project without editing the project file. A target groups files together. It "
+"is typically used to represent a program, with all its source files as its "
+"children."
+msgstr ""
+"Falls das Projekt-Backend dies unterstützt, können Sie Ziele zu Ihrem Projekt "
+"hinzufügen oder daraus entfernen, ohne die Projektdatei bearbeiten zu müssen. "
+"Ein Ziel fasst Dateien zusammen. Es repräsentiert typischerweise ein Programm "
+"mit allen Quelldateien und deren Unterdateien."
+
+#: C/project-manager-target.page:33(title)
+msgid "Add a target"
+msgstr "Ein Ziel hinzufügen"
+
+#: C/project-manager-target.page:37(p)
+msgid ""
+"Select the directory where you want to add the new target in the <gui>project "
+"view</gui>, click on the right mouse button to make the <gui>project context "
+"menu</gui> appear and select <gui>New Target</gui>."
+msgstr ""
+
+#: C/project-manager-target.page:43(p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
+"Target...</gui></guiseq>"
+msgstr ""
+"Oder wählen Sie im <gui>Hauptmenü</gui> den Eintrag <guiseq><gui>Projekt</"
+"gui><gui>Neues Ziel …</gui></guiseq>."
+
+#: C/project-manager-target.page:49(p)
+msgid ""
+"You can select another directory in the bottom <gui>directory tree view</gui>."
+msgstr ""
+
+#: C/project-manager-target.page:52(p)
+msgid ""
+"Enter a target name and select the type of the target in the drop-down list "
+"below. Depending on your project backend, various types of target are "
+"possible."
+msgstr ""
+
+#: C/project-manager-target.page:58(p)
+msgid ""
+"Target names are typically restricted to letters, digits and the underscore, "
+"so it's safer to avoid other characters."
+msgstr ""
+
+#: C/project-manager-target.page:65(p)
+msgid ""
+"When you have chosen the target name, type and parent, click on the <gui>Add</"
+"gui> button to create this new target."
+msgstr ""
+
+#: C/project-manager-target.page:75(title)
+msgid "Remove a target"
+msgstr "Ein Ziel entfernen"
+
+#: C/project-manager-target.page:79(p)
+msgid ""
+"Select the target you want to remove in the <gui>project view</gui>, click on "
+"the right mouse button to make the <gui>project context menu</gui> appear and "
+"select <gui>Remove</gui>."
+msgstr ""
+
+#: C/project-manager-target.page:87(p)
+msgid ""
+"Confirm the removal. The target and all its properties will be removed from "
+"the project file. All its files stay untouched on your hard disk."
+msgstr ""
+
 #. Include page in index
 #: C/project-manager.page:7(desc)
 msgid "Project manager."
@@ -266,9 +492,82 @@ msgstr ""
 "Funktionen deaktiviert sein."
 
 #: C/project-manager.page:34(title)
-#, fuzzy
 msgid "Project Backend Plugin"
-msgstr "Python-Plugin ausführen"
+msgstr ""
+
+#: C/project-manager-package.page:9(desc)
+msgid "Add or remove packaged libraries from a target."
+msgstr ""
+"Paketierte Bibliotheken zu einem Projekt hinzufügen oder daraus entfernen."
+
+#: C/project-manager-package.page:22(title)
+msgid "Add or remove packaged libraries"
+msgstr "Paketierte Bibliotheken hinzufügen oder entfernen"
+
+#: C/project-manager-package.page:24(p)
+msgid ""
+"When you have created a module containing one or more libraries, you can add "
+"it to a target."
+msgstr ""
+
+#: C/project-manager-package.page:30(title)
+msgid "Add a packaged library to a target"
+msgstr "Eine paketierte Bibliothek zu einem Ziel hinzufügen"
+
+#: C/project-manager-package.page:32(p)
+msgid ""
+"Libraries cannot be added directly to a target. You need to put them into a "
+"module first and add this module to the target."
+msgstr ""
+"Eine Bibliothek kann nicht direkt zu Ihrem Programm hinzugefügt werden. "
+"Zunächst müssen Sie ein Modul dafür erstellen, welches aus einer Gruppe von "
+"Bibliotheken besteht und dieses Modul zum Ziel hinzufügen."
+
+#: C/project-manager-package.page:39(p)
+msgid ""
+"Select the program where you want to add the new library in the <gui>project "
+"view</gui>, click on the right mouse button to make the <gui>project context "
+"menu</gui> appear and select <gui>Add Library</gui>."
+msgstr ""
+
+#: C/project-manager-package.page:45(p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
+"Library...</gui></guiseq>"
+msgstr ""
+"Oder wählen Sie im <gui>Hauptmenü</gui> den Eintrag <guiseq><gui>Projekt</"
+"gui><gui>Bibliothek hinzufügen …</gui></guiseq>"
+
+#: C/project-manager-package.page:51(p)
+msgid ""
+"You need to select the target where you want to add the module in the "
+"<gui>target view</gui> above, and select the module that you want to add in "
+"the <gui>module view</gui> below. If you select a library inside a module, "
+"the parent module will be added."
+msgstr ""
+
+#: C/project-manager-package.page:57(p)
+msgid "When you are done, click on the <gui>Add</gui> button to add the module."
+msgstr ""
+"Sobald Sie fertig sind, klicken Sie auf den Knopf <gui>Hinzufügen</gui>, um "
+"das Modul hinzuzufügen."
+
+#: C/project-manager-package.page:66(title)
+msgid "Remove a packaged library from a target"
+msgstr "Eine paketierte Bibliothek aus einem Ziel entfernen"
+
+#: C/project-manager-package.page:70(p)
+msgid ""
+"Select the library you want to remove in the <gui>project view</gui>, click "
+"on the right mouse button to make the <gui>project context menu</gui> appear, "
+"and select <gui>Remove</gui>."
+msgstr ""
+
+#: C/project-manager-package.page:78(p)
+msgid "Confirm the removal. This library will be removed from the target."
+msgstr ""
+"Ein Bestätigungsdialog wird geöffnet, und die Bibliothek wird aus dem Ziel "
+"entfernt."
 
 #: C/project-manager-module.page:11(desc)
 msgid "Add or remove libraries from a project."
@@ -381,11 +680,10 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-module.page:136(p)
-#, fuzzy
 msgid "Confirm the removal. This library will be removed from the project file."
 msgstr ""
-"Ein Bestätigungsdialog wird geöffnet, und die Datei wird aus dem Projekt "
-"entfernt."
+"Ein Bestätigungsdialog wird geöffnet, und die Bibliothek wird aus der "
+"Projektdatei entfernt."
 
 #: C/project-manager-library.page:8(desc)
 msgid "Add or remove non-packaged libraries from a project."
@@ -563,23 +861,192 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-file.page:96(p)
-#, fuzzy
 msgid ""
 "Confirm the removal. The file will only be removed from the project, not from "
 "your disk."
 msgstr ""
-"Ein Bestätigungsdialog wird geöffnet, und die Datei wird aus dem Projekt "
-"entfernt."
+"Ein Bestätigungsdialog wird geöffnet, und die Datei wird nur aus dem Projekt "
+"entfernt, nicht von Ihrer Festplatte."
+
+#: C/project-import.page:11(desc)
+msgid "Import an existing project."
+msgstr "Ein bereits existierendes Projekt importieren."
+
+#: C/project-import.page:24(title)
+msgid "Import a project"
+msgstr "Ein Projekt importieren"
+
+#: C/project-import.page:26(p)
+msgid ""
+"<app>Anjuta</app> does not have its own project format. It loads projects "
+"using already existing formats, like makefile or autotools, and does not "
+"require that other developers use it. Anjuta's own settings are stored in a "
+"file with the <file>.anjuta</file> extension and a hidden directory created "
+"in the project directory. To use a project in <app>Anjuta</app> and create "
+"these settings files, you will need to import the project. This will not "
+"modify any project files."
+msgstr ""
+
+#: C/project-import.page:38(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
+"gui><gui>Project from Existing Sources</gui></guiseq> or <gui>Project from "
+"Existing Sources</gui> from the drop-down list of the <gui>New</gui> button "
+"in the <gui>top tool bar</gui> to start the project wizard."
+msgstr ""
+
+#: C/project-import.page:47(p)
+msgid ""
+"Select <gui>Import from folder</gui> if the project is already present on "
+"your computer, then select the project directory."
+msgstr ""
+
+#: C/project-import.page:51(p)
+msgid ""
+"Or Select <gui>Import from version control system</gui> if the project needs "
+"to be checked out from a server. Then select the version control system, the "
+"server address and the destination directory on your computer."
+msgstr ""
+
+#: C/project-import.page:59(p)
+msgid ""
+"After selecting an existing project, the <gui>Project name</gui> text box "
+"should be filled with the name of the project's directory, but you can change "
+"it. When it's done, click on the <gui>Import</gui> button to download the "
+"project if needed and create the files needed by <app>Anjuta</app>."
+msgstr ""
+
+#: C/project-import.page:68(p)
+msgid ""
+"<app>Anjuta</app> tries to automatically find the project backend used by "
+"your project. But if several backends are possible, you will get a dialog "
+"asking you to choose a project backend plugin. Read the project backend "
+"description to find out which one to choose."
+msgstr ""
+
+#: C/makefile-project-backend.page:8(desc)
+msgid "Makefile project backend."
+msgstr ""
+
+#: C/makefile-project-backend.page:21(title)
+msgid "Makefile project backend plugin"
+msgstr ""
+
+#: C/makefile-project-backend.page:23(p)
+msgid ""
+"A makefile is probably the most common way to build software on all kinds of "
+"platforms. A makefile contains a list or rules describing which commands have "
+"to be run in order to generate a target from a list of dependencies. When "
+"building a program, the target is an object file and the dependencies are the "
+"source files. The target of one rule can be a dependency of another one, "
+"allowing several rules to be chained in order to make a final target."
+msgstr ""
+
+#: C/makefile-project-backend.page:33(p)
+msgid ""
+"It is a low-level, general tool, making it difficult to find all source files "
+"and targets of a project. So <app>Anjuta</app> has limited support for "
+"makefiles, reading only one makefile in the top project directory and "
+"extracting source files and targets."
+msgstr ""
+
+#: C/makefile-project-backend.page:42(p)
+msgid ""
+"If the project backend is not able to find all the source files, you can try "
+"to use the directory backend instead. It does not recognize any targets but "
+"should get all source files."
+msgstr ""
+
+#: C/makefile-project-backend.page:49(p)
+msgid ""
+"Changing properties, or adding or removing targets and source files are "
+"disabled with this backend, as automatically editing the makefile is not "
+"implemented. It has to be changed by hand using the text editor. When the "
+"makefile is saved, it is automatically reloaded though."
+msgstr ""
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/introduction.page:53(None)
+msgid ""
+"@@image: 'figures/anjuta-in-action.png'; md5=a31f1c85a4a14032fcd30ab6f6d6b3c0"
+msgstr ""
+
+#. Include page in index
+#: C/introduction.page:7(title) C/introduction.page:12(title)
+msgid "Introduction"
+msgstr "Einführung"
+
+#: C/introduction.page:8(desc)
+msgid "Introduction to <app>Anjuta</app> Integrated Development Environment"
+msgstr "Einführung in die integrierte Entwicklungsumgebung <app>Anjuta</app>"
+
+#: C/introduction.page:14(p)
+msgid ""
+"<app>Anjuta</app> is a versatile Integrated Development Environment (IDE) for "
+"the GNOME desktop. It features a number of advanced programming facilities "
+"including project management, application wizards, interactive debugging, "
+"integrated Glade UI designer, integrated Devhelp API help, class generator, "
+"powerful source editor, symbols browsing, Git support, C/C++, Python and Vala "
+"support and more."
+msgstr ""
+
+#: C/introduction.page:23(p)
+msgid ""
+"<app>Anjuta</app> has a flexible and advanced docking system that allows you "
+"to lay out all the views in whatever way you like. You can drag and drop the "
+"views using drag bars and rearrange the layout."
+msgstr ""
+
+#: C/introduction.page:29(p)
+msgid ""
+"<app>Anjuta</app> has been designed to be simple to operate yet powerful "
+"enough to fulfill all your programming needs. We have added many new features "
+"to <app>Anjuta</app> over the course of its development. Our focus is on "
+"delivering power and usability at the same time and making your software "
+"development enjoyable without overloading your senses. We intend to continue "
+"improving and stabilizing <app>Anjuta</app> to give you the best IDE "
+"experience possible."
+msgstr ""
+
+#: C/introduction.page:39(p)
+msgid ""
+"We hope you will have a good time using <app>Anjuta</app>. If not, please "
+"help us make it better by reporting bugs and suggestions - this will help to "
+"improve the software, as well as helping the open source community."
+msgstr ""
+
+#: C/introduction.page:45(p)
+msgid ""
+"The following screenshot illustrates some of the things you will find in "
+"<app>Anjuta</app>."
+msgstr ""
+"Das folgende Bildschirmfoto zeigt einige Dinge, die Sie in <app>Anjuta</app> "
+"finden werden."
+
+#: C/introduction.page:51(title)
+msgid "<app>Anjuta</app> in action"
+msgstr "<app>Anjuta</app> in Aktion"
+
+#: C/introduction.page:52(desc) C/introduction.page:54(p)
+msgid "<app>Anjuta</app> main window"
+msgstr "<app>Anjuta</app>-Hauptfenster"
+
+#: C/full-index.page:8(desc)
+msgid "All help topics."
+msgstr "Alle Hilfethemen."
+
+#: C/full-index.page:16(title)
+msgid "Index"
+msgstr "Index"
 
 #: C/directory-project-backend.page:8(desc)
-#, fuzzy
 msgid "Directory project backend."
-msgstr "Aus dem Projektordner"
+msgstr ""
 
 #: C/directory-project-backend.page:21(title)
-#, fuzzy
 msgid "Directory project backend plugin"
-msgstr "Ordnerinhalt anzeigen (mit Plugin)"
+msgstr ""
 
 #: C/directory-project-backend.page:23(p)
 msgid ""
@@ -603,625 +1070,9 @@ msgid ""
 "right extension, it will be added automatically."
 msgstr ""
 
-#: C/autotools-build-preferences-dialog.page:10(desc)
-msgid "Autotools build preferences dialog."
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:19(title)
-msgid "Autotools Build Preferences Dialog"
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:21(p)
-msgid "The dialog allows you to set global options for building files."
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:27(gui)
-msgid "Run several commands at a time"
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:28(p)
-msgid ""
-"<app>make</app> is able to run several compilations at the same time. It "
-"decrease the build time when having a multi-core processor but could trigger "
-"some issues so this can be enabled or disabled with this check box."
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:33(gui)
-msgid "Continue on errors"
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:34(p)
-msgid ""
-"By default <app>make</app> stops as soon as it gets an error, it can be "
-"faster to continue and get errors for all files in one step. You have to "
-"check this check box to get this behavior."
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:39(gui)
-msgid "Translate messages"
-msgstr "Meldungen übersetzen"
-
-#: C/autotools-build-preferences-dialog.page:40(p)
-msgid ""
-"By default errors and warnings message are translated. It has two drawbacks "
-"though. In order to recognize errors and warnings the translation of "
-"<app>Anjuta</app> and the compiler should perfectly match. Moreover, it is "
-"often more difficult to find help on internet when searching translated "
-"messages as they are much less common. Unchecking this check box allows to "
-"disable translation."
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:48(gui)
-msgid "Highlight build warnings and errors in editor"
-msgstr ""
-
-#: C/autotools-build-preferences-dialog.page:49(p)
-msgid ""
-"Errors and warnings during the build are displayed and highlighted in the "
-"message window. By checking this option, they are higlighted in the editor "
-"too."
-msgstr ""
-"Fehlermeldungen und Warnungen während des Erstellungsvorgangs werden im "
-"Meldungsfenster angezeigt und hervorgehoben. Wenn Sie diese Option "
-"aktivieren, geschieht dies auch im Editorfenster."
-
-#: C/autotools-build-preferences-dialog.page:54(gui)
-msgid "Install as root"
-msgstr "Mit Administratorrechten installieren"
-
-#: C/autotools-build-preferences-dialog.page:55(p)
-msgid ""
-"Installing a program needs to copy files in system directory which are often "
-"not writable by the user. If this check box is checked, you can choose to use "
-"<cmd>sudo</cmd> or <cmd>su</cmd> before installing the files to acquire "
-"enough right to do it."
-msgstr ""
-
-#: C/autotools-build-plugin.page:8(desc)
-#: C/autotools-build-plugin.page:17(title)
-msgid "Autotools build plugin"
-msgstr "Autotools-Erstellungs-Plugin"
-
-#: C/autotools-build-plugin.page:19(p)
-msgid ""
-"This plugin is targeted at autotools projects but as they use make it is "
-"useful for other kind of projects using make."
-msgstr ""
-
-#: C/autotools-build-plugin.page:25(title)
-msgid "Make command used"
-msgstr "Zu verwendender Make-Befehl"
-
-#: C/autotools-build-plugin.page:26(p)
-msgid ""
-"Here is a list of the targets used by the plugin. They are implemented in all "
-"autotools projects but you need to implement them if you use a custom "
-"makefile."
-msgstr ""
-
-#: C/autotools-build-plugin.page:31(var)
-msgid "object_file_name"
-msgstr "object_file_name"
-
-#: C/autotools-build-plugin.page:31(cmd)
-msgid "make <placeholder-1/>"
-msgstr "make <placeholder-1/>"
-
-#: C/autotools-build-plugin.page:32(p)
-msgid ""
-"Use to compile an source file. The object file name is found by replacing the "
-"source file extension with the corresponding object extension."
-msgstr ""
-"Verwenden Sie dies, um eine Quelldatei zu kompilieren. Der Name der "
-"Objektdatei wird gebildet, indem die Erweiterung der Quelldatei durch die "
-"korrespondierende Objektdatei-Erweiterung ersetzt wird."
-
-#: C/autotools-build-plugin.page:36(cmd)
-msgid "make"
-msgstr "make"
-
-#: C/autotools-build-plugin.page:37(p)
-msgid "Use to build all targets in a directory."
-msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu erstellen."
-
-#: C/autotools-build-plugin.page:40(cmd)
-msgid "make install"
-msgstr "make install"
-
-#: C/autotools-build-plugin.page:41(p)
-msgid "Use to install all targets in a directory."
-msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu installieren."
-
-#: C/autotools-build-plugin.page:44(cmd)
-msgid "make clean"
-msgstr "make clean"
-
-#: C/autotools-build-plugin.page:45(p)
-msgid "Use to delete all file built in a directory."
-msgstr ""
-"Verwenden Sie dies, um alle in einem Ordner erstellten Dateien zu löschen."
-
-#: C/autotools-build-plugin.page:48(cmd)
-msgid "make dist"
-msgstr "make dist"
-
-#: C/autotools-build-plugin.page:49(p)
-msgid ""
-"Use to build a distributation package, called only in the project directory."
-msgstr ""
-"Verwenden Sie dies, um ein verteilbares Paket zu erstellen. Es wird nur im "
-"Projektordner aufgerufen."
-
-#: C/autotools-build-plugin.page:54(p)
-msgid ""
-"As make comes with default rules allowing it to compile and link a C program "
-"without needing a makefile. You can compile a C program from a single source "
-"file without a makefile nor a project."
-msgstr ""
-"Da »make« über Standardregeln verfügt, ist es möglich, ein C-Programm ohne "
-"Makefile zu erstellen und zu linken. Sie können ein C-Programm aus einer "
-"einzelnen Quelldatei erstellen, ohne Makefile oder umgebendes Projekt."
-
-#: C/autotools-build-install.page:11(desc)
-#, fuzzy
-msgid "Install targets or project."
-msgstr "Installieren eines Projekts"
-
-#: C/autotools-build-install.page:20(title)
-msgid "Install targets"
-msgstr "Ziele installieren"
-
-#: C/autotools-build-install.page:22(p)
-msgid ""
-"Unless your project is very simple, it needs some data files like user "
-"interface description files. These files are typically copied in standard "
-"directories and read from there. It means that you cannot run your program "
-"from the build directory. You need to install it in order to copy all these "
-"files in the final place, by example in a subdirectory of <file>/usr/local</"
-"file>."
-msgstr ""
-
-#: C/autotools-build-install.page:29(p)
-msgid "There are several possibilities to install targets or a project."
-msgstr ""
-
-#: C/autotools-build-install.page:33(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Install</"
-"gui></guiseq> to install all files in the same directory than the current "
-"edited file."
-msgstr ""
-
-#: C/autotools-build-install.page:42(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Install "
-"Project</gui></guiseq> to install all project files,"
-msgstr ""
-
-#: C/autotools-build-install.page:50(p) C/autotools-build-clean.page:45(p)
-#: C/autotools-build-build.page:57(p)
-msgid "From the <gui>file manager pane</gui>, select a file or a directory."
-msgstr ""
-
-#: C/autotools-build-install.page:55(p)
-msgid ""
-"Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></guiseq> "
-"to install all files in the directory currently selected or the parent "
-"directory of the currently selected file."
-msgstr ""
-
-#: C/autotools-build-install.page:65(p) C/autotools-build-clean.page:60(p)
-#: C/autotools-build-build.page:72(p)
-msgid ""
-"From the <gui>project manager pane</gui>, select a source file or a target."
-msgstr ""
-"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei oder "
-"ein Ziel aus."
-
-#: C/autotools-build-install.page:70(p)
-msgid ""
-"Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></"
-"guiseq> to install all files in the directory containing the currently "
-"selected file or target."
-msgstr ""
-
-#: C/autotools-build-install.page:79(p)
-msgid ""
-"If you install the program in a system directory, you can have to use "
-"<cmd>su</cmd> or <cmd>sudo</cmd> to have enough right. See <link xref="
-"\"autotools-build-preferences-dialog\"/> for more information."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:11(desc)
-msgid "Autotools configure dialog"
-msgstr "Konfigurationsdialog für Autotools"
-
-#: C/autotools-build-configure-dialog.page:20(title)
-msgid "Autotools Configure Dialog"
-msgstr "Konfigurationsdialog für Autotools"
-
-#: C/autotools-build-configure-dialog.page:22(p)
-msgid ""
-"The <gui>Configure</gui> dialog allows you to set the following options and "
-"configure the project."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:29(gui)
-#, fuzzy
-msgid "Regenerate Project"
-msgstr "Ein Projekt erstellen"
-
-#: C/autotools-build-configure-dialog.page:30(p)
-msgid ""
-"If checked, the project will be completely regenerated, else only the "
-"configure step is done. <app>Anjuta</app> automatically checks this check box "
-"when needed so you can leave it in its current state."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:37(gui)
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: C/autotools-build-configure-dialog.page:38(p)
-msgid ""
-"You can have several configurations having their own options and build "
-"directory, this text box allows to name them. Typically you have already "
-"defined a Default configuration, a Debug configuration making programs easier "
-"to debug (keeping intermediate variables and code ordering) and an Optimized "
-"configuration generating faster programs but increasing build time. You can "
-"define additional custom configurations."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:49(gui)
-msgid "Build Directory"
-msgstr "Erstellungsordner"
-
-#: C/autotools-build-configure-dialog.page:50(p)
-msgid ""
-"Select here the build directory, it can be the project directory or a "
-"subdirectory. This is particularly useful when switching between different "
-"configurations to avoid rebuilding the whole project."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:56(p)
-msgid ""
-"With autotools, you cannot have one configuration using a different directory "
-"if you already have one configuration using the project directory. You need "
-"to remove it first."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:63(p)
-msgid ""
-"Some autotools project cannot be built outside the project directory. You can "
-"still use different configurations but they all have to use the project "
-"directory and everything will be recompiled on each change of the "
-"configuration."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:72(gui)
-msgid "Configure Options"
-msgstr "Konfigurationsoptionen"
-
-#: C/autotools-build-configure-dialog.page:73(p)
-msgid ""
-"This text box list all command line arguments used by the configure step. All "
-"arguments are separated by spaces and must be quoted if they contains a "
-"space. Each configuration fills this text box with default values that you "
-"can modify."
-msgstr ""
-
-#: C/autotools-build-configure-dialog.page:80(p)
-msgid ""
-"Each autotools project supports a common list of arguments but can have "
-"specify arguments. You can have a list of all accepted arguments by running "
-"<cmd>configure --help</cmd> on the command line. You need to have configured "
-"your project at least one time to have the <cmd>configure</cmd> script."
-msgstr ""
-
-#: C/autotools-build-compile.page:11(desc)
-msgid "Compile files."
-msgstr "Dateien kompilieren."
-
-#: C/autotools-build-compile.page:20(title)
-msgid "Compile files"
-msgstr "Dateien kompilieren"
-
-#: C/autotools-build-compile.page:22(p)
-msgid ""
-"Most programming language allow you to compile an individual source file. It "
-"reads the file, checks for errors and convert into an intermediate object "
-"file. Most errors happens in this step, so it is useful to compile a file "
-"after modifying it to check for errors. There are several ways to do it."
-msgstr ""
-
-#: C/autotools-build-compile.page:30(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Compile</"
-"gui></guiseq> or press <key>F9</key> to compile the current edited file."
-msgstr ""
-
-#: C/autotools-build-compile.page:39(p)
-msgid "From the <gui>file manager pane</gui>, select a file."
-msgstr "Wählen Sie in der <gui>Dateiverwaltungsleiste</gui> eine Datei aus."
-
-#: C/autotools-build-compile.page:44(p)
-msgid ""
-"Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></guiseq> "
-"to compile the file currently selected in the <gui>file manager pane</gui>."
-msgstr ""
-
-#: C/autotools-build-compile.page:53(p)
-msgid "From the <gui>project manager pane</gui>, select a source file."
-msgstr ""
-"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei aus."
-
-#: C/autotools-build-compile.page:58(p)
-msgid ""
-"Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></"
-"guiseq> to compile the file currently selected in the <gui>project manager "
-"pane</gui>."
-msgstr ""
-
-#: C/autotools-build-compile.page:66(p)
-msgid ""
-"You do not need to save your file before compiling it, it will be done "
-"automatically by <app>Anjuta</app> if needed."
-msgstr ""
-"Sie müssen Ihre Datei vor der Kompilierung nicht notwendigerweise speichern. "
-"Dies erledigt <app>Anjuta</app> automatisch, falls nötig."
-
-#: C/autotools-build-clean.page:11(desc)
-msgid "Remove built files."
-msgstr "Erstellte Dateien entfernen."
-
-#: C/autotools-build-clean.page:20(title)
-#, fuzzy
-msgid "Clean targets"
-msgstr "Gruppen und Ziele"
-
-#: C/autotools-build-clean.page:22(p)
-msgid ""
-"It can be useful to delete all files created by the build process. By example "
-"if the all dependencies are not taken into account and a modified file does "
-"not trigger a recompiling as it should, deleting all files will fix this. "
-"There are several way to do this"
-msgstr ""
-
-#: C/autotools-build-clean.page:28(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean</"
-"gui></guiseq> to delete all files build in the same directory than the "
-"current edited file."
-msgstr ""
-
-#: C/autotools-build-clean.page:37(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean "
-"Project</gui></guiseq> to delete all project built files,"
-msgstr ""
-
-#: C/autotools-build-clean.page:50(p)
-msgid ""
-"Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></guiseq> to "
-"delete all files built in the directory currently selected or the parent "
-"directory of the currently selected file."
-msgstr ""
-
-#: C/autotools-build-clean.page:65(p)
-msgid ""
-"Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></"
-"guiseq> to delete all built files in the directory containing the currently "
-"selected file or target."
-msgstr ""
-
-#: C/autotools-build-build.page:11(desc)
-#, fuzzy
-msgid "Build targets or project."
-msgstr "Ein Ziel zum Projekt hinzufügen oder daraus entfernen."
-
-#: C/autotools-build-build.page:24(title)
-#, fuzzy
-msgid "Build targets"
-msgstr "Gruppen und Ziele"
-
-#: C/autotools-build-build.page:25(p)
-#, fuzzy
-msgid ""
-"A target is a file created from source files. Typically, it is a program or a "
-"library, but it could also be documentation if the documentation needs "
-"processing, for example."
-msgstr ""
-"Ein Ziel ist eine Datei, die aus Quelldateien erstellt wird. Üblicherweise "
-"ist es ein Programm oder eine Bibliothek, aber es kann auch eine "
-"Dokumentation sein, falls Weiterverarbeitung in irgendeiner Form notwendig "
-"ist."
-
-#: C/autotools-build-build.page:30(p)
-msgid ""
-"The build command compiles all needed source files, and possibly links them "
-"with some other files, like libraries, in order to create the target. If some "
-"source files are already compiled and haven't been modified, they are not be "
-"recompiled, in order to save time. There are several ways to trigger a build."
-msgstr ""
-
-#: C/autotools-build-build.page:39(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
-"gui></guiseq> or press <key>F7</key> to build all targets in the same "
-"directory as the currently opened file."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/autotools-build-build.page:48(p)
-#, fuzzy
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
-"Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
-"keyseq> to build the complete project. All subdirectories are built "
-"recursively."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
-
-#: C/autotools-build-build.page:62(p)
-msgid ""
-"Click on the right mouse button to make the <gui>file manager context menu</"
-"gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
-"build all targets in the directory currently selected or the parent directory "
-"of the currently selected file."
-msgstr ""
-
-#: C/autotools-build-build.page:77(p)
-msgid ""
-"Click on the right mouse button to make the <gui>project manager context "
-"menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
-"guiseq> to build all targets in the directory containing the currently "
-"selected file or target."
-msgstr ""
-
-#: C/run-parameters-dialog.page:11(desc)
-msgid "Run parameters dialog"
-msgstr "Ausführungsparameter-Dialog"
-
-#: C/run-parameters-dialog.page:20(title)
-msgid "Run Parameters Dialog"
-msgstr "Ausführungsparameter-Dialog"
-
-#: C/run-parameters-dialog.page:22(p)
-msgid ""
-"The <gui>run parameter</gui> dialog allows you to define the current program "
-"and several parameters."
-msgstr ""
-
-#: C/run-parameters-dialog.page:27(gui)
-msgid "Program"
-msgstr "Programm"
-
-#: C/run-parameters-dialog.page:28(p)
-msgid ""
-"This is the program that will be executed if you run a program with or "
-"without the debugger. The drop-down list allows you to select programs "
-"created by the current project, but you can click on the <gui>Browse</gui> "
-"button to choose any other program."
-msgstr ""
-
-#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
-msgid "Arguments"
-msgstr "Argumente"
-
-#: C/run-parameters-dialog.page:35(p)
-msgid ""
-"These are the command line arguments used by your program. The drop-down list "
-"keeps an history of the last arguments used."
-msgstr ""
-"Dies sind Befehlszeilenargumente, die von Ihrem Programm verwendet werden. "
-"Die Auswahlliste enthält eine Chronik der zuletzt verwendeten Argumente."
-
-#: C/run-parameters-dialog.page:40(gui)
-msgid "Working Directory"
-msgstr "Arbeitsordner"
-
-#: C/run-parameters-dialog.page:41(p)
-msgid ""
-"The working directory is the current directory when your program will be run."
-msgstr ""
-"Der Arbeitsordner ist der aktuelle Ordner bei der Ausführung Ihres Programms."
-
-#: C/run-parameters-dialog.page:45(gui)
-msgid "Environment Variables"
-msgstr "Umgebungsvariablen"
-
-#: C/run-parameters-dialog.page:46(p)
-msgid ""
-"You can click on the drop-down section, to display all environment variables "
-"those will be accessible by your program. By default, it includes all the "
-"current environment variables, they are display in light gray."
-msgstr ""
-
-#: C/run-parameters-dialog.page:50(p)
-msgid ""
-"You can click on the <gui>New</gui> button to add a new environment variable."
-msgstr ""
-
-#: C/run-parameters-dialog.page:52(p)
-msgid ""
-"You can click on the <gui>Edit</gui> button to change the value of the "
-"selected environment variable."
-msgstr ""
-
-#: C/run-parameters-dialog.page:54(p)
-msgid ""
-"You can click on the <gui>Delete</gui> button to remove the selected "
-"environment variable."
-msgstr ""
-
-#: C/run-parameters-dialog.page:56(p)
-msgid ""
-"When a variable has not the same value than in the current environment, it is "
-"displayed in black."
-msgstr ""
-
-#: C/run-parameters-dialog.page:60(gui)
-msgid "Run in Terminal"
-msgstr "Im Terminal ausführen"
-
-#: C/run-parameters-dialog.page:61(p)
-msgid ""
-"This has to be checked to run the program in a terminal allowing you to "
-"provide inputs and see its outputs using the standard Unix streams. It is not "
-"necessary for programs having a graphical interface."
-msgstr ""
-
-#: C/run-run.page:11(desc)
-msgid "Start a program without the debugger."
-msgstr "Ein Programm ohne Debugger ausführen."
-
-#: C/run-run.page:24(title)
-msgid "Run a program"
-msgstr "Ein Programm ausführen"
-
-#: C/run-run.page:26(p)
-msgid ""
-"If <app>Anjuta</app> is used to start a program it checks that it is up to "
-"date and builds it if needed."
-msgstr ""
-
-#: C/run-run.page:31(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</gui></"
-"guiseq> or press <key>F3</key> to execute the current program."
-msgstr ""
-
-#: C/run-run.page:37(p)
-msgid ""
-"The current program and several parameters can be set on the <gui>parameter</"
-"gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
-msgstr ""
-
-#: C/run-run.page:42(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
-"Parameters...</gui></guiseq> to display the dialog."
-msgstr ""
-
-#: C/run-run.page:49(p)
-msgid ""
-"If your program needs data files, you probably have to install it at least "
-"one time before running it. See <link xref=\"autotools-build-install\"/> for "
-"more information."
-msgstr ""
-
 #: C/debug-watch.page:9(desc)
 msgid "Monitor expressions and variables."
-msgstr ""
+msgstr "Ausdrücke und Variablen überwachen."
 
 #: C/debug-watch.page:22(title)
 msgid "Watch expressions"
@@ -1259,7 +1110,7 @@ msgstr "Variable"
 
 #: C/debug-watch.page:46(p)
 msgid "The name of the variable or the expression."
-msgstr ""
+msgstr "Der Name der Variable oder des Ausdrucks."
 
 #: C/debug-watch.page:49(title) C/debug-local.page:51(title)
 msgid "Value"
@@ -1312,6 +1163,7 @@ msgstr ""
 #: C/debug-watch.page:84(p)
 msgid "To update all watch expressions manually at once:"
 msgstr ""
+"So aktualisieren Sie die überwachten Ausdrücke manuell in einem Arbeitsgang:"
 
 #: C/debug-watch.page:88(p)
 msgid ""
@@ -1321,46 +1173,47 @@ msgstr ""
 
 #: C/debug-watch.page:97(title)
 msgid "Add a watch on an expression"
-msgstr ""
+msgstr "Eine Überwachung zu einem Ausdruck hinzufügen"
 
 #: C/debug-watch.page:99(p)
 msgid "To add an expression to the watch list:"
-msgstr ""
+msgstr "So fügen Sie einen Ausdruck zur Überwachungsliste hinzu:"
 
 #: C/debug-watch.page:103(p)
-#, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
 "Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
 "select <gui>Add Watch...</gui>."
 msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
 
 #: C/debug-watch.page:108(p)
 msgid ""
 "Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
 "the expression to be evaluated each time the program is stopped."
 msgstr ""
+"Geben Sie den zu überwachenden Ausdruck ein. Aktivieren Sie <gui>Automatisch "
+"aktualisieren</gui>, wenn Sie das Ergebnis des Ausdrucks immer dann sehen "
+"wollen, wenn das Programm angehalten wird."
 
 #: C/debug-watch.page:114(p)
 msgid "An expression can be evaluated and then added as a watch like this:"
 msgstr ""
+"Das Ergebnis eines Ausdrucks kann folgendermaßen zur Überwachung hinzugefügt "
+"werden:"
 
 #: C/debug-watch.page:118(p)
-#, fuzzy
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Inspect/"
 "Evaluate</gui></guiseq> or right click in the <gui>Editor</gui> window and "
 "select <gui>Inspect/Evaluate</gui>."
 msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
-"im <gui>Hauptmenü</gui>."
 
 #: C/debug-watch.page:123(p)
 msgid ""
 "Click on <gui>Add</gui> button to add this expression to the watches list."
 msgstr ""
+"Klicken Sie auf den <gui>Hinzufügen</gui>-Knopf, um diesen Ausdruck zur "
+"Überwachungsliste hinzuzufügen."
 
 #: C/debug-watch.page:131(title)
 msgid "Remove a watch"
@@ -1368,7 +1221,7 @@ msgstr "Einen überwachten Ausdruck entfernen"
 
 #: C/debug-watch.page:133(p)
 msgid "You can remove an expression from the watches list."
-msgstr ""
+msgstr "Sie können einen Ausdruck aus der Überwachungsliste entfernen."
 
 #: C/debug-watch.page:137(p)
 msgid ""
@@ -1378,16 +1231,13 @@ msgstr ""
 
 #: C/debug-watch.page:142(p)
 msgid "All watches can be removed at the same time."
-msgstr ""
+msgstr "Alle Überwachungen können gleichzeitig entfernt werden."
 
 #: C/debug-watch.page:146(p)
-#, fuzzy
 msgid ""
 "In the <gui>Watches</gui> window, right-click and select <gui>Remove all</"
 "gui>."
 msgstr ""
-"Klicken Sie mit der rechten Maustaste in das <gui>Haltepunkt</gui>-Fenster "
-"und wählen Sie <gui>Haltepunkt entfernen</gui>."
 
 #: C/debug-watch.page:153(title) C/debug-local.page:62(title)
 msgid "Changing the value of a variable"
@@ -1418,7 +1268,7 @@ msgstr "Debugging-Tipps"
 
 #: C/debug-tips.page:25(title)
 msgid "Fixing GLib/GTK+ critical errors"
-msgstr ""
+msgstr "Korrigieren von kritischen Fehlern in GLib/GTK+"
 
 #: C/debug-tips.page:27(p)
 msgid ""
@@ -1444,6 +1294,7 @@ msgstr ""
 #: C/debug-tips.page:44(p)
 msgid "Click <gui>New</gui> to add a new entry to the list."
 msgstr ""
+"Klicken Sie auf <gui>Neu</gui>, um einen neuen Eintrag zur Liste hinzuzufügen."
 
 #: C/debug-tips.page:47(p)
 msgid ""
@@ -1453,7 +1304,7 @@ msgstr ""
 
 #: C/debug-tips.page:51(p)
 msgid "Click <gui>Apply</gui> to confirm the changes."
-msgstr ""
+msgstr "Klicken Sie auf <gui>Anwenden</gui>, um die Änderungen zu bestätigen."
 
 #: C/debug-tips.page:54(p)
 #, fuzzy
@@ -1466,7 +1317,7 @@ msgstr ""
 
 #: C/debug-tips.page:58(p)
 msgid "Use the program until the critical error occurs."
-msgstr ""
+msgstr "Verwenden Sie das Programm, bis der kritische Fehler auftritt."
 
 #: C/debug-tips.page:61(p)
 msgid ""
@@ -1499,6 +1350,9 @@ msgid ""
 "independently, having their own registers, stack and local variables, but "
 "sharing global variables."
 msgstr ""
+"Ein Programm kann aus mehreren Threads bestehen. Alle diese Threads werden "
+"unabhängig voneinander ausgeführt, mit eigenen Registern, Stacks und lokalen "
+"Variablen, aber mit gemeinsamen globalen Variablen."
 
 #: C/debug-thread.page:33(p)
 msgid ""
@@ -1510,7 +1364,7 @@ msgstr ""
 
 #: C/debug-thread.page:39(p)
 msgid "The window shows the following information about each thread:"
-msgstr ""
+msgstr "Das Fenster zeigt die folgenden Informationen zu jedem Thread an:"
 
 #: C/debug-thread.page:43(title) C/debug-stack.page:44(title)
 msgid "Active"
@@ -1518,15 +1372,15 @@ msgstr "Aktiv"
 
 #: C/debug-thread.page:44(p)
 msgid "This contains a yellow arrow that points to the active thread."
-msgstr ""
+msgstr "Ein gelber Pfeil zeigt hier auf den aktiven Thread."
 
 #: C/debug-thread.page:47(title)
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: C/debug-thread.page:48(p)
 msgid "This is a number corresponding to each thread."
-msgstr ""
+msgstr "Eine Nummer, korrespondierend zu jedem Thread."
 
 #: C/debug-thread.page:51(title) C/debug-stack.page:57(title)
 msgid "File"
@@ -1750,9 +1604,8 @@ msgid "Examine the stack."
 msgstr ""
 
 #: C/debug-stack.page:22(title)
-#, fuzzy
 msgid "Stack"
-msgstr "Stacktrace"
+msgstr "Stack"
 
 #: C/debug-stack.page:25(title)
 #, fuzzy
@@ -1836,9 +1689,8 @@ msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
 
 #: C/debug-stack.page:97(title)
-#, fuzzy
 msgid "View the current function"
-msgstr "Informationen über die aktuellen Funktionsargumente"
+msgstr "Die aktuelle Funktion betrachten"
 
 #: C/debug-stack.page:111(title)
 #, fuzzy
@@ -1857,9 +1709,8 @@ msgstr ""
 "und wählen Sie <gui>Haltepunkt entfernen</gui>."
 
 #: C/debug-run.page:11(desc)
-#, fuzzy
 msgid "Start a program with the debugger."
-msgstr "Ein Programm ohne Debugger ausführen."
+msgstr "Ein Programm in einem Debugger starten."
 
 #: C/debug-run.page:24(title)
 msgid "Debug a program"
@@ -1901,9 +1752,9 @@ msgid "Debug an already running application"
 msgstr "Fehlerdiagnose in einer bereits laufenden Anwendung"
 
 #: C/debug-run.page:54(p)
-#, fuzzy
 msgid "The debugger can be used on an already running application."
-msgstr "Fehlerdiagnose in einer bereits laufenden Anwendung"
+msgstr ""
+"Der Debugger kann in einer bereits laufenden Anwendung verwendet werden."
 
 #: C/debug-run.page:58(p)
 #, fuzzy
@@ -1931,6 +1782,9 @@ msgid ""
 "The debugger can be used to debug an application running on another computer "
 "connected through a TCP or serial connection."
 msgstr ""
+"Der Debugger kann zum Debuggen einer auf einem anderen Rechner laufenden "
+"Anwendung verwendet werden, sofern der Rechner über eine TCP- oder serielle "
+"Verbindung angeschlossen ist."
 
 #: C/debug-run.page:78(p)
 #, fuzzy
@@ -1946,24 +1800,32 @@ msgid ""
 "Select the type of the connection to the remote application, <gui>Serial Line "
 "Connection</gui> or <gui>TCP/IP Connection</gui>."
 msgstr ""
+"Wählen Sie die Art der Verbindung zur entfernten Anwendung, entweder "
+"<gui>Serielle Kabelverbindung</gui> oder <gui>TCP/IP-Verbindung</gui>."
 
 #: C/debug-run.page:86(p)
 msgid ""
 "For a TCP connection, fill in the <gui>Address</gui> and <gui>Port</gui> "
 "fields."
 msgstr ""
+"Bei einer TCP-Verbindung füllen Sie die Felder <gui>Adresse</gui> und "
+"<gui>Port</gui> aus."
 
 #: C/debug-run.page:88(p)
 msgid ""
 "For a serial connection, fill in the text box below with the serial device "
 "name, for example <cmd>/dev/ttyb</cmd>."
 msgstr ""
+"Bei einer seriellen Verbindung geben Sie im Texteingabefeld den Namen des "
+"seriellen Geräts an, beispielsweise <cmd>/dev/ttyb</cmd>."
 
 #: C/debug-run.page:92(p)
 msgid ""
 "Click on <gui>Connect</gui> to start the debugger and connect to the remote "
 "target."
 msgstr ""
+"Klicken Sie auf <gui>Verbinden</gui>, um den Debugger zu starten und zum "
+"entfernten Ziel zu verbinden."
 
 #: C/debug-run.page:100(title)
 msgid "Stop the debugger"
@@ -1998,6 +1860,8 @@ msgid ""
 "The <gui>Attach to process</gui> dialog allows you to select a currently "
 "running process."
 msgstr ""
+"Der Dialog <gui>An Prozess anhängen</gui> ermöglicht Ihnen die Auswahl eines "
+"aktuell laufenden Prozesses."
 
 #: C/debug-process-dialog.page:28(gui)
 msgid "Hide paths"
@@ -2006,6 +1870,7 @@ msgstr "Pfade verbergen"
 #: C/debug-process-dialog.page:29(p)
 msgid "This hides command paths in the process list if checked."
 msgstr ""
+"Dadurch werden Befehlspfade in der Prozessliste verborgen, falls aktiviert."
 
 #: C/debug-process-dialog.page:32(gui)
 msgid "Hide process parameters"
@@ -2014,6 +1879,8 @@ msgstr "Prozess-Parameter verstecken"
 #: C/debug-process-dialog.page:33(p)
 msgid "This hides the command line arguments in the process list if checked."
 msgstr ""
+"Dadurch werden Befehlszeilenargumente in der Prozessliste verborgen, falls "
+"aktiviert."
 
 #: C/debug-process-dialog.page:36(gui)
 msgid "Display process tree"
@@ -2024,6 +1891,8 @@ msgid ""
 "If unchecked, the processes are displayed in a list. If checked, the "
 "processes are displayed in a tree."
 msgstr ""
+"Falls deaktiviert, werden die Prozesse in einer Liste dargestellt. Wenn "
+"aktiviert, werden die Prozesse in einer Baumansicht dargestellt."
 
 #: C/debug-local.page:9(desc)
 msgid "Examine local variables."
@@ -2085,26 +1954,24 @@ msgid "Type the new value."
 msgstr "Der Typ des neuen Werts."
 
 #: C/debug-information.page:9(desc)
-#, fuzzy
 msgid "Examine additional program information."
-msgstr "Informationen des Prozessors untersuchen."
+msgstr "Zusätzliche Programminformationen untersuchen."
 
 #: C/debug-information.page:22(title)
 msgid "Miscellaneous information"
 msgstr "Verschiedene Informationen"
 
 #: C/debug-information.page:24(p)
-#, fuzzy
 msgid ""
 "The debugger can tell you various information about the program while it is "
 "running."
 msgstr ""
-"Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
-"Signal empfängt."
+"Der Debugger kann verschiedene Informationen über das Programm liefern, "
+"während es läuft."
 
 #: C/debug-information.page:28(title)
 msgid "View shared libraries"
-msgstr ""
+msgstr "Gemeinsam genutzten Bibliotheken betrachten"
 
 #: C/debug-information.page:32(p)
 #, fuzzy
@@ -2121,6 +1988,10 @@ msgid ""
 "loaded and their locations in memory. It also shows whether each library's "
 "symbol table is loaded or not."
 msgstr ""
+"Dadurch wird ein Fenster geöffnet, das alle vom Programm geladenen "
+"gemeinsamen Bibliotheken sowie deren Speicherbereiche auflistet. Es zeigt "
+"außerdem für jede der Bibliotheken, ob deren Symboltabelle geladen ist oder "
+"nicht."
 
 #: C/debug-information.page:44(title)
 msgid "View signals"
@@ -2140,10 +2011,13 @@ msgid ""
 "This lists all available signals with a small description and three columns "
 "to specify what to do when a signal is received:"
 msgstr ""
+"Dies listet alle verfügbaren Signale einschließlich einer Kurzbeschreibung "
+"und drei Spalten, welche angeben, was zu tun ist, wenn ein Signal empfangen "
+"wird:"
 
 #: C/debug-information.page:58(title)
 msgid "Stop"
-msgstr ""
+msgstr "Stopp"
 
 #: C/debug-information.page:59(p)
 msgid ""
@@ -2155,22 +2029,19 @@ msgstr ""
 
 #: C/debug-information.page:63(title)
 msgid "Print"
-msgstr ""
+msgstr "Drucken"
 
 #: C/debug-information.page:64(p)
 msgid "The debugger displays the received signal."
-msgstr ""
+msgstr "Der Debugger zeigt das empfangene Signal an."
 
 #: C/debug-information.page:67(title)
 msgid "Pass"
-msgstr ""
+msgstr "Durchgang"
 
 #: C/debug-information.page:68(p)
-#, fuzzy
 msgid "The debugger passes the signal to the program."
-msgstr ""
-"Der Debugger stoppt die Ausführung des Programms, sobald das Programm dieses "
-"Signal empfängt."
+msgstr "Der Debugger übergibt das Signal an das Programm."
 
 #: C/debug-information.page:73(p)
 msgid ""
@@ -2216,6 +2087,8 @@ msgid ""
 "If the expression is a variable name, you can change its value by clicking on "
 "the <gui>Value</gui> column and entering a new value."
 msgstr ""
+"Falls der Ausdruck ein Variablenname ist, können Sie deren Wert ändern, indem "
+"Sie auf die <gui>Wert</gui>-Spalte klicken und einen neuen Wert eingeben."
 
 #: C/debug-execute.page:9(desc)
 msgid "Control program execution."
@@ -2270,7 +2143,6 @@ msgstr ""
 "Die Ausgabe des Befehls wird im Meldungsfenster des Debuggers angezeigt."
 
 #: C/debug-custom.page:40(p)
-#, fuzzy
 msgid ""
 "The command is sent directly to the debugger without performing any checks. "
 "For example, if you set a breakpoint like this, it will not appear in the "
@@ -2283,7 +2155,6 @@ msgstr ""
 "es sei denn, Sie wissen genau, was Sie tun."
 
 #: C/debug-cpu.page:9(desc)
-#, fuzzy
 msgid "Examine CPU information."
 msgstr "Informationen des Prozessors untersuchen."
 
@@ -2422,13 +2293,12 @@ msgid ""
 msgstr ""
 
 #: C/debug-breakpoint.page:54(p)
-#, fuzzy
 msgid ""
 "This always displays <gui>breakpoint</gui>. It will be used in a future "
 "release supporting different kinds of breakpoints."
 msgstr ""
-"Hier wird stets »Haltepunkt« angezeigt. In zukünftigen Versionen können hier "
-"verschiedene Typen von Haltepunkten angezeigt werden."
+"Hier wird stets <gui>Haltepunkt</gui> angezeigt. In zukünftigen Versionen "
+"können hier verschiedene Typen von Haltepunkten angezeigt werden."
 
 #: C/debug-breakpoint.page:58(title) C/debug-breakpoint-dialog.page:39(gui)
 msgid "Condition"
@@ -2485,7 +2355,6 @@ msgid "Permanent:"
 msgstr "Permanent:"
 
 #: C/debug-breakpoint.page:76(p)
-#, fuzzy
 msgid "the breakpoint is set (its id number is displayed in parentheses)."
 msgstr "Der Haltepunkt ist gesetzt (Kennung ist in Klammern angegeben)."
 
@@ -2499,7 +2368,6 @@ msgstr ""
 "Der Haltepunkt ist gesetzt, wird aber gelöscht, sobald er erreicht wurde."
 
 #: C/debug-breakpoint.page:83(p)
-#, fuzzy
 msgid ""
 "All breakpoints are kept across Anjuta sessions even if they correspond to a "
 "non-existing locations, for example in a source file of a shared library not "
@@ -2662,18 +2530,16 @@ msgid ""
 msgstr ""
 
 #: C/debug-breakpoint-dialog.page:33(p)
-#, fuzzy
 msgid "<var>file_name</var>:<var>line_number</var>"
-msgstr "Dateiname:Zeilennummer"
+msgstr "<var>Dateiname</var>:<var>Zeilennummer</var>"
 
 #: C/debug-breakpoint-dialog.page:34(var)
 msgid "function_name"
 msgstr "Funktionsname"
 
 #: C/debug-breakpoint-dialog.page:35(p)
-#, fuzzy
 msgid "<var>file_name</var>:<var>function_name</var>"
-msgstr "Datei:Funktionsname"
+msgstr "<var>Datei</var>:<var>Funktionsname</var>"
 
 #: C/debug-breakpoint-dialog.page:40(p)
 msgid ""
@@ -2706,6 +2572,600 @@ msgid ""
 "The pass count has a higher priority than the condition. Only when the pass "
 "count has been reached will the debugger evaluate the condition if it is "
 "present and break the program's execution."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:10(desc)
+msgid "Autotools build preferences dialog."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:19(title)
+msgid "Autotools Build Preferences Dialog"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:21(p)
+msgid "The dialog allows you to set global options for building files."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:27(gui)
+msgid "Run several commands at a time"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:28(p)
+msgid ""
+"<app>make</app> is able to run several compilations at the same time. It "
+"decrease the build time when having a multi-core processor but could trigger "
+"some issues so this can be enabled or disabled with this check box."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:33(gui)
+msgid "Continue on errors"
+msgstr "Bei Fehlern fortfahren"
+
+#: C/autotools-build-preferences-dialog.page:34(p)
+msgid ""
+"By default <app>make</app> stops as soon as it gets an error, it can be "
+"faster to continue and get errors for all files in one step. You have to "
+"check this check box to get this behavior."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:39(gui)
+msgid "Translate messages"
+msgstr "Meldungen übersetzen"
+
+#: C/autotools-build-preferences-dialog.page:40(p)
+msgid ""
+"By default errors and warnings message are translated. It has two drawbacks "
+"though. In order to recognize errors and warnings the translation of "
+"<app>Anjuta</app> and the compiler should perfectly match. Moreover, it is "
+"often more difficult to find help on internet when searching translated "
+"messages as they are much less common. Unchecking this check box allows to "
+"disable translation."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:48(gui)
+msgid "Highlight build warnings and errors in editor"
+msgstr "Build-Warnungen und Fehler im Editor hervorheben"
+
+#: C/autotools-build-preferences-dialog.page:49(p)
+msgid ""
+"Errors and warnings during the build are displayed and highlighted in the "
+"message window. By checking this option, they are higlighted in the editor "
+"too."
+msgstr ""
+"Fehlermeldungen und Warnungen während des Erstellungsvorgangs werden im "
+"Meldungsfenster angezeigt und hervorgehoben. Wenn Sie diese Option "
+"aktivieren, geschieht dies auch im Editorfenster."
+
+#: C/autotools-build-preferences-dialog.page:54(gui)
+msgid "Install as root"
+msgstr "Mit Administratorrechten installieren"
+
+#: C/autotools-build-preferences-dialog.page:55(p)
+msgid ""
+"Installing a program needs to copy files in system directory which are often "
+"not writable by the user. If this check box is checked, you can choose to use "
+"<cmd>sudo</cmd> or <cmd>su</cmd> before installing the files to acquire "
+"enough right to do it."
+msgstr ""
+
+#: C/autotools-build-plugin.page:8(desc)
+#: C/autotools-build-plugin.page:17(title)
+msgid "Autotools build plugin"
+msgstr "Autotools-Erstellungs-Plugin"
+
+#: C/autotools-build-plugin.page:19(p)
+msgid ""
+"This plugin is targeted at autotools projects but as they use make it is "
+"useful for other kind of projects using make."
+msgstr ""
+
+#: C/autotools-build-plugin.page:25(title)
+msgid "Make command used"
+msgstr "Zu verwendender Make-Befehl"
+
+#: C/autotools-build-plugin.page:26(p)
+msgid ""
+"Here is a list of the targets used by the plugin. They are implemented in all "
+"autotools projects but you need to implement them if you use a custom "
+"makefile."
+msgstr ""
+
+#: C/autotools-build-plugin.page:31(var)
+msgid "object_file_name"
+msgstr "object_file_name"
+
+#: C/autotools-build-plugin.page:31(cmd)
+msgid "make <placeholder-1/>"
+msgstr "make <placeholder-1/>"
+
+#: C/autotools-build-plugin.page:32(p)
+msgid ""
+"Use to compile an source file. The object file name is found by replacing the "
+"source file extension with the corresponding object extension."
+msgstr ""
+"Verwenden Sie dies, um eine Quelldatei zu kompilieren. Der Name der "
+"Objektdatei wird gebildet, indem die Erweiterung der Quelldatei durch die "
+"korrespondierende Objektdatei-Erweiterung ersetzt wird."
+
+#: C/autotools-build-plugin.page:36(cmd)
+msgid "make"
+msgstr "make"
+
+#: C/autotools-build-plugin.page:37(p)
+msgid "Use to build all targets in a directory."
+msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu erstellen."
+
+#: C/autotools-build-plugin.page:40(cmd)
+msgid "make install"
+msgstr "make install"
+
+#: C/autotools-build-plugin.page:41(p)
+msgid "Use to install all targets in a directory."
+msgstr "Verwenden Sie dies, um alle Ziele in einem Ordner zu installieren."
+
+#: C/autotools-build-plugin.page:44(cmd)
+msgid "make clean"
+msgstr "make clean"
+
+#: C/autotools-build-plugin.page:45(p)
+msgid "Use to delete all file built in a directory."
+msgstr ""
+"Verwenden Sie dies, um alle in einem Ordner erstellten Dateien zu löschen."
+
+#: C/autotools-build-plugin.page:48(cmd)
+msgid "make dist"
+msgstr "make dist"
+
+#: C/autotools-build-plugin.page:49(p)
+msgid ""
+"Use to build a distributation package, called only in the project directory."
+msgstr ""
+"Verwenden Sie dies, um ein verteilbares Paket zu erstellen. Es wird nur im "
+"Projektordner aufgerufen."
+
+#: C/autotools-build-plugin.page:54(p)
+msgid ""
+"As make comes with default rules allowing it to compile and link a C program "
+"without needing a makefile. You can compile a C program from a single source "
+"file without a makefile nor a project."
+msgstr ""
+"Da »make« über Standardregeln verfügt, ist es möglich, ein C-Programm ohne "
+"Makefile zu erstellen und zu linken. Sie können ein C-Programm aus einer "
+"einzelnen Quelldatei erstellen, ohne Makefile oder umgebendes Projekt."
+
+#: C/autotools-build-install.page:11(desc)
+#, fuzzy
+msgid "Install targets or project."
+msgstr "Installieren eines Projekts"
+
+#: C/autotools-build-install.page:20(title)
+msgid "Install targets"
+msgstr "Ziele installieren"
+
+#: C/autotools-build-install.page:22(p)
+msgid ""
+"Unless your project is very simple, it needs some data files like user "
+"interface description files. These files are typically copied in standard "
+"directories and read from there. It means that you cannot run your program "
+"from the build directory. You need to install it in order to copy all these "
+"files in the final place, by example in a subdirectory of <file>/usr/local</"
+"file>."
+msgstr ""
+
+#: C/autotools-build-install.page:29(p)
+msgid "There are several possibilities to install targets or a project."
+msgstr ""
+
+#: C/autotools-build-install.page:33(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Install</"
+"gui></guiseq> to install all files in the same directory than the current "
+"edited file."
+msgstr ""
+
+#: C/autotools-build-install.page:42(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Install "
+"Project</gui></guiseq> to install all project files,"
+msgstr ""
+
+#: C/autotools-build-install.page:50(p) C/autotools-build-clean.page:45(p)
+#: C/autotools-build-build.page:57(p)
+msgid "From the <gui>file manager pane</gui>, select a file or a directory."
+msgstr ""
+
+#: C/autotools-build-install.page:55(p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></guiseq> "
+"to install all files in the directory currently selected or the parent "
+"directory of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-install.page:65(p) C/autotools-build-clean.page:60(p)
+#: C/autotools-build-build.page:72(p)
+msgid ""
+"From the <gui>project manager pane</gui>, select a source file or a target."
+msgstr ""
+"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei oder "
+"ein Ziel aus."
+
+#: C/autotools-build-install.page:70(p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></"
+"guiseq> to install all files in the directory containing the currently "
+"selected file or target."
+msgstr ""
+
+#: C/autotools-build-install.page:79(p)
+msgid ""
+"If you install the program in a system directory, you can have to use "
+"<cmd>su</cmd> or <cmd>sudo</cmd> to have enough right. See <link xref="
+"\"autotools-build-preferences-dialog\"/> for more information."
+msgstr ""
+
+#: C/autotools-build-distribute.page:11(desc)
+msgid "Create a distribution package."
+msgstr ""
+
+#: C/autotools-build-distribute.page:20(title)
+msgid "Create a distribution package"
+msgstr ""
+
+#: C/autotools-build-distribute.page:22(p)
+msgid ""
+"The standard way to distribute a autotools project is as a compressed tar "
+"archive containing all source files. The user will have to decompress it, "
+"then compile and install it on his system using the command sequence "
+"<cmd>configure</cmd>, <cmd>make</cmd> and <cmd>make install</cmd>."
+msgstr ""
+
+#: C/autotools-build-distribute.page:30(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
+"Tarball</gui></guiseq> to create a source distribution package."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Thread</gui></guiseq>, um das "
+"<gui>Thread-Fenster</gui> zu öffnen."
+
+#: C/autotools-build-configure.page:11(desc)
+msgid "Configure an autotools project and manage configurations."
+msgstr ""
+
+#: C/autotools-build-configure.page:20(title)
+msgid "Configure a project"
+msgstr "Ein Projekt konfigurieren"
+
+#: C/autotools-build-configure.page:22(p)
+msgid ""
+"Before compiling and building files, an autotools project has to be "
+"configured. This step is needed to set global options, to check that all "
+"required libraries and programs are installed on your system and to generate "
+"appropriate build scripts."
+msgstr ""
+
+#: C/autotools-build-configure.page:30(title)
+msgid "Configure the project"
+msgstr "Das Projekt konfigurieren"
+
+#: C/autotools-build-configure.page:34(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Configure "
+"Project...</gui></guiseq>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/autotools-build-configure.page:40(p)
+msgid ""
+"Keep the default configuration, select a new configuration or create a new "
+"one. You can inspect and modify all configuration options. See <link xref="
+"\"autotools-build-configure-dialog\"/> for more information."
+msgstr ""
+
+#: C/autotools-build-configure.page:47(p)
+msgid "Click on <gui>Execute</gui> to configure the project."
+msgstr "Klicken Sie auf <gui>Ausführen</gui>, um das Projekt zu konfigurieren."
+
+#: C/autotools-build-configure.page:53(p)
+msgid ""
+"The configuration could fail if some libraries or programs are not installed "
+"or do not have the right version. The error message tell you what is missing."
+msgstr ""
+"Die Konfiguration könnte scheitern, wenn einige Bibliotheken oder Programme "
+"nicht oder nicht in der richtigen Version installiert sind. Die Fehlermeldung "
+"informiert Sie darüber, was genau fehlt."
+
+#: C/autotools-build-configure.page:60(title)
+msgid "Change the configuration"
+msgstr "Die Konfiguration ändern"
+
+#: C/autotools-build-configure.page:64(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Select "
+"Configuration</gui><gui>Another configuration</gui></guiseq>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/autotools-build-configure.page:71(p)
+msgid ""
+"If the project has not been already configured, it will be automatically "
+"configured before building any file."
+msgstr ""
+
+#: C/autotools-build-configure.page:79(title)
+msgid "Remove configuration"
+msgstr "Konfiguration entfernen"
+
+#: C/autotools-build-configure.page:81(p)
+msgid ""
+"It is a like cleaning the project but it removes even more files. You need to "
+"re-configure your project to build it afterward."
+msgstr ""
+
+#: C/autotools-build-configure.page:88(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Remove "
+"Configuration</gui></guiseq>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/autotools-build-configure-dialog.page:11(desc)
+msgid "Autotools configure dialog"
+msgstr "Konfigurationsdialog für Autotools"
+
+#: C/autotools-build-configure-dialog.page:20(title)
+msgid "Autotools Configure Dialog"
+msgstr "Konfigurationsdialog für Autotools"
+
+#: C/autotools-build-configure-dialog.page:22(p)
+msgid ""
+"The <gui>Configure</gui> dialog allows you to set the following options and "
+"configure the project."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:29(gui)
+#, fuzzy
+msgid "Regenerate Project"
+msgstr "Ein Projekt erstellen"
+
+#: C/autotools-build-configure-dialog.page:30(p)
+msgid ""
+"If checked, the project will be completely regenerated, else only the "
+"configure step is done. <app>Anjuta</app> automatically checks this check box "
+"when needed so you can leave it in its current state."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:37(gui)
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: C/autotools-build-configure-dialog.page:38(p)
+msgid ""
+"You can have several configurations having their own options and build "
+"directory, this text box allows to name them. Typically you have already "
+"defined a Default configuration, a Debug configuration making programs easier "
+"to debug (keeping intermediate variables and code ordering) and an Optimized "
+"configuration generating faster programs but increasing build time. You can "
+"define additional custom configurations."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:49(gui)
+msgid "Build Directory"
+msgstr "Erstellungsordner"
+
+#: C/autotools-build-configure-dialog.page:50(p)
+msgid ""
+"Select here the build directory, it can be the project directory or a "
+"subdirectory. This is particularly useful when switching between different "
+"configurations to avoid rebuilding the whole project."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:56(p)
+msgid ""
+"With autotools, you cannot have one configuration using a different directory "
+"if you already have one configuration using the project directory. You need "
+"to remove it first."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:63(p)
+msgid ""
+"Some autotools project cannot be built outside the project directory. You can "
+"still use different configurations but they all have to use the project "
+"directory and everything will be recompiled on each change of the "
+"configuration."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:72(gui)
+msgid "Configure Options"
+msgstr "Konfigurationsoptionen"
+
+#: C/autotools-build-configure-dialog.page:73(p)
+msgid ""
+"This text box list all command line arguments used by the configure step. All "
+"arguments are separated by spaces and must be quoted if they contains a "
+"space. Each configuration fills this text box with default values that you "
+"can modify."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:80(p)
+msgid ""
+"Each autotools project supports a common list of arguments but can have "
+"specify arguments. You can have a list of all accepted arguments by running "
+"<cmd>configure --help</cmd> on the command line. You need to have configured "
+"your project at least one time to have the <cmd>configure</cmd> script."
+msgstr ""
+
+#: C/autotools-build-compile.page:11(desc)
+msgid "Compile files."
+msgstr "Dateien kompilieren."
+
+#: C/autotools-build-compile.page:20(title)
+msgid "Compile files"
+msgstr "Dateien kompilieren"
+
+#: C/autotools-build-compile.page:22(p)
+msgid ""
+"Most programming language allow you to compile an individual source file. It "
+"reads the file, checks for errors and convert into an intermediate object "
+"file. Most errors happens in this step, so it is useful to compile a file "
+"after modifying it to check for errors. There are several ways to do it."
+msgstr ""
+
+#: C/autotools-build-compile.page:30(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Compile</"
+"gui></guiseq> or press <key>F9</key> to compile the current edited file."
+msgstr ""
+
+#: C/autotools-build-compile.page:39(p)
+msgid "From the <gui>file manager pane</gui>, select a file."
+msgstr "Wählen Sie in der <gui>Dateiverwaltungsleiste</gui> eine Datei aus."
+
+#: C/autotools-build-compile.page:44(p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></guiseq> "
+"to compile the file currently selected in the <gui>file manager pane</gui>."
+msgstr ""
+
+#: C/autotools-build-compile.page:53(p)
+msgid "From the <gui>project manager pane</gui>, select a source file."
+msgstr ""
+"Wählen Sie in der <gui>Projektverwaltungsleiste</gui> eine Quelldatei aus."
+
+#: C/autotools-build-compile.page:58(p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></"
+"guiseq> to compile the file currently selected in the <gui>project manager "
+"pane</gui>."
+msgstr ""
+
+#: C/autotools-build-compile.page:66(p)
+msgid ""
+"You do not need to save your file before compiling it, it will be done "
+"automatically by <app>Anjuta</app> if needed."
+msgstr ""
+"Sie müssen Ihre Datei vor der Kompilierung nicht notwendigerweise speichern. "
+"Dies erledigt <app>Anjuta</app> automatisch, falls nötig."
+
+#: C/autotools-build-clean.page:11(desc)
+msgid "Remove built files."
+msgstr "Erstellte Dateien entfernen."
+
+#: C/autotools-build-clean.page:20(title)
+#, fuzzy
+msgid "Clean targets"
+msgstr "Gruppen und Ziele"
+
+#: C/autotools-build-clean.page:22(p)
+msgid ""
+"It can be useful to delete all files created by the build process. By example "
+"if the all dependencies are not taken into account and a modified file does "
+"not trigger a recompiling as it should, deleting all files will fix this. "
+"There are several way to do this"
+msgstr ""
+
+#: C/autotools-build-clean.page:28(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean</"
+"gui></guiseq> to delete all files build in the same directory than the "
+"current edited file."
+msgstr ""
+
+#: C/autotools-build-clean.page:37(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean "
+"Project</gui></guiseq> to delete all project built files,"
+msgstr ""
+
+#: C/autotools-build-clean.page:50(p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></guiseq> to "
+"delete all files built in the directory currently selected or the parent "
+"directory of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-clean.page:65(p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></"
+"guiseq> to delete all built files in the directory containing the currently "
+"selected file or target."
+msgstr ""
+
+#: C/autotools-build-build.page:11(desc)
+#, fuzzy
+msgid "Build targets or project."
+msgstr "Ein Ziel zum Projekt hinzufügen oder daraus entfernen."
+
+#: C/autotools-build-build.page:24(title)
+msgid "Build targets"
+msgstr ""
+
+#: C/autotools-build-build.page:25(p)
+msgid ""
+"A target is a file created from source files. Typically, it is a program or a "
+"library, but it could also be documentation if the documentation needs "
+"processing, for example."
+msgstr ""
+"Ein Ziel ist eine Datei, die aus Quelldateien erstellt wird. Üblicherweise "
+"ist es ein Programm oder eine Bibliothek, aber es kann auch eine "
+"Dokumentation sein, falls Weiterverarbeitung in irgendeiner Form notwendig "
+"ist."
+
+#: C/autotools-build-build.page:30(p)
+msgid ""
+"The build command compiles all needed source files, and possibly links them "
+"with some other files, like libraries, in order to create the target. If some "
+"source files are already compiled and haven't been modified, they are not be "
+"recompiled, in order to save time. There are several ways to trigger a build."
+msgstr ""
+
+#: C/autotools-build-build.page:39(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
+"gui></guiseq> or press <key>F7</key> to build all targets in the same "
+"directory as the currently opened file."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/autotools-build-build.page:48(p)
+#, fuzzy
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
+"Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
+"keyseq> to build the complete project. All subdirectories are built "
+"recursively."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt</gui></guiseq> "
+"im <gui>Hauptmenü</gui>."
+
+#: C/autotools-build-build.page:62(p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
+"build all targets in the directory currently selected or the parent directory "
+"of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-build.page:77(p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
+"guiseq> to build all targets in the directory containing the currently "
+"selected file or target."
 msgstr ""
 
 #: C/anjuta-glade-start.page:10(name) C/anjuta-glade-signals.page:10(name)
@@ -2823,9 +3283,8 @@ msgid "Jump to the API reference using shortcuts in the editor"
 msgstr "Mit Tastenkürzeln im Editor zur API-Referenz springen"
 
 #: C/anjuta-code-assist.page:15(title)
-#, fuzzy
 msgid "Autocompletion and calltips"
-msgstr "Ziehen und Ablegen"
+msgstr "Automatisches Vervollständigen und Calltips"
 
 #: C/anjuta-code-assist.page:18(title)
 msgid "Autocompletion is not working"
@@ -2866,14 +3325,12 @@ msgid "Project Management"
 msgstr "Projektverwaltung"
 
 #: C/index.page:32(title)
-#, fuzzy
 msgid "Coding and code navigation"
-msgstr "Navigieren durch den Code mit dem Symbolbrowser"
+msgstr "Coding und Navigieren durch den Code"
 
 #: C/index.page:36(title)
-#, fuzzy
 msgid "Building Project"
-msgstr "Laden von Projekten"
+msgstr ""
 
 #: C/index.page:40(title)
 msgid "Debugging Program"
@@ -2894,4 +3351,3 @@ msgstr ""
 "Mario Blättermann <mariobl@freenet.de>, 2009-2011\n"
 "Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010\n"
 "Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010"
-
