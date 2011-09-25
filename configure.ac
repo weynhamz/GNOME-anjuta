@@ -176,7 +176,7 @@ PKG_CHECK_MODULES([GLIB_NEW],
    HAVE_GLIB_2_29_2=1,
    HAVE_GLIB_2_29_2=0)
 AC_SUBST(HAVE_GLIB_2_29_2)
-AC_DEFINE_UNQUOTED([HAVE_GLIB_2_29_2], $HAVE_GLIB_2_29_2, [Define to 1 if glib is version 2.29.2 or greater])
+AC_DEFINE_UNQUOTED([GLIB_2_29_2], $HAVE_GLIB_2_29_2, [Define to 1 if glib is version 2.29.2 or greater])
 
 dnl Check for autogen
 dnl -----------------
