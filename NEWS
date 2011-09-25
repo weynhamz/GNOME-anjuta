@@ -1,3 +1,18 @@
+Anjuta 3.2.0 "No more bombs" (25 September 2011) -- Johannes Schmid
+
+Fixes:
+* Fixed make distcheck: FAQ, autotests, etc (Sébastien Granjoux)
+
+Special thanks for the whole 3.1/3.2 cycle goes to Sébastien who fixed
+a huge amount of stuff and was responsible for the huge documentation rewrite.
+
+Thanks to:
+Akom Chotiphantawanon, Alexander Shopov, Andrea Zagli, 
+Antonio Fernandes C. Neto, Arnel A. Borja, Bruce Cowan, Chao-Hsiung Liao,
+Duarte Loreto, Gabor Kelemen, Javier Jardón, Jiro Matsuzawa, Joan Duran,
+Joe Hansen, Johannes Schmid, Jorge González, Mario Blättermann, Matej Urbančič,
+Paul Seyfert, Sébastien Granjoux, Yinghua Wang, Yuri Myasoedo
+
 Anjuta 3.1.92 "Hot summer in Nagano" (18 September 2011) -- Johannes Schmid
 
 Bugs fixed:
