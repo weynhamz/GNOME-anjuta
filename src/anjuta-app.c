@@ -662,6 +662,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 										 "/ToolbarMain");
     if (!g_settings_get_boolean (app->settings, TOOLBAR_VISIBLE))
 		gtk_widget_hide (app->toolbar);
+	gtk_style_context_add_class (gtk_widget_get_style_context (app->toolbar),
+	                             GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
 	gtk_box_pack_start (GTK_BOX (main_box), app->toolbar, FALSE, FALSE, 0);
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (app->ui),
 										"/MenuMain/MenuView/Toolbar");
