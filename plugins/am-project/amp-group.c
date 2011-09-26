@@ -615,6 +615,7 @@ amp_group_node_save (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 {
 	AnjutaTokenFile *tfile;
 	AnjutaProjectNode *child;
+	gboolean ok = TRUE;
 
 	/* Save group */
 	tfile = AMP_GROUP_NODE (group)->tfile;
@@ -627,10 +628,11 @@ amp_group_node_save (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 	/* Save all children */
 	for (child = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); child != NULL; child = anjuta_project_node_next_sibling (child))
 	{
-		if (!amp_node_save (AMP_NODE (child), group, project, error)) return FALSE;
+		/* Try to save all children even if some fail */
+		if (!amp_node_save (AMP_NODE (child), group, project, error)) ok = FALSE;
 	}
 
-	return TRUE;
+	return ok;
 }
 
 static gboolean
