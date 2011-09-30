@@ -4,7 +4,7 @@ dist-hook: doc-dist-hook
 
 DOC_ID = anjuta-manual
 DOC_PAGES = \
-	index.page \	
+	index.page \
 	anjuta-code-assist.page \
 	anjuta-code-help.page \
 	anjuta-code-indentation.page \
