@@ -2,20 +2,20 @@
 /*
  * anjuta.c
  * Copyright (C) 2000 Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free 
+ * under the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 #include <string.h>
@@ -125,7 +125,6 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 	DEBUG_PRINT ("%s", "AnjutaApp destroy event");
 
 	gtk_widget_hide (w);
-	gtk_main_quit ();
 }
 
 static void
@@ -254,7 +253,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	anjuta_status_progress_add_ticks (status, 1);
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
-	
+
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_window_set_default_icon_name ("anjuta");
@@ -488,7 +487,7 @@ anjuta_open (GApplication *application,
 	AnjutaApp *app = ANJUTA_APP (windows->data);
 	IAnjutaFileLoader* loader =
 		anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
-	
+
 	if (!loader)
 		return;
 
@@ -506,11 +505,11 @@ anjuta_open (GApplication *application,
 			                            GTK_WINDOW (new_app));
 			gtk_widget_show (GTK_WIDGET (new_app));
 			g_free (file);
-			return;                     
+			return;
 		}
 		g_free (file);
-	}				
-	
+	}
+
 	for (i = 0; i < n_files; i++)
 	{
 		ianjuta_file_loader_load(loader, files[i], FALSE, NULL);
@@ -522,7 +521,7 @@ anjuta_activate (GApplication *application)
 {
 	/* Show first window */
 	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
-	
+
 	gtk_window_present (GTK_WINDOW (g_list_last (windows)->data));
 }
 
