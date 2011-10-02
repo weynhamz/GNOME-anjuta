@@ -2,21 +2,21 @@
 /*
  * ac-scanner.l
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * main.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 %{
 
 #include "ac-scanner.h"
@@ -35,7 +35,7 @@
 #define YY_DECL static int ac_yylex (YYSTYPE * yylval_param,YYLTYPE * yylloc_param ,yyscan_t yyscanner)
 
 //#define YY_USER_INIT {yy_flex_debug = 1;}
- 
+
 static gint amp_ac_scanner_parse_end (AmpAcScanner *scanner);
 
 #define RETURN(tok) *yylval = anjuta_token_stream_tokenize (yyextra->stream, tok, yyleng); \
@@ -50,9 +50,11 @@ struct _AmpAcScanner
     AmpProject *project;
 
     AnjutaToken *parsed;
+
+	gboolean eof;		/* TRUE to emit EOF at the end */
 };
 
-             
+
 %}
 
 %option reentrant stack noyywrap yylineno
@@ -64,7 +66,7 @@ struct _AmpAcScanner
 
 /* Necessary because autotools wrapper always looks for a file named "lex.yy.c",
  * not "lex.amp_ac_yy.c"
-%option outfile="lex.yy.c"*/			
+%option outfile="lex.yy.c"*/
 
 %option bison-bridge bison-locations
 
@@ -98,7 +100,7 @@ OTHER       [^ \t\r\v\n#\[\]\\(),=><$_A-Za-z_]+
 
 \\\n                    { RETURN (SPACE); }
 
-{NL}                    { RETURN (EOL); }
+{NL}                    { RETURN (END_OF_LINE); }
 
 {COMMENT}               { RETURN (HASH); }
 
@@ -119,6 +121,8 @@ OTHER       [^ \t\r\v\n#\[\]\\(),=><$_A-Za-z_]+
 {GREATER}                 { RETURN (GREATER); }
 
 dnl                     { RETURN (DNL); }
+
+m4_include\(			{ RETURN (M4_INCLUDE); }
 
 AC_ARG_ENABLE\(			{ RETURN (AC_ARG_ENABLE);}
 
@@ -147,11 +151,11 @@ AC_EXEEXT				{ RETURN (AC_EXEEXT); }
 AC_HEADER_STDC			{ RETURN (AC_HEADER_STDC); }
 
 AC_INIT\(               { RETURN (AC_INIT); }
- 
+
 AC_OBJEXT				{ RETURN (AC_OBJEXT); }
 
 AC_OUTPUT\(             { RETURN (OBSOLETE_AC_OUTPUT); }
- 
+
 AC_OUTPUT               { RETURN (AC_OUTPUT); }
 
 AC_PREREQ\(				{ RETURN (AC_PREREQ); }
@@ -163,34 +167,34 @@ AC_PROG_CPP				{ RETURN (AC_PROG_CPP);}
 AC_PROG_CXX				{ RETURN (AC_PROG_CXX);}
 
 IT_PROG_INTLTOOL\(		{ RETURN (IT_PROG_INTLTOOL);}
-                  
+
 AC_PROG_LEX				{ RETURN (AC_PROG_LEX);}
-                  
+
 AC_PROG_RANLIB			{ RETURN (AC_PROG_RANLIB);}
-                  
-AC_PROG_YACC			{ RETURN (AC_PROG_YACC);}	
-                  
+
+AC_PROG_YACC			{ RETURN (AC_PROG_YACC);}
+
 AC_SUBST\(				{ RETURN (AC_SUBST);}
-          
+
 AC_TYPE_SIZE_T			{ RETURN (AC_TYPE_SIZE_T);}
-          
+
 AC_TYPE_OFF_T			{ RETURN (AC_TYPE_OFF_T);}
-          
+
 AM_INIT_AUTOMAKE\(		{ RETURN (AM_INIT_AUTOMAKE);}
-                  
+
 AM_GLIB_GNU_GETTEXT\(   { RETURN (AM_GLIB_GNU_GETTEXT);}
-                     
+
 AM_MAINTAINER_MODE		{ RETURN (AM_MAINTAINER_MODE);}
-                     
+
 AM_PROG_LIBTOOL			{ RETURN (AM_PROG_LIBTOOL);}
-                     
-LT_INIT\(				{ RETURN (LT_INIT);}	
-         
+
+LT_INIT\(				{ RETURN (LT_INIT);}
+
 LT_PREREQ\(				{ RETURN (LT_PREREQ);}
 
 PKG_CHECK_MODULES\(     { RETURN (PKG_CHECK_MODULES); }
 
-PKG_PROG_PKG_CONFIG\(	{ RETURN (PKG_PROG_PKG_CONFIG);}	   
+PKG_PROG_PKG_CONFIG\(	{ RETURN (PKG_PROG_PKG_CONFIG);}
 
 {NAME}                  { RETURN (NAME); }
 
@@ -222,18 +226,34 @@ PKG_PROG_PKG_CONFIG\(	{ RETURN (PKG_PROG_PKG_CONFIG);}
 static gint
 amp_ac_scanner_parse_end (AmpAcScanner *scanner)
 {
-    scanner->parsed = anjuta_token_stream_get_root (scanner->stream);
-    yypop_buffer_state(scanner->scanner);
-    scanner->stream = anjuta_token_stream_pop (scanner->stream);
 
-    if (scanner->stream == NULL)
-    {
-        yyterminate();
-    }
-    else
-    {
-        return 1;
-    }
+   	if (scanner->stream == NULL)
+   	{
+		yyterminate();
+	}
+   	else
+   	{
+		if (scanner->eof)
+		{
+			scanner->eof = FALSE;
+			return END_OF_FILE;
+		}
+
+		yypop_buffer_state(scanner->scanner);
+    	scanner->stream = anjuta_token_stream_pop (scanner->stream);
+
+		if (scanner->stream == NULL)
+		{
+			yyterminate();
+		}
+		else
+		{
+			scanner->eof = anjuta_token_stream_get_current_file (scanner->stream) != NULL;
+
+			/* Continue parsing the parent file */
+			return 1;
+		}
+	}
 }
 
 /* Parser functions
@@ -273,18 +293,42 @@ amp_ac_scanner_load_properties (AmpAcScanner *scanner, AnjutaToken *macro, Anjut
     amp_project_load_properties (scanner->project, macro, list);
 }
 
+void
+amp_ac_scanner_include (AmpAcScanner *scanner, AnjutaToken *list)
+{
+	GFile *file;
+	AnjutaTokenFile *include;
+	AnjutaToken *token;
+	AnjutaToken *name;
+	gchar *filename;
+
+	name = anjuta_token_first_item (list);  	/* m4_include macro */
+	name = anjuta_token_next_item (name);		/* arguments list */
+	name = anjuta_token_first_item (name);		/* filename */
+	filename = g_strstrip (anjuta_token_evaluate (name));
+	//g_message ("read include =%s=", filename);
+	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
+	g_message ("file %p current dir %p filename %s", file, anjuta_token_stream_get_current_directory (scanner->stream), filename);
+	g_free (filename);
+	include = anjuta_token_file_new (file);
+	token = anjuta_token_file_load (include, NULL);
+	amp_ac_scanner_parse_token (scanner, list, token, 0, file, NULL);
+	g_object_unref (file);
+}
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
 AnjutaToken *
-amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint start, GError **error)
+amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *root, AnjutaToken *content, gint start, GFile *filename, GError **error)
 {
     AnjutaToken *first;
     AnjutaTokenStream *stream;
 
-    stream = anjuta_token_stream_push (scanner->stream, NULL, token, NULL);
+    stream = anjuta_token_stream_push (scanner->stream, root, content, filename);
     first = anjuta_token_stream_get_root (stream);
+
+	scanner->eof = filename != NULL;
 
     if (scanner->stream != NULL)
     {
@@ -318,7 +362,7 @@ amp_ac_scanner_parse_token (AmpAcScanner *scanner, AnjutaToken *token, gint star
         do
         {
             gint yychar = ac_yylex (&yylval_param, &yylloc_param, scanner->scanner);
-        
+
             yylloc_param = yylval_param;
             status = amp_ac_yypush_parse (ps, yychar, &yylval_param, &yylloc_param, scanner);
 

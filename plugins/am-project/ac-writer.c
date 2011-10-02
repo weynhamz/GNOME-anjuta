@@ -57,7 +57,7 @@ anjuta_token_find_position (AnjutaToken *list, gboolean after, AnjutaTokenType t
 	{
 		AnjutaToken *last = NULL;
 		gboolean found = FALSE;
-		
+
 		for (tok = list; tok != NULL; tok = anjuta_token_next (tok))
 		{
 			AnjutaTokenType current = anjuta_token_get_type (tok);
@@ -70,7 +70,7 @@ anjuta_token_find_position (AnjutaToken *list, gboolean after, AnjutaTokenType t
 					/*  1. After the last similar macro
 					 *  2. After the last macro with a higher priority
 					 *  3. At the end of the file
-					 */ 
+					 */
 					if (current == type)
 					{
 						pos = tok;
@@ -116,7 +116,7 @@ anjuta_token_find_position (AnjutaToken *list, gboolean after, AnjutaTokenType t
 		}
 	}
 
-	
+
 	return pos;
 }
 
@@ -124,7 +124,7 @@ static AnjutaToken*
 find_tokens (AnjutaToken *list, AnjutaTokenType* types)
 {
 	AnjutaToken *tok;
-	
+
 	for (tok = list; tok != NULL; tok = anjuta_token_next (tok))
 	{
 		AnjutaTokenType *type;
@@ -144,7 +144,7 @@ static AnjutaToken *
 skip_comment (AnjutaToken *token)
 {
 	if (token == NULL) return NULL;
-	
+
 	for (;;)
 	{
 		for (;;)
@@ -152,7 +152,7 @@ skip_comment (AnjutaToken *token)
 			AnjutaToken *next = anjuta_token_next (token);
 
 			if (next == NULL) return token;
-			
+
 			switch (anjuta_token_get_type (token))
 			{
 			case ANJUTA_TOKEN_FILE:
@@ -167,14 +167,14 @@ skip_comment (AnjutaToken *token)
 			}
 			break;
 		}
-		
+
 		for (;;)
 		{
 			AnjutaToken *next = anjuta_token_next (token);
 
 			if (next == NULL) return token;
 			token = next;
-			if (anjuta_token_get_type (token) == EOL) break;
+			if (anjuta_token_get_type (token) == END_OF_LINE) break;
 		}
 	}
 }
@@ -192,7 +192,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 
 	pos = ((AmpProperty *)property)->position;
 	value = ((AmpProperty *)property)->base.value;
-	
+
 	if (project->ac_init == NULL)
 	{
 		gint types[] = {AC_TOKEN_AC_PREREQ, 0};
@@ -208,18 +208,18 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 			{
 				token = anjuta_token_append_child (configure, anjuta_token_new_string (COMMENT | ANJUTA_TOKEN_ADDED, "#"));
 				token = anjuta_token_insert_after (token, anjuta_token_new_string (SPACE | ANJUTA_TOKEN_ADDED, " Created by Anjuta project manager"));
-				token = anjuta_token_insert_after (token, anjuta_token_new_string (EOL | ANJUTA_TOKEN_ADDED, "\n"));
-				token = anjuta_token_insert_after (token, anjuta_token_new_string (EOL | ANJUTA_TOKEN_ADDED, "\n"));
+				token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
+				token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
 			}
 		}
-		
+
 		token = anjuta_token_insert_before (token, anjuta_token_new_string (AC_TOKEN_AC_INIT | ANJUTA_TOKEN_ADDED, "AC_INIT("));
 		project->ac_init = token;
 		group = anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_LIST | ANJUTA_TOKEN_ADDED, NULL));
 		project->args = group;
 		token = anjuta_token_insert_after (group, anjuta_token_new_static (ANJUTA_TOKEN_LAST | ANJUTA_TOKEN_ADDED, NULL));
 		anjuta_token_merge (group, token);
-		anjuta_token_insert_after (token, anjuta_token_new_string (EOL | ANJUTA_TOKEN_ADDED, "\n"));
+		anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
 		//fprintf(stdout, "whole file\n");
 		//anjuta_token_dump (project->configure_token);
 	}
@@ -237,7 +237,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	//fprintf(stdout, "ac_init after update link\n");
 	//anjuta_token_dump (project->args);
 	amp_project_update_configure (project, token);
-	
+
 	return TRUE;
 }
 
@@ -258,7 +258,7 @@ amp_project_write_module_list (AmpProject *project, const gchar *name, gboolean 
 	pos = anjuta_token_insert_token_list (after, pos,
 		    ANJUTA_TOKEN_EOL, "\n",
 		    NULL);
-	
+
 	pos = anjuta_token_insert_token_list (after, pos,
 		    ANJUTA_TOKEN_EOL, "\n",
 		    NULL);
@@ -277,7 +277,7 @@ amp_project_write_module_list (AmpProject *project, const gchar *name, gboolean 
 }
 
 
-gboolean 
+gboolean
 amp_module_node_create_token (AmpProject  *project, AmpModuleNode *module, GError **error)
 {
 	gboolean after;
@@ -285,7 +285,7 @@ amp_module_node_create_token (AmpProject  *project, AmpModuleNode *module, GErro
 	AnjutaToken *prev;
 	AnjutaToken *next;
 	AnjutaProjectNode *sibling;
-	
+
 	/* Add in configure.ac */
 	/* Find a sibling if possible */
 	prev = NULL;
@@ -318,19 +318,19 @@ amp_module_node_create_token (AmpProject  *project, AmpModuleNode *module, GErro
 			}
 		}
 	}
-	
+
 	token = amp_project_write_module_list (project, anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (module)), after, prev);
 	next = anjuta_token_next (token);
 	next = anjuta_token_next (next);
 	next = anjuta_token_next (next);
 	amp_module_node_add_token (module, next);
-	
+
 	amp_project_update_configure (project, token);
 
 	return TRUE;
 }
 
-gboolean 
+gboolean
 amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GError **error)
 {
 	AnjutaToken *token;
@@ -339,7 +339,7 @@ amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GErro
 	if (token != NULL)
 	{
 		AnjutaToken *eol;
-		
+
 		token = anjuta_token_list (token);
 		anjuta_token_set_flags (token, ANJUTA_TOKEN_REMOVED);
 		eol = anjuta_token_next_item (token);
@@ -362,7 +362,7 @@ amp_module_node_delete_token (AmpProject  *project, AmpModuleNode *module, GErro
 /* Package objects
  *---------------------------------------------------------------------------*/
 
-gboolean 
+gboolean
 amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GError **error)
 {
 	AmpModuleNode *module;
@@ -403,7 +403,7 @@ amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GE
 	{
 		args = amp_module_node_get_token (module);
 	}
-	
+
 	if (args != NULL)
 	{
 		AnjutaTokenStyle *style;
@@ -414,7 +414,7 @@ amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GE
 		//anjuta_token_style_update (style, args);
 
 		token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, name);
-		
+
 		if (after)
 		{
 			anjuta_token_insert_word_after (args, prev, token);
@@ -427,16 +427,16 @@ amp_package_node_create_token (AmpProject  *project, AmpPackageNode *package, GE
 		/* Try to use the same style than the current target list */
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
-		
+
 		amp_project_update_configure (project, token);
-		
+
 		amp_package_node_add_token (package, token);
 	}
 
 	return TRUE;
 }
 
-gboolean 
+gboolean
 amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GError **error)
 {
 	AnjutaProjectNode *module;
@@ -448,7 +448,7 @@ amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GE
 	{
 		return FALSE;
 	}
-		
+
 	token = amp_package_node_get_token (package);
 	if (token != NULL)
 	{
@@ -460,9 +460,9 @@ amp_package_node_delete_token (AmpProject  *project, AmpPackageNode *package, GE
 		/* Try to use the same style than the current target list */
 		style = anjuta_token_style_new_from_base (project->ac_space_list);
 		anjuta_token_style_update (style, args);
-		
+
 		anjuta_token_remove_word (token);
-		
+
 		anjuta_token_style_format (style, args);
 		anjuta_token_style_free (style);
 

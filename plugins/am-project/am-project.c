@@ -729,7 +729,7 @@ amp_project_load_module (AmpProject *project, AnjutaToken *module_token)
 		if (arg != NULL)
 		{
 			scanner = amp_ac_scanner_new (project);
-			list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
+			list = amp_ac_scanner_parse_token (scanner, NULL, arg, AC_SPACE_LIST_STATE, NULL, NULL);
 			anjuta_token_free_children (arg);
 			list = anjuta_token_delete_parent (list);
 			anjuta_token_prepend_items (arg, list);
@@ -788,7 +788,7 @@ amp_project_load_config (AmpProject *project, AnjutaToken *arg_list)
 		scanner = amp_ac_scanner_new (project);
 
 		arg = anjuta_token_first_word (arg_list);
-		list = amp_ac_scanner_parse_token (scanner, arg, AC_SPACE_LIST_STATE, NULL);
+		list = amp_ac_scanner_parse_token (scanner, NULL, arg, AC_SPACE_LIST_STATE, NULL, NULL);
 		anjuta_token_free_children (arg);
 		list = anjuta_token_delete_parent (list);
 		amp_ac_scanner_free (scanner);
@@ -1646,7 +1646,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	amp_project_add_file (project, configure_file, configure_token_file);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
 	scanner = amp_ac_scanner_new (project);
-	project->configure_token = amp_ac_scanner_parse_token (scanner, arg, 0, &err);
+	project->configure_token = amp_ac_scanner_parse_token (scanner, NULL, arg, 0, configure_file, &err);
 	amp_ac_scanner_free (scanner);
 
 	if (project->configure_token == NULL)

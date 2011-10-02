@@ -2,17 +2,17 @@
 /*
  * ac-parser.y
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * main.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,7 +33,8 @@
 
 %}
 
-%token  EOL '\n'
+%token	END_OF_FILE
+%token	END_OF_LINE	'\n'
 
 %token  SPACE ' '
 
@@ -62,6 +63,7 @@
 /* M4 macros */
 
 %token  DNL
+%token	M4_INCLUDE
 
 
 /* Autoconf macros */
@@ -104,7 +106,7 @@
 %token	LT_INIT
 %token	LT_PREREQ
 %token	PKG_CHECK_MODULES
-%token	PKG_PROG_PKG_CONFIG	
+%token	PKG_PROG_PKG_CONFIG
 
 
 
@@ -183,7 +185,7 @@ file:
     /* empty */
 	| file  statement
 	;
-   
+
 statement:
     line
     | macro
@@ -204,10 +206,11 @@ line:
 
 macro:
     dnl
+    | include
 	| ac_macro_with_arg
 	| ac_macro_without_arg
     | ac_init
-	| pkg_check_modules 
+	| pkg_check_modules
 	| obsolete_ac_output
 	| ac_output
 	| ac_config_files
@@ -259,14 +262,23 @@ name:
  *----------------------------------------------------------------------------*/
 
 dnl:
-    DNL  not_eol_list  EOL {
+    DNL  not_eol_list  end_of_line {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_COMMENT, NULL);
 		anjuta_token_merge ($$, $1);
 		anjuta_token_merge ($$, $2);
 		anjuta_token_merge ($$, $3);
 	}
     ;
-    
+
+include:
+    M4_INCLUDE arg_list {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
+		amp_ac_scanner_include (scanner, $$);
+	}
+	;
+
 
 pkg_check_modules:
     PKG_CHECK_MODULES arg_list {
@@ -289,7 +301,7 @@ ac_macro_with_arg:
 		anjuta_token_merge ($$, $2);
 	}
 	;
-	
+
 ac_macro_without_arg:
 	ac_macro_without_arg_token {
 		anjuta_token_set_type ($1, amp_ac_autoconf_macro ($1));
@@ -317,7 +329,7 @@ obsolete_ac_output:
         amp_ac_scanner_load_config (scanner, $2);
     }
 	;
-	
+
 ac_config_files:
     AC_CONFIG_FILES  arg_list {
 		$$ = anjuta_token_new_static (AC_TOKEN_AC_CONFIG_FILES, NULL);
@@ -370,7 +382,7 @@ arg_list_body:
     ;
 
 comment:
-    HASH not_eol_list EOL {
+    HASH not_eol_list end_of_line {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_COMMENT, NULL);
 		anjuta_token_merge ($$, $1);
 		anjuta_token_merge ($$, $2);
@@ -497,7 +509,7 @@ arg:
         anjuta_token_merge_children ($1, $2);
         //fprintf(stdout, "arg merge\n");
         //anjuta_token_dump ($1);
-    }        
+    }
     ;
 
 arg_body:
@@ -612,12 +624,25 @@ spaces:
 	}
 	;
 
+
 /* Tokens
  *----------------------------------------------------------------------------*/
 
 not_eol_token:
     SPACE
-    | word_token    
+    | args_token
+    | HASH
+    | OPERATOR
+    | EQUAL
+    | LOWER
+    | GREATER
+    | NAME
+    | VARIABLE
+    | WORD
+    | any_macro
+    | M4_INCLUDE
+    | LEFT_BRACE
+    | RIGHT_BRACE
     ;
 
 not_brace_token:
@@ -632,11 +657,12 @@ not_brace_token:
     | VARIABLE
     | WORD
     | any_macro
+	| M4_INCLUDE
     ;
 
 space_token:
     SPACE
-    | EOL {
+    | END_OF_LINE {
 		anjuta_token_set_type ($1, ANJUTA_TOKEN_EOL);
 	}
     ;
@@ -658,6 +684,7 @@ not_operator_token:
     | VARIABLE
     | WORD
     | any_macro
+    | include
     ;
 
 word_token:
@@ -675,6 +702,7 @@ word_token:
     | VARIABLE
     | WORD
     | any_macro
+    | include
     ;
 
 any_macro:
@@ -725,6 +753,11 @@ ac_macro_with_arg_token:
 	| LT_INIT
 	| LT_PREREQ
 	| PKG_PROG_PKG_CONFIG
+	;
+
+end_of_line:
+	END_OF_LINE
+	| END_OF_FILE
 	;
 
 %%
