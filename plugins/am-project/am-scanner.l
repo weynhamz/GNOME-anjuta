@@ -2,17 +2,17 @@
 /*
  * am-scanner.l
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * main.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -227,18 +227,18 @@ amp_am_scanner_reparse_token (AmpAmScanner *scanner, AnjutaToken *token, GFile *
 {
 	AnjutaToken *root;
 	AnjutaToken *list;
-	
+
 	if (token == NULL) return;
-	
+
 	token = anjuta_token_concat (token);
-	
+
 	yylex_init(&scanner->scanner);
 	yyset_extra (scanner, scanner->scanner);
-		
+
 	root = anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL);
 	list = amp_am_scanner_parse_token (scanner, root, token, filename, NULL);
 	list = anjuta_token_delete_parent (list);
-	anjuta_token_insert_before (token, list);
+	if (list != NULL) anjuta_token_insert_before (token, list);
 	anjuta_token_free (token);
 }
 
@@ -271,8 +271,8 @@ list_depend (AnjutaToken *token, gpointer user_data)
 	{
 		gchar *string;
 		gchar *name;
-		guint length;		
-		
+		guint length;
+
 		string = anjuta_token_evaluate_name(token);
 		length = strlen (string);
 		if (length > 1)
@@ -298,7 +298,7 @@ convert_dependencies (gchar *variable_name, AmpVariableDepend *variable, gpointe
 {
 	GList *list;
 	GHashTable *dependencies = (GHashTable *)user_data;
-	
+
 	variable->token = g_list_reverse (variable->token);
 
 	list = g_list_first (variable->depend);
@@ -312,7 +312,7 @@ convert_dependencies (gchar *variable_name, AmpVariableDepend *variable, gpointe
 		depend =g_hash_table_lookup (dependencies, name);
 		g_free (name);
 		next = g_list_next (list);
-		
+
 		if (depend == NULL)
 		{
 			/* Unexisting variable, remove it from dependencies */
@@ -321,7 +321,7 @@ convert_dependencies (gchar *variable_name, AmpVariableDepend *variable, gpointe
 		else
 		{
 			GList *dup;
-			
+
 			/* Look for duplicate */
 			for (dup = g_list_first (variable->depend); dup != list; dup = g_list_next (dup))
 			{
@@ -340,7 +340,7 @@ convert_dependencies (gchar *variable_name, AmpVariableDepend *variable, gpointe
 		}
 		list = next;
 	}
-	
+
 }
 
 static GHashTable *
@@ -348,7 +348,7 @@ amp_am_scanner_compute_dependencies (AmpAmScanner *scanner)
 {
 	GHashTable *variable_dependencies;
 	GList *variable;
-			
+
 	/* Compute variables dependencies */
 	variable_dependencies = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)amp_variable_depend_free);
 	for (variable = g_list_first (scanner->variables); variable != NULL; variable = g_list_next (variable))
@@ -358,7 +358,7 @@ amp_am_scanner_compute_dependencies (AmpAmScanner *scanner)
 		gchar *name;
 		GList *list = NULL;
 		AmpVariableDepend *depend;
-			
+
 		arg = anjuta_token_first_item ((AnjutaToken *)variable->data);
 		name = g_strstrip (anjuta_token_evaluate (arg));
 
@@ -372,7 +372,7 @@ amp_am_scanner_compute_dependencies (AmpAmScanner *scanner)
 		}
 
 		depend->token = g_list_prepend (depend->token, variable->data);
-		
+
 		/* Find dependencies */
 		value = anjuta_token_last_item ((AnjutaToken *)variable->data);
 		anjuta_token_foreach_token (value, list_depend, &list);
@@ -487,7 +487,7 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 	AnjutaToken *value;
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
-	
+
 	value = amp_group_node_get_variable_token (scanner->group, variable);
 	if (value != NULL)
 	{
@@ -532,7 +532,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 
 			yylloc_param = yylval_param;
             status = amp_am_yypush_parse (ps, yychar, &yylval_param, &yylloc_param, scanner);
- 
+
         } while (status == YYPUSH_MORE);
         amp_am_yypstate_delete (ps);
 
@@ -544,7 +544,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 			GList *var;
 			guint evaluated;
 
-			variable_dependencies =amp_am_scanner_compute_dependencies (scanner);			
+			variable_dependencies =amp_am_scanner_compute_dependencies (scanner);
 			variables = g_hash_table_get_values (variable_dependencies);
 
 			/* Reevaluate variable having dependencies */
@@ -614,7 +614,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 			{
 				AnjutaToken *token = (AnjutaToken *)var->data;
 
-				amp_am_scanner_reparse_token (scanner, token, filename);				
+				amp_am_scanner_reparse_token (scanner, token, filename);
 			}
 		}
     }
@@ -645,7 +645,7 @@ amp_am_scanner_new (AmpProject *project, AmpGroupNode *group)
 
 	/* Create list of variable */
 	scanner->variables = NULL;
-	
+
     yylex_init(&scanner->scanner);
     yyset_extra (scanner, scanner->scanner);
 
@@ -661,10 +661,10 @@ amp_am_scanner_free (AmpAmScanner *scanner)
 
 	/* Free unused sources files */
 	g_hash_table_destroy (scanner->orphan_properties);
-	
+
 	g_list_free (scanner->am_variables);
 
-	g_list_free (scanner->variables); 
-	
+	g_list_free (scanner->variables);
+
 	g_free (scanner);
 }

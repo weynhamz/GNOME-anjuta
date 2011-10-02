@@ -2,17 +2,17 @@
 /*
  * am-parser.y
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * main.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -183,7 +183,7 @@ statement:
 	| line  end_of_line
 	| rule  command_list
 	;
-	
+
 am_variable:
 	optional_space  automake_token  optional_space  equal_token  value_list {
 		$$ = anjuta_token_new_static (amp_am_automake_variable ($2), NULL);
@@ -258,7 +258,7 @@ line:
 
 /* Lists
  *----------------------------------------------------------------------------*/
- 
+
 end_of_line:
 	END_OF_LINE {
 		anjuta_token_set_type ($1, ANJUTA_TOKEN_EOL);
@@ -337,8 +337,8 @@ value_list_body:
 	}
 	;
 
-	
-	
+
+
 command_line:
 	/* empty */
 	| command_line command_token
@@ -472,6 +472,7 @@ command_token:
 	| equal_token
 	| rule_token
 	| depend_token
+	| include_token
 	| space_token
 	| comment_token
 	;
