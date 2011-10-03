@@ -1651,11 +1651,21 @@ amp_project_load_root (AmpProject *project, GError **error)
 
 	if (project->configure_token == NULL)
 	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR,
+		if (err != NULL)
+		{
+			g_set_error_literal (error, IANJUTA_PROJECT_ERROR,
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
-						err == NULL ? _("Unable to parse project file") : err->message);
-		if (err != NULL) g_error_free (err);
-			return FALSE;
+						err->message);
+			g_error_free (err);
+		}
+		else
+		{
+			g_set_error (error, IANJUTA_PROJECT_ERROR,
+						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
+						_("Unable to parse project file"));
+		}
+		
+		return FALSE;
 	}
 
 	/* Load all makefiles recursively */

@@ -486,10 +486,19 @@ project_load_makefile (MkpProject *project, GFile *file, MkpGroup *parent, GErro
 	mkp_scanner_free (scanner);
 	if (!ok)
 	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR,
+		if (err != NULL)
+		{
+			g_set_error_literal (error, IANJUTA_PROJECT_ERROR,
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
-						err == NULL ? _("Unable to parse make file") : err->message);
-		if (err != NULL) g_error_free (err);
+						err->message);
+			g_error_free (err);
+		}
+		else
+		{
+			g_set_error (error, IANJUTA_PROJECT_ERROR,
+						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
+						_("Unable to parse make file"));
+		}
 
 		return NULL;
 	}
