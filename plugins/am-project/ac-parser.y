@@ -183,19 +183,26 @@ input:
 
 file:
     /* empty */
-	| file  statement
+	| file  line
 	;
 
-statement:
-    line
-    | macro
+line:
+	end_statement
+	| spaces end_statement
+    | statement end_statement
+    | spaces statement end_statement
     ;
 
-line:
-    space_token
-    | comment
-    | shell_string
+statement:
+	statement_token
+	| statement statement_token
+	| statement SPACE
+	;
+
+statement_token:
+    shell_string
     | args_token
+	| macro
     | EQUAL
     | LOWER
     | GREATER
@@ -205,8 +212,7 @@ line:
     ;
 
 macro:
-    dnl
-    | include
+    include
 	| ac_macro_with_arg
 	| ac_macro_without_arg
     | ac_init
@@ -222,17 +228,17 @@ macro:
 space_list:
     /* empty */
     | space_list_body
-    | space_list_body spaces {
+    | space_list_body spaces_with_eol {
 		anjuta_token_set_type ($2, ANJUTA_TOKEN_LAST);
 	}
     ;
 
 space_list_body:
     item
-    | spaces item {
+    | spaces_with_eol item {
         anjuta_token_set_type ($1, ANJUTA_TOKEN_NEXT);
     }
-    | space_list_body spaces item {
+    | space_list_body spaces_with_eol item {
         anjuta_token_set_type ($2, ANJUTA_TOKEN_NEXT);
     }
     ;
@@ -260,6 +266,12 @@ name:
 
 /* Macros
  *----------------------------------------------------------------------------*/
+
+end_statement:
+	dnl
+	| comment
+	| end_of_line
+	;
 
 dnl:
     DNL  not_eol_list  end_of_line {
@@ -349,7 +361,7 @@ arg_list:
         anjuta_token_merge ($1, $$);
         $$ = $1;
     }
-    | spaces  arg_list_body  RIGHT_PAREN {
+    | spaces_with_eol  arg_list_body  RIGHT_PAREN {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_LAST, NULL);
         anjuta_token_merge ($$, $3);
 		anjuta_token_merge ($2, $$);
@@ -455,7 +467,10 @@ arg_string_body:
     /* empty */ {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_STRING, NULL);
     }
-    | arg_string_body space_token {
+    | arg_string_body SPACE {
+        anjuta_token_merge ($1, $2);
+    }
+    | arg_string_body END_OF_LINE {
         anjuta_token_merge ($1, $2);
     }
     | arg_string_body HASH {
@@ -522,7 +537,11 @@ arg_body:
     ;
 
 arg_part_or_space:
-    space_token {
+    SPACE {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
+        anjuta_token_merge ($$, $1);
+    }
+    | END_OF_LINE {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
         anjuta_token_merge ($$, $1);
     }
@@ -554,7 +573,7 @@ separator:
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_NEXT, NULL);
         anjuta_token_merge ($$, $1);
     }
-    | COMMA spaces {
+    | COMMA spaces_with_eol {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_NEXT, NULL);
         //fprintf(stdout, "separator spaces\n");
         //anjuta_token_dump ($2);
@@ -580,7 +599,10 @@ expression_body:
     /* empty */  {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_STRING, NULL);
     }
-    | expression_body space_token {
+    | expression_body SPACE {
+        anjuta_token_merge ($1, $2);
+    }
+    | expression_body END_OF_LINE {
         anjuta_token_merge ($1, $2);
     }
     | expression_body comment
@@ -614,12 +636,34 @@ expression_body:
     }
     ;
 
+optional_spaces:
+	/* empty */
+	| spaces
+	;
+
 spaces:
-	space_token {
+	SPACE {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
         anjuta_token_merge ($$, $1);
     }
-	| spaces space_token {
+	| spaces SPACE {
+        anjuta_token_merge ($1, $2);
+	}
+	;
+
+spaces_with_eol:
+	SPACE {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
+        anjuta_token_merge ($$, $1);
+    }
+	| END_OF_LINE {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_SPACE, NULL);
+        anjuta_token_merge ($$, $1);
+    }
+	| spaces_with_eol SPACE {
+        anjuta_token_merge ($1, $2);
+	}
+	| spaces_with_eol END_OF_LINE {
         anjuta_token_merge ($1, $2);
 	}
 	;
@@ -646,7 +690,8 @@ not_eol_token:
     ;
 
 not_brace_token:
-    space_token
+	SPACE
+	| END_OF_LINE
     | args_token
     | HASH
     | EQUAL
@@ -662,9 +707,7 @@ not_brace_token:
 
 space_token:
     SPACE
-    | END_OF_LINE {
-		anjuta_token_set_type ($1, ANJUTA_TOKEN_EOL);
-	}
+    | END_OF_LINE
     ;
 
 args_token:
@@ -756,7 +799,9 @@ ac_macro_with_arg_token:
 	;
 
 end_of_line:
-	END_OF_LINE
+	END_OF_LINE  {
+		anjuta_token_set_type ($1, ANJUTA_TOKEN_EOL);
+	}
 	| END_OF_FILE
 	;
 
