@@ -1,4 +1,5 @@
-noinst_PROGRAMS = anjuta-tabber-test
+noinst_PROGRAMS = anjuta-tabber-test \
+		anjuta-token-test 
 
 # Include paths
 AM_CPPFLAGS = \
@@ -11,3 +12,11 @@ anjuta_tabber_test_CFLAGS = $(LIBANJUTA_CFLAGS)
 anjuta_tabber_test_LDADD = $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
 
 anjuta_tabber_test_SOURCES = anjuta-tabber-test.c
+
+
+anjuta_token_test_CFLAGS = -g -O0 -fprofile-arcs -ftest-coverage
+anjuta_token_test_LDADD = $(ANJUTA_LIBS)
+
+anjuta_token_test_SOURCES = anjuta-token-test.c \
+			../anjuta-token.c \
+			../anjuta-debug.c
