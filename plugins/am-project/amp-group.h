@@ -74,7 +74,7 @@ AnjutaTokenFile *amp_group_node_get_make_token_file (AmpGroupNode *group);
 gchar *amp_group_node_get_makefile_name (AmpGroupNode *group);
 gboolean amp_group_node_update_makefile (AmpGroupNode *group, AnjutaToken *token);
 void amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable);
-AnjutaToken* amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable);
+AnjutaToken* amp_group_node_get_variable_token (AmpGroupNode *group, const gchar *name);
 AmpGroupNode* amp_group_node_new_valid (GFile *file, gboolean dist_only, GError **error);
 AmpGroupNode* amp_group_node_new (GFile *file, gboolean dist_only);
 void amp_group_node_free (AmpGroupNode *node);

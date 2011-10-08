@@ -2,17 +2,17 @@
 /*
  * am-scanner.h
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * main.c is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,6 +47,8 @@ void amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variabl
 
 void amp_project_set_am_variable (AmpProject* project, AmpGroupNode* group, AnjutaToken *variable, GHashTable *orphan_properties);
 
+void amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable);
+void amp_am_scanner_parse_ac_variable (AmpAmScanner *scanner, AnjutaToken *variable);
 
 void amp_am_yyerror (YYLTYPE *loc, AmpAmScanner *scanner, char const *s);
 
@@ -78,7 +80,7 @@ typedef enum
 	AM_TOKEN__OBJCFLAGS,
 	AM_TOKEN__LFLAGS,
 	AM_TOKEN__YFLAGS,
-	
+
 	AM_TOKEN_FIRST_ORDERED_TARGET_MACRO,
 	AM_TOKEN__SOURCES,
 	AM_TOKEN_TARGET_CPPFLAGS,
@@ -97,7 +99,7 @@ typedef enum
 	AM_TOKEN_LAST_ORDERED_TARGET_MACRO,
 
 	AM_TOKEN_LAST_ORDERED_MACRO,
-		
+
 } AmTokenType;
 
 G_END_DECLS

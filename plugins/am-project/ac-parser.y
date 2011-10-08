@@ -23,7 +23,7 @@
 
 #include <stdlib.h>
 
-//#define YYDEBUG 1
+#define YYDEBUG 1
 
 #include "libanjuta/anjuta-debug.h"
 
@@ -128,6 +128,8 @@
 
 %{
 
+//amp_ac_yydebug = 1;
+
 static gint
 amp_ac_autoconf_macro (AnjutaToken *token)
 {
@@ -187,19 +189,47 @@ file:
 	;
 
 line:
-	end_statement
-	| spaces end_statement
-    | statement end_statement
-    | spaces statement end_statement
+	optional_spaces end_statement
+    | optional_spaces statement end_statement
     ;
 
-statement:
-	statement_token
-	| statement statement_token
-	| statement SPACE
+
+definition:
+	NAME optional_spaces EQUAL value {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_DEFINITION, NULL);
+		if ($2) anjuta_token_set_type ($2, ANJUTA_TOKEN_NEXT);
+        anjuta_token_merge ($$, $1);
+        anjuta_token_merge ($$, $2);
+        anjuta_token_merge ($$, $3);
+        anjuta_token_merge ($$, $4);
+        amp_ac_scanner_update_variable (scanner, $$);
+	}
 	;
 
-statement_token:
+statement:
+	definition
+	| other_statement
+	;
+
+other_statement:
+	no_name_token
+	| no_name_token value
+	| NAME optional_spaces
+	| NAME optional_spaces no_equal_token
+	| NAME optional_spaces no_equal_token value
+	;
+
+value:
+	value_token {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_LIST, NULL);
+		anjuta_token_merge ($$, $1);
+	}
+	| value value_token {
+		anjuta_token_merge ($1, $2);
+	}
+	;
+
+value_token:
     shell_string
     | args_token
 	| macro
@@ -209,13 +239,38 @@ statement_token:
     | NAME
     | VARIABLE
     | WORD
+	| SPACE
     ;
+
+no_name_token:
+    shell_string
+    | args_token
+	| macro
+    | EQUAL
+    | LOWER
+    | GREATER
+    | VARIABLE
+    | WORD
+    ;
+
+no_equal_token:
+    shell_string
+    | args_token
+	| macro
+    | LOWER
+    | GREATER
+    | NAME
+    | VARIABLE
+    | WORD
+    ;
+
 
 macro:
     include
 	| ac_macro_with_arg
 	| ac_macro_without_arg
     | ac_init
+	| ac_subst
 	| pkg_check_modules
 	| obsolete_ac_output
 	| ac_output
@@ -326,6 +381,16 @@ ac_init:
 		anjuta_token_merge ($$, $2);
         amp_ac_scanner_load_properties (scanner, $1, $2);
     }
+	;
+
+ac_subst:
+	AC_SUBST arg_list {
+		$$ = anjuta_token_new_static (AC_TOKEN_AC_SUBST, NULL);
+		anjuta_token_merge ($$, $1);
+		anjuta_token_merge ($$, $2);
+        amp_ac_scanner_subst_variable (scanner, $2);
+	}
+	;
 
 ac_output:
 	AC_OUTPUT {
@@ -755,6 +820,7 @@ any_macro:
     | OBSOLETE_AC_OUTPUT
     | PKG_CHECK_MODULES
     | AC_INIT
+	| AC_SUBST
     | ac_macro_with_arg_token
     | ac_macro_without_arg_token
     ;
@@ -790,7 +856,6 @@ ac_macro_with_arg_token:
 	| AC_EGREP_HEADER
 	| AC_PREREQ
 	| IT_PROG_INTLTOOL
-	| AC_SUBST
 	| AM_INIT_AUTOMAKE
 	| AM_GLIB_GNU_GETTEXT
 	| LT_INIT

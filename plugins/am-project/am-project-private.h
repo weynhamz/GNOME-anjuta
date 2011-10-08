@@ -57,7 +57,7 @@ struct _AmpProject {
 
 	/* File monitor */
 	GFileMonitor *monitor;
-	
+
 	AnjutaToken			*ac_init;
 	AnjutaToken			*args;
 
@@ -68,9 +68,12 @@ struct _AmpProject {
 	GHashTable		*groups;
 	GHashTable		*configs;		/* Config file from configure_file */
 
+
+	GHashTable		*ac_variables;
+
 	/* Number of not loaded node */
 	gint				loading;
-	
+
 	/* Keep list style */
 	AnjutaTokenStyle *ac_space_list;
 	AnjutaTokenStyle *am_space_list;

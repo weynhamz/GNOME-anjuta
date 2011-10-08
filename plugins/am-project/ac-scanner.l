@@ -52,6 +52,8 @@ struct _AmpAcScanner
     AnjutaToken *parsed;
 
 	gboolean eof;		/* TRUE to emit EOF at the end */
+
+	GHashTable *variables;
 };
 
 
@@ -316,6 +318,39 @@ amp_ac_scanner_include (AmpAcScanner *scanner, AnjutaToken *list)
 	g_object_unref (file);
 }
 
+void
+amp_ac_scanner_update_variable (AmpAcScanner *scanner, AnjutaToken *variable)
+{
+	AnjutaToken *arg;
+	char *name = NULL;
+	AnjutaToken *value = NULL;
+
+	arg = anjuta_token_first_word (variable);
+	name = g_strstrip (anjuta_token_evaluate (arg));
+	value = anjuta_token_nth_word (variable, 2);
+
+	g_hash_table_insert (scanner->variables, name, value);
+}
+
+void
+amp_ac_scanner_subst_variable (AmpAcScanner *scanner, AnjutaToken *list)
+{
+	AnjutaToken *arg;
+	char *name = NULL;
+	AnjutaToken *value = NULL;
+
+	arg = anjuta_token_first_word (list);
+	name = g_strstrip (anjuta_token_evaluate (arg));
+	value = anjuta_token_nth_word (list, 2);
+	if (value == NULL)
+	{
+		value = g_hash_table_lookup (scanner->variables, name);
+	}
+
+	amp_project_add_subst_variable (scanner->project, name, value);
+}
+
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -388,6 +423,8 @@ amp_ac_scanner_new (AmpProject *project)
 
     scanner->project = project;
 
+	scanner->variables = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, NULL);
+
 	return scanner;
 };
 
@@ -396,6 +433,7 @@ amp_ac_scanner_free (AmpAcScanner *scanner)
 {
 	g_return_if_fail (scanner != NULL);
 
+	g_hash_table_remove_all (scanner->variables);
     yylex_destroy(scanner->scanner);
 
 	g_free (scanner);

@@ -81,7 +81,7 @@ error_set (GError **error, gint code, const gchar *message)
                 }
         }
 }
-                                                      
+
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -95,7 +95,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 
 	prop = amp_node_get_property_from_token (ANJUTA_PROJECT_NODE (group), AM_TOKEN__CPPFLAGS, 0);
 	if (prop && (prop->value != NULL)) group_cpp = g_strsplit_set (prop->value, " \t", 0);
-	
+
 	/* Check all targets */
 	for (target = anjuta_project_node_first_child (ANJUTA_PROJECT_NODE (group)); target != NULL; target = anjuta_project_node_next_sibling (target))
 	{
@@ -178,7 +178,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 					}
 					g_free (lib_flags);
 				}
-			}		
+			}
 			g_strfreev (target_cpp);
 			g_strfreev (target_lib);
 		}
@@ -238,7 +238,7 @@ project_load_makefile (AmpProject *project, AmpGroupNode *group)
 	tfile = amp_group_node_set_makefile (group, makefile, project);
 
 	project_load_group_module (project, group);
-	
+
 	return group;
 }
 
@@ -252,8 +252,8 @@ amp_variable_new (gchar *name, AnjutaTokenType assign, AnjutaToken *value)
     AmpVariable *variable = NULL;
 
 	g_return_val_if_fail (name != NULL, NULL);
-	
-	variable = g_slice_new0(AmpVariable); 
+
+	variable = g_slice_new0(AmpVariable);
 	variable->name = g_strdup (name);
 	variable->assign = assign;
 	variable->value = value;
@@ -265,7 +265,7 @@ static void
 amp_variable_free (AmpVariable *variable)
 {
 	g_free (variable->name);
-	
+
     g_slice_free (AmpVariable, variable);
 }
 
@@ -298,7 +298,7 @@ amp_group_node_get_token (AmpGroupNode *group, AmpGroupNodeTokenCategory categor
 	return group->tokens[category];
 }
 
-GList * 
+GList *
 amp_group_node_get_all_token (AmpGroupNode *group)
 {
 	gint i;
@@ -308,7 +308,7 @@ amp_group_node_get_all_token (AmpGroupNode *group)
 	{
 		tokens = g_list_concat (tokens, g_list_copy (group->tokens[i]));
 	}
-	
+
 	return tokens;
 }
 
@@ -316,7 +316,7 @@ AnjutaToken*
 amp_group_node_get_first_token (AmpGroupNode *group, AmpGroupNodeTokenCategory category)
 {
 	GList *list;
-	
+
 	list = amp_group_node_get_token (group, category);
 	if (list == NULL) return NULL;
 
@@ -362,18 +362,18 @@ amp_group_node_set_makefile (AmpGroupNode *group, GFile *makefile, AmpProject *p
 	{
 		AnjutaToken *token;
 		AmpAmScanner *scanner;
-		
+
 		group->makefile = g_object_ref (makefile);
 		group->tfile = anjuta_token_file_new (makefile);
 
 		token = anjuta_token_file_load (group->tfile, NULL);
 		amp_project_add_file (project, makefile, group->tfile);
-			
+
 		scanner = amp_am_scanner_new (project, group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
 		amp_am_scanner_free (scanner);
 
-		group->monitor = g_file_monitor_file (makefile, 
+		group->monitor = g_file_monitor_file (makefile,
 						      									G_FILE_MONITOR_NONE,
 						       									NULL,
 						       									NULL);
@@ -419,8 +419,8 @@ gchar *
 amp_group_node_get_makefile_name (AmpGroupNode *group)
 {
 	gchar *basename = NULL;
-	
-	if (group->makefile != NULL) 
+
+	if (group->makefile != NULL)
 	{
 		basename = g_file_get_basename (group->makefile);
 	}
@@ -439,7 +439,7 @@ amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 		g_object_unref (group->monitor);
 		group->monitor = NULL;
 	}
-	if (group->makefile != NULL)	
+	if (group->makefile != NULL)
 	{
 		g_object_unref (group->makefile);
 		group->monitor = NULL;
@@ -461,10 +461,10 @@ amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 	hash = group->variables;
 	group->variables = new_group->variables;
 	new_group->variables = hash;
-	
+
 	if (group->makefile != NULL)
 	{
-		group->monitor = g_file_monitor_file (group->makefile, 
+		group->monitor = g_file_monitor_file (group->makefile,
 					      									G_FILE_MONITOR_NONE,
 					       									NULL,
 					       									NULL);
@@ -505,27 +505,11 @@ amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable)
 }
 
 AnjutaToken*
-amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable)
+amp_group_node_get_variable_token (AmpGroupNode *group, const gchar *name)
 {
-	guint length;
-	gchar *string;
-	const gchar *name;
 	AmpVariable *var;
-		
-	string = anjuta_token_evaluate(variable);
-	length = strlen (string);
-	if (string[1] == '(')
-	{
-		string[length - 1] = '\0';
-		name = string + 2;
-	}
-	else
-	{
-		string[2] = '\0';
-		name = string + 1;
-	}
+
 	var = g_hash_table_lookup (group->variables, name);
-	g_free (string);
 
 	return var != NULL ? var->value : NULL;
 }
@@ -543,16 +527,16 @@ AmpGroupNode*
 amp_group_node_new (GFile *file, gboolean dist_only)
 {
 	AmpGroupNode *node = NULL;
-	
+
 	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
 	node->base.file = g_object_ref (file);
 	node->dist_only = dist_only;
 	memset (node->tokens, 0, sizeof (node->tokens));
 
-    return node;	
+    return node;
 }
 
-AmpGroupNode* 
+AmpGroupNode*
 amp_group_node_new_valid (GFile *file, gboolean dist_only, GError **error)
 {
 	gchar *name;
@@ -600,7 +584,7 @@ amp_group_node_load (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 {
 	if (project_load_makefile (project, AMP_GROUP_NODE (group)) == NULL)
 	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+		g_set_error (error, IANJUTA_PROJECT_ERROR,
 					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
 			_("Project doesn't exist or invalid path"));
 
@@ -693,7 +677,7 @@ amp_group_node_dispose (GObject *object)
 
 	if (node->monitor) g_object_unref (node->monitor);
 	node->monitor = NULL;
-	
+
 	G_OBJECT_CLASS (amp_group_node_parent_class)->dispose (object);
 }
 
@@ -702,7 +686,7 @@ amp_group_node_finalize (GObject *object)
 {
 	AmpGroupNode *node = AMP_GROUP_NODE (object);
 	gint i;
-	
+
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	if (node->tfile) anjuta_token_file_free (node->tfile);
 	if (node->makefile) g_object_unref (node->makefile);
@@ -721,7 +705,7 @@ amp_group_node_class_init (AmpGroupNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	AmpNodeClass* node_class;
-	
+
 	object_class->finalize = amp_group_node_finalize;
 	object_class->dispose = amp_group_node_dispose;
 

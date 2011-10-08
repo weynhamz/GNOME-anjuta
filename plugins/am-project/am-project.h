@@ -94,6 +94,9 @@ GFile* amp_project_get_file (AmpProject *project);
 gboolean amp_project_is_busy (AmpProject *project);
 
 void amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token);
+void amp_project_add_subst_variable (AmpProject *project, const gchar *name, AnjutaToken *value);
+AnjutaToken *amp_project_get_subst_variable_token (AmpProject *project, const gchar *name);
+
 
 AmpGroupNode* amp_project_add_group (AmpProject  *project, AmpGroupNode *parent, const gchar *name, GError **error);
 AmpGroupNode* amp_project_add_sibling_group (AmpProject  *project, AmpGroupNode *parent, const gchar *name, gboolean after, AmpGroupNode *sibling, GError **error);
@@ -125,7 +128,6 @@ AnjutaProjectNode *amp_node_prev_sibling (AnjutaProjectNode *node);
 GFile *amp_group_node_get_directory (AmpGroupNode *group);
 gchar *amp_group_node_get_id (AmpGroupNode *group);
 void amp_group_node_update_variable (AmpGroupNode *group, AnjutaToken *variable);
-AnjutaToken* amp_group_node_get_variable_token (AmpGroupNode *group, AnjutaToken *variable);
 
 const gchar *amp_target_node_get_name (AmpTargetNode *target);
 gchar *amp_target_node_get_id (AmpTargetNode *target);

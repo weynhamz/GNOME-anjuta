@@ -20,6 +20,7 @@
 %{
 
 #include "am-scanner.h"
+#include "amp-group.h"
 #include "am-parser.h"
 #include "amp-node.h"
 #include "amp-target.h"
@@ -53,6 +54,7 @@ struct _AmpAmScanner
 	AmpProject *project;
 	AmpGroupNode *group;
 	GHashTable *orphan_properties;
+	GHashTable *ac_variables;
 	GList *am_variables;
 	GList *variables;
 	gboolean eof;		/* TRUE to emit EOF at the end */
@@ -484,11 +486,56 @@ amp_am_scanner_update_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 void
 amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 {
+	guint length;
+	gchar *string;
+	const gchar *name;
 	AnjutaToken *value;
 
 	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
 
-	value = amp_group_node_get_variable_token (scanner->group, variable);
+	string = anjuta_token_evaluate(variable);
+	length = strlen (string);
+	if (string[1] == '(')
+	{
+		string[length - 1] = '\0';
+		name = string + 2;
+	}
+	else
+	{
+		string[2] = '\0';
+		name = string + 1;
+	}
+	value = amp_group_node_get_variable_token (scanner->group, name);
+	if (value == NULL)
+	{
+		value = amp_project_get_subst_variable_token (scanner->project, name);
+	}
+	g_free (string);
+
+	if (value != NULL)
+	{
+		amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
+	}
+}
+
+void
+amp_am_scanner_parse_ac_variable (AmpAmScanner *scanner, AnjutaToken *variable)
+{
+	guint length;
+	gchar *string;
+	const gchar *name;
+	AnjutaToken *value;
+
+	anjuta_token_set_type (variable, ANJUTA_TOKEN_VARIABLE);
+
+	string = anjuta_token_evaluate(variable);
+	length = strlen (string);
+	/* Remove @ surrounding the variable name */
+	name = string + 1;
+	string[length - 1] = '\0';
+	value = amp_project_get_subst_variable_token (scanner->project, name);
+	g_free (string);
+
 	if (value != NULL)
 	{
 		amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);

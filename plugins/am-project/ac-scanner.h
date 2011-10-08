@@ -44,6 +44,8 @@ void amp_ac_scanner_load_module (AmpAcScanner *scanner, AnjutaToken *module);
 void amp_ac_scanner_load_config (AmpAcScanner *scanner, AnjutaToken *list);
 void amp_ac_scanner_load_properties (AmpAcScanner *scanner, AnjutaToken *macro, AnjutaToken *args);
 void amp_ac_scanner_include (AmpAcScanner *scanner, AnjutaToken *list);
+void amp_ac_scanner_update_variable (AmpAcScanner *scanner, AnjutaToken *variable);
+void amp_ac_scanner_subst_variable (AmpAcScanner *scanner, AnjutaToken *list);
 
 void amp_ac_yyerror (YYLTYPE *loc, AmpAcScanner *scanner, char const *s);
 
@@ -102,6 +104,8 @@ enum
 	AC_TOKEN_OBSOLETE_AC_OUTPUT,
 	AC_TOKEN_AC_OUTPUT,
 	AC_TOKEN_LAST_ORDERED_MACRO,
+
+	AC_TOKEN_AC_SUBST,
 
 	AC_TOKEN_SPACE_LIST,
 	AC_TOKEN_OPEN_STRING,

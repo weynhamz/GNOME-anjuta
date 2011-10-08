@@ -1645,6 +1645,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	configure_token_file = amp_project_set_configure (project, configure_file);
 	amp_project_add_file (project, configure_file, configure_token_file);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
+	g_hash_table_remove_all (project->ac_variables);
 	scanner = amp_ac_scanner_new (project);
 	project->configure_token = amp_ac_scanner_parse_token (scanner, NULL, arg, 0, configure_file, &err);
 	amp_ac_scanner_free (scanner);
@@ -2033,6 +2034,19 @@ amp_project_add_file (AmpProject *project, GFile *file, AnjutaTokenFile* token)
 	project->files = g_list_prepend (project->files, token);
 	g_object_weak_ref (G_OBJECT (token), remove_config_file, project);
 }
+
+void
+amp_project_add_subst_variable (AmpProject *project, const gchar *name, AnjutaToken *value)
+{
+	g_hash_table_insert (project->ac_variables, (gchar *)name, value);
+}
+
+AnjutaToken *
+amp_project_get_subst_variable_token (AmpProject *project, const gchar *name)
+{
+	return g_hash_table_lookup (project->ac_variables, name);
+}
+
 
 gboolean
 amp_project_is_busy (AmpProject *project)
@@ -2460,6 +2474,8 @@ amp_project_dispose (GObject *object)
 	project->groups = NULL;
 	if (project->configs) g_hash_table_destroy (project->configs);
 	project->configs = NULL;
+	if (project->ac_variables) g_hash_table_destroy (project->ac_variables);
+	project->ac_variables = NULL;
 
 	if (project->queue) pm_command_queue_free (project->queue);
 	project->queue = NULL;
@@ -2490,6 +2506,7 @@ amp_project_init (AmpProject *project)
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	project->files = NULL;
 	project->configs = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, NULL, (GDestroyNotify)amp_config_file_free);
+	project->ac_variables = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, NULL);
 
 	/* Default style */
 	project->am_space_list = NULL;

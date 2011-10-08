@@ -376,6 +376,10 @@ head:
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
 		anjuta_token_merge ($$, $1);
 	}
+	| ac_variable {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
+		anjuta_token_merge ($$, $1);
+	}
 	| variable {
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_NAME, NULL);
 		anjuta_token_merge ($$, $1);
@@ -390,6 +394,9 @@ head:
 		anjuta_token_merge ($1, $2);
 	}
 	| head variable {
+		anjuta_token_merge ($1, $2);
+	}
+	| head ac_variable {
 		anjuta_token_merge ($1, $2);
 	}
 	;
@@ -415,6 +422,9 @@ next_head:
 	| next_head variable {
 		anjuta_token_merge ($1, $2);
 	}
+	| next_head ac_variable {
+		anjuta_token_merge ($1, $2);
+	}
 	;
 
 value:
@@ -426,10 +436,17 @@ value:
 		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
 		anjuta_token_merge ($$, $1);
 	}
+	| ac_variable {
+		$$ = anjuta_token_new_static (ANJUTA_TOKEN_ARGUMENT, NULL);
+		anjuta_token_merge ($$, $1);
+	}
 	| value value_token {
 		anjuta_token_merge ($1, $2);
 	}
 	| value variable {
+		anjuta_token_merge ($1, $2);
+	}
+	| value ac_variable {
 		anjuta_token_merge ($1, $2);
 	}
 	;
@@ -441,13 +458,21 @@ prerequisite:
 name_prerequisite:
 	prerequisite_token
 	| variable
+	| ac_variable
 	| name_prerequisite prerequisite_token
 	| name_prerequisite variable
+	| name_prerequisite ac_variable
 	;
 
 variable:
-	variable_token {
+	VARIABLE {
 		amp_am_scanner_parse_variable (scanner, $$);
+	}
+	;
+
+ac_variable:
+	MACRO {
+		amp_am_scanner_parse_ac_variable (scanner, $$);
 	}
 	;
 
@@ -525,14 +550,14 @@ word_token:
 
 
 name_token:
-	MACRO
-	| NAME
+	NAME
 	| CHARACTER
 	| ORDER
 	;
 
 variable_token:
 	VARIABLE
+	| MACRO
 	;
 
 automake_token:
