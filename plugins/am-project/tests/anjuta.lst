@@ -279,9 +279,16 @@ PROPERTY (URL): http://www.anjuta.org/
                     PROPERTY (C compiler flags): $(LIBANJUTA_CFLAGS)
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
                     SOURCE (): libanjuta/tests/anjuta-tabber-test.c
+                TARGET (): anjuta-token-test
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): -g -O0 -fprofile-arcs -ftest-coverage
+                    PROPERTY (Libraries): $(ANJUTA_LIBS)
+                    SOURCE (): libanjuta/tests/anjuta-token-test.c
+                    SOURCE (): libanjuta/anjuta-token.c
+                    SOURCE (): libanjuta/anjuta-debug.c
             TARGET (): libanjuta-3.la
                 PROPERTY (Installation directory): libdir
-                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
+                PROPERTY (Linker flags): -no-undefined
                 PROPERTY (Libraries): interfaces/libanjuta-interfaces.la $(ANJUTA_LIBS) $(XML_LIBS) $(GDL_LIBS)
                 MODULE (): ANJUTA
                 MODULE (): XML
@@ -390,7 +397,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 SOURCE (): libanjuta/anjuta-environment-editor.c
             TARGET (): libgladeanjuta.la
                 PROPERTY (Installation directory): gladeanjutadir
-                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
+                PROPERTY (Linker flags): -no-undefined -module -avoid-version
                 PROPERTY (Libraries): libanjuta-3.la $(GLADE_LIBS)
                 SOURCE (): libanjuta/anjuta-glade-catalog.c
             TARGET (): catalog
@@ -471,7 +478,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/am-project/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libam-project.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/am-project/plugin.c
                     SOURCE (): plugins/am-project/plugin.h
@@ -536,7 +543,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): libanjuta-build-basic-autotools.la
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     SOURCE (): plugins/build-basic-autotools/plugin.c
                     SOURCE (): plugins/build-basic-autotools/plugin.h
                     SOURCE (): plugins/build-basic-autotools/executer.c
@@ -575,7 +582,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/class-gen/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-class-gen.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/class-gen/cell-renderer-flags.h
                     SOURCE (): plugins/class-gen/cell-renderer-flags.c
@@ -611,7 +618,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/code-analyzer/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-code-analyzer.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/code-analyzer/plugin.c
                     SOURCE (): plugins/code-analyzer/plugin.h
@@ -633,7 +640,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/cvs-plugin/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-cvs-plugin.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/cvs-plugin/plugin.c
                     SOURCE (): plugins/cvs-plugin/plugin.h
@@ -671,7 +678,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/devhelp/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-devhelp.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(PLUGIN_DEVHELP_LIBS)
                     SOURCE (): plugins/devhelp/plugin.c
                     SOURCE (): plugins/devhelp/plugin.h
@@ -723,7 +730,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/debug-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-debug-manager.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/debug-manager/anjuta-marshal.c
                     SOURCE (): plugins/debug-manager/anjuta-marshal.h
@@ -791,7 +798,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/dir-project/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libdir-project.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/dir-project/plugin.c
                     SOURCE (): plugins/dir-project/plugin.h
@@ -860,7 +867,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/document-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-document-manager.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GDL_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): GDL
                     SOURCE (): plugins/document-manager/plugin.c
@@ -890,7 +897,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/file-loader/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-loader.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/file-loader/plugin.c
                     SOURCE (): plugins/file-loader/plugin.h
@@ -924,7 +931,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/file-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libfile-manager.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(GDL_LIBS) $(GIO_LIBS)
                     MODULE (): GDL
                     SOURCE (): plugins/file-manager/plugin.c
@@ -950,7 +957,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/file-wizard/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-file-wizard.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/file-wizard/file.c
                     SOURCE (): plugins/file-wizard/file.h
@@ -983,7 +990,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/gdb/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-gdb.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(XML_LIBS)
                     MODULE (): XML
                     SOURCE (): plugins/gdb/gdbmi.c
@@ -999,7 +1006,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): gdbmi-test
                     PROPERTY (Do not install): true
                     PROPERTY (Libraries): $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS) $(ANJUTA_LIBS)
-                    PROPERTY (C compiler flags): $(AM_CFLAGS)
+                    PROPERTY (C compiler flags): $AM_CFLAGS $WARN_CFLAGS
                     MODULE (): XML
                     SOURCE (): plugins/gdb/gdbmi-test.c
                     SOURCE (): plugins/gdb/gdbmi.c
@@ -1025,7 +1032,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/git/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-git.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/git/plugin.c
                     SOURCE (): plugins/git/plugin.h
@@ -1239,7 +1246,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/glade/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-glade.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(PLUGIN_GLADE_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): PLUGIN_GLADE
                     SOURCE (): plugins/glade/plugin.c
@@ -1257,7 +1264,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/js-debugger/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libjs_debugger.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/js-debugger/debugger-js.c
                     SOURCE (): plugins/js-debugger/debugger-js.h
@@ -1281,7 +1288,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): liblanguage-manager.la
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(XML_LIBS)
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     MODULE (): XML
                     SOURCE (): plugins/language-manager/plugin.c
                     SOURCE (): plugins/language-manager/plugin.h
@@ -1293,7 +1300,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     TARGET (): libcxxparser.la
                         PROPERTY (Do not install): true
                         PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(GTHREAD_LIBS)
-                        PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                        PROPERTY (Linker flags): -module -avoid-version -no-undefined
                         SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-lexer.cpp
                         SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-parser.cpp
                         SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-result.cpp
@@ -1335,7 +1342,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-cpp-java/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-language-cpp-java.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) cxxparser/libcxxparser.la
                     SOURCE (): plugins/language-support-cpp-java/plugin.c
                     SOURCE (): plugins/language-support-cpp-java/plugin.h
@@ -1364,7 +1371,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-js/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libjs-support-plugin.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(XML_LIBS)
                     MODULE (): XML
                     SOURCE (): plugins/language-support-js/plugin.c
@@ -1427,7 +1434,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libpython_plugin.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/language-support-python/plugin.c
                     SOURCE (): plugins/language-support-python/plugin.h
@@ -1446,7 +1453,7 @@ PROPERTY (URL): http://www.anjuta.org/
                 TARGET (): libanjuta-language-vala.la
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Vala compiler flags): --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
                     MODULE (): VALA
                     SOURCE (): plugins/language-support-vala/locator.vala
@@ -1475,7 +1482,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/message-view/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-message-view.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/message-view/plugin.c
                     SOURCE (): plugins/message-view/plugin.h
@@ -1500,7 +1507,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/mk-project/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libmk-project.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
                     MODULE (): XML
                     SOURCE (): plugins/mk-project/plugin.c
@@ -1531,7 +1538,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/patch/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-patch.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/patch/plugin.c
                     SOURCE (): plugins/patch/plugin.h
@@ -1552,7 +1559,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/project-import/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-project-import.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(PLUGIN_GNOMEBUILD_LIBS) $(GIO_LIBS) $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/project-import/plugin.c
                     SOURCE (): plugins/project-import/plugin.h
@@ -1579,7 +1586,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/project-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-project-manager.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/project-manager/plugin.c
                     SOURCE (): plugins/project-manager/plugin.h
@@ -1955,7 +1962,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/project-wizard/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-project-wizard.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/project-wizard/plugin.c
                     SOURCE (): plugins/project-wizard/plugin.h
@@ -1987,7 +1994,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/python-loader/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-python-loader.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(PYTHON_LIBS) $(PYGOBJECT_LIBS)
                     SOURCE (): plugins/python-loader/plugin.c
                     SOURCE (): plugins/python-loader/plugin.h
@@ -2008,7 +2015,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/run-program/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-run-program.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/run-program/plugin.c
                     SOURCE (): plugins/run-program/plugin.h
@@ -2041,7 +2048,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/snippets-manager/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-snippets-manager.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
                     MODULE (): XML
                     SOURCE (): plugins/snippets-manager/snippet.c
@@ -2086,7 +2093,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/sourceview/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-sourceview.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(SOURCEVIEW_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): SOURCEVIEW
                     SOURCE (): plugins/sourceview/anjuta-marshal.c
@@ -2121,7 +2128,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/starter/starter_logo.png
                 TARGET (): libanjuta-starter.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GDL_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): GDL
                     SOURCE (): plugins/starter/plugin.c
@@ -2147,7 +2154,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/subversion/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-subversion.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GIO_LIBS) $(LIBANJUTA_LIBS) $(SVN_LIB)
                     SOURCE (): plugins/subversion/plugin.c
                     SOURCE (): plugins/subversion/plugin.h
@@ -2380,7 +2387,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/symbol-db/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-symbol-db.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(GDA_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
                     MODULE (): GDA
                     MODULE (): GDA
@@ -2431,7 +2438,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/terminal/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-terminal.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(VTE_LIBS) $(LIBANJUTA_LIBS)
                     MODULE (): VTE
                     SOURCE (): plugins/terminal/terminal.c
@@ -2461,7 +2468,7 @@ PROPERTY (URL): http://www.anjuta.org/
                     SOURCE (): plugins/tools/$(plugin_in_files:.plugin.in=.plugin)
                 TARGET (): libanjuta-tools.la
                     PROPERTY (Installation directory): plugindir
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    PROPERTY (Linker flags): -module -avoid-version -no-undefined
                     PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                     SOURCE (): plugins/tools/plugin.c
                     SOURCE (): plugins/tools/plugin.h
@@ -2496,7 +2503,7 @@ PROPERTY (URL): http://www.anjuta.org/
             TARGET (): anjuta
                 PROPERTY (Installation directory): bindir
                 PROPERTY (Libraries): $(ANJUTA_LIBS) $(SOURCEVIEW_LIBS) $(GDL_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS)
-                PROPERTY (Linker flags): $(ANJUTA_LDFLAGS)
+                PROPERTY (Linker flags): -no-undefined
                 MODULE (): XML
                 MODULE (): GDL
                 MODULE (): SOURCEVIEW

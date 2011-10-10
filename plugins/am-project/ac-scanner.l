@@ -82,8 +82,10 @@ WS          [ \t\r\v]+
 NL          \n
 WSNL        [ \t\v\r\n]+
 COMMENT     #
-OPENQUOTE   \[
-CLOSEQUOTE  \]
+OPENM4QUOTE   \[
+CLOSEM4QUOTE  \]
+SINGLEQUOTE   \'
+DOUBLEQUOTE		\"
 OPENPARG   \(
 CLOSEPARG  \)
 COMMA       ,
@@ -92,7 +94,7 @@ LOWER       <
 GREATER     >
 NAME        [A-Za-z_][A-Za-z0-9_]*
 VARIABLE    $[A-Za-z_0-9]+
-OTHER       [^ \t\r\v\n#\[\]\\(),=><$_A-Za-z_]+
+OTHER       [^ \t\r\v\n#\[\]\"\'\\(),=><$_A-Za-z_]+
 
 %x SPACE_LIST
 
@@ -106,13 +108,17 @@ OTHER       [^ \t\r\v\n#\[\]\\(),=><$_A-Za-z_]+
 
 {COMMENT}               { RETURN (HASH); }
 
-{OPENQUOTE}             { RETURN (LEFT_BRACE); }
+{OPENM4QUOTE}             { RETURN (LEFT_BRACE); }
 
-{CLOSEQUOTE}            { RETURN (RIGHT_BRACE); }
+{CLOSEM4QUOTE}            { RETURN (RIGHT_BRACE); }
 
 {OPENPARG}              { RETURN (LEFT_PAREN); }
 
 {CLOSEPARG}             { RETURN (RIGHT_PAREN); }
+
+{SINGLEQUOTE}			{ RETURN (SINGLE_QUOTE); }
+
+{DOUBLEQUOTE}			{ RETURN (DOUBLE_QUOTE); }
 
 {COMMA}                 { RETURN (COMMA); }
 

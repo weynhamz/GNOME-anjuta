@@ -45,6 +45,34 @@ AT_CHECK([diff -b output expect])
 
 
 
+AS_MKDIR_P([variable_ac3])
+AT_DATA([variable_ac3/configure.ac],
+[[
+TARGET_LDFLAGS='-no-undefined'
+AC_SUBST(TARGET_LDFLAGS)
+TARGET_CFLAGS="-O0"
+AC_SUBST(TARGET_CFLAGS)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([variable_ac3/Makefile.am],
+[[
+bin_PROGRAMS = target1
+target1_LDFLAGS = $(TARGET_LDFLAGS)
+target1_CFLAGS = $(TARGET_CFLAGS)
+]])
+AT_DATA([expect],
+[[    GROUP (): variable_ac3
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            PROPERTY (Linker flags): -no-undefined
+            PROPERTY (C compiler flags): -O0
+]])
+AT_PARSER_CHECK([load variable_ac3 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
 AS_MKDIR_P([variable])
 AT_DATA([variable/configure.ac],
 [[AC_CONFIG_FILES(Makefile)
@@ -122,6 +150,34 @@ AT_DATA([expect],
             PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable4 \
+		 list])
+AT_CHECK([diff -b output expect])
+
+
+
+AS_MKDIR_P([variable5])
+AT_DATA([variable5/configure.ac],
+[[AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([variable5/Makefile.am],
+[[
+bin_PROGRAMS = target1
+
+BUILT_SOURCES = \
+	source1.c
+TARGETS = target1
+target1_SOURCES = \
+	$(BUILT_SOURCES) \
+	source2.c
+]])
+AT_DATA([expect],
+[[    GROUP (): variable5
+        TARGET (): target1
+            PROPERTY (Installation directory): bindir
+            SOURCE (): source1.c
+            SOURCE (): source2.c
+]])
+AT_PARSER_CHECK([load variable5 \
 		 list])
 AT_CHECK([diff -b output expect])
 

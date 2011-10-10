@@ -49,6 +49,8 @@
 %token  COMMA             ','
 %token  LOWER           '<'
 %token  GREATER         '>'
+%token	SINGLE_QUOTE	'\''
+%token	DOUBLE_QUOTE	'\"'
 
 %token  COMMENT         256
 %token  NAME
@@ -230,7 +232,8 @@ value:
 	;
 
 value_token:
-    shell_string
+    m4_string
+	| shell_string
     | args_token
 	| macro
     | EQUAL
@@ -243,7 +246,7 @@ value_token:
     ;
 
 no_name_token:
-    shell_string
+    m4_string
     | args_token
 	| macro
     | EQUAL
@@ -251,10 +254,12 @@ no_name_token:
     | GREATER
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     ;
 
 no_equal_token:
-    shell_string
+    m4_string
     | args_token
 	| macro
     | LOWER
@@ -262,6 +267,8 @@ no_equal_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     ;
 
 
@@ -476,9 +483,83 @@ not_eol_list:
     }
     ;
 
-
 shell_string:
-    LEFT_BRACE shell_string_body RIGHT_BRACE {
+	single_string
+	| double_string
+	;
+
+single_string:
+	SINGLE_QUOTE single_string_body SINGLE_QUOTE {
+        anjuta_token_set_type ($1, ANJUTA_TOKEN_OPEN_QUOTE);
+        anjuta_token_set_type ($3, ANJUTA_TOKEN_CLOSE_QUOTE);
+        $$ = anjuta_token_merge_previous ($2, $1);
+        anjuta_token_merge ($2, $3);
+	}
+	;
+
+single_string_body:
+    /* empty */ {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_STRING, NULL);
+    }
+    | single_string_body not_single_token {
+        anjuta_token_merge ($1, $2);
+    }
+    ;
+
+not_single_token:
+    m4_string
+    | args_token
+	| macro
+	| dnl
+	| EQUAL
+    | LOWER
+    | GREATER
+    | NAME
+    | VARIABLE
+    | WORD
+	| SPACE
+	| HASH
+	| END_OF_LINE
+	| DOUBLE_QUOTE
+    ;
+
+double_string:
+	DOUBLE_QUOTE double_string_body DOUBLE_QUOTE {
+        anjuta_token_set_type ($1, ANJUTA_TOKEN_OPEN_QUOTE);
+        anjuta_token_set_type ($3, ANJUTA_TOKEN_CLOSE_QUOTE);
+        $$ = anjuta_token_merge_previous ($2, $1);
+        anjuta_token_merge ($2, $3);
+	}
+	;
+
+double_string_body:
+    /* empty */ {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_STRING, NULL);
+    }
+    | double_string_body not_double_token {
+        anjuta_token_merge ($1, $2);
+    }
+    ;
+
+not_double_token:
+    m4_string
+    | args_token
+	| macro
+	| dnl
+	| EQUAL
+    | LOWER
+    | GREATER
+    | NAME
+    | VARIABLE
+    | WORD
+	| SPACE
+	| HASH
+	| END_OF_LINE
+	| SINGLE_QUOTE
+    ;
+
+m4_string:
+    LEFT_BRACE m4_string_body RIGHT_BRACE {
         anjuta_token_set_type ($1, ANJUTA_TOKEN_OPEN_QUOTE);
         anjuta_token_set_type ($3, ANJUTA_TOKEN_CLOSE_QUOTE);
         $$ = anjuta_token_merge_previous ($2, $1);
@@ -486,14 +567,14 @@ shell_string:
     }
     ;
 
-shell_string_body:
+m4_string_body:
     /* empty */ {
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_STRING, NULL);
     }
-    | shell_string_body not_brace_token {
+    | m4_string_body not_brace_token {
         anjuta_token_merge ($1, $2);
     }
-    | shell_string_body shell_string {
+    | m4_string_body m4_string {
         anjuta_token_merge ($1, $2);
     }
     ;
@@ -568,6 +649,12 @@ arg_string_body:
     | arg_string_body WORD {
         anjuta_token_merge ($1, $2);
     }
+    | arg_string_body SINGLE_QUOTE {
+        anjuta_token_merge ($1, $2);
+    }
+    | arg_string_body DOUBLE_QUOTE {
+        anjuta_token_merge ($1, $2);
+    }
     | arg_string_body macro
     | arg_string_body raw_string {
         anjuta_token_merge ($1, $2);
@@ -631,6 +718,8 @@ arg_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     ;
 
 separator:
@@ -692,6 +781,12 @@ expression_body:
     | expression_body WORD {
         anjuta_token_merge ($1, $2);
     }
+    | expression_body SINGLE_QUOTE {
+        anjuta_token_merge ($1, $2);
+    }
+    | expression_body DOUBLE_QUOTE {
+        anjuta_token_merge ($1, $2);
+    }
     | expression_body macro
     | expression_body expression {
         anjuta_token_merge ($1, $2);
@@ -748,6 +843,8 @@ not_eol_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     | any_macro
     | M4_INCLUDE
     | LEFT_BRACE
@@ -766,6 +863,8 @@ not_brace_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     | any_macro
 	| M4_INCLUDE
     ;
@@ -791,6 +890,8 @@ not_operator_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     | any_macro
     | include
     ;
@@ -809,6 +910,8 @@ word_token:
     | NAME
     | VARIABLE
     | WORD
+	| SINGLE_QUOTE
+	| DOUBLE_QUOTE
     | any_macro
     | include
     ;
