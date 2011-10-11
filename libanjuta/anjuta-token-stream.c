@@ -2,17 +2,17 @@
 /*
  * anjuta-token-stream.c
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,10 +30,10 @@
  * SECTION:anjuta-token-stream
  * @title: Anjuta token stream
  * @short_description: Anjuta token stream
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/anjuta-token-stream.h
- *  
+ *
  * A #AnjutaTokenStream object reads and writes a list of tokens. It uses two
  * list. The first list is assigned when the object is created. Each token is
  * read as characters discarding the separation between tokens. The second list
@@ -52,7 +52,7 @@
  *
  * Several objects can be linked together to create a stack. It is used for
  * included file or variable expansion.
- */ 
+ */
 
 /* Types declarations
  *---------------------------------------------------------------------------*/
@@ -98,7 +98,7 @@ struct _AnjutaTokenStream
  * @stream: a #AnjutaTokenStream object.
  * @token: a #AnjutaToken object.
  *
- * Append an already existing token in the output stream. 
+ * Append an already existing token in the output stream.
  */
 void
 anjuta_token_stream_append_token (AnjutaTokenStream *stream, AnjutaToken *token)
@@ -118,7 +118,7 @@ anjuta_token_stream_append_token (AnjutaTokenStream *stream, AnjutaToken *token)
  *
  * Return value: The created token.
  */
-AnjutaToken* 
+AnjutaToken*
 anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length)
 {
     AnjutaToken *frag;
@@ -166,7 +166,7 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
             {
                 anjuta_token_insert_after (frag, copy);
                 anjuta_token_merge (frag, copy);
-                length -= toklen;
+                length -= toklen - stream->begin;
                 end = anjuta_token_next (end);
                 stream->begin = 0;
             }
@@ -194,7 +194,7 @@ anjuta_token_stream_tokenize (AnjutaTokenStream *stream, gint type, gsize length
  *
  * Return value: The number of characters written in the buffer.
  */
-gint 
+gint
 anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_size)
 {
     gint result = 0;
@@ -229,7 +229,7 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
                     /* Find some data */
                     stream->pos = 0;
                     length = anjuta_token_get_length (stream->token);
-                    break;  
+                    break;
                 }
             }
         }
@@ -239,7 +239,7 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
             const gchar *start = anjuta_token_get_string (stream->token);
 
             length -= stream->pos;
-            
+
             if (length > max_size) length = max_size;
             memcpy (buffer, start + stream->pos, length);
             stream->pos += length;
@@ -258,11 +258,11 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
  *
  * Return value: The output root token.
  */
-AnjutaToken* 
+AnjutaToken*
 anjuta_token_stream_get_root (AnjutaTokenStream *stream)
 {
 	g_return_val_if_fail (stream != NULL, NULL);
-	
+
 	return stream->root;
 }
 
@@ -278,7 +278,7 @@ GFile*
 anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
 {
 	g_return_val_if_fail (stream != NULL, NULL);
-	
+
 	return stream->current_directory;
 }
 
@@ -295,7 +295,7 @@ GFile*
 anjuta_token_stream_get_current_file (AnjutaTokenStream *stream)
 {
 	g_return_val_if_fail (stream != NULL, NULL);
-	
+
 	return stream->current_file;
 }
 
