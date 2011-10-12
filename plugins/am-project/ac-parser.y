@@ -206,6 +206,14 @@ definition:
         anjuta_token_merge ($$, $4);
         amp_ac_scanner_update_variable (scanner, $$);
 	}
+	| NAME optional_spaces EQUAL {
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_DEFINITION, NULL);
+		if ($2) anjuta_token_set_type ($2, ANJUTA_TOKEN_NEXT);
+        anjuta_token_merge ($$, $1);
+        anjuta_token_merge ($$, $2);
+        anjuta_token_merge ($$, $3);
+        amp_ac_scanner_update_variable (scanner, $$);
+	}
 	;
 
 statement:
@@ -247,6 +255,7 @@ value_token:
 
 no_name_token:
     m4_string
+	| shell_string
     | args_token
 	| macro
     | EQUAL
@@ -254,12 +263,11 @@ no_name_token:
     | GREATER
     | VARIABLE
     | WORD
-	| SINGLE_QUOTE
-	| DOUBLE_QUOTE
     ;
 
 no_equal_token:
     m4_string
+	| shell_string
     | args_token
 	| macro
     | LOWER
@@ -267,8 +275,6 @@ no_equal_token:
     | NAME
     | VARIABLE
     | WORD
-	| SINGLE_QUOTE
-	| DOUBLE_QUOTE
     ;
 
 

@@ -50,7 +50,7 @@ struct _AmpTargetNode {
 	AnjutaProjectNode base;
 	gchar *install;
 	gint flags;
-	GList* tokens;	
+	GList* tokens;
 };
 
 
@@ -99,7 +99,7 @@ tagged_token_item_new (AmTokenType type)
 {
     TaggedTokenItem *item;
 
-	item = g_slice_new0(TaggedTokenItem); 
+	item = g_slice_new0(TaggedTokenItem);
 
 	item->type = type;
 
@@ -123,7 +123,7 @@ static GList*
 tagged_token_list_insert (GList *list, AmTokenType type, AnjutaToken *token)
 {
 	GList *existing;
-	
+
 	existing = g_list_find_custom (list, GINT_TO_POINTER (type), tagged_token_item_compare);
 	if (existing == NULL)
 	{
@@ -145,13 +145,13 @@ tagged_token_list_get (GList *list, AmTokenType type)
 {
 	GList *existing;
 	GList *tokens = NULL;
-	
+
 	existing = g_list_find_custom (list, GINT_TO_POINTER (type), tagged_token_item_compare);
 	if (existing != NULL)
 	{
 		tokens = ((TaggedTokenItem *)(existing->data))->tokens;
 	}
-	
+
 	return tokens;
 }
 
@@ -165,7 +165,7 @@ tagged_token_list_get_all (GList *list)
 	{
 		tokens = g_list_concat (tokens, g_list_copy (((TaggedTokenItem *)list->data)->tokens));
 	}
-	
+
 	return tokens;
 }
 
@@ -173,7 +173,7 @@ static AnjutaTokenType
 tagged_token_list_next (GList *list, AmTokenType type)
 {
 	AnjutaTokenType best = 0;
-	
+
 	for (list = g_list_first (list); list != NULL; list = g_list_next (list))
 	{
 		TaggedTokenItem *item = (TaggedTokenItem *)list->data;
@@ -220,8 +220,7 @@ void
 amp_target_node_remove_token (AmpTargetNode *target, AnjutaToken *token)
 {
 	GList *list;
-	
-	g_message ("amp_target_node_remove_token token %p", token);
+
 	for (list = target->tokens; list != NULL; list = g_list_next (list))
 	{
 		TaggedTokenItem *tagged = (TaggedTokenItem *)list->data;
@@ -299,7 +298,7 @@ amp_target_changed (AmpTargetNode *node)
 					{
 						gchar *obj_name;
 						const gchar *obj_ext;
-						
+
 						if (child->name != NULL)
 						{
 							g_free (child->name);
@@ -313,7 +312,7 @@ amp_target_changed (AmpTargetNode *node)
 							gchar *src_name;
 							gchar *src_ext;
 							gchar *new_name;
-							
+
 							src_dir = g_file_get_parent (source->file);
 							src_name = g_file_get_basename (source->file);
 							src_ext = strrchr (src_name, '.');
@@ -339,13 +338,13 @@ AmpTargetNode*
 amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags)
 {
 	AmpTargetNode *node;
-	
+
 	node = g_object_new (AMP_TYPE_TARGET_NODE, NULL);
 	amp_target_node_set_type (node, type);
 	node->base.name = g_strdup (name);
 	node->install = g_strdup (install);
 	node->flags = flags;
-	
+
 	return node;
 }
 
@@ -380,8 +379,8 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 	/* Skip eventual directory name */
 	basename = strrchr (name, '/');
 	basename = basename == NULL ? name : basename + 1;
-		
-	
+
+
 	if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_SHAREDLIB) {
 		if (strlen (basename) < 7 ||
 		    strncmp (basename, "lib", strlen("lib")) != 0 ||
@@ -438,7 +437,7 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 	token_list = amp_target_node_get_all_token (AMP_TARGET_NODE (target));
 	ok = amp_target_node_delete_token (project, AMP_TARGET_NODE (target), token_list, error);
 	g_list_free (token_list);
-	
+
 	/* Remove installation directory variable if the removed target was the
 	 * only one using it */
 	if (ok)
@@ -519,7 +518,7 @@ amp_target_node_finalize (GObject *object)
 	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	tagged_token_list_free (node->tokens);
 	node->tokens = NULL;
-	
+
 	G_OBJECT_CLASS (amp_target_node_parent_class)->finalize (object);
 }
 
@@ -528,7 +527,7 @@ amp_target_node_class_init (AmpTargetNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	AmpNodeClass* node_class;
-	
+
 	object_class->finalize = amp_target_node_finalize;
 
 	node_class = AMP_NODE_CLASS (klass);

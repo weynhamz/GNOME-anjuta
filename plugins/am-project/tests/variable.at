@@ -48,10 +48,11 @@ AT_CHECK([diff -b output expect])
 AS_MKDIR_P([variable_ac3])
 AT_DATA([variable_ac3/configure.ac],
 [[
-TARGET_LDFLAGS='-no-undefined'
+TARGET_LDFLAGS="$plugin-$plugin"
 AC_SUBST(TARGET_LDFLAGS)
 TARGET_CFLAGS="-O0"
 AC_SUBST(TARGET_CFLAGS)
+NO_VALUE=
 AC_CONFIG_FILES(Makefile)
 ]])
 AT_DATA([variable_ac3/Makefile.am],
@@ -64,7 +65,7 @@ AT_DATA([expect],
 [[    GROUP (): variable_ac3
         TARGET (): target1
             PROPERTY (Installation directory): bindir
-            PROPERTY (Linker flags): -no-undefined
+            PROPERTY (Linker flags): $plugin-$plugin
             PROPERTY (C compiler flags): -O0
 ]])
 AT_PARSER_CHECK([load variable_ac3 \

@@ -512,10 +512,7 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 	}
 	g_free (string);
 
-	if (value != NULL)
-	{
-		amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
-	}
+	amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
 }
 
 void
