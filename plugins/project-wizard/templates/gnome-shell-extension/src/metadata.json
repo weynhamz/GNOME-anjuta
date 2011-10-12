@@ -1,0 +1,9 @@
+[+ autogen5 template +]
+{
+    "shell-version": [+Compatibility+], 
+    "uuid": "[+UUID+]", 
+    "name": "[+PluginName+]", 
+    "original-author": "[+Author+]",
+    "url": "[+URL+]", 
+    "description": "[+Description+]"
+}
