@@ -1,0 +1,520 @@
+PROPERTY (Name): nemiver
+PROPERTY (Version): 0.7.4
+    MODULE (): SQLITE3
+        PACKAGE (): sqlite3
+    MODULE (): GCONF
+        PACKAGE (): gconf-2.0
+    MODULE (): NEMIVERCOMMON
+        PACKAGE (): $DEP_COMMON
+    MODULE (): NEMIVERUICOMMON
+        PACKAGE (): $DEP_UICOMMON
+        PACKAGE (): $DEP_COMMON
+        PACKAGE (): $DEP_MEMORYVIEW
+    MODULE (): NEMIVERWORKBENCH
+        PACKAGE (): $DEP_COMMON
+        PACKAGE (): $DEP_VFS
+        PACKAGE (): $DEP_WORKBENCH
+    MODULE (): NEMIVERDBGPERSP
+        PACKAGE (): $DEP_UICOMMON
+        PACKAGE (): $DEP_VFS
+        PACKAGE (): $DEP_PERSP
+        PACKAGE (): $DEP_MEMORYVIEW
+    GROUP (): nemiver
+        PROPERTY (Installation directories): publicheadersdir = $includedir/nemiver/common
+        GROUP (): src
+            GROUP (): common
+                PROPERTY (Installation directories): nemivercommondir = $(libdir)/nemiver publicheadersdir = $includedir/nemiver/common
+                TARGET (): libnemivercommon.la
+                    PROPERTY (Installation directory): nemivercommondir
+                    PROPERTY (Linker flags): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS -lutil -avoid-version -rpath $(libdir)/nemiver -Wl,--as-needed
+                    SOURCE (): src/common/nmv-api-macros.h
+                    SOURCE (): src/common/nmv-namespace.h
+                    SOURCE (): src/common/nmv-ustring.h
+                    SOURCE (): src/common/nmv-str-utils.h
+                    SOURCE (): src/common/nmv-libxml-utils.h
+                    SOURCE (): src/common/nmv-safe-ptr-utils.h
+                    SOURCE (): src/common/nmv-object.h
+                    SOURCE (): src/common/nmv-safe-ptr.h
+                    SOURCE (): src/common/nmv-log-stream.h
+                    SOURCE (): src/common/nmv-scope-logger.h
+                    SOURCE (): src/common/nmv-exception.h
+                    SOURCE (): src/common/nmv-initializer.h
+                    SOURCE (): src/common/nmv-dynamic-module.h
+                    SOURCE (): src/common/nmv-log-stream-utils.h
+                    SOURCE (): src/common/nmv-date-utils.h
+                    SOURCE (): src/common/nmv-i-input-stream.h
+                    SOURCE (): src/common/nmv-env.h
+                    SOURCE (): src/common/nmv-plugin.h
+                    SOURCE (): src/common/nmv-sequence.h
+                    SOURCE (): src/common/nmv-option-utils.h
+                    SOURCE (): src/common/nmv-i-connection-driver.h
+                    SOURCE (): src/common/nmv-connection.h
+                    SOURCE (): src/common/nmv-i-connection-manager-driver.h
+                    SOURCE (): src/common/nmv-connection-manager.h
+                    SOURCE (): src/common/nmv-parsing-utils.h
+                    SOURCE (): src/common/nmv-conf-manager.h
+                    SOURCE (): src/common/nmv-buffer.h
+                    SOURCE (): src/common/nmv-tools.h
+                    SOURCE (): src/common/nmv-transaction.h
+                    SOURCE (): src/common/nmv-sql-statement.h
+                    SOURCE (): src/common/nmv-insert-statement.h
+                    SOURCE (): src/common/nmv-delete-statement.h
+                    SOURCE (): src/common/nmv-proc-utils.h
+                    SOURCE (): src/common/nmv-proc-mgr.h
+                    SOURCE (): src/common/nmv-ustring.cc
+                    SOURCE (): src/common/nmv-str-utils.cc
+                    SOURCE (): src/common/nmv-object.cc
+                    SOURCE (): src/common/nmv-libxml-utils.cc
+                    SOURCE (): src/common/nmv-log-stream.cc
+                    SOURCE (): src/common/nmv-scope-logger.cc
+                    SOURCE (): src/common/nmv-exception.cc
+                    SOURCE (): src/common/nmv-initializer.cc
+                    SOURCE (): src/common/nmv-dynamic-module.cc
+                    SOURCE (): src/common/nmv-date-utils.cc
+                    SOURCE (): src/common/nmv-env.cc
+                    SOURCE (): src/common/nmv-plugin.cc
+                    SOURCE (): src/common/nmv-sequence.cc
+                    SOURCE (): src/common/nmv-option-utils.cc
+                    SOURCE (): src/common/nmv-connection-manager.cc
+                    SOURCE (): src/common/nmv-connection.cc
+                    SOURCE (): src/common/nmv-parsing-utils.cc
+                    SOURCE (): src/common/nmv-conf-manager.cc
+                    SOURCE (): src/common/nmv-tools.cc
+                    SOURCE (): src/common/nmv-transaction.cc
+                    SOURCE (): src/common/nmv-sql-statement.cc
+                    SOURCE (): src/common/nmv-insert-statement.cc
+                    SOURCE (): src/common/nmv-delete-statement.cc
+                    SOURCE (): src/common/nmv-proc-utils.cc
+                    SOURCE (): src/common/nmv-proc-mgr.cc
+                TARGET (): publicheaders
+                    PROPERTY (Installation directory): publicheadersdir
+                    SOURCE (): src/common/nmv-api-macros.h
+                    SOURCE (): src/common/nmv-namespace.h
+                    SOURCE (): src/common/nmv-ustring.h
+                    SOURCE (): src/common/nmv-str-utils.h
+                    SOURCE (): src/common/nmv-libxml-utils.h
+                    SOURCE (): src/common/nmv-safe-ptr-utils.h
+                    SOURCE (): src/common/nmv-object.h
+                    SOURCE (): src/common/nmv-safe-ptr.h
+                    SOURCE (): src/common/nmv-log-stream.h
+                    SOURCE (): src/common/nmv-scope-logger.h
+                    SOURCE (): src/common/nmv-exception.h
+                    SOURCE (): src/common/nmv-initializer.h
+                    SOURCE (): src/common/nmv-dynamic-module.h
+                    SOURCE (): src/common/nmv-log-stream-utils.h
+                    SOURCE (): src/common/nmv-date-utils.h
+                    SOURCE (): src/common/nmv-i-input-stream.h
+                    SOURCE (): src/common/nmv-env.h
+                    SOURCE (): src/common/nmv-plugin.h
+                    SOURCE (): src/common/nmv-sequence.h
+                    SOURCE (): src/common/nmv-option-utils.h
+                    SOURCE (): src/common/nmv-i-connection-driver.h
+                    SOURCE (): src/common/nmv-connection.h
+                    SOURCE (): src/common/nmv-i-connection-manager-driver.h
+                    SOURCE (): src/common/nmv-connection-manager.h
+                    SOURCE (): src/common/nmv-parsing-utils.h
+                    SOURCE (): src/common/nmv-conf-manager.h
+                    SOURCE (): src/common/nmv-buffer.h
+                    SOURCE (): src/common/nmv-tools.h
+                    SOURCE (): src/common/nmv-transaction.h
+                    SOURCE (): src/common/nmv-sql-statement.h
+                    SOURCE (): src/common/nmv-insert-statement.h
+                    SOURCE (): src/common/nmv-delete-statement.h
+                    SOURCE (): src/common/nmv-proc-utils.h
+                    SOURCE (): src/common/nmv-proc-mgr.h
+            GROUP (): dbdimpl
+                GROUP (): sqlite
+                    PROPERTY (Installation directories): sqlitedriverdir = $libdir/nemiver/modules configdir = $libdir/nemiver/config
+                    TARGET (): libnemiverdbdsqlite.la
+                        PROPERTY (Installation directory): sqlitedriverdir
+                        PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
+                        PROPERTY (Libraries): @SQLITE3_LIBS@ $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                        SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-mgr-drv.cc
+                        SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-mgr-drv.h
+                        SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-drv.cc
+                        SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-drv.h
+                    TARGET (): config
+                        PROPERTY (Installation directory): configdir
+                        SOURCE (): src/dbdimpl/sqlite/org.nemiver.db.sqlitedriver.conf
+            GROUP (): langs
+                TARGET (): libnemivercparser.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (Libraries): $(top_builddir)/src/common/libnemivercommon.la
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    SOURCE (): src/langs/nmv-cpp-lexer.h
+                    SOURCE (): src/langs/nmv-cpp-lexer.cc
+                    SOURCE (): src/langs/nmv-cpp-lexer-utils.cc
+                    SOURCE (): src/langs/nmv-cpp-lexer-utils.h
+                    SOURCE (): src/langs/nmv-cpp-ast.h
+                    SOURCE (): src/langs/nmv-cpp-ast.cc
+                    SOURCE (): src/langs/nmv-cpp-ast-utils.h
+                    SOURCE (): src/langs/nmv-cpp-ast-utils.cc
+                    SOURCE (): src/langs/nmv-cpp-parser.h
+                    SOURCE (): src/langs/nmv-cpp-parser.cc
+            GROUP (): dbgengine
+                PROPERTY (Installation directories): gdbmoddir = $libdir/nemiver/modules varlistmoddir = $libdir/nemiver/modules varwalkermoddir = $libdir/nemiver/modules varobjwalkermoddir = $libdir/nemiver/modules varlistwalkermoddir = $libdir/nemiver/modules cpptraitmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+                TARGET (): libgdbmod.la
+                    PROPERTY (Installation directory): gdbmoddir
+                    PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
+                    PROPERTY (Libraries): libdbgcommon.la libgdbmiparser.la libgdbengine.la $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/langs/libnemivercparser.la $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-debugger.h
+                TARGET (): libvarlistmod.la
+                    PROPERTY (Installation directory): varlistmoddir
+                    PROPERTY (Linker flags): -module -avoid-version
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-var-list.h
+                    SOURCE (): src/dbgengine/nmv-var-list.cc
+                TARGET (): libvarwalkermod.la
+                    PROPERTY (Installation directory): varwalkermoddir
+                    PROPERTY (Linker flags): -module -avoid-version
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-var-walker.h
+                    SOURCE (): src/dbgengine/nmv-var.h
+                    SOURCE (): src/dbgengine/nmv-var-walker.cc
+                TARGET (): libvarobjwalkermod.la
+                    PROPERTY (Installation directory): varobjwalkermoddir
+                    PROPERTY (Linker flags): -module -avoid-version
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-var-walker.h
+                    SOURCE (): src/dbgengine/nmv-var.h
+                    SOURCE (): src/dbgengine/nmv-varobj-walker.cc
+                TARGET (): libvarlistwalkermod.la
+                    PROPERTY (Installation directory): varlistwalkermoddir
+                    PROPERTY (Linker flags): -module -avoid-version
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-var-list-walker.h
+                    SOURCE (): src/dbgengine/nmv-var-list-walker.cc
+                TARGET (): libcpptraitmod.la
+                    PROPERTY (Installation directory): cpptraitmoddir
+                    PROPERTY (Linker flags): -module -avoid-version
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-i-lang-trait.h
+                    SOURCE (): src/dbgengine/nmv-cpp-trait.cc
+                TARGET (): libgdbmiparser.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/dbgengine/nmv-gdbmi-parser.cc
+                    SOURCE (): src/dbgengine/nmv-gdbmi-parser.h
+                TARGET (): libdbgcommon.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    SOURCE (): src/dbgengine/nmv-dbg-common.cc
+                    SOURCE (): src/dbgengine/nmv-dbg-common.h
+                TARGET (): libdebuggerutils.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    SOURCE (): src/dbgengine/nmv-debugger-utils.h
+                    SOURCE (): src/dbgengine/nmv-debugger-utils.cc
+                TARGET (): libgdbengine.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    SOURCE (): src/dbgengine/nmv-gdb-engine.cc
+                    SOURCE (): src/dbgengine/nmv-gdb-engine.h
+                TARGET (): publicheaders
+                    PROPERTY (Installation directory): publicheadersdir
+                    SOURCE (): src/dbgengine/nmv-i-debugger.h
+                    SOURCE (): src/dbgengine/nmv-i-var-list.h
+                    SOURCE (): src/dbgengine/nmv-i-lang-trait.h
+                    SOURCE (): src/dbgengine/nmv-i-var-walker.h
+                    SOURCE (): src/dbgengine/nmv-var.h
+                    SOURCE (): src/dbgengine/nmv-i-var-list-walker.h
+                TARGET (): config
+                    PROPERTY (Installation directory): configdir
+                    SOURCE (): src/dbgengine/gdbengine.conf
+                    SOURCE (): src/dbgengine/varlist.conf
+                    SOURCE (): src/dbgengine/varwalker.conf
+                    SOURCE (): src/dbgengine/varobjwalker.conf
+                    SOURCE (): src/dbgengine/varlistwalker.conf
+                    SOURCE (): src/dbgengine/cpptrait.conf
+            GROUP (): confmgr
+                PROPERTY (Installation directories): gconfmgrmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+                TARGET (): libgconfmgrmod.la
+                    PROPERTY (Installation directory): gconfmgrmoddir
+                    PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
+                    PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS @GCONF_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
+                    SOURCE (): src/confmgr/nmv-i-conf-mgr.h
+                    SOURCE (): src/confmgr/nmv-gconf-mgr.cc
+                TARGET (): publicheaders
+                    PROPERTY (Installation directory): publicheadersdir
+                    SOURCE (): src/confmgr/nmv-i-conf-mgr.h
+                TARGET (): config
+                    PROPERTY (Installation directory): configdir
+                    SOURCE (): src/confmgr/gconfmgr.conf
+            GROUP (): uicommon
+                TARGET (): libnemiveruicommon.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $CPPUNIT_LIBS -lutil
+                    PROPERTY (C compiler flags): -fPIC -DPIC
+                    SOURCE (): src/uicommon/nmv-ui-utils.h
+                    SOURCE (): src/uicommon/nmv-ui-utils.cc
+                    SOURCE (): src/uicommon/ephy-spinner.c
+                    SOURCE (): src/uicommon/ephy-spinner.h
+                    SOURCE (): src/uicommon/ephy-spinner-tool-item.c
+                    SOURCE (): src/uicommon/ephy-spinner-tool-item.h
+                    SOURCE (): src/uicommon/nmv-spinner.cc
+                    SOURCE (): src/uicommon/nmv-spinner.h
+                    SOURCE (): src/uicommon/nmv-spinner-tool-item.h
+                    SOURCE (): src/uicommon/nmv-spinner-tool-item.cc
+                    SOURCE (): src/uicommon/nmv-popup-tip.cc
+                    SOURCE (): src/uicommon/nmv-popup-tip.h
+                    SOURCE (): src/uicommon/nmv-terminal.cc
+                    SOURCE (): src/uicommon/nmv-terminal.h
+                    SOURCE (): src/uicommon/nmv-source-editor.cc
+                    SOURCE (): src/uicommon/nmv-source-editor.h
+                    SOURCE (): src/uicommon/$(memoryview_sources)
+            GROUP (): workbench
+                PROPERTY (Installation directories): workbenchmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+                GROUP (): schemas
+                    PROPERTY (Installation directories): schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+                    TARGET (): schemas
+                        PROPERTY (Installation directory): schemasdir
+                        SOURCE (): src/workbench/schemas/nemiver-workbench.schemas
+                TARGET (): libworkbenchmod.la
+                    PROPERTY (Installation directory): workbenchmoddir
+                    PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
+                    PROPERTY (Libraries): $NEMIVERWORKBENCH_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
+                    SOURCE (): src/workbench/nmv-i-workbench.h
+                    SOURCE (): src/workbench/nmv-i-pref-mgr.h
+                    SOURCE (): src/workbench/nmv-workbench.cc
+                    SOURCE (): src/workbench/nmv-pref-mgr.cc
+                TARGET (): publicheaders
+                    PROPERTY (Installation directory): publicheadersdir
+                    SOURCE (): src/workbench/nmv-i-workbench.h
+                    SOURCE (): src/workbench/nmv-i-pref-mgr.h
+                TARGET (): config
+                    PROPERTY (Installation directory): configdir
+                    SOURCE (): src/workbench/workbench.conf
+            GROUP (): persp
+                PROPERTY (Installation directories): publicheadersdir = $includedir/nemiver/dynmods
+                GROUP (): dbgperspective
+                    PROPERTY (Installation directories): pluginconfigdir = $libdir/nemiver/plugins/dbgperspective plugindir = $libdir/nemiver/plugins/dbgperspective
+                    GROUP (): glade
+                        PROPERTY (Installation directories): gladedir = $libdir/nemiver/plugins/dbgperspective/glade
+                        TARGET (): glade
+                            PROPERTY (Installation directory): gladedir
+                            SOURCE (): src/persp/dbgperspective/glade/bodycontainer.glade
+                            SOURCE (): src/persp/dbgperspective/glade/runprogramdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/proclistdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/loadcoredialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/locatefiledialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/savedsessionsdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/preferencesdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/varinspectordialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/findtextdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/openfiledialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/setbreakpointdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/chooseoverloadsdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/remotetargetdialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/globalvarsinspector.glade
+                            SOURCE (): src/persp/dbgperspective/glade/callfunctiondialog.glade
+                            SOURCE (): src/persp/dbgperspective/glade/watchpointdialog.glade
+                    GROUP (): menus
+                        PROPERTY (Installation directories): menusdir = $libdir/nemiver/plugins/dbgperspective/menus
+                        TARGET (): menus
+                            PROPERTY (Installation directory): menusdir
+                            SOURCE (): src/persp/dbgperspective/menus/menus.xml
+                            SOURCE (): src/persp/dbgperspective/menus/memoryview-menu.xml
+                            SOURCE (): src/persp/dbgperspective/menus/toolbar.xml
+                            SOURCE (): src/persp/dbgperspective/menus/contextualmenu.xml
+                            SOURCE (): src/persp/dbgperspective/menus/breakpointspopup.xml
+                            SOURCE (): src/persp/dbgperspective/menus/callstackpopup.xml
+                            SOURCE (): src/persp/dbgperspective/menus/varinspectorpopup.xml
+                            SOURCE (): src/persp/dbgperspective/menus/localvarsinspectorpopup.todelete.xml
+                            SOURCE (): src/persp/dbgperspective/menus/localvarsinspectorpopup.xml
+                    GROUP (): icons
+                        PROPERTY (Installation directories): iconsdir = $libdir/nemiver/plugins/dbgperspective/icons
+                        TARGET (): icons
+                            PROPERTY (Installation directory): iconsdir
+                            SOURCE (): src/persp/dbgperspective/icons/set-breakpoint.xpm
+                            SOURCE (): src/persp/dbgperspective/icons/breakpoint-marker.png
+                            SOURCE (): src/persp/dbgperspective/icons/breakpoint-disabled-marker.png
+                            SOURCE (): src/persp/dbgperspective/icons/line-pointer.png
+                            SOURCE (): src/persp/dbgperspective/icons/run-to-cursor.xpm
+                            SOURCE (): src/persp/dbgperspective/icons/step-into.xpm
+                            SOURCE (): src/persp/dbgperspective/icons/step-out.xpm
+                            SOURCE (): src/persp/dbgperspective/icons/step-over.xpm
+                            SOURCE (): src/persp/dbgperspective/icons/throbber.gif
+                    GROUP (): sqlscripts
+                        GROUP (): sqlite
+                            PROPERTY (Installation directories): sqlfilesdir = $libdir/nemiver/plugins/dbgperspective/sqlscripts
+                            TARGET (): sqlfiles
+                                PROPERTY (Installation directory): sqlfilesdir
+                                SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/create-tables.sql
+                                SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/drop-tables.sql
+                    GROUP (): schemas
+                        PROPERTY (Installation directories): schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+                        TARGET (): schemas
+                            PROPERTY (Installation directory): schemasdir
+                            SOURCE (): src/persp/dbgperspective/schemas/nemiver-dbgperspective.schemas
+                    TARGET (): pluginconfig
+                        PROPERTY (Installation directory): pluginconfigdir
+                        SOURCE (): src/persp/dbgperspective/plugin-descriptor.xml
+                        SOURCE (): src/persp/dbgperspective/dbgperspective.conf
+                    TARGET (): libdbgperspectiveplugin.la
+                        PROPERTY (Installation directory): plugindir
+                        PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
+                        PROPERTY (Libraries): $NEMIVERDBGPERSP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la $(top_builddir)/src/dbgengine/libdebuggerutils.la
+                        SOURCE (): src/persp/dbgperspective/nmv-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-run-program-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-run-program-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-locate-file-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-locate-file-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-load-core-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-load-core-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-saved-sessions-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-saved-sessions-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-preferences-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-preferences-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-proc-list-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-proc-list-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-var-inspector-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-var-inspector-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-find-text-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-find-text-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-sess-mgr.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-sess-mgr.h
+                        SOURCE (): src/persp/dbgperspective/nmv-call-stack.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-call-stack.h
+                        SOURCE (): src/persp/dbgperspective/nmv-variables-utils.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-variables-utils.h
+                        SOURCE (): src/persp/dbgperspective/nmv-local-vars-inspector.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-local-vars-inspector.h
+                        SOURCE (): src/persp/dbgperspective/nmv-global-vars-inspector-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-global-vars-inspector-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-var-inspector.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-var-inspector.h
+                        SOURCE (): src/persp/dbgperspective/nmv-breakpoints-view.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-breakpoints-view.h
+                        SOURCE (): src/persp/dbgperspective/nmv-registers-view.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-registers-view.h
+                        SOURCE (): src/persp/dbgperspective/nmv-thread-list.h
+                        SOURCE (): src/persp/dbgperspective/nmv-thread-list.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-file-list.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-file-list.h
+                        SOURCE (): src/persp/dbgperspective/nmv-open-file-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-open-file-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-set-breakpoint-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-set-breakpoint-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-watchpoint-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-watchpoint-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-choose-overloads-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-choose-overloads-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-remote-target-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-remote-target-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-conf-keys.h
+                        SOURCE (): src/persp/dbgperspective/nmv-dbg-perspective.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-dbg-perspective.h
+                        SOURCE (): src/persp/dbgperspective/nmv-vars-treeview.h
+                        SOURCE (): src/persp/dbgperspective/nmv-vars-treeview.cc
+                        SOURCE (): src/persp/dbgperspective/nmv-call-function-dialog.h
+                        SOURCE (): src/persp/dbgperspective/nmv-call-function-dialog.cc
+                        SOURCE (): src/persp/dbgperspective/$(memoryview_sources)
+                TARGET (): publicheaders
+                    PROPERTY (Installation directory): publicheadersdir
+                    SOURCE (): src/persp/nmv-i-perspective.h
+            TARGET (): nemiver
+                PROPERTY (Installation directory): bindir
+                PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
+                SOURCE (): src/main.cc
+        GROUP (): glade
+            PROPERTY (Installation directories): gladedir = $(datadir)/@PACKAGE@/glade
+            TARGET (): glade
+                PROPERTY (Installation directory): gladedir
+                SOURCE (): glade/workbench.glade
+        GROUP (): menus
+            PROPERTY (Installation directories): menusdir = $(datadir)/@PACKAGE@/menus
+            TARGET (): menus
+                PROPERTY (Installation directory): menusdir
+                SOURCE (): menus/menubar.xml
+        GROUP (): tests
+            TARGET (): runtestcore
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                SOURCE (): tests/test-core.cc
+            TARGET (): runteststdout
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                SOURCE (): tests/test-stdout.cc
+            TARGET (): docore
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+                SOURCE (): tests/do-core.cc
+            TARGET (): inout
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                SOURCE (): tests/inout.cc
+            TARGET (): pointerderef
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                SOURCE (): tests/pointer-deref.cc
+            TARGET (): fooprog
+                PROPERTY (Do not install): true
+                SOURCE (): tests/fooprog.cc
+            TARGET (): templatedvar
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                SOURCE (): tests/templated-var.cc
+            TARGET (): gtkmmtest
+                PROPERTY (Do not install): true
+                PROPERTY (C++ compiler flags): $NEMIVERUICOMMON_CFLAGS $CPPUNIT_CFLAGS
+                PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $CPPUNIT_LIBS
+                SOURCE (): tests/gtkmm-test.cc
+            TARGET (): dostackoverflow
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+                SOURCE (): tests/do-stack-overflow.cc
+            TARGET (): bigvar
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+                SOURCE (): tests/big-var.c
+            TARGET (): threads
+                PROPERTY (Do not install): true
+                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+                SOURCE (): tests/threads.cc
+        GROUP (): po
+        GROUP (): data
+            PROPERTY (Installation directories): desktopdir = $(datadir)/applications
+            GROUP (): icons
+                PROPERTY (Installation directories): themedir = ${datadir}/icons/hicolor
+                GROUP (): 16x16
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/16x16/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/16x16/nemiver.png
+                GROUP (): 22x22
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/22x22/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/22x22/nemiver.png
+                GROUP (): 24x24
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/24x24/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/24x24/nemiver.png
+                GROUP (): 32x32
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/32x32/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/32x32/nemiver.png
+                GROUP (): 48x48
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/48x48/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/48x48/nemiver.png
+                GROUP (): scalable
+                    PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/scalable/apps
+                    TARGET (): icon
+                        PROPERTY (Installation directory): icondir
+                        SOURCE (): data/icons/scalable/nemiver.svg
+            TARGET (): desktop
+                PROPERTY (Installation directory): desktopdir
+                SOURCE (): data/$(desktop_in_files:.desktop.in=.desktop)
+            TARGET (): man_MANS
+                SOURCE (): data/nemiver.1
+        GROUP (): docs
+        GROUP (): help
+        TARGET (): publicheaders
+            PROPERTY (Installation directory): publicheadersdir
+            SOURCE (): config.h

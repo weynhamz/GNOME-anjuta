@@ -1,0 +1,2219 @@
+#!/bin/sh
+# This is a shell archive (produced by GNU sharutils 4.9).
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the `#!/bin/sh' line above, then type `sh FILE'.
+#
+lock_dir=_sh25999
+# Made on 2011-10-12 22:32 CEST by <seb@localhost>.
+# Source directory was `/home/seb/Programmation/Anjuta'.
+#
+# Existing files will *not* be overwritten, unless `-c' is specified.
+# This format requires very little intelligence at unshar time.
+# "if test", "echo", "mkdir", and "sed" may be needed.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#    683 -rw-r--r-- nemiver/help/Makefile.am
+#    125 -rw-r--r-- nemiver/glade/Makefile.am
+#    120 -rw-r--r-- nemiver/menus/Makefile.am
+#  15842 -rw-r--r-- nemiver/configure.ac
+#   3310 -rw-r--r-- nemiver/Makefile.am
+#   5161 -rw-r--r-- nemiver/tests/Makefile.am
+#    100 -rw-r--r-- nemiver/data/icons/scalable/Makefile.am
+#     97 -rw-r--r-- nemiver/data/icons/32x32/Makefile.am
+#     97 -rw-r--r-- nemiver/data/icons/24x24/Makefile.am
+#     97 -rw-r--r-- nemiver/data/icons/22x22/Makefile.am
+#    463 -rw-r--r-- nemiver/data/icons/Makefile.am
+#     97 -rw-r--r-- nemiver/data/icons/48x48/Makefile.am
+#     97 -rw-r--r-- nemiver/data/icons/16x16/Makefile.am
+#    275 -rw-r--r-- nemiver/data/Makefile.am
+#   3232 -rw-r--r-- nemiver/src/dbgengine/Makefile.am
+#    468 -rw-r--r-- nemiver/src/langs/Makefile.am
+#    559 -rw-r--r-- nemiver/src/persp/dbgperspective/glade/Makefile.am
+#    354 -rw-r--r-- nemiver/src/persp/dbgperspective/menus/Makefile.am
+#    330 -rw-r--r-- nemiver/src/persp/dbgperspective/icons/Makefile.am
+#    854 -rw-r--r-- nemiver/src/persp/dbgperspective/schemas/Makefile.am
+#    199 -rw-r--r-- nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am
+#     16 -rw-r--r-- nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am
+#   2774 -rw-r--r-- nemiver/src/persp/dbgperspective/Makefile.am
+#    159 -rw-r--r-- nemiver/src/persp/Makefile.am
+#    725 -rw-r--r-- nemiver/src/workbench/schemas/Makefile.am
+#   1075 -rw-r--r-- nemiver/src/workbench/Makefile.am
+#    632 -rw-r--r-- nemiver/src/confmgr/Makefile.am
+#    828 -rw-r--r-- nemiver/src/uicommon/Makefile.am
+#   2147 -rw-r--r-- nemiver/src/common/Makefile.am
+#    671 -rw-r--r-- nemiver/src/Makefile.am
+#    606 -rw-r--r-- nemiver/src/dbdimpl/sqlite/Makefile.am
+#     16 -rw-r--r-- nemiver/src/dbdimpl/Makefile.am
+#    377 -rw-r--r-- nemiver/docs/Makefile.am
+#
+echo=echo
+shar_tty= shar_n= shar_c='
+'
+if test ! -d ${lock_dir} ; then :
+else ${echo} "lock directory ${lock_dir} exists"
+     exit 1
+fi
+if mkdir ${lock_dir} ; then :
+else ${echo} "failed to create ${lock_dir} lock directory"
+     exit 1
+fi
+# ============= nemiver/help/Makefile.am ==============
+if test ! -d 'nemiver'; then
+  mkdir 'nemiver'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver."
+else ${echo} "x - failed to create directory nemiver."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/help'; then
+  mkdir 'nemiver/help'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/help."
+else ${echo} "x - failed to create directory nemiver/help."
+     exit 1
+fi
+fi
+if test -f 'nemiver/help/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/help/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/help/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/help/Makefile.am' &&
+Xinclude $(top_srcdir)/gnome-doc-utils.make
+Xdist-hook: doc-dist-hook
+XDOC_MODULE = nemiver
+XDOC_ENTITIES =
+XDOC_INCLUDES = legal.xml
+XDOC_FIGURES = \
+X			  figures/attach-dialog.png \
+X			  figures/execute-dialog.png \
+X			  figures/load-core-dialog.png \
+X			  figures/main-window.png \
+X			  figures/sessions-dialog.png \
+X			  figures/variable-inspector.png \
+X			  figures/set-breakpoint-dialog.png \
+X			  figures/open-files-target.png \
+X			  figures/global-variables-dialog.png \
+X			  figures/memory-view.png \
+X			  figures/registers-view.png \
+X			  figures/connect-remote-dialog.png \
+X			  figures/enabled-breakpoint.png \
+X			  figures/disabled-breakpoint.png
+XDOC_LINGUAS = cs de es oc sv
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/help/Makefile.am failed"
+fi
+fi
+# ============= nemiver/glade/Makefile.am ==============
+if test ! -d 'nemiver/glade'; then
+  mkdir 'nemiver/glade'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/glade."
+else ${echo} "x - failed to create directory nemiver/glade."
+     exit 1
+fi
+fi
+if test -f 'nemiver/glade/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/glade/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/glade/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/glade/Makefile.am' &&
+Xgladefiles = workbench.glade
+X
+Xgladedir = $(datadir)/@PACKAGE@/glade
+Xglade_DATA = $(gladefiles)
+X
+XEXTRA_DIST = $(gladefiles)
+X
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/glade/Makefile.am failed"
+fi
+fi
+# ============= nemiver/menus/Makefile.am ==============
+if test ! -d 'nemiver/menus'; then
+  mkdir 'nemiver/menus'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/menus."
+else ${echo} "x - failed to create directory nemiver/menus."
+     exit 1
+fi
+fi
+if test -f 'nemiver/menus/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/menus/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/menus/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/menus/Makefile.am' &&
+Xmenusfiles = menubar.xml
+X
+Xmenusdir = $(datadir)/@PACKAGE@/menus
+Xmenus_DATA = $(menusfiles)
+X
+XEXTRA_DIST = $(menusfiles)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/menus/Makefile.am failed"
+fi
+fi
+# ============= nemiver/configure.ac ==============
+if test -f 'nemiver/configure.ac' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/configure.ac (file already exists)"
+else
+${echo} "x - extracting nemiver/configure.ac (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/configure.ac' &&
+Xdnl **************************************************************
+Xdnl Process this file with autoconf to produce a configure script.
+Xdnl **************************************************************
+XAC_INIT(nemiver,0.7.4)
+X
+XMAJOR_VERSION=0
+XMINOR_VERSION=7
+XMICRO_VERSION=3
+X
+XAC_PREREQ(2.59)
+XAC_CONFIG_SRCDIR(README)
+XAC_CONFIG_MACRO_DIR([m4])
+XAC_CANONICAL_TARGET
+XAM_MAINTAINER_MODE
+XAM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+XAC_CONFIG_HEADER(config.h)
+X
+X
+XNEMIVER_VERSION="$MAJOR_VERSION.$MINOR_VERSION.$MICRO_VERSION"
+XAC_SUBST(NEMIVER_VERSION)
+X
+Xdnl ************************************************************
+Xdnl First, Here goes the list of the version of the librairies
+Xdnl we depend on. Some variables are AC_SUBSTed so that they can be used in the
+Xdnl .pc files as well
+Xdnl ************************************************************
+XLIBGMODULE_VERSION=2.14
+XAC_SUBST([LIBGMODULE_VERSION])
+XLIBGTHREAD_VERSION=2.14
+XAC_SUBST([LIBGTHREAD_VERSION])
+XLIBGLIBMM_VERSION=2.14
+XAC_SUBST([LIBGLIBMM_VERSION])
+XLIBGNOMEVFS_VERSION=2.14
+XAC_SUBST([LIBGNOMEVFS_VERSION])
+XLIBXML2_VERSION=2.6.22
+XAC_SUBST([LIBXML2_VERSION])
+XLIBGTKMM_VERSION=2.12.0
+XAC_SUBST([LIBGTKMM_VERSION])
+XLIBGLADEMM_VERSION=2.6.0
+XAC_SUBST([LIBGLADEMM_VERSION])
+XLIBGTKSOURCEVIEWMM1_VERSION=0.3.0
+XAC_SUBST([LIBGTKSOURCEVIEWMM1_VERSION])
+XLIBGTKSOURCEVIEWMM2_VERSION=1.9.4
+XAC_SUBST([LIBGTKSOURCEVIEWMM2_VERSION])
+XLIBGIOMM_VERSION=2.15.2
+XAC_SUBST([LIBGIOMM_VERSION])
+XSQLITE3_VERSION=3.0
+XAC_SUBST([SQLITE3_VERSION])
+XLIBGTOP_VERSION=2.14
+XAC_SUBST([LIBGTOP_VERSION])
+XLIBVTE_VERSION=0.12.0
+XAC_SUBST([LIBVTE_VERSION])
+XGCONF_VERSION=2.14.0
+XAC_SUBST([GCONF_VERSION])
+XCPPUNIT_VERSION=1.10.0
+XAC_SUBST([CPPUNIT_VERSION])
+XGTKHEX_VERSION=2.21.4
+XAC_SUBST([GTKHEX_VERSION])
+X
+Xdnl *********************
+Xdnl Checks for programs.
+Xdnl *********************
+XAC_PROG_CXX
+XAC_GNU_SOURCE
+X#AC_HEADER_STDC
+X
+XAC_PROG_INSTALL
+XAC_PROG_LIBTOOL
+X
+XAC_LANG_CPLUSPLUS
+XAC_LANG_COMPILER_REQUIRE
+X
+XAC_PATH_PROG(GDB_PROG,gdb)
+X
+Xif test x$GDB_PROG = x ; then
+X    AC_MSG_ERROR([didn't find the gdb debugger. please, install it.])
+Xfi
+XAC_SUBST(GDB_PROG)
+X
+XENABLE_IDEBUGGER_ONLY=no
+XENABLE_DBGENGINE=yes
+XENABLE_WORKBENCH=yes
+X
+Xdnl *************************************
+Xdnl Internationalization support
+Xdnl *************************************
+Xdnl To add a new language, add language code xx to po/LINGUAS
+XIT_PROG_INTLTOOL([0.33.0])
+XGETTEXT_PACKAGE=nemiver
+XAC_SUBST(GETTEXT_PACKAGE)
+XAC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
+X                   [The domain to use with gettext])
+XAM_GLIB_GNU_GETTEXT
+X
+Xnemiverlocaledir=[${datadir}/locale]
+XAC_SUBST(nemiverlocaledir)
+X
+Xdnl ***************************
+Xdnl Initialize GNOME doc utils
+Xdnl ***************************
+XGNOME_DOC_INIT
+X
+Xdnl ***************************
+Xdnl a list of enablexxx options
+Xdnl ***************************
+X
+XAC_ARG_ENABLE(idebuggeronly,
+X              AC_HELP_STRING([--enable-idebugger-only=yes|no],
+X                            [compile the idebuger iface only (default is no)]),
+X              ENABLE_IDEBUGGER_ONLY=$enableval,
+X              ENABLE_IDEBUGGER_ONLY=no)
+Xif test x$ENABLE_IDEBUGGER_ONLY = xyes ; then
+X    ENABLE_DBGENGINE=yes
+X    ENABLE_WORKBENCH=no
+Xfi
+X
+XAC_ARG_ENABLE(autotests,
+X              AC_HELP_STRING([--enable-autotests=yes|no],
+X                             [enable automated tests (default is no)]),
+X              ENABLE_AUTOTESTS=$enableval,
+X              ENABLE_AUTOTESTS=auto)
+Xif test x$ENABLE_AUTOTESTS = xauto ; then
+X    if test x$NEMIVER_DEVEL = xon ; then
+X        ENABLE_AUTOTESTS=yes
+X    else
+X        ENABLE_AUTOTESTS=no
+X    fi
+Xfi
+X
+Xif test x$ENABLE_AUTOTESTS = xyes ; then
+X#AM_PATH_CPPUNIT($CPP_UNIT_VERSION)
+X    AC_MSG_NOTICE(support of automated tests enabled)
+Xelse
+X    AC_MSG_NOTICE(disabled support of automated tests)
+Xfi
+XAM_CONDITIONAL(AUTOTESTS, test x$ENABLE_AUTOTESTS = xyes)
+X
+XAC_ARG_ENABLE(workbench,
+X              AC_HELP_STRING([--enable-workbench=yes|no],
+X                            [enable the graphical dbg workbench (default is yes)]),
+X              ENABLE_WORKBENCH=$enableval,
+X              ENABLE_WORKBENCH=yes)
+Xif test x$ENABLE_WORKBENCH = xyes ; then
+X    AC_DEFINE([WITH_WORKBENCH], 1, [compile the workbench])
+Xelse
+X    ENABLE_WORKBENCH=no
+Xfi
+X
+X
+XAC_ARG_ENABLE(memoryview,
+X              AC_HELP_STRING([--enable-memoryview=yes|no],
+X                            [enable the memory view hex editor (default is yes)]),
+X              ENABLE_MEMORYVIEW=$enableval,
+X              [PKG_CHECK_EXISTS([gtkhex >= $GTKHEX_VERSION], [ENABLE_MEMORYVIEW=yes], [ENABLE_MEMORYVIEW=no])])
+Xif test x$ENABLE_MEMORYVIEW = xyes ; then
+X    AC_DEFINE([WITH_MEMORYVIEW], 1, [compile the the memory view widget])
+Xelse
+X    ENABLE_MEMORYVIEW=no
+Xfi
+XAM_CONDITIONAL(BUILD_MEMORYVIEW, test x$ENABLE_MEMORYVIEW = xyes)
+X
+X
+XAC_ARG_ENABLE(sourceviewmm2,
+X              AC_HELP_STRING([--enable-sourceviewmm2=yes|no],
+X                            [use gtksourceviewmm-2.0 (default is auto)]),
+X              ENABLE_SOURCEVIEWMM2=$enableval,
+X              [PKG_CHECK_EXISTS([gtksourceviewmm-2.0 >= $LIBGTKSOURCEVIEWMM2_VERSION], [ENABLE_SOURCEVIEWMM2=yes], [ENABLE_SOURCEVIEWMM2=no])])
+Xif test x$ENABLE_SOURCEVIEWMM2 = xyes ; then
+X    AC_DEFINE([WITH_SOURCEVIEWMM2], 1, [build with gtksourceviewmm 2.x instead of 1.x])
+X    LIBGTKSOURCEVIEWMM_VERSION=$LIBGTKSOURCEVIEWMM2_VERSION
+X    LIBGTKSOURCEVIEWMM_PKG=gtksourceviewmm-2.0
+Xelse
+X    ENABLE_SOURCEVIEWMM2=no
+X    LIBGTKSOURCEVIEWMM_VERSION=$LIBGTKSOURCEVIEWMM1_VERSION
+X    LIBGTKSOURCEVIEWMM_PKG=libgtksourceviewmm-1.0
+Xfi
+X
+XAC_ARG_ENABLE(gio,
+X              AC_HELP_STRING([--enable-gio=yes|no],
+X                            [use gio instead of gnomevfs (default is auto)]),
+X              ENABLE_GIO=$enableval,
+X              [PKG_CHECK_EXISTS([giomm-2.4 >= $LIBGIOMM_VERSION], [ENABLE_GIO=yes], [ENABLE_GIO=no])])
+Xif test x$ENABLE_GIO = xyes ; then
+X    AC_DEFINE([WITH_GIO], 1, [build with gio instead of gnomevfs])
+X    VFS_PKG=giomm-2.4
+X    VFS_VERSION=$LIBGIOMM_VERSION
+Xelse
+X    VFS_PKG=gnome-vfs-2.0
+X    VFS_VERSION=$LIBGNOMEVFS_VERSION
+X    ENABLE_GIO=no
+Xfi
+XDEP_VFS="$VFS_PKG >= $VFS_VERSION"
+X
+XENABLE_DEBUG=yes
+XAC_ARG_ENABLE(debug,
+X              AC_HELP_STRING([--enable-debug=yes|no],
+X                             [enable a lot of debug message dumps(default is yes)]),
+X              ENABLE_DEBUG=$enableval,
+X              ENABLE_DEBUG=yes)
+Xif test x$ENABLE_DEBUG = xyes ; then
+X        AC_DEFINE([NEMIVER_DEBUG], 1,
+X        [enable a lot of messages dumps in the terminal])
+Xelse
+X        ENABLE_DEBUG=no
+Xfi
+X
+X
+XENABLE_GCC_SYMBOLS_VISIBILITY=no
+XAC_ARG_ENABLE(symsvis,
+X              AC_HELP_STRING([--enable-symsvis=yes|no],
+X                             [use the gcc symbols visibility feature. >=n gcc4.  default is no)]),
+X              ENABLE_GCC_SYMBOLS_VISIBILITY=$enableval,
+X              ENABLE_GCC_SYMBOLS_VISIBILITY=no)
+X
+Xdnl *******************************
+Xdnl checking for libraries we use
+Xdnl *******************************
+X
+X#try to detect boost-dev include-only libs
+XAC_CHECK_HEADERS([boost/variant.hpp],
+X                 [],
+X                 [AC_MSG_ERROR([Please, install libboost development headers])])
+X
+X#dnl checking for non-aggregated lib
+XPKG_CHECK_MODULES(SQLITE3, [sqlite3 >= $SQLITE3_VERSION])
+XPKG_CHECK_MODULES(GCONF,[gconf-2.0 >= $GCONF_VERSION]) 
+X
+X#######################################################
+X#boost build system sucks no end.
+X#it is damn hard to detect the version of boost
+X#that is installed. All that because our friends of
+X#the boost project don't want to integrate to autofoo.
+X#So we resort to hugly hacks to detect the version of
+X#boost that is installed.
+X#######################################################
+Xif test x$ENABLE_AUTOTESTS = xyes ; then
+X    AX_BOOST_BASE([1.33.1])
+X    AX_BOOST_UNIT_TEST_FRAMEWORK
+X    AX_BOOST_TEST_EXEC_MONITOR
+X
+X    unit_framework_lib_candidates="/usr/lib/libboost_unit_test_framework-st.a /usr/lib/libboost_unit_test_framework.a"
+X    unit_framework_lib_candidates=$unit_framework_lib_candidates" /usr/lib64/libboost_unit_test_framework-st.a /usr/lib64/libboost_unit_test_framework.a"
+X    for i in $unit_framework_lib_candidates ; do
+X        if test -f $i ; then
+X            BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB=$i
+X            break
+X        fi
+X    done
+X    AC_SUBST(BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB)
+Xfi
+X
+Xif test x$ENABLE_WORKBENCH = xyes ; then
+X    DEP_WORKBENCH=" gtkmm-2.4 >= $LIBGTKMM_VERSION \
+X                   libglademm-2.4 >= $LIBGLADEMM_VERSION \
+X                   $LIBGTKSOURCEVIEWMM_PKG >= $LIBGTKSOURCEVIEWMM_VERSION"
+Xfi
+X
+Xif test x$ENABLE_MEMORYVIEW = xyes ; then
+X    DEP_MEMORYVIEW="gtkhex >= $GTKHEX_VERSION"
+Xfi
+X
+Xdnl *******************
+Xdnl gconf
+Xdnl *******************
+XAC_PATH_PROG(GCONFTOOL, gconftool-2)
+XAM_GCONF_SOURCE_2
+XAC_SUBST(GCONFTOOL)
+X
+Xdnl library dependencies for libnemivercommon and the IDebugger libraries
+XDEP_COMMON="gmodule-2.0 >= $LIBGMODULE_VERSION \
+X           gthread-2.0 >= $LIBGTHREAD_VERSION \
+X           libxml-2.0 >= $LIBXML2_VERSION \
+X           libgtop-2.0 >= $LIBGTOP_VERSION \
+X           glibmm-2.4 >= $LIBGLIBMM_VERSION"
+X
+XPKG_CHECK_MODULES(NEMIVERCOMMON, $DEP_COMMON)
+XNEMIVERCOMMON_CFLAGS="$NEMIVERCOMMON_CFLAGS $CPPUNIT_CFLAGS"
+XNEMIVERCOMMON_LIBS="$NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS"
+X
+XAC_SUBST(NEMIVERCOMMON_LIBS)
+XAC_SUBST(NEMIVERCOMMON_CFLAGS)
+X
+Xdnl library dependencies for the nemiver common UI module
+XDEP_UICOMMON=" gtkmm-2.4 >= $LIBGTKMM_VERSION \
+X               libglademm-2.4 >= $LIBGLADEMM_VERSION \
+X               $LIBGTKSOURCEVIEWMM_PKG >= $LIBGTKSOURCEVIEWMM_VERSION \
+X               vte >= $LIBVTE_VERSION"
+X
+XPKG_CHECK_MODULES(NEMIVERUICOMMON, $DEP_UICOMMON $DEP_COMMON $DEP_MEMORYVIEW)
+XNEMIVERUICOMMON_CFLAGS="$NEMIVERUICOMMON_CFLAGS $CPPUNIT_CFLAGS"
+XNEMIVERUICOMMON_LIBS="$NEMIVERUICOMMON_LIBS $CPPUNIT_LIBS"
+X
+XAC_SUBST(NEMIVERUICOMMON_LIBS)
+XAC_SUBST(NEMIVERUICOMMON_CFLAGS)
+X
+XPKG_CHECK_EXISTS([gtkmm-2.4 >= 2.16], [AC_DEFINE([HAVE_GTKMM_2_16], [1], [gtkmm is at least 2.16])])
+X
+Xdnl library dependencies for the nemiver workbench module
+Xdnl dependencies list already declared above
+X
+XPKG_CHECK_MODULES(NEMIVERWORKBENCH, $DEP_COMMON $DEP_VFS $DEP_WORKBENCH)
+XNEMIVERWORKBENCH_LIBS="$NEMIVERWORKBENCH_LIBS $CPPUNIT_LIBS"
+XNEMIVERWORKBENCH_CFLAGS="$NEMIVERWORKBENCH_CFLAGS $CPPUNIT_CFLAGS"
+X
+XAC_SUBST(NEMIVERWORKBENCH_LIBS)
+XAC_SUBST(NEMIVERWORKBENCH_CFLAGS)
+X
+Xdnl library dependencies for the nemiver debug perspective plugin
+XDEP_PERSP=" libglademm-2.4 >= $LIBGLADEMM_VERSION \
+X           $LIBGTKSOURCEVIEWMM_PKG >= $LIBGTKSOURCEVIEWMM_VERSION \
+X           vte >= $LIBVTE_VERSION"
+X
+XPKG_CHECK_MODULES(NEMIVERDBGPERSP, $DEP_UICOMMON $DEP_VFS $DEP_PERSP $DEP_MEMORYVIEW)
+XNEMIVERDBGPERSP_LIBS="$NEMIVERDBGPERSP_LIBS $CPPUNIT_LIBS"
+XNEMIVERDBGPERSP_CFLAGS="$NEMIVERDBGPERSP_CFLAGS $CPPUNIT_CFLAGS"
+X
+XAC_SUBST(NEMIVERDBGPERSP_LIBS)
+XAC_SUBST(NEMIVERDBGPERSP_CFLAGS)
+X
+XNEMIVER_LIBS="$NEMIVERUICOMMON_LIBS"
+XNEMIVER_CFLAGS="$NEMIVERUICOMMON_CFLAGS"
+X
+XAC_SUBST(NEMIVER_LIBS)
+XAC_SUBST(NEMIVER_CFLAGS)
+X
+XNEMIVER_INCLUDE_DIR=$includedir/nemiver
+X
+X#has_lib_sixty_four=`echo $libdir | grep lib64 | wc -l`
+X#if test x$has_lib_sixty_four = x0 ; then
+X#NEMIVER_LIB_DIR_NAME=lib
+X#else
+X#NEMIVER_LIB_DIR_NAME=lib64
+X#fi
+X
+X#expand libdir
+Xif test x$prefix = xNONE ; then
+X        prefix=$ac_default_prefix
+Xfi
+Xif test x$exec_prefix = xNONE ; then
+X        exec_prefix=$prefix ;
+Xfi
+XNEMIVER_LIBDIR=`eval echo $libdir`
+X
+XAC_SUBST(NEMIVER_INCLUDE_DIR)
+XAC_SUBST(NEMIVER_LIB_DIR_NAME)
+XAC_SUBST(NEMIVER_LIBDIR)
+X
+X
+Xif test x$ENABLE_GCC_SYMBOLS_VISIBILITY = xyes && test x$host_cpu != xx86_64 ; then
+X    AC_DEFINE(HAS_GCC_VISIBILITY_SUPPORT,1,[gcc visibility support])
+X    REQUIRED_FLAGS="-fvisibility=hidden -fvisibility-inlines-hidden"
+Xelse
+X    REQUIRED_FLAGS=""
+Xfi
+X
+Xdnl ***************************
+Xdnl Set Dodji devel environment.
+Xdnl ***************************
+Xif test  "x$NEMIVER_DEVEL" = "xon" ; then
+X    DODJI_CFLAGS="-Wall -g -Wextra -Wno-deprecated $REQUIRED_FLAGS"
+X    if test x$NEMIVER_ALLOW_WARNINGS != xon ; then
+X        DODJI_CFLAGS="$DODJI_CFLAGS -Werror"
+X    fi
+X    DODJI_CXXFLAGS="$DODJI_CFLAGS -fuse-cxa-atexit"
+X    ENABLE_DEBUG=yes
+X    CXXFLAGS="$DODJI_CXXFLAGS"
+X    CFLAGS="$DODJI_CFLAGS"
+Xelse
+X    DODJI_CFLAGS="$REQUIRED_FLAGS"
+X    DODJI_CXXFLAGS="$DODJI_CFAGS -fuse-cxa-atexit"
+X    CFLAGS="$CFLAGS $DODJI_CFLAGS"
+X    CXXFLAGS="$CXXFLAGS $DODJI_CXXFLAGS"
+Xfi
+X
+Xif test x$ENABLE_DEBUG != x ; then
+X    AC_DEFINE([NEMIVER_DEBUG],1,[enable debug messages])
+Xfi
+X
+XNEMIVER_INSTALL_PREFIX=$prefix
+XNEMIVER_SYSTEM_CONFIG_DIR=$libdir/nemiver/config
+XNEMIVER_MODULES_DIR=$libdir/nemiver/modules
+XNEMIVER_PLUGINS_DIR=$libdir/nemiver/plugins
+XNEMIVER_TEST_MODULES_DIR=$NEMIVER_MODULES_DIR/test-modules
+X
+X
+XAC_SUBST(NEMIVER_INSTALL_PREFIX)
+XAC_SUBST(NEMIVER_SYSTEM_CONFIG_DIR)
+XAC_SUBST(NEMIVER_MODULES_DIR)
+XAC_SUBST(NEMIVER_PLUGINS_DIR)
+XAC_SUBST(NEMIVER_TEST_MODULES_DIR)
+X
+Xdnl don't try to install gconf schemas during distcheck
+XDISTCHECK_CONFIGURE_FLAGS="--disable-schemas-install"
+XAC_SUBST([DISTCHECK_CONFIGURE_FLAGS])
+X
+Xdnl If we are running automake >= 1.11, we can have nicer
+Xdnl compilation output.
+Xm4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+X
+XAC_PROG_MAKE_SET
+X
+XAC_CONFIG_FILES([Makefile
+Xdocs/Makefile
+Xdocs/Doxyfile
+Xsrc/Makefile
+X  src/common/Makefile
+X  src/common/libnemivercommon.pc
+X  src/dbdimpl/Makefile
+X  src/dbdimpl/sqlite/Makefile
+X  src/dbdimpl/sqlite/org.nemiver.db.sqlitedriver.conf
+X  src/langs/Makefile
+X  src/dbgengine/Makefile
+X  src/dbgengine/gdbengine.conf
+X  src/dbgengine/cpptrait.conf
+X  src/dbgengine/varlist.conf
+X  src/dbgengine/varwalker.conf
+X  src/dbgengine/varobjwalker.conf
+X  src/dbgengine/varlistwalker.conf
+X  src/confmgr/Makefile
+X  src/confmgr/gconfmgr.conf
+X  src/uicommon/Makefile
+X  src/workbench/Makefile
+X  src/workbench/workbench.conf
+X  src/workbench/schemas/Makefile
+X  src/persp/Makefile
+X  src/persp/dbgperspective/Makefile
+X  src/persp/dbgperspective/dbgperspective.conf
+X    src/persp/dbgperspective/glade/Makefile
+X    src/persp/dbgperspective/menus/Makefile
+X    src/persp/dbgperspective/icons/Makefile
+X    src/persp/dbgperspective/sqlscripts/Makefile
+X    src/persp/dbgperspective/sqlscripts/sqlite/Makefile
+X    src/persp/dbgperspective/schemas/Makefile
+Xdata/Makefile
+X    data/icons/Makefile
+X        data/icons/16x16/Makefile
+X        data/icons/22x22/Makefile
+X        data/icons/24x24/Makefile
+X        data/icons/32x32/Makefile
+X        data/icons/48x48/Makefile
+X        data/icons/scalable/Makefile
+Xglade/Makefile
+Xmenus/Makefile
+Xtests/Makefile
+Xpo/Makefile.in
+Xhelp/Makefile])
+X
+XAC_OUTPUT()
+X
+XAC_MSG_NOTICE([
+X=================================================================
+X         Nemiver: $MAJOR_VERSION.$MINOR_VERSION.$MICRO_VERSION
+X=================================================================
+X        Here is the configuration of the package:
+X
+X    Prefix                          : ${prefix}
+X    Source code location            : ${srcdir}
+X    C Compiler                      : ${CC}
+X    C++ Compiler                    : ${CXX}
+X
+X    NEMIVER_DEVEL env var           : ${NEMIVER_DEVEL}
+X    NEMIVER_ALLOW_WARNINGS env var  : ${NEMIVER_ALLOW_WARNINGS}
+X    CFLAGS                          : ${CFLAGS}
+X    CXXFLAGS                        : ${CXXFLAGS}
+X    NEMIVER_LIBS                    : ${NEMIVER_LIBS}
+X    NEMIVER_CFLAGS                  : ${NEMIVER_CFLAGS}
+X
+X OPTIONAL FEATURES:
+X    Enable autotests                : ${ENABLE_AUTOTESTS}
+X    Enable verbose debug messages   : ${ENABLE_DEBUG}
+X    Enable workbench                : ${ENABLE_WORKBENCH}
+X    Enable memory view              : ${ENABLE_MEMORYVIEW} (requires gtkhex > $GTKHEX_VERSION)
+X    gtksourceviewmm version         : ${LIBGTKSOURCEVIEWMM_PKG}
+X    VFS library                     : ${VFS_PKG}
+X    Enable symbols visibility ctrl  : ${ENABLE_GCC_SYMBOLS_VISIBILITY}
+X    Maintainer mode                 : ${USER_MAINTAINER_MODE}
+X
+XNow, Type 'make' to compile Nemiver
+XOnce done, type 'make install' with sufficient privileges to install it to $prefix
+X
+XI hope you will enjoy it.
+X
+X        --Dodji
+X])
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/configure.ac failed"
+fi
+fi
+# ============= nemiver/Makefile.am ==============
+if test -f 'nemiver/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/Makefile.am' &&
+XSUBDIRS = src glade menus tests po data docs help
+XACLOCAL_AMFLAGS = -I m4
+Xheaders= config.h
+X
+Xpublicheaders_DATA=$(headers)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/common
+X
+XINTLTOOL_FILES= intltool-extract.in \
+Xintltool-merge.in \
+Xintltool-update.in
+X
+XEXTRA_DIST= \
+XREADME \
+XINSTALL \
+XCOPYING \
+XCOPYRIGHT \
+X$(headers) \
+X$(INTLTOOL_FILES) \
+Xgnome-doc-utils.make
+X
+Xdoc:
+X	$(MAKE) -C docs doc
+X
+X###############################
+X# RELEASE TARGETS
+X###############################
+X# Add the following lines to your ~/.ssh/config file if necessary so you don't
+X# need to specify your username manually:
+X#
+X# Host *.gnome.org
+X# 	User your-gnome-username
+X
+XRELEASE_UPLOAD_HOST = master.gnome.org
+XRELEASE_UPLOAD_BASE = /home/users/$(USER)
+XRELEASE_URL_BASE = http://download.gnome.org/sources/nemiver
+XRELEASE_ANNOUNCE_LIST = nemiver-list@gnome.org (cc gnome-announce-list@gnome.org)
+Xtar_gz_file = $(PACKAGE)-$(VERSION).tar.gz
+Xsig_file = $(tar_gz_file).sig
+X
+X# sign the release with gpg
+X$(sig_file): $(tar_gz_file)
+X	gpg --output $@ --detach $^
+X
+X# update ChangeLog from git log
+Xupdate-changelog:
+X	@./gitlog2gnucl > ChangeLog.updated
+X	@size1=`stat -c%s ChangeLog`; size2=`stat -c%s ChangeLog.updated`; \
+X	if test $(size2) -ge $(size1); then mv ChangeLog.updated ChangeLog; \
+X	else echo "ChangeLog.updated is smaller than ChangeLog. Problem!!"\
+X	; exit -1; fi
+X
+XRELEASED_BRANCH=master
+X
+Xecho-released-branch:
+X	echo "released-branch=$(RELEASED_BRANCH)"
+X
+Xtag-release: update-changelog dist tag-release-only
+Xtag-release-only:
+X	git tag -m "$(PACKAGE_NAME) release $(VERSION)" \
+X	"$(PACKAGE_NAME)-$(VERSION)" $(RELEASED_BRANCH)
+X
+Xrelease-upload: tag-release $(tar_gz_file) release-upload-only
+Xrelease-upload-only:
+X	scp $(tar_gz_file) $(RELEASE_UPLOAD_HOST):$(RELEASE_UPLOAD_BASE)/
+X
+Xrelease : release-upload cat-announcement
+Xcat-announcement:
+X	@echo ""
+X	@echo "Please send an announcement to $(RELEASE_ANNOUNCE_LIST)"
+X	@echo "including the following:"
+X	@echo ""
+X	@echo "Subject: $(PACKAGE_NAME) release $(VERSION) now available"
+X	@echo ""
+X	@echo "============================== CUT HERE =============================="
+X	@echo "A new $(PACKAGE_NAME) release $(VERSION) is now available."
+X	@echo ""
+X	@echo "What is Nemiver?"
+X	@echo "================"
+X	@echo "$(PACKAGE_NAME) is a standalone graphical debugger that integrates well in the GNOME desktop environment."
+X	@echo "It currently features a backend which uses the GNU debugger GDB for debugging C/C++ programs."
+X	@echo ""
+X	@echo "Where to get it?"
+X	@echo "================"
+X	@echo "This release is available as a source package in tar.gz and tar.bz2 formats"
+X	@echo "and can be downloaded from: $(RELEASE_URL_BASE)"
+X	@echo ""
+X	@echo "The home page of the Nemiver project is at http://projects.gnome.org/nemiver"
+X	@echo ""
+X	@echo "What's Changed in this release?"
+X	@echo "================================"
+X	@echo ""
+X	@echo "============================== CUT HERE =============================="
+X	@echo "Also, please include the new entries from the NEWS file."
+X	@echo ""
+X	@echo "Make sure to update the Website with the new version."
+X	@echo ""
+X	@echo "Last but not least, do not forget to bump up the micro"
+X	@echo "version component to the next (odd) number and commit."
+X
+XDISTCLEANFILES = $(INTLTOOL_FILES:.in=) \
+X	gnome-doc-utils.make
+X
+XDISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/Makefile.am failed"
+fi
+fi
+# ============= nemiver/tests/Makefile.am ==============
+if test ! -d 'nemiver/tests'; then
+  mkdir 'nemiver/tests'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/tests."
+else ${echo} "x - failed to create directory nemiver/tests."
+     exit 1
+fi
+fi
+if test -f 'nemiver/tests/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/tests/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/tests/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/tests/Makefile.am' &&
+Xif AUTOTESTS
+X# 'make check' automatically runs programs listed in the TESTS variable
+X
+X#runtestoverloads
+X#runtestglobalvariables
+X
+XTESTS=\
+Xruntestgdbmi runtestunicode \
+Xruntestvars runtestcpptrait runtestvarlist \
+Xruntestvarwalker runtestvarobjwalker runtestbreakpoint \
+Xruntestwatchpoint runtestderef \
+Xruntestlocalvarslist runtestcpplexer \
+Xruntestcppparser runtestvarpathexpr \
+Xruntestlibtoolwrapperdetection \
+Xruntestenv runtesttypes
+X
+Xelse
+X
+XTESTS=
+X
+Xendif
+X
+Xnoinst_PROGRAMS= \
+X$(TESTS) \
+Xruntestcore  runteststdout  docore inout \
+Xpointerderef fooprog templatedvar \
+Xgtkmmtest dostackoverflow bigvar threads
+X
+Xruntestgdbmi_SOURCES=test-gdbmi.cc
+Xruntestgdbmi_LDADD= @NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la \
+X$(top_builddir)/src/dbgengine/libgdbmiparser.la
+X
+Xgtkmmtest_SOURCES=gtkmm-test.cc
+Xgtkmmtest_CXXFLAGS= @NEMIVERUICOMMON_CFLAGS@
+Xgtkmmtest_LDADD= @NEMIVERUICOMMON_LIBS@
+X
+Xfooprog_SOURCES=fooprog.cc
+Xfooprog_LDADD=
+X
+Xruntestbreakpoint_SOURCES=test-breakpoint.cc
+Xruntestbreakpoint_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestwatchpoint_SOURCES=test-watchpoint.cc
+Xruntestwatchpoint_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestvarpathexpr_SOURCES=test-var-path-expr.cc
+Xruntestvarpathexpr_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestvarobjwalker_SOURCES=test-varobj-walker.cc
+Xruntestvarobjwalker_LDADD=@NEMIVERCOMMON_LIBS@ @BOOST_TEST_EXEC_MONITOR_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+X#runtestoverloads_SOURCES=test-overloads.cc
+X#runtestoverloads_LDADD=@NEMIVERCOMMON_LIBS@ @BOOST_TEST_EXEC_MONITOR_LIB@ \
+X#$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestcore_SOURCES=test-core.cc
+Xruntestcore_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xrunteststdout_SOURCES=test-stdout.cc
+Xrunteststdout_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestcpptrait_SOURCES=test-cpptrait.cc
+Xruntestcpptrait_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestunicode_SOURCES=test-unicode.cc
+Xruntestunicode_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestvars_SOURCES=test-vars.cc
+Xruntestvars_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestvarlist_SOURCES=test-var-list.cc
+Xruntestvarlist_LDADD=@NEMIVERCOMMON_LIBS@ @BOOST_TEST_EXEC_MONITOR_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestvarwalker_SOURCES=test-var-walker.cc
+Xruntestvarwalker_LDADD=@NEMIVERCOMMON_LIBS@ @BOOST_TEST_EXEC_MONITOR_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestderef_SOURCES=test-deref.cc
+Xruntestderef_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestlocalvarslist_SOURCES=test-local-vars-list.cc
+Xruntestlocalvarslist_LDADD=@NEMIVERCOMMON_LIBS@  \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+X#runtestglobalvariables_SOURCES=test-global-variables.cc
+X#runtestglobalvariables_LDADD=@NEMIVERCOMMON_LIBS@ \
+X#$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestcpplexer_SOURCES=test-cpp-lexer.cc
+Xruntestcpplexer_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/langs/libnemivercparser.la \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestcppparser_SOURCES=test-cpp-parser.cc
+Xruntestcppparser_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/langs/libnemivercparser.la \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestlibtoolwrapperdetection_SOURCES=test-libtool-wrapper-detection.cc
+Xruntestlibtoolwrapperdetection_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/langs/libnemivercparser.la \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntestenv_SOURCES=test-env.cc
+Xruntestenv_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xruntesttypes_SOURCES=test-types.cc
+Xruntesttypes_LDADD=@NEMIVERCOMMON_LIBS@ \
+X@BOOST_UNIT_TEST_FRAMEWORK_STATIC_LIB@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xdocore_SOURCES=do-core.cc
+Xdocore_LDADD=@NEMIVERCOMMON_LIBS@
+X
+Xinout_SOURCES=inout.cc
+Xinout_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xpointerderef_SOURCES=pointer-deref.cc
+Xpointerderef_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xtemplatedvar_SOURCES=templated-var.cc
+Xtemplatedvar_LDADD=@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xdostackoverflow_SOURCES=do-stack-overflow.cc
+Xdostackoverflow_LDADD=@NEMIVERCOMMON_LIBS@
+X
+Xbigvar_SOURCES=big-var.c
+Xbigvar_LDADD=@NEMIVERCOMMON_LIBS@
+X
+Xthreads_SOURCES=threads.cc
+Xthreads_LDADD=@NEMIVERCOMMON_LIBS@
+X
+XINCLUDES=-I$(top_srcdir)/src \
+X-I$(top_srcdir)/src/confmgr \
+X-I$(top_srcdir)/src/dbgengine \
+X@NEMIVERCOMMON_CFLAGS@ -DBOOST_TEST_DYN_LINK
+X
+XLDADD=$(top_builddir)/src/common/libnemivercommon.la
+X
+XEXTRA_DIST=libtool-wrapper-with-dashes
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/tests/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/scalable/Makefile.am ==============
+if test ! -d 'nemiver/data'; then
+  mkdir 'nemiver/data'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data."
+else ${echo} "x - failed to create directory nemiver/data."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/data/icons'; then
+  mkdir 'nemiver/data/icons'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons."
+else ${echo} "x - failed to create directory nemiver/data/icons."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/data/icons/scalable'; then
+  mkdir 'nemiver/data/icons/scalable'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/scalable."
+else ${echo} "x - failed to create directory nemiver/data/icons/scalable."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/scalable/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/scalable/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/scalable/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/scalable/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/scalable/apps
+Xicon_DATA = nemiver.svg
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/scalable/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/32x32/Makefile.am ==============
+if test ! -d 'nemiver/data/icons/32x32'; then
+  mkdir 'nemiver/data/icons/32x32'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/32x32."
+else ${echo} "x - failed to create directory nemiver/data/icons/32x32."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/32x32/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/32x32/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/32x32/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/32x32/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/32x32/apps
+Xicon_DATA = nemiver.png
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/32x32/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/24x24/Makefile.am ==============
+if test ! -d 'nemiver/data/icons/24x24'; then
+  mkdir 'nemiver/data/icons/24x24'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/24x24."
+else ${echo} "x - failed to create directory nemiver/data/icons/24x24."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/24x24/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/24x24/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/24x24/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/24x24/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/24x24/apps
+Xicon_DATA = nemiver.png
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/24x24/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/22x22/Makefile.am ==============
+if test ! -d 'nemiver/data/icons/22x22'; then
+  mkdir 'nemiver/data/icons/22x22'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/22x22."
+else ${echo} "x - failed to create directory nemiver/data/icons/22x22."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/22x22/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/22x22/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/22x22/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/22x22/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/22x22/apps
+Xicon_DATA = nemiver.png
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/22x22/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/Makefile.am ==============
+if test -f 'nemiver/data/icons/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/Makefile.am' &&
+XSUBDIRS=16x16 22x22 24x24 32x32 48x48 scalable
+X
+Xthemedir = ${datadir}/icons/hicolor
+Xgtk_update_icon_cache = gtk-update-icon-cache -f -t ${themedir}
+X
+Xinstall-data-hook: update-icon-cache
+Xuninstall-hook: update-icon-cache
+X
+Xupdate-icon-cache:
+X	@-if test -z "$(DESTDIR)"; then \
+X		echo "Updating Gtk icon cache."; \
+X		$(gtk_update_icon_cache); \
+X	else \
+X		echo "*** Icon cache not updated.  After install, run this:"; \
+X		echo "***   $(gtk_update_icon_cache)"; \
+X	fi
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/48x48/Makefile.am ==============
+if test ! -d 'nemiver/data/icons/48x48'; then
+  mkdir 'nemiver/data/icons/48x48'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/48x48."
+else ${echo} "x - failed to create directory nemiver/data/icons/48x48."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/48x48/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/48x48/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/48x48/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/48x48/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/48x48/apps
+Xicon_DATA = nemiver.png
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/48x48/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/icons/16x16/Makefile.am ==============
+if test ! -d 'nemiver/data/icons/16x16'; then
+  mkdir 'nemiver/data/icons/16x16'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/data/icons/16x16."
+else ${echo} "x - failed to create directory nemiver/data/icons/16x16."
+     exit 1
+fi
+fi
+if test -f 'nemiver/data/icons/16x16/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/icons/16x16/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/icons/16x16/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/icons/16x16/Makefile.am' &&
+Xicondir = $(datadir)/icons/hicolor/16x16/apps
+Xicon_DATA = nemiver.png
+X
+XEXTRA_DIST = $(icon_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/icons/16x16/Makefile.am failed"
+fi
+fi
+# ============= nemiver/data/Makefile.am ==============
+if test -f 'nemiver/data/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/data/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/data/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/data/Makefile.am' &&
+XSUBDIRS=icons
+X
+Xdesktopdir = $(datadir)/applications
+Xdesktop_in_files = nemiver.desktop.in
+Xdesktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+X@INTLTOOL_DESKTOP_RULE@
+X
+Xman_MANS = nemiver.1
+X
+XEXTRA_DIST= \
+X$(desktop_in_files) \
+X$(man_MANS)
+X
+XDISTCLEANFILES = $(desktop_DATA)
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/data/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/dbgengine/Makefile.am ==============
+if test ! -d 'nemiver/src'; then
+  mkdir 'nemiver/src'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src."
+else ${echo} "x - failed to create directory nemiver/src."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/dbgengine'; then
+  mkdir 'nemiver/src/dbgengine'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/dbgengine."
+else ${echo} "x - failed to create directory nemiver/src/dbgengine."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/dbgengine/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/dbgengine/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/dbgengine/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/dbgengine/Makefile.am' &&
+Xgdbmod_LTLIBRARIES=libgdbmod.la
+Xgdbmoddir=@NEMIVER_MODULES_DIR@
+X
+Xvarlistmod_LTLIBRARIES=libvarlistmod.la
+Xvarlistmoddir=@NEMIVER_MODULES_DIR@
+X
+Xvarwalkermod_LTLIBRARIES=libvarwalkermod.la
+Xvarwalkermoddir=@NEMIVER_MODULES_DIR@
+X
+Xvarobjwalkermod_LTLIBRARIES=libvarobjwalkermod.la
+Xvarobjwalkermoddir=@NEMIVER_MODULES_DIR@
+X
+Xvarlistwalkermod_LTLIBRARIES=libvarlistwalkermod.la
+Xvarlistwalkermoddir=@NEMIVER_MODULES_DIR@
+X
+Xcpptraitmod_LTLIBRARIES=libcpptraitmod.la
+Xcpptraitmoddir=@NEMIVER_MODULES_DIR@
+X
+Xnoinst_LTLIBRARIES=\
+Xlibgdbmiparser.la \
+Xlibdbgcommon.la \
+Xlibdebuggerutils.la \
+Xlibgdbengine.la
+X
+Xidebuggerheaders= \
+Xnmv-i-debugger.h
+X
+Xivarlistheaders= \
+Xnmv-i-var-list.h
+X
+Xilangtraitheaders= \
+Xnmv-i-lang-trait.h
+X
+Xivarwalkerheaders= nmv-i-var-walker.h nmv-var.h
+X
+Xivarlistwalkerheaders= nmv-i-var-list-walker.h
+X
+Xdynmodheaders = \
+X$(idebuggerheaders) \
+X$(ivarlistheaders) \
+X$(ilangtraitheaders) \
+X$(ivarwalkerheaders) \
+X$(ivarlistwalkerheaders)
+X
+Xlibgdbmod_la_SOURCES= \
+X$(idebuggerheaders)
+X
+Xlibvarlistmod_la_SOURCES= \
+X$(ivarlistheaders) \
+Xnmv-var-list.cc
+X
+Xlibvarwalkermod_la_SOURCES= \
+X$(ivarwalkerheaders) \
+Xnmv-var-walker.cc
+X
+Xlibvarobjwalkermod_la_SOURCES= \
+X$(ivarwalkerheaders) \
+Xnmv-varobj-walker.cc
+X
+Xlibvarlistwalkermod_la_SOURCES= \
+X$(ivarlistwalkerheaders) \
+Xnmv-var-list-walker.cc
+X
+Xlibgdbmiparser_la_SOURCES= \
+Xnmv-gdbmi-parser.cc \
+Xnmv-gdbmi-parser.h
+X
+Xlibgdbmiparser_la_CFLAGS=-fPIC -DPIC
+X
+Xlibcpptraitmod_la_SOURCES= \
+X$(ilangtraitheaders) \
+Xnmv-cpp-trait.cc
+X
+Xlibdbgcommon_la_SOURCES= \
+Xnmv-dbg-common.cc \
+Xnmv-dbg-common.h
+X
+Xlibdbgcommon_la_CFLAGS=-fPIC -DPIC
+X
+Xlibdebuggerutils_la_SOURCES= \
+Xnmv-debugger-utils.h \
+Xnmv-debugger-utils.cc
+X
+Xlibdebuggerutils_la_CFLAGS=-fPIC -DPIC
+X
+Xlibgdbengine_la_SOURCES= \
+Xnmv-gdb-engine.cc \
+Xnmv-gdb-engine.h
+X
+Xlibgdbengine_la_CFLAGS=-fPIC -DPIC
+X
+Xpublicheaders_DATA=$(dynmodheaders)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/dynmods
+X
+Xlibgdbmod_la_LDFLAGS=-module -avoid-version -Wl,--as-needed
+Xlibgdbmod_la_LIBADD=libdbgcommon.la libgdbmiparser.la libgdbengine.la \
+X@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/langs/libnemivercparser.la \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibvarlistmod_la_LDFLAGS=-module -avoid-version
+Xlibvarlistmod_la_LIBADD=@NEMIVERCOMMON_LIBS@ \
+X	$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibcpptraitmod_la_LDFLAGS=-module -avoid-version
+Xlibcpptraitmod_la_LIBADD=@NEMIVERCOMMON_LIBS@ \
+X	$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibvarwalkermod_la_LDFLAGS=-module -avoid-version
+Xlibvarwalkermod_la_LIBADD=@NEMIVERCOMMON_LIBS@ \
+X	$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibvarobjwalkermod_la_LDFLAGS=-module -avoid-version
+Xlibvarobjwalkermod_la_LIBADD=@NEMIVERCOMMON_LIBS@ \
+X	$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibvarlistwalkermod_la_LDFLAGS=-module -avoid-version
+Xlibvarlistwalkermod_la_LIBADD=@NEMIVERCOMMON_LIBS@ \
+X	$(top_builddir)/src/common/libnemivercommon.la
+X
+Xlibgdbmiparser_la_LIBADD= \
+X@NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+Xconfig_DATA=gdbengine.conf varlist.conf varwalker.conf varobjwalker.conf varlistwalker.conf cpptrait.conf
+Xconfigdir=@NEMIVER_SYSTEM_CONFIG_DIR@
+X
+XINCLUDES=@NEMIVERCOMMON_CFLAGS@ -DENABLE_NLS=1 -DDATADIR=\"${datadir}\" \
+X-I$(top_srcdir)/src -I$(top_srcdir)/src/confmgr
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/dbgengine/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/langs/Makefile.am ==============
+if test ! -d 'nemiver/src/langs'; then
+  mkdir 'nemiver/src/langs'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/langs."
+else ${echo} "x - failed to create directory nemiver/src/langs."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/langs/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/langs/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/langs/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/langs/Makefile.am' &&
+Xnoinst_LTLIBRARIES=libnemivercparser.la
+X
+Xlibnemivercparser_la_SOURCES= \
+Xnmv-cpp-lexer.h \
+Xnmv-cpp-lexer.cc \
+Xnmv-cpp-lexer-utils.cc \
+Xnmv-cpp-lexer-utils.h \
+Xnmv-cpp-ast.h \
+Xnmv-cpp-ast.cc \
+Xnmv-cpp-ast-utils.h \
+Xnmv-cpp-ast-utils.cc \
+Xnmv-cpp-parser.h \
+Xnmv-cpp-parser.cc
+X
+Xlibnemivercparser_la_LIBADD=$(top_builddir)/src/common/libnemivercommon.la
+Xlibnemivercparser_la_CFLAGS= -fPIC -DPIC
+X
+XINCLUDES= \
+X-I$(top_srcdir) \
+X-I$(top_srcdir)/src \
+X@NEMIVERCOMMON_CFLAGS@
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/langs/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/glade/Makefile.am ==============
+if test ! -d 'nemiver/src/persp'; then
+  mkdir 'nemiver/src/persp'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp."
+else ${echo} "x - failed to create directory nemiver/src/persp."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/persp/dbgperspective'; then
+  mkdir 'nemiver/src/persp/dbgperspective'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/persp/dbgperspective/glade'; then
+  mkdir 'nemiver/src/persp/dbgperspective/glade'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/glade."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/glade."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/persp/dbgperspective/glade/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/glade/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/glade/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/glade/Makefile.am' &&
+XPLUGIN_NAME=dbgperspective
+Xgladefiles = bodycontainer.glade \
+Xrunprogramdialog.glade \
+Xproclistdialog.glade \
+Xloadcoredialog.glade \
+Xlocatefiledialog.glade \
+Xsavedsessionsdialog.glade \
+Xpreferencesdialog.glade \
+Xvarinspectordialog.glade \
+Xfindtextdialog.glade \
+Xopenfiledialog.glade \
+Xsetbreakpointdialog.glade \
+Xchooseoverloadsdialog.glade \
+Xremotetargetdialog.glade \
+Xglobalvarsinspector.glade \
+Xcallfunctiondialog.glade \
+Xwatchpointdialog.glade
+X
+Xgladedir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/glade
+Xglade_DATA = $(gladefiles)
+X
+XEXTRA_DIST = $(gladefiles)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/glade/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/menus/Makefile.am ==============
+if test ! -d 'nemiver/src/persp/dbgperspective/menus'; then
+  mkdir 'nemiver/src/persp/dbgperspective/menus'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/menus."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/menus."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/persp/dbgperspective/menus/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/menus/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/menus/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/menus/Makefile.am' &&
+XPLUGIN_NAME=dbgperspective
+X
+Xmenusfiles = \
+Xmenus.xml memoryview-menu.xml toolbar.xml \
+Xcontextualmenu.xml \
+Xbreakpointspopup.xml \
+Xcallstackpopup.xml \
+Xvarinspectorpopup.xml \
+Xlocalvarsinspectorpopup.todelete.xml \
+Xlocalvarsinspectorpopup.xml
+X
+Xmenusdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/menus
+Xmenus_DATA = $(menusfiles)
+X
+XEXTRA_DIST = $(menusfiles)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/menus/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/icons/Makefile.am ==============
+if test ! -d 'nemiver/src/persp/dbgperspective/icons'; then
+  mkdir 'nemiver/src/persp/dbgperspective/icons'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/icons."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/icons."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/persp/dbgperspective/icons/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/icons/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/icons/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/icons/Makefile.am' &&
+XPLUGIN_NAME=dbgperspective
+Xiconsfiles = \
+Xset-breakpoint.xpm \
+Xbreakpoint-marker.png \
+Xbreakpoint-disabled-marker.png \
+Xline-pointer.png \
+Xrun-to-cursor.xpm \
+Xstep-into.xpm \
+Xstep-out.xpm \
+Xstep-over.xpm \
+Xthrobber.gif
+X
+Xiconsdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/icons
+Xicons_DATA = $(iconsfiles)
+X
+XEXTRA_DIST = $(iconsfiles)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/icons/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/schemas/Makefile.am ==============
+if test ! -d 'nemiver/src/persp/dbgperspective/schemas'; then
+  mkdir 'nemiver/src/persp/dbgperspective/schemas'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/schemas."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/schemas."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/persp/dbgperspective/schemas/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/schemas/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/schemas/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/schemas/Makefile.am' &&
+Xfiles=nemiver-dbgperspective.schemas
+X
+Xschemasdir = $(GCONF_SCHEMA_FILE_DIR)
+Xschemas_DATA = $(files)
+X
+XGCONFTOOL=@GCONFTOOL@
+X
+Xexport GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE)
+Xexport files
+X
+Xinstall-schemas:
+Xif GCONF_SCHEMAS_INSTALL
+X	if test -z "$(DESTDIR)" ; then \
+X	    for s in `echo $$files | tr ' ' '\n'` ; do \
+X		$(GCONFTOOL) --makefile-install-rule $(top_srcdir)/src/persp/dbgperspective/schemas/$$s ; \
+X	    done ; \
+X	    gconfpid=`pidof gconfd-2` ; \
+X	    if test x$$gconfpid != x ; then \
+X		kill -HUP $$gconfpid ; \
+X		echo "gconf $$gconfpid reloaded its config" ;\
+X	    fi \
+X	fi
+Xendif
+X
+X
+Xuninstall-schemas:
+Xif GCONF_SCHEMAS_INSTALL
+X	if test -z "$(DESTDIR)" ; then \
+X	for s in `echo $$files | tr ' ' '\n'` ; do $(GCONFTOOL) --makefile-uninstall-rule $(top_srcdir)/src/persp/dbgperspective/schemas/$$s ; done \
+X	fi
+Xendif
+X
+XEXTRA_DIST=$(files)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/schemas/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am ==============
+if test ! -d 'nemiver/src/persp/dbgperspective/sqlscripts'; then
+  mkdir 'nemiver/src/persp/dbgperspective/sqlscripts'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/sqlscripts."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/sqlscripts."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/persp/dbgperspective/sqlscripts/sqlite'; then
+  mkdir 'nemiver/src/persp/dbgperspective/sqlscripts/sqlite'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/persp/dbgperspective/sqlscripts/sqlite."
+else ${echo} "x - failed to create directory nemiver/src/persp/dbgperspective/sqlscripts/sqlite."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am' &&
+XPLUGIN_NAME=dbgperspective
+X
+Xsqlfileslist=create-tables.sql drop-tables.sql
+X
+Xsqlfilesdir= @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/sqlscripts
+Xsqlfiles_DATA = $(sqlfileslist)
+X
+XEXTRA_DIST= $(sqlfileslist)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am ==============
+if test -f 'nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am' &&
+XSUBDIRS=sqlite
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/sqlscripts/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/dbgperspective/Makefile.am ==============
+if test -f 'nemiver/src/persp/dbgperspective/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/dbgperspective/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/dbgperspective/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/dbgperspective/Makefile.am' &&
+XSUBDIRS=glade menus icons sqlscripts schemas
+X
+Xinstall-data-local: install-schemas
+X
+Xuninstall-local: uninstall-schemas
+X
+Xinstall-schemas:
+X	$(MAKE) -C schemas $(AM_MAKEFLAGS) install-schemas
+X
+Xuninstall-schemas:
+X	$(MAKE) -C schemas $(AM_MAKEFLAGS)  uninstall-schemas
+X
+Xplugin_config_files= \
+Xplugin-descriptor.xml \
+Xdbgperspective.conf
+X
+XEXTRA_DIST=$(plugin_config_files)
+X
+Xpluginconfig_DATA=$(plugin_config_files)
+X
+XPLUGIN_NAME=dbgperspective
+Xpluginconfigdir=@NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)
+X
+Xplugin_LTLIBRARIES=libdbgperspectiveplugin.la
+Xplugindir=@NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)
+Xsources= \
+Xnmv-dialog.cc \
+Xnmv-dialog.h \
+Xnmv-run-program-dialog.cc \
+Xnmv-run-program-dialog.h \
+Xnmv-locate-file-dialog.cc \
+Xnmv-locate-file-dialog.h \
+Xnmv-load-core-dialog.cc \
+Xnmv-load-core-dialog.h \
+Xnmv-saved-sessions-dialog.h \
+Xnmv-saved-sessions-dialog.cc \
+Xnmv-preferences-dialog.h \
+Xnmv-preferences-dialog.cc \
+Xnmv-proc-list-dialog.cc \
+Xnmv-proc-list-dialog.h \
+Xnmv-var-inspector-dialog.cc \
+Xnmv-var-inspector-dialog.h \
+Xnmv-find-text-dialog.cc \
+Xnmv-find-text-dialog.h \
+Xnmv-sess-mgr.cc \
+Xnmv-sess-mgr.h \
+Xnmv-call-stack.cc \
+Xnmv-call-stack.h \
+Xnmv-variables-utils.cc \
+Xnmv-variables-utils.h \
+Xnmv-local-vars-inspector.cc \
+Xnmv-local-vars-inspector.h \
+Xnmv-global-vars-inspector-dialog.cc \
+Xnmv-global-vars-inspector-dialog.h \
+Xnmv-var-inspector.cc \
+Xnmv-var-inspector.h \
+Xnmv-breakpoints-view.cc \
+Xnmv-breakpoints-view.h \
+Xnmv-registers-view.cc \
+Xnmv-registers-view.h \
+Xnmv-thread-list.h \
+Xnmv-thread-list.cc \
+Xnmv-file-list.cc \
+Xnmv-file-list.h \
+Xnmv-open-file-dialog.cc \
+Xnmv-open-file-dialog.h \
+Xnmv-set-breakpoint-dialog.cc \
+Xnmv-set-breakpoint-dialog.h \
+Xnmv-watchpoint-dialog.h \
+Xnmv-watchpoint-dialog.cc \
+Xnmv-choose-overloads-dialog.cc \
+Xnmv-choose-overloads-dialog.h \
+Xnmv-remote-target-dialog.cc \
+Xnmv-remote-target-dialog.h \
+Xnmv-conf-keys.h \
+Xnmv-dbg-perspective.cc \
+Xnmv-dbg-perspective.h \
+Xnmv-vars-treeview.h \
+Xnmv-vars-treeview.cc \
+Xnmv-call-function-dialog.h \
+Xnmv-call-function-dialog.cc
+X
+Xif BUILD_MEMORYVIEW
+Xmemoryview_sources = \
+X					  nmv-memory-view.cc \
+X					  nmv-memory-view.h
+Xelse
+Xmemoryview_sources =
+Xendif
+X
+Xlibdbgperspectiveplugin_la_SOURCES=$(sources) $(memoryview_sources)
+Xlibdbgperspectiveplugin_la_LDFLAGS= -module -avoid-version -Wl,--as-needed
+Xlibdbgperspectiveplugin_la_LIBADD= \
+X@NEMIVERDBGPERSP_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la \
+X$(top_builddir)/src/uicommon/libnemiveruicommon.la \
+X$(top_builddir)/src/dbgengine/libdebuggerutils.la
+X
+XINCLUDES=@NEMIVERDBGPERSP_CFLAGS@ -DENABLE_NLS=1 -DDATADIR=\"${datadir}\" \
+X-I$(top_srcdir)/src \
+X-I$(top_srcdir)/src/confmgr \
+X-I$(top_srcdir)/src/dbgengine \
+X-I$(top_srcdir)/src/uicommon \
+X-I$(top_srcdir)/src/workbench \
+X-I$(top_srcdir)/src/persp \
+X-I$(top_srcdir)/src/dbgperspective
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/dbgperspective/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/persp/Makefile.am ==============
+if test -f 'nemiver/src/persp/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/persp/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/persp/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/persp/Makefile.am' &&
+XSUBDIRS=dbgperspective
+X
+X
+Xheaders= \
+Xnmv-i-perspective.h
+X
+Xpublicheaders_DATA=$(headers)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/dynmods
+X
+XEXTRA_DIST=$(headers)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/persp/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/workbench/schemas/Makefile.am ==============
+if test ! -d 'nemiver/src/workbench'; then
+  mkdir 'nemiver/src/workbench'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/workbench."
+else ${echo} "x - failed to create directory nemiver/src/workbench."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/workbench/schemas'; then
+  mkdir 'nemiver/src/workbench/schemas'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/workbench/schemas."
+else ${echo} "x - failed to create directory nemiver/src/workbench/schemas."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/workbench/schemas/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/workbench/schemas/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/workbench/schemas/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/workbench/schemas/Makefile.am' &&
+Xfiles=nemiver-workbench.schemas
+X
+Xschemasdir = $(GCONF_SCHEMA_FILE_DIR)
+Xschemas_DATA = $(files)
+X
+XGCONFTOOL=@GCONFTOOL@
+X
+Xexport GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE)
+Xexport files
+X
+Xinstall-schemas:
+Xif GCONF_SCHEMAS_INSTALL
+X	if test -z "$(DESTDIR)" ; then \
+X	for s in `echo $$files | tr ' ' '\n'` ; do \
+X	$(GCONFTOOL) --makefile-install-rule $(top_srcdir)/src/workbench/schemas/$$s ; done && if test x$$NO_RESTART_GCONF = x ; then $(GCONFTOOL) --shutdown; fi ; \
+X	fi
+Xendif
+X
+X
+Xuninstall-schemas:
+Xif GCONF_SCHEMAS_INSTALL
+X	if test -z "$(DESTDIR)" ; then \
+X	for s in `echo $$files | tr ' ' '\n'` ; do $(GCONFTOOL) --makefile-uninstall-rule $(top_srcdir)/src/workbench/schemas/$$s ; done \
+X	fi
+Xendif
+X
+XEXTRA_DIST=$(files)
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/workbench/schemas/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/workbench/Makefile.am ==============
+if test -f 'nemiver/src/workbench/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/workbench/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/workbench/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/workbench/Makefile.am' &&
+XSUBDIRS=schemas
+X
+Xinstall-data-local: install-schemas
+X
+Xuninstall-local: uninstall-schemas
+X
+Xinstall-schemas:
+X	$(MAKE) -C schemas $(AM_MAKEFLAGS) install-schemas
+X
+Xuninstall-schemas:
+X	$(MAKE) -C schemas $(AM_MAKEFLAGS)  uninstall-schemas
+X
+Xworkbenchmod_LTLIBRARIES=libworkbenchmod.la
+Xworkbenchmoddir=@NEMIVER_MODULES_DIR@
+X
+Xheaders= \
+Xnmv-i-workbench.h \
+Xnmv-i-pref-mgr.h
+X
+Xlibworkbenchmod_la_SOURCES= \
+X$(headers) \
+Xnmv-workbench.cc \
+Xnmv-pref-mgr.cc
+X
+Xpublicheaders_DATA=$(headers)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/dynmods
+X
+Xlibworkbenchmod_la_LDFLAGS=-module -avoid-version -Wl,--as-needed
+Xlibworkbenchmod_la_LIBADD=@NEMIVERWORKBENCH_LIBS@ \
+X        $(top_builddir)/src/common/libnemivercommon.la \
+X        $(top_builddir)/src/uicommon/libnemiveruicommon.la
+X
+Xconfig_DATA=workbench.conf
+Xconfigdir=@NEMIVER_SYSTEM_CONFIG_DIR@
+X
+XINCLUDES=@NEMIVERWORKBENCH_CFLAGS@ -DENABLE_NLS=1 -DDATADIR=\"${datadir}\" \
+X-I$(top_srcdir)/src \
+X-I$(top_srcdir)/src/confmgr \
+X-I$(top_srcdir)/src/dbgengine \
+X-I$(top_srcdir)/src/uicommon \
+X-I$(top_srcdir)/src/persp
+X
+XEXTRA_DIST=workbench.conf.in
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/workbench/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/confmgr/Makefile.am ==============
+if test ! -d 'nemiver/src/confmgr'; then
+  mkdir 'nemiver/src/confmgr'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/confmgr."
+else ${echo} "x - failed to create directory nemiver/src/confmgr."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/confmgr/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/confmgr/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/confmgr/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/confmgr/Makefile.am' &&
+Xgconfmgrmod_LTLIBRARIES=libgconfmgrmod.la
+Xgconfmgrmoddir=@NEMIVER_MODULES_DIR@
+X
+Xheaders= nmv-i-conf-mgr.h
+X
+Xlibgconfmgrmod_la_SOURCES= \
+X$(headers) \
+Xnmv-gconf-mgr.cc
+X
+Xpublicheaders_DATA=$(headers)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/dynmods
+X
+Xlibgconfmgrmod_la_LDFLAGS=-module -avoid-version -Wl,--as-needed
+Xlibgconfmgrmod_la_LIBADD=@NEMIVERCOMMON_LIBS@ @GCONF_LIBS@ \
+X        $(top_builddir)/src/common/libnemivercommon.la
+X
+Xconfig_DATA=gconfmgr.conf
+Xconfigdir=@NEMIVER_SYSTEM_CONFIG_DIR@
+X
+XINCLUDES=@NEMIVERCOMMON_CFLAGS@ @GCONF_CFLAGS@ -DENABLE_NLS=1 -DDATADIR=\"${datadir}\" \
+X-I$(top_srcdir)/src
+X
+XEXTRA_DIST=gconfmgr.conf.in
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/confmgr/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/uicommon/Makefile.am ==============
+if test ! -d 'nemiver/src/uicommon'; then
+  mkdir 'nemiver/src/uicommon'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/uicommon."
+else ${echo} "x - failed to create directory nemiver/src/uicommon."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/uicommon/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/uicommon/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/uicommon/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/uicommon/Makefile.am' &&
+Xnoinst_LTLIBRARIES=libnemiveruicommon.la
+X
+Xsources = \
+X$(public_headers) \
+Xnmv-ui-utils.h \
+Xnmv-ui-utils.cc \
+Xephy-spinner.c \
+Xephy-spinner.h \
+Xephy-spinner-tool-item.c \
+Xephy-spinner-tool-item.h \
+Xnmv-spinner.cc \
+Xnmv-spinner.h \
+Xnmv-spinner-tool-item.h \
+Xnmv-spinner-tool-item.cc \
+Xnmv-popup-tip.cc \
+Xnmv-popup-tip.h \
+Xnmv-terminal.cc \
+Xnmv-terminal.h \
+Xnmv-source-editor.cc \
+Xnmv-source-editor.h
+X
+Xif BUILD_MEMORYVIEW
+Xmemoryview_sources = \
+Xnmv-hex-editor.h \
+Xnmv-hex-editor.cc \
+Xnmv-hex-document.h \
+Xnmv-hex-document.cc
+Xelse
+Xmemoryview_sources =
+Xendif
+X
+Xlibnemiveruicommon_la_SOURCES= $(sources) $(memoryview_sources)
+Xlibnemiveruicommon_la_LIBADD= @NEMIVERUICOMMON_LIBS@ -lutil
+Xlibnemiveruicommon_la_CFLAGS= -fPIC -DPIC
+X
+XINCLUDES=@NEMIVERUICOMMON_CFLAGS@ \
+X-I$(top_srcdir) \
+X-I$(top_srcdir)/src \
+X-I$(top_srcdir)/src/uicommon
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/uicommon/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/common/Makefile.am ==============
+if test ! -d 'nemiver/src/common'; then
+  mkdir 'nemiver/src/common'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/common."
+else ${echo} "x - failed to create directory nemiver/src/common."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/common/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/common/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/common/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/common/Makefile.am' &&
+Xnemivercommon_LTLIBRARIES=libnemivercommon.la
+Xnemivercommondir=$(libdir)/nemiver
+X
+Xheaders= \
+Xnmv-api-macros.h \
+Xnmv-namespace.h \
+Xnmv-ustring.h \
+Xnmv-str-utils.h \
+Xnmv-libxml-utils.h \
+Xnmv-safe-ptr-utils.h \
+Xnmv-object.h \
+Xnmv-safe-ptr.h \
+Xnmv-log-stream.h \
+Xnmv-scope-logger.h \
+Xnmv-exception.h \
+Xnmv-initializer.h \
+Xnmv-dynamic-module.h \
+Xnmv-log-stream-utils.h \
+Xnmv-date-utils.h \
+Xnmv-i-input-stream.h \
+Xnmv-env.h \
+Xnmv-plugin.h \
+Xnmv-sequence.h \
+Xnmv-option-utils.h \
+Xnmv-i-connection-driver.h \
+Xnmv-connection.h \
+Xnmv-i-connection-manager-driver.h \
+Xnmv-connection-manager.h \
+Xnmv-parsing-utils.h  \
+Xnmv-conf-manager.h \
+Xnmv-buffer.h \
+Xnmv-tools.h \
+Xnmv-transaction.h \
+Xnmv-sql-statement.h \
+Xnmv-insert-statement.h \
+Xnmv-delete-statement.h \
+Xnmv-proc-utils.h \
+Xnmv-proc-mgr.h
+X
+Xlibnemivercommon_la_SOURCES= $(headers) \
+Xnmv-ustring.cc \
+Xnmv-str-utils.cc \
+Xnmv-object.cc \
+Xnmv-libxml-utils.cc \
+Xnmv-log-stream.cc \
+Xnmv-scope-logger.cc \
+Xnmv-exception.cc \
+Xnmv-initializer.cc \
+Xnmv-dynamic-module.cc \
+Xnmv-date-utils.cc \
+Xnmv-env.cc \
+Xnmv-plugin.cc \
+Xnmv-sequence.cc \
+Xnmv-option-utils.cc \
+Xnmv-connection-manager.cc \
+Xnmv-connection.cc \
+Xnmv-parsing-utils.cc \
+Xnmv-conf-manager.cc \
+Xnmv-tools.cc \
+Xnmv-transaction.cc \
+Xnmv-sql-statement.cc \
+Xnmv-insert-statement.cc \
+Xnmv-delete-statement.cc \
+Xnmv-proc-utils.cc \
+Xnmv-proc-mgr.cc
+X
+Xpublicheaders_DATA=$(headers)
+Xpublicheadersdir=$(NEMIVER_INCLUDE_DIR)/common
+Xlibnemivercommon_la_LDFLAGS=@NEMIVERCOMMON_LIBS@ -lutil \
+X		-avoid-version -rpath $(libdir)/nemiver \
+X		 -Wl,--as-needed
+X
+X#don't install libnemivercommon.pc yet, as no other program
+X#but nemiver uses the libnemivercommon library yet.
+X#pkgconfigdir = $(libdir)/pkgconfig
+X#pkgconfig_DATA = libnemivercommon.pc
+X#EXTRA_DIST = $(pkgconfig_DATA)
+X
+XINCLUDES=@NEMIVERCOMMON_CFLAGS@ \
+X-DENABLE_NLS=1 -DDATADIR=\"${datadir}\" \
+X-DSYSTEM_LIBDIR=\"/usr/lib\" \
+X-DNEMIVER_INSTALL_PREFIX=\"@NEMIVER_INSTALL_PREFIX@\" \
+X-DNEMIVER_SYSTEM_CONFIG_DIR=\"@NEMIVER_SYSTEM_CONFIG_DIR@\" \
+X-DNEMIVER_MODULES_DIR=\"@NEMIVER_MODULES_DIR@\" \
+X-DNEMIVER_PLUGINS_DIR=\"@NEMIVER_PLUGINS_DIR@\" \
+X-DNEMIVER_VERSION=\"@NEMIVER_VERSION@\" \
+X-DGDB_PROG=\"@GDB_PROG@\"
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/common/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/Makefile.am ==============
+if test -f 'nemiver/src/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/Makefile.am' &&
+XSUBDIRS=common dbdimpl langs dbgengine confmgr uicommon workbench persp
+X
+Xbin_PROGRAMS=nemiver
+Xnemiver_SOURCES=main.cc
+Xnemiver_LDADD= \
+X@NEMIVER_LIBS@  \
+X$(top_builddir)/src/common/libnemivercommon.la \
+X$(top_builddir)/src/uicommon/libnemiveruicommon.la
+X
+XINCLUDES=\
+X-DNEMIVERLOCALEDIR=\"$(nemiverlocaledir)\" \
+X-DPREFIX=\""$(prefix)"\" \
+X-DSYSCONFDIR=\""$(sysconfdir)"\" \
+X-DLIBDIR=\""$(libdir)"\" \
+X-DDATADIR=\""$(datadir)"\" \
+X@NEMIVER_CFLAGS@ \
+X-I$(top_srcdir)/src/common \
+X-I$(top_srcdir)/src/confmgr \
+X-I$(top_srcdir)/src/dbgengine \
+X-I$(top_srcdir)/src/uicommon \
+X-I$(top_srcdir)/src/workbench \
+X-I$(top_srcdir)/src/persp \
+X-I$(top_srcdir)/src/persp/dbgperspective
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/dbdimpl/sqlite/Makefile.am ==============
+if test ! -d 'nemiver/src/dbdimpl'; then
+  mkdir 'nemiver/src/dbdimpl'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/dbdimpl."
+else ${echo} "x - failed to create directory nemiver/src/dbdimpl."
+     exit 1
+fi
+fi
+if test ! -d 'nemiver/src/dbdimpl/sqlite'; then
+  mkdir 'nemiver/src/dbdimpl/sqlite'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/src/dbdimpl/sqlite."
+else ${echo} "x - failed to create directory nemiver/src/dbdimpl/sqlite."
+     exit 1
+fi
+fi
+if test -f 'nemiver/src/dbdimpl/sqlite/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/dbdimpl/sqlite/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/dbdimpl/sqlite/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/dbdimpl/sqlite/Makefile.am' &&
+Xsqlitedriver_LTLIBRARIES = libnemiverdbdsqlite.la
+Xsqlitedriverdir=@NEMIVER_MODULES_DIR@
+X
+Xsources=nmv-sqlite-cnx-mgr-drv.cc \
+Xnmv-sqlite-cnx-mgr-drv.h \
+Xnmv-sqlite-cnx-drv.cc \
+Xnmv-sqlite-cnx-drv.h
+X
+Xlibnemiverdbdsqlite_la_SOURCES=$(sources)
+X
+Xlibnemiverdbdsqlite_la_LDFLAGS= -module -avoid-version -Wl,--as-needed
+Xlibnemiverdbdsqlite_la_LIBADD= \
+X@SQLITE3_LIBS@ @NEMIVERCOMMON_LIBS@ \
+X$(top_builddir)/src/common/libnemivercommon.la
+X
+XINCLUDES=@SQLITE3_CFLAGS@ @NEMIVERCOMMON_CFLAGS@ -I$(top_srcdir)/src \
+X-DIN_LIBSQLITE_DSO
+X
+Xconfig_DATA=org.nemiver.db.sqlitedriver.conf
+Xconfigdir=@NEMIVER_SYSTEM_CONFIG_DIR@
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/dbdimpl/sqlite/Makefile.am failed"
+fi
+fi
+# ============= nemiver/src/dbdimpl/Makefile.am ==============
+if test -f 'nemiver/src/dbdimpl/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/src/dbdimpl/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/src/dbdimpl/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/src/dbdimpl/Makefile.am' &&
+XSUBDIRS=sqlite
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/src/dbdimpl/Makefile.am failed"
+fi
+fi
+# ============= nemiver/docs/Makefile.am ==============
+if test ! -d 'nemiver/docs'; then
+  mkdir 'nemiver/docs'
+if test $? -eq 0
+then ${echo} "x - created directory nemiver/docs."
+else ${echo} "x - failed to create directory nemiver/docs."
+     exit 1
+fi
+fi
+if test -f 'nemiver/docs/Makefile.am' && test "$first_param" != -c; then
+${echo} "x - SKIPPING nemiver/docs/Makefile.am (file already exists)"
+else
+${echo} "x - extracting nemiver/docs/Makefile.am (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'nemiver/docs/Makefile.am' &&
+Xdocfiles=dynamic-modules.txt mainpage.txt
+X
+Xdoc : reference/html/index.html
+X
+XDOXYGEN=$(shell which doxygen)
+X
+Xreference/html/index.html: Doxyfile
+X	@if test x$(DOXYGEN) = x ; \
+X     then "echo ARGH, you do not have doxygen installed. Please install it !" ;exit -1;fi
+X	$(DOXYGEN) Doxyfile
+X
+Xclean-local:
+X	-rm -rf reference doxygen-warnings.txt
+X
+XEXTRA_DIST=Doxyfile.in $(docfiles)
+X
+X
+SHAR_EOF
+:
+if test $? -ne 0
+then ${echo} "restore of nemiver/docs/Makefile.am failed"
+fi
+fi
+if rm -fr ${lock_dir}
+then ${echo} "x - removed lock directory ${lock_dir}."
+else ${echo} "x - failed to remove lock directory ${lock_dir}."
+     exit 1
+fi
+exit 0

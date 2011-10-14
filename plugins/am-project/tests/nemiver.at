@@ -1,0 +1,12 @@
+AT_SETUP([Load nemiver])
+
+
+
+AT_CHECK([sh $srcdir/nemiver.shar], 0, ignore)
+AT_PARSER_CHECK([load nemiver \
+		 list])
+AT_CHECK([diff -b output $srcdir/nemiver.lst])
+
+
+
+AT_CLEANUP
