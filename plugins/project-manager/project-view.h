@@ -53,14 +53,9 @@ struct _GbfProjectViewClass {
 	                     GtkTreeIter *iter,
 	                     gboolean complete,
 	                     GError *error);
-	
-	void (* uri_activated)    (GbfProjectView *project_view,
-				   const char     *uri);
 
-	void (* target_selected)  (GbfProjectView      *project_view,
+	void (* node_selected)  (GbfProjectView      *project_view,
 				   AnjutaProjectNode   *target);
-	void (* group_selected)  (GbfProjectView       *project_view,
-				   AnjutaProjectNode   *group);
 };
 
 GType                       gbf_project_view_get_type          (void);
@@ -103,7 +98,7 @@ void            gbf_project_view_update_tree (GbfProjectView *view,
                                                     AnjutaProjectNode *parent,
                                                     GtkTreeIter *iter);
 
-			                                       
+
 AnjutaProjectNode *gbf_project_view_get_node_from_iter (GbfProjectView *view, GtkTreeIter *iter);
 
 AnjutaProjectNode *gbf_project_view_get_node_from_file (GbfProjectView *view, AnjutaProjectNodeType type, GFile *file);
