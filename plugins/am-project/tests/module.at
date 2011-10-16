@@ -9,8 +9,8 @@ AT_DATA([empty/Makefile.am],
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
-    GROUP (): empty1
+[[ROOT (): empty1
+    MODULE (): MODULE1
 ]])
 AT_DATA([reference.ac],
 [[PKG_CHECK_MODULES(MODULE1,)
@@ -19,7 +19,7 @@ AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty \
 		 move empty1 \
-		 add module : MODULE1 \
+		 add module 0 MODULE1 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])
@@ -31,9 +31,9 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
+[[ROOT (): empty2
+    MODULE (): MODULE1
     MODULE (): MODULE2
-    GROUP (): empty2
 ]])
 AT_DATA([reference.ac],
 [[PKG_CHECK_MODULES(MODULE1,)
@@ -44,7 +44,7 @@ AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
-		 add module : MODULE2 after 0\
+		 add module 0 MODULE2 after 0:0\
 		 list \
 		 save])
 AT_CHECK([diff output expect])
@@ -56,8 +56,8 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE2
-    GROUP (): empty3
+[[ROOT (): empty3
+    MODULE (): MODULE2
 ]])
 AT_DATA([reference.ac],
 [[PKG_CHECK_MODULES(MODULE2,)
@@ -66,7 +66,7 @@ AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty2 \
 		 move empty3 \
-		 remove 0 \
+		 remove 0:0 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])
@@ -78,14 +78,14 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty4
+[[ROOT (): empty4
 ]])
 AT_DATA([reference.ac],
 [[AC_CONFIG_FILES(Makefile)
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
-		 remove 0 \
+		 remove 0:0 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])

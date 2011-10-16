@@ -14,9 +14,9 @@ AT_DATA([variable_ac1/Makefile.am],
 bin_PROGRAMS = $(TARGETS)
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable_ac1
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable_ac1
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable_ac1 \
 		 list])
@@ -35,9 +35,9 @@ AT_DATA([variable_ac2/Makefile.am],
 bin_PROGRAMS = @TARGETS@
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable_ac2
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable_ac2
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable_ac2 \
 		 list])
@@ -62,11 +62,11 @@ target1_LDFLAGS = $(TARGET_LDFLAGS)
 target1_CFLAGS = $(TARGET_CFLAGS)
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable_ac3
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Linker flags): $plugin-$plugin
-            PROPERTY (C compiler flags): -O0
+[[ROOT (): variable_ac3
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Linker flags): $plugin-$plugin
+        PROPERTY (C compiler flags): -O0
 ]])
 AT_PARSER_CHECK([load variable_ac3 \
 		 list])
@@ -84,9 +84,9 @@ TARGETS = target1
 bin_PROGRAMS = $(TARGETS)
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable \
 		 list])
@@ -104,9 +104,9 @@ bin_PROGRAMS = $(TARGETS)
 TARGETS = target1
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable2
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable2
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable2 \
 		 list])
@@ -125,9 +125,9 @@ TARGETS1 = target1
 TARGETS = $(TARGETS1)
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable3
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable3
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable3 \
 		 list])
@@ -146,9 +146,9 @@ TARGETS = $(TARGETS1)
 TARGETS1 = target1
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable4
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): variable4
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_PARSER_CHECK([load variable4 \
 		 list])
@@ -172,11 +172,11 @@ target1_SOURCES = \
 	source2.c
 ]])
 AT_DATA([expect],
-[[    GROUP (): variable5
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            SOURCE (): source1.c
-            SOURCE (): source2.c
+[[ROOT (): variable5
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        SOURCE (): source1.c
+        SOURCE (): source2.c
 ]])
 AT_PARSER_CHECK([load variable5 \
 		 list])

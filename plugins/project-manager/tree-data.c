@@ -225,7 +225,7 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
 
-	data->type = GBF_TREE_NODE_GROUP;
+	data->type = anjuta_project_node_parent(group) == NULL ? GBF_TREE_NODE_ROOT : GBF_TREE_NODE_GROUP;
 	data->node = group;
 	
 	ginfo = g_file_query_info (anjuta_project_node_get_file (group),

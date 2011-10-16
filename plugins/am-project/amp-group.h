@@ -22,24 +22,18 @@
 #ifndef _AMP_GROUP_H_
 #define _AMP_GROUP_H_
 
-#include "am-project-private.h"
-#include "am-scanner.h"
-
-#include <glib-object.h>
-
-#include <libanjuta/anjuta-project.h>
-#include <libanjuta/anjuta-token.h>
-#include <libanjuta/anjuta-token-file.h>
+#include "amp-node.h"
 
 G_BEGIN_DECLS
 
 /* Type macros
  *---------------------------------------------------------------------------*/
 
-#define AMP_TYPE_GROUP_NODE					   (amp_group_node_get_type ())
-#define AMP_GROUP_NODE(obj)							(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_GROUP_NODE, AmpGroupNode))
+#define AMP_TYPE_GROUP_NODE				(amp_group_node_get_type ())
+#define AMP_GROUP_NODE(obj)				(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_GROUP_NODE, AmpGroupNode))
 
-GType amp_group_node_get_type (void) G_GNUC_CONST;
+typedef struct _AmpGroupNode		AmpGroupNode;
+typedef struct _AmpGroupNodeClass	AmpGroupNodeClass;
 
 typedef enum {
 	AM_GROUP_TOKEN_CONFIGURE,
@@ -48,6 +42,24 @@ typedef enum {
 	AM_GROUP_TARGET,
 	AM_GROUP_TOKEN_LAST
 } AmpGroupNodeTokenCategory;
+
+struct _AmpGroupNode {
+	AnjutaProjectNode base;
+	gboolean dist_only;								/* TRUE if the group is distributed but not built */
+	GFile *makefile;								/* GFile corresponding to group makefile */
+	AnjutaTokenFile *tfile;							/* Corresponding Makefile */
+	GList *tokens[AM_GROUP_TOKEN_LAST];				/* List of token used by this group */
+	AnjutaToken *make_token;
+	GHashTable *variables;
+	GFileMonitor *monitor;							/* File monitor */
+};
+
+struct _AmpGroupNodeClass {
+	AmpNodeClass parent_class;
+};
+
+
+GType amp_group_node_get_type (void) G_GNUC_CONST;
 
 typedef struct _AmpVariable AmpVariable;
 

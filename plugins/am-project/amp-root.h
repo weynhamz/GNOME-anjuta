@@ -23,6 +23,7 @@
 #define _AMP_ROOT_H_
 
 #include	"amp-node.h"
+#include	"amp-group.h"
 
 #include <glib-object.h>
 
@@ -38,17 +39,18 @@ G_BEGIN_DECLS
 #define AMP_TYPE_ROOT_NODE						(amp_root_node_get_type ())
 #define AMP_ROOT_NODE(obj)						(G_TYPE_CHECK_INSTANCE_CAST ((obj), AMP_TYPE_ROOT_NODE, AmpRootNode))
 
+
 GType amp_root_node_get_type (void) G_GNUC_CONST;
 
-typedef struct _AmpRootNode					AmpRootNode;
+typedef struct _AmpRootNode			AmpRootNode;
 typedef struct _AmpRootNodeClass	AmpRootNodeClass;
 
 struct _AmpRootNode {
-	AnjutaProjectNode base;
+	AmpGroupNode base;
 };
 
 struct _AmpRootNodeClass {
-	AmpNodeClass parent_class;
+	AmpGroupNodeClass parent_class;
 };
 
 void amp_root_node_register (GTypeModule *module);

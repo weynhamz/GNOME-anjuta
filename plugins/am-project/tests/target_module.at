@@ -13,20 +13,20 @@ noinst_PROGRAMS = program
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
+[[ROOT (): simple1
+    PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
+    MODULE (): MODULE1
         PACKAGE (): module1
-    GROUP (): simple1
-        PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
-        TARGET (): library.la
-            PROPERTY (Installation directory): libdir
-            PROPERTY (Libraries): $(MODULE1_LIBS)
-            MODULE (): MODULE1
-        TARGET (): program
-            PROPERTY (Do not install): true
+    TARGET (): library.la
+        PROPERTY (Installation directory): libdir
+        PROPERTY (Libraries): $(MODULE1_LIBS)
+        MODULE (): MODULE1
+    TARGET (): program
+        PROPERTY (Do not install): true
 ]])
 AT_PARSER_CHECK([load simple \
 		 move simple1 \
-		 add module 1:0 MODULE1 \
+		 add module 0:1 MODULE1 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple1 \
@@ -36,22 +36,22 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
+[[ROOT (): simple2
+    PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
+    MODULE (): MODULE1
         PACKAGE (): module1
-    GROUP (): simple2
-        PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
-        TARGET (): library.la
-            PROPERTY (Installation directory): libdir
-            PROPERTY (Libraries): $(MODULE1_LIBS)
-            MODULE (): MODULE1
-        TARGET (): program
-            PROPERTY (Do not install): true
-            PROPERTY (Libraries): $(MODULE1_LIBS)
-            MODULE (): MODULE1
+    TARGET (): library.la
+        PROPERTY (Installation directory): libdir
+        PROPERTY (Libraries): $(MODULE1_LIBS)
+        MODULE (): MODULE1
+    TARGET (): program
+        PROPERTY (Do not install): true
+        PROPERTY (Libraries): $(MODULE1_LIBS)
+        MODULE (): MODULE1
 ]])
 AT_PARSER_CHECK([load simple1 \
 		 move simple2 \
-		 add module 1:1 MODULE1 \
+		 add module 0:2 MODULE1 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple2 \
@@ -61,20 +61,20 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
+[[ROOT (): simple3
+    PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
+    MODULE (): MODULE1
         PACKAGE (): module1
-    GROUP (): simple3
-        PROPERTY (C preprocessor flags): $(MODULE1_CFLAGS)
-        TARGET (): library.la
-            PROPERTY (Installation directory): libdir
-        TARGET (): program
-            PROPERTY (Do not install): true
-            PROPERTY (Libraries): $(MODULE1_LIBS)
-            MODULE (): MODULE1
+    TARGET (): library.la
+        PROPERTY (Installation directory): libdir
+    TARGET (): program
+        PROPERTY (Do not install): true
+        PROPERTY (Libraries): $(MODULE1_LIBS)
+        MODULE (): MODULE1
 ]])
 AT_PARSER_CHECK([load simple2 \
 		 move simple3 \
-		 remove 1:0:0 \
+		 remove 0:1:0 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple3 \
@@ -84,17 +84,17 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    MODULE (): MODULE1
+[[ROOT (): simple4
+    MODULE (): MODULE1
         PACKAGE (): module1
-    GROUP (): simple4
-        TARGET (): library.la
-            PROPERTY (Installation directory): libdir
-        TARGET (): program
-            PROPERTY (Do not install): true
+    TARGET (): library.la
+        PROPERTY (Installation directory): libdir
+    TARGET (): program
+        PROPERTY (Do not install): true
 ]])
 AT_PARSER_CHECK([load simple3 \
 		 move simple4 \
-		 remove 1:1:0 \
+		 remove 0:2:0 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple4 \

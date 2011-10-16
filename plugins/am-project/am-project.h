@@ -45,7 +45,6 @@ typedef struct _AmpProjectClass   AmpProjectClass;
 
 typedef struct _AmpModuleNode AmpModuleNode;
 typedef struct _AmpPackageNode AmpPackageNode;
-typedef struct _AmpGroupNode AmpGroupNode;
 typedef struct _AmpTargetNode AmpTargetNode;
 typedef struct _AmpObjectNode AmpObjectNode;
 typedef struct _AmpSourceNode AmpSourceNode;
@@ -86,7 +85,12 @@ gboolean amp_project_get_token_location (AmpProject *project, AnjutaTokenFileLoc
 
 gboolean amp_project_move (AmpProject *project, const gchar *path);
 
-gboolean amp_project_dump (AmpProject *project, AnjutaProjectNode *node);
+typedef enum _AmpFileType{
+	DUMP_MAKEFILE,
+	DUMP_CONFIGURE
+} AmpFileType;
+
+gboolean amp_project_dump (AmpProject *project, AnjutaProjectNode *node, AmpFileType type);
 
 gchar * amp_project_get_uri (AmpProject *project);
 GFile* amp_project_get_file (AmpProject *project);

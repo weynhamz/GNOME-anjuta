@@ -42,20 +42,6 @@
 #include <string.h>
 #include <ctype.h>
 
-/* Types
- *---------------------------------------------------------------------------*/
-
-struct _AmpGroupNode {
-	AnjutaProjectNode base;
-	gboolean dist_only;										/* TRUE if the group is distributed but not built */
-	GFile *makefile;												/* GFile corresponding to group makefile */
-	AnjutaTokenFile *tfile;										/* Corresponding Makefile */
-	GList *tokens[AM_GROUP_TOKEN_LAST];			/* List of token used by this group */
-	AnjutaToken *make_token;
-	GHashTable *variables;
-	GFileMonitor *monitor;									/* File monitor */
-};
-
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
@@ -456,6 +442,8 @@ amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 	new_group->makefile = NULL;
 	group->tfile = new_group->tfile;
 	new_group->tfile = NULL;
+	group->make_token = new_group->make_token;
+	new_group->make_token = NULL;
 	memcpy (group->tokens, new_group->tokens, sizeof (group->tokens));
 	memset (new_group->tokens, 0, sizeof (new_group->tokens));
 	hash = group->variables;
@@ -517,7 +505,9 @@ amp_group_node_get_variable_token (AmpGroupNode *group, const gchar *name)
 gboolean
 amp_group_node_set_file (AmpGroupNode *group, GFile *new_file)
 {
-	g_object_unref (group->base.file);
+	if (group->base.file != NULL) g_object_unref (group->base.file);
+	g_free (group->base.name);
+	group->base.name = NULL;
 	group->base.file = g_object_ref (new_file);
 
 	return TRUE;
@@ -644,12 +634,6 @@ amp_group_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GErro
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-
-typedef struct _AmpGroupNodeClass AmpGroupNodeClass;
-
-struct _AmpGroupNodeClass {
-	AmpNodeClass parent_class;
-};
 
 G_DEFINE_DYNAMIC_TYPE (AmpGroupNode, amp_group_node, AMP_TYPE_NODE);
 

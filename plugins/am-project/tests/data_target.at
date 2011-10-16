@@ -18,15 +18,15 @@ target2_DATA = data2.txt \
 
 
 AT_DATA([expect],
-[[    GROUP (): data
-        PROPERTY (Installation directories): target1dir = $(target_dir) target2dir = $(target_dir)
-        TARGET (): target1
-            PROPERTY (Installation directory): target1dir
-            SOURCE (): data1.txt
-        TARGET (): target2
-            PROPERTY (Installation directory): target2dir
-            SOURCE (): data2.txt
-            SOURCE (): data3.txt
+[[ROOT (): data
+    PROPERTY (Installation directories): target1dir = $(target_dir) target2dir = $(target_dir)
+    TARGET (): target1
+        PROPERTY (Installation directory): target1dir
+        SOURCE (): data1.txt
+    TARGET (): target2
+        PROPERTY (Installation directory): target2dir
+        SOURCE (): data2.txt
+        SOURCE (): data3.txt
 ]])
 AT_PARSER_CHECK([load data \
 		 list \
@@ -36,11 +36,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): data1
-        PROPERTY (Installation directories): target1dir = $(target_dir)
-        TARGET (): target1
-            PROPERTY (Installation directory): target1dir
-            SOURCE (): data1.txt
+[[ROOT (): data1
+    PROPERTY (Installation directories): target1dir = $(target_dir)
+    TARGET (): target1
+        PROPERTY (Installation directory): target1dir
+        SOURCE (): data1.txt
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -62,15 +62,15 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): data2
-        PROPERTY (Installation directories): target1dir = $(target_dir)
-        TARGET (): target1
-            PROPERTY (Installation directory): target1dir
-            SOURCE (): data1.txt
-        TARGET (): data
-            PROPERTY (Installation directory): datadir
-            SOURCE (): data4.txt
-            SOURCE (): data5.txt
+[[ROOT (): data2
+    PROPERTY (Installation directories): target1dir = $(target_dir)
+    TARGET (): target1
+        PROPERTY (Installation directory): target1dir
+        SOURCE (): data1.txt
+    TARGET (): data
+        PROPERTY (Installation directory): datadir
+        SOURCE (): data4.txt
+        SOURCE (): data5.txt
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -97,11 +97,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): data3
-        TARGET (): data
-            PROPERTY (Installation directory): datadir
-            SOURCE (): data4.txt
-            SOURCE (): data5.txt
+[[ROOT (): data3
+    TARGET (): data
+        PROPERTY (Installation directory): datadir
+        SOURCE (): data4.txt
+        SOURCE (): data5.txt
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in

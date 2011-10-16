@@ -1411,7 +1411,7 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 		found = gbf_project_model_find_node (view->model, &iter, NULL, node);
 		if (!found)
 		{
-			if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_ROOT)
+			if (anjuta_project_node_parent (node) != NULL)
 			{
 				g_critical ("Unable to find node %s", anjuta_project_node_get_name (node));
 			}

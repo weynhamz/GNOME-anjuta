@@ -11,10 +11,10 @@ bin_PROGRAMS = target1
 
 
 AT_DATA([expect],
-[[    GROUP (): empty1
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty1
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -35,10 +35,10 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty2
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS) $(GLIB_LIBS)
+[[ROOT (): empty2
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS) $(GLIB_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -60,10 +60,10 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty3
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GLIB_LIBS)
+[[ROOT (): empty3
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GLIB_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -84,9 +84,9 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty4
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty4
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference.am],
 [[
@@ -105,12 +105,12 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty5
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty5
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference.am],
 [[
@@ -133,13 +133,13 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty6
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            SOURCE (): source1
+[[ROOT (): empty6
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        SOURCE (): source1
 ]])
 AT_DATA([reference.am],
 [[
@@ -164,14 +164,14 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty7
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
+[[ROOT (): empty7
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
 ]])
 AT_DATA([reference.am],
 [[
@@ -198,15 +198,15 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty8
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
+[[ROOT (): empty8
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
 ]])
 AT_DATA([reference.am],
 [[
@@ -236,17 +236,17 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty9
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): libdir
+[[ROOT (): empty9
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): libdir
 ]])
 AT_DATA([reference.am],
 [[
@@ -279,18 +279,18 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty10
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): libdir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty10
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): libdir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -325,19 +325,19 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty11
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty11
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -373,19 +373,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty12
-        PROPERTY (Installation directories): progdir = plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): progdir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty12
+    PROPERTY (Installation directories): progdir = plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): progdir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -424,19 +424,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty13
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty13
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -472,19 +472,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty14
-        PROPERTY (Installation directories): progdir = plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): progdir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty14
+    PROPERTY (Installation directories): progdir = plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): progdir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -523,19 +523,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty15
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty15
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -571,19 +571,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty16
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Do not install): true
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty16
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Do not install): true
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -619,19 +619,19 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty17
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): libdir
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty17
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): libdir
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -667,20 +667,20 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty18
-        PROPERTY (Installation directories): plugindir = 
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Build for check only): true
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty18
+    PROPERTY (Installation directories): plugindir = 
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Build for check only): true
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[
@@ -717,20 +717,20 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty19
-        PROPERTY (Installation directories): plugindir = @plugindir@
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source2
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $(GDL_LIBS)
-            SOURCE (): source1
-        TARGET (): library1.la
-            PROPERTY (Installation directory): plugindir
-            PROPERTY (Build for check only): true
-            PROPERTY (Libraries): $(GDL_LIBS)
+[[ROOT (): empty19
+    PROPERTY (Installation directories): plugindir = @plugindir@
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source2
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (Libraries): $(GDL_LIBS)
+        SOURCE (): source1
+    TARGET (): library1.la
+        PROPERTY (Installation directory): plugindir
+        PROPERTY (Build for check only): true
+        PROPERTY (Libraries): $(GDL_LIBS)
 ]])
 AT_DATA([reference.am],
 [[

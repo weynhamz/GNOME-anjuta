@@ -54,27 +54,19 @@
 gboolean
 amp_root_node_set_file (AmpRootNode *root, GFile *new_file)
 {
-	if (root->base.file != NULL) g_object_unref (root->base.file);
-	root->base.file = new_file != NULL ? g_object_ref (new_file) : NULL;
-
-	return TRUE;
+	return amp_group_node_set_file (&root->base, new_file);
 }
 
 AnjutaProjectNode*
 amp_root_node_new (GFile *file)
 {
-	AmpRootNode *node = NULL;
-
-	node = g_object_new (AMP_TYPE_ROOT_NODE, NULL);
-	node->base.file = g_object_ref (file);
-
-	return ANJUTA_PROJECT_NODE (node);
+	return (AnjutaProjectNode *)amp_group_node_new (file, FALSE);
 }
 
 AnjutaProjectNode*
 amp_root_node_new_valid (GFile *file, GError **error)
 {
-	return amp_root_node_new (file);
+	return (AnjutaProjectNode *)amp_group_node_new_valid (file, FALSE, error);
 }
 
 void
@@ -87,14 +79,14 @@ amp_root_node_free (AmpRootNode *node)
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-G_DEFINE_DYNAMIC_TYPE (AmpRootNode, amp_root_node, AMP_TYPE_NODE);
+G_DEFINE_DYNAMIC_TYPE (AmpRootNode, amp_root_node, AMP_TYPE_GROUP_NODE);
 
 static void
 amp_root_node_init (AmpRootNode *node)
 {
-	node->base.type = ANJUTA_PROJECT_ROOT;
-	node->base.native_properties = amp_get_project_property_list();
-	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+	node->base.base.type = ANJUTA_PROJECT_GROUP;
+	node->base.base.native_properties = amp_get_project_property_list();
+	node->base.base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
 						ANJUTA_PROJECT_CAN_ADD_PACKAGE,
 						ANJUTA_PROJECT_CAN_SAVE;
 }
@@ -102,9 +94,6 @@ amp_root_node_init (AmpRootNode *node)
 static void
 amp_root_node_finalize (GObject *object)
 {
-	AmpRootNode *node = AMP_ROOT_NODE (object);
-
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
 	G_OBJECT_CLASS (amp_root_node_parent_class)->finalize (object);
 }
 
@@ -112,7 +101,7 @@ static void
 amp_root_node_class_init (AmpRootNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = amp_root_node_finalize;
 }
 

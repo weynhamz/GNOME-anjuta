@@ -11,11 +11,11 @@ AC_CONFIG_FILES(Makefile)
 AT_DATA([project1/Makefile.am],
 [[]])
 AT_DATA([expect],
-[[    GROUP (): bug1
+[[ROOT (): bug1
 ]])
 AT_PARSER_CHECK([load project1 \
 		 move bug1 \
-		 remove 0 \
+		 remove 0:0 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])

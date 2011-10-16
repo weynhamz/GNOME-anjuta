@@ -11,10 +11,10 @@ bin_PROGRAMS = target1
 
 
 AT_DATA([expect],
-[[    GROUP (): empty1
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
-          SOURCE (): source1
+[[ROOT (): empty1
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
+      SOURCE (): source1
 ]])
 AT_DATA([reference],
 [[
@@ -36,11 +36,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty2
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
-          SOURCE (): source1
-          SOURCE (): source2
+[[ROOT (): empty2
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
+      SOURCE (): source1
+      SOURCE (): source2
 ]])
 AT_DATA([reference],
 [[
@@ -63,10 +63,10 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty3
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
-          SOURCE (): source2
+[[ROOT (): empty3
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
+      SOURCE (): source2
 ]])
 AT_DATA([reference],
 [[
@@ -89,9 +89,9 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty4
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
+[[ROOT (): empty4
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[
@@ -110,10 +110,10 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty5
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
-          SOURCE (): source1
+[[ROOT (): empty5
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
+      SOURCE (): source1
 ]])
 AT_DATA([reference],
 [[
@@ -145,10 +145,10 @@ bin_PROGRAMS = target1
 target1_SOURCES =
 ]])
 AT_DATA([expect],
-[[    GROUP (): empty6
-        TARGET (): target1
-          PROPERTY (Installation directory): bindir
-          SOURCE (): source1
+[[ROOT (): empty6
+    TARGET (): target1
+      PROPERTY (Installation directory): bindir
+      SOURCE (): source1
 ]])
 AT_DATA([reference],
 [[

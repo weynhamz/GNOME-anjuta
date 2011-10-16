@@ -9,9 +9,9 @@ AT_DATA([empty/Makefile.am],
 
 
 AT_DATA([expect],
-[[    GROUP (): empty1
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty1
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -33,11 +33,11 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty2
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty2
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -60,9 +60,9 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty3
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty3
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -84,7 +84,7 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty4
+[[ROOT (): empty4
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -104,9 +104,9 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty5
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty5
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -128,12 +128,12 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty6
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            SOURCE (): source1
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty6
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        SOURCE (): source1
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -160,13 +160,13 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty7
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
-            SOURCE (): source1
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (C compiler flags): -g
+[[ROOT (): empty7
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
+        SOURCE (): source1
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (C compiler flags): -g
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -194,10 +194,10 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty8
-        TARGET (): target2
-            PROPERTY (Installation directory): bindir
-            PROPERTY (C compiler flags): -g
+[[ROOT (): empty8
+    TARGET (): target2
+        PROPERTY (Installation directory): bindir
+        PROPERTY (C compiler flags): -g
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -221,7 +221,7 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty9
+[[ROOT (): empty9
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -248,9 +248,9 @@ AT_DATA([empty10/Makefile.am],
 bin_PROGRAMS =
 ]])
 AT_DATA([expect],
-[[    GROUP (): empty10
-        TARGET (): target1
-            PROPERTY (Installation directory): bindir
+[[ROOT (): empty10
+    TARGET (): target1
+        PROPERTY (Installation directory): bindir
 ]])
 AT_DATA([reference],
 [[

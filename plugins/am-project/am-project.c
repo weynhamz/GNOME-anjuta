@@ -620,6 +620,8 @@ amp_project_update_root (AmpProject *project, AmpProject *new_project)
 	style = project->arg_list;
 	project->arg_list = new_project->arg_list;
 	new_project->arg_list = style;
+
+	AMP_NODE_CLASS (parent_class)->update (AMP_NODE (project), AMP_NODE (new_project));
 }
 
 
@@ -680,7 +682,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
 
-		if (prop->position >= 0)
+		if ((prop->position >= 0) && (prop->token_type == AC_TOKEN_AC_INIT))
 		{
 			AnjutaProjectProperty *new_prop;
 			AnjutaToken *arg;
@@ -1574,7 +1576,7 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 		// the value will be overwritten with the new node empty value.
 		amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
 	}
-	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_ROOT)
+	if (anjuta_project_node_parent (old_node) == NULL)
 	{
 		// FIXME: It would be better to write a duplicate function to avoid this code
 		((AmpProject *)new_node)->lang_manager = (((AmpProject *)old_node)->lang_manager != NULL) ? g_object_ref (((AmpProject *)old_node)->lang_manager) : NULL;
@@ -1665,16 +1667,12 @@ amp_project_load_root (AmpProject *project, GError **error)
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
 						_("Unable to parse project file"));
 		}
-		
+
 		return FALSE;
 	}
 
 	/* Load all makefiles recursively */
-	group = amp_group_node_new (root_file, FALSE);
-	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
-	anjuta_project_node_append (ANJUTA_PROJECT_NODE (project), ANJUTA_PROJECT_NODE (group));
-
-	if (!amp_node_load (AMP_NODE (group), NULL, project, NULL))
+	if (!AMP_NODE_CLASS (parent_class)->load (AMP_NODE (project), NULL, project, NULL))
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR,
 					IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
@@ -1890,6 +1888,9 @@ amp_project_move (AmpProject *project, const gchar *path)
 	root_file = g_file_new_for_path (path);
 	amp_root_node_set_file (AMP_ROOT_NODE (project), root_file);
 
+	/* Root node is a group too */
+	foreach_node_move (ANJUTA_PROJECT_NODE (project), &packet);
+
 	/* Change project root directory in groups */
 	old_hash = project->groups;
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -1933,20 +1934,23 @@ amp_project_move (AmpProject *project, const gchar *path)
 
 /* Dump file content of corresponding node */
 gboolean
-amp_project_dump (AmpProject *project, AnjutaProjectNode *node)
+amp_project_dump (AmpProject *project, AnjutaProjectNode *node, AmpFileType type)
 {
 	gboolean ok = FALSE;
 
-	switch (anjuta_project_node_get_node_type (node))
+	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
-	case ANJUTA_PROJECT_GROUP:
-		anjuta_token_dump (amp_group_node_get_makefile_token (AMP_GROUP_NODE (node)));
-		break;
-	case ANJUTA_PROJECT_ROOT:
-		anjuta_token_dump (AMP_PROJECT (node)->configure_token);
-		break;
-	default:
-		break;
+		switch (type)
+		{
+		case DUMP_MAKEFILE:
+			anjuta_token_dump (amp_group_node_get_makefile_token (AMP_GROUP_NODE (node)));
+			break;
+		case DUMP_CONFIGURE:
+			anjuta_token_dump (AMP_PROJECT (node)->configure_token);
+			break;
+		default:
+			break;
+		}
 	}
 
 	return ok;
@@ -2434,6 +2438,11 @@ amp_project_save (AmpNode *root, AmpNode *parent, AmpProject *project, GError **
 	if (anjuta_token_file_is_dirty (tfile))
 	{
 		if (!anjuta_token_file_save (tfile, error)) return FALSE;
+	}
+
+	if (!AMP_NODE_CLASS (parent_class)->save (root, parent, project, error))
+	{
+		return FALSE;
 	}
 
 	/* Save all children */

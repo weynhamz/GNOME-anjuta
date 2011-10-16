@@ -10,7 +10,7 @@ AT_DATA([parser/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[    GROUP (): parser
+[[ROOT (): parser
 ]])
 AT_PARSER_CHECK([load parser \
 		 list])

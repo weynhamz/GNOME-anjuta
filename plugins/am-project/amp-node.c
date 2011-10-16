@@ -50,8 +50,9 @@ AnjutaProjectNode *
 amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node = NULL;
+	AnjutaProjectNode *group = NULL;
 	GFile *new_file = NULL;
-	
+
 	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
 			if ((file == NULL) && (name != NULL))
@@ -76,12 +77,12 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			/* Look for parent */
-			parent = anjuta_project_node_parent_type (parent, ANJUTA_PROJECT_GROUP);
-			
+			group = anjuta_project_node_parent_type (parent, ANJUTA_PROJECT_GROUP);
+
 			if ((file == NULL) && (name != NULL))
 			{
 				/* Find file from name */
-				if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+				if (anjuta_project_node_get_node_type (group) == ANJUTA_PROJECT_GROUP)
 				{
 					if (g_path_is_absolute (name))
 					{
@@ -89,7 +90,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 					}
 					else
 					{
-						new_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
+						new_file = g_file_get_child (anjuta_project_node_get_file (group), name);
 					}
 				}
 				else
@@ -100,12 +101,12 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			}
 
 			/* Check that source file is inside the project if it is not belonging to a package */
-			if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP)
+			if ((anjuta_project_node_get_node_type (group) == ANJUTA_PROJECT_GROUP) && (anjuta_project_node_get_node_type (parent) != ANJUTA_PROJECT_MODULE))
 			{
 				AnjutaProjectNode *root;
 				gchar *relative;
-				
-				root = anjuta_project_node_root (parent);
+
+				root = anjuta_project_node_root (group);
 				relative = g_file_get_relative_path (anjuta_project_node_get_file (root), file);
 				g_free (relative);
 				if (relative == NULL)
@@ -115,7 +116,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 					gchar *basename;
 
 					basename = g_file_get_basename (file);
-					dest = g_file_get_child (anjuta_project_node_get_file (parent), basename);
+					dest = g_file_get_child (anjuta_project_node_get_file (group), basename);
 					g_free (basename);
 
 					g_file_copy_async (file, dest, G_FILE_COPY_BACKUP, G_PRIORITY_DEFAULT, NULL, NULL, NULL, NULL, NULL);
@@ -124,7 +125,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 					file = dest;
 				}
 			}
-	
+
 			node = ANJUTA_PROJECT_NODE (amp_source_node_new_valid (file, error));
 			break;
 		case ANJUTA_PROJECT_MODULE:
@@ -139,7 +140,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 	}
 	if (node != NULL) node->type = type;
 	if (new_file != NULL) g_object_unref (new_file);
-	
+
 	return node;
 }
 
@@ -199,7 +200,7 @@ amp_node_erase (AmpNode *node,
 /* AmpNode implementation
  *---------------------------------------------------------------------------*/
 
-static gboolean 
+static gboolean
 amp_node_real_load (AmpNode *node,
                     AmpNode *parent,
                     AmpProject *project,
@@ -208,7 +209,7 @@ amp_node_real_load (AmpNode *node,
 	return FALSE;
 }
 
-static gboolean 
+static gboolean
 amp_node_real_save (AmpNode *node,
                     AmpNode *parent,
                     AmpProject *project,
@@ -260,7 +261,7 @@ amp_node_finalize (GObject *object)
 	AmpNode *node = AMP_NODE (object);
 
 	//g_list_foreach (node->parent.custom_properties, (GFunc)amp_property_free, NULL);
-	
+
 	G_OBJECT_CLASS (amp_node_parent_class)->finalize (object);
 }
 
@@ -268,7 +269,7 @@ static void
 amp_node_class_init (AmpNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = amp_node_finalize;
 
 	klass->load = amp_node_real_load;
@@ -292,10 +293,10 @@ void
 amp_node_register (GTypeModule *module)
 {
 	amp_node_register_type (module);
+	amp_group_node_register (module);
 	amp_root_node_register (module);
 	amp_module_node_register (module);
 	amp_package_node_register (module);
-	amp_group_node_register (module);
 	amp_target_node_register (module);
 	amp_object_node_register (module);
 	amp_source_node_register (module);

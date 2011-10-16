@@ -10,8 +10,8 @@ AT_DATA([empty/Makefile.am],
 
 
 AT_DATA([expect],
-[[    GROUP (): empty1
-        GROUP (): group1
+[[ROOT (): empty1
+    GROUP (): group1
 ]])
 AT_DATA([reference.am],
 [[
@@ -39,9 +39,9 @@ AT_CHECK([diff output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty2
-        GROUP (): group1
-	GROUP (): group2
+[[ROOT (): empty2
+    GROUP (): group1
+    GROUP (): group2
 ]])
 AT_DATA([reference.am],
 [[
@@ -70,8 +70,8 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty3
-        GROUP (): group2
+[[ROOT (): empty3
+    GROUP (): group2
 ]])
 AT_DATA([reference.am],
 [[
@@ -98,7 +98,7 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty4
+[[ROOT (): empty4
 ]])
 AT_DATA([reference.am],
 [[ 
@@ -121,8 +121,8 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[    GROUP (): empty1
-        GROUP (): group1
+[[ROOT (): empty1
+    GROUP (): group1
 ]])
 AT_DATA([reference.am],
 [[
@@ -161,8 +161,8 @@ AT_DATA([single/Makefile.am],
 
 
 AT_DATA([expect],
-[[    GROUP (): single1
-        GROUP (): group1
+[[ROOT (): single1
+    GROUP (): group1
 ]])
 AT_DATA([reference.am],
 [[

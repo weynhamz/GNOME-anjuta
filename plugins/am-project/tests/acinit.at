@@ -7,11 +7,11 @@ AT_DATA([empty/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[PROPERTY (Name): empty
-    GROUP (): empty
+[[ROOT (): empty
+    PROPERTY (Name): empty
 ]])
 AT_PARSER_CHECK([load empty \
-		 set : name empty \
+		 set 0 name empty \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -22,11 +22,11 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[PROPERTY (Name): empty2
-    GROUP (): empty
+[[ROOT (): empty
+     PROPERTY (Name): empty2
 ]])
 AT_PARSER_CHECK([load empty \
-		 set : name empty2 \
+		 set 0 name empty2 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -37,12 +37,12 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[PROPERTY (Name): empty2
-PROPERTY (Version): 0.1
-    GROUP (): empty
+[[ROOT (): empty
+    PROPERTY (Name): empty2
+    PROPERTY (Version): 0.1
 ]])
 AT_PARSER_CHECK([load empty \
-		 set : version 0.1 \
+		 set 0 version 0.1 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -53,13 +53,13 @@ AT_CHECK([diff -b output expect])
 
 
 AT_DATA([expect],
-[[PROPERTY (Name): empty2
-PROPERTY (Version): 0.1
-PROPERTY (Package name): empty3
-    GROUP (): empty
+[[ROOT (): empty
+    PROPERTY (Name): empty2
+    PROPERTY (Version): 0.1
+    PROPERTY (Package name): empty3
 ]])
 AT_PARSER_CHECK([load empty \
-		 set : pack empty3 \
+		 set 0 pack empty3 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -78,8 +78,8 @@ AT_DATA([simple/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[PROPERTY (Name): simple
-    GROUP (): simple
+[[ROOT (): simple
+    PROPERTY (Name): simple
 ]])
 AT_PARSER_CHECK([load simple \
 		list])
@@ -98,10 +98,10 @@ AT_DATA([rygel/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[PROPERTY (Name): rygel
-PROPERTY (Version): m4_esyscmd(GNOME_TAG_PATTERN=RYGEL build-aux/git-version-gen .tarball-version)
-PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=Rygel
-    GROUP (): rygel
+[[ROOT (): rygel
+    PROPERTY (Name): rygel
+    PROPERTY (Version): m4_esyscmd(GNOME_TAG_PATTERN=RYGEL build-aux/git-version-gen .tarball-version)
+    PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=Rygel
 ]])
 AT_PARSER_CHECK([load rygel \
 		list])
