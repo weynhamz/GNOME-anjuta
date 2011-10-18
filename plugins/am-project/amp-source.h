@@ -45,8 +45,8 @@ GType amp_source_node_get_type (void) G_GNUC_CONST;
 
 void amp_source_node_register (GTypeModule *module);
 
-AnjutaProjectNode* amp_source_node_new (GFile *file);
-AnjutaProjectNode* amp_source_node_new_valid (GFile *file, GError **error);
+AnjutaProjectNode* amp_source_node_new (GFile *file, AnjutaProjectNodeType type);
+AnjutaProjectNode* amp_source_node_new_valid (GFile *file, AnjutaProjectNodeType type, GError **error);
 void amp_source_node_free (AmpSourceNode *node);
 AnjutaToken *amp_source_node_get_token (AmpSourceNode *node);
 void amp_source_node_add_token (AmpSourceNode *node, AnjutaToken *token);

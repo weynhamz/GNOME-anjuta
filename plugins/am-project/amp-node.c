@@ -73,7 +73,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, error));
 			break;
 		case ANJUTA_PROJECT_OBJECT:
-			node = ANJUTA_PROJECT_NODE (amp_object_node_new_valid (file, error));
+			node = ANJUTA_PROJECT_NODE (amp_object_node_new_valid (file, type, error));
 			break;
 		case ANJUTA_PROJECT_SOURCE:
 			/* Look for parent */
@@ -126,7 +126,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 				}
 			}
 
-			node = ANJUTA_PROJECT_NODE (amp_source_node_new_valid (file, error));
+			node = ANJUTA_PROJECT_NODE (amp_source_node_new_valid (file, type, error));
 			break;
 		case ANJUTA_PROJECT_MODULE:
 			node = ANJUTA_PROJECT_NODE (amp_module_node_new_valid (name, error));

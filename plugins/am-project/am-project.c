@@ -33,6 +33,7 @@
 #include "amp-group.h"
 #include "amp-target.h"
 #include "amp-source.h"
+#include "amp-object.h"
 #include "command-queue.h"
 
 #include <libanjuta/interfaces/ianjuta-project.h>
@@ -865,7 +866,7 @@ project_load_target (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken
 		}
 
 		/* Create target */
-		target = amp_target_node_new_valid (value, info->base.type, install, flags, NULL);
+		target = amp_target_node_new (value, info->base.type, install, flags);
 		if (target != NULL)
 		{
 			amp_target_node_add_token (target, ANJUTA_TOKEN_ARGUMENT, arg);
@@ -1048,7 +1049,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 							obj_file = g_file_get_child (group_file, basename);
 							g_free (basename);
 							g_free (object_name);
-							object = amp_node_new_valid (group, ANJUTA_PROJECT_OBJECT | ANJUTA_PROJECT_PROJECT, obj_file, NULL, NULL);
+							object = amp_object_node_new (obj_file, ANJUTA_PROJECT_PROJECT);
 							g_object_unref (obj_file);
 							anjuta_project_node_append (parent, object);
 							parent = object;
@@ -1059,7 +1060,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 			}
 
 			/* Create source */
-			source = amp_node_new_valid (group, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, src_file, NULL, NULL);
+			source = amp_source_node_new (src_file, ANJUTA_PROJECT_PROJECT);
 			g_object_unref (src_file);
 			if (source != NULL)
 			{
@@ -1072,7 +1073,7 @@ project_load_sources (AmpProject *project, AnjutaProjectNode *group, AnjutaToken
 
 			g_free (value);
 		}
-		amp_target_changed (target);
+		amp_target_changed (AMP_TARGET_NODE (target));
 	}
 
 	g_object_unref (group_file);
@@ -1112,7 +1113,7 @@ project_load_data (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *
 	if ((gchar *)find == target_id)
 	{
 		/* Create target */
-		target = amp_target_node_new_valid (target_id, info->base.type, install, flags, NULL);
+		target = amp_target_node_new (target_id, info->base.type, install, flags);
 		if (target != NULL)
 		{
 			anjuta_project_node_append (parent, ANJUTA_PROJECT_NODE (target));
@@ -1142,7 +1143,7 @@ project_load_data (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken *
 
 			/* Create source */
 			src_file = g_file_get_child (parent_file, value);
-			source = amp_node_new_valid (parent, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT | data_flags, src_file, NULL, NULL);
+			source = amp_source_node_new (src_file, ANJUTA_PROJECT_PROJECT | data_flags);
 			g_object_unref (src_file);
 			if (source != NULL)
 			{
@@ -1317,7 +1318,7 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaProjectNode 
 			else
 			{
 				/* Create new group */
-				group = amp_group_node_new_valid (subdir, dist_only, NULL);
+				group = amp_group_node_new (subdir, dist_only);
 
 				/* Group can be NULL if the name is not valid */
 				if (group != NULL)

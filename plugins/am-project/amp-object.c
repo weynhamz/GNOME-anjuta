@@ -56,20 +56,21 @@ struct _AmpObjectNode {
  *---------------------------------------------------------------------------*/
 
 AnjutaProjectNode*
-amp_object_node_new (GFile *file)
+amp_object_node_new (GFile *file, AnjutaProjectNodeType type)
 {
 	AmpObjectNode *node = NULL;
 
 	node = g_object_new (AMP_TYPE_OBJECT_NODE, NULL);
 	node->base.file = g_object_ref (file);
+	node->base.type = ANJUTA_PROJECT_OBJECT | type;
 
 	return ANJUTA_PROJECT_NODE (node);
 }
 
 AnjutaProjectNode*
-amp_object_node_new_valid (GFile *file, GError **error)
+amp_object_node_new_valid (GFile *file, AnjutaProjectNodeType type, GError **error)
 {
-	return amp_object_node_new (file);
+	return amp_object_node_new (file, type);
 }
 
 void
@@ -135,13 +136,13 @@ amp_object_node_class_init (AmpObjectNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	AmpNodeClass* node_class;
-	
+
 	object_class->finalize = amp_object_node_finalize;
 
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->update = amp_object_node_update;
 	node_class->write = amp_object_node_write;
-	node_class->erase = amp_object_node_erase;	
+	node_class->erase = amp_object_node_erase;
 }
 
 static void

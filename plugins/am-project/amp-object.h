@@ -45,8 +45,8 @@ GType amp_object_node_get_type (void) G_GNUC_CONST;
 
 void amp_object_node_register (GTypeModule *module);
 
-AnjutaProjectNode* amp_object_node_new (GFile *file);
-AnjutaProjectNode* amp_object_node_new_valid (GFile *file, GError **error);
+AnjutaProjectNode* amp_object_node_new (GFile *file, AnjutaProjectNodeType type);
+AnjutaProjectNode* amp_object_node_new_valid (GFile *file, AnjutaProjectNodeType type, GError **error);
 
 void amp_object_node_free (AmpObjectNode *node);
 
