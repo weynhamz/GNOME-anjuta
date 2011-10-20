@@ -39,6 +39,10 @@
 
 #define ANJUTA_STOCK_GOTO_LINE "anjuta-goto-line"
 
+/* width of the entries in chars, that include the space for the icon */
+#define LINE_ENTRY_WIDTH 7
+#define SEARCH_ENTRY_WIDTH 45
+
 typedef struct _SearchBoxPrivate SearchBoxPrivate;
 
 struct _SearchBoxPrivate
@@ -963,7 +967,7 @@ search_box_init (SearchBox *object)
 	
 	/* Goto line */
 	private->goto_entry = gtk_entry_new ();
-	gtk_entry_set_width_chars (GTK_ENTRY (private->goto_entry), 7);
+	gtk_entry_set_width_chars (GTK_ENTRY (private->goto_entry), LINE_ENTRY_WIDTH);
 	gtk_entry_set_icon_from_stock (GTK_ENTRY (private->goto_entry),
 	                               GTK_ENTRY_ICON_SECONDARY,
 	                               ANJUTA_STOCK_GOTO_LINE);
@@ -1020,8 +1024,8 @@ search_box_init (SearchBox *object)
 	gtk_grid_attach (GTK_GRID (private->grid), private->replace_all_button, 3, 1, 1, 1);		
 
 	/* Expand search entries (a bit) */
-	gtk_entry_set_width_chars (GTK_ENTRY (private->search_entry), 60);
-	gtk_entry_set_width_chars (GTK_ENTRY (private->replace_entry), 60);
+	gtk_entry_set_width_chars (GTK_ENTRY (private->search_entry), SEARCH_ENTRY_WIDTH);
+	gtk_entry_set_width_chars (GTK_ENTRY (private->replace_entry), SEARCH_ENTRY_WIDTH);
 
 	/* Set nice icons */
 	gtk_entry_set_icon_from_stock (GTK_ENTRY (private->search_entry),
