@@ -71,7 +71,8 @@
 #define LOCATION_TO_LINE(o) ((o) - 1)
 #define LINE_TO_LOCATION(o) ((o) + 1)
 
-#define CREATE_MARK_NAME(o) (g_strdup_printf ("anjuta-mark-%d", (o)))
+#define MARK_NAME "anjuta-mark-"
+#define CREATE_MARK_NAME(o) (g_strdup_printf (MARK_NAME "%d", (o)))
 
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
@@ -108,6 +109,13 @@ static const gchar* marker_types [] =
 	"sv-program-counter",
 	NULL
 };
+
+typedef struct
+{
+	gint handle;
+	gint line;
+	const gchar* category;
+} MarkerReload;
 
 /* HIGHLIGHTED TAGS */
 
@@ -431,6 +439,68 @@ on_line_mark_activated(GtkTextView* view,
 
 /* Open / Save stuff */
 
+static void
+sourceview_reload_save_markers (Sourceview* sv)
+{
+	GSList* marks;
+	GtkTextIter begin;
+	GtkTextIter end;
+	GtkTextIter* iter;
+	GtkSourceMark* source_mark;
+
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (sv->priv->document), &begin, 0);
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (sv->priv->document), &end, -1);
+
+	if (!gtk_source_buffer_forward_iter_to_source_mark (GTK_SOURCE_BUFFER (sv->priv->document),
+	                                               &begin, NULL))
+		return;
+
+	iter = gtk_text_iter_copy (&begin);
+	marks = gtk_source_buffer_get_source_marks_at_iter (GTK_SOURCE_BUFFER (sv->priv->document),
+	                                                    iter, NULL);
+	source_mark = marks->data;
+	g_slist_free (marks);
+	
+	do
+	{
+		MarkerReload* reload = g_new0(MarkerReload, 1);
+
+		gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (sv->priv->document),
+		                                  iter, GTK_TEXT_MARK (source_mark));
+		reload->line = gtk_text_iter_get_line (iter);
+		reload->category = gtk_source_mark_get_category (source_mark);
+
+		sscanf (gtk_text_mark_get_name (GTK_TEXT_MARK (source_mark)),
+		        MARK_NAME "%d", &reload->handle);
+		sv->priv->reload_marks = g_slist_append (sv->priv->reload_marks, reload);
+	}
+	while ((source_mark = gtk_source_mark_next (source_mark, NULL)));
+	
+	gtk_source_buffer_remove_source_marks (GTK_SOURCE_BUFFER (sv->priv->document), &begin, &end, NULL);
+	gtk_text_iter_free (iter);
+}
+
+static void
+sourceview_reload_restore_markers (Sourceview* sv)
+{
+	GSList* cur_mark;
+	for (cur_mark = sv->priv->reload_marks; cur_mark != NULL;
+	     cur_mark = g_slist_next (cur_mark))
+	{
+		MarkerReload* mark = cur_mark->data;
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (sv->priv->document),
+		                                  &iter,
+		                                  mark->line);
+		gtk_source_buffer_create_source_mark (GTK_SOURCE_BUFFER (sv->priv->document),
+		                                      CREATE_MARK_NAME (mark->handle),
+		                                      mark->category, &iter);
+	}
+	g_slist_foreach (sv->priv->reload_marks, (GFunc)g_free, NULL);
+	g_slist_free (sv->priv->reload_marks);
+	sv->priv->reload_marks = NULL;
+}
+
 /* Callback for dialog below */
 static void 
 on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
@@ -438,9 +508,15 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 	if (res == GTK_RESPONSE_YES)
 	{
 		GFile* file = sourceview_io_get_file (sv->priv->io);
+
+		/* Save marks and position */
+		sv->priv->goto_line = ianjuta_editor_get_lineno (IANJUTA_EDITOR(sv), NULL);
+		sourceview_reload_save_markers (sv);
+
 		ianjuta_file_open(IANJUTA_FILE(sv),
 						  file, NULL);
 		g_object_unref (file);
+
 	}
 	else
 	{
@@ -474,7 +550,6 @@ static gboolean
 on_file_changed (SourceviewIO* sio, Sourceview* sv)
 {
 	GtkWidget *message_area;
-	IAnjutaDocument *doc;
 	gchar *buff;
 	
 	gchar* filename = sourceview_io_get_filename (sio);
@@ -486,8 +561,6 @@ on_file_changed (SourceviewIO* sio, Sourceview* sv)
 						 filename);
 
 	g_free (filename);
-	
-  	doc = IANJUTA_DOCUMENT (sv);
 
 	message_area = anjuta_message_area_new (buff, GTK_MESSAGE_WARNING);
 	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
@@ -511,7 +584,6 @@ static gboolean
 on_file_deleted (SourceviewIO* sio, Sourceview* sv)
 {
 	GtkWidget *message_area;
-	IAnjutaDocument *doc;
 	gchar *buff;
 	
 	gchar* filename = sourceview_io_get_filename (sio);
@@ -523,8 +595,6 @@ on_file_deleted (SourceviewIO* sio, Sourceview* sv)
 						 filename);
 
 	g_free (filename);
-	
-  	doc = IANJUTA_DOCUMENT (sv);
 
 	message_area = anjuta_message_area_new (buff, GTK_MESSAGE_WARNING);
 	gtk_info_bar_add_button (GTK_INFO_BAR (message_area),
@@ -635,6 +705,8 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 		gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
 
     g_signal_emit_by_name(G_OBJECT(sv), "update-save-ui");
+
+	sourceview_reload_restore_markers (sv);
 	
 	if (sv->priv->goto_line > 0)
 	{

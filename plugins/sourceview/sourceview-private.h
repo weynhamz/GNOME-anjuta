@@ -57,10 +57,6 @@ struct SourceviewPrivate {
 	/* Editor window */
 	GtkWidget* window;
 	
-	/* Bookmarks */
-	GList* bookmarks;
-	GList* cur_bmark;
-	
 	/* Goto line hack */
 	gboolean loading;
 	gint goto_line;
@@ -77,6 +73,10 @@ struct SourceviewPrivate {
 
 	/* To recover the deleted text */
 	gchar *deleted_text;
+
+	/* Reload */
+	GSList* reload_marks;
+	gint reload_line;
 	
 	/* Plugin */
 	AnjutaPlugin* plugin;
