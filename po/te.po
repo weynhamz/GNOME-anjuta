@@ -1,215 +1,219 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of anjuta.HEAD.po to Telugu
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Sasi Bhushan Boddepalli <sasi@swecha.net>, 2011
+# Kiran Chandra <kiran@swecha.net>
+# Krishna Babu K <kkrothap@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2011-10-17 17:21+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-03-11 13:29+0530\n"
+"Last-Translator: Sasi Bhushan Boddepalli <sasi@swecha.net>\n"
+"Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
+"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr ""
+msgstr "అంజుత IDE"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
-msgstr ""
+msgstr "ఒక సమైక్య అభివృధ్ధి ఆ వరణములో ని సాఫ్ట్వేర్ ని అభివృధ్ధి చేయు"
 
 #: ../anjuta.desktop.in.in.h:3 ../src/about.c:207
 msgid "Integrated Development Environment"
-msgstr ""
+msgstr "సమైక్య అభివృధ్ధి ఆ వరణము"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:13
 msgid "Text"
-msgstr ""
+msgstr "పాఠం"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
 msgid "Text to render"
-msgstr ""
+msgstr "సమర్పించుదానికి పాఠము"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
 msgid "Pixbuf Object"
-msgstr ""
+msgstr "పిక్స్బఫ్ తాత్పర్యము"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
 msgid "The pixbuf to render."
-msgstr ""
+msgstr "చూపించుటకు  ఈ పిక్స్ బఫ్"
 
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
 msgid "Unable to find plugin module %s"
-msgstr ""
+msgstr "ప్లగిన్ మాడ్యూల్  %sని వెతకలేక పోయింది"
 
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr ""
+msgstr "%s మాడ్యూల్ లో గుర్తింపు ప్రమేయం %s ను వెతకలేకపోయింది"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
 msgid "Unknown error in module %s"
-msgstr ""
+msgstr "%s మాడ్యూల్ లో తెలియని దోషము"
 
 #: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
 #, c-format
 msgid "Column %i"
-msgstr ""
+msgstr "%i నిలువు వరుసలు"
 
 #. Column label
 #: ../libanjuta/anjuta-column-text-view.c:69
 msgid "Column 1"
-msgstr ""
+msgstr "నిలువు వరుస1"
 
 #: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
-msgstr ""
+msgstr "మీరు  తెరచుటకు  ప్రయత్నిస్తున్న  దొంతి నిస్సారమైన  బైట్  క్రమము  కలిగియున్నది"
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
 msgid ""
 "Anjuta was not able to automatically determine the encoding of the file you "
 "want to open."
-msgstr ""
+msgstr "మీరు  తెరచదలచిన  దొంతి యొక్క సంకేతనమును  అంజుత  స్వయంచాలికంగా నిర్దారణ చెయలేక  పొతున్నది"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
-msgstr ""
+msgstr "%s ప్లగిన్    యొక్క తొలగిన స్థానము"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:141
 #, c-format
 msgid "Missing type defined by plugin %s"
-msgstr ""
+msgstr "%s ప్లగిన్   చే  నిర్వచించబడి, తప్పిపొయిన  రకము"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:149
 #, c-format
 msgid "plugin %s fails to register type %s"
-msgstr ""
+msgstr "ప్లగ్గిన్   %s తన  నమునా(రకము)నమోదు చెయటంలో  %s విఫలము  చెందినది"
 
 #: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
 #: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
 #: ../libanjuta/anjuta-encodings.c:188
 msgid "Unicode"
-msgstr ""
+msgstr "యూనికోడ్"
 
 #: ../libanjuta/anjuta-encodings.c:151 ../libanjuta/anjuta-encodings.c:177
 #: ../libanjuta/anjuta-encodings.c:223 ../libanjuta/anjuta-encodings.c:266
 msgid "Western"
-msgstr ""
+msgstr "పడమర"
 
 #: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
 #: ../libanjuta/anjuta-encodings.c:262
 msgid "Central European"
-msgstr ""
+msgstr "మధ్య యూరోపియన్"
 
 #: ../libanjuta/anjuta-encodings.c:155
 msgid "South European"
-msgstr ""
+msgstr "దక్షిణయూరోపియన్"
 
 #: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:276
 msgid "Baltic"
-msgstr ""
+msgstr "బాల్టిక్"
 
 #: ../libanjuta/anjuta-encodings.c:159 ../libanjuta/anjuta-encodings.c:227
 #: ../libanjuta/anjuta-encodings.c:240 ../libanjuta/anjuta-encodings.c:244
 #: ../libanjuta/anjuta-encodings.c:246 ../libanjuta/anjuta-encodings.c:264
 msgid "Cyrillic"
-msgstr ""
+msgstr "సిరిల్లిక్"
 
 #: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:233
 #: ../libanjuta/anjuta-encodings.c:274
 msgid "Arabic"
-msgstr ""
+msgstr "అరబిక్"
 
 #: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
 msgid "Greek"
-msgstr ""
+msgstr "గ్రీక్"
 
 #: ../libanjuta/anjuta-encodings.c:165
 msgid "Hebrew Visual"
-msgstr ""
+msgstr "హెబ్రూ విజువల్"
 
 #: ../libanjuta/anjuta-encodings.c:167 ../libanjuta/anjuta-encodings.c:231
 #: ../libanjuta/anjuta-encodings.c:272
 msgid "Hebrew"
-msgstr ""
+msgstr "హెబ్రూ"
 
 #: ../libanjuta/anjuta-encodings.c:169 ../libanjuta/anjuta-encodings.c:229
 #: ../libanjuta/anjuta-encodings.c:270
 msgid "Turkish"
-msgstr ""
+msgstr "టర్కిష్"
 
 #: ../libanjuta/anjuta-encodings.c:171
 msgid "Nordic"
-msgstr ""
+msgstr "నార్డిక్"
 
 #: ../libanjuta/anjuta-encodings.c:175
 msgid "Celtic"
-msgstr ""
+msgstr "సెల్టిక్"
 
 #: ../libanjuta/anjuta-encodings.c:179
 msgid "Romanian"
-msgstr ""
+msgstr "రొమానియన్"
 
 #: ../libanjuta/anjuta-encodings.c:191
 msgid "Armenian"
-msgstr ""
+msgstr "అర్మేనియన్"
 
 #: ../libanjuta/anjuta-encodings.c:193 ../libanjuta/anjuta-encodings.c:195
 #: ../libanjuta/anjuta-encodings.c:209
 msgid "Chinese Traditional"
-msgstr ""
+msgstr "సాంప్రదాయ చైనీస్ "
 
 #: ../libanjuta/anjuta-encodings.c:197
 msgid "Cyrillic/Russian"
-msgstr ""
+msgstr "సిరిలిక్/రష్యన్"
 
 #: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:202
 #: ../libanjuta/anjuta-encodings.c:204 ../libanjuta/anjuta-encodings.c:236
 #: ../libanjuta/anjuta-encodings.c:251
 msgid "Japanese"
-msgstr ""
+msgstr "జపనీస్"
 
 #: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
 #: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
-msgstr ""
+msgstr "కొరియన్"
 
 #: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
 #: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
 msgid "Chinese Simplified"
-msgstr ""
+msgstr "సరళమైన చైనీస్ "
 
 #: ../libanjuta/anjuta-encodings.c:218
 msgid "Georgian"
-msgstr ""
+msgstr "జార్జియన్"
 
 #: ../libanjuta/anjuta-encodings.c:248
 msgid "Cyrillic/Ukrainian"
-msgstr ""
+msgstr "సిరిలిక్/ఉక్రైనియన్"
 
 #: ../libanjuta/anjuta-encodings.c:253 ../libanjuta/anjuta-encodings.c:259
 #: ../libanjuta/anjuta-encodings.c:278
 msgid "Vietnamese"
-msgstr ""
+msgstr "వియత్నమీస్"
 
 #: ../libanjuta/anjuta-encodings.c:255
 msgid "Thai"
-msgstr ""
+msgstr "థాయ్"
 
 #. Translator: Unknown refers to a character encoding like UTF8,
 #. * ISO8859-1
@@ -218,15 +222,16 @@ msgstr ""
 #: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:105
 #: ../plugins/mk-project/mk-project.c:74
 msgid "Unknown"
-msgstr ""
+msgstr "తెలియని"
 
 #: ../libanjuta/anjuta-entry.c:241
+#, fuzzy
 msgid "Help text"
-msgstr ""
+msgstr "పాఠ్య సహాయం"
 
 #: ../libanjuta/anjuta-entry.c:242
 msgid "Text to show the user what to enter into the entry"
-msgstr ""
+msgstr "వినియోగదారుడు , తనకు కావలసిన మార్గము లోనికి పోవడానికి  చూపే పాఠ్యము"
 
 #. Create all needed widgets
 #: ../libanjuta/anjuta-environment-editor.c:543
@@ -247,7 +252,7 @@ msgstr ""
 #: ../plugins/snippets-manager/snippets-browser.c:530
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
-msgstr ""
+msgstr "నామము"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:766
@@ -256,31 +261,32 @@ msgstr ""
 #: ../plugins/project-manager/dialogs.c:478
 #: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
 msgid "Value"
-msgstr ""
+msgstr "విలువ"
 
 #: ../libanjuta/anjuta-file-drop-entry.c:206
 msgid "Path that dropped files should be relative to"
-msgstr ""
+msgstr "వదిలివేసిన దస్త్రములు లు సంబందించిన దారి"
 
 #: ../libanjuta/anjuta-file-list.c:101
 msgid "Drop a file or enter a path here"
-msgstr ""
+msgstr "దస్త్రమును వదలండి లేదా ఇక్కడ ఒక దారిని చేర్చండి"
 
 #: ../libanjuta/anjuta-file-list.c:274
+#, fuzzy
 msgid "Select Files"
-msgstr ""
+msgstr "దస్త్రమును ఎంచు"
 
 #: ../libanjuta/anjuta-file-list.c:540
 msgid "Path that all files in the list should be relative to"
-msgstr ""
+msgstr "అన్ని దస్త్రముల జాబితాకు సంబంధించిన దారి"
 
 #: ../libanjuta/anjuta-file-list.c:547
 msgid "Show Add button"
-msgstr ""
+msgstr "బటన్ కలుపుట చూపుము"
 
 #: ../libanjuta/anjuta-file-list.c:548
 msgid "Display an Add button"
-msgstr ""
+msgstr "ఒక బటన్ కలుపుట ప్రదర్శించు"
 
 #.
 #. * Translators: This regex should match the password prompts of
@@ -290,31 +296,32 @@ msgstr ""
 #. * found at http://library.gnome.org/devel/glib/unstable/glib-regex-syntax.html
 #.
 #: ../libanjuta/anjuta-launcher.c:675
+#, fuzzy
 msgid "[Pp]assword.*:"
-msgstr ""
+msgstr "రహస్యపదం.*:"
 
 #: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
 #: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr ""
+msgstr "\"%s\" ఆదేశాన్ని నిర్వర్తించ లేక పోయింది"
 
 #: ../libanjuta/anjuta-launcher.c:1166
 msgid "execvp failed"
-msgstr ""
+msgstr "execvp ఫెయిల్ అయినది"
 
 #: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Anjuta Shell"
-msgstr ""
+msgstr "అంజుత షెల్"
 
 #: ../libanjuta/anjuta-plugin.c:332
 msgid "Anjuta shell that will contain the plugin"
-msgstr ""
+msgstr "ప్లగిన్ కలిగి వుండబోయే అంజుత షెల్"
 
 #: ../libanjuta/anjuta-plugin-manager.c:737
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
-msgstr ""
+msgstr "'%s'ప్లగిన్  క్రియాశీలతను కోల్పోవుటకు   ఇష్టపడుట  లేదు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:768
 #, c-format
@@ -324,23 +331,26 @@ msgid ""
 "leading to this was:\n"
 "%s"
 msgstr ""
+"%s దిగుమతి కాబడలేదు \n"
+"మీరు నెలకొల్పినది  చెడిపోయినది  అని దీని సాధారణ అర్ధము . దీని దోష సందేశం :\n"
+" %s కారణ భూతం అయింది"
 
 #: ../libanjuta/anjuta-plugin-manager.c:905
 msgid "Load"
-msgstr ""
+msgstr "లోడుచేయి"
 
 #: ../libanjuta/anjuta-plugin-manager.c:928
 #: ../libanjuta/anjuta-plugin-manager.c:2007
 msgid "Available Plugins"
-msgstr ""
+msgstr "అందుబాటులో వున్న ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:942
 msgid "Preferred plugins"
-msgstr ""
+msgstr "ఎంచబడిన  ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1176
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "వినియోగదారునిచే  పనిచేయునట్టి  ప్లగిన్లు మాత్రమే  చూపుము"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1216
 msgid ""
@@ -348,80 +358,83 @@ msgid ""
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
+"ఈ   ప్లగిన్లు మిమల్ని  అంజుత ఒకదానిని  ఎంచుటకు  పురిగొల్పినపుడు   అనుగుణమైన ప్లగిన్లు  నుంచి "
+"ఎంచబడినవి.ఈ  ఎంచిన  ప్లగిన్  తొలగించినచో  మరల ఒక  కొత్త  ప్లగిన్ను ఎంచుటకు  అంజుత  మిమ్మల్ని  "
+"పురిగొల్పును."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
-msgstr ""
+msgstr "ఎంచిన ప్లగిన్ ను ఉపేక్షించుము"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1376
 #: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
-msgstr ""
+msgstr "ఒక  ప్లగిన్ ఎంచుకొనుము"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1377
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
-msgstr ""
+msgstr "దయచేసి  క్రియాశీలకం  చేయుటకు  ఒక ప్లగిన్ ను ఎంచుకొనుము"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr ""
+msgstr "%s లోనికిమరే ఇతర ప్లగిన్ లు  లో డ్ చేయడానికి, ప్లగిన్ లు లేవు "
 
 #: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
-msgstr ""
+msgstr "<b> క్రియాశీలకంగా ఉండడానికి , దయచేసి ఒక ప్లగిన్ ను ఎంచుకోండి"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2034
 msgid "Remember this selection"
-msgstr ""
+msgstr "ఈ ఎంపికను గుర్తుంచుకో"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Profiles"
-msgstr ""
+msgstr "ప్రొఫైల్స్"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Current stack of profiles"
-msgstr ""
+msgstr "ప్రస్తుతం నిలువ వున్న  ప్రొఫైల్స్"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2371
 msgid "Available plugins"
-msgstr ""
+msgstr "లభ్యత  గల ప్లగిన్ లు "
 
 #: ../libanjuta/anjuta-plugin-manager.c:2372
 msgid "Currently available plugins found in plugin paths"
-msgstr ""
+msgstr "ప్లగిన్ ల దారిలో ఇప్పుడు లభ్యత గల ప్లగిన్ లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Activated plugins"
-msgstr ""
+msgstr "క్రియాశీలంగావున్న ప్లగిన్ లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Currently activated plugins"
-msgstr ""
+msgstr "ప్రస్తుతం క్రియాశీలంగావున్న ప్లగిన్ లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Anjuta shell for which the plugins are made"
-msgstr ""
+msgstr "ప్లగిన్ లు చేయడానికి అంజుత షెల్ "
 
 #: ../libanjuta/anjuta-plugin-manager.c:2393
 msgid "Anjuta Status"
-msgstr ""
+msgstr "అంజుత స్థితి"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr ""
+msgstr "ప్లగిన్ లఎగుమతి మరియు దిగుమతి చేయడానికి అంజుత స్థితి"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2554
 msgid "Loaded:"
-msgstr ""
+msgstr "లోడ్ పూర్తి అయినది"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:96
 msgid "Category"
-msgstr ""
+msgstr "విభాగము"
 
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
@@ -430,60 +443,60 @@ msgstr ""
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:929
 #: ../src/preferences.ui.h:8
 msgid "General"
-msgstr ""
+msgstr "సాధారణ"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:241
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "అంజుత అభీష్టాలు"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
-msgstr ""
+msgstr "ప్లగ్గిన్ అభికర్త"
 
 #: ../libanjuta/anjuta-profile.c:255
 msgid "The plugin manager to use for resolving plugins"
-msgstr ""
+msgstr "ప్లగిన్ లు సాధనకు వాడే ప్లగిన్ ల అభికర్త"
 
 #: ../libanjuta/anjuta-profile.c:263
 msgid "Profile Name"
-msgstr ""
+msgstr "ప్రొఫైల్ పేరు"
 
 #: ../libanjuta/anjuta-profile.c:264
 msgid "Name of the plugin profile"
-msgstr ""
+msgstr "ప్లగిన్ ప్రొఫైల్ యొక్క పేరు"
 
 #: ../libanjuta/anjuta-profile.c:272
 msgid "Profile Plugins"
-msgstr ""
+msgstr "ప్రొఫైల్ ప్లగిన్ లు"
 
 #: ../libanjuta/anjuta-profile.c:273
 msgid "List of plugins for this profile"
-msgstr ""
+msgstr "ఈ ప్రొఫైల్ కొరకు ప్లగిన్ ల జాబితా"
 
 #: ../libanjuta/anjuta-profile.c:280
 msgid "Synchronization file"
-msgstr ""
+msgstr "కలగలసిన దస్త్రము"
 
 #: ../libanjuta/anjuta-profile.c:281
 msgid "File to syncronize the profile XML"
-msgstr ""
+msgstr "XML ప్రొఫైల్  కలియడానికి దస్త్రము"
 
 #: ../libanjuta/anjuta-profile.c:508
 msgid "Please select a plugin from the list"
-msgstr ""
+msgstr "దయచేసి జాబితా నుండి ఒక ప్లగిన్ ను ఎంచుకోండి"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
 msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
-msgstr ""
+msgstr "%s చదవడానికి విఫలం అయినది: XML వలన దోషము. అనంగీకార లేదా సరిపోని అంజుతా ప్లగిన్ లప్రొఫైల్."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "'%s'నుండి  %s: నెలకొల్పుము \n"
 
 #: ../libanjuta/anjuta-profile.c:707
 #, c-format
@@ -491,61 +504,63 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
+"'%s': చదవడం విఫలం అయినది.క్రింది ముఖ్యమైన ప్లగిన్ లు లేవు:\n"
+"%s"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
 msgid "Select the items to save:"
-msgstr ""
+msgstr "దాచడానికి ఈ ఉపకరణాలు ఎంచుకోండి"
 
 #: ../libanjuta/anjuta-save-prompt.c:182
 msgid "If you do not save, all your changes will be lost."
-msgstr ""
+msgstr "మీరు దాచకపోతే, మీరు చేసిన అన్ని మార్పులు కోల్పోతారు"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
 #: ../plugins/document-manager/plugin.c:640
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Save"
-msgstr ""
+msgstr "దాచు"
 
 #: ../libanjuta/anjuta-save-prompt.c:196
 msgid "Item"
-msgstr ""
+msgstr "అంశ"
 
 #: ../libanjuta/anjuta-save-prompt.c:202
 msgid "_Discard changes"
-msgstr ""
+msgstr "మార్పులను తీసివేయుము(_D)"
 
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ఇక్కడ %d ఉపకరణం దాచని మార్పులతో వున్నది. ముగించే ముందు, మార్పులను దాచ వలెనా?"
+msgstr[1] "ఇక్కడ %d ఉపకరణాలు దాచని మార్పులతో వున్నది. ముగించే ముందు, మార్పులను దాచ వలెనా?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr ""
+msgstr "ఇక్కడ  ఒక ఉపకరణం దాచని మార్పులతో వున్నది. ముగించే ముందు, మార్పులను దాచ వలెనా?"
 
 #: ../libanjuta/anjuta-ui.c:1393
 msgid "Action"
-msgstr ""
+msgstr "చర్య"
 
 #: ../libanjuta/anjuta-ui.c:1414
 msgid "Visible"
-msgstr ""
+msgstr "కనిపించు"
 
 #: ../libanjuta/anjuta-ui.c:1427
 msgid "Sensitive"
-msgstr ""
+msgstr "స్పందితము"
 
 #: ../libanjuta/anjuta-ui.c:1435
 msgid "Shortcut"
-msgstr ""
+msgstr "లఘువు"
 
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-utils.c:357
 msgid "System:"
-msgstr ""
+msgstr "వ్యవస్థ:"
 
 #: ../libanjuta/anjuta-utils.c:503
 msgid ""
@@ -553,11 +568,13 @@ msgid ""
 "installing missing packages. Please install \"packagekit-gnome\" package "
 "from your distribution, or install the missing packages manually."
 msgstr ""
+"మీరు కట్ట దొంతును నెలకొల్పినట్లుగా లేదు. తొలగిన కట్టలను నెలకొల్పుటకు కట్ట దొంతు తప్పనిసరిగా అవసరం."
+"దయచేసి \"packagekit-gnome\" కట్టను నెలకొల్పుము లేదా మీరే తొలగిన కట్టలను మాన్యువల్ గా నెలకొల్పండి"
 
 #: ../libanjuta/anjuta-utils.c:512
 #, c-format
 msgid "Installation failed: %s"
-msgstr ""
+msgstr "%s నెలకొల్పుట విఫలం అయినది"
 
 #: ../libanjuta/anjuta-utils.c:580
 #, c-format
@@ -565,6 +582,8 @@ msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
 msgstr ""
+"\"%s\" కట్ట నెలకొల్పబడ లేదు.\n"
+"దయచేసి నెలకొల్పండి"
 
 #: ../libanjuta/anjuta-utils.c:598
 #, c-format
@@ -572,92 +591,96 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
+"\"%s\" ఉపకరణం నెలకొల్పబడలేదు.\n"
+"దయచేసి నెలకొల్పండి"
 
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1171
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr ""
+msgstr "టెర్మినల్ కనుగొన బడలేదు: పనిచేయక పోయిననూ xterm ను వాడండి"
 
 #: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
 #: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr ""
+msgstr "ఆదేశం అమలుపరచబడలేదు: %s (using shell %s)\n"
 
 #: ../libanjuta/anjuta-utils.c:1892
 msgid ""
 "Unable to display help. Please make sure the Anjuta documentation package is "
 "installed. It can be downloaded from http://anjuta.org."
 msgstr ""
+"సహాయం ను ప్రదర్శించుటకు సిధ్ధముగా లేదు. దయచేసి అంజుతా పత్ర రచన కట్ట నెలకొల్పబడి ఉండవలెను.దీనిని "
+"http://anjuta.org నుండి దిగుమతి చేసుకొనగలరు."
 
 #: ../libanjuta/anjuta-utils.c:2330
 #, c-format
 msgid "Unable to load user interface file: %s"
-msgstr ""
+msgstr "%s వినియోగదారుని సంవిధానం ఎగుమతి చేయలేము"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
 #: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
-msgstr ""
+msgstr "మార్చిన"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
 #: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
 msgid "Added"
-msgstr ""
+msgstr "చేర్చబడినది"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
 #: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
-msgstr ""
+msgstr "తొలగించబడింది"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
 #: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
-msgstr ""
+msgstr "సరిపడలేదు"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
 #: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
-msgstr ""
+msgstr "ఎప్పటికప్పుడు"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
 #: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
-msgstr ""
+msgstr "తాళం వేయబడినది"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
 #: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
-msgstr ""
+msgstr "తప్పిపోయిన"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
 #: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
-msgstr ""
+msgstr "సంపుటాలుగా లేనిది"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
 #: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
-msgstr ""
+msgstr "మరచిన"
 
 #: ../libanjuta/resources.c:63
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "%s ఉపకరణం కనిపించలేదు"
 
 #: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr ""
+msgstr "%s అనే pixmap దస్త్ర కార్యక్షేత్రము కనుగొనబడలేదు"
 
 #: ../plugins/am-project/amp-group.c:566
 msgid "Please specify group name"
-msgstr ""
+msgstr "దయచేసి సమూహము యొక్క పేరును చెప్పండి"
 
 #: ../plugins/am-project/amp-group.c:580
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
-msgstr ""
+msgstr "సమూహ ము పేరు అక్షరములు, అంకెలు లేదా \"#$:%+,-.=@^_`~\" మాత్రమే కలిగి వుండవలెను"
 
 #: ../plugins/am-project/amp-group.c:605
 #: ../plugins/dir-project/dir-project.c:747
@@ -669,102 +692,104 @@ msgstr ""
 #: ../plugins/mk-project/mk-project.c:869
 #, c-format
 msgid "Project doesn't exist or invalid path"
-msgstr ""
+msgstr "ప్రాజెక్టు ఉనికి లేదు లేదా సరియైన పథము కాదు"
 
 #: ../plugins/am-project/amp-target.c:361
 msgid "Please specify target name"
-msgstr ""
+msgstr "దయచేసి లక్ష్యము పేరును చెప్పండి"
 
 #: ../plugins/am-project/amp-target.c:375
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
-msgstr ""
+msgstr "లక్ష్యము పేరు అక్షరములు, అంకెలు ,'_', '-', '/' లేదా   '.' ను మాత్రమే కలిగి ఉండాలి"
 
 #: ../plugins/am-project/amp-target.c:390
 msgid "Shared library target name must be of the form 'libxxx.la'"
-msgstr ""
+msgstr "పంచగలిగిన గ్రంధాలయ లక్ష్యము పేరు , ఖఛ్ఛితముగా 'libxxx.la' మాదిరిగా ఉండాలి"
 
 #: ../plugins/am-project/amp-target.c:399
 msgid "Static library target name must be of the form 'libxxx.a'"
-msgstr ""
+msgstr "స్ధిర గ్రంధాలయ లక్ష్యము పేరు ఖఛ్ఛితముగా 'libxxx.la' మాదిరిగా ఉండాలి"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
 msgid "Arguments:"
-msgstr ""
+msgstr "వాదనలు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
+#, fuzzy
 msgid "Build"
-msgstr ""
+msgstr "నిర్మించు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "Build Directory:"
 msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
+#, fuzzy
 msgid "Configuration:"
-msgstr ""
+msgstr "స్ధాపించుట:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:5
 msgid "Configure Options:"
-msgstr ""
+msgstr "ఎంచుకొనే స్వేఛ్ఛను స్ధాపించుము"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
 msgid "Configure Project"
-msgstr ""
+msgstr "ప్రాజెక్టును నిర్మించుము"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 msgid "Continue on errors"
-msgstr ""
+msgstr "దోషములపై కొనసాగు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
 msgid "Highlight build warnings and errors in editor"
-msgstr ""
+msgstr "ఎడిటర్ లో దోషాలను మరియు హెచ్చరికల నిర్మాణాన్ని ఉన్నతంగా చూపు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Install"
-msgstr ""
+msgstr "సంస్థాపించు "
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "Install as root:"
-msgstr ""
+msgstr "మూలాగ్రముగా నెలకొల్పు:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "Regenerate project"
-msgstr ""
+msgstr "ప్రొజెక్టును మళ్ళీ ఉత్పాదించు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 #: ../plugins/tools/anjuta-tools.ui.h:9
 msgid "Run in terminal"
-msgstr ""
+msgstr "అగ్రములో నడుపు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
 msgid "Run several commands at a time:"
-msgstr ""
+msgstr "ఒకే సమయములో అనేక ఆదేశాలను నడుపు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
 msgid "Select Program"
-msgstr ""
+msgstr "కార్యక్రమమును ఎంచుకొను"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Select Program to run:"
-msgstr ""
+msgstr "నడుపుటకు కార్యక్రమమును ఎంచుకొను"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Select a build directory"
-msgstr ""
+msgstr "నిర్మించిన వివరణను ఎంచుకొను"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Translate messages"
-msgstr ""
+msgstr "సందేశాన్ని తర్జుమా చేయు"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
 msgid "su -c"
-msgstr ""
+msgstr "su -c"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:19
 msgid "sudo"
-msgstr ""
+msgstr "sudo"
 
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/build.c:475
@@ -772,82 +797,84 @@ msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr ""
+"ఈ కొత్త నిర్మాణాన్ని వాడే ముందు, అప్రమేయంగా ఉన్న వాటిని తీసేయాల్సిన అవసరం ఉన్నది.వాటిని మీరు "
+"తీసివేయాలనుకుంటున్నారా?"
 
 #: ../plugins/build-basic-autotools/build.c:480
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
-msgstr ""
+msgstr "వినియోగదారునిచే ఆదేశం రద్దు చేయబడినది"
 
 #: ../plugins/build-basic-autotools/build.c:796
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr ""
+msgstr "\"%s\": క్రోడీకరించబడలేదు.ఈ విధమైన దస్త్ర రకమునకు ఎటువంటి సూత్రముసూత్రీకరించబడలేదు"
 
 #: ../plugins/build-basic-autotools/build.c:958
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr ""
+msgstr "%s లిపి నిర్మాణము తొలగినది. కనుక  పధక నిర్మాణము చేయలేము"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:722
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:2
 msgid "Default"
-msgstr ""
+msgstr "అప్రమేయం"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:71
 #: ../plugins/gdb/utilities.c:297
 msgid "Debug"
-msgstr ""
+msgstr "డీబగ్"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:72
 msgid "Profiling"
-msgstr ""
+msgstr "స్థూల వివరణాత్మక"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:73
 msgid "Optimized"
-msgstr ""
+msgstr "సంతృప్తం చెందిన"
 
 #: ../plugins/build-basic-autotools/executer.c:69
 msgid "No executables in this project!"
-msgstr ""
+msgstr "ఈ పథకములో నిర్వర్తించబడేవి ఏమీ లేవు!"
 
 #: ../plugins/build-basic-autotools/executer.c:143
 #: ../plugins/am-project/am-project.c:126
 msgid "Program"
-msgstr ""
+msgstr "కార్యక్రమం"
 
 #: ../plugins/build-basic-autotools/executer.c:243
 msgid "No file or project currently opened."
-msgstr ""
+msgstr "ప్రస్తుతం ఏ పథకము లేదా ఏ దస్త్రము  తెరచి లేవు"
 
 #. Only local program are supported
 #: ../plugins/build-basic-autotools/executer.c:283
 #: ../plugins/run-program/execute.c:71
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr ""
+msgstr "'%s' పథకము  ఒక స్థానిక దస్త్రము కాదు"
 
 #: ../plugins/build-basic-autotools/executer.c:298
 #: ../plugins/run-program/execute.c:77
 #, c-format
 msgid "Program '%s' does not exist"
-msgstr ""
+msgstr "'%s' పథకము  యొక్క ఉనికి లేదు"
 
 #: ../plugins/build-basic-autotools/executer.c:306
 #: ../plugins/run-program/execute.c:81
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr ""
+msgstr "'%s' పథకము నిర్వర్తించడానికి అనుమతి లేదు"
 
 #: ../plugins/build-basic-autotools/executer.c:338
 msgid "No executable for this file."
-msgstr ""
+msgstr "ఈ దస్త్రమునకు  నిర్వర్తించే అంశాలు లేవు"
 
 #: ../plugins/build-basic-autotools/executer.c:344
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr ""
+msgstr "'%s' నిర్వహించునవి , సరికొత్తవి కాదు"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -856,11 +883,11 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:139
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)' చేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:140
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)' చేయండి"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -869,21 +896,21 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:148
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr ""
+msgstr "(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)' చేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:149
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr ""
+msgstr "(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)' చేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:750
 #, c-format
 msgid "Entering: %s"
-msgstr ""
+msgstr "%s: ప్రవేశించుచున్నది"
 
 #: ../plugins/build-basic-autotools/plugin.c:786
 #, c-format
 msgid "Leaving: %s"
-msgstr ""
+msgstr "%s; నిష్క్రమించుచున్న"
 
 #. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
@@ -893,11 +920,11 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:824
 #: ../plugins/tools/execute.c:330
 msgid "warning:"
-msgstr ""
+msgstr "హెచ్చరిక"
 
 #: ../plugins/build-basic-autotools/plugin.c:825
 msgid "warning:-old"
-msgstr ""
+msgstr "హెచ్చరిక:- గతంలోనిది"
 
 #. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
@@ -907,51 +934,51 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:836
 #: ../plugins/tools/execute.c:335
 msgid "error:"
-msgstr ""
+msgstr "దోషము:"
 
 #: ../plugins/build-basic-autotools/plugin.c:837
 msgid "error:-old"
-msgstr ""
+msgstr "హెచ్చరిక:- గతంలోనిది"
 
 #: ../plugins/build-basic-autotools/plugin.c:954
 #, c-format
 msgid "Command exited with status %d"
-msgstr ""
+msgstr "%d సుస్థితో ఆదేశం నిష్క్రమించినది"
 
 #: ../plugins/build-basic-autotools/plugin.c:969
 #, c-format
 msgid "Command aborted by user"
-msgstr ""
+msgstr "వినియోగదారునిచే  ఆదేశం ఆపబడినది"
 
 #: ../plugins/build-basic-autotools/plugin.c:974
 #, c-format
 msgid "Command terminated with signal %d"
-msgstr ""
+msgstr "%d సూచీతో ఆదేశం  అంతం కాబడినది"
 
 #: ../plugins/build-basic-autotools/plugin.c:982
 msgid "Command terminated for an unknown reason"
-msgstr ""
+msgstr "తెలియని కారణము వలన ఆదేశం అంతం కాబడినది"
 
 #: ../plugins/build-basic-autotools/plugin.c:1000
 #, c-format
 msgid "Total time taken: %lu secs\n"
-msgstr ""
+msgstr "మొత్తం పట్టిన సమయం: %lu secs\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:1007
 msgid "Completed unsuccessfully\n"
-msgstr ""
+msgstr "విజయవంతంగా పూర్తికాలేదు\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:1015
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
-msgstr ""
+msgstr "విజయవంతంగా పూర్తయినది\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
 #: ../plugins/build-basic-autotools/plugin.c:1097
 #, c-format
 msgid "Build %d: %s"
-msgstr ""
+msgstr "%d: %s నిర్మించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1639
 #: ../plugins/build-basic-autotools/plugin.c:1713
@@ -961,183 +988,183 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1827
 #, c-format
 msgid "_Build"
-msgstr ""
+msgstr "_నిర్మాణం(_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1643
 msgid "_Build Project"
-msgstr ""
+msgstr "_పథకం నిర్మించు(_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1644
 msgid "Build whole project"
-msgstr ""
+msgstr "మొత్తం పథక నిర్మించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1649
 msgid "_Install Project"
-msgstr ""
+msgstr "పథకం ను నెలకొల్పు(_I)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1650
 msgid "Install whole project"
-msgstr ""
+msgstr "మొత్తం పథకం ను నెలకొల్పు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1655
 msgid "_Clean Project"
-msgstr ""
+msgstr "పథకంను తుడిచివేయు(_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1656
 msgid "Clean whole project"
-msgstr ""
+msgstr "మొత్తం పథకంను తుడిచివేయు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1661
 msgid "C_onfigure Project…"
-msgstr ""
+msgstr "పథకంను నిర్మించు(_o)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1662
 msgid "Configure project"
-msgstr ""
+msgstr "పథకం ను నిర్మించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1667
 msgid "Build _Tarball"
-msgstr ""
+msgstr "Tarball ను నిర్మించు(_T)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1668
 msgid "Build project tarball distribution"
-msgstr ""
+msgstr "tarball ప్రోజెక్టును నిర్మించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1673
 msgid "_Build Module"
-msgstr ""
+msgstr "మాడ్యుల్ ను నిర్మించు (_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1674
 msgid "Build module associated with current file"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రముతో సహాయకారిగా మాడ్యూల్ ను నిర్మించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1679
 msgid "_Install Module"
-msgstr ""
+msgstr "మాడ్యూల్ ను స్థాపించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1680
 msgid "Install module associated with current file"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రముతో సహాయకారిగా మాడ్యూల్ ను స్థాపించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1685
 msgid "_Clean Module"
-msgstr ""
+msgstr "మాడ్యూల్ ను తుడిచి వేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1686
 msgid "Clean module associated with current file"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రముతో సహాయకారిగా మాడ్యూల్ ను తుడిచివేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1691
 msgid "Co_mpile File"
-msgstr ""
+msgstr "దస్త్రమును కంపైల్ చేయుము"
 
 #: ../plugins/build-basic-autotools/plugin.c:1692
 msgid "Compile current editor file"
-msgstr ""
+msgstr "ప్రస్తుతం వ్రాయుచున్న దస్త్రమును కంపైల్ చేయుము"
 
 #: ../plugins/build-basic-autotools/plugin.c:1697
 msgid "Select Configuration"
-msgstr ""
+msgstr "ఈ స్థితిని ఎంచుకోండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1698
 msgid "Select current configuration"
-msgstr ""
+msgstr "ప్రస్తుత స్థితిని ఎంచుకోండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1703
 msgid "Remove Configuration"
-msgstr ""
+msgstr "ఈ స్థితిని రద్దు చేయండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1704
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
+msgstr "సాధ్యమయితే ఈ ప్రోజెక్టును రద్దు చేయండి మరియు ఈ స్థితి డైరెక్టరీని తొలగించండి"
 
 #: ../plugins/build-basic-autotools/plugin.c:1717
 #: ../plugins/build-basic-autotools/plugin.c:1745
 msgid "_Compile"
-msgstr ""
+msgstr "క్రోడీకరించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1718
 #: ../plugins/build-basic-autotools/plugin.c:1746
 msgid "Compile file"
-msgstr ""
+msgstr "దస్త్రమును క్రోడీకరించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1724
 #: ../plugins/build-basic-autotools/plugin.c:1752
 msgid "Build module"
-msgstr ""
+msgstr "మాడ్యూల్ ను నిర్మించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1729
 #: ../plugins/build-basic-autotools/plugin.c:1757
 #: ../plugins/build-basic-autotools/plugin.c:1834
 #, c-format
 msgid "_Install"
-msgstr ""
+msgstr "సంస్థాపించు (_I)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1730
 #: ../plugins/build-basic-autotools/plugin.c:1758
 msgid "Install module"
-msgstr ""
+msgstr "మాడ్యూల్ ను స్థాపించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1735
 #: ../plugins/build-basic-autotools/plugin.c:1763
 #: ../plugins/build-basic-autotools/plugin.c:1841
 #, c-format
 msgid "_Clean"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1736
 #: ../plugins/build-basic-autotools/plugin.c:1764
 msgid "Clean module"
-msgstr ""
+msgstr "మాడ్యూల్ ను తొలగించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1769
 msgid "_Cancel command"
-msgstr ""
+msgstr "ఆదేశాన్ని తొలగించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1770
 msgid "Cancel build command"
-msgstr ""
+msgstr "నిర్మాణ ఆదేశాన్ని రద్దు చేయు"
 
 #: ../plugins/build-basic-autotools/plugin.c:1827
 #, c-format
 msgid "_Build (%s)"
-msgstr ""
+msgstr "(%s) నిర్మించు(_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1834
 #, c-format
 msgid "_Install (%s)"
-msgstr ""
+msgstr "(%s) స్థాపించు (_I)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1841
 #, c-format
 msgid "_Clean (%s)"
-msgstr ""
+msgstr "(%s) ను రద్దు చేయు (_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1849
 #, c-format
 msgid "Co_mpile (%s)"
-msgstr ""
+msgstr "(%s) ను క్రోడీకరించు (_m)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1849
 #, c-format
 msgid "Co_mpile"
-msgstr ""
+msgstr "క్రోడీకరించు (_m)"
 
 #: ../plugins/build-basic-autotools/plugin.c:2445
 msgid "Build commands"
-msgstr ""
+msgstr "ఆదేశాలను నిర్మించు"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
 #: ../plugins/build-basic-autotools/plugin.c:2454
 msgid "Build popup commands"
-msgstr ""
+msgstr "ప్రత్యక్షమయ్యే ఆదేశాలను నిర్మించు"
 
 #: ../plugins/build-basic-autotools/plugin.c:2873
 #: ../plugins/build-basic-autotools/plugin.c:2881
 msgid "Build Autotools"
-msgstr ""
+msgstr "స్వయం చాలక పనిముట్లను నిర్మించు"
 
 #: ../plugins/build-basic-autotools/program.c:300
 #, c-format
@@ -1145,42 +1172,44 @@ msgid ""
 "Error while setting up build environment:\n"
 " %s"
 msgstr ""
+"%s\n"
+"నిర్మాణ వాతావరణమును నిర్మించునపుడు వచ్చిన దోషము"
 
 #: ../plugins/build-basic-autotools/program.c:373
 msgid "Command aborted"
-msgstr ""
+msgstr "ఆదేశం అంగీకరించబడలేదు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:1
 msgid "Add to Project"
-msgstr ""
+msgstr "ప్రోజెక్టుకు జత చేయుము"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:2
 msgid "Add to Repository"
-msgstr ""
+msgstr "దాచే వ్యవస్థకు జత చేయుము"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:3
 msgid "Author Email Address:"
-msgstr ""
+msgstr "ఈమెయుల్ అడ్రసు  దారుడు:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:4
 msgid "Author Name:"
-msgstr ""
+msgstr "రచయిత పేరు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:5
 msgid "Author/Date-Time"
-msgstr ""
+msgstr "రచయిత/తేది-సమయం"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:6
 msgid "Author/Date/Time"
-msgstr ""
+msgstr "రచయిత/తేది/సమయం"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:7
 msgid "Base Class Inheritance:"
-msgstr ""
+msgstr "మూల తరగతికి చెందినది"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:8
 msgid "Base Class:"
-msgstr ""
+msgstr "మూల తరగతి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:8
@@ -1206,56 +1235,56 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
 msgid "Class Elements"
-msgstr ""
+msgstr "తరగతి కణాలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:11
 msgid "Class Function Prefix:"
-msgstr ""
+msgstr "క్లాస్ ఫంక్షన్ ప్రిఫిక్స్"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:12
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:3
 msgid "Class Generator"
-msgstr ""
+msgstr "తరగతి ఉత్పత్తి దారుడు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:13
 msgid "Class Methods"
-msgstr ""
+msgstr "తరగతి పధ్దతులు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:14
 msgid "Class Name:"
-msgstr ""
+msgstr "తరగతి పేరు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:15
 msgid "Class Options:"
-msgstr ""
+msgstr "తరగతి అవకాశాలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:16
 msgid "Class Scope:"
-msgstr ""
+msgstr "తరగతి పరిధి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:17
 msgid "Constants/Variables"
-msgstr ""
+msgstr "స్థిరరాశులు/చరరాశులు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:18
 msgid "Create"
-msgstr ""
+msgstr "నిర్మించు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:19
 msgid "GLib.Object"
-msgstr ""
+msgstr "జిలిబ్. ఆబ్జెక్ట్"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:20
 msgid "GObject Class\t"
-msgstr ""
+msgstr "Gఆబ్జెక్ట్ తరగతి\t"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:21
 msgid "GObject Prefix and Type:"
-msgstr ""
+msgstr "Gఆబ్జెక్ట్ ప్రిఫిక్స్ మరియు రూపము "
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:22
 msgid "General Class Properties"
-msgstr ""
+msgstr "సాధారణ తరగతి లక్షణాలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/file.c:104
@@ -1278,31 +1307,31 @@ msgstr ""
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:12
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:18
 msgid "General Public License (GPL)"
-msgstr ""
+msgstr "సాధారణ జనుల లైసెంస్ (GPL)"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Generic C++ Class"
-msgstr ""
+msgstr "సాధారణ C++ తరగతి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:25
 msgid "Header File:"
-msgstr ""
+msgstr "తల భాగ దస్త్రము"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:26
 msgid "Imports"
-msgstr ""
+msgstr "దిగుమతులు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "Initializer Arguments:"
-msgstr ""
+msgstr "ప్రారంభ చర్చలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "గీత లోపలి నిర్వచనము మరియు అమలుపరుచు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:29
 msgid "JavaScript Class"
-msgstr ""
+msgstr "జావా లిపి తరగతి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 #: ../plugins/file-wizard/file.c:105
@@ -1325,104 +1354,106 @@ msgstr ""
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:14
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:20
 msgid "Lesser General Public License (LGPL)"
-msgstr ""
+msgstr "తక్కువలో సాధారణ జనుల లైసెంస్ (LGPL)"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
 msgid "License:"
-msgstr ""
+msgstr "లైసెంసు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:32
 msgid "Member Functions/Variables"
-msgstr ""
+msgstr "తరగతి/చరరాశుల సభ్యుడు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:33
 msgid "Methods"
-msgstr ""
+msgstr "రూపాలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:34
 msgid "No License"
-msgstr ""
+msgstr "లైసెన్స్ లేదు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:35
 msgid "Properties"
-msgstr ""
+msgstr "లక్షణాలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:36
 msgid "Python Class"
-msgstr ""
+msgstr "పైథాన్ తరగతి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:37
 msgid "Signals"
-msgstr ""
+msgstr "సూచికలు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:38
 msgid "Source File:"
-msgstr ""
+msgstr "జనక దస్త్రము"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:39
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "జనక/తల భాగ హెడ్డింగులు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:40
 msgid "Vala Class"
-msgstr ""
+msgstr "vala తరగతి"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
 #: ../plugins/mk-project/mk-project.ui.h:7
 msgid "Variables"
-msgstr ""
+msgstr "చరరాశులు"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:42
 msgid "is Sub-Class"
-msgstr ""
+msgstr "ఇది క్రింది తరగతి"
 
 #: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
-msgstr ""
+msgstr "హెడర్ లేదా జనక దస్త్రము ప్రారంభము కాలేదు"
 
 #: ../plugins/class-gen/generator.c:297
 msgid "Autogen template used for the header file"
-msgstr ""
+msgstr "Autogen వంటిది హెడర్ ఫైల్ కు ఉపయోగపడింది"
 
 #: ../plugins/class-gen/generator.c:305
 msgid "Autogen template used for the implementation file"
-msgstr ""
+msgstr "Autogen వంటిది దస్త్రము అమలు పరచడానికి ఉపయోగపడింది"
 
 #: ../plugins/class-gen/generator.c:313 ../plugins/class-gen/generator.c:321
 msgid "File to which the processed template will be written"
-msgstr ""
+msgstr "ఏ దస్త్రము రాయాలో , దానికి ఈ విధమైన దస్త్రము ఉపయోగపడుతుంది "
 
 #: ../plugins/class-gen/generator.c:405
 #, c-format
 msgid "Failed to write autogen definition file"
-msgstr ""
+msgstr "autogen నిర్వచన దస్త్రము రాయడానికి విఫలం అయినది"
 
 #: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1188
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
 msgstr ""
+"ఆటొజెన్ 5వ సంపుటి కనుగొనబడలేదు; దయచేసి ఆటొజెన్ ప్యాకేజ్ ను స్థాపించండి.http://autogen."
+"sourceforge.net  నుండి పొందగలరు "
 
 #: ../plugins/class-gen/plugin.c:254 ../plugins/class-gen/plugin.c:449
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr ""
+msgstr "%s ఆటొ జెన్ అమలు నిర్వర్తించబడలేదు"
 
 #: ../plugins/class-gen/window.c:112
 msgid "Guess from type"
-msgstr ""
+msgstr "రకము నుండి ఊహించండి"
 
 #: ../plugins/class-gen/window.c:696 ../plugins/class-gen/window.c:707
 #: ../plugins/class-gen/window.c:781 ../plugins/class-gen/window.c:791
 #: ../plugins/class-gen/window.c:804
 msgid "Scope"
-msgstr ""
+msgstr "పరిధి"
 
 #: ../plugins/class-gen/window.c:697
 msgid "Implementation"
-msgstr ""
+msgstr "అమలు పరుచుట"
 
 #: ../plugins/class-gen/window.c:698 ../plugins/class-gen/window.c:708
 #: ../plugins/class-gen/window.c:730 ../plugins/class-gen/window.c:782
@@ -1431,7 +1462,7 @@ msgstr ""
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
-msgstr ""
+msgstr "రకం"
 
 #: ../plugins/class-gen/window.c:700 ../plugins/class-gen/window.c:710
 #: ../plugins/class-gen/window.c:732 ../plugins/class-gen/window.c:742
@@ -1439,54 +1470,54 @@ msgstr ""
 #: ../plugins/class-gen/window.c:806
 #: ../plugins/debug-manager/stack_trace.c:712
 msgid "Arguments"
-msgstr ""
+msgstr "చర్చలు"
 
 #: ../plugins/class-gen/window.c:718
 msgid "Nick"
-msgstr ""
+msgstr "నార్డిక్"
 
 #: ../plugins/class-gen/window.c:719
 msgid "Blurb"
-msgstr ""
+msgstr "బ్లర్బ్"
 
 #: ../plugins/class-gen/window.c:720
 msgid "GType"
-msgstr ""
+msgstr "Gరకం"
 
 #: ../plugins/class-gen/window.c:721
 msgid "ParamSpec"
-msgstr ""
+msgstr "పరం స్పెక్"
 
 #. Somehow redundant with marshaller, but required for default handler
 #: ../plugins/class-gen/window.c:723 ../plugins/class-gen/window.c:733
 msgid "Flags"
-msgstr ""
+msgstr "దస్ర్తాలు"
 
 #: ../plugins/class-gen/window.c:734
 msgid "Marshaller"
-msgstr ""
+msgstr "మార్షల్లెర్"
 
 #: ../plugins/class-gen/window.c:774 ../plugins/cvs-plugin/cvs-callbacks.c:438
 #: ../plugins/am-project/am-project.c:189
 msgid "Module"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #. Automatic highlight menu
 #: ../plugins/class-gen/window.c:794 ../plugins/document-manager/plugin.c:1079
 msgid "Automatic"
-msgstr ""
+msgstr "స్వయంచాలక"
 
 #: ../plugins/class-gen/window.c:795
 msgid "Getter"
-msgstr ""
+msgstr "పొందువాడు"
 
 #: ../plugins/class-gen/window.c:796
 msgid "Setter"
-msgstr ""
+msgstr "కల్పించువాడు"
 
 #: ../plugins/class-gen/window.c:1210
 msgid "XML description of the user interface"
-msgstr ""
+msgstr "వినియోగదారుని సంవిధానం యొక్క XML వివరణ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid ""
@@ -1496,140 +1527,144 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
+"<b>Please note: </b>\n"
+"\n"
+"OK నొక్కిన యెడల డిస్క్ నుండి మరియి CVS నుండి తొలగింపబడును.కాని CVS commit ఉపయోగించనట్లయితే CVS "
+"తొలగించబడదు.<b> మీరు హెచ్చరించ బడ్డారు!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:4
 msgid "Be verbose"
-msgstr ""
+msgstr "వెర్బోస్‌లో ఉండు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:5
 #: ../plugins/subversion/anjuta-subversion.ui.h:3
 #: ../plugins/tools/anjuta-tools.ui.h:1
 msgid "Browse…"
-msgstr ""
+msgstr "అన్వేషణ..."
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
 msgid "CVS Options"
-msgstr ""
+msgstr "ఇచ్ఛాపూర్వకాలు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:7
 msgid "CVS Preferences"
-msgstr ""
+msgstr "CVS అభిలక్షణాలు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:8
 msgid "CVS: Add file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రమును/డైరెక్టరీని జత చేయుము"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:9
 msgid "CVS: Commit file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రము/డైరెక్టరీని పొందుపొరుచుము"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 msgid "CVS: Diff file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రము/ డైరెక్టరీ లో తేడా"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:11
 msgid "CVS: Import"
-msgstr ""
+msgstr "CVS: దిగుమతి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:12
 msgid "CVS: Log file/directory"
-msgstr ""
+msgstr "CVS: Log దస్త్రము/ డైరెక్టరీ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:13
 msgid "CVS: Remove file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రము/ డైరెక్టరీ ని తొలగించుము"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:14
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS: స్థితి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:15
 msgid "CVS: Status from file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రము/డైరెక్టరీ నుండి స్థితి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:16
 msgid "CVS: Update file/directory"
-msgstr ""
+msgstr "CVS: దస్త్రము/డైరెక్టరీ ని తాజాపరుచు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:17
 msgid "CVSROOT:"
-msgstr ""
+msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:18
 #: ../plugins/subversion/anjuta-subversion.ui.h:5
 msgid "Choose file or directory to add:"
-msgstr ""
+msgstr "జత చేయడానికి దస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:19
 msgid "Choose file or directory to commit:"
-msgstr ""
+msgstr "పొందుపరచడానికి   దస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "Choose file or directory to diff:"
-msgstr ""
+msgstr " తేడా కోసము దస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:21
 msgid "Choose file or directory to get log for:"
-msgstr ""
+msgstr " లాగ్ ను పొందడం కోసముదస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:22
 msgid "Choose file or directory to get the status from:"
-msgstr ""
+msgstr " స్థితి కోసందస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:23
 msgid "Choose file or directory to remove:"
-msgstr ""
+msgstr " తొలగించడానికి దస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Choose file or directory to update:"
-msgstr ""
+msgstr " తాజా పరచడానికి దస్త్రమును లేదా డైరెక్టరీని ఎంచుకోండి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:25
 msgid "Compression Level (0=off, 10=max):"
-msgstr ""
+msgstr "ఒత్తిడి స్థాయి (0=off, 10=max):"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
 msgid "Create new directories"
-msgstr ""
+msgstr "కొత్త డైరెక్టరీలను తయారు చేయు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:27
 msgid "Delete empty directories"
-msgstr ""
+msgstr "ఖాళీ డైరెక్టరీలను తొలగించు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:28
 #: ../plugins/subversion/anjuta-subversion.ui.h:13
 msgid "Do not act recursively"
-msgstr ""
+msgstr "తనంతట తానుగా పనిచేయదు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:29
 msgid "Extern (rsh)"
-msgstr ""
+msgstr "ఎక్స్ టెర్న్ (rsh)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:30
 msgid "File is binary"
-msgstr ""
+msgstr "ఈ దస్త్రము బైనరీ "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:31
 msgid "Ignore .cvsrc file (recommended)"
-msgstr ""
+msgstr "తొలగించు .cvsrc దస్త్రము (సిఫార్సు చేయబడినది)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
 #: ../plugins/symbol-db/plugin.c:2162
 msgid "Local"
-msgstr ""
+msgstr "స్థానిక"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:33
 msgid "Log message:"
-msgstr ""
+msgstr "లాగ్ సందేశం"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:34
 msgid "Module Details:"
-msgstr ""
+msgstr "మాడ్యూల్ వివరాలు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:35
 msgid "Module name:"
-msgstr ""
+msgstr "మాడ్యూల్ పేరు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
@@ -1637,100 +1672,100 @@ msgstr ""
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
 msgid "Options"
-msgstr ""
+msgstr "ఇచ్ఛాపూర్వకాలు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:37
 #: ../plugins/git/anjuta-git.ui.h:37
 #: ../plugins/subversion/anjuta-subversion.ui.h:24
 msgid "Options:"
-msgstr ""
+msgstr "ఇచ్ఛాపూర్వకాలు:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:38
 msgid "Password server (pserver)"
-msgstr ""
+msgstr "రహస్య పద సేవిక (pserver)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:39
 #: ../plugins/subversion/anjuta-subversion.ui.h:26
 msgid "Password:"
-msgstr ""
+msgstr "రహస్యపదం:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:40
 msgid "Patch-Style diff"
-msgstr ""
+msgstr "అతుకు-రకము యొక్క తేడా"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:41
 msgid "Path to \"cvs\" command"
-msgstr ""
+msgstr "\"cvs\" ఆదేశానికి దారి"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:42
 msgid "Project root directory:"
-msgstr ""
+msgstr "ప్రోజెక్టు మూల డైరెక్టరీ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 msgid "Release tag:"
-msgstr ""
+msgstr "రిలీజ్ టాగ్: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:44
 msgid "Repository:"
-msgstr ""
+msgstr "స్థానము:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:45
 msgid "Reset sticky tags"
-msgstr ""
+msgstr "అతుకు టాగ్ ని పునఃస్థాపించు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
 #: ../plugins/git/anjuta-git.ui.h:52
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "Revision:"
-msgstr ""
+msgstr "పునర్విమర్శ"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:47
 msgid "Standard diff"
-msgstr ""
+msgstr "స్టాండర్డ్ డిఫ్"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:48
 msgid "Unified format instead of context format"
-msgstr ""
+msgstr "ప్రాంతీయ ఫార్మాట్ బదులుగా ఒకే ఫార్మాట్"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:49
 #: ../plugins/subversion/anjuta-subversion.ui.h:55
 msgid "Use revision/tag:"
-msgstr ""
+msgstr "పునర్విమర్శ/టాగ్ ను వాడుము"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:50
 msgid "Use revision:"
-msgstr ""
+msgstr "పునర్విమర్శ ను వాడుము"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:51
 #: ../plugins/subversion/anjuta-subversion.ui.h:56
 msgid "Username:"
-msgstr ""
+msgstr "వినియోగదారుని  పేరు:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:52
 msgid "Vendor tag:"
-msgstr ""
+msgstr "అమ్మక దారుని టాగ్"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:53
 #: ../plugins/subversion/anjuta-subversion.ui.h:61
 msgid "Whole project"
-msgstr ""
+msgstr "మొత్తం ప్రొజెక్టు"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:46
 msgid "Please enter a filename!"
-msgstr ""
+msgstr "దయచేసి దస్త్రము పేరును వ్రాయండి"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:59
 #, c-format
 msgid "Please fill field: %s"
-msgstr ""
+msgstr "దయచేసి ఫీల్డ్:%s నుపూరించండి"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:78
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr ""
+msgstr "CVS ఆదేశము పని చేస్తున్నది! అది పూర్తయ్యేవరకు వేచి ఉండండి"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:152
 msgid "Unable to delete file"
-msgstr ""
+msgstr "దస్త్రమును తొలగించడానికి సిధ్ధముగా లేదు"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/subversion/subversion-commit-dialog.c:88
@@ -1739,183 +1774,187 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:435
 msgid "CVSROOT"
-msgstr ""
+msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:441
 msgid "Vendor"
-msgstr ""
+msgstr "అమ్మకందారి (వెండార్)"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:444
 msgid "Release"
-msgstr ""
+msgstr "విడుదల"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:460
 msgid "Are you sure that you do not want a log message?"
-msgstr ""
+msgstr "మీరు ఖచ్చితంగా లాగ్ సందేశం వద్దు అనుకుంటున్నారా?"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:125
 msgid "CVS command failed. See above for details"
-msgstr ""
+msgstr "CVS ఆదేశం ఫెయిల్ అయినది. వివరాలు కొరకు పైన చూడండి"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:130
 #, c-format
 msgid "CVS command successful! Time taken: %ld second"
 msgid_plural "CVS command successful! Time taken: %ld seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "CVS ఆదేశం విజయవంతమైనది!%ld:సెకను సమయం పట్టినది"
+msgstr[1] "CVS ఆదేశం విజయవంతమైనది!%ld:సెకనుల సమయం పట్టినది"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running — please wait until it finishes!"
-msgstr ""
+msgstr "CVS ఆదేశం నడుస్తున్నది — అది పూర్తి అయ్యేవరకు వేచి ఉండండి"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:474
 #: ../plugins/cvs-plugin/plugin.c:481
 msgid "CVS"
-msgstr ""
+msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:46 ../plugins/cvs-plugin/plugin.c:121
 msgid "_CVS"
-msgstr ""
+msgstr "CVS(_C)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:54
 msgid "_Add"
-msgstr ""
+msgstr "జతచేయు(_A)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:56
 msgid "Add a new file/directory to the CVS tree"
-msgstr ""
+msgstr "CVS వృక్షానికి దస్త్రము/డైరెక్టరీని జత చేయండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:62
 msgid "_Remove"
-msgstr ""
+msgstr "తీసివేయి (_R)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:64
 msgid "Remove a file/directory from CVS tree"
-msgstr ""
+msgstr "CVS వృక్షానికి దస్త్రము/డైరెక్టరీని తొలగించండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "_Commit"
-msgstr ""
+msgstr "కమిట్ (_C)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:72 ../plugins/cvs-plugin/plugin.c:131
 msgid "Commit your changes to the CVS tree"
-msgstr ""
+msgstr "CVS వృక్షానికి మీ మార్పులను కమిట్ చేయండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:54
 msgid "_Update"
-msgstr ""
+msgstr "నవీకరించు (_U)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:80 ../plugins/cvs-plugin/plugin.c:139
 msgid "Syncronize your local copy with the CVS tree"
-msgstr ""
+msgstr "CVS వృక్షానికి మీ లోకల్ కాపీని అనుగుణంగా చేయండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "_Diff"
-msgstr ""
+msgstr "తేడా(_D)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:88 ../plugins/cvs-plugin/plugin.c:147
 msgid "Show differences between your local copy and the tree"
-msgstr ""
+msgstr "మీ లోకల్ కాపీ కి మరియు వృక్షానికి తేడాలు చూపించండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "_Show Status"
-msgstr ""
+msgstr "స్థాయిని చూపండి(_S)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:96 ../plugins/cvs-plugin/plugin.c:155
 msgid "Show the status of a file/directory"
-msgstr ""
+msgstr "దస్త్రము/డైరెక్టరీ యొక్క స్థాయిని చూడండి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "_Show Log"
-msgstr ""
+msgstr "లాగ్ ను చూపుము(_S)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:104 ../plugins/cvs-plugin/plugin.c:163
 msgid "Show the log of a file/directory"
-msgstr ""
+msgstr "దస్త్రము/డైరెక్టరీ యొక్క లాగ్ ను చూపుము"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:110
 msgid "_Import Tree"
-msgstr ""
+msgstr "వృక్షాన్ని దిగుమతి చేయండి(_I)"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:112
 msgid "Import a new source tree to CVS"
-msgstr ""
+msgstr "CVS కు జనక వృక్షాన్ని దిగుమతి చేయండి"
 
 #: ../plugins/cvs-plugin/plugin.c:362
 msgid "CVS operations"
-msgstr ""
+msgstr "CVS కార్యాలు"
 
 #: ../plugins/cvs-plugin/plugin.c:368
 msgid "CVS popup operations"
-msgstr ""
+msgstr "CVS పాప్ అప్ కార్యాలు"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
 msgid "CLang Paths"
-msgstr ""
+msgstr "CLang దారులు"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
 msgid "Enable CLang code analyzer"
-msgstr ""
+msgstr "CLang కోడ్ వెతుకు సాధనాన్ని ఉనికి లోనికి తెమ్ము"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
 msgid ""
 "The project needs to be reconfigured after enabling this option. Please run "
 "Build->Configure!"
 msgstr ""
+"ఈ అభి లక్షణాన్ని ఎంచుకున్న తర్వాత , ప్రాజెక్టు పునఃస్థాపన అవసరం ఉన్నది.దయచేసి Build->Configure "
+"ఆదేశాన్ని నడపండి"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:5
 msgid "c++-analyzer:"
-msgstr ""
+msgstr "c++-విశ్లేషణ కారి"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "ccc-analyzer:"
-msgstr ""
+msgstr "ccc-విశ్లేషణ కారి"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
 "paths are configured correctly in the preferences"
 msgstr ""
+"క్లాంగ్ విశ్లేషణ కారి ని కనుగొనలేకపోయింది, దయచేసి అది ఇన్ స్టాల్ మరియుదాని అభిలక్షణాలు సరిగా అమరి వున్నాయో "
+"చూడండి"
 
 #: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
 msgid "CLang Analyzer"
-msgstr ""
+msgstr "CLang విశ్లేషణ కారి"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:1
 msgid ""
@@ -1929,350 +1968,350 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
 msgid "Add Watch"
-msgstr ""
+msgstr "వాచ్ ను జత చేయండి"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
 msgid "Address:"
-msgstr ""
+msgstr "చిరునామా:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 msgid "Attach to process"
-msgstr ""
+msgstr "పధ్ధతికి జత చేయండి"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:7
 msgid "Breakpoint properties"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ అభి లక్షణాలు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
 #: ../plugins/debug-manager/breakpoints.c:2027
 msgid "Breakpoints"
-msgstr ""
+msgstr "నిలుపు బిందువులు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:9
 msgid "CPU Registers"
-msgstr ""
+msgstr "CPU రిజిస్టరులు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
 msgid "Change Watch"
-msgstr ""
+msgstr "వాచ్ ను మార్చుము"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 msgid "Connect to remote target"
-msgstr ""
+msgstr "దూరంగా ఉన్న లక్ష్యాన్ని కలుపుము"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
 msgid "Debugger command"
-msgstr ""
+msgstr "దోషాన్ని చూసే ఆదేశం"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:13
 msgid "Debugger command:"
-msgstr ""
+msgstr "దోషాన్ని చూసే ఆదేశం:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:14
 msgid "Debugger:"
-msgstr ""
+msgstr "డీబగ్గర్:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
 msgid "Description:"
-msgstr ""
+msgstr "వివరణ:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:16
 msgid "Disable"
-msgstr ""
+msgstr "ఉనికి లేదు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:17
 msgid "Display process _tree"
-msgstr ""
+msgstr "పధ్ధతి వృక్షాన్ని చూపుము(_t)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:18
 msgid "Do not show again"
-msgstr ""
+msgstr "మళ్ళీ చూపొద్దు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
 msgid "Enable _all"
-msgstr ""
+msgstr "అన్నీ ఉనికి లోనికి తెమ్ము(_a)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:20
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr ""
+msgstr "చిరునామాను హెక్సాడెసిమల్ లేదా ఒక డాటాగా ఎంటర్ చేయుము"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:21
 msgid "Hide process para_meters"
-msgstr ""
+msgstr "పద్దతి పెరామీటరును కప్పి ఉంచు(_m)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:22
 msgid "Inspect"
-msgstr ""
+msgstr "పరీక్షించు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:23
 msgid "Inspect/Evaluate"
-msgstr ""
+msgstr "పరీక్షించు/చూడు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:24
 #: ../plugins/debug-manager/plugin.c:949
 #: ../plugins/debug-manager/plugin.c:1041
 msgid "Kernel Signals"
-msgstr ""
+msgstr "కెర్నల్ సంకేతాలు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
 #: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Location"
-msgstr ""
+msgstr "స్థానము"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
 #: ../plugins/debug-manager/memory.c:180
 msgid "Memory"
-msgstr ""
+msgstr "మెమొరి"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:27
 msgid "Pass:"
-msgstr ""
+msgstr "ఉత్తీర్ణత:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:28
 msgid "Port:"
-msgstr ""
+msgstr "పోర్టు:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:29
 msgid "Print:"
-msgstr ""
+msgstr "ముద్రణ:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:30
 msgid "Program Interrupt"
-msgstr ""
+msgstr "ప్రొగ్రాం మధ్యలో వచ్చునది"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:31
 msgid "Remote debugging"
-msgstr ""
+msgstr "దూర దోష నివారిణి"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:32
 msgid "SIGINT"
-msgstr ""
+msgstr "SIGINT"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:33
 msgid "Select one directory"
-msgstr ""
+msgstr "ఒక డైరెక్టరీని ఎంచుకొను"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:34
 msgid "Serial Line Connection"
-msgstr ""
+msgstr "శ్రేణీ సంధాన కలయిక"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:35
 msgid "Set Signal Property"
-msgstr ""
+msgstr "సంకేత లక్షణాన్ని పూరింపుము"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:36
 #: ../plugins/debug-manager/sharedlib.c:214
 msgid "Shared libraries"
-msgstr ""
+msgstr "గ్రంధాలయాన్ని పంచుకొను"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:37
 msgid "Signal:"
-msgstr ""
+msgstr "సంకేతం:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:38
 msgid "Source Directories"
-msgstr ""
+msgstr "జనక డైరెక్టరీలు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:39
 msgid "Start Debugger"
-msgstr ""
+msgstr "దోష నివారణ ను మొదలు పెట్టు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:40
 msgid "Stop:"
-msgstr ""
+msgstr "ఆగును:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:41
 msgid "TCP/IP Connection"
-msgstr ""
+msgstr "TCP/IP అనుసంధానం"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:42
 msgid "Yes"
-msgstr ""
+msgstr "అవును"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:43
 msgid "_Attach"
-msgstr ""
+msgstr "అతుకుము(_A)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:44
 msgid "_Automatic update"
-msgstr ""
+msgstr "స్వయం చాలకంగా తాజాపరుచు"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:45
 msgid "_Condition:"
-msgstr ""
+msgstr "పరిస్థితి(_C)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:46
 msgid "_Disable all"
-msgstr ""
+msgstr "అన్నిటినీ నిరుపయోగ పరుచు(_D)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:47
 msgid "_Hide paths"
-msgstr ""
+msgstr "దారులను కనపడకుండా చేయు(_H)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:48
 msgid "_Location:"
-msgstr ""
+msgstr "స్థానము(_L):"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:49
 msgid "_Name:"
-msgstr ""
+msgstr "నామము(_N):"
 
 #. This is the number of time that the program executes the line where a breakpoint is located. It is used as a list header, so I have tried to find a quite short name.
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:51
 msgid "_Pass count:"
-msgstr ""
+msgstr "ఉత్తీర్ణత అయిన మొత్తము(_P)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid "_Process to attach to:"
-msgstr ""
+msgstr "జత చేయడానికి పద్దతి(_P)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:53
 msgid "_Remove all"
-msgstr ""
+msgstr "అన్నింటినీ తొలగించు(_R)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
 msgid "_Value:"
-msgstr ""
+msgstr "విలువ (_V):"
 
 #: ../plugins/debug-manager/breakpoints.c:1718
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr ""
+msgstr "అన్ని బ్రేక్ పాయింట్స్ ను ఖచ్చితంగా తొలగించాలనుకుంటున్నార?"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1815
 msgid "_Breakpoints"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్స్(_B)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1823
 msgid "Toggle Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ చివరి సూచిక"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1825
 msgid "Toggle breakpoint at the current location"
-msgstr ""
+msgstr "ఈ ప్రస్తుత ప్రదేశంలో బ్రేక్ పాయింట్ నిలుపును"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1831
 msgid "Add Breakpoint…"
-msgstr ""
+msgstr "నిలుపు బిందువులు..."
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1833
 msgid "Add a breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ ను జత చేయుము"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1839
 msgid "Remove Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ ను జత చేయుము"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1841
 msgid "Remove a breakpoint"
-msgstr ""
+msgstr "ఒక బ్రేక్ పాయింట్ ను జత చేయుము"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1847
 msgid "Edit Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ ను ఎడిట్ చేయుము"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1849
 msgid "Edit breakpoint properties"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ ను జత చేయు లక్షణాలు"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1855
 #: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ ను వినియోగపరుచు"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1857
 #: ../plugins/debug-manager/breakpoints.c:1927
 msgid "Enable a breakpoint"
-msgstr ""
+msgstr "ఒక బ్రేక్ పాయింట్ ను వినియోగపరుచు"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1863
 msgid "Disable All Breakpoints"
-msgstr ""
+msgstr "అన్ని బ్రేక్ పాయింట్ లను నిరుపయోగ పరుచు"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1865
 msgid "Deactivate all breakpoints"
-msgstr ""
+msgstr "అన్ని బ్రేక్ పాయింట్ లను నిరుపయోగ పరుచు"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1871
 msgid "R_emove All Breakpoints"
-msgstr ""
+msgstr "అన్ని బ్రేక్ పాయింట్ లను తొలగించు(_e)"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Remove all breakpoints"
-msgstr ""
+msgstr "అన్ని బ్రేక్ పాయింట్ లను తొలగించు"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1882
 msgid "Jump to Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ కు గెంతుము "
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1884
 msgid "Jump to breakpoint location"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ చోటుకు గెంతుము "
 
 #: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable Breakpoint"
-msgstr ""
+msgstr "బ్రేక్ పాయింట్ నిరుపయోగ పరుచు"
 
 #: ../plugins/debug-manager/breakpoints.c:1922
 msgid "Disable a breakpoint"
-msgstr ""
+msgstr "ఒక బ్రేక్ పాయింట్ నిరుపయోగ పరుచు"
 
 #. This enable an user defined command
 #: ../plugins/debug-manager/breakpoints.c:1954
 #: ../plugins/tools/anjuta-tools.ui.h:6
 msgid "Enabled"
-msgstr ""
+msgstr "క్రియాశీలీకరించిన"
 
 #: ../plugins/debug-manager/breakpoints.c:1954
 #: ../plugins/debug-manager/stack_trace.c:700
 #: ../plugins/debug-manager/threads.c:481
 msgid "Address"
-msgstr ""
+msgstr "చిరునామా"
 
 #: ../plugins/debug-manager/breakpoints.c:1955
 msgid "Condition"
-msgstr ""
+msgstr "స్థితి"
 
 #: ../plugins/debug-manager/breakpoints.c:1955
 msgid "Pass count"
-msgstr ""
+msgstr "ఉత్తీర్ణమైన మొత్తము"
 
 #: ../plugins/debug-manager/breakpoints.c:1955
 msgid "State"
-msgstr ""
+msgstr "స్థితి"
 
 #: ../plugins/debug-manager/breakpoints.c:2004
 #: ../plugins/debug-manager/breakpoints.c:2010
@@ -2283,33 +2322,33 @@ msgstr ""
 #: ../plugins/debug-manager/data_view.c:392
 #: ../plugins/debug-manager/sparse_view.c:500
 msgid "_Go to address"
-msgstr ""
+msgstr "చిరునామా దరికి చేరుము(_G)"
 
 #: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:470
 msgid "Variable"
-msgstr ""
+msgstr "చరరాశి"
 
 #: ../plugins/debug-manager/disassemble.c:851
 msgid "Disassembly"
-msgstr ""
+msgstr "డిస్ అసెంబ్లీ "
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #: ../plugins/project-wizard/druid.c:138
 msgid "Information"
-msgstr ""
+msgstr "సమాచారం"
 
 #: ../plugins/debug-manager/info.c:127
 msgid "Lines"
-msgstr ""
+msgstr "గీతలు"
 
 #. This is the list of local variables.
 #: ../plugins/debug-manager/locals.c:102
 msgid "Locals"
-msgstr ""
+msgstr "లొకేల్స్"
 
 #: ../plugins/debug-manager/plugin.c:339
 msgid "Debugger Log"
-msgstr ""
+msgstr "దోష నివారణ లాగ్"
 
 #: ../plugins/debug-manager/plugin.c:412 ../plugins/debug-manager/plugin.c:434
 #: ../plugins/debug-manager/plugin.c:459 ../plugins/debug-manager/plugin.c:486
@@ -2320,198 +2359,198 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:412
 msgid "Started"
-msgstr ""
+msgstr "మొదలుపెట్టబడినది"
 
 #: ../plugins/debug-manager/plugin.c:434
 msgid "Loaded"
-msgstr ""
+msgstr "ఎగుమతి"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:455
 #: ../plugins/debug-manager/plugin.c:1053
 msgid "Pa_use Program"
-msgstr ""
+msgstr "నిరీక్షణ ప్రోగ్రాం(_u)"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:456
 #: ../plugins/debug-manager/plugin.c:1055
 msgid "Pauses the execution of the program"
-msgstr ""
+msgstr "అమలు అవుతున్న ప్రొగ్రాం అమలు నిరీక్షించు చున్నది"
 
 #: ../plugins/debug-manager/plugin.c:459
 msgid "Running…"
-msgstr ""
+msgstr "నడుచుచున్నది..."
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:482 ../plugins/debug-manager/plugin.c:969
 msgid "Run/_Continue"
-msgstr ""
+msgstr "నడచు/పూర్తవుతూ(_C)"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:483 ../plugins/debug-manager/plugin.c:971
 msgid "Continue the execution of the program"
-msgstr ""
+msgstr "నడుస్తున్న ప్రోగ్రాం పూర్తవుతున్నది"
 
 #: ../plugins/debug-manager/plugin.c:486
 msgid "Stopped"
-msgstr ""
+msgstr "ఆపబడినది"
 
 #: ../plugins/debug-manager/plugin.c:520
 msgid "Unloaded"
-msgstr ""
+msgstr "దిగుమతి"
 
 #: ../plugins/debug-manager/plugin.c:562
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
-msgstr ""
+msgstr "దోషము %d: %s తోదోష నివారణ ఆపబడినది\n"
 
 #: ../plugins/debug-manager/plugin.c:575
 #, c-format
 msgid "Program has received signal: %s\n"
-msgstr ""
+msgstr "ప్రోగ్రాం %s సంకేతాన్ని పొందినది\n"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:865
 msgid "_Debug"
-msgstr ""
+msgstr "దోష నివారిణి (_D)"
 
 #: ../plugins/debug-manager/plugin.c:873
 msgid "_Start Debugger"
-msgstr ""
+msgstr "దోష నివారిణ మొదలు అయినది(_S)"
 
 #: ../plugins/debug-manager/plugin.c:881
 msgid "_Debug Program"
-msgstr ""
+msgstr "ప్రోగ్రాం దోష నివారిణ కాబడుతున్నది(_D)"
 
 #: ../plugins/debug-manager/plugin.c:883
 msgid "Start debugger and load the program"
-msgstr ""
+msgstr "దోష నివారిణి మొదలు అయినది మరియు ప్రోగ్రాం  దిగుమతి అవుతున్నరి"
 
 #: ../plugins/debug-manager/plugin.c:889
 msgid "_Debug Process…"
-msgstr ""
+msgstr "దోష నివారణ పధ్ధతి"
 
 #: ../plugins/debug-manager/plugin.c:891
 msgid "Start debugger and attach to a running program"
-msgstr ""
+msgstr "దోష నివారణ మొదలు అయినది మరియు నడుస్తున్న ప్రోగ్రాం నకు జత చేయబడినది"
 
 #: ../plugins/debug-manager/plugin.c:897
 msgid "Debug _Remote Target…"
-msgstr ""
+msgstr "దూర లక్ష్యానికి దోష నివారణ (_R)"
 
 #: ../plugins/debug-manager/plugin.c:899
 msgid "Connect to a remote debugging target"
-msgstr ""
+msgstr "దూరంగా గల దోష నివారణ లక్ష్యాన్ని అనుసంధానించుము"
 
 #: ../plugins/debug-manager/plugin.c:905
 msgid "Stop Debugger"
-msgstr ""
+msgstr "దోష నివారణను ఆపుము"
 
 #: ../plugins/debug-manager/plugin.c:907
 msgid "Say goodbye to the debugger"
-msgstr ""
+msgstr "దోష నివారణకారికి వీడ్కోలు చెప్పు"
 
 #: ../plugins/debug-manager/plugin.c:913
 msgid "Add source paths…"
-msgstr ""
+msgstr "జనక దారులును జత చేయుము"
 
 #: ../plugins/debug-manager/plugin.c:915
 msgid "Add additional source paths"
-msgstr ""
+msgstr "తరువాతి జనక దారులును జత చేయుము"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:925
 #: ../plugins/debug-manager/plugin.c:1017
 msgid "Debugger Command…"
-msgstr ""
+msgstr "దోష నివారణకారి ఆదేశం..."
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:927
 #: ../plugins/debug-manager/plugin.c:1019
 msgid "Custom debugger command"
-msgstr ""
+msgstr "దోష నివారణకారి ఆదేశమును మలుచుకొను"
 
 #: ../plugins/debug-manager/plugin.c:933
 #: ../plugins/debug-manager/plugin.c:1025
 msgid "_Info"
-msgstr ""
+msgstr "సమాచారము(_I)"
 
 #: ../plugins/debug-manager/plugin.c:941
 #: ../plugins/debug-manager/plugin.c:1033
 msgid "Shared Libraries"
-msgstr ""
+msgstr "పంచుకొను గ్రంధాలయాలు"
 
 #: ../plugins/debug-manager/plugin.c:943
 #: ../plugins/debug-manager/plugin.c:1035
 msgid "Show shared library mappings"
-msgstr ""
+msgstr "పంచుకొను గ్రంధాలయాల జతచేయుటను చూపుము"
 
 #: ../plugins/debug-manager/plugin.c:951
 #: ../plugins/debug-manager/plugin.c:1043
 msgid "Show kernel signals"
-msgstr ""
+msgstr "కెర్నల్ సూచికలను చూపుము"
 
 #: ../plugins/debug-manager/plugin.c:957
 msgid "_Continue/Suspend"
-msgstr ""
+msgstr "కొనసాగించు/ఆపుము(_C)"
 
 #: ../plugins/debug-manager/plugin.c:959
 msgid "Continue or suspend the execution of the program"
-msgstr ""
+msgstr "ప్రోగ్రాం  నిర్వర్తనను కొనసాగించు లేదాఆపుము"
 
 #: ../plugins/debug-manager/plugin.c:977
 msgid "Step _In"
-msgstr ""
+msgstr "అడుగు లోపలికి"
 
 #: ../plugins/debug-manager/plugin.c:979
 msgid "Single step into function"
-msgstr ""
+msgstr "ఒక అడుగు ఫంక్షను లోనికి"
 
 #: ../plugins/debug-manager/plugin.c:985
 msgid "Step O_ver"
-msgstr ""
+msgstr "ఒక అడుగు మీదకు"
 
 #: ../plugins/debug-manager/plugin.c:987
 msgid "Single step over function"
-msgstr ""
+msgstr "ఒక అడుగు ఫంక్షను మీదకు"
 
 #: ../plugins/debug-manager/plugin.c:993
 msgid "Step _Out"
-msgstr ""
+msgstr "అడుగు బయటకు"
 
 #: ../plugins/debug-manager/plugin.c:995
 msgid "Single step out of function"
-msgstr ""
+msgstr "ఒక అడుగు ఫంక్షన్ బయటకు"
 
 #: ../plugins/debug-manager/plugin.c:1001
 msgid "_Run to Cursor"
-msgstr ""
+msgstr "ములుకు వద్దకు నడువుము(_R)"
 
 #: ../plugins/debug-manager/plugin.c:1003
 msgid "Run to the cursor"
-msgstr ""
+msgstr "ములుకు వద్దకు నడువుము"
 
 #: ../plugins/debug-manager/plugin.c:1009
 msgid "_Run from Cursor"
-msgstr ""
+msgstr "ములుకు వద్ద నుండి నడువుము(_R)"
 
 #: ../plugins/debug-manager/plugin.c:1011
 msgid "Run from the cursor"
-msgstr ""
+msgstr "ములుకు వద్ద నుండి నడువుము"
 
 #: ../plugins/debug-manager/plugin.c:1095
 #: ../plugins/debug-manager/plugin.c:1101
 #: ../plugins/debug-manager/plugin.c:1107
 #: ../plugins/debug-manager/plugin.c:1113
 msgid "Debugger operations"
-msgstr ""
+msgstr "దోషనివారణకారి కార్యాలు"
 
 #: ../plugins/debug-manager/queue.c:516
 #, c-format
@@ -2520,62 +2559,62 @@ msgstr ""
 
 #: ../plugins/debug-manager/registers.c:462
 msgid "Register"
-msgstr ""
+msgstr "రిజిస్టర్"
 
 #: ../plugins/debug-manager/registers.c:489
 msgid "Registers"
-msgstr ""
+msgstr "రిజిస్టర్స్"
 
 #: ../plugins/debug-manager/sharedlib.c:144
 #: ../plugins/debug-manager/signals.c:332
 msgid "Update"
-msgstr ""
+msgstr "తాజాపరచు"
 
 #: ../plugins/debug-manager/sharedlib.c:166
 msgid "Shared Object"
-msgstr ""
+msgstr "పంపకం అయిన ఆబ్జెక్ట్ "
 
 #: ../plugins/debug-manager/sharedlib.c:173
 msgid "From"
-msgstr ""
+msgstr "నుండి"
 
 #: ../plugins/debug-manager/sharedlib.c:180
 msgid "To"
-msgstr ""
+msgstr "కు"
 
 #: ../plugins/debug-manager/sharedlib.c:187
 msgid "Symbols read"
-msgstr ""
+msgstr "సూచికలను చదువునది"
 
 #: ../plugins/debug-manager/sharedlib.c:341
 msgid "Shared library operations"
-msgstr ""
+msgstr "గ్రంధాలయ కార్యాలను పంపకమైనది"
 
 #: ../plugins/debug-manager/signals.c:291
 msgid "Signal"
-msgstr ""
+msgstr "సైగలు"
 
 #: ../plugins/debug-manager/signals.c:297
 msgid "Stop"
-msgstr ""
+msgstr "ఆపుము"
 
 #: ../plugins/debug-manager/signals.c:298
 msgid "Print"
-msgstr ""
+msgstr "ముద్రణ"
 
 #: ../plugins/debug-manager/signals.c:299
 msgid "Pass"
-msgstr ""
+msgstr "ఉత్తీర్ణమైనది"
 
 #: ../plugins/debug-manager/signals.c:302
 msgid "Description"
-msgstr ""
+msgstr "వివరణ"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/signals.c:321
 msgid "Send to process"
-msgstr ""
+msgstr "క్రమగతి కి పంపుము"
 
 #: ../plugins/debug-manager/signals.c:355
 msgid "Kernel signals"
@@ -2588,11 +2627,11 @@ msgstr ""
 
 #: ../plugins/debug-manager/sparse_view.c:1237
 msgid "Show Line Numbers"
-msgstr ""
+msgstr "వరుస సంఖ్యలను చూపుము"
 
 #: ../plugins/debug-manager/sparse_view.c:1238
 msgid "Whether to display line numbers"
-msgstr ""
+msgstr "వరుస సంఖ్యలను ప్రదర్శించవలెనా"
 
 #: ../plugins/debug-manager/sparse_view.c:1245
 msgid "Show Line Markers"
@@ -2620,11 +2659,11 @@ msgstr ""
 #: ../plugins/debug-manager/stack_trace.c:633
 #: ../plugins/debug-manager/threads.c:426
 msgid "Active"
-msgstr ""
+msgstr "క్రియాశీల"
 
 #: ../plugins/debug-manager/stack_trace.c:644
 msgid "Frame"
-msgstr ""
+msgstr "చట్రం"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:664
@@ -2633,18 +2672,18 @@ msgstr ""
 #: ../src/anjuta-app.c:625
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
-msgstr ""
+msgstr "దస్త్రం"
 
 #: ../plugins/debug-manager/stack_trace.c:675
 #: ../plugins/debug-manager/threads.c:460
 #: ../plugins/document-manager/plugin.c:997
 msgid "Line"
-msgstr ""
+msgstr "వరుస"
 
 #: ../plugins/debug-manager/stack_trace.c:686
 #: ../plugins/debug-manager/threads.c:469
 msgid "Function"
-msgstr ""
+msgstr "కార్యం"
 
 #: ../plugins/debug-manager/stack_trace.c:736
 msgid "Stack"
@@ -2660,15 +2699,15 @@ msgstr ""
 
 #: ../plugins/debug-manager/start.c:97
 msgid "User"
-msgstr ""
+msgstr "వినియోగదారు"
 
 #: ../plugins/debug-manager/start.c:97
 msgid "Time"
-msgstr ""
+msgstr "సమయము"
 
 #: ../plugins/debug-manager/start.c:97
 msgid "Command"
-msgstr ""
+msgstr "ఆదేశము"
 
 #: ../plugins/debug-manager/start.c:629
 #, c-format
@@ -2692,7 +2731,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/start.c:1340
 msgid "Path"
-msgstr ""
+msgstr "త్రోవ"
 
 #: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
 msgid ""
@@ -2712,7 +2751,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/threads.c:506
 msgid "Thread"
-msgstr ""
+msgstr "తంతి"
 
 #: ../plugins/debug-manager/threads.c:616
 msgid "Thread operations"
@@ -2736,7 +2775,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
-msgstr ""
+msgstr "నిఘా తొలగించు"
 
 #: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
@@ -2806,17 +2845,18 @@ msgid "Help operations"
 msgstr ""
 
 #: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
+#, fuzzy
 msgid "API Browser"
-msgstr ""
+msgstr "అన్వేషణ..."
 
 #: ../plugins/devhelp/plugin.c:364
 msgid "Contents"
-msgstr ""
+msgstr "సారములు"
 
 #: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2130
 #: ../plugins/symbol-db/plugin.c:2182
 msgid "Search"
-msgstr ""
+msgstr "వెతుకు"
 
 #: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
 msgid "API"
@@ -2831,11 +2871,12 @@ msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:323
 msgid "_Reload"
-msgstr ""
+msgstr "తిరిగిలోడుచేయి (_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:334
+#, fuzzy
 msgid "Add bookmark"
-msgstr ""
+msgstr "గుర్తును జతచేయి (_A)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 msgid "Remove bookmark"
@@ -2845,17 +2886,18 @@ msgstr ""
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
 #: ../plugins/document-manager/plugin.c:449
 msgid "Bookmarks"
-msgstr ""
+msgstr "పుస్తకచిహ్నాలు"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:362
+#, fuzzy
 msgid "Rename"
-msgstr ""
+msgstr "పునఃనామకరణ (_R)"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:363
 #: ../plugins/git/plugin.c:178
 #: ../plugins/snippets-manager/snippets-editor.ui.h:10
 msgid "Remove"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/document-manager/anjuta-docman.c:454
 msgid "Close file"
@@ -2864,18 +2906,18 @@ msgstr ""
 #: ../plugins/document-manager/anjuta-docman.c:502
 #: ../plugins/project-manager/dialogs.c:611
 msgid "Path:"
-msgstr ""
+msgstr "త్రోవ:"
 
 #: ../plugins/document-manager/anjuta-docman.c:622
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
-msgstr ""
+msgstr "దస్త్రం తెరువుము"
 
 #: ../plugins/document-manager/anjuta-docman.c:641
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
-msgstr ""
+msgstr "దస్త్రమును ఇలా దాయుము"
 
 #: ../plugins/document-manager/anjuta-docman.c:722
 #, c-format
@@ -2886,7 +2928,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-docman.c:731
 msgid "_Replace"
-msgstr ""
+msgstr "పునఃస్థాపించు(_R)"
 
 #: ../plugins/document-manager/anjuta-docman.c:1449
 msgid "[read-only]"
@@ -2898,16 +2940,18 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
+#, fuzzy
 msgid "Bottom"
-msgstr ""
+msgstr "జూమ్"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:3
 msgid "Do not show tabs"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:4
+#, fuzzy
 msgid "Editor tabs"
-msgstr ""
+msgstr "సంపాదకుడు"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:5
 msgid "Enable files autosave"
@@ -2920,12 +2964,13 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:7
 msgid "Position:"
-msgstr ""
+msgstr "స్థానము:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
+#, fuzzy
 msgid "Right"
-msgstr ""
+msgstr "అధిక"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:9
 msgid "Save files interval in minutes"
@@ -2949,24 +2994,26 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
+#, fuzzy
 msgid "Top"
-msgstr ""
+msgstr "కు"
 
 #: ../plugins/document-manager/plugin.c:151
 msgid "_Save"
-msgstr ""
+msgstr "దాచు (_S)"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Save current file"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:153
+#, fuzzy
 msgid "Save _As…"
-msgstr ""
+msgstr "ఇలా దాయుము (_A)..."
 
 #: ../plugins/document-manager/plugin.c:154
 msgid "Save the current file with a different name"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రాన్ని వేరే పేరుతో దాయుము"
 
 #: ../plugins/document-manager/plugin.c:156
 msgid "Save A_ll"
@@ -2997,8 +3044,9 @@ msgid "Close Others"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:166
+#, fuzzy
 msgid "Close other documents"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రాన్ని మూయుము"
 
 #: ../plugins/document-manager/plugin.c:168
 msgid "Reload F_ile"
@@ -3013,20 +3061,22 @@ msgid "Recent _Files"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:175
+#, fuzzy
 msgid "_Print…"
-msgstr ""
+msgstr "ముద్రణ"
 
 #: ../plugins/document-manager/plugin.c:176
 msgid "Print the current file"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రమును ముద్రించు"
 
 #: ../plugins/document-manager/plugin.c:183
 msgid "_Print Preview"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:184
+#, fuzzy
 msgid "Preview the current file in print format"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రాన్ని వేరే పేరుతో దాయుము"
 
 #: ../plugins/document-manager/plugin.c:189
 msgid "_Transform"
@@ -3083,11 +3133,11 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:211
 msgid "_Select"
-msgstr ""
+msgstr "ఎంచుకొను (_S)"
 
 #: ../plugins/document-manager/plugin.c:213
 msgid "Select _All"
-msgstr ""
+msgstr "అన్నింటిని ఎంపిక చేయు (_A)"
 
 #: ../plugins/document-manager/plugin.c:214
 msgid "Select all text in the editor"
@@ -3139,8 +3189,9 @@ msgstr ""
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:244
+#, fuzzy
 msgid "_Line Number…"
-msgstr ""
+msgstr "వరుస సంఖ్యలను చూపుము"
 
 #: ../plugins/document-manager/plugin.c:245
 msgid "Go to a particular line in the editor"
@@ -3175,20 +3226,22 @@ msgid "Previous _History"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:257
+#, fuzzy
 msgid "Go to previous history"
-msgstr ""
+msgstr "చేసింది రద్దు చరిత్రలోకి వెళ్ళుము"
 
 #: ../plugins/document-manager/plugin.c:259
 msgid "Next Histor_y"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:260
+#, fuzzy
 msgid "Go to next history"
-msgstr ""
+msgstr "చేసింది రద్దు చరిత్రలోకి వెళ్ళుము"
 
 #: ../plugins/document-manager/plugin.c:265
 msgid "_Search"
-msgstr ""
+msgstr "వెతుకు(_S)"
 
 #: ../plugins/document-manager/plugin.c:266
 msgid "_Quick Search"
@@ -3200,15 +3253,16 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:269
 msgid "Find _Next"
-msgstr ""
+msgstr "తువాతది కనుగొనుము (_N)"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Search for next appearance of term."
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:272
+#, fuzzy
 msgid "Find and R_eplace…"
-msgstr ""
+msgstr "వెతుకుట & పునఃస్థాపించు"
 
 #: ../plugins/document-manager/plugin.c:273
 msgid "Search and replace"
@@ -3216,49 +3270,55 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:275
 msgid "Find _Previous"
-msgstr ""
+msgstr "మునుపటిది కనుగొనుము(_P)"
 
 #: ../plugins/document-manager/plugin.c:277
 msgid "Repeat the last Find command"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:279
+#, fuzzy
 msgid "Clear Highlight"
-msgstr ""
+msgstr "ఉద్దీపన విధం(_H)"
 
 #: ../plugins/document-manager/plugin.c:280
 msgid "Clear all highlighted text"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:286
+#, fuzzy
 msgid "Case Sensitive"
-msgstr ""
+msgstr "స్పందితము"
 
 #: ../plugins/document-manager/plugin.c:287
 msgid "Match case in search results."
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:290
+#, fuzzy
 msgid "Highlight All"
-msgstr ""
+msgstr "ఉద్దీపన విధం(_H)"
 
 #: ../plugins/document-manager/plugin.c:291
+#, fuzzy
 msgid "Highlight all occurrences"
-msgstr ""
+msgstr "ప్రస్తుత వరుసను ఉద్దీపనం చేయుము"
 
 #: ../plugins/document-manager/plugin.c:294
+#, fuzzy
 msgid "Regular Expression"
-msgstr ""
+msgstr "క్రమబద్ద వ్యక్తీకరణ"
 
 #: ../plugins/document-manager/plugin.c:295
+#, fuzzy
 msgid "Search using regular expressions"
-msgstr ""
+msgstr "క్రమబద్ద వ్యక్తీకరణ"
 
 #: ../plugins/document-manager/plugin.c:301 ../src/anjuta-actions.h:30
 #: ../plugins/language-support-cpp-java/plugin.c:1197
 #: ../plugins/language-support-python/plugin.c:451
 msgid "_Edit"
-msgstr ""
+msgstr "_సరిచేయు"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:302
@@ -3287,19 +3347,19 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:316
 msgid "Undo the last action"
-msgstr ""
+msgstr "గత కార్యమును రద్దు చేయు"
 
 #: ../plugins/document-manager/plugin.c:318
 msgid "_Redo"
-msgstr ""
+msgstr "మళ్ళీచేయి (_R)"
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "Redo the last undone action"
-msgstr ""
+msgstr "చివరిలో రద్దు చేసిన చర్యను మళ్ళా చేయు"
 
 #: ../plugins/document-manager/plugin.c:321
 msgid "C_ut"
-msgstr ""
+msgstr "కోయుము(_u)"
 
 #: ../plugins/document-manager/plugin.c:322
 msgid "Cut the selected text from the editor to the clipboard"
@@ -3309,15 +3369,15 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/document-manager/plugin.c:324 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
-msgstr ""
+msgstr "నకలు (_C)"
 
 #: ../plugins/document-manager/plugin.c:325
 msgid "Copy the selected text to the clipboard"
-msgstr ""
+msgstr "ఎంపిక చేసిన పాఠంను క్లిప్ బోర్డ్ నకు నకలు చేయి"
 
 #: ../plugins/document-manager/plugin.c:327 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
-msgstr ""
+msgstr "అతికించు (_P)"
 
 #: ../plugins/document-manager/plugin.c:328
 msgid "Paste the content of clipboard at the current position"
@@ -3325,15 +3385,16 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:336
 msgid "_Clear"
-msgstr ""
+msgstr "శుబ్రం చేయు(_C)"
 
 #: ../plugins/document-manager/plugin.c:337
 msgid "Delete the selected text from the editor"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:340
+#, fuzzy
 msgid "_Auto-Complete"
-msgstr ""
+msgstr "పూర్తిచేయబడిన"
 
 #: ../plugins/document-manager/plugin.c:341
 msgid "Auto-complete the current word"
@@ -3397,7 +3458,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:371
 msgid "Zoom In"
-msgstr ""
+msgstr "లోపలకు జూమ్ చేయి"
 
 #: ../plugins/document-manager/plugin.c:372
 msgid "Zoom in: Increase font size"
@@ -3405,7 +3466,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:374
 msgid "Zoom Out"
-msgstr ""
+msgstr "వెలుపలకు జూమ్ చేయి"
 
 #: ../plugins/document-manager/plugin.c:375
 msgid "Zoom out: Decrease font size"
@@ -3413,7 +3474,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:380
 msgid "_Highlight Mode"
-msgstr ""
+msgstr "ఉద్దీపన విధం(_H)"
 
 #: ../plugins/document-manager/plugin.c:384
 msgid "_Close All Folds"
@@ -3441,7 +3502,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:396
 msgid "_Documents"
-msgstr ""
+msgstr "పత్రములు(_D)"
 
 #: ../plugins/document-manager/plugin.c:397
 msgid "Previous Document"
@@ -3464,8 +3525,9 @@ msgid "Bookmar_k"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:407
+#, fuzzy
 msgid "_Toggle Bookmark"
-msgstr ""
+msgstr "గుర్తును జతచేయి (_A)"
 
 #: ../plugins/document-manager/plugin.c:408
 msgid "Toggle bookmark at the current line position"
@@ -3546,7 +3608,7 @@ msgstr ""
 #: ../plugins/document-manager/plugin.c:2217
 #: ../plugins/document-manager/plugin.c:2226
 msgid "Documents"
-msgstr ""
+msgstr "పత్రములు"
 
 #: ../plugins/document-manager/plugin.c:453
 msgid "Editor view settings"
@@ -3558,7 +3620,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:644
 msgid "Reload"
-msgstr ""
+msgstr "తిరిగిలోడ్‌చేయి"
 
 #: ../plugins/document-manager/plugin.c:650
 msgid "Go to"
@@ -3566,24 +3628,24 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:982
 msgid "OVR"
-msgstr ""
+msgstr "OVR"
 
 #: ../plugins/document-manager/plugin.c:986
 msgid "INS"
-msgstr ""
+msgstr "INS"
 
 #: ../plugins/document-manager/plugin.c:992
 #: ../plugins/document-manager/plugin.c:995
 msgid "Zoom"
-msgstr ""
+msgstr "జూమ్"
 
 #: ../plugins/document-manager/plugin.c:998
 msgid "Col"
-msgstr ""
+msgstr "Col"
 
 #: ../plugins/document-manager/plugin.c:999
 msgid "Mode"
-msgstr ""
+msgstr "విధము"
 
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1637
@@ -3633,11 +3695,12 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:985
 msgid "Replace"
-msgstr ""
+msgstr "పునఃస్థాపించు"
 
 #: ../plugins/document-manager/search-box.c:990
+#, fuzzy
 msgid "Replace all"
-msgstr ""
+msgstr "అన్నింటినీ పున:స్థాపించు "
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -3651,29 +3714,29 @@ msgstr ""
 #.
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
 msgid "No items found"
-msgstr ""
+msgstr "ఏ అంశములు కనుగొనబడలేదు"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
-#, c-format
+#, fuzzy, c-format
 msgid "No recently used resource found with URI \"%s\""
-msgstr ""
+msgstr "URI `%s' తొ ఇటీవల ఉపయోగించిన ఏ మూలం కనబడలేదు"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
-msgstr ""
+msgstr "తరగతి '%s' యొక్క విడ్జట్స్  కొరకు ఈ పంక్షన్ ను అభివృద్దిచేయలేదు"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
 #: ../plugins/starter/plugin.c:167
 #, c-format
 msgid "Open '%s'"
-msgstr ""
+msgstr " '%s' ను తెరువు"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
 msgid "Unknown item"
-msgstr ""
+msgstr "తెలియని అంశము"
 
 #. This is the label format that is used for the first 10 items
 #. * in a recent files menu. The %d is the number of the item,
@@ -3729,7 +3792,7 @@ msgstr ""
 #: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:312
 msgid "All files"
-msgstr ""
+msgstr "అన్ని దస్త్రాలు"
 
 #: ../plugins/file-loader/plugin.c:502
 msgid "Anjuta Projects"
@@ -3768,8 +3831,9 @@ msgid "Hypertext markup files"
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:564
+#, fuzzy
 msgid "Shell script files"
-msgstr ""
+msgstr "దస్త్రమును ఎంచు"
 
 #: ../plugins/file-loader/plugin.c:569
 msgid "Makefiles"
@@ -3790,19 +3854,20 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
-msgstr ""
+msgstr "_కొత్త"
 
 #: ../plugins/file-loader/plugin.c:886
 msgid "New empty file"
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:892
+#, fuzzy
 msgid "_Open…"
-msgstr ""
+msgstr "తెరువుము (_O)"
 
 #: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
-msgstr ""
+msgstr "తెరువుము (_O)"
 
 #: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
@@ -3819,7 +3884,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1253
 msgid "New"
-msgstr ""
+msgstr "క్రొత్త"
 
 #: ../plugins/file-loader/plugin.c:1254
 msgid "New file, project and project components."
@@ -3827,11 +3892,11 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1301
 msgid "Open"
-msgstr ""
+msgstr "తెరచు"
 
 #: ../plugins/file-loader/plugin.c:1265
 msgid "Open _Recent"
-msgstr ""
+msgstr "ఇటీవలివాటిని తెరువుము(_R)"
 
 #: ../plugins/file-loader/plugin.c:1266 ../plugins/file-loader/plugin.c:1303
 msgid "Open recent file"
@@ -3843,12 +3908,12 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1302
 msgid "Open a file"
-msgstr ""
+msgstr "ఒక దస్త్రాన్ని తెరువుము"
 
 #: ../plugins/file-loader/plugin.c:1416 ../plugins/file-loader/plugin.c:1418
 #, c-format
 msgid "File not found"
-msgstr ""
+msgstr "దస్త్రం దొరుకలేదు"
 
 #. %s is name of file that will be opened
 #: ../plugins/file-loader/plugin.c:1437
@@ -3857,8 +3922,9 @@ msgid "Please select a plugin to open <b>%s</b>."
 msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1441
+#, fuzzy
 msgid "<b>Open With</b>"
-msgstr ""
+msgstr "తో తెరుచుము"
 
 #: ../plugins/file-manager/file-manager.ui.h:1
 msgid "Choose Directory to show if no project is open"
@@ -3881,8 +3947,9 @@ msgid "Do not show unversioned files"
 msgstr ""
 
 #: ../plugins/file-manager/file-manager.ui.h:6
+#, fuzzy
 msgid "Filter"
-msgstr ""
+msgstr "దస్త్రం"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
 #: ../plugins/symbol-db/plugin.c:2174
@@ -3896,11 +3963,11 @@ msgstr ""
 
 #: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
-msgstr ""
+msgstr "లోడవుతున్నది..."
 
 #: ../plugins/file-manager/file-view.c:570
 msgid "Filename"
-msgstr ""
+msgstr "దస్త్రనామము"
 
 #: ../plugins/file-manager/file-view.c:653
 msgid "Base URI"
@@ -3912,7 +3979,7 @@ msgstr ""
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "_Rename"
-msgstr ""
+msgstr "పునఃనామకరణ (_R)"
 
 #: ../plugins/file-manager/plugin.c:75
 msgid "Rename file or directory"
@@ -3924,12 +3991,12 @@ msgstr ""
 
 #: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
 msgid "Files"
-msgstr ""
+msgstr "దస్ర్తాలు"
 
 #: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 msgid "File Manager"
-msgstr ""
+msgstr "దస్త్రాల అభికర్త"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:1
 msgid "Add License Information"
@@ -3954,24 +4021,25 @@ msgid ""
 msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
+#, fuzzy
 msgid "File Information"
-msgstr ""
+msgstr "సమాచారం"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:616
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
-msgstr ""
+msgstr "నామము:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
 msgid "New File"
-msgstr ""
+msgstr "కొత్త దస్త్రం"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
 #: ../plugins/project-manager/dialogs.c:638
 msgid "Type:"
-msgstr ""
+msgstr "రకం:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:13
 msgid "Use Template for the Header file"
@@ -4015,7 +4083,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/file.c:93
 msgid "Other"
-msgstr ""
+msgstr "ఇతర"
 
 #: ../plugins/file-wizard/file.c:106
 msgid "BSD Public License"
@@ -4024,19 +4092,21 @@ msgstr ""
 #: ../plugins/dir-project/dir-project.c:133
 #: ../plugins/dir-project/dir-project.c:156
 #: ../plugins/dir-project/dir-project.c:179
-#, c-format
+#, fuzzy, c-format
 msgid "Missing name"
-msgstr ""
+msgstr "తప్పిపోయిన"
 
 #: ../plugins/dir-project/dir-project.c:871
 #: ../plugins/am-project/am-project.c:89 ../plugins/mk-project/mk-project.c:66
+#, fuzzy
 msgid "Group"
-msgstr ""
+msgstr "గ్రూప్:"
 
 #: ../plugins/dir-project/dir-project.c:874
 #: ../plugins/am-project/am-project.c:96 ../plugins/mk-project/mk-project.c:70
+#, fuzzy
 msgid "Source"
-msgstr ""
+msgstr "మూలం"
 
 #: ../plugins/dir-project/dir-project.c:990
 #: ../plugins/dir-project/dir-project.c:1000
@@ -4063,8 +4133,9 @@ msgid "Java Module"
 msgstr ""
 
 #: ../plugins/am-project/am-project.c:147
+#, fuzzy
 msgid "Lisp Module"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #: ../plugins/am-project/am-project.c:154
 msgid "Header Files"
@@ -4084,7 +4155,7 @@ msgstr ""
 
 #: ../plugins/am-project/am-project.c:182
 msgid "Script"
-msgstr ""
+msgstr "లిపి"
 
 #: ../plugins/am-project/am-project.c:196
 msgid "Package"
@@ -4124,7 +4195,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
 msgid "Version:"
-msgstr ""
+msgstr "వర్షన్:"
 
 #: ../plugins/am-project/am-properties.c:61
 msgid ""
@@ -4303,8 +4374,9 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:578
 #: ../plugins/am-project/am-properties.c:788
 #: ../plugins/am-project/am-properties.c:863
+#, fuzzy
 msgid "Installation directory:"
-msgstr ""
+msgstr "వివరణను ఎంచు"
 
 #: ../plugins/am-project/am-properties.c:222
 #: ../plugins/am-project/am-properties.c:406
@@ -4630,8 +4702,9 @@ msgid "Interrupting the process\n"
 msgstr ""
 
 #: ../plugins/gdb/debugger.c:3925
+#, fuzzy
 msgid "more children"
-msgstr ""
+msgstr "శిసువులు"
 
 #: ../plugins/gdb/debugger.c:4178
 #, c-format
@@ -4673,22 +4746,25 @@ msgid "Select a pretty printer file"
 msgstr ""
 
 #: ../plugins/gdb/preferences.c:358
+#, fuzzy
 msgid "Activate"
-msgstr ""
+msgstr "క్రియాశీల"
 
 #. Translators: The "Register Function" column contains the name of a
 #. * function used to register pretty printers in gdb.
 #: ../plugins/gdb/preferences.c:372
+#, fuzzy
 msgid "Register Function"
-msgstr ""
+msgstr "కార్యం"
 
 #: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:1
+#, fuzzy
 msgid "Add Files:"
-msgstr ""
+msgstr "చిరునామా:"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 msgid "Add signed off by line"
@@ -4713,7 +4789,7 @@ msgstr ""
 #: ../plugins/git/anjuta-git.ui.h:7
 #: ../plugins/subversion/subversion-log-dialog.c:132
 msgid "Author"
-msgstr ""
+msgstr "మూలకర్త"
 
 #: ../plugins/git/anjuta-git.ui.h:8
 msgid "Branch name:"
@@ -4759,7 +4835,7 @@ msgstr ""
 #: ../plugins/git/anjuta-git.ui.h:18
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
-msgstr ""
+msgstr "తేద"
 
 #: ../plugins/git/anjuta-git.ui.h:19
 msgid "Do not commit"
@@ -4792,7 +4868,7 @@ msgstr ""
 #: ../plugins/git/anjuta-git.ui.h:26
 #: ../plugins/subversion/anjuta-subversion.ui.h:19
 msgid "Force"
-msgstr ""
+msgstr "బలప్రవేశం"
 
 #: ../plugins/git/anjuta-git.ui.h:27
 msgid "Generate patches relative to:"
@@ -4804,12 +4880,13 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:29
 msgid "Hard"
-msgstr ""
+msgstr "కష్టం"
 
 #: ../plugins/git/anjuta-git.ui.h:31
 #: ../plugins/subversion/anjuta-subversion.ui.h:21
+#, fuzzy
 msgid "Log Message:"
-msgstr ""
+msgstr "సందేశము"
 
 #: ../plugins/git/anjuta-git.ui.h:32
 msgid "Mailbox files to apply:"
@@ -4817,7 +4894,7 @@ msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:33
 msgid "Mixed"
-msgstr ""
+msgstr "మిశ్రము"
 
 #: ../plugins/git/anjuta-git.ui.h:34
 msgid "Mode:"
@@ -4844,12 +4921,14 @@ msgid "Remote Repositories:"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:43
+#, fuzzy
 msgid "Remote name:"
-msgstr ""
+msgstr "హోస్ట్ పేరు:"
 
 #: ../plugins/git/anjuta-git.ui.h:44
+#, fuzzy
 msgid "Remove Files:"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/git/anjuta-git.ui.h:45
 msgid "Repository Status:"
@@ -4874,7 +4953,7 @@ msgstr ""
 #: ../plugins/git/anjuta-git.ui.h:50
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
-msgstr ""
+msgstr "రివిజన్"
 
 #: ../plugins/git/anjuta-git.ui.h:51
 msgid "Revision to merge with:"
@@ -4918,8 +4997,9 @@ msgid "Tag name:"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:62
+#, fuzzy
 msgid "Tags:"
-msgstr ""
+msgstr "కర్తవ్యాలు"
 
 #: ../plugins/git/anjuta-git.ui.h:63
 msgid "This commit concludes a failed merge (use -i)"
@@ -4956,8 +5036,9 @@ msgid "page 2"
 msgstr ""
 
 #: ../plugins/git/git-add-files-pane.c:157
+#, fuzzy
 msgid "Add Files"
-msgstr ""
+msgstr "దస్ర్తాలు"
 
 #: ../plugins/git/git-add-remote-pane.c:52
 msgid "Please enter a remote name."
@@ -4968,8 +5049,9 @@ msgid "Please enter a URL"
 msgstr ""
 
 #: ../plugins/git/git-add-remote-pane.c:179
+#, fuzzy
 msgid "Add Remote"
-msgstr ""
+msgstr "అంశమును జతచేయుము"
 
 #: ../plugins/git/git-apply-mailbox-pane.c:157
 msgid "Apply Mailbox Files"
@@ -4978,8 +5060,9 @@ msgstr ""
 #: ../plugins/git/git-apply-stash-pane.c:54
 #: ../plugins/git/git-diff-stash-pane.c:67
 #: ../plugins/git/git-drop-stash-pane.c:48
+#, fuzzy
 msgid "No stash selected."
-msgstr ""
+msgstr "ఎంపికను నకలు తీయుము"
 
 #: ../plugins/git/git-checkout-pane.c:147
 msgid "Check Out Files"
@@ -4999,8 +5082,9 @@ msgid "Please enter the commit author's e-mail address."
 msgstr ""
 
 #: ../plugins/git/git-commit-pane.c:296 ../plugins/git/plugin.c:146
+#, fuzzy
 msgid "Commit"
-msgstr ""
+msgstr "వ్యాఖ్య:"
 
 #: ../plugins/git/git-cherry-pick-pane.c:53 ../plugins/git/git-merge-pane.c:56
 #: ../plugins/subversion/subversion-copy-dialog.c:207
@@ -5028,16 +5112,18 @@ msgid "No revision selected"
 msgstr ""
 
 #: ../plugins/git/git-reset-pane.c:167
+#, fuzzy
 msgid "Reset"
-msgstr ""
+msgstr "_మళ్ళీ అమర్చు"
 
 #: ../plugins/git/git-revert-pane.c:48
 msgid "Please enter a commit."
 msgstr ""
 
 #: ../plugins/git/git-revert-pane.c:162
+#, fuzzy
 msgid "Revert"
-msgstr ""
+msgstr "_మళ్ళీ అమర్చు"
 
 #: ../plugins/git/git-create-branch-pane.c:51
 msgid "Please enter a branch name."
@@ -5081,7 +5167,7 @@ msgstr ""
 
 #: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
-msgstr ""
+msgstr " విలీనం"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
 #: ../plugins/git/plugin.c:700 ../plugins/git/git.plugin.in.h:1
@@ -5089,12 +5175,14 @@ msgid "Git"
 msgstr ""
 
 #: ../plugins/git/git-pane.c:204
+#, fuzzy
 msgid "Git Error"
-msgstr ""
+msgstr "దోషము"
 
 #: ../plugins/git/git-pane.c:210
+#, fuzzy
 msgid "Git Warning"
-msgstr ""
+msgstr "హెచ్చరిక"
 
 #: ../plugins/git/git-patch-series-pane.c:167
 msgid "Generate Patch Series"
@@ -5113,24 +5201,28 @@ msgid "Push"
 msgstr ""
 
 #: ../plugins/git/git-rebase-pane.c:61
+#, fuzzy
 msgid "No remote selected"
-msgstr ""
+msgstr "ఎంపికను నకలు తీయుము"
 
 #: ../plugins/git/git-remove-files-pane.c:157
+#, fuzzy
 msgid "Remove Files"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/git/git-repository-selector.c:66
+#, fuzzy
 msgid "Remote"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/git/git-repository-selector.c:81
 msgid "URL"
 msgstr ""
 
 #: ../plugins/git/git-repository-selector.c:100
+#, fuzzy
 msgid "<b>Selected Remote:</b>"
-msgstr ""
+msgstr "<b>వ్యాప్తి</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
@@ -5167,8 +5259,9 @@ msgid "Create a branch"
 msgstr ""
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
+#, fuzzy
 msgid "Delete selected branches"
-msgstr ""
+msgstr "ఎంపికను తొలగించుము"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
@@ -5179,28 +5272,33 @@ msgid "Merge a revision into the current branch"
 msgstr ""
 
 #: ../plugins/git/plugin.c:109
+#, fuzzy
 msgid "Tag tools"
-msgstr ""
+msgstr "పనిముట్లు"
 
 #: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
+#, fuzzy
 msgid "Create a tag"
-msgstr ""
+msgstr "నిర్మించు"
 
 #: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
+#, fuzzy
 msgid "Delete selected tags"
-msgstr ""
+msgstr "ఎంపికను తొలగించుము"
 
 #: ../plugins/git/plugin.c:138
 msgid "Changes"
 msgstr ""
 
 #: ../plugins/git/plugin.c:147
+#, fuzzy
 msgid "Commit changes"
-msgstr ""
+msgstr "మార్పులను తీసివేయుము(_D)"
 
 #: ../plugins/git/plugin.c:154
+#, fuzzy
 msgid "Diff uncommitted changes"
-msgstr ""
+msgstr "మార్పులను తీసివేయుము(_D)"
 
 #: ../plugins/git/plugin.c:155
 msgid "Show a diff of uncommitted changes in an editor"
@@ -5208,8 +5306,9 @@ msgstr ""
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:3
+#, fuzzy
 msgid "Add"
-msgstr ""
+msgstr "జతచేయు(_A)"
 
 #: ../plugins/git/plugin.c:171
 msgid "Add files to the index"
@@ -5228,8 +5327,9 @@ msgid "Revert changes in unstaged files"
 msgstr ""
 
 #: ../plugins/git/plugin.c:194
+#, fuzzy
 msgid "Unstage"
-msgstr ""
+msgstr "ఉపయోగించు"
 
 #: ../plugins/git/plugin.c:195
 msgid "Remove staged files from the index"
@@ -5248,16 +5348,18 @@ msgid "Remote repository tools"
 msgstr ""
 
 #: ../plugins/git/plugin.c:222
+#, fuzzy
 msgid "Add a remote"
-msgstr ""
+msgstr "అంశమును జతచేయుము"
 
 #: ../plugins/git/plugin.c:223
 msgid "Add a remote repository"
 msgstr ""
 
 #: ../plugins/git/plugin.c:230
+#, fuzzy
 msgid "Delete selected remote"
-msgstr ""
+msgstr "ఎంపికను తొలగించుము"
 
 #: ../plugins/git/plugin.c:231
 msgid "Delete a remote"
@@ -5288,24 +5390,28 @@ msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
+#, fuzzy
 msgid "Continue"
-msgstr ""
+msgstr "_కొనసాగించు"
 
 #: ../plugins/git/plugin.c:279
 msgid "Continue a rebase with resolved conflicts"
 msgstr ""
 
 #: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
+#, fuzzy
 msgid "Skip"
-msgstr ""
+msgstr "వదిలవేయుము (_S)"
 
 #: ../plugins/git/plugin.c:287
+#, fuzzy
 msgid "Skip the current revision"
-msgstr ""
+msgstr "ప్రస్తుత దస్త్రాన్ని దాయుము"
 
 #: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
+#, fuzzy
 msgid "Abort"
-msgstr ""
+msgstr "గురించి(_A)"
 
 #: ../plugins/git/plugin.c:295
 msgid "Abort the rebase and return the repository to its previous state"
@@ -5352,8 +5458,9 @@ msgid "Drop selected stash"
 msgstr ""
 
 #: ../plugins/git/plugin.c:347
+#, fuzzy
 msgid "Delete the selected stash"
-msgstr ""
+msgstr "ఎంపికను తొలగించుము"
 
 #: ../plugins/git/plugin.c:354
 msgid "Clear all stashes"
@@ -5364,8 +5471,9 @@ msgid "Delete all stashes in this repository"
 msgstr ""
 
 #: ../plugins/git/plugin.c:366
+#, fuzzy
 msgid "Revision tools"
-msgstr ""
+msgstr "రివిజన్"
 
 #: ../plugins/git/plugin.c:374
 msgid "Show commit diff"
@@ -5388,8 +5496,9 @@ msgid "Reset/Revert"
 msgstr ""
 
 #: ../plugins/git/plugin.c:398
+#, fuzzy
 msgid "Reset tree"
-msgstr ""
+msgstr "_మళ్ళీ అమర్చు"
 
 #: ../plugins/git/plugin.c:399
 msgid "Reset tree to a previous revision"
@@ -5404,20 +5513,23 @@ msgid "Revert a commit"
 msgstr ""
 
 #: ../plugins/git/plugin.c:414
+#, fuzzy
 msgid "Patch series"
-msgstr ""
+msgstr "సందర్భమును జతపరచు"
 
 #: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
 msgid "Generate a patch series"
 msgstr ""
 
 #: ../plugins/git/plugin.c:430
+#, fuzzy
 msgid "Mailbox files"
-msgstr ""
+msgstr "అన్ని దస్త్రాలు"
 
 #: ../plugins/git/plugin.c:438
+#, fuzzy
 msgid "Apply mailbox files"
-msgstr ""
+msgstr "అన్ని దస్త్రాలు"
 
 #: ../plugins/git/plugin.c:439
 msgid "Apply patches from mailbox files"
@@ -5441,28 +5553,34 @@ msgid "Branch"
 msgstr ""
 
 #: ../plugins/git/plugin.c:696
+#, fuzzy
 msgid "Git Tasks"
-msgstr ""
+msgstr "కర్తవ్యాలు"
 
 #: ../plugins/git/plugin.c:758
+#, fuzzy
 msgid "Status"
-msgstr ""
+msgstr "స్థితి"
 
 #: ../plugins/git/plugin.c:764
+#, fuzzy
 msgid "Log"
-msgstr ""
+msgstr "తక్కువ"
 
 #: ../plugins/git/plugin.c:775
+#, fuzzy
 msgid "Tags"
-msgstr ""
+msgstr "కర్తవ్యాలు"
 
 #: ../plugins/git/plugin.c:781
+#, fuzzy
 msgid "Remotes"
-msgstr ""
+msgstr "తొలగించు"
 
 #: ../plugins/git/plugin.c:787
+#, fuzzy
 msgid "Stash"
-msgstr ""
+msgstr "స్థితి"
 
 #: ../plugins/glade/plugin.c:508
 msgid "Select widgets in the workspace"
@@ -5482,7 +5600,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:641
 msgid "Palette"
-msgstr ""
+msgstr "వర్ణపలకం"
 
 #: ../plugins/glade/plugin.c:763
 #, c-format
@@ -5511,8 +5629,9 @@ msgstr ""
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
+#, fuzzy
 msgid "Diagonal"
-msgstr ""
+msgstr "సైగలు"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
 msgid "Error message indicator style:"
@@ -5523,12 +5642,14 @@ msgid "Errors:"
 msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
+#, fuzzy
 msgid "Indicators"
-msgstr ""
+msgstr "సంపాదకుడు"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
+#, fuzzy
 msgid "Message colors"
-msgstr ""
+msgstr "సందేశాలు"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
 msgid "Normal message indicator style:"
@@ -5541,18 +5662,21 @@ msgstr ""
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
+#, fuzzy
 msgid "Underline-Plain"
-msgstr ""
+msgstr "క్రిందగీతఉంచిన"
 
 #. text style in editor
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
+#, fuzzy
 msgid "Underline-Squiggle"
-msgstr ""
+msgstr "క్రిందగీతఉంచిన"
 
 #. text style in editor, TT is for typewriter text
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
+#, fuzzy
 msgid "Underline-TT"
-msgstr ""
+msgstr "క్రిందగీతఉంచిన"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
 msgid "Warning message indicator style:"
@@ -5568,13 +5692,13 @@ msgstr ""
 
 #: ../plugins/message-view/message-view.c:497
 msgid "Icon"
-msgstr ""
+msgstr "ప్రతిమ"
 
 #: ../plugins/message-view/message-view.c:511
 #: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
 #: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
-msgstr ""
+msgstr "సందేశాలు"
 
 #: ../plugins/message-view/message-view.c:869
 #, c-format
@@ -5591,7 +5715,7 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:83
 msgid "_Next Message"
-msgstr ""
+msgstr "తరువాతి సందేశం(_N)"
 
 #: ../plugins/message-view/plugin.c:84
 msgid "Next message"
@@ -5599,7 +5723,7 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:87
 msgid "_Previous Message"
-msgstr ""
+msgstr "పూర్వపు సందేశం(_P)"
 
 #: ../plugins/message-view/plugin.c:88
 msgid "Previous message"
@@ -5700,8 +5824,9 @@ msgid "Patching…\n"
 msgstr ""
 
 #: ../plugins/patch/patch-plugin.c:220
+#, fuzzy
 msgid "Patching…"
-msgstr ""
+msgstr "వెతుకుతున్నది"
 
 #: ../plugins/patch/patch-plugin.c:225
 msgid "There are unfinished jobs: please wait until they are finished."
@@ -5739,13 +5864,14 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:131
 msgid "_Tools"
-msgstr ""
+msgstr "_పనిముట్లు"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:61
+#, fuzzy
 msgid "_Patch…"
-msgstr ""
+msgstr "త్రోవ"
 
 #: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
@@ -5771,7 +5897,7 @@ msgstr ""
 
 #: ../plugins/project-import/plugin.c:287
 msgid "Open With"
-msgstr ""
+msgstr "తో తెరుచుము"
 
 #: ../plugins/project-import/plugin.c:302
 #, c-format
@@ -5809,7 +5935,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:13
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
-msgstr ""
+msgstr "గమ్యం:"
 
 #: ../plugins/project-import/project-import.ui.h:2
 msgid "Import from folder"
@@ -5824,12 +5950,14 @@ msgid "Import options"
 msgstr ""
 
 #: ../plugins/project-import/project-import.ui.h:5
+#, fuzzy
 msgid "Location:"
-msgstr ""
+msgstr "స్థానము(_L):"
 
 #: ../plugins/project-import/project-import.ui.h:6
+#, fuzzy
 msgid "Project name"
-msgstr ""
+msgstr "ప్రోజెక్ట్‍ నిర్వాహకి"
 
 #: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
@@ -5852,16 +5980,19 @@ msgid "Browse other nodes"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
+#, fuzzy
 msgid "Modules:"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:5
+#, fuzzy
 msgid "More options:"
-msgstr ""
+msgstr "ఇచ్ఛాపూర్వకాలు"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:6
+#, fuzzy
 msgid "New Directory"
-msgstr ""
+msgstr "వివరము"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
 msgid "New Library"
@@ -5908,20 +6039,23 @@ msgid "TargetTypes"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
+#, fuzzy
 msgid "_Directory name:"
-msgstr ""
+msgstr "వివరము"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:19
+#, fuzzy
 msgid "_Module name:"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:20
 msgid "_New library…"
 msgstr ""
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:21
+#, fuzzy
 msgid "_Select file to add…"
-msgstr ""
+msgstr "దస్త్రమును ఎంచు"
 
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1326
@@ -5929,7 +6063,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:1620 ../plugins/symbol-db/plugin.c:2125
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
-msgstr ""
+msgstr "పథకం"
 
 #: ../plugins/project-manager/project-model.c:185
 msgid "GbfProject Object"
@@ -5985,9 +6119,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:702
-#, c-format
+#, fuzzy, c-format
 msgid "Group: %s\n"
-msgstr ""
+msgstr "గ్రూప్:"
 
 #: ../plugins/project-manager/plugin.c:705
 #, c-format
@@ -5995,19 +6129,19 @@ msgid "Target: %s\n"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:708
-#, c-format
+#, fuzzy, c-format
 msgid "Source: %s\n"
-msgstr ""
+msgstr "మూలం"
 
 #: ../plugins/project-manager/plugin.c:711
-#, c-format
+#, fuzzy, c-format
 msgid "Shortcut: %s\n"
-msgstr ""
+msgstr "లఘువు"
 
 #: ../plugins/project-manager/plugin.c:714
-#, c-format
+#, fuzzy, c-format
 msgid "Module: %s\n"
-msgstr ""
+msgstr "మాడ్యూల్"
 
 #: ../plugins/project-manager/plugin.c:717
 #, c-format
@@ -6031,8 +6165,9 @@ msgid "The source file will not be deleted from the file system."
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:740
+#, fuzzy
 msgid "Confirm remove"
-msgstr ""
+msgstr "నిర్ధారణ"
 
 #: ../plugins/project-manager/plugin.c:786
 #, c-format
@@ -6048,11 +6183,12 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:890
 msgid "_Project"
-msgstr ""
+msgstr "ప్రోజెక్టు (_P)"
 
 #: ../plugins/project-manager/plugin.c:894
+#, fuzzy
 msgid "New _Directory…"
-msgstr ""
+msgstr "వివరము"
 
 #: ../plugins/project-manager/plugin.c:894
 #: ../plugins/project-manager/plugin.c:933
@@ -6097,7 +6233,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:919
 #: ../plugins/project-manager/plugin.c:963
 msgid "_Properties"
-msgstr ""
+msgstr "లక్షణాలు (_P)"
 
 #: ../plugins/project-manager/plugin.c:919
 #: ../plugins/project-manager/dialogs.c:565
@@ -6113,8 +6249,9 @@ msgid "Close project"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:933
+#, fuzzy
 msgid "New _Directory"
-msgstr ""
+msgstr "వివరము"
 
 #: ../plugins/project-manager/plugin.c:938
 msgid "New _Target"
@@ -6141,8 +6278,9 @@ msgid "Add a new library to the project"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:958
+#, fuzzy
 msgid "_Add to Project"
-msgstr ""
+msgstr "ప్రోజెక్టు (_P)"
 
 #: ../plugins/project-manager/plugin.c:963
 msgid "Properties of group/target/source"
@@ -6157,12 +6295,14 @@ msgid "Remove from project"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:973
+#, fuzzy
 msgid "_Sort"
-msgstr ""
+msgstr "లఘువు"
 
 #: ../plugins/project-manager/plugin.c:973
+#, fuzzy
 msgid "Sort shortcuts"
-msgstr ""
+msgstr "లఘువు"
 
 #: ../plugins/project-manager/plugin.c:1311
 #, c-format
@@ -6217,28 +6357,33 @@ msgid " This property is not modifiable."
 msgstr ""
 
 #: ../plugins/project-manager/dialogs.c:568
+#, fuzzy
 msgid "Directory properties"
-msgstr ""
+msgstr "వివరము"
 
 #: ../plugins/project-manager/dialogs.c:571
 msgid "Target properties"
 msgstr ""
 
 #: ../plugins/project-manager/dialogs.c:574
+#, fuzzy
 msgid "Source properties"
-msgstr ""
+msgstr "లక్షణాలు"
 
 #: ../plugins/project-manager/dialogs.c:577
+#, fuzzy
 msgid "Module properties"
-msgstr ""
+msgstr "లక్షణాలు"
 
 #: ../plugins/project-manager/dialogs.c:580
+#, fuzzy
 msgid "Package properties"
-msgstr ""
+msgstr "లక్షణాలు"
 
 #: ../plugins/project-manager/dialogs.c:583
+#, fuzzy
 msgid "Unknown properties"
-msgstr ""
+msgstr "తెలియని దోషము."
 
 #: ../plugins/project-manager/dialogs.c:1000
 #: ../plugins/project-manager/dialogs.c:1011
@@ -6286,21 +6431,22 @@ msgid "Cannot add packages"
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
+#, fuzzy
 msgid "Details"
-msgstr ""
+msgstr "<b>వివరాలు</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:150
 msgid "Error"
-msgstr ""
+msgstr "దోషము"
 
 #: ../plugins/project-wizard/druid.c:142 ../plugins/project-wizard/druid.c:146
 msgid "Warning"
-msgstr ""
+msgstr "హెచ్చరిక"
 
 #: ../plugins/project-wizard/druid.c:153
 msgid "Message"
-msgstr ""
+msgstr "సందేశము"
 
 #: ../plugins/project-wizard/druid.c:233
 msgid "Confirm the following information:"
@@ -6344,7 +6490,7 @@ msgstr ""
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
 msgid "Unknown error."
-msgstr ""
+msgstr "తెలియని దోషము."
 
 #: ../plugins/project-wizard/druid.c:683
 #, c-format
@@ -6454,15 +6600,16 @@ msgstr ""
 
 #: ../plugins/project-wizard/property.c:342
 msgid "Select directory"
-msgstr ""
+msgstr "వివరణను ఎంచు"
 
 #: ../plugins/project-wizard/property.c:359
 msgid "Select file"
-msgstr ""
+msgstr "దస్త్రమును ఎంచు"
 
 #: ../plugins/project-wizard/property.c:409 ../plugins/tools/editor.c:524
+#, fuzzy
 msgid "Select an Image File"
-msgstr ""
+msgstr "దస్త్రమును ఎంచు"
 
 #: ../plugins/project-wizard/property.c:434
 #: ../plugins/project-wizard/property.c:524 ../plugins/tools/editor.c:558
@@ -6556,7 +6703,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:3
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:8
 msgid "Author:"
-msgstr ""
+msgstr "మూలకర్త:"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:7
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:7
@@ -6699,7 +6846,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:21
 msgid "License"
-msgstr ""
+msgstr "లైసెన్స్"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:19
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
@@ -6906,7 +7053,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
 msgid "Generic"
-msgstr ""
+msgstr "సాధారనమైన"
 
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:1
 msgid "A generic C++ project"
@@ -7325,12 +7472,12 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/run-program/plugin.c:231
 msgid "_Run"
-msgstr ""
+msgstr "నడుపుము (_R)"
 
 #: ../plugins/run-program/plugin.c:239
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
-msgstr ""
+msgstr "నిర్వర్తించు"
 
 #: ../plugins/run-program/plugin.c:241
 msgid "Run program without debugger"
@@ -7413,12 +7560,14 @@ msgid "Snippets Manager actions"
 msgstr ""
 
 #: ../plugins/snippets-manager/plugin.c:778
+#, fuzzy
 msgid "Command?"
-msgstr ""
+msgstr "ఆదేశము"
 
 #: ../plugins/snippets-manager/plugin.c:794
+#, fuzzy
 msgid "Variable text"
-msgstr ""
+msgstr "చరరాశి"
 
 #: ../plugins/snippets-manager/plugin.c:812
 #: ../plugins/snippets-manager/snippets-editor.c:40
@@ -7451,8 +7600,9 @@ msgid "Add Snippets Group …"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
+#, fuzzy
 msgid "Default value"
-msgstr ""
+msgstr "అప్రమేయం"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
@@ -7487,7 +7637,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:5
 msgid "Insert"
-msgstr ""
+msgstr "ప్రవేశించు"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:6
 msgid ""
@@ -7505,7 +7655,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid "Preview"
-msgstr ""
+msgstr "ఉపదర్శనం"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:12
 msgid "Select the Snippets Group to which this snippet belongs."
@@ -7522,20 +7672,23 @@ msgid ""
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:16
+#, fuzzy
 msgid "Snippet Content"
-msgstr ""
+msgstr "సారములు"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:17
 msgid "Snippet Name:"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
+#, fuzzy
 msgid "Snippet Properties"
-msgstr ""
+msgstr "లక్షణాలు"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
+#, fuzzy
 msgid "Snippet Variables"
-msgstr ""
+msgstr "చరరాశి"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:20
 msgid "Snippets Group:"
@@ -7554,8 +7707,9 @@ msgid "Trigger Key:"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#, fuzzy
 msgid "Anjuta variables"
-msgstr ""
+msgstr "చరరాశి"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:145
 msgid "Import Snippets"
@@ -7615,20 +7769,24 @@ msgid "Wrap lines"
 msgstr ""
 
 #: ../plugins/sourceview/sourceview-print.c:113
+#, fuzzy
 msgid "Line numbers"
-msgstr ""
+msgstr "వరుస సంఖ్యలను చూపుము"
 
 #: ../plugins/sourceview/sourceview-print.c:115
+#, fuzzy
 msgid "Header"
-msgstr ""
+msgstr "కష్టం"
 
 #: ../plugins/sourceview/sourceview-print.c:117
+#, fuzzy
 msgid "Footer"
-msgstr ""
+msgstr "అక్షరశైలి"
 
 #: ../plugins/sourceview/sourceview-print.c:119
+#, fuzzy
 msgid "Highlight source code"
-msgstr ""
+msgstr "ఉద్దీపన విధం(_H)"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
 msgid "Color scheme:"
@@ -7640,7 +7798,7 @@ msgstr ""
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Editor"
-msgstr ""
+msgstr "సంపాదకుడు"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Enable autocompletion for document words"
@@ -7648,15 +7806,15 @@ msgstr ""
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Font"
-msgstr ""
+msgstr "అక్షరశైలి"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Font:"
-msgstr ""
+msgstr "ఫాంటు:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Highlight current line"
-msgstr ""
+msgstr "ప్రస్తుత వరుసను ఉద్దీపనం చేయుము"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Highlight matching brackets"
@@ -7701,11 +7859,12 @@ msgstr ""
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 #: ../src/anjuta-app.c:633 ../src/anjuta-app.c:638
 msgid "View"
-msgstr ""
+msgstr "దర్శనం"
 
 #: ../plugins/starter/plugin.c:285
+#, fuzzy
 msgid "Start"
-msgstr ""
+msgstr "మొదలుపెట్టబడినది"
 
 #: ../plugins/starter/starter.ui.h:1
 msgid "Anjuta Manual"
@@ -7732,8 +7891,9 @@ msgid "Recent projects:"
 msgstr ""
 
 #: ../plugins/starter/starter.ui.h:7
+#, fuzzy
 msgid "Tutorials"
-msgstr ""
+msgstr "టర్కిష్"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:1
 msgid "Add file/directory"
@@ -7764,8 +7924,9 @@ msgid "Diff to Previous"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:15
+#, fuzzy
 msgid "End Revision:"
-msgstr ""
+msgstr "రివిజన్"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:16
 msgid "File or directory to diff:"
@@ -7776,8 +7937,9 @@ msgid "File/URL to Remove:"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:18
+#, fuzzy
 msgid "First Path:"
-msgstr ""
+msgstr "త్రోవ:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:20
 msgid "Ignore ancestry"
@@ -7792,8 +7954,9 @@ msgid "Other Revision:"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:27
+#, fuzzy
 msgid "Previous Commit Messages:"
-msgstr ""
+msgstr "పూర్వపు సందేశం(_P)"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:28
 msgid "Realm:"
@@ -7860,16 +8023,18 @@ msgid "Set Conflicts as Resolved"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:45
+#, fuzzy
 msgid "Source/Destination Paths:"
-msgstr ""
+msgstr "గమ్యం:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:46
 msgid "Source:"
-msgstr ""
+msgstr "మూలం"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:47
+#, fuzzy
 msgid "Start Revision:"
-msgstr ""
+msgstr "రివిజన్"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:48
 msgid "Subversion Options"
@@ -7896,8 +8061,9 @@ msgid "Use first path"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:54
+#, fuzzy
 msgid "Use previous message"
-msgstr ""
+msgstr "పూర్వపు సందేశం(_P)"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:57
 msgid "View Log"
@@ -7932,8 +8098,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:175
+#, fuzzy
 msgid "_Add…"
-msgstr ""
+msgstr "జతచేయు(_A)"
 
 #. Display label
 #. short-cut
@@ -7944,8 +8111,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
+#, fuzzy
 msgid "_Remove…"
-msgstr ""
+msgstr "తీసివేయి (_R)"
 
 #. Display label
 #. short-cut
@@ -7968,8 +8136,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
+#, fuzzy
 msgid "_Revert…"
-msgstr ""
+msgstr "_మళ్ళీ అమర్చు"
 
 #. Display label
 #. short-cut
@@ -7992,8 +8161,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
+#, fuzzy
 msgid "_Update…"
-msgstr ""
+msgstr "నవీకరించు (_U)"
 
 #. Display label
 #. short-cut
@@ -8028,8 +8198,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:124
+#, fuzzy
 msgid "Merge…"
-msgstr ""
+msgstr " విలీనం"
 
 #. Display label
 #. short-cut
@@ -8052,8 +8223,9 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:140
+#, fuzzy
 msgid "_Diff…"
-msgstr ""
+msgstr "వ్యత్యాసం"
 
 #. Display label
 #. short-cut
@@ -8064,14 +8236,16 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:199
+#, fuzzy
 msgid "Copy…"
-msgstr ""
+msgstr "నకలు (_C)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:207
+#, fuzzy
 msgid "Diff…"
-msgstr ""
+msgstr "వ్యత్యాసం"
 
 #: ../plugins/subversion/plugin.c:488
 msgid "Subversion operations"
@@ -8128,7 +8302,7 @@ msgstr ""
 
 #: ../plugins/subversion/subversion-log-dialog.c:119
 msgid "Diff"
-msgstr ""
+msgstr "వ్యత్యాసం"
 
 #: ../plugins/subversion/subversion-log-dialog.c:257
 msgid "Subversion: Retrieving log…"
@@ -8208,7 +8382,7 @@ msgstr ""
 
 #: ../plugins/subversion/svn-command.c:204
 msgid "Hostname:"
-msgstr ""
+msgstr "హోస్ట్ పేరు:"
 
 #: ../plugins/subversion/svn-command.c:205
 msgid "Fingerprint:"
@@ -8378,8 +8552,9 @@ msgid ""
 msgstr ""
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:2
+#, fuzzy
 msgid "Terminal options"
-msgstr ""
+msgstr "టెర్మినల్"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
 msgid "Use GNOME Terminal profile:"
@@ -8409,7 +8584,7 @@ msgstr ""
 #: ../plugins/terminal/terminal.c:995
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
-msgstr ""
+msgstr "టెర్మినల్"
 
 #: ../plugins/terminal/terminal.c:877
 #, c-format
@@ -8418,7 +8593,7 @@ msgstr ""
 
 #: ../plugins/tools/anjuta-tools.ui.h:2
 msgid "Command:"
-msgstr ""
+msgstr "ఆదేశము:"
 
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Edit as script"
@@ -8462,7 +8637,7 @@ msgstr ""
 #: ../plugins/tools/anjuta-tools.ui.h:19 ../plugins/tools/plugin.c:263
 #: ../plugins/tools/plugin.c:270 ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
-msgstr ""
+msgstr "పనిముట్లు"
 
 #: ../plugins/tools/anjuta-tools.ui.h:20
 msgid "Variable list"
@@ -8473,8 +8648,9 @@ msgid "Working directory:"
 msgstr ""
 
 #: ../plugins/tools/anjuta-tools.ui.h:22
+#, fuzzy
 msgid "_Variable…"
-msgstr ""
+msgstr "చరరాశి"
 
 #: ../plugins/tools/dialog.c:177
 #, c-format
@@ -8499,7 +8675,7 @@ msgstr ""
 
 #: ../plugins/tools/editor.c:621
 msgid "Disabled"
-msgstr ""
+msgstr "అచేతనమైన"
 
 #: ../plugins/tools/editor.c:793
 msgid "You must provide a tool name!"
@@ -8524,13 +8700,14 @@ msgid "Unable to edit script"
 msgstr ""
 
 #: ../plugins/tools/editor.c:1046
+#, fuzzy
 msgid "New accelerator…"
-msgstr ""
+msgstr "కొత్త ఏక్సలరేటర్..."
 
 #: ../plugins/tools/execute.c:314
 #, c-format
 msgid "Opening %s"
-msgstr ""
+msgstr "%sతెరుస్తుంది"
 
 #. This is append to the tool name to give something
 #. * like "My tools (output)". It's used to name the message
@@ -8595,8 +8772,9 @@ msgid "Tool operations"
 msgstr ""
 
 #: ../plugins/tools/variable.c:86
+#, fuzzy
 msgid "Project root URI"
-msgstr ""
+msgstr "పథకం"
 
 #: ../plugins/tools/variable.c:87
 msgid "Project root path"
@@ -8671,16 +8849,18 @@ msgid "Currently edited file directory"
 msgstr ""
 
 #: ../plugins/tools/variable.c:106
+#, fuzzy
 msgid "Currently selected text in editor"
-msgstr ""
+msgstr "ప్రస్తుత ఎంపిక"
 
 #: ../plugins/tools/variable.c:107
 msgid "Current word in editor"
 msgstr ""
 
 #: ../plugins/tools/variable.c:108
+#, fuzzy
 msgid "Current line in editor"
-msgstr ""
+msgstr "ప్రస్తుత ఎంపిక"
 
 #: ../plugins/tools/variable.c:109
 msgid "Ask the user to get additional parameters"
@@ -8733,7 +8913,7 @@ msgstr ""
 
 #: ../plugins/tools/tool.c:96
 msgid "None"
-msgstr ""
+msgstr "ఏదీకాదు"
 
 #: ../plugins/tools/tool.c:97
 msgid "Current buffer"
@@ -8741,11 +8921,11 @@ msgstr ""
 
 #: ../plugins/tools/tool.c:98
 msgid "Current selection"
-msgstr ""
+msgstr "ప్రస్తుత ఎంపిక"
 
 #: ../plugins/tools/tool.c:99
 msgid "String"
-msgstr ""
+msgstr "పదబంధం"
 
 #: ../src/about.c:205
 msgid "Copyright (c) Naba Kumar"
@@ -8757,11 +8937,11 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
-msgstr ""
+msgstr "దస్త్రము(_F)"
 
 #: ../src/anjuta-actions.h:24
 msgid "_Quit"
-msgstr ""
+msgstr "నిష్క్రమించు (_Q)"
 
 #: ../src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
@@ -8769,7 +8949,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:32
 msgid "_Preferences"
-msgstr ""
+msgstr "_అభీష్టాలు"
 
 #: ../src/anjuta-actions.h:33
 msgid "Do you prefer coffee to tea? Check it out."
@@ -8777,7 +8957,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:38
 msgid "_View"
-msgstr ""
+msgstr "దర్శనం (_V)"
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
@@ -8789,7 +8969,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
-msgstr ""
+msgstr "నిండు తెర (_F)"
 
 #: ../src/anjuta-actions.h:48
 msgid "Toggle fullscreen mode"
@@ -8805,15 +8985,15 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
-msgstr ""
+msgstr "పనిముట్ల పట్టా(_T)"
 
 #: ../src/anjuta-actions.h:56
 msgid "Show or hide the toolbar"
-msgstr ""
+msgstr "పనిముట్ల పట్టాను చూపుము లేదా దాయుము"
 
 #: ../src/anjuta-actions.h:61
 msgid "_Help"
-msgstr ""
+msgstr "సహాయం(_H)"
 
 #: ../src/anjuta-actions.h:63
 msgid "_User's Manual"
@@ -8841,7 +9021,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:75
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "తరుచూ అడుగు ప్రశ్నలు(_F)"
 
 #: ../src/anjuta-actions.h:76
 msgid "Anjuta frequently asked questions"
@@ -8873,7 +9053,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:91
 msgid "_About"
-msgstr ""
+msgstr "గురించి(_A)"
 
 #: ../src/anjuta-actions.h:92
 msgid "About Anjuta"
@@ -8889,11 +9069,11 @@ msgstr ""
 
 #: ../src/anjuta-app.c:629
 msgid "Edit"
-msgstr ""
+msgstr "సరిచేయు"
 
 #: ../src/anjuta-app.c:642
 msgid "Help"
-msgstr ""
+msgstr "సహాయం"
 
 #: ../src/anjuta-app.c:940
 msgid "Installed plugins"
@@ -8947,8 +9127,9 @@ msgid "Anjuta"
 msgstr ""
 
 #: ../src/preferences.ui.h:1
+#, fuzzy
 msgid "Appearance"
-msgstr ""
+msgstr "<b>రూపము</b>"
 
 #: ../src/preferences.ui.h:3
 msgid "Do not load last project and files on startup"
@@ -8968,20 +9149,23 @@ msgid "GNOME toolbar setting"
 msgstr ""
 
 #: ../src/preferences.ui.h:9
+#, fuzzy
 msgid "Icons"
-msgstr ""
+msgstr "ప్రతిమ"
 
 #: ../src/preferences.ui.h:10
 msgid "Icons only"
 msgstr ""
 
 #: ../src/preferences.ui.h:11
+#, fuzzy
 msgid "Session"
-msgstr ""
+msgstr "Version"
 
 #: ../src/preferences.ui.h:12
+#, fuzzy
 msgid "Tabs"
-msgstr ""
+msgstr "కర్తవ్యాలు"
 
 #: ../src/preferences.ui.h:14
 msgid "Text + Icons"
@@ -8996,8 +9180,9 @@ msgid "Text beside icons"
 msgstr ""
 
 #: ../src/preferences.ui.h:17
+#, fuzzy
 msgid "Text only"
-msgstr ""
+msgstr "పాఠం"
 
 #. translators: translate the same as in gnome-control-center
 #: ../src/preferences.ui.h:19
@@ -9023,13 +9208,15 @@ msgid "Add a space after function call autocompletion"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
+#, fuzzy
 msgid "Auto-complete"
-msgstr ""
+msgstr "పూర్తిచేయబడిన"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:4
+#, fuzzy
 msgid "Autocompletion"
-msgstr ""
+msgstr "స్వయంచాలక"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 msgid "Automatically load required libraries of the project"
@@ -9060,8 +9247,9 @@ msgid "Enable smart indentation"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
+#, fuzzy
 msgid "Indent:"
-msgstr ""
+msgstr "ప్రవేశించు"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:11
@@ -9124,8 +9312,9 @@ msgid "Comment/Uncomment"
 msgstr ""
 
 #: ../plugins/language-support-cpp-java/plugin.c:1211
+#, fuzzy
 msgid "Comment or uncomment current selection"
-msgstr ""
+msgstr "ప్రస్తుత ఎంపిక"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1216
 msgid "Swap .h/.c"
@@ -9170,8 +9359,9 @@ msgstr ""
 #: ../plugins/language-support-python/plugin.c:619
 #: ../plugins/language-support-python/plugin.c:628
 #: ../plugins/language-support-python/python-assist.c:984
+#, fuzzy
 msgid "Python"
-msgstr ""
+msgstr "త్రోవ"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
 msgid "Autocomplete"
@@ -9186,12 +9376,14 @@ msgid "Environment"
 msgstr ""
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#, fuzzy
 msgid "Interpreter"
-msgstr ""
+msgstr "సంవిధానం"
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:13
+#, fuzzy
 msgid "Path: "
-msgstr ""
+msgstr "త్రోవ:"
 
 #: ../plugins/sourceview/plugin.c:238 ../plugins/sourceview/plugin.c:279
 msgid "GtkSourceView Editor"
@@ -9326,12 +9518,13 @@ msgid "Anjuta Class Generator Plugin"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:2
+#, fuzzy
 msgid "Class"
-msgstr ""
+msgstr "కర్తవ్యాలు"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
-msgstr ""
+msgstr "ప్రోజెక్ట్‍ నిర్వాహకి"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:2
 msgid "Project Manager Plugin for Anjuta."
@@ -9367,7 +9560,7 @@ msgstr ""
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:2
 msgid "Run Program"
-msgstr ""
+msgstr "ప్రోగ్రామ్ ను నడుపుము"
 
 #: ../plugins/language-manager/language-manager.plugin.in.h:1
 msgid "Language Manager"
@@ -9386,9 +9579,9 @@ msgid "New Autotools backend for project manager"
 msgstr ""
 
 #: ../plugins/js-debugger/plugin.c:122
-#, c-format
+#, fuzzy, c-format
 msgid "Error: %s"
-msgstr ""
+msgstr "దోషము"
 
 #: ../plugins/js-debugger/plugin.c:142
 #: ../plugins/js-debugger/debugger-js.c:548
@@ -9405,8 +9598,9 @@ msgstr ""
 
 #: ../plugins/language-support-js/plugin.c:329
 #: ../plugins/language-support-js/plugin.c:338
+#, fuzzy
 msgid "JavaScript"
-msgstr ""
+msgstr "లిపి"
 
 #: ../plugins/language-support-js/plugin.c:394
 msgid "JS"
@@ -9447,3 +9641,216 @@ msgstr ""
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr ""
+
+#~ msgid "Info _Target Files"
+#~ msgstr "దస్త్రాల లక్ష్యం యొక్క సమాచారం(_T)"
+
+#~ msgid "Info _Program"
+#~ msgstr "ప్రొగ్రాం సమాచారము(_P)"
+
+#~ msgid "Info _Global Variables"
+#~ msgstr "విశ్వ చరరాశులనుండి సమాచారం(_G)"
+
+#~ msgid "Display all global and static variables of the program"
+#~ msgstr "ప్రోగ్రాం యొక్క విశ్వ  మరియు స్థిర చరరాశులనుండి సమాచారాన్ని చూపుము"
+
+#~ msgid "Info _Current Frame"
+#~ msgstr "ప్రస్తుత చట్రము యొక్క సమాచారం(_C)"
+
+#~ msgid "Display information about the current frame of execution"
+#~ msgstr "ప్రస్తుత చట్రము యొక్క నిర్వర్తన గూర్చి సమాచారం ప్రదర్శించుము"
+
+#~ msgid "Info Function _Arguments"
+#~ msgstr "ఫంక్షను గూర్చిన సమాచారం(_A)"
+
+#~ msgid "Display function arguments of the current frame"
+#~ msgstr "ప్రస్తుత చట్రము గూర్చి సమాచారం ప్రదర్శించుము"
+
+#~ msgid "<b>Options</b>"
+#~ msgstr "<b>ఇచ్ఛాపూర్వకాలు:</b>"
+
+#~ msgid "Online"
+#~ msgstr "ఆన్‌లైన్"
+
+#~ msgid "_Print..."
+#~ msgstr "ముద్రించు (_P)..."
+
+#~ msgid "_Open..."
+#~ msgstr "తెరచు(_O)..."
+
+#~ msgid "Advanced"
+#~ msgstr "ఆధునాతన"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<b>Filters</b>"
+#~ msgstr "<b>వడపోతలు</b>"
+
+#~ msgid "From:"
+#~ msgstr "నుండి:"
+
+#~ msgid "Select A Folder"
+#~ msgstr "ఒక సంచయమును ఎంచుకో"
+
+#~ msgid "To:"
+#~ msgstr "యిచటకు:"
+
+#~ msgid "_Add..."
+#~ msgstr "కలుపుము(_A)..."
+
+#~ msgid "_Remove..."
+#~ msgstr "తీసివేయు(_R)..."
+
+#~ msgid "Redo the last action"
+#~ msgstr "వెనుకటి క్రియను మళ్ళీచేయుము"
+
+#~ msgid "Cut the selection"
+#~ msgstr "ఎంపికచేసినదాన్ని కత్తిరించుము"
+
+#~ msgid "Paste the clipboard"
+#~ msgstr "క్లిప్ పలకాన్ని అతికించుము"
+
+#~ msgid "Summary:"
+#~ msgstr "సంక్షిప్తము:"
+
+#~ msgid "Edit Categories"
+#~ msgstr "విభాగాలను సరిచేయు"
+
+#~ msgid "Priority:"
+#~ msgstr "ప్రాధాన్యం:"
+
+#~ msgid "Medium"
+#~ msgstr "మీడియం"
+
+#~ msgid "XML"
+#~ msgstr "XML"
+
+#~ msgid "Plain Text"
+#~ msgstr "        పాఠం"
+
+#~ msgid "HTML"
+#~ msgstr "హెచ్   టి ఎమ్ ఎల్"
+
+#~ msgid "All"
+#~ msgstr "అన్ని"
+
+#~ msgid "Priority"
+#~ msgstr "ప్రాధాన్యత"
+
+#~ msgid "Due date"
+#~ msgstr "పూర్వ నిర్ణీత తేది"
+
+#~ msgid "Summary"
+#~ msgstr "Summary"
+
+#~ msgid "Personal"
+#~ msgstr "వ్యక్తిగత"
+
+#~ msgid "Business"
+#~ msgstr "వ్యాపారము"
+
+#~ msgid "Delete"
+#~ msgstr "తీసివేయు"
+
+#~ msgid "_Tasks"
+#~ msgstr "కర్తవ్యాలు(_T)"
+
+#~ msgid "Misc"
+#~ msgstr "మిస్‌లేనియస్"
+
+#~ msgid "Notification"
+#~ msgstr "నో‍టీసు"
+
+#~ msgid "No Date"
+#~ msgstr "తేది లేదు"
+
+#~ msgid "Edit..."
+#~ msgstr "సరిచేయుట"
+
+#~ msgid "%Y-%m-%d"
+#~ msgstr "%Y-%m-%d"
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "Macros"
+#~ msgstr "Macros"
+
+#~ msgid "_Add Macro..."
+#~ msgstr "మాక్రోను చేర్చుము... (_A)"
+
+#~ msgid "Function Name"
+#~ msgstr "కార్యక్రమం నామము"
+
+#~ msgid "Refresh"
+#~ msgstr "పునర్వికాసం"
+
+#~ msgid "Options..."
+#~ msgstr "ఇచ్ఛాపూర్వకాలు..."
+
+#~ msgid "_Refresh"
+#~ msgstr "తాజాపర్చు (_R)"
+
+#~ msgid "No"
+#~ msgstr "వద్దు"
+
+#~ msgid "GTK+"
+#~ msgstr "GTK+"
+
+#~ msgid "Background color:"
+#~ msgstr "బ్యాక్‌గ్రౌండ్ రంగు:"
+
+#~ msgid "Disable syntax highlighting"
+#~ msgstr "పరిచ్ఛేద ఉద్దీపనాన్ని క్రియాహీనం చేయు"
+
+#~ msgid "Italic"
+#~ msgstr "ఇటాలిక్"
+
+#~ msgid "Printing"
+#~ msgstr "ముద్రించుచున్నది"
+
+#~ msgid "File: %s"
+#~ msgstr "దస్త్రము%s"
+
+#~ msgid "<b>Actions</b>"
+#~ msgstr "<b>చర్యలు</b>"
+
+#~ msgid "Forward"
+#~ msgstr "ముందు"
+
+#~ msgid "Modify"
+#~ msgstr "మార్చు"
+
+#~ msgid "Setting"
+#~ msgstr "అమరికలు"
+
+#~ msgid "_Find..."
+#~ msgstr "_వెతుకు..."
+
+#~ msgid "Searching..."
+#~ msgstr "వెతుకుతోంది..."
+
+#~ msgid "Find:"
+#~ msgstr "వెతుకు:"
+
+#~ msgid "Links"
+#~ msgstr "జోడింపులు"
+
+#~ msgid "Failed to create child process '%s': %s"
+#~ msgstr "శిశువు కార్యక్రమము సృష్టించుటలో విఫలమైంది '%s': %s"
+
+#~ msgid "Cu_t"
+#~ msgstr "కోయుము (_t)"
+
+#~ msgid "Show"
+#~ msgstr "కనబర్చు"
+
+#~ msgid "Shrink"
+#~ msgstr "కుచింపు"
+
+#~ msgid "Task Manager"
+#~ msgstr "కర్తవ్య నిర్వాహకి"
+
+#~ msgid "Profile"
+#~ msgstr "ప్రొఫైల్"
