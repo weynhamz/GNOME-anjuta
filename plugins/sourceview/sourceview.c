@@ -510,7 +510,8 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 		GFile* file = sourceview_io_get_file (sv->priv->io);
 
 		/* Save marks and position */
-		sv->priv->goto_line = ianjuta_editor_get_lineno (IANJUTA_EDITOR(sv), NULL);
+		sv->priv->goto_line = 
+			LOCATION_TO_LINE(ianjuta_editor_get_lineno (IANJUTA_EDITOR(sv), NULL));
 		sourceview_reload_save_markers (sv);
 
 		ianjuta_file_open(IANJUTA_FILE(sv),
