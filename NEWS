@@ -1,3 +1,16 @@
+Anjuta 3.2.1 "Home sweat home" (19 September 2011) -- Johannes Schmid
+
+Bugs fixed:
+660841 	build failure with [-Werror=format-security]
+653652 	'New file' doesn't check duplicates, gets confused
+660061 	Remove 'no-dist-bzip2' from automake options
+660065 	Can't create a new target in empty Makefile
+661511 	Python/Django Project Wizard: Missing Components/Programs: django-admin 
+
+Thanks to:
+Andre Klapper, Arnel A. Borja, Carles Ferrando, Michael Biebl,
+Sébastien Granjoux, Xandru Armesto, Мирослав Николић
+
 Anjuta 3.2.0 "No more bombs" (25 September 2011) -- Johannes Schmid
 
 This is the new stable release, please update if you are using anjuta
