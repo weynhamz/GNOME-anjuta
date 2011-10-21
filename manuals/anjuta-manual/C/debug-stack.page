@@ -29,6 +29,10 @@
     Each stack frame is numbered starting from 0 for the current function.
     You can only view the stack frames while the debugger is running.</p>
 
+    <p>Moreover, a program can be composed of several threads. Each thread is
+    executed independently and has its own registers, stack and local
+    variables, but shares all global variables.</p>
+
     <steps>
       <item>
         <p>From the <gui>main menu</gui>, select <guiseq><gui>View</gui>
@@ -37,7 +41,8 @@
       </item>
     </steps>
 
-    <p>Each stack frame contains the following information:</p>	
+    <p>The stacks are displayed in a tree view having their corresponding
+    thread as parent and displaying the following information:</p>	
 
     <terms>
       <item>
@@ -46,6 +51,10 @@
         default it is frame 0, the current function. All evaluations and
         local variables are relative to this active frame. You can change
         the active stack frame to examine local variables in other functions.</p>
+      </item>
+      <item>
+        <title>Thread</title>
+        <p>This is a number corresponding to each thread.</p>
       </item>
       <item>
         <title>Frame</title>
@@ -80,7 +89,7 @@
 
 
   <section>
-    <title>Change the current stack frame</title>
+    <title>Change the current stack frame or thread</title>
 
     <steps>
       <item>
@@ -90,6 +99,12 @@
         <p>Right-click and select <gui>Set current frame</gui>.</p>
       </item>
     </steps>
+
+    <p>Clicking on a stack frame in the same thread changes only the
+    stack frame, allowing to see other local variables. But doing it
+    in another thread will change both the stack frame
+    and the thread. The register values will be different and the
+    debugger will restart in the selected thread.</p>
   </section>
 
 

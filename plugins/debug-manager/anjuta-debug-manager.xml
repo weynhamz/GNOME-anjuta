@@ -86,10 +86,6 @@
 		<menuitem name="UpdateAllWatch" action="ActionDmaUpdateAllWatch" />
 		<menuitem name="RemoveAllWatch" action="ActionDmaRemoveAllWatch" />
 	</popup>
-	<popup name="PopupThread">
-		<menuitem name="SetCurrentThread" action="ActionDmaSetCurrentThread" />
-		<menuitem name="JumpToThread" action="ActionDmaJumpToThread" />
-	</popup>
 	<popup name="PopupSignals">
 		<menuitem name="SendSignal" action="ActionDmaSignalSend" />
 		<menuitem name="UpdateSignalList" action="ActionDmaSignalUpdate" />

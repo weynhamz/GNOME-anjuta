@@ -26,7 +26,6 @@
 
 #include "breakpoints.h"
 #include "stack_trace.h"
-#include "threads.h"
 #include "info.h"
 #include "memory.h"
 #include "disassemble.h"
@@ -68,7 +67,7 @@ struct _DebugManagerPlugin
 
 	/* Debugger queue */
 	DmaDebuggerQueue *queue;
-	
+
 	/* Menu item */
 	gint uiid;
 	GtkActionGroup *start_group;
@@ -88,22 +87,21 @@ struct _DebugManagerPlugin
 	guint pc_line;
 	gulong pc_address;
 	gboolean busy;
-	
+
 	/* Debugger components */
 	BreakpointsDBase *breakpoints;
 	DmaStart *start;
 	StackTrace *stack;
 	CpuRegisters *registers;
 	Sharedlibs *sharedlibs;
-	Signals *signals;	
+	Signals *signals;
 	DmaMemory *memory;
 	DmaDisassemble *disassemble;
-	DmaThreads *thread;
 	DmaVariableDBase *variable;
-	
+
 
 	GtkWidget *user_command_dialog;
-	
+
 	/* Logging view */
 	IAnjutaMessageView* view;
 };
@@ -132,10 +130,10 @@ register_stock_icons (AnjutaPlugin *plugin)
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
         REGISTER_ICON_FULL ("anjuta-watch", "gdb-watch-icon");
         REGISTER_ICON_FULL ("anjuta-breakpoint-toggle", ANJUTA_STOCK_BREAKPOINT_TOGGLE);
-        REGISTER_ICON_FULL ("anjuta-breakpoint-clear", ANJUTA_STOCK_BREAKPOINT_CLEAR);		
+        REGISTER_ICON_FULL ("anjuta-breakpoint-clear", ANJUTA_STOCK_BREAKPOINT_CLEAR);
     	/* We have no -24 version for the next two */
 		REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", ANJUTA_STOCK_BREAKPOINT_DISABLED);
-        REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", ANJUTA_STOCK_BREAKPOINT_ENABLED);				
+        REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", ANJUTA_STOCK_BREAKPOINT_ENABLED);
 		REGISTER_ICON_FULL ("anjuta-attach", "debugger-attach");
 		REGISTER_ICON_FULL ("anjuta-step-into", "debugger-step-into");
 		REGISTER_ICON_FULL ("anjuta-step-out", "debugger-step-out");
@@ -153,7 +151,7 @@ static void
 show_program_counter_in_editor(DebugManagerPlugin *self)
 {
 	IAnjutaEditor *editor = self->current_editor;
-	
+
 	if ((editor != NULL) && (self->pc_editor == editor))
 	{
 		if (IANJUTA_IS_MARKABLE (editor))
@@ -166,12 +164,12 @@ show_program_counter_in_editor(DebugManagerPlugin *self)
 				ianjuta_editor_get_line_begin_position(editor, self->pc_line, NULL);
 			IAnjutaIterable *end =
 				ianjuta_editor_get_line_end_position(editor, self->pc_line, NULL);
-			
+
 			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end,
 								  IANJUTA_INDICABLE_IMPORTANT, NULL);
 			g_object_unref (begin);
 			g_object_unref (end);
-		}		
+		}
 	}
 }
 
@@ -179,7 +177,7 @@ static void
 hide_program_counter_in_editor(DebugManagerPlugin *self)
 {
 	IAnjutaEditor *editor = self->current_editor;
-	
+
 	if ((editor != NULL) && (self->pc_editor == editor))
 	{
 		if (IANJUTA_IS_MARKABLE (editor))
@@ -188,8 +186,8 @@ hide_program_counter_in_editor(DebugManagerPlugin *self)
 		}
 		if (IANJUTA_IS_INDICABLE(editor))
 		{
-			ianjuta_indicable_clear(IANJUTA_INDICABLE(editor), NULL);			
-		}		
+			ianjuta_indicable_clear(IANJUTA_INDICABLE(editor), NULL);
+		}
 	}
 }
 
@@ -215,9 +213,9 @@ set_program_counter(DebugManagerPlugin *self, const gchar* filename, guint line,
 		if (docman)
 		{
 			IAnjutaEditor* editor;
-		
+
 			editor = ianjuta_document_manager_goto_file_line(docman, file, line, NULL);
-		
+
 			if (editor != NULL)
 			{
 				self->pc_editor = editor;
@@ -225,7 +223,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* filename, guint line,
 				self->pc_line = line;
 				show_program_counter_in_editor (self);
 			}
-		}		
+		}
 		g_object_unref (file);
 	}
 }
@@ -238,11 +236,11 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	const gchar *root_uri;
 
 	dm_plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
-	
+
 	if (dm_plugin->project_root_uri)
 		g_free (dm_plugin->project_root_uri);
 	dm_plugin->project_root_uri = NULL;
-	
+
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
@@ -257,7 +255,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	DebugManagerPlugin *dm_plugin;
 
 	dm_plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
-	
+
 	if (dm_plugin->project_root_uri)
 		g_free (dm_plugin->project_root_uri);
 	dm_plugin->project_root_uri = NULL;
@@ -274,7 +272,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 	editor = g_value_get_object (value);
 	DEBUG_PRINT("add value current editor %p",  editor);
-	
+
 	if (!IANJUTA_IS_EDITOR(editor))
 	{
 		self->current_editor = NULL;
@@ -283,7 +281,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 	self->current_editor = IANJUTA_EDITOR (editor);
 	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
-		
+
 	/* Restore program counter marker */
 	show_program_counter_in_editor (self);
 
@@ -395,9 +393,9 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_debugger_started");
-	
+
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
-	
+
 	/* Update ui */
 	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerStop");
 	gtk_action_set_sensitive (action, TRUE);
@@ -421,7 +419,7 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_loaded");
-	
+
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
@@ -443,18 +441,18 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_running");
-	
+
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
-	
+
 	gtk_action_set_sensitive (this->run_stop_action, TRUE);
 	gtk_action_set_stock_id (this->run_stop_action, GTK_STOCK_MEDIA_PAUSE);
 	gtk_action_set_label (this->run_stop_action, _("Pa_use Program"));
 	gtk_action_set_tooltip (this->run_stop_action, _("Pauses the execution of the program"));
-	
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Running…"));
 
@@ -468,9 +466,9 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
 	AnjutaStatus* status;
-	
+
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_broken");
-	
+
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
@@ -504,7 +502,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_unload");
-	
+
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_visible (this->start_group, TRUE);
@@ -515,7 +513,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
-	
+
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Unloaded"));
 }
@@ -532,7 +530,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_debugger_stopped");
 
 	dma_plugin_program_unload (self);
-	
+
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (self)->shell, NULL);
 	gtk_action_group_set_visible (self->start_group, TRUE);
@@ -554,21 +552,21 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 
 	/* Remove user command dialog if existing */
 	if (self->user_command_dialog) gtk_widget_destroy (GTK_WIDGET (self->user_command_dialog));
-	
+
 	/* Display a warning if debugger stop unexpectedly */
 	if (err != NULL)
 	{
 		GtkWindow *parent = GTK_WINDOW (ANJUTA_PLUGIN(self)->shell);
 		anjuta_util_dialog_error (parent, _("Debugger terminated with error %d: %s\n"), err->code, err->message);
 	}
-		
+
 }
 
 static void
 dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const gchar *description)
 {
 	GtkWindow *parent = GTK_WINDOW (ANJUTA_PLUGIN (self)->shell);
-	
+
 	/* Skip SIGINT signal */
 	if (strcmp(name, "SIGINT") != 0)
 	{
@@ -597,7 +595,7 @@ dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gch
 
 /* Start/Stop menu functions
  *---------------------------------------------------------------------------*/
-	
+
 static void
 on_start_debug_activate (GtkAction* action, DebugManagerPlugin* this)
 {
@@ -708,7 +706,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
 		{
 			gulong address;
-			
+
 			address = dma_disassemble_get_current_address (plugin->disassemble);
 			dma_queue_run_to_address (plugin->queue, address);
 		}
@@ -725,9 +723,9 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 			file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 			if (file == NULL)
 				return;
-	
+
 			filename = g_file_get_path (file);
-	
+
 			line = ianjuta_editor_get_lineno (editor, NULL);
 			dma_queue_run_to (plugin->queue, filename, line);
 			g_free (filename);
@@ -744,7 +742,7 @@ on_run_from_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugi
 		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
 		{
 			gulong address;
-			
+
 			address = dma_disassemble_get_current_address (plugin->disassemble);
 			dma_queue_run_from_address (plugin->queue, address);
 		}
@@ -761,9 +759,9 @@ on_run_from_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugi
 			file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 			if (file == NULL)
 				return;
-	
+
 			filename = g_file_get_path (file);
-	
+
 			line = ianjuta_editor_get_lineno (editor, NULL);
 			dma_queue_run_from (plugin->queue, filename, line);
 			g_free (filename);
@@ -812,7 +810,7 @@ on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plu
 	    gtk_window_set_transient_for (GTK_WINDOW (plugin->user_command_dialog), GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
 
 		g_object_add_weak_pointer (G_OBJECT (plugin->user_command_dialog), (gpointer *)&plugin->user_command_dialog);
-	
+
         g_signal_connect_swapped (plugin->user_command_dialog, "response",
                                                           G_CALLBACK (gtk_widget_destroy),
                                                          plugin->user_command_dialog);
@@ -902,7 +900,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerStop",
 		GTK_STOCK_STOP,
-		N_("Stop Debugger"), 
+		N_("Stop Debugger"),
 		NULL,
 		N_("Say goodbye to the debugger"),
 		G_CALLBACK (on_debugger_stop_activate)
@@ -910,7 +908,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerAddSource",
 		NULL,
-		N_("Add source paths…"), 
+		N_("Add source paths…"),
 		NULL,
 		N_("Add additional source paths"),
 		G_CALLBACK (on_add_source_activate)
@@ -924,7 +922,7 @@ static GtkActionEntry actions_loaded[] =
 		NULL,                                            /* Stock icon, if any */
 		N_("Debugger Command…"),                       /* Display label */
 		NULL,                                            /* short-cut */
-		N_("Custom debugger command"),                   /* Tooltip */ 
+		N_("Custom debugger command"),                   /* Tooltip */
 		G_CALLBACK (on_debugger_custom_command_activate) /* action callback */
 	},
 	{
@@ -977,10 +975,10 @@ static GtkActionEntry actions_stopped[] =
 		N_("Step _In"),
 		"F5",
 		N_("Single step into function"),
-		G_CALLBACK (on_step_in_action_activate) 
+		G_CALLBACK (on_step_in_action_activate)
 	},
 	{
-		"ActionDebuggerStepOver", 
+		"ActionDebuggerStepOver",
 		"debugger-step-over",
 		N_("Step O_ver"),
 		"F6",
@@ -990,26 +988,26 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionDebuggerStepOut",
 		"debugger-step-out",
-		N_("Step _Out"),                    
-		"<shift>F5",                              
-		N_("Single step out of function"), 
-		G_CALLBACK (on_step_out_action_activate) 
+		N_("Step _Out"),
+		"<shift>F5",
+		N_("Single step out of function"),
+		G_CALLBACK (on_step_out_action_activate)
 	},
 	{
-		"ActionDebuggerRunToPosition",    
-		"debugger-run-to-cursor",                             
-		N_("_Run to Cursor"),           
-		"F8",                              
-		N_("Run to the cursor"),              
-		G_CALLBACK (on_run_to_cursor_action_activate) 
+		"ActionDebuggerRunToPosition",
+		"debugger-run-to-cursor",
+		N_("_Run to Cursor"),
+		"F8",
+		N_("Run to the cursor"),
+		G_CALLBACK (on_run_to_cursor_action_activate)
 	},
 	{
-		"ActionDebuggerRunFromPosition",    
-		"debugger-run-from-cursor",                             
-		N_("_Run from Cursor"),           
-		NULL,                              
-		N_("Run from the cursor"),              
-		G_CALLBACK (on_run_from_cursor_action_activate) 
+		"ActionDebuggerRunFromPosition",
+		"debugger-run-from-cursor",
+		N_("_Run from Cursor"),
+		NULL,
+		N_("Run from the cursor"),
+		G_CALLBACK (on_run_from_cursor_action_activate)
 	},
 	{
 		"ActionGdbCommand",
@@ -1066,10 +1064,10 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
 	static gboolean initialized = FALSE;
 	AnjutaUI *ui;
-	
+
 	DEBUG_PRINT ("%s", "DebugManagerPlugin: Activating Debug Manager plugin…");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
-	
+
     if (!initialized)
     {
 		initialized = TRUE;
@@ -1087,7 +1085,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect (this, "program-moved", G_CALLBACK (dma_plugin_program_moved), this);
 	g_signal_connect (this, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
 	g_signal_connect (this, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
-	
+
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	this->start_group =
@@ -1113,21 +1111,18 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											_("Debugger operations"),
 											actions_running,
 											G_N_ELEMENTS (actions_running),
-											GETTEXT_PACKAGE, TRUE, this);	
+											GETTEXT_PACKAGE, TRUE, this);
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
+
 	/* Get run_stop_action */
 	this->run_stop_action = anjuta_ui_get_action (ui, "ActionGroupDebugLoaded", "ActionDebuggerContinueSuspend");
 
 	/* Variable */
 	this->variable = dma_variable_dbase_new (this);
-	
+
 	/* Stack trace */
 	this->stack = stack_trace_new (this);
 
-	/* Thread list */
-	this->thread = dma_threads_new (this);
-	
 	/* Create breakpoints list */
 	this->breakpoints = breakpoints_dbase_new (this);
 
@@ -1150,20 +1145,20 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	this->signals = signals_new (this);
 
 	dma_plugin_debugger_stopped (this, 0);
-	
+
 	/* Add watches */
-	this->project_watch_id = 
+	this->project_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
-	this->editor_watch_id = 
+	this->editor_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-						 
+
     /* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
-                                 G_CALLBACK (on_session_save), plugin);							 
+                                 G_CALLBACK (on_session_save), plugin);
 
 	return TRUE;
 }
@@ -1182,11 +1177,11 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	dma_plugin_debugger_stopped (this, 0);
 
 	g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_save), plugin);
-	g_signal_handlers_disconnect_matched (plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
+	g_signal_handlers_disconnect_matched (plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);
 
 	anjuta_plugin_remove_watch (plugin, this->project_watch_id, FALSE);
 	anjuta_plugin_remove_watch (plugin, this->editor_watch_id, FALSE);
-	
+
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 
@@ -1195,25 +1190,22 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 	dma_variable_dbase_free (this->variable);
 	this->variable = NULL;
-	
+
 	breakpoints_dbase_destroy (this->breakpoints);
 	this->breakpoints = NULL;
-	
+
 	stack_trace_free (this->stack);
 	this->stack = NULL;
 
 	cpu_registers_free (this->registers);
 	this->registers = NULL;
-	
+
 	dma_memory_free (this->memory);
 	this->memory = NULL;
-	
+
 	dma_disassemble_free (this->disassemble);
 	this->disassemble = NULL;
-	
-	dma_threads_free (this->thread);
-	this->thread = NULL;
-	
+
 	dma_start_free (this->start);
 	this->start = NULL;
 
@@ -1241,7 +1233,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-DmaDebuggerQueue* 
+DmaDebuggerQueue*
 dma_debug_manager_get_queue (DebugManagerPlugin *self)
 {
 	return self->queue;
@@ -1260,9 +1252,9 @@ static void
 dma_plugin_instance_init (GObject* obj)
 {
 	DebugManagerPlugin *plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (obj);
-	
+
 	plugin->uiid = 0;
-	
+
 	plugin->project_root_uri = NULL;
 	plugin->queue = NULL;
 	plugin->current_editor = NULL;
@@ -1276,7 +1268,7 @@ dma_plugin_instance_init (GObject* obj)
 	plugin->view = NULL;
 
 	plugin->user_command_dialog = NULL;
-	
+
 	/* plugin->uri = NULL; */
 }
 
@@ -1289,7 +1281,7 @@ static void
 dma_plugin_dispose (GObject* obj)
 {
 	DebugManagerPlugin *plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (obj);
-	
+
 	if (plugin->user_command_dialog != NULL)	gtk_widget_destroy (GTK_WIDGET (plugin->user_command_dialog));
 
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
@@ -1312,14 +1304,14 @@ dma_plugin_finalize (GObject* obj)
 	{
 		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 	}
-	
+
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* class_init intialize the class itself not the instance */
 
 static void
-dma_plugin_class_init (GObjectClass* klass) 
+dma_plugin_class_init (GObjectClass* klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 

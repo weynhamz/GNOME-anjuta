@@ -33,7 +33,6 @@ DOC_PAGES = \
 	debug-run.page \
 	debug-stack.page \
 	debug-step.page \
-	debug-thread.page \
 	debug-tips.page \
 	debug-watch.page \
 	directory-project-backend.page \

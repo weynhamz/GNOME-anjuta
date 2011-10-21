@@ -87,8 +87,6 @@ libanjuta_debug_manager_la_SOURCES = \
 	sparse_buffer.h \
 	sparse_view.c \
 	sparse_view.h \
-	threads.c \
-	threads.h \
 	command.c \
 	command.h \
 	variable.c \
