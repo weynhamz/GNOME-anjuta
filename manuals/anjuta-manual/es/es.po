@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-09-06 18:14+0000\n"
-"PO-Revision-Date: 2011-09-06 21:56+0200\n"
+"POT-Creation-Date: 2011-10-21 21:18+0000\n"
+"PO-Revision-Date: 2011-10-22 17:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,14 +32,13 @@ msgstr "Todas las ventanas y diálogos."
 #: C/project-manager-file.page:15(name) C/project-import.page:15(name)
 #: C/makefile-project-backend.page:12(name)
 #: C/directory-project-backend.page:12(name) C/debug-watch.page:13(name)
-#: C/debug-tips.page:13(name) C/debug-thread.page:13(name)
-#: C/debug-step.page:13(name) C/debug-stack.page:13(name)
-#: C/debug-run.page:15(name) C/debug-process-dialog.page:13(name)
-#: C/debug-local.page:13(name) C/debug-information.page:13(name)
-#: C/debug-expression.page:13(name) C/debug-execute.page:13(name)
-#: C/debug-data.page:13(name) C/debug-custom.page:13(name)
-#: C/debug-cpu.page:13(name) C/debug-breakpoint.page:13(name)
-#: C/debug-breakpoint-dialog.page:14(name)
+#: C/debug-tips.page:13(name) C/debug-step.page:13(name)
+#: C/debug-stack.page:13(name) C/debug-run.page:15(name)
+#: C/debug-process-dialog.page:13(name) C/debug-local.page:13(name)
+#: C/debug-information.page:13(name) C/debug-expression.page:13(name)
+#: C/debug-execute.page:13(name) C/debug-data.page:13(name)
+#: C/debug-custom.page:13(name) C/debug-cpu.page:13(name)
+#: C/debug-breakpoint.page:13(name) C/debug-breakpoint-dialog.page:14(name)
 #: C/autotools-build-preferences-dialog.page:14(name)
 #: C/autotools-build-plugin.page:12(name)
 #: C/autotools-build-install.page:15(name)
@@ -62,14 +61,13 @@ msgstr "Sébastien Granjoux"
 #: C/project-manager-file.page:16(email) C/project-import.page:16(email)
 #: C/makefile-project-backend.page:13(email)
 #: C/directory-project-backend.page:13(email) C/debug-watch.page:14(email)
-#: C/debug-tips.page:14(email) C/debug-thread.page:14(email)
-#: C/debug-step.page:14(email) C/debug-stack.page:14(email)
-#: C/debug-run.page:16(email) C/debug-process-dialog.page:14(email)
-#: C/debug-local.page:14(email) C/debug-information.page:14(email)
-#: C/debug-expression.page:14(email) C/debug-execute.page:14(email)
-#: C/debug-data.page:14(email) C/debug-custom.page:14(email)
-#: C/debug-cpu.page:14(email) C/debug-breakpoint.page:14(email)
-#: C/debug-breakpoint-dialog.page:15(email)
+#: C/debug-tips.page:14(email) C/debug-step.page:14(email)
+#: C/debug-stack.page:14(email) C/debug-run.page:16(email)
+#: C/debug-process-dialog.page:14(email) C/debug-local.page:14(email)
+#: C/debug-information.page:14(email) C/debug-expression.page:14(email)
+#: C/debug-execute.page:14(email) C/debug-data.page:14(email)
+#: C/debug-custom.page:14(email) C/debug-cpu.page:14(email)
+#: C/debug-breakpoint.page:14(email) C/debug-breakpoint-dialog.page:15(email)
 #: C/autotools-build-preferences-dialog.page:15(email)
 #: C/autotools-build-plugin.page:13(email)
 #: C/autotools-build-install.page:16(email)
@@ -99,13 +97,12 @@ msgstr "Iniciar un programa sin el depurador."
 #: C/project-manager-file.page:19(name) C/project-import.page:19(name)
 #: C/makefile-project-backend.page:16(name) C/full-index.page:11(name)
 #: C/directory-project-backend.page:16(name) C/debug-watch.page:17(name)
-#: C/debug-tips.page:17(name) C/debug-thread.page:17(name)
-#: C/debug-step.page:17(name) C/debug-stack.page:17(name)
-#: C/debug-run.page:19(name) C/debug-process-dialog.page:17(name)
-#: C/debug-local.page:17(name) C/debug-information.page:17(name)
-#: C/debug-expression.page:17(name) C/debug-custom.page:17(name)
-#: C/debug-cpu.page:17(name) C/debug-breakpoint.page:17(name)
-#: C/debug-breakpoint-dialog.page:18(name)
+#: C/debug-tips.page:17(name) C/debug-step.page:17(name)
+#: C/debug-stack.page:17(name) C/debug-run.page:19(name)
+#: C/debug-process-dialog.page:17(name) C/debug-local.page:17(name)
+#: C/debug-information.page:17(name) C/debug-expression.page:17(name)
+#: C/debug-custom.page:17(name) C/debug-cpu.page:17(name)
+#: C/debug-breakpoint.page:17(name) C/debug-breakpoint-dialog.page:18(name)
 #: C/autotools-build-build.page:19(name)
 msgid "Philip Chimento"
 msgstr "Philip Chimento"
@@ -119,13 +116,12 @@ msgstr "Philip Chimento"
 #: C/project-manager-file.page:20(email) C/project-import.page:20(email)
 #: C/makefile-project-backend.page:17(email) C/full-index.page:12(email)
 #: C/directory-project-backend.page:17(email) C/debug-watch.page:18(email)
-#: C/debug-tips.page:18(email) C/debug-thread.page:18(email)
-#: C/debug-step.page:18(email) C/debug-stack.page:18(email)
-#: C/debug-run.page:20(email) C/debug-process-dialog.page:18(email)
-#: C/debug-local.page:18(email) C/debug-information.page:18(email)
-#: C/debug-expression.page:18(email) C/debug-custom.page:18(email)
-#: C/debug-cpu.page:18(email) C/debug-breakpoint.page:18(email)
-#: C/debug-breakpoint-dialog.page:19(email)
+#: C/debug-tips.page:18(email) C/debug-step.page:18(email)
+#: C/debug-stack.page:18(email) C/debug-run.page:20(email)
+#: C/debug-process-dialog.page:18(email) C/debug-local.page:18(email)
+#: C/debug-information.page:18(email) C/debug-expression.page:18(email)
+#: C/debug-custom.page:18(email) C/debug-cpu.page:18(email)
+#: C/debug-breakpoint.page:18(email) C/debug-breakpoint-dialog.page:19(email)
 #: C/autotools-build-build.page:20(email)
 msgid "philip.chimento@gmail.com"
 msgstr "philip.chimento@gmail.com"
@@ -210,7 +206,7 @@ msgstr ""
 "el proyecto actual, pero puede pulsar el botón <gui>Examinar</gui> para "
 "elegir otro programa."
 
-#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
+#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:83(title)
 msgid "Arguments"
 msgstr "Argumentos"
 
@@ -1619,128 +1615,6 @@ msgstr ""
 "buscar hacia abajo en la pila. Generalmente el error viene de la primera "
 "función en su programa."
 
-#: C/debug-thread.page:9(desc)
-msgid "Examine threads."
-msgstr "Examinar hilos."
-
-#: C/debug-thread.page:22(title)
-msgid "Threads"
-msgstr "Hilos"
-
-#: C/debug-thread.page:25(title)
-msgid "List threads"
-msgstr "Listar hilos"
-
-#: C/debug-thread.page:27(p)
-msgid ""
-"A program can be composed of several threads. All these threads are executed "
-"independently, having their own registers, stack and local variables, but "
-"sharing global variables."
-msgstr ""
-"Un programa se puede componer de varios hilos. Todos estos hilos se ejecutan "
-"de manera independiente, teniendo cada uno sus propios registros, su propia "
-"pila y sus propias variables locales, pero compartiendo las variables "
-"globales."
-
-#: C/debug-thread.page:33(p)
-msgid ""
-"From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Thread</"
-"gui></guiseq> to open the <gui>Thread</gui> window."
-msgstr ""
-"Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
-"gui><gui>Hilo</gui></guiseq> para abrir la ventana <gui>Hilo</gui>."
-
-#: C/debug-thread.page:39(p)
-msgid "The window shows the following information about each thread:"
-msgstr "Cada ventana muestra la sigueinte información acerca de cada hilo:"
-
-#: C/debug-thread.page:43(title) C/debug-stack.page:44(title)
-msgid "Active"
-msgstr "Activo"
-
-#: C/debug-thread.page:44(p)
-msgid "This contains a yellow arrow that points to the active thread."
-msgstr "Esto contiene una flecha amarilla que apunta al hilo activo."
-
-#: C/debug-thread.page:47(title)
-msgid "ID"
-msgstr "ID"
-
-#: C/debug-thread.page:48(p)
-msgid "This is a number corresponding to each thread."
-msgstr "Esto es el número correspondiente a cada hilo."
-
-#: C/debug-thread.page:51(title) C/debug-stack.page:57(title)
-msgid "File"
-msgstr "Archivo"
-
-#: C/debug-thread.page:52(p)
-msgid ""
-"The name of the file containing the function corresponding to the current "
-"frame of the current thread."
-msgstr ""
-"El nombre del archivo que contiene la función correspondiente al marco o al "
-"hilo actual."
-
-#: C/debug-thread.page:56(title) C/debug-stack.page:62(title)
-msgid "Line"
-msgstr "Línea"
-
-#: C/debug-thread.page:57(p)
-msgid ""
-"The line number of the function corresponding to the current frame of the "
-"current thread."
-msgstr ""
-"El número de línea de la función correspondiente al marco o al hilo actual."
-
-#: C/debug-thread.page:61(title) C/debug-stack.page:66(title)
-msgid "Function"
-msgstr "Función"
-
-#: C/debug-thread.page:62(p)
-msgid ""
-"The name of the function corresponding to the frame of the current thread."
-msgstr "El nombre de la función correspondiente al marco o al hilo actual."
-
-#: C/debug-thread.page:66(title) C/debug-stack.page:70(title)
-#: C/debug-breakpoint.page:48(title)
-msgid "Address"
-msgstr "Dirección"
-
-#: C/debug-thread.page:67(p)
-msgid ""
-"The address of the function corresponding to the frame of the current thread."
-msgstr "La dirección de la función correspondiente al marco o al hilo actual."
-
-#: C/debug-thread.page:75(title)
-msgid "Change current thread"
-msgstr "Cambiar el hilo actual"
-
-#: C/debug-thread.page:77(p)
-msgid ""
-"The current thread is the thread whose stack and local variables are "
-"currently displayed in the debugger."
-msgstr ""
-"El hilo actual es el hilo para el cual la pila y variables locales se "
-"muestran actualmente en el depurador."
-
-#: C/debug-thread.page:82(p) C/debug-thread.page:96(p)
-msgid "In the <gui>Thread</gui> window, select the thread you want."
-msgstr "En la ventana <gui>Thread</gui>, seleccione el hilo que quiere."
-
-#: C/debug-thread.page:85(p)
-msgid "Right-click and select <gui>Set current thread</gui>."
-msgstr ""
-"Pulse con el botón derecho y seleccione <gui>Establecer el hilo actual</gui>."
-
-#: C/debug-thread.page:92(title)
-msgid "View current function"
-msgstr "Ver la función actual"
-
-#: C/debug-thread.page:99(p) C/debug-stack.page:104(p)
-msgid "Double-click, or right-click and select <gui>View Source</gui>."
-msgstr "Pulse dos veces o pulse con el botón derecho en <gui>Ver fuente</gui>."
-
 #: C/debug-step.page:9(desc)
 msgid "Stopping and continuing."
 msgstr "Parar y continuar."
@@ -1946,7 +1820,21 @@ msgstr ""
 "función actual. Sólo puede ver los marcos de la pila mientras el depurador "
 "se está ejecutando."
 
-#: C/debug-stack.page:34(p)
+#: C/debug-stack.page:32(p)
+#| msgid ""
+#| "A program can be composed of several threads. All these threads are "
+#| "executed independently, having their own registers, stack and local "
+#| "variables, but sharing global variables."
+msgid ""
+"Moreover, a program can be composed of several threads. Each thread is "
+"executed independently and has its own registers, stack and local variables, "
+"but shares all global variables."
+msgstr ""
+"Un programa se puede componer de varios hilos. Todos estos hilos se ejecutan "
+"de forma independiente y cada uno tiene sus propios registros, su propia "
+"pila y sus propias variables locales, pero comparten las variables globales."
+
+#: C/debug-stack.page:38(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Stack</"
 "gui></guiseq> to open the <gui>Stack</gui> window."
@@ -1954,11 +1842,19 @@ msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
 "gui><gui>Pila</gui></guiseq> para abrir la ventana <gui>Pila</gui>."
 
-#: C/debug-stack.page:40(p)
-msgid "Each stack frame contains the following information:"
-msgstr "Cada marco de la pila contiene la siguiente información:"
+#: C/debug-stack.page:44(p)
+msgid ""
+"The stacks are displayed in a tree view having their corresponding thread as "
+"parent and displaying the following information:"
+msgstr ""
+"Las pilas se muestran en una vista de árbol con sus hilos correspondientes "
+"como padres y mostrando la siguiente información:"
 
-#: C/debug-stack.page:45(p)
+#: C/debug-stack.page:49(title)
+msgid "Active"
+msgstr "Activo"
+
+#: C/debug-stack.page:50(p)
 msgid ""
 "This contains a yellow arrow to represent the active stack frame. By default "
 "it is frame 0, the current function. All evaluations and local variables are "
@@ -1971,11 +1867,20 @@ msgstr ""
 "cambiar el marco activo de la pila para examinar las variables locales en "
 "otras funciones."
 
-#: C/debug-stack.page:51(title)
+#: C/debug-stack.page:56(title)
+#| msgid "Threads"
+msgid "Thread"
+msgstr "Hilo"
+
+#: C/debug-stack.page:57(p)
+msgid "This is a number corresponding to each thread."
+msgstr "Esto es el número correspondiente a cada hilo."
+
+#: C/debug-stack.page:60(title)
 msgid "Frame"
 msgstr "Marco"
 
-#: C/debug-stack.page:52(p)
+#: C/debug-stack.page:61(p)
 msgid ""
 "This is the frame number starting from 0 for the current function. The first "
 "function of your program, for example <code>main()</code> in a C program, "
@@ -1985,51 +1890,85 @@ msgstr ""
 "primera función de su programa, <code>main()</code> para un programa en C, "
 "tiene el número más alto."
 
-#: C/debug-stack.page:58(p)
+#: C/debug-stack.page:66(title)
+msgid "File"
+msgstr "Archivo"
+
+#: C/debug-stack.page:67(p)
 msgid ""
 "The name of the file containing the function corresponding to this frame."
 msgstr ""
 "El nombre del archivo que contiene la función correspondiente a este marco."
 
-#: C/debug-stack.page:63(p)
+#: C/debug-stack.page:71(title)
+msgid "Line"
+msgstr "Línea"
+
+#: C/debug-stack.page:72(p)
 msgid "The line number of the function corresponding to this frame."
 msgstr "El número de línea de la función correspondiente a este marco."
 
-#: C/debug-stack.page:67(p)
+#: C/debug-stack.page:75(title)
+msgid "Function"
+msgstr "Función"
+
+#: C/debug-stack.page:76(p)
 msgid "The name of the function corresponding to this frame."
 msgstr "El nombre de la función correspondiente a este marco."
 
-#: C/debug-stack.page:71(p)
+#: C/debug-stack.page:79(title) C/debug-breakpoint.page:48(title)
+msgid "Address"
+msgstr "Dirección"
+
+#: C/debug-stack.page:80(p)
 msgid "The address of the function corresponding to this frame."
 msgstr "La dirección de la función correspondiente a este marco."
 
-#: C/debug-stack.page:75(p)
+#: C/debug-stack.page:84(p)
 msgid "The function arguments."
 msgstr "Los argumentos de la función."
 
-#: C/debug-stack.page:83(title)
-msgid "Change the current stack frame"
-msgstr "Cambiar el marco actual de la pila"
+#: C/debug-stack.page:92(title)
+#| msgid "Change the current stack frame"
+msgid "Change the current stack frame or thread"
+msgstr "Cambiar el marco actual de la pila o hilo"
 
-#: C/debug-stack.page:87(p) C/debug-stack.page:101(p)
+#: C/debug-stack.page:96(p) C/debug-stack.page:116(p)
 msgid "In the <gui>Stack</gui> window, select the frame you want."
 msgstr "En la ventana <gui>Pila</gui> seleccione el marco que quiere."
 
-#: C/debug-stack.page:90(p)
+#: C/debug-stack.page:99(p)
 msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
 "Pulse con el botón derecho del ratón y seleccione <gui>Establecer el marco "
 "actual</gui>"
 
-#: C/debug-stack.page:97(title)
+#: C/debug-stack.page:103(p)
+msgid ""
+"Clicking on a stack frame in the same thread changes only the stack frame, "
+"allowing to see other local variables. But doing it in another thread will "
+"change both the stack frame and the thread. The register values will be "
+"different and the debugger will restart in the selected thread."
+msgstr ""
+"Pulsar sobre el marco de una pila en el mismo hilo solo cambia el marco de "
+"la pila, permitiendo ver otras variables locales. Pero hacerlo en otro hilo "
+"cambiará tanto el marco de la pila como el hilo. Los valores de los "
+"registros serán diferentes y el depurador se reiniciará en el hilo "
+"seleccionado."
+
+#: C/debug-stack.page:112(title)
 msgid "View the current function"
 msgstr "Ver la función actual"
 
-#: C/debug-stack.page:111(title)
+#: C/debug-stack.page:119(p)
+msgid "Double-click, or right-click and select <gui>View Source</gui>."
+msgstr "Pulse dos veces o pulse con el botón derecho en <gui>Ver fuente</gui>."
+
+#: C/debug-stack.page:126(title)
 msgid "Get a stack trace"
 msgstr "Obtener un seguimiento de la pila"
 
-#: C/debug-stack.page:115(p)
+#: C/debug-stack.page:130(p)
 msgid ""
 "In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
 "gui>."
@@ -3914,6 +3853,76 @@ msgstr ""
 "Francisco Javier F. Serrador <fserrador@gmail.com>, 2011\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2011\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2011"
+
+#~ msgid "Examine threads."
+#~ msgstr "Examinar hilos."
+
+#~ msgid "List threads"
+#~ msgstr "Listar hilos"
+
+#~ msgid ""
+#~ "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Thread</"
+#~ "gui></guiseq> to open the <gui>Thread</gui> window."
+#~ msgstr ""
+#~ "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Ver</"
+#~ "gui><gui>Hilo</gui></guiseq> para abrir la ventana <gui>Hilo</gui>."
+
+#~ msgid "The window shows the following information about each thread:"
+#~ msgstr "Cada ventana muestra la sigueinte información acerca de cada hilo:"
+
+#~ msgid "This contains a yellow arrow that points to the active thread."
+#~ msgstr "Esto contiene una flecha amarilla que apunta al hilo activo."
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid ""
+#~ "The name of the file containing the function corresponding to the current "
+#~ "frame of the current thread."
+#~ msgstr ""
+#~ "El nombre del archivo que contiene la función correspondiente al marco o "
+#~ "al hilo actual."
+
+#~ msgid ""
+#~ "The line number of the function corresponding to the current frame of the "
+#~ "current thread."
+#~ msgstr ""
+#~ "El número de línea de la función correspondiente al marco o al hilo "
+#~ "actual."
+
+#~ msgid ""
+#~ "The name of the function corresponding to the frame of the current thread."
+#~ msgstr "El nombre de la función correspondiente al marco o al hilo actual."
+
+#~ msgid ""
+#~ "The address of the function corresponding to the frame of the current "
+#~ "thread."
+#~ msgstr ""
+#~ "La dirección de la función correspondiente al marco o al hilo actual."
+
+#~ msgid "Change current thread"
+#~ msgstr "Cambiar el hilo actual"
+
+#~ msgid ""
+#~ "The current thread is the thread whose stack and local variables are "
+#~ "currently displayed in the debugger."
+#~ msgstr ""
+#~ "El hilo actual es el hilo para el cual la pila y variables locales se "
+#~ "muestran actualmente en el depurador."
+
+#~ msgid "In the <gui>Thread</gui> window, select the thread you want."
+#~ msgstr "En la ventana <gui>Thread</gui>, seleccione el hilo que quiere."
+
+#~ msgid "Right-click and select <gui>Set current thread</gui>."
+#~ msgstr ""
+#~ "Pulse con el botón derecho y seleccione <gui>Establecer el hilo actual</"
+#~ "gui>."
+
+#~ msgid "View current function"
+#~ msgstr "Ver la función actual"
+
+#~ msgid "Each stack frame contains the following information:"
+#~ msgstr "Cada marco de la pila contiene la siguiente información:"
 
 #~ msgid "Information about used files"
 #~ msgstr "Información sobre los archivos usados"
