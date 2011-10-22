@@ -88,7 +88,8 @@ static const gchar* NPWPropertyTypeString[] = {
 
 static const gchar* NPWPropertyRestrictionString[] = {
 	"filename",
-	"directory"
+	"directory",
+	"printable"
 };
 
 /* Item object
@@ -98,12 +99,12 @@ static NPWItem*
 npw_item_new (const gchar *name, const gchar *label, gint language)
 {
 	NPWItem *item;
-	
+
 	item = g_slice_new (NPWItem);
 	item->name = g_strdup (name);
 	item->label = g_strdup (label);
 	item->language = language;
-	
+
 	return item;
 }
 
@@ -161,7 +162,7 @@ npw_property_restriction_from_string (const gchar* restriction)
 				return (NPWPropertyRestriction)(i + 1);
 			}
 		}
-	}	
+	}
 
 	return NPW_NO_RESTRICTION;
 }
@@ -284,7 +285,17 @@ npw_property_is_valid_restriction (const NPWProperty* prop)
 				return FALSE;
 		}
 		break;
+	case NPW_PRINTABLE_RESTRICTION:
+		value = npw_property_get_value (prop);
 
+		if (value == NULL) return TRUE;
+
+		/* All characters should be ASCII printable character */
+		for (value++; *value != '\0'; value++)
+		{
+			if (!g_ascii_isprint (*value)) return FALSE;
+		}
+		break;
 	default:
 		break;
 	}
@@ -335,7 +346,7 @@ cb_browse_button_clicked (GtkButton *button, NPWProperty* prop)
 {
 	GtkWidget *dialog;
 	gchar *path;
-	
+
 	switch (prop->type)
 	{
 	case NPW_DIRECTORY_PROPERTY:
@@ -388,12 +399,12 @@ cb_preview_update (GtkFileChooser *fc,
 		pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
 
 		gtk_file_chooser_set_preview_widget_active (fc, pixbuf != NULL);
-		
+
 		if (pixbuf) {
 			gtk_image_set_from_pixbuf (preview, pixbuf);
 			g_object_unref (pixbuf);
 		}
-		
+
 		g_free (filename);
 	}
 }
@@ -408,7 +419,7 @@ cb_icon_button_clicked (GtkButton *button, NPWProperty* prop)
 
 	dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
 											GTK_WINDOW (gtk_widget_get_ancestor (prop->widget, GTK_TYPE_WINDOW)),
-					      					GTK_FILE_CHOOSER_ACTION_OPEN, 
+					      					GTK_FILE_CHOOSER_ACTION_OPEN,
 					      					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					      					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					      					NULL);
@@ -473,15 +484,15 @@ npw_property_create_widget (NPWProperty* prop)
 		if ((prop->options & NPW_EXIST_SET_OPTION) && !(prop->options & NPW_EXIST_OPTION))
 		{
 			GtkWidget *button;
-			
+
 			// Use an entry box and a browse button as GtkFileChooserButton
 			// allow to select only existing file
 			widget = gtk_hbox_new (FALSE, 3);
-			
+
 			entry = gtk_entry_new ();
 			if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
 			gtk_container_add (GTK_CONTAINER (widget), entry);
-			
+
 			button = gtk_button_new_from_stock (GTK_STOCK_OPEN);
 			g_signal_connect (button, "clicked", G_CALLBACK (cb_browse_button_clicked), prop);
 			gtk_container_add (GTK_CONTAINER (widget), button);
@@ -498,7 +509,7 @@ npw_property_create_widget (NPWProperty* prop)
 				entry = gtk_file_chooser_button_new (_("Choose file"),
 												 GTK_FILE_CHOOSER_ACTION_OPEN);
 			}
-				
+
 			if (value)
 			{
 				GFile *file = g_file_parse_name (value);
@@ -568,7 +579,7 @@ npw_property_create_widget (NPWProperty* prop)
 		return NULL;
 	}
 	prop->widget = entry;
-	
+
 
 	return widget == NULL ? entry : widget;
 }
@@ -677,7 +688,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		}
 		break;
 	case NPW_ICON_PROPERTY:
-		g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (prop->widget))), "file", &alloc_value, NULL);	
+		g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (prop->widget))), "file", &alloc_value, NULL);
 		value = alloc_value;
 		break;
 	case NPW_LIST_PROPERTY:
@@ -696,7 +707,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		break;
 	}
 	case NPW_PACKAGE_PROPERTY:
-		packages = 
+		packages =
 			anjuta_pkg_config_chooser_get_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (prop->widget));
 		str_value = NULL;
 		for (node = packages; node != NULL; node = g_list_next (node))
@@ -714,7 +725,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 			g_string_free (str_value, FALSE);
 		}
 		g_list_foreach (packages, (GFunc) g_free, NULL);
-		g_list_free (packages);	
+		g_list_free (packages);
 		break;
 	default:
 		/* Hidden property */
@@ -727,7 +738,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 	{
 		tag |= NPW_DEFAULT_VALUE;
 	}
-	
+
 	ok = npw_value_set_value (prop->value, value, tag);
 	if (alloc_value != NULL) g_free (alloc_value);
 
@@ -766,7 +777,7 @@ npw_property_get_value (const NPWProperty* prop)
 	{
 		/* Only value entered by user could replace default value */
 		return npw_value_get_value (prop->value);
-	}	
+	}
 }
 
 gboolean
@@ -780,7 +791,7 @@ npw_property_add_list_item (NPWProperty* prop, const gchar* name, const gchar* l
 	if (find != NULL)
 	{
 		NPWItem* old_item = (NPWItem *)find->data;
-		
+
 		if (old_item->language <= item->language)
 		{
 			npw_item_free ((NPWItem *)find->data);
@@ -971,7 +982,7 @@ NPWProperty *
 npw_page_add_property (NPWPage* page, NPWProperty *prop)
 {
 	GList *find;
-	
+
 	find = g_list_find_custom (page->properties, prop, (GCompareFunc)npw_property_compare);
 	if (find == NULL)
 	{
@@ -980,7 +991,7 @@ npw_page_add_property (NPWPage* page, NPWProperty *prop)
 	else
 	{
 		NPWProperty* old_prop = (NPWProperty *)find->data;
-		
+
 		if (old_prop->language <= prop->language)
 		{
 			npw_property_free (old_prop);
@@ -992,6 +1003,6 @@ npw_page_add_property (NPWPage* page, NPWProperty *prop)
 			prop = old_prop;
 		}
 	}
-	
+
 	return prop;
 }

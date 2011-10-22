@@ -43,6 +43,8 @@ wizard_files_DATA = \
 	pygtk-logo.png \
 	mkfile-logo.png \
 	appwiz_sdl.png \
+	gnome.png \
+	gnome.svg \
 	$(template_in_files:.wiz.in=.wiz)
 
 # Translate wiz file

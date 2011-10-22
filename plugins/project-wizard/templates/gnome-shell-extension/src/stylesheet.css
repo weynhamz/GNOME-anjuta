@@ -1,5 +1,5 @@
 [+ autogen5 template +]
-.[+NameHLower+]-label {
+.[+NameCLower+]-label {
     font-size: 36px;
     font-weight: bold;
     color: #ffffff;

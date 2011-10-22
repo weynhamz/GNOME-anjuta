@@ -1,8 +1,8 @@
 [+ autogen5 template +]
 {
-    "shell-version": [+Compatibility+], 
+    "shell-version": [+(string-append "[\"" (string-join (map string-trim-both (string-split (string-trim-both (get "Compatibility")) #\, )) "\",\"" 'infix ) "\"]")+], 
     "uuid": "[+UUID+]", 
-    "name": "[+PluginName+]", 
+    "name": "[+Name+]", 
     "original-author": "[+Author+]",
     "url": "[+URL+]", 
     "description": "[+Description+]"
