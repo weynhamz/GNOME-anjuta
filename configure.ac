@@ -850,6 +850,8 @@ plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
 plugins/project-wizard/templates/directory/Makefile
 plugins/project-wizard/templates/m4/Makefile
+plugins/project-wizard/templates/gnome-shell-extension/Makefile
+plugins/project-wizard/templates/gnome-shell-extension/src/Makefile
 plugins/am-project/Makefile
 plugins/am-project/tests/atlocal
 plugins/am-project/tests/Makefile
