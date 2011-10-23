@@ -177,7 +177,7 @@ on_url_bugs_activate (GtkAction * action, gpointer user_data)
 void
 on_url_faqs_activate (GtkAction * action, gpointer user_data)
 {
-	anjuta_res_url_show("mailto:anjuta-list@lists.sourceforge.net");
+	anjuta_res_url_show("mailto:anjuta-list@gnome.org");
 }
 
 void
