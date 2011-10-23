@@ -840,9 +840,8 @@ on_replace_activated (GtkWidget* widget, SearchBox* search_box)
 	gboolean successful_replace;
 
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	const gchar* replace_text = gtk_entry_get_text (GTK_ENTRY (private->replace_entry));
 
-	if (!private->current_editor || !replace_text || !strlen (replace_text))
+	if (!private->current_editor)
 		return;
 
 	/* Either replace search-term or try to move search forward to next occurence */
@@ -899,11 +898,10 @@ on_replace_all_activated (GtkWidget* widget, SearchBox* search_box)
 {
 
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	const gchar* replace_text = gtk_entry_get_text (GTK_ENTRY (private->replace_entry));
 
 	gboolean entry_found;
 
-	if (!private->current_editor || !replace_text || !strlen (replace_text))
+	if (!private->current_editor)
 		return;
 
 	/* Replace all instances of search_entry with replace_entry text */
