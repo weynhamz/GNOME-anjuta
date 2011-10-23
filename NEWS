@@ -1,3 +1,24 @@
+Anjuta 3.3.1 "Back in Berlin" (23 October 2011) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version, 
+use 3.2.x!
+
+Bugs fixed:
+659563 	Bookmarks reset to position 1 after file changed on FS
+660841 	build failure with [-Werror=format-security]
+662526 	Can't replace with empty replace text
+610371 	Scite adds a trailing white space after pressing enter for aligning variables
+653274 	Autotools backend doesn't support include file in configure script
+653652 	'New file' doesn't check duplicates, gets confused
+660061 	Remove 'no-dist-bzip2' from automake options
+660065 	Can't create a new target in empty Makefile
+633284 	Scintilla plugin crashes Anjuta when opening a file with syntax highlighting
+661511 	Python/Django Project Wizard: Missing Components/Programs: django-admin 
+
+Thanks to:
+Andre Klapper, Arnel A. Borja, Carles Ferrando, Michael Biebl, 
+Sébastien Granjoux, Xandru Armesto, krishnababu k, Мирослав Николић
+
 Anjuta 3.2.0 "No more bombs" (25 September 2011) -- Johannes Schmid
 
 This is the new stable release, please update if you are using anjuta
