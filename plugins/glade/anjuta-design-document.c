@@ -163,11 +163,19 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 		if (glade_project_save (project, glade_project_get_path(project),
 								NULL)) 
 		{
-			anjuta_status_set (status, _("Glade project '%s' saved"),
-							   glade_project_get_name(project));
+			gchar *name;
+			GFile *file;
+
+			name = glade_project_get_name (project);
+			anjuta_status_set (status, _("Glade project '%s' saved"), name);
+			g_free (name);
 			g_signal_emit_by_name(G_OBJECT(self), "update-save-ui", TRUE);
-		} 
-		else 
+
+			file = g_file_new_for_path (glade_project_get_path(project));
+			g_signal_emit_by_name(G_OBJECT(self), "saved", file);
+			g_object_unref (file);
+		}
+		else
 		{
 			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
 										_("Invalid Glade file name"));
