@@ -16,10 +16,27 @@
 
 <section>
 <title>Browsing the API reference</title>
+
+<p>For a quick access to the API reference of libraries, anjuta features an
+integrated API browser. If not already done it can be activated in the preferences
+(<guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>) in 
+<guiseq><gui>General</gui><gui>Plugins</gui></guiseq> by choosing the 
+<app>DevHelp</app> plugin.</p>
+
+<p>The API reference has two windows, one for searching for a specific symbol
+and the browser for viewing the help documents.</p>
+
 </section>
 
 <section>
 <title>Jump to the API reference using shortcuts in the editor</title>
+
+<p>In case you are unsure how a specific function used in existing code works, 
+simply place the cursor on the function name and use 
+<keyseq><key>Ctrl</key><key>F1</key></keyseq> (or 
+<guiseq><gui>Help</gui><gui>Context-Help</gui></guiseq>) to jump to the documentation.
+</p>
+
 </section>
 
 </page>

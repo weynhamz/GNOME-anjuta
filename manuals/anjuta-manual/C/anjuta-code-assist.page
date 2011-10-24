@@ -5,7 +5,7 @@
   <info xmlns:facet="http://projectmallard.org/facet/1.0/">
     <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="index#anjuta-code" group="first"/>
-    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-10-24" status="draft"/>
     <credit type="author">
       <name>Johannes Schmid</name>
       <email>jhs@gnome.org</email>
@@ -15,11 +15,35 @@
   <title>Autocompletion and calltips</title>
 
 <section>
-<title>Autocompletion is not working</title>
+<title>Autocompletion</title>
+<p>Autocompletion automatically suggests functions and other code symbols after
+you start typing by trying to match existing symbols with the first characters typed.
+It will popup a drop-down menu where you can select a match by using the
+<key>Enter</key> key. Normally this happens automaticly after you typed the third
+(non-whitespace) character but you can also
+force it by using the <guiseq><gui>Edit</gui><gui>Auto-Complete</gui></guiseq>
+menu item.
+</p>
+<note>
+<p>Anjuta supports autocompletion for code written in C/C++, Vala, Javascript
+and Python. Note that autocompletion can only work if anjuta knows about the
+symbols used. If you are using libraries C/C++ libraries that are
+not configured using <cmd>pkg-config</cmd> and/or not added to the project
+configuration, anjuta won't be able to find those
+symbols and autocompletion might not work.
+</p>
+<p>In addition some syntax might be too complex for the integrated parser and
+it might not be able to detect which completion is required</p>
+</note>
 </section>
 
 <section>
 <title>Effective coding using calltips</title>
+
+<p>As it is usually quite hard to remember the signature of every method or function
+used in a project, the editor will automatically display a small tooltip whenever
+you type '(' after a function name and show you the signature.</p>
+
 </section>
 
 </page>
