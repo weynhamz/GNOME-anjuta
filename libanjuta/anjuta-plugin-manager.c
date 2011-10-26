@@ -2551,7 +2551,7 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 									 icon_filename, NULL);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
 			/* Avoid space in translated string */
-			label = g_strconcat (dgettext (GETTEXT_PACKAGE, "Loaded:"), " ", title, "...", NULL);
+			label = g_strconcat (dgettext (GETTEXT_PACKAGE, "Loading:"), " ", title, "...", NULL);
 			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
 			if (!icon_pixbuf)
 				g_warning ("Plugin does not define Icon: No such file %s",
@@ -2560,6 +2560,12 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 			g_free (icon_filename);
 			g_free (title);
 		}
+
+		anjuta_status_progress_tick (ANJUTA_STATUS (priv->status),
+									 icon_pixbuf, label);
+		g_free (label);
+		if (icon_pixbuf)
+			g_object_unref (icon_pixbuf);
 		
 		if (anjuta_plugin_description_get_string (d, "Anjuta Plugin",
 												  "Location", &plugin_id))
@@ -2571,11 +2577,6 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 														plugin_id);
 			g_free (plugin_id);
 		}
-		anjuta_status_progress_tick (ANJUTA_STATUS (priv->status),
-									 icon_pixbuf, label);
-		g_free (label);
-		if (icon_pixbuf)
-			g_object_unref (icon_pixbuf);
 		
 		node = g_list_next (node);
 	}
