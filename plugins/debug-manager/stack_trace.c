@@ -339,6 +339,8 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 			{
 				same = same && (strcmp (args, frame->args) == 0);
 			}
+			g_free (adr_str);
+			g_free (args);
 
 			if (same)
 			{
@@ -348,6 +350,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 								   	STACK_TRACE_ACTIVE_COLUMN, NULL,
 									STACK_TRACE_FRAME_COLUMN, frame_str,
 								   	STACK_TRACE_COLOR_COLUMN, "black", -1);
+				g_free (frame_str);
 
 				/* Check previous frame */
 				exist = my_gtk_tree_model_iter_prev (model, &iter);
@@ -358,9 +361,6 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 				}
 				/* Upper frame do not exist, remove all them */
 			}
-			g_free (frame_str);
-			g_free (adr_str);
-			g_free (args);
 
 			/* New frame, remove all previous frame */
 			GtkTreeIter first;
