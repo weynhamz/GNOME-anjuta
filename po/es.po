@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-10-26 08:35+0000\n"
-"PO-Revision-Date: 2011-10-26 15:58+0200\n"
+"POT-Creation-Date: 2011-10-29 16:18+0000\n"
+"PO-Revision-Date: 2011-10-31 12:26+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -438,7 +438,6 @@ msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2554
-#| msgid "Loading..."
 msgid "Loading:"
 msgstr "Cargando:"
 
@@ -1244,24 +1243,25 @@ msgid "Base Class:"
 msgstr "Clase base:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:8
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:8
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:9
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:8
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:10
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:10
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:8
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:10
 #: ../plugins/project-wizard/templates/java.wiz.in.h:9
 #: ../plugins/project-wizard/templates/js.wiz.in.h:4
-#: ../plugins/project-wizard/templates/python.wiz.in.h:9
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
 #: ../plugins/project-wizard/templates/library.wiz.in.h:8
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:8
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:5
+#: ../plugins/project-wizard/templates/python.wiz.in.h:9
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:8
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:8
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:10
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:8
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:10
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:10
 msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licencia de Distribución de Software Berkeley (BSD)"
 
@@ -1320,24 +1320,25 @@ msgstr "Propiedades generales de la clase"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 #: ../plugins/file-wizard/file.c:104
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:17
 #: ../plugins/project-wizard/templates/java.wiz.in.h:16
 #: ../plugins/project-wizard/templates/js.wiz.in.h:8
-#: ../plugins/project-wizard/templates/python.wiz.in.h:16
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
 #: ../plugins/project-wizard/templates/library.wiz.in.h:16
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:15
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:12
+#: ../plugins/project-wizard/templates/python.wiz.in.h:16
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:12
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:15
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:18
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
@@ -1367,24 +1368,25 @@ msgstr "Clase JavaScript"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
 #: ../plugins/file-wizard/file.c:105
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:25
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:18
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:16
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:18
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:18
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:19
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/js.wiz.in.h:10
-#: ../plugins/project-wizard/templates/python.wiz.in.h:18
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:17
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:13
+#: ../plugins/project-wizard/templates/python.wiz.in.h:18
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:13
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:17
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:20
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:18
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:18
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -1460,7 +1462,7 @@ msgstr "Archivo en el que se escribirá la plantilla procesada"
 msgid "Failed to write autogen definition file"
 msgstr "Falló al escribir el archivo de definición de Autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1188
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1193
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2051,6 +2053,7 @@ msgid "Debugger:"
 msgstr "Depurador:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:15
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:6
 msgid "Description:"
 msgstr "Descripción:"
 
@@ -4047,6 +4050,7 @@ msgstr "Información del archivo"
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:616
+#: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Nombre:"
@@ -4193,24 +4197,25 @@ msgstr ""
 "Nombre del proyecto; puede contener espacios, por ejemplo «Autoconf de GNU»"
 
 #: ../plugins/am-project/am-properties.c:58
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:31
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:46
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:29
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:25
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:27
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:27
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:31
 #: ../plugins/project-wizard/templates/java.wiz.in.h:29
 #: ../plugins/project-wizard/templates/js.wiz.in.h:17
-#: ../plugins/project-wizard/templates/python.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
 #: ../plugins/project-wizard/templates/library.wiz.in.h:31
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:26
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:26
+#: ../plugins/project-wizard/templates/python.wiz.in.h:27
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:33
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:26
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:31
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:25
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:27
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:27
 msgid "Version:"
 msgstr "Versión:"
 
@@ -4246,6 +4251,7 @@ msgstr ""
 "bajos. Si no se proporciona se generará desde el nombre del proyecto."
 
 #: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
 msgid "URL:"
 msgstr "URL:"
 
@@ -5973,25 +5979,26 @@ msgstr ""
 "No se pudo descargar el URI proporcionado «%s». El error devuelto fue: «%s»"
 
 #: ../plugins/project-import/project-import.ui.h:1
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:14
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:13
 #: ../plugins/project-wizard/templates/java.wiz.in.h:13
 #: ../plugins/project-wizard/templates/js.wiz.in.h:5
-#: ../plugins/project-wizard/templates/python.wiz.in.h:13
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
 #: ../plugins/project-wizard/templates/library.wiz.in.h:13
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:12
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/python.wiz.in.h:13
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:9
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:12
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:13
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Destination:"
 msgstr "Destino:"
@@ -6552,10 +6559,23 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:656
 #, c-format
+#| msgid ""
+#| "Field \"%s\" must contains only letters, digits or the following "
+#| "characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading "
+#| "dash. Please fix it."
+msgid ""
+"Field \"%s\" must contains only ASCII printable characters, no accentuated "
+"characters by example. Please fix it."
+msgstr ""
+"El campo «%s» debe contener sólo caracteres ASCII imprimibles. por ejemplo, "
+"no puede contener caracteres acentuados. Arréglelo."
+
+#: ../plugins/project-wizard/druid.c:661
+#, c-format
 msgid "Unknown error."
 msgstr "Elementos desconocido."
 
-#: ../plugins/project-wizard/druid.c:683
+#: ../plugins/project-wizard/druid.c:688
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -6564,20 +6584,20 @@ msgstr ""
 "La carpeta «%s» no está vacía. La creación del proyecto podría fallar si "
 "algunos archivos no se pudiesen escribir. ¿Quiere continuar?"
 
-#: ../plugins/project-wizard/druid.c:685
+#: ../plugins/project-wizard/druid.c:690
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
-#: ../plugins/project-wizard/druid.c:716
+#: ../plugins/project-wizard/druid.c:721
 msgid "Invalid entry"
 msgstr "Entrada no válida"
 
-#: ../plugins/project-wizard/druid.c:726
+#: ../plugins/project-wizard/druid.c:731
 msgid "Dubious entry"
 msgstr "Entrada dudosa"
 
-#: ../plugins/project-wizard/druid.c:890
+#: ../plugins/project-wizard/druid.c:895
 #, c-format
 msgid ""
 "\n"
@@ -6586,7 +6606,7 @@ msgstr ""
 "\n"
 "Faltan programas: %s"
 
-#: ../plugins/project-wizard/druid.c:901
+#: ../plugins/project-wizard/druid.c:906
 #, c-format
 msgid ""
 "\n"
@@ -6595,7 +6615,7 @@ msgstr ""
 "\n"
 "Faltan paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:910
+#: ../plugins/project-wizard/druid.c:915
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -6605,14 +6625,14 @@ msgstr ""
 "faltan para construir este proyecto. Asegúrese de que están instalados "
 "adecuadamente antes de generar el proyecto.\n"
 
-#: ../plugins/project-wizard/druid.c:919
+#: ../plugins/project-wizard/druid.c:924
 msgid "Install missing packages"
 msgstr "Instalar los paquetes que faltan"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:931
+#: ../plugins/project-wizard/druid.c:936
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -6628,7 +6648,7 @@ msgstr ""
 "ellos. Generalmente acaban con el sufijo «-dev» o «-devel» en el nombre del "
 "paquete y se pueden encontrar buscando en su Gestor de aplicaciones."
 
-#: ../plugins/project-wizard/druid.c:939
+#: ../plugins/project-wizard/druid.c:944
 msgid "Missing components"
 msgstr "Faltan componentes"
 
@@ -6676,552 +6696,55 @@ msgstr "No se pudo extraer la plantilla %s del proyecto: %s"
 msgid "New Project Assistant"
 msgstr "Asistente para proyecto nuevo"
 
-#: ../plugins/project-wizard/property.c:342
+#: ../plugins/project-wizard/property.c:353
 msgid "Select directory"
 msgstr "Seleccionar carpeta"
 
-#: ../plugins/project-wizard/property.c:359
+#: ../plugins/project-wizard/property.c:370
 msgid "Select file"
 msgstr "Seleccionar archivo"
 
-#: ../plugins/project-wizard/property.c:409 ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:420 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Seleccionar un archivo de imagen"
 
-#: ../plugins/project-wizard/property.c:434
-#: ../plugins/project-wizard/property.c:524 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:445
+#: ../plugins/project-wizard/property.c:535 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Elegir icono"
 
-#: ../plugins/project-wizard/property.c:494
+#: ../plugins/project-wizard/property.c:505
 msgid "Choose directory"
 msgstr "Elegir una carpeta"
 
-#: ../plugins/project-wizard/property.c:498
+#: ../plugins/project-wizard/property.c:509
 msgid "Choose file"
 msgstr "Elegir un archivo"
 
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
-#: ../plugins/project-wizard/templates/js.wiz.in.h:1
-msgid "A generic minimal and flat project"
-msgstr "Un proyecto pequeño y plano genérico"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:1
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:1
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:2
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
-#: ../plugins/project-wizard/templates/library.wiz.in.h:2
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:1
+#: ../plugins/project-wizard/templates/library.wiz.in.h:2
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:2
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:2
 msgid "Add C++ support:"
 msgstr "Añadir soporte C++:"
 
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:3
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:3
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:4
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:3
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:4
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:3
-#: ../plugins/project-wizard/templates/java.wiz.in.h:4
-#: ../plugins/project-wizard/templates/python.wiz.in.h:4
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:1
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:4
-msgid "Add shared library support:"
-msgstr "Añadir soporte para bibliotecas compartidas:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:5
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:2
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
-#: ../plugins/project-wizard/templates/library.wiz.in.h:4
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:5
+#: ../plugins/project-wizard/templates/library.wiz.in.h:4
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:4
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:4
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 "Añade soporte para C++ al proyecto de tal forma que se pueden construir "
 "archivos fuente C++"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:5
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:4
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:6
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:4
-#: ../plugins/project-wizard/templates/java.wiz.in.h:5
-#: ../plugins/project-wizard/templates/python.wiz.in.h:5
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:6
-msgid "Adds support for building shared libraries in your project"
-msgstr "Añade soporte para construir bibliotecas compartidas en su proyecto"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:6
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:6
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:8
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:7
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:6
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:8
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:6
-#: ../plugins/project-wizard/templates/java.wiz.in.h:7
-#: ../plugins/project-wizard/templates/js.wiz.in.h:2
-#: ../plugins/project-wizard/templates/python.wiz.in.h:7
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
-#: ../plugins/project-wizard/templates/library.wiz.in.h:6
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:8
-msgid "Author:"
-msgstr "Autor:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:7
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:7
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:9
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:8
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:7
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:9
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
-#: ../plugins/project-wizard/templates/java.wiz.in.h:8
-#: ../plugins/project-wizard/templates/js.wiz.in.h:3
-#: ../plugins/project-wizard/templates/python.wiz.in.h:8
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
-#: ../plugins/project-wizard/templates/library.wiz.in.h:7
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:9
-msgid "Basic information"
-msgstr "Información básica"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:9
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:9
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:9
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:10
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:9
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:11
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
-#: ../plugins/project-wizard/templates/java.wiz.in.h:10
-#: ../plugins/project-wizard/templates/python.wiz.in.h:10
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
-#: ../plugins/project-wizard/templates/library.wiz.in.h:10
-msgid "Check the packages that your project requires"
-msgstr "Comprobar los paquetes que necesita su proyecto"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:10
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:10
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:11
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:11
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:10
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:12
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:12
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
-#: ../plugins/project-wizard/templates/java.wiz.in.h:11
-#: ../plugins/project-wizard/templates/python.wiz.in.h:11
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
-#: ../plugins/project-wizard/templates/library.wiz.in.h:11
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:6
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:11
-msgid "Configure external packages"
-msgstr "Configurar paquetes externos"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
-#: ../plugins/project-wizard/templates/java.wiz.in.h:12
-#: ../plugins/project-wizard/templates/python.wiz.in.h:12
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
-#: ../plugins/project-wizard/templates/library.wiz.in.h:12
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:12
-msgid "Configure external packages:"
-msgstr "Configurar paquetes externos:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:13
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:13
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:14
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:13
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:15
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:15
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
-#: ../plugins/project-wizard/templates/java.wiz.in.h:14
-#: ../plugins/project-wizard/templates/js.wiz.in.h:6
-#: ../plugins/project-wizard/templates/python.wiz.in.h:14
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
-#: ../plugins/project-wizard/templates/library.wiz.in.h:14
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
-msgid "Email address:"
-msgstr "Dirección de correo-e:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
-#: ../plugins/project-wizard/templates/django.wiz.in.h:4
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:16
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
-#: ../plugins/project-wizard/templates/java.wiz.in.h:15
-#: ../plugins/project-wizard/templates/js.wiz.in.h:7
-#: ../plugins/project-wizard/templates/python.wiz.in.h:15
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
-#: ../plugins/project-wizard/templates/library.wiz.in.h:15
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:11
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:17
-msgid "General Project Information"
-msgstr "Información general del proyecto"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
-msgid "Generic (Minimal)"
-msgstr "Genérico (pequeño)"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:18
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:18
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:20
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:19
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:17
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:19
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:19
-#: ../plugins/project-wizard/templates/java.wiz.in.h:19
-#: ../plugins/project-wizard/templates/js.wiz.in.h:11
-#: ../plugins/project-wizard/templates/python.wiz.in.h:19
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
-#: ../plugins/project-wizard/templates/library.wiz.in.h:19
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:15
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:21
-msgid "License"
-msgstr "Licencia"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:19
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:21
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:28
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:20
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:18
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:20
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:20
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:21
-#: ../plugins/project-wizard/templates/java.wiz.in.h:22
-#: ../plugins/project-wizard/templates/js.wiz.in.h:12
-#: ../plugins/project-wizard/templates/python.wiz.in.h:20
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
-#: ../plugins/project-wizard/templates/library.wiz.in.h:20
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:16
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:22
-msgid "No license"
-msgstr "Sin licencia"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:20
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:20
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:22
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:29
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:19
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:21
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:21
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:22
-#: ../plugins/project-wizard/templates/java.wiz.in.h:23
-#: ../plugins/project-wizard/templates/js.wiz.in.h:13
-#: ../plugins/project-wizard/templates/python.wiz.in.h:21
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
-#: ../plugins/project-wizard/templates/library.wiz.in.h:23
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:17
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
-msgid "Options for project build system"
-msgstr "Opciones para el sistema de construcción del proyecto"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:21
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:21
-#: ../plugins/project-wizard/templates/django.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:23
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:37
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:22
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:20
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:22
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:22
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:23
-#: ../plugins/project-wizard/templates/java.wiz.in.h:24
-#: ../plugins/project-wizard/templates/js.wiz.in.h:14
-#: ../plugins/project-wizard/templates/python.wiz.in.h:22
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
-#: ../plugins/project-wizard/templates/library.wiz.in.h:24
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:24
-msgid "Project Name:"
-msgstr "Nombre del proyecto:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:22
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:22
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:22
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:39
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:23
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:21
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:23
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:24
-#: ../plugins/project-wizard/templates/java.wiz.in.h:25
-#: ../plugins/project-wizard/templates/js.wiz.in.h:15
-#: ../plugins/project-wizard/templates/python.wiz.in.h:23
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
-#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
-#: ../plugins/project-wizard/templates/library.wiz.in.h:25
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
-msgid "Project options"
-msgstr "Opciones del proyecto"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:23
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:40
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:22
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:24
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:24
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
-#: ../plugins/project-wizard/templates/java.wiz.in.h:26
-#: ../plugins/project-wizard/templates/python.wiz.in.h:24
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
-#: ../plugins/project-wizard/templates/library.wiz.in.h:26
-msgid "Required Packages:"
-msgstr "Paquetes necesarios:"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:24
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:24
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:24
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:41
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:25
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:23
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:25
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:25
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:26
-#: ../plugins/project-wizard/templates/java.wiz.in.h:27
-#: ../plugins/project-wizard/templates/js.wiz.in.h:16
-#: ../plugins/project-wizard/templates/python.wiz.in.h:25
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
-#: ../plugins/project-wizard/templates/library.wiz.in.h:27
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
-msgid "Select code license"
-msgstr "Seleccionar la licencia del código"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:25
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:25
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:25
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:30
-#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:43
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:28
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:24
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:26
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
-#: ../plugins/project-wizard/templates/java.wiz.in.h:28
-#: ../plugins/project-wizard/templates/python.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
-#: ../plugins/project-wizard/templates/library.wiz.in.h:30
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
-msgid "Use pkg-config to add library support from other packages"
-msgstr ""
-"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
-
-#: ../plugins/project-wizard/templates/minimal.wiz.in.h:27
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:27
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:27
-#: ../plugins/project-wizard/templates/django.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:33
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:31
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:27
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:29
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:29
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:29
-#: ../plugins/project-wizard/templates/java.wiz.in.h:31
-#: ../plugins/project-wizard/templates/js.wiz.in.h:18
-#: ../plugins/project-wizard/templates/python.wiz.in.h:29
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
-#: ../plugins/project-wizard/templates/library.wiz.in.h:32
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
-msgid "project name"
-msgstr "nombre del proyecto"
-
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:1
-msgid "A generic project"
-msgstr "Un proyecto genérico"
-
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:2
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:3
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:2
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:3
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
-#: ../plugins/project-wizard/templates/java.wiz.in.h:3
-#: ../plugins/project-wizard/templates/python.wiz.in.h:3
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
-#: ../plugins/project-wizard/templates/library.wiz.in.h:3
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:3
-msgid "Add internationalization:"
-msgstr "Añadir internacionalización:"
-
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:5
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:6
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:5
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:7
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:7
-#: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
-#: ../plugins/project-wizard/templates/java.wiz.in.h:6
-#: ../plugins/project-wizard/templates/python.wiz.in.h:6
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
-#: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
-#: ../plugins/project-wizard/templates/library.wiz.in.h:5
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:7
-msgid ""
-"Adds support for internationalization so that your project can have "
-"translations in different languages"
-msgstr ""
-"Añade soporte para internacionalización de tal forma que su proyecto puede "
-"traducirse a diferentes idiomas"
-
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
-msgid "Generic"
-msgstr "Genérico"
-
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:1
-msgid "A generic C++ project"
-msgstr "Un proyecto C++ genérico"
-
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
-msgid "Generic C++"
-msgstr "C++ genérico"
-
-#: ../plugins/project-wizard/templates/django.wiz.in.h:2
-msgid "Django Project"
-msgstr "Proyecto Django"
-
-#: ../plugins/project-wizard/templates/django.wiz.in.h:3
-msgid "Django Project information"
-msgstr "Información del proyecto Django"
-
-#: ../plugins/project-wizard/templates/django.wiz.in.h:6
-msgid "Python webproject using Django Web Framework"
-msgstr "Proyecto web Python usando el entorno de trabajo web Django"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:2
-#: ../plugins/project-wizard/templates/java.wiz.in.h:2
-#: ../plugins/project-wizard/templates/python.wiz.in.h:2
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:2
-msgid "Add gtk-doc system:"
-msgstr "Añadir el sistema gtk-doc:"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:10
-msgid "GTK+ (simple)"
-msgstr "GTK+ (simple)"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:13
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:19
-msgid ""
-"Give a package name that your project require. You may also mention what is "
-"the required version of the package. For example, 'libgnomeui-2.0' or "
-"'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
-"Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
-msgid "Require Package:"
-msgstr "Requiere el paquete:"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
-msgid "Simple GTK+ project"
-msgstr "Proyecto GTK+ sencillo"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
-msgid "Use GtkBuilder for user interface:"
-msgstr "Usar GtkBuilder para la interfaz del usuario:"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
-msgid ""
-"Use GtkBuilder to create the user-interface in a graphical way and load it "
-"from xml files at runtime"
-msgstr ""
-"Usar GtkBuilder para crear la interfaz de usuario de una forma gráfica y "
-"cargarla desde un XML en el momento de ejecución"
-
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
-#: ../plugins/project-wizard/templates/java.wiz.in.h:30
-#: ../plugins/project-wizard/templates/python.wiz.in.h:28
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:32
-msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr ""
-"gtk-doc se usa para compilar la documentación de la API para las clases "
-"basadas en GObject"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:3
 msgid "Anjuta Plugin"
@@ -7232,6 +6755,66 @@ msgid "Anjuta plugin project that uses libanjuta framework"
 msgstr ""
 "Proyecto de complemento de Anjuta que usa el entorno de trabajo libanjuta"
 
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:5
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/java.wiz.in.h:7
+#: ../plugins/project-wizard/templates/js.wiz.in.h:2
+#: ../plugins/project-wizard/templates/library.wiz.in.h:6
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/python.wiz.in.h:7
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:6
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:6
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:6
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:8
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:8
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/java.wiz.in.h:8
+#: ../plugins/project-wizard/templates/js.wiz.in.h:3
+#: ../plugins/project-wizard/templates/library.wiz.in.h:7
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:7
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/python.wiz.in.h:8
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:7
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:7
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:7
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:9
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:9
+msgid "Basic information"
+msgstr "Información básica"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:8
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:9
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:10
+#: ../plugins/project-wizard/templates/java.wiz.in.h:10
+#: ../plugins/project-wizard/templates/library.wiz.in.h:10
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:9
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/python.wiz.in.h:10
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:9
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:9
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:11
+msgid "Check the packages that your project requires"
+msgstr "Comprobar los paquetes que necesita su proyecto"
+
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
@@ -7240,6 +6823,44 @@ msgstr ""
 "Separados por comas, otros complementos de los que depende este complemento. "
 "Podría ser tanto el nombre de la interfaz primaria o la ubicación del "
 "complemento (biblioteca:clase)"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/java.wiz.in.h:11
+#: ../plugins/project-wizard/templates/library.wiz.in.h:11
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:10
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/python.wiz.in.h:11
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:10
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:10
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:12
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:12
+msgid "Configure external packages"
+msgstr "Configurar paquetes externos"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:11
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:12
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:12
+#: ../plugins/project-wizard/templates/java.wiz.in.h:12
+#: ../plugins/project-wizard/templates/library.wiz.in.h:12
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:8
+#: ../plugins/project-wizard/templates/python.wiz.in.h:12
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:11
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:11
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:13
+msgid "Configure external packages:"
+msgstr "Configurar paquetes externos:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 msgid "Create Gtk Builder interface file"
@@ -7256,6 +6877,51 @@ msgstr "Mostrar la descripción del complemento"
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:16
 msgid "Display title of the plugin"
 msgstr "Mostrar el título del complemento"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:17
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:13
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:8
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:14
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:14
+#: ../plugins/project-wizard/templates/java.wiz.in.h:14
+#: ../plugins/project-wizard/templates/js.wiz.in.h:6
+#: ../plugins/project-wizard/templates/library.wiz.in.h:14
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:13
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:10
+#: ../plugins/project-wizard/templates/python.wiz.in.h:14
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:10
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:13
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:9
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:13
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:15
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:15
+msgid "Email address:"
+msgstr "Dirección de correo-e:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
+#: ../plugins/project-wizard/templates/django.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:10
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:16
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:16
+#: ../plugins/project-wizard/templates/java.wiz.in.h:15
+#: ../plugins/project-wizard/templates/js.wiz.in.h:7
+#: ../plugins/project-wizard/templates/library.wiz.in.h:15
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/python.wiz.in.h:15
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:11
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:14
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:11
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
+msgid "General Project Information"
+msgstr "Información general del proyecto"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
 msgid "Icon File:"
@@ -7277,9 +6943,75 @@ msgstr "Interfaz implementado por el complemento"
 msgid "Interface:"
 msgstr "Interfaz:"
 
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:26
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:15
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:20
+#: ../plugins/project-wizard/templates/java.wiz.in.h:19
+#: ../plugins/project-wizard/templates/js.wiz.in.h:11
+#: ../plugins/project-wizard/templates/library.wiz.in.h:19
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:18
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:14
+#: ../plugins/project-wizard/templates/python.wiz.in.h:19
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:14
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:18
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:17
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:19
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:19
+msgid "License"
+msgstr "Licencia"
+
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:27
 msgid "Name of the value to watch"
 msgstr "Nombre del valor a vigilar"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:28
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:17
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/java.wiz.in.h:22
+#: ../plugins/project-wizard/templates/js.wiz.in.h:12
+#: ../plugins/project-wizard/templates/library.wiz.in.h:20
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:19
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/python.wiz.in.h:20
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:16
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:16
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:18
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:20
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:20
+msgid "No license"
+msgstr "Sin licencia"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:29
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:18
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:22
+#: ../plugins/project-wizard/templates/java.wiz.in.h:23
+#: ../plugins/project-wizard/templates/js.wiz.in.h:13
+#: ../plugins/project-wizard/templates/library.wiz.in.h:23
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:16
+#: ../plugins/project-wizard/templates/python.wiz.in.h:21
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:17
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:19
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:21
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:21
+msgid "Options for project build system"
+msgstr "Opciones para el sistema de construcción del proyecto"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:30
 msgid "Plugin Class Name:"
@@ -7309,6 +7041,28 @@ msgstr "El complemento tiene menús y/o barras de herramientas"
 msgid "Plugin interfaces to implement"
 msgstr "Interfaces del complemento para implementar"
 
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:37
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:21
+#: ../plugins/project-wizard/templates/django.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/java.wiz.in.h:24
+#: ../plugins/project-wizard/templates/js.wiz.in.h:14
+#: ../plugins/project-wizard/templates/library.wiz.in.h:24
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:17
+#: ../plugins/project-wizard/templates/python.wiz.in.h:22
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:18
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:20
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:22
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:22
+msgid "Project Name:"
+msgstr "Nombre del proyecto:"
+
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:38
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
@@ -7317,9 +7071,90 @@ msgstr ""
 "El nombre del proyecto no debe contener espacios porque será el nombre del "
 "proyecto objetivo (ejecutable, biblioteca, etc.)"
 
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:39
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:22
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/java.wiz.in.h:25
+#: ../plugins/project-wizard/templates/js.wiz.in.h:15
+#: ../plugins/project-wizard/templates/library.wiz.in.h:25
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:22
+#: ../plugins/project-wizard/templates/mkfile.wiz.in.h:6
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/python.wiz.in.h:23
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:19
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:22
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:21
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:23
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:23
+msgid "Project options"
+msgstr "Opciones del proyecto"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:40
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
+#: ../plugins/project-wizard/templates/java.wiz.in.h:26
+#: ../plugins/project-wizard/templates/library.wiz.in.h:26
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:23
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/python.wiz.in.h:24
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:22
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:24
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:24
+msgid "Required Packages:"
+msgstr "Paquetes necesarios:"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:41
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
+#: ../plugins/project-wizard/templates/java.wiz.in.h:27
+#: ../plugins/project-wizard/templates/js.wiz.in.h:16
+#: ../plugins/project-wizard/templates/library.wiz.in.h:27
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:24
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:22
+#: ../plugins/project-wizard/templates/python.wiz.in.h:25
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:32
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:23
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:25
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:25
+msgid "Select code license"
+msgstr "Seleccionar la licencia del código"
+
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:42
 msgid "Shell values to watch"
 msgstr "Valores del Shell a vigilar"
+
+#: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:43
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:30
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:30
+#: ../plugins/project-wizard/templates/java.wiz.in.h:28
+#: ../plugins/project-wizard/templates/library.wiz.in.h:30
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:25
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/python.wiz.in.h:26
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:24
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:26
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:26
+msgid "Use pkg-config to add library support from other packages"
+msgstr ""
+"Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:44
 msgid "Value Name:"
@@ -7333,37 +7168,116 @@ msgstr "Valores a vigilar"
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica si el complemento tiene menús o barras de herramientas"
 
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
-msgid "A minimal GTKmm project"
-msgstr "Un proyecto GTKmm mínimo"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:1
+msgid "A generic C++ project"
+msgstr "Un proyecto C++ genérico"
 
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
-msgid "GTKmm (Simple)"
-msgstr "GTKmm (simple)"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:3
+#: ../plugins/project-wizard/templates/java.wiz.in.h:3
+#: ../plugins/project-wizard/templates/library.wiz.in.h:3
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:1
+#: ../plugins/project-wizard/templates/python.wiz.in.h:3
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:3
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:2
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:2
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:3
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:3
+msgid "Add internationalization:"
+msgstr "Añadir internacionalización:"
 
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:1
-msgid "A generic wx Widgets project"
-msgstr "Un proyecto wx Widgets genérico"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:3
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:4
+#: ../plugins/project-wizard/templates/java.wiz.in.h:4
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:3
+#: ../plugins/project-wizard/templates/python.wiz.in.h:4
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:3
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:1
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:3
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:4
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:4
+msgid "Add shared library support:"
+msgstr "Añadir soporte para bibliotecas compartidas:"
 
-#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:26
-msgid "Wx Widgets"
-msgstr "Wx Widgets"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:4
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:6
+#: ../plugins/project-wizard/templates/java.wiz.in.h:5
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:5
+#: ../plugins/project-wizard/templates/python.wiz.in.h:5
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:4
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:4
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:6
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:6
+msgid "Adds support for building shared libraries in your project"
+msgstr "Añade soporte para construir bibliotecas compartidas en su proyecto"
 
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:1
-msgid "A generic Xlib project"
-msgstr "Un proyecto Xlib genérico"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:5
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:6
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:7
+#: ../plugins/project-wizard/templates/java.wiz.in.h:6
+#: ../plugins/project-wizard/templates/library.wiz.in.h:5
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/python.wiz.in.h:6
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:5
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:5
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:5
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:7
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:7
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Añade soporte para internacionalización de tal forma que su proyecto puede "
+"traducirse a diferentes idiomas"
 
-#: ../plugins/project-wizard/templates/xlib.wiz.in.h:28
-msgid "Xlib"
-msgstr "Xlib"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:16
+msgid "Generic C++"
+msgstr "C++ genérico"
 
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:1
-msgid "A generic Xlib dock applet"
-msgstr "Una miniaplicación empotrable Xlib genérica"
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:27
+#: ../plugins/project-wizard/templates/django.wiz.in.h:7
+#: ../plugins/project-wizard/templates/gcj.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:33
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:31
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:33
+#: ../plugins/project-wizard/templates/java.wiz.in.h:31
+#: ../plugins/project-wizard/templates/js.wiz.in.h:18
+#: ../plugins/project-wizard/templates/library.wiz.in.h:32
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:27
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/python.wiz.in.h:29
+#: ../plugins/project-wizard/templates/sdl.wiz.in.h:34
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:27
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:29
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:29
+msgid "project name"
+msgstr "nombre del proyecto"
 
-#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:28
-msgid "Xlib dock"
-msgstr "Empotrable Xlib"
+#: ../plugins/project-wizard/templates/django.wiz.in.h:2
+msgid "Django Project"
+msgstr "Proyecto Django"
+
+#: ../plugins/project-wizard/templates/django.wiz.in.h:3
+msgid "Django Project information"
+msgstr "Información del proyecto Django"
+
+#: ../plugins/project-wizard/templates/django.wiz.in.h:6
+msgid "Python webproject using Django Web Framework"
+msgstr "Proyecto web Python usando el entorno de trabajo web Django"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
 msgid ""
@@ -7385,6 +7299,138 @@ msgstr "Java genérico compilado con gcj"
 msgid "Main Class:"
 msgstr "Clase principal:"
 
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:1
+msgid "A minimal Gnome Shell extension"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:5
+msgid ""
+"Comma-separated list of gnome-shell version your plugin is compatible with"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:9
+msgid "Extension URL"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:12
+msgid "Gnome Shell Compatibility:"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:13
+msgid "Gnome Shell Extension"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:16
+#| msgid "Display description of the plugin"
+msgid "Long description of your plugin"
+msgstr "Descripción larga del complemento"
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:19
+#| msgid "Plugin Class Name:"
+msgid "Plugin Name:"
+msgstr "Nombre del complemento:"
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:22
+msgid "Short but descriptive user-visible plugin name"
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:24
+#| msgid "URI:"
+msgid "UUID:"
+msgstr "UUID:"
+
+#: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:25
+msgid ""
+"Uuid is a globally-unique identifier for your extension.\n"
+"This should be in the format of an email address (foo.bar@extensions.example."
+"com), but\n"
+"need not be an actual email address, though it's a good idea to base the "
+"uuid on your\n"
+"email address."
+msgstr ""
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:2
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:2
+#: ../plugins/project-wizard/templates/java.wiz.in.h:2
+#: ../plugins/project-wizard/templates/python.wiz.in.h:2
+msgid "Add gtk-doc system:"
+msgstr "Añadir el sistema gtk-doc:"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
+msgid "Full features Gtk+ Application with file handling"
+msgstr "Características completas de aplicación GTK+ con gestión de archivos"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
+msgid "GTK+ (Application)"
+msgstr "GTK+ (aplicación)"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:18
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:13
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Proporcione un nombre de paquete que requiere su proyecto. También puede "
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
+msgid "Require Package:"
+msgstr "Requiere el paquete:"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:23
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
+msgid "Use GtkBuilder for user interface:"
+msgstr "Usar GtkBuilder para la interfaz del usuario:"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:24
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:24
+msgid ""
+"Use GtkBuilder to create the user-interface in a graphical way and load it "
+"from xml files at runtime"
+msgstr ""
+"Usar GtkBuilder para crear la interfaz de usuario de una forma gráfica y "
+"cargarla desde un XML en el momento de ejecución"
+
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:32
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:30
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:32
+#: ../plugins/project-wizard/templates/java.wiz.in.h:30
+#: ../plugins/project-wizard/templates/python.wiz.in.h:28
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr ""
+"gtk-doc se usa para compilar la documentación de la API para las clases "
+"basadas en GObject"
+
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
+msgid "A minimal GTKmm project"
+msgstr "Un proyecto GTKmm mínimo"
+
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:15
+msgid "GTKmm (Simple)"
+msgstr "GTKmm (simple)"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:15
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:10
+msgid "GTK+ (simple)"
+msgstr "GTK+ (simple)"
+
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
+msgid "Simple GTK+ project"
+msgstr "Proyecto GTK+ sencillo"
+
 #: ../plugins/project-wizard/templates/java.wiz.in.h:1
 msgid "A generic java project using automake project management"
 msgstr "Un proyecto Java genérico usando la gestión de proyectos de automake"
@@ -7397,25 +7443,46 @@ msgstr "Java genérico (automake)"
 msgid "Main class"
 msgstr "Clase principal"
 
+#: ../plugins/project-wizard/templates/js.wiz.in.h:1
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
+msgid "A generic minimal and flat project"
+msgstr "Un proyecto pequeño y plano genérico"
+
 #: ../plugins/project-wizard/templates/js.wiz.in.h:9
 msgid "Generic JavaScript"
 msgstr "JavaScript genérico"
 
-#: ../plugins/project-wizard/templates/python.wiz.in.h:1
-msgid "A generic python project using automake project management"
-msgstr "Un proyecto Python genérico usando la gestión de proyectos de automake"
+#: ../plugins/project-wizard/templates/library.wiz.in.h:1
+msgid "A shared or a static library project"
+msgstr "Un proyecto de biblioteca compartida o estática"
 
-#: ../plugins/project-wizard/templates/python.wiz.in.h:17
-msgid "Generic python (automake)"
-msgstr "Python genérico (automake)"
+#: ../plugins/project-wizard/templates/library.wiz.in.h:9
+msgid "Build library as"
+msgstr "Construir biblioteca como"
 
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
-msgid "PyGTK (automake)"
-msgstr "PyGTK (automake)"
+#: ../plugins/project-wizard/templates/library.wiz.in.h:18
+msgid "Library"
+msgstr "Biblioteca"
 
-#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
-msgid "PyGTK project using automake"
-msgstr "Proyecto PyGTK usando automake"
+#: ../plugins/project-wizard/templates/library.wiz.in.h:21
+msgid "Only Shared"
+msgstr "Sólo compartida"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:22
+msgid "Only Static"
+msgstr "Sólo estática"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:28
+msgid "Select library type to build"
+msgstr "Seleccionar el tipo de biblioteca que construir"
+
+#: ../plugins/project-wizard/templates/library.wiz.in.h:29
+msgid "Shared and Static library"
+msgstr "Biblioteca compartida y estática"
+
+#: ../plugins/project-wizard/templates/minimal.wiz.in.h:16
+msgid "Generic (Minimal)"
+msgstr "Genérico (pequeño)"
 
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:1
 msgid "Makefile project"
@@ -7436,6 +7503,22 @@ msgstr "Carpeta del proyecto:"
 #: ../plugins/project-wizard/templates/mkfile.wiz.in.h:5
 msgid "Project name:"
 msgstr "Nombre del proyecto:"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
+msgid "PyGTK (automake)"
+msgstr "PyGTK (automake)"
+
+#: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
+msgid "PyGTK project using automake"
+msgstr "Proyecto PyGTK usando automake"
+
+#: ../plugins/project-wizard/templates/python.wiz.in.h:1
+msgid "A generic python project using automake project management"
+msgstr "Un proyecto Python genérico usando la gestión de proyectos de automake"
+
+#: ../plugins/project-wizard/templates/python.wiz.in.h:17
+msgid "Generic python (automake)"
+msgstr "Python genérico (automake)"
 
 #: ../plugins/project-wizard/templates/sdl.wiz.in.h:1
 msgid "A sample SDL project"
@@ -7493,41 +7576,37 @@ msgstr "Requiere la versión de SDL_ttf:"
 msgid "SDL"
 msgstr "SDL"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:1
-msgid "A shared or a static library project"
-msgstr "Un proyecto de biblioteca compartida o estática"
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:1
+msgid "A generic project"
+msgstr "Un proyecto genérico"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:9
-msgid "Build library as"
-msgstr "Construir biblioteca como"
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:16
+msgid "Generic"
+msgstr "Genérico"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:18
-msgid "Library"
-msgstr "Biblioteca"
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:1
+msgid "A generic wx Widgets project"
+msgstr "Un proyecto wx Widgets genérico"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:21
-msgid "Only Shared"
-msgstr "Sólo compartida"
+#: ../plugins/project-wizard/templates/wxwin.wiz.in.h:26
+msgid "Wx Widgets"
+msgstr "Wx Widgets"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:22
-msgid "Only Static"
-msgstr "Sólo estática"
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:1
+msgid "A generic Xlib dock applet"
+msgstr "Una miniaplicación empotrable Xlib genérica"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:28
-msgid "Select library type to build"
-msgstr "Seleccionar el tipo de biblioteca que construir"
+#: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:28
+msgid "Xlib dock"
+msgstr "Empotrable Xlib"
 
-#: ../plugins/project-wizard/templates/library.wiz.in.h:29
-msgid "Shared and Static library"
-msgstr "Biblioteca compartida y estática"
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:1
+msgid "A generic Xlib project"
+msgstr "Un proyecto Xlib genérico"
 
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:15
-msgid "Full features Gtk+ Application with file handling"
-msgstr "Características completas de aplicación GTK+ con gestión de archivos"
-
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:16
-msgid "GTK+ (Application)"
-msgstr "GTK+ (aplicación)"
+#: ../plugins/project-wizard/templates/xlib.wiz.in.h:28
+msgid "Xlib"
+msgstr "Xlib"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Choose a working directory"
@@ -7811,13 +7890,28 @@ msgstr ""
 msgid "Trigger Key:"
 msgstr "Tecla disparadora:"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-msgid "Anjuta variables"
-msgstr "Variables de Anjuta"
+#: ../plugins/snippets-manager/snippets-export-dialog.ui.h:1
+#| msgid "Export Snippets"
+msgid "Export snippets"
+msgstr "Exportar recortes"
+
+#: ../plugins/snippets-manager/snippets-export-dialog.ui.h:3
+#| msgid "Save current file"
+msgid "Save in folder:"
+msgstr "Guarda en la carpeta:"
+
+#: ../plugins/snippets-manager/snippets-export-dialog.ui.h:4
+#| msgid "Select Files"
+msgid "Select snippets"
+msgstr "Seleccionar recortes"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:155
 msgid "Import Snippets"
 msgstr "Importar recortes"
+
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+msgid "Anjuta variables"
+msgstr "Variables de Anjuta"
 
 #: ../plugins/sourceview/sourceview.c:560
 #, c-format
@@ -9762,9 +9856,6 @@ msgstr "Símbolo"
 #~ msgid "Thread operations"
 #~ msgstr "Operaciones con los hilos"
 
-#~ msgid "Export Snippets"
-#~ msgstr "Exportar recortes"
-
 #~ msgid "Info _Target Files"
 #~ msgstr "Archivos _objetivo"
 
@@ -11172,9 +11263,6 @@ msgstr "Símbolo"
 
 #~ msgid "Project:"
 #~ msgstr "Proyecto:"
-
-#~ msgid "URI:"
-#~ msgstr "URI:"
 
 #~ msgid "Module/Packages"
 #~ msgstr "Módulo/paquetes"
