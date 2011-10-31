@@ -481,14 +481,17 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 	for (i = 0; i < sdb_plugin->buffer_update_ids->len; i++)
 	{
 		if (g_ptr_array_index (sdb_plugin->buffer_update_ids, i) == GINT_TO_POINTER (process_id))
-		{
-			gchar *str;
+		{			
 			/* hey we found it */
 			/* remove both the items */
 			g_ptr_array_remove_index (sdb_plugin->buffer_update_ids, i);
 			
-			str = (gchar*)g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
+			g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
 													i);
+
+			/* no need to free the string coz the g_ptr_array is built with
+			 * g_ptr_array_new_with_free_func (g_free)
+			 */
 		}
 	}
 
@@ -535,15 +538,12 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 static void
 on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 {
-	const gchar *uri;
-
 	if (!sdb_plugin->editor_connected)
 	{
 		DEBUG_PRINT ("%s", "on_editor_destroy (): returning….");
 		return;
 	}
 	
-	uri = g_hash_table_lookup (sdb_plugin->editor_connected, G_OBJECT (editor));
 	g_hash_table_remove (sdb_plugin->editor_connected, G_OBJECT (editor));
 
 	if (g_hash_table_size (sdb_plugin->editor_connected) <= 0)
@@ -1340,7 +1340,10 @@ do_update_project_symbols (SymbolDBPlugin *sdb_plugin, const gchar *root_dir)
 }
 
 /**
- * @return TRUE is a scan process is started, FALSE elsewhere.
+ * do_check_offline_files_changed:
+ * @sdb_plugin: self
+ * 
+ * Returns: TRUE if a scan process is started, FALSE elsewhere.
  */
 static gboolean
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
@@ -1501,10 +1504,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session,
 				 SymbolDBPlugin *sdb_plugin)
 {
-	IAnjutaProjectManager *pm;
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaProjectManager, NULL);	
-	
 	if (phase == ANJUTA_SESSION_PHASE_START)
 	{
 		DEBUG_PRINT ("SymbolDB: session_loading started. Getting info from %s",
@@ -1579,8 +1578,6 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 		 * a previous session..
 		 */				
 		GPtrArray *sources_array = NULL;				
-		gboolean flag_offline;
-		gboolean flag_update;
 		
 		DEBUG_PRINT ("Checking for files with zero symbols.");
 		sources_array = 
@@ -1596,11 +1593,17 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 
 		DEBUG_PRINT ("Checking for offline changes.");
 		/* check for offline changes */				
-		flag_offline = do_check_offline_files_changed (sdb_plugin);
+		if (do_check_offline_files_changed (sdb_plugin) == FALSE)
+		{
+			DEBUG_PRINT ("no changes. Skipping.");
+		}
 
 		DEBUG_PRINT ("Updating project symbols.");
 		/* update any files of the project which isn't up-to-date */
-		flag_update = do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir);		
+		if (do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir) == FALSE)
+		{
+			DEBUG_PRINT ("no changes. Skipping.");
+		}
 	}
 }
 
@@ -2676,13 +2679,15 @@ static void
 isymbol_manager_deactivate_all (IAnjutaSymbolManager *isymbol_manager,
                                 GError **err)
 {
+#if 0	
 	SymbolDBPlugin *sdb_plugin;
 
 	g_return_if_fail (isymbol_manager != NULL);
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (isymbol_manager);
-
+#endif
 	/* FIXME: deactivate all packages in database */
+	DEBUG_PRINT ("STUB");
 }
 
 static void
