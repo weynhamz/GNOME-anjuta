@@ -2294,6 +2294,15 @@ sdb_engine_get_type (void)
 	return our_type;
 }
 
+/**
+ * symbol_db_engine_set_ctags_path:
+ * @dbe: self
+ * @ctags_path: Anjuta-tags executable. It is mandatory. No NULL value is accepted.
+ * 
+ * Set a new path for anjuta-tags executable.
+ *
+ * Returns: TRUE if the set is successful.
+ */ 
 gboolean
 symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 {
@@ -2338,6 +2347,15 @@ symbol_db_engine_set_ctags_path (SymbolDBEngine * dbe, const gchar * ctags_path)
 	return TRUE;
 }
 
+/**
+ * symbol_db_engine_new: 
+ * @ctags_path Anjuta-tags executable. It is mandatory. No NULL value is accepted.
+ * 
+ * Create a new instance of an engine. 
+ * Default name of database is ANJUTA_DB_FILE (see symbol-db-engine-priv.h)
+ *
+ * Returns: a new SymbolDBEngine object.
+ */
 SymbolDBEngine *
 symbol_db_engine_new (const gchar * ctags_path)
 {
@@ -2360,6 +2378,13 @@ symbol_db_engine_new (const gchar * ctags_path)
 	return sdbe;
 }
 
+/**
+ * symbol_db_engine_new_full:
+ * @ctags_path: Anjuta-tags executable. It is mandatory. No NULL value is accepted.
+ * @database_name: name of resulting db on disk.
+ * 
+ * Similar to symbol_db_engine_new() but you can specify the name of resulting db.
+ */
 SymbolDBEngine* 
 symbol_db_engine_new_full (const gchar * ctags_path, const gchar * database_name)
 {
@@ -2442,6 +2467,14 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar *cnc_string)
 	return TRUE;
 }
 
+/**
+ * symbol_db_engine_is_connected:
+ * @dbe: self
+ * 
+ * Check whether the engine is connected to db or not.
+ * 
+ * Returns: TRUE if the db is connected.
+ */
 gboolean
 symbol_db_engine_is_connected (SymbolDBEngine * dbe)
 {
@@ -2454,6 +2487,14 @@ symbol_db_engine_is_connected (SymbolDBEngine * dbe)
 		gda_connection_is_opened (priv->db_connection );
 }
 
+/**
+ * symbol_db_engine_is_scanning:
+ * @dbe: self
+ * 
+ * Check if engine is scanning busy
+ * 
+ * Returns: TRUE if it is scanning.
+ */
 gboolean
 symbol_db_engine_is_scanning (SymbolDBEngine *dbe)
 {
@@ -2505,6 +2546,15 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, const gchar * tables_sql_file
 	return TRUE;
 }
 
+/**
+ * symbol_db_engine_db_exists:
+ * @dbe: self
+ * @prj_directory: absolute path of the project.
+ * 
+ * Check if the database already exists into the prj_directory
+ * 
+ * Returns: TRUE if db exists on disk.
+ */
 gboolean
 symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 {
@@ -2529,7 +2579,16 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 	return TRUE;
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/**
+ * symbol_db_engine_file_exists:
+ * @dbe: self
+ * @abs_file_path: absolute file path.
+ * 
+ * Check if a file is already present [and scanned] in db.
+ * ~~~ Thread note: this function locks the mutex ~~~
+ *
+ * Returns: TRUE if the file is present.
+ */
 gboolean
 symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 {
@@ -2567,6 +2626,14 @@ symbol_db_engine_file_exists (SymbolDBEngine * dbe, const gchar * abs_file_path)
 	return TRUE;
 }
 
+/** 
+ * symbol_db_engine_close_db:
+ * @dbe: self
+ * 
+ * Disconnect db, gda client and db_connection 
+ *
+ * Returns: TRUE if closing has been successful.
+ */
 gboolean 
 symbol_db_engine_close_db (SymbolDBEngine *dbe)
 {
@@ -2687,7 +2754,25 @@ sdb_engine_check_db_version_and_upgrade (SymbolDBEngine *dbe,
 	return FALSE;
 }
 
-gint
+/**
+ * symbol_db_engine_open_db:
+ * @dbe: self
+ * @base_db_path: directory where .anjuta_sym_db.db will be stored. It can be
+ *        different from project_directory
+ *        E.g: a db on '/tmp/foo/' dir.
+ * @prj_directory: project directory. It may be different from base_db_path.
+ *        It's mainly used to map files inside the db. Say for example that you want to
+ *        add to a project a file /home/user/project/foo_prj/src/file.c with a project
+ *        directory of /home/user/project/foo_prj/. On db it'll be represented as
+ *        src/file.c. In this way you can move around the project dir without dealing
+ *        with relative paths.
+ * 
+ * Open, create or upgrade a database at given directory. 
+ * Be sure to give a base_db_path with the ending '/' for directory.
+ * 
+ * Returns: An opening status from SymbolDBEngineOpenStatus enum.
+ */
+SymbolDBEngineOpenStatus
 symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 						  const gchar * prj_directory)
 {
@@ -2766,6 +2851,14 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * base_db_path,
 	return ret_status;
 }
 
+/**
+ * symbol_db_engine_get_cnc_string:
+ * @dbe: self
+ * 
+ * Getter for the connection string. 
+ * 
+ * Returns: The connection string. It must be freed by caller.
+ */
 gchar *
 symbol_db_engine_get_cnc_string (SymbolDBEngine * dbe)
 {
@@ -2777,7 +2870,16 @@ symbol_db_engine_get_cnc_string (SymbolDBEngine * dbe)
 	return g_strdup (priv->cnc_string);
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/** 
+ * symbol_db_engine_add_new_workspace:
+ * @dbe: self
+ * @workspace_name: name of workspace.
+ * 
+ * Add a new workspace to an opened database. 
+ * ~~~ Thread note: this function locks the mutex ~~~
+ * 
+ * Returns: TRUE if operation is successful.
+ */ 
 gboolean
 symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 									const gchar * workspace_name)
@@ -2826,7 +2928,17 @@ symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
 	return TRUE;
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/** 
+ * symbol_db_engine_project_exists:
+ * @dbe: self
+ * @project_name: Project name.
+ * @project_version: The version of the project.
+ * 
+ * Test project existence. 
+ * ~~~ Thread note: this function locks the mutex ~~~
+ * 
+ * Returns: FALSE if project isn't found. TRUE otherwise.
+ */
 gboolean
 symbol_db_engine_project_exists (SymbolDBEngine * dbe,
 							   	const gchar * project_name,
@@ -2900,7 +3012,20 @@ symbol_db_engine_project_exists (SymbolDBEngine * dbe,
 	return TRUE;
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/** 
+ * symbol_db_engine_add_new_project:
+ * @dbe: self
+ * @workspace: Can be NULL. In that case a default workspace will be created, 
+ *		and project will depend on that.
+ * @project: Project name. Must NOT be NULL.
+ * @version: Version of the project, or of the package that project represents. 
+ * 		If not sure pass "1.0".
+ * 
+ * Adds a new project to db.
+ * ~~~ Thread note: this function locks the mutex ~~~
+ * 
+ * Returns: TRUE if operation is successful.
+ */
 gboolean
 symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
 								  const gchar * project, const gchar* version)
@@ -3220,6 +3345,36 @@ sdb_engine_get_unique_scan_id (SymbolDBEngine * dbe)
 	return ret_id;
 }
 
+/**
+ * symbol_db_engine_add_new_files_async:
+ * @dbe: self
+ * @lang_manager: IAnjutaLanguage language manager.
+ * @project_name: 
+ * @project_version: 
+ * @sources_array: requires full path to files on disk. Anjuta-tags itself requires that.
+ *        it must be something like "/home/path/to/my/foo/file.xyz". Also it requires
+ *		  a language string to represent the file.
+ *        An example of files_path array composition can be: 
+ *        "/home/user/foo_project/foo1.c", "/home/user/foo_project/foo2.cpp", 
+ * 		  "/home/user/foo_project/foo3.java".
+ *        NOTE: all the files MUST exist. So check for their existence before call
+ *        this function. The function'll write entries on the db.
+ * 
+ * See symbol_db_engine_add_new_files_full () for doc.
+ * This function adds files to db in a quicker way than 
+ * symbol_db_engine_add_new_files_full because you won't have to specify the
+ * GPtrArray of languages, but it'll try to autodetect them.
+ * When added, the files are forced to be scanned.
+ *
+ *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
+ * Returns: scan process id if insertion is successful, -1 on error.
+ */
 gint
 symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe, 
     							IAnjutaLanguage* lang_manager,
@@ -3288,6 +3443,44 @@ symbol_db_engine_add_new_files_async (SymbolDBEngine *dbe,
 	return res;
 }
 
+/** 
+ * symbol_db_engine_add_new_files_full_async:
+ * @dbe: self
+ * @project_name: something like 'foo_project', or 'helloworld_project'. Can be NULL,
+ *        for example when you're populating after abort.
+ * @project_version: The version of the project.
+ * @files_path: requires full path to files on disk. Anjuta-tags itself requires that.
+ *        it must be something like "/home/path/to/my/foo/file.xyz". Also it requires
+ *		  a language string to represent the file.
+ *        An example of files_path array composition can be: 
+ *        "/home/user/foo_project/foo1.c", "/home/user/foo_project/foo2.cpp", 
+ * 		  "/home/user/foo_project/foo3.java".
+ *        NOTE: all the files MUST exist. So check for their existence before call
+ *        this function. The function'll write entries on the db.
+ * @languages: is an array of 'languages'. It must have the same number of 
+ *		  elments that files_path has. It should be populated like this: "C", "C++",
+ *		  "Java" etc.
+ * 		  This is done to be normalized with the language-manager plugin.
+ * @force_scan: If FALSE a check on db will be done to see
+ *		  whether the file is already present or not. In the latter care the scan will begin.
+ * 
+ * Add a group of files to a project. It will perform also 
+ * a symbols scannig/populating of db if force_scan is TRUE.
+ * This function requires an opened db, i.e. You must test db ststus with  
+ * symbol_db_engine_open_db () before.
+ * The function must be called from within the main thread.
+ * 
+ * Note: If some file fails to enter into the db the function will just skip them.
+ * 
+ *
+ * The function is suffixed with 'async'. This means that the scanning of the files is delayed
+ * until the scanner is available. So you should use the gint id returned to identify
+ * if a 'scan-end' signal is the one that you were expecting. 
+ * Please note also that, if db is disconnected before the waiting queue is processed,
+ * the scan of those files won't be performed.
+ *
+ * Returns: scan process id if insertion is successful, -1 on error.
+ */
 gint
 symbol_db_engine_add_new_files_full_async (SymbolDBEngine * dbe, 
 								const gchar * project_name,
@@ -5067,6 +5260,17 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe,
 	g_free (update_data);
 }
 
+/**
+ * symbol_db_engine_update_files_symbols:
+ * @dbe: self
+ * @project: name of the project
+ * @files_path: absolute path of files to update.
+ * @update_prj_analyse_time: flag to force the update of project analyse time.
+ * 
+ * Update symbols of saved files. 
+ * 
+ * Returns: Scan process id if insertion is successful, -1 on 'no files scanned'.
+ */
 gint
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
 									   const GPtrArray * files_path,
@@ -5143,9 +5347,16 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * proje
 }
 
 /**
- * ~~~ Thread note: this function locks the mutex ~~~ *
- *
+ * symbol_db_engine_update_project_symbols:
+ * @dbe: self
+ * @project_name: The project name
+ * @force_all_files: 
+ * 
  * Update symbols of the whole project. It scans all file symbols etc. 
+ * If force is true then update forcely all the files.
+ * ~~~ Thread note: this function locks the mutex ~~~ *
+ * 
+ * Returns: scan id of the process, or -1 in case of problems.
  */
 gint
 symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, 
@@ -5337,7 +5548,18 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	return -1;
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/** 
+ * symbol_db_engine_remove_file:
+ * @dbe: self
+ * @project: project name
+ * @rel_file: db relative file entry of the symbols to remove.
+ * 
+ * Remove a file, together with its symbols, from a project. I.e. it won't remove
+ * physically the file from disk.
+ * ~~~ Thread note: this function locks the mutex
+ * 
+ * Returns: TRUE if everything went good, FALSE otherwise.
+ */
 gboolean
 symbol_db_engine_remove_file (SymbolDBEngine * dbe, const gchar *project,
                               const gchar *rel_file)
@@ -5456,6 +5678,20 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gint process_id, gpointer data)
 	data = files_to_scan = NULL;
 }
 
+/**
+ * symbol_db_engine_update_buffer_symbols:
+ * @dbe: self
+ * @project: project name
+ * @real_files: full path on disk to 'real file' to update. e.g.
+ * 				/home/foouser/fooproject/src/main.c. 
+ * @text_buffers: memory buffers
+ * @buffer_sizes: one to one sizes with text_buffers.
+ * 
+ * Update symbols of a file by a memory-buffer to perform a real-time updating 
+ * of symbols. 
+ * 
+ * Returns: scan process id if insertion is successful, -1 on error.
+ */
 gint
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
 										const GPtrArray * real_files,
@@ -5589,13 +5825,31 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *proje
 	return ret_id;
 }
 
+/**
+ * symbol_db_engine_get_files_for_project:
+ * @dbe: self
+ *  
+ * Retrieves the list of files in project. The data model contains only 1
+ * column, which is the file name.
+ * 
+ * Returns: data model which must be freed once used.
+ */
 GdaDataModel*
 symbol_db_engine_get_files_for_project (SymbolDBEngine *dbe)
 {
 	return sdb_engine_execute_select_sql (dbe, "SELECT file.file_path FROM file");
 }
 
-/* ~~~ Thread note: this function locks the mutex ~~~ */ 
+/**
+ * symbol_db_engine_set_db_case_sensitive:
+ * @dbe: self
+ * @case_sensitive: boolean flag.
+ * 
+ * Set the opened db case sensitive. The searches on this db will then be performed
+ * taking into consideration this SQLite's PRAGMA case_sensitive_like.
+ * ~~~ Thread note: this function locks the mutex ~~~
+ * 
+ */
 void
 symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensitive)
 {
@@ -5607,6 +5861,14 @@ symbol_db_engine_set_db_case_sensitive (SymbolDBEngine *dbe, gboolean case_sensi
 		sdb_engine_execute_unknown_sql (dbe, "PRAGMA case_sensitive_like = 0");
 }
 
+/**
+ * symbol_db_engine_get_type_conversion_hash:
+ * @dbe: self
+ * 
+ * Get conversion hash table used to convert symbol type name to enum value
+ * 
+ * Returns: a GHashTable which must be freed once used.
+ */
 const GHashTable*
 symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe)
 {
@@ -5614,6 +5876,14 @@ symbol_db_engine_get_type_conversion_hash (SymbolDBEngine *dbe)
 	return dbe->priv->sym_type_conversion_hash;
 }
 
+/**
+ * symbol_db_engine_get_project_directory:
+ * @dbe: self
+ * 
+ * Gets the project directory (used to construct absolute paths)
+ *
+ * Returns: a const gchar containing the project_directory.
+ */
 const gchar*
 symbol_db_engine_get_project_directory (SymbolDBEngine *dbe)
 {
@@ -5621,6 +5891,15 @@ symbol_db_engine_get_project_directory (SymbolDBEngine *dbe)
 	return dbe->priv->project_directory;
 }
 
+/**
+ * symbol_db_engine_get_statement:
+ * @dbe: self
+ * @sql_str: sql statement.
+ * 
+ * Compiles an sql statement
+ * 
+ * Returns: a GdaStatement object which must be freed once used.
+ */
 GdaStatement*
 symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str)
 {
@@ -5639,6 +5918,16 @@ symbol_db_engine_get_statement (SymbolDBEngine *dbe, const gchar *sql_str)
 	return stmt;
 }
 
+/**
+ * symbol_db_engine_execute_select:
+ * @dbe: self
+ * @stmt: A compiled GdaStatement sql statement.
+ * @params: Params for GdaStatement (i.e. a prepared statement).
+ * 
+ * Executes a parameterized sql statement
+ * 
+ * Returns: A data model which must be freed once used.
+ */
 GdaDataModel*
 symbol_db_engine_execute_select (SymbolDBEngine *dbe, GdaStatement *stmt,
                                  GdaSet *params)
