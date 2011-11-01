@@ -1538,7 +1538,7 @@ pm_convert_project_iter_to_model_iter (GtkTreeModel *model,
 
 		found = FALSE;
 
-		/* Check if it is a shortcut */
+		/* Check if it is a shortcut or a child of a shortcut */
 		if (project_iter != NULL)
 		{
 			GbfTreeData *data;
@@ -1547,12 +1547,22 @@ pm_convert_project_iter_to_model_iter (GtkTreeModel *model,
 			                    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 			                    -1);
 
-			if ((data != NULL) && (data->shortcut != NULL))
+			if ((data != NULL) && (data->node != NULL))
 			{
 				/* Select the corresponding node */
+				GtkTreePath *path;
+				GtkTreeIter root;
 				GtkTreeIter iter;
+				gboolean valid = FALSE;
 
-				if (gbf_project_model_find_tree_data (GBF_PROJECT_MODEL (project_model), &iter, data->shortcut))
+				path = gbf_project_model_get_project_root (GBF_PROJECT_MODEL (project_model));
+				if (path)
+				{
+					valid = gtk_tree_model_get_iter (project_model, &root, path);
+					gtk_tree_path_free (path);
+				}
+
+				if (valid && gbf_project_model_find_node (GBF_PROJECT_MODEL (project_model), &iter, &root, data->node))
 				{
 					found = gtk_tree_model_filter_convert_child_iter_to_iter (
 							GTK_TREE_MODEL_FILTER (model), model_iter, &iter);
