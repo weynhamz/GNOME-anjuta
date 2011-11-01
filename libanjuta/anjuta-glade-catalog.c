@@ -7,4 +7,5 @@
 #include <libanjuta/anjuta-file-drop-entry.h>
 #include <libanjuta/anjuta-entry.h>
 #include <libanjuta/anjuta-environment-editor.h>
+#include <libanjuta/anjuta-tree-combo.h>
 
