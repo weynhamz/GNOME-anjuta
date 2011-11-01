@@ -429,6 +429,8 @@ ROOT (): nemiver
             PROPERTY (Installation directory): menusdir
             SOURCE (): menus/menubar.xml
     GROUP (): tests
+        TARGET (): $(TESTS)
+            PROPERTY (Do not install): true
         TARGET (): runtestcore
             PROPERTY (Do not install): true
             PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la

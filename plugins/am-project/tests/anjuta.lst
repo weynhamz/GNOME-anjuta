@@ -397,6 +397,8 @@ ROOT (): anjuta
             SOURCE (): libanjuta/anjuta-entry.c
             SOURCE (): libanjuta/anjuta-environment-editor.h
             SOURCE (): libanjuta/anjuta-environment-editor.c
+            SOURCE (): libanjuta/anjuta-tree-combo.h
+            SOURCE (): libanjuta/anjuta-tree-combo.c
         TARGET (): libgladeanjuta.la
             PROPERTY (Installation directory): gladeanjutadir
             PROPERTY (Linker flags): -no-undefined -module -avoid-version
@@ -777,8 +779,6 @@ ROOT (): anjuta
                 SOURCE (): plugins/debug-manager/sparse_buffer.h
                 SOURCE (): plugins/debug-manager/sparse_view.c
                 SOURCE (): plugins/debug-manager/sparse_view.h
-                SOURCE (): plugins/debug-manager/threads.c
-                SOURCE (): plugins/debug-manager/threads.h
                 SOURCE (): plugins/debug-manager/command.c
                 SOURCE (): plugins/debug-manager/command.h
                 SOURCE (): plugins/debug-manager/variable.c
@@ -1933,6 +1933,22 @@ ROOT (): anjuta
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/vala-gtk/configure.ac.tpl
+                GROUP (): gnome-shell-extension
+                    PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/gnome-shell-extension
+                    GROUP (): src
+                        PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/gnome-shell-extension/src
+                        TARGET (): wizard_files
+                            PROPERTY (Installation directory): wizard_filesdir
+                            SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/extension.js
+                            SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/Makefile.am.tpl
+                            SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/metadata.json
+                            SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/stylesheet.css
+                    TARGET (): wizard_files
+                        PROPERTY (Installation directory): wizard_filesdir
+                        SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/autogen.sh
+                        SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/configure.ac.tpl
+                        SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/Makefile.am.tpl
+                        SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/project.anjuta
                 TARGET (): wizard_files
                     PROPERTY (Installation directory): wizard_filesdir
                     SOURCE (): plugins/project-wizard/templates/terminal-logo.png
@@ -1949,6 +1965,8 @@ ROOT (): anjuta
                     SOURCE (): plugins/project-wizard/templates/pygtk-logo.png
                     SOURCE (): plugins/project-wizard/templates/mkfile-logo.png
                     SOURCE (): plugins/project-wizard/templates/appwiz_sdl.png
+                    SOURCE (): plugins/project-wizard/templates/gnome.png
+                    SOURCE (): plugins/project-wizard/templates/gnome.svg
                     SOURCE (): plugins/project-wizard/templates/$(template_in_files:.wiz.in=.wiz)
             TARGET (): wizard_glade
                 PROPERTY (Installation directory): wizard_gladedir
@@ -2037,6 +2055,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/snippets-manager/snippets-manager-preferences.ui
                 SOURCE (): plugins/snippets-manager/snippets-browser.ui
                 SOURCE (): plugins/snippets-manager/snippets-editor.ui
+                SOURCE (): plugins/snippets-manager/snippets-export-dialog.ui
             TARGET (): default_snippets
                 PROPERTY (Installation directory): default_snippetsdir
                 SOURCE (): plugins/snippets-manager/snippets.anjuta-snippets
