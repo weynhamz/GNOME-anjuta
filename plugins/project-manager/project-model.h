@@ -1,5 +1,5 @@
 /*  -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
- * 
+ *
  * Copyright (C) 2002 Dave Camp
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,9 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1301, USA. 
- * 
- * Author: Dave Camp <dave@ximian.com> 
+ * Boston, MA 02110-1301, USA.
+ *
+ * Author: Dave Camp <dave@ximian.com>
  */
 
 #ifndef PROJECT_MODEL_H
@@ -54,7 +54,7 @@ struct _GbfProjectModelClass {
 
 typedef struct _AnjutaPmProject AnjutaPmProject;
 
-GType            gbf_project_model_get_type          (void); 
+GType            gbf_project_model_get_type          (void);
 GbfProjectModel *gbf_project_model_new               (AnjutaPmProject *project);
 
 void             gbf_project_model_set_project       (GbfProjectModel   *model,
@@ -62,7 +62,6 @@ void             gbf_project_model_set_project       (GbfProjectModel   *model,
 AnjutaPmProject *gbf_project_model_get_project       (GbfProjectModel   *model);
 
 GtkTreePath     *gbf_project_model_get_project_root  (GbfProjectModel   *model);
-GtkTreePath     *gbf_project_model_get_project_root_group  (GbfProjectModel   *model);
 gboolean         gbf_project_model_remove            (GbfProjectModel *model,
                                                       GtkTreeIter *iter);
 gboolean         gbf_project_model_find_tree_data    (GbfProjectModel   *model,

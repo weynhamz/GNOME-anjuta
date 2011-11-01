@@ -1169,7 +1169,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 	/*project_root = g_file_get_uri (anjuta_project_node_get_file (anjuta_pm_project_get_root (project)));
 	g_object_set_data_full (G_OBJECT (browse_button), "root", project_root, g_free);*/
 
-	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (targets_view),
 	                        plugin->view,
 	                       	root,
@@ -1379,7 +1379,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (groups_view),
 	                        plugin->view,
 	                       	root,
@@ -1531,7 +1531,7 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 	new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
 	ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-	root = gbf_project_model_get_project_root_group (gbf_project_view_get_model (plugin->view));
+	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (targets_view),
 	                        plugin->view,
 	                       	root,
