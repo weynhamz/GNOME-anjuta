@@ -281,16 +281,16 @@ static void gbf_project_view_class_init    (GbfProjectViewClass *klass);
 static void gbf_project_view_init          (GbfProjectView      *tree);
 static void destroy                        (GtkWidget           *object);
 
-static void set_pixbuf                     (GtkTreeViewColumn   *tree_column,
+static void set_pixbuf                     (GtkCellLayout   	*layout,
 					    GtkCellRenderer     *cell,
 					    GtkTreeModel        *model,
 					    GtkTreeIter         *iter,
-					    gpointer             data);
-static void set_text                       (GtkTreeViewColumn   *tree_column,
+					    gpointer             user_data);
+static void set_text                       (GtkCellLayout   	*layout,
 					    GtkCellRenderer     *cell,
 					    GtkTreeModel        *model,
 					    GtkTreeIter         *iter,
-					    gpointer             data);
+					    gpointer             user_data);
 
 
 G_DEFINE_TYPE(GbfProjectView, gbf_project_view, GTK_TYPE_TREE_VIEW);
@@ -404,11 +404,11 @@ get_icon (GFile *file)
 }
 
 static void
-set_pixbuf (GtkTreeViewColumn *tree_column,
-	    GtkCellRenderer   *cell,
-	    GtkTreeModel      *model,
-	    GtkTreeIter       *iter,
-	    gpointer           user_data)
+set_pixbuf (GtkCellLayout *layout,
+	    GtkCellRenderer *cell,
+	    GtkTreeModel *model,
+	    GtkTreeIter *iter,
+	    gpointer user_data)
 {
 	GbfTreeData *data = NULL;
 	GdkPixbuf *pixbuf = NULL;
@@ -484,11 +484,11 @@ set_pixbuf (GtkTreeViewColumn *tree_column,
 }
 
 static void
-set_text (GtkTreeViewColumn *tree_column,
-	  GtkCellRenderer   *cell,
-	  GtkTreeModel      *model,
-	  GtkTreeIter       *iter,
-	  gpointer           user_data)
+set_text (GtkCellLayout *layout,
+	  GtkCellRenderer *cell,
+	  GtkTreeModel *model,
+	  GtkTreeIter *iter,
+	  gpointer user_data)
 {
 	GbfTreeData *data;
 
@@ -620,7 +620,6 @@ is_project_node_visible (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_d
 static void
 gbf_project_view_init (GbfProjectView *tree)
 {
-	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	static GtkTargetEntry row_targets[] = {
 		{ "GTK_TREE_MODEL_ROW", GTK_TARGET_SAME_WIDGET, 0 }
@@ -645,14 +644,7 @@ gbf_project_view_init (GbfProjectView *tree)
 
 	/* set renderer for files column. */
 	column = gtk_tree_view_column_new ();
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func (column, renderer, set_pixbuf, tree, NULL);
-
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_set_cell_data_func (column, renderer, set_text, tree, NULL);
-
+	pm_setup_project_renderer (GTK_CELL_LAYOUT (column));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 
 	/* Create model */
@@ -743,71 +735,22 @@ void
 gbf_project_view_set_cursor_to_iter (GbfProjectView *view,
                                      GtkTreeIter *selected)
 {
-	GtkTreePath *path = NULL;
 	GtkTreeIter view_iter;
 
-	/* select node if we find it in the view*/
-	if ((selected != NULL) && gtk_tree_model_filter_convert_child_iter_to_iter (
-			GTK_TREE_MODEL_FILTER (view->filter), &view_iter, selected))
+	if (pm_convert_project_iter_to_model_iter (GTK_TREE_MODEL (view->filter), &view_iter, selected))
 	{
+		GtkTreePath *path;
+
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->filter), &view_iter);
-	}
-	else
-	{
-		/* Check if it is a shortcut */
-		if (selected !=NULL)
+		if (path)
 		{
-			GbfTreeData *data;
+			gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
 
-			gtk_tree_model_get (GTK_TREE_MODEL (view->model), selected,
-			                    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-			                    -1);
-
-			if ((data != NULL) && (data->shortcut != NULL))
-			{
-				/* Select the corresponding node */
-				GtkTreeIter iter;
-
-				if (gbf_project_model_find_tree_data (view->model, &iter, data->shortcut))
-				{
-					if (gtk_tree_model_filter_convert_child_iter_to_iter (
-					         GTK_TREE_MODEL_FILTER (view->filter), &view_iter, &iter))
-					{
-						path = gtk_tree_model_get_path (GTK_TREE_MODEL (view->filter), &view_iter);
-					}
-				}
-			}
+			gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
+			gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
+			                              TRUE, 0.5, 0.0);
+			gtk_tree_path_free (path);
 		}
-
-		/* Try to select root node */
-		if (path == NULL)
-		{
-			GtkTreePath *root_path;
-
-			root_path = gbf_project_model_get_project_root (view->model);
-			if (root_path)
-			{
-				path = gtk_tree_model_filter_convert_child_path_to_path (
-							GTK_TREE_MODEL_FILTER (view->filter), root_path);
-				gtk_tree_path_free (root_path);
-			}
-		}
-
-		/* Take the first node */
-		if (path == NULL)
-		{
-			path = gtk_tree_path_new_first ();
-		}
-	}
-
-	if (path)
-	{
-		gtk_tree_view_expand_to_path (GTK_TREE_VIEW (view), path);
-
-		gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, NULL, FALSE);
-		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL,
-									TRUE, 0.5, 0.0);
-		gtk_tree_path_free (path);
 	}
 }
 
@@ -1558,3 +1501,93 @@ gbf_project_view_get_project_root (GbfProjectView *view, GtkTreeIter *iter)
 
 	return ok;
 }
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+GtkCellLayout *
+pm_setup_project_renderer (GtkCellLayout *layout)
+{
+	GtkCellRenderer *renderer;
+
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_cell_layout_pack_start (layout, renderer, FALSE);
+	gtk_cell_layout_set_cell_data_func (layout, renderer, set_pixbuf, NULL, NULL);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_cell_layout_pack_start (layout, renderer, FALSE);
+	gtk_cell_layout_set_cell_data_func (layout, renderer, set_text, NULL, NULL);
+
+	return layout;
+}
+
+gboolean
+pm_convert_project_iter_to_model_iter (GtkTreeModel *model,
+                                       GtkTreeIter *model_iter,
+                                       GtkTreeIter *project_iter)
+{
+	gboolean found = TRUE;
+
+	g_return_val_if_fail (GTK_IS_TREE_MODEL_FILTER (model), FALSE);
+
+	/* Check if we can find a direct correspondance */
+	if ((project_iter == NULL) || !gtk_tree_model_filter_convert_child_iter_to_iter (
+			GTK_TREE_MODEL_FILTER (model), model_iter, project_iter))
+	{
+		GtkTreeModel *project_model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (model));
+
+		found = FALSE;
+
+		/* Check if it is a shortcut */
+		if (project_iter != NULL)
+		{
+			GbfTreeData *data;
+
+			gtk_tree_model_get (project_model, project_iter,
+			                    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+			                    -1);
+
+			if ((data != NULL) && (data->shortcut != NULL))
+			{
+				/* Select the corresponding node */
+				GtkTreeIter iter;
+
+				if (gbf_project_model_find_tree_data (GBF_PROJECT_MODEL (project_model), &iter, data->shortcut))
+				{
+					found = gtk_tree_model_filter_convert_child_iter_to_iter (
+							GTK_TREE_MODEL_FILTER (model), model_iter, &iter);
+				}
+			}
+		}
+
+		/* Try to select root node */
+		if (!found)
+		{
+
+			GtkTreePath *root_path;
+
+			root_path = gbf_project_model_get_project_root (GBF_PROJECT_MODEL (project_model));
+			if (root_path)
+			{
+				GtkTreePath *path;
+				path = gtk_tree_model_filter_convert_child_path_to_path (
+							GTK_TREE_MODEL_FILTER (model), root_path);
+				if (path)
+				{
+					found = gtk_tree_model_get_iter	(model, model_iter, path);
+					gtk_tree_path_free (path);
+				}
+				gtk_tree_path_free (root_path);
+			}
+		}
+
+		/* Take the first node */
+		if (!found)
+		{
+			found = gtk_tree_model_get_iter_first (model, model_iter);
+		}
+	}
+
+	return found;
+}
+

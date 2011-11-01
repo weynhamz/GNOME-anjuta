@@ -34,6 +34,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-pkg-config-chooser.h>
+#include <libanjuta/anjuta-tree-combo.h>
 
 #define ICON_SIZE 16
 
@@ -108,23 +109,23 @@ error_dialog (GtkWindow *parent, const gchar *summary, const gchar *msg, ...)
     va_list ap;
     gchar *tmp;
     GtkWidget *dialog;
-    
+
     va_start (ap, msg);
     tmp = g_strdup_vprintf (msg, ap);
     va_end (ap);
-    
+
     dialog = gtk_message_dialog_new_with_markup (parent,
 						 GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR,
 						 GTK_BUTTONS_OK,
 						 "<b>%s</b>\n\n%s", summary, tmp);
     g_free (tmp);
-    
+
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
 }
 
- 
+
 /* Private nodes functions
  *---------------------------------------------------------------------------*/
 
@@ -132,11 +133,11 @@ static PropertyEntry*
 pm_property_entry_new (GtkWidget *entry, AnjutaProjectProperty *property)
 {
 	PropertyEntry *prop;
-	
+
 	prop = g_slice_new0(PropertyEntry);
 	prop->entry = entry;
 	prop->property = property;
-	
+
 	return prop;
 }
 
@@ -165,15 +166,15 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 		need = ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_SOURCE:
-		/* Add node containing target too because target can contains module 
+		/* Add node containing target too because target can contains module
 		 * It would be probably better to check recursively if any children
-		 * can accept a module and keep all parents then. */	
+		 * can accept a module and keep all parents then. */
 		need = ANJUTA_PROJECT_CAN_ADD_SOURCE | ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_MODULE:
-		/* Add node containing target too because target can contains module 
+		/* Add node containing target too because target can contains module
 		 * It would be probably better to check recursively if any children
-		 * can accept a module and keep all parents then. */	
+		 * can accept a module and keep all parents then. */
 		need = ANJUTA_PROJECT_CAN_ADD_MODULE | ANJUTA_PROJECT_CAN_ADD_TARGET;
 		break;
 	case ANJUTA_PROJECT_PACKAGE:
@@ -183,7 +184,7 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 		need = 0;
 		break;
 	}
-	
+
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
@@ -199,7 +200,7 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 			/* Check if node can be used as sibling */
 			parent = anjuta_project_node_parent (node);
 			visible = anjuta_project_node_get_state (parent) & need ? TRUE : FALSE;
-			
+
 		}
 	}
 
@@ -212,7 +213,7 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 	GbfTreeData *data = NULL;
 	gboolean visible = FALSE;
 	AnjutaProjectNode *node;
-	
+
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
@@ -222,11 +223,11 @@ module_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 
 		visible = (type == ANJUTA_PROJECT_MODULE) || (type == ANJUTA_PROJECT_PACKAGE);
 	}
-	
+
 	return visible;
 }
 
-static void 
+static void
 setup_nodes_treeview (GbfProjectView           *view,
 						GbfProjectView		   *parent,
                   	    GtkTreePath            *root,
@@ -240,6 +241,47 @@ setup_nodes_treeview (GbfProjectView           *view,
 	gbf_project_view_set_parent_view (view, parent, root);
 	gbf_project_view_set_visible_func (view, func, data, NULL);
 	gbf_project_view_set_cursor_to_iter (view, selected);
+}
+
+static void
+setup_nodes_combo_box (AnjutaTreeComboBox      *view,
+						GbfProjectModel	   *model,
+                  	    GtkTreePath            *root,
+						GtkTreeModelFilterVisibleFunc func,
+						gpointer               data,
+						GtkTreeIter            *selected)
+{
+	GtkTreeIter iter;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (model != NULL);
+
+	pm_setup_project_renderer (GTK_CELL_LAYOUT (view));
+
+	if ((func != NULL) || (root != NULL))
+	{
+		GtkTreeModel *filter;
+
+		filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), root);
+		if (func != NULL)
+		{
+			gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter), func, data, NULL);
+		}
+		anjuta_tree_combo_box_set_model (view, filter);
+		g_object_unref (filter);
+		if (pm_convert_project_iter_to_model_iter (filter, &iter, selected))
+		{
+			anjuta_tree_combo_box_set_active_iter (view, &iter);
+		}
+	}
+	else
+    {
+		anjuta_tree_combo_box_set_model (view, GTK_TREE_MODEL (model));
+		if (selected)
+		{
+			anjuta_tree_combo_box_set_active_iter (view, selected);
+		}
+	}
 }
 
 static void
@@ -270,7 +312,7 @@ on_value_edited (GtkCellRendererText *cell,
 	GtkTreeView *view = (GtkTreeView *)user_data;
 	GtkTreeIter iter;
 	GtkTreeModel * model;
-	
+
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 	if (gtk_tree_model_get_iter_from_string (model, &iter, path_string))
 	{
@@ -299,7 +341,7 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 	gint result;
 
 	g_return_if_fail (user_data != NULL && GTK_IS_TREE_VIEW (user_data));
-	
+
 	model = gtk_tree_view_get_model(tree);
 	/*if (gtk_tree_model_get_iter_first(model, &iter))
 	{
@@ -308,7 +350,7 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 	}
 	else
 		uri = g_strdup("");*/
-	
+
 	dialog = GTK_FILE_CHOOSER_DIALOG(gtk_file_chooser_dialog_new (_("Select sources…"),
 						GTK_WINDOW (gtk_widget_get_toplevel (widget)),
 						GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -353,10 +395,10 @@ browse_button_clicked_cb (GtkWidget *widget, gpointer user_data)
 	}
 	default:
 		break;
-	} 
+	}
 	gtk_widget_destroy (GTK_WIDGET(dialog));
 }
- 
+
 /* Private properties functions
  *---------------------------------------------------------------------------*/
 
@@ -386,7 +428,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	}
 
 	editable = prop->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY ? FALSE : TRUE;
-	
+
 	if (prop->detail != NULL)
 	{
 		if (!editable)
@@ -398,7 +440,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			tooltip = g_strdup (_(prop->detail));
 		}
 	}
-	
+
 	if (tooltip != NULL)
 	{
 		gtk_widget_set_tooltip_markup (label, tooltip);
@@ -432,11 +474,11 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			model = GTK_TREE_MODEL (gtk_list_store_newv (LIST_COLUMNS_NB, column_type));
 
 			if (prop->native != NULL) prop = prop->native;
-			
+
 			for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))
 			{
 				AnjutaProjectProperty *cust_prop = (AnjutaProjectProperty *)item->data;
-				
+
 				if (cust_prop->native == prop)
 				{
 					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
@@ -448,7 +490,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 					                    -1);
 				}
 			}
-			
+
 			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
 			                    NAME_COLUMN, "",
@@ -456,10 +498,10 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			                    EDITABLE_COLUMN, TRUE,
 			                    PROPERTY_COLUMN, NULL,
 			                    -1);
-			
+
 			entry = gtk_frame_new (NULL);
 			gtk_frame_set_shadow_type (GTK_FRAME (entry), GTK_SHADOW_IN);
-			
+
 			view = gtk_tree_view_new_with_model (model);
 			gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)),
 											GTK_SELECTION_SINGLE);
@@ -485,25 +527,25 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 			g_signal_connect(renderer, "edited", (GCallback) on_value_edited, view);
 			gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 			gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
-			
+
 			gtk_container_add (GTK_CONTAINER (entry), view);
-			
+
 			break;
 	default:
 		return NULL;
-	}		
+	}
 	if (tooltip != NULL)
 	{
 		gtk_widget_set_tooltip_markup (entry, tooltip);
 	}
 	g_free (tooltip);
-	
+
 	gtk_widget_show (entry);
 	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, *position, *position+1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
-	
+
 	*position = *position + 1;
-	
+
 	return entry;
 }
 
@@ -511,7 +553,7 @@ static void
 add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint *position)
 {
 	GtkWidget *label;
-	
+
 	label = gtk_label_new (display_name);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
@@ -552,7 +594,6 @@ update_properties (PropertiesTable *table)
 	AnjutaProjectNodeInfo* node_info;
 	gboolean single;
 	GList *children;
-	GList *last;
 
 	head_pos = 0;
 	main_pos = 0;
@@ -587,8 +628,6 @@ update_properties (PropertiesTable *table)
 
 	/* Clear table */
 	children = gtk_container_get_children (GTK_CONTAINER (table->head));
-	/* Clear only the first 4 widgets */
-	while ((last = g_list_nth (children, 4)) != NULL) children = g_list_delete_link (children, last);
 	g_list_foreach (children, (GFunc)gtk_widget_destroy, NULL);
 	g_list_free (children);
 	children = gtk_container_get_children (GTK_CONTAINER (table->main));
@@ -600,13 +639,13 @@ update_properties (PropertiesTable *table)
 	g_list_foreach (table->properties, (GFunc)pm_property_entry_free, NULL);
 	g_list_free (table->properties);
 	table->properties = NULL;
-	
+
 	/* Update node name */
 	file = anjuta_project_node_get_file (table->node);
 	if (file != NULL)
 	{
 		gchar *path;
-		
+
 		path = g_file_get_path (file);
 		add_label (_("Path:"), path, table->head, &head_pos);
 		g_free (path);
@@ -615,7 +654,7 @@ update_properties (PropertiesTable *table)
 	{
 		add_label (_("Name:"), anjuta_project_node_get_name (table->node), table->head, &head_pos);
 	}
-	
+
 	/* Display node type only if several types are possible */
 	node_info = NULL;
 	single = TRUE;
@@ -643,8 +682,8 @@ update_properties (PropertiesTable *table)
 
 	for (item = anjuta_project_node_get_native_properties (table->node); item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data; 
-		AnjutaProjectProperty *prop; 
+		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data;
+		AnjutaProjectProperty *prop;
 		GtkWidget *entry;
 
 		prop = anjuta_project_node_get_property (table->node, valid_prop);
@@ -668,7 +707,7 @@ update_properties (PropertiesTable *table)
 	}
 	table->properties = g_list_reverse (table->properties);
 	gtk_widget_show_all (table->table);
-	
+
 	/* Hide expander if it is empty */
 	if (single)
 		gtk_widget_show (table->expand);
@@ -684,7 +723,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 	if (id == GTK_RESPONSE_APPLY)
 	{
 		GList *item;
-		
+
 		/* Get all modified properties */
 		for (item = g_list_first (table->properties); item != NULL; item = g_list_next (item))
 		{
@@ -695,11 +734,11 @@ on_properties_dialog_response (GtkWidget *dialog,
 			gboolean active;
 			GtkTreeIter iter;
 			GtkTreeModel *model;
-			
+
 			/* Get property value in node */
 			prop = anjuta_project_node_get_property (table->node, entry->property);
 			if (prop == NULL) prop = entry->property;
-			
+
 			switch (prop->type)
 			{
 			case ANJUTA_PROJECT_PROPERTY_STRING:
@@ -728,7 +767,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 			case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
 				active = prop->value == NULL ? FALSE : (*prop->value == '1' ? TRUE : FALSE);
 				text = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (entry->entry)) ? "1" : "0";
-					
+
 				if (active != (*text == '1'))
 				{
 					/* Modified */
@@ -764,21 +803,18 @@ on_properties_dialog_response (GtkWidget *dialog,
 }
 
 static void
-on_node_changed (GtkTreeView       *view,
-                 gpointer           user_data)     
+on_node_changed (AnjutaTreeComboBox *view,
+                 gpointer user_data)
 {
 	PropertiesTable *table = (PropertiesTable *)user_data;
 	GtkTreeIter iter;
-	GtkTreePath *path;
-	GtkTreeModel *model;
 
-	model = gtk_tree_view_get_model (view);
-	gtk_tree_view_get_cursor (view, &path, NULL);
-	
-	if (gtk_tree_model_get_iter (model, &iter, path))
+	if (anjuta_tree_combo_box_get_active_iter (view, &iter))
 	{
+		GtkTreeModel *model;
 		GbfTreeData *data;
-		
+
+		model = anjuta_tree_combo_box_get_model (view);
 		gtk_tree_model_get (model, &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 
 		if (table->data->properties_dialog != NULL)
@@ -797,8 +833,6 @@ on_node_changed (GtkTreeView       *view,
 		table->node = gbf_tree_data_get_node (data);
 		update_properties (table);
 	}
-
-	if (path != NULL) gtk_tree_path_free (path);
 }
 
 static GtkWidget *
@@ -807,10 +841,10 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	PropertiesTable *table;
 	GtkWidget *dialog = NULL;
 	GtkBuilder *bxml;
-	GtkWidget *node_view;
-	
+	GtkWidget *node_combo;
+
 	g_return_val_if_fail (data != NULL, NULL);
-	
+
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return NULL;
 
@@ -820,8 +854,8 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	table->project = project;
 	anjuta_util_builder_get_objects (bxml,
 									"properties", &table->table,
+	                                "nodes_combo", &node_combo,
 									"head_table", &table->head,
-	                                "nodes_view", &node_view,
 									"main_table", &table->main,
 									"extra_table", &table->extra,
 									"extra_expand", &table->expand,
@@ -829,14 +863,17 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	g_object_ref (table->table);
 	g_object_unref (bxml);
 
-	/* Add tree view */
-	setup_nodes_treeview (GBF_PROJECT_VIEW (node_view),
-	                        view,
-	                        NULL,
-							is_project_node_but_shortcut,
-							NULL,
-							selected);
-	gtk_widget_show (node_view);
+	/* Add combo node selection */
+	setup_nodes_combo_box (ANJUTA_TREE_COMBO_BOX (node_combo),
+	                       gbf_project_view_get_model(ANJUTA_PLUGIN_PROJECT_MANAGER (table->project->plugin)->view),
+	                       NULL,
+	                       is_project_node_but_shortcut,
+	                       NULL,
+	                       selected);
+
+	g_signal_connect (node_combo, "changed",
+					G_CALLBACK (on_node_changed),
+					table);
 
 	dialog = gtk_dialog_new_with_buttons (NULL,
 						   parent,
@@ -848,11 +885,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	table->dialog = dialog;
 
 	update_properties (table);
-	
-	g_signal_connect (node_view, "cursor-changed",
-					G_CALLBACK (on_node_changed),
-					table);
-	
+
 	g_signal_connect (dialog, "response",
 					G_CALLBACK (on_properties_dialog_response),
 					table);
@@ -861,7 +894,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 					table->table);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
 	gtk_widget_show (dialog);
-	
+
 	return dialog;
 }
 
@@ -881,7 +914,7 @@ anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeI
 {
 	GtkWidget **dialog_ptr;
 	GtkTreeIter iter;
-	
+
 	if (selected == NULL)
 	{
 		/* Display root properties by default */
@@ -894,11 +927,11 @@ anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeI
 	if (selected)
 	{
 		GbfTreeData *data;
-		
+
 		gtk_tree_model_get (GTK_TREE_MODEL (gbf_project_view_get_model (plugin->view)), selected, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 
 		dialog_ptr = &data->properties_dialog;
-	
+
 		if (*dialog_ptr != NULL)
 		{
 			/* Show already existing dialog */
@@ -910,7 +943,7 @@ anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeI
 				plugin->project,
 				GTK_WINDOW (plugin->project->plugin->shell),
 			    plugin->view,
-			    data,                                               
+			    data,
 				selected);
 			if (*dialog_ptr != NULL)
 			{
@@ -981,7 +1014,7 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 		response = gtk_dialog_run (GTK_DIALOG (dialog));
 
 		switch (response) {
-			case GTK_RESPONSE_OK: 
+			case GTK_RESPONSE_OK:
 			{
 				GError *err = NULL;
 				AnjutaProjectNode *group;
@@ -1023,7 +1056,7 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 	/* destroy stuff */
 	gtk_widget_destroy (dialog);
 	g_object_unref (gui);
-	
+
 	return new_group;
 }
 
@@ -1039,18 +1072,18 @@ anjuta_pm_project_new_source (ProjectManagerPlugin *plugin,
 	GList* new_sources;
 	gchar* uri = NULL;
 	GList* uris = NULL;
-	
+
 	if (default_uri)
 	{
 		uri = g_strdup (default_uri);
 		uris = g_list_append (NULL, uri);
 	}
-	new_sources = 
+	new_sources =
 		anjuta_pm_project_new_multiple_source (plugin, parent,
 										default_parent, uris);
 	g_free (uri);
 	g_list_free (uris);
-	
+
 	if (new_sources && g_list_length (new_sources))
 	{
 		AnjutaProjectNode *new_source = new_sources->data;
@@ -1061,7 +1094,7 @@ anjuta_pm_project_new_source (ProjectManagerPlugin *plugin,
 		return NULL;
 }
 
-GList* 
+GList*
 anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 								GtkWindow           *top_window,
 								GtkTreeIter         *default_parent,
@@ -1109,7 +1142,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 
 	/* set up dialog */
 	uri_node = uris_to_add;
-	while (uri_node) 
+	while (uri_node)
 	{
 		GtkTreeIter iter;
 		gchar* filename = g_path_get_basename (uri_node->data);
@@ -1128,7 +1161,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 
 	g_signal_connect (G_OBJECT(list), "row_changed",
 					G_CALLBACK(on_row_changed), ok_button);
-    
+
 	g_signal_connect (browse_button, "clicked",
 					G_CALLBACK (browse_button_clicked_cb), source_file_tree);
 
@@ -1161,7 +1194,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 
 		switch (response)
 		{
-		case GTK_RESPONSE_OK: 
+		case GTK_RESPONSE_OK:
 		{
 			AnjutaProjectNode *parent = NULL;
 			AnjutaProjectNode *sibling = NULL;
@@ -1182,7 +1215,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 					parent = NULL;
 				}
 			}
-			
+
 			if (parent)
 			{
 				GtkTreeIter iter;
@@ -1231,7 +1264,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 				}
 				g_string_free (err_mesg, TRUE);
 			}
-			else 
+			else
 			{
 				error_dialog (top_window, _("Cannot add source files"),
 						"%s", _("The selected node cannot contain source files."));
@@ -1248,7 +1281,7 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 	/* destroy stuff */
 	gtk_widget_destroy (dialog);
 	g_object_unref (gui);
-	
+
 	return new_sources;
 }
 
@@ -1276,7 +1309,7 @@ build_types_store (AnjutaPmProject *project, AnjutaProjectNodeType store_type)
                                 G_TYPE_POINTER,
                                 G_TYPE_STRING,
                                 GDK_TYPE_PIXBUF);
-    
+
     for (node = types; node != NULL; node = g_list_next (node)) {
         GdkPixbuf *pixbuf;
         const gchar *name;
@@ -1307,7 +1340,7 @@ build_types_store (AnjutaPmProject *project, AnjutaProjectNodeType store_type)
     return store;
 }
 
-AnjutaProjectNode* 
+AnjutaProjectNode*
 anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
                              GtkWindow       *parent,
                              GtkTreeIter     *default_group,
@@ -1358,7 +1391,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 
 	/* setup target types combo box */
 	types_store = build_types_store (plugin->project, ANJUTA_PROJECT_TARGET);
-	gtk_combo_box_set_model (GTK_COMBO_BOX (target_type_combo), 
+	gtk_combo_box_set_model (GTK_COMBO_BOX (target_type_combo),
 							GTK_TREE_MODEL (types_store));
 
 	/* create cell renderers */
@@ -1394,7 +1427,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 
 		switch (response)
 		{
-			case GTK_RESPONSE_OK: 
+			case GTK_RESPONSE_OK:
 			{
 				GError *err = NULL;
 				AnjutaProjectNode *group;
@@ -1410,7 +1443,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 				/* retrieve target type */
 				if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (target_type_combo), &iter))
 				{
-					gtk_tree_model_get (GTK_TREE_MODEL (types_store), &iter, 
+					gtk_tree_model_get (GTK_TREE_MODEL (types_store), &iter,
 										TARGET_TYPE_TYPE, &type,
 										-1);
 				}
@@ -1453,7 +1486,7 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	return new_target;
 }
 
- 
+
 /* Module dialog
  *---------------------------------------------------------------------------*/
 
@@ -1462,7 +1495,7 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 {
 	GtkWidget* button = GTK_WIDGET(data);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(view);
- 
+
 	if (gtk_tree_selection_count_selected_rows (selection) > 0)
 		gtk_widget_set_sensitive(button, TRUE);
 	else
@@ -1553,7 +1586,7 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 
 				break;
 			}
-			case GTK_RESPONSE_OK: 
+			case GTK_RESPONSE_OK:
 			{
 				AnjutaProjectNode *target;
 
@@ -1632,7 +1665,7 @@ on_cursor_changed_set_entry(GtkTreeView* view, gpointer data)
     GtkWidget* entry = GTK_WIDGET(data);
     AnjutaPkgConfigChooser* chooser = ANJUTA_PKG_CONFIG_CHOOSER (view);
 	GList* packages = anjuta_pkg_config_chooser_get_active_packages (chooser);
-	
+
     if (packages)
     {
 		gchar* name = packages->data;
@@ -1689,7 +1722,7 @@ on_pkg_chooser_selection_changed (AnjutaPkgConfigChooser* chooser,
 	anjuta_util_glist_strings_free (packages);
 }
 
-GList* 
+GList*
 anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
                               GtkWindow        *parent,
                               GtkTreeIter      *default_module,
@@ -1709,12 +1742,12 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 	AnjutaProjectNode *module = NULL;
     gint default_pos = -1;
 	gint pos;
-    
+
     g_return_val_if_fail (plugin->project != NULL, NULL);
-    
+
     gui = load_interface ("add_package_dialog");
     g_return_val_if_fail (gui != NULL, NULL);
-    
+
     /* get all needed widgets */
     dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_package_dialog"));
     module_entry = GTK_WIDGET (gtk_builder_get_object (gui, "module_entry"));
@@ -1734,9 +1767,9 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 			module = gbf_tree_data_get_node (data);
 		}
 	}
-	
+
     /* Fill combo box with modules */
-    store = gtk_list_store_new(1, G_TYPE_STRING);	
+    store = gtk_list_store_new(1, G_TYPE_STRING);
     gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (module_entry), 0);
 
 	root = ianjuta_project_get_root (plugin->project->project, NULL);
@@ -1770,13 +1803,13 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
     {
         /* Create automatically a module name from the package name when missing */
         GtkWidget *entry = gtk_bin_get_child (GTK_BIN (module_entry));
-        
+
         g_signal_connect (G_OBJECT(packages_view), "cursor-changed",
             G_CALLBACK(on_cursor_changed_set_entry), entry);
         g_signal_connect (G_OBJECT(entry), "changed",
             G_CALLBACK(on_changed_disconnect), packages_view);
     }
-    
+
     /* Fill package list */
 	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (packages_view),
 	                                              TRUE);
@@ -1784,17 +1817,17 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
         G_CALLBACK(on_pkg_chooser_selection_changed), ok_button);
     g_signal_connect (G_OBJECT(packages_view), "package-deactivated",
         G_CALLBACK(on_pkg_chooser_selection_changed), ok_button);
-	
+
     if (parent) {
         gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
     }
-    
+
     /* execute dialog */
     while (!finished) {
         response = gtk_dialog_run (GTK_DIALOG (dialog));
 
         switch (response) {
-            case GTK_RESPONSE_OK: 
+            case GTK_RESPONSE_OK:
             {
                 gchar *name;
 				AnjutaProjectNode *module = NULL;
@@ -1824,7 +1857,7 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 						if (error != NULL)
 						{
                     		gchar *str = g_strdup_printf ("%s: %s\n", name, error->message);
-						
+
 							g_string_append (error_message, str);
                         	g_error_free (error);
                         	g_free (str);
@@ -1832,12 +1865,12 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 					}
 				}
 				g_free (name);
-				
+
                 if (module != NULL)
                 {
                     GList *list;
                     GList *node;
-                    
+
                     list = anjuta_pkg_config_chooser_get_active_packages (ANJUTA_PKG_CONFIG_CHOOSER (packages_view));
                     for (node = list; node != NULL; node = g_list_next (node))
                     {
@@ -1865,7 +1898,7 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 					}
 					anjuta_util_glist_strings_free (list);
 				}
-					
+
                 if (error_message->len != 0)
                 {
                     error_dialog (parent, _("Cannot add packages"),
@@ -1883,10 +1916,10 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
                 break;
         }
     }
-    
+
     /* destroy stuff */
     gtk_widget_destroy (dialog);
     g_object_unref (gui);
-    
+
     return packages;
 }

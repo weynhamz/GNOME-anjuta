@@ -113,6 +113,11 @@ GbfProjectModel *gbf_project_view_get_model (GbfProjectView *view);
 
 gboolean gbf_project_view_get_project_root (GbfProjectView *view, GtkTreeIter *iter);
 
+
+GtkCellLayout *pm_setup_project_renderer (GtkCellLayout *layout);
+
+gboolean pm_convert_project_iter_to_model_iter (GtkTreeModel *model, GtkTreeIter *model_iter, GtkTreeIter *project_iter);
+
 G_END_DECLS
 
 #endif /* _PROJECT_VIEW_H_ */
