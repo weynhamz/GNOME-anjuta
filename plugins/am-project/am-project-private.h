@@ -58,9 +58,6 @@ struct _AmpProject {
 	/* File monitor */
 	GFileMonitor *monitor;
 
-	AnjutaToken			*ac_init;
-	AnjutaToken			*args;
-
 	/* Project file list */
 	GList	   *files;
 

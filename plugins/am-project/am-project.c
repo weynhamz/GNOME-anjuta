@@ -579,9 +579,6 @@ amp_project_update_root (AmpProject *project, AmpProject *new_project)
 	new_project->configure_file = NULL;
 	project->configure_token = new_project->configure_token;
 
-	project->ac_init = new_project->ac_init;
-	project->args   = new_project->args;
-
 	hash = project->groups;
 	project->groups = new_project->groups;
 	new_project->groups = hash;
@@ -676,9 +673,6 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 {
 	GList *item;
 
-	project->ac_init = macro;
-	project->args = args;
-
 	for (item = anjuta_project_node_get_native_properties (ANJUTA_PROJECT_NODE (project)); item != NULL; item = g_list_next (item))
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
@@ -693,7 +687,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 			{
 				amp_property_free (new_prop);
 			}
-			new_prop = amp_property_new (NULL, prop->token_type, prop->position, NULL, macro);
+			new_prop = amp_property_new (NULL, prop->token_type, prop->position, NULL, args);
 			arg = anjuta_token_nth_word (args, prop->position);
 			if ((new_prop->value != NULL) && (new_prop->value != prop->base.value))
 			{
@@ -2508,9 +2502,6 @@ amp_project_init (AmpProject *project)
 	/* project data */
 	project->configure_file = NULL;
 	project->configure_token = NULL;
-
-	project->ac_init = NULL;
-	project->args = NULL;
 
 	/* Hash tables */
 	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);

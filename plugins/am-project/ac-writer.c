@@ -179,6 +179,25 @@ skip_comment (AnjutaToken *token)
 	}
 }
 
+/* Find an already existing property using the same token */
+static AmpProperty *
+find_similar_property (AnjutaProjectNode *node, AmpProperty *property)
+{
+	GList *item;
+
+	for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))
+	{
+		AmpProperty *prop = (AmpProperty *)item->data;
+
+		if ((prop->token_type == property->token_type) && (prop->token != NULL))
+		{
+			return prop;
+		}
+	}
+
+	return NULL;
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -187,13 +206,18 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 {
 	AnjutaToken *token;
 	AnjutaToken *arg;
+	AnjutaToken *args;
+	AmpProperty *prop;
 	guint pos;
 	const gchar *value;
 
 	pos = ((AmpProperty *)property)->position;
 	value = ((AmpProperty *)property)->base.value;
 
-	if (project->ac_init == NULL)
+	prop = find_similar_property (ANJUTA_PROJECT_NODE (project), (AmpProperty *)property);
+	args = prop != NULL ? prop->token : NULL;
+
+	if (args == NULL)
 	{
 		gint types[] = {AC_TOKEN_AC_PREREQ, 0};
 		AnjutaToken *group;
@@ -214,9 +238,8 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 		}
 
 		token = anjuta_token_insert_before (token, anjuta_token_new_string (AC_TOKEN_AC_INIT | ANJUTA_TOKEN_ADDED, "AC_INIT("));
-		project->ac_init = token;
 		group = anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_LIST | ANJUTA_TOKEN_ADDED, NULL));
-		project->args = group;
+		args = group;
 		token = anjuta_token_insert_after (group, anjuta_token_new_static (ANJUTA_TOKEN_LAST | ANJUTA_TOKEN_ADDED, NULL));
 		anjuta_token_merge (group, token);
 		anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
@@ -228,12 +251,12 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, value);
 	arg = anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_ITEM | ANJUTA_TOKEN_ADDED, NULL));
 	anjuta_token_merge (arg, token);
-	anjuta_token_replace_nth_word (project->args, pos, arg);
+	anjuta_token_replace_nth_word (args, pos, arg);
 	//fprintf(stdout, "ac_init after replace\n");
 	//anjuta_token_dump (project->args);
 	//fprintf(stdout, "ac_init after replace link\n");
 	//anjuta_token_dump_link (project->args);
-	anjuta_token_style_format (project->arg_list, project->args);
+	anjuta_token_style_format (project->arg_list, args);
 	//fprintf(stdout, "ac_init after update link\n");
 	//anjuta_token_dump (project->args);
 	amp_project_update_configure (project, token);
