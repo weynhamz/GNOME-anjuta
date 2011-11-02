@@ -934,11 +934,17 @@ search_box_init (SearchBox *object)
 					  G_CALLBACK (on_search_box_hide), object);
 	
 	/* Previous, Next Navigation */
-	private->next_button = gtk_button_new_from_stock (GTK_STOCK_GO_FORWARD);
+	private->next_button = gtk_button_new ();
+	gtk_container_add (GTK_CONTAINER (private->next_button),
+	                   gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD,
+	                                             GTK_ICON_SIZE_BUTTON));
 	gtk_button_set_relief (GTK_BUTTON (private->next_button), GTK_RELIEF_NONE);
 	g_signal_connect (G_OBJECT(private->next_button), "clicked", 
 					G_CALLBACK (on_search_box_forward_search), object);
-	private->previous_button = gtk_button_new_from_stock (GTK_STOCK_GO_BACK);
+	private->previous_button = gtk_button_new ();
+	gtk_container_add (GTK_CONTAINER (private->previous_button),
+	                   gtk_image_new_from_stock (GTK_STOCK_GO_BACK,
+	                                             GTK_ICON_SIZE_BUTTON));
 	gtk_button_set_relief (GTK_BUTTON (private->previous_button), GTK_RELIEF_NONE);
 	g_signal_connect (G_OBJECT(private->previous_button), "clicked", 
 					G_CALLBACK (on_search_box_backward_search), object);
