@@ -716,7 +716,7 @@ on_search_box_document_changed (GtkWidget * widget, SearchBox * search_box)
 }
 
 static void
-on_search_box_forward_search (GtkWidget * widget, SearchBox * search_box)
+search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 
@@ -747,7 +747,8 @@ on_search_box_backward_search (GtkWidget * widget, SearchBox * search_box)
 }
 
 static gboolean
-on_search_box_replace (GtkWidget * widget, SearchBox * search_box)
+search_box_replace (SearchBox * search_box, GtkWidget * widget,
+                    gboolean undo /* treat as undo action */)
 {
 
 	IAnjutaEditorSelection* selection;
@@ -783,10 +784,12 @@ on_search_box_replace (GtkWidget * widget, SearchBox * search_box)
 					g_regex_unref(regex);
 				}
                 else
-				{                           
-					ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
+				{
+					if (undo)
+						ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
 					ianjuta_editor_selection_replace (selection, replacement_text, strlen(replacement_text), NULL);
-					ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (selection), NULL);
+					if (undo)
+						ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (selection), NULL);
  
 					replace_successful = TRUE;
 				}
@@ -800,9 +803,11 @@ on_search_box_replace (GtkWidget * widget, SearchBox * search_box)
 		else if ((private->case_sensitive && g_str_equal (selection_text, search_text)) ||
 		         (!private->case_sensitive && strcasecmp (selection_text, search_text) == 0))
 		{
-			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
+			if (undo)
+				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
 			ianjuta_editor_selection_replace (selection, replace_text, strlen(replace_text), NULL);
-			ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (selection), NULL);
+			if (undo)
+				ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (selection), NULL);
 
 			replace_successful = TRUE;
 		}
@@ -826,11 +831,11 @@ on_replace_activated (GtkWidget* widget, SearchBox* search_box)
 
 	/* Either replace search-term or try to move search forward to next occurence */
 
-	successful_replace = on_search_box_replace (widget, search_box);
+	successful_replace = search_box_replace (search_box, widget, TRUE);
 
 	if (!successful_replace)
 	{
-		on_search_box_forward_search (widget, search_box);
+		search_box_forward_search (search_box, widget);
 	}	
 }
 
@@ -878,18 +883,18 @@ on_replace_all_activated (GtkWidget* widget, SearchBox* search_box)
 {
 
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
 	gboolean entry_found;
 
 	if (!private->current_editor)
 		return;
 
 	/* Replace all instances of search_entry with replace_entry text */
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
 	while ((entry_found = search_box_incremental_search (search_box, TRUE)) == TRUE)
 	{
-		on_search_box_replace (widget, search_box);
+		search_box_replace (search_box, widget, FALSE);
 	}
-
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
 }
 
 static void
@@ -903,9 +908,9 @@ search_box_init (SearchBox *object)
 	
 	/* Searching */
 	private->search_entry = gtk_entry_new();
-	g_signal_connect (G_OBJECT (private->search_entry), "activate", 
-					  G_CALLBACK (on_search_box_forward_search),
-					  object);	
+	g_signal_connect_swapped (G_OBJECT (private->search_entry), "activate", 
+	                          G_CALLBACK (search_box_forward_search),
+	                          object);
 	g_signal_connect (G_OBJECT (private->search_entry), "key-press-event",
 					  G_CALLBACK (on_entry_key_pressed),
 					  object);
@@ -935,8 +940,8 @@ search_box_init (SearchBox *object)
 	                   gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD,
 	                                             GTK_ICON_SIZE_BUTTON));
 	gtk_button_set_relief (GTK_BUTTON (private->next_button), GTK_RELIEF_NONE);
-	g_signal_connect (G_OBJECT(private->next_button), "clicked", 
-					G_CALLBACK (on_search_box_forward_search), object);
+	g_signal_connect_swapped (G_OBJECT(private->next_button), "clicked", 
+	                          G_CALLBACK (search_box_forward_search), object);
 	private->previous_button = gtk_button_new ();
 	gtk_container_add (GTK_CONTAINER (private->previous_button),
 	                   gtk_image_new_from_stock (GTK_STOCK_GO_BACK,
