@@ -338,7 +338,7 @@ get_file (AnjutaProjectNode *target, const char *id)
 }
 
 static gint
-compare_id (const gchar *id, const gchar *name)
+compare_name (const gchar *id, const gchar *name)
 {
 		const gchar *ptr;
 		gboolean next = FALSE;
@@ -371,8 +371,15 @@ get_project_property (IAnjutaProject *project, AnjutaProjectNode *parent, const 
 	{
 		gint miss;
 
-		miss = compare_id (id, ((AnjutaProjectProperty *)item->data)->name);
+		/* Find property based on their id */
+		if (strcmp (id, ((AnjutaProjectProperty *)item->data)->id) == 0)
+		{
+			prop = ((AnjutaProjectProperty *)item->data);
+			break;
+		}
 
+		/* Else use the best name */
+		miss = compare_name (id, ((AnjutaProjectProperty *)item->data)->name);
 		if ((miss >= 0) && (miss < best))
 		{
 			best = miss;
@@ -401,7 +408,7 @@ get_target_type (IAnjutaProject *project, const char *id)
 		{
 			gint miss;
 
-			miss = compare_id (id, info->name);
+			miss = compare_name (id, info->name);
 
 			if ((miss >= 0) && (miss < best))
 			{
