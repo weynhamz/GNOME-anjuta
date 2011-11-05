@@ -1,0 +1,118 @@
+AT_SETUP([Read and Write LT_INIT macro])
+AS_MKDIR_P([empty])
+AT_DATA([empty/configure.ac],
+[[AC_INIT(empty)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([empty/Makefile.am],
+[[
+]])
+AT_DATA([expect],
+[[ROOT (): empty1
+    PROPERTY (Name): empty
+    PROPERTY (Libtool support):
+]])
+AT_DATA([reference],
+[[AC_INIT(empty)
+LT_INIT()
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty \
+		 move empty1 \
+		 set 0 LT_INIT ""\
+		 list \
+		 save])
+AT_CHECK([diff -b empty1/configure.ac reference])
+AT_PARSER_CHECK([load empty1 \
+		list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[ROOT (): empty2
+     PROPERTY (Name): empty
+     PROPERTY (Libtool support): disable-shared
+]])
+AT_DATA([reference],
+[[AC_INIT(empty)
+LT_INIT(disable-shared)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty1 \
+		 move empty2 \
+		 set 0 LT_INIT "disable-shared" \
+		 list \
+		 save])
+AT_CHECK([diff -b empty2/configure.ac reference])
+AT_PARSER_CHECK([load empty2 \
+		list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[ROOT (): empty3
+    PROPERTY (Name): empty
+    PROPERTY (Libtool support): disable-shared pic-only
+]])
+AT_DATA([reference],
+[[AC_INIT(empty)
+LT_INIT(disable-shared pic-only)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty2 \
+		 move empty3 \
+		 set 0 LT_INIT "disable-shared pic-only" \
+		 list \
+		 save])
+AT_CHECK([diff -b empty3/configure.ac reference])
+AT_PARSER_CHECK([load empty3 \
+		list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[ROOT (): empty4
+    PROPERTY (Name): empty
+    PROPERTY (Libtool support): pic-only
+]])
+AT_DATA([reference],
+[[AC_INIT(empty)
+LT_INIT(pic-only)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty3 \
+		 move empty4 \
+		 set 0 LT_INIT "pic-only" \
+		 list \
+		 save])
+AT_CHECK([diff -b empty4/configure.ac reference])
+AT_PARSER_CHECK([load empty4 \
+		list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_DATA([expect],
+[[ROOT (): empty5
+    PROPERTY (Name): empty
+]])
+AT_DATA([reference],
+[[AC_INIT(empty)
+AC_CONFIG_FILES(Makefile)
+]])
+AT_PARSER_CHECK([load empty4 \
+		 move empty5 \
+		 clear 0 LT_INIT \
+		 list \
+		 save])
+AT_CHECK([diff -b empty5/configure.ac reference])
+AT_PARSER_CHECK([load empty5 \
+		list])
+AT_CHECK([diff -b output expect])
+
+
+
+AT_CLEANUP

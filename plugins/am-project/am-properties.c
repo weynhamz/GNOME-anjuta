@@ -50,7 +50,7 @@ static AmpProperty AmpProjectProperties[] =
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Project name, it can contain spaces by example 'GNU Autoconf'")},
-		AC_TOKEN_AC_INIT, 0, NULL,
+		AC_TOKEN_AC_INIT, 0, "AC_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
@@ -59,7 +59,7 @@ static AmpProperty AmpProjectProperties[] =
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Project version, typically a few numbers separated by dot by example '1.0.0'")},
-		AC_TOKEN_AC_INIT, 1, NULL,
+		AC_TOKEN_AC_INIT, 1, "AC_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
@@ -68,7 +68,7 @@ static AmpProperty AmpProjectProperties[] =
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("An email address or a link to a web page where the user can report bug. It is optional.")},
-		AC_TOKEN_AC_INIT, 2, NULL,
+		AC_TOKEN_AC_INIT, 2, "AC_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
@@ -78,7 +78,7 @@ static AmpProperty AmpProjectProperties[] =
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("Package name, it can contains only alphanumerics and underscore characters."
 		   "It is generated from the project name if not provided.")},
-		AC_TOKEN_AC_INIT, 3, NULL,
+		AC_TOKEN_AC_INIT, 3, "AC_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{
@@ -87,7 +87,16 @@ static AmpProperty AmpProjectProperties[] =
 			ANJUTA_PROJECT_PROPERTY_STRING,
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
 		N_("An link to the project web page if provided.")},
-		AC_TOKEN_AC_INIT, 4, NULL,
+		AC_TOKEN_AC_INIT, 4, "AC_INIT(",
+		AM_PROPERTY_IN_CONFIGURE
+	},
+	{
+		{"LT_INIT",
+		N_("Libtool support:"),
+			ANJUTA_PROJECT_PROPERTY_LIST,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			N_("Add support to compile shared and static libraries with libtool.")},
+		AC_TOKEN_LT_INIT, -1, "LT_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
 	},
 	{

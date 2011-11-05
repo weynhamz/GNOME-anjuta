@@ -105,7 +105,9 @@
 %token	AM_GLIB_GNU_GETTEXT
 %token	AM_MAINTAINER_MODE
 %token	AM_PROG_LIBTOOL
+%token	AC_PROG_LIBTOOL
 %token	LT_INIT
+%token	DEFAULT_LT_INIT
 %token	LT_PREREQ
 %token	PKG_CHECK_MODULES
 %token	PKG_PROG_PKG_CONFIG
@@ -167,8 +169,10 @@ amp_ac_autoconf_macro (AnjutaToken *token)
 	case AM_INIT_AUTOMAKE:		return AC_TOKEN_AM_INIT_AUTOMAKE;
 	case AM_GLIB_GNU_GETTEXT:	return AC_TOKEN_AM_GLIB_GNU_GETTEXT;
 	case AM_MAINTAINER_MODE:	return AC_TOKEN_AM_MAINTAINER_MODE;
+	case AC_PROG_LIBTOOL:		return AC_TOKEN_AC_PROG_LIBTOOL;
 	case AM_PROG_LIBTOOL:		return AC_TOKEN_AM_PROG_LIBTOOL;
 	case LT_INIT:				return AC_TOKEN_LT_INIT;
+	case DEFAULT_LT_INIT:		return AC_TOKEN_LT_INIT;
 	case LT_PREREQ:				return AC_TOKEN_LT_PREREQ;
 	case PKG_CHECK_MODULES:		return AC_TOKEN_PKG_CHECK_MODULES;
 	case PKG_PROG_PKG_CONFIG:	return AC_TOKEN_PKG_PROG_PKG_CONFIG;
@@ -282,7 +286,6 @@ macro:
     include
 	| ac_macro_with_arg
 	| ac_macro_without_arg
-    | ac_init
 	| ac_subst
 	| pkg_check_modules
 	| obsolete_ac_output
@@ -379,22 +382,15 @@ ac_macro_with_arg:
 		$$ = anjuta_token_new_static (amp_ac_autoconf_macro ($1), NULL);
 		anjuta_token_merge ($$, $1);
 		anjuta_token_merge ($$, $2);
+        amp_ac_scanner_load_properties (scanner, $$, $2);
 	}
 	;
 
 ac_macro_without_arg:
 	ac_macro_without_arg_token {
 		anjuta_token_set_type ($1, amp_ac_autoconf_macro ($1));
+        amp_ac_scanner_load_properties (scanner, $$, NULL);
 	}
-
-ac_init:
-    AC_INIT arg_list {
-		$$ = anjuta_token_new_static (AC_TOKEN_AC_INIT, NULL);
-		anjuta_token_merge ($$, $1);
-		anjuta_token_merge ($$, $2);
-        amp_ac_scanner_load_properties (scanner, $1, $2);
-    }
-	;
 
 ac_subst:
 	AC_SUBST arg_list {
@@ -952,6 +948,8 @@ ac_macro_without_arg_token:
 	| AC_TYPE_OFF_T
 	| AM_MAINTAINER_MODE
 	| AM_PROG_LIBTOOL
+	| AC_PROG_LIBTOOL
+	| DEFAULT_LT_INIT
 	;
 
 ac_macro_with_arg_token:
@@ -966,6 +964,7 @@ ac_macro_with_arg_token:
 	| AC_CONFIG_SRCDIR
 	| AC_EGREP_HEADER
 	| AC_PREREQ
+	| AC_INIT
 	| IT_PROG_INTLTOOL
 	| AM_INIT_AUTOMAKE
 	| AM_GLIB_GNU_GETTEXT

@@ -4,6 +4,7 @@ ROOT (): anjuta
     PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta
     PROPERTY (Package name): anjuta
     PROPERTY (URL): http://www.anjuta.org/
+    PROPERTY (Libtool support): disable-static
     PROPERTY (Installation directories): anjutadocdir = $(docdir) anjuta_datadir = $(datadir)/anjuta gnomemenudir = $(datadir)/applications
     MODULE (): ANJUTA
         PACKAGE (): gthread-2.0

@@ -24,6 +24,8 @@
 #include <config.h>
 #endif
 
+#include <string.h>
+
 #include "ac-writer.h"
 #include "ac-scanner.h"
 #include "ac-parser.h"
@@ -208,57 +210,75 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	AnjutaToken *arg;
 	AnjutaToken *args;
 	AmpProperty *prop;
-	guint pos;
-	const gchar *value;
 
-	pos = ((AmpProperty *)property)->position;
-	value = ((AmpProperty *)property)->base.value;
-
-	prop = find_similar_property (ANJUTA_PROJECT_NODE (project), (AmpProperty *)property);
-	args = prop != NULL ? prop->token : NULL;
-
-	if (args == NULL)
+	if (((property->native->value == NULL) && (property->value == NULL)) ||
+	    (g_strcmp0 (property->native->value, property->value) == 0))
 	{
-		gint types[] = {AC_TOKEN_AC_PREREQ, 0};
-		AnjutaToken *group;
-		AnjutaToken *configure;
+		/* Remove property */
+		prop = (AmpProperty *)property;
 
-		configure = amp_project_get_configure_token (project);
-		token = find_tokens (configure, types);
-		if (token == NULL)
+		if (prop->position == -1)
 		{
-			token = skip_comment (configure);
-			if (token == NULL)
-			{
-				token = anjuta_token_append_child (configure, anjuta_token_new_string (COMMENT | ANJUTA_TOKEN_ADDED, "#"));
-				token = anjuta_token_insert_after (token, anjuta_token_new_string (SPACE | ANJUTA_TOKEN_ADDED, " Created by Anjuta project manager"));
-				token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
-				token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
-			}
+			token = prop->token;
+
+			anjuta_token_remove_list (anjuta_token_list (token));
 		}
 
-		token = anjuta_token_insert_before (token, anjuta_token_new_string (AC_TOKEN_AC_INIT | ANJUTA_TOKEN_ADDED, "AC_INIT("));
-		group = anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_LIST | ANJUTA_TOKEN_ADDED, NULL));
-		args = group;
-		token = anjuta_token_insert_after (group, anjuta_token_new_static (ANJUTA_TOKEN_LAST | ANJUTA_TOKEN_ADDED, NULL));
-		anjuta_token_merge (group, token);
-		anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
-		//fprintf(stdout, "whole file\n");
-		//anjuta_token_dump (project->configure_token);
+		anjuta_project_node_remove_property (ANJUTA_PROJECT_NODE (project), property);
 	}
-	//fprintf(stdout, "ac_init before replace\n");
-	//anjuta_token_dump (project->args);
-	token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, value);
-	arg = anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_ITEM | ANJUTA_TOKEN_ADDED, NULL));
-	anjuta_token_merge (arg, token);
-	anjuta_token_replace_nth_word (args, pos, arg);
-	//fprintf(stdout, "ac_init after replace\n");
-	//anjuta_token_dump (project->args);
-	//fprintf(stdout, "ac_init after replace link\n");
-	//anjuta_token_dump_link (project->args);
-	anjuta_token_style_format (project->arg_list, args);
-	//fprintf(stdout, "ac_init after update link\n");
-	//anjuta_token_dump (project->args);
+	else
+	{
+		prop = find_similar_property (ANJUTA_PROJECT_NODE (project), (AmpProperty *)property);
+		args = prop != NULL ? prop->token : NULL;
+
+		prop = (AmpProperty *)property;
+
+		if (args == NULL)
+		{
+			AnjutaToken *group;
+			AnjutaToken *configure;
+			const char *suffix;
+
+			configure = amp_project_get_configure_token (project);
+			token = anjuta_token_find_position (configure, TRUE, prop->token_type, NULL);
+			if (token == NULL)
+			{
+				token = skip_comment (configure);
+				if (token == NULL)
+				{
+					token = anjuta_token_append_child (configure, anjuta_token_new_string (COMMENT | ANJUTA_TOKEN_ADDED, "#"));
+					token = anjuta_token_insert_after (token, anjuta_token_new_string (SPACE | ANJUTA_TOKEN_ADDED, " Created by Anjuta project manager"));
+					token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
+					token = anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
+				}
+			}
+
+			suffix = ((AmpProperty *)prop->base.native)->suffix;
+			token = anjuta_token_insert_after (token, anjuta_token_new_string (AC_TOKEN_AC_INIT | ANJUTA_TOKEN_ADDED, suffix));
+			if (suffix[strlen(suffix) - 1] == '(')
+			{
+				group = anjuta_token_insert_after (token, anjuta_token_new_static (ANJUTA_TOKEN_LIST | ANJUTA_TOKEN_ADDED, NULL));
+				args = group;
+				token = anjuta_token_insert_after (group, anjuta_token_new_static (ANJUTA_TOKEN_LAST | ANJUTA_TOKEN_ADDED, NULL));
+				anjuta_token_merge (group, token);
+			}
+			anjuta_token_insert_after (token, anjuta_token_new_string (END_OF_LINE | ANJUTA_TOKEN_ADDED, "\n"));
+		}
+		if (args != NULL)
+		{
+			guint pos;
+
+			token = anjuta_token_new_string (ANJUTA_TOKEN_NAME | ANJUTA_TOKEN_ADDED, prop->base.value);
+			arg = anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_ITEM | ANJUTA_TOKEN_ADDED, NULL));
+			anjuta_token_merge (arg, token);
+
+			pos = prop->position;
+			if (pos == -1) pos = 0;
+			anjuta_token_replace_nth_word (args, pos, arg);
+			anjuta_token_style_format (project->arg_list, args);
+		}
+	}
+
 	amp_project_update_configure (project, token);
 
 	return TRUE;

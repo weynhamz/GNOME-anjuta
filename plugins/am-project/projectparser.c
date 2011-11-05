@@ -727,7 +727,7 @@ main(int argc, char *argv[])
 				item = get_project_property (project, node, command[2]);
 				if (item != NULL)
 				{
-					ianjuta_project_set_property (project, node, item, NULL, NULL);
+					ianjuta_project_remove_property (project, node, item, NULL);
 				}
 			}
 			command += 2;
