@@ -683,26 +683,30 @@ update_properties (PropertiesTable *table)
 	for (item = anjuta_project_node_get_native_properties (table->node); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data;
-		AnjutaProjectProperty *prop;
-		GtkWidget *entry;
 
-		prop = anjuta_project_node_get_property (table->node, valid_prop);
-		if (prop->native != NULL)
+		if (!(valid_prop->flags & ANJUTA_PROJECT_PROPERTY_HIDDEN))
 		{
-			/* This property has been set, display it in the main part */
-			entry = add_entry (table->project->project, table->node, prop, table->main, &main_pos);
-		}
-		else
-		{
-			/* This property has not been set, hide it by default */
-			entry = add_entry (table->project->project, table->node, valid_prop, table->extra, &extra_pos);
-			single = TRUE;
-		}
+			AnjutaProjectProperty *prop;
+			GtkWidget *entry;
 
-		if (entry != NULL)
-		{
-			table->properties = g_list_prepend (table->properties,
-					pm_property_entry_new (entry, valid_prop));
+			prop = anjuta_project_node_get_property (table->node, valid_prop);
+			if (prop->native != NULL)
+			{
+				/* This property has been set, display it in the main part */
+				entry = add_entry (table->project->project, table->node, prop, table->main, &main_pos);
+			}
+			else
+			{
+				/* This property has not been set, hide it by default */
+				entry = add_entry (table->project->project, table->node, valid_prop, table->extra, &extra_pos);
+				single = TRUE;
+			}
+
+			if (entry != NULL)
+			{
+				table->properties = g_list_prepend (table->properties,
+						pm_property_entry_new (entry, valid_prop));
+			}
 		}
 	}
 	table->properties = g_list_reverse (table->properties);

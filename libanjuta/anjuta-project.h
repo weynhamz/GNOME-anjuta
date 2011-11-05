@@ -42,6 +42,7 @@ typedef enum
 {
 	ANJUTA_PROJECT_PROPERTY_READ_ONLY = 1 << 0,
 	ANJUTA_PROJECT_PROPERTY_READ_WRITE = 1 << 1,
+	ANJUTA_PROJECT_PROPERTY_HIDDEN = 1 << 2,
 } AnjutaProjectPropertyFlags;
 
 struct _AnjutaProjectProperty

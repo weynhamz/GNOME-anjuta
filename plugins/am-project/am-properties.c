@@ -94,7 +94,7 @@ static AmpProperty AmpProjectProperties[] =
 		{"LT_INIT",
 		N_("Libtool support:"),
 			ANJUTA_PROJECT_PROPERTY_LIST,
-			ANJUTA_PROJECT_PROPERTY_READ_WRITE,
+			ANJUTA_PROJECT_PROPERTY_READ_WRITE | ANJUTA_PROJECT_PROPERTY_HIDDEN,
 			N_("Add support to compile shared and static libraries with libtool.")},
 		AC_TOKEN_LT_INIT, -1, "LT_INIT(",
 		AM_PROPERTY_IN_CONFIGURE
