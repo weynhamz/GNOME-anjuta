@@ -193,5 +193,14 @@ main(int argc, char *argv[])
 	fprintf(stdout, "%s %d\n", value, ok);
 	g_free (value);
 
+	// Check bug in anjuta_token_merge
+	list = anjuta_token_new_static (ANJUTA_TOKEN_NAME, "tip");
+	anjuta_token_merge (list, anjuta_token_new_static (ANJUTA_TOKEN_NAME, "tup"));
+	anjuta_token_merge (list, anjuta_token_new_static (ANJUTA_TOKEN_NAME, "tap"));
+	value = anjuta_token_evaluate_name (list);
+	ok = ok && (strcmp(value, "tiptuptap") == 0);
+	fprintf(stdout, "%s %d\n", value, ok);
+	g_free (value);
+
 	return ok ? 0 : 1;
 }

@@ -989,18 +989,30 @@ anjuta_token_delete_parent (AnjutaToken *parent)
 /* Merge function
  *---------------------------------------------------------------------------*/
 
+/* anjuta_token_merge can be used with first or end being a floating token and
+ * on already grouped tokens to change the group organisation */
 AnjutaToken *
 anjuta_token_merge (AnjutaToken *first, AnjutaToken *end)
 {
+	AnjutaToken *next;
+
 	if ((first == end) || (end == NULL)) return first;
 
-	if (first->parent == NULL)
+	/* Insert first or end in the same sequence if it is not already the case */
+	for (next = first; next != end; next = anjuta_token_next (next))
 	{
-		first->parent = end->parent;
-	}
-	if (first->next == NULL)
-	{
-		anjuta_token_insert_before (end, first);
+		if (next == NULL)
+		{
+			if (first->parent == NULL)
+			{
+				anjuta_token_insert_before (end, first);
+			}
+			else
+			{
+				anjuta_token_insert_after (first, end);
+			}
+			break;
+		}
 	}
 	first->last = end;
 	if ((end->group != NULL) && (end->group != first) && (end->group->last == end)) end->group->last = first;
