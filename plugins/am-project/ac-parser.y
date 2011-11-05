@@ -803,7 +803,9 @@ expression_body:
     ;
 
 optional_spaces:
-	/* empty */
+	/* empty */ {
+		$$ = NULL;
+	}
 	| spaces
 	;
 
