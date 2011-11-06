@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-04 13:17+0100\n"
-"PO-Revision-Date: 2011-11-04 13:21+0100\n"
+"POT-Creation-Date: 2011-11-06 03:01+0100\n"
+"PO-Revision-Date: 2011-11-06 03:01+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -703,8 +703,8 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:579
 #: ../plugins/dir-project/dir-project.c:747
 #: ../plugins/dir-project/dir-project.c:860
-#: ../plugins/am-project/am-project.c:1642
-#: ../plugins/am-project/am-project.c:1732
+#: ../plugins/am-project/am-project.c:1658
+#: ../plugins/am-project/am-project.c:1748
 #: ../plugins/mk-project/mk-project.c:718
 #: ../plugins/mk-project/mk-project.c:795
 #: ../plugins/mk-project/mk-project.c:869
@@ -4162,12 +4162,12 @@ msgstr "Script"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1669
+#: ../plugins/am-project/am-project.c:1685
 #, c-format
 msgid "Unable to parse project file"
 msgstr "Non foi posíbel analizar o ficheiro do proxecto"
 
-#: ../plugins/am-project/am-project.c:1680
+#: ../plugins/am-project/am-project.c:1696
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "O proxecto non existe ou ten unha ruta non válida"
@@ -4240,48 +4240,43 @@ msgid "An link to the project web page if provided."
 msgstr "Unha ligazón á páxina web do proxecto, se a ten."
 
 #: ../plugins/am-project/am-properties.c:95
-#: ../plugins/am-project/am-properties.c:202
-#: ../plugins/am-project/am-properties.c:327
-#: ../plugins/am-project/am-properties.c:511
-#: ../plugins/am-project/am-properties.c:686
+msgid "Libtool support:"
+msgstr "Compatibilidade de libtool:"
+
+#: ../plugins/am-project/am-properties.c:98
+msgid "Add support to compile shared and static libraries with libtool."
+msgstr ""
+"Engade a compatibilidade para compilar bibliotecas compartidas e estáticas "
+"con libtool."
+
+#: ../plugins/am-project/am-properties.c:104
+#: ../plugins/am-project/am-properties.c:211
+#: ../plugins/am-project/am-properties.c:336
+#: ../plugins/am-project/am-properties.c:520
+#: ../plugins/am-project/am-properties.c:695
 msgid "Linker flags:"
 msgstr "Parámetros do enlazador:"
 
-#: ../plugins/am-project/am-properties.c:98
-#: ../plugins/am-project/am-properties.c:205
+#: ../plugins/am-project/am-properties.c:107
+#: ../plugins/am-project/am-properties.c:214
 msgid "Common additional linker flags for all targets in this group."
 msgstr ""
 "Parámetros adicionais comúns do vinculador para tódolos obxectivos neste "
 "grupo."
-
-#: ../plugins/am-project/am-properties.c:104
-#: ../plugins/am-project/am-properties.c:211
-#: ../plugins/am-project/am-properties.c:354
-#: ../plugins/am-project/am-properties.c:529
-#: ../plugins/am-project/am-properties.c:704
-msgid "C preprocessor flags:"
-msgstr "Parámetros do preprocesador de C:"
-
-#: ../plugins/am-project/am-properties.c:107
-#: ../plugins/am-project/am-properties.c:214
-msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr ""
-"Parámetros adicionais comúns do preprocesador de C para tódolos obxectivos "
-"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:113
 #: ../plugins/am-project/am-properties.c:220
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:538
 #: ../plugins/am-project/am-properties.c:713
-msgid "C compiler flags:"
-msgstr "Parámetros do compilador de C:"
+msgid "C preprocessor flags:"
+msgstr "Parámetros do preprocesador de C:"
 
 #: ../plugins/am-project/am-properties.c:116
 #: ../plugins/am-project/am-properties.c:223
-msgid "Common additional C compiler flags for all targets in this group."
+msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de C para tódolos obxectivos "
+"Parámetros adicionais comúns do preprocesador de C para tódolos obxectivos "
 "neste grupo."
 
 #: ../plugins/am-project/am-properties.c:122
@@ -4289,14 +4284,14 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:372
 #: ../plugins/am-project/am-properties.c:547
 #: ../plugins/am-project/am-properties.c:722
-msgid "C++ compiler flags:"
-msgstr "Parámetros do compilador de C++:"
+msgid "C compiler flags:"
+msgstr "Parámetros do compilador de C:"
 
 #: ../plugins/am-project/am-properties.c:125
 #: ../plugins/am-project/am-properties.c:232
-msgid "Common additional C++ compiler flags for all targets in this group."
+msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de C++ para tódolos obxectivos "
+"Parámetros adicionais comúns do compilador de C para tódolos obxectivos "
 "neste grupo."
 
 #: ../plugins/am-project/am-properties.c:131
@@ -4304,14 +4299,14 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:381
 #: ../plugins/am-project/am-properties.c:556
 #: ../plugins/am-project/am-properties.c:731
-msgid "Java compiler flags:"
-msgstr "Parámetros do compilador de Java:"
+msgid "C++ compiler flags:"
+msgstr "Parámetros do compilador de C++:"
 
 #: ../plugins/am-project/am-properties.c:134
 #: ../plugins/am-project/am-properties.c:241
-msgid "Common additional Java compiler flags for all targets in this group."
+msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Java para tódolos obxectivos "
+"Parámetros adicionais comúns do compilador de C++ para tódolos obxectivos "
 "neste grupo."
 
 #: ../plugins/am-project/am-properties.c:140
@@ -4319,14 +4314,14 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:390
 #: ../plugins/am-project/am-properties.c:565
 #: ../plugins/am-project/am-properties.c:740
-msgid "Vala compiler flags:"
-msgstr "Parámetros do compilador de Vala:"
+msgid "Java compiler flags:"
+msgstr "Parámetros do compilador de Java:"
 
 #: ../plugins/am-project/am-properties.c:143
 #: ../plugins/am-project/am-properties.c:250
-msgid "Common additional Vala compiler flags for all targets in this group."
+msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Vala para tódolos obxectivos "
+"Parámetros adicionais comúns do compilador de Java para tódolos obxectivos "
 "neste grupo."
 
 #: ../plugins/am-project/am-properties.c:149
@@ -4334,30 +4329,29 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:399
 #: ../plugins/am-project/am-properties.c:574
 #: ../plugins/am-project/am-properties.c:749
-msgid "Fortran compiler flags:"
-msgstr "Parámetros do compilador de Fortran:"
+msgid "Vala compiler flags:"
+msgstr "Parámetros do compilador de Vala:"
 
 #: ../plugins/am-project/am-properties.c:152
 #: ../plugins/am-project/am-properties.c:259
-msgid "Common additional Fortran compiler flags for all targets in this group."
+msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Fortran para tódolos "
-"obxectivos neste grupo."
+"Parámetros adicionais comúns do compilador de Vala para tódolos obxectivos "
+"neste grupo."
 
 #: ../plugins/am-project/am-properties.c:158
 #: ../plugins/am-project/am-properties.c:265
 #: ../plugins/am-project/am-properties.c:408
 #: ../plugins/am-project/am-properties.c:583
 #: ../plugins/am-project/am-properties.c:758
-msgid "Objective C compiler flags:"
-msgstr "Parámetros do compilador de Objective C:"
+msgid "Fortran compiler flags:"
+msgstr "Parámetros do compilador de Fortran:"
 
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:268
-msgid ""
-"Common additional Objective C compiler flags for all targets in this group."
+msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Objective C para tódolos "
+"Parámetros adicionais comúns do compilador de Fortran para tódolos "
 "obxectivos neste grupo."
 
 #: ../plugins/am-project/am-properties.c:167
@@ -4365,11 +4359,27 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:417
 #: ../plugins/am-project/am-properties.c:592
 #: ../plugins/am-project/am-properties.c:767
-msgid "Lex/Flex flags:"
-msgstr "Parámetros de Lex/Flex:"
+msgid "Objective C compiler flags:"
+msgstr "Parámetros do compilador de Objective C:"
 
 #: ../plugins/am-project/am-properties.c:170
 #: ../plugins/am-project/am-properties.c:277
+msgid ""
+"Common additional Objective C compiler flags for all targets in this group."
+msgstr ""
+"Parámetros adicionais comúns do compilador de Objective C para tódolos "
+"obxectivos neste grupo."
+
+#: ../plugins/am-project/am-properties.c:176
+#: ../plugins/am-project/am-properties.c:283
+#: ../plugins/am-project/am-properties.c:426
+#: ../plugins/am-project/am-properties.c:601
+#: ../plugins/am-project/am-properties.c:776
+msgid "Lex/Flex flags:"
+msgstr "Parámetros de Lex/Flex:"
+
+#: ../plugins/am-project/am-properties.c:179
+#: ../plugins/am-project/am-properties.c:286
 msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
@@ -4377,16 +4387,16 @@ msgstr ""
 "Parámetros adicionais comúns do xerador de analizadores léxicos Lex ou Flex "
 "para tódolos obxectivos neste grupo."
 
-#: ../plugins/am-project/am-properties.c:176
-#: ../plugins/am-project/am-properties.c:283
-#: ../plugins/am-project/am-properties.c:426
-#: ../plugins/am-project/am-properties.c:601
-#: ../plugins/am-project/am-properties.c:776
+#: ../plugins/am-project/am-properties.c:185
+#: ../plugins/am-project/am-properties.c:292
+#: ../plugins/am-project/am-properties.c:435
+#: ../plugins/am-project/am-properties.c:610
+#: ../plugins/am-project/am-properties.c:785
 msgid "Yacc/Bison flags:"
 msgstr "Parámetros do Yacc/Bison:"
 
-#: ../plugins/am-project/am-properties.c:179
-#: ../plugins/am-project/am-properties.c:286
+#: ../plugins/am-project/am-properties.c:188
+#: ../plugins/am-project/am-properties.c:295
 msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
@@ -4394,47 +4404,47 @@ msgstr ""
 "Parámetros adicionais do xerador do analizador Yacc ou Bison para tódolos "
 "obxectivos neste grupo."
 
-#: ../plugins/am-project/am-properties.c:185
-#: ../plugins/am-project/am-properties.c:292
+#: ../plugins/am-project/am-properties.c:194
+#: ../plugins/am-project/am-properties.c:301
 msgid "Installation directories:"
 msgstr "Cartafoles de instalación:"
 
-#: ../plugins/am-project/am-properties.c:188
-#: ../plugins/am-project/am-properties.c:295
+#: ../plugins/am-project/am-properties.c:197
+#: ../plugins/am-project/am-properties.c:304
 msgid "List of custom installation directories used by targets in this group."
 msgstr ""
 "Lista de cartafoles de instalacións comúns usados polos obxectivos de este "
 "grupo."
 
-#: ../plugins/am-project/am-properties.c:308
-#: ../plugins/am-project/am-properties.c:492
-#: ../plugins/am-project/am-properties.c:667
-#: ../plugins/am-project/am-properties.c:877
-#: ../plugins/am-project/am-properties.c:953
+#: ../plugins/am-project/am-properties.c:317
+#: ../plugins/am-project/am-properties.c:501
+#: ../plugins/am-project/am-properties.c:676
+#: ../plugins/am-project/am-properties.c:886
+#: ../plugins/am-project/am-properties.c:962
 msgid "Do not install:"
 msgstr "Non instalar:"
 
-#: ../plugins/am-project/am-properties.c:311
-#: ../plugins/am-project/am-properties.c:495
-#: ../plugins/am-project/am-properties.c:670
-#: ../plugins/am-project/am-properties.c:880
-#: ../plugins/am-project/am-properties.c:956
+#: ../plugins/am-project/am-properties.c:320
+#: ../plugins/am-project/am-properties.c:504
+#: ../plugins/am-project/am-properties.c:679
+#: ../plugins/am-project/am-properties.c:889
+#: ../plugins/am-project/am-properties.c:965
 msgid "Build but do not install the target."
 msgstr "Construír pero non instalar o obxectivo."
 
-#: ../plugins/am-project/am-properties.c:318
-#: ../plugins/am-project/am-properties.c:502
-#: ../plugins/am-project/am-properties.c:677
-#: ../plugins/am-project/am-properties.c:887
-#: ../plugins/am-project/am-properties.c:962
+#: ../plugins/am-project/am-properties.c:327
+#: ../plugins/am-project/am-properties.c:511
+#: ../plugins/am-project/am-properties.c:686
+#: ../plugins/am-project/am-properties.c:896
+#: ../plugins/am-project/am-properties.c:971
 msgid "Installation directory:"
 msgstr "Cartafol de instalación:"
 
-#: ../plugins/am-project/am-properties.c:321
-#: ../plugins/am-project/am-properties.c:505
-#: ../plugins/am-project/am-properties.c:680
-#: ../plugins/am-project/am-properties.c:890
-#: ../plugins/am-project/am-properties.c:965
+#: ../plugins/am-project/am-properties.c:330
+#: ../plugins/am-project/am-properties.c:514
+#: ../plugins/am-project/am-properties.c:689
+#: ../plugins/am-project/am-properties.c:899
+#: ../plugins/am-project/am-properties.c:974
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -4442,155 +4452,155 @@ msgstr ""
 "Debe ser un cartafol estándar ou un personalizado definido nas preferencias "
 "de grupo."
 
-#: ../plugins/am-project/am-properties.c:330
-#: ../plugins/am-project/am-properties.c:514
-#: ../plugins/am-project/am-properties.c:689
-msgid "Additional linker flags for this target."
-msgstr "Parámetros do vinculador adicionais para este obxectivo."
-
-#: ../plugins/am-project/am-properties.c:336
-msgid "Additional libraries:"
-msgstr "Bibliotecas adicionais:"
-
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:523
 #: ../plugins/am-project/am-properties.c:698
+msgid "Additional linker flags for this target."
+msgstr "Parámetros do vinculador adicionais para este obxectivo."
+
+#: ../plugins/am-project/am-properties.c:345
+msgid "Additional libraries:"
+msgstr "Bibliotecas adicionais:"
+
+#: ../plugins/am-project/am-properties.c:348
+#: ../plugins/am-project/am-properties.c:532
+#: ../plugins/am-project/am-properties.c:707
 msgid "Additional libraries for this target."
 msgstr "Bibliotecas adicionais para este obxectivo."
 
-#: ../plugins/am-project/am-properties.c:345
+#: ../plugins/am-project/am-properties.c:354
 msgid "Additional objects:"
 msgstr "Obxectos adicionais:"
 
-#: ../plugins/am-project/am-properties.c:348
+#: ../plugins/am-project/am-properties.c:357
 msgid "Additional object files for this target."
 msgstr "Ficheiros obxecto adicionais para este obxectivo."
-
-#: ../plugins/am-project/am-properties.c:357
-#: ../plugins/am-project/am-properties.c:532
-#: ../plugins/am-project/am-properties.c:707
-msgid "Additional C preprocessor flags for this target."
-msgstr "Parámetros do preprocesador de C adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:366
 #: ../plugins/am-project/am-properties.c:541
 #: ../plugins/am-project/am-properties.c:716
-msgid "Additional C compiler flags for this target."
-msgstr "Parámetros do compilador de C adicionais para este obxectivo."
+msgid "Additional C preprocessor flags for this target."
+msgstr "Parámetros do preprocesador de C adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:375
 #: ../plugins/am-project/am-properties.c:550
 #: ../plugins/am-project/am-properties.c:725
-msgid "Additional C++ compiler flags for this target."
-msgstr "Parámetros do compilador de C++ adicionais para este obxectivo."
+msgid "Additional C compiler flags for this target."
+msgstr "Parámetros do compilador de C adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:384
 #: ../plugins/am-project/am-properties.c:559
 #: ../plugins/am-project/am-properties.c:734
-msgid "Additional Java compiler flags for this target."
-msgstr "Parámetros do compilador de Java adicionais para este obxectivo."
+msgid "Additional C++ compiler flags for this target."
+msgstr "Parámetros do compilador de C++ adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:393
 #: ../plugins/am-project/am-properties.c:568
 #: ../plugins/am-project/am-properties.c:743
-msgid "Additional Vala compiler flags for this target."
-msgstr "Parámetros do compilador de Vala adicionais para este obxectivo."
+msgid "Additional Java compiler flags for this target."
+msgstr "Parámetros do compilador de Java adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:402
 #: ../plugins/am-project/am-properties.c:577
 #: ../plugins/am-project/am-properties.c:752
-msgid "Additional Fortran compiler flags for this target."
-msgstr "Parámetros do compilador de Fortran adicionais para este obxectivo."
+msgid "Additional Vala compiler flags for this target."
+msgstr "Parámetros do compilador de Vala adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:411
 #: ../plugins/am-project/am-properties.c:586
 #: ../plugins/am-project/am-properties.c:761
-msgid "Additional Objective C compiler flags for this target."
-msgstr ""
-"Parámetros do compilador de Objective C adicionais para este obxectivo:"
+msgid "Additional Fortran compiler flags for this target."
+msgstr "Parámetros do compilador de Fortran adicionais para este obxectivo."
 
 #: ../plugins/am-project/am-properties.c:420
 #: ../plugins/am-project/am-properties.c:595
 #: ../plugins/am-project/am-properties.c:770
+msgid "Additional Objective C compiler flags for this target."
+msgstr ""
+"Parámetros do compilador de Objective C adicionais para este obxectivo:"
+
+#: ../plugins/am-project/am-properties.c:429
+#: ../plugins/am-project/am-properties.c:604
+#: ../plugins/am-project/am-properties.c:779
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
 "Parámetros do xerador do analizador léxico Lex ou Flex adicionais para estes "
 "obxectivo:"
 
-#: ../plugins/am-project/am-properties.c:429
-#: ../plugins/am-project/am-properties.c:604
-#: ../plugins/am-project/am-properties.c:779
+#: ../plugins/am-project/am-properties.c:438
+#: ../plugins/am-project/am-properties.c:613
+#: ../plugins/am-project/am-properties.c:788
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr ""
 "Opcións adicionais do xerador de análise sintáctico Yacc ou Bison para este "
 "obxectivo."
 
-#: ../plugins/am-project/am-properties.c:435
-#: ../plugins/am-project/am-properties.c:610
-#: ../plugins/am-project/am-properties.c:785
-#: ../plugins/am-project/am-properties.c:842
-#: ../plugins/am-project/am-properties.c:896
-#: ../plugins/am-project/am-properties.c:971
-msgid "Additional dependencies:"
-msgstr "Dependencias adicionais:"
-
-#: ../plugins/am-project/am-properties.c:438
-#: ../plugins/am-project/am-properties.c:613
-#: ../plugins/am-project/am-properties.c:788
-#: ../plugins/am-project/am-properties.c:845
-#: ../plugins/am-project/am-properties.c:899
-#: ../plugins/am-project/am-properties.c:974
-msgid "Additional dependencies for this target."
-msgstr "Dependencias adicionais para este obxectivo:"
-
 #: ../plugins/am-project/am-properties.c:444
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:794
+#: ../plugins/am-project/am-properties.c:851
 #: ../plugins/am-project/am-properties.c:905
 #: ../plugins/am-project/am-properties.c:980
-msgid "Include in distribution:"
-msgstr "Incluída na distribución:"
+msgid "Additional dependencies:"
+msgstr "Dependencias adicionais:"
 
 #: ../plugins/am-project/am-properties.c:447
 #: ../plugins/am-project/am-properties.c:622
 #: ../plugins/am-project/am-properties.c:797
+#: ../plugins/am-project/am-properties.c:854
 #: ../plugins/am-project/am-properties.c:908
 #: ../plugins/am-project/am-properties.c:983
+msgid "Additional dependencies for this target."
+msgstr "Dependencias adicionais para este obxectivo:"
+
+#: ../plugins/am-project/am-properties.c:453
+#: ../plugins/am-project/am-properties.c:628
+#: ../plugins/am-project/am-properties.c:803
+#: ../plugins/am-project/am-properties.c:914
+#: ../plugins/am-project/am-properties.c:989
+msgid "Include in distribution:"
+msgstr "Incluída na distribución:"
+
+#: ../plugins/am-project/am-properties.c:456
+#: ../plugins/am-project/am-properties.c:631
+#: ../plugins/am-project/am-properties.c:806
+#: ../plugins/am-project/am-properties.c:917
+#: ../plugins/am-project/am-properties.c:992
 msgid "Include this target in the distributed package."
 msgstr "Incluír este obxectivo no paquete distribuído."
 
-#: ../plugins/am-project/am-properties.c:454
-#: ../plugins/am-project/am-properties.c:629
-#: ../plugins/am-project/am-properties.c:804
-#: ../plugins/am-project/am-properties.c:915
-#: ../plugins/am-project/am-properties.c:989
+#: ../plugins/am-project/am-properties.c:463
+#: ../plugins/am-project/am-properties.c:638
+#: ../plugins/am-project/am-properties.c:813
+#: ../plugins/am-project/am-properties.c:924
+#: ../plugins/am-project/am-properties.c:998
 msgid "Build for check only:"
 msgstr "Construír só para comprobar:"
 
-#: ../plugins/am-project/am-properties.c:457
-#: ../plugins/am-project/am-properties.c:632
-#: ../plugins/am-project/am-properties.c:807
-#: ../plugins/am-project/am-properties.c:918
-#: ../plugins/am-project/am-properties.c:992
+#: ../plugins/am-project/am-properties.c:466
+#: ../plugins/am-project/am-properties.c:641
+#: ../plugins/am-project/am-properties.c:816
+#: ../plugins/am-project/am-properties.c:927
+#: ../plugins/am-project/am-properties.c:1001
 msgid "Build this target only when running automatic tests."
 msgstr "Construír este obxectivo só ao executar as probas automáticas."
 
-#: ../plugins/am-project/am-properties.c:464
-#: ../plugins/am-project/am-properties.c:639
-#: ../plugins/am-project/am-properties.c:814
-#: ../plugins/am-project/am-properties.c:851
-#: ../plugins/am-project/am-properties.c:925
-#: ../plugins/am-project/am-properties.c:998
+#: ../plugins/am-project/am-properties.c:473
+#: ../plugins/am-project/am-properties.c:648
+#: ../plugins/am-project/am-properties.c:823
+#: ../plugins/am-project/am-properties.c:860
+#: ../plugins/am-project/am-properties.c:934
+#: ../plugins/am-project/am-properties.c:1007
 msgid "Do not use prefix:"
 msgstr "Non usar o prefixo:"
 
-#: ../plugins/am-project/am-properties.c:467
-#: ../plugins/am-project/am-properties.c:642
-#: ../plugins/am-project/am-properties.c:817
-#: ../plugins/am-project/am-properties.c:854
-#: ../plugins/am-project/am-properties.c:928
-#: ../plugins/am-project/am-properties.c:1001
+#: ../plugins/am-project/am-properties.c:476
+#: ../plugins/am-project/am-properties.c:651
+#: ../plugins/am-project/am-properties.c:826
+#: ../plugins/am-project/am-properties.c:863
+#: ../plugins/am-project/am-properties.c:937
+#: ../plugins/am-project/am-properties.c:1010
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -4598,19 +4608,19 @@ msgstr ""
 "Non renomear o obxectivo con un prefixo opcional, usado para evitar a "
 "sobrescritura do programa do sistema."
 
-#: ../plugins/am-project/am-properties.c:474
-#: ../plugins/am-project/am-properties.c:649
-#: ../plugins/am-project/am-properties.c:824
-#: ../plugins/am-project/am-properties.c:935
-#: ../plugins/am-project/am-properties.c:1007
+#: ../plugins/am-project/am-properties.c:483
+#: ../plugins/am-project/am-properties.c:658
+#: ../plugins/am-project/am-properties.c:833
+#: ../plugins/am-project/am-properties.c:944
+#: ../plugins/am-project/am-properties.c:1016
 msgid "Keep target path:"
 msgstr "Manter a ruta de destino:"
 
-#: ../plugins/am-project/am-properties.c:477
-#: ../plugins/am-project/am-properties.c:652
-#: ../plugins/am-project/am-properties.c:827
-#: ../plugins/am-project/am-properties.c:938
-#: ../plugins/am-project/am-properties.c:1010
+#: ../plugins/am-project/am-properties.c:486
+#: ../plugins/am-project/am-properties.c:661
+#: ../plugins/am-project/am-properties.c:836
+#: ../plugins/am-project/am-properties.c:947
+#: ../plugins/am-project/am-properties.c:1019
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -4620,16 +4630,16 @@ msgstr ""
 "programa en subcartafol/aplicativo instalado no cartafol bin será instalado "
 "en bin/subcartafol/aplicativo e non en bin/aplicativo."
 
-#: ../plugins/am-project/am-properties.c:520
-#: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:529
+#: ../plugins/am-project/am-properties.c:704
 msgid "Libraries:"
 msgstr "Bibliotecas:"
 
-#: ../plugins/am-project/am-properties.c:861
+#: ../plugins/am-project/am-properties.c:870
 msgid "Manual section:"
 msgstr "Sección manual:"
 
-#: ../plugins/am-project/am-properties.c:864
+#: ../plugins/am-project/am-properties.c:873
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -6430,48 +6440,48 @@ msgstr "Propiedades do paquete"
 msgid "Unknown properties"
 msgstr "Propiedades descoñecidas"
 
-#: ../plugins/project-manager/dialogs.c:1033
-#: ../plugins/project-manager/dialogs.c:1044
+#: ../plugins/project-manager/dialogs.c:1037
+#: ../plugins/project-manager/dialogs.c:1048
 msgid "Cannot add group"
 msgstr "Non é posíbel engadir o grupo"
 
-#: ../plugins/project-manager/dialogs.c:1045
+#: ../plugins/project-manager/dialogs.c:1049
 msgid "No parent group selected"
 msgstr "Non se seleccionou ningún grupo pai"
 
-#: ../plugins/project-manager/dialogs.c:1259
-#: ../plugins/project-manager/dialogs.c:1269
+#: ../plugins/project-manager/dialogs.c:1263
+#: ../plugins/project-manager/dialogs.c:1273
 msgid "Cannot add source files"
 msgstr "Non é posíbel engadir os ficheiros fonte"
 
-#: ../plugins/project-manager/dialogs.c:1270
+#: ../plugins/project-manager/dialogs.c:1274
 msgid "The selected node cannot contain source files."
 msgstr "O nodo seleccionado non pode conter ficheiros de código fonte."
 
-#: ../plugins/project-manager/dialogs.c:1456
-#: ../plugins/project-manager/dialogs.c:1467
+#: ../plugins/project-manager/dialogs.c:1460
+#: ../plugins/project-manager/dialogs.c:1471
 msgid "Cannot add target"
 msgstr "Non é posíbel engadir o destino"
 
-#: ../plugins/project-manager/dialogs.c:1468
+#: ../plugins/project-manager/dialogs.c:1472
 msgid "No group selected"
 msgstr "Non se seleccionou ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1627
-#: ../plugins/project-manager/dialogs.c:1638
+#: ../plugins/project-manager/dialogs.c:1631
+#: ../plugins/project-manager/dialogs.c:1642
 msgid "Cannot add modules"
 msgstr "Non é posíbel engadir módulos"
 
-#: ../plugins/project-manager/dialogs.c:1639
+#: ../plugins/project-manager/dialogs.c:1643
 msgid "No target has been selected"
 msgstr "Non se seleccionou ningún destino"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1842
+#: ../plugins/project-manager/dialogs.c:1846
 msgid "Missing module name"
 msgstr "Falta o nome do módulo"
 
-#: ../plugins/project-manager/dialogs.c:1904
+#: ../plugins/project-manager/dialogs.c:1908
 msgid "Cannot add packages"
 msgstr "Non é posíbel engadir paquetes"
 
