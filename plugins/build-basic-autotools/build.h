@@ -31,16 +31,16 @@
 
 GFile * build_file_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **target);
 GFile * build_object_from_file (BasicAutotoolsPlugin *plugin, GFile *file);
+GFile * normalize_project_file (GFile *file, GFile *root);
 gboolean directory_has_makefile (GFile *dir);
 gboolean directory_has_makefile_am (BasicAutotoolsPlugin *bb_plugin,  GFile *dir);
-
 
 /* Build function type */
 typedef BuildContext* (*BuildFunc) (BasicAutotoolsPlugin *plugin, GFile *file,
                                     IAnjutaBuilderCallback callback, gpointer user_data,
                                     GError **err);
 
-BuildContext* build_build_file_or_dir (BasicAutotoolsPlugin *plugin, 
+BuildContext* build_build_file_or_dir (BasicAutotoolsPlugin *plugin,
                                        GFile *file,
                                        IAnjutaBuilderCallback callback,
                                        gpointer user_data,
