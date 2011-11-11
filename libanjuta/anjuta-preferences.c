@@ -2,17 +2,17 @@
 /*
  * preferences.c
  * Copyright (C) 2000 - 2003  Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -24,17 +24,17 @@
  * @see_also: #AnjutaPreferencesDialog
  * @stability: Unstable
  * @include: libanjuta/anjuta-preferences.h
- * 
+ *
  * #AnjutaPreferences is a way to let plugins register their preferences. There
  * are mainly two ways a plugin could register its preferences in Anjuta.
- * 
+ *
  * First is to not use #AnjutaPreferences at all. Simply register a
  * preferences page in #AnjutaPreferencesDialog using the function
  * anjuta_preferences_dialog_add_page(). The plugin should take
  * care of loading, saving and widgets synchronization of the
  * preferences values. This can be done using #GSettings bindings
  * for example.
- * 
+ *
  * Second is to use anjuta_preferences_add_page(), which will
  * automatically register the preferences keys and values from
  * a glade xml file. The glade xml file contains a preferences
@@ -42,7 +42,7 @@
  * given in a particular way (see anjuta_preferences_add_page()) to
  * let it know property key details. The preference dialog will automatically
  * setup the bindings between GSettings and the widgets.
- * 
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -68,21 +68,16 @@ struct _AnjutaProperty
 	GtkWidget                *object;
 	gchar                    *key;
 	gchar                    *default_value;
-	guint                     flags;
 	gint                     notify_id;
 	GSettings				 *gsettings;
-	
+
 	/* Set true if custom set/get to be used */
 	gboolean                  custom;
-	
-	/* For inbuilt generic objects */
-	AnjutaPropertyObjectType  object_type;
-	AnjutaPropertyDataType    data_type;
-	
+
 	/* For custom objects */
 	void    (*set_property) (AnjutaProperty *prop, const gchar *value);
 	gchar * (*get_property) (AnjutaProperty *prop);
-	
+
 };
 
 struct _AnjutaPreferencesPriv
@@ -103,7 +98,7 @@ struct _AnjutaPreferencesForeachData
 	gpointer callback_data;
 };
 
-#define PREFERENCE_PROPERTY_PREFIX "preferences_"
+#define PREFERENCE_PROPERTY_PREFIX "preferences"
 
 G_DEFINE_TYPE (AnjutaPreferences, anjuta_preferences, G_TYPE_OBJECT);
 
@@ -123,53 +118,13 @@ property_destroy (AnjutaProperty *property)
  * @prop: an #AnjutaProperty reference
  *
  * Gets the widget associated with the property.
- * 
+ *
  * Returns: a #GtkWidget object associated with the property.
  */
 GtkWidget*
 anjuta_property_get_widget (AnjutaProperty *prop)
 {
 	return prop->object;
-}
-
-static AnjutaPropertyObjectType
-get_object_type_from_string (const gchar* object_type)
-{
-	if (strcmp (object_type, "entry") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY;
-	else if (strcmp (object_type, "combo") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_COMBO;
-	else if (strcmp (object_type, "spin") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
-	else if (strcmp (object_type, "toggle") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE;
-	else if (strcmp (object_type, "color") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_COLOR;
-	else if (strcmp (object_type, "font") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_FONT;
-	else if (strcmp (object_type, "file") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_FILE;
-	else if (strcmp (object_type, "folder") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER;
-	else
-		return (AnjutaPropertyObjectType)(-1);
-}
-
-static AnjutaPropertyDataType
-get_data_type_from_string (const gchar* data_type)
-{
-	if (strcmp (data_type, "bool") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_BOOL;
-	else if (strcmp (data_type, "int") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_INT;
-	else if (strcmp (data_type, "text") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_TEXT;
-	else if (strcmp (data_type, "color") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_COLOR;
-	else if (strcmp (data_type, "font") == 0)
-		return ANJUTA_PROPERTY_DATA_TYPE_FONT;
-	else
-		return (AnjutaPropertyDataType)(-1);
 }
 
 static void
@@ -179,12 +134,12 @@ unregister_preferences_key (GtkWidget *widget,
 	AnjutaProperty *p;
 	AnjutaPreferences *pr;
 	gchar *key;
-	
+
 	p = (AnjutaProperty *) user_data;
 	pr = g_object_get_data (G_OBJECT (widget),
 							"AnjutaPreferences");
 	key = g_strdup (p->key);
-	
+
 	g_hash_table_remove (pr->priv->properties, key);
 	g_free (key);
 }
@@ -194,10 +149,10 @@ string_to_gdkcolor (const GValue* value, const GVariantType* type, gpointer user
 {
 	GdkColor* color = g_value_get_boxed (value);
 	gchar* name = gdk_color_to_string (color);
-	
+
 	GVariant* variant = g_variant_new_string (name);
 	g_free (name);
-	
+
 	return variant;
 }
 
@@ -215,15 +170,8 @@ active_to_string (const GValue* value, const GVariantType* type, gpointer user_d
 {
 	AnjutaProperty* p = user_data;
 	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
-	gint idx;
-	gchar** values = g_object_get_data(G_OBJECT(combo), "untranslated");
-	GVariant* variant;
-	
-	idx = gtk_combo_box_get_active(combo);
 
-	variant = g_variant_new_string (values[idx]);
-	
-	return variant;
+	return g_variant_new_string (gtk_combo_box_get_active_id (combo));
 }
 
 static gboolean
@@ -231,20 +179,11 @@ string_to_active (GValue* value, GVariant* variant, gpointer user_data)
 {
 	AnjutaProperty* p = user_data;
 	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
-	const gchar* text_value = g_variant_get_string (variant, NULL);
-	gchar** values = g_object_get_data(G_OBJECT(combo), "untranslated");
-	int i;
-	
-	for (i=0; values[i] != NULL; i++)
-	{
-		if (strcmp(text_value, values[i]) == 0)
-		{
-			g_value_set_int (value, i);
-			return TRUE;
-		}
-	}
-		
-	return FALSE;
+
+	gtk_combo_box_set_active_id (combo, g_variant_get_string (variant, NULL));
+	g_value_set_int (value, gtk_combo_box_get_active (combo));
+
+	return g_value_get_int (value) >= 0;
 }
 
 static void
@@ -252,215 +191,136 @@ update_file_property (GtkWidget* widget, gpointer user_data)
 {
 	AnjutaProperty* p = user_data;
 	gchar* text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p->object));
-	
+
 	g_settings_set_string (p->gsettings, p->key, text_value);
-	
+
 	g_free (text_value);
 }
 
-static void
+static gboolean
 connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
-{	
+{
+	gboolean ok = TRUE;
+
 	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
-	switch (p->object_type) {
-		case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-			g_settings_bind (settings, p->key, p->object, "text", 
-			                 G_SETTINGS_BIND_DEFAULT);
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-			g_settings_bind (settings, p->key, p->object, "value", 
-			                 G_SETTINGS_BIND_DEFAULT);
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
-			g_settings_bind (settings, p->key, p->object, "font-name", 
-			                 G_SETTINGS_BIND_DEFAULT);
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
-			g_settings_bind_with_mapping (settings, p->key, 
-									 p->object, "active",
-									 G_SETTINGS_BIND_DEFAULT,
-									 string_to_active,		
-									 active_to_string,					 
-									 p,
-									 NULL);
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-			g_settings_bind (settings, p->key, p->object, "active", 
-			                 G_SETTINGS_BIND_DEFAULT);
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
-			g_settings_bind_with_mapping (settings, p->key, 
-									 p->object, "color",
-									 G_SETTINGS_BIND_DEFAULT,
-									 gdkcolor_to_string,
-									 string_to_gdkcolor,							 
-									 p,
-									 NULL);
-									 
-			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-			/* Set initial value */
-			{
-				gchar* filename = g_settings_get_string (p->gsettings, p->key);
-				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (p->object),
-											   filename);
-				g_free (filename);
-			}
+
+	/* Start with the most specialized widget as a GtkSpinButton
+	 * is a GtkEntry too */
+	if (GTK_IS_COLOR_BUTTON (p->object))
+	{
+		g_settings_bind_with_mapping (settings, p->key,
+								 p->object, "color",
+								 G_SETTINGS_BIND_DEFAULT,
+								 gdkcolor_to_string,
+								 string_to_gdkcolor,
+								 p,
+								 NULL);
+	}
+	else if (GTK_IS_FONT_BUTTON (p->object))
+	{
+		g_settings_bind (settings, p->key, p->object, "font-name",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_SPIN_BUTTON (p->object))
+	{
+		g_settings_bind (settings, p->key, p->object, "value",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_FILE_CHOOSER_BUTTON (p->object))
+	{
+		gchar *filename;
+
+		switch (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (p->object)))
+		{
+		case GTK_FILE_CHOOSER_ACTION_OPEN:
+		case GTK_FILE_CHOOSER_ACTION_SAVE:
+			filename = g_settings_get_string (p->gsettings, p->key);
+			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (p->object),
+										 		 filename);
+			g_free (filename);
 			g_signal_connect (G_OBJECT(p->object), "file-set",
 							  G_CALLBACK (update_file_property), p);
 			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
-			/* Set initial value */
-			{
-				gchar* filename = g_settings_get_string (p->gsettings, p->key);
-				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (p->object),
-											 		 filename);
-				g_free (filename);
-			}
+		case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+		case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
+			filename = g_settings_get_string (p->gsettings, p->key);
+			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (p->object),
+			                                     filename);
+			g_free (filename);
 			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
 							  G_CALLBACK (update_file_property), p);
 			break;
 		default:
-			break;
+			ok = FALSE;
+		}
 	}
+	else if (GTK_IS_COMBO_BOX (p->object))
+	{
+		g_settings_bind_with_mapping (settings, p->key,
+								 p->object, "active",
+								 G_SETTINGS_BIND_DEFAULT,
+								 string_to_active,
+								 active_to_string,
+								 p,
+								 NULL);
+	}
+	else if (GTK_IS_CHECK_BUTTON (p->object))
+	{
+		g_settings_bind (settings, p->key, p->object, "active",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_ENTRY (p->object))
+	{
+		g_settings_bind (settings, p->key, p->object, "text",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else
+	{
+		ok = FALSE;
+	}
+
+	return ok;
 }
 
 /**
- * anjuta_preferences_register_property_raw:
+ * anjuta_preferences_register_property:
  * @pr: a #AnjutaPreferences object
  * @settings: the #GSettings object associated with that property
  * @object: Widget to register
  * @key: Property key
- * @default_value: Default value of the key
- * @flags: Flags
- * @object_type: Object type of widget
- * @data_type: Data type of the property
  *
- * This also registers only one widget, but instead of supplying the property
- * parameters as a single parsable string (as done in #anjuta_preferences_register_property_from_string),
- * it takes them separately.
- * 
+ * This registers only one widget. The widget could be shown elsewhere.
+ * The widget needs to fulfill the properties described in
+ * #anjuta_preferences_add_page documentation.
+ *
  * Return value: TRUE if sucessful.
  */
 gboolean
-anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
-                                          GSettings *settings,
-										  GtkWidget *object,
-										  const gchar *key,
-										  const gchar *default_value,
-										  guint flags,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type)
+anjuta_preferences_register_property (AnjutaPreferences *pr,
+                                      GSettings *settings,
+                                      GtkWidget *object,
+                                      const gchar *key)
 {
 	AnjutaProperty *p;
-	
+
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
 	g_return_val_if_fail (strlen(key) > 0, FALSE);
-	g_return_val_if_fail ((object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO) ||
-				((default_value != NULL) &&
-				 (*default_value != '\0')), FALSE);
 
 	p = g_new0 (AnjutaProperty, 1);
-	g_object_ref (object);
-	p->object = object;
-	p->object_type = object_type;
-	p->data_type = data_type;
+	p->object = g_object_ref (object);
 	p->key = g_strdup (key);
-	p->gsettings = settings;
-	g_object_ref (p->gsettings);
-	
-	p->flags = flags;
+	p->gsettings = g_object_ref (settings);
+
 	p->custom = FALSE;
 	p->set_property = NULL;
 	p->get_property = NULL;
-	
-	if (default_value)
-	{
-		p->default_value = g_strdup (default_value);
-		if (strlen (default_value) > 0)
-		{
-			/* For combo, initialize the untranslated strings */
-			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
-			{
-				gchar **vstr;
 
-				vstr = g_strsplit (default_value, ",", 100);
-				g_object_set_data_full (G_OBJECT(p->object), "untranslated",
-									    vstr, (GDestroyNotify) g_strfreev);
-			}
-		}
-	}
-	
 	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
-	connect_objects (pr, settings, p);
 	g_signal_connect (G_OBJECT (p->object), "destroy",
 	                  G_CALLBACK (unregister_preferences_key),
 	                  p);
-	return TRUE;
-}
-
-/**
- * anjuta_preferences_register_property_from_string:
- * @pr: a #AnjutaPreferences object
- * @object: Widget to register
- * @property_desc: Property description (see anjuta_preferences_add_page())
- *
- * This registers only one widget. The widget could be shown elsewhere.
- * the property_description should be of the form described before.
- * 
- * Return value: TRUE if sucessful.
- */
-gboolean
-anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
-                                                  GSettings* settings,
-												  GtkWidget *object,
-												  const gchar *property_desc)
-{
-	gchar **fields;
-	gint  n_fields;
-	
-	AnjutaPropertyObjectType object_type;
-	AnjutaPropertyDataType data_type;
-	gchar *key;
-	gchar *default_value;
-	gint flags;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES(pr), FALSE);
-	g_return_val_if_fail ((GTK_IS_WIDGET (object)), FALSE);
-	g_return_val_if_fail (property_desc != NULL, FALSE);
-	
-	fields = g_strsplit (property_desc, ":", 5);
-	g_return_val_if_fail (fields, FALSE);
-	for (n_fields = 0; fields[n_fields]; n_fields++);
-	if (n_fields != 5)
-	{
-		g_strfreev (fields);
-		return FALSE;
-	}
-	object_type = get_object_type_from_string (fields[0]);
-	data_type = get_data_type_from_string (fields[1]);
-	default_value = fields[2];
-	flags = atoi (fields[3]);
-	key = fields[4];
-	if (object_type < 0)
-	{
-		g_warning ("Invalid property object type in property description");
-		g_strfreev (fields);
-		return FALSE;
-	}
-	if (data_type < 0)
-	{
-		g_warning ("Invalid property data type in property description");
-		g_strfreev (fields);
-		return FALSE;
-	}
-	anjuta_preferences_register_property_raw (pr, settings, object, key, default_value,
-											  flags,  object_type,
-											  data_type);
-	g_strfreev (fields);
-	return TRUE;
+	return connect_objects (pr, settings, p);
 }
 
 /**
@@ -481,29 +341,43 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 {
 	GSList *widgets;
 	GSList *node;
-	
+
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (builder != NULL);
-	
+
 	widgets = gtk_builder_get_objects (builder);
 	for (node = widgets; node != NULL; node = g_slist_next (node))
 	{
 		const gchar *name;
-		const gchar *property;
+		const gchar *key;
+		const gchar *ptr;
 		GtkWidget *widget, *p;
 		gboolean cont_flag = FALSE;
 
 		if (!GTK_IS_WIDGET (node->data) || !GTK_IS_BUILDABLE (node->data))
 			continue;
-		
+
 		widget = node->data;
 		name = gtk_buildable_get_name (GTK_BUILDABLE (widget));
 
 		if (!g_str_has_prefix (name, PREFERENCE_PROPERTY_PREFIX))
 			continue;
-		
+
+		/* Only ':' is needed between "preferences" and the key name but accept
+		 * '_' and additional fields separated by ':' to work with the old
+		 * widget naming scheme. */
+		key = &name[strlen (PREFERENCE_PROPERTY_PREFIX)];
+		if ((*key != '_') && (*key != ':'))
+			continue;
+
+		for (ptr = ++key; *ptr != '\0'; ptr++)
+		{
+			if (*ptr == ':') key = ptr + 1;
+		}
+		if (*key == '\0') continue;
+
+		/* Added only if it's a descendant child of the parent */
 		p = gtk_widget_get_parent (widget);
-		/* Added only if it's a desendend child of the parent */
 		while (p != parent)
 		{
 			if (p == NULL)
@@ -516,9 +390,10 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		if (cont_flag)
 			continue;
 
-		property = &name[strlen (PREFERENCE_PROPERTY_PREFIX)];
-		anjuta_preferences_register_property_from_string (pr, settings, widget,
-		                                                  property);
+		if (!anjuta_preferences_register_property (pr, settings, widget, key))
+		{
+			g_critical ("Invalid preference widget named %s, check anjuta_preferences_add_page function documentation.", name);
+		}
 	}
 }
 
@@ -532,7 +407,7 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
  * (that is, removed from the container, if present) from it's parent.
  * @icon_filename: File name (of the form filename.png) of the icon representing
  * the preference page.
- * 
+ *
  * Add a page to the preferences sytem.
  * builder is the GtkBuilder object of the dialog containing the page widget.
  * The dialog will contain the layout of the preferences widgets.
@@ -540,27 +415,32 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
  * widget names of the form:
  *
  * <programlisting>
- *     preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
+ *     preferences(_.*)?:PROPERTYKEY
  *     where,
- *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'color', 'font' or 'file' .
- *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.
- *       DEFAULT    is the default value (in the appropriate format). The format
- *                     for color is '#XXXXXX' representing RGB value and for
- *                     font, it is the pango font description.
- *       FLAGS      is any flag associated with the property. Currently it
- *                     has only two values -- 0 and 1. For normal preference
- *                     property which is saved/retrieved globally, the flag = 0.
- *                     For preference property which is also saved/retrieved
- *                     along with the project, the flag = 1.
  *       PROPERTYKEY is the property key. e.g - 'tab.size'.
  * </programlisting>
+ *
+ * The widget must derivated from one of the following Gtk widget:
+ *		* GtkColorButton
+ * 		* GtkFontButton
+ * 		* GtkSpinButton
+ *		* GtkFileChooserButton
+ * 		* GtkComboBox
+ *		* GtkCheckButton
+ * 		* GtkEntry
+ *
+ * In addition, the model of a GtkComboBox must have an id column.
+ * It is the value of this column which is saved as preference.
  *
  * All widgets having the above names in the gxml tree will be registered
  * and will become part of auto saving/loading. For example, refer to
  * anjuta preferences dialogs and study the widget names.
+ *
+ * Older versions of Anjuta use more fields in the widget name. They do not
+ * need an id column in GtkComboBox model and could work with a custom widget.
  */
 void
-anjuta_preferences_add_from_builder (AnjutaPreferences *pr, 
+anjuta_preferences_add_from_builder (AnjutaPreferences *pr,
                                      GtkBuilder *builder,
                                      GSettings *settings,
                                      const gchar *widget_name,
@@ -571,11 +451,11 @@ anjuta_preferences_add_from_builder (AnjutaPreferences *pr,
 	GtkWidget *page;
 	GdkPixbuf *pixbuf;
 	gchar *image_path;
-	
+
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (widget_name != NULL);
 	g_return_if_fail (icon_filename != NULL);
-	
+
 	page = GTK_WIDGET(gtk_builder_get_object (builder, widget_name));
 	g_object_ref (page);
 	g_return_if_fail (GTK_IS_WIDGET (page));
@@ -585,7 +465,7 @@ anjuta_preferences_add_from_builder (AnjutaPreferences *pr,
 		if (GTK_IS_NOTEBOOK (parent))
 		{
 			gint page_num;
-			
+
 			page_num = gtk_notebook_page_num (GTK_NOTEBOOK (parent), page);
 			gtk_notebook_remove_page (GTK_NOTEBOOK (parent), page_num);
 		}
@@ -615,16 +495,16 @@ anjuta_preferences_remove_page (AnjutaPreferences *pr,
 	}
 }
 
-static void 
+static void
 on_preferences_dialog_destroyed (GtkWidget *preferencess_dialog,
 							     AnjutaPreferences *pr)
 {
 	GList *plugins;
 	GList *current_plugin;
-	
+
 	plugins = anjuta_plugin_manager_get_active_plugin_objects (pr->priv->plugin_manager);
 	current_plugin = plugins;
-	
+
 	while (current_plugin)
 	{
 		if (IANJUTA_IS_PREFERENCES (current_plugin->data))
@@ -632,13 +512,13 @@ on_preferences_dialog_destroyed (GtkWidget *preferencess_dialog,
 			ianjuta_preferences_unmerge (IANJUTA_PREFERENCES (current_plugin->data),
 								  		 pr, NULL);
 		}
-			
+
 		current_plugin = g_list_next (current_plugin);
-	
+
 	}
-	
+
 	g_object_unref (pr->priv->prefs_dialog);
-	
+
 	g_list_free (plugins);
 	pr->priv->prefs_dialog = NULL;
 }
@@ -655,20 +535,20 @@ anjuta_preferences_get_dialog (AnjutaPreferences *pr)
 {
 	GList *plugins;
 	GList *current_plugin;
-	
+
 	if (pr->priv->prefs_dialog)
 		return pr->priv->prefs_dialog;
 	else
 	{
 		pr->priv->prefs_dialog = anjuta_preferences_dialog_new ();
-		
+
 		g_signal_connect (G_OBJECT (pr->priv->prefs_dialog), "destroy",
 						  G_CALLBACK (on_preferences_dialog_destroyed),
 						  pr);
 
 		plugins = anjuta_plugin_manager_get_active_plugin_objects (pr->priv->plugin_manager);
 		current_plugin = plugins;
-		
+
 		while (current_plugin)
 		{
 			if (IANJUTA_IS_PREFERENCES (current_plugin->data))
@@ -676,12 +556,12 @@ anjuta_preferences_get_dialog (AnjutaPreferences *pr)
 				ianjuta_preferences_merge (IANJUTA_PREFERENCES (current_plugin->data),
 								  		   pr, NULL);
 			}
-			
+
 			current_plugin = g_list_next (current_plugin);
 		}
-	
+
 		g_list_free (plugins);
-		
+
 		return g_object_ref_sink (pr->priv->prefs_dialog);
 	}
 }
@@ -702,7 +582,7 @@ static void
 anjuta_preferences_dispose (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
-	
+
 	if (pr->priv->properties)
 	{
 		/* This will release the refs on property objects */
@@ -715,13 +595,13 @@ static void
 anjuta_preferences_init (AnjutaPreferences *pr)
 {
 	pr->priv = g_new0 (AnjutaPreferencesPriv, 1);
-	
+
 	pr->priv->properties = g_hash_table_new_full (g_str_hash, g_str_equal,
-												  g_free, 
+												  g_free,
 												  (GDestroyNotify) property_destroy);
 	pr->priv->notifications = g_hash_table_new_full (g_int_hash,
 	                                                 g_int_equal,
-	                                                 NULL, 
+	                                                 NULL,
 	                                                 g_free);
 }
 
@@ -729,10 +609,10 @@ static void
 anjuta_preferences_finalize (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
-	
+
 	if (pr->priv->prefs_dialog)
 		gtk_widget_destroy (pr->priv->prefs_dialog);
-	
+
 	g_object_unref (pr->priv->plugin_manager);
 	g_free (pr->priv);
 }
@@ -741,7 +621,7 @@ static void
 anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
-	
+
 	object_class->dispose = anjuta_preferences_dispose;
 	object_class->finalize = anjuta_preferences_finalize;
 }
@@ -749,9 +629,9 @@ anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 /**
  * anjuta_preferences_new:
  * @plugin_manager: #AnjutaPluginManager to be used
- * 
+ *
  * Creates a new #AnjutaPreferences object
- * 
+ *
  * Return value: A #AnjutaPreferences object.
  */
 AnjutaPreferences *
@@ -768,14 +648,14 @@ anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
 	}
 	else
 		return default_preferences;
-	
+
 }
 
 /**
  * anjuta_preferences_default:
- * 
+ *
  * Get the default instace of anjuta preferences
- * 
+ *
  * Return value: A #AnjutaPreferences object.
  */
 AnjutaPreferences *anjuta_preferences_default ()

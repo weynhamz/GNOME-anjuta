@@ -2,17 +2,17 @@
 /*
  * preferences.h
  * Copyright (C) 2000 - 2003  Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -28,27 +28,6 @@
 #include <libanjuta/anjuta-plugin-manager.h>
 
 G_BEGIN_DECLS
-
-typedef enum
-{
-	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
-	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
-	ANJUTA_PROPERTY_OBJECT_TYPE_COMBO,
-	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR,
-	ANJUTA_PROPERTY_OBJECT_TYPE_FONT,
-	ANJUTA_PROPERTY_OBJECT_TYPE_FILE,
-	ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER
-} AnjutaPropertyObjectType;
-
-typedef enum
-{
-	ANJUTA_PROPERTY_DATA_TYPE_BOOL,
-	ANJUTA_PROPERTY_DATA_TYPE_INT,
-	ANJUTA_PROPERTY_DATA_TYPE_TEXT,
-	ANJUTA_PROPERTY_DATA_TYPE_COLOR,
-	ANJUTA_PROPERTY_DATA_TYPE_FONT
-} AnjutaPropertyDataType;
 
 typedef struct _AnjutaProperty AnjutaProperty;
 
@@ -95,7 +74,7 @@ void anjuta_preferences_add_from_builder (AnjutaPreferences *pr,
                                           const gchar *stitle,
                                           const gchar *icon_filename);
 
-void anjuta_preferences_remove_page (AnjutaPreferences *pr, 
+void anjuta_preferences_remove_page (AnjutaPreferences *pr,
                                      const gchar *page_name);
 
 /*
@@ -107,20 +86,10 @@ void anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferen
                                                                   GSettings *settings,
                                                                   GtkWidget *parent);
 gboolean
-anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
-                                                  GSettings *settings,
-                                                  GtkWidget *object,
-                                                  const gchar *property_desc);
-
-gboolean
-anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
-                                          GSettings *settings,
-                                          GtkWidget *object,
-                                          const gchar *key,
-                                          const gchar *default_value,
-                                          guint flags,
-                                          AnjutaPropertyObjectType object_type,
-                                          AnjutaPropertyDataType  data_type);
+anjuta_preferences_register_property (AnjutaPreferences *pr,
+                                      GSettings *settings,
+                                      GtkWidget *object,
+                                      const gchar *key);
 
 /* Dialog methods */
 GtkWidget *anjuta_preferences_get_dialog (AnjutaPreferences *pr);

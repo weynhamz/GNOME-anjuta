@@ -18,19 +18,25 @@
     <columns>
       <!-- column-name gchararray -->
       <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">Top</col>
+        <col id="1">Top</col>
       </row>
       <row>
         <col id="0" translatable="yes">Bottom</col>
+        <col id="1">Bottom</col>
       </row>
       <row>
         <col id="0" translatable="yes">Left</col>
+        <col id="1">Left</col>
       </row>
       <row>
         <col id="0" translatable="yes">Right</col>
+        <col id="1">Right</col>
       </row>
     </data>
   </object>
@@ -291,6 +297,7 @@
                             <property name="can_focus">False</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="model">model1</property>
+                            <property name="id_column">1</property>
                             <child>
                               <object class="GtkCellRendererText" id="renderer1"/>
                               <attributes>

@@ -112,6 +112,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="model">model1</property>
+                            <property name="id_column">1</property>
                             <child>
                               <object class="GtkCellRendererText" id="renderer1"/>
                               <attributes>
@@ -131,6 +132,7 @@
                             <property name="can_focus">False</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="model">model2</property>
+                            <property name="id_column">1</property>
                             <child>
                               <object class="GtkCellRendererText" id="renderer2"/>
                               <attributes>
@@ -213,22 +215,29 @@
     <columns>
       <!-- column-name gchararray -->
       <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">Text</col>
+        <col id="1">Text</col>
       </row>
       <row>
         <col id="0" translatable="yes">Icons</col>
+        <col id="1">Icon</col>
       </row>
       <row>
         <col id="0" translatable="yes">Text + Icons</col>
+        <col id="1">Both</col>
       </row>
       <row>
         <col id="0" translatable="yes">GNOME toolbar setting</col>
+        <col id="1">Toolbar</col>
       </row>
       <row>
         <col id="0" translatable="yes">Tabs</col>
+        <col id="1">Tabs</col>
       </row>
     </data>
   </object>
@@ -236,22 +245,29 @@
     <columns>
       <!-- column-name gchararray -->
       <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">Default</col>
+        <col id="1">Default</col>
       </row>
       <row>
         <col id="0" translatable="yes">Text below icons</col>
+        <col id="1">Both</col>
       </row>
       <row>
         <col id="0" translatable="yes">Text beside icons</col>
+        <col id="1">Horiz</col>
       </row>
       <row>
         <col id="0" translatable="yes">Icons only</col>
+        <col id="1">Icons</col>
       </row>
       <row>
         <col id="0" translatable="yes">Text only</col>
+        <col id="1">Text</col>
       </row>
     </data>
   </object>

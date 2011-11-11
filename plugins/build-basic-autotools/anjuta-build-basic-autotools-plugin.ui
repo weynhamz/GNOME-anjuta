@@ -439,13 +439,17 @@
     <columns>
       <!-- column-name gchararray1 -->
       <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">sudo</col>
+        <col id="1">sudo %s</col>
       </row>
       <row>
         <col id="0" translatable="yes">su -c</col>
+        <col id="1">su -c %q</col>
       </row>
     </data>
   </object>
@@ -634,6 +638,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="model">install_list</property>
+                            <property name="id_column">1</property>
                             <property name="active">0</property>
                             <child>
                               <object class="GtkCellRendererText" id="renderer2"/>
