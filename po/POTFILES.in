@@ -59,7 +59,7 @@ plugins/cvs-plugin/plugin.c
 plugins/code-analyzer/org.gnome.anjuta.code-analyzer.gschema.xml.in
 plugins/code-analyzer/plugin.c
 [type: gettext/glade]plugins/debug-manager/anjuta-debug-manager.ui
-plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in
+plugins/debug-manager/org.gnome.anjuta.plugins.debug-manager.gschema.xml.in
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c

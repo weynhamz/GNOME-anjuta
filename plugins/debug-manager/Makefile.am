@@ -5,7 +5,7 @@ anjuta_glade_DATA = anjuta-debug-manager.ui
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.xml
 
-gsettings_in_files = org.gnome.anjuta.debug-manager.gschema.xml.in
+gsettings_in_files = org.gnome.anjuta.plugins.debug-manager.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_files:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

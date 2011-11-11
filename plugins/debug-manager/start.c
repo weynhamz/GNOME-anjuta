@@ -166,8 +166,8 @@ struct _DmaStart
 #define RUN_PROGRAM_ACTION_GROUP "ActionGroupRun"
 #define RUN_PROGRAM_PARAMETER_ACTION "ActionProgramParameters"
 
-#define PREF_SCHEMA "org.gnome.anjuta.debug-manager"
-#define PREFS_NOT_CHECK_DEBUG "debug-silent-non-debug-config"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.debug-manager"
+#define PREFS_NOT_CHECK_DEBUG "silent-non-debug-config"
 
 static void attach_process_clear (AttachProcess * ap, gint ClearRequest);
 
