@@ -33,11 +33,11 @@ libanjuta/resources.c
 plugins/am-project/amp-group.c
 plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
-plugins/build-basic-autotools/org.gnome.anjuta.build.gschema.xml.in
 plugins/build-basic-autotools/build.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
 plugins/build-basic-autotools/executer.c
+plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in
 plugins/build-basic-autotools/plugin.c
 plugins/build-basic-autotools/program.c
 [type: gettext/glade]plugins/class-gen/anjuta-class-gen-plugin.ui
@@ -197,7 +197,6 @@ plugins/snippets-manager/snippets-browser.c
 plugins/snippets-manager/snippets-editor.c
 [type: gettext/glade]plugins/snippets-manager/snippets-editor.ui
 [type: gettext/glade]plugins/snippets-manager/snippets-export-dialog.ui
-plugins/snippets-manager/add org.gnome.anjuta.snippets.gschema.xml.in
 plugins/snippets-manager/snippets-import-export.c
 [type: gettext/glade]plugins/snippets-manager/snippets-manager-preferences.ui
 plugins/snippets-manager/snippets-provider.c
