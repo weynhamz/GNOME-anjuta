@@ -1,18 +1,19 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.#, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-10-21 21:18+0000\n"
-"PO-Revision-Date: 2011-10-22 17:39+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-11-03 21:01+0000\n"
+"PO-Revision-Date: 2011-11-11 17:55+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -1123,13 +1124,13 @@ msgid ""
 "are the source files. The target of one rule can be a dependency of another "
 "one, allowing several rules to be chained in order to make a final target."
 msgstr ""
-"«makefile» es probablemente el método más común de construir software en "
-"todo tipo de plataformas. Un «makefile» contiene una lista de reglas "
-"describiendo qué comandos se deben ejecutar para poder generar un objetivo "
-"de una lista de dependencias. Al construir un programa, el objetivo es un "
-"archivo objeto y las dependencias son los archivos de fuentes. El objetivo "
-"de una regla puede ser una dependencia de otra, permitiendo encadenar varias "
-"reglas para poder crear un objetivo final."
+"«makefile» es probablemente el método más común de construir software en todo "
+"tipo de plataformas. Un «makefile» contiene una lista de reglas describiendo "
+"qué comandos se deben ejecutar para poder generar un objetivo de una lista "
+"de dependencias. Al construir un programa, el objetivo es un archivo objeto "
+"y las dependencias son los archivos de fuentes. El objetivo de una regla "
+"puede ser una dependencia de otra, permitiendo encadenar varias reglas para "
+"poder crear un objetivo final."
 
 #: C/makefile-project-backend.page:33(p)
 msgid ""
@@ -1821,10 +1822,6 @@ msgstr ""
 "se está ejecutando."
 
 #: C/debug-stack.page:32(p)
-#| msgid ""
-#| "A program can be composed of several threads. All these threads are "
-#| "executed independently, having their own registers, stack and local "
-#| "variables, but sharing global variables."
 msgid ""
 "Moreover, a program can be composed of several threads. Each thread is "
 "executed independently and has its own registers, stack and local variables, "
@@ -1868,7 +1865,6 @@ msgstr ""
 "otras funciones."
 
 #: C/debug-stack.page:56(title)
-#| msgid "Threads"
 msgid "Thread"
 msgstr "Hilo"
 
@@ -1929,7 +1925,6 @@ msgid "The function arguments."
 msgstr "Los argumentos de la función."
 
 #: C/debug-stack.page:92(title)
-#| msgid "Change the current stack frame"
 msgid "Change the current stack frame or thread"
 msgstr "Cambiar el marco actual de la pila o hilo"
 
@@ -3096,10 +3091,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
-"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
-"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
-"proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
+"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
+"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
 
 #: C/autotools-build-install.page:11(desc)
 msgid "Install targets or project."
@@ -3374,11 +3368,10 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de "
-"depurar (manteniendo variables intermedias y ordenando el código) y una "
-"opción «optimizada» que genera programas más rápidos pero que aumenta el "
-"tiempo de construcción. Puede definir configuraciones personalizadas "
-"adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de depurar "
+"(manteniendo variables intermedias y ordenando el código) y una opción "
+"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
+"construcción. Puede definir configuraciones personalizadas adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(gui)
 msgid "Build Directory"
@@ -3755,20 +3748,94 @@ msgid "Auto-indentation"
 msgstr "Sangría automática"
 
 #: C/anjuta-code-indentation.page:18(title)
-msgid "Configuring auto-indentation"
-msgstr "Configuración de la sangría automática"
+#| msgid "Configuring auto-indentation"
+msgid "Configuring and using auto-indentation"
+msgstr "Configurar y usar la sangría automática"
 
 #: C/anjuta-code-indentation.page:21(title)
 msgid "Manual configuration"
 msgstr "Configuración manual"
 
-#: C/anjuta-code-indentation.page:25(title)
+#: C/anjuta-code-indentation.page:23(p)
+msgid ""
+"Automatic indentation is configured in the preferences (<guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>) in the tab corresponding to the used "
+"programming language. The indentation width for several types of statements "
+"can be set there."
+msgstr ""
+"La sangría automática se configura en las preferencias (<guiseq><gui>Editar</"
+"gui><gui>Preferencias</gui></guiseq>) en la pestaña correspondiente al "
+"lenguaje de programación usado. Aquí se puede establecer la anchura de la "
+"sangría para distintos tipos de sentencias."
+
+#: C/anjuta-code-indentation.page:28(p)
+msgid ""
+"The big disadvantage of manually configuring indentation is that all "
+"developers working on a project must use the same settings or it will result "
+"if different styles used in the same files. For a better solution, see the "
+"next section."
+msgstr ""
+"La gran desventaja de configurar la sangría manualmente es que todos los "
+"programadores que trabajen en un proyecto deben usar la misma configuración, "
+"o el resultado serán varios estilos diferentes en los mismo archivos. Para "
+"una solución mejor, consulte la siguiente sección."
+
+#: C/anjuta-code-indentation.page:34(p)
+msgid ""
+"Unless explicitely changed in the preferences the indentation settings found "
+"in the Modeline of a file will be used instead of the configured settings to "
+"keep the file consistent."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:41(title)
 msgid "Modelines"
 msgstr "Modos"
 
-#: C/anjuta-code-indentation.page:31(title)
+#: C/anjuta-code-indentation.page:43(p)
+msgid ""
+"Modelines are used to help editors to automatically detect the indentation "
+"mode which should be used for a particular file. They are especially useful "
+"if many developers work on the same project and use different environments."
+msgstr ""
+"Los modos se usan para ayudar a los editores a detectar automáticamente el "
+"modo de sangrado que se se debe usar para un archivo concreto. Son "
+"especialmente útiles si varios desarrolladores trabajan en el mismo proyecto "
+"y usan entornos diferentes."
+
+#: C/anjuta-code-indentation.page:47(p)
+msgid "A typical modeline looks like this:"
+msgstr "Un modo habitual se parece a esto:"
+
+#: C/anjuta-code-indentation.page:49(code)
+#, no-wrap
+msgid ""
+"\n"
+"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
+msgstr ""
+"\n"
+"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
+
+#: C/anjuta-code-indentation.page:53(p)
+msgid ""
+"Anjuta supports modelines in the two formats used by <app>vim</app> and "
+"<app>emacs</app> as far as appropriate. For detailed information on the "
+"formats please consult the documentation of those two editors."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:62(title)
 msgid "Indenting blocks of code"
 msgstr "Sangrado de bloques de código"
+
+#: C/anjuta-code-indentation.page:64(p)
+msgid ""
+"Normally new lines are approprietely indented automatically but you can "
+"indent existing lines or all selected code with the <guiseq><gui>Edit</"
+"gui><gui>Auto-Indent</gui></guiseq> menu item."
+msgstr ""
+"Normalmente, las líneas nuevas se sangran adecuadamente de manera "
+"automática, pero puede editar el sangrado de las líneas existentes o de todo "
+"el código seleccionado con el elemento de menú <guiseq><gui>Editar</"
+"gui><gui>Sangría automática</gui></guiseq>."
 
 #: C/anjuta-code-help.page:15(title)
 msgid "Using the API reference"
@@ -3778,21 +3845,92 @@ msgstr "Uso de referencia de la API"
 msgid "Browsing the API reference"
 msgstr "Examinar la referencia de la API"
 
-#: C/anjuta-code-help.page:22(title)
+#: C/anjuta-code-help.page:20(p)
+msgid ""
+"For a quick access to the API reference of libraries, anjuta features an "
+"integrated API browser. If not already done it can be activated in the "
+"preferences (<guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>) in "
+"<guiseq><gui>General</gui><gui>Plugins</gui></guiseq> by choosing the "
+"<app>DevHelp</app> plugin."
+msgstr ""
+
+#: C/anjuta-code-help.page:26(p)
+msgid ""
+"The API reference has two windows, one for searching for a specific symbol "
+"and the browser for viewing the help documents."
+msgstr ""
+"La referencia de la API tiene dos ventanas, una para buscar un símbolo "
+"concreto y el examinador para ver los documentos de la ayuda."
+
+#: C/anjuta-code-help.page:32(title)
 msgid "Jump to the API reference using shortcuts in the editor"
 msgstr "Saltar a la referencia de la API usando atajos en el editor"
+
+#: C/anjuta-code-help.page:34(p)
+msgid ""
+"In case you are unsure how a specific function used in existing code works, "
+"simply place the cursor on the function name and use <keyseq><key>Ctrl</"
+"key><key>F1</key></keyseq> (or <guiseq><gui>Help</gui><gui>Context-Help</"
+"gui></guiseq>) to jump to the documentation."
+msgstr ""
+"Si no está seguro de cómo se usa una función específica en el código en el "
+"que está trabajando, sitúe el cursor sobre el nombre de la función y use "
+"<keyseq><key>Ctrl</key><key>F1</key></keyseq> (o <guiseq><gui>Ayuda</"
+"gui><gui>Ayuda contextual</gui></guiseq>) para ir a la documentación."
 
 #: C/anjuta-code-assist.page:15(title)
 msgid "Autocompletion and calltips"
 msgstr "Autocompletado y llamadas"
 
 #: C/anjuta-code-assist.page:18(title)
-msgid "Autocompletion is not working"
-msgstr "No funciona el autocompletado"
+#| msgid "Autocompletion and calltips"
+msgid "Autocompletion"
+msgstr "Autocompletado"
 
-#: C/anjuta-code-assist.page:22(title)
+#: C/anjuta-code-assist.page:19(p)
+msgid ""
+"Autocompletion automatically suggests functions and other code symbols after "
+"you start typing by trying to match existing symbols with the first "
+"characters typed. It will popup a drop-down menu where you can select a "
+"match by using the <key>Enter</key> key. Normally this happens automaticly "
+"after you typed the third (non-whitespace) character but you can also force "
+"it by using the <guiseq><gui>Edit</gui><gui>Auto-Complete</gui></guiseq> "
+"menu item."
+msgstr ""
+
+#: C/anjuta-code-assist.page:28(p)
+msgid ""
+"Anjuta supports autocompletion for code written in C/C++, Vala, Javascript "
+"and Python. Note that autocompletion can only work if anjuta knows about the "
+"symbols used. If you are using libraries C/C++ libraries that are not "
+"configured using <cmd>pkg-config</cmd> and/or not added to the project "
+"configuration, anjuta won't be able to find those symbols and autocompletion "
+"might not work."
+msgstr ""
+"Anjuta soporta el autocompletado para código escrito en C/C++, Vala, "
+"Javascript y Python. Tenga en cuenta que el autocompletado sólo funciona si "
+"Anjuta conoce los símbolos usados. Si está usando bibliotecas de C/C++ que "
+"no están configuradas usando <cmd>pkg-config</cmd> y/o no están añadidas a "
+"la configuración del proyecto, Anjuta no podrá encontrar esos símbolos y el "
+"autocompletado no funcionará."
+
+#: C/anjuta-code-assist.page:35(p)
+msgid ""
+"In addition some syntax might be too complex for the integrated parser and "
+"it might not be able to detect which completion is required"
+msgstr ""
+
+#: C/anjuta-code-assist.page:41(title)
 msgid "Effective coding using calltips"
 msgstr "Codificación efectiva usando sugerencias de llamadas («calltips»)"
+
+#: C/anjuta-code-assist.page:43(p)
+msgid ""
+"As it is usually quite hard to remember the signature of every method or "
+"function used in a project, the editor will automatically display a small "
+"tooltip whenever you type '(' after a function name and show you the "
+"signature."
+msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -3853,6 +3991,9 @@ msgstr ""
 "Francisco Javier F. Serrador <fserrador@gmail.com>, 2011\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2011\n"
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2011"
+
+#~ msgid "Autocompletion is not working"
+#~ msgstr "No funciona el autocompletado"
 
 #~ msgid "Examine threads."
 #~ msgstr "Examinar hilos."
