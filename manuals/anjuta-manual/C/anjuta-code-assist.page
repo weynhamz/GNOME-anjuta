@@ -27,7 +27,7 @@ menu item.
 <note>
 <p>Anjuta supports autocompletion for code written in C/C++, Vala, Javascript
 and Python. Note that autocompletion can only work if anjuta knows about the
-symbols used. If you are using libraries C/C++ libraries that are
+symbols used. If you are using C/C++ libraries that are
 not configured using <cmd>pkg-config</cmd> and/or not added to the project
 configuration, anjuta won't be able to find those
 symbols and autocompletion might not work.
