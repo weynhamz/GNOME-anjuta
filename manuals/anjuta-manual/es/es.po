@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
 "POT-Creation-Date: 2011-11-11 17:02+0000\n"
-"PO-Revision-Date: 2011-11-11 17:55+0100\n"
+"PO-Revision-Date: 2011-11-11 18:04+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3897,7 +3897,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-code-assist.page:28(p)
-#, fuzzy
 #| msgid ""
 #| "Anjuta supports autocompletion for code written in C/C++, Vala, "
 #| "Javascript and Python. Note that autocompletion can only work if anjuta "
