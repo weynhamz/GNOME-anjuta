@@ -73,9 +73,10 @@ file-view-marshal.c: $(srcdir)/file-view-marshal.list
 	then mv -f .genmarshal-$@ $@; \
 	else rm -f .genmarshal-$@; fi
 
-prefs_ui_files = file-manager.ui
-prefs_name = org.gnome.anjuta.file-manager
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.file-manager.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -83,7 +84,10 @@ EXTRA_DIST = \
 	$(file_manager_ui_DATA) \
 	$(file_manager_pixmaps_DATA) \
 	$(file_manager_glade_DATA) \
-	file-view-marshal.list
+	file-view-marshal.list \
+        $(gsettings_in_file)
 
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

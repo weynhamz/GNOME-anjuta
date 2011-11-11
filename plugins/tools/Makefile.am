@@ -49,16 +49,21 @@ libanjuta_tools_la_SOURCES= \
 	variable.c \
 	variable.h
 
-prefs_ui_files = anjuta-tools.ui
-prefs_name = org.gnome.anjuta.tools
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.tools.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(tools_pixmaps_DATA) \
 	$(tools_plugin_DATA) \
 	$(tools_glade_DATA) \
-	$(tools_ui_DATA)
+	$(tools_ui_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 SUBDIRS = \
 	scripts 

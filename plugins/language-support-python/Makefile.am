@@ -42,10 +42,10 @@ libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
-prefs_name = org.gnome.anjuta.python
-prefs_ui_files = python-plugin-properties.ui
-prefs_keyfile = python.gschema-part.xml
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.python.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -54,4 +54,9 @@ EXTRA_DIST = \
 	$(python_plugin_glade_DATA) \
 	$(python_plugin_pixmaps_DATA) \
 	$(scripts_SCRIPTS) \
-	$(prefs_keyfile)
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
+
+-include $(top_srcdir)/git.mk

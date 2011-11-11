@@ -77,10 +77,10 @@ libanjuta_sourceview_la_LIBADD = \
 	$(SOURCEVIEW_LIBS) \
 	$(LIBANJUTA_LIBS)
 
-prefs_name = org.gnome.anjuta.sourceview
-prefs_keyfile = sourceview.gschema-part.xml
-prefs_ui_files = anjuta-editor-sourceview.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.sourceview.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	anjuta-marshal.list \
@@ -88,8 +88,9 @@ EXTRA_DIST = \
 	$(sourceview_plugin_DATA) \
 	$(sourceview_pixmaps_DATA) \
 	$(sourceview_xml_DATA) \
-	$(prefs_keyfile)
+        $(gsettings_in_file)
 
-
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

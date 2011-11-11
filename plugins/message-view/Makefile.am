@@ -42,15 +42,20 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.c\
 	message-view.h
 
-prefs_name = org.gnome.anjuta.message-manager
-prefs_ui_files = anjuta-message-manager-plugin.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.message-manager.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(message_view_pixmaps_DATA) \
 	$(message_view_plugin_DATA) \
 	$(message_view_ui_DATA) \
-	$(message_view_glade_DATA)
+	$(message_view_glade_DATA) \
+	$(gsettings_in_file)
+
+CLEANFILES = \
+	$(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

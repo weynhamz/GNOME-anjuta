@@ -1,0 +1,19 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.file-manager" path="/org/gnome/anjuta/">
+		<key name="filemanager-root" type="s">
+			<default>"/"</default>
+		</key>
+		<key name="filemanager-filter-binary" type="b">
+			<default>true</default>
+		</key>
+		<key name="filemanager-filter-hidden" type="b">
+			<default>true</default>
+		</key>
+		<key name="filemanager-filter-backup" type="b">
+			<default>true</default>
+		</key>
+		<key name="filemanager-filter-unversioned" type="b">
+			<default>false</default>
+		</key>
+	</schema>
+</schemalist>

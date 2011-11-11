@@ -42,15 +42,20 @@ libanjuta_terminal_la_LIBADD = \
 	$(VTE_LIBS) \
 	$(LIBANJUTA_LIBS)
 	
-prefs_ui_files = anjuta-terminal-plugin.ui
-prefs_name = org.gnome.anjuta.terminal
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.terminal.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(terminal_plugin_DATA) \
 	$(terminal_pixmaps_DATA) \
 	$(terminal_ui_DATA) \
-	$(terminal_glade_DATA)
+	$(terminal_glade_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

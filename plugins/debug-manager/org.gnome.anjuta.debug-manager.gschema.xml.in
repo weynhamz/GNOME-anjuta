@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="org.gnome.anjuta.debug-manager" path="/org/gnome/anjuta/debug-manager/">
-    <key name="debug-silent-non-debug-config" type="b">
+  <schema path="/org/gnome/anjuta/debug-manager/" id="org.gnome.anjuta.debug-manager">
+    <key type="b" name="debug-silent-non-debug-config">
       <default>false</default>
-      <_summary>Do not display warning if not using a Debug configuration</_summary>
+      <summary>Do not display warning if not using a Debug configuration</summary>
     </key>
   </schema>
 </schemalist>

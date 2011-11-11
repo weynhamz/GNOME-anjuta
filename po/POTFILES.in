@@ -33,6 +33,7 @@ libanjuta/resources.c
 plugins/am-project/amp-group.c
 plugins/am-project/amp-target.c
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
+plugins/build-basic-autotools/org.gnome.anjuta.build.gschema.xml.in
 plugins/build-basic-autotools/build.c
 plugins/build-basic-autotools/build-options.c
 plugins/build-basic-autotools/configuration-list.c
@@ -49,13 +50,16 @@ plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
 [type: gettext/glade]plugins/cvs-plugin/anjuta-cvs-plugin.ui
+plugins/cvs-plugin/org.gnome.anjuta.cvs.gschema.xml.in
 plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-callbacks.c
 plugins/cvs-plugin/cvs-execute.c
 plugins/cvs-plugin/plugin.c
 [type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
+plugins/code-analyzer/org.gnome.anjuta.code-analyzer.gschema.xml.in
 plugins/code-analyzer/plugin.c
 [type: gettext/glade]plugins/debug-manager/anjuta-debug-manager.ui
+plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c
@@ -81,11 +85,13 @@ plugins/document-manager/action-callbacks.c
 plugins/document-manager/anjuta-bookmarks.c
 plugins/document-manager/anjuta-docman.c
 [type: gettext/glade]plugins/document-manager/anjuta-document-manager.ui
+plugins/document-manager/org.gnome.anjuta.document-manager.gschema.xml.in
 plugins/document-manager/plugin.c
 plugins/document-manager/search-box.c
 plugins/file-loader/anjuta-recent-chooser-menu.c
 plugins/file-loader/plugin.c
 [type: gettext/glade]plugins/file-manager/file-manager.ui
+plugins/file-manager/org.gnome.anjuta.file-manager.gschema.xml.in
 plugins/file-manager/file-model.c
 plugins/file-manager/file-view.c
 plugins/file-manager/plugin.c
@@ -134,6 +140,7 @@ plugins/git/plugin.c
 plugins/glade/plugin.c
 plugins/glade/anjuta-design-document.c
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
+plugins/message-view/org.gnome.anjuta.message-manager.gschema.xml.in
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
@@ -180,6 +187,7 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
+plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
@@ -189,6 +197,7 @@ plugins/snippets-manager/snippets-browser.c
 plugins/snippets-manager/snippets-editor.c
 [type: gettext/glade]plugins/snippets-manager/snippets-editor.ui
 [type: gettext/glade]plugins/snippets-manager/snippets-export-dialog.ui
+plugins/snippets-manager/add org.gnome.anjuta.snippets.gschema.xml.in
 plugins/snippets-manager/snippets-import-export.c
 [type: gettext/glade]plugins/snippets-manager/snippets-manager-preferences.ui
 plugins/snippets-manager/snippets-provider.c
@@ -196,6 +205,7 @@ plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview-io.c
 plugins/sourceview/sourceview-print.c
 [type: gettext/glade]plugins/sourceview/anjuta-editor-sourceview.ui
+plugins/sourceview/org.gnome.anjuta.sourceview.gschema.xml.in
 plugins/starter/plugin.c
 [type: gettext/glade]plugins/starter/starter.ui
 [type: gettext/glade]plugins/subversion/anjuta-subversion.ui
@@ -216,9 +226,12 @@ plugins/subversion/svn-command.c
 plugins/symbol-db/plugin.c
 plugins/symbol-db/symbol-db-system.c
 [type: gettext/glade]plugins/symbol-db/anjuta-symbol-db.ui
+plugins/symbol-db/org.gnome.anjuta.symbol-db.gschema.xml.in
 [type: gettext/glade]plugins/terminal/anjuta-terminal-plugin.ui
+plugins/terminal/org.gnome.anjuta.terminal.gschema.xml.in
 plugins/terminal/terminal.c
 [type: gettext/glade]plugins/tools/anjuta-tools.ui
+plugins/tools/org.gnome.anjuta.tools.gschema.xml.in
 plugins/tools/dialog.c
 plugins/tools/editor.c
 plugins/tools/execute.c
@@ -233,6 +246,7 @@ src/anjuta-actions.h
 src/anjuta-app.c
 src/main.c
 [type: gettext/glade]src/preferences.ui
+src/org.gnome.anjuta.gschema.xml.in
 libanjuta/anjuta-save-prompt.c
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/debug_tree.c
@@ -245,13 +259,14 @@ plugins/debug-manager/signals.c
 plugins/debug-manager/stack_trace.c
 plugins/debug-manager/start.c
 plugins/debug-manager/watch.c
-[type: gettext/xml]plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
+plugins/language-support-cpp-java/org.gnome.anjuta.cpp.gschema.xml.in
 plugins/language-support-cpp-java/plugin.c
 plugins/language-support-cpp-java/cpp-java-assist.c
 plugins/language-support-python/plugin.c
 plugins/language-support-python/python-assist.c
 [type: gettext/glade]plugins/language-support-python/python-plugin-properties.ui
+plugins/language-support-python/org.gnome.anjuta.python.gschema.xml.in
 plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
 [type: gettext/ini]plugins/git/git.plugin.in
@@ -287,6 +302,7 @@ plugins/js-debugger/debugger-js.c
 plugins/language-support-js/plugin.c
 [type: gettext/ini]plugins/language-support-js/js-support-plugin.plugin.in
 [type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
+plugins/language-support-js/org.gnome.anjuta.js.gschema.xml.in
 plugins/symbol-db/anjuta-tags/js-parser/Grammar.y
 plugins/language-support-js/js-parser-y-tab.c
 plugins/symbol-db/anjuta-tags/js-parser/js-parser-y-tab.c

@@ -53,10 +53,10 @@ anjuta_LDADD =  \
 
 anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 
-prefs_ui_files = preferences.ui
-prefs_name = org.gnome.anjuta
-prefs_keyfile = anjuta.gschema-part.xml
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 noinst_PROGRAMS =  anjuta-shell
 
@@ -71,6 +71,9 @@ EXTRA_DIST = \
 	$(anjuta_layout_DATA) \
 	$(anjuta_glade_DATA) \
 	$(anjuta_pixmaps_DATA) \
-	$(prefs_keyfile)
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

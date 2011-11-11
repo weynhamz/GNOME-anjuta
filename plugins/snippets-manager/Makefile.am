@@ -72,9 +72,10 @@ libanjuta_snippets_manager_la_SOURCES = \
 	snippets-import-export.c\
 	snippets-import-export.h
 
-prefs_name = org.gnome.anjuta.snippets
-prefs_ui_files = snippets-manager-preferences.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.snippets.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -82,6 +83,10 @@ EXTRA_DIST = \
 	$(snippets_manager_plugin_DATA) \
 	$(snippets_manager_glade_DATA) \
 	$(default_snippets_DATA) \
-	$(snippets_manager_ui_DATA)
+	$(snippets_manager_ui_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

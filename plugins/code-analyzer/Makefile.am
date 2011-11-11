@@ -36,14 +36,19 @@ libanjuta_code_analyzer_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_code_analyzer_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 
-prefs_name = org.gnome.anjuta.code-analyzer
-prefs_ui_files = code-analyzer.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.code-analyzer.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(code_analyzer_plugin_DATA) \
 	$(code_analyzer_pixmaps_DATA) \
-	$(code_analyzer_ui_DATA)
+	$(code_analyzer_ui_DATA) \
+	$(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

@@ -1,0 +1,10 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.symbol-db" path="/org/gnome/anjuta/">
+		<key name="symboldb-parallel-scan" type="b">
+			<default>true</default>
+		</key>
+		<key name="symboldb-buffer-update" type="b">
+			<default>true</default>
+		</key>
+	</schema>
+</schemalist>

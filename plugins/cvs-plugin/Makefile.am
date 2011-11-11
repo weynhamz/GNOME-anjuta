@@ -42,15 +42,20 @@ libanjuta_cvs_plugin_la_SOURCES = \
 	cvs-interface.c \
 	cvs-interface.h
 
-prefs_name = org.gnome.anjuta.cvs
-prefs_ui_files = anjuta-cvs-plugin.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.cvs.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(cvs_plugin_pixmaps_DATA) \
 	$(cvs_plugin_plugin_DATA) \
 	$(cvs_plugin_ui_DATA) \
-	$(cvs_plugin_glade_DATA)
+	$(cvs_plugin_glade_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

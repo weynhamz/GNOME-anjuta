@@ -11,11 +11,8 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 anjuta_pixmaps_DATA = \
         anjuta-run-program-48.png
 
-schema_in_files = org.gnome.anjuta.run.gschema.xml.in
-gsettings_SCHEMAS = $(schema_in_files:.gschema.xml.in=.gschema.xml)
-
-.PRECIOUS: $(gsettings_SCHEMAS)
-
+gsettings_in_file = org.gnome.anjuta.run.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@
 
@@ -55,9 +52,9 @@ EXTRA_DIST = \
 	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA) \
 	$(anjuta_glade_DATA) \
-	$(schema_in_files)
+        $(gsettings_in_file)
 
-DISTCLEANFILES = \
-	$(gsettings_SCHEMAS)
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

@@ -1,0 +1,7 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.terminal" path="/org/gnome/anjuta/">
+		<key name="terminal-default-profile" type="b">
+			<default>true</default>
+		</key>
+	</schema>
+</schemalist>

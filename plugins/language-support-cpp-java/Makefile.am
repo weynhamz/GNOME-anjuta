@@ -67,10 +67,11 @@ libanjuta_language_cpp_java_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	cxxparser/libcxxparser.la
 	
-prefs_ui_files = anjuta-language-cpp-java.ui
-prefs_keyfile = language-support-cpp-java.gschema-part.xml
-prefs_name = org.gnome.anjuta.cpp
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.cpp.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
+
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -78,6 +79,9 @@ EXTRA_DIST = \
 	$(cpp_java_ui_DATA) \
 	$(cpp_java_pixmaps_DATA) \
 	$(cpp_java_glade_DATA) \
-	$(prefs_keyfile)
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

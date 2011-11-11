@@ -1,0 +1,34 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.python" path="/org/gnome/anjuta/">
+		<key name="python-no-rope-warning" type="b">
+			<default>false</default>
+		</key>
+		<key name="python-indent-automatic" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-indent-adaptive" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-indent-brace-size" type="i">
+			<default>0</default>
+		</key>
+		<key name="python-indent-statement-size" type="i">
+			<default>4</default>
+		</key>
+		<key name="python-completion-enable" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-completion-func-space" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-completion-func-brace" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-calltip-enable" type="b">
+			<default>true</default>
+		</key>
+		<key name="python-interpreter-path" type="s">
+			<default>"/usr/bin/python"</default>
+		</key>
+	</schema>
+</schemalist>

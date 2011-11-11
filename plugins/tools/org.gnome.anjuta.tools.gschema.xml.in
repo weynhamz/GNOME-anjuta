@@ -1,0 +1,4 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.tools" path="/org/gnome/anjuta/">
+	</schema>
+</schemalist>

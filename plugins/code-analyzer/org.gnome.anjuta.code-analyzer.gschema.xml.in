@@ -1,0 +1,13 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.code-analyzer" path="/org/gnome/anjuta/">
+		<key name="clang-enable" type="b">
+			<default>false</default>
+		</key>
+		<key name="clang-cc-path" type="s">
+			<default>"/usr/lib/clang-analyzer/scan-build/ccc-analyzer"</default>
+		</key>
+		<key name="clang-cxx-path" type="s">
+			<default>"/usr/lib/clang-analyzer/scan-build/cxx-analyzer"</default>
+		</key>
+	</schema>
+</schemalist>

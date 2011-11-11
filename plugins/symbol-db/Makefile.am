@@ -104,9 +104,10 @@ symbol-db-marshal.c: symbol-db-marshal.h symbol-db-marshal.list
 	&& rm -f xgenc-gmc
 
 
-prefs_ui_files = anjuta-symbol-db.ui
-prefs_name = org.gnome.anjuta.symbol-db
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.symbol-db.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -115,6 +116,10 @@ EXTRA_DIST = \
 	$(symbol_db_pixmaps_DATA) \
 	$(symbol_db_data_DATA) \
 	$(symbol_db_ui_DATA) \
-	symbol-db-marshal.list
+	symbol-db-marshal.list \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

@@ -1,0 +1,13 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.cvs" path="/org/gnome/anjuta/">
+		<key name="cvs-path" type="s">
+			<default>"/usr/bin/cvs"</default>
+		</key>
+		<key name="cvs-ignorerc" type="b">
+			<default>true</default>
+		</key>
+		<key name="cvs-compression" type="i">
+			<default>3</default>
+		</key>
+	</schema>
+</schemalist>

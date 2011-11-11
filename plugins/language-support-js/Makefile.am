@@ -65,16 +65,21 @@ libjs_support_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(XML_LIBS)
 
-prefs_ui_files = anjuta-language-javascript.ui
-prefs_name = org.gnome.anjuta.js
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.js.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files)\
 	$(js_support_plugin_plugin_DATA)\
 	$(js_support_plugin_glade_DATA)\
 	$(js_support_plugin_ui_DATA)\
-	$(js_support_plugin_pixmaps_DATA)
+	$(js_support_plugin_pixmaps_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
 

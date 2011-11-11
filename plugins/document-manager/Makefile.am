@@ -48,10 +48,10 @@ libanjuta_document_manager_la_SOURCES= \
 	anjuta-bookmarks.h \
 	anjuta-bookmarks.c
 
-prefs_name = org.gnome.anjuta.document-manager
-prefs_keyfile = document-manager.gschema-part.xml
-prefs_ui_files = anjuta-document-manager.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.document-manager.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(document_manager_pixmaps_DATA) \
@@ -59,6 +59,9 @@ EXTRA_DIST = \
 	$(document_manager_plugin_DATA) \
 	$(document_manager_ui_DATA) \
 	$(document_manager_glade_DATA) \
-	$(prefs_keyfile)
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk

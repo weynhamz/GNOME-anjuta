@@ -60,9 +60,10 @@ libanjuta_build_basic_autotools_la_LIBADD = \
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-prefs_name = org.gnome.anjuta.build
-prefs_ui_files = anjuta-build-basic-autotools-plugin.ui
-include $(top_srcdir)/scripts/build-schemas.mk
+gsettings_in_file = org.gnome.anjuta.build.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
@@ -70,6 +71,10 @@ EXTRA_DIST = \
 	$(build_ui_DATA) \
 	$(build_pixmaps_DATA) \
 	$(build_glade_DATA) \
-	$(build_data_DATA)
+	$(build_data_DATA) \
+        $(gsettings_in_file)
+
+CLEANFILES = \
+        $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
