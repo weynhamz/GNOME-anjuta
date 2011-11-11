@@ -38,8 +38,8 @@
 #define PREF_USE_SB "build.use_scratchbox"
 #define PREF_SB_PATH "build.scratchbox.path"
 
-#define PREF_SCHEMA "org.gnome.anjuta.run"
-#define PREF_TERMINAL_COMMAND "run-terminal-command"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.run"
+#define PREF_TERMINAL_COMMAND "terminal-command"
 
 /*----------------------------------------------------------------------------
  * Type definitions

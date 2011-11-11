@@ -81,8 +81,8 @@ struct _GdbPluginClass
 /* Terminal functions
  *---------------------------------------------------------------------------*/
 
-#define PREF_SCHEMA "org.gnome.anjuta.run"
-#define PREF_TERMINAL_COMMAND "run-terminal-command"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.run"
+#define PREF_TERMINAL_COMMAND "terminal-command"
 
 static void
 gdb_plugin_stop_terminal (GdbPlugin* plugin)

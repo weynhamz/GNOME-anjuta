@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schemalist>
-  <schema path="/org/gnome/anjuta/run/" id="org.gnome.anjuta.run">
-    <key type="s" name="run-terminal-command">
-      <default>"gnome-terminal --disable-factory -e %s"</default>
-      <summary>Command used for starting a terminal</summary>
-    </key>
-  </schema>
-</schemalist>

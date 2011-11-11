@@ -11,7 +11,7 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 anjuta_pixmaps_DATA = \
         anjuta-run-program-48.png
 
-gsettings_in_file = org.gnome.anjuta.run.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.run.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

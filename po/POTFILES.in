@@ -187,11 +187,10 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
-plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
+plugins/run-program/org.gnome.anjuta.plugins.run.gschema.xml.in
 plugins/run-program/execute.c
 plugins/run-program/parameters.c
 plugins/run-program/plugin.c
-[type: gettext/xml]plugins/run-program/org.gnome.anjuta.run.gschema.xml.in
 plugins/snippets-manager/plugin.c
 plugins/snippets-manager/snippets-browser.c
 plugins/snippets-manager/snippets-editor.c
