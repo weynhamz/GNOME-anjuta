@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2011-11-03 21:01+0000\n"
+"POT-Creation-Date: 2011-11-11 17:02+0000\n"
 "PO-Revision-Date: 2011-11-11 17:55+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -3748,7 +3748,6 @@ msgid "Auto-indentation"
 msgstr "Sangría automática"
 
 #: C/anjuta-code-indentation.page:18(title)
-#| msgid "Configuring auto-indentation"
 msgid "Configuring and using auto-indentation"
 msgstr "Configurar y usar la sangría automática"
 
@@ -3883,7 +3882,6 @@ msgid "Autocompletion and calltips"
 msgstr "Autocompletado y llamadas"
 
 #: C/anjuta-code-assist.page:18(title)
-#| msgid "Autocompletion and calltips"
 msgid "Autocompletion"
 msgstr "Autocompletado"
 
@@ -3899,13 +3897,20 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-code-assist.page:28(p)
+#, fuzzy
+#| msgid ""
+#| "Anjuta supports autocompletion for code written in C/C++, Vala, "
+#| "Javascript and Python. Note that autocompletion can only work if anjuta "
+#| "knows about the symbols used. If you are using libraries C/C++ libraries "
+#| "that are not configured using <cmd>pkg-config</cmd> and/or not added to "
+#| "the project configuration, anjuta won't be able to find those symbols and "
+#| "autocompletion might not work."
 msgid ""
 "Anjuta supports autocompletion for code written in C/C++, Vala, Javascript "
 "and Python. Note that autocompletion can only work if anjuta knows about the "
-"symbols used. If you are using libraries C/C++ libraries that are not "
-"configured using <cmd>pkg-config</cmd> and/or not added to the project "
-"configuration, anjuta won't be able to find those symbols and autocompletion "
-"might not work."
+"symbols used. If you are using C/C++ libraries that are not configured using "
+"<cmd>pkg-config</cmd> and/or not added to the project configuration, anjuta "
+"won't be able to find those symbols and autocompletion might not work."
 msgstr ""
 "Anjuta soporta el autocompletado para código escrito en C/C++, Vala, "
 "Javascript y Python. Tenga en cuenta que el autocompletado sólo funciona si "
