@@ -48,8 +48,8 @@ typedef struct
 /* Constants
  *---------------------------------------------------------------------------*/
 
-#define PREF_INSTALL_ROOT "build-install-root"
-#define PREF_INSTALL_ROOT_COMMAND "build-install-root-command"
+#define PREF_INSTALL_ROOT "install-root"
+#define PREF_INSTALL_ROOT_COMMAND "install-root-command"
 
 #define DEFAULT_COMMAND_COMPILE "make"
 #define DEFAULT_COMMAND_BUILD "make"
@@ -78,7 +78,6 @@ normalize_project_file (GFile *file, GFile *root)
 	gchar *path;
 	gchar *root_path;
 	gchar *file_path;
-	gchar *last_dir;
 	guint i;
 	GFile *new_file;
 

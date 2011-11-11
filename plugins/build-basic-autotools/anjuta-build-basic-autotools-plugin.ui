@@ -486,7 +486,7 @@
                         <property name="can_focus">False</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-parallel-make">
+                          <object class="GtkCheckButton" id="preferences:parallel-make">
                             <property name="label" translatable="yes">Run several commands at a time:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -501,7 +501,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="preferences_spin:int:1:0:build-parallel-make-job">
+                          <object class="GtkSpinButton" id="preferences:parallel-make-job">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="xalign">1</property>
@@ -524,7 +524,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-continue-error">
+                      <object class="GtkCheckButton" id="preferences:continue-error">
                         <property name="label" translatable="yes">Continue on errors</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -540,7 +540,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:build-translate-message">
+                      <object class="GtkCheckButton" id="preferences:translate-message">
                         <property name="label" translatable="yes">Translate messages</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -555,7 +555,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:build-indicators-automatic">
+                      <object class="GtkCheckButton" id="preferences:indicators-automatic">
                         <property name="label" translatable="yes">Highlight build warnings and errors in editor</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -618,7 +618,7 @@
                         <property name="can_focus">False</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:build-install-root">
+                          <object class="GtkCheckButton" id="preferences:install-root">
                             <property name="label" translatable="yes">Install as root:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -634,7 +634,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBox" id="preferences_combo:text:sudo %s, su -c %q:0:build-install-root-command">
+                          <object class="GtkComboBox" id="preferences:install-root-command">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="model">install_list</property>

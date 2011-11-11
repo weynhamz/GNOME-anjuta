@@ -60,7 +60,7 @@ libanjuta_build_basic_autotools_la_LIBADD = \
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-gsettings_in_file = org.gnome.anjuta.build.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.build.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

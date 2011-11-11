@@ -1,0 +1,28 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.plugins.build" path="/org/gnome/anjuta/plugins/build/">
+		<key name="parallel-make" type="b">
+			<default>false</default>
+		</key>
+		<key name="parallel-make-job" type="i">
+			<default>1</default>
+		</key>
+		<key name="continue-error" type="b">
+			<default>false</default>
+		</key>
+		<key name="translate-message" type="b">
+			<default>true</default>
+		</key>
+		<key name="indicators-automatic" type="b">
+			<default>true</default>
+		</key>
+		<key name="install-root" type="b">
+			<default>false</default>
+			<_summary>True if we need a special command to install files</_summary>
+		</key>
+		<key name="install-root-command" type="s">
+			<default>"sudo %s"</default>
+			<_summary>Command used to be allowed to install files</_summary>
+			<_description>The command has to contain "%s" or "%q". This will be replaced by the command used to install the files, by example "make install". %s is replaced by the command without any change while %q is replaced by the quoted command. You can use %% to get a "%" character. A typical value is "sudo %s" or "su -c %q".</_description>
+		</key>
+	</schema>
+</schemalist>

@@ -61,19 +61,19 @@
 
 #define UI_FILE PACKAGE_DATA_DIR "/ui/anjuta-build-basic-autotools-plugin.xml"
 #define MAX_BUILD_PANES 3
-#define PREF_SCHEMA "org.gnome.anjuta.build"
-#define PREF_INDICATORS_AUTOMATIC "build-indicators-automatic"
-#define PREF_PARALLEL_MAKE "build-parallel-make"
-#define PREF_PARALLEL_MAKE_JOB "build-parallel-make-job"
-#define PREF_TRANSLATE_MESSAGE "build-translate-message"
-#define PREF_CONTINUE_ON_ERROR "build-continue-error"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.build"
+#define PREF_INDICATORS_AUTOMATIC "indicators-automatic"
+#define PREF_PARALLEL_MAKE "parallel-make"
+#define PREF_PARALLEL_MAKE_JOB "parallel-make-job"
+#define PREF_TRANSLATE_MESSAGE "translate-message"
+#define PREF_CONTINUE_ON_ERROR "continue-error"
 
 #define BUILD_PREFS_DIALOG "preferences-dialog-build"
 #define BUILD_PREFS_ROOT "preferences-build-container"
-#define INSTALL_ROOT_CHECK "preferences_toggle:bool:0:0:build-install-root"
-#define INSTALL_ROOT_ENTRY "preferences_combo:text:sudo %s, su -c %q:0:build-install-root-command"
-#define PARALLEL_MAKE_CHECK "preferences_toggle:bool:0:0:build-parallel-make"
-#define PARALLEL_MAKE_SPIN "preferences_spin:int:1:0:build-parallel-make-job"
+#define INSTALL_ROOT_CHECK "preferences:install-root"
+#define INSTALL_ROOT_ENTRY "preferences:install-root-command"
+#define PARALLEL_MAKE_CHECK "preferences:parallel-make"
+#define PARALLEL_MAKE_SPIN "preferences:parallel-make-job"
 
 static gpointer parent_class;
 
@@ -104,21 +104,21 @@ typedef struct
 struct _BuildContext
 {
 	AnjutaPlugin *plugin;
-	
+
 	AnjutaLauncher *launcher;
 	gboolean used;
 
 	BuildProgram *program;
-	
+
 	IAnjutaMessageView *message_view;
 	GHashTable *build_dir_stack;
-	
+
 	/* Indicator locations */
 	GSList *locations;
-	
+
 	/* Editors in which indicators have been updated */
 	GHashTable *indicators_updated_editors;
-	
+
 	/* Environment */
 	IAnjutaEnvironment *environment;
 
@@ -155,7 +155,7 @@ static MessagePattern patterns_make_leaving[] = {{N_("make(\\[\\d+\\])?:\\s+Leav
 /* Allow installation as root (#321455) */
 static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
-		gtk_widget_set_sensitive(entry, 
+		gtk_widget_set_sensitive(entry,
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));
 }
 
@@ -164,7 +164,7 @@ escape_label (const gchar *str)
 {
 	GString *ret;
 	const gchar *iter;
-	
+
 	ret = g_string_new ("");
 	iter = str;
 	while (*iter != '\0')
@@ -178,11 +178,11 @@ escape_label (const gchar *str)
 		{
 			const gchar *start;
 			const gchar *end;
-			
+
 			start = iter;
 			iter = g_utf8_next_char (iter);
 			end = iter;
-			
+
 			ret = g_string_append_len (ret, start, end - start);
 		}
 	}
@@ -210,23 +210,23 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 							  GFile *editor_file)
 {
 	IAnjutaIterable *line_start, *line_end;
-	
+
 	if (editor && editor_file &&
 		IANJUTA_IS_INDICABLE (editor) &&
 		IANJUTA_IS_EDITOR (editor) &&
 		g_file_equal (editor_file, loc->file))
 	{
 		DEBUG_PRINT ("loc line: %d", loc->line);
-		
+
 		line_start = ianjuta_editor_get_line_begin_position (editor,
 															 loc->line, NULL);
-		
+
 		line_end = ianjuta_editor_get_line_end_position (editor,
 														 loc->line, NULL);
 		ianjuta_indicable_set (IANJUTA_INDICABLE (editor),
 							   line_start, line_end, loc->indicator,
 							   NULL);
-		
+
 		g_object_unref (line_start);
 		g_object_unref (line_end);
 	}
@@ -266,7 +266,7 @@ build_context_push_dir (BuildContext *context, const gchar *key,
 						const gchar *dir)
 {
 	GSList *dir_stack;
-	
+
 	if (context->build_dir_stack == NULL)
 	{
 		context->build_dir_stack =
@@ -276,9 +276,9 @@ build_context_push_dir (BuildContext *context, const gchar *key,
 	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
 	if (dir_stack)
 		g_hash_table_steal (context->build_dir_stack, key);
-	
+
 	dir_stack =	g_slist_prepend (dir_stack, g_strdup (dir));
-	g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
+	g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);
 }
 
 static void
@@ -287,37 +287,37 @@ build_context_pop_dir (BuildContext *context, const gchar *key,
 {
 	GSList *dir_stack;
 	gchar *top_dir;
-	
+
 	if (context->build_dir_stack == NULL)
 		return;
 	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
 	if (dir_stack == NULL)
 		return;
-	
+
 	g_hash_table_steal (context->build_dir_stack, key);
 	top_dir = dir_stack->data;
 	dir_stack =	g_slist_remove (dir_stack, top_dir);
-	
+
 	if (strcmp (top_dir, dir) != 0)
 	{
 		DEBUG_PRINT("%s", "Directory stack misaligned!!");
 	}
 	g_free (top_dir);
 	if (dir_stack)
-		g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
+		g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);
 }
 
 static const gchar *
 build_context_get_dir (BuildContext *context, const gchar *key)
 {
 	GSList *dir_stack;
-	
+
 	if (context->build_dir_stack == NULL)
 		return NULL;
 	dir_stack = g_hash_table_lookup (context->build_dir_stack, key);
 	if (dir_stack == NULL)
 		return NULL;
-	
+
 	return dir_stack->data;
 }
 
@@ -347,23 +347,23 @@ build_context_destroy_command (BuildContext *context)
 {
 	if (context->used) return FALSE;
 	if (context->program)
-	{	
+	{
 		build_program_free (context->program);
 		context->program = NULL;
 	}
-		
+
 	if (context->launcher)
 	{
 		g_object_unref (context->launcher);
 		context->launcher = NULL;
 	}
-	
+
 	if (context->environment)
 	{
 		g_object_unref (context->environment);
 		context->environment = NULL;
 	}
-	
+
 	/* Empty context, remove from pool */
 	if (context->message_view == NULL)
 	{
@@ -371,7 +371,7 @@ build_context_destroy_command (BuildContext *context)
 			g_list_remove (ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin)->contexts_pool,
 							context);
 		g_free (context);
-		
+
 		return TRUE;
 	}
 	else
@@ -400,7 +400,7 @@ build_context_destroy_view (BuildContext *context)
 		g_hash_table_destroy (context->indicators_updated_editors);
 		context->indicators_updated_editors = NULL;
 	}
-	
+
 	g_slist_foreach (context->locations, (GFunc) build_indicator_location_free,
 					 NULL);
 	g_slist_free (context->locations);
@@ -408,7 +408,7 @@ build_context_destroy_view (BuildContext *context)
 
 	/* Empty context, remove from pool */
 	if (context->launcher == NULL)
-	{	
+	{
 		plugin->contexts_pool =
 			g_list_remove (plugin->contexts_pool,
 			               context);
@@ -422,7 +422,7 @@ build_context_destroy_view (BuildContext *context)
 
 	return TRUE;
 }
-	
+
 void
 build_context_destroy (BuildContext *context)
 {
@@ -436,13 +436,13 @@ static void
 build_context_reset (BuildContext *context)
 {
 	/* Reset context */
-	
+
 	ianjuta_message_view_clear (context->message_view, NULL);
-	
+
 	if (context->build_dir_stack)
 		g_hash_table_destroy (context->build_dir_stack);
 	context->build_dir_stack = NULL;
-	
+
 	g_slist_foreach (context->locations,
 					 (GFunc) build_indicator_location_free, NULL);
 	g_slist_free (context->locations);
@@ -453,10 +453,10 @@ static void
 build_regex_load ()
 {
 	FILE *fp;
-	
+
 	if (patterns_list)
 		return;
-	
+
 	fp = fopen (PACKAGE_DATA_DIR "/build/automake-c.filters", "r");
 	if (fp == NULL)
 	{
@@ -469,11 +469,11 @@ build_regex_load ()
 		char buffer[1024];
 		gchar **tokens;
 		BuildPattern *pattern;
-		
+
 		if (!fgets (buffer, 1024, fp))
 			break;
 		tokens = g_strsplit (buffer, "|||", 3);
-		
+
 		if (!tokens[0] || !tokens[1])
 		{
 			DEBUG_PRINT ("Cannot parse regex: %s", buffer);
@@ -486,7 +486,7 @@ build_regex_load ()
 		if (tokens[2])
 			pattern->options = atoi (tokens[2]);
 		g_strfreev (tokens);
-		
+
 		patterns_list = g_list_prepend (patterns_list, pattern);
 	}
 	fclose (fp);
@@ -497,10 +497,10 @@ static void
 build_regex_init_message (MessagePattern *patterns)
 {
 	g_return_if_fail (patterns != NULL);
-	
+
 	if (patterns->regex != NULL)
 		return;		/* Already done */
-	
+
 	for (;patterns->pattern != NULL; patterns++)
 	{
 		/* Untranslated string */
@@ -509,7 +509,7 @@ build_regex_init_message (MessagePattern *patterns)
 			   0,
 			   0,
 			   NULL);
-		
+
 		/* Translated string */
 		patterns->local_regex = g_regex_new(
 			   _(patterns->pattern),
@@ -528,19 +528,19 @@ build_regex_init ()
 	build_regex_init_message (patterns_make_entering);
 
 	build_regex_init_message (patterns_make_leaving);
-	
+
 	build_regex_load ();
 	if (!patterns_list)
 		return;
-	
+
 	if (((BuildPattern*)(patterns_list->data))->regex)
 		return;
-	
+
 	node = patterns_list;
 	while (node)
 	{
 		BuildPattern *pattern;
-		
+
 		pattern = node->data;
 		pattern->regex =
 			g_regex_new(
@@ -569,13 +569,13 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 
 	if (!bp || !bp->regex)
 		return NULL;
-	
+
 	matched = g_regex_match(
 			  bp->regex,       /* result of g_regex_new() */
 			  details,         /* the subject string */
 			  0,
 			  &match_info);
-	
+
 	if (matched)
 	{
 		ret = g_string_new ("");
@@ -586,7 +586,7 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 			{
 				char temp[2] = {0, 0};
 				gint start_pos, end_pos;
-			
+
 				temp[0] = *(iter + 1);
 				int idx = atoi (temp);
 
@@ -600,15 +600,15 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 			{
 				const gchar *start;
 				const gchar *end;
-			
+
 				start = iter;
 				iter = g_utf8_next_char (iter);
 				end = iter;
-			
+
 				ret = g_string_append_len (ret, start, end - start);
 			}
 		}
-	
+
 		final = g_string_free (ret, FALSE);
 		if (strlen (final) <= 0) {
 			g_free (final);
@@ -716,7 +716,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	gboolean matched;
 	GMatchInfo *match_info;
 	MessagePattern *pat;
-	
+
 	g_return_if_fail (one_line != NULL);
 
 	/* Check if make enter a new directory */
@@ -736,19 +736,19 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			  			0,
 			  			&match_info);
 		if (matched) break;
-		g_match_info_free (match_info);			
+		g_match_info_free (match_info);
 	}
 	if (matched)
 	{
 		gchar *dir;
 		gchar *summary;
-	
+
 		dir = g_match_info_fetch (match_info, 2);
 		dir = context->environment ? ianjuta_environment_get_real_directory(context->environment, dir, NULL)
 								: dir;
 		build_context_push_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Entering: %s"), dir);
-		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, 
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 									 summary, one_line, NULL);
 		g_free (dir);
 		g_free(summary);
@@ -778,13 +778,13 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	{
 		gchar *dir;
 		gchar *summary;
-		
+
 		dir = g_match_info_fetch (match_info, 2);
 		dir = context->environment ? ianjuta_environment_get_real_directory(context->environment, dir, NULL)
 								: dir;
 		build_context_pop_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Leaving: %s"), dir);
-		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, 
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 									 summary, one_line, NULL);
 		g_free (dir);
 		g_free(summary);
@@ -799,7 +799,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	{
 		char *end;
 		line = line + 3;
-		
+
 		/* Find the first occurence of ';' (ignoring nesting in quotations) */
 		end = strchr(line, ';');
 		if (end)
@@ -807,14 +807,14 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			*end = '\0';
 		}
 	}
-	
+
 	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 	if (parse_error_line(line, &dummy_fn, &dummy_int))
 	{
 		gchar *start_str, *end_str, *mid_str;
 		BuildIndicatorLocation *loc;
 		IAnjutaIndicableIndicator indicator;
-	
+
 		if ((strstr (line, "warning:") != NULL) ||
 		/* The translations should match that of 'gcc' program.
 		 * The second string with -old should be used for an older
@@ -844,7 +844,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 			indicator = IANJUTA_INDICABLE_IMPORTANT;
 		}
-		
+
 		mid_str = strstr (line, dummy_fn);
 		DEBUG_PRINT ("mid_str = %s, line = %s", mid_str, line);
 		start_str = g_strndup (line, mid_str - line);
@@ -860,22 +860,22 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 										dummy_fn, NULL);
 		}
 		DEBUG_PRINT ("mid_str: %s", mid_str);
-		
+
 		if (mid_str)
 		{
 			line = g_strconcat (start_str, mid_str, end_str, NULL);
-			
+
 			/* We sucessfully build an absolute path of the file (mid_str),
 			 * so we create an indicator location for it and save it.
 			 * Additionally, check of current editor holds this file and if
 			 * so, set the indicator.
 			 */
 			DEBUG_PRINT ("dummy int: %d", dummy_int);
-			
+
 			loc = build_indicator_location_new (mid_str, dummy_int,
 												indicator, end_str);
 			context->locations = g_slist_prepend (context->locations, loc);
-			
+
 			/* If current editor file is same as indicator file, set indicator */
 			if (g_settings_get_boolean (p->settings, PREF_INDICATORS_AUTOMATIC))
 			{
@@ -891,7 +891,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		g_free (mid_str);
 		g_free (dummy_fn);
 	}
-	
+
 	node = patterns_list;
 	while (node)
 	{
@@ -901,7 +901,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			break;
 		node = g_list_next (node);
 	}
-	
+
 	if (summary)
 	{
 		ianjuta_message_view_append (view, type, summary, line, NULL);
@@ -922,12 +922,12 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 	{
 		IAnjutaDocumentManager *docman;
 		GFile* file;
-		
+
 		/* Go to file and line number */
 		docman = anjuta_shell_get_interface (context->plugin->shell,
 											 IAnjutaDocumentManager,
 											 NULL);
-		
+
 		/* Full path is detected from parse_error_line() */
 		file = g_file_new_for_path(filename);
 		ianjuta_document_manager_goto_file_line_mark(docman, file, lineno, TRUE, NULL);
@@ -949,7 +949,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 		{
 			if (WEXITSTATUS (status) != 0)
 			{
-				err = g_error_new (ianjuta_builder_error_quark (), 
+				err = g_error_new (ianjuta_builder_error_quark (),
 								   WEXITSTATUS (status),
 								   _("Command exited with status %d"), WEXITSTATUS (status));
 			}
@@ -986,17 +986,17 @@ on_build_terminated (AnjutaLauncher *launcher,
 	}
 	if (context->used)
 		return;	/* Another command is run */
-	
+
 	g_signal_handlers_disconnect_by_func (context->launcher,
 										  G_CALLBACK (on_build_terminated),
 										  context);
-	
+
 	/* Message view could have been destroyed before */
 	if (context->message_view)
 	{
 		IAnjutaMessageManager *mesg_manager;
 		gchar *buff1;
-	
+
 		buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"),
 								 time_taken);
 		mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (context->plugin)->shell,
@@ -1019,7 +1019,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 		}
 		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
 		g_free (buff1);
-		
+
 		/* Goto the first error if it exists */
 		/* if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										"build.option.gotofirst"))
@@ -1036,7 +1036,7 @@ on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 {
 	DEBUG_PRINT ("%s", "Destroying build context");
 	context->message_view = NULL;
-	
+
 	build_context_destroy_view (context);
 }
 
@@ -1087,7 +1087,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	gchar *subdir;
 	BuildContext *context = NULL;
 	static gint message_pane_count = 0;
-	
+
 	/* Initialise regex rules */
 	build_regex_init();
 
@@ -1096,7 +1096,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	   the string is the directory where the build takes place */
 	snprintf (mname, 128, _("Build %d: %s"), ++message_pane_count, subdir);
 	g_free (subdir);
-	
+
 	/* If we already have MAX_BUILD_PANES build panes, find a free context */
 	if (g_list_length (plugin->contexts_pool) >= MAX_BUILD_PANES)
 	{
@@ -1114,13 +1114,13 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 			node = g_list_next (node);
 		}
 	}
-	
+
 	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											   IAnjutaMessageManager, NULL);
 	if (context)
 	{
 		build_context_reset (context);
-		
+
 		/* It will be re-inserted in right order */
 		plugin->contexts_pool = g_list_remove (plugin->contexts_pool, context);
 		ianjuta_message_manager_set_view_title (mesg_manager,
@@ -1129,13 +1129,13 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 	}
 	else
 	{
-		
+
 		/* If no free context found, create one */
 		context = g_new0 (BuildContext, 1);
 		context->plugin = ANJUTA_PLUGIN(plugin);
 		context->indicators_updated_editors =
 			g_hash_table_new (g_direct_hash, g_direct_equal);
-		
+
 		context->message_view =
 			ianjuta_message_manager_add_view (mesg_manager, mname,
 											  ICON_FILE, NULL);
@@ -1151,7 +1151,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 
 	ianjuta_message_manager_set_current_view (mesg_manager,
 											  context->message_view, NULL);
-	
+
 	/* Reset indicators in editors */
 	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
 		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
@@ -1161,10 +1161,10 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 		                                     IANJUTA_MARKABLE_MESSAGE, NULL);
 	g_hash_table_remove_all (context->indicators_updated_editors);
 
-	
+
 	return context;
 }
-	
+
 BuildContext*
 build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		   gboolean with_view)
@@ -1184,7 +1184,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		DEBUG_PRINT ("new context %p", context);
 		context->plugin = ANJUTA_PLUGIN(plugin);
 	}
-		
+
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
 
 	if (context->environment != NULL)
@@ -1195,7 +1195,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	{
 		IAnjutaEnvironment *env = IANJUTA_ENVIRONMENT (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
 					"IAnjutaEnvironment", NULL));
-		
+
 		g_object_ref (env);
 		context->environment = env;
 	}
@@ -1203,7 +1203,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	{
 		context->environment = NULL;
 	}
-	
+
 	context->launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
@@ -1211,9 +1211,9 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	buf = g_strconcat (dir, "/", NULL);
 	g_chdir (buf);
 	g_free (buf);
-	
+
 	plugin->contexts_pool = g_list_append (plugin->contexts_pool, context);
-	
+
 	return context;
 }
 
@@ -1228,7 +1228,7 @@ gboolean
 build_execute_command_in_context (BuildContext* context, GError **err)
 {
 	GSettings* settings = ANJUTA_PLUGIN_BASIC_AUTOTOOLS(context->plugin)->settings;
-	
+
 	/* Send options to make */
 	if (strcmp (build_program_get_basename (context->program), "make") == 0)
 	{
@@ -1243,7 +1243,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 			build_program_insert_arg (context->program, 1, "-k");
 		}
 	}
-	
+
 	/* Set a current working directory which can contains symbolic links */
 	build_program_add_env (context->program, "PWD", context->program->work_dir);
 
@@ -1251,7 +1251,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	{
 		build_program_add_env (context->program, "LANGUAGE", "C");
 	}
-	
+
 	if (!build_program_override (context->program, context->environment))
 	{
 		build_context_destroy_command (context);
@@ -1261,7 +1261,7 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 	if (context->message_view)
 	{
 		gchar *command;
-		
+
 		command = g_strjoinv (" ", context->program->argv);
 		ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
@@ -1284,10 +1284,10 @@ build_execute_command_in_context (BuildContext* context, GError **err)
 		    context->program->argv,
 		    context->program->envp,
 		    NULL, NULL);
-	}		
-	
+	}
+
 	return TRUE;
-}	
+}
 
 static void
 build_delayed_execute_command (IAnjutaFileSavable *savable, GFile *file, gpointer user_data)
@@ -1296,10 +1296,10 @@ build_delayed_execute_command (IAnjutaFileSavable *savable, GFile *file, gpointe
 
 	if (savable != NULL)
 	{
-		g_signal_handlers_disconnect_by_func (savable, G_CALLBACK (build_delayed_execute_command), user_data); 
+		g_signal_handlers_disconnect_by_func (savable, G_CALLBACK (build_delayed_execute_command), user_data);
 		context->file_saved--;
-	}	
-	
+	}
+
 	if (context->file_saved == 0)
 	{
 		build_execute_command_in_context (context, NULL);
@@ -1312,7 +1312,7 @@ build_save_and_execute_command_in_context (BuildContext* context, GError **err)
 	IAnjutaDocumentManager *docman;
 
 	context->file_saved = 0;
-	
+
 	docman = anjuta_shell_get_interface (context->plugin->shell, IAnjutaDocumentManager, NULL);
 	/* No document manager, so no file to save */
 	if (docman != NULL)
@@ -1333,9 +1333,9 @@ build_save_and_execute_command_in_context (BuildContext* context, GError **err)
 				}
 			}
 		}
-		g_list_free (doc_list);		
+		g_list_free (doc_list);
 	}
-	
+
 	build_delayed_execute_command (NULL, NULL, context);
 
 	return TRUE;
@@ -1348,18 +1348,18 @@ build_cancel_command (BasicAutotoolsPlugin* bplugin, BuildContext *context,
 	GList *node;
 
 	if (context == NULL) return;
-		
+
 	for (node = g_list_first (bplugin->contexts_pool); node != NULL; node = g_list_next (node))
 	{
 		if (node->data == context)
-		{	
+		{
 			build_context_cancel (context);
 			return;
-		}	
-	}	
+		}
+	}
 
 	/* Invalid handle passed */
-	g_return_if_reached ();	
+	g_return_if_reached ();
 }
 
 
@@ -1381,7 +1381,7 @@ build_module_from_file (BasicAutotoolsPlugin *plugin, GFile *file, gchar **targe
 		ptr = strrchr (basename, '.');
 		if ((ptr != NULL) && (ptr != basename))
 		{
-			
+
 			*ptr = '\0';
 		}
 		parent = g_file_get_parent (file);
@@ -1446,14 +1446,14 @@ on_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 on_build_tarball (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_configure_and_build (plugin, (BuildFunc) build_tarball, NULL, NULL, NULL, NULL);	
+	build_configure_and_build (plugin, (BuildFunc) build_tarball, NULL, NULL, NULL, NULL);
 }
 
 static void
 on_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	GFile *module;
-	
+
 	g_return_if_fail (plugin->current_editor_file != NULL);
 
 	module = build_module_from_file (plugin, plugin->current_editor_file, NULL);
@@ -1468,7 +1468,7 @@ static void
 on_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->current_editor_file != NULL);
-	
+
 	build_configure_and_build (plugin, build_install_dir,  plugin->current_editor_file, NULL, NULL, NULL);
 }
 
@@ -1484,7 +1484,7 @@ static void
 on_compile_file (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->current_editor_file != NULL);
-	
+
 	build_configure_and_build (plugin, (BuildFunc) build_compile_file, plugin->current_editor_file, NULL, NULL, NULL);
 }
 
@@ -1502,7 +1502,7 @@ on_select_configuration (GtkRadioMenuItem *item, gpointer user_data)
 		BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (user_data);
 		gchar *name;
 		GValue *value;
-		gchar *uri;	
+		gchar *uri;
 
 		name = g_object_get_data (G_OBJECT (item), "untranslated_name");
 
@@ -1510,12 +1510,12 @@ on_select_configuration (GtkRadioMenuItem *item, gpointer user_data)
 
 		value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_STRING);
-	
+
 		uri = build_configuration_list_get_build_uri (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
 		g_value_set_string (value, uri);
 		g_free (uri);
-	
-		anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);	
+
+		anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);
 	}
 }
 
@@ -1546,7 +1546,7 @@ static void
 fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->fm_current_file != NULL);
-	
+
 	build_configure_and_build (plugin, build_install_dir,  plugin->fm_current_file, NULL, NULL, NULL);
 }
 
@@ -1554,7 +1554,7 @@ static void
 fm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->fm_current_file != NULL);
-	
+
 	build_clean_dir (plugin, plugin->fm_current_file, NULL);
 }
 
@@ -1571,7 +1571,7 @@ static void
 pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	GFile *module;
-	
+
 	g_return_if_fail (plugin->pm_current_file != NULL);
 
 	module = build_module_from_file (plugin, plugin->pm_current_file, NULL);
@@ -1586,7 +1586,7 @@ static void
 pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->pm_current_file != NULL);
-	
+
 	build_configure_and_build (plugin, build_install_dir,  plugin->pm_current_file, NULL, NULL, NULL);
 }
 
@@ -1594,7 +1594,7 @@ static void
 pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->pm_current_file != NULL);
-	
+
 	build_clean_dir (plugin, plugin->pm_current_file, NULL);
 }
 
@@ -1603,15 +1603,15 @@ static void
 mv_cancel (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	IAnjutaMessageManager *msgman;
-		
+
 	msgman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaMessageManager,
 										 NULL);
-	
+
 	if (msgman != NULL)
 	{
 		IAnjutaMessageView *view;
-		
+
 		view = ianjuta_message_manager_get_current_view (msgman, NULL);
 		if (view != NULL)
 		{
@@ -1620,7 +1620,7 @@ mv_cancel (GtkAction *action, BasicAutotoolsPlugin *plugin)
 			for (node = g_list_first (plugin->contexts_pool); node != NULL; node = g_list_next (node))
 			{
 				BuildContext *context;
-				
+
 				context = (BuildContext *)node->data;
 				if (context->message_view == view)
 				{
@@ -1629,10 +1629,10 @@ mv_cancel (GtkAction *action, BasicAutotoolsPlugin *plugin)
 				}
 			}
 		}
-	}	
+	}
 }
 
-static GtkActionEntry build_actions[] = 
+static GtkActionEntry build_actions[] =
 {
 	{
 		"ActionMenuBuild", NULL,
@@ -1706,7 +1706,7 @@ static GtkActionEntry build_actions[] =
 	}
 };
 
-static GtkActionEntry build_popup_actions[] = 
+static GtkActionEntry build_popup_actions[] =
 {
 	{
 		"ActionPopupBuild", NULL,
@@ -1786,7 +1786,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	gboolean has_object = FALSE;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
-	
+
 	DEBUG_PRINT ("%s", "Updating module UI");
 
 	has_file = bb_plugin->current_editor_file != NULL;
@@ -1797,7 +1797,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 		gchar *target;
 		gchar *module_name;
 
-		
+
 		mod = build_module_from_file (bb_plugin, bb_plugin->current_editor_file, &target);
 
 		if (has_project && !g_file_equal (mod, bb_plugin->project_root_dir) && !g_file_equal (mod, bb_plugin->project_build_dir))
@@ -1842,15 +1842,15 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	g_object_set (G_OBJECT (action), "sensitive", has_makefile,
 	              "visible", has_project, "label", label, NULL);
 	g_free (label);
-	
-	
+
+
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildCompileFile");
 	label = g_strdup_printf (filename ? _("Co_mpile (%s)") : _("Co_mpile"), filename);
 	g_object_set (G_OBJECT (action), "sensitive", has_object,
 					  "label", label, NULL);
 	g_free (label);
-	
+
 	g_free (module);
 	g_free (filename);
 }
@@ -1867,7 +1867,7 @@ update_fm_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	gboolean is_directory = FALSE;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
-	
+
 	has_file = bb_plugin->fm_current_file != NULL;
 	if (has_file)
 	{
@@ -1900,7 +1900,7 @@ update_fm_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 								   "ActionPopupBuildCompile");
 	g_object_set (G_OBJECT (action), "sensitive", has_object, "visible", !is_directory, NULL);
-	
+
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 								   "ActionPopupBuildBuild");
 	g_object_set (G_OBJECT (action), "sensitive", has_file && (has_makefile || (!is_directory && !has_project)), NULL);
@@ -1926,7 +1926,7 @@ update_pm_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	gboolean is_directory = FALSE;
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
-	
+
 	has_file = bb_plugin->pm_current_file != NULL;
 	if (has_file)
 	{
@@ -1955,11 +1955,11 @@ update_pm_module_ui (BasicAutotoolsPlugin *bb_plugin)
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 									   "ActionPopupPMBuild");
 	g_object_set (G_OBJECT (action), "visible", has_file && (has_makefile || !has_project), NULL);
-	
+
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 								   "ActionPopupPMBuildCompile");
 	g_object_set (G_OBJECT (action), "sensitive", has_object, "visible", !is_directory, NULL);
-	
+
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 								   "ActionPopupPMBuildBuild");
 	g_object_set (G_OBJECT (action), "sensitive", has_file && (has_makefile || !has_project), NULL);
@@ -1981,9 +1981,9 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	GtkAction *action;
 	gboolean has_makefile;
 	gboolean has_project;
-	
+
 	DEBUG_PRINT ("%s", "Updating project UI");
-	
+
 	has_project = bb_plugin->project_root_dir != NULL;
 	has_makefile = has_project && (directory_has_makefile (bb_plugin->project_build_dir) || directory_has_makefile_am (bb_plugin, bb_plugin->project_build_dir));
 
@@ -2009,7 +2009,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
 								   "ActionBuildRemoveConfiguration");
 	g_object_set (G_OBJECT (action), "sensitive", has_makefile, "visible", has_project, NULL);
-	
+
 	update_module_ui (bb_plugin);
 }
 
@@ -2020,13 +2020,13 @@ build_update_configuration_menu (BasicAutotoolsPlugin *plugin)
 	BuildConfiguration *cfg;
 	BuildConfiguration *selected;
 	GSList *group = NULL;
-	
+
 	submenu = gtk_menu_new ();
 	selected = build_configuration_list_get_selected (plugin->configurations);
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		GtkWidget *item;
-		
+
 		item = gtk_radio_menu_item_new_with_mnemonic (group, build_configuration_get_translated_name (cfg));
 		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
 		if (cfg == selected)
@@ -2048,17 +2048,17 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	GList *configurations;
 	BuildConfiguration *cfg;
 	const gchar *name;
-	
+
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
-	
+
 	configurations = build_configuration_list_to_string_list (plugin->configurations);
 	anjuta_session_set_string_list (session, "Build",
 									"Configuration list",
 									configurations);
 	g_list_foreach (configurations, (GFunc)g_free, NULL);
 	g_list_free (configurations);
-	
+
 	cfg = build_configuration_list_get_selected (plugin->configurations);
 	if (cfg != NULL)
 	{
@@ -2098,14 +2098,14 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
-	
+
 	configurations = anjuta_session_get_string_list (session, "Build",
 											  "Configuration list");
-	
+
 	build_configuration_list_from_string_list (plugin->configurations, configurations);
 	g_list_foreach (configurations, (GFunc)g_free, NULL);
 	g_list_free (configurations);
-	
+
 	selected = anjuta_session_get_string (session, "Build", "Selected Configuration");
 	build_configuration_list_select (plugin->configurations, selected);
 	g_free (selected);
@@ -2115,7 +2115,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		gchar *key;
 		gchar *args;
 		GList *env;
-		
+
 		key = g_strconcat("BuildArgs/", build_configuration_get_name (cfg), NULL);
 		args = anjuta_session_get_string (session, "Build", key);
 		g_free (key);
@@ -2151,7 +2151,7 @@ value_added_fm_current_file (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (ba_plugin->fm_current_file)
 		g_object_unref (ba_plugin->fm_current_file);
 	ba_plugin->fm_current_file = g_value_dup_object (value);
@@ -2164,7 +2164,7 @@ value_removed_fm_current_file (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (ba_plugin->fm_current_file)
 		g_object_unref (ba_plugin->fm_current_file);
 	ba_plugin->fm_current_file = NULL;
@@ -2178,7 +2178,7 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	const gchar *uri;
-	
+
 	uri = g_value_get_string (value);
 	if (ba_plugin->pm_current_file)
 		g_object_unref (ba_plugin->pm_current_file);
@@ -2192,7 +2192,7 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (ba_plugin->pm_current_file)
 		g_object_unref (ba_plugin->pm_current_file);
 	ba_plugin->pm_current_file = NULL;
@@ -2208,23 +2208,23 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	const gchar *root_uri;
 
 	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
-	
+
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
 		bb_plugin->project_root_dir = g_file_new_for_uri (root_uri);
 	}
-	
+
 	build_configuration_list_set_project_uri (bb_plugin->configurations, root_uri);
-	
+
 	/* Export project build uri */
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
 							IANJUTA_BUILDER_ROOT_URI,
-							value, NULL);	
-	
+							value, NULL);
+
 	update_project_ui (bb_plugin);
 }
 
@@ -2235,22 +2235,22 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	BasicAutotoolsPlugin *bb_plugin;
 
 	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (bb_plugin->project_root_dir != NULL) g_object_unref (bb_plugin->project_root_dir);
 	if (bb_plugin->project_build_dir != NULL) g_object_unref (bb_plugin->project_build_dir);
 	g_free (bb_plugin->program_args);
-	
+
 	bb_plugin->run_in_terminal = TRUE;
 	bb_plugin->program_args = NULL;
 	bb_plugin->project_build_dir = NULL;
 	bb_plugin->project_root_dir = NULL;
 
 	build_configuration_list_set_project_uri (bb_plugin->configurations, NULL);
-	
+
 	/* Export project build uri */
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 							   IANJUTA_BUILDER_ROOT_URI, NULL);
-	
+
 	update_project_ui (bb_plugin);
 }
 
@@ -2262,10 +2262,10 @@ value_added_project_build_uri (AnjutaPlugin *plugin, const gchar *name,
 	const gchar *build_uri;
 
 	bb_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (bb_plugin->project_build_dir != NULL) g_object_unref (bb_plugin->project_build_dir);
 	bb_plugin->project_build_dir = NULL;
-	
+
 	build_uri = g_value_get_string (value);
 	if (build_uri)
 	{
@@ -2279,7 +2279,7 @@ on_update_indicators_idle (gpointer data)
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (data);
 	IAnjutaEditor *editor = ba_plugin->current_editor;
-	
+
 	/* If indicators are not yet updated in the editor, do it */
 	if (ba_plugin->current_editor_file &&
 		IANJUTA_IS_INDICABLE (editor) &&
@@ -2296,8 +2296,8 @@ on_update_indicators_idle (gpointer data)
 			{
 				GSList *loc_node;
 				ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
-				
-					
+
+
 				loc_node = context->locations;
 				while (loc_node)
 				{
@@ -2352,17 +2352,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 {
 	AnjutaUI *ui;
 	GObject *editor;
-	
+
 	editor = g_value_get_object (value);
-	
+
 	if (!IANJUTA_IS_EDITOR(editor))
 		return;
-	
+
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	ba_plugin->current_editor = IANJUTA_EDITOR (editor);
-	
+
 	if (g_hash_table_lookup (ba_plugin->editors_created,
 							 ba_plugin->current_editor) == NULL)
 	{
@@ -2374,11 +2374,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_signal_connect (ba_plugin->current_editor, "changed",
 						  G_CALLBACK (on_editor_changed), plugin);
 	}
-	
+
 	if (ba_plugin->current_editor_file != NULL) g_object_unref (ba_plugin->current_editor_file);
 	ba_plugin->current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 	update_module_ui (ba_plugin);
-	
+
 	g_idle_add (on_update_indicators_idle, plugin);
 }
 
@@ -2400,13 +2400,13 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 		g_object_unref (ba_plugin->current_editor_file);
 	ba_plugin->current_editor_file = NULL;
 	ba_plugin->current_editor = NULL;
-	
+
 	update_module_ui (ba_plugin);
 }
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
-{	
+{
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -2424,13 +2424,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	static gboolean initialized = FALSE;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	if (!initialized)
 	{
 		register_stock_icons (plugin);
 	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
+
 	g_signal_connect (plugin->shell, "save-session",
 					  G_CALLBACK (on_session_save),
 					  plugin);
@@ -2439,14 +2439,14 @@ activate_plugin (AnjutaPlugin *plugin)
 					  plugin);
 
 	/* Add action group */
-	ba_plugin->build_action_group = 
+	ba_plugin->build_action_group =
 		anjuta_ui_add_action_group_entries (ui,
 											"ActionGroupBuild",
 											_("Build commands"),
 											build_actions,
 											sizeof(build_actions)/sizeof(GtkActionEntry),
 											GETTEXT_PACKAGE, TRUE, plugin);
-	ba_plugin->build_popup_action_group = 
+	ba_plugin->build_popup_action_group =
 		anjuta_ui_add_action_group_entries (ui,
 			       	"ActionGroupPopupBuild",
 				/* Translators: This is a group of build
@@ -2461,29 +2461,29 @@ activate_plugin (AnjutaPlugin *plugin)
 	ba_plugin->configuration_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
                                         "/MenuMain/PlaceHolderBuildMenus/MenuBuild/SelectConfiguration");
 	update_project_ui (ba_plugin);
-	
+
 	/* Add watches */
-	ba_plugin->fm_watch_id = 
+	ba_plugin->fm_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_FILE_MANAGER_SELECTED_FILE,
 								 value_added_fm_current_file,
 								 value_removed_fm_current_file, NULL);
-	ba_plugin->pm_watch_id = 
+	ba_plugin->pm_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_CURRENT_URI,
 								 value_added_pm_current_uri,
 								 value_removed_pm_current_uri, NULL);
-	ba_plugin->project_root_watch_id = 
+	ba_plugin->project_root_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
-	ba_plugin->project_build_watch_id = 
+	ba_plugin->project_build_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_BUILDER_ROOT_URI,
 								 value_added_project_build_uri,
 								 NULL, NULL);
-	ba_plugin->editor_watch_id = 
+	ba_plugin->editor_watch_id =
 		anjuta_plugin_add_watch (plugin,  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-	
+
 	initialized = TRUE;
 	return TRUE;
 }
@@ -2493,26 +2493,26 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
+
 	g_signal_handlers_disconnect_by_func (plugin->shell,
 										  G_CALLBACK (on_session_save),
 										  plugin);
 	g_signal_handlers_disconnect_by_func (plugin->shell,
 										  G_CALLBACK (on_session_load),
 										  plugin);
-	
+
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, ba_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->pm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_root_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_build_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->editor_watch_id, TRUE);
-	
+
 	/* Remove UI */
 	anjuta_ui_unmerge (ui, ba_plugin->build_merge_id);
-	
+
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_action_group);
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_popup_action_group);
@@ -2525,7 +2525,7 @@ dispose (GObject *obj)
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
 
 	g_object_unref (ba_plugin->settings);
-	
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -2534,13 +2534,13 @@ finalize (GObject *obj)
 {
 	gint i;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
-	
+
 	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
 	{
 		g_free (ba_plugin->commands[i]);
 		ba_plugin->commands[i] = NULL;
 	}
-	
+
 	if (ba_plugin->fm_current_file != NULL) g_object_unref (ba_plugin->fm_current_file);
 	if (ba_plugin->pm_current_file != NULL) g_object_unref (ba_plugin->pm_current_file);
 	if (ba_plugin->current_editor_file != NULL) g_object_unref (ba_plugin->current_editor_file);
@@ -2548,7 +2548,7 @@ finalize (GObject *obj)
 	if (ba_plugin->project_build_dir != NULL) g_object_unref (ba_plugin->project_build_dir);
 	g_free (ba_plugin->program_args);
 	build_configuration_list_free (ba_plugin->configurations);
-	
+
 	ba_plugin->fm_current_file = NULL;
 	ba_plugin->pm_current_file = NULL;
 	ba_plugin->current_editor_file = NULL;
@@ -2556,7 +2556,7 @@ finalize (GObject *obj)
 	ba_plugin->project_build_dir = NULL;
 	ba_plugin->program_args = NULL;
 	ba_plugin->configurations = NULL;
-	
+
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
@@ -2565,10 +2565,10 @@ basic_autotools_plugin_instance_init (GObject *obj)
 {
 	gint i;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
-	
+
 	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
 		ba_plugin->commands[i] = NULL;
-	
+
 	ba_plugin->fm_current_file = NULL;
 	ba_plugin->pm_current_file = NULL;
 	ba_plugin->current_editor_file = NULL;
@@ -2586,7 +2586,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 }
 
 static void
-basic_autotools_plugin_class_init (GObjectClass *klass) 
+basic_autotools_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -2618,13 +2618,13 @@ ibuildable_reset_commands (IAnjutaBuildable *manager, GError **err)
 {
 	gint i;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	
+
 	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
 	{
 		g_free (ba_plugin->commands[i]);
 		ba_plugin->commands[i] = NULL;
 	}
-}	
+}
 
 static const gchar *
 ibuildable_get_command (IAnjutaBuildable *manager,
@@ -2644,7 +2644,7 @@ ibuildable_build (IAnjutaBuildable *manager, const gchar *directory,
 
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
-	
+
 	build_build_file_or_dir (plugin, file, NULL, NULL, err);
 
 	g_object_unref (file);
@@ -2659,7 +2659,7 @@ ibuildable_clean (IAnjutaBuildable *manager, const gchar *directory,
 
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
-	
+
 	build_clean_dir (plugin, file, err);
 
 	g_object_unref (file);
@@ -2674,7 +2674,7 @@ ibuildable_install (IAnjutaBuildable *manager, const gchar *directory,
 
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
-	
+
 	build_install_dir (plugin, file, NULL, NULL, err);
 
 	g_object_unref (file);
@@ -2689,9 +2689,9 @@ ibuildable_configure (IAnjutaBuildable *manager, const gchar *directory,
 
 	file = g_file_new_for_path (directory);
 	if (file == NULL) return;
-	
+
 	build_configure_dir (plugin, file, NULL, NULL, NULL, NULL, NULL, NULL);
-	
+
 	g_object_unref (file);
 }
 
@@ -2706,7 +2706,7 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 	if (file == NULL) return;
 
 	build_generate_dir (plugin, file, NULL, NULL, NULL, NULL, NULL, NULL);
-	
+
 	g_object_unref (file);
 }
 
@@ -2778,11 +2778,11 @@ ibuilder_is_built (IAnjutaBuilder *builder, const gchar *uri,
 
 	file = g_file_new_for_uri (uri);
 	if (file == NULL) return NULL;
-	
+
 	context = build_is_file_built (plugin, file, callback, user_data, err);
-	
+
 	g_object_unref (file);
-	
+
 	return (IAnjutaBuilderHandle)context;
 }
 
@@ -2794,14 +2794,14 @@ ibuilder_build (IAnjutaBuilder *builder, const gchar *uri,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (builder);
 	BuildContext *context;
 	GFile *file;
-	
+
 	file = g_file_new_for_uri (uri);
 	if (file == NULL) return NULL;
-	
+
 	context = build_configure_and_build (plugin, build_build_file_or_dir, plugin->project_root_dir, callback, user_data, NULL);
-	
+
 	g_object_unref (file);
-	
+
 	return (IAnjutaBuilderHandle)context;
 }
 
@@ -2851,7 +2851,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkWidget *make_entry;
 	GtkBuilder *bxml;
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (ipref);
-		
+
 	/* Create the preferences page */
 	bxml =  anjuta_util_builder_new (BUILDER_FILE, NULL);
 	if (!bxml) return;
@@ -2862,16 +2862,16 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	    PARALLEL_MAKE_CHECK, &make_check,
 	    PARALLEL_MAKE_SPIN, &make_entry,
 	    NULL);
-	
+
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), root_entry);
 	on_root_check_toggled (root_check, root_entry);
 
 	g_signal_connect(G_OBJECT(make_check), "toggled", G_CALLBACK(on_root_check_toggled), make_entry);
 	on_root_check_toggled (make_check, make_entry);
-	
-	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings, 
+
+	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings,
 	                                     BUILD_PREFS_ROOT, _("Build Autotools"),  ICON_FILE);
-	
+
 	g_object_unref (bxml);
 }
 
@@ -2885,7 +2885,7 @@ static void
 ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 {
 	iface->merge = ipreferences_merge;
-	iface->unmerge = ipreferences_unmerge;	
+	iface->unmerge = ipreferences_unmerge;
 }
 
 ANJUTA_PLUGIN_BEGIN (BasicAutotoolsPlugin, basic_autotools_plugin);
