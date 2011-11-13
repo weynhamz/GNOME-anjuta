@@ -286,7 +286,8 @@ incremental_regex_search (const gchar* search_entry, const gchar* editor_text, g
 }
 
 gboolean
-search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
+search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
+                               gboolean wrap)
 {
 	IAnjutaIterable* real_start;
 	IAnjutaEditorCell* search_start;
@@ -486,7 +487,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward)
 	{
 		anjuta_status_pop (ANJUTA_STATUS (private->status));
 	}
-	else
+	else if (wrap)
 	{
 		/* Try to wrap if not found */
 		ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
@@ -670,7 +671,7 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 	ianjuta_indicable_clear(IANJUTA_INDICABLE(private->current_editor), NULL);
 
 	/* Search through editor and highlight instances of search_entry */
-	while ((entry_found = search_box_incremental_search (search_box, search_forward)) == TRUE)
+	while ((entry_found = search_box_incremental_search (search_box, search_forward, TRUE)) == TRUE)
 	{
 		IAnjutaEditorCell * result_begin, * result_end;
 		selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
@@ -709,13 +710,26 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 }
 
 static void
-on_search_box_document_changed (GtkWidget * widget, SearchBox * search_box)
+on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 
 	if (!private->regex_mode)
 	{
-		search_box_incremental_search (search_box, TRUE);
+		GtkEntryBuffer* buffer = gtk_entry_get_buffer (GTK_ENTRY(widget));
+		if (gtk_entry_buffer_get_length (buffer))
+			search_box_incremental_search (search_box, TRUE, TRUE);
+		else
+		{
+			/* clear selection */
+			IAnjutaIterable* cursor = 
+				ianjuta_editor_get_position (IANJUTA_EDITOR (private->current_editor),
+				                             NULL);
+			ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (private->current_editor),
+			                              cursor,
+			                              cursor,
+			                              FALSE, NULL);
+		}
 	}
 }
 
@@ -730,7 +744,7 @@ search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 	}
 	else
 	{
-		search_box_incremental_search (search_box, TRUE);
+		search_box_incremental_search (search_box, TRUE, TRUE);
 	}
 
 }
@@ -746,7 +760,7 @@ on_search_box_backward_search (GtkWidget * widget, SearchBox * search_box)
 	}
 	else
 	{
-		search_box_incremental_search (search_box, FALSE);
+		search_box_incremental_search (search_box, FALSE, TRUE);
 	}
 }
 
@@ -887,18 +901,28 @@ on_replace_all_activated (GtkWidget* widget, SearchBox* search_box)
 {
 
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	gboolean entry_found;
+	IAnjutaIterable* cursor;
 
 	if (!private->current_editor)
 		return;
 
+	/* Cache current position and search from begin */
+	cursor = ianjuta_editor_get_position (IANJUTA_EDITOR (private->current_editor),
+	                                      NULL);
+	ianjuta_editor_goto_start (IANJUTA_EDITOR (private->current_editor), NULL);
+	
 	/* Replace all instances of search_entry with replace_entry text */
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
-	while ((entry_found = search_box_incremental_search (search_box, TRUE)) == TRUE)
+	while (search_box_incremental_search (search_box, TRUE, FALSE))
 	{
 		search_box_replace (search_box, widget, FALSE);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
+
+	/* Back to cached position */
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (private->current_editor),
+	                              cursor, cursor, TRUE, NULL);
+	g_object_unref (cursor);
 }
 
 static void
@@ -919,7 +943,7 @@ search_box_init (SearchBox *object)
 					  G_CALLBACK (on_entry_key_pressed),
 					  object);
 	g_signal_connect (G_OBJECT (private->search_entry), "changed",
-					  G_CALLBACK (on_search_box_document_changed),
+					  G_CALLBACK (on_search_box_entry_changed),
 					  object);
 	g_signal_connect (G_OBJECT (private->search_entry), "focus-out-event",
 					  G_CALLBACK (on_search_focus_out),
