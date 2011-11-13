@@ -884,7 +884,7 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 
 	if (!gtk_widget_get_visible (search_box))
 		gtk_widget_show (search_box);
-	search_box_incremental_search (SEARCH_BOX (search_box), TRUE);
+	search_box_incremental_search (SEARCH_BOX (search_box), TRUE, TRUE);
 }
 
 void
@@ -901,7 +901,7 @@ on_search_previous (GtkAction *action, gpointer user_data)
 
 	if (!gtk_widget_get_visible (search_box))
 		gtk_widget_show (search_box);
-	search_box_incremental_search (SEARCH_BOX (search_box), FALSE);
+	search_box_incremental_search (SEARCH_BOX (search_box), FALSE, TRUE);
 }
 
 void 
