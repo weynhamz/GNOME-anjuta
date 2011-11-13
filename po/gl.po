@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-06 03:01+0100\n"
-"PO-Revision-Date: 2011-11-06 03:01+0100\n"
+"POT-Creation-Date: 2011-11-13 18:43+0100\n"
+"PO-Revision-Date: 2011-11-13 18:48+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -811,7 +811,7 @@ msgid "sudo"
 msgstr "sudo"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:475
+#: ../plugins/build-basic-autotools/build.c:525
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -819,20 +819,20 @@ msgstr ""
 "Antes de empregar esta nova configuración, precísase eliminar a "
 "predeterminada. Quere facelo?"
 
-#: ../plugins/build-basic-autotools/build.c:480
+#: ../plugins/build-basic-autotools/build.c:530
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "A orde foi cancelada polo usuario"
 
-#: ../plugins/build-basic-autotools/build.c:796
+#: ../plugins/build-basic-autotools/build.c:846
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non é posíbel compilar \"%s\": Non se definiu ningunha regra de compilación "
 "para este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/build.c:958
+#: ../plugins/build-basic-autotools/build.c:1008
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
@@ -897,6 +897,29 @@ msgstr "Non hai ningún executábel para este ficheiro."
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "O executábel «%s» non está actualizado."
+
+#: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:1
+msgid "Command used to be allowed to install files"
+msgstr "Orde usada para permitir instalar ficheiros"
+
+#: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:3
+#, no-c-format
+msgid ""
+"The command has to contain \"%s\" or \"%q\". This will be replaced by the "
+"command used to install the files, by example \"make install\". %s is "
+"replaced by the command without any change while %q is replaced by the "
+"quoted command. You can use %% to get a \"%\" character. A typical value is "
+"\"sudo %s\" or \"su -c %q\"."
+msgstr ""
+"A orde ten que conter «%s» ou «%q». Isto substituirase pola orde usada para "
+"instalar os ficheiros, por exemplo, «make install». %s subtituirase pola "
+"orde sen ningún cambio, mentres que %q substituirase pola orde entre "
+"virgulas. Pode usar «%%» para obter o caracter «%». Un valor habitual é "
+"«sudo %s» ou «su -c %q»."
+
+#: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:4
+msgid "True if we need a special command to install files"
+msgstr "Certo se se precisa unha orde especial para instalar ficheiros"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -2960,7 +2983,6 @@ msgid "Autosave"
 msgstr "<b>Autogardar</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:2
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:1
 msgid "Bottom"
 msgstr "Inferior"
 
@@ -2977,7 +2999,6 @@ msgid "Enable files autosave"
 msgstr "Activar autogardado de ficheiro"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:6
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:7
 msgid "Left"
 msgstr "Esquerda"
 
@@ -2986,7 +3007,6 @@ msgid "Position:"
 msgstr "Posición:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:8
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:10
 msgid "Right"
 msgstr "Dereita"
 
@@ -3011,7 +3031,6 @@ msgid "Sorted in opening order"
 msgstr "Ordenado por orde de apertura"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
 msgid "Top"
 msgstr "Arriba"
 
@@ -3661,17 +3680,17 @@ msgstr "Produciuse un fallo ao gardar automaticamente %s"
 msgid "Autosave completed"
 msgstr "Terminou de gardar automaticamente"
 
-#: ../plugins/document-manager/search-box.c:564
+#: ../plugins/document-manager/search-box.c:565
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "A busca de \"%s\" chegou á fin e continuou até o principio."
 
-#: ../plugins/document-manager/search-box.c:569
+#: ../plugins/document-manager/search-box.c:570
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "A busca de \"%s\" chegou ao final e continuou polo final."
 
-#: ../plugins/document-manager/search-box.c:578
+#: ../plugins/document-manager/search-box.c:579
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3680,7 +3699,7 @@ msgstr ""
 "A busca de \"%s\" chegou á fin e continuou até o principio, porén non se "
 "atopou ningunha nova coincidencia."
 
-#: ../plugins/document-manager/search-box.c:583
+#: ../plugins/document-manager/search-box.c:584
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -3689,11 +3708,11 @@ msgstr ""
 "A busca de \"%s\" chegou ao final e continuou polo final, porén non se "
 "atopou ningunha aparición máis."
 
-#: ../plugins/document-manager/search-box.c:978
+#: ../plugins/document-manager/search-box.c:1002
 msgid "Replace"
 msgstr "Substituír"
 
-#: ../plugins/document-manager/search-box.c:983
+#: ../plugins/document-manager/search-box.c:1007
 msgid "Replace all"
 msgstr "Substituír todo"
 
@@ -5687,55 +5706,55 @@ msgid "Invalid Glade file name"
 msgstr "O nome de ficheiro glade non é válido"
 
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:2
 msgid "Diagonal"
 msgstr "Diagonal"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:3
 msgid "Error message indicator style:"
 msgstr "Estilo do indicador de mensaxe de erro:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:4
 msgid "Errors:"
 msgstr "Erros:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:5
 msgid "Indicators"
 msgstr "<b>Indicadores</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:8
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:6
 msgid "Message colors"
 msgstr "<b>Cores da mensaxe:</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:7
 msgid "Normal message indicator style:"
 msgstr "Estilo do indicador de mensaxe normal:"
 
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:12
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:9
 msgid "Strike-Out"
 msgstr "Strike-Out"
 
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:11
 msgid "Underline-Plain"
 msgstr "Subliñar-Plano"
 
 #. text style in editor
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:13
 msgid "Underline-Squiggle"
 msgstr "Subliñar-Risco"
 
 #. text style in editor, TT is for typewriter text
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:19
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:15
 msgid "Underline-TT"
 msgstr "Subliñar-TT"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:20
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:16
 msgid "Warning message indicator style:"
 msgstr "Estilo do indicador de mensaxe de aviso:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:21
+#: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
 msgid "Warnings:"
 msgstr "Avisos:"
 
@@ -7677,10 +7696,6 @@ msgstr "Definir o programa actual, os argumentos e o demais."
 msgid "Run operations"
 msgstr "Operacións de execución"
 
-#: ../plugins/run-program/org.gnome.anjuta.run.gschema.xml.in.h:1
-msgid "Command used for starting a terminal"
-msgstr "Orde usada para iniciar un terminal"
-
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
 #: ../plugins/snippets-manager/snippets-browser.c:208
@@ -9370,12 +9385,6 @@ msgstr "Só texto"
 msgid "Toolbar button labels:"
 msgstr "Etiquetas dos botóns da barra de ferramentas:"
 
-#: ../plugins/debug-manager/org.gnome.anjuta.debug-manager.gschema.xml.in.h:1
-msgid "Do not display warning if not using a Debug configuration"
-msgstr ""
-"Non mostrar advertencias se non se está a empregar a configuración de "
-"depuración"
-
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 msgid "API Tags (C/C++)"
 msgstr "Etiquetas do API (C/C++)"
@@ -9824,6 +9833,14 @@ msgstr "Mínimo de caracteres para o completado "
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid "Command used for starting a terminal"
+#~ msgstr "Orde usada para iniciar un terminal"
+
+#~ msgid "Do not display warning if not using a Debug configuration"
+#~ msgstr ""
+#~ "Non mostrar advertencias se non se está a empregar a configuración de "
+#~ "depuración"
 
 #~ msgid "Loaded:"
 #~ msgstr "Cargada:"
