@@ -215,7 +215,7 @@ e_splash_construct (ESplash *splash,
 	gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (splash), image_width, image_height);
-	gtk_window_set_title (GTK_WINDOW (splash), "Anjuta");
+	gtk_window_set_title (GTK_WINDOW (splash), PACKAGE_NAME);
 
 }
 
