@@ -1,3 +1,17 @@
+Anjuta 3.2.2 "Sorry for being late" (18 November 2011) -- Johannes Schmid
+
+Bugs fixed:
+648934 	Vala completion doesn't work in some cases.
+659563 	Bookmarks reset to position 1 after file changed on FS
+660841 	build failure with [-Werror=format-security]
+662526 	Can't replace with empty replace text
+663016 	Fix search behavior in regex and selections
+663385 	Replace all hangs when replace text contains search_text
+658788 	Change default dist to .xz
+661511 	Python/Django Project Wizard: Missing Components/Programs: django-admin
+
+Thanks to: Abderrahim Kitouni, Arnel A. Borja, Sébastien Granjoux
+
 Anjuta 3.2.1 "Home sweat home" (19 September 2011) -- Johannes Schmid
 
 Bugs fixed:
