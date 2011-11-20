@@ -5,8 +5,11 @@ from rope.base.project import Project
 from rope.contrib import codeassist
 from rope.contrib import autoimport
 import os, re
+import pkg_resources
+from distutils.version import LooseVersion as V
 
 BUILDER_EXTENSION = '.ui'
+ROPE_VERSION = ''
 
 CompletionItem = namedtuple('CompletionItem', 'name info type scope location')
 def new_completion_item(**i):
@@ -67,10 +70,18 @@ class RopeComplete(object):
 		proposals = codeassist.code_assist(self.project, self.source_code, self.code_point, resource=self.resource, maxfixes=10)
 		proposals = codeassist.sorted_proposals(proposals)
 
-		for proposal in proposals:
-			ret.append(new_completion_item(name=proposal.name, scope=proposal.scope, type=proposal.type))
+		if V(ROPE_VERSION) <= V('0.9.2'):
+			for proposal in proposals:
+				ret.append(new_completion_item(name=proposal.name, scope=proposal.kind, type=proposal.type))
+		else:
+			for proposal in proposals:
+				ret.append(new_completion_item(name=proposal.name, scope=proposal.scope, type=proposal.type))
 
 		return ret
+
+	def get_calltip(self):
+		calltip = codeassist.get_doc(self.project, self.source_code, self.code_point, resource=self.resource, maxfixes=10)
+		return calltip
 
 def parse_arguments(args):
 	""" Returns a dictionary containing all the parsed args
@@ -95,7 +106,8 @@ def parse_arguments(args):
 	ret['option'] = option_arg;
 	ret['project_path'] = str.replace(project_arg, 'file://', '') if project_arg.startswith('file://') else project_arg
 	ret['resource_path'] = os.path.relpath(res_arg, ret['project_path'])
-	ret['project_files'] = builder_files_arg.split('|')
+	if ret['option'] != 'calltip':
+		ret['project_files'] = builder_files_arg.split('|')
 	ret['position'] = int(offset_arg)
 
 	input = open(source_code_arg, 'r')
@@ -106,9 +118,15 @@ def parse_arguments(args):
 
 if __name__ == '__main__':
 	try:
+		ROPE_VERSION = pkg_resources.get_distribution('rope').version
+	except:
+		print '|Missing python-rope module!|.|.|.|.|'
+		sys.exit(1)
+	try:
 		args = parse_arguments(sys.argv[1:])
 
 		suggestions = []
+		calltip = ''
 		if args['option'] == 'autocomplete':
 			#get any completions Rope offers us
 			comp = RopeComplete(args['project_path'], args['source_code'], args['resource_path'], args['position'])
@@ -117,10 +135,12 @@ if __name__ == '__main__':
 			comp = BuilderComplete(args['project_path'], args['resource_path'], args['source_code'], args['position'], args['project_files'])
 			suggestions.extend(comp.get_proposals())
 		elif args['option'] == 'calltip':
-			proposals = codeassist.get_doc(proj, source_code, position, resource=res, maxfixes=10)
+			calltip_obj = RopeComplete(args['project_path'], args['source_code'], args['resource_path'], args['position'])
+			calltip = calltip_obj.get_calltip()
 
 		for s in suggestions:
 			print "|{0}|{1}|{2}|{3}|{4}|".format(s.name, s.scope, s.type, s.location, s.info)
+		print calltip
 	except:
 		pass
 
