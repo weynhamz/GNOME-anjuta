@@ -44,8 +44,8 @@
     <item>
       <title><gui>Environment Variables</gui></title>
       <p>You can click on the drop-down section, to display all environment
-      variables those will be accessible by your program. By default, it
-      includes all the current environment variables, they are display in light
+      variables that will be accessible by your program. By default, it
+      includes all the current environment variables, they are displayed in light
       gray.</p>
       <p>You can click on the <gui>New</gui> button to add a new
       environment variable.</p>
@@ -53,7 +53,7 @@
       of the selected environment variable.</p>
       <p>You can click on the <gui>Delete</gui> button to remove the
       selected environment variable.</p>
-      <p>When a variable has not the same value than in the current
+      <p>When a variable has not the same value as in the current
       environment, it is displayed in black.</p>
     </item>
     <item>

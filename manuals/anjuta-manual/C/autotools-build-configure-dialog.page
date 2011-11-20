@@ -48,7 +48,7 @@
     <item>
       <title><gui>Build Directory</gui></title>
       <p>
-        Select here the build directory, it can be the project directory
+        Select here the build directory. It can be the project directory
         or a subdirectory. This is particularly useful when switching between
         different configurations to avoid rebuilding the whole project.
       </p>

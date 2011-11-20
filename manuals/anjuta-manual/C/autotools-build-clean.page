@@ -19,16 +19,16 @@
 
   <title>Clean targets</title>
 
-  <p>It can be useful to delete all files created by the build process. By
-  example if the all dependencies are not taken into account and
+  <p>It can be useful to delete all files created by the build process. For
+  example, if all dependencies are not taken into account and
   a modified file does not trigger a recompiling as it should, deleting
-  all files will fix this. There are several way to do this</p>
+  all files will fix this. There are several ways to do this</p>
   <steps>
     <item>
       <p>
         From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
-        <gui>Clean</gui></guiseq> to delete all files build in the
-        same directory than the current edited file.
+        <gui>Clean</gui></guiseq> to delete all files built in the
+        same directory as the current edited file.
       </p>
     </item>
   </steps>

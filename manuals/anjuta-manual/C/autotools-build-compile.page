@@ -20,7 +20,7 @@
   <title>Compile files</title>
 
     <p>
-      Most programming language allow you to compile an individual source file.
+      Most programming languages allow you to compile an individual source file.
       It reads the file, checks for errors and convert into an intermediate
       object file. Most errors happens in this step, so it is useful to compile a file
       after modifying it to check for errors. There are several ways to do it.

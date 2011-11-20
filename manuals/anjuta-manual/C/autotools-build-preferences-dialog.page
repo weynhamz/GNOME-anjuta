@@ -26,7 +26,7 @@
     <item>
       <title><gui>Run several commands at a time</gui></title>
       <p><app>make</app> is able to run several compilations at the same time.
-      It decrease the build time when having a multi-core processor but could
+      It decreases build time when having a multi-core processor but could
       trigger some issues so this can be enabled or disabled with this check box.</p>
     </item>
     <item>
@@ -40,20 +40,20 @@
       <p>By default errors and warnings message are translated. It has two
       drawbacks though. In order to recognize errors and warnings the
       translation of <app>Anjuta</app> and the compiler should perfectly match.
-      Moreover, it is often more difficult to find help on internet when
+      Moreover, it is often more difficult to find help on the internet when
       searching translated messages as they are much less common. Unchecking
       this check box allows to disable translation.</p>
     </item>
     <item>
       <title><gui>Highlight build warnings and errors in editor</gui></title>
       <p>Errors and warnings during the build are displayed and highlighted in
-      the message window. By checking this option, they are higlighted in the
+      the message window. By checking this option, they are highlighted in the
       editor too.</p>
     </item>
     <item>
       <title><gui>Install as root</gui></title>
-      <p>Installing a program needs to copy files in system directory which are
-      often not writable by the user. If this check box is checked, you can choose
+      <p>Installing a program needs to copy files into system directories which are
+      often not writable by users. If this check box is checked, you can choose
       to use <cmd>sudo</cmd> or <cmd>su</cmd> before installing the files
       to acquire enough right to do it.</p>
     </item>

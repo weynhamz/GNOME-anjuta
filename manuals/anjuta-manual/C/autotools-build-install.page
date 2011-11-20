@@ -33,7 +33,7 @@
       <p>
         From the <gui>main menu</gui>, select <guiseq><gui>Build</gui>
         <gui>Install</gui></guiseq> to install all files in the
-        same directory than the current edited file.
+        same directory as the current edited file.
       </p>
     </item>
   </steps>
