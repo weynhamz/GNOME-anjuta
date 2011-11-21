@@ -214,7 +214,7 @@ on_create_tag_button_clicked (GtkAction *action, Git *plugin)
 
 	pane = git_create_tag_pane_new (plugin);
 
-	anjuta_dock_add_pane (ANJUTA_DOCK (plugin->dock), "CreateTag", 
-	                      _("Create Tag"), NULL, pane, GDL_DOCK_BOTTOM, NULL, 0,
-	                      NULL);
+	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "CreateTag", 
+	                                  _("Create Tag"), NULL, pane, GDL_DOCK_BOTTOM, NULL, 0,
+	                                  NULL);
 }

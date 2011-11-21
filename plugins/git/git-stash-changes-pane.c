@@ -154,7 +154,7 @@ on_stash_changes_button_clicked (GtkAction *action, Git *plugin)
 
 	stash_changes_pane = git_stash_changes_pane_new (plugin);
 
-	anjuta_dock_add_pane (ANJUTA_DOCK (plugin->dock), "StashChanges",
-	                      _("Stash Uncommitted Changes"), NULL, 
-	                      stash_changes_pane, GDL_DOCK_BOTTOM, NULL, 0, NULL);
+	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "StashChanges",
+	                                  _("Stash Uncommitted Changes"), NULL, 
+	                                  stash_changes_pane, GDL_DOCK_BOTTOM, NULL, 0, NULL);
 }

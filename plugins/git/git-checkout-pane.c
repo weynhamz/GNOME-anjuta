@@ -143,7 +143,7 @@ on_checkout_button_clicked (GtkAction *action, Git *plugin)
 
 	checkout_pane = git_checkout_pane_new (plugin);
 
-	anjuta_dock_add_pane (ANJUTA_DOCK (plugin->dock), "Checkout",
-	                      _("Check Out Files"), NULL, checkout_pane,
-	                      GDL_DOCK_BOTTOM, NULL, 0, NULL);
+	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "Checkout",
+	                                  _("Check Out Files"), NULL, checkout_pane,
+	                                  GDL_DOCK_BOTTOM, NULL, 0, NULL);
 }

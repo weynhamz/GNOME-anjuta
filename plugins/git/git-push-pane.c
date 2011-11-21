@@ -434,7 +434,7 @@ on_push_button_clicked (GtkAction *action, Git *plugin)
 
 	pane = git_push_pane_new (plugin);
 
-	anjuta_dock_add_pane (ANJUTA_DOCK (plugin->dock), "Push", 
-	                      _("Push"), NULL, pane, GDL_DOCK_BOTTOM,
-	                      NULL, 0, NULL);
+	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "Push", 
+	                                  _("Push"), NULL, pane, GDL_DOCK_BOTTOM,
+	                                  NULL, 0, NULL);
 }

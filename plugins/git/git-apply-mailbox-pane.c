@@ -153,9 +153,9 @@ on_apply_mailbox_button_clicked (GtkAction *action, Git *plugin)
 
 	pane = git_apply_mailbox_pane_new (plugin);
 
-	anjuta_dock_add_pane (ANJUTA_DOCK (plugin->dock), "ApplyMailbox", 
-	                      _("Apply Mailbox Files"), NULL, pane,  
-	                      GDL_DOCK_BOTTOM, NULL, 0, NULL);
+	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "ApplyMailbox", 
+	                                  _("Apply Mailbox Files"), NULL, pane,  
+	                                  GDL_DOCK_BOTTOM, NULL, 0, NULL);
 }
 
 void
