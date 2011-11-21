@@ -1,3 +1,25 @@
+Anjuta 3.3.2 "Dark and cold" (21 November 2011) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version, 
+use 3.2.x!
+
+Bugs fixed:
+648934 	Vala completion doesn't work in some cases.
+662526 	Can't replace with empty replace text
+663016 	Fix search behavior in regex and selections
+663385 	Replace all hangs when replace text contains search_text
+664058 	couple of spelling fixes
+664263 	Auto-complete (anjuta-python-autocomplete.py) fails with rope<=0.9.2, calltip always fail
+645212 	Enhance export feature
+629769 	Hard coding of application title in splash screen
+658788 	Change default dist to .xz
+661299 	Template for Gnome Shell Extension
+662960 	SegFault when a line is highlighted when debugging
+
+Thanks to: Abderrahim Kitouni, Arnel A. Borja, Christian Kirbach, 
+Daniel Mustieles, Fran Diéguez, Jason Siefken, Jorge González, 
+Massimo Corà, Mihai Bivol, Piotr Drąg, Samir Ibradžić, Sébastien Granjoux
+
 Anjuta 3.3.1 "Back in Berlin" (23 October 2011) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version, 
