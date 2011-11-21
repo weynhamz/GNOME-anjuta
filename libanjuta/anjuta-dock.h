@@ -65,6 +65,11 @@ void anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
                                 AnjutaCommandBarEntry *entries, int num_entries,
                                 gpointer user_data, 
                                 GdlDockItemBehavior behavior);
+void anjuta_dock_replace_command_pane (AnjutaDock *self, const gchar *pane_name,
+                                       const gchar *pane_label, const gchar *stock_icon,
+                                       AnjutaDockPane *pane, GdlDockPlacement placement, 
+                                       AnjutaCommandBarEntry *entries, int num_entries,
+                                       gpointer user_data);
 void anjuta_dock_remove_pane (AnjutaDock *self, AnjutaDockPane *pane);
 void anjuta_dock_show_pane (AnjutaDock *self, AnjutaDockPane *pane);
 void anjuta_dock_hide_pane (AnjutaDock *self, AnjutaDockPane *pane);

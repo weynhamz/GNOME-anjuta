@@ -40,6 +40,8 @@ struct _AnjutaDockPriv
 	GHashTable *panes;
 	GHashTable *dock_items;
 	GtkWidget *command_bar;
+
+	AnjutaDockPane* command_pane;
 };
 
 G_DEFINE_TYPE (AnjutaDock, anjuta_dock, GDL_TYPE_DOCK);
@@ -50,7 +52,8 @@ anjuta_dock_init (AnjutaDock *self)
 	self->priv = g_new0 (AnjutaDockPriv, 1);
 	self->priv->panes = g_hash_table_new_full (g_str_hash, g_str_equal, 
 	                                           NULL, g_object_unref);
-	self->priv->dock_items = g_hash_table_new (g_str_hash, g_str_equal); 
+	self->priv->dock_items = g_hash_table_new (g_str_hash, g_str_equal);
+	self->priv->command_pane = 0;
 }
 
 static void
@@ -236,6 +239,41 @@ anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
 }
 
 /**
+ * anjuta_dock_replace_command_pane:
+ * @self: An AnjutaDock
+ * @pane_name: A unique name for this pane
+ * @pane_label: Label to display in this pane's grip 
+ * @pane: The #AnjutaDockPane to add to the dock. The dock takes ownership of
+ *		  the pane object.
+ * @stock_id: Stock icon to display in this pane's grip
+ * @placement: A #GdlDockPlacement value indicating where the pane should be
+ *			   placed
+ * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
+ * @num_entries: The number of entries pointed to by entries, or 0.
+ * @user_data: User data to pass to the entry callback
+ *
+ * Adds a pane, with optional #AnjutaCommandBar entries, to an AnjutaDock. This
+ * method adds a pane with no grip that cannot be closed, floating or iconified.
+ * If there was an old command pane, that pane is removed in favour of the new pane.
+ */
+void 
+anjuta_dock_replace_command_pane (AnjutaDock *self,
+                                  const gchar *pane_name,
+                                  const gchar *pane_label, const gchar *stock_icon,
+                                  AnjutaDockPane *pane, GdlDockPlacement placement, 
+                                  AnjutaCommandBarEntry *entries, int num_entries,
+                                  gpointer user_data)
+{
+	anjuta_dock_add_pane (self, pane_name, pane_label, stock_icon,
+	                      pane, placement, entries, num_entries, user_data);
+	if (self->priv->command_pane)
+	{
+			anjuta_dock_remove_pane (self, self->priv->command_pane);
+	}
+	self->priv->command_pane = pane;
+}
+
+/**
  * anjuta_dock_remove_pane:
  * @self An AnjutaDock
  * @pane_name: Name of the pane to remove
@@ -250,6 +288,11 @@ anjuta_dock_remove_pane (AnjutaDock *self, AnjutaDockPane *pane)
 
 	child = anjuta_dock_pane_get_widget (pane);
 
+	if (self->priv->command_pane == pane)
+	{
+		self->priv->command_pane = NULL;
+	}
+	
 	if (child)
 	{
 		/* Remove the child from its dock item and destroy it */
