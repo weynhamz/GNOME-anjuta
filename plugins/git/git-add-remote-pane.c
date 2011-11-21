@@ -175,6 +175,7 @@ on_add_remote_button_clicked (GtkAction *action, Git *plugin)
 
 	pane = git_add_remote_pane_new (plugin);
 
+	/* Translators: Remote means the git remote repository */
 	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "AddRemote", 
 	                                  _("Add Remote"), NULL, pane, GDL_DOCK_BOTTOM, NULL, 0,
 	                                  NULL);
