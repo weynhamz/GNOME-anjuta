@@ -270,18 +270,27 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 
 	/* Show the actual log view */
 	git_log_pane_set_view_mode (self, LOG_VIEW_NORMAL);
+
+	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder, 
+	                                                  "log_view"));
 	
 	if (return_code != 0)
 	{
+		/* Don't report erros in the log view as this is usually no user requested
+		 * operation and thus error messages are confusing instead just show an
+		 * empty log.
+		 */
+#if 0
 		git_pane_report_errors (command, return_code,
 		                        ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self))));
+#endif
+		g_object_ref (self->priv->log_model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), NULL);
 		g_object_unref (command);
 		
 		return;
 	}
 	
-	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder, 
-	                                                  "log_view"));
 	
 	g_object_ref (self->priv->log_model);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), NULL);
