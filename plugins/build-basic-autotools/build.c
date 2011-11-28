@@ -597,6 +597,12 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, GFile *file,
 
 
 	config = build_configuration_list_get_selected (plugin->configurations);
+
+	if (!config)
+	{
+		return NULL;
+	}
+	
 	vars = build_configuration_get_variables (config);
 
 	build_dir = build_file_from_file (plugin, file, &target);
