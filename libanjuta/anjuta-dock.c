@@ -366,3 +366,15 @@ anjuta_dock_set_command_bar (AnjutaDock *self, AnjutaCommandBar *command_bar)
 
 	self->priv->command_bar = g_object_ref (command_bar);
 }
+
+/**
+ * anjuta_dock_get_command_bar:
+ * @self: An AnjutaDock
+ *
+ * Returns: the #AnjutaCommandBar associated with this dock or %NULL.
+ */
+AnjutaCommandBar *
+anjuta_dock_get_command_bar (AnjutaDock *self)
+{
+	return ANJUTA_COMMAND_BAR (self->priv->command_bar);
+}

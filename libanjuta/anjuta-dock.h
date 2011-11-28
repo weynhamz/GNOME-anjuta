@@ -75,6 +75,7 @@ void anjuta_dock_show_pane (AnjutaDock *self, AnjutaDockPane *pane);
 void anjuta_dock_hide_pane (AnjutaDock *self, AnjutaDockPane *pane);
 void anjuta_dock_set_command_bar (AnjutaDock *self, 
                                   AnjutaCommandBar *command_bar);
+AnjutaCommandBar* anjuta_dock_get_command_bar (AnjutaDock *self);
 
 G_END_DECLS
 
