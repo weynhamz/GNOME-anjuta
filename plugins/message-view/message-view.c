@@ -983,10 +983,14 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 {
 	MessageView *view;
 	gint cur_char;
-	int len = strlen(message);
+	int len;
 	
 	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
-	g_return_if_fail (message != NULL);	
+
+	if (!message)
+		return;
+
+	len = strlen(message);
 	
 	view = MESSAGE_VIEW (message_view);
 	
