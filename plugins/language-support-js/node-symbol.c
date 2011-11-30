@@ -131,7 +131,7 @@ node_symbol_get_arg_list (IJsSymbol *obj)
 
 		for (i = args->pn_u.list.head; i; i = i->pn_next)
 		{
-			ret = g_list_append (ret, g_strdup (js_node_get_name (i)));
+			ret = g_list_append (ret, js_node_get_name (i));
 		}
 	}
 

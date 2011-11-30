@@ -97,11 +97,12 @@ js_node_class_init (JSNodeClass *klass)
 	object_class->finalize = js_node_finalize;
 }
 
-const gchar*
+gchar*
 js_node_get_name (JSNode *node)
 {
 	g_return_val_if_fail (node, NULL);
 	g_assert (JS_IS_NODE (node));
+
 	if (node->pn_arity == PN_NULLARY)
 	{
 			return NULL;
@@ -111,7 +112,7 @@ js_node_get_name (JSNode *node)
 	switch ((JSTokenType)node->pn_type)
 	{
 		case TOK_NAME:
-			return node->pn_u.name.name;
+			return g_strdup(node->pn_u.name.name);
 			break;
 		case TOK_DOT:
 			if (!node->pn_u.name.expr || !node->pn_u.name.name)

@@ -36,7 +36,6 @@ print_node (JSNode *node, char *pref)
 				{
 					g_assert (iter->pn_type == TOK_NAME);
 
-/*					const gchar *name = js_node_get_name(iter);*/
 					break;
 				}
 			case TOK_LP:

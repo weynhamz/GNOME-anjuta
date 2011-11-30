@@ -131,7 +131,7 @@ Type*
 js_context_get_node_type (JSContext *my_cx, JSNode *node)
 {
 	Type *ret;
-	const gchar *name;
+	gchar *name;
 	if (!node)
 		return NULL;
 
@@ -155,10 +155,10 @@ js_context_get_node_type (JSContext *my_cx, JSNode *node)
 								if (tname)
 									return tname;
 								else
-									ret->name = g_strdup (name);
+									ret->name = name;
 							}
 							else
-								ret->name = g_strdup (name);
+								ret->name = name;
 							return ret;
 						}
 						break;
@@ -175,10 +175,10 @@ js_context_get_node_type (JSContext *my_cx, JSNode *node)
 								if (tname)
 									return tname;
 								else
-									ret->name = g_strdup (name);
+									ret->name = name;
 							}
 							else
-								ret->name = g_strdup (name);
+								ret->name = name;
 							return ret;
 						}
 						break;
@@ -237,8 +237,7 @@ js_context_get_node_type (JSContext *my_cx, JSNode *node)
 								g_assert_not_reached ();
 							else
 							{
-//								puts (name);
-								ret->name = g_strdup (name);
+								ret->name = name;
 								return ret;
 							}
 							break;
@@ -248,9 +247,8 @@ js_context_get_node_type (JSContext *my_cx, JSNode *node)
 								g_assert_not_reached ();
 							else
 							{
-//								printf ("call %s\n",name);
 								ret->isFuncCall = TRUE;
-								ret->name = g_strdup (name);
+								ret->name = name;
 								return ret;								
 							}
 							break;
@@ -341,7 +339,7 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 					tvar->node = node;
 
 					if (node->pn_u.func.name) {
-						tvar->name = g_strdup (js_node_get_name (node->pn_u.func.name));
+						tvar->name = js_node_get_name (node->pn_u.func.name);
 //puts (tvar->name);
 					}
 					if (tvar->name)
@@ -383,7 +381,7 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 							for (i = JS_NODE (i->pn_u.list.head); i; i = JS_NODE (i->pn_next))
 							{
 								g_assert (i->pn_arity == PN_NAME);
-								t->func_arg = g_list_append (t->func_arg, g_strdup (js_node_get_name (i)));
+								t->func_arg = g_list_append (t->func_arg, js_node_get_name (i));
 							}
 						}
 					}
@@ -406,11 +404,11 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 						break;
 					case TOK_LP:
 						{
-							const gchar *fname = js_node_get_name (node->pn_u.list.head);
+							gchar *fname = js_node_get_name (node->pn_u.list.head);
 							if (!fname)
 								break;
 							FuncCall *t = g_new (FuncCall, 1);
-							t->name = g_strdup (fname);
+							t->name = fname;
 							t->list = ((JSNode*)node->pn_u.list.head)->pn_next;
 							*calls = g_list_append (*calls, t);
 //printf ("call to %s\n", t->name);
@@ -421,9 +419,8 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 						{
 							g_assert (iter->pn_type == TOK_NAME);
 
-							const gchar *name = js_node_get_name (iter);
 							Var *t = g_new (Var, 1);
-							t->name = g_strdup (name);
+							t->name = js_node_get_name (iter);
 							t->node = iter->pn_u.name.expr;
 							t->line = iter->pn_pos.end;
 							my_cx->local_var = g_list_append (my_cx->local_var, t);
@@ -446,9 +443,8 @@ interpretator (JSNode *node, JSContext *my_cx, GList **calls)
 						{
 							if (!node->pn_u.binary.left)
 								break;
-							const gchar *name = js_node_get_name (node->pn_u.binary.left);
 							Var *t = (Var *)g_new (Var, 1);
-							t->name = g_strdup (name);
+							t->name = js_node_get_name (node->pn_u.binary.left);
 							t->node = node->pn_u.binary.right;
 							t->line = node->pn_pos.end;
 							my_cx->local_var = g_list_append (my_cx->local_var, t);

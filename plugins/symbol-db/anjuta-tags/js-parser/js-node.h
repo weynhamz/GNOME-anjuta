@@ -81,7 +81,7 @@ struct _JSNode
 };
 
 GType js_node_get_type (void) G_GNUC_CONST;
-const gchar* js_node_get_name (JSNode *node);
+gchar* js_node_get_name (JSNode *node);
 JSNode* js_node_new_from_file (const gchar *name);
 GList* js_node_get_list_member_from_rc (JSNode* node);
 JSNode* js_node_get_member_from_rc (JSNode* node, const gchar *mname);

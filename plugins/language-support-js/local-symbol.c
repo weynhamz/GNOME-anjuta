@@ -99,7 +99,7 @@ local_symbol_new (const gchar *filename)
 	priv->node = js_node_new_from_file (filename);
 	if (priv->node)
 	{
-		priv->missed_semicolon = g_list_copy (js_node_get_lines_missed_semicolon (priv->node));
+		priv->missed_semicolon = js_node_get_lines_missed_semicolon (priv->node);
 		priv->calls = NULL;
 		priv->my_cx = js_context_new_from_node (priv->node, &priv->calls);
 

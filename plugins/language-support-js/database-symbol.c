@@ -96,7 +96,6 @@ database_symbol_set_file (DatabaseSymbol *object, const gchar* filename)
 	priv->local = local_symbol_new (filename);
 	missed = local_symbol_get_missed_semicolons (priv->local);
 	highlight_lines (missed);
-	g_list_free (missed);
 }
 
 DatabaseSymbol*
