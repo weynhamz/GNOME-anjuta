@@ -427,6 +427,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		/* Restore geometry */
 		geometry = anjuta_session_get_string (session, "Anjuta", "Geometry");
 		anjuta_app_set_geometry (app, geometry);
+		g_free (geometry);
 		
 		/* Restore window state */
 		if (anjuta_session_get_int (session, "Anjuta", "Fullscreen"))
