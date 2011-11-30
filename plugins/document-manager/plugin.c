@@ -539,6 +539,7 @@ update_title (DocmanPlugin* doc_plugin)
 				title = g_strdup_printf ("%s", real_filename);
 		}
 		g_free (real_filename);
+		g_free (filename);
 		g_free (dir);
 	}
 	else
@@ -1544,6 +1545,7 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 				anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
 											 on_save_prompt_save_editor, plugin);
 				g_free (uri);
+				g_free (name);
 			}
 		}
 		g_list_free (buffers);

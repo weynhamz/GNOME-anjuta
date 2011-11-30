@@ -462,7 +462,9 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_misc_set_alignment (GTK_MISC (menu_label), 0.0, 0.5);
 	gtk_widget_show (menu_label);
 	menu_box = gtk_hbox_new(FALSE, 2);
-	
+
+	g_free (filename);
+
 	color.red = 0;
 	color.green = 0;
 	color.blue = 0;
