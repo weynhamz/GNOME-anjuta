@@ -132,6 +132,8 @@ public class ValaPlugin : Plugin {
 			return;
 
 		var current_target = current_src.parent_type (Anjuta.ProjectNodeType.TARGET);
+		if (current_target == null)
+			return;
 
 		current_target.foreach (TraverseType.PRE_ORDER, (node) => {
 			if (!(Anjuta.ProjectNodeType.SOURCE in node.get_node_type ()))
