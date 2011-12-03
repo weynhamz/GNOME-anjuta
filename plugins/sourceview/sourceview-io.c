@@ -2,17 +2,17 @@
 /*
  * anjuta-trunk
  * Copyright (C) Johannes Schmid 2008 <jhs@gnome.org>
- * 
+ *
  * anjuta-trunk is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * anjuta-trunk is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -73,7 +73,7 @@ sourceview_io_finalize (GObject *object)
 		g_source_remove (sio->monitor_idle);
 	if (sio->monitor)
 		g_object_unref (sio->monitor);
-	
+
 	G_OBJECT_CLASS (sourceview_io_parent_class)->finalize (object);
 }
 
@@ -140,7 +140,7 @@ sourceview_io_class_init (SourceviewIOClass *klass)
 		              g_cclosure_marshal_VOID__POINTER,
 		              G_TYPE_NONE, 1,
 		              G_TYPE_POINTER);
-	
+
 	io_signals[FILE_DELETED] =
 		g_signal_new ("deleted",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -152,14 +152,14 @@ sourceview_io_class_init (SourceviewIOClass *klass)
 		              NULL);
 }
 
-static void on_file_changed (GFileMonitor* monitor, 
+static void on_file_changed (GFileMonitor* monitor,
 							 GFile* file,
 							 GFile* other_file,
 							 GFileMonitorEvent event_type,
 							 gpointer data)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
-	
+
 	switch (event_type)
 	{
 		case G_FILE_MONITOR_EVENT_CREATED:
@@ -187,7 +187,7 @@ setup_monitor_idle(gpointer data)
 										NULL);
 	if (sio->monitor)
 	{
-		g_signal_connect (sio->monitor, "changed", 
+		g_signal_connect (sio->monitor, "changed",
 						  G_CALLBACK(on_file_changed), sio);
 		g_file_monitor_set_rate_limit (sio->monitor, RATE_LIMIT);
 	}
@@ -199,7 +199,7 @@ setup_monitor(SourceviewIO* sio)
 {
 	if (sio->monitor_idle > 0)
 		g_source_remove (sio->monitor_idle);
-	
+
 	sio->monitor_idle = g_timeout_add_seconds (TIMEOUT,
 											   setup_monitor_idle,
 											   sio);
@@ -267,7 +267,7 @@ sourceview_io_save (SourceviewIO* sio)
 	if (!sio->file)
 	{
 		GError* error = NULL;
-		g_set_error (&error, IO_ERROR_QUARK, 0, 
+		g_set_error (&error, IO_ERROR_QUARK, 0,
 					 _("Could not save file because filename not yet specified"));
 		g_signal_emit_by_name (sio, "save-failed", error);
 		g_error_free(error);
@@ -282,24 +282,24 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	gboolean backup = TRUE;
 	gsize len;
-	
+
 	g_return_if_fail (file != NULL);
-	
+
 	cancel_monitor (sio);
-	
+
 	backup = g_settings_get_boolean (sio->sv->priv->settings,
 	                                 "sourceview-backup");
-	
+
 	if (sio->last_encoding == NULL)
 	{
-		sio->write_buffer = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
+		sio->write_buffer = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv),
 														 NULL);
 		len = strlen (sio->write_buffer);
 	}
 	else
 	{
 		GError* err = NULL;
-		gchar* buffer_text = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv), 
+		gchar* buffer_text = ianjuta_editor_get_text_all (IANJUTA_EDITOR(sio->sv),
 														  NULL);
 		sio->write_buffer = anjuta_convert_from_utf8 (buffer_text,
 													  -1,
@@ -325,7 +325,7 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	                               on_save_finished,
 	                               sio);
 	anjuta_shell_saving_push (shell);
-	
+
 	if (sio->file != file)
 	{
 		if (sio->file)
@@ -342,7 +342,7 @@ static void insert_text_in_document(SourceviewIO* sio, const gchar* text, gsize 
 	gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (sio->sv->priv->document));
 
 	/* Insert text in the buffer */
-	gtk_text_buffer_set_text (GTK_TEXT_BUFFER (document), 
+	gtk_text_buffer_set_text (GTK_TEXT_BUFFER (document),
 							  text,
 							  len);
 
@@ -367,13 +367,13 @@ append_buffer (SourceviewIO* sio, gsize size)
 		gchar *converted_text = NULL;
 		gsize new_len = size;
 		const AnjutaEncoding* enc = NULL;
-			
+
 		converted_text = anjuta_convert_to_utf8 (sio->read_buffer,
 												 size,
 												 &enc,
 												 &new_len,
 												 &conv_error);
-		if  (converted_text == NULL)	
+		if  (converted_text == NULL)
 		{
 			/* Last chance, let's try 8859-15 */
 			enc = anjuta_encoding_get_from_charset( "ISO-8859-15");
@@ -387,7 +387,7 @@ append_buffer (SourceviewIO* sio, gsize size)
 		if (converted_text == NULL)
 		{
 			g_return_val_if_fail (conv_error != NULL, FALSE);
-			
+
 			g_signal_emit_by_name (sio, "open-failed", conv_error);
 			g_error_free (conv_error);
 			g_cancellable_cancel (sio->cancel);
@@ -407,7 +407,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	GInputStream* input_stream = G_INPUT_STREAM(input);
 	gsize current_bytes = 0;
 	GError* err = NULL;
-	
+
 	current_bytes = g_input_stream_read_finish (input_stream, result, &err);
 	if (err)
 	{
@@ -419,7 +419,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 		sio->bytes_read = 0;
 		return;
 	}
-	
+
 	sio->bytes_read += current_bytes;
 	if (current_bytes != 0)
 	{
@@ -450,15 +450,15 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 {
 	GFileInputStream* input_stream;
 	GError* err = NULL;
-	
+
 	g_return_if_fail (file != NULL);
-	
+
 	if (sio->file)
 		g_object_unref (sio->file);
 	sio->file = file;
 	g_object_ref (sio->file);
 	set_display_name(sio);
-	
+
 	input_stream = g_file_read (file, NULL, &err);
 	if (!input_stream)
 	{
@@ -484,40 +484,38 @@ sourceview_io_get_file (SourceviewIO* sio)
 	return sio->file;
 }
 
-void 
+void
 sourceview_io_cancel (SourceviewIO* sio)
 {
 	g_cancellable_cancel (sio->cancel);
 }
 
-gchar* 
+const gchar*
 sourceview_io_get_filename (SourceviewIO* sio)
 {
 	static gint new_file_count = 1;
-	if (sio->filename)
-		return g_strdup(sio->filename);	
-	else /* new file */
+	if (sio->filename == NULL) /* new file */
 	{
 		sio->filename = g_strdup_printf (_("New file %d"), new_file_count++);
-		return g_strdup (sio->filename);
-	}	
+	}
+	return sio->filename;
 }
 
-void 
+void
 sourceview_io_set_filename (SourceviewIO* sio, const gchar* filename)
 {
 	g_free (sio->filename);
 	sio->filename = g_strdup(filename);
 }
 
-gchar* 
+gchar*
 sourceview_io_get_mime_type (SourceviewIO* sio)
 {
 	GFileInfo* file_info;
-	
+
 	if (!sio->file)
 		return NULL;
-	
+
 	file_info = g_file_query_info (sio->file,
 								   G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 								   G_FILE_QUERY_INFO_NONE,
@@ -531,7 +529,7 @@ sourceview_io_get_mime_type (SourceviewIO* sio)
 	}
 	else
 		return NULL;
-	
+
 }
 
 gboolean
@@ -539,10 +537,10 @@ sourceview_io_get_read_only (SourceviewIO* sio)
 {
 	GFileInfo* file_info;
 	gboolean retval;
-	
+
 	if (!sio->file)
 		return FALSE;
-	
+
 	file_info = g_file_query_info (sio->file,
 								   G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
 								   G_FILE_QUERY_INFO_NONE,
@@ -550,7 +548,7 @@ sourceview_io_get_read_only (SourceviewIO* sio)
 								   NULL);
 	if (!file_info)
 		return FALSE;
-	
+
 	retval = !g_file_info_get_attribute_boolean (file_info,
 												G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
 	g_object_unref (file_info);

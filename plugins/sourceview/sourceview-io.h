@@ -2,17 +2,17 @@
 /*
  * anjuta-trunk
  * Copyright (C) Johannes Schmid 2008 <jhs@gnome.org>
- * 
+ *
  * anjuta-trunk is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * anjuta-trunk is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -53,7 +53,7 @@ struct _SourceviewIOClass
 struct _SourceviewIO
 {
 	GObject parent_instance;
-	
+
 	GFile* file;
 	gchar* filename;
 	Sourceview* sv;
@@ -63,7 +63,7 @@ struct _SourceviewIO
 	GFileMonitor* monitor;
 	guint monitor_idle;
 	gssize bytes_read;
-	
+
 	const AnjutaEncoding* last_encoding;
 };
 
@@ -73,7 +73,7 @@ void sourceview_io_save_as (SourceviewIO* sio, GFile* file);
 void sourceview_io_open (SourceviewIO* sio, GFile* file);
 void sourceview_io_cancel (SourceviewIO* sio);
 GFile* sourceview_io_get_file (SourceviewIO* sio);
-gchar* sourceview_io_get_filename (SourceviewIO* sio);
+const gchar* sourceview_io_get_filename (SourceviewIO* sio);
 void sourceview_io_set_filename (SourceviewIO* sio, const gchar* filename);
 gchar* sourceview_io_get_mime_type (SourceviewIO* sio);
 gboolean sourceview_io_get_read_only (SourceviewIO* sio);

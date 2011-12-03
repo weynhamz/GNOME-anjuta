@@ -59,13 +59,13 @@ struct _AnjutaDocmanPriv {
 	DocmanPlugin *plugin;
 	GSettings* settings;
 	GList *pages;		/* list of AnjutaDocmanPage's */
-	
+
 	GtkWidget *fileselection;
-	
+
 	GtkWidget *popup_menu;	/* shared context-menu for main-notebook pages */
 	gboolean tab_pressed;	/* flag for deferred notebook page re-arrangement */
 	gboolean shutingdown;
-	
+
 	GSList* radio_group;
 	GtkActionGroup *documents_action_group;
 	gint documents_merge_id;
@@ -126,13 +126,13 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 	gint n_pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
 	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
 	gchar *action_name;
-	
-	action = gtk_ui_manager_get_action (ui, 
+
+	action = gtk_ui_manager_get_action (ui,
 										"/MenuMain/PlaceHolderDocumentsMenus/Documents/PreviousDocument");
 	g_object_set (action, "sensitive", current_page > 0, NULL);
-	action = gtk_ui_manager_get_action (ui, 
+	action = gtk_ui_manager_get_action (ui,
 										"/MenuMain/PlaceHolderDocumentsMenus/Documents/NextDocument");
-	g_object_set (action, "sensitive", (current_page + 1) < n_pages, NULL);	
+	g_object_set (action, "sensitive", (current_page + 1) < n_pages, NULL);
 	action_name = g_strdup_printf ("Tab_%d", current_page);
 	action = gtk_action_group_get_action (docman->priv->documents_action_group, action_name);
 	g_free (action_name);
@@ -222,17 +222,17 @@ anjuta_docman_update_documents_menu (AnjutaDocman* docman)
 				       action_name, action_name,
 				       GTK_UI_MANAGER_MENUITEM,
 				       FALSE);
-		
+
 		if (i == gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
 			gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
-		
+
 		g_object_unref (action);
 
 		g_free (action_name);
 		g_free (accel);
 	}
 	anjuta_docman_update_documents_menu_status (docman);
-	priv->documents_merge_id = id;	
+	priv->documents_merge_id = id;
 }
 
 static void
@@ -268,7 +268,7 @@ on_notebook_page_close_button_enter (GtkButton *button,
 									 AnjutaDocmanPage *page)
 {
 	g_return_if_fail (page != NULL);
-	
+
 	gtk_widget_set_sensitive (page->close_image, TRUE);
 }
 
@@ -277,7 +277,7 @@ on_notebook_page_close_button_leave (GtkButton* button,
 									 AnjutaDocmanPage *page)
 {
 	g_return_if_fail (page != NULL);
-	
+
 	if (! page->is_current)
 		gtk_widget_set_sensitive (page->close_image,FALSE);
 }
@@ -288,7 +288,7 @@ on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* d
 {
 	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
 		docman->priv->tab_pressed = TRUE;
-	
+
 	return FALSE;
 }
 
@@ -297,7 +297,7 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 {
 	AnjutaDocmanPage *page;
 	AnjutaDocmanPage *curr_page = NULL;
-	
+
 	docman->priv->tab_pressed = FALSE;
 
 	/* close on middle click */
@@ -319,9 +319,9 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 			}
 		}
 		if (node == NULL)
-			return FALSE;		
+			return FALSE;
 
-		if (page != NULL) 
+		if (page != NULL)
 		{
 			on_close_file_activate (NULL, docman->priv->plugin);
 
@@ -329,11 +329,11 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 			{
 				/* set the old current page */
 				anjuta_docman_set_current_document (docman, curr_page->doc);
-			}		
+			}
 		}
 
 		return FALSE;
-	}	
+	}
 
 	/* normal button click close */
 	if (g_settings_get_boolean (docman->priv->settings, EDITOR_TABS_RECENT_FIRST))
@@ -357,7 +357,7 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 }
 
 static gboolean
-on_notebook_tab_double_click(GtkWidget *widget, GdkEventButton *event, 
+on_notebook_tab_double_click(GtkWidget *widget, GdkEventButton *event,
                              AnjutaDocman* docman)
 {
 	if (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
@@ -379,7 +379,7 @@ on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 	anjuta_docman_update_documents_menu(docman);
 }
 
-static GdkPixbuf* 
+static GdkPixbuf*
 anjuta_docman_get_pixbuf_for_file (GFile* file)
 {
 	/* add a nice mime-type icon if we can */
@@ -389,9 +389,9 @@ anjuta_docman_get_pixbuf_for_file (GFile* file)
 	GdkPixbuf* pixbuf;
 	GFileInfo* file_info;
 	GError* err = NULL;
-	
+
 	g_return_val_if_fail (file != NULL, NULL);
-	
+
 	file_info = g_file_query_info (file,
 								   "standard::*",
 								   G_FILE_QUERY_INFO_NONE,
@@ -399,7 +399,7 @@ anjuta_docman_get_pixbuf_for_file (GFile* file)
 								   &err);
 	if (err)
 		DEBUG_PRINT ("GFile-Error %s", err->message);
-	
+
 	if (file_info != NULL)
 	{
 		icon = g_file_info_get_icon (file_info);
@@ -411,7 +411,7 @@ anjuta_docman_get_pixbuf_for_file (GFile* file)
 		pixbuf = gtk_icon_info_load_icon (icon_info, NULL);
 		gtk_icon_info_free(icon_info);
 		g_object_unref (icon);
-		
+
 		if (pixbuf != NULL)
 		{
 			return pixbuf;
@@ -434,14 +434,14 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	GdkColor color;
 	const gchar *filename;
 	gchar *ruri;
-	
+
 	g_return_if_fail (IANJUTA_IS_DOCUMENT (doc));
-	
+
 	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
 
 	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_show (close_pixmap);
-	
+
 	/* setup close button, zero out {x,y} thickness to get smallest possible size */
 	close_button = gtk_button_new();
 	gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
@@ -449,7 +449,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
 
 	gtk_widget_set_name (close_button, "anjuta-tab-close-button");
-	
+
 	gtk_widget_set_size_request (close_button, w, h);
 	gtk_widget_set_tooltip_text (close_button, _("Close file"));
 
@@ -463,30 +463,28 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_widget_show (menu_label);
 	menu_box = gtk_hbox_new(FALSE, 2);
 
-	g_free (filename);
-
 	color.red = 0;
 	color.green = 0;
 	color.blue = 0;
-	
+
 	gtk_widget_modify_fg (close_button, GTK_STATE_NORMAL, &color);
 	gtk_widget_modify_fg (close_button, GTK_STATE_INSENSITIVE, &color);
 	gtk_widget_modify_fg (close_button, GTK_STATE_ACTIVE, &color);
 	gtk_widget_modify_fg (close_button, GTK_STATE_PRELIGHT, &color);
 	gtk_widget_modify_fg (close_button, GTK_STATE_SELECTED, &color);
 	gtk_widget_show(close_button);
-	
+
 	box = gtk_hbox_new (FALSE, 2);
 	/* create our layout/event boxes */
 	event_box = gtk_event_box_new();
 	gtk_event_box_set_visible_window (GTK_EVENT_BOX (event_box), FALSE);
 
-	event_hbox = gtk_hbox_new (FALSE, 2);	
-	
+	event_hbox = gtk_hbox_new (FALSE, 2);
+
 	page->menu_icon = gtk_image_new();
 	page->mime_icon = gtk_image_new();
 	gtk_box_pack_start (GTK_BOX (event_hbox), page->mime_icon, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (menu_box), page->menu_icon, FALSE, FALSE, 0);	
+	gtk_box_pack_start (GTK_BOX (menu_box), page->menu_icon, FALSE, FALSE, 0);
 	if (file != NULL)
 	{
 		GdkPixbuf* pixbuf = anjuta_docman_get_pixbuf_for_file (file);
@@ -508,24 +506,24 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 			g_free (tip);
 		}
 	}
-	
+
 	gtk_box_pack_start (GTK_BOX (event_hbox), label, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (event_hbox), close_button, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (event_box), event_hbox);
-	
+
 	/* setup the data hierarchy */
 	g_object_set_data (G_OBJECT (box), "event_box", event_box);
-	
+
 	/* pack our top-level layout box */
 	gtk_box_pack_start (GTK_BOX (box), event_box, TRUE, TRUE, 0);
-	
+
 	/* show the widgets of the tab */
 	gtk_widget_show_all(box);
-	
+
 	/* menu box */
 	gtk_box_pack_start (GTK_BOX (menu_box), menu_label, TRUE, TRUE, 0);
 	gtk_widget_show_all (menu_box);
-	
+
 	/* main box */
 	g_signal_connect (G_OBJECT (close_button), "clicked",
 					  G_CALLBACK (on_notebook_page_close_button_click),
@@ -562,7 +560,7 @@ static AnjutaDocmanPage *
 anjuta_docman_page_new (void)
 {
 	AnjutaDocmanPage *page;
-	
+
 	page = g_new0 (AnjutaDocmanPage, 1); /* don't try to survive a memory-crunch */
 	return page;
 }
@@ -590,7 +588,7 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 		gtk_widget_hide (docman->priv->fileselection);
 		return;
 	}
-	
+
 	list = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 	if (list != NULL)
 	{
@@ -607,7 +605,7 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 			}
 		}
 		g_slist_free (list);
-	
+
 /*		if (entry_filename)
 		{
 			list = g_slist_remove(list, entry_filename);
@@ -620,8 +618,8 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 static GtkWidget*
 create_file_open_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 {
-	GtkWidget* dialog = 
-		gtk_file_chooser_dialog_new (_("Open file"), 
+	GtkWidget* dialog =
+		gtk_file_chooser_dialog_new (_("Open file"),
 									parent,
 									GTK_FILE_CHOOSER_ACTION_OPEN,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -639,13 +637,13 @@ create_file_open_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 static GtkWidget*
 create_file_save_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 {
-	GtkWidget* dialog = 
-		gtk_file_chooser_dialog_new (_("Save file as"), 
+	GtkWidget* dialog =
+		gtk_file_chooser_dialog_new (_("Save file as"),
 									parent,
 									GTK_FILE_CHOOSER_ACTION_SAVE,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 									GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
-									NULL); 
+									NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
 	return dialog;
 }
@@ -677,10 +675,10 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 	GtkWidget *dialog;
 	gint response;
 	gboolean file_saved = TRUE;
-	
+
 	g_return_val_if_fail (ANJUTA_IS_DOCMAN (docman), FALSE);
 	g_return_val_if_fail (IANJUTA_IS_DOCUMENT (doc), FALSE);
-	
+
 	if (parent_window)
 	{
 		parent = parent_window;
@@ -689,9 +687,9 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 	{
 		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
 	}
-	
+
 	dialog = create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
-	
+
 	if ((file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL)) != NULL)
 	{
 		gchar* file_uri = g_file_get_uri (file);
@@ -703,14 +701,14 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), filename);
 	else
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), "");
-	
+
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	if (response != GTK_RESPONSE_ACCEPT)
 	{
 		gtk_widget_destroy (dialog);
 		return FALSE;
 	}
-	
+
 	uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 	file = g_file_new_for_uri (uri);
 	if (g_file_query_exists (file, NULL))
@@ -744,14 +742,14 @@ anjuta_docman_save_document_as (AnjutaDocman *docman, IAnjutaDocument *doc,
 	{
 		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (doc), file, NULL);
 	}
-	
+
 	if (g_settings_get_boolean (docman->priv->settings,
 	                            EDITOR_TABS_ORDERING))
 		anjuta_docman_order_tabs (docman);
 
 	gtk_widget_destroy (dialog);
 	g_free (uri);
-	
+
 	if (file_saved)
 	{
 		/* Update mime icons */
@@ -775,9 +773,9 @@ anjuta_docman_save_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 {
 	GFile* file;
 	gboolean ret;
-	
+
 	file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
-	
+
 	if (file == NULL)
 	{
 		anjuta_docman_set_current_document (docman, doc);
@@ -798,10 +796,10 @@ anjuta_docman_dispose (GObject *obj)
 {
 	AnjutaDocman *docman;
 	GList *node;
-	
+
 	docman = ANJUTA_DOCMAN (obj);
 	docman->priv->shutingdown = TRUE;
-	
+
 	DEBUG_PRINT ("%s", "Disposing AnjutaDocman object");
 	if (docman->priv->popup_menu)
 	{
@@ -812,7 +810,7 @@ anjuta_docman_dispose (GObject *obj)
 	{
 		/* Destroy all page data (more than just the notebook-page-widgets) */
 		GList *pages;
-		
+
 		g_signal_handlers_disconnect_by_func (G_OBJECT (docman),
 											 (gpointer) on_notebook_switch_page,
 											 (gpointer) docman);
@@ -836,7 +834,7 @@ static void
 anjuta_docman_finalize (GObject *obj)
 {
 	AnjutaDocman *docman;
-	
+
 	DEBUG_PRINT ("%s", "Finalising AnjutaDocman object");
 	docman = ANJUTA_DOCMAN (obj);
 	if (docman->priv)
@@ -876,11 +874,11 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->finalize = anjuta_docman_finalize;
 	object_class->dispose = anjuta_docman_dispose;
-	
+
 	if (!initialized)
 	{
 		initialized = TRUE;
-		
+
 		/* Signals */
 	docman_signals [DOC_ADDED] =
 		g_signal_new ("document-added",
@@ -902,7 +900,7 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 			G_TYPE_NONE,
 			1,
 			G_TYPE_OBJECT);
-			
+
 	}
 
 	gtk_rc_parse_string ("style \"anjuta-tab-close-button-style\"\n"
@@ -948,7 +946,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 	if (!docman->priv->shutingdown)
 	{
 		AnjutaDocmanPage *page;
-		
+
 		page = anjuta_docman_get_nth_page (docman, page_num);
 		g_signal_handlers_block_by_func (G_OBJECT (docman),
 										 (gpointer) on_notebook_switch_page,
@@ -956,7 +954,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		anjuta_docman_set_current_document (docman, page->doc);
 		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
 										   (gpointer) on_notebook_switch_page,
-										   (gpointer) docman);			
+										   (gpointer) docman);
 		/* TTimo: reorder so that the most recently used files are
 		 * at the beginning of the tab list
 		 */
@@ -969,7 +967,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		}
 		/* activate the right item in the documents menu */
 		anjuta_docman_update_documents_menu_status (docman);
-		g_signal_emit_by_name (G_OBJECT (docman), "document-changed", page->doc);	
+		g_signal_emit_by_name (G_OBJECT (docman), "document-changed", page->doc);
 	}
 }
 
@@ -985,7 +983,7 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 {
 	AnjutaDocmanPage *page;
 	gint page_num;
-	
+
 	g_signal_handlers_disconnect_by_func (G_OBJECT (doc),
 										  G_CALLBACK (on_document_update_save_ui),
 										  docman);
@@ -995,7 +993,7 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	docman->priv->pages = g_list_remove (docman->priv->pages, page);
-	
+
 	if (!docman->priv->shutingdown)
 	{
 		if ((page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman))) == -1)
@@ -1027,7 +1025,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, GFile* file,
 {
 	IAnjutaEditor *te;
 	IAnjutaEditorFactory* factory;
-	
+
 	factory = anjuta_shell_get_interface (docman->shell, IAnjutaEditorFactory, NULL);
 
 	te = ianjuta_editor_factory_new_editor (factory, file, name, NULL);
@@ -1052,19 +1050,19 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 	/* list order matches pages in book, initially at least */
 	docman->priv->pages = g_list_prepend (docman->priv->pages, (gpointer)page);
-	
+
 	gtk_notebook_prepend_page_menu (GTK_NOTEBOOK (docman), page->widget,
 									page->box, page->menu_box);
 	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget,
 									 TRUE);
-	
+
 	g_signal_connect (G_OBJECT (doc), "update-save-ui",
 					  G_CALLBACK (on_document_update_save_ui), docman);
 	g_signal_connect (G_OBJECT (doc), "destroy",
 					  G_CALLBACK (on_document_destroy), docman);
-	
+
 	g_object_ref (doc);
-	
+
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 	anjuta_docman_update_documents_menu (docman);
@@ -1081,7 +1079,7 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 
 	if (!doc)
 		return;
-	
+
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	if (page)
 	{
@@ -1161,7 +1159,7 @@ anjuta_docman_get_nth_page (AnjutaDocman *docman, gint page_num)
 			return page;
 		node = g_list_next (node);
 	}
-	
+
 	return NULL;
 }
 
@@ -1263,13 +1261,13 @@ anjuta_docman_goto_file_line (AnjutaDocman *docman, GFile* file, gint lineno)
 IAnjutaEditor *
 anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 								   gint line, gboolean mark)
-{	
+{
 	IAnjutaDocument *doc;
 	IAnjutaEditor *te;
 	AnjutaDocmanPage *page;
 
 	g_return_val_if_fail (file != NULL, NULL);
-	
+
 	if (!g_file_query_exists (file, NULL))
 	{
 		return NULL;
@@ -1280,20 +1278,20 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 	if (page && page->doc && IANJUTA_IS_FILE (page->doc))
 	{
 		GFile* file = ianjuta_file_get_file (IANJUTA_FILE (page->doc), NULL);
-		
+
 		if (file)
 		{
 			gint line = 0;
-			
+
 			if (IANJUTA_IS_EDITOR (page->doc))
 			{
 				line = ianjuta_editor_get_lineno (IANJUTA_EDITOR (page->doc), NULL);
 			}
-		
+
 			an_file_history_push (file, line);
 		}
 	}
-	
+
 	/* if possible, use a document that's already open */
 	doc = anjuta_docman_get_document_for_file (docman, file);
 	if (doc == NULL)
@@ -1311,7 +1309,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 		te = NULL;
 	}
 
-	if (te != NULL)	
+	if (te != NULL)
 	{
 		if (line >= 0)
 		{
@@ -1331,7 +1329,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 		anjuta_docman_present_notebook_page (docman, doc);
 		ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
 	}
-	
+
 	return te;
 }
 
@@ -1342,16 +1340,16 @@ anjuta_docman_get_file (AnjutaDocman *docman, const gchar *fn)
 	GList *node;
 	gchar *real_path;
 	gchar *fname;
-	
+
 	g_return_val_if_fail (fn, NULL);
-	
-	/* If it is full and absolute path, there is no need to 
+
+	/* If it is full and absolute path, there is no need to
 	go further, even if the file is not found*/
 	if (g_path_is_absolute(fn))
 	{
 		return g_file_new_for_path (fn);
 	}
-	
+
 	/* First, check if we can get the file straightaway */
 	real_path = anjuta_util_get_real_path (fn);
 	if (g_file_test (real_path, G_FILE_TEST_IS_REGULAR))
@@ -1362,7 +1360,7 @@ anjuta_docman_get_file (AnjutaDocman *docman, const gchar *fn)
 
 	/* Get the name part of the file */
 	fname = g_path_get_basename (fn);
-	
+
 	/* Next, check if the current text editor buffer matches this name */
 	if (NULL != (doc = anjuta_docman_get_current_document (docman)))
 	{
@@ -1430,14 +1428,14 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	gchar* dirty_char;
 	gchar* read_only;
 	gchar* label;
-	
+
 	if (doc == NULL)
 		return;
 
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	if (!page || page->label == NULL || page->menu_label == NULL)
 		return;
-	
+
 	if (!ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
 	{
 		dirty_char = "";
@@ -1454,7 +1452,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	{
 		read_only = "";
 	}
-	
+
 	file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 	if (file)
 	{
@@ -1495,7 +1493,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 static void
 anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {
-	anjuta_shell_present_widget (docman->shell, 
+	anjuta_shell_present_widget (docman->shell,
 								 GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 }
 
@@ -1538,13 +1536,13 @@ anjuta_docman_delete_all_indicators (AnjutaDocman *docman)
 
 /* Saves a file to keep it synchronized with external programs */
 /* CHECKME unused */
-void 
+void
 anjuta_docman_save_file_if_modified (AnjutaDocman *docman, GFile* file)
 {
 	IAnjutaDocument *doc;
 
 	g_return_if_fail (file != NULL);
-	
+
 	doc = anjuta_docman_get_document_for_file (docman, file);
 	if (doc)
 	{
@@ -1557,7 +1555,7 @@ anjuta_docman_save_file_if_modified (AnjutaDocman *docman, GFile* file)
 
 /* If an external program changed the file, we must reload it */
 /* CHECKME unused */
-void 
+void
 anjuta_docman_reload_file (AnjutaDocman *docman, GFile* file)
 {
 	IAnjutaDocument *doc;
@@ -1637,16 +1635,16 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 	GList *node;
 	gchar *path;
 	gchar *local_real_path = NULL;
-	
+
 	g_return_val_if_fail (file != NULL, NULL);
 
-	
+
 	path = g_file_get_path (file);
 	if (path)
 	{
 		local_real_path = anjuta_util_get_real_path (path);
-		if (local_real_path) 
-		{	
+		if (local_real_path)
+		{
 			g_free (path);
 		}
 		else
@@ -1658,23 +1656,23 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 	{
 		return NULL;
 	}
-	
+
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 	{
 		AnjutaDocmanPage *page;
 		GFile* doc_file;
-							
+
 		page = (AnjutaDocmanPage *) node->data;
 
 		if (page && page->widget && IANJUTA_IS_DOCUMENT (page->doc))
 		{
 			IAnjutaDocument *doc;
-				
+
 			doc = page->doc;
 			doc_file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 			if (doc_file)
 			{
-					
+
 				/* Try exact match first */
 				if (g_file_equal (file, doc_file))
 				{
@@ -1682,7 +1680,7 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 					file_doc = doc;
 					break;
 				}
-					
+
 				/* Try a local file alias */
 				if ((file_doc == NULL) && (local_real_path))
 				{
@@ -1719,7 +1717,7 @@ anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman)
 {
 	GList *wids;
 	GList *node;
-	
+
 	wids = NULL;
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 	{

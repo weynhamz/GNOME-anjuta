@@ -3,12 +3,12 @@
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU Library General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -36,13 +36,13 @@ struct _SourceviewPrinting
 
 
 static gboolean
-paginate (GtkPrintOperation        *operation, 
+paginate (GtkPrintOperation        *operation,
 					GtkPrintContext          *context,
 					SourceviewPrinting* printing)
 {
 	if (gtk_source_print_compositor_paginate (printing->compositor, context))
 	{
-		gint n_pages;	
+		gint n_pages;
 		anjuta_status_progress_tick (printing->status, NULL,
 																 _("Preparing pages for printing"));
 		n_pages = gtk_source_print_compositor_get_n_pages (printing->compositor);
@@ -50,7 +50,7 @@ paginate (GtkPrintOperation        *operation,
 
 		return TRUE;
 	}
-     
+
 	return FALSE;
 }
 
@@ -65,7 +65,7 @@ draw_page (GtkPrintOperation        *operation,
 }
 
 static void
-end_print (GtkPrintOperation        *operation, 
+end_print (GtkPrintOperation        *operation,
            GtkPrintContext          *context,
            SourceviewPrinting* printing)
 {
@@ -97,25 +97,25 @@ custom_widget_apply (GtkPrintOperation* operation,
 	gtk_source_print_compositor_set_print_footer (printing->compositor,
 	                                              g_settings_get_boolean (printing->sv->priv->settings,
 	                                                                      PRINT_FOOTER));
-	
+
 	gtk_source_print_compositor_set_highlight_syntax (printing->compositor,
 	                                                  g_settings_get_boolean (printing->sv->priv->settings,
-	                                                                          PRINT_HIGHLIGHT));	
+	                                                                          PRINT_HIGHLIGHT));
 }
 
 static GObject*
 create_custom_widget (GtkPrintOperation* operation,
                       Sourceview* sv)
 {
-	GtkWidget* toggle_linewrap = 
+	GtkWidget* toggle_linewrap =
 		gtk_check_button_new_with_label (_("Wrap lines"));
-	GtkWidget* toggle_linenumbers = 
+	GtkWidget* toggle_linenumbers =
 		gtk_check_button_new_with_label (_("Line numbers"));
-	GtkWidget* toggle_header = 
+	GtkWidget* toggle_header =
 		gtk_check_button_new_with_label (_("Header"));
-	GtkWidget* toggle_footer = 
+	GtkWidget* toggle_footer =
 		gtk_check_button_new_with_label (_("Footer"));
-	GtkWidget* toggle_highlight = 
+	GtkWidget* toggle_highlight =
 		gtk_check_button_new_with_label (_("Highlight source code"));
 	GtkWidget* vbox = gtk_vbox_new (TRUE, 5);
 
@@ -151,7 +151,7 @@ print_setup (Sourceview* sv)
 	SourceviewPrinting* printing = g_slice_new0(SourceviewPrinting);
 	const gchar *filename;
 	gchar *basename;
-	
+
 	filename = ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv), NULL);
 	basename = g_filename_display_basename (filename);
 
@@ -168,7 +168,7 @@ print_setup (Sourceview* sv)
 	                                               "%T",
 	                                               basename,
 	                                               "Page %N/%Q");
-	
+
 	operation = gtk_print_operation_new ();
 
 	gtk_print_operation_set_job_name (operation, basename);
@@ -178,31 +178,31 @@ print_setup (Sourceview* sv)
 	printing->compositor = compositor;
 	printing->sv = sv;
 	printing->status = anjuta_shell_get_status (sv->priv->plugin->shell, NULL);
-	
-	g_signal_connect (G_OBJECT (operation), "paginate", 
+
+	g_signal_connect (G_OBJECT (operation), "paginate",
 			  G_CALLBACK (paginate), printing);
-	g_signal_connect (G_OBJECT (operation), "draw-page", 
+	g_signal_connect (G_OBJECT (operation), "draw-page",
 										G_CALLBACK (draw_page), printing);
-	g_signal_connect (G_OBJECT (operation), "end-print", 
+	g_signal_connect (G_OBJECT (operation), "end-print",
 										G_CALLBACK (end_print), printing);
-	g_signal_connect (G_OBJECT (operation), "create-custom-widget", 
+	g_signal_connect (G_OBJECT (operation), "create-custom-widget",
 										G_CALLBACK (create_custom_widget), sv);
-	g_signal_connect (G_OBJECT (operation), "custom-widget-apply", 
-										G_CALLBACK (custom_widget_apply), printing);	                  
-	
+	g_signal_connect (G_OBJECT (operation), "custom-widget-apply",
+										G_CALLBACK (custom_widget_apply), printing);
+
 	anjuta_status_progress_reset (printing->status);
 	anjuta_status_progress_add_ticks (printing->status, 100);
 	g_free (basename);
-	
+
 	return operation;
 }
 
-void 
+void
 sourceview_print(Sourceview* sv)
 {
 	GtkPrintOperation* operation = print_setup (sv);
-	
-	gtk_print_operation_run (operation, 
+
+	gtk_print_operation_run (operation,
 	                         GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 	                         NULL, NULL);
 	g_object_unref (operation);
@@ -211,11 +211,11 @@ sourceview_print(Sourceview* sv)
 
 void
 sourceview_print_preview(Sourceview* sv)
-{	
+{
 	GtkPrintOperation* operation = print_setup (sv);
-	gtk_print_operation_run (operation, 
+	gtk_print_operation_run (operation,
 													 GTK_PRINT_OPERATION_ACTION_PREVIEW,
 													 NULL, NULL);
-	g_object_unref (operation);	
+	g_object_unref (operation);
 }
 
