@@ -23,7 +23,7 @@
 
 #define ICON_FILE "anjuta-project-wizard-plugin-48.png"
 
-#include <glib.h> 
+#include <glib.h>
 
 struct _NPWPlugin;
 typedef struct _NPWDruid NPWDruid;

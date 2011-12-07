@@ -51,7 +51,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkHBox" id="hbox1">
+      <object class="GtkHBox" id="error_page">
         <property name="visible">True</property>
         <property name="spacing">6</property>
         <child>
@@ -131,7 +131,7 @@
       </object>
       <packing>
         <property name="page_type">progress</property>
-        <property name="title">Application Assistant</property>
+        <property name="title">...</property>
         <property name="header_image">applogo.png</property>
       </packing>
     </child>

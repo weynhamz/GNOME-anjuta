@@ -65,17 +65,20 @@
 #define NEW_PROJECT_DIALOG "druid_window"
 #define PROJECT_LIST "project_list"
 #define PROJECT_BOOK "project_book"
+#define PROJECT_PAGE "project_book"
+#define ERROR_PAGE "error_page"
+#define PROGRESS_PAGE "progress_page"
+#define FINISH_PAGE "finish_page"
+#define PROPERTY_PAGE "property_page"
 #define PROPERTY_TABLE "property_table"
 #define ERROR_VBOX "error_vbox"
 #define ERROR_ICON "error_icon"
 #define ERROR_MESSAGE "error_message"
 #define ERROR_DETAIL "error_detail"
 
-#define PROJECT_PAGE 0
-#define ERROR_PAGE 1
-#define PROGRESS_PAGE 2
-#define FINISH_PAGE 3
-#define PROPERTY_PAGE 4
+
+#define PROJECT_PAGE_INDEX 0
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -84,19 +87,22 @@ struct _NPWDruid
 	GtkWindow* window;
 
 	GtkNotebook* project_book;
+	GtkWidget *error_page;
 	GtkVBox *error_vbox;
 	GtkWidget *error_extra_widget;
 	GtkImage *error_icon;
 	GtkLabel *error_message;
 	GtkWidget *error_detail;
 
+	GtkWidget *project_page;
+	GtkWidget *progress_page;
+	GtkWidget *finish_page;
+
 	const gchar* project_file;
 	NPWPlugin* plugin;
 
-	gint next_page;
-	gint last_page;
-
 	GQueue* page_list;
+
 	GHashTable* values;
 	NPWPageParser* parser;
 	GList* header_list;
@@ -113,6 +119,9 @@ enum {
 	DATA_COLUMN
 };
 
+/* Helper functon
+ *---------------------------------------------------------------------------*/
+
 /* Create error page
  *---------------------------------------------------------------------------*/
 
@@ -128,7 +137,10 @@ npw_druid_fill_error_page (NPWDruid* druid, GtkWidget *extra_widget, GtkMessageT
 	const gchar *title = NULL;
 
 	assistant = GTK_ASSISTANT (druid->window);
-	page = gtk_assistant_get_nth_page (assistant, ERROR_PAGE);
+
+	/* Add page to assistant after current one */
+	page = druid->error_page;
+	gtk_assistant_insert_page (assistant, page, gtk_assistant_get_current_page (assistant) + 1);
 
 	/* Set dialog kind */
 	switch (type)
@@ -241,11 +253,11 @@ npw_druid_fill_summary_page (NPWDruid* druid)
 		npw_page_foreach_property (page, (GFunc)cb_druid_add_summary_property, text);
 	}
 
-	label = GTK_LABEL (gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), FINISH_PAGE));
+	label = GTK_LABEL (druid->finish_page);
 	gtk_label_set_markup (label, text->str);
 	g_string_free (text, TRUE);
 
-	gtk_assistant_set_page_complete (GTK_ASSISTANT (druid->window), GTK_WIDGET (label), TRUE);
+	gtk_assistant_set_page_complete (GTK_ASSISTANT (druid->window), druid->finish_page, TRUE);
 }
 
 /* Create project selection page
@@ -275,9 +287,7 @@ on_druid_project_update_selected (GtkIconView* view, NPWDruid *druid)
 	}
 
 	druid->header = header;
-	gtk_assistant_set_page_complete (GTK_ASSISTANT (druid->window),
-									 gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window),PROJECT_PAGE),
-									 header != NULL);
+	gtk_assistant_set_page_complete (GTK_ASSISTANT (druid->window), druid->project_page, header != NULL);
 }
 
 /* Add a project in the icon list */
@@ -341,7 +351,7 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 
 	/* Set new page label */
 	assistant = GTK_WIDGET (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
-	book = GTK_NOTEBOOK (gtk_assistant_get_nth_page (GTK_ASSISTANT (assistant), PROJECT_PAGE));
+	book = GTK_NOTEBOOK (gtk_builder_get_object (builder, PROJECT_BOOK));
 	child = gtk_notebook_get_nth_page (book, 0);
 	label = gtk_notebook_get_tab_label (book, child);
 	gtk_label_set_text (GTK_LABEL(label), (const gchar *)category);
@@ -364,7 +374,6 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	const gchar * const * sys_dir;
 
 	/* Remove all previous data */
-	druid->project_book = GTK_NOTEBOOK (gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), PROJECT_PAGE));
 	gtk_notebook_remove_page(druid->project_book, 0);
 	npw_header_list_free (druid->header_list);
 
@@ -490,7 +499,8 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	GtkWidget *widget;
 	NPWDruidAddPropertyData data;
 
-	widget = gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), druid->next_page);
+	/* Add page to assistant, after current page */
+	widget = gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window)) + 1);
 
 	/* Remove previous widgets */
 	gtk_container_foreach (GTK_CONTAINER (npw_page_get_widget (page)), cb_druid_destroy_widget, NULL);
@@ -520,10 +530,13 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 static NPWPage*
 npw_druid_add_new_page (NPWDruid* druid)
 {
+	gint current;
 	NPWPage* page;
 
 	/* Get page in cache */
-	page = g_queue_peek_nth (druid->page_list, druid->next_page - PROPERTY_PAGE);
+	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window));
+	page = g_queue_peek_nth (druid->page_list, current);
+
 	if (page == NULL)
 	{
 		/* Page not found in cache, create */
@@ -545,14 +558,14 @@ npw_druid_add_new_page (NPWDruid* druid)
 			return NULL;
 		}
 		assistant = GTK_ASSISTANT (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
+		widget = GTK_WIDGET (gtk_builder_get_object (builder, PROPERTY_PAGE));
 		table = GTK_WIDGET (gtk_builder_get_object (builder, PROPERTY_TABLE));
 
-		widget = gtk_assistant_get_nth_page (assistant, PROPERTY_PAGE);
 		type = gtk_assistant_get_page_type (assistant, widget);
 		pixbuf = gtk_assistant_get_page_header_image (assistant, widget);
 		if (pixbuf) g_object_ref (pixbuf);
 		gtk_container_remove (GTK_CONTAINER (assistant), widget);
-		gtk_assistant_insert_page (GTK_ASSISTANT (druid->window), widget, druid->next_page);
+		gtk_assistant_insert_page (GTK_ASSISTANT (druid->window), widget, current + 1);
 		gtk_assistant_set_page_type (GTK_ASSISTANT (druid->window), widget, type);
 		if (pixbuf != NULL)
 		{
@@ -576,25 +589,26 @@ npw_druid_add_new_page (NPWDruid* druid)
 	return page;
 }
 
-/* Remove all following page */
+/* Remove all pages following current page except the summary page*/
 
 static void
 npw_druid_remove_following_page (NPWDruid* druid)
 {
-	NPWPage* page;
-	gint num = druid->next_page;
+	gint current;
 
+	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window));
 	for(;;)
 	{
 		GtkWidget *widget;
+		NPWPage* page;
 
-		page = g_queue_pop_nth (druid->page_list, num - PROPERTY_PAGE);
-		if (page == NULL) break;
+		widget = gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), current + 1);
+		if (widget == druid->finish_page) break;
 
-		widget = gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), num);
 		gtk_container_remove (GTK_CONTAINER (druid->window), widget);
 
-		npw_page_free (page);
+		page = g_queue_pop_nth (druid->page_list, current - 1);
+		if (page != NULL) npw_page_free (page);
 	}
 }
 
@@ -699,11 +713,13 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 static gboolean
 npw_druid_save_valid_values (NPWDruid* druid)
 {
+	gint current;
 	NPWPage* page;
 	NPWSaveValidPropertyData data;
 	gboolean ok = TRUE;
 
-	page = g_queue_peek_nth (druid->page_list, druid->next_page - PROPERTY_PAGE - 1);
+	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window)) - 2;
+	page = g_queue_peek_nth (druid->page_list, current);
 	data.modified = FALSE;
 	data.parent = GTK_WINDOW (druid->window);
 	data.error = g_string_new (NULL);
@@ -789,23 +805,28 @@ static void
 on_druid_get_new_page (NPWAutogen* gen, gpointer data)
 {
 	NPWDruid* druid = (NPWDruid *)data;
+	gint current;
 	NPWPage* page;
 
-	page = g_queue_peek_nth (druid->page_list, druid->next_page - PROPERTY_PAGE);
+	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window));
+	page = g_queue_peek_nth (druid->page_list, current - 1);
 
 	if (npw_page_get_name (page) == NULL)
 	{
 		/* no page, display finish page */
 		npw_druid_fill_summary_page (druid);
 
-		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), FINISH_PAGE);
+		page = g_queue_pop_nth (druid->page_list, current - 1);
+		if (page != NULL) npw_page_free (page);
+		gtk_container_remove (GTK_CONTAINER (druid->window), gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), current + 1));
+		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), current + 1);
 	}
 	else
 	{
 		/* display property page */
 		npw_druid_fill_property_page (druid, page);
 
-		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), druid->next_page);
+		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), current + 1);
 	}
 }
 
@@ -949,18 +970,6 @@ check_and_warn_missing (NPWDruid *druid)
 	return !missing_message;
 }
 
-/* This function is called to compute the next page AND to determine the status
- * of last button: it does not mean that the user go to the next page.
- * We need this information to generate the next page just before displaying it.
- * So a progress page is inserted between all pages of the wizard. We use the
- * prepare signal handler of this page to compute the next page and switch to
- * it using gtk_assistant_set_current_page(). */
-static gint
-on_druid_next (gint page, gpointer user_data)
-{
-	return page == FINISH_PAGE ? -1 : PROGRESS_PAGE;
-}
-
 static gboolean
 on_druid_delayed_get_new_page (gpointer data)
 {
@@ -970,11 +979,11 @@ on_druid_delayed_get_new_page (gpointer data)
 }
 
 static gboolean
-on_druid_delayed_set_error_page (gpointer data)
+on_druid_delayed_set_next_page (gpointer data)
 {
 	GtkAssistant * assistant = (GtkAssistant *)data;
 
-	gtk_assistant_set_current_page (assistant, ERROR_PAGE);
+	gtk_assistant_set_current_page (assistant, gtk_assistant_get_current_page (assistant) + 1);
 
 	return FALSE;
 }
@@ -982,13 +991,22 @@ on_druid_delayed_set_error_page (gpointer data)
 static void
 on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 {
-	gint current_page = gtk_assistant_get_current_page (assistant);
-
-	if (current_page == PROGRESS_PAGE)
+	if (page == druid->progress_page)
 	{
-		/* Generate the next page */
+		gint previous;
+		gboolean last_warning;
 
-		if (druid->next_page == PROPERTY_PAGE)
+		previous = gtk_assistant_get_current_page (assistant) - 1;
+		last_warning = gtk_assistant_get_nth_page (assistant, previous) == druid->error_page;
+		if (last_warning)
+		{
+			/* Remove warning page */
+			gtk_container_remove (GTK_CONTAINER (assistant), druid->error_page);
+			previous--;
+		}
+
+		/* Generate the next page */
+		if (previous == PROJECT_PAGE_INDEX)
 		{
 			const gchar* new_project;
 
@@ -996,21 +1014,21 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 
 			if (druid->project_file != new_project)
 			{
-				if (druid->last_page != ERROR_PAGE)
+				npw_druid_remove_following_page (druid);
+
 				/* Check if necessary programs for this project is installed */
-				if (!check_and_warn_missing (druid))
+				if (!last_warning && !check_and_warn_missing (druid))
 				{
 					/* The page change is delayed because in the latest version of
 					 * GtkAssistant, the page switch is not completely done when
 					 * the signal is called. A page change in the signal handler
 					 * will be partialy overwritten */
-					g_idle_add (on_druid_delayed_set_error_page, druid->window);
+					g_idle_add (on_druid_delayed_set_next_page, druid->window);
 					return;
 				}
 
 				/* Change project */
 				druid->project_file = new_project;
-				npw_druid_remove_following_page (druid);
 				npw_autogen_set_input_file (druid->gen, druid->project_file, "[+","+]");
 
 			}
@@ -1024,19 +1042,19 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 				 * GtkAssistant, the page switch is not completely done when
 				 * the signal is called. A page change in the signal handler
 				 * will be partialy overwritten */
-				g_idle_add (on_druid_delayed_set_error_page, druid->window);
+				g_idle_add (on_druid_delayed_set_next_page, druid->window);
 
 				return;
 			}
 		}
 
-		if (g_queue_peek_nth (druid->page_list, druid->next_page - PROPERTY_PAGE) == NULL)
+		if (g_queue_peek_nth (druid->page_list, previous) == NULL)
 		{
 			/* Regenerate new page */
 			gtk_assistant_set_page_complete (assistant, page, FALSE);
 			if (druid->parser != NULL)
 				npw_page_parser_free (druid->parser);
-			druid->parser = npw_page_parser_new (npw_druid_add_new_page (druid), druid->project_file, druid->next_page - PROPERTY_PAGE);
+			druid->parser = npw_page_parser_new (npw_druid_add_new_page (druid), druid->project_file, previous);
 
 			npw_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser);
 			npw_autogen_write_definition_file (druid->gen, druid->values);
@@ -1052,26 +1070,23 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 			g_idle_add (on_druid_delayed_get_new_page, druid);
 		}
 	}
-	else if (current_page == ERROR_PAGE)
-	{
-		druid->last_page = ERROR_PAGE;
-	}
-	else if (current_page == PROJECT_PAGE)
-	{
-		druid->last_page = current_page;
-		druid->next_page = PROPERTY_PAGE;
-	}
-	else if (current_page == FINISH_PAGE)
+	else if (page == druid->finish_page)
 	{
 		npw_druid_set_busy (druid, FALSE);
+		gtk_container_remove (GTK_CONTAINER (assistant), druid->error_page);
+		gtk_container_remove (GTK_CONTAINER (assistant), druid->progress_page);
 	}
-	else if (current_page >= PROPERTY_PAGE)
+	else
 	{
 		npw_druid_set_busy (druid, FALSE);
-		druid->last_page = current_page;
-		druid->next_page = current_page + 1;
-	}
 
+		if (page != druid->error_page) gtk_container_remove (GTK_CONTAINER (assistant), druid->error_page);
+
+		/* Move progress page */
+		gtk_container_remove (GTK_CONTAINER (assistant), druid->progress_page);
+		gtk_assistant_insert_page (assistant, druid->progress_page, gtk_assistant_get_current_page (assistant) + 1);
+		gtk_assistant_set_page_title (assistant, druid->progress_page, "...");
+	}
 }
 
 static void
@@ -1092,7 +1107,7 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 	GtkBuilder *builder;
 	GError* error = NULL;
 	GtkAssistant *assistant;
-	GtkWidget *page;
+	GtkWidget *property_page;
 
 	g_return_val_if_fail (druid->window == NULL, NULL);
 
@@ -1106,37 +1121,40 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 		g_error_free (error);
 		return NULL;
 	}
-	assistant = GTK_ASSISTANT (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
+	anjuta_util_builder_get_objects (builder,
+	                                 NEW_PROJECT_DIALOG, &assistant,
+	                                 PROJECT_BOOK, &druid->project_book,
+	                                 ERROR_VBOX, &druid->error_vbox,
+	                                 ERROR_ICON, &druid->error_icon,
+	                                 ERROR_MESSAGE, &druid->error_message,
+	                                 ERROR_DETAIL, &druid->error_detail,
+	                                 PROJECT_PAGE, &druid->project_page,
+	                                 ERROR_PAGE, &druid->error_page,
+	                                 PROGRESS_PAGE, &druid->progress_page,
+	                                 FINISH_PAGE, &druid->finish_page,
+	                                 PROPERTY_PAGE, &property_page,
+	                                 NULL);
 	druid->window = GTK_WINDOW (assistant);
-	druid->project_book = GTK_NOTEBOOK (gtk_builder_get_object (builder, PROJECT_BOOK));
-	druid->error_vbox = GTK_VBOX (gtk_builder_get_object (builder, ERROR_VBOX));
-	druid->error_icon = GTK_IMAGE (gtk_builder_get_object (builder, ERROR_ICON));
-	druid->error_message = GTK_LABEL (gtk_builder_get_object (builder, ERROR_MESSAGE));
-	druid->error_detail = GTK_WIDGET (gtk_builder_get_object (builder, ERROR_DETAIL));
+	g_object_ref (druid->error_page);
+	g_object_ref (druid->progress_page);
 	gtk_window_set_transient_for (GTK_WINDOW (assistant), GTK_WINDOW (shell));
 	g_object_unref (builder);
 
 	/* Connect assistant signals */
-	gtk_assistant_set_forward_page_func (assistant, on_druid_next, druid, NULL);
 	g_signal_connect (G_OBJECT (assistant), "prepare", G_CALLBACK (on_druid_prepare), druid);
 	g_signal_connect (G_OBJECT (assistant), "apply", G_CALLBACK (on_druid_finish), druid);
 	g_signal_connect (G_OBJECT (assistant), "cancel", G_CALLBACK (on_druid_cancel), druid);
 	g_signal_connect (G_OBJECT (assistant), "close", G_CALLBACK (on_druid_close), druid);
 	g_signal_connect(G_OBJECT(assistant), "key-press-event", G_CALLBACK(on_project_wizard_key_press_event), druid);
 
+	/* Remove property page, will be created later as needed */
+	gtk_container_remove (GTK_CONTAINER (assistant), property_page);
+
 	/* Setup project selection page */
 	if (!npw_druid_fill_selection_page (druid, directory))
 	{
 		return NULL;
 	}
-
-	/* Use progress page to stop the flow */
-	/*page = gtk_assistant_get_nth_page (assistant, PROGRESS_PAGE);
-	gtk_assistant_set_page_complete (assistant, page, FALSE);*/
-
-	/* Remove property page, will be created later as needed */
-	page = gtk_assistant_get_nth_page (assistant, PROPERTY_PAGE);
-	gtk_container_remove (GTK_CONTAINER (assistant), page);
 
 	/* Add dialog widget to anjuta status. */
 	anjuta_status_add_widget (anjuta_shell_get_status (shell, NULL), GTK_WIDGET (assistant));
@@ -1219,19 +1237,24 @@ npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 void
 npw_druid_free (NPWDruid* druid)
 {
-	/* NPWPage* page; */
+	NPWPage* page;
 
 	g_return_if_fail (druid != NULL);
 
 	/* Delete page list */
-	druid->next_page = PROPERTY_PAGE;
-	npw_druid_remove_following_page (druid);
+
+	while ((page = (NPWPage *)g_queue_pop_head (druid->page_list)) != NULL)
+	{
+		npw_page_free (page);
+	}
 	g_queue_free (druid->page_list);
 	npw_value_heap_free (druid->values);
 	npw_autogen_free (druid->gen);
 	if (druid->parser != NULL) npw_page_parser_free (druid->parser);
 	npw_header_list_free (druid->header_list);
 	gtk_widget_destroy (GTK_WIDGET (druid->window));
+	g_object_unref (druid->error_page);
+	g_object_unref (druid->progress_page);
 	druid->plugin->druid = NULL;
 	g_free (druid);
 }
