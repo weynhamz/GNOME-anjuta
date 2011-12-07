@@ -459,11 +459,11 @@ npw_property_create_widget (NPWProperty* prop)
 	switch (prop->type)
 	{
 	case NPW_BOOLEAN_PROPERTY:
-		entry = gtk_switch_new ();
+		entry = gtk_check_button_new ();
 		if (value)
 		{
-			gtk_switch_set_active (GTK_SWITCH (entry),
-			                      (gboolean)atoi (value));
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (entry),
+			                              (gboolean)atoi (value));
 		}
 		break;
 	case NPW_INTEGER_PROPERTY:
@@ -665,7 +665,7 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		value = alloc_value;
 		break;
 	case NPW_BOOLEAN_PROPERTY:
-		alloc_value = g_strdup_printf("%d", gtk_switch_get_active (GTK_SWITCH (prop->widget)));
+		alloc_value = g_strdup_printf("%d", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop->widget)));
 		value = alloc_value;
 		break;
 	case NPW_STRING_PROPERTY:
