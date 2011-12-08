@@ -65,11 +65,14 @@
 #define NEW_PROJECT_DIALOG "druid_window"
 #define PROJECT_LIST "project_list"
 #define PROJECT_BOOK "project_book"
-#define PROJECT_PAGE "project_book"
+#define PROJECT_PAGE "project_page"
 #define ERROR_PAGE "error_page"
+#define ERROR_TITLE "error_title"
 #define PROGRESS_PAGE "progress_page"
 #define FINISH_PAGE "finish_page"
+#define FINISH_TEXT "finish_text"
 #define PROPERTY_PAGE "property_page"
+#define PROPERTY_TITLE "property_title"
 #define PROPERTY_TABLE "property_table"
 #define ERROR_VBOX "error_vbox"
 #define ERROR_ICON "error_icon"
@@ -79,7 +82,6 @@
 
 #define PROJECT_PAGE_INDEX 0
 
-
 /*---------------------------------------------------------------------------*/
 
 struct _NPWDruid
@@ -88,6 +90,7 @@ struct _NPWDruid
 
 	GtkNotebook* project_book;
 	GtkWidget *error_page;
+	GtkWidget *error_title;
 	GtkVBox *error_vbox;
 	GtkWidget *error_extra_widget;
 	GtkImage *error_icon;
@@ -97,6 +100,7 @@ struct _NPWDruid
 	GtkWidget *project_page;
 	GtkWidget *progress_page;
 	GtkWidget *finish_page;
+	GtkWidget *finish_text;
 
 	const gchar* project_file;
 	NPWPlugin* plugin;
@@ -168,6 +172,7 @@ npw_druid_fill_error_page (NPWDruid* druid, GtkWidget *extra_widget, GtkMessageT
 		g_warning ("Unknown GtkMessageType %u", type);
 		break;
 	}
+	gtk_label_set_text (GTK_LABEL (druid->error_title), title);
 	gtk_assistant_set_page_title (assistant, page, title);
 	if (type == GTK_MESSAGE_ERROR)
 	{
@@ -253,7 +258,7 @@ npw_druid_fill_summary_page (NPWDruid* druid)
 		npw_page_foreach_property (page, (GFunc)cb_druid_add_summary_property, text);
 	}
 
-	label = GTK_LABEL (druid->finish_page);
+	label = GTK_LABEL (druid->finish_text);
 	gtk_label_set_markup (label, text->str);
 	g_string_free (text, TRUE);
 
@@ -497,6 +502,8 @@ static void
 npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 {
 	GtkWidget *widget;
+	GList *children;
+	GtkLabel *label;
 	NPWDruidAddPropertyData data;
 
 	/* Add page to assistant, after current page */
@@ -506,6 +513,10 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	gtk_container_foreach (GTK_CONTAINER (npw_page_get_widget (page)), cb_druid_destroy_widget, NULL);
 
 	/* Update title	*/
+	children = gtk_container_get_children (GTK_CONTAINER (widget));
+	label = GTK_LABEL (g_list_nth_data (children, 0));
+	g_list_free (children);
+	gtk_label_set_text (label, npw_page_get_label (page));
 	gtk_assistant_set_page_title (GTK_ASSISTANT (druid->window), widget, npw_page_get_label (page));
 
 	/* Add new widget */
@@ -1125,6 +1136,7 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 	                                 NEW_PROJECT_DIALOG, &assistant,
 	                                 PROJECT_BOOK, &druid->project_book,
 	                                 ERROR_VBOX, &druid->error_vbox,
+	                                 ERROR_TITLE, &druid->error_title,
 	                                 ERROR_ICON, &druid->error_icon,
 	                                 ERROR_MESSAGE, &druid->error_message,
 	                                 ERROR_DETAIL, &druid->error_detail,
@@ -1132,6 +1144,7 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 	                                 ERROR_PAGE, &druid->error_page,
 	                                 PROGRESS_PAGE, &druid->progress_page,
 	                                 FINISH_PAGE, &druid->finish_page,
+	                                 FINISH_TEXT, &druid->finish_text,
 	                                 PROPERTY_PAGE, &property_page,
 	                                 NULL);
 	druid->window = GTK_WINDOW (assistant);
