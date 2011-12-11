@@ -12,13 +12,15 @@
 # Display... != Zeigt...an (Bitte aufpassen, ist hier besonders wichtig!)
 # Auf Unterschied achten: show/display == zeigen/anzeigen
 # Plugins == Komponenten! (Ja, im Gegensatz zur Standard-Übersetzung macht hier Komponenten viel mehr Sinn!
-# repository     = (Software)bestand
+# repository      = (Software)bestand
 # to stage        = bereitstellen
 # to revert       = zurücknehmen
-# to commit     = einspielen
+# to commit       = einspielen
 # to push         = einbringen
 # staged files    = bereit gestellte Dateien?
 # unstaged files  =
+# stack           = Stapel
+# stacktrace      = stacktrace
 #
 # Jens Georg <mail@jensgeorg>, 2001.
 # Hendrik Richter <hendrikr@gnome.org>, 2005, 2007, 2009.
@@ -34,7 +36,7 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-09-07 19:14+0000\n"
+"POT-Creation-Date: 2011-11-13 12:32+0000\n"
 "PO-Revision-Date: 2011-09-03 15:01+0100\n"
 "Last-Translator: Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
@@ -273,7 +275,7 @@ msgstr "Umgebungsvariablen:"
 #: ../plugins/class-gen/window.c:757 ../plugins/class-gen/window.c:765
 #: ../plugins/class-gen/window.c:773 ../plugins/class-gen/window.c:783
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:805
-#: ../plugins/project-manager/dialogs.c:467
+#: ../plugins/project-manager/dialogs.c:470
 #: ../plugins/run-program/parameters.c:757
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -285,7 +287,7 @@ msgstr "Name"
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:766
 #: ../plugins/class-gen/window.c:797 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:475
+#: ../plugins/project-manager/dialogs.c:478
 #: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Wert"
@@ -371,7 +373,7 @@ msgstr "Laden"
 msgid "Available Plugins"
 msgstr "Verfügbare Komponenten"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:940
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:942
 msgid "Preferred plugins"
 msgstr "Bevorzugte Komponente"
 
@@ -468,7 +470,7 @@ msgstr "Kategory"
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
 #: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:927
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:929
 #: ../src/preferences.ui.h:8
 msgid "General"
 msgstr "Allgemein"
@@ -730,11 +732,11 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:605
 #: ../plugins/dir-project/dir-project.c:747
 #: ../plugins/dir-project/dir-project.c:860
-#: ../plugins/am-project/am-project.c:1635
-#: ../plugins/am-project/am-project.c:1718
-#: ../plugins/mk-project/mk-project.c:709
-#: ../plugins/mk-project/mk-project.c:786
-#: ../plugins/mk-project/mk-project.c:860
+#: ../plugins/am-project/am-project.c:1639
+#: ../plugins/am-project/am-project.c:1732
+#: ../plugins/mk-project/mk-project.c:718
+#: ../plugins/mk-project/mk-project.c:795
+#: ../plugins/mk-project/mk-project.c:869
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "Projekt ist nicht vorhanden oder ungültiger Pfad"
@@ -2576,7 +2578,7 @@ msgstr "Ausführung des Programms fortsetzen oder anhalten"
 
 #: ../plugins/debug-manager/plugin.c:977
 msgid "Step _In"
-msgstr "E_inzelschritt"
+msgstr "H_ineinspringen"
 
 #: ../plugins/debug-manager/plugin.c:979
 msgid "Single step into function"
@@ -2592,7 +2594,7 @@ msgstr "Einzelner Schritt über die Funktion"
 
 #: ../plugins/debug-manager/plugin.c:993
 msgid "Step _Out"
-msgstr "_Herausspringen"
+msgstr "H_erausspringen"
 
 #: ../plugins/debug-manager/plugin.c:995
 msgid "Single step out of function"
@@ -2981,7 +2983,7 @@ msgid "Close file"
 msgstr "Datei schließen"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:608
+#: ../plugins/project-manager/dialogs.c:611
 msgid "Path:"
 msgstr "Pfad:"
 
@@ -3721,28 +3723,20 @@ msgstr "Automatisches Speichern von %s ist fehlgeschlagen"
 msgid "Autosave completed"
 msgstr "Automatisches Speichern abgeschlossen"
 
-#: ../plugins/document-manager/search-box.c:494
-#, c-format
-msgid "Search for \"%s\" reached the end and wrapped around."
-msgstr "Die Suche nach »%s« wurde abgeschlossen und wird am Anfang fortgesetzt."
-
-#: ../plugins/document-manager/search-box.c:500
-#, c-format
-msgid ""
-"Search for \"%s\" reached the end and wrapped around but no new match was "
-"found."
-msgstr ""
-"Die Suche nach »%s« wurde abgeschlossen und wird am Dokumentanfang "
-"fortgesetzt, es wurde aber keine Übereinstimmung gefunden."
-
-#: ../plugins/document-manager/search-box.c:543
+#: ../plugins/document-manager/search-box.c:561
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr ""
 "Die Suche nach »%s« wurde abgeschlossen und wird am Dokumentanfang "
 "fortgesetzt."
 
-#: ../plugins/document-manager/search-box.c:549
+#: ../plugins/document-manager/search-box.c:566
+#, c-format
+msgid "Search for \"%s\" reached top and was continued at the bottom."
+msgstr ""
+"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende fortgesetzt."
+
+#: ../plugins/document-manager/search-box.c:575
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3751,13 +3745,7 @@ msgstr ""
 "Die Suche nach »%s« wurde abgeschlossen und wird am Dokumentanfang "
 "fortgesetzt, es wurde aber keine Übereinstimmung gefunden."
 
-#: ../plugins/document-manager/search-box.c:584
-#, c-format
-msgid "Search for \"%s\" reached top and was continued at the bottom."
-msgstr ""
-"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende fortgesetzt."
-
-#: ../plugins/document-manager/search-box.c:590
+#: ../plugins/document-manager/search-box.c:580
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -3766,11 +3754,11 @@ msgstr ""
 "Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende fortgesetzt, "
 "es wurde aber keine Übereinstimmung gefunden."
 
-#: ../plugins/document-manager/search-box.c:984
+#: ../plugins/document-manager/search-box.c:998
 msgid "Replace"
 msgstr "Ersetzen"
 
-#: ../plugins/document-manager/search-box.c:989
+#: ../plugins/document-manager/search-box.c:1003
 msgid "Replace all"
 msgstr "Alle ersetzen"
 
@@ -4111,7 +4099,7 @@ msgstr "Datei-Informationen"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
-#: ../plugins/project-manager/dialogs.c:613
+#: ../plugins/project-manager/dialogs.c:616
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
 msgstr "Name:"
@@ -4121,7 +4109,7 @@ msgid "New File"
 msgstr "Neue Datei"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:635
+#: ../plugins/project-manager/dialogs.c:638
 msgid "Type:"
 msgstr "Typ:"
 
@@ -4192,8 +4180,8 @@ msgstr "Quelle"
 
 #: ../plugins/dir-project/dir-project.c:990
 #: ../plugins/dir-project/dir-project.c:1000
-#: ../plugins/mk-project/mk-project.c:1008
-#: ../plugins/mk-project/mk-project.c:1018
+#: ../plugins/mk-project/mk-project.c:1017
+#: ../plugins/mk-project/mk-project.c:1027
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekt erlaubt nicht das Festlegen von Eigenschaften"
@@ -4242,12 +4230,12 @@ msgstr "Skript"
 msgid "Package"
 msgstr "Paket"
 
-#: ../plugins/am-project/am-project.c:1652
+#: ../plugins/am-project/am-project.c:1665
 #, c-format
 msgid "Unable to parse project file"
 msgstr "Projektdatei kann nicht verarbeitet werden"
 
-#: ../plugins/am-project/am-project.c:1666
+#: ../plugins/am-project/am-project.c:1680
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekt ist nicht vorhanden oder ungültiger Pfad"
@@ -4926,7 +4914,7 @@ msgstr "Zweigname:"
 msgid "Branch:"
 msgstr "Zweig:"
 
-#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:805
+#: ../plugins/git/anjuta-git.ui.h:10 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "Zweige"
 
@@ -5300,7 +5288,7 @@ msgid "Merge"
 msgstr "Zusammenführen"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/plugin.c:727 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:700 ../plugins/git/git.plugin.in.h:1
 msgid "Git"
 msgstr "Git"
 
@@ -5670,27 +5658,27 @@ msgstr ""
 msgid "Branch"
 msgstr "Zweig"
 
-#: ../plugins/git/plugin.c:723
+#: ../plugins/git/plugin.c:696
 msgid "Git Tasks"
 msgstr "Git-Aufgaben"
 
-#: ../plugins/git/plugin.c:793
+#: ../plugins/git/plugin.c:758
 msgid "Status"
 msgstr "Status"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:764
 msgid "Log"
 msgstr "Protokoll"
 
-#: ../plugins/git/plugin.c:810
+#: ../plugins/git/plugin.c:775
 msgid "Tags"
 msgstr "Marken"
 
-#: ../plugins/git/plugin.c:816
+#: ../plugins/git/plugin.c:781
 msgid "Remotes"
 msgstr "Entfernt"
 
-#: ../plugins/git/plugin.c:822
+#: ../plugins/git/plugin.c:787
 msgid "Stash"
 msgstr "Sichern"
 
@@ -5728,14 +5716,14 @@ msgstr "%s konnte nicht geöffnet werden"
 msgid "Could not create a new glade project."
 msgstr "Neues Glade-Projekt konnte nicht erstellt werden."
 
-#: ../plugins/glade/anjuta-design-document.c:166
-#: ../plugins/glade/anjuta-design-document.c:193
+#: ../plugins/glade/anjuta-design-document.c:170
+#: ../plugins/glade/anjuta-design-document.c:201
 #, c-format
 msgid "Glade project '%s' saved"
 msgstr "Glade-Projekt »%s« gespeichert"
 
-#: ../plugins/glade/anjuta-design-document.c:173
-#: ../plugins/glade/anjuta-design-document.c:200
+#: ../plugins/glade/anjuta-design-document.c:181
+#: ../plugins/glade/anjuta-design-document.c:208
 msgid "Invalid Glade file name"
 msgstr "Ungültiger Glade-Dateiname"
 
@@ -5875,7 +5863,7 @@ msgid_plural "%d Errors"
 msgstr[0] "%d Fehler"
 msgstr[1] "%d Fehler"
 
-#: ../plugins/mk-project/mk-project.c:491
+#: ../plugins/mk-project/mk-project.c:500
 #, c-format
 msgid "Unable to parse make file"
 msgstr "Make-Steuerdatei kann nicht verarbeitet werden"
@@ -6363,7 +6351,7 @@ msgid "_Properties"
 msgstr "_Eigenschaften"
 
 #: ../plugins/project-manager/plugin.c:919
-#: ../plugins/project-manager/dialogs.c:562
+#: ../plugins/project-manager/dialogs.c:565
 msgid "Project properties"
 msgstr "Projekteigenschaften"
 
@@ -6473,80 +6461,80 @@ msgstr "Projekt geladen"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:309
+#: ../plugins/project-manager/dialogs.c:312
 msgid "Select sources…"
 msgstr "Quellen auswählen …"
 
-#: ../plugins/project-manager/dialogs.c:391
+#: ../plugins/project-manager/dialogs.c:394
 msgid " This property is not modifiable."
 msgstr "Diese Eigenschaft ist nicht veränderbar."
 
-#: ../plugins/project-manager/dialogs.c:565
+#: ../plugins/project-manager/dialogs.c:568
 msgid "Directory properties"
 msgstr "Ordnereigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:568
+#: ../plugins/project-manager/dialogs.c:571
 msgid "Target properties"
 msgstr "Zieleigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:571
+#: ../plugins/project-manager/dialogs.c:574
 msgid "Source properties"
 msgstr "Quelleigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:577
 msgid "Module properties"
 msgstr "Moduleigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:580
 msgid "Package properties"
 msgstr "Paketeigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:583
 msgid "Unknown properties"
 msgstr "Unbekannte Eigenschaften"
 
-#: ../plugins/project-manager/dialogs.c:997
-#: ../plugins/project-manager/dialogs.c:1008
+#: ../plugins/project-manager/dialogs.c:1000
+#: ../plugins/project-manager/dialogs.c:1011
 msgid "Cannot add group"
 msgstr "Gruppe kann nicht hinzugefügt werden"
 
-#: ../plugins/project-manager/dialogs.c:1009
+#: ../plugins/project-manager/dialogs.c:1012
 msgid "No parent group selected"
 msgstr "Keine übergeordnete Gruppe ausgewählt"
 
-#: ../plugins/project-manager/dialogs.c:1223
-#: ../plugins/project-manager/dialogs.c:1233
+#: ../plugins/project-manager/dialogs.c:1226
+#: ../plugins/project-manager/dialogs.c:1236
 msgid "Cannot add source files"
 msgstr "Quelldateien können nicht hinzugefügt werden"
 
-#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1237
 msgid "The selected node cannot contain source files."
 msgstr "Der gewählte Knoten darf keine Quelldateien enthalten."
 
-#: ../plugins/project-manager/dialogs.c:1420
-#: ../plugins/project-manager/dialogs.c:1431
+#: ../plugins/project-manager/dialogs.c:1423
+#: ../plugins/project-manager/dialogs.c:1434
 msgid "Cannot add target"
 msgstr "Ziel kann nicht hinzugefügt werden"
 
-#: ../plugins/project-manager/dialogs.c:1432
+#: ../plugins/project-manager/dialogs.c:1435
 msgid "No group selected"
 msgstr "Keine Gruppe ausgewählt"
 
-#: ../plugins/project-manager/dialogs.c:1591
-#: ../plugins/project-manager/dialogs.c:1602
+#: ../plugins/project-manager/dialogs.c:1594
+#: ../plugins/project-manager/dialogs.c:1605
 msgid "Cannot add modules"
 msgstr "Module können nicht hinzugefügt werden"
 
-#: ../plugins/project-manager/dialogs.c:1603
+#: ../plugins/project-manager/dialogs.c:1606
 msgid "No target has been selected"
 msgstr "Es wurde kein Ziel ausgewählt"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1806
+#: ../plugins/project-manager/dialogs.c:1809
 msgid "Missing module name"
 msgstr "Modulname fehlt"
 
-#: ../plugins/project-manager/dialogs.c:1868
+#: ../plugins/project-manager/dialogs.c:1871
 msgid "Cannot add packages"
 msgstr "Pakete können nicht hinzugefügt werden"
 
@@ -7895,7 +7883,7 @@ msgstr "Schnipsel importieren"
 msgid "Export Snippets"
 msgstr "Schnipsel exportieren"
 
-#: ../plugins/sourceview/sourceview.c:480
+#: ../plugins/sourceview/sourceview.c:560
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -7904,7 +7892,7 @@ msgstr ""
 "Die Datei »%s« auf der Festplatte ist aktueller als der aktuelle Puffer.\n"
 "Soll die Datei neu geladen werden?"
 
-#: ../plugins/sourceview/sourceview.c:517
+#: ../plugins/sourceview/sourceview.c:594
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -7914,18 +7902,18 @@ msgstr ""
 "Soll die Datei geschlossen werden?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:554
+#: ../plugins/sourceview/sourceview.c:629
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht geöffnet werden: %s"
 
-#: ../plugins/sourceview/sourceview.c:608
+#: ../plugins/sourceview/sourceview.c:683
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Die Datei »%s« ist nur lesbar! Soll Sie trotzdem bearbeitet werden?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:667
+#: ../plugins/sourceview/sourceview.c:744
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Datei %s konnte nicht gespeichert werden: %s"
@@ -9101,7 +9089,7 @@ msgstr "Zeichenkette"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/anjuta.c:454
+#: ../src/anjuta.c:453
 msgid "Loaded Session…"
 msgstr "Sitzung geladen …"
 
@@ -9249,15 +9237,15 @@ msgstr "Bearbeiten"
 msgid "Help"
 msgstr "Hilfe"
 
-#: ../src/anjuta-app.c:938
+#: ../src/anjuta-app.c:940
 msgid "Installed plugins"
 msgstr "Installierte Komponenten"
 
-#: ../src/anjuta-app.c:942
+#: ../src/anjuta-app.c:944
 msgid "Shortcuts"
 msgstr "Tastenkürzel"
 
-#: ../src/anjuta-app.c:1014
+#: ../src/anjuta-app.c:1016
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Wert existiert nicht"
@@ -9817,6 +9805,17 @@ msgstr "Min. Zeichen für Vervollständigung"
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Symbol"
+
+#~ msgid "Search for \"%s\" reached the end and wrapped around."
+#~ msgstr ""
+#~ "Die Suche nach »%s« wurde abgeschlossen und wird am Anfang fortgesetzt."
+
+#~ msgid ""
+#~ "Search for \"%s\" reached the end and wrapped around but no new match was "
+#~ "found."
+#~ msgstr ""
+#~ "Die Suche nach »%s« wurde abgeschlossen und wird am Dokumentanfang "
+#~ "fortgesetzt, es wurde aber keine Übereinstimmung gefunden."
 
 # ??
 #~ msgid "Info _Target Files"
