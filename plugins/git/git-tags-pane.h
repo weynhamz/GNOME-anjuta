@@ -51,6 +51,7 @@ struct _GitTagsPane
 GType git_tags_pane_get_type (void) G_GNUC_CONST;
 AnjutaDockPane *git_tags_pane_new (Git *plugin);
 GList *git_tags_pane_get_selected_tags (GitTagsPane *self);
+void git_tags_pane_update_ui (GitTagsPane *self);
 
 G_END_DECLS
 

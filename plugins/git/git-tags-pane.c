@@ -37,6 +37,9 @@ static GtkTargetEntry drag_targets[] =
 struct _GitTagsPanePriv
 {
 	GtkBuilder *builder;
+	GtkListStore *tags_list_model;
+
+	GtkAction *delete_action;
 };
 
 
@@ -62,14 +65,11 @@ on_tag_list_command_finished (AnjutaCommand *command, guint return_code,
                               GitTagsPane *self)
 {
 	GtkTreeView *tags_view;
-	GtkTreeModel *tags_list_model;
 
 	tags_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                   "tags_view"));
-	tags_list_model = GTK_TREE_MODEL (gtk_builder_get_object (self->priv->builder,
-	                                                          "tags_list_model"));
 
-	gtk_tree_view_set_model (tags_view, tags_list_model);
+	gtk_tree_view_set_model (tags_view, GTK_TREE_MODEL(self->priv->tags_list_model));
 }
 
 static void
@@ -99,20 +99,22 @@ on_tag_list_command_data_arrived (AnjutaCommand *command,
 
 static void
 on_selected_renderer_toggled (GtkCellRendererToggle *renderer, 
-                              gchar *path, GtkTreeModel *tags_list_model)
+                              gchar *path, GitTagsPane* self)
 {
 	GtkTreeIter iter;
 	gboolean selected;
 
-	gtk_tree_model_get_iter_from_string (tags_list_model, &iter, path);
-	gtk_tree_model_get (tags_list_model, &iter, 
+	gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL(self->priv->tags_list_model),
+	                                     &iter, path);
+	gtk_tree_model_get (GTK_TREE_MODEL(self->priv->tags_list_model), &iter, 
 	                    COL_SELECTED, &selected, 
 	                    -1);
 
 	selected = !selected;
 
-	gtk_list_store_set (GTK_LIST_STORE (tags_list_model), &iter, 0, selected,
+	gtk_list_store_set (GTK_LIST_STORE (self->priv->tags_list_model), &iter, 0, selected,
 	                    -1);
+	git_tags_pane_update_ui (self);
 }
 
 static void
@@ -169,7 +171,6 @@ git_tags_pane_init (GitTagsPane *self)
 						NULL};
 	GError *error = NULL;
 	GtkTreeView *tags_view;
-	GtkListStore *tags_list_model;
 	GtkCellRenderer *selected_renderer;
 	
 	self->priv = g_new0 (GitTagsPanePriv, 1);
@@ -186,8 +187,9 @@ git_tags_pane_init (GitTagsPane *self)
 
 	tags_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
 	                                                       "tags_view"));
-	tags_list_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
-	                                                          "tags_list_model"));
+	self->priv->tags_list_model = 
+		GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
+		                                        "tags_list_model"));
 	selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
 	                                                               "selected_renderer"));
 
@@ -204,7 +206,7 @@ git_tags_pane_init (GitTagsPane *self)
 
 	g_signal_connect (G_OBJECT (selected_renderer), "toggled",
 	                  G_CALLBACK (on_selected_renderer_toggled),
-	                  tags_list_model);
+	                  self);
 }
 
 static void
@@ -246,12 +248,9 @@ git_tags_pane_class_init (GitTagsPaneClass *klass)
 AnjutaDockPane *
 git_tags_pane_new (Git *plugin)
 {
-	GitTagsPane *self;
-	GtkListStore *tags_list_model;
-	
+	GitTagsPane *self;	
 	self = g_object_new (GIT_TYPE_TAGS_PANE, "plugin", plugin, NULL);
-	tags_list_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
-	                                                          "tags_list_model"));
+
 
 	g_signal_connect (G_OBJECT (plugin->tag_list_command), "command-started",
 	                  G_CALLBACK (on_tag_list_command_started),
@@ -263,7 +262,7 @@ git_tags_pane_new (Git *plugin)
 
 	g_signal_connect (G_OBJECT (plugin->tag_list_command), "data-arrived",
 	                  G_CALLBACK (on_tag_list_command_data_arrived),
-	                  tags_list_model);
+	                  self->priv->tags_list_model);
 
 	return ANJUTA_DOCK_PANE (self);
 }
@@ -271,15 +270,30 @@ git_tags_pane_new (Git *plugin)
 GList *
 git_tags_pane_get_selected_tags (GitTagsPane *self)
 {
-	GtkTreeModel *tags_list_model;
 	GList *list;
-
-	tags_list_model = GTK_TREE_MODEL (gtk_builder_get_object (self->priv->builder,
-	                                                          "tags_list_model"));
 	list = NULL;
 
-	gtk_tree_model_foreach (tags_list_model, 
+	gtk_tree_model_foreach (GTK_TREE_MODEL(self->priv->tags_list_model), 
 	                        (GtkTreeModelForeachFunc) get_selected_tags, &list);
 
 	return list;
+}
+
+void git_tags_pane_update_ui (GitTagsPane *self)
+{
+	GList* selected_tags;
+	
+	/* Enable only actions that make sense with the selection */
+	if (!self->priv->delete_action)
+	{
+		Git* plugin = 
+			ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+		AnjutaCommandBar* bar = anjuta_dock_get_command_bar (ANJUTA_DOCK(plugin->dock));
+		self->priv->delete_action = anjuta_command_bar_get_action (bar,
+		                                                          "Tags",
+		                                                          "DeleteTags");
+	}
+	selected_tags = git_tags_pane_get_selected_tags (self);
+	gtk_action_set_sensitive (self->priv->delete_action, g_list_length (selected_tags) > 0);
+	g_list_free (selected_tags);
 }

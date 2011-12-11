@@ -776,6 +776,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Tags", _("Tags"),
 	                      NULL, git_plugin->tags_pane, GDL_DOCK_CENTER,
 	                      tag_entries, G_N_ELEMENTS (tag_entries), plugin);
+	git_tags_pane_update_ui (GIT_TAGS_PANE(git_plugin->tags_pane));
 	
 	git_plugin->remotes_pane = git_remotes_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Remotes", 
