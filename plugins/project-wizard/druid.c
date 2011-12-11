@@ -981,26 +981,9 @@ check_and_warn_missing (NPWDruid *druid)
 	return !missing_message;
 }
 
-static gboolean
-on_druid_delayed_get_new_page (gpointer data)
-{
-	on_druid_get_new_page (NULL, data);
-
-	return FALSE;
-}
-
-static gboolean
-on_druid_delayed_set_next_page (gpointer data)
-{
-	GtkAssistant * assistant = (GtkAssistant *)data;
-
-	gtk_assistant_set_current_page (assistant, gtk_assistant_get_current_page (assistant) + 1);
-
-	return FALSE;
-}
 
 static void
-on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
+on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 {
 	if (page == druid->progress_page)
 	{
@@ -1030,11 +1013,7 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 				/* Check if necessary programs for this project is installed */
 				if (!last_warning && !check_and_warn_missing (druid))
 				{
-					/* The page change is delayed because in the latest version of
-					 * GtkAssistant, the page switch is not completely done when
-					 * the signal is called. A page change in the signal handler
-					 * will be partialy overwritten */
-					g_idle_add (on_druid_delayed_set_next_page, druid->window);
+					gtk_assistant_set_current_page (assistant, gtk_assistant_get_current_page (assistant) + 1);
 					return;
 				}
 
@@ -1049,11 +1028,7 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 			if (!npw_druid_save_valid_values (druid))
 			{
 				/* Display error */
-				/* The page change is delayed because in the latest version of
-				 * GtkAssistant, the page switch is not completely done when
-				 * the signal is called. A page change in the signal handler
-				 * will be partialy overwritten */
-				g_idle_add (on_druid_delayed_set_next_page, druid->window);
+				gtk_assistant_set_current_page (assistant, gtk_assistant_get_current_page (assistant) + 1);
 
 				return;
 			}
@@ -1074,11 +1049,7 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 		else
 		{
 			/* Page is already in cache, change the page to display it */
-			/* The page change is delayed because in the latest version of
-			 * GtkAssistant, the page switch is not completely done when
-			 * the signal is called. A page change in the signal handler
-			 * will be partialy overwritten */
-			g_idle_add (on_druid_delayed_get_new_page, druid);
+			on_druid_get_new_page (NULL, druid);
 		}
 	}
 	else if (page == druid->finish_page)
@@ -1099,6 +1070,31 @@ on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
 		gtk_assistant_set_page_title (assistant, druid->progress_page, "...");
 	}
 }
+
+static gboolean
+on_druid_delayed_prepare (gpointer data)
+{
+	NPWDruid *druid = (NPWDruid *)data;
+	GtkAssistant *assistant;
+	GtkWidget *page;
+
+	assistant = GTK_ASSISTANT (druid->window);
+	page = gtk_assistant_get_nth_page (assistant, gtk_assistant_get_current_page (assistant));
+	on_druid_real_prepare (assistant, page, druid);
+
+	return FALSE;
+}
+
+static void
+on_druid_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid)
+{
+	/* The page change is delayed because in the latest version of
+	 * GtkAssistant, the page switch is not completely done when
+	 * the signal is called. A page change in the signal handler
+	 * will be partialy overwritten */
+	g_idle_add (on_druid_delayed_prepare, druid);
+}
+
 
 static void
 on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
