@@ -131,6 +131,9 @@ anjuta_message_area_new (const gchar    *text,
 	GtkWidget *content_area;
 	GtkWidget *message_label = gtk_label_new ("");
 
+	gtk_label_set_line_wrap (GTK_LABEL (message_label), TRUE);
+	gtk_label_set_line_wrap_mode (GTK_LABEL (message_label), PANGO_WRAP_WORD);
+	
 	message_area = GTK_INFO_BAR (gtk_info_bar_new ());
 	gtk_info_bar_set_message_type (message_area, type);
 	content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (message_area));
