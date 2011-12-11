@@ -5346,7 +5346,7 @@ msgstr "Adresse"
 
 #: ../plugins/git/git-repository-selector.c:100
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Ausgewählte Gegenstelle:</b> %s"
+msgstr "<b>Ausgewählte Gegenstelle:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
