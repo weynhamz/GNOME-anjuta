@@ -23,29 +23,10 @@ struct _GitRemotesPanePriv
 {
 	GtkBuilder *builder;
 	gchar *selected_remote;
+	GtkWidget* remotes_combo;
 };
 
 G_DEFINE_TYPE (GitRemotesPane, git_remotes_pane, GIT_TYPE_PANE);
-
-static gboolean
-on_remote_selected (GtkTreeSelection *selection, GtkTreeModel *model,
-                    GtkTreePath *path, gboolean path_currently_selected,
-                    GitRemotesPane *self)
-{
-	GtkTreeIter iter;
-
-	if (!path_currently_selected)
-	{
-		gtk_tree_model_get_iter (model, &iter, path);
-
-		g_free (self->priv->selected_remote);
-		gtk_tree_model_get (model, &iter, 0, &(self->priv->selected_remote), -1);
-		
-		anjuta_dock_pane_notify_single_selection_changed (ANJUTA_DOCK_PANE (self));
-	}
-
-	return TRUE;
-}
 
 static void
 git_remotes_pane_init (GitRemotesPane *self)
@@ -54,8 +35,6 @@ git_remotes_pane_init (GitRemotesPane *self)
 						"remotes_list_model",
 						NULL};
 	GError *error = NULL;
-	GtkTreeView *remotes_view;
-	GtkTreeSelection *selection;
 
 	self->priv = g_new0 (GitRemotesPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -68,14 +47,8 @@ git_remotes_pane_init (GitRemotesPane *self)
 		g_error_free (error);
 	}
 
-	remotes_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                      "remotes_view"));
-	selection = gtk_tree_view_get_selection (remotes_view);
-
-
-	gtk_tree_selection_set_select_function (selection,
-	                                        (GtkTreeSelectionFunc) on_remote_selected,
-	                                        self, NULL);
+	self->priv->remotes_combo = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                                "remotes_combo"));
 }
 
 static void
@@ -118,21 +91,22 @@ static void
 on_remote_list_command_data_arrived (AnjutaCommand *command, 
                                      GitRemotesPane *self)
 {
-	GtkListStore *remotes_list_model;
 	GQueue *output;
 	gchar *remote;
-	GtkTreeIter iter;
 
-	remotes_list_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
-	                                                             "remotes_list_model"));
 	output = git_raw_output_command_get_output (GIT_RAW_OUTPUT_COMMAND (command));
 
 	while (g_queue_peek_head (output))
 	{
 		remote = g_queue_pop_head (output);
 
-		gtk_list_store_append (remotes_list_model, &iter);
-		gtk_list_store_set (remotes_list_model, &iter, 0, remote, -1);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(self->priv->remotes_combo),
+		                                remote);
+		if (gtk_combo_box_get_active (GTK_COMBO_BOX (self->priv->remotes_combo))
+		    == -1)
+		{
+			gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->remotes_combo), 0);
+		}
 
 		g_free (remote);
 	}
@@ -163,5 +137,5 @@ git_remotes_pane_new (Git *plugin)
 gchar *
 git_remotes_pane_get_selected_remote (GitRemotesPane *self)
 {
-	return g_strdup (self->priv->selected_remote);
+	return gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (self->priv->remotes_combo));
 }
