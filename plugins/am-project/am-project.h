@@ -54,6 +54,7 @@ struct _AmpProjectClass {
 };
 
 typedef struct _AmpProperty AmpProperty;
+typedef struct _AmpPropertyInfo AmpPropertyInfo;
 
 GType         amp_project_get_type (void);
 AmpProject   *amp_project_new      (GFile *file, IAnjutaLanguage *language, GError **error);

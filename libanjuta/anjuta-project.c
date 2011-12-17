@@ -2,24 +2,24 @@
 /*
  * anjuta-project.c
  * Copyright (C) Sébastien Granjoux 2009 <seb.sfo@free.fr>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "anjuta-project.h"
 
-#include "anjuta-debug.h" 
+#include "anjuta-debug.h"
 #include "anjuta-marshal.h"
 #include "anjuta-enum-types.h"
 
@@ -29,21 +29,21 @@
  * SECTION:anjuta-project
  * @title: Anjuta project
  * @short_description: Anjuta project
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/anjuta-project.h
- * 
+ *
  * A project in Anjuta is represented by a tree. There are six kinds of node.
  *
  * The root node is the parent of all other nodes, it can implement
  * IAnjutaProject interface and represent the project itself but it is not
  * mandatory.
- * 
+ *
  * A module node represents a module in autotools project, it is a group of
  * packages.
- * 
+ *
  * A package node represents a package in autotools project, it is library.
- * 
+ *
  * A group node is used to group several target or source, it can represent
  * a directory by example.
  *
@@ -56,7 +56,7 @@
  *
  * All these nodes are base objects. They have derived in each project backend
  * to provide more specific information.
- */ 
+ */
 
 /* Node properties
  *---------------------------------------------------------------------------*/
@@ -66,44 +66,38 @@
 
 /**
  * anjuta_project_property_new:
- * @id: (transfer none):
- * @name: (transfer none):
- * @value: (transfer none):
- * @native: (allow-none) (transfer none):
+ * @value: (transfer none): Value
+ * @name: (allow-none) (transfer none): Optional name used by map properties
+ * @user_data: (allow-none) (transfer full): Optional user data
  *
  * Returns: (transfer full):
  */
 AnjutaProjectProperty *
-anjuta_project_property_new (const gchar* id, const gchar *name, AnjutaProjectValueType type,
-                             const gchar *value, AnjutaProjectProperty *native)
+anjuta_project_property_new (const gchar *value,
+                             const gchar *name,
+                             gpointer user_data)
 {
 	AnjutaProjectProperty *prop = g_slice_new0(AnjutaProjectProperty);
-	prop->id = g_strdup (id);
-	prop->name = g_strdup (name);
-	prop->type = type;
-	prop->value = g_strdup (value);
 
-	if (native != NULL) {
-		prop->native = native;
-		prop->flags = native->flags;
-		prop->detail = native->detail;
-	}
-	
+	prop->value = g_strdup (value);
+	prop->name = name != NULL ? g_strdup (name) : NULL;
+	prop->user_data = user_data;
+	prop->info = NULL;
+
 	return prop;
 }
 
 AnjutaProjectProperty *
 anjuta_project_property_copy (AnjutaProjectProperty *prop)
 {
-	return anjuta_project_property_new (prop->id, prop->name, prop->type,
-	                                    prop->value, prop->native);
+	return anjuta_project_property_new (prop->value, prop->name, prop->user_data);
 }
 
 void
 anjuta_project_property_free (AnjutaProjectProperty *prop)
 {
-	g_free (prop->name);
 	g_free (prop->value);
+	g_free (prop->name);
 	g_slice_free (AnjutaProjectProperty, prop);
 }
 
@@ -120,7 +114,76 @@ anjuta_project_property_get_type (void)
 	return type_id;
 }
 
+/* Node properties information
+ *---------------------------------------------------------------------------*/
 
+/* Implement Boxed type
+ *---------------------------------------------------------------------------*/
+
+/**
+ * anjuta_project_property_info_new:
+ * @id: (transfer none): Property identifier
+ * @name: (transfer none): Translatable property name
+ * @type: Property value type
+ * @flags: Property flags
+ * @description: (transfer none): Property description
+ * @property: (transfer full): Default property value
+ * @user_data: (allow-none) (transfer full): Optional user data
+ *
+ * Returns: (transfer full):
+ */
+AnjutaProjectPropertyInfo *
+anjuta_project_property_info_new (const gchar *id,
+                                  const gchar *name,
+                                  AnjutaProjectValueType type,
+                                  AnjutaProjectPropertyFlags flags,
+                                  const gchar *description,
+                                  AnjutaProjectProperty *property,
+                                  gpointer user_data)
+{
+	AnjutaProjectPropertyInfo *info = g_slice_new0(AnjutaProjectPropertyInfo);
+
+	info->id = g_strdup (id);
+	info->name = g_strdup (name);
+	info->type = type;
+	info->flags = flags;
+	info->description = g_strdup (description);
+	info->property = property;
+	info->user_data = user_data;
+
+	return info;
+}
+
+AnjutaProjectPropertyInfo *
+anjuta_project_property_info_copy (AnjutaProjectPropertyInfo *info)
+{
+	return anjuta_project_property_info_new (info->id, info->name, info->type,
+	                                         info->flags, info->description,
+	                                         info->property, info->user_data);
+}
+
+void
+anjuta_project_property_info_free (AnjutaProjectPropertyInfo *info)
+{
+	g_free (info->id);
+	g_free (info->name);
+	g_free (info->description);
+	anjuta_project_property_free (info->property);
+	g_slice_free (AnjutaProjectPropertyInfo, info);
+}
+
+GType
+anjuta_project_property_info_get_type (void)
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaProjectPropertyInfo",
+		                                        (GBoxedCopyFunc) anjuta_project_property_info_copy,
+		                                        (GBoxedFreeFunc) anjuta_project_property_info_free);
+
+	return type_id;
+}
 
 /* Node
  *---------------------------------------------------------------------------*/
@@ -138,7 +201,7 @@ AnjutaProjectNode *
 anjuta_project_node_parent(AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-	
+
 	return node->parent;
 }
 
@@ -170,7 +233,7 @@ AnjutaProjectNode *
 anjuta_project_node_first_child(AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-	
+
 	return node->children;
 }
 
@@ -202,7 +265,7 @@ AnjutaProjectNode *
 anjuta_project_node_next_sibling (AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-	
+
 	return node->next;
 }
 
@@ -215,7 +278,7 @@ AnjutaProjectNode *
 anjuta_project_node_prev_sibling (AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-	
+
 	return node->prev;
 }
 
@@ -240,7 +303,7 @@ static AnjutaProjectNode *
 anjuta_project_node_post_order_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
 {
 	AnjutaProjectNode *child;
-	
+
 	child = node->children;
 	while (child != NULL)
 	{
@@ -254,7 +317,7 @@ anjuta_project_node_post_order_traverse (AnjutaProjectNode *node, AnjutaProjectN
 			return current;
 		}
 	}
-	
+
 	return func (node, data) ? node : NULL;
 }
 
@@ -267,7 +330,7 @@ anjuta_project_node_pre_order_traverse (AnjutaProjectNode *node, AnjutaProjectNo
 	{
 		return node;
 	}
-	
+
 	child = node->children;
 	while (child != NULL)
 	{
@@ -320,7 +383,7 @@ AnjutaProjectNode *
 anjuta_project_node_children_traverse (AnjutaProjectNode *node, AnjutaProjectNodeTraverseFunc func, gpointer data)
 {
 	AnjutaProjectNode *child;
-	
+
 	g_return_val_if_fail (node != NULL, NULL);
 
 	child = node->children;
@@ -343,7 +406,7 @@ static void
 anjuta_project_node_post_order_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
 {
 	AnjutaProjectNode *child;
-	
+
 	child = node->children;
 	while (child != NULL)
 	{
@@ -353,7 +416,7 @@ anjuta_project_node_post_order_foreach (AnjutaProjectNode *node, AnjutaProjectNo
 		child = current->next;
 		anjuta_project_node_post_order_foreach (current, func, data);
 	}
-	
+
 	func (node, data);
 }
 
@@ -363,7 +426,7 @@ anjuta_project_node_pre_order_foreach (AnjutaProjectNode *node, AnjutaProjectNod
 	AnjutaProjectNode *child;
 
 	func (node, data);
-	
+
 	child = node->children;
 	while (child != NULL)
 	{
@@ -407,7 +470,7 @@ void
 anjuta_project_node_children_foreach (AnjutaProjectNode *node, AnjutaProjectNodeForeachFunc func, gpointer data)
 {
 	AnjutaProjectNode *child;
-	
+
 	g_return_if_fail (node != NULL);
 
 	child = node->children;
@@ -472,7 +535,7 @@ void
 anjuta_project_node_check (AnjutaProjectNode *parent)
 {
 	AnjutaProjectNode *node;
-	
+
 	g_message ("Check node %p", parent);
 	node = anjuta_project_node_traverse (parent, G_POST_ORDER, check_node, parent);
 	if (node == NULL) g_message ("    Node %p is valid", parent);
@@ -489,10 +552,10 @@ static void
 anjuta_project_node_dump_child (AnjutaProjectNode *parent, gint indent)
 {
 	AnjutaProjectNode *child;
-	
+
 	anjuta_project_node_show (parent, indent);
 	indent += 4;
-	
+
 	for (child = anjuta_project_node_first_child (parent); child != NULL; child = anjuta_project_node_next_sibling (child))
 	{
 		anjuta_project_node_dump_child (child, indent);
@@ -530,7 +593,7 @@ anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode 
 		g_return_val_if_fail (sibling->parent == parent, node);*/
 
 	g_object_ref_sink (node);
-	
+
 	node->parent = parent;
 	if (sibling)
 	{
@@ -564,7 +627,7 @@ anjuta_project_node_insert_before (AnjutaProjectNode *parent, AnjutaProjectNode 
 		}
 	}
 
-	return node;	
+	return node;
 }
 
 /**
@@ -587,7 +650,7 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 		g_return_val_if_fail (sibling->parent == parent, node);*/
 
 	g_object_ref_sink (node);
-	
+
 	node->parent = parent;
 	if (sibling)
     {
@@ -609,7 +672,7 @@ anjuta_project_node_insert_after (AnjutaProjectNode *parent, AnjutaProjectNode *
 		parent->children = node;
 	}
 
-	return node;	
+	return node;
 }
 
 /**
@@ -622,7 +685,7 @@ AnjutaProjectNode *
 anjuta_project_node_remove (AnjutaProjectNode *node)
 {
 	g_return_val_if_fail (node != NULL, NULL);
-	
+
 	if (node->prev)
 		node->prev->next = node->next;
 	else if (node->parent)
@@ -634,7 +697,7 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 		node->next = NULL;
 	}
 	node->prev = NULL;
-	
+
 	return node;
 }
 
@@ -646,7 +709,7 @@ anjuta_project_node_remove (AnjutaProjectNode *node)
 AnjutaProjectNode *
 anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
 {
-	return anjuta_project_node_insert_before (parent, parent->children, node);	
+	return anjuta_project_node_insert_before (parent, parent->children, node);
 }
 
 /**
@@ -656,7 +719,7 @@ anjuta_project_node_prepend (AnjutaProjectNode *parent, AnjutaProjectNode *node)
  */
 AnjutaProjectNode *
 anjuta_project_node_append (AnjutaProjectNode *parent, AnjutaProjectNode *node)
-{ 
+{
 	return anjuta_project_node_insert_before (parent, NULL, node);
 }
 
@@ -703,7 +766,7 @@ anjuta_project_node_get_file (const AnjutaProjectNode *node)
 {
 	switch (node->type & ANJUTA_PROJECT_TYPE_MASK)
 	{
-	case ANJUTA_PROJECT_OBJECT:	
+	case ANJUTA_PROJECT_OBJECT:
 	case ANJUTA_PROJECT_TARGET:
 		if ((node->name) && (node->parent != NULL) && (node->parent->file != NULL))
 		{
@@ -725,99 +788,136 @@ anjuta_project_node_get_file (const AnjutaProjectNode *node)
 	default:
 		break;
 	}
-			
-	return node->file;		
+
+	return node->file;
 }
 
 /**
- * anjuta_project_node_get_custom_properties:
+ * anjuta_project_node_get_properties_info:
  *
  * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
  */
 GList *
-anjuta_project_node_get_custom_properties (AnjutaProjectNode *node)
+anjuta_project_node_get_properties_info (AnjutaProjectNode *node)
 {
-	return node->custom_properties;
+	return node->properties_info;
 }
 
 /**
- * anjuta_project_node_get_native_properties:
+ * anjuta_project_node_get_properties:
  *
- * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
+ * Returns: (transfer none) (element-type Anjuta.ProjectPropertyInfo):
  */
 GList *
-anjuta_project_node_get_native_properties (AnjutaProjectNode *node)
+anjuta_project_node_get_properties (AnjutaProjectNode *node)
 {
-	return node->native_properties;
+	return node->properties;
+}
+
+static gint
+find_property_info (gconstpointer item, gconstpointer data)
+{
+	AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item;
+	const gchar *id = (const gchar *)data;
+
+	return strcmp (info->id, id);
+}
+
+/**
+ * anjuta_project_node_get_property_info:
+ * @node: (transfer none):
+ * @id: (transfer none): Property identifier
+ *
+ * Returns: (transfer none):
+ */
+AnjutaProjectPropertyInfo *
+anjuta_project_node_get_property_info (AnjutaProjectNode *node,
+                                       const gchar *id)
+{
+	GList *found;
+
+	/* Find property info */
+	found = g_list_find_custom (node->properties_info, id, find_property_info);
+
+	return found != NULL ? (AnjutaProjectPropertyInfo *)found->data : NULL;
 }
 
 static gint
 find_property (gconstpointer item, gconstpointer data)
 {
-	AnjutaProjectProperty *prop_a = (AnjutaProjectProperty *)item;
-	AnjutaProjectProperty *prop_b = (AnjutaProjectProperty *)data;
+	AnjutaProjectProperty *prop = (AnjutaProjectProperty *)item;
+	AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)data;
 
-	if (prop_a->native != NULL) prop_a = prop_a->native;
-	if (prop_b->native != NULL) prop_b = prop_b->native;
-
-	return prop_a != prop_b;
+	return prop->info != info;
 }
 
 /**
  * anjuta_project_node_get_property:
+ * @node: (transfer none):
+ * @id: (transfer none): Property identifier
  *
  * Returns: (transfer none):
  */
 AnjutaProjectProperty *
-anjuta_project_node_get_property (AnjutaProjectNode *node, AnjutaProjectProperty *property)
+anjuta_project_node_get_property (AnjutaProjectNode *node, const gchar *id)
 {
-	GList *found;
+	AnjutaProjectPropertyInfo *info;
+	AnjutaProjectProperty *prop = NULL;
 
-	/* Search in custom properties */
-	found = g_list_find_custom (node->custom_properties, property, find_property);
-
-	if (found == NULL)
+	/* Find property info */
+	info = anjuta_project_node_get_property_info (node, id);
+	if (info != NULL)
 	{
-		/* Search in native properties */
-		found = g_list_find_custom (node->native_properties, property, find_property);
+		GList *found;
+
+		/* Get default property */
+		prop = info->property;
+
+		/* Find custom property */
+		found = g_list_find_custom (node->properties, info, find_property);
+		if (found != NULL)
+		{
+			prop = (AnjutaProjectProperty *)found->data;
+		}
 	}
 
-	return found != NULL ? (AnjutaProjectProperty *)found->data : NULL;
+	return prop;
 }
 
 /* If name is specified, look for a property with the same name, useful for
  * map properties */
 AnjutaProjectProperty *
-anjuta_project_node_get_map_property (AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *name)
+anjuta_project_node_get_map_property (AnjutaProjectNode *node, const gchar *id, const gchar *name)
 {
-	GList *found = NULL;
+	AnjutaProjectPropertyInfo *info;
+	AnjutaProjectProperty *prop = NULL;
 
-	/* Check if the property is already the right one */
-	if (property->native != NULL)
+	/* Find property info */
+	info = anjuta_project_node_get_property_info (node, id);
+	if (info != NULL)
 	{
-		found = g_list_find (node->custom_properties, property);
-	}
-	
-	/* Search in custom properties */
-	if (found == NULL)
-	{
-		found = g_list_find_custom (node->custom_properties, property, find_property);
-		if (name != NULL)
+		GList *found;
+
+		/* Get default property */
+		prop = info->property;
+
+		/* Find property */
+		found = node->properties;
+		do
 		{
-			while ((found != NULL) && (strcmp (name, ((AnjutaProjectProperty *)found->data)->name) != 0))
+			found = g_list_find_custom (found, info, find_property);
+			if (found != NULL)
 			{
-				found = g_list_find_custom (g_list_next (found), property, find_property);
+				prop = (AnjutaProjectProperty *)found->data;
+				if ((info->type != ANJUTA_PROJECT_PROPERTY_MAP) || (g_strcmp0 (prop->name, name) == 0)) break;
+				prop = NULL;
+				found = g_list_next (found);
 			}
 		}
+		while (found != NULL);
 	}
 
-	if (found == NULL)
-	{
-		/* Search in native properties */
-		found = g_list_find_custom (node->native_properties, property, find_property);
-	}
-
-	return found != NULL ? (AnjutaProjectProperty *)found->data : NULL;
+	return prop;
 }
 
 /* Set functions
@@ -839,60 +939,47 @@ anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState
 	return TRUE;
 }
 
+AnjutaProjectPropertyInfo *
+anjuta_project_node_insert_property_info (AnjutaProjectNode *node,
+                                          AnjutaProjectPropertyInfo *info)
+{
+	node->properties_info = g_list_append (node->properties_info, info);
+
+	return info;
+}
+
 /**
  * anjuta_project_node_insert_property:
+ * @node: (transfer none):
+ * @info: (transfer none):
  * @property: (transfer full):
  *
  * Returns: (transfer none):
  */
 
 AnjutaProjectProperty *
-anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectProperty *native, AnjutaProjectProperty *property)
+anjuta_project_node_insert_property (AnjutaProjectNode *node, AnjutaProjectPropertyInfo *info, AnjutaProjectProperty *property)
 {
 	/* Make sure the property is native */
-	if (native->native != NULL) native = native->native;
-	
-	/* Fill missing information */
-	if (property->name == NULL) property->name = native->name;
-	property->type = native->type;
-	property->native = native;
-	property->flags = native->flags;
-	property->detail = native->detail;
+	property->info = info;
 
-	/* Get properties list */
-	node->custom_properties = g_list_append (node->custom_properties, property);
-	
+	/* Add in properties list */
+	node->properties = g_list_append (node->properties, property);
+
 	return property;
 }
 
 AnjutaProjectProperty *
 anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *prop)
 {
-	GList *found;
-	AnjutaProjectProperty *removed = NULL;
-
 	/* Search the exact property, useful for list property */
-	found = g_list_find (node->custom_properties, prop);
-	if (found == NULL)
+	if (prop != prop->info->property)
 	{
-		found = g_list_find_custom (node->custom_properties, prop, find_property);
+		node->properties = g_list_remove (node->properties, prop);
+		prop->info = NULL;
 	}
 
-	if (found != NULL)
-	{
-		removed = (AnjutaProjectProperty *)found->data;
-		node->custom_properties = g_list_delete_link (node->custom_properties, found);
-		/* If name is not owned by the property, remove it as the
-		 * property can be associated with another one, having a
-		 * different name */
-		if ((removed->native != NULL) && (removed->name == removed->native->name))
-		{
-			removed->name = NULL;
-		}
-	}
-
-
-	return removed;
+	return prop;
 }
 
 
@@ -1004,8 +1091,8 @@ enum {
 	PROP_FILE,
 	PROP_STATE,
 	PROP_TYPE,
-	PROP_NATIVE_PROPERTIES,
-	PROP_CUSTOM_PROPERTIES
+	PROP_PROPERTIES,
+	PROP_PROPERTIES_INFO
 };
 
 
@@ -1020,11 +1107,11 @@ anjuta_project_node_init (AnjutaProjectNode *node)
 	node->prev = NULL;
 	node->parent = NULL;
 	node->children = NULL;
-	
+
 	node->type = 0;
 	node->state = 0;
-	node->native_properties = NULL;
-	node->custom_properties = NULL;
+	node->properties = NULL;
+	node->properties_info = NULL;
 	node->file = NULL;
 	node->name = NULL;
 }
@@ -1035,18 +1122,18 @@ anjuta_project_node_dispose (GObject *object)
 	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
 
 	anjuta_project_node_remove (node);
-	
+
 	if (node->file != NULL) g_object_unref (node->file);
 	node->file = NULL;
 
 	while (node->children != NULL)
 	{
 		AnjutaProjectNode *child;
-		
+
 		child = anjuta_project_node_remove (node->children);
 		g_object_unref (child);
 	}
-	
+
 	G_OBJECT_CLASS (anjuta_project_node_parent_class)->dispose (object);
 }
 
@@ -1056,11 +1143,11 @@ anjuta_project_node_finalize (GObject *object)
 	AnjutaProjectNode *node = ANJUTA_PROJECT_NODE(object);
 
 	if (node->name != NULL) g_free (node->name);
-	
+
 	G_OBJECT_CLASS (anjuta_project_node_parent_class)->finalize (object);
 }
 
-static void 
+static void
 anjuta_project_node_get_gobject_property (GObject    *object,
                                           guint       prop_id,
                                           GValue     *value,
@@ -1080,18 +1167,18 @@ anjuta_project_node_get_gobject_property (GObject    *object,
 		case PROP_TYPE:
 			g_value_set_flags (value, anjuta_project_node_get_node_type (node));
 			break;
-		case PROP_NATIVE_PROPERTIES:
-			g_value_set_pointer (value, node->native_properties);
+		case PROP_PROPERTIES:
+			g_value_set_pointer (value, node->properties);
 			break;
-		case PROP_CUSTOM_PROPERTIES:
-			g_value_set_pointer (value, node->custom_properties);
+		case PROP_PROPERTIES_INFO:
+			g_value_set_pointer (value, node->properties_info);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
 }
 
-static void 
+static void
 anjuta_project_node_set_gobject_property (GObject      *object,
                                           guint         prop_id,
                                           const GValue *value,
@@ -1115,12 +1202,12 @@ anjuta_project_node_set_gobject_property (GObject      *object,
 		case PROP_TYPE:
 			node->type = g_value_get_flags (value);
 			break;
-		case PROP_NATIVE_PROPERTIES:
-			node->native_properties = g_value_get_pointer (value);
+		case PROP_PROPERTIES:
+			node->properties = g_value_get_pointer (value);
 			break;
 		/* XXX: We may need to copy this instead */
-		case PROP_CUSTOM_PROPERTIES:
-			node->custom_properties = g_value_get_pointer (value);
+		case PROP_PROPERTIES_INFO:
+			node->properties_info = g_value_get_pointer (value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1132,7 +1219,7 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	GParamSpec* pspec;
-	
+
 	object_class->finalize = anjuta_project_node_finalize;
 	object_class->dispose = anjuta_project_node_dispose;
 	object_class->get_property = anjuta_project_node_get_gobject_property;
@@ -1150,7 +1237,7 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 	 The plugin should probably get the GFile from the
 	 AnjutaProjectNode object and then use a function
 	 in project-view.c to create the corresponding shortcut*/
-	
+
 	anjuta_project_node_signals[UPDATED] = g_signal_new ("updated",
 	    G_OBJECT_CLASS_TYPE (object_class),
 	    G_SIGNAL_RUN_LAST,
@@ -1161,7 +1248,7 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 	    2,
 	    G_TYPE_POINTER,
 	    G_TYPE_ERROR);
-	
+
 	anjuta_project_node_signals[LOADED] = g_signal_new ("loaded",
 		G_OBJECT_CLASS_TYPE (object_class),
 		G_SIGNAL_RUN_LAST,
@@ -1208,28 +1295,28 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 	                                 pspec);
 
 /**
- * AnjutaProjectNode:native-properties:
+ * AnjutaProjectNode:properties:
  *
  * type: GLib.List<Anjuta.ProjectProperty>
  * Transfer: none
  */
-	pspec = g_param_spec_pointer ("native-properties",
-	                              "Native properties",
-	                              "The list of all possible properties",
+	pspec = g_param_spec_pointer ("properties",
+	                              "Properties",
+	                              "The list of properties",
 	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_NATIVE_PROPERTIES,
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_PROPERTIES,
 	                                 pspec);
 /**
- * AnjutaProjectNode:custom-properties:
+ * AnjutaProjectNode:properties-info:
  *
- * Type: GLib.List<Anjuta.ProjectProperty>
+ * Type: GLib.List<Anjuta.ProjectPropertyInfo>
  * Transfer: none
  */
-	pspec = g_param_spec_pointer ("custom-properties",
-	                              "Custom properties",
-	                              "The list of overriden properties",
+	pspec = g_param_spec_pointer ("properties-info",
+	                              "Properties info",
+	                              "The list of all possible properties informations",
 	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_CUSTOM_PROPERTIES,
+	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_PROPERTIES_INFO,
 	                                 pspec);
 
 }
@@ -1248,7 +1335,7 @@ anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info)
 	return info->name;
 }
 
-const gchar *   
+const gchar *
 anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info)
 {
 	return info->mime_type;

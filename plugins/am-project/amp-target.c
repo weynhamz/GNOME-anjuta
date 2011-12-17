@@ -207,7 +207,7 @@ void
 amp_target_node_set_type (AmpTargetNode *target, AmTokenType type)
 {
 	target->base.type = ANJUTA_PROJECT_TARGET | type;
-	target->base.native_properties = amp_get_target_property_list(type);
+	target->base.properties_info = amp_get_target_property_list(type);
 }
 
 void
@@ -273,11 +273,11 @@ amp_target_changed (AmpTargetNode *node)
 	GList *item;
 	gboolean custom = FALSE;
 
-	for (item = ANJUTA_PROJECT_NODE (node)->custom_properties; item != NULL; item = g_list_next (item))
+	for (item = ANJUTA_PROJECT_NODE (node)->properties; item != NULL; item = g_list_next (item))
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
 
-		custom = ((AmpProperty *)prop->base.native)->flags & AM_PROPERTY_COMPILATION_FLAG;
+		custom = ((AmpPropertyInfo *)prop->base.info)->flags & AM_PROPERTY_COMPILATION_FLAG;
 		if (custom) break;
 	}
 
@@ -467,11 +467,11 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 		{
 			GList *item;
 
-			for (item = ANJUTA_PROJECT_NODE (parent)->custom_properties; item != NULL; item = g_list_next (item))
+			for (item = anjuta_project_node_get_properties (ANJUTA_PROJECT_NODE (parent)); item != NULL; item = g_list_next (item))
 			{
 				AmpProperty *prop = (AmpProperty *)item->data;
 
-				if ((prop->token_type == AM_TOKEN_DIR) && (g_strcmp0 (prop->base.name, installdir) == 0))
+				if ((((AmpPropertyInfo *)prop->base.info)->token_type == AM_TOKEN_DIR) && (g_strcmp0 (prop->base.name, installdir) == 0))
 				{
 					/* Remove directory variable */
 					anjuta_token_remove_list (anjuta_token_list (prop->token));
@@ -515,7 +515,7 @@ amp_target_node_finalize (GObject *object)
 {
 	AmpTargetNode *node = AMP_TARGET_NODE (object);
 
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
+	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	tagged_token_list_free (node->tokens);
 	node->tokens = NULL;
 

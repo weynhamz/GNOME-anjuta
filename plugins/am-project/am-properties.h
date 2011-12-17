@@ -28,17 +28,22 @@
 
 G_BEGIN_DECLS
 
+AnjutaProjectPropertyInfo *amp_property_info_new (AnjutaTokenType type, gint position);
+void amp_property_info_free (AnjutaProjectPropertyInfo *prop);
+
 AnjutaProjectProperty *amp_property_new (const gchar *name, AnjutaTokenType type, gint position, const gchar *value, AnjutaToken *token);
 void amp_property_free (AnjutaProjectProperty *prop);
 
 gboolean amp_node_property_load (AnjutaProjectNode *target, gint token_type, gint position, const gchar *value, AnjutaToken *token);
 gboolean amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *prop);
-AnjutaProjectProperty *amp_node_property_set (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar* value);
+AnjutaProjectPropertyInfo *amp_node_get_property_info_from_token (AnjutaProjectNode *node, gint token, gint pos);
 AnjutaProjectProperty *amp_node_get_property_from_token (AnjutaProjectNode *node, gint token, gint pos);
+AnjutaProjectProperty *amp_node_property_set (AnjutaProjectNode *node, const gchar *id, const gchar* value);
+AnjutaProjectProperty *amp_node_map_property_set (AnjutaProjectNode *node, const gchar *id, const gchar *name, const gchar* value);
 
-gboolean amp_node_property_has_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
-AnjutaProjectProperty *amp_node_property_remove_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
-AnjutaProjectProperty *amp_node_property_add_flags (AnjutaProjectNode *node, AnjutaProjectProperty *prop, const gchar *value);
+gboolean amp_node_property_has_flags (AnjutaProjectNode *node, const gchar *id, const gchar *value);
+AnjutaProjectProperty *amp_node_property_remove_flags (AnjutaProjectNode *node, const gchar *id, const gchar *value);
+AnjutaProjectProperty *amp_node_property_add_flags (AnjutaProjectNode *node, const gchar *id, const gchar *value);
 
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);

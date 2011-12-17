@@ -148,7 +148,7 @@ static void
 amp_source_node_init (AmpSourceNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_SOURCE;
-	node->base.native_properties = amp_get_source_property_list();
+	node->base.properties_info = amp_get_source_property_list();
 	node->base.state = ANJUTA_PROJECT_CAN_REMOVE;
 	node->token = NULL;
 }
@@ -158,7 +158,7 @@ amp_source_node_finalize (GObject *object)
 {
 	AmpSourceNode *node = AMP_SOURCE_NODE (object);
 
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
+	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	G_OBJECT_CLASS (amp_source_node_parent_class)->finalize (object);
 }
 

@@ -105,7 +105,7 @@ amp_package_node_add_token (AmpPackageNode *node, AnjutaToken *token)
 void
 amp_package_node_update_node (AmpPackageNode *node, AmpPackageNode *new_node)
 {
-	g_return_if_fail (new_node != NULL);	
+	g_return_if_fail (new_node != NULL);
 
 	node->token = new_node->token;
 	g_free (node->version);
@@ -122,7 +122,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 	GList* deps;
 	GList* dep;
 	GList* include_dirs = NULL;
-	
+
 	deps = anjuta_pkg_config_list_dependencies (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)),
 	                                            error);
 	for (dep = deps; dep != NULL; dep = g_list_next (dep))
@@ -141,12 +141,12 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 		g_error_free (*error);
 		*error = NULL;
 	}
-	
+
 	if ((include_dirs = anjuta_pkg_config_get_directories (anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (node)),
 	                                                       TRUE, error)))
 	{
 		GList* include_dir;
-		
+
 		for (include_dir = include_dirs; include_dir != NULL; include_dir = g_list_next (include_dir))
 		{
 			GList* children = NULL;
@@ -168,7 +168,7 @@ amp_package_node_load (AmpNode *node, AmpNode *parent, AmpProject *project, GErr
 		}
 	}
 	anjuta_util_glist_strings_free (include_dirs);
-	
+
 	return TRUE;
 }
 
@@ -208,7 +208,7 @@ static void
 amp_package_node_init (AmpPackageNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_PACKAGE;
-	node->base.native_properties = amp_get_package_property_list();
+	node->base.properties_info = amp_get_package_property_list();
 	node->base.state =  ANJUTA_PROJECT_CAN_REMOVE;
 	node->version = NULL;
 }
@@ -218,8 +218,8 @@ amp_package_node_finalize (GObject *object)
 {
 	AmpPackageNode *node = AMP_PACKAGE_NODE (object);
 
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
-	
+	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
+
 	G_OBJECT_CLASS (amp_package_node_parent_class)->finalize (object);
 }
 
@@ -228,9 +228,9 @@ amp_package_node_class_init (AmpPackageNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	AmpNodeClass* node_class;
-	
+
 	object_class->finalize = amp_package_node_finalize;
-	
+
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->load = amp_package_node_load;
 	node_class->update = amp_package_node_update;

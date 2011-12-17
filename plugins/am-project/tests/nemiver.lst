@@ -453,6 +453,7 @@ ROOT (): nemiver
             SOURCE (): tests/pointer-deref.cc
         TARGET (): fooprog
             PROPERTY (Do not install): true
+            PROPERTY (Libraries): 
             SOURCE (): tests/fooprog.cc
         TARGET (): templatedvar
             PROPERTY (Do not install): true

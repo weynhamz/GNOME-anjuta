@@ -60,7 +60,7 @@ typedef struct _PropertiesTable
 typedef struct _PropertyEntry
 {
 	GtkWidget *entry;
-	AnjutaProjectProperty *property;
+	AnjutaProjectPropertyInfo *info;
 } PropertyEntry;
 
 typedef struct _PropertyValue
@@ -130,13 +130,13 @@ error_dialog (GtkWindow *parent, const gchar *summary, const gchar *msg, ...)
  *---------------------------------------------------------------------------*/
 
 static PropertyEntry*
-pm_property_entry_new (GtkWidget *entry, AnjutaProjectProperty *property)
+pm_property_entry_new (GtkWidget *entry, AnjutaProjectPropertyInfo *info)
 {
 	PropertyEntry *prop;
 
 	prop = g_slice_new0(PropertyEntry);
 	prop->entry = entry;
-	prop->property = property;
+	prop->info = info;
 
 	return prop;
 }
@@ -418,26 +418,19 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	gchar *tooltip = NULL;
 	gboolean editable = TRUE;
 
-	if (prop->native != NULL)
-	{
-		label = gtk_label_new (_(prop->native->name));
-	}
-	else
-	{
-		label = gtk_label_new (_(prop->name));
-	}
+	label = gtk_label_new (_(prop->info->name));
 
-	editable = prop->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY ? FALSE : TRUE;
+	editable = prop->info->flags & ANJUTA_PROJECT_PROPERTY_READ_ONLY ? FALSE : TRUE;
 
-	if (prop->detail != NULL)
+	if (prop->info->description != NULL)
 	{
 		if (!editable)
 		{
-			tooltip = g_strconcat (_(prop->detail), _(" This property is not modifiable."), NULL);
+			tooltip = g_strconcat (_(prop->info->description), _(" This property is not modifiable."), NULL);
 		}
 		else
 		{
-			tooltip = g_strdup (_(prop->detail));
+			tooltip = g_strdup (_(prop->info->description));
 		}
 	}
 
@@ -450,7 +443,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
 			  GTK_FILL, GTK_FILL, 5, 3);
 
-	switch (prop->type)
+	switch (prop->info->type)
 	{
 	case ANJUTA_PROJECT_PROPERTY_STRING:
 	case ANJUTA_PROJECT_PROPERTY_LIST:
@@ -473,13 +466,11 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	case ANJUTA_PROJECT_PROPERTY_MAP:
 			model = GTK_TREE_MODEL (gtk_list_store_newv (LIST_COLUMNS_NB, column_type));
 
-			if (prop->native != NULL) prop = prop->native;
-
-			for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))
+			for (item = anjuta_project_node_get_properties (node); item != NULL; item = g_list_next (item))
 			{
 				AnjutaProjectProperty *cust_prop = (AnjutaProjectProperty *)item->data;
 
-				if (cust_prop->native == prop)
+				if (cust_prop->info == prop->info)
 				{
 					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 					gtk_list_store_set (GTK_LIST_STORE (model), &iter,
@@ -680,17 +671,17 @@ update_properties (PropertiesTable *table)
 	/* Display other node properties */
 	single = FALSE;
 
-	for (item = anjuta_project_node_get_native_properties (table->node); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_properties_info (table->node); item != NULL; item = g_list_next (item))
 	{
-		AnjutaProjectProperty *valid_prop = (AnjutaProjectProperty *)item->data;
+		AnjutaProjectPropertyInfo *info = (AnjutaProjectPropertyInfo *)item->data;
 
-		if (!(valid_prop->flags & ANJUTA_PROJECT_PROPERTY_HIDDEN))
+		if (!(info->flags & ANJUTA_PROJECT_PROPERTY_HIDDEN))
 		{
 			AnjutaProjectProperty *prop;
 			GtkWidget *entry;
 
-			prop = anjuta_project_node_get_property (table->node, valid_prop);
-			if (prop->native != NULL)
+			prop = anjuta_project_node_get_property (table->node, info->id);
+			if (prop != prop->info->property)
 			{
 				/* This property has been set, display it in the main part */
 				entry = add_entry (table->project->project, table->node, prop, table->main, &main_pos);
@@ -698,14 +689,14 @@ update_properties (PropertiesTable *table)
 			else
 			{
 				/* This property has not been set, hide it by default */
-				entry = add_entry (table->project->project, table->node, valid_prop, table->extra, &extra_pos);
+				entry = add_entry (table->project->project, table->node, info->property, table->extra, &extra_pos);
 				single = TRUE;
 			}
 
 			if (entry != NULL)
 			{
 				table->properties = g_list_prepend (table->properties,
-						pm_property_entry_new (entry, valid_prop));
+						pm_property_entry_new (entry, info));
 			}
 		}
 	}
@@ -740,10 +731,9 @@ on_properties_dialog_response (GtkWidget *dialog,
 			GtkTreeModel *model;
 
 			/* Get property value in node */
-			prop = anjuta_project_node_get_property (table->node, entry->property);
-			if (prop == NULL) prop = entry->property;
+			prop = anjuta_project_node_get_property (table->node, entry->info->id);
 
-			switch (prop->type)
+			switch (prop->info->type)
 			{
 			case ANJUTA_PROJECT_PROPERTY_STRING:
 			case ANJUTA_PROJECT_PROPERTY_LIST:
@@ -755,7 +745,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 						if ((prop->value != NULL) && (*prop->value != '\0'))
 						{
 							/* Remove */
-							ianjuta_project_set_property (table->project->project, table->node, prop, NULL, NULL);
+							ianjuta_project_set_property (table->project->project, table->node, entry->info->id, NULL, NULL, NULL);
 						}
 					}
 					else
@@ -763,7 +753,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 						if (g_strcmp0 (prop->value, text) != 0)
 						{
 							/* Modified */
-							ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
+							ianjuta_project_set_property (table->project->project, table->node, entry->info->id, NULL, text, NULL);
 						}
 					}
 				}
@@ -775,7 +765,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 				if (active != (*text == '1'))
 				{
 					/* Modified */
-					ianjuta_project_set_property (table->project->project, table->node, prop, text, NULL);
+					ianjuta_project_set_property (table->project->project, table->node, entry->info->id, NULL, text, NULL);
 				}
 				break;
 			case ANJUTA_PROJECT_PROPERTY_MAP:
@@ -791,7 +781,7 @@ on_properties_dialog_response (GtkWidget *dialog,
 					if ((cust_prop != NULL) && (g_strcmp0 (cust_prop->value, value) != 0))
 					{
 						/* Modified */
-						ianjuta_project_set_property (table->project->project, table->node, cust_prop, value, NULL);
+						ianjuta_project_set_property (table->project->project, table->node, entry->info->id, cust_prop->name, value, NULL);
 					}
 					g_free (value);
 				}

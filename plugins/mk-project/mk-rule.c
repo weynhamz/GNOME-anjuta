@@ -47,8 +47,8 @@ mkp_rule_new (gchar *name, AnjutaToken *token)
     MkpRule *rule = NULL;
 
 	g_return_val_if_fail (name != NULL, NULL);
-	
-	rule = g_slice_new0(MkpRule); 
+
+	rule = g_slice_new0(MkpRule);
 	rule->name = g_strdup (name);
 	rule->rule = token;
 
@@ -61,7 +61,7 @@ mkp_rule_free (MkpRule *rule)
 	g_free (rule->name);
 	g_list_foreach (rule->prerequisite, (GFunc)g_free, NULL);
 	g_list_free (rule->prerequisite);
-	
+
     g_slice_free (MkpRule, rule);
 }
 
@@ -89,9 +89,9 @@ mkp_project_find_dependencies (MkpProject *project, gchar *target, AnjutaProject
 			{
 				gchar *source;
 				GList *dependencies;
-				
+
 				if (rule->part == NULL)
-				{	
+				{
 					/* simple suffix rule */
 					source = g_strconcat (target, rule->name, NULL);
 				}
@@ -113,7 +113,7 @@ mkp_project_find_dependencies (MkpProject *project, gchar *target, AnjutaProject
 						continue;
 					}
 				}
-					
+
 				dependencies = mkp_project_find_dependencies (project, source, parent, backtrack + 1);
 				if (dependencies != NULL)
 				{
@@ -123,7 +123,7 @@ mkp_project_find_dependencies (MkpProject *project, gchar *target, AnjutaProject
 			}
 		}
 	}
-		
+
 	child = g_file_get_child (anjuta_project_node_get_file (parent), target);
 	exist = g_file_query_exists (child, NULL);
 	//g_message ("target =%s= filename =%s=", target, g_file_get_parse_name (child));
@@ -153,7 +153,7 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 
 	//fprintf(stdout, "add rule\n");
 	//anjuta_token_dump (group);
-	
+
 	targ = anjuta_token_first_item (group);
 	arg = anjuta_token_next_word (targ);
 	if (anjuta_token_get_type (arg) == MK_TOKEN_DOUBLE_COLON) double_colon = TRUE;
@@ -174,7 +174,7 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 				if (anjuta_token_get_type (src) != MK_TOKEN_ORDER)
 				{
 					target = anjuta_token_evaluate (src);
-					
+
 					rule = g_hash_table_lookup (project->rules, target);
 					if (rule == NULL)
 					{
@@ -182,7 +182,7 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 						g_hash_table_insert (project->rules, rule->name, rule);
 					}
 					rule->phony = TRUE;
-					
+
 					//g_message ("    with target %s", target);
 					if (target != NULL) g_free (target);
 				}
@@ -224,9 +224,9 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 			break;
 		default:
 			target = g_strstrip (anjuta_token_evaluate (arg));
-			if (*target == '\0') break;	
+			if (*target == '\0') break;
 			//g_message ("add rule =%s=", target);
-				
+
 			rule = g_hash_table_lookup (project->rules, target);
 			if (rule == NULL)
 			{
@@ -237,7 +237,7 @@ mkp_project_add_rule (MkpProject *project, AnjutaToken *group)
 			{
 				rule->rule = group;
 			}
-				
+
 			for (src = anjuta_token_first_word (dep); src != NULL; src = anjuta_token_next_word (src))
 			{
 				gchar *src_name = anjuta_token_evaluate (src);
@@ -284,10 +284,10 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 			GString *pattern = g_string_sized_new (16);
 			GList *suffix;
 			GList *src;
-			
+
 			/* Check double suffix rule */
 			suffix = g_hash_table_get_keys (project->suffix);
-			
+
 			for (src = g_list_first (suffix); src != NULL; src = g_list_next (src))
 			{
 				GList *obj;
@@ -321,7 +321,7 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 
 		//g_message ("rule =%s=", rule->name);
 		if (rule->phony || rule->pattern) continue;
-		
+
 		/* Create target */
 		target = MKP_TARGET(mkp_target_new (rule->name, ANJUTA_PROJECT_UNKNOWN));
 		mkp_target_add_token (target, rule->rule);
@@ -331,7 +331,7 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 		prerequisite = anjuta_token_first_word (rule->rule);
 		if (prerequisite != NULL) prerequisite = anjuta_token_next_word (prerequisite);
 		if (prerequisite != NULL) prerequisite = anjuta_token_next_word (prerequisite);
-		
+
 		/* Add prerequisite */
 		for (arg = anjuta_token_first_word (prerequisite); arg != NULL; arg = anjuta_token_next_word (arg))
 		{
@@ -356,8 +356,8 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 				{
 					GFile *src_file;
 					gchar *name;
-					
-					AnjutaProjectNode *parent = target;
+
+					AnjutaProjectNode *parent = (AnjutaProjectNode *)target;
 					while (g_list_next (dependencies) != NULL)
 					{
 						/* Create object nodes */
@@ -385,14 +385,14 @@ mkp_project_enumerate_targets (MkpProject *project, AnjutaProjectNode *parent)
 	}
 }
 
-void 
+void
 mkp_project_init_rules (MkpProject *project)
 {
 	project->rules = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)mkp_rule_free);
 	project->suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 }
 
-void 
+void
 mkp_project_free_rules (MkpProject *project)
 {
 	if (project->rules) g_hash_table_destroy (project->rules);

@@ -1,5 +1,5 @@
 ROOT (): anjuta
-    PROPERTY (Name): anjuta
+    PROPERTY (Name): Anjuta
     PROPERTY (Version): anjuta_version
     PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta
     PROPERTY (Package name): anjuta

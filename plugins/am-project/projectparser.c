@@ -80,16 +80,20 @@ list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 
 	value = g_string_new (NULL);
 
-	for (item = anjuta_project_node_get_custom_properties (parent); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_properties (parent); item != NULL; item = g_list_next (item))
 	{
 		AnjutaProjectProperty *prop;
-		AnjutaProjectProperty *native;
+		AnjutaProjectPropertyInfo *info;
 		GList *list;
+		gchar *name;
 
 		prop = (AnjutaProjectProperty *)item->data;
-		native = prop->native;
+		info = prop->info;
 
-		switch (prop->type)
+		/* Default property */
+		if (info->property == prop) continue;
+
+		switch (info->type)
 		{
 		case ANJUTA_PROJECT_PROPERTY_STRING:
 		case ANJUTA_PROJECT_PROPERTY_LIST:
@@ -100,11 +104,11 @@ list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 				break;
 		case ANJUTA_PROJECT_PROPERTY_MAP:
 				g_string_assign (value, "");
-				for (list = anjuta_project_node_get_custom_properties (parent); list != NULL; list = g_list_next (list))
+				for (list = anjuta_project_node_get_properties (parent); list != NULL; list = g_list_next (list))
 				{
 					AnjutaProjectProperty *list_prop = (AnjutaProjectProperty *)list->data;
 
-					if (list_prop->native == native)
+					if (list_prop->info == info)
 					{
 						if ((value->len == 0) && (list_prop != prop))
 						{
@@ -116,21 +120,17 @@ list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 						g_string_append_printf (value, "%s = %s", list_prop->name == NULL ? "?" : list_prop->name, list_prop->value == NULL ? "" : list_prop->value);
 					}
 				}
+				if (value->len == 0) continue;
 				break;
 		}
 
-		if (value->len != 0)
+		name = g_strdup (info->name);
+		if (*(name + strlen (name) - 1) == ':')
 		{
-			gchar *name;
-
-			name = g_strdup (native->name);
-			if (*(name + strlen (name) - 1) == ':')
-			{
-				*(name + strlen (name) - 1) = '\0';
-			}
-			print ("%*sPROPERTY (%s): %s", indent * INDENT, "", name, value->str);
-			g_free (name);
+			*(name + strlen (name) - 1) = '\0';
 		}
+		print ("%*sPROPERTY (%s): %s", indent * INDENT, "", name, value->str);
+		g_free (name);
 	}
 
 	g_string_free (value, TRUE);
@@ -360,34 +360,34 @@ compare_name (const gchar *id, const gchar *name)
 		return (*id == '\0') ? miss : -1;
 }
 
-static AnjutaProjectProperty *
+static AnjutaProjectPropertyInfo *
 get_project_property (IAnjutaProject *project, AnjutaProjectNode *parent, const gchar *id)
 {
 	GList *item;
-	AnjutaProjectProperty *prop = NULL;
+	AnjutaProjectPropertyInfo *info = NULL;
 	gint best = G_MAXINT;
 
-	for (item = anjuta_project_node_get_native_properties (parent); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_properties_info (parent); item != NULL; item = g_list_next (item))
 	{
 		gint miss;
 
 		/* Find property based on their id */
-		if (strcmp (id, ((AnjutaProjectProperty *)item->data)->id) == 0)
+		if (strcmp (id, ((AnjutaProjectPropertyInfo *)item->data)->id) == 0)
 		{
-			prop = ((AnjutaProjectProperty *)item->data);
+			info = ((AnjutaProjectPropertyInfo *)item->data);
 			break;
 		}
 
 		/* Else use the best name */
-		miss = compare_name (id, ((AnjutaProjectProperty *)item->data)->name);
+		miss = compare_name (id, ((AnjutaProjectPropertyInfo *)item->data)->name);
 		if ((miss >= 0) && (miss < best))
 		{
 			best = miss;
-			prop =  ((AnjutaProjectProperty *)item->data);
+			info =  ((AnjutaProjectPropertyInfo *)item->data);
 		}
 	}
 
-	return prop;
+	return info;
 }
 
 static AnjutaProjectNodeType
@@ -704,14 +704,14 @@ main(int argc, char *argv[])
 		{
 			if (AMP_IS_PROJECT (project))
 			{
-				AnjutaProjectProperty *item;
+				AnjutaProjectPropertyInfo *info;
 
 				node = get_node (project, root, command[1]);
-				item = get_project_property (project, node, command[2]);
-				if (item != NULL)
+				info = get_project_property (project, node, command[2]);
+				if (info != NULL)
 				{
 					gchar *value = g_shell_unquote (command[3], NULL);
-					ianjuta_project_set_property (project, node, item, value, NULL);
+					ianjuta_project_set_property (project, node, info->id, NULL, value, NULL);
 					g_free (value);
 				}
 			}
@@ -721,13 +721,13 @@ main(int argc, char *argv[])
 		{
 			if (AMP_IS_PROJECT (project))
 			{
-				AnjutaProjectProperty *item;
+				AnjutaProjectPropertyInfo *info;
 
 				node = get_node (project, root, command[1]);
-				item = get_project_property (project, node, command[2]);
-				if (item != NULL)
+				info = get_project_property (project, node, command[2]);
+				if (info != NULL)
 				{
-					ianjuta_project_remove_property (project, node, item, NULL);
+					ianjuta_project_remove_property (project, node, info->id, NULL, NULL);
 				}
 			}
 			command += 2;

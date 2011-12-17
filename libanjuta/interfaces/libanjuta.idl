@@ -3272,7 +3272,8 @@ interface IAnjutaProject
 	 * ianjuta_project_set_property:
 	 * @obj: Self
 	 * @node: (transfer none): Node
-	 * @property: (transfer none): Property
+	 * @id: (transfer none): Property
+	 * @name: (allow-none) (transfer none): Name for map property
 	 * @value: (transfer none): Value
 	 * @err: Error propagation and reporting
 	 *
@@ -3280,20 +3281,21 @@ interface IAnjutaProject
 	 *
 	 * Return value: (allow-none) (transfer none): The new property of NULL if the property cannot be set
 	 */
-	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, AnjutaProjectProperty* property, const gchar *value);
+	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, const gchar *id, const gchar *name, const gchar *value);
 
 	/**
 	 * ianjuta_project_remove_property:
 	 * @obj: Self
 	 * @node: (transfer none): Node
-	 * @property: (transfer none): Property
+	 * @id: (transfer none): Property
+	 * @name: (allow-none) (transfer none): Name for map property
 	 * @err: Error propagation and reporting
 	 *
 	 * Remove a property of the node
 	 *
 	 * Return value: TRUE if the node is removed
 	 */
-	gboolean remove_property (AnjutaProjectNode *node, AnjutaProjectProperty* property);
+	gboolean remove_property (AnjutaProjectNode *node, const gchar *id, const gchar *name);
 
 	/**
 	 * ianjuta_project_get_root:

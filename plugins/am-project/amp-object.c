@@ -119,7 +119,7 @@ static void
 amp_object_node_init (AmpObjectNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_OBJECT;
-	node->base.native_properties = NULL;
+	node->base.properties_info = NULL;
 	node->base.state = 0;
 }
 

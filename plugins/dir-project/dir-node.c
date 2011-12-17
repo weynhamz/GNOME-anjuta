@@ -45,8 +45,8 @@ dir_root_node_new (GFile *file)
 
 	root = g_object_new (ANJUTA_TYPE_DIR_ROOT_NODE, NULL);
 	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.custom_properties = NULL;
-	root->base.native_properties = NULL;
+	root->base.properties = NULL;
+	root->base.properties_info = NULL;
 	root->base.file = g_file_dup (file);
 	root->base.name = NULL;
 
@@ -110,8 +110,8 @@ dir_group_node_new (GFile *file, GObject *emitter)
 
 	group = g_object_new (ANJUTA_TYPE_DIR_GROUP_NODE, NULL);
 	group->base.type = ANJUTA_PROJECT_GROUP;
-	group->base.native_properties = NULL;
-	group->base.custom_properties = NULL;
+	group->base.properties = NULL;
+	group->base.properties_info = NULL;
 	group->base.file = g_object_ref (file);
 	group->base.name = NULL;
 	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
@@ -158,9 +158,9 @@ static void
 anjuta_dir_group_node_finalize (GObject *object)
 {
 	AnjutaDirGroupNode *node = ANJUTA_DIR_GROUP_NODE (object);
-	
+
 	if (node->monitor != NULL) g_file_monitor_cancel (node->monitor);
-	
+
 	G_OBJECT_CLASS (anjuta_dir_group_node_parent_class)->finalize (object);
 }
 
@@ -168,7 +168,7 @@ static void
 anjuta_dir_group_node_class_init (AnjutaDirGroupNodeClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = anjuta_dir_group_node_finalize;
 }
 
@@ -187,8 +187,8 @@ dir_object_node_new (GFile *file)
 
 	node = g_object_new (ANJUTA_TYPE_DIR_OBJECT_NODE, NULL);
 	node->base.type = ANJUTA_PROJECT_OBJECT;
-	node->base.native_properties = NULL;
-	node->base.custom_properties = NULL;
+	node->base.properties = NULL;
+	node->base.properties_info = NULL;
 	node->base.name = NULL;
 	node->base.file = g_file_dup (file);
 	node->base.state = ANJUTA_PROJECT_CAN_REMOVE |
@@ -235,8 +235,8 @@ dir_source_node_new (GFile *file)
 
 	source = g_object_new (ANJUTA_TYPE_DIR_SOURCE_NODE, NULL);
 	source->base.type = ANJUTA_PROJECT_SOURCE;
-	source->base.native_properties = NULL;
-	source->base.custom_properties = NULL;
+	source->base.properties = NULL;
+	source->base.properties_info = NULL;
 	source->base.name = NULL;
 	source->base.file = g_file_dup (file);
 	source->base.state = ANJUTA_PROJECT_CAN_REMOVE |

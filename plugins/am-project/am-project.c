@@ -674,31 +674,28 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 	GList *item;
 	gint type = anjuta_token_get_type (macro);
 
-	for (item = anjuta_project_node_get_native_properties (ANJUTA_PROJECT_NODE (project)); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_properties_info (ANJUTA_PROJECT_NODE (project)); item != NULL; item = g_list_next (item))
 	{
-		AmpProperty *prop = (AmpProperty *)item->data;
+		AmpPropertyInfo *info = (AmpPropertyInfo *)item->data;
 
-		if ((prop->token_type == type) && (prop->flags & AM_PROPERTY_IN_CONFIGURE))
+		if ((info->token_type == type) && (info->flags & AM_PROPERTY_IN_CONFIGURE))
 		{
 			AnjutaProjectProperty *new_prop;
 
-			new_prop = anjuta_project_node_remove_property (ANJUTA_PROJECT_NODE (project), (AnjutaProjectProperty *)prop);
+			new_prop = anjuta_project_node_get_property (ANJUTA_PROJECT_NODE (project), info->base.id);
 			if (new_prop != NULL)
 			{
 				amp_property_free (new_prop);
 			}
-			new_prop = amp_property_new (NULL, prop->token_type, prop->position, NULL, args);
+			new_prop = amp_property_new (NULL, info->token_type, info->position, NULL, args);
 
-			if (prop->position >= 0)
+			if (info->position >= 0)
 			{
 				/* Each parameter correspond to a different property */
 				AnjutaToken *arg;
 
-				arg = anjuta_token_nth_word (args, prop->position);
-				if ((new_prop->value != NULL) && (new_prop->value != prop->base.value))
-				{
-					g_free (new_prop->value);
-				}
+				arg = anjuta_token_nth_word (args, info->position);
+				g_free (new_prop->value);
 				new_prop->value = anjuta_token_evaluate (arg);
 			}
 			else
@@ -717,7 +714,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 					if (new_prop->value == NULL) new_prop->value = g_strdup(" ");
 				}
 			}
-			anjuta_project_node_insert_property (ANJUTA_PROJECT_NODE (project), (AnjutaProjectProperty *)prop, new_prop);
+			amp_node_property_add (ANJUTA_PROJECT_NODE (project), new_prop);
 		}
 	}
 }
@@ -914,13 +911,12 @@ project_load_target (AmpProject *project, AnjutaProjectNode *parent, AnjutaToken
 				}
 
 				/* Copy all properties */
-				while ((properties = anjuta_project_node_get_custom_properties (ANJUTA_PROJECT_NODE (orphan))) != NULL)
+				while ((properties = anjuta_project_node_get_properties (ANJUTA_PROJECT_NODE (orphan))) != NULL)
 				{
 					AnjutaProjectProperty *prop;
 
 					prop = (AnjutaProjectProperty *)anjuta_project_node_remove_property (ANJUTA_PROJECT_NODE (orphan), (AnjutaProjectProperty *)properties->data);
-
-					amp_node_property_add (ANJUTA_PROJECT_NODE (target), prop);
+					amp_node_property_add ((AnjutaProjectNode *)target, prop);
 				}
 
 				/* Copy all sources */
@@ -1283,6 +1279,7 @@ project_load_group_properties (AmpProject *project, AnjutaProjectNode *parent, A
 	prop = amp_property_new (name, anjuta_token_get_type (variable), 0, value, list);
 
 	amp_node_property_add (parent, prop);
+
 	g_free (value);
 	g_free (name);
 
@@ -1529,9 +1526,9 @@ amp_project_update_node (AnjutaProjectNode *key, AnjutaProjectNode *value, GHash
 			amp_node_update (AMP_NODE (node), AMP_NODE (new_node));
 
 			/* Swap custom properties */
-			properties = node->custom_properties;
-			node->custom_properties = new_node->custom_properties;
-			new_node->custom_properties = properties;
+			properties = node->properties;
+			node->properties = new_node->properties;
+			new_node->properties = properties;
 
 			if (new_node->parent == NULL)
 			{
@@ -2239,7 +2236,7 @@ amp_set_property_work (PmJob *job)
 {
 	gint flags;
 
-	flags = ((AmpProperty *)job->property->native)->flags;
+	flags = ((AmpPropertyInfo *)job->property->info)->flags;
 
 	if (flags & AM_PROPERTY_IN_CONFIGURE)
 	{
@@ -2247,7 +2244,7 @@ amp_set_property_work (PmJob *job)
 	}
 	else if (flags & AM_PROPERTY_IN_MAKEFILE)
 	{
-		if (((AnjutaProjectProperty *)job->property->native)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
+		if (((AnjutaProjectPropertyInfo *)job->property->info)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
 		{
 			amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
 		}
@@ -2277,7 +2274,7 @@ amp_remove_property_work (PmJob *job)
 {
 	gint flags;
 
-	flags = ((AmpProperty *)job->property->native)->flags;
+	flags = ((AmpPropertyInfo *)job->property->info)->flags;
 
 	if (flags & AM_PROPERTY_IN_CONFIGURE)
 	{
@@ -2285,7 +2282,7 @@ amp_remove_property_work (PmJob *job)
 	}
 	else if (flags & AM_PROPERTY_IN_MAKEFILE)
 	{
-		if (((AnjutaProjectProperty *)job->property->native)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
+		if (((AnjutaProjectPropertyInfo *)job->property->info)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
 		{
 			amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, job->property);
 		}
@@ -2387,14 +2384,14 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 }
 
 static AnjutaProjectProperty *
-iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
+iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, const gchar *value, GError **error)
 {
 	AnjutaProjectProperty *new_prop;
 	PmJob *set_property_job;
 
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 
-	new_prop = amp_node_property_set (node, property, value);
+	new_prop = name == NULL ? amp_node_property_set (node, id, value) : amp_node_map_property_set (node, id, name, value);
 	set_property_job = pm_job_new (&amp_set_property_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
 	set_property_job->property = new_prop;
 	pm_command_queue_push (AMP_PROJECT (obj)->queue, set_property_job);
@@ -2403,7 +2400,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 }
 
 static gboolean
-iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **error)
+iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, GError **error)
 {
 	AnjutaProjectProperty *new_prop;
 	PmJob *remove_property_job;
@@ -2411,8 +2408,7 @@ iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaPr
 	if (AMP_PROJECT (obj)->queue == NULL) AMP_PROJECT (obj)->queue = pm_command_queue_new ();
 
 
-	new_prop = amp_node_property_set (node, property, NULL);
-	new_prop->value = new_prop->native->value;
+	new_prop = amp_node_map_property_set (node, id, name, NULL);
 	remove_property_job = pm_job_new (&amp_set_property_job, node, NULL, NULL, ANJUTA_PROJECT_UNKNOWN, NULL, NULL, obj);
 	remove_property_job->property = new_prop;
 	pm_command_queue_push (AMP_PROJECT (obj)->queue, remove_property_job);

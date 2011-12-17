@@ -206,8 +206,8 @@ mkp_group_new (GFile *file)
 	group->base.file = g_object_ref (file);
 
 	group->base.type = ANJUTA_PROJECT_GROUP;
-	group->base.native_properties = NULL;
-	group->base.custom_properties = NULL;
+	group->base.properties = NULL;
+	group->base.properties_info = NULL;
 	group->base.name = NULL;
 	group->base.state = 0;
 
@@ -314,8 +314,8 @@ mkp_source_new (GFile *file)
 	source = g_object_new (MKP_TYPE_SOURCE, NULL);
 	source->base.file = g_object_ref (file);
 	source->base.type = ANJUTA_PROJECT_SOURCE;
-	source->base.native_properties = NULL;
-	source->base.custom_properties = NULL;
+	source->base.properties = NULL;
+	source->base.properties_info = NULL;
 	source->base.name = NULL;
 	source->base.state = 0;
 
@@ -826,7 +826,7 @@ void
 mkp_project_unload (MkpProject *project)
 {
 	AnjutaProjectNode *node;
-	
+
 	monitors_remove (project);
 
 	/* project data */
@@ -838,7 +838,7 @@ mkp_project_unload (MkpProject *project)
 	{
 		g_object_unref (node);
 	}
-	
+
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
 	project->groups = NULL;
@@ -1010,7 +1010,7 @@ iproject_save_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 }
 
 static AnjutaProjectProperty *
-iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
+iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, const gchar *value, GError **error)
 {
 	g_set_error (error, IANJUTA_PROJECT_ERROR,
 				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
@@ -1020,7 +1020,7 @@ iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProje
 }
 
 static gboolean
-iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **error)
+iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, GError **error)
 {
 	g_set_error (error, IANJUTA_PROJECT_ERROR,
 				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,

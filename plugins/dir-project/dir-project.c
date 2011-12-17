@@ -53,7 +53,7 @@ struct _DirProject {
 
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
-	
+
 	/* project files monitors */
 	GHashTable      *monitors;
 
@@ -121,21 +121,21 @@ static AnjutaProjectNode *
 project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node = NULL;
-	
+
 	switch (type & ANJUTA_PROJECT_TYPE_MASK) {
 		case ANJUTA_PROJECT_GROUP:
 			if (file == NULL)
 			{
 				if (name == NULL)
 				{
-					g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					g_set_error (error, IANJUTA_PROJECT_ERROR,
 							IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 							_("Missing name"));
 				}
 				else
 				{
 					GFile *group_file;
-					
+
 					group_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
 					node = dir_group_node_new (group_file, G_OBJECT (project));
 					g_object_unref (group_file);
@@ -151,14 +151,14 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 			{
 				if (name == NULL)
 				{
-					g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					g_set_error (error, IANJUTA_PROJECT_ERROR,
 							IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 							_("Missing name"));
 				}
 				else
 				{
 					GFile *object_file;
-					
+
 					object_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
 					node = dir_object_node_new (object_file);
 					g_object_unref (object_file);
@@ -174,14 +174,14 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 			{
 				if (name == NULL)
 				{
-					g_set_error (error, IANJUTA_PROJECT_ERROR, 
+					g_set_error (error, IANJUTA_PROJECT_ERROR,
 							IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 							_("Missing name"));
 				}
 				else
 				{
 					GFile *source_file;
-					
+
 					source_file = g_file_get_child (anjuta_project_node_get_file (parent), name);
 					node = dir_source_node_new (source_file);
 					g_object_unref (source_file);
@@ -204,7 +204,7 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 		node->type = type;
 		node->parent = parent;
 	}
-	
+
 	return node;
 }
 
@@ -217,12 +217,12 @@ dir_pattern_free (DirPattern *pat)
 {
 	if (pat->source != NULL) g_regex_unref (pat->source);
 	g_free (pat->object);
-	
+
     g_slice_free (DirPattern, pat);
 }
 
 /* Create a new pattern matching a directory of a file name in a path */
- 
+
 static DirPattern*
 dir_pattern_new (const gchar *pattern, gboolean reverse)
 {
@@ -241,7 +241,7 @@ dir_pattern_new (const gchar *pattern, gboolean reverse)
 	{
 		pat->match = reverse ? FALSE : TRUE;
 	}
-	
+
 	/* Check if the pattern is local */
 	if (*ptr == '/')
 	{
@@ -252,7 +252,7 @@ dir_pattern_new (const gchar *pattern, gboolean reverse)
 	{
 		g_string_append (regex, "(?:^|\\" G_DIR_SEPARATOR_S ")");
 	}
-	                 
+
 
 	while (*ptr != '\0')
 	{
@@ -365,7 +365,7 @@ dir_pattern_new (const gchar *pattern, gboolean reverse)
 }
 
 /* Read a file containing pattern, the syntax is similar to .gitignore file.
- * 
+ *
  * It is not a regular expression, only * and ? are used as joker.
  * If the name end with / it will match only a directory.
  * If the name starts with / it must be relative to the project directory, so
@@ -402,7 +402,7 @@ dir_push_pattern_list (GList *stack, GFile *dir, GFile *file, gboolean ignore, G
 	for (ptr = content; *ptr != '\0';)
 	{
 		gchar *next;
-		
+
 		next = strchr (ptr, '\n');
 		if (next != NULL) *next = '\0';
 		line++;
@@ -435,7 +435,7 @@ dir_push_pattern_list (GList *stack, GFile *dir, GFile *file, gboolean ignore, G
 	g_free (content);
 
 	list->pattern = g_list_reverse (list->pattern);
-	
+
 	return g_list_prepend (stack, list);
 }
 
@@ -464,7 +464,7 @@ dir_pattern_stack_is_match (GFile *root, GList *stack, GFile *file)
 
 	/* Create name from file */
 	filename = g_file_get_relative_path (root, file);
-	
+
 	directory = g_file_query_file_type (file, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL) == G_FILE_TYPE_DIRECTORY;
 	/* Include directories by default */
 	match = directory;
@@ -474,7 +474,7 @@ dir_pattern_stack_is_match (GFile *root, GList *stack, GFile *file)
 	{
 		DirPatternList *pat_list = (DirPatternList *)list->data;
 		GList *node;
-		
+
 		for (node = g_list_first (pat_list->pattern); node != NULL; node = g_list_next (node))
 		{
 			DirPattern *pat = (DirPattern *)node->data;
@@ -502,16 +502,16 @@ dir_pattern_find_file_object (GFile *root, GList *stack, GFile *file)
 	{
 		GList *list;
 		gchar *filename;
-		
+
 		/* Create name from file */
 		filename = g_file_get_relative_path (root, file);
-	
+
 		/* Check all valid patterns */
 		for (list = g_list_last (stack); list != NULL; list = g_list_previous (list))
 		{
 			DirPatternList *pat_list = (DirPatternList *)list->data;
 			GList *node;
-		
+
 			for (node = g_list_first (pat_list->pattern); node != NULL; node = g_list_next (node))
 			{
 				DirPattern *pat = (DirPattern *)node->data;
@@ -522,7 +522,7 @@ dir_pattern_find_file_object (GFile *root, GList *stack, GFile *file)
 				if (g_regex_match (pat->source, filename,  0, NULL))
 				{
 					gchar *objname;
-					
+
 					objname = g_regex_replace (pat->source, filename, -1, 0, pat->object, 0, NULL);
 					object = g_file_get_child (root, objname);
 					g_free (objname);
@@ -614,7 +614,7 @@ dir_project_load_directory_callback (GObject      *source_object,
 
 		/* Check if file is a source */
 		if (!dir_pattern_stack_is_match (root, data->proj->sources, file)) continue;
-		
+
 		if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
 		{
 			AnjutaProjectNode *group;
@@ -670,7 +670,7 @@ dir_project_load_directory_callback (GObject      *source_object,
 				{
 					parent = data->parent;
 				}
-				
+
 				/* Create a source for files */
 				source = project_node_new (data->proj, NULL, ANJUTA_PROJECT_SOURCE | ANJUTA_PROJECT_PROJECT, file, NULL, NULL);
 				anjuta_project_node_append (parent, source);
@@ -721,7 +721,7 @@ dir_project_load_directory (DirProject *project, AnjutaProjectNode *parent, GErr
 }
 
 static AnjutaProjectNode *
-dir_project_load_root (DirProject *project, GError **error) 
+dir_project_load_root (DirProject *project, GError **error)
 {
 	GFile *source_file;
 	GFile *root_file;
@@ -742,7 +742,7 @@ dir_project_load_root (DirProject *project, GError **error)
 
 	if (g_file_query_file_type (root_file, G_FILE_QUERY_INFO_NONE, NULL) != G_FILE_TYPE_DIRECTORY)
 	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+		g_set_error (error, IANJUTA_PROJECT_ERROR,
 		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
 			   _("Project doesn't exist or invalid path"));
 
@@ -757,14 +757,14 @@ dir_project_load_root (DirProject *project, GError **error)
 	source_file = g_file_new_for_path (SOURCES_FILE);
 	project->sources = dir_push_pattern_list (NULL, g_object_ref (root_file), source_file, FALSE, NULL);
 	g_object_unref (source_file);
-	
+
 	dir_project_load_directory (project, group, NULL);
 
 	return project->root;
 }
 
 AnjutaProjectNode *
-dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error) 
+dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error)
 {
 	if (node == NULL) node = project->root;
 	switch (anjuta_project_node_get_node_type (node))
@@ -785,7 +785,7 @@ foreach_node_save (AnjutaProjectNode *node,
 	gint state = anjuta_project_node_get_state (node);
 	GError *err = NULL;
 	gboolean ret;
-	
+
 	if (state & ANJUTA_PROJECT_MODIFIED)
 	{
 		switch (anjuta_project_node_get_node_type (node))
@@ -821,7 +821,7 @@ dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **er
 {
 	/* Save children */
 	anjuta_project_node_foreach (node, G_POST_ORDER, foreach_node_save, project);
-	
+
 	return node;
 }
 
@@ -855,7 +855,7 @@ dir_project_probe (GFile *file,
 	probe = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY;
 	if (!probe)
 	{
-		g_set_error (error, IANJUTA_PROJECT_ERROR, 
+		g_set_error (error, IANJUTA_PROJECT_ERROR,
 		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
 			   _("Project doesn't exist or invalid path"));
 	}
@@ -881,7 +881,7 @@ dir_project_get_node_info (DirProject *project, GError **error)
 	if (info_list == NULL)
 	{
 		AnjutaProjectNodeInfo *node;
-		
+
 		for (node = node_info; node->type != 0; node++)
 		{
 			info_list = g_list_prepend (info_list, node);
@@ -889,7 +889,7 @@ dir_project_get_node_info (DirProject *project, GError **error)
 
 		info_list = g_list_reverse (info_list);
 	}
-	
+
 	return info_list;
 }
 
@@ -898,12 +898,12 @@ find_not_loaded_node (gpointer key, gpointer value, gpointer user_data)
 {
 	AnjutaProjectNode *node = (AnjutaProjectNode *)value;
 	gboolean found;
-	
+
 	found = anjuta_project_node_get_state (node) & (ANJUTA_PROJECT_LOADING | ANJUTA_PROJECT_INCOMPLETE);
 
 	return found;
 }
- 
+
 static gboolean
 dir_project_is_loaded (DirProject *project)
 {
@@ -917,7 +917,7 @@ DirProject *
 dir_project_new (GFile *directory, GError **error)
 {
 	DirProject *project;
-	
+
 	project = DIR_PROJECT (g_object_new (DIR_TYPE_PROJECT, NULL));
 	project->root = dir_root_node_new (directory);
 
@@ -949,7 +949,7 @@ static AnjutaProjectNode *
 iproject_add_node_before (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
-	
+
 	node = project_node_new (DIR_PROJECT (obj), parent, type, file, name, error);
 	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
 	anjuta_project_node_insert_before (parent, sibling, node);
@@ -963,7 +963,7 @@ static AnjutaProjectNode *
 iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
-	
+
 	node = project_node_new (DIR_PROJECT (obj), parent, type, file, name, error);
 	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
 	anjuta_project_node_insert_after (parent, sibling, node);
@@ -983,22 +983,22 @@ iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err
 }
 
 static AnjutaProjectProperty*
-iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, const gchar *value, GError **error)
+iproject_set_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, const gchar *value, GError **error)
 {
-	g_set_error (error, IANJUTA_PROJECT_ERROR, 
+	g_set_error (error, IANJUTA_PROJECT_ERROR,
 				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
 		_("Project doesn't allow to set properties"));
-		
+
 	return NULL;
 }
 
 static gboolean
-iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, AnjutaProjectProperty *property, GError **error)
+iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gchar *id, const gchar *name, GError **error)
 {
-	g_set_error (error, IANJUTA_PROJECT_ERROR, 
+	g_set_error (error, IANJUTA_PROJECT_ERROR,
 				IANJUTA_PROJECT_ERROR_NOT_SUPPORTED,
 		_("Project doesn't allow to set properties"));
-		
+
 	return FALSE;
 }
 
@@ -1008,7 +1008,7 @@ iproject_get_root (IAnjutaProject *obj, GError **error)
 	return DIR_PROJECT (obj)->root;
 }
 
-static const GList* 
+static const GList*
 iproject_get_node_info (IAnjutaProject *obj, GError **err)
 {
 	return dir_project_get_node_info (DIR_PROJECT (obj), err);
@@ -1045,7 +1045,7 @@ dir_project_dispose (GObject *object)
 
 	dir_project_unload (DIR_PROJECT (object));
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);	
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -1053,7 +1053,7 @@ dir_project_instance_init (DirProject *project)
 {
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (DIR_IS_PROJECT (project));
-	
+
 	/* project data */
 	project->root = NULL;
 	//project->root_node = NULL;
@@ -1068,7 +1068,7 @@ static void
 dir_project_class_init (DirProjectClass *klass)
 {
 	GObjectClass *object_class;
-	
+
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class = G_OBJECT_CLASS (klass);

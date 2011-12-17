@@ -39,12 +39,17 @@ typedef enum {
 
 struct _AmpProperty {
 	AnjutaProjectProperty base;
+	AnjutaToken *token;
+};
+
+struct _AmpPropertyInfo {
+	AnjutaProjectPropertyInfo base;
 	gint token_type;
 	gint position;
 	const gchar *suffix;
 	AmpPropertyFlag flags;
-	AnjutaToken *token;
-	AmpProperty *link;			/* Link to a boolean property disabling this one */
+	const gchar *value;
+	AnjutaProjectPropertyInfo *link;			/* Link to a boolean property disabling this one */
 };
 
 struct _AmpProject {

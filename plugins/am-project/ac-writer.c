@@ -187,11 +187,11 @@ find_similar_property (AnjutaProjectNode *node, AmpProperty *property)
 {
 	GList *item;
 
-	for (item = anjuta_project_node_get_custom_properties (node); item != NULL; item = g_list_next (item))
+	for (item = anjuta_project_node_get_properties (node); item != NULL; item = g_list_next (item))
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
 
-		if ((prop->token_type == property->token_type) && (prop->token != NULL))
+		if ((((AmpPropertyInfo *)prop->base.info)->token_type == ((AmpPropertyInfo *)property->base.info)->token_type) && (prop->token != NULL))
 		{
 			return prop;
 		}
@@ -210,14 +210,15 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	AnjutaToken *arg;
 	AnjutaToken *args;
 	AmpProperty *prop;
+	AmpPropertyInfo *info;
 
-	if (((property->native->value == NULL) && (property->value == NULL)) ||
-	    (g_strcmp0 (property->native->value, property->value) == 0))
+	if (g_strcmp0 (((AmpPropertyInfo *)property->info)->value, property->value) == 0)
 	{
 		/* Remove property */
+		info = (AmpPropertyInfo *)property->info;
 		prop = (AmpProperty *)property;
 
-		if (prop->position == -1)
+		if (info->position == -1)
 		{
 			token = prop->token;
 
@@ -228,6 +229,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 	}
 	else
 	{
+		info = (AmpPropertyInfo *)property->info;
 		prop = find_similar_property (ANJUTA_PROJECT_NODE (project), (AmpProperty *)property);
 		args = prop != NULL ? prop->token : NULL;
 
@@ -240,7 +242,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 			const char *suffix;
 
 			configure = amp_project_get_configure_token (project);
-			token = anjuta_token_find_position (configure, TRUE, prop->token_type, NULL);
+			token = anjuta_token_find_position (configure, TRUE, info->token_type, NULL);
 			if (token == NULL)
 			{
 				token = skip_comment (configure);
@@ -253,7 +255,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 				}
 			}
 
-			suffix = ((AmpProperty *)prop->base.native)->suffix;
+			suffix = info->suffix;
 			token = anjuta_token_insert_after (token, anjuta_token_new_string (AC_TOKEN_AC_INIT | ANJUTA_TOKEN_ADDED, suffix));
 			if (suffix[strlen(suffix) - 1] == '(')
 			{
@@ -272,7 +274,7 @@ amp_project_update_ac_property (AmpProject *project, AnjutaProjectProperty *prop
 			arg = anjuta_token_insert_before (token, anjuta_token_new_static (ANJUTA_TOKEN_ITEM | ANJUTA_TOKEN_ADDED, NULL));
 			anjuta_token_merge (arg, token);
 
-			pos = prop->position;
+			pos = info->position;
 			if (pos == -1) pos = 0;
 			anjuta_token_replace_nth_word (args, pos, arg);
 			anjuta_token_style_format (project->arg_list, args);

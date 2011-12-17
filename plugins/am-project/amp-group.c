@@ -641,7 +641,7 @@ static void
 amp_group_node_init (AmpGroupNode *node)
 {
 	node->base.type = ANJUTA_PROJECT_GROUP;
-	node->base.native_properties = amp_get_group_property_list();
+	node->base.properties_info = amp_get_group_property_list();
 	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
 						ANJUTA_PROJECT_CAN_ADD_TARGET |
 						ANJUTA_PROJECT_CAN_REMOVE |
@@ -671,7 +671,7 @@ amp_group_node_finalize (GObject *object)
 	AmpGroupNode *node = AMP_GROUP_NODE (object);
 	gint i;
 
-	g_list_foreach (node->base.custom_properties, (GFunc)amp_property_free, NULL);
+	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	if (node->tfile) anjuta_token_file_free (node->tfile);
 	if (node->makefile) g_object_unref (node->makefile);
 
