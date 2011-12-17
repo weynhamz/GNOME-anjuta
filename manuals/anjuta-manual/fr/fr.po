@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-help-master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-11 17:41+0000\n"
+"POT-Creation-Date: 2011-12-17 19:30+0000\n"
 "PO-Revision-Date: 2011-12-14 23:38+0100\n"
 "Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -35,13 +35,14 @@ msgstr "Toutes les fenêtres et toutes les boîtes de dialogue."
 #: C/project-manager-file.page:15(name) C/project-import.page:15(name)
 #: C/makefile-project-backend.page:12(name)
 #: C/directory-project-backend.page:12(name) C/debug-watch.page:13(name)
-#: C/debug-tips.page:13(name) C/debug-step.page:13(name)
-#: C/debug-stack.page:13(name) C/debug-run.page:15(name)
-#: C/debug-process-dialog.page:13(name) C/debug-local.page:13(name)
-#: C/debug-information.page:13(name) C/debug-expression.page:13(name)
-#: C/debug-execute.page:13(name) C/debug-data.page:13(name)
-#: C/debug-custom.page:13(name) C/debug-cpu.page:13(name)
-#: C/debug-breakpoint.page:13(name) C/debug-breakpoint-dialog.page:14(name)
+#: C/debug-tips.page:13(name) C/debug-thread.page:13(name)
+#: C/debug-step.page:13(name) C/debug-stack.page:13(name)
+#: C/debug-run.page:15(name) C/debug-process-dialog.page:13(name)
+#: C/debug-local.page:13(name) C/debug-information.page:13(name)
+#: C/debug-expression.page:13(name) C/debug-execute.page:13(name)
+#: C/debug-data.page:13(name) C/debug-custom.page:13(name)
+#: C/debug-cpu.page:13(name) C/debug-breakpoint.page:13(name)
+#: C/debug-breakpoint-dialog.page:14(name)
 #: C/autotools-build-preferences-dialog.page:14(name)
 #: C/autotools-build-plugin.page:12(name)
 #: C/autotools-build-install.page:15(name)
@@ -64,13 +65,14 @@ msgstr "Sébastien Granjoux"
 #: C/project-manager-file.page:16(email) C/project-import.page:16(email)
 #: C/makefile-project-backend.page:13(email)
 #: C/directory-project-backend.page:13(email) C/debug-watch.page:14(email)
-#: C/debug-tips.page:14(email) C/debug-step.page:14(email)
-#: C/debug-stack.page:14(email) C/debug-run.page:16(email)
-#: C/debug-process-dialog.page:14(email) C/debug-local.page:14(email)
-#: C/debug-information.page:14(email) C/debug-expression.page:14(email)
-#: C/debug-execute.page:14(email) C/debug-data.page:14(email)
-#: C/debug-custom.page:14(email) C/debug-cpu.page:14(email)
-#: C/debug-breakpoint.page:14(email) C/debug-breakpoint-dialog.page:15(email)
+#: C/debug-tips.page:14(email) C/debug-thread.page:14(email)
+#: C/debug-step.page:14(email) C/debug-stack.page:14(email)
+#: C/debug-run.page:16(email) C/debug-process-dialog.page:14(email)
+#: C/debug-local.page:14(email) C/debug-information.page:14(email)
+#: C/debug-expression.page:14(email) C/debug-execute.page:14(email)
+#: C/debug-data.page:14(email) C/debug-custom.page:14(email)
+#: C/debug-cpu.page:14(email) C/debug-breakpoint.page:14(email)
+#: C/debug-breakpoint-dialog.page:15(email)
 #: C/autotools-build-preferences-dialog.page:15(email)
 #: C/autotools-build-plugin.page:13(email)
 #: C/autotools-build-install.page:16(email)
@@ -100,12 +102,13 @@ msgstr "Démarrer un programme sans le débogueur."
 #: C/project-manager-file.page:19(name) C/project-import.page:19(name)
 #: C/makefile-project-backend.page:16(name) C/full-index.page:11(name)
 #: C/directory-project-backend.page:16(name) C/debug-watch.page:17(name)
-#: C/debug-tips.page:17(name) C/debug-step.page:17(name)
-#: C/debug-stack.page:17(name) C/debug-run.page:19(name)
-#: C/debug-process-dialog.page:17(name) C/debug-local.page:17(name)
-#: C/debug-information.page:17(name) C/debug-expression.page:17(name)
-#: C/debug-custom.page:17(name) C/debug-cpu.page:17(name)
-#: C/debug-breakpoint.page:17(name) C/debug-breakpoint-dialog.page:18(name)
+#: C/debug-tips.page:17(name) C/debug-thread.page:17(name)
+#: C/debug-step.page:17(name) C/debug-stack.page:17(name)
+#: C/debug-run.page:19(name) C/debug-process-dialog.page:17(name)
+#: C/debug-local.page:17(name) C/debug-information.page:17(name)
+#: C/debug-expression.page:17(name) C/debug-custom.page:17(name)
+#: C/debug-cpu.page:17(name) C/debug-breakpoint.page:17(name)
+#: C/debug-breakpoint-dialog.page:18(name)
 #: C/autotools-build-build.page:19(name)
 msgid "Philip Chimento"
 msgstr "Philip Chimento"
@@ -119,12 +122,13 @@ msgstr "Philip Chimento"
 #: C/project-manager-file.page:20(email) C/project-import.page:20(email)
 #: C/makefile-project-backend.page:17(email) C/full-index.page:12(email)
 #: C/directory-project-backend.page:17(email) C/debug-watch.page:18(email)
-#: C/debug-tips.page:18(email) C/debug-step.page:18(email)
-#: C/debug-stack.page:18(email) C/debug-run.page:20(email)
-#: C/debug-process-dialog.page:18(email) C/debug-local.page:18(email)
-#: C/debug-information.page:18(email) C/debug-expression.page:18(email)
-#: C/debug-custom.page:18(email) C/debug-cpu.page:18(email)
-#: C/debug-breakpoint.page:18(email) C/debug-breakpoint-dialog.page:19(email)
+#: C/debug-tips.page:18(email) C/debug-thread.page:18(email)
+#: C/debug-step.page:18(email) C/debug-stack.page:18(email)
+#: C/debug-run.page:20(email) C/debug-process-dialog.page:18(email)
+#: C/debug-local.page:18(email) C/debug-information.page:18(email)
+#: C/debug-expression.page:18(email) C/debug-custom.page:18(email)
+#: C/debug-cpu.page:18(email) C/debug-breakpoint.page:18(email)
+#: C/debug-breakpoint-dialog.page:19(email)
 #: C/autotools-build-build.page:20(email)
 msgid "philip.chimento@gmail.com"
 msgstr "philip.chimento@gmail.com"
@@ -210,7 +214,7 @@ msgstr ""
 "créés par le projet actuel, mais vous pouvez cliquer sur le bouton "
 "<gui>Parcourir</gui> pour choisir un autre programme."
 
-#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:83(title)
+#: C/run-parameters-dialog.page:34(gui) C/debug-stack.page:74(title)
 msgid "Arguments"
 msgstr "Paramètres"
 
@@ -240,8 +244,8 @@ msgstr "Variables d'environnement"
 #: C/run-parameters-dialog.page:46(p)
 msgid ""
 "You can click on the drop-down section, to display all environment variables "
-"that will be accessible by your program. By default, it includes all the "
-"current environment variables, they are displayed in light gray."
+"those will be accessible by your program. By default, it includes all the "
+"current environment variables, they are display in light gray."
 msgstr ""
 "Cliquez sur la section déroulante pour afficher toutes les variables "
 "d'environnement accessibles à votre programme. Par défaut, elle inclut "
@@ -273,8 +277,8 @@ msgstr ""
 
 #: C/run-parameters-dialog.page:56(p)
 msgid ""
-"When a variable has not the same value as in the current environment, it is "
-"displayed in black."
+"When a variable has not the same value than in the current environment, it "
+"is displayed in black."
 msgstr ""
 "Quand une variable n'a pas la même valeur que dans l'environnement actuel, "
 "elle s'affiche en noir."
@@ -1646,6 +1650,128 @@ msgstr ""
 "aussi devez-vous parcourir la pile jusqu'en bas. Habituellement, l'erreur "
 "provient de la fonction la plus élevée appartenant à votre programme."
 
+#: C/debug-thread.page:9(desc)
+msgid "Examine threads."
+msgstr "Examiner les threads."
+
+#: C/debug-thread.page:22(title)
+msgid "Threads"
+msgstr "Threads"
+
+#: C/debug-thread.page:25(title)
+msgid "List threads"
+msgstr "Liste des threads"
+
+#: C/debug-thread.page:27(p)
+msgid ""
+"A program can be composed of several threads. All these threads are executed "
+"independently, having their own registers, stack and local variables, but "
+"sharing global variables."
+msgstr ""
+"Un programme peut être composé de plusieurs threads (ou fil "
+"d'exécution). Chaque thread est exécuté indépendamment et possède ses "
+"propres registres, piles et variables locales, mais partage toutes les "
+"variables globales."
+
+#: C/debug-thread.page:33(p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Thread</"
+"gui></guiseq> to open the <gui>Thread</gui> window."
+msgstr ""
+"Dans le <gui>menu principal</gui>, sélectionnez <guiseq><gui>Affichage</"
+"gui><gui>Thread</gui></guiseq> pour ouvrir la fenêtre "
+"<gui>Thread</gui>."
+
+#: C/debug-thread.page:39(p)
+msgid "The window shows the following information about each thread:"
+msgstr "La fenêtre affiche les informations suivantes à propos de chaque thread :"
+
+#: C/debug-thread.page:43(title) C/debug-stack.page:44(title)
+msgid "Active"
+msgstr "Actif"
+
+#: C/debug-thread.page:44(p)
+msgid "This contains a yellow arrow that points to the active thread."
+msgstr "Cela contient une flèche jaune qui pointe vers le thread actif."
+
+#: C/debug-thread.page:47(title)
+msgid "ID"
+msgstr "ID"
+
+#: C/debug-thread.page:48(p)
+msgid "This is a number corresponding to each thread."
+msgstr "C'est un numéro correspondant à chaque thread."
+
+#: C/debug-thread.page:51(title) C/debug-stack.page:57(title)
+msgid "File"
+msgstr "Fichier"
+
+#: C/debug-thread.page:52(p)
+msgid ""
+"The name of the file containing the function corresponding to the current "
+"frame of the current thread."
+msgstr "Nom du fichier contenant la fonction correspondant au cadre actuel du thread actuel."
+
+#: C/debug-thread.page:56(title) C/debug-stack.page:62(title)
+msgid "Line"
+msgstr "Ligne"
+
+#: C/debug-thread.page:57(p)
+msgid ""
+"The line number of the function corresponding to the current frame of the "
+"current thread."
+msgstr "Numéro de ligne de la fonction correspondant au cadre actuel du thread actuel."
+
+#: C/debug-thread.page:61(title) C/debug-stack.page:66(title)
+msgid "Function"
+msgstr "Fonction"
+
+#: C/debug-thread.page:62(p)
+msgid ""
+"The name of the function corresponding to the frame of the current thread."
+msgstr "Nom de la fonction correspondant au cadre du thread actuel."
+
+#: C/debug-thread.page:66(title) C/debug-stack.page:70(title)
+#: C/debug-breakpoint.page:48(title)
+msgid "Address"
+msgstr "Adresse"
+
+#: C/debug-thread.page:67(p)
+msgid ""
+"The address of the function corresponding to the frame of the current thread."
+msgstr "Adresse de la fonction correspondant au cadre du thread actuel."
+
+#: C/debug-thread.page:75(title)
+msgid "Change current thread"
+msgstr "Changement de thread actif"
+
+#: C/debug-thread.page:77(p)
+msgid ""
+"The current thread is the thread whose stack and local variables are "
+"currently displayed in the debugger."
+msgstr ""
+"Le thread actuel est le thread dont la pile est les variables locales sont actuellement "
+"affichées dans le débogueur."
+
+#: C/debug-thread.page:82(p) C/debug-thread.page:96(p)
+msgid "In the <gui>Thread</gui> window, select the thread you want."
+msgstr "Dans la fenêtre <gui>Thread</gui>, sélectionnez le thread voulu."
+
+#: C/debug-thread.page:85(p)
+msgid "Right-click and select <gui>Set current thread</gui>."
+msgstr ""
+"Faites un clic droit et sélectionnez <gui>Définir le thread  actuel</gui>."
+
+#: C/debug-thread.page:92(title)
+msgid "View current function"
+msgstr "Affichage de la fonction actuelle"
+
+#: C/debug-thread.page:99(p) C/debug-stack.page:104(p)
+msgid "Double-click, or right-click and select <gui>View Source</gui>."
+msgstr ""
+"Faites un double clic, ou un clic droit et sélectionnez <gui>Afficher le "
+"code source</gui>."
+
 #: C/debug-step.page:9(desc)
 msgid "Stopping and continuing."
 msgstr "Arrêter et continuer."
@@ -1856,18 +1982,7 @@ msgstr ""
 "la fonction actuelle. Vous ne pouvez afficher les cadres de pile que pendant "
 "l'exécution du débogueur."
 
-#: C/debug-stack.page:32(p)
-msgid ""
-"Moreover, a program can be composed of several threads. Each thread is "
-"executed independently and has its own registers, stack and local variables, "
-"but shares all global variables."
-msgstr ""
-"De plus, un programme peut être composé de plusieurs threads (ou fil "
-"d'exécution). Chaque thread est exécuté indépendamment et possède ses "
-"propres registres, piles et variables locales, mais partage toutes les "
-"variables globales."
-
-#: C/debug-stack.page:38(p)
+#: C/debug-stack.page:34(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Stack</"
 "gui></guiseq> to open the <gui>Stack</gui> window."
@@ -1875,19 +1990,11 @@ msgstr ""
 "Dans le <gui>menu principal</gui>, sélectionnez <guiseq><gui>Affichage</"
 "gui><gui>Pile</gui></guiseq> pour ouvrir la fenêtre <gui>Pile</gui>."
 
-#: C/debug-stack.page:44(p)
-msgid ""
-"The stacks are displayed in a tree view having their corresponding thread as "
-"parent and displaying the following information:"
-msgstr ""
-"Les piles s'affichent selon une arborescence avec leur thread correspondant "
-"comme parent et présentant les informations suivantes :"
+#: C/debug-stack.page:40(p)
+msgid "Each stack frame contains the following information:"
+msgstr "Chaque cadre de pile contient les informations suivantes :"
 
-#: C/debug-stack.page:49(title)
-msgid "Active"
-msgstr "Actif"
-
-#: C/debug-stack.page:50(p)
+#: C/debug-stack.page:45(p)
 msgid ""
 "This contains a yellow arrow to represent the active stack frame. By default "
 "it is frame 0, the current function. All evaluations and local variables are "
@@ -1899,19 +2006,11 @@ msgstr ""
 "les variables locales sont relatives à ce cadre actif. Vous pouvez changer "
 "de cadre actif pour examiner les variables locales dans d'autres fonctions."
 
-#: C/debug-stack.page:56(title)
-msgid "Thread"
-msgstr "Thread"
-
-#: C/debug-stack.page:57(p)
-msgid "This is a number corresponding to each thread."
-msgstr "C'est un numéro correspondant à chaque thread."
-
-#: C/debug-stack.page:60(title)
+#: C/debug-stack.page:51(title)
 msgid "Frame"
 msgstr "Cadre"
 
-#: C/debug-stack.page:61(p)
+#: C/debug-stack.page:52(p)
 msgid ""
 "This is the frame number starting from 0 for the current function. The first "
 "function of your program, for example <code>main()</code> in a C program, "
@@ -1921,84 +2020,49 @@ msgstr ""
 "fonction d'un programme, par exemple <code>main()</code> dans un programme "
 "C, possède le numéro le plus élevé."
 
-#: C/debug-stack.page:66(title)
-msgid "File"
-msgstr "Fichier"
-
-#: C/debug-stack.page:67(p)
+#: C/debug-stack.page:58(p)
 msgid ""
 "The name of the file containing the function corresponding to this frame."
 msgstr "Nom du fichier contenant la fonction correspondant à ce cadre."
 
-#: C/debug-stack.page:71(title)
-msgid "Line"
-msgstr "Ligne"
-
-#: C/debug-stack.page:72(p)
+#: C/debug-stack.page:63(p)
 msgid "The line number of the function corresponding to this frame."
 msgstr "Numéro de ligne de la fonction correspondant à ce cadre."
 
-#: C/debug-stack.page:75(title)
-msgid "Function"
-msgstr "Fonction"
-
-#: C/debug-stack.page:76(p)
+#: C/debug-stack.page:67(p)
 msgid "The name of the function corresponding to this frame."
 msgstr "Nom de la fonction correspondant à ce cadre."
 
-#: C/debug-stack.page:79(title) C/debug-breakpoint.page:48(title)
-msgid "Address"
-msgstr "Adresse"
-
-#: C/debug-stack.page:80(p)
+#: C/debug-stack.page:71(p)
 msgid "The address of the function corresponding to this frame."
 msgstr "Adresse de la fonction correspondant à ce cadre."
 
-#: C/debug-stack.page:84(p)
+#: C/debug-stack.page:75(p)
 msgid "The function arguments."
 msgstr "Les paramètres de la fonction."
 
-#: C/debug-stack.page:92(title)
-msgid "Change the current stack frame or thread"
-msgstr "Changement de cadre de pile ou de thread actif"
+#: C/debug-stack.page:83(title)
+msgid "Change the current stack frame"
+msgstr "Changement de cadre de pile actuel"
 
-#: C/debug-stack.page:96(p) C/debug-stack.page:116(p)
+#: C/debug-stack.page:87(p) C/debug-stack.page:101(p)
 msgid "In the <gui>Stack</gui> window, select the frame you want."
 msgstr "Dans la fenêtre <gui>Pile</gui>, sélectionnez le cadre voulu."
 
-#: C/debug-stack.page:99(p)
+#: C/debug-stack.page:90(p)
 msgid "Right-click and select <gui>Set current frame</gui>."
 msgstr ""
 "Faites un clic droit et sélectionnez <gui>Définir le cadre actuel</gui>."
 
-#: C/debug-stack.page:103(p)
-msgid ""
-"Clicking on a stack frame in the same thread changes only the stack frame, "
-"allowing to see other local variables. But doing it in another thread will "
-"change both the stack frame and the thread. The register values will be "
-"different and the debugger will restart in the selected thread."
-msgstr ""
-"Le fait de cliquer sur un cadre de pile dans le même thread ne modifie que "
-"ce cadre de pile, permettant de voir les autres variables locales. Mais "
-"faire cela dans un autre thread modifie à la fois le cadre de pile et le "
-"thread sélectionné. Les valeurs des registres sont différentes et le "
-"débogueur redémarrera dans le thread sélectionné."
-
-#: C/debug-stack.page:112(title)
+#: C/debug-stack.page:97(title)
 msgid "View the current function"
 msgstr "Affichage de la fonction actuelle"
 
-#: C/debug-stack.page:119(p)
-msgid "Double-click, or right-click and select <gui>View Source</gui>."
-msgstr ""
-"Faites un double clic, ou un clic droit et sélectionnez <gui>Afficher le "
-"code source</gui>."
-
-#: C/debug-stack.page:126(title)
+#: C/debug-stack.page:111(title)
 msgid "Get a stack trace"
 msgstr "Obtention d'une trace de la pile"
 
-#: C/debug-stack.page:130(p)
+#: C/debug-stack.page:115(p)
 msgid ""
 "In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
 "gui>."
@@ -2988,7 +3052,7 @@ msgstr "Exécuter plusieurs commandes en même temps"
 #: C/autotools-build-preferences-dialog.page:28(p)
 msgid ""
 "<app>make</app> is able to run several compilations at the same time. It "
-"decreases build time when having a multi-core processor but could trigger "
+"decrease the build time when having a multi-core processor but could trigger "
 "some issues so this can be enabled or disabled with this check box."
 msgstr ""
 "<app>make</app> est capable de lancer plusieurs compilations en même temps. "
@@ -3019,7 +3083,7 @@ msgid ""
 "By default errors and warnings message are translated. It has two drawbacks "
 "though. In order to recognize errors and warnings the translation of "
 "<app>Anjuta</app> and the compiler should perfectly match. Moreover, it is "
-"often more difficult to find help on the internet when searching translated "
+"often more difficult to find help on internet when searching translated "
 "messages as they are much less common. Unchecking this check box allows to "
 "disable translation."
 msgstr ""
@@ -3038,7 +3102,7 @@ msgstr ""
 #: C/autotools-build-preferences-dialog.page:49(p)
 msgid ""
 "Errors and warnings during the build are displayed and highlighted in the "
-"message window. By checking this option, they are highlighted in the editor "
+"message window. By checking this option, they are higlighted in the editor "
 "too."
 msgstr ""
 "Les erreurs et les avertissements survenant lors de la construction "
@@ -3051,8 +3115,8 @@ msgstr "Installer en tant que root"
 
 #: C/autotools-build-preferences-dialog.page:55(p)
 msgid ""
-"Installing a program needs to copy files into system directories which are "
-"often not writable by users. If this check box is checked, you can choose to "
+"Installing a program needs to copy files in system directory which are often "
+"not writable by the user. If this check box is checked, you can choose to "
 "use <cmd>sudo</cmd> or <cmd>su</cmd> before installing the files to acquire "
 "enough right to do it."
 msgstr ""
@@ -3185,7 +3249,7 @@ msgstr "Il existe plusieurs façons d'installer des cibles ou un projet."
 #: C/autotools-build-install.page:33(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Install</"
-"gui></guiseq> to install all files in the same directory as the current "
+"gui></guiseq> to install all files in the same directory than the current "
 "edited file."
 msgstr ""
 "Dans le <gui>menu principal</gui>, sélectionnez <guiseq><gui>Construire</"
@@ -3441,7 +3505,7 @@ msgstr "Répertoire de construction"
 
 #: C/autotools-build-configure-dialog.page:50(p)
 msgid ""
-"Select here the build directory. It can be the project directory or a "
+"Select here the build directory, it can be the project directory or a "
 "subdirectory. This is particularly useful when switching between different "
 "configurations to avoid rebuilding the whole project."
 msgstr ""
@@ -3513,8 +3577,8 @@ msgstr "Compilation de fichiers"
 
 #: C/autotools-build-compile.page:22(p)
 msgid ""
-"Most programming languages allow you to compile an individual source file. "
-"It reads the file, checks for errors and convert into an intermediate object "
+"Most programming language allow you to compile an individual source file. It "
+"reads the file, checks for errors and convert into an intermediate object "
 "file. Most errors happens in this step, so it is useful to compile a file "
 "after modifying it to check for errors. There are several ways to do it."
 msgstr ""
@@ -3589,10 +3653,10 @@ msgstr "Nettoyage des cibles"
 
 #: C/autotools-build-clean.page:22(p)
 msgid ""
-"It can be useful to delete all files created by the build process. For "
-"example, if all dependencies are not taken into account and a modified file "
-"does not trigger a recompiling as it should, deleting all files will fix "
-"this. There are several ways to do this"
+"It can be useful to delete all files created by the build process. By "
+"example if the all dependencies are not taken into account and a modified "
+"file does not trigger a recompiling as it should, deleting all files will "
+"fix this. There are several way to do this"
 msgstr ""
 "Il peut être utile de supprimer tous les fichiers créés par le processus de "
 "construction. Par exemple, si toutes les dépendances ne sont pas satisfaites "
@@ -3603,8 +3667,8 @@ msgstr ""
 #: C/autotools-build-clean.page:28(p)
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean</"
-"gui></guiseq> to delete all files built in the same directory as the current "
-"edited file."
+"gui></guiseq> to delete all files build in the same directory than the "
+"current edited file."
 msgstr ""
 "Dans le <gui>menu principal</gui>, sélectionnez <guiseq><gui>Construire</"
 "gui><gui>Nettoyer</gui></guiseq> pour supprimer tous les fichiers construits "
@@ -3813,101 +3877,20 @@ msgid "Auto-indentation"
 msgstr "Indentation automatique"
 
 #: C/anjuta-code-indentation.page:18(title)
-msgid "Configuring and using auto-indentation"
-msgstr "Configuration et utilisation de l'indentation automatique"
+msgid "Configuring auto-indentation"
+msgstr "Configuration de l'indentation automatique"
 
 #: C/anjuta-code-indentation.page:21(title)
 msgid "Manual configuration"
 msgstr "Configuration manuelle"
 
-#: C/anjuta-code-indentation.page:23(p)
-msgid ""
-"Automatic indentation is configured in the preferences (<guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq>) in the tab corresponding to the used "
-"programming language. The indentation width for several types of statements "
-"can be set there."
-msgstr ""
-"L'indentation automatique est configurée dans les préférences "
-"(<guiseq><gui>Édition</gui><gui>Préférences</gui></guiseq>), dans l'onglet "
-"correspondant au language de programmation utilisé. La largeur d'indentation "
-"pour différents types d'instructions peut être définie ici."
-
-#: C/anjuta-code-indentation.page:28(p)
-msgid ""
-"The big disadvantage of manually configuring indentation is that all "
-"developers working on a project must use the same settings or it will result "
-"if different styles used in the same files. For a better solution, see the "
-"next section."
-msgstr ""
-"Le grand inconvénient de configurer l'indentation manuellement est que les "
-"différents programmeurs travaillant sur un projet doivent utiliser le même "
-"paramétrage, sinon cela aboutira à des styles différents au sein d'un même "
-"fichier. Pour une meilleure solution, reportez-vous à la section suivante."
-
-#: C/anjuta-code-indentation.page:34(p)
-msgid ""
-"Unless explicitely changed in the preferences the indentation settings found "
-"in the Modeline of a file will be used instead of the configured settings to "
-"keep the file consistent."
-msgstr ""
-"À moins que ce ne soit explicitement indiqué dans les préférences, les "
-"réglages d'indentation trouvés dans les modificateurs d'un fichier sont "
-"utilisés à la place des réglages configurés de façon à conserver la "
-"compatibilité du fichier."
-
-#: C/anjuta-code-indentation.page:41(title)
+#: C/anjuta-code-indentation.page:25(title)
 msgid "Modelines"
 msgstr "Modificateurs"
 
-#: C/anjuta-code-indentation.page:43(p)
-msgid ""
-"Modelines are used to help editors to automatically detect the indentation "
-"mode which should be used for a particular file. They are especially useful "
-"if many developers work on the same project and use different environments."
-msgstr ""
-"Les modificateurs aident les éditeurs de fichiers à détecter automatiquement "
-"le mode d'indentation utilisé pour un fichier particulier. Ils sont très "
-"utiles quand plusieurs programmeurs travaillent sur un même projet avec des "
-"environnements différents."
-
-#: C/anjuta-code-indentation.page:47(p)
-msgid "A typical modeline looks like this:"
-msgstr "Un modificateur typique ressemble à ceci :"
-
-#: C/anjuta-code-indentation.page:49(code)
-#, no-wrap
-msgid ""
-"\n"
-"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
-msgstr ""
-"\n"
-"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
-
-#: C/anjuta-code-indentation.page:53(p)
-msgid ""
-"Anjuta supports modelines in the two formats used by <app>vim</app> and "
-"<app>emacs</app> as far as appropriate. For detailed information on the "
-"formats please consult the documentation of those two editors."
-msgstr ""
-"Anjuta prend en charge les modificateurs dans les deux formats utilisés par "
-"<app>vim</app> et <app>emacs</app> dans la mesure du possible. Pour avoir "
-"des informations détaillées sur ces formats, reportez-vous à la "
-"documentation de ces deux éditeurs de fichiers."
-
-#: C/anjuta-code-indentation.page:62(title)
+#: C/anjuta-code-indentation.page:31(title)
 msgid "Indenting blocks of code"
 msgstr "Indentation de blocs de code"
-
-#: C/anjuta-code-indentation.page:64(p)
-msgid ""
-"Normally new lines are approprietely indented automatically but you can "
-"indent existing lines or all selected code with the <guiseq><gui>Edit</"
-"gui><gui>Auto-Indent</gui></guiseq> menu item."
-msgstr ""
-"Normalement, les nouvelles lignes sont indentées correctement de façon "
-"automatique, mais vous pouvez indenter les lignes existantes ou le code "
-"sélectionné grâce à l'élément de menu <guiseq><gui>Édition</"
-"gui><gui>Indentation automatique</gui></guiseq>."
 
 #: C/anjuta-code-help.page:15(title)
 msgid "Using the API reference"
@@ -3917,113 +3900,22 @@ msgstr "Utilisation de la référence des API"
 msgid "Browsing the API reference"
 msgstr "Consultation de la référence des API"
 
-#: C/anjuta-code-help.page:20(p)
-msgid ""
-"For a quick access to the API reference of libraries, anjuta features an "
-"integrated API browser. If not already done it can be activated in the "
-"preferences (<guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>) in "
-"<guiseq><gui>General</gui><gui>Plugins</gui></guiseq> by choosing the "
-"<app>DevHelp</app> plugin."
-msgstr ""
-"Afin d'accéder rapidement à la références des API des bibliothèques, anjuta "
-"comporte un navigateur d'API intégré. Si ce n'est pas déjà fait, vous pouvez "
-"l'activer dans les préférences (<guiseq><gui>Édition</gui><gui>Préférences</"
-"gui></guiseq>) dans <guiseq><gui>Général</gui><gui>Greffons</gui></guiseq> "
-"et en choisissant le greffon <app>DevHelp</app>."
-
-#: C/anjuta-code-help.page:26(p)
-msgid ""
-"The API reference has two windows, one for searching for a specific symbol "
-"and the browser for viewing the help documents."
-msgstr ""
-"La référence des API possède deux fenêtres, l'une pour rechercher un symbole "
-"particulier et l'autre, le navigateur, pour afficher la documentation d'aide."
-
-#: C/anjuta-code-help.page:32(title)
+#: C/anjuta-code-help.page:22(title)
 msgid "Jump to the API reference using shortcuts in the editor"
 msgstr ""
 "Accès à la référence des API en utilisant des raccourcis dans l'éditeur"
-
-# Bruno : c'est bien Maj + F1 dans ma version
-#: C/anjuta-code-help.page:34(p)
-msgid ""
-"In case you are unsure how a specific function used in existing code works, "
-"simply place the cursor on the function name and use <keyseq><key>Ctrl</"
-"key><key>F1</key></keyseq> (or <guiseq><gui>Help</gui><gui>Context-Help</"
-"gui></guiseq>) to jump to the documentation."
-msgstr ""
-"Si vous n'êtes pas certain de la façon dont une fonction particulière du "
-"code existant fonctionne, placez simplement le curseur sur le nom de la "
-"fonction et saisissez <keyseq><key>Maj</key><key>F1</key></keyseq> (ou "
-"cliquez sur <guiseq><gui>Aide</gui><gui>Aide contextuelle</gui></guiseq> "
-"pour accéder à la documentation."
 
 #: C/anjuta-code-assist.page:15(title)
 msgid "Autocompletion and calltips"
 msgstr "Complétion automatique et aide des appels"
 
 #: C/anjuta-code-assist.page:18(title)
-msgid "Autocompletion"
-msgstr "Complétion automatique"
+msgid "Autocompletion is not working"
+msgstr "La complétion automatique ne fonctionne pas"
 
-#: C/anjuta-code-assist.page:19(p)
-msgid ""
-"Autocompletion automatically suggests functions and other code symbols after "
-"you start typing by trying to match existing symbols with the first "
-"characters typed. It will popup a drop-down menu where you can select a "
-"match by using the <key>Enter</key> key. Normally this happens automaticly "
-"after you typed the third (non-whitespace) character but you can also force "
-"it by using the <guiseq><gui>Edit</gui><gui>Auto-Complete</gui></guiseq> "
-"menu item."
-msgstr ""
-"La complétion automatique suggère des fonctions et d'autres symboles du code "
-"dès le début de la frappe en essayant de faire correspondre les premiers "
-"caractères tapés avec les symboles existants. Un menu déroulant apparaît "
-"dans lequel vous pouvez sélectionner une correspondance en appuyant sur la "
-"touche <key>Entrée</key>. Normalement, cette opération se fait "
-"automatiquement dès que vous avez saisi trois caractères (hors espace), mais "
-"vous pouvez la forcer en utilisant l'élément de menu <guiseq><gui>Édition</"
-"gui><gui>Complétion automatique</gui></guiseq>."
-
-#: C/anjuta-code-assist.page:28(p)
-msgid ""
-"Anjuta supports autocompletion for code written in C/C++, Vala, Javascript "
-"and Python. Note that autocompletion can only work if anjuta knows about the "
-"symbols used. If you are using C/C++ libraries that are not configured using "
-"<cmd>pkg-config</cmd> and/or not added to the project configuration, anjuta "
-"won't be able to find those symbols and autocompletion might not work."
-msgstr ""
-"Anjuta gère la complétion automatique pour le code écrit en C/C++, Vala, "
-"Javascript et Python. Notez que la complétion automatique ne fonctionne que "
-"si Anjuta connaît les symboles utilisés. Si vous vous servez de "
-"bibliothèques C/C++ qui ne sont pas configurées avec <cmd>pkg-config</cmd> "
-"et/ou qui ne sont pas ajoutées à la configuration du projet, Anjuta ne "
-"pourra pas trouver ces symboles et la complétion automatique ne marchera pas."
-
-#: C/anjuta-code-assist.page:35(p)
-msgid ""
-"In addition some syntax might be too complex for the integrated parser and "
-"it might not be able to detect which completion is required"
-msgstr ""
-"En outre, une partie de la syntaxe risque d'être trop complexe pour "
-"l'analyseur intégré et il est possible qu'il n'arrive pas à détecter la "
-"complétion requise."
-
-#: C/anjuta-code-assist.page:41(title)
+#: C/anjuta-code-assist.page:22(title)
 msgid "Effective coding using calltips"
 msgstr "Codage efficace avec l'aide des appels"
-
-#: C/anjuta-code-assist.page:43(p)
-msgid ""
-"As it is usually quite hard to remember the signature of every method or "
-"function used in a project, the editor will automatically display a small "
-"tooltip whenever you type '(' after a function name and show you the "
-"signature."
-msgstr ""
-"Comme il est très difficile de se souvenir de la signature de toutes les "
-"méthodes ou fonctions utilisées dans un projet, l'éditeur affiche une "
-"infobulle chaque fois que vous saisissez une parenthèse « ( » après un nom de "
-"fonction, et vous affiche la signature d'appel."
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -4085,3 +3977,4 @@ msgstr ""
 "Gérard Baylard <gerard.b|@|bbox.fr>, 2010.\n"
 "Julien Hardelin <jhardlin@orange.fr>, 2011.\n"
 "Alain Lojewski <allomervan@gmail.com>, 2011."
+
