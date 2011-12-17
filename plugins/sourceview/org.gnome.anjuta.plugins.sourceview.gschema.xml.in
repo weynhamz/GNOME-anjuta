@@ -1,21 +1,21 @@
 <schemalist>
-	<schema id="org.gnome.anjuta.sourceview" path="/org/gnome/anjuta/">
-		<key name="sourceview-style" type="s">
+	<schema id="org.gnome.anjuta.plugins.sourceview" path="/org/gnome/anjuta/plugins/sourceview/">
+		<key name="style" type="s">
 			<default>"tango"</default>
 		</key>
-		<key name="sourceview-print-linewrap" type="b">
+		<key name="print-linewrap" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-print-header" type="b">
+		<key name="print-header" type="b">
 			<default>false</default>
 		</key>
-		<key name="sourceview-print-footer" type="b">
+		<key name="print-footer" type="b">
 			<default>false</default>
 		</key>
-		<key name="sourceview-print-highlight" type="b">
+		<key name="print-highlight" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-print-linenumbers" type="b">
+		<key name="print-linenumbers" type="b">
 			<default>false</default>
 		</key>		<key name="tabsize" type="i">
 			<default>4</default>
@@ -23,19 +23,19 @@
 		<key name="use-tabs" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-syntax-highlight" type="b">
+		<key name="syntax-highlight" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-brackets-highlight" type="b">
+		<key name="brackets-highlight" type="b">
 			<default>false</default>
 		</key>
-		<key name="sourceview-backup" type="b">
+		<key name="backup" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-autocomplete" type="b">
+		<key name="autocomplete" type="b">
 			<default>false</default>
 		</key>
-		<key name="sourceview-currentline-highlight" type="b">
+		<key name="currentline-highlight" type="b">
 			<default>false</default>
 		</key>
 		<key name="margin-linenumber-visible" type="b">
@@ -44,16 +44,16 @@
 		<key name="margin-marker-visible" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-rightmargin-visible" type="b">
+		<key name="rightmargin-visible" type="b">
 			<default>true</default>
 		</key>
-		<key name="sourceview-rightmargin-position" type="i">
+		<key name="rightmargin-position" type="i">
 			<default>80</default>
 		</key>
-		<key name="sourceview-font" type="s">
+		<key name="font" type="s">
 			<default>"Monospace 12"</default>
 		</key>
-		<key name="sourceview-font-use-theme" type="b">
+		<key name="font-use-theme" type="b">
 			<default>true</default>
 		</key>
 	</schema>

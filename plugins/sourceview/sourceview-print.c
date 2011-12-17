@@ -19,11 +19,11 @@
 #include <gtksourceview/gtksourceprintcompositor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
-#define PRINT_LINEWRAP "sourceview-print-linewrap"
-#define PRINT_HEADER "sourceview-print-header"
-#define PRINT_FOOTER "sourceview-print-footer"
-#define PRINT_HIGHLIGHT "sourceview-print-highlight"
-#define PRINT_LINENUMBERS "sourceview-print-linenumbers"
+#define PRINT_LINEWRAP "print-linewrap"
+#define PRINT_HEADER "print-header"
+#define PRINT_FOOTER "print-footer"
+#define PRINT_HIGHLIGHT "print-highlight"
+#define PRINT_LINENUMBERS "print-linenumbers"
 
 typedef struct _SourceviewPrinting SourceviewPrinting;
 

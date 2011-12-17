@@ -288,7 +288,7 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	cancel_monitor (sio);
 
 	backup = g_settings_get_boolean (sio->sv->priv->settings,
-	                                 "sourceview-backup");
+	                                 "backup");
 
 	if (sio->last_encoding == NULL)
 	{

@@ -25,25 +25,25 @@
 #define REGISTER_NOTIFY(settings, key, func) \
 	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
 
-#define PREF_SCHEMA "org.gnome.anjuta.sourceview"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.sourceview"
 #define DOCMAN_PREF_SCHEMA "org.gnome.anjuta.document-manager"
 #define MSGMAN_PREF_SCHEMA "org.gnome.anjuta.message-manager"
 
 
 /* Editor preferences */
-#define HIGHLIGHT_SYNTAX           "sourceview-syntax-highlight"
-#define HIGHLIGHT_CURRENT_LINE	   "sourceview-currentline-highlight"
+#define HIGHLIGHT_SYNTAX           "syntax-highlight"
+#define HIGHLIGHT_CURRENT_LINE	   "currentline-highlight"
 #define USE_TABS                   "use-tabs"
-#define HIGHLIGHT_BRACKETS         "sourceview-brackets-highlight"
+#define HIGHLIGHT_BRACKETS         "brackets-highlight"
 #define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent-size"
-#define AUTOCOMPLETION             "sourceview-autocomplete"
+#define AUTOCOMPLETION             "autocomplete"
 
 #define VIEW_MARKS                 "margin-marker-visible"
 
 #define VIEW_LINENUMBERS           "margin-linenumber-visible"
-#define VIEW_RIGHTMARGIN           "sourceview-rightmargin-visible"
-#define RIGHTMARGIN_POSITION       "sourceview-rightmargin-position"
+#define VIEW_RIGHTMARGIN           "rightmargin-visible"
+#define RIGHTMARGIN_POSITION       "rightmargin-position"
 
 #define DOCMAN_VIEW_WHITE_SPACES          "docman-whitespace"
 #define DOCMAN_VIEW_EOL                   "docman-eol"
@@ -53,8 +53,8 @@
 #define MSGMAN_COLOR_WARNING		  "msgman-color.warning"
 
 
-#define FONT_THEME "sourceview-font-use-theme"
-#define FONT "sourceview-font"
+#define FONT_THEME "font-use-theme"
+#define FONT "font"
 #define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
 
 

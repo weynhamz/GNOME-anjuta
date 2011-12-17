@@ -77,7 +77,7 @@ libanjuta_sourceview_la_LIBADD = \
 	$(SOURCEVIEW_LIBS) \
 	$(LIBANJUTA_LIBS)
 
-gsettings_in_file = org.gnome.anjuta.sourceview.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.sourceview.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

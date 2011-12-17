@@ -151,7 +151,7 @@
                             <property name="border_width">5</property>
                             <property name="spacing">5</property>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview-syntax-highlight">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:syntax-highlight">
                                 <property name="label" translatable="yes">Highlight syntax</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -167,7 +167,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview-brackets-highlight">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:brackets-highlight">
                                 <property name="label" translatable="yes">Highlight matching brackets</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -183,7 +183,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview-backup">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:backup">
                                 <property name="label" translatable="yes">Create backup files</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -199,7 +199,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview-autocomplete">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:autocomplete">
                                 <property name="label" translatable="yes">Enable autocompletion for document words</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -264,7 +264,7 @@
                             <property name="border_width">5</property>
                             <property name="spacing">5</property>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:sourceview-currentline-highlight">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:0:0:currentline-highlight">
                                 <property name="label" translatable="yes">Highlight current line</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -312,7 +312,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview-rightmargin-visible">
+                              <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:rightmargin-visible">
                                 <property name="label" translatable="yes">Show right margin</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -354,7 +354,7 @@
                                   <placeholder/>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="preferences_spin:int:80:0:sourceview-rightmargin-position">
+                                  <object class="GtkSpinButton" id="preferences_spin:int:80:0:rightmargin-position">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">●</property>
@@ -453,7 +453,7 @@
                         <property name="column_spacing">5</property>
                         <property name="row_spacing">5</property>
                         <child>
-                          <object class="GtkFontButton" id="preferences_font:font:Monospace 12:0:sourceview-font">
+                          <object class="GtkFontButton" id="preferences_font:font:Monospace 12:0:font">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -467,7 +467,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:sourceview-font-use-theme">
+                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:0:font-use-theme">
                             <property name="label" translatable="yes">Use theme font</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
