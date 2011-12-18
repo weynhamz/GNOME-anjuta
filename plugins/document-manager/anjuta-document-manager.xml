@@ -67,13 +67,7 @@
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menu name="MenuViewEditor" action="ActionMenuViewEditor">
-				<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-				<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-				<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-				<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-				<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
-				<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
-				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+				<placeholder name="PlaceholderViewEditorMenus"/>
 				<separator name="separator9"/>
 				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
 				<menuitem name="AddView" action="ActionViewEditorAddView" />
@@ -144,33 +138,7 @@
 				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
-			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-			<separator name="separator28"/>
-			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
-			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
-		</menu>
-		<menuitem name="Close" action="ActionFileClose" />
-	</popup>
-	<popup name="PopupDocumentManager">
-		<menuitem name="Cut" action="ActionEditCut" />
-		<menuitem name="Copy" action="ActionEditCopy" />
-		<menuitem name="Paste" action="ActionEditPaste" />
-		<separator name="separator26"/>
-		<menu name="Goto" action="ActionMenuGoto">
-				<separator name="separator27"/>
-				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
-				<menuitem name="HistoryNext" action="ActionEditGotoHistoryNext" />
-		</menu>
-		<menu name="MenuView" action="ActionMenuView">
-			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
-			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
-			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
-			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
-			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+			<placeholder name="PlaceholderViewEditorPopup"/>
 			<separator name="separator28"/>
 			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
 			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />

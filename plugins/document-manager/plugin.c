@@ -343,30 +343,6 @@ static GtkActionEntry actions_edit[] = {
 };
 
 
-static GtkToggleActionEntry actions_view[] = {
-  { "ActionViewEditorLinenumbers", NULL, N_("_Line Number Margin"), NULL,
-	N_("Show/Hide line numbers"),
-    G_CALLBACK (on_editor_linenos1_activate), FALSE},
-  { "ActionViewEditorMarkers", NULL, N_("_Marker Margin"), NULL,
-	N_("Show/Hide marker margin"),
-    G_CALLBACK (on_editor_markers1_activate), FALSE},
-  { "ActionViewEditorFolds", NULL, N_("_Code Fold Margin"), NULL,
-	N_("Show/Hide code fold margin"),
-    G_CALLBACK (on_editor_codefold1_activate), FALSE},
-  { "ActionViewEditorGuides", NULL, N_("_Indentation Guides"), NULL,
-	N_("Show/Hide indentation guides"),
-    G_CALLBACK (on_editor_indentguides1_activate), FALSE},
-  { "ActionViewEditorSpaces", NULL, N_("_White Space"), NULL,
-	N_("Show/Hide white spaces"),
-    G_CALLBACK (on_editor_whitespaces1_activate), FALSE},
-  { "ActionViewEditorEOL", NULL, N_("_Line End Characters"), NULL,
-	N_("Show/Hide line end characters"),
-    G_CALLBACK (on_editor_eolchars1_activate), FALSE},
-  { "ActionViewEditorWrapping", NULL, N_("Line _Wrapping"), NULL,
-	N_("Enable/disable line wrapping"),
-    G_CALLBACK (on_editor_linewrap1_activate), FALSE}
-};
-
 static GtkActionEntry actions_zoom[] = {
   { "ActionViewEditorZoomIn", GTK_STOCK_ZOOM_IN, N_("Zoom In"), "<control>KP_Add",
 	N_("Zoom in: Increase font size"),
@@ -450,21 +426,11 @@ static struct ActionGroupInfo action_groups[] = {
 };
 
 static struct ActionToggleGroupInfo action_toggle_groups[] = {
-	{ actions_view, G_N_ELEMENTS (actions_view), "ActionGroupEditorView", N_("Editor view settings") },
 	{ actions_searchbox_popup, G_N_ELEMENTS(actions_searchbox_popup),
 	  "ActionGroupEditorSearchOptions", N_("Toggle search options")	}
 };
 
 // void pref_set_style_combo(DocmanPlugin *plugin);
-
-
-#define VIEW_LINENUMBERS_MARGIN    "docman-linenumber-visible"
-#define VIEW_MARKER_MARGIN         "docman-marker-visible"
-#define VIEW_FOLD_MARGIN           "docman-fold-visible"
-#define VIEW_INDENTATION_GUIDES    "docman-indentation-guides"
-#define VIEW_WHITE_SPACES          "docman-whitespace"
-#define VIEW_EOL                   "docman-eol"
-#define VIEW_LINE_WRAP             "docman-line-wrap"
 
 #define MAX_TITLE_LENGTH 80
 
@@ -598,34 +564,6 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	doc_plugin->project_name = NULL;
 
 	update_title(doc_plugin);
-}
-
-static void
-ui_states_init (AnjutaPlugin *plugin)
-{
-	gint i;
-	DocmanPlugin *eplugin;
-	static const gchar *prefs[] = {
-		VIEW_LINENUMBERS_MARGIN,
-		VIEW_MARKER_MARGIN,
-		VIEW_FOLD_MARGIN,
-		VIEW_INDENTATION_GUIDES,
-		VIEW_WHITE_SPACES,
-		VIEW_EOL,
-		VIEW_LINE_WRAP
-	};
-
-	eplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
-	for (i = 0; i < sizeof (actions_view)/sizeof(GtkToggleActionEntry); i++)
-	{
-		GtkAction *action;
-		gboolean state;
-
-		state = g_settings_get_boolean (eplugin->settings, prefs[i]);
-		action = anjuta_ui_get_action (eplugin->ui, "ActionGroupEditorView",
-									   actions_view[i].name);
-		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), state);
-	}
 }
 
 static void
@@ -812,13 +750,6 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 								   "ActionViewEditorRemoveView");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 
-	/* Actually this does not really belong here but it would be annoying to
-	 * add another interface for it
-	 */
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorView",
-								   "ActionViewEditorGuides");
-	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
-
 	/* IAnjutaEditorFolds */
 	flag = IANJUTA_IS_EDITOR_FOLDS (doc);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFormat",
@@ -833,11 +764,6 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	flag = IANJUTA_IS_EDITOR_FOLDS (doc);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFormat",
 								   "ActionFormatFoldToggle");
-	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
-
-	flag = IANJUTA_IS_EDITOR_FOLDS (doc);
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorView",
-								   "ActionViewEditorFolds");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 
 	/* IAnjutaEditorComment */
@@ -1798,7 +1724,6 @@ activate_plugin (AnjutaPlugin *plugin)
 							 TRUE, NULL);
 	anjuta_shell_present_widget (plugin->shell, dplugin->vbox, NULL);
 
-	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
 	update_document_ui (plugin, NULL);
 
