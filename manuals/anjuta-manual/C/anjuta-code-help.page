@@ -33,7 +33,7 @@ and the browser for viewing the help documents.</p>
 
 <p>In case you are unsure how a specific function used in existing code works, 
 simply place the cursor on the function name and use 
-<keyseq><key>Ctrl</key><key>F1</key></keyseq> (or 
+<keyseq><key>Shift</key><key>F1</key></keyseq> (or 
 <guiseq><gui>Help</gui><gui>Context-Help</gui></guiseq>) to jump to the documentation.
 </p>
 
