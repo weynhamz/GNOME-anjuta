@@ -1,26 +1,5 @@
 <schemalist>
 	<schema id="org.gnome.anjuta.document-manager" path="/org/gnome/anjuta/">
-		<key name="docman-linenumber-visible" type="b">
-			<default>true</default>
-		</key>
-		<key name="docman-marker-visible" type="b">
-			<default>true</default>
-		</key>
-		<key name="docman-fold-visible" type="b">
-			<default>true</default>
-		</key>
-		<key name="docman-indentation-guides" type="b">
-			<default>true</default>
-		</key>
-		<key name="docman-whitespace" type="b">
-			<default>false</default>
-		</key>
-		<key name="docman-eol" type="b">
-			<default>false</default>
-		</key>
-		<key name="docman-line-wrap" type="b">
-			<default>false</default>
-		</key>
 		<key name="text-zoom-factor" type="i">
 			<default>0</default>
 		</key>
