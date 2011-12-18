@@ -56,7 +56,7 @@ static void
 anjuta_session_set_limited_string_list (AnjutaSession *session, const gchar *section, const gchar *key, GList **value)
 {
 	GList *node;
-	
+
 	while ((node = g_list_nth (*value, MAX_RECENT_ITEM)) != NULL)
 	{
 		g_free (node->data);
@@ -69,7 +69,7 @@ static void
 anjuta_session_set_strv (AnjutaSession *session, const gchar *section, const gchar *key, gchar **value)
 {
 	GList *list = NULL;
-	
+
 	if (value != NULL)
 	{
 		for (; *value != NULL; value++)
@@ -78,7 +78,7 @@ anjuta_session_set_strv (AnjutaSession *session, const gchar *section, const gch
 		}
 		list = g_list_reverse (list);
 	}
-	
+
 	anjuta_session_set_string_list (session, section, key, list);
 	g_list_free (list);
 }
@@ -88,9 +88,9 @@ anjuta_session_get_strv (AnjutaSession *session, const gchar *section, const gch
 {
 	GList *list;
 	gchar **value = NULL;
-	
+
 	list = anjuta_session_get_string_list (session, section, key);
-	
+
 	if (list != NULL)
 	{
 		gchar **var;
@@ -105,7 +105,7 @@ anjuta_session_get_strv (AnjutaSession *session, const gchar *section, const gch
 		}
 		*var = NULL;
 	}
-			
+
 	return value;
 }
 
@@ -133,28 +133,28 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 		return;
 
  	if (self->recent_args != NULL)
- 	{		
+ 	{
  		g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
  		g_list_free (self->recent_args);
  	}
  	self->recent_args = anjuta_session_get_string_list (session, "Execution", "Program arguments");
 
  	if (self->recent_target != NULL)
- 	{		
+ 	{
  		g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
  		g_list_free (self->recent_target);
  	}
  	self->recent_target = anjuta_session_get_string_list (session, "Execution", "Program uri");
-	
+
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
 	run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
 	if (run_in_terminal == 0)
 		self->run_in_terminal = TRUE;	/* Default value */
 	else
 		self->run_in_terminal = run_in_terminal - 1;
-	
+
  	if (self->recent_dirs != NULL)
- 	{		
+ 	{
  		g_list_foreach (self->recent_dirs, (GFunc)g_free, NULL);
  		g_list_free (self->recent_dirs);
  	}
@@ -163,7 +163,7 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	{
 		/* Use project directory by default */
 		GValue value = {0,};
-	
+
 		anjuta_shell_get_value (ANJUTA_PLUGIN(self)->shell,
 		    IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 		    &value,
@@ -176,7 +176,7 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 
 	g_strfreev (self->environment_vars);
  	self->environment_vars = anjuta_session_get_strv (session, "Execution", "Environment variables");
-	
+
 	run_plugin_update_shell_value (self);
 }
 
@@ -188,14 +188,12 @@ on_run_program_activate (GtkAction* action, RunProgramPlugin* plugin)
 {
 	if (plugin->child != NULL)
 	{
-       gchar *msg = _("The program is running.\n"
-                      	"Do you want to restart it?");
+       gchar *msg = _("The program is already running.\n"
+                      	"Do you want to stop it before restarting a new instance?");
 		if (anjuta_util_dialog_boolean_question (GTK_WINDOW ( ANJUTA_PLUGIN (plugin)->shell), msg))
 		{
 			run_plugin_kill_program (plugin, FALSE);
 		}
-		else
-			return;
 	}
 	if (plugin->recent_target == NULL)
 	{
@@ -204,7 +202,7 @@ on_run_program_activate (GtkAction* action, RunProgramPlugin* plugin)
 			return;
 		}
 	}
-	
+
 	run_plugin_run_program(plugin);
 }
 
@@ -267,7 +265,7 @@ run_plugin_activate (AnjutaPlugin *plugin)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (plugin);
 	AnjutaUI *ui;
-	
+
 	DEBUG_PRINT ("%s", "Run Program Plugin: Activating plugin…");
 
 	/* Connect to session signal */
@@ -275,18 +273,18 @@ run_plugin_activate (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_save), self);
     g_signal_connect (plugin->shell, "load-session",
 					  G_CALLBACK (on_session_load), self);
-	
+
 	/* Add actions */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	self->action_group = anjuta_ui_add_action_group_entries (ui,
 									"ActionGroupRun", _("Run operations"),
 									actions_run, G_N_ELEMENTS (actions_run),
 									GETTEXT_PACKAGE, TRUE, self);
-	
+
 	self->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	run_plugin_update_menu_sensitivity (self);
-	
+
 	return TRUE;
 }
 
@@ -297,16 +295,16 @@ run_plugin_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 
 	DEBUG_PRINT ("%s", "Run Program Plugin: Deactivating plugin…");
-	
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, self->action_group);
-	
+
 	anjuta_ui_unmerge (ui, self->uiid);
-	
+
 	g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_save), self);
     g_signal_handlers_disconnect_by_func (plugin->shell, G_CALLBACK (on_session_load), self);
-	
-	
+
+
 	return TRUE;
 }
 
@@ -320,14 +318,14 @@ static void
 run_plugin_instance_init (GObject *obj)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
-	
+
 	self->recent_target = NULL;
 	self->recent_args = NULL;
 	self->recent_dirs = NULL;
 	self->environment_vars = NULL;
-	
+
 	self->child = NULL;
-	
+
 	self->build_uri = NULL;
 }
 
@@ -337,11 +335,11 @@ static void
 run_plugin_dispose (GObject *obj)
 {
 	RunProgramPlugin *plugin = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
-	
+
 	/* Warning this function could be called several times */
 
 	run_free_all_children (plugin);
-	
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -349,7 +347,7 @@ static void
 run_plugin_finalize (GObject *obj)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
-	
+
 	g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
 	g_list_free (self->recent_target);
 	g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
@@ -359,14 +357,14 @@ run_plugin_finalize (GObject *obj)
 	g_list_foreach (self->recent_dirs, (GFunc)g_free, NULL);
 	g_list_free (self->recent_dirs);
 	g_strfreev (self->environment_vars);
-	
+
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 /* finalize used to free object created with instance init is not used */
 
 static void
-run_plugin_class_init (GObjectClass *klass) 
+run_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -383,7 +381,7 @@ run_plugin_class_init (GObjectClass *klass)
 
 ANJUTA_PLUGIN_BEGIN (RunProgramPlugin, run_plugin);
 ANJUTA_PLUGIN_END;
-					 
+
 ANJUTA_SIMPLE_PLUGIN (RunProgramPlugin, run_plugin);
 
 /* Public functions
@@ -407,7 +405,7 @@ run_plugin_update_menu_sensitivity (RunProgramPlugin *plugin)
 {
 	GtkAction *action;
 	action = gtk_action_group_get_action (plugin->action_group, "ActionStopProgram");
-	
+
 	gtk_action_set_sensitive (action, plugin->child != NULL);
 }
 
