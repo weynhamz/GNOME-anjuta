@@ -795,7 +795,7 @@ anjuta_project_node_get_file (const AnjutaProjectNode *node)
 /**
  * anjuta_project_node_get_properties_info:
  *
- * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
+ * Returns: (transfer none) (element-type Anjuta.ProjectPropertyInfo):
  */
 GList *
 anjuta_project_node_get_properties_info (AnjutaProjectNode *node)
@@ -806,7 +806,7 @@ anjuta_project_node_get_properties_info (AnjutaProjectNode *node)
 /**
  * anjuta_project_node_get_properties:
  *
- * Returns: (transfer none) (element-type Anjuta.ProjectPropertyInfo):
+ * Returns: (transfer none) (element-type Anjuta.ProjectProperty):
  */
 GList *
 anjuta_project_node_get_properties (AnjutaProjectNode *node)

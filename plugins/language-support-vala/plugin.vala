@@ -169,7 +169,7 @@ public class ValaPlugin : Plugin {
 
 		string[] flags = {};
 		bool found = false;
-		foreach (unowned Anjuta.ProjectProperty prop in current_target.get_properties_info ()) {
+		foreach (unowned Anjuta.ProjectProperty prop in current_target.get_properties ()) {
 			if (prop.info.id == "VALAFLAGS") {
 				GLib.Shell.parse_argv (prop.value, out flags);
 				found = true;
@@ -180,7 +180,7 @@ public class ValaPlugin : Plugin {
 		if (!found) {
 			/* Fall back to AM_VALAFLAGS */
 			var current_group = current_target.parent_type (Anjuta.ProjectNodeType.GROUP);
-			foreach (unowned Anjuta.ProjectProperty prop in current_group.get_properties_info ()) {
+			foreach (unowned Anjuta.ProjectProperty prop in current_group.get_properties ()) {
 				if (prop.info.id == "VALAFLAGS") {
 					GLib.Shell.parse_argv (prop.value, out flags);
 					break;

@@ -436,8 +436,8 @@ namespace Anjuta {
 		public Anjuta.ProjectProperty get_map_property (string id, string name);
 		public unowned string get_name ();
 		public Anjuta.ProjectNodeType get_node_type ();
-		public unowned GLib.List<Anjuta.ProjectPropertyInfo> get_properties ();
-		public unowned GLib.List<Anjuta.ProjectProperty> get_properties_info ();
+		public unowned GLib.List<Anjuta.ProjectProperty> get_properties ();
+		public unowned GLib.List<Anjuta.ProjectPropertyInfo> get_properties_info ();
 		public unowned Anjuta.ProjectProperty get_property (string id);
 		public unowned Anjuta.ProjectPropertyInfo get_property_info (string id);
 		public unowned Anjuta.ProjectNode get_source_from_file (GLib.File file);
