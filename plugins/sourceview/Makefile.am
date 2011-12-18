@@ -2,6 +2,10 @@
 sourceview_xmldir = $(anjuta_glade_dir)
 sourceview_xml_DATA = anjuta-editor-sourceview.ui
 
+# Plugin UI file
+sourceview_uidir = $(anjuta_ui_dir)
+sourceview_ui_DATA = anjuta-sourceview.xml
+
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
 sourceview_pixmaps_DATA = \
@@ -86,6 +90,7 @@ EXTRA_DIST = \
 	anjuta-marshal.list \
 	$(plugin_in_files) \
 	$(sourceview_plugin_DATA) \
+	$(sourceview_ui_DATA) \
 	$(sourceview_pixmaps_DATA) \
 	$(sourceview_xml_DATA) \
         $(gsettings_in_file)

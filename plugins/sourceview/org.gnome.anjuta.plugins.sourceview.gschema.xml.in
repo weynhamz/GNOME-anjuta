@@ -47,6 +47,15 @@
 		<key name="rightmargin-visible" type="b">
 			<default>true</default>
 		</key>
+		<key name="line-wrap" type="b">
+			<default>false</default>
+		</key>
+		<key name="whitespace" type="b">
+			<default>false</default>
+		</key>
+		<key name="eol" type="b">
+			<default>false</default>
+		</key>
 		<key name="rightmargin-position" type="i">
 			<default>80</default>
 		</key>
