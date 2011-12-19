@@ -82,7 +82,7 @@ struct _GitLogPanePriv
 	GHashTable *branches_table;
 	gchar *selected_branch;
 	gboolean viewing_active_branch;
-	GtkTreeIter active_branch_iter;
+	GtkTreeRowReference *active_branch_ref;
 
 	/* Loading spinner data */
 	guint current_spin_count;
@@ -142,8 +142,13 @@ on_branch_list_command_finished (AnjutaCommand *command,
 	}
 	else
 	{
-		gtk_combo_box_set_active_iter (branch_combo, 
-		                               &(self->priv->active_branch_iter));
+		if (gtk_tree_row_reference_valid (self->priv->active_branch_ref)) 
+		{
+			GtkTreePath *path = gtk_tree_row_reference_get_path (self->priv->active_branch_ref);
+			gtk_tree_model_get_iter (log_branch_combo_model, iter, path);
+			gtk_combo_box_set_active_iter (branch_combo, iter);
+			gtk_tree_path_free (path);
+		}
 	}
 	
 }
@@ -173,12 +178,16 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
 
 		if (git_branch_is_active (branch))
 		{
+			GtkTreePath *path;
 			gtk_list_store_set (log_branch_combo_model, &iter,
 			                    BRANCH_COL_ACTIVE, TRUE,
 			                    BRANCH_COL_ACTIVE_ICON, GTK_STOCK_APPLY,
 			                    -1);
 
-			self->priv->active_branch_iter = iter;
+			path = gtk_tree_model_get_path (GTK_TREE_MODEL (log_branch_combo_model), &iter);
+			gtk_tree_row_reference_free (self->priv->active_branch_ref);
+			self->priv->active_branch_ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (log_branch_combo_model), path);
+			gtk_tree_path_free (path);
 		}
 		else
 		{
@@ -983,6 +992,7 @@ git_log_pane_finalize (GObject *object)
 
 	self = GIT_LOG_PANE (object);
 
+	gtk_tree_row_reference_free (self->priv->active_branch_ref);
 	g_object_unref (self->priv->builder);
 	g_free (self->priv->path);
 	g_hash_table_destroy (self->priv->branches_table);
