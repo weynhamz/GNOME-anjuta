@@ -1,0 +1,25 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuView" action="ActionMenuView">
+		<menu name="MenuViewEditor" action="ActionMenuViewEditor">
+		<placeholder name="PlaceholderViewEditorMenus">
+			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+			<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+			<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
+			<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
+			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+		</placeholder>
+		</menu>
+		</menu>
+	</menubar>
+	<popup name="PopupDocumentManager">
+		<menu name="MenuView" action="ActionMenuView">
+			<placeholder name="PlaceholderViewEditorPopup">
+				<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />
+				<menuitem name="MarkersMargin" action="ActionViewEditorMarkers" />
+				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
+			</placeholder>
+		</menu>
+	</popup>
+</ui>
