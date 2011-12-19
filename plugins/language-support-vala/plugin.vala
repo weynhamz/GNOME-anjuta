@@ -168,24 +168,15 @@ public class ValaPlugin : Plugin {
 		}
 
 		string[] flags = {};
-		bool found = false;
-		foreach (unowned Anjuta.ProjectProperty prop in current_target.get_properties ()) {
-			if (prop.info.id == "VALAFLAGS") {
-				GLib.Shell.parse_argv (prop.value, out flags);
-				found = true;
-				break;
-			}
-		}
-
-		if (!found) {
+		unowned Anjuta.ProjectProperty prop = current_target.get_property ("VALAFLAGS");
+		if (prop != null && prop != prop.info.property) {
+			GLib.Shell.parse_argv (prop.value, out flags);
+		} else {
 			/* Fall back to AM_VALAFLAGS */
 			var current_group = current_target.parent_type (Anjuta.ProjectNodeType.GROUP);
-			foreach (unowned Anjuta.ProjectProperty prop in current_group.get_properties ()) {
-				if (prop.info.id == "VALAFLAGS") {
-					GLib.Shell.parse_argv (prop.value, out flags);
-					break;
-				}
-			}
+			prop = current_group.get_property ("VALAFLAGS");
+			if (prop != null && prop != prop.info.property)
+				GLib.Shell.parse_argv (prop.value, out flags);
 		}
 
 		string[] packages = {};
