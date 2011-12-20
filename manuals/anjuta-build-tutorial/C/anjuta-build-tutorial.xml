@@ -506,10 +506,6 @@ If tut_prog is older than main.o or aux.o
 			</para>
 			<variablelist>
 				<varlistentry>
-				<term><parameter>--enable-maintainer-mode</parameter></term>
-				<listitem><para>Add extra rules useful when modifying the project source code</para></listitem>
-				</varlistentry>
-				<varlistentry>
 				<term><parameter>--help</parameter></term>
 				<listitem><para>List all available options</para></listitem>
 				</varlistentry>
@@ -1172,7 +1168,6 @@ AC_INIT(tutprog, 0.1)
 
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
-AM_MAINTAINER_MODE
 
 AC_PROG_CC
 
@@ -1216,23 +1211,6 @@ Makefile
 					from the <filename>configure.ac</filename> using <application>autoheader</application>.
 					Then <filename>config.h</filename> is created automatically like makefiles by
 					<application>configure</application>. So it is painless for the developer.
-				</para>
-				</listitem>
-				</varlistentry>
-				<varlistentry>
-				<term>AM_MAINTAINER_MODE</term>
-				<listitem>
-				<para>
-					By default the makefiles created by <application>Automake</application> have rules to rerun
-					<application>Automake</application> or <application>Autoconf</application>
-					when needed: if <filename>configure.ac</filename> or <filename>Makefile.am</filename>
-					are modified. By using this macro, you disable this feature. So 
-					<filename>configure.ac</filename> and all <filename>Makefile.am</filename> will
-					never be erased, even if you get a problem with the date of some files which 
-					could be better for an user, someone compiling the project without modifying it. A 
-					developer, someone modifying the project, needs these rules and has to
-					run configure with --enable-maintainer-mode to keep those.
-					The real interest of this macro is debatable.
 				</para>
 				</listitem>
 				</varlistentry>
@@ -1406,7 +1384,7 @@ cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run aclocal-1
 cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run automake-1.10 --foreign 
 cd . &amp;&amp; /bin/sh /home/seb2008.1/Projects/tutprog/missing --run autoconf
 /bin/sh ./config.status --recheck
-running CONFIG_SHELL=/bin/sh /bin/sh ./configure  --enable-maintainer-mode  --no-create --no-recursion
+running CONFIG_SHELL=/bin/sh /bin/sh ./configure  --no-create --no-recursion
 checking for a BSD-compatible install... /usr/bin/install -c
 checking whether build environment is sane... yes
 checking for a thread-safe mkdir -p... /bin/mkdir -p
