@@ -27,7 +27,7 @@ struct _[+ClassName+]Private
 	ENDFOR+]
 };
 
-#define [+TypePrefix+]_[+TypeSuffix+]_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), [+TypePrefix+]_TYPE_[+TypeSuffix+], [+ClassName+]Private))[+
+#define [+TypePrefix+]_[+TypeSuffix+]_GET_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), [+TypePrefix+]_TYPE_[+TypeSuffix+], [+ClassName+]Private))[+
 
 ENDIF+][+IF (not (=(get "Properties[0].Name") ""))+]
 
