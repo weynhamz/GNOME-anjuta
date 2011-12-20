@@ -31,7 +31,7 @@ plugin_in_files = [+NameHLower+].plugin.in
 
 # Include paths
 AM_CPPFLAGS = \
-	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
