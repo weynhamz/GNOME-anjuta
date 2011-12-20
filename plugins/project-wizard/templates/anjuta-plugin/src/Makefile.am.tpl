@@ -39,7 +39,8 @@ AM_CPPFLAGS = \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
 	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
-	$(LIBANJUTA_CFLAGS) [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_CFLAGS)[+ENDIF+]
+	$(LIBANJUTA_CFLAGS)[+IF (=(get "HavePackage") "1")+] \
+	$([+NameCUpper+]_CFLAGS)[+ENDIF+]
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
