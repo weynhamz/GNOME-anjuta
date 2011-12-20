@@ -1,3 +1,85 @@
+Anjuta 3.3.3 "It's X-mas time..." (20 December 2011) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.2.x!
+
+Abderrahim Kitouni (1):
+      language-support-vala: fix a crash with the directory project backend
+
+Akom Chotiphantawanon (1):
+      Updated Thai translation.
+
+Alban Browaeys (1):
+      git: fix active_branch_iter not behing null though filled with null values.
+
+Arnel A. Borja (3):
+      project-wizard: Add wizard files to EXTRA_DIST
+      language-support-vala: update the .vapi after project-manager changes
+      language-support-vala: update project property interfaces
+
+Bruno Brouard (3):
+      Updated French doc translation
+      Updated French translation
+      Updated French doc translation
+
+Christian Kirbach (3):
+      Updated German Anjuta manual translation
+      Updated German Anjuta manual translation
+      Updated German translation
+
+Daniel Mustieles (4):
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Gabor Kelemen (1):
+      Make the tasks in the Git tasks window show up translated.
+
+Johannes Schmid (18):
+      libanjuta: Add anjuta_dock_replace_command_pane
+      git: Only show one command pane at any time
+      git: fix bgo#646695 - Remote needs translator comment
+      git: bgo# 656761 - Error messages being spewed
+      message-manager: Fix rh#532290 - Crash when ianjuta_message_manager_append() is used with NULL string
+      build-basic-autotools: Fix rh#757236 - anjuta crashes when file doesn't belong to build configuration.
+      libanjuta: Add anjuta_dock_get_command_bar()
+      git: Fix bgo#641079 - check number of branches selected when switching
+      document-manager: Fixed some memory leaks
+      anjuta: Fixed a memory leak
+      language-support-js: Fixed bgo#665082 - Crash in javascript autocompletion
+      git: Disable delete button when there is no selection in the tags pane
+      git: Use combo box instead of tree view for remotes
+      i18n: Fix bug with wrong format string in german translation
+      sourceview: Don't break layout when displaying message area
+      js-debugger: bgo#666448 - Support application/javascript target
+      manual: Fix bgo666321 -  Wrong Context-Help shortcut
+      Revert "git: fix active_branch_iter not behing null though filled with null values."
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Piotr Drąg (1):
+      Updated POTFILES.in
+
+Sébastien Granjoux (16):
+      debug-manager: Move settings in plugins/debug-manager
+      run: Move preferences to plugins/run
+      sourceview: Fix a crash with Scintilla
+      project-wizard: Display only useful page on the sidebar
+      project-wizard: Replace GtkSwitch by GtkCheckButton
+      project-wizard: Add a title to each wizard page
+      project-wizard: wizard pages were not displayed due to the previous changes.
+      libanjuta, am-project, dir-project, mk-project, project-manager: Change AnjutaProjectProperty
+      libanjuta, language-support-vala: Fix an declaration of anjuta_project_get_properties
+      sourceview: Move preferences in plugins/sourceview
+      document-manager: Remove editor settings
+      sourceview: Add editor view settings
+      document-manager: Remove unused editor view settings
+      run-program: bgo #666336 - Add Execute project more than one
+      sourceview: bgo #666482 - missing "anjuta-sourceview.xml" breaks build
+      am-project: Fix a crash when closing and opening a new project
+
 Anjuta 3.3.2 "Dark and cold" (21 November 2011) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version, 
