@@ -42,7 +42,7 @@
 #define RIGHTMARGIN_POSITION       "rightmargin-position"
 
 #define MSGMAN_COLOR_ERROR		  "msgman-color-error"
-#define MSGMAN_COLOR_WARNING		  "msgman-color.warning"
+#define MSGMAN_COLOR_WARNING		  "msgman-color-warning"
 
 
 #define FONT_THEME "font-use-theme"
