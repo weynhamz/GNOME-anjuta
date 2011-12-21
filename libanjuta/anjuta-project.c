@@ -151,6 +151,8 @@ anjuta_project_property_info_new (const gchar *id,
 	info->property = property;
 	info->user_data = user_data;
 
+	info->property->info = info;
+
 	return info;
 }
 
