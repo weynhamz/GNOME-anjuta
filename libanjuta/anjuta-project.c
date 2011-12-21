@@ -1100,9 +1100,7 @@ enum {
 	PROP_NAME,
 	PROP_FILE,
 	PROP_STATE,
-	PROP_TYPE,
-	PROP_PROPERTIES,
-	PROP_PROPERTIES_INFO
+	PROP_TYPE
 };
 
 
@@ -1177,12 +1175,6 @@ anjuta_project_node_get_gobject_property (GObject    *object,
 		case PROP_TYPE:
 			g_value_set_flags (value, anjuta_project_node_get_node_type (node));
 			break;
-		case PROP_PROPERTIES:
-			g_value_set_pointer (value, node->properties);
-			break;
-		case PROP_PROPERTIES_INFO:
-			g_value_set_pointer (value, node->properties_info);
-			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -1211,13 +1203,6 @@ anjuta_project_node_set_gobject_property (GObject      *object,
 			break;
 		case PROP_TYPE:
 			node->type = g_value_get_flags (value);
-			break;
-		case PROP_PROPERTIES:
-			node->properties = g_value_get_pointer (value);
-			break;
-		/* XXX: We may need to copy this instead */
-		case PROP_PROPERTIES_INFO:
-			node->properties_info = g_value_get_pointer (value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1302,31 +1287,6 @@ anjuta_project_node_class_init (AnjutaProjectNodeClass *klass)
 	                             G_TYPE_FILE,
 	                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_FILE,
-	                                 pspec);
-
-/**
- * AnjutaProjectNode:properties:
- *
- * type: GLib.List<Anjuta.ProjectProperty>
- * Transfer: none
- */
-	pspec = g_param_spec_pointer ("properties",
-	                              "Properties",
-	                              "The list of properties",
-	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_PROPERTIES,
-	                                 pspec);
-/**
- * AnjutaProjectNode:properties-info:
- *
- * Type: GLib.List<Anjuta.ProjectPropertyInfo>
- * Transfer: none
- */
-	pspec = g_param_spec_pointer ("properties-info",
-	                              "Properties info",
-	                              "The list of all possible properties informations",
-	                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-	g_object_class_install_property (G_OBJECT_CLASS (klass), PROP_PROPERTIES_INFO,
 	                                 pspec);
 
 }
