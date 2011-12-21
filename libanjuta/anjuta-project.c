@@ -941,6 +941,14 @@ anjuta_project_node_clear_state (AnjutaProjectNode *node, AnjutaProjectNodeState
 	return TRUE;
 }
 
+/**
+ * anjuta_project_node_insert_property_info:
+ * @node: (transfer none):
+ * @info: (transfer none):
+ *
+ * Returns: (transfer none):
+ */
+
 AnjutaProjectPropertyInfo *
 anjuta_project_node_insert_property_info (AnjutaProjectNode *node,
                                           AnjutaProjectPropertyInfo *info)
