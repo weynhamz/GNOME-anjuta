@@ -127,7 +127,7 @@ anjuta_project_property_get_type (void)
  * @type: Property value type
  * @flags: Property flags
  * @description: (transfer none): Property description
- * @property: (transfer full): Default property value
+ * @default_value: (transfer full): Default property value
  * @user_data: (allow-none) (transfer full): Optional user data
  *
  * Returns: (transfer full):
@@ -138,7 +138,7 @@ anjuta_project_property_info_new (const gchar *id,
                                   AnjutaProjectValueType type,
                                   AnjutaProjectPropertyFlags flags,
                                   const gchar *description,
-                                  AnjutaProjectProperty *property,
+                                  AnjutaProjectProperty *default_value,
                                   gpointer user_data)
 {
 	AnjutaProjectPropertyInfo *info = g_slice_new0(AnjutaProjectPropertyInfo);
@@ -148,10 +148,10 @@ anjuta_project_property_info_new (const gchar *id,
 	info->type = type;
 	info->flags = flags;
 	info->description = g_strdup (description);
-	info->property = property;
+	info->default_value = default_value;
 	info->user_data = user_data;
 
-	info->property->info = info;
+	info->default_value->info = info;
 
 	return info;
 }
@@ -161,7 +161,7 @@ anjuta_project_property_info_copy (AnjutaProjectPropertyInfo *info)
 {
 	return anjuta_project_property_info_new (info->id, info->name, info->type,
 	                                         info->flags, info->description,
-	                                         info->property, info->user_data);
+	                                         info->default_value, info->user_data);
 }
 
 void
@@ -170,7 +170,7 @@ anjuta_project_property_info_free (AnjutaProjectPropertyInfo *info)
 	g_free (info->id);
 	g_free (info->name);
 	g_free (info->description);
-	anjuta_project_property_free (info->property);
+	anjuta_project_property_free (info->default_value);
 	g_slice_free (AnjutaProjectPropertyInfo, info);
 }
 
@@ -873,7 +873,7 @@ anjuta_project_node_get_property (AnjutaProjectNode *node, const gchar *id)
 		GList *found;
 
 		/* Get default property */
-		prop = info->property;
+		prop = info->default_value;
 
 		/* Find custom property */
 		found = g_list_find_custom (node->properties, info, find_property);
@@ -901,7 +901,7 @@ anjuta_project_node_get_map_property (AnjutaProjectNode *node, const gchar *id, 
 		GList *found;
 
 		/* Get default property */
-		prop = info->property;
+		prop = info->default_value;
 
 		/* Find property */
 		found = node->properties;
@@ -983,7 +983,7 @@ AnjutaProjectProperty *
 anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectProperty *prop)
 {
 	/* Search the exact property, useful for list property */
-	if (prop != prop->info->property)
+	if (prop != prop->info->default_value)
 	{
 		node->properties = g_list_remove (node->properties, prop);
 		prop->info = NULL;

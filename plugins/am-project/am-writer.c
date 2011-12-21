@@ -1339,7 +1339,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 		}
 
 		prop = (AmpProperty *)anjuta_project_node_get_property (node, info->base.id);
-		if ((prop == (AmpProperty *)info->base.property) || (g_strcmp0 (prop->base.value, info->base.property->value) == 0))
+		if ((prop == (AmpProperty *)info->base.default_value) || (g_strcmp0 (prop->base.value, info->base.default_value->value) == 0))
 		{
 			/* Default value, add only string properties */
 			if (info->base.type == ANJUTA_PROJECT_PROPERTY_STRING)
@@ -1367,7 +1367,7 @@ amp_property_rename_target (AmpProject *project, AnjutaProjectNode *node)
 				g_string_append_c (new_name, '_');
 				break;
 			case ANJUTA_PROJECT_PROPERTY_BOOLEAN:
-				if ((prop->base.value != NULL) && (g_strcmp0 (prop->base.value, info->base.property->value) != 0))
+				if ((prop->base.value != NULL) && (g_strcmp0 (prop->base.value, info->base.default_value->value) != 0))
 				{
 					g_string_append (new_name, info->suffix);
 				}
@@ -1613,7 +1613,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 	}
 
 	if ((property->value == NULL) ||
-	    (g_strcmp0 (property->info->property->value, property->value) == 0))
+	    (g_strcmp0 (property->info->default_value->value, property->value) == 0))
 	{
 		/* Remove property */
 		if (((AmpPropertyInfo *)property->info)->token_type == AM_TOKEN__PROGRAMS)

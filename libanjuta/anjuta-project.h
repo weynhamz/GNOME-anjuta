@@ -68,12 +68,12 @@ struct _AnjutaProjectPropertyInfo
     AnjutaProjectValueType type;
     AnjutaProjectPropertyFlags flags;
     gchar *description;
-    AnjutaProjectProperty *property;
+    AnjutaProjectProperty *default_value;
 	gpointer user_data;
 };
 
 GType anjuta_project_property_info_get_type (void);
-AnjutaProjectPropertyInfo *anjuta_project_property_info_new (const gchar *id, const gchar *name, AnjutaProjectValueType type, AnjutaProjectPropertyFlags flags, const gchar *description, AnjutaProjectProperty *property, gpointer user_data);
+AnjutaProjectPropertyInfo *anjuta_project_property_info_new (const gchar *id, const gchar *name, AnjutaProjectValueType type, AnjutaProjectPropertyFlags flags, const gchar *description, AnjutaProjectProperty *default_value, gpointer user_data);
 AnjutaProjectPropertyInfo * anjuta_project_property_info_copy (AnjutaProjectPropertyInfo *info);
 void anjuta_project_property_info_free (AnjutaProjectPropertyInfo *info);
 

@@ -1046,8 +1046,8 @@ amp_create_property_list (GList **list, AmpPropertyInfo *properties)
 			info->link = link;
 			*list = g_list_prepend (*list, info);
 			link = info->flags & AM_PROPERTY_DISABLE_FOLLOWING ? (AnjutaProjectPropertyInfo *)info : NULL;
-			info->base.property = amp_property_new (NULL, 0, 0, info->value, NULL);
-			info->base.property->info = (AnjutaProjectPropertyInfo *)info;
+			info->base.default_value = amp_property_new (NULL, 0, 0, info->value, NULL);
+			info->base.default_value->info = (AnjutaProjectPropertyInfo *)info;
 		}
 		*list = g_list_reverse (*list);
 	}
@@ -1130,7 +1130,7 @@ amp_node_property_load (AnjutaProjectNode *node, gint token_type, gint position,
 			AnjutaProjectProperty *new_prop;
 
 			new_prop = anjuta_project_node_get_property (node, info->base.id);
-			if ((new_prop == NULL) || (new_prop == new_prop->info->property))
+			if ((new_prop == NULL) || (new_prop == new_prop->info->default_value))
 			{
 				new_prop = anjuta_project_node_insert_property (node, (AnjutaProjectPropertyInfo *)info, amp_property_new (NULL, 0, 0, NULL, token));
 			}
@@ -1164,7 +1164,7 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 				AnjutaProjectProperty *old_prop;
 
 				old_prop = anjuta_project_node_get_map_property (node, info->base.id, new_prop->name);
-				if ((old_prop != NULL) && (old_prop->info->property != old_prop))
+				if ((old_prop != NULL) && (old_prop->info->default_value != old_prop))
 				{
 					anjuta_project_node_remove_property (node, old_prop);
 					amp_property_free (old_prop);
@@ -1199,7 +1199,7 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 				break;
 			}
 
-			if (g_strcmp0 (new_prop->value, info->base.property->value) != 0)
+			if (g_strcmp0 (new_prop->value, info->base.default_value->value) != 0)
 			{
 				anjuta_project_node_insert_property (node, (AnjutaProjectPropertyInfo *)info, new_prop);
 				set = TRUE;
@@ -1249,7 +1249,7 @@ amp_node_map_property_set (AnjutaProjectNode *node, const gchar *id, const gchar
 	AnjutaProjectProperty *new_prop;
 
 	new_prop = anjuta_project_node_get_map_property (node, id, name);
-	if ((new_prop != NULL) && (new_prop->info->property != new_prop))
+	if ((new_prop != NULL) && (new_prop->info->default_value != new_prop))
 	{
 		/* Property already exist, replace value */
 		g_free (new_prop->value);

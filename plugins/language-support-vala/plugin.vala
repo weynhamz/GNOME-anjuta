@@ -169,13 +169,13 @@ public class ValaPlugin : Plugin {
 
 		string[] flags = {};
 		unowned Anjuta.ProjectProperty prop = current_target.get_property ("VALAFLAGS");
-		if (prop != null && prop != prop.info.property) {
+		if (prop != null && prop != prop.info.default_value) {
 			GLib.Shell.parse_argv (prop.value, out flags);
 		} else {
 			/* Fall back to AM_VALAFLAGS */
 			var current_group = current_target.parent_type (Anjuta.ProjectNodeType.GROUP);
 			prop = current_group.get_property ("VALAFLAGS");
-			if (prop != null && prop != prop.info.property)
+			if (prop != null && prop != prop.info.default_value)
 				GLib.Shell.parse_argv (prop.value, out flags);
 		}
 

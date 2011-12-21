@@ -681,7 +681,7 @@ update_properties (PropertiesTable *table)
 			GtkWidget *entry;
 
 			prop = anjuta_project_node_get_property (table->node, info->id);
-			if (prop != prop->info->property)
+			if (prop != prop->info->default_value)
 			{
 				/* This property has been set, display it in the main part */
 				entry = add_entry (table->project->project, table->node, prop, table->main, &main_pos);
@@ -689,7 +689,7 @@ update_properties (PropertiesTable *table)
 			else
 			{
 				/* This property has not been set, hide it by default */
-				entry = add_entry (table->project->project, table->node, info->property, table->extra, &extra_pos);
+				entry = add_entry (table->project->project, table->node, info->default_value, table->extra, &extra_pos);
 				single = TRUE;
 			}
 

@@ -494,15 +494,15 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h", copy_function = "g_boxed_copy", free_function = "g_boxed_free", type_id = "anjuta_project_property_info_get_type ()")]
 	[Compact]
 	public class ProjectPropertyInfo {
+		public weak Anjuta.ProjectProperty default_value;
 		public weak string description;
 		public Anjuta.ProjectPropertyFlags flags;
 		public weak string id;
 		public weak string name;
-		public weak Anjuta.ProjectProperty property;
 		public Anjuta.ProjectValueType type;
 		public void* user_data;
 		[CCode (has_construct_function = false)]
-		public ProjectPropertyInfo (string id, string name, Anjuta.ProjectValueType type, Anjuta.ProjectPropertyFlags flags, string description, owned Anjuta.ProjectProperty property, owned void* user_data);
+		public ProjectPropertyInfo (string id, string name, Anjuta.ProjectValueType type, Anjuta.ProjectPropertyFlags flags, string description, owned Anjuta.ProjectProperty default_value, owned void* user_data);
 		public Anjuta.ProjectPropertyInfo copy ();
 		public void free ();
 	}

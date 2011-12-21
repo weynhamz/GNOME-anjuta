@@ -91,7 +91,7 @@ list_property (IAnjutaProject *project, AnjutaProjectNode *parent, gint indent)
 		info = prop->info;
 
 		/* Default property */
-		if (info->property == prop) continue;
+		if (info->default_value == prop) continue;
 
 		switch (info->type)
 		{
