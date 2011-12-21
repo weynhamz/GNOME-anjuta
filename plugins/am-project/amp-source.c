@@ -158,7 +158,6 @@ amp_source_node_finalize (GObject *object)
 {
 	AmpSourceNode *node = AMP_SOURCE_NODE (object);
 
-	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	G_OBJECT_CLASS (amp_source_node_parent_class)->finalize (object);
 }
 

@@ -515,7 +515,6 @@ amp_target_node_finalize (GObject *object)
 {
 	AmpTargetNode *node = AMP_TARGET_NODE (object);
 
-	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	tagged_token_list_free (node->tokens);
 	node->tokens = NULL;
 

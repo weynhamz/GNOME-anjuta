@@ -671,7 +671,6 @@ amp_group_node_finalize (GObject *object)
 	AmpGroupNode *node = AMP_GROUP_NODE (object);
 	gint i;
 
-	g_list_foreach (node->base.properties, (GFunc)amp_property_free, NULL);
 	if (node->tfile) anjuta_token_file_free (node->tfile);
 	if (node->makefile) g_object_unref (node->makefile);
 

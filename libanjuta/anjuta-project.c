@@ -1152,6 +1152,12 @@ anjuta_project_node_finalize (GObject *object)
 
 	if (node->name != NULL) g_free (node->name);
 
+	g_list_free_full (node->properties, (GDestroyNotify) anjuta_project_property_free);
+	node->properties = NULL;
+
+	g_list_free (node->properties_info);
+	node->properties_info = NULL;
+
 	G_OBJECT_CLASS (anjuta_project_node_parent_class)->finalize (object);
 }
 

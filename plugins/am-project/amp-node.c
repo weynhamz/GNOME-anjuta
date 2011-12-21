@@ -26,6 +26,8 @@
 
 #include "amp-node.h"
 
+#include "am-properties.h"
+
 #include "amp-root.h"
 #include "amp-module.h"
 #include "amp-package.h"
@@ -260,7 +262,12 @@ amp_node_finalize (GObject *object)
 {
 	AmpNode *node = AMP_NODE (object);
 
-	//g_list_foreach (node->parent.custom_properties, (GFunc)amp_property_free, NULL);
+	/* Subclasses set this directly and it should not be freed. */
+	node->parent.properties_info = NULL;
+
+	g_list_foreach (node->parent.properties, (GFunc)amp_property_free, NULL);
+	g_list_free (node->parent.properties);
+	node->parent.properties = NULL;
 
 	G_OBJECT_CLASS (amp_node_parent_class)->finalize (object);
 }
