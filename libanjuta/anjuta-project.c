@@ -986,7 +986,6 @@ anjuta_project_node_remove_property (AnjutaProjectNode *node, AnjutaProjectPrope
 	if (prop != prop->info->default_value)
 	{
 		node->properties = g_list_remove (node->properties, prop);
-		prop->info = NULL;
 	}
 
 	return prop;

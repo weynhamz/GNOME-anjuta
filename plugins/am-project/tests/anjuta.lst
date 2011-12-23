@@ -2098,11 +2098,14 @@ ROOT (): anjuta
                 SOURCE (): plugins/snippets-manager/snippets-import-export.c
                 SOURCE (): plugins/snippets-manager/snippets-import-export.h
         GROUP (): sourceview
-            PROPERTY (Installation directories): sourceview_xmldir = $(datadir)/anjuta/glade sourceview_pixmapsdir = $(datadir)/pixmaps/anjuta sourceview_plugindir = $(libdir)/anjuta plugindir = $(libdir)/anjuta
+            PROPERTY (Installation directories): sourceview_xmldir = $(datadir)/anjuta/glade sourceview_uidir = $(datadir)/anjuta/ui sourceview_pixmapsdir = $(datadir)/pixmaps/anjuta sourceview_plugindir = $(libdir)/anjuta plugindir = $(libdir)/anjuta
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(SOURCEVIEW_CFLAGS) $(ANJUTA_CFLAGS) $(GDL_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" -DG_LOG_DOMAIN=\"sourceview\"
             TARGET (): sourceview_xml
                 PROPERTY (Installation directory): sourceview_xmldir
                 SOURCE (): plugins/sourceview/anjuta-editor-sourceview.ui
+            TARGET (): sourceview_ui
+                PROPERTY (Installation directory): sourceview_uidir
+                SOURCE (): plugins/sourceview/anjuta-sourceview.xml
             TARGET (): sourceview_pixmaps
                 PROPERTY (Installation directory): sourceview_pixmapsdir
                 SOURCE (): plugins/sourceview/anjuta-editor-sourceview-plugin-48.png

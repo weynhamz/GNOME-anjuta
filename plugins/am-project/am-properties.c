@@ -1107,6 +1107,7 @@ amp_property_new (const gchar *name, AnjutaTokenType type, gint position, const 
 void
 amp_property_free (AnjutaProjectProperty *prop)
 {
+	amp_property_info_free (prop->info);
 	g_free (prop->name);
 	g_free (prop->value);
 	g_slice_free (AmpProperty, (AmpProperty *)prop);
@@ -1201,6 +1202,7 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 
 			if (g_strcmp0 (new_prop->value, info->base.default_value->value) != 0)
 			{
+				amp_property_info_free (new_prop->info);
 				anjuta_project_node_insert_property (node, (AnjutaProjectPropertyInfo *)info, new_prop);
 				set = TRUE;
 			}

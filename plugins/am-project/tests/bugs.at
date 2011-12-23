@@ -25,4 +25,26 @@ AT_CHECK([diff output expect])
 
 
 
+AS_MKDIR_P([project2])
+AT_DATA([project2/configure.ac],
+[[
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([project2/Makefile.am],
+[[
+program_CFLAGS=-g
+noinst_PROGRAMS = program
+]])
+AT_DATA([expect],
+[[ROOT (): project2
+    TARGET (): program
+        PROPERTY (C compiler flags): -g
+        PROPERTY (Do not install): true
+]])
+AT_PARSER_CHECK([load project2 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP
