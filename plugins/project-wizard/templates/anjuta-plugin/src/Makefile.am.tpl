@@ -37,7 +37,7 @@ AM_CPPFLAGS = \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
-	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
+	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS)[+IF (=(get "HavePackage") "1")+] \
 	$([+NameCUpper+]_CFLAGS)[+ENDIF+]

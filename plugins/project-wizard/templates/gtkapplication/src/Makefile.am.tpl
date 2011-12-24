@@ -4,7 +4,7 @@
 ## Created by Anjuta
 
 [+IF (=(get "HaveBuilderUI") "1")+]
-uidir = $(datadir)/[+NameHLower+]/ui
+uidir = $(pkgdatadir)/ui
 ui_DATA = [+NameHLower+].ui
 [+ENDIF+]
 
@@ -36,5 +36,5 @@ EXTRA_DIST = $(ui_DATA)
 # Remove ui directory on uninstall
 uninstall-local:
 	-rm -r $(uidir)
-	-rm -r $(datadir)/[+NameHLower+]
+	-rm -r $(pkgdatadir)
 [+ENDIF+]

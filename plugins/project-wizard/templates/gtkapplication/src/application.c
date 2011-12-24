@@ -16,7 +16,7 @@
 
 [+IF (=(get "HaveBuilderUI") "1")+]
 /* For testing propose use the local (not installed) ui file */
-/* #define UI_FILE PACKAGE_DATA_DIR"/[+NameHLower+]/ui/[+NameHLower+].ui" */
+/* #define UI_FILE PACKAGE_DATA_DIR"/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
 #define TOP_WINDOW "window"
 [+ENDIF+]

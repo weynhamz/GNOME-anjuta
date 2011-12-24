@@ -3,7 +3,7 @@
 ## Created by Anjuta
 
 [+IF (=(get "HaveBuilderUI") "1")+]
-uidir = $(datadir)/[+NameHLower+]/ui
+uidir = $(pkgdatadir)/ui
 ui_DATA = [+NameHLower+].ui
 [+ENDIF+]
 
@@ -26,4 +26,4 @@ uninstall-local:
 [+IF (=(get "HaveBuilderUI") "1")+]
 	-rm -r $(uidir)
 [+ENDIF+]
-	-rm -r $(datadir)/[+NameHLower+]
+	-rm -r $(pkgdatadir)
