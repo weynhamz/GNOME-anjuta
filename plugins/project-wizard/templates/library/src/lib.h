@@ -10,4 +10,4 @@
 [+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
 [+ESAC+] */
 
-int [+NameHLower+]_func (void);
+int [+NameCLower+]_func (void);

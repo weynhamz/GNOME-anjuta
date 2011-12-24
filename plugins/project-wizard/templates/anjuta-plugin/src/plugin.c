@@ -80,7 +80,7 @@ static gboolean
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	[+NameCLower+]->action_group = 
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameHLower+]",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroup[+NameCClass+]",
 											_("Sample file operations"),
 											actions_file,
 											G_N_ELEMENTS (actions_file),

@@ -16,7 +16,7 @@ AM_CFLAGS =\
 lib_LTLIBRARIES = lib[+NameHLower+].la
 
 
-lib[+NameHLower+]_la_SOURCES = \
+lib[+NameCLower+]_la_SOURCES = \
 	lib.c
 
 lib[+NameCLower+]_la_LDFLAGS = 

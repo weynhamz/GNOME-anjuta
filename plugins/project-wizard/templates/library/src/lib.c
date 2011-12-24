@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 
-int [+NameHLower+]_func(void)
+int [+NameCLower+]_func(void)
 {
 	printf("Hello world\n");
 	return (0);
