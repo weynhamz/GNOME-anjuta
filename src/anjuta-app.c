@@ -681,12 +681,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 								  "/MenuMain/MenuView");
 	app->view_menu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (view_menu));	
 
-	/* Disable unavailible tutorials */
-	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpTutorial");
-	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
-	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpAdvancedTutorial");
-	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
-	
 	/* Create about plugins menu */
 	about_menu = 
 		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),

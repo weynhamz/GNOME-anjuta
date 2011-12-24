@@ -120,12 +120,6 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 	gtk_widget_show (preferences_dialog);
 }
 
-static void
-help_activate (GtkWidget *parent, const gchar *doc_id, const gchar *item)
-{
-	anjuta_util_help_display (parent, doc_id, item);
-}
-
 void
 on_help_manual_activate (GtkAction *action, gpointer data)
 {
@@ -136,18 +130,6 @@ on_help_manual_activate (GtkAction *action, gpointer data)
 		g_warning ("Could open FAQ: %s", error->message);
 		g_error_free (error);
 	}
-}
-
-void
-on_help_tutorial_activate (GtkAction *action, gpointer data)
-{
-	help_activate (data, "anjuta-tutorial", "anjuta-tutorial.xml");
-}
-
-void
-on_help_advanced_tutorial_activate (GtkAction *action, gpointer data)
-{
-	help_activate (data, "anjuta-advanced-tutorial", "anjuta-advanced-tutorial.xml");
 }
 
 void
