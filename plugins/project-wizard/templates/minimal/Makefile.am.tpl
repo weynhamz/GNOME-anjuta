@@ -4,7 +4,8 @@
 ## Created by Anjuta
 
 AM_CPPFLAGS = \
-	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_CFLAGS)[+ENDIF+]
+	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\"[+IF (=(get "HavePackage") "1")+] \
+	$([+NameCUpper+]_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\
 	 -Wall\
