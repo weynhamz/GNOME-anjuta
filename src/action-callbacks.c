@@ -123,25 +123,13 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 void
 on_help_manual_activate (GtkAction *action, gpointer data)
 {
-	GError* error = NULL;
-	if (!g_spawn_command_line_async ("yelp ghelp:anjuta-manual", &error) &&
-	    error)
-	{
-		g_warning ("Could open FAQ: %s", error->message);
-		g_error_free (error);
-	}
+	anjuta_util_help_display (GTK_WIDGET (data), "anjuta-manual", NULL);
 }
 
 void
 on_help_faqs_activate (GtkAction *action, gpointer data)
 {
-	GError* error = NULL;
-	if (!g_spawn_command_line_async ("yelp ghelp:anjuta-faqs", &error) &&
-	    error)
-	{
-		g_warning ("Could open FAQ: %s", error->message);
-		g_error_free (error);
-	}
+	anjuta_util_help_display (GTK_WIDGET (data), "anjuta-faqs", NULL);
 }
 
 void

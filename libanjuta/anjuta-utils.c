@@ -2,17 +2,17 @@
 /*
  * anjuta-utils.c
  * Copyright (C) Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -22,10 +22,10 @@
  * SECTION:anjuta-utils
  * @title: Utilities
  * @short_description: Utility functions
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/anjuta-utils.h
- * 
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -67,7 +67,7 @@ anjuta_util_from_file_to_file (GInputStream *istream,
 	gsize bytes = 1;
 	GError *error = NULL;
 	gchar buffer[FILE_BUFFER_SIZE];
-	
+
 	while (bytes != 0 && bytes != -1)
 	{
 		bytes = g_input_stream_read (istream, buffer,
@@ -82,14 +82,14 @@ anjuta_util_from_file_to_file (GInputStream *istream,
 		if (error)
 			break;
 	}
-	
+
 	if (error)
 	{
 		g_warning ("%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
-	
+
 	if (!g_output_stream_close (ostream, NULL, &error))
 	{
 		g_warning ("%s", error->message);
@@ -121,35 +121,35 @@ anjuta_util_copy_file (const gchar * src, const gchar * dest, gboolean show_erro
 	GFileOutputStream *ostream;
 	GError *error = NULL;
 	gboolean toret = FALSE;
-	
+
 	src_file = g_file_new_for_path (src);
 	dest_file = g_file_new_for_path (dest);
-	
+
 	istream = g_file_read (src_file, NULL, &error);
 	if (error)
 		goto free;
-		
+
 	ostream = g_file_create (dest_file, G_FILE_CREATE_NONE,
 							 NULL, &error);
 	if (error)
 		goto free;
-	
+
 	anjuta_util_from_file_to_file (G_INPUT_STREAM (istream), G_OUTPUT_STREAM (ostream));
-	
+
 free: if (error)
 	{
 		if (show_error)
 			anjuta_util_dialog_error_system (NULL, error->code,
 											 error->message);
-	
+
 		g_warning ("%s", error->message);
-		
+
 		toret = TRUE;
 	}
-	
+
 	g_object_unref (src_file);
 	g_object_unref (dest_file);
-	
+
 	return toret;
 }
 
@@ -171,7 +171,7 @@ anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b)
 	return g_strdup_printf("#%02x%02x%02x", r >> 8, g >> 8, b >> 8);
 }
 
-GtkWidget* 
+GtkWidget*
 anjuta_util_button_new_with_stock_image (const gchar* text,
 										 const gchar* stock_id)
 {
@@ -194,15 +194,15 @@ anjuta_util_button_new_with_stock_image (const gchar* text,
       		label = gtk_label_new_with_mnemonic (text);
 
 		gtk_label_set_mnemonic_widget (GTK_LABEL (label), GTK_WIDGET (button));
-      
+
 		image = gtk_image_new_from_stock (stock_id, GTK_ICON_SIZE_BUTTON);
       		hbox = gtk_hbox_new (FALSE, 2);
 
       		align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-      
+
       		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
       		gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-      
+
       		gtk_container_add (GTK_CONTAINER (button), align);
       		gtk_container_add (GTK_CONTAINER (align), hbox);
       		gtk_widget_show_all (align);
@@ -212,7 +212,7 @@ anjuta_util_button_new_with_stock_image (const gchar* text,
 
       	label = gtk_label_new_with_mnemonic (text);
       	gtk_label_set_mnemonic_widget (GTK_LABEL (label), GTK_WIDGET (button));
-  
+
   	gtk_misc_set_alignment (GTK_MISC (label), 0.5, 0.5);
 
   	gtk_widget_show (label);
@@ -226,7 +226,7 @@ anjuta_util_dialog_add_button (GtkDialog *dialog, const gchar* text,
 							   const gchar* stock_id, gint response_id)
 {
 	GtkWidget *button;
-	
+
 	g_return_val_if_fail (GTK_IS_DIALOG (dialog), NULL);
 	g_return_val_if_fail (text != NULL, NULL);
 	g_return_val_if_fail (stock_id != NULL, NULL);
@@ -238,7 +238,7 @@ anjuta_util_dialog_add_button (GtkDialog *dialog, const gchar* text,
 
 	gtk_widget_show (button);
 
-	gtk_dialog_add_action_widget (dialog, button, response_id);	
+	gtk_dialog_add_action_widget (dialog, button, response_id);
 
 	return button;
 }
@@ -254,7 +254,7 @@ anjuta_util_dialog_error (GtkWindow *parent, const gchar *mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	
+
 	if (parent && GTK_IS_WINDOW (parent))
 	{
 		real_parent = parent;
@@ -263,7 +263,7 @@ anjuta_util_dialog_error (GtkWindow *parent, const gchar *mesg, ...)
 	{
 		real_parent = NULL;
 	}
-	
+
 	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -286,7 +286,7 @@ anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	
+
 	if (parent && GTK_IS_WINDOW (parent))
 	{
 		real_parent = parent;
@@ -295,7 +295,7 @@ anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...)
 	{
 		real_parent = NULL;
 	}
-	
+
 	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -318,7 +318,7 @@ anjuta_util_dialog_info (GtkWindow *parent, const gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	
+
 	if (parent && GTK_IS_WINDOW (parent))
 	{
 		real_parent = parent;
@@ -391,7 +391,7 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	
+
 	if (parent && GTK_IS_WINDOW (parent))
 	{
 		real_parent = parent;
@@ -409,7 +409,7 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 	ret = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 	g_free (message);
-	
+
 	return (ret == GTK_RESPONSE_YES);
 }
 
@@ -440,13 +440,13 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
 	gtk_widget_show (dialog_vbox);
-	
+
 	markup = g_strconcat ("<b>", prompt, "</b>", NULL);
 	label = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 	gtk_widget_show (label);
 	g_free (markup);
-	
+
 	frame = gtk_frame_new (NULL);
 	gtk_frame_set_label_widget (GTK_FRAME (frame), label);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
@@ -458,16 +458,16 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	gtk_widget_show (vbox);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	
+
 	entry = gtk_entry_new ();
 	gtk_widget_show (entry);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 	gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
 	if (default_value)
 		gtk_entry_set_text (GTK_ENTRY (entry), default_value);
-	
+
 	res = gtk_dialog_run (GTK_DIALOG (dialog));
-	
+
 	if (gtk_entry_get_text (GTK_ENTRY (entry)) &&
 		strlen (gtk_entry_get_text (GTK_ENTRY (entry))) > 0)
 	{
@@ -477,7 +477,7 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	{
 		*return_value = NULL;
 	}
-	gtk_widget_destroy (dialog);	
+	gtk_widget_destroy (dialog);
 	return (res == GTK_RESPONSE_OK);
 }
 
@@ -667,7 +667,7 @@ anjuta_util_glist_strings_prefix (GList * list, const gchar *prefix)
 {
 	GList *node;
 	node = list;
-	
+
 	g_return_if_fail (prefix != NULL);
 	while (node)
 	{
@@ -685,7 +685,7 @@ anjuta_util_glist_strings_sufix (GList * list, const gchar *sufix)
 {
 	GList *node;
 	node = list;
-	
+
 	g_return_if_fail (sufix != NULL);
 	while (node)
 	{
@@ -703,7 +703,7 @@ anjuta_util_glist_strings_dup (GList * list)
 {
 	GList *node;
 	GList *new_list;
-	
+
 	new_list = NULL;
 	node = list;
 	while (node)
@@ -724,7 +724,7 @@ anjuta_util_glist_strings_join (GList * list, gchar *delimiter)
 	GString *joined;
 	gboolean first = TRUE;
 	GList *node;
-	
+
 	joined = g_string_new (NULL);
 	node = list;
 	while (node)
@@ -789,7 +789,7 @@ gchar*
 anjuta_util_get_current_dir (void)
 {
 	const gchar *pwd;
-	
+
 	pwd = g_getenv ("PWD");
 	if (pwd != NULL)
 	{
@@ -1004,9 +1004,9 @@ anjuta_util_create_dir (const gchar* path)
 
 	if (g_file_query_exists (dir, NULL))
 	{
-		GFileInfo *info = g_file_query_info (dir, 
-				G_FILE_ATTRIBUTE_STANDARD_TYPE, 
-				G_FILE_QUERY_INFO_NONE, 
+		GFileInfo *info = g_file_query_info (dir,
+				G_FILE_ATTRIBUTE_STANDARD_TYPE,
+				G_FILE_QUERY_INFO_NONE,
 				NULL, NULL);
 		if (g_file_info_get_file_type (info) != G_FILE_TYPE_DIRECTORY)
 		{
@@ -1044,9 +1044,9 @@ anjuta_util_create_dir (const gchar* path)
 
 /**
  * anjuta_util_user_shell:
- * 
+ *
  * Retrieves the user's preferred shell.
- * 
+ *
  * Returns: A newly allocated string that is the path to the shell.
  */
 /* copied from deprecated gnome_util_user_shell in libgnome */
@@ -1115,7 +1115,7 @@ anjuta_util_user_shell (void)
  *
  * Retrieves the user's preferred terminal.
  *
- * Returns: A newly allocated strings list. The first argument is the terminal 
+ * Returns: A newly allocated strings list. The first argument is the terminal
  * program name. The following are the arguments needed to execute
  * a command. The list has to be freed with g_strfreev
  */
@@ -1143,7 +1143,7 @@ anjuta_util_user_terminal (void)
 	client = gconf_client_get_default ();
 	terminal = gconf_client_get_string (client, "/desktop/gnome/applications/terminal/exec", NULL);
 	g_object_unref (client);
-	
+
 	if (terminal)
 	{
 		gchar *command_line;
@@ -1191,9 +1191,9 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 	pid_t pid;
 	gchar *shell;
 	gint err;
-	
+
 	g_return_val_if_fail (command != NULL, -1);
-	
+
 	shell = anjuta_util_user_shell ();
 	pid = fork();
 	if (pid == 0)
@@ -1222,9 +1222,9 @@ anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command)
 	gchar *shell;
 	gchar **term_argv;
 	gint err;
-	
+
 	g_return_val_if_fail (command != NULL, -1);
-	
+
 	shell = anjuta_util_user_shell ();
 	term_argv = anjuta_util_user_terminal ();
 	pid = fork();
@@ -1253,10 +1253,10 @@ anjuta_util_convert_to_utf8 (const gchar *str)
 {
 	GError *error = NULL;
 	gchar *utf8_msg_string = NULL;
-	
+
 	g_return_val_if_fail (str != NULL, NULL);
 	g_return_val_if_fail (strlen (str) > 0, NULL);
-	
+
 	if (g_utf8_validate(str, -1, NULL))
 	{
 		utf8_msg_string = g_strdup (str);
@@ -1285,11 +1285,11 @@ anjuta_util_parse_args_from_string (const gchar* string)
 	const gchar *s;
 	gint     idx;
 	GList* args = NULL;
-	
+
 	idx = 0;
 	escaped = FALSE;
 	s = string;
-	
+
 	while (*s) {
 		if (!isspace(*s))
 			break;
@@ -1355,15 +1355,15 @@ anjuta_util_escape_quotes(const gchar* str)
 	gchar *buffer;
 	gint idx, max_size;
 	const gchar *s = str;
-	
+
 	g_return_val_if_fail(str, NULL);
 	idx = 0;
-	
+
 	/* We are assuming there will be less than 2048 chars to escape */
 	max_size = strlen(str) + 2048;
 	buffer = g_new (gchar, max_size);
 	max_size -= 2;
-	
+
 	while(*s) {
 		if (idx > max_size)
 			break;
@@ -1415,9 +1415,9 @@ gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
 		return TRUE;
 	}
 
-	if (!g_file_load_contents(file, 
+	if (!g_file_load_contents(file,
 				NULL,
-				&file_text, 
+				&file_text,
 				&bytes_read,
 				NULL,
 				NULL))
@@ -1496,22 +1496,22 @@ anjuta_util_get_file_mime_type (GFile *file)
 {
 	GFileInfo *info;
 	gchar *mime_type = NULL;
-	
+
 	g_return_val_if_fail (file != NULL, NULL);
-	
+
 	/* Get file information, check that the file exist at the same time */
 	info = g_file_query_info (file,
 										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 										  G_FILE_QUERY_INFO_NONE,
 										  NULL,
 										  NULL);
-	
+
 	if (info != NULL)
 	{
 		const gchar *extension;
 		gchar *name;
-		
-		/* If Anjuta is not installed in system gnome prefix, the mime types 
+
+		/* If Anjuta is not installed in system gnome prefix, the mime types
 		 * may not have been correctly registed. In that case, we use the
 	 	 * following mime detection
 	 	 */
@@ -1524,7 +1524,7 @@ anjuta_util_get_file_mime_type (GFile *file)
 									{"prj", "application/x-anjuta-old"},
 									{NULL, NULL}};
 			gint i;
-				
+
 			for (i = 0; anjuta_types[i].extension != NULL; i++)
 			{
 				if (strcmp(extension + 1, anjuta_types[i].extension) == 0)
@@ -1535,13 +1535,13 @@ anjuta_util_get_file_mime_type (GFile *file)
 			}
 		}
 		g_free (name);
-	
+
 		/* Use mime database if it is not an Anjuta type */
 		if (mime_type == NULL)
 		{
 			mime_type = g_content_type_get_mime_type (g_file_info_get_content_type(info));
 		}
-		
+
 		g_object_unref (info);
 	}
 
@@ -1579,7 +1579,7 @@ login_tty(int ttyfd)
 #ifdef HAVE_SETPGID
   setpgid(0, 0);
 #endif
-	
+
   /* First disconnect from the old controlling tty. */
 #ifdef TIOCNOTTY
   fd = open("/dev/tty", O_RDWR|O_NOCTTY);
@@ -1591,7 +1591,7 @@ login_tty(int ttyfd)
   else
     //syslog(LOG_WARNING, "NO CTTY");
 #endif /* TIOCNOTTY */
-  
+
   /* Verify that we are successfully disconnected from the controlling tty. */
   fd = open("/dev/tty", O_RDWR|O_NOCTTY);
   if (fd >= 0)
@@ -1599,7 +1599,7 @@ login_tty(int ttyfd)
       //syslog(LOG_WARNING, "Failed to disconnect from controlling tty.");
       close(fd);
     }
-  
+
   /* Make it our controlling tty. */
 #ifdef TIOCSCTTY
   ioctl(ttyfd, TIOCSCTTY, NULL);
@@ -1635,7 +1635,7 @@ login_tty(int ttyfd)
       //syslog(LOG_ERR, "can't reopen ctty %s: %s", fdname, strerror(errno));
       return -1;
     }
-	
+
   close(ttyfd);
 
   if (fd != 0)
@@ -1763,7 +1763,7 @@ ptys_open(int fdm, char * pts_name)
 		close(fds);
 		return -8;
 	}
-	
+
 	if (ioctl(fdm, I_SRDOPT, RMSGN|RPROTDAT) < 0) {
 		close(fdm);
 		close(fds);
@@ -1849,7 +1849,7 @@ int scandir(const char *dir, struct dirent ***namelist,
   if (i == 0) return(-1);
   if (compar != NULL)
     qsort((void *)(*namelist), (size_t)i, sizeof(struct dirent *), compar);
-    
+
   return(i);
 }
 
@@ -1858,58 +1858,27 @@ int scandir(const char *dir, struct dirent ***namelist,
 void
 anjuta_util_help_display (GtkWidget   *parent,
 						  const gchar *doc_id,
-						  const gchar *file_name)
+						  const gchar *item)
 {
-
 	GError *error = NULL;
 	gchar *command;
-	const gchar *lang;
-	const gchar * const *langs;
-	gchar *uri = NULL;
-	gint i;
-	
-	g_return_if_fail (file_name != NULL);
 
-	langs = g_get_language_names ();
-	for (i = 0; langs[i]; i++)
-	{
-		lang = langs[i];
-		if (strchr (lang, '.'))
-			continue;
 
-		uri = g_build_filename (DATADIR, "/gnome/help/", doc_id,
-							    lang, file_name, NULL);
+	command = g_strdup_printf ("yelp ghelp:%s%s%s",
+	                           doc_id,
+	                           item == NULL ? "" : "?",
+	                           item == NULL ? "" : item);
 
-		if (g_file_test (uri, G_FILE_TEST_EXISTS)) {
-			break;
-		}
-		g_free (uri);
-		uri = NULL;
-	}
-
-	if (uri == NULL)
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (parent), _("Unable to display help. Please make sure the Anjuta "
-								  "documentation package is installed. It can be downloaded "
-								  "from http://anjuta.org."));
-
-		return;
-	}
-	
-	command = g_strconcat ("gnome-help ghelp://", uri,  NULL);
-	g_free (uri);
-
-	g_spawn_command_line_async (command, &error);
-	if (error != NULL)
+	if (!g_spawn_command_line_async (command, &error) &&
+	    (error != NULL))
 	{
 		g_warning ("Error executing help application: %s",
 				   error->message);
 		g_error_free (error);
-		
-		return;
 	}
 	g_free (command);
 }
+
 
 /* The following functions are taken from gedit */
 
@@ -1927,14 +1896,14 @@ anjuta_util_uri_get_dirname (const gchar *uri)
 	if ((strlen (str) == 1) && (*str == '.'))
 	{
 		g_free (str);
-		
+
 		return NULL;
 	}
 
 	res = anjuta_util_replace_home_dir_with_tilde (str);
 
 	g_free (str);
-	
+
 	return res;
 }
 
@@ -1959,7 +1928,7 @@ anjuta_util_replace_home_dir_with_tilde (const gchar *uri)
 	if (strcmp (uri, home) == 0)
 	{
 		g_free (home);
-		
+
 		return g_strdup ("~");
 	}
 
@@ -1974,8 +1943,8 @@ anjuta_util_replace_home_dir_with_tilde (const gchar *uri)
 		res = g_strdup_printf ("~/%s", uri + strlen (home));
 
 		g_free (home);
-		
-		return res;		
+
+		return res;
 	}
 
 	g_free (home);
@@ -1995,11 +1964,11 @@ gchar*
 anjuta_util_shell_expand (const gchar *string)
 {
 	GString* expand;
-	
+
 	if (string == NULL) return NULL;
-	
+
 	expand = g_string_sized_new (strlen (string));
-	
+
 	for (; *string != '\0'; string++)
 	{
 		switch (*string)
@@ -2016,7 +1985,7 @@ anjuta_util_shell_expand (const gchar *string)
 				if (var_name_len > 0)
 				{
 					const gchar *value;
-					
+
 					g_string_append_len (expand, string + 1, var_name_len);
 					value = g_getenv (expand->str + expand->len - var_name_len);
 					g_string_truncate (expand, expand->len - var_name_len);
@@ -2041,7 +2010,7 @@ anjuta_util_shell_expand (const gchar *string)
 		}
 		g_string_append_c (expand, *string);
 	}
-	
+
 	return g_string_free (expand, FALSE);
 }
 
@@ -2087,11 +2056,11 @@ anjuta_util_str_middle_truncate (const gchar *string,
 				      g_utf8_offset_to_pointer (string, num_left_chars) - string);
 	g_string_append (truncated, delimiter);
 	g_string_append (truncated, g_utf8_offset_to_pointer (string, right_offset));
-		
+
 	return g_string_free (truncated, FALSE);
 }
 
-/* 
+/*
  * Functions to implement XDG Base Directory Specification
  * http://standards.freedesktop.org/basedir-spec/latest/index.html
  * Use this to save any config/cache/data files
@@ -2099,7 +2068,7 @@ anjuta_util_str_middle_truncate (const gchar *string,
  */
 
 static gchar*
-anjuta_util_construct_pathv (const gchar* str, va_list str_list) 
+anjuta_util_construct_pathv (const gchar* str, va_list str_list)
 {
 	GPtrArray *str_arr;
 	const gchar* tmp_str;
@@ -2111,19 +2080,19 @@ anjuta_util_construct_pathv (const gchar* str, va_list str_list)
 	/* Extract elements from va_list */
 	if (str != NULL)
 	{
-		while ((tmp_str = va_arg (str_list, const gchar*)) != NULL) 
+		while ((tmp_str = va_arg (str_list, const gchar*)) != NULL)
 		{
 			g_ptr_array_add (str_arr, (gpointer)tmp_str);
 		}
 		va_end (str_list);
 	}
-	
+
 	/* Terminate the list */
 	g_ptr_array_add (str_arr, NULL);
 
 	path = g_build_filenamev ((gchar **)str_arr->pdata);
 	g_ptr_array_free (str_arr, TRUE);
-	
+
 	return path;
 }
 
@@ -2227,7 +2196,7 @@ anjuta_util_get_user_config_file_path (const gchar* path, ...)
 {
 	va_list list;
 	GFile *file;
-	gchar *file_path; 
+	gchar *file_path;
 	va_start (list, path);
 	file = anjuta_util_get_user_config_filev (path, list);
 	file_path = g_file_get_path (file);
@@ -2256,9 +2225,9 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 	GList *path_list;
 	GList *current_file;
 	gchar *path;
-	
+
 	path_list = NULL;
-	
+
 	for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 	{
 		path = g_file_get_path (current_file->data);
@@ -2267,36 +2236,36 @@ anjuta_util_convert_gfile_list_to_path_list (GList *list)
 		if (path)
 			path_list = g_list_append (path_list, path);
 	}
-	
+
 	return path_list;
 }
 
 GList *
-anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
+anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
                                                       const gchar *parent)
 {
 	GFile *parent_file;
 	GList *path_list;
 	GList *current_file;
 	gchar *path;
-	
+
 	parent_file = g_file_new_for_path (parent);
 	path_list = NULL;
-	
+
 	if (parent_file)
-	{		
+	{
 		for (current_file = list; current_file != NULL; current_file = g_list_next (current_file))
 		{
 			path = g_file_get_relative_path (parent_file, current_file->data);
-			
+
 			/* Ignore files with invalid paths */
 			if (path)
 				path_list = g_list_append (path_list, path);
 		}
-		
+
 		g_object_unref (parent_file);
 	}
-	
+
 	return path_list;
 }
 
@@ -2336,7 +2305,7 @@ anjuta_util_builder_new (const gchar *filename, GError **error)
 		g_propagate_error (error, err);
 	}
 
-	/* Tag the builder object with the filename to allow better error message 
+	/* Tag the builder object with the filename to allow better error message
 	 * with the following function */
 	if (bxml != NULL)
 	{
@@ -2400,7 +2369,7 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
  * @info: the info from drag_data_received
  *
  * Create a list of valid uri's from a uri-list drop.
- * 
+ *
  * Return value: a list of GFiles
  */
 GSList*
@@ -2427,7 +2396,7 @@ anjuta_utils_drop_get_files (GtkSelectionData *selection_data)
  * Returns: The e-mail Address of the logged-in user. The resulting string
  * must be free'd after use.
  */
-gchar* 
+gchar*
 anjuta_util_get_user_mail()
 {
 	/* FIXME: Use libfolks or something like it to query the mail address */
@@ -2449,9 +2418,9 @@ anjuta_util_clone_string_gptrarray (const GPtrArray* source)
 {
 	gint i;
 	GPtrArray *dest;
-	
+
 	g_return_val_if_fail (source != NULL, NULL);
-		
+
 	dest = g_ptr_array_sized_new (source->len);
 	g_ptr_array_set_free_func (dest, g_free);
 
@@ -2467,7 +2436,7 @@ void
 anjuta_util_list_all_dir_children (GList **children, GFile *dir)
 {
 	GFileEnumerator *list;
-					
+
 	list = g_file_enumerate_children (dir,
 	    G_FILE_ATTRIBUTE_STANDARD_NAME,
 	    G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
@@ -2477,7 +2446,7 @@ anjuta_util_list_all_dir_children (GList **children, GFile *dir)
 	if (list != NULL)
 	{
 		GFileInfo *info;
-		
+
 		while ((info = g_file_enumerator_next_file (list, NULL, NULL)) != NULL)
 		{
 			const gchar *name;
@@ -2502,16 +2471,16 @@ anjuta_util_list_all_dir_children (GList **children, GFile *dir)
 	}
 }
 
-GPtrArray * 
+GPtrArray *
 anjuta_util_convert_string_list_to_array (GList *list)
 {
 	GList *node;
 	GPtrArray *res;
 
 	g_return_val_if_fail (list != NULL, NULL);
-	
+
 	res = g_ptr_array_new_with_free_func (g_free);
-	
+
 	node = list;
 	while (node != NULL)
 	{

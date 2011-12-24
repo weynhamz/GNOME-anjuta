@@ -2,17 +2,17 @@
 /*
  * anjuta-utils.h
  * Copyright (C) Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -27,11 +27,11 @@
 
 G_BEGIN_DECLS
 
-gboolean	anjuta_util_copy_file					(const gchar * src, 
-						                             const gchar * dest, 
+gboolean	anjuta_util_copy_file					(const gchar * src,
+						                             const gchar * dest,
 	                           						 gboolean show_error);
 
-gboolean	anjuta_util_diff						(const gchar* uri, 
+gboolean	anjuta_util_diff						(const gchar* uri,
 							                         const gchar* text);
 
 void		anjuta_util_color_from_string			(const gchar * val, guint16 * r,
@@ -42,24 +42,24 @@ gchar*		anjuta_util_string_from_color			(guint16 r, guint16 g, guint16 b);
 GtkWidget*  anjuta_util_button_new_with_stock_image (const gchar* text,
 													const gchar* stock_id);
 
-GtkWidget*  anjuta_util_dialog_add_button			(GtkDialog *dialog, 
+GtkWidget*  anjuta_util_dialog_add_button			(GtkDialog *dialog,
 			                                         const gchar* text,
 													 const gchar* stock_id,
  													 gint response_id);
 
-void		anjuta_util_dialog_error				(GtkWindow *parent, 
+void		anjuta_util_dialog_error				(GtkWindow *parent,
 						                             const gchar * mesg, ...);
-void		anjuta_util_dialog_warning				(GtkWindow *parent, 
+void		anjuta_util_dialog_warning				(GtkWindow *parent,
 						                             const gchar * mesg, ...);
-void		anjuta_util_dialog_info					(GtkWindow *parent, 
+void		anjuta_util_dialog_info					(GtkWindow *parent,
 							                         const gchar * mesg, ...);
 void		anjuta_util_dialog_error_system			(GtkWindow* parent, gint errnum,
 													const gchar * mesg, ... );
 gboolean	anjuta_util_dialog_boolean_question		(GtkWindow *parent,
 													const gchar * mesg, ...);
-gboolean	anjuta_util_dialog_input				(GtkWindow *parent, 
+gboolean	anjuta_util_dialog_input				(GtkWindow *parent,
 					                                 const gchar *label,
-													 const gchar *default_value, 
+													 const gchar *default_value,
 					                                 gchar **value);
 
 gboolean	anjuta_util_install_files				(const gchar * const names);
@@ -81,9 +81,9 @@ typedef struct _AnjutaUtilStringMap
 	char *name;
 } AnjutaUtilStringMap;
 
-int			anjuta_util_type_from_string			(AnjutaUtilStringMap *map, 
+int			anjuta_util_type_from_string			(AnjutaUtilStringMap *map,
 						                             const char *str);
-const char *anjuta_util_string_from_type			(AnjutaUtilStringMap *map, 
+const char *anjuta_util_string_from_type			(AnjutaUtilStringMap *map,
 			                                         int type);
 GList *		anjuta_util_glist_from_map				(AnjutaUtilStringMap *map);
 
@@ -110,7 +110,7 @@ GList*		anjuta_util_glist_path_dedup			(GList *list);
 /* Adds the given string in the list, if it does not already exist. */
 /* The added string will come at the top of the list */
 /* The list will be then truncated to (length) items only */
-GList *		anjuta_util_update_string_list			(GList *p_list, 
+GList *		anjuta_util_update_string_list			(GList *p_list,
 					                            	const gchar *p_str,
 													gint length);
 
@@ -139,7 +139,7 @@ gchar*		anjuta_util_get_local_path_from_uri		(const gchar *uri);
 
 void		anjuta_util_help_display				(GtkWidget   *parent,
 													const gchar *doc_id,
-													const gchar *file_name);
+													const gchar *item);
 
 /* XDG BaseDir specifcation functions */
 GFile*		anjuta_util_get_user_data_file			(const gchar* path, ...);
@@ -152,24 +152,24 @@ gchar*		anjuta_util_get_user_config_file_path   (const gchar* path, ...);
 /* Get the correct e-mail address */
 gchar*		anjuta_util_get_user_mail				(void);
 
-/* Function for converting GFile objects to string paths 
+/* Function for converting GFile objects to string paths
  * Free the returned list with anjuta_util_glist_strings_free. */
 GList *		anjuta_util_convert_gfile_list_to_path_list (GList *list);
-GList *		anjuta_util_convert_gfile_list_to_relative_path_list (GList *list, 
+GList *		anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
 															 const gchar *parent);
 
-/* the returned GPtrArray should be freed with g_ptr_array_unref (). 
+/* the returned GPtrArray should be freed with g_ptr_array_unref ().
  * The GPtrArray is created with g_free () destroy function as parameter.
- */ 
+ */
 GPtrArray * anjuta_util_convert_string_list_to_array(GList *list);
 
 /* list all files in a given directory */
 void		anjuta_util_list_all_dir_children	    (GList **children, GFile *dir);
 
 /* Helper functions to load a GtkBuilder file and get widgets */
-GtkBuilder *anjuta_util_builder_new					(const gchar *filename, 
+GtkBuilder *anjuta_util_builder_new					(const gchar *filename,
 					                                GError **error);
-gboolean	anjuta_util_builder_get_objects			(GtkBuilder *builder, 
+gboolean	anjuta_util_builder_get_objects			(GtkBuilder *builder,
 				                                    const gchar *first_widget,...);
 
 /* Helper for drag and drop */
