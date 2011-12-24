@@ -40,6 +40,12 @@
 
 #define GLADE_FILE  PACKAGE_DATA_DIR "/glade/pm_dialogs.ui"
 
+#define ANJUTA_MANUAL	"anjuta-manual"
+#define ADD_SOURCE_HELP	"anjuta-project-files"
+#define ADD_TARGET_HELP	"project-manager-target"
+#define ADD_PACKAGE_HELP "project-manager-module"
+
+
 /* Types
   *---------------------------------------------------------------------------*/
 
@@ -1262,6 +1268,9 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 			}
 			break;
 		}
+		case GTK_RESPONSE_HELP:
+			anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_SOURCE_HELP);
+			break;
 		default:
 			gtk_list_store_clear (GTK_LIST_STORE (list));
 			finished = TRUE;
@@ -1340,7 +1349,6 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	GtkBuilder *gui;
 	GtkWidget *dialog, *target_name_entry, *ok_button;
 	GtkWidget *target_type_combo, *groups_view;
-	GtkTreePath *root;
 	GtkListStore *types_store;
 	GtkCellRenderer *renderer;
 	gint response;
@@ -1461,6 +1469,9 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 
 				break;
 			}
+			case GTK_RESPONSE_HELP:
+				anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_TARGET_HELP);
+				break;
 			default:
 				finished = TRUE;
 				break;
@@ -1900,6 +1911,9 @@ anjuta_pm_project_new_package (ProjectManagerPlugin *plugin,
 				g_string_free (error_message, TRUE);
                 break;
             }
+			case GTK_RESPONSE_HELP:
+				anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_PACKAGE_HELP);
+				break;
             default:
                 finished = TRUE;
                 break;

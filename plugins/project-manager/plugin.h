@@ -43,19 +43,19 @@ struct _ProjectManagerPlugin{
 	AnjutaPlugin parent;
 
 	AnjutaPmProject *project;
-	
+
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	GbfProjectView *view;
 	GtkWidget *scrolledwindow;
-	
+
 	GtkActionGroup *pm_action_group;
 	GtkActionGroup *popup_action_group;
 	gint merge_id;
-	
+
 	gint fm_watch_id;
 	gint editor_watch_id;
-	
+
 	gchar *fm_current_uri;
 	gchar *current_editor_uri;
 	gchar *project_root_uri;
@@ -63,18 +63,18 @@ struct _ProjectManagerPlugin{
 
 	/* Target shortcuts */
 	GList *shortcuts;
-	
+
 	/* Update state recording */
 	GList *pre_update_sources;
 	GList *pre_update_targets;
 	GList *pre_update_groups;
-	
+
 	/* Session flag */
 	gboolean session_by_me;
 
 	/* Idle callback id */
 	guint close_project_idle;
-	
+
 	/* project is loading */
 	gboolean busy;
 };
