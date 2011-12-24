@@ -960,7 +960,6 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 	GtkBuilder *gui;
 	GtkWidget *dialog, *group_name_entry, *ok_button;
 	GtkWidget *groups_view;
-	GtkTreePath *root;
 	gint response;
 	gboolean finished = FALSE;
 	AnjutaProjectNode *new_group = NULL;
@@ -987,14 +986,12 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (groups_view),
 	                        plugin->view,
-	                      	root,
+	                      	NULL,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_GROUP),
 							selected);
-	gtk_tree_path_free (root);
 	gtk_widget_show (groups_view);
 
 	if (parent)
@@ -1373,14 +1370,12 @@ anjuta_pm_project_new_target (ProjectManagerPlugin *plugin,
 	else
 		gtk_widget_set_sensitive (ok_button, FALSE);
 
-	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (groups_view),
 	                        plugin->view,
-	                       	root,
+	                       	NULL,
 							parent_filter_func,
 							GINT_TO_POINTER (ANJUTA_PROJECT_TARGET),
 							default_group);
-	gtk_tree_path_free (root);
 	gtk_widget_show (groups_view);
 
 	/* setup target types combo box */
