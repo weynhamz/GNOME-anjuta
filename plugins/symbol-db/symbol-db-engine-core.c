@@ -5381,7 +5381,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 	
 	SDB_LOCK(priv);
 
-	DEBUG_PRINT ("Updating project symbols (force %d)...", force_all_files);
+	DEBUG_PRINT ("Updating symbols of project-name %s (force %d)...", project_name, force_all_files);
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_ALL_FROM_FILE_BY_PROJECT_NAME))
 		== NULL)
@@ -5426,7 +5426,7 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 			g_object_unref (data_model);
 		data_model = NULL;
 
-		DEBUG_PRINT ("Strange enough, no files in project ->%s<- found",
+		g_warning ("Strange enough, no files in project ->%s<- found",
 		    project_name);
 		SDB_UNLOCK(priv);		
 		return FALSE;		    
