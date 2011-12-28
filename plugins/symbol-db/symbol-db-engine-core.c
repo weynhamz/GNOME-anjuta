@@ -4916,7 +4916,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	
 	if (error)
 	{
-		DEBUG_PRINT ("SQL parsing failed: %s", error->message);
+		g_warning ("SQL execute_non_select failed: %s", error->message);
 		g_error_free (error);
 	}
 	

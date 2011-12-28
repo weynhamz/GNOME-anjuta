@@ -1348,10 +1348,10 @@ static gboolean
 do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 {
 	GList * prj_elements_list;
+	GList *node;
 	IAnjutaProjectManager *pm;
 	GHashTable *prj_elements_hash;
 	GPtrArray *to_add_files = NULL;
-	gint i;
 	gint real_added = 0;
 	
 	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
@@ -1366,19 +1366,22 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	 */
 	prj_elements_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
 	                                           NULL, g_free);
-	
-	for (i = 0; i <  g_list_length (prj_elements_list); i++)
+
+	node = prj_elements_list;
+	while (node != NULL)
 	{	
 		GFile *gfile;
 		gchar *filename;
 
-		gfile = (GFile *)g_list_nth_data (prj_elements_list, i);
-		
+		gfile = node->data;
+	
 		if ((filename = g_file_get_path (gfile)) == NULL || 
 			g_strcmp0 (filename, "") == 0)
 		{
 			if (gfile)
 				g_object_unref (gfile);
+
+			node = g_list_next (node);
 			continue;
 		}
 		
@@ -1387,6 +1390,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		{
 			if (gfile)
 				g_object_unref (gfile);
+
+			node = g_list_next (node);
 			continue;
 		}
 
@@ -1399,6 +1404,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			                     filename),
 		                     filename);
 		g_object_unref (gfile);
+
+		node = g_list_next (node);
 	}	
 	
 
