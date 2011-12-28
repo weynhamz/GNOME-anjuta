@@ -486,8 +486,7 @@ on_editor_buffer_symbol_update_scan_end (SymbolDBEngine *dbe, gint process_id,
 			/* remove both the items */
 			g_ptr_array_remove_index (sdb_plugin->buffer_update_ids, i);
 			
-			g_ptr_array_remove_index (sdb_plugin->buffer_update_files, 
-													i);
+			g_ptr_array_remove_index (sdb_plugin->buffer_update_files, i);
 
 			/* no need to free the string coz the g_ptr_array is built with
 			 * g_ptr_array_new_with_free_func (g_free)
@@ -1600,7 +1599,7 @@ on_project_loaded (IAnjutaProjectManager *pm, GError *error,
 
 		DEBUG_PRINT ("Updating project symbols.");
 		/* update any files of the project which isn't up-to-date */
-		if (do_update_project_symbols (sdb_plugin, sdb_plugin->project_root_dir) == FALSE)
+		if (do_update_project_symbols (sdb_plugin, sdb_plugin->project_opened) == FALSE)
 		{
 			DEBUG_PRINT ("no changes. Skipping.");
 		}
