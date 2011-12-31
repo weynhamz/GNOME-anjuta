@@ -65,6 +65,11 @@ enum {
 	LAST_SIGNAL
 };
 
+enum {
+  PROP_0,
+  PROP_MODEL
+};
+
 static guint signals[LAST_SIGNAL] = {0,};
 
 #define SCROLL_TIME  100
@@ -989,6 +994,44 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 }
 
 static void
+anjuta_tree_combo_box_set_property (GObject      *object,
+                                    guint         prop_id,
+                                    const GValue *value,
+                                    GParamSpec   *pspec)
+{
+	AnjutaTreeComboBox *combo = ANJUTA_TREE_COMBO_BOX (object);
+
+	switch (prop_id)
+	{
+    case PROP_MODEL:
+		anjuta_tree_combo_box_set_model (combo, g_value_get_object (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+	}
+}
+
+static void
+anjuta_tree_combo_box_get_property (GObject    *object,
+                                    guint       prop_id,
+                                    GValue     *value,
+                                    GParamSpec *pspec)
+{
+	AnjutaTreeComboBox *combo = ANJUTA_TREE_COMBO_BOX (object);
+
+	switch (prop_id)
+	{
+	case PROP_MODEL:
+        g_value_set_object (value, combo->priv->model);
+        break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+		break;
+    }
+}
+
+static void
 anjuta_tree_combo_box_class_init (AnjutaTreeComboBoxClass * class)
 {
 	GObjectClass *gobject_class;
@@ -1000,6 +1043,9 @@ anjuta_tree_combo_box_class_init (AnjutaTreeComboBoxClass * class)
 
 	gobject_class = G_OBJECT_CLASS (class);
 	gobject_class->dispose = anjuta_tree_combo_box_dispose;
+	gobject_class->set_property = anjuta_tree_combo_box_set_property;
+	gobject_class->get_property = anjuta_tree_combo_box_get_property;
+
 
 	/* Signals */
 	signals[CHANGED] = g_signal_new ("changed",
@@ -1025,6 +1071,21 @@ anjuta_tree_combo_box_class_init (AnjutaTreeComboBoxClass * class)
 	                                               NULL, NULL,
 	                                               g_cclosure_marshal_VOID__VOID,
 	                                               G_TYPE_NONE, 0);
+
+	/**
+	 * AnjutaTreeCombo:model:
+	 *
+	 * The model from which the combo box takes the values shown
+	 * in the list.
+	 *
+	 */
+	g_object_class_install_property (gobject_class,
+	                                 PROP_MODEL,
+	                                 g_param_spec_object ("model",
+	                                                      _("ComboBox model"),
+	                                                      _("The model for the combo box"),
+	                                                      GTK_TYPE_TREE_MODEL,
+	                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
 	/* Key bindings */
 	binding_set = gtk_binding_set_by_class (widget_class);
