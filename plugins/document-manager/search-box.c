@@ -851,7 +851,7 @@ on_replace_activated (GtkWidget* widget, SearchBox* search_box)
 
 	successful_replace = search_box_replace (search_box, widget, TRUE);
 
-	if (!successful_replace)
+	if (successful_replace)
 	{
 		search_box_forward_search (search_box, widget);
 	}	
