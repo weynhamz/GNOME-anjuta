@@ -1033,7 +1033,13 @@ search_box_init (SearchBox *object)
 	gtk_grid_attach (GTK_GRID (private->grid), private->previous_button, 2, 0, 1, 1);
 	gtk_grid_attach (GTK_GRID (private->grid), private->next_button, 3, 0, 1, 1);
 
-	gtk_grid_attach (GTK_GRID (private->grid), private->close_button, 4, 0, 1, 1);
+	gtk_grid_attach_next_to (GTK_GRID (private->grid),
+	                         private->close_button,
+	                         private->next_button,
+	                         GTK_POS_RIGHT, 1, 1);
+	gtk_widget_set_hexpand(private->close_button, TRUE);
+	gtk_widget_set_halign(private->close_button,
+	                      GTK_ALIGN_END);
 
 	/* Add Replace elements to search box on 2nd level */
 	gtk_grid_attach (GTK_GRID (private->grid), private->replace_entry, 1, 1, 1, 1);
