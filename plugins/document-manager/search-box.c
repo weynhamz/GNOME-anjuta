@@ -180,6 +180,7 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 		case GDK_KEY_KP_Enter:
 		case GDK_KEY_BackSpace:
 		case GDK_KEY_Delete:
+		case GDK_KEY_Tab:
 		{
 			/* This is a number or enter which is ok */
 			break;
@@ -929,6 +930,7 @@ static void
 search_box_init (SearchBox *object)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(object);
+	GList* focus_chain = NULL;
 	
 	/* Button images */
 	GtkWidget* close = 
@@ -1050,6 +1052,22 @@ search_box_init (SearchBox *object)
 	
 	/* Pack grid into search box */
 	gtk_box_pack_start (GTK_BOX(object), private->grid, TRUE, TRUE, 0);
+
+	/* Set focus chain */
+	focus_chain = g_list_prepend (focus_chain, private->search_entry);
+	focus_chain = g_list_prepend (focus_chain, private->replace_entry);
+	focus_chain = g_list_prepend (focus_chain, private->next_button);
+	focus_chain = g_list_prepend (focus_chain, private->previous_button);
+	focus_chain = g_list_prepend (focus_chain, private->replace_button);
+	focus_chain = g_list_prepend (focus_chain, private->replace_all_button);
+	focus_chain = g_list_prepend (focus_chain, private->goto_entry);
+	focus_chain = g_list_prepend (focus_chain, private->close_button);
+	focus_chain = g_list_prepend (focus_chain, private->search_entry);
+	focus_chain = g_list_reverse (focus_chain);
+	gtk_container_set_focus_chain (GTK_CONTAINER (private->grid),
+	                               focus_chain);
+	g_list_free (focus_chain);
+	
 	gtk_widget_show_all (GTK_WIDGET (object));
 	
 }
