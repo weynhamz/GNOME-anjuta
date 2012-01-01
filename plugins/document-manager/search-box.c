@@ -938,6 +938,8 @@ search_box_init (SearchBox *object)
 	
 	/* Searching */
 	private->search_entry = gtk_entry_new();
+	gtk_widget_set_tooltip_text (private->search_entry,
+	                             _("Use the context menu of the \"Find\" icon for more search options"));
 	g_signal_connect_swapped (G_OBJECT (private->search_entry), "activate", 
 	                          G_CALLBACK (search_box_forward_search),
 	                          object);
