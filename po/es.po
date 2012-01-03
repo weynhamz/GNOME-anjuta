@@ -7,15 +7,15 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2011-12-18 18:30+0000\n"
-"PO-Revision-Date: 2011-12-18 22:30+0100\n"
+"POT-Creation-Date: 2012-01-01 21:09+0000\n"
+"PO-Revision-Date: 2012-01-03 18:12+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "Variables de entorno:"
 #: ../plugins/class-gen/window.c:757 ../plugins/class-gen/window.c:765
 #: ../plugins/class-gen/window.c:773 ../plugins/class-gen/window.c:783
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:805
-#: ../plugins/project-manager/dialogs.c:503
+#: ../plugins/project-manager/dialogs.c:509
 #: ../plugins/run-program/parameters.c:757
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -265,7 +265,7 @@ msgstr "Nombre"
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:766
 #: ../plugins/class-gen/window.c:797 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:511
+#: ../plugins/project-manager/dialogs.c:517
 #: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Valor"
@@ -350,7 +350,7 @@ msgstr "Carga"
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:943
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
@@ -449,7 +449,7 @@ msgstr "Categoría"
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
 #: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:930
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:8
 msgid "General"
 msgstr "General"
@@ -625,15 +625,7 @@ msgstr ""
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:1892
-msgid ""
-"Unable to display help. Please make sure the Anjuta documentation package is "
-"installed. It can be downloaded from http://anjuta.org."
-msgstr ""
-"No se puede mostrar la ayuda. Asegúrese de que el paquete de documentación "
-"de Anjuta está instalado. Puede ser descargado desde http://anjuta.org."
-
-#: ../libanjuta/anjuta-utils.c:2330
+#: ../libanjuta/anjuta-utils.c:2299
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "No se pudo cargar el archivo de interfaz de usuario: %s"
@@ -1708,7 +1700,7 @@ msgid "Ignore .cvsrc file (recommended)"
 msgstr "Ignorar el archivo .cvsrc (recomendado)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:32
-#: ../plugins/symbol-db/plugin.c:2165
+#: ../plugins/symbol-db/plugin.c:2171
 msgid "Local"
 msgstr "Local"
 
@@ -2741,7 +2733,7 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823 ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2123 ../plugins/tools/tool.c:100
+#: ../plugins/symbol-db/plugin.c:2129 ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:626
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
@@ -2908,8 +2900,8 @@ msgstr "Examinador API"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2133
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2139
+#: ../plugins/symbol-db/plugin.c:2191
 msgid "Search"
 msgstr "Buscar"
 
@@ -2959,7 +2951,7 @@ msgid "Close file"
 msgstr "Cerrar archivo"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:641
+#: ../plugins/project-manager/dialogs.c:647
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -3631,17 +3623,17 @@ msgstr "Falló el autoguardado para el archivo %s"
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
-#: ../plugins/document-manager/search-box.c:565
+#: ../plugins/document-manager/search-box.c:566
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
-#: ../plugins/document-manager/search-box.c:570
+#: ../plugins/document-manager/search-box.c:571
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "La búsqueda de «%s» llegó al final y continuó por el final."
 
-#: ../plugins/document-manager/search-box.c:579
+#: ../plugins/document-manager/search-box.c:580
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -3650,7 +3642,7 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:584
+#: ../plugins/document-manager/search-box.c:585
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -3659,11 +3651,16 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el final pero no se "
 "encontró ninguna ocurrencia más."
 
-#: ../plugins/document-manager/search-box.c:1002
+#: ../plugins/document-manager/search-box.c:942
+msgid "Use the context menu of the \"Find\" icon for more search options"
+msgstr ""
+"Usar el menú contextual del icono «Buscar» para más opciones de búsqueda"
+
+#: ../plugins/document-manager/search-box.c:1006
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../plugins/document-manager/search-box.c:1007
+#: ../plugins/document-manager/search-box.c:1011
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
@@ -3878,7 +3875,7 @@ msgstr "Abrir archivo reciente"
 
 #: ../plugins/file-loader/plugin.c:1272
 msgid "Open recent files"
-msgstr "Abre archivos recientes"
+msgstr "Abrir archivos recientes"
 
 #: ../plugins/file-loader/plugin.c:1302
 msgid "Open a file"
@@ -3924,7 +3921,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../plugins/file-manager/file-manager.ui.h:7
-#: ../plugins/symbol-db/plugin.c:2177
+#: ../plugins/symbol-db/plugin.c:2183
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Global"
 msgstr "Global"
@@ -4000,7 +3997,7 @@ msgstr "Información del archivo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 #: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
-#: ../plugins/project-manager/dialogs.c:646
+#: ../plugins/project-manager/dialogs.c:652
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
@@ -4011,7 +4008,7 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#: ../plugins/project-manager/dialogs.c:668
+#: ../plugins/project-manager/dialogs.c:674
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -6075,7 +6072,7 @@ msgstr "_Seleccionar archivo para añadir…"
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-manager/plugin.c:1324
 #: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1614 ../plugins/symbol-db/plugin.c:2128
+#: ../plugins/project-manager/plugin.c:1614 ../plugins/symbol-db/plugin.c:2134
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proyecto"
@@ -6263,7 +6260,7 @@ msgid "_Properties"
 msgstr "_Propiedades"
 
 #: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/dialogs.c:597
+#: ../plugins/project-manager/dialogs.c:603
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
@@ -6373,80 +6370,80 @@ msgstr "Proyecto cargado"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:354
+#: ../plugins/project-manager/dialogs.c:360
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/dialogs.c:429
+#: ../plugins/project-manager/dialogs.c:435
 msgid " This property is not modifiable."
 msgstr "Esta propiedad no es modificable."
 
-#: ../plugins/project-manager/dialogs.c:600
+#: ../plugins/project-manager/dialogs.c:606
 msgid "Directory properties"
 msgstr "Propiedades de la carpeta"
 
-#: ../plugins/project-manager/dialogs.c:603
+#: ../plugins/project-manager/dialogs.c:609
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/dialogs.c:606
+#: ../plugins/project-manager/dialogs.c:612
 msgid "Source properties"
 msgstr "Propiedades de los fuentes"
 
-#: ../plugins/project-manager/dialogs.c:609
+#: ../plugins/project-manager/dialogs.c:615
 msgid "Module properties"
 msgstr "Propiedades del módulo"
 
-#: ../plugins/project-manager/dialogs.c:612
+#: ../plugins/project-manager/dialogs.c:618
 msgid "Package properties"
 msgstr "Propiedades del paquete"
 
-#: ../plugins/project-manager/dialogs.c:615
+#: ../plugins/project-manager/dialogs.c:621
 msgid "Unknown properties"
 msgstr "Propiedades desconocidas"
 
-#: ../plugins/project-manager/dialogs.c:1027
-#: ../plugins/project-manager/dialogs.c:1038
+#: ../plugins/project-manager/dialogs.c:1030
+#: ../plugins/project-manager/dialogs.c:1041
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/dialogs.c:1039
+#: ../plugins/project-manager/dialogs.c:1042
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/dialogs.c:1253
-#: ../plugins/project-manager/dialogs.c:1263
+#: ../plugins/project-manager/dialogs.c:1256
+#: ../plugins/project-manager/dialogs.c:1266
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1264
+#: ../plugins/project-manager/dialogs.c:1267
 msgid "The selected node cannot contain source files."
 msgstr "El nodo seleccionado no puede contener archivos de fuentes."
 
-#: ../plugins/project-manager/dialogs.c:1450
-#: ../plugins/project-manager/dialogs.c:1461
+#: ../plugins/project-manager/dialogs.c:1453
+#: ../plugins/project-manager/dialogs.c:1464
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/dialogs.c:1462
+#: ../plugins/project-manager/dialogs.c:1465
 msgid "No group selected"
 msgstr "No se seleccionó ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1621
-#: ../plugins/project-manager/dialogs.c:1632
+#: ../plugins/project-manager/dialogs.c:1627
+#: ../plugins/project-manager/dialogs.c:1638
 msgid "Cannot add modules"
 msgstr "No se pueden añadir los módulos"
 
-#: ../plugins/project-manager/dialogs.c:1633
+#: ../plugins/project-manager/dialogs.c:1639
 msgid "No target has been selected"
 msgstr "No se seleccionó ningún objetivo"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1836
+#: ../plugins/project-manager/dialogs.c:1842
 msgid "Missing module name"
 msgstr "Falta el nombre del módulo"
 
-#: ../plugins/project-manager/dialogs.c:1898
+#: ../plugins/project-manager/dialogs.c:1904
 msgid "Cannot add packages"
 msgstr "No se pueden añadir los paquetes"
 
@@ -7606,9 +7603,6 @@ msgid "Load Target to run"
 msgstr "Cargar objetivo que ejecutar"
 
 #: ../plugins/run-program/plugin.c:191
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you want to restart it?"
 msgid ""
 "The program is already running.\n"
 "Do you want to stop it before restarting a new instance?"
@@ -8624,48 +8618,48 @@ msgstr "_Buscar símbolo…"
 msgid "Find Symbol"
 msgstr "Buscar símbolo"
 
-#: ../plugins/symbol-db/plugin.c:1032
+#: ../plugins/symbol-db/plugin.c:1031
 #, c-format
 msgid "%s: Generating inheritances…"
 msgstr "%s: Generando herencias…"
 
 #. Translators: %s is the name of a system library
-#: ../plugins/symbol-db/plugin.c:1038
+#: ../plugins/symbol-db/plugin.c:1037
 #, c-format
 msgid "%s: %d file scanned out of %d"
 msgid_plural "%s: %d files scanned out of %d"
 msgstr[0] "%s: %d archivo analizado de %d"
 msgstr[1] "%s: %d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1069
+#: ../plugins/symbol-db/plugin.c:1068
 #, c-format
 msgid "Generating inheritances…"
 msgstr "Generando herencias…"
 
-#: ../plugins/symbol-db/plugin.c:1071
+#: ../plugins/symbol-db/plugin.c:1070
 #, c-format
 msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d archivo analizado de %d"
 msgstr[1] "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1733
+#: ../plugins/symbol-db/plugin.c:1739
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2113 ../plugins/symbol-db/plugin.c:2198
+#: ../plugins/symbol-db/plugin.c:2119 ../plugins/symbol-db/plugin.c:2204
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2213
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2221
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2528 ../plugins/symbol-db/plugin.c:2546
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
@@ -9166,68 +9160,52 @@ msgid "Anjuta user's manual"
 msgstr "Manual del usuario de Anjuta"
 
 #: ../src/anjuta-actions.h:67
-msgid "Kick start _tutorial"
-msgstr "_Cursillo acelerado"
-
-#: ../src/anjuta-actions.h:68
-msgid "Anjuta Kick start tutorial"
-msgstr "Cursillo de acelerado de Anjuta"
-
-#: ../src/anjuta-actions.h:71
-msgid "_Advanced tutorial"
-msgstr "Cursillo _avanzado"
-
-#: ../src/anjuta-actions.h:72
-msgid "Anjuta advanced tutorial"
-msgstr "Cursillo avanzado de Anjuta"
-
-#: ../src/anjuta-actions.h:75
 msgid "_Frequently Asked Questions"
 msgstr "Preguntas _frecuentes"
 
-#: ../src/anjuta-actions.h:76
+#: ../src/anjuta-actions.h:68
 msgid "Anjuta frequently asked questions"
 msgstr "Preguntas frecuentes sobre Anjuta"
 
-#: ../src/anjuta-actions.h:79
+#: ../src/anjuta-actions.h:71
 msgid "Anjuta _Home Page"
 msgstr "Página _web de Anjuta"
 
-#: ../src/anjuta-actions.h:80
+#: ../src/anjuta-actions.h:72
 msgid "Online documentation and resources"
 msgstr "Documentación en línea e información"
 
-#: ../src/anjuta-actions.h:83
+#: ../src/anjuta-actions.h:75
 msgid "Report _Bugs/Patches/Requests"
 msgstr "Informar de _Fallos/Parches/Peticiones"
 
-#: ../src/anjuta-actions.h:84
+#: ../src/anjuta-actions.h:76
 msgid "Submit a bug report, patch or feature request for Anjuta"
 msgstr ""
 "Envíe un informe de fallos, parche o una petición de una característica "
 "nueva para Anjuta"
 
-#: ../src/anjuta-actions.h:87
+#: ../src/anjuta-actions.h:79
 msgid "Ask a _Question"
 msgstr "_Preguntar"
 
-#: ../src/anjuta-actions.h:88
+#: ../src/anjuta-actions.h:80
 msgid "Submit a question for FAQs"
 msgstr "Enviar preguntas para las P+F (Preguntas más frecuentes)"
 
-#: ../src/anjuta-actions.h:91
+#: ../src/anjuta-actions.h:83
 msgid "_About"
 msgstr "A_cerca de"
 
-#: ../src/anjuta-actions.h:92
+#: ../src/anjuta-actions.h:84
 msgid "About Anjuta"
 msgstr "Acerca de Anjuta"
 
-#: ../src/anjuta-actions.h:95
+#: ../src/anjuta-actions.h:87
 msgid "About External _Plugins"
 msgstr "Acerca de los com_plementos de Anjuta"
 
-#: ../src/anjuta-actions.h:96
+#: ../src/anjuta-actions.h:88
 msgid "About third-party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
 
@@ -9239,15 +9217,15 @@ msgstr "Editar"
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../src/anjuta-app.c:941
+#: ../src/anjuta-app.c:935
 msgid "Installed plugins"
 msgstr "Complementos instalados"
 
-#: ../src/anjuta-app.c:945
+#: ../src/anjuta-app.c:939
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:1017
+#: ../src/anjuta-app.c:1011
 #, c-format
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
@@ -9844,6 +9822,26 @@ msgstr "Caracteres mínimos para autocompletado "
 #: ../plugins/symbol-db/symbol-db-views.c:202
 msgid "Symbol"
 msgstr "Símbolo"
+
+#~ msgid ""
+#~ "Unable to display help. Please make sure the Anjuta documentation package "
+#~ "is installed. It can be downloaded from http://anjuta.org."
+#~ msgstr ""
+#~ "No se puede mostrar la ayuda. Asegúrese de que el paquete de "
+#~ "documentación de Anjuta está instalado. Puede ser descargado desde http://"
+#~ "anjuta.org."
+
+#~ msgid "Kick start _tutorial"
+#~ msgstr "_Cursillo acelerado"
+
+#~ msgid "Anjuta Kick start tutorial"
+#~ msgstr "Cursillo de acelerado de Anjuta"
+
+#~ msgid "_Advanced tutorial"
+#~ msgstr "Cursillo _avanzado"
+
+#~ msgid "Anjuta advanced tutorial"
+#~ msgstr "Cursillo avanzado de Anjuta"
 
 #~ msgid "_Code Fold Margin"
 #~ msgstr "Margen de plegado del _código"
