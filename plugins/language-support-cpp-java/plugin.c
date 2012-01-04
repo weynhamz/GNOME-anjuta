@@ -1342,6 +1342,7 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 
 #define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
 #define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
+#define PREF_WIDGET_CLOSEBRACE "preferences_toggle:bool:1:1:cpp-completion-closebrace-after-func"
 #define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
 #define PREF_WIDGET_PACKAGES "preferences_toggle:bool:1:1:cpp-load-project-packages"
 #define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
@@ -1356,6 +1357,8 @@ on_autocompletion_toggled (GtkToggleButton* button,
 	widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_SPACE));
 	gtk_widget_set_sensitive (widget, sensitive);
 	widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_BRACE));
+	gtk_widget_set_sensitive (widget, sensitive);
+	widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_CLOSEBRACE));
 	gtk_widget_set_sensitive (widget, sensitive);
 }
 

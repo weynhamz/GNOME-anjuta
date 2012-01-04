@@ -36,6 +36,9 @@
 		<key name="cpp-completion-brace-after-func" type="b">
 			<default>true</default>
 		</key>
+		<key name="cpp-completion-closebrace-after-func" type="b">
+			<default>true</default>
+		</key>
 		<key name="cpp-brace-autocompletion" type="b">
 			<default>false</default>
 		</key>
