@@ -57,8 +57,17 @@
 		 <glade-widget-class name="AnjutaEnvironmentEditor" title="Environment editor"
 		 generic-name="environment_editor" />
 
-		 <glade-widget-class name="AnjutaTreeComboBox" title="Tree combo box"
+		<glade-widget-class name="AnjutaTreeComboBox" title="Tree combo box"
 		 generic-name="combo">
+			<properties>
+				<property id="glade-type" disabled="True"/>
+				<property id="label" disabled="True"/>
+				<property id="use-underline" disabled="True"/>
+				<property id="stock" disabled="True"/>
+			</properties>
+		</glade-widget-class>
+		<glade-widget-class name="AnjutaPmChooserButton" title="Project node chooser"
+		 generic-name="button" parent="AnjutaTreeComboBox">
 			<properties>
 				<property id="glade-type" disabled="True"/>
 				<property id="label" disabled="True"/>
@@ -79,5 +88,6 @@
 		<glade-widget-class-ref name="AnjutaEntry" />
 		<glade-widget-class-ref name="AnjutaEnvironmentEditor" />
 		<glade-widget-class-ref name="AnjutaTreeComboBox" />
+		<glade-widget-class-ref name="AnjutaPmChooserButton" />
 	</glade-widget-group>
 </glade-catalog>

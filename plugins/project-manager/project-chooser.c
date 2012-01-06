@@ -1,0 +1,354 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4; coding: utf-8 -*- */
+
+/* project-chooser.c
+ *
+ * Copyright (C) 2012  Sébastien Granjoux
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ *
+ */
+
+
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "project-chooser.h"
+
+#include <glib/gi18n.h>
+
+#include <libanjuta/interfaces/ianjuta-project-chooser.h>
+
+#include "project-model.h"
+#include "project-view.h"
+#include "tree-data.h"
+#include "plugin.h"
+
+
+/* Types
+ *---------------------------------------------------------------------------*/
+
+struct _AnjutaPmChooserButtonPrivate
+{
+	AnjutaProjectNodeType child;
+};
+
+static void ianjuta_project_chooser_init (IAnjutaProjectChooserIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (AnjutaPmChooserButton, anjuta_pm_chooser_button, ANJUTA_TYPE_TREE_COMBO_BOX,
+                         G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_PROJECT_CHOOSER,
+                                                ianjuta_project_chooser_init))
+
+/* Helpers functions
+ *---------------------------------------------------------------------------*/
+
+
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+static void
+setup_nodes_combo_box (AnjutaPmChooserButton      *view,
+						GbfProjectModel	   *model,
+                  	    GtkTreePath            *root,
+						GtkTreeModelFilterVisibleFunc func,
+						gpointer               data,
+						GtkTreeIter            *selected)
+{
+	GtkTreeIter iter;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (model != NULL);
+
+	if ((func != NULL) || (root != NULL))
+	{
+		GtkTreeModel *filter;
+
+		filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), root);
+		if (func != NULL)
+		{
+			gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter), func, data, NULL);
+		}
+		anjuta_tree_combo_box_set_model (ANJUTA_TREE_COMBO_BOX (view), filter);
+		g_object_unref (filter);
+		if (pm_convert_project_iter_to_model_iter (filter, &iter, selected))
+		{
+			anjuta_tree_combo_box_set_active_iter (ANJUTA_TREE_COMBO_BOX (view), &iter);
+		}
+	}
+	else
+    {
+		anjuta_tree_combo_box_set_model (ANJUTA_TREE_COMBO_BOX (view), GTK_TREE_MODEL (model));
+		if (selected)
+		{
+			anjuta_tree_combo_box_set_active_iter (ANJUTA_TREE_COMBO_BOX (view), selected);
+		}
+	}
+}
+
+/* Callbacks functions
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+is_project_node_but_shortcut (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+	GbfTreeData *data;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+
+	return (data != NULL) && (data->shortcut == NULL) && (gbf_tree_data_get_node (data) != NULL);
+}
+
+static gboolean
+is_project_module_node (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+	GbfTreeData *data;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+	if ((data != NULL) && (data->shortcut == NULL))
+	{
+		AnjutaProjectNode *node = gbf_tree_data_get_node (data);
+
+		if ((node != NULL) && ((anjuta_project_node_get_node_type (node) & ANJUTA_PROJECT_TYPE_MASK) == ANJUTA_PROJECT_MODULE))
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+is_project_target_or_group_node (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+	GbfTreeData *data;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+	if ((data != NULL) && (data->shortcut == NULL))
+	{
+		AnjutaProjectNode *node = gbf_tree_data_get_node (data);
+
+		if (node != NULL)
+		{
+			AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node) & ANJUTA_PROJECT_TYPE_MASK;
+
+			return (type == ANJUTA_PROJECT_TARGET) || (type == ANJUTA_PROJECT_GROUP);
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+is_project_group_node (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
+{
+	GbfTreeData *data;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
+		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
+		    -1);
+	if ((data != NULL) && (data->shortcut == NULL))
+	{
+		AnjutaProjectNode *node = gbf_tree_data_get_node (data);
+
+		if (node != NULL)
+		{
+			AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node) & ANJUTA_PROJECT_TYPE_MASK;
+
+			return type == ANJUTA_PROJECT_GROUP;
+		}
+	}
+
+	return FALSE;
+}
+
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+GtkWidget *
+anjuta_pm_chooser_button_new (void)
+{
+	return g_object_new (ANJUTA_TYPE_PM_CHOOSER_BUTTON, NULL);
+}
+
+
+/* Implement IAnjutaProjectChooser interface
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjectManager *manager, AnjutaProjectNodeType child_type, GError **error)
+{
+	GtkTreeIter selected;
+	gboolean found;
+	GtkTreeModelFilterVisibleFunc func;
+
+	ANJUTA_PM_CHOOSER_BUTTON (iface)->priv->child = child_type & ANJUTA_PROJECT_TYPE_MASK;
+
+	switch (child_type & ANJUTA_PROJECT_TYPE_MASK)
+	{
+	case ANJUTA_PROJECT_ROOT:
+		/* Display all nodes */
+		func = is_project_node_but_shortcut;
+		break;
+	case ANJUTA_PROJECT_MODULE:
+		/* Display all modules */
+		func = is_project_module_node;
+		break;
+	case ANJUTA_PROJECT_PACKAGE:
+		/* Display all targets */
+		func = is_project_target_or_group_node;
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		/* Display all targets */
+		func = is_project_target_or_group_node;
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		/* Display all targets */
+		func = is_project_target_or_group_node;
+		break;
+	case ANJUTA_PROJECT_GROUP:
+		/* Display all groups */
+		func = is_project_group_node;
+		break;
+	default:
+		/* Invalid type */
+		return FALSE;
+	}
+
+	found = gbf_project_view_get_first_selected (ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view, &selected) != NULL;
+
+	/* Add combo node selection */
+	setup_nodes_combo_box (ANJUTA_PM_CHOOSER_BUTTON (iface),
+	                       gbf_project_view_get_model(ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view),
+	                       NULL,
+	                       func,
+	                       NULL,
+	                       found ? &selected : NULL);
+
+	return TRUE;
+}
+
+static GFile *
+anjuta_pm_chooser_get_selected (IAnjutaProjectChooser *iface, GError **error)
+{
+	GtkTreeIter iter;
+
+	if (anjuta_tree_combo_box_get_active_iter (ANJUTA_TREE_COMBO_BOX (iface), &iter))
+	{
+		GtkTreeModel *model;
+		GbfTreeData *data = NULL;
+
+		model = anjuta_tree_combo_box_get_model (ANJUTA_TREE_COMBO_BOX (iface));
+
+		gtk_tree_model_get (model, &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+		g_return_val_if_fail (data != NULL, NULL);
+
+		if (data->node != NULL)
+		{
+			AnjutaProjectNode *node = data->node;
+			gint valid;
+
+			switch (ANJUTA_PM_CHOOSER_BUTTON (iface)->priv->child)
+			{
+			case ANJUTA_PROJECT_ROOT:
+				/* Allow all nodes */
+				valid = -1;
+				break;
+			case ANJUTA_PROJECT_MODULE:
+			case ANJUTA_PROJECT_PACKAGE:
+				/* Only package parent */
+				valid = ANJUTA_PROJECT_CAN_ADD_PACKAGE;
+				break;
+			case ANJUTA_PROJECT_SOURCE:
+				/* Only package parent */
+				valid = ANJUTA_PROJECT_CAN_ADD_SOURCE;
+				break;
+			case ANJUTA_PROJECT_TARGET:
+				/* Only package parent */
+				valid = ANJUTA_PROJECT_CAN_ADD_TARGET;
+				break;
+			case ANJUTA_PROJECT_GROUP:
+				/* Only group parent */
+				valid = ANJUTA_PROJECT_CAN_ADD_GROUP;
+				break;
+			default:
+				valid = 0;
+				break;
+			}
+
+			if (anjuta_project_node_get_state (node) & valid)
+			{
+				return anjuta_project_node_get_file (data->node);
+			}
+		}
+	}
+
+	return NULL;
+}
+
+static void
+ianjuta_project_chooser_init (IAnjutaProjectChooserIface *iface)
+{
+	iface->set_project_model = anjuta_pm_chooser_set_project_model;
+	iface->get_selected = anjuta_pm_chooser_get_selected;
+}
+
+/* Implement GObject functions
+ *---------------------------------------------------------------------------*/
+
+static GObject *
+anjuta_pm_chooser_button_constructor (GType                  type,
+                                      guint                  n_construct_properties,
+                                      GObjectConstructParam *construct_properties)
+{
+	GObject *object;
+
+	object = G_OBJECT_CLASS (anjuta_pm_chooser_button_parent_class)->constructor
+		(type, n_construct_properties, construct_properties);
+
+	pm_setup_project_renderer (GTK_CELL_LAYOUT (object));
+
+	return object;
+}
+
+static void
+anjuta_pm_chooser_button_init (AnjutaPmChooserButton *button)
+{
+  	AnjutaPmChooserButtonPrivate *priv;
+
+	priv = G_TYPE_INSTANCE_GET_PRIVATE (button,
+	                                    ANJUTA_TYPE_PM_CHOOSER_BUTTON,
+	                                    AnjutaPmChooserButtonPrivate);
+	button->priv = priv;
+}
+
+static void
+anjuta_pm_chooser_button_class_init (AnjutaPmChooserButtonClass * klass)
+{
+	GObjectClass *object_class;
+
+	object_class = (GObjectClass *)klass;
+	object_class->constructor = anjuta_pm_chooser_button_constructor;
+
+	g_type_class_add_private (klass, sizeof (AnjutaPmChooserButtonPrivate));
+}

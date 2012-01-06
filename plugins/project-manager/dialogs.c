@@ -35,6 +35,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-pkg-config-chooser.h>
 #include <libanjuta/anjuta-tree-combo.h>
+#include <libanjuta/interfaces/ianjuta-project-chooser.h>
 
 #define ICON_SIZE 16
 
@@ -247,47 +248,6 @@ setup_nodes_treeview (GbfProjectView           *view,
 	gbf_project_view_set_parent_view (view, parent, root);
 	gbf_project_view_set_visible_func (view, func, data, NULL);
 	gbf_project_view_set_cursor_to_iter (view, selected);
-}
-
-static void
-setup_nodes_combo_box (AnjutaTreeComboBox      *view,
-						GbfProjectModel	   *model,
-                  	    GtkTreePath            *root,
-						GtkTreeModelFilterVisibleFunc func,
-						gpointer               data,
-						GtkTreeIter            *selected)
-{
-	GtkTreeIter iter;
-
-	g_return_if_fail (view != NULL);
-	g_return_if_fail (model != NULL);
-
-	pm_setup_project_renderer (GTK_CELL_LAYOUT (view));
-
-	if ((func != NULL) || (root != NULL))
-	{
-		GtkTreeModel *filter;
-
-		filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), root);
-		if (func != NULL)
-		{
-			gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter), func, data, NULL);
-		}
-		anjuta_tree_combo_box_set_model (view, filter);
-		g_object_unref (filter);
-		if (pm_convert_project_iter_to_model_iter (filter, &iter, selected))
-		{
-			anjuta_tree_combo_box_set_active_iter (view, &iter);
-		}
-	}
-	else
-    {
-		anjuta_tree_combo_box_set_model (view, GTK_TREE_MODEL (model));
-		if (selected)
-		{
-			anjuta_tree_combo_box_set_active_iter (view, selected);
-		}
-	}
 }
 
 static void
@@ -566,18 +526,6 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
 	*position = *position + 1;
 }
 
-static gboolean
-is_project_node_but_shortcut (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
-{
-	GbfTreeData *data;
-
-	gtk_tree_model_get (GTK_TREE_MODEL (model), iter,
-		    GBF_PROJECT_MODEL_COLUMN_DATA, &data,
-		    -1);
-
-	return (data != NULL) && (data->shortcut == NULL) && (gbf_tree_data_get_node (data) != NULL);
-}
-
 static void
 update_properties (PropertiesTable *table)
 {
@@ -842,6 +790,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	GtkWidget *dialog = NULL;
 	GtkBuilder *bxml;
 	GtkWidget *node_combo;
+	GtkTreeIter iter;
 
 	g_return_val_if_fail (data != NULL, NULL);
 
@@ -864,13 +813,15 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	g_object_unref (bxml);
 
 	/* Add combo node selection */
-	setup_nodes_combo_box (ANJUTA_TREE_COMBO_BOX (node_combo),
-	                       gbf_project_view_get_model(ANJUTA_PLUGIN_PROJECT_MANAGER (table->project->plugin)->view),
-	                       NULL,
-	                       is_project_node_but_shortcut,
-	                       NULL,
-	                       selected);
-
+	ianjuta_project_chooser_set_project_model (IANJUTA_PROJECT_CHOOSER (node_combo),
+	                                           IANJUTA_PROJECT_MANAGER (table->project->plugin),
+	                                           ANJUTA_PROJECT_ROOT,
+	                                           NULL);
+	if (pm_convert_project_iter_to_model_iter (GTK_TREE_MODEL (anjuta_tree_combo_box_get_model (ANJUTA_TREE_COMBO_BOX (node_combo))),
+	                                           &iter, selected))
+	{
+		anjuta_tree_combo_box_set_active_iter (ANJUTA_TREE_COMBO_BOX (node_combo), &iter);
+	}
 	g_signal_connect (node_combo, "changed",
 					G_CALLBACK (on_node_changed),
 					table);
@@ -922,14 +873,13 @@ anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeI
 		{
 			selected = &iter;
 		}
-	}
+ 	}
 
 	if (selected)
 	{
 		GbfTreeData *data;
 
 		gtk_tree_model_get (GTK_TREE_MODEL (gbf_project_view_get_model (plugin->view)), selected, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-
 		dialog_ptr = &data->properties_dialog;
 
 		if (*dialog_ptr != NULL)
@@ -942,9 +892,9 @@ anjuta_pm_project_show_properties_dialog (ProjectManagerPlugin *plugin, GtkTreeI
 			*dialog_ptr = pm_project_create_properties_dialog (
 				plugin->project,
 				GTK_WINDOW (plugin->project->plugin->shell),
-			    plugin->view,
-			    data,
-				selected);
+		    	plugin->view,
+		    	data,
+			    selected);
 			if (*dialog_ptr != NULL)
 			{
 				g_object_add_weak_pointer (G_OBJECT (*dialog_ptr), (gpointer *)dialog_ptr);

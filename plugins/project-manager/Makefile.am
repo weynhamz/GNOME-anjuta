@@ -61,6 +61,8 @@ libanjuta_project_manager_la_SOURCES = \
 	project-model.c		\
 	project-view.h		\
 	project-view.c		\
+	project-chooser.c	\
+	project-chooser.h	\
 	project-util.h		\
 	project-util.c		\
 	project.h		\
