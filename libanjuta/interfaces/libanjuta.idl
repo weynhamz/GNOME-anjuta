@@ -2,7 +2,7 @@
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
 //  libanjuta interfaces. Generate stubs with anjuta-idl-compiler.pl
-// 
+//
 //  Copyright (C) 2004 Naba Kumar  <naba@gnome.org>
 //
 //  This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
  * @see_also: #IAnjutaFileSavable
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-file.h
- * 
+ *
  * Any plugin that can open files should implemented this interface. Along
  * with the 'File Loader::SupportedMimeTypes' property of the plugin in
  * .plugin file, it will be used by the loader to open files of that type.
@@ -45,7 +45,7 @@ interface IAnjutaFile
 	 * The implementor opens the given file.
 	 */
 	void open (GFile* file);
-	
+
 	/**
 	 * ianjuta_file_get_file:
 	 * @obj: Self
@@ -56,7 +56,7 @@ interface IAnjutaFile
 	 * Return value: (transfer full): The last file opened.
 	 */
 	GFile* get_file ();
-	
+
 	/**
 	 * SECTION:ianjuta-file-savable
 	 * @title: IAnjutaFileSavable
@@ -64,7 +64,7 @@ interface IAnjutaFile
 	 * @see_also: #IAnjutaFile
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-file-savable.h
-	 * 
+	 *
 	 * Plugins implementing #IAnjutaFile inteface that can also save files
 	 * should also implement this interface.
 	 */
@@ -73,7 +73,7 @@ interface IAnjutaFile
 		/**
 		 * IAnjutaFileSavable::update_save_ui:
 		 * @obj: Self
-		 * 
+		 *
 		 * This signal is emitted when the state of the file has
 		 * changed. It could be that the user writes in it
 		 * and the file becomes dirty or the opposite: after using
@@ -81,65 +81,65 @@ interface IAnjutaFile
 		 * if the file becomes read-only or give a conflict too.
 		 */
 		void ::update_save_ui ();
-		
+
 		/**
 		 * IAnjutaFileSavable::saved:
 		 * @obj: Self
 		 * @file: file where the content is saved or NULL if save failed
-		 * 
+		 *
 		 * This signal is emitted when the content is saved.
 		 */
 		void ::saved (GFile* file);
-		
+
 		/**
 		 * ianjuta_file_savable_save:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * Saves the content to the original file from which it was loaded.
 		 * The signal saved is always emitted even if the save fails.
 		 */
 		void save ();
-		
+
 		/**
 		 * ianjuta_file_savable_save_as:
 		 * @obj: Self
 		 * @file: File to save the content.
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * Saves the content to a different File.
 		 * The signal saved is always emitted even if the save fails.
 		 */
 		void save_as (GFile* file);
-		
+
 		/**
 		 * ianjuta_file_savable_set_dirty:
 		 * @obj: Self
 		 * @dirty: Whether the file was edited or not
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * if @dirty is TRUE, sets dirty for the content. Save point will be
 		 * left and the content will be considered not saved. Otherwise,
 		 * content will considered saved and save-point will be entered.
 		 */
 		void set_dirty (gboolean dirty);
-		
+
 		/**
 		 * ianjuta_file_savable_is_dirty:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * Returns the dirty status of the content.
 		 *
 		 * Return value: TRUE if dirty, FALSE otherwise.
 		 */
 		gboolean is_dirty ();
-		
+
 		/**
 		 * ianjuta_file_savable_is_read_only:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * Return is the file is read-only
 		 *
 		 * Return value: TRUE if read-only, FALSE otherwise.
@@ -150,7 +150,7 @@ interface IAnjutaFile
 		 * ianjuta_file_savable_is_conflict:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
-		 * 
+		 *
 		 * Return is the file is in conflict. It means the file
 		 * has been modified externally and the user needs to
 		 * tell which version he wants to use.
@@ -165,15 +165,15 @@ interface IAnjutaFile
  * SECTION:ianjuta-stream
  * @title: IAnjutaStream
  * @short_description: Implemented by plugins that can open file streams
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-stream.h
- * 
+ *
  */
 interface IAnjutaStream
 {
 	#include <stdio.h>
-	
+
 	/**
 	 * ianjuta_stream_open:
 	 * @obj: Self
@@ -183,15 +183,15 @@ interface IAnjutaStream
 	 * The implementor opens the given stream.
 	 */
 	void open (FILE* stream);
-	
+
 	/**
 	 * SECTION:ianjuta-stream-savable
 	 * @title: IAnjutaStreamSavable
 	 * @short_description: Implemented by plugins that can save file streams
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-stream-savable.h
-	 * 
+	 *
 	 */
 	interface IAnjutaStreamSavable
 	{
@@ -211,10 +211,10 @@ interface IAnjutaStream
  * SECTION:ianjuta-markable
  * @title: IAnjutaMarkable
  * @short_description: Implemented by editors (or views) with markers support
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-markable.h
- * 
+ *
  */
 interface IAnjutaMarkable
 {
@@ -243,13 +243,13 @@ interface IAnjutaMarkable
 		BREAKPOINT_ENABLED,
 		PROGRAM_COUNTER
 	}
-	
+
 	/**
 	 * IAnjutaMarkable::marker-clicked:
 	 * @obj: Self
 	 * @double_click: whether the marker was double clicked
 	 * @location: location of the clicked marker
-	 * 
+	 *
 	 * The signal is emitted when the user clicks on a marker
 	 */
 	void ::marker_clicked (gboolean double_click, gint location);
@@ -297,26 +297,26 @@ interface IAnjutaMarkable
 	* Clears the @marker at given @location.
 	*/
 	void unmark (gint location, Marker marker);
-	
+
 	/**
 	* ianjuta_markable_is_marker_set:
 	* @obj: Self
 	* @location: Location to check.
 	* @marker: Marker to check.
-	* @err: Error propagation and reporting 
-	* 
+	* @err: Error propagation and reporting
+	*
 	* Check if the @marker is set at the given @location.
-	* 
+	*
 	* Returns: TRUE if the marker is set at the location, other false.
 	*/
 	gboolean is_marker_set (gint location, Marker marker);
-	
+
 	/**
 	* ianjuta_markable_delete_all_markers:
 	* @obj: Self
 	* @marker: Marker to delete.
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Delete the @marker from all locations.
 	*/
 	void delete_all_markers (Marker marker);
@@ -326,21 +326,21 @@ interface IAnjutaMarkable
  * SECTION:ianjuta-indicable
  * @title: IAnjutaIndicable
  * @short_description: Implemented by indicate that indicate a range
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-indicable.h
- * 
+ *
  */
 interface IAnjutaIndicable
 {
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
-	
+
 	/**
    * IAnjutaIndicableIndicator:
    * @IANJUTA_INDICABLE_NONE: No indicator
    * @IANJUTA_INDICABLE_IMPORTANT: Important indicator
-   * @IANJUTA_INDICABLE_WARNING: Warning indicator   
-   * @IANJUTA_INDICABLE_CRITICAL: Critical indicator   
+   * @IANJUTA_INDICABLE_WARNING: Warning indicator
+   * @IANJUTA_INDICABLE_CRITICAL: Critical indicator
    *
    * This enumeration is used to specify the appearance of the indicator
    */
@@ -362,9 +362,9 @@ interface IAnjutaIndicable
 	*
 	* Set an indicator
 	*
-	*/	
+	*/
 	void set (IAnjutaIterable *begin_location, IAnjutaIterable *end_location, Indicator indicator);
-	
+
  /**
 	* ianjuta_indicable_clear:
 	* @obj: Self
@@ -372,7 +372,7 @@ interface IAnjutaIndicable
 	*
 	* Clear all indicators
 	*
-	*/		
+	*/
 	void clear ();
 }
 
@@ -380,10 +380,10 @@ interface IAnjutaIndicable
  * SECTION:ianjuta-iterable
  * @title: IAnjutaIterable
  * @short_description: Implemented by objects that can iterate
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-iterable.h
- * 
+ *
  */
 interface IAnjutaIterable
 {
@@ -399,7 +399,7 @@ interface IAnjutaIterable
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean first ();
-	
+
 	/**
 	* ianjuta_iterable_next:
 	* @obj: Self
@@ -414,12 +414,12 @@ interface IAnjutaIterable
 	* Returns: TRUE if sucessful, otherwise FALSE if already at end-iter.
 	*/
 	gboolean next ();
-	
+
 	/**
 	* ianjuta_iterable_previous:
 	* @obj: Self
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Set the iter position to previous element position. Returns FALSE if
 	* there is no previous element and the iter remains pointed to the first
 	* element.
@@ -427,12 +427,12 @@ interface IAnjutaIterable
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean previous ();
-	
+
 	/**
 	* ianjuta_iterable_last:
 	* @obj: Self
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Set iter position to end-iter (one past last element) position.
 	* Returns FALSE if there is no element in the iterable (already
 	* at end-iter).
@@ -440,7 +440,7 @@ interface IAnjutaIterable
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean last ();
-	
+
 	/**
 	* ianjuta_iterable_foreach:
 	* @obj: Self
@@ -454,13 +454,13 @@ interface IAnjutaIterable
 	* restored at the end of this method.
 	*/
 	void foreach (GFunc callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_iterable_set_position:
 	* @obj: Self
 	* @position: New position for the iter.
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Sets the current position of the iter to @position. The given @position
 	* must be from 0 to length - 1 (#ianjuta_iter_get_length()) to point to
 	* a valid element. Passing @position < 0 will set it to end-iter. It
@@ -472,7 +472,7 @@ interface IAnjutaIterable
 	* end-iter). otherwise returns FALSE (i.e. @position is out of data range).
 	*/
 	gboolean set_position (gint position);
-	
+
 	/**
 	* ianjuta_iterable_get_position:
 	* @obj: Self
@@ -490,7 +490,7 @@ interface IAnjutaIterable
 	* ianjuta_iterable_get_length:
 	* @obj: Self
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Length of the iterable (number of elements indexable by it).
 	*
 	* Returns: total length of the list.
@@ -501,7 +501,7 @@ interface IAnjutaIterable
 	 * ianjuta_iterable_clone:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
-	 * 
+	 *
 	 * Clones the iterable. The returned iterable object must be unreffed
 	 * when done.
 	 *
@@ -514,7 +514,7 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @src_iter: Source iter from which to copy the assignment.
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Assigns the iter position from @src_iter.
 	*
 	*/
@@ -525,57 +525,57 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @iter2: Second iter to compare.
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Compares the position of @iter2 with this @obj. Returns -1
 	* value if this @obj is smaller than @iter2. Returns +1 value
 	* if this @obj is larger than @iter2. And returns 0 if both are equal.
 	* If you want difference of the iter positions, use
 	* #ianjuta_iterable_diff(). This method is meant for fast comparision.
-	* 
+	*
 	* Returns: 0 if equal, -1 if @obj is smaller than @iter2
 	* or +1 if @obj is larger than @iter2.
 	*
 	*/
 	gint compare (IAnjutaIterable *iter2);
-	
+
 	/**
 	* ianjuta_iterable_diff:
 	* @obj: Self
 	* @iter2: Second iter to differenciate.
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Compares the position of @iter2 with this @obj and returns difference
 	* in position of the two (@obj - @iter2).
-	* 
+	*
 	* Returns: The position difference of @obj - @iter2
 	*
 	*/
 	gint diff (IAnjutaIterable *iter2);
-	
+
 	/**
 	 * SECTION:ianjuta-iterable-tree
 	 * @title: IAnjutaIterableTree
 	 * @short_description: Implemented by tree objects that can iterate
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-iterable-tree.h
-	 * 
+	 *
 	 */
 	interface IAnjutaIterableTree
 	{
-	
-		/** 
+
+		/**
 		* ianjuta_iterable_tree_parent:
 		* @obj: Self
 		* @err: Error propagation and reporting
-		* 
+		*
 		* Set iter position to parent of curernt iter. If there is no parent,
 		* returns FALSE (current iter position is not changed)
 		*
 		* Returns: TRUE if sucessful, otherwise FALSE.
 		*/
 		gboolean parent ();
-		
+
 		/**
 		* ianjuta_iterable_tree_children:
 		* @obj: Self
@@ -587,7 +587,7 @@ interface IAnjutaIterable
 		* Returns: TRUE if sucessful, otherwise FALSE.
 		*/
 		gboolean children ();
-		
+
 		/**
 		* ianjuta_iterable_tree_has_children:
 		* @obj: Self
@@ -598,25 +598,25 @@ interface IAnjutaIterable
 		* Returns: TRUE if there are children, otherwise FALSE.
 		*/
 		gboolean has_children ();
-		
+
 		/**
 		* ianjuta_iterable_tree_foreach_post:
 		* @obj: Self
 		* @callback: Callback to call for each element.
 		* @user_data: User data to pass back to callback.
 		* @err: Error propagation and reporting
-		* 
+		*
 		* Call callback for each element in post order.
 		*/
 		void foreach_post (GFunc callback, gpointer user_data);
-		
+
 		/**
 		* ianjuta_iterable_tree_foreach_pre:
 		* @obj: Self
 		* @callback: Callback to call for each element.
 		* @user_data: User data to pass back to callback.
 		* @err: Error propagation and reporting
-		* 
+		*
 		* Call callback for each element in pre order.
 		*/
 		void foreach_pre (GFunc callback, gpointer user_data);
@@ -627,10 +627,10 @@ interface IAnjutaIterable
  * SECTION:ianjuta-builder
  * @title: IAnjutaBuilder
  * @short_description: Implemented by plugins that can build
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-builder.h
- * 
+ *
  */
 interface IAnjutaBuilder
 {
@@ -641,13 +641,13 @@ interface IAnjutaBuilder
    * @IANJUTA_BUILDER_CANCELED: Build was canceld
    * @IANJUTA_BUILDER_ABORTED: Build aborted
    * @IANJUTA_BUILDER_INTERRUPTED: Build interruped
-   * @IANJUTA_BUILDER_TERMINATED: Build interruped   
+   * @IANJUTA_BUILDER_TERMINATED: Build interruped
    * @IANJUTA_BUILDER_UNKNOWN_TARGET: The specified target is unknown
    * @IANJUTA_BUILDER_UNKNOWN_ERROR: Unknown Error
-   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))   
+   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))
    *
    * Possible build errors
-   */	 
+   */
 	enum Error
 	{
 		SUCCEED           =  0,
@@ -694,7 +694,7 @@ interface IAnjutaBuilder
 	*/
 	#define CONFIGURATION_PROFILING	"Profiling"
 
-	/** 
+	/**
 	* ianjuta_builder_is_built:
 	* @obj: Self
 	* @uri: target uri
@@ -712,7 +712,7 @@ interface IAnjutaBuilder
 	*/
 	Handle is_built (const gchar *uri, Callback callback, gpointer user_data);
 
-	/** 
+	/**
 	* ianjuta_builder_build:
 	* @obj: Self
 	* @uri: target uri
@@ -733,7 +733,7 @@ interface IAnjutaBuilder
 	* @obj: Self
 	* @handle: handle of the command to cancel
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Cancel specified command. The callback function will not
 	* be called.
 	*
@@ -744,9 +744,9 @@ interface IAnjutaBuilder
 	 * ianjuta_builder_list_configuration:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * List all defined configuration. These names returned are
-	 * the internal non localized names for the following 
+	 * the internal non localized names for the following
 	 * predefined configuration: Debug, Profiling, Optimized.
 	 * The default configuration has no name and is not returned.
 	 *
@@ -761,7 +761,7 @@ interface IAnjutaBuilder
 	* @obj: Self
 	* @uri: target uri
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the configuration corresponding to the target uri.
 	*
 	* Returns: The configuration name or NULL if the corresponding
@@ -774,20 +774,20 @@ interface IAnjutaBuilder
  * SECTION:ianjuta-environment
  * @title: IAnjutaEnvironment
  * @short_description: Implemented by plugins doing cross compilation
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-environment.h
- * 
+ *
  */
 interface IAnjutaEnvironment
 {
 	/**
    * IAnjutaEnvironmentError:
    * @IANJUTA_BUILDER_CONFIG: Configuration of the environment is wrong
-   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))   
+   * @IANJUTA_BUILDER_OTHER_ERROR: Other Error (no unknown ;-))
    *
    * Possible build errors
-   */	 
+   */
 	enum Error
 	{
 		CONFIG,
@@ -810,7 +810,7 @@ interface IAnjutaEnvironment
 	*
 	* Returns: FALSE if there is an error.
 	*/
-	gboolean override (gchar **dirp, gchar ***argvp, gchar ***envp); 
+	gboolean override (gchar **dirp, gchar ***argvp, gchar ***envp);
 
 	/**
 	* ianjuta_environment_get_real_directory:
@@ -825,20 +825,20 @@ interface IAnjutaEnvironment
 	*
 	* Returns: The directory path outside the environment
 	*/
-	gchar* get_real_directory (gchar *dir); 
+	gchar* get_real_directory (gchar *dir);
 }
 
 /**
  * SECTION:ianjuta-buildable
  * @title: IAnjutaBuildable
  * @short_description: Implemented by plugins that can build. This interface
- * will be replaced by #IAnjutaBuilder (for build functions) and 
+ * will be replaced by #IAnjutaBuilder (for build functions) and
  * #IAnjutaEnvironment for ianjuta_buildable_set_command,
  * ianjuta_buildable_reset_command and ianjuta_buildable_get_command.
- * @see_also: 
+ * @see_also:
  * @stability: Obsolete
  * @include: libanjuta/interfaces/ianjuta-buildable.h
- * 
+ *
  */
 interface IAnjutaBuildable
 {
@@ -853,12 +853,12 @@ interface IAnjutaBuildable
    * @IANJUTA_BUILDABLE_COMMAND_GENERATE: ./autogen.sh
    * @IANJUTA_BUILDABLE_COMMAND_CLEAN: make clean
    * @IANJUTA_BUILDABLE_COMMAND_EXECUTE: ./hello
-   * @IANJUTA_BUILDABLE_COMMAND_IS_BUILT: check whether object files are up-to-date      
+   * @IANJUTA_BUILDABLE_COMMAND_IS_BUILT: check whether object files are up-to-date
    * @IANJUTA_BUILDABLE_COMMAND_DISTCLEAN: make distclean
    * @IANJUTA_BUILDABLE_N_COMMANDS: size of enum
    *
    * The enumeration is used to speficy the disered build operation
-   */	 
+   */
 	enum Command
 	{
 		COMMAND_COMPILE,
@@ -874,8 +874,8 @@ interface IAnjutaBuildable
 		COMMAND_DISTCLEAN,
 		N_COMMANDS
 	}
-	
-	/** 
+
+	/**
 	* ianjuta_buildable_set_command:
 	* @obj: Self
 	* @command_id: Command to override.
@@ -885,20 +885,20 @@ interface IAnjutaBuildable
 	* Overrides the default command for the given command.
 	*/
 	void set_command (Command command_id, const gchar *command);
-	
-	/** 
+
+	/**
 	* ianjuta_buildable_get_command:
 	* @obj: Self
 	* @command_id: Command to get override.
 	* @err: Error propagation and reporting.
 	*
 	* Retrieves the currently set command override.
-	* 
+	*
 	* Returns: The overridden command. NULL if no override set.
 	*/
 	const gchar* get_command (Command command_id);
-	
-	/** 
+
+	/**
 	* ianjuta_buildable_reset_commands:
 	* @obj: Self
 	* @err: Error propagation and reporting.
@@ -906,8 +906,8 @@ interface IAnjutaBuildable
 	* Resets the command overrides to defaults.
 	*/
 	void reset_commands ();
-	
-	/** 
+
+	/**
 	* ianjuta_buildable_build:
 	* @obj: Self
 	* @uri: fixme
@@ -916,53 +916,53 @@ interface IAnjutaBuildable
 	* fixme
 	*/
 	void build (const gchar *uri);
-	
+
 	/**
 	* ianjuta_buildable_clean:
 	* @obj: Self
 	* @uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void clean (const gchar *uri);
-	
+
 	/**
 	* ianjuta_buildable_install:
 	* @obj: Self
 	* @uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void install (const gchar *uri);
-	
+
 	/**
 	* ianjuta_buildable_configure:
 	* @obj: Self
 	* @uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void configure (const gchar *uri);
-	
+
 	/**
 	* ianjuta_buildable_generate:
 	* @obj: Self
 	* @uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void generate (const gchar *uri);
-	
+
 	/**
 	* ianjuta_buildable_execute:
 	* @obj: Self
 	* @uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void execute (const gchar *uri);
@@ -972,10 +972,10 @@ interface IAnjutaBuildable
  * SECTION:ianjuta-help
  * @title: IAnjutaHelp
  * @short_description: Implemented by plugins that can provide help support
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-help.h
- * 
+ *
  */
 interface IAnjutaHelp
 {
@@ -985,7 +985,7 @@ interface IAnjutaHelp
 	* @obj: Self
 	* @query: string to search in the help
 	* @err: Error propagation and reporting
-	* 
+	*
 	* Search for string @query in the help and display the result
 	*/
 	void search (const gchar *query);
@@ -995,10 +995,10 @@ interface IAnjutaHelp
  * SECTION:ianjuta-loader
  * @title: IAnjutaLoader
  * @short_description: Interface to load file or stream
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-loader.h
- * 
+ *
  * Loaders can deterime correct plugin to open a file or stream.  They
  * themselves can not load it, but will correctly redirect the request to
  * an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
@@ -1012,19 +1012,19 @@ interface IAnjutaLoader
 	 * ianjuta_loader_find_plugins:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Returns: (element-type AnjutaPlugin): all plugins supporting loader interface.
 	 */
 	List<AnjutaPlugin*> find_plugins ();
-	
+
 	/**
 	 * SECTION:ianjuta-file-loader
 	 * @title: IAnjutaFileLoader
-	 * @short_description: Loader to load files 
-	 * @see_also: 
+	 * @short_description: Loader to load files
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-file-loader.h
-	 * 
+	 *
 	 * Loaders can deterime correct plugin to open a file.
 	 */
 	interface IAnjutaFileLoader
@@ -1039,11 +1039,11 @@ interface IAnjutaLoader
 		 *
 		 * Determines a plugin which can open the given file, activates it
 		 * opening the file and returns the interface of the plugin activated.
-		 * 
+		 *
 		 * Return value: Plugin interface used to load the file.
 		 */
 		GObject* load (GFile* file, gboolean readonly);
-		
+
 		/**
 		 * ianjuta_loader_peek_interface:
 		 * @obj: Self
@@ -1057,21 +1057,21 @@ interface IAnjutaLoader
 		 */
 		gchar* peek_interface (GFile* file);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-stream-loader
 	 * @title: IAnjutaStreamLoader
-	 * @short_description: Loader to load streams 
-	 * @see_also: 
+	 * @short_description: Loader to load streams
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-stream-loader.h
-	 * 
+	 *
 	 * StreamLoaders can deterime correct plugin to open a stream.
 	 */
 	interface IAnjutaStreamLoader
 	{
 		#include <stdio.h>
-		
+
 		/**
 		 * ianjuta_stream_loader_load:
 		 * @obj: Self
@@ -1081,11 +1081,11 @@ interface IAnjutaLoader
 		 *
 		 * Determines a plugin which can open the given stream, activates it
 		 * opening the stream and returns the interface of the plugin activated.
-		 * 
+		 *
 		 * Return value: Plugin interface used to load the stream.
 		 */
 		GObject* load (FILE *stream, gboolean readonly);
-		
+
 		/**
 		 * ianjuta_stream_loader_peek_interface:
 		 * @obj: Self
@@ -1106,17 +1106,17 @@ interface IAnjutaLoader
  * @title: IAnjutaDocument
  * @short_description: Interface for all kind of editable resources that
  * will be managed by IAnjutaDocumentManager
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-document.h
- * 
+ *
  */
 interface IAnjutaDocument
 {
 	/**
 	 * IAnjutaDocument::update-ui:
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when the document assumes the UI must be updated
 	 * because some internal state of the document has changed. For example, if
 	 * current line position is changed, it needs to be reflected to the UI.
@@ -1132,8 +1132,8 @@ interface IAnjutaDocument
 	 *
 	 * Return value: The name of the file. Not to be freed by caller.
 	 */
-	const gchar* get_filename ();	
-	
+	const gchar* get_filename ();
+
 	/**
 	 * ianjuta_document_can_undo:
 	 * @obj: Self
@@ -1144,7 +1144,7 @@ interface IAnjutaDocument
 	 * Returns: TRUE if editor can undo, else FALSE
 	 */
 	gboolean can_undo();
-	
+
 	/**
 	 * ianjuta_document_can_redo:
 	 * @obj: Self
@@ -1155,7 +1155,7 @@ interface IAnjutaDocument
 	 * Returns: TRUE if editor can redo, else FALSE
 	 */
 	gboolean can_redo ();
-	
+
 	/**
 	 * ianjuta_document_undo:
 	 * @obj: Self
@@ -1164,7 +1164,7 @@ interface IAnjutaDocument
 	 * Undo last operation
 	 */
 	void undo ();
-	
+
 	/**
 	 * ianjuta_document_redo:
 	 * @obj: Self
@@ -1183,7 +1183,7 @@ interface IAnjutaDocument
 	 * each must be ended with ianjuta_document_end_action().
 	 */
 	void begin_undo_action ();
-	
+
 	/**
 	 * ianjuta_document_end_undo_action:
 	 * @obj: Self
@@ -1192,7 +1192,7 @@ interface IAnjutaDocument
 	 * Ends the mark of undoable action.
 	 */
 	void end_undo_action ();
-	
+
 	/**
 	 * ianjuta_document_grab_focus:
 	 * @obj: Self
@@ -1201,7 +1201,7 @@ interface IAnjutaDocument
 	 * Grabs the focus.
 	 */
 	void grab_focus ();
-	
+
 	/**
 		 * ianjuta_document_cut:
 		 * @obj: Self
@@ -1210,7 +1210,7 @@ interface IAnjutaDocument
 		 * Cut selection to clipboard.
 		 */
 		void cut ();
-	
+
 		/**
 		 * ianjuta_document_copy:
 		 * @obj: Self
@@ -1219,7 +1219,7 @@ interface IAnjutaDocument
 		 * Copy selection to clipboard.
 		 */
 		void copy ();
-		
+
 		/**
 		 * ianjuta_document_paste:
 		 * @obj: Self
@@ -1228,7 +1228,7 @@ interface IAnjutaDocument
 		 * Paste clipboard at current position.
 		 */
 		void paste ();
-	
+
 		/**
 		 * ianjuta_document_clear:
 		 * @obj: Self
@@ -1243,16 +1243,16 @@ interface IAnjutaDocument
  * SECTION:ianjuta-editor
  * @title: IAnjutaEditor
  * @short_description: Text editor interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-editor.h
- * 
+ *
  */
 interface IAnjutaEditor
 {
 	#include <gtk/gtk.h>
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
-	
+
 	enum Error
 	{
 		DOESNT_EXIST
@@ -1260,7 +1260,7 @@ interface IAnjutaEditor
   /**
    * IAnjutaEditorAttribute:
    * @IANJUTA_EDITOR_TEXT: Normal text
-   * @IANJUTA_EDITOR_KEYWORD: A keyword of the programming language   
+   * @IANJUTA_EDITOR_KEYWORD: A keyword of the programming language
    * @IANJUTA_EDITOR_COMMENT: A comment
    * @IANJUTA_EDITOR_STRING: A string
    *
@@ -1280,18 +1280,18 @@ interface IAnjutaEditor
 	 * @position: The iter position where @ch is added.
 	 * @code: The code that has been added.
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when code is added inside the editor.
 	 * The newly added code is @code which has been inserted at @position.
 	 */
 	void   ::code_added (IAnjutaIterable *position, gchar *code);
-	
+
 	/**
 	 * IAnjutaEditor::char-added:
 	 * @position: The iter position where @ch is added.
 	 * @ch: The character that has been added.
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when any character is added inside the editor.
 	 * The newly added character is @ch which has been inserted at @position.
 	 */
@@ -1300,11 +1300,11 @@ interface IAnjutaEditor
 	/**
 	 * IAnjutaEditor::backspace:
 	 * @obj: Self
-	 * 
+	 *
 	 * The signal is emitted when the user presses backspace
 	 */
 	void   ::backspace ();
-	
+
 	/**
 	 * IAnjutaEditor::changed:
 	 * @position: The iter position where change happend.
@@ -1313,7 +1313,7 @@ interface IAnjutaEditor
 	 * @lines: Number of lines added or removed.
 	 * @text: The text added or removed.
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when any text change happens in editor.
 	 * The changes begin at @position. @text is not garanteed to be NULL
 	 * terminated. Use @length to read the text. @lines represent the
@@ -1334,11 +1334,11 @@ interface IAnjutaEditor
 	 * @obj: Self
 	 * @double_click: whether the line marks gutter was double clicked
 	 * @location: location of the clicked marker
-	 * 
+	 *
 	 * The signal is emitted when the user clicks on a marker
 	 */
 	void   ::line_marks_gutter_clicked (gint location);
-	
+
 	/**
 	 * ianjuta_editor_get_tabsize:
 	 * @obj: Self
@@ -1349,7 +1349,7 @@ interface IAnjutaEditor
 	 * Returns: tabsize in number of spaces
 	 */
 	gint   get_tabsize ();
-	
+
 	/**
 	 * ianjuta_editor_set_tabsize:
 	 * @obj: Self
@@ -1359,7 +1359,7 @@ interface IAnjutaEditor
 	 * Sets the tabsize of the editor.
 	 */
 	void   set_tabsize (gint tabsize);
-	
+
 	/**
 	 * ianjuta_editor_get_use_spaces:
 	 * @obj: Self
@@ -1370,7 +1370,7 @@ interface IAnjutaEditor
 	 * Returns: TRUE if yes, FALSE if no.
 	 */
 	gboolean   get_use_spaces ();
-	
+
 	/**
 	 * ianjuta_editor_set_use_space:
 	 * @obj: Self
@@ -1380,7 +1380,7 @@ interface IAnjutaEditor
 	 * Sets if the editor should use spaces for filling up tab characters.
 	 */
 	void   set_use_spaces (gboolean use_spaces);
-	
+
 	/**
 	 * ianjuta_editor_set_auto_indent:
 	 * @obj: Self
@@ -1391,7 +1391,7 @@ interface IAnjutaEditor
 	 * setting
 	 */
 	void set_auto_indent (gboolean auto_indent);
-	
+
 	/**
 	 * ianjuta_editor_erase_range:
 	 * @obj: Self
@@ -1408,7 +1408,7 @@ interface IAnjutaEditor
 	 * happend (usually the original @position_start position).
 	 */
 	void   erase (IAnjutaIterable *position_start, IAnjutaIterable *position_end);
-	
+
  	/**
 	 * ianjuta_editor_erase_all:
  	 * @obj: Self
@@ -1416,10 +1416,10 @@ interface IAnjutaEditor
  	 *
 	 * Empties the whole editor buffer. There will be zero characters.
 	 * After the erase operation, none of the active iters are guranteed
-	 * to be valid. 
+	 * to be valid.
  	 */
 	void   erase_all ();
-	
+
 	/**
 	 * ianjuta_editor_insert:
 	 * @obj: Self
@@ -1432,7 +1432,7 @@ interface IAnjutaEditor
 	 * editor buffer. If @length is -1, the whole @text is used.
 	 */
 	void   insert (IAnjutaIterable *position, const gchar *text, gint length);
-	
+
 	/**
 	 * ianjuta_editor_append:
 	 * @obj: Self
@@ -1444,7 +1444,7 @@ interface IAnjutaEditor
 	 * buffer. If @length is -1, the whole @text is used. @length is in bytes.
 	 */
 	void   append (const gchar *text, gint length);
-	
+
 	/**
 	 * ianjuta_editor_goto_line:
 	 * @obj: Self
@@ -1455,7 +1455,7 @@ interface IAnjutaEditor
 	 * bring it in viewable area of the editor.
 	 */
 	void   goto_line (gint lineno);
-	
+
 	/**
 	 * ianjuta_editor_goto_start:
 	 * @obj: Self
@@ -1465,7 +1465,7 @@ interface IAnjutaEditor
 	 * bring it in viewable area of the editor.
 	 */
 	void   goto_start ();
-	
+
 	/**
 	 * ianjuta_editor_goto_end:
 	 * @obj: Self
@@ -1475,7 +1475,7 @@ interface IAnjutaEditor
 	 * bring it in viewable area of the editor.
 	 */
 	void   goto_end ();
-	
+
 	/**
 	 * ianjuta_editor_goto_position:
 	 * @obj: Self
@@ -1486,7 +1486,7 @@ interface IAnjutaEditor
 	 * bring @position in viewable area of the editor.
 	 */
 	void goto_position (IAnjutaIterable *position);
-	
+
 	/**
 	 * ianjuta_editor_get_text:
 	 * @obj: Self
@@ -1518,7 +1518,7 @@ interface IAnjutaEditor
 	 * The returned buffer must be freed when no longer required.
 	 */
 	gchar* get_text_all ();
-	
+
 	/**
 	 * ianjuta_editor_line_from_position:
 	 * @obj: Self
@@ -1530,7 +1530,7 @@ interface IAnjutaEditor
 	 *
 	 */
 	int get_line_from_position (IAnjutaIterable *position);
-	
+
 	/**
 	 * ianjuta_editor_get_lineno:
 	 * @obj: Self
@@ -1541,7 +1541,7 @@ interface IAnjutaEditor
 	 * Return value: Line number.
 	 */
 	gint   get_lineno ();
-	
+
 	/**
 	 * ianjuta_editor_get_length:
 	 * @obj: Self
@@ -1553,7 +1553,7 @@ interface IAnjutaEditor
 	 * Return value: Text length.
 	 */
 	gint   get_length ();
-	
+
 	/**
 	 * ianjuta_editor_get_current_word:
 	 * @obj: Self
@@ -1575,7 +1575,7 @@ interface IAnjutaEditor
 	 * Return value: Current column.
 	 */
 	gint get_column ();
-	
+
 	/**
 	 * ianjuta_editor_get_line_begin_position:
 	 * @obj: Self
@@ -1587,7 +1587,7 @@ interface IAnjutaEditor
 	 * Returns: (transfer full): fixme
 	 */
 	IAnjutaIterable* get_line_begin_position (gint line);
-	
+
 	/**
 	 * ianjuta_editor_get_line_end_position:
 	 * @obj: Self
@@ -1599,7 +1599,7 @@ interface IAnjutaEditor
 	 * Returns: (transfer full): fixme
 	 */
 	IAnjutaIterable *get_line_end_position (gint line);
-	
+
 	/**
 	 * ianjuta_editor_get_overwrite:
 	 * @obj: Self
@@ -1610,8 +1610,8 @@ interface IAnjutaEditor
 	 * Return value: editor mode.
 	 */
 	gboolean get_overwrite ();
-	
-	
+
+
 	/**
 	 * ianjuta_editor_set_popup_menu:
 	 * @obj: Self
@@ -1623,7 +1623,7 @@ interface IAnjutaEditor
 	 *
 	 */
 	void set_popup_menu (GtkWidget *menu);
-	
+
 	/*
 	 * ianjuta_editor_get_offset:
 	 * @obj: Self
@@ -1635,7 +1635,7 @@ interface IAnjutaEditor
 	 * Returns: Current character position since the begining of file.
 	 */
 	gint   get_offset ();
-	
+
 	/**
 	 * ianjuta_editor_get_position:
 	 * @obj: Self
@@ -1646,7 +1646,7 @@ interface IAnjutaEditor
 	 * Returns: (transfer full): Iterator that points to the current position.
 	 */
 	IAnjutaIterable*   get_position ();
-	
+
 	/**
 	 * ianjuta_editor_get_position_from_offset:
 	 * @obj: Self
@@ -1663,12 +1663,12 @@ interface IAnjutaEditor
      * The iter must be unreferrenced by the caller when done.
 	 * The iter navigates (next/previous) in step of unicode
 	 * characters (one unicode character == one cell).
-	 * 
+	 *
 	 * Retrun value: a newly created iter of IAnjutaEditorCell placed at the
 	 * given @offset position.
 	 */
 	IAnjutaIterable* get_position_from_offset (gint offset);
-	
+
 	/**
 	 * ianjuta_editor_get_start_position:
 	 * @obj: Self
@@ -1679,7 +1679,7 @@ interface IAnjutaEditor
 	 * Return value: Cell iter set to the begining of the editor.
 	 */
 	IAnjutaIterable* get_start_position ();
-	
+
 	/**
 	 * ianjuta_editor_get_end_position:
 	 * @obj: Self
@@ -1689,7 +1689,7 @@ interface IAnjutaEditor
 	 * returned iter is the end-iter which does not point to any valid
 	 * character in the buffer (it is pointed one step beyond the last
 	 * valid character).
-	 * 
+	 *
 	 * Retrun value: Cell iter set to the end of the editor (end-iter).
 	 */
 	IAnjutaIterable* get_end_position ();
@@ -1698,10 +1698,10 @@ interface IAnjutaEditor
 	 * SECTION:ianjuta-editor-selection
 	 * @title: IAnjutaEditorSelection
 	 * @short_description: Text editor selection interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-selection.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorSelection
 	{
@@ -1714,24 +1714,24 @@ interface IAnjutaEditor
 		 * Returns TRUE if editor has any text selected. The selection
 		 * positions can be retrieved with ianjuta_editor_selection_get_start()
 		 * and ianjuta_editor_selection_get_end().
-		 * 
+		 *
 		 * Returns: TRUE if there is text selected else FALSE.
 		 */
 		gboolean has_selection ();
-		
+
 		/**
 		 * ianjuta_editor_selection_get:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
 		 * Gets curerntly selected text in editor.
-		 * 
+		 *
 		 * Returns: A newly allocated buffer of currently selected characters.
 		 * NULL if there is no selection. The returned buffer must be freed after
 		 * use.
 		 */
 		gchar* get ();
-		
+
 		/**
 		 * ianjuta_editor_selection_set:
 		 * @obj: Self
@@ -1744,7 +1744,7 @@ interface IAnjutaEditor
 		 * be ordered.
 		 */
 		void set (IAnjutaIterable* start, IAnjutaIterable* end, gboolean scroll);
-		
+
 		/**
 		 * ianjuta_editor_selection_get_start:
 		 * @obj: Self
@@ -1755,7 +1755,7 @@ interface IAnjutaEditor
 		 * Return: Start of selection or NULL if there is no selection.
 		 */
 		IAnjutaIterable* get_start ();
-		
+
 		/**
 		 * ianjuta_editor_selection_get_end:
 		 * @obj: Self
@@ -1763,7 +1763,7 @@ interface IAnjutaEditor
 		 *
 		 * Get end position of selection. If there is no selection, returns
 		 * NULL.
-		 * 
+		 *
 		 * Returns: End of selection or NULL if there is no selection.
 		 */
 		IAnjutaIterable* get_end ();
@@ -1779,7 +1779,7 @@ interface IAnjutaEditor
 		 * method does not do anything.
 		 */
 		void select_block ();
-		
+
 		/**
 		 * ianjuta_editor_selection_select_function:
 		 * @obj: Self
@@ -1791,7 +1791,7 @@ interface IAnjutaEditor
 		 * method does not do anything.
 		 */
 		void select_function ();
-		
+
 		/**
 		 * ianjuta_editor_edit_select_all:
 		 * @obj: Self
@@ -1813,20 +1813,20 @@ interface IAnjutaEditor
 		 */
 		void replace (const gchar *text, gint length);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-search
 	 * @title: IAnjutaEditorSearch
 	 * @short_description: Text editor search interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-search.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorSearch
 	{
 	  #include <libanjuta/interfaces/ianjuta-editor-cell.h>
-		
+
 		/**
 		 * ianjuta_editor_search_forward:
 		 * @obj: Self
@@ -1841,11 +1841,11 @@ interface IAnjutaEditor
 	 	 *
 	 	 */
 		gboolean forward (const gchar* search, gboolean case_sensitive, IAnjutaEditorCell* start, IAnjutaEditorCell* end, IAnjutaEditorCell** result_start, IAnjutaEditorCell** result_end);
-				
+
 		/**
 		 * ianjuta_editor_search_backward:
 		 * @obj: Self
-		 * @search: String to search for		 
+		 * @search: String to search for
 		 * @start: Where to search from
 		 * @end: Where to stop searching
 		 * @result_start: Will be set to the start of the search_result (or NULL)
@@ -1855,19 +1855,19 @@ interface IAnjutaEditor
 		 * Search backward from end to start
 		 *
 		 */
-		 
-		 gboolean backward (const gchar* search, gboolean case_sensitive, IAnjutaEditorCell* start, IAnjutaEditorCell* end, IAnjutaEditorCell** result_start, IAnjutaEditorCell** result_end);	
+
+		 gboolean backward (const gchar* search, gboolean case_sensitive, IAnjutaEditorCell* start, IAnjutaEditorCell* end, IAnjutaEditorCell** result_start, IAnjutaEditorCell** result_end);
 	}
-	
-	
+
+
 	/**
 	 * SECTION:ianjuta-editor-convert
 	 * @title: IAnjutaEditorConvert
 	 * @short_description: Text editor convert interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-convert.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorConvert
 	{
@@ -1882,7 +1882,7 @@ interface IAnjutaEditor
 		 *
 		 */
 		void to_upper (IAnjutaIterable *start_position, IAnjutaIterable *end_position);
-		
+
 		/**
 		 * ianjuta_editor_convert_to_lower:
 		 * @obj: Self
@@ -1895,15 +1895,15 @@ interface IAnjutaEditor
 		 */
 		void to_lower (IAnjutaIterable *start_position, IAnjutaIterable *end_position);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-line-mode
 	 * @title: IAnjutaEditorLineMode
 	 * @short_description: Text editor line mode
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-line-mode.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorLineMode
 	{
@@ -1911,7 +1911,7 @@ interface IAnjutaEditor
    * IAnjutaEditorLineModeType:
    * @IANJUTA_EDITOR_LINE_MODE_LF: Line-Feed (Unix)
    * @IANJUTA_EDITOR_LINE_MODE_CR: Carat return (Max)
-   * @IANJUTA_EDITOR_LINE_MODE_CRLF: Caret return + line-feed (Windows)   
+   * @IANJUTA_EDITOR_LINE_MODE_CRLF: Caret return + line-feed (Windows)
    *
    * This enumeration is used to specify the type of text. Note that not all
    * editors implement this.
@@ -1922,7 +1922,7 @@ interface IAnjutaEditor
 			CR,
 			CRLF
 		}
-		
+
 		/**
 		 * ianjuta_editor_line_mode_get:
 		 * @obj: Self
@@ -1932,7 +1932,7 @@ interface IAnjutaEditor
 		 * buffer contents.
 		 */
 		Type get ();
-		
+
 		/**
 		 * ianjuta_editor_line_mode_set:
 		 * @obj: Self
@@ -1955,7 +1955,7 @@ interface IAnjutaEditor
 		 * characters in the buffer to @mode line end characters.
 		 */
 		void convert (Type mode);
-		
+
 		/**
 		 * ianjuta_editor_line_mode_fix:
 		 * @obj: Self
@@ -1966,15 +1966,15 @@ interface IAnjutaEditor
 		 */
 		void fix ();
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-tip
 	 * @title: IAnjutaEditorTip
 	 * @short_description: Editor call tips assistance framework
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-tip.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorTip
 	{
@@ -1994,7 +1994,7 @@ interface IAnjutaEditor
 		 *
 		 */
 		void show (List<const gchar*> tips, IAnjutaIterable *position);
-		
+
 		/**
 		 * ianjuta_editor_tip_cancel
 		 * @obj: Self
@@ -2003,13 +2003,13 @@ interface IAnjutaEditor
 		 * Cancels the last shown tooltip
 		 */
 		void cancel ();
-		
+
 		/**
 		 * ianjuta_editor_tip_visible:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
-		 * 
-		 * Returns: whether a tooltip is crrently shown		
+		 *
+		 * Returns: whether a tooltip is crrently shown
 		 */
 		gboolean visible();
 	}
@@ -2018,15 +2018,15 @@ interface IAnjutaEditor
 	 * SECTION:ianjuta-editor-assist
 	 * @title: IAnjutaEditorAssist
 	 * @short_description: Text editor assist interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-assist
-	 * 
+	 *
 	 */
   interface IAnjutaEditorAssist
 	{
      #include <libanjuta/interfaces/ianjuta-provider.h>
-     
+
      struct Proposal
      {
         gchar* label;
@@ -2036,17 +2036,17 @@ interface IAnjutaEditor
         GdkPixbuf* icon;
         gpointer data;
      }
-     
+
      /**
 	 * IAnjutaEditorAssist::cancelled
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when the autocompletion is cancelled due to various
 	 * reasons. The provider should avoid to call ianjuta_editor_assist_proposals() after
 	 * this signal.
 	 */
 	 void   ::cancelled ();
-     
+
      /*
       * ianjuta_editor_assist_add
       * @obj: self
@@ -2066,7 +2066,7 @@ interface IAnjutaEditor
       * Remove a provider from the list of completion providers
       */
       void remove(IAnjutaProvider* provider);
-      
+
      /*
       * ianjuta_editor_assist_invoke
       * @obj: self
@@ -2078,7 +2078,7 @@ interface IAnjutaEditor
       * provider.
       */
       void invoke(IAnjutaProvider* provider);
-      
+
      /**
       * ianjuta_editor_assist_proposals:
       * @obj: self
@@ -2095,20 +2095,20 @@ interface IAnjutaEditor
       */
       void proposals(IAnjutaProvider* provider, GList* proposals, gboolean finished);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-hover
 	 * @title: IAnjutaEditorHover
 	 * @short_description: Text editor hover interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-hover
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorHover
 	{
 	  #include <libanjuta/interfaces/ianjuta-iterable.h>
-	  
+
 	  /* IAnjutaEditorHover::hover-over:
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse is over
@@ -2122,11 +2122,11 @@ interface IAnjutaEditor
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse was over
 		 *
-		 * User moved the mouse away - can be used to clean up things done in 
+		 * User moved the mouse away - can be used to clean up things done in
 		 * #IAnjutaEditorHover::hover-over
 		 */
 		void ::hover_leave (IAnjutaIterable* position);
-		
+
 		/**
 		 * ianjuta_editor_hover_display:
 		 * @obj: Self
@@ -2138,15 +2138,15 @@ interface IAnjutaEditor
 		 */
 		void display (IAnjutaIterable* position, const gchar *info);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-language
 	 * @title: IAnjutaEditorLanguage
 	 * @short_description: Text editor language interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-language.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorLanguage
 	{
@@ -2157,7 +2157,7 @@ interface IAnjutaEditor
 		 * the language of the editor changed to @language
 		 */
 		void ::language_changed (const gchar *language);
-		
+
 		/**
 		 * ianjuta_editor_language_get_supported_languages:
 		 * @obj: Self
@@ -2168,9 +2168,9 @@ interface IAnjutaEditor
 		 * the editor implementation knows them
 		 * Returns: (element-type utf8):
 		 */
-		
+
 		const List<const gchar*> get_supported_languages ();
-		
+
 		/**
 		 * ianjuta_editor_language_name:
 		 * @obj: Self
@@ -2181,7 +2181,7 @@ interface IAnjutaEditor
 		 */
 
 		const gchar *get_language_name (const gchar* language);
-		
+
 		/**
 		 * ianjuta_editor_language_get_language:
 		 * @obj: Self
@@ -2192,7 +2192,7 @@ interface IAnjutaEditor
 		 */
 
 		const gchar *get_language ();
-		
+
 		/**
 		 * ianjuta_editor_language_set_language:
 		 * @obj: Self
@@ -2202,18 +2202,18 @@ interface IAnjutaEditor
 		 * Force the editor to use a given language
 		 *
 		 */
-		
+
 		void set_language (const gchar* language);
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-folds
 	 * @title: IAnjutaEditorFolds
 	 * @short_description: Text editor folds inteface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-folds.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorFolds
 	{
@@ -2226,7 +2226,7 @@ interface IAnjutaEditor
 		 *
 		 */
 		void open_all ();
-		
+
 		/**
 		 * ianjuta_editor_view_close_folds:
 		 * @obj: Self
@@ -2236,7 +2236,7 @@ interface IAnjutaEditor
 		 *
 		 */
 		void close_all ();
-		
+
 		/**
 		 * ianjuta_editor_view_toggle_fold:
 		 * @obj: Self
@@ -2247,15 +2247,15 @@ interface IAnjutaEditor
 		 */
 		void toggle_current ();
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-view
 	 * @title: IAnjutaEditorView
 	 * @short_description: Text editor view interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-view.h
-	 * 
+	 *
 	 * An editor view is a visual representation of the editor. An editor
 	 * can have multiple views. All views of an editor show the same editor
 	 * content (buffer). Consequently, any change done in one view is
@@ -2272,7 +2272,7 @@ interface IAnjutaEditor
 		 * the user focus and scrolls to the same location as last view.
 		 */
 		void create ();
-		
+
 		/**
 		 * ianjuta_editor_view_remove_current:
 		 * @obj: Self
@@ -2283,7 +2283,7 @@ interface IAnjutaEditor
 		 * one view of the editor, this function does nothing.
 		 */
 		void remove_current ();
-		
+
 		/**
 		 * ianjuta_editor_view_get_count:
 		 * @obj: Self
@@ -2294,15 +2294,15 @@ interface IAnjutaEditor
 		 */
 		gint get_count ();
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-comment
 	 * @title: IAnjutaEditorComment
 	 * @short_description: Text editor comment interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-comment.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorComment
 	{
@@ -2314,7 +2314,7 @@ interface IAnjutaEditor
 		 * Comment/Uncomment out selected block
 		 */
 		void block();
-		
+
 		/**
 		 * ianjuta_editor_comment_box:
 		 * @obj: Self
@@ -2323,7 +2323,7 @@ interface IAnjutaEditor
 		 * Comment/Uncomment out selected block
 		 */
 		void box();
-		
+
 		/**
 		 * ianjuta_editor_comment_stream:
 		 * @obj: Self
@@ -2333,15 +2333,15 @@ interface IAnjutaEditor
 		 */
 		void stream();
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-zoom
 	 * @title: IAnjutaEditorZoom
 	 * @short_description: Text editor zoom interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-zoom.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorZoom
 	{
@@ -2353,7 +2353,7 @@ interface IAnjutaEditor
 		 * Zoom in
 		 */
 		void in ();
-		
+
 		/**
 		 * ianjuta_editor_zoom_out:
 		 * @obj: Self
@@ -2363,15 +2363,15 @@ interface IAnjutaEditor
 		 */
 		void out ();
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-goto
 	 * @title: IAnjutaEditorGoto
 	 * @short_description: Text editor navigation interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-goto.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorGoto
 	{
@@ -2383,7 +2383,7 @@ interface IAnjutaEditor
 		 * Moves cursor to the start of the current block
 		 */
 		void start_block();
-		
+
 		/**
 		 * ianjuta_editor_goto_end_block:
 		 * @obj: Self
@@ -2401,17 +2401,17 @@ interface IAnjutaEditor
 		 * Moves cursor to matching brace
 		 */
 		void matching_brace();
-		
+
 	}
-	
+
 	/**
 	 * SECTION:ianjuta-editor-glade-signal
 	 * @title: IAnjutaEditorGladeSignal
 	 * @short_description: Interface for dropping signal handlers
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-goto.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorGladeSignal
 	{
@@ -2424,7 +2424,7 @@ interface IAnjutaEditor
 		 * Return value: TRUE if a signal handler can be dropped, FALSE otherwise
 		 */
 		gboolean ::drop_possible (IAnjutaIterable* iterator);
-		
+
 		/* IAnjutaEditorGladeSignal::drop
 		 * @obj: self
 		 * @iter: a IAnjutaIterable of the position where drop happens
@@ -2435,17 +2435,17 @@ interface IAnjutaEditor
 		 *
 		 */
 		void ::drop (IAnjutaIterable* iterator, const gchar* signal_data);
-	}	
+	}
 }
 
 /**
  * SECTION:ianjuta-editor-cell
  * @title: IAnjutaEditorCell
  * @short_description: Text editor character cell
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-editor-cell.h
- * 
+ *
  * Represents a cell in editor. A cell corresponds to a unicode
  * character along with all associated styles (such as colors and font).
  * A cell may or may not have style. If style is supported in the
@@ -2456,7 +2456,7 @@ interface IAnjutaEditor
 interface IAnjutaEditorCell
 {
 	#include <libanjuta/interfaces/ianjuta-editor.h>
-	
+
 	/**
 	 * ianjuta_editor_cell_get_character:
 	 * @obj: Self
@@ -2465,12 +2465,12 @@ interface IAnjutaEditorCell
 	 * Returns the unicode character in this cell. A NULL terminated
 	 * string is returned that is the multibyte unicode character.
 	 * NULL is returned if the cell does not have any character.
-	 * 
+	 *
 	 * Returns: a newly created string representing the cell's unicode
 	 * character.
 	 */
 	gchar *get_character ();
-	
+
 	/**
 	 * ianjuta_editor_cell_get_length:
 	 * @obj: self
@@ -2478,7 +2478,7 @@ interface IAnjutaEditorCell
 	 *
 	 * Gets the length of the cell in bytes. That is, length of the
 	 * unicode character.
-	 * 
+	 *
 	 * Returns: Length of the unicode character.
 	 */
 	gint get_length ();
@@ -2492,25 +2492,25 @@ interface IAnjutaEditorCell
 	 * index @char_index. @char_index can vary from 0 to length of the
 	 * unicode string minus 1. Out of range index is not allowed
 	 * (asserted) and return is undefined.
-	 * 
+	 *
 	 * Since there is dynamic allocation of unicode character string
 	 * involved in ianjuta_editor_cell_get_character(), this function
 	 * is mainly useful for fast iteration (such as copying data).
-	 * 
+	 *
 	 * Returns: a byte character.
 	 */
 	gchar get_char (gint char_index);
-	
+
 	IAnjutaEditorAttribute get_attribute ();
-	
+
 	/**
 	 * SECTION:ianjuta-editor-cell-style
 	 * @title: IAnjutaEditorCellStyle
 	 * @short_description: Text editor cell style interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-editor-cell-style.h
-	 * 
+	 *
 	 */
 	interface IAnjutaEditorCellStyle
 	{
@@ -2524,16 +2524,16 @@ interface IAnjutaEditorCell
  * SECTION:ianjuta-editor-factory
  * @title: IAnjutaEditorFactory
  * @short_description: Text editor factory that creates IAnjutaEditor objects
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-editor-factory.h
- * 
+ *
  */
 interface IAnjutaEditorFactory
 {
 	#include "ianjuta-editor.h"
 	#include <gio/gio.h>
-	
+
 	/**
 	 * ianjuta_editor_factory_new_editor:
 	 * @obj: Self
@@ -2552,7 +2552,7 @@ interface IAnjutaEditorFactory
  * SECTION:ianjuta-provider
  * @title: IAnjutaProvider
  * @short_description: Provider for autocompletion features
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-provider.h
  */
@@ -2610,24 +2610,24 @@ interface IAnjutaProvider
  * SECTION:ianjuta-document-manager
  * @title: IAnjutaDocumentManager
  * @short_description: Interface for plugin that manages all the editors
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-document-manager.h
- * 
+ *
  */
 interface IAnjutaDocumentManager
 {
 	#include "ianjuta-document.h"
 	#include "ianjuta-editor.h"
 	#include <gio/gio.h>
-	
+
 	/**
 	* IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT
 	*
 	* Anjuta shell value set by document manager to the current document
 	*/
 	#define CURRENT_DOCUMENT		"document_manager_current_document"
-	
+
 	enum Error
 	{
 		DOESNT_EXIST
@@ -2638,76 +2638,76 @@ interface IAnjutaDocumentManager
 	 * @obj: Self
 	 * @filename: short filename
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Given the short filename, finds the file of the filename, if the
 	 * editor that has it loaded is found. If there is no editor that has
 	 * this file opened, returns NULL.
-	 * 
+	 *
 	 * Return value: (transfer full): the GFile for the given short filename
 	 */
 	GFile* get_file (const gchar *filename);
-	
+
 	/**
 	 * ianjuta_document_manager_find_document_with_file:
 	 * @obj: Self
 	 * @file: The file to find.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Finds the document that has the file  loaded. Only
 	 * the editor that matches the file will be searched.
-	 * 
+	 *
 	 * Return value: (transfer none): the document that corresponds to given file. NULL if
 	 * there is no editor loaded with this file.
 	 */
 	IAnjutaDocument* find_document_with_file (GFile* file);
-	
+
 	/**
 	 * ianjuta_document_manager_goto_file_line:
 	 * @obj: Self
 	 * @file: file to go to.
 	 * @lineno: the line number in the file to go to.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Loads the given file if not loaded yet, set its editor as current editor
 	 * and moves cursor to the given line in the editor.
-	 * 
+	 *
 	 * Return value: (transfer none): the editor where the mark has been put. NULL if none.
 	 */
 	IAnjutaEditor* goto_file_line (GFile* file, gint lineno);
-	
-	/** 
+
+	/**
 	 * ianjuta_document_manager_goto_file_line_mark:
 	 * @obj: Self
 	 * @file: file to go to.
 	 * @lineno: the line number in the file to go to.
 	 * @mark: TRUE if the line should be marked with a marker.
 	 * @err: Error propagation and reporting
-	 * 
+	 *
 	 * Loads the given file if not loaded yet, set its editor as current editor
 	 * and moves cursor to the given line in the editor. Optionally also marks
 	 * the line with line marker if @mark is given TRUE.
-	 * 
+	 *
 	 * Return value: (transfer none): the editor where the mark has been put. NULL if none.
 	 */
 	IAnjutaEditor* goto_file_line_mark (GFile* file, gint lineno, gboolean mark);
-	
+
 	/**
 	 * ianjuta_document_manager_get_current_document:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Gets the current document.
-	 * 
+	 *
 	 * Return value: (transfer none): the currently active document. NULL if none is there.
 	 */
 	IAnjutaDocument* get_current_document ();
-	
-	/** 
+
+	/**
 	* ianjuta_document_manager_set_current_document:
 	* @obj: Self
 	* @document: the document to set as current.
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Sets the given document as current document.
 	*/
 	void set_current_document (IAnjutaDocument *document);
@@ -2716,7 +2716,7 @@ interface IAnjutaDocumentManager
 	 * ianjuta_document_manager_get_doc_widgets:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Gets a list of widgets for open documents. Each widget is
 	 * a GTK_WIDGET(IAnjutaDocument*)
 	 *
@@ -2732,14 +2732,14 @@ interface IAnjutaDocumentManager
 	 * @name: Name of the editor buffer.
 	 * @content: Initial content of the buffer.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Creates a new editor buffer of the given name and sets the given
 	 * content as its initial content.
-	 * 
+	 *
 	 * Return value: (transfer full): the IAnjutaEditor instance that has been added.
 	 */
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
-	
+
 	/**
 	* ianjuta_document_manager_remove_document:
 	* @obj: Self
@@ -2765,7 +2765,7 @@ interface IAnjutaDocumentManager
 	*
 	*/
 	void add_document (IAnjutaDocument* document);
-	
+
 	/*
 	 * ianjuta_document_manager_add_bookmark:
 	 * @obj: Self
@@ -2781,10 +2781,10 @@ interface IAnjutaDocumentManager
  * SECTION:ianjuta-message-view
  * @title: IAnjutaMessageView
  * @short_description: A view where messages of different kind can be shown
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-message-view.h
- * 
+ *
  */
 interface IAnjutaMessageView
 {
@@ -2804,7 +2804,7 @@ interface IAnjutaMessageView
 		TYPE_WARNING,
 		TYPE_ERROR
 	}
-	
+
 	/**
 	* IAnjutaMessageView::message-clicked:
 	* @obj: Self
@@ -2813,27 +2813,27 @@ interface IAnjutaMessageView
 	* Emitted when the user clicks on a message
 	*/
 	void ::message_clicked (const gchar *message);
-	
-	/** 
+
+	/**
 	* IAnjutaMessageView::buffer-flushed:
 	* @obj: Self
 	* @line: the current line
-	* 
+	*
 	* Emitted when #ianjuta_message_view_buffer_append found a newline
 	*/
 	void ::buffer_flushed (const gchar *line);
-	
+
 	/**
 	* ianjuta_message_view_buffer_append:
 	* @obj: Self
 	* @text: text to show as message
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Appends the text in buffer. Flushes the buffer where a newline is found.
   * by emiiting buffer_flushed signal. The string is expected to be utf8.
   */
 	void buffer_append (const gchar *text);
-	
+
 	/**
 	* ianjuta_message_view_append:
 	* @obj: Self
@@ -2841,52 +2841,52 @@ interface IAnjutaMessageView
 	* @summary: summary of the message
 	* @details: details of the message
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Append the message with summary displayed and details displayed as tooltip
 	*/
 	void append (Type type, const gchar *summary, const gchar *details);
-	
+
 	/**
 	* ianjuta_message_view_clear:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Clear all messages in buffer
 	*/
 	void clear ();
-	
+
 	/**
 	* ianjuta_message_view_select_next:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Select next message (of type INFO, WARNING or ERROR)
 	*/
 	void select_next ();
-	
+
 	/**
 	* ianjuta_message_view_select_previous:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Select previous message
 	*/
 	void select_previous ();
-	
+
 	/**
 	* ianjuta_message_view_get_current_message:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the currently selected message
 	*/
 	const gchar* get_current_message ();
-	
+
 	/**
 	 * ianjuta_message_view_get_all_messages:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Get a list of all messages. The list has to be freed
 	 * Returns: (element-type utf8):
 	 */
@@ -2897,10 +2897,10 @@ interface IAnjutaMessageView
  * SECTION:ianjuta-message-manager
  * @title: IAnjutaMessageManager
  * @short_description: The plugin that managers all message views
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-message-manager.h
- * 
+ *
  */
 interface IAnjutaMessageManager
 {
@@ -2923,7 +2923,7 @@ interface IAnjutaMessageManager
 	 * Return value: The new message-view
 	 */
 	IAnjutaMessageView* add_view (const gchar *name, const gchar *icon);
-	
+
 	/**
 	 * ianjuta_message_manager_remove_view:
 	 * @obj: Self
@@ -2934,20 +2934,20 @@ interface IAnjutaMessageManager
 	 * will become invalid.
 	 */
 	void remove_view (IAnjutaMessageView *view);
-	
+
 	/**
 	 * ianjuta_message_manager_get_current_view:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Get the view with is currently on top of 
+	 * Get the view with is currently on top of
 	 * the notebook or NULL if the message-manager is empty.
 	 *
 	 * Return value: Current view; #IAnjutaMessageView object.
 	 * NULL, if there is no views.
 	 */
 	IAnjutaMessageView* get_current_view ();
-	
+
 	/**
 	 * ianjuta_message_manager_get_view_by_name:
 	 * @obj: Self
@@ -2960,7 +2960,7 @@ interface IAnjutaMessageManager
 	 * Return value: The message-view or NULL
 	 */
 	IAnjutaMessageView* get_view_by_name (const gchar *name);
-	
+
 	/**
 	 * ianjuta_message_manager_get_all_views:
 	 * @obj: Self
@@ -2972,7 +2972,7 @@ interface IAnjutaMessageManager
 	 * manipulate the list.
 	 */
 	List<IAnjutaMessageView*> get_all_views ();
-	
+
 	/**
 	 * ianjuta_message_manager_set_current_view:
 	 * @obj: Self
@@ -2983,7 +2983,7 @@ interface IAnjutaMessageManager
 	 *
 	 */
 	void set_current_view (IAnjutaMessageView *view);
-	
+
 	/**
 	 * ianjuta_message_manager_set_view_title:
 	 * @obj: Self
@@ -3025,56 +3025,56 @@ interface IAnjutaMessageManager
  * SECTION:ianjuta-file-manager
  * @title: IAnjutaFileManager
  * @short_description: File manager plugin
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-file-manager.h
- * 
+ *
  */
 interface IAnjutaFileManager
 {
 	#include <gio/gio.h>
-	
+
 	/**
 	* IANJUTA_FILE_MANAGER_SELECTED_FILE
 	*
 	* Anjuta shell value set by file manager to the selected file.
 	*/
 	#define SELECTED_FILE		"file_manager_selected_file"
-	
+
 	/**
 	* IAnjutaFileManager::section-changed:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void ::section_changed (GFile* file);
-	
+
 	/**
 	* ianjuta_file_manager_set_root:
 	* @obj: Self
 	* @root_uri: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void set_root (const gchar *root_uri);
-	
+
 	/**
 	* ianjuta_file_manager_get_selected:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	GFile* get_selected ();
-	
+
 	/**
 	* ianjuta_file_manager_set_selected:
 	* @obj: Self
 	* @file: File to select
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme.
 	*/
 	void set_selected (GFile* file);
@@ -3084,10 +3084,10 @@ interface IAnjutaFileManager
  * SECTION:ianjuta-terminal
  * @title: IAnjutaTerminal
  * @short_description: Interface for command line terminals
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-terminal.h
- * 
+ *
  */
 interface IAnjutaTerminal
 {
@@ -3103,7 +3103,7 @@ interface IAnjutaTerminal
 	*/
 	void ::child_exited (gint pid, gint status);
 
-		
+
 	/**
 	* ianjuta_terminal_execute_command:
 	* @obj: Self
@@ -3114,7 +3114,7 @@ interface IAnjutaTerminal
 	*
 	* Run the command in a terminal, setting the working directory
 	* and environment variables.
-	* 
+	*
 	* Returns: Process ID
 	*/
 	pid_t execute_command (const gchar* directory, const gchar *command, gchar **environment);
@@ -3124,10 +3124,10 @@ interface IAnjutaTerminal
  * SECTION:ianjuta-project
  * @title: IAnjutaProject
  * @short_description: Interface implemented by project backend
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-project-backend.h
- * 
+ *
  * This is the new interface that is replacing Gnome Build.
  */
 interface IAnjutaProject
@@ -3154,12 +3154,12 @@ interface IAnjutaProject
 	}
 
 	/* Signals */
-	
+
 	/**
 	* IAnjutaProject::file-changed:
 	* @obj: Self
 	* @node: Node to be reloaded.
-	* 
+	*
 	* This signal is emitted when the project is changed on the disk. The
 	* corresponding node has to be reloaded.
 	*/
@@ -3170,7 +3170,7 @@ interface IAnjutaProject
 	* @obj: Self
 	* @node: Changed node.
     * @error: Error while changing node
-	* 
+	*
 	* This signal is emitted when a node is changed by a function of this
 	* interface. The error argument is not NULL if the change was not
  	* possible. The corresponding node need to be saved.
@@ -3182,7 +3182,7 @@ interface IAnjutaProject
 	* @obj: Self
 	* @node: Saved node.
     * @error: Error while saving node
-	* 
+	*
 	* This signal is emitted when a node is saved. It returns an error if the
  	* save operation fail.
 	*/
@@ -3193,7 +3193,7 @@ interface IAnjutaProject
 	* @obj: Self
 	* @node: Loaded node.
     * @error: Error while loading node
-	* 
+	*
 	* This signal is emitted when a node is loaded. It returns an error if the
  	* load operation fail.
 	*/
@@ -3319,7 +3319,7 @@ interface IAnjutaProject
 	 * containing information on all node supported by the project.
 	 */
 	const List<AnjutaProjectNodeInfo *> get_node_info();
-	
+
 	/**
 	 * ianjuta_project_is_loaded:
 	 * @obj: Self
@@ -3336,15 +3336,15 @@ interface IAnjutaProject
  * SECTION:ianjuta-project-backend
  * @title: IAnjutaProjectBackend
  * @short_description: Interface for creating new project
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-project-backend.h
- * 
+ *
  */
 interface IAnjutaProjectBackend
 {
 	#include "ianjuta-project.h"
-	
+
 	/**
 	 * ianjuta_project_backend_new_project:
 	 * @obj: Self
@@ -3358,7 +3358,7 @@ interface IAnjutaProjectBackend
 	 */
 	IAnjutaProject* new_project (GFile *file);
 
-	
+
 	/**
 	 * ianjuta_project_backend_probe:
 	 * @obj: Self
@@ -3378,17 +3378,17 @@ interface IAnjutaProjectBackend
  * SECTION:ianjuta-project-manager
  * @title: IAnjutaProjectManager
  * @short_description: Interface for project managers
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-project-manager.h
- * 
+ *
  */
 interface IAnjutaProjectManager
 {
 
 	#include <libanjuta/anjuta-project.h>
 	#include <libanjuta/interfaces/ianjuta-project.h>
-	
+
 	/**
 	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI
 	*
@@ -3417,7 +3417,7 @@ interface IAnjutaProjectManager
 	* IAnjutaProjectManager::project_loaded:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Emitted when the project is fully loaded. It can takes a quite long
 	* time if the project is big. The project is loaded in several parts
 	* in a thread. All functions are available before having the project
@@ -3430,96 +3430,96 @@ interface IAnjutaProjectManager
 	* @obj: Self
 	* @element: A #GFile corrresponding to added element
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Emitted when a new element is added to the project. It can be
 	* a source, a target or a group. It does not always correspond
 	* to an existing file. This signal can be emitted several time for
 	* the same element.
 	*/
 	void ::element_added (GFile *element);
-	
-	/** 
+
+	/**
 	* IAnjutaProjectManager::element_removed:
 	* @obj: Self
 	* @element: A #GFile corresponding to removed element
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Emitted when an element is removed from a project. It can be
 	* a source, a target or a group.
 	*/
 	void ::element_removed (GFile *element);
-	
+
 	/**
 	* IAnjutaProjectManager::element_selected:
 	* @obj: Self
 	* @element_uri: A #GFile corresponding to selected element
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Emitted when an element is selected in the project view. It
 	* can be a source, a target or a group.
 	*/
 	void ::element_selected (GFile *element);
-	
+
 	// Methods
-	
+
 	/**
 	 * ianjuta_project_manager_get_elements:
 	 * @obj: Self
 	 * @element_type: Select one element type: source, group or target
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Get a list of all elements of this type in the project.
-	 * 
+	 *
 	 * Returns: (element-type GFile) (transfer full): Get list of #GFile corresponding to
 	 * all valid elements or %NULL if there are no elements of this type. Free the returned
 	 * list with g_list_free() and the files with g_object_unref().
 	 */
 	List<GFile *> get_elements (AnjutaProjectNodeType element_type);
-	
+
 	/**
 	* ianjuta_project_manager_get_target_type:
 	* @obj: Self
 	* @target: A #GFile corresponding to a target
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the type of the corresponding target: program, library...
-	* 
+	*
 	* Returns: Return the type of the target.
 	*/
 	AnjutaProjectNodeType get_target_type (GFile *target);
-	
+
 	/**
 	 * ianjuta_project_manager_get_targets:
 	 * @obj: Self
 	 * @target_type: type of the target
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Get a list of targets in the project with the corresponding type.
-	 * 
+	 *
 	 * Returns: (element-type GFile) (transfer full): A list of #GFile corresponding to
 	 * each target of the requested type or %NULL if none exists. Free the returned list
 	 * with g_list_free() and the files with g_object_unref().
 	 */
 	List<GFile *> get_targets (AnjutaProjectNodeType target_type);
-	
+
 	/**
 	* ianjuta_project_manager_get_parent:
 	* @obj: Self
 	* @element: A #GFile corresponding to one child.
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Gets the parent of the corresponding child.
 	*
 	* Returns: The parent of the child, or %NULL if the element is the root.
 	*/
 	GFile* get_parent (GFile *element);
-	
+
 	/**
 	 * ianjuta_project_manager_get_children:
 	 * @obj: Self
 	 * @element: A #GFile corresponding to a parent.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Gets the list of all children of the corresponding parent.
 	 *
 	 * Returns: (element-type GFile) (transfer full): The list of #GFile corresponding to
@@ -3527,19 +3527,19 @@ interface IAnjutaProjectManager
 	 * list with g_list_free() and the files with g_object_unref().
 	 */
 	List<GFile*> get_children (GFile *element);
-	
+
 	/**
 	 * ianjuta_project_manager_get_selected:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Gets the currently selected element in the project manager view.
 	 *
 	 * Returns: (transfer full): A #GFile corresponding to the selected element in the project
 	 * view. You own the returned file; use g_object_unref() to release it.
 	 */
 	GFile* get_selected ();
-	
+
 	/**
 	* ianjuta_project_manager_get_capabilities:
 	* @obj: Self
@@ -3591,7 +3591,7 @@ interface IAnjutaProjectManager
 	 * view. You own the returned file; use g_object_unref() to release it.
 	 */
 	GFile* add_source_quiet (const gchar *name, GFile *target);
-	
+
 	/**
 	 * ianjuta_project_manager_add_sources:
 	 * @obj: Self.
@@ -3600,7 +3600,7 @@ interface IAnjutaProjectManager
 	 *					%NULL if don't care.
 	 * @err: Error propagation and reporting.
 	 *
-	 * Prompts the user to add several files to the project. Depending on the 
+	 * Prompts the user to add several files to the project. Depending on the
 	 * project backend, it can be possible that the source files must
 	 * be located in a particular directory.
 	 *
@@ -3614,7 +3614,7 @@ interface IAnjutaProjectManager
 	 * use g_list_free() and g_object_unref() on each file to release them.
 	 */
 	List<GFile*> add_sources (List<const gchar*> names, GFile *default_target);
-	
+
 	/**
 	 * ianjuta_project_manager_add_target:
 	 * @obj: Self
@@ -3622,15 +3622,15 @@ interface IAnjutaProjectManager
 	 * @default_group: (allow-none): A #GFile corresponding to the default parent group or
 	 *					%NULL if don't care.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Prompts the user to add a new target to the project. The user can select
 	 * a parent group different from the one set as default.
-	 * 
+	 *
 	 * Returns: (transfer full): A #GFile corresponding to the new target added in the project.
 	 * You own the returned file; use g_object_unref() to release it.
 	 */
 	GFile* add_target (const gchar *name, GFile *default_group);
-	
+
 	/**
 	 * ianjuta_project_manager_add_group:
 	 * @obj: Self.
@@ -3638,26 +3638,26 @@ interface IAnjutaProjectManager
 	 * @default_group: (allow-none): A #GFile corresponding to the default parent group or
 	 *					%NULL if don't care.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Prompts the user to add a new group to the project. The user can select
 	 * a parent group different from the one set as default.
-	 * 
+	 *
 	 * Returns: (transfer full): A #GFile corresponding to the new group added in the project.
 	 * You own the returned file; use g_object_unref() to release it.
 	 */
 	GFile* add_group (const gchar *name, GFile *default_group);
-	
+
 	/**
 	* ianjuta_project_manager_is_open:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Gets whether a project is currently opened.
 	*
 	* Returns: %TRUE if a project is opened.
-	*/ 
+	*/
 	gboolean is_open ();
-	
+
 	/**
 	 * ianjuta_project_manager_get_packages:
 	 * @obj: Self
@@ -3668,27 +3668,98 @@ interface IAnjutaProjectManager
 	 * opened currently or no package is required.
 	 */
 	List<gchar*> get_packages();
-	
+
 	/**
 	 * ianjuta_project_manager_get_current_project:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Gets the current project.
-	 * 
+	 *
 	 * Return value: (transfer none): the currently active project. NULL if none is there.
 	 */
 	IAnjutaProject* get_current_project ();
 }
 
 /**
+ * SECTION:ianjuta-project-chooser
+ * @title: IAnjutaProjectChooser
+ * @short_description: Interface for selecting project node
+ * @see_also:
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-project-chooser.h
+ *
+ */
+interface IAnjutaProjectChooser
+{
+
+	#include <libanjuta/anjuta-project.h>
+	#include <libanjuta/interfaces/ianjuta-project-manager.h>
+
+	// Signals
+
+	/**
+	* IAnjutaProjectChooser::changed:
+	* @obj: Self
+	*
+	* Emitted when the selected node is changed.
+	*/
+	void ::changed ();
+
+	// Methods
+
+	/**
+	 * ianjuta_project_chooser_set_project_model:
+	 * @obj: Self
+	 * @manager: A project manager
+	 * @child_type: Select one element type: source, group or target
+	 * @err: Error propagation and reporting.
+	 *
+	 * Initialize a project chooser button allowing to select a parent node
+	 * where you can add the nodes of type child_type.
+	 * As special cases with
+	 * <variablelist>
+	 *   <varlistentry>
+	 *     <term>ANJUTA_PROJECT_ROOT</term>
+	 *     <listitem><para>all nodes are included</para></listitem>
+	 *   </varlistentry>
+	 *   <varlistentry>
+	 *     <term>ANJUTA_PROJECT_MODULE</term>
+	 *     <listitem><para>only modules are included, this can be used
+	 *     to add a new package. While ANJUTA_PROJECT_PACKAGE allows you
+	 *     to select a target using a package.</para></listitem>
+	 *   </varlistentry>
+	 * </variablelist>
+	 *
+	 * Returns: TRUE if sucessful, other FALSE.
+	 */
+	gboolean set_project_model (IAnjutaProjectManager *manager, AnjutaProjectNodeType child_type);
+
+
+	/**
+	 * ianjuta_project_chooser_get_selected:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Gets the currently selected element in the project chooser.
+	 *
+	 * Returns: (transfer none): A #GFile corresponding to the selected
+	 * element in the project view or %NULL if no valid node is selected.
+	 * The file is owned by the widget If you want to keep a pointer to
+	 * the file you must add a refcount using g_object_ref().
+	 */
+	GFile* get_selected ();
+}
+
+
+/**
  * SECTION:ianjuta-todo
  * @title: IAnjutaTodo
  * @short_description: Task manager interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-todo.h
- * 
+ *
  */
 interface IAnjutaTodo
 {
@@ -3698,7 +3769,7 @@ interface IAnjutaTodo
 	* @obj: Self
 	* @file: fixme
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* fixme
 	*/
 	void load(GFile *file);
@@ -3708,10 +3779,10 @@ interface IAnjutaTodo
  * SECTION:ianjuta-wizard
  * @title: IAnjutaWizard
  * @short_description: Interface for wizards that can create new stuffs
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-wizard.h
- * 
+ *
  */
 interface IAnjutaWizard
 {
@@ -3720,7 +3791,7 @@ interface IAnjutaWizard
 	* ianjuta_wizard_activate:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Called when the wizard should start after some user action
 	*/
 	void activate();
@@ -3740,7 +3811,7 @@ interface IAnjutaWizard
  *
  * The debugger is in one on these 5 states and emit a signal to the debug
  * manager when it changes. Here is figure showing all transitions and
- * the signal emitted. 
+ * the signal emitted.
  * <figure id="debugger-states">
  *	<mediaobject>
  *		<imageobject>
@@ -3748,7 +3819,7 @@ interface IAnjutaWizard
  *		</imageobject>
  *	</mediaobject>
  * </figure>
- * 
+ *
  */
 interface IAnjutaDebugger
 {
@@ -3813,7 +3884,7 @@ interface IAnjutaDebugger
 	 * @IANJUTA_DEBUGGER_WARNING_OUTPUT: Warning from debugger
 	 * @IANJUTA_DEBUGGER_ERROR_OUTPUT: Error from debugger
 	 * @IANJUTA_DEBUGGER_INFO_OUTPUT: Additional message from debugger
-	 * 
+	 *
 	 * This enumeration is used to defined the kind of output in
 	 * #IAnjutaDebuggerOutputCallback
 	 */
@@ -3834,7 +3905,7 @@ interface IAnjutaDebugger
 	 * @IANJUTA_DEBUGGER_PROGRAM_LOADED: Debugger is started and has a program loaded.
 	 * @IANJUTA_DEBUGGER_PROGRAM_STOPPED: Debugger is started and has a program stopped.
 	 * @IANJUTA_DEBUGGER_PROGRAM_RUNNING: Debugger is started and has a program running.
-	 * 
+	 *
 	 * This enumeration is used to defined the different state of the debugger.
 	 */
 	enum State
@@ -3857,7 +3928,7 @@ interface IAnjutaDebugger
 	 * @function: Function name where is the program counter.
 	 * @library: Library name where is the program counter.
 	 * @address: Address of the program counter.
-	 * 
+	 *
 	 * This structure keeps all information about a stack frame.
 	 */
 	struct Frame
@@ -3877,7 +3948,7 @@ interface IAnjutaDebugger
 	 * @data: data
 	 * @user_data: user data passed to the function
 	 * @error: error
-	 * 
+	 *
 	 * This callback function is used only by #ianjuta_debugger_callback with a
 	 * NULL data.
 	 */
@@ -3888,7 +3959,7 @@ interface IAnjutaDebugger
 	 * @list: (element-type any): list of data
 	 * @user_data: user data passed to the function
 	 * @error: error
-	 * 
+	 *
 	 * This callback function is used by several debugger functions. Depending on
 	 * the function, the kind of elements in the list is different. It is a string
 	 * for #ianjuta_debugger_list_local or a #IAnjutaDebuggerFrame for
@@ -3901,7 +3972,7 @@ interface IAnjutaDebugger
 	 * @data: string
 	 * @user_data: user data
 	 * @error: error
-	 * 
+	 *
 	 * This callback function is used by several debugger functions. The data is
 	 * a string
 	 */
@@ -3912,7 +3983,7 @@ interface IAnjutaDebugger
 	 * @data: Self
 	 * @user_data: user data
 	 * @error: error
-	 * 
+	 *
 	 * This callback function is used only by #ianjuta_debugger_callback with a
 	 * NULL data.
 	 */
@@ -3923,7 +3994,7 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::debugger_started:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the debugger is started.
 	*/
 	void ::debugger_started ();
@@ -3932,7 +4003,7 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::debugger_stopped:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* This signal is emitted when the debugger is stopped. The error
 	* parameters allow to check it has run correctly.
 	*/
@@ -3941,7 +4012,7 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_loaded:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when a program is loaded.
 	*/
 	void ::program_loaded ();
@@ -3949,7 +4020,7 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_running:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is running.
 	*/
 	void ::program_running ();
@@ -3957,15 +4028,15 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_stopped:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is interrupted.
 	*/
-	void ::program_stopped ();	
+	void ::program_stopped ();
 
 	/**
 	* IAnjutaDebugger::program_exited:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program exits.
 	*/
 	void ::program_exited ();
@@ -3973,7 +4044,7 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::sharedlib_event:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program load a new shared
 	* library.
 	*/
@@ -3987,8 +4058,8 @@ interface IAnjutaDebugger
 	* @address: program counter address, 0 when unknown
 	* @file: source file where is the program counter, NULL when unknown
 	* @line: line number if file name above is not NULL
-	* 
-	* This signal is emitted when the debugger know the current program 
+	*
+	* This signal is emitted when the debugger know the current program
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
@@ -3999,45 +4070,45 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @frame: frame number
 	* @thread: thread number
-	* 
+	*
 	* This signal is emitted when the current frame changes.
 	*/
-	void ::frame_changed (guint frame, gint thread);	
+	void ::frame_changed (guint frame, gint thread);
 
 	/**
 	* IAnjutaDebugger::signal_received:
 	* @obj: Self
 	* @name: Signal name
 	* @description: Signal description
-	* 
+	*
 	* This signal is emitted when the program received a unix signal.
 	*/
-	void ::signal_received (const gchar* name, const gchar* description);	
+	void ::signal_received (const gchar* name, const gchar* description);
 
 	/**
 	* IAnjutaDebugger::debugger_ready:
 	* @obj: Self
 	* @state: debugger status
-	* 
+	*
 	* This signal is emitted when the debugger is ready to execute
 	* a new command.
 	*/
 	void ::debugger_ready (State state);
 
-	
+
 	/**
 	* ianjuta_debugger_get_state:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the current state of the debugger
 	*
 	* Returns: The current debugger state.
 	*/
-	State get_state ();	
+	State get_state ();
 
 
-	
+
 
 	/**
 	 * ianjuta_debugger_load:
@@ -4047,13 +4118,13 @@ interface IAnjutaDebugger
 	 * @source_search_directories: (element-type utf8): List of directories to search for
 	 *			      source files.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Load a program in the debugger.
 	 *
 	 * Returns: TRUE if sucessful, other FALSE.
 	 */
 	gboolean load (const gchar *file, const gchar *mime_type, const List<const gchar*> source_search_directories);
-	
+
 	/**
 	 * ianjuta_debugger_attach:
 	 * @obj: Self
@@ -4061,7 +4132,7 @@ interface IAnjutaDebugger
 	 * @source_search_directories: (element-type utf8): List of directories to search for
 	 *			      source files.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Attach to an already running process.
 	 *
 	 * Returns: TRUE if sucessful, other FALSE.
@@ -4073,7 +4144,7 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @dir: working program directory
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Set program working directory.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -4099,7 +4170,7 @@ interface IAnjutaDebugger
 	* @terminal: TRUE if the program need a terminal
 	* @stop: TRUE if program is stopped at the beginning
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Start a loaded program under debugger control.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -4125,18 +4196,18 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_unload:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Unload a program.
 	*
 	* Returns: TRUE if sucessfull, otherwise FALSE.
 	*/
 	gboolean unload ();
-	
+
 	/**
 	* ianjuta_debugger_quit:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Quit the debugger, can wait until the debugger is ready.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -4147,111 +4218,111 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_abort:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Quit the debugger as fast as possible.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean abort ();
-	
+
 	/**
 	* ianjuta_debugger_run:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Run the program currently loaded.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean run ();
-	
+
 	/**
 	* ianjuta_debugger_step_in:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Execute a single C instruction of the program currently loaded.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_in ();
-	
+
 	/**
 	* ianjuta_debugger_step_over:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Execute one C instruction, without entering in procedure, of
 	* the program currently loaded.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_over ();
-	
+
 	/**
 	* ianjuta_debugger_step_out:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Execute the currently loaded program until it goes out of the
 	* current procedure.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean step_out ();
-	
+
 	/**
 	* ianjuta_debugger_run_to:
 	* @obj: Self
 	* @file: target file name
 	* @line: target line in file
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Execute the currently loaded program until it reachs the target
 	* line.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean run_to (const gchar* file, gint line);
-	
+
 	/**
 	* ianjuta_debugger_run_from:
 	* @obj: Self
 	* @file: target file name
 	* @line: target line in file
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Execute the program from a new position.
 	* This function is optional.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean run_from (const gchar *file, gint line);
-	
+
 	/**
 	* ianjuta_debugger_exit:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Exit from the currently loaded program.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean exit ();
-	
+
 	/**
 	* ianjuta_debugger_interrupt:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Interrupt the program currently running.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean interrupt ();
 
-	
-	
+
+
 	/**
 	* ianjuta_debugger_inspect:
 	* @obj: Self
@@ -4259,13 +4330,13 @@ interface IAnjutaDebugger
 	* @callback: Callback to call with variable value
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get back the value of the named variable.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean inspect (const gchar* name, GCharCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_evaluate:
 	* @obj: Self
@@ -4274,13 +4345,13 @@ interface IAnjutaDebugger
 	* @callback: Callback to call when the variable has been modified
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Change the value of a variable in the current program.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean evaluate (const gchar* name, const gchar* value, GCharCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_print:
 	* @obj: Self
@@ -4288,20 +4359,20 @@ interface IAnjutaDebugger
 	* @callback: Callback to call with variable value
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Display value of a variable, like inspect.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean print (const gchar *variable, GCharCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_list_local:
 	* @obj: Self
 	* @callback: Callback to call with list of local variable
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the list of local variables
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
@@ -4314,39 +4385,39 @@ interface IAnjutaDebugger
 	* @callback: Callback to call with list of arguments
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the list of arguments
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_argument (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_signal:
 	* @obj: Self
 	* @callback: Callback to call with list of arguments
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some informatin about a signal
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_signal (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_sharedlib:
 	* @obj: Self
 	* @callback: Callback to call with list of arguments
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get information about shared libraries.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_sharedlib (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_handle_signal:
 	* @obj: Self
@@ -4355,13 +4426,13 @@ interface IAnjutaDebugger
 	* @print: TRUE if we display a message when the signal is emitted
 	* @ignore: TRUE if we ignore the signal
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* It defines how to handle signal received by the program.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean handle_signal (const gchar *name, gboolean stop, gboolean print, gboolean ignore);
-	
+
 	/**
 	* ianjuta_debugger_info_frame:
 	* @obj: Self
@@ -4369,7 +4440,7 @@ interface IAnjutaDebugger
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some information about the one stack frame.
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4377,14 +4448,14 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_frame (guint frame, GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_args:
 	* @obj: Self
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some informatin about a current functin arguments.
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4392,14 +4463,14 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_args (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_target:
 	* @obj: Self
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get back some information about the target
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4407,14 +4478,14 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_target (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_program:
 	* @obj: Self
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some informatin about a current program.
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4422,14 +4493,14 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_program (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_info_udot:
 	* @obj: Self
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some informatin about OS structures.
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4437,15 +4508,15 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_udot (GListCallback callback, gpointer user_data);
-	
-	
+
+
 	/**
 	* ianjuta_debugger_info_variables:
 	* @obj: Self
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some informatin about variables.
 	* This function has been deprecated and is not used anymore in the
 	* debugger GUI.
@@ -4453,26 +4524,26 @@ interface IAnjutaDebugger
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean info_variables (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_list_frame:
 	* @obj: Self
 	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the list of frames.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_frame (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_set_frame:
 	* @obj: Self
-	* @frame: frame number 
+	* @frame: frame number
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Set the current frame.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
@@ -4485,19 +4556,19 @@ interface IAnjutaDebugger
 	* @callback: Callback to call getting a list of #IAnjutaDebuggerFrame for each thread
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get the list of threads.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean list_thread (GListCallback callback, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_set_thread:
 	* @obj: Self
 	* @thread: thread number
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Set the current thread.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
@@ -4511,7 +4582,7 @@ interface IAnjutaDebugger
 	* @callback: Callback to call getting a list of strings with all information
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Get some information about current threads.
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
@@ -4523,7 +4594,7 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @command: command
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Send a command directly to the debugger. Warning, changing the
 	* debugger states, by sending a run command by example, will
 	* probably gives some troubles in the debug manager.
@@ -4538,7 +4609,7 @@ interface IAnjutaDebugger
 	* @callback: Callback to call. the data argument is NULL.
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* All commands are executed asynchronously and give back information
 	* with callbacks. It is difficult to know when a command is really
 	* executed. But as all commands are executed in order, you can use
@@ -4554,7 +4625,7 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @log: MessageView used by log
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Log all debuggers commands, mainly useful for debugging.
 	*/
 	void enable_log (IAnjutaMessageView *log);
@@ -4563,7 +4634,7 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_disable_log:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Disable debugger log.
 	*/
 	void disable_log ();
@@ -4574,10 +4645,10 @@ interface IAnjutaDebugger
 	* @callback: Callback to call getting a list of strings
 	* @user_data: User data that is passed back to the callback
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Return a stack trace valid for a bug reports.
 	* This function is optional.
-	* 
+	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
 	gboolean dump_stack_trace (GListCallback callback, gpointer user_data);
@@ -4586,14 +4657,14 @@ interface IAnjutaDebugger
 	 * SECTION:ianjuta-debugger-breakpoint
 	 * @title: IAnjutaDebuggerBreakpoint
 	 * @short_description: Breakpoint Debugger interface
-	 * @see_also: 
+	 * @see_also:
 	 * @stability: Unstable
 	 * @include: libanjuta/interfaces/ianjuta-debugger-breakpoint.h
-	 * 
+	 *
 	 */
 	interface IAnjutaDebuggerBreakpoint
-	{	
-		
+	{
+
 		/**
 		 * IAnjutaDebuggerBreakpointType:
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_REMOVED: Set for removed breakpoint
@@ -4609,7 +4680,7 @@ interface IAnjutaDebugger
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION: Has a condition
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_TEMPORARY: Temporary breakpoint, automatically removed when triggered
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_WITH_PENDING: Pending breakpoint
-		 * 
+		 *
 		 * This enumeration defined various characteristics of the breakpoint.
 		 */
 		enum Type
@@ -4643,7 +4714,7 @@ interface IAnjutaDebugger
 		 * @condition: Additional condition for triggering the breakpoint
 		 * @temporary: TRUE if the breakpoint is temporary
 		 * @pending: TRUE if the breakpoint is pending
-		 * 
+		 *
 		 * This structure keeps all information about a breakpoint.
 		 */
 		struct Item
@@ -4669,7 +4740,7 @@ interface IAnjutaDebugger
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_ENABLE: Allow to disable breakpoint
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_IGNORE: Allow to ignore breakpoint
 		 * @IANJUTA_DEBUGGER_BREAKPOINT_CONDITION: Allow to add a condition on breakpoint
-		 * 
+		 *
 		 * Defines which breakpoint characteristics are supported by the debugger
 		 * backend.
 		 */
@@ -4687,23 +4758,23 @@ interface IAnjutaDebugger
 		 * @data: a #IAnjutaBreakpointItem object
 		 * @user_data: user data passed to the function
 		 * @error: error
-		 * 
+		 *
 		 * This callback function is used to return a #IAnjutaBreakpointItem.
 		 */
 		typedef void (*Callback) (const Item *data, gpointer user_data, GError* err);
-		
+
 		/**
 		* ianjuta_debugger_breakpoint_implement_breakpoint:
 		* @obj: Self
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Return all implemented methods.
 		*
 		* Returns: A OR of #IAnjutaDebuggerBreakpointMethod
 		* corresponding to all implemented optional methods.
 		*/
 		gint implement_breakpoint ();
-		
+
 		/**
 		* ianjuta_debugger_breakpoint_set_breakpoint_at_line:
 		* @obj: Self
@@ -4712,15 +4783,15 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been set
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Set a breakpoint at the specified line in the file.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean set_breakpoint_at_line (const gchar* file, guint line, Callback callback, gpointer user_data);
 
-	
+
 		/**
 		* ianjuta_debugger_breakpoint_set_breakpoint_at_address:
 		* @obj: Self
@@ -4728,15 +4799,15 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been set
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Set a breakpoint at the specified address.
 		* This function is optional.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean set_breakpoint_at_address (gulong address, Callback callback, gpointer user_data);
-	
+
 		/**
 		* ianjuta_debugger_breakpoint_set_breakpoint_at_function:
 		* @obj: Self
@@ -4745,15 +4816,15 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been set
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
-		* Set a breakpoint at the beginning of the specified function. 
+		*
+		* Set a breakpoint at the beginning of the specified function.
 		* This function is optional.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, Callback callback, gpointer user_data);
-	
+
 		/**
 		* ianjuta_debugger_breakpoint_clear_breakpoint:
 		* @obj: Self
@@ -4761,11 +4832,11 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been cleared
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Clear a breakpoint put by any set functions. The Id of the breakpoint
 		* is given in the callback of the set functions.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean clear_breakpoint (guint id, Callback callback, gpointer user_data);
@@ -4776,11 +4847,11 @@ interface IAnjutaDebugger
 		* @callback: Callback to call with the list of #IAnjutaDebuggreBreakpointItem
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* List all breakpoints set in the debugger. It is useful to
 		* know how many time a breakpoint has been hit.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean list_breakpoint (IAnjutaDebuggerGListCallback callback, gpointer user_data);
@@ -4793,14 +4864,14 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been changed
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Enable of disable a breakpoint. This function is optional.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean enable_breakpoint (guint id, gboolean enable, Callback callback, gpointer user_data);
-	
+
 		/**
 		* ianjuta_debugger_breakpoint_ignore_breakpoint:
 		* @obj: Self
@@ -4809,15 +4880,15 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been changed
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* This allow to ignore the breakpoint a number of time before stopping.
 		* This function is optional.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean ignore_breakpoint (guint id, guint ignore, Callback callback, gpointer user_data);
-	
+
 		/**
 		* ianjuta_debugger_breakpoint_condition_breakpoint:
 		* @obj: Self
@@ -4826,12 +4897,12 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the breakpoint has been changed
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Add a condition, evaluate in the program context, on the breakpoint,
 		* the program will stop when it reachs the breakpoint only if the
 		* condition is true. This function is optional.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean condition_breakpoint (guint id, const gchar* condition, Callback callback, gpointer user_data);
@@ -4841,14 +4912,14 @@ interface IAnjutaDebugger
 	* SECTION:ianjuta-debugger-variable
 	* @title: IAnjutaDebuggerVariable
 	* @short_description: Variables interface for debuggers
-	* @see_also: 
+	* @see_also:
 	* @stability: Unstable
 	* @include: libanjuta/interfaces/ianjuta-debugger-variable.h
-	* 
+	*
  	* This interface is used to examine and change values of expression.
 	* It is based on the MI2 variable object interface of gdb. A
 	* variable needs to be created before being able to get or set its
-	* value and list its children. 
+	* value and list its children.
 	*/
 	interface IAnjutaDebuggerVariable
 	{
@@ -4863,7 +4934,7 @@ interface IAnjutaDebugger
 		 * @deleted: TRUE if the variable has been removed
 		 * @children: Number of variable children, -1 if unknown
 		 * @has_more: TRUE if the children value is wrong
-		 * 
+		 *
 		 * Defines a variable object.
 		 */
 		struct Object
@@ -4884,7 +4955,7 @@ interface IAnjutaDebugger
 		 * @data: a #IAnjutaDebuggerVariableObject object
 		 * @user_data: user data passed to the function
 		 * @error: error
-		 * 
+		 *
 		 * This callback function is used to return a #IAnjutaDebuggerVariableObject.
 		 */
 		typedef void (*Callback) (const Object *data, gpointer user_data, GError* err);
@@ -4896,7 +4967,7 @@ interface IAnjutaDebugger
 		* @callback: Callback to call when the variable has been created
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Create a new variable object in the current thread and frame.
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -4913,11 +4984,11 @@ interface IAnjutaDebugger
 		* created with a list of variable objects
 		* @user_data: User data that is passed back to the callback
 	 	* @err: Error propagation and reporting.
-		* 
+		*
 		* List and create objects for variable object's children.
 		* The backend can returns only a part of the children, in
 		* this case a last variable with a NULL name is added to
-		* the list given to the callback function. 
+		* the list given to the callback function.
 		* If the remaining children are wanted, this
 		* function must be called again with a from argument
 		* corresponding to the first missing children.
@@ -4948,7 +5019,7 @@ interface IAnjutaDebugger
 		* @name: Variable name
 		* @value: Variable value
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Set the value of one variable or child object.
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -4963,7 +5034,7 @@ interface IAnjutaDebugger
 		* variable names
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* List all changed variable objects since the last call.
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -4976,8 +5047,8 @@ interface IAnjutaDebugger
 		* @obj: Self
 		* @name: Variable name
 		* @err: Error propagation and reporting.
-		* 
-		* Delete a previously created variable or child object 
+		*
+		* Delete a previously created variable or child object
 		* including its own children.
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -4985,15 +5056,15 @@ interface IAnjutaDebugger
 		*/
 		gboolean destroy (const gchar *name);
 	}
-	
+
 	/**
 	* SECTION:ianjuta-debugger-register
 	* @title: IAnjutaDebuggerRegister
 	* @short_description: Register interface for debuggers
-	* @see_also: 
+	* @see_also:
 	* @stability: Unstable
 	* @include: libanjuta/interfaces/ianjuta-debugger-register.h
-	* 
+	*
  	* This interface is used to examine and change values of CPU registers.
 	*/
 	interface IAnjutaDebuggerRegister
@@ -5004,7 +5075,7 @@ interface IAnjutaDebugger
 		 * @num: register identifier
 		 * @name: register name
 		 * @value: register value
-		 * 
+		 *
 		 * Defines a register data.
 		 */
 		struct Data
@@ -5020,7 +5091,7 @@ interface IAnjutaDebugger
 		* @callback: Callback to call with the #IAnjutaDebuggerRegisterData list
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* List all registers of the target. This function can be called without
 		* a program loaded, the value field of register structure is not filled.
 		*
@@ -5035,7 +5106,7 @@ interface IAnjutaDebugger
 		* @callback: Callback call with the list of all modified #IAnjutaDebuggerRegisterData
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Return all modified registers since the last call. Only the num and
 		* value field are used.
 		*
@@ -5049,22 +5120,22 @@ interface IAnjutaDebugger
 		* @obj: Self
 		* @value: Modified register with a new value
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Change the value of one register. Only the num and value field are used.
 		*
 		* Returns: TRUE if the request succeed.
 		*/
 		gboolean write_register (Data *value);
 	}
-	
+
 	/**
 	* SECTION:ianjuta-debugger-memory
 	* @title: IAnjutaDebuggerMemory
 	* @short_description: Memory interface for debuggers
-	* @see_also: 
+	* @see_also:
 	* @stability: Unstable
 	* @include: libanjuta/interfaces/ianjuta-debugger-memory.h
-	* 
+	*
  	* This interface is used to examine the target memory.
 	*/
 	interface IAnjutaDebuggerMemory
@@ -5074,7 +5145,7 @@ interface IAnjutaDebugger
 		 * @address: start address of memory block
 		 * @length: size of memory block
 		 * @data: memory block data
-		 * 
+		 *
 		 * Represent a block of memory.
 		 */
 		struct Block
@@ -5089,7 +5160,7 @@ interface IAnjutaDebugger
 		 * @data: a #IAnjutaDebuggerMemoryBlock object
 		 * @user_data: user data passed to the function
 		 * @error: error
-		 * 
+		 *
 		 * This callback function is used to return a #IAnjutaDebuggerMemoryBlock.
 		 */
 		typedef void (*Callback) (const Block *data, gpointer user_data, GError* err);
@@ -5102,7 +5173,7 @@ interface IAnjutaDebugger
 		* @callback: Call back with a IAnjutaDebuggerMemoryBlock as argument
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Read a block of the target memory.
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -5115,21 +5186,21 @@ interface IAnjutaDebugger
 	* SECTION:ianjuta-debugger-instruction
 	* @title: IAnjutaDebuggerInstruction
 	* @short_description: Debugger interface for machine instruction
-	* @see_also: 
+	* @see_also:
 	* @stability: Unstable
 	* @include: libanjuta/interfaces/ianjuta-debugger-instruction.h
-	* 
+	*
  	* This interface is used to debuger as machine instruction level.
 	*/
 	interface IAnjutaDebuggerInstruction
 	{
-	
+
 		/**
 		 * IAnjutaDebuggerInstructionALine:
 		 * @address: Address of the line
 		 * @label: Optional label
 		 * @text: Diassembled instruction on the line
-		 * 
+		 *
 		 * Defines a disassembled line
 		 */
 		struct ALine
@@ -5143,7 +5214,7 @@ interface IAnjutaDebugger
 		 * IAnjutaDebuggerInstructionDisassembly:
 		 * @size: Number of line
 		 * @data: Array of all lines
-		 * 
+		 *
 		 * Represents a block of diassembled instructions
 		 */
 		struct Disassembly
@@ -5157,7 +5228,7 @@ interface IAnjutaDebugger
 		 * @data: a #IAnjutaDebuggerInstructionDisassembly object
 		 * @user_data: user data passed to the function
 		 * @error: error
-		 * 
+		 *
 		 * This callback function is used to return a #IAnjutaDebuggerInstructionDisassembly.
 		 */
 		typedef void (*Callback) (const Disassembly *data, gpointer user_data, GError* err);
@@ -5170,7 +5241,7 @@ interface IAnjutaDebugger
 		* @callback: Call back with a IAnjutaDebuggerInstructionDisassembly as argument
 		* @user_data: User data that is passed back to the callback
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Disassemble a part of the memory
 		*
 		* Returns: TRUE if the request succeed and the callback is
@@ -5182,36 +5253,36 @@ interface IAnjutaDebugger
 		* ianjuta_debugger_instruction_step_in_instruction:
 		* @obj: Self
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Execute one assembler instruction in the program.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean step_in_instruction ();
-	
+
 		/**
 		* ianjuta_debugger_instruction_step_over_instruction:
 		* @obj: Self
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Execute one assembler instruction in the program, if the instruction
 		* is a function call, continues until the function returns.
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean step_over_instruction ();
-	
+
 		/**
 		* ianjuta_debugger_instruction_run_to_address:
 		* @obj: Self
 		* @address: Run to this addresss
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Start the program until it reachs the address address
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean run_to_address (gulong address);
@@ -5221,10 +5292,10 @@ interface IAnjutaDebugger
 		* @obj: Self
 		* @address: Run from this addresss
 		* @err: Error propagation and reporting.
-		* 
+		*
 		* Restart the program starting from address address
 		*
-		* Returns: TRUE if the request succeed and the callback is called. If 
+		* Returns: TRUE if the request succeed and the callback is called. If
 		* FALSE, the callback will not be called.
 		*/
 		gboolean run_from_address (gulong address);
@@ -5236,11 +5307,11 @@ interface IAnjutaDebugger
 * SECTION:ianjuta-debug-manager
 * @title: IAnjutaDebugManager
 * @short_description: Common graphical interface to all debugger
-* @see_also: 
+* @see_also:
 * @stability: Unstable
 * @include: libanjuta/interfaces/ianjuta-debug-manager.h
-* 
-* This interface wrap the real debugger plugin and provide a 
+*
+* This interface wrap the real debugger plugin and provide a
 * common graphical user interface.
 */
 
@@ -5249,13 +5320,13 @@ interface IAnjutaDebugManager
 	#include "ianjuta-debugger.h"
 	#include "ianjuta-debugger-breakpoint.h"
 	#include <gio/gio.h>
-	
+
 	/* Signals */
 
 	/**
 	* IAnjutaDebugManager::debugger_started:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the debugger is started.
 	*/
 	void ::debugger_started ();
@@ -5264,7 +5335,7 @@ interface IAnjutaDebugManager
 	* IAnjutaDebugManager::debugger_stopped:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* This signal is emitted when the debugger is stopped.
 	*/
 	void ::debugger_stopped (GError *err);
@@ -5272,7 +5343,7 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::program_loaded:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when a program is loaded most of the
 	* time just before the first program_stopped signal.
 	*/
@@ -5281,7 +5352,7 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::program_unloaded:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when a program is unloaded. If the
 	* debugger is stopped while a program is loaded, this signal
 	* is emitted before the debugger_stopped signal.
@@ -5291,7 +5362,7 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::program_started:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is started. If the
 	* program starts and is stopped by the debugger, a program-stopped
 	* signal will be emitted too. If the program starts is not stopped
@@ -5302,7 +5373,7 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::program_exited:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is unloaded. If the
 	* debugger is stopped while a program is running or stopped, this
 	* signal is emitted before the program_unloaded signal.
@@ -5312,15 +5383,15 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::program_stopped:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is stopped.
 	*/
-	void ::program_stopped ();	
+	void ::program_stopped ();
 
 	/**
 	* IAnjutaDebugManager::program_running:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when the program is running.
 	*/
 	void ::program_running ();
@@ -5329,7 +5400,7 @@ interface IAnjutaDebugManager
 	/**
 	* IAnjutaDebugManager::sharedlib_event:
 	* @obj: Self
-	* 
+	*
 	* This signal is emitted when a new shared library is loaded. It
 	* is useful to try to set pending breakpoints those could be in
 	* the newly loaded library.
@@ -5344,8 +5415,8 @@ interface IAnjutaDebugManager
 	* @address: program counter address, 0 when unknown
 	* @file: source file where is the program counter, NULL when unknown
 	* @line: line number if file name above is not NULL
-	* 
-	* This signal is emitted when the debugger know the current program 
+	*
+	* This signal is emitted when the debugger know the current program
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
@@ -5356,14 +5427,14 @@ interface IAnjutaDebugManager
 	* @obj: Self
 	* @frame: frame
 	* @thread: thread
-	* 
+	*
 	* This signal is emitted when the current frame is changed. It is
 	* equal to the top frame in the interrupted thread when the
 	* program stops but can be changed afterward by the user.
 	* Several commands use this current frame, by example the register
 	* window display the register values for the current thread only.
 	*/
-	void ::frame_changed (guint frame, gint thread);	
+	void ::frame_changed (guint frame, gint thread);
 
 	/**
 	* IAnjutaDebugManager::location_changed:
@@ -5371,41 +5442,41 @@ interface IAnjutaDebugManager
 	* @address: program counter address, 0 when unknown
 	* @uri: source file where is the program counter, NULL when unknown
 	* @line: line number if file name above is not NULL
-	* 
+	*
 	* This signal is emitted when the current location is changed. It is
 	* equal to the program location when the program stops but can be
 	* changed afterward by the user.
 	*/
-	void ::location_changed (gulong address, const gchar* uri, guint line);	
+	void ::location_changed (gulong address, const gchar* uri, guint line);
 
 	/**
 	* IAnjutaDebugManager::signal_received:
 	* @obj: Self
 	* @name: Signal name
 	* @description: Signal description
-	* 
+	*
 	* This signal is emitted when the debugged program receives a
 	* unix signal.
 	*/
-	void ::signal_received (const gchar* name, const gchar* description);	
+	void ::signal_received (const gchar* name, const gchar* description);
 
 	/**
 	* IAnjutaDebugManager::breakpoint_changed:
 	* @obj: Self
 	* @breakpoint: Breakpoint
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* This signal is emitted when a breakpoint is changed. It includes
 	* new breakpoint and deleted breakpoint.
 	*/
 	void ::breakpoint_changed (IAnjutaDebuggerBreakpointItem *breakpoint);
-	
+
 	/**
 	* ianjuta_debug_manager_start:
 	* @obj: Self
 	* @uri: uri of the target
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Start the debugger of the given uri
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -5418,7 +5489,7 @@ interface IAnjutaDebugManager
 	* @server: server (IP address:port)
 	* @uri: uri of the local target
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Start the debugger of the given uri
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -5429,7 +5500,7 @@ interface IAnjutaDebugManager
 	* ianjuta_debug_manager_quit:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Quit the debugger, can wait until the debugger is ready.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
@@ -5441,10 +5512,10 @@ interface IAnjutaDebugManager
  * SECTION:ianjuta-vcs
  * @title: IAnjutaVcs
  * @short_description: Version control system interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-vcs.h
- * 
+ *
  */
 interface IAnjutaVcs
 {
@@ -5462,12 +5533,12 @@ interface IAnjutaVcs
 	{
 	  UNKOWN_ERROR
 	}
-	
+
 	/**
 	 * IAnjutaVcsStatus
 	 * @obj: Self
  	 *
- 	 * This signal is emited when the git pull command is finished, and refreshes the tree of files with the new pulled files without the need to 
+ 	 * This signal is emited when the git pull command is finished, and refreshes the tree of files with the new pulled files without the need to
  	 * fold- unfold the tree.
 	 */
 	void	::status_changed();
@@ -5476,37 +5547,37 @@ interface IAnjutaVcs
 	 * ianjuta_vcs_add:
 	 * @obj: Self
 	 * @files: (element-type GFile): List of List of files, represented as #Gfile objects, to add
-	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error
 	 * reporting.
 	 *
 	 * Add files to the VCS repository.
 	 */
 	void add(List<GFile*> files, AnjutaAsyncNotify *notify);
-	
+
 	/**
 	 * ianjuta_vcs_remove:
 	 * @obj: Self
 	 * @files: (element-type GFile): List of files, represented as #Gfile objects, to remove
-	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error
 	 * reporting.
 	 *
 	 * Remove files from the VCS repository.
 	 */
 	void remove(List<GFile*> files, AnjutaAsyncNotify *notify);
-	
+
 	/**
 	 * ianjuta_vcs_checkout:
 	 * @obj: Self
 	 * @repository_location: Location of repository to check out
 	 * @dest: Destination of checked out copy
 	 * @cancel: An optional #GCancellable object to cancel the operation, or NULL
-	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error
 	 * reporting.
 	 *
 	 * Check out a copy of a code repository.
 	 */
 	void checkout(const gchar *repository_location, GFile *dest, GCancellable *cancel, AnjutaAsyncNotify *notify);
-  
+
     /**
 	 * ianjuta_vcs_query_status:
 	 * @obj: Self
@@ -5514,24 +5585,24 @@ interface IAnjutaVcs
 	 * @callback: callback to call when data for a particular file is available
 	 * @user_data: User data passed to callback
 	 * @cancel: An optional #GCancellable object to cancel the operation, or NULL
-	 * @notify: #AnjutaAsyncNotify object for finish notification and error 
+	 * @notify: #AnjutaAsyncNotify object for finish notification and error
 	 * reporting.
 	 *
 	 * Querys the status of files in the repository.
 	 */
 	void query_status (GFile* file, StatusCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
-  
+
     /**
      * IAnjutaVcsStatusCallback:
      * @file: File representing the file for which status is given
      * @status: #AnjutaVcsStatus for the file represented by @file.
      * @user_data: User data
      *
-     * Callback called for each status record returned by 
+     * Callback called for each status record returned by
      * ianjuta_vcs_query_status.
      */
 	typedef void (*StatusCallback) (GFile* file, AnjutaVcsStatus status, gpointer user_data);
-     
+
     /**
      * ianjuta_vcs_diff:
      * @obj: Self
@@ -5539,20 +5610,20 @@ interface IAnjutaVcs
      * @callback: Callback to call when diff data becomes available
      * @user_data: User data passed to @callback
      * @cancel: An optional #GCancellable object to cancel the operation, or NULL
-     * @notify: #AnjutaAsyncNotify object for finish notification and error 
+     * @notify: #AnjutaAsyncNotify object for finish notification and error
 	 * reporting.
      *
      * Generates a unified diff of the file represented by @file.
      */
 	void diff(GFile* file, DiffCallback callback, gpointer user_data, GCancellable* cancel, AnjutaAsyncNotify *notify);
-  
+
     /**
      * IAnjutaVcsDiffCallback:
      * @file: File being diffed
      * @diff: Diff data
      * @user_data: User data
      *
-     * Called when diff data comes from ianjuta_vcs_diff. 
+     * Called when diff data comes from ianjuta_vcs_diff.
      */
 	typedef void (*DiffCallback) (GFile* file, const gchar* diff, gpointer user_data);
 }
@@ -5561,10 +5632,10 @@ interface IAnjutaVcs
  * SECTION:ianjuta-snippets-manager
  * @title: IAnjutaSnippetsManager
  * @short_description: Snippets Manager interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-macro.h
- * 
+ *
  */
 interface IAnjutaSnippetsManager
 {
@@ -5589,7 +5660,7 @@ interface IAnjutaSnippetsManager
  * @see_also: #IAnjutaSymbolQuery, #IAnjutaSymbolManager
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-symbol.h
- * 
+ *
  * This interface is used to define a symbol, normally got from symbol
  * queries. A symbol has various fields that can be retrieved by using
  * their get methods. A symbol will have only those fields which have
@@ -5600,63 +5671,63 @@ interface IAnjutaSymbol
 {
 	#include <gdk/gdk.h>
 	#include <gio/gio.h>
-	
-	/** 
+
+	/**
 	 * IAnjutaSymbolType:
 	 * @IANJUTA_SYMBOL_TYPE_NONE: None spedified.
 	 * @IANJUTA_SYMBOL_TYPE_UNDEF: Unknown type.
 	 * @IANJUTA_SYMBOL_TYPE_CLASS: Class declaration
-	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration 
-	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value 
-	 * @IANJUTA_SYMBOL_TYPE_FIELD: Field (Java only) 
-	 * @IANJUTA_SYMBOL_TYPE_FUNCTION: Function definition 
-	 * @IANJUTA_SYMBOL_TYPE_INTERFACE: Interface (Java only) 
-	 * @IANJUTA_SYMBOL_TYPE_MEMBER: Member variable of class/struct 
-	 * @IANJUTA_SYMBOL_TYPE_METHOD: Class method (Java only) 
-	 * @IANJUTA_SYMBOL_TYPE_NAMESPACE: Namespace declaration 
+	 * @IANJUTA_SYMBOL_TYPE_ENUM: Enum declaration
+	 * @IANJUTA_SYMBOL_TYPE_ENUMERATOR: Enumerator value
+	 * @IANJUTA_SYMBOL_TYPE_FIELD: Field (Java only)
+	 * @IANJUTA_SYMBOL_TYPE_FUNCTION: Function definition
+	 * @IANJUTA_SYMBOL_TYPE_INTERFACE: Interface (Java only)
+	 * @IANJUTA_SYMBOL_TYPE_MEMBER: Member variable of class/struct
+	 * @IANJUTA_SYMBOL_TYPE_METHOD: Class method (Java only)
+	 * @IANJUTA_SYMBOL_TYPE_NAMESPACE: Namespace declaration
 	 * @IANJUTA_SYMBOL_TYPE_PACKAGE: Package (Java only)
-	 * @IANJUTA_SYMBOL_TYPE_PROTOTYPE: Function prototype 
-	 * @IANJUTA_SYMBOL_TYPE_STRUCT: Struct declaration 
-	 * @IANJUTA_SYMBOL_TYPE_TYPEDEF: Typedef 
-	 * @IANJUTA_SYMBOL_TYPE_UNION: Union 
-	 * @IANJUTA_SYMBOL_TYPE_VARIABLE: Variable 
-	 * @IANJUTA_SYMBOL_TYPE_EXTERNVAR: Extern or forward declaration 
-	 * @IANJUTA_SYMBOL_TYPE_MACRO: Macro (without arguments) 
-	 * @IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG: Parameterized macro 
-	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag) 
-	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag) 
+	 * @IANJUTA_SYMBOL_TYPE_PROTOTYPE: Function prototype
+	 * @IANJUTA_SYMBOL_TYPE_STRUCT: Struct declaration
+	 * @IANJUTA_SYMBOL_TYPE_TYPEDEF: Typedef
+	 * @IANJUTA_SYMBOL_TYPE_UNION: Union
+	 * @IANJUTA_SYMBOL_TYPE_VARIABLE: Variable
+	 * @IANJUTA_SYMBOL_TYPE_EXTERNVAR: Extern or forward declaration
+	 * @IANJUTA_SYMBOL_TYPE_MACRO: Macro (without arguments)
+	 * @IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG: Parameterized macro
+	 * @IANJUTA_SYMBOL_TYPE_FILE: File (Pseudo tag)
+	 * @IANJUTA_SYMBOL_TYPE_OTHER: Other (non C/C++/Java tag)
 	 * @IANJUTA_SYMBOL_TYPE_SCOPE_CONTAINER: types which are subjected to create a scope.
 	 * @IANJUTA_SYMBOL_TYPE_MAX: Maximum value, used as end marker.
-	 */                   
-	enum Type               
+	 */
+	enum Type
 	{
 		TYPE_NONE = 0,
-		TYPE_UNDEF = 1,                
-		TYPE_CLASS = 2,                
-		TYPE_ENUM = 4,                 
-		TYPE_ENUMERATOR = 8,           
-		TYPE_FIELD = 16,               
-		TYPE_FUNCTION = 32,            
-		TYPE_INTERFACE = 64,           
-		TYPE_MEMBER = 128,             
-		TYPE_METHOD = 256,             
-		TYPE_NAMESPACE = 512,          
-		TYPE_PACKAGE = 1024,           
-		TYPE_PROTOTYPE = 2048,         
-		TYPE_STRUCT = 4096,            
-		TYPE_TYPEDEF = 8192,           
-		TYPE_UNION = 16384,            
-		TYPE_VARIABLE = 32768,         
-		TYPE_EXTERNVAR = 65536,        
-		TYPE_MACRO = 131072,           
-		TYPE_MACRO_WITH_ARG = 262144,  
-		TYPE_FILE = 524288,            
-		TYPE_OTHER = 1048576,          
+		TYPE_UNDEF = 1,
+		TYPE_CLASS = 2,
+		TYPE_ENUM = 4,
+		TYPE_ENUMERATOR = 8,
+		TYPE_FIELD = 16,
+		TYPE_FUNCTION = 32,
+		TYPE_INTERFACE = 64,
+		TYPE_MEMBER = 128,
+		TYPE_METHOD = 256,
+		TYPE_NAMESPACE = 512,
+		TYPE_PACKAGE = 1024,
+		TYPE_PROTOTYPE = 2048,
+		TYPE_STRUCT = 4096,
+		TYPE_TYPEDEF = 8192,
+		TYPE_UNION = 16384,
+		TYPE_VARIABLE = 32768,
+		TYPE_EXTERNVAR = 65536,
+		TYPE_MACRO = 131072,
+		TYPE_MACRO_WITH_ARG = 262144,
+		TYPE_FILE = 524288,
+		TYPE_OTHER = 1048576,
 		TYPE_SCOPE_CONTAINER = IANJUTA_SYMBOL_TYPE_CLASS | IANJUTA_SYMBOL_TYPE_ENUM | IANJUTA_SYMBOL_TYPE_INTERFACE | IANJUTA_SYMBOL_TYPE_NAMESPACE | IANJUTA_SYMBOL_TYPE_PACKAGE | IANJUTA_SYMBOL_TYPE_STRUCT | IANJUTA_SYMBOL_TYPE_UNION,
-		TYPE_MAX = 2097151             
+		TYPE_MAX = 2097151
 	}
 
-	/** 
+	/**
 	 * IAnjutaSymbolField:
 	 * @IANJUTA_SYMBOL_FIELD_ID: Integer. A unique ID of the symbol
 	 * @IANJUTA_SYMBOL_FIELD_NAME: String. Name of the symbol
@@ -5685,7 +5756,7 @@ interface IAnjutaSymbol
 	 *     a scope container, such as namespace, class, struct etc., otherwise
 	 *     FALSE.
 	 * @IANJUTA_SYMBOL_FIELD_END: The end marker.
-	 * 
+	 *
 	 * Symbol Fields. Used to define and retrieve results from query. Each of
 	 * these fields are either integer or string. Use the right method to
 	 * retrieve them. That is, for integer use ianjuta_symbol_get_int(),
@@ -5703,7 +5774,7 @@ interface IAnjutaSymbol
 		FIELD_SIGNATURE,
 		FIELD_RETURNTYPE,
 		FIELD_TYPE,
-		FIELD_TYPE_NAME,		
+		FIELD_TYPE_NAME,
 		FIELD_FILE_PATH,
 		FIELD_PROJECT_NAME,
 		FIELD_PROJECT_VERSION,
@@ -5721,11 +5792,11 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the boolean value of a boolean @field.
-	 * 
+	 *
 	 * Returns: The boolean
 	 */
 	gboolean get_boolean (Field field);
-	
+
 	/**
 	 * ianjuta_symbol_get_int:
 	 * @obj: Self
@@ -5733,11 +5804,11 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the integer value of an integer @field.
-	 * 
+	 *
 	 * Returns: The integer
 	 */
 	gint get_int (Field field);
-	
+
 	/**
 	 * ianjuta_symbol_get_string:
 	 * @obj: Self
@@ -5745,11 +5816,11 @@ interface IAnjutaSymbol
 	 * @err: Error propagation and reporting.
 	 *
 	 * Retreives the string value of a string @field.
-	 * 
+	 *
 	 * Returns: The string
 	 */
 	const gchar* get_string (Field field);
-	
+
 	/**
 	 * ianjuta_symbol_get_file:
 	 * @obj: Self
@@ -5763,7 +5834,7 @@ interface IAnjutaSymbol
 	 * Returns: A GFile object. It must be unrefed after use.
 	 */
 	GFile* get_file();
-	
+
 	/**
 	 * ianjuta_symbol_get_sym_type:
 	 * @obj: Self
@@ -5775,14 +5846,14 @@ interface IAnjutaSymbol
 	 * Returns: a #IAnjutaSymbolType
 	 */
 	Type get_sym_type ();
-	
-	/** 
+
+	/**
 	 * ianjuta_symbol_get_icon:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
 	 *
 	 * A convenience method to get a small icon (16x16) representing the symbol
-	 * kind. You *need* a query with fields #IANJUTA_SYMBOL_FIELD_ACCESS and 
+	 * kind. You *need* a query with fields #IANJUTA_SYMBOL_FIELD_ACCESS and
 	 * #IANJUTA_SYMBOL_FIELD_KIND selected.
 	 *
 	 * Returns: a Pixbuf icon representing the symbol. Ref the icon if you
@@ -5798,7 +5869,7 @@ interface IAnjutaSymbol
  * @see_also: #IAnjutaSymbolManager, #IAnjutaSymbol
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-symbol-query.h
- * 
+ *
  * A query object will have this interface that allows to tweak various
  * query parameters. Except for the #IAnjutaSymbolQueryName and
  * #IAnjutaSymbolQueryDb parameters, everything else is changable
@@ -5822,10 +5893,10 @@ interface IAnjutaSymbol
  * and can be changed using ianjuta_symbol_query_set_mode().
  * #IANJUTA_SYMBOL_QUERY_MODE_ASYNC runs it in asynchronous mode in a separate
  * thread and can be canceled with ianjuta_symbol_query_cancel().
- * 
+ *
  * A query runs on a database, defined by #IAnjutaSymbolQueryDb, and can be
  * only selected at creatation time.
- * 
+ *
  * In addition, there are many other filters that can be set to the query
  * to refine the query results. For example, ianjuta_symbol_query_set_fields()
  * is used to set the needed symbol fields to retrieve, ianjuta_symbol_query_set_filters()
@@ -5834,7 +5905,7 @@ interface IAnjutaSymbol
  * ianjuta_symbol_query_set_group_by() is used to group the results on a given
  * field, ianjuta_symbol_query_set_order_by is used to order the results on a
  * given field.
- * 
+ *
  * ianjuta_symbol_query_set_limit() and ianjuta_symbol_query_set_offset() are
  * used to change limit and offset of the resultset. Note again that these
  * parameters do not require re-preparation of query, so can be safely used
@@ -5895,7 +5966,7 @@ interface IAnjutaSymbolQuery
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE: Query to find scope name of a file position.
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE: Query to get the parent scope of a symbol.
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE: Query to get the parent scope of a symbol in the file.
-	 * 
+	 *
 	 * Names of query that defined what kind of query it is.
 	 */
 	enum Name
@@ -5917,7 +5988,7 @@ interface IAnjutaSymbolQuery
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_IGNORE: Ignore file scope
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PUBLIC: Only public symbols visible to rest of project.
 	 * @IANJUTA_SYMBOL_QUERY_SEARCH_FS_PRIVATE: Only private symbols visible inside a file.
-	 * 
+	 *
 	 * Defines file scope of symbols to query.
 	 */
 	enum FileScope
@@ -5946,7 +6017,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @mode: The mode of query.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the mode of Query.
 	 */
 	void set_mode (IAnjutaSymbolQueryMode mode);
@@ -5958,7 +6029,7 @@ interface IAnjutaSymbolQuery
 	 * @fields: The fields to retrieve in the query. The array length must
 	 *   be @n_fields.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the fields of Query.
 	 */
 	void set_fields (gint n_fields, IAnjutaSymbolField *fields);
@@ -5969,7 +6040,7 @@ interface IAnjutaSymbolQuery
 	 * @filters: The mode of query.
 	 * @include_types: TRUE if filter is positive, FALSE if reversed.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the bit mask of symbol type filters. if @include_types is TRUE,
 	 * symbols satisfying the given symbol types are selected, otherwise
 	 * they are excluded.
@@ -5981,7 +6052,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @filescope_search: The filescope to search.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the filescope search of Query.
 	 */
 	void set_file_scope (IAnjutaSymbolQueryFileScope filescope_search);
@@ -5991,7 +6062,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @offset: Offset of the resultset.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the offset index of Query results.
 	 */
 	void set_offset (gint offset);
@@ -6001,7 +6072,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @limit: The limit of query.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the limit of Query results. No more than @limit results are
 	 * returned.
 	 */
@@ -6012,7 +6083,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @field: The field to group results.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the field with which result of query is grouped. As a result
 	 * there will be no duplicates of with this field.
 	 */
@@ -6023,7 +6094,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @field: The field to order the result.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Sets the field with which result of query is ordered.
 	 */
 	void set_order_by (IAnjutaSymbolField field);
@@ -6032,92 +6103,92 @@ interface IAnjutaSymbolQuery
 	 * ianjuta_symbol_query_set_cancel:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Cancels any pending non-sync searches. After calling this, it is
 	 * guaranteed that "async-result" will not be called any more for any
 	 * past searches. New searches will have their results signaled as
 	 * normal.
 	 */
 	void cancel ();
-	
+
 	/**
 	 * ianjuta_symbol_query_search:
 	 * @obj: Self
 	 * @pattern: Search pattern in compliance with SQL LIKE syntax
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH query.
 	 */
 	IAnjutaIterable* search (const gchar *pattern);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_all:
 	 * @obj: Self
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ALL query.
 	 */
 	IAnjutaIterable* search_all ();
-	
+
 	/**
 	 * ianjuta_symbol_query_search_file:
 	 * @obj: Self
 	 * @pattern: Search pattern in compliance with SQL LIKE syntax
 	 * @file: The file whose symbols are searched.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_FILE query.
 	 */
 	IAnjutaIterable* search_file (const gchar *pattern, const GFile *file);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_in_scope:
 	 * @obj: Self
 	 * @pattern: Search pattern in compliance with SQL LIKE syntax
 	 * @scope: The scope inside which symbols are searched.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_IN_SCOPE query.
 	 */
 	IAnjutaIterable* search_in_scope (const gchar *pattern, IAnjutaSymbol *scope);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_members:
 	 * @obj: Self
 	 * @symbol: The symbol whose members to get.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS query.
 	 */
 	IAnjutaIterable* search_members (IAnjutaSymbol *symbol);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_class_parents:
 	 * @obj: Self
 	 * @symbol: The class symbol whose parents to get.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_CLASS_PARENTS query.
 	 */
 	IAnjutaIterable* search_class_parents (IAnjutaSymbol *symbol);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_id:
 	 * @obj: Self
 	 * @symbol: The symbol id whose details to get.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ID query.
 	 */
 	IAnjutaIterable* search_id (gint symbol_id);
-	
+
 	/**
 	 * ianjuta_symbol_query_search_scope:
 	 * @obj: Self
 	 * @file_path: The file where the scope is.
 	 * @line: The line where the scope is.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE query.
 	 */
 	IAnjutaIterable* search_scope (const gchar *file_path, gint line);
@@ -6127,7 +6198,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @symbol: The symbol whose parent scope is to be found.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE query.
 	 */
 	IAnjutaIterable* search_parent_scope (IAnjutaSymbol *symbol);
@@ -6138,7 +6209,7 @@ interface IAnjutaSymbolQuery
 	 * @obj: Self
 	 * @file_path: The file where the parent scope is to be found.
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_PARENT_SCOPE_FILE query.
 	 */
 	IAnjutaIterable* search_parent_scope_file (IAnjutaSymbol *symbol, const gchar *file_path);
@@ -6151,11 +6222,11 @@ interface IAnjutaSymbolQuery
  * @see_also: #IAnjutaSymbol
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-symbol-manager.h
- * 
+ *
  */
 interface IAnjutaSymbolManager
 {
-	#include <libanjuta/anjuta-async-notify.h>	
+	#include <libanjuta/anjuta-async-notify.h>
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 	#include "ianjuta-symbol-query.h"
@@ -6163,16 +6234,16 @@ interface IAnjutaSymbolManager
 	/**
 	 * IAnjutaSymbolManager::prj_scan_end:
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when a scanning of one or more files on project db
-	 * ends. 
+	 * ends.
 	 */
 	void ::prj_scan_end (gint process_id);
 
 	/**
 	 * IAnjutaSymbolManager::sys_scan_end:
 	 * @obj: Self
-	 * 
+	 *
 	 * This signal is emitted when a scanning of one or more packages on system db
 	 * ends. This signal doesn't mean that all the scan process for the packages
 	 * is ended, but that just one (or more) is (are).
@@ -6219,8 +6290,8 @@ interface IAnjutaSymbolManager
  	 *
  	 * Activates the package for searches in the global symbol database.
  	 *
- 	 * Returns: TRUE if the package was loaded (or will be loaded once scanned). 
- 	 * FALSE if the version given was newer than the version in the database or the 
+ 	 * Returns: TRUE if the package was loaded (or will be loaded once scanned).
+ 	 * FALSE if the version given was newer than the version in the database or the
  	 * package was not found. In this case, add_package() should be called.
  	 */
 	gboolean activate_package (const gchar *pkg_name, const gchar* pkg_version);
@@ -6230,7 +6301,7 @@ interface IAnjutaSymbolManager
 	 * @obj: Self
  	 * @pkg_name: name of the package. The colon char must be avoided.
 	 * @pkg_version: Version of the package. The colon char must be avoided.
- 	 * 
+ 	 *
  	 * Deactivates the package if it was found. If package is NULL, deactivate all
  	 * packages.
 	 *
@@ -6240,7 +6311,7 @@ interface IAnjutaSymbolManager
 	/**
 	 * ianjuta_symbol_manager_deactivate_all:
 	 * @obj: Self
- 	 * 
+ 	 *
  	 * Deactivates all activate packages
 	 *
  	 */
@@ -6251,10 +6322,10 @@ interface IAnjutaSymbolManager
  * SECTION:ianjuta-print
  * @title: IAnjutaPrint
  * @short_description: Print interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-print.h
- * 
+ *
  */
 interface IAnjutaPrint
 {
@@ -6262,17 +6333,17 @@ interface IAnjutaPrint
 	* ianjuta_print_print:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Print the plugin (the file in case of the editor). In most cases this will show
 	* a print dialog
 	*/
 	void print();
-	
+
 	/**
 	* ianjuta_print_print:
 	* @obj: Self
 	* @err: Error propagation and reporting.
-	* 
+	*
 	* Show print preview dialog
 	*/
 
@@ -6283,10 +6354,10 @@ interface IAnjutaPrint
  * SECTION:ianjuta-preferences
  * @title: IAnjutaPreferences
  * @short_description: Preferences interface
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-preferences
- * 
+ *
  */
 interface IAnjutaPreferences
 {
@@ -6296,17 +6367,17 @@ interface IAnjutaPreferences
 	 * @obj: Self
 	 * @prefs: AnjutaPreferences to install to
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * When called, the plugin should install it's preferences
 	 */
 	void merge(AnjutaPreferences* prefs);
-	
+
 	/**
 	 * ianjuta_preferences_unmerge:
 	 * @obj: Self
 	 * @prefs: AnjutaPreferences to install to
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * When called, the plugin should uninstall it's preferences
 	 */
 	void unmerge(AnjutaPreferences* prefs);
@@ -6319,7 +6390,7 @@ interface IAnjutaPreferences
  * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-plugin-factory.h
- * 
+ *
  * This interface is used to create all Anjuta plugin objects. It is
  * already implemented inside Anjuta by an object able to load plugins written
  * in C. In order to load plugins in other languages (or in a different way),
@@ -6371,7 +6442,7 @@ interface IAnjutaPluginFactory
 	 * @handle: Plugin information
 	 * @shell: Anjuta shell
 	 * @err: Error propagation and reporting.
-	 * 
+	 *
 	 * Create a new AnjutaPlugin object from the plugin information handle,
 	 * give it the AnjutaShell object as argument.
 	 *
@@ -6384,10 +6455,10 @@ interface IAnjutaPluginFactory
  * SECTION:ianjuta-language
  * @title: IAnjutaLanguage
  * @short_description: Interface to manage multiple programming languages
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-language.h
- * 
+ *
  */
 
 interface IAnjutaLanguage
@@ -6403,7 +6474,7 @@ typedef gint Id;
 	 * Returns: A language Id or 0 in case no language was found
 	 */
 	 Id get_from_mime_type (const gchar* mime_type);
-	 
+
 	/**
 	 * ianjuta_language_from_string:
 	 * @obj: Self
@@ -6413,14 +6484,14 @@ typedef gint Id;
 	 * Returns: A language Id or 0 in case no language was found
 	 */
 	 Id get_from_string (const gchar* string);
-	 
+
  	/**
 	 * ianjuta_language_get_name:
 	 * @obj: Self
 	 * @id: A valid language id
 	 *
 	 * Returns: The main name of the language. When you call ianjuta_language_from_string()
-	 * before that method the string you get here might be different to the one you passed 
+	 * before that method the string you get here might be different to the one you passed
 	 * because the language might have multiple string representations
 	 */
 	 const gchar* get_name(Id id);
@@ -6443,7 +6514,7 @@ typedef gint Id;
 	 * Returns: (element-type utf8): A list of strings that represent this language that language
 	 */
 	 List<const gchar*> get_strings(Id id);
-	 
+
 	 /**
 	  * ianjuta_language_get_from_editor:
 	  * @obj: Self
@@ -6454,9 +6525,9 @@ typedef gint Id;
 	  *
 	  * Returns: A valid language id or 0
 	  */
-	  
+
 	  IAnjutaLanguageId get_from_editor (IAnjutaEditorLanguage* editor);
-	  
+
 	 /**
 	  * ianjuta_language_get_name_from_editor:
 	  * @obj: Self
@@ -6467,9 +6538,9 @@ typedef gint Id;
 	  *
 	  * Returns: A language name or NULL
 	  */
-	  
+
 	  const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
-	  
+
 	  /**
 	   * ianjuta_language_get_languages:
 	   * @obj: Self
@@ -6486,10 +6557,10 @@ typedef gint Id;
  * SECTION:ianjuta-indenter
  * @title: IAnjutaIndenter
  * @short_description: Interface for automatic indentation
- * @see_also: 
+ * @see_also:
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-indenter.h
- * 
+ *
  */
 
 interface IAnjutaIndenter

@@ -137,6 +137,8 @@
 	<xi:include href="xml/ianjuta-preferences.xml"/>
 	<xi:include href="xml/ianjuta-print.xml"/>
 	<xi:include href="xml/ianjuta-project-manager.xml"/>
+	<xi:include href="xml/ianjuta-project-chooser.xml"/>
+	<xi:include href="xml/ianjuta-project-backend.xml"/>
 	<xi:include href="xml/ianjuta-stream.xml"/>
 	<xi:include href="xml/ianjuta-stream-loader.xml"/>
 	<xi:include href="xml/ianjuta-stream-savable.xml"/>
