@@ -26,6 +26,9 @@
 
 #include <glib-object.h>
 
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
+
+
 G_BEGIN_DECLS
 
 #define CG_TYPE_WINDOW             (cg_window_get_type ())
@@ -61,6 +64,7 @@ const gchar *cg_window_get_header_template (CgWindow *window);
 const gchar *cg_window_get_header_file (CgWindow *window);
 const gchar *cg_window_get_source_template (CgWindow *window);
 const gchar *cg_window_get_source_file (CgWindow *window);
+GFile *cg_window_get_selected_target (CgWindow *window);
 
 void cg_window_set_add_to_project (CgWindow *window,
                                    gboolean enable);
@@ -71,6 +75,8 @@ gboolean cg_window_get_add_to_repository(CgWindow *window);
 
 void cg_window_enable_add_to_project (CgWindow *window,
                                       gboolean enable);
+void cg_window_set_project_model (CgWindow *window,
+                                  IAnjutaProjectManager *manager);
 void cg_window_enable_add_to_repository (CgWindow *window,
                                          gboolean enable);
 

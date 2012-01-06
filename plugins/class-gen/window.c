@@ -23,6 +23,7 @@
 #include "element-editor.h"
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-project-chooser.h>
 #include <stdlib.h>
 #include <glib.h>
 
@@ -47,7 +48,7 @@ struct _CgWindowPrivate
 {
 	GtkBuilder *bxml;
 	GtkWidget *window;
-	
+
 	CgElementEditor *editor_cc;
 
 	CgElementEditor *editor_go_members;
@@ -177,7 +178,7 @@ cg_window_browse_button_clicked_cb (GtkButton *button,
 	gchar *filename;
 
 	entry = GTK_WIDGET (user_data);
-	
+
 	dialog = GTK_FILE_CHOOSER_DIALOG (
 		gtk_file_chooser_dialog_new (
 			"Select A File", /* TODO: Better context for caption */
@@ -199,7 +200,7 @@ cg_window_browse_button_clicked_cb (GtkButton *button,
 		gtk_entry_set_text (GTK_ENTRY (entry), filename);
 		g_free (filename);
 	}
-	
+
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 #endif
@@ -221,7 +222,7 @@ cg_window_fetch_string (CgWindow *window,
 	else if (GTK_IS_COMBO_BOX (widget))
 	{
  		GtkTreeIter iter;
-		
+
 		if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter))
 		{
       		GtkTreeModel *model;
@@ -229,9 +230,9 @@ cg_window_fetch_string (CgWindow *window,
 
 			model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
 			g_return_val_if_fail (GTK_IS_LIST_STORE (model), NULL);
-			
+
 			gtk_tree_model_get (model, &iter, 0, &text, -1);
-			
+
 			return text;
 		}
 		else
@@ -249,12 +250,12 @@ cg_window_fetch_integer (CgWindow *window,
 {
 	GtkWidget *widget;
 	CgWindowPrivate *priv;
-	
+
 	priv = CG_WINDOW_PRIVATE(window);
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, id));
-	
+
 	g_return_val_if_fail(widget != NULL, 0);
-	
+
 	if (GTK_IS_SPIN_BUTTON(widget))
 		return gtk_spin_button_get_value_as_int( GTK_SPIN_BUTTON( widget));
 	else if (GTK_IS_ENTRY (widget))
@@ -271,12 +272,12 @@ cg_window_fetch_boolean (CgWindow *window,
 {
 	GtkWidget *widget;
 	CgWindowPrivate *priv;
-	
+
 	priv = CG_WINDOW_PRIVATE (window);
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, id));
-	
+
 	g_return_val_if_fail (widget != NULL, FALSE);
-	
+
 	if (GTK_IS_TOGGLE_BUTTON (widget))
 		return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	else
@@ -325,9 +326,9 @@ cg_window_validate_cc (CgWindow *window)
 {
 	CgWindowPrivate *priv;
 	priv = CG_WINDOW_PRIVATE(window);
-	
+
 	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
-	
+
 	priv->validator = cg_validator_new (
 		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
 		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "cc_name")),
@@ -340,9 +341,9 @@ cg_window_validate_go (CgWindow *window)
 {
 	CgWindowPrivate *priv;
 	priv = CG_WINDOW_PRIVATE (window);
-	
+
 	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
-	
+
 	priv->validator = cg_validator_new (
 		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
 		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "go_name")),
@@ -358,9 +359,9 @@ cg_window_validate_py (CgWindow *window)
 {
 	CgWindowPrivate *priv;
 	priv = CG_WINDOW_PRIVATE (window);
-	
+
 	if (priv->validator != NULL) g_object_unref (G_OBJECT (priv->validator));
-	
+
 	priv->validator = cg_validator_new (
 		GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button")),
 		GTK_ENTRY (gtk_builder_get_object (priv->bxml, "py_name")), NULL);
@@ -455,27 +456,54 @@ cg_window_class_name_to_file_name (const gchar *class_name)
 }
 
 static void
+cg_window_add_project_parent_changed_cb (GtkWidget *project_combo, gpointer user_data)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+	gboolean active = TRUE;
+	GtkWidget *widget;
+
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project"));
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+	{
+		GFile *file;
+		widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project_parent"));
+
+		file = ianjuta_project_chooser_get_selected (IANJUTA_PROJECT_CHOOSER (widget), NULL);
+		active = file != NULL;
+	}
+
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "create_button"));
+	gtk_widget_set_sensitive (widget, active);
+}
+
+static void
 cg_window_add_project_toggled_cb (GtkToggleButton *button,
                                   gpointer user_data)
 {
 	CgWindow *window;
 	CgWindowPrivate *priv;
-	
+	GtkWidget *widget;
+	gboolean sensitive;
+
 	window = CG_WINDOW (user_data);
 	priv = CG_WINDOW_PRIVATE (window);
 
-	if (gtk_toggle_button_get_active (button) == FALSE)
+	sensitive = gtk_toggle_button_get_active (button);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_repository"));
+	gtk_widget_set_sensitive (widget, sensitive);
+	if (!sensitive)
 	{
-		GtkWidget* widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_repository"));
-		gtk_widget_set_sensitive (widget, FALSE);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(widget),
 		                              FALSE);
 	}
-	else
-	{
-		gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (
-			priv->bxml, "add_repository")), TRUE);
-	}
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project_parent"));
+	gtk_widget_set_sensitive (widget, sensitive);
+
+	cg_window_add_project_parent_changed_cb (NULL, window);
 }
 
 static void
@@ -503,10 +531,10 @@ cg_window_cc_name_changed_cb (GtkEntry *entry,
 	str_fileheader = g_strconcat (str_filebase, ".h", NULL);
 	str_filesource = g_strconcat (str_filebase, ".cc", NULL);
 	g_free (str_filebase);
-	
+
 	gtk_entry_set_text (GTK_ENTRY (file_header), str_fileheader);
 	gtk_entry_set_text (GTK_ENTRY (file_source), str_filesource);
-	
+
 	g_free (str_fileheader);
 	g_free (str_filesource);
 }
@@ -535,7 +563,7 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 
 	window = CG_WINDOW (user_data);
 	priv = CG_WINDOW_PRIVATE (window);
-	
+
 	type_prefix = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_prefix"));
 	type_name = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_type"));
 	func_prefix = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "go_func_prefix"));
@@ -550,19 +578,19 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 	gtk_entry_set_text (GTK_ENTRY (type_prefix), str_type_prefix);
 	gtk_entry_set_text (GTK_ENTRY (type_name), str_type_name);
 	gtk_entry_set_text (GTK_ENTRY (func_prefix), str_func_prefix);
-	
+
 	g_free (str_type_prefix);
 	g_free (str_type_name);
 	g_free (str_func_prefix);
-	
+
 	str_filebase = cg_window_class_name_to_file_name (name);
 	str_fileheader = g_strconcat (str_filebase, ".h", NULL);
 	str_filesource = g_strconcat (str_filebase, ".c", NULL);
 	g_free (str_filebase);
-	
+
 	gtk_entry_set_text (GTK_ENTRY (file_header), str_fileheader);
 	gtk_entry_set_text (GTK_ENTRY (file_source), str_filesource);
-	
+
 	g_free (str_fileheader);
 	g_free (str_filesource);
 }
@@ -591,10 +619,10 @@ cg_window_dynamic_name_changed_cb (GtkEntry *entry,
 
 	str_filesource = g_strconcat (str_filebase, file_ending, NULL);
 	g_free (str_filebase);
-	
+
 	gtk_entry_set_text (GTK_ENTRY (file_header), str_filesource);
 	gtk_entry_set_text (GTK_ENTRY (file_source), str_filesource);
-	
+
 	g_free (str_filesource);
 }
 
@@ -657,7 +685,7 @@ cg_window_associate_browse_button (GladeXML *xml,
 {
 	GtkWidget *button;
 	GtkWidget *entry;
-	
+
 	button = glade_xml_get_widget (xml, button_id);
 	entry = glade_xml_get_widget (xml, entry_id);
 
@@ -698,7 +726,7 @@ cg_window_set_builder (CgWindow *window,
 		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
-	
+
 	priv->editor_go_members = cg_element_editor_new (
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_members")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_members_add")),
@@ -708,7 +736,7 @@ cg_window_set_builder (CgWindow *window,
 		_("Type"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Name"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Arguments"), CG_ELEMENT_EDITOR_COLUMN_ARGUMENTS);
-	
+
 	priv->editor_go_properties = cg_element_editor_new(
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_properties")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_properties_add")),
@@ -721,7 +749,7 @@ cg_window_set_builder (CgWindow *window,
 		_("ParamSpec"), CG_ELEMENT_EDITOR_COLUMN_LIST, GO_PARAMSPEC_LIST,
 		_("Default"), CG_ELEMENT_EDITOR_COLUMN_STRING,
 		_("Flags"), CG_ELEMENT_EDITOR_COLUMN_FLAGS, GO_PROPERTY_FLAGS);
-	
+
 	priv->editor_go_signals = cg_element_editor_new(
 		GTK_TREE_VIEW (gtk_builder_get_object (priv->bxml, "go_signals")),
 		GTK_BUTTON (gtk_builder_get_object (priv->bxml, "go_signals_add")),
@@ -830,7 +858,7 @@ cg_window_set_builder (CgWindow *window,
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "top_notebook")),
 		"switch-page", G_CALLBACK (cg_window_top_notebook_switch_page_cb),
 		window);
-	
+
 	g_signal_connect (
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "go_name")), "changed",
 		G_CALLBACK (cg_window_go_name_changed_cb), window);
@@ -850,6 +878,10 @@ cg_window_set_builder (CgWindow *window,
 	g_signal_connect (
 		G_OBJECT (gtk_builder_get_object (priv->bxml, "add_project")), "toggled",
 		G_CALLBACK (cg_window_add_project_toggled_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (gtk_builder_get_object (priv->bxml, "add_project_parent")), "changed",
+		G_CALLBACK (cg_window_add_project_parent_changed_cb), window);
 
 	cg_window_add_project_toggled_cb (GTK_TOGGLE_BUTTON (
 		gtk_builder_get_object (priv->bxml, "add_project")), window);
@@ -884,7 +916,7 @@ cg_window_go_members_transform_func (GHashTable *table,
 		name = g_strdup (name + strlen (func_prefix) + 1);
 		g_hash_table_insert (table, "Name", name);
 	}
-	
+
 	g_free (func_prefix);
 	cg_transform_arguments (table, "Arguments", TRUE);
 }
@@ -917,12 +949,12 @@ cg_window_go_signals_transform_func (GHashTable *table,
 
 	gchar *type;
 	guint arg_count;
-	
+
 	gchar *gtype_prefix;
 	gchar *gtype_suffix;
 	gchar *name;
 	gchar *self_type;
-	
+
 	window = CG_WINDOW (user_data);
 
 	cg_transform_string (table, "Name");
@@ -942,7 +974,7 @@ cg_window_go_signals_transform_func (GHashTable *table,
 	name = cg_window_fetch_string (window, "go_name");
 	self_type = g_strconcat (name, "*", NULL);
 	g_free (name);
-	
+
 	cg_transform_first_argument (table, "Arguments", self_type);
 	g_free (self_type);
 
@@ -981,7 +1013,7 @@ static void
 cg_window_js_variables_transform_func (GHashTable *table,
                                      G_GNUC_UNUSED gpointer user_data)
 {
-	
+
 	cg_transform_string (table, "Name");
 }
 
@@ -1078,7 +1110,7 @@ cg_window_init (CgWindow *window)
 
 	priv->bxml = NULL;
 	priv->window = NULL;
-	
+
 	priv->editor_cc = NULL;
 	priv->editor_go_members = NULL;
 	priv->editor_go_properties = NULL;
@@ -1091,16 +1123,16 @@ cg_window_init (CgWindow *window)
 	priv->editor_vala_methods = NULL;
 	priv->editor_vala_properties = NULL;
 	priv->editor_vala_signals = NULL;
-	
+
 	priv->validator = NULL;
 }
 
-static void 
+static void
 cg_window_finalize (GObject *object)
 {
 	CgWindow *window;
 	CgWindowPrivate *priv;
-	
+
 	window = CG_WINDOW (object);
 	priv = CG_WINDOW_PRIVATE (window);
 
@@ -1169,7 +1201,7 @@ cg_window_set_property (GObject *object,
 static void
 cg_window_get_property (GObject *object,
                         guint prop_id,
-                        GValue *value, 
+                        GValue *value,
                         GParamSpec *pspec)
 {
 	CgWindow *window;
@@ -1279,13 +1311,13 @@ cg_window_create_value_heap (CgWindow *window)
 	NPWValue *value;
 	GError *error;
 	gint license_index;
-	
+
 	GtkNotebook *notebook;
 
 	gchar *header_file;
 	gchar *source_file;
 
-	gchar *text;	
+	gchar *text;
 	gchar *base_prefix;
 	gchar *base_suffix;
 
@@ -1335,10 +1367,10 @@ cg_window_create_value_heap (CgWindow *window)
 
 		value = npw_value_heap_find_value (values, "BaseTypePrefix");
 		npw_value_set_value (value, base_prefix, NPW_VALID_VALUE);
-		
+
 		value = npw_value_heap_find_value (values, "BaseTypeSuffix");
 		npw_value_set_value (value, base_suffix, NPW_VALID_VALUE);
-		
+
 		g_free (base_prefix);
 		g_free (base_suffix);
 
@@ -1370,7 +1402,7 @@ cg_window_create_value_heap (CgWindow *window)
 		cg_element_editor_set_value_count (priv->editor_go_members,
 			"PublicFunctionCount", values,
 			cg_window_scope_with_args_condition_func, "public");
-		
+
 		cg_element_editor_set_value_count (priv->editor_go_members,
 			"PublicVariableCount", values,
 			cg_window_scope_without_args_condition_func, "public");
@@ -1463,16 +1495,16 @@ cg_window_create_value_heap (CgWindow *window)
 
 	header_file = cg_window_get_header_file (window) != NULL ? g_path_get_basename (cg_window_get_header_file (window)) : NULL;
 	source_file = g_path_get_basename (cg_window_get_source_file (window));
-	
+
 	value = npw_value_heap_find_value (values, "HeaderFile");
 	npw_value_set_value (value, header_file, NPW_VALID_VALUE);
-	
+
 	value = npw_value_heap_find_value (values, "SourceFile");
 	npw_value_set_value (value, source_file, NPW_VALID_VALUE);
-	
+
 	g_free (header_file);
 	g_free (source_file);
-	
+
 	return values;
 }
 
@@ -1485,7 +1517,7 @@ cg_window_get_header_template (CgWindow *window)
 	priv = CG_WINDOW_PRIVATE (window);
 	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
-	
+
 	g_return_val_if_fail (GTK_IS_NOTEBOOK (notebook), NULL);
 
 	switch(gtk_notebook_get_current_page (notebook))
@@ -1514,7 +1546,7 @@ cg_window_get_header_file(CgWindow *window)
 
 	priv = CG_WINDOW_PRIVATE (window);
 	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "header_file"));
-	
+
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
 	return gtk_widget_get_sensitive (GTK_WIDGET (entry)) == TRUE ? gtk_entry_get_text (entry) : NULL;
 }
@@ -1528,7 +1560,7 @@ cg_window_get_source_template(CgWindow *window)
 	priv = CG_WINDOW_PRIVATE (window);
 	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
-	
+
 	g_return_val_if_fail (GTK_IS_NOTEBOOK (notebook), NULL);
 
 	switch(gtk_notebook_get_current_page (notebook))
@@ -1557,9 +1589,21 @@ cg_window_get_source_file (CgWindow *window)
 
 	priv = CG_WINDOW_PRIVATE (window);
 	entry = GTK_ENTRY (gtk_builder_get_object (priv->bxml, "source_file"));
-	
+
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
 	return gtk_entry_get_text (entry);
+}
+
+GFile *
+cg_window_get_selected_target (CgWindow *window)
+{
+	CgWindowPrivate *priv;
+	IAnjutaProjectChooser *chooser;
+
+	priv = CG_WINDOW_PRIVATE (window);
+	chooser = IANJUTA_PROJECT_CHOOSER (gtk_builder_get_object (priv->bxml, "add_project_parent"));
+
+	return ianjuta_project_chooser_get_selected (chooser, NULL);
 }
 
 void
@@ -1614,11 +1658,26 @@ cg_window_enable_add_to_project (CgWindow *window,
 {
 	CgWindowPrivate *priv;
 	GtkWidget *widget;
-	
+
 	priv = CG_WINDOW_PRIVATE (window);
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project"));
-	
 	gtk_widget_set_sensitive (widget, enable);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project_parent"));
+	gtk_widget_set_sensitive (widget, enable);
+}
+
+void
+cg_window_set_project_model (CgWindow *window, IAnjutaProjectManager *manager)
+{
+	CgWindowPrivate *priv;
+	GtkWidget *widget;
+
+	priv = CG_WINDOW_PRIVATE (window);
+	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_project_parent"));
+	ianjuta_project_chooser_set_project_model (IANJUTA_PROJECT_CHOOSER (widget),
+	                                           IANJUTA_PROJECT_MANAGER (manager),
+	                                           ANJUTA_PROJECT_SOURCE,
+	                                           NULL);
 }
 
 void
@@ -1627,10 +1686,10 @@ cg_window_enable_add_to_repository (CgWindow *window,
 {
 	CgWindowPrivate *priv;
 	GtkWidget *widget;
-	
+
 	priv = CG_WINDOW_PRIVATE (window);
 	widget = GTK_WIDGET (gtk_builder_get_object (priv->bxml, "add_repository"));
-	
+
 	gtk_widget_set_sensitive (widget, enable);
 }
 
@@ -1640,10 +1699,10 @@ cg_window_set_author (CgWindow *window,
 {
 	CgWindowPrivate* priv;
 	GtkEntry* entry;
-	
+
 	priv = CG_WINDOW_PRIVATE (window);
 	entry = GTK_ENTRY(gtk_builder_get_object (priv->bxml, "author_name"));
-	
+
 	gtk_entry_set_text (entry, author);
 }
 
@@ -1653,9 +1712,9 @@ cg_window_set_email (CgWindow *window,
 {
 	CgWindowPrivate* priv;
 	GtkEntry* entry;
-	
+
 	priv = CG_WINDOW_PRIVATE (window);
 	entry = GTK_ENTRY(gtk_builder_get_object (priv->bxml, "author_email"));
-	
+
 	gtk_entry_set_text (entry, email);
 }

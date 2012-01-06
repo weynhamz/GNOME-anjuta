@@ -50,7 +50,7 @@ project_root_added (AnjutaPlugin *plugin,
 
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	root_uri = g_value_get_string (value);
-	
+
 	if (root_uri)
 	{
 		gchar *root_dir = anjuta_util_get_local_path_from_uri (root_uri);
@@ -71,7 +71,7 @@ project_root_removed (AnjutaPlugin *plugin,
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
-	
+
 	if (cg_plugin->top_dir)
 		g_free(cg_plugin->top_dir);
 	cg_plugin->top_dir = NULL;
@@ -81,13 +81,13 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
-	
+
 	DEBUG_PRINT ("%s", "AnjutaClassGenPlugin: Activating ClassGen plugin...");
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	cg_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	
+
 	g_return_val_if_fail (cg_plugin->prefs != NULL, FALSE);
-	
+
 	cg_plugin->top_dir = NULL;
 
 	/* Check if autogen is present */
@@ -117,10 +117,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaClassGenPlugin *cg_plugin;
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	DEBUG_PRINT ("%s", "AnjutaClassGenPlugin: Deactivating ClassGen plugin ...");
-	
+
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, cg_plugin->root_watch_id, TRUE);
-	
+
 	return TRUE;
 }
 
@@ -146,7 +146,7 @@ finalize (GObject *obj)
 }
 
 static void
-class_gen_plugin_class_init (GObjectClass *klass) 
+class_gen_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -173,51 +173,49 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
                           const gchar *header_file,
                           const gchar *source_file,
                           gchar **new_header_file,
-                          gchar **new_source_file)
+                          gchar **new_source_file,
+                          GFile *target)
 {
 	IAnjutaProjectManager *manager;
-	GList *filenames = NULL;
-	GList *added_files;
-	GFile *file;
+	GFile *header = NULL;
+	GFile *source;
 	gboolean result;
 
 	manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                      IAnjutaProjectManager, NULL);
-       
-	if (manager == NULL) 
+
+	if (manager == NULL)
 		return FALSE;
 
-	if (header_file != NULL) filenames = g_list_append (filenames, g_path_get_basename (header_file));
-	filenames = g_list_append (filenames, g_path_get_basename (source_file));
-	file = g_file_new_for_path (plugin->top_dir);
-	added_files = ianjuta_project_manager_add_sources (manager, filenames,
-	                                                   file, NULL);
-	g_object_unref (file);
-	g_list_foreach (filenames, (GFunc)g_free, NULL);
-	g_list_free (filenames);
+	source = ianjuta_project_manager_add_source_quiet (manager, source_file,
+	                                                   target, NULL);
+	if (header_file) header = ianjuta_project_manager_add_source_quiet (manager, header_file,
+	                                                                    target, NULL);
 
-	result = g_list_length (added_files) == ((header_file == NULL) ? 1 : 2);
+	result = source != NULL;
 	if (result)
 	{
+		*new_source_file = g_file_get_path(source);
+		g_object_unref (source);
+		*new_header_file = NULL;
 		/*
 		 * Check if we're dealing with a programming language not having header
 		 * files.
 		 */
-		if (header_file == NULL)
+		if (header_file != NULL)
 		{
-			*new_header_file = NULL;
-			*new_source_file = g_file_get_path((GFile *)added_files->data);
-		}
-		else
-		{
-			*new_header_file = g_file_get_path((GFile *)added_files->data);
-			*new_source_file = g_file_get_path((GFile *)g_list_next (added_files)->data);
+			if (header == NULL)
+			{
+				result = FALSE;
+			}
+			else
+			{
+				*new_header_file = g_file_get_path(header);
+				g_object_unref (header);
+			}
 		}
 	}
 
-	g_list_foreach (added_files, (GFunc)g_object_unref, NULL);
-	g_list_free (added_files);
-	
 	return result;
 }
 
@@ -270,7 +268,7 @@ cg_plugin_load (AnjutaClassGenPlugin *plugin,
 	gboolean result;
 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-	                                     IAnjutaDocumentManager, NULL);	
+	                                     IAnjutaDocumentManager, NULL);
 
 	if(g_file_get_contents(file, &contents, NULL, error) == FALSE)
 		return FALSE;
@@ -287,10 +285,10 @@ cg_plugin_load (AnjutaClassGenPlugin *plugin,
 		if(!error || *error == NULL)
 			result = TRUE;
 	}
-	
+
 	g_free(contents);
 	g_free(name);
-	
+
 	return result;
 }
 
@@ -309,7 +307,7 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaFileLoader, NULL);
-	
+
 	if (cg_window_get_add_to_project (plugin->window))
 	{
 		GFile* header = NULL;
@@ -335,7 +333,7 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		{
 			cg_plugin_add_to_repository (plugin, header, source);
 		}
-	
+
 		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaProjectManager, NULL);
 		if (manager)
 		{
@@ -397,10 +395,12 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 	{
 		if (cg_window_get_add_to_project (plugin->window))
 		{
+			GFile *target = cg_window_get_selected_target (plugin->window);
 			result = cg_plugin_add_to_project (
 				plugin, cg_window_get_header_file (plugin->window),
 					cg_window_get_source_file (plugin->window),
-					&header_file, &source_file);
+					&header_file, &source_file,
+			        target);
 		}
 		else
 		{
@@ -487,7 +487,8 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	gchar *user_name;
 	gchar *user_email;
 	gint caps = 0;
-	
+	gboolean has_project;
+
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (wiz);
 
 	if (cg_plugin->window != NULL)
@@ -498,7 +499,7 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	user_name = g_strdup(g_get_real_name ());
 	/* FIXME: */
 	user_email = anjuta_util_get_user_mail();
-	
+
 	if (user_name != NULL)
 		cg_window_set_author (cg_plugin->window, user_name);
 
@@ -514,15 +515,16 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 		IAnjutaProjectManager *manager =
 			anjuta_shell_get_interface (ANJUTA_PLUGIN (wiz)->shell,
 										IAnjutaProjectManager, NULL);
-       if (manager)
+		if (manager)
+		{
 			caps = ianjuta_project_manager_get_capabilities (manager, NULL);
+			cg_window_set_project_model (cg_plugin->window, manager);
+		}
 	}
 
-	if((caps & ANJUTA_PROJECT_CAN_ADD_SOURCE) == FALSE)
-	{
-		cg_window_set_add_to_project (cg_plugin->window, FALSE);
-		cg_window_enable_add_to_project (cg_plugin->window, FALSE);
-	}
+	has_project = (caps & ANJUTA_PROJECT_CAN_ADD_SOURCE) ? TRUE : FALSE;
+	cg_window_set_add_to_project (cg_plugin->window, has_project);
+	cg_window_enable_add_to_project (cg_plugin->window, has_project);
 
 	/* TODO: Check whether the project is in version control, and enable
 	 * "add to repository" button respectively. */
