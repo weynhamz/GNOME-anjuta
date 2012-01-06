@@ -4,6 +4,7 @@ _Description=Anjuta File Assistant Plugin
 Location=anjuta-file-wizard:AnjutaFileWizardPlugin
 Icon=anjuta-file-wizard-plugin-48.png
 Interfaces=IAnjutaWizard
+Dependencies=anjuta-project-manager:ProjectManagerPlugin
 UserActivatable=no
 
 [Wizard]
