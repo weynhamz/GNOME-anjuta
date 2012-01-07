@@ -862,11 +862,14 @@ anjuta_tree_combo_box_get_active_iter (AnjutaTreeComboBox *combo,
 	GtkTreePath *path;
 	gboolean valid = FALSE;
 
-	path = gtk_tree_row_reference_get_path (priv->active_row);
-	if (path)
+	if (priv->active_row != NULL)
 	{
-		valid = gtk_tree_model_get_iter (priv->model, iter, path);
-		gtk_tree_path_free (path);
+		path = gtk_tree_row_reference_get_path (priv->active_row);
+		if (path)
+		{
+			valid = gtk_tree_model_get_iter (priv->model, iter, path);
+			gtk_tree_path_free (path);
+		}
 	}
 
 	return valid;
