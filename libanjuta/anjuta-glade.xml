@@ -75,6 +75,9 @@
 				<property id="stock" disabled="True"/>
 			</properties>
 		</glade-widget-class>
+		<glade-widget-class name="GbfProjectView" title="Project node view"
+		 generic-name="view" parent="GtkTreeView">
+		</glade-widget-class>
 
 	</glade-widget-classes>
 
@@ -89,5 +92,6 @@
 		<glade-widget-class-ref name="AnjutaEnvironmentEditor" />
 		<glade-widget-class-ref name="AnjutaTreeComboBox" />
 		<glade-widget-class-ref name="AnjutaPmChooserButton" />
+		<glade-widget-class-ref name="GbfProjectView" />
 	</glade-widget-group>
 </glade-catalog>
