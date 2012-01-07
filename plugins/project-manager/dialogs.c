@@ -1012,7 +1012,7 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 
 AnjutaProjectNode*
 anjuta_pm_project_new_source (ProjectManagerPlugin *plugin,
-							GtkWindow           *parent,
+                              GtkWindow           *parent,
 							GtkTreeIter         *default_parent,
 							const gchar         *default_uri)
 {
@@ -1041,6 +1041,146 @@ anjuta_pm_project_new_source (ProjectManagerPlugin *plugin,
 		return NULL;
 }
 
+static void
+on_target_changed (GtkWidget *chooser, GtkWidget *button)
+{
+	GFile *file;
+
+	file = ianjuta_project_chooser_get_selected (IANJUTA_PROJECT_CHOOSER (chooser), NULL);
+	gtk_widget_set_sensitive (button, file != NULL);
+}
+
+GList*
+anjuta_pm_add_source_dialog (ProjectManagerPlugin *plugin,
+                             GtkWindow *top_window,
+                             GtkTreeIter *default_target,
+                             GFile *default_source)
+{
+	GtkBuilder *gui;
+	GtkWidget *dialog;
+	GtkWidget *ok_button;
+	GtkWidget *target_chooser;
+	GtkWidget *source_chooser;
+	gint response;
+	gboolean finished = FALSE;
+	GList *sources = NULL;
+
+	g_return_val_if_fail (plugin->project != NULL, NULL);
+
+	gui = load_interface ("add_source_dialog");
+	g_return_val_if_fail (gui != NULL, NULL);
+
+	/* get all needed widgets */
+	dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_source_dialog"));
+	target_chooser = GTK_WIDGET (gtk_builder_get_object (gui, "target_chooser"));
+	source_chooser = GTK_WIDGET (gtk_builder_get_object (gui, "source_chooser"));
+	ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_add_source_button"));
+
+	/* Fill target selection */
+	ianjuta_project_chooser_set_project_model (IANJUTA_PROJECT_CHOOSER (target_chooser),
+	                                           IANJUTA_PROJECT_MANAGER (plugin),
+	                                           ANJUTA_PROJECT_SOURCE,
+	                                           NULL);
+	if (default_target != NULL)
+	{
+		GtkTreeIter iter;
+		if (pm_convert_project_iter_to_model_iter (GTK_TREE_MODEL (anjuta_tree_combo_box_get_model (ANJUTA_TREE_COMBO_BOX (target_chooser))),
+	    	                                       &iter, default_target))
+		{
+			anjuta_tree_combo_box_set_active_iter (ANJUTA_TREE_COMBO_BOX (target_chooser), &iter);
+		}
+	}
+	g_signal_connect (target_chooser, "changed",
+					G_CALLBACK (on_target_changed),
+					ok_button);
+	on_target_changed (target_chooser, ok_button);
+
+	/* Selected default file */
+	if (default_source != NULL) gtk_file_chooser_set_file (GTK_FILE_CHOOSER (source_chooser), default_source, NULL);
+
+	if (top_window) {
+		gtk_window_set_transient_for (GTK_WINDOW (dialog), top_window);
+	}
+
+	/* execute dialog */
+	while (!finished) {
+		response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+		switch (response)
+		{
+		case GTK_RESPONSE_OK:
+		{
+			GFile *target_file;
+			AnjutaProjectNode *target;
+			GSList *files;
+
+			target_file = ianjuta_project_chooser_get_selected (IANJUTA_PROJECT_CHOOSER (target_chooser), NULL);
+			target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_UNKNOWN, target_file);
+			files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (source_chooser));
+			if ((target != NULL) && (files != NULL))
+			{
+				GString *err_mesg = g_string_new (NULL);
+				GSList *item;
+
+				for (item = files; item != NULL; item = g_slist_next (item))
+				{
+					gchar *path = g_file_get_path ((GFile *)item->data);
+					GError *err = NULL;
+					AnjutaProjectNode *node;
+
+					node = anjuta_pm_project_add_source (plugin->project,
+					                                     target,
+					                                     NULL,
+					                                     path,
+					                                     &err);
+					sources = g_list_prepend (sources, node);
+					if (err) {
+						gchar *str = g_strdup_printf ("%s: %s\n",
+						                              path,
+						                              err->message);
+						g_string_append (err_mesg, str);
+						g_error_free (err);
+						g_free (str);
+					}
+					g_free (path);
+				}
+				if (err_mesg->str && strlen (err_mesg->str) > 0)
+				{
+					error_dialog (top_window, _("Cannot add source files"),
+							"%s", err_mesg->str);
+				}
+				else {
+					finished = TRUE;
+				}
+				g_string_free (err_mesg, TRUE);
+				g_slist_foreach (files, (GFunc)g_object_unref, NULL);
+				g_slist_free (files);
+			}
+			else
+			{
+				error_dialog (top_window, _("Cannot add source files"),
+						"%s", _("The selected node cannot contain source files."));
+			}
+			break;
+		}
+		case GTK_RESPONSE_HELP:
+			anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_SOURCE_HELP);
+			break;
+		default:
+			finished = TRUE;
+			break;
+		}
+	}
+
+	/* destroy stuff */
+	gtk_widget_destroy (dialog);
+	g_object_unref (gui);
+
+	sources = g_list_reverse (sources);
+	return sources;
+}
+
+
 GList*
 anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 								GtkWindow           *top_window,
@@ -1062,11 +1202,11 @@ anjuta_pm_project_new_multiple_source (ProjectManagerPlugin *plugin,
 
 	g_return_val_if_fail (plugin->project != NULL, NULL);
 
-	gui = load_interface ("add_source_dialog");
+	gui = load_interface ("new_source_dialog");
 	g_return_val_if_fail (gui != NULL, NULL);
 
 	/* get all needed widgets */
-	dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_source_dialog"));
+	dialog = GTK_WIDGET (gtk_builder_get_object (gui, "new_source_dialog"));
 	targets_view = GTK_WIDGET (gtk_builder_get_object (gui, "targets_view"));
 	source_file_tree = GTK_WIDGET (gtk_builder_get_object (gui, "source_file_tree"));
 	browse_button = GTK_WIDGET (gtk_builder_get_object (gui, "browse_button"));

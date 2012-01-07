@@ -512,24 +512,24 @@ on_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GFile *default_group = NULL;
-	gchar *source_uri = NULL;
-	GFile *source;
+	GList *new_sources;
+	GFile *default_source = NULL;
+	GtkTreeIter selected;
+	gboolean found;
 
 	if (plugin->current_editor_uri)
 	{
-		gchar *uri = g_path_get_dirname (plugin->current_editor_uri);
-		default_group = g_file_new_for_uri (uri);
-		g_free (uri);
-		source_uri = plugin->current_editor_uri;
+		default_source = g_file_new_for_uri (plugin->current_editor_uri);
 	}
-	source =
-		ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
-											source_uri,
-											default_group, NULL);
-
-	if (source != NULL) g_object_unref (source);
-	if (default_group != NULL) g_object_unref (default_group);
+	found = gbf_project_view_get_first_selected (plugin->view, &selected) != NULL;
+	update_operation_begin (plugin);
+	new_sources = anjuta_pm_add_source_dialog (plugin,
+	                                          get_plugin_parent_window (plugin),
+	                                          found ? &selected : NULL,
+	                                          default_source);
+	update_operation_end (plugin, TRUE);
+	g_list_free (new_sources);
+	if (default_source) g_object_unref (default_source);
 }
 
 static void
@@ -616,17 +616,25 @@ on_popup_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkTreeIter selected_target;
-	AnjutaProjectNode *new_source;
+	GList *new_sources;
+	GFile *default_source = NULL;
+	GtkTreeIter selected;
+	gboolean found;
 
+	if (plugin->current_editor_uri)
+	{
+		default_source = g_file_new_for_uri (plugin->current_editor_uri);
+	}
+	found = gbf_project_view_get_first_selected (plugin->view, &selected) != NULL;
 	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (plugin->view, &selected_target);
-
-	new_source = anjuta_pm_project_new_source (plugin,
-											 get_plugin_parent_window (plugin),
-											 &selected_target, NULL);
+	new_sources = anjuta_pm_add_source_dialog (plugin,
+	                                          get_plugin_parent_window (plugin),
+	                                          found ? &selected : NULL,
+	                                          default_source);
 
 	update_operation_end (plugin, TRUE);
+	g_list_free (new_sources);
+	if (default_source) g_object_unref (default_source);
 }
 
 static gboolean
