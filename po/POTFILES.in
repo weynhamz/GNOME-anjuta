@@ -25,6 +25,7 @@ libanjuta/anjuta-serializer.c
 libanjuta/anjuta-session.c
 libanjuta/anjuta-shell.c
 libanjuta/anjuta-status.c
+libanjuta/anjuta-tree-combo.c
 libanjuta/anjuta-ui.c
 libanjuta/anjuta-utils.c
 libanjuta/anjuta-vcs-status-tree-view.c
