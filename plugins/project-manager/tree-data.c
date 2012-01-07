@@ -32,7 +32,7 @@
  * The GbfTreeData object store all data needed by each element of the project
  * tree view. It has the same role than AnjutaProjectNode in the project
  * backend and normally there is one GbfTreeData for each AnjutaProjectNode.
- * 
+ *
  * The GbfTreeData objects do not have a pointer to their corresponding
  * AnjutaProjectNode because they do not have the same life time. By example
  * when a project is reloaded all AnjutaProjectNode are destroyed but the
@@ -50,7 +50,7 @@
  * responsability of the routine to free all GbfTreeData objects before. On
  * the other hand, it must not be freed after getting one pointer from
  * the tree view.
- */ 
+ */
 
 gchar *
 gbf_tree_data_get_uri (GbfTreeData *data)
@@ -70,7 +70,7 @@ gbf_tree_data_get_file (GbfTreeData *data)
 		GFile *target;
 
 		target = g_file_get_child (data->group, data->target);
-		
+
 		return target;
 	}
 	else if (data->group != NULL)
@@ -171,6 +171,39 @@ gbf_tree_data_equal_name (GbfTreeData *data, const gchar *name)
 	return g_strcmp0 (data->name, name) == 0;
 }
 
+GbfTreeNodeType
+gbf_tree_node_type_from_project (AnjutaProjectNodeType type)
+{
+	GbfTreeNodeType tree_type;
+
+	switch (type & ANJUTA_PROJECT_TYPE_MASK)
+	{
+	case ANJUTA_PROJECT_ROOT:
+		tree_type = GBF_TREE_NODE_ROOT;
+		break;
+	case ANJUTA_PROJECT_GROUP:
+		tree_type = GBF_TREE_NODE_GROUP;
+		break;
+	case ANJUTA_PROJECT_TARGET:
+		tree_type = GBF_TREE_NODE_TARGET;
+		break;
+	case ANJUTA_PROJECT_SOURCE:
+		tree_type = GBF_TREE_NODE_SOURCE;
+		break;
+	case ANJUTA_PROJECT_MODULE:
+		tree_type = GBF_TREE_NODE_MODULE;
+		break;
+	case ANJUTA_PROJECT_PACKAGE:
+		tree_type = GBF_TREE_NODE_PACKAGE;
+		break;
+	default:
+		tree_type = GBF_TREE_NODE_UNKNOWN;
+		break;
+	}
+
+	return tree_type;
+}
+
 void
 gbf_tree_data_invalidate (GbfTreeData *data)
 {
@@ -181,10 +214,10 @@ GbfTreeData *
 gbf_tree_data_new_string (const gchar *string)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	
+
 	data->type = GBF_TREE_NODE_STRING;
 	data->name = g_strdup (string);
-	
+
 	return data;
 }
 
@@ -202,7 +235,7 @@ gbf_tree_data_new_shortcut (GbfTreeData *src)
 	data->is_shortcut = TRUE;
 	data->shortcut = src;
 	//src->shortcut = data;
-	
+
 	return data;
 }
 
@@ -215,7 +248,7 @@ gbf_tree_data_new_proxy (const char *name, gboolean expanded)
 	data->node = NULL;
 	data->name = g_strdup (name);
 	data->expanded = expanded;
-	
+
 	return data;
 }
 
@@ -227,7 +260,7 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 
 	data->type = anjuta_project_node_parent(group) == NULL ? GBF_TREE_NODE_ROOT : GBF_TREE_NODE_GROUP;
 	data->node = group;
-	
+
 	ginfo = g_file_query_info (anjuta_project_node_get_file (group),
 	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 	    G_FILE_QUERY_INFO_NONE,
@@ -243,7 +276,7 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 	}
 
 	data->group = g_object_ref (anjuta_project_node_get_file (group));
-	
+
 	return data;
 }
 
@@ -252,15 +285,15 @@ gbf_tree_data_new_target (AnjutaProjectNode *target)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	AnjutaProjectNode *group;
-	
+
 	data->type = GBF_TREE_NODE_TARGET;
 	data->node = target;
 	data->name = g_strdup (anjuta_project_node_get_name (target));
 
 	group = anjuta_project_node_parent (target);
-	data->group = g_object_ref (anjuta_project_node_get_file (group));	
+	data->group = g_object_ref (anjuta_project_node_get_file (group));
 	data->target = g_strdup (anjuta_project_node_get_name (target));
-	
+
 	return data;
 }
 
@@ -270,12 +303,12 @@ gbf_tree_data_new_object (AnjutaProjectNode *node)
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
 	AnjutaProjectNode *parent;
-	
+
 	data->type = GBF_TREE_NODE_OBJECT;
 	data->node = node;
 
 	data->source = g_object_ref (anjuta_project_node_get_file (node));
-	
+
 	ginfo = g_file_query_info (data->source,
 	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 	    G_FILE_QUERY_INFO_NONE,
@@ -298,7 +331,7 @@ gbf_tree_data_new_object (AnjutaProjectNode *node)
 	else if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
 	{
 		AnjutaProjectNode *group;
-		
+
 		group = anjuta_project_node_parent (parent);
 		data->group = g_object_ref (anjuta_project_node_get_file (group));
 		data->target = g_strdup (anjuta_project_node_get_name (parent));
@@ -313,12 +346,12 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
 	GFileInfo *ginfo;
 	AnjutaProjectNode *parent;
-	
+
 	data->type = GBF_TREE_NODE_SOURCE;
 	data->node = source;
 
 	data->source = g_object_ref (anjuta_project_node_get_file (source));
-	
+
 	ginfo = g_file_query_info (data->source,
 	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
 	    G_FILE_QUERY_INFO_NONE,
@@ -341,7 +374,7 @@ gbf_tree_data_new_source (AnjutaProjectNode *source)
 	else if (anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_TARGET)
 	{
 		AnjutaProjectNode *group;
-		
+
 		group = anjuta_project_node_parent (parent);
 		data->group = g_object_ref (anjuta_project_node_get_file (group));
 		data->target = g_strdup (anjuta_project_node_get_name (parent));
@@ -354,7 +387,7 @@ GbfTreeData *
 gbf_tree_data_new_root (AnjutaProjectNode *root)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	
+
 	data->type = GBF_TREE_NODE_ROOT;
 	data->node = root;
 	data->name = g_strdup (anjuta_project_node_get_name (root));
@@ -366,7 +399,7 @@ GbfTreeData *
 gbf_tree_data_new_module (AnjutaProjectNode *module)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	
+
 	data->type = GBF_TREE_NODE_MODULE;
 	data->node = module;
 	data->name = g_strdup (anjuta_project_node_get_name (module));
@@ -378,7 +411,7 @@ GbfTreeData *
 gbf_tree_data_new_package (AnjutaProjectNode *package)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	
+
 	data->type = GBF_TREE_NODE_PACKAGE;
 	data->node = package;
 	data->name = g_strdup (anjuta_project_node_get_name (package));
@@ -390,7 +423,7 @@ GbfTreeData *
 gbf_tree_data_new_node (AnjutaProjectNode *node)
 {
 	GbfTreeData *data = NULL;
-	
+
 	switch (anjuta_project_node_get_node_type (node))
 	{
 		case ANJUTA_PROJECT_GROUP:

@@ -1308,13 +1308,13 @@ gbf_project_view_get_node_from_file (GbfProjectView *view, AnjutaProjectNodeType
 	GtkTreeIter iter;
 	AnjutaProjectNode *node = NULL;
 
-	if (gbf_project_model_find_file (view->model, &iter, NULL, type, file))
+	if (gbf_project_model_find_file (view->model, &iter, NULL, gbf_tree_node_type_from_project (type), file))
 	{
 
 		node = gbf_project_model_get_node (view->model, &iter);
 	}
 
-	return NULL;
+	return node;
 }
 
 gboolean
