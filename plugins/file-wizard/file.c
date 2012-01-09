@@ -57,7 +57,6 @@
 #define NEW_FILE_MENU_LICENSE_STORE "new.file.menu.license.store"
 #define NEW_FILE_ADD_TO_PROJECT "add_to_project"
 #define NEW_FILE_ADD_TO_PROJECT_PARENT "add_to_project.combo.parent"
-#define NEW_FILE_ADD_TO_PROJECT_LABEL "add_to_project.label"
 #define NEW_FILE_ADD_TO_REPOSITORY "add_to_repository"
 
 typedef struct _NewFileGUI
@@ -66,7 +65,6 @@ typedef struct _NewFileGUI
 	GtkWidget *dialog;
 	GtkWidget *add_to_project;
 	GtkWidget *add_to_repository;
-	GtkWidget *add_to_project_label;
 	GtkWidget *add_to_project_parent;
 	GtkWidget *ok_button;
 	gboolean showing;
@@ -189,7 +187,6 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 	has_project = (caps & ANJUTA_PROJECT_CAN_ADD_SOURCE) ? TRUE : FALSE;
 	gtk_widget_set_visible (nfg->add_to_project, has_project);
 	gtk_widget_set_visible (nfg->add_to_project_parent, has_project);
-	gtk_widget_set_visible (nfg->add_to_project_label, has_project);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
 									  has_project);
 	gtk_widget_set_sensitive (nfg->add_to_project, has_project);
@@ -226,7 +223,6 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 	nfg->ok_button = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_OK_BUTTON));
 	nfg->add_to_project = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_PROJECT));
 	nfg->add_to_project_parent = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_PROJECT_PARENT));
-	nfg->add_to_project_label = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_PROJECT_LABEL));
 	nfg->add_to_repository = GTK_WIDGET (gtk_builder_get_object (nfg->bxml, NEW_FILE_ADD_TO_REPOSITORY));
 	nfg->showing = FALSE;
 
