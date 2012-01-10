@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-01-07 20:33+0000\n"
-"PO-Revision-Date: 2012-01-08 19:39+0100\n"
+"POT-Creation-Date: 2012-01-09 18:32+0000\n"
+"PO-Revision-Date: 2012-01-10 09:53+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -724,8 +724,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:389
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -736,8 +736,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:398
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:1
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
@@ -918,8 +918,8 @@ msgid ""
 "quoted command. You can use %% to get a \"%\" character. A typical value is "
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
-"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el "
-"comando usado para instalar los archivos, por ejemplo, «make install». %s se "
+"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el comando "
+"usado para instalar los archivos, por ejemplo, «make install». %s se "
 "reemplazará con el comando sin ningún cambio, mientras que %q se reemplazará "
 "por el comando entrecomillado. Puede usar «%%» para obtener el carácter «%». "
 "Un valor habitual es «sudo %s» o «su -c %q»."
@@ -1234,7 +1234,6 @@ msgid "Command aborted"
 msgstr "Comando abortado"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:1
-#| msgid "Add to Project"
 msgid "Add to Project Target:"
 msgstr "Añadir al proyecto objetivo:"
 
@@ -1343,7 +1342,7 @@ msgid "General Class Properties"
 msgstr "Propiedades generales de la clase"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
-#: ../plugins/file-wizard/file.c:111
+#: ../plugins/file-wizard/file.c:109
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:19
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
@@ -1391,7 +1390,7 @@ msgid "JavaScript Class"
 msgstr "Clase JavaScript"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:30
-#: ../plugins/file-wizard/file.c:112
+#: ../plugins/file-wizard/file.c:110
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:25
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:17
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:18
@@ -1415,7 +1414,6 @@ msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:31
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
 msgid "License:"
 msgstr "Licencia:"
 
@@ -1726,7 +1724,7 @@ msgid "Module name:"
 msgstr "Nombre del módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:36
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
 #: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 #: ../plugins/subversion/anjuta-subversion.ui.h:23
@@ -3977,12 +3975,14 @@ msgid "File Manager"
 msgstr "Gestor de archivos"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:1
-msgid "Add License Information"
-msgstr "Añadir información de licencia"
+#| msgid "Add License Information"
+msgid "Add License Information:"
+msgstr "Añadir información de licencia:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:2
-msgid "Add to project"
-msgstr "Añadir al proyecto"
+#| msgid "Add to Project Target:"
+msgid "Add to project target:"
+msgstr "Añadir al proyecto objetivo:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:3
 msgid "Add to repository"
@@ -4004,7 +4004,7 @@ msgstr ""
 msgid "File Information"
 msgstr "Información del archivo"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
 #: ../plugins/am-project/am-properties.c:49 ../plugins/git/anjuta-git.ui.h:35
 #: ../plugins/project-manager/dialogs.c:600
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
@@ -4012,65 +4012,60 @@ msgstr "Información del archivo"
 msgid "Name:"
 msgstr "Nombre:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:10
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "New File"
 msgstr "Archivo nuevo"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
-#| msgid "Print:"
-msgid "Parent:"
-msgstr "Padre:"
-
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:13
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
 #: ../plugins/project-manager/dialogs.c:622
 msgid "Type:"
 msgstr "Tipo:"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:14
+#: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
 msgid "Use Template for the Header file"
 msgstr "Usar plantilla para el archivo de cabecera"
 
-#: ../plugins/file-wizard/file.c:91
+#: ../plugins/file-wizard/file.c:89
 msgid "C Source File"
 msgstr "Archivo de código fuente C"
 
-#: ../plugins/file-wizard/file.c:92
+#: ../plugins/file-wizard/file.c:90
 msgid "C/C++ Header File"
 msgstr "Archivo de cabeceras C/C++"
 
-#: ../plugins/file-wizard/file.c:93
+#: ../plugins/file-wizard/file.c:91
 msgid "C++ Source File"
 msgstr "Archivo de código fuente C++"
 
-#: ../plugins/file-wizard/file.c:94
+#: ../plugins/file-wizard/file.c:92
 msgid "C# Source File"
 msgstr "Archivo de código fuente C#"
 
-#: ../plugins/file-wizard/file.c:95
+#: ../plugins/file-wizard/file.c:93
 msgid "Java Source File"
 msgstr "Archivo de código fuente Java"
 
-#: ../plugins/file-wizard/file.c:96
+#: ../plugins/file-wizard/file.c:94
 msgid "Perl Source File"
 msgstr "Archivo de código fuente Perl"
 
-#: ../plugins/file-wizard/file.c:97
+#: ../plugins/file-wizard/file.c:95
 msgid "Python Source File"
 msgstr "Archivo de código fuente Python"
 
-#: ../plugins/file-wizard/file.c:98
+#: ../plugins/file-wizard/file.c:96
 msgid "Shell Script File"
 msgstr "Archivo de script de shell"
 
-#: ../plugins/file-wizard/file.c:99
+#: ../plugins/file-wizard/file.c:97
 msgid "Vala Source File"
 msgstr "Archivo de código fuente Vala"
 
-#: ../plugins/file-wizard/file.c:100
+#: ../plugins/file-wizard/file.c:98
 msgid "Other"
 msgstr "Otros"
 
-#: ../plugins/file-wizard/file.c:113
+#: ../plugins/file-wizard/file.c:111
 msgid "BSD Public License"
 msgstr "Licencia Pública BSD"
 
@@ -4362,8 +4357,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
-"«Flex» para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
+"para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -5487,8 +5482,7 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
-"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5920,8 +5914,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -5938,9 +5932,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6064,7 +6058,6 @@ msgid "Target _type:"
 msgstr "_Tipo de objetivo:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:16
-#| msgid "Target: %s\n"
 msgid "Target:"
 msgstr "Objetivo:"
 
@@ -6537,8 +6530,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:681
@@ -7360,8 +7353,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
@@ -9849,6 +9842,13 @@ msgstr "Caracteres mínimos para autocompletado "
 msgid "Symbol"
 msgstr "Símbolo"
 
+#~ msgid "Add to project"
+#~ msgstr "Añadir al proyecto"
+
+#~| msgid "Print:"
+#~ msgid "Parent:"
+#~ msgstr "Padre:"
+
 #~ msgid ""
 #~ "Unable to display help. Please make sure the Anjuta documentation package "
 #~ "is installed. It can be downloaded from http://anjuta.org."
@@ -10353,8 +10353,8 @@ msgstr "Símbolo"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
-#~ "desde el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
