@@ -60,6 +60,56 @@ G_DEFINE_TYPE_WITH_CODE (AnjutaPmChooserButton, anjuta_pm_chooser_button, ANJUTA
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static gboolean
+is_node_valid (GtkTreeModel *model, GtkTreeIter *iter, AnjutaPmChooserButton *button)
+{
+	GbfTreeData *data = NULL;
+	gboolean valid = FALSE;
+
+	gtk_tree_model_get (model, iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
+	if ((data != NULL) && (data->node != NULL))
+	{
+	  	AnjutaPmChooserButtonPrivate *priv;
+		gint mask;
+
+		priv = G_TYPE_INSTANCE_GET_PRIVATE (button,
+		                                    ANJUTA_TYPE_PM_CHOOSER_BUTTON,
+		                                    AnjutaPmChooserButtonPrivate);
+
+		switch (priv->child)
+		{
+		case ANJUTA_PROJECT_ROOT:
+			/* Allow all nodes */
+			mask = -1;
+			break;
+		case ANJUTA_PROJECT_MODULE:
+		case ANJUTA_PROJECT_PACKAGE:
+			/* Only package parent */
+			mask = ANJUTA_PROJECT_CAN_ADD_PACKAGE;
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			/* Only package parent */
+			mask = ANJUTA_PROJECT_CAN_ADD_SOURCE;
+			break;
+		case ANJUTA_PROJECT_TARGET:
+			/* Only package parent */
+			mask = ANJUTA_PROJECT_CAN_ADD_TARGET;
+			break;
+		case ANJUTA_PROJECT_GROUP:
+			/* Only group parent */
+			mask = ANJUTA_PROJECT_CAN_ADD_GROUP;
+			break;
+		default:
+			mask = 0;
+			break;
+		}
+
+		valid = anjuta_project_node_get_state (ANJUTA_PROJECT_NODE (data->node)) & mask ? TRUE : FALSE;
+	}
+
+	return valid;
+}
+
 static void
 setup_nodes_combo_box (AnjutaPmChooserButton      *view,
 						GbfProjectModel	   *model,
@@ -201,6 +251,7 @@ anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjec
 	GtkTreeIter selected;
 	gboolean found;
 	GtkTreeModelFilterVisibleFunc func;
+	const gchar *label;
 
 	ANJUTA_PM_CHOOSER_BUTTON (iface)->priv->child = child_type & ANJUTA_PROJECT_TYPE_MASK;
 
@@ -209,33 +260,44 @@ anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjec
 	case ANJUTA_PROJECT_ROOT:
 		/* Display all nodes */
 		func = is_project_node_but_shortcut;
+		label = _("<Select any project node>");
 		break;
 	case ANJUTA_PROJECT_MODULE:
 		/* Display all modules */
 		func = is_project_module_node;
+		label = _("<Select any module>");
 		break;
 	case ANJUTA_PROJECT_PACKAGE:
 		/* Display all targets */
 		func = is_project_target_or_group_node;
+		label = _("<Select a target>");
 		break;
 	case ANJUTA_PROJECT_SOURCE:
 		/* Display all targets */
 		func = is_project_target_or_group_node;
+		label = _("<Select a target>");
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		/* Display all targets */
 		func = is_project_target_or_group_node;
+		label = _("<Select a target or a folder>");
 		break;
 	case ANJUTA_PROJECT_GROUP:
 		/* Display all groups */
 		func = is_project_group_node;
+		label = _("<Select a folder>");
 		break;
 	default:
 		/* Invalid type */
 		return FALSE;
 	}
 
+	anjuta_tree_combo_box_set_invalid_text (ANJUTA_TREE_COMBO_BOX (iface), label);
+	anjuta_tree_combo_box_set_valid_function (ANJUTA_TREE_COMBO_BOX (iface), (GtkTreeModelFilterVisibleFunc)is_node_valid, iface, NULL);
+
 	found = gbf_project_view_get_first_selected (ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view, &selected) != NULL;
+
+
 
 	/* Add combo node selection */
 	setup_nodes_combo_box (ANJUTA_PM_CHOOSER_BUTTON (iface),
@@ -256,50 +318,16 @@ anjuta_pm_chooser_get_selected (IAnjutaProjectChooser *iface, GError **error)
 	if (anjuta_tree_combo_box_get_active_iter (ANJUTA_TREE_COMBO_BOX (iface), &iter))
 	{
 		GtkTreeModel *model;
-		GbfTreeData *data = NULL;
 
 		model = anjuta_tree_combo_box_get_model (ANJUTA_TREE_COMBO_BOX (iface));
 
-		gtk_tree_model_get (model, &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-		g_return_val_if_fail (data != NULL, NULL);
-
-		if (data->node != NULL)
+		if (is_node_valid (model, &iter, ANJUTA_PM_CHOOSER_BUTTON (iface)))
 		{
-			AnjutaProjectNode *node = data->node;
-			gint valid;
+			GbfTreeData *data;
 
-			switch (ANJUTA_PM_CHOOSER_BUTTON (iface)->priv->child)
-			{
-			case ANJUTA_PROJECT_ROOT:
-				/* Allow all nodes */
-				valid = -1;
-				break;
-			case ANJUTA_PROJECT_MODULE:
-			case ANJUTA_PROJECT_PACKAGE:
-				/* Only package parent */
-				valid = ANJUTA_PROJECT_CAN_ADD_PACKAGE;
-				break;
-			case ANJUTA_PROJECT_SOURCE:
-				/* Only package parent */
-				valid = ANJUTA_PROJECT_CAN_ADD_SOURCE;
-				break;
-			case ANJUTA_PROJECT_TARGET:
-				/* Only package parent */
-				valid = ANJUTA_PROJECT_CAN_ADD_TARGET;
-				break;
-			case ANJUTA_PROJECT_GROUP:
-				/* Only group parent */
-				valid = ANJUTA_PROJECT_CAN_ADD_GROUP;
-				break;
-			default:
-				valid = 0;
-				break;
-			}
+			gtk_tree_model_get (model, &iter, GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
 
-			if (anjuta_project_node_get_state (node) & valid)
-			{
-				return anjuta_project_node_get_file (data->node);
-			}
+			return anjuta_project_node_get_file (data->node);
 		}
 	}
 
