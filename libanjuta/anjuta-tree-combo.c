@@ -42,6 +42,9 @@ struct _AnjutaTreeComboBoxPrivate
 	GtkWidget *cell_view;
 	GtkCellArea *area;
 
+	GtkWidget *invalid_notebook;
+	GtkWidget *invalid_label;
+
 	GtkWidget *popup_window;
 	GtkWidget *scrolled_window;
 	GtkWidget *tree_view;
@@ -56,6 +59,15 @@ struct _AnjutaTreeComboBoxPrivate
 
 	gint active; 						/* Only temporary */
 	GtkTreeRowReference *active_row;	/* Current selected row */
+
+	GtkTreeModelFilterVisibleFunc valid_func;
+	gpointer valid_data;
+	GDestroyNotify valid_destroy;
+};
+
+enum {
+	INVALID_PAGE = 0,
+	VALID_PAGE = 1
 };
 
 enum {
@@ -399,16 +411,31 @@ anjuta_tree_combo_box_set_active_path (AnjutaTreeComboBox *combo,
 	{
 		gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view)));
        	gtk_cell_view_set_displayed_row (GTK_CELL_VIEW (priv->cell_view), NULL);
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->invalid_notebook), INVALID_PAGE);
 		if (!valid)	return;
     }
 	else
     {
+		GtkTreeIter iter;
+
 		priv->active_row = gtk_tree_row_reference_new (priv->model, path);
 
-        gtk_cell_view_set_displayed_row (GTK_CELL_VIEW (priv->cell_view), path);
 		gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->tree_view), path);
 		gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree_view), path, NULL, FALSE);
 		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree_view), path, NULL, TRUE, 0.5, 0.0);
+
+		if ((priv->valid_func == NULL) ||
+		    (gtk_tree_model_get_iter (combo->priv->model, &iter, path) &&
+			priv->valid_func (combo->priv->model, &iter, priv->valid_data)))
+		{
+        	gtk_cell_view_set_displayed_row (GTK_CELL_VIEW (priv->cell_view), path);
+			gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->invalid_notebook), VALID_PAGE);
+		}
+		else
+		{
+        	gtk_cell_view_set_displayed_row (GTK_CELL_VIEW (priv->cell_view), NULL);
+			gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->invalid_notebook), INVALID_PAGE);
+		}
 	}
 
 	g_signal_emit (combo, signals[CHANGED], 0);
@@ -418,6 +445,22 @@ anjuta_tree_combo_box_set_active_path (AnjutaTreeComboBox *combo,
 
 /* Callbacks functions
  *---------------------------------------------------------------------------*/
+
+static gboolean
+anjuta_tree_can_select_node (GtkTreeSelection *selection,
+                             GtkTreeModel *model,
+                             GtkTreePath *path,
+                             gboolean path_currently_selected,
+                             gpointer data)
+{
+	AnjutaTreeComboBoxPrivate *priv = ANJUTA_TREE_COMBO_BOX (data)->priv;
+	GtkTreeIter iter;
+
+	return path_currently_selected ||
+	    (priv->valid_func == NULL) ||
+	    (gtk_tree_model_get_iter (priv->model, &iter, path) &&
+	     priv->valid_func (priv->model, &iter, priv->valid_data));
+}
 
 static void
 anjuta_tree_combo_box_auto_scroll (AnjutaTreeComboBox *combo,
@@ -496,8 +539,6 @@ anjuta_tree_combo_box_key_press (GtkWidget   *widget,
 	{
 		GtkTreeModel *model = NULL;
 
-		anjuta_tree_combo_box_popdown (combo);
-
 		if (combo->priv->model)
 		{
 			GtkTreeSelection *sel;
@@ -507,6 +548,8 @@ anjuta_tree_combo_box_key_press (GtkWidget   *widget,
 			if (gtk_tree_selection_get_selected (sel, &model, &iter))
 				anjuta_tree_combo_box_set_active_iter (combo, &iter);
 		}
+
+		anjuta_tree_combo_box_popdown (combo);
 
 		return TRUE;
 	}
@@ -676,11 +719,17 @@ anjuta_tree_combo_box_button_released (GtkWidget      *widget,
 		return TRUE; /* clicked outside window? */
 
 	gtk_tree_model_get_iter (priv->model, &iter, path);
+
+	if (anjuta_tree_can_select_node (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view)),
+	                                 priv->model,
+	                                 path,
+	                                 FALSE,
+	                                 combo))
+	{
+		anjuta_tree_combo_box_popdown (combo);
+		anjuta_tree_combo_box_set_active_iter (combo, &iter);
+	}
 	gtk_tree_path_free (path);
-
-	anjuta_tree_combo_box_popdown (combo);
-
-	anjuta_tree_combo_box_set_active_iter (combo, &iter);
 
 	return TRUE;
 }
@@ -767,8 +816,6 @@ anjuta_tree_combo_box_popup_setup (AnjutaTreeComboBox *combo)
 
 	gtk_widget_show (priv->scrolled_window);
 }
-
-
 
 
 /* Public functions
@@ -875,6 +922,37 @@ anjuta_tree_combo_box_get_active_iter (AnjutaTreeComboBox *combo,
 	return valid;
 }
 
+void
+anjuta_tree_combo_box_set_valid_function (AnjutaTreeComboBox *combo,
+                                          GtkTreeModelFilterVisibleFunc func,
+                                          gpointer data,
+                                          GDestroyNotify destroy)
+{
+	AnjutaTreeComboBoxPrivate *priv = combo->priv;
+	GtkTreeSelection *selection;
+
+	if (priv->valid_destroy != NULL)
+	{
+		priv->valid_destroy (priv->valid_data);
+	}
+	priv->valid_func = func;
+	priv->valid_data = data;
+	priv->valid_destroy = destroy;
+
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
+	gtk_tree_selection_set_select_function (selection, func != NULL ? anjuta_tree_can_select_node : NULL, func != NULL ? combo : NULL, NULL);
+}
+
+void
+anjuta_tree_combo_box_set_invalid_text (AnjutaTreeComboBox *combo,
+                                        const gchar *str)
+{
+	AnjutaTreeComboBoxPrivate *priv = combo->priv;
+
+	gtk_label_set_text (GTK_LABEL (priv->invalid_label), str);
+}
+
 
 GtkWidget *
 anjuta_tree_combo_box_new (void)
@@ -939,6 +1017,11 @@ anjuta_tree_combo_box_dispose (GObject *object)
       priv->area = NULL;
     }
 
+	if (priv->valid_destroy != NULL)
+	{
+		priv->valid_destroy (priv->valid_data);
+		priv->valid_destroy = NULL;
+	}
 	anjuta_tree_combo_box_unset_model (combo);
 
 	anjuta_tree_combo_box_popup_destroy (combo);
@@ -951,6 +1034,7 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 {
   	AnjutaTreeComboBoxPrivate *priv;
 	GtkWidget *box, *sep, *arrow;
+	GtkWidget *image, *ibox;
 
 	priv = G_TYPE_INSTANCE_GET_PRIVATE (combo,
 	                                    ANJUTA_TYPE_TREE_COMBO_BOX,
@@ -960,6 +1044,9 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 	priv->model = NULL;
 	priv->active = -1;
 	priv->active_row = NULL;
+
+	priv->valid_func = NULL;
+	priv->valid_destroy = NULL;
 
 	gtk_widget_push_composite_child ();
 
@@ -976,11 +1063,30 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 	gtk_container_add (GTK_CONTAINER (combo), box);
 	gtk_widget_show (box);
 
+	priv->invalid_notebook = gtk_notebook_new ();
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->invalid_notebook), FALSE);
+	gtk_notebook_set_show_border (GTK_NOTEBOOK (priv->invalid_notebook), FALSE);
+	gtk_box_pack_start (GTK_BOX (box), priv->invalid_notebook, TRUE, TRUE, 0);
+
+	ibox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+	gtk_notebook_append_page (GTK_NOTEBOOK (priv->invalid_notebook), ibox, NULL);
+	gtk_widget_show (ibox);
+
+	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_SMALL_TOOLBAR);
+	gtk_box_pack_start (GTK_BOX (ibox), image, FALSE, FALSE, 0);
+	gtk_widget_show (image);
+
+	priv->invalid_label = gtk_label_new (_("<Invalid>"));
+	gtk_misc_set_alignment (GTK_MISC (priv->invalid_label), 0, 1);
+	gtk_misc_set_padding (GTK_MISC (priv->invalid_label), 3, 3);
+	gtk_box_pack_start (GTK_BOX (ibox), priv->invalid_label, TRUE, TRUE, 0);
+	gtk_widget_show (priv->invalid_label);
+
 	priv->area = gtk_cell_area_box_new ();
 	g_object_ref_sink (priv->area);
 
 	priv->cell_view = gtk_cell_view_new_with_context (priv->area, NULL);
-	gtk_box_pack_start (GTK_BOX (box), priv->cell_view, TRUE, TRUE, 0);
+	gtk_notebook_append_page (GTK_NOTEBOOK (priv->invalid_notebook), priv->cell_view, NULL);
 	gtk_widget_show (priv->cell_view);
 
 	sep = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
@@ -992,6 +1098,8 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 	gtk_widget_show (arrow);
 
 	gtk_widget_pop_composite_child ();
+
+	gtk_widget_show_all (GTK_WIDGET (combo));
 
 	anjuta_tree_combo_box_popup_setup (combo);
 }

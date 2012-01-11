@@ -71,6 +71,13 @@ void			anjuta_tree_combo_box_set_active_iter	(AnjutaTreeComboBox *combo,
 gboolean		anjuta_tree_combo_box_get_active_iter	(AnjutaTreeComboBox *combo,
 					                                     GtkTreeIter *iter);
 
+void			anjuta_tree_combo_box_set_valid_function(AnjutaTreeComboBox *combo,
+                                                         GtkTreeModelFilterVisibleFunc func,
+                                                         gpointer data,
+                                                         GDestroyNotify destroy);
+void			anjuta_tree_combo_box_set_invalid_text	(AnjutaTreeComboBox *combo,
+                                                         const gchar *str);
+
 
 G_END_DECLS
 
