@@ -245,6 +245,32 @@ anjuta_pm_chooser_button_new (void)
 /* Implement IAnjutaProjectChooser interface
  *---------------------------------------------------------------------------*/
 
+typedef struct
+{
+	GtkTreeIter iter;
+	gboolean found;
+	AnjutaPmChooserButton *button;
+}  SearchPacket;
+
+static gboolean
+anjuta_pm_chooser_is_node_valid (GtkTreeModel *model,
+                                 GtkTreePath *path,
+                                 GtkTreeIter *iter,
+                                 gpointer data)
+{
+	SearchPacket *packet = (SearchPacket *)data;
+
+	if (is_node_valid (model, iter, packet->button))
+	{
+		packet->iter = *iter;
+		packet->found = TRUE;
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 static gboolean
 anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjectManager *manager, AnjutaProjectNodeType child_type, GError **error)
 {
@@ -252,6 +278,7 @@ anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjec
 	gboolean found;
 	GtkTreeModelFilterVisibleFunc func;
 	const gchar *label;
+	GbfProjectModel *model;
 
 	ANJUTA_PM_CHOOSER_BUTTON (iface)->priv->child = child_type & ANJUTA_PROJECT_TYPE_MASK;
 
@@ -295,13 +322,34 @@ anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjec
 	anjuta_tree_combo_box_set_invalid_text (ANJUTA_TREE_COMBO_BOX (iface), label);
 	anjuta_tree_combo_box_set_valid_function (ANJUTA_TREE_COMBO_BOX (iface), (GtkTreeModelFilterVisibleFunc)is_node_valid, iface, NULL);
 
+	/* Find a default node */
+	model = gbf_project_view_get_model(ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view);
 	found = gbf_project_view_get_first_selected (ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view, &selected) != NULL;
+	while (found && !is_node_valid (GTK_TREE_MODEL (model), &selected, ANJUTA_PM_CHOOSER_BUTTON (iface)))
+	{
+		GtkTreeIter iter;
 
+		found = gtk_tree_model_iter_parent (GTK_TREE_MODEL (model), &iter, &selected);
+		selected  = iter;
+	}
+	if (!found)
+	{
+		SearchPacket packet;
 
+		packet.found = FALSE;
+		packet.button = ANJUTA_PM_CHOOSER_BUTTON (iface);
+		gtk_tree_model_foreach (GTK_TREE_MODEL (model), anjuta_pm_chooser_is_node_valid, &packet);
+
+		if (packet.found)
+		{
+			found = packet.found;
+			selected = packet.iter;
+		}
+	}
 
 	/* Add combo node selection */
 	setup_nodes_combo_box (ANJUTA_PM_CHOOSER_BUTTON (iface),
-	                       gbf_project_view_get_model(ANJUTA_PLUGIN_PROJECT_MANAGER (manager)->view),
+	                       model,
 	                       NULL,
 	                       func,
 	                       NULL,
