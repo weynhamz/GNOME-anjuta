@@ -21,7 +21,6 @@ libanjuta/anjuta-preferences.c
 libanjuta/anjuta-preferences-dialog.c
 libanjuta/anjuta-profile.c
 libanjuta/anjuta-save-prompt.c
-libanjuta/anjuta-save-prompt.c
 libanjuta/anjuta-serializer.c
 libanjuta/anjuta-session.c
 libanjuta/anjuta-shell.c
@@ -69,36 +68,25 @@ plugins/cvs-plugin/plugin.c
 [type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in
 [type: gettext/glade]plugins/debug-manager/anjuta-debug-manager.ui
 plugins/debug-manager/breakpoints.c
-plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c
 plugins/debug-manager/data_view.c
 plugins/debug-manager/debug_tree.c
-plugins/debug-manager/debug_tree.c
 plugins/debug-manager/disassemble.c
 plugins/debug-manager/info.c
-plugins/debug-manager/info.c
 plugins/debug-manager/locals.c
-plugins/debug-manager/locals.c
-plugins/debug-manager/memory.c
 plugins/debug-manager/memory.c
 plugins/debug-manager/org.gnome.anjuta.plugins.debug-manager.gschema.xml.in
 plugins/debug-manager/plugin.c
 plugins/debug-manager/queue.c
 plugins/debug-manager/registers.c
-plugins/debug-manager/registers.c
 plugins/debug-manager/sharedlib.c
-plugins/debug-manager/sharedlib.c
-plugins/debug-manager/signals.c
 plugins/debug-manager/signals.c
 plugins/debug-manager/sparse_buffer.c
 plugins/debug-manager/sparse_view.c
 plugins/debug-manager/stack_trace.c
-plugins/debug-manager/stack_trace.c
-plugins/debug-manager/start.c
 plugins/debug-manager/start.c
 plugins/debug-manager/utilities.c
-plugins/debug-manager/watch.c
 plugins/debug-manager/watch.c
 [type: gettext/ini]plugins/devhelp/anjuta-devhelp.plugin.in
 plugins/devhelp/plugin.c
