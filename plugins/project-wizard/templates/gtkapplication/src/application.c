@@ -23,6 +23,16 @@
 
 G_DEFINE_TYPE ([+NameCClass+], [+NameCLower+], GTK_TYPE_APPLICATION);
 
+[+IF (=(get "HaveBuilderUI") "1")+]
+/* Define the private structure in the .c file */
+#define [+NameCUpper+]_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE((obj), [+NameCUpper+]_TYPE_APPLICATION, [+NameCClass+]Private))
+
+struct _[+NameCClass+]Private
+{
+	/* ANJUTA: Widgets declaration - DO NOT REMOVE */
+};
+[+ENDIF+]
+
 /* Create a new window loading a file */
 static void
 [+NameCLower+]_new_window (GApplication *app,
@@ -33,6 +43,8 @@ static void
 	GtkBuilder *builder;
 	GError* error = NULL;
 
+	[+NameCClass+]Private *priv = [+NameCUpper+]_GET_PRIVATE(app);
+
 	/* Load UI from file */
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file (builder, UI_FILE, &error))
@@ -42,7 +54,7 @@ static void
 	}
 
 	/* Auto-connect signal handlers */
-	gtk_builder_connect_signals (builder, NULL);
+	gtk_builder_connect_signals (builder, app);
 
 	/* Get the window object from the ui file */
 	window = GTK_WIDGET (gtk_builder_get_object (builder, TOP_WINDOW));
@@ -52,6 +64,10 @@ static void
 				TOP_WINDOW,
 				UI_FILE);
         }
+
+	
+	/* ANJUTA: Widgets initialization - DO NOT REMOVE */
+
 	g_object_unref (builder);
 [+ELSE+]
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -104,7 +120,9 @@ static void
 {
 	G_APPLICATION_CLASS (klass)->activate = [+NameCLower+]_activate;
 	G_APPLICATION_CLASS (klass)->open = [+NameCLower+]_open;
-
+[+IF (=(get "HaveBuilderUI") "1")+]
+	g_type_class_add_private (klass, sizeof ([+NameCClass+]Private));
+[+ENDIF+]
 	G_OBJECT_CLASS (klass)->finalize = [+NameCLower+]_finalize;
 }
 

@@ -337,6 +337,31 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 }
 
 static void
+add_glade_member (GladeWidget		 *widget,
+				  AnjutaPlugin       *plugin)
+{
+	IAnjutaEditor* current_editor;
+	IAnjutaDocument *doc;
+	IAnjutaDocumentManager *docman;
+
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
+	if(!docman)
+		return;
+
+	doc = ianjuta_document_manager_get_current_document (docman, NULL);
+	if(!doc)
+		return;
+
+	current_editor = IANJUTA_EDITOR (doc);
+	if(!current_editor)
+		return;
+
+	g_signal_emit_by_name (G_OBJECT (current_editor), "glade-member-add",
+						   glade_widget_get_name (widget));
+}
+
+static void
 inspector_item_activated_cb (GladeInspector     *inspector,
                              AnjutaPlugin       *plugin)
 {
@@ -344,11 +369,14 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	GList *item;
 	g_assert (GLADE_IS_WIDGET (items->data) && (items->next == NULL));
 
+	GladeWidget *widget = GLADE_WIDGET (items->data);
+
 	/* switch to this widget in the workspace */
 	for (item = items; item != NULL; item = g_list_next (item))
 	{
 		glade_widget_hide (GLADE_WIDGET (item->data));
 		glade_widget_show (GLADE_WIDGET (item->data));
+		add_glade_member (item->data, plugin);
 	}
 
 	g_list_free (item);

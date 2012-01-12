@@ -26,6 +26,7 @@ G_BEGIN_DECLS
 
 typedef struct _[+NameCClass+]Class [+NameCClass+]Class;
 typedef struct _[+NameCClass+] [+NameCClass+];
+[+IF (=(get "HaveBuilderUI") "1")+]typedef struct _[+NameCClass+]Private [+NameCClass+]Private;[+ENDIF+]
 
 struct _[+NameCClass+]Class
 {
@@ -35,6 +36,9 @@ struct _[+NameCClass+]Class
 struct _[+NameCClass+]
 {
 	GtkApplication parent_instance;
+[+IF (=(get "HaveBuilderUI") "1")+]
+	[+NameCClass+]Private *priv;
+[+ENDIF+]
 };
 
 GType [+NameCLower+]_get_type (void) G_GNUC_CONST;

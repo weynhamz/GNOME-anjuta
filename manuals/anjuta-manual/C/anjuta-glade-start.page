@@ -44,4 +44,43 @@
 <title>Add widget properties</title>
 </section>
 
+<section>
+<title>Generating code for widgets</title>
+
+	<section>
+		<title>Introduction</title>
+		<p>In a GUI program, sometimes, some widgets are only important for
+		generating events (eg: static buttons) while other ones are needed to
+		get or show data to the user (eg: a text entry). In this later case,
+		some code has to be generated so that these widgets can be accessed at
+		runtime. With the glade plug-in, <app>Anjuta</app> is able to automatically
+		generate such code.
+		</p>
+	</section>
+
+	<section>
+		<title>Automatic generation</title>
+		<p>To automatically generate code for a widget, some conditions must be
+		met: the glade plug-in must be running and the source file that will
+		hold the code must be opened. To make sure that the glade plug-in is
+		running, it is enough to open the <file>.ui</file> file that holds the UI for the
+		current project. By default, the file that will hold the code for the
+		widgets is the same one where callbacks will be created (eg:
+		<file>application.c</file>). Both files can easily be found in the project file list
+		and are automatically created by the project template.
+		</p>
+
+		<p>Once the glade plug-in is running and the file that will hold the code
+		is being viewed, simply double click a widget in the glade inspector.
+		The file being viewed will then be scanned for some marker comments
+		(/* ANJUTA: Widgets declaration - DO NOT REMOVE */ and
+		/* ANJUTA: Widgets initialization - DO NOT REMOVE */) and, if found, code
+		will be added right after such comments. So, for this feature to work
+		correctly, it is important not to modify such marker comments.
+		</p>
+	</section>
+
+</section>
+
+
 </page>

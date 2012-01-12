@@ -815,8 +815,58 @@ on_glade_drop (IAnjutaEditor* editor,
 	g_strfreev (split_signal_data);
 }
 
-/* Enable/Disable language-support */
+static gchar* generate_widget_member_decl_str(gchar *widget_name)
+{
+       return g_strdup_printf ("\n\tGtkWidget* %s;", widget_name);
+}
 
+static gchar *generate_widget_member_init_str(gchar *widget_name)
+{
+       return g_strdup_printf ("\n\tpriv->%s = GTK_WIDGET ("
+                               "gtk_builder_get_object(builder, \"%s\"));", widget_name, widget_name);
+}
+
+static gboolean insert_after_mark (IAnjutaEditor* editor, gchar* mark,
+gchar* code_to_add)
+{
+       IAnjutaIterable* mark_position;
+       mark_position = language_support_get_mark_position (editor, mark);
+       if(!mark_position)
+		return FALSE;
+
+       ianjuta_editor_insert (editor, mark_position, code_to_add, -1, NULL);
+
+       /* Emit code-added signal, so symbols will be updated */
+       g_signal_emit_by_name (G_OBJECT (editor), "code-added", mark_position, code_to_add);
+       g_object_unref (mark_position);
+
+       return TRUE;
+}
+
+static void insert_member_decl_and_init (IAnjutaEditor* editor, gchar* widget_name,
+                                         CppJavaPlugin *lang_plugin)
+{
+       AnjutaStatus* status;
+       gchar* member_decl = generate_widget_member_decl_str(widget_name);
+       gchar* member_init = generate_widget_member_init_str(widget_name);
+
+       status = anjuta_shell_get_status (ANJUTA_PLUGIN (lang_plugin)->shell, NULL);
+
+       if(insert_after_mark (editor, "/* ANJUTA: Widgets declaration - DO NOT REMOVE */", member_decl) &&
+          insert_after_mark (editor, "/* ANJUTA: Widgets initialization - DO NOT REMOVE */", member_init))
+              anjuta_status_set (status, _("Code added for widget."));
+
+       g_free (member_decl);
+       g_free (member_init);
+}
+
+static void
+on_glade_member_add (IAnjutaEditor *editor, gchar *widget_name, CppJavaPlugin *lang_plugin)
+{
+	insert_member_decl_and_init (editor, widget_name, lang_plugin);
+}
+
+/* Enable/Disable language-support */
 static void
 install_support (CppJavaPlugin *lang_plugin)
 {	
@@ -846,6 +896,12 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (cpp_indentation),
 						  lang_plugin);
+
+		g_signal_connect (lang_plugin->current_editor,
+						  "glade-member-add",
+						  G_CALLBACK (on_glade_member_add),
+						  lang_plugin);
+
 	}
 	else if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Java")))
@@ -929,6 +985,8 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	                                      on_glade_drop_possible, lang_plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 	                                      on_glade_drop, lang_plugin);
+	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+										  on_glade_member_add, lang_plugin);
 	if (lang_plugin->packages)
 	{
 		g_object_unref (lang_plugin->packages);

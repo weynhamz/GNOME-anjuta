@@ -1276,6 +1276,15 @@ interface IAnjutaEditor
 	}
 
 	/**
+	 * IAnjutaEditor::glade-member-add:
+	 * @widget_name: Name of the widget that will become a member of the class.
+	 * @obj: Self
+	 *
+	 * This signal is emitted when code for a widget must be generated.
+	 */
+	void   ::glade_member_add (gchar *widget_name);
+
+	/**
 	 * IAnjutaEditor::code-added:
 	 * @position: The iter position where @ch is added.
 	 * @code: The code that has been added.

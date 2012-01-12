@@ -18,6 +18,14 @@
 [+ENDIF+]
 
 [+IF (=(get "HaveBuilderUI") "1")+]
+typedef struct _Private Private;
+static struct _Private
+{
+	/* ANJUTA: Widgets declaration - DO NOT REMOVE */
+};
+
+static struct Private* priv = NULL;
+
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/ui/[+NameHLower+].ui" */
 #define UI_FILE "src/[+NameHLower+].ui"
@@ -61,6 +69,10 @@ create_window (void)
 				TOP_WINDOW,
 				UI_FILE);
         }
+
+	priv = g_malloc (sizeof (struct _Private));
+	/* ANJUTA: Widgets initialization - DO NOT REMOVE */
+
 	g_object_unref (builder);
 	
 	return window;
@@ -100,5 +112,8 @@ main (int argc, char *argv[])
 	gtk_widget_show (window);
 
 	gtk_main ();
+[+IF (=(get "HaveBuilderUI") "1")+]
+	g_free (priv);
+[+ENDIF+]
 	return 0;
 }
