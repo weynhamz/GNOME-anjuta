@@ -83,6 +83,9 @@ is_node_valid (GtkTreeModel *model, GtkTreeIter *iter, AnjutaPmChooserButton *bu
 			mask = -1;
 			break;
 		case ANJUTA_PROJECT_MODULE:
+			/* Only module parent */
+			mask = ANJUTA_PROJECT_CAN_ADD_MODULE;
+			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			/* Only package parent */
 			mask = ANJUTA_PROJECT_CAN_ADD_PACKAGE;
@@ -290,14 +293,14 @@ anjuta_pm_chooser_set_project_model (IAnjutaProjectChooser *iface, IAnjutaProjec
 		label = _("<Select any project node>");
 		break;
 	case ANJUTA_PROJECT_MODULE:
-		/* Display all modules */
-		func = is_project_module_node;
-		label = _("<Select any module>");
-		break;
-	case ANJUTA_PROJECT_PACKAGE:
 		/* Display all targets */
 		func = is_project_target_or_group_node;
 		label = _("<Select a target>");
+		break;
+	case ANJUTA_PROJECT_PACKAGE:
+		/* Display all modules */
+		func = is_project_module_node;
+		label = _("<Select any module>");
 		break;
 	case ANJUTA_PROJECT_SOURCE:
 		/* Display all targets */

@@ -1601,7 +1601,7 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 	GtkBuilder *gui;
 	GtkWidget *dialog;
 	GtkWidget *ok_button, *new_button;
-	GtkWidget *targets_view;
+	GtkWidget *target_chooser;
 	GtkWidget *modules_view;
 	GtkTreePath *root;
 	gint response;
@@ -1616,20 +1616,17 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 
 	/* get all needed widgets */
 	dialog = GTK_WIDGET (gtk_builder_get_object (gui, "add_module_dialog"));
-	targets_view = GTK_WIDGET (gtk_builder_get_object (gui, "module_targets_view"));
+	target_chooser = GTK_WIDGET (gtk_builder_get_object (gui, "module_targets_chooser"));
 	modules_view = GTK_WIDGET (gtk_builder_get_object (gui, "modules_view"));
 	new_button = GTK_WIDGET (gtk_builder_get_object (gui, "new_package_button"));
 	ok_button = GTK_WIDGET (gtk_builder_get_object (gui, "ok_module_button"));
 
-	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
-	setup_nodes_treeview (GBF_PROJECT_VIEW (targets_view),
-	                        plugin->view,
-	                       	root,
-							parent_filter_func,
-							GINT_TO_POINTER (ANJUTA_PROJECT_MODULE),
-							default_target);
-	gtk_tree_path_free (root);
-	gtk_widget_show (targets_view);
+	/* Fill target selection */
+	ianjuta_project_chooser_set_project_model (IANJUTA_PROJECT_CHOOSER (target_chooser),
+	                                           IANJUTA_PROJECT_MANAGER (plugin),
+	                                           ANJUTA_PROJECT_MODULE,
+	                                           NULL);
+	gtk_widget_show (target_chooser);
 	root = gbf_project_model_get_project_root (gbf_project_view_get_model (plugin->view));
 	setup_nodes_treeview (GBF_PROJECT_VIEW (modules_view),
 	                        plugin->view,
@@ -1659,10 +1656,7 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 		gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
 	}
 
-	if (default_module)
-		gtk_widget_grab_focus (modules_view);
-	else
-		gtk_widget_grab_focus (targets_view);
+	gtk_widget_grab_focus (modules_view);
 
 	/* execute dialog */
 	while (!finished)
@@ -1678,10 +1672,11 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 			}
 			case GTK_RESPONSE_OK:
 			{
+				GFile *target_file;
 				AnjutaProjectNode *target;
 
-				target = gbf_project_view_find_selected (GBF_PROJECT_VIEW (targets_view),
-														ANJUTA_PROJECT_TARGET);
+				target_file = ianjuta_project_chooser_get_selected (IANJUTA_PROJECT_CHOOSER (target_chooser), NULL);
+				target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_UNKNOWN, target_file);
 				if (target)
 				{
 					GString *err_mesg = g_string_new (NULL);
