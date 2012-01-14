@@ -162,7 +162,7 @@ ienvironment_override (IAnjutaEnvironment* env_iface,
 			return FALSE;
 		}
 
-		for (env = new_env; *env != NULL; env++)
+		for (env = new_env; env && *env != NULL; env++)
 		{
 			if (g_str_has_prefix (*env, "CC="))
 			{
