@@ -548,7 +548,7 @@
     <property name="can_focus">False</property>
     <property name="can_default">True</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">New Directory</property>
+    <property name="title" translatable="yes">New Folder</property>
     <property name="modal">True</property>
     <property name="default_width">400</property>
     <property name="default_height">450</property>
@@ -623,7 +623,7 @@
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">_Directory name:</property>
+                    <property name="label" translatable="yes">_Folder name:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">group_name_entry</property>
                   </object>
@@ -663,7 +663,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Specify _where to create the directory:</property>
+                    <property name="label" translatable="yes">Specify _where to create the folder:</property>
                     <property name="use_underline">True</property>
                   </object>
                   <packing>

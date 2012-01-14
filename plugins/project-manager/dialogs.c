@@ -551,7 +551,7 @@ update_properties (PropertiesTable *table)
 		title = _("Project properties");
 		break;
 	case ANJUTA_PROJECT_GROUP:
-		title = _("Directory properties");
+		title = _("Folder properties");
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		title = _("Target properties");
