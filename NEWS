@@ -1,3 +1,100 @@
+Anjuta 3.3.4 "First snow in Berlin" (16 January 2011) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.2.x!
+
+Abderrahim Kitouni (7):
+      libanjuta: set the info for the default value of a property
+      libanjuta: add gir annotation for anjuta_project_node_insert_property_info
+      libanjuta: don't register project property lists as GObject properties
+      libanjuta, am-project: better memory management for the properties lists
+      language-support-vala: update .vapi for the latest changes
+      language-support-vala: take advantage of the new project API
+      libanjuta, am-project, project-manager, language-support-vala: rename property to default_value
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Arnel A. Borja (10):
+      sourceview: Fix typo in a gschema key name
+      anjuta-build-tutorial: Remove AM_MAINTAINER_MODE
+      project-wizard: Don't symlink Automake files
+      project-wizard: Use Automake variables for defines
+      project-wizard: Move PROJECT_CFLAGS to own line
+      class-gen: Use convention for get-private macros
+      project-wizard: Use pkgdatadir instead of datadir/package
+      project-wizard: Move PROJECT_CFLAGS to own line in minimal template
+      project-wizard: check HavePackage before adding PROJECT_CFLAGS
+      project-wizard: Don't replace hyphen with underscore in filenames
+
+Daniel Mustieles (6):
+      Updated Spanish translation
+      Updated Spanish translation
+      Missing file in POTFILEs.in
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Fran Diéguez (1):
+      Updated Galician translations
+
+James Liggett (2):
+      git: Fix switch delete branch, and merge action sensitivity
+      Revert "git: Use combo box instead of tree view for remotes"
+
+Jiro Matsuzawa (1):
+      Updated Japanese translation
+
+Johannes Schmid (7):
+      Updated files for release
+      Post-release version bump
+      search: Search for next occurence when replace succeeds (see bgo#665945)
+      search: Set focus chain (see bgo#665945)
+      search: Add tooltip in search entry (see bgo#665945)
+      search: Move close button to the right edge (see #665945)
+      code-analyzer: Fixed bgo#667903 - Code Analyzer Crashes
+
+Massimo Corà (3):
+      symbol-db: fixed bgo #664413 - Symbols not updated correctly when switching branches
+      symbol-db: improved some debug messages
+      symbol-db: minor performance bugfix.
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Muhammet Kara (1):
+      [l10n]Updated Turkish translation
+
+Peter Hoffmann (1):
+      language-support-cpp: bgo#633341 - Code completion should close parentheses
+
+Piotr Drąg (2):
+      Updated POTFILES.in
+      Updated POTFILES.in
+
+Sébastien Granjoux (21):
+      am-project: bgo #666621 - segfault in amp_node_property_add when there is an orphan AmpTargetNode
+      project-manager: Allow to add groups and targets in the root node
+      anjuta: Remove old tutorial links
+      libanjuta: Fix anjuta_util_help_display to use yelp
+      project-manager: Add a help button in some dialogs
+      am-project: bgo #666966 - crash editing configure.ac
+      libanjuta: Add a model property to AnjutaTreeComboBox
+      libanjuta: Add IAnjutaProjectChooser interface
+      project-manager: Implement a project node chooser
+      project-manager: Fix ianjuta_project_manager_add_source_quite function
+      libanjuta: Fix a critical warning when selecting a node in chooser widget
+      file-wizard: Use the new project node chooser
+      class-gen: Use the new project node chooser
+      libanjuta: Add missing GdfProjectView in Anjuta glade catalog
+      project-manager: Use a GtkFileChooser to add sources in a target
+      file-wizard: Cosmetic improvements of new file dialog
+      libanjuta: Improve AnjutaTreeComboBox
+      project-manager: Use new improvements in ProjectChooser button
+      project-manager: Select a valid default node in ProjectChooser button
+      project-manager: Use ProjectChooser button in the Add library dialog
+      project-manager: Rename directory to folder in project dialogs
+
 Anjuta 3.3.3 "It's X-mas time..." (20 December 2011) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
