@@ -152,6 +152,7 @@ PKG_CHECK_MODULES([ANJUTA],
    [gthread-2.0 >= $GTHREAD_REQUIRED
 	glib-2.0 >= $GLIB_REQUIRED
 	gio-2.0 >= $GLIB_REQUIRED
+	gmodule-2.0 >= $GLIB_REQUIRED
 	gtk+-3.0 >= $GTK_REQUIRED
 	gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED])
 
