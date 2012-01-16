@@ -1679,6 +1679,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 		{
 			g_set_error (error, IANJUTA_PROJECT_ERROR,
 						IANJUTA_PROJECT_ERROR_PROJECT_MALFORMED,
+						"%s",
 						_("Unable to parse project file"));
 		}
 
