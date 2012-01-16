@@ -41,10 +41,6 @@ struct _GitBranchesPanePriv
 	GtkBuilder *builder;
 	GHashTable *selected_local_branches;
 	GHashTable *selected_remote_branches;
-
-	GtkAction *merge_action;
-	GtkAction *delete_action;
-	GtkAction *switch_action;
 };
 
 
@@ -231,7 +227,6 @@ on_branch_selected_renderer_toggled (GtkCellRendererToggle *renderer,
 
 	gtk_list_store_set (GTK_LIST_STORE (branches_list_model), &iter, 0, selected,
 	                    -1);
-	git_branches_pane_update_ui (self);
 }
 
 static void
@@ -475,31 +470,3 @@ git_branches_pane_get_selected_branch (GitBranchesPane *self)
 	return selected_branch;
 }
 
-void git_branches_pane_update_ui (GitBranchesPane *self)
-{
-	gint n_selection;
-	
-	/* Enable only actions that make sense with the selection */
-	if (!self->priv->merge_action || 
-	    !self->priv->delete_action ||
-	    !self->priv->switch_action)
-	{
-		Git* plugin = 
-			ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-		AnjutaCommandBar* bar = anjuta_dock_get_command_bar (ANJUTA_DOCK(plugin->dock));
-		self->priv->merge_action = anjuta_command_bar_get_action (bar,
-		                                                          "Branches",
-		                                                          "Merge");
-		self->priv->delete_action = anjuta_command_bar_get_action (bar,
-		                                                          "Branches",
-		                                                          "DeleteBranches");
-		self->priv->switch_action = anjuta_command_bar_get_action (bar,
-		                                                          "Branches",
-		                                                          "Switch");
-	}
-	n_selection = g_hash_table_size (self->priv->selected_local_branches) + 
-		g_hash_table_size (self->priv->selected_remote_branches);
-	gtk_action_set_sensitive (self->priv->merge_action, n_selection > 0);
-	gtk_action_set_sensitive (self->priv->delete_action, n_selection > 0);
-	gtk_action_set_sensitive (self->priv->switch_action, n_selection == 1);	
-}

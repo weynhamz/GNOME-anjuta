@@ -770,7 +770,6 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      _("Branches"), NULL, git_plugin->branches_pane,   
 	                      GDL_DOCK_CENTER, branch_entries, 
 	                      G_N_ELEMENTS (branch_entries), git_plugin);
-	git_branches_pane_update_ui (GIT_BRANCHES_PANE (git_plugin->branches_pane));
 
 	git_plugin->tags_pane = git_tags_pane_new (git_plugin);
 	anjuta_dock_add_pane (ANJUTA_DOCK (git_plugin->dock), "Tags", _("Tags"),
