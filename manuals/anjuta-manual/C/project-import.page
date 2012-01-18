@@ -21,7 +21,7 @@
     </credit>
   </info>
 
-  <title>Import a project</title>
+  <title>Import a Project</title>
 
   <p>
     <app>Anjuta</app> does not have its own project format. It loads projects

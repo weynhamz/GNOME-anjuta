@@ -1,0 +1,82 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="autotools-project-target-type">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="project-manager-target-add"/>
+    <desc>
+      Autotools target type.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Autotools project type</title>
+
+  <p>There are different types of target available.</p>
+
+  <terms>
+    <item>
+      <title>Shared Library</title>
+      <p>It represents a library shared by several programs which is linked
+      at run time. It is the most common kind of libraries on Linux.
+      It is called dynamic link library on Windows.</p>
+      <p>It uses the Libtool package. Its name must start with 'lib'
+      and has the '.la' extension.</p>
+    </item>
+    <item>
+      <title>Static Library</title>
+      <p>It represents a library linked with the program at compile time.
+      Only the function used are kept inside the generated executable.</p>
+      <p>It uses the Libtool package. Its name must start with 'lib'
+      and has the '.a' extension.</p>
+    </item>
+    <item>
+      <title>Program</title>
+      <p>It represents compiled program by example from C souces files.
+      All children represent the source files compiled to generate the
+      program.</p>
+    </item>
+    <item>
+      <title>Python module</title>
+      <p>It represents a program written in Python.</p>
+    </item>
+    <item>
+      <title>Java module</title>
+      <p>It represents a progran written in Java.</p>
+    </item>
+    <item>
+      <title>LISP module</title>
+      <p>It represents a progran written in LISP.</p>
+    </item>
+    <item>
+      <title>Header files</title>
+      <p>This target allows you to group header files and define where they
+      have to be installed.</p>
+    </item>
+    <item>
+      <title>Man documentation</title>
+      <p>It groups man pages needed by the project.</p>
+    </item>
+    <item>
+      <title>Info documentation</title>
+      <p>It groups info page needed by the project.</p>
+    </item>
+    <item>
+      <title>Miscellaneous Data</title>
+      <p>It groups data files which needed by the project like pictures,
+      ui description, settings files...</p>
+    </item>
+    <item>
+      <title>Script</title>
+      <p>It represents program those are scripts. Those scripts are only
+      installed in the specified directory. If scripts are generated
+      additional rules are needed.</p>
+    </item>
+  </terms>
+
+</page>
+

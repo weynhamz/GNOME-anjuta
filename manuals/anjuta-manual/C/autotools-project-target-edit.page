@@ -1,0 +1,131 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-project-target-edit">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-target" group="second"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Edit autotools target properties.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Edit an Autotools Target</title>
+
+  <p>Here is a list of all target properties used in autotools project.
+  Some of them are not available on all targets.</p>
+
+  <terms>
+    <item>
+      <title><gui>Build for check only</gui></title>
+      <p>If checked, this target is not installed and has to be built only
+      when running checks.</p>
+    </item>
+    <item>
+      <title><gui>C compiler flags</gui></title>
+      <p>The flags to pass to the C compiler when compiling target source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>C preprocessor flags</gui></title>
+      <p>These flags are passed to every compilation that invokes the
+      C preprocessor. This value overrides the one eventually defined 
+      in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>C++ compiler flags</gui></title>
+      <p>The flags to pass to the C++ compiler flags when compiling target
+      source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Do not install</gui></title>
+      <p>If checked, this target is not installed. It can be used for
+      utilities used to build other target or programs used only by
+      developers.</p>
+    </item>
+    <item>
+      <title><gui>Do not use prefix</gui></title>
+      <p>If checked, do not add prefix to manual page and executable.
+      Such prefix are used to provide alternative of system tools.</p>
+    </item>
+    <item>
+      <title><gui>Fortran compiler flags</gui></title>
+      <p>The flags to pass to the Fortran 9x compiler when compiling target
+      source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Include in distribution</gui></title>
+      <p>If checked, include the target in the distribution package.</p>
+    </item>
+    <item>
+      <title><gui>Installation directory</gui></title>
+      <p>It defines where the target is installed. It is not directly the
+      directory where the files are installed but the name of one of the
+      standard directory variable (bindir, sbindir, libdir, libexecdir,
+      datadir, pkgdatadir, pkglibexecdir, includedir, mandir, infodir,
+      docdir) or a custom variable defined in the folder properties.</p>
+    </item>
+    <item>
+      <title><gui>Java compiler flags</gui></title>
+      <p>The flags to pass to the Java compiler when compiling target
+      source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Keep target path</gui></title>
+      <p>If checked, keep the hierarchy of the project directory when
+      installing files.</p>
+    </item>
+    <item>
+      <title><gui>Lex/Flex compiler flags</gui></title>
+      <p>The flags to pass to the scanner generator Lex or Flex when generating
+      target source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Libraries</gui></title>
+      <p>Specify additional libraries used by the target. Useful for
+      adding non package libraries. See 
+      <link xref="project-manager-library">Add non-packaged libraries</link>
+      page for more details.</p>
+    </item>
+    <item>
+      <title><gui>Linker flags</gui></title>
+      <p>The flags to pass to the linker when linking the target.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Manual section</gui></title>
+      <p>Specify the section of the manual where to add man page.
+      Valid section name are the digits ‘0’ through ‘9’, and the letters
+      ‘l’ and ‘n’.</p>
+    </item>
+    <item>
+      <title><gui>Objective C compiler flags</gui></title>
+      <p>The flags to pass to the Objective C compiler when compiling
+      target source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Vala compiler flags</gui></title>
+      <p>The flags to pass to the Vala compiler when compiling target source
+      files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+    <item>
+      <title><gui>Yacc/Bison compiler flags</gui></title>
+      <p>The flags to pass to the parser generator Bison or Yacc when generating
+      target source files.
+      This value overrides the one eventually defined in the parent folder.</p>
+    </item>
+  </terms>
+
+</page>
+

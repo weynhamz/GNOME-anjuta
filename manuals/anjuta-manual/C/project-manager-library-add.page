@@ -1,0 +1,84 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-library-add">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-library" group="sixth"/>
+    <link type="seealso" xref="project-manager-target"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add a custom library to a target.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Add a Custom Library</title>
+ 
+  <p>It is easier to use a packaged library, which is common on Linux, so
+  check if it is the case <link xref="project-manager-module-new">here</link>.
+  But else you can still use the library as explained below.</p>
+
+  <p>In order to use a library in C, you need to tell the compiler
+  where the header files are, and tell the linker where to find the
+  needed libraries. The issue is that your program will not compile
+  on another computer if the header and the libraries are elsewhere.</p>
+
+  <steps>
+    <item>
+      <p>Select the directory containing the program where you want to
+      add the library in the <gui>project view</gui>, click on the
+      right mouse button to make the <gui>project context menu</gui>
+      appear and select <gui>Properties</gui>.</p>
+
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>Properties</gui></guiseq>. By default, it edits the
+      properties of the currently selected item in the project view.
+      You can select a different item in the drop-down list button.</p>
+    </item>
+    <item>
+      <p>If the header files are installed in a standard location
+      (<file>/usr/include</file>) you don't have to set this. If not,
+      you need to add <input>-I<var>include_path</var></input> in
+      the <gui>C preprocessor flags</gui> property if you are using
+      <app>gcc</app> as your compiler. You can add several paths separated with
+      spaces. These options will be used for all targets inside this
+      directory.</p>
+
+      <p>You might have to expand the <gui>More options</gui> button to see this.
+      Click on the <gui>Apply</gui> button when you are done.</p>
+    </item>
+    <item>
+      <p>Next, you need to add the library to a target.
+      Select the target where you want to
+      add the library in the <gui>project view</gui>, click on the
+      right mouse button to make the <gui>project context menu</gui>
+      appear and select <gui>Properties</gui>.</p>
+
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>Properties</gui></guiseq>. By default, it edits the
+      properties of the currently selected item in the project view.
+      You can select a different item in the drop-down list button.</p>
+    </item>
+    <item>
+      <p>You need to set the <gui>Linker flags</gui> property, adding
+      <input>-l<var>library_name</var></input> if your compiler is <app>gcc</app>.
+      <var>library_name</var> is the name of the library file without the
+      <file>lib</file> prefix and without the <file>.a</file> or
+      <file>.so</file> extension.</p>
+
+      <p>If the library is in not in a standard directory, <app>gcc</app>
+      can look in additional directories with the option
+      <input>-L<var>library_path</var></input>.</p>  
+    </item>
+  </steps>
+
+</page>
+

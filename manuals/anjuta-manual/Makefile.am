@@ -11,6 +11,11 @@ DOC_PAGES = \
 	anjuta-code-symbols.page \
 	anjuta-glade-signals.page \
 	anjuta-glade-start.page \
+	autotools-project-backend.page \
+	autotools-project-folder-edit.page \
+	autotools-project-root-edit.page \
+	autotools-project-target-edit.page \
+	autotools-project-target-type.page \
 	autotools-build-build.page \
 	autotools-build-clean.page \
 	autotools-build-compile.page \
@@ -40,12 +45,26 @@ DOC_PAGES = \
 	introduction.page \
 	makefile-project-backend.page \
 	project-import.page \
-	project-manager-file.page \
+	project-manager-folder-add.page \
+	project-manager-folder.page \
+	project-manager-folder-remove.page \
+	project-manager-library-add.page \
 	project-manager-library.page \
-	project-manager-module.page \
-	project-manager-package.page \
+	project-manager-library-remove.page \
+	project-manager-module-add.page \
+	project-manager-module-new.page \
+	project-manager-module-remove.page \
+	project-manager-package-add.page \
+	project-manager-package-remove.page \
 	project-manager.page \
+	project-manager-root.page \
+	project-manager-source-add.page \
+	project-manager-source.page \
+	project-manager-source-remove.page \
+	project-manager-target-add.page \
 	project-manager-target.page \
+	project-manager-target-remove.page \
+	project-manager-treeview.page \
 	project-wizard-create.page \
 	project-wizard-template.page \
 	run-parameters-dialog.page \

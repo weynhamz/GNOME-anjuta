@@ -1,0 +1,41 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-library-remove">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-library" group="seventh"/>
+    <link type="seealso" xref="project-manager-target"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Remove a custom library from a target.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Remove a Custom Library</title>
+ 
+  <steps>
+    <item>
+      <p>Select the target that has the library you want to remove in the
+      <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>Properties</gui>.</p>
+    </item>
+    <item>
+      <p>Remove the library from the
+      <gui>C preprocessor flags</gui> and <gui>Linker flags</gui>
+      properties. Click on the <gui>Apply</gui> button to write the
+      changes to the project files.</p>
+    </item>
+  </steps>
+
+</page>
+

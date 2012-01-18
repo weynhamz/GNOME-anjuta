@@ -1,0 +1,44 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-source-delete">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-source" group="third"/>
+   <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Remove files from a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Remove Files</title>
+
+  <steps>
+    <item>
+      <p>Select the file you want to remove in the 
+      <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>Remove</gui>.</p>
+    </item>
+    <item>
+      <p>Confirm the removal. The file will only be removed from the project,
+      not from your disk.</p>
+    </item>
+  </steps>
+
+  <note style="tip">
+    <p>You can select several files at the same time by keeping the
+    <key>Ctrl</key> key pressed or select a range using the <key>Shift</key>
+    key.</p>
+  </note> 
+  
+</page>
+

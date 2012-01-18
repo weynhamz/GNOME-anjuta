@@ -1,0 +1,75 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-module-new">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-library" group="first"/>
+    <link type="next" xref="project-manager-module-add"/>
+    <link type="seealso" xref="project-manager-library"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Create a set of libraries.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Create a Module</title>
+
+  <p>On Linux, most libraries are distributed with additional data stored
+  in a <app>pkg-config</app> file. This file contains information like
+  the other libraries needed, the C compiler and the linker flags needed
+  to use that library. This file, the header files and the library files
+  themselves is called a package.</p>
+ 
+  <p><app>Anjuta</app> provides an simple interface to use such library.
+  If the library you need is not one of these, check the 
+  <link xref="project-manager-library-add">Add non-packaged libraries</link>
+  page.</p>
+
+  <p>A package cannot be added directly to your program; you first need to
+  create a module for it, which is just a group of packages.</p>
+
+  <steps>
+    <item>
+      <p>Select the program where you want to add the new library in
+      the <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear, and select
+      <gui>Add Library</gui>. Then click on the <gui>New Library</gui>
+      button on this dialog.</p>
+
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>New Library...</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>You will get a list of all the packaged libraries installed on your
+      system. You can check one or more libraries.</p>
+      <note style="tip">
+        <p>If the library you want does not appear here, perhaps it
+        is because it is not installed on your system.
+        Launch the application you
+        use to install new programs and search for the library name.
+        The package you need often has a "dev" or "devel" suffix and
+        should include header files and a <app>pkg-config</app> file with a
+        <file>.pc</file> extension.</p>
+      </note>
+      <p>After selecting one library, a module name will be
+      automatically generated but you can change it. When you are
+      done, click on the <gui>Add</gui> button to create the new module
+      with the selected libraries.</p>
+    </item>
+    <item>
+      <p>Read the <link xref="project-manager-module-add">next page</link> to
+      find out how to add this new module to your target.</p>
+    </item>
+  </steps>
+
+</page>
+

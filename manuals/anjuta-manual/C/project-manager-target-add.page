@@ -1,0 +1,56 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-target-add">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-target" group="fifth"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add a target to a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Add a Target</title>
+
+  <p>A target groups files together and defines their use.
+  It is used to represent a program, with all its source files as its children
+  or only group data files those should be installed at the same place.</p>
+
+  <steps>
+    <item>
+      <p>Select the directory where you want to add the new target in
+      the <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>New Target</gui>.</p>
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>New Target...</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>You can select another directory in the bottom <gui>directory tree view</gui>.
+      </p>
+      <p>Enter a target name and select the type of the target in the
+      drop-down list below.
+      Depending on your project backend, various types of target are possible,
+      see at the bottom.</p>
+      <note style="tip">
+        <p>Target names are typically restricted to letters, digits and
+        the underscore, so it's safer to avoid other characters.</p>
+     </note>
+    </item>
+    <item>
+      <p>When you have chosen the target name, type and parent, click on the
+      <gui>Add</gui> button to create this new target.</p>
+    </item>
+ </steps>
+
+</page>
+

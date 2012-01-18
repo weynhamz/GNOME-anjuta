@@ -1,0 +1,82 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-project-folder-edit">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-folder" group="second"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Edit autotools folder properties.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Edit an Autotools Folder</title>
+
+  <p>These properties allows you to define common properties for all targets
+  belonging to this folder.</p>
+
+  <terms>
+    <item>
+      <title><gui>C compiler flags</gui></title>
+      <p>The flags to pass to the C compiler if a per target value is
+      not defined.</p>
+    </item>
+    <item>
+      <title><gui>C preprocessor flags</gui></title>
+      <p>These flags are passed to every compilation that invokes the
+      C preprocessor. This value is ignored if these flags are
+      defined for the target.</p>
+    </item>
+    <item>
+      <title><gui>C++ compiler flags</gui></title>
+      <p>The flags to pass to the C++ compiler flags if a per target value
+      is not defined.</p>
+    </item>
+    <item>
+      <title><gui>Fortran compiler flags</gui></title>
+      <p>The flags to pass to the Fortran 9x compiler if a per target value
+      is not defined.</p>
+    </item>
+    <item>
+      <title><gui>Installation directories</gui></title>
+      <p>This defines installation directories. It is needed if you want to
+      install files in custom directories.</p>
+    </item>
+    <item>
+      <title><gui>Java compiler flags</gui></title>
+      <p>The flags to pass to the Java compiler if a per target value is
+      not defined.</p>
+    </item>
+    <item>
+      <title><gui>Lex/Flex compiler flags</gui></title>
+      <p>The flags to pass to the scanner generator Lex or Flex if a per target
+      value is not defined.</p>
+    </item>
+    <item>
+      <title><gui>Linker flags</gui></title>
+      <p>The flags to pass to the linker if a per target value is not defined.</p>
+    </item>
+    <item>
+      <title><gui>Objective C compiler flags</gui></title>
+      <p>The flags to pass to the Objective C compiler if a per target value
+      is not defined.</p>
+    </item>
+    <item>
+      <title><gui>Vala compiler flags</gui></title>
+      <p>The flags to pass to the Vala compiler if a per target value is not
+      defined.</p>
+    </item>
+    <item>
+      <title><gui>Yacc/Bison compiler flags</gui></title>
+      <p>The flags to pass to the parser generator Bison or Yacc if a per
+      target value is not defined.</p>
+    </item>
+  </terms>
+
+</page>
+

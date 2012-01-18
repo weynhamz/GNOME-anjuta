@@ -1,0 +1,55 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-source-add">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-source" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add existing files to a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Add Files</title>
+
+  <steps>
+    <item>
+      <p>Select the target where you want to add the new source files in
+      the <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>Add Source File</gui>.</p>
+
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>Add Source File...</gui></guiseq></p>
+    </item>
+    <item>
+      <p>You can select another target in the top <gui>target chooser button</gui>.
+      </p>
+    </item>
+    <item>
+      <p>In the file chooser below, select the files you want to add.
+      Then click on the <gui>Add</gui> button to add those files to your
+      project. You can select several files at the same time keeping
+      <key>Ctrl</key> key pressed or using the <key>Shift</key> to select
+      a range of files.</p>
+    </item>
+  </steps>
+    
+  <note style="tip">
+    <p>You can add files in sub-directories of the project. Most
+    project formats require the files to be under the project
+    directory. Added source files outside the project directory are
+    automatically copied inside to fulfill this requirement.</p>
+  </note>
+ 
+</page>
+

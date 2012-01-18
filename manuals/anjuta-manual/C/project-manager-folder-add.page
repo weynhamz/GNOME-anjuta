@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-folder-add">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-folder" group="first"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add a folder to a project.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Add a Folder</title>
+
+  <p>A folder allows you to group several target allowing to set common
+  properties for all of them. It often corresponds to a directory.</p>
+
+  <steps>
+    <item>
+      <p>Select the group or the project where you want to add the new group
+      in the <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>Add Group</gui>.</p>
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>Add Group</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Enter a new group name.</p>
+      <note style="tip">
+        <p>Groups names are typically restricted to letters, digits and
+        the underscore, so it's safer to avoid other characters.</p>
+      </note>
+    </item>
+    <item>
+      <p>You can select another group in the bottom <gui>group tree view</gui>.</p>
+    </item>
+    <item>
+      <p>When you have chosen the parent and enter the name, click on the <gui>Add</gui>
+      button to add the group to your project.</p>
+    </item>
+  </steps>
+
+</page>
+

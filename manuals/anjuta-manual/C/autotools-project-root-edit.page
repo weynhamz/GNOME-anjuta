@@ -1,0 +1,52 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="autotools-project-root-edit">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-root" group="second"/>
+    <link type="seealso" xref="autotools-project-folder-edit"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Edit autotools project properties.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Edit Autotools Project Properties</title>
+
+  <p>These are the properties of the root item.</p>
+
+  <terms>
+    <item>
+      <title><gui>Name</gui></title>
+      <p>The name of your project. It can contains space.</p>
+    </item>
+    <item>
+      <title><gui>Version</gui></title>
+      <p>This is the project version.</p>
+    </item>
+    <item>
+      <title><gui>Bug report URL</gui></title>
+      <p>This is an URL allowing to send bug report, by example an email
+      address or a link to a bug tracker. It is optional.</p>
+    </item>
+    <item>
+      <title><gui>Package name</gui></title>
+      <p>This is the name of distribution package, it shouldn't contain spaces.
+      It is optional.</p>
+    </item>
+    <item>
+      <title><gui>URL</gui></title>
+      <p>This is the home page of the project. It is optional.</p>
+    </item>
+  </terms>
+
+  <p>In addition, the root item works as a folder and has all its properties.
+  See <link xref="autotools-project-folder-edit"/> to see the list.</p>
+
+</page>
+

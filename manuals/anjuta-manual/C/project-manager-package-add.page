@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="project-manager-package-add">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="project-manager-library" group="second"/>
+    <link type="next" xref="project-manager-module-add"/>
+    <link type="seealso" xref="project-manager-library-add"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Add a library in a module.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+    <credit type="editor">
+      <name>Philip Chimento</name>
+      <email>philip.chimento@gmail.com</email>
+    </credit>
+  </info>
+
+  <title>Add a Package</title>
+
+  <steps>
+    <item>
+      <p>Select the module where you want to add the new library in
+      the <gui>project view</gui>, click on the right mouse button to
+      make the <gui>project context menu</gui> appear and select
+      <gui>New Library</gui>.</p>
+
+      <p>Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui>
+      <gui>New Library...</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>In the list of all packaged libraries, check the additional
+      libraries wanted. Check that expected module name is selected
+      in the bottom text box.
+      Then click on the <gui>Add</gui> button to update the module.</p>
+    </item>
+    <item>
+      <p>Read the <link xref="project-manager-module-add">next page</link> to
+      find out how to add the module to your target.</p>
+    </item>
+  </steps>
+
+</page>
+
