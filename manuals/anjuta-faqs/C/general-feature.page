@@ -1,9 +1,10 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
-      type="guide" style="2column"
-      id="index">
+      type="topic"
+      id="general-feature">
+
   <info>
-    <desc>Frequently asked questions</desc>
+    <link type="guide" xref="index#faq-general"/>
+    <desc>You are encouraged to do it yourself.</desc>
     
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
@@ -21,19 +22,11 @@
       <name>Biswapesh Chattopadhyayr</name>
     </credit>
   </info>
-  <title>FAQ</title>
 
+  <title>Why doesn't <app>Anjuta</app> have my favourite XYZ feature?</title>
 
-  <section id="faq-general" style="2column" groups="first second third fourth fifth">
-    <title>General</title>
-  </section>
-
-  <section id="faq-editor" style="2column"  groups="first second third fourth fifth">
-    <title>Editor</title>
-  </section>
-
-  <section id="faq-project" style="2column">
-    <title>Project</title>
-  </section>
+  <p>Because you haven't added them ? This is free software. You are free to, even encouraged
+  to take the source code and add the features you need. If you don't think yourself to
+  be capable of doing that, file a request for enhancement or send a mail to the devel list.</p>
 
 </page>

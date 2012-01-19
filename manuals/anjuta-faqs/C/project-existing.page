@@ -1,0 +1,24 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="project-existing">
+
+  <info>
+    <link type="guide" xref="index#faq-project"/>
+    <desc>Simply import the project in <app>Anjuta</app>.</desc>
+    
+    <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>How can I use anjuta with an existing project?</title>
+
+  <p>Just run <guiseq><gui>File</gui><gui>New</gui><gui>Project from existing sources</gui></guiseq>.</p>
+
+  <p><app>Anjuta</app> has not its own project format and uses already existing
+  project format, like autotools or makefile. On Linux, the most common format
+  is autotools and it is supported quite well.</p>
+
+</page>

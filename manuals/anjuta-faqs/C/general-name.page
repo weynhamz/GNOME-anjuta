@@ -1,10 +1,10 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
-      type="guide" style="2column"
-      id="index">
+      type="topic"
+      id="general-name">
+
   <info>
-    <desc>Frequently asked questions</desc>
-    
+    <link type="guide" xref="index#faq-general"/>
+
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
       <name>GNOME Documentation Project</name>
@@ -21,19 +21,12 @@
       <name>Biswapesh Chattopadhyayr</name>
     </credit>
   </info>
-  <title>FAQ</title>
 
 
-  <section id="faq-general" style="2column" groups="first second third fourth fifth">
-    <title>General</title>
-  </section>
+  <title>What does the name <app>Anjuta</app> stand for?</title>
 
-  <section id="faq-editor" style="2column"  groups="first second third fourth fifth">
-    <title>Editor</title>
-  </section>
-
-  <section id="faq-project" style="2column">
-    <title>Project</title>
-  </section>
+  <p>It is not one of those recursive names.
+  <app>Anjuta</app> is the name of Naba Kumar's (founder) girlfriend.
+  This software is dedicated to her.</p>
 
 </page>

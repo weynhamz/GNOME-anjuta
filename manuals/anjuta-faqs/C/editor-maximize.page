@@ -1,9 +1,11 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
-      type="guide" style="2column"
-      id="index">
-  <info>
-    <desc>Frequently asked questions</desc>
+      type="guide"
+      id="editor-maximize">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <link type="guide" xref="index#faq-editor" group="first"/>
+
+    <desc>Double click on the current tab.</desc>
     
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
@@ -21,19 +23,10 @@
       <name>Biswapesh Chattopadhyayr</name>
     </credit>
   </info>
-  <title>FAQ</title>
 
+  <title>How to maximize the editor window</title>
 
-  <section id="faq-general" style="2column" groups="first second third fourth fifth">
-    <title>General</title>
-  </section>
-
-  <section id="faq-editor" style="2column"  groups="first second third fourth fifth">
-    <title>Editor</title>
-  </section>
-
-  <section id="faq-project" style="2column">
-    <title>Project</title>
-  </section>
+  <p>Double click on the current tab to maximize the document window.
+  Do the same again restore the previous state of all docked windows.</p>
 
 </page>

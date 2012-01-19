@@ -1,0 +1,25 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="project-resource">
+
+  <info>
+    <link type="guide" xref="index#faq-project"/>
+    <desc>Add a folder and a data target.</desc>
+    
+    <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>How to add a directory containing icons to a project</title>
+
+  <p>In an autotools project, you can add a new directory by creating a
+  folder (<guiseq><gui>Project</gui><gui>New Folder...</gui></guiseq>).
+  Then inside this folder create a new data target
+  (<guiseq><gui>Project</gui><gui>New Target...</gui></guiseq>) and
+  add the files corresponding to the icons to this target
+  (<guiseq><gui>Project</gui><gui>New Source...</gui></guiseq>).</p>
+
+</page>
