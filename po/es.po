@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-01-18 20:08+0000\n"
+"POT-Creation-Date: 2012-01-19 10:00+0000\n"
 "PO-Revision-Date: 2012-01-19 10:57+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -1210,7 +1210,7 @@ msgstr "Incluir este objetivo en el paquete distribuido."
 #: ../plugins/am-project/am-properties.c:924
 #: ../plugins/am-project/am-properties.c:998
 msgid "Build for check only:"
-msgstr "Construir sólo para comprar:"
+msgstr "Construir sólo para comprobar:"
 
 #: ../plugins/am-project/am-properties.c:466
 #: ../plugins/am-project/am-properties.c:641
