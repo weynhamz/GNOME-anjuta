@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-01-14 15:15+0000\n"
-"PO-Revision-Date: 2012-01-15 18:54+0100\n"
+"POT-Creation-Date: 2012-01-18 20:08+0000\n"
+"PO-Revision-Date: 2012-01-19 10:57+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -559,7 +559,6 @@ msgstr ""
 "cerrar?"
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
-#| msgid "Invalid entry"
 msgid "<Invalid>"
 msgstr "<no válida>"
 
@@ -711,12 +710,12 @@ msgstr ""
 
 #: ../plugins/am-project/amp-group.c:579
 #: ../plugins/am-project/am-project.c:1655
-#: ../plugins/am-project/am-project.c:1745
+#: ../plugins/am-project/am-project.c:1746
 #: ../plugins/dir-project/dir-project.c:747
 #: ../plugins/dir-project/dir-project.c:860
-#: ../plugins/mk-project/mk-project.c:718
-#: ../plugins/mk-project/mk-project.c:795
-#: ../plugins/mk-project/mk-project.c:869
+#: ../plugins/mk-project/mk-project.c:719
+#: ../plugins/mk-project/mk-project.c:796
+#: ../plugins/mk-project/mk-project.c:870
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
@@ -787,12 +786,11 @@ msgstr "Módulo"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1682
-#, c-format
+#: ../plugins/am-project/am-project.c:1683
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
-#: ../plugins/am-project/am-project.c:1693
+#: ../plugins/am-project/am-project.c:1694
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "El proyecto no existe o tiene una ruta no válida"
@@ -1022,8 +1020,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
-"«Flex» para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
+"para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1291,8 +1289,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
-"«-», «/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
+"«/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:389
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -1303,8 +1301,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:398
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma "
-"«libxxx.a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
+"a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -1493,8 +1491,8 @@ msgid ""
 "quoted command. You can use %% to get a \"%\" character. A typical value is "
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
-"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el "
-"comando usado para instalar los archivos, por ejemplo, «make install». %s se "
+"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el comando "
+"usado para instalar los archivos, por ejemplo, «make install». %s se "
 "reemplazará con el comando sin ningún cambio, mientras que %q se reemplazará "
 "por el comando entrecomillado. Puede usar «%%» para obtener el carácter «%». "
 "Un valor habitual es «sudo %s» o «su -c %q»."
@@ -3523,8 +3521,8 @@ msgstr "Falta el nombre"
 
 #: ../plugins/dir-project/dir-project.c:990
 #: ../plugins/dir-project/dir-project.c:1000
-#: ../plugins/mk-project/mk-project.c:1017
-#: ../plugins/mk-project/mk-project.c:1027
+#: ../plugins/mk-project/mk-project.c:1018
+#: ../plugins/mk-project/mk-project.c:1028
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "El proyecto no permite configurar las propiedades"
@@ -3973,7 +3971,7 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresiones regulares"
 
 #: ../plugins/document-manager/plugin.c:301
-#: ../plugins/language-support-cpp-java/plugin.c:1197
+#: ../plugins/language-support-cpp-java/plugin.c:1255
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
@@ -5568,8 +5566,7 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr ""
-"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5687,15 +5684,15 @@ msgstr "Estado"
 msgid "Log"
 msgstr "Registro"
 
-#: ../plugins/git/plugin.c:776
+#: ../plugins/git/plugin.c:775
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ../plugins/git/plugin.c:783
+#: ../plugins/git/plugin.c:782
 msgid "Remotes"
 msgstr "Remotas"
 
-#: ../plugins/git/plugin.c:789
+#: ../plugins/git/plugin.c:788
 msgid "Stash"
 msgstr "Guardar («stash»)"
 
@@ -5722,37 +5719,37 @@ msgstr "Diseñador de interfaces Glade"
 msgid "User interface file"
 msgstr "Archivo de interfaz de usuario"
 
-#: ../plugins/glade/plugin.c:508
+#: ../plugins/glade/plugin.c:536
 msgid "Select widgets in the workspace"
 msgstr "Seleccionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:534
+#: ../plugins/glade/plugin.c:562
 msgid "Drag and resize widgets in the workspace"
 msgstr "Arrastrar y redimensionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:560
+#: ../plugins/glade/plugin.c:588
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:636
+#: ../plugins/glade/plugin.c:664
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:669
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:763
+#: ../plugins/glade/plugin.c:791
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:837
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:852
+#: ../plugins/glade/plugin.c:880
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5903,41 +5900,45 @@ msgstr "Tamaño de sangría en espacios:"
 msgid "C/C++"
 msgstr "C/C++"
 
+#: ../plugins/language-support-cpp-java/plugin.c:857
+msgid "Code added for widget."
+msgstr "Código añadido para el widget."
+
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1203
+#: ../plugins/language-support-cpp-java/plugin.c:1261
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1204
+#: ../plugins/language-support-cpp-java/plugin.c:1262
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1210
+#: ../plugins/language-support-cpp-java/plugin.c:1268
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1211
+#: ../plugins/language-support-cpp-java/plugin.c:1269
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1216
+#: ../plugins/language-support-cpp-java/plugin.c:1274
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1217
+#: ../plugins/language-support-cpp-java/plugin.c:1275
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1257
+#: ../plugins/language-support-cpp-java/plugin.c:1315
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1494
-#: ../plugins/language-support-cpp-java/plugin.c:1528
+#: ../plugins/language-support-cpp-java/plugin.c:1552
+#: ../plugins/language-support-cpp-java/plugin.c:1586
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6176,8 +6177,7 @@ msgid_plural "%d Errors"
 msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
-#: ../plugins/mk-project/mk-project.c:500
-#, c-format
+#: ../plugins/mk-project/mk-project.c:501
 msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo make"
 
@@ -6317,8 +6317,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
-"acceso de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
+"de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6335,9 +6335,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
-"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
-"más moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
+"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
+"moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6429,7 +6429,6 @@ msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
 #: ../plugins/project-manager/dialogs.c:554
-#| msgid "Module properties"
 msgid "Folder properties"
 msgstr "Propiedades de la carpeta"
 
@@ -6627,13 +6626,11 @@ msgid "_Project"
 msgstr "_Proyecto"
 
 #: ../plugins/project-manager/plugin.c:900
-#| msgid "New _Directory…"
 msgid "New _Folder…"
 msgstr "_Carpeta nueva…"
 
 #: ../plugins/project-manager/plugin.c:900
 #: ../plugins/project-manager/plugin.c:939
-#| msgid "Add a new directory to the project"
 msgid "Add a new folder to the project"
 msgstr "Añadir una carpeta nueva al proyecto"
 
@@ -6686,7 +6683,6 @@ msgid "Close project"
 msgstr "Cerrar proyecto"
 
 #: ../plugins/project-manager/plugin.c:939
-#| msgid "New File"
 msgid "New _Folder"
 msgstr "_Carpeta nueva"
 
@@ -6803,7 +6799,6 @@ msgid "More options:"
 msgstr "Más opciones:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:5
-#| msgid "New File"
 msgid "New Folder"
 msgstr "Carpeta nueva"
 
@@ -6832,7 +6827,6 @@ msgid "Source files:"
 msgstr "Archivos de código:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:12
-#| msgid "Specify _where to create the directory:"
 msgid "Specify _where to create the folder:"
 msgstr "Especificar _dónde crear la carpeta:"
 
@@ -6857,7 +6851,6 @@ msgid "TargetTypes"
 msgstr "Tipos de objetivo"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:18
-#| msgid "_Module name:"
 msgid "_Folder name:"
 msgstr "Nombre de la _carpeta:"
 
@@ -6874,28 +6867,23 @@ msgid "_Select file to add…"
 msgstr "_Seleccionar archivo para añadir…"
 
 #: ../plugins/project-manager/project-chooser.c:293
-#| msgid "Select a project type"
 msgid "<Select any project node>"
 msgstr "<Seleccionar un nodo del proyecto>"
 
 #: ../plugins/project-manager/project-chooser.c:298
 #: ../plugins/project-manager/project-chooser.c:308
-#| msgid "Select Target..."
 msgid "<Select a target>"
 msgstr "<Seleccionar un objetivo>"
 
 #: ../plugins/project-manager/project-chooser.c:303
-#| msgid "Clean module"
 msgid "<Select any module>"
 msgstr "<Seleccionar un módulo>"
 
 #: ../plugins/project-manager/project-chooser.c:313
-#| msgid "<b>Select Target to Profile</b>"
 msgid "<Select a target or a folder>"
 msgstr "<Seleccionar un objetivo o una carpeta>"
 
 #: ../plugins/project-manager/project-chooser.c:318
-#| msgid "Select a Folder"
 msgid "<Select a folder>"
 msgstr "<Seleccionar una carpeta>"
 
@@ -6979,8 +6967,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
-"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
+"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:681
@@ -7802,8 +7790,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
-"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
@@ -10406,8 +10394,8 @@ msgstr "Etiquetas de los botones de la barra de herramientas:"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
-#~ "desde el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+#~ "el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
