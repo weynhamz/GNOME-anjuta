@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-01-18 20:59+0000\n"
-"PO-Revision-Date: 2012-01-19 14:03+0100\n"
+"POT-Creation-Date: 2012-01-19 13:04+0000\n"
+"PO-Revision-Date: 2012-01-19 16:14+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -380,7 +380,6 @@ msgid "Create a new project from scratch."
 msgstr "Crear un proyecto nuevo desde el principio."
 
 #: C/project-wizard-create.page:23(title)
-#| msgid "Create a project"
 msgid "Create a Project"
 msgstr "Crear un proyecto"
 
@@ -474,12 +473,10 @@ msgstr ""
 "personalizables, e incluso escribir las suyas propias."
 
 #: C/project-manager-treeview.page:8(desc)
-#| msgid "Display process tree"
 msgid "Display project's content."
 msgstr "Mostrar el contenido del proyecto."
 
 #: C/project-manager-treeview.page:17(title)
-#| msgid "Create a project"
 msgid "View a Project"
 msgstr "Ver un proyecto"
 
@@ -504,7 +501,6 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-treeview.page:34(title)
-#| msgid "Modelines"
 msgid "Module"
 msgstr "Módulo"
 
@@ -528,7 +524,6 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-treeview.page:47(title)
-#| msgid "File"
 msgid "Folder"
 msgstr "Carpeta"
 
@@ -573,12 +568,10 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-target-remove.page:9(desc)
-#| msgid "Add or remove a target from a project."
 msgid "Remove a target from a project."
 msgstr "Quitar un objetivo de un proyecto."
 
 #: C/project-manager-target-remove.page:22(title)
-#| msgid "Remove a target"
 msgid "Remove a Target"
 msgstr "Quitar un objetivo"
 
@@ -602,22 +595,18 @@ msgstr ""
 "disco duro."
 
 #: C/project-manager-target.page:12(desc)
-#| msgid "Add or remove a target from a project."
 msgid "Add, edit or remove targets from a project."
 msgstr "Añadir o editar o quitar objetivos de un proyecto."
 
 #: C/project-manager-target.page:21(title)
-#| msgid "Clean targets"
 msgid "Manage Targets"
 msgstr "Gestionar objetivos"
 
 #: C/project-manager-target-add.page:9(desc)
-#| msgid "Add or remove a target from a project."
 msgid "Add a target to a project."
 msgstr "Añadir un objetivo a un proyecto."
 
 #: C/project-manager-target-add.page:22(title)
-#| msgid "Add a target"
 msgid "Add a Target"
 msgstr "Añadir un objetivo"
 
@@ -691,12 +680,10 @@ msgstr ""
 "botón <gui>Añadir</gui> para crear este objetivo nuevo."
 
 #: C/project-manager-source-remove.page:9(desc)
-#| msgid "Add or remove files from a project."
 msgid "Remove files from a project."
 msgstr "Quitar archivos de un proyecto."
 
 #: C/project-manager-source-remove.page:22(title)
-#| msgid "Remove a file"
 msgid "Remove Files"
 msgstr "Quitar archivos"
 
@@ -733,12 +720,10 @@ msgid "Manage Files"
 msgstr "Gestionar archivos"
 
 #: C/project-manager-source-add.page:9(desc)
-#| msgid "Add or remove files from a project."
 msgid "Add existing files to a project."
 msgstr "Añadir archivos existentes a un proyecto."
 
 #: C/project-manager-source-add.page:22(title)
-#| msgid "Add files"
 msgid "Add Files"
 msgstr "Añadir archivos"
 
@@ -760,9 +745,6 @@ msgstr ""
 "fuente</gui>."
 
 #: C/project-manager-source-add.page:31(p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Source File</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Source File...</gui></guiseq>"
@@ -805,12 +787,10 @@ msgstr ""
 "se copian automáticamente dentro para cumplir con este requerimiento."
 
 #: C/project-manager-root.page:12(desc)
-#| msgid "Add widget properties"
 msgid "Edit project properties."
 msgstr "Editar las propiedades del proyecto."
 
 #: C/project-manager-root.page:21(title)
-#| msgid "Create a project"
 msgid "Edit a Project"
 msgstr "Editar un proyecto"
 
@@ -846,12 +826,10 @@ msgid "Project Backend Plugin"
 msgstr "Complemento de «backend» del proyecto"
 
 #: C/project-manager-package-remove.page:9(desc)
-#| msgid "Remove a packaged library from a module"
 msgid "Remove a library from a module."
 msgstr "Quitar una biblioteca de un módulo."
 
 #: C/project-manager-package-remove.page:22(title)
-#| msgid "Remove a target"
 msgid "Remove a Package"
 msgstr "Quitar un paquete"
 
@@ -881,12 +859,10 @@ msgstr ""
 "archivo de proyecto."
 
 #: C/project-manager-package-add.page:11(desc)
-#| msgid "Add packaged libraries in a new module"
 msgid "Add a library in a module."
 msgstr "Añadir una biblioteca a un módulo."
 
 #: C/project-manager-package-add.page:24(title)
-#| msgid "Add a target"
 msgid "Add a Package"
 msgstr "Añadir un paquete"
 
@@ -938,12 +914,10 @@ msgstr ""
 "\"project-manager-package\">siguiente página</link>."
 
 #: C/project-manager-module-remove.page:10(desc)
-#| msgid "Remove a packaged library from a target"
 msgid "Remove a set of libraries from a target."
 msgstr "Quitar un conjunto de bibliotecas de un objetivo."
 
 #: C/project-manager-module-remove.page:23(title)
-#| msgid "Remove a file"
 msgid "Remove a Module"
 msgstr "Quitar un módulo"
 
@@ -966,7 +940,6 @@ msgid "Create a set of libraries."
 msgstr "Crear un conjunto de bibliotecas."
 
 #: C/project-manager-module-new.page:24(title)
-#| msgid "Create a project"
 msgid "Create a Module"
 msgstr "Crear un módulo"
 
@@ -1075,7 +1048,6 @@ msgstr ""
 "xref=\"project-manager-package\">siguiente página</link>."
 
 #: C/project-manager-module-add.page:10(desc)
-#| msgid "Add a packaged library to a target"
 msgid "Add a set of libraries to a target."
 msgstr "Añadir un conjunto de bibliotecas a un objetivo."
 
@@ -1108,9 +1080,6 @@ msgstr ""
 "biblioteca</gui>."
 
 #: C/project-manager-module-add.page:35(p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Library...</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Library...</gui></guiseq>."
@@ -1144,12 +1113,10 @@ msgstr ""
 "módulo."
 
 #: C/project-manager-library-remove.page:10(desc)
-#| msgid "Remove a packaged library from a target"
 msgid "Remove a custom library from a target."
 msgstr "Quitar un biblioteca personalizada de un objetivo."
 
 #: C/project-manager-library-remove.page:23(title)
-#| msgid "Remove a target"
 msgid "Remove a Custom Library"
 msgstr "Quitar una biblioteca personalizada"
 
@@ -1176,7 +1143,6 @@ msgstr ""
 "proyecto."
 
 #: C/project-manager-library.page:13(desc)
-#| msgid "Add or remove libraries from a project."
 msgid "Add or remove libraries to project targets."
 msgstr "Añadir o quitar bibliotecas de los proyectos objetivo."
 
@@ -1185,7 +1151,6 @@ msgid "Manage Libraries"
 msgstr "Gestionar bibliotecas"
 
 #: C/project-manager-library-add.page:10(desc)
-#| msgid "Add a packaged library to a target"
 msgid "Add a custom library to a target."
 msgstr "Añadir una biblioteca personalizada a un objetivo."
 
@@ -1306,12 +1271,10 @@ msgstr ""
 "var></input>."
 
 #: C/project-manager-folder-remove.page:9(desc)
-#| msgid "Add or remove files from a project."
 msgid "Remove folders from a project."
 msgstr "Quitar carpetas de un proyecto."
 
 #: C/project-manager-folder-remove.page:18(title)
-#| msgid "Remove a file"
 msgid "Remove Folder"
 msgstr "Quitar una carpeta"
 
@@ -1353,7 +1316,6 @@ msgid "Manage Folders"
 msgstr "Gestionar carpetas"
 
 #: C/project-manager-folder-add.page:9(desc)
-#| msgid "Add or remove files from a project."
 msgid "Add a folder to a project."
 msgstr "Añadir una carpeta a un proyecto."
 
@@ -1396,7 +1358,6 @@ msgstr ""
 "gui><gui>Añadir fuente</gui></guiseq>"
 
 #: C/project-manager-folder-add.page:33(p)
-#| msgid "Enter the new value."
 msgid "Enter a new group name."
 msgstr "Introducir un nombre de grupo nuevo."
 
@@ -1439,7 +1400,6 @@ msgid "Import an existing project."
 msgstr "Importar un proyecto existente."
 
 #: C/project-import.page:24(title)
-#| msgid "Import a project"
 msgid "Import a Project"
 msgstr "Importar un proyecto"
 
@@ -4074,7 +4034,7 @@ msgstr ""
 
 #: C/autotools-project-target-type.page:8(desc)
 msgid "Autotools target type."
-msgstr ""
+msgstr "Tipo de proyecto de autotools"
 
 #: C/autotools-project-target-type.page:17(title)
 msgid "Autotools project type"
@@ -4087,7 +4047,6 @@ msgid "There are different types of target available."
 msgstr "El tipo de la variable."
 
 #: C/autotools-project-target-type.page:23(title)
-#| msgid "View shared libraries"
 msgid "Shared Library"
 msgstr "Biblioteca compartida"
 
@@ -4127,7 +4086,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-project-target-type.page:44(title)
-#| msgid "Python"
 msgid "Python module"
 msgstr "Módulo de Python"
 
@@ -4152,7 +4110,6 @@ msgid "It represents a progran written in LISP."
 msgstr "Representa un programa escrito en LISP."
 
 #: C/autotools-project-target-type.page:56(title)
-#| msgid "Add files"
 msgid "Header files"
 msgstr "Archivos de cabeceras"
 
@@ -4183,7 +4140,6 @@ msgid "It groups info page needed by the project."
 msgstr "Agrupa las páginas de información que necesita el proyecto."
 
 #: C/autotools-project-target-type.page:69(title)
-#| msgid "Miscellaneous information"
 msgid "Miscellaneous Data"
 msgstr "Datos variados"
 
@@ -4219,7 +4175,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-project-target-edit.page:25(gui)
-#| msgid "Build Directory"
 msgid "Build for check only"
 msgstr "Construir sólo para comprobar"
 
@@ -4231,7 +4186,6 @@ msgstr ""
 
 #: C/autotools-project-target-edit.page:30(gui)
 #: C/autotools-project-folder-edit.page:25(gui)
-#| msgid "Compile files"
 msgid "C compiler flags"
 msgstr "Opciones del compilador de C"
 
@@ -4254,7 +4208,6 @@ msgstr ""
 
 #: C/autotools-project-target-edit.page:41(gui)
 #: C/autotools-project-folder-edit.page:36(gui)
-#| msgid "Compile files"
 msgid "C++ compiler flags"
 msgstr "Opciones del compilador de C++"
 
@@ -4265,7 +4218,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-project-target-edit.page:47(gui)
-#| msgid "make install"
 msgid "Do not install"
 msgstr "No instalar"
 
@@ -4307,7 +4259,6 @@ msgid "If checked, include the target in the distribution package."
 msgstr "Crear un paquete de distribución."
 
 #: C/autotools-project-target-edit.page:68(gui)
-#| msgid "Use to install all targets in a directory."
 msgid "Installation directory"
 msgstr "Carpeta de instalación"
 
@@ -4322,7 +4273,6 @@ msgstr ""
 
 #: C/autotools-project-target-edit.page:76(gui)
 #: C/autotools-project-folder-edit.page:51(gui)
-#| msgid "Compile files"
 msgid "Java compiler flags"
 msgstr "Opciones del compilador de Java"
 
@@ -4377,7 +4327,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-project-target-edit.page:105(gui)
-#| msgid "Manual configuration"
 msgid "Manual section"
 msgstr "Sección manual"
 
@@ -4400,7 +4349,6 @@ msgstr ""
 
 #: C/autotools-project-target-edit.page:117(gui)
 #: C/autotools-project-folder-edit.page:70(gui)
-#| msgid "Compile files"
 msgid "Vala compiler flags"
 msgstr "Opciones del compilador de Vala"
 
@@ -4435,7 +4383,6 @@ msgid "These are the properties of the root item."
 msgstr ""
 
 #: C/autotools-project-root-edit.page:25(gui)
-#| msgid "Frame"
 msgid "Name"
 msgstr "Nombre"
 
@@ -4476,7 +4423,6 @@ msgid "URL"
 msgstr "URL"
 
 #: C/autotools-project-root-edit.page:44(p)
-#| msgid "This is the state of the breakpoint. It may be"
 msgid "This is the home page of the project. It is optional."
 msgstr "Esta es la página principal del proyecto. Es opcional"
 
@@ -4524,7 +4470,6 @@ msgid ""
 msgstr ""
 
 #: C/autotools-project-folder-edit.page:46(gui)
-#| msgid "Install targets"
 msgid "Installation directories"
 msgstr "Carpetas de instalación"
 
@@ -4667,7 +4612,6 @@ msgid ""
 msgstr ""
 
 #: C/anjuta-glade-start.page:62(title)
-#| msgid "Auto-indentation"
 msgid "Automatic generation"
 msgstr "Generación automática"
 
