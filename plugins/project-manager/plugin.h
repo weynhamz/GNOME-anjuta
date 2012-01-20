@@ -83,4 +83,7 @@ struct _ProjectManagerPluginClass{
 	AnjutaPluginClass parent_class;
 };
 
+GtkWindow* get_plugin_parent_window (ProjectManagerPlugin *plugin);
+
+
 #endif

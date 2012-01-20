@@ -24,6 +24,23 @@
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
+              <object class="GtkButton" id="button8">
+                <property name="label">gtk-help</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+                <property name="secondary">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="button1">
                 <property name="label">gtk-cancel</property>
                 <property name="use_action_appearance">False</property>
@@ -37,7 +54,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">0</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -55,7 +72,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
@@ -190,6 +207,7 @@
       </object>
     </child>
     <action-widgets>
+      <action-widget response="-11">button8</action-widget>
       <action-widget response="-6">button1</action-widget>
       <action-widget response="-5">ok_module_button</action-widget>
     </action-widgets>
@@ -566,6 +584,23 @@
             <property name="can_default">True</property>
             <property name="layout_style">end</property>
             <child>
+              <object class="GtkButton" id="button9">
+                <property name="label">gtk-help</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+                <property name="secondary">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="cancel_button">
                 <property name="label">gtk-cancel</property>
                 <property name="use_action_appearance">False</property>
@@ -579,7 +614,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">0</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -597,7 +632,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
@@ -710,6 +745,7 @@
       </object>
     </child>
     <action-widgets>
+      <action-widget response="-11">button9</action-widget>
       <action-widget response="-6">cancel_button</action-widget>
       <action-widget response="-5">ok_group_button</action-widget>
     </action-widgets>
@@ -1171,7 +1207,7 @@
         <property name="use_action_appearance">False</property>
       </object>
       <packing>
-        <property name="expand">True</property>
+        <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="position">0</property>
       </packing>
@@ -1300,7 +1336,7 @@
                   </object>
                   <packing>
                     <property name="expand">True</property>
-                    <property name="fill">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>

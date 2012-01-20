@@ -42,9 +42,11 @@
 #define GLADE_FILE  PACKAGE_DATA_DIR "/glade/pm_dialogs.ui"
 
 #define ANJUTA_MANUAL	"anjuta-manual"
-#define ADD_SOURCE_HELP	"anjuta-project-files"
-#define ADD_TARGET_HELP	"project-manager-target"
-#define ADD_PACKAGE_HELP "project-manager-module"
+#define ADD_SOURCE_HELP	"project-manager-source-add"
+#define ADD_TARGET_HELP	"project-manager-target-add"
+#define ADD_PACKAGE_HELP "project-manager-module-new"
+#define ADD_MODULE_HELP "project-manager-module-add"
+#define ADD_FOLDER_HELP "project-manager-folder-add"
 
 
 /* Types
@@ -194,20 +196,26 @@ parent_filter_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
 
 	gtk_tree_model_get (model, iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data, -1);
-	node = data == NULL ? NULL : gbf_tree_data_get_node (data);
-	if (node != NULL)
+	if (data->shortcut != NULL)
 	{
-		if (anjuta_project_node_get_state (node) & need)
+		visible = FALSE;
+	}
+	else
+	{
+		node = data == NULL ? NULL : gbf_tree_data_get_node (data);
+		if (node != NULL)
 		{
-			/* Current node can be used as parent */
-			visible = TRUE;
-		}
-		else if (anjuta_project_node_get_node_type (node) == type)
-		{
-			/* Check if node can be used as sibling */
-			parent = anjuta_project_node_parent (node);
-			visible = anjuta_project_node_get_state (parent) & need ? TRUE : FALSE;
-
+			if (anjuta_project_node_get_state (node) & need)
+			{
+				/* Current node can be used as parent */
+				visible = TRUE;
+			}
+			else if (anjuta_project_node_get_node_type (node) == type)
+			{
+				/* Check if node can be used as sibling */
+				parent = anjuta_project_node_parent (node);
+				visible = anjuta_project_node_get_state (parent) & need ? TRUE : FALSE;
+			}
 		}
 	}
 
@@ -994,6 +1002,9 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 				g_free (name);
 				break;
 			}
+			case GTK_RESPONSE_HELP:
+				anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_FOLDER_HELP);
+				break;
 			default:
 				finished = TRUE;
 				break;
@@ -1592,6 +1603,16 @@ on_cursor_changed(GtkTreeView* view, gpointer data)
 		gtk_widget_set_sensitive(button, FALSE);
 }
 
+static void
+on_new_library(GtkButton *button, gpointer user_data)
+{
+	ProjectManagerPlugin *plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (user_data);
+	anjuta_pm_project_new_package (plugin,
+	                               get_plugin_parent_window (plugin),
+	                               NULL,
+	                               NULL);
+}
+
 GList*
 anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
                              GtkWindow          *parent,
@@ -1649,6 +1670,8 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 	}
 	g_signal_connect (G_OBJECT(modules_view), "cursor-changed",
 						G_CALLBACK(on_cursor_changed), ok_button);
+	g_signal_connect (G_OBJECT(new_button), "clicked",
+	                	G_CALLBACK(on_new_library), plugin);
 
 
 	if (parent)
@@ -1664,12 +1687,6 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 		response = gtk_dialog_run (GTK_DIALOG (dialog));
 
 		switch (response) {
-			case 1:
-			{
-				anjuta_pm_project_new_package (plugin, parent, NULL, NULL);
-
-				break;
-			}
 			case GTK_RESPONSE_OK:
 			{
 				GFile *target_file;
@@ -1726,6 +1743,9 @@ anjuta_pm_project_new_module (ProjectManagerPlugin *plugin,
 
 				break;
 			}
+			case GTK_RESPONSE_HELP:
+				anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, ADD_MODULE_HELP);
+				break;
 			default:
 				finished = TRUE;
 				break;

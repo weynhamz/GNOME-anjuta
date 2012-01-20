@@ -68,20 +68,6 @@ static gboolean file_is_inside_project (ProjectManagerPlugin *plugin,
 									   GFile *uri);
 static void project_manager_plugin_close (ProjectManagerPlugin *plugin);
 
-static GtkWindow*
-get_plugin_parent_window (ProjectManagerPlugin *plugin)
-{
-	GtkWindow *win;
-	GtkWidget *toplevel;
-
-	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	if (toplevel && GTK_IS_WINDOW (toplevel))
-		win = GTK_WINDOW (toplevel);
-	else
-		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-	return win;
-}
-
 static void
 update_title (ProjectManagerPlugin* plugin, const gchar *project_uri)
 {
@@ -385,6 +371,21 @@ update_operation_begin (ProjectManagerPlugin *plugin)
 										  ANJUTA_PROJECT_GROUP,
 										  NULL);
 }
+
+GtkWindow*
+get_plugin_parent_window (ProjectManagerPlugin *plugin)
+{
+	GtkWindow *win;
+	GtkWidget *toplevel;
+
+	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	if (toplevel && GTK_IS_WINDOW (toplevel))
+		win = GTK_WINDOW (toplevel);
+	else
+		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+	return win;
+}
+
 
 /* GUI callbacks
  *---------------------------------------------------------------------------*/
