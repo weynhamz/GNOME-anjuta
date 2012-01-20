@@ -270,7 +270,8 @@ else
 					    [ valaver="" ])
 			 ])
 	if test "x$valaver" != "x"; then
-		PKG_CHECK_MODULES([VALA], [ libvala${valaver} ])
+		LIBVALA="libvala${valaver}"
+		PKG_CHECK_MODULES([VALA], ${LIBVALA})
 	fi
 	AC_SUBST(LIBVALA)
 fi
