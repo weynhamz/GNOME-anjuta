@@ -63,6 +63,8 @@ typedef struct _PropertiesTable
 	GtkWidget *extra;
 	GbfTreeData *data;
 	AnjutaProjectNode *node;
+	GtkWidget *help_button;
+	const gchar *help_id;
 	GList *properties;
 } PropertiesTable;
 
@@ -559,7 +561,14 @@ update_properties (PropertiesTable *table)
 		title = _("Project properties");
 		break;
 	case ANJUTA_PROJECT_GROUP:
-		title = _("Folder properties");
+		if ((anjuta_project_node_get_full_type (table->node) & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_ROOT_GROUP)
+		{
+			title = _("Project properties");
+		}
+		else
+		{
+			title = _("Folder properties");
+		}
 		break;
 	case ANJUTA_PROJECT_TARGET:
 		title = _("Target properties");
@@ -628,6 +637,18 @@ update_properties (PropertiesTable *table)
 	if (!single && (node_info != NULL))
 	{
 		add_label (_("Type:"), anjuta_project_node_info_name (node_info), table->main, &main_pos);
+	}
+
+	/* Show help button if existing */
+	if ((node_info != NULL) && (anjuta_project_node_info_property_help_id (node_info) != NULL))
+	{
+		table->help_id = anjuta_project_node_info_property_help_id (node_info);
+		gtk_widget_show (table->help_button);
+	}
+	else
+	{
+		table->help_id = NULL;
+		gtk_widget_hide (table->help_button);
 	}
 
 	/* Display other node properties */
@@ -753,6 +774,11 @@ on_properties_dialog_response (GtkWidget *dialog,
 			}
 		}
 	}
+	else if (id == GTK_RESPONSE_HELP)
+	{
+		anjuta_util_help_display (GTK_WIDGET (dialog), ANJUTA_MANUAL, table->help_id);
+		return;
+	}
 	g_list_foreach (table->properties, (GFunc)pm_property_entry_free, NULL);
 	g_free (table);
 	gtk_widget_destroy (dialog);
@@ -795,7 +821,6 @@ static GtkWidget *
 pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, GbfProjectView *view, GbfTreeData *data, GtkTreeIter *selected)
 {
 	PropertiesTable *table;
-	GtkWidget *dialog = NULL;
 	GtkBuilder *bxml;
 	GtkWidget *node_combo;
 	GtkTreeIter iter;
@@ -810,12 +835,14 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	table->node = gbf_tree_data_get_node (data);
 	table->project = project;
 	anjuta_util_builder_get_objects (bxml,
+	                                "property_dialog", &table->dialog,
 									"properties", &table->table,
 	                                "nodes_combo", &node_combo,
 									"head_table", &table->head,
 									"main_table", &table->main,
 									"extra_table", &table->extra,
 									"extra_expand", &table->expand,
+	                                "property_help_button", &table->help_button,
 									NULL);
 	g_object_ref (table->table);
 	g_object_unref (bxml);
@@ -834,27 +861,16 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 					G_CALLBACK (on_node_changed),
 					table);
 
-	dialog = gtk_dialog_new_with_buttons (NULL,
-						   parent,
-						   GTK_DIALOG_DESTROY_WITH_PARENT,
-						   GTK_STOCK_CANCEL,
-						   GTK_RESPONSE_CANCEL,
-						   GTK_STOCK_APPLY,
-						   GTK_RESPONSE_APPLY, NULL);
-	table->dialog = dialog;
-
 	update_properties (table);
 
-	g_signal_connect (dialog, "response",
+	g_signal_connect (table->dialog, "response",
 					G_CALLBACK (on_properties_dialog_response),
 					table);
 
-	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(dialog))),
-					table->table);
-	gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
-	gtk_widget_show (dialog);
+	gtk_window_set_default_size (GTK_WINDOW (table->dialog), 450, -1);
+	gtk_widget_show (table->dialog);
 
-	return dialog;
+	return table->dialog;
 }
 
 
