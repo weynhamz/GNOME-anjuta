@@ -1876,6 +1876,7 @@ amp_project_get_node_info (AmpProject *project, GError **error)
 typedef struct _AmpMovePacket {
 	AmpProject *project;
 	GFile *old_root_file;
+	GFile *new_root_file;
 } AmpMovePacket;
 
 static void
@@ -1883,7 +1884,7 @@ foreach_node_move (AnjutaProjectNode *g_node, gpointer data)
 {
 	AmpProject *project = ((AmpMovePacket *)data)->project;
 	GFile *old_root_file = ((AmpMovePacket *)data)->old_root_file;
-	GFile *root_file = anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project));
+	GFile *new_root_file = ((AmpMovePacket *)data)->new_root_file;
 	gchar *relative;
 	GFile *new_file;
 
@@ -1891,7 +1892,7 @@ foreach_node_move (AnjutaProjectNode *g_node, gpointer data)
 	{
 	case ANJUTA_PROJECT_GROUP:
 		relative = get_relative_path (old_root_file, anjuta_project_node_get_file (g_node));
-		new_file = g_file_resolve_relative_path (root_file, relative);
+		new_file = g_file_resolve_relative_path (new_root_file, relative);
 		g_free (relative);
 		amp_group_node_set_file (AMP_GROUP_NODE (g_node), new_file);
 		g_object_unref (new_file);
@@ -1900,7 +1901,7 @@ foreach_node_move (AnjutaProjectNode *g_node, gpointer data)
 		break;
 	case ANJUTA_PROJECT_SOURCE:
 		relative = get_relative_path (old_root_file, anjuta_project_node_get_file (g_node));
-		new_file = g_file_resolve_relative_path (root_file, relative);
+		new_file = g_file_resolve_relative_path (new_root_file, relative);
 		g_free (relative);
 		amp_source_node_set_file (AMP_SOURCE_NODE (g_node), new_file);
 		g_object_unref (new_file);
@@ -1914,7 +1915,6 @@ gboolean
 amp_project_move (AmpProject *project, const gchar *path)
 {
 	GFile *new_file;
-	GFile *root_file;
 	gchar *relative;
 	GList *list;
 	gpointer key;
@@ -1925,11 +1925,7 @@ amp_project_move (AmpProject *project, const gchar *path)
 
 	/* Change project root directory */
 	packet.old_root_file = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project)));
-	root_file = g_file_new_for_path (path);
-	amp_root_node_set_file (AMP_ROOT_NODE (project), root_file);
-
-	/* Root node is a group too */
-	foreach_node_move (ANJUTA_PROJECT_NODE (project), &packet);
+	packet.new_root_file = g_file_new_for_path (path);
 
 	/* Change project root directory in groups */
 	old_hash = project->groups;
@@ -1943,7 +1939,7 @@ amp_project_move (AmpProject *project, const gchar *path)
 		AnjutaTokenFile *tfile = (AnjutaTokenFile *)list->data;
 
 		relative = get_relative_path (packet.old_root_file, anjuta_token_file_get_file (tfile));
-		new_file = g_file_resolve_relative_path (root_file, relative);
+		new_file = g_file_resolve_relative_path (packet.new_root_file, relative);
 		g_free (relative);
 		anjuta_token_file_move (tfile, new_file);
 	}
@@ -1955,7 +1951,7 @@ amp_project_move (AmpProject *project, const gchar *path)
 	while (g_hash_table_iter_next (&iter, &key, (gpointer *)&cfg))
 	{
 		relative = get_relative_path (packet.old_root_file, cfg->file);
-		new_file = g_file_resolve_relative_path (root_file, relative);
+		new_file = g_file_resolve_relative_path (packet.new_root_file, relative);
 		g_free (relative);
 		g_object_unref (cfg->file);
 		cfg->file = new_file;
@@ -1965,9 +1961,8 @@ amp_project_move (AmpProject *project, const gchar *path)
 	g_hash_table_steal_all (old_hash);
 	g_hash_table_destroy (old_hash);
 
-
-	g_object_unref (root_file);
 	g_object_unref (packet.old_root_file);
+	g_object_unref (packet.new_root_file);
 
 	return TRUE;
 }
