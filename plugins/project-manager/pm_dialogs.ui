@@ -1441,7 +1441,7 @@
     <action-widgets>
       <action-widget response="-11">property_help_button</action-widget>
       <action-widget response="-6">button11</action-widget>
-      <action-widget response="-5">ok_property_button</action-widget>
+      <action-widget response="-10">ok_property_button</action-widget>
     </action-widgets>
   </object>
 </interface>
