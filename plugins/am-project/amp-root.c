@@ -84,7 +84,7 @@ G_DEFINE_DYNAMIC_TYPE (AmpRootNode, amp_root_node, AMP_TYPE_GROUP_NODE);
 static void
 amp_root_node_init (AmpRootNode *node)
 {
-	node->base.base.type = ANJUTA_PROJECT_GROUP;
+	node->base.base.type = ANJUTA_PROJECT_GROUP | ANJUTA_PROJECT_ROOT_GROUP;
 	node->base.base.properties_info = amp_get_project_property_list();
 	node->base.base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
 						ANJUTA_PROJECT_CAN_ADD_TARGET |

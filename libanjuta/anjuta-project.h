@@ -109,6 +109,7 @@ typedef enum
 	ANJUTA_PROJECT_MKENUMS,
 	ANJUTA_PROJECT_GENMARSHAL,
 	ANJUTA_PROJECT_SCRIPT,
+	ANJUTA_PROJECT_ROOT_GROUP,
 	ANJUTA_PROJECT_PROXY = 1 << 16,
 	ANJUTA_PROJECT_PROJECT = 1 << 17,
 	ANJUTA_PROJECT_PRIMARY = 1 << 18,
@@ -247,6 +248,7 @@ struct _AnjutaProjectNodeInfo
 	AnjutaProjectNodeType type;
 	gchar *name;
 	gchar *mime_type;
+	gchar *property_help_id;
 };
 
 GType anjuta_project_node_info_get_type (void);
@@ -258,6 +260,7 @@ void anjuta_project_node_info_free (AnjutaProjectNodeInfo *info);
 const gchar *anjuta_project_node_info_name (const AnjutaProjectNodeInfo *info);
 const gchar *anjuta_project_node_info_mime (const AnjutaProjectNodeInfo *info);
 AnjutaProjectNodeType anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info);
+const gchar *anjuta_project_node_info_property_help_id (const AnjutaProjectNodeInfo *info);
 
 G_END_DECLS
 

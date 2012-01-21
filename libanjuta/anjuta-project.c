@@ -1322,6 +1322,12 @@ anjuta_project_node_info_type (const AnjutaProjectNodeInfo *info)
 	return info->type;
 }
 
+const gchar *
+anjuta_project_node_info_property_help_id (const AnjutaProjectNodeInfo *info)
+{
+	return info->property_help_id;
+}
+
 /**
  * anjuta_project_node_info_new:
  * @name: (transfer none):

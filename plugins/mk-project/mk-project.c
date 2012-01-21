@@ -64,17 +64,21 @@ static const gchar *valid_makefiles[] = {"GNUmakefile", "makefile", "Makefile", 
 static MkpNodeInfo MkpNodeInformation[] = {
 	{{ANJUTA_PROJECT_GROUP,
 	N_("Group"),
-	""}},
+	"",
+	NULL}},
 
 	{{ANJUTA_PROJECT_SOURCE,
 	N_("Source"),
-	""}},
+	"",
+	NULL}},
 
 	{{ANJUTA_PROJECT_TARGET,
 	N_("Unknown"),
-	"text/plain"}},
+	"text/plain",
+	NULL}},
 
 	{{ANJUTA_PROJECT_UNKNOWN,
+	NULL,
 	NULL,
 	NULL}}
 };

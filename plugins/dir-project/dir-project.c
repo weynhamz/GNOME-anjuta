@@ -869,11 +869,14 @@ dir_project_get_node_info (DirProject *project, GError **error)
 	static AnjutaProjectNodeInfo node_info[] = {
 					{ANJUTA_PROJECT_GROUP,
 					N_("Group"),
-					""},
+					"",
+					NULL},
 					{ANJUTA_PROJECT_SOURCE,
 					N_("Source"),
-					""},
+					"",
+					NULL},
 					{ANJUTA_PROJECT_UNKNOWN,
+					NULL,
 					NULL,
 					NULL}};
 	static GList *info_list = NULL;
