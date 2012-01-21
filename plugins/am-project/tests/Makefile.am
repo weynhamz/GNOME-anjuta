@@ -34,7 +34,8 @@ TESTSUITE_AT = \
 	$(srcdir)/data_target.at \
 	$(srcdir)/bugs.at \
 	$(srcdir)/nemiver.at \
-	$(srcdir)/ltinit.at
+	$(srcdir)/ltinit.at \
+	$(srcdir)/comment.at
 
 TESTSUITE = $(srcdir)/testsuite
 

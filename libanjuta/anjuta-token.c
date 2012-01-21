@@ -1054,6 +1054,10 @@ anjuta_token_merge_own_children (AnjutaToken *group)
 AnjutaToken *
 anjuta_token_merge_children (AnjutaToken *first, AnjutaToken *end)
 {
+	if (first == NULL)
+	{
+		return end;
+	}
 	if ((first == end) || (end == NULL))
 	{
 		return first;

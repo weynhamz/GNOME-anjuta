@@ -1,0 +1,30 @@
+AT_SETUP([Comment in configure.ac])
+
+
+
+AS_MKDIR_P([project1])
+AT_DATA([project1/configure.ac],
+[[
+AC_INIT([Ibl_server],[1.01])
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([project1/Makefile.am],
+[[]])
+AT_DATA([expect],
+[[ROOT (): bug1
+    PROPERTY (Name): Ibl_server
+    PROPERTY (Version): 1.02
+]])
+AT_PARSER_CHECK([load project1 \
+		 move bug1 \
+		 set 0 version 1.02 \
+		 list \
+		 save])
+AT_CHECK([diff output expect])
+AT_PARSER_CHECK([load bug1 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
+AT_CLEANUP

@@ -10,6 +10,7 @@ ROOT (): anjuta
         PACKAGE (): gthread-2.0
         PACKAGE (): glib-2.0
         PACKAGE (): gio-2.0
+        PACKAGE (): gmodule-2.0
         PACKAGE (): gtk+-3.0
         PACKAGE (): gdk-pixbuf-2.0
     MODULE (): XML
@@ -31,7 +32,7 @@ ROOT (): anjuta
     MODULE (): SOURCEVIEW
         PACKAGE (): gtksourceview-3.0
     MODULE (): VALA
-        PACKAGE (): libvala-0.14
+        PACKAGE (): ${LIBVALA}
     MODULE (): PLUGIN_SYMBOL_DB
         PACKAGE (): libgda-4.0
     MODULE (): PLUGIN_SYMBOL_DB
@@ -190,6 +191,7 @@ ROOT (): anjuta
                 SOURCE (): libanjuta/interfaces/ianjuta-print.c
                 SOURCE (): libanjuta/interfaces/ianjuta-project.c
                 SOURCE (): libanjuta/interfaces/ianjuta-project-backend.c
+                SOURCE (): libanjuta/interfaces/ianjuta-project-chooser.c
                 SOURCE (): libanjuta/interfaces/ianjuta-project-manager.c
                 SOURCE (): libanjuta/interfaces/ianjuta-provider.c
                 SOURCE (): libanjuta/interfaces/ianjuta-snippets-manager.c
@@ -255,6 +257,7 @@ ROOT (): anjuta
                 SOURCE (): libanjuta/interfaces/ianjuta-print.h
                 SOURCE (): libanjuta/interfaces/ianjuta-project.h
                 SOURCE (): libanjuta/interfaces/ianjuta-project-backend.h
+                SOURCE (): libanjuta/interfaces/ianjuta-project-chooser.h
                 SOURCE (): libanjuta/interfaces/ianjuta-project-manager.h
                 SOURCE (): libanjuta/interfaces/ianjuta-provider.h
                 SOURCE (): libanjuta/interfaces/ianjuta-snippets-manager.h
@@ -1457,7 +1460,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
             TARGET (): libanjuta-language-vala.la
                 PROPERTY (Installation directory): plugindir
-                PROPERTY (Vala compiler flags): --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
+                PROPERTY (Vala compiler flags): --vapidir $(srcdir) --pkg libvala${valaver} --pkg libanjuta-3.0
                 PROPERTY (Linker flags): -module -avoid-version -no-undefined
                 PROPERTY (Libraries): $(top_builddir)/libanjuta/libanjuta-3.la $(VALA_LIBS)
                 MODULE (): VALA
@@ -1601,6 +1604,8 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-manager/project-model.c
                 SOURCE (): plugins/project-manager/project-view.h
                 SOURCE (): plugins/project-manager/project-view.c
+                SOURCE (): plugins/project-manager/project-chooser.c
+                SOURCE (): plugins/project-manager/project-chooser.h
                 SOURCE (): plugins/project-manager/project-util.h
                 SOURCE (): plugins/project-manager/project-util.c
                 SOURCE (): plugins/project-manager/project.h

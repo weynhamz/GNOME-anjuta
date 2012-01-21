@@ -675,7 +675,9 @@ arg:
         //anjuta_token_dump ($1);
         //fprintf(stdout, "arg body\n");
         //anjuta_token_dump ($2);
-        anjuta_token_merge_children ($1, $2);
+        $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
+        anjuta_token_merge ($$, $1);
+	anjuta_token_merge_children ($$, $2);
         //fprintf(stdout, "arg merge\n");
         //anjuta_token_dump ($1);
     }
@@ -686,19 +688,13 @@ arg_body:
         $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
     }
     | arg_body arg_part_or_space {
-        anjuta_token_merge_children ($1, $2);
+        $$ = anjuta_token_merge ($1, $2);
     }
     ;
 
 arg_part_or_space:
-    SPACE {
-        $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
-        anjuta_token_merge ($$, $1);
-    }
-    | END_OF_LINE {
-        $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
-        anjuta_token_merge ($$, $1);
-    }
+    SPACE
+    | END_OF_LINE
     | arg_part
     ;
 
@@ -706,10 +702,7 @@ arg_part:
     arg_string
     | expression
     | macro
-    | arg_token {
-        $$ = anjuta_token_new_static (ANJUTA_TOKEN_ITEM, NULL);
-        anjuta_token_merge ($$, $1);
-    }
+    | arg_token
     ;
 
 arg_token:
