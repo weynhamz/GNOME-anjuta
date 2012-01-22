@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-01-19 10:00+0000\n"
-"PO-Revision-Date: 2012-01-19 10:57+0100\n"
+"POT-Creation-Date: 2012-01-22 14:11+0000\n"
+"PO-Revision-Date: 2012-01-22 20:47+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,9 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../anjuta.desktop.in.in.h:1
-msgid "Anjuta IDE"
-msgstr "EID Anjuta"
+#: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
+msgid "Anjuta"
+msgstr "Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
@@ -227,8 +227,8 @@ msgstr "Tailandés"
 #. * ISO8859-1
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
-#: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:106
-#: ../plugins/mk-project/mk-project.c:74
+#: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:116
+#: ../plugins/mk-project/mk-project.c:76
 msgid "Unknown"
 msgstr "Desconocido"
 
@@ -253,7 +253,7 @@ msgstr "Variables de entorno:"
 #: ../plugins/class-gen/window.c:785 ../plugins/class-gen/window.c:793
 #: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
 #: ../plugins/class-gen/window.c:821 ../plugins/class-gen/window.c:833
-#: ../plugins/project-manager/dialogs.c:469
+#: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:757
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:530
@@ -265,7 +265,7 @@ msgstr "Nombre"
 #: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:794
 #: ../plugins/class-gen/window.c:825 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:477
+#: ../plugins/project-manager/dialogs.c:487
 #: ../plugins/run-program/parameters.c:766 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Valor"
@@ -709,88 +709,93 @@ msgstr ""
 "caracteres «#$:%+,-.=@^_`~»"
 
 #: ../plugins/am-project/amp-group.c:579
-#: ../plugins/am-project/am-project.c:1655
-#: ../plugins/am-project/am-project.c:1746
+#: ../plugins/am-project/am-project.c:1680
+#: ../plugins/am-project/am-project.c:1771
 #: ../plugins/dir-project/dir-project.c:747
 #: ../plugins/dir-project/dir-project.c:860
-#: ../plugins/mk-project/mk-project.c:719
-#: ../plugins/mk-project/mk-project.c:796
-#: ../plugins/mk-project/mk-project.c:870
+#: ../plugins/mk-project/mk-project.c:723
+#: ../plugins/mk-project/mk-project.c:800
+#: ../plugins/mk-project/mk-project.c:874
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "El proyecto no existe o ruta no válida"
 
 #: ../plugins/am-project/am-project.c:90
+#| msgid "Remote"
+msgid "Root"
+msgstr "Raíz"
+
+#: ../plugins/am-project/am-project.c:98
 #: ../plugins/dir-project/dir-project.c:871
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
-#: ../plugins/am-project/am-project.c:97
-#: ../plugins/dir-project/dir-project.c:874
-#: ../plugins/mk-project/mk-project.c:70
+#: ../plugins/am-project/am-project.c:106
+#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Origen"
 
-#: ../plugins/am-project/am-project.c:113
+#: ../plugins/am-project/am-project.c:124
 msgid "Shared Library"
 msgstr "Biblioteca compartida"
 
-#: ../plugins/am-project/am-project.c:120
+#: ../plugins/am-project/am-project.c:132
 msgid "Static Library"
 msgstr "Biblioteca estática"
 
-#: ../plugins/am-project/am-project.c:127
+#: ../plugins/am-project/am-project.c:140
 #: ../plugins/build-basic-autotools/executer.c:143
 msgid "Program"
 msgstr "Programa"
 
-#: ../plugins/am-project/am-project.c:134
+#: ../plugins/am-project/am-project.c:148
 msgid "Python Module"
 msgstr "Módulo Python"
 
-#: ../plugins/am-project/am-project.c:141
+#: ../plugins/am-project/am-project.c:156
 msgid "Java Module"
 msgstr "Módulo Java"
 
-#: ../plugins/am-project/am-project.c:148
+#: ../plugins/am-project/am-project.c:164
 msgid "Lisp Module"
 msgstr "Módulo Lisp"
 
-#: ../plugins/am-project/am-project.c:155
+#: ../plugins/am-project/am-project.c:172
 msgid "Header Files"
 msgstr "Archivos de cabecera"
 
-#: ../plugins/am-project/am-project.c:162
+#: ../plugins/am-project/am-project.c:180
 msgid "Man Documentation"
 msgstr "Documentación man"
 
-#: ../plugins/am-project/am-project.c:169
+#: ../plugins/am-project/am-project.c:188
 msgid "Info Documentation"
 msgstr "Documentación"
 
-#: ../plugins/am-project/am-project.c:176
+#: ../plugins/am-project/am-project.c:196
 msgid "Miscellaneous Data"
 msgstr "Datos misceláneos"
 
-#: ../plugins/am-project/am-project.c:183
+#: ../plugins/am-project/am-project.c:204
 msgid "Script"
 msgstr "Script"
 
-#: ../plugins/am-project/am-project.c:190 ../plugins/class-gen/window.c:802
+#: ../plugins/am-project/am-project.c:212 ../plugins/class-gen/window.c:802
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Módulo"
 
-#: ../plugins/am-project/am-project.c:197
+#: ../plugins/am-project/am-project.c:220
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1683
+#: ../plugins/am-project/am-project.c:1708
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
-#: ../plugins/am-project/am-project.c:1694
+#: ../plugins/am-project/am-project.c:1719
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "El proyecto no existe o tiene una ruta no válida"
@@ -805,7 +810,7 @@ msgstr "Backend nuevo de autotools para el gestor de proyectos"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
-#: ../plugins/git/anjuta-git.ui.h:35 ../plugins/project-manager/dialogs.c:600
+#: ../plugins/git/anjuta-git.ui.h:35 ../plugins/project-manager/dialogs.c:617
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Name:"
@@ -1020,8 +1025,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
-"para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
+"«Flex» para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1289,8 +1294,8 @@ msgstr "Especifique el nombre del objetivo"
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
-"«/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-», «/» o «.»"
 
 #: ../plugins/am-project/amp-target.c:389
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -1301,8 +1306,8 @@ msgstr ""
 #: ../plugins/am-project/amp-target.c:398
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -1491,8 +1496,8 @@ msgid ""
 "quoted command. You can use %% to get a \"%\" character. A typical value is "
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
-"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el comando "
-"usado para instalar los archivos, por ejemplo, «make install». %s se "
+"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el "
+"comando usado para instalar los archivos, por ejemplo, «make install». %s se "
 "reemplazará con el comando sin ningún cambio, mientras que %q se reemplazará "
 "por el comando entrecomillado. Puede usar «%%» para obtener el carácter «%». "
 "Un valor habitual es «sudo %s» o «su -c %q»."
@@ -3519,10 +3524,10 @@ msgstr "API"
 msgid "Missing name"
 msgstr "Falta el nombre"
 
-#: ../plugins/dir-project/dir-project.c:990
-#: ../plugins/dir-project/dir-project.c:1000
-#: ../plugins/mk-project/mk-project.c:1018
-#: ../plugins/mk-project/mk-project.c:1028
+#: ../plugins/dir-project/dir-project.c:993
+#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/mk-project/mk-project.c:1022
+#: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "El proyecto no permite configurar las propiedades"
@@ -3569,7 +3574,7 @@ msgid "Close file"
 msgstr "Cerrar archivo"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:595
+#: ../plugins/project-manager/dialogs.c:612
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -4638,7 +4643,7 @@ msgid "New File"
 msgstr "Archivo nuevo"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#: ../plugins/project-manager/dialogs.c:622
+#: ../plugins/project-manager/dialogs.c:639
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -5395,8 +5400,8 @@ msgid "Create a branch"
 msgstr "Crear una rama"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
-msgid "Delete selected branches"
-msgstr "Eliminar las ramas seleccionadas"
+msgid "Delete branches"
+msgstr "Borrar ramas"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
@@ -5566,7 +5571,8 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr ""
+"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -6177,7 +6183,7 @@ msgid_plural "%d Errors"
 msgstr[0] "%d error"
 msgstr[1] "%d errores"
 
-#: ../plugins/mk-project/mk-project.c:501
+#: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo make"
 
@@ -6317,8 +6323,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6335,9 +6341,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
-"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
-"moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
+"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
+"más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6415,101 +6421,102 @@ msgstr "Complemento de gestor de proyectos para Anjuta."
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:320
+#: ../plugins/project-manager/dialogs.c:330
 msgid "Select sources…"
 msgstr "Seleccionar fuentes…"
 
-#: ../plugins/project-manager/dialogs.c:395
+#: ../plugins/project-manager/dialogs.c:405
 msgid " This property is not modifiable."
 msgstr "Esta propiedad no es modificable."
 
-#: ../plugins/project-manager/dialogs.c:551
-#: ../plugins/project-manager/plugin.c:925
+#: ../plugins/project-manager/dialogs.c:561
+#: ../plugins/project-manager/dialogs.c:566
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: ../plugins/project-manager/dialogs.c:554
+#: ../plugins/project-manager/dialogs.c:570
 msgid "Folder properties"
 msgstr "Propiedades de la carpeta"
 
-#: ../plugins/project-manager/dialogs.c:557
+#: ../plugins/project-manager/dialogs.c:574
 msgid "Target properties"
 msgstr "Propiedades del objetivo"
 
-#: ../plugins/project-manager/dialogs.c:560
+#: ../plugins/project-manager/dialogs.c:577
 msgid "Source properties"
 msgstr "Propiedades de los fuentes"
 
-#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:580
 msgid "Module properties"
 msgstr "Propiedades del módulo"
 
-#: ../plugins/project-manager/dialogs.c:566
+#: ../plugins/project-manager/dialogs.c:583
 msgid "Package properties"
 msgstr "Propiedades del paquete"
 
-#: ../plugins/project-manager/dialogs.c:569
+#: ../plugins/project-manager/dialogs.c:586
 msgid "Unknown properties"
 msgstr "Propiedades desconocidas"
 
-#: ../plugins/project-manager/dialogs.c:980
-#: ../plugins/project-manager/dialogs.c:991
+#: ../plugins/project-manager/dialogs.c:1004
+#: ../plugins/project-manager/dialogs.c:1015
 msgid "Cannot add group"
 msgstr "No se puede añadir el grupo"
 
-#: ../plugins/project-manager/dialogs.c:992
+#: ../plugins/project-manager/dialogs.c:1016
 msgid "No parent group selected"
 msgstr "No ha seleccionado el grupo padre"
 
-#: ../plugins/project-manager/dialogs.c:1149
-#: ../plugins/project-manager/dialogs.c:1161
-#: ../plugins/project-manager/dialogs.c:1346
-#: ../plugins/project-manager/dialogs.c:1356
+#: ../plugins/project-manager/dialogs.c:1176
+#: ../plugins/project-manager/dialogs.c:1188
+#: ../plugins/project-manager/dialogs.c:1373
+#: ../plugins/project-manager/dialogs.c:1383
 msgid "Cannot add source files"
 msgstr "No se pueden añadir los archivos de código"
 
-#: ../plugins/project-manager/dialogs.c:1162
-#: ../plugins/project-manager/dialogs.c:1357
+#: ../plugins/project-manager/dialogs.c:1189
+#: ../plugins/project-manager/dialogs.c:1384
 msgid "The selected node cannot contain source files."
 msgstr "El nodo seleccionado no puede contener archivos de fuentes."
 
-#: ../plugins/project-manager/dialogs.c:1543
-#: ../plugins/project-manager/dialogs.c:1554
+#: ../plugins/project-manager/dialogs.c:1570
+#: ../plugins/project-manager/dialogs.c:1581
 msgid "Cannot add target"
 msgstr "No se puede añadir el objetivo"
 
-#: ../plugins/project-manager/dialogs.c:1555
+#: ../plugins/project-manager/dialogs.c:1582
 msgid "No group selected"
 msgstr "No se seleccionó ningún grupo"
 
-#: ../plugins/project-manager/dialogs.c:1712
-#: ../plugins/project-manager/dialogs.c:1723
+#: ../plugins/project-manager/dialogs.c:1745
+#: ../plugins/project-manager/dialogs.c:1756
 msgid "Cannot add modules"
 msgstr "No se pueden añadir los módulos"
 
-#: ../plugins/project-manager/dialogs.c:1724
+#: ../plugins/project-manager/dialogs.c:1757
 msgid "No target has been selected"
 msgstr "No se seleccionó ningún objetivo"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1927
+#: ../plugins/project-manager/dialogs.c:1963
 msgid "Missing module name"
 msgstr "Falta el nombre del módulo"
 
-#: ../plugins/project-manager/dialogs.c:1989
+#: ../plugins/project-manager/dialogs.c:2025
 msgid "Cannot add packages"
 msgstr "No se pueden añadir los paquetes"
 
-#: ../plugins/project-manager/plugin.c:402
+#: ../plugins/project-manager/plugin.c:403
 msgid "Refreshing symbol tree…"
 msgstr "Actualizando el árbol de símbolos…"
 
-#: ../plugins/project-manager/plugin.c:409
+#: ../plugins/project-manager/plugin.c:410
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Falló al refrescar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:678
+#: ../plugins/project-manager/plugin.c:679
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6517,7 +6524,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente grupo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:681
+#: ../plugins/project-manager/plugin.c:682
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6525,7 +6532,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente archivo objetivo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:684
+#: ../plugins/project-manager/plugin.c:685
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6533,7 +6540,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente archivo fuente del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:687
+#: ../plugins/project-manager/plugin.c:688
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6541,7 +6548,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente paquete del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:690
+#: ../plugins/project-manager/plugin.c:691
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6549,7 +6556,7 @@ msgstr ""
 "¿Seguro que quiere quitar el siguiente módulo del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:693
+#: ../plugins/project-manager/plugin.c:694
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6557,57 +6564,57 @@ msgstr ""
 "¿Seguro que quiere quitar los siguientes elementos del proyecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:710
+#: ../plugins/project-manager/plugin.c:711
 #, c-format
 msgid "Group: %s\n"
 msgstr "Grupo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:713
+#: ../plugins/project-manager/plugin.c:714
 #, c-format
 msgid "Target: %s\n"
 msgstr "Objetivo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:716
+#: ../plugins/project-manager/plugin.c:717
 #, c-format
 msgid "Source: %s\n"
 msgstr "Origen: %s\n"
 
-#: ../plugins/project-manager/plugin.c:719
+#: ../plugins/project-manager/plugin.c:720
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "Tecla rápida: %s\n"
 
-#: ../plugins/project-manager/plugin.c:722
+#: ../plugins/project-manager/plugin.c:723
 #, c-format
 msgid "Module: %s\n"
 msgstr "Módulo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:725
+#: ../plugins/project-manager/plugin.c:726
 #, c-format
 msgid "Package: %s\n"
 msgstr "Pquete: %s\n"
 
-#: ../plugins/project-manager/plugin.c:737
+#: ../plugins/project-manager/plugin.c:738
 msgid "The group will be deleted from the file system."
 msgstr "El grupo se eliminará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:739
+#: ../plugins/project-manager/plugin.c:740
 msgid "The group will not be deleted from the file system."
 msgstr "El grupo no se eliminará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:741
+#: ../plugins/project-manager/plugin.c:742
 msgid "The source file will be deleted from the file system."
 msgstr "El archivo fuente se eliminará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:743
+#: ../plugins/project-manager/plugin.c:744
 msgid "The source file will not be deleted from the file system."
 msgstr "El archivo fuente no se eliminará del sistema de archivos."
 
-#: ../plugins/project-manager/plugin.c:748
+#: ../plugins/project-manager/plugin.c:749
 msgid "Confirm remove"
 msgstr "Confirmar la eliminación"
 
-#: ../plugins/project-manager/plugin.c:794
+#: ../plugins/project-manager/plugin.c:795
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6616,125 +6623,125 @@ msgstr ""
 "Falló al quitar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:860
+#: ../plugins/project-manager/plugin.c:861
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Falló al obtener el URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:896
+#: ../plugins/project-manager/plugin.c:897
 msgid "_Project"
 msgstr "_Proyecto"
 
-#: ../plugins/project-manager/plugin.c:900
+#: ../plugins/project-manager/plugin.c:901
 msgid "New _Folder…"
 msgstr "_Carpeta nueva…"
 
-#: ../plugins/project-manager/plugin.c:900
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:901
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "Añadir una carpeta nueva al proyecto"
 
-#: ../plugins/project-manager/plugin.c:905
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Target…"
 msgstr "_Objetivo nuevo…"
 
-#: ../plugins/project-manager/plugin.c:905
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "Añadir un objetivo nuevo al proyecto"
 
-#: ../plugins/project-manager/plugin.c:910
+#: ../plugins/project-manager/plugin.c:911
 msgid "Add _Source File…"
 msgstr "Añadir archivo _fuente…"
 
-#: ../plugins/project-manager/plugin.c:910
-#: ../plugins/project-manager/plugin.c:949
-#: ../plugins/project-manager/plugin.c:964
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:965
 msgid "Add a source file to a target"
 msgstr "Añadir un archivo de fuentes a un objetivo"
 
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Library…"
 msgstr "Añadir _biblioteca…"
 
-#: ../plugins/project-manager/plugin.c:915
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add a module to a target"
 msgstr "Añadir un módulo a un objetivo"
 
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:921
 msgid "New _Library…"
 msgstr "_Biblioteca nueva…"
 
-#: ../plugins/project-manager/plugin.c:920
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a new package to the project"
 msgstr "Añadir paquetes nuevos al proyecto"
 
-#: ../plugins/project-manager/plugin.c:925
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:970
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:930
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "Cerrar pro_yecto"
 
-#: ../plugins/project-manager/plugin.c:930
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "_Carpeta nueva"
 
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "_Objetivo nuevo"
 
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "Añadir archivo _fuente"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "Añadir _biblioteca"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "Añadir una biblioteca al objetivo"
 
-#: ../plugins/project-manager/plugin.c:959
+#: ../plugins/project-manager/plugin.c:960
 msgid "New _Library"
 msgstr "_Biblioteca nueva"
 
-#: ../plugins/project-manager/plugin.c:959
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a new library to the project"
 msgstr "Añadir una biblioteca nueva al proyecto"
 
-#: ../plugins/project-manager/plugin.c:964
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Add to Project"
 msgstr "_Añadir al proyecto"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:970
 msgid "Properties of group/target/source"
 msgstr "Propiedades del grupo/objetivo/fuente"
 
-#: ../plugins/project-manager/plugin.c:974
+#: ../plugins/project-manager/plugin.c:975
 msgid "Re_move"
 msgstr "Qui_tar"
 
-#: ../plugins/project-manager/plugin.c:974
+#: ../plugins/project-manager/plugin.c:975
 msgid "Remove from project"
 msgstr "Quita del proyecto"
 
-#: ../plugins/project-manager/plugin.c:979
+#: ../plugins/project-manager/plugin.c:980
 msgid "_Sort"
 msgstr "_Ordenar"
 
-#: ../plugins/project-manager/plugin.c:979
+#: ../plugins/project-manager/plugin.c:980
 msgid "Sort shortcuts"
 msgstr "Ordenar atajos"
 
-#: ../plugins/project-manager/plugin.c:1317
+#: ../plugins/project-manager/plugin.c:1318
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6743,42 +6750,42 @@ msgstr ""
 "Falló al analalizar el proyecto (el proyecto está abierto pero no habrá "
 "ninguna vista de proyecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1327
+#: ../plugins/project-manager/plugin.c:1328
 msgid "Update project view…"
 msgstr "Actualizar vista del proyecto…"
 
-#: ../plugins/project-manager/plugin.c:1332
-#: ../plugins/project-manager/plugin.c:1454
-#: ../plugins/project-manager/plugin.c:1622
+#: ../plugins/project-manager/plugin.c:1333
+#: ../plugins/project-manager/plugin.c:1455
+#: ../plugins/project-manager/plugin.c:1623
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 #: ../plugins/symbol-db/plugin.c:2134
 msgid "Project"
 msgstr "Proyecto"
 
-#: ../plugins/project-manager/plugin.c:1370
+#: ../plugins/project-manager/plugin.c:1371
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1534
+#: ../plugins/project-manager/plugin.c:1535
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Error al cerrar el proyecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager actions"
 msgstr "Acciones del administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:1609
+#: ../plugins/project-manager/plugin.c:1610
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2398
+#: ../plugins/project-manager/plugin.c:2399
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2401
+#: ../plugins/project-manager/plugin.c:2402
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -6967,8 +6974,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
+"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:681
@@ -7790,8 +7797,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
@@ -9809,10 +9816,6 @@ msgstr ""
 msgid "- Integrated Development Environment"
 msgstr "- Entorno Integrado de Desarrollo"
 
-#: ../src/main.c:181
-msgid "Anjuta"
-msgstr "Anjuta"
-
 #: ../src/preferences.ui.h:1
 msgid "Appearance"
 msgstr "Apariencia"
@@ -9870,6 +9873,12 @@ msgstr "Sólo texto"
 #: ../src/preferences.ui.h:19
 msgid "Toolbar button labels:"
 msgstr "Etiquetas de los botones de la barra de herramientas:"
+
+#~ msgid "Anjuta IDE"
+#~ msgstr "EID Anjuta"
+
+#~ msgid "Delete selected branches"
+#~ msgstr "Eliminar las ramas seleccionadas"
 
 #~ msgid "New Directory"
 #~ msgstr "Carpeta nueva"
@@ -10394,8 +10403,8 @@ msgstr "Etiquetas de los botones de la barra de herramientas:"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-#~ "el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
+#~ "desde el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
@@ -10759,9 +10768,6 @@ msgstr "Etiquetas de los botones de la barra de herramientas:"
 
 #~ msgid "_Delete branch…"
 #~ msgstr "_Borrar rama…"
-
-#~ msgid "Delete branches"
-#~ msgstr "Borrar ramas"
 
 #~ msgid "_Switch to another branch…"
 #~ msgstr "Ca_mbiar a otra rama…"
