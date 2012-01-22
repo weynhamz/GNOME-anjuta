@@ -78,8 +78,8 @@ AnjutaCommandBarEntry branch_entries[] =
 	{
 		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
 		"DeleteBranches",
-		N_("Delete selected branches"),
-		N_("Delete selected branches"),
+		N_("Delete branches"),
+		N_("Delete branches"),
 		GTK_STOCK_DELETE,
 		G_CALLBACK (on_delete_branches_button_clicked)
 	},

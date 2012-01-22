@@ -470,3 +470,41 @@ git_branches_pane_get_selected_branch (GitBranchesPane *self)
 	return selected_branch;
 }
 
+static gboolean
+clear_branch_selections (GtkTreeModel *model, GtkTreePath *path, 
+                         GtkTreeIter *iter, gpointer data)
+{
+	gtk_list_store_set (GTK_LIST_STORE (model), iter, COL_SELECTED, FALSE, -1);
+	
+	return FALSE;
+}
+
+void
+git_branches_pane_set_select_column_visible (GitBranchesPane *self,
+                                             gboolean visible)
+{
+	GtkTreeViewColumn *branch_selected_column;
+	GtkTreeModel *branches_list_model;
+
+	branch_selected_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
+	                                                                       "branch_selected_column"));
+
+	gtk_tree_view_column_set_visible (branch_selected_column, visible);
+
+	/* Clear branch selections when the column becomes invisible again, because
+	 * selections have no meaning once an operation that needs these selections
+	 * has either been completed or cancelled */
+	if (!visible)
+	{
+		branches_list_model = GTK_TREE_MODEL (gtk_builder_get_object (self->priv->builder,
+		                                                              "branches_list_model"));
+
+		gtk_tree_model_foreach (branches_list_model,
+		                        (GtkTreeModelForeachFunc) clear_branch_selections,
+		                        NULL);
+
+		g_hash_table_remove_all (self->priv->selected_local_branches);
+		g_hash_table_remove_all (self->priv->selected_remote_branches);
+	}
+}
+

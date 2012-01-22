@@ -468,6 +468,7 @@
                     <child>
                       <object class="GtkTreeViewColumn" id="branch_selected_column">
                         <property name="title">column</property>
+                        <property name="visible">False</property>
                         <child>
                           <object class="GtkCellRendererToggle" id="branch_selected_renderer"/>
                           <attributes>

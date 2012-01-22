@@ -53,6 +53,8 @@ GList *git_branches_pane_get_selected_local_branches (GitBranchesPane *self);
 GList *git_branches_pane_get_selected_remote_branches (GitBranchesPane *self);
 gsize git_branches_pane_count_selected_items (GitBranchesPane *self);
 gchar *git_branches_pane_get_selected_branch (GitBranchesPane *self);
+void git_branches_pane_set_select_column_visible (GitBranchesPane *self, 
+                                                  gboolean visible);
 
 G_END_DECLS
 

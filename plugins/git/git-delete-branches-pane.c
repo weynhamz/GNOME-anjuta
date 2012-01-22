@@ -109,6 +109,18 @@ on_ok_button_clicked (GtkButton *button, GitDeleteBranchesPane *self)
 }
 
 static void
+on_delete_branches_pane_map (GtkWidget *widget, GitBranchesPane *branches_pane)
+{
+	git_branches_pane_set_select_column_visible (branches_pane, TRUE);
+}
+
+static void
+on_delete_branches_pane_unmap (GtkWidget *widget, GitBranchesPane *branches_pane)
+{
+	git_branches_pane_set_select_column_visible (branches_pane, FALSE);
+}
+
+static void
 git_delete_branches_pane_init (GitDeleteBranchesPane *self)
 {
 	gchar *objects[] = {"delete_branches_pane",
@@ -181,7 +193,22 @@ git_delete_branches_pane_class_init (GitDeleteBranchesPaneClass *klass)
 AnjutaDockPane *
 git_delete_branches_pane_new (Git *plugin)
 {
-	return g_object_new (GIT_TYPE_DELETE_BRANCHES_PANE, "plugin", plugin, NULL);
+	GitDeleteBranchesPane *self;
+	GtkWidget *delete_branches_pane;
+	
+	self = g_object_new (GIT_TYPE_DELETE_BRANCHES_PANE, "plugin", plugin, NULL);
+	delete_branches_pane = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                           "delete_branches_pane"));
+
+	g_signal_connect (G_OBJECT (delete_branches_pane), "map",
+	                  G_CALLBACK (on_delete_branches_pane_map),
+	                  plugin->branches_pane);
+
+	g_signal_connect (G_OBJECT (delete_branches_pane), "unmap",
+	                  G_CALLBACK (on_delete_branches_pane_unmap),
+	                  plugin->branches_pane);
+
+	return ANJUTA_DOCK_PANE (self);
 }
 
 void
