@@ -44,6 +44,6 @@ GTK_DOC_CHECK([1.0])
 
 AC_OUTPUT([
 Makefile
-src/lib[+NameHLower+]-[+Version+].pc
+src/[+NameHLower+]-[+Version+].pc
 src/Makefile
 [+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]])

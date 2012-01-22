@@ -11,7 +11,7 @@
 	</project-wizard>
 	
 	<page name="basic" _label="Basic information" _description="General Project Information">
-		<property type="string" name="Name" _label="Project Name:" _description="project name" default="foo" summary="yes" restriction="filename" mandatory="yes"/>
+		<property type="string" name="Name" _label="Project Name:" _description="project name" default="libfoo" summary="yes" restriction="filename" mandatory="yes"/>
 		<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 		<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 		<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
@@ -54,7 +54,7 @@
 			<file source="NEWS"/>
 			<file source="README"/>
 			<file source="autogen.sh" executable="yes"/>
-			<file destination="lib[+NameHLower+].anjuta" source="project.anjuta"/>
+			<file destination="[+NameHLower+].anjuta" source="project.anjuta"/>
 			[+IF (=(get "HaveI18n") "1") +]
 			<directory source="po">
 				<file source="ChangeLog"/>
@@ -66,7 +66,7 @@
 			<file source="configure.ac.tpl" destination="configure.ac"/>
 			<directory source="src">
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
-				<file source="library.pc.in" destination="lib[+NameHLower+]-[+Version+].pc.in"/>
+				<file source="library.pc.in" destination="[+NameHLower+]-[+Version+].pc.in"/>
 				<file source="lib.c"/>
 				<file source="lib.h" destination="[+NameHLower+].h"/>
 			</directory>
@@ -89,6 +89,6 @@
 	</content>
 	
 	<action>
-		<open file="[+Destination+]/lib[+NameHLower+].anjuta"/>
+		<open file="[+Destination+]/[+NameHLower+].anjuta"/>
 	</action>
 </project-template>

@@ -1,5 +1,19 @@
 [+ autogen5 template +]
-# Sample Makefile for a anjuta plugin.
+[+
+(define prefix_if_missing
+        (lambda
+                (name prefix)
+                (string-append
+                         (if
+                                (==* (get name) prefix)
+                                ""
+                                prefix
+                        )
+                        (get name)
+                )
+        )
+)
++]# Sample Makefile for a anjuta plugin.
 [+IF (=(get "HasUI") "1")+]
 # Plugin UI file
 [+NameCLower+]_xmldir = $(anjuta_ui_dir)
@@ -46,13 +60,13 @@ AM_CPPFLAGS = \
 plugindir = $(anjuta_plugin_dir)
 
 # The plugin
-plugin_LTLIBRARIES = lib[+NameHLower+].la
+plugin_LTLIBRARIES = [+(prefix_if_missing "NameHLower" "lib")+].la
 
 # Plugin sources
-lib[+NameCLower+]_la_SOURCES = plugin.c plugin.h
+[+(prefix_if_missing "NameCLower" "lib")+]_la_SOURCES = plugin.c plugin.h
 
 # Plugin dependencies
-lib[+NameCLower+]_la_LIBADD = \
+[+(prefix_if_missing "NameCLower" "lib")+]_la_LIBADD = \
 	$(LIBANJUTA_LIBS) [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
 
 EXTRA_DIST = \

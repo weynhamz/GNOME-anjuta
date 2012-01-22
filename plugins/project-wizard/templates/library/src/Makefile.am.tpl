@@ -1,5 +1,19 @@
 [+ autogen5 template +]
-## Process this file with automake to produce Makefile.in
+[+
+(define prefix_if_missing
+        (lambda
+                (name prefix)
+                (string-append
+                         (if
+                                (==* (get name) prefix)
+                                ""
+                                prefix
+                        )
+                        (get name)
+                )
+        )
+)
++]## Process this file with automake to produce Makefile.in
 
 ## Created by Anjuta
 
@@ -13,21 +27,21 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-lib_LTLIBRARIES = lib[+NameHLower+].la
+lib_LTLIBRARIES = [+(prefix_if_missing "NameHLower" "lib")+].la
 
 
-lib[+NameCLower+]_la_SOURCES = \
+[+(prefix_if_missing "NameCLower" "lib")+]_la_SOURCES = \
 	lib.c
 
-lib[+NameCLower+]_la_LDFLAGS = 
+[+(prefix_if_missing "NameCLower" "lib")+]_la_LDFLAGS = 
 
-lib[+NameCLower+]_la_LIBADD = [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
+[+(prefix_if_missing "NameCLower" "lib")+]_la_LIBADD = [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
 
 include_HEADERS = \
 	[+NameHLower+].h
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = lib[+NameHLower+]-[+Version+].pc
+pkgconfig_DATA = [+NameHLower+]-[+Version+].pc
 
 EXTRA_DIST = \
-	lib[+NameHLower+]-[+Version+].pc.in
+	[+NameHLower+]-[+Version+].pc.in
