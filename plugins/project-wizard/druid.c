@@ -353,6 +353,7 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 	/* Connect signal to update dialog */
 	g_signal_connect (G_OBJECT (view), "selection-changed", G_CALLBACK (on_druid_project_update_selected), druid);
 	g_signal_connect (G_OBJECT (view), "map", G_CALLBACK (on_druid_project_update_selected), druid);
+	g_signal_connect_swapped (G_OBJECT (view), "item-activated", G_CALLBACK (gtk_assistant_next_page), druid->window);
 
 	/* Set new page label */
 	assistant = GTK_WIDGET (gtk_builder_get_object (builder, NEW_PROJECT_DIALOG));
