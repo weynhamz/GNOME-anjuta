@@ -287,7 +287,7 @@ isymbol_get_boolean (IAnjutaSymbol *isymbol, IAnjutaSymbolField field,
 	
 	col = result->priv->col_map[field];
 	val = gda_data_model_iter_get_value_at (result->priv->iter, col);
-	return g_value_get_boolean (val);
+	return g_value_get_int (val) == TRUE;
 }
 
 static gint
