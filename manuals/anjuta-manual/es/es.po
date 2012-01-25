@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-01-19 13:04+0000\n"
-"PO-Revision-Date: 2012-01-19 16:14+0100\n"
+"POT-Creation-Date: 2012-01-19 15:18+0000\n"
+"PO-Revision-Date: 2012-01-25 17:01+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -710,6 +710,8 @@ msgid ""
 "You can select several files at the same time by keeping the <key>Ctrl</key> "
 "key pressed or select a range using the <key>Shift</key> key."
 msgstr ""
+"Puede seleccionar varios archivos a la vez manteniendo pulsada la tecla "
+"<key>Ctrl</key> o seleccionar un rango usando la tecla <key>Mayús</key>."
 
 #: C/project-manager-source.page:12(desc)
 msgid "Add or remove files from a project."
@@ -879,7 +881,6 @@ msgstr ""
 
 #: C/project-manager-package-add.page:33(p)
 #: C/project-manager-module-new.page:48(p)
-#, fuzzy
 #| msgid ""
 #| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 #| "gui><gui>New Library...</gui></guiseq>"
@@ -888,7 +889,7 @@ msgid ""
 "Library...</gui></guiseq>."
 msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Projecto</"
-"gui><gui>Biblioteca nueva...</gui></guiseq>"
+"gui><gui>Biblioteca nueva...</gui></guiseq>."
 
 #: C/project-manager-package-add.page:37(p)
 msgid ""
@@ -902,7 +903,6 @@ msgstr ""
 "botón <gui>Añadir</gui> para actualizar el módulo."
 
 #: C/project-manager-package-add.page:43(p)
-#, fuzzy
 #| msgid ""
 #| "Read the <link xref=\"project-manager-package\">next page</link> to find "
 #| "out how to add the module to your target."
@@ -911,7 +911,7 @@ msgid ""
 "out how to add the module to your target."
 msgstr ""
 "Para saber cómo añadir el módulo a su objetivo, consulte la <link xref="
-"\"project-manager-package\">siguiente página</link>."
+"\"project-manager-module-add\">siguiente página</link>."
 
 #: C/project-manager-module-remove.page:10(desc)
 msgid "Remove a set of libraries from a target."
@@ -971,7 +971,6 @@ msgstr ""
 "empaquetadas</app>."
 
 #: C/project-manager-module-new.page:37(p)
-#, fuzzy
 #| msgid ""
 #| "A library cannot be added directly to your program; you first need to "
 #| "create a module for it, which is just a group of libraries."
@@ -979,8 +978,8 @@ msgid ""
 "A package cannot be added directly to your program; you first need to create "
 "a module for it, which is just a group of packages."
 msgstr ""
-"No se puede añadir directamente una biblioteca a su programa; primero debe "
-"crear un módulo para ella, que es simplemente un grupo de bibliotecas."
+"No se puede añadir directamente un paquete a su programa; primero debe crear "
+"un módulo para el, que es simplemente un grupo de paquetes."
 
 #: C/project-manager-module-new.page:42(p)
 msgid ""
@@ -1004,7 +1003,6 @@ msgstr ""
 "sistema. Puede marcar una o más bibliotecas."
 
 #: C/project-manager-module-new.page:55(p)
-#, fuzzy
 #| msgid ""
 #| "If the library you want does not appear here, perhaps it is because it is "
 #| "not installed on your system. Launch the application you use to install "
@@ -1022,7 +1020,8 @@ msgstr ""
 "instalada en su sistema. Lance la aplicación que usa para instalar la nuevos "
 "programas y busque el nombre de la biblioteca. A menudo, el paquete que "
 "necesita tiene un sufijo «dev» o «devel» y debe incluir los archivos de "
-"cabecera y un archivo pkg-config con una extensión <file>.pc</file>."
+"cabecera y un archivo <app>pkg-config</app> con una extensión <file>.pc</"
+"file>."
 
 #: C/project-manager-module-new.page:63(p)
 msgid ""
@@ -1036,7 +1035,6 @@ msgstr ""
 "seleccionadas."
 
 #: C/project-manager-module-new.page:69(p)
-#, fuzzy
 #| msgid ""
 #| "Read the <link xref=\"project-manager-package\">next page</link> to find "
 #| "out how to add this new module to your target."
@@ -1045,7 +1043,7 @@ msgid ""
 "out how to add this new module to your target."
 msgstr ""
 "Para saber cómo añadir este nuevo módulo a su objetivo, consulte la <link "
-"xref=\"project-manager-package\">siguiente página</link>."
+"xref=\"project-manager-module-add\">siguiente página</link>."
 
 #: C/project-manager-module-add.page:10(desc)
 msgid "Add a set of libraries to a target."
@@ -1056,7 +1054,6 @@ msgid "Add a Module"
 msgstr "Añadir un módulo"
 
 #: C/project-manager-module-add.page:25(p)
-#, fuzzy
 #| msgid ""
 #| "Libraries cannot be added directly to a target. You need to put them into "
 #| "a module first and add this module to the target."
@@ -1065,8 +1062,9 @@ msgid ""
 "module first and add this module to the target. See <link xref=\"project-"
 "manager-module-new\"/> to know how to do create a module."
 msgstr ""
-"No se pueden añadir directamente bibliotecas a un objetivo. Primero debe "
-"crear un módulo y añadir el módulo a un objetivo."
+"No se pueden añadir directamente paquetes a un objetivo. Primero debe "
+"añadirlos a un módulo y añadir este módulo al objetivo. Consulte la <link "
+"xref=\"project-manager-module-new\"/> para ver cómo se crea un módulo."
 
 #: C/project-manager-module-add.page:31(p)
 msgid ""
@@ -1191,7 +1189,6 @@ msgstr ""
 
 #: C/project-manager-library-add.page:41(p)
 #: C/project-manager-library-add.page:65(p)
-#, fuzzy
 #| msgid ""
 #| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 #| "gui><gui>Properties</gui></guiseq>. By default, it edits the properties "
@@ -1205,10 +1202,9 @@ msgid ""
 "item in the drop-down list button."
 msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Proyecto</"
-"gui><gui>Propiedades</gui></guiseq>. De forma predeterminada, edita las "
+"gui><gui>Propiedades</gui></guiseq>. De manera predeterminada, edita las "
 "propiedades del elemento actualmente seleccionado en la vista del proyecto. "
-"Puede seleccionar un nodo diferente, expandiendo <gui>Examinar otros nodos</"
-"gui> y seleciónando otro."
+"Puede seleccionar un nodo diferente en el botón de la lista desplegable."
 
 #: C/project-manager-library-add.page:47(p)
 msgid ""
@@ -1306,10 +1302,9 @@ msgstr ""
 "eliminará en el disco."
 
 #: C/project-manager-folder.page:11(desc)
-#, fuzzy
 #| msgid "Add or remove files from a project."
 msgid "Add, edit or remove folders from a project."
-msgstr "Añadir o quitar archivos de un proyecto."
+msgstr "Añadir o quitar carpetas de un proyecto."
 
 #: C/project-manager-folder.page:20(title)
 msgid "Manage Folders"
@@ -1328,9 +1323,11 @@ msgid ""
 "A folder allows you to group several target allowing to set common "
 "properties for all of them. It often corresponds to a directory."
 msgstr ""
+"Una carpeta le permite agrupar varios objetivos, pudiendo establecer "
+"propiedades comunes a todos ellos. Generalmente se corresponde con una "
+"carpeta."
 
 #: C/project-manager-folder-add.page:25(p)
-#, fuzzy
 #| msgid ""
 #| "Select the program where you want to add the new library in the "
 #| "<gui>project view</gui>, click on the right mouse button to make the "
@@ -1340,13 +1337,12 @@ msgid ""
 "<gui>project view</gui>, click on the right mouse button to make the "
 "<gui>project context menu</gui> appear and select <gui>Add Group</gui>."
 msgstr ""
-"Seleccione el programa donde quiere añadir la biblioteca nueva en la "
-"<gui>vista de proyecto</gui>, pulse el botón derecho del ratón para mostrar "
-"el <gui>menú contextual del proyecto</gui> y seleccione <gui>Añadir "
-"biblioteca</gui>."
+"Seleccione el grupo o el programa donde quiere añadir el grupo nuevo en la "
+"<gui>vista de proyecto</gui>, pulse con el botón derecho del ratón para "
+"mostrar el <gui>menú contextual del proyecto</gui> y seleccione <gui>Añadir "
+"grupo</gui>."
 
 #: C/project-manager-folder-add.page:29(p)
-#, fuzzy
 #| msgid ""
 #| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 #| "gui><gui>Add Source File</gui></guiseq>"
@@ -1355,7 +1351,7 @@ msgid ""
 "Group</gui></guiseq>."
 msgstr ""
 "O desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Proyecto</"
-"gui><gui>Añadir fuente</gui></guiseq>"
+"gui><gui>Añadir grupo</gui></guiseq>."
 
 #: C/project-manager-folder-add.page:33(p)
 msgid "Enter a new group name."
@@ -1374,14 +1370,13 @@ msgstr ""
 "dígitos y el guión bajo, así que es mejor evitar otros caracteres."
 
 #: C/project-manager-folder-add.page:40(p)
-#, fuzzy
 #| msgid ""
 #| "You can select another directory in the bottom <gui>directory tree view</"
 #| "gui>."
 msgid "You can select another group in the bottom <gui>group tree view</gui>."
 msgstr ""
-"Puede seleccionar otra carpeta en la parte superior de la <gui>vista de "
-"árbol de carpetas</gui>."
+"Puede seleccionar otro grupo en la parte inferior de la <gui>vista en árbol "
+"de carpetas</gui>."
 
 #: C/project-manager-folder-add.page:43(p)
 #, fuzzy
@@ -4038,13 +4033,12 @@ msgstr "Tipo de proyecto de autotools"
 
 #: C/autotools-project-target-type.page:17(title)
 msgid "Autotools project type"
-msgstr ""
+msgstr "Tipo de proyecto de autotools"
 
 #: C/autotools-project-target-type.page:19(p)
-#, fuzzy
 #| msgid "The type of the variable."
 msgid "There are different types of target available."
-msgstr "El tipo de la variable."
+msgstr "Hay diferentes tipos de objetivos disponibles."
 
 #: C/autotools-project-target-type.page:23(title)
 msgid "Shared Library"
@@ -4056,6 +4050,9 @@ msgid ""
 "time. It is the most common kind of libraries on Linux. It is called dynamic "
 "link library on Windows."
 msgstr ""
+"Representa una biblioteca compartida por varios programas, enlazada en "
+"tiempo de ejecución. Es el tipo mas habitual de bibliotecas en Linux. En "
+"Windows se llaman bibliotecas enlazadas dinámicamente."
 
 #: C/autotools-project-target-type.page:27(p)
 msgid ""
@@ -4162,11 +4159,11 @@ msgstr ""
 
 #: C/autotools-project-target-edit.page:9(desc)
 msgid "Edit autotools target properties."
-msgstr ""
+msgstr "Editar las propiedades de un objetivo de autotools"
 
 #: C/autotools-project-target-edit.page:18(title)
 msgid "Edit an Autotools Target"
-msgstr ""
+msgstr "Editar un objetivo de autotools"
 
 #: C/autotools-project-target-edit.page:20(p)
 msgid ""
@@ -4372,15 +4369,15 @@ msgstr ""
 
 #: C/autotools-project-root-edit.page:10(desc)
 msgid "Edit autotools project properties."
-msgstr ""
+msgstr "Editar las propiedades de un proyecto de autotools."
 
 #: C/autotools-project-root-edit.page:19(title)
 msgid "Edit Autotools Project Properties"
-msgstr ""
+msgstr "Editar las propiedades de un proyecto de autotools"
 
 #: C/autotools-project-root-edit.page:21(p)
 msgid "These are the properties of the root item."
-msgstr ""
+msgstr "Estas son las propiedades del elemento raíz."
 
 #: C/autotools-project-root-edit.page:25(gui)
 msgid "Name"
@@ -4434,11 +4431,11 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:9(desc)
 msgid "Edit autotools folder properties."
-msgstr ""
+msgstr "Editar las propiedades de una carpeta de autotools."
 
 #: C/autotools-project-folder-edit.page:18(title)
 msgid "Edit an Autotools Folder"
-msgstr ""
+msgstr "Editar una carpeta de autotools"
 
 #: C/autotools-project-folder-edit.page:20(p)
 msgid ""
