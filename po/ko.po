@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-24 18:42+0100\n"
-"PO-Revision-Date: 2007-11-27 09:44+0900\n"
+"PO-Revision-Date: 2012-01-27 22:24+0900\n"
 "Last-Translator: Namhyung Kim <namhyung@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <Gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -1492,7 +1492,7 @@ msgstr "중단점 속성"
 #: ../plugins/debug-manager/breakpoints.c:1698
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
-msgstr "증단점"
+msgstr "중단점"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
 #: ../plugins/gdb/anjuta-gdb.glade.h:5
