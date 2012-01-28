@@ -1,14 +1,12 @@
 [+ autogen5 template +]
+[+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 /* -*- mode: js2; js2-basic-offset: 4; indent-tabs-mode: nil -*- */
 /*
  * extension.js
- * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+ * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
  * 
-[+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  (get "Name") (get "Author") " * ")+]
-[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") " * ")+]
-[+ == "GPL"  +][+(gpl  (get "Name")                " * ")+]
-[+ESAC+] */
+[+INVOKE LICENSE-DESCRIPTION PFX=" * " PROGRAM=(get "Name") OWNER=(get "Author") \+]
+ */
 
 const St = imports.gi.St;
 const Main = imports.ui.main;

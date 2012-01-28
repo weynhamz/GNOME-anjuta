@@ -1,14 +1,11 @@
 [+ autogen5 template +]
+[+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 #!/usr/bin/python
 #
 # main.py
-# Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+# Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
 # 
-[+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  (get "Name") (get "Author") "# ")+]
-[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") "# ")+]
-[+ == "GPL"  +][+(gpl  (get "Name")                "# ")+]
-[+ESAC+]
+[+INVOKE LICENSE-DESCRIPTION PFX="# " PROGRAM=(get "Name") OWNER=(get "Author") \+]
 
 from gi.repository import Gtk, GdkPixbuf, Gdk
 import os, sys

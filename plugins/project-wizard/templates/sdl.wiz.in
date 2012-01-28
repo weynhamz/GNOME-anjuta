@@ -24,12 +24,7 @@
 		<property type="hidden" name="NameCLower" default='[+(string->c-name! (string-substitute (string-downcase (get "Name")) " " "_"))+]'/>
 		<property type="hidden" name="NameHLower" default='[+(string-substitute (string->c-name! (string-downcase (get "Name"))) " " "-")+]'/>
 		<property type="directory" name="Destination" _label="Destination:" _description="" default='[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]' mandatory="yes" exist="no" summary="yes"/>
-		<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
-			<item name="GPL" _label="General Public License (GPL)"/>
-			<item name="LGPL" _label="Lesser General Public License (LGPL)"/>
-			<item name="BSD" _label="Berkeley Software Distribution License (BSD)"/>
-			<item name="None" _label="No license"/>
-		</property>
+		[+INCLUDE "licenses.tpl"+]
 		<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 		<property type="string" name="SDL_Version" _label="Require SDL version:" _description="Mininum SDL version required" default="1.2.0"/>
@@ -66,7 +61,7 @@
 			</directory>
 		</directory>
 		<directory source="licenses" destination="[+Destination+]">
-			<file source="[+License+]" destination="COPYING"/>	
+			<file source="[+License+].txt" destination="COPYING"/>	
 		</directory>
 		<directory source="minimal" destination="[+Destination+]">
 			<directory source="." destination=".anjuta">

@@ -1,13 +1,11 @@
 [+ autogen5 template +]
+[+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 /*
  * wmgeneral.c
- * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
- *
-[+CASE (get "License") +]
-[+ == "BSD" +][+(bsd (get "Name") (get "Author") "\t")+]
-[+ == "LGPL" +][+(lgpl (get "Name") (get "Author") "\t")+]
-[+ == "GPL" +][+(gpl (get "Name")  "\t")+]
-[+ESAC+] */
+ * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
+ * 
+[+INVOKE LICENSE-DESCRIPTION PFX=" * " PROGRAM=(get "Name") OWNER=(get "Author") \+]
+ */
 
 /*	wmgeneral was taken from wmppp.
 

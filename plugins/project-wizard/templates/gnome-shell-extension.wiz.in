@@ -18,12 +18,7 @@
 	
 	<page name="options" _label="Project options" _description="Options for project build system">
 		<property type="directory" name="Destination" _label="Destination:" _description="" default='[+AnjutaProjectDirectory+]/[+(string-substitute (string-downcase (get "Name")) " " "-")+]' mandatory="yes" exist="no" summary="yes"/>
-		<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
-			<item name="GPL" _label="General Public License (GPL)"/>
-			<item name="LGPL" _label="Lesser General Public License (LGPL)"/>
-			<item name="BSD" _label="Berkeley Software Distribution License (BSD)"/>
-			<item name="None" _label="No license"/>
-		</property>
+		[+INCLUDE "licenses.tpl"+]
 		<property type="string" name="Description" _label="Description:" _description="Long description of your plugin" default="[+Name+]" mandatory="yes"/>
 		<property type="string" name="UUID" _label="UUID:" _description="Uuid is a globally-unique identifier for your extension.
 This should be in the format of an email address (foo.bar@extensions.example.com), but
@@ -50,7 +45,7 @@ email address." default='[+(string-substitute (string->c-name! (get "Name")) " "
 			</directory>
 		</directory>
 		<directory source="licenses" destination="[+Destination+]">
-			<file source="[+License+]" destination="COPYING"/>	
+			<file source="[+License+].txt" destination="COPYING"/>	
 		</directory>
 	</content>
 	

@@ -25,7 +25,8 @@ template_in_files = \
 	sdl.wiz.in \
 	library.wiz.in \
 	vala-gtk.wiz.in \
-	gnome-shell-extension.wiz.in
+	gnome-shell-extension.wiz.in \
+	licenses.tpl.in
 
 wizard_filesdir = $(anjuta_data_dir)/project
 wizard_files_DATA = \
@@ -45,10 +46,16 @@ wizard_files_DATA = \
 	appwiz_sdl.png \
 	gnome.png \
 	gnome.svg \
-	$(template_in_files:.wiz.in=.wiz)
+	$(template_in_files:.in=)
 
 # Translate wiz file
 %.wiz: %.wiz.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u -c $(top_builddir)/po/.intltool-merge-cache
+
+%.tpl: %.tpl.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po)
+	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@_ -x -u -c $(top_builddir)/po/.intltool-merge-cache
+	echo "[+ autogen5 template +]" | cat - $@_ > $@;
+	rm $@_
+	
 
 EXTRA_DIST = $(wizard_files_DATA) $(template_in_files)
 
