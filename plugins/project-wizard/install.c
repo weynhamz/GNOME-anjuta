@@ -180,7 +180,7 @@ npw_copy_file (const gchar* destination, const gchar* source)
 	g_free (buffer);
 
 	return ok;
-}	
+}
 
 /* Installer object
  *---------------------------------------------------------------------------*/
@@ -233,7 +233,6 @@ void npw_install_free (NPWInstall* this)
 	g_free (this);
 }
 
-
 gboolean
 npw_install_set_property (NPWInstall* this, GHashTable* values)
 {
@@ -262,6 +261,14 @@ npw_install_set_wizard_file (NPWInstall* this, const gchar* filename)
 	return TRUE;
 }
 
+gboolean
+npw_install_set_library_path (NPWInstall* this, const gchar *directory)
+{
+	npw_autogen_set_library_path (this->gen, directory);
+
+	return TRUE;
+}
+
 static void
 on_install_read_action_list (const gchar* output, gpointer data)
 {
@@ -278,7 +285,7 @@ on_install_end_action (gpointer data)
 	for (;;)
 	{
 		NPWAction *action;
-		
+
 		if (this->action == NULL)
 		{
 			if (this->success)
@@ -303,7 +310,7 @@ on_install_end_action (gpointer data)
 			return;
 		}
 		action = (NPWAction *)this->action->data;
-		
+
 		switch (npw_action_get_type (action))
 		{
 		case NPW_RUN_ACTION:
@@ -367,11 +374,11 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 	NPWInstall* this = (NPWInstall*)data;
 
 	/* Warning gen could be invalid */
-	
+
 	for (;;)
 	{
 		NPWFile *file;
-			
+
 		if (this->current_file == NULL)
 		{
 			this->current_file = g_list_first (this->file_list);
@@ -379,7 +386,7 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 		else
 		{
 			NPWFile *file = (NPWFile *)this->current_file->data;
-			
+
 			if (npw_file_get_execute (file))
 			{
 				gint previous;
@@ -414,7 +421,7 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 					 "");
 			}
 			on_install_end_action (this);
-			
+
 			return;
 		}
 		file = (NPWFile *)this->current_file->data;
@@ -451,8 +458,8 @@ npw_install_install_file (NPWInstall* this)
 	gboolean use_autogen;
 	gboolean ok = TRUE;
 	NPWFile *file = (NPWFile *)this->current_file->data;
-	
-	
+
+
 	destination = npw_file_get_destination (file);
 	source = npw_file_get_source (file);
 
@@ -465,7 +472,7 @@ npw_install_install_file (NPWInstall* this)
 		on_install_end_install_file (this->gen, this);
 
 		return FALSE;
-	}	
+	}
 
 	/* Check if autogen is needed */
 	switch (npw_file_get_autogen (file))
@@ -483,11 +490,11 @@ npw_install_install_file (NPWInstall* this)
 		use_autogen = FALSE;
 	}
 
-	len = strlen (destination) + 1;	
+	len = strlen (destination) + 1;
 	buffer = g_new (gchar, MAX (FILE_BUFFER_SIZE, len));
-	strcpy (buffer, destination);			
+	strcpy (buffer, destination);
 	sep = buffer;
-	for (;;)	
+	for (;;)
 	{
 		/* Get directory one by one */
 		sep = strstr (sep,G_DIR_SEPARATOR_S);
@@ -526,7 +533,7 @@ npw_install_install_file (NPWInstall* this)
 	}
 
 	/* Record failure and display error message */
-	if (!ok) 
+	if (!ok)
 	{
 		this->success = FALSE;
 	}
@@ -559,7 +566,7 @@ npw_run_action (NPWInstall* this)
 {
 	gchar *msg;
 	NPWAction *action = (NPWAction *)this->action->data;
-	
+
 	if (this->launcher == NULL)
 	{
 		this->launcher = anjuta_launcher_new ();

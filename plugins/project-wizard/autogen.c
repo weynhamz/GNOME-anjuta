@@ -60,6 +60,7 @@ struct _NPWAutogen
 					 * previous file doesn't contains
 					 * autogen marker */
 
+	GList *library_paths;		/* List of paths for searching include files */
 					/* Output file name and handle used
 					 * when autogen output is written
 					 * in a file */
@@ -169,6 +170,31 @@ npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values)
 	return TRUE;
 }
 
+/* Set library path
+ *---------------------------------------------------------------------------*/
+
+void
+npw_autogen_set_library_path (NPWAutogen* this, const gchar *directory)
+{
+	g_return_if_fail (directory != NULL);
+
+	this->library_paths = g_list_prepend (this->library_paths, g_strdup (directory));
+}
+
+void
+npw_autogen_clear_library_path (NPWAutogen* this)
+{
+	g_list_foreach (this->library_paths, (GFunc)g_free, NULL);
+	g_list_free (this->library_paths);
+	this->library_paths = NULL;
+}
+
+GList *
+npw_autogen_get_library_paths (NPWAutogen* this)
+{
+	return this->library_paths;
+}
+
 /* Set input and output
  *---------------------------------------------------------------------------*/
 
@@ -247,7 +273,7 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 	fclose (tpl);
 
 	return ok;
-}	
+}
 
 gboolean
 npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename)
@@ -320,9 +346,11 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 }
 
 gboolean
-npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error) 
+npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error)
 {
-	gchar* args[] = {"autogen", "-T", NULL, NULL, NULL};
+	gchar** args;
+	guint arg;
+	GList *path;
 
 	/* Autogen should not be running */
 	g_return_val_if_fail (this->busy == FALSE, FALSE);
@@ -339,8 +367,18 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 	{
 		this->endfunc = NULL;
 	}
-	args[2] = (gchar *)this->tplfilename;
-	args[3] = (gchar *)this->deffilename;
+	args = g_new (gchar *, 5 + g_list_length (this->library_paths) * 2);
+	args[0] = "autogen";
+	arg = 1;
+	for (path = g_list_first (this->library_paths); path != NULL; path = g_list_next (path))
+	{
+		args[arg++] = "-L";
+		args[arg++] = (gchar *)(path->data);
+	}
+	args[arg++] = "-T";
+	args[arg++] = (gchar *)this->tplfilename;
+	args[arg++] = (gchar *)this->deffilename;
+	args[arg] = NULL;
 
 	/* Check if output file can be written */
 	if (this->outfilename != NULL)
@@ -357,6 +395,7 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 				this->outfilename,
 				g_strerror(errno)
 			);
+			g_free (args);
 
 			return FALSE;
 		}
@@ -365,12 +404,15 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 
 	/* The template and definition file are in UTF-8 so the output too */
 	anjuta_launcher_set_encoding (this->launcher, "UTF-8");
-	
+
 	this->busy = TRUE;
 	if (!anjuta_launcher_execute_v (this->launcher, NULL, args, NULL, on_autogen_output, this))
 	{
+		g_free (args);
+
 		return FALSE;
 	}
+	g_free (args);
 
 	return TRUE;
 }
@@ -412,6 +454,8 @@ void npw_autogen_free (NPWAutogen* this)
 		g_free (this->temptplfilename);
 	}
 
+	g_list_foreach (this->library_paths, (GFunc)g_free, NULL);
+	g_list_free (this->library_paths);
 
 	/* deffilename should always be here (created in new) */
 	g_return_if_fail (this->deffilename);

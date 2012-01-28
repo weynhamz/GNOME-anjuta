@@ -382,35 +382,49 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	/* Remove all previous data */
 	gtk_notebook_remove_page(druid->project_book, 0);
 	npw_header_list_free (druid->header_list);
+	npw_autogen_clear_library_path (druid->gen);
 
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();
 
 	if (directory != NULL)
 	{
-		/* Read project template only in specified directory */
+		/* Read project template only in specified directory,
+		 * other directories can still be used to get included
+		 * files */
 		npw_header_list_readdir (&druid->header_list, directory);
+		npw_autogen_set_library_path (druid->gen, directory);
 	}
-	else
+
+	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+	if (directory == NULL)
 	{
 		/* Read project template in user directory,
 		 * normally ~/.local/share/anjuta/project,
-		 * the first template read override the others */
-		dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+	 	* the first template read override the others */
 		npw_header_list_readdir (&druid->header_list, dir);
-		g_free (dir);
+	}
+	npw_autogen_set_library_path (druid->gen, dir);
+	g_free (dir);
 
-		/* Read project template in system directory */
-		for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
+	{
+		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+		if (directory == NULL)
 		{
-			dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+			/* Read project template in system directory */
 			npw_header_list_readdir (&druid->header_list, dir);
-			g_free (dir);
 		}
+		npw_autogen_set_library_path (druid->gen, dir);
+		g_free (dir);
+	}
 
+	if (directory == NULL)
+	{
 		/* Read anjuta installation directory */
 		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
 	}
+	npw_autogen_set_library_path (druid->gen, PROJECT_WIZARD_DIRECTORY);
 
 	if (g_list_length (druid->header_list) == 0)
 	{
@@ -1101,10 +1115,15 @@ static void
 on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
 {
 	NPWInstall* inst;
+	GList *path;
 
 	inst = npw_install_new (druid->plugin);
 	npw_install_set_property (inst, druid->values);
 	npw_install_set_wizard_file (inst, npw_header_get_filename (druid->header));
+	for (path = g_list_last (npw_autogen_get_library_paths (druid->gen)); path != NULL; path = g_list_previous (path))
+	{
+		npw_install_set_library_path (inst, (const gchar *)path->data);
+	}
 	npw_install_launch (inst);
 }
 

@@ -36,6 +36,9 @@ void npw_autogen_free (NPWAutogen* this);
 
 gboolean npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values);
 
+void npw_autogen_set_library_path (NPWAutogen* this, const gchar *directory);
+void npw_autogen_clear_library_path (NPWAutogen* this);
+GList *npw_autogen_get_library_paths (NPWAutogen* this);
 gboolean npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker);
 gboolean npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename);
 gboolean npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer user_data);
