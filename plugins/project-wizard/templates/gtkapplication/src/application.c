@@ -27,7 +27,7 @@ G_DEFINE_TYPE ([+NameCClass+], [+NameCLower+], GTK_TYPE_APPLICATION);
 
 struct _[+NameCClass+]Private
 {
-	/* ANJUTA: Widgets declaration - DO NOT REMOVE */
+	/* ANJUTA: Widgets declaration for [+NameHLower+].ui - DO NOT REMOVE */
 };
 [+ENDIF+]
 
@@ -64,7 +64,7 @@ static void
         }
 
 	
-	/* ANJUTA: Widgets initialization - DO NOT REMOVE */
+	/* ANJUTA: Widgets initialization for [+NameHLower+].ui - DO NOT REMOVE */
 
 	g_object_unref (builder);
 [+ELSE+]

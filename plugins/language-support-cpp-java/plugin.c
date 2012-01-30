@@ -600,11 +600,11 @@ static IAnjutaIterable*
 language_support_get_mark_position (IAnjutaEditor* editor, gchar* mark)
 {
 	IAnjutaEditorCell *search_start = IANJUTA_EDITOR_CELL (
-										ianjuta_editor_get_start_position(editor, NULL));
+										ianjuta_editor_get_start_position (editor, NULL));
 	IAnjutaEditorCell *search_end = IANJUTA_EDITOR_CELL (
-										ianjuta_editor_get_end_position(editor, NULL));
-	IAnjutaEditorCell *result_start;
-	IAnjutaEditorCell *result_end;
+										ianjuta_editor_get_end_position (editor, NULL));
+	IAnjutaEditorCell *result_start = NULL;
+	IAnjutaEditorCell *result_end = NULL;
 
 	ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (editor),
 								   mark, FALSE,
@@ -612,9 +612,10 @@ language_support_get_mark_position (IAnjutaEditor* editor, gchar* mark)
 								   &result_start,
 								   &result_end, NULL);
 
-	g_object_unref (result_start);
+	if (result_start)
+		g_object_unref (result_start);
 
-	return IANJUTA_ITERABLE (result_end);
+	return result_end ? IANJUTA_ITERABLE (result_end) : NULL;
 }
 
 static IAnjutaIterable*
@@ -815,23 +816,23 @@ on_glade_drop (IAnjutaEditor* editor,
 	g_strfreev (split_signal_data);
 }
 
-static gchar* generate_widget_member_decl_str(gchar *widget_name)
+static gchar* generate_widget_member_decl_str (gchar* widget_name)
 {
        return g_strdup_printf ("\n\tGtkWidget* %s;", widget_name);
 }
 
-static gchar *generate_widget_member_init_str(gchar *widget_name)
+static gchar* generate_widget_member_init_str (gchar* widget_name)
 {
        return g_strdup_printf ("\n\tpriv->%s = GTK_WIDGET ("
                                "gtk_builder_get_object(builder, \"%s\"));", widget_name, widget_name);
 }
 
 static gboolean insert_after_mark (IAnjutaEditor* editor, gchar* mark,
-gchar* code_to_add)
+                                   gchar* code_to_add, CppJavaPlugin* lang_plugin)
 {
        IAnjutaIterable* mark_position;
        mark_position = language_support_get_mark_position (editor, mark);
-       if(!mark_position)
+       if (!mark_position)
 		return FALSE;
 
        ianjuta_editor_insert (editor, mark_position, code_to_add, -1, NULL);
@@ -843,27 +844,49 @@ gchar* code_to_add)
        return TRUE;
 }
 
+static gchar*
+generate_widget_member_decl_marker (gchar* ui_filename)
+{
+	return g_strdup_printf ("/* ANJUTA: Widgets declaration for %s - DO NOT REMOVE */", ui_filename);
+}
+
+static gchar*
+generate_widget_member_init_marker (gchar* ui_filename)
+{
+	return g_strdup_printf ("/* ANJUTA: Widgets initialization for %s - DO NOT REMOVE */", ui_filename);
+}
+
 static void insert_member_decl_and_init (IAnjutaEditor* editor, gchar* widget_name,
-                                         CppJavaPlugin *lang_plugin)
+                                         gchar* ui_filename, CppJavaPlugin* lang_plugin)
 {
        AnjutaStatus* status;
        gchar* member_decl = generate_widget_member_decl_str(widget_name);
        gchar* member_init = generate_widget_member_init_str(widget_name);
 
+       gchar* member_decl_marker = generate_widget_member_decl_marker (ui_filename);
+       gchar* member_init_marker = generate_widget_member_init_marker (ui_filename);
+
        status = anjuta_shell_get_status (ANJUTA_PLUGIN (lang_plugin)->shell, NULL);
 
-       if(insert_after_mark (editor, "/* ANJUTA: Widgets declaration - DO NOT REMOVE */", member_decl) &&
-          insert_after_mark (editor, "/* ANJUTA: Widgets initialization - DO NOT REMOVE */", member_init))
+       if(insert_after_mark (editor, member_decl_marker, member_decl, lang_plugin) &&
+          insert_after_mark (editor, member_init_marker, member_init, lang_plugin))
               anjuta_status_set (status, _("Code added for widget."));
 
        g_free (member_decl);
        g_free (member_init);
+
+       g_free (member_decl_marker);
+       g_free (member_init_marker);
 }
 
 static void
-on_glade_member_add (IAnjutaEditor *editor, gchar *widget_name, CppJavaPlugin *lang_plugin)
+on_glade_member_add (IAnjutaEditor* editor, gchar* widget_typename,
+                     gchar* widget_name, gchar* path, CppJavaPlugin* lang_plugin)
 {
-	insert_member_decl_and_init (editor, widget_name, lang_plugin);
+	GFile* ui_file = g_file_new_for_path (path);
+	gchar* ui_filename = g_file_get_basename (ui_file);
+
+	insert_member_decl_and_init (editor, widget_name, ui_filename, lang_plugin);
 }
 
 /* Enable/Disable language-support */
@@ -897,6 +920,16 @@ install_support (CppJavaPlugin *lang_plugin)
 						  G_CALLBACK (cpp_indentation),
 						  lang_plugin);
 
+		// Since this signal is not disconnect on plugin uninstall, we have to prevent multiple connection.
+		if (!g_signal_handler_find (lang_plugin->current_editor,
+									G_SIGNAL_MATCH_FUNC,
+									0, //Signal id (ignored)
+									0, //detail (ignored)
+									0, //closure (ignored)
+									G_CALLBACK (on_glade_member_add),
+									0 //data (ignored)
+									)
+		   )
 		g_signal_connect (lang_plugin->current_editor,
 						  "glade-member-add",
 						  G_CALLBACK (on_glade_member_add),
@@ -985,8 +1018,6 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	                                      on_glade_drop_possible, lang_plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 	                                      on_glade_drop, lang_plugin);
-	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
-										  on_glade_member_add, lang_plugin);
 	if (lang_plugin->packages)
 	{
 		g_object_unref (lang_plugin->packages);

@@ -1277,12 +1277,14 @@ interface IAnjutaEditor
 
 	/**
 	 * IAnjutaEditor::glade-member-add:
+	 * @widget_typename: Name of the type of the widget that will become a member of the class.
 	 * @widget_name: Name of the widget that will become a member of the class.
+	 * @filename: Path for the .ui file that generated the signal.
 	 * @obj: Self
 	 *
 	 * This signal is emitted when code for a widget must be generated.
 	 */
-	void   ::glade_member_add (gchar *widget_name);
+	void   ::glade_member_add (gchar *widget_typename, gchar *widget_name, gchar *filename);
 
 	/**
 	 * IAnjutaEditor::code-added:

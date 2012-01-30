@@ -71,11 +71,11 @@
 		</p>
 
 		<p>Once the glade plug-in is running and the file that will hold the code
-		is being viewed, simply double click a widget in the glade inspector.
+		is opened, simply double click a widget in the glade inspector.
 		The file being viewed will then be scanned for some marker comments
-		(/* ANJUTA: Widgets declaration - DO NOT REMOVE */ and
-		/* ANJUTA: Widgets initialization - DO NOT REMOVE */) and, if found, code
-		will be added right after such comments. So, for this feature to work
+		(/* ANJUTA: Widgets declaration for application.ui - DO NOT REMOVE */ and
+		/* ANJUTA: Widgets initialization for application.ui - DO NOT REMOVE */) and, if
+                found, code will be added right after such comments. So, for this feature to work
 		correctly, it is important not to modify such marker comments.
 		</p>
 	</section>

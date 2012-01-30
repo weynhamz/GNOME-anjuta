@@ -333,32 +333,37 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 
 	priv->file_count++;
 
-	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(view), NULL);
+	ianjuta_document_manager_add_document (docman, IANJUTA_DOCUMENT(view), NULL);
 }
 
 static void
 add_glade_member (GladeWidget		 *widget,
 				  AnjutaPlugin       *plugin)
 {
-	IAnjutaEditor* current_editor;
-	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
+	GladeProject *project = glade_widget_get_project (widget);
+	gchar *path = glade_project_get_path (project);
+	gchar *widget_name = glade_widget_get_name (widget);
+	gchar *widget_typename = G_OBJECT_TYPE_NAME (glade_widget_get_object(widget));
+	GList *docs;
+	GList *item;
 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaDocumentManager, NULL);
-	if(!docman)
+	if (!docman)
 		return;
 
-	doc = ianjuta_document_manager_get_current_document (docman, NULL);
-	if(!doc)
-		return;
+	docs = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	if (!docs) return;
 
-	current_editor = IANJUTA_EDITOR (doc);
-	if(!current_editor)
-		return;
+	for (item = docs; item != NULL; item = g_list_next (item))
+	{
+		IAnjutaDocument *curr_doc = IANJUTA_DOCUMENT(item->data);
+		if (!IANJUTA_IS_EDITOR (curr_doc)) continue;
 
-	g_signal_emit_by_name (G_OBJECT (current_editor), "glade-member-add",
-						   glade_widget_get_name (widget));
+		g_signal_emit_by_name (G_OBJECT (curr_doc), "glade-member-add",
+							   widget_typename, widget_name, path);
+	}
 }
 
 static void
@@ -368,8 +373,6 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	GList *items = glade_inspector_get_selected_items (inspector);
 	GList *item;
 	g_assert (GLADE_IS_WIDGET (items->data) && (items->next == NULL));
-
-	GladeWidget *widget = GLADE_WIDGET (items->data);
 
 	/* switch to this widget in the workspace */
 	for (item = items; item != NULL; item = g_list_next (item))
