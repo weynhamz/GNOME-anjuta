@@ -1,0 +1,6 @@
+<property type="list" name="License" _label="License" _description="Select code license" default="gpl" editable="no">
+	<item name="gpl" _label="General Public License (GPL)"/>
+	<item name="lgpl" _label="Lesser General Public License (LGPL)"/>
+	<item name="bsd" _label="Berkeley Software Distribution License (BSD)"/>
+	<item name="none" _label="No license"/>
+</property>
