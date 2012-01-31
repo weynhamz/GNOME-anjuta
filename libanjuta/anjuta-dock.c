@@ -264,12 +264,14 @@ anjuta_dock_replace_command_pane (AnjutaDock *self,
                                   AnjutaCommandBarEntry *entries, int num_entries,
                                   gpointer user_data)
 {
-	anjuta_dock_add_pane (self, pane_name, pane_label, stock_icon,
-	                      pane, placement, entries, num_entries, user_data);
 	if (self->priv->command_pane)
 	{
-			anjuta_dock_remove_pane (self, self->priv->command_pane);
+		anjuta_dock_remove_pane (self, self->priv->command_pane);
 	}
+
+	anjuta_dock_add_pane (self, pane_name, pane_label, stock_icon,
+	                      pane, placement, entries, num_entries, user_data);
+	
 	self->priv->command_pane = pane;
 }
 
