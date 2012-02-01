@@ -75,8 +75,8 @@ update_title (ProjectManagerPlugin* plugin, const gchar *project_uri)
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	if (project_uri)
 	{
-		GFile *file;
 		GFileInfo *file_info;
+		GFile *file;
 
 		file = g_file_new_for_uri (project_uri);
 		file_info = g_file_query_info (file,
@@ -154,12 +154,12 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	 * we should not save the current project uri, because project
 	 * sessions are loaded when the project has already been loaded.
 	 */
-	if (plugin->project_uri && !plugin->session_by_me)
+	if (plugin->project_file && !plugin->session_by_me)
 	{
 		list = anjuta_session_get_string_list (session,
 												"File Loader",
 												"Files");
-		list = g_list_append (list, g_strdup (plugin->project_uri));
+		list = g_list_append (list, anjuta_session_get_relative_uri_from_file (session, plugin->project_file, NULL));
 		anjuta_session_set_string_list (session, "File Loader",
 										"Files", list);
 		g_list_foreach (list, (GFunc)g_free, NULL);
@@ -208,7 +208,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 static void
 on_shell_exiting (AnjutaShell *shell, ProjectManagerPlugin *plugin)
 {
-	if (plugin->project_uri)
+	if (plugin->project_file)
 	{
 		/* Also make sure we save the project session also */
 		project_manager_save_session (plugin);
@@ -227,7 +227,7 @@ on_close_project_idle (gpointer plugin)
 static void
 on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	if (plugin->project_uri)
+	if (plugin->project_file)
 		plugin->close_project_idle = g_idle_add (on_close_project_idle, plugin);
 }
 
@@ -1510,8 +1510,8 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	project_manager_unload_gbf (plugin);
 
 	g_free (plugin->project_root_uri);
-	g_free (plugin->project_uri);
-	plugin->project_uri = NULL;
+	if (plugin->project_file) g_object_unref (plugin->project_file);
+	plugin->project_file = NULL;
 	plugin->project_root_uri = NULL;
 
 	update_title (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin), NULL);
@@ -1742,7 +1742,7 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->pre_update_targets = NULL;
 	plugin->pre_update_groups = NULL;
 	plugin->project_root_uri = NULL;
-	plugin->project_uri = NULL;
+	plugin->project_file = NULL;
 	plugin->fm_current_uri = NULL;
 	plugin->current_editor_uri = NULL;
 	plugin->session_by_me = FALSE;
@@ -2379,9 +2379,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 
 	/* Set project uri */
 	g_free (plugin->project_root_uri);
-	g_free (plugin->project_uri);
+	if (plugin->project_file) g_object_unref (plugin->project_file);
 
-	plugin->project_uri = g_file_get_uri (file);
+	plugin->project_file = g_object_ref (file);
 	plugin->project_root_uri = g_file_get_uri (project_root);
 	g_object_unref (project_root);
 

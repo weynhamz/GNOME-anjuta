@@ -194,17 +194,16 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 /* This extracts the project URI saved in the session so that it could be
  * loaded sequencially. Returned string must be freed.
  */
-static gchar*
+static GFile*
 extract_project_from_session (const gchar* session_dir)
 {
 	AnjutaSession *session;
 	GList *node, *files;
-	gchar *project_uri = NULL;
+	GFile *project = NULL;
 
 	session = anjuta_session_new (session_dir);
 
 	files = anjuta_session_get_string_list (session, "File Loader", "Files");
-	g_object_unref (session);
 
 	/* Find project file */
 	node = files;
@@ -215,18 +214,16 @@ extract_project_from_session (const gchar* session_dir)
 		{
 			if (anjuta_util_is_project_file (uri))
 			{
-				g_free (project_uri);
-				project_uri = uri;
+				if (project != NULL) g_object_unref (project);
+				project = anjuta_session_get_file_from_relative_uri (session, uri, NULL);
 			}
-			else
-			{
-				g_free (uri);
-			}
+			g_free (uri);
 		}
 	}
 	g_list_free (files);
+	g_object_unref (session);
 
-	return project_uri;
+	return project;
 }
 
 AnjutaApp*
@@ -334,7 +331,6 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	if (files || geometry)
 	{
 		gchar *session_dir;
-		gchar *project_uri;
 		AnjutaSession *session;
 		gint i;
 		GList *files_load = NULL;
@@ -342,11 +338,8 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 		/* Reset default session */
 		session_dir = USER_SESSION_PATH_NEW;
 
-		project_uri = extract_project_from_session (session_dir);
+		project = extract_project_from_session (session_dir);
 		template = NULL;
-		if (project_uri)
-			project = g_file_new_for_uri (project_uri);
-		g_free (project_uri);
 
 		session = anjuta_session_new (session_dir);
 		anjuta_session_clear (session);
@@ -419,10 +412,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 		/* Otherwise, load session normally */
 		else
 		{
-			gchar *project_uri = extract_project_from_session (session_dir);
-			if (project_uri)
-				project = g_file_new_for_uri (project_uri);
-			g_free (project_uri);
+			project = extract_project_from_session (session_dir);
 		}
 		g_free (session_dir);
 	}

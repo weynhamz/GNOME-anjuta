@@ -45,7 +45,7 @@ struct _GladePluginPriv
 	GtkWidget *inspector;
 	GtkWidget *palette;
 	GtkWidget *editor;
-	
+
 	GtkWidget *view_box;
 	GtkWidget *paned;
 	GtkWidget *palette_box;
@@ -54,7 +54,7 @@ struct _GladePluginPriv
 
 	GtkWidget *selector_toggle;
 	GtkWidget *resize_toggle;
-	
+
 	/* File count, disable plugin when NULL */
 	guint file_count;
 
@@ -70,7 +70,7 @@ enum {
 
 static void
 on_pointer_mode_changed (GladeProject *project,
-                         GParamSpec   *pspec, 
+                         GParamSpec   *pspec,
                          GladePlugin  *plugin);
 
 static void
@@ -79,7 +79,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 {
 	GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
 	GladePluginPriv* priv = glade_plugin->priv;
-	GObject *editor;	
+	GObject *editor;
 	editor = g_value_get_object (value);
 	if (ANJUTA_IS_DESIGN_DOCUMENT(editor))
 	{
@@ -114,7 +114,7 @@ on_signal_editor_created (GladeApp* app,
 }
 
 static void
-on_api_help (GladeEditor* editor, 
+on_api_help (GladeEditor* editor,
              const gchar* book,
              const gchar* page,
              const gchar* search,
@@ -174,12 +174,12 @@ on_document_mapped (GtkWidget* doc, GladePlugin* plugin)
 {
 	GladeProject* project = glade_design_view_get_project (GLADE_DESIGN_VIEW (doc));
 	GladeEditor* editor = GLADE_EDITOR (plugin->priv->editor);
-	GList* glade_obj_node; 
+	GList* glade_obj_node;
 	GList* list = g_list_copy ((GList*)glade_project_get_objects (project));
 
 
 	gboolean first = TRUE;
-	
+
 	/* Select the all windows in the project, select the first */
 	for (glade_obj_node = list;
 	     glade_obj_node != NULL;
@@ -261,7 +261,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				file = ianjuta_file_get_file (IANJUTA_FILE (node->data), NULL);
 				if (file != NULL)
 				{
-					files = g_list_prepend (files, g_file_get_uri (file));
+					files = g_list_prepend (files, anjuta_session_get_relative_uri_from_file (session, file, NULL));
 					g_object_unref (file);
 					/* uri is not freed here */
 				}
@@ -279,7 +279,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
-glade_plugin_selection_changed (GladeProject *project, 
+glade_plugin_selection_changed (GladeProject *project,
                                 GladePlugin *plugin)
 {
 	GladeWidget  *glade_widget = NULL;
@@ -288,7 +288,7 @@ glade_plugin_selection_changed (GladeProject *project,
 	{
 		GList *list;
 		GList *node;
-		
+
 		list = glade_project_selection_get (project);
 
 		for (node = list; node != NULL; node = g_list_next (node))
@@ -307,7 +307,7 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 {
 	GtkWidget *view;
 	GladePluginPriv *priv;
-	IAnjutaDocumentManager* docman = 
+	IAnjutaDocumentManager* docman =
 		anjuta_shell_get_interface(ANJUTA_PLUGIN(glade_plugin)->shell,
 		                           IAnjutaDocumentManager, NULL);
 
@@ -330,9 +330,9 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 	g_signal_connect (project, "selection-changed",
 	                  G_CALLBACK (glade_plugin_selection_changed),
 	                  glade_plugin);
-	
+
 	priv->file_count++;
-	
+
 	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(view), NULL);
 }
 
@@ -411,7 +411,7 @@ on_drag_resize_button_toggled (GtkToggleToolButton *button,
 
 static void
 on_pointer_mode_changed (GladeProject *project,
-                         GParamSpec   *pspec, 
+                         GParamSpec   *pspec,
                          GladePlugin  *plugin)
 {
 	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
@@ -428,9 +428,9 @@ on_pointer_mode_changed (GladeProject *project,
 	gtk_widget_set_sensitive (plugin->priv->selector_toggle, TRUE);
 	gtk_widget_set_sensitive (plugin->priv->resize_toggle, TRUE);
 
-	g_signal_handlers_block_by_func (plugin->priv->selector_toggle, 
+	g_signal_handlers_block_by_func (plugin->priv->selector_toggle,
 	                                 on_selector_button_toggled, plugin);
-	g_signal_handlers_block_by_func (plugin->priv->resize_toggle, 
+	g_signal_handlers_block_by_func (plugin->priv->resize_toggle,
 	                                 on_drag_resize_button_toggled, plugin);
 
 	if (glade_project_get_pointer_mode (project) == GLADE_POINTER_SELECT)
@@ -449,9 +449,9 @@ on_pointer_mode_changed (GladeProject *project,
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
 	}
 
-	g_signal_handlers_unblock_by_func (plugin->priv->selector_toggle, 
+	g_signal_handlers_unblock_by_func (plugin->priv->selector_toggle,
 	                                   on_selector_button_toggled, plugin);
-	g_signal_handlers_unblock_by_func (plugin->priv->resize_toggle, 
+	g_signal_handlers_unblock_by_func (plugin->priv->resize_toggle,
 	                                   on_drag_resize_button_toggled, plugin);
 }
 
@@ -460,7 +460,7 @@ static void
 glade_plugin_parse_began (GladeProject *project,
                            GladePlugin *plugin)
 {
-	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,  
+	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,
 	                                                NULL);
 	anjuta_status_busy_push (status);
 	plugin->priv->add_ticks = TRUE;
@@ -470,7 +470,7 @@ static void
 glade_plugin_parse_finished (GladeProject *project,
                              AnjutaPlugin *plugin)
 {
-	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,                                                
+	AnjutaStatus *status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell,
 	                                                NULL);
 	GladePlugin* gplugin = ANJUTA_PLUGIN_GLADE (plugin);
 	anjuta_status_busy_pop (status);
@@ -498,21 +498,21 @@ glade_plugin_load_progress (GladeProject *project,
 		                                 GTK_ICON_SIZE_BUTTON,
 		                                 0, NULL);
 	}
-		                              
-	
+
+
 	if (glade_plugin->priv->add_ticks)
 	{
 		glade_plugin->priv->add_ticks = FALSE;
 		anjuta_status_progress_add_ticks (status, total_ticks);
 	}
-	
+
 	project_name = glade_project_get_name (project);
 	text = g_strdup_printf ("Loading %s…", project_name);
 	anjuta_status_progress_tick (status,
 	                             icon,
 	                             text);
 	g_free (text);
-	g_free (project_name);                  
+	g_free (project_name);
 }
 
 static GtkWidget *
@@ -586,7 +586,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	anjuta_status_busy_push (status);
 	anjuta_status_set (status, "%s", _("Loading Glade…"));
-	
+
 	priv->app = glade_app_get ();
 	if (!priv->app)
 	{
@@ -604,7 +604,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv->paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
 
 	priv->editor = GTK_WIDGET(glade_editor_new());
-	
+
 	priv->palette = glade_palette_new();
 	priv->palette_box = gtk_vbox_new (FALSE, 5);
 	priv->selector_toggle = create_selector_tool_button ();
@@ -622,19 +622,19 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_box_pack_start (GTK_BOX (priv->palette_box),
 	                    priv->palette,
 	                    TRUE, TRUE, 0);
-	                   
-	                    
+
+
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->selector_toggle),
 	                              TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->resize_toggle),
 	                              FALSE);
-	
+
 	g_signal_connect (G_OBJECT (priv->selector_toggle), "toggled",
                     G_CALLBACK (on_selector_button_toggled), plugin);
 	g_signal_connect (G_OBJECT (priv->resize_toggle), "toggled",
                     G_CALLBACK (on_drag_resize_button_toggled), plugin);
 
-	
+
 	glade_palette_set_show_selector_button (GLADE_PALETTE (priv->palette),
 	                                        FALSE);
 
@@ -657,7 +657,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_widget_show (priv->palette);
 	gtk_widget_show (priv->editor);
 	gtk_widget_show (priv->inspector);
-	
+
 	/* Add widgets */
 	anjuta_shell_add_widget (anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin)),
 	                         priv->paned,
@@ -674,7 +674,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	                  G_CALLBACK (on_session_save), plugin);
 
 	/* Watch documents */
-	glade_plugin->priv->editor_watch_id = 
+	glade_plugin->priv->editor_watch_id =
 		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 		                         value_added_current_editor,
 		                         value_removed_current_editor, NULL);
@@ -697,7 +697,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		return FALSE;
 	}
 
-	
+
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (plugin->shell,
 	                                      G_CALLBACK (on_shell_destroy),
@@ -757,7 +757,7 @@ glade_plugin_instance_init (GObject *obj)
 }
 
 static void
-glade_plugin_class_init (GObjectClass *klass) 
+glade_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -791,7 +791,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		                            _("Not local file: %s"), uri);
 		if (priv->file_count <= 0)
 			anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
-		
+
 		g_free (uri);
 		return;
 	}
@@ -824,11 +824,11 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 	}
 
 	project = glade_project_new ();
-	g_signal_connect (project, "parse-began", 
+	g_signal_connect (project, "parse-began",
 	                  G_CALLBACK (glade_plugin_parse_began), plugin);
-	g_signal_connect (project, "parse-finished", 
+	g_signal_connect (project, "parse-finished",
 	                  G_CALLBACK (glade_plugin_parse_finished), plugin);
-	g_signal_connect (project, "load-progress", 
+	g_signal_connect (project, "load-progress",
 	                  G_CALLBACK (glade_plugin_load_progress), plugin);
 	if (!glade_project_load_from_file (project, filename))
 	{
@@ -842,9 +842,9 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 		return;
 	}
 	g_free (filename);
-	
+
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
-	
+
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->paned, NULL);
 }
 
@@ -852,7 +852,7 @@ static GFile*
 ifile_get_file (IAnjutaFile* ifile, GError** e)
 {
 	GladePlugin* plugin = (GladePlugin*) ifile;
-	const gchar* path = 
+	const gchar* path =
 		glade_project_get_path(glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector)));
 	GFile* file = g_file_new_for_path (path);
 	return file;

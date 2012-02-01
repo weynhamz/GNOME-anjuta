@@ -1407,13 +1407,12 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				file = ianjuta_file_get_file (IANJUTA_FILE (te), NULL);
 				if (file)
 				{
-					gchar *uri;
-					gchar* file_uri = g_file_get_uri (file);
 					/* Save line locations also */
-					uri = g_strdup_printf ("%s#%d", file_uri,
-										  ianjuta_editor_get_lineno (te, NULL));
-					files = g_list_prepend (files, uri);
-					g_free (file_uri);
+					gchar *line_number;
+
+					line_number = g_strdup_printf ("%d", ianjuta_editor_get_lineno (te, NULL));
+					files = g_list_prepend (files, anjuta_session_get_relative_uri_from_file (session, file, line_number));
+					g_free (line_number);
 				}
 			}
 		}

@@ -59,7 +59,7 @@ struct _ProjectManagerPlugin{
 	gchar *fm_current_uri;
 	gchar *current_editor_uri;
 	gchar *project_root_uri;
-	gchar *project_uri;
+	GFile *project_file;
 
 	/* Target shortcuts */
 	GList *shortcuts;
