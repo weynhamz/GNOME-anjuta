@@ -2,12 +2,12 @@
 /*
  * anjuta-session.h
  * Copyright (c) 2005 Naba Kumar  <naba@gnome.org>
- *  
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,6 +23,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -84,7 +85,14 @@ gchar* anjuta_session_get_string (AnjutaSession *session, const gchar *section,
 GList* anjuta_session_get_string_list (AnjutaSession *session,
 									   const gchar *section,
 									   const gchar *key);
-									   
+
+gchar *anjuta_session_get_relative_uri_from_file (AnjutaSession *session,
+                                                  GFile *file,
+                                                  const gchar *fragment);
+GFile* anjuta_session_get_file_from_relative_uri (AnjutaSession *session,
+                                                  const gchar *uri,
+                                                  const gchar **fragment);
+
 G_END_DECLS
 
 #endif /* _ANJUTA_SESSION_H_ */
