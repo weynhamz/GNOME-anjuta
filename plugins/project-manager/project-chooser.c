@@ -49,9 +49,12 @@ struct _AnjutaPmChooserButtonPrivate
 
 static void ianjuta_project_chooser_init (IAnjutaProjectChooserIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AnjutaPmChooserButton, anjuta_pm_chooser_button, ANJUTA_TYPE_TREE_COMBO_BOX,
-                         G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_PROJECT_CHOOSER,
-                                                ianjuta_project_chooser_init))
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (AnjutaPmChooserButton,
+                                anjuta_pm_chooser_button,
+                                ANJUTA_TYPE_TREE_COMBO_BOX,
+                                0,
+                                G_IMPLEMENT_INTERFACE (IANJUTA_TYPE_PROJECT_CHOOSER,
+                                                       ianjuta_project_chooser_init));
 
 /* Helpers functions
  *---------------------------------------------------------------------------*/
@@ -429,5 +432,17 @@ anjuta_pm_chooser_button_class_init (AnjutaPmChooserButtonClass * klass)
 	object_class = (GObjectClass *)klass;
 	object_class->constructor = anjuta_pm_chooser_button_constructor;
 
+	g_message ("anjuta_pm_chooser_button_class_init");
 	g_type_class_add_private (klass, sizeof (AnjutaPmChooserButtonPrivate));
+}
+
+static void
+anjuta_pm_chooser_button_class_finalize (AnjutaPmChooserButtonClass * klass)
+{
+}
+
+void
+anjuta_pm_chooser_button_register (GTypeModule *module)
+{
+	anjuta_pm_chooser_button_register_type (module);
 }

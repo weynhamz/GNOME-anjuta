@@ -35,6 +35,7 @@
 
 #include "project-util.h"
 #include "dialogs.h"
+#include "project-chooser.h"
 
 #include "plugin.h"
 
@@ -2422,8 +2423,9 @@ ifile_iface_init(IAnjutaFileIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);
-ANJUTA_PLUGIN_ADD_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
-ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
+	ANJUTA_PLUGIN_ADD_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
+	ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
+	anjuta_pm_chooser_button_register (module);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (ProjectManagerPlugin, project_manager_plugin);

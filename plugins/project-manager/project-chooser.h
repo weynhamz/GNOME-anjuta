@@ -58,8 +58,9 @@ struct _AnjutaPmChooserButtonClass
 
 GType			anjuta_pm_chooser_button_get_type (void) G_GNUC_CONST;
 
-
 GtkWidget *		anjuta_pm_chooser_button_new (void);
+
+void			anjuta_pm_chooser_button_register (GTypeModule *module);
 
 
 G_END_DECLS
