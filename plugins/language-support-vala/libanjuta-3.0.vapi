@@ -184,7 +184,6 @@ namespace Anjuta {
 		[CCode (has_construct_function = false, type = "GtkWidget*")]
 		public FileDropEntry ();
 		public void set_relative_path (string path);
-		public string relative_path { }
 	}
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	[Compact]
@@ -645,7 +644,11 @@ namespace Anjuta {
 		public bool get_active_iter (Gtk.TreeIter iter);
 		public void set_active (int index);
 		public void set_active_iter (Gtk.TreeIter iter);
+		public void set_invalid_text (string str);
 		public void set_model (Gtk.TreeModel model);
+		public void set_valid_function (owned Gtk.TreeModelFilterVisibleFunc func);
+		[NoAccessorMethod]
+		public Gtk.TreeModel model { owned get; set; }
 		public virtual signal void changed ();
 		public signal void popdown ();
 		public signal void popup ();
@@ -790,6 +793,7 @@ namespace Anjuta {
 		MKENUMS,
 		GENMARSHAL,
 		SCRIPT,
+		ROOT_GROUP,
 		PROXY,
 		PROJECT,
 		PRIMARY,
@@ -1044,7 +1048,7 @@ namespace Anjuta {
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static string util_get_user_mail ();
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
-	public static void util_help_display (Gtk.Widget parent, string doc_id, string file_name);
+	public static void util_help_display (Gtk.Widget parent, string doc_id, string item);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
 	public static bool util_install_files (string names);
 	[CCode (cheader_filename = "libanjuta/libanjuta.h")]
@@ -1216,6 +1220,7 @@ namespace IAnjuta {
 		public abstract void erase_all () throws GLib.Error;
 		public abstract int get_column () throws GLib.Error;
 		public abstract string get_current_word () throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable get_end_position () throws GLib.Error;
 		public abstract int get_length () throws GLib.Error;
 		public abstract IAnjuta.Iterable get_line_begin_position (int line) throws GLib.Error;
 		public abstract IAnjuta.Iterable get_line_end_position (int line) throws GLib.Error;
@@ -1224,6 +1229,7 @@ namespace IAnjuta {
 		public abstract int get_offset () throws GLib.Error;
 		public abstract bool get_overwrite () throws GLib.Error;
 		public abstract IAnjuta.Iterable get_position () throws GLib.Error;
+		public abstract unowned IAnjuta.Iterable get_start_position () throws GLib.Error;
 		public abstract int get_tabsize () throws GLib.Error;
 		public abstract string get_text (IAnjuta.Iterable begin, IAnjuta.Iterable end) throws GLib.Error;
 		public abstract string get_text_all () throws GLib.Error;
@@ -1242,6 +1248,7 @@ namespace IAnjuta {
 		public virtual signal void char_added (IAnjuta.Iterable position, char ch);
 		public virtual signal void code_added (IAnjuta.Iterable position, string code);
 		public virtual signal void cursor_moved ();
+		public virtual signal void glade_member_add (string widget_typename, string widget_name, string filename);
 		public virtual signal void line_marks_gutter_clicked (int location);
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", type_id = "ianjuta_editor_assist_get_type ()")]
@@ -1331,9 +1338,9 @@ namespace IAnjuta {
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", type_id = "ianjuta_editor_search_get_type ()")]
 	public interface EditorSearch : IAnjuta.Editor, GLib.Object {
-		public abstract bool backward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, IAnjuta.EditorCell result_start, IAnjuta.EditorCell result_end) throws GLib.Error;
+		public abstract bool backward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, out IAnjuta.EditorCell result_start, out IAnjuta.EditorCell result_end) throws GLib.Error;
 		public static GLib.Quark error_quark ();
-		public abstract bool forward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, IAnjuta.EditorCell result_start, IAnjuta.EditorCell result_end) throws GLib.Error;
+		public abstract bool forward (string search, bool case_sensitive, IAnjuta.EditorCell start, IAnjuta.EditorCell end, out IAnjuta.EditorCell result_start, out IAnjuta.EditorCell result_end) throws GLib.Error;
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", type_id = "ianjuta_editor_selection_get_type ()")]
 	public interface EditorSelection : IAnjuta.Editor, GLib.Object {
@@ -1520,6 +1527,13 @@ namespace IAnjuta {
 		public static GLib.Quark error_quark ();
 		public abstract IAnjuta.Project new_project (GLib.File file) throws GLib.Error;
 		public abstract int probe (GLib.File directory) throws GLib.Error;
+	}
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", type_id = "ianjuta_project_chooser_get_type ()")]
+	public interface ProjectChooser : GLib.Object {
+		public static GLib.Quark error_quark ();
+		public abstract unowned GLib.File get_selected () throws GLib.Error;
+		public abstract bool set_project_model (IAnjuta.ProjectManager manager, Anjuta.ProjectNodeType child_type) throws GLib.Error;
+		public virtual signal void changed ();
 	}
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h", type_id = "ianjuta_project_manager_get_type ()")]
 	public interface ProjectManager : GLib.Object {
@@ -2139,6 +2153,8 @@ namespace IAnjuta {
 	public static GLib.Quark print_error_quark ();
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public static GLib.Quark project_backend_error_quark ();
+	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
+	public static GLib.Quark project_chooser_error_quark ();
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]
 	public static GLib.Quark project_manager_error_quark ();
 	[CCode (cheader_filename = "libanjuta/interfaces/libanjuta-interfaces.h")]

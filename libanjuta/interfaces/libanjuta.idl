@@ -1687,7 +1687,7 @@ interface IAnjutaEditor
 	 *
 	 * Gets the iter positioned at the start of the editor buffer.
 	 *
-	 * Return value: Cell iter set to the begining of the editor.
+	 * Return value: (transfer none): Cell iter set to the begining of the editor.
 	 */
 	IAnjutaIterable* get_start_position ();
 
@@ -1701,7 +1701,7 @@ interface IAnjutaEditor
 	 * character in the buffer (it is pointed one step beyond the last
 	 * valid character).
 	 *
-	 * Retrun value: Cell iter set to the end of the editor (end-iter).
+	 * Return value: (transfer none): Cell iter set to the end of the editor (end-iter).
 	 */
 	IAnjutaIterable* get_end_position ();
 
@@ -1844,8 +1844,8 @@ interface IAnjutaEditor
 		 * @search: String to search for
 		 * @start: Where to search from
 	 	 * @end: Where to stop searching
-	 	 * @result_start: Will be set to the start of the search_result (or NULL)
-	 	 * @result_end: Will be set to the end of the search_result (or NULL)
+		 * @result_start: (out): Will be set to the start of the search_result (or NULL)
+		 * @result_end: (out): Will be set to the end of the search_result (or NULL)
 	 	 * @err: Error propagation and reporting
 	 	 *
 	 	 * Search forward from start to end
@@ -1859,8 +1859,8 @@ interface IAnjutaEditor
 		 * @search: String to search for
 		 * @start: Where to search from
 		 * @end: Where to stop searching
-		 * @result_start: Will be set to the start of the search_result (or NULL)
-		 * @result_end: Will be set to the end of the search_result (or NULL)
+		 * @result_start: (out): Will be set to the start of the search_result (or NULL)
+		 * @result_end: (out): Will be set to the end of the search_result (or NULL)
 		 * @err: Error propagation and reporting
 		 *
 		 * Search backward from end to start
