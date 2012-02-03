@@ -919,22 +919,6 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (cpp_indentation),
 						  lang_plugin);
-
-		// Since this signal is not disconnect on plugin uninstall, we have to prevent multiple connection.
-		if (!g_signal_handler_find (lang_plugin->current_editor,
-									G_SIGNAL_MATCH_FUNC,
-									0, //Signal id (ignored)
-									0, //detail (ignored)
-									0, //closure (ignored)
-									G_CALLBACK (on_glade_member_add),
-									0 //data (ignored)
-									)
-		   )
-		g_signal_connect (lang_plugin->current_editor,
-						  "glade-member-add",
-						  G_CALLBACK (on_glade_member_add),
-						  lang_plugin);
-
 	}
 	else if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Java")))
@@ -977,6 +961,21 @@ install_support (CppJavaPlugin *lang_plugin)
 			                  "drop", G_CALLBACK (on_glade_drop),
 			                  lang_plugin);
 		}
+
+		// Since this signal is not disconnect on plugin uninstall, we have to prevent multiple connection.
+		if (!g_signal_handler_find (lang_plugin->current_editor,
+									G_SIGNAL_MATCH_FUNC,
+									0, //Signal id (ignored)
+									0, //detail (ignored)
+									0, //closure (ignored)
+									G_CALLBACK (on_glade_member_add),
+									0 //data (ignored)
+									)
+		   )
+		g_signal_connect (lang_plugin->current_editor,
+						  "glade-member-add",
+						  G_CALLBACK (on_glade_member_add),
+						  lang_plugin);
 
 		lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
 		cpp_packages_load(lang_plugin->packages, FALSE);
