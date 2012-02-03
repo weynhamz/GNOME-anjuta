@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-01-19 15:18+0000\n"
-"PO-Revision-Date: 2012-01-25 17:01+0100\n"
+"POT-Creation-Date: 2012-01-25 16:07+0000\n"
+"PO-Revision-Date: 2012-02-03 17:55+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -488,6 +488,13 @@ msgid ""
 "version, compiler flags or installation directories. These item are divided "
 "in several categories, depending on the backend not all are available:"
 msgstr ""
+"Un proyecto se representa mediante un árbol, en el que el elemento raíz "
+"corresponde al proyecto, mientras que los hijos representan los programas, "
+"bibliotecas, carpetas y archivos de fuentes. Cada elemento puede tener "
+"propiedades que permiten establecer más detalles como la versión del "
+"proyecto, opciones del compilador o carpetas de instalación. Estos elementos "
+"se dividen en varias categorías y, dependiendo del «backend», no todas están "
+"disponibles."
 
 #: C/project-manager-treeview.page:28(title)
 msgid "Root"
@@ -499,6 +506,9 @@ msgid ""
 "the place where you can set project wide properties like the project name or "
 "the project version."
 msgstr ""
+"Sólo hay un nodo de este tipo. Representa al proyecto en sí. Es el lugar "
+"donde puede establecer propiedades que afecten a todo el proyecto, como el "
+"nombre o la versión."
 
 #: C/project-manager-treeview.page:34(title)
 msgid "Module"
@@ -511,6 +521,10 @@ msgid ""
 "target using them. For more details, see <link xref=\"project-manager-module-"
 "new\"/>."
 msgstr ""
+"Esto es un conjunto de paquetes usados en un proyecto de autotools. Aparecen "
+"como hijos del nodo raíz para representar a todos los módulos definidos y "
+"como hijos de cada objetivo que los usa. Para obtener más detalles, consulte "
+"la <link xref=\"project-manager-module-new\"/>."
 
 #: C/project-manager-treeview.page:41(title)
 msgid "Package"
@@ -522,6 +536,9 @@ msgid ""
 "children of each module. For more details, see <link xref=\"project-manager-"
 "library\"/>."
 msgstr ""
+"Esto es una biblioteca empaquetada usada en proyectos de autotools. Aparece "
+"como un hijo en cada módulo. Para obtener más detalles, consulte <link xref="
+"\"project-manager-library\"/>."
 
 #: C/project-manager-treeview.page:47(title)
 msgid "Folder"
@@ -533,6 +550,9 @@ msgid ""
 "often implemented by sub directories. For more details, see <link xref="
 "\"project-manager-folder\"/>."
 msgstr ""
+"Esto se usar para agrupar objetivos, permitiendo establecer propiedades "
+"comunes. A menudo se implementan como subcarpetas. Para obtener más "
+"detalles, consulte la <link xref=\"project-manager-folder\"/>."
 
 #: C/project-manager-treeview.page:53(title)
 msgid "Target"
@@ -546,6 +566,11 @@ msgid ""
 "compiled programs or libraries. For more details see <link xref=\"project-"
 "manager-target\"/>."
 msgstr ""
+"Agrupa archivos y define cómo se usan. Hay varios tipos de objetivos, por "
+"ejemplo, programa, biblioteca o datos, que corresponden con los diferentes "
+"usos de los archivos hijos. A menudo representan archivos generados por el "
+"proyecto como programas compilados o bibliotecas. Para obtener más detalles, "
+"consulte la <link xref=\"project-manager-target\"/>."
 
 #: C/project-manager-treeview.page:61(p)
 msgid ""
@@ -553,6 +578,9 @@ msgid ""
 "create a shortcut allowing to access them more easily. By default all "
 "program targets are already put here."
 msgstr ""
+"Puede arrastrar y soltar objetivos al principio de la vista en árbol de un "
+"proyecto para crear un atajo que permita acceder a ellos más fácilmente. De "
+"manera predeterminada, todos los objetivos del programa ya aparecen aquí."
 
 #: C/project-manager-treeview.page:68(title)
 msgid "Source"
@@ -616,6 +644,9 @@ msgid ""
 "represent a program, with all its source files as its children or only group "
 "data files those should be installed at the same place."
 msgstr ""
+"Un objetivo agrupa archivos y define su uso. Se usa para representar un "
+"programa, con todos su archivos de fuentes y sus hijos o sólo para para "
+"agrupar los archivos de datos que se deben instalar en el mismo sitio."
 
 #: C/project-manager-target-add.page:30(p)
 msgid ""
@@ -629,7 +660,6 @@ msgstr ""
 "gui>."
 
 #: C/project-manager-target-add.page:34(p)
-#, fuzzy
 #| msgid ""
 #| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 #| "gui><gui>New Target...</gui></guiseq>"
@@ -649,7 +679,6 @@ msgstr ""
 "árbol de carpetas</gui>."
 
 #: C/project-manager-target-add.page:40(p)
-#, fuzzy
 #| msgid ""
 #| "Enter a target name and select the type of the target in the drop-down "
 #| "list below. Depending on your project backend, various types of target "
@@ -659,9 +688,9 @@ msgid ""
 "below. Depending on your project backend, various types of target are "
 "possible, see at the bottom."
 msgstr ""
-"Introduzca el nombre del objetivo y seleccione el tipo de objetivo en la "
-"lista desplegable de debajo. Varios tipos de objetivos estarán disponibles "
-"dependiendo del «backend» de su proyecto."
+"Introduzca el nombre de un objetivo y seleccione el tipo de objetivo en la "
+"lista desplegable de debajo. Dependiendo del «backend» de su proyecto habrá "
+"varios tipos de objetivos disponibles."
 
 #: C/project-manager-target-add.page:45(p)
 msgid ""
@@ -730,7 +759,6 @@ msgid "Add Files"
 msgstr "Añadir archivos"
 
 #: C/project-manager-source-add.page:26(p)
-#, fuzzy
 #| msgid ""
 #| "Select the target where you want to add the new source file in the "
 #| "<gui>project view</gui>, click on the right mouse button to make the "
@@ -743,8 +771,8 @@ msgid ""
 msgstr ""
 "Seleccione el objetivo donde quiere añadir el archivo de código fuente nuevo "
 "en la <gui>vista de proyecto</gui>, pulse en el botón derecho del ratón para "
-"mostrar el <gui>menú contextual del proyecto</gui> y selecione <gui>Añadir "
-"fuente</gui>."
+"mostrar el <gui>menú contextual del proyecto</gui> y seleccione <gui>Añadir "
+"archivo fuente</gui>."
 
 #: C/project-manager-source-add.page:31(p)
 msgid ""
@@ -755,14 +783,13 @@ msgstr ""
 "gui><gui>Añadir archivo fuente...</gui></guiseq>"
 
 #: C/project-manager-source-add.page:35(p)
-#, fuzzy
 #| msgid ""
 #| "You can select another target in the top <gui>target tree view</gui>."
 msgid ""
 "You can select another target in the top <gui>target chooser button</gui>."
 msgstr ""
-"Puede seleccionar otro objetivo en la parte superior de la <gui>vista de "
-"árbol objetivos</gui>."
+"Puede seleccionar otro objetivo en la parte superior del <gui>botón selector "
+"de objetivos</gui>."
 
 #: C/project-manager-source-add.page:39(p)
 msgid ""
@@ -771,9 +798,13 @@ msgid ""
 "several files at the same time keeping <key>Ctrl</key> key pressed or using "
 "the <key>Shift</key> to select a range of files."
 msgstr ""
+"En el selector de archivos de debajo, seleccione los archivos que quiere "
+"añadir. Pulse el botón <gui>Añadir</gui> para añadir esos archivos a su "
+"proyecto. Puede seleccionar varios archivos a la vez manteniendo la tecla "
+"<key>Ctrl</key> pulsada o usando la tecla <key>Mayús</key> para seleccionar "
+"un rango de archivos."
 
 #: C/project-manager-source-add.page:48(p)
-#, fuzzy
 #| msgid ""
 #| "Some project formats require the file to be under the project directory. "
 #| "Added source files outside the project directory are automatically copied "
@@ -784,9 +815,10 @@ msgid ""
 "outside the project directory are automatically copied inside to fulfill "
 "this requirement."
 msgstr ""
-"Algunos formatos de proyectos requieren que el archivo esté bajo la carpeta "
-"del proyecto. Los archivos fuente añadidos fuera de la carpeta del proyecto "
-"se copian automáticamente dentro para cumplir con este requerimiento."
+"Puede añadir archivos a subcarpetas del proyecto. La mayoría de los formatos "
+"de proyectos requieren que los archivos estén bajo la carpeta del proyecto. "
+"Los archivos fuente añadidos fuera de la carpeta del proyecto se copian "
+"dentro automáticamente para cumplir con este requerimiento."
 
 #: C/project-manager-root.page:12(desc)
 msgid "Edit project properties."
@@ -836,7 +868,6 @@ msgid "Remove a Package"
 msgstr "Quitar un paquete"
 
 #: C/project-manager-package-remove.page:26(p)
-#, fuzzy
 #| msgid ""
 #| "Select the target you want to remove in the <gui>project view</gui>, "
 #| "click on the right mouse button to make the <gui>project context menu</"
@@ -846,19 +877,18 @@ msgid ""
 "on the right mouse button to make the <gui>project context menu</gui> appear "
 "and select <gui>Remove</gui>."
 msgstr ""
-"Seleccione el objetivo que quiere quitar en la <gui>vista de proyecto</gui>, "
+"Seleccione el paquete que quiere quitar en la <gui>vista de proyecto</gui>, "
 "pulse con el botón derecho del ratón para mostrar el <gui>menú contextual "
 "del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-package-remove.page:32(p)
-#, fuzzy
 #| msgid ""
 #| "Confirm the removal. This library will be removed from the project file."
 msgid ""
 "Confirm the removal. This package will be removed from the project file."
 msgstr ""
-"Confirme que quiere quitar la biblioteca. Esta biblioteca se quitará del "
-"archivo de proyecto."
+"Confirme que quiere quitar el paquete. Este paquete se quitará del archivo "
+"del proyecto."
 
 #: C/project-manager-package-add.page:11(desc)
 msgid "Add a library in a module."
@@ -881,9 +911,6 @@ msgstr ""
 
 #: C/project-manager-package-add.page:33(p)
 #: C/project-manager-module-new.page:48(p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>New Library...</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>New "
 "Library...</gui></guiseq>."
@@ -903,9 +930,6 @@ msgstr ""
 "botón <gui>Añadir</gui> para actualizar el módulo."
 
 #: C/project-manager-package-add.page:43(p)
-#| msgid ""
-#| "Read the <link xref=\"project-manager-package\">next page</link> to find "
-#| "out how to add the module to your target."
 msgid ""
 "Read the <link xref=\"project-manager-module-add\">next page</link> to find "
 "out how to add the module to your target."
@@ -953,7 +977,6 @@ msgid ""
 msgstr ""
 
 #: C/project-manager-module-new.page:32(p)
-#, fuzzy
 #| msgid ""
 #| "On Linux, most libraries are packaged to be easily used. When you need "
 #| "one of these libraries, <app>Anjuta</app> provides an easy interface to "
@@ -964,16 +987,11 @@ msgid ""
 "library you need is not one of these, check the <link xref=\"project-manager-"
 "library-add\">Add non-packaged libraries</link> page."
 msgstr ""
-"En GNU/Linux, la mayoría de las bibliotecas están empaquetadas para "
-"facilitar su uso. Cuando necesita una de estas bibliotecas, <app>Anjuta</"
-"app> proporciona un interfaz fácil para añadirla. Si la biblioteca que "
-"necesita no es una de ellas, compruebe la página <app>Añadir bibliotecas no "
-"empaquetadas</app>."
+"<app>Anjuta</app> proporciona un interfaz sencilla para añadirla. Si la "
+"biblioteca que necesita no es una de ellas, compruebe la página <link xref="
+"\"project-manager-library-add\">Añadir bibliotecas no empaquetadas</link>."
 
 #: C/project-manager-module-new.page:37(p)
-#| msgid ""
-#| "A library cannot be added directly to your program; you first need to "
-#| "create a module for it, which is just a group of libraries."
 msgid ""
 "A package cannot be added directly to your program; you first need to create "
 "a module for it, which is just a group of packages."
@@ -1003,12 +1021,6 @@ msgstr ""
 "sistema. Puede marcar una o más bibliotecas."
 
 #: C/project-manager-module-new.page:55(p)
-#| msgid ""
-#| "If the library you want does not appear here, perhaps it is because it is "
-#| "not installed on your system. Launch the application you use to install "
-#| "new programs and search for the library name. The package you need often "
-#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
-#| "pkg-config file with a <file>.pc</file> extension."
 msgid ""
 "If the library you want does not appear here, perhaps it is because it is "
 "not installed on your system. Launch the application you use to install new "
@@ -1035,9 +1047,6 @@ msgstr ""
 "seleccionadas."
 
 #: C/project-manager-module-new.page:69(p)
-#| msgid ""
-#| "Read the <link xref=\"project-manager-package\">next page</link> to find "
-#| "out how to add this new module to your target."
 msgid ""
 "Read the <link xref=\"project-manager-module-add\">next page</link> to find "
 "out how to add this new module to your target."
@@ -1054,9 +1063,6 @@ msgid "Add a Module"
 msgstr "Añadir un módulo"
 
 #: C/project-manager-module-add.page:25(p)
-#| msgid ""
-#| "Libraries cannot be added directly to a target. You need to put them into "
-#| "a module first and add this module to the target."
 msgid ""
 "Packages cannot be added directly to a target. You need to put them into a "
 "module first and add this module to the target. See <link xref=\"project-"
@@ -1086,7 +1092,6 @@ msgstr ""
 "gui><gui>Añadir biblioteca...</gui></guiseq>"
 
 #: C/project-manager-module-add.page:39(p)
-#, fuzzy
 #| msgid ""
 #| "You need to select the target where you want to add the module in the "
 #| "<gui>target view</gui> above, and select the module that you want to add "
@@ -1098,10 +1103,10 @@ msgid ""
 "in the <gui>module view</gui> below. If you select a library inside a "
 "module, the parent module will be added."
 msgstr ""
-"Seleccione el objetivo donde quiere añadir el módulo en la <gui>vista de "
+"Debe seleccionar el objetivo donde quiere añadir el módulo en el <gui>botón "
 "objetivo</gui> de encima y seleccionar el módulo que quiere añadir en la "
-"<gui>vista de módulo</gui> debajo. Se añadirá el módulo padre si selecciona "
-"una biblioteca dentro de un módulo."
+"<gui>vista de módulo</gui> debajo. Si selecciona una biblioteca dentro de un "
+"módulo, se añadirá el módulo padre ."
 
 #: C/project-manager-module-add.page:43(p)
 msgid ""
@@ -1162,6 +1167,10 @@ msgid ""
 "if it is the case <link xref=\"project-manager-module-new\">here</link>. But "
 "else you can still use the library as explained below."
 msgstr ""
+"Es más fácil usar una biblioteca empaquetada, lo que es muy habitual en "
+"Linux; compruebe si este es el caso <link xref=\"project-manager-module-new"
+"\">aquí</link>. Pero si no, todavía puede la biblioteca como se explica más "
+"abajo."
 
 #: C/project-manager-library-add.page:29(p)
 msgid ""
@@ -1189,12 +1198,6 @@ msgstr ""
 
 #: C/project-manager-library-add.page:41(p)
 #: C/project-manager-library-add.page:65(p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Properties</gui></guiseq>. By default, it edits the properties "
-#| "of the currently selected item in the project view. You can select a "
-#| "different node, by expanding <gui>Browse other nodes</gui> and selecting "
-#| "another one."
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
 "gui><gui>Properties</gui></guiseq>. By default, it edits the properties of "
@@ -1275,7 +1278,6 @@ msgid "Remove Folder"
 msgstr "Quitar una carpeta"
 
 #: C/project-manager-folder-remove.page:22(p)
-#, fuzzy
 #| msgid ""
 #| "Select the file you want to remove in the <gui>project view</gui>, click "
 #| "on the right mouse button to make the <gui>project context menu</gui> "
@@ -1285,12 +1287,11 @@ msgid ""
 "on the right mouse button to make the <gui>project context menu</gui> appear "
 "and select <gui>Remove</gui>."
 msgstr ""
-"Seleccione el archivo que quiere quitar en la <gui>vista de proyecto</gui>, "
+"Seleccione la carpeta que quiere quitar en la <gui>vista de proyecto</gui>, "
 "pulse con el botón derecho del ratón para mostrar el <gui>menú contextual "
 "del proyecto</gui> y seleccione <gui>Quitar</gui>."
 
 #: C/project-manager-folder-remove.page:28(p)
-#, fuzzy
 #| msgid ""
 #| "Confirm the removal. The file will only be removed from the project, not "
 #| "from your disk."
@@ -1298,11 +1299,10 @@ msgid ""
 "Confirm the removal. This will only remove the folder from the project files "
 "without removing any files or directories from your disk."
 msgstr ""
-"Confirme que quiere quitarlo. El archivo sólo se quitará del proyecto, no se "
-"eliminará en el disco."
+"Confirme que quiere quitarla. Esto sólo quitará la carpeta de los archivos "
+"del proyecto, no se eliminarán carpetas ni archivos del disco."
 
 #: C/project-manager-folder.page:11(desc)
-#| msgid "Add or remove files from a project."
 msgid "Add, edit or remove folders from a project."
 msgstr "Añadir o quitar carpetas de un proyecto."
 
@@ -1328,10 +1328,6 @@ msgstr ""
 "carpeta."
 
 #: C/project-manager-folder-add.page:25(p)
-#| msgid ""
-#| "Select the program where you want to add the new library in the "
-#| "<gui>project view</gui>, click on the right mouse button to make the "
-#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
 msgid ""
 "Select the group or the project where you want to add the new group in the "
 "<gui>project view</gui>, click on the right mouse button to make the "
@@ -1343,9 +1339,6 @@ msgstr ""
 "grupo</gui>."
 
 #: C/project-manager-folder-add.page:29(p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Source File</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui><gui>Add "
 "Group</gui></guiseq>."
@@ -1358,7 +1351,6 @@ msgid "Enter a new group name."
 msgstr "Introducir un nombre de grupo nuevo."
 
 #: C/project-manager-folder-add.page:35(p)
-#, fuzzy
 #| msgid ""
 #| "Target names are typically restricted to letters, digits and the "
 #| "underscore, so it's safer to avoid other characters."
@@ -1366,20 +1358,16 @@ msgid ""
 "Groups names are typically restricted to letters, digits and the underscore, "
 "so it's safer to avoid other characters."
 msgstr ""
-"Generalmente los nombres de los objetivos están restringidos a letras, "
-"dígitos y el guión bajo, así que es mejor evitar otros caracteres."
+"Generalmente los nombres de los grupos están restringidos a letras, dígitos "
+"y el guión bajo, así que es mejor evitar otros caracteres."
 
 #: C/project-manager-folder-add.page:40(p)
-#| msgid ""
-#| "You can select another directory in the bottom <gui>directory tree view</"
-#| "gui>."
 msgid "You can select another group in the bottom <gui>group tree view</gui>."
 msgstr ""
 "Puede seleccionar otro grupo en la parte inferior de la <gui>vista en árbol "
 "de carpetas</gui>."
 
 #: C/project-manager-folder-add.page:43(p)
-#, fuzzy
 #| msgid ""
 #| "When you have chosen the target and the files, click on the <gui>Add</"
 #| "gui> button to add those files to your project."
@@ -1387,8 +1375,8 @@ msgid ""
 "When you have chosen the parent and enter the name, click on the <gui>Add</"
 "gui> button to add the group to your project."
 msgstr ""
-"Cuando haya elejido el objetivo y los archivos, pulse en el botón "
-"<gui>Añadir</gui> para añadir esos archivos a su proyecto."
+"Cuando haya elegido el padre e introducido el nombre, pulse en el botón "
+"<gui>Añadir</gui> para añadir el grupo a su proyecto."
 
 #: C/project-import.page:11(desc)
 msgid "Import an existing project."
@@ -4036,7 +4024,6 @@ msgid "Autotools project type"
 msgstr "Tipo de proyecto de autotools"
 
 #: C/autotools-project-target-type.page:19(p)
-#| msgid "The type of the variable."
 msgid "There are different types of target available."
 msgstr "Hay diferentes tipos de objetivos disponibles."
 
@@ -4059,6 +4046,8 @@ msgid ""
 "It uses the Libtool package. Its name must start with 'lib' and has the '."
 "la' extension."
 msgstr ""
+"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la extensión "
+"«.la»."
 
 #: C/autotools-project-target-type.page:31(title)
 msgid "Static Library"
@@ -4069,18 +4058,25 @@ msgid ""
 "It represents a library linked with the program at compile time. Only the "
 "function used are kept inside the generated executable."
 msgstr ""
+"Representa una biblioteca enlazada con el programa en tiempo de compilación. "
+"Dentro del ejecutable sólo se mantienen la funciones usadas."
 
 #: C/autotools-project-target-type.page:34(p)
 msgid ""
 "It uses the Libtool package. Its name must start with 'lib' and has the '.a' "
 "extension."
 msgstr ""
+"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la extensión "
+"«.a»."
 
 #: C/autotools-project-target-type.page:39(p)
 msgid ""
 "It represents compiled program by example from C souces files. All children "
 "represent the source files compiled to generate the program."
 msgstr ""
+"Representa un programa compilado, por ejemplo, desde archivos fuente de C. "
+"Todos los hijos representan los archivos fuente compilados para generar el "
+"programa."
 
 #: C/autotools-project-target-type.page:44(title)
 msgid "Python module"
@@ -4115,22 +4111,22 @@ msgid ""
 "This target allows you to group header files and define where they have to "
 "be installed."
 msgstr ""
+"Este objetivo le permite agrupar cabeceras y definir dónde se tiene que "
+"instalar."
 
 #: C/autotools-project-target-type.page:61(title)
-#, fuzzy
 #| msgid "Auto-indentation"
 msgid "Man documentation"
-msgstr "Sangría automática"
+msgstr "Documentación man"
 
 #: C/autotools-project-target-type.page:62(p)
 msgid "It groups man pages needed by the project."
 msgstr "Agrupa las páginas del manual que necesita el proyecto."
 
 #: C/autotools-project-target-type.page:65(title)
-#, fuzzy
 #| msgid "Introduction"
 msgid "Info documentation"
-msgstr "Introducción"
+msgstr "Documentación info"
 
 #: C/autotools-project-target-type.page:66(p)
 msgid "It groups info page needed by the project."
@@ -4145,6 +4141,8 @@ msgid ""
 "It groups data files which needed by the project like pictures, ui "
 "description, settings files..."
 msgstr ""
+"Agrupa archivos de datos necesarios para el proyecto como imágenes, "
+"descripciones de la IU, archivos de configuración, etc."
 
 #: C/autotools-project-target-type.page:74(title)
 msgid "Script"
@@ -4156,6 +4154,9 @@ msgid ""
 "the specified directory. If scripts are generated additional rules are "
 "needed."
 msgstr ""
+"Representa los programas que son scripts. Estos scripts sólo se instalan en "
+"la carpeta especificada. Si los scripts se generan, se necesitan reglas "
+"adicionales."
 
 #: C/autotools-project-target-edit.page:9(desc)
 msgid "Edit autotools target properties."
@@ -4170,6 +4171,9 @@ msgid ""
 "Here is a list of all target properties used in autotools project. Some of "
 "them are not available on all targets."
 msgstr ""
+"Esta es una lista de todas las propiedades de objetivos usadas en un "
+"proyecto de autotools. Algunas de ellas no están disponibles en todos los "
+"objetivos."
 
 #: C/autotools-project-target-edit.page:25(gui)
 msgid "Build for check only"
@@ -4180,6 +4184,8 @@ msgid ""
 "If checked, this target is not installed and has to be built only when "
 "running checks."
 msgstr ""
+"Si está marcada, este objetivo no se instalad y sólo se construye al "
+"ejecutar pruebas."
 
 #: C/autotools-project-target-edit.page:30(gui)
 #: C/autotools-project-folder-edit.page:25(gui)
@@ -4191,6 +4197,9 @@ msgid ""
 "The flags to pass to the C compiler when compiling target source files. This "
 "value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de C al compilar los archivos de fuente "
+"objetivos. Este valor sobreescribe los que se puedan definir eventualmente "
+"en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:35(gui)
 #: C/autotools-project-folder-edit.page:30(gui)
@@ -4202,6 +4211,9 @@ msgid ""
 "These flags are passed to every compilation that invokes the C preprocessor. "
 "This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Estas opciones se pasan a cada compilación que invoque al preprocesador de "
+"C. Este valor sobreescribe los que se puedan definir eventualmente en la "
+"carpeta padre."
 
 #: C/autotools-project-target-edit.page:41(gui)
 #: C/autotools-project-folder-edit.page:36(gui)
@@ -4213,6 +4225,9 @@ msgid ""
 "The flags to pass to the C++ compiler flags when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de C++ al compilar los archivos de "
+"fuente objetivos. Este valor sobreescribe los que se puedan definir "
+"eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:47(gui)
 msgid "Do not install"
@@ -4223,6 +4238,9 @@ msgid ""
 "If checked, this target is not installed. It can be used for utilities used "
 "to build other target or programs used only by developers."
 msgstr ""
+"Si está marcada, este objetivo no se instala. Lo pueden usar algunas "
+"utilidades usadas para construir otro objetivo o programas usados sólo por "
+"desarrolladores."
 
 #: C/autotools-project-target-edit.page:53(gui)
 msgid "Do not use prefix"
@@ -4233,6 +4251,9 @@ msgid ""
 "If checked, do not add prefix to manual page and executable. Such prefix are "
 "used to provide alternative of system tools."
 msgstr ""
+"Si está marcada, no se añade el prefijo a las páginas del manual ni al "
+"ejecutable. Este prefijo se usa para proporcionar una alternativa a las "
+"herramientas del sistema."
 
 #: C/autotools-project-target-edit.page:58(gui)
 #: C/autotools-project-folder-edit.page:41(gui)
@@ -4244,16 +4265,18 @@ msgid ""
 "The flags to pass to the Fortran 9x compiler when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de Fortran 9x al compilar los archivos "
+"de fuente objetivos. Este valor sobreescribe los que se puedan definir "
+"eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:64(gui)
 msgid "Include in distribution"
 msgstr "Incluir en la distribución"
 
 #: C/autotools-project-target-edit.page:65(p)
-#, fuzzy
 #| msgid "Create a distribution package."
 msgid "If checked, include the target in the distribution package."
-msgstr "Crear un paquete de distribución."
+msgstr "Si está marcada. incluir el objetivo en un paquete de distribución."
 
 #: C/autotools-project-target-edit.page:68(gui)
 msgid "Installation directory"
@@ -4278,6 +4301,9 @@ msgid ""
 "The flags to pass to the Java compiler when compiling target source files. "
 "This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de Java al compilar los archivos de "
+"fuente objetivos. Este valor sobreescribe los que se puedan definir "
+"eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:82(gui)
 msgid "Keep target path"
@@ -4288,6 +4314,8 @@ msgid ""
 "If checked, keep the hierarchy of the project directory when installing "
 "files."
 msgstr ""
+"Si está marcada, mantener la jerarquía de la carpeta del proyecto al "
+"instalar los archivos."
 
 #: C/autotools-project-target-edit.page:87(gui)
 #: C/autotools-project-folder-edit.page:56(gui)
@@ -4300,6 +4328,9 @@ msgid ""
 "target source files. This value overrides the one eventually defined in the "
 "parent folder."
 msgstr ""
+"Las opciones que pasar al analizador Lex o Flex al generar los objetivos. "
+"Este valor sobreescribe los que se puedan definir eventualmente en la "
+"carpeta padre."
 
 #: C/autotools-project-target-edit.page:93(gui)
 msgid "Libraries"
@@ -4311,6 +4342,9 @@ msgid ""
 "package libraries. See <link xref=\"project-manager-library\">Add non-"
 "packaged libraries</link> page for more details."
 msgstr ""
+"Especifique bibliotecas adicionales usadas por el objetivo. Útil para añadir "
+"bibliotecas no empaquetadas. Consulte la página <link xref=\"project-manager-"
+"library\">añadir bibliotecas no empaquetadas</link> para obtener más detalles"
 
 #: C/autotools-project-target-edit.page:100(gui)
 #: C/autotools-project-folder-edit.page:61(gui)
@@ -4322,6 +4356,8 @@ msgid ""
 "The flags to pass to the linker when linking the target. This value "
 "overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al enlazador al enlazar los objetivos. Este valor "
+"sobreescribe los que se puedan definir eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:105(gui)
 msgid "Manual section"
@@ -4332,6 +4368,8 @@ msgid ""
 "Specify the section of the manual where to add man page. Valid section name "
 "are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’."
 msgstr ""
+"Especifique la sección del manual donde añadir la página del manual. Los "
+"nombres de secciones válidos son dígitos de «0» a «9» y las letras «l» y «n»."
 
 #: C/autotools-project-target-edit.page:111(gui)
 #: C/autotools-project-folder-edit.page:65(gui)
@@ -4343,6 +4381,9 @@ msgid ""
 "The flags to pass to the Objective C compiler when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de Objetive C al compilar los archivos "
+"de fuente objetivos. Este valor sobreescribe los que se puedan definir "
+"eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:117(gui)
 #: C/autotools-project-folder-edit.page:70(gui)
@@ -4354,6 +4395,9 @@ msgid ""
 "The flags to pass to the Vala compiler when compiling target source files. "
 "This value overrides the one eventually defined in the parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de Vala al compilar los archivos de "
+"fuente objetivos. Este valor sobreescribe los que se puedan definir "
+"eventualmente en la carpeta padre."
 
 #: C/autotools-project-target-edit.page:123(gui)
 #: C/autotools-project-folder-edit.page:75(gui)
@@ -4366,6 +4410,9 @@ msgid ""
 "target source files. This value overrides the one eventually defined in the "
 "parent folder."
 msgstr ""
+"Las opciones que pasar al compilador de Bison o Yacc al compilar los "
+"archivos de fuente objetivos. Este valor sobreescribe los que se puedan "
+"definir eventualmente en la carpeta padre."
 
 #: C/autotools-project-root-edit.page:10(desc)
 msgid "Edit autotools project properties."
@@ -4404,6 +4451,9 @@ msgid ""
 "This is an URL allowing to send bug report, by example an email address or a "
 "link to a bug tracker. It is optional."
 msgstr ""
+"Esto es un URL que permite enviar informes de error, por ejemplo, una "
+"dirección de correo-e o un enlace a un sistema de seguimiento de informes de "
+"error. Es opcional."
 
 #: C/autotools-project-root-edit.page:38(gui)
 msgid "Package name"
@@ -4414,6 +4464,8 @@ msgid ""
 "This is the name of distribution package, it shouldn't contain spaces. It is "
 "optional."
 msgstr ""
+"Esto es el nombre del paquete de la distribución, no debe contener espacios. "
+"Es opcional."
 
 #: C/autotools-project-root-edit.page:43(gui)
 msgid "URL"
@@ -4428,6 +4480,9 @@ msgid ""
 "In addition, the root item works as a folder and has all its properties. See "
 "<link xref=\"autotools-project-folder-edit\"/> to see the list."
 msgstr ""
+"Además, el elemento raíz funciona como una carpeta y tiene todas sus "
+"propiedades. Consulte la <link xref=\"autotools-project-folder-edit\"/> para "
+"ver la lista."
 
 #: C/autotools-project-folder-edit.page:9(desc)
 msgid "Edit autotools folder properties."
@@ -4442,29 +4497,39 @@ msgid ""
 "These properties allows you to define common properties for all targets "
 "belonging to this folder."
 msgstr ""
+"Estas propiedades le permiten definir propiedades comunes para todos los "
+"objetivos que pertenezcan a esta carpeta."
 
 #: C/autotools-project-folder-edit.page:26(p)
 msgid ""
 "The flags to pass to the C compiler if a per target value is not defined."
 msgstr ""
+"Las opciones que pasar al compilador de C si no se define el valor de un "
+"objetivo."
 
 #: C/autotools-project-folder-edit.page:31(p)
 msgid ""
 "These flags are passed to every compilation that invokes the C preprocessor. "
 "This value is ignored if these flags are defined for the target."
 msgstr ""
+"Estas opciones se pasan a cada compilación que invoque al preprocesador de "
+"C. Este valor se ignora si estas opciones están definidas para la carpeta."
 
 #: C/autotools-project-folder-edit.page:37(p)
 msgid ""
 "The flags to pass to the C++ compiler flags if a per target value is not "
 "defined."
 msgstr ""
+"Las opciones que pasar al compilador de C++ si no se define el valor de un "
+"objetivo."
 
 #: C/autotools-project-folder-edit.page:42(p)
 msgid ""
 "The flags to pass to the Fortran 9x compiler if a per target value is not "
 "defined."
 msgstr ""
+"Las opciones que pasar al compilador de Fortran 9x si no se define el valor "
+"de un objetivo."
 
 #: C/autotools-project-folder-edit.page:46(gui)
 msgid "Installation directories"
@@ -4475,50 +4540,61 @@ msgid ""
 "This defines installation directories. It is needed if you want to install "
 "files in custom directories."
 msgstr ""
+"Esto define las carpetas de instalación. Es necesario si quiere instalar los "
+"archivos en carpetas personalizadas."
 
 #: C/autotools-project-folder-edit.page:52(p)
 msgid ""
 "The flags to pass to the Java compiler if a per target value is not defined."
 msgstr ""
+"Las opciones que pasar al compilador de Java si no se define el valor de un "
+"objetivo."
 
 #: C/autotools-project-folder-edit.page:57(p)
 msgid ""
 "The flags to pass to the scanner generator Lex or Flex if a per target value "
 "is not defined."
 msgstr ""
+"Las opciones que pasar al analizador Lex o Flex si no se define el valor de "
+"un objetivo."
 
 #: C/autotools-project-folder-edit.page:62(p)
 msgid "The flags to pass to the linker if a per target value is not defined."
 msgstr ""
+"Las opciones que pasar al enlazador si no se define el valor de un objetivo."
 
 #: C/autotools-project-folder-edit.page:66(p)
 msgid ""
 "The flags to pass to the Objective C compiler if a per target value is not "
 "defined."
 msgstr ""
+"Las opciones que pasar al compilador de Objetive C si no se define el valor "
+"de un objetivo."
 
 #: C/autotools-project-folder-edit.page:71(p)
 msgid ""
 "The flags to pass to the Vala compiler if a per target value is not defined."
 msgstr ""
+"Las opciones que pasar al compilador de Vala si no se define el valor de un "
+"objetivo."
 
 #: C/autotools-project-folder-edit.page:76(p)
 msgid ""
 "The flags to pass to the parser generator Bison or Yacc if a per target "
 "value is not defined."
 msgstr ""
+"Las opciones que pasar al compilador de Bison o Yacc si no se define el "
+"valor de un objetivo."
 
 #: C/autotools-project-backend.page:8(desc)
-#, fuzzy
 #| msgid "Directory project backend."
 msgid "Autotools project backend."
-msgstr "«Backend» de la carpeta del proyecto"
+msgstr "«Backend» del proyecto de autotools."
 
 #: C/autotools-project-backend.page:21(title)
-#, fuzzy
 #| msgid "Directory project backend plugin"
 msgid "GNU Autotools project backend plugin"
-msgstr "Complemento de la carpeta de proyecto para el «backend»"
+msgstr "Complemento para el «backend» del proyecto de autotools"
 
 #: C/autotools-project-backend.page:23(p)
 msgid ""
