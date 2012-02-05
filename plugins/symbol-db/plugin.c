@@ -47,23 +47,26 @@
 #include "symbol-db-engine.h"
 #include "symbol-db-views.h"
 
-#define ICON_FILE "anjuta-symbol-db-plugin-48.png"
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-db-plugin.xml"
+#define ICON_FILE 							"anjuta-symbol-db-plugin-48.png"
+#define UI_FILE 							PACKAGE_DATA_DIR\
+											"/ui/anjuta-symbol-db-plugin.xml"
 
-#define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-db.ui"
-#define BUILDER_ROOT "symbol_prefs"
-#define ICON_FILE "anjuta-symbol-db-plugin-48.png"
-#define BUFFER_UPDATE "symboldb-buffer-update"
-#define PARALLEL_SCAN "symboldb-parallel-scan"
-#define PREFS_BUFFER_UPDATE "preferences_toggle:bool:1:1:symboldb-buffer-update"
-#define PREFS_PARALLEL_SCAN "preferences_toggle:bool:1:1:symboldb-parallel-scan"
+#define BUILDER_FILE 						PACKAGE_DATA_DIR\
+											"/glade/anjuta-symbol-db.ui"
+#define BUILDER_ROOT 						"symbol_prefs"
+#define ICON_FILE 							"anjuta-symbol-db-plugin-48.png"
+#define BUFFER_UPDATE 						"symboldb-buffer-update"
+#define PARALLEL_SCAN 						"symboldb-parallel-scan"
+#define PREFS_BUFFER_UPDATE 				"preferences_toggle:bool:1:1:symboldb-buffer-update"
+#define PREFS_PARALLEL_SCAN 				"preferences_toggle:bool:1:1:symboldb-parallel-scan"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
-#define PROJECT_GLOBALS		"/"
-#define SESSION_SECTION		"SymbolDB"
-#define SESSION_KEY			"SystemPackages"
+#define PROJECT_GLOBALS						"/"
+#define SESSION_SECTION						"SymbolDB"
+#define SESSION_KEY							"SystemPackages"
+#define PROJECT_ROOT_NAME_DEFAULT			"localprj"
 
 #define ANJUTA_PIXMAP_GOTO_DECLARATION		"element-interface"
 #define ANJUTA_PIXMAP_GOTO_IMPLEMENTATION	"element-method"
@@ -71,7 +74,9 @@
 #define ANJUTA_STOCK_GOTO_DECLARATION		"element-interface"
 #define ANJUTA_STOCK_GOTO_IMPLEMENTATION	"element-method"
 
-#define PREF_SCHEMA "org.gnome.anjuta.symbol-db"
+#define PREF_SCHEMA 						"org.gnome.anjuta.symbol-db"
+
+
 
 static gpointer parent_class;
 
@@ -1624,8 +1629,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	gchar *root_dir;
 	GFile *gfile;
 	IAnjutaProject *project;
-	AnjutaProjectNode *root;
-	const gchar *root_name;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
@@ -1686,10 +1689,10 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	g_object_unref (gfile);
 
 	project = ianjuta_project_manager_get_current_project (pm, NULL);
-	root = ianjuta_project_get_root (project, NULL);
-	root_name = anjuta_project_node_get_name (root);
 
-	sdb_plugin->project_opened = g_strdup (root_name);
+	/* let the project be something like "." to avoid problems when renaming the 
+	 * project dir */
+	sdb_plugin->project_opened = g_strdup (PROJECT_ROOT_NAME_DEFAULT);
 	
 	if (root_dir)
 	{
