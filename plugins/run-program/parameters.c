@@ -66,7 +66,7 @@ typedef struct _RunDialog RunDialog;
 struct _RunDialog
 {
  	GtkWidget *win;
-	
+
 	/* Child widgets */
 	GtkToggleButton *term;
 	GtkComboBox *args;
@@ -76,7 +76,7 @@ struct _RunDialog
 	GtkTreeModel* model;
 	GtkWidget *remove_button;
 	GtkWidget *edit_button;
-		
+
 	/* Plugin */
 	RunProgramPlugin *plugin;
 };
@@ -89,7 +89,7 @@ on_add_string_in_model (gpointer data, gpointer user_data)
 {
 	GtkListStore* model = (GtkListStore *)user_data;
 	GtkTreeIter iter;
-	
+
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, (const gchar *)data, -1);
 }
@@ -100,7 +100,7 @@ on_add_uri_in_model (gpointer data, gpointer user_data)
 	GtkListStore* model = (GtkListStore *)user_data;
 	GtkTreeIter iter;
 	gchar *local;
-	
+
 	local = anjuta_util_get_local_path_from_uri ((const char *)data);
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, local, -1);
@@ -113,8 +113,8 @@ on_add_directory_in_chooser (gpointer data, gpointer user_data)
 	GtkFileChooser* chooser = (GtkFileChooser *)user_data;
 	gchar *local;
 
-	local = anjuta_util_get_local_path_from_uri ((const char *)data);
-	gtk_file_chooser_add_shortcut_folder (chooser, (const gchar *)local, NULL);
+	local = g_file_get_path ((GFile *)data);
+	gtk_file_chooser_add_shortcut_folder (chooser, local, NULL);
 	g_free (local);
 }
 
@@ -127,7 +127,7 @@ load_environment_variables (RunProgramPlugin *plugin, GtkListStore *store)
 	GtkTreeIter iter;
 	gchar **var;
 	gchar **list;
-	
+
 	/* Load current environment variables */
 	list = g_listenv();
 	var = list;
@@ -146,7 +146,7 @@ load_environment_variables (RunProgramPlugin *plugin, GtkListStore *store)
 		}
 	}
 	g_strfreev (list);
-	
+
 	/* Load user environment variables */
 	var = plugin->environment_vars;
 	if (var)
@@ -154,11 +154,11 @@ load_environment_variables (RunProgramPlugin *plugin, GtkListStore *store)
 		for (; *var != NULL; var++)
 		{
 			gchar ** value;
-			
+
 			value = g_strsplit (*var, "=", 2);
 			if (value)
 			{
-				if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (store), 
+				if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (store),
 													NULL, &iter, ENV_NAME_COLUMN,
 													value[0]))
 				{
@@ -189,10 +189,10 @@ save_environment_variables (RunProgramPlugin *plugin, GtkTreeModel *model)
 	gchar **vars;
 	gboolean valid;
 	GtkTreeIter iter;
-	
+
 	/* Remove previous variables */
 	g_strfreev (plugin->environment_vars);
-	
+
 	/* Allocated a too big array: able to save all environment variables
 	 * while we need to save only variables modified by user but it
 	 * shouldn't be that big anyway and checking exactly which variable
@@ -200,19 +200,19 @@ save_environment_variables (RunProgramPlugin *plugin, GtkTreeModel *model)
 	vars = g_new (gchar *,
 							gtk_tree_model_iter_n_children (GTK_TREE_MODEL (model), NULL) + 1);
 	plugin->environment_vars = vars;
-	
+
 	for (valid = gtk_tree_model_get_iter_first (model, &iter); valid; valid = gtk_tree_model_iter_next (model, &iter))
 	{
 		gchar *name;
 		gchar *value;
 		gchar *color;
-		
+
 		gtk_tree_model_get (model, &iter,
 							ENV_NAME_COLUMN, &name,
 							ENV_VALUE_COLUMN, &value,
 							ENV_COLOR_COLUMN, &color,
 							-1);
-		
+
 		/* Save only variables modified by user */
 		if (strcmp(color, ENV_USER_COLOR) == 0)
 		{
@@ -226,12 +226,18 @@ save_environment_variables (RunProgramPlugin *plugin, GtkTreeModel *model)
 	*vars = NULL;
 }
 
+static gint
+compare_file (GFile *file_a, GFile *file_b)
+{
+	return g_file_equal (file_a, file_b) ? 0 : 1;
+}
+
 static void
 save_dialog_data (RunDialog* dlg)
 {
 	gchar *arg;
 	const gchar *filename;
-	gchar *uri;
+	GFile *file;
 	GList *find;
 	GtkTreeModel* model;
 	RunProgramPlugin *plugin = dlg->plugin;
@@ -251,13 +257,14 @@ save_dialog_data (RunDialog* dlg)
 			plugin->recent_args = g_list_delete_link (plugin->recent_args, find);
 		}
 		plugin->recent_args = g_list_prepend (plugin->recent_args, arg);
-	}	
+	}
 
 	/* Save target */
 	filename = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->target))));
 	if ((filename != NULL) && (*filename != '\0'))
 	{
 		GFile *file;
+		gchar *uri;
 
 		file = g_file_new_for_path (filename);
 		uri = g_file_get_uri (file);
@@ -276,22 +283,22 @@ save_dialog_data (RunDialog* dlg)
 	}
 
 	/* Save working dir */
-	uri = gtk_file_chooser_get_uri (dlg->dirs);
-	if (uri != NULL)
+	file = gtk_file_chooser_get_file (dlg->dirs);
+	if (file != NULL)
 	{
-		find = g_list_find_custom(plugin->recent_dirs, uri, (GCompareFunc)strcmp);
+		find = g_list_find_custom(plugin->recent_dirs, file, (GCompareFunc)compare_file);
 		if (find)
 		{
-			g_free (find->data);
+			g_object_unref (G_OBJECT (find->data));
 			plugin->recent_dirs = g_list_delete_link (plugin->recent_dirs, find);
 		}
-		plugin->recent_dirs = g_list_prepend (plugin->recent_dirs, uri);
+		plugin->recent_dirs = g_list_prepend (plugin->recent_dirs, file);
 	}
-			
+
 	/* Save all environment variables */
 	model = gtk_tree_view_get_model (dlg->vars);
 	save_environment_variables (plugin, model);
-			
+
 	plugin->run_in_terminal = gtk_toggle_button_get_active (dlg->term);
 
 	run_plugin_update_shell_value (plugin);
@@ -319,7 +326,7 @@ on_select_target (RunDialog* dlg)
 
 		gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->target))), filename);
 		g_free (filename);
-	}		
+	}
 	gtk_widget_destroy (GTK_WIDGET (sel_dlg));
 }
 
@@ -334,19 +341,19 @@ on_environment_selection_changed (GtkTreeSelection *selection, RunDialog *dlg)
 	{
 		selection = gtk_tree_view_get_selection (dlg->vars);
 	}
-	
+
 	selected = gtk_tree_selection_get_selected (selection, &model, &iter);
 	if (selected)
 	{
 		gchar *color;
 		gchar *value;
 		gboolean restore;
-		
+
 		gtk_tree_model_get (model, &iter,
 							ENV_DEFAULT_VALUE_COLUMN, &value,
 							ENV_COLOR_COLUMN, &color,
 							-1);
-		
+
 		restore = (strcmp (color, ENV_USER_COLOR) == 0) && (value != NULL);
 		gtk_button_set_label (GTK_BUTTON (dlg->remove_button), restore ? GTK_STOCK_REVERT_TO_SAVED : GTK_STOCK_DELETE);
 		g_free (color);
@@ -364,9 +371,9 @@ on_environment_add_button (GtkButton *button, GtkTreeView *view)
 	GtkTreeViewColumn *column;
 	GtkTreePath *path;
 	GtkTreeSelection* sel;
-		
+
 	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	
+
 	sel = gtk_tree_view_get_selection (view);
 	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
 	{
@@ -378,13 +385,13 @@ on_environment_add_button (GtkButton *button, GtkTreeView *view)
 	{
 		gtk_list_store_prepend (model, &iter);
 	}
-	
+
 	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, "",
 								ENV_VALUE_COLUMN, "",
 								ENV_DEFAULT_VALUE_COLUMN, NULL,
 								ENV_COLOR_COLUMN, ENV_USER_COLOR,
 								-1);
-		
+
 	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
 	column = gtk_tree_view_get_column (view, ENV_NAME_COLUMN);
 	gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
@@ -404,7 +411,7 @@ on_environment_edit_button (GtkButton *button, GtkTreeView *view)
 		GtkListStore *model;
 		GtkTreePath *path;
 		GtkTreeViewColumn *column;
-		
+
 		model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
 		column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
@@ -428,7 +435,7 @@ on_environment_remove_button (GtkButton *button, RunDialog *dlg)
 		GtkTreeViewColumn *column;
 		GtkTreePath *path;
 		gchar *color;
-		
+
 		model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 
 		/* Display variable */
@@ -436,7 +443,7 @@ on_environment_remove_button (GtkButton *button, RunDialog *dlg)
 		column = gtk_tree_view_get_column (view, ENV_NAME_COLUMN);
 		gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
 		gtk_tree_path_free (path);
-		
+
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
 							ENV_COLOR_COLUMN, &color,
 							-1);
@@ -444,11 +451,11 @@ on_environment_remove_button (GtkButton *button, RunDialog *dlg)
 		{
 			/* Remove an user variable */
 			gchar *value;
-			
+
 			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
 								ENV_DEFAULT_VALUE_COLUMN, &value,
 								-1);
-			
+
 			if (value != NULL)
 			{
 				/* Restore default environment variable */
@@ -461,7 +468,7 @@ on_environment_remove_button (GtkButton *button, RunDialog *dlg)
 				gtk_list_store_remove (model, &iter);
 			}
 			g_free (value);
-		}				
+		}
 		else
 		{
 			/* Replace value with an empty one */
@@ -479,14 +486,14 @@ move_to_environment_value (gpointer data)
 	GtkTreeView *view = GTK_TREE_VIEW (data);
 	GtkTreeSelection* sel;
 	GtkTreeModel *model;
-	GtkTreeIter iter;	
+	GtkTreeIter iter;
 	GtkTreeViewColumn *column;
 
 	sel = gtk_tree_view_get_selection (view);
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
 		GtkTreePath *path;
-		
+
 		path = gtk_tree_model_get_path (model, &iter);
 		column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
 		gtk_tree_view_set_cursor (view, path, column, TRUE);
@@ -507,9 +514,9 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 	GtkListStore *model;
 	gboolean valid;
 	GtkTreeView *view = dlg->vars;
-	
+
 	text = g_strstrip (text);
-	
+
 	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 
 	valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path);
@@ -518,16 +525,16 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 		gchar *name;
 		gchar *value;
 		gchar *def_value;
-			
+
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
 							ENV_NAME_COLUMN, &name,
 							ENV_VALUE_COLUMN, &value,
 							ENV_DEFAULT_VALUE_COLUMN, &def_value,
 							-1);
-		
+
 		if (strcmp(name, text) != 0)
 		{
-			
+
 			if (def_value != NULL)
 			{
 				/* Remove current variable */
@@ -535,9 +542,9 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 									ENV_COLOR_COLUMN, ENV_USER_COLOR,
 									-1);
 			}
-			
+
 			/* Search variable with new name */
-			if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (model), 
+			if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (model),
 												NULL, &niter, ENV_NAME_COLUMN,
 												text))
 			{
@@ -545,7 +552,7 @@ on_environment_variable_edited (GtkCellRendererText *cell,
 					{
 						gtk_list_store_remove (model, &iter);
 					}
-					gtk_list_store_set (model, &niter, 
+					gtk_list_store_set (model, &niter,
 										ENV_VALUE_COLUMN, value,
 										ENV_COLOR_COLUMN, ENV_USER_COLOR,
 										-1);
@@ -586,11 +593,11 @@ on_environment_value_edited (GtkCellRendererText *cell,
 	GtkTreeView *view = dlg->vars;
 
 	text = g_strstrip (text);
-	
-	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));	
+
+	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
 	if (gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path))
 	{
-		gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, text, 
+		gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, text,
 										ENV_COLOR_COLUMN, ENV_USER_COLOR,
 										-1);
 		on_environment_selection_changed (NULL, dlg);
@@ -603,7 +610,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	GtkBuilder *bxml;
 	GtkWindow *parent;
 	GtkWidget *child;
-	GtkCellRenderer *renderer;	
+	GtkCellRenderer *renderer;
 	GtkTreeModel* model;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
@@ -611,7 +618,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	GValue value = {0,};
 	const gchar *project_root_uri;
 	GError* error = NULL;
-	
+
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	bxml = gtk_builder_new ();
 
@@ -621,9 +628,9 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		g_error_free (error);
 		return NULL;
 	}
-	
+
 	dlg->plugin = plugin;
-		
+
 	dlg->win = GTK_WIDGET (gtk_builder_get_object (bxml, PARAMETERS_DIALOG));
 	dlg->term = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TERMINAL_CHECK_BUTTON));
 	dlg->args = GTK_COMBO_BOX (gtk_builder_get_object (bxml, PARAMETER_COMBO));
@@ -633,7 +640,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	dlg->remove_button = GTK_WIDGET (gtk_builder_get_object (bxml, REMOVE_VAR_BUTTON));
 	dlg->edit_button = GTK_WIDGET (gtk_builder_get_object (bxml, EDIT_VAR_BUTTON));
 
-	/* Connect signals */	
+	/* Connect signals */
 	button = gtk_builder_get_object (bxml, TARGET_BUTTON);
 	g_signal_connect_swapped (button, "clicked", G_CALLBACK (on_select_target), dlg);
 	button = gtk_builder_get_object (bxml, ADD_VAR_BUTTON);
@@ -644,7 +651,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_remove_button), dlg);
 	selection = gtk_tree_view_get_selection (dlg->vars);
 	g_signal_connect (selection, "changed", G_CALLBACK (on_environment_selection_changed), dlg);
-	
+
 	g_object_unref (bxml);
 
 	/* Fill parameter combo box */
@@ -660,8 +667,8 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 
 	/* Fill working directory list */
 	g_list_foreach (plugin->recent_dirs, on_add_directory_in_chooser, dlg->dirs);
-	if (plugin->recent_dirs != NULL) gtk_file_chooser_set_uri (dlg->dirs, (const char *)plugin->recent_dirs->data);
-	
+	if (plugin->recent_dirs != NULL) gtk_file_chooser_set_file (dlg->dirs, (GFile *)plugin->recent_dirs->data, NULL);
+
 	/* Fill target combo box */
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->target, model);
@@ -675,7 +682,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		/* One project loaded, get all executable target */
 		IAnjutaProjectManager *pm;
 		GList *exec_targets = NULL;
-			
+
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaProjectManager, NULL);
 		if (pm != NULL)
@@ -712,11 +719,11 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	}
 
 	child = gtk_bin_get_child (GTK_BIN (dlg->target));
-	
+
 	if (plugin->recent_target != NULL)
 	{
 		gchar *local;
-		
+
 		local = anjuta_util_get_local_path_from_uri ((const char *)plugin->recent_target->data);
 		gtk_entry_set_text (GTK_ENTRY (child), local);
 		g_free (local);
@@ -739,7 +746,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 		}
 	}
 	g_object_unref (model);
-	
+
 	/* Fill environment variable list */
 	model = GTK_TREE_MODEL (gtk_list_store_new (ENV_N_COLUMNS,
 												G_TYPE_STRING,
@@ -750,10 +757,10 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	gtk_tree_view_set_model (dlg->vars, model);
 	load_environment_variables (plugin, GTK_LIST_STORE (model));
 	g_object_unref (model);
-	
+
 	renderer = gtk_cell_renderer_text_new ();
 	g_signal_connect(renderer, "edited", (GCallback) on_environment_variable_edited, dlg);
-	g_object_set(renderer, "editable", TRUE, NULL);	
+	g_object_set(renderer, "editable", TRUE, NULL);
 	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,
 													   "text", ENV_NAME_COLUMN,
 													   "foreground", ENV_COLOR_COLUMN,
@@ -761,7 +768,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (dlg->vars, column);
 	renderer = gtk_cell_renderer_text_new ();
-	g_object_set(renderer, "editable", TRUE, NULL);	
+	g_object_set(renderer, "editable", TRUE, NULL);
 	g_signal_connect(renderer, "edited", (GCallback) on_environment_value_edited, dlg);
 	column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer,
 													   "text", ENV_VALUE_COLUMN,
@@ -769,12 +776,12 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 													   NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (dlg->vars, column);
-	
-	/* Set terminal option */	
+
+	/* Set terminal option */
 	if (plugin->run_in_terminal) gtk_toggle_button_set_active (dlg->term, TRUE);
-	
+
 	gtk_window_set_transient_for (GTK_WINDOW (dlg->win), parent);
-	
+
 	return dlg;
 }
 
@@ -783,7 +790,7 @@ run_parameters_dialog_or_try_execute (RunProgramPlugin *plugin, gboolean try_run
 {
 	RunDialog dlg;
 	gint response;
-	
+
 	run_dialog_init (&dlg, plugin);
 	const char *target = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg.target))));
 
@@ -800,7 +807,7 @@ run_parameters_dialog_or_try_execute (RunProgramPlugin *plugin, gboolean try_run
 			save_dialog_data (&dlg);
 		}
 		gtk_widget_destroy (dlg.win);
-	}	
+	}
 
 	return response;
 }
