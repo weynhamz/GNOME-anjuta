@@ -20,6 +20,8 @@ public class Main : Object
 	 */
 	//const string UI_FILE = Config.PACKAGE_DATA_DIR + "/" + "[+NameHLower+].ui";
 	const string UI_FILE = "src/[+NameHLower+].ui";
+
+	/* ANJUTA: Widgets declaration for [+NameHLower+].ui - DO NOT REMOVE */
 [+ENDIF+]
 
 	public Main ()
@@ -32,6 +34,7 @@ public class Main : Object
 			builder.connect_signals (this);
 
 			var window = builder.get_object ("window") as Window;
+			/* ANJUTA: Widgets initialization for [+NameHLower+].ui - DO NOT REMOVE */
 			window.show_all ();
 		} 
 		catch (Error e) {

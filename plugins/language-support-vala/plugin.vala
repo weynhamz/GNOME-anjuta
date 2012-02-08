@@ -273,6 +273,7 @@ public class ValaPlugin : Plugin {
 				gladesig.drop_possible.connect (on_drop_possible);
 				gladesig.drop.connect (on_drop);
 			}
+			current_editor.glade_member_add.connect (insert_member_decl_and_init);
 		}
 		report.update_errors (current_editor);
 	}
@@ -291,6 +292,7 @@ public class ValaPlugin : Plugin {
 			gladesig.drop_possible.disconnect (on_drop_possible);
 			gladesig.drop.disconnect (on_drop);
 		}
+		current_editor.glade_member_add.disconnect (insert_member_decl_and_init);
 		current_editor = null;
 	}
 
@@ -425,6 +427,47 @@ public class ValaPlugin : Plugin {
 		editor.goto_position (inside);
 		if (indenter != null)
 			indenter.indent (inside, inside);
+	}
+
+	const string DECL_MARK = "/* ANJUTA: Widgets declaration for %s - DO NOT REMOVE */\n";
+	const string INIT_MARK = "/* ANJUTA: Widgets initialization for %s - DO NOT REMOVE */\n";
+
+	void insert_member_decl_and_init (IAnjuta.Editor editor, string widget_ctype, string widget_name, string filename) {
+		var widget_type = lookup_symbol_by_cname (widget_ctype).get_full_name ();
+		var basename = Path.get_basename (filename);
+
+		string member_decl = "%s %s;\n".printf (widget_type, widget_name);
+		string member_init = "%s = builder.get_object(\"%s\") as %s;\n".printf (widget_name, widget_name, widget_type);
+
+		insert_after_mark (editor, DECL_MARK.printf (basename), member_decl)
+		  && insert_after_mark (editor, INIT_MARK.printf (basename), member_init);
+	}
+
+	bool insert_after_mark (IAnjuta.Editor editor, string mark, string code_to_add) {
+		var search_start = editor.get_start_position () as IAnjuta.EditorCell;
+		var search_end = editor.get_end_position () as IAnjuta.EditorCell;
+
+		IAnjuta.EditorCell result_end;
+		(editor as IAnjuta.EditorSearch).forward (mark, false, search_start, search_end, null, out result_end);
+
+		var mark_position = result_end as IAnjuta.Iterable;
+		if (mark_position == null)
+			return false;
+
+		editor.insert (mark_position, code_to_add, -1);
+
+		var indenter = shell.get_object ("IAnjutaIndenter") as IAnjuta.Indenter;
+		if (indenter != null) {
+			var end = mark_position.clone ();
+			/* -1 so we don't count the last newline (as that would indent the line after) */
+			end.set_position (end.get_position () + code_to_add.char_count () - 1);
+			indenter.indent (mark_position, end);
+		}
+
+		/* Emit code-added signal, so symbols will be updated */
+		editor.code_added (mark_position, code_to_add);
+
+		return true;
 	}
 
 	Vala.Symbol? lookup_symbol_by_cname (string cname, Vala.Symbol parent=context.root) {
