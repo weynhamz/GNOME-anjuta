@@ -162,7 +162,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 		return;
 
 	anjuta_session_set_limited_string_list (session, "Execution", "Program arguments", &self->recent_args);
-	anjuta_session_set_limited_string_list (session, "Execution", "Program uri", &self->recent_target);
+	anjuta_session_set_limited_relative_file_list (session, "Execution", "Program uri", &self->recent_target);
 	anjuta_session_set_int (session, "Execution", "Run in terminal", self->run_in_terminal + 1);
 	anjuta_session_set_limited_relative_file_list (session,"Execution", "Working directories", &self->recent_dirs);
 	anjuta_session_set_strv (session, "Execution", "Environment variables", self->environment_vars);
@@ -182,12 +182,9 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
  	}
  	self->recent_args = anjuta_session_get_string_list (session, "Execution", "Program arguments");
 
- 	if (self->recent_target != NULL)
- 	{
- 		g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
- 		g_list_free (self->recent_target);
- 	}
- 	self->recent_target = anjuta_session_get_string_list (session, "Execution", "Program uri");
+	g_list_foreach (self->recent_target, (GFunc)g_object_unref, NULL);
+	g_list_free (self->recent_target);
+ 	self->recent_target = anjuta_session_get_relative_file_list (session, "Execution", "Program uri");
 
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
 	run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
@@ -388,7 +385,7 @@ run_plugin_finalize (GObject *obj)
 {
 	RunProgramPlugin *self = ANJUTA_PLUGIN_RUN_PROGRAM (obj);
 
-	g_list_foreach (self->recent_target, (GFunc)g_free, NULL);
+	g_list_foreach (self->recent_target, (GFunc)g_object_unref, NULL);
 	g_list_free (self->recent_target);
 	g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
 	g_list_free (self->recent_args);
@@ -431,17 +428,20 @@ void
 run_plugin_update_shell_value (RunProgramPlugin *plugin)
 {
 	gchar *dir_uri;
+	gchar *target_uri;
 
 	/* Update Anjuta shell value */
+	target_uri = plugin->recent_target == NULL ? NULL : g_file_get_uri ((GFile *)plugin->recent_target->data);
 	dir_uri = plugin->recent_dirs == NULL ? NULL : g_file_get_uri ((GFile *)plugin->recent_dirs->data);
 	anjuta_shell_add (ANJUTA_PLUGIN (plugin)->shell,
-					 	RUN_PROGRAM_URI, G_TYPE_STRING, plugin->recent_target == NULL ? NULL : plugin->recent_target->data,
+					 	RUN_PROGRAM_URI, G_TYPE_STRING, target_uri,
 						RUN_PROGRAM_ARGS, G_TYPE_STRING, plugin->recent_args == NULL ? NULL : plugin->recent_args->data,
 					    RUN_PROGRAM_DIR, G_TYPE_STRING, dir_uri,
 					  	RUN_PROGRAM_ENV, G_TYPE_STRV, plugin->environment_vars == NULL ? NULL : plugin->environment_vars,
 						RUN_PROGRAM_NEED_TERM, G_TYPE_BOOLEAN, plugin->run_in_terminal,
 					  	NULL);
 	g_free (dir_uri);
+	g_free (target_uri);
 }
 
 void

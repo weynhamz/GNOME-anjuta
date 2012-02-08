@@ -95,13 +95,13 @@ on_add_string_in_model (gpointer data, gpointer user_data)
 }
 
 static void
-on_add_uri_in_model (gpointer data, gpointer user_data)
+on_add_file_in_model (gpointer data, gpointer user_data)
 {
 	GtkListStore* model = (GtkListStore *)user_data;
 	GtkTreeIter iter;
 	gchar *local;
 
-	local = anjuta_util_get_local_path_from_uri ((const char *)data);
+	local = g_file_get_path ((GFile *)data);
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, local, -1);
 	g_free (local);
@@ -263,23 +263,14 @@ save_dialog_data (RunDialog* dlg)
 	filename = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (dlg->target))));
 	if ((filename != NULL) && (*filename != '\0'))
 	{
-		GFile *file;
-		gchar *uri;
-
 		file = g_file_new_for_path (filename);
-		uri = g_file_get_uri (file);
-		g_object_unref (file);
-
-		if (uri != NULL)
+		find = g_list_find_custom (plugin->recent_target, file, (GCompareFunc)compare_file);
+		if (find)
 		{
-			find = g_list_find_custom (plugin->recent_target, uri, (GCompareFunc)strcmp);
-			if (find)
-			{
-				g_free (find->data);
-				plugin->recent_target = g_list_delete_link (plugin->recent_target, find);
-			}
-			plugin->recent_target = g_list_prepend (plugin->recent_target, uri);
+			g_object_unref (G_OBJECT (find->data));
+			plugin->recent_target = g_list_delete_link (plugin->recent_target, find);
 		}
+		plugin->recent_target = g_list_prepend (plugin->recent_target, file);
 	}
 
 	/* Save working dir */
@@ -673,7 +664,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 	gtk_combo_box_set_model (dlg->target, model);
 	gtk_combo_box_set_entry_text_column( GTK_COMBO_BOX (dlg->target), 0);
-	g_list_foreach (plugin->recent_target, on_add_uri_in_model, model);
+	g_list_foreach (plugin->recent_target, on_add_file_in_model, model);
 
     anjuta_shell_get_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI, &value, NULL);
 	project_root_uri = G_VALUE_HOLDS_STRING (&value) ? g_value_get_string (&value) : NULL;
@@ -698,17 +689,16 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 			for (node = exec_targets; node; node = g_list_next (node))
 			{
 				GList *target;
-				gchar *uri = g_file_get_uri ((GFile *)node->data);
+				GFile *file = (GFile *)node->data;
 				for (target = plugin->recent_target; target; target = g_list_next (target))
 				{
-					if (strcmp ((const gchar *)target->data, uri) == 0) break;
+					if (g_file_equal ((GFile *)target->data, file)) break;
 				}
 				if (target == NULL)
 				{
-					on_add_uri_in_model (uri, model);
+					on_add_file_in_model (file, model);
 				}
-				g_free (uri);
-				g_object_unref (node->data);
+				g_object_unref (G_OBJECT (file));
 			}
 			g_list_free (exec_targets);
 		}
@@ -724,7 +714,7 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	{
 		gchar *local;
 
-		local = anjuta_util_get_local_path_from_uri ((const char *)plugin->recent_target->data);
+		local = g_file_get_path ((GFile *)plugin->recent_target->data);
 		gtk_entry_set_text (GTK_ENTRY (child), local);
 		g_free (local);
 	}
