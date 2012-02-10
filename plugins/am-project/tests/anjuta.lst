@@ -1902,10 +1902,14 @@ ROOT (): anjuta
                     PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/licenses
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
-                        SOURCE (): plugins/project-wizard/templates/licenses/BSD
-                        SOURCE (): plugins/project-wizard/templates/licenses/GPL
-                        SOURCE (): plugins/project-wizard/templates/licenses/LGPL
-                        SOURCE (): plugins/project-wizard/templates/licenses/None
+                        SOURCE (): plugins/project-wizard/templates/licenses/gpl.txt
+                        SOURCE (): plugins/project-wizard/templates/licenses/gpl.tpl
+                        SOURCE (): plugins/project-wizard/templates/licenses/lgpl.txt
+                        SOURCE (): plugins/project-wizard/templates/licenses/lgpl.tpl
+                        SOURCE (): plugins/project-wizard/templates/licenses/bsd.txt
+                        SOURCE (): plugins/project-wizard/templates/licenses/bsd.tpl
+                        SOURCE (): plugins/project-wizard/templates/licenses/none.txt
+                        SOURCE (): plugins/project-wizard/templates/licenses/none.tpl
                 GROUP (): m4
                     PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/m4
                     TARGET (): wizard_files
@@ -1973,7 +1977,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/project-wizard/templates/appwiz_sdl.png
                     SOURCE (): plugins/project-wizard/templates/gnome.png
                     SOURCE (): plugins/project-wizard/templates/gnome.svg
-                    SOURCE (): plugins/project-wizard/templates/$(template_in_files:.wiz.in=.wiz)
+                    SOURCE (): plugins/project-wizard/templates/$(template_in_files:.in=)
             TARGET (): wizard_glade
                 PROPERTY (Installation directory): wizard_gladedir
                 SOURCE (): plugins/project-wizard/anjuta-project-wizard.ui
