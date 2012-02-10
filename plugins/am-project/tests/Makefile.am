@@ -1,6 +1,13 @@
 
-EXTRA_DIST = testsuite.at $(TESTSUITE_AT) $(srcdir)/package.m4 $(TESTSUITE) \
-	atlocal.in anjuta.lst
+EXTRA_DIST = testsuite.at \
+	local.at \
+	$(TESTSUITE_AT) \
+	$(srcdir)/package.m4 \
+	$(TESTSUITE) \
+	atlocal.in \
+	anjuta.lst \
+	nemiver.shar \
+	nemiver.lst
 
 DISTCLEANFILES = atconfig
 
