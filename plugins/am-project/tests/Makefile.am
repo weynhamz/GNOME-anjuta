@@ -7,7 +7,9 @@ EXTRA_DIST = testsuite.at \
 	atlocal.in \
 	anjuta.lst \
 	nemiver.shar \
-	nemiver.lst
+	nemiver.lst \
+	gnucash.shar \
+	gnucash.lst
 
 DISTCLEANFILES = atconfig
 
@@ -42,7 +44,8 @@ TESTSUITE_AT = \
 	$(srcdir)/bugs.at \
 	$(srcdir)/nemiver.at \
 	$(srcdir)/ltinit.at \
-	$(srcdir)/comment.at
+	$(srcdir)/comment.at \
+	$(srcdir)/gnucash.at
 
 TESTSUITE = $(srcdir)/testsuite
 

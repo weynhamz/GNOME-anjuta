@@ -523,6 +523,7 @@ not_single_token:
 	| HASH
 	| END_OF_LINE
 	| DOUBLE_QUOTE
+	| RIGHT_BRACE
     ;
 
 double_string:
@@ -658,6 +659,7 @@ arg_string_body:
         anjuta_token_merge ($1, $2);
     }
     | arg_string_body macro
+    | arg_string_body dnl
     | arg_string_body raw_string {
         anjuta_token_merge ($1, $2);
     }
@@ -702,6 +704,7 @@ arg_part:
     arg_string
     | expression
     | macro
+	| dnl
     | arg_token
     ;
 
