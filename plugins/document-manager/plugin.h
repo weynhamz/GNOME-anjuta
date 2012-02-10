@@ -46,6 +46,9 @@ struct _DocmanPlugin{
 
 	/* SearchBox */
 	GtkWidget* search_box;
+
+    /* SearchFiles */
+    GObject* search_files;
 	
 	/* Base box of the widget */
 	GtkWidget* vbox;

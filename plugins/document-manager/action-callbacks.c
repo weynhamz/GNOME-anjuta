@@ -45,6 +45,7 @@
 #include "plugin.h"
 #include "file_history.h"
 #include "search-box.h"
+#include "search-files.h"
 #include "anjuta-bookmarks.h"
 
 static IAnjutaDocument *
@@ -909,6 +910,19 @@ on_search_popup_regex_search (GtkAction *action, gpointer user_data)
 		gtk_widget_show (search_box);
 
 	search_box_toggle_regex (SEARCH_BOX (search_box), regex_active);
+}
+
+void 
+on_search_find_in_files (GtkAction *action, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+
+	if (!plugin->search_files)
+	{
+		plugin->search_files = G_OBJECT (search_files_new (ANJUTA_DOCMAN (plugin->docman)));
+	}
+	search_files_present (SEARCH_FILES(plugin->search_files));
 }
 
 void

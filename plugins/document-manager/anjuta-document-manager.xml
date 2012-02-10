@@ -49,6 +49,8 @@
 							<menuitem name="QuickSearchPrevious" action="ActionEditSearchFindPrevious"/>							
 							<menuitem name="QuickReplace" action="ActionEditSearchReplace"/>
 							<separator name="separator8"/>
+							<menuitem name="FindFiles" action="ActionEditFindFiles"/>							
+							<separator name="separator9"/>
 						</placeholder>
 					</menu>
 				</placeholder>

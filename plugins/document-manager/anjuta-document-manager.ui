@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires anjuta 0.0 -->
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
     <property name="upper">1000</property>
@@ -13,6 +14,48 @@
     <property name="value">10</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkListStore" id="file_type_model">
+    <columns>
+      <!-- column-name Name -->
+      <column type="gchararray"/>
+      <!-- column-name mime-types -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">All Files</col>
+        <col id="1" translatable="yes"></col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">C/C++ Source files</col>
+        <col id="1" translatable="yes">text/x-c</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Vala Source files</col>
+        <col id="1" translatable="yes">text/x-vala</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Python Source files</col>
+        <col id="1" translatable="yes">text/x-python,application/x-extension-wsgi</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Javascript Source files</col>
+        <col id="1" translatable="yes">application/javascript</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">XML files</col>
+        <col id="1" translatable="yes">application/xml</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">User interface files</col>
+        <col id="1" translatable="yes">application/x-glade,application/x-designer</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Source files</col>
+        <col id="1" translatable="yes">text/source</col>
+      </row>
+    </data>
   </object>
   <object class="GtkListStore" id="model1">
     <columns>
@@ -346,6 +389,188 @@
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="search_files">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkGrid" id="main_box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="row_spacing">5</property>
+        <property name="column_spacing">5</property>
+        <property name="n_rows">4</property>
+        <property name="n_columns">2</property>
+        <child>
+          <object class="GtkEntry" id="search_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="invisible_char">●</property>
+            <property name="invisible_char_set">True</property>
+            <property name="primary_icon_stock">gtk-find</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="replace_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="invisible_char">●</property>
+            <property name="invisible_char_set">True</property>
+            <property name="primary_icon_stock">gtk-find-and-replace</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="search_button">
+            <property name="label">gtk-find</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="use_action_appearance">False</property>
+            <property name="use_stock">True</property>
+            <signal name="clicked" handler="search_files_search_clicked" swapped="yes"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="replace_button">
+            <property name="label" translatable="yes">Replace</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="use_action_appearance">False</property>
+            <signal name="clicked" handler="search_files_replace_clicked" swapped="yes"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">start</property>
+            <property name="hexpand">True</property>
+            <property name="row_spacing">5</property>
+            <property name="column_spacing">5</property>
+            <property name="n_rows">1</property>
+            <property name="n_columns">2</property>
+            <child>
+              <object class="GtkComboBox" id="file_type_combo">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="model">file_type_model</property>
+                <property name="active">0</property>
+                <property name="entry_text_column">0</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="AnjutaPmChooserButton" id="project_combo">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="valign">start</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="find_files_button">
+            <property name="label" translatable="yes">Find Files</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
+            <property name="use_action_appearance">False</property>
+            <signal name="clicked" handler="search_files_find_files_clicked" swapped="yes"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTreeView" id="files_tree">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="enable_search">False</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection"/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
+            <property name="width">2</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>

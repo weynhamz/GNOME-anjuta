@@ -48,6 +48,7 @@
 #include "action-callbacks.h"
 #include "plugin.h"
 #include "search-box.h"
+#include "search-files.h"
 #include "anjuta-bookmarks.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.xml"
@@ -278,7 +279,10 @@ static GtkActionEntry actions_search[] = {
 	G_CALLBACK (on_search_previous)},
   { "ActionSearchboxPopupClearHighlight", GTK_STOCK_FIND, N_("Clear Highlight"),
 	NULL, N_("Clear all highlighted text"),
-	G_CALLBACK (on_search_popup_clear_highlight)}
+	G_CALLBACK (on_search_popup_clear_highlight)},
+  { "ActionEditFindFiles", GTK_STOCK_FIND_AND_REPLACE, N_("Find in Files"),
+	NULL, N_("Search in project files"),
+	G_CALLBACK (on_search_find_in_files)}
 };
 
 static GtkToggleActionEntry actions_searchbox_popup[] = {
@@ -1649,7 +1653,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	gint i;
 	static gboolean initialized = FALSE;
 	GList *actions, *act;
-
+	
 	DEBUG_PRINT ("%s", "DocmanPlugin: Activating document manager plugin…");
 
 	dplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
@@ -1659,7 +1663,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	docman = anjuta_docman_new (dplugin);
 	dplugin->docman = docman;
 
-	ANJUTA_DOCMAN(docman)->shell = plugin->shell;
+	ANJUTA_DOCMAN(docman)->shell = anjuta_plugin_get_shell(plugin);
 	g_signal_connect (G_OBJECT (docman), "document-added",
 					  G_CALLBACK (on_document_added), plugin);
 	g_signal_connect (G_OBJECT (docman), "document-changed",
@@ -1729,16 +1733,14 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Create the default searchbox instance, but don't yet put it into
 	   dplugin->vbox, to prevent the box being displayed at session start */
 	dplugin->search_box = search_box_new (ANJUTA_DOCMAN (docman));
-
+	
 	/* Setup popup menu */
 	popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 											"/PopupDocumentManager");
 	g_assert (popup_menu != NULL && GTK_IS_MENU (popup_menu));
 	anjuta_docman_set_popup_menu (ANJUTA_DOCMAN (docman), popup_menu);
 
-	if (!initialized)
-	{
-	}
+
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
 					  G_CALLBACK (on_session_save), plugin);

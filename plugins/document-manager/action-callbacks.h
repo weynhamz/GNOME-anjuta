@@ -103,6 +103,8 @@ void on_search_popup_clear_highlight (GtkAction *action, gpointer user_data);
 
 void on_search_popup_regex_search (GtkAction *action, gpointer user_data);
 
+void on_search_find_in_files (GtkAction *action, gpointer user_data);
+
 void on_next_document (GtkAction *action, gpointer user_data);
 void on_previous_document (GtkAction *action, gpointer user_data);
 
