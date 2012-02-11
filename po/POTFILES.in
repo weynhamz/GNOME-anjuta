@@ -175,7 +175,6 @@ plugins/language-support-python/python-assist.c
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
-plugins/message-view/org.gnome.anjuta.message-manager.gschema.xml.in
 plugins/message-view/plugin.c
 plugins/mk-project/mk-project.c
 [type: gettext/glade]plugins/mk-project/mk-project.ui
