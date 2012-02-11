@@ -47,6 +47,14 @@ interface IAnjutaFile
 	void open (GFile* file);
 
 	/**
+	 * IAnjutaFileSavable::saved:
+	 * @obj: Self
+     *
+	 * This signal is emitted when the content is loaded completely.
+	 */
+	void ::opened ();
+
+	/**
 	 * ianjuta_file_get_file:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
