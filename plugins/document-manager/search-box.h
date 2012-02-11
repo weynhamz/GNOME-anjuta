@@ -39,6 +39,7 @@ G_BEGIN_DECLS
 
 typedef struct _SearchBoxClass SearchBoxClass;
 typedef struct _SearchBox SearchBox;
+typedef struct _SearchBoxPrivate SearchBoxPrivate;
 
 struct _SearchBoxClass
 {
@@ -49,7 +50,7 @@ struct _SearchBox
 {
 	GtkBox parent_instance;
 
-	GtkWidget* new;
+	SearchBoxPrivate* priv;
 };
 
 GType search_box_get_type (void);
@@ -60,11 +61,17 @@ void search_box_grab_line_focus (SearchBox* search_box);
 void search_box_set_replace (SearchBox* object, gboolean replace);
 gboolean search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
                                         gboolean wrap);
+void search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward);
 
 void search_box_clear_highlight (SearchBox * search_box);
 void search_box_toggle_highlight (SearchBox * search_box, gboolean status);
 void search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status);
 void search_box_toggle_regex (SearchBox * search_box, gboolean status);
+
+const gchar* search_box_get_search_string (SearchBox* search_box);
+void search_box_set_search_string (SearchBox* search_box, const gchar* search);
+const gchar* search_box_get_replace_string (SearchBox* search_box);
+void search_box_set_replace_string (SearchBox* search_box, const gchar* replace);
 
 G_END_DECLS
 

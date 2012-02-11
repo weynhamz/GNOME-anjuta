@@ -43,8 +43,6 @@
 #define LINE_ENTRY_WIDTH 7
 #define SEARCH_ENTRY_WIDTH 45
 
-typedef struct _SearchBoxPrivate SearchBoxPrivate;
-
 struct _SearchBoxPrivate
 {
 	GtkWidget* grid;
@@ -92,36 +90,32 @@ static void
 on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc,
 					SearchBox* search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
 	if (!doc || !IANJUTA_IS_EDITOR (doc))
 	{
 		gtk_widget_hide (GTK_WIDGET (search_box));
-		private->current_editor = NULL;
+		search_box->priv->current_editor = NULL;
 	}
 	else
 	{
-		private->current_editor = IANJUTA_EDITOR (doc);
+		search_box->priv->current_editor = IANJUTA_EDITOR (doc);
 	}
 }
 
 static void
 on_goto_activated (GtkWidget* widget, SearchBox* search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	const gchar* str_line = gtk_entry_get_text (GTK_ENTRY (private->goto_entry));
+	const gchar* str_line = gtk_entry_get_text (GTK_ENTRY (search_box->priv->goto_entry));
 	
 	gint line = atoi (str_line);
 	if (line > 0)
 	{
-		ianjuta_editor_goto_line (private->current_editor, line, NULL);
+		ianjuta_editor_goto_line (search_box->priv->current_editor, line, NULL);
 	}
 }
 
 static void
 search_box_set_entry_color (SearchBox* search_box, gboolean found)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	if (!found)
 	{
 		GdkColor red;
@@ -132,19 +126,19 @@ search_box_set_entry_color (SearchBox* search_box, gboolean found)
 		gdk_color_parse ("#FF6666", &red);
 		gdk_color_parse ("white", &white);
 
-		gtk_widget_modify_base (private->search_entry,
+		gtk_widget_modify_base (search_box->priv->search_entry,
 				        GTK_STATE_NORMAL,
 				        &red);
-		gtk_widget_modify_text (private->search_entry,
+		gtk_widget_modify_text (search_box->priv->search_entry,
 				        GTK_STATE_NORMAL,
 				        &white);
 	}
 	else
 	{
-		gtk_widget_modify_base (private->search_entry,
+		gtk_widget_modify_base (search_box->priv->search_entry,
 				        GTK_STATE_NORMAL,
 				        NULL);
-		gtk_widget_modify_text (private->search_entry,
+		gtk_widget_modify_text (search_box->priv->search_entry,
 				        GTK_STATE_NORMAL,
 				        NULL);
 	}
@@ -153,7 +147,6 @@ search_box_set_entry_color (SearchBox* search_box, gboolean found)
 static gboolean
 on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	switch (event->keyval)
 	{
 		case GDK_KEY_0:
@@ -189,9 +182,9 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 		{
 			gtk_widget_hide (GTK_WIDGET (search_box));
 			search_box_set_entry_color (search_box, TRUE);
-			if (private->current_editor)
+			if (search_box->priv->current_editor)
 			{
-				ianjuta_document_grab_focus (IANJUTA_DOCUMENT (private->current_editor), 
+				ianjuta_document_grab_focus (IANJUTA_DOCUMENT (search_box->priv->current_editor), 
 											 NULL);
 			}
 		}
@@ -208,17 +201,15 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 static gboolean
 on_entry_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box)
 {
-
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	switch (event->keyval)
 	{
 		case GDK_KEY_Escape:
 		{
 			gtk_widget_hide (GTK_WIDGET (search_box));
 			search_box_set_entry_color (search_box, TRUE);
-			if (private->current_editor)
+			if (search_box->priv->current_editor)
 			{
-				ianjuta_document_grab_focus (IANJUTA_DOCUMENT (private->current_editor), 
+				ianjuta_document_grab_focus (IANJUTA_DOCUMENT (search_box->priv->current_editor), 
 											 NULL);
 			}
 		}
@@ -233,8 +224,7 @@ on_entry_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_bo
 static gboolean
 on_search_focus_out (GtkWidget* widget, GdkEvent* event, SearchBox* search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	anjuta_status_pop (private->status);
+	anjuta_status_pop (search_box->priv->status);
 
 	return FALSE;
 }
@@ -296,16 +286,15 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 	IAnjutaEditorCell* result_start;
 	IAnjutaEditorCell* result_end;
 	IAnjutaEditorSelection* selection;
-	SearchBoxPrivate* private = GET_PRIVATE (search_box);
 
-	const gchar* search_text = gtk_entry_get_text (GTK_ENTRY (private->search_entry));
+	const gchar* search_text = gtk_entry_get_text (GTK_ENTRY (search_box->priv->search_entry));
 
 	gboolean found = FALSE;
 
-	if (!private->current_editor || !search_text || !strlen (search_text))
+	if (!search_box->priv->current_editor || !search_text || !strlen (search_text))
 		return FALSE;
 
-	selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
+	selection = IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor);
 
 	if (ianjuta_editor_selection_has_selection (selection, NULL))
 	{
@@ -315,7 +304,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 	else
 	{
 		search_start =
-			IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor,
+			IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (search_box->priv->current_editor,
 			                                                  NULL));
 	}
 
@@ -328,14 +317,14 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 	 * position of cursor is selection start if have selection. */
 	if (search_forward)
 	{
-		search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor,
+		search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (search_box->priv->current_editor,
 	                                                                   NULL));
 		ianjuta_iterable_last (IANJUTA_ITERABLE (search_end), NULL);
 	}
 	else
 	{
 		search_end = search_start;
-		search_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor,
+		search_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (search_box->priv->current_editor,
 	                                                                     NULL));
 		ianjuta_iterable_first (IANJUTA_ITERABLE (search_start), NULL);
 	}
@@ -357,7 +346,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 		gint start_pos, end_pos;
 		gboolean selected_have_search_text = FALSE;
 
-		if (private->regex_mode)
+		if (search_box->priv->regex_mode)
 		{
 			/* Always look for first match */
 			if (incremental_regex_search (search_text, selected_text, &start_pos, &end_pos, TRUE))
@@ -370,7 +359,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 			gchar* selected_text_case;
 			gchar* search_text_case;
 
-			if (private->case_sensitive)
+			if (search_box->priv->case_sensitive)
 			{
 				selected_text_case = g_strdup (selected_text);
 				search_text_case = g_strdup (search_text);
@@ -424,9 +413,9 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 	if (!found)
 	{
 		/* Try searching in current position */
-		if (private->regex_mode)
+		if (search_box->priv->regex_mode)
 		{
-			text_to_search = ianjuta_editor_get_text (private->current_editor,
+			text_to_search = ianjuta_editor_get_text (search_box->priv->current_editor,
 				                                      IANJUTA_ITERABLE (search_start),
 				                                      IANJUTA_ITERABLE (search_end), NULL);
 
@@ -437,9 +426,9 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 
 			if (result && start_pos >= 0)
 			{
-				result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+				result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (search_box->priv->current_editor,
 					                                                                   NULL));
-				result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+				result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (search_box->priv->current_editor,
 					                                                                 NULL));
 
 				if (ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_start), start_pos, NULL) &&
@@ -461,8 +450,8 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 		{
 			if (search_forward)
 			{
-				if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (private->current_editor),
-					                               search_text, private->case_sensitive,
+				if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (search_box->priv->current_editor),
+					                               search_text, search_box->priv->case_sensitive,
 					                               search_start, search_end,
 					                               &result_start,
 					                               &result_end, NULL))
@@ -472,8 +461,8 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 			}
 			else
 			{
-				if (ianjuta_editor_search_backward (IANJUTA_EDITOR_SEARCH (private->current_editor),
-					                                search_text, private->case_sensitive,
+				if (ianjuta_editor_search_backward (IANJUTA_EDITOR_SEARCH (search_box->priv->current_editor),
+					                                search_text, search_box->priv->case_sensitive,
 					                                search_end, search_start,
 					                                &result_start,
 					                                &result_end, NULL))
@@ -486,7 +475,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 
 	if (found)
 	{
-		anjuta_status_pop (ANJUTA_STATUS (private->status));
+		anjuta_status_pop (ANJUTA_STATUS (search_box->priv->status));
 	}
 	else if (wrap)
 	{
@@ -495,9 +484,9 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 		ianjuta_iterable_last (IANJUTA_ITERABLE (search_end), NULL);
 
 		/* Try to search again */
-		if (private->regex_mode)
+		if (search_box->priv->regex_mode)
 		{
-			text_to_search = ianjuta_editor_get_text (private->current_editor,
+			text_to_search = ianjuta_editor_get_text (search_box->priv->current_editor,
 			                                          IANJUTA_ITERABLE(search_start),
 			                                          IANJUTA_ITERABLE(search_end), NULL);
 
@@ -508,9 +497,9 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 
 			if (result && start_pos >= 0)
 			{
-				result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+				result_start = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (search_box->priv->current_editor,
 				                                                                       NULL));
-				result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (private->current_editor,
+				result_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (search_box->priv->current_editor,
 				                                                                     NULL));
 
 				if (ianjuta_iterable_set_position(IANJUTA_ITERABLE(result_start), start_pos, NULL) &&
@@ -530,8 +519,8 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 		{
 			if (search_forward)
 			{
-				if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (private->current_editor),
-				                                   search_text, private->case_sensitive,
+				if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (search_box->priv->current_editor),
+				                                   search_text, search_box->priv->case_sensitive,
 				                                   search_start, search_end,
 				                                   &result_start,
 				                                   &result_end, NULL))
@@ -541,8 +530,8 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 			}
 			else
 			{
-				if (ianjuta_editor_search_backward (IANJUTA_EDITOR_SEARCH (private->current_editor),
-				                                    search_text, private->case_sensitive,
+				if (ianjuta_editor_search_backward (IANJUTA_EDITOR_SEARCH (search_box->priv->current_editor),
+				                                    search_text, search_box->priv->case_sensitive,
 				                                    search_end, search_start,
 				                                    &result_start,
 				                                    &result_end, NULL))
@@ -559,29 +548,29 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 			                              real_start, NULL) != 0)
 			{
 				found = TRUE;
-				anjuta_status_pop (private->status);
+				anjuta_status_pop (search_box->priv->status);
 				if (search_forward)
 				{
-					anjuta_status_push (private->status,
+					anjuta_status_push (search_box->priv->status,
 					                    _("Search for \"%s\" reached the end and was continued at the top."), search_text);
 				}
 				else
 				{
-					anjuta_status_push (private->status,
+					anjuta_status_push (search_box->priv->status,
 					                    _("Search for \"%s\" reached top and was continued at the bottom."), search_text);
 				}
 			}
 			else if (ianjuta_editor_selection_has_selection (selection, NULL))
 			{
-				anjuta_status_pop (private->status);
+				anjuta_status_pop (search_box->priv->status);
 				if (search_forward)
 				{
-					anjuta_status_push (private->status,
+					anjuta_status_push (search_box->priv->status,
 						                _("Search for \"%s\" reached the end and was continued at the top but no new match was found."), search_text);
 				}
 				else
 				{
-					anjuta_status_push (private->status,
+					anjuta_status_push (search_box->priv->status,
 						                _("Search for \"%s\" reached top and was continued at the bottom but no new match was found."), search_text);
 				}
 			}
@@ -608,74 +597,64 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 void 
 search_box_clear_highlight (SearchBox * search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
-	ianjuta_indicable_clear(IANJUTA_INDICABLE(private->current_editor), NULL);	
-	private->highlight_complete = FALSE;
+	ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);	
+	search_box->priv->highlight_complete = FALSE;
 }
 
 void 
 search_box_toggle_highlight (SearchBox * search_box, gboolean status)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
-	private->highlight_all = status;
+	search_box->priv->highlight_all = status;
 
 	if (!status)
 	{
-		ianjuta_indicable_clear(IANJUTA_INDICABLE(private->current_editor), NULL);
-		private->highlight_complete = FALSE;
+		ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);
+		search_box->priv->highlight_complete = FALSE;
 	}
 }
 
 void 
 search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
-	private->case_sensitive = status;
+	search_box->priv->case_sensitive = status;
 	search_box_clear_highlight(search_box);
 }
 
 void
 search_box_toggle_regex (SearchBox * search_box, gboolean status)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
-	private->regex_mode = status;
+	search_box->priv->regex_mode = status;
 	search_box_clear_highlight(search_box);
 
 }
 
-static void
+void
 search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward)
 {
 	IAnjutaEditorCell * highlight_start;
 	IAnjutaEditorSelection * selection;
 	gboolean entry_found;
-
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	
 	highlight_start = NULL;
-	ianjuta_indicable_clear(IANJUTA_INDICABLE(private->current_editor), NULL);
+	ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);
 
 	/* Search through editor and highlight instances of search_entry */
 	while ((entry_found = search_box_incremental_search (search_box, search_forward, TRUE)) == TRUE)
 	{
 		IAnjutaEditorCell * result_begin, * result_end;
-		selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
+		selection = IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor);
 
 		result_begin = 
 			IANJUTA_EDITOR_CELL (ianjuta_editor_selection_get_start (selection, NULL));	
@@ -697,7 +676,7 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 			break;
 		}
 
-		ianjuta_indicable_set(IANJUTA_INDICABLE(private->current_editor), 
+		ianjuta_indicable_set(IANJUTA_INDICABLE(search_box->priv->current_editor), 
 								IANJUTA_ITERABLE (result_begin), 
 								IANJUTA_ITERABLE (result_end),
 								IANJUTA_INDICABLE_IMPORTANT, NULL);
@@ -706,16 +685,14 @@ search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward
 	}
 	if (highlight_start)
 		g_object_unref (highlight_start);
-	private->highlight_complete = TRUE;
+	search_box->priv->highlight_complete = TRUE;
 
 }
 
 static void
 on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (!private->regex_mode)
+	if (!search_box->priv->regex_mode)
 	{
 		GtkEntryBuffer* buffer = gtk_entry_get_buffer (GTK_ENTRY(widget));
 		if (gtk_entry_buffer_get_length (buffer))
@@ -724,9 +701,9 @@ on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 		{
 			/* clear selection */
 			IAnjutaIterable* cursor = 
-				ianjuta_editor_get_position (IANJUTA_EDITOR (private->current_editor),
+				ianjuta_editor_get_position (IANJUTA_EDITOR (search_box->priv->current_editor),
 				                             NULL);
-			ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (private->current_editor),
+			ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor),
 			                              cursor,
 			                              cursor,
 			                              FALSE, NULL);
@@ -737,9 +714,7 @@ on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 static void
 search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (private->highlight_all && !private->highlight_complete)
+	if (search_box->priv->highlight_all && !search_box->priv->highlight_complete)
 	{
 		search_box_search_highlight_all (search_box, TRUE);
 	}
@@ -753,9 +728,7 @@ search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 static void
 on_search_box_backward_search (GtkWidget * widget, SearchBox * search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (private->highlight_all && !private->highlight_complete)
+	if (search_box->priv->highlight_all && !search_box->priv->highlight_complete)
 	{
 		search_box_search_highlight_all (search_box, FALSE);
 	}
@@ -773,17 +746,16 @@ search_box_replace (SearchBox * search_box, GtkWidget * widget,
 	IAnjutaEditorSelection* selection;
 	gchar * selection_text;
 	gboolean replace_successful = FALSE;
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 
-	const gchar* replace_text = gtk_entry_get_text (GTK_ENTRY (private->replace_entry));
-	const gchar* search_text = gtk_entry_get_text (GTK_ENTRY (private->search_entry));
+	const gchar* replace_text = gtk_entry_get_text (GTK_ENTRY (search_box->priv->replace_entry));
+	const gchar* search_text = gtk_entry_get_text (GTK_ENTRY (search_box->priv->search_entry));
 		
-	selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
+	selection = IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor);
 	selection_text = ianjuta_editor_selection_get (selection, NULL);
 
 	if (ianjuta_editor_selection_has_selection (selection, NULL))
 	{
-		if (private->regex_mode)
+		if (search_box->priv->regex_mode)
 		{
 			GRegex * regex;
 			gchar * replacement_text;
@@ -819,8 +791,8 @@ search_box_replace (SearchBox * search_box, GtkWidget * widget,
 					g_free(replacement_text);
 			}
 		}
-		else if ((private->case_sensitive && g_str_equal (selection_text, search_text)) ||
-		         (!private->case_sensitive && strcasecmp (selection_text, search_text) == 0))
+		else if ((search_box->priv->case_sensitive && g_str_equal (selection_text, search_text)) ||
+		         (!search_box->priv->case_sensitive && strcasecmp (selection_text, search_text) == 0))
 		{
 			if (undo)
 				ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (selection), NULL);
@@ -843,9 +815,7 @@ on_replace_activated (GtkWidget* widget, SearchBox* search_box)
 {
 	gboolean successful_replace;
 
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
 	/* Either replace search-term or try to move search forward to next occurence */
@@ -862,7 +832,6 @@ static void
 do_popup_menu (GtkWidget* widget, GdkEventButton *event, SearchBox* search_box)
 {
 	int button, event_time;
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 
 	if (event)
 	{
@@ -875,9 +844,9 @@ do_popup_menu (GtkWidget* widget, GdkEventButton *event, SearchBox* search_box)
 		event_time = gtk_get_current_event_time ();
 	}
 
-	if (!gtk_menu_get_attach_widget(GTK_MENU (private->popup_menu)))
-		gtk_menu_attach_to_widget (GTK_MENU (private->popup_menu), widget, NULL);
-	gtk_menu_popup (GTK_MENU (private->popup_menu), NULL, NULL, NULL, NULL,
+	if (!gtk_menu_get_attach_widget(GTK_MENU (search_box->priv->popup_menu)))
+		gtk_menu_attach_to_widget (GTK_MENU (search_box->priv->popup_menu), widget, NULL);
+	gtk_menu_popup (GTK_MENU (search_box->priv->popup_menu), NULL, NULL, NULL, NULL,
                   button, event_time);
 
 }
@@ -900,36 +869,34 @@ on_search_entry_popup_menu (GtkWidget* widget, SearchBox* search_box)
 static void
 on_replace_all_activated (GtkWidget* widget, SearchBox* search_box)
 {
-
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	IAnjutaIterable* cursor;
 
-	if (!private->current_editor)
+	if (!search_box->priv->current_editor)
 		return;
 
 	/* Cache current position and search from begin */
-	cursor = ianjuta_editor_get_position (IANJUTA_EDITOR (private->current_editor),
+	cursor = ianjuta_editor_get_position (IANJUTA_EDITOR (search_box->priv->current_editor),
 	                                      NULL);
-	ianjuta_editor_goto_start (IANJUTA_EDITOR (private->current_editor), NULL);
+	ianjuta_editor_goto_start (IANJUTA_EDITOR (search_box->priv->current_editor), NULL);
 	
 	/* Replace all instances of search_entry with replace_entry text */
-	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (search_box->priv->current_editor), NULL);
 	while (search_box_incremental_search (search_box, TRUE, FALSE))
 	{
 		search_box_replace (search_box, widget, FALSE);
 	}
-	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (private->current_editor), NULL);
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (search_box->priv->current_editor), NULL);
 
 	/* Back to cached position */
-	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (private->current_editor),
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor),
 	                              cursor, cursor, TRUE, NULL);
 	g_object_unref (cursor);
 }
 
 static void
-search_box_init (SearchBox *object)
+search_box_init (SearchBox *search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(object);
+	search_box->priv = GET_PRIVATE(search_box);
 	GList* focus_chain = NULL;
 	
 	/* Button images */
@@ -937,146 +904,146 @@ search_box_init (SearchBox *object)
 		gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	
 	/* Searching */
-	private->search_entry = gtk_entry_new();
-	gtk_widget_set_tooltip_text (private->search_entry,
+	search_box->priv->search_entry = gtk_entry_new();
+	gtk_widget_set_tooltip_text (search_box->priv->search_entry,
 	                             _("Use the context menu of the \"Find\" icon for more search options"));
-	g_signal_connect_swapped (G_OBJECT (private->search_entry), "activate", 
+	g_signal_connect_swapped (G_OBJECT (search_box->priv->search_entry), "activate", 
 	                          G_CALLBACK (search_box_forward_search),
-	                          object);
-	g_signal_connect (G_OBJECT (private->search_entry), "key-press-event",
+	                          search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "key-press-event",
 					  G_CALLBACK (on_entry_key_pressed),
-					  object);
-	g_signal_connect (G_OBJECT (private->search_entry), "changed",
+					  search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "changed",
 					  G_CALLBACK (on_search_box_entry_changed),
-					  object);
-	g_signal_connect (G_OBJECT (private->search_entry), "focus-out-event",
+					  search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "focus-out-event",
 					  G_CALLBACK (on_search_focus_out),
-					  object);
-	g_signal_connect (G_OBJECT (private->search_entry), "icon-press", 
+					  search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "icon-press", 
 					  G_CALLBACK (on_search_entry_icon_pressed),
-					  object);
-	g_signal_connect (G_OBJECT (private->search_entry), "popup-menu",
+					  search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "popup-menu",
 					  G_CALLBACK (on_search_entry_popup_menu),
-					  object);	
+					  search_box);	
 	
-	private->close_button = gtk_button_new();
-	gtk_button_set_image (GTK_BUTTON (private->close_button), close);
-	gtk_button_set_relief (GTK_BUTTON (private->close_button), GTK_RELIEF_NONE);
+	search_box->priv->close_button = gtk_button_new();
+	gtk_button_set_image (GTK_BUTTON (search_box->priv->close_button), close);
+	gtk_button_set_relief (GTK_BUTTON (search_box->priv->close_button), GTK_RELIEF_NONE);
 	
-	g_signal_connect (G_OBJECT (private->close_button), "clicked",
-					  G_CALLBACK (on_search_box_hide), object);
+	g_signal_connect (G_OBJECT (search_box->priv->close_button), "clicked",
+					  G_CALLBACK (on_search_box_hide), search_box);
 	
 	/* Previous, Next Navigation */
-	private->next_button = gtk_button_new ();
-	gtk_container_add (GTK_CONTAINER (private->next_button),
+	search_box->priv->next_button = gtk_button_new ();
+	gtk_container_add (GTK_CONTAINER (search_box->priv->next_button),
 	                   gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD,
 	                                             GTK_ICON_SIZE_BUTTON));
-	gtk_button_set_relief (GTK_BUTTON (private->next_button), GTK_RELIEF_NONE);
-	g_signal_connect_swapped (G_OBJECT(private->next_button), "clicked", 
-	                          G_CALLBACK (search_box_forward_search), object);
-	private->previous_button = gtk_button_new ();
-	gtk_container_add (GTK_CONTAINER (private->previous_button),
+	gtk_button_set_relief (GTK_BUTTON (search_box->priv->next_button), GTK_RELIEF_NONE);
+	g_signal_connect_swapped (G_OBJECT(search_box->priv->next_button), "clicked", 
+	                          G_CALLBACK (search_box_forward_search), search_box);
+	search_box->priv->previous_button = gtk_button_new ();
+	gtk_container_add (GTK_CONTAINER (search_box->priv->previous_button),
 	                   gtk_image_new_from_stock (GTK_STOCK_GO_BACK,
 	                                             GTK_ICON_SIZE_BUTTON));
-	gtk_button_set_relief (GTK_BUTTON (private->previous_button), GTK_RELIEF_NONE);
-	g_signal_connect (G_OBJECT(private->previous_button), "clicked", 
-					G_CALLBACK (on_search_box_backward_search), object);
+	gtk_button_set_relief (GTK_BUTTON (search_box->priv->previous_button), GTK_RELIEF_NONE);
+	g_signal_connect (G_OBJECT(search_box->priv->previous_button), "clicked", 
+					G_CALLBACK (on_search_box_backward_search), search_box);
 	
 	/* Goto line */
-	private->goto_entry = gtk_entry_new ();
-	gtk_entry_set_width_chars (GTK_ENTRY (private->goto_entry), LINE_ENTRY_WIDTH);
-	gtk_entry_set_icon_from_stock (GTK_ENTRY (private->goto_entry),
+	search_box->priv->goto_entry = gtk_entry_new ();
+	gtk_entry_set_width_chars (GTK_ENTRY (search_box->priv->goto_entry), LINE_ENTRY_WIDTH);
+	gtk_entry_set_icon_from_stock (GTK_ENTRY (search_box->priv->goto_entry),
 	                               GTK_ENTRY_ICON_SECONDARY,
 	                               ANJUTA_STOCK_GOTO_LINE);
-	g_signal_connect (G_OBJECT (private->goto_entry), "activate", 
+	g_signal_connect (G_OBJECT (search_box->priv->goto_entry), "activate", 
 					  G_CALLBACK (on_goto_activated),
-					  object);
-	g_signal_connect (G_OBJECT (private->goto_entry), "key-press-event",
+					  search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->goto_entry), "key-press-event",
 					  G_CALLBACK (on_goto_key_pressed),
-					  object);
+					  search_box);
 	/* Replace */
-	private->replace_entry = gtk_entry_new();
-	g_signal_connect (G_OBJECT (private->replace_entry), 
+	search_box->priv->replace_entry = gtk_entry_new();
+	g_signal_connect (G_OBJECT (search_box->priv->replace_entry), 
 					"key-press-event", G_CALLBACK (on_entry_key_pressed),
- 					object);
-	g_signal_connect (G_OBJECT (private->replace_entry), "activate", 
+ 					search_box);
+	g_signal_connect (G_OBJECT (search_box->priv->replace_entry), "activate", 
 					  G_CALLBACK (on_replace_activated),
-					  object);
+					  search_box);
 	
-	private->replace_button = gtk_button_new_with_label(_("Replace"));
-	gtk_button_set_relief (GTK_BUTTON (private->replace_button), GTK_RELIEF_NONE);
-	g_signal_connect (G_OBJECT(private->replace_button), "clicked", 
-					G_CALLBACK (on_replace_activated), object);
+	search_box->priv->replace_button = gtk_button_new_with_label(_("Replace"));
+	gtk_button_set_relief (GTK_BUTTON (search_box->priv->replace_button), GTK_RELIEF_NONE);
+	g_signal_connect (G_OBJECT(search_box->priv->replace_button), "clicked", 
+					G_CALLBACK (on_replace_activated), search_box);
 
-	private->replace_all_button = gtk_button_new_with_label(_("Replace all"));
-	gtk_button_set_relief (GTK_BUTTON (private->replace_all_button), GTK_RELIEF_NONE);
-	g_signal_connect (G_OBJECT(private->replace_all_button), "clicked", 
-					G_CALLBACK (on_replace_all_activated), object);
+	search_box->priv->replace_all_button = gtk_button_new_with_label(_("Replace all"));
+	gtk_button_set_relief (GTK_BUTTON (search_box->priv->replace_all_button), GTK_RELIEF_NONE);
+	g_signal_connect (G_OBJECT(search_box->priv->replace_all_button), "clicked", 
+					G_CALLBACK (on_replace_all_activated), search_box);
 
 	/* Popup Menu Options */
-	private->regex_mode = FALSE;
-	private->highlight_all = FALSE;
-	private->case_sensitive = FALSE;
-	private->highlight_complete = FALSE;
+	search_box->priv->regex_mode = FALSE;
+	search_box->priv->highlight_all = FALSE;
+	search_box->priv->case_sensitive = FALSE;
+	search_box->priv->highlight_complete = FALSE;
 
 	/* Initialize search_box grid */
-	private->grid = gtk_grid_new();
-	gtk_orientable_set_orientation (GTK_ORIENTABLE (private->grid), 
+	search_box->priv->grid = gtk_grid_new();
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (search_box->priv->grid), 
 									GTK_ORIENTATION_VERTICAL);
-	gtk_grid_set_row_spacing (GTK_GRID (private->grid), 5);
+	gtk_grid_set_row_spacing (GTK_GRID (search_box->priv->grid), 5);
 	
 	/* Attach search elements to grid */
-	gtk_grid_attach (GTK_GRID (private->grid), private->goto_entry, 0, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->goto_entry, 0, 0, 1, 1);
 	
-	gtk_grid_attach (GTK_GRID (private->grid), private->search_entry, 1, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->search_entry, 1, 0, 1, 1);
 	
-	gtk_grid_attach (GTK_GRID (private->grid), private->previous_button, 2, 0, 1, 1);
-	gtk_grid_attach (GTK_GRID (private->grid), private->next_button, 3, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->previous_button, 2, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->next_button, 3, 0, 1, 1);
 
-	gtk_grid_attach_next_to (GTK_GRID (private->grid),
-	                         private->close_button,
-	                         private->next_button,
+	gtk_grid_attach_next_to (GTK_GRID (search_box->priv->grid),
+	                         search_box->priv->close_button,
+	                         search_box->priv->next_button,
 	                         GTK_POS_RIGHT, 1, 1);
-	gtk_widget_set_hexpand(private->close_button, TRUE);
-	gtk_widget_set_halign(private->close_button,
+	gtk_widget_set_hexpand(search_box->priv->close_button, TRUE);
+	gtk_widget_set_halign(search_box->priv->close_button,
 	                      GTK_ALIGN_END);
 
 	/* Add Replace elements to search box on 2nd level */
-	gtk_grid_attach (GTK_GRID (private->grid), private->replace_entry, 1, 1, 1, 1);
-	gtk_grid_attach (GTK_GRID (private->grid), private->replace_button, 2, 1, 1, 1);	
-	gtk_grid_attach (GTK_GRID (private->grid), private->replace_all_button, 3, 1, 1, 1);		
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->replace_entry, 1, 1, 1, 1);
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->replace_button, 2, 1, 1, 1);	
+	gtk_grid_attach (GTK_GRID (search_box->priv->grid), search_box->priv->replace_all_button, 3, 1, 1, 1);		
 
 	/* Expand search entries (a bit) */
-	gtk_entry_set_width_chars (GTK_ENTRY (private->search_entry), SEARCH_ENTRY_WIDTH);
-	gtk_entry_set_width_chars (GTK_ENTRY (private->replace_entry), SEARCH_ENTRY_WIDTH);
+	gtk_entry_set_width_chars (GTK_ENTRY (search_box->priv->search_entry), SEARCH_ENTRY_WIDTH);
+	gtk_entry_set_width_chars (GTK_ENTRY (search_box->priv->replace_entry), SEARCH_ENTRY_WIDTH);
 
 	/* Set nice icons */
-	gtk_entry_set_icon_from_stock (GTK_ENTRY (private->search_entry),
+	gtk_entry_set_icon_from_stock (GTK_ENTRY (search_box->priv->search_entry),
 	                               GTK_ENTRY_ICON_PRIMARY,
 	                               GTK_STOCK_FIND);
-	gtk_entry_set_icon_from_stock (GTK_ENTRY (private->replace_entry),
+	gtk_entry_set_icon_from_stock (GTK_ENTRY (search_box->priv->replace_entry),
 	                               GTK_ENTRY_ICON_PRIMARY,
 	                               GTK_STOCK_FIND_AND_REPLACE);
 	
 	/* Pack grid into search box */
-	gtk_box_pack_start (GTK_BOX(object), private->grid, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX(search_box), search_box->priv->grid, TRUE, TRUE, 0);
 
 	/* Set focus chain */
-	focus_chain = g_list_prepend (focus_chain, private->search_entry);
-	focus_chain = g_list_prepend (focus_chain, private->replace_entry);
-	focus_chain = g_list_prepend (focus_chain, private->next_button);
-	focus_chain = g_list_prepend (focus_chain, private->previous_button);
-	focus_chain = g_list_prepend (focus_chain, private->replace_button);
-	focus_chain = g_list_prepend (focus_chain, private->replace_all_button);
-	focus_chain = g_list_prepend (focus_chain, private->goto_entry);
-	focus_chain = g_list_prepend (focus_chain, private->close_button);
-	focus_chain = g_list_prepend (focus_chain, private->search_entry);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->search_entry);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->replace_entry);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->next_button);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->previous_button);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->replace_button);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->replace_all_button);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->goto_entry);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->close_button);
+	focus_chain = g_list_prepend (focus_chain, search_box->priv->search_entry);
 	focus_chain = g_list_reverse (focus_chain);
-	gtk_container_set_focus_chain (GTK_CONTAINER (private->grid),
+	gtk_container_set_focus_chain (GTK_CONTAINER (search_box->priv->grid),
 	                               focus_chain);
 	g_list_free (focus_chain);
 	
-	gtk_widget_show_all (GTK_WIDGET (object));
+	gtk_widget_show_all (GTK_WIDGET (search_box));
 	
 }
 
@@ -1100,38 +1067,34 @@ search_box_class_init (SearchBoxClass *klass)
 GtkWidget*
 search_box_new (AnjutaDocman *docman)
 {
-	GtkWidget* search_box;
-	SearchBoxPrivate* private;
+	SearchBox* search_box;
 	AnjutaUI *ui;
 
-	search_box = GTK_WIDGET (g_object_new (SEARCH_TYPE_BOX, "homogeneous",
+	search_box = SEARCH_BOX (g_object_new (SEARCH_TYPE_BOX, "homogeneous",
 											FALSE, NULL));
 
 	g_signal_connect (G_OBJECT (docman), "document-changed",
 					  G_CALLBACK (on_document_changed), search_box);
 
-	private = GET_PRIVATE (search_box);
-	private->status = anjuta_shell_get_status (docman->shell, NULL);
+	search_box->priv->status = anjuta_shell_get_status (docman->shell, NULL);
 	
 	ui = anjuta_shell_get_ui (docman->shell, NULL);
-	private->popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+	search_box->priv->popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 											"/SearchboxPopup");
-	g_assert (private->popup_menu != NULL && GTK_IS_MENU (private->popup_menu));
+	g_assert (search_box->priv->popup_menu != NULL && GTK_IS_MENU (search_box->priv->popup_menu));
 
-	g_signal_connect (private->popup_menu, "deactivate",
+	g_signal_connect (search_box->priv->popup_menu, "deactivate",
 					  G_CALLBACK (gtk_widget_hide), NULL);
 
-	return search_box;
+	return GTK_WIDGET (search_box);
 }
 
 void
 search_box_fill_search_focus (SearchBox* search_box, gboolean on_replace)
 {
+	IAnjutaEditor* te = search_box->priv->current_editor;
 
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	IAnjutaEditor* te = private->current_editor;
-
-	if (IANJUTA_IS_EDITOR (te) && !private->regex_mode)
+	if (IANJUTA_IS_EDITOR (te) && !search_box->priv->regex_mode)
 	{
 		gchar *buffer;
 
@@ -1142,8 +1105,8 @@ search_box_fill_search_focus (SearchBox* search_box, gboolean on_replace)
 			if (*buffer != 0)
 			{
 			
-				gtk_entry_set_text (GTK_ENTRY (private->search_entry), buffer);
-				gtk_editable_select_region (GTK_EDITABLE (private->search_entry), 0, -1);
+				gtk_entry_set_text (GTK_ENTRY (search_box->priv->search_entry), buffer);
+				gtk_editable_select_region (GTK_EDITABLE (search_box->priv->search_entry), 0, -1);
 
 			}
 			g_free (buffer);
@@ -1153,32 +1116,57 @@ search_box_fill_search_focus (SearchBox* search_box, gboolean on_replace)
 	/* Toggle replace level (replace entry, replace buttons) of search box */
 	search_box_set_replace (search_box, on_replace);
 
-	gtk_widget_grab_focus (private->search_entry);
+	gtk_widget_grab_focus (search_box->priv->search_entry);
 }
 
 void
 search_box_grab_line_focus (SearchBox* search_box)
 {
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	gtk_widget_grab_focus (private->goto_entry);
+	gtk_widget_grab_focus (search_box->priv->goto_entry);
 }
 
 void
-search_box_set_replace (SearchBox* object, gboolean replace)
+search_box_set_replace (SearchBox* search_box, gboolean replace)
 {
-
-	SearchBoxPrivate* private = GET_PRIVATE(object);
-
 	if (replace) 
 	{
-		gtk_widget_show (private->replace_entry);
-		gtk_widget_show (private->replace_button);
-		gtk_widget_show (private->replace_all_button);		
+		gtk_widget_show (search_box->priv->replace_entry);
+		gtk_widget_show (search_box->priv->replace_button);
+		gtk_widget_show (search_box->priv->replace_all_button);		
 	}
 	else 
 	{
-		gtk_widget_hide (private->replace_entry);
-		gtk_widget_hide (private->replace_button);
-		gtk_widget_hide (private->replace_all_button);
+		gtk_widget_hide (search_box->priv->replace_entry);
+		gtk_widget_hide (search_box->priv->replace_button);
+		gtk_widget_hide (search_box->priv->replace_all_button);
 	}	
+}
+
+const gchar* search_box_get_search_string (SearchBox* search_box)
+{
+	g_return_val_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box), NULL);
+	
+	return gtk_entry_get_text (GTK_ENTRY (search_box->priv->search_entry));
+}
+
+void search_box_set_search_string (SearchBox* search_box, const gchar* search)
+{
+	g_return_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box));
+
+	gtk_entry_set_text (GTK_ENTRY (search_box->priv->search_entry), search);
+}
+
+const gchar* search_box_get_replace_string (SearchBox* search_box)
+{
+	g_return_val_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box), NULL);
+	
+	return gtk_entry_get_text (GTK_ENTRY (search_box->priv->replace_entry));
+
+}
+
+void search_box_set_replace_string (SearchBox* search_box, const gchar* replace)
+{
+	g_return_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box));
+
+	gtk_entry_set_text (GTK_ENTRY (search_box->priv->replace_entry), replace);
 }
