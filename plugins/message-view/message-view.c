@@ -23,9 +23,9 @@
 #include "message-view.h"
 #define MESSAGE_TYPE message_get_type()
 
-#define PREFERENCES_SCHEMA "org.gnome.anjuta.message-manager"
-#define COLOR_ERROR "msgman-color-error"
-#define COLOR_WARNING "msgman-color-warning"
+#define PREFERENCES_SCHEMA "org.gnome.anjuta.plugins.message-manager"
+#define COLOR_ERROR "color-error"
+#define COLOR_WARNING "color-warning"
 
 struct _MessageViewPrivate
 {
@@ -35,23 +35,23 @@ struct _MessageViewPrivate
 	GtkWidget *tree_view;
 	GtkTreeModel *model;
 	GtkTreeModel *filter;
-	
+
 	GtkWidget *popup_menu;
-	
+
 	gint adj_chgd_hdlr;
-	
+
 	/* Messages filter */
 	MessageViewFlags flags;
 	gint normal_count;
 	gint warn_count;
 	gint error_count;
 	gint info_count;
-	
+
 	/* Properties */
 	gchar *label;
 	gchar *pixmap;
 	gboolean highlite;
-	
+
 	GSettings* settings;
 };
 
@@ -60,7 +60,7 @@ typedef struct
 	IAnjutaMessageViewType type;
 	gchar *summary;
 	gchar *details;
-	
+
 } Message;
 
 enum
@@ -195,10 +195,10 @@ message_get_type ()
 static void
 add_char(gchar** str, gchar c)
 {
-	gchar* buffer;	
-	
+	gchar* buffer;
+
 	g_return_if_fail(str != NULL);
-	
+
 	buffer = g_strdup_printf("%s%c", *str, c);
 	g_free(*str);
 	*str = buffer;
@@ -209,7 +209,7 @@ escape_string (const gchar *str)
 {
 	GString *gstr;
 	const gchar *iter;
-	
+
 	gstr = g_string_new ("");
 	iter = str;
 	while (*iter != '\0')
@@ -235,31 +235,31 @@ message_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	MessageView* view = MESSAGE_VIEW(widget);
-	
+
 	model = view->privat->model;
-	
+
 	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
 		x, y, &path, NULL, NULL, NULL))
 	{
 		Message *message;
 		gchar *text, *title, *desc;
-		
+
 		gtk_tree_model_get_iter (model, &iter, path);
-		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1); 
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
 		gtk_tree_path_free(path);
-		
+
 		if (!message->details || !message->summary ||
 			strlen (message->details) <= 0 ||
 			strlen (message->summary) <= 0)
 			return FALSE;
-		
+
 		title = escape_string (message->summary);
 		desc = escape_string (message->details);
 		text = g_strdup_printf ("<b>%s</b>\n%s", title, desc);
-		
+
 		g_free (title);
 		g_free (desc);
-		
+
 		gtk_tooltip_set_markup (tooltip, text);
 		g_free (text);
 		return TRUE;
@@ -275,12 +275,12 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 	g_return_val_if_fail(object != NULL, FALSE);
 	g_return_val_if_fail(event != NULL, FALSE);
 	g_return_val_if_fail(data != NULL, FALSE);
-	
+
 	MessageView* view = MESSAGE_VIEW(data);
-		
+
 	if (event == NULL)
 		return FALSE;
-		
+
 	if (event->type == GDK_KEY_PRESS)
 	{
 		switch(((GdkEventKey *)event)->keyval)
@@ -292,7 +292,7 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 					ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);
 				if (message)
 				{
-					g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+					g_signal_emit_by_name (G_OBJECT (view), "message_clicked",
 										   message);
 					return TRUE;
 				}
@@ -302,7 +302,7 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 				return FALSE;
 		}
 	}
-	else if (event->type == GDK_2BUTTON_PRESS) 
+	else if (event->type == GDK_2BUTTON_PRESS)
 	{
 		if (((GdkEventButton *) event)->button == 1)
 		{
@@ -310,7 +310,7 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 				ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);
 			if (message)
 			{
-				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+				g_signal_emit_by_name (G_OBJECT (view), "message_clicked",
 									   message);
 				return TRUE;
 			}
@@ -326,11 +326,11 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 					((GdkEventButton *) event)->time);
 			return TRUE;
 		}
-	}	
+	}
 	return FALSE;
 }
 
-static void 
+static void
 on_adjustment_changed (GtkAdjustment* adj, gpointer data)
 {
 	gtk_adjustment_set_value (adj,
@@ -368,7 +368,7 @@ message_view_set_property (GObject * object,
 	MessageView *self = MESSAGE_VIEW (object);
 	g_return_if_fail(value != NULL);
 	g_return_if_fail(pspec != NULL);
-	
+
 	switch (property_id)
 	{
 	case MV_PROP_LABEL:
@@ -402,10 +402,10 @@ message_view_get_property (GObject * object,
 			   GValue * value, GParamSpec * pspec)
 {
 	MessageView *self = MESSAGE_VIEW (object);
-	
+
 	g_return_if_fail(value != NULL);
 	g_return_if_fail(pspec != NULL);
-	
+
 	switch (property_id)
 	{
 		case MV_PROP_LABEL:
@@ -463,28 +463,28 @@ message_view_instance_init (MessageView * self)
 	GtkTreeViewColumn *column;
 	GtkTreeViewColumn *column_pixbuf;
 	GtkTreeSelection *select;
-	GtkListStore *model;	
+	GtkListStore *model;
 	GtkAdjustment* adj;
- 
+
 	g_return_if_fail(self != NULL);
 	self->privat = g_new0 (MessageViewPrivate, 1);
 
 	/* Init private data */
 	self->privat->line_buffer = g_strdup("");
 	self->privat->flags = 0xF;
-	
+
 	/* Create the tree widget */
 	model = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
 								G_TYPE_STRING, MESSAGE_TYPE,  G_TYPE_STRING);
 	self->privat->model = GTK_TREE_MODEL (model);
-	
+
 	/* message filter */
 	self->privat->filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (model), NULL);
-	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (self->privat->filter), 
+	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (self->privat->filter),
 											message_view_tree_view_filter,
 											self, NULL);
-	
-	self->privat->tree_view = 
+
+	self->privat->tree_view =
 		gtk_tree_view_new_with_model (GTK_TREE_MODEL (self->privat->filter));
 	gtk_widget_show (self->privat->tree_view);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW
@@ -520,7 +520,7 @@ message_view_instance_init (MessageView * self)
 	select = gtk_tree_view_get_selection
 		(GTK_TREE_VIEW (self->privat->tree_view));
 	gtk_tree_selection_set_mode (select, GTK_SELECTION_BROWSE);
-	
+
 	/* Add tree view to a scrolled window */
 	scrolled_win = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (scrolled_win),
@@ -535,13 +535,13 @@ message_view_instance_init (MessageView * self)
 									 G_CALLBACK (on_adjustment_changed), self);
 	g_signal_connect(G_OBJECT(adj), "value_changed",
 					 G_CALLBACK(on_adjustment_value_changed), self);
-	
+
 	gtk_container_add (GTK_CONTAINER (self), scrolled_win);
-	
+
 	/* Connect signals */
-	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
+	g_signal_connect (G_OBJECT(self->privat->tree_view), "event",
 					  G_CALLBACK (on_message_event), self);
-	
+
 	g_object_set (G_OBJECT(self), "has-tooltip", TRUE, NULL);
 
 }
@@ -554,16 +554,16 @@ message_view_class_init (MessageViewClass * klass)
 	GParamSpec *message_view_spec_highlite;
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass* widget_class = GTK_WIDGET_CLASS (klass);
-	
+
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->set_property = message_view_set_property;
 	gobject_class->get_property = message_view_get_property;
 	gobject_class->finalize = message_view_finalize;
 	gobject_class->dispose = message_view_dispose;
-	
+
 	widget_class->query_tooltip = message_view_query_tooltip;
 
-	
+
 	message_view_spec_label = g_param_spec_string ("label",
 						       "Label of the view",
 						       "Used to decorate the view,"
@@ -610,8 +610,8 @@ message_view_serialize (MessageView *view, AnjutaSerializer *serializer)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
-	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
+	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), FALSE);
+
 	if (!anjuta_serializer_write_string (serializer, "label",
 										 view->privat->label))
 		return FALSE;
@@ -621,10 +621,10 @@ message_view_serialize (MessageView *view, AnjutaSerializer *serializer)
 	if (!anjuta_serializer_write_int (serializer, "highlite",
 									  view->privat->highlite))
 		return FALSE;
-	
+
 	/* Serialize individual messages */
 	model = view->privat->model;
-	
+
 	if (!anjuta_serializer_write_int (serializer, "messages",
 									  gtk_tree_model_iter_n_children (model, NULL)))
 		return FALSE;
@@ -652,8 +652,8 @@ message_view_deserialize (MessageView *view, AnjutaSerializer *serializer)
 	GtkTreeModel *model;
 	gint messages, i;
 
-	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
+	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), FALSE);
+
 	if (!anjuta_serializer_read_string (serializer, "label",
 										&view->privat->label, TRUE))
 		return FALSE;
@@ -663,14 +663,14 @@ message_view_deserialize (MessageView *view, AnjutaSerializer *serializer)
 	if (!anjuta_serializer_read_int (serializer, "highlite",
 									 &view->privat->highlite))
 		return FALSE;
-	
+
 	/* Create individual messages */
 	model = view->privat->model;
 	gtk_list_store_clear (GTK_LIST_STORE (model));
-	
+
 	if (!anjuta_serializer_read_int (serializer, "messages", &messages))
 		return FALSE;
-	
+
 	for (i = 0; i < messages; i++)
 	{
 		Message *message;
@@ -695,7 +695,7 @@ void message_view_next(MessageView* view)
 	GtkTreeSelection *select;
 
 	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
+
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
@@ -725,7 +725,7 @@ void message_view_next(MessageView* view)
 											  (view->privat->tree_view),
 											  path, NULL, FALSE);
 				gtk_tree_path_free (path);
-				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+				g_signal_emit_by_name (G_OBJECT (view), "message_clicked",
 									   message);
 				break;
 			}
@@ -741,11 +741,11 @@ void message_view_previous(MessageView* view)
 	GtkTreePath *path;
 
 	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
+
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
-	
+
 	if (!gtk_tree_selection_get_selected (select, &model, &iter))
 	{
 		if (gtk_tree_model_get_iter_first (model, &iter))
@@ -765,7 +765,7 @@ void message_view_previous(MessageView* view)
 			|| message->type == IANJUTA_MESSAGE_VIEW_TYPE_ERROR)
 		{
 			const gchar* message;
-			
+
 			gtk_tree_selection_select_iter (select, &iter);
 			message =
 				ianjuta_message_view_get_current_message(IANJUTA_MESSAGE_VIEW (view), NULL);
@@ -777,7 +777,7 @@ void message_view_previous(MessageView* view)
 											  (view->privat->tree_view),
 											  path, NULL, FALSE, 0, 0);
 				gtk_tree_path_free (path);
-				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
+				g_signal_emit_by_name (G_OBJECT (view), "message_clicked",
 									   message);
 				break;
 			}
@@ -794,14 +794,14 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 	GtkTreeModel *model;
 	gboolean ok;
 
-	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
-	if (uri == NULL) 
+	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), FALSE);
+
+	if (uri == NULL)
 		return FALSE;
 
 	file = g_file_new_for_uri (uri);
 	os = G_OUTPUT_STREAM (
-			g_file_replace (file, NULL, 
+			g_file_replace (file, NULL,
 				FALSE,
 				G_FILE_CREATE_NONE,
 				NULL,
@@ -813,7 +813,7 @@ static gboolean message_view_save_as(MessageView* view, gchar* uri)
 		return FALSE;
 	}
 
-	/* Save all lines of message view */	
+	/* Save all lines of message view */
 	model = view->privat->model;
 
 	ok = TRUE;
@@ -859,7 +859,7 @@ void message_view_save(MessageView* view)
 
 	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
 
-	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view)));	
+	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view)));
 
 	uri = ask_user_for_save_uri (parent);
 	if (uri)
@@ -879,19 +879,19 @@ void message_view_copy(MessageView* view)
 	GtkTreeSelection *select;
 
 	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	
+
 	model = view->privat->model;
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 					      (view->privat->tree_view));
-	
+
 	if (gtk_tree_selection_get_selected (select, &model, &iter))
 	{
 		Message *message;
 		const gchar *text;
 		GtkClipboard *clipboard;
-		
-		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1); 
-		
+
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
+
 		if (message->details && (*message->details != '\0'))
 		{
 			text = message->details;
@@ -905,9 +905,9 @@ void message_view_copy(MessageView* view)
 			/* No message */
 			return;
 		}
-		
+
 		clipboard = gtk_widget_get_clipboard (GTK_WIDGET (view), GDK_SELECTION_CLIPBOARD);
-	
+
 		gtk_clipboard_set_text (clipboard, text, -1);
 	}
 }
@@ -921,7 +921,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	GtkListStore *store;
 	GtkTreeIter iter;
 	gboolean success;
-	
+
 	color = g_settings_get_string (mview->privat->settings, color_pref_key);
 	store = GTK_LIST_STORE (mview->privat->model);
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
@@ -984,19 +984,19 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 	MessageView *view;
 	gint cur_char;
 	int len;
-	
+
 	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
 
 	if (!message)
 		return;
 
 	len = strlen(message);
-	
+
 	view = MESSAGE_VIEW (message_view);
-	
+
 	/* Check if message contains newlines */
 	for (cur_char = 0; cur_char < len; cur_char++)
-	{		
+	{
 		/* Is newline => print line */
 		if (message[cur_char] != '\n')
 		{
@@ -1026,16 +1026,16 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	gchar *utf8_msg;
 	gchar *escaped_str;
 	gchar* stock_id = NULL;
-	
+
 	MessageView *view;
 	Message *message;
 
 	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
-	
+
 	view = MESSAGE_VIEW (message_view);
-	
+
 	message = message_new (type, summary, details);
-	
+
 	g_object_get (G_OBJECT (view), "highlite", &highlite, NULL);
 	color = NULL;
 	if (highlite)
@@ -1062,7 +1062,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 				view->privat->normal_count++;
 		}
 	}
-	
+
 	/* Add the message to the tree */
 	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_append (store, &iter);
@@ -1113,11 +1113,11 @@ imessage_view_clear (IAnjutaMessageView *message_view, GError **e)
 	view = MESSAGE_VIEW (message_view);
 
 	/* filter settings restart */
-	view->privat->normal_count = 0;	
+	view->privat->normal_count = 0;
 	view->privat->info_count = 0;
 	view->privat->warn_count = 0;
 	view->privat->error_count = 0;
-	
+
 	store = GTK_LIST_STORE (view->privat->model);
 	gtk_list_store_clear (store);
 }
@@ -1137,7 +1137,7 @@ imessage_view_select_previous (IAnjutaMessageView * message_view,
 							   GError ** e)
 {
 	MessageView *view = MESSAGE_VIEW(message_view);
-	message_view_previous(view);	
+	message_view_previous(view);
 }
 
 /* Return the currently selected messages or the first message if no
@@ -1155,7 +1155,7 @@ imessage_view_get_current_message (IAnjutaMessageView * message_view,
 	const Message *message;
 
 	g_return_val_if_fail (MESSAGE_IS_VIEW (message_view), NULL);
-	
+
 	view = MESSAGE_VIEW (message_view);
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
 									      (view->privat->tree_view));
@@ -1203,12 +1203,12 @@ imessage_view_get_all_messages (IAnjutaMessageView * message_view,
 	GtkTreeIter iter;
 	Message *message;
 	GList *messages = NULL;
-	
+
 	g_return_val_if_fail (MESSAGE_IS_VIEW (message_view), NULL);
-	
+
 	view = MESSAGE_VIEW (message_view);
 	store = GTK_LIST_STORE (view->privat->model);
-	
+
 	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
 	{
 		do
@@ -1240,7 +1240,7 @@ message_view_tree_view_filter (GtkTreeModel *model, GtkTreeIter  *iter,
 {
 	Message *msg;
 	MessageView *msgview;
-	
+
 	msgview = MESSAGE_VIEW (data);
 	gtk_tree_model_get (msgview->privat->model, iter, COLUMN_MESSAGE, &msg, -1);
 
@@ -1268,7 +1268,7 @@ message_view_get_flags (MessageView* view)
 void message_view_set_flags (MessageView* view, MessageViewFlags flags)
 {
 	g_return_if_fail (view != NULL && MESSAGE_IS_VIEW (view));
-	                  
+
 	view->privat->flags = flags;
 	gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER(view->privat->filter));
 }
@@ -1276,7 +1276,7 @@ void message_view_set_flags (MessageView* view, MessageViewFlags flags)
 gint message_view_get_count (MessageView* view, MessageViewFlags flags)
 {
 	g_return_val_if_fail (view != NULL && MESSAGE_IS_VIEW (view), 0);
-	
+
 	switch (flags)
 	{
 		case MESSAGE_VIEW_SHOW_NORMAL:

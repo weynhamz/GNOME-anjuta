@@ -42,7 +42,7 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.c\
 	message-view.h
 
-gsettings_in_file = org.gnome.anjuta.message-manager.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.message-manager.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

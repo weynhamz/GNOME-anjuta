@@ -26,7 +26,7 @@
 	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
 
 #define PREF_SCHEMA "org.gnome.anjuta.plugins.sourceview"
-#define MSGMAN_PREF_SCHEMA "org.gnome.anjuta.message-manager"
+#define MSGMAN_PREF_SCHEMA "org.gnome.anjuta.plugins.message-manager"
 
 
 /* Editor preferences */
@@ -41,8 +41,9 @@
 #define VIEW_RIGHTMARGIN           "rightmargin-visible"
 #define RIGHTMARGIN_POSITION       "rightmargin-position"
 
-#define MSGMAN_COLOR_ERROR		  "msgman-color-error"
-#define MSGMAN_COLOR_WARNING		  "msgman-color-warning"
+#define MSGMAN_COLOR_ERROR		  "color-error"
+#define MSGMAN_COLOR_WARNING		  "color-warning"
+#define MSGMAN_COLOR_IMPORTANT		  "color-important"
 
 
 #define FONT_THEME "font-use-theme"
@@ -207,13 +208,18 @@ on_notify_indic_colors (GSettings* settings,
 	char* warning_color =
 		 g_settings_get_string (settings,
 		                        MSGMAN_COLOR_WARNING);
+	char* important_color =
+		 g_settings_get_string (settings,
+		                        MSGMAN_COLOR_IMPORTANT);
 	Sourceview* sv = ANJUTA_SOURCEVIEW (user_data);
 
 	g_object_set (sv->priv->warning_indic, "foreground", warning_color, NULL);
 	g_object_set (sv->priv->critical_indic, "foreground", error_color, NULL);
+	g_object_set (sv->priv->important_indic, "background", important_color, NULL);
 
 	g_free (error_color);
 	g_free (warning_color);
+	g_free (important_color);
 }
 
 static void
@@ -323,6 +329,8 @@ sourceview_prefs_init(Sourceview* sv)
 	g_signal_connect (sv->priv->msgman_settings, "changed::" MSGMAN_COLOR_ERROR,
 	                  G_CALLBACK (on_notify_indic_colors), sv);
 	g_signal_connect (sv->priv->msgman_settings, "changed::" MSGMAN_COLOR_WARNING,
+	                  G_CALLBACK (on_notify_indic_colors), sv);
+	g_signal_connect (sv->priv->msgman_settings, "changed::" MSGMAN_COLOR_IMPORTANT,
 	                  G_CALLBACK (on_notify_indic_colors), sv);
 }
 

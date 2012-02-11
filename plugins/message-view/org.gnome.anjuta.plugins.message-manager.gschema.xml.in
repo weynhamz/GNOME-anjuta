@@ -1,6 +1,6 @@
 <schemalist>
-	<schema id="org.gnome.anjuta.message-manager" path="/org/gnome/anjuta/">
-		<key name="msgman-style-normal" type="s">
+	<schema id="org.gnome.anjuta.plugins.message-manager" path="/org/gnome/anjuta/plugins/message-manager/">
+		<key name="style-normal" type="s">
 			<choices>
 				<choice value="Underline-Plain" />
 				<choice value="Underline-Squiggle" />
@@ -10,7 +10,7 @@
 			</choices>
 			<default>"Underline-Plain"</default>
 		</key>
-		<key name="msgman-style-warning" type="s">
+		<key name="style-warning" type="s">
 			<choices>
 				<choice value="Underline-Plain" />
 				<choice value="Underline-Squiggle" />
@@ -20,7 +20,7 @@
 			</choices>
 			<default>"Underline-Plain"</default>
 		</key>
-                <key name="msgman-style-error" type="s">
+                <key name="style-error" type="s">
                         <choices>
                                 <choice value="Underline-Plain" />
                                 <choice value="Underline-Squiggle" />
@@ -30,11 +30,14 @@
                         </choices>
                         <default>"Underline-Plain"</default>
                 </key>
-		<key name="msgman-color-error" type="s">
+		<key name="color-error" type="s">
 			<default>"#FF0000"</default>
 		</key>
-		<key name="msgman-color-warning" type="s">
+		<key name="color-warning" type="s">
 			<default>"#00FF00"</default>
+		</key>
+		<key name="color-important" type="s">
+			<default>"#FFFF00"</default>
 		</key>
 	</schema>
 </schemalist>

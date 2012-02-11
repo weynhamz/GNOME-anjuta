@@ -29,7 +29,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.xml"
 #define PREFS_BUILDER PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.ui"
-#define PREFERENCES_SCHEMA "org.gnome.anjuta.message-manager"
+#define PREFERENCES_SCHEMA "org.gnome.anjuta.plugins.message-manager"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_MESSAGES                "anjuta-messages-plugin-48.png"
@@ -112,7 +112,7 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 	g_object_set (G_OBJECT (action_copy), "sensitive", sensitive, NULL);
 
 	/* Toggle buttons */
-	gtk_widget_set_sensitive (plugin->normal, sensitive);	
+	gtk_widget_set_sensitive (plugin->normal, sensitive);
 	gtk_widget_set_sensitive (plugin->info, sensitive);
 	gtk_widget_set_sensitive (plugin->warn, sensitive);
 	gtk_widget_set_sensitive (plugin->error, sensitive);
@@ -131,7 +131,7 @@ static gpointer parent_class;
 
 static void
 register_stock_icons (AnjutaPlugin *plugin)
-{	
+{
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -154,16 +154,16 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkWidget *popup;
 	MessageViewPlugin *mv_plugin;
 	static gboolean initialized = FALSE;
-	
+
 	DEBUG_PRINT ("%s", "MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
-	
+
 	if (!initialized)
 	{
 		register_stock_icons (plugin);
 	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	mv_plugin->action_group = 
+	mv_plugin->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
 											_("Next/Previous Message"),
 											actions_goto,
@@ -171,9 +171,9 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, TRUE, plugin);
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
-	mv_plugin->msgman = 
+	mv_plugin->msgman =
 		anjuta_msgman_new(popup);
-	g_signal_connect(mv_plugin->msgman, "view-changed", 
+	g_signal_connect(mv_plugin->msgman, "view-changed",
 					 G_CALLBACK(on_view_changed), mv_plugin);
 	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessageNext");
@@ -184,7 +184,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_set (G_OBJECT (action_next), "sensitive", FALSE, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", FALSE, NULL);
 	g_object_set (G_OBJECT (action_copy), "sensitive", FALSE, NULL);
-	
+
 	initialized = TRUE;
 	mv_plugin->widget_shown = FALSE;
 	return TRUE;
@@ -195,9 +195,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	MessageViewPlugin *mplugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
+
 	DEBUG_PRINT ("%s", "MessageViewPlugin: Dectivating message view plugin ...");
-	
+
 	mplugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
 
 	/* Widget is removed as soon as it is destroyed */
@@ -205,11 +205,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 		gtk_widget_destroy (mplugin->msgman);
 	anjuta_ui_unmerge (ui, mplugin->uiid);
 	anjuta_ui_remove_action_group (ui, mplugin->action_group);
-	
+
 	mplugin->action_group = NULL;
 	mplugin->msgman = NULL;
 	mplugin->uiid = 0;
-	
+
 	return TRUE;
 }
 
@@ -239,7 +239,7 @@ message_view_plugin_instance_init (GObject *obj)
 }
 
 static void
-message_view_plugin_class_init (GObjectClass *klass) 
+message_view_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -252,7 +252,7 @@ message_view_plugin_class_init (GObjectClass *klass)
 }
 
 static gboolean
-on_filter_button_tooltip (GtkWidget* widget, 
+on_filter_button_tooltip (GtkWidget* widget,
                           gint        x,
                           gint        y,
                           gboolean    keyboard_mode,
@@ -265,7 +265,7 @@ on_filter_button_tooltip (GtkWidget* widget,
 		return FALSE;
 	if (widget == plugin->normal)
 	{
-		temp = g_strdup_printf(ngettext ("%d Message", "%d Messages", 
+		temp = g_strdup_printf(ngettext ("%d Message", "%d Messages",
 		                                 message_view_get_count (view,
 		                                                         MESSAGE_VIEW_SHOW_NORMAL)),
 		                       message_view_get_count (view,
@@ -274,7 +274,7 @@ on_filter_button_tooltip (GtkWidget* widget,
 	}
 	else if (widget == plugin->info)
 	{
-		temp = g_strdup_printf(ngettext ("%d Info", "%d Infos", 
+		temp = g_strdup_printf(ngettext ("%d Info", "%d Infos",
 		                                 message_view_get_count (view,
 		                                                         MESSAGE_VIEW_SHOW_INFO)),
 		                       message_view_get_count (view,
@@ -283,7 +283,7 @@ on_filter_button_tooltip (GtkWidget* widget,
 	}
 	else if (widget == plugin->warn)
 	{
-		temp = g_strdup_printf(ngettext ("%d Warning", "%d Warnings", 
+		temp = g_strdup_printf(ngettext ("%d Warning", "%d Warnings",
 		                                 message_view_get_count (view,
 		                                                         MESSAGE_VIEW_SHOW_WARNING)),
 		                       message_view_get_count (view,
@@ -292,7 +292,7 @@ on_filter_button_tooltip (GtkWidget* widget,
 	}
 	else if (widget == plugin->error)
 	{
-		temp = g_strdup_printf(ngettext ("%d Error", "%d Errors", 
+		temp = g_strdup_printf(ngettext ("%d Error", "%d Errors",
 		                                 message_view_get_count (view,
 		                                                         MESSAGE_VIEW_SHOW_ERROR)),
 		                       message_view_get_count (view,
@@ -330,7 +330,7 @@ create_mini_button (MessageViewPlugin* plugin, const gchar* stock_id)
 {
 	GtkWidget* button, *image;
 	gint h,w;
-	image = gtk_image_new_from_stock (stock_id, 
+	image = gtk_image_new_from_stock (stock_id,
 	                                  GTK_ICON_SIZE_MENU);
 	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
 	button = gtk_toggle_button_new ();
@@ -339,9 +339,9 @@ create_mini_button (MessageViewPlugin* plugin, const gchar* stock_id)
 	gtk_container_add (GTK_CONTAINER (button), image);
 
 	g_object_set (button, "has-tooltip", TRUE, NULL);
-	g_signal_connect (button, "query-tooltip", 
+	g_signal_connect (button, "query-tooltip",
 	                  G_CALLBACK (on_filter_button_tooltip), plugin);
-	
+
 	return button;
 }
 
@@ -350,12 +350,12 @@ create_toggle_buttons (MessageViewPlugin* plugin,
                        GtkWidget* hbox)
 {
 	GtkWidget* filter_buttons_box = gtk_hbox_new (FALSE, 0);
-	
+
 	plugin->normal = create_mini_button (plugin, "message-manager-plugin-icon");
 	plugin->info = create_mini_button (plugin, GTK_STOCK_INFO);
 	plugin->warn = create_mini_button (plugin, GTK_STOCK_DIALOG_WARNING);
 	plugin->error = create_mini_button (plugin, GTK_STOCK_DIALOG_ERROR);
-	
+
 	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->normal),
 						FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->info),
@@ -364,13 +364,13 @@ create_toggle_buttons (MessageViewPlugin* plugin,
 						FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (filter_buttons_box), GTK_WIDGET (plugin->error),
 	                    FALSE, FALSE, 0);
-	
+
 	gtk_widget_show_all (filter_buttons_box);
 	gtk_box_pack_start (GTK_BOX(hbox), filter_buttons_box, FALSE, FALSE, 0);
 }
 
 /*
- * IAnjutaMessagerManager interface implementation 
+ * IAnjutaMessagerManager interface implementation
  */
 static IAnjutaMessageView*
 ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
@@ -390,11 +390,11 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 		gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX(hbox), anjuta_msgman_get_tabber (ANJUTA_MSGMAN(msgman)),
 		                    TRUE, TRUE, 5);
-	
+
 		gtk_widget_show_all (hbox);
 
 		create_toggle_buttons (ANJUTA_PLUGIN_MESSAGE_VIEW(plugin), hbox);
-		
+
 		anjuta_shell_add_widget_custom (shell, msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon", hbox,
@@ -451,7 +451,7 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
 	anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
 					       MESSAGE_VIEW (message_view));
-	
+
 	/* Ensure the message-view is visible! */
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 }
@@ -517,9 +517,9 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	anjuta_preferences_add_from_builder (prefs, bxml, plugin->settings,
 									"Messages", _("Messages"),
 									 ANJUTA_PIXMAP_MESSAGES);
-	
+
 	g_signal_connect (plugin->settings, "changed::messages-tab-position",
-	                  G_CALLBACK (on_notify_message_pref), plugin->msgman);		
+	                  G_CALLBACK (on_notify_message_pref), plugin->msgman);
 	g_object_unref (bxml);
 }
 
@@ -533,7 +533,7 @@ static void
 ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 {
 	iface->merge = ipreferences_merge;
-	iface->unmerge = ipreferences_unmerge;	
+	iface->unmerge = ipreferences_unmerge;
 }
 
 ANJUTA_PLUGIN_BEGIN (MessageViewPlugin, message_view_plugin);

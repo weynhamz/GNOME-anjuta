@@ -192,8 +192,9 @@ static void sourceview_create_markers(Sourceview* sv)
 	                                   IANJUTA_MARKABLE_MESSAGE);
 }
 
-#define PREF_COLOR_ERROR "msgman-color-error"
-#define PREF_COLOR_WARNING "msgman-color-warning"
+#define PREF_COLOR_ERROR "color-error"
+#define PREF_COLOR_WARNING "color-warning"
+#define PREF_COLOR_IMPORTANT "color-important"
 
 
 /* Create tags for highlighting */
@@ -205,10 +206,13 @@ static void sourceview_create_highlight_indic(Sourceview* sv)
 	char* warning_color =
 		g_settings_get_string (sv->priv->msgman_settings,
 		                       PREF_COLOR_WARNING);
+	char* important_color =
+		g_settings_get_string (sv->priv->msgman_settings,
+		                       PREF_COLOR_IMPORTANT);
 	sv->priv->important_indic =
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									IMPORTANT_INDIC,
-									"background", "#FFFF00", NULL);
+									"background", important_color, NULL);
 	sv->priv->warning_indic =
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
 									WARNING_INDIC,
@@ -222,6 +226,7 @@ static void sourceview_create_highlight_indic(Sourceview* sv)
 									PANGO_UNDERLINE_ERROR, NULL);
 	g_free (error_color);
 	g_free (warning_color);
+	g_free (important_color);
 }
 
 static void
