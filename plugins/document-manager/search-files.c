@@ -140,13 +140,6 @@ search_files_get_files (GFile* parent, GList** files, IAnjutaProjectManager* pm)
 }
 
 static void
-search_files_check_column_clicked (SearchFiles* sf,
-                                   GtkCheckButton* button)
-{
-
-}
-
-static void
 search_files_check_column_toggled (GtkCellRendererToggle* renderer,
                                    gchar* path,
                                    SearchFiles* sf)
@@ -522,11 +515,11 @@ search_files_init_tree (SearchFiles* sf)
 	
 	column_select = gtk_tree_view_column_new();
 	sf->priv->files_tree_check = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sf->priv->files_tree_check),
+	                             TRUE);
 	gtk_widget_show (sf->priv->files_tree_check);
 	gtk_tree_view_column_set_widget(column_select,
 	                                sf->priv->files_tree_check);
-	g_signal_connect_swapped (sf->priv->files_tree_check, "clicked",
-	                          G_CALLBACK(search_files_check_column_clicked), sf);
 	selection_renderer = gtk_cell_renderer_toggle_new ();
 	gtk_tree_view_column_pack_start(column_select,
 	                                selection_renderer,
@@ -537,6 +530,8 @@ search_files_init_tree (SearchFiles* sf)
 	                                   COLUMN_SELECTED);
 	g_signal_connect (selection_renderer, "toggled",
 	                  G_CALLBACK(search_files_check_column_toggled), sf);
+	gtk_tree_view_column_set_sort_column_id(column_count,
+	                                        COLUMN_SELECTED);	
 	
 	column_filename = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_expand(column_filename,
@@ -683,8 +678,6 @@ search_files_init (SearchFiles* sf)
 	g_object_ref (sf->priv->main_box);
 	gtk_container_remove (GTK_CONTAINER (gtk_widget_get_parent (sf->priv->main_box)),
 	                      sf->priv->main_box);
-
-	search_files_update_ui(sf);
 }
 
 static void
@@ -743,7 +736,9 @@ search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 	sf->priv->docman = docman;
 	sf->priv->search_box = search_box;
 	
-	gtk_widget_show_all (sf->priv->main_box);
+	gtk_widget_show (sf->priv->main_box);
+	
+	search_files_update_ui(sf);
 	
 	return sf; 
 }
