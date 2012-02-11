@@ -1633,29 +1633,8 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 {
 	IAnjutaDocument *file_doc = NULL;
 	GList *node;
-	gchar *path;
-	gchar *local_real_path = NULL;
 
 	g_return_val_if_fail (file != NULL, NULL);
-
-
-	path = g_file_get_path (file);
-	if (path)
-	{
-		local_real_path = anjuta_util_get_real_path (path);
-		if (local_real_path)
-		{
-			g_free (path);
-		}
-		else
-		{
-			local_real_path = path;
-		}
-	}
-	else
-	{
-		return NULL;
-	}
 
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 	{
@@ -1672,7 +1651,9 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 			doc_file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
 			if (doc_file)
 			{
-
+				gchar *path;
+				gchar *local_real_path = NULL;
+				
 				/* Try exact match first */
 				if (g_file_equal (file, doc_file))
 				{
@@ -1682,19 +1663,37 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 				}
 
 				/* Try a local file alias */
+				path = g_file_get_path (file);
+				if (path)
+				{
+					local_real_path = anjuta_util_get_real_path (path);
+					if (local_real_path)
+					{
+						g_free (path);
+					}
+					else
+					{
+						local_real_path = path;
+					}
+				}
+				else
+				{
+					continue;
+				}
+				
 				if ((file_doc == NULL) && (local_real_path))
 				{
-					gchar *path = g_file_get_path (doc_file);
-					if (path)
+					gchar *doc_path = g_file_get_path (doc_file);
+					if (doc_path)
 					{
-						gchar *doc_real_path = anjuta_util_get_real_path (path);
+						gchar *doc_real_path = anjuta_util_get_real_path (doc_path);
 						if (doc_real_path)
 						{
-							g_free (path);
+							g_free (doc_path);
 						}
 						else
 						{
-							doc_real_path = path;
+							doc_real_path = doc_path;
 						}
 						if ((strcmp (doc_real_path, local_real_path) == 0))
 						{
@@ -1703,11 +1702,11 @@ anjuta_docman_get_document_for_file (AnjutaDocman *docman, GFile* file)
 						g_free (doc_real_path);
 					}
 				}
+				g_free (local_real_path);
 				g_object_unref (doc_file);
 			}
 		}
 	}
-	g_free (local_real_path);
 
 	return file_doc;
 }

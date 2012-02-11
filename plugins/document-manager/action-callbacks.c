@@ -920,7 +920,8 @@ on_search_find_in_files (GtkAction *action, gpointer user_data)
 
 	if (!plugin->search_files)
 	{
-		plugin->search_files = G_OBJECT (search_files_new (ANJUTA_DOCMAN (plugin->docman)));
+		plugin->search_files = G_OBJECT (search_files_new (ANJUTA_DOCMAN (plugin->docman),
+		                                                   SEARCH_BOX(plugin->search_box)));
 	}
 	search_files_present (SEARCH_FILES(plugin->search_files));
 }
@@ -1037,9 +1038,7 @@ void
 on_autocomplete_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
-	DocmanPlugin *plugin;
 	doc = get_current_document (user_data);
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	if (doc && IANJUTA_IS_EDITOR_ASSIST(doc))
 	{
 		IAnjutaEditorAssist* assist = IANJUTA_EDITOR_ASSIST (doc);

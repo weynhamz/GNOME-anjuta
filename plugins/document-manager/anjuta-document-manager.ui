@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires anjuta 0.0 -->
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
@@ -414,6 +414,7 @@
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_stock">gtk-find</property>
+            <signal name="changed" handler="search_files_update_ui" swapped="yes"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -485,7 +486,7 @@
             <property name="row_spacing">5</property>
             <property name="column_spacing">5</property>
             <property name="n_rows">1</property>
-            <property name="n_columns">2</property>
+            <property name="n_columns">5</property>
             <child>
               <object class="GtkComboBox" id="file_type_combo">
                 <property name="visible">True</property>
@@ -512,6 +513,53 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="case_check">
+                <property name="label" translatable="yes">Case sensitive</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="regex_check">
+                <property name="label" translatable="yes">Regular expression</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinner" id="spinner_busy">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">4</property>
                 <property name="top_attach">0</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
@@ -568,9 +616,6 @@
             <property name="width">2</property>
             <property name="height">1</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>

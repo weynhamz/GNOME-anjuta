@@ -20,7 +20,8 @@
 #ifndef _SEARCH_FILES_H_
 #define _SEARCH_FILES_H_
 
-#include <anjuta-docman.h>
+#include "anjuta-docman.h"
+#include "search-box.h"
 
 G_BEGIN_DECLS
 
@@ -48,7 +49,7 @@ struct _SearchFiles
 };
 
 GType search_files_get_type (void) G_GNUC_CONST;
-SearchFiles* search_files_new (AnjutaDocman* docman);
+SearchFiles* search_files_new (AnjutaDocman* docman, SearchBox* search_box);
 
 void search_files_present (SearchFiles* files);
 

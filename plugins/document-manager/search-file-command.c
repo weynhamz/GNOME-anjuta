@@ -26,6 +26,7 @@ struct _SearchFileCommandPrivate
 	gchar* pattern;
 	gchar* replace;
 	gboolean regex;
+	gboolean case_sensitive;
 
 	gint n_matches;
 };
@@ -36,10 +37,13 @@ enum
 	PROP_FILE,
 	PROP_PATTERN,
 	PROP_REPLACE,
+	PROP_CASE_SENSITIVE,
 	PROP_REGEX
 };
 
 #define BUFFER_SIZE 1024
+
+G_DEFINE_TYPE (SearchFileCommand, search_file_command, ANJUTA_TYPE_ASYNC_COMMAND);
 
 static void
 search_file_command_save (SearchFileCommand* cmd, const gchar* new_content, GError **error)
@@ -84,7 +88,7 @@ search_file_command_load (SearchFileCommand* cmd, GError **error)
 	content = g_string_new (NULL);
 	while ((bytes_read = g_input_stream_read (G_INPUT_STREAM (istream),
 	                                          buffer,
-	                                          BUFFER_SIZE,
+	                                          BUFFER_SIZE - 1,
 	                                          NULL,
 	                                          error)))
 	{
@@ -110,9 +114,12 @@ search_file_command_run (AnjutaCommand* anjuta_cmd)
 	gchar* pattern;
 	gchar* replace;
 	gchar* content;
+	GRegexCompileFlags flags = 0;
+	GRegex *regex;
+	GMatchInfo *match_info;
 	
 	g_return_val_if_fail (cmd->priv->file != NULL && G_IS_FILE (cmd->priv->file), 1);
-
+	g_return_val_if_fail (cmd->priv->pattern != NULL, 1);
 	cmd->priv->n_matches = 0;
 	
 	content = search_file_command_load (cmd, &error);
@@ -140,29 +147,30 @@ search_file_command_run (AnjutaCommand* anjuta_cmd)
 			replace = NULL;
 	}
 
-	if (!replace)
-	{
-		GRegex *regex;
-		GMatchInfo *match_info;
+	if (!cmd->priv->case_sensitive)
+		flags |= G_REGEX_CASELESS;
 
-		regex = g_regex_new (pattern, 0, 0, NULL);
-		g_regex_match (regex, content, 0, &match_info);
-		while (g_match_info_matches (match_info))
-		{
-			cmd->priv->n_matches++;
-			g_match_info_next (match_info, NULL);
-		}
-		g_match_info_free (match_info);
-		g_regex_unref (regex);                      
+	regex = g_regex_new (pattern, flags, 0, &error);
+	if (error)
+	{
+		anjuta_command_set_error_message(anjuta_cmd, error->message);
+		g_error_free (error);
+		g_free (content);
+		return 1;
 	}
-	else
+	g_regex_match (regex, content, 0, &match_info);
+	while (g_match_info_matches (match_info))
+	{
+		cmd->priv->n_matches++;
+		g_match_info_next (match_info, NULL);
+	}
+	g_match_info_free (match_info);
+	
+	if (replace && cmd->priv->n_matches)
 	{
 		gchar* new_content;
-		GRegex *regex;
 		
-		regex = g_regex_new (pattern, 0, 0, NULL);
 		new_content = g_regex_replace (regex, content, -1, 0, replace, 0, NULL);
-		g_regex_unref (regex);
 
 		search_file_command_save (cmd, new_content, &error);
 		g_free (new_content);
@@ -173,12 +181,14 @@ search_file_command_run (AnjutaCommand* anjuta_cmd)
 			return 1;
 		}
 	}
+
+	g_regex_unref (regex);
 	g_free (content);
+	g_free (pattern);
+	g_free (replace);
 
 	return 0;
 }
-
-G_DEFINE_TYPE (SearchFileCommand, search_file_command, ANJUTA_TYPE_ASYNC_COMMAND);
 
 static void
 search_file_command_init (SearchFileCommand *cmd)
@@ -223,6 +233,9 @@ search_file_command_set_property (GObject *object, guint prop_id, const GValue *
 		g_free (cmd->priv->replace);
 		cmd->priv->replace = g_value_dup_string (value);
 		break;
+	case PROP_CASE_SENSITIVE:
+		cmd->priv->case_sensitive = g_value_get_boolean (value);
+		break;			
 	case PROP_REGEX:
 		cmd->priv->regex = g_value_get_boolean (value);
 		break;
@@ -252,6 +265,9 @@ search_file_command_get_property (GObject *object, guint prop_id, GValue *value,
 	case PROP_REPLACE:
 		g_value_set_string (value, cmd->priv->replace);
 		break;
+	case PROP_CASE_SENSITIVE:
+		g_value_set_boolean (value, cmd->priv->case_sensitive);
+		break;
 	case PROP_REGEX:
 		g_value_set_boolean (value, cmd->priv->regex);
 		break;
@@ -277,24 +293,30 @@ search_file_command_class_init (SearchFileCommandClass *klass)
 	                                                      "filename",
 	                                                      "Filename to search in",
 	                                                      G_TYPE_FILE,
-	                                                      G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
+	                                                      G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
 
 	g_object_class_install_property (object_class,
 	                                 PROP_PATTERN,
 	                                 g_param_spec_string ("pattern", "", "",
-	                                                       "",
-	                                                       G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
+	                                                       NULL,
+	                                                       G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property (object_class,
-	                                 PROP_PATTERN,
+	                                 PROP_REPLACE,
 	                                 g_param_spec_string ("replace", "", "",
-	                                                       "",
-	                                                       G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));	
+	                                                       NULL,
+	                                                       G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));	
 
+	g_object_class_install_property (object_class,
+	                                 PROP_CASE_SENSITIVE,
+	                                 g_param_spec_boolean ("case-sensitive", "", "",
+	                                                       TRUE,
+	                                                       G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
+	
 	g_object_class_install_property (object_class,
 	                                 PROP_REGEX,
 	                                 g_param_spec_boolean ("regex", "", "",
 	                                                       FALSE,
-	                                                       G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
+	                                                      G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
 
 	command_class->run = search_file_command_run;
 
@@ -303,7 +325,8 @@ search_file_command_class_init (SearchFileCommandClass *klass)
 
 
 SearchFileCommand*
-search_file_command_new (GFile* file, const gchar* pattern, const gchar* replace, gboolean regex)
+search_file_command_new (GFile* file, const gchar* pattern, 
+                         const gchar* replace, gboolean case_sensitive, gboolean regex)
 {
 	SearchFileCommand* command;
 
@@ -311,14 +334,15 @@ search_file_command_new (GFile* file, const gchar* pattern, const gchar* replace
 	                                             "file", file,
 	                                             "pattern", pattern,
 	                                             "replace", replace,
+	                                             "case-sensitive", case_sensitive,
 	                                             "regex", regex, NULL));
 	return command;
 }
 
 gint
-search_command_get_n_matches (SearchFileCommand* cmd)
+search_file_command_get_n_matches (SearchFileCommand* cmd)
 {
-	g_return_val_if_fail (cmd != NULL && !SEARCH_IS_FILE_COMMAND (cmd), 0);
+	g_return_val_if_fail (cmd != NULL && SEARCH_IS_FILE_COMMAND (cmd), 0);
 
 	return cmd->priv->n_matches;
 }

@@ -18,6 +18,8 @@
  */
 
 #include "search-files.h"
+#include "search-file-command.h"
+#include <libanjuta/anjuta-command-queue.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-chooser.h>
 
@@ -40,13 +42,27 @@ struct _SearchFilesPrivate
 	GtkWidget* project_combo;
 	GtkWidget* file_type_combo;
 
+	GtkWidget* case_check;
+	GtkWidget* regex_check;
+
+	GtkWidget* spinner_busy;
+	
 	GtkWidget* files_tree;
 	GtkTreeModel* files_model;
 
 	GtkWidget* files_tree_check;
 	
 	AnjutaDocman* docman;
+	SearchBox* search_box;
 	GtkWidget* dialog;
+
+	/* Saved from last search */
+	gboolean case_sensitive;
+	gboolean regex;
+	gchar* last_search_string;
+	gchar* last_replace_string;
+	
+	gboolean busy;
 };
 
 enum
@@ -56,7 +72,10 @@ enum
 	COLUMN_COUNT,
 	COLUMN_PULSE,
 	COLUMN_SPINNER,
-	COLUMN_FILE
+	COLUMN_FILE,
+	COLUMN_ERROR_TOOLTIP,
+	COLUMN_ERROR_CODE,
+	N_COLUMNS
 };
 
 G_DEFINE_TYPE (SearchFiles, search_files, G_TYPE_OBJECT);
@@ -64,6 +83,47 @@ G_DEFINE_TYPE (SearchFiles, search_files, G_TYPE_OBJECT);
 void search_files_search_clicked (SearchFiles* sf);
 void search_files_replace_clicked (SearchFiles* sf);
 void search_files_find_files_clicked (SearchFiles* sf);
+void search_files_update_ui (SearchFiles* sf);
+
+
+void
+search_files_update_ui (SearchFiles* sf)
+{
+	GtkTreeIter iter;
+	gboolean can_search = FALSE;
+	
+	if (!sf->priv->busy)
+	{
+		gtk_spinner_stop(GTK_SPINNER (sf->priv->spinner_busy));
+		gtk_widget_hide (sf->priv->spinner_busy);
+
+		if (strlen(gtk_entry_get_text (GTK_ENTRY (sf->priv->search_entry))) > 0
+		    && gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
+		{
+			do
+			{
+				gboolean selected;
+				gtk_tree_model_get (sf->priv->files_model, &iter,
+				                    COLUMN_SELECTED, &selected, -1);
+				if (selected)
+				{
+					can_search = TRUE;
+					break;
+				}
+			}
+			while (gtk_tree_model_iter_next(sf->priv->files_model, &iter));
+		}
+	}
+	else
+	{
+		gtk_spinner_start(GTK_SPINNER (sf->priv->spinner_busy));
+		gtk_widget_show (sf->priv->spinner_busy);
+	}
+
+	gtk_widget_set_sensitive (sf->priv->search_button, can_search);
+	gtk_widget_set_sensitive (sf->priv->replace_button, can_search);
+	gtk_widget_set_sensitive (sf->priv->find_files_button, !sf->priv->busy);
+}
 
 static void
 search_files_get_files (GFile* parent, GList** files, IAnjutaProjectManager* pm)
@@ -87,22 +147,215 @@ search_files_check_column_clicked (SearchFiles* sf,
 }
 
 static void
-search_files_check_column_toggled (SearchFiles* sf,
-                                   GtkCellRenderer* renderer)
+search_files_check_column_toggled (GtkCellRendererToggle* renderer,
+                                   gchar* path,
+                                   SearchFiles* sf)
 {
+	GtkTreePath* tree_path;
+	GtkTreeIter iter;
+	gboolean state;
 
+	if (sf->priv->busy)
+		return;
+
+	tree_path = gtk_tree_path_new_from_string(path);
+	gtk_tree_model_get_iter (sf->priv->files_model, &iter, tree_path);
+
+	gtk_tree_path_free(tree_path);
+	
+	gtk_tree_model_get (sf->priv->files_model, &iter,
+	                    COLUMN_SELECTED, &state, -1);
+	
+	gtk_list_store_set (GTK_LIST_STORE (sf->priv->files_model), &iter,
+	                    COLUMN_SELECTED, !state,
+	                    -1);
+}
+
+static void
+search_files_finished (SearchFiles* sf, AnjutaCommandQueue* queue)
+{
+	sf->priv->busy = FALSE;
+	g_object_unref (queue);
+
+	search_files_update_ui(sf);
+}
+
+static void
+search_files_command_finished (SearchFileCommand* cmd,
+                               guint return_code,
+                               SearchFiles* sf)
+{	
+	GtkTreeIter iter;
+	GtkTreeRowReference* tree_ref;
+	GtkTreePath* path;
+	
+	tree_ref = g_object_get_data (G_OBJECT (cmd),
+	                              "__tree_ref");
+	path = gtk_tree_row_reference_get_path(tree_ref);
+	
+	gtk_tree_model_get_iter(sf->priv->files_model, &iter, path);
+	gtk_list_store_set (GTK_LIST_STORE (sf->priv->files_model),
+	                    &iter,
+	                    COLUMN_COUNT, search_file_command_get_n_matches(cmd),
+	                    COLUMN_ERROR_CODE, return_code,
+	                    COLUMN_ERROR_TOOLTIP, NULL,
+	                    -1);
+	gtk_tree_row_reference_free(tree_ref);
+	gtk_tree_path_free(path);
+
+	if (return_code)
+	{
+		gtk_list_store_set (GTK_LIST_STORE (sf->priv->files_model),
+		                    &iter,
+		                    COLUMN_ERROR_CODE, return_code,
+		                    COLUMN_ERROR_TOOLTIP,
+		                    anjuta_command_get_error_message(cmd),
+		                    -1);
+	}
+	
+	g_object_unref (cmd);
 }
 
 void
 search_files_search_clicked (SearchFiles* sf)
 {
+	GtkTreeIter iter;
+	
+	if (gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
+	{
+		AnjutaCommandQueue* queue = anjuta_command_queue_new(ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+		const gchar* pattern = 
+			gtk_entry_get_text (GTK_ENTRY (sf->priv->search_entry));
+		do
+		{
+			GFile* file;
+			gboolean selected;
 
+			/* Save the current values */
+			sf->priv->regex = 
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (sf->priv->regex_check));
+			sf->priv->case_sensitive =
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (sf->priv->case_check));
+			
+			g_free (sf->priv->last_search_string);
+			sf->priv->last_search_string = g_strdup(pattern);
+			g_free (sf->priv->last_replace_string);
+			sf->priv->last_replace_string = NULL;
+
+			gtk_tree_model_get (sf->priv->files_model, &iter,
+			                    COLUMN_FILE, &file, 
+			                    COLUMN_SELECTED, &selected, -1);
+			if (selected)
+			{
+				GtkTreePath* path;
+				GtkTreeRowReference* ref;
+				
+				path = gtk_tree_model_get_path(sf->priv->files_model, &iter);
+				ref = gtk_tree_row_reference_new(sf->priv->files_model, 
+				                                 path);
+				gtk_tree_path_free(path);
+
+
+				SearchFileCommand* cmd = search_file_command_new(file,
+				                                                 pattern,
+				                                                 NULL,
+				                                                 sf->priv->case_sensitive,
+				                                                 sf->priv->regex);
+				g_object_set_data (G_OBJECT (cmd), "__tree_ref",
+				                   ref);
+
+				g_signal_connect (cmd, "command-finished", 
+				                  G_CALLBACK(search_files_command_finished), sf);
+
+				anjuta_command_queue_push(queue,
+				                          ANJUTA_COMMAND(cmd));
+			}
+			g_object_unref (file);
+		}
+		while (gtk_tree_model_iter_next(sf->priv->files_model, &iter));
+
+		g_signal_connect_swapped (queue, "finished", G_CALLBACK (search_files_finished), sf);
+
+		anjuta_command_queue_start (queue);
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
+		                                     COLUMN_COUNT,
+		                                     GTK_SORT_DESCENDING);
+
+		sf->priv->busy = TRUE;
+		search_files_update_ui(sf);
+	}
 }
 
 void
 search_files_replace_clicked (SearchFiles* sf)
 {
+	GtkTreeIter iter;
+	
+	if (gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
+	{
+		AnjutaCommandQueue* queue = anjuta_command_queue_new(ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+		const gchar* pattern = 
+			gtk_entry_get_text (GTK_ENTRY (sf->priv->search_entry));
+		const gchar* replace =
+			gtk_entry_get_text (GTK_ENTRY (sf->priv->replace_entry));
+		do
+		{
+			GFile* file;
+			gboolean selected;
 
+			/* Save the current values */
+			sf->priv->regex = 
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (sf->priv->regex_check));
+			sf->priv->case_sensitive =
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (sf->priv->case_check));
+			
+			g_free (sf->priv->last_search_string);
+			sf->priv->last_search_string = g_strdup(pattern);
+			g_free (sf->priv->last_replace_string);
+			sf->priv->last_replace_string = g_strdup(replace);
+
+			gtk_tree_model_get (sf->priv->files_model, &iter,
+			                    COLUMN_FILE, &file, 
+			                    COLUMN_SELECTED, &selected, -1);
+			if (selected)
+			{
+				GtkTreePath* path;
+				GtkTreeRowReference* ref;
+				
+				path = gtk_tree_model_get_path(sf->priv->files_model, &iter);
+				ref = gtk_tree_row_reference_new(sf->priv->files_model, 
+				                                 path);
+				gtk_tree_path_free(path);
+
+
+				SearchFileCommand* cmd = search_file_command_new(file,
+				                                                 pattern,
+				                                                 replace,
+				                                                 sf->priv->case_sensitive,
+				                                                 sf->priv->regex);
+				g_object_set_data (G_OBJECT (cmd), "__tree_ref",
+				                   ref);
+
+				g_signal_connect (cmd, "command-finished", 
+				                  G_CALLBACK(search_files_command_finished), sf);
+
+				anjuta_command_queue_push(queue,
+				                          ANJUTA_COMMAND(cmd));
+			}
+			g_object_unref (file);
+		}
+		while (gtk_tree_model_iter_next(sf->priv->files_model, &iter));
+
+		g_signal_connect_swapped (queue, "finished", G_CALLBACK (search_files_finished), sf);
+
+		anjuta_command_queue_start (queue);
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
+		                                     COLUMN_COUNT,
+		                                     GTK_SORT_DESCENDING);
+
+		sf->priv->busy = TRUE;
+		search_files_update_ui(sf);
+	}
 }
 
 void
@@ -165,6 +418,10 @@ search_files_find_files_clicked (SearchFiles* sf)
 		                    COLUMN_PULSE, FALSE, -1);
 	}
 	g_object_unref (project_file);
+
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
+	                                     COLUMN_FILENAME,
+	                                     GTK_SORT_DESCENDING);
 	
 	g_list_foreach (files, (GFunc) g_object_unref, NULL);
 	g_list_free (files);
@@ -189,29 +446,66 @@ search_files_render_count (GtkTreeViewColumn *tree_column,
 }
 
 static void
-search_files_update_ui (SearchFiles* sf)
+search_files_editor_loaded (SearchFiles* sf, IAnjutaEditor* editor)
 {
-	GtkTreeIter iter;
-	gboolean file_available = FALSE;
-	
-	if (gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
+	search_box_set_search_string(sf->priv->search_box, 
+	                             sf->priv->last_search_string);
+	if (sf->priv->last_replace_string)
 	{
-		do
-		{
-			gboolean selected;
-			gtk_tree_model_get (sf->priv->files_model, &iter,
-			                    COLUMN_SELECTED, &selected, -1);
-			if (selected)
-			{
-				file_available = TRUE;
-				break;
-			}
-		}
-		while (gtk_tree_model_iter_next(sf->priv->files_model, &iter));
+		search_box_set_replace_string(sf->priv->search_box,
+		                              sf->priv->last_replace_string);
+		search_box_set_replace(sf->priv->search_box,
+		                       TRUE);
+	}
+	else
+	{
+		search_box_set_replace(sf->priv->search_box,
+		                       FALSE);
+	}
+	search_box_toggle_case_sensitive(sf->priv->search_box,
+	                                 sf->priv->case_sensitive);
+	search_box_toggle_highlight(sf->priv->search_box,
+	                            TRUE);
+	search_box_toggle_regex(sf->priv->search_box,
+	                        sf->priv->regex);
+	search_box_search_highlight_all(sf->priv->search_box, TRUE);
+	search_box_incremental_search(sf->priv->search_box, TRUE, FALSE);
+
+	gtk_widget_show (GTK_WIDGET(sf->priv->search_box));
+}
+                               
+
+static void
+search_files_result_activated (GtkTreeView* files_tree,
+                               GtkTreePath* path,
+                               GtkTreeViewColumn* column,
+                               SearchFiles* sf)
+{
+	IAnjutaDocument* editor;
+	GFile* file;
+	GtkTreeIter iter;
+
+	gtk_tree_model_get_iter (sf->priv->files_model, &iter, path);
+	gtk_tree_model_get (sf->priv->files_model, &iter,
+	                    COLUMN_FILE, &file, -1);
+	
+	/* Check if document is open */
+	editor = anjuta_docman_get_document_for_file(sf->priv->docman, file);
+	
+	if (editor && IANJUTA_IS_EDITOR(editor))
+	{
+		search_files_editor_loaded (sf, IANJUTA_EDITOR(editor));
+	}
+	else
+	{
+		IAnjutaEditor* real_editor = 
+			anjuta_docman_goto_file_line(sf->priv->docman, file, 0);
+		if (real_editor)
+			g_signal_connect_swapped (real_editor, "opened", 
+			                          G_CALLBACK (search_files_editor_loaded), sf);
 	}
 
-	gtk_widget_set_sensitive (sf->priv->search_button, file_available);
-	gtk_widget_set_sensitive (sf->priv->replace_button, file_available);	
+	g_object_unref (file);
 }
 
 static void
@@ -224,6 +518,7 @@ search_files_init_tree (SearchFiles* sf)
 	GtkCellRenderer* selection_renderer;
 	GtkCellRenderer* filename_renderer;
 	GtkCellRenderer* count_renderer;
+	GtkCellRenderer* error_renderer;
 	
 	column_select = gtk_tree_view_column_new();
 	sf->priv->files_tree_check = gtk_check_button_new();
@@ -240,8 +535,8 @@ search_files_init_tree (SearchFiles* sf)
 	                                   selection_renderer,
 	                                   "active",
 	                                   COLUMN_SELECTED);
-	g_signal_connect_swapped (selection_renderer, "toggled",
-	                          G_CALLBACK(search_files_check_column_toggled), sf);
+	g_signal_connect (selection_renderer, "toggled",
+	                  G_CALLBACK(search_files_check_column_toggled), sf);
 	
 	column_filename = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_expand(column_filename,
@@ -251,31 +546,57 @@ search_files_init_tree (SearchFiles* sf)
 	gtk_tree_view_column_pack_start(column_filename,
 	                                filename_renderer,
 	                                TRUE);
-	gtk_tree_view_column_add_attribute(column_filename,
-	                                   filename_renderer,
-	                                   "text",
-	                                   COLUMN_FILENAME);
-
+	gtk_tree_view_column_add_attribute (column_filename,
+	                                    filename_renderer,
+	                                    "text",
+	                                    COLUMN_FILENAME);
+	gtk_tree_view_column_add_attribute (column_filename,
+	                                    filename_renderer,
+	                                    "sensitive",
+	                                    COLUMN_COUNT);
+	gtk_tree_view_column_set_sort_column_id(column_filename,
+	                                        COLUMN_FILENAME);
+	error_renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set (error_renderer, "stock-id", GTK_STOCK_DIALOG_ERROR, NULL);
+	gtk_tree_view_column_pack_start(column_filename,
+	                                error_renderer,
+	                                FALSE);
+	gtk_tree_view_column_add_attribute (column_filename,
+	                                    error_renderer,
+	                                    "visible",
+	                                    COLUMN_ERROR_CODE);
+	
 	column_count = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title (column_count, "#");
 	count_renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(column_count,
 	                                count_renderer,
 	                                TRUE);
+	gtk_tree_view_column_add_attribute (column_count,
+	                                    count_renderer,
+	                                    "sensitive",
+	                                    COLUMN_COUNT);	
 	gtk_tree_view_column_set_cell_data_func(column_count,
 	                                        count_renderer,
 	                                        search_files_render_count,
 	                                        NULL,
 	                                        NULL);
-
-	sf->priv->files_model = GTK_TREE_MODEL (gtk_list_store_new (6,
+	gtk_tree_view_column_set_sort_column_id(column_count,
+	                                        COLUMN_COUNT);
+	
+	sf->priv->files_model = GTK_TREE_MODEL (gtk_list_store_new (N_COLUMNS,
 	                                                            G_TYPE_BOOLEAN,
 	                                                            G_TYPE_STRING,
 	                                                            G_TYPE_INT,
 	                                                            G_TYPE_BOOLEAN,
 	                                                            G_TYPE_BOOLEAN,
-	                                                            G_TYPE_FILE));
-
+	                                                            G_TYPE_FILE,
+	                                                            G_TYPE_STRING,
+	                                                            G_TYPE_INT));
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
+	                                     COLUMN_FILENAME,
+	                                     GTK_SORT_DESCENDING);	
+	
 	g_signal_connect_swapped (sf->priv->files_model,
 	                          "row-inserted",
 	                          G_CALLBACK (search_files_update_ui),
@@ -288,7 +609,7 @@ search_files_init_tree (SearchFiles* sf)
 	                          "row-changed",
 	                          G_CALLBACK (search_files_update_ui),
 	                          sf);		
-	
+
 	gtk_tree_view_set_model (GTK_TREE_VIEW (sf->priv->files_tree), sf->priv->files_model);
 	gtk_tree_view_append_column(GTK_TREE_VIEW (sf->priv->files_tree),
 	                            column_select);
@@ -296,6 +617,10 @@ search_files_init_tree (SearchFiles* sf)
 	                            column_filename);
 	gtk_tree_view_append_column(GTK_TREE_VIEW (sf->priv->files_tree),
 	                            column_count);
+	gtk_tree_view_set_tooltip_column(GTK_TREE_VIEW (sf->priv->files_tree),
+	                                 COLUMN_ERROR_TOOLTIP);
+	g_signal_connect (sf->priv->files_tree, "row-activated",
+	                  G_CALLBACK (search_files_result_activated), sf);
 }
 
 static void
@@ -340,6 +665,14 @@ search_files_init (SearchFiles* sf)
 	                           combo_renderer, TRUE);
 	gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (sf->priv->file_type_combo),
 	                               combo_renderer, "text", 0);
+
+	sf->priv->case_check = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
+	                                                             "case_check"));
+	sf->priv->regex_check = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
+	                                                           "regex_check"));
+	sf->priv->spinner_busy = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
+	                                                            "spinner_busy"));
+	
 	sf->priv->files_tree = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                          "files_tree"));	
 
@@ -389,7 +722,7 @@ search_files_project_loaded (SearchFiles* sf, IAnjutaProjectManager *pm, GError*
 }
 
 SearchFiles* 
-search_files_new (AnjutaDocman* docman)
+search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 {
 	AnjutaShell* shell = docman->shell;
 	GObject* obj = g_object_new (SEARCH_TYPE_FILES, NULL);
@@ -408,6 +741,7 @@ search_files_new (AnjutaDocman* docman)
 	                        ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 
 	sf->priv->docman = docman;
+	sf->priv->search_box = search_box;
 	
 	gtk_widget_show_all (sf->priv->main_box);
 	
@@ -416,6 +750,13 @@ search_files_new (AnjutaDocman* docman)
 
 void search_files_present (SearchFiles* sf)
 {
+	g_return_if_fail (sf != NULL && SEARCH_IS_FILES(sf));
+	
+	gtk_entry_set_text (GTK_ENTRY (sf->priv->search_entry),
+	                    search_box_get_search_string(sf->priv->search_box));
+	gtk_entry_set_text (GTK_ENTRY (sf->priv->replace_entry),
+	                    search_box_get_replace_string(sf->priv->search_box));	
+
 	anjuta_shell_present_widget(sf->priv->docman->shell,
 	                            sf->priv->main_box,
 	                            NULL);

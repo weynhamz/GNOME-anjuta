@@ -62,12 +62,18 @@ struct _SearchBoxPrivate
 
 	IAnjutaEditor* current_editor;
 	AnjutaStatus* status;
+	AnjutaShell* shell;
 
 	/* Search options popup menu */
 	GtkWidget* popup_menu;
+	GtkAction* case_action;
+	GtkAction* highlight_action;
+	GtkAction* regex_action;
+	
 	gboolean case_sensitive;
 	gboolean highlight_all;	
 	gboolean regex_mode;
+	
 	gboolean highlight_complete;
 	
 };
@@ -611,6 +617,8 @@ search_box_toggle_highlight (SearchBox * search_box, gboolean status)
 		return;
 
 	search_box->priv->highlight_all = status;
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->highlight_action),
+	                             status);
 
 	if (!status)
 	{
@@ -621,10 +629,12 @@ search_box_toggle_highlight (SearchBox * search_box, gboolean status)
 
 void 
 search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status)
-{
+{	
 	if (!search_box->priv->current_editor)
 		return;
-
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->case_action),
+	                             status);
+	                               
 	search_box->priv->case_sensitive = status;
 	search_box_clear_highlight(search_box);
 }
@@ -635,6 +645,9 @@ search_box_toggle_regex (SearchBox * search_box, gboolean status)
 	if (!search_box->priv->current_editor)
 		return;
 
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->regex_action),
+	                             status);
+	
 	search_box->priv->regex_mode = status;
 	search_box_clear_highlight(search_box);
 
@@ -1082,6 +1095,17 @@ search_box_new (AnjutaDocman *docman)
 	search_box->priv->popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 											"/SearchboxPopup");
 	g_assert (search_box->priv->popup_menu != NULL && GTK_IS_MENU (search_box->priv->popup_menu));
+
+	search_box->priv->case_action = 
+		gtk_ui_manager_get_action (GTK_UI_MANAGER (ui),
+		                           "/SearchboxPopup/CaseCheck");
+
+	search_box->priv->highlight_action =
+		gtk_ui_manager_get_action (GTK_UI_MANAGER (ui),
+		                           "/SearchboxPopup/HighlightAll");
+	search_box->priv->regex_action = 
+		gtk_ui_manager_get_action (GTK_UI_MANAGER (ui),
+		                           "/SearchboxPopup/RegexSearch");
 
 	g_signal_connect (search_box->priv->popup_menu, "deactivate",
 					  G_CALLBACK (gtk_widget_hide), NULL);

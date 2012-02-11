@@ -51,8 +51,10 @@ struct _SearchFileCommand
 GType search_file_command_get_type (void) G_GNUC_CONST;
 SearchFileCommand* search_file_command_new (GFile* file, 
                                             const gchar* pattern, 
-                                            const gchar* replace, gboolean regex);
-gint search_command_get_n_matches (SearchFileCommand* cmd);
+                                            const gchar* replace,
+                                            gboolean case_sensitive,
+                                            gboolean regex);
+gint search_file_command_get_n_matches (SearchFileCommand* cmd);
 
 G_END_DECLS
 
