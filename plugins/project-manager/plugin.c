@@ -2014,12 +2014,36 @@ iproject_manager_get_children (IAnjutaProjectManager *project_manager,
 							   GError **err)
 {
 	ProjectManagerPlugin *plugin;
+	GList *list = NULL;
 
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	/* FIXME: */
-	return NULL;
+	if (plugin->project !=  NULL)
+	{
+		AnjutaProjectNode *parent;
+
+		parent = anjuta_pm_project_get_root  (plugin->project);
+		if (parent != NULL)
+		{
+			parent = get_node_from_file (parent, element);
+			if (parent != NULL)
+			{
+				AnjutaProjectNode *child;
+
+				for (child = anjuta_project_node_first_child (parent); child != NULL; child = anjuta_project_node_next_sibling (child))
+				{
+					GFile *file;
+
+					file = anjuta_project_node_get_file (child);
+					if (file != NULL) list = g_list_prepend (list, g_object_ref (file));
+				}
+			}
+		}
+	}
+	list = g_list_reverse (list);
+
+	return list;
 }
 
 static GFile*
