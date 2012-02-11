@@ -728,6 +728,8 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
 
+	g_signal_emit_by_name (sv, "opened");
+	
 	/* Get rid of reference from ifile_open */
 	g_object_unref(G_OBJECT(sv));
 }
