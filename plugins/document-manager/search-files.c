@@ -132,8 +132,8 @@ search_files_get_files (GFile* parent, GList** files, IAnjutaProjectManager* pm)
 	GList* children = ianjuta_project_manager_get_children(pm, parent, NULL);
 	for (node = children;node != NULL; node = g_list_next(node))
 	{
-		search_files_get_files(G_FILE(node), files, pm);
-		g_message (g_file_get_path (G_FILE(node)));
+		search_files_get_files(G_FILE(node->data), files, pm);
+		*files = g_list_append (*files, node->data);
 	}
 	g_list_foreach (children, (GFunc)g_object_unref, NULL);
 	g_list_free(children);
@@ -202,7 +202,7 @@ search_files_command_finished (SearchFileCommand* cmd,
 		                    &iter,
 		                    COLUMN_ERROR_CODE, return_code,
 		                    COLUMN_ERROR_TOOLTIP,
-		                    anjuta_command_get_error_message(cmd),
+		                    anjuta_command_get_error_message(ANJUTA_COMMAND(cmd)),
 		                    -1);
 	}
 	
@@ -356,22 +356,25 @@ search_files_find_files_clicked (SearchFiles* sf)
 {
 	GFile* selected;
 	IAnjutaProjectManager* pm;
-	GList* files;
+	GList* files = NULL;
 	GList* file;
-
+		
 	gchar* project_uri = NULL;
 	GFile* project_file = NULL;
-	
+
 	g_return_if_fail (sf != NULL && SEARCH_IS_FILES (sf));
 	
-	gtk_list_store_clear(GTK_LIST_STORE (sf->priv->files_model));
-
 	pm = anjuta_shell_get_interface (sf->priv->docman->shell,
 	                                 IAnjutaProjectManager,
 	                                 NULL);
-	files = ianjuta_project_manager_get_elements(pm,
-	                                             ANJUTA_PROJECT_SOURCE,
-	                                             NULL);
+	
+	selected = 
+		ianjuta_project_chooser_get_selected(IANJUTA_PROJECT_CHOOSER (sf->priv->project_combo),
+		                                     NULL);
+	
+	search_files_get_files (selected, &files, pm); 
+		
+	gtk_list_store_clear(GTK_LIST_STORE (sf->priv->files_model));
 	anjuta_shell_get (sf->priv->docman->shell,
 	                  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 	                  G_TYPE_STRING,
@@ -530,7 +533,7 @@ search_files_init_tree (SearchFiles* sf)
 	                                   COLUMN_SELECTED);
 	g_signal_connect (selection_renderer, "toggled",
 	                  G_CALLBACK(search_files_check_column_toggled), sf);
-	gtk_tree_view_column_set_sort_column_id(column_count,
+	gtk_tree_view_column_set_sort_column_id(column_select,
 	                                        COLUMN_SELECTED);	
 	
 	column_filename = gtk_tree_view_column_new();
@@ -695,7 +698,6 @@ static void
 search_files_class_init (SearchFilesClass* klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GObjectClass* parent_class = G_OBJECT_CLASS (klass);
 
 	object_class->finalize = search_files_finalize;
 
