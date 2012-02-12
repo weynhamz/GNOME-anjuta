@@ -99,6 +99,7 @@ plugins/document-manager/anjuta-docman.c
 plugins/document-manager/org.gnome.anjuta.document-manager.gschema.xml.in
 plugins/document-manager/plugin.c
 plugins/document-manager/search-box.c
+plugins/document-manager/search-files.c
 [type: gettext/ini]plugins/file-loader/anjuta-loader.plugin.in
 plugins/file-loader/anjuta-recent-chooser-menu.c
 plugins/file-loader/plugin.c
