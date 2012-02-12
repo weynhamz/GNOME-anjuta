@@ -50,7 +50,9 @@ libanjuta_document_manager_la_SOURCES= \
 	search-files.c \
 	search-files.h \
 	search-file-command.c \
-	search-file-command.h
+	search-file-command.h \
+	search-filter-file-command.c \
+	search-filter-file-command.h
 
 gsettings_in_file = org.gnome.anjuta.document-manager.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
