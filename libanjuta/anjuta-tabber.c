@@ -220,13 +220,9 @@ anjuta_tabber_get_preferred_height (GtkWidget* widget,
 
 	AnjutaTabber* tabber = ANJUTA_TABBER (widget);
 	GList* child;
-	gint ythickness;
 	gint focus_width;
-	GtkStyle* style = gtk_widget_get_style (widget);
-
-	ythickness = style->ythickness;
 	
-	gtk_widget_style_get (GTK_WIDGET (tabber->priv->notebook),
+	gtk_widget_style_get (GTK_WIDGET (tabber),
 	                      "focus-line-width", &focus_width,
 	                      NULL);
 
@@ -240,12 +236,12 @@ anjuta_tabber_get_preferred_height (GtkWidget* widget,
 		if (minimum)
 		{
 			*minimum = MAX(*minimum, child_min + 
-			               2 * (ythickness + focus_width + tabber->priv->tab_vborder));
+			               2 * (focus_width + tabber->priv->tab_vborder));
 		}
 		if (preferred)
 		{
 			*preferred = MAX(*preferred, child_preferred + 
-			                 2 * (ythickness + focus_width + tabber->priv->tab_vborder));
+			                 2 * (focus_width + tabber->priv->tab_vborder));
 		}
 	}
 }
@@ -262,23 +258,17 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 	gint tab_curvature;
 	gint tab_overlap;
 	gint n_children = g_list_length (tabber->priv->children);
-	gint xthickness;
-	gint ythickness;
 	gint x;
 	gint padding;
 	gint tab_space;
-	GtkStyle* style = gtk_widget_get_style (widget);
-
-	xthickness = style->xthickness;
-	ythickness = style->ythickness;
 	
-	gtk_widget_style_get (GTK_WIDGET (tabber->priv->notebook),
+	gtk_widget_style_get (GTK_WIDGET (tabber),
 	                      "focus-line-width", &focus_width,
 	                      "tab-curvature", &tab_curvature,
 	                      "tab-overlap", &tab_overlap,
 	                      NULL);
 
-	padding = xthickness + focus_width + tabber->priv->tab_hborder;
+	padding = focus_width + tabber->priv->tab_hborder;
 	tab_space = tab_curvature - tab_overlap;
 	
 	gtk_widget_set_allocation (widget, allocation);
@@ -360,7 +350,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 					child_alloc.width = child_equal;
 			}
 			child_alloc.height = allocation->height
-				- 2 * (ythickness + focus_width + tabber->priv->tab_vborder);
+				- 2 * (focus_width + tabber->priv->tab_vborder);
 			switch (gtk_widget_get_direction (widget))
 			{
 				case GTK_TEXT_DIR_RTL:
@@ -373,7 +363,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 					x = child_alloc.x + child_alloc.width + padding + end_tab;
 			}
 			child_alloc.y = allocation->y +
-				tabber->priv->tab_vborder + focus_width + ythickness;
+				tabber->priv->tab_vborder + focus_width;
 
 			gtk_widget_size_allocate (GTK_WIDGET (child->data), &child_alloc);
 		}
@@ -392,8 +382,6 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 	GtkAllocation widget_alloc;
 
 	gint focus_width;
-	gint xthickness;
-	gint ythickness;
 	gint tab_curvature;
 	gint tab_overlap;
 	gint tab_begin;
@@ -401,18 +389,14 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 
 	gint xpadding;
 	gint ypadding;
-	GtkStyle* style = gtk_widget_get_style (GTK_WIDGET (tabber));
-	GtkStyleContext* context = gtk_widget_get_style_context (GTK_WIDGET (tabber->priv->notebook));
+	GtkStyleContext* context = gtk_widget_get_style_context (widget);
 
 	if (current)
 		gtk_widget_set_state_flags (tab, GTK_STATE_FLAG_ACTIVE, TRUE);
 	else
 		gtk_widget_unset_state_flags (tab, GTK_STATE_FLAG_ACTIVE);		
 	
-	xthickness = style->xthickness;
-	ythickness = style->ythickness;
-	
-	gtk_widget_style_get (GTK_WIDGET (tabber->priv->notebook),
+	gtk_widget_style_get (widget,
 	                      "focus-line-width", &focus_width,
 	                      "tab-curvature", &tab_curvature,
 	                      "tab-overlap", &tab_overlap,
@@ -435,8 +419,8 @@ anjuta_tabber_render_tab (GtkWidget* widget,
 	gtk_widget_get_allocation (widget, &widget_alloc);
 	gtk_widget_get_allocation (tab, &alloc);
 
-	xpadding = xthickness + focus_width + tabber->priv->tab_hborder;
-	ypadding = ythickness + focus_width + tabber->priv->tab_vborder;
+	xpadding = focus_width + tabber->priv->tab_hborder;
+	ypadding = focus_width + tabber->priv->tab_vborder;
 
 	tab_begin = tab_curvature - tab_overlap;
 	tab_end = tab_curvature - tab_overlap;
@@ -763,6 +747,20 @@ anjuta_tabber_class_init (AnjutaTabberClass *klass)
 	                                                      "GtkNotebook the tabber is associated with",
 	                                                      G_TYPE_OBJECT,
 	                                                      G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE));
+
+	/* Install some notebook properties */
+	gtk_widget_class_install_style_property (widget_class,
+	                                         g_param_spec_int ("tab-overlap", "", "",
+	                                                           G_MININT,
+	                                                           G_MAXINT,
+	                                                           4,
+	                                                           G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+	                                         g_param_spec_int ("tab-curvature", "", "",
+	                                                           0,
+	                                                           G_MAXINT,
+	                                                           6,
+	                                                           G_PARAM_READABLE));	
 	
 	g_type_class_add_private (klass, sizeof (AnjutaTabberPriv));
 }
