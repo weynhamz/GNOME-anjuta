@@ -15,48 +15,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkListStore" id="file_type_model">
-    <columns>
-      <!-- column-name Name -->
-      <column type="gchararray"/>
-      <!-- column-name mime-types -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">All Files</col>
-        <col id="1" translatable="yes"></col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">C/C++ Source files</col>
-        <col id="1" translatable="yes">text/x-c</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Vala Source files</col>
-        <col id="1" translatable="yes">text/x-vala</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Python Source files</col>
-        <col id="1" translatable="yes">text/x-python,application/x-extension-wsgi</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Javascript Source files</col>
-        <col id="1" translatable="yes">application/javascript</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">XML files</col>
-        <col id="1" translatable="yes">application/xml</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">User interface files</col>
-        <col id="1" translatable="yes">application/x-glade,application/x-designer</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Source files</col>
-        <col id="1" translatable="yes">text/source</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="model1">
     <columns>
       <!-- column-name gchararray -->
@@ -491,8 +449,6 @@
               <object class="GtkComboBox" id="file_type_combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="model">file_type_model</property>
                 <property name="active">0</property>
                 <property name="entry_text_column">0</property>
               </object>
@@ -616,6 +572,9 @@
             <property name="width">2</property>
             <property name="height">1</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>

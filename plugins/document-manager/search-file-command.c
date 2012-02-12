@@ -194,17 +194,17 @@ static void
 search_file_command_init (SearchFileCommand *cmd)
 {
 	cmd->priv = G_TYPE_INSTANCE_GET_PRIVATE (cmd, SEARCH_TYPE_FILE_COMMAND, SearchFileCommandPrivate);
-
-	cmd->priv->file = NULL;
-	cmd->priv->pattern = NULL;
-	cmd->priv->replace = NULL;
-	cmd->priv->regex = FALSE;
 }
 
 static void
 search_file_command_finalize (GObject *object)
 {
-	/* TODO: Add deinitalization code here */
+	SearchFileCommand* cmd = SEARCH_FILE_COMMAND (object);
+	
+	if (cmd->priv->file)
+		g_object_unref (cmd->priv->file);
+	g_free (cmd->priv->pattern);
+	g_free (cmd->priv->replace);
 
 	G_OBJECT_CLASS (search_file_command_parent_class)->finalize (object);
 }
@@ -222,7 +222,7 @@ search_file_command_set_property (GObject *object, guint prop_id, const GValue *
 	{
 	case PROP_FILE:
 		if (cmd->priv->file)
-				g_object_unref (cmd->priv->file);
+			g_object_unref (cmd->priv->file);
 		cmd->priv->file = g_value_dup_object (value);
 		break;
 	case PROP_PATTERN:

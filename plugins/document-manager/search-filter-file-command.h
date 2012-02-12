@@ -21,6 +21,7 @@
 #define _SEARCH_FILTER_FILE_COMMAND_H_
 
 #include <libanjuta/anjuta-async-command.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 

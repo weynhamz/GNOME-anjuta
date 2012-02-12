@@ -19,11 +19,15 @@
 
 #include "search-files.h"
 #include "search-file-command.h"
+#include "search-filter-file-command.h"
 #include <libanjuta/anjuta-command-queue.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-chooser.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 
 #define BUILDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.ui"
+
+#define TEXT_MIME_TYPE "text/*"
 
 struct _SearchFilesPrivate
 {
@@ -61,8 +65,18 @@ struct _SearchFilesPrivate
 	gboolean regex;
 	gchar* last_search_string;
 	gchar* last_replace_string;
+
+	/* Project uri of last search */
+	GFile* project_file;
 	
 	gboolean busy;
+};
+
+enum
+{
+	COMBO_LANG_NAME,
+	COMBO_LANG_TYPES,
+	COMBO_N_COLUMNS
 };
 
 enum
@@ -84,7 +98,6 @@ void search_files_search_clicked (SearchFiles* sf);
 void search_files_replace_clicked (SearchFiles* sf);
 void search_files_find_files_clicked (SearchFiles* sf);
 void search_files_update_ui (SearchFiles* sf);
-
 
 void
 search_files_update_ui (SearchFiles* sf)
@@ -123,20 +136,6 @@ search_files_update_ui (SearchFiles* sf)
 	gtk_widget_set_sensitive (sf->priv->search_button, can_search);
 	gtk_widget_set_sensitive (sf->priv->replace_button, can_search);
 	gtk_widget_set_sensitive (sf->priv->find_files_button, !sf->priv->busy);
-}
-
-static void
-search_files_get_files (GFile* parent, GList** files, IAnjutaProjectManager* pm)
-{
-	GList* node;
-	GList* children = ianjuta_project_manager_get_children(pm, parent, NULL);
-	for (node = children;node != NULL; node = g_list_next(node))
-	{
-		search_files_get_files(G_FILE(node->data), files, pm);
-		*files = g_list_append (*files, node->data);
-	}
-	g_list_foreach (children, (GFunc)g_object_unref, NULL);
-	g_list_free(children);
 }
 
 static void
@@ -351,6 +350,71 @@ search_files_replace_clicked (SearchFiles* sf)
 	}
 }
 
+static void
+search_files_get_files (GFile* parent, GList** files, IAnjutaProjectManager* pm)
+{
+	GList* node;
+	GList* children = ianjuta_project_manager_get_children(pm, parent, NULL);
+	for (node = children;node != NULL; node = g_list_next(node))
+	{
+		search_files_get_files(G_FILE(node->data), files, pm);
+		if (ianjuta_project_manager_get_target_type (pm,
+		                                             G_FILE (node->data),
+		                                             NULL)
+		    == ANJUTA_PROJECT_SOURCE)
+		{                                            
+			*files = g_list_append (*files, node->data);
+		}
+	}
+	g_list_foreach (children, (GFunc)g_object_unref, NULL);
+	g_list_free(children);
+}
+
+static void
+search_files_filter_command_finished (SearchFilterFileCommand* cmd,
+                                      guint return_code,
+                                      SearchFiles* sf)
+{
+	GFile* file;
+	GtkTreeIter iter;
+	gchar* display_name = NULL;
+	
+	if (return_code)
+		return;
+
+	g_object_get (cmd, "file", &file, NULL);
+	
+	if (sf->priv->project_file)
+	{
+		display_name = g_file_get_relative_path (sf->priv->project_file,
+		                                         G_FILE (file));
+	}
+	if (!display_name)
+		display_name = g_file_get_path (G_FILE(file));
+
+	gtk_list_store_append(GTK_LIST_STORE (sf->priv->files_model),
+	                      &iter);
+	gtk_list_store_set (GTK_LIST_STORE (sf->priv->files_model), &iter,
+	                    COLUMN_SELECTED, TRUE,
+	                    COLUMN_FILENAME, display_name,
+	                    COLUMN_FILE, file,
+	                    COLUMN_COUNT, 0,
+	                    COLUMN_SPINNER, FALSE,
+	                    COLUMN_PULSE, FALSE, -1);
+
+	g_object_unref (file);
+	g_free (display_name);
+}
+
+static void
+search_files_filter_finished (AnjutaCommandQueue* queue,
+                              SearchFiles* sf)
+{
+	g_object_unref (queue);
+	sf->priv->busy = FALSE;
+	search_files_update_ui(sf);
+}
+
 void
 search_files_find_files_clicked (SearchFiles* sf)
 {
@@ -358,69 +422,72 @@ search_files_find_files_clicked (SearchFiles* sf)
 	IAnjutaProjectManager* pm;
 	GList* files = NULL;
 	GList* file;
-		
-	gchar* project_uri = NULL;
-	GFile* project_file = NULL;
+	gchar* project_uri;
+	AnjutaCommandQueue* queue;
+	gchar* mime_types;
+	GtkComboBox* type_combo;
+	GtkTreeIter iter;
 
 	g_return_if_fail (sf != NULL && SEARCH_IS_FILES (sf));
 	
-	pm = anjuta_shell_get_interface (sf->priv->docman->shell,
-	                                 IAnjutaProjectManager,
-	                                 NULL);
+	/* Clear store */
+	gtk_list_store_clear(GTK_LIST_STORE (sf->priv->files_model));
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
+	                                     COLUMN_FILENAME,
+	                                     GTK_SORT_DESCENDING);	
 	
+	/* Get file and type selection */
 	selected = 
 		ianjuta_project_chooser_get_selected(IANJUTA_PROJECT_CHOOSER (sf->priv->project_combo),
 		                                     NULL);
-	
+	type_combo = GTK_COMBO_BOX (sf->priv->file_type_combo);
+	gtk_combo_box_get_active_iter(type_combo, &iter);
+	gtk_tree_model_get (gtk_combo_box_get_model (type_combo),
+	                    &iter,
+	                    COMBO_LANG_TYPES, &mime_types,
+	                    -1);
+
+	/* Get files from project manager */
+	pm = anjuta_shell_get_interface (sf->priv->docman->shell,
+	                                 IAnjutaProjectManager,
+	                                 NULL);
 	search_files_get_files (selected, &files, pm); 
-		
-	gtk_list_store_clear(GTK_LIST_STORE (sf->priv->files_model));
+
+	/* Query project root uri */
 	anjuta_shell_get (sf->priv->docman->shell,
 	                  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 	                  G_TYPE_STRING,
 	                  &project_uri, NULL);
+	if (sf->priv->project_file)
+		g_object_unref (sf->priv->project_file);
 	
 	if (project_uri)
-		project_file = g_file_new_for_uri (project_uri);
+	{
+		sf->priv->project_file = g_file_new_for_uri (project_uri);
+	}
 	g_free (project_uri);
-	
+
+
+	/* Queue file filtering */
+	queue = anjuta_command_queue_new(ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+	g_signal_connect (queue, "finished", 
+	                  G_CALLBACK (search_files_filter_finished), sf);
 	for (file = files; file != NULL; file = g_list_next (file))
 	{
-		GtkTreeIter iter;
-
-		gchar* display_name = NULL;
-
-		if (project_file)
-		{
-			display_name = g_file_get_relative_path (project_file,
-			                                         G_FILE (file->data));
-			if (!display_name)
-				continue;
-		}
-#if 0
-		if (!display_name)
-			display_name = g_file_get_path (G_FILE (file->data));
-		if (!display_name)
-			display_name = g_file_get_uri (G_FILE (file->data));
-#endif	
-		gtk_list_store_append(GTK_LIST_STORE (sf->priv->files_model),
-		                      &iter);
-		gtk_list_store_set (GTK_LIST_STORE (sf->priv->files_model), &iter,
-		                    COLUMN_SELECTED, TRUE,
-		                    COLUMN_FILENAME, display_name,
-		                    COLUMN_FILE, file->data,
-		                    COLUMN_COUNT, 0,
-		                    COLUMN_SPINNER, FALSE,
-		                    COLUMN_PULSE, FALSE, -1);
+		SearchFilterFileCommand* cmd = 
+			search_filter_file_command_new(G_FILE (file->data),
+			                               mime_types);
+		g_signal_connect (cmd, "command-finished",
+		                  G_CALLBACK (search_files_filter_command_finished), sf);
+		anjuta_command_queue_push(queue, ANJUTA_COMMAND(cmd));
 	}
-	g_object_unref (project_file);
-
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sf->priv->files_model),
-	                                     COLUMN_FILENAME,
-	                                     GTK_SORT_DESCENDING);
+	sf->priv->busy = TRUE;
+	anjuta_command_queue_start (queue);
+	search_files_update_ui(sf);
 	
 	g_list_foreach (files, (GFunc) g_object_unref, NULL);
 	g_list_free (files);
+	g_free (mime_types);	
 }
 
 static void
@@ -622,10 +689,81 @@ search_files_init_tree (SearchFiles* sf)
 }
 
 static void
+search_files_type_combo_init (SearchFiles* sf)
+{
+	GtkCellRenderer* combo_renderer = gtk_cell_renderer_text_new();
+	
+	GtkTreeIter iter;
+	GtkListStore* store;
+	
+	IAnjutaLanguage* lang_manager =
+		anjuta_shell_get_interface (sf->priv->docman->shell,
+		                            IAnjutaLanguage,
+		                            NULL);
+	
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT (sf->priv->file_type_combo),
+	                           combo_renderer, TRUE);
+	gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (sf->priv->file_type_combo),
+	                               combo_renderer, "text", 0);
+
+	store = gtk_list_store_new (COMBO_N_COLUMNS,
+	                            G_TYPE_STRING,
+	                            G_TYPE_STRING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (store),
+	                                     COMBO_LANG_NAME,
+	                                     GTK_SORT_DESCENDING);
+	
+	gtk_combo_box_set_model(GTK_COMBO_BOX(sf->priv->file_type_combo),
+	                        GTK_TREE_MODEL (store));
+	
+	gtk_list_store_append(store, &iter);
+	gtk_list_store_set (store, &iter, 
+	                    COMBO_LANG_NAME, _("All text files"),
+	                    COMBO_LANG_TYPES, TEXT_MIME_TYPE,
+	                    -1);
+	gtk_combo_box_set_active_iter(GTK_COMBO_BOX(sf->priv->file_type_combo),
+	                              &iter);
+	
+	if (lang_manager)
+	{
+		GList* languages =
+			ianjuta_language_get_languages(lang_manager, NULL);
+		GList* lang;
+		for (lang = languages; lang != NULL; lang = g_list_next (lang))
+		{
+			GList* mime_type;
+			GString* type_string = g_string_new(NULL);
+
+			GList* mime_types = ianjuta_language_get_mime_types (lang_manager,
+			                                                     GPOINTER_TO_INT (lang->data),
+			                                                     NULL);
+			const gchar* name = ianjuta_language_get_name (lang_manager,
+			                                               GPOINTER_TO_INT (lang->data),
+			                                               NULL);
+			
+			for (mime_type = mime_types; mime_type != NULL; mime_type = g_list_next (mime_type))
+			{
+				if (type_string->len)
+				{
+					g_string_append_c (type_string, ',');
+				}
+				g_string_append (type_string, mime_type->data);
+			}
+			gtk_list_store_append(store, &iter);
+			gtk_list_store_set (store, &iter,
+			                    COMBO_LANG_NAME, name,
+			                    COMBO_LANG_TYPES, type_string->str,
+			                    -1);
+
+			g_string_free (type_string, TRUE);
+		}		
+	}
+}
+
+static void
 search_files_init (SearchFiles* sf)
 {
 	GError* error = NULL;
-	GtkCellRenderer* combo_renderer;
 	
 	sf->priv = 
 		G_TYPE_INSTANCE_GET_PRIVATE (sf, SEARCH_TYPE_FILES, SearchFilesPrivate);
@@ -640,8 +778,6 @@ search_files_init (SearchFiles* sf)
 		g_error_free(error);
 		return;
 	}
-
-	combo_renderer = gtk_cell_renderer_text_new();
 	
 	sf->priv->main_box = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                         "main_box"));
@@ -659,10 +795,6 @@ search_files_init (SearchFiles* sf)
 	                                                             "project_combo"));
 	sf->priv->file_type_combo = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                             "file_type_combo"));
-	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT (sf->priv->file_type_combo),
-	                           combo_renderer, TRUE);
-	gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (sf->priv->file_type_combo),
-	                               combo_renderer, "text", 0);
 
 	sf->priv->case_check = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                             "case_check"));
@@ -690,6 +822,10 @@ search_files_finalize (GObject* object)
 
 	g_object_unref (sf->priv->main_box);
 	g_object_unref (sf->priv->builder);
+	if (sf->priv->project_file)
+		g_object_unref (sf->priv->project_file);
+	g_free (sf->priv->last_search_string);
+	g_free (sf->priv->last_replace_string);
 	
 	G_OBJECT_CLASS (search_files_parent_class)->finalize (object);
 }
@@ -739,7 +875,8 @@ search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 	sf->priv->search_box = search_box;
 	
 	gtk_widget_show (sf->priv->main_box);
-	
+
+	search_files_type_combo_init(sf);
 	search_files_update_ui(sf);
 	
 	return sf; 
