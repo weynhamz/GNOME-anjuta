@@ -6530,9 +6530,18 @@ typedef gint Id;
 	 * @obj: Self
 	 * @id: A valid language id
 	 *
-	 * Returns: (element-type utf8): A list of strings that represent this language that language
+	 * Returns: (element-type utf8): A list of strings that represent this language
 	 */
 	 List<const gchar*> get_strings(Id id);
+
+    /**
+	 * ianjuta_language_get_mime_types:
+	 * @obj: Self
+	 * @id: A valid language id
+	 *
+	 * Returns: (element-type utf8): A list of mime-types that represent this language
+	 */
+	 List<const gchar*> get_mime_types(Id id);
 
 	 /**
 	  * ianjuta_language_get_from_editor:

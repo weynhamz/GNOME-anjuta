@@ -304,7 +304,7 @@ ilanguage_get_make_target (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError*
 {
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	Language* language = g_hash_table_lookup (lang->languages,
-											   GINT_TO_POINTER(id));
+	                                          GINT_TO_POINTER(id));
 	if (language)
 		return language->make_target;
 	else
@@ -338,6 +338,19 @@ ilanguage_get_languages (IAnjutaLanguage* ilang, GError** e)
 	return g_hash_table_get_keys (lang->languages);
 }
 
+static GList*
+ilanguage_get_mime_types(IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
+{
+	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
+	Language* language = g_hash_table_lookup (lang->languages,
+	                                          GINT_TO_POINTER(id));
+	if (language)
+	{
+		return language->mime_types;
+	}
+	return NULL;
+}
+
 static void
 ilanguage_iface_init (IAnjutaLanguageIface* iface)
 {
@@ -345,6 +358,7 @@ ilanguage_iface_init (IAnjutaLanguageIface* iface)
 	iface->get_from_string = ilanguage_get_from_string;
 	iface->get_name = ilanguage_get_name;
 	iface->get_strings = ilanguage_get_strings;
+	iface->get_mime_types = ilanguage_get_mime_types;
 	iface->get_make_target = ilanguage_get_make_target;
 	iface->get_from_editor = ilanguage_get_from_editor;
 	iface->get_name_from_editor = ilanguage_get_name_from_editor;
