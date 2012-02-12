@@ -345,6 +345,8 @@ amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar 
 	node->install = g_strdup (install);
 	node->flags = flags;
 
+	amp_node_property_add_mandatory (ANJUTA_PROJECT_NODE (node));
+
 	return node;
 }
 
@@ -396,6 +398,14 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 		    strcmp (&basename[strlen(basename) - 2], ".a") != 0) {
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
 				   _("Static library target name must be of the form 'libxxx.a'"));
+			return NULL;
+		}
+	}
+	else if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_LT_MODULE) {
+		if (strlen (basename) < 4 ||
+		    strcmp (&basename[strlen(basename) - 3], ".la") != 0) {
+			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+				   _("Module target name must be of the form 'xxx.la'"));
 			return NULL;
 		}
 	}

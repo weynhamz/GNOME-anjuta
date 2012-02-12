@@ -97,6 +97,7 @@ project_load_group_module (AmpProject *project, AmpGroupNode *group)
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_LT_MODULE:
 			prop = amp_node_get_property_from_token (target, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:

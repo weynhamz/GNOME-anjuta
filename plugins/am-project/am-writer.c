@@ -885,6 +885,7 @@ amp_target_node_create_token (AmpProject  *project, AmpTargetNode *target, GErro
 	{
 	case ANJUTA_PROJECT_SHAREDLIB:
 	case ANJUTA_PROJECT_STATICLIB:
+	case ANJUTA_PROJECT_LT_MODULE:
 	case ANJUTA_PROJECT_PROGRAM:
 		amp_target_add_in_list (project, args, ANJUTA_PROJECT_NODE (target), after, prev);
 		break;
@@ -1612,8 +1613,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 		group = anjuta_project_node_parent_type (node, ANJUTA_PROJECT_GROUP);
 	}
 
-	if ((property->value == NULL) ||
-	    (g_strcmp0 (property->info->default_value->value, property->value) == 0))
+	if (property->value == NULL)
 	{
 		/* Remove property */
 		if (((AmpPropertyInfo *)property->info)->token_type == AM_TOKEN__PROGRAMS)

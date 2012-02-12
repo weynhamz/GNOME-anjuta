@@ -121,7 +121,15 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	NULL},
 
 	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY |  ANJUTA_PROJECT_SHAREDLIB,
-	N_("Shared Library"),
+	N_("Shared Library (libtool)"),
+	"application/x-sharedlib",
+	"autotools-project-target-edit"},
+	AM_TOKEN__LTLIBRARIES,
+	"LTLIBRARIES",
+	"lib"},
+
+	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY |  ANJUTA_PROJECT_LT_MODULE,
+	N_("Module (Libtool)"),
 	"application/x-sharedlib",
 	"autotools-project-target-edit"},
 	AM_TOKEN__LTLIBRARIES,
@@ -129,7 +137,7 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	"lib"},
 
 	{{ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_PRIMARY |  ANJUTA_PROJECT_STATICLIB,
-	N_("Static Library"),
+	N_("Static Library (Libtool)"),
 	"application/x-archive",
 	"autotools-project-target-edit"},
 	AM_TOKEN__LIBRARIES,
@@ -2196,6 +2204,30 @@ amp_add_work (PmJob *job)
 	gboolean ok;
 
 	ok = amp_node_write (AMP_NODE (job->node), parent, AMP_PROJECT (job->user_data), &job->error);
+	/* Add new node properties if existing */
+	if (ok)
+	{
+		GList *item;
+
+		for (item = anjuta_project_node_get_properties (ANJUTA_PROJECT_NODE (job->node)); item != NULL; item = g_list_next (item))
+		{
+			AnjutaProjectProperty *property = (AnjutaProjectProperty *)item->data;
+			gint flags;
+
+			flags = ((AmpPropertyInfo *)property->info)->flags;
+			if (flags & AM_PROPERTY_IN_CONFIGURE)
+			{
+				ok = ok && amp_project_update_ac_property (AMP_PROJECT (job->user_data), property);
+			}
+			else if (flags & AM_PROPERTY_IN_MAKEFILE)
+			{
+				if (((AnjutaProjectPropertyInfo *)property->info)->flags & ANJUTA_PROJECT_PROPERTY_READ_WRITE)
+				{
+					ok = ok && amp_project_update_am_property (AMP_PROJECT (job->user_data), job->node, property);
+				}
+			}
+		}
+	}
 
 	return ok;
 }

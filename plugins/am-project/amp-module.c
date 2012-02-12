@@ -142,6 +142,7 @@ amp_module_node_write (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_LT_MODULE:
 			target_lib = amp_node_get_property_info_from_token (parent, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:
@@ -240,6 +241,7 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 			break;
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_STATICLIB:
 		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_SHAREDLIB:
+		case ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_LT_MODULE:
 			target_lib = amp_node_get_property_info_from_token (parent, AM_TOKEN_TARGET_LIBADD, 0);
 			break;
 		default:

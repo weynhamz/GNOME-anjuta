@@ -45,6 +45,8 @@ gboolean amp_node_property_has_flags (AnjutaProjectNode *node, const gchar *id, 
 AnjutaProjectProperty *amp_node_property_remove_flags (AnjutaProjectNode *node, const gchar *id, const gchar *value);
 AnjutaProjectProperty *amp_node_property_add_flags (AnjutaProjectNode *node, const gchar *id, const gchar *value);
 
+gboolean amp_node_property_add_mandatory (AnjutaProjectNode *node);
+
 GList* amp_get_project_property_list (void);
 GList* amp_get_group_property_list (void);
 GList* amp_get_target_property_list (AnjutaProjectNodeType type);

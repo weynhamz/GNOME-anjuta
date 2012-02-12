@@ -20,7 +20,7 @@
 
   <terms>
     <item>
-      <title>Shared Library</title>
+      <title>Shared Library (Libtool)</title>
       <p>It represents a library shared by several programs which is linked
       at run time. It is the most common kind of libraries on Linux.
       It is called dynamic link library on Windows.</p>
@@ -28,7 +28,15 @@
       and has the '.la' extension.</p>
     </item>
     <item>
-      <title>Static Library</title>
+      <title>Module (Libtool)</title>
+      <p>It represents a library, often named a plugin, linked at run time
+      explicitely by the program itself.
+      It is used to only load the code corresponding to the used features.</p>
+      <p>It uses the Libtool package. Its name does not need the 'lib'
+      prefix but must have the '.la' extension.</p>
+    </item>
+    <item>
+      <title>Static Library (Libtool)</title>
       <p>It represents a library linked with the program at compile time.
       Only the function used are kept inside the generated executable.</p>
       <p>It uses the Libtool package. Its name must start with 'lib'
