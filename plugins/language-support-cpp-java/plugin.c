@@ -372,6 +372,7 @@ init_file_type (CppJavaPlugin* lang_plugin)
 				lang_plugin->filetype = LS_FILE_CPPHDR;
 			else
 				lang_plugin->filetype = LS_FILE_OTHER;
+			g_free (mime_type);
 			return;
 		}
 	}
