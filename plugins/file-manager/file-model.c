@@ -129,53 +129,6 @@ typedef struct
 	GtkTreeRowReference* ref;
 } VcsData;
 
-#define EMBLEM_ADDED "vcs-added.png"
-#define EMBLEM_CONFLICT "vcs-conflict.png"
-#define EMBLEM_DELETED "vcs-deleted.png"
-#define EMBLEM_IGNORED "vcs-ignored.png"
-#define EMBLEM_LOCKED "vcs-locked.png"
-#define EMBLEM_UNVERSIONED "vcs-unversioned.png"
-#define EMBLEM_UPTODATE "vcs-updated.png"
-#define EMBLEM_MODIFIED "vcs-modified.png"
-
-#define COMPOSITE_ALPHA 225
-
-static GdkPixbuf* 
-get_vcs_emblem (AnjutaVcsStatus status)
-{
-	GdkPixbuf* emblem ;
-	switch (status)
-	{
-		case ANJUTA_VCS_STATUS_ADDED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_ADDED, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_MODIFIED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_MODIFIED, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_DELETED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_DELETED, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_CONFLICTED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_CONFLICT, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_LOCKED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_LOCKED, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_UNVERSIONED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UNVERSIONED, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_UPTODATE:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UPTODATE, NULL);
-			break;
-		case ANJUTA_VCS_STATUS_IGNORED:
-			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_IGNORED, NULL);
-			break;
-		default:
-			emblem = NULL;
-	}
-	return emblem;
-}
-
 static void
 file_model_vcs_status_callback(GFile *file,
 							   AnjutaVcsStatus status,
@@ -190,8 +143,6 @@ file_model_vcs_status_callback(GFile *file,
 	{
 		GFile* dir;
 		GFile* parent;
-		GdkPixbuf* file_icon = NULL;
-		GdkPixbuf* emblem = NULL;
 		GtkTreeIter iter;
 		GtkTreeIter child;
 		GtkTreeModel* model = gtk_tree_row_reference_get_model (data->ref);
@@ -228,38 +179,6 @@ file_model_vcs_status_callback(GFile *file,
 					}
 					else
 					{
-						emblem = get_vcs_emblem (status);
-						if (emblem)
-						{
-							gtk_tree_model_get (model, &child,
-							                    COLUMN_PIXBUF, &file_icon,
-							                    -1);
-							if (file_icon)
-							{
-								GdkPixbuf *new_icon;
-
-								new_icon = gdk_pixbuf_copy (file_icon);
-								gdk_pixbuf_composite (emblem,
-								                      new_icon,
-								                      0, 0,
-								                      gdk_pixbuf_get_width (file_icon),
-								                      gdk_pixbuf_get_height (file_icon),
-								                      0, 0,
-								                      1, 1,
-								                      GDK_INTERP_BILINEAR,
-								                      COMPOSITE_ALPHA);
-								gtk_tree_store_set (GTK_TREE_STORE (model),
-								                    &child,
-								                    COLUMN_PIXBUF,
-								                    new_icon,
-								                    -1);
-								DEBUG_PRINT ("%s", "setting emblem");
-								g_object_unref (new_icon);
-								g_object_unref (file_icon);
-							}
-							g_object_unref (emblem);
-						}
-
 						gtk_tree_store_set (GTK_TREE_STORE (model),
 						                    &child,
 						                    COLUMN_STATUS,

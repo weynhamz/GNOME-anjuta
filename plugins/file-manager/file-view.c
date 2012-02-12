@@ -89,10 +89,8 @@ get_status_string(AnjutaVcsStatus status)
 			return _("Unversioned");
 		case ANJUTA_VCS_STATUS_IGNORED:
 			return _("Ignored");
-#if 0
 		default:
-			g_assert_not_reached();
-#endif
+			break;
 	}		
 
 	return NULL;
@@ -542,6 +540,100 @@ file_view_sort_model(GtkTreeModel* model,
 	return retval;
 }
 
+#define EMBLEM_ADDED "vcs-added.png"
+#define EMBLEM_CONFLICT "vcs-conflict.png"
+#define EMBLEM_DELETED "vcs-deleted.png"
+#define EMBLEM_IGNORED "vcs-ignored.png"
+#define EMBLEM_LOCKED "vcs-locked.png"
+#define EMBLEM_UNVERSIONED "vcs-unversioned.png"
+#define EMBLEM_UPTODATE "vcs-updated.png"
+#define EMBLEM_MODIFIED "vcs-modified.png"
+
+#define COMPOSITE_ALPHA 225
+
+static GdkPixbuf* 
+get_vcs_emblem (AnjutaVcsStatus status)
+{
+	GdkPixbuf* emblem ;
+	switch (status)
+	{
+		case ANJUTA_VCS_STATUS_ADDED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_ADDED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_MODIFIED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_MODIFIED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_DELETED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_DELETED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_CONFLICTED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_CONFLICT, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_LOCKED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_LOCKED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UNVERSIONED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UNVERSIONED, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_UPTODATE:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_UPTODATE, NULL);
+			break;
+		case ANJUTA_VCS_STATUS_IGNORED:
+			emblem = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"EMBLEM_IGNORED, NULL);
+			break;
+		default:
+			emblem = NULL;
+	}
+	return emblem;
+}
+
+static void
+file_view_render_pixbuf_with_emblem (GtkTreeViewColumn* tree_column,
+                                     GtkCellRenderer* cell,
+                                     GtkTreeModel* tree_model,
+                                     GtkTreeIter* iter,
+                                     gpointer data)
+{
+	GdkPixbuf* file_icon = NULL;
+	GdkPixbuf* emblem = NULL;
+
+	AnjutaVcsStatus status;
+	
+	gtk_tree_model_get (tree_model, iter,
+	                    COLUMN_STATUS, &status, 
+	                    COLUMN_PIXBUF, &file_icon, -1);
+	
+	if (file_icon)
+	{
+		emblem = get_vcs_emblem (status);
+		if (emblem)
+		{
+			GdkPixbuf *new_icon;
+
+			new_icon = gdk_pixbuf_copy (file_icon);
+			gdk_pixbuf_composite (emblem,
+			                      new_icon,
+			                      0, 0,
+			                      gdk_pixbuf_get_width (file_icon),
+			                      gdk_pixbuf_get_height (file_icon),
+			                      0, 0,
+			                      1, 1,
+			                      GDK_INTERP_BILINEAR,
+			                      COMPOSITE_ALPHA);
+
+			g_object_set (cell, "pixbuf", new_icon, NULL);
+			
+			g_object_unref (new_icon);
+			g_object_unref (emblem);
+		}
+		else
+		{
+			g_object_set (cell, "pixbuf", file_icon, NULL);
+		}
+		g_object_unref (file_icon);
+	}
+}
+
 static void
 file_view_init (AnjutaFileView *object)
 {
@@ -570,9 +662,10 @@ file_view_init (AnjutaFileView *object)
 	gtk_tree_view_column_set_title (column, _("Filename"));
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
 	gtk_tree_view_column_pack_start (column, renderer_display, FALSE);
-	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
-										 "pixbuf", COLUMN_PIXBUF,
-										 NULL);
+	gtk_tree_view_column_set_cell_data_func(column,
+	                                        renderer_pixbuf,
+	                                        file_view_render_pixbuf_with_emblem,
+	                                        object, NULL);
 	gtk_tree_view_column_set_attributes (column, renderer_display,
 										 "markup", COLUMN_DISPLAY, 
 										 NULL);
