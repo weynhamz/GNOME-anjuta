@@ -1919,22 +1919,46 @@ iproject_manager_get_children (IAnjutaProjectManager *project_manager,
 			{
 				/* Get all nodes */
 				GList *node;
+				GHashTable *included_hash;
 
 				children = gbf_project_util_node_all (root, children_type);
 
-				/* Replace all nodes by their corresponding file */
-				for (node = g_list_first (children); node != NULL; node = g_list_next (node))
+				/* Replace all nodes by their corresponding file and remove duplicate */
+				included_hash = g_hash_table_new ((GHashFunc)g_file_hash, (GEqualFunc)g_file_equal);
+				node = g_list_first (children);
+				while (node != NULL)
 				{
+					GFile *file;
+
 					if (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (node->data)) == ANJUTA_PROJECT_TARGET)
 					{
 						/* Take care of different build directory */
-						node->data = get_element_file_from_node (plugin, ANJUTA_PROJECT_NODE (node->data), IANJUTA_BUILDER_ROOT_URI);
+						file = get_element_file_from_node (plugin, ANJUTA_PROJECT_NODE (node->data), IANJUTA_BUILDER_ROOT_URI);
 					}
 					else
 					{
-            			node->data = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (node->data)));
+            			file = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (node->data)));
+					}
+
+					if (g_hash_table_lookup (included_hash, file) != NULL)
+					{
+						/* Already included, remove */
+						GList *next = g_list_next (node);
+
+						children = g_list_delete_link (children, node);
+						g_object_unref (file);
+						node = next;
+					}
+					else
+					{
+						/* Keep in the list */
+						g_hash_table_replace (included_hash, file, file);
+
+						node->data = file;
+						node = g_list_next (node);
 					}
 				}
+				g_hash_table_destroy (included_hash);
 			}
 		}
 	}
