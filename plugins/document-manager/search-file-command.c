@@ -114,7 +114,7 @@ search_file_command_run (AnjutaCommand* anjuta_cmd)
 	gchar* pattern;
 	gchar* replace;
 	gchar* content;
-	GRegexCompileFlags flags = 0;
+	GRegexCompileFlags flags = G_REGEX_MULTILINE;
 	GRegex *regex;
 	GMatchInfo *match_info;
 	
