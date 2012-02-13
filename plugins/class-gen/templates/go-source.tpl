@@ -12,8 +12,6 @@
 
 #include "[+HeaderFile+]"[+
 IF (not (=(get "PrivateVariableCount") "0"))+]
-
-typedef struct _[+ClassName+]Private [+ClassName+]Private;
 struct _[+ClassName+]Private
 {[+
 	FOR Members +][+
@@ -72,8 +70,10 @@ ENDFOR+]
 G_DEFINE_TYPE ([+ClassName+], [+FuncPrefix+], [+BaseTypePrefix+]_TYPE_[+BaseTypeSuffix+]);
 
 static void
-[+FuncPrefix+]_init ([+ClassName+] *object)
+[+FuncPrefix+]_init ([+ClassName+] *[+FuncPrefix+])
 {
+[+IF (not (=(get "PrivateVariableCount") "0"))+]    [+ClassName+]Private *priv = [+TypePrefix+]_[+TypeSuffix+]_GET_PRIVATE([+FuncPrefix+]);[+ENDIF+]
+
 	/* TODO: Add initialization code here */
 }
 

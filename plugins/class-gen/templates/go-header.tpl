@@ -13,7 +13,7 @@
 #ifndef _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
 #define _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
 
-#include <glib-object.h>
+#include <gobject.h>
 
 G_BEGIN_DECLS
 
@@ -26,6 +26,8 @@ G_BEGIN_DECLS
 
 typedef struct _[+ClassName+]Class [+ClassName+]Class;
 typedef struct _[+ClassName+] [+ClassName+];
+[+IF (not (=(get "PrivateVariableCount") "0"))+]typedef struct _[+ClassName+]Private [+ClassName+]Private;[+ENDIF+]
+
 
 struct _[+ClassName+]Class
 {
@@ -57,6 +59,8 @@ IF (not (=(get "PublicVariableCount") "0"))+]
 		ENDIF+][+
 	ENDFOR+][+
 ENDIF+]
+
+[+IF (not (=(get "PrivateVariableCount") "0"))+]    [+ClassName+]Private *priv;[+ENDIF+] 
 };
 
 GType [+FuncPrefix+]_get_type (void) G_GNUC_CONST;[+
