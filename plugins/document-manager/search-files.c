@@ -37,7 +37,6 @@ struct _SearchFilesPrivate
 	
 	GtkWidget* search_button;
 	GtkWidget* replace_button;
-	GtkWidget* find_files_button;
 	
 	GtkWidget* search_entry;
 	GtkWidget* replace_entry;
@@ -94,15 +93,15 @@ enum
 
 G_DEFINE_TYPE (SearchFiles, search_files, G_TYPE_OBJECT);
 
-void search_files_search_clicked (SearchFiles* sf);
-void search_files_replace_clicked (SearchFiles* sf);
-void search_files_find_files_clicked (SearchFiles* sf);
-void search_files_update_ui (SearchFiles* sf);
+G_MODULE_EXPORT void search_files_search_clicked (SearchFiles* sf);
+G_MODULE_EXPORT void search_files_replace_clicked (SearchFiles* sf);
+G_MODULE_EXPORT void search_files_update_ui (SearchFiles* sf);
 
 void
 search_files_update_ui (SearchFiles* sf)
 {
 	GtkTreeIter iter;
+	gboolean can_replace = FALSE;
 	gboolean can_search = FALSE;
 	
 	if (!sf->priv->busy)
@@ -110,8 +109,10 @@ search_files_update_ui (SearchFiles* sf)
 		gtk_spinner_stop(GTK_SPINNER (sf->priv->spinner_busy));
 		gtk_widget_hide (sf->priv->spinner_busy);
 
-		if (strlen(gtk_entry_get_text (GTK_ENTRY (sf->priv->search_entry))) > 0
-		    && gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
+		can_search = 
+			strlen(gtk_entry_get_text (GTK_ENTRY (sf->priv->search_entry))) > 0;
+		
+		if (gtk_tree_model_get_iter_first(sf->priv->files_model, &iter))
 		{
 			do
 			{
@@ -134,8 +135,9 @@ search_files_update_ui (SearchFiles* sf)
 	}
 
 	gtk_widget_set_sensitive (sf->priv->search_button, can_search);
-	gtk_widget_set_sensitive (sf->priv->replace_button, can_search);
-	gtk_widget_set_sensitive (sf->priv->find_files_button, !sf->priv->busy);
+	gtk_widget_set_sensitive (sf->priv->replace_button, can_replace);
+	gtk_widget_set_sensitive (sf->priv->search_entry, !sf->priv->busy);
+	gtk_widget_set_sensitive (sf->priv->replace_entry, !sf->priv->busy);
 }
 
 static void
@@ -166,9 +168,8 @@ search_files_check_column_toggled (GtkCellRendererToggle* renderer,
 static void
 search_files_finished (SearchFiles* sf, AnjutaCommandQueue* queue)
 {
-	sf->priv->busy = FALSE;
 	g_object_unref (queue);
-
+	sf->priv->busy = FALSE;
 	search_files_update_ui(sf);
 }
 
@@ -208,8 +209,8 @@ search_files_command_finished (SearchFileCommand* cmd,
 	g_object_unref (cmd);
 }
 
-void
-search_files_search_clicked (SearchFiles* sf)
+static void
+search_files_search (SearchFiles* sf)
 {
 	GtkTreeIter iter;
 	
@@ -411,12 +412,11 @@ search_files_filter_finished (AnjutaCommandQueue* queue,
                               SearchFiles* sf)
 {
 	g_object_unref (queue);
-	sf->priv->busy = FALSE;
-	search_files_update_ui(sf);
+	search_files_search (sf);
 }
 
 void
-search_files_find_files_clicked (SearchFiles* sf)
+search_files_search_clicked (SearchFiles* sf)
 {
 	GFile* selected;
 	IAnjutaProjectManager* pm;
@@ -785,8 +785,6 @@ search_files_init (SearchFiles* sf)
 	                                                         "search_button"));
 	sf->priv->replace_button = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                         "replace_button"));
-	sf->priv->find_files_button = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
-	                                                                 "find_files_button"));
 	sf->priv->search_entry = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                            "search_entry"));
 	sf->priv->replace_entry = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,

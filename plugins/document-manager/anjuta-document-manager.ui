@@ -373,6 +373,7 @@
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_stock">gtk-find</property>
             <signal name="changed" handler="search_files_update_ui" swapped="yes"/>
+            <signal name="activate" handler="search_files_search_clicked" swapped="yes"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -393,43 +394,6 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="search_button">
-            <property name="label">gtk-find</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="use_action_appearance">False</property>
-            <property name="use_stock">True</property>
-            <signal name="clicked" handler="search_files_search_clicked" swapped="yes"/>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="replace_button">
-            <property name="label" translatable="yes">Replace</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="use_action_appearance">False</property>
-            <signal name="clicked" handler="search_files_replace_clicked" swapped="yes"/>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
             <property name="top_attach">1</property>
             <property name="width">1</property>
             <property name="height">1</property>
@@ -530,24 +494,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="find_files_button">
-            <property name="label" translatable="yes">Find Files</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="halign">start</property>
-            <property name="valign">start</property>
-            <property name="use_action_appearance">False</property>
-            <signal name="clicked" handler="search_files_find_files_clicked" swapped="yes"/>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">2</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -571,6 +517,56 @@
             <property name="top_attach">3</property>
             <property name="width">2</property>
             <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">start</property>
+            <property name="row_spacing">5</property>
+            <property name="column_spacing">5</property>
+            <property name="n_rows">2</property>
+            <property name="n_columns">1</property>
+            <child>
+              <object class="GtkButton" id="search_button">
+                <property name="label">gtk-find</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="search_files_search_clicked" swapped="yes"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="replace_button">
+                <property name="label" translatable="yes">Replace All</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="search_files_replace_clicked" swapped="yes"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">2</property>
           </packing>
         </child>
         <child>
