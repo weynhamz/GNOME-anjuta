@@ -3536,16 +3536,19 @@ interface IAnjutaProjectManager
 	/**
 	 * ianjuta_project_manager_get_children:
 	 * @obj: Self
-	 * @element: A #GFile corresponding to a parent.
+	 * @parent: A #GFile corresponding to the parent.
+	 * @children_type: Select one element type: source, group or target
 	 * @err: Error propagation and reporting.
 	 *
-	 * Gets the list of all children of the corresponding parent.
+	 * Recursively gets the list of all children below the corresponding
+	 * parent having the specify type.
 	 *
-	 * Returns: (element-type GFile) (transfer full): The list of #GFile corresponding to
-	 * each child of the element or %NULL if the element has no child. Free the returned
-	 * list with g_list_free() and the files with g_object_unref().
+	 * Returns: (element-type GFile) (transfer full): The list of #GFile
+	 * corresponding to all children or %NULL if the element has no
+	 * children with the corresponding type. Free the returned * list
+	 * with g_list_free() and the files with g_object_unref().
 	 */
-	List<GFile*> get_children (GFile *element);
+	List<GFile*> get_children (GFile *parent, gint children_type);
 
 	/**
 	 * ianjuta_project_manager_get_selected:

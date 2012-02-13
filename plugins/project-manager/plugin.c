@@ -1895,35 +1895,59 @@ get_element_type (ProjectManagerPlugin *plugin, GFile *element)
 }
 
 static GList*
-iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
-							   AnjutaProjectNodeType element_type,
+iproject_manager_get_children (IAnjutaProjectManager *project_manager,
+							   GFile *parent,
+                               gint children_type,
 							   GError **err)
 {
-	GList *nodes, *node;
 	ProjectManagerPlugin *plugin;
+	GList *children = NULL;
 
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-
-	/* Get all nodes */
-	nodes = gbf_project_util_node_all (anjuta_pm_project_get_root (plugin->project), element_type);
-
-	/* Replace all nodes by their corresponding URI */
-	for (node = g_list_first (nodes); node != NULL; node = g_list_next (node))
+	if (plugin->project !=  NULL)
 	{
-		if (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (node->data)) == ANJUTA_PROJECT_TARGET)
+		AnjutaProjectNode *root;
+
+		root = anjuta_pm_project_get_root  (plugin->project);
+		if (root != NULL)
 		{
-			/* Take care of different build directory */
-			node->data = get_element_file_from_node (plugin, ANJUTA_PROJECT_NODE (node->data), IANJUTA_BUILDER_ROOT_URI);
-		}
-		else
-		{
-            node->data = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (node->data)));
+			/* Get parent */
+			if (parent != NULL) root = get_node_from_file (root, parent);
+			if (root != NULL)
+			{
+				/* Get all nodes */
+				GList *node;
+
+				children = gbf_project_util_node_all (root, children_type);
+
+				/* Replace all nodes by their corresponding file */
+				for (node = g_list_first (children); node != NULL; node = g_list_next (node))
+				{
+					if (anjuta_project_node_get_node_type (ANJUTA_PROJECT_NODE (node->data)) == ANJUTA_PROJECT_TARGET)
+					{
+						/* Take care of different build directory */
+						node->data = get_element_file_from_node (plugin, ANJUTA_PROJECT_NODE (node->data), IANJUTA_BUILDER_ROOT_URI);
+					}
+					else
+					{
+            			node->data = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (node->data)));
+					}
+				}
+			}
 		}
 	}
 
-	return nodes;
+	return children;
+}
+
+static GList*
+iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
+							   AnjutaProjectNodeType element_type,
+							   GError **err)
+{
+	return ianjuta_project_manager_get_children (project_manager, NULL, element_type, err);
 }
 
 static AnjutaProjectNodeType
@@ -2006,44 +2030,6 @@ iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
 	}
 
 	return file;
-}
-
-static GList*
-iproject_manager_get_children (IAnjutaProjectManager *project_manager,
-							   GFile *element,
-							   GError **err)
-{
-	ProjectManagerPlugin *plugin;
-	GList *list = NULL;
-
-	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
-
-	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
-	if (plugin->project !=  NULL)
-	{
-		AnjutaProjectNode *parent;
-
-		parent = anjuta_pm_project_get_root  (plugin->project);
-		if (parent != NULL)
-		{
-			parent = get_node_from_file (parent, element);
-			if (parent != NULL)
-			{
-				AnjutaProjectNode *child;
-
-				for (child = anjuta_project_node_first_child (parent); child != NULL; child = anjuta_project_node_next_sibling (child))
-				{
-					GFile *file;
-
-					file = anjuta_project_node_get_file (child);
-					if (file != NULL) list = g_list_prepend (list, g_object_ref (file));
-				}
-			}
-		}
-	}
-	list = g_list_reverse (list);
-
-	return list;
 }
 
 static GFile*
