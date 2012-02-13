@@ -1,0 +1,12 @@
+AT_SETUP([Load gnucash])
+
+
+
+AT_CHECK([sh $srcdir/gnucash.shar], 0, ignore)
+AT_PARSER_CHECK([load gnucash \
+		 list])
+AT_CHECK([diff -b output $srcdir/gnucash.lst])
+
+
+
+AT_CLEANUP
