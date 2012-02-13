@@ -448,25 +448,30 @@ search_files_search_clicked (SearchFiles* sf)
 	g_free (project_uri);
 
 
-	/* Queue file filtering */
-	queue = anjuta_command_queue_new(ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
-	g_signal_connect (queue, "finished",
-	                  G_CALLBACK (search_files_filter_finished), sf);
-	for (file = files; file != NULL; file = g_list_next (file))
+	/* Check that there are some files to process */
+	if (files != NULL)
 	{
-		SearchFilterFileCommand* cmd =
-			search_filter_file_command_new(G_FILE (file->data),
-			                               mime_types);
-		g_signal_connect (cmd, "command-finished",
-		                  G_CALLBACK (search_files_filter_command_finished), sf);
-		anjuta_command_queue_push(queue, ANJUTA_COMMAND(cmd));
+		/* Queue file filtering */
+		queue = anjuta_command_queue_new(ANJUTA_COMMAND_QUEUE_EXECUTE_MANUAL);
+		g_signal_connect (queue, "finished",
+	    	              G_CALLBACK (search_files_filter_finished), sf);
+		for (file = files; file != NULL; file = g_list_next (file))
+		{
+			SearchFilterFileCommand* cmd =
+				search_filter_file_command_new(G_FILE (file->data),
+			    	                           mime_types);
+			g_signal_connect (cmd, "command-finished",
+		    	              G_CALLBACK (search_files_filter_command_finished), sf);
+			anjuta_command_queue_push(queue, ANJUTA_COMMAND(cmd));
+		}
+		sf->priv->busy = TRUE;
+		anjuta_command_queue_start (queue);
+
+		g_list_foreach (files, (GFunc) g_object_unref, NULL);
+		g_list_free (files);
 	}
-	sf->priv->busy = TRUE;
-	anjuta_command_queue_start (queue);
 	search_files_update_ui(sf);
 
-	g_list_foreach (files, (GFunc) g_object_unref, NULL);
-	g_list_free (files);
 	g_free (mime_types);
 }
 
