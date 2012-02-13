@@ -932,7 +932,7 @@ cg_window_go_properties_transform_func (GHashTable *table,
 	cg_transform_string (table, "Blurb");
 
 	cg_transform_guess_paramspec (table, "ParamSpec",
-	                              "Type", _(GO_PARAMSPEC_LIST[0]));
+	                              "Type", N_(GO_PARAMSPEC_LIST[0]));
 
 	cg_transform_flags (table, "Flags", GO_PROPERTY_FLAGS);
 
