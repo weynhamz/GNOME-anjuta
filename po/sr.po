@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
 "&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-12 12:27+0000\n"
-"PO-Revision-Date: 2012-02-12 16:11+0200\n"
+"POT-Creation-Date: 2012-02-13 19:51+0000\n"
+"PO-Revision-Date: 2012-02-14 10:19+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -543,7 +543,7 @@ msgstr[1] ""
 msgstr[2] ""
 "Постоји %d ставки са несачуваним изменама. Да сачувам измене пре затварања?"
 msgstr[3] ""
-"Постоји ставка са несачуваним изменама. Сачувати измене пре затварања?"
+"Постоји ставка са несачуваним изменама. Да сачувам измене пре затварања?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -688,19 +688,19 @@ msgstr "Елемент није нађен: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Не могу пронаћи датотеку сличице програма: %s"
 
-#: ../plugins/am-project/amp-group.c:540
+#: ../plugins/am-project/amp-group.c:541
 msgid "Please specify group name"
 msgstr "Молим наведите назив групе"
 
-#: ../plugins/am-project/amp-group.c:554
+#: ../plugins/am-project/amp-group.c:555
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "Назив групе може да садржи само алфанумеричке или „#$:%+,-.=@^_`~“ знаке"
 
-#: ../plugins/am-project/amp-group.c:579
-#: ../plugins/am-project/am-project.c:1680
-#: ../plugins/am-project/am-project.c:1771
+#: ../plugins/am-project/amp-group.c:580
+#: ../plugins/am-project/am-project.c:1688
+#: ../plugins/am-project/am-project.c:1779
 #: ../plugins/dir-project/dir-project.c:747
 #: ../plugins/dir-project/dir-project.c:860
 #: ../plugins/mk-project/mk-project.c:723
@@ -727,64 +727,70 @@ msgid "Source"
 msgstr "Извор"
 
 #: ../plugins/am-project/am-project.c:124
-msgid "Shared Library"
-msgstr "Дељена библиотека"
+#| msgid "Shared Library"
+msgid "Shared Library (libtool)"
+msgstr "Дељена библиотека (libtool)"
 
 #: ../plugins/am-project/am-project.c:132
-msgid "Static Library"
-msgstr "Статичка библиотека"
+msgid "Module (Libtool)"
+msgstr "Модул (Libtool)"
 
 #: ../plugins/am-project/am-project.c:140
+#| msgid "Static Library"
+msgid "Static Library (Libtool)"
+msgstr "Статичка библиотека (Libtool)"
+
+#: ../plugins/am-project/am-project.c:148
 #: ../plugins/build-basic-autotools/executer.c:143
 msgid "Program"
 msgstr "Програм"
 
-#: ../plugins/am-project/am-project.c:148
+#: ../plugins/am-project/am-project.c:156
 msgid "Python Module"
 msgstr "Питон модул"
 
-#: ../plugins/am-project/am-project.c:156
+#: ../plugins/am-project/am-project.c:164
 msgid "Java Module"
 msgstr "Јава модул"
 
-#: ../plugins/am-project/am-project.c:164
+#: ../plugins/am-project/am-project.c:172
 msgid "Lisp Module"
 msgstr "Лисп модул"
 
-#: ../plugins/am-project/am-project.c:172
+#: ../plugins/am-project/am-project.c:180
 msgid "Header Files"
 msgstr "Датотеке заглавља"
 
-#: ../plugins/am-project/am-project.c:180
+#: ../plugins/am-project/am-project.c:188
 msgid "Man Documentation"
 msgstr "Ман документација"
 
-#: ../plugins/am-project/am-project.c:188
+#: ../plugins/am-project/am-project.c:196
 msgid "Info Documentation"
 msgstr "Инфо документација"
 
-#: ../plugins/am-project/am-project.c:196
+#: ../plugins/am-project/am-project.c:204
 msgid "Miscellaneous Data"
 msgstr "Разни подаци"
 
-#: ../plugins/am-project/am-project.c:204
+#: ../plugins/am-project/am-project.c:212
 msgid "Script"
 msgstr "Скрипт"
 
-#: ../plugins/am-project/am-project.c:212 ../plugins/class-gen/window.c:802
+#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:802
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Модул"
 
-#: ../plugins/am-project/am-project.c:220
+#: ../plugins/am-project/am-project.c:228
 msgid "Package"
 msgstr "Пакет"
 
-#: ../plugins/am-project/am-project.c:1708
+#: ../plugins/am-project/am-project.c:1716
 msgid "Unable to parse project file"
 msgstr "Не могу да рашчланим датотеку пројекта"
 
-#: ../plugins/am-project/am-project.c:1719
+#: ../plugins/am-project/am-project.c:1727
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Пројекат не постоји или је путања неисправна"
@@ -886,6 +892,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:336
 #: ../plugins/am-project/am-properties.c:520
 #: ../plugins/am-project/am-properties.c:695
+#: ../plugins/am-project/am-properties.c:870
 msgid "Linker flags:"
 msgstr "Опције повезивача:"
 
@@ -899,6 +906,7 @@ msgstr "Опште додатне опције повезивача за све 
 #: ../plugins/am-project/am-properties.c:363
 #: ../plugins/am-project/am-properties.c:538
 #: ../plugins/am-project/am-properties.c:713
+#: ../plugins/am-project/am-properties.c:889
 msgid "C preprocessor flags:"
 msgstr "Опције Ц претпроцесора:"
 
@@ -912,6 +920,7 @@ msgstr "Опште додатне опције Ц претпроцесора з�
 #: ../plugins/am-project/am-properties.c:372
 #: ../plugins/am-project/am-properties.c:547
 #: ../plugins/am-project/am-properties.c:722
+#: ../plugins/am-project/am-properties.c:898
 msgid "C compiler flags:"
 msgstr "Опције Ц преводиоца:"
 
@@ -925,6 +934,7 @@ msgstr "Опште додатне опције Ц преводиоца за св
 #: ../plugins/am-project/am-properties.c:381
 #: ../plugins/am-project/am-properties.c:556
 #: ../plugins/am-project/am-properties.c:731
+#: ../plugins/am-project/am-properties.c:907
 msgid "C++ compiler flags:"
 msgstr "Опције Ц++ преводиоца:"
 
@@ -938,6 +948,7 @@ msgstr "Опште додатне опције Ц++ преводиоца за с
 #: ../plugins/am-project/am-properties.c:390
 #: ../plugins/am-project/am-properties.c:565
 #: ../plugins/am-project/am-properties.c:740
+#: ../plugins/am-project/am-properties.c:916
 msgid "Java compiler flags:"
 msgstr "Опције Јава преводиоца:"
 
@@ -951,6 +962,7 @@ msgstr "Опште додатне опције Јава преводиоца з�
 #: ../plugins/am-project/am-properties.c:399
 #: ../plugins/am-project/am-properties.c:574
 #: ../plugins/am-project/am-properties.c:749
+#: ../plugins/am-project/am-properties.c:925
 msgid "Vala compiler flags:"
 msgstr "Опције Вала преводиоца:"
 
@@ -964,6 +976,7 @@ msgstr "Опште додатне опције Вала преводиоца з�
 #: ../plugins/am-project/am-properties.c:408
 #: ../plugins/am-project/am-properties.c:583
 #: ../plugins/am-project/am-properties.c:758
+#: ../plugins/am-project/am-properties.c:934
 msgid "Fortran compiler flags:"
 msgstr "Опције Фортран преводиоца:"
 
@@ -977,6 +990,7 @@ msgstr "Опште додатне опције Фортран преводиоц
 #: ../plugins/am-project/am-properties.c:417
 #: ../plugins/am-project/am-properties.c:592
 #: ../plugins/am-project/am-properties.c:767
+#: ../plugins/am-project/am-properties.c:943
 msgid "Objective C compiler flags:"
 msgstr "Опције објектног Ц преводиоца:"
 
@@ -991,6 +1005,7 @@ msgstr "Опште додатне опције Објектног Ц прево�
 #: ../plugins/am-project/am-properties.c:426
 #: ../plugins/am-project/am-properties.c:601
 #: ../plugins/am-project/am-properties.c:776
+#: ../plugins/am-project/am-properties.c:952
 msgid "Lex/Flex flags:"
 msgstr "Лекс/Флекс опције:"
 
@@ -1008,6 +1023,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:435
 #: ../plugins/am-project/am-properties.c:610
 #: ../plugins/am-project/am-properties.c:785
+#: ../plugins/am-project/am-properties.c:961
 msgid "Yacc/Bison flags:"
 msgstr "Јак/Бизон опције:"
 
@@ -1034,32 +1050,36 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:317
 #: ../plugins/am-project/am-properties.c:501
 #: ../plugins/am-project/am-properties.c:676
-#: ../plugins/am-project/am-properties.c:886
-#: ../plugins/am-project/am-properties.c:962
+#: ../plugins/am-project/am-properties.c:851
+#: ../plugins/am-project/am-properties.c:1062
+#: ../plugins/am-project/am-properties.c:1138
 msgid "Do not install:"
 msgstr "Немој инсталирати:"
 
 #: ../plugins/am-project/am-properties.c:320
 #: ../plugins/am-project/am-properties.c:504
 #: ../plugins/am-project/am-properties.c:679
-#: ../plugins/am-project/am-properties.c:889
-#: ../plugins/am-project/am-properties.c:965
+#: ../plugins/am-project/am-properties.c:854
+#: ../plugins/am-project/am-properties.c:1065
+#: ../plugins/am-project/am-properties.c:1141
 msgid "Build but do not install the target."
 msgstr "Изграђује али не инсталира мету."
 
 #: ../plugins/am-project/am-properties.c:327
 #: ../plugins/am-project/am-properties.c:511
 #: ../plugins/am-project/am-properties.c:686
-#: ../plugins/am-project/am-properties.c:896
-#: ../plugins/am-project/am-properties.c:971
+#: ../plugins/am-project/am-properties.c:861
+#: ../plugins/am-project/am-properties.c:1072
+#: ../plugins/am-project/am-properties.c:1147
 msgid "Installation directory:"
 msgstr "Директоријум инсталације:"
 
 #: ../plugins/am-project/am-properties.c:330
 #: ../plugins/am-project/am-properties.c:514
 #: ../plugins/am-project/am-properties.c:689
-#: ../plugins/am-project/am-properties.c:899
-#: ../plugins/am-project/am-properties.c:974
+#: ../plugins/am-project/am-properties.c:864
+#: ../plugins/am-project/am-properties.c:1075
+#: ../plugins/am-project/am-properties.c:1150
 msgid ""
 "It has to be a standard directory or a custom one defined in group "
 "properties."
@@ -1069,6 +1089,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:523
 #: ../plugins/am-project/am-properties.c:698
+#: ../plugins/am-project/am-properties.c:873
 msgid "Additional linker flags for this target."
 msgstr "Додатне опције повезивача за ову мету."
 
@@ -1079,6 +1100,7 @@ msgstr "Додатне библиотеке:"
 #: ../plugins/am-project/am-properties.c:348
 #: ../plugins/am-project/am-properties.c:532
 #: ../plugins/am-project/am-properties.c:707
+#: ../plugins/am-project/am-properties.c:883
 msgid "Additional libraries for this target."
 msgstr "Додатне библиотеке за ову мету."
 
@@ -1093,48 +1115,56 @@ msgstr "Датотеке додатних објеката за ову мету.
 #: ../plugins/am-project/am-properties.c:366
 #: ../plugins/am-project/am-properties.c:541
 #: ../plugins/am-project/am-properties.c:716
+#: ../plugins/am-project/am-properties.c:892
 msgid "Additional C preprocessor flags for this target."
 msgstr "Додатне опције Ц претпроцесора за ову мету."
 
 #: ../plugins/am-project/am-properties.c:375
 #: ../plugins/am-project/am-properties.c:550
 #: ../plugins/am-project/am-properties.c:725
+#: ../plugins/am-project/am-properties.c:901
 msgid "Additional C compiler flags for this target."
 msgstr "Додатне опције Ц преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:384
 #: ../plugins/am-project/am-properties.c:559
 #: ../plugins/am-project/am-properties.c:734
+#: ../plugins/am-project/am-properties.c:910
 msgid "Additional C++ compiler flags for this target."
 msgstr "Додатне опције Ц++ преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:393
 #: ../plugins/am-project/am-properties.c:568
 #: ../plugins/am-project/am-properties.c:743
+#: ../plugins/am-project/am-properties.c:919
 msgid "Additional Java compiler flags for this target."
 msgstr "Додатне опције Јава преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:402
 #: ../plugins/am-project/am-properties.c:577
 #: ../plugins/am-project/am-properties.c:752
+#: ../plugins/am-project/am-properties.c:928
 msgid "Additional Vala compiler flags for this target."
 msgstr "Додатне опције Вала преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:411
 #: ../plugins/am-project/am-properties.c:586
 #: ../plugins/am-project/am-properties.c:761
+#: ../plugins/am-project/am-properties.c:937
 msgid "Additional Fortran compiler flags for this target."
 msgstr "Додатне опције Фортран преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:420
 #: ../plugins/am-project/am-properties.c:595
 #: ../plugins/am-project/am-properties.c:770
+#: ../plugins/am-project/am-properties.c:946
 msgid "Additional Objective C compiler flags for this target."
 msgstr "Додатне опције Објектног Ц преводиоца за ову мету."
 
 #: ../plugins/am-project/am-properties.c:429
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
+#: ../plugins/am-project/am-properties.c:955
 msgid ""
 "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
@@ -1143,74 +1173,83 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:438
 #: ../plugins/am-project/am-properties.c:613
 #: ../plugins/am-project/am-properties.c:788
+#: ../plugins/am-project/am-properties.c:964
 msgid "Additional Yacc or Bison parser generator flags for this target."
 msgstr "Додатне опције генератора Јака или Бизона обрађивача за ову мету."
 
 #: ../plugins/am-project/am-properties.c:444
 #: ../plugins/am-project/am-properties.c:619
 #: ../plugins/am-project/am-properties.c:794
-#: ../plugins/am-project/am-properties.c:851
-#: ../plugins/am-project/am-properties.c:905
-#: ../plugins/am-project/am-properties.c:980
+#: ../plugins/am-project/am-properties.c:970
+#: ../plugins/am-project/am-properties.c:1027
+#: ../plugins/am-project/am-properties.c:1081
+#: ../plugins/am-project/am-properties.c:1156
 msgid "Additional dependencies:"
 msgstr "Додатне зависности:"
 
 #: ../plugins/am-project/am-properties.c:447
 #: ../plugins/am-project/am-properties.c:622
 #: ../plugins/am-project/am-properties.c:797
-#: ../plugins/am-project/am-properties.c:854
-#: ../plugins/am-project/am-properties.c:908
-#: ../plugins/am-project/am-properties.c:983
+#: ../plugins/am-project/am-properties.c:973
+#: ../plugins/am-project/am-properties.c:1030
+#: ../plugins/am-project/am-properties.c:1084
+#: ../plugins/am-project/am-properties.c:1159
 msgid "Additional dependencies for this target."
 msgstr "Датотеке зависности за ову мету."
 
 #: ../plugins/am-project/am-properties.c:453
 #: ../plugins/am-project/am-properties.c:628
 #: ../plugins/am-project/am-properties.c:803
-#: ../plugins/am-project/am-properties.c:914
-#: ../plugins/am-project/am-properties.c:989
+#: ../plugins/am-project/am-properties.c:979
+#: ../plugins/am-project/am-properties.c:1090
+#: ../plugins/am-project/am-properties.c:1165
 msgid "Include in distribution:"
 msgstr "Укључи у дистрибуцију:"
 
 #: ../plugins/am-project/am-properties.c:456
 #: ../plugins/am-project/am-properties.c:631
 #: ../plugins/am-project/am-properties.c:806
-#: ../plugins/am-project/am-properties.c:917
-#: ../plugins/am-project/am-properties.c:992
+#: ../plugins/am-project/am-properties.c:982
+#: ../plugins/am-project/am-properties.c:1093
+#: ../plugins/am-project/am-properties.c:1168
 msgid "Include this target in the distributed package."
 msgstr "Укључи ову мету у расподељени пакет."
 
 #: ../plugins/am-project/am-properties.c:463
 #: ../plugins/am-project/am-properties.c:638
 #: ../plugins/am-project/am-properties.c:813
-#: ../plugins/am-project/am-properties.c:924
-#: ../plugins/am-project/am-properties.c:998
+#: ../plugins/am-project/am-properties.c:989
+#: ../plugins/am-project/am-properties.c:1100
+#: ../plugins/am-project/am-properties.c:1174
 msgid "Build for check only:"
 msgstr "Изгради само за проверу:"
 
 #: ../plugins/am-project/am-properties.c:466
 #: ../plugins/am-project/am-properties.c:641
 #: ../plugins/am-project/am-properties.c:816
-#: ../plugins/am-project/am-properties.c:927
-#: ../plugins/am-project/am-properties.c:1001
+#: ../plugins/am-project/am-properties.c:992
+#: ../plugins/am-project/am-properties.c:1103
+#: ../plugins/am-project/am-properties.c:1177
 msgid "Build this target only when running automatic tests."
 msgstr "Изгради ову мету само приликом извршавања самосталног испробавања."
 
 #: ../plugins/am-project/am-properties.c:473
 #: ../plugins/am-project/am-properties.c:648
 #: ../plugins/am-project/am-properties.c:823
-#: ../plugins/am-project/am-properties.c:860
-#: ../plugins/am-project/am-properties.c:934
-#: ../plugins/am-project/am-properties.c:1007
+#: ../plugins/am-project/am-properties.c:999
+#: ../plugins/am-project/am-properties.c:1036
+#: ../plugins/am-project/am-properties.c:1110
+#: ../plugins/am-project/am-properties.c:1183
 msgid "Do not use prefix:"
 msgstr "Не користи префикс:"
 
 #: ../plugins/am-project/am-properties.c:476
 #: ../plugins/am-project/am-properties.c:651
 #: ../plugins/am-project/am-properties.c:826
-#: ../plugins/am-project/am-properties.c:863
-#: ../plugins/am-project/am-properties.c:937
-#: ../plugins/am-project/am-properties.c:1010
+#: ../plugins/am-project/am-properties.c:1002
+#: ../plugins/am-project/am-properties.c:1039
+#: ../plugins/am-project/am-properties.c:1113
+#: ../plugins/am-project/am-properties.c:1186
 msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
@@ -1221,16 +1260,18 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
 #: ../plugins/am-project/am-properties.c:833
-#: ../plugins/am-project/am-properties.c:944
-#: ../plugins/am-project/am-properties.c:1016
+#: ../plugins/am-project/am-properties.c:1009
+#: ../plugins/am-project/am-properties.c:1120
+#: ../plugins/am-project/am-properties.c:1192
 msgid "Keep target path:"
 msgstr "Задржи путању мете:"
 
 #: ../plugins/am-project/am-properties.c:486
 #: ../plugins/am-project/am-properties.c:661
 #: ../plugins/am-project/am-properties.c:836
-#: ../plugins/am-project/am-properties.c:947
-#: ../plugins/am-project/am-properties.c:1019
+#: ../plugins/am-project/am-properties.c:1012
+#: ../plugins/am-project/am-properties.c:1123
+#: ../plugins/am-project/am-properties.c:1195
 msgid ""
 "Keep relative target path for installing it. By example if you have a "
 "program subdir/app installed in bin directory it will be installed in bin/"
@@ -1242,14 +1283,15 @@ msgstr ""
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
+#: ../plugins/am-project/am-properties.c:880
 msgid "Libraries:"
 msgstr "Библиотеке:"
 
-#: ../plugins/am-project/am-properties.c:870
+#: ../plugins/am-project/am-properties.c:1046
 msgid "Manual section:"
 msgstr "Одељак упутства:"
 
-#: ../plugins/am-project/am-properties.c:873
+#: ../plugins/am-project/am-properties.c:1049
 msgid ""
 "Section where are installed the man pages. Valid section names are the "
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
@@ -1257,22 +1299,27 @@ msgstr ""
 "Одељак у коме су инсталиране странице упутства. Важећи називи одељака су "
 "бројеви од 0-9, и слова l и n."
 
-#: ../plugins/am-project/amp-target.c:360
+#: ../plugins/am-project/amp-target.c:362
 msgid "Please specify target name"
 msgstr "Молим унесите назив мете"
 
-#: ../plugins/am-project/amp-target.c:374
+#: ../plugins/am-project/amp-target.c:376
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr "Назив мете може да садржи само алфанумеричке или „_ - .“ знаке"
 
-#: ../plugins/am-project/amp-target.c:389
+#: ../plugins/am-project/amp-target.c:391
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "Назив мете дељене библиотеке мора бити облика „libxxx.la“"
 
-#: ../plugins/am-project/amp-target.c:398
+#: ../plugins/am-project/amp-target.c:400
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "Назив мете статичке библиотеке мора бити облика „libxxx.a“"
+
+#: ../plugins/am-project/amp-target.c:408
+#| msgid "Shared library target name must be of the form 'libxxx.la'"
+msgid "Module target name must be of the form 'xxx.la'"
+msgstr "Назив мете модула мора бити облика „xxx.la“"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -2391,7 +2438,7 @@ msgid_plural "CVS command successful! Time taken: %ld seconds"
 msgstr[0] "ЦВС наредба је успела! Протекло време: %ld секунда"
 msgstr[1] "ЦВС наредба је успела! Протекло време: %ld секунде"
 msgstr[2] "ЦВС наредба је успела! Протекло време: %ld секунди"
-msgstr[3] "ЦВС наредба успела! Потрошено време: %ld секунда"
+msgstr[3] "ЦВС наредба је успела! Протекло време: %ld секунда"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running — please wait until it finishes!"
@@ -3585,24 +3632,17 @@ msgid "Editor tabs"
 msgstr "Језичци уређивача"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#: ../plugins/document-manager/search-box.c:986
-msgid "Replace"
-msgstr "Замени"
-
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Case Sensitive"
 msgid "Case sensitive"
 msgstr "Разликуј величину слова"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
-#| msgid "Regular Expression"
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Regular expression"
 msgstr "Регуларан израз"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:18
-#| msgid "Add Files"
-msgid "Find Files"
-msgstr "Пронађи датотеке"
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#| msgid "Replace all"
+msgid "Replace All"
+msgstr "Замени све"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "_Save"
@@ -3883,12 +3923,10 @@ msgid "Clear all highlighted text"
 msgstr "Уклоните истицање читавог текста"
 
 #: ../plugins/document-manager/plugin.c:283
-#| msgid "Add Files"
 msgid "Find in Files"
 msgstr "Пронађи у датотекама"
 
 #: ../plugins/document-manager/plugin.c:284
-#| msgid "Open recent files"
 msgid "Search in project files"
 msgstr "Потражите у датотекама пројекта"
 
@@ -3917,7 +3955,7 @@ msgid "Search using regular expressions"
 msgstr "Потражите користећи регуларне изразе"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1285
+#: ../plugins/language-support-cpp-java/plugin.c:1286
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Уређивање"
@@ -4233,9 +4271,28 @@ msgstr ""
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr "Користите приручни изборник иконице „Нађи“ за више опција претраге"
 
+#: ../plugins/document-manager/search-box.c:986
+msgid "Replace"
+msgstr "Замени"
+
 #: ../plugins/document-manager/search-box.c:991
 msgid "Replace all"
 msgstr "Замени све"
+
+#: ../plugins/document-manager/search-files.c:609
+#: ../plugins/file-manager/file-view.c:662
+msgid "Filename"
+msgstr "Назив датотеке"
+
+#: ../plugins/document-manager/search-files.c:721
+#| msgid "All files"
+msgid "All text files"
+msgstr "Све текстуалне датотеке"
+
+#: ../plugins/document-manager/search-files.c:868
+#| msgid "Find in Files"
+msgid "Find in files"
+msgstr "Пронађи у датотекама"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 #: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
@@ -4514,15 +4571,11 @@ msgstr "Филтер"
 msgid "Loading..."
 msgstr "Учитавам..."
 
-#: ../plugins/file-manager/file-view.c:570
-msgid "Filename"
-msgstr "Назив датотеке"
-
-#: ../plugins/file-manager/file-view.c:653
+#: ../plugins/file-manager/file-view.c:746
 msgid "Base URI"
 msgstr "Основна адреса"
 
-#: ../plugins/file-manager/file-view.c:654
+#: ../plugins/file-manager/file-view.c:747
 msgid "URI of the top-most path displayed"
 msgstr "Адреса највише приказане путање"
 
@@ -5838,43 +5891,43 @@ msgstr "АПИ ознаке (C/C++)"
 msgid "C/C++"
 msgstr "Ц/Ц++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:873
+#: ../plugins/language-support-cpp-java/plugin.c:874
 msgid "Code added for widget."
 msgstr "Код је додат за елемент."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1291
+#: ../plugins/language-support-cpp-java/plugin.c:1292
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Само-увлачење"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1292
+#: ../plugins/language-support-cpp-java/plugin.c:1293
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Сам увуци текући ред или избор заснован на подешавањима увлачења"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1298
+#: ../plugins/language-support-cpp-java/plugin.c:1299
 msgid "Comment/Uncomment"
 msgstr "Закоментариши/откоментариши"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1300
 msgid "Comment or uncomment current selection"
 msgstr "Додајте или уклоните примедбу текућем избору"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1304
+#: ../plugins/language-support-cpp-java/plugin.c:1305
 msgid "Swap .h/.c"
 msgstr "Замени .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1306
 msgid "Swap C header and source files"
 msgstr "Замени Ц заглавље и изворне датотеке"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "C++/Java Assistance"
 msgstr "Помоћ за Ц++/Јаву"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1582
-#: ../plugins/language-support-cpp-java/plugin.c:1616
+#: ../plugins/language-support-cpp-java/plugin.c:1583
+#: ../plugins/language-support-cpp-java/plugin.c:1617
 msgid "C/C++/Java/Vala"
 msgstr "Ц/Ц++/Јава/Вала"
 
@@ -6027,7 +6080,6 @@ msgid "Errors:"
 msgstr "Грешке:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-#| msgid "Import"
 msgid "Important:"
 msgstr "Важно:"
 
@@ -9065,7 +9117,7 @@ msgid_plural "%s: %d files scanned out of %d"
 msgstr[0] "%s: %d датотека је скенирана од %d"
 msgstr[1] "%s: %d датотеке су скениране од %d"
 msgstr[2] "%s: %d датотека је скенирано од %d"
-msgstr[3] ""
+msgstr[3] "%s: %d датотека је скенирана од %d"
 
 #: ../plugins/symbol-db/plugin.c:1073
 #, c-format
@@ -9079,7 +9131,7 @@ msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d датотека је скенирана од %d"
 msgstr[1] "%d датотеке су скениране од %d"
 msgstr[2] "%d датотека је скенирано од %d"
-msgstr[3] ""
+msgstr[3] "%d датотека је скенирана од %d"
 
 #: ../plugins/symbol-db/plugin.c:1742
 msgid "Populating symbol database…"
@@ -9733,6 +9785,10 @@ msgstr "Само иконице"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Само текст"
+
+#~| msgid "Add Files"
+#~ msgid "Find Files"
+#~ msgstr "Пронађи датотеке"
 
 #~ msgid "Anjuta IDE"
 #~ msgstr "Ањута"
