@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-02-08 20:11+0000\n"
-"PO-Revision-Date: 2012-02-09 17:08+0100\n"
+"POT-Creation-Date: 2012-02-12 21:05+0000\n"
+"PO-Revision-Date: 2012-02-15 13:16+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -246,7 +246,7 @@ msgstr ""
 "actual y diversos parámetros."
 
 #: C/run-parameters-dialog.page:27(gui)
-#: C/autotools-project-target-type.page:38(title)
+#: C/autotools-project-target-type.page:46(title)
 msgid "Program"
 msgstr "Programa"
 
@@ -3992,8 +3992,9 @@ msgid "There are different types of target available."
 msgstr "Hay diferentes tipos de objetivos disponibles."
 
 #: C/autotools-project-target-type.page:23(title)
-msgid "Shared Library"
-msgstr "Biblioteca compartida"
+#| msgid "Shared Library"
+msgid "Shared Library (Libtool)"
+msgstr "Biblioteca compartida (Libtool)"
 
 #: C/autotools-project-target-type.page:24(p)
 msgid ""
@@ -4014,10 +4015,36 @@ msgstr ""
 "«.la»."
 
 #: C/autotools-project-target-type.page:31(title)
-msgid "Static Library"
-msgstr "Biblioteca estática"
+msgid "Module (Libtool)"
+msgstr "Módulo (Libtool)"
 
 #: C/autotools-project-target-type.page:32(p)
+msgid ""
+"It represents a library, often named a plugin, linked at run time "
+"explicitely by the program itself. It is used to only load the code "
+"corresponding to the used features."
+msgstr ""
+"Representa una biblioteca, denominada frecuentemente «complemento», enlazada "
+"explícitamente en tiempo de ejecución por el propio programa. Sólo se usa "
+"para cargar el código correspondiente a las características usadas."
+
+#: C/autotools-project-target-type.page:35(p)
+#| msgid ""
+#| "It uses the Libtool package. Its name must start with 'lib' and has the '."
+#| "la' extension."
+msgid ""
+"It uses the Libtool package. Its name does not need the 'lib' prefix but "
+"must have the '.la' extension."
+msgstr ""
+"Usa el paquete Libtool. Su nombre no necesita el prefijo «lib», pero debe "
+"tener la extensión «.la»."
+
+#: C/autotools-project-target-type.page:39(title)
+#| msgid "Static Library"
+msgid "Static Library (Libtool)"
+msgstr "Biblioteca estática (Libtool)"
+
+#: C/autotools-project-target-type.page:40(p)
 msgid ""
 "It represents a library linked with the program at compile time. Only the "
 "function used are kept inside the generated executable."
@@ -4025,7 +4052,7 @@ msgstr ""
 "Representa una biblioteca enlazada con el programa en tiempo de compilación. "
 "Dentro del ejecutable sólo se mantienen la funciones usadas."
 
-#: C/autotools-project-target-type.page:34(p)
+#: C/autotools-project-target-type.page:42(p)
 msgid ""
 "It uses the Libtool package. Its name must start with 'lib' and has the '.a' "
 "extension."
@@ -4033,7 +4060,7 @@ msgstr ""
 "Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la extensión "
 "«.a»."
 
-#: C/autotools-project-target-type.page:39(p)
+#: C/autotools-project-target-type.page:47(p)
 msgid ""
 "It represents compiled program by example from C souces files. All children "
 "represent the source files compiled to generate the program."
@@ -4042,35 +4069,35 @@ msgstr ""
 "Todos los hijos representan los archivos fuente compilados para generar el "
 "programa."
 
-#: C/autotools-project-target-type.page:44(title)
+#: C/autotools-project-target-type.page:52(title)
 msgid "Python module"
 msgstr "Módulo de Python"
 
-#: C/autotools-project-target-type.page:45(p)
+#: C/autotools-project-target-type.page:53(p)
 msgid "It represents a program written in Python."
 msgstr "Representa un programa escrito en Python."
 
-#: C/autotools-project-target-type.page:48(title)
+#: C/autotools-project-target-type.page:56(title)
 msgid "Java module"
 msgstr "Módulo Java"
 
-#: C/autotools-project-target-type.page:49(p)
+#: C/autotools-project-target-type.page:57(p)
 msgid "It represents a progran written in Java."
 msgstr "Representa un programa escrito en Java."
 
-#: C/autotools-project-target-type.page:52(title)
+#: C/autotools-project-target-type.page:60(title)
 msgid "LISP module"
 msgstr "Módulo LISP"
 
-#: C/autotools-project-target-type.page:53(p)
+#: C/autotools-project-target-type.page:61(p)
 msgid "It represents a progran written in LISP."
 msgstr "Representa un programa escrito en LISP."
 
-#: C/autotools-project-target-type.page:56(title)
+#: C/autotools-project-target-type.page:64(title)
 msgid "Header files"
 msgstr "Archivos de cabeceras"
 
-#: C/autotools-project-target-type.page:57(p)
+#: C/autotools-project-target-type.page:65(p)
 msgid ""
 "This target allows you to group header files and define where they have to "
 "be installed."
@@ -4078,27 +4105,27 @@ msgstr ""
 "Este objetivo le permite agrupar cabeceras y definir dónde se tiene que "
 "instalar."
 
-#: C/autotools-project-target-type.page:61(title)
+#: C/autotools-project-target-type.page:69(title)
 msgid "Man documentation"
 msgstr "Documentación man"
 
-#: C/autotools-project-target-type.page:62(p)
+#: C/autotools-project-target-type.page:70(p)
 msgid "It groups man pages needed by the project."
 msgstr "Agrupa las páginas del manual que necesita el proyecto."
 
-#: C/autotools-project-target-type.page:65(title)
+#: C/autotools-project-target-type.page:73(title)
 msgid "Info documentation"
 msgstr "Documentación info"
 
-#: C/autotools-project-target-type.page:66(p)
+#: C/autotools-project-target-type.page:74(p)
 msgid "It groups info page needed by the project."
 msgstr "Agrupa las páginas de información que necesita el proyecto."
 
-#: C/autotools-project-target-type.page:69(title)
+#: C/autotools-project-target-type.page:77(title)
 msgid "Miscellaneous Data"
 msgstr "Datos variados"
 
-#: C/autotools-project-target-type.page:70(p)
+#: C/autotools-project-target-type.page:78(p)
 msgid ""
 "It groups data files which needed by the project like pictures, ui "
 "description, settings files..."
@@ -4106,11 +4133,11 @@ msgstr ""
 "Agrupa archivos de datos necesarios para el proyecto como imágenes, "
 "descripciones de la IU, archivos de configuración, etc."
 
-#: C/autotools-project-target-type.page:74(title)
+#: C/autotools-project-target-type.page:82(title)
 msgid "Script"
 msgstr "Script"
 
-#: C/autotools-project-target-type.page:75(p)
+#: C/autotools-project-target-type.page:83(p)
 msgid ""
 "It represents program those are scripts. Those scripts are only installed in "
 "the specified directory. If scripts are generated additional rules are "
@@ -4697,14 +4724,6 @@ msgstr ""
 "plantilla del proyecto los crea automáticamente."
 
 #: C/anjuta-glade-start.page:73(p)
-#| msgid ""
-#| "Once the glade plug-in is running and the file that will hold the code is "
-#| "being viewed, simply double click a widget in the glade inspector. The "
-#| "file being viewed will then be scanned for some marker comments (/* "
-#| "ANJUTA: Widgets declaration - DO NOT REMOVE */ and /* ANJUTA: Widgets "
-#| "initialization - DO NOT REMOVE */) and, if found, code will be added "
-#| "right after such comments. So, for this feature to work correctly, it is "
-#| "important not to modify such marker comments."
 msgid ""
 "Once the glade plug-in is running and the file that will hold the code is "
 "opened, simply double click a widget in the glade inspector. The file being "
