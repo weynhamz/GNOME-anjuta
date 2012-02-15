@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-12 20:56+0000\n"
-"PO-Revision-Date: 2012-02-13 12:43+0100\n"
+"POT-Creation-Date: 2012-02-13 19:51+0000\n"
+"PO-Revision-Date: 2012-02-15 12:15+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -737,7 +737,6 @@ msgid "Source"
 msgstr "Origen"
 
 #: ../plugins/am-project/am-project.c:124
-#| msgid "Shared Library"
 msgid "Shared Library (libtool)"
 msgstr "Biblioteca compartida (libtool)"
 
@@ -746,7 +745,6 @@ msgid "Module (Libtool)"
 msgstr "Módulo (Libtool)"
 
 #: ../plugins/am-project/am-project.c:140
-#| msgid "Static Library"
 msgid "Static Library (Libtool)"
 msgstr "Biblioteca estática (Libtool)"
 
@@ -1351,7 +1349,6 @@ msgstr ""
 "a»"
 
 #: ../plugins/am-project/amp-target.c:408
-#| msgid "Shared library target name must be of the form 'libxxx.la'"
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "El nombre del módulo objetivo debe ser de la forma «xxx.la»"
 
@@ -3666,21 +3663,17 @@ msgid "Editor tabs"
 msgstr "Pestañas del editor"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#: ../plugins/document-manager/search-box.c:986
-msgid "Replace"
-msgstr "Reemplazar"
-
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Case sensitive"
 msgstr "Sensible a capitalización"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Regular expression"
 msgstr "Expresión regular"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:18
-msgid "Find Files"
-msgstr "Buscar archivos"
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#| msgid "Replace all"
+msgid "Replace All"
+msgstr "Reemplazar todo"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "_Save"
@@ -4307,6 +4300,10 @@ msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr ""
 "Usar el menú contextual del icono «Buscar» para más opciones de búsqueda"
 
+#: ../plugins/document-manager/search-box.c:986
+msgid "Replace"
+msgstr "Reemplazar"
+
 #: ../plugins/document-manager/search-box.c:991
 msgid "Replace all"
 msgstr "Reemplazar todo"
@@ -4317,12 +4314,10 @@ msgid "Filename"
 msgstr "Nombre de archivo"
 
 #: ../plugins/document-manager/search-files.c:721
-#| msgid "All files"
 msgid "All text files"
 msgstr "Todos los archivos de texto"
 
-#: ../plugins/document-manager/search-files.c:870
-#| msgid "Find in Files"
+#: ../plugins/document-manager/search-files.c:868
 msgid "Find in files"
 msgstr "Buscar en archivos"
 
@@ -9847,6 +9842,9 @@ msgstr "Sólo iconos"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Sólo texto"
+
+#~ msgid "Find Files"
+#~ msgstr "Buscar archivos"
 
 #~ msgid "Anjuta IDE"
 #~ msgstr "EID Anjuta"
