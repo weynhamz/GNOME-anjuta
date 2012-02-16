@@ -55,30 +55,7 @@ struct _AmpTargetNode {
 
 
 
-/* Helper functions
- *---------------------------------------------------------------------------*/
 
-static void
-error_set (GError **error, gint code, const gchar *message)
-{
-        if (error != NULL) {
-                if (*error != NULL) {
-                        gchar *tmp;
-
-                        /* error already created, just change the code
-                         * and prepend the string */
-                        (*error)->code = code;
-                        tmp = (*error)->message;
-                        (*error)->message = g_strconcat (message, "\n\n", tmp, NULL);
-                        g_free (tmp);
-
-                } else {
-                        *error = g_error_new_literal (IANJUTA_PROJECT_ERROR,
-                                                      code,
-                                                      message);
-                }
-        }
-}
 
 
 /* Tagged token list
@@ -358,8 +335,8 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 	/* Validate target name */
 	if (!name || strlen (name) <= 0)
 	{
-		error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-			   _("Please specify target name"));
+		amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+		               _("Please specify target name"));
 		return NULL;
 	}
 	{
@@ -372,8 +349,8 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 			ptr++;
 		}
 		if (failed) {
-			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"));
+			amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+			               _("Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"));
 			return NULL;
 		}
 	}
@@ -387,8 +364,8 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 		if (strlen (basename) < 7 ||
 		    strncmp (basename, "lib", strlen("lib")) != 0 ||
 		    strcmp (&basename[strlen(basename) - 3], ".la") != 0) {
-			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Shared library target name must be of the form 'libxxx.la'"));
+			amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+			               _("Shared library target name must be of the form 'libxxx.la'"));
 			return NULL;
 		}
 	}
@@ -396,16 +373,16 @@ amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const 
 		if (strlen (basename) < 6 ||
 		    strncmp (basename, "lib", strlen("lib")) != 0 ||
 		    strcmp (&basename[strlen(basename) - 2], ".a") != 0) {
-			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Static library target name must be of the form 'libxxx.a'"));
+			amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+			               _("Static library target name must be of the form 'libxxx.a'"));
 			return NULL;
 		}
 	}
 	else if ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_LT_MODULE) {
 		if (strlen (basename) < 4 ||
 		    strcmp (&basename[strlen(basename) - 3], ".la") != 0) {
-			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-				   _("Module target name must be of the form 'xxx.la'"));
+			amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+			               _("Module target name must be of the form 'xxx.la'"));
 			return NULL;
 		}
 	}

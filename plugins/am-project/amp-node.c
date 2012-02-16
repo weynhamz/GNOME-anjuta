@@ -37,12 +37,39 @@
 #include "amp-source.h"
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-project.h>
 
 #include <glib/gi18n.h>
 
 #include <memory.h>
 #include <string.h>
 #include <ctype.h>
+
+
+/* Helper functions
+ *---------------------------------------------------------------------------*/
+
+void
+amp_set_error (GError **error, gint code, const gchar *message)
+{
+        if (error != NULL) {
+                if (*error != NULL) {
+                        gchar *tmp;
+
+                        /* error already created, just change the code
+                         * and prepend the string */
+                        (*error)->code = code;
+                        tmp = (*error)->message;
+                        (*error)->message = g_strconcat (message, "\n\n", tmp, NULL);
+                        g_free (tmp);
+
+                } else {
+                        *error = g_error_new_literal (IANJUTA_PROJECT_ERROR,
+                                                      code,
+                                                      message);
+                }
+        }
+}
 
 
 /* Public functions

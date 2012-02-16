@@ -69,7 +69,7 @@ struct _AmpNodeClass
 											                AmpNode *parent,
 											                AmpProject *project,
 											                GError **error);
-	
+
 	gboolean					(*update)				(AmpNode *node,
 											                AmpNode *parent);
 
@@ -77,7 +77,7 @@ struct _AmpNodeClass
 											                AmpNode *parent,
 											                AmpProject *project,
 											                GError **error);
-	
+
 	gboolean					(*write)				(AmpNode *node,
 											                AmpNode *parent,
 											                AmpProject *project,
@@ -85,6 +85,9 @@ struct _AmpNodeClass
 };
 
 GType amp_node_get_type (void) G_GNUC_CONST;
+
+
+void				amp_set_error (GError **error, gint code, const gchar *message);
 
 
 AnjutaProjectNode * amp_node_new_valid				(AnjutaProjectNode *parent,

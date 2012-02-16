@@ -89,6 +89,16 @@ amp_source_node_new (GFile *file, AnjutaProjectNodeType type)
 AnjutaProjectNode*
 amp_source_node_new_valid (GFile *file, AnjutaProjectNodeType type, GError **error)
 {
+	/* Validate source name */
+
+	if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL) == G_FILE_TYPE_DIRECTORY)
+	{
+		amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+		               _("Source file must be a regular file, not a directory"));
+
+		return NULL;
+	}
+
 	return amp_source_node_new (file, type);
 }
 
