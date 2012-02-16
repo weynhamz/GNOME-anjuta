@@ -35,6 +35,7 @@ plugins/am-project/amp-group.c
 plugins/am-project/am-project.c
 [type: gettext/ini]plugins/am-project/am-project.plugin.in
 plugins/am-project/am-properties.c
+plugins/am-project/amp-source.c
 plugins/am-project/amp-target.c
 [type: gettext/ini]plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in
 [type: gettext/glade]plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui
