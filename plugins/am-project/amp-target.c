@@ -442,7 +442,7 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 			if (node != ANJUTA_PROJECT_NODE (target))
 			{
 				prop = amp_node_get_property_from_token (node, AM_TOKEN__PROGRAMS, 6);
-				if (g_strcmp0 (installdir, prop->value) == 0)
+				if ((prop != NULL) && (g_strcmp0 (installdir, prop->value) == 0))
 				{
 					used = TRUE;
 					break;
