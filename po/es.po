@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-13 19:51+0000\n"
-"PO-Revision-Date: 2012-02-15 12:15+0100\n"
+"POT-Creation-Date: 2012-02-16 22:48+0000\n"
+"PO-Revision-Date: 2012-02-17 10:28+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1325,30 +1325,35 @@ msgstr ""
 "Sección donde están instaladas las páginas del manual. Los nombres de "
 "sección válidos son los dígitos de «0» a «9» y las letras «l» y «n»."
 
-#: ../plugins/am-project/amp-target.c:362
+#: ../plugins/am-project/amp-source.c:97
+#| msgid "Source file must be inside the project directory"
+msgid "Source file must be a regular file, not a directory"
+msgstr "El archivo de código debe ser un archivo regular, no una carpeta"
+
+#: ../plugins/am-project/amp-target.c:339
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/am-project/amp-target.c:376
+#: ../plugins/am-project/amp-target.c:353
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
 "«/» o «.»"
 
-#: ../plugins/am-project/amp-target.c:391
+#: ../plugins/am-project/amp-target.c:368
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/am-project/amp-target.c:400
+#: ../plugins/am-project/amp-target.c:377
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 "El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
 "a»"
 
-#: ../plugins/am-project/amp-target.c:408
+#: ../plugins/am-project/amp-target.c:385
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "El nombre del módulo objetivo debe ser de la forma «xxx.la»"
 
@@ -3671,7 +3676,6 @@ msgid "Regular expression"
 msgstr "Expresión regular"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:17
-#| msgid "Replace all"
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
@@ -4308,16 +4312,16 @@ msgstr "Reemplazar"
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
-#: ../plugins/document-manager/search-files.c:609
+#: ../plugins/document-manager/search-files.c:594
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/document-manager/search-files.c:721
+#: ../plugins/document-manager/search-files.c:706
 msgid "All text files"
 msgstr "Todos los archivos de texto"
 
-#: ../plugins/document-manager/search-files.c:868
+#: ../plugins/document-manager/search-files.c:853
 msgid "Find in files"
 msgstr "Buscar en archivos"
 
@@ -6804,11 +6808,11 @@ msgstr "Acciones del administrador de proyectos"
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2424
+#: ../plugins/project-manager/plugin.c:2434
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2427
+#: ../plugins/project-manager/plugin.c:2437
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -11383,9 +11387,6 @@ msgstr "Sólo texto"
 
 #~ msgid "Target coudn't be removed"
 #~ msgstr "No se pudo eliminar el objetivo"
-
-#~ msgid "Source file must be inside the project directory"
-#~ msgstr "El archivo de código debe estar dentro del directorio del proyecto"
 
 #~ msgid "Source is already in target"
 #~ msgstr "El código ya se encuentra en el objetivo"
