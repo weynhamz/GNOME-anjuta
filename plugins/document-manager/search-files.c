@@ -823,16 +823,16 @@ search_files_class_init (SearchFilesClass* klass)
 	g_type_class_add_private(klass, sizeof(SearchFilesPrivate));
 }
 
-static void
-search_files_project_loaded (SearchFiles* sf, IAnjutaProjectManager *pm, GError* e)
+void 
+search_files_update_project (SearchFiles* sf)
 {
-	if (!e)
-	{
-		ianjuta_project_chooser_set_project_model(IANJUTA_PROJECT_CHOOSER(sf->priv->project_combo),
-		                                          pm,
-		                                          ANJUTA_PROJECT_GROUP,
-		                                          NULL);
-	}
+	IAnjutaProjectManager* pm = anjuta_shell_get_interface(sf->priv->docman->shell,
+	                                                       IAnjutaProjectManager,
+	                                                       NULL);
+	ianjuta_project_chooser_set_project_model(IANJUTA_PROJECT_CHOOSER(sf->priv->project_combo),
+	                                          pm,
+	                                          ANJUTA_PROJECT_GROUP,
+	                                          NULL);
 }
 
 SearchFiles*
@@ -841,12 +841,6 @@ search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 	AnjutaShell* shell = docman->shell;
 	GObject* obj = g_object_new (SEARCH_TYPE_FILES, NULL);
 	SearchFiles* sf = SEARCH_FILES(obj);
-	IAnjutaProjectManager* pm = anjuta_shell_get_interface(shell,
-	                                                       IAnjutaProjectManager,
-	                                                       NULL);
-	search_files_project_loaded(sf, pm, NULL);
-	g_signal_connect_swapped (pm, "project-loaded",
-	                          G_CALLBACK (search_files_project_loaded), NULL);
 
 	anjuta_shell_add_widget(shell, sf->priv->main_box,
 	                        "search_files",
@@ -861,6 +855,7 @@ search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 
 	search_files_type_combo_init(sf);
 	search_files_update_ui(sf);
+	search_files_update_project (sf);
 
 	return sf;
 }

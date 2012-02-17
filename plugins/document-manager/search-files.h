@@ -52,6 +52,7 @@ GType search_files_get_type (void) G_GNUC_CONST;
 SearchFiles* search_files_new (AnjutaDocman* docman, SearchBox* search_box);
 
 void search_files_present (SearchFiles* files);
+void search_files_update_project (SearchFiles* files);
 
 G_END_DECLS
 

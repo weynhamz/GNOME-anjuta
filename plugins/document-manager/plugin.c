@@ -537,6 +537,9 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	g_free (doc_plugin->project_path);
 	doc_plugin->project_name = NULL;
 
+	if (doc_plugin->search_files)
+		search_files_update_project (SEARCH_FILES(doc_plugin->search_files));
+	
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
@@ -567,6 +570,10 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	g_free (doc_plugin->project_name);
 	doc_plugin->project_name = NULL;
 
+	if (doc_plugin->search_files)
+		search_files_update_project (SEARCH_FILES(doc_plugin->search_files));
+
+	
 	update_title(doc_plugin);
 }
 
