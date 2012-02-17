@@ -6,6 +6,10 @@
     <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="index#anjuta-code" group="first"/>
     <revision pkgversion="3.0" version="0.1" date="2011-10-24" status="draft"/>
+    <desc>
+      Configure and use automatic indentation for a consistent coding style
+    </desc>
+
     <credit type="author">
       <name>Johannes Schmid</name>
       <email>jhs@gnome.org</email>

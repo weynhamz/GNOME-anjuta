@@ -6,6 +6,9 @@
     <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
     <link type="guide" xref="index#anjuta-code" group="first"/>
     <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Efficient ways to nagivate through source code
+    </desc>
     <credit type="author">
       <name>Johannes Schmid</name>
       <email>jhs@gnome.org</email>
@@ -16,11 +19,35 @@
 
 <section>
 <title>Using the symbol browser</title>
+<p>The symbol browser allows you to get an overview over the symbols used in your
+project. Symbols refers to variables, functions/methods and classes here and the
+exact definition depends on the programming language used.</p>
 
+<p>The symbol browser has three tabs:</p>
+<list>
+	<item><p><gui>File</gui> shows the symbols of the current file in the editor</p></item>
+	<item><p><gui>Project</gui> shows all symbols of the project</p></item>
+	<item><p><gui>Search</gui> lets you search the symbols in the project 
+	(use <keyseq><key>Ctrl</key><key>L</key></keyseq> to jump directly to the search box)</p></item>
+</list>
+
+<p>Double click on jumps to the definition of the symbol in the editor.</p>
 </section>
 
 <section>
 <title>Navigating in the editor</title>
+<p>In the <gui>Goto</gui>popup-menu of the editor there two items that help you to quickly navigate
+through the source code:</p>
+
+<list>
+	<item><p><gui>Symbol definition</gui></p></item>
+	<item><p><gui>Symbol declaration</gui></p></item>
+</list>
+
+<p>If you want to go back to the position in the editor where you used the 
+shown items in the <gui>Goto</gui> menu you can use the
+<gui>Previous history</gui> (and <gui>Next history</gui>) items in the same menu.</p>
+
 </section>
 
 </page>
