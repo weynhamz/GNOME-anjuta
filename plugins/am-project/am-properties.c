@@ -576,7 +576,7 @@ static AmpPropertyInfo AmpProgramTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE | ANJUTA_PROJECT_PROPERTY_STATIC,
 			N_("Additional Vala compiler flags for this target.")},
 		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
-		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
+		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{"FCFLAGS",
@@ -751,7 +751,7 @@ static AmpPropertyInfo AmpLibraryTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE | ANJUTA_PROJECT_PROPERTY_STATIC,
 			N_("Additional Vala compiler flags for this target.")},
 		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
-		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
+		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{"FCFLAGS",
@@ -927,7 +927,7 @@ static AmpPropertyInfo AmpModuleTargetProperties[] = {
 			ANJUTA_PROJECT_PROPERTY_READ_WRITE | ANJUTA_PROJECT_PROPERTY_STATIC,
 			N_("Additional Vala compiler flags for this target.")},
 		AM_TOKEN_TARGET_VALAFLAGS,0, "_VALAFLAGS",
-		AM_PROPERTY_IN_MAKEFILE | AM_PROPERTY_COMPILATION_FLAG
+		AM_PROPERTY_IN_MAKEFILE
 	},
 	{
 		{"FCFLAGS",
