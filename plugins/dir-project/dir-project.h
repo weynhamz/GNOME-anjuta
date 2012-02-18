@@ -42,10 +42,6 @@ G_BEGIN_DECLS
 typedef struct _DirProject        DirProject;
 typedef struct _DirProjectClass   DirProjectClass;
 
-struct _DirProjectClass {
-	GObjectClass parent_class;
-};
-
 GType         dir_project_get_type (void);
 DirProject   *dir_project_new      (GFile *directory, GError **error);
 

@@ -47,9 +47,7 @@
 #define SOURCES_FILE	PACKAGE_DATA_DIR "/sources.list"
 
 struct _DirProject {
-	GObject         parent;
-
-	AnjutaProjectNode *root;
+	AnjutaDirRootNode         parent;
 
 	/* shortcut hash tables, mapping id -> GNode from the tree above */
 	GHashTable		*groups;
@@ -59,6 +57,10 @@ struct _DirProject {
 
 	/* List of source files pattern */
 	GList	*sources;
+};
+
+struct _DirProjectClass {
+	AnjutaDirRootNodeClass parent_class;
 };
 
 /* A file or directory name part of a path */
@@ -191,9 +193,6 @@ project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectN
 			{
 				node = dir_source_node_new (file);
 			}
-			break;
-		case ANJUTA_PROJECT_ROOT:
-			node = dir_root_node_new (file);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -582,15 +581,7 @@ dir_project_load_directory_callback (GObject      *source_object,
 					g_object_unref (remove);
 				}
 			}
-			if (anjuta_project_node_parent (data->parent) == data->proj->root)
-			{
-				/* Emit signal on root node instead of the first group */
-				g_signal_emit_by_name (data->proj, "node-loaded", data->proj->root, NULL);
-			}
-			else
-			{
-				g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
-			}
+			g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
 		}
 		g_object_unref (data->parent);
 		g_slice_free (DirData, data);
@@ -599,7 +590,7 @@ dir_project_load_directory_callback (GObject      *source_object,
 		return;
 	}
 
-	root = anjuta_project_node_get_file (data->proj->root);
+	root = anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (data->proj));
 	for (l = infos; l != NULL; l = g_list_next(l))
 	{
 		GFileInfo *info;
@@ -725,48 +716,40 @@ dir_project_load_root (DirProject *project, GError **error)
 {
 	GFile *source_file;
 	GFile *root_file;
-	AnjutaProjectNode *group;
 
-	root_file = anjuta_project_node_get_file (project->root);
+	root_file = anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project));
 	DEBUG_PRINT ("reload project %p root file %p", project, root_file);
-
-	group = anjuta_project_node_first_child (project->root);
-	if (group != NULL)
-	{
-		dir_project_load_directory (project, group, NULL);
-		return project->root;
-	}
-
-	/* shortcut hash tables */
-	project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	if (g_file_query_file_type (root_file, G_FILE_QUERY_INFO_NONE, NULL) != G_FILE_TYPE_DIRECTORY)
 	{
 		g_set_error (error, IANJUTA_PROJECT_ERROR,
-		             IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
-			   _("Project doesn't exist or invalid path"));
+	    	         IANJUTA_PROJECT_ERROR_DOESNT_EXIST,
+		   	_("Project doesn't exist or invalid path"));
 
 		return NULL;
 	}
 
-	group = project_node_new (project, NULL, ANJUTA_PROJECT_GROUP, root_file, NULL, NULL);
-	anjuta_project_node_append (project->root, group);
-	g_hash_table_insert (project->groups, g_file_get_uri (root_file), group);
+	/* shortcut hash tables */
+	if (project->groups == NULL)
+	{
+		project->groups = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	}
 
 	/* Load source pattern */
 	source_file = g_file_new_for_path (SOURCES_FILE);
 	project->sources = dir_push_pattern_list (NULL, g_object_ref (root_file), source_file, FALSE, NULL);
 	g_object_unref (source_file);
 
-	dir_project_load_directory (project, group, NULL);
+	dir_group_node_set_file (ANJUTA_DIR_GROUP_NODE (project), root_file, G_OBJECT (project));
+	dir_project_load_directory (project, ANJUTA_PROJECT_NODE (project), NULL);
 
-	return project->root;
+	return ANJUTA_PROJECT_NODE (project);
 }
 
 AnjutaProjectNode *
 dir_project_load_node (DirProject *project, AnjutaProjectNode *node, GError **error)
 {
-	if (node == NULL) node = project->root;
+	if (node == NULL) node = ANJUTA_PROJECT_NODE (project);
 	switch (anjuta_project_node_get_node_type (node))
 	{
 	case ANJUTA_PROJECT_ROOT:
@@ -829,11 +812,7 @@ void
 dir_project_unload (DirProject *project)
 {
 	/* project data */
-	/*project_node_destroy (project, project->root_node);
-	project->root_node = NULL;*/
-
-	if (project->root) project_node_destroy (project, project->root);
-	project->root = NULL;
+	project_node_destroy (project, ANJUTA_PROJECT_NODE (project));
 
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
@@ -922,7 +901,7 @@ dir_project_new (GFile *directory, GError **error)
 	DirProject *project;
 
 	project = DIR_PROJECT (g_object_new (DIR_TYPE_PROJECT, NULL));
-	project->root = dir_root_node_new (directory);
+	project->parent.base.file = g_object_ref (directory);
 
 	return project;
 }
@@ -1008,7 +987,7 @@ iproject_remove_property (IAnjutaProject *obj, AnjutaProjectNode *node, const gc
 static AnjutaProjectNode *
 iproject_get_root (IAnjutaProject *obj, GError **error)
 {
-	return DIR_PROJECT (obj)->root;
+	return ANJUTA_PROJECT_NODE (obj);
 }
 
 static const GList*
@@ -1057,10 +1036,6 @@ dir_project_instance_init (DirProject *project)
 	g_return_if_fail (project != NULL);
 	g_return_if_fail (DIR_IS_PROJECT (project));
 
-	/* project data */
-	project->root = NULL;
-	//project->root_node = NULL;
-
 	project->monitors = NULL;
 	project->groups = NULL;
 
@@ -1078,6 +1053,6 @@ dir_project_class_init (DirProjectClass *klass)
 	object_class->dispose = dir_project_dispose;
 }
 
-ANJUTA_TYPE_BEGIN(DirProject, dir_project, G_TYPE_OBJECT);
+ANJUTA_TYPE_BEGIN(DirProject, dir_project, ANJUTA_TYPE_DIR_ROOT_NODE);
 ANJUTA_TYPE_ADD_INTERFACE(iproject, IANJUTA_TYPE_PROJECT);
 ANJUTA_TYPE_END;

@@ -30,43 +30,18 @@
 #include <libanjuta/anjuta-debug.h>
 
 
-
 /* Root objects
  *---------------------------------------------------------------------------*/
-
-struct _AnjutaDirRootNode {
-	AnjutaProjectNode base;
-};
-
-AnjutaProjectNode*
-dir_root_node_new (GFile *file)
-{
-	AnjutaDirRootNode *root = NULL;
-
-	root = g_object_new (ANJUTA_TYPE_DIR_ROOT_NODE, NULL);
-	root->base.type = ANJUTA_PROJECT_ROOT;
-	root->base.properties = NULL;
-	root->base.properties_info = NULL;
-	root->base.file = g_file_dup (file);
-	root->base.name = NULL;
-
-	return ANJUTA_PROJECT_NODE (root);
-}
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-typedef struct _AnjutaDirRootNodeClass AnjutaDirRootNodeClass;
-
-struct _AnjutaDirRootNodeClass {
-	AnjutaProjectNodeClass parent_class;
-};
-
-G_DEFINE_TYPE (AnjutaDirRootNode, anjuta_dir_root_node, ANJUTA_TYPE_PROJECT_NODE);
+G_DEFINE_TYPE (AnjutaDirRootNode, anjuta_dir_root_node, ANJUTA_TYPE_DIR_GROUP_NODE);
 
 static void
 anjuta_dir_root_node_init (AnjutaDirRootNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_ROOT;
 }
 
 static void
@@ -78,12 +53,6 @@ anjuta_dir_root_node_class_init (AnjutaDirRootNodeClass *klass)
 
 /* Group node
  *---------------------------------------------------------------------------*/
-
-struct _AnjutaDirGroupNode {
-	AnjutaProjectNode base;
-	GFileMonitor *monitor;
-	GObject *emitter;
-};
 
 static void
 on_file_changed (GFileMonitor *monitor,
@@ -103,34 +72,48 @@ on_file_changed (GFileMonitor *monitor,
 	}
 }
 
+gboolean
+dir_group_node_set_file (AnjutaDirGroupNode *group, GFile *new_file, GObject *emitter)
+{
+	if (group->base.file != NULL)
+	{
+		g_object_unref (group->base.file);
+		group->base.file = NULL;
+	}
+	if (group->monitor != NULL)
+	{
+		g_file_monitor_cancel (group->monitor);
+		group->monitor = NULL;
+	}
+
+	if (new_file)
+	{
+		group->base.file = g_object_ref (new_file);
+
+		/* Connect monitor if file exist */
+		group->emitter = emitter;
+		if (g_file_query_exists (new_file, NULL))
+		{
+			group->monitor = g_file_monitor_directory (new_file, G_FILE_MONITOR_NONE, NULL, NULL);
+
+			g_signal_connect (G_OBJECT (group->monitor),
+			                  "changed",
+			                  G_CALLBACK (on_file_changed),
+			                  group);
+		}
+	}
+
+	return TRUE;
+}
+
+
 AnjutaProjectNode*
 dir_group_node_new (GFile *file, GObject *emitter)
 {
 	AnjutaDirGroupNode *group = NULL;
 
 	group = g_object_new (ANJUTA_TYPE_DIR_GROUP_NODE, NULL);
-	group->base.type = ANJUTA_PROJECT_GROUP;
-	group->base.properties = NULL;
-	group->base.properties_info = NULL;
-	group->base.file = g_object_ref (file);
-	group->base.name = NULL;
-	group->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
-						ANJUTA_PROJECT_CAN_ADD_SOURCE |
-						ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_REMOVE_FILE;
-
-	group->emitter = emitter;
-
-	/* Connect monitor if file exist */
-	if (g_file_query_exists (file, NULL))
-	{
-		group->monitor = g_file_monitor_directory (file, G_FILE_MONITOR_NONE, NULL, NULL);
-
-		g_signal_connect (G_OBJECT (group->monitor),
-							"changed",
-							G_CALLBACK (on_file_changed),
-							group);
-	}
+	dir_group_node_set_file (group, file, emitter);
 
 	return ANJUTA_PROJECT_NODE (group);
 }
@@ -139,17 +122,19 @@ dir_group_node_new (GFile *file, GObject *emitter)
  *---------------------------------------------------------------------------*/
 
 
-typedef struct _AnjutaDirGroupNodeClass AnjutaDirGroupNodeClass;
-
-struct _AnjutaDirGroupNodeClass {
-	AnjutaProjectNodeClass parent_class;
-};
-
 G_DEFINE_TYPE (AnjutaDirGroupNode, anjuta_dir_group_node, ANJUTA_TYPE_PROJECT_NODE);
 
 static void
 anjuta_dir_group_node_init (AnjutaDirGroupNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_GROUP;
+	node->base.properties = NULL;
+	node->base.properties_info = NULL;
+	node->base.name = NULL;
+	node->base.state = ANJUTA_PROJECT_CAN_ADD_GROUP |
+		ANJUTA_PROJECT_CAN_ADD_SOURCE |
+		ANJUTA_PROJECT_CAN_REMOVE |
+		ANJUTA_PROJECT_REMOVE_FILE;
 	node->monitor = NULL;
 	node->emitter = NULL;
 }
@@ -172,6 +157,7 @@ anjuta_dir_group_node_class_init (AnjutaDirGroupNodeClass *klass)
 	object_class->finalize = anjuta_dir_group_node_finalize;
 }
 
+
 /* Object node
  *---------------------------------------------------------------------------*/
 
@@ -186,13 +172,7 @@ dir_object_node_new (GFile *file)
 	AnjutaDirObjectNode *node = NULL;
 
 	node = g_object_new (ANJUTA_TYPE_DIR_OBJECT_NODE, NULL);
-	node->base.type = ANJUTA_PROJECT_OBJECT;
-	node->base.properties = NULL;
-	node->base.properties_info = NULL;
-	node->base.name = NULL;
 	node->base.file = g_file_dup (file);
-	node->base.state = ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_REMOVE_FILE;
 
 	return ANJUTA_PROJECT_NODE (node);
 }
@@ -211,6 +191,12 @@ G_DEFINE_TYPE (AnjutaDirObjectNode, anjuta_dir_object_node, ANJUTA_TYPE_PROJECT_
 static void
 anjuta_dir_object_node_init (AnjutaDirObjectNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_OBJECT;
+	node->base.properties = NULL;
+	node->base.properties_info = NULL;
+	node->base.name = NULL;
+	node->base.state = ANJUTA_PROJECT_CAN_REMOVE |
+						ANJUTA_PROJECT_REMOVE_FILE;
 }
 
 static void
@@ -234,13 +220,7 @@ dir_source_node_new (GFile *file)
 	AnjutaDirSourceNode *source = NULL;
 
 	source = g_object_new (ANJUTA_TYPE_DIR_SOURCE_NODE, NULL);
-	source->base.type = ANJUTA_PROJECT_SOURCE;
-	source->base.properties = NULL;
-	source->base.properties_info = NULL;
-	source->base.name = NULL;
 	source->base.file = g_file_dup (file);
-	source->base.state = ANJUTA_PROJECT_CAN_REMOVE |
-						ANJUTA_PROJECT_REMOVE_FILE;
 
 	return ANJUTA_PROJECT_NODE (source);
 }
@@ -259,6 +239,12 @@ G_DEFINE_TYPE (AnjutaDirSourceNode, anjuta_dir_source_node, ANJUTA_TYPE_PROJECT_
 static void
 anjuta_dir_source_node_init (AnjutaDirSourceNode *node)
 {
+	node->base.type = ANJUTA_PROJECT_SOURCE;
+	node->base.properties = NULL;
+	node->base.properties_info = NULL;
+	node->base.name = NULL;
+	node->base.state = ANJUTA_PROJECT_CAN_REMOVE |
+		ANJUTA_PROJECT_REMOVE_FILE;
 }
 
 static void
