@@ -36,7 +36,7 @@ exact definition depends on the programming language used.</p>
 
 <section>
 <title>Navigating in the editor</title>
-<p>In the <gui>Goto</gui>popup-menu of the editor there two items that help you to quickly navigate
+<p>In the <gui>Goto</gui> popup-menu of the editor there two items that help you to quickly navigate
 through the source code:</p>
 
 <list>
