@@ -48,7 +48,6 @@ public class Main : Object
 [+ENDIF+]
 	}
 
-	[CCode (instance_pos = -1)]
 	public void on_destroy (Widget window) 
 	{
 		Gtk.main_quit();
