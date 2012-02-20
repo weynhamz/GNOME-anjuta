@@ -1,4 +1,138 @@
-Anjuta 3.3.4 "First snow in Berlin" (16 January 2011) -- Johannes Schmid
+Anjuta 3.3.90 "Für meine Oma" (20 February 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.2.x!
+
+What's new:
+ * Find in files is back!
+
+Abderrahim Kitouni (4):
+      configure: fix build of vala plugin
+      language-support-cpp-java: do not insert widgets declaration and initialization for Vala
+      libanjuta: add some gi annotations (and regenerate vapi)
+      language-support-vala: insert glade member widget declaration and initialization
+
+Changwoo Ryu (1):
+      Updated Korean translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Daniel Mustieles (19):
+      Updated Spanish translation
+      Fixed typo in string
+
+Dominique Leuenberger (1):
+      build: Support vala 0.15/0.16
+
+Fran Diéguez (2):
+      Updated Galician translations
+      Updated Galician translations
+
+Gheyret Kenji (1):
+      Updated Uyghur translation
+
+James Liggett (2):
+      git: Only show the selection checkboxes in the Branches pane when needed
+      libanjuta: Remove the old pane first in anjuta_dock_replace_command_pane
+
+Johannes Schmid (22):
+      Updated files for releas
+      Post-release version bump
+      anjuta: Correct desktop file so that gnome-shell recognizes anjuta
+      search: Initial "Find in files" dialog work
+      search: Minor code cleaup in search-box adding some access methods
+      libanjuta: Added "opened" signal to IAnjutaFile interface
+      sourceview: Implement IAnjutaFile::opened signal
+      search: Improve find in files dialog
+      search: Don't show spinner when not busy
+      search: Get files from project manager according to the selection
+      search: Added filter filter command
+      language-manager: Added ianjuta_language_get_mime_types()
+      search: Implemented file search based on mime-type and some memory fixes.
+      libanjuta: Make AnjutaTabber look (mostly) like GtkNotebook tabs
+      file-manager: Render version control status icons better
+      language-support-cpp-java: Small memory leak
+      search: Remove "Find files" button and instead reuse the search button for this feature.
+      search: Use G_REGEX_MULTILINE for find in files.
+      class-gen: Improve GObject tempalate (create priv variable if a private struct is created)
+      class-gen: Guess param spec correctly.
+      document-manager: Update project chooser in search-files correctly when project is changed
+      manual: Improve code assistance documentation
+
+Ken Shibata (1):
+      [l10n] Update Japanese translation
+
+Kjartan Maraas (1):
+      Updated Norwegian bokmål translation
+
+Marco Diego Aurélio Mesquita (2):
+      Implement automatic member declaration and initialization for widgets in the glade plugin.
+      Automatically detect which file that will hold member widgets declaration and initialization.
+
+Massimo Corà (3):
+      symbol-db: bgo #668438 IANJUTA_SYMBOL_FIELD_IS_CONTAINER has wrong column type
+      symbol-db: added static value for local project
+      symbol-db: force upgrade db version to 340.0
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Olav Vitters (2):
+      fix string formatting (from Mageia)
+      fix build / linking (from Mageia)
+
+Piotr Drąg (3):
+      Updated POTFILES.in
+
+Sébastien Granjoux (34):
+      anjuta-manual: Improve project manager documentation
+      anjuta-manual: Split FAQ using a page for each question
+      project-manager: Small fixes on project manager dialog
+      libanjuta: Add a help id in node information
+      project-manager: Add a help button on project properties dialogs
+      am-project: Fix move of projects (used in regression tests)
+      am-project: Fix an error when changing quoted properties value in configure.ac
+      am-project: Fix apply button in project properties dialog
+      project-wizard: bgo #655865 - library project naming. library names is not what you want.
+      project-wizard: bgo #661300 - Double clicking fails to initiate project wizard
+      project-wizard: Add search paths for files included in autogen template
+      project-wizard: Generate the licenses in a more general way, fix bgo #627431
+      project-wizard: Add file forgotten in the previous commit
+      libanjuta: Allow to store relative URI in anjuta saved session
+      anjuta, document-manager, file-loader, glade, project-manager: Save relative URI
+      project-manager: Fix new project manager combo box when the glade plugin is loaded
+      debug-manager: Save breakpoint using relative file paths
+      debug-manager: Use GFile instead of URI in breakpoint
+      run-program: Save relative working directories in session file
+      run-program: Save relative program URI in session file
+      am-project: Add files missing in source package for regression test
+      am-project: Fix configure.ac parser allowing to load gnucash
+      am-project: Fix regression test using anjuta project
+      project-manager: Implement ianjuta_project_manager_get_children
+      message-view,sourceview: bgo #669359 - Yellow debugger color in dark theme
+      am-project: Allow to create libtool modules
+      am-project: bgo #669944 - missing file "gnucash.at" in am-project plugin
+      libanjuta, project-manager, document-manager: ianjuta_project_manager_get_children find now all children with the specified type
+      project-manager: Remove duplicate from the list of files returned by ianjuta_project_manager_get_children
+      document-manager: Do not check file types if there is no files in find files window
+      am-project: Display an error when trying to add a directory as a source
+      am-project: rh #702849 crash when removing a target in the project root node
+      dir-project: Merge root and top group node
+      dir-project: Removing an node in a sub directory was crashing Anjuta
+
+Tiffany Antopolski (1):
+      po: Updated en_CA.po
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
+Мирослав Николић (5):
+      Updated Serbian translation
+
+
+
+Anjuta 3.3.4 "First snow in Berlin" (16 January 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
 use 3.2.x!
@@ -28,11 +162,7 @@ Arnel A. Borja (10):
       project-wizard: Don't replace hyphen with underscore in filenames
 
 Daniel Mustieles (6):
-      Updated Spanish translation
-      Updated Spanish translation
       Missing file in POTFILEs.in
-      Updated Spanish translation
-      Updated Spanish translation
       Updated Spanish translation
 
 Fran Diéguez (1):
@@ -69,7 +199,6 @@ Peter Hoffmann (1):
       language-support-cpp: bgo#633341 - Code completion should close parentheses
 
 Piotr Drąg (2):
-      Updated POTFILES.in
       Updated POTFILES.in
 
 Sébastien Granjoux (21):
@@ -117,18 +246,14 @@ Arnel A. Borja (3):
 Bruno Brouard (3):
       Updated French doc translation
       Updated French translation
-      Updated French doc translation
 
 Christian Kirbach (3):
-      Updated German Anjuta manual translation
       Updated German Anjuta manual translation
       Updated German translation
 
 Daniel Mustieles (4):
       Updated Spanish translation
-      Updated Spanish translation
-      Updated Spanish translation
-      Updated Spanish translation
+
 
 Gabor Kelemen (1):
       Make the tasks in the Git tasks window show up translated.
