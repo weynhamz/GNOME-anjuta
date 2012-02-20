@@ -556,6 +556,8 @@ dir_project_load_directory_callback (GObject      *source_object,
 
 	infos = g_file_enumerator_next_files_finish (enumerator, res, &err);
 	if (infos == NULL) {
+		GList *removed = NULL;
+
 		/* either we are finished or an error occured */
 		anjuta_project_node_clear_state (data->parent, ANJUTA_PROJECT_LOADING);
 		if (err != NULL) {
@@ -578,11 +580,13 @@ dir_project_load_directory_callback (GObject      *source_object,
 					g_free (uri);
 
 					anjuta_project_node_remove (remove);
-					g_object_unref (remove);
+					removed = g_list_prepend (removed, remove);
 				}
 			}
 			g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
 		}
+		g_list_foreach (removed, (GFunc)g_object_unref, NULL);
+		g_list_free (removed);
 		g_object_unref (data->parent);
 		g_slice_free (DirData, data);
 		g_object_unref (enumerator);
@@ -950,7 +954,7 @@ iproject_add_node_after (IAnjutaProject *obj, AnjutaProjectNode *parent, AnjutaP
 	anjuta_project_node_set_state (node, ANJUTA_PROJECT_MODIFIED);
 	anjuta_project_node_insert_after (parent, sibling, node);
 
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 
 	return node;
 }
@@ -959,7 +963,7 @@ static gboolean
 iproject_remove_node (IAnjutaProject *obj, AnjutaProjectNode *node, GError **err)
 {
 	anjuta_project_node_set_state (node, ANJUTA_PROJECT_REMOVED);
-	g_signal_emit_by_name (obj, "node-modified", node,  NULL);
+	g_signal_emit_by_name (obj, "node-changed", node,  NULL);
 
 	return TRUE;
 }
