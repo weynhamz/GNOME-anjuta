@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-13 03:06+0100\n"
-"PO-Revision-Date: 2012-02-13 03:08+0100\n"
+"POT-Creation-Date: 2012-02-21 11:53+0100\n"
+"PO-Revision-Date: 2012-02-21 11:53+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -526,7 +526,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Se non os garda perderanse todos os cambios que fixo."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:589
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "Gardar"
@@ -707,8 +707,8 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:747
-#: ../plugins/dir-project/dir-project.c:860
+#: ../plugins/dir-project/dir-project.c:731
+#: ../plugins/dir-project/dir-project.c:843
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -721,13 +721,13 @@ msgid "Root"
 msgstr "Raíz"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:871
+#: ../plugins/dir-project/dir-project.c:854
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/dir-project/dir-project.c:858
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Orixe"
@@ -1326,27 +1326,31 @@ msgstr ""
 "Sección onde están instalados as paxinas man. Os nomes de sección válidos "
 "son díxitos desde «0» até «9», e letras desde o «l» até o «n»."
 
-#: ../plugins/am-project/amp-target.c:362
+#: ../plugins/am-project/amp-source.c:97
+msgid "Source file must be a regular file, not a directory"
+msgstr "O ficheiro de código debe ser un ficheiro regular, non un cartafol"
+
+#: ../plugins/am-project/amp-target.c:339
 msgid "Please specify target name"
 msgstr "Especifique o nome do destino"
 
-#: ../plugins/am-project/amp-target.c:376
+#: ../plugins/am-project/amp-target.c:353
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "O nome do destino só pode conter caracteres alfanuméricos, '_', '-', '/' ou "
 "'.'"
 
-#: ../plugins/am-project/amp-target.c:391
+#: ../plugins/am-project/amp-target.c:368
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "O nome do destino da biblioteca compartida debe ter a forma 'libxxx.la'"
 
-#: ../plugins/am-project/amp-target.c:400
+#: ../plugins/am-project/amp-target.c:377
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "O nome do destino da biblioteca estática debe ter a forma 'libxxx.la'"
 
-#: ../plugins/am-project/amp-target.c:408
+#: ../plugins/am-project/amp-target.c:385
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "O nome do destino do módulo debe ter a forma 'xxx.la'"
 
@@ -2128,7 +2132,7 @@ msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1009
+#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Automático"
 
@@ -3328,7 +3332,7 @@ msgid "File"
 msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:934
 msgid "Line"
 msgstr "Liña"
 
@@ -3505,15 +3509,15 @@ msgstr "Buscar"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:133
-#: ../plugins/dir-project/dir-project.c:156
-#: ../plugins/dir-project/dir-project.c:179
+#: ../plugins/dir-project/dir-project.c:135
+#: ../plugins/dir-project/dir-project.c:158
+#: ../plugins/dir-project/dir-project.c:181
 #, c-format
 msgid "Missing name"
 msgstr "Falta o nome"
 
-#: ../plugins/dir-project/dir-project.c:993
-#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/dir-project/dir-project.c:976
+#: ../plugins/dir-project/dir-project.c:986
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3661,21 +3665,16 @@ msgid "Editor tabs"
 msgstr "Lapelas do editor"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#: ../plugins/document-manager/search-box.c:986
-msgid "Replace"
-msgstr "Substituír"
-
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Case sensitive"
 msgstr "Sensíbel a capitalización"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Regular expression"
 msgstr "Expresión regular"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:18
-msgid "Find Files"
-msgstr "Buscar ficheiros"
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+msgid "Replace All"
+msgstr "Substituír todo"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "_Save"
@@ -4222,9 +4221,9 @@ msgstr "Busca sinxela"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1724
-#: ../plugins/document-manager/plugin.c:2143
-#: ../plugins/document-manager/plugin.c:2152
+#: ../plugins/document-manager/plugin.c:1731
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2159
 msgid "Documents"
 msgstr "Documentos"
 
@@ -4232,42 +4231,42 @@ msgstr "Documentos"
 msgid "Toggle search options"
 msgstr "Alternar os opcións de busca"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:593
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:599
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:919
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:916
+#: ../plugins/document-manager/plugin.c:923
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:922
-#: ../plugins/document-manager/plugin.c:925
+#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:932
 msgid "Zoom"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:935
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:936
 msgid "Mode"
 msgstr "Modo"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Produciuse un fallo ao gardar automaticamente %s"
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
 msgstr "Terminou de gardar automaticamente"
 
@@ -4303,20 +4302,24 @@ msgstr ""
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr "Usar o menú contextual da icona «Buscar» para máis opcións de busca"
 
+#: ../plugins/document-manager/search-box.c:986
+msgid "Replace"
+msgstr "Substituír"
+
 #: ../plugins/document-manager/search-box.c:991
 msgid "Replace all"
 msgstr "Substituír todo"
 
-#: ../plugins/document-manager/search-files.c:609
+#: ../plugins/document-manager/search-files.c:594
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Nome do ficheiro"
 
-#: ../plugins/document-manager/search-files.c:721
+#: ../plugins/document-manager/search-files.c:706
 msgid "All text files"
 msgstr "Todos os ficheiros de texto"
 
-#: ../plugins/document-manager/search-files.c:870
+#: ../plugins/document-manager/search-files.c:847
 msgid "Find in files"
 msgstr "Buscar en ficheiros"
 
@@ -6802,11 +6805,11 @@ msgstr "Accións do xestor de proxectos"
 msgid "Project manager popup actions"
 msgstr "Accións en xanelas emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2424
+#: ../plugins/project-manager/plugin.c:2434
 msgid "Initializing Project…"
 msgstr "Inicializando o proxecto…"
 
-#: ../plugins/project-manager/plugin.c:2427
+#: ../plugins/project-manager/plugin.c:2437
 msgid "Project Loaded"
 msgstr "Proxecto cargado"
 
@@ -9835,6 +9838,9 @@ msgstr "Só iconas"
 msgid "Text only"
 msgstr "Só texto"
 
+#~ msgid "Find Files"
+#~ msgstr "Buscar ficheiros"
+
 #~ msgid "Anjuta IDE"
 #~ msgstr "IDE Anjuta"
 
@@ -11367,9 +11373,6 @@ msgstr "Só texto"
 
 #~ msgid "Target coudn't be removed"
 #~ msgstr "Non foi posíbel eliminar o destino"
-
-#~ msgid "Source file must be inside the project directory"
-#~ msgstr "O ficheiro fonte debe estar dentro do cartafol do proxecto"
 
 #~ msgid "Source is already in target"
 #~ msgstr "A fonte xa existe no destino"
