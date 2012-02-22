@@ -889,6 +889,12 @@ ROOT (): anjuta
                 SOURCE (): plugins/document-manager/search-box.c
                 SOURCE (): plugins/document-manager/anjuta-bookmarks.h
                 SOURCE (): plugins/document-manager/anjuta-bookmarks.c
+                SOURCE (): plugins/document-manager/search-files.c
+                SOURCE (): plugins/document-manager/search-files.h
+                SOURCE (): plugins/document-manager/search-file-command.c
+                SOURCE (): plugins/document-manager/search-file-command.h
+                SOURCE (): plugins/document-manager/search-filter-file-command.c
+                SOURCE (): plugins/document-manager/search-filter-file-command.h
         GROUP (): file-loader
             PROPERTY (Installation directories): loader_uidir = $(datadir)/anjuta/ui loader_pixmapsdir = $(datadir)/pixmaps/anjuta loader_plugindir = $(libdir)/anjuta plugindir = $(libdir)/anjuta
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(GDL_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\" -DG_LOG_DOMAIN=\"libanjuta-loader\"
