@@ -254,7 +254,7 @@ amp_target_changed (AmpTargetNode *node)
 	{
 		AmpProperty *prop = (AmpProperty *)item->data;
 
-		custom = ((AmpPropertyInfo *)prop->base.info)->flags & AM_PROPERTY_COMPILATION_FLAG;
+		custom = ((AmpPropertyInfo *)prop->base.info)->flags & AM_PROPERTY_PREFIX_OBJECT;
 		if (custom) break;
 	}
 
