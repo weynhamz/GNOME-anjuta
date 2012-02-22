@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2009
 # Cristian Buzdugă <cristianbzdg@gmail.com>, 2011.
-# Daniel Șerbănescu <daniel@serbanescu.tk>, 2012.
+# Daniel Șerbănescu <cyber19rider@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta head\n"
