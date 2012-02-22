@@ -36,7 +36,8 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
-libanjuta_language_vala_la_SOURCES = locator.vala plugin.vala provider.vala report.vala
+libanjuta_language_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala report.vala
+libanjuta_language_vala_la_SOURCES = $(libanjuta_language_vala_la_VALASOURCES)
 libanjuta_language_vala_la_VALAFLAGS = --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
 
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
@@ -54,6 +55,9 @@ EXTRA_DIST = \
 	libanjuta-3.0.deps \
 	libanjuta-3.0.vapi
 
+dist-hook:
+	cd $(distdir) && \
+	rm $(libanjuta_language_vala_la_VALASOURCES:.vala=.c) libanjuta_language_vala_la_vala.stamp
 
 -include $(top_srcdir)/git.mk
 
