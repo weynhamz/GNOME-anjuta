@@ -106,11 +106,55 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 static void
+signal_editor_signal_activated_cb (GladeSignalEditor* seditor, 
+                                   GladeSignal *signal,
+                                   GladePlugin *plugin)
+{
+	IAnjutaEditor* current_editor;
+    GladeWidget *gwidget = glade_signal_editor_get_widget (seditor);
+    GladeProject *project = glade_widget_get_project (gwidget);
+    gchar *path = glade_project_get_path (project);
+	
+    IAnjutaDocumentManager *docman;
+    IAnjutaDocument *doc;
+
+    docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+                                         IAnjutaDocumentManager, NULL);
+    if (!docman)
+        return;
+
+	doc = ianjuta_document_manager_get_current_document (docman, NULL);
+	if(!doc)
+		return;
+
+	current_editor = IANJUTA_EDITOR (doc);
+
+    if(!current_editor)
+        return;
+
+    if (!IANJUTA_IS_EDITOR (doc))
+        return;
+
+    g_signal_emit_by_name (G_OBJECT (current_editor), "glade-callback-add",
+                                                      G_OBJECT_TYPE_NAME (glade_widget_get_object (gwidget)),
+                                                      glade_signal_get_name (signal),
+                                                      glade_signal_get_handler (signal),
+                                                      glade_signal_get_userdata (signal),
+                                                      glade_signal_get_swapped (signal)?"1":"0",
+                                                      glade_signal_get_after (signal)?"1":"0",
+                                                      path);
+}
+
+static void
 on_signal_editor_created (GladeApp* app,
                           GladeSignalEditor* seditor,
                           gpointer data)
 {
 	glade_signal_editor_enable_dnd (seditor, TRUE);
+
+	g_signal_connect (seditor, "signal-activated",
+	                  G_CALLBACK (signal_editor_signal_activated_cb),
+	                  data);
 }
 
 static void
@@ -333,37 +377,40 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 
 	priv->file_count++;
 
-	ianjuta_document_manager_add_document (docman, IANJUTA_DOCUMENT(view), NULL);
+	ianjuta_document_manager_add_document (docman, IANJUTA_DOCUMENT (view), NULL);
 }
 
 static void
 add_glade_member (GladeWidget		 *widget,
 				  AnjutaPlugin       *plugin)
 {
+	IAnjutaEditor* current_editor;
 	IAnjutaDocumentManager *docman;
 	GladeProject *project = glade_widget_get_project (widget);
 	gchar *path = glade_project_get_path (project);
 	gchar *widget_name = glade_widget_get_name (widget);
 	gchar *widget_typename = G_OBJECT_TYPE_NAME (glade_widget_get_object(widget));
-	GList *docs;
-	GList *item;
+	IAnjutaDocument *doc;
 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaDocumentManager, NULL);
 	if (!docman)
 		return;
 
-	docs = ianjuta_document_manager_get_doc_widgets (docman, NULL);
-	if (!docs) return;
+	doc = ianjuta_document_manager_get_current_document (docman, NULL);
+	if(!doc)
+		return;
 
-	for (item = docs; item != NULL; item = g_list_next (item))
-	{
-		IAnjutaDocument *curr_doc = IANJUTA_DOCUMENT(item->data);
-		if (!IANJUTA_IS_EDITOR (curr_doc)) continue;
+	current_editor = IANJUTA_EDITOR (doc);
 
-		g_signal_emit_by_name (G_OBJECT (curr_doc), "glade-member-add",
-							   widget_typename, widget_name, path);
-	}
+	if(!current_editor)
+		return;
+
+    if (!IANJUTA_IS_EDITOR (doc))
+		return;
+
+	g_signal_emit_by_name (G_OBJECT (current_editor), "glade-member-add",
+													  widget_typename, widget_name, path);
 }
 
 static void

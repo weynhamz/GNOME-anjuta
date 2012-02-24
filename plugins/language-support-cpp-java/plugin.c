@@ -351,32 +351,36 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 
 /* Glade support */
 
-static void
-init_file_type (CppJavaPlugin* lang_plugin)
+static CppFileType
+get_filetype (GFile *file)
 {
-	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
-	                                     NULL);
-
 	if (file)
 	{
 		gchar* mime_type = anjuta_util_get_file_mime_type (file);
 		if (mime_type)
 		{
 			if (g_str_equal (mime_type, "text/x-csrc"))
-				lang_plugin->filetype = LS_FILE_C;
+				return LS_FILE_C;
 			else if (g_str_equal (mime_type, "text/x-chdr"))
-				lang_plugin->filetype = LS_FILE_CHDR;
+				return LS_FILE_CHDR;
 			else if (g_str_equal (mime_type, "text/x-c++src"))
-				lang_plugin->filetype = LS_FILE_CPP;
+				return LS_FILE_CPP;
 			else if (g_str_equal (mime_type, "text/x-c++hdr"))
-				lang_plugin->filetype = LS_FILE_CPPHDR;
+				return LS_FILE_CPPHDR;
 			else
-				lang_plugin->filetype = LS_FILE_OTHER;
-			g_free (mime_type);
-			return;
+				return LS_FILE_OTHER;
 		}
 	}
-	lang_plugin->filetype = LS_FILE_OTHER;
+	return LS_FILE_OTHER;
+}
+
+static void
+init_file_type (CppJavaPlugin* lang_plugin)
+{
+	GFile* file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
+	                                     NULL);
+
+	lang_plugin->filetype = get_filetype (file);
 }
 
 static gboolean
@@ -463,6 +467,8 @@ language_support_generate_c_signature (const gchar* separator,
 	for (i = 0; i < query.n_params; i++)
 	{
 		const gchar* type_name = g_type_name (query.param_types[i]);
+		if (!type_name) continue;
+
 		const gchar* param_name = language_support_get_signal_parameter (type_name,
 			                                                             &names);
 	
@@ -800,12 +806,13 @@ on_glade_drop (IAnjutaEditor* editor,
 
 	IAnjutaIterable *iter;
 	iter = language_support_find_symbol (lang_plugin,
-										 IANJUTA_EDITOR (lang_plugin->current_editor),
+										 IANJUTA_EDITOR (editor),
 										 handler);
 	if (iter == NULL)
 	{
-		language_support_add_c_callback (lang_plugin, editor, iterator, split_signal_data,
-										 lang_plugin->filetype);
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+		CppFileType filetype = get_filetype (file);
+		language_support_add_c_callback (lang_plugin, editor, iterator, split_signal_data, filetype);
 	} else {
 		/* Symbol found, going there */
 		ianjuta_editor_goto_line (editor, ianjuta_symbol_get_int (
@@ -890,6 +897,44 @@ on_glade_member_add (IAnjutaEditor* editor, gchar* widget_typename,
 	insert_member_decl_and_init (editor, widget_name, ui_filename, lang_plugin);
 }
 
+static void
+on_glade_callback_add (IAnjutaEditor* editor, 
+					   gchar *widget_typename,
+					   gchar *signal_name,
+					   gchar *handler_name,
+					   gchar *object,
+					   gboolean swap,
+					   gboolean after,
+					   gchar* path,
+					   CppJavaPlugin* lang_plugin)
+{
+	GFile* ui_file = g_file_new_for_path (path);
+	gchar* ui_filename = g_file_get_basename (ui_file);
+
+	/* Using marker to search for compatibility */
+	gchar *mark = generate_widget_member_init_marker (ui_filename);
+	IAnjutaIterable* mark_position;
+	mark_position = language_support_get_mark_position (editor, mark);
+	if (mark_position)
+	{
+		IAnjutaIterable* end = ianjuta_editor_get_end_position (editor, NULL);
+
+		/* String format: widgettypename:signalname:handler_name:object:swap:after */
+		gchar *signal_data = g_strdup_printf("%s:%s:%s:%s:%s:%s",
+		                                     widget_typename,
+		                                     signal_name,
+		                                     handler_name,
+		                                     object,
+		                                     swap?"1":"0",
+		                                     after?"1":"0");
+
+		on_glade_drop (editor, end, signal_data, lang_plugin);
+
+		g_free(signal_data);
+	}
+	g_free(mark);
+}
+
 /* Enable/Disable language-support */
 static void
 install_support (CppJavaPlugin *lang_plugin)
@@ -907,7 +952,7 @@ install_support (CppJavaPlugin *lang_plugin)
 	lang_plugin->current_language = 
 		ianjuta_language_get_name_from_editor (lang_manager, 
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
-	
+
 	DEBUG_PRINT("Language support installed for: %s",
 				lang_plugin->current_language);
 	
@@ -963,16 +1008,11 @@ install_support (CppJavaPlugin *lang_plugin)
 			                  lang_plugin);
 		}
 
-		// Since this signal is not disconnect on plugin uninstall, we have to prevent multiple connection.
-		if (!g_signal_handler_find (lang_plugin->current_editor,
-									G_SIGNAL_MATCH_FUNC,
-									0, //Signal id (ignored)
-									0, //detail (ignored)
-									0, //closure (ignored)
-									G_CALLBACK (on_glade_member_add),
-									0 //data (ignored)
-									)
-		   )
+		g_signal_connect (lang_plugin->current_editor,
+						  "glade-callback-add",
+						  G_CALLBACK (on_glade_callback_add),
+						  lang_plugin);
+
 		g_signal_connect (lang_plugin->current_editor,
 						  "glade-member-add",
 						  G_CALLBACK (on_glade_member_add),
@@ -1018,6 +1058,13 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	                                      on_glade_drop_possible, lang_plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 	                                      on_glade_drop, lang_plugin);
+	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+					                	  G_CALLBACK (on_glade_member_add),
+	                                      lang_plugin);
+	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+					                	  G_CALLBACK (on_glade_callback_add),
+	                                      lang_plugin);
+
 	if (lang_plugin->packages)
 	{
 		g_object_unref (lang_plugin->packages);

@@ -1295,6 +1295,21 @@ interface IAnjutaEditor
 	void   ::glade_member_add (gchar *widget_typename, gchar *widget_name, gchar *filename);
 
 	/**
+	 * IAnjutaEditor::glade-member-add:
+	 * @widget_typename: Name of the type of the widget.
+	 * @signal_name: Name of the signal.
+	 * @handler_name: Name of the signal handler.
+	 * @object: Name of the object to be passed.
+	 * @swap: The "swap" signal property.
+	 * @after: The "after" signal property.
+	 * @filename: Path for the .ui file that generated the signal.
+	 * @obj: Self
+	 *
+	 * This signal is emitted when code for a widget must be generated.
+	 */
+	void   ::glade_callback_add (gchar *widget_typename, gchar *signal_name, gchar *handler_name, gchar *object, gboolean swap, gboolean after, gchar *filename);
+
+	/**
 	 * IAnjutaEditor::code-added:
 	 * @position: The iter position where @ch is added.
 	 * @code: The code that has been added.
