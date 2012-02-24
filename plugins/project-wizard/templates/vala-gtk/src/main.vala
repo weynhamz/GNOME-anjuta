@@ -52,7 +52,9 @@ public class Main : Object
 	{
 		Gtk.main_quit();
 	}
-
+[+IF (=(get "HaveBuilderUI") "1")+]
+	[CCode (instance_pos = -1)][+
+  ENDIF+]
 	static int main (string[] args) 
 	{
 		Gtk.init (ref args);
