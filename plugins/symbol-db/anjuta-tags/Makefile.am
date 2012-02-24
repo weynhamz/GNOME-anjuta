@@ -132,11 +132,7 @@ anjuta_tags_LDADD = \
 		$(VALA_LIBS) \
 		$(XML_LIBS)
 
-EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala
-
-dist-hook:
-	cd $(distdir) && \
-	rm ctags-visitor.c ctags-vala.h
+EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala ctags-visitor.c ctags-vala.h
 
 if ENABLE_VALA
 anjuta_tags_SOURCES += vala.c ctags-visitor.c
