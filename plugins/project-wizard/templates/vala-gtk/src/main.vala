@@ -47,14 +47,14 @@ public class Main : Object
 		window.destroy.connect(on_destroy);
 [+ENDIF+]
 	}
-
+[+IF (=(get "HaveBuilderUI") "1")+]
+	[CCode (instance_pos = -1)][+
+  ENDIF+]
 	public void on_destroy (Widget window) 
 	{
 		Gtk.main_quit();
 	}
-[+IF (=(get "HaveBuilderUI") "1")+]
-	[CCode (instance_pos = -1)][+
-  ENDIF+]
+
 	static int main (string[] args) 
 	{
 		Gtk.init (ref args);
