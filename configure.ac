@@ -4,7 +4,7 @@ AC_PREREQ(2.65)
 
 m4_define(anjuta_major_version,  3)
 m4_define(anjuta_minor_version, 3)
-m4_define(anjuta_micro_version, 90)
+m4_define(anjuta_micro_version, 91)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 m4_define(bugzilla_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 
@@ -50,7 +50,7 @@ dnl Devhelp
 LIBDEVHELP_REQUIRED=3.0.0
 
 dnl Glade
-GLADEUI_REQUIRED=3.9.2
+GLADEUI_REQUIRED=3.11.0
 
 dnl Vala
 VALA14_REQUIRED=0.13.3
