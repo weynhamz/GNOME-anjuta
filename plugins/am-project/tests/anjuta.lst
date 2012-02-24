@@ -1822,7 +1822,7 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/pygtk/src/main.py
                             SOURCE (): plugins/project-wizard/templates/pygtk/src/Makefile.am.tpl
                     GROUP (): po
-                        PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/python/po
+                        PROPERTY (Installation directories): wizard_filesdir = $(datadir)/anjuta/project/pygtk/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/pygtk/po/POTFILES.in
