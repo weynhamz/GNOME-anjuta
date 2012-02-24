@@ -121,7 +121,7 @@ search_files_update_ui (SearchFiles* sf)
 				                    COLUMN_SELECTED, &selected, -1);
 				if (selected)
 				{
-					can_search = TRUE;
+					can_replace = TRUE;
 					break;
 				}
 			}
@@ -465,12 +465,12 @@ search_files_search_clicked (SearchFiles* sf)
 			anjuta_command_queue_push(queue, ANJUTA_COMMAND(cmd));
 		}
 		sf->priv->busy = TRUE;
+		search_files_update_ui(sf);
 		anjuta_command_queue_start (queue);
 
 		g_list_foreach (files, (GFunc) g_object_unref, NULL);
 		g_list_free (files);
 	}
-	search_files_update_ui(sf);
 
 	g_free (mime_types);
 }
@@ -542,6 +542,8 @@ search_files_result_activated (GtkTreeView* files_tree,
 
 	if (editor && IANJUTA_IS_EDITOR(editor))
 	{
+		anjuta_docman_present_notebook_page(sf->priv->docman,
+		                                    editor);
 		search_files_editor_loaded (sf, IANJUTA_EDITOR(editor));
 	}
 	else
