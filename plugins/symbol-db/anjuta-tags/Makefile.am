@@ -132,12 +132,13 @@ anjuta_tags_LDADD = \
 		$(VALA_LIBS) \
 		$(XML_LIBS)
 
-EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala ctags-visitor.c ctags-vala.h
+EXTRA_DIST = ${YACCFILE} ${LEXFILE} ctags-visitor.vala
 
 if ENABLE_VALA
-anjuta_tags_SOURCES += vala.c ctags-visitor.c
+anjuta_tags_SOURCES += vala.c
+nodist_anjuta_tags_SOURCES = ctags-visitor.c
 AM_CPPFLAGS += -DENABLE_VALA
 BUILT_SOURCES = ctags-visitor.c
-DISTCLEANFILES = ctags-visitor.c ctags-vala.h
+CLEANFILES = ctags-visitor.c ctags-vala.h
 endif
 

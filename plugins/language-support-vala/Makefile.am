@@ -36,8 +36,16 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
-libanjuta_language_vala_la_SOURCES = locator.vala plugin.vala provider.vala report.vala
-libanjuta_language_vala_la_VALAFLAGS = --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0
+libanjuta_language_vala_la_VALASOURCES = locator.vala plugin.vala provider.vala report.vala
+nodist_libanjuta_language_vala_la_SOURCES = $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
+CLEANFILES = $(nodist_libanjuta_language_vala_la_SOURCES) libanjuta_language_vala_la_vala.stamp
+
+locator.c plugin.c provider.c report.c: libanjuta_language_vala_la_vala.stamp
+	@true
+
+libanjuta_language_vala_la_vala.stamp: $(libanjuta_language_vala_la_VALASOURCES)
+	valac $(VALAFLAGS) --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0 -C $^
+	touch $@
 
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
@@ -51,6 +59,7 @@ endif # ENABLE_VALA
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(vala_plugin_DATA) \
+	$(libanjuta_language_vala_la_VALASOURCES) \
 	libanjuta-3.0.deps \
 	libanjuta-3.0.vapi
 
