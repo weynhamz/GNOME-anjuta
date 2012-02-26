@@ -1466,14 +1466,9 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
             TARGET (): libanjuta-language-vala.la
                 PROPERTY (Installation directory): plugindir
-                PROPERTY (Vala compiler flags): --vapidir $(srcdir) --pkg libvala${valaver} --pkg libanjuta-3.0
                 PROPERTY (Linker flags): -module -avoid-version -no-undefined
                 PROPERTY (Libraries): $(top_builddir)/libanjuta/libanjuta-3.la $(VALA_LIBS)
                 MODULE (): VALA
-                SOURCE (): plugins/language-support-vala/locator.vala
-                SOURCE (): plugins/language-support-vala/plugin.vala
-                SOURCE (): plugins/language-support-vala/provider.vala
-                SOURCE (): plugins/language-support-vala/report.vala
         GROUP (): message-view
             PROPERTY (Installation directories): message_view_gladedir = $(datadir)/anjuta/glade message_view_pixmapsdir = $(datadir)/pixmaps/anjuta message_view_uidir = $(datadir)/anjuta/ui message_view_plugindir = $(libdir)/anjuta plugindir = $(libdir)/anjuta
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(GDL_CFLAGS) $(DEPRECATED_FLAGS) -I$(top_srcdir) -I$(top_builddir)/libanjuta -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)"\" -DPACKAGE_LIB_DIR=\""$(pkglibdir)"\" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"
@@ -2362,7 +2357,6 @@ ROOT (): anjuta
                     SOURCE (): plugins/symbol-db/anjuta-tags/ctags-utils.c
                     SOURCE (): plugins/symbol-db/anjuta-tags/ctags-utils.h
                     SOURCE (): plugins/symbol-db/anjuta-tags/vala.c
-                    SOURCE (): plugins/symbol-db/anjuta-tags/ctags-visitor.c
             GROUP (): images
                 PROPERTY (Installation directories): symbol_browser_iconsdir = $(datadir)/pixmaps/anjuta
                 TARGET (): symbol_browser_icons
