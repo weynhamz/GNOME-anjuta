@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-16 22:48+0000\n"
-"PO-Revision-Date: 2012-02-17 12:07+0300\n"
+"POT-Creation-Date: 2012-02-22 20:40+0000\n"
+"PO-Revision-Date: 2012-02-26 21:39+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -461,7 +461,6 @@ msgstr "Текущее состояние Anjuta для использовани
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2554
-#| msgid "Loading..."
 msgid "Loading:"
 msgstr "Загрузка:"
 
@@ -548,7 +547,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Все несохранённые изменения будут утеряны."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:589
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "Сохранить"
@@ -574,10 +573,9 @@ msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "Не все изменения сохранены. Сохранить изменения перед закрытием?"
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
-#, fuzzy
 #| msgid "Invalid entry"
 msgid "<Invalid>"
-msgstr "Некорректный элемент"
+msgstr "<Некорректный элемент>"
 
 #: ../libanjuta/anjuta-tree-combo.c:1196
 msgid "ComboBox model"
@@ -729,8 +727,8 @@ msgstr "Название группы может содержать только
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:747
-#: ../plugins/dir-project/dir-project.c:860
+#: ../plugins/dir-project/dir-project.c:731
+#: ../plugins/dir-project/dir-project.c:843
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -739,24 +737,22 @@ msgid "Project doesn't exist or invalid path"
 msgstr "Проект не существует или путь неверен"
 
 #: ../plugins/am-project/am-project.c:90
-#| msgid "Remote"
 msgid "Root"
 msgstr "Корень"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:871
+#: ../plugins/dir-project/dir-project.c:854
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Группа"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/dir-project/dir-project.c:858
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Источник"
 
 #: ../plugins/am-project/am-project.c:124
-#| msgid "Shared Library"
 msgid "Shared Library (libtool)"
 msgstr "Разделяемая библиотека (libtool)"
 
@@ -765,7 +761,6 @@ msgid "Module (Libtool)"
 msgstr "Модуль (libtool)"
 
 #: ../plugins/am-project/am-project.c:140
-#| msgid "Static Library"
 msgid "Static Library (Libtool)"
 msgstr "Статическая библиотека (libtool)"
 
@@ -904,7 +899,6 @@ msgid "Libtool support:"
 msgstr "Поддержка libtool:"
 
 #: ../plugins/am-project/am-properties.c:98
-#| msgid "Adds support for building shared libraries in your project"
 msgid "Add support to compile shared and static libraries with libtool."
 msgstr "Добавить поддержку компиляции разделяемых и статических библиотек с помощью libtool."
 
@@ -1312,7 +1306,6 @@ msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "Название статической библиотеки должно иметь вид «libxxx.a»"
 
 #: ../plugins/am-project/amp-target.c:385
-#| msgid "Shared library target name must be of the form 'libxxx.la'"
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "Целевое имя модуля должно иметь вид «xxx.la»"
 
@@ -1486,16 +1479,16 @@ msgstr "Исполняемый файл '%s' требует обновления
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:1
 msgid "True if we need a special command to install files"
-msgstr ""
+msgstr "Для установки файлов необходима специальная команда "
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:2
 msgid "Command used to be allowed to install files"
-msgstr ""
+msgstr "Команда, используемая для установки файлов"
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:4
 #, no-c-format
 msgid "The command has to contain \"%s\" or \"%q\". This will be replaced by the command used to install the files, by example \"make install\". %s is replaced by the command without any change while %q is replaced by the quoted command. You can use %% to get a \"%\" character. A typical value is \"sudo %s\" or \"su -c %q\"."
-msgstr ""
+msgstr "Команда должна содержать «%s» или «%q». Это будет замещено командой, используемой для установки файлов, например, «make install». %s замещается командой без каких-либо изменений, %q заменяется командой в кавычках. Вы также можете использовать %% для записи символа «%». Типичные значения: «sudo %s» или «su -c %q»."
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -1975,7 +1968,6 @@ msgid "Source File:"
 msgstr "Файл исходного кода:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
-#| msgid "Add to Project"
 msgid "Add to Project Target:"
 msgstr "Добавить в цель проекта:"
 
@@ -2083,7 +2075,7 @@ msgstr "Маршаллер"
 
 #. Automatic highlight menu
 #: ../plugins/class-gen/window.c:822
-#: ../plugins/document-manager/plugin.c:1009
+#: ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Автоматически"
 
@@ -3284,7 +3276,7 @@ msgid "File"
 msgstr "Файл"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:934
 msgid "Line"
 msgstr "Строка"
 
@@ -3467,15 +3459,15 @@ msgstr "Поиск"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:133
-#: ../plugins/dir-project/dir-project.c:156
-#: ../plugins/dir-project/dir-project.c:179
+#: ../plugins/dir-project/dir-project.c:135
+#: ../plugins/dir-project/dir-project.c:158
+#: ../plugins/dir-project/dir-project.c:181
 #, c-format
 msgid "Missing name"
 msgstr "Пропущено имя"
 
-#: ../plugins/dir-project/dir-project.c:993
-#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/dir-project/dir-project.c:976
+#: ../plugins/dir-project/dir-project.c:986
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3625,17 +3617,14 @@ msgid "Editor tabs"
 msgstr "Закладки редактора"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#| msgid "Case Sensitive"
 msgid "Case sensitive"
 msgstr "Учитывать регистр"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Regular Expression"
 msgid "Regular expression"
 msgstr "Регулярное выражение"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:17
-#| msgid "Replace all"
 msgid "Replace All"
 msgstr "Заменить всё"
 
@@ -3918,12 +3907,10 @@ msgid "Clear all highlighted text"
 msgstr "Очистить весь подсвечиваемый текст"
 
 #: ../plugins/document-manager/plugin.c:283
-#| msgid "Add Files"
 msgid "Find in Files"
 msgstr "Найти в файлах"
 
 #: ../plugins/document-manager/plugin.c:284
-#| msgid "Open recent files"
 msgid "Search in project files"
 msgstr "Найти в файлах проекта"
 
@@ -4186,9 +4173,9 @@ msgstr "Простой поиск"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1724
-#: ../plugins/document-manager/plugin.c:2143
-#: ../plugins/document-manager/plugin.c:2152
+#: ../plugins/document-manager/plugin.c:1731
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2159
 msgid "Documents"
 msgstr "Документы"
 
@@ -4196,42 +4183,42 @@ msgstr "Документы"
 msgid "Toggle search options"
 msgstr "Параметры поиска"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:593
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:599
 msgid "Go to"
 msgstr "Перейти"
 
-#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:919
 msgid "OVR"
 msgstr "ЗАМ"
 
-#: ../plugins/document-manager/plugin.c:916
+#: ../plugins/document-manager/plugin.c:923
 msgid "INS"
 msgstr "ВСТ"
 
-#: ../plugins/document-manager/plugin.c:922
-#: ../plugins/document-manager/plugin.c:925
+#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:932
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:935
 msgid "Col"
 msgstr "Стлб"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:936
 msgid "Mode"
 msgstr "Режим"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Не удалось автоматически сохранить файл %s."
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
 msgstr "Автосохранение завершено"
 
@@ -4257,7 +4244,7 @@ msgstr "Поиск «%s» достиг начала и продолжен с к�
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
-msgstr ""
+msgstr "Используйте контекстное меню значка «Найти» для дополнительных параметров поиска"
 
 #: ../plugins/document-manager/search-box.c:986
 msgid "Replace"
@@ -4273,12 +4260,10 @@ msgid "Filename"
 msgstr "Имя файла"
 
 #: ../plugins/document-manager/search-files.c:706
-#| msgid "All files"
 msgid "All text files"
 msgstr "Все текстовые файлы"
 
-#: ../plugins/document-manager/search-files.c:853
-#| msgid "Diff files"
+#: ../plugins/document-manager/search-files.c:847
 msgid "Find in files"
 msgstr "Найти в файлах"
 
@@ -4622,7 +4607,6 @@ msgid "Type:"
 msgstr "Тип:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
-#| msgid "Add License Information"
 msgid "Add License Information:"
 msgstr "Добавить сведения о лицензии:"
 
@@ -4635,7 +4619,6 @@ msgid "Use Template for the Header file"
 msgstr "Использовать шаблон файла заголовков"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#| msgid "Add to project"
 msgid "Add to project target:"
 msgstr "Добавить в цель проекта:"
 
@@ -5390,7 +5373,6 @@ msgstr "Создать ветвь"
 
 #: ../plugins/git/plugin.c:81
 #: ../plugins/git/plugin.c:82
-#| msgid "Delete selected branches"
 msgid "Delete branches"
 msgstr "Удалить ветви"
 
@@ -5847,10 +5829,9 @@ msgid "Add '(' after function call autocompletion"
 msgstr "Добавлять «(» после автодополнения вызова функции"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#, fuzzy
 #| msgid "Add '(' after function call autocompletion"
 msgid "Add ')' after function call autocompletion"
-msgstr "Добавлять «(» после автодополнения вызова функции"
+msgstr "Добавлять «)» после автодополнения функции"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Enable smart brace completion"
@@ -6083,10 +6064,9 @@ msgid "Errors:"
 msgstr "Ошибки:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-#, fuzzy
 #| msgid "Import"
 msgid "Important:"
-msgstr "Импортировать"
+msgstr "Важно:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:18
 msgid "Message colors"
@@ -6425,7 +6405,6 @@ msgid "Project properties"
 msgstr "Свойства проекта"
 
 #: ../plugins/project-manager/dialogs.c:570
-#| msgid "Module properties"
 msgid "Folder properties"
 msgstr "Свойства папки"
 
@@ -6623,13 +6602,11 @@ msgid "_Project"
 msgstr "Пр_оект"
 
 #: ../plugins/project-manager/plugin.c:902
-#| msgid "New _Directory…"
 msgid "New _Folder…"
 msgstr "Создать _папку…"
 
 #: ../plugins/project-manager/plugin.c:902
 #: ../plugins/project-manager/plugin.c:941
-#| msgid "Add a new directory to the project"
 msgid "Add a new folder to the project"
 msgstr "Добавить новую папку в проект"
 
@@ -6682,7 +6659,6 @@ msgid "Close project"
 msgstr "Закрыть проект"
 
 #: ../plugins/project-manager/plugin.c:941
-#| msgid "New File"
 msgid "New _Folder"
 msgstr "Создать _папку"
 
@@ -6811,22 +6787,18 @@ msgid "Add Source"
 msgstr "Добавить файл с исходным кодом"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:9
-#| msgid "Target: %s\n"
 msgid "Target:"
 msgstr "Цель:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#| msgid "New File"
 msgid "New Folder"
 msgstr "Создать папку"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
-#| msgid "_Module name:"
 msgid "_Folder name:"
 msgstr "Имя _папки:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:12
-#| msgid "Specify _where to create the directory:"
 msgid "Specify _where to create the folder:"
 msgstr "_Укажите, где создать папку:"
 
@@ -6867,28 +6839,23 @@ msgid "More options:"
 msgstr "Дополнительные параметры:"
 
 #: ../plugins/project-manager/project-chooser.c:296
-#| msgid "Select one directory"
 msgid "<Select any project node>"
 msgstr "<Выберите узел проекта>"
 
 #: ../plugins/project-manager/project-chooser.c:301
 #: ../plugins/project-manager/project-chooser.c:311
-#| msgid "Select package"
 msgid "<Select a target>"
 msgstr "<Выберите цель>"
 
 #: ../plugins/project-manager/project-chooser.c:306
-#| msgid "Clean module"
 msgid "<Select any module>"
 msgstr "<Выберите модуль>"
 
 #: ../plugins/project-manager/project-chooser.c:316
-#| msgid "Select the _target for the library:"
 msgid "<Select a target or a folder>"
 msgstr "<Выберите цель или папку>"
 
 #: ../plugins/project-manager/project-chooser.c:321
-#| msgid "Select file"
 msgid "<Select a folder>"
 msgstr "<Выберите папку>"
 
@@ -6905,7 +6872,6 @@ msgid "Project Assistant"
 msgstr "Мастер проекта"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
-#| msgid "Select a pretty printer file"
 msgid "Select a project type"
 msgstr "Выберите тип проекта"
 
@@ -6967,13 +6933,13 @@ msgid "Field \"%s\" must contains only letters, digits, the following characters
 msgstr "Поле «%s» может содержать только буквы, цифры, символы «#$:%%+,.=@^_`~» и символ разделителя для каталогов. Кроме того, нельзя использовать в качестве первого символа знак тире."
 
 #: ../plugins/project-wizard/druid.c:696
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Field \"%s\" must contains only letters, digits or the following "
 #| "characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading "
 #| "dash. Please fix it."
 msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
-msgstr "Поле «%s» может содержать только буквы, цифры и символы «#$:%%+,.=@^_`~». Кроме того, нельзя использовать в качестве первого символа знак тире."
+msgstr "Поле «%s» должно содержать только печатные символы ASCII."
 
 #: ../plugins/project-wizard/druid.c:701
 #, c-format
@@ -7607,16 +7573,14 @@ msgid "A minimal Gnome Shell extension"
 msgstr "Минимальное расширение Gnome Shell"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:5
-#| msgid "Plugin Class Name:"
 msgid "Plugin Name:"
 msgstr "Название модуля:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:6
 msgid "Short but descriptive user-visible plugin name"
-msgstr ""
+msgstr "Короткое, но описательное имя модуля"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:14
-#| msgid "Display description of the plugin"
 msgid "Long description of your plugin"
 msgstr "Подробное описание модуля"
 
@@ -7631,10 +7595,13 @@ msgid ""
 "need not be an actual email address, though it's a good idea to base the uuid on your\n"
 "email address."
 msgstr ""
+"Uuid — это глобальный универсальный идентификатор расширения.\n"
+"Uuid может быть записан в виде адреса эл. почты (foo.bar@extensions.example.com),\n"
+"адрес почты должен быть действительным и актуальным. "
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
 msgid "Extension URL"
-msgstr ""
+msgstr "URL расширения"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:22
 msgid "Gnome Shell Compatibility:"
@@ -7642,7 +7609,7 @@ msgstr "Совместимость с Gnome Shell:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
 msgid "Comma-separated list of gnome-shell version your plugin is compatible with"
-msgstr ""
+msgstr "Список версий gnome-shell, разделённых запятыми, с которыми совместим модуль"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "GTK+ (Application)"
@@ -7942,9 +7909,6 @@ msgid "Load Target to run"
 msgstr "Загрузить цель для запуска"
 
 #: ../plugins/run-program/plugin.c:228
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you want to restart it?"
 msgid ""
 "The program is already running.\n"
 "Do you want to stop it before restarting a new instance?"
@@ -8177,22 +8141,19 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:1
-#, fuzzy
 #| msgid "Export Snippets"
 msgid "Export snippets"
-msgstr "Экспортировать фрагменты кода"
+msgstr "Экспортирование фрагментов кода"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:3
-#, fuzzy
 #| msgid "Save current file"
 msgid "Save in folder:"
-msgstr "Сохранить в папку:"
+msgstr "Сохранять в папку:"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:4
-#, fuzzy
 #| msgid "Select Files"
 msgid "Select snippets"
-msgstr "Выберите файлы"
+msgstr "Выбор фрагментов кода"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:155
 msgid "Import Snippets"
