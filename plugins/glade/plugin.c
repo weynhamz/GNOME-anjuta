@@ -127,12 +127,12 @@ signal_editor_signal_activated_cb (GladeSignalEditor* seditor,
 	if(!doc)
 		return;
 
+    if (!IANJUTA_IS_EDITOR (doc))
+        return;
+
 	current_editor = IANJUTA_EDITOR (doc);
 
     if(!current_editor)
-        return;
-
-    if (!IANJUTA_IS_EDITOR (doc))
         return;
 
     g_signal_emit_by_name (G_OBJECT (current_editor), "glade-callback-add",
