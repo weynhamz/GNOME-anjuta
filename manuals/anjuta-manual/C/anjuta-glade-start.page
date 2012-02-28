@@ -71,7 +71,7 @@
 		</p>
 
 		<p>Once the glade plug-in is running and the file that will hold the code
-		is opened, simply double click a widget in the glade inspector.
+		is being viewed, simply double click a widget in the glade inspector.
 		The file being viewed will then be scanned for some marker comments
 		(/* ANJUTA: Widgets declaration for application.ui - DO NOT REMOVE */ and
 		/* ANJUTA: Widgets initialization for application.ui - DO NOT REMOVE */) and, if
