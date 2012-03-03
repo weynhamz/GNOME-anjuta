@@ -261,8 +261,8 @@ if test "$user_disabled_vala" = 1; then
         AC_MSG_RESULT(yes)
 	enable_vala="no"
 else
-	AC_MSG_RESULT(no)
-	enable_vala="yes"
+        AC_MSG_RESULT(no)
+	AC_MSG_CHECKING(if libvala is available)
 	PKG_CHECK_EXISTS([ libvala-0.16 ],
 			 [ valaver="-0.16" ],
 			 [ PKG_CHECK_EXISTS([ libvala-0.14 >= $VALA14_REQUIRED ],
@@ -270,8 +270,14 @@ else
 					    [ valaver="" ])
 			 ])
 	if test "x$valaver" != "x"; then
+		AC_MSG_RESULT(yes)
+		enable_vala="yes"
 		LIBVALA="libvala${valaver}"
 		PKG_CHECK_MODULES([VALA], ${LIBVALA})
+	else
+		AC_MSG_RESULT(no)
+		enable_vala="no"
+		VALA_REQUIRED=$VALA14_REQUIRED
 	fi
 	AC_SUBST(LIBVALA)
 fi
