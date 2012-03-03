@@ -20,3 +20,8 @@ anjuta_token_test_LDADD = $(ANJUTA_LIBS)
 anjuta_token_test_SOURCES = anjuta-token-test.c \
 			../anjuta-token.c \
 			../anjuta-debug.c
+
+CLEANFILES = anjuta_token_test-anjuta-token.gcno \
+             anjuta_token_test-anjuta-token-test.gcno \
+             anjuta_token_test-anjuta-debug.gcno
+
