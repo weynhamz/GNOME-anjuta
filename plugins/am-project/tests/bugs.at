@@ -47,4 +47,29 @@ AT_CHECK([diff output expect])
 
 
 
+AS_MKDIR_P([project3])
+AT_DATA([project3/configure.ac],
+[[
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([project3/Makefile.am],
+[[
+ALL_LINGUAS = $(notdir *.po)
+
+catalogs: $(ALL_LINGUAS)
+        $(ALL_LINGUAS)
+
+noinst_PROGRAMS = program
+]])
+AT_DATA([expect],
+[[ROOT (): project3
+    TARGET (): program
+        PROPERTY (Do not install): true
+]])
+AT_PARSER_CHECK([load project3 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP
