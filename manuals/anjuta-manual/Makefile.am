@@ -43,6 +43,8 @@ DOC_PAGES = \
 	directory-project-backend.page \
 	full-index.page \
 	introduction.page \
+	language-support-cpp-modelines-emacs.page \
+	language-support-cpp-modelines-vim.page \
 	makefile-project-backend.page \
 	project-import.page \
 	project-manager-folder-add.page \

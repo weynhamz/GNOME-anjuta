@@ -124,7 +124,7 @@ set_indentation_param_vim (CppJavaPlugin* plugin, const gchar *param,
 			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
 										   TRUE, NULL);
 	}
-	else if (g_str_equal (param, "noexpandtabs") ||
+	else if (g_str_equal (param, "noexpandtab") ||
 			 g_str_equal (param, "noet"))
 	{
 	  	plugin->param_use_spaces = 0;
@@ -153,7 +153,7 @@ static void
 parse_mode_line_emacs (CppJavaPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
-	
+
 	strv = g_strsplit (modeline, ";", -1);
 	ptr = strv;
 	while (*ptr)
@@ -177,7 +177,7 @@ static void
 parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
-	
+
 	strv = g_strsplit_set (modeline, " \t:", -1);
 	ptr = strv;
 	while (*ptr)
@@ -195,7 +195,7 @@ parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 			}
 			else
 				set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-				                           NULL);        
+				                           NULL);
 		}
 		g_strfreev (keyval);
 		ptr++;
@@ -252,7 +252,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	gboolean comment_begun = FALSE;
 	gboolean line_comment = FALSE;
 	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
-	
+
 	plugin->smart_indentation = g_settings_get_boolean (plugin->settings, PREF_INDENT_AUTOMATIC);
 	/* Disable editor intern auto-indent if smart indentation is enabled */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(plugin->current_editor),
@@ -471,13 +471,13 @@ language_support_generate_c_signature (const gchar* separator,
 
 		const gchar* param_name = language_support_get_signal_parameter (type_name,
 			                                                             &names);
-	
+
 		if (query.param_types[i] <= G_TYPE_DOUBLE)
-		{	                                                                
+		{
 			g_string_append_printf (str, ", %s %s", type_name, param_name);
 		}
 		else
-		{	                                                                
+		{
 			g_string_append_printf (str, ", %s *%s", type_name, param_name);
 		}
 	}
@@ -753,7 +753,7 @@ language_support_add_c_callback (CppJavaPlugin* lang_plugin,
 		IAnjutaIterable* mark_position;
 		mark_position = language_support_get_header_editor_and_mark (lang_plugin,
 																	 editor,
-																	 "/* Callbacks */", 
+																	 "/* Callbacks */",
 																	 &header_editor);
 		if (mark_position)
 		{
@@ -818,7 +818,7 @@ on_glade_drop (IAnjutaEditor* editor,
 		ianjuta_editor_goto_line (editor, ianjuta_symbol_get_int (
 															IANJUTA_SYMBOL (iter),
 															IANJUTA_SYMBOL_FIELD_FILE_POS,
-															NULL), NULL);		
+															NULL), NULL);
 		g_object_unref (iter);
 	}
 	g_strfreev (split_signal_data);
@@ -898,7 +898,7 @@ on_glade_member_add (IAnjutaEditor* editor, gchar* widget_typename,
 }
 
 static void
-on_glade_callback_add (IAnjutaEditor* editor, 
+on_glade_callback_add (IAnjutaEditor* editor,
 					   gchar *widget_typename,
 					   gchar *signal_name,
 					   gchar *handler_name,
@@ -938,24 +938,24 @@ on_glade_callback_add (IAnjutaEditor* editor,
 /* Enable/Disable language-support */
 static void
 install_support (CppJavaPlugin *lang_plugin)
-{	
+{
 	IAnjutaLanguage* lang_manager =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 									IAnjutaLanguage, NULL);
-	
+
 	if (!lang_manager)
 		return;
-	
+
 	if (lang_plugin->support_installed)
 		return;
-	
-	lang_plugin->current_language = 
-		ianjuta_language_get_name_from_editor (lang_manager, 
+
+	lang_plugin->current_language =
+		ianjuta_language_get_name_from_editor (lang_manager,
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 
 	DEBUG_PRINT("Language support installed for: %s",
 				lang_plugin->current_language);
-	
+
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "C")
 		|| g_str_equal (lang_plugin->current_language, "C++")
@@ -978,11 +978,11 @@ install_support (CppJavaPlugin *lang_plugin)
 	{
 		return;
 	}
-	
+
 	initialize_indentation_params (lang_plugin);
 	init_file_type (lang_plugin);
 
-	
+
 	if (g_str_equal (lang_plugin->current_language, "C" ) ||
 	    g_str_equal (lang_plugin->current_language, "C++"))
 	{
@@ -1021,7 +1021,7 @@ install_support (CppJavaPlugin *lang_plugin)
 		lang_plugin->packages = cpp_packages_new (ANJUTA_PLUGIN (lang_plugin));
 		cpp_packages_load(lang_plugin->packages, FALSE);
 	}
-	
+
 	lang_plugin->support_installed = TRUE;
 }
 
@@ -1030,7 +1030,7 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 {
 	if (!lang_plugin->support_installed)
 		return;
-	
+
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "C")
 		|| g_str_equal (lang_plugin->current_language, "C++")
@@ -1047,9 +1047,9 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 									G_CALLBACK (java_indentation),
 									lang_plugin);
 	}
-	
+
 	if (lang_plugin->assist)
-	{	
+	{
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
 	}
@@ -1129,7 +1129,7 @@ on_swap_activate (GtkAction* action, gpointer data)
 									NULL);
 	if (!lang_plugin->current_editor || !docman)
 		return;
-	
+
 	file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
 								  NULL);
 
@@ -1148,7 +1148,7 @@ on_swap_activate (GtkAction* action, gpointer data)
 
 static void
 on_auto_indent (GtkAction *action, gpointer data)
-{	
+{
 	CppJavaPlugin *lang_plugin;
 	IAnjutaEditor *editor;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
@@ -1203,7 +1203,7 @@ toggle_comment_multiline (IAnjutaEditor *editor,
 	start_copy = ianjuta_iterable_clone (start, NULL);
 	end_copy = ianjuta_iterable_clone (end, NULL);
 	is_commented = is_commented_multiline (editor, start_copy, end_copy);
-	text = ianjuta_editor_get_text (editor, start_copy, end_copy, NULL);	
+	text = ianjuta_editor_get_text (editor, start_copy, end_copy, NULL);
 
 	if (is_commented)
 	{
@@ -1296,14 +1296,14 @@ on_toggle_comment (GtkAction *action, gpointer data)
 {
 	gint line;
 	gboolean has_selection;
-	
+
 	CppJavaPlugin *lang_plugin;
 	IAnjutaEditor *editor;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
-	
+
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
-	
+
 	has_selection = ianjuta_editor_selection_has_selection
 						(IANJUTA_EDITOR_SELECTION (editor), NULL);
 	if (has_selection)
@@ -1347,8 +1347,8 @@ static GtkActionEntry actions[] = {
 		N_("Comment or uncomment current selection"),
 		G_CALLBACK (on_toggle_comment)
 	},
-	{   "ActionFileSwap", 
-		ANJUTA_STOCK_SWAP, 
+	{   "ActionFileSwap",
+		ANJUTA_STOCK_SWAP,
 		N_("Swap .h/.c"), NULL,
 		N_("Swap C header and source files"),
 		G_CALLBACK (on_swap_activate)
@@ -1377,9 +1377,9 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
 	static gboolean initialized = FALSE;
-	
+
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
-	
+
 	DEBUG_PRINT ("%s", "AnjutaLanguageCppJavaPlugin: Activating plugin ...");
 
 	if (!initialized)
@@ -1388,7 +1388,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	}
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	lang_plugin->action_group = 
+	lang_plugin->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupCppJavaAssist",
 											_("C++/Java Assistance"),
 											actions,
@@ -1396,8 +1396,8 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, TRUE,
 											plugin);
 	lang_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
-	lang_plugin->editor_watch_id = 
+
+	lang_plugin->editor_watch_id =
 		anjuta_plugin_add_watch (plugin,
 								  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 								 on_value_added_current_editor,
@@ -1414,15 +1414,15 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
-	
+
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->editor_watch_id,
 								TRUE);
-	
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, lang_plugin->uiid);
 	anjuta_ui_remove_action_group (ui, lang_plugin->action_group);
-	
+
 	lang_plugin->action_group = NULL;
 	lang_plugin->uiid = 0;
 	DEBUG_PRINT ("%s", "AnjutaLanguageCppJavaPlugin: Deactivated plugin.");
@@ -1445,7 +1445,7 @@ cpp_java_plugin_dispose (GObject *obj)
 	/* Disposition codes */
 
 	g_object_unref (plugin->settings);
-	
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -1464,7 +1464,7 @@ cpp_java_plugin_instance_init (GObject *obj)
 }
 
 static void
-cpp_java_plugin_class_init (GObjectClass *klass) 
+cpp_java_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -1498,7 +1498,7 @@ on_autocompletion_toggled (GtkToggleButton* button,
 	gtk_widget_set_sensitive (widget, sensitive);
 }
 
-static void 
+static void
 cpp_java_plugin_select_user_packages (CppJavaPlugin* plugin,
                                       AnjutaPkgConfigChooser* chooser)
 {
@@ -1577,7 +1577,7 @@ on_package_activated (AnjutaPkgConfigChooser *self, const gchar* package,
 	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 
 	g_message ("Activate package");
-	
+
 	cpp_java_plugin_update_user_packages (plugin, self);
 	cpp_packages_load (plugin->packages, TRUE);
 }
@@ -1589,7 +1589,7 @@ on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
 	CppJavaPlugin* plugin;
 	IAnjutaSymbolManager *isymbol_manager;
 	gchar* version;
-	
+
 	plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 
 	DEBUG_PRINT ("deactivated %s", package);
@@ -1600,8 +1600,8 @@ on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
 	version = anjuta_pkg_config_get_version (package);
 	if (version)
 	{
-		ianjuta_symbol_manager_deactivate_package (isymbol_manager, 
-		                                           package, 
+		ianjuta_symbol_manager_deactivate_package (isymbol_manager,
+		                                           package,
 		                                           version,
 		                                           NULL);
 	}
@@ -1618,7 +1618,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	plugin->bxml = gtk_builder_new ();
 	GtkWidget* toggle;
 	GtkWidget* pkg_config;
-		
+
 	/* Add preferences */
 	if (!gtk_builder_add_from_file (plugin->bxml, PREFS_BUILDER, &error))
 	{
@@ -1638,21 +1638,21 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	g_signal_connect (toggle, "toggled", G_CALLBACK (on_project_packages_toggled),
 	                  plugin);
 	on_project_packages_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
-	
+
 	pkg_config = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PKG_CONFIG));
-	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config), 
+	anjuta_pkg_config_chooser_show_active_column (ANJUTA_PKG_CONFIG_CHOOSER (pkg_config),
 	    										  TRUE);
-	
+
 	g_signal_connect (G_OBJECT (pkg_config), "package-activated",
 	                  G_CALLBACK (on_package_activated), plugin);
 
 	g_signal_connect (G_OBJECT (pkg_config), "package-deactivated",
 					  G_CALLBACK (on_package_deactivated), plugin);
-	
+
 	if (!g_settings_get_boolean (plugin->settings,
 	                             PREF_PROJECT_PACKAGES))
 		cpp_java_plugin_select_user_packages (plugin, ANJUTA_PKG_CONFIG_CHOOSER (pkg_config));
-	
+
 	gtk_widget_show (pkg_config);
 }
 
@@ -1669,7 +1669,7 @@ static void
 ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 {
 	iface->merge = ipreferences_merge;
-	iface->unmerge = ipreferences_unmerge;	
+	iface->unmerge = ipreferences_unmerge;
 }
 
 static void

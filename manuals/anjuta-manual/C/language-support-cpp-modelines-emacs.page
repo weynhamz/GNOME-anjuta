@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="language-support-cpp-modelines-emacs">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="anjuta-code-indentation#editor-modelines"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Supported Emacs modelines features.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Emacs modelines</title>
+
+  <p>Such modeline is a comment in the first line of the file, composed by
+  a list of variable names followed by <code>:</code> and a value,
+  separated by <code>;</code> and surrounded by <code>-*-</code>.</p>
+
+  <p>A typical <app>Emacs</app> modeline looks like this:</p>
+  
+  <code>
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+  </code>
+
+  <p>Anjuta support only the following variables.</p>
+
+  <terms>
+    <item>
+      <title><code>indent-tabs-mode</code></title>
+      <p>Set to <code>t</code> to use tabulation for indentation or
+      <code>nil</code> to use spaces.</p>
+    </item>
+    <item>
+      <title><code>tab-width</code></title>
+      <p>Number of space characters corresponding to one tabulation character.</p>
+    </item>
+    <item>
+      <title><code>c-basic-offset</code></title>
+      <p>Number of space characters used to indent C code.</p>
+    </item>
+  </terms>
+ 
+</page>
+

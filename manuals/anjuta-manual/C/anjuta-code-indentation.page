@@ -1,5 +1,5 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      type="topic" style="task"
+      type="guide" style="task"
       id="anjuta-code-indentation">
 
   <info xmlns:facet="http://projectmallard.org/facet/1.0/">
@@ -41,22 +41,15 @@ configured settings to keep the file consistent.</p>
 </note>
 </section>
 
-<section>
+<section id="editor-modelines" >
 <title>Modelines</title>
 
 <p>Modelines are used to help editors to automatically detect the indentation
 mode which should be used for a particular file. They are especially useful if
 many developers work on the same project and use different environments.</p>
 
-<p>A typical modeline looks like this:</p>
-
-<code>
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-</code>
-
-<p>Anjuta supports modelines in the two formats used by <app>vim</app> and 
-<app>emacs</app> as far as appropriate. For detailed information on the
-formats please consult the documentation of those two editors.</p>
+<p>Anjuta supports modelines in the two formats used by <app>Vim</app> and 
+<app>Emacs</app>.</p>
 
 </section>
 

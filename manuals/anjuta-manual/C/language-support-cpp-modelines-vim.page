@@ -1,0 +1,58 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic" style="task"
+      id="language-support-cpp-modelines-vim">
+
+  <info xmlns:facet="http://projectmallard.org/facet/1.0/">
+    <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="guide" xref="anjuta-code-indentation#editor-modelines"/>
+    <revision pkgversion="3.0" version="0.1" date="2011-03-27" status="incomplete"/>
+    <desc>
+      Supported Vim modelines features.
+    </desc>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>Vim modelines</title>
+
+  <p>This modeline is a comment in the first line of the file which
+  has to start with <code>vim:</code> followed by at least one space and
+  a list of variable names with an optional value after <code>=</code>
+  separated by space or <code>:</code>.</p>
+  
+  <p>A typical <app>Vim</app> modeline looks like this:</p>
+  
+  <code>
+/* vim: set noet ts=4 sw=4: */</code>
+
+  <p>Anjuta support only the following variables.</p>
+
+  <terms>
+    <item>
+      <title><code>expandtab</code></title>
+      <title><code>et</code></title>
+      <p>Use spaces for indentation.</p>
+    </item>
+    <item>
+      <title><code>noexpandtab</code></title>
+      <title><code>noet</code></title>
+      <p>Use tabulation for indentation.</p>
+    </item>
+    <item>
+      <title><code>softtabstop</code></title>
+      <title><code>sts</code></title>
+      <title><code>tabstop</code></title>
+      <title><code>ts</code></title>
+      <p>Number of space characters corresponding to one tabulation character.</p>
+    </item>
+    <item>
+      <title><code>shiftwidth</code></title>
+      <title><code>sw</code></title>
+      <p>Number of space characters used to indent C code.</p>
+    </item>
+  </terms>
+ 
+</page>
+
