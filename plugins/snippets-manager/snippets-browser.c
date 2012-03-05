@@ -189,21 +189,27 @@ init_browser_layout (SnippetsBrowser *snippets_browser)
 
 	/* Get the Gtk objects */
 	priv->add_button      = GTK_BUTTON(gtk_button_new());
+	gtk_widget_set_tooltip_text (GTK_WIDGET (priv->add_button),
+	                             _("Add snippet"));
 	gtk_container_add (GTK_CONTAINER (priv->add_button),
 	                   gtk_image_new_from_stock (GTK_STOCK_ADD,
 	                                             GTK_ICON_SIZE_MENU));
 	priv->delete_button      = GTK_BUTTON(gtk_button_new());
+	gtk_widget_set_tooltip_text (GTK_WIDGET (priv->delete_button),
+	                             _("Remove selected snippet"));
 	gtk_container_add (GTK_CONTAINER (priv->delete_button),
-	                   gtk_image_new_from_stock (GTK_STOCK_DELETE,
+	                   gtk_image_new_from_stock (GTK_STOCK_REMOVE,
 	                                             GTK_ICON_SIZE_MENU));
 	priv->insert_button      = GTK_BUTTON(gtk_button_new());
+	gtk_widget_set_tooltip_text (GTK_WIDGET (priv->insert_button),
+	                             _("Insert snippet into editor at current cursor position"));	
 	gtk_container_add (GTK_CONTAINER (priv->insert_button),
 	                   gtk_image_new_from_stock (GTK_STOCK_PASTE,
 	                                             GTK_ICON_SIZE_MENU));
 	priv->grip = gtk_hbox_new (FALSE, 5);
 	priv->edit_button     = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, "edit_button"));
 	priv->snippets_view_cont = GTK_SCROLLED_WINDOW (gtk_builder_get_object (bxml, "snippets_view_cont"));
-	priv->snippets_view_vbox = GTK_VBOX (gtk_builder_get_object (bxml, "snippets_view_vbox"));
+	priv->snippets_view_vbox = GTK_BOX (gtk_builder_get_object (bxml, "snippets_view_vbox"));
 
 	gtk_box_pack_start (GTK_BOX (priv->grip), gtk_label_new (_("Snippets")), FALSE, FALSE, 5);
 	gtk_box_pack_end (GTK_BOX (priv->grip), GTK_WIDGET(priv->insert_button), FALSE, FALSE, 1);	
@@ -213,9 +219,6 @@ init_browser_layout (SnippetsBrowser *snippets_browser)
 	gtk_widget_show_all (priv->grip);
 	
 	/* Assert the objects */
-	g_return_if_fail (GTK_IS_BUTTON (priv->add_button));
-	g_return_if_fail (GTK_IS_BUTTON (priv->delete_button));
-	g_return_if_fail (GTK_IS_BUTTON (priv->insert_button));
 	g_return_if_fail (GTK_IS_TOGGLE_BUTTON (priv->edit_button));
 	g_return_if_fail (GTK_IS_SCROLLED_WINDOW (priv->snippets_view_cont));
 	g_return_if_fail (GTK_IS_VBOX (priv->snippets_view_vbox));
