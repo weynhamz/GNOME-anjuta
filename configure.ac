@@ -4,7 +4,7 @@ AC_PREREQ(2.65)
 
 m4_define(anjuta_major_version,  3)
 m4_define(anjuta_minor_version, 3)
-m4_define(anjuta_micro_version, 91)
+m4_define(anjuta_micro_version, 92)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 m4_define(bugzilla_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 
