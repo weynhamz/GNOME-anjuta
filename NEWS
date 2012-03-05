@@ -1,3 +1,78 @@
+Anjuta 3.3.91 "Im Osten nichts Neues" (5 März 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.2.x!
+
+Abderrahim Kitouni (4):
+      am-project: don't prefix object name with target name because of VALAFLAGS
+      project-wizard: only add [CCode (instance_pos = -1)] when using GtkBuilder
+      project-wizard: [CCode (instance_pos = -1)] should be in the signal callback
+      bgo#670537: Do not ship vala-generated .c files in tarballs
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Ask H. Larsen (1):
+      Updated Danish translation
+
+Daniel Nylander (1):
+      Updated Swedish translation
+
+Daniel Șerbănescu (3):
+      Updated Romanian Translation
+
+Fran Diéguez (2):
+      Updated Galician translations
+      Added galician translations for doc
+
+Johannes Schmid (10):
+      project-wizard: bgo#670483 - [CCode (instance_pos = -1)] should be removed from boilerplate code.
+      Updated files for release
+      am-project: Fixed anjuta.at testcase
+      Revert "Do not ship vala-generated .c files in tarballs"
+      am-project: Fix anjuta testcase
+      document-manager: Fixes on find in files
+      Post-release version bump and bump glade requirement
+      am-project: Fixed anjuta test-case
+      Fixed distcheck
+      snippets: Add tooltips (bgo#627089)
+
+Jonh Wendell (1):
+      Updated Brazilian Portuguese translation
+
+Kenneth Nielsen (1):
+      Updated Danish translation
+
+Kjartan Maraas (1):
+      Updated Norwegian bokmål translation
+
+Krishnababu Krothapalli (1):
+      Updated Telugu Translations
+
+Marco Diego Aurélio Mesquita (3):
+      bgo#670149 - Automatically add a callback when user double-clicks a signal in the glade signal editor
+      Fix check order for anjuta editor in glade plugin.
+      Documentation fix for member widgets.
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Sébastien Granjoux (7):
+      am-project: Rename AM_PROPERTY_COMPILATION_FLAG
+      project-wizard: bgo #670656 - I can not build a pygtk prj include i18n
+      am-project: bgo #670830 - am-project anjuta test-case fails on dist-check
+      build: Disable vala support if libvala is missing
+      am-project: bgo #670789 - project-manager doesn't parse aqbanking project correctly
+      language-support-cpp-java: bgo #662955 - Autoindent indents next line if previous have a string with double slash
+      manual: Document emacs and vim modeline variables supported by Anjuta
+
+Vincent Untz (1):
+      Do not ship vala-generated .c files in tarballs
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
+
 Anjuta 3.3.90 "Für meine Oma" (20 February 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
