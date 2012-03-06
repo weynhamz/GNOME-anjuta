@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-16 22:48+0000\n"
-"PO-Revision-Date: 2012-02-17 10:28+0100\n"
+"POT-Creation-Date: 2012-03-05 18:34+0000\n"
+"PO-Revision-Date: 2012-03-06 10:49+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -256,7 +256,7 @@ msgstr "Variables de entorno:"
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Nombre"
@@ -527,7 +527,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:589
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "Guardar"
@@ -711,8 +711,8 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:747
-#: ../plugins/dir-project/dir-project.c:860
+#: ../plugins/dir-project/dir-project.c:731
+#: ../plugins/dir-project/dir-project.c:843
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -725,13 +725,13 @@ msgid "Root"
 msgstr "Raíz"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:871
+#: ../plugins/dir-project/dir-project.c:854
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/dir-project/dir-project.c:858
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Origen"
@@ -1326,7 +1326,6 @@ msgstr ""
 "sección válidos son los dígitos de «0» a «9» y las letras «l» y «n»."
 
 #: ../plugins/am-project/amp-source.c:97
-#| msgid "Source file must be inside the project directory"
 msgid "Source file must be a regular file, not a directory"
 msgstr "El archivo de código debe ser un archivo regular, no una carpeta"
 
@@ -2135,7 +2134,7 @@ msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1009
+#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Automático"
 
@@ -3335,7 +3334,7 @@ msgid "File"
 msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:934
 msgid "Line"
 msgstr "Línea"
 
@@ -3512,15 +3511,15 @@ msgstr "Buscar"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:133
-#: ../plugins/dir-project/dir-project.c:156
-#: ../plugins/dir-project/dir-project.c:179
+#: ../plugins/dir-project/dir-project.c:135
+#: ../plugins/dir-project/dir-project.c:158
+#: ../plugins/dir-project/dir-project.c:181
 #, c-format
 msgid "Missing name"
 msgstr "Falta el nombre"
 
-#: ../plugins/dir-project/dir-project.c:993
-#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/dir-project/dir-project.c:976
+#: ../plugins/dir-project/dir-project.c:986
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3991,7 +3990,7 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresiones regulares"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1286
+#: ../plugins/language-support-cpp-java/plugin.c:1333
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
@@ -4222,9 +4221,9 @@ msgstr "Busqueda simple"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1724
-#: ../plugins/document-manager/plugin.c:2143
-#: ../plugins/document-manager/plugin.c:2152
+#: ../plugins/document-manager/plugin.c:1731
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2159
 msgid "Documents"
 msgstr "Documentos"
 
@@ -4232,42 +4231,42 @@ msgstr "Documentos"
 msgid "Toggle search options"
 msgstr "Conmutar opciones de búsqueda"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:593
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:599
 msgid "Go to"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:919
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:916
+#: ../plugins/document-manager/plugin.c:923
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:922
-#: ../plugins/document-manager/plugin.c:925
+#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:932
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:935
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:936
 msgid "Mode"
 msgstr "Modo"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -4312,16 +4311,16 @@ msgstr "Reemplazar"
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
-#: ../plugins/document-manager/search-files.c:594
+#: ../plugins/document-manager/search-files.c:596
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/document-manager/search-files.c:706
+#: ../plugins/document-manager/search-files.c:708
 msgid "All text files"
 msgstr "Todos los archivos de texto"
 
-#: ../plugins/document-manager/search-files.c:853
+#: ../plugins/document-manager/search-files.c:849
 msgid "Find in files"
 msgstr "Buscar en archivos"
 
@@ -5748,37 +5747,37 @@ msgstr "Complemento de Glade para Anjuta."
 msgid "User interface file"
 msgstr "Archivo de interfaz de usuario"
 
-#: ../plugins/glade/plugin.c:539
+#: ../plugins/glade/plugin.c:586
 msgid "Select widgets in the workspace"
 msgstr "Seleccionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:565
+#: ../plugins/glade/plugin.c:612
 msgid "Drag and resize widgets in the workspace"
 msgstr "Arrastrar y redimensionar widgets en el espacio de trabajo"
 
-#: ../plugins/glade/plugin.c:591
+#: ../plugins/glade/plugin.c:638
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:667
+#: ../plugins/glade/plugin.c:714
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:672
+#: ../plugins/glade/plugin.c:719
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:841
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:883
+#: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5929,45 +5928,45 @@ msgstr "Etiquetas del API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:874
+#: ../plugins/language-support-cpp-java/plugin.c:881
 msgid "Code added for widget."
 msgstr "Código añadido para el widget."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1292
+#: ../plugins/language-support-cpp-java/plugin.c:1339
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1293
+#: ../plugins/language-support-cpp-java/plugin.c:1340
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1300
+#: ../plugins/language-support-cpp-java/plugin.c:1347
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1352
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1306
+#: ../plugins/language-support-cpp-java/plugin.c:1353
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1393
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1583
-#: ../plugins/language-support-cpp-java/plugin.c:1617
+#: ../plugins/language-support-cpp-java/plugin.c:1630
+#: ../plugins/language-support-cpp-java/plugin.c:1664
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8093,7 +8092,7 @@ msgstr "Permite la inserción de recortes en el editor."
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "Recortes"
 
@@ -8156,21 +8155,38 @@ msgstr "Texto variable"
 msgid "Instant value"
 msgstr "Valor instantáneo"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#| msgid "Add Snippet …"
+msgid "Add snippet"
+msgstr "Añadir recorte"
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+#| msgid "Select snippets"
+msgid "Remove selected snippet"
+msgstr "Quitar el recorte seleccionado"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+#| msgid "Paste the content of clipboard at the current position"
+msgid "Insert snippet into editor at current cursor position"
+msgstr "Insertar recorte en el editor en la posición actual del cursor"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr "Disparador"
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 msgid "Languages"
 msgstr "Lenguajes"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr "Añadir recorte…"
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr "Añadir grupo de recortes…"
 
@@ -8305,7 +8321,7 @@ msgstr "Seleccionar recortes"
 msgid "Import Snippets"
 msgstr "Importar recortes"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 msgid "Anjuta variables"
 msgstr "Variables de Anjuta"
 
