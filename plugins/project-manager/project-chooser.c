@@ -207,7 +207,7 @@ is_project_target_or_group_node (GtkTreeModel *model, GtkTreeIter *iter, gpointe
 		{
 			AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node) & ANJUTA_PROJECT_TYPE_MASK;
 
-			return (type == ANJUTA_PROJECT_TARGET) || (type == ANJUTA_PROJECT_GROUP);
+			return (type == ANJUTA_PROJECT_TARGET) || (type == ANJUTA_PROJECT_GROUP) || (type == ANJUTA_PROJECT_ROOT);
 		}
 	}
 
@@ -230,7 +230,7 @@ is_project_group_node (GtkTreeModel *model, GtkTreeIter *iter, gpointer user_dat
 		{
 			AnjutaProjectNodeType type = anjuta_project_node_get_node_type (node) & ANJUTA_PROJECT_TYPE_MASK;
 
-			return type == ANJUTA_PROJECT_GROUP;
+			return (type == ANJUTA_PROJECT_GROUP) || (type == ANJUTA_PROJECT_ROOT);
 		}
 	}
 
@@ -432,7 +432,6 @@ anjuta_pm_chooser_button_class_init (AnjutaPmChooserButtonClass * klass)
 	object_class = (GObjectClass *)klass;
 	object_class->constructor = anjuta_pm_chooser_button_constructor;
 
-	g_message ("anjuta_pm_chooser_button_class_init");
 	g_type_class_add_private (klass, sizeof (AnjutaPmChooserButtonPrivate));
 }
 

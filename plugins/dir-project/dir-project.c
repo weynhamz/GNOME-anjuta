@@ -564,23 +564,23 @@ dir_project_load_directory_callback (GObject      *source_object,
 			g_signal_emit_by_name (data->proj, "node-loaded", data->parent, err);
 			g_error_free (err);
 		} else {
-			AnjutaProjectNode *node, *remove;
+			AnjutaProjectNode *node, *next;
 			for (node = anjuta_project_node_first_child (data->parent);
 			     node != NULL;
-			     node = anjuta_project_node_next_sibling (node))
+			     node = next)
 			{
 				int state = anjuta_project_node_get_state (node);
+
+			    next = anjuta_project_node_next_sibling (node);
 				if (state & ANJUTA_PROJECT_LOADING)
 				{
 					/* these nodes are no longer necessary */
 					gchar *uri = g_file_get_uri (node->file);
-					remove = node;
-					node = anjuta_project_node_prev_sibling (node);
 					g_hash_table_remove (data->proj->groups, uri);
 					g_free (uri);
 
-					anjuta_project_node_remove (remove);
-					removed = g_list_prepend (removed, remove);
+					anjuta_project_node_remove (node);
+					removed = g_list_prepend (removed, node);
 				}
 			}
 			g_signal_emit_by_name (data->proj, "node-loaded", data->parent, NULL);
@@ -770,8 +770,10 @@ foreach_node_save (AnjutaProjectNode *node,
 					gpointer  data)
 {
 	gint state = anjuta_project_node_get_state (node);
+	AnjutaProjectNode *parent;
 	GError *err = NULL;
 	gboolean ret;
+
 
 	if (state & ANJUTA_PROJECT_MODIFIED)
 	{
@@ -779,6 +781,27 @@ foreach_node_save (AnjutaProjectNode *node,
 		{
 		case ANJUTA_PROJECT_GROUP:
 			g_file_make_directory_with_parents (anjuta_project_node_get_file (node), NULL, NULL);
+			break;
+		case ANJUTA_PROJECT_SOURCE:
+			for (parent = node;
+			     (parent != NULL) && (anjuta_project_node_get_node_type (parent) != ANJUTA_PROJECT_GROUP) && (anjuta_project_node_get_node_type (parent) != ANJUTA_PROJECT_ROOT);
+			     parent = anjuta_project_node_parent (parent));
+			if (parent != NULL)
+			{
+				GFile *file = anjuta_project_node_get_file (node);
+				gchar *basename = g_file_get_basename (file);
+				GFile *dest = g_file_get_child (anjuta_project_node_get_file (parent), basename);
+
+				g_free (basename);
+				if (!g_file_equal (dest, file))
+				{
+					g_file_copy_async (file, dest, G_FILE_COPY_BACKUP, G_PRIORITY_DEFAULT, NULL, NULL, NULL, NULL, NULL);
+					node->file = dest;
+					dest = file;
+				}
+
+				g_object_unref (dest);
+			}
 			break;
 		default:
 			break;
@@ -801,6 +824,8 @@ foreach_node_save (AnjutaProjectNode *node,
 			break;
 		}
 	}
+
+	anjuta_project_node_clear_state (node, ANJUTA_PROJECT_REMOVED | ANJUTA_PROJECT_MODIFIED);
 }
 
 AnjutaProjectNode *

@@ -2150,16 +2150,23 @@ iproject_manager_add_source_quiet (IAnjutaProjectManager *project_manager,
 
 	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
 
-	target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_TARGET,  location_file);
-	update_operation_begin (plugin);
-	source_id = anjuta_pm_project_add_source (plugin->project,
-	    								target,
-										NULL,
-	    								source_uri_to_add,
-										err);
-	update_operation_end (plugin, TRUE);
+	target = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_UNKNOWN, location_file);
+	if (target != NULL)
+	{
+		update_operation_begin (plugin);
+		source_id = anjuta_pm_project_add_source (plugin->project,
+		                                          target,
+		                                          NULL,
+		                                          source_uri_to_add,
+		                                          err);
+		update_operation_end (plugin, TRUE);
 
-	return get_element_file_from_node (plugin, source_id, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI);
+		return get_element_file_from_node (plugin, source_id, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI);
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 static GList*
