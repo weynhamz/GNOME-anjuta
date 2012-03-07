@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-21 11:53+0100\n"
-"PO-Revision-Date: 2012-02-21 11:53+0100\n"
+"POT-Creation-Date: 2012-03-07 13:04+0100\n"
+"PO-Revision-Date: 2012-03-07 13:05+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -256,7 +256,7 @@ msgstr "Introducir variábeis de contorno:"
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Nome"
@@ -708,7 +708,7 @@ msgstr ""
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
 #: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -721,13 +721,13 @@ msgid "Root"
 msgstr "Raíz"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:879
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:883
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Orixe"
@@ -3516,8 +3516,8 @@ msgstr "API"
 msgid "Missing name"
 msgstr "Falta o nome"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:1001
+#: ../plugins/dir-project/dir-project.c:1011
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3990,7 +3990,7 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresións regulares"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1286
+#: ../plugins/language-support-cpp-java/plugin.c:1333
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
@@ -4310,16 +4310,16 @@ msgstr "Substituír"
 msgid "Replace all"
 msgstr "Substituír todo"
 
-#: ../plugins/document-manager/search-files.c:594
+#: ../plugins/document-manager/search-files.c:596
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Nome do ficheiro"
 
-#: ../plugins/document-manager/search-files.c:706
+#: ../plugins/document-manager/search-files.c:708
 msgid "All text files"
 msgstr "Todos os ficheiros de texto"
 
-#: ../plugins/document-manager/search-files.c:847
+#: ../plugins/document-manager/search-files.c:849
 msgid "Find in files"
 msgstr "Buscar en ficheiros"
 
@@ -5747,37 +5747,37 @@ msgstr "Engadido do Glade para o Anjuta."
 msgid "User interface file"
 msgstr "Ficheiro de interface de usuario"
 
-#: ../plugins/glade/plugin.c:539
+#: ../plugins/glade/plugin.c:586
 msgid "Select widgets in the workspace"
 msgstr "Seleccionar widgets no espazo de traballo"
 
-#: ../plugins/glade/plugin.c:565
+#: ../plugins/glade/plugin.c:612
 msgid "Drag and resize widgets in the workspace"
 msgstr "Arrastrar e redimensionar widgets no espazo de traballo"
 
-#: ../plugins/glade/plugin.c:591
+#: ../plugins/glade/plugin.c:638
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:667
+#: ../plugins/glade/plugin.c:714
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:672
+#: ../plugins/glade/plugin.c:719
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:841
 #, c-format
 msgid "Not local file: %s"
 msgstr "Non hai ningún ficheiro local: %s"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
 msgstr "Non foi posíbel abrir %s"
 
-#: ../plugins/glade/plugin.c:883
+#: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
 msgstr "Non foi posíbel crear un proxecto glade novo."
 
@@ -5926,45 +5926,45 @@ msgstr "Etiquetas do API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:874
+#: ../plugins/language-support-cpp-java/plugin.c:881
 msgid "Code added for widget."
 msgstr "Código engadido para o widget."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1292
+#: ../plugins/language-support-cpp-java/plugin.c:1339
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1293
+#: ../plugins/language-support-cpp-java/plugin.c:1340
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
 "sangría"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1300
+#: ../plugins/language-support-cpp-java/plugin.c:1347
 msgid "Comment or uncomment current selection"
 msgstr "Comentar ou descomentar a selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1352
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1306
+#: ../plugins/language-support-cpp-java/plugin.c:1353
 msgid "Swap C header and source files"
 msgstr "Intercambiar os ficheiros C da cabeceira e da fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1393
 msgid "C++/Java Assistance"
 msgstr "Asistencia C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1583
-#: ../plugins/language-support-cpp-java/plugin.c:1617
+#: ../plugins/language-support-cpp-java/plugin.c:1630
+#: ../plugins/language-support-cpp-java/plugin.c:1664
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6805,11 +6805,11 @@ msgstr "Accións do xestor de proxectos"
 msgid "Project manager popup actions"
 msgstr "Accións en xanelas emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Inicializando o proxecto…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Proxecto cargado"
 
@@ -8092,7 +8092,7 @@ msgstr "Permite a inserción de fragmentos no seu editor."
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "Fragmentos"
 
@@ -8155,21 +8155,35 @@ msgstr "Texto variábel"
 msgid "Instant value"
 msgstr "Valor instantáneo"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+msgid "Add snippet"
+msgstr "Engadir fragmento"
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+msgid "Remove selected snippet"
+msgstr "Eliminar o fragmento seleccionado"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+msgid "Insert snippet into editor at current cursor position"
+msgstr "Insertar fragmento no editor na posición actual do cursor"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr "Activador"
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 msgid "Languages"
 msgstr "Xestor de linguaxes"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr "Engadir o des_tino"
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr "Engadir o _grupo"
 
@@ -8303,7 +8317,7 @@ msgstr "Seleccionar fragmentos"
 msgid "Import Snippets"
 msgstr "Importar fragmentos"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 msgid "Anjuta variables"
 msgstr "Variábeis de Anjuta"
 
