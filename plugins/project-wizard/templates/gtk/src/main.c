@@ -19,7 +19,7 @@
 typedef struct _Private Private;
 static struct _Private
 {
-	/* ANJUTA: Widgets declaration - DO NOT REMOVE */
+	/* ANJUTA: Widgets declaration for [+NameHLower+].ui - DO NOT REMOVE */
 };
 
 static struct Private* priv = NULL;
@@ -69,7 +69,7 @@ create_window (void)
         }
 
 	priv = g_malloc (sizeof (struct _Private));
-	/* ANJUTA: Widgets initialization - DO NOT REMOVE */
+	/* ANJUTA: Widgets initialization for [+NameHLower+].ui - DO NOT REMOVE */
 
 	g_object_unref (builder);
 	
