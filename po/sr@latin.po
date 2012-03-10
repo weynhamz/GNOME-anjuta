@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
 "&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-16 22:48+0000\n"
-"PO-Revision-Date: 2012-02-19 13:40+0200\n"
+"POT-Creation-Date: 2012-03-05 18:34+0000\n"
+"PO-Revision-Date: 2012-03-10 22:03+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -251,7 +251,7 @@ msgstr "Promenljive okruženja:"
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Naziv"
@@ -518,7 +518,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Ako ne sačuvate, sve vaše izmene biće izgubljene."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:589
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "Sačuvaj"
@@ -701,8 +701,8 @@ msgstr ""
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:747
-#: ../plugins/dir-project/dir-project.c:860
+#: ../plugins/dir-project/dir-project.c:731
+#: ../plugins/dir-project/dir-project.c:843
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -715,13 +715,13 @@ msgid "Root"
 msgstr "Koren"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:871
+#: ../plugins/dir-project/dir-project.c:854
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupa"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/dir-project/dir-project.c:858
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Izvor"
@@ -2098,7 +2098,7 @@ msgid "Marshaller"
 msgstr "Maršaler"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1009
+#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Samostalno"
 
@@ -3299,7 +3299,7 @@ msgid "File"
 msgstr "Datoteka"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:934
 msgid "Line"
 msgstr "Red"
 
@@ -3477,15 +3477,15 @@ msgstr "Traži"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:133
-#: ../plugins/dir-project/dir-project.c:156
-#: ../plugins/dir-project/dir-project.c:179
+#: ../plugins/dir-project/dir-project.c:135
+#: ../plugins/dir-project/dir-project.c:158
+#: ../plugins/dir-project/dir-project.c:181
 #, c-format
 msgid "Missing name"
 msgstr "Nedostaje ime alata"
 
-#: ../plugins/dir-project/dir-project.c:993
-#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/dir-project/dir-project.c:976
+#: ../plugins/dir-project/dir-project.c:986
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3955,7 +3955,7 @@ msgid "Search using regular expressions"
 msgstr "Potražite koristeći regularne izraze"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1286
+#: ../plugins/language-support-cpp-java/plugin.c:1333
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Uređivanje"
@@ -4188,9 +4188,9 @@ msgstr "Prosta pretraga"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1724
-#: ../plugins/document-manager/plugin.c:2143
-#: ../plugins/document-manager/plugin.c:2152
+#: ../plugins/document-manager/plugin.c:1731
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2159
 msgid "Documents"
 msgstr "Dokumenti"
 
@@ -4198,42 +4198,42 @@ msgstr "Dokumenti"
 msgid "Toggle search options"
 msgstr "Opcije prebacivanja pretrage"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:593
 msgid "Reload"
 msgstr "Ponovo učitaj"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:599
 msgid "Go to"
 msgstr "Idi na"
 
-#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:919
 msgid "OVR"
 msgstr "PREP"
 
-#: ../plugins/document-manager/plugin.c:916
+#: ../plugins/document-manager/plugin.c:923
 msgid "INS"
 msgstr "UMET"
 
-#: ../plugins/document-manager/plugin.c:922
-#: ../plugins/document-manager/plugin.c:925
+#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:932
 msgid "Zoom"
 msgstr "Uvećanje"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:935
 msgid "Col"
 msgstr "Kol"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:936
 msgid "Mode"
 msgstr "Režim"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Nije uspelo samosnimanje za %s"
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
 msgstr "Samosnimanje je završeno"
 
@@ -4279,16 +4279,16 @@ msgstr "Zameni"
 msgid "Replace all"
 msgstr "Zameni sve"
 
-#: ../plugins/document-manager/search-files.c:594
+#: ../plugins/document-manager/search-files.c:596
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Naziv datoteke"
 
-#: ../plugins/document-manager/search-files.c:706
+#: ../plugins/document-manager/search-files.c:708
 msgid "All text files"
 msgstr "Sve tekstualne datoteke"
 
-#: ../plugins/document-manager/search-files.c:853
+#: ../plugins/document-manager/search-files.c:849
 msgid "Find in files"
 msgstr "Pronađi u datotekama"
 
@@ -5713,37 +5713,37 @@ msgstr "Dodatak Glejda za Anjutu."
 msgid "User interface file"
 msgstr "Datoteka korisničkog sučelja"
 
-#: ../plugins/glade/plugin.c:539
+#: ../plugins/glade/plugin.c:586
 msgid "Select widgets in the workspace"
 msgstr "Izaberi elemente u radnom prostoru"
 
-#: ../plugins/glade/plugin.c:565
+#: ../plugins/glade/plugin.c:612
 msgid "Drag and resize widgets in the workspace"
 msgstr "Ubaci i promeni veličinu elemenata u radnom prostoru"
 
-#: ../plugins/glade/plugin.c:591
+#: ../plugins/glade/plugin.c:638
 msgid "Loading Glade…"
 msgstr "Učitavam Glejd…"
 
-#: ../plugins/glade/plugin.c:667
+#: ../plugins/glade/plugin.c:714
 msgid "Widgets"
 msgstr "Elementi"
 
-#: ../plugins/glade/plugin.c:672
+#: ../plugins/glade/plugin.c:719
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:841
 #, c-format
 msgid "Not local file: %s"
 msgstr "Nije lokalna datoteka: %s"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
 msgstr "Ne mogu da otvorim: %s."
 
-#: ../plugins/glade/plugin.c:883
+#: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
 msgstr "Ne mogu da napravim novi Glejd projekat."
 
@@ -5889,43 +5889,43 @@ msgstr "API oznake (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:874
+#: ../plugins/language-support-cpp-java/plugin.c:881
 msgid "Code added for widget."
 msgstr "Kod je dodat za element."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1292
+#: ../plugins/language-support-cpp-java/plugin.c:1339
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Samo-uvlačenje"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1293
+#: ../plugins/language-support-cpp-java/plugin.c:1340
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Sam uvuci tekući red ili izbor zasnovan na podešavanjima uvlačenja"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "Comment/Uncomment"
 msgstr "Zakomentariši/otkomentariši"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1300
+#: ../plugins/language-support-cpp-java/plugin.c:1347
 msgid "Comment or uncomment current selection"
 msgstr "Dodajte ili uklonite primedbu tekućem izboru"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1352
 msgid "Swap .h/.c"
 msgstr "Zameni .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1306
+#: ../plugins/language-support-cpp-java/plugin.c:1353
 msgid "Swap C header and source files"
 msgstr "Zameni C zaglavlje i izvorne datoteke"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1393
 msgid "C++/Java Assistance"
 msgstr "Pomoć za C++/Javu"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1583
-#: ../plugins/language-support-cpp-java/plugin.c:1617
+#: ../plugins/language-support-cpp-java/plugin.c:1630
+#: ../plugins/language-support-cpp-java/plugin.c:1664
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8052,7 +8052,7 @@ msgstr "Omogućava umetanje isečaka u uređivaču."
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "Isečci"
 
@@ -8115,21 +8115,38 @@ msgstr "Tekst promenljive"
 msgid "Instant value"
 msgstr "Trenutna vrednost"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#| msgid "Add Snippet …"
+msgid "Add snippet"
+msgstr "Dodaje isečak"
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+#| msgid "Select snippets"
+msgid "Remove selected snippet"
+msgstr "Ukloni odabrani isečak"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+#| msgid "Paste the content of clipboard at the current position"
+msgid "Insert snippet into editor at current cursor position"
+msgstr "Ubaci isečak u uređivaču na trenutno mesto kursora"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr "Prekidač"
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 msgid "Languages"
 msgstr "Jezici"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr "Dodaj isečak …"
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr "Dodaj grupu isečaka …"
 
@@ -8260,7 +8277,7 @@ msgstr "Izaberite isečke"
 msgid "Import Snippets"
 msgstr "Uvezi isečke"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 msgid "Anjuta variables"
 msgstr "Promenljive Anjute"
 
