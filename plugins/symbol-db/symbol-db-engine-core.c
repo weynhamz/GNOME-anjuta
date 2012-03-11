@@ -3979,7 +3979,7 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 		g_warning ("Error adding heritage");
 	}	
 }
-
+             
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
@@ -4036,7 +4036,13 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, const tagEntry * tag_
 													 (GdaSet*)plist, &last_inserted,
 													 NULL) == -1)
 	{
-		table_id = -1;
+	
+		GValue v = {0, };
+		SDB_GVALUE_SET_STATIC_STRING(v, scope);
+		
+		/* try to get an already existing scope */
+		table_id = sdb_engine_get_tuple_id_by_unique_name (dbe, PREP_QUERY_GET_SCOPE_ID,
+													"scope", &v);
 	}
 	else  
 	{
@@ -4222,6 +4228,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 	if (free_token_name)
 		g_free (token_name);
+	g_free (object_name);
 	
 	return;
 }
