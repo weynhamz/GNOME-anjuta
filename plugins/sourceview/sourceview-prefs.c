@@ -264,7 +264,7 @@ sourceview_prefs_init(Sourceview* sv)
 	 */
 	sv->priv->settings = g_settings_new (PREF_SCHEMA);
 	sv->priv->msgman_settings = g_settings_new (MSGMAN_PREF_SCHEMA);
-
+    
 	/* Bind simple options to GSettings */
 	g_settings_bind (sv->priv->settings, HIGHLIGHT_SYNTAX,
 			 sv->priv->document, "highlight-syntax",
@@ -294,7 +294,7 @@ sourceview_prefs_init(Sourceview* sv)
 	g_settings_bind (sv->priv->settings, VIEW_LINENUMBERS,
 			 sv->priv->view, "show-line-numbers",
 			 G_SETTINGS_BIND_GET);
-
+	
 	/* Init non-simple options */
 	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), -1); /* Same as tab width */
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
@@ -337,10 +337,11 @@ sourceview_prefs_init(Sourceview* sv)
 void sourceview_prefs_destroy(Sourceview* sv)
 {
 	if (sv->priv->settings)
-		g_object_unref (sv->priv->settings);
+	{
+		g_clear_object(&sv->priv->settings);
+	}
 	if (sv->priv->msgman_settings)
-		g_object_unref (sv->priv->msgman_settings);
-
-	sv->priv->settings = NULL;
-	sv->priv->msgman_settings = NULL;
+	{
+		g_clear_object (&sv->priv->msgman_settings);
+	}
 }

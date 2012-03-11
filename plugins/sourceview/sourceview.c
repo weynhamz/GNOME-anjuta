@@ -76,7 +76,6 @@
 
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
-static void sourceview_finalize(GObject *object);
 static void sourceview_dispose(GObject *object);
 
 static GObjectClass *parent_class = NULL;
@@ -799,13 +798,13 @@ sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
 		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
 }
 
-/* Construction/Deconstruction */
-
 static void
 sourceview_instance_init(Sourceview* sv)
 
 {
-	sv->priv = g_slice_new0 (SourceviewPrivate);
+	sv->priv = G_TYPE_INSTANCE_GET_PRIVATE (sv,
+	                                        ANJUTA_TYPE_SOURCEVIEW,
+	                                        SourceviewPrivate);
 	sv->priv->io = sourceview_io_new (sv);
 	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
 	g_signal_connect (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted), sv);
@@ -820,6 +819,7 @@ sourceview_instance_init(Sourceview* sv)
 
 	/* Create buffer */
 	sv->priv->document = gtk_source_buffer_new(NULL);
+	
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed",
 					 G_CALLBACK(on_document_modified_changed), sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "mark-set",
@@ -830,11 +830,15 @@ sourceview_instance_init(Sourceview* sv)
 	                  G_CALLBACK(on_delete_range), sv);
 	g_signal_connect_after (G_OBJECT(sv->priv->document), "delete-range",
 	                  G_CALLBACK(on_delete_range_after), sv);
+
 	g_signal_connect (G_OBJECT (sv->priv->document), "notify::cursor-position",
 	                  G_CALLBACK (on_cursor_position_changed), sv);
-
+	
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
+	/* The view doesn't take a reference on the buffer, we have to unref it */
+	g_object_unref (sv->priv->document);
+	
 	g_signal_connect_after (G_OBJECT(sv->priv->view), "toggle-overwrite",
 					  G_CALLBACK(on_overwrite_toggled), sv);
 	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
@@ -843,14 +847,13 @@ sourceview_instance_init(Sourceview* sv)
 					 G_CALLBACK(on_backspace),sv);
 
 	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
-
+	
 	/* Apply Preferences */
 	sourceview_prefs_init(sv);
-
-
+	
 	/* Create Markers */
 	sourceview_create_markers(sv);
-
+	
 	/* Create Higlight Tag */
 	sourceview_create_highlight_indic(sv);
 }
@@ -862,11 +865,8 @@ sourceview_class_init(SourceviewClass *klass)
 
 	parent_class = g_type_class_peek_parent(klass);
 	object_class->dispose = sourceview_dispose;
-	object_class->finalize = sourceview_finalize;
 
-	/* Create signals here:
-	   sourceview_signals[SIGNAL_TYPE_EXAMPLE] = g_signal_new(...)
- 	*/
+	g_type_class_add_private (klass, sizeof (SourceviewPrivate));
 }
 
 static void
@@ -874,33 +874,32 @@ sourceview_dispose(GObject *object)
 {
 	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
 	GSList* node;
-	if (cobj->priv->assist_tip)
-		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
-	g_object_unref (cobj->priv->io);
-
-	if (cobj->priv->tooltip_cell)
-		g_object_unref (cobj->priv->tooltip_cell);
 
 	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
 	{
 		g_source_remove (GPOINTER_TO_UINT (node->data));
 	}
 	g_slist_free (cobj->priv->idle_sources);
+	cobj->priv->idle_sources = NULL;	
+
+	if (cobj->priv->assist_tip)
+	{
+		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
+		cobj->priv->assist_tip = NULL;
+	}
+	if (cobj->priv->io)
+	{
+		g_clear_object (&cobj->priv->io);
+	}
+
+	if (cobj->priv->tooltip_cell)
+	{
+		g_clear_object (&cobj->priv->tooltip_cell);
+	}
 
 	sourceview_prefs_destroy(cobj);
-
+	
 	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
-sourceview_finalize(GObject *object)
-{
-	Sourceview *cobj;
-	cobj = ANJUTA_SOURCEVIEW(object);
-
-	g_slice_free(SourceviewPrivate, cobj->priv);
-	G_OBJECT_CLASS(parent_class)->finalize(object);
-	DEBUG_PRINT("%s", "=========== finalise =============");
 }
 
 /* Create a new sourceview instance. If uri is valid,

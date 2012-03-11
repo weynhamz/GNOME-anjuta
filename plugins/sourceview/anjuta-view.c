@@ -61,20 +61,20 @@
 
 enum
 {
-	ANJUTA_VIEW_POPUP = 1
+	ANJUTA_VIEW_POPUP = 1,
+	ANJUTA_VIEW_SOURCEVIEW
 };
 
 struct _AnjutaViewPrivate
 {
 	GtkWidget* popup;
 	guint scroll_idle;
-  Sourceview* sv;
+	Sourceview* sv;
 };
 
 static void	anjuta_view_dispose	(GObject       *object);
-static void	anjuta_view_finalize (GObject         *object);
-static gint     anjuta_view_focus_out (GtkWidget       *widget,
-		                              GdkEventFocus   *event);
+static gint anjuta_view_focus_out (GtkWidget       *widget,
+                                   GdkEventFocus   *event);
 
 static gboolean	anjuta_view_draw (GtkWidget       *widget,
 	                              cairo_t* cr);
@@ -105,8 +105,8 @@ scroll_to_cursor_real (AnjutaView *view)
 
 static void
 anjuta_view_set_property (GObject * object,
-			   guint property_id,
-			   const GValue * value, GParamSpec * pspec)
+                          guint property_id,
+                          const GValue * value, GParamSpec * pspec)
 {
 	AnjutaView *self = ANJUTA_VIEW (object);
 	g_return_if_fail(value != NULL);
@@ -126,6 +126,11 @@ anjuta_view_set_property (GObject * object,
 			gtk_menu_attach_to_widget(GTK_MENU(self->priv->popup), GTK_WIDGET(self), NULL);
 			break;
 		}
+		case ANJUTA_VIEW_SOURCEVIEW:
+		{
+			self->priv->sv = g_value_get_object (value);
+			break;
+		}
 		default:
 		{
 			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
@@ -136,8 +141,8 @@ anjuta_view_set_property (GObject * object,
 
 static void
 anjuta_view_get_property (GObject * object,
-			   guint property_id,
-			   GValue * value, GParamSpec * pspec)
+                          guint property_id,
+                          GValue * value, GParamSpec * pspec)
 {
 	AnjutaView *self = ANJUTA_VIEW (object);
 	
@@ -149,6 +154,11 @@ anjuta_view_get_property (GObject * object,
 		case ANJUTA_VIEW_POPUP:
 		{
 			g_value_set_object (value, self->priv->popup);
+			break;
+		}
+		case ANJUTA_VIEW_SOURCEVIEW:
+		{
+			g_value_set_object (value, self->priv->sv);
 			break;
 		}
 		default:
@@ -305,11 +315,8 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 {
 	GObjectClass     *object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass   *widget_class = GTK_WIDGET_CLASS (klass);
-	GtkBindingSet    *binding_set;
-	GParamSpec *anjuta_view_spec_popup;
 
 	object_class->dispose = anjuta_view_dispose;
-	object_class->finalize = anjuta_view_finalize;
 	object_class->set_property = anjuta_view_set_property;
 	object_class->get_property = anjuta_view_get_property;	
 
@@ -322,17 +329,21 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	widget_class->drag_motion = anjuta_view_drag_motion;
 
 	g_type_class_add_private (klass, sizeof (AnjutaViewPrivate));
-	
-	anjuta_view_spec_popup = g_param_spec_object ("popup",
-						       "Popup menu",
-						       "The popup-menu to show",
-						       GTK_TYPE_WIDGET,
-						       G_PARAM_READWRITE);
+
 	g_object_class_install_property (object_class,
-					 ANJUTA_VIEW_POPUP,
-					 anjuta_view_spec_popup);
-	
-	binding_set = gtk_binding_set_by_class (klass);	
+	                                 ANJUTA_VIEW_POPUP,
+	                                 g_param_spec_object ("popup",
+	                                                      "Popup menu",
+	                                                      "The popup-menu to show",
+	                                                      GTK_TYPE_WIDGET,
+	                                                      G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 ANJUTA_VIEW_SOURCEVIEW,
+	                                 g_param_spec_object ("sourceview",
+	                                                      "Sourceview object",
+	                                                      "",
+	                                                      ANJUTA_TYPE_SOURCEVIEW,
+	                                                      G_PARAM_READWRITE|G_PARAM_CONSTRUCT_ONLY));
 }
 
 static void 
@@ -356,30 +367,20 @@ static void
 anjuta_view_dispose (GObject *object)
 {
 	AnjutaView *view;
-
+	
 	view = ANJUTA_VIEW (object);
 	
 	if (view->priv->scroll_idle > 0)
-				g_source_remove (view->priv->scroll_idle);
-		
-	(* G_OBJECT_CLASS (anjuta_view_parent_class)->dispose) (object);
-}
-
-static void
-anjuta_view_finalize (GObject *object)
-{
-	AnjutaView *view;
-
-	view = ANJUTA_VIEW (object);
+		g_source_remove (view->priv->scroll_idle);
 
 	if (view->priv->popup != NULL) 
 	{
 	    GtkWidget* widget = gtk_menu_get_attach_widget (GTK_MENU (view->priv->popup));
 	    if (widget != NULL)
-		gtk_menu_detach (GTK_MENU (view->priv->popup));
+            gtk_menu_detach (GTK_MENU (view->priv->popup));
 	}
-		
-	(* G_OBJECT_CLASS (anjuta_view_parent_class)->finalize) (object);
+	
+	(* G_OBJECT_CLASS (anjuta_view_parent_class)->dispose) (object);
 }
 
 static gint
@@ -413,26 +414,16 @@ GtkWidget *
 anjuta_view_new (Sourceview *sv)
 {
 	GtkWidget *view;
-
+	
 	/* Create widget with sane defaults */
-	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, 
+	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW,
+	                                 "buffer", GTK_TEXT_BUFFER (sv->priv->document),
+	                                 "sourceview", sv,
 	                                 "wrap-mode", FALSE,
-	                                 "show-line-numbers", TRUE,
-	                                 "auto-indent", TRUE,
-	                                 "tab-width", 4,
-	                                 "insert-spaces-instead-of-tabs", FALSE,
-	                                 "highlight-current-line", TRUE, 
 	                                 "indent-on-tab", TRUE, /* Fix #388727 */
 	                                 "smart-home-end", GTK_SOURCE_SMART_HOME_END_BEFORE,
 	                                 NULL));
 	
-	gtk_text_view_set_buffer (GTK_TEXT_VIEW (view),
-				  GTK_TEXT_BUFFER (sv->priv->document));
-
-	gtk_widget_show_all (view);
-
-	ANJUTA_VIEW(view)->priv->sv = sv;
-  
 	return view;
 }
 
@@ -599,12 +590,8 @@ static gboolean
 anjuta_view_draw (GtkWidget      *widget,
                   cairo_t *cr)
 {
-	GtkTextView *text_view;
-	GtkTextBuffer *doc;
-	
+	GtkTextView *text_view;	
 	text_view = GTK_TEXT_VIEW (widget);
-	
-	doc = gtk_text_view_get_buffer (text_view);
 	
 	if (gtk_cairo_should_draw_window (cr, gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT)))
 	{
@@ -626,11 +613,8 @@ anjuta_view_draw (GtkWidget      *widget,
 static gboolean
 anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
-	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	AssistTip* assist_tip;
-	
-	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	
 	assist_tip = view->priv->sv->priv->assist_tip;
     switch (event->keyval)
