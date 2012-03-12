@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 17:33+0100\n"
-"PO-Revision-Date: 2012-02-26 17:46+0100\n"
+"POT-Creation-Date: 2012-03-12 18:13+0100\n"
+"PO-Revision-Date: 2012-03-12 18:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -275,7 +275,7 @@ msgstr "Miljövariabler:"
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "Namn"
@@ -719,7 +719,7 @@ msgstr "Gruppnamn får endast innehålla alfanumeriska tecken eller \"#$:%+,-.=@
 #: ../plugins/am-project/am-project.c:1688
 #: ../plugins/am-project/am-project.c:1779
 #: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -732,13 +732,13 @@ msgid "Root"
 msgstr "Rot"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:879
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupp"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:883
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Källa"
@@ -3456,8 +3456,8 @@ msgstr "API"
 msgid "Missing name"
 msgstr "Saknar namn"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:1001
+#: ../plugins/dir-project/dir-project.c:1011
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3536,7 +3536,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Ersätt"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[skrivskyddad]"
 
@@ -6740,11 +6740,11 @@ msgstr "Åtgärder för projekthantering"
 msgid "Project manager popup actions"
 msgstr "Projekthanterarens popup-åtgärder"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Initierar projekt..."
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Projekt inläst"
 
@@ -7950,7 +7950,7 @@ msgstr "Tillåter infogning av kodsnuttar i redigeraren."
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "Kodsnuttar"
 
@@ -8013,21 +8013,35 @@ msgstr "Variabeltext"
 msgid "Instant value"
 msgstr "Direktvärde"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+msgid "Add snippet"
+msgstr "Lägg till kodsnutt"
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+msgid "Remove selected snippet"
+msgstr "Ta bort markerad kodsnutt"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+msgid "Insert snippet into editor at current cursor position"
+msgstr "Infoga kodsnutt i redigeraren på den aktuella platsen"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr "Aktiverare"
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 msgid "Languages"
 msgstr "Språk"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr "Lägg till kodsnutt ..."
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr "Lägg till kodsnuttsgrupp ..."
 
@@ -8147,7 +8161,7 @@ msgstr "Välj kodsnuttar"
 msgid "Import Snippets"
 msgstr "Importera kodsnuttar"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 msgid "Anjuta variables"
 msgstr "Anjuta-variabler"
 
@@ -8274,7 +8288,7 @@ msgstr "Visningsinställningar för redigerare"
 msgid "GtkSourceView Editor"
 msgstr "Redigerare för GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8283,7 +8297,7 @@ msgstr ""
 "Filen \"%s\" på disk är nyare än den som finns i den aktuella\n"
 "bufferten. Vill du läsa om den?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8293,18 +8307,18 @@ msgstr ""
 "Vill du stänga den?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Kunde inte öppna %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Filen \"%s\" är skrivskyddad! Redigera ändå?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Kunde inte spara %s: %s"
