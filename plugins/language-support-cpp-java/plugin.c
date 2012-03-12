@@ -864,6 +864,81 @@ generate_widget_member_init_marker (gchar* ui_filename)
 	return g_strdup_printf ("/* ANJUTA: Widgets initialization for %s - DO NOT REMOVE */", ui_filename);
 }
 
+static gboolean
+glade_widget_member_of_scope (gchar *widget_name, IAnjutaIterable *members)
+{
+       do {
+              IAnjutaSymbol *symbol = IANJUTA_SYMBOL (members);
+              gchar *member_name = ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL);
+              /* Checks if member already exists... */
+              if (g_strcmp0 (member_name, widget_name) == 0) {
+                     return TRUE;
+              }
+       } while (ianjuta_iterable_next (members, NULL));
+
+       return FALSE;
+}
+
+static gboolean
+glade_widget_already_in_scope (IAnjutaEditor* editor, gchar* widget_name,
+                               gchar* mark, CppJavaPlugin* lang_plugin)
+{
+       gboolean ret = FALSE;
+       IAnjutaIterable *mark_position;
+       IAnjutaSymbolQuery *query_scope;
+       IAnjutaIterable *scope;
+       IAnjutaSymbolQuery *query_members;
+       mark_position = language_support_get_mark_position (editor, mark);
+
+       if (!mark_position)
+              return FALSE;
+
+       int line = ianjuta_editor_get_line_from_position (editor, mark_position, NULL);
+       g_object_unref(mark_position);
+       
+
+       IAnjutaSymbolManager *symbol_manager =
+              anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell, IAnjutaSymbolManager, NULL);
+
+       query_scope = ianjuta_symbol_manager_create_query (symbol_manager,
+		                                                  IANJUTA_SYMBOL_QUERY_SEARCH_SCOPE,
+		                                                  IANJUTA_SYMBOL_QUERY_DB_PROJECT, NULL);
+       if (!query_scope)
+              return FALSE;
+
+       GFile *file = ianjuta_file_get_file (IANJUTA_FILE(editor), NULL);
+       gchar* path = g_file_get_path (file);
+
+       scope = ianjuta_symbol_query_search_scope (query_scope, path, line, NULL);
+       g_object_unref(query_scope);
+
+       if (!scope)
+              return FALSE;
+
+       query_members = ianjuta_symbol_manager_create_query (symbol_manager,
+                                                            IANJUTA_SYMBOL_QUERY_SEARCH_MEMBERS,
+                                                            IANJUTA_SYMBOL_QUERY_DB_PROJECT,
+                                                            NULL);
+
+       if (query_members)
+       {
+              IAnjutaIterable *members = ianjuta_symbol_query_search_members (
+                                                   query_members,
+                                                   IANJUTA_SYMBOL(scope), NULL);
+              g_object_unref(query_members);
+
+              if (members)
+              {
+                     ret = glade_widget_member_of_scope (widget_name, IANJUTA_SYMBOL (members));
+                     g_object_unref(members);
+              }
+       }
+
+       g_object_unref(scope);
+
+       return ret;
+}
+
 static void insert_member_decl_and_init (IAnjutaEditor* editor, gchar* widget_name,
                                          gchar* ui_filename, CppJavaPlugin* lang_plugin)
 {
@@ -876,9 +951,12 @@ static void insert_member_decl_and_init (IAnjutaEditor* editor, gchar* widget_na
 
        status = anjuta_shell_get_status (ANJUTA_PLUGIN (lang_plugin)->shell, NULL);
 
-       if(insert_after_mark (editor, member_decl_marker, member_decl, lang_plugin) &&
-          insert_after_mark (editor, member_init_marker, member_init, lang_plugin))
+       if (!glade_widget_already_in_scope (editor, widget_name, member_decl_marker, lang_plugin))
+       if (insert_after_mark (editor, member_decl_marker, member_decl, lang_plugin))
+       {
+              insert_after_mark (editor, member_init_marker, member_init, lang_plugin);
               anjuta_status_set (status, _("Code added for widget."));
+       }
 
        g_free (member_decl);
        g_free (member_init);
