@@ -71,6 +71,8 @@ void			    gbf_project_view_set_visible_func (GbfProjectView *view,
 
 AnjutaProjectNode          *gbf_project_filter_view_find_selected     (GtkTreeView *view,
 									AnjutaProjectNodeType type);
+AnjutaProjectNode          *gbf_project_view_find_selected_state (GtkTreeView *view,
+                                                                  AnjutaProjectNodeState state);
 GList                      *gbf_project_filter_view_get_all_selected  (GtkTreeView *view);
 
 void			    gbf_project_view_set_cursor_to_iter (GbfProjectView *view,

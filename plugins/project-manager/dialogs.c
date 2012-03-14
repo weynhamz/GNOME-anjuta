@@ -994,8 +994,8 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 				name = gtk_editable_get_chars (
 						GTK_EDITABLE (group_name_entry), 0, -1);
 
-				group = gbf_project_view_find_selected (GBF_PROJECT_VIEW (groups_view),
-														ANJUTA_PROJECT_GROUP);
+				group = gbf_project_view_find_selected_state (GBF_PROJECT_VIEW (groups_view),
+				                                              ANJUTA_PROJECT_CAN_ADD_GROUP);
 				if (group)
 				{
 					new_group = anjuta_pm_project_add_group (plugin->project, group, NULL, name, &err);

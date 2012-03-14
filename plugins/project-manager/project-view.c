@@ -686,6 +686,32 @@ gbf_project_view_find_selected (GbfProjectView *view, AnjutaProjectNodeType type
 	return node;
 }
 
+AnjutaProjectNode *
+gbf_project_view_find_selected_state (GtkTreeView *view,
+                                      AnjutaProjectNodeState state)
+{
+	AnjutaProjectNode *node = NULL;
+	GbfTreeData *data;
+
+	g_return_val_if_fail (view != NULL, NULL);
+	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), NULL);
+
+	data = gbf_project_view_get_first_selected (view, NULL);
+	if (data != NULL)
+	{
+
+		node = gbf_tree_data_get_node (data);
+
+		/* walk up the hierarchy searching for a node of the given type */
+		while ((node != NULL) && (state != 0) && !(anjuta_project_node_get_state (node) & state))
+		{
+			node = anjuta_project_node_parent (node);
+		}
+	}
+
+	return node;
+}
+
 GbfTreeData *
 gbf_project_view_get_first_selected (GbfProjectView *view, GtkTreeIter* selected)
 {
