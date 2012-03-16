@@ -1565,7 +1565,7 @@ amp_project_update_node (AnjutaProjectNode *key, AnjutaProjectNode *value, GHash
 
 			if (new_node->parent == NULL)
 			{
-				/* This is the root node, update only the children */
+				/* This is the top loaded node, update only the children */
 				node->children = new_node->children;
 			}
 			else
@@ -2149,6 +2149,8 @@ amp_load_complete (PmJob *job)
 	}*/
 	map = amp_project_map_node (job->node, job->proxy);
 	g_object_ref (job->proxy);
+
+	job->proxy->parent = NULL;	// Mark loaded top node
 	g_hash_table_foreach (map, (GHFunc)amp_project_update_node, map);
 	//anjuta_project_node_check (job->node);
 	g_hash_table_destroy (map);
