@@ -108,17 +108,6 @@ static GObject *parent_class;
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-static void
-project_node_destroy (DirProject *project, AnjutaProjectNode *node)
-{
-	g_return_if_fail (project != NULL);
-	g_return_if_fail (DIR_IS_PROJECT (project));
-
-	if (node) {
-		g_object_unref (node);
-	}
-}
-
 static AnjutaProjectNode *
 project_node_new (DirProject *project, AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile *file, const gchar *name, GError **error)
 {
@@ -840,9 +829,6 @@ dir_project_save_node (DirProject *project, AnjutaProjectNode *node, GError **er
 void
 dir_project_unload (DirProject *project)
 {
-	/* project data */
-	project_node_destroy (project, ANJUTA_PROJECT_NODE (project));
-
 	/* shortcut hash tables */
 	if (project->groups) g_hash_table_destroy (project->groups);
 	project->groups = NULL;
