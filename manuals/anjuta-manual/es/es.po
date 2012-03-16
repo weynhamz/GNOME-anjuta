@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-03-04 18:46+0000\n"
-"PO-Revision-Date: 2012-03-06 16:18+0100\n"
+"POT-Creation-Date: 2012-03-16 11:13+0000\n"
+"PO-Revision-Date: 2012-03-16 13:27+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1491,10 +1491,9 @@ msgstr ""
 
 #: C/language-support-cpp-modelines-vim.page:9(desc)
 msgid "Supported Vim modelines features."
-msgstr ""
+msgstr "Características de líneas de modos de Vim soportadas."
 
 #: C/language-support-cpp-modelines-vim.page:18(title)
-#| msgid "Modelines"
 msgid "Vim modelines"
 msgstr "Líneas de modo Vim"
 
@@ -1505,12 +1504,15 @@ msgid ""
 "names with an optional value after <code>=</code> separated by space or "
 "<code>:</code>."
 msgstr ""
+"Esta línea de modo es un comentario en la primera línea del archivo que "
+"tiene que empezar por <code>vim:</code> seguido de al menos un espacio y una "
+"lista de nombres de variables con un valor opcional después de <code>=</"
+"code> separados por <code>:</code> o por un espacio."
 
 #: C/language-support-cpp-modelines-vim.page:25(p)
-#, fuzzy
 #| msgid "A typical modeline looks like this:"
 msgid "A typical <app>Vim</app> modeline looks like this:"
-msgstr "Un modo habitual se parece a esto:"
+msgstr "Una línea de modo de <app>Vim</app> típica se parece a esto:"
 
 #: C/language-support-cpp-modelines-vim.page:27(code)
 #, no-wrap
@@ -1524,7 +1526,7 @@ msgstr ""
 #: C/language-support-cpp-modelines-vim.page:30(p)
 #: C/language-support-cpp-modelines-emacs.page:30(p)
 msgid "Anjuta support only the following variables."
-msgstr ""
+msgstr "Anjuta sólo soporta las siguientes variables."
 
 #: C/language-support-cpp-modelines-vim.page:34(code)
 #, no-wrap
@@ -1538,7 +1540,7 @@ msgstr "et"
 
 #: C/language-support-cpp-modelines-vim.page:36(p)
 msgid "Use spaces for indentation."
-msgstr ""
+msgstr "Usar espacios para sangrar."
 
 #: C/language-support-cpp-modelines-vim.page:39(code)
 #, no-wrap
@@ -1552,7 +1554,7 @@ msgstr "noet"
 
 #: C/language-support-cpp-modelines-vim.page:41(p)
 msgid "Use tabulation for indentation."
-msgstr ""
+msgstr "Usar tabulador para sangrar."
 
 #: C/language-support-cpp-modelines-vim.page:44(code)
 #, no-wrap
@@ -1577,7 +1579,7 @@ msgstr "ts"
 #: C/language-support-cpp-modelines-vim.page:48(p)
 #: C/language-support-cpp-modelines-emacs.page:40(p)
 msgid "Number of space characters corresponding to one tabulation character."
-msgstr ""
+msgstr "Número de espacios correspondientes a un carácter de tabulación."
 
 #: C/language-support-cpp-modelines-vim.page:51(code)
 #, no-wrap
@@ -1592,14 +1594,13 @@ msgstr "sw"
 #: C/language-support-cpp-modelines-vim.page:53(p)
 #: C/language-support-cpp-modelines-emacs.page:44(p)
 msgid "Number of space characters used to indent C code."
-msgstr ""
+msgstr "Número de espacios usados para sangrar código en C."
 
 #: C/language-support-cpp-modelines-emacs.page:9(desc)
 msgid "Supported Emacs modelines features."
-msgstr ""
+msgstr "Características de líneas de modos de Emacs soportadas."
 
 #: C/language-support-cpp-modelines-emacs.page:18(title)
-#| msgid "Modelines"
 msgid "Emacs modelines"
 msgstr "Líneas de modo Emacs"
 
@@ -1609,18 +1610,17 @@ msgid ""
 "of variable names followed by <code>:</code> and a value, separated by "
 "<code>;</code> and surrounded by <code>-*-</code>."
 msgstr ""
+"Esta línea de modo es un comentario en la primera línea del archivo, "
+"compuesta por una lista de nombres de variables seguida de<code>:</code> y "
+"un valor, separado por <code>;</code> y rodeado po <code>-*-</code>."
 
 #: C/language-support-cpp-modelines-emacs.page:24(p)
-#, fuzzy
 #| msgid "A typical modeline looks like this:"
 msgid "A typical <app>Emacs</app> modeline looks like this:"
-msgstr "Un modo habitual se parece a esto:"
+msgstr "Una línea de modo de <app>Emacs</app> típica se parece a esto:"
 
 #: C/language-support-cpp-modelines-emacs.page:26(code)
 #, no-wrap
-#| msgid ""
-#| "\n"
-#| "/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
 msgid ""
 "\n"
 "/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
@@ -1633,23 +1633,25 @@ msgstr ""
 #: C/language-support-cpp-modelines-emacs.page:34(code)
 #, no-wrap
 msgid "indent-tabs-mode"
-msgstr ""
+msgstr "indent-tabs-mode"
 
 #: C/language-support-cpp-modelines-emacs.page:35(p)
 msgid ""
 "Set to <code>t</code> to use tabulation for indentation or <code>nil</code> "
 "to use spaces."
 msgstr ""
+"Establecer a <code>t</code> para usar tabuladores para el sangrado o "
+"<code>nil</code> para usar espacios."
 
 #: C/language-support-cpp-modelines-emacs.page:39(code)
 #, no-wrap
 msgid "tab-width"
-msgstr ""
+msgstr "tab-width"
 
 #: C/language-support-cpp-modelines-emacs.page:43(code)
 #, no-wrap
 msgid "c-basic-offset"
-msgstr ""
+msgstr "c-basic-offset"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -4885,7 +4887,6 @@ msgstr ""
 "plantilla del proyecto los crea automáticamente."
 
 #: C/anjuta-glade-start.page:73(p)
-#, fuzzy
 #| msgid ""
 #| "Once the glade plug-in is running and the file that will hold the code is "
 #| "opened, simply double click a widget in the glade inspector. The file "
@@ -4908,9 +4909,9 @@ msgstr ""
 "en el inspector de glade. El archivo que se está viendo se escaneará "
 "buscando algunos marcadores de comentarios («/* ANJUTA: Widgets declaration "
 "for application.ui - DO NOT REMOVE */» y «/* ANJUTA: Widgets initialization "
-"for application.ui - DO NOT REMOVE */») y, si se encuentran, el código se "
+"for application.ui - DO NOT REMOVE */»). Si se encuentran, el código se "
 "añadirá después de estos comentarios. Por lo tanto, para que esta "
-"característica funciona correctamente, es importante no modificar estos "
+"característica funcione correctamente, es importante no modificar estos "
 "marcadores de comentarios."
 
 #: C/anjuta-glade-signals.page:15(title)
@@ -5092,6 +5093,8 @@ msgid ""
 "Anjuta supports modelines in the two formats used by <app>Vim</app> and "
 "<app>Emacs</app>."
 msgstr ""
+"Anjuta soporta líneas de modo en los dos formatos usados por <app>Vim</app> "
+"y <app>Emacs</app>."
 
 #: C/anjuta-code-indentation.page:59(title)
 msgid "Indenting blocks of code"
