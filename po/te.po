@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-22 20:40+0000\n"
-"PO-Revision-Date: 2012-03-01 13:11+0530\n"
+"POT-Creation-Date: 2012-03-05 18:34+0000\n"
+"PO-Revision-Date: 2012-03-16 16:41+0530\n"
 "Last-Translator: Krishnababu Krothapalli <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <Fedora-trans-te@redhat.com>\n"
-"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: te\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "X-Generator: Lokalize 1.2\n"
@@ -252,7 +252,7 @@ msgstr "ఆవరణ చలరాశి"
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "నామము"
@@ -432,9 +432,8 @@ msgstr "ప్లగిన్ లఎగుమతి మరియు దిగు
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
 #: ../libanjuta/anjuta-plugin-manager.c:2554
-#, fuzzy
 msgid "Loading:"
-msgstr "లోడవుతున్నది..."
+msgstr "లోడవుతున్నది:"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:96
 msgid "Category"
@@ -551,9 +550,8 @@ msgstr ""
 "ఇక్కడ  ఒక ఉపకరణం దాచని మార్పులతో వున్నది. ముగించే ముందు, మార్పులను దాచ వలెనా?"
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
-#, fuzzy
 msgid "<Invalid>"
-msgstr "చెల్లుబాటులో లేని ఎంట్రీ"
+msgstr "<చెల్లని>"
 
 #: ../libanjuta/anjuta-tree-combo.c:1196
 msgid "ComboBox model"
@@ -712,9 +710,8 @@ msgid "Project doesn't exist or invalid path"
 msgstr "ప్రాజెక్టు ఉనికి లేదు లేదా సరియైన పథము కాదు"
 
 #: ../plugins/am-project/am-project.c:90
-#, fuzzy
 msgid "Root"
-msgstr "తొలగించు"
+msgstr "Root"
 
 #: ../plugins/am-project/am-project.c:98
 #: ../plugins/dir-project/dir-project.c:854
@@ -729,18 +726,16 @@ msgid "Source"
 msgstr "మూలము"
 
 #: ../plugins/am-project/am-project.c:124
-#, fuzzy
 msgid "Shared Library (libtool)"
-msgstr "షేర్డ్ లైబ్రరీ"
+msgstr "షేర్డ్ లైబ్రరీ (libtool)"
 
 #: ../plugins/am-project/am-project.c:132
 msgid "Module (Libtool)"
 msgstr "మాడ్యూల్ (Libtool)"
 
 #: ../plugins/am-project/am-project.c:140
-#, fuzzy
 msgid "Static Library (Libtool)"
-msgstr "స్టాటిక్ లైబ్రరీ"
+msgstr "స్టాటిక్ లైబ్రరీ (Libtool)"
 
 #: ../plugins/am-project/am-project.c:148
 #: ../plugins/build-basic-autotools/executer.c:143
@@ -886,10 +881,10 @@ msgid "Libtool support:"
 msgstr "Libtool తోడ్పాటు:"
 
 #: ../plugins/am-project/am-properties.c:98
-#, fuzzy
 msgid "Add support to compile shared and static libraries with libtool."
 msgstr ""
-"మీ ప్రాజెక్ట్ లో భాగస్వామ్య లైబ్రరీలను నిర్మించటానికి మద్దతును జతచేస్తుంది"
+"libtool తో షేర్‌డ్ మరియు స్టాటిక్ లైబ్రరీలను నిర్వర్తించుటకు తోడ్పాటును "
+"జతచేయి."
 
 #: ../plugins/am-project/am-properties.c:104
 #: ../plugins/am-project/am-properties.c:211
@@ -1341,10 +1336,8 @@ msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "స్ధిర గ్రంధాలయ లక్ష్యము పేరు ఖఛ్ఛితముగా 'libxxx.la' మాదిరిగా ఉండాలి"
 
 #: ../plugins/am-project/amp-target.c:385
-#, fuzzy
 msgid "Module target name must be of the form 'xxx.la'"
-msgstr ""
-"పంచగలిగిన గ్రంధాలయ లక్ష్యము పేరు , ఖఛ్ఛితముగా 'libxxx.la' మాదిరిగా ఉండాలి"
+msgstr "మాడ్యూల్ లక్ష్యపు పేరు తప్పక 'xxx.la' రూపములో వుండాలి"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -1538,6 +1531,13 @@ msgid ""
 "quoted command. You can use %% to get a \"%\" character. A typical value is "
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
+"ఆదేశం తప్పక \"%s\" లేదా \"%q\" ను కలిగివుండాలి. ఇది ఫైళ్ళను సంస్థాపించుటకు "
+"వుపయోగించు ఆదేశముచేత "
+"పునఃస్థాపించబడును, ఉదాహరణకు \"make install\". %s అనునది యెటువంటి మార్పు "
+"లేకుండా ఆదేశముచేత "
+"పునఃస్థాపించబడును %q అనునది కోటెడ్ ఆదేశముచేత పునఃస్థాపించబడును. మీరు \"%s\" "
+"అక్షరమును పొందుటకు "
+"%% వుపయోగించవచ్చు. సాధారణంగా \"sudo %s\" లేదా \"su -c %q\"."
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -2019,9 +2019,8 @@ msgid "Source File:"
 msgstr "జనక దస్త్రము"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:41
-#, fuzzy
 msgid "Add to Project Target:"
-msgstr "ప్రోజెక్టుకు జత చేయుము"
+msgstr "ప్రోజెక్టు లక్ష్యముకు జతచేయి:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:42
 msgid "Add to Repository"
@@ -3654,17 +3653,14 @@ msgid "Editor tabs"
 msgstr "సంపాదకుడు టాబ్లు"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#, fuzzy
 msgid "Case sensitive"
-msgstr "సందర్భ స్పందన"
+msgstr "అక్షరము చిన్నాపెద్దతేడా"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#, fuzzy
 msgid "Regular expression"
 msgstr "క్రమబద్ద వ్యక్తీకరణ"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:17
-#, fuzzy
 msgid "Replace All"
 msgstr "అన్నింటినీ పున:స్థాపించు"
 
@@ -3947,14 +3943,12 @@ msgid "Clear all highlighted text"
 msgstr "అన్ని ఉద్దీపన పాఠాన్ని ఖాళీ చేయుము "
 
 #: ../plugins/document-manager/plugin.c:283
-#, fuzzy
 msgid "Find in Files"
-msgstr "ఫైళ్ళు జోడించండి"
+msgstr "ఫైళ్ళ నందు కనుగొను"
 
 #: ../plugins/document-manager/plugin.c:284
-#, fuzzy
 msgid "Search in project files"
-msgstr "ఇటీవలి ఫైళ్లను తెరవండి"
+msgstr "ప్రోజెక్టు ఫైళ్ళ నందు అన్వేషించు"
 
 #: ../plugins/document-manager/plugin.c:290
 msgid "Case Sensitive"
@@ -3981,7 +3975,7 @@ msgid "Search using regular expressions"
 msgstr "క్రమబద్ద వ్యక్తీకరణలు ఉపయోగించి శోధించు"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1286
+#: ../plugins/language-support-cpp-java/plugin.c:1333
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "(_E)సరిచేయు"
@@ -4292,6 +4286,8 @@ msgstr ""
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr ""
+"మరిన్ని అన్వేషణ ఐచ్చికాల కొరకు \"కనుగొను\" ప్రతిమ యొక్క సందర్భ మెనూను "
+"వుపయోగించు"
 
 #: ../plugins/document-manager/search-box.c:986
 msgid "Replace"
@@ -4301,20 +4297,18 @@ msgstr "పునఃస్థాపించు"
 msgid "Replace all"
 msgstr "అన్నింటినీ పున:స్థాపించు"
 
-#: ../plugins/document-manager/search-files.c:594
+#: ../plugins/document-manager/search-files.c:596
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "దస్త్రనామము"
 
-#: ../plugins/document-manager/search-files.c:706
-#, fuzzy
+#: ../plugins/document-manager/search-files.c:708
 msgid "All text files"
-msgstr "అన్ని దస్త్రాలు"
+msgstr "అన్ని పాఠము ఫైళ్ళు"
 
-#: ../plugins/document-manager/search-files.c:847
-#, fuzzy
+#: ../plugins/document-manager/search-files.c:849
 msgid "Find in files"
-msgstr "తేడా ఫైళ్లు"
+msgstr "ఫైళ్ల నందు కనుగొను"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 #: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
@@ -4648,9 +4642,8 @@ msgid "Type:"
 msgstr "రకం:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:8
-#, fuzzy
 msgid "Add License Information:"
-msgstr "లైసెన్స్ సమాచారాన్ని జోడించండి"
+msgstr "లైసెన్స్ సమాచారాన్ని జోడించు:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:9
 msgid "Create corresponding header file"
@@ -4661,9 +4654,8 @@ msgid "Use Template for the Header file"
 msgstr "శీర్షిక దస్త్రం కోసం టెంప్లేట్ను ఉపయోగించు"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:11
-#, fuzzy
 msgid "Add to project target:"
-msgstr "ప్రాజెక్టు జోడించండి"
+msgstr "ప్రాజెక్టు లక్షమునకు జోడించు:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:12
 msgid "Add to repository"
@@ -5417,9 +5409,8 @@ msgid "Create a branch"
 msgstr "ఒక శాఖ సృష్టించండి"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
-#, fuzzy
 msgid "Delete branches"
-msgstr "ఎంచుకున్న శాఖలు తొలగించు"
+msgstr "శాఖలు తొలగించు"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
@@ -5739,37 +5730,37 @@ msgstr "అంజుత కోసం గ్లేడ్ ప్లగిన్"
 msgid "User interface file"
 msgstr "వినియోగదారుని  అంతర్ముఖీనత ఫైలు"
 
-#: ../plugins/glade/plugin.c:539
+#: ../plugins/glade/plugin.c:586
 msgid "Select widgets in the workspace"
 msgstr "పని ప్రదేశంలో విడ్జెట్స్ ఎంచుకోండి"
 
-#: ../plugins/glade/plugin.c:565
+#: ../plugins/glade/plugin.c:612
 msgid "Drag and resize widgets in the workspace"
 msgstr "పని ప్రదేశంలో విడ్జెట్స్ లాగి మరియు పరిమాణాన్ని మార్చడానికి"
 
-#: ../plugins/glade/plugin.c:591
+#: ../plugins/glade/plugin.c:638
 msgid "Loading Glade…"
 msgstr "గ్లేడ్ లోడ్ అవుతోంది ..."
 
-#: ../plugins/glade/plugin.c:667
+#: ../plugins/glade/plugin.c:714
 msgid "Widgets"
 msgstr "విడ్జెట్లు"
 
-#: ../plugins/glade/plugin.c:672
+#: ../plugins/glade/plugin.c:719
 msgid "Palette"
 msgstr "వర్ణపలకం"
 
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:841
 #, c-format
 msgid "Not local file: %s"
 msgstr "స్థానిక ఫైల్ కాదు:%s"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
 msgstr "%s తెరవడం సాధ్యం కాలేదు"
 
-#: ../plugins/glade/plugin.c:883
+#: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
 msgstr "ఒక కొత్త గ్లేడ్ ప్రాజెక్టు సృష్టించలేకపోయింది."
 
@@ -5869,9 +5860,8 @@ msgid "Add '(' after function call autocompletion"
 msgstr "'(' ఫంక్షన్ కాల్ ఆటోపూర్తి తర్వాత జోడించు"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-#, fuzzy
 msgid "Add ')' after function call autocompletion"
-msgstr "'(' ఫంక్షన్ కాల్ ఆటోపూర్తి తర్వాత జోడించు"
+msgstr "ఫంక్షన్ కాల్ స్వయంసంపూర్తి తరువాతచ ')' జతచేయి"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
 msgid "Enable smart brace completion"
@@ -5917,43 +5907,43 @@ msgstr "API టాగ్లు (C / C + +)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:874
+#: ../plugins/language-support-cpp-java/plugin.c:881
 msgid "Code added for widget."
-msgstr ""
+msgstr "విడ్జట్ కొరకు కోడ్ జతచేయబడింది."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1292
+#: ../plugins/language-support-cpp-java/plugin.c:1339
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "ఆటో-ఇండెంట్"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1293
+#: ../plugins/language-support-cpp-java/plugin.c:1340
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "గంటువేయు అమర్పులను ఆధారంగా ప్రస్తుత లైన్ లేదా ఎంపిక ఆటో-ఇండెంట్ను"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "Comment/Uncomment"
 msgstr "వ్యాఖ్య/వ్యాఖ్య కానిది"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1300
+#: ../plugins/language-support-cpp-java/plugin.c:1347
 msgid "Comment or uncomment current selection"
 msgstr "ప్రస్తుత ఎంపికకు కామెంట్ చేయండి లేక చేయకం"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1352
 msgid "Swap .h/.c"
 msgstr ".h మరయు .c బదలాయింపుము"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1306
+#: ../plugins/language-support-cpp-java/plugin.c:1353
 msgid "Swap C header and source files"
 msgstr "C శీర్షిక మరియు మూల ఫైళ్ళు బదలాయింపుము"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1393
 msgid "C++/Java Assistance"
 msgstr "C + + / జావా సహాయం"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1583
-#: ../plugins/language-support-cpp-java/plugin.c:1617
+#: ../plugins/language-support-cpp-java/plugin.c:1630
+#: ../plugins/language-support-cpp-java/plugin.c:1664
 msgid "C/C++/Java/Vala"
 msgstr "C / C + + / జావా / వాలా"
 
@@ -6105,9 +6095,8 @@ msgid "Errors:"
 msgstr "లోపాలు:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:17
-#, fuzzy
 msgid "Important:"
-msgstr "దిగుమతి చేయండి"
+msgstr "ముఖ్యమైన:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.ui.h:18
 msgid "Message colors"
@@ -6449,9 +6438,8 @@ msgid "Project properties"
 msgstr "ప్రాజెక్టు లక్షణాలు"
 
 #: ../plugins/project-manager/dialogs.c:570
-#, fuzzy
 msgid "Folder properties"
-msgstr "మాడ్యూల్ గుణాలు"
+msgstr "ఫోల్డర్ లక్షణాలు"
 
 #: ../plugins/project-manager/dialogs.c:574
 msgid "Target properties"
@@ -6647,15 +6635,13 @@ msgid "_Project"
 msgstr "ప్రోజెక్టు (_P)"
 
 #: ../plugins/project-manager/plugin.c:902
-#, fuzzy
 msgid "New _Folder…"
-msgstr "కొత్త (_D)డైరెక్టరీ ..."
+msgstr "కొత్త ఫోల్డర్... (_F)"
 
 #: ../plugins/project-manager/plugin.c:902
 #: ../plugins/project-manager/plugin.c:941
-#, fuzzy
 msgid "Add a new folder to the project"
-msgstr "ప్రాజెక్టు ఒక కొత్త డైరెక్టరీ జోడించండి"
+msgstr "ప్రోజెక్టునకు కొత్త ఫోల్డర్ జతచేయి"
 
 #: ../plugins/project-manager/plugin.c:907
 msgid "New _Target…"
@@ -6706,9 +6692,8 @@ msgid "Close project"
 msgstr "ప్రాజెక్టు మూసివేయి"
 
 #: ../plugins/project-manager/plugin.c:941
-#, fuzzy
 msgid "New _Folder"
-msgstr "కొత్త దస్త్రం"
+msgstr "కొత్త ఫోల్డర్ (_F)"
 
 #: ../plugins/project-manager/plugin.c:946
 msgid "New _Target"
@@ -6839,24 +6824,20 @@ msgid "Add Source"
 msgstr "మూలం జోడించండి"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:9
-#, fuzzy
 msgid "Target:"
-msgstr "లక్ష్యం:% s\n"
+msgstr "లక్ష్యం:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:10
-#, fuzzy
 msgid "New Folder"
-msgstr "కొత్త దస్త్రం"
+msgstr "కొత్త ఫోల్డర్"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:11
-#, fuzzy
 msgid "_Folder name:"
-msgstr "(_M)మాడ్యూల్ పేరు"
+msgstr "ఫోల్డర్ పేరు (_F):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:12
-#, fuzzy
 msgid "Specify _where to create the folder:"
-msgstr "డైరెక్టరీ సృష్టించడం (_w)ఎక్కడ పేర్కొనండి:"
+msgstr "ఫోల్డర్‌ను యెక్కడ సృష్టించాలో తెలుపుము (_w):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
 msgid "Select the _target for the new source files:"
@@ -6895,30 +6876,25 @@ msgid "More options:"
 msgstr "మరిన్ని ఎంపికలు:"
 
 #: ../plugins/project-manager/project-chooser.c:296
-#, fuzzy
 msgid "<Select any project node>"
-msgstr "ఒక డైరెక్టరీని ఎంచుకొను"
+msgstr "<ఏదేని వొక ప్రోజెక్టు నోడ్ యెంపికచేయి>"
 
 #: ../plugins/project-manager/project-chooser.c:301
 #: ../plugins/project-manager/project-chooser.c:311
-#, fuzzy
 msgid "<Select a target>"
-msgstr "ప్యాకేజీ ఎంచుకోండి"
+msgstr "<ఒక లక్ష్యమును యెంపికచేయి>"
 
 #: ../plugins/project-manager/project-chooser.c:306
-#, fuzzy
 msgid "<Select any module>"
-msgstr "మాడ్యూల్ ను తొలగించు"
+msgstr "<ఏదేని మాడ్యూల్‌ను యెంపికచేయి>"
 
 #: ../plugins/project-manager/project-chooser.c:316
-#, fuzzy
 msgid "<Select a target or a folder>"
-msgstr "లైబ్రరీ కోసం (_t)లక్ష్య ఎంచుకోండి:"
+msgstr "<సంచయం కొరకు వొక లక్ష్యం యెంపికచేయి>"
 
 #: ../plugins/project-manager/project-chooser.c:321
-#, fuzzy
 msgid "<Select a folder>"
-msgstr "ఒక సంచయమును ఎంచుకో"
+msgstr "<ఒక సంచయమును యెంపికచేయి>"
 
 #: ../plugins/project-manager/project-model.c:185
 msgid "GbfProject Object"
@@ -6933,9 +6909,8 @@ msgid "Project Assistant"
 msgstr "ప్రాజెక్టు సహకారి"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:1
-#, fuzzy
 msgid "Select a project type"
-msgstr "ఒక ప్రింటర్ ఫైల్ను ఎంచుకోండి"
+msgstr "ప్రోజెక్టు రకమును యెంపికచేయి"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
 #: ../plugins/project-wizard/druid.c:166
@@ -7009,15 +6984,14 @@ msgstr ""
 "చెయ్యండి."
 
 #: ../plugins/project-wizard/druid.c:696
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Field \"%s\" must contains only ASCII printable characters, no accentuated "
 "characters by example. Please fix it."
 msgstr ""
-"క్షేత్ర \"% s\" మాత్రమే అక్షరాలు, అంకెలు లేదా ఈ క్రింది అక్షరాలు ఉన్నాయి "
-"తప్పక \"# $:%% +, = @ ^ "
-"_` ~. \". అదనంగా మీరు ఒక ప్రముఖ Dash కలిగిలేదు. దాన్ని పరిష్కరించడానికి "
-"చెయ్యండి."
+"క్షేత్రం \"%s\" ముద్రించిగల ASCII అక్షరాలు మాత్రమే కలిగివుండాలి, సంక్షిప్త "
+"అక్షరాలు వుండరాదు. దయచేసి "
+"దీనిని పరిష్కరించు."
 
 #: ../plugins/project-wizard/druid.c:701
 #, c-format
@@ -7687,29 +7661,27 @@ msgstr "GCJ ప్రధాన () చర్య కలిగి ఉన్న త�
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:1
 msgid "Gnome Shell Extension"
-msgstr ""
+msgstr "గ్నోమ్ షెన్ పొడిగింపు"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:2
 msgid "A minimal Gnome Shell extension"
-msgstr ""
+msgstr "ఒక కనీసపు గ్నోమ్ షెల్ పొడిగింత"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:5
-#, fuzzy
 msgid "Plugin Name:"
-msgstr "ప్లగిన్ క్లాస్ పేరు:"
+msgstr "ప్లగిన్ పేరు:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:6
 msgid "Short but descriptive user-visible plugin name"
-msgstr ""
+msgstr "చిన్నగా అయితే వివరణాత్మక వాడుకరి-దర్శనీయ ప్లగిన్ పేరు"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:14
-#, fuzzy
 msgid "Long description of your plugin"
-msgstr "ప్లగ్యిన్ యొక్క వివరణ ప్రదర్శించు"
+msgstr "మీ ప్లగ్యిన్ యొక్క దీర్ఘ వివరణ"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:15
 msgid "UUID:"
-msgstr ""
+msgstr "UUID:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:16
 msgid ""
@@ -7720,19 +7692,26 @@ msgid ""
 "uuid on your\n"
 "email address."
 msgstr ""
+"Uuid అనునది మీ పొడిగింతకు గ్లోబల్లీ-యునిక్ గుర్తింపు.\n"
+"ఇది ఈమెయిల్ చిరునామా ఫార్మాట్‌లో వుండాలి(foo.bar@extensions.example."
+"com), అయితే\n"
+"యాదార్థమైన ఈమెయిల్ చిరునామా కానక్కరలేదు, అయినప్పటికీ uuid అనునది మీ "
+"ఈమెయిల్ చిరునామా\n"
+"పై ఆధారపడుట మంచిది."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
 msgid "Extension URL"
-msgstr ""
+msgstr "పొడిగింత URL"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:22
 msgid "Gnome Shell Compatibility:"
-msgstr ""
+msgstr "గ్నోమ్ షెల్ సారూప్యత:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
 msgid ""
 "Comma-separated list of gnome-shell version your plugin is compatible with"
 msgstr ""
+"మీ ప్లగిన్ సారూప్యం కలిగివున్న కామాతో-వేరుచేసిన గ్నోమ్-షెల్ వర్షన్ల జాబితా"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "GTK+ (Application)"
@@ -8044,13 +8023,12 @@ msgid "Load Target to run"
 msgstr "నడుపుటకు లక్ష్యం లోడ్ చెయ్యి"
 
 #: ../plugins/run-program/plugin.c:228
-#, fuzzy
 msgid ""
 "The program is already running.\n"
 "Do you want to stop it before restarting a new instance?"
 msgstr ""
-"కార్యక్రమాన్ని అమలు అవుతుంది.\n"
-"మీరు పునఃప్రారంభించాలి అనుకుంటున్నారా?"
+"ప్రోగ్రామ్ యిప్పటికే నడుచుచున్నది.\n"
+"కొత్త సంభవాన్ని ప్రారంభించుటకు ముందుగా మీరు దీనిని ఆపాలని అనుకొనుచున్నారా?"
 
 #. Action name
 #. Stock icon, if any
@@ -8095,7 +8073,7 @@ msgstr "ఎడిటర్ లోకి స్నిప్పెట్ల ప్
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "స్నిప్పెట్లు"
 
@@ -8158,21 +8136,37 @@ msgstr "చరరాశి పాఠం"
 msgid "Instant value"
 msgstr "తక్షణ విలువ"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#| msgid "Add Snippet …"
+msgid "Add snippet"
+msgstr "స్నిప్పెట్ జతచేయి ..."
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+msgid "Remove selected snippet"
+msgstr "ఎంపికచేసిన స్నిప్పెట్‌ను తీసివేయి"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+#| msgid "Paste the content of clipboard at the current position"
+msgid "Insert snippet into editor at current cursor position"
+msgstr "ఎడిటర్‌ నందు కర్సర్ ప్రస్తుత స్థానం వద్ద స్నిప్పెట్‌ను చొప్పించు"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr "ట్రిగ్గర్"
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 msgid "Languages"
 msgstr "భాషలు"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr "స్నిప్పెట్ జోడించు ..."
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr "సంక్షిప్తాల సమూహం జోడించు ..."
 
@@ -8292,25 +8286,22 @@ msgid "Close"
 msgstr "మూసివేయి"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:1
-#, fuzzy
 msgid "Export snippets"
-msgstr "ఎగుమతి సంక్షిప్తాల"
+msgstr "స్నిప్పెట్లను యెగుమతిచేయి"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:3
-#, fuzzy
 msgid "Save in folder:"
-msgstr "ప్రస్తుత దస్త్రం దాచు"
+msgstr "సంచయం నందు దాచు:"
 
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:4
-#, fuzzy
 msgid "Select snippets"
-msgstr "దస్త్రమును ఎంచుము "
+msgstr "స్నిప్పెట్లను యెంపికచేయి"
 
 #: ../plugins/snippets-manager/snippets-import-export.c:155
 msgid "Import Snippets"
 msgstr "సంక్షిప్తాల దిగుమతి"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 msgid "Anjuta variables"
 msgstr "అంజూత చరరాశి"
 
