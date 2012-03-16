@@ -1,0 +1,231 @@
+# German translation of the Anjuta FAQ.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta faq\n"
+"POT-Creation-Date: 2012-03-16 23:30+0100\n"
+"PO-Revision-Date: 2012-03-16 23:55+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr "Mario Blättermann <mario.blaettermann@gmail.com>, 2012"
+
+#: editor-maximize.page:8(info/desc)
+msgid "Double click on the current tab."
+msgstr "Doppelklicken Sie auf den aktuellen Reiter."
+
+#: editor-maximize.page:12(credit/name) general-bugs.page:11(credit/name)
+#: general-feature.page:11(credit/name) general-name.page:10(credit/name)
+#: general-windows.page:11(credit/name) index.page:10(credit/name)
+msgid "GNOME Documentation Project"
+msgstr "GNOME-Dokumentationsprojekt"
+
+#: editor-maximize.page:16(credit/name) general-bugs.page:15(credit/name)
+#: general-feature.page:15(credit/name) general-name.page:14(credit/name)
+#: general-windows.page:15(credit/name) index.page:14(credit/name)
+msgid "Andy Piper"
+msgstr "Andy Piper"
+
+#: editor-maximize.page:19(credit/name) general-bugs.page:18(credit/name)
+#: general-feature.page:18(credit/name) general-name.page:17(credit/name)
+#: general-windows.page:18(credit/name) index.page:17(credit/name)
+msgid "Naba Kumar"
+msgstr "Naba Kumar"
+
+#: editor-maximize.page:23(credit/name) general-bugs.page:22(credit/name)
+#: general-feature.page:22(credit/name) general-name.page:21(credit/name)
+#: general-windows.page:22(credit/name) index.page:21(credit/name)
+msgid "Biswapesh Chattopadhyayr"
+msgstr "Biswapesh Chattopadhyayr"
+
+#: editor-maximize.page:27(page/title)
+msgid "How to maximize the editor window"
+msgstr "Das Editorfenster maximieren"
+
+#: editor-maximize.page:29(page/p)
+msgid ""
+"Double click on the current tab to maximize the document window. Do the same "
+"again restore the previous state of all docked windows."
+msgstr ""
+"Doppelklicken Sie auf den aktuellen Reiter, um das Dokumentenfenster zu "
+"maximieren. Wiederholen Sie dies, um den vorherigen Zustand aller angedockten "
+"Fenster wiederherzustellen."
+
+#: editor-scintilla.page:7(info/desc)
+msgid "It is available now."
+msgstr "Jetzt verfügbar."
+
+#: editor-scintilla.page:11(credit/name) project-existing.page:11(credit/name)
+#: project-resource.page:11(credit/name)
+msgid "Sébastien Granjoux"
+msgstr "Sébastien Granjoux"
+
+#: editor-scintilla.page:16(page/title)
+msgid "How to use <app href=\"http://www.scintilla.org\">Scintilla editor</app>"
+msgstr ""
+"Verwendung des <app href=\"http://www.scintilla.org\">Scintilla-Editors</app>"
+
+#: editor-scintilla.page:18(page/p)
+msgid ""
+"It is available through the <app>anjuta-extras</app> package with can be "
+"download from the anjuta website. After you installed it you will be prompted "
+"to choose an editor and you can set it as the default editor for this project."
+msgstr ""
+"Dieser ist im Paket <app>anjuta-extras</app> verfügbar, das Sie von der "
+"Anjuta-Webseite herunterladen können. Nachdem Sie es installiert haben, "
+"werden Sie gefragt, welchen Editor Sie verwenden wollen, und können diesen "
+"als Standardeditor für dieses Projekt verwenden."
+
+#: editor-scintilla.page:23(note/p)
+msgid ""
+"The scintilla editor was not available in Anjuta 3.0 but it is now available "
+"since Anjuta 3.1."
+msgstr ""
+"Der Scintilla-Editor war für Anjuta 3.0 nicht erhältlich, ist aber seit "
+"Anjuta 3.1 wieder verfügbar."
+
+#: general-bugs.page:7(info/desc)
+msgid "Use GNOME bugzilla."
+msgstr "Verwenden Sie GNOME Bugzilla."
+
+#: general-bugs.page:26(page/title)
+msgid "Where can I report bugs"
+msgstr "Wo kann ich Fehler melden?"
+
+#: general-bugs.page:28(page/p)
+msgid ""
+"Please report bugs in <app href=\"http://bugzilla.gnome.org/browse.cgi?"
+"product=anjuta\">GNOME Bugzilla</app>."
+msgstr ""
+"Bitte melden Sie Fehler im <app href=\"http://bugzilla.gnome.org/browse.cgi?"
+"product=anjuta\">Fehlererfassungssystem von GNOME</app>."
+
+#: general-feature.page:7(info/desc)
+msgid "You are encouraged to do it yourself."
+msgstr "Sie sind herzlich eingeladen, dies selbst zu tun."
+
+#: general-feature.page:26(page/title)
+msgid "Why doesn't <app>Anjuta</app> have my favourite XYZ feature?"
+msgstr "Warum hat <app>Anjuta</app> mein Lieblings-Funktionsmerkmal XYZ nicht?"
+
+#: general-feature.page:28(page/p)
+msgid ""
+"Because you haven't added them ? This is free software. You are free to, even "
+"encouraged to take the source code and add the features you need. If you "
+"don't think yourself to be capable of doing that, file a request for "
+"enhancement or send a mail to the devel list."
+msgstr ""
+"Vielleicht weil Sie es nicht hinzugefügt haben...? Dies ist freie Software. "
+"Es steht Ihnen frei und ist ausdrücklich erwünscht, den Quellcode zu "
+"bearbeiten und die von Ihnen benötigten Funktionsmerkmale hinzuzufügen. Wenn "
+"Sie meinen, dass Sie sich das zutrauen können, senden Sie einen "
+"Verbesserungsvorschlag in Bugzilla oder schreiben Sie eine E-Mail an die "
+"Mailingliste der Entwickler."
+
+#: general-name.page:26(page/title)
+msgid "What does the name <app>Anjuta</app> stand for?"
+msgstr "Wofür steht der Name <app>Anjuta</app>?"
+
+#: general-name.page:28(page/p)
+msgid ""
+"It is not one of those recursive names. <app>Anjuta</app> is the name of Naba "
+"Kumar's (founder) girlfriend. This software is dedicated to her."
+msgstr ""
+"Es handelt sich dabei nicht um eine der häufig anzutreffenden rekursiven "
+"Abkürzungen. <app>Anjuta</app> ist der Name von Naba Kumars (früherer) "
+"Freundin. Diese Software ist ihr gewidmet."
+
+#: general-windows.page:7(info/desc)
+msgid "It is not planned."
+msgstr "Das ist nicht geplant."
+
+#: general-windows.page:26(page/title)
+msgid "Is here/will there ever be <app>Anjuta</app> for MS Windows?"
+msgstr "Gibt es <app>Anjuta</app> for MS Windows oder wird es das jemals geben?"
+
+#: general-windows.page:28(page/p)
+msgid ""
+"There is no native port for Windows and it most likely won't ever be. "
+"However, if you are interested, feel free to contact us."
+msgstr ""
+"Es gibt keine Portierung für Windows, und es ist unwahrscheinlich, das es "
+"jemals eine solche Version geben wird. Falls Die dennoch daran interessiert "
+"sind, nehmen Sie Kontakt mit uns auf."
+
+#: index.page:6(info/desc)
+msgid "Frequently asked questions"
+msgstr "Häufig gestellte Fragen"
+
+#: index.page:24(page/title)
+msgid "FAQ"
+msgstr "FAQ"
+
+#: index.page:28(section/title)
+msgid "General"
+msgstr "Allgemein"
+
+#: index.page:32(section/title)
+msgid "Editor"
+msgstr "Editor"
+
+#: index.page:36(section/title)
+msgid "Project"
+msgstr "Projekt"
+
+#: project-existing.page:7(info/desc)
+msgid "Simply import the project in <app>Anjuta</app>."
+msgstr "Importieren Sie einfach ein Projekt in <app>Anjuta</app>."
+
+#: project-existing.page:16(page/title)
+msgid "How can I use anjuta with an existing project?"
+msgstr "Wie kann ich Anjuta für ein existierendes Projekt verwenden?"
+
+#: project-existing.page:18(page/p)
+msgid ""
+"Just run <guiseq><gui>File</gui><gui>New</gui><gui>Project from existing "
+"sources</gui></guiseq>."
+msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Neu</gui><gui>Projekt aus vorhandenen "
+"Quellen</gui></guiseq>."
+
+#: project-existing.page:20(page/p)
+msgid ""
+"<app>Anjuta</app> has not its own project format and uses already existing "
+"project format, like autotools or makefile. On Linux, the most common format "
+"is autotools and it is supported quite well."
+msgstr ""
+"<app>Anjuta</app> hat kein eigenes Projektformat und nutzt bereits vorhandene "
+"Formate, wie Autotools oder Makefile. Anter Linux werden die Autotools am "
+"häufigsten verwendet und deren Funktionsmerkmale sehr gut unterstützt."
+
+#: project-resource.page:7(info/desc)
+msgid "Add a folder and a data target."
+msgstr "Einen Ordner und ein Datenziel hinzufügen."
+
+#: project-resource.page:16(page/title)
+msgid "How to add a directory containing icons to a project"
+msgstr "Einen Ordner zu einem Projekt hinzufügen, welcher Symbole enthält"
+
+#: project-resource.page:18(page/p)
+msgid ""
+"In an autotools project, you can add a new directory by creating a folder "
+"(<guiseq><gui>Project</gui><gui>New Folder...</gui></guiseq>). Then inside "
+"this folder create a new data target (<guiseq><gui>Project</gui><gui>New "
+"Target...</gui></guiseq>) and add the files corresponding to the icons to "
+"this target (<guiseq><gui>Project</gui><gui>New Source...</gui></guiseq>)."
+msgstr ""
+"Fügen Sie in einem Autotools-Projekt einen neuen Ordner hinzu: "
+"<guiseq><gui>Projekt</gui><gui>Neuer Ordner …</gui></guiseq>. Dann erstellen "
+"Sie innerhalb dieses Ordners ein neues Datenziel (<guiseq><gui>Projekt</"
+"gui><gui>Neues Ziel …</gui></guiseq>) und fügen die Dateien entsprechend den "
+"Symbolen zu diesem Ziel hinzu (<guiseq><gui>Projekt</gui><gui>Neue Quelle …</"
+"gui></guiseq>)."

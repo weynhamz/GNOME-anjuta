@@ -12,7 +12,7 @@ DOC_PAGES = \
 	general-windows.page \
 	project-existing.page \
 	project-resource.page
-DOC_LINGUAS =
+DOC_LINGUAS = de
 DOC_FIGURES =
 
 dist-hook: doc-dist-hook
