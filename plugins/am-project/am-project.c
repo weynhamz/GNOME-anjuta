@@ -1624,6 +1624,14 @@ amp_project_duplicate_node (AnjutaProjectNode *old_node)
 		// the value will be overwritten with the new node empty value.
 		amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
 	}
+	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
+	{
+
+		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_CONFIGURE), AM_GROUP_TOKEN_CONFIGURE);
+		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_SUBDIRS), AM_GROUP_TOKEN_SUBDIRS);
+		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_DIST_SUBDIRS), AM_GROUP_TOKEN_DIST_SUBDIRS);
+
+	}
 	if (anjuta_project_node_parent (old_node) == NULL)
 	{
 		// FIXME: It would be better to write a duplicate function to avoid this code
