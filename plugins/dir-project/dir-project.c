@@ -629,12 +629,15 @@ dir_project_load_directory_callback (GObject      *source_object,
 			     node != NULL;
 			     node = anjuta_project_node_next_sibling (node))
 			{
-				if (g_file_equal (file, node->file))
+				source = (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_OBJECT) ?
+					anjuta_project_node_first_child (node) :
+					node;
+				if (g_file_equal (file, anjuta_project_node_get_file (source)))
 				{
-					source = node;
-					anjuta_project_node_clear_state (source, ANJUTA_PROJECT_LOADING);
+					anjuta_project_node_clear_state (node, ANJUTA_PROJECT_LOADING);
 					break;
 				}
+				source = NULL;
 			}
 
 			if (source == NULL)
