@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-07 13:04+0100\n"
-"PO-Revision-Date: 2012-03-07 13:05+0100\n"
+"POT-Creation-Date: 2012-03-19 00:12+0100\n"
+"PO-Revision-Date: 2012-03-19 00:13+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -705,10 +705,10 @@ msgstr ""
 "O nome do grupo só pode conter caracteres alfanuméricos ou \"#$:%+,-.=@^_`~\""
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -721,13 +721,13 @@ msgid "Root"
 msgstr "Raíz"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:879
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:883
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Orixe"
@@ -790,11 +790,11 @@ msgstr "Módulo"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Non foi posíbel analizar o ficheiro do proxecto"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "O proxecto non existe ou ten unha ruta non válida"
@@ -3509,15 +3509,15 @@ msgstr "Buscar"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Falta o nome"
 
-#: ../plugins/dir-project/dir-project.c:1001
-#: ../plugins/dir-project/dir-project.c:1011
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3594,7 +3594,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "Substituí_r"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[só de lectura]"
 
@@ -3990,7 +3990,7 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresións regulares"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
@@ -5926,45 +5926,45 @@ msgstr "Etiquetas do API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Código engadido para o widget."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
 "sangría"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Comentar ou descomentar a selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Intercambiar os ficheiros C da cabeceira e da fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Asistencia C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8331,7 +8331,7 @@ msgstr "Use tabulacións para a sangría"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Indentation and auto-format options"
-msgstr "Opcións de sangrado e autoformato"
+msgstr "Preferencias de sangrado e autoformato"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Highlight syntax"
@@ -8442,7 +8442,7 @@ msgstr "Configuración de visualización do editor"
 msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8451,7 +8451,7 @@ msgstr ""
 "O ficheiro «%s» no disco é máis recente que o que está no búfer actual.\n"
 "Quere recargalo?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8461,18 +8461,18 @@ msgstr ""
 "Quere pechalo?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Non foi posíbel abrir %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "O ficheiro «%s» é de só lectura! Quere editalo de todas as formas?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Non foi posíbel gardar %s: %s"
