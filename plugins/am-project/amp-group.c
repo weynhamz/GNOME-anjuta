@@ -265,7 +265,7 @@ amp_variable_free (AmpVariable *variable)
 void
 amp_group_node_add_token (AmpGroupNode *group, AnjutaToken *token, AmpGroupNodeTokenCategory category)
 {
-	group->tokens[category] = g_list_prepend (group->tokens[category], token);
+	if (token != NULL) group->tokens[category] = g_list_prepend (group->tokens[category], token);
 }
 
 void
