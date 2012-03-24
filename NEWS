@@ -1,3 +1,94 @@
+Anjuta 3.3.92 "This week needs more speed" (20 March 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.2.x!
+
+Akom Chotiphantawanon (1):
+      Updated Thai translation.
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Antonio Fernandes C. Neto (1):
+      Updated Brazilian Portuguese translation
+
+Bruce Cowan (1):
+      Updated British English translation
+
+Bruno Brouard (1):
+      Updated French translation
+
+Carles Ferrando (1):
+      [l10n]Updated Catalan (Valencian) translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Daniel Mustieles (3):
+      Updated Spanish translation
+
+Daniel Nylander (1):
+      Updated Swedish translation
+
+Fran Diéguez (2):
+      Updated Galician translations
+
+Gabor Kelemen (2):
+      Updated Hungarian translation
+
+Joan Duran (1):
+      [l10n] Updated Catalan translation
+
+Johannes Schmid (2):
+      document-manager: Destroy page with gtk_widget_destroy() instead of gtk_container_remove()
+      sourceview: Correcly unref the buffer
+
+Kenneth Nielsen (1):
+      Updated Danish translation
+
+Khoem Sokhem (1):
+      Add Khmer translation.
+
+Krishnababu Krothapalli (1):
+      Updated Telugu Translations
+
+Marco Diego Aurélio Mesquita (2):
+      Fix marker comment for simple gtk+ project.
+      Prevent multiple declarations for the same member widget.
+
+Mario Blättermann (2):
+      [l10n] Updated German doc translation
+      [l10n] Added German faq translation
+
+Massimo Corà (1):
+      symbol-db: fixed scope_definition_id creation.
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Paul Seyfert (1):
+      [l10n] Updated German translation
+
+Piotr Drąg (1):
+      Updated Polish translation
+
+Sébastien Granjoux (6):
+      dir-project: Allow to add and remove source files
+      project-manager: Allow to add groups to the root of directory project
+      am-project: Avoid a crash when adding a second group at an upper level
+      am-project: Keep sibling when reloading a node
+      dir-project: Avoid a crash when closing a project
+      dir-project: Avoid duplicated files in project view when reloading project
+
+Timo Jyrinki (1):
+      Finnish translation update from http://l10n.laxstrom.name/wiki/Gnome_3.4 translation sprint
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
+Мирослав Николић (1):
+      Updated Serbian translation
+
 Anjuta 3.3.91 "Im Osten nichts Neues" (5 März 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
