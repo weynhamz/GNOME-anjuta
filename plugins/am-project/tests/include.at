@@ -18,6 +18,9 @@ AT_DATA([expect],
 [[ROOT (): include_ac
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): include.m4
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load include_ac \
 		 list])
@@ -42,6 +45,9 @@ AT_DATA([expect],
 [[ROOT (): include
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): GNUmakefile.am
+    SOURCE (): module/target.am
 ]])
 AT_PARSER_CHECK([load include \
 		 list])

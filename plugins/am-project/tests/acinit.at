@@ -9,6 +9,8 @@ AT_DATA([empty/Makefile.am],
 AT_DATA([expect],
 [[ROOT (): empty
     PROPERTY (Name): empty
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load empty \
 		 set 0 name empty \
@@ -24,6 +26,8 @@ AT_CHECK([diff -b output expect])
 AT_DATA([expect],
 [[ROOT (): empty
      PROPERTY (Name): empty2
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load empty \
 		 set 0 name empty2 \
@@ -40,6 +44,8 @@ AT_DATA([expect],
 [[ROOT (): empty
     PROPERTY (Name): empty2
     PROPERTY (Version): 0.1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load empty \
 		 set 0 version 0.1 \
@@ -57,6 +63,8 @@ AT_DATA([expect],
     PROPERTY (Name): empty2
     PROPERTY (Version): 0.1
     PROPERTY (Package name): empty3
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load empty \
 		 set 0 pack empty3 \
@@ -80,6 +88,8 @@ AT_DATA([simple/Makefile.am],
 AT_DATA([expect],
 [[ROOT (): simple
     PROPERTY (Name): simple
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load simple \
 		list])
@@ -102,6 +112,8 @@ AT_DATA([expect],
     PROPERTY (Name): rygel
     PROPERTY (Version): m4_esyscmd(GNOME_TAG_PATTERN=RYGEL build-aux/git-version-gen .tarball-version)
     PROPERTY (Bug report URL): http://bugzilla.gnome.org/enter_bug.cgi?product=Rygel
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load rygel \
 		list])

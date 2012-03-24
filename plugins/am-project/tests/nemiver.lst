@@ -122,6 +122,7 @@ ROOT (): nemiver
                 SOURCE (): src/common/nmv-delete-statement.h
                 SOURCE (): src/common/nmv-proc-utils.h
                 SOURCE (): src/common/nmv-proc-mgr.h
+            SOURCE (): src/common/Makefile.am
         GROUP (): dbdimpl
             GROUP (): sqlite
                 PROPERTY (Installation directories): sqlitedriverdir = $libdir/nemiver/modules configdir = $libdir/nemiver/config
@@ -136,6 +137,8 @@ ROOT (): nemiver
                 TARGET (): config
                     PROPERTY (Installation directory): configdir
                     SOURCE (): src/dbdimpl/sqlite/org.nemiver.db.sqlitedriver.conf
+                SOURCE (): src/dbdimpl/sqlite/Makefile.am
+            SOURCE (): src/dbdimpl/Makefile.am
         GROUP (): langs
             TARGET (): libnemivercparser.la
                 PROPERTY (Do not install): true
@@ -151,6 +154,7 @@ ROOT (): nemiver
                 SOURCE (): src/langs/nmv-cpp-ast-utils.cc
                 SOURCE (): src/langs/nmv-cpp-parser.h
                 SOURCE (): src/langs/nmv-cpp-parser.cc
+            SOURCE (): src/langs/Makefile.am
         GROUP (): dbgengine
             PROPERTY (Installation directories): gdbmoddir = $libdir/nemiver/modules varlistmoddir = $libdir/nemiver/modules varwalkermoddir = $libdir/nemiver/modules varobjwalkermoddir = $libdir/nemiver/modules varlistwalkermoddir = $libdir/nemiver/modules cpptraitmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
             TARGET (): libgdbmod.la
@@ -227,6 +231,7 @@ ROOT (): nemiver
                 SOURCE (): src/dbgengine/varobjwalker.conf
                 SOURCE (): src/dbgengine/varlistwalker.conf
                 SOURCE (): src/dbgengine/cpptrait.conf
+            SOURCE (): src/dbgengine/Makefile.am
         GROUP (): confmgr
             PROPERTY (Installation directories): gconfmgrmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
             TARGET (): libgconfmgrmod.la
@@ -241,6 +246,7 @@ ROOT (): nemiver
             TARGET (): config
                 PROPERTY (Installation directory): configdir
                 SOURCE (): src/confmgr/gconfmgr.conf
+            SOURCE (): src/confmgr/Makefile.am
         GROUP (): uicommon
             TARGET (): libnemiveruicommon.la
                 PROPERTY (Do not install): true
@@ -263,6 +269,7 @@ ROOT (): nemiver
                 SOURCE (): src/uicommon/nmv-source-editor.cc
                 SOURCE (): src/uicommon/nmv-source-editor.h
                 SOURCE (): src/uicommon/$(memoryview_sources)
+            SOURCE (): src/uicommon/Makefile.am
         GROUP (): workbench
             PROPERTY (Installation directories): workbenchmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
             GROUP (): schemas
@@ -270,6 +277,7 @@ ROOT (): nemiver
                 TARGET (): schemas
                     PROPERTY (Installation directory): schemasdir
                     SOURCE (): src/workbench/schemas/nemiver-workbench.schemas
+                SOURCE (): src/workbench/schemas/Makefile.am
             TARGET (): libworkbenchmod.la
                 PROPERTY (Installation directory): workbenchmoddir
                 PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
@@ -285,6 +293,7 @@ ROOT (): nemiver
             TARGET (): config
                 PROPERTY (Installation directory): configdir
                 SOURCE (): src/workbench/workbench.conf
+            SOURCE (): src/workbench/Makefile.am
         GROUP (): persp
             PROPERTY (Installation directories): publicheadersdir = $includedir/nemiver/dynmods
             GROUP (): dbgperspective
@@ -309,6 +318,7 @@ ROOT (): nemiver
                         SOURCE (): src/persp/dbgperspective/glade/globalvarsinspector.glade
                         SOURCE (): src/persp/dbgperspective/glade/callfunctiondialog.glade
                         SOURCE (): src/persp/dbgperspective/glade/watchpointdialog.glade
+                    SOURCE (): src/persp/dbgperspective/glade/Makefile.am
                 GROUP (): menus
                     PROPERTY (Installation directories): menusdir = $libdir/nemiver/plugins/dbgperspective/menus
                     TARGET (): menus
@@ -322,6 +332,7 @@ ROOT (): nemiver
                         SOURCE (): src/persp/dbgperspective/menus/varinspectorpopup.xml
                         SOURCE (): src/persp/dbgperspective/menus/localvarsinspectorpopup.todelete.xml
                         SOURCE (): src/persp/dbgperspective/menus/localvarsinspectorpopup.xml
+                    SOURCE (): src/persp/dbgperspective/menus/Makefile.am
                 GROUP (): icons
                     PROPERTY (Installation directories): iconsdir = $libdir/nemiver/plugins/dbgperspective/icons
                     TARGET (): icons
@@ -335,6 +346,7 @@ ROOT (): nemiver
                         SOURCE (): src/persp/dbgperspective/icons/step-out.xpm
                         SOURCE (): src/persp/dbgperspective/icons/step-over.xpm
                         SOURCE (): src/persp/dbgperspective/icons/throbber.gif
+                    SOURCE (): src/persp/dbgperspective/icons/Makefile.am
                 GROUP (): sqlscripts
                     GROUP (): sqlite
                         PROPERTY (Installation directories): sqlfilesdir = $libdir/nemiver/plugins/dbgperspective/sqlscripts
@@ -342,11 +354,14 @@ ROOT (): nemiver
                             PROPERTY (Installation directory): sqlfilesdir
                             SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/create-tables.sql
                             SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/drop-tables.sql
+                        SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/Makefile.am
+                    SOURCE (): src/persp/dbgperspective/sqlscripts/Makefile.am
                 GROUP (): schemas
                     PROPERTY (Installation directories): schemasdir = $(GCONF_SCHEMA_FILE_DIR)
                     TARGET (): schemas
                         PROPERTY (Installation directory): schemasdir
                         SOURCE (): src/persp/dbgperspective/schemas/nemiver-dbgperspective.schemas
+                    SOURCE (): src/persp/dbgperspective/schemas/Makefile.am
                 TARGET (): pluginconfig
                     PROPERTY (Installation directory): pluginconfigdir
                     SOURCE (): src/persp/dbgperspective/plugin-descriptor.xml
@@ -411,23 +426,28 @@ ROOT (): nemiver
                     SOURCE (): src/persp/dbgperspective/nmv-call-function-dialog.h
                     SOURCE (): src/persp/dbgperspective/nmv-call-function-dialog.cc
                     SOURCE (): src/persp/dbgperspective/$(memoryview_sources)
+                SOURCE (): src/persp/dbgperspective/Makefile.am
             TARGET (): publicheaders
                 PROPERTY (Installation directory): publicheadersdir
                 SOURCE (): src/persp/nmv-i-perspective.h
+            SOURCE (): src/persp/Makefile.am
         TARGET (): nemiver
             PROPERTY (Installation directory): bindir
             PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
             SOURCE (): src/main.cc
+        SOURCE (): src/Makefile.am
     GROUP (): glade
         PROPERTY (Installation directories): gladedir = $(datadir)/@PACKAGE@/glade
         TARGET (): glade
             PROPERTY (Installation directory): gladedir
             SOURCE (): glade/workbench.glade
+        SOURCE (): glade/Makefile.am
     GROUP (): menus
         PROPERTY (Installation directories): menusdir = $(datadir)/@PACKAGE@/menus
         TARGET (): menus
             PROPERTY (Installation directory): menusdir
             SOURCE (): menus/menubar.xml
+        SOURCE (): menus/Makefile.am
     GROUP (): tests
         TARGET (): $(TESTS)
             PROPERTY (Do not install): true
@@ -476,6 +496,7 @@ ROOT (): nemiver
             PROPERTY (Do not install): true
             PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
             SOURCE (): tests/threads.cc
+        SOURCE (): tests/Makefile.am
     GROUP (): po
     GROUP (): data
         PROPERTY (Installation directories): desktopdir = $(datadir)/applications
@@ -486,38 +507,51 @@ ROOT (): nemiver
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/16x16/nemiver.png
+                SOURCE (): data/icons/16x16/Makefile.am
             GROUP (): 22x22
                 PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/22x22/apps
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/22x22/nemiver.png
+                SOURCE (): data/icons/22x22/Makefile.am
             GROUP (): 24x24
                 PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/24x24/apps
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/24x24/nemiver.png
+                SOURCE (): data/icons/24x24/Makefile.am
             GROUP (): 32x32
                 PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/32x32/apps
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/32x32/nemiver.png
+                SOURCE (): data/icons/32x32/Makefile.am
             GROUP (): 48x48
                 PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/48x48/apps
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/48x48/nemiver.png
+                SOURCE (): data/icons/48x48/Makefile.am
             GROUP (): scalable
                 PROPERTY (Installation directories): icondir = $(datadir)/icons/hicolor/scalable/apps
                 TARGET (): icon
                     PROPERTY (Installation directory): icondir
                     SOURCE (): data/icons/scalable/nemiver.svg
+                SOURCE (): data/icons/scalable/Makefile.am
+            SOURCE (): data/icons/Makefile.am
         TARGET (): desktop
             PROPERTY (Installation directory): desktopdir
             SOURCE (): data/$(desktop_in_files:.desktop.in=.desktop)
         TARGET (): man_MANS
             SOURCE (): data/nemiver.1
+        SOURCE (): data/Makefile.am
     GROUP (): docs
+        SOURCE (): docs/Makefile.am
     GROUP (): help
+        SOURCE (): help/Makefile.am
+        SOURCE (): help/$(top_srcdir)/gnome-doc-utils.make
     TARGET (): publicheaders
         PROPERTY (Installation directory): publicheadersdir
         SOURCE (): config.h
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am

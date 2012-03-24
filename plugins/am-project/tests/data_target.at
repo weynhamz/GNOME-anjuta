@@ -27,6 +27,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): target2dir
         SOURCE (): data2.txt
         SOURCE (): data3.txt
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load data \
 		 list \
@@ -41,6 +43,8 @@ AT_DATA([expect],
     TARGET (): target1
         PROPERTY (Installation directory): target1dir
         SOURCE (): data1.txt
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -51,7 +55,7 @@ target1_DATA = data1.txt
 ]])
 AT_PARSER_CHECK([load data \
 	 move data1 \
-	 remove 0:1 \
+	 remove 0:3 \
 	 list \
 	 save])
 AT_CHECK([diff -b data1/Makefile.am reference])
@@ -71,6 +75,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): datadir
         SOURCE (): data4.txt
         SOURCE (): data5.txt
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -85,8 +91,8 @@ data_DATA = data4.txt \
 AT_PARSER_CHECK([load data1 \
 		 move data2 \
 		 add target 0 target3 data \
-		 add source 0:1 data4.txt \
-		 add source 0:1 data5.txt \
+		 add source 0:3 data4.txt \
+		 add source 0:3 data5.txt \
 		 list \
 		 save])
 AT_CHECK([diff -b data2/Makefile.am reference])
@@ -102,6 +108,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): datadir
         SOURCE (): data4.txt
         SOURCE (): data5.txt
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -112,7 +120,7 @@ data_DATA = data4.txt \
 ]])
 AT_PARSER_CHECK([load data2 \
 		 move data3 \
-		 remove 0:0 \
+		 remove 0:2 \
 		 list \
 		 save])
 AT_CHECK([diff -b data3/Makefile.am reference])

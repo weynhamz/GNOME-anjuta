@@ -14,6 +14,8 @@ AT_DATA([expect],
 [[ROOT (): bug1
     PROPERTY (Name): Ibl_server
     PROPERTY (Version): 1.02
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load project1 \
 		 move bug1 \

@@ -23,10 +23,12 @@ AT_DATA([expect],
         MODULE (): MODULE1
     TARGET (): program
         PROPERTY (Do not install): true
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load simple \
 		 move simple1 \
-		 add module 0:1 MODULE1 \
+		 add module 0:3 MODULE1 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple1 \
@@ -48,10 +50,12 @@ AT_DATA([expect],
         PROPERTY (Do not install): true
         PROPERTY (Libraries): $(MODULE1_LIBS)
         MODULE (): MODULE1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load simple1 \
 		 move simple2 \
-		 add module 0:2 MODULE1 \
+		 add module 0:4 MODULE1 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple2 \
@@ -71,10 +75,12 @@ AT_DATA([expect],
         PROPERTY (Do not install): true
         PROPERTY (Libraries): $(MODULE1_LIBS)
         MODULE (): MODULE1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load simple2 \
 		 move simple3 \
-		 remove 0:1:0 \
+		 remove 0:3:0 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple3 \
@@ -91,10 +97,12 @@ AT_DATA([expect],
         PROPERTY (Installation directory): libdir
     TARGET (): program
         PROPERTY (Do not install): true
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load simple3 \
 		 move simple4 \
-		 remove 0:2:0 \
+		 remove 0:4:0 \
 		 list \
 		 save])
 AT_PARSER_CHECK([load simple4 \

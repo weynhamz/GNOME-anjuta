@@ -8,6 +8,8 @@ AT_DATA([empty/Makefile.am],
 ]])
 AT_DATA([expect],
 [[ROOT (): empty
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load empty \
 		 list])

@@ -12,10 +12,12 @@ AT_DATA([project1/Makefile.am],
 [[]])
 AT_DATA([expect],
 [[ROOT (): bug1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load project1 \
 		 move bug1 \
-		 remove 0:0 \
+		 remove 0:1 \
 		 list \
 		 save])
 AT_CHECK([diff output expect])
@@ -40,6 +42,8 @@ AT_DATA([expect],
     TARGET (): program
         PROPERTY (C compiler flags): -g
         PROPERTY (Do not install): true
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load project2 \
 		 list])
@@ -65,6 +69,8 @@ AT_DATA([expect],
 [[ROOT (): project3
     TARGET (): program
         PROPERTY (Do not install): true
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load project3 \
 		 list])

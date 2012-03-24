@@ -15,6 +15,8 @@ AT_DATA([expect],
     TARGET (): target1
         PROPERTY (Installation directory): bindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -24,7 +26,7 @@ target1_LDADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty \
 		move empty1 \
-		set 0:0 lib '$(GDL_LIBS)' \
+		set 0:2 lib '$(GDL_LIBS)' \
 		list \
 		save])
 AT_CHECK([diff -b empty1/Makefile.am reference.am])
@@ -39,6 +41,8 @@ AT_DATA([expect],
     TARGET (): target1
         PROPERTY (Installation directory): bindir
         PROPERTY (Libraries): $(GDL_LIBS) $(GLIB_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -49,7 +53,7 @@ target1_LDADD = $(GDL_LIBS) \
 ]])
 AT_PARSER_CHECK([load empty1 \
 		move empty2 \
-		set 0:0 lib '$(GDL_LIBS) $(GLIB_LIBS)' \
+		set 0:2 lib '$(GDL_LIBS) $(GLIB_LIBS)' \
 		list \
 		save])
 AT_CHECK([diff -b empty2/Makefile.am reference.am])
@@ -64,6 +68,8 @@ AT_DATA([expect],
     TARGET (): target1
         PROPERTY (Installation directory): bindir
         PROPERTY (Libraries): $(GLIB_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -73,7 +79,7 @@ target1_LDADD = $(GLIB_LIBS)
 ]])
 AT_PARSER_CHECK([load empty2 \
 		move empty3 \
-		set 0:0 lib '$(GLIB_LIBS)' \
+		set 0:2 lib '$(GLIB_LIBS)' \
 		list \
 		save])
 AT_CHECK([diff -b empty3/Makefile.am reference.am])
@@ -87,6 +93,8 @@ AT_DATA([expect],
 [[ROOT (): empty4
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -94,7 +102,7 @@ bin_PROGRAMS = target1
 ]])
 AT_PARSER_CHECK([load empty3 \
 		move empty4 \
-		clear 0:0 lib \
+		clear 0:2 lib \
 		list \
 		save])
 AT_CHECK([diff -b empty4/Makefile.am reference.am])
@@ -111,6 +119,8 @@ AT_DATA([expect],
         PROPERTY (Libraries): $(GDL_LIBS)
     TARGET (): target2
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -121,7 +131,7 @@ target1_LDADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty4 \
 		move empty5 \
-		set 0:0 lib '$(GDL_LIBS)' \
+		set 0:2 lib '$(GDL_LIBS)' \
 		add target 0 target2 prog \
 		list \
 		save])
@@ -140,6 +150,8 @@ AT_DATA([expect],
     TARGET (): target2
         PROPERTY (Installation directory): bindir
         SOURCE (): source1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -153,7 +165,7 @@ target2_SOURCES =  \
 ]])
 AT_PARSER_CHECK([load empty5 \
 		move empty6 \
-		add source 0:1 source1 \
+		add source 0:3 source1 \
 		list \
 		save])
 AT_CHECK([diff -b empty6/Makefile.am reference.am])
@@ -172,6 +184,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): bindir
         PROPERTY (Libraries): $(GDL_LIBS)
         SOURCE (): source1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -187,7 +201,7 @@ target2_LDADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty6 \
 		move empty7 \
-		set 0:1 lib '$(GDL_LIBS)' \
+		set 0:3 lib '$(GDL_LIBS)' \
 		list \
 		save])
 AT_CHECK([diff -b empty7/Makefile.am reference.am])
@@ -207,6 +221,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): bindir
         PROPERTY (Libraries): $(GDL_LIBS)
         SOURCE (): source1
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -225,7 +241,7 @@ target2_LDADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty7 \
 		move empty8 \
-		add source 0:0 source2 \
+		add source 0:2 source2 \
 		list \
 		save])
 AT_CHECK([diff -b empty8/Makefile.am reference.am])
@@ -247,6 +263,8 @@ AT_DATA([expect],
         SOURCE (): source1
     TARGET (): library1.la
         PROPERTY (Installation directory): libdir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -291,6 +309,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): libdir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -314,7 +334,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty9 \
 		move empty10 \
-		set 0:2 lib '$(GDL_LIBS)' \
+		set 0:4 lib '$(GDL_LIBS)' \
 		list \
 		save])
 AT_CHECK([diff -b empty10/Makefile.am reference.am])
@@ -338,6 +358,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): plugindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -362,7 +384,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty10 \
 		move empty11 \
-		set 0:2 instdir 'plugindir' \
+		set 0:4 instdir 'plugindir' \
 		list \
 		save])
 AT_CHECK([diff -b empty11/Makefile.am reference.am])
@@ -386,6 +408,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): plugindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -413,7 +437,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty11 \
 		move empty12 \
-		set 0:0 instdir 'progdir' \
+		set 0:2 instdir 'progdir' \
 		list \
 		save])
 AT_CHECK([diff -b empty12/Makefile.am reference.am])
@@ -437,6 +461,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): plugindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -461,7 +487,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty12 \
 		move empty13 \
-		set 0:0 instdir 'bindir' \
+		set 0:2 instdir 'bindir' \
 		list \
 		save])
 AT_CHECK([diff -b empty13/Makefile.am reference.am])
@@ -485,6 +511,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): plugindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -512,7 +540,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty13 \
 		move empty14 \
-		set 0:1 instdir 'progdir' \
+		set 0:3 instdir 'progdir' \
 		list \
 		save])
 AT_CHECK([diff -b empty14/Makefile.am reference.am])
@@ -536,6 +564,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): plugindir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -560,7 +590,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty14 \
 		move empty15 \
-		set 0:1 instdir 'bindir' \
+		set 0:3 instdir 'bindir' \
 		list \
 		save])
 AT_CHECK([diff -b empty15/Makefile.am reference.am])
@@ -584,6 +614,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Do not install): true
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -608,7 +640,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty15 \
 		move empty16 \
-		set 0:2 noinst 1 \
+		set 0:4 noinst 1 \
 		list \
 		save])
 AT_CHECK([diff -b empty16/Makefile.am reference.am])
@@ -632,6 +664,8 @@ AT_DATA([expect],
     TARGET (): library1.la
         PROPERTY (Installation directory): libdir
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -656,7 +690,7 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty16 \
 		move empty17 \
-		set 0:2 noinst 0 \
+		set 0:4 noinst 0 \
 		list \
 		save])
 AT_CHECK([diff -b empty17/Makefile.am reference.am])
@@ -681,6 +715,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): plugindir
         PROPERTY (Build for check only): true
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -705,8 +741,8 @@ library1_la_LIBADD = $(GDL_LIBS)
 ]])
 AT_PARSER_CHECK([load empty17 \
 		move empty18 \
-		set 0:2 check 1 \
-		set 0:2 instdir 'plugin' \
+		set 0:4 check 1 \
+		set 0:4 instdir 'plugin' \
 		list \
 		save])
 AT_CHECK([diff -b empty18/Makefile.am reference.am])
@@ -731,6 +767,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): plugindir
         PROPERTY (Build for check only): true
         PROPERTY (Libraries): $(GDL_LIBS)
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[

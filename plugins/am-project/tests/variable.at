@@ -17,6 +17,8 @@ AT_DATA([expect],
 [[ROOT (): variable_ac1
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable_ac1 \
 		 list])
@@ -38,6 +40,8 @@ AT_DATA([expect],
 [[ROOT (): variable_ac2
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable_ac2 \
 		 list])
@@ -67,6 +71,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): bindir
         PROPERTY (Linker flags): $plugin-$plugin
         PROPERTY (C compiler flags): -O0
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable_ac3 \
 		 list])
@@ -87,6 +93,8 @@ AT_DATA([expect],
 [[ROOT (): variable
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable \
 		 list])
@@ -107,6 +115,8 @@ AT_DATA([expect],
 [[ROOT (): variable2
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable2 \
 		 list])
@@ -128,6 +138,8 @@ AT_DATA([expect],
 [[ROOT (): variable3
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable3 \
 		 list])
@@ -149,6 +161,8 @@ AT_DATA([expect],
 [[ROOT (): variable4
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable4 \
 		 list])
@@ -177,6 +191,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): bindir
         SOURCE (): source1.c
         SOURCE (): source2.c
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load variable5 \
 		 list])

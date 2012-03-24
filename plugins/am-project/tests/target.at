@@ -12,6 +12,8 @@ AT_DATA([expect],
 [[ROOT (): empty1
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -38,6 +40,8 @@ AT_DATA([expect],
         PROPERTY (Installation directory): bindir
     TARGET (): target2
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -49,7 +53,7 @@ bin_PROGRAMS = \
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
-		 add target 0 target2 prog after 0:0\
+		 add target 0 target2 prog after 0:2\
 		 list \
 		 save])
 AT_CHECK([diff -b empty2/Makefile.am reference])
@@ -63,6 +67,8 @@ AT_DATA([expect],
 [[ROOT (): empty3
     TARGET (): target2
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -73,7 +79,7 @@ bin_PROGRAMS = \
 ]])
 AT_PARSER_CHECK([load empty2 \
 		 move empty3 \
-		 remove 0:0 \
+		 remove 0:2 \
 		 list \
 		 save])
 AT_CHECK([diff -b empty3/Makefile.am reference])
@@ -85,6 +91,8 @@ AT_CHECK([diff -b output expect])
 
 AT_DATA([expect],
 [[ROOT (): empty4
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -92,7 +100,7 @@ AT_DATA([reference],
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
-		 remove 0:0 \
+		 remove 0:2 \
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -107,6 +115,8 @@ AT_DATA([expect],
 [[ROOT (): empty5
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -134,6 +144,8 @@ AT_DATA([expect],
         SOURCE (): source1
     TARGET (): target2
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -148,7 +160,7 @@ target1_SOURCES =  \
 ]])
 AT_PARSER_CHECK([load empty5 \
 		 move empty6 \
-		 add source 0:0 source1 \
+		 add source 0:2 source1 \
 		 add target 0 target2 prog \
 		 list \
 		 save])
@@ -167,6 +179,8 @@ AT_DATA([expect],
     TARGET (): target2
         PROPERTY (Installation directory): bindir
         PROPERTY (C compiler flags): -g
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -183,7 +197,7 @@ target2_CFLAGS = -g
 ]])
 AT_PARSER_CHECK([load empty6 \
 		 move empty7 \
-		 set 0:1 ccflags '\-g' \
+		 set 0:3 ccflags '\-g' \
 		 list \
 		 save])
 AT_CHECK([diff -b empty7/Makefile.am reference])
@@ -198,6 +212,8 @@ AT_DATA([expect],
     TARGET (): target2
         PROPERTY (Installation directory): bindir
         PROPERTY (C compiler flags): -g
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -210,7 +226,7 @@ target2_CFLAGS = -g
 ]])
 AT_PARSER_CHECK([load empty7 \
 		 move empty8 \
-		 remove 0:0 \
+		 remove 0:2 \
 		 list \
 		 save])
 AT_CHECK([diff -b empty8/Makefile.am reference])
@@ -222,6 +238,8 @@ AT_CHECK([diff -b output expect])
 
 AT_DATA([expect],
 [[ROOT (): empty9
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[## Process this file with automake to produce Makefile.in
@@ -229,7 +247,7 @@ AT_DATA([reference],
 ]])
 AT_PARSER_CHECK([load empty8 \
 		 move empty9 \
-		 remove 0:0 \
+		 remove 0:2 \
 		 list \
 		 save])
 AT_CHECK([diff -b empty9/Makefile.am reference])
@@ -251,6 +269,8 @@ AT_DATA([expect],
 [[ROOT (): empty10
     TARGET (): target1
         PROPERTY (Installation directory): bindir
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[

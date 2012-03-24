@@ -12,6 +12,9 @@ AT_DATA([empty/Makefile.am],
 AT_DATA([expect],
 [[ROOT (): empty1
     GROUP (): group1
+        SOURCE (): group1/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -41,7 +44,11 @@ AT_CHECK([diff output expect])
 AT_DATA([expect],
 [[ROOT (): empty2
     GROUP (): group1
+        SOURCE (): group1/Makefile.am
     GROUP (): group2
+        SOURCE (): group2/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -57,7 +64,7 @@ group2/Makefile)
 ]])
 AT_PARSER_CHECK([load empty1 \
 		 move empty2 \
-		 add group 0 group2 after 0:0\
+		 add group 0 group2 after 0:2\
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -72,6 +79,9 @@ AT_CHECK([diff -b output expect])
 AT_DATA([expect],
 [[ROOT (): empty3
     GROUP (): group2
+        SOURCE (): group2/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -85,7 +95,7 @@ group2/Makefile)
 ]])
 AT_PARSER_CHECK([load empty2 \
 		 move empty3 \
-		 remove 0:0\
+		 remove 0:2\
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -99,6 +109,8 @@ AT_CHECK([diff -b output expect])
 
 AT_DATA([expect],
 [[ROOT (): empty4
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[ 
@@ -108,7 +120,7 @@ AT_DATA([reference.ac],
 ]])
 AT_PARSER_CHECK([load empty3 \
 		 move empty4 \
-		 remove 0:0\
+		 remove 0:2\
 		 list \
 		 save])
 AT_CHECK([diff -b output expect])
@@ -123,6 +135,9 @@ AT_CHECK([diff -b output expect])
 AT_DATA([expect],
 [[ROOT (): empty1
     GROUP (): group1
+        SOURCE (): group1/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[
@@ -163,6 +178,9 @@ AT_DATA([single/Makefile.am],
 AT_DATA([expect],
 [[ROOT (): single1
     GROUP (): group1
+        SOURCE (): group1/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference.am],
 [[

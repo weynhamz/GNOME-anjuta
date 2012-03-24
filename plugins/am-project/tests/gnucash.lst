@@ -61,6 +61,7 @@ ROOT (): gnucash
                 SOURCE (): doc/examples/swipe.qif
                 SOURCE (): doc/examples/taxreport.gnucash
                 SOURCE (): doc/examples/web.qif
+            SOURCE (): doc/examples/Makefile.am
         TARGET (): doc
             PROPERTY (Installation directory): docdir
             SOURCE (): doc/README.francais
@@ -80,6 +81,7 @@ ROOT (): gnucash
         TARGET (): tips
             PROPERTY (Installation directory): tipsdir
             SOURCE (): doc/tip_of_the_day.list
+        SOURCE (): doc/Makefile.am
     GROUP (): lib
         GROUP (): libc
             PROPERTY (C preprocessor flags): -DOS_WIN32
@@ -94,6 +96,7 @@ ROOT (): gnucash
                 SOURCE (): lib/libc/setenv.h
                 SOURCE (): lib/libc/strptime.h
                 SOURCE (): lib/libc/pow.h
+            SOURCE (): lib/libc/Makefile.am
         GROUP (): guile-www
             PROPERTY (Installation directories): gncscmdir = ${GNC_SHAREDIR}/guile-modules/www
             TARGET (): gncscm
@@ -105,6 +108,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): lib/guile-www/.scm-links
+            SOURCE (): lib/guile-www/Makefile.am
         GROUP (): stf
             PROPERTY (C preprocessor flags): $(GOFFICE_CFLAGS)
             TARGET (): libgnc-stf.la
@@ -117,6 +121,8 @@ ROOT (): gnucash
             TARGET (): noinst_HEADERS
                 PROPERTY (Do not install): true
                 SOURCE (): lib/stf/${REALHDRS}
+            SOURCE (): lib/stf/Makefile.am
+        SOURCE (): lib/Makefile.am
     GROUP (): src
         GROUP (): libqof
             GROUP (): qof
@@ -199,8 +205,12 @@ ROOT (): gnucash
                     PROPERTY (Linker flags): -version-info 1:4:0
                     PROPERTY (Libraries): -lregex /lib/libc/libc-missing.la
                     SOURCE (): src/libqof/qof/gnc-numeric.c
+                SOURCE (): src/libqof/qof/Makefile.am
+            SOURCE (): src/libqof/Makefile.am
         GROUP (): debug
             GROUP (): valgrind
+                SOURCE (): src/debug/valgrind/Makefile.am
+            SOURCE (): src/debug/Makefile.am
         GROUP (): doc
             PROPERTY (Installation directories): docdir = ${GNC_DOC_INSTALL_DIR}
             GROUP (): design
@@ -220,7 +230,10 @@ ROOT (): gnucash
                     SOURCE (): src/doc/design/top-level.texinfo
                     SOURCE (): src/doc/design/type-index.texinfo
                     SOURCE (): src/doc/design/user-preferences.texinfo
+                SOURCE (): src/doc/design/Makefile.am
             GROUP (): xml
+                SOURCE (): src/doc/xml/Makefile.am
+            SOURCE (): src/doc/Makefile.am
         GROUP (): pixmaps
             PROPERTY (Installation directories): gncpixmapdir = ${GNC_PIXMAP_DIR} gnchuge256icondir = ${datadir}/icons/hicolor/256x256/apps gnchuge128icondir = ${datadir}/icons/hicolor/128x128/apps gnclarge96icondir = ${datadir}/icons/hicolor/96x96/apps gnclarge64icondir = ${datadir}/icons/hicolor/64x64/apps gnclarge48icondir = ${datadir}/icons/hicolor/48x48/apps gncmediumicondir = ${datadir}/icons/hicolor/32x32/apps gncsmalltwfouricondir = ${datadir}/icons/hicolor/24x24/apps gncsmalltwtwoicondir = ${datadir}/icons/hicolor/22x22/apps gncextrasmallicondir = ${datadir}/icons/hicolor/16x16/apps gncscalableicondir = ${datadir}/icons/hicolor/scalable/apps
             TARGET (): gncpixmap
@@ -295,6 +308,7 @@ ROOT (): gnucash
             TARGET (): gncscalableicon
                 PROPERTY (Installation directory): gncscalableicondir
                 SOURCE (): src/pixmaps/scalable/gnucash-icon.svg
+            SOURCE (): src/pixmaps/Makefile.am
         GROUP (): test-core
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src ${GLIB_CFLAGS}
             TARGET (): libtest-core.la
@@ -305,6 +319,7 @@ ROOT (): gnucash
             TARGET (): noinst_HEADERS
                 PROPERTY (Do not install): true
                 SOURCE (): src/test-core/test-stuff.h
+            SOURCE (): src/test-core/Makefile.am
         GROUP (): core-utils
             PROPERTY (C preprocessor flags): ${GUILE_INCS} ${GLIB_CFLAGS} ${GCONF_CFLAGS} ${IGE_MAC_CFLAGS} ${QOF_CFLAGS} -I${top_srcdir}/src/libqof/qof -I${top_srcdir}/src
             PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash
@@ -314,6 +329,7 @@ ROOT (): gnucash
                     PROPERTY (Build for check only): true
                 TARGET (): test-resolve-file-path
                     PROPERTY (Build for check only): true
+                SOURCE (): src/core-utils/test/Makefile.am
             TARGET (): libgnc-core-utils.la
                 PROPERTY (Installation directory): libdir
                 PROPERTY (Libraries): ${GUILE_LIBS} ${GLIB_LIBS} ${BINRELOC_LIBS} ${IGE_MAC_LIBS} ${GCONF_LIBS} ${QOF_LIBS}
@@ -346,6 +362,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): src/core-utils/.scm-links
+            SOURCE (): src/core-utils/Makefile.am
         GROUP (): gnc-module
             PROPERTY (C preprocessor flags): -I${top_srcdir}/lib/libc -I${top_srcdir}/src -I${top_srcdir}/src/core-utils ${GLIB_CFLAGS} ${GUILE_INCS}
             PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncincludedir = ${GNC_INCLUDE_DIR}
@@ -366,6 +383,7 @@ ROOT (): gnucash
                         PROPERTY (Do not install): true
                         SOURCE (): src/gnc-module/test/mod-foo/foo.h
                         SOURCE (): src/gnc-module/test/mod-foo/swig-foo.c
+                    SOURCE (): src/gnc-module/test/mod-foo/Makefile.am
                 GROUP (): mod-bar
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
                     TARGET (): libbar.la
@@ -381,6 +399,7 @@ ROOT (): gnucash
                         PROPERTY (Do not install): true
                         SOURCE (): src/gnc-module/test/mod-bar/bar.h
                         SOURCE (): src/gnc-module/test/mod-bar/swig-bar.c
+                    SOURCE (): src/gnc-module/test/mod-bar/Makefile.am
                 GROUP (): mod-baz
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnc-module/test/mod-foo ${GLIB_CFLAGS} ${GUILE_INCS}
                     TARGET (): libbaz.la
@@ -397,6 +416,7 @@ ROOT (): gnucash
                         PROPERTY (Do not install): true
                         SOURCE (): src/gnc-module/test/mod-baz/baz.h
                         SOURCE (): src/gnc-module/test/mod-baz/swig-baz.c
+                    SOURCE (): src/gnc-module/test/mod-baz/Makefile.am
                 GROUP (): misc-mods
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GLIB_CFLAGS} ${GUILE_INCS}
                     TARGET (): libgncmod_futuremodsys.la
@@ -414,6 +434,7 @@ ROOT (): gnucash
                         PROPERTY (Linker flags): -rpath ${PWD} -avoid-version
                         PROPERTY (Libraries): $(GLIB_LIBS)
                         SOURCE (): src/gnc-module/test/misc-mods/agedver.c
+                    SOURCE (): src/gnc-module/test/misc-mods/Makefile.am
                 TARGET (): test-load-c
                     PROPERTY (Build for check only): true
                 TARGET (): test-modsysver
@@ -425,6 +446,7 @@ ROOT (): gnucash
                 TARGET (): test-dynload
                     PROPERTY (Build for check only): true
                     PROPERTY (Linker flags): ${GUILE_LIBS}
+                SOURCE (): src/gnc-module/test/Makefile.am
             TARGET (): libgnc-module.la
                 PROPERTY (Installation directory): libdir
                 PROPERTY (Libraries): ../core-utils/libgnc-core-utils.la ${top_builddir}/lib/libc/libc-missing.la ${GLIB_LIBS} ${GUILE_LIBS}
@@ -440,6 +462,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): src/gnc-module/.scm-links
+            SOURCE (): src/gnc-module/Makefile.am
         GROUP (): engine
             PROPERTY (C preprocessor flags): -I${top_srcdir}/lib/libc -I${top_srcdir}/src/core-utils -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GUILE_INCS}
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncscmdir = ${GNC_SHAREDIR}/scm
@@ -455,6 +478,7 @@ ROOT (): gnucash
                     PROPERTY (Do not install): true
                     SOURCE (): src/engine/test-core/test-engine-stuff.h
                     SOURCE (): src/engine/test-core/test-engine-strings.h
+                SOURCE (): src/engine/test-core/Makefile.am
             GROUP (): test
                 PROPERTY (C preprocessor flags): -I${top_srcdir} -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/test-core -I${top_srcdir}/src/engine -I${top_srcdir}/src/engine/test-core -I${top_srcdir}/src/libqof/qof -I${top_srcdir}/src/core-utils ${GUILE_INCS} ${GLIB_CFLAGS}
                 TARGET (): test-link
@@ -499,6 +523,7 @@ ROOT (): gnucash
                     PROPERTY (Build for check only): true
                 TARGET (): test-transaction-voiding
                     PROPERTY (Build for check only): true
+                SOURCE (): src/engine/test/Makefile.am
             TARGET (): libgncmod-engine.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -638,6 +663,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): src/engine/.scm-links
+            SOURCE (): src/engine/Makefile.am
         GROUP (): backend
             GROUP (): xml
                 PROPERTY (C preprocessor flags): -I.. -I../.. -DLOCALE_DIR=\""$(datadir)/locale"\" -I${top_srcdir}/src/backend -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof -I$(top_srcdir)/src ${LIBXML2_CFLAGS} ${GLIB_CFLAGS} ${GCONF_CFLAGS}
@@ -645,6 +671,8 @@ ROOT (): gnucash
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/lib/libc -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/test-core -I${top_srcdir}/src/engine -I${top_srcdir}/src/engine/test-core -I${top_srcdir}/src/backend/xml -I${top_srcdir}/src/libqof/qof ${LIBXML2_CFLAGS} ${GLIB_CFLAGS} ${GUILE_INCS} ${GCONF_CFLAGS}
                     GROUP (): test-files
                         GROUP (): xml2
+                            SOURCE (): src/backend/xml/test/test-files/xml2/Makefile.am
+                        SOURCE (): src/backend/xml/test/test-files/Makefile.am
                     TARGET (): libgnc-test-file-stuff.la
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ${top_builddir}/src/engine/libgncmod-engine.la
@@ -818,6 +846,7 @@ ROOT (): gnucash
                     TARGET (): noinst_HEADERS
                         PROPERTY (Do not install): true
                         SOURCE (): src/backend/xml/test/test-file-stuff.h
+                    SOURCE (): src/backend/xml/test/Makefile.am
                 TARGET (): libgnc-backend-xml-utils.la
                     PROPERTY (Installation directory): libdir
                     PROPERTY (Libraries): ${GLIB_LIBS} ${GCONF_LIBS} ${LIBXML2_LIBS} ${ZLIB_LIBS} ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/core-utils/libgnc-core-utils.la ${top_builddir}/src/libqof/qof/libgnc-qof.la
@@ -886,6 +915,7 @@ ROOT (): gnucash
                     SOURCE (): src/backend/xml/sixtp-utils.h
                     SOURCE (): src/backend/xml/sixtp.h
                     SOURCE (): src/backend/xml/xml-helpers.h
+                SOURCE (): src/backend/xml/Makefile.am
             GROUP (): sql
                 PROPERTY (C compiler flags): -I.. -I../.. -DLOCALE_DIR=\""$(datadir)/locale"\" -I${top_srcdir}/src/backend -I${top_srcdir}/src/debug -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GUILE_INCS} ${GCONF_CFLAGS} ${WARN_CFLAGS}
                 GROUP (): test
@@ -893,6 +923,7 @@ ROOT (): gnucash
                     TARGET (): test-column-types
                         PROPERTY (Build for check only): true
                         SOURCE (): src/backend/sql/test/test-column-types.c
+                    SOURCE (): src/backend/sql/test/Makefile.am
                 TARGET (): libgnc-backend-sql.la
                     PROPERTY (Installation directory): libdir
                     PROPERTY (Libraries): ${GLIB_LIBS} ${GUILE_LIBS} ${GCONF_LIBS} ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/libqof/qof/libgnc-qof.la
@@ -944,6 +975,7 @@ ROOT (): gnucash
                     SOURCE (): src/backend/sql/gnc-transaction-sql.h
                     SOURCE (): src/backend/sql/gnc-vendor-sql.h
                     SOURCE (): src/backend/sql/escape.h
+                SOURCE (): src/backend/sql/Makefile.am
             GROUP (): ${DBI_DIR}
             GROUP (): dbi
                 PROPERTY (C compiler flags): -I.. -I../.. -DLOCALE_DIR=\""$(datadir)/locale"\" -I${top_srcdir}/src/backend -I${top_srcdir}/src/backend/sql -I${top_srcdir}/src/debug -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GCONF_CFLAGS} ${WARN_CFLAGS}
@@ -965,6 +997,7 @@ ROOT (): gnucash
                         SOURCE (): src/backend/dbi/test/test-dbi-business-stuff.c
                     TARGET (): test-load-backend
                         PROPERTY (Build for check only): true
+                    SOURCE (): src/backend/dbi/test/Makefile.am
                 TARGET (): libgncmod-backend-dbi.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -module -avoid-version
@@ -973,6 +1006,8 @@ ROOT (): gnucash
                 TARGET (): noinst_HEADERS
                     PROPERTY (Do not install): true
                     SOURCE (): src/backend/dbi/gnc-backend-dbi.h
+                SOURCE (): src/backend/dbi/Makefile.am
+            SOURCE (): src/backend/Makefile.am
         GROUP (): scm
             PROPERTY (Installation directories): gncscmdir = ${GNC_SCM_INSTALL_DIR} gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash configdir = ${GNC_CONFIGDIR}
             GROUP (): gnumeric
@@ -984,6 +1019,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/scm/gnumeric/.scm-links
+                SOURCE (): src/scm/gnumeric/Makefile.am
             TARGET (): gncscmmod
                 PROPERTY (Installation directory): gncscmmoddir
                 SOURCE (): src/scm/main.scm
@@ -999,6 +1035,7 @@ ROOT (): gnucash
             TARGET (): config
                 PROPERTY (Installation directory): configdir
                 SOURCE (): src/scm/config
+            SOURCE (): src/scm/Makefile.am
         GROUP (): quotes
             TARGET (): bin
                 PROPERTY (Installation directory): bindir
@@ -1006,6 +1043,7 @@ ROOT (): gnucash
                 SOURCE (): src/quotes/gnc-fq-dump
                 SOURCE (): src/quotes/gnc-fq-helper
                 SOURCE (): src/quotes/gnc-fq-update
+            SOURCE (): src/quotes/Makefile.am
         GROUP (): calculation
             PROPERTY (C preprocessor flags): -I${top_srcdir}/lib/libc -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS}
             GROUP (): test
@@ -1013,6 +1051,7 @@ ROOT (): gnucash
                     PROPERTY (Build for check only): true
                     PROPERTY (Libraries): ../libgncmod-calculation.la ${GLIB_LIBS} -lgmodule-2.0
                     SOURCE (): src/calculation/test/test-link.c
+                SOURCE (): src/calculation/test/Makefile.am
             TARGET (): libgncmod-calculation.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -1026,6 +1065,7 @@ ROOT (): gnucash
                 SOURCE (): src/calculation/finproto.h
                 SOURCE (): src/calculation/fin_spl_protos.h
                 SOURCE (): src/calculation/fin_static_proto.h
+            SOURCE (): src/calculation/Makefile.am
         GROUP (): tax
             GROUP (): us
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GLIB_CFLAGS} ${GUILE_INCS}
@@ -1035,6 +1075,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ../libgncmod-tax-us.la ${GUILE_LIBS} ${GLIB_LIBS}
                         SOURCE (): src/tax/us/test/test-link-module.c
+                    SOURCE (): src/tax/us/test/Makefile.am
                 TARGET (): libgncmod-tax-us.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1053,6 +1094,8 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/tax/us/.scm-links
+                SOURCE (): src/tax/us/Makefile.am
+            SOURCE (): src/tax/Makefile.am
         GROUP (): app-utils
             PROPERTY (C preprocessor flags): -I$(top_srcdir)/lib/libc -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/calculation -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GCONF_CFLAGS} ${GTK_CFLAGS}
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncscmdir = ${GNC_SHAREDIR}/scm
@@ -1074,6 +1117,7 @@ ROOT (): gnucash
                     PROPERTY (Build for check only): true
                 TARGET (): test-sx
                     PROPERTY (Build for check only): true
+                SOURCE (): src/app-utils/test/Makefile.am
             TARGET (): libgncmod-app-utils.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -1143,6 +1187,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): src/app-utils/.scm-links
+            SOURCE (): src/app-utils/Makefile.am
         GROUP (): gnome-utils
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/engine -I${top_srcdir}/src/backend/xml -I${top_srcdir}/src/app-utils -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GLADE_CFLAGS} ${GTK_CFLAGS} ${GNOME_CFLAGS} ${GNOME_KEYRING_CFLAGS} ${GUILE_INCS} ${QOF_CFLAGS} ${GOFFICE_CFLAGS} ${LIBGDA_CFLAGS} ${IGE_MAC_CFLAGS}
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncscmdir = ${GNC_SHAREDIR}/scm
@@ -1165,7 +1210,9 @@ ROOT (): gnucash
                     SOURCE (): src/gnome-utils/glade/preferences.glade
                     SOURCE (): src/gnome-utils/glade/totd.glade
                     SOURCE (): src/gnome-utils/glade/transfer.glade
+                SOURCE (): src/gnome-utils/glade/Makefile.am
             GROUP (): schemas
+                SOURCE (): src/gnome-utils/schemas/Makefile.am
             GROUP (): test
                 TARGET (): test-link-module
                     PROPERTY (Build for check only): true
@@ -1176,12 +1223,14 @@ ROOT (): gnucash
                     SOURCE (): src/gnome-utils/test/test-gnc-recurrence.c
                 TARGET (): test-gnc-dialog
                     PROPERTY (Build for check only): true
+                SOURCE (): src/gnome-utils/test/Makefile.am
             GROUP (): ui
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/gnome-utils/ui/gnc-main-window-ui.xml
                     SOURCE (): src/gnome-utils/ui/osx_accel_map
+                SOURCE (): src/gnome-utils/ui/Makefile.am
             TARGET (): libgncmod-gnome-utils.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -1348,6 +1397,7 @@ ROOT (): gnucash
             TARGET (): noinst_DATA
                 PROPERTY (Do not install): true
                 SOURCE (): src/gnome-utils/.scm-links
+            SOURCE (): src/gnome-utils/Makefile.am
         GROUP (): html
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR}
             PROPERTY (C preprocessor flags): ${GTKHTML_CFLAGS}
@@ -1380,6 +1430,7 @@ ROOT (): gnucash
                 SOURCE (): src/html/gnc-html-graph-gog-gtkhtml.h
                 SOURCE (): src/html/gnc-html-graph-gog-webkit.h
                 SOURCE (): src/html/gnc-html-graph-gog-extras.h
+            SOURCE (): src/html/Makefile.am
         GROUP (): gnome-search
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLADE_CFLAGS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gladedir = ${GNC_SHAREDIR}/glade
@@ -1419,6 +1470,7 @@ ROOT (): gnucash
             TARGET (): glade
                 PROPERTY (Installation directory): gladedir
                 SOURCE (): src/gnome-search/search.glade
+            SOURCE (): src/gnome-search/Makefile.am
         GROUP (): report
             GROUP (): report-system
                 PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncscmdir = ${GNC_SHAREDIR}/scm gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report-system gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/
@@ -1426,6 +1478,7 @@ ROOT (): gnucash
                 GROUP (): test
                     TARGET (): test-link-module
                         PROPERTY (Build for check only): true
+                    SOURCE (): src/report/report-system/test/Makefile.am
                 TARGET (): libgncmod-report-system.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1463,10 +1516,12 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/report/report-system/.scm-links
+                SOURCE (): src/report/report-system/Makefile.am
             GROUP (): standard-reports
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ gncscmreportmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/standard-reports
                 GROUP (): test
+                    SOURCE (): src/report/standard-reports/test/Makefile.am
                 TARGET (): libgncmod-standard-reports.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1506,10 +1561,12 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/report/standard-reports/.scm-links
+                SOURCE (): src/report/standard-reports/Makefile.am
             GROUP (): utility-reports
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/
                 GROUP (): test
+                    SOURCE (): src/report/utility-reports/test/Makefile.am
                 TARGET (): libgncmod-utility-reports.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Libraries): ${top_builddir}/src/gnc-module/libgnc-module.la ${GUILE_LIBS} ${GLIB_LIBS}
@@ -1524,6 +1581,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/report/utility-reports/.scm-links
+                SOURCE (): src/report/utility-reports/Makefile.am
             GROUP (): business-reports
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report
                 TARGET (): gncscmmod
@@ -1543,6 +1601,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/report/business-reports/.scm-links
+                SOURCE (): src/report/business-reports/Makefile.am
             GROUP (): locale-specific
                 GROUP (): us
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
@@ -1552,6 +1611,7 @@ ROOT (): gnucash
                             PROPERTY (Build for check only): true
                             PROPERTY (Libraries): ${top_builddir}/src/report/locale-specific/us/libgncmod-locale-reports-us.la
                             SOURCE (): src/report/locale-specific/us/test/test-link-module.c
+                        SOURCE (): src/report/locale-specific/us/test/Makefile.am
                     TARGET (): libgncmod-locale-reports-us.la
                         PROPERTY (Installation directory): pkglibdir
                         PROPERTY (Linker flags): -avoid-version
@@ -1568,12 +1628,15 @@ ROOT (): gnucash
                     TARGET (): noinst_DATA
                         PROPERTY (Do not install): true
                         SOURCE (): src/report/locale-specific/us/.scm-links
+                    SOURCE (): src/report/locale-specific/us/Makefile.am
+                SOURCE (): src/report/locale-specific/Makefile.am
             GROUP (): report-gnome
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/html -I${top_srcdir}/src/report/report-system -I${top_srcdir}/src/libqof/qof ${GLADE_CFLAGS} ${GUILE_INCS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
                 PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report gladedir = ${GNC_SHAREDIR}/glade uidir = ${GNC_SHAREDIR}/ui
                 GROUP (): test
                     TARGET (): test-link-module
                         PROPERTY (Build for check only): true
+                    SOURCE (): src/report/report-gnome/test/Makefile.am
                 TARGET (): libgncmod-report-gnome.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1605,10 +1668,12 @@ ROOT (): gnucash
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/report/report-gnome/gnc-plugin-page-report-ui.xml
+                SOURCE (): src/report/report-gnome/Makefile.am
             GROUP (): stylesheets
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GNOME_CFLAGS}
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ uidir = ${GNC_SHAREDIR}/ui
                 GROUP (): test
+                    SOURCE (): src/report/stylesheets/test/Makefile.am
                 TARGET (): libgncmod-stylesheets.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -module -avoid-version
@@ -1632,6 +1697,8 @@ ROOT (): gnucash
                     PROPERTY (Include in distribution): true
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/report/stylesheets/gnc-plugin-stylesheets-ui.xml
+                SOURCE (): src/report/stylesheets/Makefile.am
+            SOURCE (): src/report/Makefile.am
         GROUP (): register
             GROUP (): register-core
                 PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR}
@@ -1642,6 +1709,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/app-utils/libgncmod-app-utils.la ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ../libgncmod-register-core.la
                         SOURCE (): src/register/register-core/test/test-link-module.c
+                    SOURCE (): src/register/register-core/test/Makefile.am
                 TARGET (): libgncmod-register-core.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1681,6 +1749,7 @@ ROOT (): gnucash
                     SOURCE (): src/register/register-core/table-control.h
                     SOURCE (): src/register/register-core/table-layout.h
                     SOURCE (): src/register/register-core/table-model.h
+                SOURCE (): src/register/register-core/Makefile.am
             GROUP (): register-gnome
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${GTK_XIM_FLAGS} ${GNOME_CFLAGS}
                 GROUP (): test
@@ -1689,6 +1758,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/app-utils/libgncmod-app-utils.la ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ../libgncmod-register-gnome.la
                         SOURCE (): src/register/register-gnome/test/test-link-module.c
+                    SOURCE (): src/register/register-gnome/test/Makefile.am
                 TARGET (): libgncmod-register-gnome.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1726,6 +1796,7 @@ ROOT (): gnucash
                     SOURCE (): src/register/register-gnome/pricecell-gnome.h
                     SOURCE (): src/register/register-gnome/quickfillcell-gnome.h
                     SOURCE (): src/register/register-gnome/table-gnome.h
+                SOURCE (): src/register/register-gnome/Makefile.am
             GROUP (): ledger-core
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLADE_CFLAGS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
                 GROUP (): test
@@ -1734,6 +1805,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ../libgncmod-ledger-core.la
                         SOURCE (): src/register/ledger-core/test/test-link-module.c
+                    SOURCE (): src/register/ledger-core/test/Makefile.am
                 TARGET (): libgncmod-ledger-core.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1757,6 +1829,8 @@ ROOT (): gnucash
                     SOURCE (): src/register/ledger-core/split-register-model.h
                     SOURCE (): src/register/ledger-core/split-register-model-save.h
                     SOURCE (): src/register/ledger-core/split-register-p.h
+                SOURCE (): src/register/ledger-core/Makefile.am
+            SOURCE (): src/register/Makefile.am
         GROUP (): gnome
             PROPERTY (Installation directories): gnomeappdir = ${datadir}/applications appicondir = $(datadir)/pixmaps
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/calculation -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/backend/xml -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome-search -I${top_srcdir}/src/html -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/report/report-system -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GNOME_CFLAGS} ${GLADE_CFLAGS} $(GLIB_CFLAGS) ${IGE_MAC_CFLAGS}
@@ -1781,7 +1855,9 @@ ROOT (): gnucash
                     SOURCE (): src/gnome/glade/tax.glade
                     SOURCE (): src/gnome/glade/userpass.glade
                     SOURCE (): src/gnome/glade/sched-xact.glade
+                SOURCE (): src/gnome/glade/Makefile.am
             GROUP (): schemas
+                SOURCE (): src/gnome/schemas/Makefile.am
             GROUP (): ui
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
                 TARGET (): ui
@@ -1800,6 +1876,7 @@ ROOT (): gnucash
                     SOURCE (): src/gnome/ui/gnc-reconcile-window-ui.xml
                     SOURCE (): src/gnome/ui/gnc-sxed-window-ui.xml
                     SOURCE (): src/gnome/ui/gnc-sxed-window-ui-full.xml
+                SOURCE (): src/gnome/ui/Makefile.am
             TARGET (): libgnc-gnome.la
                 PROPERTY (Installation directory): libdir
                 PROPERTY (Libraries): ${top_builddir}/src/register/ledger-core/libgncmod-ledger-core.la ${top_builddir}/src/register/register-gnome/libgncmod-register-gnome.la ${top_builddir}/src/register/register-core/libgncmod-register-core.la ${top_builddir}/src/report/report-gnome/libgncmod-report-gnome.la ${top_builddir}/src/report/report-system/libgncmod-report-system.la ${top_builddir}/src/gnome-search/libgncmod-gnome-search.la ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ${top_builddir}/src/backend/xml/libgnc-backend-xml-utils.la ${top_builddir}/src/app-utils/libgncmod-app-utils.la ${top_builddir}/src/html/libgncmod-html.la ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/core-utils/libgnc-core-utils.la ${top_builddir}/src/libqof/qof/libgnc-qof.la ${GLADE_LIBS} ${GUILE_LIBS} ${GNOME_LIBS} ${GLIB_LIBS} ${QOF_LIBS}
@@ -1865,10 +1942,12 @@ ROOT (): gnucash
                 SOURCE (): src/gnome/top-level.h
                 SOURCE (): src/gnome/window-reconcile.h
                 SOURCE (): src/gnome/window-autoclear.h
+            SOURCE (): src/gnome/Makefile.am
         GROUP (): import-export
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gladedir = ${GNC_GLADE_DIR}
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS}
             GROUP (): schemas
+                SOURCE (): src/import-export/schemas/Makefile.am
             GROUP (): qif
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GUILE_INCS}
                 GROUP (): test
@@ -1877,6 +1956,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                     TARGET (): test-qif
                         PROPERTY (Build for check only): true
+                    SOURCE (): src/import-export/qif/test/Makefile.am
                 TARGET (): libgncmod-qif.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Libraries): ${top_builddir}/src/import-export/libgncmod-generic-import.la ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/libqof/qof/libgnc-qof.la ${REGEX_LIBS} ${GLIB_LIBS}
@@ -1894,6 +1974,7 @@ ROOT (): gnucash
                     SOURCE (): src/import-export/qif/qif-objects.h
                     SOURCE (): src/import-export/qif/qif-objects-p.h
                     SOURCE (): src/import-export/qif/qif-parse.h
+                SOURCE (): src/import-export/qif/Makefile.am
             GROUP (): qif-import
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/import-export gncscmdir = ${GNC_SCM_INSTALL_DIR}/qif-import gladedir = ${GNC_GLADE_DIR} uidir = ${GNC_SHAREDIR}/ui
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GLADE_CFLAGS} ${GNOME_CFLAGS}
@@ -1902,7 +1983,9 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ../libgncmod-qif-import.la ${top_builddir}/src/core-utils/libgnc-core-utils.la ${top_builddir}/src/gnome/libgnc-gnome.la ${top_builddir}/src/engine/libgncmod-engine.la ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ${top_builddir}/src/app-utils/libgncmod-app-utils.la ${top_builddir}/src/libqof/qof/libgnc-qof.la ${LIBXML2_LIBS}
                         SOURCE (): src/import-export/qif-import/test/test-link.c
+                    SOURCE (): src/import-export/qif-import/test/Makefile.am
                 GROUP (): schemas
+                    SOURCE (): src/import-export/qif-import/schemas/Makefile.am
                 TARGET (): libgncmod-qif-import.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -1941,6 +2024,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/import-export/qif-import/.scm-links
+                SOURCE (): src/import-export/qif-import/Makefile.am
             GROUP (): ${OFX_DIR}
             GROUP (): ${AQBANKING_DIR}
             GROUP (): log-replay
@@ -1961,12 +2045,14 @@ ROOT (): gnucash
                     PROPERTY (Include in distribution): true
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/import-export/log-replay/gnc-plugin-log-replay-ui.xml
+                SOURCE (): src/import-export/log-replay/Makefile.am
             GROUP (): test
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/test-core -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS}
                 TARGET (): test-link
                     PROPERTY (Build for check only): true
                 TARGET (): test-import-parse
                     PROPERTY (Build for check only): true
+                SOURCE (): src/import-export/test/Makefile.am
             GROUP (): csv
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof -I${top_srcdir}/lib/libc -I${top_srcdir}/lib ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS} $(GOFFICE_CFLAGS)
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui gladedir = ${GNC_GLADE_DIR}
@@ -1991,11 +2077,13 @@ ROOT (): gnucash
                 TARGET (): glade
                     PROPERTY (Installation directory): gladedir
                     SOURCE (): src/import-export/csv/gnc-csv-preview-dialog.glade
+                SOURCE (): src/import-export/csv/Makefile.am
             GROUP (): qif-io-core
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
                 PROPERTY (Installation directories): gncscmdir = ${GNC_SHAREDIR}/scm gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/import-export/
                 GROUP (): test
                     PROPERTY (C preprocessor flags): -I${top_srcdir}/src/gnc-module ${GUILE_INCS} ${GLIB_CFLAGS}
+                    SOURCE (): src/import-export/qif-io-core/test/Makefile.am
                 TARGET (): libgncmod-qifiocore.la
                     PROPERTY (Installation directory): pkglibdir
                     SOURCE (): src/import-export/qif-io-core/gncmod-qifiocore.c
@@ -2015,6 +2103,7 @@ ROOT (): gnucash
                 TARGET (): gncscmmod
                     PROPERTY (Installation directory): gncscmmoddir
                     SOURCE (): src/import-export/qif-io-core/qif-io-core.scm
+                SOURCE (): src/import-export/qif-io-core/Makefile.am
             GROUP (): ofx
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS} ${LIBOFX_CFLAGS}
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
@@ -2024,6 +2113,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ${top_builddir}/src/gnome-utils/libgncmod-gnome-utils.la ../libgncmod-ofx.la
                         SOURCE (): src/import-export/ofx/test/test-link.c
+                    SOURCE (): src/import-export/ofx/test/Makefile.am
                 TARGET (): libgncmod-ofx.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2038,10 +2128,12 @@ ROOT (): gnucash
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/import-export/ofx/gnc-plugin-ofx-ui.xml
+                SOURCE (): src/import-export/ofx/Makefile.am
             GROUP (): aqbanking
                 PROPERTY (C compiler flags): -I${top_srcdir}/src -I${top_srcdir}/src/import-export -I${top_srcdir}/src/gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${AQBANKING_CFLAGS}
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui gladedir = ${GNC_SHAREDIR}/glade
                 GROUP (): schemas
+                    SOURCE (): src/import-export/aqbanking/schemas/Makefile.am
                 TARGET (): libgncmod-aqbanking.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2079,6 +2171,7 @@ ROOT (): gnucash
                 TARGET (): glade
                     PROPERTY (Installation directory): gladedir
                     SOURCE (): src/import-export/aqbanking/aqbanking.glade
+                SOURCE (): src/import-export/aqbanking/Makefile.am
             GROUP (): hbci
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/register -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${AQBANKING_CFLAGS}
                 PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
@@ -2089,12 +2182,15 @@ ROOT (): gnucash
                         SOURCE (): src/import-export/hbci/glade/hbci.glade
                         SOURCE (): src/import-export/hbci/glade/hbcipass.glade
                         SOURCE (): src/import-export/hbci/glade/hbciprefs.glade
+                    SOURCE (): src/import-export/hbci/glade/Makefile.am
                 GROUP (): schemas
+                    SOURCE (): src/import-export/hbci/schemas/Makefile.am
                 GROUP (): test
                     TARGET (): test-link-module
                         PROPERTY (Build for check only): true
                         PROPERTY (Libraries): ../libgncmod-hbci.la
                         SOURCE (): src/import-export/hbci/test/test-link-module.c
+                    SOURCE (): src/import-export/hbci/test/Makefile.am
                 TARGET (): libgncmod-hbci.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2134,6 +2230,7 @@ ROOT (): gnucash
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/import-export/hbci/gnc-plugin-hbci-ui.xml
+                SOURCE (): src/import-export/hbci/Makefile.am
             TARGET (): libgncmod-generic-import.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -2173,6 +2270,7 @@ ROOT (): gnucash
                 PROPERTY (Installation directory): gladedir
                 SOURCE (): src/import-export/generic-import.glade
                 SOURCE (): src/import-export/import-provider-format.glade
+            SOURCE (): src/import-export/Makefile.am
         GROUP (): business
             GROUP (): business-core
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS}
@@ -2193,6 +2291,7 @@ ROOT (): gnucash
                         PROPERTY (Build for check only): true
                     TARGET (): test-vendor
                         PROPERTY (Build for check only): true
+                    SOURCE (): src/business/business-core/test/Makefile.am
                 TARGET (): libgncmod-business-core.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2206,6 +2305,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/business/business-core/.scm-links
+                SOURCE (): src/business/business-core/Makefile.am
             GROUP (): business-utils
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GNOME_CFLAGS}
                 PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncscmdir = ${GNC_SHAREDIR}/scm
@@ -2228,6 +2328,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/business/business-utils/.scm-links
+                SOURCE (): src/business/business-utils/Makefile.am
             GROUP (): dialog-tax-table
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${GUILE_INCS}
                 PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gladedir = ${GNC_SHAREDIR}/glade
@@ -2250,6 +2351,7 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/business/dialog-tax-table/.scm-links
+                SOURCE (): src/business/dialog-tax-table/Makefile.am
             GROUP (): business-ledger
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/business/business-utils -I${top_srcdir}/src/business/dialog-tax-table -I${top_srcdir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLADE_CFLAGS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
                 TARGET (): libgnc-business-ledger.la
@@ -2268,6 +2370,7 @@ ROOT (): gnucash
                     SOURCE (): src/business/business-ledger/gncEntryLedgerControl.h
                     SOURCE (): src/business/business-ledger/gncEntryLedgerLayout.h
                     SOURCE (): src/business/business-ledger/gncEntryLedgerModel.h
+                SOURCE (): src/business/business-ledger/Makefile.am
             GROUP (): business-gnome
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-search -I${top_srcdir}/src/html -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/business/business-ledger -I${top_srcdir}/src/business/dialog-tax-table -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${GUILE_INCS}
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash
@@ -2286,13 +2389,16 @@ ROOT (): gnucash
                         SOURCE (): src/business/business-gnome/glade/order.glade
                         SOURCE (): src/business/business-gnome/glade/payment.glade
                         SOURCE (): src/business/business-gnome/glade/vendor.glade
+                    SOURCE (): src/business/business-gnome/glade/Makefile.am
                 GROUP (): schemas
+                    SOURCE (): src/business/business-gnome/schemas/Makefile.am
                 GROUP (): ui
                     PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
                     TARGET (): ui
                         PROPERTY (Installation directory): uidir
                         SOURCE (): src/business/business-gnome/ui/gnc-plugin-business-ui.xml
                         SOURCE (): src/business/business-gnome/ui/gnc-plugin-page-invoice-ui.xml
+                    SOURCE (): src/business/business-gnome/ui/Makefile.am
                 TARGET (): libgncmod-business-gnome.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2340,11 +2446,14 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/business/business-gnome/.scm-links
+                SOURCE (): src/business/business-gnome/Makefile.am
+            SOURCE (): src/business/Makefile.am
         GROUP (): optional
             GROUP (): ${PYTHON_DIR}
             GROUP (): python-bindings
                 PROPERTY (C compiler flags): -w
                 GROUP (): tests
+                    SOURCE (): src/optional/python-bindings/tests/Makefile.am
                 TARGET (): pkgpython
                     PROPERTY (Installation directory): pkgpythondir
                     SOURCE (): src/optional/python-bindings/__init__.py
@@ -2358,6 +2467,8 @@ ROOT (): gnucash
                     PROPERTY (Linker flags): -avoid-version -module
                     PROPERTY (Libraries): ${GLIB_LIBS} ${GNOME_LIBS} ${GLADE_LIBS} ${top_builddir}/src/libqof/qof/libgnc-qof.la ${top_builddir}/src/gnc-module/libgnc-module.la ${top_builddir}/src/engine/libgncmod-engine.la
                     SOURCE (): src/optional/python-bindings/gnucash_core.c
+                SOURCE (): src/optional/python-bindings/Makefile.am
+            SOURCE (): src/optional/Makefile.am
         GROUP (): bin
             PROPERTY (C preprocessor flags): -I${top_builddir} ${GLIB_CFLAGS} ${GNOME_CFLAGS} ${GTK_CFLAGS} -DPKGSYSCONFDIR=\"${GNC_CONFIGDIR}\" -DPKGDATADIR=\"${GNC_SHAREDIR}\" -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnome -I${top_builddir}/src/gnome-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${IGE_MAC_CFLAGS}
             PROPERTY (Installation directories): configdir = ${GNC_CONFIGDIR} configdir = ${GNC_CONFIGDIR} gncoverridesdir = ${GNC_LIBEXECDIR}/overrides
@@ -2371,7 +2482,9 @@ ROOT (): gnucash
                 TARGET (): noinst_DATA
                     PROPERTY (Do not install): true
                     SOURCE (): src/bin/overrides/gnucash-build-env
+                SOURCE (): src/bin/overrides/Makefile.am
             GROUP (): test
+                SOURCE (): src/bin/test/Makefile.am
             TARGET (): dist_noinst_DATA
                 PROPERTY (Include in distribution): true
                 PROPERTY (Do not install): true
@@ -2387,6 +2500,7 @@ ROOT (): gnucash
                 SOURCE (): src/bin/${gnc_common_scripts}
                 SOURCE (): src/bin/update-gnucash-gconf
                 SOURCE (): src/bin/${PLATFORM_FILES}
+            SOURCE (): src/bin/Makefile.am
         TARGET (): noinst_HEADERS
             PROPERTY (Do not install): true
             SOURCE (): src/RecnWindow.h
@@ -2395,11 +2509,13 @@ ROOT (): gnucash
         TARGET (): bin
             PROPERTY (Installation directory): bindir
             SOURCE (): src/gnc-test-env
+        SOURCE (): src/Makefile.am
     GROUP (): intl-scm
         PROPERTY (Installation directories): abs_top_srcdir = @abs_top_srcdir@
         TARGET (): noinst_HEADERS
             PROPERTY (Do not install): true
             SOURCE (): intl-scm/guile-strings.c
+        SOURCE (): intl-scm/Makefile.am
     GROUP (): packaging
         GROUP (): win32
             PROPERTY (C preprocessor flags): $(GLIB_CFLAGS)
@@ -2413,6 +2529,8 @@ ROOT (): gnucash
                 SOURCE (): packaging/win32/Greek-4-5.1.11.isl
                 SOURCE (): packaging/win32/Japanese-5-5.1.11.isl
                 SOURCE (): packaging/win32/Latvian-1-5.1.11.isl
+            SOURCE (): packaging/win32/Makefile.am
+        SOURCE (): packaging/Makefile.am
     GROUP (): po
     GROUP (): accounts
         GROUP (): C
@@ -2435,6 +2553,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/C/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/C/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/C/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/C/Makefile.am
         GROUP (): cs
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/cs
             TARGET (): account
@@ -2454,6 +2573,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/cs/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/cs/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/cs/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/cs/Makefile.am
         GROUP (): da
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/da
             TARGET (): account
@@ -2462,6 +2582,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/da/acctchrt_common.gnucash-xea
                 SOURCE (): accounts/da/acctchrt_homeloan.gnucash-xea
                 SOURCE (): accounts/da/acctchrt_homeown.gnucash-xea
+            SOURCE (): accounts/da/Makefile.am
         GROUP (): de_AT
             PROPERTY (Installation directories): accountdir = ${GNC_SHAREDIR}/accounts/de_AT
             TARGET (): dist_account
@@ -2475,6 +2596,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/de_AT/acctchrt_houseown.gnucash-xea
                 SOURCE (): accounts/de_AT/acctchrt_investment.gnucash-xea
                 SOURCE (): accounts/de_AT/acctchrt_kids.gnucash-xea
+            SOURCE (): accounts/de_AT/Makefile.am
         GROUP (): de_CH
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/de_CH
             TARGET (): account
@@ -2485,6 +2607,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/de_CH/acctchrt_otherasset.gnucash-xea
                 SOURCE (): accounts/de_CH/acctchrt_otherloan.gnucash-xea
                 SOURCE (): accounts/de_CH/acctchrt_chkmu.gnucash-xea
+            SOURCE (): accounts/de_CH/Makefile.am
         GROUP (): de_DE
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/de_DE
             TARGET (): account
@@ -2503,6 +2626,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/de_DE/acctchrt_wohnungsw.gnucash-xea
                 SOURCE (): accounts/de_DE/acctchrt_skr04.gnucash-xea
                 SOURCE (): accounts/de_DE/acctchrt_skr49.gnucash-xea
+            SOURCE (): accounts/de_DE/Makefile.am
         GROUP (): el_GR
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/el_GR
             TARGET (): account
@@ -2510,6 +2634,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/el_GR/acctchrt_common.gnucash-xea
                 SOURCE (): accounts/el_GR/acctchrt_carloan.gnucash-xea
                 SOURCE (): accounts/el_GR/acctchrt_brokerage.gnucash-xea
+            SOURCE (): accounts/el_GR/Makefile.am
         GROUP (): en_GB
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/en_GB
             TARGET (): account
@@ -2531,6 +2656,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/en_GB/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/en_GB/acctchrt_spouseretire.gnucash-xea
                 SOURCE (): accounts/en_GB/uk-vat.gnucash-xea
+            SOURCE (): accounts/en_GB/Makefile.am
         GROUP (): es_ES
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/es_ES
             TARGET (): account
@@ -2550,6 +2676,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/es_ES/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/es_ES/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/es_ES/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/es_ES/Makefile.am
         GROUP (): es_MX
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/es_MX
             TARGET (): account
@@ -2569,12 +2696,14 @@ ROOT (): gnucash
                 SOURCE (): accounts/es_MX/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/es_MX/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/es_MX/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/es_MX/Makefile.am
         GROUP (): fi_FI
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/fi_FI
             TARGET (): account
                 PROPERTY (Installation directory): accountdir
                 SOURCE (): accounts/fi_FI/acctchrt_common.gnucash-xea
                 SOURCE (): accounts/fi_FI/acctchrt_ry.gnucash-xea
+            SOURCE (): accounts/fi_FI/Makefile.am
         GROUP (): fr_CH
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/fr_CH
             TARGET (): account
@@ -2595,6 +2724,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/fr_CH/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/fr_CH/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/fr_CH/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/fr_CH/Makefile.am
         GROUP (): fr_CA
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/fr_CA
             TARGET (): account
@@ -2613,6 +2743,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/fr_CA/acctchrt_proprietaire.gnucash-xea
                 SOURCE (): accounts/fr_CA/acctchrt_retraite.gnucash-xea
                 SOURCE (): accounts/fr_CA/acctchrt_revenus.gnucash-xea
+            SOURCE (): accounts/fr_CA/Makefile.am
         GROUP (): fr_FR
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/fr_FR
             TARGET (): account
@@ -2633,6 +2764,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/fr_FR/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/fr_FR/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/fr_FR/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/fr_FR/Makefile.am
         GROUP (): hu_HU
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/hu_HU
             TARGET (): account
@@ -2653,6 +2785,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/hu_HU/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/hu_HU/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/hu_HU/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/hu_HU/Makefile.am
         GROUP (): it
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/it
             TARGET (): account
@@ -2670,6 +2803,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/it/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/it/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/it/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/it/Makefile.am
         GROUP (): ja
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/ja
             TARGET (): account
@@ -2691,6 +2825,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/ja/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/ja/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/ja/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/ja/Makefile.am
         GROUP (): ko
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/ko
             TARGET (): account
@@ -2711,6 +2846,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/ko/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/ko/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/ko/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/ko/Makefile.am
         GROUP (): lv
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/lv
             TARGET (): account
@@ -2731,12 +2867,14 @@ ROOT (): gnucash
                 SOURCE (): accounts/lv/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/lv/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/lv/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/lv/Makefile.am
         GROUP (): nl
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/nl
             TARGET (): account
                 PROPERTY (Installation directory): accountdir
                 SOURCE (): accounts/nl/acctchrt_checkbook.gnucash-xea
                 SOURCE (): accounts/nl/acctchrt_full.gnucash-xea
+            SOURCE (): accounts/nl/Makefile.am
         GROUP (): nb
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/nb
             TARGET (): account
@@ -2758,6 +2896,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/nb/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/nb/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/nb/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/nb/Makefile.am
         GROUP (): pl
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/pl
             TARGET (): account
@@ -2778,6 +2917,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/pl/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/pl/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/pl/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/pl/Makefile.am
         GROUP (): pt_BR
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/pt_BR
             TARGET (): account
@@ -2797,6 +2937,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/pt_BR/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/pt_BR/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/pt_BR/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/pt_BR/Makefile.am
         GROUP (): pt_PT
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/pt_PT
             TARGET (): account
@@ -2815,6 +2956,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/pt_PT/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/pt_PT/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/pt_PT/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/pt_PT/Makefile.am
         GROUP (): ru
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/ru
             TARGET (): account
@@ -2823,6 +2965,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/ru/acctchrt_homeloan.gnucash-xea
                 SOURCE (): accounts/ru/acctchrt_homeown.gnucash-xea
                 SOURCE (): accounts/ru/acctchrt_renter.gnucash-xea
+            SOURCE (): accounts/ru/Makefile.am
         GROUP (): sk
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/sk
             TARGET (): account
@@ -2842,6 +2985,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/sk/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/sk/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/sk/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/sk/Makefile.am
         GROUP (): tr_TR
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/tr_TR
             TARGET (): account
@@ -2854,6 +2998,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/tr_TR/acctchrt_fixedassets.gnucash-xea
                 SOURCE (): accounts/tr_TR/acctchrt_homeloan.gnucash-xea
                 SOURCE (): accounts/tr_TR/acctchrt_TEKDUZ.gnucash-xea
+            SOURCE (): accounts/tr_TR/Makefile.am
         GROUP (): zh_CN
             PROPERTY (Installation directories): accountdir = ${GNC_ACCOUNTS_DIR}/zh_CN
             TARGET (): account
@@ -2874,6 +3019,8 @@ ROOT (): gnucash
                 SOURCE (): accounts/zh_CN/acctchrt_retiremt.gnucash-xea
                 SOURCE (): accounts/zh_CN/acctchrt_spouseinc.gnucash-xea
                 SOURCE (): accounts/zh_CN/acctchrt_spouseretire.gnucash-xea
+            SOURCE (): accounts/zh_CN/Makefile.am
+        SOURCE (): accounts/Makefile.am
     GROUP (): checks
         PROPERTY (Installation directories): checksdir = ${GNC_CHECKS_DIR}
         TARGET (): checks
@@ -2883,6 +3030,7 @@ ROOT (): gnucash
             SOURCE (): checks/quicken.chk
             SOURCE (): checks/quicken_wallet.chk
             SOURCE (): checks/voucher.chk
+        SOURCE (): checks/Makefile.am
     TARGET (): noinst_DATA
         PROPERTY (Do not install): true
         SOURCE (): make-gnucash-potfiles
@@ -2906,3 +3054,5 @@ ROOT (): gnucash
         SOURCE (): NEWS
         SOURCE (): README
         SOURCE (): README.dependencies
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am

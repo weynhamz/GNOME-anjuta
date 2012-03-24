@@ -11,6 +11,8 @@ AT_DATA([expect],
 [[ROOT (): empty1
     PROPERTY (Name): empty
     PROPERTY (Libtool support):
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[AC_INIT(empty)
@@ -33,6 +35,8 @@ AT_DATA([expect],
 [[ROOT (): empty2
      PROPERTY (Name): empty
      PROPERTY (Libtool support): disable-shared
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[AC_INIT(empty)
@@ -55,6 +59,8 @@ AT_DATA([expect],
 [[ROOT (): empty3
     PROPERTY (Name): empty
     PROPERTY (Libtool support): disable-shared pic-only
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[AC_INIT(empty)
@@ -77,6 +83,8 @@ AT_DATA([expect],
 [[ROOT (): empty4
     PROPERTY (Name): empty
     PROPERTY (Libtool support): pic-only
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[AC_INIT(empty)
@@ -98,6 +106,8 @@ AT_CHECK([diff -b output expect])
 AT_DATA([expect],
 [[ROOT (): empty5
     PROPERTY (Name): empty
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_DATA([reference],
 [[AC_INIT(empty)

@@ -11,6 +11,8 @@ AT_DATA([parser/Makefile.am],
 ]])
 AT_DATA([expect],
 [[ROOT (): parser
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
 ]])
 AT_PARSER_CHECK([load parser \
 		 list])
