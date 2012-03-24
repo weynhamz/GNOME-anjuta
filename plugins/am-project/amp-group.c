@@ -349,9 +349,12 @@ amp_group_node_set_makefile (AmpGroupNode *group, GFile *makefile, AmpProject *p
 	{
 		AnjutaToken *token;
 		AmpAmScanner *scanner;
+		AnjutaProjectNode *source;
 
 		group->makefile = g_object_ref (makefile);
 		group->tfile = anjuta_token_file_new (makefile);
+		source = amp_source_node_new (makefile, ANJUTA_PROJECT_PROJECT | ANJUTA_PROJECT_FRAME | ANJUTA_PROJECT_READ_ONLY);
+		anjuta_project_node_append (ANJUTA_PROJECT_NODE (group), source);
 
 		token = anjuta_token_file_load (group->tfile, NULL);
 		amp_project_add_file (project, makefile, group->tfile);

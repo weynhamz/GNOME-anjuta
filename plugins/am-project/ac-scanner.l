@@ -21,6 +21,7 @@
 
 #include "ac-scanner.h"
 #include "ac-parser.h"
+#include "amp-source.h"
 
 #include "libanjuta/anjuta-debug.h"
 #include "libanjuta/anjuta-token-stream.h"
@@ -313,6 +314,7 @@ amp_ac_scanner_include (AmpAcScanner *scanner, AnjutaToken *list)
 	AnjutaToken *token;
 	AnjutaToken *name;
 	gchar *filename;
+	AnjutaProjectNode *source;
 
 	name = anjuta_token_first_item (list);  	/* m4_include macro */
 	name = anjuta_token_next_item (name);		/* arguments list */
@@ -321,6 +323,8 @@ amp_ac_scanner_include (AmpAcScanner *scanner, AnjutaToken *list)
 	//g_message ("read include =%s=", filename);
 	file = g_file_resolve_relative_path (anjuta_token_stream_get_current_directory (scanner->stream), filename);
 	g_free (filename);
+	source = amp_source_node_new (file, ANJUTA_PROJECT_PROJECT | ANJUTA_PROJECT_FRAME | ANJUTA_PROJECT_READ_ONLY);
+	anjuta_project_node_append (ANJUTA_PROJECT_NODE (scanner->project), source);
 	include = anjuta_token_file_new (file);
 	token = anjuta_token_file_load (include, NULL);
 	amp_ac_scanner_parse_token (scanner, list, token, 0, file, NULL);

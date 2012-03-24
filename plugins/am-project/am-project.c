@@ -1667,6 +1667,7 @@ amp_project_load_root (AmpProject *project, GError **error)
 	GFile *root_file;
 	GFile *configure_file;
 	AnjutaTokenFile *configure_token_file;
+	AnjutaProjectNode *source;
 	GError *err = NULL;
 
 	root_file = anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (project));
@@ -1701,6 +1702,8 @@ amp_project_load_root (AmpProject *project, GError **error)
 	/* Parse configure */
 	configure_token_file = amp_project_set_configure (project, configure_file);
 	amp_project_add_file (project, configure_file, configure_token_file);
+	source = amp_source_node_new (configure_file, ANJUTA_PROJECT_PROJECT | ANJUTA_PROJECT_FRAME | ANJUTA_PROJECT_READ_ONLY);
+	anjuta_project_node_append (ANJUTA_PROJECT_NODE (project), source);
 	arg = anjuta_token_file_load (configure_token_file, NULL);
 	g_hash_table_remove_all (project->ac_variables);
 	scanner = amp_ac_scanner_new (project);

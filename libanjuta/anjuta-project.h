@@ -116,6 +116,7 @@ typedef enum
 	ANJUTA_PROJECT_PRIMARY = 1 << 18,
 	ANJUTA_PROJECT_EXECUTABLE = 1 << 19,
 	ANJUTA_PROJECT_READ_ONLY = 1 << 20,	 /* Node cannot be created by the backend */
+	ANJUTA_PROJECT_FRAME= 1 << 21,		/* Project configuration file */
 	ANJUTA_PROJECT_ID_MASK = 0xFFFF << 0,
 	ANJUTA_PROJECT_FLAG_MASK = 0xFF << 16,
 	ANJUTA_PROJECT_TYPE_MASK = 0xFF << 24,
