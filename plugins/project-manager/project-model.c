@@ -683,6 +683,8 @@ gbf_project_model_add_node (GbfProjectModel    	   *model,
 	if (node == NULL) return;
 
 
+	if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_FRAME) return;
+
 	if ((only_type == 0) || (anjuta_project_node_get_node_type (node) == only_type))
 	{
 		if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_OBJECT)

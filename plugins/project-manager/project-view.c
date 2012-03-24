@@ -886,6 +886,7 @@ list_visible_children (AnjutaProjectNode *parent)
 
 	for (node = anjuta_project_node_first_child (parent); node != NULL; node = anjuta_project_node_next_sibling (node))
 	{
+		if (anjuta_project_node_get_full_type (node) & ANJUTA_PROJECT_FRAME) continue;
 		if (anjuta_project_node_get_node_type (node) != ANJUTA_PROJECT_OBJECT)
 		{
 			list = g_list_prepend (list, node);
