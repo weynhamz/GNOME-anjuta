@@ -79,6 +79,9 @@ static gint anjuta_view_focus_out (GtkWidget       *widget,
 static gboolean	anjuta_view_draw (GtkWidget       *widget,
 	                              cairo_t* cr);
 
+static void anjuta_view_popup_menu_real (GtkWidget *widget, GdkEventButton *event);
+static gboolean anjuta_view_popup_menu (GtkWidget *widget);
+
 static gboolean	anjuta_view_key_press_event	(GtkWidget         *widget,
 			                                 GdkEventKey       *event);
 static gboolean	anjuta_view_button_press_event (GtkWidget         *widget,
@@ -324,6 +327,7 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	widget_class->draw = anjuta_view_draw;
 	widget_class->key_press_event = anjuta_view_key_press_event;
 	widget_class->button_press_event = anjuta_view_button_press_event;
+	widget_class->popup_menu = anjuta_view_popup_menu;
 	widget_class->drag_drop = anjuta_view_drag_drop;
 	widget_class->drag_data_received = anjuta_view_drag_data_received;
 	widget_class->drag_motion = anjuta_view_drag_motion;
@@ -643,6 +647,36 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 }
 
+static void
+anjuta_view_popup_menu_real (GtkWidget *widget, GdkEventButton *event)
+{
+	AnjutaView* view = ANJUTA_VIEW (widget);
+	gint button;
+	gint event_time;
+
+	if (event)
+	{
+		button = event->button;
+		event_time = event->time;
+	}
+	else
+	{
+		button = 0;
+		event_time = gtk_get_current_event_time ();
+	}
+
+	gtk_menu_popup (GTK_MENU (view->priv->popup), NULL, NULL, NULL, NULL,
+	                button, event_time);
+}
+
+static gboolean
+anjuta_view_popup_menu (GtkWidget *widget)
+{
+	anjuta_view_popup_menu_real (widget, NULL);
+
+	return TRUE;
+}
+
 static gboolean	
 anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 {
@@ -687,10 +721,9 @@ anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 																						&iter, buffer_x, buffer_y);
 				gtk_text_buffer_place_cursor (buffer, &iter);
 			}												 
-			gtk_menu_popup (GTK_MENU (view->priv->popup), NULL, NULL, NULL, NULL, 
-                  event->button, event->time);
+			anjuta_view_popup_menu_real(widget, event);
 			return TRUE;
-		}
+		}		
 		default:
 			break;
 	}
