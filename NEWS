@@ -1,3 +1,41 @@
+Anjuta 3.4.0 "Wow, this time of the year again" (26 March 2012) -- Johannes Schmid
+
+This is a new stable version of Anjuta and all users should update to this
+version as all 3.2.x versions become unsupported at this point.
+
+Summary of the major changes between 3.2.x and 3.4:
+
+* project-manager:
+ - Improved target chooser in various dialogs (Sébastien Granjoux)
+ - Better parsing of complicated automake projects (Sébastien Granjoux)
+
+* project-wizard:
+ - Simplification to make it easier for newcomers to create projects (Sébastien Granjoux)
+ 
+* language-support
+ - Add widgets from glade as private members of GObject classes (Marco Diego Aurélio Mesquita)
+ - Allow creating signal handlers by double-clicking (Marco Diego Aurélio Mesquita)
+ - Build with vala-0.16 and various small fixes (Abderrahim Kitouni)
+ 
+* Search
+ - Find in files for project files (Johannes Schmid)
+
+* Overall
+ - Use relative path for sessions (Sébastien Granjoux)
+ - Many bugs fixed including some crashers (various)
+
+Thanks to everybody who has helped this cycle and all translators!
+
+Andrea Zagli (1):
+      [l10n] Updated Italian translation
+
+Duarte Loreto (1):
+      Updated Portuguese translation
+
+Lucas Lommer (1):
+      Updated Czech translation
+
+
 Anjuta 3.3.92 "This week needs more speed" (20 March 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
