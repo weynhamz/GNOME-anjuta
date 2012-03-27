@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 3.3.92\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-08 15:50+0800\n"
-"PO-Revision-Date: 2012-03-07 20:59+0800\n"
+"POT-Creation-Date: 2012-03-27 11:48+0800\n"
+"PO-Revision-Date: 2012-03-25 11:58+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -680,10 +680,10 @@ msgid ""
 msgstr "群組名稱只能包含英文字母或 \"#$:%+,-.=@^_`~\" 字元"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -696,13 +696,13 @@ msgid "Root"
 msgstr "根"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:879
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "群組"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:883
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "來源"
@@ -713,7 +713,7 @@ msgstr "共享程式庫 (libtool)"
 
 #: ../plugins/am-project/am-project.c:132
 msgid "Module (Libtool)"
-msgstr ""
+msgstr "模組 (Libtool)"
 
 #: ../plugins/am-project/am-project.c:140
 msgid "Static Library (Libtool)"
@@ -765,11 +765,11 @@ msgstr "模組"
 msgid "Package"
 msgstr "套件"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "無法解析專案檔案"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "專案不存在或無效的路徑"
@@ -1283,10 +1283,8 @@ msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "靜態程式庫的目標名稱格式必須為「libxxx.a」"
 
 #: ../plugins/am-project/amp-target.c:385
-#, fuzzy
-#| msgid "Shared library target name must be of the form 'libxxx.la'"
 msgid "Module target name must be of the form 'xxx.la'"
-msgstr "共享程式庫的目標名稱格式必須為「libxxx.la」"
+msgstr "模組的目標名稱格式必須為「xxx.la」"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:1
 msgid "Automake Build"
@@ -3421,15 +3419,15 @@ msgstr "搜尋"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "缺少名稱"
 
-#: ../plugins/dir-project/dir-project.c:1001
-#: ../plugins/dir-project/dir-project.c:1011
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3506,7 +3504,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[唯讀]"
 
@@ -3899,7 +3897,7 @@ msgid "Search using regular expressions"
 msgstr "使用正規表示式搜尋"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "編輯(_E)"
@@ -5812,43 +5810,43 @@ msgstr "陳述的縮排大小(空白字元)："
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "視窗元件加入的程式碼。"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "自動縮排"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "依縮排設定值自動縮排目前的行或選擇區域"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "加上/取消備註"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "將目前的選擇區域加上或取消備註"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "相互切換 .h /.c 檔"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "切換 C 標頭檔與原始檔"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "C++/Java 援助"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -8287,7 +8285,7 @@ msgstr "設定編輯器檢視"
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView 編輯器"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8296,7 +8294,7 @@ msgstr ""
 "在硬碟內檔案「 %s」 的內容比目前的緩衝區內容還要新。\n"
 "是否要重新載入它？ "
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8306,18 +8304,18 @@ msgstr ""
 "是否要關閉它？ "
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "無法開啟 %s：%s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "檔案「%s」是唯讀的！仍然要編輯嗎？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "無法儲存檔案 %s：%s"
