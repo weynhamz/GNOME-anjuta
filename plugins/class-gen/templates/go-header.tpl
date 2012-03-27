@@ -15,7 +15,7 @@
 #ifndef _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
 #define _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
 
-#include <gobject.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
