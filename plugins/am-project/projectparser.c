@@ -70,6 +70,25 @@ print (const gchar *message, ...)
 	fputc('\n', output_stream);
 }
 
+static void
+print_error (const gchar *message, ...)
+{
+	va_list args;
+
+	va_start (args, message);
+	if ((output_stream == NULL) || (output_stream == stdout))
+	{
+		vfprintf (stderr, message, args);
+		fputc('\n', stderr);
+	}
+	else
+	{
+		vfprintf (output_stream, message, args);
+		fputc('\n', output_stream);
+	}
+	va_end (args);
+}
+
 static void list_children (IAnjutaProject *project, AnjutaProjectNode *root, AnjutaProjectNode *parent, gint indent, const gchar *path);
 
 static void
@@ -510,6 +529,8 @@ main(int argc, char *argv[])
 		exit (1);
 	}
 
+	open_output ();
+
 	/* Execute commands */
 	for (command = &argv[1]; *command != NULL; command++)
 	{
@@ -538,7 +559,7 @@ main(int argc, char *argv[])
 
 				if (best == 0)
 				{
-					fprintf (stderr, "Error: No backend for loading project in %s\n", *command);
+					print_error ("Error: No backend for loading project in %s", *command);
 					break;
 				}
 				else
@@ -586,7 +607,7 @@ main(int argc, char *argv[])
 			}
 			else
 			{
-				fprintf (stderr, "Error: unknown command %s %s\n", *command, command[1]);
+				print_error ("Error: unknown command %s %s", *command, command[1]);
 				break;
 			}
 		}
@@ -694,7 +715,7 @@ main(int argc, char *argv[])
 			}
 			else
 			{
-				fprintf (stderr, "Error: unknown command %s\n", *command);
+				print_error ("Error: unknown command %s", *command);
 
 				break;
 			}
@@ -734,17 +755,17 @@ main(int argc, char *argv[])
 		}
 		else
 		{
-			fprintf (stderr, "Error: unknown command %s\n", *command);
+			print_error ("Error: unknown command %s", *command);
 
 			break;
 		}
 		amp_project_wait_ready (project);
 		if (error != NULL)
 		{
-			fprintf (stderr, "Error: %s\n", error->message == NULL ? "unknown error" : error->message);
+			print_error ("Error: %s", error->message == NULL ? "unknown error" : error->message);
 
 			g_error_free (error);
-			break;
+			error = NULL;
 		}
 	}
 

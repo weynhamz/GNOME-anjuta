@@ -328,9 +328,22 @@ amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar 
 }
 
 AmpTargetNode*
-amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, GError **error)
+amp_target_node_new_valid (const gchar *name, AnjutaProjectNodeType type, const gchar *install, gint flags, AnjutaProjectNode *parent, GError **error)
 {
 	const gchar *basename;
+
+	/* Check parent if present */
+	if (parent != NULL)
+	{
+		if ((anjuta_project_node_get_node_type (parent) == ANJUTA_PROJECT_GROUP) &&
+		    (amp_group_node_get_makefile_token (AMP_GROUP_NODE (parent)) == NULL))
+		{
+			amp_set_error (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
+		               _("Target parent is not a valid group"));
+
+			return NULL;
+		}
+	}
 
 	/* Validate target name */
 	if (!name || strlen (name) <= 0)

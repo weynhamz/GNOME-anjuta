@@ -37,4 +37,21 @@ AT_CHECK([diff output expect])
 
 
 
+AS_MKDIR_P([empty4])
+AT_DATA([empty4/configure.ac],
+[[]])
+AT_DATA([empty4/Makefile.am],
+[[]])
+AT_DATA([expect],
+[[Error: Target parent is not a valid group
+ROOT (): empty4
+    SOURCE (): configure.ac
+]])
+AT_PARSER_CHECK([load empty4 \
+		 add target 0 target1 prog \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP

@@ -99,7 +99,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, FALSE, error));
 			break;
 		case ANJUTA_PROJECT_TARGET:
-			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, error));
+			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, parent, error));
 			break;
 		case ANJUTA_PROJECT_OBJECT:
 			node = ANJUTA_PROJECT_NODE (amp_object_node_new_valid (file, type, error));
