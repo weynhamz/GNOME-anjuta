@@ -594,10 +594,23 @@ amp_group_node_save (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 	AnjutaTokenFile *tfile;
 	AnjutaProjectNode *child;
 	gboolean ok = TRUE;
+	GFile *directory;
+
+	/* Create directory */
+	directory = g_file_get_parent (AMP_GROUP_NODE (group)->makefile);
+	g_file_make_directory (directory, NULL, NULL);
+	g_object_unref (directory);
 
 	/* Save group */
 	tfile = AMP_GROUP_NODE (group)->tfile;
-	if (tfile == NULL) return FALSE;
+	if (tfile == NULL)
+	{
+		/* Create an empty makefile */
+		g_file_replace_contents (AMP_GROUP_NODE (group)->makefile, "", 0, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL, NULL);
+
+		return TRUE;
+	}
+
 	if (anjuta_token_file_is_dirty (tfile))
 	{
 		if (!anjuta_token_file_save (tfile, error)) return FALSE;

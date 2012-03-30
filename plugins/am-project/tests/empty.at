@@ -1,17 +1,40 @@
 AT_SETUP([Load empty project])
-AS_MKDIR_P([empty])
-AT_DATA([empty/configure.ac],
+AS_MKDIR_P([empty1])
+AT_DATA([empty1/configure.ac],
 [[AC_CONFIG_FILES(Makefile)
 ]])
-AT_DATA([empty/Makefile.am],
+AT_DATA([empty1/Makefile.am],
 [[
 ]])
 AT_DATA([expect],
-[[ROOT (): empty
+[[ROOT (): empty1
     SOURCE (): configure.ac
     SOURCE (): Makefile.am
 ]])
-AT_PARSER_CHECK([load empty \
+AT_PARSER_CHECK([load empty1 \
 		 list])
 AT_CHECK([diff output expect])
+
+
+
+AS_MKDIR_P([empty2])
+AT_DATA([empty2/configure.ac],
+[[]])
+AT_DATA([empty2/Makefile.am],
+[[]])
+AT_DATA([expect],
+[[ROOT (): empty3
+    GROUP (): group1
+        SOURCE (): group1/Makefile.am
+    SOURCE (): configure.ac
+]])
+AT_PARSER_CHECK([load empty2 \
+		 move empty3 \
+		 add group 0 group1 \
+		 save \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP
