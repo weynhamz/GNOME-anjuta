@@ -60,13 +60,25 @@ amp_root_node_set_file (AmpRootNode *root, GFile *new_file)
 AnjutaProjectNode*
 amp_root_node_new (GFile *file)
 {
-	return (AnjutaProjectNode *)amp_group_node_new (file, FALSE);
+	gchar *name = g_file_get_basename (file);
+	AnjutaProjectNode *node;
+
+	node = (AnjutaProjectNode *)amp_group_node_new (file, name, FALSE);
+	g_free (name);
+
+	return node;
 }
 
 AnjutaProjectNode*
 amp_root_node_new_valid (GFile *file, GError **error)
 {
-	return (AnjutaProjectNode *)amp_group_node_new_valid (file, FALSE, error);
+	gchar *name = g_file_get_basename (file);
+	AnjutaProjectNode *node;
+
+	node = (AnjutaProjectNode *)amp_group_node_new_valid (file, name, FALSE, error);
+	g_free (name);
+
+	return node;
 }
 
 void

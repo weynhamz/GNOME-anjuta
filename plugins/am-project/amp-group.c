@@ -518,12 +518,13 @@ amp_group_node_set_file (AmpGroupNode *group, GFile *new_file)
 }
 
 AmpGroupNode*
-amp_group_node_new (GFile *file, gboolean dist_only)
+amp_group_node_new (GFile *file, const gchar *name, gboolean dist_only)
 {
 	AmpGroupNode *node = NULL;
 
 	node = g_object_new (AMP_TYPE_GROUP_NODE, NULL);
 	node->base.file = g_object_ref (file);
+	node->base.name = g_strdup (name);
 	node->dist_only = dist_only;
 	memset (node->tokens, 0, sizeof (node->tokens));
 
@@ -531,12 +532,9 @@ amp_group_node_new (GFile *file, gboolean dist_only)
 }
 
 AmpGroupNode*
-amp_group_node_new_valid (GFile *file, gboolean dist_only, GError **error)
+amp_group_node_new_valid (GFile *file, const gchar *name, gboolean dist_only, GError **error)
 {
-	gchar *name;
-
 	/* Validate group name */
-	name = g_file_get_basename (file);
 	if (!name || strlen (name) <= 0)
 	{
 		g_free (name);
@@ -548,20 +546,19 @@ amp_group_node_new_valid (GFile *file, gboolean dist_only, GError **error)
 		gboolean failed = FALSE;
 		const gchar *ptr = name;
 		while (*ptr) {
-			if (!isalnum (*ptr) && (strchr ("#$:%+,-.=@^_`~", *ptr) == NULL))
+			if (!isalnum (*ptr) && (strchr ("#$:%+,-.=@^_`~/", *ptr) == NULL))
 				failed = TRUE;
 			ptr++;
 		}
 		if (failed) {
 			g_free (name);
 			error_set (error, IANJUTA_PROJECT_ERROR_VALIDATION_FAILED,
-			           _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"));
+			           _("Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"));
 			return NULL;
 		}
 	}
-	g_free (name);
 
-	return amp_group_node_new (file, dist_only);
+	return amp_group_node_new (file, name, dist_only);
 }
 
 void

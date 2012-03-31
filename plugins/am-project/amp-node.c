@@ -99,7 +99,7 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			/* We can create group named . to create a root node in an empty project */
 			if (!g_file_equal (anjuta_project_node_get_file (parent), file))
 			{
-				node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, FALSE, error));
+				node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, name, FALSE, error));
 				if (node != NULL) node->type = type;
 			}
 			else

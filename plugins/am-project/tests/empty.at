@@ -76,4 +76,23 @@ AT_CHECK([diff output expect])
 
 
 
+AT_DATA([expect],
+[[ROOT (): empty7
+    GROUP (): subdir/group1
+        SOURCE (): subdir/group1/Makefile.am
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
+]])
+AT_PARSER_CHECK([load empty6 \
+		 move empty7 \
+		 add group 0 subdir/group1 \
+		 save \
+		 list])
+AT_CHECK([diff output expect])
+AT_PARSER_CHECK([load empty7 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP

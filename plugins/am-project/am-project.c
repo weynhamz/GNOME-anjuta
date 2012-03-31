@@ -1365,7 +1365,7 @@ project_load_subdirs (AmpProject *project, AnjutaToken *list, AnjutaProjectNode 
 			else
 			{
 				/* Create new group */
-				group = amp_group_node_new (subdir, dist_only);
+				group = amp_group_node_new (subdir, value, dist_only);
 
 				/* Group can be NULL if the name is not valid */
 				if (group != NULL)
