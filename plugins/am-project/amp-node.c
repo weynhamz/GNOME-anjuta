@@ -96,7 +96,16 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 				}
 				file = new_file;
 			}
-			node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, FALSE, error));
+			/* We can create group named . to create a root node in an empty project */
+			if (!g_file_equal (anjuta_project_node_get_file (parent), file))
+			{
+				node = ANJUTA_PROJECT_NODE (amp_group_node_new_valid (file, FALSE, error));
+				if (node != NULL) node->type = type;
+			}
+			else
+			{
+				node = parent;
+			}
 			break;
 		case ANJUTA_PROJECT_TARGET:
 			node = ANJUTA_PROJECT_NODE (amp_target_node_new_valid (name, type, NULL, 0, parent, error));
@@ -159,15 +168,16 @@ amp_node_new_valid(AnjutaProjectNode *parent, AnjutaProjectNodeType type, GFile 
 			break;
 		case ANJUTA_PROJECT_MODULE:
 			node = ANJUTA_PROJECT_NODE (amp_module_node_new_valid (name, error));
+			if (node != NULL) node->type = type;
 			break;
 		case ANJUTA_PROJECT_PACKAGE:
 			node = ANJUTA_PROJECT_NODE (amp_package_node_new_valid (name, error));
+			if (node != NULL) node->type = type;
 			break;
 		default:
 			g_assert_not_reached ();
 			break;
 	}
-	if (node != NULL) node->type = type;
 	if (new_file != NULL) g_object_unref (new_file);
 
 	return node;

@@ -2197,7 +2197,9 @@ static PmCommandWork amp_save_job = {amp_save_setup, amp_save_work, amp_save_com
 static gboolean
 amp_add_before_setup (PmJob *job)
 {
-	anjuta_project_node_insert_before (job->parent, job->sibling, job->node);
+	/* If add is called to add the root group, the node is already existing */
+	if (job->parent != job->node)
+		anjuta_project_node_insert_before (job->parent, job->sibling, job->node);
 
 	return TRUE;
 }
@@ -2205,7 +2207,9 @@ amp_add_before_setup (PmJob *job)
 static gboolean
 amp_add_after_setup (PmJob *job)
 {
-	anjuta_project_node_insert_after (job->parent, job->sibling, job->node);
+	/* If add is called to add the root group, the node is already existing */
+	if (job->parent != job->node)
+		anjuta_project_node_insert_after (job->parent, job->sibling, job->node);
 
 	return TRUE;
 }

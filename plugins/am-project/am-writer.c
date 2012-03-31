@@ -495,9 +495,18 @@ amp_group_node_create_token (AmpProject  *project, AmpGroupNode *group, GError *
 	const gchar *name;
 
 	/* Get parent target */
-	parent = AMP_GROUP_NODE (anjuta_project_node_parent_type(ANJUTA_PROJECT_NODE (group), ANJUTA_PROJECT_GROUP));
 	name = anjuta_project_node_get_name (ANJUTA_PROJECT_NODE (group));
-	directory = g_file_get_child (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)), name);
+	parent = AMP_GROUP_NODE (anjuta_project_node_parent_type(ANJUTA_PROJECT_NODE (group), ANJUTA_PROJECT_GROUP));
+	if (parent != NULL)
+	{
+		directory = g_file_get_child (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)), name);
+	}
+	else
+	{
+		/* Used only when adding root group (a group named . in an empty project) */
+		parent = group;
+		directory = g_object_ref (anjuta_project_node_get_file (ANJUTA_PROJECT_NODE (parent)));
+	}
 
 	/* Find a sibling if possible */
 	after = TRUE;

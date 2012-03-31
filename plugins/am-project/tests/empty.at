@@ -54,4 +54,26 @@ AT_CHECK([diff output expect])
 
 
 
+AS_MKDIR_P([empty5])
+AT_DATA([empty5/configure.ac],
+[[]])
+AT_DATA([empty5/Makefile.am],
+[[]])
+AT_DATA([expect],
+[[ROOT (): empty6
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
+]])
+AT_PARSER_CHECK([load empty5 \
+		 move empty6 \
+		 add group 0 . \
+		 save \
+		 list])
+AT_CHECK([diff output expect])
+AT_PARSER_CHECK([load empty6 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP
