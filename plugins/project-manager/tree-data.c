@@ -261,19 +261,7 @@ gbf_tree_data_new_group (AnjutaProjectNode *group)
 	data->type = anjuta_project_node_parent(group) == NULL ? GBF_TREE_NODE_ROOT : GBF_TREE_NODE_GROUP;
 	data->node = group;
 
-	ginfo = g_file_query_info (anjuta_project_node_get_file (group),
-	    G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-	    G_FILE_QUERY_INFO_NONE,
-	    NULL, NULL);
-	if (ginfo)
-	{
-		data->name = g_strdup (g_file_info_get_display_name (ginfo));
-	        g_object_unref(ginfo);
-	}
-	else
-	{
-		data->name = g_strdup (anjuta_project_node_get_name (group));
-	}
+	data->name = g_strdup (anjuta_project_node_get_name (group));
 
 	data->group = g_object_ref (anjuta_project_node_get_file (group));
 
