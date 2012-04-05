@@ -5,9 +5,6 @@ plugin_in_files = anjuta-starter.plugin.in
 starter_plugindir = $(anjuta_plugin_dir)
 starter_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-starter_pixmapsdir = $(anjuta_image_dir)
-starter_pixmaps_DATA = starter_logo.png 
-
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-starter.la
 
