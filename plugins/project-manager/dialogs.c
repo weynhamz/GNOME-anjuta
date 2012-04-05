@@ -61,6 +61,8 @@ typedef struct _PropertiesTable
 	GtkWidget *main;
 	GtkWidget *expand;
 	GtkWidget *extra;
+	GtkWidget *viewport;
+	GtkWidget *scrolledwindow;
 	GbfTreeData *data;
 	AnjutaProjectNode *node;
 	GtkWidget *help_button;
@@ -691,6 +693,8 @@ update_properties (PropertiesTable *table)
 		gtk_widget_show (table->expand);
 	else
 		gtk_widget_hide (table->expand);
+
+	pm_project_resize_properties_dialog (table);
 }
 
 static void
@@ -817,6 +821,13 @@ on_node_changed (AnjutaTreeComboBox *view,
 	}
 }
 
+static void
+on_expand_changed (GtkWidget * widget, gpointer user_data)
+{
+	PropertiesTable *table = (PropertiesTable *)user_data;
+	pm_project_resize_properties_dialog (table);
+}
+
 static GtkWidget *
 pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent, GbfProjectView *view, GbfTreeData *data, GtkTreeIter *selected)
 {
@@ -842,6 +853,8 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 									"main_table", &table->main,
 									"extra_table", &table->extra,
 									"extra_expand", &table->expand,
+	                                "viewport", &table->viewport,
+	                                "scrolledwindow", &table->scrolledwindow,
 	                                "property_help_button", &table->help_button,
 									NULL);
 	g_object_ref (table->table);
@@ -861,18 +874,51 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 					G_CALLBACK (on_node_changed),
 					table);
 
+	g_signal_connect_after (table->expand, "activate",
+					G_CALLBACK (on_expand_changed),
+					table);
+
 	update_properties (table);
 
 	g_signal_connect (table->dialog, "response",
 					G_CALLBACK (on_properties_dialog_response),
 					table);
 
-	gtk_window_set_default_size (GTK_WINDOW (table->dialog), 450, -1);
+	pm_project_resize_properties_dialog (table);
 	gtk_widget_show (table->dialog);
 
 	return table->dialog;
 }
 
+void
+pm_project_resize_properties_dialog (PropertiesTable *table)
+{
+	gint border_width, maximum_width, maximum_height;
+	GtkRequisition dialog, head, viewport, scrolledwindow_minimum, vscrollbar_minimum;
+	GtkWidget *vscrollbar = gtk_scrolled_window_get_vscrollbar (table->scrolledwindow);
+
+	gtk_widget_get_preferred_size (table->dialog, NULL, &dialog);
+	gtk_widget_get_preferred_size (table->head, NULL, &head);
+	gtk_widget_get_preferred_size (table->viewport, NULL, &viewport);
+	gtk_widget_get_preferred_size (table->scrolledwindow, &scrolledwindow_minimum, NULL);
+	gtk_widget_get_preferred_size (vscrollbar, &vscrollbar_minimum, NULL);
+
+	//auxiliary variables
+	border_width = dialog.width - head.width;
+	maximum_width = gdk_screen_width() * 3/4;
+	maximum_height = gdk_screen_height() * 3/4;
+
+	gint height = dialog.height - scrolledwindow_minimum.height + viewport.height;
+	gint width = (head.width > viewport.width) ? dialog.width : viewport.width + vscrollbar_minimum.width + border_width;
+
+	if (height > maximum_height)
+		height = maximum_height;
+
+	if (width > maximum_width)
+		width = maximum_width;
+
+	gtk_window_resize (GTK_WINDOW (table->dialog), width, height);
+}
 
 /* Properties dialog
  *---------------------------------------------------------------------------*/
