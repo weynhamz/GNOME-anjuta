@@ -33,7 +33,6 @@
 
 static gpointer parent_class;
 
-#define UI_FILE PACKAGE_DATA_DIR"/glade/starter.ui"
 #define STARTER_VBOX "starter_vbox"
 #define RECENT_VBOX "recent_vbox"
 #define IMPORT_IMAGE "import_image"
@@ -192,7 +191,9 @@ create_starter_widget (StarterPlugin* plugin)
 	GtkBuilder* builder = gtk_builder_new ();
 	GtkWidget* image;
 	
-	if (!gtk_builder_add_from_file(builder, UI_FILE, &error))
+	if (!gtk_builder_add_from_resource (builder,
+	                                    "/org/gnome/anjuta/ui/starter.ui",
+	                                    &error))
 	{
 		DEBUG_PRINT ("Could load starter ui!", error->message);
 		g_error_free (error);

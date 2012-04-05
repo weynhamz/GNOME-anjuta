@@ -11,8 +11,11 @@ starter_pixmaps_DATA = starter_logo.png
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-starter.la
 
-uidir = $(anjuta_glade_dir)
-ui_DATA = starter.ui
+starter-resources.c: starter.gresource.xml $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/starter.gresource.xml)
+	$(AM_V_GEN) glib-compile-resources --target=$@ --sourcedir=$(srcdir) --generate-source $<
+
+BUILT_SOURCES = \
+	starter-resources.c
 
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
@@ -31,11 +34,18 @@ libanjuta_starter_la_SOURCES= \
 	plugin.c \
 	plugin.h
 
+nodist_libanjuta_starter_la_SOURCES= = \
+	$(BUILT_SOURCES)
+
+CLEANFILES = \
+	$(BUILT_SOURCES)
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(starter_plugin_DATA) \
 	$(starter_pixmaps_DATA) \
-	$(ui_DATA)
+	starter.gresource.xml \
+	starter.ui
 
 -include $(top_srcdir)/git.mk
 
