@@ -50,6 +50,7 @@ struct _AmpGroupNode {
 	AnjutaTokenFile *tfile;							/* Corresponding Makefile */
 	GList *tokens[AM_GROUP_TOKEN_LAST];				/* List of token used by this group */
 	AnjutaToken *make_token;
+	AnjutaToken *preset_token;
 	GHashTable *variables;
 	GFileMonitor *monitor;							/* File monitor */
 };

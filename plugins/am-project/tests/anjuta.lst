@@ -117,14 +117,14 @@ ROOT (): anjuta
             SOURCE (): pixmaps/start-with-import.png
             SOURCE (): pixmaps/start-with-open.png
         SOURCE (): pixmaps/Makefile.am
-        SOURCE (): pixmaps/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): scripts
         PROPERTY (Installation directories): anjuta_datadir = $(anjuta_data_dir)
         TARGET (): anjuta_data
             PROPERTY (Installation directory): anjuta_datadir
             SOURCE (): scripts/anjuta_project.template
         SOURCE (): scripts/Makefile.am
-        SOURCE (): scripts/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): data
         PROPERTY (Installation directories): anjuta_datadir = $(anjuta_data_dir) anjuta_profiledir = $(anjuta_data_dir)/profiles
         TARGET (): anjuta_data
@@ -134,7 +134,7 @@ ROOT (): anjuta
             PROPERTY (Installation directory): anjuta_profiledir
             SOURCE (): data/default.profile
         SOURCE (): data/Makefile.am
-        SOURCE (): data/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): doc
         PROPERTY (Installation directories): anjuta_docdir = $(docdir)
         TARGET (): anjuta_doc
@@ -144,7 +144,7 @@ ROOT (): anjuta
             SOURCE (): doc/anjuta.1
             SOURCE (): doc/anjuta-launcher.1
         SOURCE (): doc/Makefile.am
-        SOURCE (): doc/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): libanjuta
         PROPERTY (C preprocessor flags): -I$(top_srcdir) -I . $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -DDATADIR="\"$(datadir)\"" -DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" -DPACKAGE_DOC_DIR="\"$(docdir)\"" -DG_LOG_DOMAIN=\"libanjuta\"
         PROPERTY (Installation directories): gladeanjutadir = $(libdir)/glade/modules catalogdir = $(datadir)/glade/catalogs libanjutaincludedir = $(includedir)/libanjuta-3.0/libanjuta pkgconfigdir = $(libdir)/pkgconfig girdir = $(datadir)/gir-1.0 typelibdir = $(libdir)/girepository-1.0
@@ -486,7 +486,7 @@ ROOT (): anjuta
         SOURCE (): libanjuta/Makefile.am
         SOURCE (): libanjuta/interfaces/Makefile.am.gir
         SOURCE (): libanjuta/$(INTROSPECTION_MAKEFILE)
-        SOURCE (): libanjuta/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): plugins
         GROUP (): am-project
             PROPERTY (Installation directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
@@ -548,7 +548,7 @@ ROOT (): anjuta
                 PROPERTY (Libraries): libam-project.la $(GIO_LIBS) $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
                 SOURCE (): plugins/am-project/projectparser.c
             SOURCE (): plugins/am-project/Makefile.am
-            SOURCE (): plugins/am-project/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): build-basic-autotools
             PROPERTY (Installation directories): build_gladedir = $(anjuta_glade_dir) build_uidir = $(anjuta_ui_dir) build_pixmapsdir = $(anjuta_image_dir) build_plugindir = $(anjuta_plugin_dir) build_datadir = $(anjuta_data_dir)/build plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -587,7 +587,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/build-basic-autotools/program.c
                 SOURCE (): plugins/build-basic-autotools/program.h
             SOURCE (): plugins/build-basic-autotools/Makefile.am
-            SOURCE (): plugins/build-basic-autotools/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): class-gen
             PROPERTY (Installation directories): clsgen_gladedir = $(anjuta_glade_dir) clsgen_pixmapsdir = $(anjuta_image_dir) clsgen_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): -I${top_srcdir} $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -603,7 +603,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/class-gen/templates/py-source.tpl
                     SOURCE (): plugins/class-gen/templates/vala-source.tpl
                 SOURCE (): plugins/class-gen/templates/Makefile.am
-                SOURCE (): plugins/class-gen/templates/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): clsgen_glade
                 PROPERTY (Installation directory): clsgen_gladedir
                 SOURCE (): plugins/class-gen/anjuta-class-gen-plugin.ui
@@ -639,7 +639,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-wizard/values.c
                 SOURCE (): plugins/project-wizard/values.h
             SOURCE (): plugins/class-gen/Makefile.am
-            SOURCE (): plugins/class-gen/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): code-analyzer
             PROPERTY (Installation directories): code_analyzer_uidir = $(anjuta_glade_dir) code_analyzer_pixmapsdir = $(anjuta_image_dir) code_analyzer_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"code_analyzer\"
@@ -659,7 +659,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/code-analyzer/plugin.c
                 SOURCE (): plugins/code-analyzer/plugin.h
             SOURCE (): plugins/code-analyzer/Makefile.am
-            SOURCE (): plugins/code-analyzer/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): cvs-plugin
             PROPERTY (Installation directories): cvs_plugin_gladedir = $(anjuta_glade_dir) cvs_plugin_pixmapsdir = $(anjuta_image_dir) cvs_plugin_uidir = $(anjuta_ui_dir) cvs_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -691,7 +691,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/cvs-plugin/cvs-interface.c
                 SOURCE (): plugins/cvs-plugin/cvs-interface.h
             SOURCE (): plugins/cvs-plugin/Makefile.am
-            SOURCE (): plugins/cvs-plugin/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): devhelp
             PROPERTY (Installation directories): devhelp_uidir = $(anjuta_ui_dir) devhelp_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): -DDISABLE_EMBEDDED_DEVHELP
@@ -710,7 +710,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/devhelp/images/anjuta-devhelp-view-24.png
                     SOURCE (): plugins/devhelp/images/anjuta-devhelp-view-16.png
                 SOURCE (): plugins/devhelp/images/Makefile.am
-                SOURCE (): plugins/devhelp/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): devhelp_ui
                 PROPERTY (Installation directory): devhelp_uidir
                 SOURCE (): plugins/devhelp/anjuta-devhelp.ui
@@ -725,7 +725,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/devhelp/plugin.c
                 SOURCE (): plugins/devhelp/plugin.h
             SOURCE (): plugins/devhelp/Makefile.am
-            SOURCE (): plugins/devhelp/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): debug-manager
             PROPERTY (Installation directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(GIO_CFLAGS) $(LIBANJUTA_CFLAGS)
@@ -764,7 +764,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/debug-manager/images/anjuta-memory-24.png
                     SOURCE (): plugins/debug-manager/images/anjuta-memory.svg
                 SOURCE (): plugins/debug-manager/images/Makefile.am
-                SOURCE (): plugins/debug-manager/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): anjuta_glade
                 PROPERTY (Installation directory): anjuta_gladedir
                 SOURCE (): plugins/debug-manager/anjuta-debug-manager.ui
@@ -825,7 +825,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/debug-manager/variable.c
                 SOURCE (): plugins/debug-manager/variable.h
             SOURCE (): plugins/debug-manager/Makefile.am
-            SOURCE (): plugins/debug-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): dir-project
             PROPERTY (Installation directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_datadir = $(anjuta_data_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"dir-project\"
@@ -853,7 +853,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/dir-project/dir-node.c
                 SOURCE (): plugins/dir-project/dir-node.h
             SOURCE (): plugins/dir-project/Makefile.am
-            SOURCE (): plugins/dir-project/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): document-manager
             PROPERTY (Installation directories): document_manager_gladedir = $(anjuta_glade_dir) document_manager_uidir = $(anjuta_ui_dir) document_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-document-manager\"
@@ -905,7 +905,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/document-manager/images/anjuta-complete-auto-16.png
                     SOURCE (): plugins/document-manager/images/anjuta-complete-auto-24.png
                 SOURCE (): plugins/document-manager/images/Makefile.am
-                SOURCE (): plugins/document-manager/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): document_manager_glade
                 PROPERTY (Installation directory): document_manager_gladedir
                 SOURCE (): plugins/document-manager/anjuta-document-manager.ui
@@ -939,7 +939,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/document-manager/search-filter-file-command.c
                 SOURCE (): plugins/document-manager/search-filter-file-command.h
             SOURCE (): plugins/document-manager/Makefile.am
-            SOURCE (): plugins/document-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): file-loader
             PROPERTY (Installation directories): loader_uidir = $(anjuta_ui_dir) loader_pixmapsdir = $(anjuta_image_dir) loader_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-loader\"
@@ -964,7 +964,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/file-loader/anjuta-recent-chooser-menu.c
                 SOURCE (): plugins/file-loader/anjuta-recent-chooser-menu.h
             SOURCE (): plugins/file-loader/Makefile.am
-            SOURCE (): plugins/file-loader/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): file-manager
             PROPERTY (Installation directories): file_manager_gladedir = $(anjuta_glade_dir) file_manager_uidir = $(anjuta_ui_dir) file_manager_pixmapsdir = $(anjuta_image_dir) file_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(GDL_CFLAGS) $(GIO_CFLAGS)
@@ -1003,7 +1003,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/file-manager/file-model.c
                 SOURCE (): plugins/file-manager/file-model.h
             SOURCE (): plugins/file-manager/Makefile.am
-            SOURCE (): plugins/file-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): file-wizard
             PROPERTY (Installation directories): wizard_gladedir = $(anjuta_glade_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -1026,7 +1026,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/file-wizard/plugin.c
                 SOURCE (): plugins/file-wizard/plugin.h
             SOURCE (): plugins/file-wizard/Makefile.am
-            SOURCE (): plugins/file-wizard/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): gdb
             PROPERTY (Installation directories): gdb_uidir = $(anjuta_ui_dir) anjuta_gladedir = $(anjuta_glade_dir) anjuta_datadir = $(anjuta_data_dir) plugin_pixmapsdir = $(anjuta_image_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(XML_CFLAGS)
@@ -1038,7 +1038,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/gdb/images/locals.png
                     SOURCE (): plugins/gdb/images/stack.png
                 SOURCE (): plugins/gdb/images/Makefile.am
-                SOURCE (): plugins/gdb/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): gdb_ui
                 PROPERTY (Installation directory): gdb_uidir
             TARGET (): anjuta_glade
@@ -1079,7 +1079,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/gdb/gdbmi.h
                 SOURCE (): plugins/gdb/debugger.h
             SOURCE (): plugins/gdb/Makefile.am
-            SOURCE (): plugins/gdb/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): git
             PROPERTY (Installation directories): git_gladedir = $(anjuta_glade_dir) git_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -1093,7 +1093,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/git/images/anjuta-git-plugin.svg
                     SOURCE (): plugins/git/images/\
                 SOURCE (): plugins/git/images/Makefile.am
-                SOURCE (): plugins/git/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): git_glade
                 PROPERTY (Installation directory): git_gladedir
                 SOURCE (): plugins/git/anjuta-git.ui
@@ -1297,7 +1297,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/git/git-apply-mailbox-pane.c
                 SOURCE (): plugins/git/git-apply-mailbox-pane.h
             SOURCE (): plugins/git/Makefile.am
-            SOURCE (): plugins/git/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): glade
             PROPERTY (Installation directories): glade_uidir = $(anjuta_ui_dir) glade_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(PLUGIN_GLADE_CFLAGS) $(LIBANJUTA_CFLAGS)
@@ -1368,7 +1368,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-manager/plugin.c
                 SOURCE (): plugins/language-manager/plugin.h
             SOURCE (): plugins/language-manager/Makefile.am
-            SOURCE (): plugins/language-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): language-support-cpp-java
             PROPERTY (Installation directories): cpp_java_gladedir = $(anjuta_glade_dir) cpp_java_uidir = $(anjuta_ui_dir) cpp_java_pixmapsdir = $(anjuta_image_dir) cpp_java_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"language-support-cpp-java\"
@@ -1433,7 +1433,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-cpp-java/cpp-packages.c
                 SOURCE (): plugins/language-support-cpp-java/cpp-packages.h
             SOURCE (): plugins/language-support-cpp-java/Makefile.am
-            SOURCE (): plugins/language-support-cpp-java/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): language-support-js
             PROPERTY (Installation directories): js_support_plugin_gladedir = $(anjuta_glade_dir) js_support_plugin_uidir = $(anjuta_ui_dir) js_support_plugin_pixmapsdir = $(anjuta_image_dir) js_support_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/ $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DGIR_PATH=\"$(INTROSPECTION_GIRDIR)\" -DGJS_PATH=\"$(gjsdir) -DG_LOG_DOMAIN=\"language-support-js\"
@@ -1495,7 +1495,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-js/jstypes.h
                 SOURCE (): plugins/language-support-js/prefs.h
             SOURCE (): plugins/language-support-js/Makefile.am
-            SOURCE (): plugins/language-support-js/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): language-support-python
             PROPERTY (Installation directories): python_plugin_uidir = $(anjuta_ui_dir) python_plugin_gladedir = $(anjuta_glade_dir) python_plugin_pixmapsdir = $(anjuta_image_dir) scriptsdir = $(anjuta_plugin_dir) python_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir) -DG_LOG_DOMAIN=\"language-support-python\"
@@ -1527,7 +1527,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-python/python-indentation.c
                 SOURCE (): plugins/language-support-python/python-indentation.h
             SOURCE (): plugins/language-support-python/Makefile.am
-            SOURCE (): plugins/language-support-python/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): language-support-vala
             PROPERTY (Installation directories): vala_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(VALA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"language-support-vala\" --no-warn
@@ -1540,7 +1540,7 @@ ROOT (): anjuta
                 PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(VALA_LIBS)
                 MODULE (): VALA
             SOURCE (): plugins/language-support-vala/Makefile.am
-            SOURCE (): plugins/language-support-vala/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): message-view
             PROPERTY (Installation directories): message_view_gladedir = $(anjuta_glade_dir) message_view_pixmapsdir = $(anjuta_image_dir) message_view_uidir = $(anjuta_ui_dir) message_view_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -1572,7 +1572,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/message-view/message-view.c
                 SOURCE (): plugins/message-view/message-view.h
             SOURCE (): plugins/message-view/Makefile.am
-            SOURCE (): plugins/message-view/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): mk-project
             PROPERTY (Installation directories): plugin_uidir = $(anjuta_ui_dir) plugin_gladedir = $(anjuta_glade_dir) plugin_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"mk-project\"
@@ -1604,7 +1604,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/mk-project/mk-rule.h
                 SOURCE (): plugins/mk-project/mk-project-private.h
             SOURCE (): plugins/mk-project/Makefile.am
-            SOURCE (): plugins/mk-project/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): patch
             PROPERTY (Installation directories): patch_uidir = $(anjuta_ui_dir) patch_gladedir = $(anjuta_glade_dir) patch_pixmapsdir = $(anjuta_image_dir) patch_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -1630,7 +1630,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/patch/patch-plugin.c
                 SOURCE (): plugins/patch/patch-plugin.h
             SOURCE (): plugins/patch/Makefile.am
-            SOURCE (): plugins/patch/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): project-import
             PROPERTY (Installation directories): wizard_gladedir = $(anjuta_glade_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(PLUGIN_GNOMEBUILD_CFLAGS) $(LIBANJUTA_CFLAGS)
@@ -1653,7 +1653,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-import/project-import-dialog.h
                 SOURCE (): plugins/project-import/project-import-dialog.c
             SOURCE (): plugins/project-import/Makefile.am
-            SOURCE (): plugins/project-import/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): project-manager
             PROPERTY (Installation directories): project_uidir = $(anjuta_ui_dir) project_gladedir = $(anjuta_glade_dir) project_pixmapsdir = $(anjuta_image_dir) project_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-project-manager\"
@@ -1696,7 +1696,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-manager/project-marshal.c
                 SOURCE (): plugins/project-manager/project-marshal.h
             SOURCE (): plugins/project-manager/Makefile.am
-            SOURCE (): plugins/project-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): project-wizard
             PROPERTY (Installation directories): wizard_gladedir = $(anjuta_glade_dir) wizard_uidir = $(anjuta_ui_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DANJUTA_BINDIR=\"$(bindir)\" -DANJUTA_LIBDIR=\"$(libdir)\" -DG_LOG_DOMAIN=\"libanjuta-project-wizard\"
@@ -1712,7 +1712,7 @@ ROOT (): anjuta
                         SOURCE (): plugins/project-wizard/templates/minimal/project.anjuta
                         SOURCE (): plugins/project-wizard/templates/minimal/anjuta.session
                     SOURCE (): plugins/project-wizard/templates/minimal/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/minimal/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): terminal
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/terminal
                     GROUP (): src
@@ -1722,7 +1722,7 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/terminal/src/main.c
                             SOURCE (): plugins/project-wizard/templates/terminal/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/terminal/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/terminal/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/terminal/po
                         TARGET (): wizard_files
@@ -1731,7 +1731,7 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/terminal/po/POTFILES.in
                             SOURCE (): plugins/project-wizard/templates/terminal/po/LINGUAS
                         SOURCE (): plugins/project-wizard/templates/terminal/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/terminal/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/terminal/AUTHORS
@@ -1743,7 +1743,7 @@ ROOT (): anjuta
                         SOURCE (): plugins/project-wizard/templates/terminal/project.anjuta
                         SOURCE (): plugins/project-wizard/templates/terminal/README
                     SOURCE (): plugins/project-wizard/templates/terminal/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/terminal/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): cpp
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/cpp
                     GROUP (): src
@@ -1753,19 +1753,19 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/cpp/src/main.cc
                             SOURCE (): plugins/project-wizard/templates/cpp/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/cpp/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/cpp/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/cpp/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/cpp/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/cpp/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/cpp/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/cpp/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/cpp/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/cpp/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): gtk
                     GROUP (): src
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtk/src
@@ -1775,16 +1775,16 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/gtk/src/Makefile.am.tpl
                             SOURCE (): plugins/project-wizard/templates/gtk/src/project.ui
                         SOURCE (): plugins/project-wizard/templates/gtk/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtk/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtk/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/gtk/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/gtk/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtk/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     SOURCE (): plugins/project-wizard/templates/gtk/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/gtk/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): gtkapplication
                     GROUP (): src
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkapplication/src
@@ -1796,16 +1796,16 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/gtkapplication/src/Makefile.am.tpl
                             SOURCE (): plugins/project-wizard/templates/gtkapplication/src/project.ui
                         SOURCE (): plugins/project-wizard/templates/gtkapplication/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtkapplication/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkapplication/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/gtkapplication/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/gtkapplication/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtkapplication/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     SOURCE (): plugins/project-wizard/templates/gtkapplication/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/gtkapplication/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): anjuta-plugin
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin
                     GROUP (): src
@@ -1819,19 +1819,19 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/anjuta-plugin/src/plugin.plugin.in
                             SOURCE (): plugins/project-wizard/templates/anjuta-plugin/src/plugin.xml
                         SOURCE (): plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/anjuta-plugin/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/anjuta-plugin/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/anjuta-plugin/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/anjuta-plugin/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/anjuta-plugin/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/anjuta-plugin/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/anjuta-plugin/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): gtkmm
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkmm
                     GROUP (): src
@@ -1842,18 +1842,18 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/gtkmm/src/Makefile.am.tpl
                             SOURCE (): plugins/project-wizard/templates/gtkmm/src/project.ui
                         SOURCE (): plugins/project-wizard/templates/gtkmm/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtkmm/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gtkmm/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/gtkmm/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/gtkmm/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gtkmm/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                     SOURCE (): plugins/project-wizard/templates/gtkmm/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/gtkmm/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): wxwin
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/wxwin
                     GROUP (): src
@@ -1863,19 +1863,19 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/wxwin/src/main.cc
                             SOURCE (): plugins/project-wizard/templates/wxwin/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/wxwin/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/wxwin/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/wxwin/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/wxwin/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/wxwin/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/wxwin/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/wxwin/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/wxwin/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/wxwin/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): xlib
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib
                     GROUP (): src
@@ -1885,19 +1885,19 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/xlib/src/main.c
                             SOURCE (): plugins/project-wizard/templates/xlib/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/xlib/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/xlib/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/xlib/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/xlib/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/xlib/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/xlib/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/xlib/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/xlib/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): xlib-dock
                     GROUP (): src
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib-dock/src
@@ -1909,16 +1909,16 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/xlib-dock/src/pixmaps.h
                             SOURCE (): plugins/project-wizard/templates/xlib-dock/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/xlib-dock/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/xlib-dock/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/xlib-dock/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/xlib-dock/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/xlib-dock/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/xlib-dock/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     SOURCE (): plugins/project-wizard/templates/xlib-dock/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/xlib-dock/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): gcj
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gcj
                     GROUP (): src
@@ -1927,12 +1927,12 @@ ROOT (): anjuta
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/gcj/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/gcj/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gcj/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/gcj/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/gcj/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/gcj/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): java
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/java
                     GROUP (): src
@@ -1942,20 +1942,20 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/java/src/main.java
                             SOURCE (): plugins/project-wizard/templates/java/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/java/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/java/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/java/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/java/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/java/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/java/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/java/configure.ac.tpl
                         SOURCE (): plugins/project-wizard/templates/java/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/java/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/java/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): pygtk
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk
                     GROUP (): src
@@ -1965,20 +1965,20 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/pygtk/src/main.py
                             SOURCE (): plugins/project-wizard/templates/pygtk/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/pygtk/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/pygtk/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/pygtk/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/pygtk/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/pygtk/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/pygtk/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/pygtk/configure.ac.tpl
                         SOURCE (): plugins/project-wizard/templates/pygtk/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/pygtk/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/pygtk/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): python
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/python
                     GROUP (): src
@@ -1988,20 +1988,20 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/python/src/main.py
                             SOURCE (): plugins/project-wizard/templates/python/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/python/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/python/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/python/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/python/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/python/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/python/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/python/configure.ac.tpl
                         SOURCE (): plugins/project-wizard/templates/python/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/python/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/python/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): mkfile
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/mkfile
                     GROUP (): src
@@ -2011,7 +2011,7 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/mkfile/src/Makefile.tpl
                             SOURCE (): plugins/project-wizard/templates/mkfile/src/main.c
                         SOURCE (): plugins/project-wizard/templates/mkfile/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/mkfile/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/mkfile/po
                         TARGET (): wizard_files
@@ -2019,12 +2019,12 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/mkfile/po/ChangeLog
                             SOURCE (): plugins/project-wizard/templates/mkfile/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/mkfile/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/mkfile/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/mkfile/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/mkfile/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/mkfile/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): sdl
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/sdl
                     GROUP (): src
@@ -2034,20 +2034,20 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/sdl/src/main.c
                             SOURCE (): plugins/project-wizard/templates/sdl/src/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/sdl/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/sdl/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/sdl/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/sdl/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/sdl/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/sdl/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/sdl/configure.ac.tpl
                         SOURCE (): plugins/project-wizard/templates/sdl/acinclude.m4.tpl
                     SOURCE (): plugins/project-wizard/templates/sdl/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/sdl/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): library
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/library
                     GROUP (): src
@@ -2059,26 +2059,26 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/library/src/Makefile.am.tpl
                             SOURCE (): plugins/project-wizard/templates/library/src/library.pc.in
                         SOURCE (): plugins/project-wizard/templates/library/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/library/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     GROUP (): po
                         PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/library/po
                         TARGET (): wizard_files
                             PROPERTY (Installation directory): wizard_filesdir
                             SOURCE (): plugins/project-wizard/templates/library/po/POTFILES.in
                         SOURCE (): plugins/project-wizard/templates/library/po/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/library/po/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/library/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/library/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/library/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): directory
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/directory
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/directory/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/directory/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/directory/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): licenses
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/licenses
                     TARGET (): wizard_files
@@ -2092,7 +2092,7 @@ ROOT (): anjuta
                         SOURCE (): plugins/project-wizard/templates/licenses/none.txt
                         SOURCE (): plugins/project-wizard/templates/licenses/none.tpl
                     SOURCE (): plugins/project-wizard/templates/licenses/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/licenses/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): m4
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/m4
                     TARGET (): wizard_files
@@ -2100,7 +2100,7 @@ ROOT (): anjuta
                         SOURCE (): plugins/project-wizard/templates/m4/as-ac-expand.m4
                         SOURCE (): plugins/project-wizard/templates/m4/ac-define-dir.m4
                     SOURCE (): plugins/project-wizard/templates/m4/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/m4/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): js_minimal
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/js_minimal
                     GROUP (): src
@@ -2128,12 +2128,12 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/vala-gtk/src/project.ui
                             SOURCE (): plugins/project-wizard/templates/vala-gtk/src/config.vapi
                         SOURCE (): plugins/project-wizard/templates/vala-gtk/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/vala-gtk/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/vala-gtk/configure.ac.tpl
                     SOURCE (): plugins/project-wizard/templates/vala-gtk/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/vala-gtk/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): gnome-shell-extension
                     PROPERTY (Installation directories): wizard_filesdir = $(anjuta_data_dir)/project/gnome-shell-extension
                     GROUP (): src
@@ -2145,7 +2145,7 @@ ROOT (): anjuta
                             SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/metadata.json
                             SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/stylesheet.css
                         SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/Makefile.am
-                        SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/src/$(top_srcdir)/git.mk
+                        SOURCE (): git.mk
                     TARGET (): wizard_files
                         PROPERTY (Installation directory): wizard_filesdir
                         SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/autogen.sh
@@ -2153,7 +2153,7 @@ ROOT (): anjuta
                         SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/Makefile.am.tpl
                         SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/project.anjuta
                     SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/Makefile.am
-                    SOURCE (): plugins/project-wizard/templates/gnome-shell-extension/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 TARGET (): wizard_files
                     PROPERTY (Installation directory): wizard_filesdir
                     SOURCE (): plugins/project-wizard/templates/terminal-logo.png
@@ -2174,7 +2174,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/project-wizard/templates/gnome.svg
                     SOURCE (): plugins/project-wizard/templates/$(template_in_files:.in=)
                 SOURCE (): plugins/project-wizard/templates/Makefile.am
-                SOURCE (): plugins/project-wizard/templates/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): wizard_glade
                 PROPERTY (Installation directory): wizard_gladedir
                 SOURCE (): plugins/project-wizard/anjuta-project-wizard.ui
@@ -2216,7 +2216,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-wizard/tar.c
                 SOURCE (): plugins/project-wizard/tar.h
             SOURCE (): plugins/project-wizard/Makefile.am
-            SOURCE (): plugins/project-wizard/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): python-loader
             PROPERTY (Installation directories): plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(PYTHON_CFLAGS) $(PYGOBJECT_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"python-loader\"
@@ -2230,7 +2230,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/python-loader/plugin.c
                 SOURCE (): plugins/python-loader/plugin.h
             SOURCE (): plugins/python-loader/Makefile.am
-            SOURCE (): plugins/python-loader/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): run-program
             PROPERTY (Installation directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_pixmapsdir = $(anjuta_image_dir) anjuta_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -2259,7 +2259,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/run-program/utils.c
                 SOURCE (): plugins/run-program/utils.h
             SOURCE (): plugins/run-program/Makefile.am
-            SOURCE (): plugins/run-program/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): snippets-manager
             PROPERTY (Installation directories): snippets_manager_gladedir = $(anjuta_glade_dir) default_snippetsdir = $(anjuta_data_dir) snippets_manager_pixmapsdir = $(anjuta_image_dir) snippets_manager_uidir = $(anjuta_ui_dir) snippets_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) $(XML_CFLAGS) -DG_LOG_DOMAIN=\"libanjuta-snippets-manager\"
@@ -2310,7 +2310,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/snippets-manager/snippets-import-export.c
                 SOURCE (): plugins/snippets-manager/snippets-import-export.h
             SOURCE (): plugins/snippets-manager/Makefile.am
-            SOURCE (): plugins/snippets-manager/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): sourceview
             PROPERTY (Installation directories): sourceview_xmldir = $(anjuta_glade_dir) sourceview_uidir = $(anjuta_ui_dir) sourceview_pixmapsdir = $(anjuta_image_dir) sourceview_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GIO_CFLAGS) $(SOURCEVIEW_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"sourceview\"
@@ -2359,7 +2359,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/sourceview/sourceview-provider.h
                 SOURCE (): plugins/sourceview/sourceview-provider.c
             SOURCE (): plugins/sourceview/Makefile.am
-            SOURCE (): plugins/sourceview/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): starter
             PROPERTY (Installation directories): starter_plugindir = $(anjuta_plugin_dir) starter_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir) uidir = $(anjuta_glade_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"starter\"
@@ -2380,7 +2380,7 @@ ROOT (): anjuta
                 PROPERTY (Installation directory): uidir
                 SOURCE (): plugins/starter/starter.ui
             SOURCE (): plugins/starter/Makefile.am
-            SOURCE (): plugins/starter/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): subversion
             PROPERTY (Installation directories): subversion_gladedir = $(anjuta_glade_dir) subversion_pixmapsdir = $(anjuta_image_dir) subversion_uidir = $(anjuta_ui_dir) subversion_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(SVN_CFLAGS) $(SVN_INCLUDE)
@@ -2464,7 +2464,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/subversion/svn-checkout-command.c
                 SOURCE (): plugins/subversion/svn-checkout-command.h
             SOURCE (): plugins/subversion/Makefile.am
-            SOURCE (): plugins/subversion/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): symbol-db
             PROPERTY (Installation directories): symbol_db_datadir = $(anjuta_data_dir) symbol_db_uidir = $(anjuta_ui_dir) symbol_db_gladedir = $(anjuta_glade_dir) symbol_db_pixmapsdir = $(anjuta_image_dir) symbol_db_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDA_CFLAGS) $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" -DPACKAGE_BIN_DIR=\"$(bindir)\" -DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
@@ -2595,7 +2595,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/symbol-db/images/element-property-public-16.png
                     SOURCE (): plugins/symbol-db/images/element-structure-16.png
                 SOURCE (): plugins/symbol-db/images/Makefile.am
-                SOURCE (): plugins/symbol-db/images/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             GROUP (): benchmark
                 GROUP (): symbol-db
                     PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
@@ -2605,7 +2605,7 @@ ROOT (): anjuta
                         PROPERTY (Libraries): ../../libanjuta-symbol-db.la
                         SOURCE (): plugins/symbol-db/benchmark/symbol-db/benchmark.c
                     SOURCE (): plugins/symbol-db/benchmark/symbol-db/Makefile.am
-                    SOURCE (): plugins/symbol-db/benchmark/symbol-db/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): libgda
                     PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
                     TARGET (): benchmark-libgda
@@ -2614,7 +2614,7 @@ ROOT (): anjuta
                         PROPERTY (Libraries): ../../libanjuta-symbol-db.la
                         SOURCE (): plugins/symbol-db/benchmark/libgda/libgda.c
                     SOURCE (): plugins/symbol-db/benchmark/libgda/Makefile.am
-                    SOURCE (): plugins/symbol-db/benchmark/libgda/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 GROUP (): sqlite
                     PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
                     TARGET (): benchmark-sqlite
@@ -2622,7 +2622,7 @@ ROOT (): anjuta
                         PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS) `pkg-config --libs sqlite3`
                         SOURCE (): plugins/symbol-db/benchmark/sqlite/sqlite.c
                     SOURCE (): plugins/symbol-db/benchmark/sqlite/Makefile.am
-                    SOURCE (): plugins/symbol-db/benchmark/sqlite/$(top_srcdir)/git.mk
+                    SOURCE (): git.mk
                 SOURCE (): plugins/symbol-db/benchmark/Makefile.am
             TARGET (): symbol_db_data
                 PROPERTY (Installation directory): symbol_db_datadir
@@ -2677,7 +2677,7 @@ ROOT (): anjuta
                 SOURCE (): plugins/symbol-db/symbol-db-views.h
                 SOURCE (): plugins/symbol-db/$(BUILT_SOURCES)
             SOURCE (): plugins/symbol-db/Makefile.am
-            SOURCE (): plugins/symbol-db/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): terminal
             PROPERTY (Installation directories): terminal_gladedir = $(anjuta_glade_dir) terminal_uidir = $(anjuta_ui_dir) terminal_pixmapsdir = $(anjuta_image_dir) terminal_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(VTE_CFLAGS) $(LIBANJUTA_CFLAGS)
@@ -2701,7 +2701,7 @@ ROOT (): anjuta
                 MODULE (): VTE
                 SOURCE (): plugins/terminal/terminal.c
             SOURCE (): plugins/terminal/Makefile.am
-            SOURCE (): plugins/terminal/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): tools
             PROPERTY (Installation directories): tools_gladedir = $(anjuta_glade_dir) tools_uidir = $(anjuta_ui_dir) tools_pixmapsdir = $(anjuta_image_dir) tools_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
@@ -2714,7 +2714,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/tools/scripts/translation-status.pl
                     SOURCE (): plugins/tools/scripts/tools-2.xml
                 SOURCE (): plugins/tools/scripts/Makefile.am
-                SOURCE (): plugins/tools/scripts/$(top_srcdir)/git.mk
+                SOURCE (): git.mk
             TARGET (): tools_glade
                 PROPERTY (Installation directory): tools_gladedir
                 SOURCE (): plugins/tools/anjuta-tools.ui
@@ -2747,9 +2747,9 @@ ROOT (): anjuta
                 SOURCE (): plugins/tools/variable.c
                 SOURCE (): plugins/tools/variable.h
             SOURCE (): plugins/tools/Makefile.am
-            SOURCE (): plugins/tools/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         SOURCE (): plugins/Makefile.am
-        SOURCE (): plugins/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): src
         PROPERTY (Installation directories): anjuta_gladedir = $(anjuta_glade_dir) anjuta_uidir = $(anjuta_ui_dir) anjuta_layoutdir = $(anjuta_data_dir) anjuta_pixmapsdir = $(anjuta_image_dir)
         PROPERTY (C preprocessor flags): -I$(top_srcdir) -I.. -I. $(LIBANJUTA_CFLAGS) $(SOURCEVIEW_CFLAGS) $(GDL_CFLAGS) $(XML_CFLAGS) -DPACKAGE_BIN_DIR=\"$(bindir)\" -DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" -DPACKAGE_DOC_DIR=\"$(docdir)\" -DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" -DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" -DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\" -DG_LOG_DOMAIN=\"Anjuta\"
@@ -2790,36 +2790,33 @@ ROOT (): anjuta
             SOURCE (): src/shell.c
             SOURCE (): src/shell.h
         SOURCE (): src/Makefile.am
-        SOURCE (): src/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): manuals
         GROUP (): reference
             GROUP (): libanjuta
                 SOURCE (): manuals/reference/libanjuta/Makefile.am
-                SOURCE (): manuals/reference/libanjuta/$(top_srcdir)/gtk-doc.make
-                SOURCE (): manuals/reference/libanjuta/$(top_srcdir)/git.mk
+                SOURCE (): gtk-doc.make
+                SOURCE (): git.mk
             SOURCE (): manuals/reference/Makefile.am
-            SOURCE (): manuals/reference/$(top_srcdir)/git.mk
+            SOURCE (): git.mk
         GROUP (): anjuta-manual
             SOURCE (): manuals/anjuta-manual/Makefile.am
-            SOURCE (): manuals/anjuta-manual/$(top_srcdir)/gnome-doc-utils.make
-            SOURCE (): manuals/anjuta-manual/$(top_srcdir)/git.mk
+            SOURCE (): gnome-doc-utils.make
         GROUP (): anjuta-faqs
             SOURCE (): manuals/anjuta-faqs/Makefile.am
-            SOURCE (): manuals/anjuta-faqs/$(top_srcdir)/gnome-doc-utils.make
-            SOURCE (): manuals/anjuta-faqs/$(top_srcdir)/git.mk
+            SOURCE (): gnome-doc-utils.make
         GROUP (): anjuta-build-tutorial
             SOURCE (): manuals/anjuta-build-tutorial/Makefile.am
-            SOURCE (): manuals/anjuta-build-tutorial/$(top_srcdir)/gnome-doc-utils.make
-            SOURCE (): manuals/anjuta-build-tutorial/$(top_srcdir)/git.mk
+            SOURCE (): gnome-doc-utils.make
         SOURCE (): manuals/Makefile.am
-        SOURCE (): manuals/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): mime
         PROPERTY (Installation directories): mimexmldir = $(datadir)/mime/packages
         TARGET (): mimexml
             PROPERTY (Installation directory): mimexmldir
             SOURCE (): mime/anjuta.xml
         SOURCE (): mime/Makefile.am
-        SOURCE (): mime/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): launcher
         PROPERTY (C preprocessor flags): -I. -I.. $(ANJUTA_CFLAGS) -g -O $(DEPRECATED_FLAGS)
         TARGET (): anjuta-launcher
@@ -2827,7 +2824,7 @@ ROOT (): anjuta
             PROPERTY (Libraries): $(ANJUTA_LIBS)
             MODULE (): ANJUTA
         SOURCE (): launcher/Makefile.am
-        SOURCE (): launcher/$(top_srcdir)/git.mk
+        SOURCE (): git.mk
     GROUP (): po
     TARGET (): anjutadoc
         PROPERTY (Installation directory): anjutadocdir
@@ -2850,4 +2847,4 @@ ROOT (): anjuta
         SOURCE (): $(gnomemenu_premerge_file:.desktop.in=.desktop)
     SOURCE (): configure.ac
     SOURCE (): Makefile.am
-    SOURCE (): $(top_srcdir)/git.mk
+    SOURCE (): git.mk

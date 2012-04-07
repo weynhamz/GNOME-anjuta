@@ -340,6 +340,76 @@ on_group_monitor_changed (GFileMonitor *monitor,
 	}
 }
 
+void
+amp_group_node_update_preset_variable (AmpGroupNode *group)
+{
+	gchar *path;
+	AnjutaToken *value;
+	AmpVariable *var;
+	GFile *root;
+	GFile *file;
+	AnjutaProjectNode *node;
+
+	if (group->preset_token != NULL) anjuta_token_free (group->preset_token);
+	group->preset_token = anjuta_token_new_static (ANJUTA_TOKEN_FILE,  NULL);
+
+	/* Get project root */
+	for (node = ANJUTA_PROJECT_NODE (group); anjuta_project_node_parent (node) != NULL; node = anjuta_project_node_parent (node));
+	root = anjuta_project_node_get_file (node);
+
+	/* Set source directory variables */
+	file = anjuta_project_node_get_file (group);
+	value = anjuta_token_insert_token_list (FALSE, NULL,
+	                                  ANJUTA_TOKEN_LIST, NULL,
+	                                  ANJUTA_TOKEN_ARGUMENT, NULL,
+	                                  ANJUTA_TOKEN_CONTENT, ".",
+	                                  NULL);
+	anjuta_token_append_child (group->preset_token, value);
+	var = amp_variable_new ("srcdir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+	var = amp_variable_new ("builddir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+
+	path = g_file_get_path (file);
+	value = anjuta_token_insert_token_list (FALSE, NULL,
+	                                  ANJUTA_TOKEN_LIST, NULL,
+	                                  ANJUTA_TOKEN_ARGUMENT, NULL,
+	                                  ANJUTA_TOKEN_CONTENT, path,
+	                                  NULL);
+	g_free (path);
+	anjuta_token_append_child (group->preset_token, value);
+	var = amp_variable_new ("abs_srcdir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+	var = amp_variable_new ("abs_builddir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+
+	path = get_relative_path (file, root);
+	value = anjuta_token_insert_token_list (FALSE, NULL,
+	                                  ANJUTA_TOKEN_LIST, NULL,
+	                                  ANJUTA_TOKEN_ARGUMENT, NULL,
+	                                  ANJUTA_TOKEN_CONTENT, path,
+	                                  NULL);
+	g_free (path);
+	anjuta_token_append_child (group->preset_token, value);
+	var = amp_variable_new ("top_srcdir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+	var = amp_variable_new ("top_builddir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+
+	path = g_file_get_path (root);
+	value = anjuta_token_insert_token_list (FALSE, NULL,
+	                                  ANJUTA_TOKEN_LIST, NULL,
+	                                  ANJUTA_TOKEN_ARGUMENT, NULL,
+	                                  ANJUTA_TOKEN_CONTENT, path,
+	                                  NULL);
+	g_free (path);
+	anjuta_token_append_child (group->preset_token, value);
+	var = amp_variable_new ("abs_top_srcdir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+	var = amp_variable_new ("abs_top_builddir", 0, value);
+	g_hash_table_insert (group->variables, var->name, var);
+}
+
 AnjutaTokenFile*
 amp_group_node_set_makefile (AmpGroupNode *group, GFile *makefile, AmpProject *project)
 {
@@ -358,6 +428,8 @@ amp_group_node_set_makefile (AmpGroupNode *group, GFile *makefile, AmpProject *p
 
 		token = anjuta_token_file_load (group->tfile, NULL);
 		amp_project_add_file (project, makefile, group->tfile);
+
+		amp_group_node_update_preset_variable (group);
 
 		scanner = amp_am_scanner_new (project, group);
 		group->make_token = amp_am_scanner_parse_token (scanner, anjuta_token_new_static (ANJUTA_TOKEN_FILE, NULL), token, makefile, NULL);
@@ -434,6 +506,11 @@ amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 		g_object_unref (group->makefile);
 		group->monitor = NULL;
 	}
+	if (group->preset_token != NULL)
+	{
+		anjuta_token_free (group->preset_token);
+		group->preset_token = NULL;
+	}
 	if (group->tfile) anjuta_token_file_free (group->tfile);
 	for (i = 0; i < AM_GROUP_TOKEN_LAST; i++)
 	{
@@ -448,6 +525,8 @@ amp_group_node_update_node (AmpGroupNode *group, AmpGroupNode *new_group)
 	new_group->tfile = NULL;
 	group->make_token = new_group->make_token;
 	new_group->make_token = NULL;
+	group->preset_token = new_group->preset_token;
+	new_group->preset_token = NULL;
 	memcpy (group->tokens, new_group->tokens, sizeof (group->tokens));
 	memset (new_group->tokens, 0, sizeof (new_group->tokens));
 	hash = group->variables;
@@ -666,6 +745,7 @@ amp_group_node_init (AmpGroupNode *node)
 	node->variables = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)amp_variable_free);
 	node->monitor = NULL;
 	memset (node->tokens, 0, sizeof (node->tokens));
+	node->preset_token = NULL;
 }
 
 static void
@@ -675,6 +755,9 @@ amp_group_node_dispose (GObject *object)
 
 	if (node->monitor) g_object_unref (node->monitor);
 	node->monitor = NULL;
+
+	if (node->preset_token) anjuta_token_free (node->preset_token);
+	node->preset_token = NULL;
 
 	G_OBJECT_CLASS (amp_group_node_parent_class)->dispose (object);
 }
