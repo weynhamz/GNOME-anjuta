@@ -69,8 +69,8 @@ AT_DATA([expect],
 [[ROOT (): variable_ac3
     TARGET (): target1
         PROPERTY (Installation directory): bindir
-        PROPERTY (Linker flags): $plugin-$plugin
-        PROPERTY (C compiler flags): -O0
+        PROPERTY (Linker flags): $(TARGET_LDFLAGS)
+        PROPERTY (C compiler flags): $(TARGET_CFLAGS)
     SOURCE (): configure.ac
     SOURCE (): Makefile.am
 ]])

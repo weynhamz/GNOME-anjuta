@@ -40,7 +40,7 @@ ROOT (): gnucash
     MODULE (): GNOME_KEYRING
         PACKAGE (): gnome-keyring-1
     GROUP (): doc
-        PROPERTY (Installation directories): docdir = ${GNC_DOC_INSTALL_DIR} tipsdir = ${pkgdatadir}
+        PROPERTY (Installation directories): docdir = ${GNC_DOC_INSTALL_DIR} tipsdir = $(GNC_SHAREDIR)
         GROUP (): examples
             PROPERTY (Installation directories): docdir = ${GNC_DOC_INSTALL_DIR}/examples
             TARGET (): doc
@@ -87,7 +87,7 @@ ROOT (): gnucash
             PROPERTY (C preprocessor flags): -DOS_WIN32
             TARGET (): libc-missing.la
                 PROPERTY (Do not install): true
-                PROPERTY (Libraries): $(shell echo " " | sed 's,\.^.* ,&,g;s,\.^.*\$\$,&,' | sed 's,\.[^.]* ,.lo ,g;s,\.[^.]*,.lo,')
+                PROPERTY (Libraries): $(LTLIBOBJS)
                 SOURCE (): lib/libc/libc-missing-noop.c
             TARGET (): noinst_HEADERS
                 PROPERTY (Do not install): true
@@ -130,8 +130,8 @@ ROOT (): gnucash
                 PROPERTY (Installation directories): qofincludedir = ${pkgincludedir}
                 TARGET (): libgnc-qof.la
                     PROPERTY (Installation directory): libdir
-                    PROPERTY (Linker flags): -version-info 1:4:0
-                    PROPERTY (Libraries): $(GLIB_LIBS) -lregex $(top_builddir)/lib/libc/libc-missing.la
+                    PROPERTY (Linker flags): -version-info $(LIBQOF_LIBRARY_VERSION)
+                    PROPERTY (Libraries): $(GLIB_LIBS) $(REGEX_LIBS) $(top_builddir)/lib/libc/libc-missing.la
                     SOURCE (): src/libqof/qof/gnc-date.c
                     SOURCE (): src/libqof/qof/gnc-numeric.c
                     SOURCE (): src/libqof/qof/guid.c
@@ -201,9 +201,9 @@ ROOT (): gnucash
                     SOURCE (): src/libqof/qof/qofsession-p.h
                 TARGET (): test-qofmath
                     PROPERTY (Build for check only): true
-                    PROPERTY (C preprocessor flags): -I/lib/libc -I/src -DTEST_128_BIT_MULT
-                    PROPERTY (Linker flags): -version-info 1:4:0
-                    PROPERTY (Libraries): -lregex /lib/libc/libc-missing.la
+                    PROPERTY (C preprocessor flags): $(AM_CPPFLAGS) -DTEST_128_BIT_MULT
+                    PROPERTY (Linker flags): $(libgnc_qof_la_LDFLAGS)
+                    PROPERTY (Libraries): $(libgnc_qof_la_LIBADD)
                     SOURCE (): src/libqof/qof/gnc-numeric.c
                 SOURCE (): src/libqof/qof/Makefile.am
             SOURCE (): src/libqof/Makefile.am
@@ -377,7 +377,7 @@ ROOT (): gnucash
                     TARGET (): libgncmodfoo.la
                         PROPERTY (Build for check only): true
                         PROPERTY (Linker flags): -rpath ${PWD} -avoid-version
-                        PROPERTY (Libraries): libfoo.la $saved_GUILE_LIBS $(GLIB_LIBS)
+                        PROPERTY (Libraries): libfoo.la $(GUILE_LIBS) $(GLIB_LIBS)
                         SOURCE (): src/gnc-module/test/mod-foo/gnc-mod-foo.c
                     TARGET (): noinst_HEADERS
                         PROPERTY (Do not install): true
@@ -393,7 +393,7 @@ ROOT (): gnucash
                     TARGET (): libgncmodbar.la
                         PROPERTY (Build for check only): true
                         PROPERTY (Linker flags): -rpath ${PWD} -avoid-version
-                        PROPERTY (Libraries): libbar.la $saved_GUILE_LIBS $(GLIB_LIBS)
+                        PROPERTY (Libraries): libbar.la $(GUILE_LIBS) $(GLIB_LIBS)
                         SOURCE (): src/gnc-module/test/mod-bar/gnc-mod-bar.c
                     TARGET (): noinst_HEADERS
                         PROPERTY (Do not install): true
@@ -410,7 +410,7 @@ ROOT (): gnucash
                     TARGET (): libgncmodbaz.la
                         PROPERTY (Build for check only): true
                         PROPERTY (Linker flags): -rpath ${PWD} -avoid-version
-                        PROPERTY (Libraries): libbaz.la ../../libgnc-module.la $saved_GUILE_LIBS $(GLIB_LIBS)
+                        PROPERTY (Libraries): libbaz.la ../../libgnc-module.la $(GUILE_LIBS) $(GLIB_LIBS)
                         SOURCE (): src/gnc-module/test/mod-baz/gnc-mod-baz.c
                     TARGET (): noinst_HEADERS
                         PROPERTY (Do not install): true
@@ -1192,7 +1192,7 @@ ROOT (): gnucash
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/engine -I${top_srcdir}/src/backend/xml -I${top_srcdir}/src/app-utils -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GLIB_CFLAGS} ${GLADE_CFLAGS} ${GTK_CFLAGS} ${GNOME_CFLAGS} ${GNOME_KEYRING_CFLAGS} ${GUILE_INCS} ${QOF_CFLAGS} ${GOFFICE_CFLAGS} ${LIBGDA_CFLAGS} ${IGE_MAC_CFLAGS}
             PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gncscmdir = ${GNC_SHAREDIR}/scm
             GROUP (): glade
-                PROPERTY (Installation directories): gladedir = ${GNC_SHAREDIR}/glade
+                PROPERTY (Installation directories): gladedir = $(GNC_GLADE_DIR)
                 TARGET (): glade
                     PROPERTY (Installation directory): gladedir
                     SOURCE (): src/gnome-utils/glade/commodity.glade
@@ -1225,7 +1225,7 @@ ROOT (): gnucash
                     PROPERTY (Build for check only): true
                 SOURCE (): src/gnome-utils/test/Makefile.am
             GROUP (): ui
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/gnome-utils/ui/gnc-main-window-ui.xml
@@ -1433,7 +1433,7 @@ ROOT (): gnucash
             SOURCE (): src/html/Makefile.am
         GROUP (): gnome-search
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLADE_CFLAGS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
-            PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gladedir = ${GNC_SHAREDIR}/glade
+            PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gladedir = $(GNC_GLADE_DIR)
             TARGET (): libgncmod-gnome-search.la
                 PROPERTY (Installation directory): pkglibdir
                 PROPERTY (Linker flags): -avoid-version
@@ -1632,7 +1632,7 @@ ROOT (): gnucash
                 SOURCE (): src/report/locale-specific/Makefile.am
             GROUP (): report-gnome
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/html -I${top_srcdir}/src/report/report-system -I${top_srcdir}/src/libqof/qof ${GLADE_CFLAGS} ${GUILE_INCS} ${GNOME_CFLAGS} ${GLIB_CFLAGS}
-                PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report gladedir = ${GNC_SHAREDIR}/glade uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): gncincludedir = ${GNC_INCLUDE_DIR} gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report gladedir = $(GNC_GLADE_DIR) uidir = $(GNC_UI_DIR)
                 GROUP (): test
                     TARGET (): test-link-module
                         PROPERTY (Build for check only): true
@@ -1671,7 +1671,7 @@ ROOT (): gnucash
                 SOURCE (): src/report/report-gnome/Makefile.am
             GROUP (): stylesheets
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GNOME_CFLAGS}
-                PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ uidir = $(GNC_UI_DIR)
                 GROUP (): test
                     SOURCE (): src/report/stylesheets/test/Makefile.am
                 TARGET (): libgncmod-stylesheets.la
@@ -1835,7 +1835,7 @@ ROOT (): gnucash
             PROPERTY (Installation directories): gnomeappdir = ${datadir}/applications appicondir = $(datadir)/pixmaps
             PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/calculation -I${top_srcdir}/src/engine -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/backend/xml -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome-search -I${top_srcdir}/src/html -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/report/report-system -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/lib/libc -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GNOME_CFLAGS} ${GLADE_CFLAGS} $(GLIB_CFLAGS) ${IGE_MAC_CFLAGS}
             GROUP (): glade
-                PROPERTY (Installation directories): gladedir = ${GNC_SHAREDIR}/glade
+                PROPERTY (Installation directories): gladedir = $(GNC_GLADE_DIR)
                 TARGET (): glade
                     PROPERTY (Installation directory): gladedir
                     SOURCE (): src/gnome/glade/account.glade
@@ -1859,7 +1859,7 @@ ROOT (): gnucash
             GROUP (): schemas
                 SOURCE (): src/gnome/schemas/Makefile.am
             GROUP (): ui
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                 TARGET (): ui
                     PROPERTY (Installation directory): uidir
                     SOURCE (): src/gnome/ui/gnc-plugin-budget-ui.xml
@@ -1976,7 +1976,7 @@ ROOT (): gnucash
                     SOURCE (): src/import-export/qif/qif-parse.h
                 SOURCE (): src/import-export/qif/Makefile.am
             GROUP (): qif-import
-                PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/import-export gncscmdir = ${GNC_SCM_INSTALL_DIR}/qif-import gladedir = ${GNC_GLADE_DIR} uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/import-export gncscmdir = ${GNC_SCM_INSTALL_DIR}/qif-import gladedir = ${GNC_GLADE_DIR} uidir = $(GNC_UI_DIR)
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GLIB_CFLAGS} ${GLADE_CFLAGS} ${GNOME_CFLAGS}
                 GROUP (): test
                     TARGET (): test-link
@@ -2029,7 +2029,7 @@ ROOT (): gnucash
             GROUP (): ${AQBANKING_DIR}
             GROUP (): log-replay
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS}
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                 TARGET (): libgncmod-log-replay.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2055,7 +2055,7 @@ ROOT (): gnucash
                 SOURCE (): src/import-export/test/Makefile.am
             GROUP (): csv
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof -I${top_srcdir}/lib/libc -I${top_srcdir}/lib ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS} $(GOFFICE_CFLAGS)
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui gladedir = ${GNC_GLADE_DIR}
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR) gladedir = ${GNC_GLADE_DIR}
                 TARGET (): libgncmod-csv.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2106,7 +2106,7 @@ ROOT (): gnucash
                 SOURCE (): src/import-export/qif-io-core/Makefile.am
             GROUP (): ofx
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GUILE_INCS} ${GLIB_CFLAGS} ${LIBOFX_CFLAGS}
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                 GROUP (): test
                     PROPERTY (C preprocessor flags): ${LIBOFX_CFLAGS}
                     TARGET (): test-link
@@ -2131,7 +2131,7 @@ ROOT (): gnucash
                 SOURCE (): src/import-export/ofx/Makefile.am
             GROUP (): aqbanking
                 PROPERTY (C compiler flags): -I${top_srcdir}/src -I${top_srcdir}/src/import-export -I${top_srcdir}/src/gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${AQBANKING_CFLAGS}
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui gladedir = ${GNC_SHAREDIR}/glade
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR) gladedir = $(GNC_GLADE_DIR)
                 GROUP (): schemas
                     SOURCE (): src/import-export/aqbanking/schemas/Makefile.am
                 TARGET (): libgncmod-aqbanking.la
@@ -2174,9 +2174,9 @@ ROOT (): gnucash
                 SOURCE (): src/import-export/aqbanking/Makefile.am
             GROUP (): hbci
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/import-export -I${top_srcdir}/src/register -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/libqof/qof ${GUILE_INCS} ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${AQBANKING_CFLAGS}
-                PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                 GROUP (): glade
-                    PROPERTY (Installation directories): gladedir = ${GNC_SHAREDIR}/glade
+                    PROPERTY (Installation directories): gladedir = $(GNC_GLADE_DIR)
                     TARGET (): glade
                         PROPERTY (Installation directory): gladedir
                         SOURCE (): src/import-export/hbci/glade/hbci.glade
@@ -2331,7 +2331,7 @@ ROOT (): gnucash
                 SOURCE (): src/business/business-utils/Makefile.am
             GROUP (): dialog-tax-table
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${GUILE_INCS}
-                PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gladedir = ${GNC_SHAREDIR}/glade
+                PROPERTY (Installation directories): gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash gladedir = $(GNC_GLADE_DIR)
                 TARGET (): libgncmod-dialog-tax-table.la
                     PROPERTY (Installation directory): pkglibdir
                     PROPERTY (Linker flags): -avoid-version
@@ -2375,7 +2375,7 @@ ROOT (): gnucash
                 PROPERTY (C preprocessor flags): -I${top_srcdir}/src -I${top_builddir}/src -I${top_srcdir}/src/core-utils -I${top_srcdir}/src/engine -I${top_srcdir}/src/gnc-module -I${top_srcdir}/src/gnome-utils -I${top_srcdir}/src/gnome -I${top_srcdir}/src/app-utils -I${top_srcdir}/src/gnome-search -I${top_srcdir}/src/html -I${top_srcdir}/src/report/report-gnome -I${top_srcdir}/src/business/business-core -I${top_srcdir}/src/business/business-ledger -I${top_srcdir}/src/business/dialog-tax-table -I${top_srcdir}/src/register/register-core -I${top_srcdir}/src/register/register-gnome -I${top_srcdir}/src/register/ledger-core -I${top_srcdir}/src/libqof/qof ${GNOME_CFLAGS} ${GLADE_CFLAGS} ${GLIB_CFLAGS} ${GUILE_INCS}
                 PROPERTY (Installation directories): gncscmmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash/report/ gncmoddir = ${GNC_SHAREDIR}/guile-modules/gnucash
                 GROUP (): glade
-                    PROPERTY (Installation directories): gladedir = ${GNC_SHAREDIR}/glade
+                    PROPERTY (Installation directories): gladedir = $(GNC_GLADE_DIR)
                     TARGET (): glade
                         PROPERTY (Installation directory): gladedir
                         SOURCE (): src/business/business-gnome/glade/billterms.glade
@@ -2393,7 +2393,7 @@ ROOT (): gnucash
                 GROUP (): schemas
                     SOURCE (): src/business/business-gnome/schemas/Makefile.am
                 GROUP (): ui
-                    PROPERTY (Installation directories): uidir = ${GNC_SHAREDIR}/ui
+                    PROPERTY (Installation directories): uidir = $(GNC_UI_DIR)
                     TARGET (): ui
                         PROPERTY (Installation directory): uidir
                         SOURCE (): src/business/business-gnome/ui/gnc-plugin-business-ui.xml
@@ -2584,7 +2584,7 @@ ROOT (): gnucash
                 SOURCE (): accounts/da/acctchrt_homeown.gnucash-xea
             SOURCE (): accounts/da/Makefile.am
         GROUP (): de_AT
-            PROPERTY (Installation directories): accountdir = ${GNC_SHAREDIR}/accounts/de_AT
+            PROPERTY (Installation directories): accountdir = $(GNC_ACCOUNTS_DIR)/de_AT
             TARGET (): dist_account
                 PROPERTY (Include in distribution): true
                 PROPERTY (Installation directory): accountdir

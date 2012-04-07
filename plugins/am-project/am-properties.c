@@ -1335,6 +1335,8 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 
 		if ((info->token_type == ((AmpPropertyInfo *)new_prop->info)->token_type) && (info->position == ((AmpPropertyInfo *)new_prop->info)->position))
 		{
+			AnjutaToken *parent;
+
 			if (info->base.type != ANJUTA_PROJECT_PROPERTY_MAP)
 			{
 				/* Replace property */
@@ -1353,12 +1355,13 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 				/* Re-evaluate token to remove useless space between item */
 
 				list = g_string_new (new_prop->value);
+				parent = anjuta_token_parent (((AmpProperty *)new_prop)->token);
 				g_string_assign (list, "");
 				for (arg = anjuta_token_first_word (((AmpProperty *)new_prop)->token); arg != NULL; arg = anjuta_token_next_word (arg))
 				{
-					gchar *value = anjuta_token_evaluate (arg);
+					gchar *value = anjuta_token_evaluate_name (arg);
 
-					if (value != NULL)
+					if ((value != NULL) && (anjuta_token_parent (arg) == parent))
 					{
 						if (list->len != 0) g_string_append_c (list, ' ');
 						g_string_append (list, value);

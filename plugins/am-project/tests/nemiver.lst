@@ -1,7 +1,7 @@
 ROOT (): nemiver
     PROPERTY (Name): nemiver
     PROPERTY (Version): 0.7.4
-    PROPERTY (Installation directories): publicheadersdir = $includedir/nemiver/common
+    PROPERTY (Installation directories): publicheadersdir = $(NEMIVER_INCLUDE_DIR)/common
     MODULE (): SQLITE3
         PACKAGE (): sqlite3
     MODULE (): GCONF
@@ -23,10 +23,10 @@ ROOT (): nemiver
         PACKAGE (): $DEP_MEMORYVIEW
     GROUP (): src
         GROUP (): common
-            PROPERTY (Installation directories): nemivercommondir = $(libdir)/nemiver publicheadersdir = $includedir/nemiver/common
+            PROPERTY (Installation directories): nemivercommondir = $(libdir)/nemiver publicheadersdir = $(NEMIVER_INCLUDE_DIR)/common
             TARGET (): libnemivercommon.la
                 PROPERTY (Installation directory): nemivercommondir
-                PROPERTY (Linker flags): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS -lutil -avoid-version -rpath $(libdir)/nemiver -Wl,--as-needed
+                PROPERTY (Linker flags): @NEMIVERCOMMON_LIBS@ -lutil -avoid-version -rpath $(libdir)/nemiver -Wl,--as-needed
                 SOURCE (): src/common/nmv-api-macros.h
                 SOURCE (): src/common/nmv-namespace.h
                 SOURCE (): src/common/nmv-ustring.h
@@ -125,11 +125,11 @@ ROOT (): nemiver
             SOURCE (): src/common/Makefile.am
         GROUP (): dbdimpl
             GROUP (): sqlite
-                PROPERTY (Installation directories): sqlitedriverdir = $libdir/nemiver/modules configdir = $libdir/nemiver/config
+                PROPERTY (Installation directories): sqlitedriverdir = @NEMIVER_MODULES_DIR@ configdir = @NEMIVER_SYSTEM_CONFIG_DIR@
                 TARGET (): libnemiverdbdsqlite.la
                     PROPERTY (Installation directory): sqlitedriverdir
                     PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
-                    PROPERTY (Libraries): @SQLITE3_LIBS@ $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                    PROPERTY (Libraries): @SQLITE3_LIBS@ @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                     SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-mgr-drv.cc
                     SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-mgr-drv.h
                     SOURCE (): src/dbdimpl/sqlite/nmv-sqlite-cnx-drv.cc
@@ -156,48 +156,48 @@ ROOT (): nemiver
                 SOURCE (): src/langs/nmv-cpp-parser.cc
             SOURCE (): src/langs/Makefile.am
         GROUP (): dbgengine
-            PROPERTY (Installation directories): gdbmoddir = $libdir/nemiver/modules varlistmoddir = $libdir/nemiver/modules varwalkermoddir = $libdir/nemiver/modules varobjwalkermoddir = $libdir/nemiver/modules varlistwalkermoddir = $libdir/nemiver/modules cpptraitmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+            PROPERTY (Installation directories): gdbmoddir = @NEMIVER_MODULES_DIR@ varlistmoddir = @NEMIVER_MODULES_DIR@ varwalkermoddir = @NEMIVER_MODULES_DIR@ varobjwalkermoddir = @NEMIVER_MODULES_DIR@ varlistwalkermoddir = @NEMIVER_MODULES_DIR@ cpptraitmoddir = @NEMIVER_MODULES_DIR@ publicheadersdir = $(NEMIVER_INCLUDE_DIR)/dynmods configdir = @NEMIVER_SYSTEM_CONFIG_DIR@
             TARGET (): libgdbmod.la
                 PROPERTY (Installation directory): gdbmoddir
                 PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
-                PROPERTY (Libraries): libdbgcommon.la libgdbmiparser.la libgdbengine.la $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/langs/libnemivercparser.la $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): libdbgcommon.la libgdbmiparser.la libgdbengine.la @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/langs/libnemivercparser.la $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-debugger.h
             TARGET (): libvarlistmod.la
                 PROPERTY (Installation directory): varlistmoddir
                 PROPERTY (Linker flags): -module -avoid-version
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-var-list.h
                 SOURCE (): src/dbgengine/nmv-var-list.cc
             TARGET (): libvarwalkermod.la
                 PROPERTY (Installation directory): varwalkermoddir
                 PROPERTY (Linker flags): -module -avoid-version
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-var-walker.h
                 SOURCE (): src/dbgengine/nmv-var.h
                 SOURCE (): src/dbgengine/nmv-var-walker.cc
             TARGET (): libvarobjwalkermod.la
                 PROPERTY (Installation directory): varobjwalkermoddir
                 PROPERTY (Linker flags): -module -avoid-version
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-var-walker.h
                 SOURCE (): src/dbgengine/nmv-var.h
                 SOURCE (): src/dbgengine/nmv-varobj-walker.cc
             TARGET (): libvarlistwalkermod.la
                 PROPERTY (Installation directory): varlistwalkermoddir
                 PROPERTY (Linker flags): -module -avoid-version
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-var-list-walker.h
                 SOURCE (): src/dbgengine/nmv-var-list-walker.cc
             TARGET (): libcpptraitmod.la
                 PROPERTY (Installation directory): cpptraitmoddir
                 PROPERTY (Linker flags): -module -avoid-version
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-i-lang-trait.h
                 SOURCE (): src/dbgengine/nmv-cpp-trait.cc
             TARGET (): libgdbmiparser.la
                 PROPERTY (Do not install): true
                 PROPERTY (C compiler flags): -fPIC -DPIC
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/dbgengine/nmv-gdbmi-parser.cc
                 SOURCE (): src/dbgengine/nmv-gdbmi-parser.h
             TARGET (): libdbgcommon.la
@@ -233,11 +233,11 @@ ROOT (): nemiver
                 SOURCE (): src/dbgengine/cpptrait.conf
             SOURCE (): src/dbgengine/Makefile.am
         GROUP (): confmgr
-            PROPERTY (Installation directories): gconfmgrmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+            PROPERTY (Installation directories): gconfmgrmoddir = @NEMIVER_MODULES_DIR@ publicheadersdir = $(NEMIVER_INCLUDE_DIR)/dynmods configdir = @NEMIVER_SYSTEM_CONFIG_DIR@
             TARGET (): libgconfmgrmod.la
                 PROPERTY (Installation directory): gconfmgrmoddir
                 PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
-                PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS @GCONF_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
+                PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ @GCONF_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
                 SOURCE (): src/confmgr/nmv-i-conf-mgr.h
                 SOURCE (): src/confmgr/nmv-gconf-mgr.cc
             TARGET (): publicheaders
@@ -250,7 +250,7 @@ ROOT (): nemiver
         GROUP (): uicommon
             TARGET (): libnemiveruicommon.la
                 PROPERTY (Do not install): true
-                PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $CPPUNIT_LIBS -lutil
+                PROPERTY (Libraries): @NEMIVERUICOMMON_LIBS@ -lutil
                 PROPERTY (C compiler flags): -fPIC -DPIC
                 SOURCE (): src/uicommon/nmv-ui-utils.h
                 SOURCE (): src/uicommon/nmv-ui-utils.cc
@@ -271,7 +271,7 @@ ROOT (): nemiver
                 SOURCE (): src/uicommon/$(memoryview_sources)
             SOURCE (): src/uicommon/Makefile.am
         GROUP (): workbench
-            PROPERTY (Installation directories): workbenchmoddir = $libdir/nemiver/modules publicheadersdir = $includedir/nemiver/dynmods configdir = $libdir/nemiver/config
+            PROPERTY (Installation directories): workbenchmoddir = @NEMIVER_MODULES_DIR@ publicheadersdir = $(NEMIVER_INCLUDE_DIR)/dynmods configdir = @NEMIVER_SYSTEM_CONFIG_DIR@
             GROUP (): schemas
                 PROPERTY (Installation directories): schemasdir = $(GCONF_SCHEMA_FILE_DIR)
                 TARGET (): schemas
@@ -281,7 +281,7 @@ ROOT (): nemiver
             TARGET (): libworkbenchmod.la
                 PROPERTY (Installation directory): workbenchmoddir
                 PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
-                PROPERTY (Libraries): $NEMIVERWORKBENCH_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
+                PROPERTY (Libraries): @NEMIVERWORKBENCH_LIBS@ $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
                 SOURCE (): src/workbench/nmv-i-workbench.h
                 SOURCE (): src/workbench/nmv-i-pref-mgr.h
                 SOURCE (): src/workbench/nmv-workbench.cc
@@ -295,11 +295,11 @@ ROOT (): nemiver
                 SOURCE (): src/workbench/workbench.conf
             SOURCE (): src/workbench/Makefile.am
         GROUP (): persp
-            PROPERTY (Installation directories): publicheadersdir = $includedir/nemiver/dynmods
+            PROPERTY (Installation directories): publicheadersdir = $(NEMIVER_INCLUDE_DIR)/dynmods
             GROUP (): dbgperspective
-                PROPERTY (Installation directories): pluginconfigdir = $libdir/nemiver/plugins/dbgperspective plugindir = $libdir/nemiver/plugins/dbgperspective
+                PROPERTY (Installation directories): pluginconfigdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME) plugindir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)
                 GROUP (): glade
-                    PROPERTY (Installation directories): gladedir = $libdir/nemiver/plugins/dbgperspective/glade
+                    PROPERTY (Installation directories): gladedir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/glade
                     TARGET (): glade
                         PROPERTY (Installation directory): gladedir
                         SOURCE (): src/persp/dbgperspective/glade/bodycontainer.glade
@@ -320,7 +320,7 @@ ROOT (): nemiver
                         SOURCE (): src/persp/dbgperspective/glade/watchpointdialog.glade
                     SOURCE (): src/persp/dbgperspective/glade/Makefile.am
                 GROUP (): menus
-                    PROPERTY (Installation directories): menusdir = $libdir/nemiver/plugins/dbgperspective/menus
+                    PROPERTY (Installation directories): menusdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/menus
                     TARGET (): menus
                         PROPERTY (Installation directory): menusdir
                         SOURCE (): src/persp/dbgperspective/menus/menus.xml
@@ -334,7 +334,7 @@ ROOT (): nemiver
                         SOURCE (): src/persp/dbgperspective/menus/localvarsinspectorpopup.xml
                     SOURCE (): src/persp/dbgperspective/menus/Makefile.am
                 GROUP (): icons
-                    PROPERTY (Installation directories): iconsdir = $libdir/nemiver/plugins/dbgperspective/icons
+                    PROPERTY (Installation directories): iconsdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/icons
                     TARGET (): icons
                         PROPERTY (Installation directory): iconsdir
                         SOURCE (): src/persp/dbgperspective/icons/set-breakpoint.xpm
@@ -349,7 +349,7 @@ ROOT (): nemiver
                     SOURCE (): src/persp/dbgperspective/icons/Makefile.am
                 GROUP (): sqlscripts
                     GROUP (): sqlite
-                        PROPERTY (Installation directories): sqlfilesdir = $libdir/nemiver/plugins/dbgperspective/sqlscripts
+                        PROPERTY (Installation directories): sqlfilesdir = @NEMIVER_PLUGINS_DIR@/$(PLUGIN_NAME)/sqlscripts
                         TARGET (): sqlfiles
                             PROPERTY (Installation directory): sqlfilesdir
                             SOURCE (): src/persp/dbgperspective/sqlscripts/sqlite/create-tables.sql
@@ -369,7 +369,7 @@ ROOT (): nemiver
                 TARGET (): libdbgperspectiveplugin.la
                     PROPERTY (Installation directory): plugindir
                     PROPERTY (Linker flags): -module -avoid-version -Wl,--as-needed
-                    PROPERTY (Libraries): $NEMIVERDBGPERSP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la $(top_builddir)/src/dbgengine/libdebuggerutils.la
+                    PROPERTY (Libraries): @NEMIVERDBGPERSP_LIBS@ $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la $(top_builddir)/src/dbgengine/libdebuggerutils.la
                     SOURCE (): src/persp/dbgperspective/nmv-dialog.cc
                     SOURCE (): src/persp/dbgperspective/nmv-dialog.h
                     SOURCE (): src/persp/dbgperspective/nmv-run-program-dialog.cc
@@ -433,7 +433,7 @@ ROOT (): nemiver
             SOURCE (): src/persp/Makefile.am
         TARGET (): nemiver
             PROPERTY (Installation directory): bindir
-            PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
+            PROPERTY (Libraries): @NEMIVER_LIBS@ $(top_builddir)/src/common/libnemivercommon.la $(top_builddir)/src/uicommon/libnemiveruicommon.la
             SOURCE (): src/main.cc
         SOURCE (): src/Makefile.am
     GROUP (): glade
@@ -453,23 +453,23 @@ ROOT (): nemiver
             PROPERTY (Do not install): true
         TARGET (): runtestcore
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
             SOURCE (): tests/test-core.cc
         TARGET (): runteststdout
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
             SOURCE (): tests/test-stdout.cc
         TARGET (): docore
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@
             SOURCE (): tests/do-core.cc
         TARGET (): inout
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
             SOURCE (): tests/inout.cc
         TARGET (): pointerderef
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
             SOURCE (): tests/pointer-deref.cc
         TARGET (): fooprog
             PROPERTY (Do not install): true
@@ -477,24 +477,24 @@ ROOT (): nemiver
             SOURCE (): tests/fooprog.cc
         TARGET (): templatedvar
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS $(top_builddir)/src/common/libnemivercommon.la
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@ $(top_builddir)/src/common/libnemivercommon.la
             SOURCE (): tests/templated-var.cc
         TARGET (): gtkmmtest
             PROPERTY (Do not install): true
-            PROPERTY (C++ compiler flags): $NEMIVERUICOMMON_CFLAGS $CPPUNIT_CFLAGS
-            PROPERTY (Libraries): $NEMIVERUICOMMON_LIBS $CPPUNIT_LIBS
+            PROPERTY (C++ compiler flags): @NEMIVERUICOMMON_CFLAGS@
+            PROPERTY (Libraries): @NEMIVERUICOMMON_LIBS@
             SOURCE (): tests/gtkmm-test.cc
         TARGET (): dostackoverflow
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@
             SOURCE (): tests/do-stack-overflow.cc
         TARGET (): bigvar
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@
             SOURCE (): tests/big-var.c
         TARGET (): threads
             PROPERTY (Do not install): true
-            PROPERTY (Libraries): $NEMIVERCOMMON_LIBS $LIBGTOP_LIBS $CPPUNIT_LIBS
+            PROPERTY (Libraries): @NEMIVERCOMMON_LIBS@
             SOURCE (): tests/threads.cc
         SOURCE (): tests/Makefile.am
     GROUP (): po

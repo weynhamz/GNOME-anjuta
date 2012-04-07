@@ -268,7 +268,7 @@ get_relative_path (GFile *parent, GFile *file)
 	{
 		if (g_file_equal (parent, file))
 		{
-			relative = g_strdup ("");
+			relative = g_strdup (".");
 		}
 		else
 		{
@@ -729,7 +729,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 
 				arg = anjuta_token_nth_word (args, info->position);
 				g_free (new_prop->value);
-				new_prop->value = anjuta_token_evaluate (arg);
+				new_prop->value = anjuta_token_evaluate_name (arg);
 			}
 			else
 			{
@@ -743,7 +743,7 @@ amp_project_load_properties (AmpProject *project, AnjutaToken *macro, AnjutaToke
 					AnjutaToken *arg;
 
 					arg = anjuta_token_nth_word (args, 0);
-					new_prop->value = anjuta_token_evaluate (arg);
+					new_prop->value = anjuta_token_evaluate_name (arg);
 					if (new_prop->value == NULL) new_prop->value = g_strdup(" ");
 				}
 			}
@@ -1260,7 +1260,7 @@ project_load_target_properties (AmpProject *project, AnjutaProjectNode *parent, 
 		/* Create property */
 		list = anjuta_token_last_item (variable);
 		type = anjuta_token_get_type (variable);
-		value = anjuta_token_evaluate (list);
+		value = anjuta_token_evaluate_name (list);
 		prop = amp_property_new (NULL, type, 0, value, list);
 
 		if (parent == NULL)
@@ -1307,7 +1307,7 @@ project_load_group_properties (AmpProject *project, AnjutaProjectNode *parent, A
 	/* Create property */
 	list = anjuta_token_last_item (variable);
 	name = anjuta_token_evaluate (anjuta_token_first_word (variable));
-	value = anjuta_token_evaluate (list);
+	value = anjuta_token_evaluate_name (list);
 
 	prop = amp_property_new (name, anjuta_token_get_type (variable), 0, value, list);
 
