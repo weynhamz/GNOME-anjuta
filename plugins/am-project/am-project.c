@@ -611,6 +611,7 @@ amp_project_update_root (AmpProject *project, AmpProject *new_project)
 	project->configure_file = new_project->configure_file;
 	new_project->configure_file = NULL;
 	project->configure_token = new_project->configure_token;
+	new_project->configure_token = NULL;
 
 	hash = project->groups;
 	project->groups = new_project->groups;
