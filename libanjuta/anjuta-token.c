@@ -170,10 +170,12 @@ anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 AnjutaToken *
 anjuta_token_next_after_children (AnjutaToken *token)
 {
+	while (token->last != NULL) token = token->last;
 	while (token->next == NULL)
 	{
 		token = token->parent;
 		if (token == NULL) return NULL;
+		while (token->last != NULL) token = token->last;
 	};
 
 	return token->next;
@@ -1393,6 +1395,11 @@ anjuta_token_foreach_container (AnjutaToken *token, AnjutaTokenForeachFunc func,
 		last_token = token->last == NULL ? token : token->last;
 		for (;;)
 		{
+			/* Take into account only the content of parent token */
+			if (expand && (parent == NULL))
+			{
+				func (token, user_data);
+			}
 			if (expand && (token->children != NULL))
 			{
 				if (parent == NULL) parent = token;
@@ -1401,13 +1408,6 @@ anjuta_token_foreach_container (AnjutaToken *token, AnjutaTokenForeachFunc func,
 			}
 			else
 			{
-				/* Take into account only the content of parent token */
-				if (parent == NULL)
-				{
-					/* Take into account only the content of group having no children */
-					func (token, user_data);
-				}
-
 				/* Check if we have found the last token */
 				if (token == last_token)
 				{
