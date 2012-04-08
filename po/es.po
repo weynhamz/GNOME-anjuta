@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-05 18:34+0000\n"
-"PO-Revision-Date: 2012-03-06 10:49+0100\n"
+"POT-Creation-Date: 2012-03-31 20:55+0000\n"
+"PO-Revision-Date: 2012-04-08 12:52+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -697,22 +697,24 @@ msgstr "Widget no encontrado: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
-#: ../plugins/am-project/amp-group.c:541
+#: ../plugins/am-project/amp-group.c:542
 msgid "Please specify group name"
 msgstr "Especifique el nombre del grupo"
 
-#: ../plugins/am-project/amp-group.c:555
+#: ../plugins/am-project/amp-group.c:556
+#| msgid ""
+#| "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgid ""
-"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr ""
 "El nombre del grupo sólo puede contener caracteres alfanuméricos o los "
-"caracteres «#$:%+,-.=@^_`~»"
+"caracteres «#$:%+,-.=@^_`~/»"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/am-project/am-project.c:1697
+#: ../plugins/am-project/am-project.c:1790
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -725,13 +727,13 @@ msgid "Root"
 msgstr "Raíz"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupo"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Origen"
@@ -794,11 +796,11 @@ msgstr "Módulo"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1727
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1738
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "El proyecto no existe o tiene una ruta no válida"
@@ -1037,8 +1039,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Opciones comunes adicionales y generales del analizador léxicos «Lex» o «Flex» "
-"para todos los objetivos en este grupo."
+"Opciones comunes adicionales y generales del analizador léxicos «Lex» o "
+"«Flex» para todos los objetivos en este grupo."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1329,30 +1331,34 @@ msgstr ""
 msgid "Source file must be a regular file, not a directory"
 msgstr "El archivo de código debe ser un archivo regular, no una carpeta"
 
-#: ../plugins/am-project/amp-target.c:339
+#: ../plugins/am-project/amp-target.c:342
+msgid "Target parent is not a valid group"
+msgstr "El objetivo padre no es un grupo válido"
+
+#: ../plugins/am-project/amp-target.c:352
 msgid "Please specify target name"
 msgstr "Especifique el nombre del objetivo"
 
-#: ../plugins/am-project/amp-target.c:353
+#: ../plugins/am-project/amp-target.c:366
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
-"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», «-», "
-"«/» o «.»"
+"El nombre del objetivo sólo puede contener caracteres alfanuméricos, «_», "
+"«-», «/» o «.»"
 
-#: ../plugins/am-project/amp-target.c:368
+#: ../plugins/am-project/amp-target.c:381
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 "El nombre de la biblioteca compartida del objetivo debe ser de la forma "
 "«libxxx.la»"
 
-#: ../plugins/am-project/amp-target.c:377
+#: ../plugins/am-project/amp-target.c:390
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
-"El nombre de la biblioteca estática del objetivo debe ser de la forma «libxxx."
-"a»"
+"El nombre de la biblioteca estática del objetivo debe ser de la forma "
+"«libxxx.a»"
 
-#: ../plugins/am-project/amp-target.c:385
+#: ../plugins/am-project/amp-target.c:398
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "El nombre del módulo objetivo debe ser de la forma «xxx.la»"
 
@@ -1548,8 +1554,8 @@ msgid ""
 "quoted command. You can use %% to get a \"%\" character. A typical value is "
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
-"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el comando "
-"usado para instalar los archivos, por ejemplo, «make install». %s se "
+"El comando tiene que contener «%s» o «%q». Esto se reemplazará por el "
+"comando usado para instalar los archivos, por ejemplo, «make install». %s se "
 "reemplazará con el comando sin ningún cambio, mientras que %q se reemplazará "
 "por el comando entrecomillado. Puede usar «%%» para obtener el carácter «%». "
 "Un valor habitual es «sudo %s» o «su -c %q»."
@@ -3511,15 +3517,15 @@ msgstr "Buscar"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Falta el nombre"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3596,7 +3602,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
@@ -3990,7 +3996,7 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresiones regulares"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
@@ -5594,7 +5600,8 @@ msgstr "Aplicar los cambios guardados («stash») y restablecer el índice"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
-msgstr "Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
+msgstr ""
+"Aplicar los cambios guardados («stash») al árbol de trabajo y al índice"
 
 #: ../plugins/git/plugin.c:338
 msgid "Diff selected stash"
@@ -5928,45 +5935,45 @@ msgstr "Etiquetas del API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Código añadido para el widget."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Comentar o descomentar la selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Intercambia la cabecera C y el archivo fuente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Asistencia para C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6349,8 +6356,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
-"de escritura a la carpeta del proyecto."
+"No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene "
+"acceso de escritura a la carpeta del proyecto."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6367,9 +6374,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada (%"
-"s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
-"moderna de Anjuta."
+"No se pudo encontrar un «backend» válido del proyecto para la carpeta dada "
+"(%s). Seleccione una carpeta diferente, o intente actualizar a una versión "
+"más moderna de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6807,11 +6814,11 @@ msgstr "Acciones del administrador de proyectos"
 msgid "Project manager popup actions"
 msgstr "Acciones emergentes el administrador de proyectos"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Inicializando el proyecto…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Proyecto cargado"
 
@@ -6924,7 +6931,7 @@ msgstr "<Seleccionar una carpeta>"
 msgid "GbfProject Object"
 msgstr "Objeto GbfProjec"
 
-#: ../plugins/project-manager/project-model.c:745
+#: ../plugins/project-manager/project-model.c:747
 msgid "No project loaded"
 msgstr "No se ha cargado ningún proyecto"
 
@@ -7000,8 +7007,8 @@ msgid ""
 "$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
 "leading dash. Please fix it."
 msgstr ""
-"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres «#"
-"$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
+"El campo «%s» debe contener sólo letras, dígitos, los siguientes caracteres "
+"«#$:%%+,.=@^_`~» o separadores de carpeta. Además, no puede tener un guión "
 "precedente. Arréglelo."
 
 #: ../plugins/project-wizard/druid.c:696
@@ -7793,8 +7800,8 @@ msgid ""
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 "Proporcione un nombre de paquete que requiere su proyecto. También puede "
-"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
-"2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, "
+"«libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
 msgid "GTKmm (Simple)"
@@ -8157,18 +8164,15 @@ msgstr "Valor instantáneo"
 
 #: ../plugins/snippets-manager/snippets-browser.c:193
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-#| msgid "Add Snippet …"
 msgid "Add snippet"
 msgstr "Añadir recorte"
 
 #: ../plugins/snippets-manager/snippets-browser.c:199
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
-#| msgid "Select snippets"
 msgid "Remove selected snippet"
 msgstr "Quitar el recorte seleccionado"
 
 #: ../plugins/snippets-manager/snippets-browser.c:205
-#| msgid "Paste the content of clipboard at the current position"
 msgid "Insert snippet into editor at current cursor position"
 msgstr "Insertar recorte en el editor en la posición actual del cursor"
 
@@ -8446,7 +8450,7 @@ msgstr "Configuración de la vista del editor"
 msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8455,7 +8459,7 @@ msgstr ""
 "El archivo «%s» en el disco es más reciente que el búfer actual.\n"
 "¿Quiere recargarlo?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8465,18 +8469,18 @@ msgstr ""
 "¿Quiere cerrarlo?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "No se pudo abrir %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "El archivo «%s» es de sólo lectura. ¿Editarlo de todas formas?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
@@ -10392,8 +10396,8 @@ msgstr "Sólo texto"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
 #~ msgstr ""
-#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
-#~ "el principio del documento?"
+#~ "No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar "
+#~ "desde el principio del documento?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "No se ha encontrado ninguna coincidencia con «%s»."
