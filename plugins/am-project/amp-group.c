@@ -27,6 +27,7 @@
 #include "amp-group.h"
 
 #include "amp-node.h"
+#include "amp-source.h"
 #include "am-scanner.h"
 #include "am-properties.h"
 #include "am-writer.h"
