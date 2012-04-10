@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the anjuta package.
 # Xavier A. Conde Rueda <xavi.conde@gmail.com>, 2003-2006.
 # Joan Duran <jodufi@gmail.com>, 2007-2012.
+# Jordi Serratosa <jordis@softcatala.cat>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-19 01:13+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-03-27 18:09+0000\n"
 "PO-Revision-Date: 2012-03-07 22:41+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
@@ -694,8 +696,8 @@ msgstr "Especifiqueu el nom del grup"
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
-"El nom del grup només pot contenir caràcters alfanumèrics i els caràcters «#"
-"$:%+,-.=@^_`~»"
+"El nom del grup només pot contenir caràcters alfanumèrics i els caràcters «#$:"
+"%+,-.=@^_`~»"
 
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1696
@@ -812,8 +814,7 @@ msgstr "Nom:"
 #: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr ""
-"Nom del projecte, pot contenir espais en blanc. Per exemple «Autoconf del "
-"GNU»"
+"Nom del projecte, pot contenir espais en blanc. Per exemple «Autoconf del GNU»"
 
 #: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
@@ -1302,8 +1303,8 @@ msgid ""
 "subdir/app not in bin/app."
 msgstr ""
 "Mantén el camí relatiu de l'objectiu per instal·lar-lo. Per exemple, si "
-"teniu un programa «subdir/app» instal·lat en el directori «bin» "
-"s'instal·larà a «bin/subdir/app» no a «bin/app»."
+"teniu un programa «subdir/app» instal·lat en el directori «bin» s'instal·larà "
+"a «bin/subdir/app» no a «bin/app»."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1462,8 +1463,8 @@ msgstr "Ordre cancel·lada per l'usuari"
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a "
-"aquest tipus de fitxer."
+"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a aquest "
+"tipus de fitxer."
 
 #: ../plugins/build-basic-autotools/build.c:1014
 #, c-format
@@ -6348,8 +6349,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No es pot escriure el fitxer «%s»: %s. Comproveu que teniu accés per "
-"escriure al directori del projecte."
+"No es pot escriure el fitxer «%s»: %s. Comproveu que teniu accés per escriure "
+"al directori del projecte."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6366,8 +6367,8 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No s'ha pogut trobar un rerefons de projecte vàlid per al directori donat "
-"(%s). Seleccioneu un directori diferent, o proveu d'actualitzar-vos a una "
+"No s'ha pogut trobar un rerefons de projecte vàlid per al directori donat (%"
+"s). Seleccioneu un directori diferent, o proveu d'actualitzar-vos a una "
 "versió més recent de l'Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
@@ -6376,8 +6377,7 @@ msgstr ""
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
-"No s'ha pogut obtenir l'URI proporcionat «%s», l'error retornat ha sigut: "
-"«%s»"
+"No s'ha pogut obtenir l'URI proporcionat «%s», l'error retornat ha sigut: «%s»"
 
 #: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
@@ -7715,11 +7715,11 @@ msgid ""
 "email address."
 msgstr ""
 "L'UUID és un identificador global únic de l'extensió.\n"
-"Hauria d'estar en el format d'una adreça de correu electrònic (jordi."
+"Hauria d'estar en el format d'una adreça electrònica (jordi."
 "molina@extensions.exemple.cat), però\n"
-"no ha de ser una adreça de correu electrònic real, tot i que és una bona "
+"no ha de ser una adreça electrònica real, tot i que és una bona "
 "idea basar l'UUID en la\n"
-"vostra adreça de correu electrònic."
+"vostra adreça electrònica."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
 msgid "Extension URL"
@@ -8131,7 +8131,7 @@ msgstr "Insereix un fragment utilitzant la compleció automàtica"
 
 #: ../plugins/snippets-manager/plugin.c:93
 msgid "_Import snippets …"
-msgstr "_Importa fragments …"
+msgstr "_Importa fragments…"
 
 #: ../plugins/snippets-manager/plugin.c:95
 msgid "Import snippets to the database"
@@ -8139,7 +8139,7 @@ msgstr "Importa fragments a la base de dades"
 
 #: ../plugins/snippets-manager/plugin.c:100
 msgid "_Export snippets …"
-msgstr "_Exporta fragments …"
+msgstr "_Exporta fragments…"
 
 #: ../plugins/snippets-manager/plugin.c:102
 msgid "Export snippets from the database"
@@ -8187,12 +8187,12 @@ msgstr "Llenguatges"
 #. Insert the Add Snippet menu item
 #: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
-msgstr "Afegeix un fragment …"
+msgstr "Afegeix un fragment…"
 
 #. Insert the Add Snippets Group menu item
 #: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
-msgstr "Afegeix un grup de fragments …"
+msgstr "Afegeix un grup de fragments…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
 msgid "Default value"
@@ -9710,7 +9710,7 @@ msgstr "Documentació i recursos en línia"
 
 #: ../src/anjuta-actions.h:75
 msgid "Report _Bugs/Patches/Requests"
-msgstr "Informeu d'errors/_pedaços/peticions"
+msgstr "Informeu d'errors/_pedaços/sol·licituds"
 
 #: ../src/anjuta-actions.h:76
 msgid "Submit a bug report, patch or feature request for Anjuta"
@@ -9896,8 +9896,7 @@ msgstr "Només text"
 #~ msgstr "Mostra/oculta les guies de sagnat"
 
 #~ msgid "Search for \"%s\" reached the end and wrapped around."
-#~ msgstr ""
-#~ "La cerca de «%s» ha arribat al final i ha continuat pel començament."
+#~ msgstr "La cerca de «%s» ha arribat al final i ha continuat pel començament."
 
 #~ msgid ""
 #~ "Search for \"%s\" reached the end and wrapped around but no new match was "
@@ -10916,8 +10915,7 @@ msgstr "Només text"
 #~ msgstr "Alta"
 
 #~ msgid "When you delete the category \"%s\", all containing items are lost"
-#~ msgstr ""
-#~ "Quan suprimiu la categoria «%s», se'n perdran tots els seus elements"
+#~ msgstr "Quan suprimiu la categoria «%s», se'n perdran tots els seus elements"
 
 #~ msgid "Delete"
 #~ msgstr "Suprimeix"
@@ -12821,7 +12819,7 @@ msgstr "Només text"
 #~ msgstr "Un editor alternatiu basat en el Scintilla"
 
 #~ msgid "Change build commands to use scratchbox 1 or 2"
-#~ msgstr "Canvieu les ordres de muntar per a utilitzar l'Scratchbox 1 o 2"
+#~ msgstr "Canvieu les ordres de muntar per utilitzar l'Scratchbox 1 o 2"
 
 #~ msgid "Application performance profiler"
 #~ msgstr "Aplicació del rendiment del gestor de perfils"
@@ -13624,8 +13622,8 @@ msgstr "Només text"
 #~ "Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
 #~ "parameters by default)."
 #~ msgstr ""
-#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres "
-#~ "«-gnu» predeterminats)."
+#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres «-"
+#~ "gnu» predeterminats)."
 
 #~ msgid "Cuddle Else"
 #~ msgstr "Abraça els «else»"
@@ -13761,8 +13759,7 @@ msgstr "Només text"
 #~ msgid ""
 #~ "Prefer to break long lines before the boolean operators '&&' and '||'."
 #~ msgstr ""
-#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i "
-#~ "«||»."
+#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i «||»."
 
 #~ msgid "Procnames start lines"
 #~ msgstr "Línies inicials dels noms de procediments"
@@ -14168,8 +14165,8 @@ msgstr "Només text"
 #~ "Incremental search for '%s' failed. Press Enter or click Find to continue "
 #~ "searching at the top."
 #~ msgstr ""
-#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o "
-#~ "feu clic a Cerca per a continuar des del principi."
+#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o feu "
+#~ "clic a Cerca per a continuar des del principi."
 
 #~ msgid "Incremental search for '%s' (continued at top) failed."
 #~ msgstr "Ha fallat la cerca incremental per a «%s» (des del començament)."
@@ -14461,8 +14458,8 @@ msgstr "Només text"
 #~ "\n"
 #~ "Your changes will be lost if you don't save them.\n"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte "
-#~ "«%s» abans de tancar?</span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte «%"
+#~ "s» abans de tancar?</span>\n"
 #~ "\n"
 #~ "Els canvis es perdran si no els deseu.\n"
 
