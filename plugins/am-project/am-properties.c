@@ -1353,22 +1353,24 @@ amp_node_property_add (AnjutaProjectNode *node, AnjutaProjectProperty *new_prop)
 			{
 			case  ANJUTA_PROJECT_PROPERTY_LIST:
 				/* Re-evaluate token to remove useless space between item */
-
-				list = g_string_new (new_prop->value);
-				parent = anjuta_token_parent (((AmpProperty *)new_prop)->token);
-				g_string_assign (list, "");
-				for (arg = anjuta_token_first_word (((AmpProperty *)new_prop)->token); arg != NULL; arg = anjuta_token_next_word (arg))
+				if (((AmpProperty *)new_prop)->token != NULL)
 				{
-					gchar *value = anjuta_token_evaluate_name (arg);
-
-					if ((value != NULL) && (anjuta_token_parent (arg) == parent))
+					list = g_string_new (new_prop->value);
+					parent = anjuta_token_parent (((AmpProperty *)new_prop)->token);
+					g_string_assign (list, "");
+					for (arg = anjuta_token_first_word (((AmpProperty *)new_prop)->token); arg != NULL; arg = anjuta_token_next_word (arg))
 					{
-						if (list->len != 0) g_string_append_c (list, ' ');
-						g_string_append (list, value);
+						gchar *value = anjuta_token_evaluate_name (arg);
+
+						if ((value != NULL) && (anjuta_token_parent (arg) == parent))
+						{
+							if (list->len != 0) g_string_append_c (list, ' ');
+							g_string_append (list, value);
+						}
 					}
+					g_free (new_prop->value);
+					new_prop->value = g_string_free (list, FALSE);
 				}
-				g_free (new_prop->value);
-				new_prop->value = g_string_free (list, FALSE);
 				break;
 			case ANJUTA_PROJECT_PROPERTY_MAP:
 			case ANJUTA_PROJECT_PROPERTY_STRING:
