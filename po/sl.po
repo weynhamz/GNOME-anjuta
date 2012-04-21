@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-06 09:53+0000\n"
-"PO-Revision-Date: 2012-03-06 11:28+0100\n"
+"POT-Creation-Date: 2012-04-19 17:35+0000\n"
+"PO-Revision-Date: 2012-04-21 13:04+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: Slovenian\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-Language: Slovenian\n"
@@ -275,7 +275,7 @@ msgstr "Okoljske spremenljivke:"
 #: ../plugins/class-gen/window.c:811
 #: ../plugins/class-gen/window.c:821
 #: ../plugins/class-gen/window.c:833
-#: ../plugins/project-manager/dialogs.c:479
+#: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:533
@@ -289,7 +289,7 @@ msgstr "Ime"
 #: ../plugins/class-gen/window.c:825
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:487
+#: ../plugins/project-manager/dialogs.c:489
 #: ../plugins/run-program/parameters.c:763
 #: ../plugins/tools/editor.c:476
 msgid "Value"
@@ -712,19 +712,19 @@ msgstr "Gradnika ni mogoče najti: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Ni mogoče najti slikovne datoteke programa: %s"
 
-#: ../plugins/am-project/amp-group.c:541
+#: ../plugins/am-project/amp-group.c:622
 msgid "Please specify group name"
 msgstr "Določite ime skupine"
 
-#: ../plugins/am-project/amp-group.c:555
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
-msgstr "Ime skupine lahko vsebuje le črke, številke in znake \"#$:%+,-.=@^_`~\"."
+#: ../plugins/am-project/amp-group.c:636
+msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
+msgstr "Ime skupine lahko vsebuje le črke, številke in znake \"#$:%+,-.=@^_`~/\"."
 
-#: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/am-project/amp-group.c:660
+#: ../plugins/am-project/am-project.c:1698
+#: ../plugins/am-project/am-project.c:1791
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -737,13 +737,13 @@ msgid "Root"
 msgstr "Koren"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Skupina"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Vir"
@@ -807,11 +807,11 @@ msgstr "Modul"
 msgid "Package"
 msgstr "Paket"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1728
 msgid "Unable to parse project file"
 msgstr "Ni mogoče razčleniti datoteke projekta"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1739
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekt ne obstaja ali pa ni veljavna pot"
@@ -827,7 +827,7 @@ msgstr "Nov ozadnji program Autotools za upravljanje s projekti"
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
 #: ../plugins/git/anjuta-git.ui.h:19
-#: ../plugins/project-manager/dialogs.c:617
+#: ../plugins/project-manager/dialogs.c:619
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -1285,23 +1285,27 @@ msgstr "Odsek, kjer so nameščene strani man. Veljavna imena odsekov so števil
 msgid "Source file must be a regular file, not a directory"
 msgstr "Izvorna datoteka mora biti običajna datoteka, ne mapa."
 
-#: ../plugins/am-project/amp-target.c:339
+#: ../plugins/am-project/amp-target.c:342
+msgid "Target parent is not a valid group"
+msgstr "Ciljni nadrejeni predmet ni veljavna skupina"
+
+#: ../plugins/am-project/amp-target.c:352
 msgid "Please specify target name"
 msgstr "Določite ime cilja"
 
-#: ../plugins/am-project/amp-target.c:353
+#: ../plugins/am-project/amp-target.c:366
 msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr "Ime cilja lahko vsebuje le črke, številke, '_', '-', '/' ali '.'"
 
-#: ../plugins/am-project/amp-target.c:368
+#: ../plugins/am-project/amp-target.c:381
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "Ime souporabne knjižnice mora biti v obliki 'libxxx.la'"
 
-#: ../plugins/am-project/amp-target.c:377
+#: ../plugins/am-project/amp-target.c:390
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "Ime samostojne knjižnice mora biti v obliki 'libxxx.a'"
 
-#: ../plugins/am-project/amp-target.c:385
+#: ../plugins/am-project/amp-target.c:398
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "Ciljno ime modula mora biti v obliki 'xxx.la'"
 
@@ -3460,15 +3464,15 @@ msgstr "Iskanje"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Manjka ime"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3517,7 +3521,7 @@ msgid "Close file"
 msgstr "Zapri datoteko"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:612
+#: ../plugins/project-manager/dialogs.c:614
 msgid "Path:"
 msgstr "Pot:"
 
@@ -3547,7 +3551,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[samo za branje]"
 
@@ -3940,7 +3944,7 @@ msgid "Search using regular expressions"
 msgstr "Iskanje s pomočjo logičnih izrazov"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451
 #: ../src/anjuta-actions.h:30
 msgid "_Edit"
@@ -4603,7 +4607,7 @@ msgstr ""
 "Pripona bo dodana glede na vrsto datoteke."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:639
+#: ../plugins/project-manager/dialogs.c:641
 msgid "Type:"
 msgstr "Vrsta:"
 
@@ -5877,43 +5881,43 @@ msgstr "API oznake (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Dodana je koda za gradnik."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Dodaj/Odstrani opombo"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Dodajanje ali odstranjevenje trenutne izbire med opombe "
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Zamenjava .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Zamenjaj C glavo in izvorne datoteke"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "C++/Java pomočnik"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6393,89 +6397,89 @@ msgstr "Vstavek Anjute za upravljanje s projekti."
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:330
+#: ../plugins/project-manager/dialogs.c:332
 msgid "Select sources…"
 msgstr "Izbor virov ..."
 
-#: ../plugins/project-manager/dialogs.c:405
+#: ../plugins/project-manager/dialogs.c:407
 msgid " This property is not modifiable."
 msgstr "Lastnosti ni mogoče spreminjati"
 
-#: ../plugins/project-manager/dialogs.c:561
-#: ../plugins/project-manager/dialogs.c:566
+#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:568
 #: ../plugins/project-manager/plugin.c:927
 msgid "Project properties"
 msgstr "Lastnosti projekta"
 
-#: ../plugins/project-manager/dialogs.c:570
+#: ../plugins/project-manager/dialogs.c:572
 msgid "Folder properties"
 msgstr "Lastnosti mape"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:576
 msgid "Target properties"
 msgstr "Lastnosti cilja"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:579
 msgid "Source properties"
 msgstr "Lastnosti vira"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:582
 msgid "Module properties"
 msgstr "Lastnosti modula"
 
-#: ../plugins/project-manager/dialogs.c:583
+#: ../plugins/project-manager/dialogs.c:585
 msgid "Package properties"
 msgstr "Lastnosti paketa"
 
-#: ../plugins/project-manager/dialogs.c:586
+#: ../plugins/project-manager/dialogs.c:588
 msgid "Unknown properties"
 msgstr "Neznane lastnosti"
 
-#: ../plugins/project-manager/dialogs.c:1004
-#: ../plugins/project-manager/dialogs.c:1015
+#: ../plugins/project-manager/dialogs.c:1050
+#: ../plugins/project-manager/dialogs.c:1061
 msgid "Cannot add group"
 msgstr "Ni mogoče dodati skupine"
 
-#: ../plugins/project-manager/dialogs.c:1016
+#: ../plugins/project-manager/dialogs.c:1062
 msgid "No parent group selected"
 msgstr "Ni izbrane nadrejene skupine"
 
-#: ../plugins/project-manager/dialogs.c:1176
-#: ../plugins/project-manager/dialogs.c:1188
-#: ../plugins/project-manager/dialogs.c:1373
-#: ../plugins/project-manager/dialogs.c:1383
+#: ../plugins/project-manager/dialogs.c:1222
+#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1419
+#: ../plugins/project-manager/dialogs.c:1429
 msgid "Cannot add source files"
 msgstr "Ni mogoče dodati izvornih datotek"
 
-#: ../plugins/project-manager/dialogs.c:1189
-#: ../plugins/project-manager/dialogs.c:1384
+#: ../plugins/project-manager/dialogs.c:1235
+#: ../plugins/project-manager/dialogs.c:1430
 msgid "The selected node cannot contain source files."
 msgstr "Izbrano vozlišče ne sme vsebovati izvornih datotek."
 
-#: ../plugins/project-manager/dialogs.c:1570
-#: ../plugins/project-manager/dialogs.c:1581
+#: ../plugins/project-manager/dialogs.c:1616
+#: ../plugins/project-manager/dialogs.c:1627
 msgid "Cannot add target"
 msgstr "Ni mogoče dodati cilja"
 
-#: ../plugins/project-manager/dialogs.c:1582
+#: ../plugins/project-manager/dialogs.c:1628
 msgid "No group selected"
 msgstr "Ni izbrane skupine"
 
-#: ../plugins/project-manager/dialogs.c:1745
-#: ../plugins/project-manager/dialogs.c:1756
+#: ../plugins/project-manager/dialogs.c:1791
+#: ../plugins/project-manager/dialogs.c:1802
 msgid "Cannot add modules"
 msgstr "Ni mogoče dodati modulov"
 
-#: ../plugins/project-manager/dialogs.c:1757
+#: ../plugins/project-manager/dialogs.c:1803
 msgid "No target has been selected"
 msgstr "Ni izbranega cilja"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1963
+#: ../plugins/project-manager/dialogs.c:2009
 msgid "Missing module name"
 msgstr "Manjka ime modula"
 
-#: ../plugins/project-manager/dialogs.c:2025
+#: ../plugins/project-manager/dialogs.c:2071
 msgid "Cannot add packages"
 msgstr "Ni mogoče dodati paketov"
 
@@ -6749,11 +6753,11 @@ msgstr "Dejanja upravljalnika projektov"
 msgid "Project manager popup actions"
 msgstr "Pojavna okna upravljalnika projektov"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Zaganjanje projekta ..."
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Naložen projekt"
 
@@ -6866,7 +6870,7 @@ msgstr "<Izbor mape>"
 msgid "GbfProject Object"
 msgstr "Predmet GbfProject"
 
-#: ../plugins/project-manager/project-model.c:745
+#: ../plugins/project-manager/project-model.c:747
 msgid "No project loaded"
 msgstr "Ni naloženega projekta"
 
@@ -8297,7 +8301,7 @@ msgstr "Nastavitve pogleda urejevalnika"
 msgid "GtkSourceView Editor"
 msgstr "Urejevalnik GtkSourceview"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8306,7 +8310,7 @@ msgstr ""
 "Datoteka \"%s\" na disku je novejša kot trenutna v medpomnilniku.\n"
 "Ali želite datoteko ponovno naložiti?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8316,18 +8320,18 @@ msgstr ""
 "Ali želite datoteko zapreti?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ni mogoče odpreti %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka \"%s\" je le za branje! Ali jo vseeno želite urejati?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
