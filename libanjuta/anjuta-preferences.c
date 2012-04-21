@@ -63,86 +63,15 @@
 /* AnjutaPreferences is a singleton */
 static AnjutaPreferences* default_preferences = NULL;
 
-struct _AnjutaProperty
-{
-	GtkWidget                *object;
-	gchar                    *key;
-	gchar                    *default_value;
-	gint                     notify_id;
-	GSettings				 *gsettings;
-
-	/* Set true if custom set/get to be used */
-	gboolean                  custom;
-
-	/* For custom objects */
-	void    (*set_property) (AnjutaProperty *prop, const gchar *value);
-	gchar * (*get_property) (AnjutaProperty *prop);
-
-};
-
 struct _AnjutaPreferencesPriv
 {
-	GHashTable          *properties;
 	GtkWidget           *prefs_dialog;
 	AnjutaPluginManager *plugin_manager;
-	gboolean             is_showing;
-
-	GHashTable			*notifications;
-};
-
-/* Internal structure for anjuta_preferences_foreach */
-struct _AnjutaPreferencesForeachData
-{
-	AnjutaPreferences *pr;
-	AnjutaPreferencesCallback callback;
-	gpointer callback_data;
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences"
 
 G_DEFINE_TYPE (AnjutaPreferences, anjuta_preferences, G_TYPE_OBJECT);
-
-static void
-property_destroy (AnjutaProperty *property)
-{
-	g_return_if_fail (property);
-	if (property->key) g_free (property->key);
-	if (property->default_value) g_free (property->default_value);
-	g_object_unref (property->object);
-	g_object_unref (property->gsettings);
-	g_free (property);
-}
-
-/**
- * anjuta_property_get_widget:
- * @prop: an #AnjutaProperty reference
- *
- * Gets the widget associated with the property.
- *
- * Returns: a #GtkWidget object associated with the property.
- */
-GtkWidget*
-anjuta_property_get_widget (AnjutaProperty *prop)
-{
-	return prop->object;
-}
-
-static void
-unregister_preferences_key (GtkWidget *widget,
-							gpointer user_data)
-{
-	AnjutaProperty *p;
-	AnjutaPreferences *pr;
-	gchar *key;
-
-	p = (AnjutaProperty *) user_data;
-	pr = g_object_get_data (G_OBJECT (widget),
-							"AnjutaPreferences");
-	key = g_strdup (p->key);
-
-	g_hash_table_remove (pr->priv->properties, key);
-	g_free (key);
-}
 
 static GVariant*
 string_to_gdkcolor (const GValue* value, const GVariantType* type, gpointer user_data)
@@ -168,8 +97,7 @@ gdkcolor_to_string (GValue* value, GVariant* variant, gpointer user_data)
 static GVariant*
 active_to_string (const GValue* value, const GVariantType* type, gpointer user_data)
 {
-	AnjutaProperty* p = user_data;
-	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
+	GtkComboBox* combo = GTK_COMBO_BOX(user_data);
 
 	return g_variant_new_string (gtk_combo_box_get_active_id (combo));
 }
@@ -177,8 +105,7 @@ active_to_string (const GValue* value, const GVariantType* type, gpointer user_d
 static gboolean
 string_to_active (GValue* value, GVariant* variant, gpointer user_data)
 {
-	AnjutaProperty* p = user_data;
-	GtkComboBox* combo = GTK_COMBO_BOX(p->object);
+	GtkComboBox* combo = GTK_COMBO_BOX(user_data);
 
 	gtk_combo_box_set_active_id (combo, g_variant_get_string (variant, NULL));
 	g_value_set_int (value, gtk_combo_box_get_active (combo));
@@ -189,97 +116,14 @@ string_to_active (GValue* value, GVariant* variant, gpointer user_data)
 static void
 update_file_property (GtkWidget* widget, gpointer user_data)
 {
-	AnjutaProperty* p = user_data;
-	gchar* text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (p->object));
+	GtkFileChooser *chooser = GTK_FILE_CHOOSER (user_data);
+	GSettings *gsettings = g_object_get_data (G_OBJECT (chooser), "anjuta-bind-gsettings");
+	const gchar *key = g_object_get_data (G_OBJECT (chooser), "anjuta-bind-key");
+	gchar* text_value = gtk_file_chooser_get_filename (chooser);
 
-	g_settings_set_string (p->gsettings, p->key, text_value);
+	g_settings_set_string (gsettings, key, text_value);
 
 	g_free (text_value);
-}
-
-static gboolean
-connect_objects (AnjutaPreferences *pr, GSettings* settings, AnjutaProperty *p)
-{
-	gboolean ok = TRUE;
-
-	g_object_set_data (G_OBJECT (p->object), "AnjutaPreferences", pr);
-
-	/* Start with the most specialized widget as a GtkSpinButton
-	 * is a GtkEntry too */
-	if (GTK_IS_COLOR_BUTTON (p->object))
-	{
-		g_settings_bind_with_mapping (settings, p->key,
-								 p->object, "color",
-								 G_SETTINGS_BIND_DEFAULT,
-								 gdkcolor_to_string,
-								 string_to_gdkcolor,
-								 p,
-								 NULL);
-	}
-	else if (GTK_IS_FONT_BUTTON (p->object))
-	{
-		g_settings_bind (settings, p->key, p->object, "font-name",
-		                 G_SETTINGS_BIND_DEFAULT);
-	}
-	else if (GTK_IS_SPIN_BUTTON (p->object))
-	{
-		g_settings_bind (settings, p->key, p->object, "value",
-		                 G_SETTINGS_BIND_DEFAULT);
-	}
-	else if (GTK_IS_FILE_CHOOSER_BUTTON (p->object))
-	{
-		gchar *filename;
-
-		switch (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (p->object)))
-		{
-		case GTK_FILE_CHOOSER_ACTION_OPEN:
-		case GTK_FILE_CHOOSER_ACTION_SAVE:
-			filename = g_settings_get_string (p->gsettings, p->key);
-			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (p->object),
-										 		 filename);
-			g_free (filename);
-			g_signal_connect (G_OBJECT(p->object), "file-set",
-							  G_CALLBACK (update_file_property), p);
-			break;
-		case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
-		case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
-			filename = g_settings_get_string (p->gsettings, p->key);
-			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (p->object),
-			                                     filename);
-			g_free (filename);
-			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
-							  G_CALLBACK (update_file_property), p);
-			break;
-		default:
-			ok = FALSE;
-		}
-	}
-	else if (GTK_IS_COMBO_BOX (p->object))
-	{
-		g_settings_bind_with_mapping (settings, p->key,
-								 p->object, "active",
-								 G_SETTINGS_BIND_DEFAULT,
-								 string_to_active,
-								 active_to_string,
-								 p,
-								 NULL);
-	}
-	else if (GTK_IS_CHECK_BUTTON (p->object))
-	{
-		g_settings_bind (settings, p->key, p->object, "active",
-		                 G_SETTINGS_BIND_DEFAULT);
-	}
-	else if (GTK_IS_ENTRY (p->object))
-	{
-		g_settings_bind (settings, p->key, p->object, "text",
-		                 G_SETTINGS_BIND_DEFAULT);
-	}
-	else
-	{
-		ok = FALSE;
-	}
-
-	return ok;
 }
 
 /**
@@ -301,26 +145,92 @@ anjuta_preferences_register_property (AnjutaPreferences *pr,
                                       GtkWidget *object,
                                       const gchar *key)
 {
-	AnjutaProperty *p;
+	gboolean ok = TRUE;
 
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
 	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
 	g_return_val_if_fail (strlen(key) > 0, FALSE);
 
-	p = g_new0 (AnjutaProperty, 1);
-	p->object = g_object_ref (object);
-	p->key = g_strdup (key);
-	p->gsettings = g_object_ref (settings);
+	/* Start with the most specialized widget as a GtkSpinButton
+	 * is a GtkEntry too */
+	if (GTK_IS_COLOR_BUTTON (object))
+	{
+		g_settings_bind_with_mapping (settings, key,
+								 object, "color",
+								 G_SETTINGS_BIND_DEFAULT,
+								 gdkcolor_to_string,
+								 string_to_gdkcolor,
+								 object,
+								 NULL);
+	}
+	else if (GTK_IS_FONT_BUTTON (object))
+	{
+		g_settings_bind (settings, key, object, "font-name",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_SPIN_BUTTON (object))
+	{
+		g_settings_bind (settings, key, object, "value",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_FILE_CHOOSER_BUTTON (object))
+	{
+		gchar *filename;
 
-	p->custom = FALSE;
-	p->set_property = NULL;
-	p->get_property = NULL;
+		switch (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (object)))
+		{
+		case GTK_FILE_CHOOSER_ACTION_OPEN:
+		case GTK_FILE_CHOOSER_ACTION_SAVE:
+			filename = g_settings_get_string (settings, key);
+			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (object),
+										 		 filename);
+			g_free (filename);
+			g_object_set_data_full (G_OBJECT (object), "anjuta-bind-gsettings", g_object_ref (settings), (GDestroyNotify)g_object_unref);
+			g_object_set_data_full (G_OBJECT (object), "anjuta-bind-key", g_strdup (key), (GDestroyNotify)g_free);
+			g_signal_connect (G_OBJECT (object), "file-set",
+							  G_CALLBACK (update_file_property), object);
+			break;
+		case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+		case GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER:
+			filename = g_settings_get_string (settings, key);
+			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (object),
+			                                     filename);
+			g_free (filename);
+			g_object_set_data_full (G_OBJECT (object), "anjuta-bind-gsettings", g_object_ref (settings), (GDestroyNotify)g_object_unref);
+			g_object_set_data_full (G_OBJECT (object), "anjuta-bind-key", g_strdup (key), (GDestroyNotify)g_free);
+			g_signal_connect (G_OBJECT(object), "current-folder-changed",
+							  G_CALLBACK (update_file_property), object);
+			break;
+		default:
+			ok = FALSE;
+		}
+	}
+	else if (GTK_IS_COMBO_BOX (object))
+	{
+		g_settings_bind_with_mapping (settings, key,
+								 object, "active",
+								 G_SETTINGS_BIND_DEFAULT,
+								 string_to_active,
+								 active_to_string,
+								 object,
+								 NULL);
+	}
+	else if (GTK_IS_CHECK_BUTTON (object))
+	{
+		g_settings_bind (settings, key, object, "active",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else if (GTK_IS_ENTRY (object))
+	{
+		g_settings_bind (settings, key, object, "text",
+		                 G_SETTINGS_BIND_DEFAULT);
+	}
+	else
+	{
+		ok = FALSE;
+	}
 
-	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
-	g_signal_connect (G_OBJECT (p->object), "destroy",
-	                  G_CALLBACK (unregister_preferences_key),
-	                  p);
-	return connect_objects (pr, settings, p);
+	return ok;
 }
 
 /**
@@ -583,26 +493,12 @@ anjuta_preferences_dispose (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
 
-	if (pr->priv->properties)
-	{
-		/* This will release the refs on property objects */
-		g_hash_table_destroy (pr->priv->properties);
-		pr->priv->properties = NULL;
-	}
 }
 
 static void
 anjuta_preferences_init (AnjutaPreferences *pr)
 {
 	pr->priv = g_new0 (AnjutaPreferencesPriv, 1);
-
-	pr->priv->properties = g_hash_table_new_full (g_str_hash, g_str_equal,
-												  g_free,
-												  (GDestroyNotify) property_destroy);
-	pr->priv->notifications = g_hash_table_new_full (g_int_hash,
-	                                                 g_int_equal,
-	                                                 NULL,
-	                                                 g_free);
 }
 
 static void
