@@ -67,7 +67,7 @@ libanjuta_language_cpp_java_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	cxxparser/libcxxparser.la
 	
-gsettings_in_file = org.gnome.anjuta.cpp.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.cpp.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

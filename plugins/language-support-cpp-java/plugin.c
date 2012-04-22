@@ -64,11 +64,11 @@
 /* Preferences keys */
 
 #define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
-#define PREF_SCHEMA "org.gnome.anjuta.cpp"
-#define PREF_INDENT_AUTOMATIC "cpp-indent-automatic"
-#define PREF_INDENT_MODELINE "cpp-indent-modeline"
-#define PREF_USER_PACKAGES "cpp-user-packages"
-#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.cpp"
+#define PREF_INDENT_AUTOMATIC "indent-automatic"
+#define PREF_INDENT_MODELINE "indent-modeline"
+#define PREF_USER_PACKAGES "user-packages"
+#define PREF_PROJECT_PACKAGES "load-project-packages"
 
 /* Callback generator defines */
 #define C_SEPARATOR "\n"
@@ -870,7 +870,7 @@ glade_widget_member_of_scope (gchar *widget_name, IAnjutaIterable *members)
 {
        do {
               IAnjutaSymbol *symbol = IANJUTA_SYMBOL (members);
-              gchar *member_name = ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL);
+              const gchar *member_name = ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL);
               /* Checks if member already exists... */
               if (g_strcmp0 (member_name, widget_name) == 0) {
                      return TRUE;
@@ -930,7 +930,7 @@ glade_widget_already_in_scope (IAnjutaEditor* editor, gchar* widget_name,
 
               if (members)
               {
-                     ret = glade_widget_member_of_scope (widget_name, IANJUTA_SYMBOL (members));
+                     ret = glade_widget_member_of_scope (widget_name, members);
                      g_object_unref(members);
               }
        }
@@ -1557,11 +1557,11 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 	klass->dispose = cpp_java_plugin_dispose;
 }
 
-#define PREF_WIDGET_SPACE "preferences_toggle:bool:1:1:cpp-completion-space-after-func"
-#define PREF_WIDGET_BRACE "preferences_toggle:bool:1:1:cpp-completion-brace-after-func"
-#define PREF_WIDGET_CLOSEBRACE "preferences_toggle:bool:1:1:cpp-completion-closebrace-after-func"
-#define PREF_WIDGET_AUTO "preferences_toggle:bool:1:1:cpp-completion-enable"
-#define PREF_WIDGET_PACKAGES "preferences_toggle:bool:1:1:cpp-load-project-packages"
+#define PREF_WIDGET_SPACE "preferences:completion-space-after-func"
+#define PREF_WIDGET_BRACE "preferences:completion-brace-after-func"
+#define PREF_WIDGET_CLOSEBRACE "preferences:completion-closebrace-after-func"
+#define PREF_WIDGET_AUTO "preferences:completion-enable"
+#define PREF_WIDGET_PACKAGES "preferences:load-project-packages"
 #define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
 
 static void

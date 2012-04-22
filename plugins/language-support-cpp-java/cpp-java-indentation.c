@@ -34,11 +34,11 @@
 #include "cpp-java-indentation.h"
 #include "cpp-java-utils.h"
 
-#define PREF_INDENT_BRACE_SIZE "cpp-indent-brace-size"
-#define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
-#define PREF_INDENT_PARANTHESE_SIZE "cpp-indent-paranthese-size"
-#define PREF_BRACE_AUTOCOMPLETION "cpp-brace-autocompletion"
-#define PREF_COMMENT_LEADING_ASTERISK "cpp-multiline-leading-asterisk"
+#define PREF_INDENT_BRACE_SIZE "indent-brace-size"
+#define PREF_INDENT_PARANTHESE_LINEUP "indent-paranthese-lineup"
+#define PREF_INDENT_PARANTHESE_SIZE "indent-paranthese-size"
+#define PREF_BRACE_AUTOCOMPLETION "brace-autocompletion"
+#define PREF_COMMENT_LEADING_ASTERISK "multiline-leading-asterisk"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 #define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))

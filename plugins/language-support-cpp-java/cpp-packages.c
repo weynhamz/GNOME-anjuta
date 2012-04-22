@@ -27,9 +27,9 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
 
-#define PREF_PROJECT_PACKAGES "cpp-load-project-packages"
-#define PREF_USER_PACKAGES "cpp-user-packages"
-#define PREF_LIBC "cpp-load-libc"
+#define PREF_PROJECT_PACKAGES "load-project-packages"
+#define PREF_USER_PACKAGES "user-packages"
+#define PREF_LIBC "load-libc"
 
 #define PROJECT_LOADED "__cpp_packages_loaded"
 #define USER_LOADED "__cpp_user_packages_loaded"

@@ -162,7 +162,7 @@ plugins/js-debugger/plugin.c
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
 plugins/language-support-cpp-java/cpp-java-assist.c
-plugins/language-support-cpp-java/org.gnome.anjuta.cpp.gschema.xml.in
+plugins/language-support-cpp-java/org.gnome.anjuta.plugins.cpp.gschema.xml.in
 plugins/language-support-cpp-java/plugin.c
 [type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
 plugins/language-support-js/js-parser-y-tab.c
