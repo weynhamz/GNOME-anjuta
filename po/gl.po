@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-19 19:34+0200\n"
-"PO-Revision-Date: 2012-04-19 19:34+0200\n"
+"POT-Creation-Date: 2012-04-22 17:53+0200\n"
+"PO-Revision-Date: 2012-04-22 17:54+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -2067,7 +2067,7 @@ msgstr "Ficheiro no que se escribirá o modelo que se procese"
 msgid "Failed to write autogen definition file"
 msgstr "Produciuse un fallo ao escribir o ficheiro de definición autogen"
 
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1240
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1271
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2382,7 +2382,7 @@ msgstr "Seleccione o ficheiro ou o cartafol para obter o seu rexistro:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 #: ../plugins/git/anjuta-git.ui.h:25
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
 msgstr "Opcións"
@@ -2993,7 +2993,7 @@ msgid "Disassembly"
 msgstr "Desensamblaxe"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:154
+#: ../plugins/project-wizard/druid.c:162
 msgid "Information"
 msgstr "Información"
 
@@ -3995,8 +3995,8 @@ msgid "Search using regular expressions"
 msgstr "Buscar usando expresións regulares"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1411
-#: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1412
+#: ../plugins/language-support-python/plugin.c:452 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -5931,45 +5931,45 @@ msgstr "Etiquetas do API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:958
+#: ../plugins/language-support-cpp-java/plugin.c:959
 msgid "Code added for widget."
 msgstr "Código engadido para o widget."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1417
-#: ../plugins/language-support-python/plugin.c:457
+#: ../plugins/language-support-cpp-java/plugin.c:1418
+#: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-Indent"
 msgstr "Sangrar automaticamente"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1418
-#: ../plugins/language-support-python/plugin.c:458
+#: ../plugins/language-support-cpp-java/plugin.c:1419
+#: ../plugins/language-support-python/plugin.c:459
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Sangrar automaticamente a liña ou selección actual segundo os parámetros da "
 "sangría"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1424
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment/Uncomment"
 msgstr "Comentar/Descomentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1425
+#: ../plugins/language-support-cpp-java/plugin.c:1426
 msgid "Comment or uncomment current selection"
 msgstr "Comentar ou descomentar a selección actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1430
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1431
+#: ../plugins/language-support-cpp-java/plugin.c:1432
 msgid "Swap C header and source files"
 msgstr "Intercambiar os ficheiros C da cabeceira e da fonte"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1471
+#: ../plugins/language-support-cpp-java/plugin.c:1472
 msgid "C++/Java Assistance"
 msgstr "Asistencia C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1708
-#: ../plugins/language-support-cpp-java/plugin.c:1742
+#: ../plugins/language-support-cpp-java/plugin.c:1711
+#: ../plugins/language-support-cpp-java/plugin.c:1745
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6014,11 +6014,11 @@ msgstr "JavaScript"
 msgid "JS"
 msgstr "JS"
 
-#: ../plugins/language-support-python/plugin.c:84
+#: ../plugins/language-support-python/plugin.c:85
 msgid "Python support warning"
 msgstr "Aviso de compatibilidade de Python"
 
-#: ../plugins/language-support-python/plugin.c:92
+#: ../plugins/language-support-python/plugin.c:93
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -6029,16 +6029,16 @@ msgstr ""
 "para o autocompletado dos ficheiros python.\n"
 "Instáleas e comprobe a ruta de python nas preferencias."
 
-#: ../plugins/language-support-python/plugin.c:95
+#: ../plugins/language-support-python/plugin.c:96
 msgid "Do not show that warning again"
 msgstr "Non mostrar o aviso de novo"
 
-#: ../plugins/language-support-python/plugin.c:514
+#: ../plugins/language-support-python/plugin.c:515
 msgid "Python Assistance"
 msgstr "Asistente de Python"
 
-#: ../plugins/language-support-python/plugin.c:619
-#: ../plugins/language-support-python/plugin.c:628
+#: ../plugins/language-support-python/plugin.c:624
+#: ../plugins/language-support-python/plugin.c:633
 #: ../plugins/language-support-python/python-assist.c:984
 msgid "Python"
 msgstr "Python"
@@ -6940,7 +6940,7 @@ msgid "Select a project type"
 msgstr "Seleccionar tipo de proxecto"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:174
 msgid "Error"
 msgstr "Erro"
 
@@ -6952,31 +6952,31 @@ msgstr "Detalles"
 msgid "Summary"
 msgstr "Resumo"
 
-#: ../plugins/project-wizard/druid.c:158 ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:166 ../plugins/project-wizard/druid.c:170
 msgid "Warning"
 msgstr "Aviso"
 
-#: ../plugins/project-wizard/druid.c:169
+#: ../plugins/project-wizard/druid.c:177
 msgid "Message"
 msgstr "Mensaxe"
 
-#: ../plugins/project-wizard/druid.c:250
+#: ../plugins/project-wizard/druid.c:258
 msgid "Confirm the following information:"
 msgstr "Confirme a seguinte información:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:254
+#: ../plugins/project-wizard/druid.c:262
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Tipo de proxecto: %s\n"
 
-#: ../plugins/project-wizard/druid.c:431
+#: ../plugins/project-wizard/druid.c:439
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Non é posíbel atopar ningún modelo de proxecto en %s"
 
-#: ../plugins/project-wizard/druid.c:671
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "\n"
@@ -6985,7 +6985,7 @@ msgstr ""
 "\n"
 "O campo \"%s\" é obrigatorio. Introdúzao."
 
-#: ../plugins/project-wizard/druid.c:686
+#: ../plugins/project-wizard/druid.c:694
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
@@ -6995,7 +6995,7 @@ msgstr ""
 "O campo «%s» debe conter só letras, díxitos, os seguintes caracteres \"#$:%%"
 "+,.=@^_`~\". Ademais non pode conter un guión inicial. Por favor arránxeo."
 
-#: ../plugins/project-wizard/druid.c:691
+#: ../plugins/project-wizard/druid.c:699
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits, the following characters \"#"
@@ -7006,7 +7006,7 @@ msgstr ""
 "+,.=@^_`~\" ou separadores de cartafoles. Ademais non pode conter un guión "
 "inicial. Por favor arránxeo."
 
-#: ../plugins/project-wizard/druid.c:696
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
 msgid ""
 "Field \"%s\" must contains only ASCII printable characters, no accentuated "
@@ -7015,12 +7015,12 @@ msgstr ""
 "O campo «%s» debe conter só caracteres imprimíbeis ASCII, caracteres sen "
 "acentos por exemplo. Por favor arránxeo."
 
-#: ../plugins/project-wizard/druid.c:701
+#: ../plugins/project-wizard/druid.c:709
 #, c-format
 msgid "Unknown error."
 msgstr "Erro descoñecido."
 
-#: ../plugins/project-wizard/druid.c:728
+#: ../plugins/project-wizard/druid.c:736
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7029,20 +7029,20 @@ msgstr ""
 "O cartafol \"%s\" non está baleiro. A creación do proxecto podería fallar se "
 "non é posíbel escribir nalgúns ficheiros. Quere continuar?"
 
-#: ../plugins/project-wizard/druid.c:730
+#: ../plugins/project-wizard/druid.c:738
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "O ficheiro \"%s\" xa existe. Quere sobrescribilo?"
 
-#: ../plugins/project-wizard/druid.c:763
+#: ../plugins/project-wizard/druid.c:771
 msgid "Invalid entry"
 msgstr "Entrada non válida"
 
-#: ../plugins/project-wizard/druid.c:773
+#: ../plugins/project-wizard/druid.c:781
 msgid "Dubious entry"
 msgstr "Entrada dubidosa"
 
-#: ../plugins/project-wizard/druid.c:942
+#: ../plugins/project-wizard/druid.c:950
 #, c-format
 msgid ""
 "\n"
@@ -7051,7 +7051,7 @@ msgstr ""
 "\n"
 "Faltan os programas: %s."
 
-#: ../plugins/project-wizard/druid.c:953
+#: ../plugins/project-wizard/druid.c:961
 #, c-format
 msgid ""
 "\n"
@@ -7060,7 +7060,7 @@ msgstr ""
 "\n"
 "Faltan os paquetes: %s."
 
-#: ../plugins/project-wizard/druid.c:962
+#: ../plugins/project-wizard/druid.c:970
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7070,7 +7070,7 @@ msgstr ""
 "requiridos para construír este proxecto. Asegúrese de que están instalados "
 "apropiadamente antes de xerar o proxecto.\n"
 
-#: ../plugins/project-wizard/druid.c:971
+#: ../plugins/project-wizard/druid.c:979
 msgid "Install missing packages"
 msgstr "Instalar os paquetes que faltan"
 
@@ -7078,7 +7078,7 @@ msgstr "Instalar os paquetes que faltan"
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:983
+#: ../plugins/project-wizard/druid.c:991
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7094,7 +7094,7 @@ msgstr ""
 "neles. Normalmente acaban co sufixo «-dev» ou «-devel» nos nomes dos "
 "paquetes e pódense atopar buscando no seu Xestor de aplicativos."
 
-#: ../plugins/project-wizard/druid.c:991
+#: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
 msgstr "Faltan compoñentes"
 
@@ -8327,75 +8327,79 @@ msgid "Anjuta variables"
 msgstr "Variábeis de Anjuta"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-msgid "Tab size in spaces:"
-msgstr "Tamaño de tabulación en espazos:"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Use tabs for indentation"
 msgstr "Use tabulacións para a sangría"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
+msgid "Tab size in spaces:"
+msgstr "Tamaño de tabulación en espazos:"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
+msgid "Indentation size in spaces:"
+msgstr "Tamaño da sangría en espazos:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Indentation and auto-format options"
 msgstr "Preferencias de sangrado e autoformato"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Highlight syntax"
 msgstr "Realzado de sintaxe"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Highlight matching brackets"
 msgstr "Realzado de parénteses coincidentes"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Create backup files"
 msgstr "Crear ficheiros de copia de seguranza"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Enable autocompletion for document words"
 msgstr "Activar o autocompletado para as palabras do documento"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 msgid "Highlight current line"
 msgstr "Realzado da liña actual"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 msgid "Show line numbers"
 msgstr "Mostrar os números de liña"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Show marks"
 msgstr "Mostrar as marcas"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show right margin"
 msgstr "Mostrar a marxe dereita"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Right margin position in characters"
 msgstr "Posición da marxe dereita en caracteres"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 #: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
 msgid "View"
 msgstr "Ver"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Editor"
 msgstr "Editor"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Use theme font"
 msgstr "Usar tipo de letra do tema"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Font:"
 msgstr "Tipo de letra:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Color scheme:"
 msgstr "Esquema de cor:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Font"
 msgstr "Tipo de letra"
 
@@ -9798,6 +9802,18 @@ msgstr ""
 #: ../src/main.c:138
 msgid "- Integrated Development Environment"
 msgstr "- Contorno de desenvolvemento integrado"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:1
+msgid "Use tabulation for indentation"
+msgstr "Use tabulacións para a sangría"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:2
+msgid "Number of characters of one tabulation"
+msgstr "Número de caracteres dunha tabulación:"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:3
+msgid "Number of spaces on every indentation step"
+msgstr "Número de espazos con cada paso de sangría"
 
 #: ../src/preferences.ui.h:1
 msgid "Do not load last session on startup"
@@ -11410,9 +11426,6 @@ msgstr "Só texto"
 
 #~ msgid "Number of first characters to show:"
 #~ msgstr "Número de caracteres iniciais para mostrar:"
-
-#~ msgid "Number of last characters to show:"
-#~ msgstr "Número de caracteres finais para mostrar:"
 
 #~ msgid "Truncate long messages"
 #~ msgstr "Truncar as mensaxes longas"
