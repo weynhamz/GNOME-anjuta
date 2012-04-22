@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 Location=anjuta-code-analyzer:CodeAnalyzerPlugin
 Icon=code-analyzer.png
-_Name=Code Anaylyzer
+_Name=Code Analyzer
 _Description=Analyze code with the clang-analyzer framework
 Interfaces=IAnjutaEnvironment
