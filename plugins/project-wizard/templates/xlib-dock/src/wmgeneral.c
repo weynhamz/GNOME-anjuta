@@ -1,5 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * wmgeneral.c
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -291,3 +294,4 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XSetCommand(display, win, argv, argc);
 	XMapWindow(display, win);
 }
+[+INVOKE END-INDENT\+]

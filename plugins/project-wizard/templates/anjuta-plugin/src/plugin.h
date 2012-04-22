@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * plugin.h
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -28,3 +30,4 @@ struct _[+PluginClass+]Class{
 };
 
 #endif
+[+INVOKE END-INDENT\+]

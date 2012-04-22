@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * [+MainClass+].java
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -9,7 +11,8 @@
  */
 
 class [+MainClass+] {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+	}
 }
+[+INVOKE END-INDENT\+]

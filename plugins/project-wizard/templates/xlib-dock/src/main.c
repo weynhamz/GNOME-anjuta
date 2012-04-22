@@ -1,5 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * main.c
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -73,3 +76,4 @@ int main(int argc, char *argv[])
 	/* we should never get here */
 	return (0);
 }
+[+INVOKE END-INDENT\+]

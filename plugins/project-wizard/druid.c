@@ -37,6 +37,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
 #include <glib.h>
@@ -56,6 +57,13 @@
 #define ANJUTA_PROJECT_DIRECTORY_PROPERTY "AnjutaProjectDirectory"
 #define USER_NAME_PROPERTY "UserName"
 #define EMAIL_ADDRESS_PROPERTY "EmailAddress"
+#define INDENT_WIDTH_PROPERTY "IndentWidth"
+#define TAB_WIDTH_PROPERTY "TabWidth"
+#define USE_TABS_PROPERTY "UseTabs"
+
+/* Common editor preferences */
+#define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
+
 
 /* Widget and signal name found in glade file
  *---------------------------------------------------------------------------*/
@@ -1204,8 +1212,10 @@ npw_druid_add_default_property (NPWDruid* druid)
 {
 	NPWValue* value;
 	gchar* s;
-	/* gchar* email; */
 	AnjutaPreferences* pref;
+	GSettings *settings;
+	gboolean flag;
+	gint i;
 
 	pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (druid->plugin)->shell, NULL);
 
@@ -1217,13 +1227,34 @@ npw_druid_add_default_property (NPWDruid* druid)
 	value = npw_value_heap_find_value (druid->values, USER_NAME_PROPERTY);
 	s = (gchar *)g_get_real_name();
 	npw_value_set_value (value, s, NPW_VALID_VALUE);
+
 	/* Add Email address */
 	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
-
 	/* FIXME: We need a default way for the mail */
 	s = anjuta_util_get_user_mail();
 	npw_value_set_value (value, s, NPW_VALID_VALUE);
 	g_free (s);
+
+	/* Add use-tabs property */
+	settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
+	flag = g_settings_get_boolean (settings, IANJUTA_EDITOR_USE_TABS_KEY);
+	value = npw_value_heap_find_value (druid->values, USE_TABS_PROPERTY);
+	npw_value_set_value (value, flag ? "1" : "0", NPW_VALID_VALUE);
+
+	/* Add tab-width property */
+	i = g_settings_get_int (settings, IANJUTA_EDITOR_TAB_WIDTH_KEY);
+	value = npw_value_heap_find_value (druid->values, TAB_WIDTH_PROPERTY);
+	s = g_strdup_printf("%d", i);
+	npw_value_set_value (value, s, NPW_VALID_VALUE);
+	g_free (s);
+
+	/* Add indent-width property */
+	i = g_settings_get_int (settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY);
+	value = npw_value_heap_find_value (druid->values, INDENT_WIDTH_PROPERTY);
+	s = g_strdup_printf("%d", i);
+	npw_value_set_value (value, s, NPW_VALID_VALUE);
+	g_free (s);
+	g_object_unref (settings);
 }
 
 /* Druid public functions

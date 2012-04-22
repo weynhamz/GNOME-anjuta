@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * [+NameLower+].c
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -58,7 +60,7 @@ static void
 	window = GTK_WIDGET (gtk_builder_get_object (builder, TOP_WINDOW));
         if (!window)
         {
-                g_critical ("Widget \"%s\" is missing in file %s.",
+		g_critical ("Widget \"%s\" is missing in file %s.",
 				TOP_WINDOW,
 				UI_FILE);
         }
@@ -85,7 +87,7 @@ static void
 static void
 [+NameCLower+]_activate (GApplication *application)
 {
-  [+NameCLower+]_new_window (application, NULL);
+	[+NameCLower+]_new_window (application, NULL);
 }
 
 static void
@@ -94,10 +96,10 @@ static void
                      gint           n_files,
                      const gchar   *hint)
 {
-  gint i;
+	gint i;
 
-  for (i = 0; i < n_files; i++)
-    [+NameCLower+]_new_window (application, files[i]);
+	for (i = 0; i < n_files; i++)
+		[+NameCLower+]_new_window (application, files[i]);
 }
 
 static void
@@ -109,7 +111,6 @@ static void
 static void
 [+NameCLower+]_finalize (GObject *object)
 {
-
 	G_OBJECT_CLASS ([+NameCLower+]_parent_class)->finalize (object);
 }
 
@@ -134,3 +135,4 @@ static void
 	                     "flags", G_APPLICATION_HANDLES_OPEN,
 	                     NULL);
 }
+[+INVOKE END-INDENT\+]

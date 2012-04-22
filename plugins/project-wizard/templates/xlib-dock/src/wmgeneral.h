@@ -1,5 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * wmgeneral.h
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -44,3 +47,4 @@ void setMaskXY(int, int);
 void parse_rcfile(const char *, rckeys *);
 
 #endif
+[+INVOKE END-INDENT\+]

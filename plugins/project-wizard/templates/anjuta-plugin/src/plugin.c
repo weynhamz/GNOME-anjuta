@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * plugin.c
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -174,3 +176,4 @@ static void
 
 ANJUTA_PLUGIN_BOILERPLATE ([+PluginClass+], [+NameCLower+]);
 ANJUTA_SIMPLE_PLUGIN ([+PluginClass+], [+NameCLower+]);
+[+INVOKE END-INDENT\+]

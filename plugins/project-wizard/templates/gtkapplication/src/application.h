@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * [+NameLower+].h
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -47,3 +49,4 @@ GType [+NameCLower+]_get_type (void) G_GNUC_CONST;
 G_END_DECLS
 
 #endif /* _APPLICATION_H_ */
+[+INVOKE END-INDENT\+]

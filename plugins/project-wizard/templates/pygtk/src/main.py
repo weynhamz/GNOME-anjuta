@@ -1,5 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
+[+INCLUDE (string-append "indent.tpl") \+]
+# [+INVOKE EMACS-MODELINE MODE="Python" \+]
+[+INVOKE START-INDENT\+]
 #!/usr/bin/python
 #
 # main.py
@@ -41,4 +44,5 @@ def main():
 	Gtk.main()
 		
 if __name__ == "__main__":
-    sys.exit(main())
+	sys.exit(main())
+[+INVOKE END-INDENT\+]

@@ -1,6 +1,8 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * main.cc
  * Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
@@ -15,3 +17,4 @@ int main()
 	std::cout << "Hello world!" << std::endl;
 	return 0;
 }
+[+INVOKE END-INDENT\+]
