@@ -21,20 +21,19 @@
 #include <gtksourceview/completion-providers/words/gtksourcecompletionwords.h>
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 #define REGISTER_NOTIFY(settings, key, func) \
 	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
 
+#define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
 #define PREF_SCHEMA "org.gnome.anjuta.plugins.sourceview"
 #define MSGMAN_PREF_SCHEMA "org.gnome.anjuta.plugins.message-manager"
-
 
 /* Editor preferences */
 #define HIGHLIGHT_SYNTAX           "syntax-highlight"
 #define HIGHLIGHT_CURRENT_LINE	   "currentline-highlight"
-#define USE_TABS                   "use-tabs"
 #define HIGHLIGHT_BRACKETS         "brackets-highlight"
-#define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent-size"
 #define AUTOCOMPLETION             "autocomplete"
 
@@ -44,7 +43,6 @@
 #define MSGMAN_COLOR_ERROR		  "color-error"
 #define MSGMAN_COLOR_WARNING		  "color-warning"
 #define MSGMAN_COLOR_IMPORTANT		  "color-important"
-
 
 #define FONT_THEME "font-use-theme"
 #define FONT "font"
@@ -264,7 +262,8 @@ sourceview_prefs_init(Sourceview* sv)
 	 */
 	sv->priv->settings = g_settings_new (PREF_SCHEMA);
 	sv->priv->msgman_settings = g_settings_new (MSGMAN_PREF_SCHEMA);
-    
+	sv->priv->editor_settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
+
 	/* Bind simple options to GSettings */
 	g_settings_bind (sv->priv->settings, HIGHLIGHT_SYNTAX,
 			 sv->priv->document, "highlight-syntax",
@@ -272,8 +271,11 @@ sourceview_prefs_init(Sourceview* sv)
 	g_settings_bind (sv->priv->settings, HIGHLIGHT_CURRENT_LINE,
 			 sv->priv->view, "highlight-current-line",
 			 G_SETTINGS_BIND_GET);
-	g_settings_bind (sv->priv->settings, TAB_SIZE,
+	g_settings_bind (sv->priv->editor_settings, IANJUTA_EDITOR_TAB_WIDTH_KEY,
 			 sv->priv->view, "tab-width",
+			 G_SETTINGS_BIND_GET);
+	g_settings_bind (sv->priv->editor_settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY,
+			 sv->priv->view, "indent-width",
 			 G_SETTINGS_BIND_GET);
 	g_settings_bind (sv->priv->settings, HIGHLIGHT_BRACKETS,
 			 sv->priv->document, "highlight-matching-brackets",
@@ -294,11 +296,14 @@ sourceview_prefs_init(Sourceview* sv)
 	g_settings_bind (sv->priv->settings, VIEW_LINENUMBERS,
 			 sv->priv->view, "show-line-numbers",
 			 G_SETTINGS_BIND_GET);
-	
+
 	/* Init non-simple options */
-	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), -1); /* Same as tab width */
+	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view),
+	                                 g_settings_get_int (sv->priv->editor_settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY));
+	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view),
+	                                 g_settings_get_int (sv->priv->editor_settings, IANJUTA_EDITOR_TAB_WIDTH_KEY));
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-	                                                  !g_settings_get_boolean (sv->priv->settings, USE_TABS));
+	                                                  !g_settings_get_boolean (sv->priv->editor_settings, IANJUTA_EDITOR_USE_TABS_KEY));
 
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (sv->priv->view),
 	                             g_settings_get_boolean (sv->priv->settings, VIEW_EOL) ? GTK_WRAP_WORD : GTK_WRAP_NONE);
@@ -317,9 +322,9 @@ sourceview_prefs_init(Sourceview* sv)
 	on_notify_autocompletion(sv->priv->settings, AUTOCOMPLETION, sv);
 
 	/* Register notifications */
-	REGISTER_NOTIFY (sv->priv->settings, USE_TABS, on_notify_use_tab_for_indentation);
-	REGISTER_NOTIFY (sv->priv->settings, AUTOCOMPLETION, on_notify_autocompletion);
+	REGISTER_NOTIFY (sv->priv->editor_settings, IANJUTA_EDITOR_USE_TABS_KEY, on_notify_use_tab_for_indentation);
 
+	REGISTER_NOTIFY (sv->priv->settings, AUTOCOMPLETION, on_notify_autocompletion);
 	REGISTER_NOTIFY (sv->priv->settings, VIEW_WHITE_SPACES, on_notify_view_spaces);
 	REGISTER_NOTIFY (sv->priv->settings, VIEW_EOL, on_notify_view_eol);
 	REGISTER_NOTIFY (sv->priv->settings, VIEW_LINE_WRAP, on_notify_line_wrap);
@@ -343,5 +348,9 @@ void sourceview_prefs_destroy(Sourceview* sv)
 	if (sv->priv->msgman_settings)
 	{
 		g_clear_object (&sv->priv->msgman_settings);
+	}
+	if (sv->priv->editor_settings)
+	{
+		g_clear_object (&sv->priv->editor_settings);
 	}
 }

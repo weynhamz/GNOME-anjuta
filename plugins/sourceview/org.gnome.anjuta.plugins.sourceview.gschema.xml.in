@@ -17,11 +17,6 @@
 		</key>
 		<key name="print-linenumbers" type="b">
 			<default>false</default>
-		</key>		<key name="tabsize" type="i">
-			<default>4</default>
-		</key>
-		<key name="use-tabs" type="b">
-			<default>true</default>
 		</key>
 		<key name="syntax-highlight" type="b">
 			<default>true</default>

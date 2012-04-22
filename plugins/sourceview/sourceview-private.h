@@ -45,6 +45,7 @@ struct SourceviewPrivate {
 	/* Preferences */
 	GSettings* settings;
 	GSettings* msgman_settings;
+	GSettings* editor_settings;
 	GList* notify_ids;
 
 	/* Popup menu */
