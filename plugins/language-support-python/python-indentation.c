@@ -2,12 +2,12 @@
  * python-indentation.c
  *
  * Copyright (C) 2011 - Johannes Schmid
-	 *
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
-	 *
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -42,7 +42,6 @@
 #define PREF_INDENT_AUTOMATIC "python-indent-automatic"
 #define PREF_INDENT_ADAPTIVE "python-indent-adaptive"
 #define PREF_INDENT_TAB_INDENTS "python-indent-tab-indents"
-#define PREF_INDENT_STATEMENT_SIZE "python-indent-statement-size"
 #define PREF_INDENT_BRACE_SIZE "python-indent-brace-size"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
@@ -52,7 +51,7 @@
 #define INDENT_SIZE \
 (plugin->param_statement_indentation >= 0? \
 plugin->param_statement_indentation : \
-g_settings_get_int (plugin->settings, PREF_INDENT_STATEMENT_SIZE))
+g_settings_get_int (plugin->editor_settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY))
 
 #define BRACE_INDENT \
 (plugin->param_brace_indentation >= 0? \

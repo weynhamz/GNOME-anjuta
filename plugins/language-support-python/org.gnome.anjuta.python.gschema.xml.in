@@ -12,9 +12,6 @@
 		<key name="python-indent-brace-size" type="i">
 			<default>0</default>
 		</key>
-		<key name="python-indent-statement-size" type="i">
-			<default>4</default>
-		</key>
 		<key name="python-completion-enable" type="b">
 			<default>true</default>
 		</key>

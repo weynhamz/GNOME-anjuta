@@ -2,19 +2,19 @@
 /*
  * plugin.c
  * Copyright (C) Ishan Chattopadhyaya 2009 <ichattopadhyaya@gmail.com>
- * 
+ *
  * plugin.c is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * plugin.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with plugin.c.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -65,6 +65,7 @@
 
 /* Preferences keys */
 
+#define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
 #define PREF_SCHEMA "org.gnome.anjuta.python"
 
 
@@ -110,7 +111,7 @@ on_check_finished (AnjutaLauncher* launcher,
 		gtk_widget_destroy (dialog);
 	}
 	g_object_unref (launcher);
-}				                                    
+}
 
 static void
 check_support (PythonPlugin *python_plugin)
@@ -188,7 +189,7 @@ on_glade_drop (IAnjutaEditor* editor,
 	GSignalQuery query;
 	GType type;
 	guint id;
-	
+
 	const gchar* widget;
 	const gchar* signal;
 	const gchar* handler;
@@ -198,15 +199,15 @@ on_glade_drop (IAnjutaEditor* editor,
 	GString* str = g_string_new (NULL);
 	int i;
 	IAnjutaIterable* start, * end;
-	
+
 	GStrv data = g_strsplit(signal_data, ":", 5);
-	
+
 	widget = data[0];
 	signal = data[1];
 	handler = data[2];
 	user_data = data[3];
 	swapped = g_str_equal (data[4], "1");
-	
+
 	type = g_type_from_name (widget);
 	id = g_signal_lookup (signal, type);
 
@@ -231,7 +232,7 @@ on_glade_drop (IAnjutaEditor* editor,
 	/* Indent code correctly */
 	start = iterator;
 	end = ianjuta_iterable_clone (iterator, NULL);
-	ianjuta_iterable_set_position (end, 
+	ianjuta_iterable_set_position (end,
 	                               ianjuta_iterable_get_position (iterator, NULL)
 	                           		+ g_utf8_strlen (str->str, -1),
 	                               NULL);
@@ -241,7 +242,7 @@ on_glade_drop (IAnjutaEditor* editor,
 
 	g_string_free (str, TRUE);
 	anjuta_util_glist_strings_free (names);
-	
+
 	g_strfreev (data);
 }
 
@@ -254,32 +255,32 @@ on_editor_char_inserted_python (IAnjutaEditor *editor,
 	python_indent (plugin, editor, insert_pos, ch);
 }
 
-                         
+
 static void
 install_support (PythonPlugin *lang_plugin)
-{	
+{
 	IAnjutaLanguage* lang_manager =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 									IAnjutaLanguage, NULL);
-	IAnjutaSymbolManager* sym_manager = 
+	IAnjutaSymbolManager* sym_manager =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 		                            IAnjutaSymbolManager,
 		                            NULL);
-	IAnjutaDocumentManager* docman = 
+	IAnjutaDocumentManager* docman =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 		                            IAnjutaDocumentManager,
 		                            NULL);
-		
+
 	if (!lang_manager || !sym_manager || !docman)
 		return;
-	
+
 	if (lang_plugin->support_installed)
 		return;
-	
-	lang_plugin->current_language = 
-		ianjuta_language_get_name_from_editor (lang_manager, 
+
+	lang_plugin->current_language =
+		ianjuta_language_get_name_from_editor (lang_manager,
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
-	
+
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Python")))
 	{
@@ -292,27 +293,27 @@ install_support (PythonPlugin *lang_plugin)
 	{
 		return;
 	}
-	
+
 	python_indent_init (lang_plugin);
 	/* Disable editor intern auto-indent */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
 								    FALSE, NULL);
-	
+
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) )
 	{
-		AnjutaPlugin *plugin;		
+		AnjutaPlugin *plugin;
 		AnjutaUI *ui;
 		IAnjutaEditorAssist* iassist;
 
 		const gchar *project_root;
-		gchar *editor_filename;		
+		gchar *editor_filename;
 
 		check_support (lang_plugin);
-		
+
 		plugin = ANJUTA_PLUGIN (lang_plugin);
 		ui = anjuta_shell_get_ui (plugin->shell, NULL);
 		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
-		
+
 		g_assert (lang_plugin->assist == NULL);
 
 		project_root = ANJUTA_PLUGIN_PYTHON(plugin)->project_root_directory;
@@ -325,7 +326,7 @@ install_support (PythonPlugin *lang_plugin)
 		                                         lang_plugin->settings,
 		                                         editor_filename,
 		                                         project_root);
-	}	
+	}
 
 	if (IANJUTA_IS_EDITOR_GLADE_SIGNAL (lang_plugin->current_editor))
 	{
@@ -344,7 +345,7 @@ uninstall_support (PythonPlugin *lang_plugin)
 {
 	if (!lang_plugin->support_installed)
 		return;
-	
+
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Python")))
 	{
@@ -352,9 +353,9 @@ uninstall_support (PythonPlugin *lang_plugin)
 									G_CALLBACK (on_editor_char_inserted_python),
 									lang_plugin);
 	}
-	
+
 	if (lang_plugin->assist)
-	{		
+	{
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
 	}
@@ -387,7 +388,7 @@ on_editor_added (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
 	lang_plugin = ANJUTA_PLUGIN_PYTHON(plugin);
 
-	
+
 	if (IANJUTA_IS_EDITOR(doc))
 	{
 		lang_plugin->current_editor = G_OBJECT(doc);
@@ -400,15 +401,15 @@ on_editor_added (AnjutaPlugin *plugin, const gchar *name,
 	if (lang_plugin->current_editor)
 	{
 		IAnjutaEditor* editor = IANJUTA_EDITOR (lang_plugin->current_editor);
-		GFile* current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), 
+		GFile* current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor),
 		                                                    NULL);
-		
+
 		if (current_editor_file)
-		{		
+		{
 			lang_plugin->current_editor_filename = g_file_get_path (current_editor_file);
 			g_object_unref (current_editor_file);
 		}
-		
+
 		install_support (lang_plugin);
 		g_signal_connect (lang_plugin->current_editor, "language-changed",
 		                  G_CALLBACK (on_editor_language_changed),
@@ -422,7 +423,7 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name,
 {
 	PythonPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
+
 	if (lang_plugin->current_editor)
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
@@ -439,7 +440,7 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name,
 
 static void
 on_auto_indent (GtkAction *action, gpointer data)
-{	
+{
 	PythonPlugin *lang_plugin = ANJUTA_PLUGIN_PYTHON (data);
 
 	python_indent_auto (lang_plugin, NULL, NULL);
@@ -461,15 +462,15 @@ static GtkActionEntry actions[] = {
 };
 
 static void
-on_project_root_added (AnjutaPlugin *plugin, const gchar *name, 
+on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					   const GValue *value, gpointer user_data)
 {
 	PythonPlugin *python_plugin;
 	gchar *project_root_uri;
 	GFile *file;
-	
+
 	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
+
 	g_free (python_plugin->project_root_directory);
 	project_root_uri = g_value_dup_string (value);
 	file = g_file_new_for_uri (project_root_uri);
@@ -479,17 +480,17 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 }
 
 static void
-on_project_root_removed (AnjutaPlugin *plugin, const gchar *name, 
+on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 						 gpointer user_data)
 {
 	AnjutaUI *ui;
 	PythonPlugin *python_plugin;
-	
+
 	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
-	
+
 	g_free (python_plugin->project_root_directory);
 	python_plugin->project_root_directory = NULL;
-	
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 }
 
@@ -499,16 +500,16 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 
 	PythonPlugin *python_plugin;
-	static gboolean initialized = FALSE;	
+	static gboolean initialized = FALSE;
 
 	python_plugin = (PythonPlugin*) plugin;
-	
+
 	python_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	
+
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
-	python_plugin->action_group = 
+
+	python_plugin->action_group =
 
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupPythonAssist",
 											_("Python Assistance"),
@@ -526,7 +527,7 @@ python_plugin_activate (AnjutaPlugin *plugin)
 																 on_project_root_added,
 																 on_project_root_removed,
 																 NULL);
-	
+
 	python_plugin->editor_watch_id = anjuta_plugin_add_watch (plugin,
 														   IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
 														   on_editor_added,
@@ -548,13 +549,13 @@ python_plugin_deactivate (AnjutaPlugin *plugin)
 								TRUE);
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->project_root_watch_id,
-								TRUE);	
+								TRUE);
 
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_PYTHON(plugin)->action_group);
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_PYTHON(plugin)->uiid);
-	
+
 	return TRUE;
 }
 
@@ -574,7 +575,10 @@ python_plugin_dispose (GObject *obj)
 	if (plugin->settings)
 		g_object_unref (plugin->settings);
 	plugin->settings = NULL;
-	
+	if (plugin->editor_settings)
+		g_object_unref (plugin->editor_settings);
+	plugin->editor_settings = NULL;
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -589,10 +593,11 @@ python_plugin_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->assist = NULL;
 	plugin->settings = g_settings_new (PREF_SCHEMA);
+	plugin->editor_settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
 }
 
 static void
-python_plugin_class_init (GObjectClass *klass) 
+python_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -633,7 +638,7 @@ static void
 ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 {
 	iface->merge = ipreferences_merge;
-	iface->unmerge = ipreferences_unmerge;	
+	iface->unmerge = ipreferences_unmerge;
 }
 
 static void
