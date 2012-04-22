@@ -39,10 +39,10 @@
 
 #include "python-indentation.h"
 
-#define PREF_INDENT_AUTOMATIC "python-indent-automatic"
-#define PREF_INDENT_ADAPTIVE "python-indent-adaptive"
-#define PREF_INDENT_TAB_INDENTS "python-indent-tab-indents"
-#define PREF_INDENT_BRACE_SIZE "python-indent-brace-size"
+#define PREF_INDENT_AUTOMATIC "indent-automatic"
+#define PREF_INDENT_ADAPTIVE "indent-adaptive"
+#define PREF_INDENT_TAB_INDENTS "indent-tab-indents"
+#define PREF_INDENT_BRACE_SIZE "indent-brace-size"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 

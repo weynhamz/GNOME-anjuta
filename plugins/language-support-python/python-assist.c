@@ -42,11 +42,11 @@
 #include "python-assist.h"
 #include "python-utils.h"
 
-#define PREF_AUTOCOMPLETE_ENABLE "python-completion-enable"
-#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "python-completion-func-space"
-#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "python-completion-func-brace"
-#define PREF_CALLTIP_ENABLE "python-calltip-enable"
-#define PREF_INTERPRETER_PATH "python-interpreter-path"
+#define PREF_AUTOCOMPLETE_ENABLE "completion-enable"
+#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "completion-func-space"
+#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "completion-func-brace"
+#define PREF_CALLTIP_ENABLE "calltip-enable"
+#define PREF_INTERPRETER_PATH "interpreter-path"
 #define MAX_COMPLETIONS 30
 #define BRACE_SEARCH_LIMIT 500
 #define SCOPE_BRACE_JUMP_LIMIT 50

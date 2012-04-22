@@ -66,11 +66,11 @@
 /* Preferences keys */
 
 #define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
-#define PREF_SCHEMA "org.gnome.anjuta.python"
+#define PREF_SCHEMA "org.gnome.anjuta.plugins.python"
 
 
-#define PREF_NO_ROPE_WARNING "python-no-rope-warning"
-#define PREF_INTERPRETER_PATH "python-interpreter-path"
+#define PREF_NO_ROPE_WARNING "no-rope-warning"
+#define PREF_INTERPRETER_PATH "interpreter-path"
 
 static gpointer parent_class;
 

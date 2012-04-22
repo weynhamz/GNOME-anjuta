@@ -42,7 +42,7 @@ libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libpython_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
-gsettings_in_file = org.gnome.anjuta.python.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.python.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

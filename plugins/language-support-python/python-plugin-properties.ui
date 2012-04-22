@@ -36,7 +36,7 @@
                     <property name="can_focus">False</property>
                     <property name="spacing">5</property>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-indent-automatic">
+                      <object class="GtkCheckButton" id="preferences:indent-automatic">
                         <property name="label" translatable="yes">Enable smart indentation</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -54,7 +54,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-indent-adaptive">
+                      <object class="GtkCheckButton" id="preferences:indent-adaptive">
                         <property name="label" translatable="yes">Enable adaptive indentation</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -98,7 +98,7 @@
                             <property name="column_spacing">5</property>
                             <property name="row_spacing">5</property>
                             <child>
-                              <object class="GtkSpinButton" id="preferences_spin:int:0:1:python-indent-brace-size">
+                              <object class="GtkSpinButton" id="preferences:indent-brace-size">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="adjustment">adjustment2</property>
@@ -216,7 +216,7 @@
                     <property name="can_focus">False</property>
                     <property name="spacing">5</property>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-enable">
+                      <object class="GtkCheckButton" id="preferences:completion-enable">
                         <property name="label" translatable="yes">Enable code completion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -234,7 +234,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-func-space">
+                      <object class="GtkCheckButton" id="preferences:completion-func-space">
                         <property name="label" translatable="yes">Add a space after function call autocompletion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -252,7 +252,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-completion-func-brace">
+                      <object class="GtkCheckButton" id="preferences:completion-func-brace">
                         <property name="label" translatable="yes">Add '(' after function call autocompletion</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -307,7 +307,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkCheckButton" id="preferences_toggle:bool:1:1:python-calltip-enable">
+                          <object class="GtkCheckButton" id="preferences:calltip-enable">
                             <property name="label" translatable="yes">Show calltips</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -396,7 +396,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="preferences_entry:text:/usr/bin/python:1:python-interpreter-path">
+                          <object class="GtkEntry" id="preferences:interpreter-path">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>

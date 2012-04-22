@@ -169,7 +169,7 @@ plugins/language-support-js/js-parser-y-tab.c
 [type: gettext/ini]plugins/language-support-js/js-support-plugin.plugin.in
 plugins/language-support-js/org.gnome.anjuta.js.gschema.xml.in
 plugins/language-support-js/plugin.c
-plugins/language-support-python/org.gnome.anjuta.python.gschema.xml.in
+plugins/language-support-python/org.gnome.anjuta.plugins.python.gschema.xml.in
 plugins/language-support-python/plugin.c
 plugins/language-support-python/python-assist.c
 [type: gettext/glade]plugins/language-support-python/python-plugin-properties.ui
