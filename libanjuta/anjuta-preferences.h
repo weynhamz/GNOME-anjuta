@@ -64,7 +64,7 @@ typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
 
 GType anjuta_preferences_get_type (void);
 
-AnjutaPreferences *anjuta_preferences_new (AnjutaPluginManager *plugin_manager);
+AnjutaPreferences *anjuta_preferences_new (AnjutaPluginManager *plugin_manager, const gchar *common_schema_id);
 AnjutaPreferences *anjuta_preferences_default (void);
 
 void anjuta_preferences_add_from_builder (AnjutaPreferences *pr,

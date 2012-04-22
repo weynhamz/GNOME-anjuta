@@ -1261,6 +1261,35 @@ interface IAnjutaEditor
 	#include <gtk/gtk.h>
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
 
+	/**
+	* IANJUTA_EDITOR_PREF_SCHEMA
+	*
+	* Schema id used to store common editor settings. 
+	*/
+	#define PREF_SCHEMA	"editor"
+
+	/**
+	* IANJUTA_EDITOR_USE_TABS_KEY
+	*
+	* Boolean key, true is tabs has to be used for indenting.
+	*/
+	#define USE_TABS_KEY	"use-tabs"
+
+	/**
+	* IANJUTA_EDITOR_TAB_WIDTH_KEY
+	*
+	* Integer key, defines the size of a tabulation in spaces.
+	*/
+	#define TAB_WIDTH_KEY	"tab-width"
+
+	/**
+	* IANJUTA_EDITOR_INDENT_WIDTH_KEY
+	*
+	* Integer key, defines the number a space for one indentation step.
+	*/
+	#define INDENT_WIDTH_KEY	"indent-width"
+
+
 	enum Error
 	{
 		DOESNT_EXIST

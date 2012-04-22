@@ -33,4 +33,18 @@
 			<default>"Default"</default>
 		</key>
 	</schema>
+	<schema id="org.gnome.anjuta.editor" path="/org/gnome/anjuta/editor/">
+		<key name="use-tabs" type="b">
+			<default>true</default>
+			<_summary>Use tabulation for indentation</_summary>
+		</key>
+		<key name="tab-width" type="i">
+			<default>4</default>
+			<_summary>Number of characters of one tabulation</_summary>
+		</key>
+		<key name="indent-width" type="i">
+			<default>4</default>
+			<_summary>Number of spaces on every indentation step</_summary> 
+		</key>
+	</schema>
 </schemalist>

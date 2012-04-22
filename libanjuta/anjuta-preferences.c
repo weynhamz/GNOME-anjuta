@@ -67,6 +67,9 @@ struct _AnjutaPreferencesPriv
 {
 	GtkWidget           *prefs_dialog;
 	AnjutaPluginManager *plugin_manager;
+
+	gchar				*common_schema_id;
+	GHashTable			*common_gsettings;
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences"
@@ -263,6 +266,7 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		const gchar *ptr;
 		GtkWidget *widget, *p;
 		gboolean cont_flag = FALSE;
+		GSettings *key_settings = settings;
 
 		if (!GTK_IS_WIDGET (node->data) || !GTK_IS_BUILDABLE (node->data))
 			continue;
@@ -286,6 +290,32 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		}
 		if (*key == '\0') continue;
 
+		/* Check if we need to use common settings */
+		if (*key == '.')
+		{
+			const gchar *id = strrchr (key, '.');
+			GString *schema_id;
+
+			schema_id = g_string_new (pr->priv->common_schema_id);
+			if (key != id)
+			{
+				g_string_append_len (schema_id, key, id - key);
+			}
+			key = id + 1;
+
+			key_settings = (GSettings *)g_hash_table_lookup (pr->priv->common_gsettings, schema_id->str);
+			if (key_settings == NULL)
+			{
+				key_settings = g_settings_new (schema_id->str);
+				g_hash_table_insert (pr->priv->common_gsettings, schema_id->str, key_settings);
+				g_string_free (schema_id, FALSE);
+			}
+			else
+			{
+				g_string_free (schema_id, TRUE);
+			}
+		}
+
 		/* Added only if it's a descendant child of the parent */
 		p = gtk_widget_get_parent (widget);
 		while (p != parent)
@@ -300,7 +330,7 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
 		if (cont_flag)
 			continue;
 
-		if (!anjuta_preferences_register_property (pr, settings, widget, key))
+		if (!anjuta_preferences_register_property (pr, key_settings, widget, key))
 		{
 			g_critical ("Invalid preference widget named %s, check anjuta_preferences_add_page function documentation.", name);
 		}
@@ -325,9 +355,11 @@ anjuta_preferences_register_all_properties_from_builder_xml (AnjutaPreferences *
  * widget names of the form:
  *
  * <programlisting>
- *     preferences(_.*)?:PROPERTYKEY
+ *     preferences(_.*)?:(.SCHEMAID)?PROPERTYKEY
  *     where,
- *       PROPERTYKEY is the property key. e.g - 'tab.size'.
+ *       SCHEMAID if present the key will be added not in the page settings but
+ *                in common settings using SCHEMAID as a suffix.
+ *       PROPERTYKEY is the property key. e.g - 'tab-size'.
  * </programlisting>
  *
  * The widget must derivated from one of the following Gtk widget:
@@ -493,6 +525,13 @@ anjuta_preferences_dispose (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
 
+	if (pr->priv->common_gsettings)
+	{
+		g_hash_table_destroy (pr->priv->common_gsettings);
+		pr->priv->common_gsettings = NULL;
+	}
+	g_free (pr->priv->common_schema_id);
+	pr->priv->common_schema_id = NULL;
 }
 
 static void
@@ -525,13 +564,14 @@ anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 /**
  * anjuta_preferences_new:
  * @plugin_manager: #AnjutaPluginManager to be used
+ * @common_schema_id: Common schema id used for key starting with .
  *
  * Creates a new #AnjutaPreferences object
  *
  * Return value: A #AnjutaPreferences object.
  */
 AnjutaPreferences *
-anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
+anjuta_preferences_new (AnjutaPluginManager *plugin_manager, const gchar *common_schema_id)
 {
 	AnjutaPreferences *pr;
 
@@ -539,6 +579,10 @@ anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
 	{
 		pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
 		pr->priv->plugin_manager = g_object_ref (plugin_manager);
+		pr->priv->common_schema_id = g_strdup (common_schema_id);
+		pr->priv->common_gsettings = g_hash_table_new_full (g_str_hash, g_str_equal,
+		                                                    g_free,
+		                                                    (GDestroyNotify) g_object_unref);
 		default_preferences = pr;
 		return pr;
 	}

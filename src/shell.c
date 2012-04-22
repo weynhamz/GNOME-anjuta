@@ -2,19 +2,19 @@
 /*
  * shell.c
  * Copyright (C) 2004 Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free 
+ * under the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc., 59 
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
+ * with this program; if not, write to the Free Software Foundation, Inc., 59
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 #ifdef HAVE_CONFIG_H
@@ -27,6 +27,8 @@
 #include "shell.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-shell.ui"
+
+#define PREF_SCHEMA "org.gnome.anjuta"
 
 static void
 shutdown (AnjutaTestShell *shell)
@@ -52,17 +54,17 @@ static void
 on_preferences_activate (GtkAction *action, AnjutaTestShell *shell)
 {
 	GtkWidget *preferences_dialog;
-	
+
 	preferences_dialog = anjuta_preferences_get_dialog (shell->preferences);
-		
+
 	g_signal_connect_swapped (G_OBJECT (preferences_dialog),
 					  		  "response",
 					  		  G_CALLBACK (gtk_widget_destroy),
-					  		  preferences_dialog); 
-	
+					  		  preferences_dialog);
+
 	gtk_window_set_transient_for (GTK_WINDOW (preferences_dialog),
 								  GTK_WINDOW (shell));
-								  
+
 	gtk_widget_show (preferences_dialog);
 }
 
@@ -70,7 +72,7 @@ static void
 on_shortcuts_activate (GtkAction *action, AnjutaTestShell *shell)
 {
 	GtkWidget *win, *accel_editor;
-	
+
 	accel_editor = anjuta_ui_get_accel_editor (ANJUTA_UI (shell->ui));
 	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (shell),
 									   GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -97,7 +99,7 @@ static GtkActionEntry action_entries[] = {
 	},
 	{
 		"ActionSettingsPreferences",
-		GTK_STOCK_PROPERTIES, 
+		GTK_STOCK_PROPERTIES,
 		N_("_Preferences..."),
 		NULL,
 		N_("Preferences"),
@@ -129,7 +131,7 @@ anjuta_test_shell_new (void)
 {
 	AnjutaTestShell *shell;
 
-	shell = ANJUTA_TEST_SHELL (g_object_new (ANJUTA_TYPE_TEST_SHELL, 
+	shell = ANJUTA_TEST_SHELL (g_object_new (ANJUTA_TYPE_TEST_SHELL,
 									  "title", "Anjuta Shell",
 									  NULL));
 	return GTK_WIDGET (shell);
@@ -140,33 +142,33 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 {
 	GtkWidget *plugins;
 	GList *plugins_dirs = NULL;
-	
+
 	shell->values = g_hash_table_new (g_str_hash, g_str_equal);
 	shell->widgets = g_hash_table_new (g_str_hash, g_str_equal);
-	
+
 	shell->box = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (shell->box);
 	gtk_container_add (GTK_CONTAINER (shell), shell->box);
-	
+
 	/* Status bar */
 	shell->status = ANJUTA_STATUS (anjuta_status_new ());
 	gtk_widget_show (GTK_WIDGET (shell->status));
 	gtk_box_pack_end (GTK_BOX (shell->box), GTK_WIDGET (shell->status),
 					  FALSE, FALSE, 0);
-	
+
 	/* Initialize plugins */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	shell->plugin_manager = anjuta_plugin_manager_new (G_OBJECT (shell),
 													   shell->status,
 													   plugins_dirs);
 	g_list_free (plugins_dirs);
-	
+
 	plugins = anjuta_plugin_manager_get_plugins_page (shell->plugin_manager);
 	gtk_box_pack_end (GTK_BOX (shell->box), plugins, TRUE, TRUE, 0);
-	
+
 	/* Preferencesnces */
-	shell->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new (shell->plugin_manager));
-	
+	shell->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new (shell->plugin_manager, PREF_SCHEMA));
+
 	/* UI engine */
 	shell->ui = anjuta_ui_new ();
 	gtk_window_add_accel_group (GTK_WINDOW (shell),
@@ -174,7 +176,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	g_signal_connect (G_OBJECT (shell->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  shell);
-	
+
 	/*gtk_window_add_accel_group (GTK_WINDOW (shell),
 	 						anjuta_ui_get_accel_group (shell->ui));*/
 	/* Register actions */
@@ -199,7 +201,7 @@ anjuta_test_shell_add_value (AnjutaShell *shell,
 	AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
 
 	anjuta_shell_remove_value (shell, name, error);
-	
+
 	copy = g_new0 (GValue, 1);
 	g_value_init (copy, value->g_type);
 	g_value_copy (value, copy);
@@ -216,9 +218,9 @@ anjuta_test_shell_get_value (AnjutaShell *shell,
 {
 	GValue *val;
 	AnjutaTestShell *s = ANJUTA_TEST_SHELL (shell);
-	
+
 	val = g_hash_table_lookup (s->values, name);
-	
+
 	if (val) {
 		if (!value->g_type) {
 			g_value_init (value, val->g_type);
@@ -234,7 +236,7 @@ anjuta_test_shell_get_value (AnjutaShell *shell,
 }
 
 static void
-anjuta_test_shell_iconify_dockable_widget (AnjutaShell *shell, 
+anjuta_test_shell_iconify_dockable_widget (AnjutaShell *shell,
                                            GtkWidget   *widget,
                                            GError      **error)
 {
@@ -243,7 +245,7 @@ anjuta_test_shell_iconify_dockable_widget (AnjutaShell *shell,
 }
 
 static void
-anjuta_test_shell_hide_dockable_widget    (AnjutaShell *shell, 
+anjuta_test_shell_hide_dockable_widget    (AnjutaShell *shell,
                                            GtkWidget   *widget,
                                            GError      **error)
 {
@@ -252,7 +254,7 @@ anjuta_test_shell_hide_dockable_widget    (AnjutaShell *shell,
 }
 
 static void
-anjuta_test_shell_show_dockable_widget    (AnjutaShell *shell, 
+anjuta_test_shell_show_dockable_widget    (AnjutaShell *shell,
                                            GtkWidget   *widget,
                                            GError      **error)
 {
@@ -277,9 +279,9 @@ anjuta_test_shell_unmaximize (AnjutaShell *shell,
 	return;
 }
 
-static void 
-anjuta_test_shell_add_widget (AnjutaShell *shell, 
-							   GtkWidget *w, 
+static void
+anjuta_test_shell_add_widget (AnjutaShell *shell,
+							   GtkWidget *w,
 							   const char *name,
 							   const char *title,
 							   const char *stock_id,
@@ -305,7 +307,7 @@ remove_from_widgets_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (value == data) {
 		// AnjutaShell *shell;
-		
+
 		// shell = g_object_get_data (G_OBJECT (value), "__temp_shell__");
 		// anjuta_shell_remove_value (shell, key, NULL);
 		g_free (key);
@@ -314,9 +316,9 @@ remove_from_widgets_hash (gpointer key, gpointer value, gpointer data)
 	return FALSE;
 }
 
-static void 
-anjuta_test_shell_remove_widget (AnjutaShell *shell, 
-								  GtkWidget *w, 
+static void
+anjuta_test_shell_remove_widget (AnjutaShell *shell,
+								  GtkWidget *w,
 								  GError **error)
 {
 	// gint old_size;
@@ -341,14 +343,14 @@ anjuta_test_shell_get_plugin_manager (AnjutaShell *shell, GError **error)
 	return ANJUTA_TEST_SHELL(shell)->plugin_manager;
 }
 
-static void 
-anjuta_test_shell_present_widget (AnjutaShell *shell, 
-								  GtkWidget *w, 
+static void
+anjuta_test_shell_present_widget (AnjutaShell *shell,
+								  GtkWidget *w,
 								  GError **error)
 {
 	GtkWidget *client_win;
 	// AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
-	
+
 	g_return_if_fail (w != NULL);
 
 	client_win = gtk_widget_get_toplevel (w);
@@ -356,16 +358,16 @@ anjuta_test_shell_present_widget (AnjutaShell *shell,
 }
 
 static void
-anjuta_test_shell_remove_value (AnjutaShell *shell, 
-								const char *name, 
+anjuta_test_shell_remove_value (AnjutaShell *shell,
+								const char *name,
 								GError **error)
 {
 	GValue *value;
 	GtkWidget *w;
 	char *key;
 	AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
-	
-	if (g_hash_table_lookup_extended (window->widgets, name, 
+
+	if (g_hash_table_lookup_extended (window->widgets, name,
 					  (gpointer*)&key, (gpointer*)&w)) {
 		GtkWidget *client_win;
 		client_win = gtk_widget_get_toplevel (w);
@@ -373,8 +375,8 @@ anjuta_test_shell_remove_value (AnjutaShell *shell,
 		gtk_widget_destroy (client_win);
 		g_free (key);
 	}
-	
-	if (g_hash_table_lookup_extended (window->values, name, 
+
+	if (g_hash_table_lookup_extended (window->values, name,
 					  (gpointer*)&key, (gpointer*)&value)) {
 		g_hash_table_remove (window->values, name);
 		g_signal_emit_by_name (window, "value_removed", name);
@@ -420,7 +422,7 @@ static void
 anjuta_test_shell_finalize (GObject *widget)
 {
 	AnjutaTestShell *shell = ANJUTA_TEST_SHELL (widget);
-	
+
 	g_hash_table_destroy (shell->values);
 	g_hash_table_destroy (shell->widgets);
 	/* FIXME */
@@ -432,7 +434,7 @@ anjuta_test_shell_class_init (AnjutaTestShellClass *class)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
-	
+
 	parent_class = g_type_class_peek_parent (class);
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
@@ -474,13 +476,13 @@ main (int argc, char *argv[])
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 #endif
-	
+
 	/* Init gtk+ */
 	gtk_init (&argc, &argv);
 	g_set_application_name (_("Anjuta Shell Test"));
 	gtk_window_set_default_icon_name ("anjuta-shell");
 	gtk_window_set_auto_startup_notification(FALSE);
-	
+
 	shell = anjuta_test_shell_new ();
 	g_signal_connect (G_OBJECT (shell), "delete-event",
 					  G_CALLBACK (on_delete_event), NULL);
