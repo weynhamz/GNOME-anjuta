@@ -34,7 +34,6 @@
 #include "cpp-java-indentation.h"
 #include "cpp-java-utils.h"
 
-#define PREF_INDENT_STATEMENT_SIZE "cpp-indent-statement-size"
 #define PREF_INDENT_BRACE_SIZE "cpp-indent-brace-size"
 #define PREF_INDENT_PARANTHESE_LINEUP "cpp-indent-paranthese-lineup"
 #define PREF_INDENT_PARANTHESE_SIZE "cpp-indent-paranthese-size"
@@ -47,7 +46,7 @@
 #define INDENT_SIZE \
 	(plugin->param_statement_indentation >= 0? \
 		plugin->param_statement_indentation : \
-		g_settings_get_int (plugin->settings, PREF_INDENT_STATEMENT_SIZE))
+		g_settings_get_int (plugin->editor_settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY))
 
 #define BRACE_INDENT \
 	(plugin->param_brace_indentation >= 0? \

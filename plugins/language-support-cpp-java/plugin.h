@@ -49,16 +49,17 @@ typedef enum
 
 struct _CppJavaPlugin {
 	AnjutaPlugin parent;
-	
+
 	GtkActionGroup *action_group;
 	gint uiid;
-	
+
 	GSettings* settings;
+	GSettings* editor_settings;
 	gint editor_watch_id;
 	GObject *current_editor;
 	gboolean support_installed;
 	const gchar *current_language;
-	
+
 	/* Adaptive indentation parameters */
 	gint param_tab_size;
 	gint param_use_spaces;
@@ -67,7 +68,7 @@ struct _CppJavaPlugin {
 	gint param_case_indentation;
 	gint param_label_indentation;
 	gboolean smart_indentation;
-	
+
 	/* Assist */
 	CppJavaAssist *assist;
 	CppFileType filetype;

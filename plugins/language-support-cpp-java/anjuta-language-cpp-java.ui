@@ -153,7 +153,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="preferences_spin:int:4:1:cpp-indent-statement-size">
+                                  <object class="GtkSpinButton" id="preferences:.editor.indent-width">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">•</property>
