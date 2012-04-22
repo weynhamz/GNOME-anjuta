@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-15 12:17+0100\n"
-"PO-Revision-Date: 2012-03-15 12:21+0100\n"
+"PO-Revision-Date: 2012-04-12 16:08+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: \n"
@@ -2576,7 +2576,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:4
 msgid "Add Watch"
-msgstr "Megfigyelő hozzáadása"
+msgstr "Figyelő hozzáadása"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:5
 msgid "Address:"
@@ -2601,7 +2601,7 @@ msgstr "CPU regiszterek"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:10
 msgid "Change Watch"
-msgstr "Megfigyelő módosítása"
+msgstr "Figyelő módosítása"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 msgid "Connect to remote target"
@@ -3359,7 +3359,7 @@ msgstr "Egy kifejezés vagy változó vizsgálata/kiértékelése"
 
 #: ../plugins/debug-manager/watch.c:414
 msgid "Add Watch…"
-msgstr "Megfigyelő hozzáadása…"
+msgstr "Figyelő hozzáadása…"
 
 #: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
@@ -3393,7 +3393,7 @@ msgstr "Figyelőműveletek"
 
 #: ../plugins/debug-manager/watch.c:572
 msgid "Watches"
-msgstr "Figyelőpontok"
+msgstr "Figyelők"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:1
 msgid "API Help"
