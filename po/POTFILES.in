@@ -48,6 +48,7 @@ plugins/build-basic-autotools/plugin.c
 plugins/build-basic-autotools/program.c
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/glade]plugins/class-gen/anjuta-class-gen-plugin.ui
+[type: gettext/ini]plugins/class-inheritance/anjuta-class-inheritance.plugin.in
 plugins/class-gen/cell-renderer-flags.c
 plugins/class-gen/combo-flags.c
 plugins/class-gen/element-editor.c
@@ -57,6 +58,7 @@ plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
 [type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
+[type: gettext/ini]plugins/code-analyzer/code-analyzer.plugin.in
 plugins/code-analyzer/org.gnome.anjuta.code-analyzer.gschema.xml.in
 plugins/code-analyzer/plugin.c
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
@@ -92,6 +94,7 @@ plugins/debug-manager/watch.c
 [type: gettext/ini]plugins/devhelp/anjuta-devhelp.plugin.in
 plugins/devhelp/plugin.c
 plugins/dir-project/dir-project.c
+[type: gettext/ini]plugins/dir-project/dir-project.plugin.in
 plugins/document-manager/action-callbacks.c
 plugins/document-manager/anjuta-bookmarks.c
 plugins/document-manager/anjuta-docman.c
@@ -172,13 +175,16 @@ plugins/language-support-js/plugin.c
 plugins/language-support-python/org.gnome.anjuta.plugins.python.gschema.xml.in
 plugins/language-support-python/plugin.c
 plugins/language-support-python/python-assist.c
+[type: gettext/ini]plugins/language-support-python/python-plugin.plugin.in
 [type: gettext/glade]plugins/language-support-python/python-plugin-properties.ui
+[type: gettext/ini]plugins/language-support-vala/anjuta-vala.plugin.in
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
 plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
 plugins/mk-project/mk-project.c
+[type: gettext/ini]plugins/mk-project/mk-project.plugin.in
 [type: gettext/glade]plugins/mk-project/mk-project.ui
 [type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
 plugins/patch/patch-plugin.c
@@ -226,6 +232,7 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/licenses.tpl.in
+[type: gettext/ini]plugins/python-loader/anjuta-python-loader.plugin.in
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
