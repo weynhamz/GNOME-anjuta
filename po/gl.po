@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-22 17:53+0200\n"
-"PO-Revision-Date: 2012-04-22 17:54+0200\n"
+"POT-Creation-Date: 2012-04-24 00:19+0200\n"
+"PO-Revision-Date: 2012-04-24 00:22+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -2045,6 +2045,14 @@ msgstr "Engadir ao proxecto obxectivo:"
 msgid "Add to Repository"
 msgstr "Engadir un repositorio"
 
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
+msgid "Class Inheritance"
+msgstr "Herdanza de clases"
+
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
+msgid "A graph painter for the inheritance of the classes."
+msgstr "Un debuxante de gráficos para a herdanza de clases."
+
 #: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
@@ -2176,6 +2184,14 @@ msgstr "c++-analyzer:"
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "CLang Paths"
 msgstr "Rutas CLang"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+msgid "Code Analyzer"
+msgstr "Analizador de código"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analizador de código co marco de traballo clang-analyzer"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
@@ -3528,6 +3544,18 @@ msgstr "Falta o nome"
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "O proxecto non permite estabelecer propiedades"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "«Backend» de cartafol"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Cartafol do «backend» do proxecto, obtén só os ficheiros fonte, úseo cando "
+"outros «backend» fallen"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -6043,6 +6071,16 @@ msgstr "Asistente de Python"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+msgid "Python support Plugin"
+msgstr "Engadido de compatibilidade para Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Engadido de compatibilidade de Python para o completado de código, sangría "
+"automática, etc."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Activar a sangria adaptativa"
@@ -6062,6 +6100,14 @@ msgstr "Intérprete"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Contorno"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Engadido de compatibilidade de Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr "Engadido de compatibilidade de Vala, engade completado de código."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6214,6 +6260,14 @@ msgstr[1] "%d erros"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "Non foi posíbel analizar o ficheiro make"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Motor de infraestrutura do Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "«Backend» de proxecto Makefile, só lle permite ler o proxecto"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -8007,6 +8061,14 @@ msgstr "Seleccionar a licenza do código"
 #: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
 msgid "No license"
 msgstr "Sen licenza"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Python loader"
+msgstr "Cargador de Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Permítelle cargar os engadidos de Anjuta escritos en Python"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9905,9 +9967,6 @@ msgstr "Só texto"
 #~ msgid "New Directory"
 #~ msgstr "Novo cartafol"
 
-#~ msgid "_Directory name:"
-#~ msgstr "_Nome do cartafol:"
-
 #~ msgid "New _Directory"
 #~ msgstr "Novo _cartafol"
 
@@ -10169,12 +10228,6 @@ msgstr "Só texto"
 
 #~ msgid "Inheritance Graph"
 #~ msgstr "Gráfica de herdanza"
-
-#~ msgid "A graph painter for the inheritance of the classes."
-#~ msgstr "Un debuxante de gráficos para a herdanza de clases."
-
-#~ msgid "Class Inheritance"
-#~ msgstr "Herdanza de clases"
 
 #, fuzzy
 #~ msgid "RegEx Search"
@@ -11494,9 +11547,6 @@ msgstr "Só texto"
 
 #~ msgid "Project Defaults"
 #~ msgstr "Configuración predefinida do proxecto"
-
-#~ msgid "Makefile backend"
-#~ msgstr "Motor de infraestrutura do Makefile"
 
 #~ msgid "Makefile backend for project manager"
 #~ msgstr "Un motor de ifraestrutura do Makefile para o xestor de proxectos"
