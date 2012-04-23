@@ -1,7 +1,7 @@
 [Anjuta Plugin]
 Location=anjuta-language-vala:ValaPlugin
-Name=Vala support Plugin
-Description=Vala support plugin, adds code completion.
+_Name=Vala support Plugin
+_Description=Vala support plugin, adds code completion.
 Interfaces=IAnjutaLanguageSupport
 UserActivatable=no
 
