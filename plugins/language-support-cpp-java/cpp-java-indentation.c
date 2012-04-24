@@ -119,10 +119,39 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 {
 	IAnjutaIterable *line_begin, *line_end;
 	gchar *line_string, *idx;
-	gint line_indent = 0;
+	gint line_indent = 0, left_braces = 0, right_braces = 0;
+	gchar ch;
 
+	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+
+	/* Find the line which contains the left brace matching last right brace on current line */
+
+	do
+	{
+		while (ianjuta_iterable_previous (line_end, NULL))
+		{
+			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (line_end), 0, NULL);
+			if (ch == ')')
+				right_braces++;
+			if (ch == '(')
+				left_braces++;
+			if (iter_is_newline (line_end, ch))
+			{
+				break;
+			}
+		}
+		if (right_braces != left_braces)
+		{
+			line_num --;
+			g_object_unref (line_end);
+			line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+		}
+	} while (right_braces != left_braces && line_num >= 0);
+
+	g_object_unref (line_end);
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+
 	/*
 	DEBUG_PRINT ("%s: line begin = %d, line end = %d", __FUNCTION__,
 				 line_begin, line_end);
