@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-04-22 14:37+0000\n"
-"PO-Revision-Date: 2012-04-23 11:07+0200\n"
+"POT-Creation-Date: 2012-04-23 19:10+0000\n"
+"PO-Revision-Date: 2012-04-25 12:15+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2046,6 +2046,14 @@ msgstr "Añadir al proyecto objetivo:"
 msgid "Add to Repository"
 msgstr "Añadir al repositorio"
 
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
+msgid "Class Inheritance"
+msgstr "Herencia de la clase"
+
+#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
+msgid "A graph painter for the inheritance of the classes."
+msgstr "Un dibujador de gráficas para la herencia de las clases."
+
 #: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
@@ -2177,6 +2185,15 @@ msgstr "analizador de c++:"
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "CLang Paths"
 msgstr "Rutas de CLang"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+#| msgid "CLang Analyzer"
+msgid "Code Analyzer"
+msgstr "Analizador de código"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analizar el código con el analizador Clang"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
@@ -3529,6 +3546,19 @@ msgstr "Falta el nombre"
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "El proyecto no permite configurar las propiedades"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+#| msgid "_Directory name:"
+msgid "Directory backend"
+msgstr "«Backend» de la carpeta"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"«Backend» de la carpeta del proyecto, obtener sólo archivos de fuentes, "
+"usarlos cuando el otro «backend» falla"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -6045,6 +6075,19 @@ msgstr "Asistente de Python"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+#| msgid "Python support warning"
+msgid "Python support Plugin"
+msgstr "Complemento de soporte para Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Complemento de soporte para Python, para completado de código, auto "
+"sangrado, etc."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Activar sangría adaptativa"
@@ -6064,6 +6107,17 @@ msgstr "Intérprete"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Entorno"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+#| msgid "JS Support Plugin"
+msgid "Vala support Plugin"
+msgstr "Complemento de soporte para Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Vala support plugin, adds code completion."
+msgstr "Complemento de soporte para Vala, añade completado de código."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6216,6 +6270,14 @@ msgstr[1] "%d errores"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "No se pudo analizar el archivo make"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Backend de makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "«Backend» del makefile del proyecto, que sólo permite leer el proyecto"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -8006,6 +8068,15 @@ msgstr "Seleccionar la licencia del código"
 #: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
 msgid "No license"
 msgstr "Sin licencia"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+#| msgid "Python Module"
+msgid "Python loader"
+msgstr "Cargador Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Permite a Anjuta cargar complementos escritos en Python"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9811,12 +9882,10 @@ msgid "- Integrated Development Environment"
 msgstr "- Entorno Integrado de Desarrollo"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
-#| msgid "Use tabs for indentation"
 msgid "Use tabulation for indentation"
 msgstr "Usar tabulador para sangrar"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:2
-#| msgid "Number of last characters to show:"
 msgid "Number of characters of one tabulation"
 msgstr "Número de caracteres de una tabulación"
 
@@ -9893,9 +9962,6 @@ msgstr "Sólo texto"
 
 #~ msgid "New Directory"
 #~ msgstr "Carpeta nueva"
-
-#~ msgid "_Directory name:"
-#~ msgstr "_Nombre de la carpeta:"
 
 #~ msgid "New _Directory"
 #~ msgstr "_Carpeta nueva"
@@ -10187,12 +10253,6 @@ msgstr "Sólo texto"
 
 #~ msgid "Missing file %s"
 #~ msgstr "Falta el archivo %s"
-
-#~ msgid "A graph painter for the inheritance of the classes."
-#~ msgstr "Un dibujador de gráficas para la herencia de las clases."
-
-#~ msgid "Class Inheritance"
-#~ msgstr "Herencia de la clase"
 
 #~ msgid "RegEx Search"
 #~ msgstr "Búsqueda ExpReg"
@@ -11507,9 +11567,6 @@ msgstr "Sólo texto"
 
 #~ msgid "Project Defaults"
 #~ msgstr "Valores predeterminados del proyecto"
-
-#~ msgid "Makefile backend"
-#~ msgstr "Backend de makefile"
 
 #~ msgid "Makefile backend for project manager"
 #~ msgstr "Backend de makefile para el gestor de proyectos"
