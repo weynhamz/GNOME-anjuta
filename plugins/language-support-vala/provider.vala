@@ -23,10 +23,10 @@ public class ValaProvider : Object, IAnjuta.Provider {
 	static Regex member_access_split;
 	static Regex function_call;
 
-	const string PREF_AUTOCOMPLETE_ENABLE = "cpp-completion-enable";
-	const string PREF_SPACE_AFTER_FUNC = "cpp-completion-space-after-func";
-	const string PREF_BRACE_AFTER_FUNC = "cpp-completion-brace-after-func";
-	internal const string PREF_CALLTIP_ENABLE = "cpp-calltip-enable";
+	const string PREF_AUTOCOMPLETE_ENABLE = "completion-enable";
+	const string PREF_SPACE_AFTER_FUNC = "completion-space-after-func";
+	const string PREF_BRACE_AFTER_FUNC = "completion-brace-after-func";
+	internal const string PREF_CALLTIP_ENABLE = "calltip-enable";
 
 	static construct {
 		try {
