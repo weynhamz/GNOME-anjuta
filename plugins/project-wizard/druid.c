@@ -1066,7 +1066,7 @@ on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid
 			druid->parser = npw_page_parser_new (npw_druid_add_new_page (druid), druid->project_file, previous);
 
 			npw_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser);
-			npw_autogen_write_definition_file (druid->gen, druid->values);
+			npw_autogen_write_definition_file_from_hash (druid->gen, druid->values);
 			npw_autogen_execute (druid->gen, on_druid_get_new_page, druid, NULL);
 		}
 		else
@@ -1210,7 +1210,6 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 static void
 npw_druid_add_default_property (NPWDruid* druid)
 {
-	NPWValue* value;
 	gchar* s;
 	AnjutaPreferences* pref;
 	GSettings *settings;
@@ -1220,40 +1219,28 @@ npw_druid_add_default_property (NPWDruid* druid)
 	pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (druid->plugin)->shell, NULL);
 
 	/* Add default base project directory */
-	value = npw_value_heap_find_value (druid->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
-	npw_value_set_value (value, g_get_home_dir (), NPW_VALID_VALUE);
+	g_hash_table_insert (druid->values, g_strdup (ANJUTA_PROJECT_DIRECTORY_PROPERTY), g_strdup (g_get_home_dir()));
 
 	/* Add user name */
-	value = npw_value_heap_find_value (druid->values, USER_NAME_PROPERTY);
-	s = (gchar *)g_get_real_name();
-	npw_value_set_value (value, s, NPW_VALID_VALUE);
+	g_hash_table_insert (druid->values, g_strdup (USER_NAME_PROPERTY), g_strdup (g_get_real_name()));
 
 	/* Add Email address */
-	value = npw_value_heap_find_value (druid->values, EMAIL_ADDRESS_PROPERTY);
 	/* FIXME: We need a default way for the mail */
 	s = anjuta_util_get_user_mail();
-	npw_value_set_value (value, s, NPW_VALID_VALUE);
-	g_free (s);
+	g_hash_table_insert (druid->values, g_strdup (EMAIL_ADDRESS_PROPERTY), s);
 
 	/* Add use-tabs property */
 	settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
 	flag = g_settings_get_boolean (settings, IANJUTA_EDITOR_USE_TABS_KEY);
-	value = npw_value_heap_find_value (druid->values, USE_TABS_PROPERTY);
-	npw_value_set_value (value, flag ? "1" : "0", NPW_VALID_VALUE);
+	g_hash_table_insert (druid->values, g_strdup (USE_TABS_PROPERTY), g_strdup (flag ? "1" : "0"));
 
 	/* Add tab-width property */
 	i = g_settings_get_int (settings, IANJUTA_EDITOR_TAB_WIDTH_KEY);
-	value = npw_value_heap_find_value (druid->values, TAB_WIDTH_PROPERTY);
-	s = g_strdup_printf("%d", i);
-	npw_value_set_value (value, s, NPW_VALID_VALUE);
-	g_free (s);
+	g_hash_table_insert (druid->values, g_strdup (TAB_WIDTH_PROPERTY), g_strdup_printf("%d", i));
 
 	/* Add indent-width property */
 	i = g_settings_get_int (settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY);
-	value = npw_value_heap_find_value (druid->values, INDENT_WIDTH_PROPERTY);
-	s = g_strdup_printf("%d", i);
-	npw_value_set_value (value, s, NPW_VALID_VALUE);
-	g_free (s);
+	g_hash_table_insert (druid->values, g_strdup (INDENT_WIDTH_PROPERTY), g_strdup_printf("%d", i));
 	g_object_unref (settings);
 }
 
@@ -1277,7 +1264,7 @@ npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 	druid->project_file = NULL;
 	druid->busy = FALSE;
 	druid->page_list = g_queue_new ();
-	druid->values = npw_value_heap_new ();
+	druid->values = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_free);
 	druid->gen = npw_autogen_new ();
 	druid->plugin = plugin;
 	druid->error_extra_widget = NULL;
@@ -1308,7 +1295,7 @@ npw_druid_free (NPWDruid* druid)
 		npw_page_free (page);
 	}
 	g_queue_free (druid->page_list);
-	npw_value_heap_free (druid->values);
+	g_hash_table_destroy (druid->values);
 	npw_autogen_free (druid->gen);
 	if (druid->parser != NULL) npw_page_parser_free (druid->parser);
 	npw_header_list_free (druid->header_list);

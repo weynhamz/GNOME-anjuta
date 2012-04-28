@@ -170,6 +170,46 @@ npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values)
 	return TRUE;
 }
 
+static void
+cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
+{
+	FILE* def = (FILE *)user_data;
+
+	if (value != NULL)
+	{
+		if(*value == '{') /* Seems to be a list, so do not quote */
+		{
+			fprintf(def, "%s = %s;\n", name, value);
+		}
+		else
+		{
+			gchar *esc_value = g_strescape (value, NULL);
+			fprintf (def, "%s = \"%s\";\n", name, esc_value);
+			g_free (esc_value);
+		}
+	}
+}
+
+gboolean
+npw_autogen_write_definition_file_from_hash (NPWAutogen* this, GHashTable* values)
+{
+	FILE* def;
+
+	/* Autogen should not be running */
+	g_return_val_if_fail (this->busy == FALSE, FALSE);
+
+	def = fopen (this->deffilename, "wt");
+	if (def == NULL) return FALSE;
+
+	/* Generate definition data for autogen */
+	fputs ("AutoGen Definitions .;\n",def);
+	g_hash_table_foreach (values, (GHFunc)cb_autogen_write_key, def);
+
+	fclose (def);
+
+	return TRUE;
+}
+
 /* Set library path
  *---------------------------------------------------------------------------*/
 

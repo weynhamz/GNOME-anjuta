@@ -63,7 +63,8 @@ struct _NPWProperty {
 	gchar* description;
 	gchar* defvalue;
 	gint language;
-	NPWValue* value;
+	const gchar *name;
+	GHashTable *values;
 	GtkWidget* widget;
 	GSList* items;
 };
@@ -170,7 +171,7 @@ npw_property_restriction_from_string (const gchar* restriction)
 static gint
 npw_property_compare (const NPWProperty *a, const NPWProperty *b)
 {
-	return g_strcmp0 (npw_value_get_name (a->value), npw_value_get_name (b->value));
+	return g_strcmp0 (a->name, b->name);
 }
 
 NPWProperty*
@@ -306,13 +307,24 @@ npw_property_is_valid_restriction (const NPWProperty* prop)
 void
 npw_property_set_name (NPWProperty* prop, const gchar* name, NPWPage *page)
 {
-	prop->value = npw_value_heap_find_value (page->values, name);
+	gchar *key;
+
+	prop->values = page->values;
+	if (g_hash_table_lookup_extended (prop->values, name, (gpointer *)&key, NULL))
+	{
+		prop->name = key;
+	}
+	else
+	{
+		prop->name = g_strdup (name);
+		g_hash_table_insert (prop->values, (gpointer)prop->name, NULL);
+	}
 }
 
 const gchar*
 npw_property_get_name (const NPWProperty* prop)
 {
-	return npw_value_get_name (prop->value);
+	return prop->name;
 }
 
 void
@@ -649,14 +661,15 @@ npw_property_set_range (NPWProperty* prop, NPWPropertyRangeMark mark, const gcha
 }
 
 static gboolean
-npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
+npw_property_set_value_from_widget (NPWProperty* prop)
 {
 	gchar* alloc_value = NULL;
 	const gchar* value = NULL;
 	GList* packages;
 	GList* node;
 	GString* str_value;
-	gboolean ok;
+	gboolean change;
+	const gchar *old_value;
 
 	switch (prop->type)
 	{
@@ -733,51 +746,54 @@ npw_property_set_value_from_widget (NPWProperty* prop, NPWValueTag tag)
 		break;
 	}
 
-	/* Check and mark default value (will not be saved) */
-	if ((value) && (prop->defvalue) && (strcmp (value, prop->defvalue) == 0))
-	{
-		tag |= NPW_DEFAULT_VALUE;
-	}
-
-	ok = npw_value_set_value (prop->value, value, tag);
+	/* Update value */
+	old_value = g_hash_table_lookup (prop->values, prop->name);
+	change = g_strcmp0 (value, old_value) != 0;
+	if (change) g_hash_table_insert (prop->values, g_strdup (prop->name), g_strdup (value));
 	if (alloc_value != NULL) g_free (alloc_value);
 
-	return ok;
+	return change;
 }
 
 gboolean
 npw_property_update_value_from_widget (NPWProperty* prop)
 {
-	return npw_property_set_value_from_widget (prop, NPW_VALID_VALUE);
+	return npw_property_set_value_from_widget (prop);
 }
 
 gboolean
 npw_property_save_value_from_widget (NPWProperty* prop)
 {
-	return npw_property_set_value_from_widget (prop, NPW_OLD_VALUE);
+	return npw_property_set_value_from_widget (prop);
 }
 
 gboolean
 npw_property_remove_value (NPWProperty* prop)
 {
-	return npw_value_set_value (prop->value, NULL, NPW_EMPTY_VALUE);
+	if (g_hash_table_lookup (prop->values, prop->name) != NULL)
+	{
+		g_hash_table_insert (prop->values, g_strdup(prop->name), NULL);
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }
 
 const char*
 npw_property_get_value (const NPWProperty* prop)
 {
-	NPWValueTag tag;
+	const gchar *value;
 
-	tag = npw_value_get_tag (prop->value);
-	if ((tag == NPW_EMPTY_VALUE) || (tag & NPW_DEFAULT_VALUE))
+	value = g_hash_table_lookup (prop->values, prop->name);
+	if (value == NULL)
 	{
-		return prop->defvalue;
+		value = prop->defvalue;
 	}
-	else
-	{
-		/* Only value entered by user could replace default value */
-		return npw_value_get_value (prop->value);
-	}
+
+	return value;
 }
 
 gboolean

@@ -35,6 +35,7 @@ NPWAutogen* npw_autogen_new (void);
 void npw_autogen_free (NPWAutogen* this);
 
 gboolean npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values);
+gboolean npw_autogen_write_definition_file_from_hash (NPWAutogen* this, GHashTable* values);
 
 void npw_autogen_set_library_path (NPWAutogen* this, const gchar *directory);
 void npw_autogen_clear_library_path (NPWAutogen* this);

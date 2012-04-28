@@ -236,7 +236,7 @@ void npw_install_free (NPWInstall* this)
 gboolean
 npw_install_set_property (NPWInstall* this, GHashTable* values)
 {
-	npw_autogen_write_definition_file (this->gen, values);
+	npw_autogen_write_definition_file_from_hash (this->gen, values);
 
 	return TRUE;
 }
