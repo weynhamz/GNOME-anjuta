@@ -20,8 +20,6 @@
 #ifndef __CLASSGEN_WINDOW_H__
 #define __CLASSGEN_WINDOW_H__
 
-#include <plugins/project-wizard/values.h>
-
 #include <gtk/gtk.h>
 
 #include <glib-object.h>

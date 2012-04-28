@@ -291,30 +291,22 @@ cg_window_set_heap_value (CgWindow *window,
                           const gchar *name,
                           const gchar *id)
 {
-	gchar int_buffer[16];
 	gint int_value;
-
 	gchar *text;
-	NPWValue *value;
-
-	value = npw_value_heap_find_value (values, name);
 
 	switch (type)
 	{
 	case G_TYPE_STRING:
 		text = cg_window_fetch_string (window, id);
-		npw_value_set_value (value, text, NPW_VALID_VALUE);
-		g_free (text);
+		g_hash_table_insert (values, name, text);
 		break;
 	case G_TYPE_INT:
 		int_value = cg_window_fetch_integer (window, id);
-		sprintf (int_buffer, "%d", int_value);
-		npw_value_set_value (value, int_buffer, NPW_VALID_VALUE);
+		g_hash_table_insert (values, name, g_strdup_printf ("%d", int_value));
 		break;
 	case G_TYPE_BOOLEAN:
-		npw_value_set_value (value,
-			cg_window_fetch_boolean (window, id) ? "1" : "0", NPW_VALID_VALUE);
-
+		text = g_strdup (cg_window_fetch_boolean (window, id) ? "1" : "0");
+		g_hash_table_insert (values, name, text);
 		break;
 	default:
 		break;
@@ -1308,7 +1300,6 @@ cg_window_create_value_heap (CgWindow *window)
 
 	CgWindowPrivate *priv;
 	GHashTable *values;
-	NPWValue *value;
 	GError *error;
 	gint license_index;
 
@@ -1325,7 +1316,7 @@ cg_window_create_value_heap (CgWindow *window)
 	notebook = GTK_NOTEBOOK (gtk_builder_get_object (priv->bxml,
 	                                               "top_notebook"));
 
-	values = npw_value_heap_new ();
+	values = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)g_free);
 	error = NULL;
 
 	switch (gtk_notebook_get_current_page (notebook))
@@ -1365,14 +1356,9 @@ cg_window_create_value_heap (CgWindow *window)
 
 		g_free (text);
 
-		value = npw_value_heap_find_value (values, "BaseTypePrefix");
-		npw_value_set_value (value, base_prefix, NPW_VALID_VALUE);
+		g_hash_table_insert (values, "BaseTypePrefix", base_prefix);
 
-		value = npw_value_heap_find_value (values, "BaseTypeSuffix");
-		npw_value_set_value (value, base_suffix, NPW_VALID_VALUE);
-
-		g_free (base_prefix);
-		g_free (base_suffix);
+		g_hash_table_insert (values, "BaseTypeSuffix", base_suffix);
 
 		cg_window_set_heap_value (window, values, G_TYPE_STRING,
 		                          "FuncPrefix", "go_func_prefix");
@@ -1488,22 +1474,14 @@ cg_window_create_value_heap (CgWindow *window)
 	                         "AuthorEmail", "author_email");
 
 	license_index = cg_window_fetch_integer (window, "license");
-	value = npw_value_heap_find_value (values, "License");
-
-	npw_value_set_value(value, LICENSES[license_index],
-	                         NPW_VALID_VALUE);
+	g_hash_table_insert (values, "License", g_strdup (LICENSES[license_index]));
 
 	header_file = cg_window_get_header_file (window) != NULL ? g_path_get_basename (cg_window_get_header_file (window)) : NULL;
 	source_file = g_path_get_basename (cg_window_get_source_file (window));
 
-	value = npw_value_heap_find_value (values, "HeaderFile");
-	npw_value_set_value (value, header_file, NPW_VALID_VALUE);
+	g_hash_table_insert (values, "HeaderFile", header_file);
 
-	value = npw_value_heap_find_value (values, "SourceFile");
-	npw_value_set_value (value, source_file, NPW_VALID_VALUE);
-
-	g_free (header_file);
-	g_free (source_file);
+	g_hash_table_insert (values, "SourceFile", source_file);
 
 	return values;
 }

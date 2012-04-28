@@ -46,7 +46,7 @@ struct _CgElementEditorPrivate
 
 	guint n_columns;
 	CgElementEditorColumn *columns;
-	
+
 	GtkButton *add_button;
 	GtkButton *remove_button;
 };
@@ -73,10 +73,10 @@ cg_element_editor_reference_new (CgElementEditorColumn *column,
 {
 	CgElementEditorReference *ref;
 	ref = g_new (CgElementEditorReference, 1);
-	
+
 	ref->column = column;
 	ref->path_str = g_strdup (path_str);
-	
+
 	return ref;
 }
 
@@ -94,11 +94,11 @@ cg_element_editor_select (CgElementEditor *editor,
 {
 	CgElementEditorPrivate *priv;
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
-	
+
 	if (column < priv->n_columns)
 	{
 		gtk_widget_grab_focus (GTK_WIDGET (priv->view));
-		
+
 
 		gtk_tree_view_scroll_to_cell (priv->view, path,
 		                              priv->columns[column].column, FALSE,
@@ -143,7 +143,7 @@ cg_element_editor_row_inserted_cb (G_GNUC_UNUSED GtkTreeModel *model,
 
 	editor = CG_ELEMENT_EDITOR (user_data);
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
-	
+
 	path_str = gtk_tree_path_to_string(path);
 	ref = cg_element_editor_reference_new (&priv->columns[0], path_str);
 	g_free(path_str);
@@ -293,7 +293,7 @@ cg_element_editor_add_button_clicked_cb (G_GNUC_UNUSED GtkButton *button,
 	CgElementEditor *editor;
 	CgElementEditorPrivate *priv;
 	GtkTreeIter iter;
-	
+
 	editor = CG_ELEMENT_EDITOR (user_data);
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
 
@@ -312,7 +312,7 @@ cg_element_editor_remove_button_clicked_cb (G_GNUC_UNUSED GtkButton *button,
 	GList *selected_rows;
 	GList *selected_iters;
 	GList *cur_item;
-	
+
 	editor = CG_ELEMENT_EDITOR (user_data);
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
 	selection = gtk_tree_view_get_selection (priv->view);
@@ -332,7 +332,7 @@ cg_element_editor_remove_button_clicked_cb (G_GNUC_UNUSED GtkButton *button,
 
 		gtk_tree_path_free (path);
 	}
-	
+
 	for (cur_item = selected_iters;
 	     cur_item != NULL;
 	     cur_item = cur_item->next)
@@ -341,7 +341,7 @@ cg_element_editor_remove_button_clicked_cb (G_GNUC_UNUSED GtkButton *button,
 		gtk_list_store_remove (GTK_LIST_STORE (priv->list), iter);
 		g_free (iter);
 	}
-	
+
 	g_list_free (selected_rows);
 	g_list_free (selected_iters);
 }
@@ -355,7 +355,7 @@ cg_element_editor_selection_changed_cb (GtkTreeSelection *selection,
 
 	editor = CG_ELEMENT_EDITOR (user_data);
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
-	
+
 	if (gtk_tree_selection_count_selected_rows (selection) > 0)
 		gtk_widget_set_sensitive (GTK_WIDGET (priv->remove_button), TRUE);
 	else
@@ -374,7 +374,7 @@ cg_element_editor_init (CgElementEditor *element_editor)
 	priv->columns = NULL;
 }
 
-static void 
+static void
 cg_element_editor_finalize (GObject *object)
 {
 	CgElementEditor *element_editor;
@@ -418,7 +418,7 @@ cg_element_editor_set_property (GObject *object,
 static void
 cg_element_editor_get_property (GObject *object,
                                 guint prop_id,
-                                GValue *value, 
+                                GValue *value,
                                 GParamSpec *pspec)
 {
 	CgElementEditor *element_editor;
@@ -496,7 +496,7 @@ cg_element_editor_init_list_renderer(CgElementEditorColumn *column,
 {
 	GtkTreeModel *combo_list;
 	const gchar **items;
-	GtkTreeIter iter;	
+	GtkTreeIter iter;
 
 	*type = G_TYPE_STRING;
 
@@ -528,9 +528,9 @@ cg_element_editor_init_flags_renderer (CgElementEditorColumn *column,
 	GtkTreeModel *combo_list;
 	const CgElementEditorFlags *items;
 	GtkTreeIter iter;
-	
+
 	*type = G_TYPE_STRING;
-	
+
 	column->renderer = cg_cell_renderer_flags_new ();
 	combo_list = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING,
 	                             G_TYPE_STRING));
@@ -560,7 +560,7 @@ cg_element_editor_init_string_renderer (CgElementEditorColumn *column,
 {
 	*type = G_TYPE_STRING;
 	column->renderer = gtk_cell_renderer_text_new ();
-			
+
 	g_object_set (G_OBJECT (column->renderer), "editable", TRUE, NULL);
 
 	/* We intentionally do not only connect to the "edited" signal here
@@ -589,9 +589,9 @@ cg_element_editor_init_arguments_renderer (CgElementEditorColumn *column,
 {
 	*type = G_TYPE_STRING;
 	column->renderer = gtk_cell_renderer_text_new ();
-	
+
 	g_object_set (G_OBJECT (column->renderer), "editable", TRUE, NULL);
-	
+
 	/* Same as above */
 	g_signal_connect_after (G_OBJECT (column->renderer), "edited",
 	                        G_CALLBACK (cg_element_editor_string_edited_cb),
@@ -619,7 +619,7 @@ cg_element_editor_new (GtkTreeView *view,
 
 	editor = CG_ELEMENT_EDITOR (g_object_new (CG_TYPE_ELEMENT_EDITOR,
 	                                          "tree-view", view, NULL));
-	
+
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
 
 	types = g_malloc (sizeof (GType) * n_columns);
@@ -660,7 +660,7 @@ cg_element_editor_new (GtkTreeView *view,
 			g_assert_not_reached ();
 			break;
 		}
-		
+
 		gtk_tree_view_column_pack_start (priv->columns[i].column,
 		                                 priv->columns[i].renderer, TRUE);
 
@@ -694,28 +694,28 @@ cg_element_editor_new (GtkTreeView *view,
 	g_signal_connect_after (G_OBJECT (priv->list), "row-inserted",
 	                        G_CALLBACK (cg_element_editor_row_inserted_cb),
 	                        editor);
-	
+
 	priv->add_button = add_button;
 	priv->remove_button = remove_button;
-	
+
 	if(priv->add_button != NULL)
 	{
 		g_signal_connect (G_OBJECT(priv->add_button), "clicked",
 		                  G_CALLBACK (cg_element_editor_add_button_clicked_cb),
 		                  editor);
 	}
-	
+
 	if(priv->remove_button != NULL)
 	{
 		g_signal_connect (G_OBJECT (priv->remove_button), "clicked",
 			G_CALLBACK (cg_element_editor_remove_button_clicked_cb), editor);
 	}
-	
+
 	selection = gtk_tree_view_get_selection (view);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 
 	if(priv->remove_button != NULL)
-	{	
+	{
 		g_signal_connect(G_OBJECT (selection), "changed",
 		                 G_CALLBACK (cg_element_editor_selection_changed_cb),
 		                 editor);
@@ -738,7 +738,7 @@ cg_element_editor_set_valuesv_foreach_func (gpointer key,
 
 		str = (GString*)user_data;
 		escaped = g_strescape ((const gchar *) data, NULL);
-	
+
 		g_string_append (str, (const gchar *) key);
 		g_string_append (str, "=\"");
 		g_string_append (str, escaped);
@@ -759,10 +759,8 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 	GtkTreeIter iter;
 	gboolean result;
 	GString *value_str;
-	gchar *value_name;
 	GHashTable *table;
 	gchar *single_value;
-	NPWValue *value;
 	guint32 i;
 	guint32 row_counter;
 
@@ -775,7 +773,7 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 	     result == TRUE;
 	     result = gtk_tree_model_iter_next (priv->list, &iter))
 	{
-		value_name = g_strdup_printf ("%s[%d]", name, row_counter);
+		gchar *value_and_key;
 
 		table = g_hash_table_new_full (g_str_hash, g_str_equal,
 		                               NULL, (GDestroyNotify) g_free);
@@ -788,7 +786,7 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 		}
 
 		if(func != NULL) func (table, user_data);
-	
+
 		g_string_append_c (value_str, '{');
 		g_hash_table_foreach (table,
 		                      cg_element_editor_set_valuesv_foreach_func,
@@ -796,17 +794,16 @@ cg_element_editor_set_valuesv (CgElementEditor *editor,
 		g_string_append_c (value_str, '}');
 		g_hash_table_destroy (table);
 
-		value = npw_value_heap_find_value (values, value_name);
-
-		npw_value_set_value (value, value_str->str,
-		                          NPW_VALID_VALUE);
+		/* Add key value after the value so it can be freed, using
+		 * g_hash_table_insert on such key is wrong */
+		value_and_key = g_strdup_printf ("%s%c%s[%d]", value_str->str, '\0', name, row_counter);
+		g_hash_table_replace (values, value_and_key+value_str->len+1, value_and_key);
 
 		g_string_set_size (value_str, 0);
-		g_free (value_name);
-		
+
 		++ row_counter;
 	}
-	
+
 	g_string_free (value_str, TRUE);
 }
 
@@ -822,7 +819,7 @@ cg_element_editor_set_values (CgElementEditor *editor,
 	CgElementEditorPrivate *priv;
 	va_list arglist;
 	guint32 i;
-	
+
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
 
 	field_names = g_malloc (sizeof (const gchar *) * priv->n_columns);
@@ -848,12 +845,10 @@ cg_element_editor_set_value_count (CgElementEditor *editor,
 	CgElementEditorPrivate* priv;
 	GtkTreeIter iter;
 	gboolean result;
-	NPWValue *value;
 	const gchar **vals;
-	gchar count_str[16];
 	guint count;
 	guint i;
-	
+
 	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
 	vals = g_malloc (priv->n_columns * sizeof (const gchar *));
 	count = 0;
@@ -876,10 +871,8 @@ cg_element_editor_set_value_count (CgElementEditor *editor,
 			++ count;
 		}
 	}
-	
+
 	g_free (vals);
 
-	sprintf (count_str, "%u", count);
-	value = npw_value_heap_find_value (values, name);
-	npw_value_set_value (value, count_str, NPW_VALID_VALUE);
+	g_hash_table_insert (values, (gpointer)name, g_strdup_printf ("%u", count));
 }

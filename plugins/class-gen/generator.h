@@ -20,8 +20,6 @@
 #ifndef __CLASSGEN_GENERATOR_H__
 #define __CLASSGEN_GENERATOR_H__
 
-#include <plugins/project-wizard/values.h>
-
 #include <glib-object.h>
 
 G_BEGIN_DECLS

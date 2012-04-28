@@ -25,12 +25,13 @@
 #include <libanjuta/anjuta-utils.h>
 
 #include <glib/gstdio.h>
+#include <glib/gi18n.h>
 
 typedef struct _CgGeneratorPrivate CgGeneratorPrivate;
 struct _CgGeneratorPrivate
 {
 	NPWAutogen *autogen;
-	
+
 	gchar *header_template;
 	gchar *source_template;
 	gchar *header_destination;
@@ -82,7 +83,7 @@ cg_generator_make_absolute (const gchar *path)
 		abs_path = g_build_filename (current_dir, path, NULL);
 		g_free (current_dir);
 	}
-	
+
 	return abs_path;
 }
 
@@ -94,7 +95,7 @@ cg_generator_autogen_source_func (NPWAutogen *autogen,
 	CgGeneratorPrivate *priv;
 	GError *error;
 	gboolean success;
-	
+
 	generator = CG_GENERATOR (user_data);
 	priv = CG_GENERATOR_PRIVATE (generator);
 
@@ -174,24 +175,24 @@ cg_generator_init (CgGenerator *generator)
 	priv = CG_GENERATOR_PRIVATE (generator);
 
 	priv->autogen = npw_autogen_new ();
-	
+
 	priv->header_template = NULL;
 	priv->source_template = NULL;
 	priv->header_destination = NULL;
 	priv->source_destination = NULL;
 }
 
-static void 
+static void
 cg_generator_finalize (GObject *object)
 {
 	CgGenerator *generator;
 	CgGeneratorPrivate *priv;
-	
+
 	generator = CG_GENERATOR (object);
 	priv = CG_GENERATOR_PRIVATE (generator);
 
 	npw_autogen_free (priv->autogen);
-	
+
 	g_free (priv->header_template);
 	g_free (priv->source_template);
 	g_free (priv->header_destination);
@@ -247,7 +248,7 @@ cg_generator_set_property (GObject *object,
 static void
 cg_generator_get_property (GObject *object,
                            guint prop_id,
-                           GValue *value, 
+                           GValue *value,
                            GParamSpec *pspec)
 {
 	CgGenerator *generator;
@@ -271,7 +272,7 @@ cg_generator_get_property (GObject *object,
 		break;
 	case PROP_SOURCE_DESTINATION:
 		g_value_set_string (value, priv->source_destination);
-		break;		
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -398,7 +399,7 @@ cg_generator_run (CgGenerator *generator,
 	priv = CG_GENERATOR_PRIVATE (generator);
 
 	/* TODO: npw_autogen_write_definiton_file should take a GError... */
-	if (npw_autogen_write_definition_file (priv->autogen, values) == FALSE)
+	if (npw_autogen_write_definition_file_from_hash (priv->autogen, values) == FALSE)
 	{
 		g_set_error (error, g_quark_from_static_string("CG_GENERATOR_ERROR"),
 		             CG_GENERATOR_ERROR_DEFFILE,
