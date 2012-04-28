@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    autogen.c
+   anjuta-autogen.c
     Copyright (C) 2004 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
@@ -31,10 +31,10 @@
 
 #include <config.h>
 
-#include "autogen.h"
-
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-autogen.h>
 
+#include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <glib.h>
 #include <errno.h>
@@ -52,7 +52,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-struct _NPWAutogen
+struct _AnjutaAutogen
 {
 	gchar* deffilename;		/* name of generated definition file */
 	const gchar* tplfilename;	/* name of template (input) file */
@@ -69,11 +69,11 @@ struct _NPWAutogen
 	gboolean empty;
 					/* Call back function and data used
 					 * when autogen output something */
-	NPWAutogenOutputFunc outfunc;
+	AnjutaAutogenOutputFunc outfunc;
 	gpointer outdata;
 					/* Call back function and data used
 					 * when autogen terminate */
-	NPWAutogenFunc endfunc;
+	AnjutaAutogenFunc endfunc;
 	gpointer enddata;
 
 	AnjutaLauncher* launcher;
@@ -88,7 +88,7 @@ struct _NPWAutogen
 /* Check if autogen version 5 is present */
 
 gboolean
-npw_check_autogen (void)
+anjuta_check_autogen (void)
 {
 	gchar* args[] = {"autogen", "-v", NULL};
 	gchar* output;
@@ -127,48 +127,20 @@ npw_check_autogen (void)
 	return FALSE;
 }
 
+GQuark
+anjuta_autogen_error_quark (void)
+{
+	static GQuark quark;
+
+	if (!quark) quark = g_quark_from_static_string ("anjuta_autogen_error");
+
+	return quark;
+}
+
+
+
 /* Write definitions
  *---------------------------------------------------------------------------*/
-
-static void
-cb_autogen_write_definition (const gchar* name, NPWValue * node, gpointer user_data)
-{
-	FILE* def = (FILE *)user_data;
-
-	if ((npw_value_get_tag(node) & NPW_VALID_VALUE) && (npw_value_get_value(node) != NULL))
-	{
-		if(npw_value_get_value (node)[0] == '{') /* Seems to be a list, so do not quote */
-		{
-			fprintf(def, "%s = %s;\n", name, npw_value_get_value (node));
-		}
-		else
-		{
-			gchar *esc_value = g_strescape (npw_value_get_value (node), NULL);
-			fprintf (def, "%s = \"%s\";\n", name, esc_value);
-			g_free (esc_value);
-		}
-	}
-}
-
-gboolean
-npw_autogen_write_definition_file (NPWAutogen* this, GHashTable* values)
-{
-	FILE* def;
-
-	/* Autogen should not be running */
-	g_return_val_if_fail (this->busy == FALSE, FALSE);
-
-	def = fopen (this->deffilename, "wt");
-	if (def == NULL) return FALSE;
-
-	/* Generate definition data for autogen */
-	fputs ("AutoGen Definitions .;\n",def);
-	npw_value_heap_foreach_value (values, (GHFunc)cb_autogen_write_definition, def);
-
-	fclose (def);
-
-	return TRUE;
-}
 
 static void
 cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
@@ -191,15 +163,30 @@ cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
 }
 
 gboolean
-npw_autogen_write_definition_file_from_hash (NPWAutogen* this, GHashTable* values)
+anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, GError **error)
 {
 	FILE* def;
 
 	/* Autogen should not be running */
-	g_return_val_if_fail (this->busy == FALSE, FALSE);
+	if (this->busy)
+	{
+		g_set_error_literal (error, ANJUTA_AUTOGEN_ERROR,
+		                     ANJUTA_AUTOGEN_ERROR_BUSY,
+		                     _("Autogen is busy"));
+
+		return FALSE;
+	}
 
 	def = fopen (this->deffilename, "wt");
-	if (def == NULL) return FALSE;
+	if (def == NULL)
+	{
+		g_set_error (error, ANJUTA_AUTOGEN_ERROR,
+		             ANJUTA_AUTOGEN_ERROR_WRITE_FAIL,
+		             _("Failed to write autogen definition file %s"),
+		             this->deffilename);
+
+		return FALSE;
+	}
 
 	/* Generate definition data for autogen */
 	fputs ("AutoGen Definitions .;\n",def);
@@ -214,7 +201,7 @@ npw_autogen_write_definition_file_from_hash (NPWAutogen* this, GHashTable* value
  *---------------------------------------------------------------------------*/
 
 void
-npw_autogen_set_library_path (NPWAutogen* this, const gchar *directory)
+anjuta_autogen_set_library_path (AnjutaAutogen* this, const gchar *directory)
 {
 	g_return_if_fail (directory != NULL);
 
@@ -222,7 +209,7 @@ npw_autogen_set_library_path (NPWAutogen* this, const gchar *directory)
 }
 
 void
-npw_autogen_clear_library_path (NPWAutogen* this)
+anjuta_autogen_clear_library_path (AnjutaAutogen* this)
 {
 	g_list_foreach (this->library_paths, (GFunc)g_free, NULL);
 	g_list_free (this->library_paths);
@@ -230,7 +217,7 @@ npw_autogen_clear_library_path (NPWAutogen* this)
 }
 
 GList *
-npw_autogen_get_library_paths (NPWAutogen* this)
+anjuta_autogen_get_library_paths (AnjutaAutogen* this)
 {
 	return this->library_paths;
 }
@@ -239,7 +226,7 @@ npw_autogen_get_library_paths (NPWAutogen* this)
  *---------------------------------------------------------------------------*/
 
 gboolean
-npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker)
+anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker)
 {
 	FILE* tpl;
 	FILE* src;
@@ -316,7 +303,7 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 }
 
 gboolean
-npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename)
+anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 {
 	/* Autogen should not be running */
 	g_return_val_if_fail (this->busy == FALSE, FALSE);
@@ -328,7 +315,7 @@ npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename)
 }
 
 gboolean
-npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer user_data)
+anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data)
 {
 	/* Autogen should not be running */
 	g_return_val_if_fail (this->busy == FALSE, FALSE);
@@ -346,7 +333,7 @@ npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gp
 static void
 on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gchar* output, gpointer user_data)
 {
-	NPWAutogen* this = (NPWAutogen*)user_data;
+	AnjutaAutogen* this = (AnjutaAutogen*)user_data;
 
 	if (this->outfilename != NULL)
 	{
@@ -365,7 +352,7 @@ on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, cons
 }
 
 static void
-on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, NPWAutogen* this)
+on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, AnjutaAutogen* this)
 {
 	this->busy = FALSE;
 	if (this->output != NULL)
@@ -386,7 +373,7 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 }
 
 gboolean
-npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error)
+anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer data, GError** error)
 {
 	gchar** args;
 	guint arg;
@@ -460,11 +447,11 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
-NPWAutogen* npw_autogen_new (void)
+AnjutaAutogen* anjuta_autogen_new (void)
 {
-	NPWAutogen* this;
+	AnjutaAutogen* this;
 
-	this = g_new0(NPWAutogen, 1);
+	this = g_new0(AnjutaAutogen, 1);
 
 	this->launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
@@ -476,7 +463,7 @@ NPWAutogen* npw_autogen_new (void)
 	return this;
 }
 
-void npw_autogen_free (NPWAutogen* this)
+void anjuta_autogen_free (AnjutaAutogen* this)
 {
 	g_return_if_fail(this != NULL);
 

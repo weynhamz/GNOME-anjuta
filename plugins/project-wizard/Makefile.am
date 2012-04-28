@@ -49,8 +49,6 @@ libanjuta_project_wizard_la_SOURCES= \
 	header.h \
 	property.c \
 	property.h \
-	values.c \
-	values.h \
 	file.c \
 	file.h \
 	action.c \
@@ -59,8 +57,6 @@ libanjuta_project_wizard_la_SOURCES= \
 	parser.h \
 	install.c \
 	install.h \
-	autogen.c \
-	autogen.h \
 	tar.c \
 	tar.h
 

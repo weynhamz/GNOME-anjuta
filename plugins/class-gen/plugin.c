@@ -22,13 +22,13 @@
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-autogen.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-#include <plugins/project-wizard/autogen.h>
 
 #include "plugin.h"
 /* #include "class_gen.h" */
@@ -91,7 +91,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	cg_plugin->top_dir = NULL;
 
 	/* Check if autogen is present */
-	if(!npw_check_autogen())
+	if(!anjuta_check_autogen())
 	{
 		anjuta_util_dialog_error(
 			NULL,

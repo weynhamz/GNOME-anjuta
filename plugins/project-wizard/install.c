@@ -30,10 +30,10 @@
 #include "plugin.h"
 #include "file.h"
 #include "parser.h"
-#include "autogen.h"
 #include "action.h"
 
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/anjuta-autogen.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -55,7 +55,7 @@
 
 struct _NPWInstall
 {
-	NPWAutogen* gen;
+	AnjutaAutogen* gen;
 	NPWFileListParser* file_parser;
 	GList* file_list;
 	GList* current_file;
@@ -70,7 +70,7 @@ struct _NPWInstall
 
 /*---------------------------------------------------------------------------*/
 
-static void on_install_end_install_file (NPWAutogen* gen, gpointer data);
+static void on_install_end_install_file (AnjutaAutogen* gen, gpointer data);
 static void on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, NPWInstall* this);
 static gboolean npw_install_install_file (NPWInstall* this);
 static gboolean npw_run_action (NPWInstall* this);
@@ -193,7 +193,7 @@ NPWInstall* npw_install_new (NPWPlugin* plugin)
 	if (plugin->install != NULL) return plugin->install;
 
 	this = g_new0(NPWInstall, 1);
-	this->gen = npw_autogen_new ();
+	this->gen = anjuta_autogen_new ();
 	this->plugin = plugin;
 	this->success = TRUE;
 	npw_plugin_create_view (plugin);
@@ -228,7 +228,7 @@ void npw_install_free (NPWInstall* this)
 		g_signal_handlers_disconnect_by_func (G_OBJECT (this->launcher), G_CALLBACK (on_run_terminated), this);
 		g_object_unref (this->launcher);
 	}
-	npw_autogen_free (this->gen);
+	anjuta_autogen_free (this->gen);
 	this->plugin->install = NULL;
 	g_free (this);
 }
@@ -236,7 +236,7 @@ void npw_install_free (NPWInstall* this)
 gboolean
 npw_install_set_property (NPWInstall* this, GHashTable* values)
 {
-	npw_autogen_write_definition_file_from_hash (this->gen, values);
+	anjuta_autogen_write_definition_file (this->gen, values, NULL);
 
 	return TRUE;
 }
@@ -256,7 +256,7 @@ npw_install_set_wizard_file (NPWInstall* this, const gchar* filename)
 	}
 	this->file_parser = npw_file_list_parser_new (filename);
 
-	npw_autogen_set_input_file (this->gen, filename, "[+","+]");
+	anjuta_autogen_set_input_file (this->gen, filename, "[+","+]");
 
 	return TRUE;
 }
@@ -264,7 +264,7 @@ npw_install_set_wizard_file (NPWInstall* this, const gchar* filename)
 gboolean
 npw_install_set_library_path (NPWInstall* this, const gchar *directory)
 {
-	npw_autogen_set_library_path (this->gen, directory);
+	anjuta_autogen_set_library_path (this->gen, directory);
 
 	return TRUE;
 }
@@ -326,7 +326,7 @@ on_install_end_action (gpointer data)
 }
 
 static void
-on_install_read_all_action_list (NPWAutogen* gen, gpointer data)
+on_install_read_all_action_list (AnjutaAutogen* gen, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
@@ -344,7 +344,7 @@ on_install_read_file_list (const gchar* output, gpointer data)
 }
 
 static void
-on_install_read_all_file_list (NPWAutogen* gen, gpointer data)
+on_install_read_all_file_list (AnjutaAutogen* gen, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
@@ -364,12 +364,12 @@ on_install_read_all_file_list (NPWAutogen* gen, gpointer data)
 		npw_action_list_parser_free (this->action_parser);
 	}
 	this->action_parser = npw_action_list_parser_new ();
-	npw_autogen_set_output_callback (this->gen, on_install_read_action_list, this);
-	npw_autogen_execute (this->gen, on_install_read_all_action_list, this, NULL);
+	anjuta_autogen_set_output_callback (this->gen, on_install_read_action_list, this);
+	anjuta_autogen_execute (this->gen, on_install_read_all_action_list, this, NULL);
 }
 
 static void
-on_install_end_install_file (NPWAutogen* gen, gpointer data)
+on_install_end_install_file (AnjutaAutogen* gen, gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
@@ -440,8 +440,8 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 gboolean
 npw_install_launch (NPWInstall* this)
 {
-	npw_autogen_set_output_callback (this->gen, on_install_read_file_list, this);
-	npw_autogen_execute (this->gen, on_install_read_all_file_list, this, NULL);
+	anjuta_autogen_set_output_callback (this->gen, on_install_read_file_list, this);
+	anjuta_autogen_execute (this->gen, on_install_read_all_file_list, this, NULL);
 
 	return TRUE;
 }
@@ -520,9 +520,9 @@ npw_install_install_file (NPWInstall* this)
 	{
 		if (use_autogen)
 		{
-			npw_autogen_set_input_file (this->gen, source, NULL, NULL);
-			npw_autogen_set_output_file (this->gen, destination);
-			ok = npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
+			anjuta_autogen_set_input_file (this->gen, source, NULL, NULL);
+			anjuta_autogen_set_output_file (this->gen, destination);
+			ok = anjuta_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
 			msg = g_strdup_printf (_("Creating %s (using AutoGen)… %s"), destination, ok ? "Ok" : "Fail to Execute");
 		}
 		else

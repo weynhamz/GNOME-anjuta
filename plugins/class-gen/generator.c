@@ -19,9 +19,8 @@
 
 #include "generator.h"
 
-#include <plugins/project-wizard/autogen.h>
-
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/anjuta-autogen.h>
 #include <libanjuta/anjuta-utils.h>
 
 #include <glib/gstdio.h>
@@ -30,7 +29,7 @@
 typedef struct _CgGeneratorPrivate CgGeneratorPrivate;
 struct _CgGeneratorPrivate
 {
-	NPWAutogen *autogen;
+	AnjutaAutogen *autogen;
 
 	gchar *header_template;
 	gchar *source_template;
@@ -88,7 +87,7 @@ cg_generator_make_absolute (const gchar *path)
 }
 
 static void
-cg_generator_autogen_source_func (NPWAutogen *autogen,
+cg_generator_autogen_source_func (AnjutaAutogen *autogen,
                                   gpointer user_data)
 {
 	CgGenerator *generator;
@@ -140,7 +139,7 @@ cg_generator_autogen_source_func (NPWAutogen *autogen,
 }
 
 static void
-cg_generator_autogen_header_func (NPWAutogen *autogen,
+cg_generator_autogen_header_func (AnjutaAutogen *autogen,
                                   gpointer user_data)
 {
 	CgGenerator *generator;
@@ -153,10 +152,10 @@ cg_generator_autogen_header_func (NPWAutogen *autogen,
 
 	error = NULL;
 
-	npw_autogen_set_input_file (priv->autogen, priv->source_template, NULL, NULL); /*"[+", "+]");*/
-	npw_autogen_set_output_file (priv->autogen, priv->source_destination);
+	anjuta_autogen_set_input_file (priv->autogen, priv->source_template, NULL, NULL); /*"[+", "+]");*/
+	anjuta_autogen_set_output_file (priv->autogen, priv->source_destination);
 
-	result = npw_autogen_execute (priv->autogen,
+	result = anjuta_autogen_execute (priv->autogen,
 	                              cg_generator_autogen_source_func,
 	                              generator, &error);
 
@@ -174,7 +173,7 @@ cg_generator_init (CgGenerator *generator)
 	CgGeneratorPrivate *priv;
 	priv = CG_GENERATOR_PRIVATE (generator);
 
-	priv->autogen = npw_autogen_new ();
+	priv->autogen = anjuta_autogen_new ();
 
 	priv->header_template = NULL;
 	priv->source_template = NULL;
@@ -191,7 +190,7 @@ cg_generator_finalize (GObject *object)
 	generator = CG_GENERATOR (object);
 	priv = CG_GENERATOR_PRIVATE (generator);
 
-	npw_autogen_free (priv->autogen);
+	anjuta_autogen_free (priv->autogen);
 
 	g_free (priv->header_template);
 	g_free (priv->source_template);
@@ -398,35 +397,30 @@ cg_generator_run (CgGenerator *generator,
 	CgGeneratorPrivate *priv;
 	priv = CG_GENERATOR_PRIVATE (generator);
 
-	/* TODO: npw_autogen_write_definiton_file should take a GError... */
-	if (npw_autogen_write_definition_file_from_hash (priv->autogen, values) == FALSE)
+	if (anjuta_autogen_write_definition_file (priv->autogen, values, error) == FALSE)
 	{
-		g_set_error (error, g_quark_from_static_string("CG_GENERATOR_ERROR"),
-		             CG_GENERATOR_ERROR_DEFFILE,
-		             _("Failed to write autogen definition file"));
-
 		return FALSE;
 	}
 	else if ((priv->header_destination != NULL) && (priv->header_template != NULL))
 	{
-		npw_autogen_set_input_file (priv->autogen, priv->header_template,
-		                            NULL, NULL); /*"[+", "+]");*/
-		npw_autogen_set_output_file (priv->autogen, priv->header_destination);
+		anjuta_autogen_set_input_file (priv->autogen, priv->header_template,
+		                               NULL, NULL); /*"[+", "+]");*/
+		anjuta_autogen_set_output_file (priv->autogen, priv->header_destination);
 
-		return npw_autogen_execute (priv->autogen,
-		                            cg_generator_autogen_header_func,
-		                            generator, error);
+		return anjuta_autogen_execute (priv->autogen,
+		                               cg_generator_autogen_header_func,
+		                               generator, error);
 	}
 	else
 	{
 		/* No header file, generate source file */
-		npw_autogen_set_input_file (priv->autogen, priv->source_template,
-		                            NULL, NULL); /*"[+", "+]");*/
-		npw_autogen_set_output_file (priv->autogen, priv->source_destination);
+		anjuta_autogen_set_input_file (priv->autogen, priv->source_template,
+		                               NULL, NULL); /*"[+", "+]");*/
+		anjuta_autogen_set_output_file (priv->autogen, priv->source_destination);
 
-		return npw_autogen_execute (priv->autogen,
-	                              cg_generator_autogen_source_func,
-	                              generator, error);
+		return anjuta_autogen_execute (priv->autogen,
+		                               cg_generator_autogen_source_func,
+		                               generator, error);
 	}
 }
 

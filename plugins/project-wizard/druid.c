@@ -32,10 +32,10 @@
 #include "property.h"
 #include "parser.h"
 #include "install.h"
-#include "autogen.h"
 
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-autogen.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <stdlib.h>
@@ -119,7 +119,7 @@ struct _NPWDruid
 	NPWPageParser* parser;
 	GList* header_list;
 	NPWHeader* header;
-	NPWAutogen* gen;
+	AnjutaAutogen* gen;
 	gboolean busy;
 };
 
@@ -390,7 +390,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	/* Remove all previous data */
 	gtk_notebook_remove_page(druid->project_book, 0);
 	npw_header_list_free (druid->header_list);
-	npw_autogen_clear_library_path (druid->gen);
+	anjuta_autogen_clear_library_path (druid->gen);
 
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();
@@ -401,7 +401,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 		 * other directories can still be used to get included
 		 * files */
 		npw_header_list_readdir (&druid->header_list, directory);
-		npw_autogen_set_library_path (druid->gen, directory);
+		anjuta_autogen_set_library_path (druid->gen, directory);
 	}
 
 	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
@@ -412,7 +412,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	 	* the first template read override the others */
 		npw_header_list_readdir (&druid->header_list, dir);
 	}
-	npw_autogen_set_library_path (druid->gen, dir);
+	anjuta_autogen_set_library_path (druid->gen, dir);
 	g_free (dir);
 
 	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
@@ -423,7 +423,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 			/* Read project template in system directory */
 			npw_header_list_readdir (&druid->header_list, dir);
 		}
-		npw_autogen_set_library_path (druid->gen, dir);
+		anjuta_autogen_set_library_path (druid->gen, dir);
 		g_free (dir);
 	}
 
@@ -432,7 +432,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 		/* Read anjuta installation directory */
 		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
 	}
-	npw_autogen_set_library_path (druid->gen, PROJECT_WIZARD_DIRECTORY);
+	anjuta_autogen_set_library_path (druid->gen, PROJECT_WIZARD_DIRECTORY);
 
 	if (g_list_length (druid->header_list) == 0)
 	{
@@ -836,7 +836,7 @@ on_project_wizard_key_press_event(GtkWidget *widget, GdkEventKey *event,
 }
 
 static void
-on_druid_get_new_page (NPWAutogen* gen, gpointer data)
+on_druid_get_new_page (AnjutaAutogen* gen, gpointer data)
 {
 	NPWDruid* druid = (NPWDruid *)data;
 	gint current;
@@ -1042,7 +1042,7 @@ on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid
 
 				/* Change project */
 				druid->project_file = new_project;
-				npw_autogen_set_input_file (druid->gen, druid->project_file, "[+","+]");
+				anjuta_autogen_set_input_file (druid->gen, druid->project_file, "[+","+]");
 
 			}
 		}
@@ -1065,9 +1065,9 @@ on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid
 				npw_page_parser_free (druid->parser);
 			druid->parser = npw_page_parser_new (npw_druid_add_new_page (druid), druid->project_file, previous);
 
-			npw_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser);
-			npw_autogen_write_definition_file_from_hash (druid->gen, druid->values);
-			npw_autogen_execute (druid->gen, on_druid_get_new_page, druid, NULL);
+			anjuta_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser);
+			anjuta_autogen_write_definition_file (druid->gen, druid->values, NULL);
+			anjuta_autogen_execute (druid->gen, on_druid_get_new_page, druid, NULL);
 		}
 		else
 		{
@@ -1128,7 +1128,7 @@ on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
 	inst = npw_install_new (druid->plugin);
 	npw_install_set_property (inst, druid->values);
 	npw_install_set_wizard_file (inst, npw_header_get_filename (druid->header));
-	for (path = g_list_last (npw_autogen_get_library_paths (druid->gen)); path != NULL; path = g_list_previous (path))
+	for (path = g_list_last (anjuta_autogen_get_library_paths (druid->gen)); path != NULL; path = g_list_previous (path))
 	{
 		npw_install_set_library_path (inst, (const gchar *)path->data);
 	}
@@ -1253,7 +1253,7 @@ npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 	NPWDruid* druid;
 
 	/* Check if autogen is present */
-	if (!npw_check_autogen())
+	if (!anjuta_check_autogen())
 	{
 		anjuta_util_dialog_error (NULL, _("Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."));
 		return NULL;
@@ -1265,7 +1265,7 @@ npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 	druid->busy = FALSE;
 	druid->page_list = g_queue_new ();
 	druid->values = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_free);
-	druid->gen = npw_autogen_new ();
+	druid->gen = anjuta_autogen_new ();
 	druid->plugin = plugin;
 	druid->error_extra_widget = NULL;
 
@@ -1296,7 +1296,7 @@ npw_druid_free (NPWDruid* druid)
 	}
 	g_queue_free (druid->page_list);
 	g_hash_table_destroy (druid->values);
-	npw_autogen_free (druid->gen);
+	anjuta_autogen_free (druid->gen);
 	if (druid->parser != NULL) npw_page_parser_free (druid->parser);
 	npw_header_list_free (druid->header_list);
 	gtk_widget_destroy (GTK_WIDGET (druid->window));

@@ -36,7 +36,7 @@ void npw_install_free (NPWInstall* this);
 
 gboolean npw_install_set_property (NPWInstall* this, GHashTable* values);
 gboolean npw_install_set_wizard_file (NPWInstall* this, const gchar* filename);
-gboolean npw_install_set_libray_path (NPWInstall *this, const gchar *directory);
+gboolean npw_install_set_library_path (NPWInstall *this, const gchar *directory);
 gboolean npw_install_launch (NPWInstall* this);
 
 #endif

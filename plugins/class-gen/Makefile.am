@@ -50,11 +50,7 @@ libanjuta_class_gen_la_SOURCES= \
 	validator.c \
 	validator.h \
 	window.c \
-	window.h \
-	../project-wizard/autogen.c \
-	../project-wizard/autogen.h \
-	../project-wizard/values.c \
-	../project-wizard/values.h
+	window.h
 	
 EXTRA_DIST = \
 	$(plugin_in_files) \

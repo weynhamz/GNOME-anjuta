@@ -2,6 +2,7 @@
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
+libanjuta/anjuta-autogen.c
 libanjuta/anjuta-cell-renderer-captioned-image.c
 libanjuta/anjuta-c-module.c
 libanjuta/anjuta-column-text-view.c
