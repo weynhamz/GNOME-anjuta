@@ -763,6 +763,7 @@ pixmaps/48x48/Makefile
 pixmaps/scalable/Makefile
 data/Makefile
 data/welcome.txt
+data/templates/Makefile
 doc/anjuta.1
 doc/anjuta-launcher.1
 doc/Makefile

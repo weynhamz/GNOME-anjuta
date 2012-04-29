@@ -46,8 +46,7 @@ wizard_files_DATA = \
 	appwiz_sdl.png \
 	gnome.png \
 	gnome.svg \
-	$(template_in_files:.in=) \
-	indent.tpl
+	$(template_in_files:.in=)
 
 # Translate wiz file
 %.wiz: %.wiz.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u -c $(top_builddir)/po/.intltool-merge-cache

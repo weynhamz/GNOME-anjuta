@@ -86,6 +86,8 @@
 
 #define FILE_BUFFER_SIZE	4096
 
+#define TEMPLATES_DIR PACKAGE_DATA_DIR"/templates"
+
 /*---------------------------------------------------------------------------*/
 
 struct _AnjutaAutogen
@@ -620,6 +622,8 @@ anjuta_autogen_init (AnjutaAutogen *this)
 	/* Create a temporary file for definitions */
 	this->deffilename = g_build_filename (g_get_tmp_dir (), TMP_DEF_FILENAME, NULL);
 	mktemp (this->deffilename);
+
+	this->library_paths = g_list_prepend (NULL, g_strdup (TEMPLATES_DIR));
 }
 
 static void
