@@ -179,16 +179,6 @@ anjuta_check_autogen (void)
 	return FALSE;
 }
 
-GQuark
-anjuta_autogen_error_quark (void)
-{
-	static GQuark quark;
-
-	if (!quark) quark = g_quark_from_static_string ("anjuta_autogen_error");
-
-	return quark;
-}
-
 
 
 /* Write definitions
@@ -242,8 +232,8 @@ anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, G
 	/* Autogen should not be running */
 	if (this->busy)
 	{
-		g_set_error_literal (error, ANJUTA_AUTOGEN_ERROR,
-		                     ANJUTA_AUTOGEN_ERROR_BUSY,
+		g_set_error_literal (error, G_FILE_ERROR,
+		                     G_FILE_ERROR_AGAIN,
 		                     _("Autogen is busy"));
 
 		return FALSE;
@@ -252,10 +242,14 @@ anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, G
 	def = fopen (this->deffilename, "wt");
 	if (def == NULL)
 	{
-		g_set_error (error, ANJUTA_AUTOGEN_ERROR,
-		             ANJUTA_AUTOGEN_ERROR_WRITE_FAIL,
-		             _("Failed to write autogen definition file %s"),
-		             this->deffilename);
+		g_set_error(
+		            error,
+		            G_FILE_ERROR,
+		            g_file_error_from_errno(errno),
+		            _("Could not write definition file \"%s\": %s"),
+		            this->deffilename,
+					g_strerror(errno)
+		            );
 
 		return FALSE;
 	}
@@ -586,7 +580,7 @@ anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer da
 				error,
 				G_FILE_ERROR,
 				g_file_error_from_errno(errno),
-				"Could not open file \"%s\": %s",
+				_("Could not open file \"%s\": %s"),
 				this->outfilename,
 				g_strerror(errno)
 			);
