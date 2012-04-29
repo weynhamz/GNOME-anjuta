@@ -27,6 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 
@@ -36,6 +37,14 @@
 #include "window.h"
 
 #define ICON_FILE "anjuta-class-gen-plugin-48.png"
+
+/* Common editor preferences */
+#define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
+
+/* Indentation template variables */
+#define INDENT_WIDTH_PROPERTY "IndentWidth"
+#define TAB_WIDTH_PROPERTY "TabWidth"
+#define USE_TABS_PROPERTY "UseTabs"
 
 static gpointer parent_class;
 
@@ -413,6 +422,10 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 
 		if (result == TRUE)
 		{
+			GSettings *settings;
+			gboolean flag;
+			gint i;
+
 			values = cg_window_create_value_heap (plugin->window);
 
 			manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
@@ -430,6 +443,21 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 				                            plugin->window));
 				g_hash_table_insert (values, "ProjectName", name);
 			}
+
+			/* Set indentation settings */
+			/* Add use-tabs property */
+			settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
+			flag = g_settings_get_boolean (settings, IANJUTA_EDITOR_USE_TABS_KEY);
+			g_hash_table_insert (values, USE_TABS_PROPERTY, g_strdup (flag ? "1" : "0"));
+
+			/* Add tab-width property */
+			i = g_settings_get_int (settings, IANJUTA_EDITOR_TAB_WIDTH_KEY);
+			g_hash_table_insert (values, TAB_WIDTH_PROPERTY, g_strdup_printf("%d", i));
+
+			/* Add indent-width property */
+			i = g_settings_get_int (settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY);
+			g_hash_table_insert (values, INDENT_WIDTH_PROPERTY, g_strdup_printf("%d", i));
+			g_object_unref (settings);
 
     		plugin->generator = cg_generator_new (
 				cg_window_get_header_template(plugin->window),

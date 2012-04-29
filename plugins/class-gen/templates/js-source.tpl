@@ -17,10 +17,12 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 +]
-/* -*- Mode: javascript; js-basic-offset: 4; indent-tabs-mode: nil -*-
+[+INCLUDE (string-append "indent.tpl") \+]
+[+INVOKE START-INDENT\+]
+/* [+INVOKE EMACS-MODELINE MODE="javascript" \+] */
  *
  * [+ProjectName+][+IF (=(get "Headings") "1")+]
- * Copyright (C) [+AuthorName+] [+(shell "date +%Y")+] <[+AuthorEmail+]>[+ENDIF+]
+ * Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
  *
 [+CASE (get "License") +]
 [+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") " * ")+]
@@ -29,52 +31,53 @@
 [+ESAC+] */
 [+
 FOR Imports +][+
-    IF (not (=(get "Name") "")) +]
+	IF (not (=(get "Name") "")) +]
 const [+Name+] = imports.[+Module+];[+
-    IF (last-for?) +]
+	IF (last-for?) +]
 [+
-        ENDIF+][+
-    ENDIF+][+
+		ENDIF+][+
+	ENDIF+][+
 ENDFOR+][+
 IF (not (=(get "BaseClass") "")) +]
 function [+BaseClass+]([+Initargs+]){
-    this._init([+Initargs+]);
+	this._init([+Initargs+]);
 }
 
 [+BaseClass+].prototype = {
-    _init: function([+Initargs+]) {
-        // The Base class.
-    }
+	_init: function([+Initargs+]) {
+		// The Base class.
+	}
 };[+
 ENDIF+]
 
 function [+ClassName+]() {
-    this._init([+Initargs+]);
+	this._init([+Initargs+]);
 }
 
 [+ClassName+].prototype = {[+
 IF (not (=(get "BaseClass") "")) +]
-    __proto__ : [+BaseClass+].prototype,
+	__proto__ : [+BaseClass+].prototype,
 [+
 ENDIF+]
-    _init: function([+Initargs+]) {[+
+	_init: function([+Initargs+]) {[+
 FOR Variables +][+
-    IF (not (=(get "Name") "")) +]
-        this.[+Name+] = [+Value+];[+
-    ENDIF+][+
+	IF (not (=(get "Name") "")) +]
+		this.[+Name+] = [+Value+];[+
+	ENDIF+][+
 ENDFOR+]
-    },
+	},
 [+
 FOR Methods +][+
-    IF (not (=(get "Name") "")) +]
-    [+Name+] : function[+Arguments+] {
-        // TODO: Delete this line and add something useful[+
-        IF (last-for?) +]
-    }[+
-        ELSE+]
-    },
+	IF (not (=(get "Name") "")) +]
+	[+Name+] : function[+Arguments+] {
+		// TODO: Delete this line and add something useful[+
+		IF (last-for?) +]
+	}[+
+		ELSE+]
+	},
 [+
-        ENDIF+][+
-    ENDIF+][+
+		ENDIF+][+
+	ENDIF+][+
 ENDFOR+]
 };
+[+INVOKE END-INDENT\+]

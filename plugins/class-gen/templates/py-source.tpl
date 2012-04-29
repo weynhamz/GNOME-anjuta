@@ -17,10 +17,12 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 +]
-# -*- Mode: Python; Coding: utf-8; tab-width: 4 -*-
+[+INCLUDE (string-append "indent.tpl") \+]
+[+INVOKE START-INDENT\+]
+# [+INVOKE EMACS-MODELINE MODE="Python" \+]
 #
 # [+ProjectName+][+IF (=(get "Headings") "1")+]
-# Copyright (C) [+AuthorName+] [+(shell "date +%Y")+] <[+AuthorEmail+]>[+ENDIF+]
+# Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
 #
 [+CASE (get "License") +]
 [+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") "# ")+]
@@ -30,14 +32,15 @@
 
 class [+ClassName+]([+IF (not (=(get "BaseClass") ""))+][+BaseClass+][+ENDIF+]):[+
 FOR Constvars +][+
-    IF (not (=(get "Name") "")) +]
-    [+Name+] = [+Value+][+
-    ENDIF +][+
+	IF (not (=(get "Name") "")) +]
+	[+Name+] = [+Value+][+
+	ENDIF +][+
 ENDFOR +][+
 FOR Methods +][+
-    IF (not (=(get "Name") "")) +]
-    def [+Name+][+Arguments+]:
-        pass
+	IF (not (=(get "Name") "")) +]
+	def [+Name+][+Arguments+]:
+		pass
 [+
-    ENDIF +][+
+	ENDIF +][+
 ENDFOR +]
+[+INVOKE END-INDENT\+]

@@ -17,10 +17,12 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 +]
-/* -*- Mode: vala; tab-width: 4; intend-tabs-mode: t -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+[+INVOKE START-INDENT\+]
+/* [+INVOKE EMACS-MODELINE MODE="vala" \+] */
 /* [+ProjectName+][+IF (=(get "Headings") "1")+]
  *
- * Copyright (C) [+AuthorName+] [+(shell "date +%Y")+] <[+AuthorEmail+]>[+ENDIF+]
+ * Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
  *
 [+CASE (get "License") +]
 [+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") " * ")+]
@@ -30,43 +32,44 @@
 
 [+ClassScope+] class [+ClassName+] : [+BaseClass+] {[+
 FOR Properties+][+
-    IF (=(get "Automatic") "Yes") +]
-    [+Scope+] [+Type+] [+Name+] { get; set; }[+
-    ELSE+]
-    private [+Type+] _[+Name+] = [+Value+];[+
-    ENDIF+][+
-    IF (last-for?) +]
+	IF (=(get "Automatic") "Yes") +]
+	[+Scope+] [+Type+] [+Name+] { get; set; }[+
+	ELSE+]
+	private [+Type+] _[+Name+] = [+Value+];[+
+	ENDIF+][+
+	IF (last-for?) +]
 [+
-    ENDIF+][+
+	ENDIF+][+
 ENDFOR+][+
 FOR Properties+][+
-    IF (=(get "Automatic") "No") +]
-    [+Scope+] [+Type+] [+Name+] {[+
-        IF (=(get "Getter") "YES")+]
-        get { return _[+Name+] }[+
-        ENDIF+][+
-        IF (=(get "Setter") "YES")+]
-        set { _[+Name+] = value }[+
-        ENDIF+]
-    }[+
-    ENDIF+][+
+	IF (=(get "Automatic") "No") +]
+	[+Scope+] [+Type+] [+Name+] {[+
+		IF (=(get "Getter") "YES")+]
+		get { return _[+Name+] }[+
+		ENDIF+][+
+		IF (=(get "Setter") "YES")+]
+		set { _[+Name+] = value }[+
+		ENDIF+]
+	}[+
+	ENDIF+][+
 ENDFOR+][+
 FOR Signals+][+
-    IF (first-for?) +]
-    /* Signal definitions */[+ENDIF+]
-    [+Scope+] signal void [+Name+] [+Arguments+];[+
+	IF (first-for?) +]
+	/* Signal definitions */[+ENDIF+]
+	[+Scope+] signal void [+Name+] [+Arguments+];[+
 ENDFOR+]
 
-    // Constructor
-    public [+ClassName+] () {
-        
-    }
+	// Constructor
+		public [+ClassName+] () {
+
+	}
 [+
 FOR Methods+][+
-    IF (first-for?) +]
-    /* Method definitions */[+ENDIF+]
-    [+Scope+] [+Type+] [+Name+] [+Arguments+] {
-        // TODO: Add implementation here.
-    }[+
+	IF (first-for?) +]
+	/* Method definitions */[+ENDIF+]
+	[+Scope+] [+Type+] [+Name+] [+Arguments+] {
+		// TODO: Add implementation here.
+	}[+
 ENDFOR+]
 }
+[+INVOKE END-INDENT\+]

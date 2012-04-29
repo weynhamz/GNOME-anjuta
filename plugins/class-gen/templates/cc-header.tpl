@@ -1,8 +1,10 @@
 [+ autogen5 template +]
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+[+INCLUDE (string-append "indent.tpl") \+]
+/* [+INVOKE EMACS-MODELINE MODE="C" \+] */
+[+INVOKE START-INDENT\+]
 /*
  * [+ProjectName+][+IF (=(get "Headings") "1")+]
- * Copyright (C) [+AuthorName+] [+(shell "date +%Y")+] <[+AuthorEmail+]>[+ENDIF+]
+ * Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
  * 
 [+CASE (get "License") +]
 [+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") " * ")+]
@@ -38,3 +40,4 @@ class [+ClassName+][+IF (not (=(get "BaseClass") ""))+]: [+Inheritance+] [+BaseC
 ENDFOR+]};
 
 #endif // _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
+[+INVOKE END-INDENT\+]
