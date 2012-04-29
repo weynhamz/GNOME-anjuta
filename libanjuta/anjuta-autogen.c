@@ -18,16 +18,52 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*
- * Execute autogen program
+/**
+ * SECTION:anjuta-autogen
+ * @title: AnjutaAutogen
+ * @short_description: Template engine using GNU autogen program.
+ * @see_also: #AnjutaLauncher
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-autogen.h
  *
- * This takes cares of everything needed to run autogen:
- * 	- generate the definition files from a list of values
- * 	- add autogen marker in template file if necessary
- * 	- check autogen version
- * 	- run autogen with AnjutaLauncher object
- * Autogen output could be written in a file or pass to callback function.
- *---------------------------------------------------------------------------*/
+ * GNU autogen is a program generating a text file from a template and a
+ * definition file. The template contains fixed text and variables those will
+ * be replaced under the control of the definition file.
+ *
+ * By example from the following definition file
+ * <programlisting>
+ * AutoGen Definitions .;
+ * list = { list_element = alpha;
+ *          list_info    = "some alpha stuff"; };
+ * list = { list_info    = "more beta stuff";
+ *          list_element = beta; };
+ * list = { list_element = omega;
+ *          list_info    = "final omega stuff"; }
+ * </programlisting>
+ * And the following template
+ * <programlisting>
+ * [+ AutoGen5 template +]
+ * typedef enum {[+
+ *    FOR list "," +]
+ *         IDX_[+ (string-upcase! (get "list_element")) +][+
+ *    ENDFOR list +] }  list_enum;
+ * </programlisting>
+ * Autogen generates
+ * <programlisting>
+ * typedef enum {
+ *         IDX_ALPHA,
+ *         IDX_BETA,
+ *         IDX_OMEGA }  list_enum;
+ * </programlisting>
+ *
+ * The template file can be quite complex, you can read autogen documentation
+ * <ulink url="http://www.gnu.org/software/autogen">here</ulink>.
+ *
+ * The #AnjutaAutogen object takes care of writing the definition file from
+ * a hash table and call autogen. The output can be written in a file or passed
+ * to a callback function. Autogen is executed asynchronously, so there is
+ * another callback function called when the processing is completed.
+ */
 
 #include <config.h>
 
@@ -85,7 +121,13 @@ struct _AnjutaAutogen
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-/* Check if autogen version 5 is present */
+/**
+ * anjuta_check_autogen:
+ *
+ * Check if autogen version 5 is installed.
+ *
+ * Return value: %TRUE if autogen is installed.
+ */
 
 gboolean
 anjuta_check_autogen (void)
@@ -162,6 +204,26 @@ cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
 	}
 }
 
+/**
+ * anjuta_autogen_write_definition_file
+ * @this: A #AnjutaAutogen object
+ * @values: A hash table containing all definitions
+ * @error: Error propagation and reporting
+ *
+ * Write the autogen definition file. The definition file defined variables
+ * those will be used, typically replaced, in the template files.
+ *
+ * The hash table keys are the names of the variables. The name can include an
+ * index in square bracket, by example "members[0]". All values are strings but
+ * but they could include children using braces, by example
+ * "{count=2; list="aa bb"}".
+ *
+ * The file is created in a temporary directory and removed when the object
+ * is destroyed.
+ *
+ * Returns: %TRUE if the file has been written without error,
+ */
+
 gboolean
 anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, GError **error)
 {
@@ -200,6 +262,18 @@ anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, G
 /* Set library path
  *---------------------------------------------------------------------------*/
 
+/**
+ * anjuta_autogen_set_library_path
+ * @this: A #AnjutaAutogen object
+ * @directory: A path containing autogen library.
+ *
+ * Add a new directory in the list of autogen libraries path.
+ *
+ * Autogen can include files. These included file will be searched by default
+ * in the same directory than the template file. This functions allows you to
+ * add other directories.
+ */
+
 void
 anjuta_autogen_set_library_path (AnjutaAutogen* this, const gchar *directory)
 {
@@ -207,6 +281,13 @@ anjuta_autogen_set_library_path (AnjutaAutogen* this, const gchar *directory)
 
 	this->library_paths = g_list_prepend (this->library_paths, g_strdup (directory));
 }
+
+/**
+ * anjuta_autogen_clear_library_path
+ * @this: A #AnjutaAutogen object
+ *
+ * Remove all library pathes.
+ */
 
 void
 anjuta_autogen_clear_library_path (AnjutaAutogen* this)
@@ -216,6 +297,18 @@ anjuta_autogen_clear_library_path (AnjutaAutogen* this)
 	this->library_paths = NULL;
 }
 
+/**
+ * anjuta_autogen_get_library_paths
+ * @this: A #AnjutaAutogen object
+ *
+ * Get the list of all directories searched for files included in the autogen
+ * templates.
+ *
+ * Returns: (element-type gchar *) (transfer none): A list of directories.
+ * The content and the list itself are owned by the #AnjutaAutogen object and
+ * should not be modified or freed.
+ */
+
 GList *
 anjuta_autogen_get_library_paths (AnjutaAutogen* this)
 {
@@ -224,6 +317,30 @@ anjuta_autogen_get_library_paths (AnjutaAutogen* this)
 
 /* Set input and output
  *---------------------------------------------------------------------------*/
+
+/**
+ * anjuta_autogen_set_input_file
+ * @this: A #AnjutaAutogen object
+ * @filename: name of the input template file
+ * @start_marker: (allow none): start marker string
+ * @end_marker: (allow none): end marker string
+ *
+ * Read an autogen template file, optionally adding autogen markers.
+ *
+ * To be recognized as an autogen template, the first line has to contain:
+ *	- the start marker
+ *	- "autogen5 template"
+ *	- the end marker
+ *
+ * These markers are a custom sequence of up to 7 characters delimiting
+ * the start and the end of autogen variables and macros.
+ *
+ * This function can add this line using the value of @start_marker and
+ * @end_marker. If this line is already present in the file,
+ * @start_marker and @end_marker must be %NULL.
+ *
+ * Returns: %TRUE if the file has been read without error.
+ */
 
 gboolean
 anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker)
@@ -302,6 +419,16 @@ anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const
 	return ok;
 }
 
+/**
+ * anjuta_autogen_set_output_file
+ * @this: A #AnjutaAutogen object
+ * @filename: name of the generated file
+ *
+ * Define the name of the generated file.
+ *
+ * Returns: %TRUE if the file has been set without error.
+ */
+
 gboolean
 anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 {
@@ -313,6 +440,17 @@ anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 
 	return TRUE;
 }
+
+/**
+ * anjuta_autogen_set_output_callback
+ * @this: A #AnjutaAutogen object
+ * @func: Function call each time we get new data from autogen
+ * @user_data: (allow none): User data to pass to @func, or %NULL
+ *
+ * Define that autogen output should be send to a function as soon as it arrives.
+ *
+ * Returns: %TRUE if there is no error.
+ */
 
 gboolean
 anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data)
@@ -371,6 +509,19 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 		(this->endfunc)(this, this->enddata);
 	}
 }
+
+/**
+ * anjuta_autogen_execute
+ * @this: A #AnjutaAutogen object
+ * @func: (transfer async) (allow none): A function called when autogen is terminated
+ * @data: (allow none): User data to pass to @func, or %NULL
+ * @error: Error propagation and reporting
+ *
+ * Asynchronously execute autogen to generate the output, calling @func when the
+ * process is completed.
+ *
+ * Returns: %TRUE if the file has been processed without error.
+ */
 
 gboolean
 anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer data, GError** error)
@@ -447,6 +598,14 @@ anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer da
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
+/**
+ * anjuta_autogen_new
+ *
+ * Create a new autogen object.
+ *
+ * Returns: A #AnjutaAutogen object.
+ */
+
 AnjutaAutogen* anjuta_autogen_new (void)
 {
 	AnjutaAutogen* this;
@@ -462,6 +621,13 @@ AnjutaAutogen* anjuta_autogen_new (void)
 
 	return this;
 }
+
+/**
+ * anjuta_autogen_free
+ * @this: A #AnjutaAutogen object
+ *
+ * Free the #AnjutaAutogen object.
+ */
 
 void anjuta_autogen_free (AnjutaAutogen* this)
 {

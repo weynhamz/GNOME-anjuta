@@ -20,7 +20,7 @@
 
 /**
  * SECTION:anjuta-preferences
- * @short_description: Anjuta Prefereces system.
+ * @short_description: Anjuta Preferences system.
  * @see_also: #AnjutaPreferencesDialog
  * @stability: Unstable
  * @include: libanjuta/anjuta-preferences.h
