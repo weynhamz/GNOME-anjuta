@@ -30,6 +30,16 @@
  **/
 
 typedef struct _AnjutaAutogen AnjutaAutogen;
+typedef struct _AnjutaAutogenClass AnjutaAutogenClass;
+
+#define ANJUTA_TYPE_AUTOGEN             (anjuta_autogen_get_type ())
+#define ANJUTA_AUTOGEN(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_AUTOGEN, AnjutaAutogen))
+#define ANJUTA_AUTOGEN_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_AUTOGEN, AnjutaAutogenClass))
+#define ANJUTA_IS_AUTOGEN(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_AUTOGEN))
+#define ANJUTA_IS_AUTOGEN_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_AUTOGEN))
+#define ANJUTA_AUTOGEN_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_AUTOGEN, AnjutaAutogenClass))
+
+GType anjuta_autogen_get_type (void) G_GNUC_CONST;
 
 /**
  * AnjutaAutogenFunc:
@@ -75,7 +85,6 @@ GQuark anjuta_autogen_error_quark (void);
 
 
 AnjutaAutogen* anjuta_autogen_new (void);
-void anjuta_autogen_free (AnjutaAutogen* this);
 
 gboolean anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, GError **error);
 
@@ -84,7 +93,7 @@ void anjuta_autogen_clear_library_path (AnjutaAutogen* this);
 GList *anjuta_autogen_get_library_paths (AnjutaAutogen* this);
 gboolean anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const gchar* start_marker, const gchar* end_marker);
 gboolean anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename);
-gboolean anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data);
+gboolean anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data, GDestroyNotify destroy);
 
 gboolean anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer data, GError** error);
 

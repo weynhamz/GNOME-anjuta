@@ -190,7 +190,7 @@ cg_generator_finalize (GObject *object)
 	generator = CG_GENERATOR (object);
 	priv = CG_GENERATOR_PRIVATE (generator);
 
-	anjuta_autogen_free (priv->autogen);
+	g_object_unref (G_OBJECT (priv->autogen));
 
 	g_free (priv->header_template);
 	g_free (priv->source_template);

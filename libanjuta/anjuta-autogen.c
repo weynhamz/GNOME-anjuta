@@ -90,6 +90,8 @@
 
 struct _AnjutaAutogen
 {
+	GObject parent;
+
 	gchar* deffilename;		/* name of generated definition file */
 	const gchar* tplfilename;	/* name of template (input) file */
 	gchar* temptplfilename;		/* name of generated template if the
@@ -107,6 +109,8 @@ struct _AnjutaAutogen
 					 * when autogen output something */
 	AnjutaAutogenOutputFunc outfunc;
 	gpointer outdata;
+	GDestroyNotify destroy;
+
 					/* Call back function and data used
 					 * when autogen terminate */
 	AnjutaAutogenFunc endfunc;
@@ -115,6 +119,12 @@ struct _AnjutaAutogen
 	AnjutaLauncher* launcher;
 	gboolean busy;			/* For debugging */
 };
+
+struct _AnjutaAutogenClass
+{
+	GObjectClass parent;
+};
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -207,7 +217,7 @@ cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
 /**
  * anjuta_autogen_write_definition_file
  * @this: A #AnjutaAutogen object
- * @values: A hash table containing all definitions
+ * @values: (element-type utf8 utf8): A hash table containing all definitions
  * @error: Error propagation and reporting
  *
  * Write the autogen definition file. The definition file defined variables
@@ -322,8 +332,8 @@ anjuta_autogen_get_library_paths (AnjutaAutogen* this)
  * anjuta_autogen_set_input_file
  * @this: A #AnjutaAutogen object
  * @filename: name of the input template file
- * @start_marker: (allow none): start marker string
- * @end_marker: (allow none): end marker string
+ * @start_marker: (allow-none): start marker string
+ * @end_marker: (allow-none): end marker string
  *
  * Read an autogen template file, optionally adding autogen markers.
  *
@@ -361,14 +371,14 @@ anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const
 	if (this->temptplfilename != NULL)
 	{
 		remove (this->temptplfilename);
-		g_free (this->temptplfilename);
 		this->temptplfilename = NULL;
 	}
+	g_free (this->tplfilename);
 
 	if ((start_marker == NULL) && (end_marker == NULL))
 	{
 		/* input file is really an autogen file, nothig do to */
-		this->tplfilename = filename;
+		this->tplfilename = g_strdup (filename);
 
 		return TRUE;
 	}
@@ -435,7 +445,8 @@ anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 	/* Autogen should not be running */
 	g_return_val_if_fail (this->busy == FALSE, FALSE);
 
-	this->outfilename = filename;
+	g_free (this->outfilename);
+	this->outfilename = g_strdup (filename);
 	this->outfunc = NULL;
 
 	return TRUE;
@@ -444,8 +455,9 @@ anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 /**
  * anjuta_autogen_set_output_callback
  * @this: A #AnjutaAutogen object
- * @func: Function call each time we get new data from autogen
- * @user_data: (allow none): User data to pass to @func, or %NULL
+ * @func: (scope notified) (allow-none): Function call each time we get new data from autogen
+ * @user_data: (allow-none): User data to pass to @func, or %NULL
+ * @destroy: Function call when the process is complete to free user data
  *
  * Define that autogen output should be send to a function as soon as it arrives.
  *
@@ -453,13 +465,14 @@ anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
  */
 
 gboolean
-anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data)
+anjuta_autogen_set_output_callback (AnjutaAutogen* this, AnjutaAutogenOutputFunc func, gpointer user_data, GDestroyNotify destroy)
 {
 	/* Autogen should not be running */
 	g_return_val_if_fail (this->busy == FALSE, FALSE);
 
 	this->outfunc = func;
 	this->outdata = user_data;
+	this->destroy = destroy;
 	this->outfilename = NULL;
 
 	return TRUE;
@@ -504,6 +517,10 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 		}
 	}
 
+	if (this->destroy)
+	{
+		(this->destroy)(this->outdata);
+	}
 	if (this->endfunc)
 	{
 		(this->endfunc)(this, this->enddata);
@@ -513,9 +530,9 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 /**
  * anjuta_autogen_execute
  * @this: A #AnjutaAutogen object
- * @func: (transfer async) (allow none): A function called when autogen is terminated
- * @data: (allow none): User data to pass to @func, or %NULL
- * @error: Error propagation and reporting
+ * @func: (scope async) (allow-none): A function called when autogen is terminated
+ * @data: (allow-none): User data to pass to @func, or %NULL
+ * @error: (allow-none): Error propagation and reporting
  *
  * Asynchronously execute autogen to generate the output, calling @func when the
  * process is completed.
@@ -595,6 +612,84 @@ anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer da
 	return TRUE;
 }
 
+/* Implement GObject
+ *---------------------------------------------------------------------------*/
+
+G_DEFINE_TYPE (AnjutaAutogen, anjuta_autogen, G_TYPE_OBJECT);
+
+static void
+anjuta_autogen_init (AnjutaAutogen *this)
+{
+	this->launcher = anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
+
+	/* Create a temporary file for definitions */
+	this->deffilename = g_build_filename (g_get_tmp_dir (), TMP_DEF_FILENAME, NULL);
+	mktemp (this->deffilename);
+}
+
+static void
+anjuta_autogen_dispose (GObject *object)
+{
+	AnjutaAutogen *this = ANJUTA_AUTOGEN (object);
+
+	if (this->output != NULL)
+	{
+		/* output is not used if a callback function is used */
+		fclose (this->output);
+		this->output = NULL;
+	}
+
+	if (this->outfilename != NULL)
+	{
+		g_free (this->outfilename);
+		this->outfilename = NULL;
+	}
+
+	if (this->tplfilename != NULL)
+	{
+		g_free (this->tplfilename);
+		this->tplfilename = NULL;
+	}
+
+	if (this->temptplfilename != NULL)
+	{
+		/* temptplfilename is not used if input file already
+		 * contains autogen marker */
+		remove (this->temptplfilename);
+		this->temptplfilename = NULL;
+	}
+
+	g_list_foreach (this->library_paths, (GFunc)g_free, NULL);
+	g_list_free (this->library_paths);
+	this->library_paths = NULL;
+
+	if (this->deffilename != NULL)
+	{
+		remove (this->deffilename);
+		g_free (this->deffilename);
+		this->deffilename = NULL;
+	}
+
+	if (this->launcher != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (G_OBJECT (this->launcher), G_CALLBACK (on_autogen_terminated), this);
+		g_object_unref (this->launcher);
+		this->launcher = NULL;
+	}
+
+	G_OBJECT_CLASS (anjuta_autogen_parent_class)->dispose (object);
+}
+
+static void
+anjuta_autogen_class_init (AnjutaAutogenClass *klass)
+{
+	GObjectClass* object_class = G_OBJECT_CLASS (klass);
+
+	object_class->dispose = anjuta_autogen_dispose;
+}
+
+
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
@@ -603,64 +698,13 @@ anjuta_autogen_execute (AnjutaAutogen* this, AnjutaAutogenFunc func, gpointer da
  *
  * Create a new autogen object.
  *
- * Returns: A #AnjutaAutogen object.
+ * Returns: (transfer full): A new #AnjutaAutogen object. Free it using g_object_unref.
  */
 
 AnjutaAutogen* anjuta_autogen_new (void)
 {
-	AnjutaAutogen* this;
-
-	this = g_new0(AnjutaAutogen, 1);
-
-	this->launcher = anjuta_launcher_new ();
-	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
-
-	/* Create a temporary file for definitions */
-	this->deffilename = g_build_filename (g_get_tmp_dir (), TMP_DEF_FILENAME, NULL);
-	mktemp (this->deffilename);
-
-	return this;
+	return g_object_new (ANJUTA_TYPE_AUTOGEN, NULL);
 }
-
-/**
- * anjuta_autogen_free
- * @this: A #AnjutaAutogen object
- *
- * Free the #AnjutaAutogen object.
- */
-
-void anjuta_autogen_free (AnjutaAutogen* this)
-{
-	g_return_if_fail(this != NULL);
-
-	if (this->output != NULL)
-	{
-		/* output is not used if a callback function is used */
-		fclose (this->output);
-	}
-
-	if (this->temptplfilename != NULL)
-	{
-		/* temptplfilename is not used if input file already
-		 * contains autogen marker */
-		remove (this->temptplfilename);
-		g_free (this->temptplfilename);
-	}
-
-	g_list_foreach (this->library_paths, (GFunc)g_free, NULL);
-	g_list_free (this->library_paths);
-
-	/* deffilename should always be here (created in new) */
-	g_return_if_fail (this->deffilename);
-	remove (this->deffilename);
-	g_free (this->deffilename);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (this->launcher), G_CALLBACK (on_autogen_terminated), this);
-	g_object_unref (this->launcher);
-
-	g_free (this);
-}
-
 
 
 

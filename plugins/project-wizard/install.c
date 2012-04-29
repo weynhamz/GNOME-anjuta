@@ -228,7 +228,7 @@ void npw_install_free (NPWInstall* this)
 		g_signal_handlers_disconnect_by_func (G_OBJECT (this->launcher), G_CALLBACK (on_run_terminated), this);
 		g_object_unref (this->launcher);
 	}
-	anjuta_autogen_free (this->gen);
+	g_object_unref (this->gen);
 	this->plugin->install = NULL;
 	g_free (this);
 }
@@ -364,7 +364,7 @@ on_install_read_all_file_list (AnjutaAutogen* gen, gpointer data)
 		npw_action_list_parser_free (this->action_parser);
 	}
 	this->action_parser = npw_action_list_parser_new ();
-	anjuta_autogen_set_output_callback (this->gen, on_install_read_action_list, this);
+	anjuta_autogen_set_output_callback (this->gen, on_install_read_action_list, this, NULL);
 	anjuta_autogen_execute (this->gen, on_install_read_all_action_list, this, NULL);
 }
 
@@ -440,7 +440,7 @@ on_install_end_install_file (AnjutaAutogen* gen, gpointer data)
 gboolean
 npw_install_launch (NPWInstall* this)
 {
-	anjuta_autogen_set_output_callback (this->gen, on_install_read_file_list, this);
+	anjuta_autogen_set_output_callback (this->gen, on_install_read_file_list, this, NULL);
 	anjuta_autogen_execute (this->gen, on_install_read_all_file_list, this, NULL);
 
 	return TRUE;

@@ -1065,7 +1065,7 @@ on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid
 				npw_page_parser_free (druid->parser);
 			druid->parser = npw_page_parser_new (npw_druid_add_new_page (druid), druid->project_file, previous);
 
-			anjuta_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser);
+			anjuta_autogen_set_output_callback (druid->gen, on_druid_parse_page, druid->parser, NULL);
 			anjuta_autogen_write_definition_file (druid->gen, druid->values, NULL);
 			anjuta_autogen_execute (druid->gen, on_druid_get_new_page, druid, NULL);
 		}
@@ -1296,7 +1296,7 @@ npw_druid_free (NPWDruid* druid)
 	}
 	g_queue_free (druid->page_list);
 	g_hash_table_destroy (druid->values);
-	anjuta_autogen_free (druid->gen);
+	g_object_unref (G_OBJECT (druid->gen));
 	if (druid->parser != NULL) npw_page_parser_free (druid->parser);
 	npw_header_list_free (druid->header_list);
 	gtk_widget_destroy (GTK_WIDGET (druid->window));
