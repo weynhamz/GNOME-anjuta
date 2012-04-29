@@ -1,3 +1,69 @@
+Anjuta 3.4.1 "Berlin, das ist doch keine Stadt, das ist doch Deko" -- Johannes Schmid
+
+This is a bug-fix release for Anjuta 3.4.0, all users are encouraged to update to
+this version.
+
+Bruno Brouard (1):
+      Updated French doc translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Christian Kirbach (1):
+      Updated German translation
+
+Gabor Kelemen (2):
+      Add omitted plugin.in files to POTFILES.in
+      Fix a typo in the code-analyzer plugin name
+
+Gil Forcada Codinachs (1):
+      [l10n] Fixes on Catalan translation
+
+Johannes Schmid (2):
+      Post release version bump
+      sourceview: Correctly implement popup-menu (bgo#672692)
+
+Kristjan SCHMIDT (1):
+      Updated Esperanto translation
+
+Anjuta 3.4.0 "Wow, this time of the year again" (26 March 2012) -- Johannes Schmid
+
+This is a new stable version of Anjuta and all users should update to this
+version as all 3.2.x versions become unsupported at this point.
+
+Summary of the major changes between 3.2.x and 3.4:
+
+* project-manager:
+ - Improved target chooser in various dialogs (Sébastien Granjoux)
+ - Better parsing of complicated automake projects (Sébastien Granjoux)
+
+* project-wizard:
+ - Simplification to make it easier for newcomers to create projects (Sébastien Granjoux)
+ 
+* language-support
+ - Add widgets from glade as private members of GObject classes (Marco Diego Aurélio Mesquita)
+ - Allow creating signal handlers by double-clicking (Marco Diego Aurélio Mesquita)
+ - Build with vala-0.16 and various small fixes (Abderrahim Kitouni)
+ 
+* Search
+ - Find in files for project files (Johannes Schmid)
+
+* Overall
+ - Use relative path for sessions (Sébastien Granjoux)
+ - Many bugs fixed including some crashers (various)
+
+Thanks to everybody who has helped this cycle and all translators!
+
+Andrea Zagli (1):
+      [l10n] Updated Italian translation
+
+Duarte Loreto (1):
+      Updated Portuguese translation
+
+Lucas Lommer (1):
+      Updated Czech translation
+
+
 Anjuta 3.3.92 "This week needs more speed" (20 March 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
