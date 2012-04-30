@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-05 18:34+0000\n"
-"PO-Revision-Date: 2012-03-11 23:53+0300\n"
+"POT-Creation-Date: 2012-04-29 14:32+0000\n"
+"PO-Revision-Date: 2012-04-30 18:08+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -724,10 +724,10 @@ msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters
 msgstr "Название группы может содержать только буквы, цифры и символы «#$:%+,-.=@^_`~»"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -740,13 +740,13 @@ msgid "Root"
 msgstr "Корень"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Группа"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Источник"
@@ -810,11 +810,11 @@ msgstr "Модуль"
 msgid "Package"
 msgstr "Пакет"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Не удалось разобрать файл проекта"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Проект не существует или путь к проекту неверен"
@@ -2109,6 +2109,15 @@ msgstr "Анализатор c++:"
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "CLang Paths"
 msgstr "Пути Clang"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+#| msgid "CLang Analyzer"
+msgid "Code Analyzer"
+msgstr "Анализатор кода"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Анализ кода с помощью фреймворка clang-analyzer"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
@@ -3458,20 +3467,29 @@ msgstr "Поиск"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Пропущено имя"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Проект запрещает установку свойств"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+#| msgid "_Directory name:"
+msgid "Directory backend"
+msgstr "Каталоги"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid "Directory project backend, get only source files, use it when other backend fails"
+msgstr "Проект на основе каталогов; получает только файлы исходных кодов"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3545,7 +3563,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Заменить"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[только для чтения]"
 
@@ -3938,7 +3956,7 @@ msgid "Search using regular expressions"
 msgstr "Поиск с использованием регулярного выражения"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451
 #: ../src/anjuta-actions.h:30
 msgid "_Edit"
@@ -5875,43 +5893,43 @@ msgstr "Тэги API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Код, добавленный для виджета."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Автоматические отступы"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Автоматически выравнивать текущую строку или выделение на основе параметров выравнивания"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Комментировать/раскомментировать"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Комментировать или раскомментировать выделенный фрагмент"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Переключить .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Переключение между файлами заголовков и исходных текстов"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Поддержка C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -5984,6 +6002,17 @@ msgstr "Поддержка Python"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+#| msgid "Python support warning"
+msgid "Python support Plugin"
+msgstr "Модуль поддержки Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr "Модуль поддержки Python для дополнения кода, автоматических отступов и т. д."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Включить адаптивные отступы"
@@ -6003,6 +6032,17 @@ msgstr "Интерпретатор"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Окружение"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+#| msgid "JS Support Plugin"
+msgid "Vala support Plugin"
+msgstr "Модуль поддержки Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Vala support plugin, adds code completion."
+msgstr "Модуль для поддержки Vala, добавляет дополнение кода."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6161,6 +6201,15 @@ msgstr[2] "%d ошибок"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "Не удалось разобрать make-файл"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+#| msgid "Makefiles"
+msgid "Makefile backend"
+msgstr "Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Проект на основе Makefile; позволяет читать только проект"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -6743,11 +6792,11 @@ msgstr "Действия диспетчера проекта"
 msgid "Project manager popup actions"
 msgstr "Всплывающие команды диспетчера проекта"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Инициализация проекта…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Проект загружен"
 
@@ -7863,6 +7912,15 @@ msgstr "Выберите лицензию, под которой будут ра
 msgid "No license"
 msgstr "Лицензия отсутствует"
 
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+#| msgid "Python Module"
+msgid "Python loader"
+msgstr "Загрузчик Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Позволяет загружать модули Anjuta, написанные на Python"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
 msgstr "Запуск программ"
@@ -8017,18 +8075,15 @@ msgstr "Мгновенное значение"
 
 #: ../plugins/snippets-manager/snippets-browser.c:193
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-#| msgid "Add Snippet …"
 msgid "Add snippet"
 msgstr "Добавить фрагмент кода"
 
 #: ../plugins/snippets-manager/snippets-browser.c:199
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
-#| msgid "Select snippets"
 msgid "Remove selected snippet"
 msgstr "Удалить выделенный фрагмент кода"
 
 #: ../plugins/snippets-manager/snippets-browser.c:205
-#| msgid "Paste the content of clipboard at the current position"
 msgid "Insert snippet into editor at current cursor position"
 msgstr "Вставить фрагмент кода в редактор в текущую позицию"
 
@@ -8293,7 +8348,7 @@ msgstr "Настройки вида редактора"
 msgid "GtkSourceView Editor"
 msgstr "Редактор GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8302,7 +8357,7 @@ msgstr ""
 "Файл «%s» на диске новее, чем в текущем буфере.\n"
 "Хотите перезагрузить его?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8312,18 +8367,18 @@ msgstr ""
 "Закрыть его?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Не удалось открыть %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Файл «%s» только для чтения! Всё равно править?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Не удалось сохранить %s: %s"
@@ -9740,9 +9795,6 @@ msgstr "Только текст"
 
 #~ msgid "New Directory"
 #~ msgstr "Создать каталог"
-
-#~ msgid "_Directory name:"
-#~ msgstr "Название _каталога:"
 
 #~ msgid "New _Directory"
 #~ msgstr "Создать _каталог"
