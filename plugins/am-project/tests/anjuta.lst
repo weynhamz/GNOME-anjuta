@@ -127,6 +127,13 @@ ROOT (): anjuta
         SOURCE (): git.mk
     GROUP (): data
         PROPERTY (Installation directories): anjuta_datadir = $(anjuta_data_dir) anjuta_profiledir = $(anjuta_data_dir)/profiles
+        GROUP (): templates
+            PROPERTY (Installation directories): template_datadir = "$(anjuta_data_dir)/templates/"
+            TARGET (): template_data
+                PROPERTY (Installation directory): template_datadir
+                SOURCE (): data/templates/indent.tpl
+            SOURCE (): data/templates/Makefile.am
+            SOURCE (): git.mk
         TARGET (): anjuta_data
             PROPERTY (Installation directory): anjuta_datadir
             SOURCE (): data/welcome.txt
@@ -418,6 +425,8 @@ ROOT (): anjuta
             SOURCE (): libanjuta/anjuta-environment-editor.c
             SOURCE (): libanjuta/anjuta-tree-combo.h
             SOURCE (): libanjuta/anjuta-tree-combo.c
+            SOURCE (): libanjuta/anjuta-autogen.h
+            SOURCE (): libanjuta/anjuta-autogen.c
         TARGET (): libgladeanjuta.la
             PROPERTY (Installation directory): gladeanjutadir
             PROPERTY (Linker flags): $(ANJUTA_LDFLAGS) -module -avoid-version
@@ -634,10 +643,6 @@ ROOT (): anjuta
                 SOURCE (): plugins/class-gen/validator.h
                 SOURCE (): plugins/class-gen/window.c
                 SOURCE (): plugins/class-gen/window.h
-                SOURCE (): plugins/project-wizard/autogen.c
-                SOURCE (): plugins/project-wizard/autogen.h
-                SOURCE (): plugins/project-wizard/values.c
-                SOURCE (): plugins/project-wizard/values.h
             SOURCE (): plugins/class-gen/Makefile.am
             SOURCE (): git.mk
         GROUP (): code-analyzer
@@ -2201,8 +2206,6 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-wizard/header.h
                 SOURCE (): plugins/project-wizard/property.c
                 SOURCE (): plugins/project-wizard/property.h
-                SOURCE (): plugins/project-wizard/values.c
-                SOURCE (): plugins/project-wizard/values.h
                 SOURCE (): plugins/project-wizard/file.c
                 SOURCE (): plugins/project-wizard/file.h
                 SOURCE (): plugins/project-wizard/action.c
@@ -2211,8 +2214,6 @@ ROOT (): anjuta
                 SOURCE (): plugins/project-wizard/parser.h
                 SOURCE (): plugins/project-wizard/install.c
                 SOURCE (): plugins/project-wizard/install.h
-                SOURCE (): plugins/project-wizard/autogen.c
-                SOURCE (): plugins/project-wizard/autogen.h
                 SOURCE (): plugins/project-wizard/tar.c
                 SOURCE (): plugins/project-wizard/tar.h
             SOURCE (): plugins/project-wizard/Makefile.am
