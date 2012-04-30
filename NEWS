@@ -1,3 +1,98 @@
+Anjuta 3.5.1 "It's gonna be a long summer" (30 April 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.4.x!
+
+Arnel A. Borja (1):
+      language-support-vala: Removed "cpp-" prefix from schema key names
+
+Bruno Brouard (1):
+      Updated French doc translation
+
+Carles Ferrando (1):
+      [l10n]Updated Catalan (Valencian) translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Daniel Mustieles (3):
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Fran Diéguez (3):
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+
+Gabor Kelemen (3):
+      Updated Hungarian translation
+      Add omitted plugin.in files to POTFILES.in
+      Fix a typo in the code-analyzer plugin name
+
+Gil Forcada Codinachs (1):
+      [l10n] Fixes on Catalan translation
+
+Johannes Schmid (2):
+      Post release version bump
+      sourceview: Correctly implement popup-menu (bgo#672692)
+
+Kristjan SCHMIDT (1):
+      Updated Esperanto translation
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Mihai Ciocan (1):
+      Fixed autoindentation after line wrapping
+
+Moritz Lüdecke (1):
+      project-manager: bgo #594912 - The target advanced options window should remember its size
+
+Pavel (1):
+      subversion: Fix pointer size problems on gcc 4.5.3 and newer
+
+Piotr Drąg (1):
+      Updated Polish translation
+
+Sasi Bhushan (1):
+      Updated Telugu Translation
+
+Sébastien Granjoux (30):
+      am-project: Include project files as sources in the project tree
+      project-manager: Remove project files from project tree view
+      am-project: Fix regression tests after adding project files in the project tree
+      am-project: Avoid a crash when parent group is missing
+      am-project: Avoid a crash when adding a target to an invalid group
+      am-project: Allow to create the root group in an empty project
+      am-project: Allow to have sub directories in a group
+      project-manager: Display group name containing sub directories
+      libanjuta: Fix anjuta_token functions
+      am-project: Do not expand variable in target and group flags
+      am-project: Expand variables in source names
+      am-project: Fix a crash in regression test 1
+      am-project: Fix a crash on 64 bits system due to missing declaration of amp_source_new
+      am-project: Fix a crash when loading project
+      libanjuta: Remove some useless code in AnjutaPreferences
+      libanjuta: Allow to define common settings in plugin preference page
+      language-support-cpp: Use common settings for indentation
+      language-support-python: Use common settings for indentation
+      sourceview: Use common settings for indentation
+      project-wizard: bgo #563986 - wizard generates modeline inconsistent with indentation prefs
+      language-support-python: Move preferences in plugins/python
+      language-support-cpp: Move preferences in plugins/cpp
+      project-wizard: Do not use NPWValue in autogen API
+      class-gen: Use a simple hash table instead of NPWValue
+      libanjuta: Move autogen functions from project-wizard to libanjuta
+      libanjuta: document AnjutaAutogen API
+      libanjuta: Change autogen API to support introspection
+      libanjuta: Reuse G_FILE_ERROR instead of defining a new error domain for autogen
+      libanjuta: Move useful template macros from project wizard to a common directory
+      class-gen: bgo#672892 - Class generator should respect project's indent settings
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
 Anjuta 3.4.0 "Wow, this time of the year again" (26 March 2012) -- Johannes Schmid
 
 This is a new stable version of Anjuta and all users should update to this
