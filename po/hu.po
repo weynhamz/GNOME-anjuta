@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 12:17+0100\n"
-"PO-Revision-Date: 2012-04-12 16:08+0200\n"
+"POT-Creation-Date: 2012-05-01 01:45+0200\n"
+"PO-Revision-Date: 2012-05-01 01:51+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
-"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language-Team: Magyar <gnome-hu-list at gnome dot org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
@@ -57,7 +57,8 @@ msgstr "A bővítménymodul (%s) nem található"
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr "Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
+msgstr ""
+"Nem található a bővítményregisztrációs függvény (%s) a következő modulban: %s"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
@@ -378,7 +379,8 @@ msgstr "Válasszon ki egy aktiválandó bővítményt"
 #: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr "Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
+msgstr ""
+"Nincs más bővítmények betöltésére képes bővítmény a következő helyen: %s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
@@ -422,7 +424,8 @@ msgstr "Anjuta állapot"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
+msgstr ""
+"A bővítmények betöltésekor és eltávolításakor használandó Anjuta állapot"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -532,9 +535,12 @@ msgstr "_Változtatások eldobása"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] "%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
-msgstr[1] "%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
+msgid_plural ""
+"There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
+msgstr[1] ""
+"%d elemben mentetlen módosítások vannak. Menti a módosításokat bezárás előtt?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -686,16 +692,17 @@ msgid "Please specify group name"
 msgstr "Adja meg a csoportnevet"
 
 #: ../plugins/am-project/amp-group.c:555
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+msgid ""
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
 "A csoportnév csak betűket, számokat, illetve „#$:%+,-.=@^_`~” karaktereket "
 "tartalmazhat"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -708,13 +715,13 @@ msgid "Root"
 msgstr "Gyökér"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:879
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Csoport"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:883
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Forrás"
@@ -777,11 +784,11 @@ msgstr "Modul"
 msgid "Package"
 msgstr "Csomag"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Nem lehet feldolgozni a projektfájlt"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "A projekt nem létezik, vagy érvénytelen az útvonal"
@@ -830,8 +837,10 @@ msgid "Version:"
 msgstr "Verzió:"
 
 #: ../plugins/am-project/am-properties.c:61
-msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr "Projektverzió, általában néhány pontokkal elválasztott szám, például „1.0.0”"
+msgid ""
+"Project version, typically a few numbers separated by dot by example '1.0.0'"
+msgstr ""
+"Projektverzió, általában néhány pontokkal elválasztott szám, például „1.0.0”"
 
 #: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
@@ -985,7 +994,8 @@ msgstr "Objective C fordító jelzői:"
 
 #: ../plugins/am-project/am-properties.c:170
 #: ../plugins/am-project/am-properties.c:277
-msgid "Common additional Objective C compiler flags for all targets in this group."
+msgid ""
+"Common additional Objective C compiler flags for all targets in this group."
 msgstr "Általános további Objective C fordítójelzők a csoport minden céljához."
 
 #: ../plugins/am-project/am-properties.c:176
@@ -1153,7 +1163,8 @@ msgstr "A cél további Objective C fordítójelzői."
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
 #: ../plugins/am-project/am-properties.c:955
-msgid "Additional Lex or Flex lexical analyser generator flags for this target."
+msgid ""
+"Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr "A cél további Lex vagy Flex lexikális elemzőgenerátor-jelzői."
 
 #: ../plugins/am-project/am-properties.c:438
@@ -1294,7 +1305,8 @@ msgid "Please specify target name"
 msgstr "Adja meg a cél nevét"
 
 #: ../plugins/am-project/amp-target.c:353
-msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+msgid ""
+"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "A célnév csak betűket, számokat, illetve „_”, „-”, „.” vagy „/” karaktereket "
 "tartalmazhat"
@@ -1420,12 +1432,14 @@ msgstr "A felhasználó visszavonta a parancsot"
 #: ../plugins/build-basic-autotools/build.c:852
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
+msgstr ""
+"„%s” nem fordítható: nincs megadva fordítási szabály ehhez a fájltípushoz."
 
 #: ../plugins/build-basic-autotools/build.c:1014
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr "Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
+msgstr ""
+"Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:750
@@ -1704,7 +1718,8 @@ msgid "Remove Configuration"
 msgstr "Konfiguráció eltávolítása"
 
 #: ../plugins/build-basic-autotools/plugin.c:1704
-msgid "Clean project (distclean) and remove configuration directory if possible"
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt tisztítása (distclean) és a konfigurációs könyvtár eltávolítása, ha "
 "lehetséges"
@@ -2102,7 +2117,7 @@ msgstr "A felhasználói felület XML leírása"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
 msgid "CLang Paths"
-msgstr "CLand útvonalak"
+msgstr "CLang útvonalak"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
 msgid "Enable CLang code analyzer"
@@ -2123,6 +2138,14 @@ msgstr "c++-elemző:"
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "ccc-analyzer:"
 msgstr "ccc-elemző:"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Kód elemzése a clang elemző-keretrendszerrel"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Code Analyzer"
+msgstr "Kódelemző"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
@@ -2956,7 +2979,8 @@ msgstr "Helyi változók"
 
 #: ../plugins/debug-manager/org.gnome.anjuta.plugins.debug-manager.gschema.xml.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
-msgstr "Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
+msgstr ""
+"Ne jelenjen meg figyelmeztetés, ha nem hibakereső beállításokat használ"
 
 #: ../plugins/debug-manager/plugin.c:337
 msgid "Debugger Log"
@@ -3457,20 +3481,32 @@ msgstr "Keresés"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Hiányzó név"
 
-#: ../plugins/dir-project/dir-project.c:1001
-#: ../plugins/dir-project/dir-project.c:1011
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "A projekt nem engedi a tulajdonságok beállítását"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "Könyvtár háttérprogram"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Könyvtár projektháttérprogram, csak a forrásfájlok beszerzése, ha semmi más "
+"nem működik"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -4241,11 +4277,13 @@ msgstr ""
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
-msgstr "„%s” keresése elérte a fájl elejét, folytatva a végétől, de nincs új találat."
+msgstr ""
+"„%s” keresése elérte a fájl elejét, folytatva a végétől, de nincs új találat."
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
-msgstr "További keresési lehetőségekért használja a „Keresés” ikon helyi menüjét"
+msgstr ""
+"További keresési lehetőségekért használja a „Keresés” ikon helyi menüjét"
 
 #: ../plugins/document-manager/search-box.c:986
 msgid "Replace"
@@ -4826,7 +4864,8 @@ msgstr "Hiba a folyamatnak való szignálküldés közben."
 
 #: ../plugins/gdb/plugin.c:120
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
 "A(z) %s nevű FIFO fájl létrehozása meghiúsult. A program terminál nélkül fog "
 "futni."
@@ -5115,7 +5154,8 @@ msgstr "Címkék:"
 
 #: ../plugins/git/anjuta-git.ui.h:63
 msgid "This commit concludes a failed merge (use -i)"
-msgstr "Ez a változat egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
+msgstr ""
+"Ez a változat egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
 #: ../plugins/git/anjuta-git.ui.h:65
 msgid "Use a custom log message:"
@@ -5131,14 +5171,16 @@ msgid "View the Log for File/Folder:"
 msgstr "Fájl/mappa naplójának megjelenítése:"
 
 #: ../plugins/git/anjuta-git.ui.h:68
-msgid "Whole project; Drop a file here or type a path to view a file or folder log"
+msgid ""
+"Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 "Teljes projekt; Ejtsen ide egy fájlt, vagy írjon be egy útvonalat fájl- vagy "
 "mappanapló megjelenítéséhez"
 
 #: ../plugins/git/anjuta-git.ui.h:69
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr "Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
+msgstr ""
+"Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
 
 #: ../plugins/git/anjuta-git.ui.h:70
 msgid "page 1"
@@ -5633,7 +5675,8 @@ msgid "Skip the current patch in the series"
 msgstr "A sorozat jelenlegi foltjának kihagyása"
 
 #: ../plugins/git/plugin.c:463
-msgid "Stop applying the patch series and return the tree to its previous state"
+msgid ""
+"Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 "A sorozat alkalmazásának megszakítása, és a tároló visszaállítása az előző "
 "állapotba"
@@ -5843,7 +5886,8 @@ msgstr "Zárójelek behúzása"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr "vim/emacs módsorok előnyben részesítése a behúzási beállításokkal szemben"
+msgstr ""
+"vim/emacs módsorok előnyben részesítése a behúzási beállításokkal szemben"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
@@ -5979,6 +6023,14 @@ msgstr "Segítség a Pythonhoz"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+msgid "Python support Plugin"
+msgstr "Python támogatás bővítmény"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr "Python bővítmény kódkiegészítéshez, automatikus behúzáshoz stb."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
 msgid "Autocomplete"
 msgstr "Automatikus kiegészítés"
@@ -5998,6 +6050,14 @@ msgstr "Értelmező"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:13
 msgid "Path: "
 msgstr "Útvonal: "
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Vala támogatás bővítmény"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr "Vala bővítmény kódkiegészítéshez."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Manages messages from external apps"
@@ -6150,6 +6210,14 @@ msgstr[1] "%d hiba"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "A make fájl nem dolgozható fel"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Makefile háttérprogram"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Makefile projektháttérprogram, a projekt csak olvasható"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Add _Package"
@@ -6312,7 +6380,8 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "A megadott URI („%s”) nem tölthető le. A visszaadott hiba: „%s”"
 
 #: ../plugins/project-import/project-import-dialog.c:292
@@ -7118,7 +7187,8 @@ msgstr "C++ támogatás:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:5
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:5
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
+msgstr ""
+"C++ támogatás hozzáadása a projekthez, így C++ fájlok is használhatók lesznek"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:3
 msgid "Anjuta Plugin"
@@ -7546,7 +7616,8 @@ msgstr "Támogatást ad osztott programkönyvtárak felépítéséhez a projektb
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
-msgstr "Nemzetköziesítés támogatása, így a projekt lefordítható különböző nyelvekre"
+msgstr ""
+"Nemzetköziesítés támogatása, így a projekt lefordítható különböző nyelvekre"
 
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
 msgid "Generic C++"
@@ -7586,7 +7657,8 @@ msgid "Python webproject using Django Web Framework"
 msgstr "Python webprojekt a Django webes keretrendszer használatával"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
-msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
 "Általános, natívan fordított, a GNU Java Compilert (gcj) használó Java "
 "projekt"
@@ -7609,7 +7681,8 @@ msgid "A minimal Gnome Shell extension"
 msgstr "Minimális Gnome Shell kiterjesztés"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:4
-msgid "Comma-separated list of gnome-shell version your plugin is compatible with"
+msgid ""
+"Comma-separated list of gnome-shell version your plugin is compatible with"
 msgstr ""
 "A Gnome-shell azon verzióinak vesszővel elválasztott listája, amelyekkel a "
 "bővítménye kompatibilis"
@@ -7927,6 +8000,14 @@ msgstr "Nincs licenc"
 msgid "Select code license"
 msgstr "Válassza ki a kód licencét"
 
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Pythonban írt Anjuta bővítmények betöltése"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Python loader"
+msgstr "Python betöltő"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Allow to execute program without debugger."
 msgstr "Program hibakereső nélküli végrehajtásának engedélyezése."
@@ -8120,7 +8201,8 @@ msgid "<b>Error:</b> You must choose at least one language for the snippet!"
 msgstr "<b>Hiba:</b> legalább egy nyelvet ki kell választani a töredékhez."
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
-msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr "<b>Hiba:</b> az aktiválókulcs már használatban van az egyik nyelvhez."
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
@@ -9446,7 +9528,8 @@ msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A fájlkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
@@ -9474,7 +9557,8 @@ msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
+msgstr ""
+"A projektkezelő bővítményben kiválasztott teljes fájlnév, kiterjesztés nélkül"
 
 #: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
@@ -9697,7 +9781,8 @@ msgstr "Ne nyissa meg az utolsó projektet és fájlokat indításkor"
 
 #: ../src/main.c:99
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
+msgstr ""
+"Az Anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
 #: ../src/main.c:138
 msgid "- Integrated Development Environment"
@@ -9811,9 +9896,6 @@ msgstr "Eszköztárgombok címkéi:"
 
 #~ msgid "New Directory"
 #~ msgstr "Új könyvtár"
-
-#~ msgid "_Directory name:"
-#~ msgstr "Könyvtár_név:"
 
 #~ msgid "New _Directory"
 #~ msgstr "Új _könyvtár"
@@ -10055,4 +10137,3 @@ msgstr "Eszköztárgombok címkéi:"
 
 #~ msgid "Class Inheritance"
 #~ msgstr "Osztályöröklődés"
-
