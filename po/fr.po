@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-06 21:24+0000\n"
-"PO-Revision-Date: 2012-03-06 12:37+0100\n"
+"POT-Creation-Date: 2012-04-29 14:32+0000\n"
+"PO-Revision-Date: 2012-04-30 21:26+0200\n"
 "Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -714,10 +714,10 @@ msgstr ""
 "que les caractères « #$:%+,-.=@^_`~ »"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -730,13 +730,13 @@ msgid "Root"
 msgstr "Racine"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:879
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Groupe"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:883
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Source"
@@ -799,11 +799,11 @@ msgstr "Module"
 msgid "Package"
 msgstr "Paquet"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Impossible d'analyser le fichier du projet"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Le projet n'existe pas ou le chemin n'est pas valide"
@@ -2196,6 +2196,14 @@ msgstr "analyseur c++ :"
 msgid "CLang Paths"
 msgstr "Chemins CLang"
 
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+msgid "Code Analyzer"
+msgstr "Analyseur de code"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analyse le code avec l'architecture clang-analyzer"
+
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
@@ -3538,20 +3546,32 @@ msgstr "Rechercher"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Nom manquant"
 
-#: ../plugins/dir-project/dir-project.c:1001
-#: ../plugins/dir-project/dir-project.c:1011
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Le projet n'autorise pas la définition de propriétés"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "Moteur répertoire"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Moteur de projet de type répertoire ; ne récupère que les fichiers source, à utiliser seulement "
+"si les autres moteurs échouent"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3623,7 +3643,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Remplacer"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[lecture seule]"
 
@@ -4018,7 +4038,7 @@ msgid "Search using regular expressions"
 msgstr "Recherche en utilisant des expressions régulières"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "É_dition"
@@ -5972,45 +5992,45 @@ msgstr "Étiquettes d'API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Code ajouté pour le composant graphique."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Indentation automatique"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Indentation automatique de la ligne actuelle ou de la sélection en fonction "
 "des paramètres d'indentation"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Commenter/décommenter"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Commente ou décommente la sélection actuelle"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Basculer .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Bascule entre les fichiers d'en-tête et les fichiers de source C"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Assistance C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6086,6 +6106,16 @@ msgstr "Assistance Python"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+msgid "Python support Plugin"
+msgstr "Greffon prenant en charge Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Greffon prenant en charge Python pour la complétion de code, "
+"l'indentation automatique, etc."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Activer l'indentation adaptative"
@@ -6105,6 +6135,15 @@ msgstr "Interpréteur"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Environnement"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Greffon prenant en charge Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr ""
+"Greffon prenant en charge Vala, ajoute la complétion du code."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6257,6 +6296,14 @@ msgstr[1] "%d erreurs"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "Impossible d'analyser le fichier make"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Moteur makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Moteur de projet makefile ; ne permet que la lecture du projet"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -8054,6 +8101,14 @@ msgstr "Choisissez la licence du code"
 msgid "No license"
 msgstr "Aucune licence"
 
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Python loader"
+msgstr "Chargeur Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Permet le chargement des greffons Anjuta écrit en Python"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
 msgstr "Exécuter le programme"
@@ -8504,7 +8559,7 @@ msgstr "Paramètres d'affichage de l'éditeur"
 msgid "GtkSourceView Editor"
 msgstr "Éditeur GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8513,7 +8568,7 @@ msgstr ""
 "Le fichier « %s » sur le disque est plus récent que le tampon actuel.\n"
 "Voulez-vous le recharger ?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8523,19 +8578,19 @@ msgstr ""
 "Voulez-vous le fermer ?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Impossible d'ouvrir %s : %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr ""
 "Le fichier « %s » est en lecture seule ! Désirez-vous l'éditer quand même ?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Impossible d'enregistrer %s : %s"
