@@ -49,7 +49,6 @@ plugins/build-basic-autotools/plugin.c
 plugins/build-basic-autotools/program.c
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/glade]plugins/class-gen/anjuta-class-gen-plugin.ui
-[type: gettext/ini]plugins/class-inheritance/anjuta-class-inheritance.plugin.in
 plugins/class-gen/cell-renderer-flags.c
 plugins/class-gen/combo-flags.c
 plugins/class-gen/element-editor.c
