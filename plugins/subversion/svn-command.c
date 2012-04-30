@@ -152,7 +152,7 @@ simple_prompt (SimplePromptArgs *args)
 	{
 		case GTK_RESPONSE_OK:
 		{
-			*args->cred = apr_pcalloc (args->pool, sizeof(*(args->cred)));
+			*args->cred = apr_pcalloc (args->pool, sizeof(svn_auth_cred_simple_t));
 			(*(args->cred))->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
 															       (remember_pwd));
 			(*(args->cred))->username = apr_pstrdup (args->pool,
