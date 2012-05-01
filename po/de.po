@@ -27,18 +27,18 @@
 # Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2007.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
-# Mario Blättermann <mariobl@freenet.de>, 2010, 2011.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008-2010, 2011.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2010-2012.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2011.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2008-2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-16 22:55+0000\n"
-"PO-Revision-Date: 2012-03-18 22:53+0100\n"
-"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"POT-Creation-Date: 2012-04-30 19:38+0000\n"
+"PO-Revision-Date: 2012-04-30 23:32+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -746,8 +746,6 @@ msgstr "Projekt ist nicht vorhanden oder ungültiger Pfad"
 
 # CHECK
 #: ../plugins/am-project/am-project.c:90
-#, fuzzy
-#| msgid "Remote"
 msgid "Root"
 msgstr "Basisordner"
 
@@ -2199,6 +2197,14 @@ msgstr "c++-Analysierer:"
 msgid "CLang Paths"
 msgstr "CLang-Pfade"
 
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+msgid "Code Analyzer"
+msgstr "Code-Analysierer"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Code mit dem Clang-Analysierer-Framework untersuchen"
+
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
@@ -3558,6 +3564,18 @@ msgstr "Name fehlt"
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekt erlaubt nicht das Festlegen von Eigenschaften"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "Ordner-Backend"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Ordner-Projekt-Backend, welches nur Quelldateien holt. Es wird verwendet, "
+"wenn andere Backends scheitern"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -6104,6 +6122,16 @@ msgstr "Projekt-Assistent"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+msgid "Python support Plugin"
+msgstr "Komponente für Python-Unterstützung"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Python-Komponente für die Unterstützung von automatischer Vervollständigung, "
+"automatischem Einrücken, etc."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Adaptives Einrücken einschalten"
@@ -6123,6 +6151,15 @@ msgstr "Interpreter"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Umgebung"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Komponente für Vala-Unterstützung"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr ""
+"Komponente für die Unterstützung von Vala, fügt Code-Vervollständigung hinzu."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6275,6 +6312,14 @@ msgstr[1] "%d Fehler"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "Make-Steuerdatei kann nicht verarbeitet werden"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Backend für Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Makefile-Projekt-Backend, erlaubt nur das Lesen des Projekts"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -8078,6 +8123,14 @@ msgstr "Code-Lizenz auswählen"
 #: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
 msgid "No license"
 msgstr "Keine Lizenz"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Python loader"
+msgstr "Python-Lader"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Ermöglicht das Laden von in Python geschriebenen Anjuta-Plugins"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9975,9 +10028,6 @@ msgstr "Nur Text"
 #~ msgid "New Directory"
 #~ msgstr "Neuer Ordner"
 
-#~ msgid "_Directory name:"
-#~ msgstr "Or_dnername:"
-
 #~ msgid "New _Directory"
 #~ msgstr "Neuer Or_dner"
 
@@ -11551,9 +11601,6 @@ msgstr "Nur Text"
 
 #~ msgid "Project Defaults"
 #~ msgstr "Projekt-Voreinstellungen"
-
-#~ msgid "Makefile backend"
-#~ msgstr "Backend für Makefile"
 
 #~ msgid "Makefile backend for project manager"
 #~ msgstr "Makefile-Backend für die Projektverwaltung"
