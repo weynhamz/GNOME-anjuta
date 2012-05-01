@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-24 00:19+0200\n"
-"PO-Revision-Date: 2012-04-24 00:22+0200\n"
+"POT-Creation-Date: 2012-05-01 16:14+0200\n"
+"PO-Revision-Date: 2012-05-01 16:16+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -37,6 +37,20 @@ msgstr "Contorno de desenvolvemento integrado (IDE)"
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "Desenvolver software nun contorno de desenvolvemento integrado"
+
+#: ../libanjuta/anjuta-autogen.c:239
+msgid "Autogen is busy"
+msgstr "Autogen está ocupado"
+
+#: ../libanjuta/anjuta-autogen.c:251
+#, c-format
+msgid "Could not write definition file \"%s\": %s"
+msgstr "Non foi posíbel escribir o ficheiro de definición «%s»: %s"
+
+#: ../libanjuta/anjuta-autogen.c:585
+#, c-format
+msgid "Could not open file \"%s\": %s"
+msgstr "Non foi posíbel abrir o ficheiro «%s»: %s"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:10
@@ -247,12 +261,12 @@ msgid "Environment Variables:"
 msgstr "Introducir variábeis de contorno:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:727 ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:745 ../plugins/class-gen/window.c:759
-#: ../plugins/class-gen/window.c:769 ../plugins/class-gen/window.c:777
-#: ../plugins/class-gen/window.c:785 ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
-#: ../plugins/class-gen/window.c:821 ../plugins/class-gen/window.c:833
+#: ../plugins/class-gen/window.c:719 ../plugins/class-gen/window.c:729
+#: ../plugins/class-gen/window.c:737 ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:761 ../plugins/class-gen/window.c:769
+#: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
+#: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
+#: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
 #: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
@@ -262,8 +276,8 @@ msgid "Name"
 msgstr "Nome"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:794
-#: ../plugins/class-gen/window.c:825 ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
+#: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:489
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
@@ -782,7 +796,7 @@ msgstr "Outros datos"
 msgid "Script"
 msgstr "Script"
 
-#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:802
+#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:794
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Módulo"
@@ -1451,7 +1465,7 @@ msgid "Install"
 msgstr "Instalar"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:525
+#: ../plugins/build-basic-autotools/build.c:526
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -1459,27 +1473,27 @@ msgstr ""
 "Antes de empregar esta nova configuración, precísase eliminar a "
 "predeterminada. Quere facelo?"
 
-#: ../plugins/build-basic-autotools/build.c:530
+#: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "A orde foi cancelada polo usuario"
 
-#: ../plugins/build-basic-autotools/build.c:852
+#: ../plugins/build-basic-autotools/build.c:879
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Non é posíbel compilar \"%s\": Non se definiu ningunha regra de compilación "
 "para este tipo de ficheiro."
 
-#: ../plugins/build-basic-autotools/build.c:1014
+#: ../plugins/build-basic-autotools/build.c:1041
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "Non é posíbel configurar o proxecto: Falta un script de configuración en %s."
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
-#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:742
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 #: ../src/preferences.ui.h:15
 msgid "Default"
@@ -1661,191 +1675,215 @@ msgstr "Terminou correctamente\n"
 msgid "Build %d: %s"
 msgstr "Construír %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1639
-#: ../plugins/build-basic-autotools/plugin.c:1713
-#: ../plugins/build-basic-autotools/plugin.c:1723
-#: ../plugins/build-basic-autotools/plugin.c:1741
-#: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1664
+#: ../plugins/build-basic-autotools/plugin.c:1750
+#: ../plugins/build-basic-autotools/plugin.c:1760
+#: ../plugins/build-basic-autotools/plugin.c:1778
+#: ../plugins/build-basic-autotools/plugin.c:1788
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build"
 msgstr "_Construír"
 
-#: ../plugins/build-basic-autotools/plugin.c:1643
+#: ../plugins/build-basic-autotools/plugin.c:1668
 msgid "_Build Project"
 msgstr "_Construír o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1644
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "Build whole project"
 msgstr "Construír todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1649
+#: ../plugins/build-basic-autotools/plugin.c:1674
 msgid "_Install Project"
 msgstr "_Instalar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1650
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "Install whole project"
 msgstr "Instalar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1655
+#: ../plugins/build-basic-autotools/plugin.c:1680
+msgid "_Check Project"
+msgstr "_Comprobar proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1681
+msgid "Check whole project"
+msgstr "Comproba todo o proxecto"
+
+#: ../plugins/build-basic-autotools/plugin.c:1686
 msgid "_Clean Project"
 msgstr "_Limpar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1656
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "Clean whole project"
 msgstr "Limpar todo o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1661
+#: ../plugins/build-basic-autotools/plugin.c:1692
 msgid "C_onfigure Project…"
 msgstr "C_onfigurar o proxecto…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1662
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "Configure project"
 msgstr "Configurar o proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1667
+#: ../plugins/build-basic-autotools/plugin.c:1698
 msgid "Build _Tarball"
 msgstr "Construír o arquivo _tar"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build project tarball distribution"
 msgstr "Construír a distribución en arquivo tar do proxecto"
 
-#: ../plugins/build-basic-autotools/plugin.c:1673
+#: ../plugins/build-basic-autotools/plugin.c:1704
 msgid "_Build Module"
 msgstr "C_onstruír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "Build module associated with current file"
 msgstr "Construír o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:1679
+#: ../plugins/build-basic-autotools/plugin.c:1710
 msgid "_Install Module"
 msgstr "_Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "Install module associated with current file"
 msgstr "Instalar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:1685
+#: ../plugins/build-basic-autotools/plugin.c:1716
+msgid "_Check Module"
+msgstr "_Comprobar o módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:1717
+msgid "Check module associated with current file"
+msgstr "Comproba o módulo asociado ao ficheiro actual"
+
+#: ../plugins/build-basic-autotools/plugin.c:1722
 msgid "_Clean Module"
 msgstr "_Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "Clean module associated with current file"
 msgstr "Limpar o módulo asociado ao ficheiro actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1728
 msgid "Co_mpile File"
 msgstr "Co_mpilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Compile current editor file"
 msgstr "Compilar o ficheiro actual do editor"
 
-#: ../plugins/build-basic-autotools/plugin.c:1697
+#: ../plugins/build-basic-autotools/plugin.c:1734
 msgid "Select Configuration"
 msgstr "Seleccionar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select current configuration"
 msgstr "Seleccionar a configuración actual"
 
-#: ../plugins/build-basic-autotools/plugin.c:1703
+#: ../plugins/build-basic-autotools/plugin.c:1740
 msgid "Remove Configuration"
 msgstr "Eliminar a configuración"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Limpar o proxecto (distclean) e eliminar o cartafol de configuración se for "
 "posíbel"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
-#: ../plugins/build-basic-autotools/plugin.c:1745
+#: ../plugins/build-basic-autotools/plugin.c:1754
+#: ../plugins/build-basic-autotools/plugin.c:1782
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
-#: ../plugins/build-basic-autotools/plugin.c:1746
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "Compile file"
 msgstr "Compilar o ficheiro"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
-#: ../plugins/build-basic-autotools/plugin.c:1752
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1789
 msgid "Build module"
 msgstr "Construír o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
-#: ../plugins/build-basic-autotools/plugin.c:1757
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1766
+#: ../plugins/build-basic-autotools/plugin.c:1794
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install"
 msgstr "_Instalar"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
-#: ../plugins/build-basic-autotools/plugin.c:1758
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
 msgid "Install module"
 msgstr "Instalar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
-#: ../plugins/build-basic-autotools/plugin.c:1763
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1772
+#: ../plugins/build-basic-autotools/plugin.c:1806
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
-#: ../plugins/build-basic-autotools/plugin.c:1764
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
 msgid "Clean module"
 msgstr "Limpar o módulo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1769
+#: ../plugins/build-basic-autotools/plugin.c:1800
+msgid "_Check"
+msgstr "_Comprobar"
+
+#: ../plugins/build-basic-autotools/plugin.c:1801
+msgid "Check module"
+msgstr "Comproba o módulo"
+
+#: ../plugins/build-basic-autotools/plugin.c:1812
 msgid "_Cancel command"
 msgstr "_Cancelar a orde"
 
-#: ../plugins/build-basic-autotools/plugin.c:1770
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "Cancel build command"
 msgstr "Cancelar a orde de construción"
 
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construír (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instalar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "Build commands"
 msgstr "Ordes de construción"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Build popup commands"
 msgstr "Ordes de construción para xanelas emerxentes"
 
-#: ../plugins/build-basic-autotools/plugin.c:2873
-#: ../plugins/build-basic-autotools/plugin.c:2881
+#: ../plugins/build-basic-autotools/plugin.c:2916
+#: ../plugins/build-basic-autotools/plugin.c:2924
 msgid "Build Autotools"
 msgstr "Construír Autotools"
 
@@ -2045,14 +2083,6 @@ msgstr "Engadir ao proxecto obxectivo:"
 msgid "Add to Repository"
 msgstr "Engadir un repositorio"
 
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
-msgid "Class Inheritance"
-msgstr "Herdanza de clases"
-
-#: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:2
-msgid "A graph painter for the inheritance of the classes."
-msgstr "Un debuxante de gráficos para a herdanza de clases."
-
 #: ../plugins/class-gen/generator.c:133
 #, c-format
 msgid "Header or source file has not been created"
@@ -2070,12 +2100,7 @@ msgstr "Modelo de autogen usado para o ficheiro de implementación"
 msgid "File to which the processed template will be written"
 msgstr "Ficheiro no que se escribirá o modelo que se procese"
 
-#: ../plugins/class-gen/generator.c:405
-#, c-format
-msgid "Failed to write autogen definition file"
-msgstr "Produciuse un fallo ao escribir o ficheiro de definición autogen"
-
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1271
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2083,7 +2108,7 @@ msgstr ""
 "Non foi posíbel atopar a versión 5 do autogen. Instale o paquete autogen. "
 "Pode obtelo en http://autogen.sourceforge.net."
 
-#: ../plugins/class-gen/plugin.c:252 ../plugins/class-gen/plugin.c:449
+#: ../plugins/class-gen/plugin.c:261 ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Produciuse un fallo ao executar o autogen: %s"
@@ -2092,72 +2117,72 @@ msgstr "Produciuse un fallo ao executar o autogen: %s"
 msgid "Guess from type"
 msgstr "Adiviñar polo tipo"
 
-#: ../plugins/class-gen/window.c:724 ../plugins/class-gen/window.c:735
-#: ../plugins/class-gen/window.c:809 ../plugins/class-gen/window.c:819
-#: ../plugins/class-gen/window.c:832
+#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:824
 msgid "Scope"
 msgstr "Ámbito"
 
-#: ../plugins/class-gen/window.c:725
+#: ../plugins/class-gen/window.c:717
 msgid "Implementation"
 msgstr "Implementación"
 
-#: ../plugins/class-gen/window.c:726 ../plugins/class-gen/window.c:736
-#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:810
-#: ../plugins/class-gen/window.c:820
+#: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
+#: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:812
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/class-gen/window.c:728 ../plugins/class-gen/window.c:738
-#: ../plugins/class-gen/window.c:760 ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786 ../plugins/class-gen/window.c:812
-#: ../plugins/class-gen/window.c:834
+#: ../plugins/class-gen/window.c:720 ../plugins/class-gen/window.c:730
+#: ../plugins/class-gen/window.c:752 ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:804
+#: ../plugins/class-gen/window.c:826
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
 msgstr "Argumentos"
 
-#: ../plugins/class-gen/window.c:746
+#: ../plugins/class-gen/window.c:738
 msgid "Nick"
 msgstr "Alcume"
 
-#: ../plugins/class-gen/window.c:747
+#: ../plugins/class-gen/window.c:739
 msgid "Blurb"
 msgstr "Blurb"
 
-#: ../plugins/class-gen/window.c:748
+#: ../plugins/class-gen/window.c:740
 msgid "GType"
 msgstr "GType"
 
-#: ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:741
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:751 ../plugins/class-gen/window.c:761
+#: ../plugins/class-gen/window.c:743 ../plugins/class-gen/window.c:753
 msgid "Flags"
 msgstr "Etiquetas"
 
-#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:754
 msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1016
+#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Automático"
 
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:815
 msgid "Getter"
 msgstr "Getter"
 
-#: ../plugins/class-gen/window.c:824
+#: ../plugins/class-gen/window.c:816
 msgid "Setter"
 msgstr "Setter"
 
-#: ../plugins/class-gen/window.c:1242
+#: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "Descrición XML da interface de usuario"
 
@@ -7196,29 +7221,29 @@ msgstr "Non foi posíbel extraer o modelo de proxecto %s: %s"
 msgid "New Project Assistant"
 msgstr "Asistente de proxecto novo"
 
-#: ../plugins/project-wizard/property.c:353
+#: ../plugins/project-wizard/property.c:365
 msgid "Select directory"
 msgstr "Seleccionar o cartafol"
 
-#: ../plugins/project-wizard/property.c:370
+#: ../plugins/project-wizard/property.c:382
 msgid "Select file"
 msgstr "Seleccionar ficheiro"
 
-#: ../plugins/project-wizard/property.c:420 ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:432 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Seleccione un ficheiro de imaxe"
 
-#: ../plugins/project-wizard/property.c:445
-#: ../plugins/project-wizard/property.c:535 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:457
+#: ../plugins/project-wizard/property.c:547 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Escoller icona"
 
-#: ../plugins/project-wizard/property.c:505
+#: ../plugins/project-wizard/property.c:517
 msgid "Choose directory"
 msgstr "Elixir o cartafol"
 
-#: ../plugins/project-wizard/property.c:509
+#: ../plugins/project-wizard/property.c:521
 msgid "Choose file"
 msgstr "Elixir ficheiro"
 
@@ -9934,6 +9959,15 @@ msgstr "Só iconas"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Só texto"
+
+#~ msgid "Class Inheritance"
+#~ msgstr "Herdanza de clases"
+
+#~ msgid "A graph painter for the inheritance of the classes."
+#~ msgstr "Un debuxante de gráficos para a herdanza de clases."
+
+#~ msgid "Failed to write autogen definition file"
+#~ msgstr "Produciuse un fallo ao escribir o ficheiro de definición autogen"
 
 #~ msgid "Find Files"
 #~ msgstr "Buscar ficheiros"
