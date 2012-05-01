@@ -1438,6 +1438,15 @@ on_clean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 }
 
 static void
+on_check_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	if (plugin->project_root_dir)
+	{
+		build_configure_and_build (plugin, build_check_dir,  plugin->project_root_dir, NULL, NULL, NULL);
+	}
+}
+
+static void
 on_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	build_configure_dialog (plugin, NULL, NULL, NULL, NULL, NULL);
@@ -1478,6 +1487,14 @@ on_clean_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	g_return_if_fail (plugin->current_editor_file != NULL);
 
 	build_clean_dir (plugin, plugin->current_editor_file, NULL);
+}
+
+static void
+on_check_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	g_return_if_fail (plugin->current_editor_file != NULL);
+
+	build_configure_and_build (plugin, build_check_dir,  plugin->current_editor_file, NULL, NULL, NULL);
 }
 
 static void
@@ -1591,6 +1608,14 @@ pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 }
 
 static void
+pm_check (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	g_return_if_fail (plugin->pm_current_file != NULL);
+
+	build_configure_and_build (plugin, build_check_dir,  plugin->pm_current_file, NULL, NULL, NULL);
+}
+
+static void
 pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	g_return_if_fail (plugin->pm_current_file != NULL);
@@ -1651,6 +1676,12 @@ static GtkActionEntry build_actions[] =
 		G_CALLBACK (on_install_project)
 	},
 	{
+		"ActionBuildCheckProject", NULL,
+		N_("_Check Project"), NULL,
+		N_("Check whole project"),
+		G_CALLBACK (on_check_project)
+	},
+	{
 		"ActionBuildCleanProject", NULL,
 		N_("_Clean Project"), NULL,
 		N_("Clean whole project"),
@@ -1679,6 +1710,12 @@ static GtkActionEntry build_actions[] =
 		N_("_Install Module"), NULL,
 		N_("Install module associated with current file"),
 		G_CALLBACK (on_install_module)
+	},
+	{
+		"ActionBuildCheckModule", NULL,
+		N_("_Check Module"), NULL,
+		N_("Check module associated with current file"),
+		G_CALLBACK (on_check_module)
 	},
 	{
 		"ActionBuildCleanModule", NULL,
@@ -1757,6 +1794,12 @@ static GtkActionEntry build_popup_actions[] =
 		N_("_Install"), NULL,
 		N_("Install module"),
 		G_CALLBACK (pm_install)
+	},
+	{
+		"ActionPopupPMBuildCheck", NULL,
+		N_("_Check"), NULL,
+		N_("Check module"),
+		G_CALLBACK (pm_check)
 	},
 	{
 		"ActionPopupPMBuildClean", NULL,

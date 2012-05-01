@@ -60,6 +60,7 @@ typedef struct
 #define DEFAULT_COMMAND_GENERATE "autogen.sh"
 #define DEFAULT_COMMAND_CLEAN "make clean"
 #define DEFAULT_COMMAND_DISTCLEAN "make distclean"
+#define DEFAULT_COMMAND_CHECK "make check"
 #define DEFAULT_COMMAND_AUTORECONF "autoreconf -i --force"
 
 #define CHOOSE_COMMAND(plugin,command) \
@@ -602,7 +603,7 @@ build_is_file_built (BasicAutotoolsPlugin *plugin, GFile *file,
 	{
 		return NULL;
 	}
-	
+
 	vars = build_configuration_get_variables (config);
 
 	build_dir = build_file_from_file (plugin, file, &target);
@@ -718,8 +719,8 @@ build_install_dir (BasicAutotoolsPlugin *plugin, GFile *dir,
 
 
 BuildContext*
-build_clean_dir (BasicAutotoolsPlugin *plugin, GFile *file,
-				 GError **err)
+build_clean_dir (BasicAutotoolsPlugin *plugin, GFile *dir,
+                 GError **err)
 {
 	BuildContext *context = NULL;
 	BuildProgram *prog;
@@ -727,12 +728,12 @@ build_clean_dir (BasicAutotoolsPlugin *plugin, GFile *file,
 	BuildConfiguration *config;
 	GList *vars;
 
-	if (is_configured (plugin, file))
+	if (is_configured (plugin, dir))
 	{
 		config = build_configuration_list_get_selected (plugin->configurations);
 		vars = build_configuration_get_variables (config);
 
-		build_dir = build_file_from_file (plugin, file, NULL);
+		build_dir = build_file_from_file (plugin, dir, NULL);
 
 		prog = build_program_new_with_command (build_dir,
 		                                       "%s",
@@ -746,7 +747,33 @@ build_clean_dir (BasicAutotoolsPlugin *plugin, GFile *file,
 	return context;
 }
 
+BuildContext*
+build_check_dir (BasicAutotoolsPlugin *plugin, GFile *dir,
+                 IAnjutaBuilderCallback callback, gpointer user_data,
+				 GError **err)
+{
+	BuildContext *context = NULL;
+	BuildProgram *prog;
+	GFile *build_dir;
+	BuildConfiguration *config;
+	GList *vars;
 
+	config = build_configuration_list_get_selected (plugin->configurations);
+	vars = build_configuration_get_variables (config);
+
+	build_dir = build_file_from_file (plugin, dir, NULL);
+
+	prog = build_program_new_with_command (build_dir,
+	                                       "%s",
+	                                       CHOOSE_COMMAND (plugin, CHECK)),
+	build_program_set_callback (prog, callback, user_data);
+	build_program_add_env_list (prog, vars);
+
+	context = build_execute_command (plugin, prog, TRUE, err);
+	g_object_unref (build_dir);
+
+	return context;
+}
 
 static void
 build_remove_build_dir (GObject *sender,

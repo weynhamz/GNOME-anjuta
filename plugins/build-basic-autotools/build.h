@@ -62,6 +62,12 @@ BuildContext* build_clean_dir (BasicAutotoolsPlugin *plugin,
                                GFile *file,
                                GError **err);
 
+BuildContext* build_check_dir (BasicAutotoolsPlugin *plugin,
+                               GFile *dir,
+                               IAnjutaBuilderCallback callback,
+                               gpointer user_data,
+                               GError **err);
+
 BuildContext* build_distclean (BasicAutotoolsPlugin *plugin);
 
 BuildContext* build_tarball (BasicAutotoolsPlugin *plugin);

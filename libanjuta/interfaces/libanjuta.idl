@@ -863,6 +863,7 @@ interface IAnjutaBuildable
    * @IANJUTA_BUILDABLE_COMMAND_EXECUTE: ./hello
    * @IANJUTA_BUILDABLE_COMMAND_IS_BUILT: check whether object files are up-to-date
    * @IANJUTA_BUILDABLE_COMMAND_DISTCLEAN: make distclean
+   * @IANJUTA_BUILDABLE_COMMAND_CHECK: make check
    * @IANJUTA_BUILDABLE_N_COMMANDS: size of enum
    *
    * The enumeration is used to speficy the disered build operation
@@ -880,6 +881,7 @@ interface IAnjutaBuildable
 		COMMAND_IS_BUILT,
 		COMMAND_AUTORECONF,
 		COMMAND_DISTCLEAN,
+		COMMAND_CHECK,
 		N_COMMANDS
 	}
 

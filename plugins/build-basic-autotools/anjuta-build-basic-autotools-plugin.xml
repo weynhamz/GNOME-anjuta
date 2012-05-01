@@ -9,6 +9,9 @@
 				<separator name="separator10"/>
 				<menuitem name="InstallModule" action="ActionBuildInstallModule"/>
 				<menuitem name="InstallProject" action="ActionBuildInstallProject"/>
+				<separator name="separator14"/>
+				<menuitem name="CheckModule" action="ActionBuildCheckModule"/>
+				<menuitem name="CheckProject" action="ActionBuildCheckProject"/>
 				<separator name="separator12"/>
 				<menuitem name="CleanModule" action="ActionBuildCleanModule"/>
 				<menuitem name="CleanProject" action="ActionBuildCleanProject"/>
@@ -43,6 +46,7 @@
 				<menuitem name="Compile" action="ActionPopupPMBuildCompile"/>
 				<menuitem name="Build" action="ActionPopupPMBuildBuild"/>
 				<menuitem name="Install" action="ActionPopupPMBuildInstall"/>
+				<menuitem name="Check" action="ActionPopupPMBuildCheck"/>
 				<menuitem name="Clean" action="ActionPopupPMBuildClean"/>
 			</menu>
 		</placeholder>
