@@ -6,15 +6,16 @@
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2009.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012 (just fixes).
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-05 18:34+0000\n"
-"PO-Revision-Date: 2012-03-22 20:43+0100\n"
+"Project-Id-Version: anjuta gnome-3.4\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-04-29 14:32+0000\n"
+"PO-Revision-Date: 2012-05-04 13:47+0200\n"
 "Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,13 +25,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: ../anjuta.desktop.in.in.h:1
-#: ../src/main.c:181
+#: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: ../anjuta.desktop.in.in.h:2
-#: ../src/about.c:207
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:207
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
@@ -70,8 +69,7 @@ msgstr "Nelze nalézt registrační funkci %s zásuvného modulu pro %s"
 msgid "Unknown error in module %s"
 msgstr "Neznámá chyba v modulu %s"
 
-#: ../libanjuta/anjuta-column-text-view.c:40
-#: ../plugins/git/git-pane.c:123
+#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
 #, c-format
 msgid "Column %i"
 msgstr "Sloupec %i"
@@ -81,17 +79,18 @@ msgstr "Sloupec %i"
 msgid "Column 1"
 msgstr "Sloupec 1"
 
-#: ../libanjuta/anjuta-convert.c:74
-#: ../libanjuta/anjuta-convert.c:111
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
 msgstr "Soubor, který se snažíte otevřít, obsahuje neplatnou bytovou sekvenci."
 
-#: ../libanjuta/anjuta-convert.c:168
-#: ../libanjuta/anjuta-convert.c:207
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
-msgid "Anjuta was not able to automatically determine the encoding of the file you want to open."
-msgstr "Anjuta nemůže automaticky zjistit kódování souboru, který chcete otevřít."
+msgid ""
+"Anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"Anjuta nemůže automaticky zjistit kódování souboru, který chcete otevřít."
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
@@ -108,23 +107,18 @@ msgstr "Chybějící typ, který definuje zásuvný modul %s"
 msgid "plugin %s fails to register type %s"
 msgstr "selhala registrace typu %2$s zásuvným modulem %1$s"
 
-#: ../libanjuta/anjuta-encodings.c:137
-#: ../libanjuta/anjuta-encodings.c:182
-#: ../libanjuta/anjuta-encodings.c:184
-#: ../libanjuta/anjuta-encodings.c:186
+#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
 #: ../libanjuta/anjuta-encodings.c:188
 msgid "Unicode"
 msgstr "Unicode"
 
-#: ../libanjuta/anjuta-encodings.c:151
-#: ../libanjuta/anjuta-encodings.c:177
-#: ../libanjuta/anjuta-encodings.c:223
-#: ../libanjuta/anjuta-encodings.c:266
+#: ../libanjuta/anjuta-encodings.c:151 ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:223 ../libanjuta/anjuta-encodings.c:266
 msgid "Western"
 msgstr "Západní"
 
-#: ../libanjuta/anjuta-encodings.c:153
-#: ../libanjuta/anjuta-encodings.c:225
+#: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
 #: ../libanjuta/anjuta-encodings.c:262
 msgid "Central European"
 msgstr "Středoevropské"
@@ -133,29 +127,23 @@ msgstr "Středoevropské"
 msgid "South European"
 msgstr "Jihoevropské"
 
-#: ../libanjuta/anjuta-encodings.c:157
-#: ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:276
 msgid "Baltic"
 msgstr "Baltské"
 
-#: ../libanjuta/anjuta-encodings.c:159
-#: ../libanjuta/anjuta-encodings.c:227
-#: ../libanjuta/anjuta-encodings.c:240
-#: ../libanjuta/anjuta-encodings.c:244
-#: ../libanjuta/anjuta-encodings.c:246
-#: ../libanjuta/anjuta-encodings.c:264
+#: ../libanjuta/anjuta-encodings.c:159 ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:240 ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:246 ../libanjuta/anjuta-encodings.c:264
 msgid "Cyrillic"
 msgstr "Azbuka"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:233
+#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:233
 #: ../libanjuta/anjuta-encodings.c:274
 msgid "Arabic"
 msgstr "Arabské"
 
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:268
+#: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
 msgid "Greek"
 msgstr "Řečtina"
 
@@ -163,14 +151,12 @@ msgstr "Řečtina"
 msgid "Hebrew Visual"
 msgstr "Vizuální hebrejské"
 
-#: ../libanjuta/anjuta-encodings.c:167
-#: ../libanjuta/anjuta-encodings.c:231
+#: ../libanjuta/anjuta-encodings.c:167 ../libanjuta/anjuta-encodings.c:231
 #: ../libanjuta/anjuta-encodings.c:272
 msgid "Hebrew"
 msgstr "Hebrejské"
 
-#: ../libanjuta/anjuta-encodings.c:169
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:169 ../libanjuta/anjuta-encodings.c:229
 #: ../libanjuta/anjuta-encodings.c:270
 msgid "Turkish"
 msgstr "Turecké"
@@ -191,8 +177,7 @@ msgstr "Rumunština"
 msgid "Armenian"
 msgstr "Arménské"
 
-#: ../libanjuta/anjuta-encodings.c:193
-#: ../libanjuta/anjuta-encodings.c:195
+#: ../libanjuta/anjuta-encodings.c:193 ../libanjuta/anjuta-encodings.c:195
 #: ../libanjuta/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "Tradiční čínské"
@@ -201,25 +186,19 @@ msgstr "Tradiční čínské"
 msgid "Cyrillic/Russian"
 msgstr "Azbuka/ruština"
 
-#: ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:202
-#: ../libanjuta/anjuta-encodings.c:204
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:204 ../libanjuta/anjuta-encodings.c:236
 #: ../libanjuta/anjuta-encodings.c:251
 msgid "Japanese"
 msgstr "Japonské"
 
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:238
-#: ../libanjuta/anjuta-encodings.c:242
-#: ../libanjuta/anjuta-encodings.c:257
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
 msgstr "Korejské"
 
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
+#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
 msgid "Chinese Simplified"
 msgstr "Zjednodušené čínské"
 
@@ -231,8 +210,7 @@ msgstr "Gruzínské"
 msgid "Cyrillic/Ukrainian"
 msgstr "Azbuka/ukrajinština"
 
-#: ../libanjuta/anjuta-encodings.c:253
-#: ../libanjuta/anjuta-encodings.c:259
+#: ../libanjuta/anjuta-encodings.c:253 ../libanjuta/anjuta-encodings.c:259
 #: ../libanjuta/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "Vietnamské"
@@ -245,8 +223,7 @@ msgstr "Thajské"
 #. * ISO8859-1
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
-#: ../libanjuta/anjuta-encodings.c:443
-#: ../plugins/am-project/am-project.c:116
+#: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:116
 #: ../plugins/mk-project/mk-project.c:76
 msgid "Unknown"
 msgstr "Neznámé"
@@ -266,18 +243,12 @@ msgid "Environment Variables:"
 msgstr "Proměnné prostředí:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:727
-#: ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:745
-#: ../plugins/class-gen/window.c:759
-#: ../plugins/class-gen/window.c:769
-#: ../plugins/class-gen/window.c:777
-#: ../plugins/class-gen/window.c:785
-#: ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:811
-#: ../plugins/class-gen/window.c:821
-#: ../plugins/class-gen/window.c:833
+#: ../plugins/class-gen/window.c:727 ../plugins/class-gen/window.c:737
+#: ../plugins/class-gen/window.c:745 ../plugins/class-gen/window.c:759
+#: ../plugins/class-gen/window.c:769 ../plugins/class-gen/window.c:777
+#: ../plugins/class-gen/window.c:785 ../plugins/class-gen/window.c:793
+#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:821 ../plugins/class-gen/window.c:833
 #: ../plugins/project-manager/dialogs.c:479
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
@@ -287,14 +258,11 @@ msgid "Name"
 msgstr "Název"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:778
-#: ../plugins/class-gen/window.c:794
-#: ../plugins/class-gen/window.c:825
-#: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:794
+#: ../plugins/class-gen/window.c:825 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:487
-#: ../plugins/run-program/parameters.c:763
-#: ../plugins/tools/editor.c:476
+#: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Hodnota"
 
@@ -333,10 +301,8 @@ msgstr "Zobrazit tlačítko Přidat"
 msgid "[Pp]assword.*:"
 msgstr "[Hh]eslo.*:"
 
-#: ../libanjuta/anjuta-launcher.c:1165
-#: ../libanjuta/resources.c:267
-#: ../libanjuta/resources.c:276
-#: ../plugins/gdb/utilities.c:282
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
+#: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Nelze spustit příkaz: „%s“"
@@ -345,8 +311,7 @@ msgstr "Nelze spustit příkaz: „%s“"
 msgid "execvp failed"
 msgstr "execvp selhalo"
 
-#: ../libanjuta/anjuta-plugin.c:331
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Anjuta Shell"
 msgstr "Shell Anjuty"
 
@@ -363,11 +328,13 @@ msgstr "Zásuvný modul „%s“ se nechce nechat deaktivovat"
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message leading to this was:\n"
+"This usually means that your installation is corrupted. The error message "
+"leading to this was:\n"
 "%s"
 msgstr ""
 "Nelze nahrát %s\n"
-"To obvykle znamená, že vaše instalace je poškozena. Chybové hlášené vedoucí k tomuto stavu bylo:\n"
+"To obvykle znamená, že vaše instalace je poškozena. Chybové hlášené vedoucí "
+"k tomuto stavu bylo:\n"
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:905
@@ -379,8 +346,7 @@ msgstr "Načíst"
 msgid "Available Plugins"
 msgstr "Dostupné zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041
-#: ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Upřednostňované zásuvné moduly"
 
@@ -389,16 +355,21 @@ msgid "Only show user activatable plugins"
 msgstr "Zobrazovat jen uživatelem aktivovatelné zásuvné moduly"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1216
-msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
-msgstr "Toto jsou vybrané zásuvné moduly z mnoha, které jste zvolili při výzvě Anjuty. Pokud odeberete zvolené zásuvné moduly, anjuta vás vyzve k novému výběru zásuvných modulů."
+msgid ""
+"These are the plugins selected by you when Anjuta prompted to choose one of "
+"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
+"you again to choose different plugin."
+msgstr ""
+"Toto jsou vybrané zásuvné moduly z mnoha, které jste zvolili při výzvě "
+"Anjuty. Pokud odeberete zvolené zásuvné moduly, anjuta vás vyzve k novému "
+"výběru zásuvných modulů."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
 msgstr "Zapomenout zvolený zásuvný modul"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527
-#: ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Volba zásuvného modulu"
@@ -455,7 +426,8 @@ msgstr "Status Anjuty"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "Stav nástroje Anjuta, který použít při nahrávání a vypínání zásuvných modulů"
+msgstr ""
+"Stav nástroje Anjuta, který použít při nahrávání a vypínání zásuvných modulů"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -471,8 +443,7 @@ msgstr "Kategorie"
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
 #: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3
-#: ../src/anjuta-app.c:924
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "Obecné"
@@ -519,8 +490,12 @@ msgstr "Vyberte prosím ze seznamu zásuvný modul"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
-msgid "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins profile."
-msgstr "Nelze přečíst „%s“: Chyba parsování XML. Neplatný nebo poškozený profil zásuvných modulů Anjuty."
+msgid ""
+"Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
+"profile."
+msgstr ""
+"Nelze přečíst „%s“: Chyba parsování XML. Neplatný nebo poškozený profil "
+"zásuvných modulů Anjuty."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -562,10 +537,14 @@ msgstr "O_dvolat změny"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] "Existuje %d položka, která nemá uložené změny. Uložit před uzavřením?"
-msgstr[1] "Existují %d položky, které nemají uložené změny. Uložit před uzavřením?"
-msgstr[2] "Existuje %d položek, které nemají uložené změny. Uložit před uzavřením?"
+msgid_plural ""
+"There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"Existuje %d položka, která nemá uložené změny. Uložit před uzavřením?"
+msgstr[1] ""
+"Existují %d položky, které nemají uložené změny. Uložit před uzavřením?"
+msgstr[2] ""
+"Existuje %d položek, které nemají uložené změny. Uložit před uzavřením?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -605,8 +584,14 @@ msgid "System:"
 msgstr "Systém:"
 
 #: ../libanjuta/anjuta-utils.c:503
-msgid "You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually."
-msgstr "Zdá se, že nemáte nainstalován PackageKit. Ten je vyžadován pro instalaci chybějících balíčků. Nainstaluje si prosím do své distribuce balíček „packagekit-gnome“, nebo nainstalujte chybějící balíčky ručně."
+msgid ""
+"You do not seem to have PackageKit installed. PackageKit is required for "
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
+msgstr ""
+"Zdá se, že nemáte nainstalován PackageKit. Ten je vyžadován pro instalaci "
+"chybějících balíčků. Nainstaluje si prosím do své distribuce balíček "
+"„packagekit-gnome“, nebo nainstalujte chybějící balíčky ručně."
 
 #: ../libanjuta/anjuta-utils.c:512
 #, c-format
@@ -636,10 +621,8 @@ msgstr ""
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Nelze nalézt terminál; použije se xterm i v případě, že nefunguje"
 
-#: ../libanjuta/anjuta-utils.c:1207
-#: ../libanjuta/anjuta-utils.c:1211
-#: ../libanjuta/anjuta-utils.c:1239
-#: ../libanjuta/anjuta-utils.c:1243
+#: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
+#: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Nelze spustit příkaz: %s (s shellem %s)\n"
@@ -650,56 +633,47 @@ msgid "Unable to load user interface file: %s"
 msgstr "Nelze nahrát soubor s uživatelským rozhraním: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75
-#: ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "Upraveno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79
-#: ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "Přidáno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77
-#: ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "Odstraněno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81
-#: ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "V konfliktu"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83
-#: ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "Aktuální"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85
-#: ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "Uzamčeno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87
-#: ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "Chybějící"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89
-#: ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "Bez verzí"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91
-#: ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "Ignorováno"
 
@@ -708,8 +682,7 @@ msgstr "Ignorováno"
 msgid "Widget not found: %s"
 msgstr "Widget nenalezen: %s"
 
-#: ../libanjuta/resources.c:79
-#: ../libanjuta/resources.c:101
+#: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Nelze najít soubor pixmapy aplikace: %s"
@@ -719,14 +692,17 @@ msgid "Please specify group name"
 msgstr "Zadejte prosím název skupiny"
 
 #: ../plugins/am-project/amp-group.c:555
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
-msgstr "Název skupiny může obsahovat jen alfanumerické znaky nebo znaky „#$:%+,-.=@^_`~“"
+msgid ""
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+msgstr ""
+"Název skupiny může obsahovat jen alfanumerické znaky nebo znaky „#$:%+,-."
+"=@^_`~“"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -739,13 +715,13 @@ msgid "Root"
 msgstr "Kořen"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Skupina"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Zdroj"
@@ -799,8 +775,7 @@ msgstr "Různorodá data"
 msgid "Script"
 msgstr "Skript"
 
-#: ../plugins/am-project/am-project.c:220
-#: ../plugins/class-gen/window.c:802
+#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:802
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Modul"
@@ -809,27 +784,26 @@ msgstr "Modul"
 msgid "Package"
 msgstr "Balíček"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Nelze analyzovat soubor projektu"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekt neexistuje nebo má neplatnou cestu"
 
 #: ../plugins/am-project/am-project.plugin.in.h:1
 msgid "Autotools backend"
-msgstr "Backend Autotools"
+msgstr "Výkonný modul Autotools"
 
 #: ../plugins/am-project/am-project.plugin.in.h:2
 msgid "New Autotools backend for project manager"
-msgstr "Nová implementace Autotools pro Správce projektu"
+msgstr "Nová výkonný modul Autotools pro Správce projektu"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19
-#: ../plugins/project-manager/dialogs.c:617
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:617
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -863,27 +837,36 @@ msgid "Version:"
 msgstr "Verze:"
 
 #: ../plugins/am-project/am-properties.c:61
-msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr "Verze projektu, obvykle několik čísel oddělených tečkou, například „1.0.0“"
+msgid ""
+"Project version, typically a few numbers separated by dot by example '1.0.0'"
+msgstr ""
+"Verze projektu, obvykle několik čísel oddělených tečkou, například „1.0.0“"
 
 #: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
 msgstr "Adresa URL pro oznamování chyb:"
 
 #: ../plugins/am-project/am-properties.c:70
-msgid "An email address or a link to a web page where the user can report bug. It is optional."
-msgstr "Adresa elektronické pošty nebo stránky, prostřednictvím které může uživatel oznámit chybu. Volitelné."
+msgid ""
+"An email address or a link to a web page where the user can report bug. It "
+"is optional."
+msgstr ""
+"Adresa elektronické pošty nebo stránky, prostřednictvím které může uživatel "
+"oznámit chybu. Volitelné."
 
 #: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
 msgstr "Název balíčku:"
 
 #: ../plugins/am-project/am-properties.c:79
-msgid "Package name, it can contains only alphanumerics and underscore characters.It is generated from the project name if not provided."
-msgstr "Název balíčku. Může obsahovat alfanumerické znaky nebo podtržítko. Pokud není zadán, bude založen na názvu projektu."
+msgid ""
+"Package name, it can contains only alphanumerics and underscore characters."
+"It is generated from the project name if not provided."
+msgstr ""
+"Název balíčku. Může obsahovat alfanumerické znaky nebo podtržítko. Pokud "
+"není zadán, bude založen na názvu projektu."
 
-#: ../plugins/am-project/am-properties.c:86
-#: ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
 msgid "URL:"
 msgstr "Adresa URL:"
@@ -898,7 +881,8 @@ msgstr "Podpora libtool:"
 
 #: ../plugins/am-project/am-properties.c:98
 msgid "Add support to compile shared and static libraries with libtool."
-msgstr "Přidat podporu sestavování sdílených a statických knihoven pomocí libtool."
+msgstr ""
+"Přidat podporu sestavování sdílených a statických knihoven pomocí libtool."
 
 #: ../plugins/am-project/am-properties.c:104
 #: ../plugins/am-project/am-properties.c:211
@@ -926,7 +910,9 @@ msgstr "Přepínače preprocesoru jazyka C:"
 #: ../plugins/am-project/am-properties.c:116
 #: ../plugins/am-project/am-properties.c:223
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr "Další přepínače preprocesoru jazyka C společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače preprocesoru jazyka C společné pro všechny cíle v této "
+"skupině."
 
 #: ../plugins/am-project/am-properties.c:122
 #: ../plugins/am-project/am-properties.c:229
@@ -940,7 +926,8 @@ msgstr "Přepínače překladače jazyka C:"
 #: ../plugins/am-project/am-properties.c:125
 #: ../plugins/am-project/am-properties.c:232
 msgid "Common additional C compiler flags for all targets in this group."
-msgstr "Další přepínače překladače jazyka C společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače překladače jazyka C společné pro všechny cíle v této skupině."
 
 #: ../plugins/am-project/am-properties.c:131
 #: ../plugins/am-project/am-properties.c:238
@@ -954,7 +941,9 @@ msgstr "Přepínače překladače jazyka C++:"
 #: ../plugins/am-project/am-properties.c:134
 #: ../plugins/am-project/am-properties.c:241
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr "Další přepínače překladače jazyka C++ společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače překladače jazyka C++ společné pro všechny cíle v této "
+"skupině."
 
 #: ../plugins/am-project/am-properties.c:140
 #: ../plugins/am-project/am-properties.c:247
@@ -968,7 +957,9 @@ msgstr "Přepínače překladače jazyka Java:"
 #: ../plugins/am-project/am-properties.c:143
 #: ../plugins/am-project/am-properties.c:250
 msgid "Common additional Java compiler flags for all targets in this group."
-msgstr "Další přepínače překladače jazyka Java společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače překladače jazyka Java společné pro všechny cíle v této "
+"skupině."
 
 #: ../plugins/am-project/am-properties.c:149
 #: ../plugins/am-project/am-properties.c:256
@@ -982,7 +973,9 @@ msgstr "Přepínače překladače jazyka Vala:"
 #: ../plugins/am-project/am-properties.c:152
 #: ../plugins/am-project/am-properties.c:259
 msgid "Common additional Vala compiler flags for all targets in this group."
-msgstr "Další přepínače překladače jazyka Vala společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače překladače jazyka Vala společné pro všechny cíle v této "
+"skupině."
 
 #: ../plugins/am-project/am-properties.c:158
 #: ../plugins/am-project/am-properties.c:265
@@ -996,7 +989,9 @@ msgstr "Přepínače pro překladač jazyka Fortran:"
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:268
 msgid "Common additional Fortran compiler flags for all targets in this group."
-msgstr "Další přepínače pro překladač jazyka Fortran společné pro všechny cíle v této skupině."
+msgstr ""
+"Další přepínače pro překladač jazyka Fortran společné pro všechny cíle v "
+"této skupině."
 
 #: ../plugins/am-project/am-properties.c:167
 #: ../plugins/am-project/am-properties.c:274
@@ -1009,8 +1004,11 @@ msgstr "Přepínače překladače jazyka Objective C:"
 
 #: ../plugins/am-project/am-properties.c:170
 #: ../plugins/am-project/am-properties.c:277
-msgid "Common additional Objective C compiler flags for all targets in this group."
-msgstr "Další přepínače překladače jazyka Objective C společné pro všechny cíle v této skupině."
+msgid ""
+"Common additional Objective C compiler flags for all targets in this group."
+msgstr ""
+"Další přepínače překladače jazyka Objective C společné pro všechny cíle v "
+"této skupině."
 
 #: ../plugins/am-project/am-properties.c:176
 #: ../plugins/am-project/am-properties.c:283
@@ -1023,8 +1021,12 @@ msgstr "Přepínače Lex/Flex:"
 
 #: ../plugins/am-project/am-properties.c:179
 #: ../plugins/am-project/am-properties.c:286
-msgid "Common additional Lex or Flex lexical analyser generator flags for all targets in this group."
-msgstr "Společné dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro všechny cíle v této skupině."
+msgid ""
+"Common additional Lex or Flex lexical analyser generator flags for all "
+"targets in this group."
+msgstr ""
+"Společné dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro "
+"všechny cíle v této skupině."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1037,8 +1039,12 @@ msgstr "Přepínače Yacc/Bison:"
 
 #: ../plugins/am-project/am-properties.c:188
 #: ../plugins/am-project/am-properties.c:295
-msgid "Common additional Yacc or Bison parser generator flags for all targets in this group."
-msgstr "Společné dodatečné přepínače analyzátoru Yacc nebo Bison pro všechny cíle v této skupině."
+msgid ""
+"Common additional Yacc or Bison parser generator flags for all targets in "
+"this group."
+msgstr ""
+"Společné dodatečné přepínače analyzátoru Yacc nebo Bison pro všechny cíle v "
+"této skupině."
 
 #: ../plugins/am-project/am-properties.c:194
 #: ../plugins/am-project/am-properties.c:301
@@ -1048,7 +1054,8 @@ msgstr "Instalační složky:"
 #: ../plugins/am-project/am-properties.c:197
 #: ../plugins/am-project/am-properties.c:304
 msgid "List of custom installation directories used by targets in this group."
-msgstr "Seznam vlastních složek instalace, které používají cíle v této skupině."
+msgstr ""
+"Seznam vlastních složek instalace, které používají cíle v této skupině."
 
 #: ../plugins/am-project/am-properties.c:317
 #: ../plugins/am-project/am-properties.c:501
@@ -1083,8 +1090,12 @@ msgstr "Instalační složka:"
 #: ../plugins/am-project/am-properties.c:864
 #: ../plugins/am-project/am-properties.c:1075
 #: ../plugins/am-project/am-properties.c:1150
-msgid "It has to be a standard directory or a custom one defined in group properties."
-msgstr "Musí to být standardní složka nebo nějaká vlastní, definovaná ve vlastnostech skupiny."
+msgid ""
+"It has to be a standard directory or a custom one defined in group "
+"properties."
+msgstr ""
+"Musí to být standardní složka nebo nějaká vlastní, definovaná ve "
+"vlastnostech skupiny."
 
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:523
@@ -1165,8 +1176,10 @@ msgstr "Dodatečné přepínače pro překladač jazyka C tohoto cíle."
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
 #: ../plugins/am-project/am-properties.c:955
-msgid "Additional Lex or Flex lexical analyser generator flags for this target."
-msgstr "Dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro tento cíl."
+msgid ""
+"Additional Lex or Flex lexical analyser generator flags for this target."
+msgstr ""
+"Dodatečné přepínače lexikálního analyzátoru Lex nebo Flex pro tento cíl."
 
 #: ../plugins/am-project/am-properties.c:438
 #: ../plugins/am-project/am-properties.c:613
@@ -1248,8 +1261,12 @@ msgstr "Nepoužívat předponu:"
 #: ../plugins/am-project/am-properties.c:1039
 #: ../plugins/am-project/am-properties.c:1113
 #: ../plugins/am-project/am-properties.c:1186
-msgid "Do not rename the target with an optional prefix, used to avoid overwritting system program. "
-msgstr "Neprovádět přejmenování cíle za pomoci volitelné předpony, používá se k tomu, aby se zabránilo přepsání systémového programu."
+msgid ""
+"Do not rename the target with an optional prefix, used to avoid overwritting "
+"system program. "
+msgstr ""
+"Neprovádět přejmenování cíle za pomoci volitelné předpony, používá se k "
+"tomu, aby se zabránilo přepsání systémového programu."
 
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
@@ -1266,8 +1283,14 @@ msgstr "Zachovat cestu cíle:"
 #: ../plugins/am-project/am-properties.c:1012
 #: ../plugins/am-project/am-properties.c:1123
 #: ../plugins/am-project/am-properties.c:1195
-msgid "Keep relative target path for installing it. By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
-msgstr "Zachovat relativní cestu pro instalaci cíle. Například, pokud má být „podadresar/aplikace“ programu instalován do složky „bin“, instalace bude provedena do „bin/podadresar/aplikace“ a ne do „bin/aplikace“."
+msgid ""
+"Keep relative target path for installing it. By example if you have a "
+"program subdir/app installed in bin directory it will be installed in bin/"
+"subdir/app not in bin/app."
+msgstr ""
+"Zachovat relativní cestu pro instalaci cíle. Například, pokud má být "
+"„podadresar/aplikace“ programu instalován do složky „bin“, instalace bude "
+"provedena do „bin/podadresar/aplikace“ a ne do „bin/aplikace“."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1280,8 +1303,12 @@ msgid "Manual section:"
 msgstr "Sekce manuálu:"
 
 #: ../plugins/am-project/am-properties.c:1049
-msgid "Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
-msgstr "Sekce, kde jsou instalovány manuálové stránky. Platné názvy sekcí jsou čísla „0“ až „9“ a písmena „l“ a „n“."
+msgid ""
+"Section where are installed the man pages. Valid section names are the "
+"digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
+msgstr ""
+"Sekce, kde jsou instalovány manuálové stránky. Platné názvy sekcí jsou čísla "
+"„0“ až „9“ a písmena „l“ a „n“."
 
 #: ../plugins/am-project/amp-source.c:97
 msgid "Source file must be a regular file, not a directory"
@@ -1292,8 +1319,10 @@ msgid "Please specify target name"
 msgstr "Zadejte prosím název cíle"
 
 #: ../plugins/am-project/amp-target.c:353
-msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
-msgstr "Název cíle může obsahovat jen alfanumerické znaky, „_“, „-“, „/“ nebo „.“"
+msgid ""
+"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+msgstr ""
+"Název cíle může obsahovat jen alfanumerické znaky, „_“, „-“, „/“ nebo „.“"
 
 #: ../plugins/am-project/amp-target.c:368
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -1400,8 +1429,12 @@ msgstr "Instalovat"
 
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/build.c:525
-msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
-msgstr "Před použitím nového nastavení musí být odstraněno to výchozí. Chcete to provést?"
+msgid ""
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
+msgstr ""
+"Před použitím nového nastavení musí být odstraněno to výchozí. Chcete to "
+"provést?"
 
 #: ../plugins/build-basic-autotools/build.c:530
 #: ../plugins/build-basic-autotools/plugin.c:964
@@ -1412,7 +1445,8 @@ msgstr "Příkaz byl zrušen uživatelem"
 #: ../plugins/build-basic-autotools/build.c:852
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "Nelze zkompilovat „%s“: Pro tento typ souboru nejsou definována pravidla."
+msgstr ""
+"Nelze zkompilovat „%s“: Pro tento typ souboru nejsou definována pravidla."
 
 #: ../plugins/build-basic-autotools/build.c:1014
 #, c-format
@@ -1485,8 +1519,18 @@ msgstr "Příkaz, který bude při instalaci souborů povolen"
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:4
 #, no-c-format
-msgid "The command has to contain \"%s\" or \"%q\". This will be replaced by the command used to install the files, by example \"make install\". %s is replaced by the command without any change while %q is replaced by the quoted command. You can use %% to get a \"%\" character. A typical value is \"sudo %s\" or \"su -c %q\"."
-msgstr "Příkaz musí obsahovat „%s“ nebo „%q“. Tyto proměnné budou nahrazeny příkazem použitím k instalaci souborů, například „make install“. Proměnná %s bude nahrazena příkazem bez jakékoliv změny, zatímco %q bude nahrazena příkazem uzavřeným do uvozovek. Pomocí zápisu %% lze zapsat znak „%“. Obvykle něco jako „sudo %s“ nebo „su -c %q“."
+msgid ""
+"The command has to contain \"%s\" or \"%q\". This will be replaced by the "
+"command used to install the files, by example \"make install\". %s is "
+"replaced by the command without any change while %q is replaced by the "
+"quoted command. You can use %% to get a \"%\" character. A typical value is "
+"\"sudo %s\" or \"su -c %q\"."
+msgstr ""
+"Příkaz musí obsahovat „%s“ nebo „%q“. Tyto proměnné budou nahrazeny příkazem "
+"použitím k instalaci souborů, například „make install“. Proměnná %s bude "
+"nahrazena příkazem bez jakékoliv změny, zatímco %q bude nahrazena příkazem "
+"uzavřeným do uvozovek. Pomocí zápisu %% lze zapsat znak „%“. Obvykle něco "
+"jako „sudo %s“ nebo „su -c %q“."
 
 # make has no Czech translation currently
 #. The translations should match that of 'make' program. Both strings uses
@@ -1691,8 +1735,11 @@ msgid "Remove Configuration"
 msgstr "Odstranit nastavení"
 
 #: ../plugins/build-basic-autotools/plugin.c:1704
-msgid "Clean project (distclean) and remove configuration directory if possible"
-msgstr "Vyčistit projekt (distclean) a odstranit složku s nastavením, pokud je to možné"
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
+msgstr ""
+"Vyčistit projekt (distclean) a odstranit složku s nastavením, pokud je to "
+"možné"
 
 #: ../plugins/build-basic-autotools/plugin.c:1717
 #: ../plugins/build-basic-autotools/plugin.c:1745
@@ -1990,8 +2037,7 @@ msgstr "Šablona autogen použitá pro hlavičkový soubor"
 msgid "Autogen template used for the implementation file"
 msgstr "Šablona autogen použitá pro implementační soubor"
 
-#: ../plugins/class-gen/generator.c:313
-#: ../plugins/class-gen/generator.c:321
+#: ../plugins/class-gen/generator.c:313 ../plugins/class-gen/generator.c:321
 msgid "File to which the processed template will be written"
 msgstr "Soubor, do kterého bude zpracovaná šablona zapsána"
 
@@ -2000,13 +2046,15 @@ msgstr "Soubor, do kterého bude zpracovaná šablona zapsána"
 msgid "Failed to write autogen definition file"
 msgstr "Selhal zápis definičního souboru pro AutoGen"
 
-#: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1240
-msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
-msgstr "Nelze najít AutoGen verze 5, nainstalujte prosím balíček autogen. Můžete jej získat z http://autogen.sourceforge.net."
+#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1240
+msgid ""
+"Could not find autogen version 5; please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net."
+msgstr ""
+"Nelze najít AutoGen verze 5, nainstalujte prosím balíček autogen. Můžete jej "
+"získat z http://autogen.sourceforge.net."
 
-#: ../plugins/class-gen/plugin.c:252
-#: ../plugins/class-gen/plugin.c:449
+#: ../plugins/class-gen/plugin.c:252 ../plugins/class-gen/plugin.c:449
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Selhalo spuštění nástroje AutoGen: %s"
@@ -2015,10 +2063,8 @@ msgstr "Selhalo spuštění nástroje AutoGen: %s"
 msgid "Guess from type"
 msgstr "Hádat podle typu"
 
-#: ../plugins/class-gen/window.c:724
-#: ../plugins/class-gen/window.c:735
-#: ../plugins/class-gen/window.c:809
-#: ../plugins/class-gen/window.c:819
+#: ../plugins/class-gen/window.c:724 ../plugins/class-gen/window.c:735
+#: ../plugins/class-gen/window.c:809 ../plugins/class-gen/window.c:819
 #: ../plugins/class-gen/window.c:832
 msgid "Scope"
 msgstr "Rozsah"
@@ -2027,10 +2073,8 @@ msgstr "Rozsah"
 msgid "Implementation"
 msgstr "Implementace"
 
-#: ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:736
-#: ../plugins/class-gen/window.c:758
-#: ../plugins/class-gen/window.c:810
+#: ../plugins/class-gen/window.c:726 ../plugins/class-gen/window.c:736
+#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:810
 #: ../plugins/class-gen/window.c:820
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
@@ -2038,12 +2082,9 @@ msgstr "Implementace"
 msgid "Type"
 msgstr "Typ"
 
-#: ../plugins/class-gen/window.c:728
-#: ../plugins/class-gen/window.c:738
-#: ../plugins/class-gen/window.c:760
-#: ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786
-#: ../plugins/class-gen/window.c:812
+#: ../plugins/class-gen/window.c:728 ../plugins/class-gen/window.c:738
+#: ../plugins/class-gen/window.c:760 ../plugins/class-gen/window.c:770
+#: ../plugins/class-gen/window.c:786 ../plugins/class-gen/window.c:812
 #: ../plugins/class-gen/window.c:834
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
@@ -2066,8 +2107,7 @@ msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:751
-#: ../plugins/class-gen/window.c:761
+#: ../plugins/class-gen/window.c:751 ../plugins/class-gen/window.c:761
 msgid "Flags"
 msgstr "Přepínače"
 
@@ -2076,8 +2116,7 @@ msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822
-#: ../plugins/document-manager/plugin.c:1016
+#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Automatický"
 
@@ -2098,8 +2137,12 @@ msgid "Enable CLang code analyzer"
 msgstr "Povolit Analyzátor kódu CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
-msgstr "Po zapnutí této volby je nutné rekonfigurovat projekt. Spusťte prosím Sestavení->Configure!"
+msgid ""
+"The project needs to be reconfigured after enabling this option. Please run "
+"Build->Configure!"
+msgstr ""
+"Po zapnutí této volby je nutné rekonfigurovat projekt. Spusťte prosím "
+"Sestavení->Configure!"
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
 msgid "ccc-analyzer:"
@@ -2113,12 +2156,24 @@ msgstr "analyzátor c++:"
 msgid "CLang Paths"
 msgstr "Cesty CLang"
 
-#: ../plugins/code-analyzer/plugin.c:157
-msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
-msgstr "Nelze nalézt analyzátor CLang. Zkontrolujte prosím, zda je nainstalován a zda jsou v předvolbách správně nastaveny cesty"
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+#| msgid "CLang Analyzer"
+msgid "Code Analyzer"
+msgstr "Analyzátor kódu"
 
-#: ../plugins/code-analyzer/plugin.c:226
-#: ../plugins/code-analyzer/plugin.c:234
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analyzuje kód pomocí nástroje clang-analyzer"
+
+#: ../plugins/code-analyzer/plugin.c:157
+msgid ""
+"Couldn't find clang analyzer, please check if it is installed and if the "
+"paths are configured correctly in the preferences"
+msgstr ""
+"Nelze nalézt analyzátor CLang. Zkontrolujte prosím, zda je nainstalován a "
+"zda jsou v předvolbách správně nastaveny cesty"
+
+#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
 msgid "CLang Analyzer"
 msgstr "Analyzátor CLang"
 
@@ -2202,11 +2257,14 @@ msgstr "Zvolte soubor nebo složku, které se mají odstranit:"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course, the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course, the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
 "<b>Upozornění: </b>\n"
 "\n"
-"Stisknutí Budiž odstraní soubor z disku a z CVS. Soubor samozřejmě nebude odstraněn z CVS, než použijete potvrzení CVS. <b>Byli jste varováni!</b>"
+"Stisknutí Budiž odstraní soubor z disku a z CVS. Soubor samozřejmě nebude "
+"odstraněn z CVS, než použijete potvrzení CVS. <b>Byli jste varováni!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Commit file/directory"
@@ -2413,16 +2471,14 @@ msgid "CVS command is running — please wait until it finishes!"
 msgstr "Běží příkaz CVS — počkejte prosím, než skončí!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
-#: ../plugins/cvs-plugin/cvs-execute.c:233
-#: ../plugins/cvs-plugin/plugin.c:474
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:474
 #: ../plugins/cvs-plugin/plugin.c:481
 msgid "CVS"
 msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:46
-#: ../plugins/cvs-plugin/plugin.c:121
+#: ../plugins/cvs-plugin/plugin.c:46 ../plugins/cvs-plugin/plugin.c:121
 msgid "_CVS"
 msgstr "_CVS"
 
@@ -2452,72 +2508,62 @@ msgstr "Odstranit soubor/složku ze stromu CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:70
-#: ../plugins/cvs-plugin/plugin.c:129
+#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "_Commit"
 msgstr "_Potvrdit"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:72
-#: ../plugins/cvs-plugin/plugin.c:131
+#: ../plugins/cvs-plugin/plugin.c:72 ../plugins/cvs-plugin/plugin.c:131
 msgid "Commit your changes to the CVS tree"
 msgstr "Potvrdit vaše změny do stromu CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:78
-#: ../plugins/cvs-plugin/plugin.c:137
+#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 msgid "_Update"
 msgstr "_Aktualizovat"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:80
-#: ../plugins/cvs-plugin/plugin.c:139
+#: ../plugins/cvs-plugin/plugin.c:80 ../plugins/cvs-plugin/plugin.c:139
 msgid "Syncronize your local copy with the CVS tree"
 msgstr "Synchronizovat vaši místní kopii se stromem CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:86
-#: ../plugins/cvs-plugin/plugin.c:145
+#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:88
-#: ../plugins/cvs-plugin/plugin.c:147
+#: ../plugins/cvs-plugin/plugin.c:88 ../plugins/cvs-plugin/plugin.c:147
 msgid "Show differences between your local copy and the tree"
 msgstr "Zobrazit rozdíly mezi vaší místní kopií a stromem"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:94
-#: ../plugins/cvs-plugin/plugin.c:153
+#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "_Show Status"
 msgstr "Zobrazit _stav"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:96
-#: ../plugins/cvs-plugin/plugin.c:155
+#: ../plugins/cvs-plugin/plugin.c:96 ../plugins/cvs-plugin/plugin.c:155
 msgid "Show the status of a file/directory"
 msgstr "Zobrazit stav souboru/složky"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:102
-#: ../plugins/cvs-plugin/plugin.c:161
+#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "_Show Log"
 msgstr "_Zobrazit záznam"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:104
-#: ../plugins/cvs-plugin/plugin.c:163
+#: ../plugins/cvs-plugin/plugin.c:104 ../plugins/cvs-plugin/plugin.c:163
 msgid "Show the log of a file/directory"
 msgstr "Zobrazit záznam souboru/složky"
 
@@ -2542,12 +2588,9 @@ msgid "CVS popup operations"
 msgstr "Kontextové operace CVS"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
-#: ../plugins/debug-manager/plugin.c:410
-#: ../plugins/debug-manager/plugin.c:432
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:484
-#: ../plugins/debug-manager/plugin.c:518
-#: ../plugins/debug-manager/plugin.c:551
+#: ../plugins/debug-manager/plugin.c:410 ../plugins/debug-manager/plugin.c:432
+#: ../plugins/debug-manager/plugin.c:457 ../plugins/debug-manager/plugin.c:484
+#: ../plugins/debug-manager/plugin.c:518 ../plugins/debug-manager/plugin.c:551
 msgid "Debugger"
 msgstr "Ladicí program"
 
@@ -2761,13 +2804,19 @@ msgstr "Vzdálené ladění"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration?</span>\n"
 "\n"
-"When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps."
+"When optimizations are enabled, the debugger cannot always identify the "
+"source code corresponding to the instructions, so some commands can perform "
+"in a strange way, especially steps."
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Opravdu chcete program ladit bez použití nastavení ladění?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Opravdu chcete program ladit bez "
+"použití nastavení ladění?</span>\n"
 "\n"
-"V případě, že jsou povolené optimalizace, nebude moci ladící program vždy zcela správně určit zdrojový kód odpovídající instrukcím, takže některé příkazy mohou probíhat nebezpečným způsobem, především krokování."
+"V případě, že jsou povolené optimalizace, nebude moci ladící program vždy "
+"zcela správně určit zdrojový kód odpovídající instrukcím, takže některé "
+"příkazy mohou probíhat nebezpečným způsobem, především krokování."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
 msgid "Do not show again"
@@ -2923,8 +2972,7 @@ msgstr "Operace s body přerušení"
 msgid "_Go to address"
 msgstr "Pře_jít na adresu"
 
-#: ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/tools/editor.c:470
+#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:470
 msgid "Variable"
 msgstr "Proměnná"
 
@@ -2932,8 +2980,7 @@ msgstr "Proměnná"
 msgid "Disassembly"
 msgstr "Zpětně přeložit"
 
-#: ../plugins/debug-manager/info.c:52
-#: ../plugins/debug-manager/info.c:101
+#: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #: ../plugins/project-wizard/druid.c:154
 msgid "Information"
 msgstr "Informace"
@@ -2983,15 +3030,13 @@ msgstr "Probíhá…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:480
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:480 ../plugins/debug-manager/plugin.c:967
 msgid "Run/_Continue"
 msgstr "Spustit/_Pokračovat"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:481
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:481 ../plugins/debug-manager/plugin.c:969
 msgid "Continue the execution of the program"
 msgstr "Pokračovat provádění programu"
 
@@ -3270,10 +3315,8 @@ msgstr "Aktivační záznam"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2132
-#: ../plugins/tools/tool.c:100
-#: ../src/anjuta-app.c:626
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2132
+#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
 msgid "File"
 msgstr "Soubor"
 
@@ -3334,8 +3377,7 @@ msgstr "Nelze zjistit typ MIME pro %s. Ladicí program nemůže být spuštěn."
 msgid "Path"
 msgstr "Cesta"
 
-#: ../plugins/debug-manager/start.c:1389
-#: ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -3385,8 +3427,7 @@ msgstr "Odstranit vše"
 msgid "Automatic update"
 msgstr "Automatická aktualizace"
 
-#: ../plugins/debug-manager/watch.c:491
-#: ../plugins/debug-manager/watch.c:497
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
 msgstr "Operace sledování"
 
@@ -3406,10 +3447,8 @@ msgstr "Zásuvný modul Devhelp pro Anjutu."
 msgid "Search Help:"
 msgstr "Hledat v nápovědě:"
 
-#: ../plugins/devhelp/plugin.c:227
-#: ../plugins/document-manager/plugin.c:244
-#: ../plugins/message-view/plugin.c:77
-#: ../plugins/symbol-db/plugin.c:327
+#: ../plugins/devhelp/plugin.c:227 ../plugins/document-manager/plugin.c:244
+#: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "Pře_jít na"
 
@@ -3441,8 +3480,7 @@ msgstr "Hledat pojem v nápovědě"
 msgid "Help operations"
 msgstr "Pomocné operace"
 
-#: ../plugins/devhelp/plugin.c:353
-#: ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
 msgid "API Browser"
 msgstr "Procházení API"
 
@@ -3450,31 +3488,42 @@ msgstr "Procházení API"
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../plugins/devhelp/plugin.c:370
-#: ../plugins/symbol-db/plugin.c:2142
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2142
 #: ../plugins/symbol-db/plugin.c:2194
 msgid "Search"
 msgstr "Hledat"
 
-#: ../plugins/devhelp/plugin.c:388
-#: ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Chybí název"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekt neumožňuje nastavit vlastnosti"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+#| msgid "File/Directory to patch"
+msgid "Directory backend"
+msgstr "Výkonný modul Složka"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Projektový výkonný modul Složka, pouze vybírá zdrojové soubory; použijte "
+"jej, když ostatní výkonné moduly selžou"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3523,10 +3572,8 @@ msgid "Path:"
 msgstr "Cesta:"
 
 #: ../plugins/document-manager/anjuta-docman.c:622
-#: ../plugins/file-loader/plugin.c:591
-#: ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904
-#: ../plugins/file-loader/plugin.c:917
+#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
+#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Otevřít soubor"
 
@@ -3548,7 +3595,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[read-only]"
 
@@ -3757,7 +3804,8 @@ msgstr "Převést znaky EOL na většinový EOL"
 
 #: ../plugins/document-manager/plugin.c:207
 msgid "Convert End Of Line characters to the most common EOL found in the file"
-msgstr "Převést znaky konce řádku na typ EOL, který je v souboru nalezen nejčastěji"
+msgstr ""
+"Převést znaky konce řádku na typ EOL, který je v souboru nalezen nejčastěji"
 
 #: ../plugins/document-manager/plugin.c:212
 msgid "_Select"
@@ -3941,9 +3989,8 @@ msgid "Search using regular expressions"
 msgstr "Hledat pomocí regulárního výrazu"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
-#: ../plugins/language-support-python/plugin.c:451
-#: ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1411
+#: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Upravit"
 
@@ -3994,8 +4041,7 @@ msgstr "Vyjmout vybraný text z editoru do schránky"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:328
-#: ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:328 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "_Kopírovat"
 
@@ -4003,8 +4049,7 @@ msgstr "_Kopírovat"
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopírovat vybraný text do schránky"
 
-#: ../plugins/document-manager/plugin.c:331
-#: ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:331 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "V_ložit"
 
@@ -4236,17 +4281,26 @@ msgstr "Hledání řetězce „%s“ došlo na začátek a pokračuje od konce."
 
 #: ../plugins/document-manager/search-box.c:575
 #, c-format
-msgid "Search for \"%s\" reached the end and was continued at the top but no new match was found."
-msgstr "Hledání řetězce „%s“ došlo na konec a pokračuje od začátku, avšak nebyly nalezeny žádné nové výsledky."
+msgid ""
+"Search for \"%s\" reached the end and was continued at the top but no new "
+"match was found."
+msgstr ""
+"Hledání řetězce „%s“ došlo na konec a pokračuje od začátku, avšak nebyly "
+"nalezeny žádné nové výsledky."
 
 #: ../plugins/document-manager/search-box.c:580
 #, c-format
-msgid "Search for \"%s\" reached top and was continued at the bottom but no new match was found."
-msgstr "Hledání řetězce „%s“ došlo na začátek a pokračuje od konce, avšak nebyly nalezeny žádné nové výsledky."
+msgid ""
+"Search for \"%s\" reached top and was continued at the bottom but no new "
+"match was found."
+msgstr ""
+"Hledání řetězce „%s“ došlo na začátek a pokračuje od konce, avšak nebyly "
+"nalezeny žádné nové výsledky."
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
-msgstr "Více možností hledání je dostupných v kontextové nabídce položky „Hledat“"
+msgstr ""
+"Více možností hledání je dostupných v kontextové nabídce položky „Hledat“"
 
 #: ../plugins/document-manager/search-box.c:986
 msgid "Replace"
@@ -4270,8 +4324,7 @@ msgid "Find in files"
 msgstr "Hledat v souborech"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:1238
-#: ../plugins/file-loader/plugin.c:1244
+#: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
 msgid "File Loader"
 msgstr "Načítač souborů"
 
@@ -4351,7 +4404,8 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "MIME type: %s\n"
 "\n"
@@ -4359,7 +4413,8 @@ msgid ""
 msgstr ""
 "<b>Nelze otevřít „%s“</b>.\n"
 "\n"
-"Neexistuje zásuvný modul, výchozí akce ani aplikace nastavená pro zpracovávání tohoto typu souborů.\n"
+"Neexistuje zásuvný modul, výchozí akce ani aplikace nastavená pro "
+"zpracovávání tohoto typu souborů.\n"
 "\n"
 "Typ MIME: %s.\n"
 "\n"
@@ -4369,8 +4424,7 @@ msgstr ""
 msgid "Open with:"
 msgstr "Otevřít s:"
 
-#: ../plugins/file-loader/plugin.c:497
-#: ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:310
 msgid "All files"
 msgstr "Všechny soubor"
@@ -4444,18 +4498,15 @@ msgstr "Nový prázdný soubor"
 msgid "_Open…"
 msgstr "_Otevřít…"
 
-#: ../plugins/file-loader/plugin.c:903
-#: ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: ../plugins/file-loader/plugin.c:910
-#: ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
 msgstr "Otevřít _s"
 
-#: ../plugins/file-loader/plugin.c:911
-#: ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
 msgstr "Otevřít s"
 
@@ -4467,8 +4518,7 @@ msgstr "Nový"
 msgid "New file, project and project components."
 msgstr "Nový soubor, projekt a komponenty projektu."
 
-#: ../plugins/file-loader/plugin.c:1256
-#: ../plugins/file-loader/plugin.c:1296
+#: ../plugins/file-loader/plugin.c:1256 ../plugins/file-loader/plugin.c:1296
 msgid "Open"
 msgstr "Otevřít"
 
@@ -4476,8 +4526,7 @@ msgstr "Otevřít"
 msgid "Open _Recent"
 msgstr "Otevřít _nedávné"
 
-#: ../plugins/file-loader/plugin.c:1261
-#: ../plugins/file-loader/plugin.c:1298
+#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1298
 msgid "Open recent file"
 msgstr "Otevřít nedávný soubor"
 
@@ -4489,8 +4538,7 @@ msgstr "Otevřít nedávné soubory"
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: ../plugins/file-loader/plugin.c:1411
-#: ../plugins/file-loader/plugin.c:1413
+#: ../plugins/file-loader/plugin.c:1411 ../plugins/file-loader/plugin.c:1413
 #, c-format
 msgid "File not found"
 msgstr "Soubor nenalezen"
@@ -4506,8 +4554,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>Otevřít s</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469
-#: ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
 msgid "File Manager"
 msgstr "Správce souborů"
 
@@ -4549,8 +4596,7 @@ msgstr "Nezobrazovat soubory bez verzí"
 msgid "Filter"
 msgstr "Filtr"
 
-#: ../plugins/file-manager/file-model.c:120
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Načítá se…"
 
@@ -4574,8 +4620,7 @@ msgstr "Přejmenovat soubor nebo složku"
 msgid "File manager popup actions"
 msgstr "Kontextové akce správce souborů"
 
-#: ../plugins/file-manager/plugin.c:339
-#: ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Soubory"
 
@@ -4721,7 +4766,8 @@ msgstr "Nezadán spustitelný soubor.\n"
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Začněte ladit otevřením spustitelného souboru nebo připojením k procesu.\n"
+msgstr ""
+"Začněte ladit otevřením spustitelného souboru nebo připojením k procesu.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
@@ -4834,7 +4880,8 @@ msgstr "Chyba při signalizaci procesu."
 
 #: ../plugins/gdb/plugin.c:120
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr "Nelze vytvořit soubor FIFO jménem %s. Program poběží bez terminálu."
 
 #: ../plugins/gdb/plugin.c:204
@@ -4849,13 +4896,18 @@ msgstr "Otevřít spustit terminál pro ladění."
 #: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
-"The register function hasn't been found automatically in the following pretty printer files:\n"
+"The register function hasn't been found automatically in the following "
+"pretty printer files:\n"
 "%s\n"
-"You need to fill yourself the register function columns before enabling the rows. Most of the time the register function name contains the word \"register\"."
+"You need to fill yourself the register function columns before enabling the "
+"rows. Most of the time the register function name contains the word "
+"\"register\"."
 msgstr ""
-"V následujícím souboru s definicí hezkého tisku nebyla nalezena registrační funkce:\n"
+"V následujícím souboru s definicí hezkého tisku nebyla nalezena registrační "
+"funkce:\n"
 "%s\n"
-"Než daný řádek povolíte, musíte registrační funkci sami doplnit. Ve většině případů název registrační funkce obsahuje slovo „register“."
+"Než daný řádek povolíte, musíte registrační funkci sami doplnit. Ve většině "
+"případů název registrační funkce obsahuje slovo „register“."
 
 #: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
@@ -4871,8 +4923,7 @@ msgstr "Aktivovat"
 msgid "Register Function"
 msgstr "Registrační funkce"
 
-#: ../plugins/gdb/preferences.c:396
-#: ../plugins/gdb/preferences.c:404
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "Ladicí program gdb"
 
@@ -4901,8 +4952,7 @@ msgstr "Soubory typu mailbox, které použít:"
 msgid "Add signed off by line"
 msgstr "Přidat řádek vyhovující podmínkám (signed-off-by)"
 
-#: ../plugins/git/anjuta-git.ui.h:9
-#: ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
 msgid "Branches"
 msgstr "Větve"
 
@@ -4981,12 +5031,16 @@ msgid "Branches must be fully merged"
 msgstr "Větev musí být zcela sloučena"
 
 #: ../plugins/git/anjuta-git.ui.h:31
-msgid "Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr "Celý projekt; Zde upusťte soubor nebo napište cestu, aby se soubor nebo záznam složky zobrazil"
+msgid ""
+"Whole project; Drop a file here or type a path to view a file or folder log"
+msgstr ""
+"Celý projekt; Zde upusťte soubor nebo napište cestu, aby se soubor nebo "
+"záznam složky zobrazil"
 
 #: ../plugins/git/anjuta-git.ui.h:32
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr "Celý projekt; Zde upusťte soubor, aby se soubor nebo záznam složky zobrazil"
+msgstr ""
+"Celý projekt; Zde upusťte soubor, aby se soubor nebo záznam složky zobrazil"
 
 #: ../plugins/git/anjuta-git.ui.h:33
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
@@ -5057,8 +5111,7 @@ msgstr "Složka, ve které vytvářet záplaty:"
 msgid "Repository to pull from:"
 msgstr "Repozitář, ze kterého chcete stahovat:"
 
-#: ../plugins/git/anjuta-git.ui.h:49
-#: ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:49 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Rebase"
 
@@ -5176,8 +5229,7 @@ msgstr "Není vybrána skrýš"
 msgid "Check Out Files"
 msgstr "Provést check out se soubory"
 
-#: ../plugins/git/git-cherry-pick-pane.c:53
-#: ../plugins/git/git-merge-pane.c:56
+#: ../plugins/git/git-cherry-pick-pane.c:53 ../plugins/git/git-merge-pane.c:56
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
 msgid "Please enter a revision."
@@ -5188,8 +5240,7 @@ msgid "Cherry Pick"
 msgstr "Cherry pick"
 
 #: ../plugins/git/git-commit-pane.c:124
-#: ../plugins/git/git-create-tag-pane.c:79
-#: ../plugins/git/git-merge-pane.c:70
+#: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
 msgid "Please enter a log message."
 msgstr "Zadejte prosím zprávu do záznamu."
 
@@ -5201,8 +5252,7 @@ msgstr "Zadejte prosím jméno autora příspěvku"
 msgid "Please enter the commit author's e-mail address."
 msgstr "Zadejte prosím e-mailovou adresu autora příspěvku."
 
-#: ../plugins/git/git-commit-pane.c:297
-#: ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
 msgid "Commit"
 msgstr "Potvrdit"
 
@@ -5261,15 +5311,12 @@ msgstr "<b>Značka:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Vzdálený:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:210
-#: ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
 msgstr "Sloučit"
 
-#: ../plugins/git/git-pane.c:77
-#: ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1
-#: ../plugins/git/plugin.c:700
+#: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:700
 msgid "Git"
 msgstr "Git"
 
@@ -5289,18 +5336,15 @@ msgstr "Sestavit sérii záplat"
 msgid "Git version control"
 msgstr "Správa verzí Git"
 
-#: ../plugins/git/git-pull-pane.c:66
-#: ../plugins/git/git-push-pane.c:94
+#: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
 msgstr "Zadejte prosím adresu URL."
 
-#: ../plugins/git/git-pull-pane.c:238
-#: ../plugins/git/plugin.c:246
+#: ../plugins/git/git-pull-pane.c:238 ../plugins/git/plugin.c:246
 msgid "Pull"
 msgstr "Stáhnout"
 
-#: ../plugins/git/git-push-pane.c:438
-#: ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:238
 msgid "Push"
 msgstr "Odeslat"
 
@@ -5368,18 +5412,15 @@ msgstr "Nebyly vybrány žádné potvrzené soubory."
 msgid "Branch tools"
 msgstr "Nástroje větve"
 
-#: ../plugins/git/plugin.c:73
-#: ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
 msgid "Create a branch"
 msgstr "Vytvořit větev"
 
-#: ../plugins/git/plugin.c:81
-#: ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
 msgid "Delete branches"
 msgstr "Odstranit závorky"
 
-#: ../plugins/git/plugin.c:89
-#: ../plugins/git/plugin.c:90
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
 msgstr "Přepnout na zvolenou větev"
 
@@ -5391,13 +5432,11 @@ msgstr "Sloučit revizi s aktuální větví"
 msgid "Tag tools"
 msgstr "Nástroje značek"
 
-#: ../plugins/git/plugin.c:117
-#: ../plugins/git/plugin.c:118
+#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
 msgid "Create a tag"
 msgstr "Vytvořit značku"
 
-#: ../plugins/git/plugin.c:125
-#: ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
 msgid "Delete selected tags"
 msgstr "Odstranit vybrané značky."
 
@@ -5498,8 +5537,7 @@ msgstr "Provést akci rebase proti výbranému vzdálenému zroji"
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr "Začít akci rebase telativně k vybranému vzdálenému repozitáři"
 
-#: ../plugins/git/plugin.c:278
-#: ../plugins/git/plugin.c:446
+#: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -5507,8 +5545,7 @@ msgstr "Pokračovat"
 msgid "Continue a rebase with resolved conflicts"
 msgstr "Pokračovat v akci rebase s vyřešenými konflikty"
 
-#: ../plugins/git/plugin.c:286
-#: ../plugins/git/plugin.c:454
+#: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
 msgid "Skip"
 msgstr "Přeskočit"
 
@@ -5516,8 +5553,7 @@ msgstr "Přeskočit"
 msgid "Skip the current revision"
 msgstr "Přeskočit aktuální revizi"
 
-#: ../plugins/git/plugin.c:294
-#: ../plugins/git/plugin.c:462
+#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
 msgid "Abort"
 msgstr "Zrušit"
 
@@ -5621,8 +5657,7 @@ msgstr "Vrátit zařazení zpět"
 msgid "Patch series"
 msgstr "Série záplat"
 
-#: ../plugins/git/plugin.c:422
-#: ../plugins/git/plugin.c:423
+#: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
 msgid "Generate a patch series"
 msgstr "Sestavit sérii záplat"
 
@@ -5647,11 +5682,11 @@ msgid "Skip the current patch in the series"
 msgstr "Přeskočit aktuální záplatu v sérii a pokračovat"
 
 #: ../plugins/git/plugin.c:463
-msgid "Stop applying the patch series and return the tree to its previous state"
+msgid ""
+"Stop applying the patch series and return the tree to its previous state"
 msgstr "Zastavit aplikování záplat a vrátit strom do jeho původního stavu"
 
-#: ../plugins/git/plugin.c:554
-#: ../plugins/git/plugin.c:627
+#: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
 msgstr "Větev"
 
@@ -5768,7 +5803,9 @@ msgstr "Zásuvný modul s podporou C++ a Javy"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
-msgstr "Zásuvný modul s podporou jazyků C++ a Java umožňující dokončování kódu, automatické odsazování atd."
+msgstr ""
+"Zásuvný modul s podporou jazyků C++ a Java umožňující dokončování kódu, "
+"automatické odsazování atd."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:1
@@ -5781,7 +5818,9 @@ msgstr "Úvodní hvězdička ve víceřádkovém komentáři"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr "Upřednostnit podpora řádku s režimem ve stylu vim/emacs před zabudovaným nastavením"
+msgstr ""
+"Upřednostnit podpora řádku s režimem ve stylu vim/emacs před zabudovaným "
+"nastavením"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:3
@@ -5878,43 +5917,44 @@ msgstr "Značky API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Kód přidaný widgetu."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Automatické-odsazování"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
-msgstr "Automaticky odsadit aktuální řádek nebo výběr podle nastavení odsazování"
+msgstr ""
+"Automaticky odsadit aktuální řádek nebo výběr podle nastavení odsazování"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Zakomentovat/odkomentovat"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Zakomentovat nebo odkomentovat aktuální výběr"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Přepnout .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Prohodit hlavičkový a zdrojový soubory v C"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Průvodce projektem v jazyce C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -5940,15 +5980,16 @@ msgstr "Zvýrazňovat chybějící středníky"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
 msgid "Add brace after function call autocompletion"
-msgstr "Přidávat složenou závorku za volání funkce při automatickém dokončování"
+msgstr ""
+"Přidávat složenou závorku za volání funkce při automatickém dokončování"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
-msgstr "Zásuvný modul podpory JS"
+msgstr "Zásuvný modul podpory jazyka JS"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:2
 msgid "JavaScript Support Plugin"
-msgstr "Zásuvný modul podpory JavaScriptu"
+msgstr "Zásuvný modul podpory jazyka JavaScript"
 
 #: ../plugins/language-support-js/plugin.c:329
 #: ../plugins/language-support-js/plugin.c:338
@@ -5969,9 +6010,12 @@ msgid ""
 "aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
-"Buď je nesprávná cesta k instalaci jazyka Python nebo není nainstalována knihovna\n"
-"python-rope (http://rope.sf.net). Obojí je zapotřebí k automatickému dokončování\n"
-"v souborech python. Nainstalujte ji prosím a rovněž zkontrolujte cestu v předvolbách."
+"Buď je nesprávná cesta k instalaci jazyka Python nebo není nainstalována "
+"knihovna\n"
+"python-rope (http://rope.sf.net). Obojí je zapotřebí k automatickému "
+"dokončování\n"
+"v souborech python. Nainstalujte ji prosím a rovněž zkontrolujte cestu v "
+"předvolbách."
 
 #: ../plugins/language-support-python/plugin.c:95
 msgid "Do not show that warning again"
@@ -5986,6 +6030,19 @@ msgstr "Průvodce projektem v jazyce Python"
 #: ../plugins/language-support-python/python-assist.c:984
 msgid "Python"
 msgstr "Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+#| msgid "Python support warning"
+msgid "Python support Plugin"
+msgstr "Zásuvný modul podpory jazyka Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Zásuvný modul s podporou jazyka Python umožňující dokončování kódu, "
+"automatické odsazování atd."
 
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
@@ -6006,6 +6063,17 @@ msgstr "Interpretr"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Prostředí"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+#| msgid "JS Support Plugin"
+msgid "Vala support Plugin"
+msgstr "Zásuvný modul podpory jazyka Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Vala support plugin, adds code completion."
+msgstr "Zásuvný modul s podporou jazyka Vala umožňující dokončování kódu."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6081,10 +6149,8 @@ msgid "Icon"
 msgstr "Ikona"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:386
-#: ../plugins/message-view/plugin.c:399
-#: ../plugins/message-view/plugin.c:518
-#: ../plugins/message-view/plugin.c:529
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
 msgstr "Zprávy"
 
@@ -6165,6 +6231,15 @@ msgstr[2] "%d chyb"
 msgid "Unable to parse make file"
 msgstr "Nelze analyzovat soubor make"
 
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+#| msgid "Makefiles"
+msgid "Makefile backend"
+msgstr "Výkonný modul Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Projektový výkonný modul Makefile, dovoluje projekt pouze číst"
+
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
 msgstr "Zvolte balíček"
@@ -6209,8 +6284,7 @@ msgstr "Záplaty"
 msgid "Please select the directory where the patch should be applied"
 msgstr "Zvolte prosím složku, ve kterém má být použita záplata"
 
-#: ../plugins/patch/patch-plugin.c:181
-#: ../plugins/patch/patch-plugin.ui.h:1
+#: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:1
 msgid "Patch"
 msgstr "Záplata"
 
@@ -6264,8 +6338,7 @@ msgstr "Úroveň záplaty:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:53
-#: ../plugins/tools/plugin.c:131
+#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:131
 msgid "_Tools"
 msgstr "_Nástroje"
 
@@ -6299,13 +6372,17 @@ msgstr "Soubor „%s“ již existuje. Chcete jej nahradit?"
 
 #: ../plugins/project-import/plugin.c:218
 #, c-format
-msgid "A file named \"%s\" cannot be written: %s. Check if you have write access to the project directory."
-msgstr "Soubor „%s“ nelze zapsat: %s. Zkontrolujte, zda máte oprávnění k přístupu do složky projektu."
+msgid ""
+"A file named \"%s\" cannot be written: %s. Check if you have write access to "
+"the project directory."
+msgstr ""
+"Soubor „%s“ nelze zapsat: %s. Zkontrolujte, zda máte oprávnění k přístupu do "
+"složky projektu."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
-msgstr "Vyberte prosím podpůrnou vrstvu, pomocí které otevřete %s."
+msgstr "Vyberte prosím výkonný modul, pomocí kterého otevřete %s."
 
 #: ../plugins/project-import/plugin.c:287
 msgid "Open With"
@@ -6313,14 +6390,20 @@ msgstr "Otevřít s"
 
 #: ../plugins/project-import/plugin.c:302
 #, c-format
-msgid "Could not find a valid project backend for the given directory (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
-msgstr "Nelze najít platnou podpůrnou vrstvu pro zadanou složku (%s). Zvolte prosím jinou složku nebo zkuste aktualizovat na novější verzi Anjuty."
+msgid ""
+"Could not find a valid project backend for the given directory (%s). Please "
+"select a different directory, or try upgrading to a newer version of Anjuta."
+msgstr ""
+"Nelze najít platný výkonný modul pro zadanou složku (%s). Zvolte prosím "
+"jinou složku nebo zkuste aktualizovat na novější verzi Anjuty."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
-msgstr "Nelze provést check out zadané adresy URI „%s“. Vrácená chyba byla: „%s“"
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgstr ""
+"Nelze provést check out zadané adresy URI „%s“. Vrácená chyba byla: „%s“"
 
 #: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
@@ -6713,8 +6796,11 @@ msgstr "Seřadit zkratky"
 
 #: ../plugins/project-manager/plugin.c:1319
 #, c-format
-msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
-msgstr "Selhala analýza projektu (projekt je otevřen, ale nebude zobrazen) %s: %s\n"
+msgid ""
+"Failed to parse project (the project is opened, but there will be no project "
+"view) %s: %s\n"
+msgstr ""
+"Selhala analýza projektu (projekt je otevřen, ale nebude zobrazen) %s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1329
 msgid "Update project view…"
@@ -6747,11 +6833,11 @@ msgstr "Akce správce projektu"
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Nahrávání projektu…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Projekt byl nahrán"
 
@@ -6889,8 +6975,7 @@ msgstr "Podrobnosti"
 msgid "Summary"
 msgstr "Souhrn"
 
-#: ../plugins/project-wizard/druid.c:158
-#: ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:158 ../plugins/project-wizard/druid.c:162
 msgid "Warning"
 msgstr "Varování"
 
@@ -6925,18 +7010,33 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:686
 #, c-format
-msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
-msgstr "Pole „%s“ smí obsahovat jen písmena, číslice nebo znaky „#$:%%+,.=@^_`~“. Prvním znakem navíc nesmí být pomlčka. Opravte zadání prosím."
+msgid ""
+"Field \"%s\" must contains only letters, digits or the following characters "
+"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
+"it."
+msgstr ""
+"Pole „%s“ smí obsahovat jen písmena, číslice nebo znaky „#$:%%+,.=@^_`~“. "
+"Prvním znakem navíc nesmí být pomlčka. Opravte zadání prosím."
 
 #: ../plugins/project-wizard/druid.c:691
 #, c-format
-msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
-msgstr "Pole „%s“ smí obsahovat jen písmena, číslice, znaky „#$:%%+,.=@^_`~“ nebo oddělovače složek. Prvním znakem navíc nesmí být pomlčka. Opravte zadání prosím."
+msgid ""
+"Field \"%s\" must contains only letters, digits, the following characters \"#"
+"$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
+"leading dash. Please fix it."
+msgstr ""
+"Pole „%s“ smí obsahovat jen písmena, číslice, znaky „#$:%%+,.=@^_`~“ nebo "
+"oddělovače složek. Prvním znakem navíc nesmí být pomlčka. Opravte zadání "
+"prosím."
 
 #: ../plugins/project-wizard/druid.c:696
 #, c-format
-msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
-msgstr "Pole „%s“ smí obsahovat jen tisknutelné znaky z tabulky ASCII, diakritiku nelze použít. Opravte zadání prosím."
+msgid ""
+"Field \"%s\" must contains only ASCII printable characters, no accentuated "
+"characters by example. Please fix it."
+msgstr ""
+"Pole „%s“ smí obsahovat jen tisknutelné znaky z tabulky ASCII, diakritiku "
+"nelze použít. Opravte zadání prosím."
 
 #: ../plugins/project-wizard/druid.c:701
 #, c-format
@@ -6945,8 +7045,12 @@ msgstr "Neznámá chyba."
 
 #: ../plugins/project-wizard/druid.c:728
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
-msgstr "Složka „%s“ není prázdná. Tvorba projektu by mohla selhat, pokud nepůjde zapisovat do některých souborů. Chcete pokračovat?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
+msgstr ""
+"Složka „%s“ není prázdná. Tvorba projektu by mohla selhat, pokud nepůjde "
+"zapisovat do některých souborů. Chcete pokračovat?"
 
 #: ../plugins/project-wizard/druid.c:730
 #, c-format
@@ -6980,8 +7084,14 @@ msgstr ""
 "Chybějící balíčky: %s."
 
 #: ../plugins/project-wizard/druid.c:962
-msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
-msgstr "Některý z programů nebo vývojářských nástrojů důležitých pro sestavení projektu chybí. Ujistěte se, že jsou správně nainstalovány před spuštěním sestavování projektu.\n"
+msgid ""
+"Some important programs or development packages required to build this "
+"project are missing. Please make sure they are installed properly before "
+"generating the project.\n"
+msgstr ""
+"Některý z programů nebo vývojářských nástrojů důležitých pro sestavení "
+"projektu chybí. Ujistěte se, že jsou správně nainstalovány před spuštěním "
+"sestavování projektu.\n"
 
 #: ../plugins/project-wizard/druid.c:971
 msgid "Install missing packages"
@@ -6991,8 +7101,19 @@ msgstr "Instalovat chybějící balíčky"
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
 #: ../plugins/project-wizard/druid.c:983
-msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
-msgstr "Chybějící programy jsou obvykle zahrnuty v distribučních balíčcích a lze je vyhledat pomocí správce softwaru. Obdobně je to i s balíčky vývojářskými, které jsou obvykle nabízeny zvlášť a které umožňují vývoj projektů na nich založených. Názvy takových balíčků mají obvykle obsahují příponu „-dev“ nebo „-devel“ a lze je také pomocí správce softwaru vyhledávat."
+msgid ""
+"The missing programs are usually part of some distribution packages and can "
+"be searched for in your Application Manager. Similarly, the development "
+"packages are contained in special packages that your distribution provides "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"your Application Manager."
+msgstr ""
+"Chybějící programy jsou obvykle zahrnuty v distribučních balíčcích a lze je "
+"vyhledat pomocí správce softwaru. Obdobně je to i s balíčky vývojářskými, "
+"které jsou obvykle nabízeny zvlášť a které umožňují vývoj projektů na nich "
+"založených. Názvy takových balíčků mají obvykle obsahují příponu „-dev“ nebo "
+"„-devel“ a lze je také pomocí správce softwaru vyhledávat."
 
 #: ../plugins/project-wizard/druid.c:991
 msgid "Missing components"
@@ -7050,14 +7171,12 @@ msgstr "Vyberte složku"
 msgid "Select file"
 msgstr "Vybrat soubor"
 
-#: ../plugins/project-wizard/property.c:420
-#: ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:420 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Vybrat soubor s obrázkem"
 
 #: ../plugins/project-wizard/property.c:445
-#: ../plugins/project-wizard/property.c:535
-#: ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:535 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Zvolte ikonu"
@@ -7146,8 +7265,12 @@ msgid "Project Name:"
 msgstr "Název projektu:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
-msgstr "Název projektu nesmí obsahovat mezery, protože tento název bude použit také jako cíl sestavení (spustitelný soubor, knihovna atd.)"
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
+msgstr ""
+"Název projektu nesmí obsahovat mezery, protože tento název bude použit také "
+"jako cíl sestavení (spustitelný soubor, knihovna atd.)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:7
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
@@ -7267,8 +7390,13 @@ msgid "Plugin Dependencies:"
 msgstr "Závislosti zásuvného modulu:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
-msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
-msgstr "Seznam dalších zásuvných modulů, na kterých tento modul závisí, položky oddělené čárkou. Může to být název primárního rozhraní (primary interface name) nebo cesta k modulu (knihovna:třída)"
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+msgstr ""
+"Seznam dalších zásuvných modulů, na kterých tento modul závisí, položky "
+"oddělené čárkou. Může to být název primárního rozhraní (primary interface "
+"name) nebo cesta k modulu (knihovna:třída)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
 msgid "Icon File:"
@@ -7371,7 +7499,9 @@ msgstr "Přidat podporu C++:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "Přidává do projektu podporu C++, což umožňuje sestavování zdrojových kódů v jazyce C++"
+msgstr ""
+"Přidává do projektu podporu C++, což umožňuje sestavování zdrojových kódů v "
+"jazyce C++"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:32
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
@@ -7529,8 +7659,12 @@ msgstr "Přidat internacionalizaci:"
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-msgid "Adds support for internationalization so that your project can have translations in different languages"
-msgstr "Přidává do projektu podporu internacionalizace, takže projekt může být lokalizován do různých jazyků"
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Přidává do projektu podporu internacionalizace, takže projekt může být "
+"lokalizován do různých jazyků"
 
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 msgid "Django Project"
@@ -7549,8 +7683,11 @@ msgid "Generic gcj compiled java"
 msgstr "Obecný v jazyce Java sestavený pomocí gjc"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
-msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr "Obecný nativně sestavená projekt v jazyce Java s použítím Překladače GNU Java Compiler (gjc)"
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+"Obecný nativně sestavená projekt v jazyce Java s použítím Překladače GNU "
+"Java Compiler (gjc)"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
@@ -7588,13 +7725,17 @@ msgstr "UUID:"
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:16
 msgid ""
 "Uuid is a globally-unique identifier for your extension.\n"
-"This should be in the format of an email address (foo.bar@extensions.example.com), but\n"
-"need not be an actual email address, though it's a good idea to base the uuid on your\n"
+"This should be in the format of an email address (foo.bar@extensions.example."
+"com), but\n"
+"need not be an actual email address, though it's a good idea to base the "
+"uuid on your\n"
 "email address."
 msgstr ""
 "UUID je globálně jedinečný identifikátor vašeho rozšíření.\n"
-"Měl by být ve formátu e-mailové adresy (foo.bar@extensions.example.com) avšak\n"
-"nemusí jít nutně o aktuální e-mailovou adresou. Založit identifikátor na své e-mailové adrese je\n"
+"Měl by být ve formátu e-mailové adresy (foo.bar@extensions.example.com) "
+"avšak\n"
+"nemusí jít nutně o aktuální e-mailovou adresou. Založit identifikátor na své "
+"e-mailové adrese je\n"
 "však každopádně dobrý nápad."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
@@ -7606,8 +7747,11 @@ msgid "Gnome Shell Compatibility:"
 msgstr "Kompatabilita s Gnome Shell:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
-msgid "Comma-separated list of gnome-shell version your plugin is compatible with"
-msgstr "Seznam, oddělovaný čárkami, verzí gnome-shell, se kterými je váš zásuvný modul kompatibilní"
+msgid ""
+"Comma-separated list of gnome-shell version your plugin is compatible with"
+msgstr ""
+"Seznam, oddělovaný čárkami, verzí gnome-shell, se kterými je váš zásuvný "
+"modul kompatibilní"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "GTK+ (Application)"
@@ -7631,7 +7775,8 @@ msgstr "Přidat systém gtk-doc:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr "gtk-doc se používá pro kompilaci API dokumentace tříd založených na GObject"
+msgstr ""
+"gtk-doc se používá pro kompilaci API dokumentace tříd založených na GObject"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
@@ -7646,8 +7791,12 @@ msgstr "Použít GtkBuilder k tvorbě uživatelského prostředí:"
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
-msgid "Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime"
-msgstr "Použít GtkBuilder k tvorbě uživatelského rozhraní, které bude uloženo do souboru XML a za běhu načteno"
+msgid ""
+"Use GtkBuilder to create the user-interface in a graphical way and load it "
+"from xml files at runtime"
+msgstr ""
+"Použít GtkBuilder k tvorbě uživatelského rozhraní, které bude uloženo do "
+"souboru XML a za běhu načteno"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
@@ -7658,8 +7807,13 @@ msgstr "Vyžadovat balíček:"
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
-msgstr "Zadejte jméno balíku, který projekt vyžaduje. Můžete také určit vyžadovanou verzi, například „libgnomeui-2.0“ nebo „libgnomeui-2.0 >= 2.2.0“"
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Zadejte jméno balíku, který projekt vyžaduje. Můžete také určit vyžadovanou "
+"verzi, například „libgnomeui-2.0“ nebo „libgnomeui-2.0 >= 2.2.0“"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
 msgid "GTKmm (Simple)"
@@ -7868,6 +8022,15 @@ msgstr "Vybrat licenci kódu"
 msgid "No license"
 msgstr "Žádná licence"
 
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+#| msgid "Python Module"
+msgid "Python loader"
+msgstr "Zavaděč jazyka Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Umožňuje načítání zásuvných modulů Anjuta napsaných v jazyce Python"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
 msgstr "Spustit program"
@@ -8061,12 +8224,16 @@ msgid "<b>Error:</b> You must choose at least one language for the snippet!"
 msgstr "<b>Chyba:</b> Pro úryvek musíte zvolit nejméně jeden jazyk!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
-msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr "<b>Chyba:</b> Spouštěcí klíč se již používá pro jeden z jazyků!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
-msgstr "<b>Chyba:</b> Spouštěcí klíč může obsahovat pouze alfanumerické znaky a _!"
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
+msgstr ""
+"<b>Chyba:</b> Spouštěcí klíč může obsahovat pouze alfanumerické znaky a _!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -8106,9 +8273,14 @@ msgstr "Spouštěcí klíč:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid ""
-"The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
-msgstr "Spouštěcí klíč se používá pro rychlé vkládání úryvku. V editoru napíšete spouštěcí klíč, zmáčknete klávesovou zkratku pro „rychlé vložení“ a úryvek je vložen. <b>Varování: Musí být jedinečný v rámci jazyka.</b>"
+msgstr ""
+"Spouštěcí klíč se používá pro rychlé vkládání úryvku. V editoru napíšete "
+"spouštěcí klíč, zmáčknete klávesovou zkratku pro „rychlé vložení“ a úryvek "
+"je vložen. <b>Varování: Musí být jedinečný v rámci jazyka.</b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
 msgid "Languages:"
@@ -8123,8 +8295,12 @@ msgid "Keywords:"
 msgstr "Klíčová slova:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
-msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
-msgstr "Klíčová slova se využívají pro lepší vyhledávání v úryvcích. Měly by mít vztah k obsahu úryvku. Zapište je oddělené jednoduchou mezerou."
+msgid ""
+"Keywords are used for better searching of the snippets. They should be "
+"relevant to the snippet content. Type them separated by a single space."
+msgstr ""
+"Klíčová slova se využívají pro lepší vyhledávání v úryvcích. Měly by mít "
+"vztah k obsahu úryvku. Zapište je oddělené jednoduchou mezerou."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Properties"
@@ -8219,8 +8395,7 @@ msgid "Right margin position in characters"
 msgstr "Poloha pravého okraje ve znacích"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
-#: ../src/anjuta-app.c:634
-#: ../src/anjuta-app.c:639
+#: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
 msgid "View"
 msgstr "Zobrazení"
 
@@ -8288,12 +8463,11 @@ msgstr "Povolit/zakázat lámání řádek"
 msgid "Editor view settings"
 msgstr "Nastavení zobrazení v editoru"
 
-#: ../plugins/sourceview/plugin.c:365
-#: ../plugins/sourceview/plugin.c:406
+#: ../plugins/sourceview/plugin.c:365 ../plugins/sourceview/plugin.c:406
 msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8302,7 +8476,7 @@ msgstr ""
 "Soubor „%s“ na disku je novější než aktuálně načtený.\n"
 "Chcete jej znovu načíst?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8312,18 +8486,18 @@ msgstr ""
 "Chcete jej uzavřít?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Nelze otevřít %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Soubor „%s“ je jen pro čtení! Přesto upravit?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Nelze uložit %s: %s"
@@ -8610,36 +8784,31 @@ msgstr "Zjišťuje se stav…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:52
-#: ../plugins/subversion/plugin.c:151
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:60
-#: ../plugins/subversion/plugin.c:175
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:175
 msgid "_Add…"
 msgstr "_Přidat…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Přidat nový soubor/složku do stromu Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:183
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove…"
 msgstr "_Odstranit…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Odstranit soubor/složku ze stromu Subversion"
 
@@ -8657,15 +8826,13 @@ msgstr "Potvrdit vaše změny do stromu Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:84
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 msgid "_Revert…"
 msgstr "V_rátit…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:86
-#: ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:86 ../plugins/subversion/plugin.c:169
 msgid "Revert changes to your working copy."
 msgstr "Vrátit změny v pracovní kopii."
 
@@ -8683,15 +8850,13 @@ msgstr "Vyřešit konflikty v pracovní kopii."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:100
-#: ../plugins/subversion/plugin.c:159
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update…"
 msgstr "_Aktualizovat…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:102
-#: ../plugins/subversion/plugin.c:161
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Syncronize your local copy with the Subversion tree"
 msgstr "Synchronizovat vaši místní kopii se stromem Subversion"
 
@@ -8703,8 +8868,7 @@ msgstr "Kopírovat soubory/složky…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110
-#: ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:201
 msgid "Copy files/folders in the repository"
 msgstr "Kopírovat soubory/složku do repozitáře"
 
@@ -8734,15 +8898,13 @@ msgstr "Sloučit změny do vaší pracovní kopie"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132
-#: ../plugins/subversion/plugin.c:191
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 msgid "_View Log…"
 msgstr "_Zobrazit záznam…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134
-#: ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:193
 msgid "View file history"
 msgstr "Zobrazit historii souboru"
 
@@ -8754,8 +8916,7 @@ msgstr "_Diff…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142
-#: ../plugins/subversion/plugin.c:209
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
 msgstr "Rozdíl (diff) místního stromu a repositáře"
 
@@ -8979,16 +9140,24 @@ msgid "Parallel scan of project and global symbols"
 msgstr "Paralelní sken projektu a globálních symbolů"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
-msgid "This option means that the global system packages will be scanned simultaneously with the project's ones"
-msgstr "Tato volba značí, že globální systémové balíčky budou skenovány spolu s těmi projektovými"
+msgid ""
+"This option means that the global system packages will be scanned "
+"simultaneously with the project's ones"
+msgstr ""
+"Tato volba značí, že globální systémové balíčky budou skenovány spolu s těmi "
+"projektovými"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Automatically update symbols without saving file"
 msgstr "Automaticky aktualizovat symboly bez ukládání souboru"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
-msgid "Automatically update the file's symbols without saving. The update occurs after 10 seconds without keypresses by the user."
-msgstr "Automaticky aktualizovat symboly souboru bez ukládání. K aktualizaci dojde po 10 sekundách bez stisku klávesy ze strany uživatele."
+msgid ""
+"Automatically update the file's symbols without saving. The update occurs "
+"after 10 seconds without keypresses by the user."
+msgstr ""
+"Automaticky aktualizovat symboly souboru bez ukládání. K aktualizaci dojde "
+"po 10 sekundách bez stisku klávesy ze strany uživatele."
 
 #: ../plugins/symbol-db/plugin.c:331
 msgid "Tag De_claration"
@@ -9046,8 +9215,7 @@ msgstr[2] "%d z %d souborů proskenováno"
 msgid "Populating symbol database…"
 msgstr "Naplňuje se databáze symbolů…"
 
-#: ../plugins/symbol-db/plugin.c:2122
-#: ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2207
 msgid "Symbols"
 msgstr "Symboly"
 
@@ -9059,8 +9227,7 @@ msgstr "Kontextové akce SymbolDb"
 msgid "SymbolDb menu actions"
 msgstr "Akce nabídky SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2537
-#: ../plugins/symbol-db/plugin.c:2555
+#: ../plugins/symbol-db/plugin.c:2537 ../plugins/symbol-db/plugin.c:2555
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Databáze symbolů"
@@ -9078,8 +9245,7 @@ msgid "Symbol"
 msgstr "Symbol"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
-#: ../plugins/terminal/terminal.c:750
-#: ../plugins/terminal/terminal.c:944
+#: ../plugins/terminal/terminal.c:750 ../plugins/terminal/terminal.c:944
 #: ../plugins/terminal/terminal.c:995
 msgid "Terminal"
 msgstr "Terminál"
@@ -9122,8 +9288,7 @@ msgid "Unable to execute command"
 msgstr "Nelze spustit příkaz"
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
-#: ../plugins/tools/anjuta-tools.ui.h:1
-#: ../plugins/tools/plugin.c:263
+#: ../plugins/tools/anjuta-tools.ui.h:1 ../plugins/tools/plugin.c:263
 #: ../plugins/tools/plugin.c:270
 msgid "Tools"
 msgstr "Nástroje"
@@ -9225,8 +9390,12 @@ msgid "A tool with the same name already exists!"
 msgstr "Nástroj se stejným názvem již existuje!"
 
 #: ../plugins/tools/editor.c:826
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
-msgstr "Tuto klávesovou zkratku již používá jiná komponenta Anjuty. Chcete ji přesto zachovat?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
+msgstr ""
+"Tuto klávesovou zkratku již používá jiná komponenta Anjuty. Chcete ji přesto "
+"zachovat?"
 
 #: ../plugins/tools/editor.c:910
 msgid "Unable to edit script"
@@ -9382,7 +9551,8 @@ msgstr "Vybraný plný název souboru v zásuvném modulu správce souborů"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "Vybraný plný název souboru bez přípony v zásuvném modulu správce souborů"
+msgstr ""
+"Vybraný plný název souboru bez přípony v zásuvném modulu správce souborů"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
@@ -9410,7 +9580,8 @@ msgstr "Vybraný plný název souboru v zásuvném modulu správce projektů"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "Vybraný plný název souboru bez přípony v zásuvném modulu správce projektů"
+msgstr ""
+"Vybraný plný název souboru bez přípony v zásuvném modulu správce projektů"
 
 #: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
