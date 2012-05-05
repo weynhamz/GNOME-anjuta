@@ -155,7 +155,6 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
                                      GitLogPane *self)
 {
 	GtkListStore *log_branch_combo_model;
-	AnjutaPlugin *plugin;
 	GList *current_branch;
 	GitBranch *branch;
 	gchar *name;
@@ -163,7 +162,6 @@ on_branch_list_command_data_arrived (AnjutaCommand *command,
 
 	log_branch_combo_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
 	                                                                 "log_branch_combo_model"));
-	plugin = anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self));
 	current_branch = git_branch_list_command_get_output (GIT_BRANCH_LIST_COMMAND (command));
 
 	while (current_branch)
