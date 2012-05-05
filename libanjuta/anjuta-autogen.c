@@ -95,8 +95,8 @@ struct _AnjutaAutogen
 	GObject parent;
 
 	gchar* deffilename;		/* name of generated definition file */
-	const gchar* tplfilename;	/* name of template (input) file */
-	gchar* temptplfilename;		/* name of generated template if the
+	gchar* tplfilename;		/* name of template (input) file */
+	const gchar* temptplfilename;		/* name of generated template if the
 					 * previous file doesn't contains
 					 * autogen marker */
 
@@ -104,7 +104,7 @@ struct _AnjutaAutogen
 					/* Output file name and handle used
 					 * when autogen output is written
 					 * in a file */
-	const gchar* outfilename;
+	gchar* outfilename;
 	FILE* output;
 	gboolean empty;
 					/* Call back function and data used
@@ -207,7 +207,7 @@ cb_autogen_write_key (const gchar* name, const gchar *value, gpointer user_data)
 }
 
 /**
- * anjuta_autogen_write_definition_file
+ * anjuta_autogen_write_definition_file:
  * @this: A #AnjutaAutogen object
  * @values: (element-type utf8 utf8): A hash table containing all definitions
  * @error: Error propagation and reporting
@@ -269,7 +269,7 @@ anjuta_autogen_write_definition_file (AnjutaAutogen* this, GHashTable* values, G
  *---------------------------------------------------------------------------*/
 
 /**
- * anjuta_autogen_set_library_path
+ * anjuta_autogen_set_library_path:
  * @this: A #AnjutaAutogen object
  * @directory: A path containing autogen library.
  *
@@ -289,7 +289,7 @@ anjuta_autogen_set_library_path (AnjutaAutogen* this, const gchar *directory)
 }
 
 /**
- * anjuta_autogen_clear_library_path
+ * anjuta_autogen_clear_library_path:
  * @this: A #AnjutaAutogen object
  *
  * Remove all library pathes.
@@ -304,13 +304,13 @@ anjuta_autogen_clear_library_path (AnjutaAutogen* this)
 }
 
 /**
- * anjuta_autogen_get_library_paths
+ * anjuta_autogen_get_library_paths:
  * @this: A #AnjutaAutogen object
  *
  * Get the list of all directories searched for files included in the autogen
  * templates.
  *
- * Returns: (element-type gchar *) (transfer none): A list of directories.
+ * Returns: (element-type gchar*) (transfer none): A list of directories.
  * The content and the list itself are owned by the #AnjutaAutogen object and
  * should not be modified or freed.
  */
@@ -325,7 +325,7 @@ anjuta_autogen_get_library_paths (AnjutaAutogen* this)
  *---------------------------------------------------------------------------*/
 
 /**
- * anjuta_autogen_set_input_file
+ * anjuta_autogen_set_input_file:
  * @this: A #AnjutaAutogen object
  * @filename: name of the input template file
  * @start_marker: (allow-none): start marker string
@@ -383,9 +383,9 @@ anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const
 	 * with them */
 
 	/* Create temporary file */
-	this->temptplfilename = g_build_filename (g_get_tmp_dir (), TMP_TPL_FILENAME, NULL);
-	mktemp (this->temptplfilename);
-	this->tplfilename = this->temptplfilename;
+	this->tplfilename = g_build_filename (g_get_tmp_dir (), TMP_TPL_FILENAME, NULL);
+	mktemp (this->tplfilename);
+	this->temptplfilename = this->tplfilename;
 	tpl = fopen (this->tplfilename, "wt");
 	if (tpl == NULL) return FALSE;
 
@@ -426,7 +426,7 @@ anjuta_autogen_set_input_file (AnjutaAutogen* this, const gchar* filename, const
 }
 
 /**
- * anjuta_autogen_set_output_file
+ * anjuta_autogen_set_output_file:
  * @this: A #AnjutaAutogen object
  * @filename: name of the generated file
  *
@@ -449,9 +449,9 @@ anjuta_autogen_set_output_file (AnjutaAutogen* this, const gchar* filename)
 }
 
 /**
- * anjuta_autogen_set_output_callback
+ * anjuta_autogen_set_output_callback:
  * @this: A #AnjutaAutogen object
- * @func: (scope notified) (allow-none): Function call each time we get new data from autogen
+ * @func: Function call each time we get new data from autogen
  * @user_data: (allow-none): User data to pass to @func, or %NULL
  * @destroy: Function call when the process is complete to free user data
  *
@@ -524,7 +524,7 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 }
 
 /**
- * anjuta_autogen_execute
+ * anjuta_autogen_execute:
  * @this: A #AnjutaAutogen object
  * @func: (scope async) (allow-none): A function called when autogen is terminated
  * @data: (allow-none): User data to pass to @func, or %NULL
@@ -692,7 +692,7 @@ anjuta_autogen_class_init (AnjutaAutogenClass *klass)
  *---------------------------------------------------------------------------*/
 
 /**
- * anjuta_autogen_new
+ * anjuta_autogen_new:
  *
  * Create a new autogen object.
  *
