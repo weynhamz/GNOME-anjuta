@@ -9,13 +9,13 @@
 # Sergey Al. Safonov <spoof@spoofa.info>, 2008.
 # Lebedev Roman <roman@lebedev.com>, 2008.
 # Alexander Saprykin <xelfium@gmail.com>, 2009, 2010.
-# Yuri Kozlov <yuray@komyakino.ru>, 2010.
+# Yuri Kozlov <yuray@komyakino.ru>, 2010, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta trunk\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-04-29 14:32+0000\n"
-"PO-Revision-Date: 2012-04-30 18:08+0300\n"
+"POT-Creation-Date: 2012-05-05 08:47+0000\n"
+"PO-Revision-Date: 2012-05-06 11:22+0300\n"
 "Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
+"Language: ru\n"
 
 #: ../anjuta.desktop.in.in.h:1
 #: ../src/main.c:181
@@ -38,6 +39,20 @@ msgstr "Интегрированная среда разработки"
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "Разработка приложений в интегрированной среде разработки"
+
+#: ../libanjuta/anjuta-autogen.c:239
+msgid "Autogen is busy"
+msgstr "Autogen занят"
+
+#: ../libanjuta/anjuta-autogen.c:251
+#, c-format
+msgid "Could not write definition file \"%s\": %s"
+msgstr "Не удалось записать файл определений «%s»: %s"
+
+#: ../libanjuta/anjuta-autogen.c:585
+#, c-format
+msgid "Could not open file \"%s\": %s"
+msgstr "Не удалось открыть файл «%s»: %s"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:10
@@ -267,19 +282,19 @@ msgid "Environment Variables:"
 msgstr "Переменные окружения:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:719
+#: ../plugins/class-gen/window.c:729
 #: ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:745
-#: ../plugins/class-gen/window.c:759
+#: ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:761
 #: ../plugins/class-gen/window.c:769
 #: ../plugins/class-gen/window.c:777
 #: ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:811
-#: ../plugins/class-gen/window.c:821
-#: ../plugins/class-gen/window.c:833
-#: ../plugins/project-manager/dialogs.c:479
+#: ../plugins/class-gen/window.c:803
+#: ../plugins/class-gen/window.c:813
+#: ../plugins/class-gen/window.c:825
+#: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
 #: ../plugins/snippets-manager/snippets-browser.c:533
@@ -288,12 +303,12 @@ msgid "Name"
 msgstr "Имя"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:778
-#: ../plugins/class-gen/window.c:794
-#: ../plugins/class-gen/window.c:825
+#: ../plugins/class-gen/window.c:770
+#: ../plugins/class-gen/window.c:786
+#: ../plugins/class-gen/window.c:817
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:487
+#: ../plugins/project-manager/dialogs.c:489
 #: ../plugins/run-program/parameters.c:763
 #: ../plugins/tools/editor.c:476
 msgid "Value"
@@ -715,17 +730,17 @@ msgstr "Виджет не найден: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Не удалось найти файл изображения для приложения: %s"
 
-#: ../plugins/am-project/amp-group.c:541
+#: ../plugins/am-project/amp-group.c:622
 msgid "Please specify group name"
 msgstr "Задайте название группы"
 
-#: ../plugins/am-project/amp-group.c:555
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
-msgstr "Название группы может содержать только буквы, цифры и символы «#$:%+,-.=@^_`~»"
+#: ../plugins/am-project/amp-group.c:636
+msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
+msgstr "Название группы может содержать только буквы, цифры и символы «#$:%+,-.=@^_`~/»"
 
-#: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1696
-#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/am-project/amp-group.c:660
+#: ../plugins/am-project/am-project.c:1698
+#: ../plugins/am-project/am-project.c:1791
 #: ../plugins/dir-project/dir-project.c:723
 #: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
@@ -801,7 +816,7 @@ msgid "Script"
 msgstr "Сценарий"
 
 #: ../plugins/am-project/am-project.c:220
-#: ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:794
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Модуль"
@@ -810,11 +825,11 @@ msgstr "Модуль"
 msgid "Package"
 msgstr "Пакет"
 
-#: ../plugins/am-project/am-project.c:1724
+#: ../plugins/am-project/am-project.c:1728
 msgid "Unable to parse project file"
 msgstr "Не удалось разобрать файл проекта"
 
-#: ../plugins/am-project/am-project.c:1735
+#: ../plugins/am-project/am-project.c:1739
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Проект не существует или путь к проекту неверен"
@@ -830,7 +845,7 @@ msgstr "Новый движок Autotools для менеджера проект
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
 #: ../plugins/git/anjuta-git.ui.h:19
-#: ../plugins/project-manager/dialogs.c:617
+#: ../plugins/project-manager/dialogs.c:619
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -1288,23 +1303,27 @@ msgstr "Раздел для установки страниц руководст
 msgid "Source file must be a regular file, not a directory"
 msgstr "Исходный файл должен быть обычным файлом, а не каталогом"
 
-#: ../plugins/am-project/amp-target.c:339
+#: ../plugins/am-project/amp-target.c:342
+msgid "Target parent is not a valid group"
+msgstr "Родительская цель не является допустимой группой"
+
+#: ../plugins/am-project/amp-target.c:352
 msgid "Please specify target name"
 msgstr "Задайте название цели"
 
-#: ../plugins/am-project/amp-target.c:353
+#: ../plugins/am-project/amp-target.c:366
 msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr "Название цели может содержать только буквы, цифры и символы «_», «-», «.»"
 
-#: ../plugins/am-project/amp-target.c:368
+#: ../plugins/am-project/amp-target.c:381
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "Название разделяемой библиотеки должно иметь вид «libxxx.la»"
 
-#: ../plugins/am-project/amp-target.c:377
+#: ../plugins/am-project/amp-target.c:390
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "Название статической библиотеки должно иметь вид «libxxx.a»"
 
-#: ../plugins/am-project/amp-target.c:385
+#: ../plugins/am-project/amp-target.c:398
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "Целевое имя модуля должно иметь вид «xxx.la»"
 
@@ -1400,28 +1419,28 @@ msgid "Install"
 msgstr "Установить"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:525
+#: ../plugins/build-basic-autotools/build.c:526
 msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
 msgstr "Перед использованием новой конфигурации конфигурация по умолчанию должна быть удалена. Хотите удалить её?"
 
-#: ../plugins/build-basic-autotools/build.c:530
+#: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "Команда отменена пользователем"
 
-#: ../plugins/build-basic-autotools/build.c:852
+#: ../plugins/build-basic-autotools/build.c:879
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "Не удалось скомпилировать «%s»: нет правил сборки для файлов данного типа."
 
-#: ../plugins/build-basic-autotools/build.c:1014
+#: ../plugins/build-basic-autotools/build.c:1041
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr "Не удалось сконфигурировать проект: в %s отсутствует конфигурационный сценарий."
+msgstr "Не удалось выполнить настройку проекта: в %s отсутствует сценарий настройки."
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
-#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:742
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 #: ../src/preferences.ui.h:15
 msgid "Default"
@@ -1593,188 +1612,212 @@ msgstr "Завершено успешно\n"
 msgid "Build %d: %s"
 msgstr "Сборка %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1639
-#: ../plugins/build-basic-autotools/plugin.c:1713
-#: ../plugins/build-basic-autotools/plugin.c:1723
-#: ../plugins/build-basic-autotools/plugin.c:1741
-#: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1664
+#: ../plugins/build-basic-autotools/plugin.c:1750
+#: ../plugins/build-basic-autotools/plugin.c:1760
+#: ../plugins/build-basic-autotools/plugin.c:1778
+#: ../plugins/build-basic-autotools/plugin.c:1788
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build"
 msgstr "С_борка"
 
-#: ../plugins/build-basic-autotools/plugin.c:1643
+#: ../plugins/build-basic-autotools/plugin.c:1668
 msgid "_Build Project"
 msgstr "С_обрать проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1644
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "Build whole project"
 msgstr "Собрать весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1649
+#: ../plugins/build-basic-autotools/plugin.c:1674
 msgid "_Install Project"
 msgstr "Ус_тановить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1650
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "Install whole project"
 msgstr "Установить весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1655
+#: ../plugins/build-basic-autotools/plugin.c:1680
+msgid "_Check Project"
+msgstr "Проверить _проект"
+
+#: ../plugins/build-basic-autotools/plugin.c:1681
+msgid "Check whole project"
+msgstr "Проверить весь проект"
+
+#: ../plugins/build-basic-autotools/plugin.c:1686
 msgid "_Clean Project"
 msgstr "О_чистить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1656
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "Clean whole project"
 msgstr "Очистить весь проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1661
+#: ../plugins/build-basic-autotools/plugin.c:1692
 msgid "C_onfigure Project…"
 msgstr "Н_астроить проект…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1662
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "Configure project"
 msgstr "Настроить проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1667
+#: ../plugins/build-basic-autotools/plugin.c:1698
 msgid "Build _Tarball"
 msgstr "Собрать _архив с проектом"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build project tarball distribution"
 msgstr "Собрать tar-архив проекта для распространения"
 
-#: ../plugins/build-basic-autotools/plugin.c:1673
+#: ../plugins/build-basic-autotools/plugin.c:1704
 msgid "_Build Module"
 msgstr "С_обрать модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "Build module associated with current file"
 msgstr "Собрать модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:1679
+#: ../plugins/build-basic-autotools/plugin.c:1710
 msgid "_Install Module"
 msgstr "Установить м_одуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "Install module associated with current file"
 msgstr "Установить модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:1685
+#: ../plugins/build-basic-autotools/plugin.c:1716
+msgid "_Check Module"
+msgstr "Проверить _модуль"
+
+#: ../plugins/build-basic-autotools/plugin.c:1717
+msgid "Check module associated with current file"
+msgstr "Проверить модуль, ассоциированный с текущим файлом"
+
+#: ../plugins/build-basic-autotools/plugin.c:1722
 msgid "_Clean Module"
 msgstr "Очистить _модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "Clean module associated with current file"
 msgstr "Очистить модуль, ассоциированный с текущим файлом"
 
-#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1728
 msgid "Co_mpile File"
 msgstr "_Компилировать файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Compile current editor file"
 msgstr "Скомпилировать текущий редактируемый файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1697
+#: ../plugins/build-basic-autotools/plugin.c:1734
 msgid "Select Configuration"
 msgstr "Выбрать конфигурацию"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select current configuration"
 msgstr "Выбор текущей конфигурации"
 
-#: ../plugins/build-basic-autotools/plugin.c:1703
+#: ../plugins/build-basic-autotools/plugin.c:1740
 msgid "Remove Configuration"
 msgstr "Удалить конфигурацию"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Очистить проект (distclean) и удалить конфигурационный каталог, если это возможно"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
-#: ../plugins/build-basic-autotools/plugin.c:1745
+#: ../plugins/build-basic-autotools/plugin.c:1754
+#: ../plugins/build-basic-autotools/plugin.c:1782
 msgid "_Compile"
 msgstr "С_компилировать"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
-#: ../plugins/build-basic-autotools/plugin.c:1746
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "Compile file"
 msgstr "Скомпилировать файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
-#: ../plugins/build-basic-autotools/plugin.c:1752
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1789
 msgid "Build module"
 msgstr "Собрать модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
-#: ../plugins/build-basic-autotools/plugin.c:1757
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1766
+#: ../plugins/build-basic-autotools/plugin.c:1794
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install"
 msgstr "_Установить"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
-#: ../plugins/build-basic-autotools/plugin.c:1758
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
 msgid "Install module"
 msgstr "Установить модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
-#: ../plugins/build-basic-autotools/plugin.c:1763
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1772
+#: ../plugins/build-basic-autotools/plugin.c:1806
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean"
 msgstr "_Очистить"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
-#: ../plugins/build-basic-autotools/plugin.c:1764
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
 msgid "Clean module"
 msgstr "Очистить модуль"
 
-#: ../plugins/build-basic-autotools/plugin.c:1769
+#: ../plugins/build-basic-autotools/plugin.c:1800
+msgid "_Check"
+msgstr "_Проверить"
+
+#: ../plugins/build-basic-autotools/plugin.c:1801
+msgid "Check module"
+msgstr "Проверить модуль"
+
+#: ../plugins/build-basic-autotools/plugin.c:1812
 msgid "_Cancel command"
 msgstr "_Остановить выполнение команды"
 
-#: ../plugins/build-basic-autotools/plugin.c:1770
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "Cancel build command"
 msgstr "Остановить команду сборки"
 
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Собрать (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Установить (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Очистить (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_Компилировать (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile"
 msgstr "_Компилировать"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "Build commands"
 msgstr "Команды для сборки"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Build popup commands"
 msgstr "Всплывающие команды для сборки"
 
-#: ../plugins/build-basic-autotools/plugin.c:2873
-#: ../plugins/build-basic-autotools/plugin.c:2881
+#: ../plugins/build-basic-autotools/plugin.c:2916
+#: ../plugins/build-basic-autotools/plugin.c:2924
 msgid "Build Autotools"
 msgstr "Сборка с Autotools"
 
@@ -1992,18 +2035,13 @@ msgstr "Шаблон autogen, используемый для файла реа�
 msgid "File to which the processed template will be written"
 msgstr "Файл для записи обрабатываемого шаблона"
 
-#: ../plugins/class-gen/generator.c:405
-#, c-format
-msgid "Failed to write autogen definition file"
-msgstr "Не удалось записать файл определения autogen"
-
-#: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1240
+#: ../plugins/class-gen/plugin.c:107
+#: ../plugins/project-wizard/druid.c:1258
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Не удалось найти autogen версии 5, установите пакет autogen. Вы можете найти его здесь: http://autogen.sourceforge.net."
 
-#: ../plugins/class-gen/plugin.c:252
-#: ../plugins/class-gen/plugin.c:449
+#: ../plugins/class-gen/plugin.c:261
+#: ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Не удалось выполнить autogen: %s"
@@ -2012,81 +2050,81 @@ msgstr "Не удалось выполнить autogen: %s"
 msgid "Guess from type"
 msgstr "Предполагаемый тип"
 
-#: ../plugins/class-gen/window.c:724
-#: ../plugins/class-gen/window.c:735
-#: ../plugins/class-gen/window.c:809
-#: ../plugins/class-gen/window.c:819
-#: ../plugins/class-gen/window.c:832
+#: ../plugins/class-gen/window.c:716
+#: ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:801
+#: ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:824
 msgid "Scope"
 msgstr "Область видимости"
 
-#: ../plugins/class-gen/window.c:725
+#: ../plugins/class-gen/window.c:717
 msgid "Implementation"
 msgstr "Реализация"
 
-#: ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:736
-#: ../plugins/class-gen/window.c:758
-#: ../plugins/class-gen/window.c:810
-#: ../plugins/class-gen/window.c:820
+#: ../plugins/class-gen/window.c:718
+#: ../plugins/class-gen/window.c:728
+#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:812
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Тип"
 
-#: ../plugins/class-gen/window.c:728
-#: ../plugins/class-gen/window.c:738
-#: ../plugins/class-gen/window.c:760
-#: ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786
-#: ../plugins/class-gen/window.c:812
-#: ../plugins/class-gen/window.c:834
+#: ../plugins/class-gen/window.c:720
+#: ../plugins/class-gen/window.c:730
+#: ../plugins/class-gen/window.c:752
+#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:778
+#: ../plugins/class-gen/window.c:804
+#: ../plugins/class-gen/window.c:826
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
 msgstr "Аргументы"
 
-#: ../plugins/class-gen/window.c:746
+#: ../plugins/class-gen/window.c:738
 msgid "Nick"
 msgstr "Псевдоним"
 
-#: ../plugins/class-gen/window.c:747
+#: ../plugins/class-gen/window.c:739
 msgid "Blurb"
 msgstr "Аннотация"
 
-#: ../plugins/class-gen/window.c:748
+#: ../plugins/class-gen/window.c:740
 msgid "GType"
 msgstr "GType"
 
-#: ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:741
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:751
-#: ../plugins/class-gen/window.c:761
+#: ../plugins/class-gen/window.c:743
+#: ../plugins/class-gen/window.c:753
 msgid "Flags"
 msgstr "Флаги"
 
-#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:754
 msgid "Marshaller"
 msgstr "Маршаллер"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822
+#: ../plugins/class-gen/window.c:814
 #: ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Автоматически"
 
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:815
 msgid "Getter"
 msgstr "Функция чтения (getter)"
 
-#: ../plugins/class-gen/window.c:824
+#: ../plugins/class-gen/window.c:816
 msgid "Setter"
 msgstr "Функция записи (setter)"
 
-#: ../plugins/class-gen/window.c:1242
+#: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "XML-описание пользовательского интерфейса"
 
@@ -2111,7 +2149,6 @@ msgid "CLang Paths"
 msgstr "Пути Clang"
 
 #: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-#| msgid "CLang Analyzer"
 msgid "Code Analyzer"
 msgstr "Анализатор кода"
 
@@ -2317,7 +2354,7 @@ msgstr "Выберите файл или каталог для получени�
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 #: ../plugins/git/anjuta-git.ui.h:25
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
 msgstr "Параметры"
@@ -2940,7 +2977,7 @@ msgstr "Дизассемблер"
 
 #: ../plugins/debug-manager/info.c:52
 #: ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:154
+#: ../plugins/project-wizard/druid.c:162
 msgid "Information"
 msgstr "Информация"
 
@@ -3483,7 +3520,6 @@ msgid "Project doesn't allow to set properties"
 msgstr "Проект запрещает установку свойств"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:1
-#| msgid "_Directory name:"
 msgid "Directory backend"
 msgstr "Каталоги"
 
@@ -3533,7 +3569,7 @@ msgid "Close file"
 msgstr "Закрыть файл"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:612
+#: ../plugins/project-manager/dialogs.c:614
 msgid "Path:"
 msgstr "Путь:"
 
@@ -3956,8 +3992,8 @@ msgid "Search using regular expressions"
 msgstr "Поиск с использованием регулярного выражения"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1411
-#: ../plugins/language-support-python/plugin.c:451
+#: ../plugins/language-support-cpp-java/plugin.c:1412
+#: ../plugins/language-support-python/plugin.c:452
 #: ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Правка"
@@ -4619,7 +4655,7 @@ msgstr ""
 "Расширение будет добавлено в соответствии с типом файла."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:639
+#: ../plugins/project-manager/dialogs.c:641
 msgid "Type:"
 msgstr "Тип:"
 
@@ -5261,17 +5297,17 @@ msgstr "Правка не выбрана"
 msgid "Stash %i.diff"
 msgstr "Скрыть %i.diff"
 
-#: ../plugins/git/git-log-pane.c:569
+#: ../plugins/git/git-log-pane.c:574
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Ветвь:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:579
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Метка:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Удалённый:</b> %s"
@@ -5893,43 +5929,43 @@ msgstr "Тэги API (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:958
+#: ../plugins/language-support-cpp-java/plugin.c:959
 msgid "Code added for widget."
 msgstr "Код, добавленный для виджета."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1417
-#: ../plugins/language-support-python/plugin.c:457
+#: ../plugins/language-support-cpp-java/plugin.c:1418
+#: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-Indent"
 msgstr "Автоматические отступы"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1418
-#: ../plugins/language-support-python/plugin.c:458
+#: ../plugins/language-support-cpp-java/plugin.c:1419
+#: ../plugins/language-support-python/plugin.c:459
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Автоматически выравнивать текущую строку или выделение на основе параметров выравнивания"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1424
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment/Uncomment"
 msgstr "Комментировать/раскомментировать"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1425
+#: ../plugins/language-support-cpp-java/plugin.c:1426
 msgid "Comment or uncomment current selection"
 msgstr "Комментировать или раскомментировать выделенный фрагмент"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1430
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap .h/.c"
 msgstr "Переключить .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1431
+#: ../plugins/language-support-cpp-java/plugin.c:1432
 msgid "Swap C header and source files"
 msgstr "Переключение между файлами заголовков и исходных текстов"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1471
+#: ../plugins/language-support-cpp-java/plugin.c:1472
 msgid "C++/Java Assistance"
 msgstr "Поддержка C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1708
-#: ../plugins/language-support-cpp-java/plugin.c:1742
+#: ../plugins/language-support-cpp-java/plugin.c:1711
+#: ../plugins/language-support-cpp-java/plugin.c:1745
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -5974,11 +6010,11 @@ msgstr "Сценарий JavaScript"
 msgid "JS"
 msgstr "JS"
 
-#: ../plugins/language-support-python/plugin.c:84
+#: ../plugins/language-support-python/plugin.c:85
 msgid "Python support warning"
 msgstr "Предупреждение о поддержке Python"
 
-#: ../plugins/language-support-python/plugin.c:92
+#: ../plugins/language-support-python/plugin.c:93
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -5988,28 +6024,25 @@ msgstr ""
 "python-rope (http://rope.sf.net). И то, и другое требуется для автодополнения\n"
 "в файлах python. Установите библиотеки и проверьте в настройках путь python."
 
-#: ../plugins/language-support-python/plugin.c:95
+#: ../plugins/language-support-python/plugin.c:96
 msgid "Do not show that warning again"
 msgstr "Не показывать это предупреждение"
 
-#: ../plugins/language-support-python/plugin.c:514
+#: ../plugins/language-support-python/plugin.c:515
 msgid "Python Assistance"
 msgstr "Поддержка Python"
 
-#: ../plugins/language-support-python/plugin.c:619
-#: ../plugins/language-support-python/plugin.c:628
+#: ../plugins/language-support-python/plugin.c:624
+#: ../plugins/language-support-python/plugin.c:633
 #: ../plugins/language-support-python/python-assist.c:984
 msgid "Python"
 msgstr "Python"
 
 #: ../plugins/language-support-python/python-plugin.plugin.in.h:1
-#| msgid "Python support warning"
 msgid "Python support Plugin"
 msgstr "Модуль поддержки Python"
 
 #: ../plugins/language-support-python/python-plugin.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Python support plugin for code completion, auto indentation etc."
 msgstr "Модуль поддержки Python для дополнения кода, автоматических отступов и т. д."
 
@@ -6034,13 +6067,10 @@ msgid "Environment"
 msgstr "Окружение"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
-#| msgid "JS Support Plugin"
 msgid "Vala support Plugin"
 msgstr "Модуль поддержки Vala"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Vala support plugin, adds code completion."
 msgstr "Модуль для поддержки Vala, добавляет дополнение кода."
 
@@ -6203,7 +6233,6 @@ msgid "Unable to parse make file"
 msgstr "Не удалось разобрать make-файл"
 
 #: ../plugins/mk-project/mk-project.plugin.in.h:1
-#| msgid "Makefiles"
 msgid "Makefile backend"
 msgstr "Makefile"
 
@@ -6436,89 +6465,89 @@ msgstr "Модуль менеджера проекта для Anjuta"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:330
+#: ../plugins/project-manager/dialogs.c:332
 msgid "Select sources…"
 msgstr "Выбрать файлы исходных текстов…"
 
-#: ../plugins/project-manager/dialogs.c:405
+#: ../plugins/project-manager/dialogs.c:407
 msgid " This property is not modifiable."
 msgstr "Это свойство нельзя изменить."
 
-#: ../plugins/project-manager/dialogs.c:561
-#: ../plugins/project-manager/dialogs.c:566
+#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:568
 #: ../plugins/project-manager/plugin.c:927
 msgid "Project properties"
 msgstr "Свойства проекта"
 
-#: ../plugins/project-manager/dialogs.c:570
+#: ../plugins/project-manager/dialogs.c:572
 msgid "Folder properties"
 msgstr "Свойства папки"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:576
 msgid "Target properties"
 msgstr "Свойства цели"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:579
 msgid "Source properties"
 msgstr "Свойства исходного кода"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:582
 msgid "Module properties"
 msgstr "Свойства модуля"
 
-#: ../plugins/project-manager/dialogs.c:583
+#: ../plugins/project-manager/dialogs.c:585
 msgid "Package properties"
 msgstr "Свойства пакета"
 
-#: ../plugins/project-manager/dialogs.c:586
+#: ../plugins/project-manager/dialogs.c:588
 msgid "Unknown properties"
 msgstr "Неизвестные свойства"
 
-#: ../plugins/project-manager/dialogs.c:1004
-#: ../plugins/project-manager/dialogs.c:1015
+#: ../plugins/project-manager/dialogs.c:1050
+#: ../plugins/project-manager/dialogs.c:1061
 msgid "Cannot add group"
 msgstr "Не удалось добавить группу"
 
-#: ../plugins/project-manager/dialogs.c:1016
+#: ../plugins/project-manager/dialogs.c:1062
 msgid "No parent group selected"
 msgstr "Родительская группа не выбрана"
 
-#: ../plugins/project-manager/dialogs.c:1176
-#: ../plugins/project-manager/dialogs.c:1188
-#: ../plugins/project-manager/dialogs.c:1373
-#: ../plugins/project-manager/dialogs.c:1383
+#: ../plugins/project-manager/dialogs.c:1222
+#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1419
+#: ../plugins/project-manager/dialogs.c:1429
 msgid "Cannot add source files"
 msgstr "Не удалось добавить файлы исходных текстов"
 
-#: ../plugins/project-manager/dialogs.c:1189
-#: ../plugins/project-manager/dialogs.c:1384
+#: ../plugins/project-manager/dialogs.c:1235
+#: ../plugins/project-manager/dialogs.c:1430
 msgid "The selected node cannot contain source files."
 msgstr "Выбранный узел не может содержать файлов с исходным кодом."
 
-#: ../plugins/project-manager/dialogs.c:1570
-#: ../plugins/project-manager/dialogs.c:1581
+#: ../plugins/project-manager/dialogs.c:1616
+#: ../plugins/project-manager/dialogs.c:1627
 msgid "Cannot add target"
 msgstr "Не удалось добавить цель"
 
-#: ../plugins/project-manager/dialogs.c:1582
+#: ../plugins/project-manager/dialogs.c:1628
 msgid "No group selected"
 msgstr "Группа не выбрана"
 
-#: ../plugins/project-manager/dialogs.c:1745
-#: ../plugins/project-manager/dialogs.c:1756
+#: ../plugins/project-manager/dialogs.c:1791
+#: ../plugins/project-manager/dialogs.c:1802
 msgid "Cannot add modules"
 msgstr "Не удалось добавить модули"
 
-#: ../plugins/project-manager/dialogs.c:1757
+#: ../plugins/project-manager/dialogs.c:1803
 msgid "No target has been selected"
 msgstr "Не выбрана цель"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1963
+#: ../plugins/project-manager/dialogs.c:2009
 msgid "Missing module name"
 msgstr "Пропущено название модуля"
 
-#: ../plugins/project-manager/dialogs.c:2025
+#: ../plugins/project-manager/dialogs.c:2071
 msgid "Cannot add packages"
 msgstr "Не удалось добавить пакеты"
 
@@ -6909,7 +6938,7 @@ msgstr "<Выберите папку>"
 msgid "GbfProject Object"
 msgstr "Объект GbfProject"
 
-#: ../plugins/project-manager/project-model.c:745
+#: ../plugins/project-manager/project-model.c:747
 msgid "No project loaded"
 msgstr "Нет загруженного проекта"
 
@@ -6922,7 +6951,7 @@ msgid "Select a project type"
 msgstr "Выберите тип проекта"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:174
 msgid "Error"
 msgstr "Ошибка"
 
@@ -6934,32 +6963,32 @@ msgstr "Подробности"
 msgid "Summary"
 msgstr "Сводка"
 
-#: ../plugins/project-wizard/druid.c:158
-#: ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:170
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: ../plugins/project-wizard/druid.c:169
+#: ../plugins/project-wizard/druid.c:177
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../plugins/project-wizard/druid.c:250
+#: ../plugins/project-wizard/druid.c:258
 msgid "Confirm the following information:"
 msgstr "Подтвердите следующую информацию:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:254
+#: ../plugins/project-wizard/druid.c:262
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Тип проекта: %s\n"
 
-#: ../plugins/project-wizard/druid.c:431
+#: ../plugins/project-wizard/druid.c:439
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Hе удалось найти шаблоны проектов в %s"
 
-#: ../plugins/project-wizard/druid.c:671
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "\n"
@@ -6968,45 +6997,45 @@ msgstr ""
 "\n"
 "Поле «%s» обязательно для заполнения."
 
-#: ../plugins/project-wizard/druid.c:686
+#: ../plugins/project-wizard/druid.c:694
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
 msgstr "Поле «%s» может содержать только буквы, цифры и символы «#$:%%+,.=@^_`~». Кроме того, нельзя использовать в качестве первого символа знак тире."
 
-#: ../plugins/project-wizard/druid.c:691
+#: ../plugins/project-wizard/druid.c:699
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
 msgstr "Поле «%s» может содержать только буквы, цифры, символы «#$:%%+,.=@^_`~» и символ разделителя для каталогов. Кроме того, нельзя использовать в качестве первого символа знак тире."
 
-#: ../plugins/project-wizard/druid.c:696
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
 msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
 msgstr "Поле «%s» должно содержать только печатные символы ASCII."
 
-#: ../plugins/project-wizard/druid.c:701
+#: ../plugins/project-wizard/druid.c:709
 #, c-format
 msgid "Unknown error."
 msgstr "Неизвестная ошибка."
 
-#: ../plugins/project-wizard/druid.c:728
+#: ../plugins/project-wizard/druid.c:736
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr "Папка «%s» не пуста. Проект может не быть создан, если нельзя будет записать некоторые файлы. Продолжить?"
 
-#: ../plugins/project-wizard/druid.c:730
+#: ../plugins/project-wizard/druid.c:738
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Файл «%s» уже существует. Хотите переписать его?"
 
-#: ../plugins/project-wizard/druid.c:763
+#: ../plugins/project-wizard/druid.c:771
 msgid "Invalid entry"
 msgstr "Некорректный элемент"
 
-#: ../plugins/project-wizard/druid.c:773
+#: ../plugins/project-wizard/druid.c:781
 msgid "Dubious entry"
 msgstr "Ошибочные данные"
 
-#: ../plugins/project-wizard/druid.c:942
+#: ../plugins/project-wizard/druid.c:950
 #, c-format
 msgid ""
 "\n"
@@ -7015,7 +7044,7 @@ msgstr ""
 "\n"
 "Отсутствующие программы: %s."
 
-#: ../plugins/project-wizard/druid.c:953
+#: ../plugins/project-wizard/druid.c:961
 #, c-format
 msgid ""
 "\n"
@@ -7024,22 +7053,22 @@ msgstr ""
 "\n"
 "Отсутствующие пакеты: %s."
 
-#: ../plugins/project-wizard/druid.c:962
+#: ../plugins/project-wizard/druid.c:970
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Некоторые важные программы или пакеты разработчика, необходимые для сборки этого проекта, отсутствуют. Перед созданием проекта убедитесь, что они установлены корректно.\n"
 
-#: ../plugins/project-wizard/druid.c:971
+#: ../plugins/project-wizard/druid.c:979
 msgid "Install missing packages"
 msgstr "Установить отсутствующие пакеты"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:983
+#: ../plugins/project-wizard/druid.c:991
 msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Отсутствующие программы обычно входят в состав пакетов дистрибутива и могут быть найдены в программе управления приложениями. Обычно, пакеты для разработки содержатся в особых пакетах, имена которых оканчиваются на «dev» или «devel»."
 
-#: ../plugins/project-wizard/druid.c:991
+#: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
 msgstr "Отсутствующие компоненты"
 
@@ -7087,31 +7116,31 @@ msgstr "Hе удалось извлечь шаблон проекта %s: %s"
 msgid "New Project Assistant"
 msgstr "Мастер нового проекта"
 
-#: ../plugins/project-wizard/property.c:353
+#: ../plugins/project-wizard/property.c:365
 msgid "Select directory"
 msgstr "Выберите каталог"
 
-#: ../plugins/project-wizard/property.c:370
+#: ../plugins/project-wizard/property.c:382
 msgid "Select file"
 msgstr "Выберите файл"
 
-#: ../plugins/project-wizard/property.c:420
+#: ../plugins/project-wizard/property.c:432
 #: ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Выберите файл с изображением"
 
-#: ../plugins/project-wizard/property.c:445
-#: ../plugins/project-wizard/property.c:535
+#: ../plugins/project-wizard/property.c:457
+#: ../plugins/project-wizard/property.c:547
 #: ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Выбрать значок"
 
-#: ../plugins/project-wizard/property.c:505
+#: ../plugins/project-wizard/property.c:517
 msgid "Choose directory"
 msgstr "Выбрать каталог"
 
-#: ../plugins/project-wizard/property.c:509
+#: ../plugins/project-wizard/property.c:521
 msgid "Choose file"
 msgstr "Выбрать файл"
 
@@ -7913,7 +7942,6 @@ msgid "No license"
 msgstr "Лицензия отсутствует"
 
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
-#| msgid "Python Module"
 msgid "Python loader"
 msgstr "Загрузчик Python"
 
@@ -8226,76 +8254,80 @@ msgid "Anjuta variables"
 msgstr "Переменные Anjuta"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-msgid "Tab size in spaces:"
-msgstr "Размер табуляции в пробелах:"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Use tabs for indentation"
 msgstr "Использовать табуляции в отступах"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
+msgid "Tab size in spaces:"
+msgstr "Размер табуляции в пробелах:"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
+msgid "Indentation size in spaces:"
+msgstr "Размер отступа в пробелах:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Indentation and auto-format options"
 msgstr "Отступы и параметры автоформатирования"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Highlight syntax"
 msgstr "Подсветка синтаксиса"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Highlight matching brackets"
 msgstr "Подсвечивать парные скобки"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Create backup files"
 msgstr "Создать файлы резервных копий"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Enable autocompletion for document words"
 msgstr "Включить автодополнение для слов документа"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 msgid "Highlight current line"
 msgstr "Подсвечивать текущую строку"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 msgid "Show line numbers"
 msgstr "Показывать номера строк"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Show marks"
 msgstr "Показывать маркеры"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show right margin"
 msgstr "Отображать правую границу"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Right margin position in characters"
 msgstr "Расстояние до правой границы в символах"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 #: ../src/anjuta-app.c:634
 #: ../src/anjuta-app.c:639
 msgid "View"
 msgstr "Вид"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Editor"
 msgstr "Редактор"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Use theme font"
 msgstr "Использовать шрифт темы"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Color scheme:"
 msgstr "Цветовая схема:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Font"
 msgstr "Шрифт"
 
@@ -9690,6 +9722,18 @@ msgstr "Завершать работу Anjuta, последовательно �
 msgid "- Integrated Development Environment"
 msgstr "— Интегрированная среда разработки"
 
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:1
+msgid "Use tabulation for indentation"
+msgstr "Использовать табуляции в отступах"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:2
+msgid "Number of characters of one tabulation"
+msgstr "Количество мест в одной табуляции"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:3
+msgid "Number of spaces on every indentation step"
+msgstr "Количество пробелов на каждом отступе"
+
 #: ../src/preferences.ui.h:1
 msgid "Do not load last session on startup"
 msgstr "Не загружать последний сеанс при запуске"
@@ -9747,6 +9791,9 @@ msgstr "Только значки"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Только текст"
+
+#~ msgid "Failed to write autogen definition file"
+#~ msgstr "Не удалось записать файл определения autogen"
 
 #~ msgid "Anjuta IDE"
 #~ msgstr "Интегрированная среда разработки Anjuta"
