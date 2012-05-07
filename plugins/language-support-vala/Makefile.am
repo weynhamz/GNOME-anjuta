@@ -52,7 +52,7 @@ locator.c plugin.c provider.c report.c: libanjuta_language_vala_la_vala.stamp
 	@true
 
 libanjuta_language_vala_la_vala.stamp: $(libanjuta_language_vala_la_VALASOURCES)
-	valac $(VALAFLAGS) --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0 --pkg gtk+-3.0 -C $^
+	$(VALAC) $(VALAFLAGS) --vapidir $(srcdir) --pkg $(LIBVALA) --pkg libanjuta-3.0 --pkg gtk+-3.0 -C $^
 	touch $@
 
 libanjuta_language_vala_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
