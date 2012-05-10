@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-05-01 17:54+0000\n"
-"PO-Revision-Date: 2012-05-04 13:41+0100\n"
+"POT-Creation-Date: 2012-05-07 04:04+0000\n"
+"PO-Revision-Date: 2012-05-10 09:43+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -2112,13 +2112,12 @@ msgid "CLang Paths"
 msgstr "Poti CLang"
 
 #: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-#| msgid "CLang Analyzer"
 msgid "Code Analyzer"
 msgstr "Preučevalnik kode"
 
 #: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
 msgid "Analyze code with the clang-analyzer framework"
-msgstr ""
+msgstr "Preučevanje kode v okolju clang-analyzer"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
@@ -3485,13 +3484,12 @@ msgid "Project doesn't allow to set properties"
 msgstr "Projekt ne dovoli nastavitve lastnosti"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:1
-#| msgid "_Directory name:"
 msgid "Directory backend"
 msgstr "Zaledje mape"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:2
 msgid "Directory project backend, get only source files, use it when other backend fails"
-msgstr ""
+msgstr "Projektno zalednje mape pridobi le datoteke izvorne kode, ki so uporabljene, kadar zalednje odpove."
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -6005,13 +6003,10 @@ msgid "Python"
 msgstr "Python"
 
 #: ../plugins/language-support-python/python-plugin.plugin.in.h:1
-#| msgid "Python support warning"
 msgid "Python support Plugin"
 msgstr "Vstavek za podporo jezika Python"
 
 #: ../plugins/language-support-python/python-plugin.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Python support plugin for code completion, auto indentation etc."
 msgstr "Vstavek za podporo jezika Python za samodejno dopolnjevanje ukazov, zamikov in drugega ..."
 
@@ -6036,13 +6031,10 @@ msgid "Environment"
 msgstr "Okolje"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
-#| msgid "JS Support Plugin"
 msgid "Vala support Plugin"
 msgstr "Vstavek za podporo jezika Vala"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Vala support plugin, adds code completion."
 msgstr "Vstavek za podporo jezika Vala omogoči samodejno dopolnjevanje kode"
 
@@ -6209,13 +6201,12 @@ msgid "Unable to parse make file"
 msgstr "Ni mogoče razčleniti datoteke make"
 
 #: ../plugins/mk-project/mk-project.plugin.in.h:1
-#| msgid "Makefiles"
 msgid "Makefile backend"
 msgstr "Zeledje Makefile"
 
 #: ../plugins/mk-project/mk-project.plugin.in.h:2
 msgid "Makefile project backend, allowing only to read the project"
-msgstr ""
+msgstr "Projektno zalednje Makefile omogoča branje kode projekta"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -7920,13 +7911,12 @@ msgid "No license"
 msgstr "Ni dovoljenja"
 
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
-#| msgid "Python Module"
 msgid "Python loader"
 msgstr "Nalagalnik Python"
 
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
 msgid "Allows loading Anjuta plugins written in Python"
-msgstr ""
+msgstr "Omogoča nalaganje vstavkov v jeziku Python"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
