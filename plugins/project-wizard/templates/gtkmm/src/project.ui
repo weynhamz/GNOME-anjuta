@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <interface>
   <!-- interface-naming-policy project-wide -->
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkWindow" id="main_window">
     <property name="visible">True</property>
     <property name="title" translatable="yes">Hello World!</property>
