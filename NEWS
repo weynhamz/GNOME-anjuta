@@ -1,3 +1,47 @@
+Anjuta 3.4.2 "Better late than never" -- Johannes Schmid
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Bruno Brouard (1):
+      Updated French translation
+
+Daniel Mustieles (1):
+      Updated Spanish translation
+
+Fran Diéguez (1):
+      Updated Galician translations
+
+Gabor Kelemen (2):
+      Updated Hungarian translation
+      Updated Hungarian translation
+
+Johannes Schmid (3):
+      project-wizard: Make sure no template requires gtk+ 2.12 anymore
+      project-wizard: Explicitely use 3.0 as interface version for ui files (bgo#675877)
+
+Jonh Wendell (1):
+      Updated Brazilian Portuguese translation
+
+Marek Černocký (1):
+      Updated Czech translation
+
+Mario Blättermann (1):
+      [l10n] Updated German translation
+
+Matej Urbančič (2):
+      Updated Slovenian translation
+      Updated Slovenian translation
+
+Peter Mráz (1):
+      Updated Slovak translation
+
+Piotr Drąg (1):
+      Updated Polish translation
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
 Anjuta 3.4.1 "Berlin, das ist doch keine Stadt, das ist doch Deko" -- Johannes Schmid
 
 This is a bug-fix release for Anjuta 3.4.0, all users are encouraged to update to
