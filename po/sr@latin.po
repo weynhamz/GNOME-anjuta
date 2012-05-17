@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
 "&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-05 18:34+0000\n"
-"PO-Revision-Date: 2012-03-10 22:03+0200\n"
+"POT-Creation-Date: 2012-04-29 14:32+0000\n"
+"PO-Revision-Date: 2012-05-17 22:19+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -699,10 +699,10 @@ msgstr ""
 "Naziv grupe može da sadrži samo alfanumeričke ili „#$:%+,-.=@^_`~“ znake"
 
 #: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:731
-#: ../plugins/dir-project/dir-project.c:843
+#: ../plugins/am-project/am-project.c:1696
+#: ../plugins/am-project/am-project.c:1787
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -715,13 +715,13 @@ msgid "Root"
 msgstr "Koren"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:854
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "Grupa"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:858
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "Izvor"
@@ -784,11 +784,11 @@ msgstr "Modul"
 msgid "Package"
 msgstr "Paket"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1724
 msgid "Unable to parse project file"
 msgstr "Ne mogu da raščlanim datoteku projekta"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1735
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "Projekat ne postoji ili je putanja neispravna"
@@ -883,7 +883,7 @@ msgstr "Podrška alata biblioteke:"
 #: ../plugins/am-project/am-properties.c:98
 msgid "Add support to compile shared and static libraries with libtool."
 msgstr ""
-"Dodajte podršku za prevođenje deljenih i stalnih biblioteka alatom biblioteka"
+"Dodajte podršku za prevođenje deljenih i stalnih biblioteka alatom biblioteka."
 
 #: ../plugins/am-project/am-properties.c:104
 #: ../plugins/am-project/am-properties.c:211
@@ -1253,7 +1253,7 @@ msgid ""
 "system program. "
 msgstr ""
 "Nemoj preimenovati metu sa opcionalnim prefiksom, koristi se za izbegavanje "
-"prepisivanja programa sistema."
+"prepisivanja programa sistema. "
 
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
@@ -1295,7 +1295,7 @@ msgid ""
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
 "Odeljak u kome su instalirane stranice uputstva. Važeći nazivi odeljaka su "
-"brojevi od 0-9, i slova l i n."
+"brojevi od 0-9, i slova l i n. "
 
 #: ../plugins/am-project/amp-source.c:97
 msgid "Source file must be a regular file, not a directory"
@@ -1526,11 +1526,11 @@ msgstr ""
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:139
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+`(.+)'"
-msgstr "make[%d]: Ulazim u direktorijum `%s'"
+msgstr "make[%d]: Ulazim u direktorijum „%s“"
 
 #: ../plugins/build-basic-autotools/plugin.c:140
 msgid "make(\\[\\d+\\])?:\\s+Entering\\s+directory\\s+'(.+)'"
-msgstr "make[%d]: Ulazim u direktorijum `%s'"
+msgstr "make[%d]: Ulazim u direktorijum „%s“"
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -1539,11 +1539,11 @@ msgstr "make[%d]: Ulazim u direktorijum `%s'"
 #. * string into the second slot and then replace the first string only.
 #: ../plugins/build-basic-autotools/plugin.c:148
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+`(.+)'"
-msgstr "make[%d]: Napuštam direktorijum `%s'"
+msgstr "make[%d]: Napuštam direktorijum „%s“"
 
 #: ../plugins/build-basic-autotools/plugin.c:149
 msgid "make(\\[\\d+\\])?:\\s+Leaving\\s+directory\\s+'(.+)'"
-msgstr "make[%d]: Napuštam direktorijum `%s'"
+msgstr "make[%d]: Napuštam direktorijum „%s“"
 
 #: ../plugins/build-basic-autotools/plugin.c:750
 #, c-format
@@ -1867,7 +1867,7 @@ msgstr "Naziv klase:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:8
 msgid "Base Class:"
-msgstr "Osnovna klasa:   "
+msgstr "Osnovna klasa:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 msgid "Base Class Inheritance:"
@@ -1927,7 +1927,7 @@ msgstr "Signali"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:23
 msgid "GObject Class\t"
-msgstr "Klasa Gobjekta"
+msgstr "Klasa Gobjekta\t"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:24
 msgid "Class Methods"
@@ -1943,7 +1943,7 @@ msgstr "Klasa Pitona"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:27
 msgid "is Sub-Class"
-msgstr "is Pod-klasa  "
+msgstr "is Pod-klasa"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:28
 msgid "Initializer Arguments:"
@@ -2138,6 +2138,15 @@ msgstr "c++-anlizator:"
 msgid "CLang Paths"
 msgstr "Putanje C-jezika"
 
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+#| msgid "CLang Analyzer"
+msgid "Code Analyzer"
+msgstr "Analizator koda"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analizira kod radnim okvirom analizatora C-jezika"
+
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
 "Couldn't find clang analyzer, please check if it is installed and if the "
@@ -2160,7 +2169,7 @@ msgstr "Dodatak sistema kontrole verzije"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:1
 msgid "Standard diff"
-msgstr "Standardna razlika:"
+msgstr "Standardna razlika"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:2
 msgid "Patch-Style diff"
@@ -2322,7 +2331,7 @@ msgstr "CVS: Uporedi datoteku/direktorijum"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:38
 msgid "Choose file or directory to diff:"
-msgstr "Odaberi datoteku ili direktorijum za upoređivanje"
+msgstr "Odaberi datoteku ili direktorijum za upoređivanje:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:39
 msgid "Unified format instead of context format"
@@ -2358,7 +2367,7 @@ msgstr "Koreni direktorijum projekta:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:46
 msgid "Module name:"
-msgstr "Naziv modula: "
+msgstr "Naziv modula:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:47
 msgid "CVSROOT:"
@@ -2370,7 +2379,7 @@ msgstr "Oznaka prodavca:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:49
 msgid "Release tag:"
-msgstr "Oznaka izdanja: "
+msgstr "Oznaka izdanja:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:50
 msgid "Module Details:"
@@ -3477,20 +3486,33 @@ msgstr "Traži"
 msgid "API"
 msgstr "API"
 
-#: ../plugins/dir-project/dir-project.c:135
-#: ../plugins/dir-project/dir-project.c:158
-#: ../plugins/dir-project/dir-project.c:181
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, c-format
 msgid "Missing name"
 msgstr "Nedostaje ime alata"
 
-#: ../plugins/dir-project/dir-project.c:976
-#: ../plugins/dir-project/dir-project.c:986
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekat ne dozvoljava podešavanje osobina"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+#| msgid "_Directory name:"
+msgid "Directory backend"
+msgstr "Pozadinac direktorijuma"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Pozadinac projekta direktorijuma, dobavlja samo datoteke izvora, koristite ga "
+"kada se drugi pozadinci uruše"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3562,7 +3584,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Zameni"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[samo-čitanje]"
 
@@ -3955,7 +3977,7 @@ msgid "Search using regular expressions"
 msgstr "Potražite koristeći regularne izraze"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1333
+#: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Uređivanje"
@@ -4731,12 +4753,11 @@ msgstr "Učitavam izvršnu datoteku: "
 
 #: ../plugins/gdb/debugger.c:1145
 msgid "No executable specified.\n"
-msgstr "Niste naveli izvršnu datoteku\n"
+msgstr "Niste naveli izvršnu datoteku.\n"
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Otvori izvršnu datoteku ili poveži sa procesom radi ispravljanja grešaka\n"
+msgstr "Otvori izvršnu datoteku ili poveži sa procesom radi ispravljanja grešaka.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
@@ -4855,7 +4876,7 @@ msgstr "Greška pri pravljenju FIFO datoteke %s. Program će raditi bez terminal
 
 #: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
-msgstr "Ne mogu pokrenuti terminal za ispravljanje grešaka"
+msgstr "Ne mogu pokrenuti terminal za ispravljanje grešaka."
 
 #. Translators: pretty printer file is a script containing functions allowing gdb
 #. * to display variable content in a simpler way, typically removing
@@ -4907,7 +4928,7 @@ msgstr "Primoraj"
 
 #: ../plugins/git/anjuta-git.ui.h:4
 msgid "Remote name:"
-msgstr "Udaljeni naziv: "
+msgstr "Udaljeni naziv:"
 
 #: ../plugins/git/anjuta-git.ui.h:6
 msgid "Fetch remote branches after creation"
@@ -5341,7 +5362,7 @@ msgstr "Adresa"
 
 #: ../plugins/git/git-repository-selector.c:100
 msgid "<b>Selected Remote:</b>"
-msgstr "<b>Izabrana udaljena:</b> %s"
+msgstr "<b>Izabrana udaljena:</b>"
 
 #: ../plugins/git/git-repository-selector.c:199
 msgid ""
@@ -5741,7 +5762,7 @@ msgstr "Nije lokalna datoteka: %s"
 #: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
-msgstr "Ne mogu da otvorim: %s."
+msgstr "Ne mogu da otvorim „%s“"
 
 #: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
@@ -5889,43 +5910,43 @@ msgstr "API oznake (C/C++)"
 msgid "C/C++"
 msgstr "C/C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:881
+#: ../plugins/language-support-cpp-java/plugin.c:958
 msgid "Code added for widget."
 msgstr "Kod je dodat za element."
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1417
 #: ../plugins/language-support-python/plugin.c:457
 msgid "Auto-Indent"
 msgstr "Samo-uvlačenje"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1340
+#: ../plugins/language-support-cpp-java/plugin.c:1418
 #: ../plugins/language-support-python/plugin.c:458
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Sam uvuci tekući red ili izbor zasnovan na podešavanjima uvlačenja"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1424
 msgid "Comment/Uncomment"
 msgstr "Zakomentariši/otkomentariši"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1347
+#: ../plugins/language-support-cpp-java/plugin.c:1425
 msgid "Comment or uncomment current selection"
 msgstr "Dodajte ili uklonite primedbu tekućem izboru"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1352
+#: ../plugins/language-support-cpp-java/plugin.c:1430
 msgid "Swap .h/.c"
 msgstr "Zameni .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1353
+#: ../plugins/language-support-cpp-java/plugin.c:1431
 msgid "Swap C header and source files"
 msgstr "Zameni C zaglavlje i izvorne datoteke"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1393
+#: ../plugins/language-support-cpp-java/plugin.c:1471
 msgid "C++/Java Assistance"
 msgstr "Pomoć za C++/Javu"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1630
-#: ../plugins/language-support-cpp-java/plugin.c:1664
+#: ../plugins/language-support-cpp-java/plugin.c:1708
+#: ../plugins/language-support-cpp-java/plugin.c:1742
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -5943,7 +5964,7 @@ msgstr "Direktorijum Gjs riznice:   "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
 msgid "Min character for completion "
-msgstr "Najmanji znak za dovršavanje"
+msgstr "Najmanji znak za dovršavanje "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
 msgid "Highlight missed semicolon"
@@ -5998,6 +6019,17 @@ msgstr "Pomoć Pitona"
 msgid "Python"
 msgstr "Piton"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+#| msgid "Python support warning"
+msgid "Python support Plugin"
+msgstr "Priključak podrške Pitona"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr "Priključak podrške Pitona za dopunjavanje koda, samouvlačenje, itd."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Uključi prilagodljivo uvlačenje"
@@ -6017,6 +6049,17 @@ msgstr "Prevodilac"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Okruženje"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+#| msgid "JS Support Plugin"
+msgid "Vala support Plugin"
+msgstr "Priključak podrške Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+#| msgid ""
+#| "C++ and Java support plugin for code completion, auto-indentation, etc."
+msgid "Vala support plugin, adds code completion."
+msgstr "Priključak podrške Vale za dopunjavanje koda, samouvlačenje, itd."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6179,6 +6222,15 @@ msgstr[3] "%d greška"
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
 msgstr "Ne mogu da obradim datoteku stvaranja"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+#| msgid "Makefiles"
+msgid "Makefile backend"
+msgstr "Pozadinac stvaranja datoteke"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Pozadinac projekta stvaranja datoteke, koji dopušta samo čitanje projekta"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -6684,7 +6736,7 @@ msgstr "Zatvorite projekat"
 
 #: ../plugins/project-manager/plugin.c:941
 msgid "New _Folder"
-msgstr "Nova fascikla"
+msgstr "Nova _fascikla"
 
 #: ../plugins/project-manager/plugin.c:946
 msgid "New _Target"
@@ -6774,11 +6826,11 @@ msgstr "Radnje upravnika projekta"
 msgid "Project manager popup actions"
 msgstr "Radnje iskačućih prozora upravnika projekta"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "Započinjem projekat…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 msgid "Project Loaded"
 msgstr "Projekat je učitan"
 
@@ -6808,7 +6860,7 @@ msgstr "Spisak paketa:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
 msgid "_Module name:"
-msgstr "Naziv _modula: "
+msgstr "Naziv _modula:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
 msgid "Add Source"
@@ -7963,6 +8015,15 @@ msgstr "Izaberite licencu koda"
 msgid "No license"
 msgstr "Bez licence"
 
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+#| msgid "Python Module"
+msgid "Python loader"
+msgstr "Učitavač Pitona"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Omogućava učitavanje priključaka Anjute pisanih u Pitonu"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
 msgstr "Pokreni program"
@@ -8117,18 +8178,15 @@ msgstr "Trenutna vrednost"
 
 #: ../plugins/snippets-manager/snippets-browser.c:193
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-#| msgid "Add Snippet …"
 msgid "Add snippet"
 msgstr "Dodaje isečak"
 
 #: ../plugins/snippets-manager/snippets-browser.c:199
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
-#| msgid "Select snippets"
 msgid "Remove selected snippet"
 msgstr "Ukloni odabrani isečak"
 
 #: ../plugins/snippets-manager/snippets-browser.c:205
-#| msgid "Paste the content of clipboard at the current position"
 msgid "Insert snippet into editor at current cursor position"
 msgstr "Ubaci isečak u uređivaču na trenutno mesto kursora"
 
@@ -8168,7 +8226,7 @@ msgid ""
 "<b>Error:</b> The trigger key can only contain alphanumeric characters and "
 "_ !"
 msgstr ""
-"<b>Greška:</b> Taster-prekidač može da sadrži samo alfanumeričke znake i _."
+"<b>Greška:</b> Taster-prekidač može da sadrži samo alfanumeričke znake i _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -8402,7 +8460,7 @@ msgstr "Podešavanja pregleda uređivača"
 msgid "GtkSourceView Editor"
 msgstr "Uređivač prikaza Gtk izvora"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8411,7 +8469,7 @@ msgstr ""
 "Datoteka „%s“ na disku je novija od trenutne u priručnoj memoriji.\n"
 "Da li želite da je ponovo učitate?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8421,18 +8479,18 @@ msgstr ""
 "Da li želite da je zatvorite?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ne mogu da otvorim: %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka „%s“ je samo za čitanje! Ipak želite da je uredite?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ne mogu da sačuvam: %s: %s"
@@ -9857,9 +9915,6 @@ msgstr "Samo tekst"
 
 #~ msgid "New Directory"
 #~ msgstr "Novi direktorijum"
-
-#~ msgid "_Directory name:"
-#~ msgstr "Naziv _direktorijuma:"
 
 #~ msgid "New _Directory"
 #~ msgstr "Novi _direktorijum"
