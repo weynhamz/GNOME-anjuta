@@ -24,30 +24,19 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include "cpp-java-assist.h"
-#include "cpp-packages.h"
 
-extern GType cpp_java_plugin_get_type (GTypeModule *module);
-#define ANJUTA_TYPE_PLUGIN_CPP_JAVA         (cpp_java_plugin_get_type (NULL))
-#define ANJUTA_PLUGIN_CPP_JAVA(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPlugin))
-#define ANJUTA_PLUGIN_CPP_JAVA_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPluginClass))
-#define ANJUTA_IS_PLUGIN_CPP_JAVA(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA))
-#define ANJUTA_IS_PLUGIN_CPP_JAVA_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_CPP_JAVA))
-#define ANJUTA_PLUGIN_CPP_JAVA_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPluginClass))
+extern GType indent_c_plugin_get_type (GTypeModule *module);
+#define ANJUTA_TYPE_PLUGIN_INDENT_C         (indent_c_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_INDENT_C(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_INDENT_C, IndentCPlugin))
+#define ANJUTA_PLUGIN_INDENT_C_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_INDENT_C, IndentCPluginClass))
+#define ANJUTA_IS_PLUGIN_INDENT_C(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_INDENT_C))
+#define ANJUTA_IS_PLUGIN_INDENT_C_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_INDENT_C))
+#define ANJUTA_PLUGIN_INDENT_C_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_INDENT_C, IndentCPluginClass))
 
-typedef struct _CppJavaPlugin CppJavaPlugin;
-typedef struct _CppJavaPluginClass CppJavaPluginClass;
+typedef struct _IndentCPlugin IndentCPlugin;
+typedef struct _IndentCPluginClass IndentCPluginClass;
 
-typedef enum
-{
-	LS_FILE_C,
-	LS_FILE_CHDR,
-	LS_FILE_CPP,
-	LS_FILE_CPPHDR,
-	LS_FILE_OTHER
-} CppFileType;
-
-struct _CppJavaPlugin {
+struct _IndentCPlugin {
 	AnjutaPlugin parent;
 
 	GtkActionGroup *action_group;
@@ -60,18 +49,20 @@ struct _CppJavaPlugin {
 	gboolean support_installed;
 	const gchar *current_language;
 
-	/* Assist */
-	CppJavaAssist *assist;
-	CppFileType filetype;
-
-	/* Packages */
-	CppPackages* packages;
+	/* Adaptive indentation parameters */
+	gint param_tab_size;
+	gint param_use_spaces;
+	gint param_statement_indentation;
+	gint param_brace_indentation;
+	gint param_case_indentation;
+	gint param_label_indentation;
+	gboolean smart_indentation;
 
 	/* Preferences */
 	GtkBuilder* bxml;
 };
 
-struct _CppJavaPluginClass {
+struct _IndentCPluginClass {
 	AnjutaPluginClass parent_class;
 };
 

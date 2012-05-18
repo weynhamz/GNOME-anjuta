@@ -57,6 +57,7 @@
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-editor-cell.h>
 
 #define FILE_BUFFER_SIZE 1024
 
@@ -1273,6 +1274,61 @@ anjuta_util_convert_to_utf8 (const gchar *str)
 		}
 	}
 	return utf8_msg_string;
+}
+
+#define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
+
+gboolean
+anjuta_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint limit)
+{
+	gchar point_ch = brace;
+	gint cur_iteration = 0;
+	gboolean use_limit = (limit > 0);
+	GString *braces_stack = g_string_new ("");
+	
+	g_return_val_if_fail (point_ch == ')' || point_ch == ']' ||
+						  point_ch == '}', FALSE);
+	
+	/* DEBUG_PRINT ("%s", "Matching brace being"); */
+	/* Push brace */
+	g_string_prepend_c (braces_stack, point_ch);
+	
+	while (ianjuta_iterable_previous (iter, NULL))
+	{
+		/* Check limit */
+		cur_iteration++;
+		if (use_limit && cur_iteration > limit)
+			break;
+		
+		/* Skip comments and strings */
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+			continue;
+		
+		/* DEBUG_PRINT ("%s", "point ch = %c", point_ch); */
+		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+												 NULL);
+		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
+		{	
+			/* Push brace */
+			g_string_prepend_c (braces_stack, point_ch);
+			continue;
+		}
+		if (point_ch == LEFT_BRACE (braces_stack->str[0]))
+		{
+			/* Pop brace */
+			g_string_erase (braces_stack, 0, 1);
+		}
+		/* Bail out if there is no more in stack */
+		if (braces_stack->str[0] == '\0')
+		{
+			/* DEBUG_PRINT ("%s", "Matching brace end -- found"); */
+			return TRUE;
+		}
+	}
+	/* DEBUG_PRINT ("%s", "Matching brace end -- not found"); */
+	return FALSE;
 }
 
 GList*

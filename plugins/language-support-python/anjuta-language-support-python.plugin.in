@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+Location=anjuta-language-support-python:PythonPlugin
+Icon=anjuta-language-support-python-plugin.png
+_Name=Python support Plugin
+_Description=Python support plugin for code completion etc.
+Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
+UserActivatable=no
+
+[Language Support]
+Languages=Python
+MimeTypes=text/x-python,application/x-extension-wsgi

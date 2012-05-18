@@ -1,21 +1,21 @@
 # Plugin UI files
 python_plugin_uidir = $(anjuta_ui_dir)
-python_plugin_ui_DATA =  python-plugin.xml
+python_plugin_ui_DATA = anjuta-language-support-python.xml
 
 # Plugin Glade file
 python_plugin_gladedir = $(anjuta_glade_dir)
-python_plugin_glade_DATA = python-plugin-properties.ui
+python_plugin_glade_DATA = anjuta-language-support-python.ui
 
 # Plugin Icon file
 python_plugin_pixmapsdir = $(anjuta_image_dir)
-python_plugin_pixmaps_DATA = python_plugin.png
+python_plugin_pixmaps_DATA = anjuta-language-support-python-plugin.png
 
 # Plugin Python Scripts
 scriptsdir = $(anjuta_plugin_dir)
 scripts_SCRIPTS = anjuta-python-autocomplete.py
 
 # Plugin description file
-plugin_in_files = python-plugin.plugin.in
+plugin_in_files = anjuta-language-support-python.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 python_plugin_plugindir = $(anjuta_plugin_dir)
@@ -31,15 +31,15 @@ AM_CPPFLAGS = \
 plugindir = $(anjuta_plugin_dir)
 
 # The plugin
-plugin_LTLIBRARIES = libpython_plugin.la
+plugin_LTLIBRARIES = libanjuta-language-support-python.la
 
 # Plugin sources
-libpython_plugin_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h python-utils.c python-utils.h python-indentation.c python-indentation.h
+libanjuta_language_support_python_la_SOURCES = plugin.c plugin.h python-assist.c python-assist.h 
 
-libpython_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+libanjuta_language_support_python_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
-libpython_plugin_la_LIBADD = \
+libanjuta_language_support_python_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
 gsettings_in_file = org.gnome.anjuta.plugins.python.gschema.xml.in

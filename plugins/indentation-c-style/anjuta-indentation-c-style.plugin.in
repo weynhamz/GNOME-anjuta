@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+Location=anjuta-indentation-c-style:IndentCPlugin
+Icon=anjuta-indentation-c-style-plugin.png
+_Name=C style indentation Plugin
+_Description=auto-indentation for c style code
+Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
+UserActivatable=no
+
+[Language Support]
+Languages=C,C++,Java,Vala
+MimeTypes=text/x-c,text/x-java-source,text/x-vala

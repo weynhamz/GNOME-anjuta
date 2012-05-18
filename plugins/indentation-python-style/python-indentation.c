@@ -195,7 +195,7 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_inden
 }
 
 static void
-set_indentation_param_emacs (PythonPlugin* plugin, const gchar *param,
+set_indentation_param_emacs (IndentPythonPlugin* plugin, const gchar *param,
                              const gchar *value)
 {
 	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
@@ -227,7 +227,7 @@ set_indentation_param_emacs (PythonPlugin* plugin, const gchar *param,
 }
 
 static void
-set_indentation_param_vim (PythonPlugin* plugin, const gchar *param,
+set_indentation_param_vim (IndentPythonPlugin* plugin, const gchar *param,
                            const gchar *value)
 {
 	//DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
@@ -264,7 +264,7 @@ set_indentation_param_vim (PythonPlugin* plugin, const gchar *param,
 }
 
 static void
-parse_mode_line_emacs (PythonPlugin *plugin, const gchar *modeline)
+parse_mode_line_emacs (IndentPythonPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
 
@@ -288,7 +288,7 @@ parse_mode_line_emacs (PythonPlugin *plugin, const gchar *modeline)
 }
 
 static void
-parse_mode_line_vim (PythonPlugin *plugin, const gchar *modeline)
+parse_mode_line_vim (IndentPythonPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
 
@@ -360,7 +360,7 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 #define MINI_BUFFER_SIZE 3
 
 void
-python_indent_init (PythonPlugin* plugin)
+python_indent_init (IndentPythonPlugin* plugin)
 {
 	IAnjutaIterable *iter;
 	GString *comment_text;
@@ -460,7 +460,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 {
 	IAnjutaIterable *line_begin, *line_end, *indent_position;
 	IAnjutaIterable *current_pos;
-	gint carat_offset, nchars = 0, nchars_removed = 0;
+	gint carat_offset, nchars = 0;
 	gchar *old_indent_string = NULL, *indent_string = NULL;
 
 	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
@@ -518,7 +518,6 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 					                         indent_position, NULL);
 
 				//DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
-				nchars_removed = g_utf8_strlen (old_indent_string, -1);
 			}
 
 			/* Only indent if there was no indentation before or old
@@ -550,7 +549,6 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 			old_indent_string =
 				ianjuta_editor_get_text (editor, line_begin,
 				                         indent_position, NULL);
-			nchars_removed = g_utf8_strlen (old_indent_string, -1);
 		}
 		if (old_indent_string)
 			ianjuta_editor_erase (editor, line_begin, indent_position, NULL);
@@ -677,7 +675,7 @@ is_spaces_only (IAnjutaEditor *editor, gint line_num)
 }
 
 static gint
-get_line_indentation_base (PythonPlugin *plugin,
+get_line_indentation_base (IndentPythonPlugin *plugin,
                            IAnjutaEditor *editor,
                            gint line_num,
                            gint *incomplete_statement,
@@ -761,7 +759,7 @@ spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end
 }
 
 static gint
-get_line_auto_indentation (PythonPlugin *plugin, IAnjutaEditor *editor,
+get_line_auto_indentation (IndentPythonPlugin *plugin, IAnjutaEditor *editor,
                            gint line, gint *line_indent_spaces)
 {
 	IAnjutaIterable *iter;
@@ -831,7 +829,7 @@ get_line_auto_indentation (PythonPlugin *plugin, IAnjutaEditor *editor,
 }
 
 void
-python_indent (PythonPlugin *plugin,
+python_indent (IndentPythonPlugin *plugin,
                IAnjutaEditor *editor,
                IAnjutaIterable *insert_pos,
                gchar ch)
@@ -872,7 +870,7 @@ python_indent (PythonPlugin *plugin,
 }
 
 void
-python_indent_auto (PythonPlugin* lang_plugin,
+python_indent_auto (IndentPythonPlugin* lang_plugin,
                     IAnjutaIterable* start,
                     IAnjutaIterable* end)
 {

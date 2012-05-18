@@ -28,26 +28,20 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libanjuta/interfaces/ianjuta-file-manager.h>
-#include <libanjuta/interfaces/ianjuta-project-manager.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
-#include <libanjuta/anjuta-shell.h>
 
-#include "python-assist.h"
-
-extern GType python_plugin_get_type (GTypeModule *module);
-#define ANJUTA_TYPE_PLUGIN_PYTHON         (python_plugin_get_type (NULL))
-#define ANJUTA_PLUGIN_PYTHON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_PYTHON, PythonPlugin))
-#define ANJUTA_PLUGIN_PYTHON_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_PYTHON, PythonPluginClass))
-#define ANJUTA_IS_PLUGIN_PYTHON(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_PYTHON))
-#define ANJUTA_IS_PLUGIN_PYTHON_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_PYTHON))
-#define ANJUTA_PLUGIN_PYTHON_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_PYTHON, PythonPluginClass))
+extern GType indent_python_plugin_get_type (GTypeModule *module);
+#define ANJUTA_TYPE_PLUGIN_INDENT_PYTHON         (indent_python_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_INDENT_PYTHON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_INDENT_PYTHON, IndentPythonPlugin))
+#define ANJUTA_PLUGIN_INDENT_PYTHON_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_INDENT_PYTHON, IndentPythonPluginClass))
+#define ANJUTA_IS_PLUGIN_INDENT_PYTHON(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_INDENT_PYTHON))
+#define ANJUTA_IS_PLUGIN_INDENT_PYTHON_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_INDENT_PYTHON))
+#define ANJUTA_PLUGIN_INDENT_PYTHON_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_INDENT_PYTHON, IndentPythonPluginClass))
 
 
-typedef struct _PythonPlugin PythonPlugin;
-typedef struct _PythonPluginClass PythonPluginClass;
+typedef struct _IndentPythonPlugin IndentPythonPlugin;
+typedef struct _IndentPythonPluginClass IndentPythonPluginClass;
 
-struct _PythonPlugin{
+struct _IndentPythonPlugin{
 	AnjutaPlugin parent;
 	gint uiid;
 	GtkActionGroup *action_group;
@@ -62,11 +56,15 @@ struct _PythonPlugin{
 	gchar *current_fm_filename;
 
 	/* Watches */
-	gint project_root_watch_id;
 	gint editor_watch_id;
 	
-	/* Assist */
-	PythonAssist *assist;
+	/* Adaptive indentation parameters */
+	gint param_tab_size;
+	gint param_use_spaces;
+	gint param_statement_indentation;
+	gint param_brace_indentation;
+	gint param_case_indentation;
+	gint param_label_indentation;
 
 	/* Preferences */
 	GtkBuilder* bxml;
@@ -74,7 +72,7 @@ struct _PythonPlugin{
 	GSettings* editor_settings;
 };
 
-struct _PythonPluginClass{
+struct _IndentPythonPluginClass{
 	AnjutaPluginClass parent_class;
 };
 

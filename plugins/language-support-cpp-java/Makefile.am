@@ -50,10 +50,6 @@ libanjuta_language_cpp_java_la_SOURCES = \
 	plugin.h \
 	cpp-java-assist.h \
 	cpp-java-assist.c \
-	cpp-java-utils.c \
-	cpp-java-utils.h \
-	cpp-java-indentation.c \
-	cpp-java-indentation.h \
 	cpp-packages.c \
 	cpp-packages.h
 

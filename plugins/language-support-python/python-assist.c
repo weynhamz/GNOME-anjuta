@@ -28,6 +28,7 @@
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
@@ -40,7 +41,6 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h> 
 #include <libanjuta/anjuta-plugin.h>
 #include "python-assist.h"
-#include "python-utils.h"
 
 #define PREF_AUTOCOMPLETE_ENABLE "completion-enable"
 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "completion-func-space"
@@ -168,7 +168,7 @@ python_assist_get_scope_context (IAnjutaEditor* editor,
 		}
 		else if (ch == ')')
 		{
-			if (!python_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
+			if (!anjuta_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
 			{
 				out_of_range = TRUE;
 				break;
@@ -685,14 +685,14 @@ python_assist_get_calltip_context (PythonAssist *assist,
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	if (ch == ')')
 	{
-		if (!python_util_jump_to_matching_brace (iter, ')', -1))
+		if (!anjuta_util_jump_to_matching_brace (iter, ')', -1))
 			return NULL;
 		if (!ianjuta_iterable_previous (iter, NULL))
 			return NULL;
 	}
 	if (ch != '(')
 	{
-		if (!python_util_jump_to_matching_brace (iter, ')',
+		if (!anjuta_util_jump_to_matching_brace (iter, ')',
 												   BRACE_SEARCH_LIMIT))
 			return NULL;
 	}
@@ -737,14 +737,12 @@ python_assist_calltip (PythonAssist *assist)
 {
 	IAnjutaEditor *editor;
 	IAnjutaIterable *iter;
-	IAnjutaIterable *cur_pos;
 	gchar *call_context;
 	gint call_context_position;
 	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
 	
 	iter = ianjuta_editor_get_position (editor, NULL);
-	cur_pos = ianjuta_iterable_clone (iter, NULL);
 	ianjuta_iterable_previous (iter, NULL);
 
 	call_context = python_assist_get_calltip_context (assist, iter);

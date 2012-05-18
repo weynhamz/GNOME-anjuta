@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 #include <sys/types.h>
 #include <gio/gio.h>
+#include <libanjuta/interfaces/ianjuta-iterable.h>
 
 G_BEGIN_DECLS
 
@@ -69,6 +70,9 @@ gboolean	anjuta_util_prog_is_installed			(const gchar * prog, gboolean show);
 gchar*		anjuta_util_get_a_tmp_file				(void);
 
 gchar*		anjuta_util_convert_to_utf8				(const gchar *str);
+
+gboolean	anjuta_util_jump_to_matching_brace		(IAnjutaIterable *iter,
+			                                         gchar brace, gint limit);
 
 GList*		anjuta_util_parse_args_from_string		(const gchar* string);
 

@@ -883,6 +883,8 @@ plugins/language-support-cpp-java/Makefile
 plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
+plugins/indentation-c-style/Makefile
+plugins/indentation-python-style/Makefile
 plugins/language-support-js/Makefile
 plugins/language-support-vala/Makefile
 plugins/language-support-python/Makefile

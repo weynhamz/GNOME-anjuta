@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+Location=anjuta-indentation-python-style:IndentPythonPlugin
+Icon=anjuta-indentation-python-style-plugin.png
+_Name=Python style indentation Plugin
+_Description=auto-indentation for python style code
+Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
+UserActivatable=no
+
+[Language Support]
+Languages=Python
+MimeTypes=text/x-python,application/x-extension-wsgi

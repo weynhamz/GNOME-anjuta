@@ -18,6 +18,8 @@ SUBDIRS = . \
 	git \
 	glade \
 	js-debugger \
+	indentation-c-style \
+	indentation-python-style \
 	language-manager \
 	language-support-cpp-java \
 	language-support-js \

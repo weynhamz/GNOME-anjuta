@@ -3,7 +3,6 @@
 	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderOperationMenus">
-				<menuitem name="AutoindentAction" action="ActionEditAutoindent" />
 				<menuitem name="ToggleCommentAction" action="ActionEditToggleComment" />
 			</placeholder>
 		</menu>

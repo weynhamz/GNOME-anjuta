@@ -28,6 +28,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -37,7 +38,6 @@
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include "cpp-java-assist.h"
-#include "cpp-java-utils.h"
 
 #define PREF_AUTOCOMPLETE_ENABLE "completion-enable"
 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "completion-space-after-func"
@@ -323,7 +323,7 @@ cpp_java_assist_is_expression_separator (gchar c, gboolean skip_braces, IAnjutaI
 	
 	if (c == ')' && skip_braces)
 	{
-		cpp_java_util_jump_to_matching_brace (iter, c, BRACE_SEARCH_LIMIT);
+		anjuta_util_jump_to_matching_brace (iter, c, BRACE_SEARCH_LIMIT);
 		return TRUE;
 	}
 	else if (c == ')' && !skip_braces)
@@ -871,7 +871,7 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 		}
 		else if (ch == ')')
 		{
-			if (!cpp_java_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
+			if (!anjuta_util_jump_to_matching_brace (iter, ch, SCOPE_BRACE_JUMP_LIMIT))
 			{
 				out_of_range = TRUE;
 				break;
@@ -918,14 +918,14 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	if (ch == ')')
 	{
-		if (!cpp_java_util_jump_to_matching_brace (iter, ')', -1))
+		if (!anjuta_util_jump_to_matching_brace (iter, ')', -1))
 			return NULL;
 		if (!ianjuta_iterable_previous (iter, NULL))
 			return NULL;
 	}
 	if (ch != '(')
 	{
-		if (!cpp_java_util_jump_to_matching_brace (iter, ')',
+		if (!anjuta_util_jump_to_matching_brace (iter, ')',
 												   BRACE_SEARCH_LIMIT))
 			return NULL;
 	}

@@ -25,11 +25,11 @@
 #include <config.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -46,22 +46,11 @@
 #include <libanjuta/interfaces/ianjuta-indenter.h>
 
 #include "plugin.h"
-#include "python-utils.h"
 #include "python-assist.h"
-#include "python-indentation.h"
 
-/* Pixmaps */
-#define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
-#define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto"
-#define ANJUTA_STOCK_SWAP                 "anjuta-swap"
-#define ANJUTA_STOCK_COMPLETE         	  "anjuta-complete"
-#define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
-#define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"
-
-#define UI_FILE PACKAGE_DATA_DIR"/ui/python-plugin.xml"
-#define PROPERTIES_FILE_UI PACKAGE_DATA_DIR"/glade/python-plugin-properties.ui"
-#define ICON_FILE "python_plugin.png"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-python.xml"
+#define PROPERTIES_FILE_UI PACKAGE_DATA_DIR"/glade/anjuta-language-support-python.ui"
+#define ICON_FILE "anjuta-language-support-python-plugin.png"
 
 /* Preferences keys */
 
@@ -193,8 +182,6 @@ on_glade_drop (IAnjutaEditor* editor,
 	const gchar* widget;
 	const gchar* signal;
 	const gchar* handler;
-	const gchar* user_data;
-	gboolean swapped;
 	GList* names = NULL;
 	GString* str = g_string_new (NULL);
 	int i;
@@ -205,8 +192,6 @@ on_glade_drop (IAnjutaEditor* editor,
 	widget = data[0];
 	signal = data[1];
 	handler = data[2];
-	user_data = data[3];
-	swapped = g_str_equal (data[4], "1");
 
 	type = g_type_from_name (widget);
 	id = g_signal_lookup (signal, type);
@@ -247,16 +232,6 @@ on_glade_drop (IAnjutaEditor* editor,
 }
 
 static void
-on_editor_char_inserted_python (IAnjutaEditor *editor,
-                                IAnjutaIterable *insert_pos,
-                                gchar ch,
-                                PythonPlugin *plugin)
-{
-	python_indent (plugin, editor, insert_pos, ch);
-}
-
-
-static void
 install_support (PythonPlugin *lang_plugin)
 {
 	IAnjutaLanguage* lang_manager =
@@ -281,20 +256,10 @@ install_support (PythonPlugin *lang_plugin)
 		ianjuta_language_get_name_from_editor (lang_manager,
 											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 
-	if (lang_plugin->current_language &&
-		(g_str_equal (lang_plugin->current_language, "Python")))
-	{
-		g_signal_connect (lang_plugin->current_editor,
-						  "char-added",
-						  G_CALLBACK (on_editor_char_inserted_python),
-						  lang_plugin);
-	}
-	else
-	{
+	if (!(lang_plugin->current_language &&
+		(g_str_equal (lang_plugin->current_language, "Python"))))
 		return;
-	}
 
-	python_indent_init (lang_plugin);
 	/* Disable editor intern auto-indent */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
 								    FALSE, NULL);
@@ -302,7 +267,6 @@ install_support (PythonPlugin *lang_plugin)
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) )
 	{
 		AnjutaPlugin *plugin;
-		AnjutaUI *ui;
 		IAnjutaEditorAssist* iassist;
 
 		const gchar *project_root;
@@ -311,7 +275,6 @@ install_support (PythonPlugin *lang_plugin)
 		check_support (lang_plugin);
 
 		plugin = ANJUTA_PLUGIN (lang_plugin);
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
 		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
 
 		g_assert (lang_plugin->assist == NULL);
@@ -345,14 +308,6 @@ uninstall_support (PythonPlugin *lang_plugin)
 {
 	if (!lang_plugin->support_installed)
 		return;
-
-	if (lang_plugin->current_language &&
-		(g_str_equal (lang_plugin->current_language, "Python")))
-	{
-		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
-									G_CALLBACK (on_editor_char_inserted_python),
-									lang_plugin);
-	}
 
 	if (lang_plugin->assist)
 	{
@@ -438,26 +393,11 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name,
 	lang_plugin->current_language = NULL;
 }
 
-static void
-on_auto_indent (GtkAction *action, gpointer data)
-{
-	PythonPlugin *lang_plugin = ANJUTA_PLUGIN_PYTHON (data);
-
-	python_indent_auto (lang_plugin, NULL, NULL);
-}
-
 static GtkActionEntry actions[] = {
 	{
 		"ActionMenuEdit",
 		NULL, N_("_Edit"),
 		NULL, NULL, NULL
-	},
-	{
-		"ActionEditAutoindent",
-		GTK_STOCK_NEW, //ANJUTA_STOCK_AUTOINDENT,
-		N_("Auto-Indent"), "<control>i",
-		N_("Auto-indent current line or selection based on indentation settings"),
-		G_CALLBACK (on_auto_indent)
 	}
 };
 
@@ -483,15 +423,12 @@ static void
 on_project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 						 gpointer user_data)
 {
-	AnjutaUI *ui;
 	PythonPlugin *python_plugin;
 
 	python_plugin = ANJUTA_PLUGIN_PYTHON (plugin);
 
 	g_free (python_plugin->project_root_directory);
 	python_plugin->project_root_directory = NULL;
-
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 }
 
 static gboolean
@@ -500,7 +437,6 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 
 	PythonPlugin *python_plugin;
-	static gboolean initialized = FALSE;
 
 	python_plugin = (PythonPlugin*) plugin;
 
@@ -510,16 +446,13 @@ python_plugin_activate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	python_plugin->action_group =
-
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupPythonAssist",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupPythonAssist",
 											_("Python Assistance"),
 											actions,
 											G_N_ELEMENTS (actions),
 											GETTEXT_PACKAGE, TRUE,
 											plugin);
 	python_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-
-	initialized = FALSE;
 
 	/* Add watches */
 	python_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -641,28 +574,8 @@ ipreferences_iface_init (IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;
 }
 
-static void
-iindenter_indent (IAnjutaIndenter* indenter,
-                  IAnjutaIterable* start,
-                  IAnjutaIterable* end,
-                  GError** e)
-{
-	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (indenter);
-
-	python_indent_auto (plugin,
-	                    start, end);
-}
-
-static void
-iindenter_iface_init (IAnjutaIndenterIface* iface)
-{
-	iface->indent = iindenter_indent;
-}
-
 ANJUTA_PLUGIN_BEGIN (PythonPlugin, python_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
-ANJUTA_PLUGIN_ADD_INTERFACE(iindenter, IANJUTA_TYPE_INDENTER);
 ANJUTA_PLUGIN_END;
-
 
 ANJUTA_SIMPLE_PLUGIN (PythonPlugin, python_plugin);

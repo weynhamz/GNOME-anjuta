@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * cpp-java-indentation.c
+ * indent-c-indentation.c
  *
  * Copyright (C) 2011 - Johannes Schmid
  *
@@ -22,6 +22,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
@@ -31,8 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
 
-#include "cpp-java-indentation.h"
-#include "cpp-java-utils.h"
+#include "indentation.h"
 
 #define PREF_INDENT_BRACE_SIZE "indent-brace-size"
 #define PREF_INDENT_PARANTHESE_LINEUP "indent-paranthese-lineup"
@@ -420,7 +420,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 {
 	IAnjutaIterable *line_begin, *line_end, *indent_position;
 	IAnjutaIterable *current_pos;
-	gint carat_offset, nchars = 0, nchars_removed = 0;
+	gint carat_offset, nchars = 0;
 	gchar *old_indent_string = NULL, *indent_string = NULL;
 
 	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
@@ -478,7 +478,6 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 												  indent_position, NULL);
 
 				//DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
-				nchars_removed = g_utf8_strlen (old_indent_string, -1);
 			}
 
 			/* Only indent if there was no indentation before or old
@@ -510,7 +509,6 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 			old_indent_string =
 				ianjuta_editor_get_text (editor, line_begin,
 											  indent_position, NULL);
-			nchars_removed = g_utf8_strlen (old_indent_string, -1);
 		}
 		if (old_indent_string)
 			ianjuta_editor_erase (editor, line_begin, indent_position, NULL);
@@ -563,7 +561,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
  * -1 == UNKNOWN
  */
 static gint
-get_line_indentation_base (CppJavaPlugin *plugin,
+get_line_indentation_base (IndentCPlugin *plugin,
 						   IAnjutaEditor *editor,
 						   gint line_num,
 						   gint *incomplete_statement,
@@ -809,7 +807,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			}
 
 			/* Find matching brace and continue */
-			if (!cpp_java_util_jump_to_matching_brace (iter, point_ch, -1))
+			if (!anjuta_util_jump_to_matching_brace (iter, point_ch, -1))
 			{
 				line_indent = get_line_indentation (editor, line_saved);
 				line_indent += extra_indent;
@@ -1027,7 +1025,7 @@ spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end
 }
 
 static gint
-get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
+get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 						   gint line, gint *line_indent_spaces)
 {
 	IAnjutaIterable *iter;
@@ -1141,7 +1139,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		else if (ch == '}')
 		{
 			ianjuta_iterable_previous (iter, NULL);
-			if (cpp_java_util_jump_to_matching_brace (iter, ch, -1))
+			if (anjuta_util_jump_to_matching_brace (iter, ch, -1))
 			{
 				gint line = ianjuta_editor_get_line_from_position (editor,
 																   iter,
@@ -1173,7 +1171,7 @@ static void
 insert_editor_blocked (IAnjutaEditor* editor,
                        IAnjutaIterable* iter,
                        gchar* text,
-                       CppJavaPlugin* plugin)
+                       IndentCPlugin* plugin)
 {
 	g_signal_handlers_block_by_func (editor, cpp_indentation, plugin);
 	ianjuta_editor_insert (editor, iter, text, -1, NULL);
@@ -1184,7 +1182,7 @@ void
 cpp_indentation (IAnjutaEditor *editor,
                  IAnjutaIterable *insert_pos,
                  gchar ch,
-                 CppJavaPlugin *plugin)
+                 IndentCPlugin *plugin)
 {
 	IAnjutaEditorAttribute attrib;
 	IAnjutaIterable *iter;
@@ -1279,13 +1277,13 @@ cpp_indentation (IAnjutaEditor *editor,
 									       insert_editor_blocked (editor, iter,
 									                              "]", plugin);
 									       break;
-								       case '(':
-									              insert_editor_blocked (editor, iter,
-									                                     ")", plugin);
-									              break;
-								              default:
-									              break;
-							              }
+								case '(':
+									       insert_editor_blocked (editor, iter,
+									                       ")", plugin);
+									       break;
+								default:
+									       break;
+							}
 							ianjuta_editor_goto_position (editor, iter, NULL);
 							ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 						}
@@ -1339,7 +1337,7 @@ cpp_indentation (IAnjutaEditor *editor,
 
 void
 cpp_auto_indentation (IAnjutaEditor *editor,
-                      CppJavaPlugin *lang_plugin,
+                      IndentCPlugin *lang_plugin,
                       IAnjutaIterable *start,
                       IAnjutaIterable *end)
 {
@@ -1394,7 +1392,7 @@ void
 java_indentation (IAnjutaEditor *editor,
                   IAnjutaIterable *insert_pos,
                   gchar ch,
-                  CppJavaPlugin *plugin)
+                  IndentCPlugin *plugin)
 {
 	cpp_indentation (editor, insert_pos, ch, plugin);
 }

@@ -1,0 +1,13 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.plugins.indent-python" path="/org/gnome/anjuta/plugins/indent-python/">
+		<key name="indent-automatic" type="b">
+			<default>true</default>
+		</key>
+		<key name="indent-adaptive" type="b">
+			<default>true</default>
+		</key>
+		<key name="indent-brace-size" type="i">
+			<default>0</default>
+		</key>
+	</schema>
+</schemalist>
