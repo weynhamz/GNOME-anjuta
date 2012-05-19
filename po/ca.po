@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-03-27 18:09+0000\n"
+"POT-Creation-Date: 2012-04-29 14:32+0000\n"
 "PO-Revision-Date: 2012-03-07 22:41+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -696,8 +696,8 @@ msgstr "Especifiqueu el nom del grup"
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgstr ""
-"El nom del grup només pot contenir caràcters alfanumèrics i els caràcters «#$:"
-"%+,-.=@^_`~»"
+"El nom del grup només pot contenir caràcters alfanumèrics i els caràcters «#"
+"$:%+,-.=@^_`~»"
 
 #: ../plugins/am-project/amp-group.c:580
 #: ../plugins/am-project/am-project.c:1696
@@ -814,7 +814,8 @@ msgstr "Nom:"
 #: ../plugins/am-project/am-properties.c:52
 msgid "Project name, it can contain spaces by example 'GNU Autoconf'"
 msgstr ""
-"Nom del projecte, pot contenir espais en blanc. Per exemple «Autoconf del GNU»"
+"Nom del projecte, pot contenir espais en blanc. Per exemple «Autoconf del "
+"GNU»"
 
 #: ../plugins/am-project/am-properties.c:58
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:9
@@ -1303,8 +1304,8 @@ msgid ""
 "subdir/app not in bin/app."
 msgstr ""
 "Mantén el camí relatiu de l'objectiu per instal·lar-lo. Per exemple, si "
-"teniu un programa «subdir/app» instal·lat en el directori «bin» s'instal·larà "
-"a «bin/subdir/app» no a «bin/app»."
+"teniu un programa «subdir/app» instal·lat en el directori «bin» "
+"s'instal·larà a «bin/subdir/app» no a «bin/app»."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1463,8 +1464,8 @@ msgstr "Ordre cancel·lada per l'usuari"
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a aquest "
-"tipus de fitxer."
+"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a "
+"aquest tipus de fitxer."
 
 #: ../plugins/build-basic-autotools/build.c:1014
 #, c-format
@@ -2169,6 +2170,14 @@ msgstr "Analitzador de c++:"
 #: ../plugins/code-analyzer/code-analyzer.ui.h:6
 msgid "CLang Paths"
 msgstr "Camins del CLang"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+msgid "Code Analyzer"
+msgstr "Analitzador de codi"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr "Analitzeu el codi amb l'entorn de treball Clang"
 
 #: ../plugins/code-analyzer/plugin.c:157
 msgid ""
@@ -3519,6 +3528,18 @@ msgstr "Manca el nom"
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "El projecte no permet establir-ne les propietats"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "Rerefons de directori"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Rerefons de directori de projecte, només hi ha fitxers de codi font, "
+"utilitzeu-lo quan fallin els altres rerefons"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -6041,6 +6062,15 @@ msgstr "Auxiliar del Python"
 msgid "Python"
 msgstr "Python"
 
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
+msgid "Python support Plugin"
+msgstr "Connector per admetre el Python"
+
+#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
+msgid "Python support plugin for code completion, auto indentation etc."
+msgstr ""
+"Connector per permetre la compleció de codi Python, el sagnat automàtic, etc."
+
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:2
 msgid "Enable adaptive indentation"
 msgstr "Habilita el sagnat adaptable"
@@ -6060,6 +6090,14 @@ msgstr "Intèrpret"
 #: ../plugins/language-support-python/python-plugin-properties.ui.h:16
 msgid "Environment"
 msgstr "Entorn"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Connector per admetre el Vala"
+
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr "Connector per permetre el Vala, permet la compleció de codi."
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6213,6 +6251,14 @@ msgstr[1] "%d errors"
 msgid "Unable to parse make file"
 msgstr "No s'ha pogut analitzar el fitxer «make»"
 
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Rerefons del makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Rerefons de projecte de Makefile, només permet la lectura del projecte"
+
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
 msgstr "Seleccioneu el paquet"
@@ -6349,8 +6395,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
 "the project directory."
 msgstr ""
-"No es pot escriure el fitxer «%s»: %s. Comproveu que teniu accés per escriure "
-"al directori del projecte."
+"No es pot escriure el fitxer «%s»: %s. Comproveu que teniu accés per "
+"escriure al directori del projecte."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6367,8 +6413,8 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"No s'ha pogut trobar un rerefons de projecte vàlid per al directori donat (%"
-"s). Seleccioneu un directori diferent, o proveu d'actualitzar-vos a una "
+"No s'ha pogut trobar un rerefons de projecte vàlid per al directori donat "
+"(%s). Seleccioneu un directori diferent, o proveu d'actualitzar-vos a una "
 "versió més recent de l'Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
@@ -6377,7 +6423,8 @@ msgstr ""
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
-"No s'ha pogut obtenir l'URI proporcionat «%s», l'error retornat ha sigut: «%s»"
+"No s'ha pogut obtenir l'URI proporcionat «%s», l'error retornat ha sigut: "
+"«%s»"
 
 #: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
@@ -7717,8 +7764,8 @@ msgstr ""
 "L'UUID és un identificador global únic de l'extensió.\n"
 "Hauria d'estar en el format d'una adreça electrònica (jordi."
 "molina@extensions.exemple.cat), però\n"
-"no ha de ser una adreça electrònica real, tot i que és una bona "
-"idea basar l'UUID en la\n"
+"no ha de ser una adreça electrònica real, tot i que és una bona idea basar "
+"l'UUID en la\n"
 "vostra adreça electrònica."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
@@ -8009,6 +8056,14 @@ msgstr "Selecciona la llicència del codi"
 #: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
 msgid "No license"
 msgstr "Sense llicència"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Python loader"
+msgstr "Carregador de Python"
+
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Permet la càrrega de connectors per l'Anjuta escrits en Python"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9896,7 +9951,8 @@ msgstr "Només text"
 #~ msgstr "Mostra/oculta les guies de sagnat"
 
 #~ msgid "Search for \"%s\" reached the end and wrapped around."
-#~ msgstr "La cerca de «%s» ha arribat al final i ha continuat pel començament."
+#~ msgstr ""
+#~ "La cerca de «%s» ha arribat al final i ha continuat pel començament."
 
 #~ msgid ""
 #~ "Search for \"%s\" reached the end and wrapped around but no new match was "
@@ -9913,9 +9969,6 @@ msgstr "Només text"
 
 #~ msgid "New Directory"
 #~ msgstr "Directori nou"
-
-#~ msgid "_Directory name:"
-#~ msgstr "Nom del _directori:"
 
 #~ msgid "New _Directory"
 #~ msgstr "_Directori nou"
@@ -10915,7 +10968,8 @@ msgstr "Només text"
 #~ msgstr "Alta"
 
 #~ msgid "When you delete the category \"%s\", all containing items are lost"
-#~ msgstr "Quan suprimiu la categoria «%s», se'n perdran tots els seus elements"
+#~ msgstr ""
+#~ "Quan suprimiu la categoria «%s», se'n perdran tots els seus elements"
 
 #~ msgid "Delete"
 #~ msgstr "Suprimeix"
@@ -11370,9 +11424,6 @@ msgstr "Només text"
 
 #~ msgid "C++/GObject Class"
 #~ msgstr "Classe C++/GObject"
-
-#~ msgid "Makefile backend"
-#~ msgstr "Rerefons del makefile"
 
 #~ msgid "Makefile backend for project manager"
 #~ msgstr "Rerefons del makefile per al gestor de projectes"
@@ -13622,8 +13673,8 @@ msgstr "Només text"
 #~ "Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
 #~ "parameters by default)."
 #~ msgstr ""
-#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres «-"
-#~ "gnu» predeterminats)."
+#~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres "
+#~ "«-gnu» predeterminats)."
 
 #~ msgid "Cuddle Else"
 #~ msgstr "Abraça els «else»"
@@ -13759,7 +13810,8 @@ msgstr "Només text"
 #~ msgid ""
 #~ "Prefer to break long lines before the boolean operators '&&' and '||'."
 #~ msgstr ""
-#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i «||»."
+#~ "Prefereix trencar línies llargues abans dels operadors booleans «&&» i "
+#~ "«||»."
 
 #~ msgid "Procnames start lines"
 #~ msgstr "Línies inicials dels noms de procediments"
@@ -14165,8 +14217,8 @@ msgstr "Només text"
 #~ "Incremental search for '%s' failed. Press Enter or click Find to continue "
 #~ "searching at the top."
 #~ msgstr ""
-#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o feu "
-#~ "clic a Cerca per a continuar des del principi."
+#~ "Ha fallat la cerca incremental per a «%s». Premeu la tecla de retorn o "
+#~ "feu clic a Cerca per a continuar des del principi."
 
 #~ msgid "Incremental search for '%s' (continued at top) failed."
 #~ msgstr "Ha fallat la cerca incremental per a «%s» (des del començament)."
@@ -14458,8 +14510,8 @@ msgstr "Només text"
 #~ "\n"
 #~ "Your changes will be lost if you don't save them.\n"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte «%"
-#~ "s» abans de tancar?</span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">Voleu desar els canvis al projecte "
+#~ "«%s» abans de tancar?</span>\n"
 #~ "\n"
 #~ "Els canvis es perdran si no els deseu.\n"
 
