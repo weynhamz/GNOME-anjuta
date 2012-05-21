@@ -302,8 +302,14 @@ if test x$have_python = xyes; then
 		PYTHON_LIBS=`$PYTHON-config --libs`
 		AC_SUBST(PYTHON_CFLAGS)
 		AC_SUBST(PYTHON_LIBS)
+	elif test -x $PYTHON$PYTHON_VERSION-config; then
+		PYTHON_CFLAGS=`$PYTHON$PYTHON_VERSION-config --cflags`
+		PYTHON_LIBS=`$PYTHON$PYTHON_VERSION-config --libs`
+		AC_SUBST(PYTHON_CFLAGS)
+		AC_SUBST(PYTHON_LIBS)		
 	else
 		have_python="no"
+		echo "$PYTHON-config or $PYTHON$PYTHON_VERSION-config not found - disabling python"
 	fi
 fi
 
@@ -929,6 +935,12 @@ if [ test x$libgraphviz_found = xyes ]; then
 else
         echo "Building class inheritance plugin: .....................NO"
         echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
+fi
+if [ test x$have_python = xyes]; then
+        echo "Building python plugin loaeder: ........................YES"
+else
+        echo "Building python plugin loaeder: ........................NO"
+        echo "        Requires python"
 fi
 echo "-------------------------------------------------------------------"
 echo "AM_CFLAGS = $AM_CFLAGS"
