@@ -1,3 +1,15 @@
+Anjuta 3.4.3 "Better late(r) than never" -- Johannes Schmid
+
+This release fixes a broken tarball that was distributed for 3.4.2 - it
+should hopefully work for everybody now.
+
+Johannes Schmid (2):
+      Post-release version bump..
+      configure: Detect python more robust
+
+Мирослав Николић (1):
+      Updated Serbian translation
+
 Anjuta 3.4.2 "Better late than never" -- Johannes Schmid
 
 Alexander Shopov (1):
