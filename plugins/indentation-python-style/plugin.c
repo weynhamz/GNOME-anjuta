@@ -325,7 +325,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
     }
 	anjuta_preferences_add_from_builder (prefs,
 	                                     plugin->bxml, plugin->settings,
-	                                     "preferences", _("Indentation Python Style"),
+	                                     "preferences", _("Indentation"),
 	                                     ICON_FILE);
 }
 
