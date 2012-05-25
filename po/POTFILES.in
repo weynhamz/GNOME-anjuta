@@ -57,8 +57,8 @@ plugins/class-gen/plugin.c
 plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
-[type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
 [type: gettext/ini]plugins/code-analyzer/code-analyzer.plugin.in
+[type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
 plugins/code-analyzer/org.gnome.anjuta.code-analyzer.gschema.xml.in
 plugins/code-analyzer/plugin.c
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
@@ -158,6 +158,10 @@ plugins/git/plugin.c
 plugins/glade/anjuta-design-document.c
 [type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
 plugins/glade/plugin.c
+[type: gettext/glade]plugins/indentation-c-style/anjuta-indentation-c-style.ui
+plugins/indentation-c-style/plugin.c
+[type: gettext/glade]plugins/indentation-python-style/anjuta-indentation-python-style.ui
+plugins/indentation-python-style/plugin.c
 plugins/js-debugger/debugger-js.c
 [type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in
 plugins/js-debugger/plugin.c
@@ -172,11 +176,10 @@ plugins/language-support-js/js-parser-y-tab.c
 [type: gettext/ini]plugins/language-support-js/js-support-plugin.plugin.in
 plugins/language-support-js/org.gnome.anjuta.js.gschema.xml.in
 plugins/language-support-js/plugin.c
+[type: gettext/glade]plugins/language-support-python/anjuta-language-support-python.ui
 plugins/language-support-python/org.gnome.anjuta.plugins.python.gschema.xml.in
 plugins/language-support-python/plugin.c
 plugins/language-support-python/python-assist.c
-[type: gettext/ini]plugins/language-support-python/python-plugin.plugin.in
-[type: gettext/glade]plugins/language-support-python/python-plugin-properties.ui
 [type: gettext/ini]plugins/language-support-vala/anjuta-vala.plugin.in
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
@@ -221,6 +224,7 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/java.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/js.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/library.wiz.in
+[type: gettext/xml]plugins/project-wizard/templates/licenses.tpl.in
 [type: gettext/xml]plugins/project-wizard/templates/minimal.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/mkfile.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/pygtk.wiz.in
@@ -231,7 +235,6 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/wxwin.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
-[type: gettext/xml]plugins/project-wizard/templates/licenses.tpl.in
 [type: gettext/ini]plugins/python-loader/anjuta-python-loader.plugin.in
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
