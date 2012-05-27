@@ -353,6 +353,29 @@ anjuta_dock_hide_pane (AnjutaDock *self, AnjutaDockPane *pane)
 }
 
 /**
+ * anjuta_dock_show_pane:
+ * @self: An AnjutaDock
+ * @pane: Pane to present
+ * 
+ * Presents the pane to the user by making it the currently active pane in its
+ * switcher
+ */
+void
+anjuta_dock_present_pane (AnjutaDock *self, AnjutaDockPane *pane)
+{
+	GtkWidget *child;
+	GdlDockObject *dock_item;
+
+	child = anjuta_dock_pane_get_widget (pane);
+
+	if (child)
+	{
+		dock_item = g_object_get_data (G_OBJECT (child), "dock-item");
+		gdl_dock_object_present (dock_item, NULL);
+	}
+}
+
+/**
  * anjuta_dock_set_command_bar:
  * @self: An AnjutaDock
  * @command_bar: An #AnjutaCommandBar to associate with this dock
