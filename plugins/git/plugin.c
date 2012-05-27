@@ -789,6 +789,9 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	                      GDL_DOCK_CENTER, stash_entries, 
 	                      G_N_ELEMENTS (stash_entries), git_plugin);
 
+	anjuta_dock_present_pane (ANJUTA_DOCK (git_plugin->dock),
+	                          git_plugin->status_pane);
+
 	
 	/* Add watches */
 	git_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
