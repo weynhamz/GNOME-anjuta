@@ -78,4 +78,26 @@ AT_CHECK([diff output expect])
 
 
 
+AS_MKDIR_P([project4])
+AT_DATA([project4/configure.ac],
+[[
+AC_CONFIG_FILES(Makefile)
+]])
+AT_DATA([project4/Makefile.am],
+[[
+GDU__v_DB2OMF_=$(GDU__v_DB2OMF_$(AM_DEFAULT_VERBOSITY))
+
+$(GDU__v_DB2OMF_)
+]])
+AT_DATA([expect],
+[[ROOT (): project4
+    SOURCE (): configure.ac
+    SOURCE (): Makefile.am
+]])
+AT_PARSER_CHECK([load project4 \
+		 list])
+AT_CHECK([diff output expect])
+
+
+
 AT_CLEANUP

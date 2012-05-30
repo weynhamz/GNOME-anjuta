@@ -82,6 +82,9 @@ struct _AnjutaTokenStream
 
 	/* Current file */
 	GFile *current_file;
+
+	/* Content */
+	AnjutaToken *content;
 };
 
 /* Helpers functions
@@ -318,12 +321,21 @@ AnjutaTokenStream *
 anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaToken *content, GFile *file)
 {
 	AnjutaTokenStream *child;
+	AnjutaTokenStream *stream;
 
+	/* Check if content is not already parsed to avoid endless parsing loop */
+	for (stream = parent; stream != NULL; stream = stream->parent)
+	{
+		if (stream->content == content) return NULL;
+	}
+
+	/* Create new stream */
 	child = g_new (AnjutaTokenStream, 1);
 	child->first = content;
 	child->pos = 0;
 	child->begin = 0;
 	child->parent = parent;
+	child->content = content;
 	child->token = content;
 	child->start = child->token;
 	child->last = content == NULL ? NULL : anjuta_token_last (content);

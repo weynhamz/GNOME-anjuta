@@ -514,9 +514,13 @@ amp_am_scanner_parse_variable (AmpAmScanner *scanner, AnjutaToken *variable)
 	{
 		value = amp_project_get_subst_variable_token (scanner->project, name);
 	}
-	g_free (string);
 
-	amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL);
+	if (amp_am_scanner_parse_token (scanner, variable, value, NULL, NULL) == NULL)
+	{
+		/* Recursive variable, display a warning */
+		g_warning ("Recursive variable %s. Discard value", name);
+	}
+	g_free (string);
 }
 
 void
@@ -554,6 +558,8 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
     AnjutaTokenStream *stream;
 
     stream = anjuta_token_stream_push (scanner->stream, root, content, filename);
+	if (stream == NULL) return NULL;
+	
     first = anjuta_token_stream_get_root (stream);
 
 	scanner->eof = filename != NULL;

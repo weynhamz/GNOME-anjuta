@@ -1183,7 +1183,7 @@ anjuta_token_cut (AnjutaToken *token, guint pos, guint size)
 	}
 	else
 	{
-		memcpy(copy->data.pos, copy->data.pos + pos, size);
+		memmove(copy->data.pos, copy->data.pos + pos, size);
 	}
 	copy->data.length = size;
 
