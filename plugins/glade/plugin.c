@@ -401,12 +401,12 @@ add_glade_member (GladeWidget		 *widget,
 	if(!doc)
 		return;
 
-	current_editor = IANJUTA_EDITOR (doc);
-
-	if(!current_editor)
+	if (!IANJUTA_IS_EDITOR (doc))
 		return;
 
-    if (!IANJUTA_IS_EDITOR (doc))
+	current_editor = IANJUTA_EDITOR (doc);
+
+	if (!current_editor)
 		return;
 
 	g_signal_emit_by_name (G_OBJECT (current_editor), "glade-member-add",
