@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-05-25 14:57+0000\n"
+"POT-Creation-Date: 2012-05-25 16:03+0000\n"
 "PO-Revision-Date: 2012-05-25 18:03+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -515,7 +515,7 @@ msgid ""
 "profile."
 msgstr ""
 "Falló al leer «%s»: error de análisis XML. Perfil de complementos de Anjuta "
-"inválido o corrupto."
+"no válido o corrupto."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -5792,7 +5792,7 @@ msgstr "Proyecto Glade «%s» guardado"
 #: ../plugins/glade/anjuta-design-document.c:181
 #: ../plugins/glade/anjuta-design-document.c:208
 msgid "Invalid Glade file name"
-msgstr "Nombre de archivo Glade inválido"
+msgstr "Nombre de archivo Glade no válido"
 
 #: ../plugins/glade/anjuta-glade.plugin.in.h:1
 msgid "Glade interface designer"
@@ -5904,12 +5904,10 @@ msgstr "Asistencia para C++/Java"
 
 #: ../plugins/indentation-c-style/plugin.c:607
 #: ../plugins/indentation-python-style/plugin.c:328
-#| msgid "Smart Indentation"
 msgid "Indentation"
 msgstr "Sangrado"
 
 #: ../plugins/indentation-c-style/plugin.c:616
-#| msgid "_Indentation Guides"
 msgid "Indentation C Style"
 msgstr "Sangrado estilo C"
 
@@ -5923,7 +5921,6 @@ msgid "Python Assistance"
 msgstr "Asistente de Python"
 
 #: ../plugins/indentation-python-style/plugin.c:337
-#| msgid "Indentation parameters"
 msgid "Indentation Python Style"
 msgstr "Sangrado estilo Python"
 
