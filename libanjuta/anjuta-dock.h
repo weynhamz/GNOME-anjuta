@@ -53,18 +53,18 @@ struct _AnjutaDock
 
 GType anjuta_dock_get_type (void) G_GNUC_CONST;
 GtkWidget *anjuta_dock_new (void);
-void anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
-                           const gchar *pane_label, const gchar *stock_icon,
-                           AnjutaDockPane *pane, GdlDockPlacement placement, 
-                           AnjutaCommandBarEntry *entries, int num_entries,
-                           gpointer user_data);
-void anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
-                                const gchar *pane_label, 
-                                const gchar *stock_icon,  AnjutaDockPane *pane, 
-                                GdlDockPlacement placement,
-                                AnjutaCommandBarEntry *entries, int num_entries,
-                                gpointer user_data, 
-                                GdlDockItemBehavior behavior);
+gboolean anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
+                               const gchar *pane_label, const gchar *stock_icon,
+                               AnjutaDockPane *pane, GdlDockPlacement placement, 
+                               AnjutaCommandBarEntry *entries, int num_entries,
+                               gpointer user_data);
+gboolean anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
+                                    const gchar *pane_label, 
+                                    const gchar *stock_icon,  AnjutaDockPane *pane, 
+                                    GdlDockPlacement placement,
+                                    AnjutaCommandBarEntry *entries, int num_entries,
+                                    gpointer user_data, 
+                                    GdlDockItemBehavior behavior);
 void anjuta_dock_replace_command_pane (AnjutaDock *self, const gchar *pane_name,
                                        const gchar *pane_label, const gchar *stock_icon,
                                        AnjutaDockPane *pane, GdlDockPlacement placement, 

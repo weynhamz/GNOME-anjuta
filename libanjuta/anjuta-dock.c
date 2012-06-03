@@ -150,8 +150,11 @@ anjuta_dock_new (void)
  *
  * Adds a pane, with optional #AnjutaCommandBar entries, to an AnjutaDock. This
  * method adds a pane with no grip that cannot be closed, floating or iconified.
+ * 
+ * Returns: %TRUE if the pane was added, or %FALSE if a pane with the same name
+ * already exists in the dock
  */
-void 
+gboolean 
 anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
                       const gchar *pane_label, const gchar *stock_icon,
                       AnjutaDockPane *pane, GdlDockPlacement placement, 
@@ -165,10 +168,10 @@ anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
 	behavior |= GDL_DOCK_ITEM_BEH_CANT_CLOSE;
 	behavior |= GDL_DOCK_ITEM_BEH_CANT_ICONIFY;
 	behavior |= GDL_DOCK_ITEM_BEH_NEVER_FLOATING;
-	
-	anjuta_dock_add_pane_full (self, pane_name, pane_label, stock_icon,
-	                           pane, placement, entries, num_entries, 
-	                           user_data, behavior);
+
+	return anjuta_dock_add_pane_full (self, pane_name, pane_label, stock_icon,
+	                                  pane, placement, entries, num_entries, 
+	                                  user_data, behavior);
 }
 
 /**
@@ -188,8 +191,11 @@ anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
  *
  * Does the same thing as anjuta_dock_add_pane, but allows GDL dock behavior 
  * flags to be specified.
+ * 
+ * Returns: %TRUE if the pane was added, or %FALSE if a pane with the same name
+ * already exists in the dock
  */
-void 
+gboolean
 anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
                            const gchar *pane_label, const gchar *stock_icon,   
                            AnjutaDockPane *pane,
@@ -235,7 +241,11 @@ anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
 			anjuta_command_bar_show_action_group (ANJUTA_COMMAND_BAR (self->priv->command_bar),
 			                                      pane_name);
 		}
+
+		return TRUE;
 	}
+
+	return FALSE;
 }
 
 /**
@@ -264,15 +274,16 @@ anjuta_dock_replace_command_pane (AnjutaDock *self,
                                   AnjutaCommandBarEntry *entries, int num_entries,
                                   gpointer user_data)
 {
-	if (self->priv->command_pane)
+	if (anjuta_dock_add_pane (self, pane_name, pane_label, stock_icon,
+	                  		  pane, placement, entries, num_entries, user_data))
 	{
-		anjuta_dock_remove_pane (self, self->priv->command_pane);
-	}
+		if (self->priv->command_pane)
+		{
+			anjuta_dock_remove_pane (self, self->priv->command_pane);
+		}
 
-	anjuta_dock_add_pane (self, pane_name, pane_label, stock_icon,
-	                      pane, placement, entries, num_entries, user_data);
-	
-	self->priv->command_pane = pane;
+		self->priv->command_pane = pane;
+	}
 }
 
 /**
