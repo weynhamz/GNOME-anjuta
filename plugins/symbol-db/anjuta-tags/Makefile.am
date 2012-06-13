@@ -63,6 +63,7 @@ anjuta_tags_SOURCES = \
 	e_riscos.h        \
 	erlang.c        \
 	e_vms.h        \
+	falcon.c        \
 	flex.c        \
 	fortran.c        \
 	general.h        \
