@@ -6,14 +6,16 @@
 # Krishna Babu K <kkrothap@redhat.com>, 2009, 2012.
 # Prasanna Krishna M.V.V.S(swecha team) <prasannakrishnamvvs@gmail.com>, 2012.
 # Sasi Bhushan Boddepalli <sasi@swecha.net>,2011, 2012.
+# Praveen Illa <mail2ipn@gmail.com>, 2012.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2012-03-31 20:55+0000\n"
-"PO-Revision-Date: 2012-04-17 15:08+0530\n"
-"Last-Translator: Sasi Bhushan Boddepalli <sasi@swecha.net>\n"
+"PO-Revision-Date: 2012-06-14 23:08+0530\n"
+"Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,16 +31,16 @@ msgstr "అంజుత"
 
 #: ../anjuta.desktop.in.in.h:2 ../src/about.c:207
 msgid "Integrated Development Environment"
-msgstr "సమైక్య అభివృధ్ధి ఆ వరణము"
+msgstr "సమైక్య అభివృధ్ధి ఆవరణము"
 
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
-msgstr "ఒక సమైక్య అభివృధ్ధి ఆ వరణములో ని సాఫ్ట్వేర్ ని అభివృధ్ధి చేయు"
+msgstr "ఒక సమైక్య అభివృధ్ధి ఆవరణములోని సాఫ్ట్వేర్ని అభివృధ్ధి చేయు"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:10
 msgid "Text"
-msgstr "పాఠం"
+msgstr "పాఠ్యం"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:240
 msgid "Text to render"
@@ -92,7 +94,7 @@ msgstr "మీరు  తెరచదలచిన  దొంతి యొక్�
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
-msgstr "%s ప్లగిన్    యొక్క తొలగిన స్థానము"
+msgstr "%s ప్లగిన్ యొక్క తొలగిన స్థానము"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:141
 #, c-format
@@ -281,7 +283,7 @@ msgstr "అన్ని దస్త్రముల జాబితాకు స
 
 #: ../libanjuta/anjuta-file-list.c:547
 msgid "Show Add button"
-msgstr "బటన్ కలుపుట చూపుము"
+msgstr "బటన్ కలుపుట చూపించు"
 
 #: ../libanjuta/anjuta-file-list.c:548
 msgid "Display an Add button"
@@ -344,7 +346,7 @@ msgstr "అందుబాటులో వున్న ప్లగిన్ల�
 
 #: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
-msgstr "ఎంచబడిన  ప్లగిన్లు"
+msgstr "అభీష్ట ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1176
 msgid "Only show user activatable plugins"
@@ -362,13 +364,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
-msgstr "ఎంచిన ప్లగిన్ ను ఉపేక్షించుము"
+msgstr "ఎంచిన ప్లగిన్ను ఉపేక్షించు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1376
 #: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
-msgstr "ఒక  ప్లగిన్ ఎంచుకొనుము"
+msgstr "ఒక  ప్లగిన్ ఎంచుకొను"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1377
 #: ../plugins/debug-manager/queue.c:530
@@ -378,11 +380,11 @@ msgstr "దయచేసి  క్రియాశీలకం  చేయుట�
 #: ../libanjuta/anjuta-plugin-manager.c:1391
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
-msgstr "%s లోనికిమరే ఇతర ప్లగిన్ లు  లో డ్ చేయడానికి, ప్లగిన్ లు లేవు "
+msgstr "%s లోనికిమరే ఇతర ప్లగిన్లు లోడ్ చేయడానికి, ప్లగిన్లు లేవు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1528
 msgid "<b>Please select a plugin to activate</b>"
-msgstr "<b> క్రియాశీలకంగా ఉండడానికి , దయచేసి ఒక ప్లగిన్ ను ఎంచుకోండి"
+msgstr "<b> క్రియాశీలకంగా ఉండడానికి , దయచేసి ఒక ప్లగిన్ ను ఎంచుకోండి</b>"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2034
 msgid "Remember this selection"
@@ -390,31 +392,31 @@ msgstr "ఈ ఎంపికను గుర్తుంచుకో"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2365
 msgid "Profiles"
-msgstr "ప్రొఫైల్స్"
+msgstr "ప్రవరలు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Current stack of profiles"
-msgstr "ప్రస్తుతం నిలువ వున్న  ప్రొఫైల్స్"
+msgstr "ప్రస్తుతం నిలువ వున్న ప్రవరలు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2371
 msgid "Available plugins"
-msgstr "లభ్యత  గల ప్లగిన్ లు "
+msgstr "అందుబాటులోవున్న ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2372
 msgid "Currently available plugins found in plugin paths"
-msgstr "ప్లగిన్ ల దారిలో ఇప్పుడు లభ్యత గల ప్లగిన్ లు"
+msgstr "ప్లగిన్ల దారిలో ఇప్పుడు లభ్యత గల ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Activated plugins"
-msgstr "క్రియాశీలంగావున్న ప్లగిన్ లు"
+msgstr "క్రియాశీలంగావున్న ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Currently activated plugins"
-msgstr "ప్రస్తుతం క్రియాశీలంగావున్న ప్లగిన్ లు"
+msgstr "ప్రస్తుతం క్రియాశీలంగావున్న ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2385
 msgid "Anjuta shell for which the plugins are made"
-msgstr "ప్లగిన్ లు చేయడానికి అంజుత షెల్ "
+msgstr "ప్లగిన్లు చేయడానికి అంజుత షెల్"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2393
 msgid "Anjuta Status"
@@ -422,7 +424,7 @@ msgstr "అంజుత స్థితి"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2394
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr "ప్లగిన్ లఎగుమతి మరియు దిగుమతి చేయడానికి అంజుత స్థితి"
+msgstr "ప్లగిన్ల ఎగుమతి మరియు దిగుమతి చేయడానికి అంజుత స్థితి"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
@@ -449,39 +451,39 @@ msgstr "అంజుత అభీష్టాలు"
 
 #: ../libanjuta/anjuta-profile.c:254
 msgid "Plugin Manager"
-msgstr "ప్లగ్గిన్ అభికర్త"
+msgstr "ప్లగిన్ నిర్వాహకం"
 
 #: ../libanjuta/anjuta-profile.c:255
 msgid "The plugin manager to use for resolving plugins"
-msgstr "ప్లగిన్ లు సాధనకు వాడే ప్లగిన్ ల అభికర్త"
+msgstr "ప్లగిన్లు సాధనకు వాడే ప్లగిన్ల నిర్వాహకం"
 
 #: ../libanjuta/anjuta-profile.c:263
 msgid "Profile Name"
-msgstr "ప్రొఫైల్ పేరు"
+msgstr "ప్రవర పేరు"
 
 #: ../libanjuta/anjuta-profile.c:264
 msgid "Name of the plugin profile"
-msgstr "ప్లగిన్ ప్రొఫైల్ యొక్క పేరు"
+msgstr "ప్లగిన్ ప్రవర యొక్క పేరు"
 
 #: ../libanjuta/anjuta-profile.c:272
 msgid "Profile Plugins"
-msgstr "ప్రొఫైల్ ప్లగిన్ లు"
+msgstr "ప్రవర ప్లగిన్లు"
 
 #: ../libanjuta/anjuta-profile.c:273
 msgid "List of plugins for this profile"
-msgstr "ఈ ప్రొఫైల్ కొరకు ప్లగిన్ ల జాబితా"
+msgstr "ఈ ప్రవర కొరకు ప్లగిన్ల జాబితా"
 
 #: ../libanjuta/anjuta-profile.c:280
 msgid "Synchronization file"
-msgstr "కలగలసిన దస్త్రము"
+msgstr "సమకాలీకరణ దస్త్రము"
 
 #: ../libanjuta/anjuta-profile.c:281
 msgid "File to syncronize the profile XML"
-msgstr "XML ప్రొఫైల్  కలియడానికి దస్త్రము"
+msgstr "XML ప్రవర కలియడానికి దస్త్రము"
 
 #: ../libanjuta/anjuta-profile.c:508
 msgid "Please select a plugin from the list"
-msgstr "దయచేసి జాబితా నుండి ఒక ప్లగిన్ ను ఎంచుకోండి"
+msgstr "దయచేసి జాబితా నుండి ఒక ప్లగిన్ను ఎంచుకోండి"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
@@ -521,7 +523,7 @@ msgstr "దాచు"
 
 #: ../libanjuta/anjuta-save-prompt.c:196
 msgid "Item"
-msgstr "అంశ"
+msgstr "అంశం"
 
 #: ../libanjuta/anjuta-save-prompt.c:202
 msgid "_Discard changes"
@@ -541,7 +543,7 @@ msgstr "ఇక్కడ  ఒక ఉపకరణం దాచని మార్�
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
 msgid "<Invalid>"
-msgstr "<చెల్లని>"
+msgstr "<చెల్లదు>"
 
 #: ../libanjuta/anjuta-tree-combo.c:1196
 msgid "ComboBox model"
@@ -1598,7 +1600,7 @@ msgstr "విజయవంతంగా పూర్తయినది\n"
 #: ../plugins/build-basic-autotools/plugin.c:1097
 #, c-format
 msgid "Build %d: %s"
-msgstr "%d: %s నిర్మించండి"
+msgstr "%d నిర్మించు: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:1639
 #: ../plugins/build-basic-autotools/plugin.c:1713
@@ -1608,11 +1610,11 @@ msgstr "%d: %s నిర్మించండి"
 #: ../plugins/build-basic-autotools/plugin.c:1827
 #, c-format
 msgid "_Build"
-msgstr "_నిర్మాణం(_B)"
+msgstr "నిర్మించు (_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1643
 msgid "_Build Project"
-msgstr "_పథకం నిర్మించు(_B)"
+msgstr "పరియోజన నిర్మించు(_B)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1644
 msgid "Build whole project"
@@ -1702,7 +1704,7 @@ msgstr "సాధ్యమయితే ఈ ప్రోజెక్టును 
 #: ../plugins/build-basic-autotools/plugin.c:1717
 #: ../plugins/build-basic-autotools/plugin.c:1745
 msgid "_Compile"
-msgstr "క్రోడీకరించు"
+msgstr "సంకలించు (_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1718
 #: ../plugins/build-basic-autotools/plugin.c:1746
@@ -1719,7 +1721,7 @@ msgstr "మాడ్యూల్ ను నిర్మించు"
 #: ../plugins/build-basic-autotools/plugin.c:1834
 #, c-format
 msgid "_Install"
-msgstr "సంస్థాపించు (_I)"
+msgstr "స్థాపించు (_I)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1730
 #: ../plugins/build-basic-autotools/plugin.c:1758
@@ -2067,7 +2069,7 @@ msgstr "పరం స్పెక్"
 #. Somehow redundant with marshaller, but required for default handler
 #: ../plugins/class-gen/window.c:751 ../plugins/class-gen/window.c:761
 msgid "Flags"
-msgstr "దస్ర్తాలు"
+msgstr "ఫ్లాగులు"
 
 #: ../plugins/class-gen/window.c:762
 msgid "Marshaller"
@@ -2173,7 +2175,7 @@ msgstr "తొలగించు .cvsrc దస్త్రము (సిఫా�
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:10
 msgid "CVS Options"
-msgstr "ఇచ్ఛాపూర్వకాలు"
+msgstr "CVS ఐచ్ఛికాలు"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:11
 msgid "CVS: Add file/directory"
@@ -2247,7 +2249,7 @@ msgstr "తనంతట తానుగా పనిచేయదు"
 #: ../plugins/git/anjuta-git.ui.h:3
 #: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Options:"
-msgstr "ఇచ్ఛాపూర్వకాలు:"
+msgstr "ఐచ్ఛికాలు:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:27
 msgid "CVS: Update file/directory"
@@ -3336,7 +3338,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:406
 msgid "Ins_pect/Evaluate…"
-msgstr "తనిఖీ(_p)/పరీక్షించు"
+msgstr "తనిఖీ/పరీక్షించు...(_p)"
 
 #. Display label
 #. short-cut
@@ -3401,7 +3403,7 @@ msgstr "వెళ్ళండి(_G)"
 
 #: ../plugins/devhelp/plugin.c:236
 msgid "_API Reference"
-msgstr "(_A)API నివేదన"
+msgstr "API నివేదన (_A)"
 
 #: ../plugins/devhelp/plugin.c:238
 msgid "Browse API Pages"
@@ -3409,7 +3411,7 @@ msgstr "API పేజీలను బ్రౌజ్ చేయండి"
 
 #: ../plugins/devhelp/plugin.c:248
 msgid "_Context Help"
-msgstr "(_C)సందర్భ సహాయం"
+msgstr "సందర్భ సహాయం (_C)"
 
 #: ../plugins/devhelp/plugin.c:250
 msgid "Search help for the current word in the editor"
@@ -3417,7 +3419,7 @@ msgstr "ఎడిటర్ ప్రస్తుత పదం కోసం స�
 
 #: ../plugins/devhelp/plugin.c:260
 msgid "_Search Help"
-msgstr "(_S)శోధన సహాయం"
+msgstr "శోధన సహాయం(_S)"
 
 #: ../plugins/devhelp/plugin.c:262
 msgid "Search for a term in help"
@@ -3613,7 +3615,7 @@ msgstr "అన్నింటినీ పున:స్థాపించు"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "_Save"
-msgstr "దాచు (_S)"
+msgstr "భద్రపరుచు (_S)"
 
 #: ../plugins/document-manager/plugin.c:153
 msgid "Save current file"
@@ -3621,7 +3623,7 @@ msgstr "ప్రస్తుత దస్త్రం దాచు"
 
 #: ../plugins/document-manager/plugin.c:154
 msgid "Save _As…"
-msgstr "ఇలా దాయుము(_A)..."
+msgstr "ఇలా భద్రపరుచు...(_A)"
 
 #: ../plugins/document-manager/plugin.c:155
 msgid "Save the current file with a different name"
@@ -3637,7 +3639,7 @@ msgstr "కొత్త ఫైళ్లు తప్ప, అన్ని ప�
 
 #: ../plugins/document-manager/plugin.c:160
 msgid "_Close File"
-msgstr "దస్త్రం మూసివేయుము(_C)"
+msgstr "దస్త్రం మూసివేయి (_C)"
 
 #: ../plugins/document-manager/plugin.c:161
 msgid "Close current file"
@@ -3673,7 +3675,7 @@ msgstr "ఇటీవలి ఫైళ్ళు(_F)"
 
 #: ../plugins/document-manager/plugin.c:176
 msgid "_Print…"
-msgstr "(_P)ముద్రించు ..."
+msgstr "ముద్రించు ...(_P)"
 
 #: ../plugins/document-manager/plugin.c:177
 msgid "Print the current file"
@@ -3681,7 +3683,7 @@ msgstr "ప్రస్తుత దస్త్రమును ముద్ర�
 
 #: ../plugins/document-manager/plugin.c:184
 msgid "_Print Preview"
-msgstr "(_P)ముద్రణఉపదర్శనం "
+msgstr "ముద్రణఉపదర్శనం (_P)"
 
 #: ../plugins/document-manager/plugin.c:185
 msgid "Preview the current file in print format"
@@ -3689,12 +3691,12 @@ msgstr "ప్రస్తుత దస్త్రాన్ని మద్ర�
 
 #: ../plugins/document-manager/plugin.c:190
 msgid "_Transform"
-msgstr "(_T)రూపాంతరం"
+msgstr "రూపాంతరం (_T)"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:191
 msgid "_Make Selection Uppercase"
-msgstr "(_M)ఎన్నిక అప్పర్కేస్ చెయ్యండి"
+msgstr "ఎన్నిక అప్పర్కేస్ చెయ్యండి (_M)"
 
 #: ../plugins/document-manager/plugin.c:192
 msgid "Make the selected text uppercase"
@@ -3754,7 +3756,7 @@ msgstr "ఎడిటర్ లోని మొత్తం పాఠాన్న
 
 #: ../plugins/document-manager/plugin.c:217
 msgid "Select _Code Block"
-msgstr "(_C)కోడ్ బ్లాక్ ఎంచుకోండి"
+msgstr "కోడ్ బ్లాక్ ఎంచుకోండి (_C)"
 
 #: ../plugins/document-manager/plugin.c:218
 msgid "Select the current code block"
@@ -3762,13 +3764,13 @@ msgstr "ప్రస్తుత కోడ్ బ్లాకును ఎంచ
 
 #: ../plugins/document-manager/plugin.c:223
 msgid "Co_mment"
-msgstr "_(m)కామెంట్"
+msgstr "కామెంట్ (_m)"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
 #: ../plugins/document-manager/plugin.c:226
 msgid "_Block Comment/Uncomment"
-msgstr "(_B)కామెంట్/అన్కామెంట్ ను నిరోధించు"
+msgstr "కామెంట్/అన్కామెంట్ ను నిరోధించు (_B)"
 
 #: ../plugins/document-manager/plugin.c:227
 msgid "Block comment the selected text"
@@ -3778,7 +3780,7 @@ msgstr "ఎంచుకున్న పాఠంకు కామెంట్న�
 #. some decorations, to give an appearance of box.
 #: ../plugins/document-manager/plugin.c:231
 msgid "Bo_x Comment/Uncomment"
-msgstr "Bo_x వ్యాఖ్య / వ్యాఖ్యకనిది"
+msgstr "బాక్స్ వ్యాఖ్య / వ్యాఖ్యకనిది (_x)"
 
 #: ../plugins/document-manager/plugin.c:232
 msgid "Box comment the selected text"
@@ -3790,7 +3792,7 @@ msgstr "పెట్టె ఎంచుకున్న పాఠం వ్యా
 #. lines).
 #: ../plugins/document-manager/plugin.c:238
 msgid "_Stream Comment/Uncomment"
-msgstr "(_S)ప్రవాహం వ్యాఖ్య / వ్యాఖ్యకనిది"
+msgstr "ప్రవాహం వ్యాఖ్య / వ్యాఖ్యకనిది (_S)"
 
 #: ../plugins/document-manager/plugin.c:239
 msgid "Stream comment the selected text"
@@ -3799,7 +3801,7 @@ msgstr "ఎంపిక పాఠం వ్యాఖ్య ప్రవాహం
 #. menu title
 #: ../plugins/document-manager/plugin.c:245
 msgid "_Line Number…"
-msgstr "(_L)వరుస సంఖ్యలను చూపుము"
+msgstr "వరుస సంఖ్యలను చూపుము (_H)"
 
 #: ../plugins/document-manager/plugin.c:246
 msgid "Go to a particular line in the editor"
@@ -3815,7 +3817,7 @@ msgstr "ఎడిటర్ లోని లో సరిపోలే జంట �
 
 #: ../plugins/document-manager/plugin.c:251
 msgid "_Start of Block"
-msgstr "(_S)బ్లాక్ యొక్క మొదలు"
+msgstr "బ్లాక్ యొక్క మొదలు (_S)"
 
 #: ../plugins/document-manager/plugin.c:252
 msgid "Go to the start of the current block"
@@ -3823,7 +3825,7 @@ msgstr "ప్రస్తుత భాగమున ప్రారంభంల�
 
 #: ../plugins/document-manager/plugin.c:254
 msgid "_End of Block"
-msgstr "(_E)భాగము యొక్కముగింపు"
+msgstr "భాగము యొక్కముగింపు (_E)"
 
 #: ../plugins/document-manager/plugin.c:255
 msgid "Go to the end of the current block"
@@ -3831,7 +3833,7 @@ msgstr "ప్రస్తుత భాగమున ముగింపుకు 
 
 #: ../plugins/document-manager/plugin.c:257
 msgid "Previous _History"
-msgstr "మునుపటి (_H)చరిత్ర"
+msgstr "మునుపటి చరిత్ర (_H)"
 
 #: ../plugins/document-manager/plugin.c:258
 msgid "Go to previous history"
@@ -3851,7 +3853,7 @@ msgstr "వెతుకు(_S)"
 
 #: ../plugins/document-manager/plugin.c:267
 msgid "_Quick Search"
-msgstr "(_Q)త్వరిత  శోధన"
+msgstr "త్వరిత శోధన (_Q)"
 
 #: ../plugins/document-manager/plugin.c:268
 msgid "Quick editor embedded search"
@@ -3925,16 +3927,16 @@ msgstr "క్రమబద్ద వ్యక్తీకరణలు ఉపయ�
 #: ../plugins/language-support-cpp-java/plugin.c:1411
 #: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
 msgid "_Edit"
-msgstr "(_E)సరిచేయు"
+msgstr "సరిచేయు (_E)"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:306
 msgid "_Editor"
-msgstr "(_E)ఎడిటర్"
+msgstr "ఎడిటర్ (_E)"
 
 #: ../plugins/document-manager/plugin.c:313
 msgid "_Add Editor View"
-msgstr "(_A)ఎడిటర్ అభిప్రాయాలను జోడించండి"
+msgstr "ఎడిటర్ అభిప్రాయాలను జోడించండి (_A)"
 
 #: ../plugins/document-manager/plugin.c:314
 msgid "Add one more view of current document"
@@ -3942,7 +3944,7 @@ msgstr "ప్రస్తుత పత్రం యొక్క మరిన్
 
 #: ../plugins/document-manager/plugin.c:316
 msgid "_Remove Editor View"
-msgstr "(_R)ఎడిటర్ అభిప్రాయాలను తొలగించు"
+msgstr "ఎడిటర్ అభిప్రాయాలను తొలగించు (_R)"
 
 #: ../plugins/document-manager/plugin.c:317
 msgid "Remove current view of the document"
@@ -3950,7 +3952,7 @@ msgstr "పత్రం యొక్క ప్రస్తుత అభిప్
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "U_ndo"
-msgstr "(_n)దిద్దుబాటు రద్దుచెయ్యి"
+msgstr "దిద్దుబాటు రద్దుచెయ్యి (_n)"
 
 #: ../plugins/document-manager/plugin.c:320
 msgid "Undo the last action"
@@ -4000,7 +4002,7 @@ msgstr "ఎడిటర్ లోని నుండి ఎంచుకున్
 
 #: ../plugins/document-manager/plugin.c:344
 msgid "_Auto-Complete"
-msgstr "(_A)స్వీయసంపూర్తిని"
+msgstr "స్వీయసంపూర్తిని (_A)"
 
 #: ../plugins/document-manager/plugin.c:345
 msgid "Auto-complete the current word"
@@ -4028,7 +4030,7 @@ msgstr "ఉద్దీపన విధం(_H)"
 
 #: ../plugins/document-manager/plugin.c:364
 msgid "_Close All Folds"
-msgstr "(_C)అన్ని సంచయలను మూసివేయి"
+msgstr "అన్ని సంచయలను మూసివేయి (_C)"
 
 #: ../plugins/document-manager/plugin.c:365
 msgid "Close all code folds in the editor"
@@ -4036,7 +4038,7 @@ msgstr "ఎడిటర్ లోని మొత్తం కోడ్ సం�
 
 #: ../plugins/document-manager/plugin.c:367
 msgid "_Open All Folds"
-msgstr "(_O)అన్ని సంచయలను తెరువు"
+msgstr "అన్ని సంచయలను తెరువు (_O)"
 
 #: ../plugins/document-manager/plugin.c:368
 msgid "Open all code folds in the editor"
@@ -4044,7 +4046,7 @@ msgstr "ఎడిటర్ లోని మొత్తం కోడ్ సం�
 
 #: ../plugins/document-manager/plugin.c:370
 msgid "_Toggle Current Fold"
-msgstr "(_T)ప్రస్తుత సంచయలను మార్చండి"
+msgstr "ప్రస్తుత సంచయలను మార్చండి (_T)"
 
 #: ../plugins/document-manager/plugin.c:371
 msgid "Toggle current code fold in the editor"
@@ -4076,7 +4078,7 @@ msgstr "బుక్ మార్క్(_k)"
 
 #: ../plugins/document-manager/plugin.c:387
 msgid "_Toggle Bookmark"
-msgstr "(_T)బుక్మార్క్ని మార్చండి"
+msgstr "బుక్మార్క్ని మార్చండి (_T)"
 
 #: ../plugins/document-manager/plugin.c:388
 msgid "Toggle bookmark at the current line position"
@@ -4084,7 +4086,7 @@ msgstr "ప్రస్తుత పంక్తి స్థానం వద్
 
 #: ../plugins/document-manager/plugin.c:390
 msgid "_Previous Bookmark"
-msgstr "(_P)మునుపటి బుక్మార్క్"
+msgstr "మునుపటి బుక్మార్క్ (_P)"
 
 #: ../plugins/document-manager/plugin.c:391
 msgid "Jump to the previous bookmark in the file"
@@ -4092,7 +4094,7 @@ msgstr "ఫైలు లో మునుపటి బుక్మార్క్
 
 #: ../plugins/document-manager/plugin.c:393
 msgid "_Next Bookmark"
-msgstr "(_N)తదుపరి బుక్మార్క్"
+msgstr "తదుపరి బుక్మార్క్ (_N)"
 
 #: ../plugins/document-manager/plugin.c:394
 msgid "Jump to the next bookmark in the file"
@@ -4100,7 +4102,7 @@ msgstr "ఫైలునందు తదుపరి బుక్మార్క�
 
 #: ../plugins/document-manager/plugin.c:396
 msgid "_Clear All Bookmarks"
-msgstr "(_C)అన్ని బుక్మార్క్లను తుడువుము"
+msgstr "అన్ని బుక్మార్క్లను తుడువుము (_C)"
 
 #: ../plugins/document-manager/plugin.c:397
 msgid "Clear bookmarks"
@@ -4416,7 +4418,7 @@ msgstr "ప్లగ్ఇన్ క్రియాశీలం విఫలమ�
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
-msgstr "_కొత్త"
+msgstr "కొత్త (_N)"
 
 #: ../plugins/file-loader/plugin.c:886
 msgid "New empty file"
@@ -4424,15 +4426,15 @@ msgstr "కొత్త ఖాళీ ఫైలు"
 
 #: ../plugins/file-loader/plugin.c:892
 msgid "_Open…"
-msgstr "(_O)తెరువుము..."
+msgstr "తెరువు...(_O)"
 
 #: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
-msgstr "తెరువుము (_O)"
+msgstr "తెరువు (_O)"
 
 #: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
-msgstr "(_W)దీనితో తెరువుము"
+msgstr "దీనితో తెరువు (_W)"
 
 #: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
@@ -4464,7 +4466,7 @@ msgstr "ఇటీవలి ఫైళ్లను తెరవండి"
 
 #: ../plugins/file-loader/plugin.c:1297
 msgid "Open a file"
-msgstr "ఒక దస్త్రాన్ని తెరువుము"
+msgstr "ఒక దస్త్రాన్ని తెరువు"
 
 #: ../plugins/file-loader/plugin.c:1411 ../plugins/file-loader/plugin.c:1413
 #, c-format
@@ -4484,7 +4486,7 @@ msgstr "<b>తో తెరుచుము</b>"
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
 #: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
 msgid "File Manager"
-msgstr "దస్త్రాల అభికర్త"
+msgstr "దస్త్రాల నిర్వాహకం"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:2
 msgid "File manager for project and single files"
@@ -4550,7 +4552,7 @@ msgstr "ఫైల్ మేనేజర్ పాప్అప్ చర్యల
 
 #: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
 msgid "Files"
-msgstr "దస్ర్తాలు"
+msgstr "దస్త్రాలు"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "File Assistant"
@@ -6052,7 +6054,7 @@ msgstr "లోపం రాత% s"
 
 #: ../plugins/message-view/plugin.c:79
 msgid "_Copy Message"
-msgstr "(_C)నకలు సందేశం"
+msgstr "సందేశం నకలించు (_C)"
 
 #: ../plugins/message-view/plugin.c:80
 msgid "Copy message"
@@ -6076,7 +6078,7 @@ msgstr "పూర్వపు సందేశం"
 
 #: ../plugins/message-view/plugin.c:91
 msgid "_Save Message"
-msgstr "(_s)సందేశ భద్రపరచు"
+msgstr "సందేశాన్ని భద్రపరచు (_s)"
 
 #: ../plugins/message-view/plugin.c:92
 msgid "Save message"
@@ -6128,11 +6130,11 @@ msgstr "జోడించడానికి ప్యాకేజీ ఎంచ�
 
 #: ../plugins/mk-project/mk-project.ui.h:4
 msgid "Add _module"
-msgstr "(_m)మాడ్యూల్ జోడించండి"
+msgstr "మాడ్యూల్ జోడించండి (_m)"
 
 #: ../plugins/mk-project/mk-project.ui.h:5
 msgid "Add _Package"
-msgstr "ప్యాకేజీ (_P)జోడించండి"
+msgstr "ప్యాకేజీ జోడించండి (_P)"
 
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Packages"
@@ -6218,13 +6220,13 @@ msgstr "ప్యాచ్ స్థాయి:"
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:131
 msgid "_Tools"
-msgstr "_పనిముట్లు"
+msgstr "పనిముట్లు (_T)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:61
 msgid "_Patch…"
-msgstr "(_P)ప్యాచ్..."
+msgstr "ప్యాచ్...(_P)"
 
 #: ../plugins/patch/plugin.c:93
 msgid "Patch files/directories"
@@ -6572,7 +6574,7 @@ msgstr "ప్రోజెక్టునకు కొత్త ఫోల్డ�
 
 #: ../plugins/project-manager/plugin.c:907
 msgid "New _Target…"
-msgstr "కొత్త (_T)లక్ష్యం ..."
+msgstr "కొత్త లక్ష్యం ...(_T)"
 
 #: ../plugins/project-manager/plugin.c:907
 #: ../plugins/project-manager/plugin.c:946
@@ -6612,7 +6614,7 @@ msgstr "లక్షణాలు (_P)"
 
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close Pro_ject"
-msgstr "(_j)ప్రాజెక్టు మూసివేయి"
+msgstr "ప్రాజెక్టు మూసివేయి (_j)"
 
 #: ../plugins/project-manager/plugin.c:932
 msgid "Close project"
@@ -6624,15 +6626,15 @@ msgstr "కొత్త ఫోల్డర్ (_F)"
 
 #: ../plugins/project-manager/plugin.c:946
 msgid "New _Target"
-msgstr "కొత్త (_T)లక్ష్యం"
+msgstr "కొత్త లక్ష్యం(_T)"
 
 #: ../plugins/project-manager/plugin.c:951
 msgid "Add _Source File"
-msgstr "(_S)మూలం ఫైల్ను జోడించండి"
+msgstr "మూలం ఫైల్ను జోడించండి (_S)"
 
 #: ../plugins/project-manager/plugin.c:956
 msgid "Add _Library"
-msgstr "(_L)లైబ్రరీని జోడించండి"
+msgstr "లైబ్రరీని జోడించండి (_L)"
 
 #: ../plugins/project-manager/plugin.c:956
 msgid "Add a library to a target"
@@ -6640,7 +6642,7 @@ msgstr "ఒక లక్ష్యనికి ఒక లైబ్రరీ జ�
 
 #: ../plugins/project-manager/plugin.c:961
 msgid "New _Library"
-msgstr "కొత్త (_L)లైబ్రరీ"
+msgstr "కొత్త లైబ్రరీ (_L)"
 
 #: ../plugins/project-manager/plugin.c:961
 msgid "Add a new library to the project"
@@ -6648,7 +6650,7 @@ msgstr "ప్రాజెక్టుకు ఒక కొత్త లైబ్
 
 #: ../plugins/project-manager/plugin.c:966
 msgid "_Add to Project"
-msgstr "(_A)ప్రాజెక్టు కు జోడించండి"
+msgstr "ప్రాజెక్టుకు జోడించండి (_A)"
 
 #: ../plugins/project-manager/plugin.c:971
 msgid "Properties of group/target/source"
@@ -6664,7 +6666,7 @@ msgstr "ప్రాజెక్టు నుండి తొలగించు"
 
 #: ../plugins/project-manager/plugin.c:981
 msgid "_Sort"
-msgstr "(_S)క్రమబద్ధీకరించు"
+msgstr "క్రమబద్ధీకరించు (_S)"
 
 #: ../plugins/project-manager/plugin.c:981
 msgid "Sort shortcuts"
@@ -6723,11 +6725,11 @@ msgstr "లైబ్రరీ జోడించండి"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:2
 msgid "Select the _target for the library:"
-msgstr "లైబ్రరీ కోసం (_t)లక్ష్య ఎంచుకోండి:"
+msgstr "లైబ్రరీ కోసం లక్ష్య ఎంచుకోండి (_t):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:3
 msgid "_New library…"
-msgstr "( _N)కొత్త లైబ్రరీ ..."
+msgstr "కొత్త లైబ్రరీ ...( _N)"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:4
 msgid "Modules:"
@@ -6743,7 +6745,7 @@ msgstr "ప్యాకేజీ జాబితా:"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:7
 msgid "_Module name:"
-msgstr "(_M)మాడ్యూల్ పేరు"
+msgstr "మాడ్యూల్ పేరు (_M):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:8
 msgid "Add Source"
@@ -6767,11 +6769,11 @@ msgstr "ఫోల్డర్‌ను యెక్కడ సృష్టిం�
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:13
 msgid "Select the _target for the new source files:"
-msgstr "కొత్త సోర్స్ ఫైళ్లు కోసం (_t)లక్ష్య ఎంచుకోండి:"
+msgstr "కొత్త సోర్స్ ఫైళ్లు కోసం లక్ష్య ఎంచుకోండి (_t):"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:14
 msgid "_Select file to add…"
-msgstr "(_S)జోడించడానికిదస్త్రమును ఎంచు"
+msgstr "జోడించడానికిదస్త్రమును ఎంచు (_S)"
 
 #: ../plugins/project-manager/pm_dialogs.ui.h:15
 msgid "Source files:"
@@ -7983,7 +7985,7 @@ msgstr "స్నిప్పెట్లు"
 #. the snippet gets inserted.
 #: ../plugins/snippets-manager/plugin.c:73
 msgid "_Trigger insert"
-msgstr "(_T)ట్రిగ్గర్ ప్రవేశపెట్టు "
+msgstr "ట్రిగ్గర్ ప్రవేశపెట్టు (_T)"
 
 #: ../plugins/snippets-manager/plugin.c:75
 msgid "Insert a snippet using the trigger-key"
@@ -7997,7 +7999,7 @@ msgstr "ట్రిగ్గర్-కీ ఉపయోగించి ఒక �
 #. inserted.
 #: ../plugins/snippets-manager/plugin.c:86
 msgid "_Auto complete insert"
-msgstr "(_A)ఆటో పూర్తిగా ప్రవేశపెట్టు"
+msgstr "ఆటో పూర్తిగా ప్రవేశపెట్టు (_A)"
 
 #: ../plugins/snippets-manager/plugin.c:88
 msgid "Insert a snippet using auto-completion"
@@ -8005,7 +8007,7 @@ msgstr "స్వయం-పూర్తి ఉపయోగించి ఒక �
 
 #: ../plugins/snippets-manager/plugin.c:93
 msgid "_Import snippets …"
-msgstr "(_I)స్నిప్పెట్ల దిగుమతి ..."
+msgstr "స్నిప్పెట్ల దిగుమతి ...(_I)"
 
 #: ../plugins/snippets-manager/plugin.c:95
 msgid "Import snippets to the database"
@@ -8249,7 +8251,7 @@ msgstr "అక్షరాలు లో కుడి మార్జిన్ �
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 #: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
 msgid "View"
-msgstr "దర్శనం"
+msgstr "వీక్షణం"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 msgid "Editor"
@@ -8261,7 +8263,7 @@ msgstr "థీమ్ ఫాంట్ను ఉపయోగించు"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Font:"
-msgstr "ఫాంటు:"
+msgstr "ఖతి:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Color scheme:"
@@ -8269,11 +8271,11 @@ msgstr "రంగు విధానం:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Font"
-msgstr "అక్షరశైలి"
+msgstr "ఖతి"
 
 #: ../plugins/sourceview/plugin.c:113
 msgid "_Line Number Margin"
-msgstr "(_A)పంక్తి సంఖ్య అంచు"
+msgstr "పంక్తి సంఖ్య అంచు (_L)"
 
 #: ../plugins/sourceview/plugin.c:114
 msgid "Show/Hide line numbers"
@@ -8281,7 +8283,7 @@ msgstr "పంక్తి సంఖ్యలను చూపు / దాచు"
 
 #: ../plugins/sourceview/plugin.c:116
 msgid "_Marker Margin"
-msgstr "(_M)మార్కర్ అంచు"
+msgstr "మార్కర్ అంచు (_M)"
 
 #: ../plugins/sourceview/plugin.c:117
 msgid "Show/Hide marker margin"
@@ -8289,7 +8291,7 @@ msgstr "మార్కర్ అంచును చూపు / దాచు"
 
 #: ../plugins/sourceview/plugin.c:119
 msgid "_White Space"
-msgstr "(_W)ఖాళీ"
+msgstr "తెల్లని ఖాళీ (_W)"
 
 #: ../plugins/sourceview/plugin.c:120
 msgid "Show/Hide white spaces"
@@ -8297,7 +8299,7 @@ msgstr "ఖాళీని చూపు / దాచు"
 
 #: ../plugins/sourceview/plugin.c:122
 msgid "_Line End Characters"
-msgstr "(_L)పంక్తి చివరి అక్షరాలు"
+msgstr "పంక్తి చివరి అక్షరాలు (_L)"
 
 #: ../plugins/sourceview/plugin.c:123
 msgid "Show/Hide line end characters"
@@ -8638,13 +8640,13 @@ msgstr "స్థితి పొందటం ......"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
-msgstr "(_S)ఉపప్రతి"
+msgstr "ఉపప్రతి (_S)"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:175
 msgid "_Add…"
-msgstr "(_A)జతచేయు..."
+msgstr "జతచేయు...(_A)"
 
 #. Display label
 #. short-cut
@@ -8656,7 +8658,7 @@ msgstr "ఉపప్రతి చెట్టు ఒక కొత్త ఫై�
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove…"
-msgstr "(_R)తీసివేయి..."
+msgstr "తీసివేయి...(_R)"
 
 #. Display label
 #. short-cut
@@ -8668,7 +8670,7 @@ msgstr "ఉపప్రతి చెట్టు నుండి ఒక ఫై�
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:76
 msgid "_Commit…"
-msgstr "(_C)నిబద్ధత ..."
+msgstr "నిబద్ధత ...(_C)"
 
 #. Display label
 #. short-cut
@@ -8680,7 +8682,7 @@ msgstr "మీ మార్పులను ఉపప్రతి చెట్ట
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 msgid "_Revert…"
-msgstr "(_R)మళ్ళీ అమర్చు"
+msgstr "మళ్ళీ అమర్చు...(_R)"
 
 #. Display label
 #. short-cut
@@ -8692,7 +8694,7 @@ msgstr "మీరు పనిచేస్తున్న కాపీకి మ
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:92
 msgid "_Resolve Conflicts…"
-msgstr "(_R)విభేదాలు పరిష్కరించేందుకు ..."
+msgstr "విభేదాలు పరిష్కరించేందుకు ...(_R)"
 
 #. Display label
 #. short-cut
@@ -8704,7 +8706,7 @@ msgstr "మీరు పనిచేస్తున్న కాపీ లో �
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update…"
-msgstr "(_U)నవీకరించు..."
+msgstr "నవీకరించు...(_U)"
 
 #. Display label
 #. short-cut
@@ -8752,7 +8754,7 @@ msgstr "మీ పనిచేస్తున్న ప్రతిని లో
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 msgid "_View Log…"
-msgstr "(_V)లాగ్ చూడండి ..."
+msgstr "లాగ్ చూడండి ...(_V)"
 
 #. Display label
 #. short-cut
@@ -8764,7 +8766,7 @@ msgstr "ఫైలు చరితం చూడండి"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:140
 msgid "_Diff…"
-msgstr "(_D)వ్యత్యాసం"
+msgstr "వ్యత్యాసం (_D)"
 
 #. Display label
 #. short-cut
@@ -9011,7 +9013,7 @@ msgstr ""
 
 #: ../plugins/symbol-db/plugin.c:331
 msgid "Tag De_claration"
-msgstr "ట్యాగ్ (_c)ప్రకటన"
+msgstr "ట్యాగ్ ప్రకటన (_c)"
 
 #: ../plugins/symbol-db/plugin.c:333
 msgid "Go to symbol declaration"
@@ -9028,7 +9030,7 @@ msgstr "గుర్తు నిర్వచనం వెళ్ళండి"
 
 #: ../plugins/symbol-db/plugin.c:349
 msgid "_Find Symbol…"
-msgstr "(_F)చిహ్నం వెతుకుము"
+msgstr "చిహ్నం వెతుకు...(_F)"
 
 #: ../plugins/symbol-db/plugin.c:350
 msgid "Find Symbol"
@@ -9108,7 +9110,7 @@ msgstr "GNOME టెర్మినల్ లో ప్రస్తుతం ఎ
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:3
 msgid "Use GNOME Terminal profile:"
-msgstr "GNOME టెర్మినల్ ప్రొఫైల్ ఉపయోగించండి:"
+msgstr "GNOME టెర్మినల్ ప్రవరని ఉపయోగించండి:"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:4
 msgid "Terminal options"
@@ -9155,7 +9157,7 @@ msgstr "అన్ని ఫైళ్ళు సేవ్ చేయి"
 
 #: ../plugins/tools/anjuta-tools.ui.h:9
 msgid "_Variable…"
-msgstr "(_V)చరరాశి..."
+msgstr "చరరాశి...(_V)"
 
 #: ../plugins/tools/anjuta-tools.ui.h:10
 msgid "Working directory:"
@@ -9391,7 +9393,7 @@ msgstr "ఫైల్ మేనేజర్ ప్లగ్ఇన్ లో ఎ�
 
 #: ../plugins/tools/variable.c:90
 msgid "Selected directory in the file manager plugin"
-msgstr "ఫైల్ మేనేజర్ ప్లగ్ఇన్ లో ఎంచుకున్న డైరెక్టరీ"
+msgstr "ఫైల్ మేనేజర్ ప్లగ్ఇన్ లో ఎంచుకున్న డైరెక్టరీ"
 
 #: ../plugins/tools/variable.c:91
 msgid "Selected full file name in the file manager plugin"
@@ -9491,7 +9493,7 @@ msgstr "అంజూత IDE నిష్క్రమించు"
 
 #: ../src/anjuta-actions.h:32
 msgid "_Preferences"
-msgstr "_అభీష్టాలు"
+msgstr "ప్రాధాన్యతలు (_P)"
 
 #: ../src/anjuta-actions.h:33
 msgid "Do you prefer coffee to tea? Check it out."
@@ -9499,11 +9501,11 @@ msgstr "మీరు టీ కు కాఫీ ఇష్టపడతారు �
 
 #: ../src/anjuta-actions.h:38
 msgid "_View"
-msgstr "దర్శనం (_V)"
+msgstr "వీక్షణం (_V)"
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
-msgstr "(_R)డాక్ నమూనా తిరిగి అమర్చు"
+msgstr "డాక్ నమూనా తిరిగి అమర్చు (_R)"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
@@ -9519,7 +9521,7 @@ msgstr "పూర్తి తెర విధానంలో మార్చం
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
-msgstr "(_L)డాక్ నమూనా లాక్ చేస్తారు"
+msgstr "డాక్ నమూనా లాక్ చేస్తారు (_L)"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
@@ -9527,7 +9529,7 @@ msgstr "విడ్జెట్స్ తరలించడం సాధ్య�
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
-msgstr "పనిముట్ల పట్టా(_T)"
+msgstr "పనిముట్ల పట్టీ (_T)"
 
 #: ../src/anjuta-actions.h:56
 msgid "Show or hide the toolbar"
@@ -9535,15 +9537,15 @@ msgstr "పనిముట్ల పట్టాను చూపుము లే
 
 #: ../src/anjuta-actions.h:61
 msgid "_Help"
-msgstr "సహాయం(_H)"
+msgstr "సహాయం (_H)"
 
 #: ../src/anjuta-actions.h:63
 msgid "_User's Manual"
-msgstr "(_U)వినియోగదారుని చేతిపుస్తకం"
+msgstr "వినియోగదారుని కరదీపిక (_U)"
 
 #: ../src/anjuta-actions.h:64
 msgid "Anjuta user's manual"
-msgstr "అంజూత వినియోగదారుని చేతిపుస్తకం"
+msgstr "అంజూత వాడుకరి కరదీపిక"
 
 #: ../src/anjuta-actions.h:67
 msgid "_Frequently Asked Questions"
@@ -9563,7 +9565,7 @@ msgstr "ఆన్ లైన్ నివేదిక మరియు వనర�
 
 #: ../src/anjuta-actions.h:75
 msgid "Report _Bugs/Patches/Requests"
-msgstr "నివేదిక లోపము (_B)/ పాచెస్ / అభ్యర్థనలు"
+msgstr "లోపాలను/ప్యాచులను/అభ్యర్థనలను నివేదించు (_B)"
 
 #: ../src/anjuta-actions.h:76
 msgid "Submit a bug report, patch or feature request for Anjuta"
@@ -9571,7 +9573,7 @@ msgstr "అంజుత కోసం ఒక లోప  నివేదిక, �
 
 #: ../src/anjuta-actions.h:79
 msgid "Ask a _Question"
-msgstr "ఒక (_Q)ప్రశ్న అడగండి"
+msgstr "ఒక ప్రశ్న అడగండి (_Q)"
 
 #: ../src/anjuta-actions.h:80
 msgid "Submit a question for FAQs"
@@ -9579,7 +9581,7 @@ msgstr "తరచుగా అడిగే ప్రశ్నలుకు ఒక
 
 #: ../src/anjuta-actions.h:83
 msgid "_About"
-msgstr "గురించి(_A)"
+msgstr "గురించి (_A)"
 
 #: ../src/anjuta-actions.h:84
 msgid "About Anjuta"
@@ -9587,15 +9589,15 @@ msgstr "అంజుత గురించి"
 
 #: ../src/anjuta-actions.h:87
 msgid "About External _Plugins"
-msgstr "బాహ్య  (_)ప్లగిన్లు"
+msgstr "బాహ్య ప్లగిన్లు గురించి (_P)"
 
 #: ../src/anjuta-actions.h:88
 msgid "About third-party Anjuta plugins"
-msgstr "గురించి మూడవ పార్టీ అంజుత ప్లగిన్లను"
+msgstr "మూడవ పార్టీ అంజుత ప్లగిన్లను గురించి"
 
 #: ../src/anjuta-app.c:630
 msgid "Edit"
-msgstr "సరిచేయు"
+msgstr "సవరించు"
 
 #: ../src/anjuta-app.c:643
 msgid "Help"
@@ -9638,11 +9640,11 @@ msgstr "ఒక కొత్త ఉదాహరణకు ప్రారంభి
 
 #: ../src/main.c:87
 msgid "Do not open last session on startup"
-msgstr "ప్రారంభము న చివరి సమకూర్పు తెర"
+msgstr "ప్రారంభమున చివరి సమకూర్పు తెర"
 
 #: ../src/main.c:93
 msgid "Do not open last project and files on startup"
-msgstr "ప్రారంభము న చివరి ప్రాజెక్టు మరియు ఫైళ్లను తెరవకు"
+msgstr "ప్రారంభమున చివరి ప్రాజెక్టు మరియు ఫైళ్లను తెరవకు"
 
 #: ../src/main.c:99
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
