@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-05-25 14:57+0000\n"
-"PO-Revision-Date: 2012-06-09 03:07+0200\n"
+"POT-Creation-Date: 2012-06-09 00:12+0000\n"
+"PO-Revision-Date: 2012-06-15 12:55+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "MIME-Version: 1.0\n"
@@ -6063,15 +6063,13 @@ msgstr "Βοήθημα C++/Java"
 
 #: ../plugins/indentation-c-style/plugin.c:607
 #: ../plugins/indentation-python-style/plugin.c:328
-#| msgid "Smart Indentation"
 msgid "Indentation"
 msgstr "Εσοχή"
 
 #: ../plugins/indentation-c-style/plugin.c:616
-#, fuzzy
 #| msgid "_Indentation Guides"
 msgid "Indentation C Style"
-msgstr "Οδηγοί εισο_χών"
+msgstr "Εσοχή τύπου C"
 
 #: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:2
 msgid "Enable adaptive indentation"
@@ -6083,10 +6081,9 @@ msgid "Python Assistance"
 msgstr "Βοήθημα της Python"
 
 #: ../plugins/indentation-python-style/plugin.c:337
-#, fuzzy
 #| msgid "Indentation parameters"
 msgid "Indentation Python Style"
-msgstr "Παράμετροι εσοχής"
+msgstr "Εσοχή τύπου Python"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
