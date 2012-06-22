@@ -3,7 +3,7 @@ Location=anjuta-language-support-python:PythonPlugin
 Icon=anjuta-language-support-python-plugin.png
 _Name=Python support Plugin
 _Description=Python support plugin for code completion etc.
-Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
+Interfaces=IAnjutaLanguageSupport
 UserActivatable=no
 
 [Language Support]

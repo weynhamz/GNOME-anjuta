@@ -613,7 +613,7 @@ ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
                       GError** e)
 {
     IndentCPlugin* plugin = ANJUTA_PLUGIN_INDENT_C (ipref);
-    anjuta_preferences_remove_page(prefs, _("Indentation C Style"));
+    anjuta_preferences_remove_page(prefs, _("Indentation"));
     g_object_unref (plugin->bxml);
 }
 

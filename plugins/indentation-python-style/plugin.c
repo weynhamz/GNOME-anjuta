@@ -334,7 +334,7 @@ ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					  GError** e)
 {
 	IndentPythonPlugin* plugin = ANJUTA_PLUGIN_INDENT_PYTHON (ipref);
-	anjuta_preferences_remove_page(prefs, _("Indentation Python Style"));
+	anjuta_preferences_remove_page(prefs, _("Indentation"));
 	g_object_unref (plugin->bxml);
 }
 
