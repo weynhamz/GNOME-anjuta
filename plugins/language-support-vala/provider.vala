@@ -139,35 +139,42 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		var names = member_access_split.split (match_info.fetch(2));
 		var syms = plugin.lookup_symbol (construct_member_access (names), match_info.fetch(3),
 		                                 false, plugin.get_current_context (editor) as Vala.Block);
-
 		foreach (var sym in syms) {
+			var calltip = new StringBuilder ();
 			Vala.List<Vala.Parameter> parameters = null;
 			if (sym is Vala.Method) {
 				parameters = ((Vala.Method) sym).get_parameters ();
+				calltip.append (((Vala.Method) sym).return_type.to_qualified_string() + " ");
 			} else if (sym is Vala.Signal) {
 				parameters = ((Vala.Signal) sym).get_parameters ();
 			} else if (creation_method && sym is Vala.Class) {
-				parameters = ((Vala.Class)sym).default_construction_method.get_parameters ();
+				parameters = ((Vala.Class) sym).default_construction_method.get_parameters ();
 			} else if (sym is Vala.Variable) {
 				var var_type = ((Vala.Variable) sym).variable_type;
 				if (var_type is Vala.DelegateType) {
-					parameters = ((Vala.DelegateType) var_type).delegate_symbol.get_parameters ();
+					var delegate_sym = ((Vala.DelegateType) var_type).delegate_symbol;
+					parameters = delegate_sym.get_parameters ();
+					calltip.append (delegate_sym.return_type.to_qualified_string() + " ");
 				} else {
 					return;
 				}
 			} else {
 				return;
 			}
-			var calltip = new StringBuilder ("(");
+
+			calltip.append (sym.get_full_name ());
+			calltip.append(" (");
+			var prestring = "".nfill (calltip.len, ' ');
 			var first = true;
 			foreach (var p in parameters) {
 				if(first) {
 					first = false;
 				} else {
-					calltip.append(", ");
+					calltip.append (",\n");
+					calltip.append (prestring);
 				}
 				if (p.ellipsis) {
-					calltip.append("...");
+					calltip.append ("...");
 				} else {
 					calltip.append (p.variable_type.to_qualified_string());
 					calltip.append (" ").append (p.name);
@@ -193,6 +200,4 @@ public class ValaProvider : Object, IAnjuta.Provider {
 
 		return expr;
 	}
-
 }
-
