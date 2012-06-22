@@ -16,11 +16,18 @@
  */
 
 using GLib;
+using Gtk;
 using Anjuta;
 
-public class ValaPlugin : Plugin {
+public class ValaPlugin : Plugin, IAnjuta.Preferences {
+	internal const string PREF_WIDGET_SPACE = "preferences:completion-space-after-func";
+	internal const string PREF_WIDGET_BRACE = "preferences:completion-brace-after-func";
+	internal const string PREF_WIDGET_AUTO = "preferences:completion-enable";
+	internal const string ICON_FILE = "anjuta-vala.png";
+	internal static string PREFS_BUILDER = Config.PACKAGE_DATA_DIR + "/glade/anjuta-vala.ui";
+
 	internal weak IAnjuta.Editor current_editor;
-	internal GLib.Settings settings = new GLib.Settings ("org.gnome.anjuta.plugins.cpp");
+	internal GLib.Settings settings = new GLib.Settings ("org.gnome.anjuta.plugins.vala");
 	uint editor_watch_id;
 	ulong project_loaded_id;
 
@@ -33,6 +40,8 @@ public class ValaPlugin : Plugin {
 
 	Vala.Parser parser;
 	Vala.Genie.Parser genie_parser;
+
+	public static Gtk.Builder bxml;
 
 	Vala.Set<string> current_sources = new Vala.HashSet<string> (str_hash, str_equal);
 	ValaPlugin () {
@@ -624,6 +633,34 @@ public class ValaPlugin : Plugin {
 
 			report.update_errors(current_editor);
 		}
+	}
+
+	private void on_autocompletion_toggled (ToggleButton button) {
+		var sensitive = button.get_active();
+		Gtk.Widget widget = bxml.get_object (PREF_WIDGET_SPACE) as Widget;
+		widget.set_sensitive (sensitive);
+		widget = bxml.get_object (PREF_WIDGET_BRACE) as  Widget;
+		widget.set_sensitive (sensitive);
+	}
+
+	public void merge (Anjuta.Preferences prefs) throws GLib.Error {
+		bxml = new Builder();
+
+		/* Add preferences */
+		try {
+			bxml.add_from_file (PREFS_BUILDER);
+		} catch (Error err) {
+			warning ("Couldn't load builder file: %s", err.message);
+		}
+		prefs.add_from_builder (bxml, settings, "preferences", _("Auto-complete"),
+		                        ICON_FILE);
+		var toggle = bxml.get_object (PREF_WIDGET_AUTO) as ToggleButton;
+		toggle.toggled.connect (on_autocompletion_toggled);
+		on_autocompletion_toggled (toggle);
+	}
+
+	public void unmerge (Anjuta.Preferences prefs) throws GLib.Error {
+		prefs.remove_page (_("Auto-complete"));
 	}
 }
 
