@@ -52,9 +52,6 @@ LIBDEVHELP_REQUIRED=3.0.0
 dnl Glade
 GLADEUI_REQUIRED=3.11.0
 
-dnl Vala
-VALA14_REQUIRED=0.13.3
-
 dnl Introspection
 GI_REQUIRED=0.9.5
 
@@ -263,10 +260,10 @@ if test "$user_disabled_vala" = 1; then
 else
         AC_MSG_RESULT(no)
 	AC_MSG_CHECKING(if libvala is available)
-	PKG_CHECK_EXISTS([ libvala-0.16 ],
-			 [ valaver="-0.16" ],
-			 [ PKG_CHECK_EXISTS([ libvala-0.14 >= $VALA14_REQUIRED ],
-					    [ valaver="-0.14" ],
+	PKG_CHECK_EXISTS([ libvala-0.18 ],
+			 [ valaver="-0.18" ],
+			 [ PKG_CHECK_EXISTS([ libvala-0.16 ],
+					    [ valaver="-0.16" ],
 					    [ valaver="" ])
 			 ])
 	if test "x$valaver" != "x"; then
@@ -277,7 +274,7 @@ else
 	else
 		AC_MSG_RESULT(no)
 		enable_vala="no"
-		VALA_REQUIRED=$VALA14_REQUIRED
+		VALA_REQUIRED=0.16.0
 	fi
 	AC_SUBST(LIBVALA)
 fi
