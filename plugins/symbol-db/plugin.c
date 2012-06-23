@@ -1372,45 +1372,43 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	prj_elements_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
 	                                           NULL, g_free);
 
-	node = prj_elements_list;
-	while (node != NULL)
+	for (node = prj_elements_list; node != NULL; node = g_list_next (node))
 	{	
 		GFile *gfile;
 		gchar *filename;
+		gchar *db_path;
 
 		gfile = node->data;
+		if (!gfile)
+			continue;
 	
 		if ((filename = g_file_get_path (gfile)) == NULL || 
-			g_strcmp0 (filename, "") == 0)
+			!strlen (filename))
 		{
-			if (gfile)
-				g_object_unref (gfile);
+			g_object_unref (gfile);
 
-			node = g_list_next (node);
 			continue;
 		}
 		
 		/* test its existence */
 		if (g_file_query_exists (gfile, NULL) == FALSE) 
 		{
-			if (gfile)
-				g_object_unref (gfile);
+			g_object_unref (gfile);
 
-			node = g_list_next (node);
 			continue;
 		}
 
 		/* Use g_hash_table_replace instead of g_hash_table_insert because the key
 		 * and the value use the same block of memory, both must be changed at
 		 * the same time. */
-		g_hash_table_replace (prj_elements_hash,
-		                     (gpointer) symbol_db_util_get_file_db_path
-		                 	   (sdb_plugin->sdbe_project,
-			                     filename),
-		                     filename);
+		db_path = symbol_db_util_get_file_db_path (sdb_plugin->sdbe_project,
+		                                           filename);
+		
+		if (db_path)
+			g_hash_table_replace (prj_elements_hash,
+			                      db_path,
+			                      filename);
 		g_object_unref (gfile);
-
-		node = g_list_next (node);
 	}	
 	
 
@@ -2113,11 +2111,11 @@ symbol_db_activate (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_project_loaded), sdb_plugin);
 	
 	/* Create widgets */
-	sdb_plugin->dbv_main = gtk_vbox_new(FALSE, 5);
+	sdb_plugin->dbv_main = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 	sdb_plugin->dbv_notebook = gtk_notebook_new();
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
-	sdb_plugin->dbv_hbox = gtk_hbox_new (FALSE, 1);
+	sdb_plugin->dbv_hbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
 
 	label = gtk_label_new (_("Symbols"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
