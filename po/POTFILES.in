@@ -181,6 +181,8 @@ plugins/language-support-python/org.gnome.anjuta.plugins.python.gschema.xml.in
 plugins/language-support-python/plugin.c
 plugins/language-support-python/python-assist.c
 [type: gettext/ini]plugins/language-support-vala/anjuta-vala.plugin.in
+[type: gettext/glade]plugins/language-support-vala/anjuta-vala.ui
+plugins/language-support-vala/plugin.vala
 [type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
 [type: gettext/glade]plugins/message-view/anjuta-message-manager-plugin.ui
 plugins/message-view/anjuta-msgman.c
