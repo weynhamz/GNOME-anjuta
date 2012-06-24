@@ -3252,6 +3252,12 @@ sdb_engine_add_new_db_file (SymbolDBEngine * dbe, const gchar * project_name,
 	
 	/* insert a new entry on db */	
 	language_id = sdb_engine_add_new_language (dbe, language);
+	if (language_id < 0)
+	{
+		DEBUG_PRINT ("Unknown language: %s", language);
+		SDB_UNLOCK(priv);
+		return FALSE;
+	}
 
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe, PREP_QUERY_FILE_NEW))
 		== NULL)
