@@ -3137,7 +3137,8 @@ sdb_engine_add_new_language (SymbolDBEngine * dbe, const gchar *language)
 	SymbolDBEnginePriv *priv;
 	GValue v = {0};
 	
-	g_return_val_if_fail (language != NULL, -1);
+	if (language == NULL)
+		return -1;
 	
 	priv = dbe->priv;
 
