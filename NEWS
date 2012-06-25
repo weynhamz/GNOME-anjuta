@@ -1,3 +1,102 @@
+Anjuta 3.5.3 "Pizza" (25 July 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.4.x!
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Bruno Brouard (1):
+      Updated French translation
+
+Daniel Mustieles (4):
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Dimitris Spingos (1):
+      Updated Greek translation
+
+Dimitris Spingos (Δημήτρης Σπίγγος) (1):
+      Updated Greek translation
+
+Fran Diéguez (2):
+      Updated Galician translations
+      Updated Galician translations
+
+Gabor Kelemen (1):
+      Updated Hungarian translation
+
+James Liggett (5):
+      git: Use tree paths instead of iterators to track the selected log viewer branch
+      git: Remove an unused variable
+      libanjuta: Add widget presenting capability to AnjutaDock
+      git: Show the Status pane on plugin load
+      libanjuta: Reverse the order of pane operations in anjuta_dock_replace command_pane
+
+Johannes Schmid (8):
+      Fixed POTFILES.in
+      project-wizard: Make sure no template requires gtk+ 2.12 anymore
+      project-wizard: Explicitely use 3.0 as interface version for ui files (bgo#675877)
+      configure: Detect python more robust
+      indentation: Use Indentation as name for all indentation preferences
+      symbol-db: Don't crash if project was moved to another location
+      symbol-db: Ingore files with unknown language (see bgo#678695)
+      symbol-db: Avoid warning when NULL is passed to sdb_engine_add_language()
+
+Jonh Wendell (1):
+      Updated Brazilian Portuguese translation
+
+Kjartan Maraas (1):
+      Updated Norwegian bokmål translation
+
+Marco Diego Aurélio Mesquita (1):
+      glade: bgo#676811 - Fix check order of editor on member add
+
+Marek Černocký (1):
+      Updated Czech translation
+
+Mario Blättermann (1):
+      [l10n] Updated German translation
+
+Moritz Lüdecke (3):
+      split language-support-cpp-java and language-support-python plugin in an indentation part and a new language-support part
+      Some trivial fixes in indentation plugins and cpp-java plugin
+      resolve dependencies from cpp-java plugin
+
+Peter Mráz (1):
+      Updated Slovak translation
+
+Piotr Drąg (2):
+      Updated POTFILES.in
+      Updated POTFILES.in and POTFILES.skip
+
+Praveen Illa (1):
+      Updated Telugu Translation
+
+Ryan Lortie (2):
+      vala language support: update to Vala 0.18
+      ctags vala support: update to Vala 0.18
+
+Rūdolfs Mazurs (1):
+      Updated Latvian translation
+
+Sébastien Granjoux (3):
+      build-basic-autotools: bgo #674863 - No easy way to call make check
+      libanjuta: Fix warnings in autogen code
+      libanjuta, am-project: bgo #675118 - Project manager never finishes loading Anjuta project
+
+Tom Tryfonidis (1):
+      Updated Greek translation
+
+Yuri Kozlov (2):
+      Updated Russian translation
+      Updated Russian translation
+
+Мирослав Николић (1):
+      Updated Serbian translation
+
 Anjuta 3.5.1 "It's gonna be a long summer" (30 April 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
