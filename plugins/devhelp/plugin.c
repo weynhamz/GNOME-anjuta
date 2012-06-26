@@ -30,13 +30,11 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 
+#include <devhelp/devhelp.h>
 #include "plugin.h"
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-#include <devhelp/dh-book-tree.h>
-#include <devhelp/dh-search.h>
-#include <devhelp/dh-base.h>
 #include <webkit/webkit.h>
 
 #define ONLINE_API_DOCS "http://library.gnome.org/devel"
@@ -313,7 +311,6 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	static gboolean init = FALSE;
-	DhBookManager *book_manager;
 	GtkWidget *label;
 	GtkWidget *books_sw;
 	
@@ -417,8 +414,6 @@ devhelp_activate (AnjutaPlugin *plugin)
 	/*
 	 * Notebook
 	 */
-	book_manager = dh_base_get_book_manager (devhelp->base);
-	
 	books_sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (books_sw),
 									GTK_POLICY_NEVER,
@@ -426,10 +421,10 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (books_sw),
 									     GTK_SHADOW_NONE);
 	gtk_container_set_border_width (GTK_CONTAINER (books_sw), 2);
-	
-	devhelp->book_tree = dh_book_tree_new (book_manager);
-	
-	devhelp->search = dh_search_new (book_manager);
+
+	devhelp->book_tree = dh_book_tree_new (devhelp->book_manager);
+
+	devhelp->search = dh_search_new (devhelp->book_manager);
 	gtk_widget_set_size_request (devhelp->search, 0, 0);
 	
 	g_signal_connect (devhelp->book_tree,
@@ -545,12 +540,8 @@ devhelp_dispose (GObject *obj)
 	
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (obj);
-	
-	if (devhelp->base)
-	{
-		g_object_unref(G_OBJECT(devhelp->base));
-		devhelp->base = NULL;
-	}
+
+	g_clear_object (&devhelp->book_manager);
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
 	/* Disposition codes */
@@ -564,8 +555,12 @@ devhelp_instance_init (GObject *obj)
 	
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
+	/* Initialize Devhelp support */
+	dh_init ();
+
 	/* Create devhelp */
-	plugin->base = dh_base_new ();
+	plugin->book_manager = dh_book_manager_new ();
+	dh_book_manager_populate (plugin->book_manager);
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 	

@@ -29,7 +29,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
-#include <devhelp/dh-base.h>
+#include <devhelp/devhelp.h>
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
 extern GType devhelp_get_type (GTypeModule *module);
@@ -47,7 +47,7 @@ struct _AnjutaDevhelp{
 	AnjutaPlugin parent;
 	
 #ifndef DISABLE_EMBEDDED_DEVHELP
-	DhBase         *base;
+	DhBookManager  *book_manager;
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 	GtkWidget      *view;
 	GtkWidget      *view_sw;
