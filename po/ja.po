@@ -9,16 +9,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-02-13 21:50+0000\n"
-"PO-Revision-Date: 2012-02-13 00:01+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-06-26 05:11+0000\n"
+"PO-Revision-Date: 2012-07-04 19:56+0900\n"
 "Last-Translator: Ken Shibata <kenshibat8@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
@@ -32,6 +31,22 @@ msgstr "統合開発環境です"
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "統合開発環境でソフトウェアを開発します"
+
+#: ../libanjuta/anjuta-autogen.c:239
+msgid "Autogen is busy"
+msgstr ""
+
+#: ../libanjuta/anjuta-autogen.c:251
+#, fuzzy, c-format
+#| msgid "Could not save intermediate file %s: %s"
+msgid "Could not write definition file \"%s\": %s"
+msgstr "%s というファイルを即座に保存できませんでした: %s"
+
+#: ../libanjuta/anjuta-autogen.c:585
+#, fuzzy, c-format
+#| msgid "Could not open %s: %s"
+msgid "Could not open file \"%s\": %s"
+msgstr "%s を開けませんでした: %s"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:10
@@ -58,8 +73,7 @@ msgstr "%s というプラグイン・モジュールが見つかりませんで
 #: ../libanjuta/anjuta-c-module.c:222
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr ""
-"%s というプラグインの登録関数が %s というモジュールにはありませんでした"
+msgstr "%s というプラグインの登録関数が %s というモジュールにはありませんでした"
 
 #: ../libanjuta/anjuta-c-module.c:228
 #, c-format
@@ -83,12 +97,8 @@ msgstr "開こうとしているファイルに不正なデータが含まれて
 
 #: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
-msgid ""
-"Anjuta was not able to automatically determine the encoding of the file you "
-"want to open."
-msgstr ""
-"開こうとしているファイルのエンコーディングを自動的に検出することができません"
-"でした"
+msgid "Anjuta was not able to automatically determine the encoding of the file you want to open."
+msgstr "開こうとしているファイルのエンコーディングを自動的に検出することができませんでした"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
@@ -242,25 +252,25 @@ msgid "Environment Variables:"
 msgstr "環境変数の一覧:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:727 ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:745 ../plugins/class-gen/window.c:759
-#: ../plugins/class-gen/window.c:769 ../plugins/class-gen/window.c:777
-#: ../plugins/class-gen/window.c:785 ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
-#: ../plugins/class-gen/window.c:821 ../plugins/class-gen/window.c:833
-#: ../plugins/project-manager/dialogs.c:479
+#: ../plugins/class-gen/window.c:719 ../plugins/class-gen/window.c:729
+#: ../plugins/class-gen/window.c:737 ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:761 ../plugins/class-gen/window.c:769
+#: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
+#: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
+#: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
+#: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
-#: ../plugins/snippets-manager/snippets-browser.c:530
+#: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
 msgstr "名前"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:794
-#: ../plugins/class-gen/window.c:825 ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
+#: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:487
+#: ../plugins/project-manager/dialogs.c:489
 #: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "値"
@@ -329,13 +339,11 @@ msgstr "プラグインの '%s' は無効にしない方が良いです"
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message "
-"leading to this was:\n"
+"This usually means that your installation is corrupted. The error message leading to this was:\n"
 "%s"
 msgstr ""
 "%s を読み込めません: \n"
-"通常これはインストールが間違っている場合に発生します。エラー・メッセージは次"
-"のとおりです:\n"
+"通常これはインストールが間違っている場合に発生します。エラー・メッセージは次のとおりです:\n"
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:905
@@ -356,14 +364,8 @@ msgid "Only show user activatable plugins"
 msgstr "ユーザー側で選択できるプラグインのみ表示する"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1216
-msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
-msgstr ""
-"これは、複数個あるプラグインの中からあなたが選択したものの一覧です。この中に"
-"あるプラグインを削除した場合は、別のプラグインをもう一度選択してもらうことに"
-"なります。"
+msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
+msgstr "これは、複数個あるプラグインの中からあなたが選択したものの一覧です。この中にあるプラグインを削除した場合は、別のプラグインをもう一度選択してもらうことになります。"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1242
 msgid "Forget selected plugin"
@@ -493,12 +495,8 @@ msgstr "一覧からプラグインを選択してください"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
-msgid ""
-"Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
-"profile."
-msgstr ""
-"'%s' の読み込みに失敗: XML の解析エラー。Anjuta のプラグイン用プロファイルが"
-"間違っているか壊れています。"
+msgid "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins profile."
+msgstr "'%s' の読み込みに失敗: XML の解析エラー。Anjuta のプラグイン用プロファイルが間違っているか壊れています。"
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -524,7 +522,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "保存しないと、すべての変更内容を失うことになります。"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:589
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "保存する"
@@ -540,11 +538,8 @@ msgstr "変更を破棄する(_D)"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural ""
-"There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] ""
-"変更を保存していないアイテムが %d 個あります。閉じる前に変更内容を保存します"
-"か?"
+msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] "変更を保存していないアイテムが %d 個あります。閉じる前に変更内容を保存しますか?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -579,23 +574,20 @@ msgid "Shortcut"
 msgstr "ショートカット"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:357
+#: ../libanjuta/anjuta-utils.c:358
 msgid "System:"
 msgstr "システム:"
 
-#: ../libanjuta/anjuta-utils.c:503
-msgid ""
-"You do not seem to have PackageKit installed. PackageKit is required for "
-"installing missing packages. Please install \"packagekit-gnome\" package "
-"from your distribution, or install the missing packages manually."
+#: ../libanjuta/anjuta-utils.c:504
+msgid "You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually."
 msgstr ""
 
-#: ../libanjuta/anjuta-utils.c:512
+#: ../libanjuta/anjuta-utils.c:513
 #, c-format
 msgid "Installation failed: %s"
 msgstr ""
 
-#: ../libanjuta/anjuta-utils.c:580
+#: ../libanjuta/anjuta-utils.c:581
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -604,7 +596,7 @@ msgstr ""
 "パッケージ \"%s\" がインストールされていません。\n"
 "インストールしてください。"
 
-#: ../libanjuta/anjuta-utils.c:598
+#: ../libanjuta/anjuta-utils.c:599
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -614,17 +606,17 @@ msgstr ""
 "インストールしてください。"
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1171
+#: ../libanjuta/anjuta-utils.c:1172
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 
-#: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
-#: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
+#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
+#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "コマンドを起動できません: %s (シェル %s から)\n"
 
-#: ../libanjuta/anjuta-utils.c:2299
+#: ../libanjuta/anjuta-utils.c:2355
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "ユーザー・インターフェースのファイルを読み込めません: %s"
@@ -684,21 +676,20 @@ msgstr "ウィジェットが見つかりません: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "アプリケーションのアイコンファイルが見つかりませんでした: %s"
 
-#: ../plugins/am-project/amp-group.c:541
+#: ../plugins/am-project/amp-group.c:622
 #, fuzzy
 msgid "Please specify group name"
 msgstr "タグの名前を入力してください"
 
-#: ../plugins/am-project/amp-group.c:555
-msgid ""
-"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
+#: ../plugins/am-project/amp-group.c:636
+msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr ""
 
-#: ../plugins/am-project/amp-group.c:580
-#: ../plugins/am-project/am-project.c:1688
-#: ../plugins/am-project/am-project.c:1779
-#: ../plugins/dir-project/dir-project.c:747
-#: ../plugins/dir-project/dir-project.c:860
+#: ../plugins/am-project/amp-group.c:660
+#: ../plugins/am-project/am-project.c:1698
+#: ../plugins/am-project/am-project.c:1791
+#: ../plugins/dir-project/dir-project.c:723
+#: ../plugins/dir-project/dir-project.c:857
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -712,14 +703,14 @@ msgid "Root"
 msgstr "削除"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:871
+#: ../plugins/dir-project/dir-project.c:868
 #: ../plugins/mk-project/mk-project.c:66
 #, fuzzy
 msgid "Group"
 msgstr "Grep:"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:875
+#: ../plugins/dir-project/dir-project.c:872
 #: ../plugins/mk-project/mk-project.c:71
 #, fuzzy
 msgid "Source"
@@ -782,7 +773,7 @@ msgstr ""
 msgid "Script"
 msgstr ""
 
-#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:802
+#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:794
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "モジュール"
@@ -792,12 +783,12 @@ msgstr "モジュール"
 msgid "Package"
 msgstr "パッチ"
 
-#: ../plugins/am-project/am-project.c:1716
+#: ../plugins/am-project/am-project.c:1728
 #, fuzzy
 msgid "Unable to parse project file"
 msgstr "ファイルを削除できません"
 
-#: ../plugins/am-project/am-project.c:1727
+#: ../plugins/am-project/am-project.c:1739
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr ""
@@ -813,7 +804,7 @@ msgstr "Makefile ベースのプロジェクトです"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:617
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:619
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -847,8 +838,7 @@ msgid "Version:"
 msgstr "バージョン:"
 
 #: ../plugins/am-project/am-properties.c:61
-msgid ""
-"Project version, typically a few numbers separated by dot by example '1.0.0'"
+msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:67
@@ -856,9 +846,7 @@ msgid "Bug report URL:"
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:70
-msgid ""
-"An email address or a link to a web page where the user can report bug. It "
-"is optional."
+msgid "An email address or a link to a web page where the user can report bug. It is optional."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:76
@@ -867,9 +855,7 @@ msgid "Package name:"
 msgstr "プロジェクト名:"
 
 #: ../plugins/am-project/am-properties.c:79
-msgid ""
-"Package name, it can contains only alphanumerics and underscore characters."
-"It is generated from the project name if not provided."
+msgid "Package name, it can contains only alphanumerics and underscore characters.It is generated from the project name if not provided."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
@@ -1005,8 +991,7 @@ msgstr "ファイルのコンパイル"
 
 #: ../plugins/am-project/am-properties.c:170
 #: ../plugins/am-project/am-properties.c:277
-msgid ""
-"Common additional Objective C compiler flags for all targets in this group."
+msgid "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:176
@@ -1020,9 +1005,7 @@ msgstr ""
 
 #: ../plugins/am-project/am-properties.c:179
 #: ../plugins/am-project/am-properties.c:286
-msgid ""
-"Common additional Lex or Flex lexical analyser generator flags for all "
-"targets in this group."
+msgid "Common additional Lex or Flex lexical analyser generator flags for all targets in this group."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:185
@@ -1036,9 +1019,7 @@ msgstr ""
 
 #: ../plugins/am-project/am-properties.c:188
 #: ../plugins/am-project/am-properties.c:295
-msgid ""
-"Common additional Yacc or Bison parser generator flags for all targets in "
-"this group."
+msgid "Common additional Yacc or Bison parser generator flags for all targets in this group."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:194
@@ -1087,9 +1068,7 @@ msgstr "ディレクトリのインストール:"
 #: ../plugins/am-project/am-properties.c:864
 #: ../plugins/am-project/am-properties.c:1075
 #: ../plugins/am-project/am-properties.c:1150
-msgid ""
-"It has to be a standard directory or a custom one defined in group "
-"properties."
+msgid "It has to be a standard directory or a custom one defined in group properties."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:339
@@ -1177,8 +1156,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
 #: ../plugins/am-project/am-properties.c:955
-msgid ""
-"Additional Lex or Flex lexical analyser generator flags for this target."
+msgid "Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:438
@@ -1264,9 +1242,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:1039
 #: ../plugins/am-project/am-properties.c:1113
 #: ../plugins/am-project/am-properties.c:1186
-msgid ""
-"Do not rename the target with an optional prefix, used to avoid overwritting "
-"system program. "
+msgid "Do not rename the target with an optional prefix, used to avoid overwritting system program. "
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:483
@@ -1284,10 +1260,7 @@ msgstr ""
 #: ../plugins/am-project/am-properties.c:1012
 #: ../plugins/am-project/am-properties.c:1123
 #: ../plugins/am-project/am-properties.c:1195
-msgid ""
-"Keep relative target path for installing it. By example if you have a "
-"program subdir/app installed in bin directory it will be installed in bin/"
-"subdir/app not in bin/app."
+msgid "Keep relative target path for installing it. By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
 msgstr ""
 
 #: ../plugins/am-project/am-properties.c:529
@@ -1303,30 +1276,36 @@ msgid "Manual section:"
 msgstr "アクションの回数"
 
 #: ../plugins/am-project/am-properties.c:1049
-msgid ""
-"Section where are installed the man pages. Valid section names are the "
-"digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
+msgid "Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:362
+#: ../plugins/am-project/amp-source.c:97
+#, fuzzy
+msgid "Source file must be a regular file, not a directory"
+msgstr "プロジェクト・フォルダーの選択"
+
+#: ../plugins/am-project/amp-target.c:342
+msgid "Target parent is not a valid group"
+msgstr ""
+
+#: ../plugins/am-project/amp-target.c:352
 #, fuzzy
 msgid "Please specify target name"
 msgstr "タグの名前を入力してください"
 
-#: ../plugins/am-project/amp-target.c:376
-msgid ""
-"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+#: ../plugins/am-project/amp-target.c:366
+msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:391
+#: ../plugins/am-project/amp-target.c:381
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:400
+#: ../plugins/am-project/amp-target.c:390
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr ""
 
-#: ../plugins/am-project/amp-target.c:408
+#: ../plugins/am-project/amp-target.c:398
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr ""
 
@@ -1423,33 +1402,28 @@ msgid "Install"
 msgstr "インストール"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:525
-msgid ""
-"Before using this new configuration, the default one needs to be removed. Do "
-"you want to do that ?"
+#: ../plugins/build-basic-autotools/build.c:526
+msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build.c:530
+#: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "ユーザーがコマンドの実行をキャンセルしました"
 
-#: ../plugins/build-basic-autotools/build.c:852
+#: ../plugins/build-basic-autotools/build.c:879
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr ""
-"\"%s\" をコンパイルできません: この種類のファイルをコンパイルするルールが定義"
-"されていません"
+msgstr "\"%s\" をコンパイルできません: この種類のファイルをコンパイルするルールが定義されていません"
 
-#: ../plugins/build-basic-autotools/build.c:1014
+#: ../plugins/build-basic-autotools/build.c:1041
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
-msgstr ""
-"プロジェクトの構成を実施できません: %s には configure スクリプトがありません"
+msgstr "プロジェクトの構成を実施できません: %s には configure スクリプトがありません"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
-#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:742
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 #: ../src/preferences.ui.h:15
 msgid "Default"
@@ -1514,12 +1488,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:4
 #, no-c-format
-msgid ""
-"The command has to contain \"%s\" or \"%q\". This will be replaced by the "
-"command used to install the files, by example \"make install\". %s is "
-"replaced by the command without any change while %q is replaced by the "
-"quoted command. You can use %% to get a \"%\" character. A typical value is "
-"\"sudo %s\" or \"su -c %q\"."
+msgid "The command has to contain \"%s\" or \"%q\". This will be replaced by the command used to install the files, by example \"make install\". %s is replaced by the command without any change while %q is replaced by the quoted command. You can use %% to get a \"%\" character. A typical value is \"sudo %s\" or \"su -c %q\"."
 msgstr ""
 
 #. The translations should match that of 'make' program. Both strings uses
@@ -1628,191 +1597,222 @@ msgstr "完了しました (成功です)\n"
 msgid "Build %d: %s"
 msgstr "ビルド %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1639
-#: ../plugins/build-basic-autotools/plugin.c:1713
-#: ../plugins/build-basic-autotools/plugin.c:1723
-#: ../plugins/build-basic-autotools/plugin.c:1741
-#: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1664
+#: ../plugins/build-basic-autotools/plugin.c:1750
+#: ../plugins/build-basic-autotools/plugin.c:1760
+#: ../plugins/build-basic-autotools/plugin.c:1778
+#: ../plugins/build-basic-autotools/plugin.c:1788
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build"
 msgstr "ビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1643
+#: ../plugins/build-basic-autotools/plugin.c:1668
 msgid "_Build Project"
 msgstr "プロジェクトのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1644
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "Build whole project"
 msgstr "プロジェクト全体をビルドします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1649
+#: ../plugins/build-basic-autotools/plugin.c:1674
 msgid "_Install Project"
 msgstr "プロジェクトのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1650
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "Install whole project"
 msgstr "プロジェクト全体をインストールします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1655
+#: ../plugins/build-basic-autotools/plugin.c:1680
+#, fuzzy
+#| msgid "_Clean Project"
+msgid "_Check Project"
+msgstr "プロジェクトのクリーン(_C)"
+
+#: ../plugins/build-basic-autotools/plugin.c:1681
+#, fuzzy
+#| msgid "Clean whole project"
+msgid "Check whole project"
+msgstr "プロジェクト全体をクリーンします"
+
+#: ../plugins/build-basic-autotools/plugin.c:1686
 msgid "_Clean Project"
 msgstr "プロジェクトのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1656
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "Clean whole project"
 msgstr "プロジェクト全体をクリーンします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1661
+#: ../plugins/build-basic-autotools/plugin.c:1692
 msgid "C_onfigure Project…"
 msgstr "プロジェクトの構成(_O)…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1662
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "Configure project"
 msgstr "ビルドの準備をします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1667
+#: ../plugins/build-basic-autotools/plugin.c:1698
 msgid "Build _Tarball"
 msgstr "Tarball の生成(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build project tarball distribution"
 msgstr "配布用の Tarball を生成します"
 
-#: ../plugins/build-basic-autotools/plugin.c:1673
+#: ../plugins/build-basic-autotools/plugin.c:1704
 msgid "_Build Module"
 msgstr "モジュールのビルド(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "Build module associated with current file"
 msgstr "このファイルに関連するモジュールをビルドします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1679
+#: ../plugins/build-basic-autotools/plugin.c:1710
 msgid "_Install Module"
 msgstr "モジュールのインストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "Install module associated with current file"
 msgstr "このファイルに関連するモジュールをインストールします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1685
+#: ../plugins/build-basic-autotools/plugin.c:1716
+#, fuzzy
+#| msgid "_Clean Module"
+msgid "_Check Module"
+msgstr "モジュールのクリーン(_C)"
+
+#: ../plugins/build-basic-autotools/plugin.c:1717
+#, fuzzy
+#| msgid "Clean module associated with current file"
+msgid "Check module associated with current file"
+msgstr "このファイルに関連するモジュールをクリーンします"
+
+#: ../plugins/build-basic-autotools/plugin.c:1722
 msgid "_Clean Module"
 msgstr "モジュールのクリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "Clean module associated with current file"
 msgstr "このファイルに関連するモジュールをクリーンします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1728
 msgid "Co_mpile File"
 msgstr "単一コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Compile current editor file"
 msgstr "現在編集中のファイルをコンパイルします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1697
+#: ../plugins/build-basic-autotools/plugin.c:1734
 msgid "Select Configuration"
 msgstr "構成の選択"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select current configuration"
 msgstr "現在の構成を選択します"
 
-#: ../plugins/build-basic-autotools/plugin.c:1703
+#: ../plugins/build-basic-autotools/plugin.c:1740
 msgid "Remove Configuration"
 msgstr "構成内容の削除"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
-msgid ""
-"Clean project (distclean) and remove configuration directory if possible"
-msgstr ""
-"可能ならば、プロジェクトをクリーンして (distclean に相当) Configure 時に作成"
-"したフォルダーを削除します"
+#: ../plugins/build-basic-autotools/plugin.c:1741
+msgid "Clean project (distclean) and remove configuration directory if possible"
+msgstr "可能ならば、プロジェクトをクリーンして (distclean に相当) Configure 時に作成したフォルダーを削除します"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
-#: ../plugins/build-basic-autotools/plugin.c:1745
+#: ../plugins/build-basic-autotools/plugin.c:1754
+#: ../plugins/build-basic-autotools/plugin.c:1782
 msgid "_Compile"
 msgstr "コンパイル(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
-#: ../plugins/build-basic-autotools/plugin.c:1746
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "Compile file"
 msgstr "ファイルのコンパイル"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
-#: ../plugins/build-basic-autotools/plugin.c:1752
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1789
 msgid "Build module"
 msgstr "モジュールのビルド"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
-#: ../plugins/build-basic-autotools/plugin.c:1757
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1766
+#: ../plugins/build-basic-autotools/plugin.c:1794
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install"
 msgstr "インストール(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
-#: ../plugins/build-basic-autotools/plugin.c:1758
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
 msgid "Install module"
 msgstr "モジュールのインストール"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
-#: ../plugins/build-basic-autotools/plugin.c:1763
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1772
+#: ../plugins/build-basic-autotools/plugin.c:1806
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean"
 msgstr "クリーン(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
-#: ../plugins/build-basic-autotools/plugin.c:1764
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
 msgid "Clean module"
 msgstr "モジュールのクリーン"
 
-#: ../plugins/build-basic-autotools/plugin.c:1769
+#: ../plugins/build-basic-autotools/plugin.c:1800
+#, fuzzy
+msgid "_Check"
+msgstr "ファイルのチェックアウト"
+
+#: ../plugins/build-basic-autotools/plugin.c:1801
+#, fuzzy
+msgid "Check module"
+msgstr "ファイルのチェックアウト"
+
+#: ../plugins/build-basic-autotools/plugin.c:1812
 msgid "_Cancel command"
 msgstr "実行のキャンセル(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1770
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "Cancel build command"
 msgstr "現在実行中のビルド・コマンドをキャンセルします"
 
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1870
 #, c-format
 msgid "_Build (%s)"
 msgstr "ビルド(_B) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1877
 #, c-format
 msgid "_Install (%s)"
 msgstr "インストール(_I) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1884
 #, c-format
 msgid "_Clean (%s)"
 msgstr "クリーン(_C) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "コンパイル(_M) (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1892
 #, c-format
 msgid "Co_mpile"
 msgstr "コンパイル(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2488
 msgid "Build commands"
 msgstr "ビルドのコマンド"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2497
 msgid "Build popup commands"
 msgstr "ビルドの操作"
 
-#: ../plugins/build-basic-autotools/plugin.c:2873
-#: ../plugins/build-basic-autotools/plugin.c:2881
+#: ../plugins/build-basic-autotools/plugin.c:2916
+#: ../plugins/build-basic-autotools/plugin.c:2924
 msgid "Build Autotools"
 msgstr "Autotools"
 
@@ -2041,21 +2041,12 @@ msgstr "実装ファイルの生成で autogen テンプレートを利用する
 msgid "File to which the processed template will be written"
 msgstr "処理したテンプレートを書き込む先のファイル"
 
-#: ../plugins/class-gen/generator.c:405
-#, c-format
-msgid "Failed to write autogen definition file"
-msgstr "autogen 定義ファイルの書き込みに失敗しました"
-
-#: ../plugins/class-gen/plugin.c:98 ../plugins/project-wizard/druid.c:1240
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
 #, fuzzy
-msgid ""
-"Could not find autogen version 5; please install the autogen package. You "
-"can get it from http://autogen.sourceforge.net."
-msgstr ""
-"autogen のバージョン5 が見つかりませんでした。autogen パッケージのインストー"
-"ルを確認してみてください (配布元: http://autogen.sourceforge.net)"
+msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
+msgstr "autogen のバージョン5 が見つかりませんでした。autogen パッケージのインストールを確認してみてください (配布元: http://autogen.sourceforge.net)"
 
-#: ../plugins/class-gen/plugin.c:252 ../plugins/class-gen/plugin.c:449
+#: ../plugins/class-gen/plugin.c:261 ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "autogen の起動に失敗しました: %s"
@@ -2064,85 +2055,92 @@ msgstr "autogen の起動に失敗しました: %s"
 msgid "Guess from type"
 msgstr ""
 
-#: ../plugins/class-gen/window.c:724 ../plugins/class-gen/window.c:735
-#: ../plugins/class-gen/window.c:809 ../plugins/class-gen/window.c:819
-#: ../plugins/class-gen/window.c:832
+#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:824
 msgid "Scope"
 msgstr "スコープ"
 
-#: ../plugins/class-gen/window.c:725
+#: ../plugins/class-gen/window.c:717
 msgid "Implementation"
 msgstr "実装"
 
-#: ../plugins/class-gen/window.c:726 ../plugins/class-gen/window.c:736
-#: ../plugins/class-gen/window.c:758 ../plugins/class-gen/window.c:810
-#: ../plugins/class-gen/window.c:820
+#: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
+#: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:812
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "型"
 
-#: ../plugins/class-gen/window.c:728 ../plugins/class-gen/window.c:738
-#: ../plugins/class-gen/window.c:760 ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786 ../plugins/class-gen/window.c:812
-#: ../plugins/class-gen/window.c:834
+#: ../plugins/class-gen/window.c:720 ../plugins/class-gen/window.c:730
+#: ../plugins/class-gen/window.c:752 ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:804
+#: ../plugins/class-gen/window.c:826
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
 msgstr "引数"
 
-#: ../plugins/class-gen/window.c:746
+#: ../plugins/class-gen/window.c:738
 msgid "Nick"
 msgstr "ニックネーム"
 
-#: ../plugins/class-gen/window.c:747
+#: ../plugins/class-gen/window.c:739
 msgid "Blurb"
 msgstr ""
 
-#: ../plugins/class-gen/window.c:748
+#: ../plugins/class-gen/window.c:740
 msgid "GType"
 msgstr "GType"
 
-#: ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:741
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:751 ../plugins/class-gen/window.c:761
+#: ../plugins/class-gen/window.c:743 ../plugins/class-gen/window.c:753
 msgid "Flags"
 msgstr ""
 
-#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:754
 msgid "Marshaller"
 msgstr ""
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822 ../plugins/document-manager/plugin.c:1009
+#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "自動的に強調表示"
 
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:815
 #, fuzzy
 msgid "Getter"
 msgstr "欧米"
 
-#: ../plugins/class-gen/window.c:824
+#: ../plugins/class-gen/window.c:816
 #, fuzzy
 msgid "Setter"
 msgstr "起動中"
 
-#: ../plugins/class-gen/window.c:1242
+#: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "ユーザー・インターフェースの XML 記述"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
+#, fuzzy
+msgid "Code Analyzer"
+msgstr "値の変更"
+
+#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
+msgid "Analyze code with the clang-analyzer framework"
+msgstr ""
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:1
 msgid "Enable CLang code analyzer"
 msgstr ""
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
+msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
 msgstr ""
 
 #: ../plugins/code-analyzer/code-analyzer.ui.h:4
@@ -2159,9 +2157,7 @@ msgid "CLang Paths"
 msgstr "ウォッチの変更"
 
 #: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
+msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
 msgstr ""
 
 #: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
@@ -2187,7 +2183,7 @@ msgid "Patch-Style diff"
 msgstr "パッチ形式の差分"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2174
+#: ../plugins/symbol-db/plugin.c:2172
 msgid "Local"
 msgstr "ローカル"
 
@@ -2251,15 +2247,11 @@ msgstr "削除するファイル/ディレクトリを選択してください:"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course, the file "
-"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
-"</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course, the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
 msgstr ""
 "<b>注意: </b>\n"
 "\n"
-"[OK] ボタンをクリックするとローカルと CVS からファイルを削除します。もちろ"
-"ん、CVS コミットを実施していなければ CVS からは削除されません。<b>警告しまし"
-"たよ!</b>"
+"[OK] ボタンをクリックするとローカルと CVS からファイルを削除します。もちろん、CVS コミットを実施していなければ CVS からは削除されません。<b>警告しましたよ!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Commit file/directory"
@@ -2366,7 +2358,7 @@ msgstr "ログを取得するファイル/ディレクトリを選択してく�
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 #: ../plugins/git/anjuta-git.ui.h:25
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
 msgstr "オプション"
@@ -2809,12 +2801,9 @@ msgstr "デバッグするターゲットの選択"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
-"program not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program not using the Debug configuration?</span>\n"
 "\n"
-"When optimizations are enabled, the debugger cannot always identify the "
-"source code corresponding to the instructions, so some commands can perform "
-"in a strange way, especially steps."
+"When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps."
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
@@ -2846,9 +2835,8 @@ msgstr "この場所のブレークポイントの ON/OFF を切り替えます"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1839
-#, fuzzy
 msgid "Add Breakpoint…"
-msgstr "ブレークポイント追加..."
+msgstr "ブレークポイント追加…"
 
 #. Display label
 #. short-cut
@@ -2982,7 +2970,7 @@ msgid "Disassembly"
 msgstr "逆アセンブラー"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:154
+#: ../plugins/project-wizard/druid.c:162
 msgid "Information"
 msgstr "情報"
 
@@ -3079,9 +3067,8 @@ msgid "Start debugger and load the program"
 msgstr "デバッガーを起動してプログラムを読み込みます"
 
 #: ../plugins/debug-manager/plugin.c:887
-#, fuzzy
 msgid "_Debug Process…"
-msgstr "プロセスへアタッチ(_D) ..."
+msgstr "プロセスへアタッチ(_D)…"
 
 #: ../plugins/debug-manager/plugin.c:889
 msgid "Start debugger and attach to a running program"
@@ -3105,9 +3092,8 @@ msgid "Say goodbye to the debugger"
 msgstr "デバッガーに \"さよなら\" します"
 
 #: ../plugins/debug-manager/plugin.c:911
-#, fuzzy
 msgid "Add source paths…"
-msgstr "ソース・パスの追加..."
+msgstr "ソースパスの追加…"
 
 #: ../plugins/debug-manager/plugin.c:913
 msgid "Add additional source paths"
@@ -3117,9 +3103,8 @@ msgstr "ソース・パスを追加します"
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:923
 #: ../plugins/debug-manager/plugin.c:1015
-#, fuzzy
 msgid "Debugger Command…"
-msgstr "デバッガーのコマンド"
+msgstr "デバッガーのコマンド設定…"
 
 #. Display label
 #. short-cut
@@ -3330,13 +3315,13 @@ msgstr "フレーム"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2132
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
 msgid "File"
 msgstr "ファイル"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:934
 msgid "Line"
 msgstr "行"
 
@@ -3506,8 +3491,8 @@ msgstr "シンボル・ブラウザー"
 msgid "Contents"
 msgstr "目次"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2142
-#: ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "検索"
 
@@ -3515,20 +3500,29 @@ msgstr "検索"
 msgid "API"
 msgstr ""
 
-#: ../plugins/dir-project/dir-project.c:133
-#: ../plugins/dir-project/dir-project.c:156
-#: ../plugins/dir-project/dir-project.c:179
+#: ../plugins/dir-project/dir-project.c:124
+#: ../plugins/dir-project/dir-project.c:147
+#: ../plugins/dir-project/dir-project.c:170
 #, fuzzy, c-format
 msgid "Missing name"
 msgstr "ツール名がありません"
 
-#: ../plugins/dir-project/dir-project.c:993
-#: ../plugins/dir-project/dir-project.c:1003
+#: ../plugins/dir-project/dir-project.c:990
+#: ../plugins/dir-project/dir-project.c:1000
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, fuzzy, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "値が存在しません"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+#, fuzzy
+msgid "Directory backend"
+msgstr "ディレクトリ"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid "Directory project backend, get only source files, use it when other backend fails"
+msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3574,7 +3568,7 @@ msgid "Close file"
 msgstr "ファイルを閉じる"
 
 #: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:612
+#: ../plugins/project-manager/dialogs.c:614
 msgid "Path:"
 msgstr "パス名:"
 
@@ -3602,7 +3596,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1449
+#: ../plugins/document-manager/anjuta-docman.c:1448
 msgid "[read-only]"
 msgstr "[読み込み専用]"
 
@@ -3798,8 +3792,7 @@ msgstr "EOL 文字を CR/LF に"
 
 #: ../plugins/document-manager/plugin.c:198
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr ""
-"行末文字の EOL (End Of Line) を DOS スタイルの EOL (CR/LF) に変換します"
+msgstr "行末文字の EOL (End Of Line) を DOS スタイルの EOL (CR/LF) に変換します"
 
 #: ../plugins/document-manager/plugin.c:200
 msgid "Convert EOL to LF"
@@ -3807,9 +3800,7 @@ msgstr "EOL 文字を LF に"
 
 #: ../plugins/document-manager/plugin.c:201
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr ""
-"行末文字の EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変"
-"換します"
+msgstr "行末文字の EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変換します"
 
 #: ../plugins/document-manager/plugin.c:203
 msgid "Convert EOL to CR"
@@ -3817,9 +3808,7 @@ msgstr "EOL 文字を CR に"
 
 #: ../plugins/document-manager/plugin.c:204
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr ""
-"行末文字の EOL (End Of Line) を Mac OS スタイルの EOL (CR: キャリッジリター"
-"ン) に変換します"
+msgstr "行末文字の EOL (End Of Line) を Mac OS スタイルの EOL (CR: キャリッジリターン) に変換します"
 
 #: ../plugins/document-manager/plugin.c:206
 msgid "Convert EOL to Majority EOL"
@@ -3828,9 +3817,7 @@ msgstr "EOL 文字を使用している EOL に"
 #: ../plugins/document-manager/plugin.c:207
 #, fuzzy
 msgid "Convert End Of Line characters to the most common EOL found in the file"
-msgstr ""
-"行末文字の EOL (End Of Line) をファイルの中の大部分で使用しているスタイルの "
-"EOL に変換します"
+msgstr "行末文字の EOL (End Of Line) をファイルの中の大部分で使用しているスタイルの EOL に変換します"
 
 #: ../plugins/document-manager/plugin.c:212
 msgid "_Select"
@@ -3890,9 +3877,8 @@ msgstr "選択した行をコメントアウト (/* */) したり解除します
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:245
-#, fuzzy
 msgid "_Line Number…"
-msgstr "行番号(_L)..."
+msgstr "行番号(_L)…"
 
 #: ../plugins/document-manager/plugin.c:246
 msgid "Go to a particular line in the editor"
@@ -4026,8 +4012,10 @@ msgid "Search using regular expressions"
 msgstr "エディターの中から文字列または正規表現を検索します"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1286
-#: ../plugins/language-support-python/plugin.c:451 ../src/anjuta-actions.h:30
+#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-python-style/plugin.c:200
+#: ../plugins/language-support-cpp-java/plugin.c:1094
+#: ../plugins/language-support-python/plugin.c:399 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "編集(_E)"
 
@@ -4258,9 +4246,9 @@ msgstr "簡易検索"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1724
-#: ../plugins/document-manager/plugin.c:2143
-#: ../plugins/document-manager/plugin.c:2152
+#: ../plugins/document-manager/plugin.c:1731
+#: ../plugins/document-manager/plugin.c:2150
+#: ../plugins/document-manager/plugin.c:2159
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -4269,43 +4257,43 @@ msgstr "ドキュメント"
 msgid "Toggle search options"
 msgstr "ブレークポイントの ON/OFF"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:593
 msgid "Reload"
 msgstr "再読み込み"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:599
 #, fuzzy
 msgid "Go to"
 msgstr "ジャンプ"
 
-#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:919
 msgid "OVR"
 msgstr "[上書き]"
 
-#: ../plugins/document-manager/plugin.c:916
+#: ../plugins/document-manager/plugin.c:923
 msgid "INS"
 msgstr "[挿入]"
 
-#: ../plugins/document-manager/plugin.c:922
-#: ../plugins/document-manager/plugin.c:925
+#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:932
 msgid "Zoom"
 msgstr "ズーム"
 
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:935
 msgid "Col"
 msgstr "桁"
 
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:936
 msgid "Mode"
 msgstr "モード"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1566
+#: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s の自動保存に失敗しました"
 
-#: ../plugins/document-manager/plugin.c:1580
+#: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
 msgstr "自動保存が完了しました"
 
@@ -4321,19 +4309,13 @@ msgstr "\"%s\" の検索が終了し先頭から検索を継続しました"
 
 #: ../plugins/document-manager/search-box.c:575
 #, fuzzy, c-format
-msgid ""
-"Search for \"%s\" reached the end and was continued at the top but no new "
-"match was found."
-msgstr ""
-"\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
+msgid "Search for \"%s\" reached the end and was continued at the top but no new match was found."
+msgstr "\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
 
 #: ../plugins/document-manager/search-box.c:580
 #, fuzzy, c-format
-msgid ""
-"Search for \"%s\" reached top and was continued at the bottom but no new "
-"match was found."
-msgstr ""
-"\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
+msgid "Search for \"%s\" reached top and was continued at the bottom but no new match was found."
+msgstr "\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
@@ -4348,18 +4330,18 @@ msgstr "置換"
 msgid "Replace all"
 msgstr "すべて置換"
 
-#: ../plugins/document-manager/search-files.c:594
+#: ../plugins/document-manager/search-files.c:596
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../plugins/document-manager/search-files.c:706
+#: ../plugins/document-manager/search-files.c:708
 #, fuzzy
 #| msgid "All files"
 msgid "All text files"
 msgstr "すべてのファイル"
 
-#: ../plugins/document-manager/search-files.c:853
+#: ../plugins/document-manager/search-files.c:849
 #, fuzzy
 msgid "Find in files"
 msgstr "ファイル内の検索(_D)..."
@@ -4445,8 +4427,7 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this "
-"file type.\n"
+"There is no plugin, default action, or application configured to handle this file type.\n"
 "\n"
 "MIME type: %s\n"
 "\n"
@@ -4454,8 +4435,7 @@ msgid ""
 msgstr ""
 "<b>\"%s\" を開けません</b>\n"
 "\n"
-"この種類のファイルを処理するためのプラグインやデフォルトのアクション、あるい"
-"はアプリが見つかりません。\n"
+"この種類のファイルを処理するためのプラグインやデフォルトのアクション、あるいはアプリが見つかりません。\n"
 "\n"
 "MIME 型: %s\n"
 "\n"
@@ -4617,7 +4597,7 @@ msgstr "プロジェクトを開いていない時に表示するフォルダー
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/symbol-db/plugin.c:2184
 msgid "Global"
 msgstr "グローバル"
 
@@ -4699,7 +4679,7 @@ msgstr ""
 "拡張子は種類に応じて自動的に付与されます。"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:639
+#: ../plugins/project-manager/dialogs.c:641
 msgid "Type:"
 msgstr "種類:"
 
@@ -4938,11 +4918,8 @@ msgstr "プロセスにシグナルを送信する際にエラーが発生しま
 
 #: ../plugins/gdb/plugin.c:120
 #, fuzzy, c-format
-msgid ""
-"Failed to create FIFO file named %s. The program will run without a terminal."
-msgstr ""
-"%s という名前付き FIFO の生成に失敗しました (端末を介さずにプログラムを実行し"
-"ます)"
+msgid "Failed to create FIFO file named %s. The program will run without a terminal."
+msgstr "%s という名前付き FIFO の生成に失敗しました (端末を介さずにプログラムを実行します)"
 
 #: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
@@ -4956,12 +4933,9 @@ msgstr "デバッグ用の端末を起動できません。"
 #: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
-"The register function hasn't been found automatically in the following "
-"pretty printer files:\n"
+"The register function hasn't been found automatically in the following pretty printer files:\n"
 "%s\n"
-"You need to fill yourself the register function columns before enabling the "
-"rows. Most of the time the register function name contains the word "
-"\"register\"."
+"You need to fill yourself the register function columns before enabling the rows. Most of the time the register function name contains the word \"register\"."
 msgstr ""
 
 #: ../plugins/gdb/preferences.c:223
@@ -5106,8 +5080,7 @@ msgid "Branches must be fully merged"
 msgstr "ブランチを完全にマージする"
 
 #: ../plugins/git/anjuta-git.ui.h:31
-msgid ""
-"Whole project; Drop a file here or type a path to view a file or folder log"
+msgid "Whole project; Drop a file here or type a path to view a file or folder log"
 msgstr ""
 
 #: ../plugins/git/anjuta-git.ui.h:32
@@ -5399,17 +5372,17 @@ msgstr " %d個のアイテムを置換しました。"
 msgid "Stash %i.diff"
 msgstr "標準入力:"
 
-#: ../plugins/git/git-log-pane.c:569
+#: ../plugins/git/git-log-pane.c:574
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>ブランチ:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:579
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>タグ:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>リモート:</b> %s"
@@ -5855,8 +5828,7 @@ msgid "Skip the current patch in the series"
 msgstr "現在のパッチを飛ばす(_S)"
 
 #: ../plugins/git/plugin.c:463
-msgid ""
-"Stop applying the patch series and return the tree to its previous state"
+msgid "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 
 #: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
@@ -5919,41 +5891,123 @@ msgstr "Anjuta 用の Glade のプラグインです"
 msgid "User interface file"
 msgstr "インターフェース"
 
-#: ../plugins/glade/plugin.c:539
+#: ../plugins/glade/plugin.c:586
 #, fuzzy
 msgid "Select widgets in the workspace"
 msgstr "エディターの中のすべての文を選択状態にします"
 
-#: ../plugins/glade/plugin.c:565
+#: ../plugins/glade/plugin.c:612
 msgid "Drag and resize widgets in the workspace"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:591
+#: ../plugins/glade/plugin.c:638
 #, fuzzy
 msgid "Loading Glade…"
 msgstr "ファイルの読み込み中 ..."
 
-#: ../plugins/glade/plugin.c:667
+#: ../plugins/glade/plugin.c:714
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: ../plugins/glade/plugin.c:672
+#: ../plugins/glade/plugin.c:719
 msgid "Palette"
 msgstr "パレット"
 
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:841
 #, c-format
 msgid "Not local file: %s"
 msgstr "ローカルのファイルではありません: %s"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:887
 #, c-format
 msgid "Could not open %s"
 msgstr "%s を開けませんでした"
 
-#: ../plugins/glade/plugin.c:883
+#: ../plugins/glade/plugin.c:930
 msgid "Could not create a new glade project."
 msgstr "新しい Glade プロジェクトを生成できませんでした"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:1
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:1
+msgid "Enable smart indentation"
+msgstr "スマート・インデントを有効にする"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:2
+msgid "Leading asterisk in multi-line comment"
+msgstr ""
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:3
+msgid "Prefer vim/emacs modelines over indentation settings"
+msgstr ""
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:4
+msgid "Enable smart brace completion"
+msgstr "スマート・ブレースの補完を有効にする"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:5
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:3
+msgid "Brace indentation size in spaces:"
+msgstr "固定のインデント (空白の数):"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:6
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:4
+msgid "Statement indentation size in spaces:"
+msgstr "文中のインデント (空白の数):"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:7
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:5
+#, fuzzy
+msgid "Indentation parameters"
+msgstr "<b>インデントの引数</b>"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:8
+msgid "Line up parentheses"
+msgstr ""
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:9
+#, fuzzy
+msgid "Indent:"
+msgstr "自動インデント"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
+#, fuzzy
+msgid "Parenthesis indentation"
+msgstr "基本的なインデント"
+
+#. ANJUTA_STOCK_AUTOINDENT,
+#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-python-style/plugin.c:206
+msgid "Auto-Indent"
+msgstr "自動インデント"
+
+#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-python-style/plugin.c:207
+msgid "Auto-indent current line or selection based on indentation settings"
+msgstr "現在行または選択範囲をインデント設定に基づいて自動インデントします"
+
+#: ../plugins/indentation-c-style/plugin.c:510
+#: ../plugins/language-support-cpp-java/plugin.c:1147
+msgid "C++/Java Assistance"
+msgstr "C++/Java 言語のアシスタンス"
+
+#: ../plugins/indentation-c-style/plugin.c:607
+#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-python-style/plugin.c:328
+#: ../plugins/indentation-python-style/plugin.c:337
+#, fuzzy
+#| msgid "Smart Indentation"
+msgid "Indentation"
+msgstr "スマート・インデント"
+
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:2
+msgid "Enable adaptive indentation"
+msgstr "適用型のインデントを有効にする"
+
+#: ../plugins/indentation-python-style/plugin.c:227
+#: ../plugins/language-support-python/plugin.c:450
+#, fuzzy
+msgid "Python Assistance"
+msgstr "プロジェクト作成のアシスタント"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5991,118 +6045,73 @@ msgstr "C++と Java のサポート・プラグイン"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 #, fuzzy
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
-msgstr ""
-"C++や Java でコードを補完したり自動インデント等を提供するプラグインです"
+msgstr "C++や Java でコードを補完したり自動インデント等を提供するプラグインです"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "Enable smart indentation"
-msgstr "スマート・インデントを有効にする"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-msgid "Leading asterisk in multi-line comment"
-msgstr ""
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr ""
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "Brace indentation size in spaces:"
-msgstr "固定のインデント (空白の数):"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "Statement indentation size in spaces:"
-msgstr "文中のインデント (空白の数):"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-#, fuzzy
-msgid "Indentation parameters"
-msgstr "<b>インデントの引数</b>"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-msgid "Line up parentheses"
-msgstr ""
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-#, fuzzy
-msgid "Indent:"
-msgstr "自動インデント"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-#, fuzzy
-msgid "Parenthesis indentation"
-msgstr "基本的なインデント"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-msgid "Smart Indentation"
-msgstr "スマート・インデント"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
 msgid "Enable code completion"
 msgstr "コードの補完を有効にする"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
 msgid "Add a space after function call autocompletion"
 msgstr "関数名の自動補完を行った後に空白を追加する"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
 msgid "Add '(' after function call autocompletion"
 msgstr "関数名の自動補完を行った後に '(' を追加する"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
 #, fuzzy
 #| msgid "Add '(' after function call autocompletion"
 msgid "Add ')' after function call autocompletion"
 msgstr "関数名の自動補完を行った後に '(' を追加する"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-msgid "Enable smart brace completion"
-msgstr "スマート・ブレースの補完を有効にする"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
 #, fuzzy
 msgid "Autocompletion"
 msgstr "自動補完"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
 msgid "Show calltips"
 msgstr "コールチップスを表示する"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
 #, fuzzy
 msgid "Calltips"
 msgstr "呼び出し回数"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
 #, fuzzy
 msgid "Auto-complete"
 msgstr "自動補完"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Automatically load required libraries of the project"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
 msgid "Load API tags for C standard library"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
 msgid "Load API tags for C++ standard template library"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:23
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
 #, fuzzy
 msgid "API Tags (C/C++)"
 msgstr "API のタグ"
@@ -6111,46 +6120,31 @@ msgstr "API のタグ"
 msgid "C/C++"
 msgstr ""
 
-#: ../plugins/language-support-cpp-java/plugin.c:874
+#: ../plugins/language-support-cpp-java/plugin.c:684
 msgid "Code added for widget."
 msgstr ""
 
-#. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1292
-#: ../plugins/language-support-python/plugin.c:457
-msgid "Auto-Indent"
-msgstr "自動インデント"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1293
-#: ../plugins/language-support-python/plugin.c:458
-msgid "Auto-indent current line or selection based on indentation settings"
-msgstr "現在行または選択範囲をインデント設定に基づいて自動インデントします"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1299
+#: ../plugins/language-support-cpp-java/plugin.c:1100
 #, fuzzy
 msgid "Comment/Uncomment"
 msgstr "ボックス型コメントの付与/解除(_X)"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1300
+#: ../plugins/language-support-cpp-java/plugin.c:1101
 #, fuzzy
 msgid "Comment or uncomment current selection"
 msgstr "現在の選択範囲"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1305
+#: ../plugins/language-support-cpp-java/plugin.c:1106
 msgid "Swap .h/.c"
 msgstr ".h/.c の交換"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1306
+#: ../plugins/language-support-cpp-java/plugin.c:1107
 #, fuzzy
 msgid "Swap C header and source files"
 msgstr "ヘッダーとソース・ファイルを切り替えます"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
-msgid "C++/Java Assistance"
-msgstr "C++/Java 言語のアシスタンス"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1583
-#: ../plugins/language-support-cpp-java/plugin.c:1617
+#: ../plugins/language-support-cpp-java/plugin.c:1385
+#: ../plugins/language-support-cpp-java/plugin.c:1419
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -6199,54 +6193,55 @@ msgstr ""
 msgid "JS"
 msgstr ""
 
-#: ../plugins/language-support-python/plugin.c:84
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+msgid "Autocomplete"
+msgstr "自動補完"
+
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Path: "
+msgstr "パス名: "
+
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+#, fuzzy
+msgid "Interpreter"
+msgstr "インターフェース"
+
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
+#, fuzzy
+msgid "Environment"
+msgstr "環境変数の一覧:"
+
+#: ../plugins/language-support-python/plugin.c:74
 msgid "Python support warning"
 msgstr ""
 
-#: ../plugins/language-support-python/plugin.c:92
+#: ../plugins/language-support-python/plugin.c:82
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
 "Please install them and check the python path in the preferences."
 msgstr ""
 
-#: ../plugins/language-support-python/plugin.c:95
+#: ../plugins/language-support-python/plugin.c:85
 msgid "Do not show that warning again"
 msgstr "この警告を二度と表示しない"
 
-#: ../plugins/language-support-python/plugin.c:514
-#, fuzzy
-msgid "Python Assistance"
-msgstr "プロジェクト作成のアシスタント"
-
-#: ../plugins/language-support-python/plugin.c:619
-#: ../plugins/language-support-python/plugin.c:628
-#: ../plugins/language-support-python/python-assist.c:984
+#: ../plugins/language-support-python/plugin.c:557
+#: ../plugins/language-support-python/plugin.c:566
+#: ../plugins/language-support-python/python-assist.c:982
 #, fuzzy
 msgid "Python"
 msgstr "パス名"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "Enable adaptive indentation"
-msgstr "適用型のインデントを有効にする"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
-msgid "Autocomplete"
-msgstr "自動補完"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
-msgid "Path: "
-msgstr "パス名: "
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
 #, fuzzy
-msgid "Interpreter"
-msgstr "インターフェース"
+msgid "Vala support Plugin"
+msgstr "C++と Java のサポート・プラグイン"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
 #, fuzzy
-msgid "Environment"
-msgstr "環境変数の一覧:"
+msgid "Vala support plugin, adds code completion."
+msgstr "C++や Java でコードを補完したり自動インデント等を提供するプラグインです"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6405,6 +6400,15 @@ msgstr[0] "エラー: %d"
 msgid "Unable to parse make file"
 msgstr "ファイルを作成できません: %s"
 
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+#, fuzzy
+msgid "Makefile backend"
+msgstr "Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr ""
+
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
 msgstr "パッケージの選択"
@@ -6474,9 +6478,7 @@ msgstr "パッチの適用中..."
 #: ../plugins/patch/patch-plugin.c:225
 #, fuzzy
 msgid "There are unfinished jobs: please wait until they are finished."
-msgstr ""
-"完了していない処理があります (これらの処理が完了するまでしばらくお待ちくださ"
-"い)"
+msgstr "完了していない処理があります (これらの処理が完了するまでしばらくお待ちください)"
 
 #: ../plugins/patch/patch-plugin.c:267
 msgid ""
@@ -6543,17 +6545,12 @@ msgstr "既存のソースからのインポート"
 #: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
-msgstr ""
-"\"%s\" という名前のファイルが既に存在します。上書きしてもよろしいですか?"
+msgstr "\"%s\" という名前のファイルが既に存在します。上書きしてもよろしいですか?"
 
 #: ../plugins/project-import/plugin.c:218
 #, fuzzy, c-format
-msgid ""
-"A file named \"%s\" cannot be written: %s. Check if you have write access to "
-"the project directory."
-msgstr ""
-"\"%s\" という名前のファイルには書き込めません: %s (プロジェクトのフォルダーに"
-"対する書き込み権限を確認してみてください)"
+msgid "A file named \"%s\" cannot be written: %s. Check if you have write access to the project directory."
+msgstr "\"%s\" という名前のファイルには書き込めません: %s (プロジェクトのフォルダーに対する書き込み権限を確認してみてください)"
 
 #: ../plugins/project-import/plugin.c:282
 #, fuzzy, c-format
@@ -6566,19 +6563,13 @@ msgstr "次で開く"
 
 #: ../plugins/project-import/plugin.c:302
 #, fuzzy, c-format
-msgid ""
-"Could not find a valid project backend for the given directory (%s). Please "
-"select a different directory, or try upgrading to a newer version of Anjuta."
-msgstr ""
-"指定したフォルダー (%s) に対して妥当なバックエンドが見つかりませんでした。別"
-"のフォルダーを選択するか、または GNOME ビルド・フレームワーク (gbf/gnome-"
-"build) をアップグレードしてみてください。"
+msgid "Could not find a valid project backend for the given directory (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
+msgstr "指定したフォルダー (%s) に対して妥当なバックエンドが見つかりませんでした。別のフォルダーを選択するか、または GNOME ビルド・フレームワーク (gbf/gnome-build) をアップグレードしてみてください。"
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
-msgid ""
-"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
 
 #: ../plugins/project-import/project-import-dialog.c:292
@@ -6655,99 +6646,99 @@ msgstr "Anjuta プロジェクトを管理するプラグインです"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:330
+#: ../plugins/project-manager/dialogs.c:332
 msgid "Select sources…"
 msgstr "ソースの選択…"
 
-#: ../plugins/project-manager/dialogs.c:405
+#: ../plugins/project-manager/dialogs.c:407
 msgid " This property is not modifiable."
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:561
-#: ../plugins/project-manager/dialogs.c:566
+#: ../plugins/project-manager/dialogs.c:563
+#: ../plugins/project-manager/dialogs.c:568
 #: ../plugins/project-manager/plugin.c:927
 msgid "Project properties"
 msgstr "プロジェクトのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:570
+#: ../plugins/project-manager/dialogs.c:572
 #, fuzzy
 msgid "Folder properties"
 msgstr "グループのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:574
+#: ../plugins/project-manager/dialogs.c:576
 msgid "Target properties"
 msgstr "ターゲットのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:577
+#: ../plugins/project-manager/dialogs.c:579
 #, fuzzy
 msgid "Source properties"
 msgstr "グループのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:580
+#: ../plugins/project-manager/dialogs.c:582
 #, fuzzy
 msgid "Module properties"
 msgstr "グループのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:583
+#: ../plugins/project-manager/dialogs.c:585
 #, fuzzy
 msgid "Package properties"
 msgstr "ターゲットのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:586
+#: ../plugins/project-manager/dialogs.c:588
 #, fuzzy
 msgid "Unknown properties"
 msgstr "ブレークポイントのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:1004
-#: ../plugins/project-manager/dialogs.c:1015
+#: ../plugins/project-manager/dialogs.c:1050
+#: ../plugins/project-manager/dialogs.c:1061
 msgid "Cannot add group"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1016
+#: ../plugins/project-manager/dialogs.c:1062
 msgid "No parent group selected"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1176
-#: ../plugins/project-manager/dialogs.c:1188
-#: ../plugins/project-manager/dialogs.c:1373
-#: ../plugins/project-manager/dialogs.c:1383
+#: ../plugins/project-manager/dialogs.c:1222
+#: ../plugins/project-manager/dialogs.c:1234
+#: ../plugins/project-manager/dialogs.c:1419
+#: ../plugins/project-manager/dialogs.c:1429
 #, fuzzy
 msgid "Cannot add source files"
 msgstr "Java ソースファイル"
 
-#: ../plugins/project-manager/dialogs.c:1189
-#: ../plugins/project-manager/dialogs.c:1384
+#: ../plugins/project-manager/dialogs.c:1235
+#: ../plugins/project-manager/dialogs.c:1430
 #, fuzzy
 msgid "The selected node cannot contain source files."
 msgstr "新しいソースファイルのターゲットを選択(_T):"
 
-#: ../plugins/project-manager/dialogs.c:1570
-#: ../plugins/project-manager/dialogs.c:1581
+#: ../plugins/project-manager/dialogs.c:1616
+#: ../plugins/project-manager/dialogs.c:1627
 msgid "Cannot add target"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1582
+#: ../plugins/project-manager/dialogs.c:1628
 msgid "No group selected"
 msgstr ""
 
-#: ../plugins/project-manager/dialogs.c:1745
-#: ../plugins/project-manager/dialogs.c:1756
+#: ../plugins/project-manager/dialogs.c:1791
+#: ../plugins/project-manager/dialogs.c:1802
 #, fuzzy
 msgid "Cannot add modules"
 msgstr "Java ソースファイル"
 
-#: ../plugins/project-manager/dialogs.c:1757
+#: ../plugins/project-manager/dialogs.c:1803
 #, fuzzy
 msgid "No target has been selected"
 msgstr " %d個のアイテムを置換しました。"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:1963
+#: ../plugins/project-manager/dialogs.c:2009
 #, fuzzy
 msgid "Missing module name"
 msgstr "ツール名がありません"
 
-#: ../plugins/project-manager/dialogs.c:2025
+#: ../plugins/project-manager/dialogs.c:2071
 #, fuzzy
 msgid "Cannot add packages"
 msgstr "Java ソースファイル"
@@ -6910,9 +6901,8 @@ msgid "Add a new target to the project"
 msgstr "ターゲットをプロジェクトに追加します"
 
 #: ../plugins/project-manager/plugin.c:912
-#, fuzzy
 msgid "Add _Source File…"
-msgstr "ソースの追加(_S)"
+msgstr "ソースの追加(_S)…"
 
 #: ../plugins/project-manager/plugin.c:912
 #: ../plugins/project-manager/plugin.c:951
@@ -6922,9 +6912,8 @@ msgid "Add a source file to a target"
 msgstr "ソース・ファイルをプロジェクトに追加します"
 
 #: ../plugins/project-manager/plugin.c:917
-#, fuzzy
 msgid "Add _Library…"
-msgstr "ターゲットの追加(_T)"
+msgstr "ライブラリの追加(_L)…"
 
 #: ../plugins/project-manager/plugin.c:917
 #, fuzzy
@@ -7017,12 +7006,8 @@ msgstr "ショートカット"
 
 #: ../plugins/project-manager/plugin.c:1319
 #, c-format
-msgid ""
-"Failed to parse project (the project is opened, but there will be no project "
-"view) %s: %s\n"
-msgstr ""
-"プロジェクトの解析に失敗しました (とりあえずプロジェクトは開きますが、プロ"
-"ジェクト表示はしません) %s: %s\n"
+msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+msgstr "プロジェクトの解析に失敗しました (とりあえずプロジェクトは開きますが、プロジェクト表示はしません) %s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1329
 #, fuzzy
@@ -7034,7 +7019,7 @@ msgstr "プロジェクト表示の生成中..."
 #: ../plugins/project-manager/plugin.c:1624
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2137
+#: ../plugins/symbol-db/plugin.c:2135
 msgid "Project"
 msgstr "プロジェクト"
 
@@ -7056,11 +7041,11 @@ msgstr "プロジェクト・マネージャーの操作"
 msgid "Project manager popup actions"
 msgstr "プロジェクト・マネージャーのポップアップ"
 
-#: ../plugins/project-manager/plugin.c:2434
+#: ../plugins/project-manager/plugin.c:2441
 msgid "Initializing Project…"
 msgstr "プロジェクトの初期化中…"
 
-#: ../plugins/project-manager/plugin.c:2437
+#: ../plugins/project-manager/plugin.c:2444
 #, fuzzy
 msgid "Project Loaded"
 msgstr "プロジェクト名:"
@@ -7200,7 +7185,7 @@ msgstr "フォルダーの選択"
 msgid "GbfProject Object"
 msgstr "プロジェクトのフォルダー:"
 
-#: ../plugins/project-manager/project-model.c:745
+#: ../plugins/project-manager/project-model.c:747
 #, fuzzy
 msgid "No project loaded"
 msgstr "プロジェクトの名前です"
@@ -7216,7 +7201,7 @@ msgid "Select a project type"
 msgstr "プロジェクト・フォルダーの選択"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:174
 #, fuzzy
 msgid "Error"
 msgstr "エラー:"
@@ -7229,33 +7214,33 @@ msgstr ""
 msgid "Summary"
 msgstr "サマリ"
 
-#: ../plugins/project-wizard/druid.c:158 ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:166 ../plugins/project-wizard/druid.c:170
 #, fuzzy
 msgid "Warning"
 msgstr "警告:"
 
-#: ../plugins/project-wizard/druid.c:169
+#: ../plugins/project-wizard/druid.c:177
 #, fuzzy
 msgid "Message"
 msgstr "メッセージ"
 
-#: ../plugins/project-wizard/druid.c:250
+#: ../plugins/project-wizard/druid.c:258
 msgid "Confirm the following information:"
 msgstr "次の情報を確認してください:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:254
+#: ../plugins/project-wizard/druid.c:262
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "プロジェクトの種類: %s\n"
 
-#: ../plugins/project-wizard/druid.c:431
+#: ../plugins/project-wizard/druid.c:439
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "%s にプロジェクト用のテンプレートがありません"
 
-#: ../plugins/project-wizard/druid.c:671
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "\n"
@@ -7264,57 +7249,45 @@ msgstr ""
 "\n"
 "\"%s\" の項目は必須です。もう一度、入力してください。"
 
-#: ../plugins/project-wizard/druid.c:686
+#: ../plugins/project-wizard/druid.c:694
 #, c-format
-msgid ""
-"Field \"%s\" must contains only letters, digits or the following characters "
-"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
-"it."
+msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:691
+#: ../plugins/project-wizard/druid.c:699
 #, c-format
-msgid ""
-"Field \"%s\" must contains only letters, digits, the following characters \"#"
-"$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
-"leading dash. Please fix it."
+msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:696
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
-msgid ""
-"Field \"%s\" must contains only ASCII printable characters, no accentuated "
-"characters by example. Please fix it."
+msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:701
+#: ../plugins/project-wizard/druid.c:709
 #, fuzzy, c-format
 msgid "Unknown error."
 msgstr "不明なアイテム"
 
-#: ../plugins/project-wizard/druid.c:728
+#: ../plugins/project-wizard/druid.c:736
 #, c-format
-msgid ""
-"Directory \"%s\" is not empty. Project creation could fail if some files "
-"cannot be written. Do you want to continue?"
-msgstr ""
-"\"%s\" というフォルダーの中身が空ではありません。もしファイルの書き込みに失敗"
-"したらプロジェクトを生成できないかもしれません。それでも続行しますか?"
+msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
+msgstr "\"%s\" というフォルダーの中身が空ではありません。もしファイルの書き込みに失敗したらプロジェクトを生成できないかもしれません。それでも続行しますか?"
 
-#: ../plugins/project-wizard/druid.c:730
+#: ../plugins/project-wizard/druid.c:738
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "\"%s\" というファイルが既に存在します。上書きしてもよろしいですか?"
 
-#: ../plugins/project-wizard/druid.c:763
+#: ../plugins/project-wizard/druid.c:771
 msgid "Invalid entry"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:773
+#: ../plugins/project-wizard/druid.c:781
 msgid "Dubious entry"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:942
+#: ../plugins/project-wizard/druid.c:950
 #, c-format
 msgid ""
 "\n"
@@ -7323,7 +7296,7 @@ msgstr ""
 "\n"
 "不明なプログラム: %s"
 
-#: ../plugins/project-wizard/druid.c:953
+#: ../plugins/project-wizard/druid.c:961
 #, c-format
 msgid ""
 "\n"
@@ -7332,42 +7305,23 @@ msgstr ""
 "\n"
 "不明なパッケージ: %s"
 
-#: ../plugins/project-wizard/druid.c:962
-msgid ""
-"Some important programs or development packages required to build this "
-"project are missing. Please make sure they are installed properly before "
-"generating the project.\n"
-msgstr ""
-"このプロジェクトのビルドに必要なプログラムまたは開発パッケージのいくつかがイ"
-"ンストールされていないようです。このプロジェクトを生成する前に、それらのパッ"
-"ケージが正しくインストールされているか確認してください。\n"
+#: ../plugins/project-wizard/druid.c:970
+msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
+msgstr "このプロジェクトのビルドに必要なプログラムまたは開発パッケージのいくつかがインストールされていないようです。このプロジェクトを生成する前に、それらのパッケージが正しくインストールされているか確認してください。\n"
 
-#: ../plugins/project-wizard/druid.c:971
+#: ../plugins/project-wizard/druid.c:979
 msgid "Install missing packages"
 msgstr ""
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:983
-#, fuzzy
-msgid ""
-"The missing programs are usually part of some distribution packages and can "
-"be searched for in your Application Manager. Similarly, the development "
-"packages are contained in special packages that your distribution provides "
-"to allow development of projects based on them. They usually end with a \"-"
-"dev\" or \"-devel\" suffix in package names and can be found by searching in "
-"your Application Manager."
-msgstr ""
-"たいていの場合、不足しているプログラムはディストリビューションの一部として配"
-"布され、パッケージ・マネージャー相当のアプリケーションから検索し配布状況を確"
-"認することができます。同様に、開発パッケージもそれらを使って何かアプリケー"
-"ションを開発することができるように特別なカテゴリの中に含まれた形で配布されて"
-"います。通常、これらのパッケージ名には -dev とか -devel といった文字列が付与"
-"されており、同様にパッケージ・マネージャー相当のアプリケーションから検索でき"
-"ます。"
-
 #: ../plugins/project-wizard/druid.c:991
+#, fuzzy
+msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
+msgstr "たいていの場合、不足しているプログラムはディストリビューションの一部として配布され、パッケージ・マネージャー相当のアプリケーションから検索し配布状況を確認することができます。同様に、開発パッケージもそれらを使って何かアプリケーションを開発することができるように特別なカテゴリの中に含まれた形で配布されています。通常、これらのパッケージ名には -dev とか -devel といった文字列が付与されており、同様にパッケージ・マネージャー相当のアプリケーションから検索できます。"
+
+#: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
 msgstr "パッケージがありません"
 
@@ -7415,31 +7369,31 @@ msgstr "%s にプロジェクト用のテンプレートがありません"
 msgid "New Project Assistant"
 msgstr "新しいプロジェクトのアシスタント"
 
-#: ../plugins/project-wizard/property.c:353
+#: ../plugins/project-wizard/property.c:365
 msgid "Select directory"
 msgstr "フォルダーの選択"
 
-#: ../plugins/project-wizard/property.c:370
+#: ../plugins/project-wizard/property.c:382
 msgid "Select file"
 msgstr ""
 
-#: ../plugins/project-wizard/property.c:420 ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:432 ../plugins/tools/editor.c:524
 #, fuzzy
 msgid "Select an Image File"
 msgstr "プラグインの選択"
 
-#: ../plugins/project-wizard/property.c:445
-#: ../plugins/project-wizard/property.c:535 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:457
+#: ../plugins/project-wizard/property.c:547 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 #, fuzzy
 msgid "Choose Icon"
 msgstr "フォルダーの選択"
 
-#: ../plugins/project-wizard/property.c:505
+#: ../plugins/project-wizard/property.c:517
 msgid "Choose directory"
 msgstr "フォルダーの選択"
 
-#: ../plugins/project-wizard/property.c:509
+#: ../plugins/project-wizard/property.c:521
 msgid "Choose file"
 msgstr "ファイルの選択"
 
@@ -7519,12 +7473,8 @@ msgid "Project Name:"
 msgstr "プロジェクト名:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
-msgid ""
-"Project name must not contain spaces, because it will be the name of the "
-"project build target (executable, library etc.)"
-msgstr ""
-"プロジェクト名には空白を含めないでください (実行形式やライブラリなどのビルド"
-"するターゲット名になるため)"
+msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgstr "プロジェクト名には空白を含めないでください (実行形式やライブラリなどのビルドするターゲット名になるため)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:7
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
@@ -7644,12 +7594,8 @@ msgid "Plugin Dependencies:"
 msgstr "プラグインの依存度:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
-msgid ""
-"Comma separated, other plugins that this plugin depends on. It could be "
-"either primary interface name or plugin location (library:class)"
-msgstr ""
-"このプラグインが依存している他のプラグインをコンマで区切って指定してください "
-"(インターフェース名またはプラグインの場所のどちらか)"
+msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgstr "このプラグインが依存している他のプラグインをコンマで区切って指定してください (インターフェース名またはプラグインの場所のどちらか)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
 msgid "Icon File:"
@@ -7913,9 +7859,7 @@ msgstr "国際化のサポート:"
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-msgid ""
-"Adds support for internationalization so that your project can have "
-"translations in different languages"
+msgid "Adds support for internationalization so that your project can have translations in different languages"
 msgstr "プロジェクトをいろいろな言語で利用できるようにします"
 
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
@@ -7935,11 +7879,8 @@ msgid "Generic gcj compiled java"
 msgstr "gcj を使った Java"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
-msgid ""
-"A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr ""
-"GNU Java コンパイラ (gcj) を使ってネイティブにビルドした一般的な Java のプロ"
-"ジェクトです"
+msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr "GNU Java コンパイラ (gcj) を使ってネイティブにビルドした一般的な Java のプロジェクトです"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
@@ -7981,10 +7922,8 @@ msgstr ""
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:16
 msgid ""
 "Uuid is a globally-unique identifier for your extension.\n"
-"This should be in the format of an email address (foo.bar@extensions.example."
-"com), but\n"
-"need not be an actual email address, though it's a good idea to base the "
-"uuid on your\n"
+"This should be in the format of an email address (foo.bar@extensions.example.com), but\n"
+"need not be an actual email address, though it's a good idea to base the uuid on your\n"
 "email address."
 msgstr ""
 
@@ -7997,8 +7936,7 @@ msgid "Gnome Shell Compatibility:"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
-msgid ""
-"Comma-separated list of gnome-shell version your plugin is compatible with"
+msgid "Comma-separated list of gnome-shell version your plugin is compatible with"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
@@ -8023,9 +7961,7 @@ msgstr "gtk-doc システムのサポート:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr ""
-"gtk-doc は GObject ベースのクラスで API ドキュメントを生成する際に必要になり"
-"ます"
+msgstr "gtk-doc は GObject ベースのクラスで API ドキュメントを生成する際に必要になります"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
@@ -8041,9 +7977,7 @@ msgstr "UI ファイルを生成するか:"
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
-msgid ""
-"Use GtkBuilder to create the user-interface in a graphical way and load it "
-"from xml files at runtime"
+msgid "Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
@@ -8055,13 +7989,8 @@ msgstr "必要なパッケージ:"
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
-msgid ""
-"Give a package name that your project require. You may also mention what is "
-"the required version of the package. For example, 'libgnomeui-2.0' or "
-"'libgnomeui-2.0 >= 2.2.0'"
-msgstr ""
-"プロジェクトで必要となるパッケージの名前と追加でバージョンを指定してください "
-"(例: 'libgnomeui-2.0' または 'libgnomeui-2.0 >= 2.2.0')"
+msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgstr "プロジェクトで必要となるパッケージの名前と追加でバージョンを指定してください (例: 'libgnomeui-2.0' または 'libgnomeui-2.0 >= 2.2.0')"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
 msgid "GTKmm (Simple)"
@@ -8136,6 +8065,18 @@ msgstr ""
 #: ../plugins/project-wizard/templates/library.wiz.in.h:17
 msgid "Only Static"
 msgstr ""
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
+msgid "License"
+msgstr "ライセンス"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
+msgid "Select code license"
+msgstr "コードのライセンスを選択してください"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
+msgid "No license"
+msgstr "ライセンスなし"
 
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
 msgid "Generic (Minimal)"
@@ -8267,17 +8208,14 @@ msgstr "Xlib"
 msgid "A generic Xlib project"
 msgstr "一般的な Xlib のプロジェクトです"
 
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
-msgid "License"
-msgstr "ライセンス"
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+#, fuzzy
+msgid "Python loader"
+msgstr "Python のソース"
 
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
-msgid "Select code license"
-msgstr "コードのライセンスを選択してください"
-
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
-msgid "No license"
-msgstr "ライセンスなし"
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr ""
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -8289,7 +8227,7 @@ msgstr "デバッガーを使わずにプログラムを起動できるように
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:1
 msgid "Program Parameters"
-msgstr "プログラムの引数"
+msgstr "プログラムのパラメーター"
 
 #: ../plugins/run-program/anjuta-run-program.ui.h:2
 msgid "Run in Terminal"
@@ -8348,9 +8286,8 @@ msgid "Kill program"
 msgstr "プログラムの強制終了"
 
 #: ../plugins/run-program/plugin.c:290
-#, fuzzy
 msgid "Program Parameters…"
-msgstr "プログラムの引数"
+msgstr "プログラムのパラメーター…"
 
 #: ../plugins/run-program/plugin.c:292
 #, fuzzy
@@ -8374,7 +8311,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/plugin.c:62
 #: ../plugins/snippets-manager/plugin.c:306
-#: ../plugins/snippets-manager/snippets-browser.c:208
+#: ../plugins/snippets-manager/snippets-browser.c:214
 #, fuzzy
 msgid "Snippets"
 msgstr "抑止"
@@ -8443,22 +8380,40 @@ msgstr "変数の一覧"
 msgid "Instant value"
 msgstr "検証/評価"
 
-#: ../plugins/snippets-manager/snippets-browser.c:549
+#: ../plugins/snippets-manager/snippets-browser.c:193
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#, fuzzy
+msgid "Add snippet"
+msgstr "抑止"
+
+#: ../plugins/snippets-manager/snippets-browser.c:199
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
+#, fuzzy
+msgid "Remove selected snippet"
+msgstr "プラグインの選択"
+
+#: ../plugins/snippets-manager/snippets-browser.c:205
+#, fuzzy
+#| msgid "Paste the content of clipboard at the current position"
+msgid "Insert snippet into editor at current cursor position"
+msgstr "クリップボードの内容を現在の場所に貼り付けます"
+
+#: ../plugins/snippets-manager/snippets-browser.c:552
 msgid "Trigger"
 msgstr ""
 
-#: ../plugins/snippets-manager/snippets-browser.c:560
+#: ../plugins/snippets-manager/snippets-browser.c:563
 #, fuzzy
 msgid "Languages"
 msgstr "言語マネージャー"
 
 #. Insert the Add Snippet menu item
-#: ../plugins/snippets-manager/snippets-browser.c:808
+#: ../plugins/snippets-manager/snippets-browser.c:811
 msgid "Add Snippet …"
 msgstr ""
 
 #. Insert the Add Snippets Group menu item
-#: ../plugins/snippets-manager/snippets-browser.c:818
+#: ../plugins/snippets-manager/snippets-browser.c:821
 msgid "Add Snippets Group …"
 msgstr ""
 
@@ -8472,14 +8427,11 @@ msgid "<b>Error:</b> You must choose at least one language for the snippet!"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
-msgid ""
-"<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-msgid ""
-"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
-"_ !"
+msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
@@ -8519,9 +8471,7 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid ""
-"The trigger key is used for fast insertion of the snippet. Type the trigger "
-"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
-"snippet.\n"
+"The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
 
@@ -8539,9 +8489,7 @@ msgid "Keywords:"
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
-msgid ""
-"Keywords are used for better searching of the snippets. They should be "
-"relevant to the snippet content. Type them separated by a single space."
+msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
 msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:15
@@ -8592,85 +8540,89 @@ msgstr "プラグインの選択"
 msgid "Import Snippets"
 msgstr "プロジェクトのインポート"
 
-#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
+#: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:3
 #, fuzzy
 msgid "Anjuta variables"
 msgstr "Anjuta タグの生成"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-msgid "Tab size in spaces:"
-msgstr "タブのサイズ:"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Use tabs for indentation"
 msgstr "インデントにタブを使う"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
+msgid "Tab size in spaces:"
+msgstr "タブのサイズ:"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
+msgid "Indentation size in spaces:"
+msgstr "インデントのサイズ:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 #, fuzzy
 msgid "Indentation and auto-format options"
 msgstr "<b>インデントと自動整形のオプション</b>"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Highlight syntax"
 msgstr "構文を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Highlight matching brackets"
 msgstr "対となる括弧を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 #, fuzzy
 msgid "Create backup files"
 msgstr "パッチの生成"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 #, fuzzy
 msgid "Enable autocompletion for document words"
 msgstr "選択している単語を自動補完します"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 msgid "Highlight current line"
 msgstr "カーソル行を強調表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 msgid "Show line numbers"
 msgstr "行番号を表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Show marks"
 msgstr "マーカーを表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show right margin"
 msgstr "右マージンを表示する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Right margin position in characters"
 msgstr "右マージンの位置 (文字数単位)"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 #: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
 msgid "View"
 msgstr "表示"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Editor"
 msgstr "エディター"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Use theme font"
 msgstr "テーマのフォントを使用する"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Font:"
 msgstr "フォント:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 #, fuzzy
 msgid "Color scheme:"
 msgstr "<b>色のスキーム:</b>"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Font"
 msgstr "フォント"
 
@@ -8722,17 +8674,16 @@ msgstr "エディターの表示設定"
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView エディター"
 
-#: ../plugins/sourceview/sourceview.c:568
+#: ../plugins/sourceview/sourceview.c:567
 #, fuzzy, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"保存されている '%s' というファイルはバッファーに格納されたものよりも内容が新"
-"しいようです。\n"
+"保存されている '%s' というファイルはバッファーに格納されたものよりも内容が新しいようです。\n"
 "そのファイルをもう一度読み込んでみますか?"
 
-#: ../plugins/sourceview/sourceview.c:600
+#: ../plugins/sourceview/sourceview.c:599
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8742,18 +8693,18 @@ msgstr ""
 "閉じてもよいですか?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:633
+#: ../plugins/sourceview/sourceview.c:632
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s を開けませんでした: %s"
 
-#: ../plugins/sourceview/sourceview.c:687
+#: ../plugins/sourceview/sourceview.c:686
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr ""
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:749
+#: ../plugins/sourceview/sourceview.c:748
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "%s を保存できませんでした: %s"
@@ -9178,9 +9129,7 @@ msgstr "ブランチ/タグの切り替え..."
 #. short-cut
 #: ../plugins/subversion/plugin.c:118
 msgid "Switch your local copy to a branch or tag in the repository"
-msgstr ""
-"ローカルの領域 (Local Copy) をリポジトリが持つブランチまたはタグに切り替えま"
-"す"
+msgstr "ローカルの領域 (Local Copy) をリポジトリが持つブランチまたはタグに切り替えます"
 
 #. Action name
 #. Stock icon, if any
@@ -9446,9 +9395,7 @@ msgid "Parallel scan of project and global symbols"
 msgstr "プロジェクトとグローバルなシンボルを同時にスキャンする"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
-msgid ""
-"This option means that the global system packages will be scanned "
-"simultaneously with the project's ones"
+msgid "This option means that the global system packages will be scanned simultaneously with the project's ones"
 msgstr ""
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
@@ -9457,9 +9404,7 @@ msgid "Automatically update symbols without saving file"
 msgstr "ファイルを保存せずにシンボルを自動的に更新する"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
-msgid ""
-"Automatically update the file's symbols without saving. The update occurs "
-"after 10 seconds without keypresses by the user."
+msgid "Automatically update the file's symbols without saving. The update occurs after 10 seconds without keypresses by the user."
 msgstr ""
 
 #: ../plugins/symbol-db/plugin.c:331
@@ -9513,25 +9458,25 @@ msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
 msgstr[0] ""
 
-#: ../plugins/symbol-db/plugin.c:1742
+#: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
 msgstr ""
 
-#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
 msgstr "シンボル"
 
-#: ../plugins/symbol-db/plugin.c:2216
+#: ../plugins/symbol-db/plugin.c:2214
 #, fuzzy
 msgid "SymbolDb popup actions"
 msgstr "シンボル・ブラウザーのポップアップ"
 
-#: ../plugins/symbol-db/plugin.c:2224
+#: ../plugins/symbol-db/plugin.c:2222
 #, fuzzy
 msgid "SymbolDb menu actions"
 msgstr "シンボル・ブラウザーの操作"
 
-#: ../plugins/symbol-db/plugin.c:2537 ../plugins/symbol-db/plugin.c:2555
+#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "シンボル・データベース"
@@ -9697,12 +9642,8 @@ msgid "A tool with the same name already exists!"
 msgstr "同名のツールが既に存在しています!"
 
 #: ../plugins/tools/editor.c:826
-msgid ""
-"The shortcut is already used by another component in Anjuta. Do you want to "
-"keep it anyway?"
-msgstr ""
-"そのショートカットは Anjuta の他のコンポーネントが使用しています。それでも使"
-"用しますか?"
+msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
+msgstr "そのショートカットは Anjuta の他のコンポーネントが使用しています。それでも使用しますか?"
 
 #: ../plugins/tools/editor.c:910
 msgid "Unable to edit script"
@@ -10129,6 +10070,22 @@ msgstr "すべてのリソースを解放して Anjuta を適切に終了する 
 msgid "- Integrated Development Environment"
 msgstr "- 統合開発環境"
 
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:1
+#, fuzzy
+#| msgid "Use tabs for indentation"
+msgid "Use tabulation for indentation"
+msgstr "インデントにタブを使う"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:2
+#, fuzzy
+#| msgid "Number of last characters to show:"
+msgid "Number of characters of one tabulation"
+msgstr "表示する最後の文字数:"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:3
+msgid "Number of spaces on every indentation step"
+msgstr ""
+
 #: ../src/preferences.ui.h:1
 msgid "Do not load last session on startup"
 msgstr "起動後に最後のセッションを読み込まない"
@@ -10193,6 +10150,9 @@ msgstr "アイコン:"
 msgid "Text only"
 msgstr "文字列"
 
+#~ msgid "Failed to write autogen definition file"
+#~ msgstr "autogen 定義ファイルの書き込みに失敗しました"
+
 #, fuzzy
 #~ msgid "Find Files"
 #~ msgstr "ファイル内の検索(_D)..."
@@ -10203,13 +10163,8 @@ msgstr "文字列"
 #~ msgid "Loaded:"
 #~ msgstr "読み込み済:"
 
-#~ msgid ""
-#~ "Unable to display help. Please make sure the Anjuta documentation package "
-#~ "is installed. It can be downloaded from http://anjuta.org."
-#~ msgstr ""
-#~ "ヘルプを表示できません。Anjuta ドキュメントのパッケージがインストールされ"
-#~ "ているか確認してください。http://anjuta.org からダウンロードすることもでき"
-#~ "ます。"
+#~ msgid "Unable to display help. Please make sure the Anjuta documentation package is installed. It can be downloaded from http://anjuta.org."
+#~ msgstr "ヘルプを表示できません。Anjuta ドキュメントのパッケージがインストールされているか確認してください。http://anjuta.org からダウンロードすることもできます。"
 
 #~ msgid "Set current thread"
 #~ msgstr "フレーム対象にする"
@@ -10234,12 +10189,8 @@ msgstr "文字列"
 #~ msgstr "\"%s\" の検索が終了し先頭から検索を継続しました"
 
 #, fuzzy
-#~ msgid ""
-#~ "Search for \"%s\" reached the end and wrapped around but no new match was "
-#~ "found."
-#~ msgstr ""
-#~ "\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありま"
-#~ "せん"
+#~ msgid "Search for \"%s\" reached the end and wrapped around but no new match was found."
+#~ msgstr "\"%s\" の検索が完了し先頭から検索を継続しましたが、新しい検索結果はありません"
 
 #, fuzzy
 #~ msgid "Delete selected branches"
@@ -10247,10 +10198,6 @@ msgstr "文字列"
 
 #, fuzzy
 #~ msgid "New Directory"
-#~ msgstr "ディレクトリ"
-
-#, fuzzy
-#~ msgid "_Directory name:"
 #~ msgstr "ディレクトリ"
 
 #, fuzzy
@@ -10440,9 +10387,7 @@ msgstr "文字列"
 #~ msgstr "モジュールのクリーン"
 
 #, fuzzy
-#~ msgid ""
-#~ "Are you sure you want to remove module \"%s\" and all its associated "
-#~ "packages?"
+#~ msgid "Are you sure you want to remove module \"%s\" and all its associated packages?"
 #~ msgstr "本当にすべての ToDo アイテムを削除してもよろしいですか?"
 
 #, fuzzy
@@ -10491,10 +10436,6 @@ msgstr "文字列"
 #, fuzzy
 #~ msgid "Target name:"
 #~ msgstr "プロジェクト名:"
-
-#, fuzzy
-#~ msgid "Source file must be inside the project directory"
-#~ msgstr "プロジェクト・フォルダーの選択"
 
 #~ msgid "Add Remote Branch"
 #~ msgstr "リモートのブランチの追加"
@@ -10942,12 +10883,8 @@ msgstr "文字列"
 #~ msgstr "本当にすべての ToDo アイテムを削除してもよろしいですか?"
 
 #, fuzzy
-#~ msgid ""
-#~ "Are you sure you want to remove all the completed to-do items in the "
-#~ "category \"%s\"?"
-#~ msgstr ""
-#~ "本当にカテゴリ \"%s\" にある ToDo アイテムをすべて削除してもよろしいです"
-#~ "か?"
+#~ msgid "Are you sure you want to remove all the completed to-do items in the category \"%s\"?"
+#~ msgstr "本当にカテゴリ \"%s\" にある ToDo アイテムをすべて削除してもよろしいですか?"
 
 #, fuzzy
 #~ msgid "Export task list"
@@ -11009,8 +10946,7 @@ msgstr "文字列"
 #~ msgstr "高い"
 
 #~ msgid "When you delete the category \"%s\", all containing items are lost"
-#~ msgstr ""
-#~ "カテゴリ \"%s\" を削除すると、それに含まれるすべてのアイテムも削除されます"
+#~ msgstr "カテゴリ \"%s\" を削除すると、それに含まれるすべてのアイテムも削除されます"
 
 #~ msgid "Delete"
 #~ msgstr "削除する"
@@ -11113,8 +11049,7 @@ msgstr "文字列"
 
 #, fuzzy
 #~ msgid "Allow to-do items to notify me when they are due in %i minute"
-#~ msgid_plural ""
-#~ "Allow to-do items to notify me when they are due in %i minutes"
+#~ msgid_plural "Allow to-do items to notify me when they are due in %i minutes"
 #~ msgstr[0] "%i分後に期限切れになるアイテムを通知する"
 
 #~ msgid "Open a Task List"
@@ -11129,20 +11064,12 @@ msgstr "文字列"
 #~ msgid "Number of first characters to show:"
 #~ msgstr "表示する最初の文字数:"
 
-#~ msgid "Number of last characters to show:"
-#~ msgstr "表示する最後の文字数:"
-
 #~ msgid "Truncate long messages"
 #~ msgstr "長いメッセージを切り詰める"
 
 #, fuzzy
-#~ msgid ""
-#~ "Generation of project file failed. Cannot find an appropriate project "
-#~ "template to use. Please make sure your version of Anjuta is up-to-date."
-#~ msgstr ""
-#~ "プロジェクト・ファイルの生成に失敗しました。このプロジェクトに妥当なテンプ"
-#~ "レートが見つかりませんでした。Anjuta が正しくインストールされているか確認"
-#~ "してください。"
+#~ msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up-to-date."
+#~ msgstr "プロジェクト・ファイルの生成に失敗しました。このプロジェクトに妥当なテンプレートが見つかりませんでした。Anjuta が正しくインストールされているか確認してください。"
 
 #~ msgid "New Group"
 #~ msgstr "新規グループ"
@@ -11174,23 +11101,12 @@ msgstr "文字列"
 #~ msgstr "ターゲットの追加(_T)"
 
 #, fuzzy
-#~ msgid ""
-#~ "Field \"%s\" must start with a letter, a digit or an underscore and "
-#~ "contain only letters, digits, underscore, minus and dot. Please fix it."
-#~ msgstr ""
-#~ "\"%s\" の項目には文字または数字、アンダースコアのいずれかで始め、複数の文"
-#~ "字や数字、アンダースコア、マイナス、ドットから構成された文字列にしてくださ"
-#~ "い。もう一度、確認して入力してください。"
+#~ msgid "Field \"%s\" must start with a letter, a digit or an underscore and contain only letters, digits, underscore, minus and dot. Please fix it."
+#~ msgstr "\"%s\" の項目には文字または数字、アンダースコアのいずれかで始め、複数の文字や数字、アンダースコア、マイナス、ドットから構成された文字列にしてください。もう一度、確認して入力してください。"
 
 #, fuzzy
-#~ msgid ""
-#~ "Field \"%s\" must start with a letter, a digit, an underscore or a "
-#~ "directory separator and contain only letters, digits, underscore, "
-#~ "directory separator, minus and dot. Please fix it."
-#~ msgstr ""
-#~ "\"%s\" の項目には文字または数字、アンダースコアのいずれかで始め、複数の文"
-#~ "字や数字、アンダースコア、マイナス、ドットから構成された文字列にしてくださ"
-#~ "い。もう一度、確認して入力してください。"
+#~ msgid "Field \"%s\" must start with a letter, a digit, an underscore or a directory separator and contain only letters, digits, underscore, directory separator, minus and dot. Please fix it."
+#~ msgstr "\"%s\" の項目には文字または数字、アンダースコアのいずれかで始め、複数の文字や数字、アンダースコア、マイナス、ドットから構成された文字列にしてください。もう一度、確認して入力してください。"
 
 #~ msgid "No"
 #~ msgstr "いいえ"
@@ -11311,8 +11227,7 @@ msgstr "文字列"
 #~ msgid "_Find…"
 #~ msgstr "検索(_F) ..."
 
-#~ msgid ""
-#~ "Search for and replace a string or regular expression with another string"
+#~ msgid "Search for and replace a string or regular expression with another string"
 #~ msgstr "検索して文字列または正規表現を別の文字列に置き換えます"
 
 #~ msgid "Search for a string in multiple files or directories"
@@ -11371,9 +11286,7 @@ msgstr "文字列"
 #~ msgstr "検索が完了しました"
 
 #~ msgid "The match \"%s\" was not found. Wrap search around the document?"
-#~ msgstr ""
-#~ "\"%s\" に一致するものが見つかりませんでした。ドキュメント全体を検索してみ"
-#~ "ますか?"
+#~ msgstr "\"%s\" に一致するものが見つかりませんでした。ドキュメント全体を検索してみますか?"
 
 #~ msgid "The match \"%s\" was not found."
 #~ msgstr "\"%s\" に一致するものが見つかりませんでした"
@@ -11466,10 +11379,6 @@ msgstr "文字列"
 #~ msgstr "C++/GObject クラス"
 
 #, fuzzy
-#~ msgid "Makefile backend"
-#~ msgstr "Makefile"
-
-#, fuzzy
 #~ msgid "Anjuta JS Debugger Plugin"
 #~ msgstr "Anjuta のプラグイン"
 
@@ -11485,13 +11394,9 @@ msgstr "文字列"
 #~ msgid "Failed to read '%s': XML parse error"
 #~ msgstr "'%s' の読み込みに失敗: XML の解析エラー"
 
-#~ msgid ""
-#~ "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-#~ msgid_plural ""
-#~ "<b>There are %d items with unsaved changes. Save changes before closing?</"
-#~ "b>"
-#~ msgstr[0] ""
-#~ "保存していないアイテムが %d 個あります。閉じる前に変更内容を保存しますか?"
+#~ msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
+#~ msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+#~ msgstr[0] "保存していないアイテムが %d 個あります。閉じる前に変更内容を保存しますか?"
 
 #~ msgid "Unable to read file: %s."
 #~ msgstr "ファイルを読み込めません: %s"
@@ -11729,9 +11634,6 @@ msgstr "文字列"
 #~ msgid "Indent opening braces"
 #~ msgstr "インデント・バランスを開く"
 
-#~ msgid "Indentation size in spaces:"
-#~ msgstr "インデントのサイズ:"
-
 #~ msgid "Italic"
 #~ msgstr "斜体"
 
@@ -11839,15 +11741,8 @@ msgstr "文字列"
 #~ msgid "Error while reading from file"
 #~ msgstr "ファイルを読み込む際にエラーが発生しました。"
 
-#~ msgid ""
-#~ "The file does not look like a text file or the file encoding is not "
-#~ "supported. Please check if the encoding of file is in the supported "
-#~ "encodings list. If not, add it from the preferences."
-#~ msgstr ""
-#~ "そのファイルはテキスト・ファイルではないか、あるいはそのファイルのエンコー"
-#~ "ディングはサポートされていません。ファイルのエンコーディングが \"サポート"
-#~ "するエンコーディング\" の一覧にあるかどうかを確認してください。無い場合は"
-#~ "設定から追加してください。"
+#~ msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
+#~ msgstr "そのファイルはテキスト・ファイルではないか、あるいはそのファイルのエンコーディングはサポートされていません。ファイルのエンコーディングが \"サポートするエンコーディング\" の一覧にあるかどうかを確認してください。無い場合は設定から追加してください。"
 
 #~ msgid ""
 #~ "Could not load file: %s\n"
@@ -11863,9 +11758,6 @@ msgstr "文字列"
 
 #~ msgid "Saving file..."
 #~ msgstr "ファイルの保存中..."
-
-#~ msgid "Could not save intermediate file %s: %s"
-#~ msgstr "%s というファイルを即座に保存できませんでした: %s"
 
 #~ msgid "File saved successfully"
 #~ msgstr "ファイルの保存が完了しました"
@@ -12110,13 +12002,11 @@ msgstr "文字列"
 #~ msgid ""
 #~ "This target does not have any profiling data.\n"
 #~ "\n"
-#~ "Please ensure that the target is complied with profiling support and that "
-#~ "it is run at least once."
+#~ "Please ensure that the target is complied with profiling support and that it is run at least once."
 #~ msgstr ""
 #~ "このターゲットにはプロファイルに必要なデータが格納されていません。\n"
 #~ "\n"
-#~ "プロファイルをサポートするようターゲットをコンパイルし、少なくとも一回は実"
-#~ "行しておいてください。"
+#~ "プロファイルをサポートするようターゲットをコンパイルし、少なくとも一回は実行しておいてください。"
 
 #~ msgid "Profiler"
 #~ msgstr "プロファイラー"
@@ -12223,8 +12113,7 @@ msgstr "文字列"
 #~ "プロジェクトのパス: %s\n"
 
 #~ msgid "This assistant will import an existing project into Anjuta."
-#~ msgstr ""
-#~ "このアシスタントは既存のプロジェクトを Anjuta に取り込むお手伝いをします。"
+#~ msgstr "このアシスタントは既存のプロジェクトを Anjuta に取り込むお手伝いをします。"
 
 #~ msgid "<b>Enter the project name:</b>"
 #~ msgstr "<b>プロジェクト名を入力してください:</b>"
@@ -12274,16 +12163,8 @@ msgstr "文字列"
 #~ msgid "Project Type"
 #~ msgstr "プロジェクトの種類"
 
-#~ msgid ""
-#~ "The Application Assistant will generate a basic skeleton for a project, "
-#~ "including all of the build files. It will ask for details of the initial "
-#~ "structure for the application. Please answer the questions carefully, as "
-#~ "it may not be possible to change some of the settings later."
-#~ msgstr ""
-#~ "このアシスタントでアプリケーションのビルドに必要なファイルをすべて生成しま"
-#~ "す。また、これから開発しようとするアプリケーションの初期構成についていろい"
-#~ "ろ質問します。あとで変更できない設定がいくつかあるので注意深く回答していっ"
-#~ "てください。"
+#~ msgid "The Application Assistant will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
+#~ msgstr "このアシスタントでアプリケーションのビルドに必要なファイルをすべて生成します。また、これから開発しようとするアプリケーションの初期構成についていろいろ質問します。あとで変更できない設定がいくつかあるので注意深く回答していってください。"
 
 #~ msgid "label"
 #~ msgstr "ラベル"
@@ -12300,11 +12181,8 @@ msgstr "文字列"
 #~ msgid "Use libglade for the UI"
 #~ msgstr "ユーザーインターフェースに libglade を利用する"
 
-#~ msgid ""
-#~ "Use the libglade-2.0 library to load the glade interface file at runtime"
-#~ msgstr ""
-#~ "libglade ライブラリを使いインターフェース定義ファイルを実行時に読み込める"
-#~ "ようにします"
+#~ msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
+#~ msgstr "libglade ライブラリを使いインターフェース定義ファイルを実行時に読み込めるようにします"
 
 #~ msgid "Program Parameters..."
 #~ msgstr "プログラムの引数..."
@@ -12484,9 +12362,7 @@ msgstr "文字列"
 #~ msgid "Valgrind"
 #~ msgstr "Valgrind"
 
-#~ msgid ""
-#~ "No executable target selected for debugging with Valgrind. Please select "
-#~ "one."
+#~ msgid "No executable target selected for debugging with Valgrind. Please select one."
 #~ msgstr "Valgrind でデバッグする実行形式を選択してください"
 
 #~ msgid ""
@@ -12541,11 +12417,8 @@ msgstr "文字列"
 #~ msgid "Failed to create child process '%s': %s"
 #~ msgstr "子プロセス '%s' の生成に失敗しました: %s"
 
-#~ msgid ""
-#~ "Reached the end of the input file or error in parsing valgrind output."
-#~ msgstr ""
-#~ "入力ファイルの最後に到達したか、あるいは Valgrind の出力を解析する際にエ"
-#~ "ラーが発生しました。"
+#~ msgid "Reached the end of the input file or error in parsing valgrind output."
+#~ msgstr "入力ファイルの最後に到達したか、あるいは Valgrind の出力を解析する際にエラーが発生しました。"
 
 #~ msgid "Process exited."
 #~ msgstr "プロセスが終了しました。"
@@ -12553,12 +12426,8 @@ msgstr "文字列"
 #~ msgid "Could not get the right valgrind-binary gconf key:"
 #~ msgstr "GConf から妥当な valgrind-binary キーを取得できませんでした:"
 
-#~ msgid ""
-#~ "Valgrind binary [%s] does not exist. Please check the preferences or "
-#~ "install Valgrind package."
-#~ msgstr ""
-#~ "Valgrind コマンド [%s] がありません。設定内容または Valgrind 本体のインス"
-#~ "トールを確認してください。"
+#~ msgid "Valgrind binary [%s] does not exist. Please check the preferences or install Valgrind package."
+#~ msgstr "Valgrind コマンド [%s] がありません。設定内容または Valgrind 本体のインストールを確認してください。"
 
 #~ msgid "Could not get the right pipe for the process."
 #~ msgstr "プロセスに対する妥当なパイプを取得できませんでした。"
@@ -12625,8 +12494,7 @@ msgstr "文字列"
 #~ msgstr "ログにタイムスタンプを付与する"
 
 #~ msgid "Call __libc_freeres() at exit before checking for memory leaks"
-#~ msgstr ""
-#~ "メモリリークをチェックする前に exit で __libc_freeres() 関数を呼び出す"
+#~ msgstr "メモリリークをチェックする前に exit で __libc_freeres() 関数を呼び出す"
 
 #~ msgid "Suppressions File:"
 #~ msgstr "抑止ファイル:"
