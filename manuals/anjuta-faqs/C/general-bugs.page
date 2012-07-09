@@ -4,7 +4,7 @@
 
   <info>
     <link type="guide" xref="index#faq-general"/>
-    <desc>Use GNOME bugzilla.</desc>
+    <desc>Use GNOME's issue tracker tool.</desc>
    
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
@@ -23,8 +23,8 @@
     </credit>
   </info>
 
-  <title>Where can I report bugs</title>
+  <title>Where to report bugs and enhancement requests</title>
 
-  <p>Please report bugs in <app href="http://bugzilla.gnome.org/browse.cgi?product=anjuta">GNOME Bugzilla</app>.</p>
+  <p>Please report bugs and enhancement requests in <app href="http://bugzilla.gnome.org/browse.cgi?product=anjuta">GNOME Bugzilla</app>.</p>
 
 </page>

@@ -4,7 +4,7 @@
 
   <info>
     <link type="guide" xref="index#faq-general"/>
-    <desc>You are encouraged to do it yourself.</desc>
+    <desc>Because nobody has written it yet.</desc>
     
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
@@ -23,10 +23,9 @@
     </credit>
   </info>
 
-  <title>Why doesn't <app>Anjuta</app> have my favourite XYZ feature?</title>
+  <title>Why does <app>Anjuta</app> not have my favourite feature?</title>
 
-  <p>Because you haven't added them ? This is free software. You are free to, even encouraged
-  to take the source code and add the features you need. If you don't think yourself to
-  be capable of doing that, file a request for enhancement or send a mail to the devel list.</p>
+  <p><app>Anjuta</app> is free and open source software. You are encouraged
+  to <link href="https://live.gnome.org/Git/Developers">take the source code</link> and add the features you would like to see. You can also <link xref="general-bugs">file an enhancement request</link> or send a message to the <link href="https://mail.gnome.org/mailman/listinfo/anjuta-devel-list">development mailing list</link> to discuss your ideas first.</p>
 
 </page>

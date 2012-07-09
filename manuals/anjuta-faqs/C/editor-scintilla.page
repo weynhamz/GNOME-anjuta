@@ -1,10 +1,11 @@
 <page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      xmlns:if="http://projectmallard.org/experimental/if/"
       type="topic"
       id="editor-scintilla">
 
   <info>
     <link type="guide" xref="index#faq-editor"/>
-    <desc>It is available now.</desc>
     
     <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
     <credit type="author">
@@ -13,15 +14,21 @@
     </credit>
   </info>
 
-  <title>How to use <app href="http://www.scintilla.org">Scintilla editor</app></title>
+  <title>How to use <app>Scintilla editor</app></title>
 
-  <p>It is available through the <app>anjuta-extras</app> package with can be download 
-  from the anjuta website. After you installed it you will be prompted to choose
-  an editor and you can set it as the default editor for this project.</p>
+  <p><app href="http://www.scintilla.org">Scintilla editor</app> is available through the package <sys>anjuta-extras</sys> package which can either be downloaded 
+  from the <link href="http://projects.gnome.org/anjuta/downloads.html">Anjuta website</link> or installed from the software management application of your distribution. After you have installed it you will be prompted to choose an editor and you can set it as the default editor for this project.</p>
+
+<if:choose>
+  <if:when test="if:supports('action:install')">
+    <note style="info package">
+      <p><link action="install:anjuta-extras" href="http://projects.gnome.org/anjuta/downloads.html" style="button">Install anjuta-extras</link></p>
+    </note>
+  </if:when>
+</if:choose>
 
   <note>
-    <p>The scintilla editor was not available in Anjuta 3.0 but it is now available
-    since Anjuta 3.1.</p>
+    <p><app>Scintilla Editor</app> is available since Anjuta version 3.2.</p>
   </note>
 
 </page>

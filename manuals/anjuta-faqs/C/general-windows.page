@@ -23,9 +23,9 @@
     </credit>
   </info>
 
-  <title>Is here/will there ever be <app>Anjuta</app> for MS Windows?</title>
+  <title>Is/will there be <app>Anjuta</app> for Microsoft Windows?</title>
 
-  <p>There is no native port for Windows and it most likely won't ever be.
-  However, if you are interested, feel free to contact us.</p>
+  <p>There is no native port for Microsoft Windows and most likely there will never be.
+  However, if you are interested, feel free to <link href="https://mail.gnome.org/mailman/listinfo/anjuta-list">contact us</link>.</p>
 
 </page>
