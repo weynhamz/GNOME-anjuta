@@ -156,30 +156,30 @@ anjuta_pkg_config_ignore_package (const gchar* name)
  */
 gchar* anjuta_pkg_config_get_version (const gchar* package)
 {
-  gchar *cmd;
+	gchar *cmd;
 	gchar *err;
 	gchar *out;
 	gint status;
-  GError* error;
+	GError* error = NULL;
 
 	cmd = g_strdup_printf ("pkg-config --modversion %s", package);
 
 	if (g_spawn_command_line_sync (cmd, &out, &err, &status, &error))
-  {
-    g_free (err);
-    g_free (cmd);
-    return out;
-  }
-  else
-  {
-    g_free (out);
-    g_free (err);
-    g_free (cmd);
-    if (error)
-    {
-      DEBUG_PRINT ("Could query package version: %s", error->message);
-      g_error_free (error);
-    }
-    return NULL;
-  }
+	{
+		g_free (err);
+		g_free (cmd);
+		return out;
+	}
+	else
+	{
+		g_free (out);
+		g_free (err);
+		g_free (cmd);
+		if (error)
+		{
+			DEBUG_PRINT ("Could query package version: %s", error->message);
+			g_error_free (error);
+		}
+		return NULL;
+	}
 }
