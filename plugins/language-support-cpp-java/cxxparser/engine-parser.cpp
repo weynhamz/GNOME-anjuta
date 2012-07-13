@@ -248,6 +248,13 @@ EngineParser::getNearestClassInCurrentScopeChainByFileLine (const char* full_fil
 			parent_iter =
 				ianjuta_symbol_query_search_parent_scope (_query_parent_scope,
 				                                          node, NULL);
+
+			if (ianjuta_symbol_get_int (IANJUTA_SYMBOL (iter), IANJUTA_SYMBOL_FIELD_ID, NULL) == 
+			    ianjuta_symbol_get_int (IANJUTA_SYMBOL (parent_iter), IANJUTA_SYMBOL_FIELD_ID, NULL))
+			{
+				break;
+			}			    
+			
 			g_object_unref (iter);
 			iter = parent_iter;
 		} while (iter);
