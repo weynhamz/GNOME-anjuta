@@ -152,7 +152,7 @@ EngineParser::setSymbolManager (IAnjutaSymbolManager *manager)
 	static IAnjutaSymbolField query_scope_fields[] =
 	{
 		IANJUTA_SYMBOL_FIELD_ID, IANJUTA_SYMBOL_FIELD_NAME,
-		IANJUTA_SYMBOL_FIELD_SIGNATURE
+		IANJUTA_SYMBOL_FIELD_SIGNATURE, IANJUTA_SYMBOL_FIELD_TYPE
 	};
 	static IAnjutaSymbolField query_search_in_scope_fields[] =
 	{
