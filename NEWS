@@ -1,3 +1,36 @@
+Anjuta 3.5.4 "Irgendwas ist immer" -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.4.x!
+
+Alexander Shopov (2):
+      Updated Bulgarian translation
+      Updated Bulgarian translation
+
+Andika Triwidada (1):
+      Updated Indonesian translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Johannes Schmid (2):
+      Post-release version bump
+      libanjuta: Fix memory corruption in AnjutaPkgConfig (bgo#679827)
+
+Ken Shibata (1):
+      [l10n] Update Japanese translation
+
+Kjartan Maraas (1):
+      Updated Norwegian bokmål translation
+
+Massimo Corà (3):
+      cxxparser: avoid infinite loop. Fixed bgo#679772
+      cxxparser: improved code checks to avoid leaks.
+      cxxparser: fixed warning on query field retrieving.
+
+Moritz Lüdecke (1):
+      improve calltips in vala plugin
+
 Anjuta 3.5.3 "Pizza" (25 July 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
