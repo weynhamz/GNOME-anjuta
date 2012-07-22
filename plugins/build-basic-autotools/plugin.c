@@ -1167,7 +1167,7 @@ build_get_context_with_message(BasicAutotoolsPlugin *plugin, const gchar *dir)
 
 BuildContext*
 build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
-		   gboolean with_view)
+                   gboolean with_view, gboolean check_passwd)
 {
 	BuildContext *context = NULL;
 	AnjutaPluginManager *plugin_manager;
@@ -1205,6 +1205,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	}
 
 	context->launcher = anjuta_launcher_new ();
+	anjuta_launcher_set_check_passwd_prompt (context->launcher, check_passwd);
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
 	build_context_push_dir (context, "default", dir);
@@ -2393,7 +2394,6 @@ static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
-	AnjutaUI *ui;
 	GObject *editor;
 
 	editor = g_value_get_object (value);
@@ -2402,7 +2402,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		return;
 
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	ba_plugin->current_editor = IANJUTA_EDITOR (editor);
 

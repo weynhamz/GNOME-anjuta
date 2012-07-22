@@ -92,7 +92,7 @@ struct _BasicAutotoolsPluginClass{
 
 typedef struct _BuildContext BuildContext;
 
-BuildContext* build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir, gboolean with_view);
+BuildContext* build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir, gboolean with_view, gboolean check_passwd);
 void build_context_destroy (BuildContext *context);
 
 void build_set_command_in_context (BuildContext* context, BuildProgram *prog);
