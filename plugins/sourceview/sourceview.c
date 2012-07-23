@@ -43,6 +43,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-hover.h>
 #include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
+#include <libanjuta/interfaces/ianjuta-language-provider.h>
 #include <libanjuta/interfaces/ianjuta-provider.h>
 
 #include <gtksourceview/gtksourceview.h>
@@ -2315,9 +2316,19 @@ static void
 iassist_proposals(IAnjutaEditorAssist* iassist,
                   IAnjutaProvider* provider,
                   GList* proposals,
+                  const gchar* pre_word,
                   gboolean finished,
                   GError** e)
 {
+	/* Hide if the only suggetions is exactly the typed word */
+	if (pre_word && proposals && g_list_length (proposals) == 1)
+	{
+		IAnjutaEditorAssistProposal* proposal = proposals->data;
+		IAnjutaLanguageProviderProposalData* data = proposal->data;
+		if (g_str_equal (pre_word, data->name))
+			proposals = NULL;
+	}
+	
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
 	GList* node;
