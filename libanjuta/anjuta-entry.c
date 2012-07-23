@@ -246,7 +246,6 @@ anjuta_entry_class_init (AnjutaEntryClass *klass)
 
 /**
  * anjuta_entry_new:
- * @self: An AnjutaEntry
  *
  * Creates a new AnjutaEntry.
  */

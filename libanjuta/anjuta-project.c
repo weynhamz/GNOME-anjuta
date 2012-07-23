@@ -1012,7 +1012,8 @@ anjuta_project_group_compare (AnjutaProjectNode *node, gpointer data)
 
 /**
  * anjuta_project_node_get_group_from_file:
- * @func: (scope call):
+ * @root: the root node
+ * @directory: Directory to search in
  *
  * Returns: (transfer none):
  */
@@ -1068,7 +1069,8 @@ anjuta_project_source_compare (AnjutaProjectNode *node, gpointer data)
 
 /**
  * anjuta_project_node_get_source_from_file:
- * @func: (scope call):
+ * @parent: the parent node
+ * @file: The file to query the source for
  *
  * Returns: (transfer none):
  */

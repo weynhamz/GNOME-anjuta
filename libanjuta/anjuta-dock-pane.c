@@ -239,7 +239,7 @@ anjuta_dock_pane_notify_single_selection_changed (AnjutaDockPane *self)
 
 /**
  * anjuta_dock_pane_notify_multiple_selection_changed:
- * @pane: An AnjutaDockPane 
+ * @self: An AnjutaDockPane 
  *
  * Emits the multiple-selection-changed signal.
  */

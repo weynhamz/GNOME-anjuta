@@ -21,9 +21,12 @@
 #ifndef ANJUTA_PLUGIN_PARSER_H
 #define ANJUTA_PLUGIN_PARSER_H
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
+
+#define ANJUTA_TYPE_PLUGIN_DESCRIPTION		(anjuta_project_property_get_type ())
+#define ANJUTA_IS_PLUGIN_DESCIRPTION(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_DESCRIPTION))
 
 typedef struct _AnjutaPluginDescription AnjutaPluginDescription;
 
@@ -59,6 +62,7 @@ typedef enum
 
 GQuark anjuta_plugin_description_parse_error_quark (void);
 
+GType anjuta_plugin_description_get_type (void);
 
 AnjutaPluginDescription* anjuta_plugin_description_new (const gchar *filename,
 														GError **error);
@@ -69,6 +73,7 @@ AnjutaPluginDescription* anjuta_plugin_description_new_from_string (gchar *data,
 gchar* anjuta_plugin_description_to_string (AnjutaPluginDescription *df);
 
 void anjuta_plugin_description_free (AnjutaPluginDescription *df);
+AnjutaPluginDescription *anjuta_plugin_description_copy (AnjutaPluginDescription *df);
 
 void anjuta_plugin_description_foreach_section (AnjutaPluginDescription *df,
 												AnjutaPluginDescriptionSectionFunc func,

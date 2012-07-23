@@ -197,7 +197,7 @@ anjuta_util_button_new_with_stock_image (const gchar* text,
 		gtk_label_set_mnemonic_widget (GTK_LABEL (label), GTK_WIDGET (button));
 
 		image = gtk_image_new_from_stock (stock_id, GTK_ICON_SIZE_BUTTON);
-      		hbox = gtk_hbox_new (FALSE, 2);
+      		hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 
       		align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
 
@@ -455,7 +455,7 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	gtk_widget_show (frame);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 
-	vbox = gtk_vbox_new (FALSE, 0);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_widget_show (vbox);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
@@ -622,10 +622,8 @@ anjuta_util_glist_from_string (const gchar *string)
 	gchar *str, *temp, buff[256];
 	GList *list;
 	gchar *word_start, *word_end;
-	gboolean the_end;
 
 	list = NULL;
-	the_end = FALSE;
 	temp = g_strdup (string);
 	str = temp;
 	if (!str)
@@ -1191,7 +1189,6 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 {
 	pid_t pid;
 	gchar *shell;
-	gint err;
 
 	g_return_val_if_fail (command != NULL, -1);
 
@@ -1202,7 +1199,7 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 		if(dir)
 		{
 			anjuta_util_create_dir (dir);
-			err = chdir (dir);
+			chdir (dir);
 		}
 		execlp (shell, shell, "-c", command, NULL);
 		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
@@ -1222,7 +1219,6 @@ anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command)
 	pid_t pid;
 	gchar *shell;
 	gchar **term_argv;
-	gint err;
 
 	g_return_val_if_fail (command != NULL, -1);
 
@@ -1234,7 +1230,7 @@ anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command)
 		if(dir)
 		{
 			anjuta_util_create_dir (dir);
-			err = chdir (dir);
+			chdir (dir);
 		}
 		execlp (term_argv[0], term_argv[0], term_argv[1], shell, "-c", command, NULL);
 		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
@@ -2422,11 +2418,10 @@ anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,
 /**
  * anjuta_utils_drop_get_files:
  * @selection_data: the #GtkSelectionData from drag_data_received
- * @info: the info from drag_data_received
  *
  * Create a list of valid uri's from a uri-list drop.
  *
- * Return value: a list of GFiles
+ * Return value: (element-type GFile*): a list of GFiles
  */
 GSList*
 anjuta_utils_drop_get_files (GtkSelectionData *selection_data)

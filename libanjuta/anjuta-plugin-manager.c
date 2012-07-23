@@ -534,15 +534,10 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	AnjutaPluginManagerPriv *priv;
 	IAnjutaPluginFactory* factory;
 	AnjutaPlugin *plugin;
-	const gchar *plugin_id;
 	const gchar *language;
-	gboolean resident;
 	
 	priv = plugin_manager->priv;
 	
-	plugin_id = anjuta_plugin_handle_get_id (handle);
-	
-	resident = anjuta_plugin_handle_get_resident (handle);
 	language = anjuta_plugin_handle_get_language (handle);
 	
 	factory = get_plugin_factory (plugin_manager, language, error);
@@ -1147,11 +1142,11 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 	GtkWidget *tree;
 	GtkWidget *scrolled;
 	GtkWidget *toolbar;
-	GtkWidget *toolitem;
+	GtkToolItem *toolitem;
 	GtkListStore *store;
 	
 	/* Plugins page */
-	vbox = gtk_vbox_new (FALSE, 0);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
@@ -1171,7 +1166,7 @@ anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 
 	toolitem = gtk_tool_item_new ();
 	gtk_toolbar_insert (GTK_TOOLBAR (toolbar), GTK_TOOL_ITEM (toolitem), 0);
-	gtk_widget_show (toolitem);
+	gtk_widget_show (GTK_WIDGET(toolitem));
 
 	checkbutton = gtk_check_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Only show user activatable plugins"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
@@ -1210,7 +1205,7 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	GtkTreeSelection *selection;
 
 	/* Remembered plugin */
-	vbox = gtk_vbox_new (FALSE, 10);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	
 	display_label = gtk_label_new (dgettext (GETTEXT_PACKAGE, "These are the plugins selected by you "
@@ -1236,7 +1231,7 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	g_object_set_data (G_OBJECT (store), "plugin-manager", plugin_manager);
 	populate_remembered_plugins_model (plugin_manager, store);
 	
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	forget_button = gtk_button_new_with_label (dgettext (GETTEXT_PACKAGE, "Forget selected plugin"));
@@ -2570,11 +2565,9 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 		if (anjuta_plugin_description_get_string (d, "Anjuta Plugin",
 												  "Location", &plugin_id))
 		{
-			GObject *plugin_obj;
-			
-			plugin_obj =
-				anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
-														plugin_id);
+			/* Activate the plugin */
+			anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+			                                        plugin_id);
 			g_free (plugin_id);
 		}
 		

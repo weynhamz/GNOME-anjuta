@@ -141,7 +141,7 @@ anjuta_dock_new (void)
  * @pane_label: Label to display in this pane's grip 
  * @pane: The #AnjutaDockPane to add to the dock. The dock takes ownership of
  *		  the pane object.
- * @stock_id: Stock icon to display in this pane's grip
+ * @stock_icon: Stock icon to display in this pane's grip
  * @placement: A #GdlDockPlacement value indicating where the pane should be
  *			   placed
  * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
@@ -179,7 +179,7 @@ anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
  * @self: An AnjutaDock
  * @pane_name: A unique name for this pane
  * @pane_label: Label to display in this pane's grip 
- * @stock_id: Stock icon to display in this pane's grip
+ * @stock_icon: Stock icon to display in this pane's grip
  * @pane: The #AnjutaDockPane to add to the dock. The dock takes ownership of
  *		  the pane object.
  * @placement: A #GdlDockPlacement value indicating where the pane should be
@@ -255,7 +255,7 @@ anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
  * @pane_label: Label to display in this pane's grip 
  * @pane: The #AnjutaDockPane to add to the dock. The dock takes ownership of
  *		  the pane object.
- * @stock_id: Stock icon to display in this pane's grip
+ * @stock_icon: Stock icon to display in this pane's grip
  * @placement: A #GdlDockPlacement value indicating where the pane should be
  *			   placed
  * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
@@ -289,7 +289,7 @@ anjuta_dock_replace_command_pane (AnjutaDock *self,
 /**
  * anjuta_dock_remove_pane:
  * @self An AnjutaDock
- * @pane_name: Name of the pane to remove
+ * @pane: Name of the pane to remove
  *
  * Removes a pane from a dock
  */
@@ -344,7 +344,7 @@ anjuta_dock_show_pane (AnjutaDock *self, AnjutaDockPane *pane)
 /**
  * anjuta_dock_hide_pane:
  * @self: An AnjutaDock
- * @pane_name: Name of the pane to hide
+ * @pane: Name of the pane to hide
  *
  * Makes the given pane invisible
  */

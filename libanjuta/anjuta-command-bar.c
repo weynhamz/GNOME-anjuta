@@ -276,7 +276,7 @@ anjuta_command_bar_get_action_group (AnjutaCommandBar *self,
  * anjuta_command_bar_get_action:
  * @self: An AnjutaCommandBar
  * @group_name: The name of the #GtkActionGroup to look for the action in
- * @action: The name of the action
+ * @action_name: The name of the action
  *
  * Retrieves a #GtkAction object in the given group with the given name
  */

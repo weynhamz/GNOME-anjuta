@@ -458,7 +458,7 @@ anjuta_session_get_string_list (AnjutaSession *session,
  * anjuta_session_get_relative_uri_from_file:
  * @session: an #AnjutaSession object
  * @file: a GFile
- * @fragme: an optional fragment
+ * @fragment: an optional fragment
  *
  * Return an URI relative to the session directory file with an optional
  * fragment.

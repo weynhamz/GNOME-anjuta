@@ -256,7 +256,6 @@ escape_string (const gchar *str, gboolean escape_first_space)
   gchar *res;
   char *q;
   const gchar *p;
-  const gchar *end;
 
   /* len + 1 is enough, because unescaping never makes the
    * string longer */
@@ -264,7 +263,6 @@ escape_string (const gchar *str, gboolean escape_first_space)
   
   p = str;
   q = res;
-  end = str + strlen (str);
 
   while (*p)
     {
@@ -560,6 +558,27 @@ report_error (AnjutaPluginDescriptionParser *parser,
 			      "Error at line %d: %s", parser->line_nr, message);
     }
 }
+
+AnjutaPluginDescription*
+anjuta_plugin_description_copy (AnjutaPluginDescription *df)
+{
+	return anjuta_plugin_description_new_from_string (anjuta_plugin_description_to_string (df),
+	                                                  NULL);
+}
+
+GType 
+anjuta_plugin_description_get_type (void)
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaPluginDescription",
+		                                        (GBoxedCopyFunc) anjuta_plugin_description_copy,
+		                                        (GBoxedFreeFunc) anjuta_plugin_description_free);
+
+	return type_id;
+}
+
 
 /**
  * anjuta_plugin_description_new_from_string:

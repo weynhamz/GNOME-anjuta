@@ -811,7 +811,7 @@ anjuta_token_prepend_items (AnjutaToken *list, AnjutaToken *item)
 /**
  * anjuta_token_insert_after:
  * @sibling: a #AnjutaToken object.
- * @item: a #AnjutaToken object.
+ * @list: a #AnjutaToken object.
  *
  * Insert all tokens after sibling.
  *
@@ -877,7 +877,7 @@ anjuta_token_insert_after (AnjutaToken *sibling, AnjutaToken *list)
 /**
  * anjuta_token_insert_before:
  * @sibling: a #AnjutaToken object.
- * @item: a #AnjutaToken object.
+ * @list: a #AnjutaToken object.
  *
  * Insert all tokens before sibling.
  *
