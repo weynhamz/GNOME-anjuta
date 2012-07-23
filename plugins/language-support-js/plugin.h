@@ -21,6 +21,7 @@
 #define _JS_SUPPORT_PLUGIN_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-language-provider.h>
 
 #include "database-symbol.h"
 
@@ -32,12 +33,15 @@ struct _JSLang{
 	gint editor_watch_id;
 	GObject *current_editor;
 //	gchar *current;
-	gpointer last;
 //	GList *complition_cache;
 //	gint uiid;
-	GSettings *prefs;
 	DatabaseSymbol* symbol;
+	AnjutaLanguageProvider *lang_prov;
 //	GtkActionGroup *action_group;
+
+	/* Preferences */
+	GtkBuilder* bxml;
+	GSettings* prefs;
 };
 
 struct _JSLangClass{

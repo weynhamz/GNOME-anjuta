@@ -65,7 +65,7 @@ libjs_support_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(XML_LIBS)
 
-gsettings_in_file = org.gnome.anjuta.js.gschema.xml.in
+gsettings_in_file = org.gnome.anjuta.plugins.js.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @INTLTOOL_XML_NOMERGE_RULE@
 @GSETTINGS_RULES@

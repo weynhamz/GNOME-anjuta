@@ -1,0 +1,31 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.plugins.js" path="/org/gnome/anjuta/plugins/js/">
+		<key name="javascript-girdir" type="s">
+			<default>""</default>
+		</key>
+		<key name="javascript-gjsdir" type="s">
+			<default>""</default>
+		</key>
+		<key name="javascript-min-codecomplete" type="i">
+			<default>3</default>
+		</key>
+		<key name="javascript-missed" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-enable" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-space-after-func" type="b">
+			<default>false</default>
+		</key>
+		<key name="completion-brace-after-func" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-closebrace-after-func" type="b">
+			<default>false</default>
+		</key>
+		<key name="calltip-enable" type="b">
+			<default>true</default>
+		</key>
+	</schema>
+</schemalist>
