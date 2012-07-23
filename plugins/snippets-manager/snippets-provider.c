@@ -640,7 +640,7 @@ snippets_provider_populate (IAnjutaProvider *self,
 	/* If we aren't listening */
 	if (!priv->listening)
 	{
-		ianjuta_editor_assist_proposals (priv->editor_assist, self, NULL, TRUE, NULL);
+		ianjuta_editor_assist_proposals (priv->editor_assist, self, NULL, NULL, TRUE, NULL);
 		return;
 	}
 
@@ -669,7 +669,7 @@ snippets_provider_populate (IAnjutaProvider *self,
 	if (priv->suggestions_list == NULL)
 	{
 		stop_listening (snippets_provider);
-		ianjuta_editor_assist_proposals (priv->editor_assist, self, NULL, TRUE, NULL);
+		ianjuta_editor_assist_proposals (priv->editor_assist, self, NULL, NULL, TRUE, NULL);
 		return;
 	}
 
@@ -686,7 +686,7 @@ snippets_provider_populate (IAnjutaProvider *self,
 	ianjuta_editor_assist_proposals (priv->editor_assist,
 	                                 self,
 	                                 priv->suggestions_list,
-	                                 TRUE, NULL);
+	                                 NULL, TRUE, NULL);
 
 }
 
