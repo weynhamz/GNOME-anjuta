@@ -6,10 +6,13 @@
 		<key name="completion-enable" type="b">
 			<default>true</default>
 		</key>
-		<key name="completion-func-space" type="b">
+		<key name="completion-space-after-func" type="b">
 			<default>true</default>
 		</key>
-		<key name="completion-func-brace" type="b">
+		<key name="completion-brace-after-func" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-closebrace-after-func" type="b">
 			<default>true</default>
 		</key>
 		<key name="calltip-enable" type="b">

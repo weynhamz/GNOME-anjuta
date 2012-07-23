@@ -28,9 +28,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/anjuta-shell.h>
 
 #include "python-assist.h"
@@ -58,8 +56,6 @@ struct _PythonPlugin{
 	const gchar *current_language;
 
 	gchar *project_root_directory;
-	gchar *current_editor_filename;
-	gchar *current_fm_filename;
 
 	/* Watches */
 	gint project_root_watch_id;

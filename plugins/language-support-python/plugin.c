@@ -34,7 +34,6 @@
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -241,12 +240,8 @@ install_support (PythonPlugin *lang_plugin)
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 		                            IAnjutaSymbolManager,
 		                            NULL);
-	IAnjutaDocumentManager* docman =
-		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
-		                            IAnjutaDocumentManager,
-		                            NULL);
 
-	if (!lang_manager || !sym_manager || !docman)
+	if (!lang_manager || !sym_manager)
 		return;
 
 	if (lang_plugin->support_installed)
@@ -267,27 +262,23 @@ install_support (PythonPlugin *lang_plugin)
 	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) )
 	{
 		AnjutaPlugin *plugin;
-		IAnjutaEditorAssist* iassist;
+		IAnjutaEditor* ieditor;
 
 		const gchar *project_root;
-		gchar *editor_filename;
 
 		check_support (lang_plugin);
 
 		plugin = ANJUTA_PLUGIN (lang_plugin);
-		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
+		ieditor = IANJUTA_EDITOR (lang_plugin->current_editor);
 
 		g_assert (lang_plugin->assist == NULL);
 
 		project_root = ANJUTA_PLUGIN_PYTHON(plugin)->project_root_directory;
-		editor_filename = ANJUTA_PLUGIN_PYTHON(plugin)->current_editor_filename;
 
-		lang_plugin->assist = python_assist_new (iassist,
+		lang_plugin->assist = python_assist_new (ieditor,
 		                                         sym_manager,
-		                                         docman,
-		                                         plugin,
 		                                         lang_plugin->settings,
-		                                         editor_filename,
+		                                         plugin,
 		                                         project_root);
 	}
 
@@ -355,16 +346,6 @@ on_editor_added (AnjutaPlugin *plugin, const gchar *name,
 	}
 	if (lang_plugin->current_editor)
 	{
-		IAnjutaEditor* editor = IANJUTA_EDITOR (lang_plugin->current_editor);
-		GFile* current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor),
-		                                                    NULL);
-
-		if (current_editor_file)
-		{
-			lang_plugin->current_editor_filename = g_file_get_path (current_editor_file);
-			g_object_unref (current_editor_file);
-		}
-
 		install_support (lang_plugin);
 		g_signal_connect (lang_plugin->current_editor, "language-changed",
 		                  G_CALLBACK (on_editor_language_changed),
@@ -386,9 +367,6 @@ on_editor_removed (AnjutaPlugin *plugin, const gchar *name,
 
 	uninstall_support (lang_plugin);
 
-
-	g_free (lang_plugin->current_editor_filename);
-	lang_plugin->current_editor_filename = NULL;
 	lang_plugin->current_editor = NULL;
 	lang_plugin->current_language = NULL;
 }
@@ -456,16 +434,16 @@ python_plugin_activate (AnjutaPlugin *plugin)
 
 	/* Add watches */
 	python_plugin->project_root_watch_id = anjuta_plugin_add_watch (plugin,
-																 IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-																 on_project_root_added,
-																 on_project_root_removed,
-																 NULL);
+									IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+									on_project_root_added,
+									on_project_root_removed,
+									NULL);
 
 	python_plugin->editor_watch_id = anjuta_plugin_add_watch (plugin,
-														   IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-														   on_editor_added,
-														   on_editor_removed,
-														   NULL);
+									IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+									on_editor_added,
+									on_editor_removed,
+									NULL);
 	return TRUE;
 }
 
@@ -542,20 +520,50 @@ python_plugin_class_init (GObjectClass *klass)
 	klass->dispose = python_plugin_dispose;
 }
 
+#define PREF_WIDGET_SPACE "preferences:completion-space-after-func"
+#define PREF_WIDGET_BRACE "preferences:completion-brace-after-func"
+#define PREF_WIDGET_CLOSEBRACE "preferences:completion-closebrace-after-func"
+#define PREF_WIDGET_AUTO "preferences:completion-enable"
+
+static void
+on_autocompletion_toggled (GtkToggleButton* button,
+                           PythonPlugin* plugin)
+{
+    GtkWidget* widget;
+    gboolean sensitive = gtk_toggle_button_get_active (button);
+
+    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_SPACE));
+    gtk_widget_set_sensitive (widget, sensitive);
+    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_BRACE));
+    gtk_widget_set_sensitive (widget, sensitive);
+    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_CLOSEBRACE));
+    gtk_widget_set_sensitive (widget, sensitive);
+}
 
 static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					GError** e)
 {
 	/* Add preferences */
+	GError* error = NULL;
 	PythonPlugin* plugin = ANJUTA_PLUGIN_PYTHON (ipref);
 	plugin->bxml = gtk_builder_new ();
-	gtk_builder_add_from_file (plugin->bxml, PROPERTIES_FILE_UI, NULL);
+    GtkWidget* toggle;
+    
+	if (!gtk_builder_add_from_file (plugin->bxml, PROPERTIES_FILE_UI, &error))
+	{
+        g_warning ("Couldn't load builder file: %s", error->message);
+        g_error_free (error);
+	}
 	anjuta_preferences_add_from_builder (prefs,
 	                                     plugin->bxml,
 	                                     plugin->settings,
 	                                     "preferences", _("Python"),
 	                                     ICON_FILE);
+    toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_AUTO));
+    g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
+                      plugin);
+    on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
 }
 
 static void
