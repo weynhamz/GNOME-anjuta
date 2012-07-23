@@ -82,7 +82,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 			proposals.prepend(prop);
 		}
 		proposals.reverse();
-		editor.proposals(this, proposals, true);
+		editor.proposals(this, proposals, null, true);
 	}
 	public unowned IAnjuta.Iterable get_start_iter () throws GLib.Error {
 		return start_pos;
