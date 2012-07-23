@@ -56,6 +56,8 @@ libanjuta_3_la_SOURCES= \
 	anjuta-profile-manager.h \
 	anjuta-ui.c \
 	anjuta-ui.h \
+	anjuta-language-provider.c \
+	anjuta-language-provider.h \
 	anjuta-launcher.c \
 	anjuta-launcher.h \
 	anjuta-utils.c \

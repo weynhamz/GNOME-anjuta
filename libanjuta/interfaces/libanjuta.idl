@@ -2079,7 +2079,7 @@ interface IAnjutaEditor
 		gboolean visible();
 	}
 
-  /**
+	/**
 	 * SECTION:ianjuta-editor-assist
 	 * @title: IAnjutaEditorAssist
 	 * @short_description: Text editor assist interface
@@ -2102,7 +2102,7 @@ interface IAnjutaEditor
         gpointer data;
      }
 
-     /**
+    /**
 	 * IAnjutaEditorAssist::cancelled
 	 * @obj: Self
 	 *
@@ -2149,6 +2149,7 @@ interface IAnjutaEditor
       * @obj: self
       * @provider: a IAnjutaProvider
       * @proposals: (element-type IAnjutaEditorAssistProposal): a list of IAnjutaProposals
+      * @pre_word: the word before the cursor
       * @finished: whether is was the last call in an async operation
       * @err: Error handling
       *
@@ -2158,7 +2159,7 @@ interface IAnjutaEditor
       * ianjuta_provider_populate()
       *
       */
-      void proposals(IAnjutaProvider* provider, GList* proposals, gboolean finished);
+      void proposals(IAnjutaProvider* provider, GList* proposals, const gchar* pre_word, gboolean finished);
 	}
 
 	/**
@@ -2668,7 +2669,126 @@ interface IAnjutaProvider
 	 * Return a (translatable) name for the provider
 	 */
 	const gchar* get_name();
+	
+	/**
+	 * SECTION:ianjuta-language-provider
+	 * @title: IAnjutaLanguageProvider
+	 * @short_description: Provider for autocompletion features
+	 * @see_also:
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-language-provider.h
+	 */
+	interface IAnjutaLanguageProvider
+	{
+		#include "ianjuta-editor.h"
+		#include "ianjuta-iterable.h"
+		#include "ianjuta-symbol.h"
+		
+		/**
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_CALLTIP_ENABLE
+		 *
+		 * Boolean key, true is calltips has to be shown.
+		 */
+		 #define PREF_CALLTIP_ENABLE                      "calltip-enable"
+		 
+		/**
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_ENABLE
+		 *
+		 * Boolean key, true is code completion is enable.
+		 */
+		 #define PREF_AUTOCOMPLETE_ENABLE                 "completion-enable"
+		 
+		/**
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC
+		 *
+		 * Boolean key, true is adding a space after function call autocompletion
+		 */
+		 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC       "completion-space-after-func"
+		 
+		/**
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC
+		 *
+		 * Boolean key, true is adding '(' after function call autocompletion
+		 */
+		 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC       "completion-brace-after-func"
+		 
+		/**
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_CLOSEBRACE_AFTER_FUNC
+		 *
+		 * Boolean key, true is adding ')' after function call autocompletion
+		 */
+		 #define PREF_AUTOCOMPLETE_CLOSEBRACE_AFTER_FUNC  "completion-closebrace-after-func"
+		 
+		/**
+		 * IAnjutaLanguageProviderProposalData:
+		 * @name: Name of the object
+		 * @info: Info about the object
+		 * @is_func: If this is a function
+		 * @has_para: If the function has at least one parameters
+		 * @type: Type of the object
+		 */
+		struct ProposalData
+		{
+			gchar* name;
+			gchar *info;
+			gboolean is_func;
+			gboolean has_para;
+			IAnjutaSymbolType type;
+		}
 
+		/**
+		 * ianjuta_language_provider_get_calltip_cache:
+		 * @obj: Self
+		 * @call_context: name of the method to show a calltip
+		 * @err: Error propagation
+		 *
+		 * Searches for a calltip in the cache
+		 *
+		 * Returns: (element-type utf8) (transfer container): tips for the
+		 *          searched name of the method from the cache,
+		 *          NULL if nothing found
+		 */
+		List<gchar*> get_calltip_cache (gchar* call_context);
+		 
+		/**
+		 * ianjuta_language_provider_get_calltip_context:
+		 * @obj: Self
+		 * @iter: current cursor position
+		 * @err: Error propagation
+		 *
+		 * Searches for a calltip context
+		 *
+		 * Returns: name of the method to show a calltip for or NULL
+		 */
+		gchar* get_calltip_context (IAnjutaIterable* iter);
+		 
+		/**
+		 * ianjuta_language_provider_new_calltip:
+		 * @obj: Self
+		 * @call_context: name of the method to create a new calltip
+		 * @iter: current cursor position
+		 * @err: Error propagation
+		 *
+		 * Creates a new calltip
+		 */
+		void new_calltip (gchar* call_context, IAnjutaIterable* iter);
+		 
+		/**
+		 * ianjuta_language_provider_populate_language:
+		 * @obj: Self
+		 * @iter: the text iter where the provider should be populated
+		 * @err: Error propagation and reporting.
+		 *
+		 * Show completion for the context at position @iter. The provider should
+		 * call ianjuta_editor_assist_proposals here to add proposals to the list.
+		 *
+		 * Note that this is called after every character typed and the list of proposals
+		 * has to be completely renewed.
+		 *
+		 * Returns: (transfer full): the iter where the provider populated, NULL otherwise
+		 */
+		IAnjutaIterable* populate_language (IAnjutaIterable* iter);
+	}
 }
 
 /**
@@ -6593,42 +6713,40 @@ typedef gint Id;
 	 */
 	 List<const gchar*> get_mime_types(Id id);
 
-	 /**
-	  * ianjuta_language_get_from_editor:
-	  * @obj: Self
-	  * @editor: An object implementing IAnjutaEditorLanguage
-	  * @err: Error propagation
-	  *
-	  * Conviniece method to get the id directly from the editor
-	  *
-	  * Returns: A valid language id or 0
-	  */
+	/**
+	 * ianjuta_language_get_from_editor:
+	 * @obj: Self
+	 * @editor: An object implementing IAnjutaEditorLanguage
+	 * @err: Error propagation
+	 *
+	 * Conviniece method to get the id directly from the editor
+	 *
+	 * Returns: A valid language id or 0
+	 */
+	 IAnjutaLanguageId get_from_editor (IAnjutaEditorLanguage* editor);
 
-	  IAnjutaLanguageId get_from_editor (IAnjutaEditorLanguage* editor);
+	/**
+	 * ianjuta_language_get_name_from_editor:
+	 * @obj: Self
+	 * @editor: An object implementing IAnjutaEditorLanguage
+	 * @err: Error propagation
+	 *
+	 * Conviniece method to get the name directly from the editor
+	 *
+	 * Returns: A language name or NULL
+	 */
+	 const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
 
-	 /**
-	  * ianjuta_language_get_name_from_editor:
-	  * @obj: Self
-	  * @editor: An object implementing IAnjutaEditorLanguage
-	  * @err: Error propagation
-	  *
-	  * Conviniece method to get the name directly from the editor
-	  *
-	  * Returns: A language name or NULL
-	  */
-
-	  const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
-
-	  /**
-	   * ianjuta_language_get_languages:
-	   * @obj: Self
-	   * @err: Error propagation
-	   *
-	   * Returns: (element-type int) (transfer container): a list of ids of the available
-	   * languages. Use GPOINTER_TO_INT() to receive them. The list but not the
-	   * values should be free'd with g_list_free()
-	   */
-	   GList* get_languages ();
+	/**
+	 * ianjuta_language_get_languages:
+	 * @obj: Self
+	 * @err: Error propagation
+	 *
+	 * Returns: (element-type int) (transfer container): a list of ids of the available
+	 * languages. Use GPOINTER_TO_INT() to receive them. The list but not the
+	 * values should be free'd with g_list_free()
+	 */
+	 GList* get_languages ();
 }
 
 /**
@@ -6660,5 +6778,3 @@ interface IAnjutaIndenter
 	 */
 	 void indent (IAnjutaIterable* start, IAnjutaIterable* end);
 }
-
-
