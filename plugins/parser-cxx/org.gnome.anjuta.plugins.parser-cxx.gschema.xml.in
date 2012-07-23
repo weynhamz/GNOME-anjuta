@@ -1,0 +1,22 @@
+<schemalist>
+	<schema id="org.gnome.anjuta.plugins.parser-cxx" path="/org/gnome/anjuta/plugins/parser-cxx/">
+		<key name="user-packages" type="s">
+			<default>""</default>
+		</key>
+		<key name="completion-enable" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-space-after-func" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-brace-after-func" type="b">
+			<default>true</default>
+		</key>
+		<key name="completion-closebrace-after-func" type="b">
+			<default>true</default>
+		</key>
+		<key name="calltip-enable" type="b">
+			<default>true</default>
+		</key>
+	</schema>
+</schemalist>

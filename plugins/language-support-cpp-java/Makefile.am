@@ -1,5 +1,3 @@
-SUBDIRS = cxxparser
-
 # Plugin glade file
 cpp_java_gladedir = $(anjuta_glade_dir)
 cpp_java_glade_DATA = anjuta-language-cpp-java.ui
@@ -48,20 +46,14 @@ plugin_LTLIBRARIES = libanjuta-language-cpp-java.la
 libanjuta_language_cpp_java_la_SOURCES = \
 	plugin.c \
 	plugin.h \
-	cpp-java-assist.h \
-	cpp-java-assist.c \
 	cpp-packages.c \
 	cpp-packages.h
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
-# Use C++ linking
-nodist_EXTRA_libanjuta_language_cpp_java_la_SOURCES = dummy.cxx
-
 # Plugin dependencies
 libanjuta_language_cpp_java_la_LIBADD = \
-	$(LIBANJUTA_LIBS) \
-	cxxparser/libcxxparser.la
+	$(LIBANJUTA_LIBS)
 	
 gsettings_in_file = org.gnome.anjuta.plugins.cpp.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)

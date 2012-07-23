@@ -866,7 +866,6 @@ plugins/am-project/tests/Makefile
 plugins/mk-project/Makefile
 plugins/dir-project/Makefile
 plugins/language-support-cpp-java/Makefile
-plugins/language-support-cpp-java/cxxparser/Makefile
 plugins/run-program/Makefile
 plugins/starter/Makefile
 plugins/indentation-c-style/Makefile
@@ -874,6 +873,8 @@ plugins/indentation-python-style/Makefile
 plugins/language-support-js/Makefile
 plugins/language-support-vala/Makefile
 plugins/language-support-python/Makefile
+plugins/parser-cxx/Makefile
+plugins/parser-cxx/cxxparser/Makefile
 plugins/python-loader/Makefile
 anjuta.desktop.in
 manuals/Makefile

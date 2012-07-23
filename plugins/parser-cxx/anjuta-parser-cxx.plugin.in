@@ -1,0 +1,11 @@
+[Anjuta Plugin]
+Location=anjuta-parser-cxx:ParserCxxPlugin
+Icon=anjuta-parser-cxx-plugin.png
+_Name=C and C++ parser Plugin
+_Description=C and C++ parser plugin for code completion
+Interfaces=IAnjutaLanguageSupport
+UserActivatable=no
+
+[Language Support]
+Languages=C,C++
+MimeTypes=text/x-c

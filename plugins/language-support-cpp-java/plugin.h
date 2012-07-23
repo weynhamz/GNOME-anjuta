@@ -24,7 +24,6 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include "cpp-java-assist.h"
 #include "cpp-packages.h"
 
 extern GType cpp_java_plugin_get_type (GTypeModule *module);
@@ -61,7 +60,6 @@ struct _CppJavaPlugin {
 	const gchar *current_language;
 
 	/* Assist */
-	CppJavaAssist *assist;
 	CppFileType filetype;
 
 	/* Packages */

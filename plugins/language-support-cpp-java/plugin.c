@@ -33,7 +33,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
-#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-glade-signal.h>
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
@@ -58,7 +57,6 @@
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
 /* Preferences keys */
-
 #define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
 #define PREF_SCHEMA "org.gnome.anjuta.plugins.cpp"
 #define PREF_USER_PACKAGES "user-packages"
@@ -746,7 +744,7 @@ install_support (CppJavaPlugin *lang_plugin)
     IAnjutaLanguage* lang_manager =
         anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
                                     IAnjutaLanguage, NULL);
-
+	
     if (!lang_manager)
         return;
 
@@ -770,23 +768,10 @@ install_support (CppJavaPlugin *lang_plugin)
     }
 
     init_file_type (lang_plugin);
-
-
+	
     if (g_str_equal (lang_plugin->current_language, "C" ) ||
         g_str_equal (lang_plugin->current_language, "C++"))
     {
-        CppJavaAssist *assist;
-
-        g_assert (lang_plugin->assist == NULL);
-
-        assist = cpp_java_assist_new (IANJUTA_EDITOR (lang_plugin->current_editor),
-                    anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
-                                                IAnjutaSymbolManager,
-                                                NULL),
-                    lang_plugin->settings);
-        lang_plugin->assist = assist;
-
-
         if (IANJUTA_IS_EDITOR_GLADE_SIGNAL (lang_plugin->current_editor))
         {
             g_signal_connect (lang_plugin->current_editor,
@@ -819,12 +804,6 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 {
     if (!lang_plugin->support_installed)
         return;
-
-    if (lang_plugin->assist)
-    {
-        g_object_unref (lang_plugin->assist);
-        lang_plugin->assist = NULL;
-    }
 
     g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
                                           on_glade_drop_possible, lang_plugin);
@@ -1153,7 +1132,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 
     lang_plugin->editor_watch_id =
         anjuta_plugin_add_watch (plugin,
-                                  IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+                                 IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
                                  on_value_added_current_editor,
                                  on_value_removed_current_editor,
                                  plugin);
@@ -1213,7 +1192,6 @@ cpp_java_plugin_instance_init (GObject *obj)
     plugin->current_language = NULL;
     plugin->editor_watch_id = 0;
     plugin->uiid = 0;
-    plugin->assist = NULL;
     plugin->settings = g_settings_new (PREF_SCHEMA);
     plugin->editor_settings = g_settings_new (ANJUTA_PREF_SCHEMA_PREFIX IANJUTA_EDITOR_PREF_SCHEMA);
     plugin->packages = NULL;
@@ -1232,27 +1210,8 @@ cpp_java_plugin_class_init (GObjectClass *klass)
     klass->dispose = cpp_java_plugin_dispose;
 }
 
-#define PREF_WIDGET_SPACE "preferences:completion-space-after-func"
-#define PREF_WIDGET_BRACE "preferences:completion-brace-after-func"
-#define PREF_WIDGET_CLOSEBRACE "preferences:completion-closebrace-after-func"
-#define PREF_WIDGET_AUTO "preferences:completion-enable"
 #define PREF_WIDGET_PACKAGES "preferences:load-project-packages"
 #define PREF_WIDGET_PKG_CONFIG "pkg_config_chooser1"
-
-static void
-on_autocompletion_toggled (GtkToggleButton* button,
-                           CppJavaPlugin* plugin)
-{
-    GtkWidget* widget;
-    gboolean sensitive = gtk_toggle_button_get_active (button);
-
-    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_SPACE));
-    gtk_widget_set_sensitive (widget, sensitive);
-    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_BRACE));
-    gtk_widget_set_sensitive (widget, sensitive);
-    widget = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_CLOSEBRACE));
-    gtk_widget_set_sensitive (widget, sensitive);
-}
 
 static void
 cpp_java_plugin_select_user_packages (CppJavaPlugin* plugin,
@@ -1364,6 +1323,7 @@ on_package_deactivated (AnjutaPkgConfigChooser *self, const gchar* package,
 
     cpp_java_plugin_update_user_packages (plugin, self);
 }
+
 static void
 ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
                     GError** e)
@@ -1382,13 +1342,8 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
     }
     anjuta_preferences_add_from_builder (prefs,
                                          plugin->bxml, plugin->settings,
-                                         "preferences", _("C/C++/Java/Vala"),
+                                         "preferences", _("API Tags (C/C++)"),
                                          ICON_FILE);
-    toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_AUTO));
-    g_signal_connect (toggle, "toggled", G_CALLBACK (on_autocompletion_toggled),
-                      plugin);
-    on_autocompletion_toggled (GTK_TOGGLE_BUTTON (toggle), plugin);
-
     toggle = GTK_WIDGET (gtk_builder_get_object (plugin->bxml, PREF_WIDGET_PACKAGES));
     g_signal_connect (toggle, "toggled", G_CALLBACK (on_project_packages_toggled),
                       plugin);
@@ -1407,7 +1362,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
     if (!g_settings_get_boolean (plugin->settings,
                                  PREF_PROJECT_PACKAGES))
         cpp_java_plugin_select_user_packages (plugin, ANJUTA_PKG_CONFIG_CHOOSER (pkg_config));
-
+	
     gtk_widget_show (pkg_config);
 }
 
@@ -1416,7 +1371,7 @@ ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
                       GError** e)
 {
     CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (ipref);
-    anjuta_preferences_remove_page(prefs, _("C/C++/Java/Vala"));
+    anjuta_preferences_remove_page(prefs, _("API Tags (C/C++)"));
     g_object_unref (plugin->bxml);
 }
 

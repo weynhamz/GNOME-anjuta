@@ -28,6 +28,7 @@ SUBDIRS = . \
 	message-view \
 	mk-project \
 	patch \
+	parser-cxx \
 	project-import \
 	project-manager \
 	project-wizard \
