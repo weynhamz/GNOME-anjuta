@@ -1304,15 +1304,15 @@ anjuta_app_present_widget (AnjutaShell *shell, GtkWidget *widget,
 
 	/* Hack to present the dock item if it's in a notebook dock item */
 	parent = gtk_widget_get_parent (GTK_WIDGET(dock_item) );
+	if (!GDL_DOCK_OBJECT_ATTACHED (dock_item))
+	{
+		gdl_dock_item_show_item (GDL_DOCK_ITEM (dock_item));
+	}
 	if (GTK_IS_NOTEBOOK (parent))
 	{
 		gint pagenum;
 		pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (parent), GTK_WIDGET (dock_item));
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (parent), pagenum);
-	}
-	else if (!GDL_DOCK_OBJECT_ATTACHED (dock_item))
-	{
-	    gdl_dock_item_show_item (GDL_DOCK_ITEM (dock_item));
 	}
 
 	/* FIXME: If the item is floating, present the window */
