@@ -1407,9 +1407,8 @@ anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc)
 			{
 				if (curindx != gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
 					gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), curindx);
-				else
-					/* Make sure current page is visible */
-					anjuta_docman_grab_text_focus (docman);
+				/* Make sure current page is visible */
+				anjuta_docman_grab_text_focus (docman);
 			}
 			break;
 		}

@@ -97,6 +97,8 @@ G_DEFINE_TYPE (SearchFiles, search_files, G_TYPE_OBJECT);
 G_MODULE_EXPORT void search_files_search_clicked (SearchFiles* sf);
 G_MODULE_EXPORT void search_files_replace_clicked (SearchFiles* sf);
 G_MODULE_EXPORT void search_files_update_ui (SearchFiles* sf);
+G_MODULE_EXPORT gboolean search_files_key_pressed (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+
 
 void
 search_files_update_ui (SearchFiles* sf)
@@ -880,6 +882,38 @@ search_files_new (AnjutaDocman* docman, SearchBox* search_box)
 	search_files_update_project (sf);
 
 	return sf;
+}
+
+gboolean
+search_files_key_pressed (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+{
+	SearchFiles* sf = SEARCH_FILES(user_data);
+	IAnjutaDocument* doc;
+	
+	g_return_val_if_fail (widget != NULL, FALSE);
+	g_return_val_if_fail (event != NULL, FALSE);
+	g_return_val_if_fail (sf != NULL, FALSE);
+
+	switch (event->keyval)
+	{
+		case GDK_KEY_Escape:
+		{
+			anjuta_shell_hide_dockable_widget (sf->priv->docman->shell,
+			                                   sf->priv->main_box,
+			                                   NULL);
+			/* Check if document is open */
+			doc = anjuta_docman_get_current_document(sf->priv->docman);
+
+			if (doc)
+			{
+				anjuta_docman_present_notebook_page(sf->priv->docman,
+				                                    doc);
+			}
+			return TRUE;
+		}
+		default:
+			return FALSE;
+	}
 }
 
 void search_files_present (SearchFiles* sf)

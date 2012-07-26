@@ -372,6 +372,7 @@
             <property name="primary_icon_stock">gtk-find</property>
             <signal name="changed" handler="search_files_update_ui" swapped="yes"/>
             <signal name="activate" handler="search_files_search_clicked" swapped="yes"/>
+            <signal name="key-press-event" handler="search_files_key_pressed" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -389,6 +390,7 @@
             <property name="invisible_char">●</property>
             <property name="invisible_char_set">True</property>
             <property name="primary_icon_stock">gtk-find-and-replace</property>
+            <signal name="key-press-event" handler="search_files_key_pressed" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -526,6 +528,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <signal name="key-press-event" handler="search_files_key_pressed" swapped="no"/>
                 <signal name="clicked" handler="search_files_search_clicked" swapped="yes"/>
               </object>
               <packing>
@@ -541,6 +544,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="key-press-event" handler="search_files_key_pressed" swapped="no"/>
                 <signal name="clicked" handler="search_files_replace_clicked" swapped="yes"/>
               </object>
               <packing>
