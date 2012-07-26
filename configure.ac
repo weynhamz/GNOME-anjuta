@@ -31,26 +31,25 @@ BUGZILLA_VERSION=bugzilla_version
 AC_SUBST(BUGZILLA_VERSION)
 
 dnl Anjuta core
-GLIB_REQUIRED=2.28.0
-GLIB_NEW_REQUIRED=2.29.2
-GTK_REQUIRED=3.0.0
+GLIB_REQUIRED=2.32.0
+GTK_REQUIRED=3.4.0
 GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GDA4_REQUIRED=4.2.0
-GDA5_REQUIRED=4.99.0
+GDA5_REQUIRED=5.0.0
 VTE_REQUIRED=0.27.6
 LIBXML_REQUIRED=2.4.23
-GDL_REQUIRED=2.91.4
+GDL_REQUIRED=3.5.4
 LIBWNCK_REQUIRED=2.12
 
 dnl GtkSourceView
-GTKSOURCEVIEW_REQUIRED=2.91.8
+GTKSOURCEVIEW_REQUIRED=3.0.0
 
 dnl Devhelp
-LIBDEVHELP_REQUIRED=3.0.0
+LIBDEVHELP_REQUIRED=3.4.2
 
 dnl Glade
-GLADEUI_REQUIRED=3.11.0
+GLADEUI_REQUIRED=3.12.0
 
 dnl Introspection
 GI_REQUIRED=0.9.5
@@ -84,6 +83,10 @@ fi
 AC_LANG([C])
 AC_LANG([C++])
 AC_PROG_CXX
+if test "x$ac_ct_CXX" = "x"
+then
+  AC_MSG_ERROR([C++ Compiler required to compile Anjuta])
+fi
 AM_PROG_CC_C_O
 
 GNOME_COMPILE_WARNINGS([maximum])
@@ -166,15 +169,6 @@ PKG_CHECK_MODULES([GDA],
 	
 PKG_CHECK_MODULES([VTE],
    [vte-2.90 >= $VTE_REQUIRED])
-
-dnl Check for better module
-
-PKG_CHECK_MODULES([GLIB_NEW],
-   [glib-2.0 >= $GLIB_NEW_REQUIRED],
-   HAVE_GLIB_2_29_2=1,
-   HAVE_GLIB_2_29_2=0)
-AC_SUBST(HAVE_GLIB_2_29_2)
-AC_DEFINE_UNQUOTED([GLIB_2_29_2], $HAVE_GLIB_2_29_2, [Define to 1 if glib is version 2.29.2 or greater])
 
 dnl Check for autogen
 dnl -----------------
@@ -311,11 +305,6 @@ if test x$have_python = xyes; then
 fi
 
 AM_CONDITIONAL(HAVE_PYTHON, [test x$have_python = xyes])
-
-PKG_CHECK_MODULES([PLUGIN_SYMBOL_DB],
-     [libgda-5.0 >= $GDA5_REQUIRED],,
-     [PKG_CHECK_MODULES([PLUGIN_SYMBOL_DB],
-         [libgda-4.0 >= $GDA4_REQUIRED])])
 
 dnl Disable packagekit support
 dnl -----------------------------------

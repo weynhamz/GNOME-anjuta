@@ -39,7 +39,6 @@ AM_CPPFLAGS = \
 	$(DEPRECATED_FLAGS) \
 	$(GDA_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	$(PLUGIN_SYMBOL_DB_CFLAGS) \
 	-DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" \
 	-DPACKAGE_BIN_DIR=\"$(bindir)\" \
 	-DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
@@ -85,8 +84,7 @@ libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 # Plugin dependencies
 libanjuta_symbol_db_la_LIBADD = \
 	$(GDA_LIBS) \
-	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_SYMBOL_DB_LIBS)
+	$(LIBANJUTA_LIBS)
 
 BUILT_SOURCES=symbol-db-marshal.c symbol-db-marshal.h
 

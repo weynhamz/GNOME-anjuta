@@ -3,7 +3,7 @@ noinst_PROGRAMS = \
 
 
 AM_CPPFLAGS =  $(LIBANJUTA_CFLAGS) \
-	$(PLUGIN_SYMBOL_DB_CFLAGS) \
+	$(GDA_CFLAGS) \
 	-DDEBUG
 
 benchmark_libgda_SOURCES = \
@@ -13,7 +13,7 @@ benchmark_libgda_SOURCES = \
 benchmark_libgda_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \
 	$(ANJUTA_LIBS) \
-	$(PLUGIN_SYMBOL_DB_LIBS)
+	$(GDA_LIBS)
 
 benchmark_libgda_LDADD = ../../libanjuta-symbol-db.la
 
