@@ -874,4 +874,6 @@ void search_files_present (SearchFiles* sf)
 	anjuta_shell_present_widget(sf->priv->docman->shell,
 	                            sf->priv->main_box,
 	                            NULL);
+
+	gtk_widget_grab_focus (sf->priv->search_entry);
 }
