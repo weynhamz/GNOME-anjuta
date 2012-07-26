@@ -52,6 +52,7 @@ struct _SearchFilesPrivate
 
 	GtkWidget* files_tree;
 	GtkTreeModel* files_model;
+	GtkWidget* scrolled_window;
 
 	GtkWidget* files_tree_check;
 
@@ -168,8 +169,20 @@ search_files_check_column_toggled (GtkCellRendererToggle* renderer,
 static void
 search_files_finished (SearchFiles* sf, AnjutaCommandQueue* queue)
 {
+	GtkAdjustment* h_adj;
+	GtkAdjustment* v_adj;
+
 	g_object_unref (queue);
 	sf->priv->busy = FALSE;
+
+	/* Scroll to first item */
+	h_adj = 
+		gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (sf->priv->scrolled_window));
+	v_adj = 
+		gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sf->priv->scrolled_window));
+	gtk_adjustment_set_value (h_adj, 0.0);
+	gtk_adjustment_set_value (v_adj, 0.0);
+
 	search_files_update_ui(sf);
 }
 
@@ -795,6 +808,8 @@ search_files_init (SearchFiles* sf)
 
 	sf->priv->files_tree = GTK_WIDGET (gtk_builder_get_object(sf->priv->builder,
 	                                                          "files_tree"));
+	sf->priv->scrolled_window = GTK_WIDGET (gtk_builder_get_object (sf->priv->builder,
+	                                                                "scrolled_window"));
 
 	search_files_init_tree(sf);
 
