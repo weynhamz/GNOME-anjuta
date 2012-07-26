@@ -456,10 +456,15 @@ search_files_search_clicked (SearchFiles* sf)
 		g_signal_connect (queue, "finished",
 	    	              G_CALLBACK (search_files_filter_finished), sf);
 		for (file = files; file != NULL; file = g_list_next (file))
-		{
+		{	
 			SearchFilterFileCommand* cmd =
 				search_filter_file_command_new(G_FILE (file->data),
 			    	                           mime_types);
+
+			/* Check we are searching in project files only */
+			if (!g_file_has_prefix (G_FILE (file->data), sf->priv->project_file))
+				continue;
+			
 			g_signal_connect (cmd, "command-finished",
 		    	              G_CALLBACK (search_files_filter_command_finished), sf);
 			anjuta_command_queue_push(queue, ANJUTA_COMMAND(cmd));
