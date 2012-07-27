@@ -168,13 +168,10 @@ plugins/js-debugger/plugin.c
 [type: gettext/ini]plugins/language-manager/language-manager.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/glade]plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
-plugins/language-support-cpp-java/cpp-java-assist.c
-plugins/language-support-cpp-java/org.gnome.anjuta.plugins.cpp.gschema.xml.in
 plugins/language-support-cpp-java/plugin.c
 [type: gettext/glade]plugins/language-support-js/anjuta-language-javascript.ui
 plugins/language-support-js/js-parser-y-tab.c
 [type: gettext/ini]plugins/language-support-js/js-support-plugin.plugin.in
-plugins/language-support-js/org.gnome.anjuta.js.gschema.xml.in
 plugins/language-support-js/plugin.c
 [type: gettext/glade]plugins/language-support-python/anjuta-language-support-python.ui
 plugins/language-support-python/org.gnome.anjuta.plugins.python.gschema.xml.in
@@ -191,6 +188,9 @@ plugins/message-view/plugin.c
 plugins/mk-project/mk-project.c
 [type: gettext/ini]plugins/mk-project/mk-project.plugin.in
 [type: gettext/glade]plugins/mk-project/mk-project.ui
+[type: gettext/glade]plugins/parser-cxx/anjuta-parser-cxx.ui
+plugins/parser-cxx/parser-cxx-assist.c
+plugins/parser-cxx/plugin.c
 [type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
 plugins/patch/patch-plugin.c
 [type: gettext/glade]plugins/patch/patch-plugin.ui
