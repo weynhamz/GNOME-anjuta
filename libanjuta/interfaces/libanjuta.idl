@@ -2757,7 +2757,7 @@ interface IAnjutaProvider
 		void new_calltip (gchar* call_context, IAnjutaIterable* iter);
 		 
 		/**
-		 * ianjuta_language_provider_populate_language:
+		 * ianjuta_language_provider_populate_completions:
 		 * @obj: Self
 		 * @iter: the text iter where the provider should be populated
 		 * @err: Error propagation and reporting.
@@ -2768,9 +2768,9 @@ interface IAnjutaProvider
 		 * Note that this is called after every character typed and the list of proposals
 		 * has to be completely renewed.
 		 *
-		 * Returns: (transfer full): the iter where the provider populated, NULL otherwise
+		 * Returns: (transfer full) (allow-none): the iter where the provider populated, NULL otherwise
 		 */
-		IAnjutaIterable* populate_language (IAnjutaIterable* iter);
+		IAnjutaIterable* populate_completions (IAnjutaIterable* iter);
 	}
 }
 

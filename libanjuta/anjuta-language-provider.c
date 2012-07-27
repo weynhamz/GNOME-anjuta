@@ -47,7 +47,7 @@ struct _AnjutaLanguageProviderPriv {
 /**
  * anjuta_language_provider_install:
  * @lang_prov: Self
- * @ieditor: IAnjutaEditor object
+ * @ieditor: (type GObject): IAnjutaEditor object
  * @settings: the settings
  *
  * Install the settings for AnjutaLanguageProvider
@@ -108,9 +108,9 @@ anjuta_language_provider_class_init (AnjutaLanguageProviderClass *klass)
 
 /**
  * anjuta_language_provider_find_next_brace:
- * @iter: Iter to start searching at
+ * @iter: (type GObject): Iter to start searching at
  *
- * Returns: The position of the brace, if the next non-whitespace character is a
+ * Returns: (type GObject): The position of the brace, if the next non-whitespace character is a
  * opening brace, NULL otherwise
  */
 static IAnjutaIterable*
@@ -133,7 +133,7 @@ anjuta_language_provider_find_next_brace (IAnjutaIterable* iter)
 
 /**
  * anjuta_language_provider_find_whitespace:
- * @iter: Iter to start searching at
+ * @iter: (type GObject): Iter to start searching at
  *
  * Returns: TRUE if the next character is a whitespace character,
  * FALSE otherwise
@@ -180,7 +180,7 @@ anjuta_language_provider_is_character (gchar ch, const gchar* characters)
 
 /**
  * anjuta_language_provider_get_scope_context
- * @editor: current editor
+ * @editor: (type GObject): current editor
  * @iter: Current cursor position
  * @scope_context_ch: language-specific context characters
  *                    the end is marked with a '0' character
@@ -239,8 +239,8 @@ anjuta_language_provider_get_scope_context (IAnjutaEditor* editor,
 
 /**
  * anjuta_language_provider_get_calltip_context:
- * @itip: whether a tooltip is crrently shown
- * @iter: current cursor position
+ * @itip: (type GObject): whether a tooltip is crrently shown
+ * @iter: (type GObject): current cursor position
  * @scope_context_ch: language-specific context characters
  *                    the end is marked with a '0' character
  *
@@ -289,9 +289,9 @@ anjuta_language_provider_get_calltip_context (AnjutaLanguageProvider* lang_prov,
 /**
  * anjuta_language_provider_get_pre_word:
  * @lang_prov: Self
- * @editor: IAnjutaEditor object
- * @iter: current cursor position
- * @start_iter: return location for the start_iter (if a preword was found)
+ * @editor: (type GObject): IAnjutaEditor object
+ * @iter: (type GObject): current cursor position
+ * @start_iter: (type GObject): return location for the start_iter (if a preword was found)
  *
  * Search for the current typed word
  *
@@ -346,7 +346,7 @@ anjuta_language_provider_get_pre_word (AnjutaLanguageProvider* lang_prov,
 /**
  * anjuta_language_provider_calltip:
  * @lang_prov: Self
- * @provider: IAnjutaLanguageProvider object
+ * @provider: (type GObject): IAnjutaLanguageProvider object
  * 
  * Creates a calltip if there is something to show a tip for
  * Calltips are queried async
@@ -405,7 +405,7 @@ anjuta_language_provider_calltip (AnjutaLanguageProvider* lang_prov,
 /**
  * anjuta_language_provider_none:
  * @lang_prov: Self
- * @provider: IAnjutaLanguageProvider object
+ * @provider: (type GObject): IAnjutaLanguageProvider object
  *
  * Indicate that there is nothing to autocomplete
  */
@@ -420,8 +420,8 @@ anjuta_language_provider_none (AnjutaLanguageProvider* lang_prov,
 /**
  * anjuta_language_provider_activate:
  * @lang_prov: Self
- * @iprov: IAnjutaProvider object
- * @iter: the cursor
+ * @iprov: (type GObject): IAnjutaProvider object
+ * @iter: (type GObject): the cursor
  * @data: the ProposalData
  *
  * Complete the function name
@@ -527,8 +527,8 @@ anjuta_language_provider_activate (AnjutaLanguageProvider* lang_prov,
 /**
  * anjuta_language_provider_populate:
  * @lang_prov: Self
- * @iprov: IAnjutaProvider object
- * @cursor: the text iter where the provider should be populated
+ * @iprov: (type GObject): IAnjutaProvider object
+ * @cursor: (type GObject): the text iter where the provider should be populated
  *
  * Show completion for the context at position @iter. The provider should
  * call ianjuta_editor_assist_proposals here to add proposals to the list.
@@ -566,7 +566,7 @@ anjuta_language_provider_populate (AnjutaLanguageProvider* lang_prov,
 	}
 	
 	/* Execute language-specific part */
-	start_iter = ianjuta_language_provider_populate_language (
+	start_iter = ianjuta_language_provider_populate_completions (
 	                     IANJUTA_LANGUAGE_PROVIDER (iprov), cursor, NULL);
 	if (start_iter)
 	{

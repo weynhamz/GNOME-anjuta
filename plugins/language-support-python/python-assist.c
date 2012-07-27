@@ -619,9 +619,9 @@ python_assist_new_calltip (IAnjutaLanguageProvider* self,
 }
 
 static IAnjutaIterable*
-python_assist_populate_language (IAnjutaLanguageProvider* self,
-                                 IAnjutaIterable* cursor,
-                                 GError** e)
+python_assist_populate_completions (IAnjutaLanguageProvider* self,
+                                    IAnjutaIterable* cursor,
+                                    GError** e)
 {
 	PythonAssist* assist = PYTHON_ASSIST (self);
 	IAnjutaIterable* start_iter = NULL;
@@ -815,5 +815,5 @@ ilanguage_provider_iface_init (IAnjutaLanguageProviderIface* iface)
 	iface->get_calltip_cache   = python_assist_get_calltip_cache;
 	iface->get_calltip_context = python_assist_get_calltip_context;
 	iface->new_calltip         = python_assist_new_calltip;
-	iface->populate_language   = python_assist_populate_language;
+	iface->populate_completions   = python_assist_populate_completions;
 }

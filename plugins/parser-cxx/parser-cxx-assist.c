@@ -855,9 +855,9 @@ parser_cxx_assist_new_calltip (IAnjutaLanguageProvider* self,
 }
 
 static IAnjutaIterable*
-parser_cxx_assist_populate_language (IAnjutaLanguageProvider* self,
-                                     IAnjutaIterable* cursor,
-                                     GError** e)
+parser_cxx_assist_populate_completions (IAnjutaLanguageProvider* self,
+                                        IAnjutaIterable* cursor,
+                                        GError** e)
 {
 	ParserCxxAssist* assist = PARSER_CXX_ASSIST (self);
 	IAnjutaIterable* start_iter = NULL;
@@ -1306,5 +1306,5 @@ ilanguage_provider_iface_init (IAnjutaLanguageProviderIface* iface)
 	iface->get_calltip_cache   = parser_cxx_assist_get_calltip_cache;
 	iface->get_calltip_context = parser_cxx_assist_get_calltip_context;
 	iface->new_calltip         = parser_cxx_assist_new_calltip;
-	iface->populate_language   = parser_cxx_assist_populate_language;
+	iface->populate_completions   = parser_cxx_assist_populate_completions;
 }

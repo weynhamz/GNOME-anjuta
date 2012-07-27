@@ -567,7 +567,7 @@ ilanguage_provider_iface_init (IAnjutaLanguageProviderIface* iface)
 	iface->get_calltip_cache   = ilanguage_provider_get_calltip_cache;
 	iface->get_calltip_context = ilanguage_provider_get_calltip_context;
 	iface->new_calltip         = ilanguage_provider_new_calltip;
-	iface->populate_language   = ilanguage_provider_populate;
+	iface->populate_completions   = ilanguage_provider_populate;
 }
 
 ANJUTA_PLUGIN_BEGIN (JSLang, js_support_plugin);
