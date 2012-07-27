@@ -432,7 +432,7 @@ anjuta_language_provider_activate (AnjutaLanguageProvider* lang_prov,
                                    IAnjutaIterable* iter,
                                    gpointer data)
 {
-	IAnjutaLanguageProviderProposalData *prop_data;
+	AnjutaLanguageProposalData *prop_data;
 	GString *assistance;
 	IAnjutaEditor *editor = IANJUTA_EDITOR (lang_prov->priv->iassist);
 	gboolean add_space_after_func = FALSE;
@@ -596,3 +596,58 @@ anjuta_language_provider_get_start_iter (AnjutaLanguageProvider* lang_prov)
 {
 	return lang_prov->priv->start_iter;
 }
+
+/* Boxed type for poposal data */
+static AnjutaLanguageProposalData*
+anjuta_language_proposal_data_copy (const AnjutaLanguageProposalData *src)
+{
+	AnjutaLanguageProposalData* cpy = anjuta_language_proposal_data_new (g_strdup(src->name));
+	cpy->info = src->info ? g_strdup(src->info) : NULL;
+	cpy->is_func = src->is_func;
+	cpy->has_para = src->has_para;
+	cpy->type = src->type;
+
+	return cpy;
+}
+
+/**
+ * anjuta_language_proposal_data_free:
+ * @data: a AnjutaLanguageProposalData
+ *
+ * Free the given proposal data
+ */
+void
+anjuta_language_proposal_data_free (AnjutaLanguageProposalData *data)
+{
+	g_free (data->name);
+	g_free (data->info);
+	g_free (data);
+}
+
+/**
+ * anjuta_language_proposal_data_new:
+ * @name: Name of the object
+ * 
+ * Returns: Creates a new AnjutaLanguageProposalData object
+ */
+AnjutaLanguageProposalData*
+anjuta_language_proposal_data_new (gchar* name)
+{
+	AnjutaLanguageProposalData* data = g_new0(AnjutaLanguageProposalData, 1);
+	data->name = name;
+
+	return data;
+}
+
+GType 
+anjuta_language_proposal_data_get_type ()
+{
+	static GType type_id = 0;
+
+	if (!type_id)
+		type_id = g_boxed_type_register_static ("AnjutaLanguageProposalData",
+		                                        (GBoxedCopyFunc) anjuta_language_proposal_data_copy,
+		                                        (GBoxedFreeFunc) anjuta_language_proposal_data_free);
+	return type_id;
+}
+

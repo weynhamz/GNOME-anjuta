@@ -26,8 +26,35 @@
 #include <libanjuta/interfaces/ianjuta-editor-tip.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-provider.h>
+#include <libanjuta/interfaces/ianjuta-symbol.h>
 
 G_BEGIN_DECLS
+
+#define ANJUTA_TYPE_LANGUAGE_PROPOSAL_DATA             (anjuta_language_proposal_data_get_type ())
+#define ANJUTA_LANGUAGE_PROPOSAL_DATA(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LANGUAGE_PROPOSAL_DATA, AnjutaLanguageProposalData))
+
+typedef struct _AnjutaLanguageProposalData AnjutaLanguageProposalData;
+
+/**
+ * AnjutaLanguageProposalData:
+ * @name: Name of the object
+ * @info: Info about the object
+ * @is_func: If this is a function
+ * @has_para: If the function has at least one parameters
+ * @type: Type of the object
+ */
+struct _AnjutaLanguageProposalData
+{
+	gchar* name;
+	gchar* info;
+	gboolean is_func;
+	gboolean has_para;
+	IAnjutaSymbolType type;
+};
+
+GType anjuta_language_proposal_data_get_type (void) G_GNUC_CONST;
+AnjutaLanguageProposalData* anjuta_language_proposal_data_new (gchar* name);
+void anjuta_language_proposal_data_free (AnjutaLanguageProposalData *data);
 
 #define ANJUTA_TYPE_LANGUAGE_PROVIDER             (anjuta_language_provider_get_type ())
 #define ANJUTA_LANGUAGE_PROVIDER(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LANGUAGE_PROVIDER, AnjutaLanguageProvider))

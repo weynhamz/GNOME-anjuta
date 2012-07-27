@@ -27,6 +27,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-language-provider.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
@@ -2324,7 +2325,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 	if (pre_word && proposals && g_list_length (proposals) == 1)
 	{
 		IAnjutaEditorAssistProposal* proposal = proposals->data;
-		IAnjutaLanguageProviderProposalData* data = proposal->data;
+		AnjutaLanguageProposalData* data = proposal->data;
 		if (g_str_equal (pre_word, data->name))
 			proposals = NULL;
 	}

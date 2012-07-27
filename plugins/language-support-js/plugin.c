@@ -534,16 +534,15 @@ ilanguage_provider_populate (IAnjutaLanguageProvider* obj,
 
 		for (i = suggestions; i; i = g_list_next(i)) {
 			IAnjutaEditorAssistProposal* proposal;
-			IAnjutaLanguageProviderProposalData* prop_data;
+			AnjutaLanguageProposalData* prop_data;
 			
 			proposal = g_new0(IAnjutaEditorAssistProposal, 1);
-			prop_data = g_new0 (IAnjutaLanguageProviderProposalData, 1);
 
 			if (!i->data)
 				continue;
 
 			proposal->label = i->data;
-			prop_data->name = i->data;
+			prop_data = anjuta_language_proposal_data_new (i->data);
 			prop_data->is_func = code_completion_is_symbol_func (plugin, str);
 			/* TODO: Not implemented yet */
 			prop_data->has_para = TRUE;

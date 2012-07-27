@@ -2718,23 +2718,6 @@ interface IAnjutaProvider
 		 * Boolean key, true is adding ')' after function call autocompletion
 		 */
 		 #define PREF_AUTOCOMPLETE_CLOSEBRACE_AFTER_FUNC  "completion-closebrace-after-func"
-		 
-		/**
-		 * IAnjutaLanguageProviderProposalData:
-		 * @name: Name of the object
-		 * @info: Info about the object
-		 * @is_func: If this is a function
-		 * @has_para: If the function has at least one parameters
-		 * @type: Type of the object
-		 */
-		struct ProposalData
-		{
-			gchar* name;
-			gchar *info;
-			gboolean is_func;
-			gboolean has_para;
-			IAnjutaSymbolType type;
-		}
 
 		/**
 		 * ianjuta_language_provider_get_calltip_cache:

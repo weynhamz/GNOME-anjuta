@@ -93,15 +93,15 @@ struct _PythonAssistPriv {
 static gchar*
 completion_function (gpointer data)
 {
-	IAnjutaLanguageProviderProposalData * tag = (IAnjutaLanguageProviderProposalData*) data;
+	AnjutaLanguageProposalData * tag = ANJUTA_LANGUAGE_PROPOSAL_DATA(data);
 	return tag->name;
 }
 
 static gint 
 completion_compare (gconstpointer a, gconstpointer b)
 {
-	IAnjutaLanguageProviderProposalData * tag_a = (IAnjutaLanguageProviderProposalData*) a;
-	IAnjutaLanguageProviderProposalData * tag_b = (IAnjutaLanguageProviderProposalData*) b;
+	AnjutaLanguageProposalData * tag_a = ANJUTA_LANGUAGE_PROPOSAL_DATA(a);
+	AnjutaLanguageProposalData * tag_b = ANJUTA_LANGUAGE_PROPOSAL_DATA(b);
 	gint cmp;
 	
 	cmp = strcmp (tag_a->name, tag_b->name);
@@ -111,11 +111,9 @@ completion_compare (gconstpointer a, gconstpointer b)
 }
 
 static void 
-python_assist_tag_destroy (IAnjutaLanguageProviderProposalData *tag)
+python_assist_tag_destroy (AnjutaLanguageProposalData *tag)
 {
-	g_free (tag->name);
-	g_free (tag->info);
-	g_free (tag);
+	anjuta_language_proposal_data_free (tag);
 }
 
 static void
@@ -171,7 +169,7 @@ python_assist_update_autocomplete (PythonAssist *assist)
 	
 	for (node = completion_list; node != NULL; node = g_list_next (node))
 	{
-		IAnjutaLanguageProviderProposalData *tag = node->data;
+		AnjutaLanguageProposalData *tag = ANJUTA_LANGUAGE_PROPOSAL_DATA(node->data);
 		IAnjutaEditorAssistProposal* proposal = g_new0(IAnjutaEditorAssistProposal, 1);
 
 		if (tag->is_func)
@@ -275,7 +273,7 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 		/* Parse output and create completion list */
 		for (cur_comp = completions; *cur_comp != NULL; cur_comp++)
 		{
-			IAnjutaLanguageProviderProposalData* tag;
+			AnjutaLanguageProposalData* tag;
 			GMatchInfo* match_info;
 			
 			g_regex_match (regex, *cur_comp, 0, &match_info);
@@ -285,8 +283,7 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 				gchar* type = g_match_info_fetch (match_info, 3); 
 				gchar* location = g_match_info_fetch (match_info, 4); 
 				gchar* info = g_match_info_fetch (match_info, 5); 
-				tag = g_new0 (IAnjutaLanguageProviderProposalData, 1);
-				tag->name = g_match_info_fetch (match_info, 1);
+				tag = anjuta_language_proposal_data_new (g_match_info_fetch (match_info, 1));
 
 				/* info will be set to "_" if there is no relevant info */
 				tag->info = NULL; 

@@ -108,9 +108,8 @@ static IAnjutaEditorAssistProposal*
 parser_cxx_assist_proposal_new (IAnjutaSymbol* symbol)
 {
 	IAnjutaEditorAssistProposal* proposal = g_new0 (IAnjutaEditorAssistProposal, 1);
-	IAnjutaLanguageProviderProposalData* data = g_new0 (IAnjutaLanguageProviderProposalData, 1);
-	
-	data->name = g_strdup (ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL));
+	AnjutaLanguageProposalData* data = 
+		anjuta_language_proposal_data_new (g_strdup (ianjuta_symbol_get_string (symbol, IANJUTA_SYMBOL_FIELD_NAME, NULL)));
 	data->type = ianjuta_symbol_get_sym_type (symbol, NULL);
 	switch (data->type)
 	{
@@ -151,10 +150,8 @@ parser_cxx_assist_proposal_new (IAnjutaSymbol* symbol)
 static void
 parser_cxx_assist_proposal_free (IAnjutaEditorAssistProposal* proposal)
 {
-	IAnjutaLanguageProviderProposalData* data = proposal->data;
-	g_free (data->name);
-	g_free (data->info);
-	g_free (data);
+	AnjutaLanguageProposalData* data = proposal->data;
+	anjuta_language_proposal_data_free (data);
 	g_free (proposal->label);
 	g_free (proposal);
 }
@@ -169,7 +166,7 @@ static gchar*
 anjuta_proposal_completion_func (gpointer data)
 {
 	IAnjutaEditorAssistProposal* proposal = data;
-	IAnjutaLanguageProviderProposalData* prop_data = proposal->data;
+	AnjutaLanguageProposalData* prop_data = proposal->data;
 	
 	return prop_data->name;
 }
