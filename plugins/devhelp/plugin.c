@@ -30,11 +30,11 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 
-#include <devhelp/devhelp.h>
 #include "plugin.h"
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
+#include <devhelp/devhelp.h>
 #include <webkit/webkit.h>
 
 #define ONLINE_API_DOCS "http://library.gnome.org/devel"
