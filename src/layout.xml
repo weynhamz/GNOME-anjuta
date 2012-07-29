@@ -13,12 +13,10 @@
 						<item name="AnjutaGladeTree" orientation="horizontal" locked="no"/>
 						<item name="AnjutaGladePalette" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDebuggerRegisters" orientation="horizontal" locked="no"/>
-						<placeholder name="ph_left" next-placement="center"/>
 					</notebook>
 					<paned orientation="horizontal" locked="no" position="500">
 						<paned orientation="vertical" locked="no" position="200">
 							<notebook orientation="vertical" locked="no" page="0">
-								<placeholder name="ph_top" next-placement="center"/>
 							</notebook>
 							<notebook orientation="vertical" locked="no" page="0">
 								<item name="AnjutaStarter" orientation="horizontal" locked="no"/>
@@ -30,11 +28,9 @@
 								<item name="AnjutaGladeEditor" orientation="horizontal" locked="no"/>
 								<item name="AnjutaDebuggerMemory" orientation="horizontal" locked="no"/>
 								<item name="AnjutaSubversionLogViewer" orientation="horizontal" locked="no"/>
-								<placeholder name="ph_center" next-placement="center"/>
 							</notebook>
 						</paned>
 						<notebook orientation="vertical" locked="no" page="0">
-							<placeholder name="ph_right" next-placement="center"/>
 						</notebook>
 					</paned>
 				</paned>
@@ -45,7 +41,6 @@
 					<item name="AnjutaDebuggerLocals" orientation="horizontal" locked="no"/>
 					<item name="AnjutaDebuggerWatch" orientation="horizontal" locked="no"/>
 					<item name="AnjutaDebuggerBreakpoints" orientation="horizontal" locked="no"/>
-					<placeholder name="ph_bottom" next-placement="center"/>
 				</notebook>
 			</paned>
 		</dock>
