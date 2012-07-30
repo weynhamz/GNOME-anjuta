@@ -461,7 +461,7 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	menu_label = gtk_label_new (filename);
 	gtk_misc_set_alignment (GTK_MISC (menu_label), 0.0, 0.5);
 	gtk_widget_show (menu_label);
-	menu_box = gtk_hbox_new(FALSE, 2);
+	menu_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
 
 	color.red = 0;
 	color.green = 0;
@@ -474,12 +474,12 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_widget_modify_fg (close_button, GTK_STATE_SELECTED, &color);
 	gtk_widget_show(close_button);
 
-	box = gtk_hbox_new (FALSE, 2);
+	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 	/* create our layout/event boxes */
 	event_box = gtk_event_box_new();
 	gtk_event_box_set_visible_window (GTK_EVENT_BOX (event_box), FALSE);
 
-	event_hbox = gtk_hbox_new (FALSE, 2);
+	event_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 
 	page->menu_icon = gtk_image_new();
 	page->mime_icon = gtk_image_new();
@@ -1227,9 +1227,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			                            EDITOR_TABS_ORDERING))
 				anjuta_docman_order_tabs (docman);
 
-			gtk_widget_grab_focus (GTK_WIDGET (doc));
 			anjuta_docman_grab_text_focus (docman);
-			ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
 		}
 	}
 	else /* doc == NULL */
@@ -1326,7 +1324,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, GFile* file,
 	if (doc != NULL)
 	{
 		anjuta_docman_present_notebook_page (docman, doc);
-		ianjuta_document_grab_focus (IANJUTA_DOCUMENT (doc), NULL);
+		anjuta_docman_grab_text_focus (docman);
 	}
 
 	return te;
@@ -1493,6 +1491,9 @@ anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {
 	anjuta_shell_present_widget (docman->shell,
 								 GTK_WIDGET (docman->priv->plugin->vbox), NULL);
+	
+	ianjuta_document_grab_focus (anjuta_docman_get_current_document(docman),
+	                             NULL);
 }
 
 void
