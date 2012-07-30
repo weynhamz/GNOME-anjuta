@@ -57,10 +57,6 @@ plugins/class-gen/plugin.c
 plugins/class-gen/transform.c
 plugins/class-gen/validator.c
 plugins/class-gen/window.c
-[type: gettext/ini]plugins/code-analyzer/code-analyzer.plugin.in
-[type: gettext/glade]plugins/code-analyzer/code-analyzer.ui
-plugins/code-analyzer/org.gnome.anjuta.code-analyzer.gschema.xml.in
-plugins/code-analyzer/plugin.c
 [type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
 [type: gettext/glade]plugins/cvs-plugin/anjuta-cvs-plugin.ui
 plugins/cvs-plugin/cvs-actions.c
