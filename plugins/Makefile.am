@@ -5,7 +5,6 @@ SUBDIRS = . \
 	am-project \
 	build-basic-autotools \
 	class-gen \
-	code-analyzer \
 	cvs-plugin \
 	devhelp \
 	debug-manager \
