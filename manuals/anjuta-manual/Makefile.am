@@ -76,6 +76,6 @@ DOC_PAGES = \
 DOC_FIGURES = figures/anjuta_logo.png \
 	      figures/anjuta-in-action.png
 
-DOC_LINGUAS = cs da de el es eu fr gl ja oc pt_BR sl sv th uk zh_CN
+DOC_LINGUAS = cs da de el es eu fr gl ja oc pt_BR ro sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
