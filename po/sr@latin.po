@@ -9,18 +9,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
-"&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-07-23 09:42+0000\n"
-"PO-Revision-Date: 2012-07-24 07:41+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-07-30 14:37+0000\n"
+"PO-Revision-Date: 2012-08-01 08:31+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
 #: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
@@ -324,7 +324,7 @@ msgstr "Ne mogu da izvršim naredbu: „%s“"
 msgid "execvp failed"
 msgstr "execvp nije uspeo"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
 msgstr "Anjutina školjka"
 
@@ -332,12 +332,12 @@ msgstr "Anjutina školjka"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjutina školjka koja će sadržati priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:737
+#: ../libanjuta/anjuta-plugin-manager.c:732
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Dodatak „%s“ ne želi da bude prekinut"
 
-#: ../libanjuta/anjuta-plugin-manager.c:768
+#: ../libanjuta/anjuta-plugin-manager.c:763
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -349,24 +349,24 @@ msgstr ""
 "Ovo obično znači da je instalacija loša. Program je ispisao sledeću grešku:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:900
 msgid "Load"
 msgstr "Učitaj"
 
-#: ../libanjuta/anjuta-plugin-manager.c:928
-#: ../libanjuta/anjuta-plugin-manager.c:2007
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:2002
 msgid "Available Plugins"
 msgstr "Dostupni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Poželjni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1176
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
 msgstr "Prikazuj samo priključke koje korisnik može da pokrene"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1216
+#: ../libanjuta/anjuta-plugin-manager.c:1211
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -376,73 +376,73 @@ msgstr ""
 "od više mogućih priključaka. Ako uklonite poželjni priključak, Anjuta će vas "
 "ponovo pitati da odaberete drugi priključak."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1242
+#: ../libanjuta/anjuta-plugin-manager.c:1237
 msgid "Forget selected plugin"
 msgstr "Zaboravi označeni priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1371
+#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Odaberite priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1377
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Odaberite priključak za pokretanje"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1391
+#: ../libanjuta/anjuta-plugin-manager.c:1386
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Nijedan priključak nije u mogućnosti da učita ostale priključke u %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1528
+#: ../libanjuta/anjuta-plugin-manager.c:1523
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Odaberite priključak za pokretanje</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2034
+#: ../libanjuta/anjuta-plugin-manager.c:2029
 msgid "Remember this selection"
 msgstr "Zapamti ovaj izbor"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin-manager.c:2360
 msgid "Profiles"
 msgstr "Profili"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2361
 msgid "Current stack of profiles"
 msgstr "Trenutni stek profila"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2371
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Available plugins"
 msgstr "Dostupni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2372
+#: ../libanjuta/anjuta-plugin-manager.c:2367
 msgid "Currently available plugins found in plugin paths"
 msgstr "Dostupni dodaci iz podešenih putanja"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Activated plugins"
 msgstr "Pokrenuti dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Currently activated plugins"
 msgstr "Trenutno pokrenuti dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2385
+#: ../libanjuta/anjuta-plugin-manager.c:2380
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Anjutina školjka za koju su dodaci pravljeni"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2393
+#: ../libanjuta/anjuta-plugin-manager.c:2388
 msgid "Anjuta Status"
 msgstr "Stanje Anjute"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2394
+#: ../libanjuta/anjuta-plugin-manager.c:2389
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Stanje Anjute koje se koristi za učitavanje i uklanjanje priključaka"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2554
+#: ../libanjuta/anjuta-plugin-manager.c:2549
 msgid "Loading:"
 msgstr "Učitavam:"
 
@@ -453,7 +453,6 @@ msgstr "Kategorija"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
@@ -632,17 +631,17 @@ msgstr ""
 "Molim instalirajte je."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Ne mogu da nađem terminal; koristim xterm, čak iako možda ne radi"
 
-#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
+#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Ne mogu da izvršim naredbu: %s (koristim školjku %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2355
+#: ../libanjuta/anjuta-utils.c:2351
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Ne mogu da učitam datoteku grafičkog sučelja: %s"
@@ -1446,14 +1445,14 @@ msgstr ""
 msgid "Command canceled by user"
 msgstr "Naredbu je otkazao korisnik"
 
-#: ../plugins/build-basic-autotools/build.c:879
+#: ../plugins/build-basic-autotools/build.c:881
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Ne mogu da prevedem „%s“: Nijedno pravilo prevođenja ne postoji za ovu vrstu "
 "datoteke."
 
-#: ../plugins/build-basic-autotools/build.c:1041
+#: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Ne mogu da podesim projekat: Nedostaje skripta za podešavanje u %s."
@@ -1642,213 +1641,213 @@ msgstr "Završeno je uspešno\n"
 msgid "Build %d: %s"
 msgstr "%d. izgradnja: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1664
-#: ../plugins/build-basic-autotools/plugin.c:1750
-#: ../plugins/build-basic-autotools/plugin.c:1760
-#: ../plugins/build-basic-autotools/plugin.c:1778
-#: ../plugins/build-basic-autotools/plugin.c:1788
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1665
+#: ../plugins/build-basic-autotools/plugin.c:1751
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build"
 msgstr "I_zgradi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
 msgstr "I_zgradi projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
 msgstr "Gradi ceo projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
 msgstr "I_nstaliraj projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
 msgstr "Instalira ceo projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1681
 msgid "_Check Project"
 msgstr "_Proveri projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
+#: ../plugins/build-basic-autotools/plugin.c:1682
 msgid "Check whole project"
 msgstr "Proverava ceo projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "_Clean Project"
 msgstr "_Očisti projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1688
 msgid "Clean whole project"
 msgstr "Čisti ceo projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
 msgstr "P_odesi projekat…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
 msgstr "Podešava projekat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
 msgstr "Izgradi paket/_arhivu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
 msgstr "Gradi distribucioni paket/arhivu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
 msgstr "Izgradi _modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
 msgstr "Gradi modul vezan za tekuću datoteku"
 
-#: ../plugins/build-basic-autotools/plugin.c:1710
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
 msgstr "_Instaliraj modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1712
 msgid "Install module associated with current file"
 msgstr "Instalira modul vezan za tekuću datoteku"
 
-#: ../plugins/build-basic-autotools/plugin.c:1716
+#: ../plugins/build-basic-autotools/plugin.c:1717
 msgid "_Check Module"
 msgstr "_Proveri modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1718
 msgid "Check module associated with current file"
 msgstr "Proverava modul pridružen tekućoj datoteci"
 
-#: ../plugins/build-basic-autotools/plugin.c:1722
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "_Clean Module"
 msgstr "_Očisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1724
 msgid "Clean module associated with current file"
 msgstr "Čisti modul vezan za tekuću datoteku"
 
-#: ../plugins/build-basic-autotools/plugin.c:1728
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Co_mpile File"
 msgstr "Pre_vedi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
 msgstr "Prevodi tekuću datoteku u uređivaču"
 
-#: ../plugins/build-basic-autotools/plugin.c:1734
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
 msgstr "Odaberi podešavanja"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1736
 msgid "Select current configuration"
 msgstr "Odabira tekuće podešavanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:1740
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
 msgstr "Ukloni podešavanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1742
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Čisti projekat (distclean) i uklanja fasciklu podešavanja ako je moguće"
 
-#: ../plugins/build-basic-autotools/plugin.c:1754
-#: ../plugins/build-basic-autotools/plugin.c:1782
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "_Compile"
 msgstr "_Prevedi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1755
-#: ../plugins/build-basic-autotools/plugin.c:1783
+#: ../plugins/build-basic-autotools/plugin.c:1756
+#: ../plugins/build-basic-autotools/plugin.c:1784
 msgid "Compile file"
 msgstr "Prevodi datoteku"
 
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1762
+#: ../plugins/build-basic-autotools/plugin.c:1790
 msgid "Build module"
 msgstr "Izgradi modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1766
-#: ../plugins/build-basic-autotools/plugin.c:1794
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install"
 msgstr "_Instaliraj"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1768
+#: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
 msgstr "Instalira modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1772
-#: ../plugins/build-basic-autotools/plugin.c:1806
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean"
 msgstr "_Očisti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1808
 msgid "Clean module"
 msgstr "Čisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1801
 msgid "_Check"
 msgstr "_Proveri"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
+#: ../plugins/build-basic-autotools/plugin.c:1802
 msgid "Check module"
 msgstr "Provara modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1812
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "_Cancel command"
 msgstr "_Otkaži naredbu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
 msgstr "Otkaži naredbu gradnje"
 
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Izgradi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instaliraj (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Očisti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Pre_vedi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
 msgstr "Pre_vedi"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
 msgstr "Naredbe izgradnje"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
 msgstr "Iskačuće naredbe izgradnje"
 
-#: ../plugins/build-basic-autotools/plugin.c:2916
-#: ../plugins/build-basic-autotools/plugin.c:2924
+#: ../plugins/build-basic-autotools/plugin.c:2915
+#: ../plugins/build-basic-autotools/plugin.c:2923
 msgid "Build Autotools"
 msgstr "Izgradi autoalate"
 
@@ -2151,50 +2150,6 @@ msgstr "Seter"
 msgid "XML description of the user interface"
 msgstr "HML opis korisničkog sučelja"
 
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-msgid "Code Analyzer"
-msgstr "Analizator koda"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Analizira kod radnim okvirom analizatora C-jezika"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Uključi analizatora koda C-jezika"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
-msgstr ""
-"Projekat mora biti ponovo podešen nakon uključivanja ove opcije. Molim "
-"pokrenite „Izgradi->Podesi“!"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "ccc-anlizator:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "c++-anlizator:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Putanje C-jezika"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
-msgstr ""
-"Ne mogu da pronađem analizatora c-jezika, molim proverite da li je "
-"instaliran i da li su putanje ispravno podešene u postavkama"
-
-#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Analizator C-jezika"
-
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
 msgstr "CVS priključak"
@@ -2212,7 +2167,7 @@ msgid "Patch-Style diff"
 msgstr "Razlike u stilu zakrpe"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2174
+#: ../plugins/symbol-db/plugin.c:2172
 msgid "Local"
 msgstr "Lokalno"
 
@@ -2831,8 +2786,8 @@ msgid ""
 "source code corresponding to the instructions, so some commands can perform "
 "in a strange way, especially steps."
 msgstr ""
-"<span weight=\"bold\" size=\"larger\"> Da li ste sigurni da želite da otklanjate "
-"greške ne koristeći podešavanje za otklanjanje grešaka?</span>\n"
+"<span weight=\"bold\" size=\"larger\"> Da li ste sigurni da želite da "
+"otklanjate greške ne koristeći podešavanje za otklanjanje grešaka?</span>\n"
 "\n"
 "Ukoliko su uključene optimizacije, ispravljač grešaka ne može uvek da odredi "
 "instrukcije vezane za izvorni kod, tako da se neke naredbe mogu ponašati "
@@ -3338,7 +3293,7 @@ msgstr "Okvir"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2132
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
 msgid "File"
 msgstr "Datoteka"
@@ -3468,57 +3423,57 @@ msgstr "API pomoć"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Dodatak pomoći razvoja za Anjutu."
 
-#: ../plugins/devhelp/plugin.c:206
+#: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
 msgstr "Traži pomoć:"
 
-#: ../plugins/devhelp/plugin.c:227 ../plugins/document-manager/plugin.c:244
+#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Idi na"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:234
 msgid "_API Reference"
 msgstr "_API referenca"
 
-#: ../plugins/devhelp/plugin.c:238
+#: ../plugins/devhelp/plugin.c:236
 msgid "Browse API Pages"
 msgstr "Pregledaj API stranice"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:246
 msgid "_Context Help"
 msgstr "_Pomoć na osnovu konteksta"
 
-#: ../plugins/devhelp/plugin.c:250
+#: ../plugins/devhelp/plugin.c:248
 msgid "Search help for the current word in the editor"
 msgstr "Pretraži pomoć za tekuću reč u programu za unos teksta"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:258
 msgid "_Search Help"
 msgstr "_Pretraži pomoć"
 
-#: ../plugins/devhelp/plugin.c:262
+#: ../plugins/devhelp/plugin.c:260
 msgid "Search for a term in help"
 msgstr "Potraži izraz u pomoći"
 
-#: ../plugins/devhelp/plugin.c:334
+#: ../plugins/devhelp/plugin.c:331
 msgid "Help operations"
 msgstr "Operacije oko pomoći"
 
-#: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
 msgid "API Browser"
 msgstr "API pregledač"
 
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:361
 msgid "Contents"
 msgstr "Sadržaj"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2142
-#: ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "Traži"
 
-#: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
 msgid "API"
 msgstr "API"
 
@@ -3619,7 +3574,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Zameni"
 
-#: ../plugins/document-manager/anjuta-docman.c:1448
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[samo-čitanje]"
 
@@ -4014,8 +3969,8 @@ msgstr "Potražite koristeći regularne izraze"
 #: ../plugins/document-manager/plugin.c:305
 #: ../plugins/indentation-c-style/plugin.c:463
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1094
-#: ../plugins/language-support-python/plugin.c:399 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Uređivanje"
 
@@ -4338,16 +4293,16 @@ msgstr "Zameni"
 msgid "Replace all"
 msgstr "Zameni sve"
 
-#: ../plugins/document-manager/search-files.c:596
+#: ../plugins/document-manager/search-files.c:616
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Naziv datoteke"
 
-#: ../plugins/document-manager/search-files.c:708
+#: ../plugins/document-manager/search-files.c:728
 msgid "All text files"
 msgstr "Sve tekstualne datoteke"
 
-#: ../plugins/document-manager/search-files.c:849
+#: ../plugins/document-manager/search-files.c:871
 msgid "Find in files"
 msgstr "Pronađi u datotekama"
 
@@ -4387,7 +4342,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Ova funkcija nije primenjena za element klase „%s“"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:167
+#: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Otvori „%s“"
@@ -4600,7 +4555,7 @@ msgstr "Izaberite fasciklu za prikaz ako nijedan projekat nije otvoren"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/symbol-db/plugin.c:2184
 msgid "Global"
 msgstr "Opšte"
 
@@ -5862,7 +5817,7 @@ msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Sam uvuci tekući red ili izbor zasnovan na podešavanjima uvlačenja"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#: ../plugins/language-support-cpp-java/plugin.c:1147
+#: ../plugins/language-support-cpp-java/plugin.c:1126
 msgid "C++/Java Assistance"
 msgstr "Pomoć za C++/Javu"
 
@@ -5878,7 +5833,7 @@ msgid "Enable adaptive indentation"
 msgstr "Uključi prilagodljivo uvlačenje"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#: ../plugins/language-support-python/plugin.c:450
+#: ../plugins/language-support-python/plugin.c:428
 msgid "Python Assistance"
 msgstr "Pomoć Pitona"
 
@@ -5917,112 +5872,127 @@ msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr "Dodatak za podršku C++ i Jave za dopunu koda, samouvlačenje, itd."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
-msgid "Enable code completion"
-msgstr "Uključi dovršavanje koda"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
-msgid "Add a space after function call autocompletion"
-msgstr "Dodaj razmak nakon što funkcija pozove samodovršavanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
-msgid "Add '(' after function call autocompletion"
-msgstr "Dodaj ( nakon što funkcija pozove samodovršavanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "Add ')' after function call autocompletion"
-msgstr "Dodaj „)“ nakon što funkcija pozove samodovršavanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
-msgid "Autocompletion"
-msgstr "Samodovršavanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
-msgid "Show calltips"
-msgstr "Prikaži savete poziva"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
-msgid "Calltips"
-msgstr "Saveti poziva"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-msgid "Auto-complete"
-msgstr "Sam dovrši"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Automatically load required libraries of the project"
 msgstr "Samostalno učitaj potrebne biblioteke projekta"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Load API tags for C standard library"
 msgstr "Učitaj API oznake za standardnu C biblioteku"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Load API tags for C++ standard template library"
 msgstr "Učitaj API oznake za standardnu C++ biblioteku šablona"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-msgid "API Tags (C/C++)"
-msgstr "API oznake (C/C++)"
-
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
-msgid "C/C++"
-msgstr "C/C++"
-
-#: ../plugins/language-support-cpp-java/plugin.c:684
+#: ../plugins/language-support-cpp-java/plugin.c:682
 msgid "Code added for widget."
 msgstr "Kod je dodat za element."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1100
+#: ../plugins/language-support-cpp-java/plugin.c:1079
 msgid "Comment/Uncomment"
 msgstr "Zakomentariši/otkomentariši"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1101
+#: ../plugins/language-support-cpp-java/plugin.c:1080
 msgid "Comment or uncomment current selection"
 msgstr "Dodajte ili uklonite primedbu tekućem izboru"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1106
+#: ../plugins/language-support-cpp-java/plugin.c:1085
 msgid "Swap .h/.c"
 msgstr "Zameni .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1107
+#: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "Zameni C zaglavlje i izvorne datoteke"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1385
-#: ../plugins/language-support-cpp-java/plugin.c:1419
-msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1374
+msgid "API Tags (C/C++)"
+msgstr "API oznake (C/C++)"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "JS Find dirs"
-msgstr "JS nađi direktorijume"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:1
+msgid "Enable code completion"
+msgstr "Uključi dovršavanje koda"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-msgid "Gir repository's directory:   "
-msgstr "Direktorijum Gir riznice:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:2
+msgid "Add a space after function call autocompletion"
+msgstr "Dodaj razmak nakon što funkcija pozove samodovršavanje"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-msgid "Gjs repository's directory:   "
-msgstr "Direktorijum Gjs riznice:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:3
+msgid "Add '(' after function call autocompletion"
+msgstr "Dodaj ( nakon što funkcija pozove samodovršavanje"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-msgid "Min character for completion "
-msgstr "Najmanji znak za dovršavanje "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:4
+msgid "Add ')' after function call autocompletion"
+msgstr "Dodaj „)“ nakon što funkcija pozove samodovršavanje"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:5
+msgid "Autocompletion"
+msgstr "Samodovršavanje"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:6
+msgid "Show calltips"
+msgstr "Prikaži savete poziva"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:7
+msgid "Calltips"
+msgstr "Saveti poziva"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:8
 msgid "Highlight missed semicolon"
 msgstr "Istakni nedostajuću tačku-zarez"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-msgid "Add brace after function call autocompletion"
-msgstr "Dodaj zagradu nakon što funkcija pozove samodovršavanje"
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
+#| msgid "Highlight All"
+msgid "Highlights"
+msgstr "Istakni"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:10
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Autocomplete"
+msgstr "Samo-dopuni"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:11
+msgid "JS Find dirs"
+msgstr "JS nađi direktorijume"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
+#| msgid "Gir repository's directory:   "
+msgid "Gir repository's directory: "
+msgstr "Direktorijum Gir riznice: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
+#| msgid "Gjs repository's directory:   "
+msgid "Gjs repository's directory: "
+msgstr "Direktorijum Gjs riznice: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
+#| msgid "Min character for completion "
+msgid "Min character for completion: "
+msgstr "Najmanji znak za dovršavanje: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
+msgid "Environment"
+msgstr "Okruženje"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -6032,36 +6002,25 @@ msgstr "Dodatak podrške JS"
 msgid "JavaScript Support Plugin"
 msgstr "Dodatak podrške Java skripte"
 
-#: ../plugins/language-support-js/plugin.c:329
-#: ../plugins/language-support-js/plugin.c:338
+#: ../plugins/language-support-js/plugin.c:370
+#: ../plugins/language-support-js/plugin.c:383
+#: ../plugins/language-support-js/plugin.c:417
 msgid "JavaScript"
 msgstr "Java skript"
 
-#: ../plugins/language-support-js/plugin.c:394
-msgid "JS"
-msgstr "JS"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
-msgid "Autocomplete"
-msgstr "Samo-dopuni"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
 msgid "Path: "
 msgstr "Putanja: "
 
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
 msgid "Interpreter"
 msgstr "Prevodilac"
 
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
-msgid "Environment"
-msgstr "Okruženje"
-
-#: ../plugins/language-support-python/plugin.c:74
+#: ../plugins/language-support-python/plugin.c:73
 msgid "Python support warning"
 msgstr "Upozorenje podrške pitona"
 
-#: ../plugins/language-support-python/plugin.c:82
+#: ../plugins/language-support-python/plugin.c:81
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -6071,13 +6030,13 @@ msgstr ""
 "nisu instalirane. Oba su potrebna za samodovršavanje u datotekama pitona.\n"
 "Molim instalirajte ih i proverite putanju pitona u postavkama."
 
-#: ../plugins/language-support-python/plugin.c:85
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Do not show that warning again"
 msgstr "Ne prikazuj više ovo upozorenje"
 
-#: ../plugins/language-support-python/plugin.c:557
-#: ../plugins/language-support-python/plugin.c:566
-#: ../plugins/language-support-python/python-assist.c:982
+#: ../plugins/language-support-python/plugin.c:561
+#: ../plugins/language-support-python/plugin.c:574
+#: ../plugins/language-support-python/python-assist.c:792
 msgid "Python"
 msgstr "Piton"
 
@@ -6088,6 +6047,12 @@ msgstr "Priključak podrške Vala"
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
 msgid "Vala support plugin, adds code completion."
 msgstr "Priključak podrške Vale za dopunjavanje koda, samouvlačenje, itd."
+
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
+#: ../plugins/parser-cxx/plugin.c:269 ../plugins/parser-cxx/plugin.c:282
+msgid "Auto-complete"
+msgstr "Sam dovrši"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6279,6 +6244,10 @@ msgstr "Dodaj _paket"
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Packages"
 msgstr "Paketi"
+
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+msgid "C/C++"
+msgstr "C/C++"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -6832,7 +6801,7 @@ msgstr "Osveži pregled projekta…"
 #: ../plugins/project-manager/plugin.c:1624
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2137
+#: ../plugins/symbol-db/plugin.c:2135
 msgid "Project"
 msgstr "Projekat"
 
@@ -8491,7 +8460,7 @@ msgstr "Podešavanja pregleda uređivača"
 msgid "GtkSourceView Editor"
 msgstr "Uređivač prikaza Gtk izvora"
 
-#: ../plugins/sourceview/sourceview.c:567
+#: ../plugins/sourceview/sourceview.c:569
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8500,7 +8469,7 @@ msgstr ""
 "Datoteka „%s“ na disku je novija od trenutne u priručnoj memoriji.\n"
 "Da li želite da je ponovo učitate?"
 
-#: ../plugins/sourceview/sourceview.c:599
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8510,18 +8479,18 @@ msgstr ""
 "Da li želite da je zatvorite?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:632
+#: ../plugins/sourceview/sourceview.c:634
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ne mogu da otvorim: %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:686
+#: ../plugins/sourceview/sourceview.c:688
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka „%s“ je samo za čitanje! Ipak želite da je uredite?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:748
+#: ../plugins/sourceview/sourceview.c:750
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ne mogu da sačuvam: %s: %s"
@@ -8576,7 +8545,7 @@ msgstr "Pokretač"
 msgid "Welcome page with most common actions."
 msgstr "Stranica dobrodošlice sa najopštijim radnjama."
 
-#: ../plugins/starter/plugin.c:285
+#: ../plugins/starter/plugin.c:286
 msgid "Start"
 msgstr "Pokreni"
 
@@ -9237,23 +9206,23 @@ msgstr[1] "%d datoteke su skenirane od %d"
 msgstr[2] "%d datoteka je skenirano od %d"
 msgstr[3] "%d datoteka je skenirana od %d"
 
-#: ../plugins/symbol-db/plugin.c:1742
+#: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
 msgstr "Popunjavam bazu podataka simbola…"
 
-#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../plugins/symbol-db/plugin.c:2216
+#: ../plugins/symbol-db/plugin.c:2214
 msgid "SymbolDb popup actions"
 msgstr "Radnje iskakanja BP simbola"
 
-#: ../plugins/symbol-db/plugin.c:2224
+#: ../plugins/symbol-db/plugin.c:2222
 msgid "SymbolDb menu actions"
 msgstr "Radnje izbornika BP simbola"
 
-#: ../plugins/symbol-db/plugin.c:2537 ../plugins/symbol-db/plugin.c:2555
+#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Baza podataka simbola"
@@ -9577,7 +9546,8 @@ msgstr "Izabran pun naziv datoteke u priključku upravnika datoteka"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "Izabran pun naziv datoteke bez proširenja u priključku upravnika datoteka"
+msgstr ""
+"Izabran pun naziv datoteke bez proširenja u priključku upravnika datoteka"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
@@ -9605,7 +9575,8 @@ msgstr "Izabran pun naziv datoteke u priključku upravnika projekta"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "Izabran pun naziv datoteke bez proširenja u priključku upravnika projekta"
+msgstr ""
+"Izabran pun naziv datoteke bez proširenja u priključku upravnika projekta"
 
 #: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
@@ -9901,3 +9872,47 @@ msgstr "Samo ikonice"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Samo tekst"
+
+#~ msgid "Code Analyzer"
+#~ msgstr "Analizator koda"
+
+#~ msgid "Analyze code with the clang-analyzer framework"
+#~ msgstr "Analizira kod radnim okvirom analizatora C-jezika"
+
+#~ msgid "Enable CLang code analyzer"
+#~ msgstr "Uključi analizatora koda C-jezika"
+
+#~ msgid ""
+#~ "The project needs to be reconfigured after enabling this option. Please "
+#~ "run Build->Configure!"
+#~ msgstr ""
+#~ "Projekat mora biti ponovo podešen nakon uključivanja ove opcije. Molim "
+#~ "pokrenite „Izgradi->Podesi“!"
+
+#~ msgid "ccc-analyzer:"
+#~ msgstr "ccc-anlizator:"
+
+#~ msgid "c++-analyzer:"
+#~ msgstr "c++-anlizator:"
+
+#~ msgid "CLang Paths"
+#~ msgstr "Putanje C-jezika"
+
+#~ msgid ""
+#~ "Couldn't find clang analyzer, please check if it is installed and if the "
+#~ "paths are configured correctly in the preferences"
+#~ msgstr ""
+#~ "Ne mogu da pronađem analizatora c-jezika, molim proverite da li je "
+#~ "instaliran i da li su putanje ispravno podešene u postavkama"
+
+#~ msgid "CLang Analyzer"
+#~ msgstr "Analizator C-jezika"
+
+#~ msgid "C/C++/Java/Vala"
+#~ msgstr "C/C++/Java/Vala"
+
+#~ msgid "Add brace after function call autocompletion"
+#~ msgstr "Dodaj zagradu nakon što funkcija pozove samodovršavanje"
+
+#~ msgid "JS"
+#~ msgstr "JS"
