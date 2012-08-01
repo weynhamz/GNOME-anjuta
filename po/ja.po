@@ -9992,11 +9992,11 @@ msgstr "FAQ の質問を投稿します"
 
 #: ../src/anjuta-actions.h:83
 msgid "_About"
-msgstr "情報(_A)"
+msgstr "このアプリケーションについて(_A)"
 
 #: ../src/anjuta-actions.h:84
 msgid "About Anjuta"
-msgstr "Anjuta について"
+msgstr "このアプリケーションについて"
 
 #: ../src/anjuta-actions.h:87
 msgid "About External _Plugins"
