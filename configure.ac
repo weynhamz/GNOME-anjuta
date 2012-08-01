@@ -764,7 +764,6 @@ launcher/Makefile
 plugins/Makefile
 plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
-plugins/code-analyzer/Makefile
 plugins/patch/Makefile
 plugins/document-manager/Makefile
 plugins/document-manager/images/Makefile
