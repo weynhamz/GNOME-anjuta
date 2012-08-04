@@ -30,7 +30,7 @@
 	DosBatchParser, \
 	EiffelParser, \
 	ErlangParser, \
-        Falcon, \
+    FalconParser, \
 	FlexParser, \
 	FortranParser, \
 	GirParser,  \
@@ -74,6 +74,7 @@
 	CobolParser, \
 	DosBatchParser, \
 	EiffelParser, \
+	FalconParser, \
 	ErlangParser, \
 	FlexParser, \
 	FortranParser, \
