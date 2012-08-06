@@ -54,9 +54,6 @@ GLADEUI_REQUIRED=3.12.0
 dnl Introspection
 GI_REQUIRED=0.9.5
 
-dnl Various
-LIBGRAPHVIZ_REQUIRED=1.0
-
 dnl Subversion plugin
 NEON_REQUIRED=0.28.2
 SVN_MAJOR=1
@@ -709,29 +706,6 @@ fi
 
 AC_SUBST(SYMBOL_DB_SHM)
 
-
-dnl Check for graphviz (class inheritance and profiler plugins)
-AC_ARG_ENABLE(graphviz,
-	AS_HELP_STRING([--disable-graphviz],[Disable GraphViz support in Anjuta]),
-	[ if test "$enableval" = "no"; then
-		user_disabled_graphviz=1
-	  fi ],
-	[ user_disabled_graphviz=0 ])
-
-AC_MSG_CHECKING(if GraphViz support is disabled)
-if test "$user_disabled_graphviz" = 1; then
-	AC_MSG_RESULT(yes)
-	libgraphviz_found="no"
-else
-	AC_MSG_RESULT(no)
-	PKG_CHECK_MODULES(GRAPHVIZ,
-		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED],
-		[libgraphviz_found="yes"],
-		[libgraphviz_found="no"])
-fi
-
-AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
-
 dnl Test using autotest
 dnl -----------------------------
 AC_CONFIG_TESTDIR(plugins/am-project/tests)
@@ -918,12 +892,6 @@ if [ test x$enable_vala = xyes ]; then
 else
         echo "Building Vala support: .................................NO"
         echo "        Requires libvala (>= $VALA_REQUIRED)"
-fi
-if [ test x$libgraphviz_found = xyes ]; then
-        echo "Building class inheritance plugin: .....................YES"
-else
-        echo "Building class inheritance plugin: .....................NO"
-        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 if [ test x$have_python = xyes]; then
         echo "Building python plugin loaeder: ........................YES"
