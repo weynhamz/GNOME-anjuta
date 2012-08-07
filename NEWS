@@ -1,3 +1,81 @@
+Anjuta 3.5.5 "Kein Stress" (August 6 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.4.x!
+
+Aleksander Morgado (1):
+      devhelp: update plugin to avoid DhBase, no longer available in libdevhelp
+
+Alexandre Rostovtsev (1):
+      language-support-vala: build using $(VALAC), not valac
+
+Andre Klapper (1):
+      FAQ: Several improvements
+
+Daniel Mustieles (1):
+      Updated Spanish translation
+
+Daniel Șerbănescu (1):
+      Updated Romanian Translation
+
+Fran Diéguez (1):
+      Updated Galician translations
+
+James Liggett (1):
+      symbol-db: Fix build
+
+Jiro Matsuzawa (1):
+      [l10n] Update Japanese translation
+
+Johannes Schmid (13):
+      Post-release version bump
+      build: Only check for passwords when installing as root (bgo#680136)
+      libanjuta: Fix some warnings and made AnjutaPluginDescription a boxed type
+      Updated dependencies to fixed checking twice for libgda
+      document-manager: bgo#680554 - entry of find in files doesn't get focused
+      document-manager: Only use in project files
+      document-manager: bgo#680559 - Find in Files does not scroll to top of results
+      document-manager: bgo#680555 - Escape key does not dismiss Find in Files panel
+      libanjuta, language-support-*: Move IAnjutaLanguageProviderProposalData to libanjuta
+      libanjuta, language-support-*: Introspection from bgo#680466
+      class-inheritance, code-analyzer: Remove plugins that don't work or aren't built
+      document-manager: Unify focus handling
+      configure: Fix build
+
+Kalev Lember (2):
+      starter: Use glib resource framework for UI files
+      starter: Remove unused starter_logo.png
+
+Moritz Lüdecke (8):
+      Add new the interface IAnjutaLanguageProvider and extend IAnjutaEditorAssist
+      Adapt the sourceview plugin to the new IAnjutaEditorAssist API
+      Adapt the snippets-manager plugin to the new IAnjutaEditorAssist API
+      Adapt the language-support-vala plugin to the new IAnjutaEditorAssist API
+      Adapt the language-support-python plugin to the new interface IAnjutaLanguageProvider
+      Adapt the language-support-js plugin to the new interface IAnjutaLanguageProvider
+      Adapt the parser-cxx plugin to the new interface IAnjutaLanguageProvider
+      Move parser part from the language-support-cpp-java to the new parser-cxx plugin
+
+Piotr Drąg (2):
+      Updated POTFILES.in
+      Updated POTFILES.in and POTFILES.skip
+
+Steven Oliver (1):
+      Add falcon pl to anjuta-tags
+
+Sébastien Granjoux (4):
+      anjuta: Fix closed dock windows which were kept hidden due to the latest changes in GDL
+      Do not include devhelp.h if devhelp plugin is not enabled
+      Fix bgo #680657 - Warnings when starting anjuta
+      git: Only show the Git Tasks menu when the Git window is active
+
+Tom Tryfonidis (1):
+      Updated Greek translation
+
+Мирослав Николић (2):
+      Updated Serbian translation
+      Updated Serbian translation
+
 Anjuta 3.5.4 "Irgendwas ist immer" -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
