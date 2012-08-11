@@ -193,7 +193,7 @@ merge_environment_variable (gchar ** env)
 				len = strlen (*p);
 				if ((strlen (*q) > len + 1) &&
 					(strncmp (*q, *p, len) == 0) &&
-					(*q[len] == '='))
+					((*q)[len] == '='))
 				{
 					value = *q + len + 1;
 					break;
