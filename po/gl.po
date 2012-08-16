@@ -1,31 +1,31 @@
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) 2009, 2010 Leandro Regueiro.
+# Galician translation of Anjuta
+# This file is distributed under the same license as the anjuta package.
+# Copyright (C) 2009, 2010, 2012 Leandro Regueiro.
+#
+# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
+# colaborar connosco, podes atopar máis información en <http://trasno.net>
 #
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
-# Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010.
-#
-# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
-# colaborar connosco, podes atopar máis información en <http://trasno.net>
-# Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011.
-# Fran Dieguez <frandieguez@gnome.org>, 2010, 2011, 2012.
-#
+# Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010, 2012.
+# Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-30 02:11+0200\n"
-"PO-Revision-Date: 2012-07-30 02:13+0200\n"
-"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-08-15 07:06+0000\n"
+"PO-Revision-Date: 2012-08-15 21:57+0200\n"
+"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
+"Language-Team: Galego <kde-i18n-doc@kde.org>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
 msgid "Anjuta"
@@ -33,11 +33,11 @@ msgstr "Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2 ../src/about.c:207
 msgid "Integrated Development Environment"
-msgstr "Contorno de desenvolvemento integrado (IDE)"
+msgstr "Ambiente de desenvolvemento integrado (IDE)"
 
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
-msgstr "Desenvolver software nun contorno de desenvolvemento integrado"
+msgstr "Desenvolver software nun ambiente de desenvolvemento integrado"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
@@ -259,7 +259,7 @@ msgstr "Texto que lle mostra ao usuario que ten que escribir nun campo"
 #: ../libanjuta/anjuta-environment-editor.c:543
 #: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Environment Variables:"
-msgstr "Introducir variábeis de contorno:"
+msgstr "Introducir variábeis de ambiente:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
 #: ../plugins/class-gen/window.c:719 ../plugins/class-gen/window.c:729
@@ -332,7 +332,7 @@ msgstr "fallou o execvp"
 
 #: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
-msgstr "Intérprete de ordes do Anjuta"
+msgstr "Intérprete de ordes de Anjuta"
 
 #: ../libanjuta/anjuta-plugin.c:332
 msgid "Anjuta shell that will contain the plugin"
@@ -380,7 +380,7 @@ msgid ""
 "you again to choose different plugin."
 msgstr ""
 "Estes son os engadidos que vostede seleccionou cando Anjuta lle pediu que "
-"escollese un, entre varios que eran adecuados. Ao eliminar o engadido "
+"escollese un, entre varios que eran adecuados. Ao retirar o engadido "
 "preferido, Anjuta pediralle outra vez que escolla outro diferente."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1237
@@ -461,7 +461,6 @@ msgstr "Categoría"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
@@ -513,8 +512,8 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
 "profile."
 msgstr ""
-"Produciuse un fallo ao ler «%s»: erro de análise de XML. O perfil de "
-"engadidos do Anjuta non é válido ou está danado."
+"Produciuse un erro ao ler «%s»: erro de análise de XML. O perfil de "
+"engadidos do Anjuta é incorrecto ou está danado."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -528,8 +527,7 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
-"Produciuse un fallo ao ler «%s»: faltan os seguintes engadidos "
-"obrigatorios:\n"
+"Produciuse un erro ao ler «%s»: faltan os seguintes engadidos obrigatorios:\n"
 "%s"
 
 #: ../libanjuta/anjuta-save-prompt.c:157
@@ -874,8 +872,8 @@ msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
 msgstr ""
-"Un enderezo de correo electrónico ou unha ligazón á páxina web  onde o "
-"usuario pode informar de erros. É opcional."
+"Un enderezo de correo electrónico ou unha ligazón á páxina web onde o "
+"usuario pode informar de fallos. É opcional."
 
 #: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
@@ -1321,8 +1319,8 @@ msgid ""
 "subdir/app not in bin/app."
 msgstr ""
 "Manter a ruta de destino relativa para instalala. Por exemplo se ten un "
-"programa en subcartafol/aplicativo instalado no cartafol bin será instalado "
-"en bin/subcartafol/aplicativo e non en bin/aplicativo."
+"programa en subcartafol/aplicativo instalado no cartafol bin instalaraseen "
+"bin/subcartafol/aplicativo e non en bin/aplicativo."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1471,7 +1469,7 @@ msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr ""
-"Antes de empregar esta nova configuración, precísase eliminar a "
+"Antes de empregar esta nova configuración, precísase retirar a "
 "predeterminada. Quere facelo?"
 
 #: ../plugins/build-basic-autotools/build.c:531
@@ -1662,12 +1660,12 @@ msgstr "Tempo total que levou: %lu segs\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:1007
 msgid "Completed unsuccessfully\n"
-msgstr "Non terminou correctamente\n"
+msgstr "Non rematou correctamente\n"
 
 #: ../plugins/build-basic-autotools/plugin.c:1015
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
-msgstr "Terminou correctamente\n"
+msgstr "Rematou correctamente\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
@@ -1784,13 +1782,13 @@ msgstr "Seleccionar a configuración actual"
 
 #: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
-msgstr "Eliminar a configuración"
+msgstr "Retirar a configuración"
 
 #: ../plugins/build-basic-autotools/plugin.c:1742
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
-"Limpar o proxecto (distclean) e eliminar o cartafol de configuración se for "
+"Limpar o proxecto (distclean) e retirar o cartafol de configuración se for "
 "posíbel"
 
 #: ../plugins/build-basic-autotools/plugin.c:1755
@@ -1894,7 +1892,7 @@ msgid ""
 "Error while setting up build environment:\n"
 " %s"
 msgstr ""
-"Produciuse un erro ao configurar o contorno de construción:\n"
+"Produciuse un erro ao configurar o ambiente de construción:\n"
 " %s"
 
 #: ../plugins/build-basic-autotools/program.c:373
@@ -2112,7 +2110,7 @@ msgstr ""
 #: ../plugins/class-gen/plugin.c:261 ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr "Produciuse un fallo ao executar o autogen: %s"
+msgstr "Produciuse un erro ao executar autogen: %s"
 
 #: ../plugins/class-gen/window.c:113
 msgid "Guess from type"
@@ -2187,50 +2185,6 @@ msgstr "Setter"
 msgid "XML description of the user interface"
 msgstr "Descrición XML da interface de usuario"
 
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-msgid "Code Analyzer"
-msgstr "Analizador de código"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Analizador de código co marco de traballo clang-analyzer"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Activar o analizador de código CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
-msgstr ""
-"Logo de activar esta opción debe reconfigurar o proxecto. Execute Construír-"
-">Configurar !"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "ccc-analyzer:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "c++-analyzer:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Rutas CLang"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
-msgstr ""
-"Non foi posíbel atopar o analizador clang, comprobe que está instalado e se "
-"as rutas están configuradas correctamente nas preferencias"
-
-#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Analizador CLang"
-
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
 msgstr "Engadido CVS"
@@ -2301,11 +2255,11 @@ msgstr "O ficheiro é binario"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:15
 msgid "CVS: Remove file/directory"
-msgstr "CVS: Eliminar o ficheiro ou o cartafol"
+msgstr "CVS: retirar o ficheiro ou o cartafol"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:16
 msgid "Choose file or directory to remove:"
-msgstr "Seleccione o ficheiro ou o cartafol para eliminar:"
+msgstr "Seleccione o ficheiro ou o cartafol para retirar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:17
 msgid ""
@@ -2315,11 +2269,11 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
-"<b>Nota: </b>\n"
+"<b>Teña en conta que: </b>\n"
 "\n"
 "Ao premer en Aceptar eliminarase o ficheiro do disco e do CVS. De todas "
-"formas, o ficheiro non se eliminará do CVS antes de que vostede use Remitir "
-"a CVS. <b>Queda avisado!</b>"
+"formas, o ficheiro non se retirará do CVS antes de que vostede use Remitir a "
+"CVS. <b>Queda avisado!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Commit file/directory"
@@ -2482,7 +2436,7 @@ msgstr "Complete o campo: %s"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:78
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr "Estase a executar a orde CVS! Espere a que termine!"
+msgstr "Estase a executar a orde CVS! Espere a que remate!"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:152
 msgid "Unable to delete file"
@@ -2522,7 +2476,7 @@ msgstr[1] "Orde CVS correcta! - Tempo empregado: %ld segundos"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:221
 msgid "CVS command is running — please wait until it finishes!"
-msgstr "Estase executando a orde CVS - espere até que termine!"
+msgstr "Estase executando a orde CVS - espere até que remate!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
 #: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:474
@@ -2552,13 +2506,13 @@ msgstr "Engadir un ficheiro ou un cartafol novo á arbore CVS"
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:62
 msgid "_Remove"
-msgstr "_Eliminar"
+msgstr "_Retirar"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:64
 msgid "Remove a file/directory from CVS tree"
-msgstr "Eliminar un ficheiro ou un cartafol da árbore CVS"
+msgstr "Retirar un ficheiro ou un cartafol da árbore CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -2691,7 +2645,7 @@ msgstr "_Desactivar todo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:11
 msgid "_Remove all"
-msgstr "_Eliminar todo"
+msgstr "_Retirar todo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:12
 msgid "Add Watch"
@@ -2914,13 +2868,13 @@ msgstr "Engadir un punto de interrupción"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1847
 msgid "Remove Breakpoint"
-msgstr "Eliminar o punto de interrupción"
+msgstr "Retirar o punto de interrupción"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1849
 msgid "Remove a breakpoint"
-msgstr "Eliminar un punto de interrupción"
+msgstr "Retirar un punto de interrupción"
 
 #. Action name
 #. Stock icon, if any
@@ -2964,13 +2918,13 @@ msgstr "Desactivar todos os puntos de interrupción"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1879
 msgid "R_emove All Breakpoints"
-msgstr "_Eliminar todos os puntos de interrupción"
+msgstr "_Retirar todos os puntos de interrupción"
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Remove all breakpoints"
-msgstr "Eliminar todos os puntos de interrupción"
+msgstr "Retirar todos os puntos de interrupción"
 
 #. Action name
 #. Stock icon, if any
@@ -3462,7 +3416,7 @@ msgstr "Engadir o punto de vixilancia…"
 
 #: ../plugins/debug-manager/watch.c:422
 msgid "Remove Watch"
-msgstr "Eliminar o punto de vixilancia"
+msgstr "Retirar o punto de vixilancia"
 
 #: ../plugins/debug-manager/watch.c:430
 msgid "Update Watch"
@@ -3478,7 +3432,7 @@ msgstr "Actualizar todo"
 
 #: ../plugins/debug-manager/watch.c:454
 msgid "Remove all"
-msgstr "Eliminar todo"
+msgstr "Retirar todo"
 
 #. Action name
 #. Stock icon, if any
@@ -3573,15 +3527,15 @@ msgstr "O proxecto non permite estabelecer propiedades"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:1
 msgid "Directory backend"
-msgstr "«Backend» de cartafol"
+msgstr "Infraestrutura de cartafol"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:2
 msgid ""
 "Directory project backend, get only source files, use it when other backend "
 "fails"
 msgstr ""
-"Cartafol do «backend» do proxecto, obtén só os ficheiros fonte, úseo cando "
-"outros «backend» fallen"
+"Infraestrutura do proxecto de directorio, obtén só os ficheiros fonte, úsea "
+"cando outras infraestruturas fallen"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3602,7 +3556,7 @@ msgstr "Engadir o marcador"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:340
 msgid "Remove bookmark"
-msgstr "Eliminar o marcador"
+msgstr "Retirar o marcador"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
@@ -3618,7 +3572,7 @@ msgstr "_Renomear"
 #: ../plugins/git/plugin.c:178
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Remove"
-msgstr "Eliminar"
+msgstr "Retirar"
 
 #: ../plugins/document-manager/anjuta-docman.c:454
 msgid "Close file"
@@ -3653,7 +3607,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "Substituí_r"
 
-#: ../plugins/document-manager/anjuta-docman.c:1447
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[só de lectura]"
 
@@ -4071,11 +4025,11 @@ msgstr "Engadir unha visualización máis do documento actual"
 
 #: ../plugins/document-manager/plugin.c:316
 msgid "_Remove Editor View"
-msgstr "_Eliminar a visualización do editor"
+msgstr "_Retirar a visualización do editor"
 
 #: ../plugins/document-manager/plugin.c:317
 msgid "Remove current view of the document"
-msgstr "Eliminar a visualización actual do documento"
+msgstr "Retirar a visualización actual do documento"
 
 #: ../plugins/document-manager/plugin.c:319
 msgid "U_ndo"
@@ -4325,11 +4279,11 @@ msgstr "Modo"
 #: ../plugins/document-manager/plugin.c:1573
 #, c-format
 msgid "Autosave failed for %s"
-msgstr "Produciuse un fallo ao gardar automaticamente %s"
+msgstr "Produciuse un erro ao gardar automaticamente %s"
 
 #: ../plugins/document-manager/plugin.c:1587
 msgid "Autosave completed"
-msgstr "Terminou de gardar automaticamente"
+msgstr "Rematou de gardar automaticamente"
 
 #: ../plugins/document-manager/search-box.c:561
 #, c-format
@@ -4545,7 +4499,7 @@ msgstr "Ficheiros differenciais"
 #: ../plugins/file-loader/plugin.c:823
 #, c-format
 msgid "Failed to activate plugin: %s"
-msgstr "Produciuse un fallo ao activar o engadido: %s"
+msgstr "Produciuse un erro ao activar o engadido: %s"
 
 #: ../plugins/file-loader/plugin.c:884
 msgid "_New"
@@ -4855,7 +4809,7 @@ msgstr "Atopouse o número do punto de interrupción %s\n"
 
 #: ../plugins/gdb/debugger.c:1517
 msgid "Function finished\n"
-msgstr "A función terminou\n"
+msgstr "A función rematou\n"
 
 #: ../plugins/gdb/debugger.c:1523
 msgid "Stepping finished\n"
@@ -4903,7 +4857,7 @@ msgid ""
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 "Xa hai un proceso executándose.\n"
-"Quere finalizalo e acoplar o proceso novo?"
+"Quere terminalo e acoplar o proceso novo?"
 
 #: ../plugins/gdb/debugger.c:2243
 msgid "Anjuta is unable to attach to itself."
@@ -4911,7 +4865,7 @@ msgstr "O Anjuta non é capaz de acoplarse a si mesmo."
 
 #: ../plugins/gdb/debugger.c:2293
 msgid "Program terminated\n"
-msgstr "O programa finalizou\n"
+msgstr "O programa terminou\n"
 
 #: ../plugins/gdb/debugger.c:2308
 msgid "Program detached\n"
@@ -4944,7 +4898,7 @@ msgstr "Produciuse un erro ao sinalizar o proceso."
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
-"Produciuse un fallo ao crear un ficheiro fifo chamado %s. O programa "
+"Produciuse un erro ao crear un ficheiro FIFO chamado %s. O programa "
 "executarase sen ningún terminal."
 
 #: ../plugins/gdb/plugin.c:204
@@ -5016,7 +4970,7 @@ msgstr "Ficheiros de caixa de correo que aplicar:"
 msgid "Add signed off by line"
 msgstr "Engadir a liña «asinado por»"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
 msgid "Branches"
 msgstr "_Ramificacións"
 
@@ -5026,7 +4980,7 @@ msgstr "Solte ou escriba unha revisión aquí"
 
 #: ../plugins/git/anjuta-git.ui.h:11
 msgid "Commit to cherry pick:"
-msgstr "Commit a un «cherry-pick»:"
+msgstr "Remitir un «cherry-pick»:"
 
 #: ../plugins/git/anjuta-git.ui.h:12
 msgid "Do not commit"
@@ -5047,7 +5001,7 @@ msgstr "Mensaxe de rexistro:"
 
 #: ../plugins/git/anjuta-git.ui.h:16
 msgid "Amend the previous commit"
-msgstr "Corrixir o commit anterior"
+msgstr "Corrixir a remisión anterior"
 
 #: ../plugins/git/anjuta-git.ui.h:17
 msgid "This commit concludes a failed merge (use -i)"
@@ -5182,7 +5136,7 @@ msgstr "Restruturar (rebase)"
 
 #: ../plugins/git/anjuta-git.ui.h:50
 msgid "Append fetch data"
-msgstr "Engadir a data de obtención"
+msgstr "Engadir os datos de obtención"
 
 #: ../plugins/git/anjuta-git.ui.h:51
 msgid "Commit on fast-forward merges"
@@ -5194,7 +5148,7 @@ msgstr "Non seguir as etiquetas"
 
 #: ../plugins/git/anjuta-git.ui.h:53
 msgid "Repository to push to:"
-msgstr "Repositorio sobre o que actualizar (push):"
+msgstr "Repositorio ao que enviar (push):"
 
 #: ../plugins/git/anjuta-git.ui.h:54
 msgid "Branches:"
@@ -5218,11 +5172,11 @@ msgstr "Repositorios remotos:"
 
 #: ../plugins/git/anjuta-git.ui.h:59
 msgid "Remove Files:"
-msgstr "Quitar ficheiros:"
+msgstr "Retirar ficheiros:"
 
 #: ../plugins/git/anjuta-git.ui.h:60
 msgid "Previous commit; Drop or enter a different revision here"
-msgstr "Commit anterior; solte ou escriba unha revisión diferente aquí"
+msgstr "Remisión anterior; solte ou escriba unha revisión diferente aquí"
 
 #: ../plugins/git/anjuta-git.ui.h:62
 msgid "Mixed"
@@ -5381,7 +5335,7 @@ msgid "Merge"
 msgstr "Combinar"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:700
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
 msgid "Git"
 msgstr "Git"
 
@@ -5419,7 +5373,7 @@ msgstr "Non se seleccionou ningún servidor remoto"
 
 #: ../plugins/git/git-remove-files-pane.c:157
 msgid "Remove Files"
-msgstr "Eliminar ficheiros"
+msgstr "Retirar ficheiros"
 
 #: ../plugins/git/git-repository-selector.c:66
 msgid "Remote"
@@ -5439,7 +5393,7 @@ msgid ""
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
 "Non seleccionou ningún repositorio remoto, usarase origin por omisión.\n"
-"Para remitir a un repositorio remoto distinto, seleccione un dos Remotos na "
+"Para enviar a un repositorio remoto distinto, seleccione un dos Remotos na "
 "lista de embaixo."
 
 #: ../plugins/git/git-reset-pane.c:167
@@ -5492,7 +5446,7 @@ msgstr "Cambiar á ramificación seleccionada"
 
 #: ../plugins/git/plugin.c:98
 msgid "Merge a revision into the current branch"
-msgstr "Combinar esta remisión na ramificación actual"
+msgstr "Combinar unha revisión na ramificación actual"
 
 #: ../plugins/git/plugin.c:109
 msgid "Tag tools"
@@ -5533,7 +5487,7 @@ msgstr "Engadir ficheiros ao índice"
 
 #: ../plugins/git/plugin.c:179
 msgid "Remove files from the repository"
-msgstr "Eliminar ficheiros do repositorio"
+msgstr "Retirar ficheiros do repositorio"
 
 #: ../plugins/git/plugin.c:186
 msgid "Check out"
@@ -5541,15 +5495,15 @@ msgstr "Descargar (checkout)"
 
 #: ../plugins/git/plugin.c:187
 msgid "Revert changes in unstaged files"
-msgstr "Reverter os cambios nos ficheiros non engadidos ao índice"
+msgstr "Reverter os cambios nos ficheiros que non están no índice"
 
 #: ../plugins/git/plugin.c:194
 msgid "Unstage"
-msgstr "Deseleccionar ficheiros (unstage)"
+msgstr "Quitar do índice (unstage)"
 
 #: ../plugins/git/plugin.c:195
 msgid "Remove staged files from the index"
-msgstr "Eliminar os ficheiros do índice de remisión"
+msgstr "Retirar os ficheiros do índice"
 
 #: ../plugins/git/plugin.c:202
 msgid "Resolve conflicts"
@@ -5754,34 +5708,34 @@ msgstr "Saltar o parche actual nas series"
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
-"Deter a aplicativo das series de parches e devolver o repositorio ao seu "
+"Deter a aplicación do conxunto de parches e devolver o repositorio ao seu "
 "anterior estado"
 
 #: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
 msgstr "Ramificación"
 
-#: ../plugins/git/plugin.c:696
+#: ../plugins/git/plugin.c:723
 msgid "Git Tasks"
 msgstr "Tarefas de Git"
 
-#: ../plugins/git/plugin.c:758
+#: ../plugins/git/plugin.c:793
 msgid "Status"
 msgstr "Estado"
 
-#: ../plugins/git/plugin.c:764
+#: ../plugins/git/plugin.c:799
 msgid "Log"
 msgstr "Rexistro"
 
-#: ../plugins/git/plugin.c:775
+#: ../plugins/git/plugin.c:810
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:817
 msgid "Remotes"
 msgstr "Servidores remotos"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:823
 msgid "Stash"
 msgstr "Reservar"
 
@@ -6074,7 +6028,7 @@ msgstr "Mínimo de caracteres para o completado: "
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
 #: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
 msgid "Environment"
-msgstr "Contorno"
+msgstr "Ambiente"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -6295,7 +6249,7 @@ msgstr "Motor de infraestrutura do Makefile"
 
 #: ../plugins/mk-project/mk-project.plugin.in.h:2
 msgid "Makefile project backend, allowing only to read the project"
-msgstr "«Backend» de proxecto Makefile, só lle permite ler o proxecto"
+msgstr "Infraestrutura de proxecto Makefile, só lle permite ler o proxecto"
 
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
@@ -6364,7 +6318,7 @@ msgstr "Parcheando…"
 
 #: ../plugins/patch/patch-plugin.c:225
 msgid "There are unfinished jobs: please wait until they are finished."
-msgstr "Hai traballos sen terminar, espere até que finalicen."
+msgstr "Hai traballos sen rematar, espere até que finalicen."
 
 #: ../plugins/patch/patch-plugin.c:267
 msgid ""
@@ -6374,11 +6328,11 @@ msgid ""
 msgstr ""
 "Fallou o parche.\n"
 "Revise as mensaxes de fallo.\n"
-"Examine e elimine calquera ficheiro rexeitado.\n"
+"Examine e retire calquera ficheiro rexeitado.\n"
 
 #: ../plugins/patch/patch-plugin.c:273
 msgid "Patching complete"
-msgstr "Terminou o parcheado"
+msgstr "Rematou o parcheado"
 
 #: ../plugins/patch/patch-plugin.ui.h:2
 #: ../plugins/subversion/anjuta-subversion.ui.h:61
@@ -6443,7 +6397,7 @@ msgstr ""
 #: ../plugins/project-import/plugin.c:282
 #, c-format
 msgid "Please select a project backend to open %s."
-msgstr "Seleccione un «backend» do proxecto para abrir <b>%s</b>."
+msgstr "Seleccione unha infraestrutura de proxecto para abrir <b>%s</b>."
 
 #: ../plugins/project-import/plugin.c:287
 msgid "Open With"
@@ -6455,9 +6409,9 @@ msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
-"Non foi posíbel atopar un backend de proxecto válido para o cartafol "
-"indicado (%s). Seleccione un cartafol diferente ou tente actualizar a unha "
-"versión do Anjuta máis nova."
+"Non foi posíbel atopar unha infraestrutura de proxecto correcta para o "
+"cartafol indicado (%s). Seleccione un cartafol diferente ou tente actualizar "
+"a unha versión máis nova de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6629,14 +6583,14 @@ msgstr "Actualizando a árbore de símbolos…"
 #: ../plugins/project-manager/plugin.c:411
 #, c-format
 msgid "Failed to refresh project: %s"
-msgstr "Produciuse un fallo ao actualizar o proxecto: %s"
+msgstr "Produciuse un erro ao actualizar o proxecto: %s"
 
 #: ../plugins/project-manager/plugin.c:680
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar o seguinte grupo do proxecto?\n"
+"Desexa realmente retirar o seguinte grupo do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:683
@@ -6644,7 +6598,7 @@ msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar o seguinte destino do proxecto?\n"
+"Desexa realmente retirar o seguinte destino do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:686
@@ -6652,7 +6606,7 @@ msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar o seguinte ficheiro fonte do proxecto?\n"
+"Desexa realmente retirar o seguinte ficheiro fonte do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:689
@@ -6660,7 +6614,7 @@ msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar o seguinte paquete do proxecto?\n"
+"Desexa realmente retirar o seguinte paquete do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:692
@@ -6668,7 +6622,7 @@ msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar o seguinte módulo do proxecto?\n"
+"Desexa realmente retirar o seguinte módulo do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:695
@@ -6676,7 +6630,7 @@ msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
 msgstr ""
-"Desexa realmente eliminar os seguintes elementos do proxecto?\n"
+"Desexa realmente retirar os seguintes elementos do proxecto?\n"
 "\n"
 
 #: ../plugins/project-manager/plugin.c:712
@@ -6727,7 +6681,7 @@ msgstr "O ficheiro fonte non se eliminará do sistema de ficheiros."
 
 #: ../plugins/project-manager/plugin.c:750
 msgid "Confirm remove"
-msgstr "Confirmar a eliminación"
+msgstr "Confirmar a retirada"
 
 #: ../plugins/project-manager/plugin.c:796
 #, c-format
@@ -6735,13 +6689,13 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
-"Produciuse un fallo ao eliminar «%s»:\n"
+"Produciuse un erro ao retirar «%s»:\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:862
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
-msgstr "Produciuse un fallo ao recuperar a información de URI de %s: %s"
+msgstr "Produciuse un erro ao recuperar a información de URI de %s: %s"
 
 #: ../plugins/project-manager/plugin.c:898
 msgid "_Project"
@@ -6842,11 +6796,11 @@ msgstr "Propiedades do grupo/destino/fonte"
 
 #: ../plugins/project-manager/plugin.c:976
 msgid "Re_move"
-msgstr "E_liminar"
+msgstr "Re_tirar"
 
 #: ../plugins/project-manager/plugin.c:976
 msgid "Remove from project"
-msgstr "Eliminar do proxecto"
+msgstr "Retirar do proxecto"
 
 #: ../plugins/project-manager/plugin.c:981
 msgid "_Sort"
@@ -6862,7 +6816,7 @@ msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
-"Produciuse un fallo ao analizar o proxecto (o ficheiro está aberto, mais non "
+"Produciuse un erro ao analizar o proxecto (o ficheiro está aberto, mais non "
 "haberá ningunha visualización de proxecto) %s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1329
@@ -8262,7 +8216,7 @@ msgstr "Engadir fragmento"
 #: ../plugins/snippets-manager/snippets-browser.c:199
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
 msgid "Remove selected snippet"
-msgstr "Eliminar o fragmento seleccionado"
+msgstr "Retirar o fragmento seleccionado"
 
 #: ../plugins/snippets-manager/snippets-browser.c:205
 msgid "Insert snippet into editor at current cursor position"
@@ -8692,11 +8646,11 @@ msgstr "Recorrencia"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:9
 msgid "Remove file/directory"
-msgstr "Eliminar o ficheiro ou o cartafol"
+msgstr "Retirar o ficheiro ou o cartafol"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:10
 msgid "File/URL to Remove:"
-msgstr "Ficheiro/URL para eliminar:"
+msgstr "Ficheiro/URL para retirar:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:12
 msgid "Update file/directory"
@@ -8884,13 +8838,13 @@ msgstr "Engadir un ficheiro ou un cartafol novo á árbore do Subversion"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove…"
-msgstr "_Eliminar"
+msgstr "_Retirar..."
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
-msgstr "Eliminar un ficheiro ou o cartafol da árbore do Subversion"
+msgstr "Retirar un ficheiro ou o cartafol da árbore do Subversion"
 
 #. Action name
 #. Stock icon, if any
@@ -9038,15 +8992,15 @@ msgstr "Introduza unha ruta."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
-msgstr "Subversion: Terminou a remisión."
+msgstr "Subversion: rematou a remisión."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:123
 msgid "Subversion: Committing changes to the repository…"
-msgstr "Subversion: Remitindo os cambios ao repositorio…"
+msgstr "Subversion: remitindo os cambios ao repositorio…"
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
-msgstr "Subversion: Terminou a copia."
+msgstr "Subversion: rematou a copia."
 
 #: ../plugins/subversion/subversion-copy-dialog.c:184
 msgid "Please enter a source path."
@@ -9084,7 +9038,7 @@ msgstr "Subversion: Recuperando o ficheiro…"
 
 #: ../plugins/subversion/subversion-merge-dialog.c:38
 msgid "Subversion: Merge complete."
-msgstr "Subversion: Terminou a combinación."
+msgstr "Subversion: rematou a combinación."
 
 #: ../plugins/subversion/subversion-merge-dialog.c:95
 msgid "Please enter the first path."
@@ -9109,19 +9063,19 @@ msgstr "Introduza a revisión final."
 
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
-msgstr "Subversion: O ficheiro eliminarase na próxima remisión."
+msgstr "Subversion: o ficheiro retirarase na seguinte remisión."
 
 #: ../plugins/subversion/subversion-resolve-dialog.c:36
 msgid "Subversion: Resolve complete."
-msgstr "Subversion: Terminou a resolución."
+msgstr "Subversion: rematou a resolución."
 
 #: ../plugins/subversion/subversion-revert-dialog.c:36
 msgid "Subversion: Revert complete."
-msgstr "Subversion: Terminou a reversión."
+msgstr "Subversion: rematou a reversión."
 
 #: ../plugins/subversion/subversion-switch-dialog.c:60
 msgid "Subversion: Switch complete."
-msgstr "Subversion: Terminou o cambio."
+msgstr "Subversion: rematou o cambio."
 
 #: ../plugins/subversion/subversion-switch-dialog.c:108
 msgid "Please enter a branch/tag URL."
@@ -9129,11 +9083,11 @@ msgstr "Introduza un URL de ramificación ou etiqueta."
 
 #: ../plugins/subversion/subversion-ui-utils.c:339
 msgid "Subversion: Diff complete."
-msgstr "Subversion: Terminou o diferencial."
+msgstr "Subversion: rematou o diferencial."
 
 #: ../plugins/subversion/subversion-update-dialog.c:41
 msgid "Subversion: Update complete."
-msgstr "Subversion: Terminou a actualización."
+msgstr "Subversion: rematou a actualización."
 
 #: ../plugins/subversion/svn-command.c:168
 #: ../plugins/subversion/svn-command.c:231
@@ -9293,7 +9247,7 @@ msgstr[1] "%d ficheiros analizados fora de %d"
 
 #: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
-msgstr "Poboar a bd con símbolos…"
+msgstr "Poboar a base de datos con símbolos…"
 
 #: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
@@ -9515,7 +9469,7 @@ msgstr "Executando a orde: %s…\n"
 #: ../plugins/tools/execute.c:509
 #, c-format
 msgid "Completed unsuccessfully with status code %d\n"
-msgstr "Terminou de modo incorrecto co código de estado %d\n"
+msgstr "Rematou sen éxito co código de estado %d\n"
 
 #: ../plugins/tools/execute.c:629
 msgid "Unable to create a buffer: command aborted"
@@ -9764,7 +9718,7 @@ msgstr "_Bloquear o deseño de ancoraxe"
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr ""
-"Rexistrar o deseño da acoraxe actual para que os widgets non se poidan mover"
+"Bloquear o deseño da doca actual para que non sexa posíbel mover os widgets"
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
@@ -9804,7 +9758,7 @@ msgstr "Recursos e documentación en liña"
 
 #: ../src/anjuta-actions.h:75
 msgid "Report _Bugs/Patches/Requests"
-msgstr "Informes de _erros, análises e peticións"
+msgstr "Informar de _fallos, parches e peticións"
 
 #: ../src/anjuta-actions.h:76
 msgid "Submit a bug report, patch or feature request for Anjuta"
@@ -9895,7 +9849,7 @@ msgstr ""
 
 #: ../src/main.c:138
 msgid "- Integrated Development Environment"
-msgstr "- Contorno de desenvolvemento integrado"
+msgstr "- Ambiente de desenvolvemento integrado"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
 msgid "Use tabulation for indentation"
@@ -9966,6 +9920,41 @@ msgstr "Só iconas"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Só texto"
+
+#~ msgid "Code Analyzer"
+#~ msgstr "Analizador de código"
+
+#~ msgid "Analyze code with the clang-analyzer framework"
+#~ msgstr "Analizador de código co marco de traballo clang-analyzer"
+
+#~ msgid "Enable CLang code analyzer"
+#~ msgstr "Activar o analizador de código CLang"
+
+#~ msgid ""
+#~ "The project needs to be reconfigured after enabling this option. Please "
+#~ "run Build->Configure!"
+#~ msgstr ""
+#~ "Logo de activar esta opción debe reconfigurar o proxecto. Execute "
+#~ "Construír->Configurar !"
+
+#~ msgid "ccc-analyzer:"
+#~ msgstr "ccc-analyzer:"
+
+#~ msgid "c++-analyzer:"
+#~ msgstr "c++-analyzer:"
+
+#~ msgid "CLang Paths"
+#~ msgstr "Rutas CLang"
+
+#~ msgid ""
+#~ "Couldn't find clang analyzer, please check if it is installed and if the "
+#~ "paths are configured correctly in the preferences"
+#~ msgstr ""
+#~ "Non foi posíbel atopar o analizador clang, comprobe que está instalado e "
+#~ "se as rutas están configuradas correctamente nas preferencias"
+
+#~ msgid "CLang Analyzer"
+#~ msgstr "Analizador CLang"
 
 #~ msgid "Indentation C Style"
 #~ msgstr "Sangrado estilo C"
