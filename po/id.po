@@ -7,34 +7,32 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-07-10 11:54+0000\n"
-"PO-Revision-Date: 2012-07-13 20:39+0700\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=anjuta&keywords=I18N+L10N&component=core application\n"
+"POT-Creation-Date: 2012-08-16 21:20+0000\n"
+"PO-Revision-Date: 2012-08-21 12:02+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: Indonesia\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 1.1\n"
 
-#: ../anjuta.desktop.in.in.h:1
-#: ../src/main.c:181
+#: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: ../anjuta.desktop.in.in.h:2
-#: ../src/about.c:207
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:207
 msgid "Integrated Development Environment"
 msgstr "Lingkungan Pengembangan Terpadu"
 
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
-msgstr "Mengembangkan perangkat lunak di dalam suatu lingkungan pengembangan terpadu"
+msgstr ""
+"Mengembangkan perangkat lunak di dalam suatu lingkungan pengembangan terpadu"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
@@ -82,8 +80,7 @@ msgstr "Tidak dapat menemukan fungsi pendaftaran plugin %s dalam modul %s"
 msgid "Unknown error in module %s"
 msgstr "Kesalahan tak dikenal dalam modul %s"
 
-#: ../libanjuta/anjuta-column-text-view.c:40
-#: ../plugins/git/git-pane.c:123
+#: ../libanjuta/anjuta-column-text-view.c:40 ../plugins/git/git-pane.c:123
 #, c-format
 msgid "Column %i"
 msgstr "Kolom %i"
@@ -93,17 +90,19 @@ msgstr "Kolom %i"
 msgid "Column 1"
 msgstr "Kolom 1"
 
-#: ../libanjuta/anjuta-convert.c:74
-#: ../libanjuta/anjuta-convert.c:111
+#: ../libanjuta/anjuta-convert.c:74 ../libanjuta/anjuta-convert.c:111
 #, c-format
 msgid "The file you are trying to open contains an invalid byte sequence."
 msgstr "Berkas yang Anda coba buka memuat urutan bita yang tidak sah."
 
-#: ../libanjuta/anjuta-convert.c:168
-#: ../libanjuta/anjuta-convert.c:207
+#: ../libanjuta/anjuta-convert.c:168 ../libanjuta/anjuta-convert.c:207
 #, c-format
-msgid "Anjuta was not able to automatically determine the encoding of the file you want to open."
-msgstr "Anjuta tak dapat menentukan secara otomatis pengkodean berkas yang ingin Anda buka."
+msgid ""
+"Anjuta was not able to automatically determine the encoding of the file you "
+"want to open."
+msgstr ""
+"Anjuta tak dapat menentukan secara otomatis pengkodean berkas yang ingin "
+"Anda buka."
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
@@ -120,23 +119,18 @@ msgstr "Kehilangan tipe yang didefinisikan oleh plugin %s"
 msgid "plugin %s fails to register type %s"
 msgstr "plugin %s gagal mendaftar tipe %s"
 
-#: ../libanjuta/anjuta-encodings.c:137
-#: ../libanjuta/anjuta-encodings.c:182
-#: ../libanjuta/anjuta-encodings.c:184
-#: ../libanjuta/anjuta-encodings.c:186
+#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184 ../libanjuta/anjuta-encodings.c:186
 #: ../libanjuta/anjuta-encodings.c:188
 msgid "Unicode"
 msgstr "Unicode"
 
-#: ../libanjuta/anjuta-encodings.c:151
-#: ../libanjuta/anjuta-encodings.c:177
-#: ../libanjuta/anjuta-encodings.c:223
-#: ../libanjuta/anjuta-encodings.c:266
+#: ../libanjuta/anjuta-encodings.c:151 ../libanjuta/anjuta-encodings.c:177
+#: ../libanjuta/anjuta-encodings.c:223 ../libanjuta/anjuta-encodings.c:266
 msgid "Western"
 msgstr "Barat"
 
-#: ../libanjuta/anjuta-encodings.c:153
-#: ../libanjuta/anjuta-encodings.c:225
+#: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
 #: ../libanjuta/anjuta-encodings.c:262
 msgid "Central European"
 msgstr "Eropa Tengah"
@@ -145,29 +139,23 @@ msgstr "Eropa Tengah"
 msgid "South European"
 msgstr "Eropa Selatan"
 
-#: ../libanjuta/anjuta-encodings.c:157
-#: ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:276
 msgid "Baltic"
 msgstr "Baltik"
 
-#: ../libanjuta/anjuta-encodings.c:159
-#: ../libanjuta/anjuta-encodings.c:227
-#: ../libanjuta/anjuta-encodings.c:240
-#: ../libanjuta/anjuta-encodings.c:244
-#: ../libanjuta/anjuta-encodings.c:246
-#: ../libanjuta/anjuta-encodings.c:264
+#: ../libanjuta/anjuta-encodings.c:159 ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:240 ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:246 ../libanjuta/anjuta-encodings.c:264
 msgid "Cyrillic"
 msgstr "Cyrillic"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:233
+#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:233
 #: ../libanjuta/anjuta-encodings.c:274
 msgid "Arabic"
 msgstr "Arab"
 
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:268
+#: ../libanjuta/anjuta-encodings.c:163 ../libanjuta/anjuta-encodings.c:268
 msgid "Greek"
 msgstr "Yunani"
 
@@ -175,14 +163,12 @@ msgstr "Yunani"
 msgid "Hebrew Visual"
 msgstr "Visual Ibrani"
 
-#: ../libanjuta/anjuta-encodings.c:167
-#: ../libanjuta/anjuta-encodings.c:231
+#: ../libanjuta/anjuta-encodings.c:167 ../libanjuta/anjuta-encodings.c:231
 #: ../libanjuta/anjuta-encodings.c:272
 msgid "Hebrew"
 msgstr "Ibrani"
 
-#: ../libanjuta/anjuta-encodings.c:169
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:169 ../libanjuta/anjuta-encodings.c:229
 #: ../libanjuta/anjuta-encodings.c:270
 msgid "Turkish"
 msgstr "Turki"
@@ -203,8 +189,7 @@ msgstr "Rumania"
 msgid "Armenian"
 msgstr "Armenia"
 
-#: ../libanjuta/anjuta-encodings.c:193
-#: ../libanjuta/anjuta-encodings.c:195
+#: ../libanjuta/anjuta-encodings.c:193 ../libanjuta/anjuta-encodings.c:195
 #: ../libanjuta/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "Cina Tradisional"
@@ -213,25 +198,19 @@ msgstr "Cina Tradisional"
 msgid "Cyrillic/Russian"
 msgstr "Cyrillic/Russia"
 
-#: ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:202
-#: ../libanjuta/anjuta-encodings.c:204
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:200 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:204 ../libanjuta/anjuta-encodings.c:236
 #: ../libanjuta/anjuta-encodings.c:251
 msgid "Japanese"
 msgstr "Jepang"
 
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:238
-#: ../libanjuta/anjuta-encodings.c:242
-#: ../libanjuta/anjuta-encodings.c:257
+#: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:242 ../libanjuta/anjuta-encodings.c:257
 msgid "Korean"
 msgstr "Korea"
 
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:212 ../libanjuta/anjuta-encodings.c:214
+#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:220
 msgid "Chinese Simplified"
 msgstr "Cina Disederhanakan"
 
@@ -243,8 +222,7 @@ msgstr "Georgia"
 msgid "Cyrillic/Ukrainian"
 msgstr "Cyrillic/Ukrainia"
 
-#: ../libanjuta/anjuta-encodings.c:253
-#: ../libanjuta/anjuta-encodings.c:259
+#: ../libanjuta/anjuta-encodings.c:253 ../libanjuta/anjuta-encodings.c:259
 #: ../libanjuta/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "Vietnam"
@@ -257,8 +235,7 @@ msgstr "Thai"
 #. * ISO8859-1
 #. Translator: Unknown here is a target type, if not unknown it can
 #. * be a program or a shared library by example
-#: ../libanjuta/anjuta-encodings.c:443
-#: ../plugins/am-project/am-project.c:116
+#: ../libanjuta/anjuta-encodings.c:443 ../plugins/am-project/am-project.c:116
 #: ../plugins/mk-project/mk-project.c:76
 msgid "Unknown"
 msgstr "Tak dikenal"
@@ -269,7 +246,8 @@ msgstr "Teks bantuan"
 
 #: ../libanjuta/anjuta-entry.c:242
 msgid "Text to show the user what to enter into the entry"
-msgstr "Teks yang ditampilkan ke pengguna tentang apa yang mesti dimasukkan ke entri"
+msgstr ""
+"Teks yang ditampilkan ke pengguna tentang apa yang mesti dimasukkan ke entri"
 
 #. Create all needed widgets
 #: ../libanjuta/anjuta-environment-editor.c:543
@@ -278,18 +256,12 @@ msgid "Environment Variables:"
 msgstr "Variabel Lingkungan:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:719
-#: ../plugins/class-gen/window.c:729
-#: ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:751
-#: ../plugins/class-gen/window.c:761
-#: ../plugins/class-gen/window.c:769
-#: ../plugins/class-gen/window.c:777
-#: ../plugins/class-gen/window.c:785
-#: ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:803
-#: ../plugins/class-gen/window.c:813
-#: ../plugins/class-gen/window.c:825
+#: ../plugins/class-gen/window.c:719 ../plugins/class-gen/window.c:729
+#: ../plugins/class-gen/window.c:737 ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:761 ../plugins/class-gen/window.c:769
+#: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
+#: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
+#: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
 #: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
@@ -299,14 +271,11 @@ msgid "Name"
 msgstr "Nama"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786
-#: ../plugins/class-gen/window.c:817
-#: ../plugins/debug-manager/debug_tree.c:128
+#: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
+#: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:489
-#: ../plugins/run-program/parameters.c:763
-#: ../plugins/tools/editor.c:476
+#: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Nilai"
 
@@ -345,10 +314,8 @@ msgstr "Tampilkan suatu tombol Tambah"
 msgid "[Pp]assword.*:"
 msgstr "[Ss]andi.*:"
 
-#: ../libanjuta/anjuta-launcher.c:1165
-#: ../libanjuta/resources.c:267
-#: ../libanjuta/resources.c:276
-#: ../plugins/gdb/utilities.c:282
+#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
+#: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Tidak dapat menjalankan perintah: \"%s\""
@@ -357,8 +324,7 @@ msgstr "Tidak dapat menjalankan perintah: \"%s\""
 msgid "execvp failed"
 msgstr "execvp gagal"
 
-#: ../libanjuta/anjuta-plugin.c:331
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
 msgstr "Shell Anjuta"
 
@@ -366,112 +332,118 @@ msgstr "Shell Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Shell Anjuta yang akan memuat plugin"
 
-#: ../libanjuta/anjuta-plugin-manager.c:737
+#: ../libanjuta/anjuta-plugin-manager.c:732
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Plugin '%s' tak mau dimatikan"
 
-#: ../libanjuta/anjuta-plugin-manager.c:768
+#: ../libanjuta/anjuta-plugin-manager.c:763
 #, c-format
 msgid ""
 "Could not load %s\n"
-"This usually means that your installation is corrupted. The error message leading to this was:\n"
+"This usually means that your installation is corrupted. The error message "
+"leading to this was:\n"
 "%s"
 msgstr ""
 "Tidak dapat memuat %s\n"
-"Hal ini biasanya berarti bahwa instalasi Anda terkorupsi. Pesan kesalahan yang mendahului ini adalah:\n"
+"Hal ini biasanya berarti bahwa instalasi Anda terkorupsi. Pesan kesalahan "
+"yang mendahului ini adalah:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:900
 msgid "Load"
 msgstr "Muat"
 
-#: ../libanjuta/anjuta-plugin-manager.c:928
-#: ../libanjuta/anjuta-plugin-manager.c:2007
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:2002
 msgid "Available Plugins"
 msgstr "Plugin Tersedia"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041
-#: ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Plugin yang disukai"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1176
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
 msgstr "Hanya tampilkan plugin yang dapat-diaktifkan-pemakai"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1216
-msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
-msgstr "Ini adalah plugin yang dipilih oleh Anda ketika Anjuta meminta pemilihan satu dari banyak plugin yang cocok. Menghapus plugin yang disukai akan menyebabkan Anjuta meminta Anda untuk memilih lagi plugin yang berbeda."
+#: ../libanjuta/anjuta-plugin-manager.c:1211
+msgid ""
+"These are the plugins selected by you when Anjuta prompted to choose one of "
+"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
+"you again to choose different plugin."
+msgstr ""
+"Ini adalah plugin yang dipilih oleh Anda ketika Anjuta meminta pemilihan "
+"satu dari banyak plugin yang cocok. Menghapus plugin yang disukai akan "
+"menyebabkan Anjuta meminta Anda untuk memilih lagi plugin yang berbeda."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1242
+#: ../libanjuta/anjuta-plugin-manager.c:1237
 msgid "Forget selected plugin"
 msgstr "Lupakan plugin terpilih"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527
-#: ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1371
+#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Pilih sebuah plugin"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1377
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Silahkan memilih plugin untuk diaktifkan"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1391
+#: ../libanjuta/anjuta-plugin-manager.c:1386
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Tak ada plugin yang dapat memuat plugin lain di %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1528
+#: ../libanjuta/anjuta-plugin-manager.c:1523
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Silahkan memilih plugin untuk diaktifkan</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2034
+#: ../libanjuta/anjuta-plugin-manager.c:2029
 msgid "Remember this selection"
 msgstr "Ingat pilihan ini"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin-manager.c:2360
 msgid "Profiles"
 msgstr "Profil"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2361
 msgid "Current stack of profiles"
 msgstr "Tumpukan profil kini"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2371
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Available plugins"
 msgstr "Plugin tersedia"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2372
+#: ../libanjuta/anjuta-plugin-manager.c:2367
 msgid "Currently available plugins found in plugin paths"
 msgstr "Plugin yang kini tersedia yang ditemukan pada path plugin"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Activated plugins"
 msgstr "Plugin yang diaktifkan"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Currently activated plugins"
 msgstr "Plugin yang kini diaktifkan"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2385
+#: ../libanjuta/anjuta-plugin-manager.c:2380
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Shell Anjuta yang dibuatkan pluginnya"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2393
+#: ../libanjuta/anjuta-plugin-manager.c:2388
 msgid "Anjuta Status"
 msgstr "Status Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2394
+#: ../libanjuta/anjuta-plugin-manager.c:2389
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Status Anjuta untuk dipakai pada pemuatan dan pembongkaran plugin"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2554
+#: ../libanjuta/anjuta-plugin-manager.c:2549
 msgid "Loading:"
 msgstr "Memuat:"
 
@@ -482,9 +454,7 @@ msgstr "Katagori"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
-#: ../plugins/mk-project/mk-project.ui.h:3
-#: ../src/anjuta-app.c:924
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "Umum"
@@ -531,8 +501,12 @@ msgstr "Silakan pilih plugin dari daftar"
 
 #: ../libanjuta/anjuta-profile.c:672
 #, c-format
-msgid "Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins profile."
-msgstr "Gagal membaca '%s': Kesalahan mengurai XML. Profil plugin Anjuta yang tidak valid atau cacat."
+msgid ""
+"Failed to read '%s': XML parse error. Invalid or corrupted Anjuta plugins "
+"profile."
+msgstr ""
+"Gagal membaca '%s': Kesalahan mengurai XML. Profil plugin Anjuta yang tidak "
+"valid atau cacat."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:699
@@ -574,12 +548,17 @@ msgstr "_Abaikan perubahan"
 #: ../libanjuta/anjuta-save-prompt.c:296
 #, c-format
 msgid "There is %d item with unsaved changes. Save changes before closing?"
-msgid_plural "There are %d items with unsaved changes. Save changes before closing?"
-msgstr[0] "Ada %d objek dengan perubahan yang belum disimpan. Simpan perubahan sebelum menutup?"
+msgid_plural ""
+"There are %d items with unsaved changes. Save changes before closing?"
+msgstr[0] ""
+"Ada %d objek dengan perubahan yang belum disimpan. Simpan perubahan sebelum "
+"menutup?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr "Ada satu butir dengan perubahan yang belum disimpan. Simpan perubahan sebelum menutup?"
+msgstr ""
+"Ada satu butir dengan perubahan yang belum disimpan. Simpan perubahan "
+"sebelum menutup?"
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
 msgid "<Invalid>"
@@ -615,8 +594,14 @@ msgid "System:"
 msgstr "Sistem:"
 
 #: ../libanjuta/anjuta-utils.c:504
-msgid "You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually."
-msgstr "Sepertinya belum memasang PackageKit. PackageKit diperlukan untuk memasang paket yang hilang. Silakan pasang paket \"packagekit-gnome\" dari distribusi Anda, atau pasang paket yang hilang secara manual."
+msgid ""
+"You do not seem to have PackageKit installed. PackageKit is required for "
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
+msgstr ""
+"Sepertinya belum memasang PackageKit. PackageKit diperlukan untuk memasang "
+"paket yang hilang. Silakan pasang paket \"packagekit-gnome\" dari distribusi "
+"Anda, atau pasang paket yang hilang secara manual."
 
 #: ../libanjuta/anjuta-utils.c:513
 #, c-format
@@ -642,74 +627,64 @@ msgstr ""
 "Silakan dipasang."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
-msgstr "Terminal tak ditemukan; memakai xterm, walau mungkin juga tidak akan berhasil"
+msgstr ""
+"Terminal tak ditemukan; memakai xterm, walau mungkin juga tidak akan berhasil"
 
-#: ../libanjuta/anjuta-utils.c:1208
-#: ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240
-#: ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
+#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Tak bisa jalankan perintah: %s (memakai shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2355
+#: ../libanjuta/anjuta-utils.c:2351
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Gagal memuat berkas antar muka pengguna: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75
-#: ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "Diubah"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79
-#: ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "Ditambahkan"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77
-#: ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "Dihapus"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81
-#: ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "Bertentangan"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83
-#: ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "Mutakhir"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85
-#: ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "Terkunci"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87
-#: ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "Hilang"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89
-#: ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "Tanpa versi"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91
-#: ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "Diabaikan"
 
@@ -718,8 +693,7 @@ msgstr "Diabaikan"
 msgid "Widget not found: %s"
 msgstr "Widget tak ditemukan: %s"
 
-#: ../libanjuta/resources.c:79
-#: ../libanjuta/resources.c:101
+#: ../libanjuta/resources.c:79 ../libanjuta/resources.c:101
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Tak bisa temukan berkas pixmap aplikasi: %s"
@@ -729,8 +703,10 @@ msgid "Please specify group name"
 msgstr "Silakan nyatakan nama grup"
 
 #: ../plugins/am-project/amp-group.c:636
-msgid "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
-msgstr "Nama grup hanya boleh memuat alfanumerik atau karakter \"#$:%+,-.=@^_`~/\""
+msgid ""
+"Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
+msgstr ""
+"Nama grup hanya boleh memuat alfanumerik atau karakter \"#$:%+,-.=@^_`~/\""
 
 #: ../plugins/am-project/amp-group.c:660
 #: ../plugins/am-project/am-project.c:1698
@@ -809,8 +785,7 @@ msgstr "Data Rupa-rupa"
 msgid "Script"
 msgstr "Skrip"
 
-#: ../plugins/am-project/am-project.c:220
-#: ../plugins/class-gen/window.c:794
+#: ../plugins/am-project/am-project.c:220 ../plugins/class-gen/window.c:794
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Modul"
@@ -838,8 +813,7 @@ msgstr "Backend Autotool baru bagi manajer projek"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19
-#: ../plugins/project-manager/dialogs.c:619
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:619
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -873,27 +847,37 @@ msgid "Version:"
 msgstr "Versi:"
 
 #: ../plugins/am-project/am-properties.c:61
-msgid "Project version, typically a few numbers separated by dot by example '1.0.0'"
-msgstr "Versi projek, biasanya beberapa angka yang dipisah dengan titik, contoh '1.0.0'"
+msgid ""
+"Project version, typically a few numbers separated by dot by example '1.0.0'"
+msgstr ""
+"Versi projek, biasanya beberapa angka yang dipisah dengan titik, contoh "
+"'1.0.0'"
 
 #: ../plugins/am-project/am-properties.c:67
 msgid "Bug report URL:"
 msgstr "URL laporan kutu:"
 
 #: ../plugins/am-project/am-properties.c:70
-msgid "An email address or a link to a web page where the user can report bug. It is optional."
-msgstr "Tambahkan alamat surel atau taut ke halaman web dimana pengguna dapat melaporkan kutu. Ini opsional."
+msgid ""
+"An email address or a link to a web page where the user can report bug. It "
+"is optional."
+msgstr ""
+"Tambahkan alamat surel atau taut ke halaman web dimana pengguna dapat "
+"melaporkan kutu. Ini opsional."
 
 #: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
 msgstr "Nama paket:"
 
 #: ../plugins/am-project/am-properties.c:79
-msgid "Package name, it can contains only alphanumerics and underscore characters.It is generated from the project name if not provided."
-msgstr "Nama pekt, ini dapat memuat hanya karakter alfanumerik dan garis bawah. Ini dijangkitkan dari nama projek bila tak diberikan."
+msgid ""
+"Package name, it can contains only alphanumerics and underscore characters."
+"It is generated from the project name if not provided."
+msgstr ""
+"Nama pekt, ini dapat memuat hanya karakter alfanumerik dan garis bawah. Ini "
+"dijangkitkan dari nama projek bila tak diberikan."
 
-#: ../plugins/am-project/am-properties.c:86
-#: ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
 msgid "URL:"
 msgstr "URL:"
@@ -908,7 +892,9 @@ msgstr "Dukungan libtool:"
 
 #: ../plugins/am-project/am-properties.c:98
 msgid "Add support to compile shared and static libraries with libtool."
-msgstr "Tambahkan dukungan pembangunan pustaka yang dipakai bersama dan statik dengan libtool."
+msgstr ""
+"Tambahkan dukungan pembangunan pustaka yang dipakai bersama dan statik "
+"dengan libtool."
 
 #: ../plugins/am-project/am-properties.c:104
 #: ../plugins/am-project/am-properties.c:211
@@ -936,7 +922,8 @@ msgstr "Flag preprosesor C:"
 #: ../plugins/am-project/am-properties.c:116
 #: ../plugins/am-project/am-properties.c:223
 msgid "Common additional C preprocessor flags for all targets in this group."
-msgstr "Flag preprosesor C tambahan yang sama untuk semua target dalam grup ini."
+msgstr ""
+"Flag preprosesor C tambahan yang sama untuk semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:122
 #: ../plugins/am-project/am-properties.c:229
@@ -964,7 +951,8 @@ msgstr "Flag kompiler C++:"
 #: ../plugins/am-project/am-properties.c:134
 #: ../plugins/am-project/am-properties.c:241
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr "Flag compiler C++ tambahan yang sama untuk semua target dalam grup ini."
+msgstr ""
+"Flag compiler C++ tambahan yang sama untuk semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:140
 #: ../plugins/am-project/am-properties.c:247
@@ -978,7 +966,8 @@ msgstr "Flag kompiler Java:"
 #: ../plugins/am-project/am-properties.c:143
 #: ../plugins/am-project/am-properties.c:250
 msgid "Common additional Java compiler flags for all targets in this group."
-msgstr "Flag compiler Java tambahan yang sama untuk semua target dalam grup ini."
+msgstr ""
+"Flag compiler Java tambahan yang sama untuk semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:149
 #: ../plugins/am-project/am-properties.c:256
@@ -992,7 +981,8 @@ msgstr "Flag kompiler Vala:"
 #: ../plugins/am-project/am-properties.c:152
 #: ../plugins/am-project/am-properties.c:259
 msgid "Common additional Vala compiler flags for all targets in this group."
-msgstr "Flag compiler Vala tambahan yang sama untuk semua target dalam grup ini."
+msgstr ""
+"Flag compiler Vala tambahan yang sama untuk semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:158
 #: ../plugins/am-project/am-properties.c:265
@@ -1006,7 +996,8 @@ msgstr "Flag kompiler Fortran:"
 #: ../plugins/am-project/am-properties.c:161
 #: ../plugins/am-project/am-properties.c:268
 msgid "Common additional Fortran compiler flags for all targets in this group."
-msgstr "Flag compiler Fortran tambahan yang sama untuk semua target dalam grup ini."
+msgstr ""
+"Flag compiler Fortran tambahan yang sama untuk semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:167
 #: ../plugins/am-project/am-properties.c:274
@@ -1019,8 +1010,11 @@ msgstr "Flag kompiler Objective C:"
 
 #: ../plugins/am-project/am-properties.c:170
 #: ../plugins/am-project/am-properties.c:277
-msgid "Common additional Objective C compiler flags for all targets in this group."
-msgstr "Flag compiler Objective C tambahan yang sama untuk semua target dalam grup ini."
+msgid ""
+"Common additional Objective C compiler flags for all targets in this group."
+msgstr ""
+"Flag compiler Objective C tambahan yang sama untuk semua target dalam grup "
+"ini."
 
 #: ../plugins/am-project/am-properties.c:176
 #: ../plugins/am-project/am-properties.c:283
@@ -1033,8 +1027,12 @@ msgstr "Flag Lex/Flex:"
 
 #: ../plugins/am-project/am-properties.c:179
 #: ../plugins/am-project/am-properties.c:286
-msgid "Common additional Lex or Flex lexical analyser generator flags for all targets in this group."
-msgstr "Flag generator penganalisa leksikal Lex atau Flex tambahan yang sama untuk semua target dalam grup ini."
+msgid ""
+"Common additional Lex or Flex lexical analyser generator flags for all "
+"targets in this group."
+msgstr ""
+"Flag generator penganalisa leksikal Lex atau Flex tambahan yang sama untuk "
+"semua target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1047,8 +1045,12 @@ msgstr "Flag Yacc/Bison:"
 
 #: ../plugins/am-project/am-properties.c:188
 #: ../plugins/am-project/am-properties.c:295
-msgid "Common additional Yacc or Bison parser generator flags for all targets in this group."
-msgstr "Flag generator parser Yacc atau Bison tambahan yang sama untuk semua target dalam grup ini."
+msgid ""
+"Common additional Yacc or Bison parser generator flags for all targets in "
+"this group."
+msgstr ""
+"Flag generator parser Yacc atau Bison tambahan yang sama untuk semua target "
+"dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:194
 #: ../plugins/am-project/am-properties.c:301
@@ -1058,7 +1060,8 @@ msgstr "Direktori instalasi:"
 #: ../plugins/am-project/am-properties.c:197
 #: ../plugins/am-project/am-properties.c:304
 msgid "List of custom installation directories used by targets in this group."
-msgstr "Daftar direktori instalasi gubahan yang dipakai oleh target dalam grup ini."
+msgstr ""
+"Daftar direktori instalasi gubahan yang dipakai oleh target dalam grup ini."
 
 #: ../plugins/am-project/am-properties.c:317
 #: ../plugins/am-project/am-properties.c:501
@@ -1093,8 +1096,12 @@ msgstr "Direktori instalasi:"
 #: ../plugins/am-project/am-properties.c:864
 #: ../plugins/am-project/am-properties.c:1075
 #: ../plugins/am-project/am-properties.c:1150
-msgid "It has to be a standard directory or a custom one defined in group properties."
-msgstr "Ini harus merupakan direktori standar atau gubahan yang didefinisikan dalam properti grup."
+msgid ""
+"It has to be a standard directory or a custom one defined in group "
+"properties."
+msgstr ""
+"Ini harus merupakan direktori standar atau gubahan yang didefinisikan dalam "
+"properti grup."
 
 #: ../plugins/am-project/am-properties.c:339
 #: ../plugins/am-project/am-properties.c:523
@@ -1175,8 +1182,10 @@ msgstr "Flag compiler Objective C tambahan untuk target ini."
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
 #: ../plugins/am-project/am-properties.c:955
-msgid "Additional Lex or Flex lexical analyser generator flags for this target."
-msgstr "Flag generator penganalisa leksikal Lex atau Flex tambahan untuk target ini."
+msgid ""
+"Additional Lex or Flex lexical analyser generator flags for this target."
+msgstr ""
+"Flag generator penganalisa leksikal Lex atau Flex tambahan untuk target ini."
 
 #: ../plugins/am-project/am-properties.c:438
 #: ../plugins/am-project/am-properties.c:613
@@ -1258,8 +1267,12 @@ msgstr "Jangan pakai prefiks:"
 #: ../plugins/am-project/am-properties.c:1039
 #: ../plugins/am-project/am-properties.c:1113
 #: ../plugins/am-project/am-properties.c:1186
-msgid "Do not rename the target with an optional prefix, used to avoid overwritting system program. "
-msgstr "Jangan ubah nama target dengan prefiks opsional, dipakai untuk menghindari penimpaan progrem sistem."
+msgid ""
+"Do not rename the target with an optional prefix, used to avoid overwritting "
+"system program. "
+msgstr ""
+"Jangan ubah nama target dengan prefiks opsional, dipakai untuk menghindari "
+"penimpaan progrem sistem."
 
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
@@ -1276,8 +1289,14 @@ msgstr "Pertahankan path target:"
 #: ../plugins/am-project/am-properties.c:1012
 #: ../plugins/am-project/am-properties.c:1123
 #: ../plugins/am-project/am-properties.c:1195
-msgid "Keep relative target path for installing it. By example if you have a program subdir/app installed in bin directory it will be installed in bin/subdir/app not in bin/app."
-msgstr "Pertahankan path target relatif untuk memasangnya. Sebagai contoh bila Anda memiliki suatu progrem subdir/app yang dipasang di direktori bin, itu akan dipasang di bin/subdir/app, bukan di bin/app."
+msgid ""
+"Keep relative target path for installing it. By example if you have a "
+"program subdir/app installed in bin directory it will be installed in bin/"
+"subdir/app not in bin/app."
+msgstr ""
+"Pertahankan path target relatif untuk memasangnya. Sebagai contoh bila Anda "
+"memiliki suatu progrem subdir/app yang dipasang di direktori bin, itu akan "
+"dipasang di bin/subdir/app, bukan di bin/app."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1290,8 +1309,12 @@ msgid "Manual section:"
 msgstr "Seksi manual:"
 
 #: ../plugins/am-project/am-properties.c:1049
-msgid "Section where are installed the man pages. Valid section names are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
-msgstr "Seksi dimana memasang halaman man. Nama seksi yang valid adalah dijit '0' sampai '9', dan huruf 'l' dan 'n'. "
+msgid ""
+"Section where are installed the man pages. Valid section names are the "
+"digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
+msgstr ""
+"Seksi dimana memasang halaman man. Nama seksi yang valid adalah dijit '0' "
+"sampai '9', dan huruf 'l' dan 'n'. "
 
 #: ../plugins/am-project/amp-source.c:97
 msgid "Source file must be a regular file, not a directory"
@@ -1306,8 +1329,11 @@ msgid "Please specify target name"
 msgstr "Silakan nyatakan nama target"
 
 #: ../plugins/am-project/amp-target.c:366
-msgid "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
-msgstr "Nama target hanya boleh memuat alfanumerik atau karakter '_', '-', '/' maupun '.'"
+msgid ""
+"Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
+msgstr ""
+"Nama target hanya boleh memuat alfanumerik atau karakter '_', '-', '/' "
+"maupun '.'"
 
 #: ../plugins/am-project/amp-target.c:381
 msgid "Shared library target name must be of the form 'libxxx.la'"
@@ -1414,8 +1440,12 @@ msgstr "Pasang"
 
 #. Need to run make clean before
 #: ../plugins/build-basic-autotools/build.c:526
-msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
-msgstr "Sebelum memakai konfigurasi baru ini, yang bawaan perlu dihapus. Anda ingin melakukannya?"
+msgid ""
+"Before using this new configuration, the default one needs to be removed. Do "
+"you want to do that ?"
+msgstr ""
+"Sebelum memakai konfigurasi baru ini, yang bawaan perlu dihapus. Anda ingin "
+"melakukannya?"
 
 #: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
@@ -1423,12 +1453,14 @@ msgstr "Sebelum memakai konfigurasi baru ini, yang bawaan perlu dihapus. Anda in
 msgid "Command canceled by user"
 msgstr "Perintah dibatalkan oleh pengguna"
 
-#: ../plugins/build-basic-autotools/build.c:879
+#: ../plugins/build-basic-autotools/build.c:881
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
-msgstr "Tak bisa mengompail \"%s\": Tak ada aturan kompail didefinisikan bagi tipe berkas ini."
+msgstr ""
+"Tak bisa mengompail \"%s\": Tak ada aturan kompail didefinisikan bagi tipe "
+"berkas ini."
 
-#: ../plugins/build-basic-autotools/build.c:1041
+#: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Tak bisa menata projek: Skrip pengkonfigurasi hilang di %s."
@@ -1499,8 +1531,18 @@ msgstr "Perintah yang dipakai agar diijinkan untuk memasang berkas"
 
 #: ../plugins/build-basic-autotools/org.gnome.anjuta.plugins.build.gschema.xml.in.h:4
 #, no-c-format
-msgid "The command has to contain \"%s\" or \"%q\". This will be replaced by the command used to install the files, by example \"make install\". %s is replaced by the command without any change while %q is replaced by the quoted command. You can use %% to get a \"%\" character. A typical value is \"sudo %s\" or \"su -c %q\"."
-msgstr "Perintah mesti memuat \"%s\" atau \"%q\". Ini akan digantikan oleh perintah yang dipakai untuk memasang berkas, sebagai contoh \"make install\". %s digantikan oleh perintah tanpa perubahan apapun sementara %q digantikan oleh perintah yang diapit tanda kutip. Anda dapat memakai %% untuk mendapat karakter \"%\". Nilai tipikal adalah \"sudo %s\" atau \"su - c %q\"."
+msgid ""
+"The command has to contain \"%s\" or \"%q\". This will be replaced by the "
+"command used to install the files, by example \"make install\". %s is "
+"replaced by the command without any change while %q is replaced by the "
+"quoted command. You can use %% to get a \"%\" character. A typical value is "
+"\"sudo %s\" or \"su -c %q\"."
+msgstr ""
+"Perintah mesti memuat \"%s\" atau \"%q\". Ini akan digantikan oleh perintah "
+"yang dipakai untuk memasang berkas, sebagai contoh \"make install\". %s "
+"digantikan oleh perintah tanpa perubahan apapun sementara %q digantikan oleh "
+"perintah yang diapit tanda kutip. Anda dapat memakai %% untuk mendapat "
+"karakter \"%\". Nilai tipikal adalah \"sudo %s\" atau \"su - c %q\"."
 
 #. The translations should match that of 'make' program. Both strings uses
 #. * pearl regular expression
@@ -1606,212 +1648,214 @@ msgstr "Selesai dengan sukses\n"
 msgid "Build %d: %s"
 msgstr "Bangun %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1664
-#: ../plugins/build-basic-autotools/plugin.c:1750
-#: ../plugins/build-basic-autotools/plugin.c:1760
-#: ../plugins/build-basic-autotools/plugin.c:1778
-#: ../plugins/build-basic-autotools/plugin.c:1788
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1665
+#: ../plugins/build-basic-autotools/plugin.c:1751
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build"
 msgstr "_Build"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
 msgstr "_Build Projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
 msgstr "Bangun seluruh projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
 msgstr "_Pasang Projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
 msgstr "Pasang seluruh projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1681
 msgid "_Check Project"
 msgstr "Peri_ksa Projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
+#: ../plugins/build-basic-autotools/plugin.c:1682
 msgid "Check whole project"
 msgstr "Periksa seluruh projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "_Clean Project"
 msgstr "Bersi_hkan Projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1688
 msgid "Clean whole project"
 msgstr "Bersihkan seluruh projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
 msgstr "K_onfigurasikan Projek..."
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
 msgstr "Konfigurasikan projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
 msgstr "Buat distribusi tarball projek"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
 msgstr "_Build Modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
 msgstr "Bangun modul yang terkait dengan berkas kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1710
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
 msgstr "_Pasang Modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1712
 msgid "Install module associated with current file"
 msgstr "Pasang modul yang terkait dengan berkas kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1716
+#: ../plugins/build-basic-autotools/plugin.c:1717
 msgid "_Check Module"
 msgstr "Peri_ksa Modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1718
 msgid "Check module associated with current file"
 msgstr "Periksa modul yang terkait dengan berkas kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1722
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "_Clean Module"
 msgstr "Bersi_hkan Modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1724
 msgid "Clean module associated with current file"
 msgstr "Bersihkan modul yang terkait dengan berkas kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1728
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Co_mpile File"
 msgstr "Ko_mpail Berkas"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
 msgstr "Kompail berkas penyunting kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1734
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
 msgstr "Pilih Konfigurasi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1736
 msgid "Select current configuration"
 msgstr "Pilih konfigurasi kini"
 
-#: ../plugins/build-basic-autotools/plugin.c:1740
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
 msgstr "Hapus Konfigurasi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
-msgid "Clean project (distclean) and remove configuration directory if possible"
-msgstr "Bersihkan projek (distclean) dan hapus direktori konfigurasi bila mungkin"
-
-#: ../plugins/build-basic-autotools/plugin.c:1754
-#: ../plugins/build-basic-autotools/plugin.c:1782
-msgid "_Compile"
-msgstr "_Compile"
+#: ../plugins/build-basic-autotools/plugin.c:1742
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
+msgstr ""
+"Bersihkan projek (distclean) dan hapus direktori konfigurasi bila mungkin"
 
 #: ../plugins/build-basic-autotools/plugin.c:1755
 #: ../plugins/build-basic-autotools/plugin.c:1783
+msgid "_Compile"
+msgstr "_Compile"
+
+#: ../plugins/build-basic-autotools/plugin.c:1756
+#: ../plugins/build-basic-autotools/plugin.c:1784
 msgid "Compile file"
 msgstr "Kompail berkas"
 
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1762
+#: ../plugins/build-basic-autotools/plugin.c:1790
 msgid "Build module"
 msgstr "Build modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1766
-#: ../plugins/build-basic-autotools/plugin.c:1794
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install"
 msgstr "_Pasang"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1768
+#: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
 msgstr "Pasang modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1772
-#: ../plugins/build-basic-autotools/plugin.c:1806
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean"
 msgstr "_Bersihkan"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1808
 msgid "Clean module"
 msgstr "Bersihkan modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1801
 msgid "_Check"
 msgstr "Peri_ksa"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
+#: ../plugins/build-basic-autotools/plugin.c:1802
 msgid "Check module"
 msgstr "Periksa modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1812
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "_Cancel command"
 msgstr "_Batalkan perintah"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
 msgstr "Batalkan perintah membangun"
 
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Pasang (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Bersihkan (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpail (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpail"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
 msgstr "Perintah pembangunan"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
 msgstr "Perintah popup pembangunan"
 
-#: ../plugins/build-basic-autotools/plugin.c:2916
-#: ../plugins/build-basic-autotools/plugin.c:2924
+#: ../plugins/build-basic-autotools/plugin.c:2915
+#: ../plugins/build-basic-autotools/plugin.c:2923
 msgid "Build Autotools"
 msgstr "Autotool Pembangunan"
 
@@ -2024,18 +2068,19 @@ msgstr "Templat autogen yang dipakai untuk berkas header"
 msgid "Autogen template used for the implementation file"
 msgstr "Templat autogen yang dipakai untuk berkas implementasi"
 
-#: ../plugins/class-gen/generator.c:313
-#: ../plugins/class-gen/generator.c:321
+#: ../plugins/class-gen/generator.c:313 ../plugins/class-gen/generator.c:321
 msgid "File to which the processed template will be written"
 msgstr "Berkas tempat menulis templat yang telah diproses"
 
-#: ../plugins/class-gen/plugin.c:107
-#: ../plugins/project-wizard/druid.c:1258
-msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
-msgstr "Tak bisa temukan autogen versi 5; silakan pasang paket autogen. Anda dapat memperolehnya dari http://autogen.sourceforge.net."
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
+msgid ""
+"Could not find autogen version 5; please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net."
+msgstr ""
+"Tak bisa temukan autogen versi 5; silakan pasang paket autogen. Anda dapat "
+"memperolehnya dari http://autogen.sourceforge.net."
 
-#: ../plugins/class-gen/plugin.c:261
-#: ../plugins/class-gen/plugin.c:472
+#: ../plugins/class-gen/plugin.c:261 ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Gagal mengeksekusi autogen: %s"
@@ -2044,10 +2089,8 @@ msgstr "Gagal mengeksekusi autogen: %s"
 msgid "Guess from type"
 msgstr "Tebak dari tipe"
 
-#: ../plugins/class-gen/window.c:716
-#: ../plugins/class-gen/window.c:727
-#: ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:716 ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:801 ../plugins/class-gen/window.c:811
 #: ../plugins/class-gen/window.c:824
 msgid "Scope"
 msgstr "Scope"
@@ -2056,10 +2099,8 @@ msgstr "Scope"
 msgid "Implementation"
 msgstr "Implementasi"
 
-#: ../plugins/class-gen/window.c:718
-#: ../plugins/class-gen/window.c:728
-#: ../plugins/class-gen/window.c:750
-#: ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
+#: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
 #: ../plugins/class-gen/window.c:812
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
@@ -2067,12 +2108,9 @@ msgstr "Implementasi"
 msgid "Type"
 msgstr "Tipe"
 
-#: ../plugins/class-gen/window.c:720
-#: ../plugins/class-gen/window.c:730
-#: ../plugins/class-gen/window.c:752
-#: ../plugins/class-gen/window.c:762
-#: ../plugins/class-gen/window.c:778
-#: ../plugins/class-gen/window.c:804
+#: ../plugins/class-gen/window.c:720 ../plugins/class-gen/window.c:730
+#: ../plugins/class-gen/window.c:752 ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:804
 #: ../plugins/class-gen/window.c:826
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
@@ -2095,8 +2133,7 @@ msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:743
-#: ../plugins/class-gen/window.c:753
+#: ../plugins/class-gen/window.c:743 ../plugins/class-gen/window.c:753
 msgid "Flags"
 msgstr "Flag"
 
@@ -2105,8 +2142,7 @@ msgid "Marshaller"
 msgstr "Pe-marshall"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:814
-#: ../plugins/document-manager/plugin.c:1016
+#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Otomatis"
 
@@ -2121,43 +2157,6 @@ msgstr "Setter"
 #: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "Deskripsi XML dari antar muka pengguna"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-msgid "Code Analyzer"
-msgstr "Penganalisa Kode"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Analisa kode dengan framework clang-analyzer"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Aktifkan penganlisis kode CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
-msgstr "Projek perlu ditata ulang setelah mengaktifkan opsi ini. Silakan jalankan Build->Konfigur!"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "ccc-analyzer:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "c++-analyzer:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Lokasi CLang"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
-msgstr "Tak bisa temukan penganalisa clang, silakan periksa apakah itu terpasang dan apakah pathnya tertata dengan benar dalam preferensi"
-
-#: ../plugins/code-analyzer/plugin.c:226
-#: ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Penganalisa CLang"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
@@ -2239,11 +2238,15 @@ msgstr "Pilih berkas atau direktori untuk dihapus:"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course, the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course, the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
 "<b>Mohon dicatat: </b>\n"
 "\n"
-"Menekan OK akan menghapus berkas dari disk dan dari CVS. Tentu saja, berkas tak akan dihapus dari CVS sebelum Anda memakai CVS Commit. <b>Anda telah diperingatkan!</b>"
+"Menekan OK akan menghapus berkas dari disk dan dari CVS. Tentu saja, berkas "
+"tak akan dihapus dari CVS sebelum Anda memakai CVS Commit. <b>Anda telah "
+"diperingatkan!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Commit file/directory"
@@ -2448,16 +2451,14 @@ msgid "CVS command is running — please wait until it finishes!"
 msgstr "Perintah CVS sedang berjalan! — silakan tunggu sampai itu selesai!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:229
-#: ../plugins/cvs-plugin/cvs-execute.c:233
-#: ../plugins/cvs-plugin/plugin.c:474
+#: ../plugins/cvs-plugin/cvs-execute.c:233 ../plugins/cvs-plugin/plugin.c:474
 #: ../plugins/cvs-plugin/plugin.c:481
 msgid "CVS"
 msgstr "CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:46
-#: ../plugins/cvs-plugin/plugin.c:121
+#: ../plugins/cvs-plugin/plugin.c:46 ../plugins/cvs-plugin/plugin.c:121
 msgid "_CVS"
 msgstr "_CVS"
 
@@ -2487,72 +2488,62 @@ msgstr "Hapus suatu berkas/direktori dari tree CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:70
-#: ../plugins/cvs-plugin/plugin.c:129
+#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:129
 msgid "_Commit"
 msgstr "_Commit"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:72
-#: ../plugins/cvs-plugin/plugin.c:131
+#: ../plugins/cvs-plugin/plugin.c:72 ../plugins/cvs-plugin/plugin.c:131
 msgid "Commit your changes to the CVS tree"
 msgstr "Commit perubahan Anda ke tree CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:78
-#: ../plugins/cvs-plugin/plugin.c:137
+#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:137
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:6
 msgid "_Update"
 msgstr "_Update"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:80
-#: ../plugins/cvs-plugin/plugin.c:139
+#: ../plugins/cvs-plugin/plugin.c:80 ../plugins/cvs-plugin/plugin.c:139
 msgid "Syncronize your local copy with the CVS tree"
 msgstr "Selaraskan salinan lokal Anda dengan tree CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:86
-#: ../plugins/cvs-plugin/plugin.c:145
+#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:145
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:88
-#: ../plugins/cvs-plugin/plugin.c:147
+#: ../plugins/cvs-plugin/plugin.c:88 ../plugins/cvs-plugin/plugin.c:147
 msgid "Show differences between your local copy and the tree"
 msgstr "Perlihatkan perbedaan antara salinan lokal Anda dengan tree"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:94
-#: ../plugins/cvs-plugin/plugin.c:153
+#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:153
 msgid "_Show Status"
 msgstr "Tunjukkan _Status"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:96
-#: ../plugins/cvs-plugin/plugin.c:155
+#: ../plugins/cvs-plugin/plugin.c:96 ../plugins/cvs-plugin/plugin.c:155
 msgid "Show the status of a file/directory"
 msgstr "Perlihatkan status dari suatu berkas/direktori"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:102
-#: ../plugins/cvs-plugin/plugin.c:161
+#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:161
 msgid "_Show Log"
 msgstr "Tunjukkan _Log"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:104
-#: ../plugins/cvs-plugin/plugin.c:163
+#: ../plugins/cvs-plugin/plugin.c:104 ../plugins/cvs-plugin/plugin.c:163
 msgid "Show the log of a file/directory"
 msgstr "Perlihatkan log dari suatu berkas/direktori"
 
@@ -2577,12 +2568,9 @@ msgid "CVS popup operations"
 msgstr "Operasi popup CVS"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
-#: ../plugins/debug-manager/plugin.c:410
-#: ../plugins/debug-manager/plugin.c:432
-#: ../plugins/debug-manager/plugin.c:457
-#: ../plugins/debug-manager/plugin.c:484
-#: ../plugins/debug-manager/plugin.c:518
-#: ../plugins/debug-manager/plugin.c:551
+#: ../plugins/debug-manager/plugin.c:410 ../plugins/debug-manager/plugin.c:432
+#: ../plugins/debug-manager/plugin.c:457 ../plugins/debug-manager/plugin.c:484
+#: ../plugins/debug-manager/plugin.c:518 ../plugins/debug-manager/plugin.c:551
 msgid "Debugger"
 msgstr "Debugger"
 
@@ -2796,13 +2784,19 @@ msgstr "Pen-debug-an remote"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:52
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a program not using the Debug configuration?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Are you sure you want to debug a "
+"program not using the Debug configuration?</span>\n"
 "\n"
-"When optimizations are enabled, the debugger cannot always identify the source code corresponding to the instructions, so some commands can perform in a strange way, especially steps."
+"When optimizations are enabled, the debugger cannot always identify the "
+"source code corresponding to the instructions, so some commands can perform "
+"in a strange way, especially steps."
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Anda yakin ingin men-debug suatu program tanpa memakai konfigurasi Debug?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Anda yakin ingin men-debug suatu "
+"program tanpa memakai konfigurasi Debug?</span>\n"
 "\n"
-"Ketika optimasi difungsikan, debugger tak selalu dapat mengidentifikasi kode sumber yang mengacu ke instruksi, sehingga beberapa perintah dapat dijalankan secara aneh, khususnya step."
+"Ketika optimasi difungsikan, debugger tak selalu dapat mengidentifikasi kode "
+"sumber yang mengacu ke instruksi, sehingga beberapa perintah dapat "
+"dijalankan secara aneh, khususnya step."
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:55
 msgid "Do not show again"
@@ -2958,8 +2952,7 @@ msgstr "Operasi breakpoint"
 msgid "_Go to address"
 msgstr "_Pergi ke alamat"
 
-#: ../plugins/debug-manager/debug_tree.c:128
-#: ../plugins/tools/editor.c:470
+#: ../plugins/debug-manager/debug_tree.c:128 ../plugins/tools/editor.c:470
 msgid "Variable"
 msgstr "Variabel"
 
@@ -2967,8 +2960,7 @@ msgstr "Variabel"
 msgid "Disassembly"
 msgstr "Disassembly"
 
-#: ../plugins/debug-manager/info.c:52
-#: ../plugins/debug-manager/info.c:101
+#: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
 #: ../plugins/project-wizard/druid.c:162
 msgid "Information"
 msgstr "Informasi"
@@ -3018,15 +3010,13 @@ msgstr "Berjalan..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:480
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:480 ../plugins/debug-manager/plugin.c:967
 msgid "Run/_Continue"
 msgstr "Jalankan/_Lanjutkan"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:481
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:481 ../plugins/debug-manager/plugin.c:969
 msgid "Continue the execution of the program"
 msgstr "Lanjutkan eksekusi program"
 
@@ -3072,7 +3062,8 @@ msgstr "_Debug Proses…"
 
 #: ../plugins/debug-manager/plugin.c:889
 msgid "Start debugger and attach to a running program"
-msgstr "Mulai jalankan debugger dan kaitkan ke suatu program yang sedang berjalan"
+msgstr ""
+"Mulai jalankan debugger dan kaitkan ke suatu program yang sedang berjalan"
 
 #: ../plugins/debug-manager/plugin.c:895
 msgid "Debug _Remote Target…"
@@ -3190,7 +3181,8 @@ msgstr "Operasi debugger"
 #: ../plugins/debug-manager/queue.c:516
 #, c-format
 msgid "Unable to find a debugger plugin supporting a target with %s MIME type"
-msgstr "Tak bisa temukan plugin debugger yang mendukung target dengan tipe MIME %s"
+msgstr ""
+"Tak bisa temukan plugin debugger yang mendukung target dengan tipe MIME %s"
 
 #: ../plugins/debug-manager/registers.c:462
 msgid "Register"
@@ -3305,10 +3297,8 @@ msgstr "Bingkai"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2130
-#: ../plugins/tools/tool.c:100
-#: ../src/anjuta-app.c:626
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
 msgid "File"
 msgstr "Berkas"
 
@@ -3369,8 +3359,7 @@ msgstr "Tak bisa mendeteksi tipe MIME dari %s. Debugger tak bisa dimulai."
 msgid "Path"
 msgstr "Path"
 
-#: ../plugins/debug-manager/start.c:1389
-#: ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -3420,8 +3409,7 @@ msgstr "Hapus semua"
 msgid "Automatic update"
 msgstr "Update otomatis"
 
-#: ../plugins/debug-manager/watch.c:491
-#: ../plugins/debug-manager/watch.c:497
+#: ../plugins/debug-manager/watch.c:491 ../plugins/debug-manager/watch.c:497
 msgid "Watch operations"
 msgstr "Operasi watch"
 
@@ -3437,62 +3425,57 @@ msgstr "Bantuan API"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Plugin Devhelp bagi Anjuta."
 
-#: ../plugins/devhelp/plugin.c:206
+#: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
 msgstr "Cari Bantuan:"
 
-#: ../plugins/devhelp/plugin.c:227
-#: ../plugins/document-manager/plugin.c:244
-#: ../plugins/message-view/plugin.c:77
-#: ../plugins/symbol-db/plugin.c:327
+#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
+#: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Ke"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:234
 msgid "_API Reference"
 msgstr "Referensi _API"
 
-#: ../plugins/devhelp/plugin.c:238
+#: ../plugins/devhelp/plugin.c:236
 msgid "Browse API Pages"
 msgstr "Jelajahi Halaman API"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:246
 msgid "_Context Help"
 msgstr "Bantuan _Konteks"
 
-#: ../plugins/devhelp/plugin.c:250
+#: ../plugins/devhelp/plugin.c:248
 msgid "Search help for the current word in the editor"
 msgstr "Cari bantuan bagi kata yang kini di penyunting"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:258
 msgid "_Search Help"
 msgstr "_Cari Bantuan"
 
-#: ../plugins/devhelp/plugin.c:262
+#: ../plugins/devhelp/plugin.c:260
 msgid "Search for a term in help"
 msgstr "Cari suatu istilah di bantuan"
 
-#: ../plugins/devhelp/plugin.c:334
+#: ../plugins/devhelp/plugin.c:331
 msgid "Help operations"
 msgstr "Operasi bantuan"
 
-#: ../plugins/devhelp/plugin.c:353
-#: ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
 msgid "API Browser"
 msgstr "Peramban API"
 
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:361
 msgid "Contents"
 msgstr "Isi"
 
-#: ../plugins/devhelp/plugin.c:370
-#: ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
 #: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "Cari"
 
-#: ../plugins/devhelp/plugin.c:388
-#: ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
 msgid "API"
 msgstr "API"
 
@@ -3516,8 +3499,12 @@ msgid "Directory backend"
 msgstr "Backend direktori"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:2
-msgid "Directory project backend, get only source files, use it when other backend fails"
-msgstr "Backend projek direktori, mengambil hanya berkas sumber, pakai ini ketika backend lain gagal"
+msgid ""
+"Directory project backend, get only source files, use it when other backend "
+"fails"
+msgstr ""
+"Backend projek direktori, mengambil hanya berkas sumber, pakai ini ketika "
+"backend lain gagal"
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3566,10 +3553,8 @@ msgid "Path:"
 msgstr "Path:"
 
 #: ../plugins/document-manager/anjuta-docman.c:622
-#: ../plugins/file-loader/plugin.c:591
-#: ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904
-#: ../plugins/file-loader/plugin.c:917
+#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
+#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "Buka berkas"
 
@@ -3591,7 +3576,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Timpa"
 
-#: ../plugins/document-manager/anjuta-docman.c:1448
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[hanya-baca]"
 
@@ -3986,9 +3971,8 @@ msgstr "Cari memakai ekspresi reguler"
 #: ../plugins/document-manager/plugin.c:305
 #: ../plugins/indentation-c-style/plugin.c:463
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1094
-#: ../plugins/language-support-python/plugin.c:399
-#: ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Edit"
 
@@ -4039,8 +4023,7 @@ msgstr "Potong teks yang dipilih dari penyunting ke clipboard"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:328
-#: ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:328 ../plugins/terminal/terminal.c:561
 msgid "_Copy"
 msgstr "_Salin"
 
@@ -4048,8 +4031,7 @@ msgstr "_Salin"
 msgid "Copy the selected text to the clipboard"
 msgstr "Salin teks yang dipilih ke clipboard"
 
-#: ../plugins/document-manager/plugin.c:331
-#: ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:331 ../plugins/terminal/terminal.c:569
 msgid "_Paste"
 msgstr "_Tempel"
 
@@ -4281,17 +4263,26 @@ msgstr "Pencarian atas \"%s\" telah mencapai awal dan dilanjutkan dari akhir."
 
 #: ../plugins/document-manager/search-box.c:575
 #, c-format
-msgid "Search for \"%s\" reached the end and was continued at the top but no new match was found."
-msgstr "Pencarian atas \"%s\" telah mencapai akhir dan dilanjutkan dari awal tapi tak ditemukan kecocokan baru."
+msgid ""
+"Search for \"%s\" reached the end and was continued at the top but no new "
+"match was found."
+msgstr ""
+"Pencarian atas \"%s\" telah mencapai akhir dan dilanjutkan dari awal tapi "
+"tak ditemukan kecocokan baru."
 
 #: ../plugins/document-manager/search-box.c:580
 #, c-format
-msgid "Search for \"%s\" reached top and was continued at the bottom but no new match was found."
-msgstr "Pencarian atas \"%s\" telah mencapai awal dan dilanjutkan dari akhir tapi tak ditemukan kecocokan baru."
+msgid ""
+"Search for \"%s\" reached top and was continued at the bottom but no new "
+"match was found."
+msgstr ""
+"Pencarian atas \"%s\" telah mencapai awal dan dilanjutkan dari akhir tapi "
+"tak ditemukan kecocokan baru."
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
-msgstr "Pakai menu konteks dari ikon \"Cari\" untuk lebih banyak opsi pencarian"
+msgstr ""
+"Pakai menu konteks dari ikon \"Cari\" untuk lebih banyak opsi pencarian"
 
 #: ../plugins/document-manager/search-box.c:986
 msgid "Replace"
@@ -4301,22 +4292,21 @@ msgstr "Ganti"
 msgid "Replace all"
 msgstr "Ganti semua"
 
-#: ../plugins/document-manager/search-files.c:596
+#: ../plugins/document-manager/search-files.c:616
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Nama berkas"
 
-#: ../plugins/document-manager/search-files.c:708
+#: ../plugins/document-manager/search-files.c:728
 msgid "All text files"
 msgstr "Semua berkas teks"
 
-#: ../plugins/document-manager/search-files.c:849
+#: ../plugins/document-manager/search-files.c:871
 msgid "Find in files"
 msgstr "Cari dalam berkas"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:1238
-#: ../plugins/file-loader/plugin.c:1244
+#: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
 msgid "File Loader"
 msgstr "Pemuat Berkas"
 
@@ -4351,7 +4341,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Fungsi ini tidak diimplementasikan untuk widget kelas '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:167
+#: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Buka '%s'"
@@ -4396,7 +4386,8 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "MIME type: %s\n"
 "\n"
@@ -4404,18 +4395,19 @@ msgid ""
 msgstr ""
 "<b>Tak bisa membuka \"%s\"</b>.\n"
 "\n"
-"Tak ada plugin, aksi default, atau aplikasi yang ditata untuk menangani tipe berkas ini.\n"
+"Tak ada plugin, aksi default, atau aplikasi yang ditata untuk menangani tipe "
+"berkas ini.\n"
 "\n"
 "Tipe MIME: %s\n"
 "\n"
-"Anda boleh memilih untuk mencoba membukanya dengan plugin atau aplikasi berikut."
+"Anda boleh memilih untuk mencoba membukanya dengan plugin atau aplikasi "
+"berikut."
 
 #: ../plugins/file-loader/plugin.c:280
 msgid "Open with:"
 msgstr "Buka dengan:"
 
-#: ../plugins/file-loader/plugin.c:497
-#: ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:310
 msgid "All files"
 msgstr "Semua berkas"
@@ -4489,18 +4481,15 @@ msgstr "Berkas kosong baru"
 msgid "_Open…"
 msgstr "_Buka..."
 
-#: ../plugins/file-loader/plugin.c:903
-#: ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
 msgid "_Open"
 msgstr "_Buka"
 
-#: ../plugins/file-loader/plugin.c:910
-#: ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open _With"
 msgstr "Buka _Dengan"
 
-#: ../plugins/file-loader/plugin.c:911
-#: ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
 msgid "Open with"
 msgstr "Buka dengan"
 
@@ -4512,8 +4501,7 @@ msgstr "Baru"
 msgid "New file, project and project components."
 msgstr "Berkas, projek, dan komponen projek baru."
 
-#: ../plugins/file-loader/plugin.c:1256
-#: ../plugins/file-loader/plugin.c:1296
+#: ../plugins/file-loader/plugin.c:1256 ../plugins/file-loader/plugin.c:1296
 msgid "Open"
 msgstr "Buka"
 
@@ -4521,8 +4509,7 @@ msgstr "Buka"
 msgid "Open _Recent"
 msgstr "Buka Te_rkini"
 
-#: ../plugins/file-loader/plugin.c:1261
-#: ../plugins/file-loader/plugin.c:1298
+#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1298
 msgid "Open recent file"
 msgstr "Buka berkas yang baru-baru ini dipakai"
 
@@ -4534,8 +4521,7 @@ msgstr "Buka berkas-berkas yang baru-baru ini dipakai"
 msgid "Open a file"
 msgstr "Buka suatu berkas"
 
-#: ../plugins/file-loader/plugin.c:1411
-#: ../plugins/file-loader/plugin.c:1413
+#: ../plugins/file-loader/plugin.c:1411 ../plugins/file-loader/plugin.c:1413
 #, c-format
 msgid "File not found"
 msgstr "Berkas tak ditemukan"
@@ -4551,8 +4537,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>Buka Dengan</b?"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469
-#: ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
 msgid "File Manager"
 msgstr "Manajer Berkas"
 
@@ -4594,8 +4579,7 @@ msgstr "Jangan tampilkan berkas tanpa versi"
 msgid "Filter"
 msgstr "Filter"
 
-#: ../plugins/file-manager/file-model.c:120
-#: ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Memuat..."
 
@@ -4619,8 +4603,7 @@ msgstr "Ubah nama berkas atau direktori"
 msgid "File manager popup actions"
 msgstr "Aksi popup manajer berkas"
 
-#: ../plugins/file-manager/plugin.c:339
-#: ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Berkas"
 
@@ -4766,7 +4749,8 @@ msgstr "Tak ada executable yang dinyatakan.\n"
 
 #: ../plugins/gdb/debugger.c:1148
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Buka suatu executable atau cantolkan ke suatu proses untuk memulai debug.\n"
+msgstr ""
+"Buka suatu executable atau cantolkan ke suatu proses untuk memulai debug.\n"
 
 #: ../plugins/gdb/debugger.c:1157
 msgid "There was an error whilst launching the debugger.\n"
@@ -4879,8 +4863,11 @@ msgstr "Kesalahan ketika mensinyal proses."
 
 #: ../plugins/gdb/plugin.c:120
 #, c-format
-msgid "Failed to create FIFO file named %s. The program will run without a terminal."
-msgstr "Gagal membuat berkas FIFO bernama %s. Program akan berjalan tanpa suatu terminal."
+msgid ""
+"Failed to create FIFO file named %s. The program will run without a terminal."
+msgstr ""
+"Gagal membuat berkas FIFO bernama %s. Program akan berjalan tanpa suatu "
+"terminal."
 
 #: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
@@ -4894,13 +4881,18 @@ msgstr "Tak bisa memulai terminal untuk debug."
 #: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
-"The register function hasn't been found automatically in the following pretty printer files:\n"
+"The register function hasn't been found automatically in the following "
+"pretty printer files:\n"
 "%s\n"
-"You need to fill yourself the register function columns before enabling the rows. Most of the time the register function name contains the word \"register\"."
+"You need to fill yourself the register function columns before enabling the "
+"rows. Most of the time the register function name contains the word "
+"\"register\"."
 msgstr ""
-"Fungsi pendaftaran tak ditemukan secara otomatis dalam berkas pencetak cantik berikut:\n"
+"Fungsi pendaftaran tak ditemukan secara otomatis dalam berkas pencetak "
+"cantik berikut:\n"
 "%s\n"
-"Anda perlu mengisi sendiri kolom fungsi pendaftaran sebelum mengaktifkan barisnya. Seringkali nama fungsi pendaftaran memuat kata \"register\"."
+"Anda perlu mengisi sendiri kolom fungsi pendaftaran sebelum mengaktifkan "
+"barisnya. Seringkali nama fungsi pendaftaran memuat kata \"register\"."
 
 #: ../plugins/gdb/preferences.c:223
 msgid "Select a pretty printer file"
@@ -4916,8 +4908,7 @@ msgstr "Aktifkan"
 msgid "Register Function"
 msgstr "Fungsi Pendaftaran"
 
-#: ../plugins/gdb/preferences.c:396
-#: ../plugins/gdb/preferences.c:404
+#: ../plugins/gdb/preferences.c:396 ../plugins/gdb/preferences.c:404
 msgid "Gdb Debugger"
 msgstr "Debugger Gdb"
 
@@ -4946,8 +4937,7 @@ msgstr "Berkas mailbox untuk diterapkan:"
 msgid "Add signed off by line"
 msgstr "Tambah baris signed off by"
 
-#: ../plugins/git/anjuta-git.ui.h:9
-#: ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
 msgid "Branches"
 msgstr "Branch-branch"
 
@@ -5026,12 +5016,17 @@ msgid "Branches must be fully merged"
 msgstr "Branch mesti digabung secara penuh"
 
 #: ../plugins/git/anjuta-git.ui.h:31
-msgid "Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr "Seluruh projek; Jatuhkan sebuah berkas di sini atau ketikkan path untuk menilik berkas atau log folder"
+msgid ""
+"Whole project; Drop a file here or type a path to view a file or folder log"
+msgstr ""
+"Seluruh projek; Jatuhkan sebuah berkas di sini atau ketikkan path untuk "
+"menilik berkas atau log folder"
 
 #: ../plugins/git/anjuta-git.ui.h:32
 msgid "Whole project; Drop a file here to view a file or folder log"
-msgstr "Seluruh projek; Jatuhkan sebuah berkas di sini untuk menilik berkas atau log folder"
+msgstr ""
+"Seluruh projek; Jatuhkan sebuah berkas di sini untuk menilik berkas atau log "
+"folder"
 
 #: ../plugins/git/anjuta-git.ui.h:33
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
@@ -5102,8 +5097,7 @@ msgstr "Folder tempat membuat patch:"
 msgid "Repository to pull from:"
 msgstr "Pull dari repositori:"
 
-#: ../plugins/git/anjuta-git.ui.h:49
-#: ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:49 ../plugins/git/plugin.c:262
 msgid "Rebase"
 msgstr "Rebase"
 
@@ -5221,8 +5215,7 @@ msgstr "Tak ada stash yang dipilih."
 msgid "Check Out Files"
 msgstr "Check Out Berkas"
 
-#: ../plugins/git/git-cherry-pick-pane.c:53
-#: ../plugins/git/git-merge-pane.c:56
+#: ../plugins/git/git-cherry-pick-pane.c:53 ../plugins/git/git-merge-pane.c:56
 #: ../plugins/subversion/subversion-copy-dialog.c:207
 #: ../plugins/subversion/subversion-switch-dialog.c:122
 msgid "Please enter a revision."
@@ -5233,8 +5226,7 @@ msgid "Cherry Pick"
 msgstr "Cherry Pick"
 
 #: ../plugins/git/git-commit-pane.c:124
-#: ../plugins/git/git-create-tag-pane.c:79
-#: ../plugins/git/git-merge-pane.c:70
+#: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
 msgid "Please enter a log message."
 msgstr "Silakan masukkan pesan log."
 
@@ -5246,8 +5238,7 @@ msgstr "Silakan masukkan nama penulis commit"
 msgid "Please enter the commit author's e-mail address."
 msgstr "Silakan masukkan alamat surel penulis commit."
 
-#: ../plugins/git/git-commit-pane.c:297
-#: ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
 msgid "Commit"
 msgstr "Commit"
 
@@ -5306,15 +5297,12 @@ msgstr "<b>Tag:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remote:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:210
-#: ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
 msgid "Merge"
 msgstr "Gabung"
 
-#: ../plugins/git/git-pane.c:77
-#: ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1
-#: ../plugins/git/plugin.c:700
+#: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
 msgid "Git"
 msgstr "Git"
 
@@ -5334,18 +5322,15 @@ msgstr "Buat Seri Patch"
 msgid "Git version control"
 msgstr "Kendali versi git"
 
-#: ../plugins/git/git-pull-pane.c:66
-#: ../plugins/git/git-push-pane.c:94
+#: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
 msgstr "Silakan masukkan suatu URL:"
 
-#: ../plugins/git/git-pull-pane.c:238
-#: ../plugins/git/plugin.c:246
+#: ../plugins/git/git-pull-pane.c:238 ../plugins/git/plugin.c:246
 msgid "Pull"
 msgstr "Pull"
 
-#: ../plugins/git/git-push-pane.c:438
-#: ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:238
 msgid "Push"
 msgstr "Push"
 
@@ -5413,18 +5398,15 @@ msgstr "Tak ada berkas ter-stage yang dipilih."
 msgid "Branch tools"
 msgstr "Perkakas branch"
 
-#: ../plugins/git/plugin.c:73
-#: ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
 msgid "Create a branch"
 msgstr "Buat suatu branch"
 
-#: ../plugins/git/plugin.c:81
-#: ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
 msgid "Delete branches"
 msgstr "Hapus branch"
 
-#: ../plugins/git/plugin.c:89
-#: ../plugins/git/plugin.c:90
+#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
 msgstr "Tukar ke branch yang dipilih"
 
@@ -5436,13 +5418,11 @@ msgstr "Merge suatu revisi ke dalam branch kini"
 msgid "Tag tools"
 msgstr "Perkakas tag"
 
-#: ../plugins/git/plugin.c:117
-#: ../plugins/git/plugin.c:118
+#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
 msgid "Create a tag"
 msgstr "Buat suatu tag"
 
-#: ../plugins/git/plugin.c:125
-#: ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
 msgid "Delete selected tags"
 msgstr "Hapus tag yang dipilih"
 
@@ -5460,7 +5440,8 @@ msgstr "Diff-kan perubahan yang belum dikomit"
 
 #: ../plugins/git/plugin.c:155
 msgid "Show a diff of uncommitted changes in an editor"
-msgstr "Tampilkan diff dari perubahan yang belum dikomit dalam suatu penyunting"
+msgstr ""
+"Tampilkan diff dari perubahan yang belum dikomit dalam suatu penyunting"
 
 #: ../plugins/git/plugin.c:170
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
@@ -5541,10 +5522,10 @@ msgstr "Rebase atas remote yang dipilih"
 
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
-msgstr "Mulai suatu operasi rebase relatif terhadap repositori jauh yang dipilih"
+msgstr ""
+"Mulai suatu operasi rebase relatif terhadap repositori jauh yang dipilih"
 
-#: ../plugins/git/plugin.c:278
-#: ../plugins/git/plugin.c:446
+#: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
 msgid "Continue"
 msgstr "Lanjutkan"
 
@@ -5552,8 +5533,7 @@ msgstr "Lanjutkan"
 msgid "Continue a rebase with resolved conflicts"
 msgstr "Lanjutkan suatu rebase dengan konflik yang terpecahkan"
 
-#: ../plugins/git/plugin.c:286
-#: ../plugins/git/plugin.c:454
+#: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
 msgid "Skip"
 msgstr "Lewati"
 
@@ -5561,8 +5541,7 @@ msgstr "Lewati"
 msgid "Skip the current revision"
 msgstr "Lewati revisi kini"
 
-#: ../plugins/git/plugin.c:294
-#: ../plugins/git/plugin.c:462
+#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
 msgid "Abort"
 msgstr "Batal"
 
@@ -5666,8 +5645,7 @@ msgstr "Putar balik suatu commit"
 msgid "Patch series"
 msgstr "Seri patch"
 
-#: ../plugins/git/plugin.c:422
-#: ../plugins/git/plugin.c:423
+#: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
 msgid "Generate a patch series"
 msgstr "Buat seri patch"
 
@@ -5692,35 +5670,36 @@ msgid "Skip the current patch in the series"
 msgstr "Lewati patch kini pada seri"
 
 #: ../plugins/git/plugin.c:463
-msgid "Stop applying the patch series and return the tree to its previous state"
-msgstr "Berhenti menerapkan seri dan kembalikan repositori ke keadaan sebelumnya"
+msgid ""
+"Stop applying the patch series and return the tree to its previous state"
+msgstr ""
+"Berhenti menerapkan seri dan kembalikan repositori ke keadaan sebelumnya"
 
-#: ../plugins/git/plugin.c:554
-#: ../plugins/git/plugin.c:627
+#: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
 msgid "Branch"
 msgstr "Cabang"
 
-#: ../plugins/git/plugin.c:696
+#: ../plugins/git/plugin.c:723
 msgid "Git Tasks"
 msgstr "Tugas Git"
 
-#: ../plugins/git/plugin.c:758
+#: ../plugins/git/plugin.c:793
 msgid "Status"
 msgstr "Status"
 
-#: ../plugins/git/plugin.c:764
+#: ../plugins/git/plugin.c:799
 msgid "Log"
 msgstr "Log"
 
-#: ../plugins/git/plugin.c:775
+#: ../plugins/git/plugin.c:810
 msgid "Tags"
 msgstr "Tag"
 
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:817
 msgid "Remotes"
 msgstr "Remote"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:823
 msgid "Stash"
 msgstr "Stash"
 
@@ -5834,10 +5813,11 @@ msgstr "Indentasi Otomatis"
 #: ../plugins/indentation-c-style/plugin.c:470
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
-msgstr "Indent otomatis baris atau pilihan kini berdasar pada tatanan indentasi"
+msgstr ""
+"Indent otomatis baris atau pilihan kini berdasar pada tatanan indentasi"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#: ../plugins/language-support-cpp-java/plugin.c:1147
+#: ../plugins/language-support-cpp-java/plugin.c:1126
 msgid "C++/Java Assistance"
 msgstr "Asisten C++/Java"
 
@@ -5853,7 +5833,7 @@ msgid "Enable adaptive indentation"
 msgstr "Aktifkan indentasi adaptif"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#: ../plugins/language-support-python/plugin.c:450
+#: ../plugins/language-support-python/plugin.c:428
 msgid "Python Assistance"
 msgstr "Asisten Python"
 
@@ -5889,123 +5869,127 @@ msgstr "Plugin dukungan C++ dan Java"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
-msgstr "Plugin dukungan C++ dan Java untuk pelengkapan kode, indentasi otomatis, dsb."
+msgstr ""
+"Plugin dukungan C++ dan Java untuk pelengkapan kode, indentasi otomatis, dsb."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
-msgid "Enable code completion"
-msgstr "Aktifkan pelengkapan kode"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
-msgid "Add a space after function call autocompletion"
-msgstr "Tambahkan satu spasi setelah pelengkapan otomatis pemanggilan fungsi"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
-msgid "Add '(' after function call autocompletion"
-msgstr "Tambahkan '(' setelah pelengkapan otomatis pemanggilan fungsi"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "Add ')' after function call autocompletion"
-msgstr "Tambahkan ')' setelah pelengkapan otomatis pemanggilan fungsi"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
-msgid "Autocompletion"
-msgstr "Melengkapi otomatis"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
-msgid "Show calltips"
-msgstr "Tampilkan calltip"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
-msgid "Calltips"
-msgstr "Calltip"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-#: ../plugins/language-support-vala/plugin.vala:655
-#: ../plugins/language-support-vala/plugin.vala:663
-msgid "Auto-complete"
-msgstr "Lengkapi otomatis"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Automatically load required libraries of the project"
 msgstr "Otomatis memuat pustaka yang diperlukan oleh proyek"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Load API tags for C standard library"
 msgstr "Muat tag API bagi pustaka standar C"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Load API tags for C++ standard template library"
 msgstr "Muat tag API bagi pustaka templat standar C++"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-msgid "API Tags (C/C++)"
-msgstr "Tag API (C/C++)"
-
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
-msgid "C/C++"
-msgstr "C/C++"
-
-#: ../plugins/language-support-cpp-java/plugin.c:684
+#: ../plugins/language-support-cpp-java/plugin.c:682
 msgid "Code added for widget."
 msgstr "Kode ditambahkan bagi widget."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1100
+#: ../plugins/language-support-cpp-java/plugin.c:1079
 msgid "Comment/Uncomment"
 msgstr "Beri/Hapus Komentar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1101
+#: ../plugins/language-support-cpp-java/plugin.c:1080
 msgid "Comment or uncomment current selection"
 msgstr "Memberi atau menghapus komentar pada bagian yang dipilih"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1106
+#: ../plugins/language-support-cpp-java/plugin.c:1085
 msgid "Swap .h/.c"
 msgstr "Tukar .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1107
+#: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "Tukar header C dan berkas sumber"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1385
-#: ../plugins/language-support-cpp-java/plugin.c:1419
-msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1374
+msgid "API Tags (C/C++)"
+msgstr "Tag API (C/C++)"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "JS Find dirs"
-msgstr "Direktori JS Find"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:1
+msgid "Enable code completion"
+msgstr "Aktifkan pelengkapan kode"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-msgid "Gir repository's directory:   "
-msgstr "Direktori repositori gir:"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:2
+msgid "Add a space after function call autocompletion"
+msgstr "Tambahkan satu spasi setelah pelengkapan otomatis pemanggilan fungsi"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-msgid "Gjs repository's directory:   "
-msgstr "Direktori repositori gjs:"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:3
+msgid "Add '(' after function call autocompletion"
+msgstr "Tambahkan '(' setelah pelengkapan otomatis pemanggilan fungsi"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-msgid "Min character for completion "
-msgstr "Cacah karakter minimum untuk pelengkapan"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:4
+msgid "Add ')' after function call autocompletion"
+msgstr "Tambahkan ')' setelah pelengkapan otomatis pemanggilan fungsi"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:5
+msgid "Autocompletion"
+msgstr "Melengkapi otomatis"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:6
+msgid "Show calltips"
+msgstr "Tampilkan calltip"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:7
+msgid "Calltips"
+msgstr "Calltip"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:8
 msgid "Highlight missed semicolon"
 msgstr "Tandai titik koma yang hilang"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-msgid "Add brace after function call autocompletion"
-msgstr "Tambahkan kurung setelah pelengkapan otomatis pemanggilan fungsi"
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
+msgid "Highlights"
+msgstr "Sorot"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:10
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Autocomplete"
+msgstr "Lengkapi otomatis"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:11
+msgid "JS Find dirs"
+msgstr "Direktori JS Find"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
+msgid "Gir repository's directory: "
+msgstr "Direktori repositori gir: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
+msgid "Gjs repository's directory: "
+msgstr "Direktori repositori gjs: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
+msgid "Min character for completion: "
+msgstr "Cacah karakter min. untuk pelengkapan: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
+msgid "Environment"
+msgstr "Lingkungan"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -6015,36 +5999,25 @@ msgstr "Plugin Dukungan JS"
 msgid "JavaScript Support Plugin"
 msgstr "Plugin Dukungan JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:329
-#: ../plugins/language-support-js/plugin.c:338
+#: ../plugins/language-support-js/plugin.c:370
+#: ../plugins/language-support-js/plugin.c:383
+#: ../plugins/language-support-js/plugin.c:417
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:394
-msgid "JS"
-msgstr "JS"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
-msgid "Autocomplete"
-msgstr "Lengkapi otomatis"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
 msgid "Path: "
 msgstr "Path:"
 
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
 msgid "Interpreter"
 msgstr "Interpreter"
 
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
-msgid "Environment"
-msgstr "Lingkungan"
-
-#: ../plugins/language-support-python/plugin.c:74
+#: ../plugins/language-support-python/plugin.c:73
 msgid "Python support warning"
 msgstr "Peringatan dukungan Python"
 
-#: ../plugins/language-support-python/plugin.c:82
+#: ../plugins/language-support-python/plugin.c:81
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -6054,13 +6027,13 @@ msgstr ""
 "dipasang. Keduanya diperlukan bagi pelengkapan otomatis dalam berkas\n"
 "python. Silakan pasang dan periksa path python di preferensi."
 
-#: ../plugins/language-support-python/plugin.c:85
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Do not show that warning again"
 msgstr "Jangan tampilkan peringatan itu lagi"
 
-#: ../plugins/language-support-python/plugin.c:557
-#: ../plugins/language-support-python/plugin.c:566
-#: ../plugins/language-support-python/python-assist.c:982
+#: ../plugins/language-support-python/plugin.c:561
+#: ../plugins/language-support-python/plugin.c:574
+#: ../plugins/language-support-python/python-assist.c:792
 msgid "Python"
 msgstr "Python"
 
@@ -6071,6 +6044,12 @@ msgstr "Plugin dukungan Vala"
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
 msgid "Vala support plugin, adds code completion."
 msgstr "Plugin dukungan Vala, menambah pelengkapan kode."
+
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
+#: ../plugins/parser-cxx/plugin.c:269 ../plugins/parser-cxx/plugin.c:282
+msgid "Auto-complete"
+msgstr "Lengkapi otomatis"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6146,10 +6125,8 @@ msgid "Icon"
 msgstr "Ikon"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:386
-#: ../plugins/message-view/plugin.c:399
-#: ../plugins/message-view/plugin.c:518
-#: ../plugins/message-view/plugin.c:529
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
+#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
 msgid "Messages"
 msgstr "Pesan"
 
@@ -6250,6 +6227,10 @@ msgstr "Tambah _Paket"
 msgid "Packages"
 msgstr "Paket"
 
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+msgid "C/C++"
+msgstr "C/C++"
+
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
 msgstr "Plugin Patch"
@@ -6274,8 +6255,7 @@ msgstr "Patch"
 msgid "Please select the directory where the patch should be applied"
 msgstr "Silakan pilih direktori tempat patch mesti diterapkan"
 
-#: ../plugins/patch/patch-plugin.c:181
-#: ../plugins/patch/patch-plugin.ui.h:1
+#: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:1
 msgid "Patch"
 msgstr "Patch"
 
@@ -6294,7 +6274,8 @@ msgstr "Mem-patch…"
 
 #: ../plugins/patch/patch-plugin.c:225
 msgid "There are unfinished jobs: please wait until they are finished."
-msgstr "Ada pekerjaan yang belum selesai: silakan tunggu sampai mereka berakhir."
+msgstr ""
+"Ada pekerjaan yang belum selesai: silakan tunggu sampai mereka berakhir."
 
 #: ../plugins/patch/patch-plugin.c:267
 msgid ""
@@ -6329,8 +6310,7 @@ msgstr "Aras patch:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:53
-#: ../plugins/tools/plugin.c:131
+#: ../plugins/patch/plugin.c:53 ../plugins/tools/plugin.c:131
 msgid "_Tools"
 msgstr "_Alat"
 
@@ -6364,8 +6344,12 @@ msgstr "Berkas \"%s\" sudah ada. Ingin menimpanya?"
 
 #: ../plugins/project-import/plugin.c:218
 #, c-format
-msgid "A file named \"%s\" cannot be written: %s. Check if you have write access to the project directory."
-msgstr "Berkas bernama \"%s\" tak dapat ditulisi: %s. Periksa apakah Anda punya akses tulis ke direktori projek."
+msgid ""
+"A file named \"%s\" cannot be written: %s. Check if you have write access to "
+"the project directory."
+msgstr ""
+"Berkas bernama \"%s\" tak dapat ditulisi: %s. Periksa apakah Anda punya "
+"akses tulis ke direktori projek."
 
 #: ../plugins/project-import/plugin.c:282
 #, c-format
@@ -6378,14 +6362,22 @@ msgstr "Buka Dengan"
 
 #: ../plugins/project-import/plugin.c:302
 #, c-format
-msgid "Could not find a valid project backend for the given directory (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
-msgstr "Tak bisa temukan backend projek yang valid untuk direktori yang diberikan (%s). Silakan pilih direktori lain, atau coba tingkatkan ke versi Anjuta yang lebih baru."
+msgid ""
+"Could not find a valid project backend for the given directory (%s). Please "
+"select a different directory, or try upgrading to a newer version of Anjuta."
+msgstr ""
+"Tak bisa temukan backend projek yang valid untuk direktori yang diberikan "
+"(%s). Silakan pilih direktori lain, atau coba tingkatkan ke versi Anjuta "
+"yang lebih baru."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
 #, c-format
-msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
-msgstr "Tak bisa memeriksa URI yang diberikan \"%s\". Galat yang dikembalikan adalah: \"%s\""
+msgid ""
+"Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
+msgstr ""
+"Tak bisa memeriksa URI yang diberikan \"%s\". Galat yang dikembalikan "
+"adalah: \"%s\""
 
 #: ../plugins/project-import/project-import-dialog.c:292
 msgid "Import project"
@@ -6777,8 +6769,12 @@ msgstr "Urutkan tombol pintas"
 
 #: ../plugins/project-manager/plugin.c:1319
 #, c-format
-msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
-msgstr "Gagal mengurai projek (projek terbuka, tapi tak akan ada tilikan projek) %s: %s\n"
+msgid ""
+"Failed to parse project (the project is opened, but there will be no project "
+"view) %s: %s\n"
+msgstr ""
+"Gagal mengurai projek (projek terbuka, tapi tak akan ada tilikan projek) %s: "
+"%s\n"
 
 #: ../plugins/project-manager/plugin.c:1329
 msgid "Update project view…"
@@ -6953,8 +6949,7 @@ msgstr "Rincian"
 msgid "Summary"
 msgstr "Ringkasan"
 
-#: ../plugins/project-wizard/druid.c:166
-#: ../plugins/project-wizard/druid.c:170
+#: ../plugins/project-wizard/druid.c:166 ../plugins/project-wizard/druid.c:170
 msgid "Warning"
 msgstr "Peringatan"
 
@@ -6989,18 +6984,34 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:694
 #, c-format
-msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
-msgstr "Ruas \"%s\" mesti memuat hanya huruf, digit, atau karakter-karakter berikut \"#$:%%+,.=@^_`~\". Selain itu Anda juga tidak boleh memakai minus di awal. Silakan diperbaiki."
+msgid ""
+"Field \"%s\" must contains only letters, digits or the following characters "
+"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
+"it."
+msgstr ""
+"Ruas \"%s\" mesti memuat hanya huruf, digit, atau karakter-karakter berikut "
+"\"#$:%%+,.=@^_`~\". Selain itu Anda juga tidak boleh memakai minus di awal. "
+"Silakan diperbaiki."
 
 #: ../plugins/project-wizard/druid.c:699
 #, c-format
-msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
-msgstr "Ruas \"%s\" mesti memuat hanya huruf, digit, karakter-karakter berikut \"#$:%%+,.=@^_`~\" atau pemisah direktori. Selain itu Anda juga tidak boleh memakai minus di awal. Silakan diperbaiki."
+msgid ""
+"Field \"%s\" must contains only letters, digits, the following characters \"#"
+"$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a "
+"leading dash. Please fix it."
+msgstr ""
+"Ruas \"%s\" mesti memuat hanya huruf, digit, karakter-karakter berikut \"#$:"
+"%%+,.=@^_`~\" atau pemisah direktori. Selain itu Anda juga tidak boleh "
+"memakai minus di awal. Silakan diperbaiki."
 
 #: ../plugins/project-wizard/druid.c:704
 #, c-format
-msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
-msgstr "Ruas \"%s\" mesti memuat hanya karakter ASCII yang dapat dicetak, tanpa karakter aksen misalnya. Silakan diperbaiki."
+msgid ""
+"Field \"%s\" must contains only ASCII printable characters, no accentuated "
+"characters by example. Please fix it."
+msgstr ""
+"Ruas \"%s\" mesti memuat hanya karakter ASCII yang dapat dicetak, tanpa "
+"karakter aksen misalnya. Silakan diperbaiki."
 
 #: ../plugins/project-wizard/druid.c:709
 #, c-format
@@ -7009,8 +7020,12 @@ msgstr "Kesalahan tak dikenal."
 
 #: ../plugins/project-wizard/druid.c:736
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
-msgstr "Direktori \"%s\" tak kosong. Penciptaan projek mungkin gagal bila beberapa berkas tak dapat ditulis. Anda ingin melanjutkan?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
+msgstr ""
+"Direktori \"%s\" tak kosong. Penciptaan projek mungkin gagal bila beberapa "
+"berkas tak dapat ditulis. Anda ingin melanjutkan?"
 
 #: ../plugins/project-wizard/druid.c:738
 #, c-format
@@ -7044,8 +7059,14 @@ msgstr ""
 "Paket hilang: %s."
 
 #: ../plugins/project-wizard/druid.c:970
-msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
-msgstr "Beberapa paket pengembangan atau program penting yang diperlukan untuk membangun projek ini hilang. Silakan pastikan mereka terpasang dengan benar sebelum menjangkitkan projek.\n"
+msgid ""
+"Some important programs or development packages required to build this "
+"project are missing. Please make sure they are installed properly before "
+"generating the project.\n"
+msgstr ""
+"Beberapa paket pengembangan atau program penting yang diperlukan untuk "
+"membangun projek ini hilang. Silakan pastikan mereka terpasang dengan benar "
+"sebelum menjangkitkan projek.\n"
 
 #: ../plugins/project-wizard/druid.c:979
 msgid "Install missing packages"
@@ -7055,8 +7076,20 @@ msgstr "Pasang paket hilang"
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
 #: ../plugins/project-wizard/druid.c:991
-msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
-msgstr "Program yang hilang biasanya merupakan bagian dari beberapa paket distribusi dan dapat dicari di Manajer Aplikasi Anda. Serupa dengan itu, paket-paket pengembangan dimuat di paket-paket khusus yang disediakan oleh distribusi Anda untuk memungkinkan pengembangan projek yang berbasis ke mereka. Nama-nama paket itu biasanya diakhiri dengan \"-dev\" atau \"-devel\" dan dapat ditemukan dengan mencari di Manajer Aplikasi Anda."
+msgid ""
+"The missing programs are usually part of some distribution packages and can "
+"be searched for in your Application Manager. Similarly, the development "
+"packages are contained in special packages that your distribution provides "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"your Application Manager."
+msgstr ""
+"Program yang hilang biasanya merupakan bagian dari beberapa paket distribusi "
+"dan dapat dicari di Manajer Aplikasi Anda. Serupa dengan itu, paket-paket "
+"pengembangan dimuat di paket-paket khusus yang disediakan oleh distribusi "
+"Anda untuk memungkinkan pengembangan projek yang berbasis ke mereka. Nama-"
+"nama paket itu biasanya diakhiri dengan \"-dev\" atau \"-devel\" dan dapat "
+"ditemukan dengan mencari di Manajer Aplikasi Anda."
 
 #: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
@@ -7114,14 +7147,12 @@ msgstr "Pilih direktori"
 msgid "Select file"
 msgstr "Pilih berkas"
 
-#: ../plugins/project-wizard/property.c:432
-#: ../plugins/tools/editor.c:524
+#: ../plugins/project-wizard/property.c:432 ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Pilih suatu Berkas Gambar"
 
 #: ../plugins/project-wizard/property.c:457
-#: ../plugins/project-wizard/property.c:547
-#: ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:547 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Pilih ikon"
@@ -7210,8 +7241,12 @@ msgid "Project Name:"
 msgstr "Nama Projek:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:6
-msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
-msgstr "Nama projek tak boleh memuat spasi, karena akan menjadi nama target build projek (executable, pustaka, dsb.)"
+msgid ""
+"Project name must not contain spaces, because it will be the name of the "
+"project build target (executable, library etc.)"
+msgstr ""
+"Nama projek tak boleh memuat spasi, karena akan menjadi nama target build "
+"projek (executable, pustaka, dsb.)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:7
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:7
@@ -7331,8 +7366,12 @@ msgid "Plugin Dependencies:"
 msgstr "Ketergantungan Plugin:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:20
-msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
-msgstr "Dipisah dengan koma, plugin lain yang plugin ini bergantung kepadanya. Ini mungkin nama antar muka primer atau lokasi plugin (pustaka:kelas)"
+msgid ""
+"Comma separated, other plugins that this plugin depends on. It could be "
+"either primary interface name or plugin location (library:class)"
+msgstr ""
+"Dipisah dengan koma, plugin lain yang plugin ini bergantung kepadanya. Ini "
+"mungkin nama antar muka primer atau lokasi plugin (pustaka:kelas)"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:21
 msgid "Icon File:"
@@ -7435,7 +7474,8 @@ msgstr "Tambah dukungan C++:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:14
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:14
 msgid "Adds C++ support to the project so that C++ source files can be built"
-msgstr "Tambahkan dukungan C++ ke projek sehingga berkas sumber C++ dapat dibangun"
+msgstr ""
+"Tambahkan dukungan C++ ke projek sehingga berkas sumber C++ dapat dibangun"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:32
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
@@ -7593,8 +7633,12 @@ msgstr "Tambah internasionalisasi:"
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:14
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:16
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:16
-msgid "Adds support for internationalization so that your project can have translations in different languages"
-msgstr "Tambahkan dukungan internasionalisasi sehingga projek Anda dapat memiliki terjemahan dalam berbagai bahasa"
+msgid ""
+"Adds support for internationalization so that your project can have "
+"translations in different languages"
+msgstr ""
+"Tambahkan dukungan internasionalisasi sehingga projek Anda dapat memiliki "
+"terjemahan dalam berbagai bahasa"
 
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 msgid "Django Project"
@@ -7613,8 +7657,11 @@ msgid "Generic gcj compiled java"
 msgstr "Java terkompail gcj yang generik"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
-msgid "A generic natively compiled java project using the GNU Java Compiler (gcj)"
-msgstr "Suatu projek generik java yang dikompail native memakai Kompailer Java GNU (gcj)"
+msgid ""
+"A generic natively compiled java project using the GNU Java Compiler (gcj)"
+msgstr ""
+"Suatu projek generik java yang dikompail native memakai Kompailer Java GNU "
+"(gcj)"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
@@ -7652,13 +7699,16 @@ msgstr "UUID:"
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:16
 msgid ""
 "Uuid is a globally-unique identifier for your extension.\n"
-"This should be in the format of an email address (foo.bar@extensions.example.com), but\n"
-"need not be an actual email address, though it's a good idea to base the uuid on your\n"
+"This should be in the format of an email address (foo.bar@extensions.example."
+"com), but\n"
+"need not be an actual email address, though it's a good idea to base the "
+"uuid on your\n"
 "email address."
 msgstr ""
 "Uuid adalah identifier yang unik secara global bagi ekstensi Anda.\n"
 "Ini mesti dalam bentuk alamat surel (foo.bar@extensions.example.com), tapi\n"
-"tak perlu berupa alamat surel sebenarnya, walaupun ide bagus untuk mendasari uuid pada\n"
+"tak perlu berupa alamat surel sebenarnya, walaupun ide bagus untuk mendasari "
+"uuid pada\n"
 "alamat surel Anda."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
@@ -7670,8 +7720,11 @@ msgid "Gnome Shell Compatibility:"
 msgstr "Kompatibilitas Shell Gnome:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
-msgid "Comma-separated list of gnome-shell version your plugin is compatible with"
-msgstr "Daftar yang dipisah koma dari versi gnome-shell yang kompatibel dengan plugin Anda"
+msgid ""
+"Comma-separated list of gnome-shell version your plugin is compatible with"
+msgstr ""
+"Daftar yang dipisah koma dari versi gnome-shell yang kompatibel dengan "
+"plugin Anda"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "GTK+ (Application)"
@@ -7695,7 +7748,8 @@ msgstr "Tambah sistem gtk-doc:"
 #: ../plugins/project-wizard/templates/java.wiz.in.h:18
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr "gtk-doc dipakai untuk mengkompail dokumentasi API bagi kelas berbasis GObject"
+msgstr ""
+"gtk-doc dipakai untuk mengkompail dokumentasi API bagi kelas berbasis GObject"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
@@ -7710,8 +7764,12 @@ msgstr "Gunakan GtkBuilder untuk antar muka pengguna:"
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:24
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:18
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:18
-msgid "Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime"
-msgstr "Pakai GtkBuilder untuk membuat antar muka pengguna secara grafis dan muat itu dari berkas xml saat runtime"
+msgid ""
+"Use GtkBuilder to create the user-interface in a graphical way and load it "
+"from xml files at runtime"
+msgstr ""
+"Pakai GtkBuilder untuk membuat antar muka pengguna secara grafis dan muat "
+"itu dari berkas xml saat runtime"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
@@ -7722,8 +7780,14 @@ msgstr "Perlu Paket:"
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
 #: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
-msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
-msgstr "Berikan nama paket yang diperlukan projek Anda. Anda mungkin juga perlu menyebutkan versi paket yang diperlukan. Sebagai contoh, 'libgnomeui-2.0' atau 'libgnomeui-2.0 >= 2.2.0'"
+msgid ""
+"Give a package name that your project require. You may also mention what is "
+"the required version of the package. For example, 'libgnomeui-2.0' or "
+"'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Berikan nama paket yang diperlukan projek Anda. Anda mungkin juga perlu "
+"menyebutkan versi paket yang diperlukan. Sebagai contoh, 'libgnomeui-2.0' "
+"atau 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
 msgid "GTKmm (Simple)"
@@ -8130,15 +8194,20 @@ msgstr "Nilai bawaan"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
-msgstr "<b>Galat:</b> Anda mesti memilih paling tidak satu bahasa bagi snippet!"
+msgstr ""
+"<b>Galat:</b> Anda mesti memilih paling tidak satu bahasa bagi snippet!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:49
-msgid "<b>Error:</b> The trigger key is already in use for one of the languages!"
+msgid ""
+"<b>Error:</b> The trigger key is already in use for one of the languages!"
 msgstr "<b>Galat:</b> Kunci pemicu telah dipakai oleh salah satu bahasa!"
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
-msgid "<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
-msgstr "<b>Galat:</b> Kunci pemicu hanya boleh memuat karakter alfanumerik dan _ !"
+msgid ""
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
+msgstr ""
+"<b>Galat:</b> Kunci pemicu hanya boleh memuat karakter alfanumerik dan _ !"
 
 #: ../plugins/snippets-manager/snippets-editor.c:51
 msgid "<b>Error:</b> You haven't entered a trigger key for the snippet!"
@@ -8178,10 +8247,14 @@ msgstr "Kunci Picu:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:9
 msgid ""
-"The trigger key is used for fast insertion of the snippet. Type the trigger key in the editor, followed by the \"Fast Insert\" shortcut to insert a snippet.\n"
+"The trigger key is used for fast insertion of the snippet. Type the trigger "
+"key in the editor, followed by the \"Fast Insert\" shortcut to insert a "
+"snippet.\n"
 "<b>Warning: Must be unique per language. </b>"
 msgstr ""
-"Kunci pemicu dipakai untuk penyisipan snippet secara cepat. Ketikkan kunci pemicu di dalam penyunting, diikuti dengan pintasan \"Penyisipan Cepat\" untuk menyisipkan suatu snippet.\n"
+"Kunci pemicu dipakai untuk penyisipan snippet secara cepat. Ketikkan kunci "
+"pemicu di dalam penyunting, diikuti dengan pintasan \"Penyisipan Cepat\" "
+"untuk menyisipkan suatu snippet.\n"
 "<b>Peringatan: Mesti unik per bahasa. </b>"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:11
@@ -8197,8 +8270,13 @@ msgid "Keywords:"
 msgstr "Kata Kunci:"
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:14
-msgid "Keywords are used for better searching of the snippets. They should be relevant to the snippet content. Type them separated by a single space."
-msgstr "Kata kunci dipakai untuk pencarian snippet yang lebih baik. Mereka mesti relevan dengan isi snippet. Ketikkan mereka dengan dipisahkan oleh spasi tunggal."
+msgid ""
+"Keywords are used for better searching of the snippets. They should be "
+"relevant to the snippet content. Type them separated by a single space."
+msgstr ""
+"Kata kunci dipakai untuk pencarian snippet yang lebih baik. Mereka mesti "
+"relevan dengan isi snippet. Ketikkan mereka dengan dipisahkan oleh spasi "
+"tunggal."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Properties"
@@ -8297,8 +8375,7 @@ msgid "Right margin position in characters"
 msgstr "Posisi batas kanan dalam karakter"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
-#: ../src/anjuta-app.c:634
-#: ../src/anjuta-app.c:639
+#: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
 msgid "View"
 msgstr "Tilik"
 
@@ -8366,12 +8443,11 @@ msgstr "Aktifkan/nonaktifkan pindah baris otomatis bila baris terlalu panjang"
 msgid "Editor view settings"
 msgstr "Tatanan tilikan penyunting"
 
-#: ../plugins/sourceview/plugin.c:365
-#: ../plugins/sourceview/plugin.c:406
+#: ../plugins/sourceview/plugin.c:365 ../plugins/sourceview/plugin.c:406
 msgid "GtkSourceView Editor"
 msgstr "Penyunting GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:567
+#: ../plugins/sourceview/sourceview.c:569
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8380,7 +8456,7 @@ msgstr ""
 "Berkas \"%s\" di disk lebih baru daripada yang di penyangga.\n"
 "Anda ingin memuat ulang?"
 
-#: ../plugins/sourceview/sourceview.c:599
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8390,18 +8466,18 @@ msgstr ""
 "Anda ingin menutupnya?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:632
+#: ../plugins/sourceview/sourceview.c:634
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Tak bisa membuka %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:686
+#: ../plugins/sourceview/sourceview.c:688
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Berkas \"%s\" hanya-baca! Sunting saja?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:748
+#: ../plugins/sourceview/sourceview.c:750
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Tak bisa menyimpan %s: %s"
@@ -8456,7 +8532,7 @@ msgstr "Pemulai"
 msgid "Welcome page with most common actions."
 msgstr "Halaman selamat datang dengan aksi-aksi paling umum."
 
-#: ../plugins/starter/plugin.c:285
+#: ../plugins/starter/plugin.c:286
 msgid "Start"
 msgstr "Mulai"
 
@@ -8688,36 +8764,31 @@ msgstr "Mengambil status……"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:52
-#: ../plugins/subversion/plugin.c:151
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:60
-#: ../plugins/subversion/plugin.c:175
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:175
 msgid "_Add…"
 msgstr "T_ambah..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:62
-#: ../plugins/subversion/plugin.c:177
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:177
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Tambahkan berkas/direktori baru ke tree Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:183
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:183
 msgid "_Remove…"
 msgstr "_Hapus…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:185
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:185
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Hapus berkas/direktori dari tree Subversion"
 
@@ -8735,15 +8806,13 @@ msgstr "Commit perubahan Anda ke tree Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:84
-#: ../plugins/subversion/plugin.c:167
+#: ../plugins/subversion/plugin.c:84 ../plugins/subversion/plugin.c:167
 msgid "_Revert…"
 msgstr "_Revert…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:86
-#: ../plugins/subversion/plugin.c:169
+#: ../plugins/subversion/plugin.c:86 ../plugins/subversion/plugin.c:169
 msgid "Revert changes to your working copy."
 msgstr "Revert perubahan ke salinan kerja Anda."
 
@@ -8761,15 +8830,13 @@ msgstr "Selesaikan konflik pada salinan kerja Anda."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:100
-#: ../plugins/subversion/plugin.c:159
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update…"
 msgstr "M_utakhirkan…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:102
-#: ../plugins/subversion/plugin.c:161
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Syncronize your local copy with the Subversion tree"
 msgstr "Selaraskan salinan lokal Anda dengan tree Subversion"
 
@@ -8781,8 +8848,7 @@ msgstr "Salin Berkas/Folder…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:110
-#: ../plugins/subversion/plugin.c:201
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:201
 msgid "Copy files/folders in the repository"
 msgstr "Salin berkas/folder di dalam repositori"
 
@@ -8812,15 +8878,13 @@ msgstr "Merge-kan perubahan ke dalam salinan kerja Anda"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:132
-#: ../plugins/subversion/plugin.c:191
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:191
 msgid "_View Log…"
 msgstr "_Tilik Log…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:134
-#: ../plugins/subversion/plugin.c:193
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:193
 msgid "View file history"
 msgstr "Tilik riwayat berkas"
 
@@ -8832,8 +8896,7 @@ msgstr "_Diff…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:142
-#: ../plugins/subversion/plugin.c:209
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:209
 msgid "Diff local tree with repository"
 msgstr "Diff-kan tree lokal terhadap repositori"
 
@@ -9057,16 +9120,24 @@ msgid "Parallel scan of project and global symbols"
 msgstr "Pemindaian paralel dari simbol global dan projek"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
-msgid "This option means that the global system packages will be scanned simultaneously with the project's ones"
-msgstr "Opsi ini berarti bahwa paket sistem global akan dipindai secara simultan dengan milik projek"
+msgid ""
+"This option means that the global system packages will be scanned "
+"simultaneously with the project's ones"
+msgstr ""
+"Opsi ini berarti bahwa paket sistem global akan dipindai secara simultan "
+"dengan milik projek"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
 msgid "Automatically update symbols without saving file"
 msgstr "Otomatis memutakhirkan simbol tanpa menyimpan berkas"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:4
-msgid "Automatically update the file's symbols without saving. The update occurs after 10 seconds without keypresses by the user."
-msgstr "Otomatis memutakhirkan simbol milik berkas tanpa menyimpan. Pemutakhiran terjadi setelah 10 detik tanpa ada tombol ditekan pengguna."
+msgid ""
+"Automatically update the file's symbols without saving. The update occurs "
+"after 10 seconds without keypresses by the user."
+msgstr ""
+"Otomatis memutakhirkan simbol milik berkas tanpa menyimpan. Pemutakhiran "
+"terjadi setelah 10 detik tanpa ada tombol ditekan pengguna."
 
 #: ../plugins/symbol-db/plugin.c:331
 msgid "Tag De_claration"
@@ -9120,8 +9191,7 @@ msgstr[0] "%d berkas dipindai dari %d"
 msgid "Populating symbol database…"
 msgstr "Mempopulasi basis data simbol…"
 
-#: ../plugins/symbol-db/plugin.c:2120
-#: ../plugins/symbol-db/plugin.c:2205
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
 msgstr "Simbol"
 
@@ -9133,8 +9203,7 @@ msgstr "Aksi popup SymbolDb"
 msgid "SymbolDb menu actions"
 msgstr "Aksi menu SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2535
-#: ../plugins/symbol-db/plugin.c:2553
+#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Basis Data Simbol"
@@ -9152,8 +9221,7 @@ msgid "Symbol"
 msgstr "Simbol"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
-#: ../plugins/terminal/terminal.c:750
-#: ../plugins/terminal/terminal.c:944
+#: ../plugins/terminal/terminal.c:750 ../plugins/terminal/terminal.c:944
 #: ../plugins/terminal/terminal.c:995
 msgid "Terminal"
 msgstr "Terminal"
@@ -9196,8 +9264,7 @@ msgid "Unable to execute command"
 msgstr "Tak bisa mengeksekusi perintah"
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
-#: ../plugins/tools/anjuta-tools.ui.h:1
-#: ../plugins/tools/plugin.c:263
+#: ../plugins/tools/anjuta-tools.ui.h:1 ../plugins/tools/plugin.c:263
 #: ../plugins/tools/plugin.c:270
 msgid "Tools"
 msgstr "Perkakas"
@@ -9299,8 +9366,12 @@ msgid "A tool with the same name already exists!"
 msgstr "Alat dengan nama yang sama sudah ada!"
 
 #: ../plugins/tools/editor.c:826
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?"
-msgstr "Pintasan telah dipakai oleh komponen lain di Anjuta. Anda tetap ingin mempertahankannya?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
+msgstr ""
+"Pintasan telah dipakai oleh komponen lain di Anjuta. Anda tetap ingin "
+"mempertahankannya?"
 
 #: ../plugins/tools/editor.c:910
 msgid "Unable to edit script"
@@ -9456,7 +9527,8 @@ msgstr "Nama berkas lengkap yang dipilih di plugin manajer berkas"
 
 #: ../plugins/tools/variable.c:92
 msgid "Selected full file name without extension in the file manager plugin"
-msgstr "Nama berkas lengkap yang dipilih tanpa ekstensi di plugin manajer berkas"
+msgstr ""
+"Nama berkas lengkap yang dipilih tanpa ekstensi di plugin manajer berkas"
 
 #: ../plugins/tools/variable.c:93
 msgid "Selected file name in the file manager plugin"
@@ -9484,7 +9556,8 @@ msgstr "Nama berkas lengkap yang dipilih di plugin manajer projek"
 
 #: ../plugins/tools/variable.c:99
 msgid "Selected full file name without extension in the project manager plugin"
-msgstr "Nama berkas lengkap yang dipilih tanpa ekstensi di plugin manajer projek"
+msgstr ""
+"Nama berkas lengkap yang dipilih tanpa ekstensi di plugin manajer projek"
 
 #: ../plugins/tools/variable.c:100
 msgid "Selected file name in the project manager plugin"
@@ -9691,7 +9764,9 @@ msgstr "Jangan tampilkan layar splash"
 
 #: ../src/main.c:81
 msgid "Start a new instance and do not open the file in an existing instance"
-msgstr "Mulai suatu instansi baru dan jangan buka berkas dalam suatu instansi yang telah ada"
+msgstr ""
+"Mulai suatu instansi baru dan jangan buka berkas dalam suatu instansi yang "
+"telah ada"
 
 #: ../src/main.c:87
 msgid "Do not open last session on startup"
@@ -9778,4 +9853,3 @@ msgstr "Hanya icon"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Hanya teks"
-
