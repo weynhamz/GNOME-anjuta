@@ -31,8 +31,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcestyleschememanager.h>
+#include <gtksourceview/gtksource.h>
 
 #include "plugin.h"
 #include "sourceview.h"

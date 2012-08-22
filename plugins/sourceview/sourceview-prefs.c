@@ -17,7 +17,7 @@
 #include "sourceview-prefs.h"
 #include "sourceview-private.h"
 #include "sourceview-provider.h"
-#include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksource.h>
 #include <gtksourceview/completion-providers/words/gtksourcecompletionwords.h>
 
 #include <libanjuta/anjuta-debug.h>

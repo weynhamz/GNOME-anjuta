@@ -32,7 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <string.h>
-#include <gtksourceview/gtksourcebuffer.h>
+#include <gtksourceview/gtksource.h>
 
 static void sourceview_cell_class_init(SourceviewCellClass *klass);
 static void sourceview_cell_instance_init(SourceviewCell *sp);

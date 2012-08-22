@@ -34,7 +34,7 @@
 #include <gtk/gtk.h>
 
 #include "sourceview.h"
-#include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksource.h>
 
 G_BEGIN_DECLS
 

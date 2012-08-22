@@ -16,7 +16,7 @@
 
 #include "sourceview-print.h"
 #include "sourceview-private.h"
-#include <gtksourceview/gtksourceprintcompositor.h>
+#include <gtksourceview/gtksource.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
 #define PRINT_LINEWRAP "print-linewrap"

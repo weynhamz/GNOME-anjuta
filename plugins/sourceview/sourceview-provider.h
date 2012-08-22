@@ -21,7 +21,7 @@
 #define _SOURCEVIEW_PROVIDER_H_
 
 #include <libanjuta/interfaces/ianjuta-provider.h>
-#include <gtksourceview/gtksourceview.h>
+#include <gtksourceview/gtksource.h>
 #include "sourceview.h"
 
 G_BEGIN_DECLS

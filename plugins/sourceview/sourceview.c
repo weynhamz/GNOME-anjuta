@@ -47,11 +47,7 @@
 #include <libanjuta/interfaces/ianjuta-language-provider.h>
 #include <libanjuta/interfaces/ianjuta-provider.h>
 
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcelanguage.h>
-#include <gtksourceview/gtksourcelanguagemanager.h>
-#include <gtksourceview/gtksourcebuffer.h>
-#include <gtksourceview/gtksourcecompletionitem.h>
+#include <gtksourceview/gtksource.h>
 
 #include "config.h"
 #include "anjuta-view.h"
