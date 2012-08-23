@@ -24,24 +24,15 @@
 
 #include "git-status-command.h"
 
-#define STATUS_REGEX "(modified|new file|deleted|unmerged|both modified|both added|both deleted):   (.*)"
-#define UNTRACKED_FILES_REGEX "(?:#\\t)(.*)"
-#define SECTION_COMMIT_REGEX "Changes to be committed:"
-#define SECTION_NOT_UPDATED_REGEX "Changed but not updated:|Changes not staged for commit:"
-#define SECTION_UNTRACKED_REGEX "Untracked files:"
+#define STATUS_REGEX "((M|A|D|U|\\?|\\s){2}) (.*)"
 
 struct _GitStatusCommandPriv
 {
 	GQueue *status_queue;
-	GHashTable *path_lookup_table;
 	GitStatusSections sections;
-	GitStatusSections current_section;
-	GRegex *current_section_regex;
+	GHashTable *status_codes;
+	GHashTable *conflict_codes;
 	GRegex *status_regex;
-	GRegex *untracked_files_regex;
-	GRegex *section_commit_regex;
-	GRegex *section_not_updated_regex;
-	GRegex *section_untracked_regex;
 	GFileMonitor *head_monitor;
 	GFileMonitor *index_monitor;
 };
@@ -52,6 +43,7 @@ static guint
 git_status_command_run (AnjutaCommand *command)
 {
 	git_command_add_arg (GIT_COMMAND (command), "status");
+	git_command_add_arg (GIT_COMMAND (command), "--porcelain");
 	
 	return 0;
 }
@@ -66,66 +58,82 @@ git_status_command_handle_output (GitCommand *git_command, const gchar *output)
 	gchar *path;
 	
 	self = GIT_STATUS_COMMAND (git_command);
-	
-	/* See if the section has changed */
-	if (g_regex_match (self->priv->section_commit_regex, output, 0, NULL))
+	status_object = NULL;
+
+	if (g_regex_match (self->priv->status_regex, output, 0, &match_info))
 	{
-		self->priv->current_section = GIT_STATUS_SECTION_COMMIT;
-		self->priv->current_section_regex = self->priv->status_regex;
-		return;
-	}
-	else if (g_regex_match (self->priv->section_not_updated_regex, output, 0, 
-							NULL))
-	{
-		self->priv->current_section = GIT_STATUS_SECTION_NOT_UPDATED;
-		self->priv->current_section_regex = self->priv->status_regex;
-		return;
-	}
-	else if (g_regex_match (self->priv->section_untracked_regex, output, 0, 
-							NULL))
-	{
-		self->priv->current_section = GIT_STATUS_SECTION_UNTRACKED;
-		self->priv->current_section_regex = self->priv->untracked_files_regex;
-		return;
-	}
-	
-	if (self->priv->sections & self->priv->current_section)
-	{
-		if (g_regex_match (self->priv->current_section_regex, output, 0, 
-						   &match_info))
+		/* Determine which section this entry goes in */
+		status = g_match_info_fetch (match_info, 1);
+		path = g_match_info_fetch (match_info, 3);
+
+		if (status[0] == ' ')
 		{
-			if (self->priv->current_section_regex == self->priv->status_regex)
+			/* Changed but not updated */
+			if (self->priv->sections & GIT_STATUS_SECTION_NOT_UPDATED)
 			{
-				status = g_match_info_fetch (match_info, 1);
-				path = g_match_info_fetch (match_info, 2);
+				status_object = git_status_new(path, 
+				                               GPOINTER_TO_INT (g_hash_table_lookup (self->priv->status_codes, 
+				                                                					 GINT_TO_POINTER (status[1]))));
+			}
+		}
+		else if (status[1] == ' ')
+		{
+			/* Added to commit */
+			if (self->priv->sections & GIT_STATUS_SECTION_COMMIT)
+			{
+				status_object = git_status_new(path, 
+				                               GPOINTER_TO_INT (g_hash_table_lookup (self->priv->status_codes, 
+				                                                    				 GINT_TO_POINTER (status[0]))));
+			}
+		}
+		else
+		{
+			/* File may have been added to the index and then changed again in
+			 * the working tree, or it could be a conflict */
+
+			/* Unversioned files */
+			if (status[0] == '?')
+			{
+				if (self->priv->sections & GIT_STATUS_SECTION_UNTRACKED)
+				{
+					status_object = git_status_new(path, 
+				                           		   ANJUTA_VCS_STATUS_UNVERSIONED);
+				}
+			}
+			else if (g_hash_table_lookup_extended (self->priv->conflict_codes, status,
+			                                       NULL, NULL))
+			{
+				/* Conflicts are put in the changed but not updated section */
+				if (self->priv->sections & GIT_STATUS_SECTION_NOT_UPDATED)
+				{
+					status_object = git_status_new (path, 
+					                                ANJUTA_VCS_STATUS_CONFLICTED);
+				}
 			}
 			else
 			{
-				status = g_strdup ("untracked");
-				path = g_match_info_fetch (match_info, 1);
+				status_object = git_status_new(path, 
+				                               GPOINTER_TO_INT(g_hash_table_lookup (self->priv->status_codes, 
+				                                                                    GINT_TO_POINTER (status[0]))));
 			}
-			
-			/* Git sometimes mentions paths twice in status output. This can
-			 * happen, for example, where there is a conflict, in which case a
-			 * path would show up as both "unmerged" and "modified." */
-			g_strchug (path);
-			
-			if (!g_hash_table_lookup_extended (self->priv->path_lookup_table, 
-											   path, NULL, NULL))
-			{
-				status_object = git_status_new (path, status);
-				g_queue_push_tail (self->priv->status_queue, status_object);
-				g_hash_table_insert (self->priv->path_lookup_table,  
-									 g_strdup (path), NULL);
-				anjuta_command_notify_data_arrived (ANJUTA_COMMAND (git_command));
-			}
-			
-			g_free (status);
-			g_free (path);
+			    
 		}
 
-		g_match_info_free (match_info);
+		
+
+		g_free (status);
+		g_free (path);
+
+		if (status_object)
+		{
+			g_queue_push_tail (self->priv->status_queue, status_object);
+			anjuta_command_notify_data_arrived (ANJUTA_COMMAND (self));
+		}
+		
 	}
+
+	g_match_info_free (match_info);
+	
 }
 
 static void
@@ -133,18 +141,33 @@ git_status_command_init (GitStatusCommand *self)
 {
 	self->priv = g_new0 (GitStatusCommandPriv, 1);
 	self->priv->status_queue = g_queue_new ();
-	self->priv->path_lookup_table = g_hash_table_new_full (g_str_hash, 
-														   g_str_equal,
-														   g_free, NULL);
+	
 	self->priv->status_regex = g_regex_new (STATUS_REGEX, 0, 0, NULL);
-	self->priv->untracked_files_regex = g_regex_new (UNTRACKED_FILES_REGEX, 
-													 0, 0, NULL);
-	self->priv->section_commit_regex = g_regex_new (SECTION_COMMIT_REGEX, 0, 0,
-													NULL);
-	self->priv->section_not_updated_regex = g_regex_new (SECTION_NOT_UPDATED_REGEX,
-														 0, 0, NULL);
-	self->priv->section_untracked_regex = g_regex_new (SECTION_UNTRACKED_REGEX,
-													   0, 0, NULL);
+	self->priv->status_codes = g_hash_table_new (g_direct_hash, g_direct_equal);
+	self->priv->conflict_codes = g_hash_table_new (g_str_hash, g_str_equal);
+
+	/* Initialize status code hash tables */
+	g_hash_table_insert (self->priv->status_codes, 
+	                     GINT_TO_POINTER ('M'),
+	                     GINT_TO_POINTER (ANJUTA_VCS_STATUS_MODIFIED));
+
+	g_hash_table_insert (self->priv->status_codes, 
+	                     GINT_TO_POINTER ('A'),
+	                     GINT_TO_POINTER (ANJUTA_VCS_STATUS_ADDED));
+
+	g_hash_table_insert (self->priv->status_codes, 
+	                     GINT_TO_POINTER ('D'),
+	                     GINT_TO_POINTER (ANJUTA_VCS_STATUS_MODIFIED));
+
+	/* TODO: Handle each conflict case individually so that we can eventually
+	 * give the user more information about the conflict */
+	g_hash_table_insert (self->priv->conflict_codes, "DD", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "AU", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "UD", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "UA", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "DU", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "AA", NULL);
+	g_hash_table_insert (self->priv->conflict_codes, "UU", NULL);
 }
 
 static void
@@ -253,38 +276,19 @@ git_status_command_data_arrived (AnjutaCommand *command)
 	git_status_command_clear_output (GIT_STATUS_COMMAND (command));
 }
 
-static void
-git_status_command_finished (AnjutaCommand *command, guint return_code)
-{
-	GitStatusCommand *self;
-
-	self = GIT_STATUS_COMMAND (command);
-
-	g_hash_table_remove_all (self->priv->path_lookup_table);
-
-	ANJUTA_COMMAND_CLASS (git_status_command_parent_class)->command_finished (command, 
-	                                                                          return_code);
-}
 
 static void
 git_status_command_finalize (GObject *object)
 {
 	GitStatusCommand *self;
-	GList *current_status;
 	
 	self = GIT_STATUS_COMMAND (object);
-	current_status = self->priv->status_queue->head;
 	
 	git_status_command_clear_output (self);
 	git_status_command_stop_automatic_monitor (ANJUTA_COMMAND (self));
 	
 	g_queue_free (self->priv->status_queue);
-	g_hash_table_destroy (self->priv->path_lookup_table);
 	g_regex_unref (self->priv->status_regex);
-	g_regex_unref (self->priv->untracked_files_regex);
-	g_regex_unref (self->priv->section_commit_regex);
-	g_regex_unref (self->priv->section_not_updated_regex);
-	g_regex_unref (self->priv->section_untracked_regex);
 	
 	g_free (self->priv);
 
@@ -302,7 +306,6 @@ git_status_command_class_init (GitStatusCommandClass *klass)
 	parent_class->output_handler = git_status_command_handle_output;
 	command_class->run = git_status_command_run;
 	command_class->data_arrived = git_status_command_data_arrived;
-	command_class->command_finished = git_status_command_finished;
 	command_class->start_automatic_monitor = git_status_command_start_automatic_monitor;
 	command_class->stop_automatic_monitor = git_status_command_stop_automatic_monitor;
 }

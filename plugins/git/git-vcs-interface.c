@@ -192,6 +192,7 @@ on_status_command_data_arrived (AnjutaCommand *command,
 {
 	GQueue *status_queue;
 	GitStatus *status;
+	const gchar *working_directory;
 	gchar *path;
 	gchar *full_path;
 	GFile *file;
@@ -201,32 +202,29 @@ on_status_command_data_arrived (AnjutaCommand *command,
 	while (g_queue_peek_head (status_queue))
 	{
 		status = g_queue_pop_head (status_queue);
+		working_directory = g_object_get_data (G_OBJECT (command), 
+		                                       "working-directory");
+		path = git_status_get_path (status);
+		full_path = g_strconcat (working_directory, G_DIR_SEPARATOR_S, path, 
+		                         NULL);
+		file = g_file_new_for_path (full_path);
 
-		if (git_status_is_working_directory_descendant (status))
+		DEBUG_PRINT ("Working directory: %s\n", working_directory);
+		DEBUG_PRINT ("File %s Status %i\n", full_path, git_status_get_vcs_status (status));
+
+		if (file)
 		{
-			path = git_status_get_path (status);
-			full_path = g_strconcat (g_object_get_data (G_OBJECT (command), "working-directory"),
-			                         G_DIR_SEPARATOR_S, path, NULL);
-			file = g_file_new_for_path (full_path);
+			callback (file, 
+			          git_status_get_vcs_status (status),
+			          g_object_get_data (G_OBJECT (command), "user-data"));
 
-			DEBUG_PRINT ("Working directory: %s\n", (gchar *) g_object_get_data (G_OBJECT (command), "working-directory"));
-			DEBUG_PRINT ("File %s Status %i\n", full_path, git_status_get_vcs_status (status));
-
-			if (file)
-			{
-				callback (file, 
-				          git_status_get_vcs_status (status),
-				          g_object_get_data (G_OBJECT (command), "user-data"));
-
-				g_object_unref (file);
-			}
-
-			g_free (path);
-			g_free (full_path);
+			g_object_unref (file);
 		}
+
+		g_free (path);
+		g_free (full_path);
 		
 		g_object_unref (status);
-		
 	}
 }
 
@@ -245,9 +243,8 @@ git_ivcs_query_status (IAnjutaVcs *obj, GFile *file,
 	g_free (path);
 
 	g_object_set_data (G_OBJECT (status_command), "user-data", user_data);
-	g_object_set_data_full (G_OBJECT (status_command), "working-directory",
-	                        g_file_get_path (file),
-	                        (GDestroyNotify) g_free);
+	g_object_set_data (G_OBJECT (status_command), "working-directory",
+	                   ANJUTA_PLUGIN_GIT (obj)->project_root_directory);
 
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",
 	                  G_CALLBACK (on_status_command_data_arrived),

@@ -27,7 +27,6 @@
 struct _GitStatusPriv
 {
 	gchar *path;
-	GHashTable *status_lookup_table;
 	AnjutaVcsStatus status;
 };
 
@@ -37,43 +36,6 @@ static void
 git_status_init (GitStatus *self)
 {
 	self->priv = g_new0 (GitStatusPriv, 1);
-	self->priv->status_lookup_table = g_hash_table_new (g_str_hash, 
-														g_str_equal);
-	
-	/* Set up mappings between git status and VCS status codes */
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "modified", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_MODIFIED));
-	
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "new file", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_ADDED));
-	
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "deleted", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_DELETED));
-	
-	/* Git 1.7 added a bunch of different conflicted states */
-
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "unmerged", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
-
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "both modified", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
-
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "both added", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
-
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "both deleted", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_CONFLICTED));
-	
-	g_hash_table_insert (self->priv->status_lookup_table,
-						 "untracked", 
-						 GINT_TO_POINTER (ANJUTA_VCS_STATUS_UNVERSIONED));
 }
 
 static void
@@ -84,7 +46,6 @@ git_status_finalize (GObject *object)
 	self = GIT_STATUS (object);
 	
 	g_free (self->priv->path);
-	g_hash_table_destroy (self->priv->status_lookup_table);
 	g_free (self->priv);
 
 	G_OBJECT_CLASS (git_status_parent_class)->finalize (object);
@@ -99,15 +60,14 @@ git_status_class_init (GitStatusClass *klass)
 }
 
 GitStatus *
-git_status_new (const gchar *path, const gchar *status)
+git_status_new (const gchar *path, AnjutaVcsStatus status)
 {
 	GitStatus *self;
 	
 	self = g_object_new (GIT_TYPE_STATUS, NULL);
 	
 	self->priv->path = g_strdup (path);
-	self->priv->status = GPOINTER_TO_INT (g_hash_table_lookup (self->priv->status_lookup_table,
-															   status));
+	self->priv->status = status;
 	
 	return self;
 }
@@ -124,9 +84,3 @@ git_status_get_vcs_status (GitStatus *self)
 	return self->priv->status;
 }
 
-gboolean
-git_status_is_working_directory_descendant (GitStatus *self)
-{
-	return (!g_str_has_prefix (self->priv->path, "../") && 
-			!g_str_has_prefix (self->priv->path, "./"));
-}
