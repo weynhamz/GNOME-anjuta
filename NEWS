@@ -1,3 +1,36 @@
+Anjuta 3.5.91 "Je voudrais etre un yeti" (September 3 2012) -- Johannes Schmid
+
+This is an unstable developer snapshot - if you need a stable version,
+use 3.4.x!
+
+Andika Triwidada (1):
+      Updated Indonesian translation
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Dominique Leuenberger (1):
+      gtksourceview plugin: include gtksource.h instead of gtksourceview.h
+
+Fran Diéguez (1):
+      Updated Galician translations
+
+James Liggett (1):
+      git: Fix bgo 680401: Git plugin (Status) doesn't work with git version 1.7.10.4
+
+Johannes Schmid (1):
+      Post-release version bump
+
+Piotr Drąg (2):
+      Updated Polish translation
+      Updated Polish translation
+
+Sébastien Granjoux (1):
+      Fix #679767 - crash trying to stop the debugger
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
 Anjuta 3.5.5 "Kein Stress" (August 6 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
