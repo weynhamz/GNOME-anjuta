@@ -1,9 +1,11 @@
-include $(top_srcdir)/gnome-doc-utils.make
-dist-hook: doc-dist-hook
-DOC_MODULE = anjuta-build-tutorial
-DOC_ENTITIES = anjuta-build-tutorial.xml 
-DOC_AM_CPPFLAGS =
-DOC_FIGURES = figures/autotools-process.png \
+@YELP_HELP_RULES@
+
+HELP_ID = anjuta-build-tutorial
+
+HELP_FILES = \
+	index.docbook
+
+HELP_FIGURES = figures/autotools-process.png \
 	      figures/configure-process.png \
    	      figures/new-project-message.png \
               figures/build_preferences.png \

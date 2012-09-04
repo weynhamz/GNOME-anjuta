@@ -1,8 +1,8 @@
-include $(top_srcdir)/gnome-doc-utils.make
+@YELP_HELP_RULES@
 
+HELP_ID = anjuta-faqs
 
-DOC_ID = anjuta-faqs
-DOC_PAGES = \
+HELP_FILES = \
 	index.page \
 	editor-maximize.page \
 	editor-scintilla.page \
@@ -12,8 +12,7 @@ DOC_PAGES = \
 	general-windows.page \
 	project-existing.page \
 	project-resource.page
-DOC_LINGUAS = de
-DOC_FIGURES =
 
-dist-hook: doc-dist-hook
+HELP_LINGUAS = de
+
 -include $(top_srcdir)/git.mk

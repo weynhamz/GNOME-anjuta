@@ -2839,13 +2839,13 @@ ROOT (): anjuta
             SOURCE (): git.mk
         GROUP (): anjuta-manual
             SOURCE (): manuals/anjuta-manual/Makefile.am
-            SOURCE (): gnome-doc-utils.make
+            SOURCE (): git.mk
         GROUP (): anjuta-faqs
             SOURCE (): manuals/anjuta-faqs/Makefile.am
-            SOURCE (): gnome-doc-utils.make
+            SOURCE (): git.mk
         GROUP (): anjuta-build-tutorial
             SOURCE (): manuals/anjuta-build-tutorial/Makefile.am
-            SOURCE (): gnome-doc-utils.make
+            SOURCE (): git.mk
         SOURCE (): manuals/Makefile.am
         SOURCE (): git.mk
     GROUP (): mime

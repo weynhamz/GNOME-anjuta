@@ -1,9 +1,8 @@
-include $(top_srcdir)/gnome-doc-utils.make
+@YELP_HELP_RULES@
 
-dist-hook: doc-dist-hook
+HELP_ID = anjuta-manual
 
-DOC_ID = anjuta-manual
-DOC_PAGES = \
+HELP_FILES = \
 	index.page \
 	anjuta-code-assist.page \
 	anjuta-code-help.page \
@@ -73,9 +72,9 @@ DOC_PAGES = \
 	run-run.page \
 	widget-index.page
 	
-DOC_FIGURES = figures/anjuta_logo.png \
+HELP_FIGURES = figures/anjuta_logo.png \
 	      figures/anjuta-in-action.png
 
-DOC_LINGUAS = cs da de el es eu fr gl ja oc pt_BR ro sl sv th uk zh_CN
+HELP_LINGUAS = cs da de el es eu fr gl ja oc pt_BR ro sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk

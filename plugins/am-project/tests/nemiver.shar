@@ -81,12 +81,12 @@ ${echo} "x - SKIPPING nemiver/help/Makefile.am (file already exists)"
 else
 ${echo} "x - extracting nemiver/help/Makefile.am (text)"
   sed 's/^X//' << 'SHAR_EOF' > 'nemiver/help/Makefile.am' &&
-Xinclude $(top_srcdir)/gnome-doc-utils.make
-Xdist-hook: doc-dist-hook
-XDOC_MODULE = nemiver
-XDOC_ENTITIES =
-XDOC_INCLUDES = legal.xml
-XDOC_FIGURES = \
+X@YELP_HELP_RULES@
+XHELP_ID = nemiver
+XHELP_FILES = \
+X	index.docbook \
+X	legal.xml
+XHELP_FIGURES = \
 X			  figures/attach-dialog.png \
 X			  figures/execute-dialog.png \
 X			  figures/load-core-dialog.png \
@@ -101,7 +101,7 @@ X			  figures/registers-view.png \
 X			  figures/connect-remote-dialog.png \
 X			  figures/enabled-breakpoint.png \
 X			  figures/disabled-breakpoint.png
-XDOC_LINGUAS = cs de es oc sv
+XHELP_LINGUAS = cs de es oc sv
 SHAR_EOF
 :
 if test $? -ne 0
@@ -683,8 +683,8 @@ XINSTALL \
 XCOPYING \
 XCOPYRIGHT \
 X$(headers) \
-X$(INTLTOOL_FILES) \
-Xgnome-doc-utils.make
+X$(INTLTOOL_FILES)
+X
 X
 Xdoc:
 X	$(MAKE) -C docs doc
@@ -765,8 +765,7 @@ X	@echo ""
 X	@echo "Last but not least, do not forget to bump up the micro"
 X	@echo "version component to the next (odd) number and commit."
 X
-XDISTCLEANFILES = $(INTLTOOL_FILES:.in=) \
-X	gnome-doc-utils.make
+XDISTCLEANFILES = $(INTLTOOL_FILES:.in=)
 X
 XDISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 SHAR_EOF

@@ -225,7 +225,7 @@
                         <property name="halign">start</property>
                         <property name="use_action_appearance">False</property>
                         <property name="relief">none</property>
-                        <property name="uri">ghelp:anjuta-manual</property>
+                        <property name="uri">help:anjuta-manual</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -243,7 +243,7 @@
                         <property name="halign">start</property>
                         <property name="use_action_appearance">False</property>
                         <property name="relief">none</property>
-                        <property name="uri">ghelp:anjuta-faqs</property>
+                        <property name="uri">help:anjuta-faqs</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>

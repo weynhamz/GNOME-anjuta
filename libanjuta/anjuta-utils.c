@@ -1916,9 +1916,9 @@ anjuta_util_help_display (GtkWidget   *parent,
 	gchar *command;
 
 
-	command = g_strdup_printf ("yelp ghelp:%s%s%s",
+	command = g_strdup_printf ("yelp help:%s%s%s",
 	                           doc_id,
-	                           item == NULL ? "" : "?",
+	                           item == NULL ? "" : "/",
 	                           item == NULL ? "" : item);
 
 	if (!g_spawn_command_line_async (command, &error) &&

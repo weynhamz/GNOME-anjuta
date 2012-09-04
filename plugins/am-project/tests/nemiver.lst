@@ -549,7 +549,6 @@ ROOT (): nemiver
         SOURCE (): docs/Makefile.am
     GROUP (): help
         SOURCE (): help/Makefile.am
-        SOURCE (): gnome-doc-utils.make
     TARGET (): publicheaders
         PROPERTY (Installation directory): publicheadersdir
         SOURCE (): config.h

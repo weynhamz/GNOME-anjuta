@@ -14,7 +14,6 @@ test -n "$srcdir" || srcdir=.
 (
  cd "$srcdir" &&
  gtkdocize &&
- gnome-doc-prepare --automake --copy --force &&
  autopoint --force &&
  AUTOPOINT='intltoolize --automake --copy' autoreconf --force --install
 ) || exit
