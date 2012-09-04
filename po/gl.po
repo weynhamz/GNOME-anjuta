@@ -14,12 +14,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-08-15 07:06+0000\n"
-"PO-Revision-Date: 2012-08-15 21:57+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-04 23:07+0200\n"
+"PO-Revision-Date: 2012-09-02 12:48+0200\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
-"Language-Team: Galego <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -259,7 +258,7 @@ msgstr "Texto que lle mostra ao usuario que ten que escribir nun campo"
 #: ../libanjuta/anjuta-environment-editor.c:543
 #: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Environment Variables:"
-msgstr "Introducir variábeis de ambiente:"
+msgstr "Variábeis de ambiente:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
 #: ../plugins/class-gen/window.c:719 ../plugins/class-gen/window.c:729
@@ -299,7 +298,7 @@ msgstr "Seleccionar ficheiros "
 
 #: ../libanjuta/anjuta-file-list.c:540
 msgid "Path that all files in the list should be relative to"
-msgstr "Ruta á que deben ser relativos tódolos ficheiros na lista"
+msgstr "Ruta á que deben ser relativos todos os ficheiros na lista"
 
 #: ../libanjuta/anjuta-file-list.c:547
 msgid "Show Add button"
@@ -919,7 +918,7 @@ msgstr "Parámetros do enlazador:"
 #: ../plugins/am-project/am-properties.c:214
 msgid "Common additional linker flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do vinculador para tódolos obxectivos neste "
+"Parámetros adicionais comúns do vinculador para todos os obxectivos deste "
 "grupo."
 
 #: ../plugins/am-project/am-properties.c:113
@@ -935,8 +934,8 @@ msgstr "Parámetros do preprocesador de C:"
 #: ../plugins/am-project/am-properties.c:223
 msgid "Common additional C preprocessor flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do preprocesador de C para tódolos obxectivos "
-"neste grupo."
+"Parámetros adicionais comúns do preprocesador de C para todos os obxectivos "
+"deste grupo."
 
 #: ../plugins/am-project/am-properties.c:122
 #: ../plugins/am-project/am-properties.c:229
@@ -951,8 +950,8 @@ msgstr "Parámetros do compilador de C:"
 #: ../plugins/am-project/am-properties.c:232
 msgid "Common additional C compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de C para tódolos obxectivos "
-"neste grupo."
+"Parámetros adicionais comúns do compilador de C para todos os obxectivos "
+"deste grupo."
 
 #: ../plugins/am-project/am-properties.c:131
 #: ../plugins/am-project/am-properties.c:238
@@ -967,8 +966,8 @@ msgstr "Parámetros do compilador de C++:"
 #: ../plugins/am-project/am-properties.c:241
 msgid "Common additional C++ compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de C++ para tódolos obxectivos "
-"neste grupo."
+"Parámetros adicionais comúns do compilador de C++ para todos os obxectivos "
+"deste grupo."
 
 #: ../plugins/am-project/am-properties.c:140
 #: ../plugins/am-project/am-properties.c:247
@@ -983,8 +982,8 @@ msgstr "Parámetros do compilador de Java:"
 #: ../plugins/am-project/am-properties.c:250
 msgid "Common additional Java compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Java para tódolos obxectivos "
-"neste grupo."
+"Parámetros adicionais comúns do compilador de Java para todos os obxectivos "
+"deste grupo."
 
 #: ../plugins/am-project/am-properties.c:149
 #: ../plugins/am-project/am-properties.c:256
@@ -999,8 +998,8 @@ msgstr "Parámetros do compilador de Vala:"
 #: ../plugins/am-project/am-properties.c:259
 msgid "Common additional Vala compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Vala para tódolos obxectivos "
-"neste grupo."
+"Parámetros adicionais comúns do compilador de Vala para todos os obxectivos "
+"deste grupo."
 
 #: ../plugins/am-project/am-properties.c:158
 #: ../plugins/am-project/am-properties.c:265
@@ -1015,8 +1014,8 @@ msgstr "Parámetros do compilador de Fortran:"
 #: ../plugins/am-project/am-properties.c:268
 msgid "Common additional Fortran compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Fortran para tódolos "
-"obxectivos neste grupo."
+"Parámetros adicionais comúns do compilador de Fortran para todos os "
+"obxectivos deste grupo."
 
 #: ../plugins/am-project/am-properties.c:167
 #: ../plugins/am-project/am-properties.c:274
@@ -1032,8 +1031,8 @@ msgstr "Parámetros do compilador de Objective C:"
 msgid ""
 "Common additional Objective C compiler flags for all targets in this group."
 msgstr ""
-"Parámetros adicionais comúns do compilador de Objective C para tódolos "
-"obxectivos neste grupo."
+"Parámetros adicionais comúns do compilador de Objective C para todos os "
+"obxectivos deste grupo."
 
 #: ../plugins/am-project/am-properties.c:176
 #: ../plugins/am-project/am-properties.c:283
@@ -1051,7 +1050,7 @@ msgid ""
 "targets in this group."
 msgstr ""
 "Parámetros adicionais comúns do xerador de analizadores léxicos Lex ou Flex "
-"para tódolos obxectivos neste grupo."
+"para todos os obxectivos deste grupo."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1068,8 +1067,8 @@ msgid ""
 "Common additional Yacc or Bison parser generator flags for all targets in "
 "this group."
 msgstr ""
-"Parámetros adicionais do xerador do analizador Yacc ou Bison para tódolos "
-"obxectivos neste grupo."
+"Parámetros adicionais do xerador do analizador Yacc ou Bison para todos os "
+"obxectivos deste grupo."
 
 #: ../plugins/am-project/am-properties.c:194
 #: ../plugins/am-project/am-properties.c:301
@@ -3619,7 +3618,7 @@ msgstr "Xestor de documentos"
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
-msgstr "Proporciona capacidades para o xestor de documentos."
+msgstr "Fornece capacidades para o xestor de documentos."
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:1
 msgid "Top"
@@ -4365,7 +4364,7 @@ msgstr "Non se atopou ningún elemento"
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
-msgstr "Non hai recursos utilizados recentemente co URI `%s'"
+msgstr "Non se atoparon recursos utilizados recentemente co URI `%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
@@ -6410,8 +6409,8 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "Non foi posíbel atopar unha infraestrutura de proxecto correcta para o "
-"cartafol indicado (%s). Seleccione un cartafol diferente ou tente actualizar "
-"a unha versión máis nova de Anjuta."
+"cartafol indicado (%s). Seleccione un cartafol diferente ou tente anovar a "
+"unha versión máis nova de Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6816,7 +6815,7 @@ msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
-"Produciuse un erro ao analizar o proxecto (o ficheiro está aberto, mais non "
+"Produciuse un erro ao analizar o proxecto (o proxecto está aberto, mais non "
 "haberá ningunha visualización de proxecto) %s: %s\n"
 
 #: ../plugins/project-manager/plugin.c:1329
@@ -7154,7 +7153,7 @@ msgstr "Ignorando %s: o ficheiro xa existe"
 #: ../plugins/project-wizard/install.c:510
 #, c-format
 msgid "Creating %s … Failed to create directory"
-msgstr "Creando %s … Falla ao crear o cartafol"
+msgstr "Creando %s … Produciuse un erro ao crear o cartafol"
 
 #: ../plugins/project-wizard/install.c:526
 #, c-format
@@ -7631,7 +7630,7 @@ msgstr "nome do proxecto"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:17
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:17
 msgid "Add shared library support:"
-msgstr "Engadir a compatibilidde de biblioteca compartida:"
+msgstr "Engadir a compatibilidade de biblioteca compartida:"
 
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:14
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:16
@@ -8034,11 +8033,11 @@ msgstr "Un proxecto xenérico Wx Widgets"
 
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:1
 msgid "Xlib dock"
-msgstr "Ancorábel Xlib"
+msgstr "Doca de Xlib"
 
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:2
 msgid "A generic Xlib dock applet"
-msgstr "Un miniaplicativo ancorábel Xlib xenérico"
+msgstr "Un miniaplicativo en doca de Xlib xenérico"
 
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:1
 msgid "Xlib"
@@ -8794,11 +8793,11 @@ msgstr "Segunda ruta:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:58
 msgid "Start Revision:"
-msgstr "Iniciar a revisión:"
+msgstr "Revisión inicial:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:59
 msgid "End Revision:"
-msgstr "Finalizar a revisión:"
+msgstr "Revisión final:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:60
 msgid "Ignore ancestry"
@@ -9172,14 +9171,14 @@ msgstr "Obstruído: %s"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:1
 msgid "Parallel scan of project and global symbols"
-msgstr "Exploración paralela de proxecto e símbolos globais"
+msgstr "Análise paralela de proxecto e símbolos globais"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:2
 msgid ""
 "This option means that the global system packages will be scanned "
 "simultaneously with the project's ones"
 msgstr ""
-"Esta opción significa que os paquetes do sistema global serán explorados ao "
+"Esta opción significa que os paquetes do sistema global se analizarán ao "
 "mesmo tempo que o son os proxectos"
 
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:3
@@ -9230,8 +9229,8 @@ msgstr "%s: Xeración de herdanzas…"
 #, c-format
 msgid "%s: %d file scanned out of %d"
 msgid_plural "%s: %d files scanned out of %d"
-msgstr[0] "%s: %d ficheiro analizados fóra de %d"
-msgstr[1] "%s: %d ficheiros analizados fóra de %d"
+msgstr[0] "%s: %d ficheiro analizados de %d"
+msgstr[1] "%s: %d ficheiros analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1073
 #, c-format
@@ -9242,8 +9241,8 @@ msgstr "Xeración de herdanzas…"
 #, c-format
 msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
-msgstr[0] "%d ficheiro analizado fora de %d"
-msgstr[1] "%d ficheiros analizados fora de %d"
+msgstr[0] "%d ficheiro analizado de %d"
+msgstr[1] "%d ficheiros analizados de %d"
 
 #: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
@@ -9597,7 +9596,7 @@ msgstr "Seleccionar o nome do ficheiro no engadido do xestor de ficheiros"
 #: ../plugins/tools/variable.c:94
 msgid "Selected file name without extension in the file manager plugin"
 msgstr ""
-"Seleccionar o nome completo sen extensión no engadido do xestor de proxecto"
+"Seleccionar o nome completo sen extensión no engadido do xestor de ficheiros"
 
 #: ../plugins/tools/variable.c:95
 msgid "Selected file's extension in the file manager plugin"
@@ -9697,11 +9696,11 @@ msgstr "_Ver"
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
-msgstr "_Redefinir o deseño de ancoraxe"
+msgstr "_Restaurar o deseño de doca"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr "Cambiar deseño de ancoraxe dos widgets ao predeterminado"
+msgstr "Restaurar o deseño de doca dos widgets ao predeterminado"
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
@@ -9713,7 +9712,7 @@ msgstr "Alternar o modo de pantalla completa"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
-msgstr "_Bloquear o deseño de ancoraxe"
+msgstr "_Bloquear o deseño de doca"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
@@ -9883,7 +9882,7 @@ msgstr "Etiquetas dos botóns da barra de ferramentas:"
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/preferences.ui.h:7
 msgid "Dock switcher style:"
-msgstr "Estilo do selector de ancorábel:"
+msgstr "Estilo do selector de doca:"
 
 #: ../src/preferences.ui.h:8
 msgid "Appearance"
