@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta\n"
+"Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-04-19 17:35+0000\n"
-"PO-Revision-Date: 2012-04-21 13:04+0100\n"
+"POT-Creation-Date: 2012-09-05 13:49+0000\n"
+"PO-Revision-Date: 2012-09-07 14:55+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -34,6 +34,20 @@ msgstr "Združeno razvojno okolje"
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "Programska oprema v združenem razvojnem okolju"
+
+#: ../libanjuta/anjuta-autogen.c:239
+msgid "Autogen is busy"
+msgstr "Program Autogen je zaposlen"
+
+#: ../libanjuta/anjuta-autogen.c:251
+#, c-format
+msgid "Could not write definition file \"%s\": %s"
+msgstr "Ni mogoče zapisati datoteke določil \"%s\": %s"
+
+#: ../libanjuta/anjuta-autogen.c:585
+#, c-format
+msgid "Could not open file \"%s\": %s"
+msgstr "Ni mogoče odpreti datoteke \"%s\": %s"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:239
 #: ../src/preferences.ui.h:10
@@ -263,18 +277,18 @@ msgid "Environment Variables:"
 msgstr "Okoljske spremenljivke:"
 
 #: ../libanjuta/anjuta-environment-editor.c:586
-#: ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:719
+#: ../plugins/class-gen/window.c:729
 #: ../plugins/class-gen/window.c:737
-#: ../plugins/class-gen/window.c:745
-#: ../plugins/class-gen/window.c:759
+#: ../plugins/class-gen/window.c:751
+#: ../plugins/class-gen/window.c:761
 #: ../plugins/class-gen/window.c:769
 #: ../plugins/class-gen/window.c:777
 #: ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793
-#: ../plugins/class-gen/window.c:801
-#: ../plugins/class-gen/window.c:811
-#: ../plugins/class-gen/window.c:821
-#: ../plugins/class-gen/window.c:833
+#: ../plugins/class-gen/window.c:803
+#: ../plugins/class-gen/window.c:813
+#: ../plugins/class-gen/window.c:825
 #: ../plugins/project-manager/dialogs.c:481
 #: ../plugins/run-program/parameters.c:754
 #: ../plugins/snippets-manager/plugin.c:762
@@ -284,9 +298,9 @@ msgid "Name"
 msgstr "Ime"
 
 #: ../libanjuta/anjuta-environment-editor.c:595
-#: ../plugins/class-gen/window.c:778
-#: ../plugins/class-gen/window.c:794
-#: ../plugins/class-gen/window.c:825
+#: ../plugins/class-gen/window.c:770
+#: ../plugins/class-gen/window.c:786
+#: ../plugins/class-gen/window.c:817
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
 #: ../plugins/project-manager/dialogs.c:489
@@ -343,7 +357,7 @@ msgid "execvp failed"
 msgstr "execvp napaka"
 
 #: ../libanjuta/anjuta-plugin.c:331
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
 msgstr "Lupina Anjute"
 
@@ -351,12 +365,12 @@ msgstr "Lupina Anjute"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Lupina Anjute, ki bo vsebovala vstavek"
 
-#: ../libanjuta/anjuta-plugin-manager.c:737
+#: ../libanjuta/anjuta-plugin-manager.c:732
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Vstavka '%s' ni mogoče ustaviti"
 
-#: ../libanjuta/anjuta-plugin-manager.c:768
+#: ../libanjuta/anjuta-plugin-manager.c:763
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -367,96 +381,96 @@ msgstr ""
 "Običajno to pomeni, da je namestitev poškodovana. Opis napake je:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:900
 msgid "Load"
 msgstr "Naloži"
 
-#: ../libanjuta/anjuta-plugin-manager.c:928
-#: ../libanjuta/anjuta-plugin-manager.c:2007
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:2002
 msgid "Available Plugins"
 msgstr "Razpoložljivi vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041
+#: ../libanjuta/anjuta-plugin-manager.c:1036
 #: ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Priljubljeni vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1176
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
 msgstr "Pokaži le vstavke, ki jih lahko zažene uporabnik"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1216
+#: ../libanjuta/anjuta-plugin-manager.c:1211
 msgid "These are the plugins selected by you when Anjuta prompted to choose one of many suitable plugins. Removing the preferred plugin will let Anjuta prompt you again to choose different plugin."
 msgstr "To so vstavki, ki so bili izbrani za delovanje v programu. Po odstranitvi vstavka, bo program znova opozoril, da je treba izbrati tiste, ki jih želite imeti."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1242
+#: ../libanjuta/anjuta-plugin-manager.c:1237
 msgid "Forget selected plugin"
 msgstr "Pozabi na izbran vstavek"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527
+#: ../libanjuta/anjuta-plugin-manager.c:1371
+#: ../libanjuta/anjuta-plugin-manager.c:1522
 #: ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Izbor vstavka"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1377
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Izbor vstavka za zagon"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1391
+#: ../libanjuta/anjuta-plugin-manager.c:1386
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Ni vstavka za nalaganje drugih vstavkov v %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1528
+#: ../libanjuta/anjuta-plugin-manager.c:1523
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Izbor vstavka za zagon</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2034
+#: ../libanjuta/anjuta-plugin-manager.c:2029
 msgid "Remember this selection"
 msgstr "Zapomni si izbiro"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin-manager.c:2360
 msgid "Profiles"
 msgstr "Profili"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2361
 msgid "Current stack of profiles"
 msgstr "Trenutni sklad profilov"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2371
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Available plugins"
 msgstr "Razpoložljivi vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2372
+#: ../libanjuta/anjuta-plugin-manager.c:2367
 msgid "Currently available plugins found in plugin paths"
 msgstr "Trenutno dostopni vstavki najdeni na poti vstavkov"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Activated plugins"
 msgstr "Dejavni vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Currently activated plugins"
 msgstr "Trenutno dejavni vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2385
+#: ../libanjuta/anjuta-plugin-manager.c:2380
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Lupina Anjute za katero so narejeni vstavki"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2393
+#: ../libanjuta/anjuta-plugin-manager.c:2388
 msgid "Anjuta Status"
 msgstr "Stanje Anjute"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2394
+#: ../libanjuta/anjuta-plugin-manager.c:2389
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Stanje Anjute za nalaganje in razlaganje vstavkov"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2554
+#: ../libanjuta/anjuta-plugin-manager.c:2549
 msgid "Loading:"
 msgstr "Nalaganje:"
 
@@ -467,7 +481,6 @@ msgstr "Kategorija"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3
 #: ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
@@ -598,20 +611,20 @@ msgid "Shortcut"
 msgstr "Bližnjica"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:357
+#: ../libanjuta/anjuta-utils.c:358
 msgid "System:"
 msgstr "Sistem:"
 
-#: ../libanjuta/anjuta-utils.c:503
+#: ../libanjuta/anjuta-utils.c:504
 msgid "You do not seem to have PackageKit installed. PackageKit is required for installing missing packages. Please install \"packagekit-gnome\" package from your distribution, or install the missing packages manually."
 msgstr "Paket PackageKit ni nameščen. Ta paket je zahtevan pri nameščanju manjkajočih paketov. Namestite \"packagekit-gnome\" paket vaše distribucije ali pa manjkajoče pakete namestite ročno."
 
-#: ../libanjuta/anjuta-utils.c:512
+#: ../libanjuta/anjuta-utils.c:513
 #, c-format
 msgid "Installation failed: %s"
 msgstr "Neuspešna namestitev: %s"
 
-#: ../libanjuta/anjuta-utils.c:580
+#: ../libanjuta/anjuta-utils.c:581
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -620,7 +633,7 @@ msgstr ""
 "Paket \"%s\" ni nameščen.\n"
 "Namestite ga."
 
-#: ../libanjuta/anjuta-utils.c:598
+#: ../libanjuta/anjuta-utils.c:599
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -630,19 +643,19 @@ msgstr ""
 "Namestite ga."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1171
+#: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Ni mogoče najti konzole; uporabljen bo xterm, čeprav morda ne bo deloval"
 
-#: ../libanjuta/anjuta-utils.c:1207
-#: ../libanjuta/anjuta-utils.c:1211
-#: ../libanjuta/anjuta-utils.c:1239
-#: ../libanjuta/anjuta-utils.c:1243
+#: ../libanjuta/anjuta-utils.c:1205
+#: ../libanjuta/anjuta-utils.c:1209
+#: ../libanjuta/anjuta-utils.c:1236
+#: ../libanjuta/anjuta-utils.c:1240
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Ni mogoče izvesti ukaza: %s (uporaba lupine %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2299
+#: ../libanjuta/anjuta-utils.c:2351
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Ni mogoče naložiti datoteke uporabniškega vmesnika: %s"
@@ -798,7 +811,7 @@ msgid "Script"
 msgstr "Skripta"
 
 #: ../plugins/am-project/am-project.c:220
-#: ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:794
 #: ../plugins/cvs-plugin/cvs-callbacks.c:438
 msgid "Module"
 msgstr "Modul"
@@ -1401,28 +1414,28 @@ msgid "Install"
 msgstr "Namesti"
 
 #. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:525
+#: ../plugins/build-basic-autotools/build.c:526
 msgid "Before using this new configuration, the default one needs to be removed. Do you want to do that ?"
 msgstr "Pred uporabo novih nastavitev je treba privzete vrednosti odstraniti. Ali želite odstraniti te nastavitve?"
 
-#: ../plugins/build-basic-autotools/build.c:530
+#: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
 #, c-format
 msgid "Command canceled by user"
 msgstr "Ukaz preklican na zahtevo uporabnika"
 
-#: ../plugins/build-basic-autotools/build.c:852
+#: ../plugins/build-basic-autotools/build.c:881
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "Ni mogoče kodno prevesti \"%s\": ni določenega pravila kodnega prevajanja za to vrsto datotek."
 
-#: ../plugins/build-basic-autotools/build.c:1014
+#: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Ni mogoče nastaviti projekta: manjka nastavitveni skript v %s."
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
-#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:742
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 #: ../src/preferences.ui.h:15
 msgid "Default"
@@ -1594,188 +1607,212 @@ msgstr "Uspešno zaključeno.\n"
 msgid "Build %d: %s"
 msgstr "Izgradnja %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1639
-#: ../plugins/build-basic-autotools/plugin.c:1713
-#: ../plugins/build-basic-autotools/plugin.c:1723
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1665
 #: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build"
 msgstr "_Izgradi"
 
-#: ../plugins/build-basic-autotools/plugin.c:1643
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
 msgstr "Projekt _izgradnje"
 
-#: ../plugins/build-basic-autotools/plugin.c:1644
+#: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
 msgstr "Izgradnja celotnega projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:1649
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
 msgstr "_Projekt namestitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:1650
+#: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
 msgstr "Namestitev celotnega projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:1655
+#: ../plugins/build-basic-autotools/plugin.c:1681
+msgid "_Check Project"
+msgstr "_Preveri projekt"
+
+#: ../plugins/build-basic-autotools/plugin.c:1682
+msgid "Check whole project"
+msgstr "Preveri celotni projekt"
+
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "_Clean Project"
 msgstr "_Počisti projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1656
+#: ../plugins/build-basic-autotools/plugin.c:1688
 msgid "Clean whole project"
 msgstr "Počisti celoten projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1661
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
 msgstr "_Nastavitve projekta ..."
 
-#: ../plugins/build-basic-autotools/plugin.c:1662
+#: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
 msgstr "Nastavitve projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:1667
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
 msgstr "Izgradi _Tar paket"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
 msgstr "Izgradi distribucijski tar paket projekta"
 
-#: ../plugins/build-basic-autotools/plugin.c:1673
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
 msgstr "_Izgradi modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
 msgstr "Izgradi modul v povezavi s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1679
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
 msgstr "_Namestitev modula"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1712
 msgid "Install module associated with current file"
 msgstr "Namesti modul v povezavi s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1685
+#: ../plugins/build-basic-autotools/plugin.c:1717
+msgid "_Check Module"
+msgstr "_Preveri modul"
+
+#: ../plugins/build-basic-autotools/plugin.c:1718
+msgid "Check module associated with current file"
+msgstr "Modul preverjanja v povezavi s trenutno datoteko"
+
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "_Clean Module"
 msgstr "_Počisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1724
 msgid "Clean module associated with current file"
 msgstr "Počisti modul povezan s trenutno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Co_mpile File"
 msgstr "Kodno _prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
 msgstr "Kodno prevedi trenutno urejevalno datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1697
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
 msgstr "Določitev nastavitev"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1736
 msgid "Select current configuration"
 msgstr "Določi trenutne nastavitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:1703
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
 msgstr "Odstrani nastavitve"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1742
 msgid "Clean project (distclean) and remove configuration directory if possible"
 msgstr "Počisti projekt (distclean) in odstrani namestitveno mapo, če je to mogoče"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
-#: ../plugins/build-basic-autotools/plugin.c:1745
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "_Compile"
 msgstr "_Kodno prevajanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
-#: ../plugins/build-basic-autotools/plugin.c:1746
+#: ../plugins/build-basic-autotools/plugin.c:1756
+#: ../plugins/build-basic-autotools/plugin.c:1784
 msgid "Compile file"
 msgstr "Kodno prevedi datoteko"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
-#: ../plugins/build-basic-autotools/plugin.c:1752
+#: ../plugins/build-basic-autotools/plugin.c:1762
+#: ../plugins/build-basic-autotools/plugin.c:1790
 msgid "Build module"
 msgstr "Izgradi modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
-#: ../plugins/build-basic-autotools/plugin.c:1757
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install"
 msgstr "_Namesti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
-#: ../plugins/build-basic-autotools/plugin.c:1758
+#: ../plugins/build-basic-autotools/plugin.c:1768
+#: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
 msgstr "Namestitev modula"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
-#: ../plugins/build-basic-autotools/plugin.c:1763
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean"
 msgstr "_Počisti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
-#: ../plugins/build-basic-autotools/plugin.c:1764
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1808
 msgid "Clean module"
 msgstr "Počisti modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1769
+#: ../plugins/build-basic-autotools/plugin.c:1801
+msgid "_Check"
+msgstr "_Preveri"
+
+#: ../plugins/build-basic-autotools/plugin.c:1802
+msgid "Check module"
+msgstr "Modul preverjanja"
+
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "_Cancel command"
 msgstr "_Prekliči ukaz"
 
-#: ../plugins/build-basic-autotools/plugin.c:1770
+#: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
 msgstr "Prekliči ukaz za izgradnjo"
 
-#: ../plugins/build-basic-autotools/plugin.c:1827
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Izgradi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1834
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Namesti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1841
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Počisti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Kodno _prevedi (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1849
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
 msgstr "_Kodno prevajanje"
 
-#: ../plugins/build-basic-autotools/plugin.c:2445
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
 msgstr "Ukazi izgradnje"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2454
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
 msgstr "Izgradi pojavne ukaze"
 
-#: ../plugins/build-basic-autotools/plugin.c:2873
-#: ../plugins/build-basic-autotools/plugin.c:2881
+#: ../plugins/build-basic-autotools/plugin.c:2915
+#: ../plugins/build-basic-autotools/plugin.c:2923
 msgid "Build Autotools"
 msgstr "Izgradi autotools"
 
@@ -1993,18 +2030,13 @@ msgstr "Predloga autogen za vključevalno datoteko"
 msgid "File to which the processed template will be written"
 msgstr "Datoteka v katero bo vpisana prevedena predloga"
 
-#: ../plugins/class-gen/generator.c:405
-#, c-format
-msgid "Failed to write autogen definition file"
-msgstr "Napaka med zapisovanjem autogen datoteke določitev"
-
-#: ../plugins/class-gen/plugin.c:98
-#: ../plugins/project-wizard/druid.c:1240
+#: ../plugins/class-gen/plugin.c:107
+#: ../plugins/project-wizard/druid.c:1258
 msgid "Could not find autogen version 5; please install the autogen package. You can get it from http://autogen.sourceforge.net."
 msgstr "Ni mogoče najti autogen različice 5. Namestite autogen paket. Paket lahko prejmete preko http://autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:252
-#: ../plugins/class-gen/plugin.c:449
+#: ../plugins/class-gen/plugin.c:261
+#: ../plugins/class-gen/plugin.c:472
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Napaka med izvajanjem autogen: %s"
@@ -2013,116 +2045,87 @@ msgstr "Napaka med izvajanjem autogen: %s"
 msgid "Guess from type"
 msgstr "Določi na vrsto"
 
-#: ../plugins/class-gen/window.c:724
-#: ../plugins/class-gen/window.c:735
-#: ../plugins/class-gen/window.c:809
-#: ../plugins/class-gen/window.c:819
-#: ../plugins/class-gen/window.c:832
+#: ../plugins/class-gen/window.c:716
+#: ../plugins/class-gen/window.c:727
+#: ../plugins/class-gen/window.c:801
+#: ../plugins/class-gen/window.c:811
+#: ../plugins/class-gen/window.c:824
 msgid "Scope"
 msgstr "Obseg"
 
-#: ../plugins/class-gen/window.c:725
+#: ../plugins/class-gen/window.c:717
 msgid "Implementation"
 msgstr "Izvedba"
 
-#: ../plugins/class-gen/window.c:726
-#: ../plugins/class-gen/window.c:736
-#: ../plugins/class-gen/window.c:758
-#: ../plugins/class-gen/window.c:810
-#: ../plugins/class-gen/window.c:820
+#: ../plugins/class-gen/window.c:718
+#: ../plugins/class-gen/window.c:728
+#: ../plugins/class-gen/window.c:750
+#: ../plugins/class-gen/window.c:802
+#: ../plugins/class-gen/window.c:812
 #: ../plugins/debug-manager/breakpoints.c:1962
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
 msgstr "Vrsta"
 
-#: ../plugins/class-gen/window.c:728
-#: ../plugins/class-gen/window.c:738
-#: ../plugins/class-gen/window.c:760
-#: ../plugins/class-gen/window.c:770
-#: ../plugins/class-gen/window.c:786
-#: ../plugins/class-gen/window.c:812
-#: ../plugins/class-gen/window.c:834
+#: ../plugins/class-gen/window.c:720
+#: ../plugins/class-gen/window.c:730
+#: ../plugins/class-gen/window.c:752
+#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:778
+#: ../plugins/class-gen/window.c:804
+#: ../plugins/class-gen/window.c:826
 #: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
 msgstr "Argumenti"
 
-#: ../plugins/class-gen/window.c:746
+#: ../plugins/class-gen/window.c:738
 msgid "Nick"
 msgstr "Vzdevek"
 
-#: ../plugins/class-gen/window.c:747
+#: ../plugins/class-gen/window.c:739
 msgid "Blurb"
 msgstr "Oznanilo"
 
-#: ../plugins/class-gen/window.c:748
+#: ../plugins/class-gen/window.c:740
 msgid "GType"
 msgstr "GVrsta"
 
-#: ../plugins/class-gen/window.c:749
+#: ../plugins/class-gen/window.c:741
 msgid "ParamSpec"
 msgstr "ParamSpec"
 
 #. Somehow redundant with marshaller, but required for default handler
-#: ../plugins/class-gen/window.c:751
-#: ../plugins/class-gen/window.c:761
+#: ../plugins/class-gen/window.c:743
+#: ../plugins/class-gen/window.c:753
 msgid "Flags"
 msgstr "Zastavice"
 
-#: ../plugins/class-gen/window.c:762
+#: ../plugins/class-gen/window.c:754
 msgid "Marshaller"
 msgstr "Reditelj"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:822
+#: ../plugins/class-gen/window.c:814
 #: ../plugins/document-manager/plugin.c:1016
 msgid "Automatic"
 msgstr "Samodejno"
 
 # 1 poizvedba metode (getter)
 # 2 sprememba metode (setter)
-#: ../plugins/class-gen/window.c:823
+#: ../plugins/class-gen/window.c:815
 msgid "Getter"
 msgstr "Pridobilnik metode"
 
 # 1 poizvedba metode (getter)
 # 2 sprememba metode (setter)
-#: ../plugins/class-gen/window.c:824
+#: ../plugins/class-gen/window.c:816
 msgid "Setter"
 msgstr "Spremenilnik metode"
 
-#: ../plugins/class-gen/window.c:1242
+#: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "XML opis uporabniškega vmesnika"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Omogoči preučevalnik kode CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid "The project needs to be reconfigured after enabling this option. Please run Build->Configure!"
-msgstr "Po spremembi te možnosti je treba projekt ponovno nastaviti. Zagnati je treba možnost menija Izgradi -> Nastavi!"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "ccc-preučevalnik:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "c++-preučevalnik:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Poti CLang"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid "Couldn't find clang analyzer, please check if it is installed and if the paths are configured correctly in the preferences"
-msgstr "Ni mogoče najti preučevalnika clang. Preverite ali je nameščen in ali so določene prave poti do programa v nastavitvah."
-
-#: ../plugins/code-analyzer/plugin.c:226
-#: ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Preučevalnik CLang"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
@@ -2141,7 +2144,7 @@ msgid "Patch-Style diff"
 msgstr "Primerjava popravkov"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2174
+#: ../plugins/symbol-db/plugin.c:2172
 msgid "Local"
 msgstr "Krajevno"
 
@@ -2313,7 +2316,7 @@ msgstr "Izbor dnevnika datoteke ali mape:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
 #: ../plugins/git/anjuta-git.ui.h:25
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
 msgstr "Možnosti"
@@ -2937,7 +2940,7 @@ msgstr "Razgrajevanje"
 
 #: ../plugins/debug-manager/info.c:52
 #: ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:154
+#: ../plugins/project-wizard/druid.c:162
 msgid "Information"
 msgstr "Podrobnosti"
 
@@ -3274,7 +3277,7 @@ msgstr "Okvir"
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 #: ../plugins/gdb/preferences.c:363
-#: ../plugins/symbol-db/plugin.c:2132
+#: ../plugins/symbol-db/plugin.c:2130
 #: ../plugins/tools/tool.c:100
 #: ../src/anjuta-app.c:626
 msgid "File"
@@ -3405,62 +3408,62 @@ msgstr "API pomoč"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Vstavek Anjute za Devhelp"
 
-#: ../plugins/devhelp/plugin.c:206
+#: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
 msgstr "Iskanje pomoči:"
 
-#: ../plugins/devhelp/plugin.c:227
+#: ../plugins/devhelp/plugin.c:225
 #: ../plugins/document-manager/plugin.c:244
 #: ../plugins/message-view/plugin.c:77
 #: ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Pojdi na"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:234
 msgid "_API Reference"
 msgstr "Sklic _API"
 
-#: ../plugins/devhelp/plugin.c:238
+#: ../plugins/devhelp/plugin.c:236
 msgid "Browse API Pages"
 msgstr "Prebrskaj API strani"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:246
 msgid "_Context Help"
 msgstr "Vsebinska _pomoč"
 
-#: ../plugins/devhelp/plugin.c:250
+#: ../plugins/devhelp/plugin.c:248
 msgid "Search help for the current word in the editor"
 msgstr "Preišči pomoč za trenutno besedo v urejevalniku"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:258
 msgid "_Search Help"
 msgstr "_Poišči pomoč"
 
-#: ../plugins/devhelp/plugin.c:262
+#: ../plugins/devhelp/plugin.c:260
 msgid "Search for a term in help"
 msgstr "Poišči besedo v pomoči"
 
-#: ../plugins/devhelp/plugin.c:334
+#: ../plugins/devhelp/plugin.c:331
 msgid "Help operations"
 msgstr "Opravila pomoči"
 
-#: ../plugins/devhelp/plugin.c:353
-#: ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:350
+#: ../plugins/devhelp/plugin.c:465
 msgid "API Browser"
 msgstr "Brskalnik API"
 
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:361
 msgid "Contents"
 msgstr "Vsebina"
 
-#: ../plugins/devhelp/plugin.c:370
-#: ../plugins/symbol-db/plugin.c:2142
-#: ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/devhelp/plugin.c:367
+#: ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "Iskanje"
 
-#: ../plugins/devhelp/plugin.c:388
-#: ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:385
+#: ../plugins/devhelp/plugin.c:470
 msgid "API"
 msgstr "API"
 
@@ -3478,6 +3481,14 @@ msgstr "Manjka ime"
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekt ne dovoli nastavitve lastnosti"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:1
+msgid "Directory backend"
+msgstr "Zaledje mape"
+
+#: ../plugins/dir-project/dir-project.plugin.in.h:2
+msgid "Directory project backend, get only source files, use it when other backend fails"
+msgstr "Projektno zaledje mape pridobi le datoteke izvorne kode, ki so uporabljene, kadar zaledje odpove."
 
 #: ../plugins/document-manager/action-callbacks.c:315
 #, c-format
@@ -3551,7 +3562,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: ../plugins/document-manager/anjuta-docman.c:1448
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[samo za branje]"
 
@@ -3944,8 +3955,10 @@ msgid "Search using regular expressions"
 msgstr "Iskanje s pomočjo logičnih izrazov"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1411
-#: ../plugins/language-support-python/plugin.c:451
+#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-python-style/plugin.c:200
+#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-python/plugin.c:377
 #: ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Uredi"
@@ -4259,16 +4272,16 @@ msgstr "Zamenjaj"
 msgid "Replace all"
 msgstr "Zamenjaj vse"
 
-#: ../plugins/document-manager/search-files.c:596
+#: ../plugins/document-manager/search-files.c:616
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Ime datoteke"
 
-#: ../plugins/document-manager/search-files.c:708
+#: ../plugins/document-manager/search-files.c:728
 msgid "All text files"
 msgstr "Vse besedilne datoteke"
 
-#: ../plugins/document-manager/search-files.c:849
+#: ../plugins/document-manager/search-files.c:871
 msgid "Find in files"
 msgstr "Najdi v datotekah"
 
@@ -4309,7 +4322,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Ta funkcija ni implementirana za gradnike razreda '%s'"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:167
+#: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Odpri '%s'"
@@ -4528,7 +4541,7 @@ msgstr "Izbor mape za prikaz kadar ni odprtega projekta"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/symbol-db/plugin.c:2184
 msgid "Global"
 msgstr "Splošno"
 
@@ -4905,7 +4918,7 @@ msgid "Add signed off by line"
 msgstr "Dodaj odpis po vrsticah"
 
 #: ../plugins/git/anjuta-git.ui.h:9
-#: ../plugins/git/plugin.c:770
+#: ../plugins/git/plugin.c:805
 msgid "Branches"
 msgstr "Veje"
 
@@ -5249,17 +5262,17 @@ msgstr "Ni izbrane predelave"
 msgid "Stash %i.diff"
 msgstr "Zaloga %i.diff"
 
-#: ../plugins/git/git-log-pane.c:569
+#: ../plugins/git/git-log-pane.c:574
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Veja:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:579
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Oznaka:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Oddaljeno:</b> %s"
@@ -5272,7 +5285,7 @@ msgstr "Združi"
 #: ../plugins/git/git-pane.c:77
 #: ../plugins/git/git-pane.c:82
 #: ../plugins/git/git.plugin.in.h:1
-#: ../plugins/git/plugin.c:700
+#: ../plugins/git/plugin.c:727
 msgid "Git"
 msgstr "Git"
 
@@ -5658,27 +5671,27 @@ msgstr "Zaustavi uveljavitev nizov popravkov in povrni drevo v prvotno stanje"
 msgid "Branch"
 msgstr "Veja"
 
-#: ../plugins/git/plugin.c:696
+#: ../plugins/git/plugin.c:723
 msgid "Git Tasks"
 msgstr "Opravila Git"
 
-#: ../plugins/git/plugin.c:758
+#: ../plugins/git/plugin.c:793
 msgid "Status"
 msgstr "Stanje"
 
-#: ../plugins/git/plugin.c:764
+#: ../plugins/git/plugin.c:799
 msgid "Log"
 msgstr "Dnevnik"
 
-#: ../plugins/git/plugin.c:775
+#: ../plugins/git/plugin.c:810
 msgid "Tags"
 msgstr "Oznake"
 
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:817
 msgid "Remotes"
 msgstr "Oddaljena mesta"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:823
 msgid "Stash"
 msgstr "Zaloga"
 
@@ -5739,6 +5752,82 @@ msgstr "Ni mogoče odpreti %s"
 msgid "Could not create a new glade project."
 msgstr "Ni mogoče ustvariti novega glade projekta."
 
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:1
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:1
+msgid "Enable smart indentation"
+msgstr "Omogoči pametno zamikanje"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:2
+msgid "Leading asterisk in multi-line comment"
+msgstr "Začetni znak zvezdica (*) v večvrstičnih opombah"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:3
+msgid "Prefer vim/emacs modelines over indentation settings"
+msgstr "Prednostno upoštevaj vim/emacs vrstične nastavitve pred nastavitvami zamikanja"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:4
+msgid "Enable smart brace completion"
+msgstr "Omogoči pametno dopolnjevanje oklepajev"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:5
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:3
+msgid "Brace indentation size in spaces:"
+msgstr "Velikost zamikanja oklepajev v presledkih:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:6
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:4
+msgid "Statement indentation size in spaces:"
+msgstr "Velikost zamikanja stavkov v presledkih:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:7
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:5
+msgid "Indentation parameters"
+msgstr "Parametri zamika"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:8
+msgid "Line up parentheses"
+msgstr "Poravnava oklepajev"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:9
+msgid "Indent:"
+msgstr "Zamik:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
+msgid "Parenthesis indentation"
+msgstr "Zamikanje oklepajev"
+
+#. ANJUTA_STOCK_AUTOINDENT,
+#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-python-style/plugin.c:206
+msgid "Auto-Indent"
+msgstr "Samodejno zamikanje"
+
+#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-python-style/plugin.c:207
+msgid "Auto-indent current line or selection based on indentation settings"
+msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
+
+#: ../plugins/indentation-c-style/plugin.c:510
+#: ../plugins/language-support-cpp-java/plugin.c:1126
+msgid "C++/Java Assistance"
+msgstr "C++/Java pomočnik"
+
+#: ../plugins/indentation-c-style/plugin.c:607
+#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-python-style/plugin.c:328
+#: ../plugins/indentation-python-style/plugin.c:337
+msgid "Indentation"
+msgstr "Zamikanje"
+
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:2
+msgid "Enable adaptive indentation"
+msgstr "Omogoči prilagodljivo zamikanje"
+
+#: ../plugins/indentation-python-style/plugin.c:227
+#: ../plugins/language-support-python/plugin.c:428
+msgid "Python Assistance"
+msgstr "Python pomočnik"
+
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
 msgid "Error: cant bind port"
@@ -5774,176 +5863,123 @@ msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr "Vstavek Anjute za podporo Jave in C++ za samodejno dopolnjevanje ukazov, zamikov in drugega ..."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "Enable smart indentation"
-msgstr "Omogoči pametno zamikanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-msgid "Leading asterisk in multi-line comment"
-msgstr "Začetni znak zvezdica (*) v večvrstičnih opombah"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr "Prednostno upoštevaj vim/emacs vrstične nastavitve pred nastavitvami zamikanja"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "Brace indentation size in spaces:"
-msgstr "Velikost zamikanja oklepajev v presledkih:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "Statement indentation size in spaces:"
-msgstr "Velikost zamikanja stavkov v presledkih:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "Indentation parameters"
-msgstr "Parametri zamika"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-msgid "Line up parentheses"
-msgstr "Poravnava oklepajev"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-msgid "Indent:"
-msgstr "Zamik:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-msgid "Parenthesis indentation"
-msgstr "Zamikanje oklepajev"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-msgid "Smart Indentation"
-msgstr "Pametno zamikanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
-msgid "Enable code completion"
-msgstr "Omogoči dopolnjevanje kode"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
-msgid "Add a space after function call autocompletion"
-msgstr "Dodaj presledek za samodejnim dopolnjevanjem klica funkcije"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
-msgid "Add '(' after function call autocompletion"
-msgstr "Dodaj '(' za samodejnim dopolnjevanjem klica funkcije"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-msgid "Add ')' after function call autocompletion"
-msgstr "Dodaj ')' za samodejnim dopolnjevanjem klica funkcije"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-msgid "Enable smart brace completion"
-msgstr "Omogoči pametno dopolnjevanje oklepajev"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
-msgid "Autocompletion"
-msgstr "Samodejno dopolnjevanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
-msgid "Show calltips"
-msgstr "Pokaži namige kodnih zapisov"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
-msgid "Calltips"
-msgstr "Namigi kodnih zapisov"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
-msgid "Auto-complete"
-msgstr "Samodejno dopolnjevanje"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 msgid "Automatically load required libraries of the project"
 msgstr "Samodejno naloži zahtevane knjižnice projekta"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Load API tags for C standard library"
 msgstr "Naloži oznake API za standardne knjižnice C"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Load API tags for C++ standard template library"
 msgstr "Naloži oznake API za standardne knjižnice predloge C++"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:23
-msgid "API Tags (C/C++)"
-msgstr "API oznake (C/C++)"
-
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
-msgid "C/C++"
-msgstr "C/C++"
-
-#: ../plugins/language-support-cpp-java/plugin.c:958
+#: ../plugins/language-support-cpp-java/plugin.c:682
 msgid "Code added for widget."
 msgstr "Dodana je koda za gradnik."
 
-#. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1417
-#: ../plugins/language-support-python/plugin.c:457
-msgid "Auto-Indent"
-msgstr "Samodejno zamikanje"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1418
-#: ../plugins/language-support-python/plugin.c:458
-msgid "Auto-indent current line or selection based on indentation settings"
-msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1424
+#: ../plugins/language-support-cpp-java/plugin.c:1079
 msgid "Comment/Uncomment"
 msgstr "Dodaj/Odstrani opombo"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1425
+#: ../plugins/language-support-cpp-java/plugin.c:1080
 msgid "Comment or uncomment current selection"
 msgstr "Dodajanje ali odstranjevenje trenutne izbire med opombe "
 
-#: ../plugins/language-support-cpp-java/plugin.c:1430
+#: ../plugins/language-support-cpp-java/plugin.c:1085
 msgid "Swap .h/.c"
 msgstr "Zamenjava .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1431
+#: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "Zamenjaj C glavo in izvorne datoteke"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1471
-msgid "C++/Java Assistance"
-msgstr "C++/Java pomočnik"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1708
-#: ../plugins/language-support-cpp-java/plugin.c:1742
-msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1374
+msgid "API Tags (C/C++)"
+msgstr "API oznake (C/C++)"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "JS Find dirs"
-msgstr "JS iskalnik map"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:1
+msgid "Enable code completion"
+msgstr "Omogoči dopolnjevanje kode"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-msgid "Gir repository's directory:   "
-msgstr "Mapa skladišča Gir:"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:2
+msgid "Add a space after function call autocompletion"
+msgstr "Dodaj presledek za samodejnim dopolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-msgid "Gjs repository's directory:   "
-msgstr "Mapa skladišča Gjs:"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:3
+msgid "Add '(' after function call autocompletion"
+msgstr "Dodaj '(' za samodejnim dopolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-msgid "Min character for completion "
-msgstr "Najmanjše število znakov za dopolnjevanje"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:4
+msgid "Add ')' after function call autocompletion"
+msgstr "Dodaj ')' za samodejnim dopolnjevanjem klica funkcije"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:5
+msgid "Autocompletion"
+msgstr "Samodejno dopolnjevanje"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:6
+msgid "Show calltips"
+msgstr "Pokaži namige kodnih zapisov"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:7
+msgid "Calltips"
+msgstr "Namigi kodnih zapisov"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:8
 msgid "Highlight missed semicolon"
 msgstr "Poudari izpuščeno podpičje"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-msgid "Add brace after function call autocompletion"
-msgstr "Dodaj zaklepaj za samodejno dopolnjenim klicem funkcije"
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
+msgid "Highlights"
+msgstr "Poudarjanje"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:10
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Autocomplete"
+msgstr "Samodejno dopolnjevanje"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:11
+msgid "JS Find dirs"
+msgstr "JS iskalnik map"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
+msgid "Gir repository's directory: "
+msgstr "Mapa skladišča Gir:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
+msgid "Gjs repository's directory: "
+msgstr "Mapa skladišča Gjs:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
+msgid "Min character for completion: "
+msgstr "Najmanjše število znakov za dopolnjevanje:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
+msgid "Environment"
+msgstr "Okolje"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -5953,20 +5989,25 @@ msgstr "Vstavek za podporo JS"
 msgid "JavaScript Support Plugin"
 msgstr "Vstavek za podporo JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:329
-#: ../plugins/language-support-js/plugin.c:338
+#: ../plugins/language-support-js/plugin.c:370
+#: ../plugins/language-support-js/plugin.c:383
+#: ../plugins/language-support-js/plugin.c:417
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:394
-msgid "JS"
-msgstr "JS"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+msgid "Path: "
+msgstr "Pot:"
 
-#: ../plugins/language-support-python/plugin.c:84
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
+msgid "Interpreter"
+msgstr "Prevajalnik"
+
+#: ../plugins/language-support-python/plugin.c:73
 msgid "Python support warning"
 msgstr "Opozorilo podpore Python"
 
-#: ../plugins/language-support-python/plugin.c:92
+#: ../plugins/language-support-python/plugin.c:81
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -5976,39 +6017,30 @@ msgstr ""
 "Te so zahtevane za samodejno dopolnjevanje v datotekah python.\n"
 "Knjižnice je treba namestiti in določiti ustrezne poti med nastavitvami."
 
-#: ../plugins/language-support-python/plugin.c:95
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Do not show that warning again"
 msgstr "Opozorila ne prikaži več"
 
-#: ../plugins/language-support-python/plugin.c:514
-msgid "Python Assistance"
-msgstr "Python pomočnik"
-
-#: ../plugins/language-support-python/plugin.c:619
-#: ../plugins/language-support-python/plugin.c:628
-#: ../plugins/language-support-python/python-assist.c:984
+#: ../plugins/language-support-python/plugin.c:561
+#: ../plugins/language-support-python/plugin.c:574
+#: ../plugins/language-support-python/python-assist.c:792
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "Enable adaptive indentation"
-msgstr "Omogoči prilagodljivo zamikanje"
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
+msgid "Vala support Plugin"
+msgstr "Vstavek za podporo jezika Vala"
 
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
-msgid "Autocomplete"
+#: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
+msgid "Vala support plugin, adds code completion."
+msgstr "Vstavek za podporo jezika Vala omogoči samodejno dopolnjevanje kode"
+
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
+#: ../plugins/parser-cxx/plugin.c:269
+#: ../plugins/parser-cxx/plugin.c:282
+msgid "Auto-complete"
 msgstr "Samodejno dopolnjevanje"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
-msgid "Path: "
-msgstr "Pot:"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
-msgid "Interpreter"
-msgstr "Prevajalnik"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
-msgid "Environment"
-msgstr "Okolje"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6172,6 +6204,14 @@ msgstr[3] "%d napake"
 msgid "Unable to parse make file"
 msgstr "Ni mogoče razčleniti datoteke make"
 
+#: ../plugins/mk-project/mk-project.plugin.in.h:1
+msgid "Makefile backend"
+msgstr "Zaledje Makefile"
+
+#: ../plugins/mk-project/mk-project.plugin.in.h:2
+msgid "Makefile project backend, allowing only to read the project"
+msgstr "Projektno zaledje Makefile omogoča branje kode projekta"
+
 #: ../plugins/mk-project/mk-project.ui.h:1
 msgid "Select package"
 msgstr "Izbor paketa"
@@ -6191,6 +6231,10 @@ msgstr "Dodaj _paket"
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Packages"
 msgstr "Paketi"
+
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+msgid "C/C++"
+msgstr "C/C++"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -6731,7 +6775,7 @@ msgstr "Posodobi pogled projekta ..."
 #: ../plugins/project-manager/plugin.c:1624
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2137
+#: ../plugins/symbol-db/plugin.c:2135
 msgid "Project"
 msgstr "Projekt"
 
@@ -6883,7 +6927,7 @@ msgid "Select a project type"
 msgstr "Izbor vrste projektne naloge"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:174
 msgid "Error"
 msgstr "Napaka"
 
@@ -6895,32 +6939,32 @@ msgstr "Podrobnosti"
 msgid "Summary"
 msgstr "Povzetek"
 
-#: ../plugins/project-wizard/druid.c:158
-#: ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:166
+#: ../plugins/project-wizard/druid.c:170
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: ../plugins/project-wizard/druid.c:169
+#: ../plugins/project-wizard/druid.c:177
 msgid "Message"
 msgstr "Sporočilo"
 
-#: ../plugins/project-wizard/druid.c:250
+#: ../plugins/project-wizard/druid.c:258
 msgid "Confirm the following information:"
 msgstr "Potrdite naslednje podrobnosti:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:254
+#: ../plugins/project-wizard/druid.c:262
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "Vrsta projekta: %s\n"
 
-#: ../plugins/project-wizard/druid.c:431
+#: ../plugins/project-wizard/druid.c:439
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Ni mogoče najti predloge projekta v %s"
 
-#: ../plugins/project-wizard/druid.c:671
+#: ../plugins/project-wizard/druid.c:679
 #, c-format
 msgid ""
 "\n"
@@ -6929,45 +6973,45 @@ msgstr ""
 "\n"
 "Polje \"%s\" mora biti izpolnjeno. Vnesite podatke."
 
-#: ../plugins/project-wizard/druid.c:686
+#: ../plugins/project-wizard/druid.c:694
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits or the following characters \"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
 msgstr "Polje \"%s\" sme vsebovati le črke, številke in znake \"#$:%%+,.=@^_`~\". Pri tem prva črka ne sme biti vezaj."
 
-#: ../plugins/project-wizard/druid.c:691
+#: ../plugins/project-wizard/druid.c:699
 #, c-format
 msgid "Field \"%s\" must contains only letters, digits, the following characters \"#$:%%+,.=@^_`~\" or directory separators. In addition you cannot have a leading dash. Please fix it."
 msgstr "Polje \"%s\" sme vsebovati le črke, številke, znake \"#$:%%+,.=@^_`~\" in ločilnike map. Pri tem prva črka ne sme biti vezaj."
 
-#: ../plugins/project-wizard/druid.c:696
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
 msgid "Field \"%s\" must contains only ASCII printable characters, no accentuated characters by example. Please fix it."
 msgstr "Polje \"%s\" sme vsebovati le ASCII znake brez črk s preglasi."
 
-#: ../plugins/project-wizard/druid.c:701
+#: ../plugins/project-wizard/druid.c:709
 #, c-format
 msgid "Unknown error."
 msgstr "Neznana napaka."
 
-#: ../plugins/project-wizard/druid.c:728
+#: ../plugins/project-wizard/druid.c:736
 #, c-format
 msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr "Mapa \"%s\" ni prazna. Ustvarjanje projekta se ustavi v primeru, da nekaterih datotek ni mogoče prepisati. Ali želite nadaljevati?"
 
-#: ../plugins/project-wizard/druid.c:730
+#: ../plugins/project-wizard/druid.c:738
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Datoteka \"%s\" že obstaja. Ali jo želite prepisati?"
 
-#: ../plugins/project-wizard/druid.c:763
+#: ../plugins/project-wizard/druid.c:771
 msgid "Invalid entry"
 msgstr "Neveljaven vnos"
 
-#: ../plugins/project-wizard/druid.c:773
+#: ../plugins/project-wizard/druid.c:781
 msgid "Dubious entry"
 msgstr "Dvomljiv vnos"
 
-#: ../plugins/project-wizard/druid.c:942
+#: ../plugins/project-wizard/druid.c:950
 #, c-format
 msgid ""
 "\n"
@@ -6976,7 +7020,7 @@ msgstr ""
 "\n"
 "Manjkajoči programi: %s."
 
-#: ../plugins/project-wizard/druid.c:953
+#: ../plugins/project-wizard/druid.c:961
 #, c-format
 msgid ""
 "\n"
@@ -6985,22 +7029,22 @@ msgstr ""
 "\n"
 "Manjkajoči paketi: %s."
 
-#: ../plugins/project-wizard/druid.c:962
+#: ../plugins/project-wizard/druid.c:970
 msgid "Some important programs or development packages required to build this project are missing. Please make sure they are installed properly before generating the project.\n"
 msgstr "Nekateri pomembni programi ali pa paketi za razvijanje za izgradnjo projekta niso na voljo. Prepričajte se, da so ti nameščeni preden ustvarite projekt.\n"
 
-#: ../plugins/project-wizard/druid.c:971
+#: ../plugins/project-wizard/druid.c:979
 msgid "Install missing packages"
 msgstr "Namestitev manjkajočih paketov"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:983
+#: ../plugins/project-wizard/druid.c:991
 msgid "The missing programs are usually part of some distribution packages and can be searched for in your Application Manager. Similarly, the development packages are contained in special packages that your distribution provides to allow development of projects based on them. They usually end with a \"-dev\" or \"-devel\" suffix in package names and can be found by searching in your Application Manager."
 msgstr "Manjkajoči programi so običajno del nekaterih paketov distribucij in jih je mogoče najti v upravljalniku programov. Prav tako običajno pripadajo paketi za razvoj kode posebnim paketom, ki so del distribucije in omogočajo razvijanje projektov. Ti so običajno poimenovani tako, da vsebujejo končnice -\"-dev\" ali \"-devel\" in imena paketov. Najdete jih lahko v upravljalniku programov."
 
-#: ../plugins/project-wizard/druid.c:991
+#: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
 msgstr "Manjkajoče enote"
 
@@ -7048,31 +7092,31 @@ msgstr "Ni mogoče izločiti predloge projekta %s: %s"
 msgid "New Project Assistant"
 msgstr "Pomočnik novega projekta"
 
-#: ../plugins/project-wizard/property.c:353
+#: ../plugins/project-wizard/property.c:365
 msgid "Select directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:370
+#: ../plugins/project-wizard/property.c:382
 msgid "Select file"
 msgstr "Izbor datoteke"
 
-#: ../plugins/project-wizard/property.c:420
+#: ../plugins/project-wizard/property.c:432
 #: ../plugins/tools/editor.c:524
 msgid "Select an Image File"
 msgstr "Izbor slikovne datoteke"
 
-#: ../plugins/project-wizard/property.c:445
-#: ../plugins/project-wizard/property.c:535
+#: ../plugins/project-wizard/property.c:457
+#: ../plugins/project-wizard/property.c:547
 #: ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Izbor ikone"
 
-#: ../plugins/project-wizard/property.c:505
+#: ../plugins/project-wizard/property.c:517
 msgid "Choose directory"
 msgstr "Izbor mape"
 
-#: ../plugins/project-wizard/property.c:509
+#: ../plugins/project-wizard/property.c:521
 msgid "Choose file"
 msgstr "Izberi datoteko"
 
@@ -7734,6 +7778,18 @@ msgstr "Le souporabne"
 msgid "Only Static"
 msgstr "Le samostojne "
 
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
+msgid "License"
+msgstr "Dovoljenje"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
+msgid "Select code license"
+msgstr "Izbor dovoljenja kode"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
+msgid "No license"
+msgstr "Ni dovoljenja"
+
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
 msgid "Generic (Minimal)"
 msgstr "Izvorno (automake)"
@@ -7862,17 +7918,13 @@ msgstr "Xlib"
 msgid "A generic Xlib project"
 msgstr "Izvorni Xlib projekt"
 
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
-msgid "License"
-msgstr "Dovoljenje"
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
+msgid "Python loader"
+msgstr "Nalagalnik Python"
 
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
-msgid "Select code license"
-msgstr "Izbor dovoljenja kode"
-
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
-msgid "No license"
-msgstr "Ni dovoljenja"
+#: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
+msgid "Allows loading Anjuta plugins written in Python"
+msgstr "Omogoča nalaganje vstavkov v jeziku Python"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -8179,129 +8231,133 @@ msgid "Anjuta variables"
 msgstr "Anjuta spremenljivke:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:1
-msgid "Tab size in spaces:"
-msgstr "Velikost tabulatorja v presledkih:"
-
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
 msgid "Use tabs for indentation"
 msgstr "Uporabi tabulator za zamik"
 
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:2
+msgid "Tab size in spaces:"
+msgstr "Velikost tabulatorja v presledkih:"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
+msgid "Indentation size in spaces:"
+msgstr "Velikost zamika v presledkih:"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Indentation and auto-format options"
 msgstr "Možnosti zamikanja in samodejnega oblikovanja"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
 msgid "Highlight syntax"
 msgstr "Poudarjanje skladnje"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:5
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
 msgid "Highlight matching brackets"
 msgstr "Poudari pripadajoče oklepaje"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:6
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
 msgid "Create backup files"
 msgstr "Ustvari varnostne kopije"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:7
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:8
 msgid "Enable autocompletion for document words"
 msgstr "Omogoči samodejno dopolnjevanje za besede dokumentov"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
 msgid "Highlight current line"
 msgstr "Poudari trenutno vrstico"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:10
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
 msgid "Show line numbers"
 msgstr "Pokaži številke vrstic"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
 msgid "Show marks"
 msgstr "Pokaži oznake"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
 msgid "Show right margin"
 msgstr "Pokaži desni rob"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:13
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Right margin position in characters"
 msgstr "Lega desnega robu znakov"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
 #: ../src/anjuta-app.c:634
 #: ../src/anjuta-app.c:639
 msgid "View"
 msgstr "Pogled"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
 msgid "Editor"
 msgstr "Urejevalnik"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
 msgid "Use theme font"
 msgstr "Uporabi pisavo teme"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
 msgid "Font:"
 msgstr "Pisava:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
 msgid "Color scheme:"
 msgstr "Barvna shema:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:20
 msgid "Font"
 msgstr "Pisava"
 
-#: ../plugins/sourceview/plugin.c:113
+#: ../plugins/sourceview/plugin.c:112
 msgid "_Line Number Margin"
 msgstr "_Rob številk vrstic"
 
-#: ../plugins/sourceview/plugin.c:114
+#: ../plugins/sourceview/plugin.c:113
 msgid "Show/Hide line numbers"
 msgstr "Preklopi prikaz številk vrstic"
 
-#: ../plugins/sourceview/plugin.c:116
+#: ../plugins/sourceview/plugin.c:115
 msgid "_Marker Margin"
 msgstr "Rob _zaznamovanj"
 
-#: ../plugins/sourceview/plugin.c:117
+#: ../plugins/sourceview/plugin.c:116
 msgid "Show/Hide marker margin"
 msgstr "Preklopi prikaz robu zaznamovanj"
 
-#: ../plugins/sourceview/plugin.c:119
+#: ../plugins/sourceview/plugin.c:118
 msgid "_White Space"
 msgstr "_Presledni znak"
 
-#: ../plugins/sourceview/plugin.c:120
+#: ../plugins/sourceview/plugin.c:119
 msgid "Show/Hide white spaces"
 msgstr "Pokaži/skrij presledne znake"
 
-#: ../plugins/sourceview/plugin.c:122
+#: ../plugins/sourceview/plugin.c:121
 msgid "_Line End Characters"
 msgstr "_Znaki konca vrstice"
 
-#: ../plugins/sourceview/plugin.c:123
+#: ../plugins/sourceview/plugin.c:122
 msgid "Show/Hide line end characters"
 msgstr "Pokaži ali skrij znake konca vrstice"
 
-#: ../plugins/sourceview/plugin.c:125
+#: ../plugins/sourceview/plugin.c:124
 msgid "Line _Wrapping"
 msgstr "_Prelom vrstic"
 
-#: ../plugins/sourceview/plugin.c:126
+#: ../plugins/sourceview/plugin.c:125
 msgid "Enable/disable line wrapping"
 msgstr "Omogoči/onemogoči prelom vrstic"
 
-#: ../plugins/sourceview/plugin.c:175
+#: ../plugins/sourceview/plugin.c:174
 msgid "Editor view settings"
 msgstr "Nastavitve pogleda urejevalnika"
 
-#: ../plugins/sourceview/plugin.c:365
-#: ../plugins/sourceview/plugin.c:406
+#: ../plugins/sourceview/plugin.c:364
+#: ../plugins/sourceview/plugin.c:405
 msgid "GtkSourceView Editor"
 msgstr "Urejevalnik GtkSourceview"
 
-#: ../plugins/sourceview/sourceview.c:567
+#: ../plugins/sourceview/sourceview.c:565
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8310,7 +8366,7 @@ msgstr ""
 "Datoteka \"%s\" na disku je novejša kot trenutna v medpomnilniku.\n"
 "Ali želite datoteko ponovno naložiti?"
 
-#: ../plugins/sourceview/sourceview.c:599
+#: ../plugins/sourceview/sourceview.c:597
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8320,18 +8376,18 @@ msgstr ""
 "Ali želite datoteko zapreti?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:632
+#: ../plugins/sourceview/sourceview.c:630
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Ni mogoče odpreti %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:686
+#: ../plugins/sourceview/sourceview.c:684
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Datoteka \"%s\" je le za branje! Ali jo vseeno želite urejati?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:748
+#: ../plugins/sourceview/sourceview.c:746
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Ni mogoče shraniti %s: %s"
@@ -8386,7 +8442,7 @@ msgstr "Zaganjalnik"
 msgid "Welcome page with most common actions."
 msgstr "Pozdravna stran z najpogostejšimi dejanji."
 
-#: ../plugins/starter/plugin.c:285
+#: ../plugins/starter/plugin.c:286
 msgid "Start"
 msgstr "Začetek"
 
@@ -9052,25 +9108,25 @@ msgstr[1] "preučenih %d od %d datotek"
 msgstr[2] "preučenih %d od %d datotek"
 msgstr[3] "preučenih %d od %d datotek"
 
-#: ../plugins/symbol-db/plugin.c:1742
+#: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
 msgstr "Nalaganje zbirke simbolov ..."
 
-#: ../plugins/symbol-db/plugin.c:2122
-#: ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2120
+#: ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../plugins/symbol-db/plugin.c:2216
+#: ../plugins/symbol-db/plugin.c:2214
 msgid "SymbolDb popup actions"
 msgstr "SimbolDb pojavna dejanja"
 
-#: ../plugins/symbol-db/plugin.c:2224
+#: ../plugins/symbol-db/plugin.c:2222
 msgid "SymbolDb menu actions"
 msgstr "SimbolDb dejanja menija"
 
-#: ../plugins/symbol-db/plugin.c:2537
-#: ../plugins/symbol-db/plugin.c:2555
+#: ../plugins/symbol-db/plugin.c:2535
+#: ../plugins/symbol-db/plugin.c:2553
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Podatkovna zbirka simbolov"
@@ -9645,6 +9701,18 @@ msgstr "Zapusti program Anjuta s sproščanjem vseh virov (za razhroščevanje)"
 msgid "- Integrated Development Environment"
 msgstr "- Združeno razvojno okolje"
 
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:1
+msgid "Use tabulation for indentation"
+msgstr "Uporabi tabulator za zamik"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:2
+msgid "Number of characters of one tabulation"
+msgstr "Število znakov tabulatorja"
+
+#: ../src/org.gnome.anjuta.gschema.xml.in.h:3
+msgid "Number of spaces on every indentation step"
+msgstr "Število presledkov posamezne ravni zamikanja"
+
 #: ../src/preferences.ui.h:1
 msgid "Do not load last session on startup"
 msgstr "Ob zagonu ne odpri zadnje seje"
@@ -9703,14 +9771,52 @@ msgstr "Le ikone"
 msgid "Text only"
 msgstr "Le besedilo"
 
+#~ msgid "Failed to write autogen definition file"
+#~ msgstr "Napaka med zapisovanjem autogen datoteke določitev"
+
+#~ msgid "Enable CLang code analyzer"
+#~ msgstr "Omogoči preučevalnik kode CLang"
+
+#~ msgid ""
+#~ "The project needs to be reconfigured after enabling this option. Please "
+#~ "run Build->Configure!"
+#~ msgstr ""
+#~ "Po spremembi te možnosti je treba projekt ponovno nastaviti. Zagnati je "
+#~ "treba možnost menija Izgradi -> Nastavi!"
+
+#~ msgid "ccc-analyzer:"
+#~ msgstr "ccc-preučevalnik:"
+
+#~ msgid "c++-analyzer:"
+#~ msgstr "c++-preučevalnik:"
+
+#~ msgid "CLang Paths"
+#~ msgstr "Poti CLang"
+
+#~ msgid ""
+#~ "Couldn't find clang analyzer, please check if it is installed and if the "
+#~ "paths are configured correctly in the preferences"
+#~ msgstr ""
+#~ "Ni mogoče najti preučevalnika clang. Preverite ali je nameščen in ali so "
+#~ "določene prave poti do programa v nastavitvah."
+
+#~ msgid "CLang Analyzer"
+#~ msgstr "Preučevalnik CLang"
+
+#~ msgid "C/C++/Java/Vala"
+#~ msgstr "C/C++/Java/Vala"
+
+#~ msgid "Add brace after function call autocompletion"
+#~ msgstr "Dodaj zaklepaj za samodejno dopolnjenim klicem funkcije"
+
+#~ msgid "JS"
+#~ msgstr "JS"
+
 #~ msgid "Anjuta IDE"
 #~ msgstr "Anjuta IDE"
 
 #~ msgid "New Directory"
 #~ msgstr "Nova mapa"
-
-#~ msgid "_Directory name:"
-#~ msgstr "_Ime mape:"
 
 #~ msgid "New _Directory"
 #~ msgstr "Nova _mapa"
