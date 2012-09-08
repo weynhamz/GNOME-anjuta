@@ -376,6 +376,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		build_gtk_file_chooser_keep_folder (GTK_FILE_CHOOSER (dlg.build_dir_chooser), uri);
 		g_free (uri);
 
+		build_configuration_clear_variables (cfg);
 		mod_var = anjuta_environment_editor_get_modified_variables (ANJUTA_ENVIRONMENT_EDITOR (dlg.env_editor));
 		if ((mod_var != NULL) && (*mod_var != NULL))
 		{

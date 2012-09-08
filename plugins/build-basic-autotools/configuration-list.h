@@ -48,6 +48,7 @@ gchar *build_configuration_list_get_build_uri (BuildConfigurationList *list, Bui
 const gchar *build_configuration_get_relative_build_uri (BuildConfiguration *cfg);
 void build_configuration_set_args (BuildConfiguration *cfg, const gchar *args);
 const gchar *build_configuration_get_args (BuildConfiguration *cfg);
+void build_configuration_clear_variables (BuildConfiguration *cfg);
 void build_configuration_set_variable (BuildConfiguration *cfg, const gchar *var);
 GList *build_configuration_get_variables (BuildConfiguration *cfg);
 

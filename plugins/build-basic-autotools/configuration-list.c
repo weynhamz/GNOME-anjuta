@@ -461,6 +461,14 @@ build_configuration_get_args (BuildConfiguration *cfg)
 }
 
 void
+build_configuration_clear_variables (BuildConfiguration *cfg)
+{
+	g_list_foreach (cfg->env, (GFunc)g_free, NULL);
+	g_list_free (cfg->env);
+	cfg->env = NULL;
+}
+
+void
 build_configuration_set_variable (BuildConfiguration *cfg, const gchar *var)
 {
 	GList *item;

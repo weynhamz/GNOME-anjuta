@@ -668,16 +668,13 @@ anjuta_environment_editor_set_variable (AnjutaEnvironmentEditor *editor, const g
 	gboolean valid;
 	gchar *name;
 	const gchar *equal;
-	guint len = 0;
+	guint len;
 	
 	model = editor->model;
 
 	/* Check is variable is already existing */
 	equal = strchr (variable, '=');
-	if (equal != NULL)
-	{
-		len = equal - variable;
-	}
+	len = equal != NULL ? equal - variable : 0;
 		
 	for (valid = gtk_tree_model_get_iter_first (model, &iter); valid; valid = gtk_tree_model_iter_next (model, &iter))
 	{
@@ -685,7 +682,7 @@ anjuta_environment_editor_set_variable (AnjutaEnvironmentEditor *editor, const g
 							ENV_NAME_COLUMN, &name,
 							-1);
 		if (((len == 0) && (strcmp (name, variable) == 0)) ||
-		    ((len != 0) && (strncmp (name, variable, len) == 0) && (name[len] == '=')))
+		    ((len != 0) && (strncmp (name, variable, len) == 0) && (name[len] == '\0')))
 		{
 			break;
 		}
