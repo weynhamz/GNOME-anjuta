@@ -23,8 +23,6 @@ ROOT (): anjuta
         PACKAGE (): libgda-5.0
     MODULE (): VTE
         PACKAGE (): vte-2.90
-    MODULE (): GLIB_NEW
-        PACKAGE (): glib-2.0
     MODULE (): PLUGIN_DEVHELP
         PACKAGE (): libdevhelp-3.0
     MODULE (): PLUGIN_GLADE
@@ -33,19 +31,12 @@ ROOT (): anjuta
         PACKAGE (): gtksourceview-3.0
     MODULE (): VALA
         PACKAGE (): ${LIBVALA}
-    MODULE (): PLUGIN_SYMBOL_DB
-        PACKAGE (): libgda-4.0
-    MODULE (): PLUGIN_SYMBOL_DB
-        PACKAGE (): libgda-5.0
     MODULE (): APR
         PACKAGE (): apr-1
     MODULE (): APR_UTILS
         PACKAGE (): apr-util-1
     MODULE (): NEON
         PACKAGE (): neon
-    MODULE (): GRAPHVIZ
-        PACKAGE (): libgvc
-        PACKAGE (): libgraph
     GROUP (): pixmaps
         PROPERTY (Installation directories): anjuta_pixmapsdir = $(anjuta_image_dir) anjuta_glade_pixmapsdir = $(anjuta_glade_dir)
         GROUP (): 16x16
@@ -203,6 +194,7 @@ ROOT (): anjuta
                 SOURCE (): libanjuta/interfaces/ianjuta-iterable.c
                 SOURCE (): libanjuta/interfaces/ianjuta-iterable-tree.c
                 SOURCE (): libanjuta/interfaces/ianjuta-language.c
+                SOURCE (): libanjuta/interfaces/ianjuta-language-provider.c
                 SOURCE (): libanjuta/interfaces/ianjuta-loader.c
                 SOURCE (): libanjuta/interfaces/ianjuta-markable.c
                 SOURCE (): libanjuta/interfaces/ianjuta-message-manager.c
@@ -269,6 +261,7 @@ ROOT (): anjuta
                 SOURCE (): libanjuta/interfaces/ianjuta-iterable.h
                 SOURCE (): libanjuta/interfaces/ianjuta-iterable-tree.h
                 SOURCE (): libanjuta/interfaces/ianjuta-language.h
+                SOURCE (): libanjuta/interfaces/ianjuta-language-provider.h
                 SOURCE (): libanjuta/interfaces/ianjuta-loader.h
                 SOURCE (): libanjuta/interfaces/ianjuta-markable.h
                 SOURCE (): libanjuta/interfaces/ianjuta-message-manager.h
@@ -351,6 +344,8 @@ ROOT (): anjuta
             SOURCE (): libanjuta/anjuta-profile-manager.h
             SOURCE (): libanjuta/anjuta-ui.c
             SOURCE (): libanjuta/anjuta-ui.h
+            SOURCE (): libanjuta/anjuta-language-provider.c
+            SOURCE (): libanjuta/anjuta-language-provider.h
             SOURCE (): libanjuta/anjuta-launcher.c
             SOURCE (): libanjuta/anjuta-launcher.h
             SOURCE (): libanjuta/anjuta-utils.c
@@ -644,26 +639,6 @@ ROOT (): anjuta
                 SOURCE (): plugins/class-gen/window.c
                 SOURCE (): plugins/class-gen/window.h
             SOURCE (): plugins/class-gen/Makefile.am
-            SOURCE (): git.mk
-        GROUP (): code-analyzer
-            PROPERTY (Installation directories): code_analyzer_uidir = $(anjuta_glade_dir) code_analyzer_pixmapsdir = $(anjuta_image_dir) code_analyzer_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-            PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"code_analyzer\"
-            TARGET (): code_analyzer_ui
-                PROPERTY (Installation directory): code_analyzer_uidir
-                SOURCE (): plugins/code-analyzer/code-analyzer.ui
-            TARGET (): code_analyzer_pixmaps
-                PROPERTY (Installation directory): code_analyzer_pixmapsdir
-                SOURCE (): plugins/code-analyzer/code-analyzer.png
-            TARGET (): code_analyzer_plugin
-                PROPERTY (Installation directory): code_analyzer_plugindir
-                SOURCE (): plugins/code-analyzer/$(plugin_in_files:.plugin.in=.plugin)
-            TARGET (): libanjuta-code-analyzer.la
-                PROPERTY (Installation directory): plugindir
-                PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                PROPERTY (Libraries): $(LIBANJUTA_LIBS)
-                SOURCE (): plugins/code-analyzer/plugin.c
-                SOURCE (): plugins/code-analyzer/plugin.h
-            SOURCE (): plugins/code-analyzer/Makefile.am
             SOURCE (): git.mk
         GROUP (): cvs-plugin
             PROPERTY (Installation directories): cvs_plugin_gladedir = $(anjuta_glade_dir) cvs_plugin_pixmapsdir = $(anjuta_image_dir) cvs_plugin_uidir = $(anjuta_ui_dir) cvs_plugin_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
@@ -1352,6 +1327,57 @@ ROOT (): anjuta
                 SOURCE (): plugins/js-debugger/plugin.c
                 SOURCE (): plugins/js-debugger/plugin.h
             SOURCE (): plugins/js-debugger/Makefile.am
+        GROUP (): indentation-c-style
+            PROPERTY (Installation directories): indent_c_gladedir = $(anjuta_glade_dir) indent_c_uidir = $(anjuta_ui_dir) indent_c_pixmapsdir = $(anjuta_image_dir) indent_c_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+            PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"indentation-c-style\"
+            TARGET (): indent_c_glade
+                PROPERTY (Installation directory): indent_c_gladedir
+                SOURCE (): plugins/indentation-c-style/anjuta-indentation-c-style.ui
+            TARGET (): indent_c_ui
+                PROPERTY (Installation directory): indent_c_uidir
+                SOURCE (): plugins/indentation-c-style/anjuta-indentation-c-style.xml
+            TARGET (): indent_c_pixmaps
+                PROPERTY (Installation directory): indent_c_pixmapsdir
+                SOURCE (): plugins/indentation-c-style/anjuta-indentation-c-style-plugin.png
+                SOURCE (): plugins/indentation-c-style/anjuta-indentation-c-style-auto-16.png
+                SOURCE (): plugins/indentation-c-style/anjuta-indentation-c-style-auto-24.png
+            TARGET (): indent_c_plugin
+                PROPERTY (Installation directory): indent_c_plugindir
+                SOURCE (): plugins/indentation-c-style/$(plugin_in_files:.plugin.in=.plugin)
+            TARGET (): libanjuta-indentation-c-style.la
+                PROPERTY (Installation directory): plugindir
+                PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                SOURCE (): plugins/indentation-c-style/plugin.c
+                SOURCE (): plugins/indentation-c-style/plugin.h
+                SOURCE (): plugins/indentation-c-style/indentation.c
+                SOURCE (): plugins/indentation-c-style/indentation.h
+            SOURCE (): plugins/indentation-c-style/Makefile.am
+            SOURCE (): git.mk
+        GROUP (): indentation-python-style
+            PROPERTY (Installation directories): indent_python_uidir = $(anjuta_ui_dir) indent_python_gladedir = $(anjuta_glade_dir) indent_python_pixmapsdir = $(anjuta_image_dir) indent_python_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+            PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"indentation-python-style\"
+            TARGET (): indent_python_ui
+                PROPERTY (Installation directory): indent_python_uidir
+                SOURCE (): plugins/indentation-python-style/anjuta-indentation-python-style.xml
+            TARGET (): indent_python_glade
+                PROPERTY (Installation directory): indent_python_gladedir
+                SOURCE (): plugins/indentation-python-style/anjuta-indentation-python-style.ui
+            TARGET (): indent_python_pixmaps
+                PROPERTY (Installation directory): indent_python_pixmapsdir
+                SOURCE (): plugins/indentation-python-style/anjuta-indentation-python-style-plugin.png
+            TARGET (): indent_python_plugin
+                PROPERTY (Installation directory): indent_python_plugindir
+                SOURCE (): plugins/indentation-python-style/$(plugin_in_files:.plugin.in=.plugin)
+            TARGET (): libanjuta-indentation-python-style.la
+                PROPERTY (Installation directory): plugindir
+                PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                PROPERTY (Libraries): $(LIBANJUTA_LIBS)
+                SOURCE (): plugins/indentation-python-style/plugin.c
+                SOURCE (): plugins/indentation-python-style/plugin.h
+                SOURCE (): plugins/indentation-python-style/python-indentation.c
+                SOURCE (): plugins/indentation-python-style/python-indentation.h
+            SOURCE (): plugins/indentation-python-style/Makefile.am
+            SOURCE (): git.mk
         GROUP (): language-manager
             PROPERTY (Installation directories): language_manager_pixmapsdir = $(anjuta_image_dir) language_manager_xmldir = $(anjuta_data_dir) language_manager_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS)
@@ -1377,38 +1403,6 @@ ROOT (): anjuta
         GROUP (): language-support-cpp-java
             PROPERTY (Installation directories): cpp_java_gladedir = $(anjuta_glade_dir) cpp_java_uidir = $(anjuta_ui_dir) cpp_java_pixmapsdir = $(anjuta_image_dir) cpp_java_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"language-support-cpp-java\"
-            GROUP (): cxxparser
-                PROPERTY (C preprocessor flags): -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DPACKAGE_SRC_DIR=\""$(srcdir)"\" $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"cxxparser\"
-                TARGET (): libcxxparser.la
-                    PROPERTY (Do not install): true
-                    PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(GTHREAD_LIBS)
-                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-lexer.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-parser.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-result.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-result.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/flex-lexer-klass-tab.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/flex-lexer-plain.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/flex-lexer-plain-tab.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/variable-parser.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/variable-result.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/variable-result.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/scope-parser.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/function-result.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/function-result.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/function-parser.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/cpp-flex-tokenizer.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/cpp-flex-tokenizer.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/expression-parser.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/engine-parser.cpp
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/engine-parser-priv.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/engine-parser.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/scope-parser.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/variable-parser.h
-                    SOURCE (): plugins/language-support-cpp-java/cxxparser/function-parser.h
-                SOURCE (): plugins/language-support-cpp-java/cxxparser/Makefile.am
             TARGET (): cpp_java_glade
                 PROPERTY (Installation directory): cpp_java_gladedir
                 SOURCE (): plugins/language-support-cpp-java/anjuta-language-cpp-java.ui
@@ -1426,15 +1420,9 @@ ROOT (): anjuta
             TARGET (): libanjuta-language-cpp-java.la
                 PROPERTY (Installation directory): plugindir
                 PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                PROPERTY (Libraries): $(LIBANJUTA_LIBS) cxxparser/libcxxparser.la
+                PROPERTY (Libraries): $(LIBANJUTA_LIBS)
                 SOURCE (): plugins/language-support-cpp-java/plugin.c
                 SOURCE (): plugins/language-support-cpp-java/plugin.h
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-assist.h
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-assist.c
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-utils.c
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-utils.h
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-indentation.c
-                SOURCE (): plugins/language-support-cpp-java/cpp-java-indentation.h
                 SOURCE (): plugins/language-support-cpp-java/cpp-packages.c
                 SOURCE (): plugins/language-support-cpp-java/cpp-packages.h
             SOURCE (): plugins/language-support-cpp-java/Makefile.am
@@ -1506,20 +1494,20 @@ ROOT (): anjuta
             PROPERTY (C preprocessor flags): $(XML_CFLAGS) $(LIBANJUTA_CFLAGS) -DSCRIPTS_DIR=\"$(scriptsdir) -DG_LOG_DOMAIN=\"language-support-python\"
             TARGET (): python_plugin_ui
                 PROPERTY (Installation directory): python_plugin_uidir
-                SOURCE (): plugins/language-support-python/python-plugin.xml
+                SOURCE (): plugins/language-support-python/anjuta-language-support-python.xml
             TARGET (): python_plugin_glade
                 PROPERTY (Installation directory): python_plugin_gladedir
-                SOURCE (): plugins/language-support-python/python-plugin-properties.ui
+                SOURCE (): plugins/language-support-python/anjuta-language-support-python.ui
             TARGET (): python_plugin_pixmaps
                 PROPERTY (Installation directory): python_plugin_pixmapsdir
-                SOURCE (): plugins/language-support-python/python_plugin.png
+                SOURCE (): plugins/language-support-python/anjuta-language-support-python-plugin.png
             TARGET (): scripts
                 PROPERTY (Installation directory): scriptsdir
                 SOURCE (): plugins/language-support-python/anjuta-python-autocomplete.py
             TARGET (): python_plugin_plugin
                 PROPERTY (Installation directory): python_plugin_plugindir
                 SOURCE (): plugins/language-support-python/$(plugin_in_files:.plugin.in=.plugin)
-            TARGET (): libpython_plugin.la
+            TARGET (): libanjuta-language-support-python.la
                 PROPERTY (Installation directory): plugindir
                 PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
                 PROPERTY (Libraries): $(LIBANJUTA_LIBS)
@@ -1527,15 +1515,17 @@ ROOT (): anjuta
                 SOURCE (): plugins/language-support-python/plugin.h
                 SOURCE (): plugins/language-support-python/python-assist.c
                 SOURCE (): plugins/language-support-python/python-assist.h
-                SOURCE (): plugins/language-support-python/python-utils.c
-                SOURCE (): plugins/language-support-python/python-utils.h
-                SOURCE (): plugins/language-support-python/python-indentation.c
-                SOURCE (): plugins/language-support-python/python-indentation.h
             SOURCE (): plugins/language-support-python/Makefile.am
             SOURCE (): git.mk
         GROUP (): language-support-vala
-            PROPERTY (Installation directories): vala_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+            PROPERTY (Installation directories): vala_gladedir = $(anjuta_glade_dir) vala_pixmapsdir = $(anjuta_image_dir) vala_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" -DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" -DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" -DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" -DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" $(LIBANJUTA_CFLAGS) $(VALA_CFLAGS) -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DG_LOG_DOMAIN=\"language-support-vala\" --no-warn
+            TARGET (): vala_glade
+                PROPERTY (Installation directory): vala_gladedir
+                SOURCE (): plugins/language-support-vala/anjuta-vala.ui
+            TARGET (): vala_pixmaps
+                PROPERTY (Installation directory): vala_pixmapsdir
+                SOURCE (): plugins/language-support-vala/anjuta-vala.png
             TARGET (): vala_plugin
                 PROPERTY (Installation directory): vala_plugindir
                 SOURCE (): plugins/language-support-vala/$(plugin_in_files:.plugin.in=.plugin)
@@ -1635,6 +1625,60 @@ ROOT (): anjuta
                 SOURCE (): plugins/patch/patch-plugin.c
                 SOURCE (): plugins/patch/patch-plugin.h
             SOURCE (): plugins/patch/Makefile.am
+            SOURCE (): git.mk
+        GROUP (): parser-cxx
+            PROPERTY (Installation directories): parser_cxx_gladedir = $(anjuta_glade_dir) parser_cxx_pixmapsdir = $(anjuta_image_dir) parser_cxx_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
+            PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"parser-cxx\"
+            GROUP (): cxxparser
+                PROPERTY (C preprocessor flags): -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" -DPACKAGE_SRC_DIR=\""$(srcdir)"\" $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS) $(EXTRA_CFLAGS) -DG_LOG_DOMAIN=\"cxxparser\"
+                TARGET (): libcxxparser.la
+                    PROPERTY (Do not install): true
+                    PROPERTY (Libraries): $(LIBANJUTA_LIBS) $(GTHREAD_LIBS)
+                    PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                    SOURCE (): plugins/parser-cxx/cxxparser/expression-lexer.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/expression-parser.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/expression-result.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/expression-result.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/flex-lexer-klass.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/flex-lexer-klass.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/flex-lexer-klass-tab.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/flex-lexer-plain.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/flex-lexer-plain-tab.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/variable-parser.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/variable-result.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/variable-result.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/scope-parser.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/function-result.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/function-result.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/function-parser.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/cpp-flex-tokenizer.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/cpp-flex-tokenizer.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/expression-parser.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/engine-parser.cpp
+                    SOURCE (): plugins/parser-cxx/cxxparser/engine-parser-priv.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/engine-parser.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/scope-parser.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/variable-parser.h
+                    SOURCE (): plugins/parser-cxx/cxxparser/function-parser.h
+                SOURCE (): plugins/parser-cxx/cxxparser/Makefile.am
+            TARGET (): parser_cxx_glade
+                PROPERTY (Installation directory): parser_cxx_gladedir
+                SOURCE (): plugins/parser-cxx/anjuta-parser-cxx.ui
+            TARGET (): parser_cxx_pixmaps
+                PROPERTY (Installation directory): parser_cxx_pixmapsdir
+                SOURCE (): plugins/parser-cxx/anjuta-parser-cxx-plugin.png
+            TARGET (): parser_cxx_plugin
+                PROPERTY (Installation directory): parser_cxx_plugindir
+                SOURCE (): plugins/parser-cxx/$(plugin_in_files:.plugin.in=.plugin)
+            TARGET (): libanjuta-parser-cxx.la
+                PROPERTY (Installation directory): plugindir
+                PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
+                PROPERTY (Libraries): $(LIBANJUTA_LIBS) cxxparser/libcxxparser.la
+                SOURCE (): plugins/parser-cxx/parser-cxx-assist.h
+                SOURCE (): plugins/parser-cxx/parser-cxx-assist.c
+                SOURCE (): plugins/parser-cxx/plugin.h
+                SOURCE (): plugins/parser-cxx/plugin.c
+            SOURCE (): plugins/parser-cxx/Makefile.am
             SOURCE (): git.mk
         GROUP (): project-import
             PROPERTY (Installation directories): wizard_gladedir = $(anjuta_glade_dir) wizard_pixmapsdir = $(anjuta_image_dir) wizard_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
@@ -2362,14 +2406,11 @@ ROOT (): anjuta
             SOURCE (): plugins/sourceview/Makefile.am
             SOURCE (): git.mk
         GROUP (): starter
-            PROPERTY (Installation directories): starter_plugindir = $(anjuta_plugin_dir) starter_pixmapsdir = $(anjuta_image_dir) plugindir = $(anjuta_plugin_dir) uidir = $(anjuta_glade_dir)
+            PROPERTY (Installation directories): starter_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDL_CFLAGS) $(LIBANJUTA_CFLAGS) -DG_LOG_DOMAIN=\"starter\"
             TARGET (): starter_plugin
                 PROPERTY (Installation directory): starter_plugindir
                 SOURCE (): plugins/starter/$(plugin_in_files:.plugin.in=.plugin)
-            TARGET (): starter_pixmaps
-                PROPERTY (Installation directory): starter_pixmapsdir
-                SOURCE (): plugins/starter/starter_logo.png
             TARGET (): libanjuta-starter.la
                 PROPERTY (Installation directory): plugindir
                 PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
@@ -2377,9 +2418,6 @@ ROOT (): anjuta
                 MODULE (): GDL
                 SOURCE (): plugins/starter/plugin.c
                 SOURCE (): plugins/starter/plugin.h
-            TARGET (): ui
-                PROPERTY (Installation directory): uidir
-                SOURCE (): plugins/starter/starter.ui
             SOURCE (): plugins/starter/Makefile.am
             SOURCE (): git.mk
         GROUP (): subversion
@@ -2468,7 +2506,7 @@ ROOT (): anjuta
             SOURCE (): git.mk
         GROUP (): symbol-db
             PROPERTY (Installation directories): symbol_db_datadir = $(anjuta_data_dir) symbol_db_uidir = $(anjuta_ui_dir) symbol_db_gladedir = $(anjuta_glade_dir) symbol_db_pixmapsdir = $(anjuta_image_dir) symbol_db_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
-            PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDA_CFLAGS) $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" -DPACKAGE_BIN_DIR=\"$(bindir)\" -DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
+            PROPERTY (C preprocessor flags): $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(GDA_CFLAGS) $(LIBANJUTA_CFLAGS) -DSYMBOL_DB_SHM=\"$(SYMBOL_DB_SHM)\" -DPACKAGE_BIN_DIR=\"$(bindir)\" -DG_LOG_DOMAIN=\"libanjuta-symbol-db\"
             GROUP (): anjuta-tags
                 PROPERTY (C compiler flags): -I$(top_srcdir)/plugins/symbol-db/anjuta-tags/js-parser $(WARN_CFLAGS) $(ANJUTA_CFLAGS) $(VALA_CFLAGS) $(XML_CFLAGS)
                 PROPERTY (C preprocessor flags): -DENABLE_VALA
@@ -2504,6 +2542,7 @@ ROOT (): anjuta
                     SOURCE (): plugins/symbol-db/anjuta-tags/e_riscos.h
                     SOURCE (): plugins/symbol-db/anjuta-tags/erlang.c
                     SOURCE (): plugins/symbol-db/anjuta-tags/e_vms.h
+                    SOURCE (): plugins/symbol-db/anjuta-tags/falcon.c
                     SOURCE (): plugins/symbol-db/anjuta-tags/flex.c
                     SOURCE (): plugins/symbol-db/anjuta-tags/fortran.c
                     SOURCE (): plugins/symbol-db/anjuta-tags/general.h
@@ -2599,19 +2638,19 @@ ROOT (): anjuta
                 SOURCE (): git.mk
             GROUP (): benchmark
                 GROUP (): symbol-db
-                    PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
+                    PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(GDA_CFLAGS) -DDEBUG
                     TARGET (): benchmark
                         PROPERTY (Do not install): true
-                        PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                        PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(GDA_LIBS)
                         PROPERTY (Libraries): ../../libanjuta-symbol-db.la
                         SOURCE (): plugins/symbol-db/benchmark/symbol-db/benchmark.c
                     SOURCE (): plugins/symbol-db/benchmark/symbol-db/Makefile.am
                     SOURCE (): git.mk
                 GROUP (): libgda
-                    PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(PLUGIN_SYMBOL_DB_CFLAGS) -DDEBUG
+                    PROPERTY (C preprocessor flags): $(LIBANJUTA_CFLAGS) $(GDA_CFLAGS) -DDEBUG
                     TARGET (): benchmark-libgda
                         PROPERTY (Do not install): true
-                        PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                        PROPERTY (Linker flags): $(LIBANJUTA_LIBS) $(ANJUTA_LIBS) $(GDA_LIBS)
                         PROPERTY (Libraries): ../../libanjuta-symbol-db.la
                         SOURCE (): plugins/symbol-db/benchmark/libgda/libgda.c
                     SOURCE (): plugins/symbol-db/benchmark/libgda/Makefile.am
@@ -2645,11 +2684,9 @@ ROOT (): anjuta
             TARGET (): libanjuta-symbol-db.la
                 PROPERTY (Installation directory): plugindir
                 PROPERTY (Linker flags): $(ANJUTA_PLUGIN_LDFLAGS)
-                PROPERTY (Libraries): $(GDA_LIBS) $(LIBANJUTA_LIBS) $(PLUGIN_SYMBOL_DB_LIBS)
+                PROPERTY (Libraries): $(GDA_LIBS) $(LIBANJUTA_LIBS)
                 MODULE (): GDA
                 MODULE (): GDA
-                MODULE (): PLUGIN_SYMBOL_DB
-                MODULE (): PLUGIN_SYMBOL_DB
                 SOURCE (): plugins/symbol-db/plugin.c
                 SOURCE (): plugins/symbol-db/plugin.h
                 SOURCE (): plugins/symbol-db/readtags.c
