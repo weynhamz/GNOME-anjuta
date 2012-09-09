@@ -6,22 +6,22 @@
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
 # Andre Klapper <ak-47@gmx.net>, 2009.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010, 2011, 2012.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-05-01 09:48+0000\n"
-"PO-Revision-Date: 2012-05-04 13:55+0200\n"
-"Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
+"POT-Creation-Date: 2012-07-30 14:37+0000\n"
+"PO-Revision-Date: 2012-09-09 21:49+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -43,13 +43,11 @@ msgstr "Program autogen je zaneprázdněn"
 
 #: ../libanjuta/anjuta-autogen.c:251
 #, c-format
-#| msgid "Could not find application pixmap file: %s"
 msgid "Could not write definition file \"%s\": %s"
 msgstr "Nelze zapsat definiční soubor „%s“: %s"
 
 #: ../libanjuta/anjuta-autogen.c:585
 #, c-format
-#| msgid "Could not open %s: %s"
 msgid "Could not open file \"%s\": %s"
 msgstr "Nelze otevřít soubor „%s“: %s"
 
@@ -327,7 +325,7 @@ msgstr "Nelze spustit příkaz: „%s“"
 msgid "execvp failed"
 msgstr "execvp selhalo"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
 msgstr "Shell Anjuty"
 
@@ -335,12 +333,12 @@ msgstr "Shell Anjuty"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Shell Anjuty, který bude obsahovat tento zásuvný modul"
 
-#: ../libanjuta/anjuta-plugin-manager.c:737
+#: ../libanjuta/anjuta-plugin-manager.c:732
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Zásuvný modul „%s“ se nechce nechat deaktivovat"
 
-#: ../libanjuta/anjuta-plugin-manager.c:768
+#: ../libanjuta/anjuta-plugin-manager.c:763
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -353,24 +351,24 @@ msgstr ""
 "k tomuto stavu bylo:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:900
 msgid "Load"
 msgstr "Načíst"
 
-#: ../libanjuta/anjuta-plugin-manager.c:928
-#: ../libanjuta/anjuta-plugin-manager.c:2007
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:2002
 msgid "Available Plugins"
 msgstr "Dostupné zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Upřednostňované zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1176
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
 msgstr "Zobrazovat jen uživatelem aktivovatelné zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1216
+#: ../libanjuta/anjuta-plugin-manager.c:1211
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -380,74 +378,74 @@ msgstr ""
 "Anjuty. Pokud odeberete zvolené zásuvné moduly, anjuta vás vyzve k novému "
 "výběru zásuvných modulů."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1242
+#: ../libanjuta/anjuta-plugin-manager.c:1237
 msgid "Forget selected plugin"
 msgstr "Zapomenout zvolený zásuvný modul"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1371
+#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Volba zásuvného modulu"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1377
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Vyberte zásuvný modul, který chcete aktivovat"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1391
+#: ../libanjuta/anjuta-plugin-manager.c:1386
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Žádný zásuvný modul schopný nahrávat jiné moduly v %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1528
+#: ../libanjuta/anjuta-plugin-manager.c:1523
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Vyberte zásuvný modul, který chcete aktivovat</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2034
+#: ../libanjuta/anjuta-plugin-manager.c:2029
 msgid "Remember this selection"
 msgstr "Pamatovat si výběr"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin-manager.c:2360
 msgid "Profiles"
 msgstr "Profily"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2361
 msgid "Current stack of profiles"
 msgstr "Současný zásobník profilů"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2371
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Available plugins"
 msgstr "Dostupné zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2372
+#: ../libanjuta/anjuta-plugin-manager.c:2367
 msgid "Currently available plugins found in plugin paths"
 msgstr "Aktuálně dostupné zásuvné moduly nalezené v cestách zásuvných modulů"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Activated plugins"
 msgstr "Aktivní zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Currently activated plugins"
 msgstr "Aktuálně aktivované zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2385
+#: ../libanjuta/anjuta-plugin-manager.c:2380
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Prostor Anjuty určený pro zásuvné moduly"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2393
+#: ../libanjuta/anjuta-plugin-manager.c:2388
 msgid "Anjuta Status"
 msgstr "Status Anjuty"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2394
+#: ../libanjuta/anjuta-plugin-manager.c:2389
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr ""
 "Stav nástroje Anjuta, který použít při nahrávání a vypínání zásuvných modulů"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2554
+#: ../libanjuta/anjuta-plugin-manager.c:2549
 msgid "Loading:"
 msgstr "Načítá se:"
 
@@ -458,7 +456,6 @@ msgstr "Kategorie"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
@@ -595,11 +592,11 @@ msgid "Shortcut"
 msgstr "Zkratka"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:357
+#: ../libanjuta/anjuta-utils.c:358
 msgid "System:"
 msgstr "Systém:"
 
-#: ../libanjuta/anjuta-utils.c:503
+#: ../libanjuta/anjuta-utils.c:504
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
@@ -609,12 +606,12 @@ msgstr ""
 "chybějících balíčků. Nainstaluje si prosím do své distribuce balíček "
 "„packagekit-gnome“, nebo nainstalujte chybějící balíčky ručně."
 
-#: ../libanjuta/anjuta-utils.c:512
+#: ../libanjuta/anjuta-utils.c:513
 #, c-format
 msgid "Installation failed: %s"
 msgstr "Instalace selhala: %s"
 
-#: ../libanjuta/anjuta-utils.c:580
+#: ../libanjuta/anjuta-utils.c:581
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -623,7 +620,7 @@ msgstr ""
 "Balíček „%s“ není nainstalován.\n"
 "Nainstalujte jej prosím."
 
-#: ../libanjuta/anjuta-utils.c:598
+#: ../libanjuta/anjuta-utils.c:599
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -633,17 +630,17 @@ msgstr ""
 "Nainstalujte jej prosím."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1171
+#: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "Nelze nalézt terminál; použije se xterm i v případě, že nefunguje"
 
-#: ../libanjuta/anjuta-utils.c:1207 ../libanjuta/anjuta-utils.c:1211
-#: ../libanjuta/anjuta-utils.c:1239 ../libanjuta/anjuta-utils.c:1243
+#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
+#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Nelze spustit příkaz: %s (s shellem %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2299
+#: ../libanjuta/anjuta-utils.c:2351
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Nelze nahrát soubor s uživatelským rozhraním: %s"
@@ -708,8 +705,6 @@ msgid "Please specify group name"
 msgstr "Zadejte prosím název skupiny"
 
 #: ../plugins/am-project/amp-group.c:636
-#| msgid ""
-#| "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr ""
@@ -1464,13 +1459,13 @@ msgstr ""
 msgid "Command canceled by user"
 msgstr "Příkaz byl zrušen uživatelem"
 
-#: ../plugins/build-basic-autotools/build.c:879
+#: ../plugins/build-basic-autotools/build.c:881
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Nelze zkompilovat „%s“: Pro tento typ souboru nejsou definována pravidla."
 
-#: ../plugins/build-basic-autotools/build.c:1041
+#: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Projekt nelze nastavit: Skript nastavení v %s schází."
@@ -1662,221 +1657,215 @@ msgstr "Úspěšně dokončeno\n"
 msgid "Build %d: %s"
 msgstr "Sestavení %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1664
-#: ../plugins/build-basic-autotools/plugin.c:1750
-#: ../plugins/build-basic-autotools/plugin.c:1760
-#: ../plugins/build-basic-autotools/plugin.c:1778
-#: ../plugins/build-basic-autotools/plugin.c:1788
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1665
+#: ../plugins/build-basic-autotools/plugin.c:1751
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build"
 msgstr "_Sestavit"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
 msgstr "_Sestavit projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
 msgstr "Sestavit celý projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
 msgstr "_Nainstalovat projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
 msgstr "Nainstalovat celý projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
-#| msgid "_Clean Project"
+#: ../plugins/build-basic-autotools/plugin.c:1681
 msgid "_Check Project"
 msgstr "Z_kontrolovat projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
-#| msgid "Clean whole project"
+#: ../plugins/build-basic-autotools/plugin.c:1682
 msgid "Check whole project"
 msgstr "Zkontrolovat celý projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "_Clean Project"
 msgstr "_Vyčistit projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1688
 msgid "Clean whole project"
 msgstr "Vyčistit celý projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
 msgstr "K_onfigurovat projekt…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
 msgstr "Nastavit projekt"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
 msgstr "Sestavit _tarball"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
 msgstr "Sestavit tarball distribuce projektu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
 msgstr "_Sestavit modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
 msgstr "Sestavit modul patřící k aktuálnímu souboru"
 
-#: ../plugins/build-basic-autotools/plugin.c:1710
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
 msgstr "Na_instalovat modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1712
 msgid "Install module associated with current file"
 msgstr "Nainstalovat modul patřící k aktuálnímu souboru"
 
-#: ../plugins/build-basic-autotools/plugin.c:1716
-#| msgid "_Clean Module"
+#: ../plugins/build-basic-autotools/plugin.c:1717
 msgid "_Check Module"
 msgstr "Z_kontrolovat modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
-#| msgid "Clean module associated with current file"
+#: ../plugins/build-basic-autotools/plugin.c:1718
 msgid "Check module associated with current file"
 msgstr "Zkontrolovat modul patřící k aktuálnímu souboru"
 
-#: ../plugins/build-basic-autotools/plugin.c:1722
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "_Clean Module"
 msgstr "_Vyčistit modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1724
 msgid "Clean module associated with current file"
 msgstr "Vyčistit modul patřící k aktuálnímu souboru"
 
-#: ../plugins/build-basic-autotools/plugin.c:1728
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Co_mpile File"
 msgstr "_Přeložit soubor"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
 msgstr "Přeložit aktuální soubor editoru"
 
-#: ../plugins/build-basic-autotools/plugin.c:1734
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
 msgstr "Zvolte nastavení"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1736
 msgid "Select current configuration"
 msgstr "Zvolte aktuální nastavení"
 
-#: ../plugins/build-basic-autotools/plugin.c:1740
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
 msgstr "Odstranit nastavení"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1742
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Vyčistit projekt (distclean) a odstranit složku s nastavením, pokud je to "
 "možné"
 
-#: ../plugins/build-basic-autotools/plugin.c:1754
-#: ../plugins/build-basic-autotools/plugin.c:1782
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "_Compile"
 msgstr "_Přeložit"
 
-#: ../plugins/build-basic-autotools/plugin.c:1755
-#: ../plugins/build-basic-autotools/plugin.c:1783
+#: ../plugins/build-basic-autotools/plugin.c:1756
+#: ../plugins/build-basic-autotools/plugin.c:1784
 msgid "Compile file"
 msgstr "Kompilovat soubor"
 
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1762
+#: ../plugins/build-basic-autotools/plugin.c:1790
 msgid "Build module"
 msgstr "Sestavit modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1766
-#: ../plugins/build-basic-autotools/plugin.c:1794
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install"
 msgstr "Na_instalovat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1768
+#: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
 msgstr "Nainstalovat modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1772
-#: ../plugins/build-basic-autotools/plugin.c:1806
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean"
 msgstr "_Vyčistit"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1808
 msgid "Clean module"
 msgstr "Vyčistit modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1800
-#| msgid "Check out"
+#: ../plugins/build-basic-autotools/plugin.c:1801
 msgid "_Check"
 msgstr "Z_kontrolovat"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
-#| msgid "Check out"
+#: ../plugins/build-basic-autotools/plugin.c:1802
 msgid "Check module"
 msgstr "Zkontrolovat modul"
 
-#: ../plugins/build-basic-autotools/plugin.c:1812
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "_Cancel command"
 msgstr "_Zrušit příkaz"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
 msgstr "Zrušit příkaz sestavení"
 
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Sestavit (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install (%s)"
 msgstr "Na_instalovat (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Vyčistit (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_Přeložit (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
 msgstr "_Přeložit"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
 msgstr "Příkazy sestavení"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
 msgstr "Příkazy sestavení v kontextových nabídkách"
 
-#: ../plugins/build-basic-autotools/plugin.c:2916
-#: ../plugins/build-basic-autotools/plugin.c:2924
+#: ../plugins/build-basic-autotools/plugin.c:2915
+#: ../plugins/build-basic-autotools/plugin.c:2923
 msgid "Build Autotools"
 msgstr "Autotools pro sestavení"
 
@@ -2179,51 +2168,6 @@ msgstr "Nastavuje"
 msgid "XML description of the user interface"
 msgstr "XML popis uživatelského rozhraní"
 
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Povolit Analyzátor kódu CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
-msgstr ""
-"Po zapnutí této volby je nutné rekonfigurovat projekt. Spusťte prosím "
-"Sestavení->Configure!"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "analyzátor ccc:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "analyzátor c++:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Cesty CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-#| msgid "CLang Analyzer"
-msgid "Code Analyzer"
-msgstr "Analyzátor kódu"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Analyzuje kód pomocí nástroje clang-analyzer"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
-msgstr ""
-"Nelze nalézt analyzátor CLang. Zkontrolujte prosím, zda je nainstalován a "
-"zda jsou v předvolbách správně nastaveny cesty"
-
-#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Analyzátor CLang"
-
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
 msgstr "Zásuvný modul CVS"
@@ -2241,7 +2185,7 @@ msgid "Patch-Style diff"
 msgstr "Rozdílový soubor diff ve stylu záplaty"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2174
+#: ../plugins/symbol-db/plugin.c:2172
 msgid "Local"
 msgstr "Místní"
 
@@ -3362,7 +3306,7 @@ msgstr "Aktivační záznam"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2132
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
 #: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
 msgid "File"
 msgstr "Soubor"
@@ -3490,57 +3434,57 @@ msgstr "Nápověda k API"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Zásuvný modul Devhelp pro Anjutu."
 
-#: ../plugins/devhelp/plugin.c:206
+#: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
 msgstr "Hledat v nápovědě:"
 
-#: ../plugins/devhelp/plugin.c:227 ../plugins/document-manager/plugin.c:244
+#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "Pře_jít na"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:234
 msgid "_API Reference"
 msgstr "Reference _API"
 
-#: ../plugins/devhelp/plugin.c:238
+#: ../plugins/devhelp/plugin.c:236
 msgid "Browse API Pages"
 msgstr "Procházet stránky API"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:246
 msgid "_Context Help"
 msgstr "_Kontextová nápověda"
 
-#: ../plugins/devhelp/plugin.c:250
+#: ../plugins/devhelp/plugin.c:248
 msgid "Search help for the current word in the editor"
 msgstr "Hledat nápovědu o aktuálním slovu v editoru"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:258
 msgid "_Search Help"
 msgstr "_Hledat v nápovědě"
 
-#: ../plugins/devhelp/plugin.c:262
+#: ../plugins/devhelp/plugin.c:260
 msgid "Search for a term in help"
 msgstr "Hledat pojem v nápovědě"
 
-#: ../plugins/devhelp/plugin.c:334
+#: ../plugins/devhelp/plugin.c:331
 msgid "Help operations"
 msgstr "Pomocné operace"
 
-#: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
 msgid "API Browser"
 msgstr "Procházení API"
 
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:361
 msgid "Contents"
 msgstr "Obsah"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2142
-#: ../plugins/symbol-db/plugin.c:2194
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "Hledat"
 
-#: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
 msgid "API"
 msgstr "API"
 
@@ -3641,7 +3585,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: ../plugins/document-manager/anjuta-docman.c:1448
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[read-only]"
 
@@ -4035,8 +3979,10 @@ msgid "Search using regular expressions"
 msgstr "Hledat pomocí regulárního výrazu"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/language-support-cpp-java/plugin.c:1412
-#: ../plugins/language-support-python/plugin.c:452 ../src/anjuta-actions.h:30
+#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-python-style/plugin.c:200
+#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Upravit"
 
@@ -4356,16 +4302,16 @@ msgstr "Nahradit"
 msgid "Replace all"
 msgstr "Nahradit vše"
 
-#: ../plugins/document-manager/search-files.c:596
+#: ../plugins/document-manager/search-files.c:616
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Jméno souboru"
 
-#: ../plugins/document-manager/search-files.c:708
+#: ../plugins/document-manager/search-files.c:728
 msgid "All text files"
 msgstr "Všechny textové soubor"
 
-#: ../plugins/document-manager/search-files.c:849
+#: ../plugins/document-manager/search-files.c:871
 msgid "Find in files"
 msgstr "Hledat v souborech"
 
@@ -4405,7 +4351,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Tato funkce není implementována pro widgety třídy „%s“"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:167
+#: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Otevřít „%s“"
@@ -4618,7 +4564,7 @@ msgstr "Zvolte složku, který se zobrazí, pokud není otevřen žádný projek
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2186
+#: ../plugins/symbol-db/plugin.c:2184
 msgid "Global"
 msgstr "Globální"
 
@@ -5342,17 +5288,17 @@ msgstr "Není vybrána revize"
 msgid "Stash %i.diff"
 msgstr "Skrýš %i.diff"
 
-#: ../plugins/git/git-log-pane.c:569
+#: ../plugins/git/git-log-pane.c:574
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Větev:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:579
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Značka:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Vzdálený:</b> %s"
@@ -5817,6 +5763,85 @@ msgstr "Nelze otevřít %s"
 msgid "Could not create a new glade project."
 msgstr "Nelze vytvořit nový projekt glade."
 
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:1
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:1
+msgid "Enable smart indentation"
+msgstr "Povolit inteligentní odsazování"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:2
+msgid "Leading asterisk in multi-line comment"
+msgstr "Úvodní hvězdička ve víceřádkovém komentáři"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:3
+msgid "Prefer vim/emacs modelines over indentation settings"
+msgstr ""
+"Upřednostnit podpora řádku s režimem ve stylu vim/emacs před zabudovaným "
+"nastavením"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:4
+msgid "Enable smart brace completion"
+msgstr "Povolit inteligentní doplňování složených závorek"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:5
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:3
+msgid "Brace indentation size in spaces:"
+msgstr "Velikost odsazení závorek v mezerách:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:6
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:4
+msgid "Statement indentation size in spaces:"
+msgstr "Velikost odsazení v mezerách:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:7
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:5
+msgid "Indentation parameters"
+msgstr "Parametry odsazení"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:8
+msgid "Line up parentheses"
+msgstr "Zarovnání závorek"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:9
+msgid "Indent:"
+msgstr "Odsazení:"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
+msgid "Parenthesis indentation"
+msgstr "Odsazení závorek"
+
+#. ANJUTA_STOCK_AUTOINDENT,
+#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-python-style/plugin.c:206
+msgid "Auto-Indent"
+msgstr "Automatické-odsazování"
+
+#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-python-style/plugin.c:207
+msgid "Auto-indent current line or selection based on indentation settings"
+msgstr ""
+"Automaticky odsadit aktuální řádek nebo výběr podle nastavení odsazování"
+
+#: ../plugins/indentation-c-style/plugin.c:510
+#: ../plugins/language-support-cpp-java/plugin.c:1126
+msgid "C++/Java Assistance"
+msgstr "Průvodce projektem v jazyce C++/Java"
+
+#: ../plugins/indentation-c-style/plugin.c:607
+#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-python-style/plugin.c:328
+#: ../plugins/indentation-python-style/plugin.c:337
+msgid "Indentation"
+msgstr "Odsazování"
+
+#: ../plugins/indentation-python-style/anjuta-indentation-python-style.ui.h:2
+msgid "Enable adaptive indentation"
+msgstr "Povolit inteligentní odsazování"
+
+#: ../plugins/indentation-python-style/plugin.c:227
+#: ../plugins/language-support-python/plugin.c:428
+msgid "Python Assistance"
+msgstr "Průvodce projektem v jazyce Python"
+
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
 msgid "Error: cant bind port"
@@ -5854,180 +5879,123 @@ msgstr ""
 "automatické odsazování atd."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:1
-msgid "Enable smart indentation"
-msgstr "Povolit inteligentní odsazování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-msgid "Leading asterisk in multi-line comment"
-msgstr "Úvodní hvězdička ve víceřádkovém komentáři"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-msgid "Prefer vim/emacs modelines over indentation settings"
-msgstr ""
-"Upřednostnit podpora řádku s režimem ve stylu vim/emacs před zabudovaným "
-"nastavením"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:3
-msgid "Brace indentation size in spaces:"
-msgstr "Velikost odsazení závorek v mezerách:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:4
-msgid "Statement indentation size in spaces:"
-msgstr "Velikost odsazení v mezerách:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:5
-msgid "Indentation parameters"
-msgstr "Parametry odsazení"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-msgid "Line up parentheses"
-msgstr "Zarovnání závorek"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-msgid "Indent:"
-msgstr "Odsazení:"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
-msgid "Parenthesis indentation"
-msgstr "Odsazení závorek"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:6
-msgid "Smart Indentation"
-msgstr "Inteligentní odsazování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:7
-msgid "Enable code completion"
-msgstr "Zapnout dokončování kódu"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:8
-msgid "Add a space after function call autocompletion"
-msgstr "Přidávat mezeru za volání funkce při automatickém dokončování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:13
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:9
-msgid "Add '(' after function call autocompletion"
-msgstr "Přidávat „(“ za volání funkce při automatickém dokončování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:14
-msgid "Add ')' after function call autocompletion"
-msgstr "Přidávat „)“ za volání funkce při automatickém dokončování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:15
-msgid "Enable smart brace completion"
-msgstr "Povolit inteligentní doplňování složených závorek"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:16
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:10
-msgid "Autocompletion"
-msgstr "Automatické dokončování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:17
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:11
-msgid "Show calltips"
-msgstr "Zobrazovat nápovědu k volání funkce"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:18
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:12
-msgid "Calltips"
-msgstr "Nápověda volání"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:19
-msgid "Auto-complete"
-msgstr "Automatické dokončování"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:20
 msgid "Automatically load required libraries of the project"
 msgstr "Automaticky nahrát knihovny, které projekt vyžaduje"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:21
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Load API tags for C standard library"
 msgstr "Nahrát značky API ze standardní knihovny C"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:22
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Load API tags for C++ standard template library"
 msgstr "Nahrát značky API pro standardní knihovnu šablon C++"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:23
-msgid "API Tags (C/C++)"
-msgstr "Značky API (C/C++)"
-
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
-msgid "C/C++"
-msgstr "C/C++"
-
-#: ../plugins/language-support-cpp-java/plugin.c:959
+#: ../plugins/language-support-cpp-java/plugin.c:682
 msgid "Code added for widget."
 msgstr "Kód přidaný widgetu."
 
-#. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/language-support-cpp-java/plugin.c:1418
-#: ../plugins/language-support-python/plugin.c:458
-msgid "Auto-Indent"
-msgstr "Automatické-odsazování"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1419
-#: ../plugins/language-support-python/plugin.c:459
-msgid "Auto-indent current line or selection based on indentation settings"
-msgstr ""
-"Automaticky odsadit aktuální řádek nebo výběr podle nastavení odsazování"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1425
+#: ../plugins/language-support-cpp-java/plugin.c:1079
 msgid "Comment/Uncomment"
 msgstr "Zakomentovat/odkomentovat"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1426
+#: ../plugins/language-support-cpp-java/plugin.c:1080
 msgid "Comment or uncomment current selection"
 msgstr "Zakomentovat nebo odkomentovat aktuální výběr"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1431
+#: ../plugins/language-support-cpp-java/plugin.c:1085
 msgid "Swap .h/.c"
 msgstr "Přepnout .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1432
+#: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "Prohodit hlavičkový a zdrojový soubory v C"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1472
-msgid "C++/Java Assistance"
-msgstr "Průvodce projektem v jazyce C++/Java"
-
-#: ../plugins/language-support-cpp-java/plugin.c:1711
-#: ../plugins/language-support-cpp-java/plugin.c:1745
-msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1374
+msgid "API Tags (C/C++)"
+msgstr "Značky API (C/C++)"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "JS Find dirs"
-msgstr "Složky k vyhledání JS"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:1
+msgid "Enable code completion"
+msgstr "Zapnout dokončování kódu"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-msgid "Gir repository's directory:   "
-msgstr "Složka repozitáře Gir:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:2
+msgid "Add a space after function call autocompletion"
+msgstr "Přidávat mezeru za volání funkce při automatickém dokončování"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-msgid "Gjs repository's directory:   "
-msgstr "Složka repozitáře Gjs:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:3
+msgid "Add '(' after function call autocompletion"
+msgstr "Přidávat „(“ za volání funkce při automatickém dokončování"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-msgid "Min character for completion "
-msgstr "Min. počet znaků pro dokončování "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:4
+msgid "Add ')' after function call autocompletion"
+msgstr "Přidávat „)“ za volání funkce při automatickém dokončování"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:5
+msgid "Autocompletion"
+msgstr "Automatické dokončování"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:6
+msgid "Show calltips"
+msgstr "Zobrazovat nápovědu k volání funkce"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:7
+msgid "Calltips"
+msgstr "Nápověda volání"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:8
 msgid "Highlight missed semicolon"
 msgstr "Zvýrazňovat chybějící středníky"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-msgid "Add brace after function call autocompletion"
-msgstr ""
-"Přidávat složenou závorku za volání funkce při automatickém dokončování"
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
+msgid "Highlights"
+msgstr "Zvýrazňování"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:10
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Autocomplete"
+msgstr "Automatické dokončování"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:11
+msgid "JS Find dirs"
+msgstr "Složky k vyhledání JS"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
+msgid "Gir repository's directory: "
+msgstr "Složka repozitáře Gir:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
+msgid "Gjs repository's directory: "
+msgstr "Složka repozitáře Gjs:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
+msgid "Min character for completion: "
+msgstr "Min. počet znaků pro dokončení: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
+msgid "Environment"
+msgstr "Prostředí"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -6037,20 +6005,25 @@ msgstr "Zásuvný modul podpory jazyka JS"
 msgid "JavaScript Support Plugin"
 msgstr "Zásuvný modul podpory jazyka JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:329
-#: ../plugins/language-support-js/plugin.c:338
+#: ../plugins/language-support-js/plugin.c:370
+#: ../plugins/language-support-js/plugin.c:383
+#: ../plugins/language-support-js/plugin.c:417
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:394
-msgid "JS"
-msgstr "JS"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+msgid "Path: "
+msgstr "Cesta:"
 
-#: ../plugins/language-support-python/plugin.c:85
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
+msgid "Interpreter"
+msgstr "Interpretr"
+
+#: ../plugins/language-support-python/plugin.c:73
 msgid "Python support warning"
 msgstr "Varování podpory jazyka Python"
 
-#: ../plugins/language-support-python/plugin.c:93
+#: ../plugins/language-support-python/plugin.c:81
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -6063,63 +6036,29 @@ msgstr ""
 "v souborech python. Nainstalujte ji prosím a rovněž zkontrolujte cestu v "
 "předvolbách."
 
-#: ../plugins/language-support-python/plugin.c:96
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Do not show that warning again"
 msgstr "Příště toto varování nezobrazovat"
 
-#: ../plugins/language-support-python/plugin.c:515
-msgid "Python Assistance"
-msgstr "Průvodce projektem v jazyce Python"
-
-#: ../plugins/language-support-python/plugin.c:624
-#: ../plugins/language-support-python/plugin.c:633
-#: ../plugins/language-support-python/python-assist.c:984
+#: ../plugins/language-support-python/plugin.c:561
+#: ../plugins/language-support-python/plugin.c:574
+#: ../plugins/language-support-python/python-assist.c:792
 msgid "Python"
 msgstr "Python"
 
-#: ../plugins/language-support-python/python-plugin.plugin.in.h:1
-#| msgid "Python support warning"
-msgid "Python support Plugin"
-msgstr "Zásuvný modul podpory jazyka Python"
-
-#: ../plugins/language-support-python/python-plugin.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
-msgid "Python support plugin for code completion, auto indentation etc."
-msgstr ""
-"Zásuvný modul s podporou jazyka Python umožňující dokončování kódu, "
-"automatické odsazování atd."
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:2
-msgid "Enable adaptive indentation"
-msgstr "Povolit inteligentní odsazování"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:13
-msgid "Autocomplete"
-msgstr "Automatické dokončování"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:14
-msgid "Path: "
-msgstr "Cesta:"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:15
-msgid "Interpreter"
-msgstr "Interpretr"
-
-#: ../plugins/language-support-python/python-plugin-properties.ui.h:16
-msgid "Environment"
-msgstr "Prostředí"
-
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
-#| msgid "JS Support Plugin"
 msgid "Vala support Plugin"
 msgstr "Zásuvný modul podpory jazyka Vala"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Vala support plugin, adds code completion."
 msgstr "Zásuvný modul s podporou jazyka Vala umožňující dokončování kódu."
+
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
+#: ../plugins/parser-cxx/plugin.c:269 ../plugins/parser-cxx/plugin.c:282
+msgid "Auto-complete"
+msgstr "Automatické dokončování"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6304,6 +6243,10 @@ msgstr "Přidat _balíček"
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Packages"
 msgstr "Balíčky"
+
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+msgid "C/C++"
+msgstr "C/C++"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -6856,7 +6799,7 @@ msgstr "Aktualizovat pohled na projekt…"
 #: ../plugins/project-manager/plugin.c:1624
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2137
+#: ../plugins/symbol-db/plugin.c:2135
 msgid "Project"
 msgstr "Projekt"
 
@@ -7927,6 +7870,18 @@ msgstr "Pouze sdílené"
 msgid "Only Static"
 msgstr "Pouze statické"
 
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
+msgid "License"
+msgstr "Licence"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
+msgid "Select code license"
+msgstr "Vybrat licenci kódu"
+
+#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
+msgid "No license"
+msgstr "Žádná licence"
+
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:1
 msgid "Generic (Minimal)"
 msgstr "Obecný (minimální)"
@@ -8055,20 +8010,7 @@ msgstr "Xlib"
 msgid "A generic Xlib project"
 msgstr "Obecný projekt oid Xlib"
 
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:1
-msgid "License"
-msgstr "Licence"
-
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:2
-msgid "Select code license"
-msgstr "Vybrat licenci kódu"
-
-#: ../plugins/project-wizard/templates/licenses.tpl.in.h:6
-msgid "No license"
-msgstr "Žádná licence"
-
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
-#| msgid "Python Module"
 msgid "Python loader"
 msgstr "Zavaděč jazyka Python"
 
@@ -8400,7 +8342,6 @@ msgid "Tab size in spaces:"
 msgstr "Velikost tabulátoru v mezerách:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
-#| msgid "Brace indentation size in spaces:"
 msgid "Indentation size in spaces:"
 msgstr "Velikost odsazení v mezerách:"
 
@@ -8517,7 +8458,7 @@ msgstr "Nastavení zobrazení v editoru"
 msgid "GtkSourceView Editor"
 msgstr "Editor GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:567
+#: ../plugins/sourceview/sourceview.c:569
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8526,7 +8467,7 @@ msgstr ""
 "Soubor „%s“ na disku je novější než aktuálně načtený.\n"
 "Chcete jej znovu načíst?"
 
-#: ../plugins/sourceview/sourceview.c:599
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8536,18 +8477,18 @@ msgstr ""
 "Chcete jej uzavřít?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:632
+#: ../plugins/sourceview/sourceview.c:634
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Nelze otevřít %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:686
+#: ../plugins/sourceview/sourceview.c:688
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Soubor „%s“ je jen pro čtení! Přesto upravit?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:748
+#: ../plugins/sourceview/sourceview.c:750
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Nelze uložit %s: %s"
@@ -8602,7 +8543,7 @@ msgstr "Starter"
 msgid "Welcome page with most common actions."
 msgstr "Uvítací stránka s většinou nejpoužívanějších akcí."
 
-#: ../plugins/starter/plugin.c:285
+#: ../plugins/starter/plugin.c:286
 msgid "Start"
 msgstr "Úvod"
 
@@ -9261,23 +9202,23 @@ msgstr[0] "%d z %d souboru proskenován"
 msgstr[1] "%d ze %d souborů proskenováno"
 msgstr[2] "%d z %d souborů proskenováno"
 
-#: ../plugins/symbol-db/plugin.c:1742
+#: ../plugins/symbol-db/plugin.c:1740
 msgid "Populating symbol database…"
 msgstr "Naplňuje se databáze symbolů…"
 
-#: ../plugins/symbol-db/plugin.c:2122 ../plugins/symbol-db/plugin.c:2207
+#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
 msgid "Symbols"
 msgstr "Symboly"
 
-#: ../plugins/symbol-db/plugin.c:2216
+#: ../plugins/symbol-db/plugin.c:2214
 msgid "SymbolDb popup actions"
 msgstr "Kontextové akce SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2224
+#: ../plugins/symbol-db/plugin.c:2222
 msgid "SymbolDb menu actions"
 msgstr "Akce nabídky SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2537 ../plugins/symbol-db/plugin.c:2555
+#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Databáze symbolů"
@@ -9857,7 +9798,6 @@ msgid "- Integrated Development Environment"
 msgstr "- integrované vývojové prostředí"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
-#| msgid "Use tabs for indentation"
 msgid "Use tabulation for indentation"
 msgstr "Používat pro odsazování tabulátory"
 
