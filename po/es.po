@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-07-27 13:31+0000\n"
+"POT-Creation-Date: 2012-07-30 14:37+0000\n"
 "PO-Revision-Date: 2012-07-29 18:55+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -463,7 +463,6 @@ msgstr "Categoría"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
@@ -561,16 +560,16 @@ msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"Hay un elemento con cambios sin guardar. ¿Desea guardar los cambios antes de "
+"Hay un elemento con cambios sin guardar. ¿Quiere guardar los cambios antes de "
 "cerrar?"
 msgstr[1] ""
-"Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios antes "
+"Hay %d elementos con cambios sin guardar. ¿Quiere guardar los cambios antes "
 "de cerrar?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr ""
-"Hay un elemento con cambios sin guardar. ¿Desea guardar los cambios antes de "
+"Hay un elemento con cambios sin guardar. ¿Quiere guardar los cambios antes de "
 "cerrar?"
 
 #: ../libanjuta/anjuta-tree-combo.c:1079
@@ -2188,50 +2187,6 @@ msgstr "«Setter»"
 msgid "XML description of the user interface"
 msgstr "Descripción XML de la interfaz de usuario"
 
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-msgid "Code Analyzer"
-msgstr "Analizador de código"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Analizar el código con el analizador Clang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Activar el analizador de código CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
-msgstr ""
-"Debe reconfigurar en proyecto después de activar esta opción. Ejecute "
-"Construir->Configurar"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "analizador de ccc:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "analizador de c++:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Rutas de CLang"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
-msgstr ""
-"No se pudo encontrar el analizador «clang», compruebe si está instalado y si "
-"las rutas están correctamente configuradas en las preferencias"
-
-#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Analizador CLang"
-
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
 msgstr "Complemento CVS"
@@ -3590,7 +3545,7 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"¿Seguro que desea recargar «%s». ?\n"
+"¿Seguro que quiere recargar «%s». ?\n"
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:324
@@ -3648,13 +3603,13 @@ msgid ""
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 "El archivo «%s» ya existe.\n"
-"¿Desea sobreescribirlo con el que está intentando guardar?"
+"¿Quiere sobreescribirlo con el que está intentando guardar?"
 
 #: ../plugins/document-manager/anjuta-docman.c:731
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/document-manager/anjuta-docman.c:1447
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
@@ -5484,7 +5439,7 @@ msgstr "Crear una rama"
 
 #: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
 msgid "Delete branches"
-msgstr "Borrar ramas"
+msgstr "Eliminar ramas"
 
 #: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
 msgid "Switch to the selected branch"
@@ -6049,7 +6004,6 @@ msgid "Highlight missed semicolon"
 msgstr "Resaltar punto y coma perdido"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
-#| msgid "Highlight All"
 msgid "Highlights"
 msgstr "Resaltados"
 
@@ -6063,17 +6017,14 @@ msgid "JS Find dirs"
 msgstr "Carpetas de búsqueda de JS"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
-#| msgid "Gir repository's directory:   "
 msgid "Gir repository's directory: "
 msgstr "Carpeta gir del repositorio: "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
-#| msgid "Gjs repository's directory:   "
 msgid "Gjs repository's directory: "
 msgstr "Carpeta gjs del repositorio: "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
-#| msgid "Min character for completion "
 msgid "Min character for completion: "
 msgstr "Caracteres mínimos para autocompletado: "
 
@@ -9978,6 +9929,41 @@ msgstr "Sólo iconos"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Sólo texto"
+
+#~ msgid "Code Analyzer"
+#~ msgstr "Analizador de código"
+
+#~ msgid "Analyze code with the clang-analyzer framework"
+#~ msgstr "Analizar el código con el analizador Clang"
+
+#~ msgid "Enable CLang code analyzer"
+#~ msgstr "Activar el analizador de código CLang"
+
+#~ msgid ""
+#~ "The project needs to be reconfigured after enabling this option. Please "
+#~ "run Build->Configure!"
+#~ msgstr ""
+#~ "Debe reconfigurar en proyecto después de activar esta opción. Ejecute "
+#~ "Construir->Configurar"
+
+#~ msgid "ccc-analyzer:"
+#~ msgstr "analizador de ccc:"
+
+#~ msgid "c++-analyzer:"
+#~ msgstr "analizador de c++:"
+
+#~ msgid "CLang Paths"
+#~ msgstr "Rutas de CLang"
+
+#~ msgid ""
+#~ "Couldn't find clang analyzer, please check if it is installed and if the "
+#~ "paths are configured correctly in the preferences"
+#~ msgstr ""
+#~ "No se pudo encontrar el analizador «clang», compruebe si está instalado y "
+#~ "si las rutas están correctamente configuradas en las preferencias"
+
+#~ msgid "CLang Analyzer"
+#~ msgstr "Analizador CLang"
 
 #~ msgid "Indentation C Style"
 #~ msgstr "Sangrado estilo C"
