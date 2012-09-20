@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-04 21:13+0300\n"
-"PO-Revision-Date: 2012-07-04 21:12+0300\n"
+"POT-Creation-Date: 2012-09-20 05:52+0300\n"
+"PO-Revision-Date: 2012-09-20 05:52+0300\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -336,7 +336,7 @@ msgstr "Неуспех при изпълнението на команда: „%
 msgid "execvp failed"
 msgstr "Функцията „execvp“ е неуспешна"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
 msgid "Anjuta Shell"
 msgstr "Обвивка на Anjuta"
 
@@ -344,12 +344,12 @@ msgstr "Обвивка на Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Обвивката на Anjuta, която ще съдържа приставката"
 
-#: ../libanjuta/anjuta-plugin-manager.c:737
+#: ../libanjuta/anjuta-plugin-manager.c:732
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Приставката „%s“ не иска да бъде изключена"
 
-#: ../libanjuta/anjuta-plugin-manager.c:768
+#: ../libanjuta/anjuta-plugin-manager.c:763
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -362,25 +362,25 @@ msgstr ""
 "грешка довело до това бе:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:900
 msgid "Load"
 msgstr "Зареждане"
 
-#: ../libanjuta/anjuta-plugin-manager.c:928
-#: ../libanjuta/anjuta-plugin-manager.c:2007
+#: ../libanjuta/anjuta-plugin-manager.c:923
+#: ../libanjuta/anjuta-plugin-manager.c:2002
 msgid "Available Plugins"
 msgstr "Налични приставки"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1041 ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
 msgstr "Предпочитани приставки"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1176
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
 msgstr ""
 "Показване само на приставките, които могат да се включват от потребителя"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1216
+#: ../libanjuta/anjuta-plugin-manager.c:1211
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -390,67 +390,67 @@ msgstr ""
 "предпочитана приставка ще доведе до диалогов прозорец за избиране на друга "
 "приставка."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1242
+#: ../libanjuta/anjuta-plugin-manager.c:1237
 msgid "Forget selected plugin"
 msgstr "Премахване на избраната приставка"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1376
-#: ../libanjuta/anjuta-plugin-manager.c:1527 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1371
+#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Избор на приставка"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1377
+#: ../libanjuta/anjuta-plugin-manager.c:1372
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Изберете приставка, за да се включи"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1391
+#: ../libanjuta/anjuta-plugin-manager.c:1386
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Липсва приставка, способна да зарежда други приставки написани на %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1528
+#: ../libanjuta/anjuta-plugin-manager.c:1523
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Изберете приставка, която да се включи</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2034
+#: ../libanjuta/anjuta-plugin-manager.c:2029
 msgid "Remember this selection"
 msgstr "Запомняне на избора"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2365
+#: ../libanjuta/anjuta-plugin-manager.c:2360
 msgid "Profiles"
 msgstr "Профили"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2361
 msgid "Current stack of profiles"
 msgstr "Текущи профили"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2371
+#: ../libanjuta/anjuta-plugin-manager.c:2366
 msgid "Available plugins"
 msgstr "Налични приставки"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2372
+#: ../libanjuta/anjuta-plugin-manager.c:2367
 msgid "Currently available plugins found in plugin paths"
 msgstr "Текущи приставки, открити в местоположенията за приставки"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2373
 msgid "Activated plugins"
 msgstr "Включени приставки"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin-manager.c:2374
 msgid "Currently activated plugins"
 msgstr "Приставки, включени в момента"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2385
+#: ../libanjuta/anjuta-plugin-manager.c:2380
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Обвивка на Anjuta, за която са предназначени приставките"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2393
+#: ../libanjuta/anjuta-plugin-manager.c:2388
 msgid "Anjuta Status"
 msgstr "Състояние на Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2394
+#: ../libanjuta/anjuta-plugin-manager.c:2389
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr ""
 "Състояние на Anjuta, което да се ползва за зареждане и изключване на "
@@ -458,7 +458,7 @@ msgstr ""
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2554
+#: ../libanjuta/anjuta-plugin-manager.c:2549
 msgid "Loading:"
 msgstr "Зареждане:"
 
@@ -469,7 +469,6 @@ msgstr "Категория"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/code-analyzer/code-analyzer.ui.h:3
 #: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
 #: ../src/preferences.ui.h:9
 msgid "General"
@@ -642,19 +641,19 @@ msgstr ""
 "Инсталирайте го."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1172
+#: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 "Неуспех при намирането на терминален емулатор — ще се използва xterm, макар "
 "и да не проработи"
 
-#: ../libanjuta/anjuta-utils.c:1208 ../libanjuta/anjuta-utils.c:1212
-#: ../libanjuta/anjuta-utils.c:1240 ../libanjuta/anjuta-utils.c:1244
+#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
+#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Неуспех при изпълнение на команда: %s (използвана обвивка %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2355
+#: ../libanjuta/anjuta-utils.c:2351
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Неуспех при зареждането файл с потребителски интерфейс: %s"
@@ -1473,13 +1472,13 @@ msgstr ""
 msgid "Command canceled by user"
 msgstr "Командата е прекратена от потребителя"
 
-#: ../plugins/build-basic-autotools/build.c:879
+#: ../plugins/build-basic-autotools/build.c:881
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "Не може да се компилира „%s“: няма дефинирано правило за този тип файл."
 
-#: ../plugins/build-basic-autotools/build.c:1041
+#: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Не може да се конфигурира проекта: липсва скрипт „configure“ в %s."
@@ -1685,117 +1684,117 @@ msgstr "Успешно завършване\n"
 msgid "Build %d: %s"
 msgstr "Компилация №%d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1664
-#: ../plugins/build-basic-autotools/plugin.c:1750
-#: ../plugins/build-basic-autotools/plugin.c:1760
-#: ../plugins/build-basic-autotools/plugin.c:1778
-#: ../plugins/build-basic-autotools/plugin.c:1788
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1665
+#: ../plugins/build-basic-autotools/plugin.c:1751
+#: ../plugins/build-basic-autotools/plugin.c:1761
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build"
 msgstr "_Компилация"
 
-#: ../plugins/build-basic-autotools/plugin.c:1668
+#: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
 msgstr "_Компилиране на проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
 msgstr "Компилиране на целия проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1674
+#: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
 msgstr "_Инсталиране на проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
 msgstr "Инсталиране на целия проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1680
+#: ../plugins/build-basic-autotools/plugin.c:1681
 msgid "_Check Project"
 msgstr "_Проверка на проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
+#: ../plugins/build-basic-autotools/plugin.c:1682
 msgid "Check whole project"
 msgstr "Проверка на целия проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1686
+#: ../plugins/build-basic-autotools/plugin.c:1687
 msgid "_Clean Project"
 msgstr "_Изчистване на проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1688
 msgid "Clean whole project"
 msgstr "Изчистване на целия проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
 msgstr "_Конфигуриране на проект…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
 msgstr "Конфигуриране на проект"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
 msgstr "Изграждане на _архив"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
 msgstr "Изграждане на архив за разпространение"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
 msgstr "Компилиране на _модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
 msgstr "Компилиране на модула, към който принадлежи текущия файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1710
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
 msgstr "И_нсталиране на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1712
 msgid "Install module associated with current file"
 msgstr "Инсталиране на модула, към който принадлежи текущия файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1716
+#: ../plugins/build-basic-autotools/plugin.c:1717
 msgid "_Check Module"
 msgstr "_Проверка на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1718
 msgid "Check module associated with current file"
 msgstr "Проверка на модула, към който принадлежи текущия файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1722
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "_Clean Module"
 msgstr "И_зчистване на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1724
 msgid "Clean module associated with current file"
 msgstr "Изчистване на модула, към който принадлежи текущия файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1728
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Co_mpile File"
 msgstr "К_омпилиране на файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
 msgstr "Компилиране на текущия файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1734
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
 msgstr "Избор на конфигурация"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1736
 msgid "Select current configuration"
 msgstr "Избор на текущата конфигурация"
 
-#: ../plugins/build-basic-autotools/plugin.c:1740
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Remove Configuration"
 msgstr "Премахване на файловете за конфигурация"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1742
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
@@ -1805,98 +1804,98 @@ msgstr ""
 # „Compile“ == „Build“ == „компилиране“ за 99% от проектите, които могат
 # да се разработват с Anjuta.  „Изграждане“ сякаш не е разпространено
 # сред нашите програмисти.
-#: ../plugins/build-basic-autotools/plugin.c:1754
-#: ../plugins/build-basic-autotools/plugin.c:1782
+#: ../plugins/build-basic-autotools/plugin.c:1755
+#: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "_Compile"
 msgstr "Ком_пилиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:1755
-#: ../plugins/build-basic-autotools/plugin.c:1783
+#: ../plugins/build-basic-autotools/plugin.c:1756
+#: ../plugins/build-basic-autotools/plugin.c:1784
 msgid "Compile file"
 msgstr "Компилиране на файл"
 
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1789
+#: ../plugins/build-basic-autotools/plugin.c:1762
+#: ../plugins/build-basic-autotools/plugin.c:1790
 msgid "Build module"
 msgstr "Компилиране на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1766
-#: ../plugins/build-basic-autotools/plugin.c:1794
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1767
+#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install"
 msgstr "_Инсталиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
+#: ../plugins/build-basic-autotools/plugin.c:1768
+#: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
 msgstr "Инсталиране на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1772
-#: ../plugins/build-basic-autotools/plugin.c:1806
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1773
+#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean"
 msgstr "_Изчистване"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1808
 msgid "Clean module"
 msgstr "Изчистване на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1801
 msgid "_Check"
 msgstr "_Проверка"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
+#: ../plugins/build-basic-autotools/plugin.c:1802
 msgid "Check module"
 msgstr "Проверка на модул"
 
-#: ../plugins/build-basic-autotools/plugin.c:1812
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "_Cancel command"
 msgstr "Коман_да за прекъсване"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
 msgstr "Команда за прекъсване на компилацията"
 
-#: ../plugins/build-basic-autotools/plugin.c:1870
+#: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Компилиране (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1877
+#: ../plugins/build-basic-autotools/plugin.c:1878
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Инсталиране (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1884
+#: ../plugins/build-basic-autotools/plugin.c:1885
 #, c-format
 msgid "_Clean (%s)"
 msgstr "И_зчистване (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ко_мпилиране на (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1892
+#: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
 msgstr "Ко_мпилиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:2488
+#: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
 msgstr "Команди за компилиране"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2497
+#: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
 msgstr "Команди за компилиране"
 
-#: ../plugins/build-basic-autotools/plugin.c:2916
-#: ../plugins/build-basic-autotools/plugin.c:2924
+#: ../plugins/build-basic-autotools/plugin.c:2915
+#: ../plugins/build-basic-autotools/plugin.c:2923
 msgid "Build Autotools"
 msgstr "Конфигурация и компилация"
 
@@ -2200,50 +2199,6 @@ msgstr "Функция за задаване на стойност"
 #: ../plugins/class-gen/window.c:1234
 msgid "XML description of the user interface"
 msgstr "Описание на потребителския интерфейс в XML"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:1
-msgid "Code Analyzer"
-msgstr "Анализатор на код"
-
-#: ../plugins/code-analyzer/code-analyzer.plugin.in.h:2
-msgid "Analyze code with the clang-analyzer framework"
-msgstr "Анализиране на код чрез clang-analyzer"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:1
-msgid "Enable CLang code analyzer"
-msgstr "Включване на анализатора на кода на CLang"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:2
-msgid ""
-"The project needs to be reconfigured after enabling this option. Please run "
-"Build->Configure!"
-msgstr ""
-"След включването на настройката трябва да конфигурирате проекта наново като "
-"изберете от менюто Компилация->Конфигуриране"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:4
-msgid "ccc-analyzer:"
-msgstr "Анализатор на ccc"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:5
-msgid "c++-analyzer:"
-msgstr "Анализатор на c++:"
-
-#: ../plugins/code-analyzer/code-analyzer.ui.h:6
-msgid "CLang Paths"
-msgstr "Пътища на CLang"
-
-#: ../plugins/code-analyzer/plugin.c:157
-msgid ""
-"Couldn't find clang analyzer, please check if it is installed and if the "
-"paths are configured correctly in the preferences"
-msgstr ""
-"Анализаторът на CLang не може да бъде открит. Проверете дали е инсталиран и "
-"дали пътищата са указани правилно в настройките"
-
-#: ../plugins/code-analyzer/plugin.c:226 ../plugins/code-analyzer/plugin.c:234
-msgid "CLang Analyzer"
-msgstr "Анализатор на CLang"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "CVS Plugin"
@@ -3533,59 +3488,59 @@ msgstr "Документация за API"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Приставка за Devhelp."
 
-#: ../plugins/devhelp/plugin.c:206
+#: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
 msgstr "Търсене в ръководствата:"
 
-#: ../plugins/devhelp/plugin.c:227 ../plugins/document-manager/plugin.c:244
+#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Отиване до"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:234
 msgid "_API Reference"
 msgstr "_Документация за API"
 
-#: ../plugins/devhelp/plugin.c:238
+#: ../plugins/devhelp/plugin.c:236
 msgid "Browse API Pages"
 msgstr "Прелистване на документация за API"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:246
 msgid "_Context Help"
 msgstr "Помощ за _контекста"
 
-#: ../plugins/devhelp/plugin.c:250
+#: ../plugins/devhelp/plugin.c:248
 msgid "Search help for the current word in the editor"
 msgstr "Търсене в документацията за текущата дума в редактора"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:258
 msgid "_Search Help"
 msgstr "_Търсене в ръководствата"
 
-#: ../plugins/devhelp/plugin.c:262
+#: ../plugins/devhelp/plugin.c:260
 msgid "Search for a term in help"
 msgstr "Търсене на термин в документацията"
 
-#: ../plugins/devhelp/plugin.c:334
+#: ../plugins/devhelp/plugin.c:331
 msgid "Help operations"
 msgstr "Операции с документация"
 
 # FIXME API -> програмни интерфейси
-#: ../plugins/devhelp/plugin.c:353 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
 msgid "API Browser"
 msgstr "Разглеждане на програмните интерфейси"
 
 # Това е списъка на всички ръководства във формата на Devhelp.
-#: ../plugins/devhelp/plugin.c:364
+#: ../plugins/devhelp/plugin.c:361
 msgid "Contents"
 msgstr "Съдържание"
 
-#: ../plugins/devhelp/plugin.c:370 ../plugins/symbol-db/plugin.c:2140
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
 #: ../plugins/symbol-db/plugin.c:2192
 msgid "Search"
 msgstr "Търсене"
 
-#: ../plugins/devhelp/plugin.c:388 ../plugins/devhelp/plugin.c:475
+#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
 msgid "API"
 msgstr "Програмни интерфейси"
 
@@ -3686,7 +3641,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "_Замяна"
 
-#: ../plugins/document-manager/anjuta-docman.c:1448
+#: ../plugins/document-manager/anjuta-docman.c:1445
 msgid "[read-only]"
 msgstr "[само за четене]"
 
@@ -4086,8 +4041,8 @@ msgstr "Търсене чрез регулярен израз"
 #: ../plugins/document-manager/plugin.c:305
 #: ../plugins/indentation-c-style/plugin.c:463
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1094
-#: ../plugins/language-support-python/plugin.c:399 ../src/anjuta-actions.h:30
+#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Редактиране"
 
@@ -4409,16 +4364,16 @@ msgstr "Заместване"
 msgid "Replace all"
 msgstr "Заместване на всички"
 
-#: ../plugins/document-manager/search-files.c:596
+#: ../plugins/document-manager/search-files.c:616
 #: ../plugins/file-manager/file-view.c:662
 msgid "Filename"
 msgstr "Файл"
 
-#: ../plugins/document-manager/search-files.c:708
+#: ../plugins/document-manager/search-files.c:728
 msgid "All text files"
 msgstr "Всички текстови файлове"
 
-#: ../plugins/document-manager/search-files.c:849
+#: ../plugins/document-manager/search-files.c:871
 msgid "Find in files"
 msgstr "Търсене във файлове"
 
@@ -4458,7 +4413,7 @@ msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Тази функция не е реализирана за графични обекти от клас „%s“"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
-#: ../plugins/starter/plugin.c:167
+#: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Отваряне на „%s“"
@@ -5058,7 +5013,7 @@ msgstr "Пощенска кутия с кръпки за подаване:"
 msgid "Add signed off by line"
 msgstr "Добавяне на ред „Подписано от“"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
 msgid "Branches"
 msgstr "Клонове"
 
@@ -5430,7 +5385,7 @@ msgid "Merge"
 msgstr "Обединяване"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:700
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
 msgid "Git"
 msgstr "Git"
 
@@ -5816,27 +5771,27 @@ msgstr ""
 msgid "Branch"
 msgstr "Клон"
 
-#: ../plugins/git/plugin.c:696
+#: ../plugins/git/plugin.c:723
 msgid "Git Tasks"
 msgstr "Задачи по Git"
 
-#: ../plugins/git/plugin.c:758
+#: ../plugins/git/plugin.c:793
 msgid "Status"
 msgstr "Състояние"
 
-#: ../plugins/git/plugin.c:764
+#: ../plugins/git/plugin.c:799
 msgid "Log"
 msgstr "Журнал на подаването"
 
-#: ../plugins/git/plugin.c:775
+#: ../plugins/git/plugin.c:810
 msgid "Tags"
 msgstr "Етикети"
 
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:817
 msgid "Remotes"
 msgstr "Отдалечени клонове"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:823
 msgid "Stash"
 msgstr "Stash"
 
@@ -5956,7 +5911,7 @@ msgstr ""
 "настройките за отстъп"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#: ../plugins/language-support-cpp-java/plugin.c:1147
+#: ../plugins/language-support-cpp-java/plugin.c:1126
 msgid "C++/Java Assistance"
 msgstr "Поддръжка за C++/Java"
 
@@ -5972,7 +5927,7 @@ msgid "Enable adaptive indentation"
 msgstr "Включване на „умен“ отстъп"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#: ../plugins/language-support-python/plugin.c:450
+#: ../plugins/language-support-python/plugin.c:428
 msgid "Python Assistance"
 msgstr "Помощник за проекти на Python"
 
@@ -6013,126 +5968,130 @@ msgid "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgstr "Поддръжка на C++ и Java — автоматично дописване/отстъп и т.н."
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:1
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
-msgid "Enable code completion"
-msgstr "Включване на автоматичното дописване"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
-msgid "Add a space after function call autocompletion"
-msgstr "Добавяне на интервал след автоматично дописване"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
-msgid "Add '(' after function call autocompletion"
-msgstr "Добавяне на „(“ след автоматично дописване при извикване на функция"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:4
-msgid "Add ')' after function call autocompletion"
-msgstr "Добавяне на „)“ след автоматично дописване при извикване на функция"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:5
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
-msgid "Autocompletion"
-msgstr "Автоматично дописване"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:6
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
-msgid "Show calltips"
-msgstr "Показване на подсказки за аргументите на функциите"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:7
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
-#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
-msgid "Calltips"
-msgstr "Подсказки за аргументи на функцията"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:8
-#: ../plugins/language-support-vala/plugin.vala:655
-#: ../plugins/language-support-vala/plugin.vala:663
-msgid "Auto-complete"
-msgstr "Автоматично дописване"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:9
 msgid "Automatically load required libraries of the project"
 msgstr "Автоматично добавяне на необходимите библиотеки за проекта"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:10
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:2
 msgid "Load API tags for C standard library"
 msgstr ""
 "Зареждане на етикетите в програмните интерфейси на стандартната библиотека "
 "на C"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:11
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:3
 msgid "Load API tags for C++ standard template library"
 msgstr ""
 "Зареждане на етикетите в програмните интерфейси на стандартната библиотека "
 "на C++"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.ui.h:12
-msgid "API Tags (C/C++)"
-msgstr "Етикети на API (C/C++)"
-
-#: ../plugins/language-support-cpp-java/cpp-java-assist.c:1345
-msgid "C/C++"
-msgstr "C/C++"
-
-#: ../plugins/language-support-cpp-java/plugin.c:684
+#: ../plugins/language-support-cpp-java/plugin.c:682
 msgid "Code added for widget."
 msgstr "Код, добавен към графичен обект."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1100
+#: ../plugins/language-support-cpp-java/plugin.c:1079
 msgid "Comment/Uncomment"
 msgstr "Коментиране/раз-коментиране"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1101
+#: ../plugins/language-support-cpp-java/plugin.c:1080
 msgid "Comment or uncomment current selection"
 msgstr "Коментиране/раз-коментиране на избраното"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1106
+#: ../plugins/language-support-cpp-java/plugin.c:1085
 msgid "Swap .h/.c"
 msgstr "Размяна на .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1107
+#: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "Размяна на заглавните файлове на C и файловете с изходен код"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1385
-#: ../plugins/language-support-cpp-java/plugin.c:1419
-msgid "C/C++/Java/Vala"
-msgstr "C/C++/Java/Vala"
+#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1374
+msgid "API Tags (C/C++)"
+msgstr "Етикети на API (C/C++)"
 
-# FIXME/RFH: Почти всичко по отношение на JS в превода най-вероятно е
-# фундаментално сбъркано.
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:1
-msgid "JS Find dirs"
-msgstr "Папки за търсене на JS"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:1
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:1
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:1
+msgid "Enable code completion"
+msgstr "Включване на автоматичното дописване"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:2
-msgid "Gir repository's directory:   "
-msgstr "Коренова папка на хранилището на Gir:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:2
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:2
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:2
+msgid "Add a space after function call autocompletion"
+msgstr "Добавяне на интервал след автоматично дописване"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:3
-msgid "Gjs repository's directory:   "
-msgstr "Коренова папка на Gjs:   "
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:3
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:3
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:3
+msgid "Add '(' after function call autocompletion"
+msgstr "Добавяне на „(“ след автоматично дописване при извикване на функция"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:4
-msgid "Min character for completion "
-msgstr "Знак за автоматично дописване"
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:4
+msgid "Add ')' after function call autocompletion"
+msgstr "Добавяне на „)“ след автоматично дописване при извикване на функция"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:5
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:5
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:4
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:5
+msgid "Autocompletion"
+msgstr "Автоматично дописване"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:6
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:5
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:6
+msgid "Show calltips"
+msgstr "Показване на подсказки за аргументите на функциите"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:7
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
+#: ../plugins/language-support-vala/anjuta-vala.ui.h:6
+#: ../plugins/parser-cxx/anjuta-parser-cxx.ui.h:7
+msgid "Calltips"
+msgstr "Подсказки за аргументи на функцията"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:8
 msgid "Highlight missed semicolon"
 msgstr "Оцветяване на липсващото двоеточие"
 
-#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:6
-msgid "Add brace after function call autocompletion"
-msgstr "Добавяне на голяма скоба след автоматично дописване"
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
+msgid "Highlights"
+msgstr "Оцветяване"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:10
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+msgid "Autocomplete"
+msgstr "Автоматично дописване"
+
+# FIXME/RFH: Почти всичко по отношение на JS в превода най-вероятно е
+# фундаментално сбъркано.
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:11
+msgid "JS Find dirs"
+msgstr "Папки за търсене на JS"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
+msgid "Gir repository's directory: "
+msgstr "Папка на хранилището на Gir: "
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
+msgid "Gjs repository's directory: "
+msgstr "Папка на хранилището на Gjs:"
+
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
+msgid "Min character for completion: "
+msgstr "Минимален брой знаци за дописване: "
+
+# FIXME обкръжение -> среда
+#: ../plugins/language-support-js/anjuta-language-javascript.ui.h:15
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:11
+msgid "Environment"
+msgstr "Среда"
 
 #: ../plugins/language-support-js/js-support-plugin.plugin.in.h:1
 msgid "JS Support Plugin"
@@ -6142,37 +6101,25 @@ msgstr "Приставка за поддръжка на JS"
 msgid "JavaScript Support Plugin"
 msgstr "Приставка за поддръжка на JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:329
-#: ../plugins/language-support-js/plugin.c:338
+#: ../plugins/language-support-js/plugin.c:370
+#: ../plugins/language-support-js/plugin.c:383
+#: ../plugins/language-support-js/plugin.c:417
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:394
-msgid "JS"
-msgstr "JS"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:7
-msgid "Autocomplete"
-msgstr "Автоматично дописване"
-
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:8
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
 msgid "Path: "
 msgstr "Път:"
 
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:9
+#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
 msgid "Interpreter"
 msgstr "Интерпретатор"
 
-# FIXME обкръжение -> среда
-#: ../plugins/language-support-python/anjuta-language-support-python.ui.h:10
-msgid "Environment"
-msgstr "Среда"
-
-#: ../plugins/language-support-python/plugin.c:74
+#: ../plugins/language-support-python/plugin.c:73
 msgid "Python support warning"
 msgstr "Предупреждение за поддръжката на Python"
 
-#: ../plugins/language-support-python/plugin.c:82
+#: ../plugins/language-support-python/plugin.c:81
 msgid ""
 "Either python path is wrong or python-rope (http://rope.sf.net) libraries\n"
 "aren't installed. Both are required for autocompletion in python files.\n"
@@ -6185,13 +6132,13 @@ msgstr ""
 "Проверете дали библиотеките са инсталирани и дали пътят в настройките е "
 "правилен."
 
-#: ../plugins/language-support-python/plugin.c:85
+#: ../plugins/language-support-python/plugin.c:84
 msgid "Do not show that warning again"
 msgstr "Предупреждението да не се показва отново"
 
-#: ../plugins/language-support-python/plugin.c:557
-#: ../plugins/language-support-python/plugin.c:566
-#: ../plugins/language-support-python/python-assist.c:982
+#: ../plugins/language-support-python/plugin.c:561
+#: ../plugins/language-support-python/plugin.c:574
+#: ../plugins/language-support-python/python-assist.c:792
 msgid "Python"
 msgstr "Python"
 
@@ -6202,6 +6149,12 @@ msgstr "Приставка за поддръжка на Vala"
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
 msgid "Vala support plugin, adds code completion."
 msgstr "Поддръжка на Vala — автоматично дописване."
+
+#: ../plugins/language-support-vala/plugin.vala:655
+#: ../plugins/language-support-vala/plugin.vala:663
+#: ../plugins/parser-cxx/plugin.c:269 ../plugins/parser-cxx/plugin.c:282
+msgid "Auto-complete"
+msgstr "Автоматично дописване"
 
 #: ../plugins/message-view/anjuta-message-manager.plugin.in.h:1
 msgid "Message Manager"
@@ -6383,6 +6336,10 @@ msgstr "Добавяне на _пакет"
 #: ../plugins/mk-project/mk-project.ui.h:6
 msgid "Packages"
 msgstr "Пакети"
+
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+msgid "C/C++"
+msgstr "C/C++"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
 msgid "Patch Plugin"
@@ -8560,55 +8517,55 @@ msgstr "Цветова схема:"
 msgid "Font"
 msgstr "Шрифт"
 
-#: ../plugins/sourceview/plugin.c:113
+#: ../plugins/sourceview/plugin.c:112
 msgid "_Line Number Margin"
 msgstr "_Номера на редове"
 
-#: ../plugins/sourceview/plugin.c:114
+#: ../plugins/sourceview/plugin.c:113
 msgid "Show/Hide line numbers"
 msgstr "Показване/скриване номерата на редовете"
 
-#: ../plugins/sourceview/plugin.c:116
+#: ../plugins/sourceview/plugin.c:115
 msgid "_Marker Margin"
 msgstr "_Обозначителни знаци"
 
-#: ../plugins/sourceview/plugin.c:117
+#: ../plugins/sourceview/plugin.c:116
 msgid "Show/Hide marker margin"
 msgstr "Показване/скриване на поле за обозначителни знаци"
 
-#: ../plugins/sourceview/plugin.c:119
+#: ../plugins/sourceview/plugin.c:118
 msgid "_White Space"
 msgstr "_Шпации и табулации"
 
-#: ../plugins/sourceview/plugin.c:120
+#: ../plugins/sourceview/plugin.c:119
 msgid "Show/Hide white spaces"
 msgstr "Показване/скриване на шпации и табулации"
 
-#: ../plugins/sourceview/plugin.c:122
+#: ../plugins/sourceview/plugin.c:121
 msgid "_Line End Characters"
 msgstr "Знаци за край на _ред"
 
-#: ../plugins/sourceview/plugin.c:123
+#: ../plugins/sourceview/plugin.c:122
 msgid "Show/Hide line end characters"
 msgstr "Показване/скриване на знаците за край на ред"
 
-#: ../plugins/sourceview/plugin.c:125
+#: ../plugins/sourceview/plugin.c:124
 msgid "Line _Wrapping"
 msgstr "Пренасяне на _дълги редове"
 
-#: ../plugins/sourceview/plugin.c:126
+#: ../plugins/sourceview/plugin.c:125
 msgid "Enable/disable line wrapping"
 msgstr "Включване/изключване на автоматичното пренасяне на дълги редове"
 
-#: ../plugins/sourceview/plugin.c:175
+#: ../plugins/sourceview/plugin.c:174
 msgid "Editor view settings"
 msgstr "Настройки за преглед на редактора"
 
-#: ../plugins/sourceview/plugin.c:365 ../plugins/sourceview/plugin.c:406
+#: ../plugins/sourceview/plugin.c:364 ../plugins/sourceview/plugin.c:405
 msgid "GtkSourceView Editor"
 msgstr "Редактор на GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:567
+#: ../plugins/sourceview/sourceview.c:565
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8619,7 +8576,7 @@ msgstr ""
 
 # Минало несвършено е най-удачното време според мен, защото щом файлът е
 # зареден в буфер, значи е изтрит след като програмата е била стартирана.
-#: ../plugins/sourceview/sourceview.c:599
+#: ../plugins/sourceview/sourceview.c:597
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8629,18 +8586,18 @@ msgstr ""
 "Искате ли да го затворите?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:632
+#: ../plugins/sourceview/sourceview.c:630
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Неуспех при отварянето на %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:686
+#: ../plugins/sourceview/sourceview.c:684
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Файлът „%s“ е само за четене. Редактиране въпреки това?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:748
+#: ../plugins/sourceview/sourceview.c:746
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Неуспех при запазването на %s: %s"
@@ -8695,7 +8652,7 @@ msgstr "Начало"
 msgid "Welcome page with most common actions."
 msgstr "Първоначална страница с най-често използвани действия."
 
-#: ../plugins/starter/plugin.c:285
+#: ../plugins/starter/plugin.c:286
 msgid "Start"
 msgstr "Начало"
 
