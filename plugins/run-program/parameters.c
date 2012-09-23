@@ -29,6 +29,7 @@
 #include "utils.h"
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-environment-editor.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 /*---------------------------------------------------------------------------*/
@@ -40,23 +41,9 @@
 #define TERMINAL_CHECK_BUTTON "parameter_run_in_term_check"
 #define PARAMETER_COMBO "parameter_combo"
 #define TARGET_COMBO "target_combo"
-#define VAR_TREEVIEW "environment_treeview"
+#define ENVIRONMENT_EDITOR "environment_editor"
 #define DIR_CHOOSER "working_dir_chooser"
 #define TARGET_BUTTON "target_button"
-#define ADD_VAR_BUTTON "add_button"
-#define REMOVE_VAR_BUTTON "remove_button"
-#define EDIT_VAR_BUTTON "edit_button"
-
-enum {
-	ENV_NAME_COLUMN = 0,
-	ENV_VALUE_COLUMN,
-	ENV_DEFAULT_VALUE_COLUMN,
-	ENV_COLOR_COLUMN,
-	ENV_N_COLUMNS
-};
-
-#define ENV_USER_COLOR	"black"
-#define ENV_DEFAULT_COLOR "gray"
 
 /* Type defintions
  *---------------------------------------------------------------------------*/
@@ -72,10 +59,7 @@ struct _RunDialog
 	GtkComboBox *args;
 	GtkComboBox *target;
 	GtkFileChooser *dirs;
-	GtkTreeView *vars;
-	GtkTreeModel* model;
-	GtkWidget *remove_button;
-	GtkWidget *edit_button;
+	AnjutaEnvironmentEditor *vars;
 
 	/* Plugin */
 	RunProgramPlugin *plugin;
@@ -91,7 +75,7 @@ on_add_string_in_model (gpointer data, gpointer user_data)
 	GtkTreeIter iter;
 
 	gtk_list_store_append (model, &iter);
-	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, (const gchar *)data, -1);
+	gtk_list_store_set (model, &iter, 0, (const gchar *)data, -1);
 }
 
 static void
@@ -103,7 +87,7 @@ on_add_file_in_model (gpointer data, gpointer user_data)
 
 	local = g_file_get_path ((GFile *)data);
 	gtk_list_store_append (model, &iter);
-	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, local, -1);
+	gtk_list_store_set (model, &iter, 0, local, -1);
 	g_free (local);
 }
 
@@ -121,111 +105,6 @@ on_add_directory_in_chooser (gpointer data, gpointer user_data)
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-static void
-load_environment_variables (RunProgramPlugin *plugin, GtkListStore *store)
-{
-	GtkTreeIter iter;
-	gchar **var;
-	gchar **list;
-
-	/* Load current environment variables */
-	list = g_listenv();
-	var = list;
-	if (var)
-	{
-		for (; *var != NULL; var++)
-		{
-			const gchar *value = g_getenv (*var);
-			gtk_list_store_prepend (store, &iter);
-			gtk_list_store_set (store, &iter,
-								ENV_NAME_COLUMN, *var,
-								ENV_VALUE_COLUMN, value,
-								ENV_DEFAULT_VALUE_COLUMN, value,
-								ENV_COLOR_COLUMN, ENV_DEFAULT_COLOR,
-								-1);
-		}
-	}
-	g_strfreev (list);
-
-	/* Load user environment variables */
-	var = plugin->environment_vars;
-	if (var)
-	{
-		for (; *var != NULL; var++)
-		{
-			gchar ** value;
-
-			value = g_strsplit (*var, "=", 2);
-			if (value)
-			{
-				if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (store),
-													NULL, &iter, ENV_NAME_COLUMN,
-													value[0]))
-				{
-					gtk_list_store_set (store, &iter,
-									ENV_VALUE_COLUMN, value[1],
-									ENV_COLOR_COLUMN, ENV_USER_COLOR,
-									-1);
-				}
-				else
-				{
-					gtk_list_store_prepend (store, &iter);
-					gtk_list_store_set (store, &iter,
-										ENV_NAME_COLUMN, value[0],
-										ENV_VALUE_COLUMN, value[1],
-										ENV_DEFAULT_VALUE_COLUMN, NULL,
-										ENV_COLOR_COLUMN, ENV_USER_COLOR,
-										-1);
-				}
-				g_strfreev (value);
-			}
-		}
-	}
-}
-
-static void
-save_environment_variables (RunProgramPlugin *plugin, GtkTreeModel *model)
-{
-	gchar **vars;
-	gboolean valid;
-	GtkTreeIter iter;
-
-	/* Remove previous variables */
-	g_strfreev (plugin->environment_vars);
-
-	/* Allocated a too big array: able to save all environment variables
-	 * while we need to save only variables modified by user but it
-	 * shouldn't be that big anyway and checking exactly which variable
-	 * need to be saved will take more time */
-	vars = g_new (gchar *,
-							gtk_tree_model_iter_n_children (GTK_TREE_MODEL (model), NULL) + 1);
-	plugin->environment_vars = vars;
-
-	for (valid = gtk_tree_model_get_iter_first (model, &iter); valid; valid = gtk_tree_model_iter_next (model, &iter))
-	{
-		gchar *name;
-		gchar *value;
-		gchar *color;
-
-		gtk_tree_model_get (model, &iter,
-							ENV_NAME_COLUMN, &name,
-							ENV_VALUE_COLUMN, &value,
-							ENV_COLOR_COLUMN, &color,
-							-1);
-
-		/* Save only variables modified by user */
-		if (strcmp(color, ENV_USER_COLOR) == 0)
-		{
-			*vars = g_strconcat(name, "=", value, NULL);
-			vars++;
-		}
-		g_free (name);
-		g_free (value);
-		g_free (color);
-	}
-	*vars = NULL;
-}
-
 static gint
 compare_file (GFile *file_a, GFile *file_b)
 {
@@ -239,7 +118,6 @@ save_dialog_data (RunDialog* dlg)
 	const gchar *filename;
 	GFile *file;
 	GList *find;
-	GtkTreeModel* model;
 	RunProgramPlugin *plugin = dlg->plugin;
 
 	/* Save arguments */
@@ -287,8 +165,8 @@ save_dialog_data (RunDialog* dlg)
 	}
 
 	/* Save all environment variables */
-	model = gtk_tree_view_get_model (dlg->vars);
-	save_environment_variables (plugin, model);
+	g_strfreev (plugin->environment_vars);
+	plugin->environment_vars = anjuta_environment_editor_get_modified_variables (dlg->vars);
 
 	plugin->run_in_terminal = gtk_toggle_button_get_active (dlg->term);
 
@@ -321,294 +199,18 @@ on_select_target (RunDialog* dlg)
 	gtk_widget_destroy (GTK_WIDGET (sel_dlg));
 }
 
-static void
-on_environment_selection_changed (GtkTreeSelection *selection, RunDialog *dlg)
-{
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gboolean selected;
-
-	if (selection == NULL)
-	{
-		selection = gtk_tree_view_get_selection (dlg->vars);
-	}
-
-	selected = gtk_tree_selection_get_selected (selection, &model, &iter);
-	if (selected)
-	{
-		gchar *color;
-		gchar *value;
-		gboolean restore;
-
-		gtk_tree_model_get (model, &iter,
-							ENV_DEFAULT_VALUE_COLUMN, &value,
-							ENV_COLOR_COLUMN, &color,
-							-1);
-
-		restore = (strcmp (color, ENV_USER_COLOR) == 0) && (value != NULL);
-		gtk_button_set_label (GTK_BUTTON (dlg->remove_button), restore ? GTK_STOCK_REVERT_TO_SAVED : GTK_STOCK_DELETE);
-		g_free (color);
-		g_free (value);
-	}
-	gtk_widget_set_sensitive (dlg->remove_button, selected);
-	gtk_widget_set_sensitive (dlg->edit_button, selected);
-}
-
-static void
-on_environment_add_button (GtkButton *button, GtkTreeView *view)
-{
-	GtkTreeIter iter;
-	GtkListStore *model;
-	GtkTreeViewColumn *column;
-	GtkTreePath *path;
-	GtkTreeSelection* sel;
-
-	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-
-	sel = gtk_tree_view_get_selection (view);
-	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
-	{
-		GtkTreeIter niter;
-		gtk_list_store_insert_after	(model, &niter, &iter);
-		iter = niter;
-	}
-	else
-	{
-		gtk_list_store_prepend (model, &iter);
-	}
-
-	gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, "",
-								ENV_VALUE_COLUMN, "",
-								ENV_DEFAULT_VALUE_COLUMN, NULL,
-								ENV_COLOR_COLUMN, ENV_USER_COLOR,
-								-1);
-
-	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-	column = gtk_tree_view_get_column (view, ENV_NAME_COLUMN);
-	gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
-	gtk_tree_view_set_cursor (view, path, column ,TRUE);
-	gtk_tree_path_free (path);
-}
-
-static void
-on_environment_edit_button (GtkButton *button, GtkTreeView *view)
-{
-	GtkTreeIter iter;
-	GtkTreeSelection* sel;
-
-	sel = gtk_tree_view_get_selection (view);
-	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
-	{
-		GtkListStore *model;
-		GtkTreePath *path;
-		GtkTreeViewColumn *column;
-
-		model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-		path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-		column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
-		gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
-		gtk_tree_view_set_cursor (view, path, column ,TRUE);
-		gtk_tree_path_free (path);
-	}
-}
-
-static void
-on_environment_remove_button (GtkButton *button, RunDialog *dlg)
-{
-	GtkTreeIter iter;
-	GtkTreeSelection* sel;
-	GtkTreeView *view = dlg->vars;
-
-	sel = gtk_tree_view_get_selection (view);
-	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
-	{
-		GtkListStore *model;
-		GtkTreeViewColumn *column;
-		GtkTreePath *path;
-		gchar *color;
-
-		model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-
-		/* Display variable */
-		path = gtk_tree_model_get_path (GTK_TREE_MODEL (model), &iter);
-		column = gtk_tree_view_get_column (view, ENV_NAME_COLUMN);
-		gtk_tree_view_scroll_to_cell (view, path, column, FALSE, 0, 0);
-		gtk_tree_path_free (path);
-
-		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-							ENV_COLOR_COLUMN, &color,
-							-1);
-		if (strcmp(color, ENV_USER_COLOR) == 0)
-		{
-			/* Remove an user variable */
-			gchar *value;
-
-			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-								ENV_DEFAULT_VALUE_COLUMN, &value,
-								-1);
-
-			if (value != NULL)
-			{
-				/* Restore default environment variable */
-				gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, value,
-									ENV_COLOR_COLUMN, ENV_DEFAULT_COLOR,
-									-1);
-			}
-			else
-			{
-				gtk_list_store_remove (model, &iter);
-			}
-			g_free (value);
-		}
-		else
-		{
-			/* Replace value with an empty one */
-			gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, NULL,
-								ENV_COLOR_COLUMN, ENV_USER_COLOR,
-								-1);
-		}
-		on_environment_selection_changed (sel, dlg);
-	}
-}
-
-static gboolean
-move_to_environment_value (gpointer data)
-{
-	GtkTreeView *view = GTK_TREE_VIEW (data);
-	GtkTreeSelection* sel;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	GtkTreeViewColumn *column;
-
-	sel = gtk_tree_view_get_selection (view);
-	if (gtk_tree_selection_get_selected (sel, &model, &iter))
-	{
-		GtkTreePath *path;
-
-		path = gtk_tree_model_get_path (model, &iter);
-		column = gtk_tree_view_get_column (view, ENV_VALUE_COLUMN);
-		gtk_tree_view_set_cursor (view, path, column, TRUE);
-		gtk_tree_path_free (path);
-	}
-
-	return FALSE;
-}
-
-static void
-on_environment_variable_edited (GtkCellRendererText *cell,
-						  gchar *path,
-                          gchar *text,
-                          RunDialog *dlg)
-{
-	GtkTreeIter iter;
-	GtkTreeIter niter;
-	GtkListStore *model;
-	gboolean valid;
-	GtkTreeView *view = dlg->vars;
-
-	text = g_strstrip (text);
-
-	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-
-	valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path);
-	if (valid)
-	{
-		gchar *name;
-		gchar *value;
-		gchar *def_value;
-
-		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-							ENV_NAME_COLUMN, &name,
-							ENV_VALUE_COLUMN, &value,
-							ENV_DEFAULT_VALUE_COLUMN, &def_value,
-							-1);
-
-		if (strcmp(name, text) != 0)
-		{
-
-			if (def_value != NULL)
-			{
-				/* Remove current variable */
-				gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, NULL,
-									ENV_COLOR_COLUMN, ENV_USER_COLOR,
-									-1);
-			}
-
-			/* Search variable with new name */
-			if (run_plugin_gtk_tree_model_find_string (GTK_TREE_MODEL (model),
-												NULL, &niter, ENV_NAME_COLUMN,
-												text))
-			{
-					if (def_value == NULL)
-					{
-						gtk_list_store_remove (model, &iter);
-					}
-					gtk_list_store_set (model, &niter,
-										ENV_VALUE_COLUMN, value,
-										ENV_COLOR_COLUMN, ENV_USER_COLOR,
-										-1);
-			}
-			else
-			{
-				if (def_value != NULL)
-				{
-					gtk_list_store_insert_after	(model, &niter, &iter);
-					gtk_list_store_set (model, &niter, ENV_NAME_COLUMN, text,
-										ENV_VALUE_COLUMN, value,
-										ENV_DEFAULT_VALUE_COLUMN, NULL,
-										ENV_COLOR_COLUMN, ENV_USER_COLOR,
-										-1);
-				}
-				else
-				{
-					gtk_list_store_set (model, &iter, ENV_NAME_COLUMN, text,
-										-1);
-				}
-			}
-			g_idle_add (move_to_environment_value, view);
-		}
-		g_free (name);
-		g_free (def_value);
-		g_free (value);
-	}
-}
-
-static void
-on_environment_value_edited (GtkCellRendererText *cell,
-						  gchar *path,
-                          gchar *text,
-                          RunDialog *dlg)
-{
-	GtkTreeIter iter;
-	GtkListStore *model;
-	GtkTreeView *view = dlg->vars;
-
-	text = g_strstrip (text);
-
-	model = GTK_LIST_STORE (gtk_tree_view_get_model (view));
-	if (gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (model), &iter, path))
-	{
-		gtk_list_store_set (model, &iter, ENV_VALUE_COLUMN, text,
-										ENV_COLOR_COLUMN, ENV_USER_COLOR,
-										-1);
-		on_environment_selection_changed (NULL, dlg);
-	}
-}
-
 static RunDialog*
 run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 {
 	GtkBuilder *bxml;
 	GtkWindow *parent;
 	GtkWidget *child;
-	GtkCellRenderer *renderer;
 	GtkTreeModel* model;
-	GtkTreeViewColumn *column;
-	GtkTreeSelection *selection;
 	GObject *button;
 	GValue value = {0,};
 	const gchar *project_root_uri;
 	GError* error = NULL;
+	gchar **variable;
 
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	bxml = gtk_builder_new ();
@@ -626,22 +228,12 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	dlg->term = GTK_TOGGLE_BUTTON (gtk_builder_get_object (bxml, TERMINAL_CHECK_BUTTON));
 	dlg->args = GTK_COMBO_BOX (gtk_builder_get_object (bxml, PARAMETER_COMBO));
 	dlg->target = GTK_COMBO_BOX (gtk_builder_get_object (bxml, TARGET_COMBO));
-	dlg->vars = GTK_TREE_VIEW (gtk_builder_get_object (bxml, VAR_TREEVIEW));
+	dlg->vars = ANJUTA_ENVIRONMENT_EDITOR (gtk_builder_get_object (bxml, ENVIRONMENT_EDITOR));
 	dlg->dirs = GTK_FILE_CHOOSER (gtk_builder_get_object (bxml, DIR_CHOOSER));
-	dlg->remove_button = GTK_WIDGET (gtk_builder_get_object (bxml, REMOVE_VAR_BUTTON));
-	dlg->edit_button = GTK_WIDGET (gtk_builder_get_object (bxml, EDIT_VAR_BUTTON));
 
 	/* Connect signals */
 	button = gtk_builder_get_object (bxml, TARGET_BUTTON);
 	g_signal_connect_swapped (button, "clicked", G_CALLBACK (on_select_target), dlg);
-	button = gtk_builder_get_object (bxml, ADD_VAR_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_add_button), dlg->vars);
-	button = gtk_builder_get_object (bxml, EDIT_VAR_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_edit_button), dlg->vars);
-	button = gtk_builder_get_object (bxml, REMOVE_VAR_BUTTON);
-	g_signal_connect (button, "clicked", G_CALLBACK (on_environment_remove_button), dlg);
-	selection = gtk_tree_view_get_selection (dlg->vars);
-	g_signal_connect (selection, "changed", G_CALLBACK (on_environment_selection_changed), dlg);
 
 	g_object_unref (bxml);
 
@@ -737,35 +329,12 @@ run_dialog_init (RunDialog *dlg, RunProgramPlugin *plugin)
 	}
 	g_object_unref (model);
 
-	/* Fill environment variable list */
-	model = GTK_TREE_MODEL (gtk_list_store_new (ENV_N_COLUMNS,
-												G_TYPE_STRING,
-												G_TYPE_STRING,
-												G_TYPE_STRING,
-												G_TYPE_STRING,
-												G_TYPE_BOOLEAN));
-	gtk_tree_view_set_model (dlg->vars, model);
-	load_environment_variables (plugin, GTK_LIST_STORE (model));
-	g_object_unref (model);
-
-	renderer = gtk_cell_renderer_text_new ();
-	g_signal_connect(renderer, "edited", (GCallback) on_environment_variable_edited, dlg);
-	g_object_set(renderer, "editable", TRUE, NULL);
-	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,
-													   "text", ENV_NAME_COLUMN,
-													   "foreground", ENV_COLOR_COLUMN,
-													   NULL);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (dlg->vars, column);
-	renderer = gtk_cell_renderer_text_new ();
-	g_object_set(renderer, "editable", TRUE, NULL);
-	g_signal_connect(renderer, "edited", (GCallback) on_environment_value_edited, dlg);
-	column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer,
-													   "text", ENV_VALUE_COLUMN,
-													   "foreground", ENV_COLOR_COLUMN,
-													   NULL);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (dlg->vars, column);
+	/* Set stored user modified environment variables */
+	if (plugin->environment_vars)
+	{
+		for (variable = plugin->environment_vars; *variable; ++variable)
+			anjuta_environment_editor_set_variable (dlg->vars, *variable);
+	}
 
 	/* Set terminal option */
 	if (plugin->run_in_terminal) gtk_toggle_button_set_active (dlg->term, TRUE);
