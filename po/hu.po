@@ -1368,7 +1368,7 @@ msgstr "Projekt regenerálása"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "Configuration:"
-msgstr "Beállítások:"
+msgstr "Konfiguráció:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:4
 msgid "Configure Options:"
