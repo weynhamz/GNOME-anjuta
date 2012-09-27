@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2012-09-20 06:46+0000\n"
-"PO-Revision-Date: 2012-09-22 09:13+0200\n"
+"PO-Revision-Date: 2012-09-28 00:36+0200\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -1469,7 +1469,7 @@ msgid ""
 "you want to do that ?"
 msgstr ""
 "Si utilitzeu aquesta configuració nova s'haurà de suprimir la "
-"predeterminada. Voleu fer-ho?"
+"per defecte. Voleu fer-ho?"
 
 #: ../plugins/build-basic-autotools/build.c:531
 #: ../plugins/build-basic-autotools/plugin.c:964
@@ -1494,7 +1494,7 @@ msgstr "No es pot configurar el projecte: manca l'script de configuració a %s."
 #: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
 #: ../src/preferences.ui.h:15
 msgid "Default"
-msgstr "Predeterminat"
+msgstr "Per defecte"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:71
 #: ../plugins/gdb/utilities.c:297
@@ -4426,7 +4426,7 @@ msgid ""
 msgstr ""
 "<b>No es pot obrir «%s»</b>.\n"
 "\n"
-"No hi ha cap connector, acció predeterminada o aplicació configurada per "
+"No hi ha cap connector, acció per defecte o aplicació configurada per "
 "gestionar aquest tipus de fitxer.\n"
 "\n"
 "Tipus MIME: %s.\n"
@@ -5395,7 +5395,7 @@ msgid ""
 "To push to a different remote, select one from the Remotes list above."
 msgstr ""
 "No s'ha seleccionat cap ubicació remota. S'està utilitzant l'origen "
-"predeterminat.\n"
+"per defecte.\n"
 "Per empènyer a una ubicació remota diferent, seleccioneu-ne una a la llista "
 "d'ubicacions remotes de sobre."
 
@@ -8250,7 +8250,7 @@ msgstr "Afegeix un grup de fragments…"
 
 #: ../plugins/snippets-manager/snippets-editor.c:39
 msgid "Default value"
-msgstr "Valor predeterminat"
+msgstr "Valor per defecte"
 
 #: ../plugins/snippets-manager/snippets-editor.c:48
 msgid "<b>Error:</b> You must choose at least one language for the snippet!"
@@ -8562,7 +8562,7 @@ msgstr "Editor GtkSourceView"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:2
 msgid "The default editor based on GtkSourceView"
-msgstr "L'editor predeterminat basat en el GtkSourceView"
+msgstr "L'editor per defecte basat en el GtkSourceView"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
@@ -9709,7 +9709,7 @@ msgstr "_Reinicia la disposició acoblable"
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
 msgstr ""
-"Torna als valors predeterminats la disposició acoblable dels ginys "
+"Torna als valors per defecte la disposició acoblable dels ginys "
 "d'interfície"
 
 #: ../src/anjuta-actions.h:47
@@ -10125,7 +10125,7 @@ msgstr "Només text"
 #~ msgstr "Escala"
 
 #~ msgid "Size of font, relative to default size"
-#~ msgstr "Mida del tipus de lletra, relatiu a la mida predeterminada"
+#~ msgstr "Mida del tipus de lletra, relatiu a la mida per defecte"
 
 #~ msgid "Color"
 #~ msgstr "Color"
@@ -10278,7 +10278,7 @@ msgstr "Només text"
 #~ "their default settings?"
 #~ msgstr ""
 #~ "Voleu retornar les preferències\n"
-#~ "als valors predeterminats?"
+#~ "als valors per defecte?"
 
 #~ msgid "Help display"
 #~ msgstr "Mostreu l'ajuda"
@@ -10974,7 +10974,7 @@ msgstr "Només text"
 #~ msgstr "Opcions d'exportació a HTML:"
 
 #~ msgid "Embed default (CSS) style sheet"
-#~ msgstr "Full d'estil incrustat predeterminat (CSS)"
+#~ msgstr "Full d'estil incrustat per defecte (CSS)"
 
 #~ msgid "Custom (CSS) style sheet"
 #~ msgstr "Full d'estil personalitzat (CSS)"
@@ -11443,12 +11443,12 @@ msgstr "Només text"
 #~ "e.g. Glib and GTK+ if you create a GTK+ project (may require more CPU "
 #~ "work)"
 #~ msgstr ""
-#~ "Aquesta opció habilita els paquets predeterminats que calen al projecte "
+#~ "Aquesta opció habilita els paquets per defecte que calen al projecte "
 #~ "que heu obert, per exemple la GLib i la GTK+ si creeu un projecte GTK+ "
 #~ "(pot caldre més treball de la CPU)"
 
 #~ msgid "Default project directory:"
-#~ msgstr "Directori predeterminat del projecte:"
+#~ msgstr "Directori per defecte del projecte:"
 
 #~ msgid "Developer email address:"
 #~ msgstr "Correu electrònic del desenvolupador:"
@@ -11457,7 +11457,7 @@ msgstr "Només text"
 #~ msgstr "Nom del desenvolupador:"
 
 #~ msgid "Project Defaults"
-#~ msgstr "Predeterminats del projecte"
+#~ msgstr "Per defecte del projecte"
 
 #~ msgid "Gdb"
 #~ msgstr "Gdb"
@@ -11629,7 +11629,7 @@ msgstr "Només text"
 #~ msgstr "Giny de nivell superior"
 
 #~ msgid "Couldn't find a default signal name"
-#~ msgstr "No s'ha pogut trobar un nom de senyal predeterminat"
+#~ msgstr "No s'ha pogut trobar un nom de senyal per defecte"
 
 #~ msgid "Project %s has no deprecated widgets or version mismatches."
 #~ msgstr "El projecte %s no té ginys obsolets o desajustos entre versions."
@@ -11664,10 +11664,10 @@ msgstr "Només text"
 #~ "obsolescències"
 
 #~ msgid "Set as default resource target"
-#~ msgstr "Estableix com a objectiu de recursos predeterminat"
+#~ msgstr "Estableix com a objectiu de recursos per defecte"
 
 #~ msgid "Current default target"
-#~ msgstr "Objectiu actual predeterminat"
+#~ msgstr "Objectiu actual per defecte"
 
 #~ msgid "Save the current file"
 #~ msgstr "Desa el fitxer actual"
@@ -11805,7 +11805,7 @@ msgstr "Només text"
 #~ msgstr "Compleció automàtica (només C/C++/Java)"
 
 #~ msgid "Insert predefined macros into Editor"
-#~ msgstr "Insereix les macros predefinides a l'editor"
+#~ msgstr "Insereix les macros per defecte a l'editor"
 
 #~ msgid "Macro Plugin"
 #~ msgstr "Connector de macros"
@@ -12486,7 +12486,7 @@ msgstr "Només text"
 #~ msgstr "Suprimeix els espais al final de línia en desar el fitxer"
 
 #~ msgid "Use default"
-#~ msgstr "Fes servir els predeterminats"
+#~ msgstr "Fes servir els per defecte"
 
 #~ msgid "View EOL chars"
 #~ msgstr "Visualitza els caràcters de final de línia"
@@ -12594,11 +12594,11 @@ msgstr "Només text"
 #~ "This may result in improper behaviour or instabilities.\n"
 #~ "Anjuta will fall back to built in (limited) settings"
 #~ msgstr ""
-#~ "No es poden carregar les opcions globals predeterminades ni els fitxers "
+#~ "No es poden carregar les opcions globals per defecte ni els fitxers "
 #~ "de configuració:\n"
 #~ "%s.\n"
 #~ "Es poden produir comportaments incorrectes o inestabilitats.\n"
-#~ "L'Anjuta farà servir les opcions predeterminades (més limitades)"
+#~ "L'Anjuta farà servir les opcions per defecte (més limitades)"
 
 #~ msgid "<b>Scratchbox Options</b>\n"
 #~ msgstr "<b>Opcions de l'Scratchbox</b>\n"
@@ -12631,7 +12631,7 @@ msgstr "Només text"
 #~ "Default\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Predeterminat\n"
+#~ "Per defecte\n"
 #~ "\n"
 
 #~ msgid "<b>Program to test:</b>"
@@ -12751,7 +12751,7 @@ msgstr "Només text"
 #~ "Introduïu un valor en la forma «<enter>,<enter>,<enter>»."
 
 #~ msgid "Override default settings"
-#~ msgstr "Ignora els paràmetres predeterminats"
+#~ msgstr "Ignora els paràmetres per defecte"
 
 #~ msgid "Enter <size>,<assoc>,<line_size>:"
 #~ msgstr "Enter <mida>,<assoc>,<mida_línia>:"
@@ -12890,7 +12890,7 @@ msgstr "Només text"
 #~ "Icons only\n"
 #~ "Text only"
 #~ msgstr ""
-#~ "Predeterminat\n"
+#~ "Per defecte\n"
 #~ "Text sota les icones\n"
 #~ "Text al costat de les icones\n"
 #~ "Només icones\n"
@@ -13181,7 +13181,7 @@ msgstr "Només text"
 #~ msgstr "Seleccioneu el fitxer executable del ctags"
 
 #~ msgid "Stock Encodings"
-#~ msgstr "Codificacions predeterminades"
+#~ msgstr "Codificacions per defecte"
 
 #~ msgid "Supported Encodings"
 #~ msgstr "Codificacions disponibles"
@@ -13723,7 +13723,7 @@ msgstr "Només text"
 #~ "parameters by default)."
 #~ msgstr ""
 #~ "Crea un estil nou amb el nom definit a l'entrada «Estil nou» (paràmetres "
-#~ "«-gnu» predeterminats)."
+#~ "«-gnu» per defecte)."
 
 #~ msgid "Cuddle Else"
 #~ msgstr "Abraça els «else»"
@@ -13752,7 +13752,7 @@ msgstr "Només text"
 #~ msgid ""
 #~ "Foece a space between an 'if' and the following parenthesis (default)."
 #~ msgstr ""
-#~ "Força un espai entre els «if» i el parèntesi següent (predeterminat)."
+#~ "Força un espai entre els «if» i el parèntesi següent (per defecte)."
 
 #~ msgid "Force a blank line after every block of declarations."
 #~ msgstr "Força una línia en blanc després de cada bloc de declaracions."
@@ -13766,12 +13766,12 @@ msgstr "Només text"
 #~ msgid ""
 #~ "Force a space between a 'for' and the following parenthesis (default)."
 #~ msgstr ""
-#~ "Força un espai entre un «for» i el parèntesi següent (predeterminat)."
+#~ "Força un espai entre un «for» i el parèntesi següent (per defecte)."
 
 #~ msgid ""
 #~ "Force a space between a 'while' and the following parenthesis (default)."
 #~ msgstr ""
-#~ "Força un espai entre els «while» i el parèntesi següent (predeterminat)."
+#~ "Força un espai entre els «while» i el parèntesi següent (per defecte)."
 
 #~ msgid "Format comments which begin after the first column."
 #~ msgstr "Formata els comentaris que comencen després de la primera columna."
@@ -14665,13 +14665,13 @@ msgstr "Només text"
 #~ "No sembla un projecte de l'Anjuta vàlid."
 
 #~ msgid "Loaded default profile..."
-#~ msgstr "S'ha carregat el perfil predeterminat..."
+#~ msgstr "S'ha carregat el perfil per defecte..."
 
 #~ msgid "Loading project. Please wait ..."
 #~ msgstr "S'està carregant el projecte. Espereu..."
 
 #~ msgid "Anjuta default profile"
-#~ msgstr "Perfil predeterminat de l'Anjuta"
+#~ msgstr "Perfil per defecte de l'Anjuta"
 
 #~ msgid "_Execute program"
 #~ msgstr "_Executa el programa"
@@ -14716,7 +14716,7 @@ msgstr "Només text"
 #~ "Enter the name of the class your new class will inherit from. Default is "
 #~ "GObject."
 #~ msgstr ""
-#~ "Introduïu el nom de la classe pare de la nova classe. La predeterminada "
+#~ "Introduïu el nom de la classe pare de la nova classe. La per defecte "
 #~ "és GObject."
 
 # source\ui\utlui\initui.src string RID_SW_SHELLRES STR_POSTIT_PAGE
