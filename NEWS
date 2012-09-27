@@ -1,3 +1,363 @@
+Anjuta 3.6.0 (September 26, 2012) -- James Liggett
+
+This is a new stable version of Anjuta and all users should update to this
+version as all 3.4.x versions become unsupported at this point.
+
+Summary of the major changes between 3.4.x and 3.6:
+
+* project-manager:
+ - Support for calling make check (Sébastien Granjoux)
+ - Support for subdirectories in project groups (Sébastien Granjoux)
+ - Crash fixes (Sébastien Granjoux)
+
+* git
+ - Git Tasks dock is only shown the Git dock is active (Sébastien Granjoux/James Liggett)
+ - The Status view is the first view shown in the Git dock (James Liggett)
+ - Status view works with git 1.7.10 and newer (James Liggett)
+
+* symbol-db
+ - Various crash and infinite loop fixes (Massimo Corà)
+
+* sourceview
+ - Use common indentation settings (Sébastien Granjoux)
+
+Bug fixes:
+bgo 680401: Git plugin (Status) doesn't work with git version 1.7.10.4
+sourceview: Correctly implement popup-menu (bgo#672692)
+project-wizard: Explicitely use 3.0 as interface version for ui files (bgo#675877)
+symbol-db: Ingore files with unknown language (see bgo#678695)
+libanjuta: Fix memory corruption in AnjutaPkgConfig (bgo#679827)
+build: Only check for passwords when installing as root (bgo#680136)
+document-manager: bgo#680554 - entry of find in files doesn't get focused
+document-manager: bgo#680559 - Find in Files does not scroll to top of results
+document-manager: bgo#680555 - Escape key does not dismiss Find in Files panel
+Fix bgo #680657 - Warnings when starting anjuta
+Fix #679767 - crash trying to stop the debugger
+
+Thanks to everybody who has helped this cycle and all translators.
+
+Akom Chotiphantawanon (1):
+      Updated Thai translation
+
+Aleksander Morgado (1):
+      devhelp: update plugin to avoid DhBase, no longer available in libdevhelp
+
+Alexander Shopov (4):
+      Updated Bulgarian translation
+      Updated Bulgarian translation
+      Updated Bulgarian translation
+      Updated Bulgarian translation
+
+Alexandre Franke (2):
+      Update French translation
+      Update French translation
+
+Alexandre Rostovtsev (1):
+      language-support-vala: build using $(VALAC), not valac
+
+Andika Triwidada (2):
+      Updated Indonesian translation
+      Updated Indonesian translation
+
+Andre Klapper (1):
+      FAQ: Several improvements
+
+Arnel A. Borja (1):
+      language-support-vala: Removed "cpp-" prefix from schema key names
+
+Ask H. Larsen (1):
+      Updated Danish translation
+
+Aurimas Černius (1):
+      Updated Lithuanian translation
+
+Bruce Cowan (1):
+      Updated British English translation
+
+Bruno Brouard (3):
+      Updated French doc translation
+      Updated French translation
+      Updated French translation
+
+Carles Ferrando (2):
+      [l10n]Updated Catalan (Valencian) translation
+      [l10n]Updated Catalan (Valencian) translation
+
+Chao-Hsiung Liao (3):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Daniel Mustieles (11):
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Daniel Șerbănescu (1):
+      Updated Romanian Translation
+
+Dimitris Spingos (1):
+      Updated Greek translation
+
+Dimitris Spingos (Δημήτρης Σπίγγος) (1):
+      Updated Greek translation
+
+Dominique Leuenberger (1):
+      gtksourceview plugin: include gtksource.h instead of gtksourceview.h
+
+Duarte Loreto (1):
+      Updated Portuguese translation
+
+Fran Diéguez (8):
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+
+Gabor Kelemen (7):
+      Updated Hungarian translation
+      Add omitted plugin.in files to POTFILES.in
+      Fix a typo in the code-analyzer plugin name
+      Updated Hungarian translation
+      Updated Hungarian translation
+      Fix a mistranslation in Hungarian
+      Fix another mistranslation in Hungarian
+
+Gil Forcada Codinachs (1):
+      [l10n] Fixes on Catalan translation
+
+James Liggett (8):
+      git: Use tree paths instead of iterators to track the selected log viewer branch
+      git: Remove an unused variable
+      libanjuta: Add widget presenting capability to AnjutaDock
+      git: Show the Status pane on plugin load
+      libanjuta: Reverse the order of pane operations in anjuta_dock_replace command_pane
+      symbol-db: Fix build
+      git: Fix bgo 680401: Git plugin (Status) doesn't work with git version 1.7.10.4
+      language-support-cpp-java: Remove .plugin file from git
+
+Javier Jardón (1):
+      Port to new documentation infrastruture
+
+Jens Georg (1):
+      class-gen: Fix GObject template include
+
+Jiro Matsuzawa (1):
+      [l10n] Update Japanese translation
+
+Joan Duran (1):
+      [l10n] Updated Catalan translation
+
+Johannes Schmid (34):
+      Updated files for release
+      Post release version bump
+      sourceview: Correctly implement popup-menu (bgo#672692)
+      Updated files for release
+      Fixed POTFILES.in
+      project-wizard: Make sure no template requires gtk+ 2.12 anymore
+      project-wizard: Explicitely use 3.0 as interface version for ui files (bgo#675877)
+      configure: Detect python more robust
+      indentation: Use Indentation as name for all indentation preferences
+      symbol-db: Don't crash if project was moved to another location
+      symbol-db: Ingore files with unknown language (see bgo#678695)
+      symbol-db: Avoid warning when NULL is passed to sdb_engine_add_language()
+      Updated files for release
+      Post-release version bump
+      libanjuta: Fix memory corruption in AnjutaPkgConfig (bgo#679827)
+      Updated files for release
+      Post-release version bump
+      build: Only check for passwords when installing as root (bgo#680136)
+      libanjuta: Fix some warnings and made AnjutaPluginDescription a boxed type
+      Updated dependencies to fixed checking twice for libgda
+      document-manager: bgo#680554 - entry of find in files doesn't get focused
+      document-manager: Only use in project files
+      document-manager: bgo#680559 - Find in Files does not scroll to top of results
+      document-manager: bgo#680555 - Escape key does not dismiss Find in Files panel
+      libanjuta, language-support-*: Move IAnjutaLanguageProviderProposalData to libanjuta
+      libanjuta, language-support-*: Introspection from bgo#680466
+      class-inheritance, code-analyzer: Remove plugins that don't work or aren't built
+      document-manager: Unify focus handling
+      configure: Fix build
+      configure: Remove check for graphviz
+      Updated files for release
+      Post-release version bump
+      Updated files for release
+      Post-release version bump
+
+Jonh Wendell (1):
+      Updated Brazilian Portuguese translation
+
+Kalev Lember (2):
+      starter: Use glib resource framework for UI files
+      starter: Remove unused starter_logo.png
+
+Ken Shibata (1):
+      [l10n] Update Japanese translation
+
+Kjartan Maraas (2):
+      Updated Norwegian bokmål translation
+      Updated Norwegian bokmål translation
+
+Kristjan SCHMIDT (1):
+      Updated Esperanto translation
+
+Marco Diego Aurélio Mesquita (1):
+      glade: bgo#676811 - Fix check order of editor on member add
+
+Marek Černocký (2):
+      Updated Czech translation
+      Czech translation
+
+Mario Blättermann (2):
+      [l10n] Updated German translation
+      [l10n] Updated German translation
+
+Massimo Corà (3):
+      cxxparser: avoid infinite loop. Fixed bgo#679772
+      cxxparser: improved code checks to avoid leaks.
+      cxxparser: fixed warning on query field retrieving.
+
+Matej Urbančič (2):
+      Updated Slovenian translation
+      Updated Slovenian translation
+
+Mihai Ciocan (1):
+      Fixed autoindentation after line wrapping
+
+Moritz Lüdecke (13):
+      project-manager: bgo #594912 - The target advanced options window should remember its size
+      split language-support-cpp-java and language-support-python plugin in an indentation part and a new language-support part
+      Some trivial fixes in indentation plugins and cpp-java plugin
+      resolve dependencies from cpp-java plugin
+      improve calltips in vala plugin
+      Add new the interface IAnjutaLanguageProvider and extend IAnjutaEditorAssist
+      Adapt the sourceview plugin to the new IAnjutaEditorAssist API
+      Adapt the snippets-manager plugin to the new IAnjutaEditorAssist API
+      Adapt the language-support-vala plugin to the new IAnjutaEditorAssist API
+      Adapt the language-support-python plugin to the new interface IAnjutaLanguageProvider
+      Adapt the language-support-js plugin to the new interface IAnjutaLanguageProvider
+      Adapt the parser-cxx plugin to the new interface IAnjutaLanguageProvider
+      Move parser part from the language-support-cpp-java to the new parser-cxx plugin
+
+Nishio Futoshi (1):
+      [l10n] Update Japanese translation
+
+Pavel (1):
+      subversion: Fix pointer size problems on gcc 4.5.3 and newer
+
+Peter Mráz (1):
+      Updated Slovak translation
+
+Piotr Drąg (7):
+      Updated Polish translation
+      Updated POTFILES.in
+      Updated POTFILES.in and POTFILES.skip
+      Updated POTFILES.in
+      Updated POTFILES.in and POTFILES.skip
+      Updated Polish translation
+      Updated Polish translation
+
+Praveen Illa (1):
+      Updated Telugu Translation
+
+Rafael Ferreira (1):
+      Updated Brazilian Portuguese translation. Reviewed by Enrico Nicoletto <liverig@gmail.com>
+
+Ryan Lortie (2):
+      vala language support: update to Vala 0.18
+      ctags vala support: update to Vala 0.18
+
+Rūdolfs Mazurs (2):
+      Updated Latvian translation
+      Updated Latvian translation
+
+Sasi Bhushan (1):
+      Updated Telugu Translation
+
+Seong-ho Cho (1):
+      Updated Korean translation
+
+Steven Oliver (1):
+      Add falcon pl to anjuta-tags
+
+Sébastien Granjoux (41):
+      am-project: Include project files as sources in the project tree
+      project-manager: Remove project files from project tree view
+      am-project: Fix regression tests after adding project files in the project tree
+      am-project: Avoid a crash when parent group is missing
+      am-project: Avoid a crash when adding a target to an invalid group
+      am-project: Allow to create the root group in an empty project
+      am-project: Allow to have sub directories in a group
+      project-manager: Display group name containing sub directories
+      libanjuta: Fix anjuta_token functions
+      am-project: Do not expand variable in target and group flags
+      am-project: Expand variables in source names
+      am-project: Fix a crash in regression test 1
+      am-project: Fix a crash on 64 bits system due to missing declaration of amp_source_new
+      am-project: Fix a crash when loading project
+      libanjuta: Remove some useless code in AnjutaPreferences
+      libanjuta: Allow to define common settings in plugin preference page
+      language-support-cpp: Use common settings for indentation
+      language-support-python: Use common settings for indentation
+      sourceview: Use common settings for indentation
+      project-wizard: bgo #563986 - wizard generates modeline inconsistent with indentation prefs
+      language-support-python: Move preferences in plugins/python
+      language-support-cpp: Move preferences in plugins/cpp
+      project-wizard: Do not use NPWValue in autogen API
+      class-gen: Use a simple hash table instead of NPWValue
+      libanjuta: Move autogen functions from project-wizard to libanjuta
+      libanjuta: document AnjutaAutogen API
+      libanjuta: Change autogen API to support introspection
+      libanjuta: Reuse G_FILE_ERROR instead of defining a new error domain for autogen
+      libanjuta: Move useful template macros from project wizard to a common directory
+      class-gen: bgo#672892 - Class generator should respect project's indent settings
+      am-project: Fix regression test
+      build-basic-autotools: bgo #674863 - No easy way to call make check
+      libanjuta: Fix warnings in autogen code
+      libanjuta, am-project: bgo #675118 - Project manager never finishes loading Anjuta project
+      anjuta: Fix closed dock windows which were kept hidden due to the latest changes in GDL
+      Do not include devhelp.h if devhelp plugin is not enabled
+      Fix bgo #680657 - Warnings when starting anjuta
+      git: Only show the Git Tasks menu when the Git window is active
+      Fix #679767 - crash trying to stop the debugger
+      build: bgo#configure project - strange environment variables behaviour
+      am-project: Fix regression test
+
+Tom Tryfonidis (3):
+      Updated Greek translation
+      Updated Greek translation
+      Updated Greek help translation
+
+YunQiang Su (1):
+      Update zh_CN translation
+
+Yuri Kozlov (2):
+      Updated Russian translation
+      Updated Russian translation
+
+Yuri Myasoedov (2):
+      Updated Russian translation
+      Updated Russian translation
+
+Мирослав Николић (3):
+      Updated Serbian translation
+      Updated Serbian translation
+      Updated Serbian translation
+
+
+
 Anjuta 3.5.91 "Je voudrais etre un yeti" (September 3 2012) -- Johannes Schmid
 
 This is an unstable developer snapshot - if you need a stable version,
