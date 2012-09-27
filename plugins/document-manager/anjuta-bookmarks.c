@@ -294,7 +294,7 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	GtkWidget* item_rename;
 	GtkWidget* item_remove;
 
-	priv->window = gtk_vbox_new (FALSE, 5);
+	priv->window = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW(scrolled_window),
 										 GTK_SHADOW_ETCHED_IN);
@@ -328,7 +328,7 @@ anjuta_bookmarks_init (AnjutaBookmarks *bookmarks)
 	g_signal_connect (G_OBJECT(selection), "changed", G_CALLBACK(on_selection_changed),
 					  bookmarks);
 	
-	priv->grip = gtk_hbox_new (FALSE, 0);
+	priv->grip = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	priv->button_add = gtk_button_new();
 	gtk_widget_set_tooltip_text (priv->button_add,
 	                             _("Add bookmark"));
@@ -940,15 +940,9 @@ void
 anjuta_bookmarks_next (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
 					   gint line)
 {
-	IAnjutaIterable* end_pos;
-	gint end_line;
 	GList* marks = get_bookmarks_for_editor (bookmarks, editor);
 	GList* node;
-	
-	end_pos = ianjuta_editor_get_end_position (editor, NULL);
-	end_line = ianjuta_editor_get_line_from_position (editor, end_pos, NULL);
-	g_object_unref (end_pos);
-	
+
 	for (node = marks; node != NULL; node = g_list_next (node))
 	{
 		gint node_line = GPOINTER_TO_INT (node->data);
@@ -964,15 +958,9 @@ void
 anjuta_bookmarks_prev (AnjutaBookmarks* bookmarks, IAnjutaEditor* editor,
 					   gint line)
 {
-	IAnjutaIterable* end_pos;
-	gint end_line;
 	GList* marks = get_bookmarks_for_editor (bookmarks, editor);
 	GList* node;
-	
-	end_pos = ianjuta_editor_get_end_position (editor, NULL);
-	end_line = ianjuta_editor_get_line_from_position (editor, end_pos, NULL);
-	g_object_unref (end_pos);
-	
+
 	marks = g_list_reverse (marks);
 	
 	for (node = marks; node != NULL; node = g_list_next (node))

@@ -1280,12 +1280,9 @@ on_window_key_press_event (AnjutaShell *shell,
 						   GdkEventKey *event,
 						  DocmanPlugin *plugin)
 {
-	gint modifiers;
 	gint i;
 
 	g_return_val_if_fail (event != NULL, FALSE);
-
-	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
 
 	for (i = 0; global_keymap[i].id; i++)
 		if (event->keyval == global_keymap[i].gdk_key &&
@@ -1595,12 +1592,10 @@ on_notify_timer (GSettings* settings,
                  gpointer user_data)
 {
 	DocmanPlugin *plugin;
-	AnjutaDocman *docman;
 	gint auto_save_timer;
 	gboolean auto_save;
 
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
 
 	auto_save_timer = g_settings_get_int(settings, AUTOSAVE_TIMER);
 	auto_save = g_settings_get_boolean(settings, SAVE_AUTOMATIC);
@@ -1724,7 +1719,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* Add UI */
 	dplugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	dplugin->vbox = gtk_vbox_new (FALSE, 0);
+	dplugin->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_widget_show (dplugin->vbox);
 	gtk_box_pack_start (GTK_BOX(dplugin->vbox), docman, TRUE, TRUE, 0);
 	anjuta_shell_add_widget_full (plugin->shell, dplugin->vbox,
@@ -1780,7 +1775,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	// GtkIconFactory *icon_factory;
 	DocmanPlugin *eplugin;
 	AnjutaUI *ui;
-	AnjutaStatus *status;
 	GList *node;
 
 	DEBUG_PRINT ("%s", "DocmanPlugin: Deactivating document manager plugin…");
@@ -1793,7 +1787,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (on_save_prompt), plugin);
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	status = anjuta_shell_get_status (plugin->shell, NULL);
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (eplugin->docman),
 										  G_CALLBACK (on_document_changed),
