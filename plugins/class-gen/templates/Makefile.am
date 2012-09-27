@@ -1,5 +1,5 @@
 # Templates
-clsgen_appdatadir = "$(datadir)/anjuta/class-templates/"
+clsgen_appdatadir = $(anjuta_data_dir)/class-templates
 clsgen_appdata_DATA = \
 	cc-header.tpl \
 	cc-source.tpl \

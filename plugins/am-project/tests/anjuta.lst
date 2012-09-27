@@ -119,7 +119,7 @@ ROOT (): anjuta
     GROUP (): data
         PROPERTY (Installation directories): anjuta_datadir = $(anjuta_data_dir) anjuta_profiledir = $(anjuta_data_dir)/profiles
         GROUP (): templates
-            PROPERTY (Installation directories): template_datadir = "$(anjuta_data_dir)/templates/"
+            PROPERTY (Installation directories): template_datadir = $(anjuta_data_dir)/templates
             TARGET (): template_data
                 PROPERTY (Installation directory): template_datadir
                 SOURCE (): data/templates/indent.tpl
@@ -596,7 +596,7 @@ ROOT (): anjuta
             PROPERTY (Installation directories): clsgen_gladedir = $(anjuta_glade_dir) clsgen_pixmapsdir = $(anjuta_image_dir) clsgen_plugindir = $(anjuta_plugin_dir) plugindir = $(anjuta_plugin_dir)
             PROPERTY (C preprocessor flags): -I${top_srcdir} $(WARN_CFLAGS) $(DEPRECATED_FLAGS) $(LIBANJUTA_CFLAGS)
             GROUP (): templates
-                PROPERTY (Installation directories): clsgen_appdatadir = "$(datadir)/anjuta/class-templates/"
+                PROPERTY (Installation directories): clsgen_appdatadir = $(anjuta_data_dir)/class-templates
                 TARGET (): clsgen_appdata
                     PROPERTY (Installation directory): clsgen_appdatadir
                     SOURCE (): plugins/class-gen/templates/cc-header.tpl
