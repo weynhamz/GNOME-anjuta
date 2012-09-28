@@ -23,8 +23,6 @@
 
 struct _NPWPlugin;
 
-#include "values.h"
-
 #include <libanjuta/anjuta-plugin.h>
 
 #include <glib.h>

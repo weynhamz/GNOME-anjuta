@@ -23,8 +23,6 @@
 
 #include <config.h>
 
-#include "values.h"
-
 #include <glib.h>
 #include <gtk/gtk.h>
 
