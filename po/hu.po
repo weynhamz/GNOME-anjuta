@@ -1256,7 +1256,7 @@ msgstr "Ezen cél összeállítása csak automatikus tesztek futtatásakor."
 #: ../plugins/am-project/am-properties.c:1110
 #: ../plugins/am-project/am-properties.c:1183
 msgid "Do not use prefix:"
-msgstr "Ne használjon előtag:"
+msgstr "Ne használjon előtagot:"
 
 #: ../plugins/am-project/am-properties.c:476
 #: ../plugins/am-project/am-properties.c:651
