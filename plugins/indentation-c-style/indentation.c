@@ -1181,16 +1181,16 @@ insert_editor_blocked (IAnjutaEditor* editor,
                        gchar* text,
                        IndentCPlugin* plugin)
 {
-	g_signal_handlers_block_by_func (editor, cpp_indentation, plugin);
+	g_signal_handlers_block_by_func (editor, cpp_java_indentation_char_added, plugin);
 	ianjuta_editor_insert (editor, iter, text, -1, NULL);
-	g_signal_handlers_unblock_by_func (editor, cpp_indentation, plugin);
+	g_signal_handlers_unblock_by_func (editor, cpp_java_indentation_char_added, plugin);
 }
 
 void
-cpp_indentation (IAnjutaEditor *editor,
-                 IAnjutaIterable *insert_pos,
-                 gchar ch,
-                 IndentCPlugin *plugin)
+cpp_java_indentation_char_added (IAnjutaEditor *editor,
+                                 IAnjutaIterable *insert_pos,
+                                 gchar ch,
+                                 IndentCPlugin *plugin)
 {
 	IAnjutaEditorAttribute attrib;
 	IAnjutaIterable *iter;
@@ -1403,14 +1403,4 @@ cpp_auto_indentation (IAnjutaEditor *editor,
 		set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
-}
-
-
-void
-java_indentation (IAnjutaEditor *editor,
-                  IAnjutaIterable *insert_pos,
-                  gchar ch,
-                  IndentCPlugin *plugin)
-{
-	cpp_indentation (editor, insert_pos, ch, plugin);
 }

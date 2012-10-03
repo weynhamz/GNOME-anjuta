@@ -21,10 +21,10 @@
 #include "plugin.h"
 
 void
-cpp_indentation (IAnjutaEditor *editor,
-                 IAnjutaIterable *insert_pos,
-                 gchar ch,
-                 IndentCPlugin *plugin);
+cpp_java_indentation_char_added (IAnjutaEditor *editor,
+                                 IAnjutaIterable *insert_pos,
+                                 gchar ch,
+                                 IndentCPlugin *plugin);
 
 void
 cpp_auto_indentation (IAnjutaEditor *editor,
@@ -32,8 +32,3 @@ cpp_auto_indentation (IAnjutaEditor *editor,
                       IAnjutaIterable *start,
                       IAnjutaIterable *end);
 
-void
-java_indentation (IAnjutaEditor *editor,
-                  IAnjutaIterable *insert_pos,
-                  gchar ch,
-                  IndentCPlugin *plugin);
