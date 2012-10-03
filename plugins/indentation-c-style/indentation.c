@@ -57,6 +57,14 @@
 #define LABEL_INDENT (INDENT_SIZE)
 
 static gboolean
+is_closing_bracket(gchar ch)
+{
+	if (ch == ')' || ch == '}' || ch == ']')
+		return TRUE;
+	return FALSE;
+}
+
+static gboolean
 iter_is_newline (IAnjutaIterable *iter, gchar ch)
 {
 	if (ch == '\n' || ch == '\r')
@@ -1259,15 +1267,25 @@ cpp_indentation (IAnjutaEditor *editor,
 	{
 		if (ch == '[' || ch == '(')
 		            {
-						gchar *prev_char;
-						IAnjutaIterable *previous;
+						gchar *prev_char, *next_char;
+						IAnjutaIterable *previous, *next, *next_end;
 
 						previous = ianjuta_iterable_clone (iter, NULL);
 						ianjuta_iterable_previous (previous, NULL);
 						prev_char = ianjuta_editor_get_text (editor, previous, iter, NULL);
 
-						/* If the previous char is a ' we don't have to autocomplete */
-						if (*prev_char != '\'')
+						next = ianjuta_iterable_clone (iter, NULL);
+						ianjuta_iterable_next (next, NULL);
+						next_end = ianjuta_iterable_clone (next, NULL);
+						ianjuta_iterable_next (next_end, NULL);
+						next_char = ianjuta_editor_get_text (editor, next, next_end, NULL);
+
+						/* If the previous char is a ' we don't have to autocomplete,
+						   also we only autocomplete if the next character is white-space
+						   a closing bracket, "," or ";" */
+						if (*prev_char != '\'' &&
+						    (g_ascii_isspace(*next_char) || is_closing_bracket (*next_char) ||
+							 *next_char == ',' || *next_char == ';'|| *next_char == '\0'))
 						{
 							ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (editor), NULL);
 							ianjuta_iterable_next (iter, NULL);
