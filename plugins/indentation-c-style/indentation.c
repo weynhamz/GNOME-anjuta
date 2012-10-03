@@ -1353,6 +1353,46 @@ cpp_java_indentation_char_added (IAnjutaEditor *editor,
 	g_object_unref (iter);
 }
 
+static void
+erase_editor_blocked (IAnjutaEditor* editor,
+                      IAnjutaIterable* start,
+                      IAnjutaIterable* end,
+                      IndentCPlugin* plugin)
+{
+	g_signal_handlers_block_by_func (editor, cpp_java_indentation_changed, plugin);
+	ianjuta_editor_erase (editor, start, end, NULL);
+	g_signal_handlers_unblock_by_func (editor, cpp_java_indentation_changed, plugin);
+}
+
+void
+cpp_java_indentation_changed (IAnjutaEditor *editor,
+                              IAnjutaIterable *position,
+                              gboolean added,
+                              gint length,
+                              gint lines,
+                              const gchar *text,
+                              IndentCPlugin* plugin)
+{
+	/* If autoindent is enabled*/
+	if (plugin->smart_indentation)
+	{
+		if (g_settings_get_boolean (plugin->settings, PREF_BRACE_AUTOCOMPLETION))
+		{
+			if (!added && length == 1 && (*text == '[' || *text == '('))
+			{
+				IAnjutaIterable *next;
+				gchar *next_char;
+
+				next = ianjuta_iterable_clone (position, NULL);
+				ianjuta_iterable_next (next, NULL);
+				next_char = ianjuta_editor_get_text (editor, position, next, NULL);
+				if ((*text == '[' && *next_char == ']') || (*text == '(' && *next_char == ')'))
+					erase_editor_blocked (editor, position, next, plugin);
+			}
+		}
+	}
+}
+
 void
 cpp_auto_indentation (IAnjutaEditor *editor,
                       IndentCPlugin *lang_plugin,

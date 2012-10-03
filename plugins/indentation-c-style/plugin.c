@@ -356,6 +356,10 @@ install_support (IndentCPlugin *lang_plugin)
                           "char-added",
                           G_CALLBACK (cpp_java_indentation_char_added),
                           lang_plugin);
+        g_signal_connect (lang_plugin->current_editor,
+                          "changed",
+                          G_CALLBACK (cpp_java_indentation_changed),
+                          lang_plugin);
     }
     else
     {
@@ -380,6 +384,9 @@ uninstall_support (IndentCPlugin *lang_plugin)
     {
         g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
                                     G_CALLBACK (cpp_java_indentation_char_added),
+                                    lang_plugin);
+		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+                                    G_CALLBACK (cpp_java_indentation_changed),
                                     lang_plugin);
     }
     

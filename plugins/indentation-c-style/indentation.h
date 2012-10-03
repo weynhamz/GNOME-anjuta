@@ -27,6 +27,15 @@ cpp_java_indentation_char_added (IAnjutaEditor *editor,
                                  IndentCPlugin *plugin);
 
 void
+cpp_java_indentation_changed (IAnjutaEditor *editor,
+                              IAnjutaIterable *position,
+                              gboolean added,
+                              gint length,
+                              gint lines,
+                              const gchar *text,
+                              IndentCPlugin* plugin);
+
+void
 cpp_auto_indentation (IAnjutaEditor *editor,
                       IndentCPlugin *plugin,
                       IAnjutaIterable *start,
