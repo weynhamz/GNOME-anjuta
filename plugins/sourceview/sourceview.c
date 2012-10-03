@@ -1478,8 +1478,14 @@ static void
 idocument_undo(IAnjutaDocument* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	
 	if (idocument_can_undo(edit, NULL))
+	{
+		g_signal_handlers_block_by_func (sv->priv->document, on_insert_text, sv);
 		gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
+		g_signal_handlers_unblock_by_func (sv->priv->document, on_insert_text, sv);
+	}
+	
 	anjuta_view_scroll_to_cursor(sv->priv->view);
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv);
 }
