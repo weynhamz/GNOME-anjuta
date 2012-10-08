@@ -75,6 +75,6 @@ HELP_FILES = \
 HELP_FIGURES = figures/anjuta_logo.png \
 	      figures/anjuta-in-action.png
 
-HELP_LINGUAS = cs da de el es eu fr gl ja oc pt_BR ro sl sv th uk zh_CN
+HELP_LINGUAS = cs da de el es eu fr gl hu ja oc pt_BR ro sl sv th uk zh_CN
 
 -include $(top_srcdir)/git.mk
