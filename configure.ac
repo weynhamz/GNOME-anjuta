@@ -80,10 +80,8 @@ fi
 AC_LANG([C])
 AC_LANG([C++])
 AC_PROG_CXX
-if test "x$ac_ct_CXX" = "x"
-then
-  AC_MSG_ERROR([C++ Compiler required to compile Anjuta])
-fi
+AC_LINK_IFELSE([AC_LANG_PROGRAM([], [])],,
+   AC_MSG_ERROR([C++ Compiler required to compile Anjuta]))
 AM_PROG_CC_C_O
 
 GNOME_COMPILE_WARNINGS([maximum])
