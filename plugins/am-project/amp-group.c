@@ -673,6 +673,9 @@ amp_group_node_save (AmpNode *group, AmpNode *parent, AmpProject *project, GErro
 	gboolean ok = TRUE;
 	GFile *directory;
 
+	/* Check if Makefile.am is missing, it happens in po directory by example */
+	if (AMP_GROUP_NODE (group)->makefile == NULL) return FALSE;
+	
 	/* Create directory */
 	directory = g_file_get_parent (AMP_GROUP_NODE (group)->makefile);
 	g_file_make_directory (directory, NULL, NULL);
