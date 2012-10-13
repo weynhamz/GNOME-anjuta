@@ -243,6 +243,13 @@ amp_target_node_update_node (AmpTargetNode *node, AmpTargetNode *new_node)
 	new_node->tokens = NULL;
 }
 
+/* Get install directory */
+const gchar *
+amp_target_node_get_install_directory (AmpTargetNode *node)
+{
+	return node->install;
+}
+
 /* The target has changed which could change its children */
 void
 amp_target_changed (AmpTargetNode *node)
@@ -319,7 +326,12 @@ amp_target_node_new (const gchar *name, AnjutaProjectNodeType type, const gchar 
 	node = g_object_new (AMP_TYPE_TARGET_NODE, NULL);
 	amp_target_node_set_type (node, type);
 	node->base.name = g_strdup (name);
-	node->install = g_strdup (install);
+	if ((install == NULL) && ((type & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_DATA)) {
+		node->install = g_strdup (name);
+	}
+	else {
+		node->install = g_strdup (install);
+	}
 	node->flags = flags;
 
 	amp_node_property_add_mandatory (ANJUTA_PROJECT_NODE (node));
