@@ -90,7 +90,7 @@ data_DATA = data4.txt \
 ]])
 AT_PARSER_CHECK([load data1 \
 		 move data2 \
-		 add target 0 target3 data \
+		 add target 0 data data \
 		 add source 0:3 data4.txt \
 		 add source 0:3 data5.txt \
 		 list \

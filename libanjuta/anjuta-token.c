@@ -161,6 +161,7 @@ anjuta_token_next_child (AnjutaToken *child, AnjutaToken **last)
 				break;
 			}
 			child = child->parent;
+			if (child == NULL) break;
 		}
 	}
 
@@ -1371,8 +1372,9 @@ anjuta_token_foreach_content (AnjutaToken *token, AnjutaTokenForeachFunc func, g
 				{
 					/* Get parent */
 					token = token->parent;
-					if (token != NULL) last_parent = token->last;
 					expand = FALSE;
+					if (token == NULL) break;
+					last_parent = token->last;
 				}
 			}
 		}

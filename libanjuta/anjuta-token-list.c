@@ -354,7 +354,7 @@ anjuta_token_first_word (AnjutaToken *list)
 			item = NULL;
 			break;
 		default:
-			if (anjuta_token_is_empty (item)) continue;
+			if (anjuta_token_is_empty (item) || (anjuta_token_get_flags(item) & ANJUTA_TOKEN_REMOVED)) continue;
 			break;
 		}
 		break;
@@ -384,7 +384,7 @@ anjuta_token_next_word (AnjutaToken *item)
 			next = NULL;
 			break;
 		default:
-			if (anjuta_token_is_empty (next)) continue;
+			if (anjuta_token_is_empty (next) || (anjuta_token_get_flags(next) & ANJUTA_TOKEN_REMOVED)) continue;
 			break;
 		}
 		break;
@@ -662,39 +662,42 @@ anjuta_token_remove_list (AnjutaToken *list)
 	AnjutaToken *next;
 	AnjutaToken *prev;
 
-	anjuta_token_set_flags (list, ANJUTA_TOKEN_REMOVED);
-
-	prev = anjuta_token_previous_item (list);
-	if (prev != NULL)
+	if (!(anjuta_token_get_flags(list) & ANJUTA_TOKEN_REMOVED))
 	{
-		if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL)
-		{
-			/* Remove line above if empty */
-			AnjutaToken *prev_prev = anjuta_token_previous_item (prev);
+		anjuta_token_set_flags (list, ANJUTA_TOKEN_REMOVED);
 
-			if ((prev_prev == NULL) || (anjuta_token_get_type (prev_prev) == ANJUTA_TOKEN_EOL) || (anjuta_token_get_type (prev_prev) == ANJUTA_TOKEN_COMMENT))
-			{
-				anjuta_token_set_flags (prev, ANJUTA_TOKEN_REMOVED);
-			}
-		}
-		else if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT)
+		prev = anjuta_token_previous_item (list);
+		if (prev != NULL)
 		{
-			/* Remove comment above if there is an empty line after it */
-			do
+			if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL)
 			{
-				prev = anjuta_token_previous_item (prev);
-			}
-			while ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT));
+				/* Remove line above if empty */
+				AnjutaToken *prev_prev = anjuta_token_previous_item (prev);
 
-			if ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL))
-			{
-				prev = list;
-				do
+				if ((prev_prev == NULL) || (anjuta_token_get_type (prev_prev) == ANJUTA_TOKEN_EOL) || (anjuta_token_get_type (prev_prev) == ANJUTA_TOKEN_COMMENT))
 				{
 					anjuta_token_set_flags (prev, ANJUTA_TOKEN_REMOVED);
+				}
+			}
+			else if (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT)
+			{
+				/* Remove comment above if there is an empty line after it */
+				do
+				{
 					prev = anjuta_token_previous_item (prev);
 				}
 				while ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT));
+
+				if ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_EOL))
+				{
+					prev = list;
+					do
+					{
+						anjuta_token_set_flags (prev, ANJUTA_TOKEN_REMOVED);
+						prev = anjuta_token_previous_item (prev);
+					}
+					while ((prev != NULL) && (anjuta_token_get_type (prev) == ANJUTA_TOKEN_COMMENT));
+				}
 			}
 		}
 	}

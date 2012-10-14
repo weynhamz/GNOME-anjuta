@@ -238,8 +238,6 @@ anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
 	AnjutaToken *next = NULL;
 
 	if (token != NULL) next = anjuta_token_foreach_post_order (token, remove_raw_token, file);
-
-	next = anjuta_token_free (token);
 	file->dirty = TRUE;
 
 	return next;
