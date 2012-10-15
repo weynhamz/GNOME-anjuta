@@ -5,6 +5,7 @@ EXTRA_DIST = testsuite.at \
 	$(srcdir)/package.m4 \
 	$(TESTSUITE) \
 	atlocal.in \
+	anjuta.shar \
 	anjuta.lst \
 	nemiver.shar \
 	nemiver.lst \
