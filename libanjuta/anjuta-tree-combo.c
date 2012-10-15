@@ -289,6 +289,8 @@ static void
 anjuta_tree_combo_box_popup (AnjutaTreeComboBox *combo)
 {
 	GdkDevice *device;
+	GtkWidgetClass *widget_class;
+	GtkBindingSet *binding_set;
 
 	device = gtk_get_current_event_device ();
 
@@ -306,17 +308,28 @@ anjuta_tree_combo_box_popup (AnjutaTreeComboBox *combo)
 		device = devices->data;
 		g_list_free (devices);
 	}
-
+	
 	anjuta_tree_combo_box_popup_for_device (combo, device);
+
+	widget_class = GTK_WIDGET_GET_CLASS(combo);
+	binding_set = gtk_binding_set_by_class (widget_class);
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_Escape, 0,
+	                              "popdown", 0);
 }
 
 static void
 anjuta_tree_combo_box_popdown (AnjutaTreeComboBox *combo)
 {
 	AnjutaTreeComboBoxPrivate *priv = combo->priv;
+	GtkWidgetClass *widget_class;
+	GtkBindingSet *binding_set;
 
 	g_return_if_fail (ANJUTA_IS_TREE_COMBO_BOX (combo));
 
+	widget_class = GTK_WIDGET_GET_CLASS(combo);
+	binding_set = gtk_binding_set_by_class (widget_class);
+	gtk_binding_entry_remove (binding_set, GDK_KEY_Escape, 0);
+	
 	if (!gtk_widget_get_realized (GTK_WIDGET (combo)))
 		return;
 
@@ -1208,8 +1221,6 @@ anjuta_tree_combo_box_class_init (AnjutaTreeComboBoxClass * class)
 	gtk_binding_entry_add_signal (binding_set, GDK_KEY_Up, GDK_MOD1_MASK,
 	                              "popdown", 0);
 	gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Up, GDK_MOD1_MASK,
-	                              "popdown", 0);
-	gtk_binding_entry_add_signal (binding_set, GDK_KEY_Escape, 0,
 	                              "popdown", 0);
 
 	g_type_class_add_private (class, sizeof (AnjutaTreeComboBoxPrivate));
