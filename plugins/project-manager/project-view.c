@@ -316,9 +316,28 @@ row_activated (GtkTreeView       *tree_view,
 	node = gbf_tree_data_get_node (data);
 	if (node)
 	{
-		g_signal_emit (G_OBJECT (tree_view),
-			       signals [NODE_SELECTED], 0,
-			       node);
+		switch (anjuta_project_node_get_node_type (node))
+		{
+		case ANJUTA_PROJECT_GROUP:
+		case ANJUTA_PROJECT_ROOT:
+		case ANJUTA_PROJECT_TARGET:
+		case ANJUTA_PROJECT_MODULE:
+		case ANJUTA_PROJECT_PACKAGE:
+			if (!gtk_tree_view_row_expanded (tree_view, path))
+			{
+				gtk_tree_view_expand_row (tree_view, path, FALSE);
+			}
+			else
+			{
+				gtk_tree_view_collapse_row (tree_view, path);
+			}
+			break;
+		default:	
+			g_signal_emit (G_OBJECT (tree_view),
+			               signals [NODE_SELECTED], 0,
+			               node);
+			break;
+		}
 	}
 }
 

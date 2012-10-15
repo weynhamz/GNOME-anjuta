@@ -866,7 +866,7 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_node_selected (GtkWidget *widget, AnjutaProjectNode *node,
+on_node_activated (GtkWidget *widget, AnjutaProjectNode *node,
 				  ProjectManagerPlugin *plugin)
 {
 	IAnjutaFileLoader *loader;
@@ -1575,7 +1575,7 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 	g_signal_connect (view, "node-selected",
-					  G_CALLBACK (on_node_selected), plugin);
+					  G_CALLBACK (on_node_activated), plugin);
 	g_signal_connect (selection, "changed",
 					  G_CALLBACK (on_treeview_selection_changed), plugin);
 	g_signal_connect (view, "button-press-event",
