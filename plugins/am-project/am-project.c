@@ -241,6 +241,20 @@ static AmpNodeInfo AmpNodeInformations[] = {
 	NULL}
 };
 
+/* Types
+ *---------------------------------------------------------------------------*/
+
+static void iproject_iface_init(IAnjutaProjectIface* iface);
+
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (AmpProject,
+                                amp_project,
+                                AMP_TYPE_ROOT_NODE,
+                                0,
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (IANJUTA_TYPE_PROJECT,
+                                                               iproject_iface_init));
+
+
+
 /* Properties
  *---------------------------------------------------------------------------*/
 
@@ -1605,45 +1619,6 @@ amp_project_update_node (AnjutaProjectNode *key, AnjutaProjectNode *value, GHash
 	}
 }
 
-static AnjutaProjectNode *
-amp_project_duplicate_node (AnjutaProjectNode *old_node)
-{
-	AnjutaProjectNode *new_node;
-
-	/* Create new node */
-	new_node = g_object_new (G_TYPE_FROM_INSTANCE (old_node), NULL);
-	if (old_node->file != NULL) new_node->file = g_file_dup (old_node->file);
-	if (old_node->name != NULL) new_node->name = g_strdup (old_node->name);
-	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_TARGET)
-	{
-		amp_target_node_set_type (AMP_TARGET_NODE (new_node), anjuta_project_node_get_full_type (old_node));
-	}
-	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_PACKAGE)
-	{
-		// FIXME: We should probably copy the version number too because it will not
-		// be updated when the node is reloaded. So later when updating the old_node,
-		// the value will be overwritten with the new node empty value.
-		amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
-	}
-	if (anjuta_project_node_get_node_type (old_node) == ANJUTA_PROJECT_GROUP)
-	{
-
-		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_CONFIGURE), AM_GROUP_TOKEN_CONFIGURE);
-		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_SUBDIRS), AM_GROUP_TOKEN_SUBDIRS);
-		amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_DIST_SUBDIRS), AM_GROUP_TOKEN_DIST_SUBDIRS);
-
-	}
-	if (anjuta_project_node_parent (old_node) == NULL)
-	{
-		// FIXME: It would be better to write a duplicate function to avoid this code
-		((AmpProject *)new_node)->lang_manager = (((AmpProject *)old_node)->lang_manager != NULL) ? g_object_ref (((AmpProject *)old_node)->lang_manager) : NULL;
-	}
-	/* Keep old parent, Needed for source node to find project root node */
-	new_node->parent = old_node->parent;
-
-	return new_node;
-}
-
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -2123,7 +2098,7 @@ amp_load_setup (PmJob *job)
 {
 	//anjuta_project_node_check (job->node);
 	pm_job_set_parent (job, anjuta_project_node_parent (job->node));
-	job->proxy = amp_project_duplicate_node (job->node);
+	job->proxy = ANJUTA_PROJECT_NODE (amp_node_copy (AMP_NODE (job->node)));
 
 	return TRUE;
 }
@@ -2565,6 +2540,17 @@ amp_project_update (AmpNode *node, AmpNode *new_node)
 	return TRUE;
 }
 
+static AmpNode *
+amp_project_copy (AmpNode *old_node)
+{
+	AmpNode *new_node;
+
+	new_node = AMP_NODE_CLASS (amp_project_parent_class)->copy (old_node);
+	((AmpProject *)new_node)->lang_manager = (((AmpProject *)old_node)->lang_manager != NULL) ? g_object_ref (((AmpProject *)old_node)->lang_manager) : NULL;
+
+	return new_node;
+}
+
 
 /* GObject implementation
  *---------------------------------------------------------------------------*/
@@ -2640,19 +2626,13 @@ amp_project_class_init (AmpProjectClass *klass)
 	node_class->load = amp_project_load;
 	node_class->save = amp_project_save;
 	node_class->update = amp_project_update;
+	node_class->copy = amp_project_copy;
 }
 
 static void
 amp_project_class_finalize (AmpProjectClass *klass)
 {
 }
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED (AmpProject,
-                                amp_project,
-                                AMP_TYPE_ROOT_NODE,
-                                0,
-                                G_IMPLEMENT_INTERFACE_DYNAMIC (IANJUTA_TYPE_PROJECT,
-                                                               iproject_iface_init));
 
 void
 amp_project_register (GTypeModule *module)

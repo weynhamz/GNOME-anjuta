@@ -43,6 +43,11 @@
 #include <string.h>
 #include <ctype.h>
 
+/* Types
+ *---------------------------------------------------------------------------*/
+
+G_DEFINE_DYNAMIC_TYPE (AmpGroupNode, amp_group_node, AMP_TYPE_NODE);
+
 
 /* Helper functions
  *---------------------------------------------------------------------------*/
@@ -714,6 +719,19 @@ amp_group_node_update (AmpNode *node, AmpNode *new_node)
 	return TRUE;
 }
 
+static AmpNode *
+amp_group_node_copy (AmpNode *old_node)
+{
+	AmpNode *new_node;
+	
+	new_node = AMP_NODE_CLASS (amp_group_node_parent_class)->copy (old_node);
+	amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_CONFIGURE), AM_GROUP_TOKEN_CONFIGURE);
+	amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_SUBDIRS), AM_GROUP_TOKEN_SUBDIRS);
+	amp_group_node_add_token (AMP_GROUP_NODE (new_node), amp_group_node_get_first_token (AMP_GROUP_NODE (old_node), AM_GROUP_TOKEN_DIST_SUBDIRS), AM_GROUP_TOKEN_DIST_SUBDIRS);
+
+	return new_node;
+}
+
 static gboolean
 amp_group_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
 {
@@ -730,9 +748,6 @@ amp_group_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GErro
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
-
-
-G_DEFINE_DYNAMIC_TYPE (AmpGroupNode, amp_group_node, AMP_TYPE_NODE);
 
 static void
 amp_group_node_init (AmpGroupNode *node)
@@ -797,6 +812,7 @@ amp_group_node_class_init (AmpGroupNodeClass *klass)
 	node_class->load = amp_group_node_load;
 	node_class->save = amp_group_node_save;
 	node_class->update = amp_group_node_update;
+	node_class->copy = amp_group_node_copy;
 	node_class->write = amp_group_node_write;
 	node_class->erase = amp_group_node_erase;
 }

@@ -53,8 +53,13 @@ struct _AmpTargetNode {
 	GList* tokens;
 };
 
+typedef struct _AmpTargetNodeClass AmpTargetNodeClass;
 
+struct _AmpTargetNodeClass {
+	AmpNodeClass parent_class;
+};
 
+G_DEFINE_DYNAMIC_TYPE (AmpTargetNode, amp_target_node, AMP_TYPE_NODE);
 
 
 
@@ -434,6 +439,17 @@ amp_target_node_update (AmpNode *node, AmpNode *new_node)
 	return TRUE;
 }
 
+static AmpNode *
+amp_target_node_copy (AmpNode *old_node)
+{
+	AmpNode *new_node;
+	
+	new_node = AMP_NODE_CLASS (amp_target_node_parent_class)->copy (old_node);
+	amp_target_node_set_type (AMP_TARGET_NODE (new_node), anjuta_project_node_get_full_type (ANJUTA_PROJECT_NODE (old_node)));
+
+	return new_node;
+}
+
 static gboolean
 amp_target_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
 {
@@ -502,14 +518,6 @@ amp_target_node_erase (AmpNode *target, AmpNode *parent, AmpProject *project, GE
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
 
-typedef struct _AmpTargetNodeClass AmpTargetNodeClass;
-
-struct _AmpTargetNodeClass {
-	AmpNodeClass parent_class;
-};
-
-G_DEFINE_DYNAMIC_TYPE (AmpTargetNode, amp_target_node, AMP_TYPE_NODE);
-
 static void
 amp_target_node_init (AmpTargetNode *node)
 {
@@ -543,6 +551,7 @@ amp_target_node_class_init (AmpTargetNodeClass *klass)
 
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->update = amp_target_node_update;
+	node_class->copy = amp_target_node_copy;
 	node_class->write = amp_target_node_write;
 	node_class->erase = amp_target_node_erase;
 }

@@ -51,6 +51,14 @@ struct _AmpModuleNode {
 	AnjutaToken *module;
 };
 
+typedef struct _AmpModuleNodeClass AmpModuleNodeClass;
+
+struct _AmpModuleNodeClass {
+	AmpNodeClass parent_class;
+};
+
+G_DEFINE_DYNAMIC_TYPE (AmpModuleNode, amp_module_node, AMP_TYPE_NODE);
+
 
 /* Module objects
  *---------------------------------------------------------------------------*/
@@ -270,14 +278,6 @@ amp_module_node_erase (AmpNode *node, AmpNode *amp_parent, AmpProject *project, 
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
-
-typedef struct _AmpModuleNodeClass AmpModuleNodeClass;
-
-struct _AmpModuleNodeClass {
-	AmpNodeClass parent_class;
-};
-
-G_DEFINE_DYNAMIC_TYPE (AmpModuleNode, amp_module_node, AMP_TYPE_NODE);
 
 static void
 amp_module_node_init (AmpModuleNode *node)

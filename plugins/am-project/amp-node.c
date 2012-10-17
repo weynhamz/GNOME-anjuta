@@ -214,6 +214,14 @@ amp_node_update (AmpNode *node,
   return AMP_NODE_GET_CLASS (node)->update (node, new_node);
 }
 
+AmpNode*
+amp_node_copy (AmpNode *node)
+{
+  g_return_val_if_fail (AMP_IS_NODE (node), FALSE);
+
+  return AMP_NODE_GET_CLASS (node)->copy (node);
+}
+
 gboolean
 amp_node_write (AmpNode *node,
                 AmpNode *parent,
@@ -263,6 +271,21 @@ amp_node_real_update (AmpNode *node,
                       AmpNode *new_node)
 {
 	return FALSE;
+}
+
+static AmpNode*
+amp_node_real_copy (AmpNode *old_node)
+{
+	AnjutaProjectNode *new_node;
+
+	/* Create new node */
+	new_node = g_object_new (G_TYPE_FROM_INSTANCE (old_node), NULL);
+	if (old_node->parent.file != NULL) new_node->file = g_file_dup (old_node->parent.file);
+	if (old_node->parent.name != NULL) new_node->name = g_strdup (old_node->parent.name);
+	/* Keep old parent, Needed for source node to find project root node */
+	new_node->parent = old_node->parent.parent;
+
+	return AMP_NODE (new_node);	
 }
 
 static gboolean
@@ -319,6 +342,7 @@ amp_node_class_init (AmpNodeClass *klass)
 	klass->load = amp_node_real_load;
 	klass->save = amp_node_real_save;
 	klass->update = amp_node_real_update;
+	klass->copy = amp_node_real_copy;
 	klass->write = amp_node_real_write;
 	klass->erase = amp_node_real_erase;
 }

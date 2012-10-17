@@ -73,6 +73,8 @@ struct _AmpNodeClass
 	gboolean					(*update)				(AmpNode *node,
 											                AmpNode *parent);
 
+	AmpNode*				    (*copy)				    (AmpNode *node);
+
 	gboolean					(*erase)				(AmpNode *node,
 											                AmpNode *parent,
 											                AmpProject *project,
@@ -114,6 +116,8 @@ gboolean						amp_node_save					(AmpNode *node,
 
 gboolean						amp_node_update					(AmpNode *node,
 											                      AmpNode *new_node);
+
+AmpNode*						amp_node_copy					(AmpNode *node);
 
 gboolean						amp_node_write					(AmpNode *node,
 											                       AmpNode *parent,

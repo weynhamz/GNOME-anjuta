@@ -53,6 +53,14 @@ struct _AmpPackageNode {
 	AnjutaToken *token;
 };
 
+typedef struct _AmpPackageNodeClass AmpPackageNodeClass;
+
+struct _AmpPackageNodeClass {
+	AmpNodeClass parent_class;
+};
+
+G_DEFINE_DYNAMIC_TYPE (AmpPackageNode, amp_package_node, AMP_TYPE_NODE);
+
 
 /* Package objects
  *---------------------------------------------------------------------------*/
@@ -180,6 +188,20 @@ amp_package_node_update (AmpNode *node, AmpNode *new_node)
 	return TRUE;
 }
 
+static AmpNode *
+amp_package_node_copy (AmpNode *old_node)
+{
+	AmpNode *new_node;
+	
+	new_node = AMP_NODE_CLASS (amp_package_node_parent_class)->copy (old_node);
+	// FIXME: We should probably copy the version number too because it will not
+	// be updated when the node is reloaded. So later when updating the old_node,
+	// the value will be overwritten with the new node empty value.
+	amp_package_node_add_token (AMP_PACKAGE_NODE (new_node), amp_package_node_get_token (AMP_PACKAGE_NODE (old_node)));
+
+	return new_node;
+}
+
 static gboolean
 amp_package_node_write (AmpNode *node, AmpNode *parent, AmpProject *project, GError **error)
 {
@@ -195,14 +217,6 @@ amp_package_node_erase (AmpNode *node, AmpNode *parent, AmpProject *project, GEr
 
 /* GObjet implementation
  *---------------------------------------------------------------------------*/
-
-typedef struct _AmpPackageNodeClass AmpPackageNodeClass;
-
-struct _AmpPackageNodeClass {
-	AmpNodeClass parent_class;
-};
-
-G_DEFINE_DYNAMIC_TYPE (AmpPackageNode, amp_package_node, AMP_TYPE_NODE);
 
 static void
 amp_package_node_init (AmpPackageNode *node)
@@ -234,6 +248,7 @@ amp_package_node_class_init (AmpPackageNodeClass *klass)
 	node_class = AMP_NODE_CLASS (klass);
 	node_class->load = amp_package_node_load;
 	node_class->update = amp_package_node_update;
+	node_class->copy = amp_package_node_copy;
 	node_class->erase = amp_package_node_erase;
 	node_class->write = amp_package_node_write;
 }
