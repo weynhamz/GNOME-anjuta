@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=JHBuild
+_Description=Build and run programs inside the JHBuild environment
+Location=anjuta-jhbuild:JHBuildPlugin
+Icon=anjuta-jhbuild-plugin-48.png
+Interfaces=IAnjutaEnvironment

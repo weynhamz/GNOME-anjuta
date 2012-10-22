@@ -19,6 +19,7 @@ SUBDIRS = . \
 	js-debugger \
 	indentation-c-style \
 	indentation-python-style \
+	jhbuild \
 	language-manager \
 	language-support-cpp-java \
 	language-support-js \
