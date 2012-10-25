@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires anjuta 0.0 -->
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
@@ -32,6 +32,7 @@
             <child>
               <object class="GtkButton" id="button2">
                 <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -48,6 +49,7 @@
             <child>
               <object class="GtkButton" id="ok_button">
                 <property name="label">gtk-execute</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -62,6 +64,12 @@
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkVBox" id="vbox4">
@@ -71,11 +79,13 @@
             <property name="spacing">18</property>
             <child>
               <object class="GtkCheckButton" id="force_autogen_check">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="use_action_appearance">False</property>
+                <property name="xalign">0.5</property>
                 <property name="draw_indicator">True</property>
                 <child>
                   <object class="GtkLabel" id="label4">
@@ -126,12 +136,12 @@
                     <child>
                       <object class="GtkComboBox" id="configuration_combo_entry">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="has_entry">True</property>
                         <child internal-child="entry">
                           <object class="GtkEntry" id="comboboxentry-entry2">
-                            <property name="can_focus">False</property>
+                            <property name="can_focus">True</property>
                           </object>
                         </child>
                       </object>
@@ -162,6 +172,12 @@
                         <property name="n_columns">2</property>
                         <property name="column_spacing">12</property>
                         <property name="row_spacing">6</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                        <child>
+                          <placeholder/>
+                        </child>
                         <child>
                           <object class="GtkEntry" id="configure_args_entry">
                             <property name="visible">True</property>
@@ -230,12 +246,6 @@
                             <property name="bottom_attach">4</property>
                           </packing>
                         </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
                       </object>
                     </child>
                   </object>
@@ -286,6 +296,7 @@
             <child>
               <object class="GtkButton" id="cancelbutton2">
                 <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -302,6 +313,7 @@
             <child>
               <object class="GtkButton" id="okbutton3">
                 <property name="label">gtk-ok</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -318,6 +330,12 @@
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkFrame" id="frame1">
@@ -393,12 +411,14 @@
                 <child>
                   <object class="GtkCheckButton" id="program_run_in_terminal">
                     <property name="label" translatable="yes">Run in terminal</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="border_width">5</property>
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
+                    <property name="xalign">0.5</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
@@ -488,10 +508,12 @@
                         <child>
                           <object class="GtkCheckButton" id="preferences:parallel-make">
                             <property name="label" translatable="yes">Run several commands at a time:</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
+                            <property name="xalign">0.5</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -526,11 +548,13 @@
                     <child>
                       <object class="GtkCheckButton" id="preferences:continue-error">
                         <property name="label" translatable="yes">Continue on errors</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
@@ -542,10 +566,12 @@
                     <child>
                       <object class="GtkCheckButton" id="preferences:translate-message">
                         <property name="label" translatable="yes">Translate messages</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
+                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
@@ -557,11 +583,13 @@
                     <child>
                       <object class="GtkCheckButton" id="preferences:indicators-automatic">
                         <property name="label" translatable="yes">Highlight build warnings and errors in editor</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
@@ -620,11 +648,13 @@
                         <child>
                           <object class="GtkCheckButton" id="preferences:install-root">
                             <property name="label" translatable="yes">Install as root:</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
+                            <property name="xalign">0.5</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -638,8 +668,8 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="model">install_list</property>
-                            <property name="id_column">1</property>
                             <property name="active">0</property>
+                            <property name="id_column">1</property>
                             <child>
                               <object class="GtkCellRendererText" id="renderer2"/>
                               <attributes>
