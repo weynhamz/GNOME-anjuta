@@ -35,6 +35,16 @@ struct _JHBuildPluginClass
 #define JHBUILD_PLUGIN_ERROR (jhbuild_plugin_error_quark())
 static GQuark jhbuild_plugin_error_quark(void);
 
+/* G_DEFINE_QUARK is defined in GLib 2.34 provide a fallback for Glib 2.32 */
+#ifndef G_DEFINE_QUARK
+#define G_DEFINE_QUARK(QN, q_n)                      \
+GQuark                                               \
+q_n##_quark (void)                                   \
+{                                                    \
+      return g_quark_from_string (#QN);              \
+}
+#endif
+
 G_DEFINE_QUARK(JHBUILD_PLUGIN_ERROR, jhbuild_plugin_error);
 
 static char *
