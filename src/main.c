@@ -199,11 +199,11 @@ main (int argc, char *argv[])
 	}
 	else
 	{
-		AnjutaApp *app = create_window (files, n_files,
+		AnjutaWindow *win = create_window (files, n_files,
 										no_splash, no_session, no_files,
 										proper_shutdown, anjuta_geometry);
-		gtk_window_set_application (GTK_WINDOW (app), GTK_APPLICATION (anjuta));
-		gtk_widget_show (GTK_WIDGET (app));
+		gtk_window_set_application (GTK_WINDOW (win), GTK_APPLICATION (anjuta));
+		gtk_widget_show (GTK_WIDGET (win));
 		
 		free_files (files, n_files);
 	}

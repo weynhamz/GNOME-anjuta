@@ -22,7 +22,7 @@
 #define _ANJUTA_H_
 
 #include <libanjuta/e-splash.h>
-#include "anjuta-app.h"
+#include "anjuta-window.h"
 
 #define ANJUTA_TYPE_ANJUTA     (anjuta_get_type ())
 #define ANJUTA(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_ANJUTA, Anjuta))
@@ -46,7 +46,7 @@ struct _Anjuta
 GType anjuta_get_type (void);
 Anjuta *anjuta_new (void);
 
-AnjutaApp*
+AnjutaWindow*
 create_window (GFile **files, int n_files, gboolean no_splash,
 			gboolean no_session, gboolean no_files,
 			gboolean proper_shutdown, const gchar *geometry);

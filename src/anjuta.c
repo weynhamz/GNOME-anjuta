@@ -43,7 +43,7 @@
 static gchar *system_restore_session = NULL;
 
 static gboolean
-on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
+on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer data)
 {
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
@@ -51,22 +51,22 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	AnjutaSavePrompt *save_prompt;
 	gchar *remembered_plugins;
 
-	DEBUG_PRINT ("%s", "AnjutaApp delete event");
+	DEBUG_PRINT ("%s", "AnjutaWindow delete event");
 
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app), NULL);
-	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (app), NULL);
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (win), NULL);
+	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (win), NULL);
 
 	/* Save remembered plugins */
 	remembered_plugins =
 		anjuta_plugin_manager_get_remembered_plugins (plugin_manager);
-	g_settings_set_string (app->settings,
+	g_settings_set_string (win->settings,
 	                       ANJUTA_REMEMBERED_PLUGINS,
 	                       remembered_plugins);
 	g_free (remembered_plugins);
 
 	/* Check for unsaved data */
-	save_prompt = anjuta_save_prompt_new (GTK_WINDOW (app));
-	anjuta_shell_save_prompt (ANJUTA_SHELL (app), save_prompt, NULL);
+	save_prompt = anjuta_save_prompt_new (GTK_WINDOW (win));
+	anjuta_shell_save_prompt (ANJUTA_SHELL (win), save_prompt, NULL);
 
 	if (anjuta_save_prompt_get_items_count (save_prompt) > 0)
 	{
@@ -84,10 +84,10 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 		}
 	}
 	/* Wait for files to be really saved (asyncronous operation) */
-	if (app->save_count > 0)
+	if (win->save_count > 0)
 	{
-		g_message ("Waiting for %d file(s) to be saved!", app->save_count);
-		while (app->save_count > 0)
+		g_message ("Waiting for %d file(s) to be saved!", win->save_count);
+		while (win->save_count > 0)
 		{
 			g_main_context_iteration (NULL, TRUE);
 		}
@@ -101,20 +101,20 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	{
 		gchar *session_dir;
 		session_dir = USER_SESSION_PATH_NEW;
-		anjuta_shell_session_save (ANJUTA_SHELL (app), session_dir, NULL);
+		anjuta_shell_session_save (ANJUTA_SHELL (win), session_dir, NULL);
 		g_free (session_dir);
 	}
 
-	anjuta_shell_notify_exit (ANJUTA_SHELL (app), NULL);
+	anjuta_shell_notify_exit (ANJUTA_SHELL (win), NULL);
 
 	gtk_widget_destroy (GTK_WIDGET (save_prompt));
 
 	/* Shutdown */
-	if (g_object_get_data (G_OBJECT (app), "__proper_shutdown"))
+	if (g_object_get_data (G_OBJECT (win), "__proper_shutdown"))
 	{
-		gtk_widget_hide (GTK_WIDGET (app));
+		gtk_widget_hide (GTK_WIDGET (win));
 		anjuta_plugin_manager_unload_all_plugins
-			(anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app), NULL));
+			(anjuta_shell_get_plugin_manager (ANJUTA_SHELL (win), NULL));
 	}
 	return FALSE;
 }
@@ -122,14 +122,14 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 static void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
-	DEBUG_PRINT ("%s", "AnjutaApp destroy event");
+	DEBUG_PRINT ("%s", "AnjutaWindow destroy event");
 
 	gtk_widget_hide (w);
 }
 
 static void
 on_profile_scoped (AnjutaProfileManager *profile_manager,
-				   AnjutaProfile *profile, AnjutaApp *app)
+				   AnjutaProfile *profile, AnjutaWindow *win)
 {
 	gchar *session_dir;
 	static gboolean first_time = TRUE;
@@ -167,13 +167,13 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	}
 
 	/* Restore session */
-	anjuta_shell_session_load (ANJUTA_SHELL (app), session_dir, NULL);
+	anjuta_shell_session_load (ANJUTA_SHELL (win), session_dir, NULL);
 	g_free (session_dir);
 }
 
 static void
 on_profile_descoped (AnjutaProfileManager *profile_manager,
-					 AnjutaProfile *profile, AnjutaApp *app)
+					 AnjutaProfile *profile, AnjutaWindow *win)
 {
 	gchar *session_dir;
 
@@ -187,7 +187,7 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	session_dir = USER_SESSION_PATH_NEW;
 
 	/* Save current session */
-	anjuta_shell_session_save (ANJUTA_SHELL (app), session_dir, NULL);
+	anjuta_shell_session_save (ANJUTA_SHELL (win), session_dir, NULL);
 	g_free (session_dir);
 }
 
@@ -226,14 +226,14 @@ extract_project_from_session (const gchar* session_dir)
 	return project;
 }
 
-AnjutaApp*
+AnjutaWindow*
 create_window (GFile **files, int n_files, gboolean no_splash,
 			gboolean no_session, gboolean no_files,
 			gboolean proper_shutdown, const gchar *geometry)
 {
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
-	AnjutaApp *app;
+	AnjutaWindow *win;
 	AnjutaStatus *status;
 	AnjutaProfile *profile;
 	GFile *session_profile;
@@ -245,13 +245,13 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	GError *error = NULL;
 
 	/* Initialize application */
-	app = ANJUTA_APP (anjuta_app_new ());
-	status = anjuta_shell_get_status (ANJUTA_SHELL (app), NULL);
+	win = ANJUTA_WINDOW (anjuta_window_new ());
+	status = anjuta_shell_get_status (ANJUTA_SHELL (win), NULL);
 	anjuta_status_progress_add_ticks (status, 1);
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 
-	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
+	gtk_window_set_role (GTK_WINDOW (win), "anjuta-app");
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_window_set_default_icon_name ("anjuta");
 	gtk_window_set_auto_startup_notification(FALSE);
@@ -266,22 +266,22 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 
 	if (proper_shutdown)
 	{
-		g_object_set_data (G_OBJECT (app), "__proper_shutdown", "1");
+		g_object_set_data (G_OBJECT (win), "__proper_shutdown", "1");
 	}
-	g_signal_connect (G_OBJECT (app), "delete_event",
+	g_signal_connect (G_OBJECT (win), "delete_event",
 					  G_CALLBACK (on_anjuta_delete_event), NULL);
-	g_signal_connect (G_OBJECT (app), "destroy",
+	g_signal_connect (G_OBJECT (win), "destroy",
 					  G_CALLBACK (on_anjuta_destroy), NULL);
 
 	/* Setup application framework */
-	plugin_manager  = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app),
+	plugin_manager  = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (win),
 													   NULL);
-	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (app),
+	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (win),
 														NULL);
 
 	/* Restore remembered plugins */
 	remembered_plugins =
-		g_settings_get_string (app->settings, ANJUTA_REMEMBERED_PLUGINS);
+		g_settings_get_string (win->settings, ANJUTA_REMEMBERED_PLUGINS);
 	if (remembered_plugins)
 		anjuta_plugin_manager_set_remembered_plugins (plugin_manager,
 													  remembered_plugins);
@@ -294,7 +294,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 										 TRUE, &error);
 	if (error)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
+		anjuta_util_dialog_error (GTK_WINDOW (win), "%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
@@ -309,7 +309,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 											 FALSE, &error);
 		if (error)
 		{
-			anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
+			anjuta_util_dialog_error (GTK_WINDOW (win), "%s", error->message);
 			g_error_free (error);
 			error = NULL;
 		}
@@ -323,7 +323,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	anjuta_profile_manager_push (profile_manager, profile, &error);
 	if (error)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
+		anjuta_util_dialog_error (GTK_WINDOW (win), "%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
@@ -390,7 +390,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 
 		/* If preferences is set to not load last session, clear it */
 		if (no_session ||
-			g_settings_get_boolean (app->settings,
+			g_settings_get_boolean (win->settings,
 			                        ANJUTA_SESSION_SKIP_LAST))
 		{
 			/* Reset default session */
@@ -400,7 +400,7 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 		}
 		/* If preferences is set to not load last project, clear it */
 		else if (no_files ||
-				g_settings_get_boolean (app->settings,
+				g_settings_get_boolean (win->settings,
 				                        ANJUTA_SESSION_SKIP_LAST_FILES))
 		{
 			session = anjuta_session_new (session_dir);
@@ -419,12 +419,12 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 
 	/* Prepare for session save and load on profile change */
 	g_signal_connect (profile_manager, "profile-scoped",
-					  G_CALLBACK (on_profile_scoped), app);
+					  G_CALLBACK (on_profile_scoped), win);
 	/* Load project file */
 	if ((project != NULL) && (template == NULL))
 	{
 		IAnjutaFileLoader *loader;
-		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
+		loader = anjuta_shell_get_interface (ANJUTA_SHELL (win),
 											 IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load (loader, project, FALSE, NULL);
 		g_object_unref (project);
@@ -433,12 +433,12 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 
 	if (error)
 	{
-		anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
+		anjuta_util_dialog_error (GTK_WINDOW (win), "%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
 	g_signal_connect (profile_manager, "profile-descoped",
-					  G_CALLBACK (on_profile_descoped), app);
+					  G_CALLBACK (on_profile_descoped), win);
 
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session…"));
 	anjuta_status_disable_splash (status, TRUE);
@@ -447,13 +447,13 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 	if (template != NULL)
 	{
 		IAnjutaFileLoader *loader;
-		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
+		loader = anjuta_shell_get_interface (ANJUTA_SHELL (win),
 											 IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load (loader, template, FALSE, NULL);
 		g_object_unref (template);
 	}
 
-	return app;
+	return win;
 }
 
 /* Application */
@@ -474,9 +474,9 @@ anjuta_open (GApplication *application,
 {
 	int i;
 	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
-	AnjutaApp *app = ANJUTA_APP (windows->data);
+	AnjutaWindow *win = ANJUTA_WINDOW (windows->data);
 	IAnjutaFileLoader* loader =
-		anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
+		anjuta_shell_get_interface(ANJUTA_SHELL(win), IAnjutaFileLoader, NULL);
 
 	if (!loader)
 		return;
@@ -489,11 +489,11 @@ anjuta_open (GApplication *application,
 			continue;
 		if (anjuta_util_is_project_file (file))
 		{
-			AnjutaApp* new_app = create_window (files, n_files,
+			AnjutaWindow* new_win = create_window (files, n_files,
 			                                    TRUE, TRUE, FALSE, FALSE, NULL);
 			gtk_application_add_window (GTK_APPLICATION (application),
-			                            GTK_WINDOW (new_app));
-			gtk_widget_show (GTK_WIDGET (new_app));
+			                            GTK_WINDOW (new_win));
+			gtk_widget_show (GTK_WIDGET (new_win));
 			g_free (file);
 			return;
 		}
