@@ -35,8 +35,8 @@ bin_PROGRAMS = anjuta
 anjuta_SOURCES = \
 	about.c \
 	about.h \
-	anjuta.c \
-	anjuta.h \
+	anjuta-application.c \
+	anjuta-application.h \
 	anjuta-window.c \
 	anjuta-window.h \
 	anjuta-actions.h \

@@ -33,7 +33,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libxml/parser.h>
 
-#include "anjuta.h"
+#include "anjuta-application.h"
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -130,7 +130,7 @@ main (int argc, char *argv[])
 {
 	GOptionContext *context;
 	GError* error = NULL;
-	Anjuta* anjuta;
+	AnjutaApplication* anjuta;
 	GFile** files = NULL;
 	gint n_files = 0;
 	gint status;
@@ -179,7 +179,7 @@ main (int argc, char *argv[])
 	}
 
 	g_set_application_name (_("Anjuta"));
-	anjuta = anjuta_new ();
+	anjuta = anjuta_application_new ();
 #if GLIB_2_29_2 == 1
 	if (no_client) g_application_set_flags (G_APPLICATION (anjuta), G_APPLICATION_NON_UNIQUE);
 #endif

@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * anjuta.c
+ * anjuta-application.c
  * Copyright (C) 2000 Naba Kumar  <naba@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -28,7 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
-#include "anjuta.h"
+#include "anjuta-application.h"
 
 #define ANJUTA_REMEMBERED_PLUGINS "remembered-plugins"
 #define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
@@ -458,19 +458,19 @@ create_window (GFile **files, int n_files, gboolean no_splash,
 
 /* Application */
 
-G_DEFINE_TYPE (Anjuta, anjuta, GTK_TYPE_APPLICATION)
+G_DEFINE_TYPE (AnjutaApplication, anjuta_application, GTK_TYPE_APPLICATION)
 
 static void
-anjuta_finalize (GObject *object)
+anjuta_application_finalize (GObject *object)
 {
-  G_OBJECT_CLASS (anjuta_parent_class)->finalize (object);
+  G_OBJECT_CLASS (anjuta_application_parent_class)->finalize (object);
 }
 
 static void
-anjuta_open (GApplication *application,
-			 GFile **files,
-			 gint n_files,
-			 const gchar* hint)
+anjuta_application_open (GApplication *application,
+                         GFile **files,
+                         gint n_files,
+                         const gchar* hint)
 {
 	int i;
 	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
@@ -507,7 +507,7 @@ anjuta_open (GApplication *application,
 }
 
 static void
-anjuta_activate (GApplication *application)
+anjuta_application_activate (GApplication *application)
 {
 	/* Show first window */
 	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
@@ -516,29 +516,29 @@ anjuta_activate (GApplication *application)
 }
 
 static void
-anjuta_init (Anjuta *anjuta)
+anjuta_application_init (AnjutaApplication *anjuta)
 {
 
 }
 
 static void
-anjuta_class_init (AnjutaClass *klass)
+anjuta_application_class_init (AnjutaApplicationClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	GApplicationClass* app_class = G_APPLICATION_CLASS (klass);
 
-	object_class->finalize = anjuta_finalize;
+	object_class->finalize = anjuta_application_finalize;
 
-	app_class->open = anjuta_open;
-	app_class->activate = anjuta_activate;
+	app_class->open = anjuta_application_open;
+	app_class->activate = anjuta_application_activate;
 }
 
-Anjuta*
-anjuta_new (void)
+AnjutaApplication*
+anjuta_application_new (void)
 {
   g_type_init ();
 
-  return g_object_new (anjuta_get_type (),
+  return g_object_new (anjuta_application_get_type (),
                        "application-id", "org.gnome.anjuta",
                        "flags", G_APPLICATION_HANDLES_OPEN,
                        NULL);

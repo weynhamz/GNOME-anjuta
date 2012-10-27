@@ -36,7 +36,7 @@
 #include "anjuta-window.h"
 #include "about.h"
 #include "action-callbacks.h"
-#include "anjuta.h"
+#include "anjuta-application.h"
 
 #define TOOLBAR_VISIBLE "toolbar-visible"
 

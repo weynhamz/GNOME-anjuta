@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * anjuta.h
+ * anjuta-application.h
  * Copyright (C) 2000 Naba Kumar  <naba@gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify it
@@ -18,33 +18,33 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
  */
 
-#ifndef _ANJUTA_H_
-#define _ANJUTA_H_
+#ifndef _ANJUTA_APPLICATION_H_
+#define _ANJUTA_APPLICATION_H_
 
 #include <libanjuta/e-splash.h>
 #include "anjuta-window.h"
 
-#define ANJUTA_TYPE_ANJUTA     (anjuta_get_type ())
-#define ANJUTA(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_ANJUTA, Anjuta))
-#define ANJUTA_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_APP, AnjutaClass))
-#define ANJUTA_IS_ANJUTA(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_APP))
-#define ANJUTA_IS_ANJUTA_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_APP))
+#define ANJUTA_TYPE_APPLICATION        (anjuta_application_get_type ())
+#define ANJUTA_APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_APPLICATION, AnjutaApplication))
+#define ANJUTA_APPLICATION_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_APPLICATION, AnjutaApplicationClass))
+#define ANJUTA_IS_APPLICATION(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_APPLICATION))
+#define ANJUTA_IS_APPLICATION_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_APPLICATION))
 
-typedef struct _Anjuta Anjuta;
-typedef struct _AnjutaClass AnjutaClass;
+typedef struct _AnjutaApplication AnjutaApplication;
+typedef struct _AnjutaApplicationClass AnjutaApplicationClass;
 
-struct _AnjutaClass
+struct _AnjutaApplicationClass
 {
 	GtkApplicationClass parent;
 };
 
-struct _Anjuta
+struct _AnjutaApplication
 {
 	GtkApplication parent;
 };
 
-GType anjuta_get_type (void);
-Anjuta *anjuta_new (void);
+GType anjuta_application_get_type (void);
+AnjutaApplication *anjuta_application_new (void);
 
 AnjutaWindow*
 create_window (GFile **files, int n_files, gboolean no_splash,
