@@ -49,6 +49,7 @@ GtkWidget* anjuta_environment_editor_new (void);
 void anjuta_environment_editor_set_variable (AnjutaEnvironmentEditor *editor, const gchar *variable);
 gchar** anjuta_environment_editor_get_all_variables (AnjutaEnvironmentEditor *editor);
 gchar** anjuta_environment_editor_get_modified_variables (AnjutaEnvironmentEditor *editor);
+void anjuta_environment_editor_reset (AnjutaEnvironmentEditor *editor);
 
 G_END_DECLS
 

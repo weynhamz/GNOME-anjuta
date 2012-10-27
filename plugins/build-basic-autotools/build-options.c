@@ -279,6 +279,7 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 			build_gtk_file_chooser_create_and_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
 			g_free (uri);
 
+			anjuta_environment_editor_reset (ANJUTA_ENVIRONMENT_EDITOR (dlg->env_editor));
 			for (item = build_configuration_get_variables (cfg); item != NULL; item = g_list_next (item))
 			{
 				anjuta_environment_editor_set_variable (ANJUTA_ENVIRONMENT_EDITOR (dlg->env_editor), (gchar *)item->data);

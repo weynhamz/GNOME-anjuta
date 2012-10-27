@@ -795,3 +795,16 @@ anjuta_environment_editor_get_modified_variables (AnjutaEnvironmentEditor *edito
 
 	return mod_var;
 }
+
+/*
+ * anjuta_environment_editor_reset:
+ * @editor: A AnjutaEnvironmentEditor widget
+ *
+ * Remove all variables modified by the user
+ */
+void
+anjuta_environment_editor_reset (AnjutaEnvironmentEditor *editor)
+{
+	gtk_list_store_clear (GTK_LIST_STORE (editor->model));
+	load_environment_variables (editor, GTK_LIST_STORE (editor->model));
+}
