@@ -65,7 +65,7 @@ void
 on_layout_lock_toggle (GtkAction *action, AnjutaWindow *win)
 {
 	if (win->layout_manager)
-		g_object_set (win->layout_manager->master, "locked",
+		g_object_set (gdl_dock_layout_get_master (win->layout_manager), "locked",
 					  gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)),
 					  NULL);
 }
