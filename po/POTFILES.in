@@ -300,8 +300,8 @@ plugins/tools/variable.c
 src/about.c
 src/action-callbacks.c
 src/anjuta-actions.h
-src/anjuta-app.c
-src/anjuta.c
+src/anjuta-application.c
+src/anjuta-window.c
 src/main.c
 src/org.gnome.anjuta.gschema.xml.in
 [type: gettext/glade]src/preferences.ui
