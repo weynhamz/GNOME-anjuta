@@ -32,6 +32,7 @@
 
 typedef struct _AnjutaApplication AnjutaApplication;
 typedef struct _AnjutaApplicationClass AnjutaApplicationClass;
+typedef struct _AnjutaApplicationPrivate AnjutaApplicationPrivate;
 
 struct _AnjutaApplicationClass
 {
@@ -41,14 +42,14 @@ struct _AnjutaApplicationClass
 struct _AnjutaApplication
 {
 	GtkApplication parent;
+
+	AnjutaApplicationPrivate *priv;	
 };
 
 GType anjuta_application_get_type (void);
+
 AnjutaApplication *anjuta_application_new (void);
 
-AnjutaWindow*
-create_window (GFile **files, int n_files, gboolean no_splash,
-			gboolean no_session, gboolean no_files,
-			gboolean proper_shutdown, const gchar *geometry);
+gboolean anjuta_application_get_proper_shutdown (AnjutaApplication *app);
 
 #endif
