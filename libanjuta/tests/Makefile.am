@@ -18,8 +18,7 @@ anjuta_token_test_CFLAGS = -g -O0 -fprofile-arcs -ftest-coverage
 anjuta_token_test_LDADD = $(ANJUTA_LIBS)
 
 anjuta_token_test_SOURCES = anjuta-token-test.c \
-			../anjuta-token.c \
-			../anjuta-debug.c
+			../anjuta-token.c
 
 CLEANFILES = anjuta_token_test-anjuta-token.gcno \
              anjuta_token_test-anjuta-token-test.gcno \

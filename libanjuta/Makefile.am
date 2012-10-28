@@ -90,7 +90,6 @@ libanjuta_3_la_SOURCES= \
 	anjuta-sync-command.h \
 	anjuta-async-notify.h \
 	anjuta-async-notify.c \
-	anjuta-debug.c \
 	anjuta-debug.h \
 	anjuta-command-queue.c \
 	anjuta-command-queue.h \

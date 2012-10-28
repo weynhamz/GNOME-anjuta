@@ -23,22 +23,18 @@
  * @title: Debugging
  * @short_description: Debug functions 
  * @see_also: 
- * @stability: Unstable
+ * @stability: stable
  * @include: libanjuta/anjuta-debug.h
  * 
- * Anjuta debug messages displayed with g_debug() can be filtered based on their
- * domain. By default if DEBUG is defiled, all message are displayed. If DEBUG is not
- * defined, all messages are hidden.
+ * Anjuta debug messages are displayed using the g_debug() function from GLib.
  *
- * This behavior can be changed using the ANJUTA_LOG_DOMAINS environment
- * variable. If this variable is set to "all", all message are displayed whatever is the
- * value of DEBUG. Else you can set it to a list of domains separated by space to 
- * display messages from these selected domains only.
- * If G_LOG_DOMAIN is undefined, it will match a domain named "NULL".
+ * To display debug messages, Anjuta must have been compiled with
+ * --enable-debug and the environment variable G_MESSAGES_DEBUG should be set
+ * to "all" or to a list separated by whitespace of domains to display.
  *
  * By example
  *<programlisting>
- * ANJUTA_LOG_DOMAINS=Gtk Anjuta libanjuta-gdb
+ * G_MESSAGE_DEBUG=Gtk Anjuta libanjuta-gdb
  *</programlisting>
  * will display debug messages from Gtk, Anjuta and gdb plugin only.
  */
@@ -50,7 +46,7 @@
  * DEBUG_PRINT:
  * 
  * Equivalent to g_debug() showing the FILE, the LINE and the FUNC,
- * except it has only effect when DEBUG is defined. Used for printing debug 
+ * except it has only effect when DEBUG is defined . Used for printing debug 
  * messages.
  */
 #if defined (DEBUG)
@@ -62,7 +58,5 @@
 #else
 	#define DEBUG_PRINT(...)
 #endif
-
-void anjuta_debug_init (void);
 
 #endif /* _ANJUTA_DEBUG_H_ */

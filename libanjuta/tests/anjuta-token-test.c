@@ -42,8 +42,6 @@ main(int argc, char *argv[])
 	/* Initialize program */
 	g_type_init ();
 
-	anjuta_debug_init ();
-
 	ok = TRUE;
 
 	value = anjuta_token_evaluate (NULL);

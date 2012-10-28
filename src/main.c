@@ -160,9 +160,6 @@ main (int argc, char *argv[])
     /* Initialize threads */
 	g_thread_init(NULL);
 	
-	/* Init debug helpers */
-	anjuta_debug_init ();
-
 	/* Convert all file names to URI */
 	/* So an already existing instance of Anjuta having another current
 	 * directory can still open the files */
