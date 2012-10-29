@@ -1289,7 +1289,10 @@ ROOT (): anjuta
                     SOURCE (): plugins/glade/images/anjuta-glade-plugin-48.png
                     SOURCE (): plugins/glade/images/anjuta-glade-palette-16.png
                     SOURCE (): plugins/glade/images/anjuta-glade-palette-24.png
-                    SOURCE (): plugins/glade/images/\
+                    SOURCE (): plugins/glade/images/anjuta-glade-palette.svg
+                    SOURCE (): plugins/glade/images/anjuta-glade-widgets-16.png
+                    SOURCE (): plugins/glade/images/anjuta-glade-widgets-24.png
+                    SOURCE (): plugins/glade/images/anjuta-glade-widgets.svg
                 SOURCE (): plugins/glade/images/Makefile.am
             TARGET (): glade_ui
                 PROPERTY (Installation directory): glade_uidir
