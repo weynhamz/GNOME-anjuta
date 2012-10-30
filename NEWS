@@ -1,3 +1,57 @@
+Anjuta 3.7.1 (October 29, 2012) -- James Liggett
+
+Carl-Anton Ingmarsson (2):
+      run-program: use AnjutaEnvironmentEditor instead of implementing our own version.
+      jhbuild: new plugin to build/run program inside the jhbuild environment.
+
+Gabor Kelemen (3):
+      Fix another Hungarian mistranslation
+      Hungarian help translation added
+      Added hu to HELP_LINGUAS
+
+Gil Forcada Codinachs (1):
+      [l10n] Minor fixes to Catalan translation
+
+Ihar Hrachyshka (1):
+      Deleted obsolete Belarusian translation.
+
+James Liggett (1):
+      Post-release version bump
+
+Jasper Lievisse Adriaanse (1):
+      Remove two unused/non-existing headers.
+
+Milo Casagrande (1):
+      [l10n] Updated Italian translation.
+
+Piotr Drąg (2):
+      Updated POTFILES.in
+      Updated POTFILES.in
+
+Rūdolfs Mazurs (1):
+      Fixed Latvian po file header
+
+Sébastien Granjoux (19):
+      am-project: bgo#684770 - Adding a "Miscelaneous Data" objective ignores the given name
+      build: bgo#684758 - anjuta-3.5.91 fails to configure due to ac_ct_CXX check
+      am-project: Avoid critical warnings when a group does not have a Makefile.am
+      am-project: bgo#683728 - Project browser is not updated when files are added or removed
+      am-project: Check a copy of anjuta project in regression instead of the real project
+      am-project: bgo #681051 - Folder properties dialog can't be close with ESC
+      am-project: bgo #681050 - Double click on folder in project view open properties window
+      am-project: bgo #681073 - Anjuta crashes when switching git branches of the current project on the commandline
+      build-basic-autotools: Configuration name combo box should be editable
+      build-basic-autotools: Update environment variables when the build configuration is changed
+      jhbuild: Provide a fallback for G_DEFINE_QUARK to allow compilation with GLib 2.32
+      build-basic-autotools: Fix alignment of some text broken by the previous patch
+      anjuta: Rename AnjutaApp as AnjutaWindow
+      anjuta: Rename Anjuta as AnjutaApplication
+      anjuta: Remove custom filtering for debugging message as this is provided by GLib >= 2.32
+      anjuta: Do not use GDL members deprecated in version 3.6
+      anjuta: Move command line parsing in AnjutaApplication
+      am-project: Do not store files as binary in anjuta shar archive used in regression test
+      glade: Fix make file some files were not installed
+
 Anjuta 3.6.0 (September 26, 2012) -- James Liggett
 
 This is a new stable version of Anjuta and all users should update to this
