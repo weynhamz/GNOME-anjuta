@@ -40,14 +40,15 @@ typedef struct _AnjutaDocmanPriv AnjutaDocmanPriv;
 typedef struct _AnjutaDocmanClass AnjutaDocmanClass;
 
 struct _AnjutaDocman {
-	GtkNotebook parent;
+	GtkGrid parent;
+
 	AnjutaDocmanPriv *priv;
 	AnjutaShell *shell;
 	gboolean maximized;
 };
 
 struct _AnjutaDocmanClass {
-	GtkNotebookClass parent_class;
+	GtkGridClass parent_class;
 	
 	/* Signals */
 	void (*document_added) (IAnjutaDocument *document);
@@ -110,4 +111,22 @@ gboolean anjuta_docman_save_document (AnjutaDocman *docman, IAnjutaDocument *doc
 gboolean anjuta_docman_save_document_as (AnjutaDocman *docman,
 										IAnjutaDocument *doc,
 										GtkWidget *parent_window);
+
+gboolean anjuta_docman_next_page (AnjutaDocman *docman);
+gboolean anjuta_docman_previous_page (AnjutaDocman *docman);
+gboolean anjuta_docman_set_page (AnjutaDocman *docman, gint page);
+
+
+typedef enum
+{
+	ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_TABS,
+	ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_COMBO,
+	ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_NONE
+} AnjutaDocmanOpenDocumentsMode;
+
+void anjuta_docman_set_open_documents_mode (AnjutaDocman *docman,
+										    AnjutaDocmanOpenDocumentsMode mode);
+
+void anjuta_docman_set_tab_pos (AnjutaDocman *docman, GtkPositionType pos);
+
 #endif

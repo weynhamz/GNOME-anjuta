@@ -18,6 +18,9 @@
 		<key name="docman-tabs-ordering" type="b">
 			<default>false</default>
 		</key>
+		<key name="docman-show-drop-down" type="b">
+			<default>false</default>
+		</key>
 		<key name="docman-tabs-hide" type="b">
 			<default>false</default>
 		</key>

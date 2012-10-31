@@ -27,6 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
@@ -48,8 +49,6 @@ enum
 };
 
 /* Preference keys */
-#define EDITOR_TABS_POS            "docman-tabs-pos"
-#define EDITOR_TABS_HIDE           "docman-tabs-hide"
 #define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
 #define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
 
@@ -60,6 +59,11 @@ struct _AnjutaDocmanPriv {
 	GSettings* settings;
 	GList *pages;		/* list of AnjutaDocmanPage's */
 
+	GtkWidget *combo_box;
+	GtkComboBox *combo;
+	GtkListStore *combo_model;
+
+	GtkNotebook *notebook;
 	GtkWidget *fileselection;
 
 	GtkWidget *popup_menu;	/* shared context-menu for main-notebook pages */
@@ -104,6 +108,104 @@ static AnjutaDocmanPage *
 anjuta_docman_get_current_page (AnjutaDocman *docman);
 
 static void
+on_combo_changed (GtkComboBox *combo, gpointer user_data)
+{
+	AnjutaDocman *docman = user_data;
+	GtkTreeIter iter;
+
+	if (gtk_combo_box_get_active_iter (combo, &iter))
+	{
+		IAnjutaDocument *document;
+
+		gtk_tree_model_get (GTK_TREE_MODEL (docman->priv->combo_model), &iter, 0, &document, -1);
+		anjuta_docman_set_current_document (docman, document);
+		g_object_unref (document);
+	}
+}
+
+static gint
+combo_sort_func (GtkTreeModel *model,
+                 GtkTreeIter *a,
+                 GtkTreeIter *b,
+                 gpointer user_data)
+{
+	gchar *name1, *name2;
+	gint result;
+
+	gtk_tree_model_get (model, a, 1, &name1, -1);
+	gtk_tree_model_get (model, b, 1, &name2, -1);
+	result = g_strcmp0 (name1, name2);
+
+	g_free (name1);
+	g_free (name2);
+
+	return result;
+}
+
+static void
+anjuta_docman_add_document_to_combo (AnjutaDocman    *docman,
+                                     IAnjutaDocument *doc,
+                                     GFile           *file)
+{
+	GtkTreeIter iter;
+
+	gtk_list_store_append (docman->priv->combo_model, &iter);
+	gtk_list_store_set (docman->priv->combo_model, &iter, 0, doc, -1);
+
+	if (file)
+	{
+		gchar *path = g_file_get_path (file);
+
+		if (path && docman->priv->plugin->project_path &&
+		    g_str_has_prefix (path, docman->priv->plugin->project_path))
+		{
+			gchar *name =  path + strlen (docman->priv->plugin->project_path);
+			if (*name == G_DIR_SEPARATOR)
+				name++;
+
+			gtk_list_store_set (docman->priv->combo_model, &iter,
+			                    1, name, -1);
+		}
+		else
+		{
+			gchar *parsename = g_file_get_parse_name (file);
+			gtk_list_store_set (docman->priv->combo_model, &iter, 1, parsename, -1);
+			g_free (parsename);
+		}
+
+		g_free (path);
+	}
+	else
+		gtk_list_store_set (docman->priv->combo_model, &iter,
+		                    1, ianjuta_document_get_filename (doc, NULL), -1);
+}
+
+static gboolean
+anjuta_docman_get_iter_for_document (AnjutaDocman *docman,
+                                     IAnjutaDocument *doc,
+                                     GtkTreeIter *iter)
+{
+	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (docman->priv->combo_model), iter))
+	{
+		do
+		{
+			IAnjutaDocument *document;
+			gboolean equal;
+
+			gtk_tree_model_get (GTK_TREE_MODEL (docman->priv->combo_model), iter, 0, &document, -1);
+			equal = (document == doc);
+			g_object_unref (document);
+
+			if (equal)
+				return TRUE;
+		}
+		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (docman->priv->combo_model), iter));
+	}
+
+	return FALSE;
+}
+
+static void
 on_document_toggled (GtkAction* action,
 					 AnjutaDocman* docman)
 {
@@ -113,7 +215,7 @@ on_document_toggled (GtkAction* action,
 		return;
 
 	n = gtk_radio_action_get_current_value (GTK_RADIO_ACTION (action));
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), n);
+	gtk_notebook_set_current_page (docman->priv->notebook, n);
 }
 
 static void
@@ -123,8 +225,8 @@ anjuta_docman_update_documents_menu_status (AnjutaDocman* docman)
 	GtkUIManager* ui = GTK_UI_MANAGER (anjuta_shell_get_ui (ANJUTA_PLUGIN (priv->plugin)->shell,
 															NULL));
 	GtkAction* action;
-	gint n_pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
-	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
+	gint n_pages = gtk_notebook_get_n_pages (docman->priv->notebook);
+	gint current_page = gtk_notebook_get_current_page (docman->priv->notebook);
 	gchar *action_name;
 
 	action = gtk_ui_manager_get_action (ui,
@@ -168,7 +270,7 @@ anjuta_docman_update_documents_menu (AnjutaDocman* docman)
 	}
 	g_list_free (actions);
 
-	n = gtk_notebook_get_n_pages (GTK_NOTEBOOK (docman));
+	n = gtk_notebook_get_n_pages (docman->priv->notebook);
 
 	id = (n > 0) ? gtk_ui_manager_new_merge_id (ui) : 0;
 
@@ -223,7 +325,7 @@ anjuta_docman_update_documents_menu (AnjutaDocman* docman)
 				       GTK_UI_MANAGER_MENUITEM,
 				       FALSE);
 
-		if (i == gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
+		if (i == gtk_notebook_get_current_page (docman->priv->notebook))
 			gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
 
 		g_object_unref (action);
@@ -347,7 +449,7 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 			page = (AnjutaDocmanPage *)node->data;
 			if (page->box == widget)
 			{
-				gtk_notebook_reorder_child (GTK_NOTEBOOK (docman), page->widget, 0);
+				gtk_notebook_reorder_child (docman->priv->notebook, page->widget, 0);
 				break;
 			}
 		}
@@ -377,6 +479,17 @@ on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 							guint page_num, AnjutaDocman *docman)
 {
 	anjuta_docman_update_documents_menu(docman);
+}
+
+static void
+on_close_button_clicked (GtkButton *close_button, gpointer user_data)
+{
+	AnjutaDocman *docman = user_data;
+	IAnjutaDocument *current_document;
+
+	current_document = anjuta_docman_get_current_document (docman);
+	if (current_document)
+		anjuta_docman_remove_document (docman, current_document);
 }
 
 static GdkPixbuf*
@@ -848,18 +961,66 @@ anjuta_docman_finalize (GObject *obj)
 static void
 anjuta_docman_instance_init (AnjutaDocman *docman)
 {
+	GtkCellRenderer *cell;
+	GtkWidget *close_image, *close_button;
+
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
-/*g_new0 NULL's all content
-	docman->priv->popup_menu = NULL;
-	docman->priv->popup_menu_det = NULL;
-	docman->priv->fileselection = NULL;
-*/
-	gtk_notebook_popup_enable (GTK_NOTEBOOK (docman));
-	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
-	g_signal_connect (G_OBJECT (docman), "switch-page",
+
+	docman->priv->combo_model = gtk_list_store_new (2, G_TYPE_OBJECT, G_TYPE_STRING);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
+	                                      GTK_SORT_DESCENDING);
+	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
+	                                 combo_sort_func, docman, NULL);
+
+	docman->priv->combo_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+	g_object_set (G_OBJECT (docman->priv->combo_box), "margin", 6, NULL);
+	gtk_widget_set_sensitive (GTK_WIDGET (docman->priv->combo_box), FALSE);
+	gtk_grid_attach (GTK_GRID (docman), GTK_WIDGET (docman->priv->combo_box),
+	                 0, 0, 1, 1);
+
+	docman->priv->combo = GTK_COMBO_BOX (gtk_combo_box_new_with_model (GTK_TREE_MODEL (docman->priv->combo_model)));
+	gtk_widget_show (GTK_WIDGET (docman->priv->combo));
+
+	cell = gtk_cell_renderer_text_new ();
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (docman->priv->combo), cell, TRUE);
+	gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (docman->priv->combo),
+	                               cell, "text", 1);
+
+	g_signal_connect (G_OBJECT (docman->priv->combo), "changed",
+	                  G_CALLBACK (on_combo_changed), docman);
+
+	gtk_box_pack_start (GTK_BOX (docman->priv->combo_box), GTK_WIDGET (docman->priv->combo),
+					    TRUE, TRUE, 0);
+
+	/* Create close button */
+	close_image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+	gtk_widget_show (close_image);
+
+	close_button = gtk_button_new ();
+	gtk_widget_show (close_button);
+	gtk_widget_set_tooltip_text (close_button, _("Close file"));
+	gtk_container_add (GTK_CONTAINER (close_button), close_image);
+	gtk_widget_set_vexpand (close_button, FALSE);
+	gtk_box_pack_start (GTK_BOX (docman->priv->combo_box), close_button,
+					    FALSE, FALSE, 0);
+
+	g_signal_connect (G_OBJECT (close_button), "clicked",
+					  G_CALLBACK (on_close_button_clicked), docman);
+
+	/* Create the notebook */
+	docman->priv->notebook = GTK_NOTEBOOK (gtk_notebook_new ());
+	gtk_widget_show (GTK_WIDGET (docman->priv->notebook));
+	gtk_notebook_set_show_tabs (docman->priv->notebook, FALSE);
+	g_object_set (docman->priv->notebook, "expand", TRUE, NULL);
+	gtk_grid_attach (GTK_GRID (docman), GTK_WIDGET (docman->priv->notebook),
+	                 0, 1, 2, 1);
+
+	gtk_notebook_popup_enable (docman->priv->notebook);
+	gtk_notebook_set_scrollable (docman->priv->notebook, TRUE);
+	g_signal_connect (G_OBJECT (docman->priv->notebook), "switch-page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
 	/* update pages-list after re-ordering (or deleting) */
-	g_signal_connect (G_OBJECT (docman), "page-reordered",
+	g_signal_connect (G_OBJECT (docman->priv->notebook), "page-reordered",
 						G_CALLBACK (on_notebook_page_reordered), docman);
 }
 
@@ -937,11 +1098,11 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		AnjutaDocmanPage *page;
 
 		page = anjuta_docman_get_nth_page (docman, page_num);
-		g_signal_handlers_block_by_func (G_OBJECT (docman),
+		g_signal_handlers_block_by_func (G_OBJECT (docman->priv->notebook),
 										 (gpointer) on_notebook_switch_page,
 										 (gpointer) docman);
 		anjuta_docman_set_current_document (docman, page->doc);
-		g_signal_handlers_unblock_by_func (G_OBJECT (docman),
+		g_signal_handlers_unblock_by_func (G_OBJECT (docman->priv->notebook),
 										   (gpointer) on_notebook_switch_page,
 										   (gpointer) docman);
 		/* TTimo: reorder so that the most recently used files are
@@ -956,6 +1117,7 @@ on_notebook_switch_page (GtkNotebook *notebook,
 		}
 		/* activate the right item in the documents menu */
 		anjuta_docman_update_documents_menu_status (docman);
+
 		g_signal_emit_by_name (G_OBJECT (docman), "document-changed", page->doc);
 	}
 }
@@ -985,7 +1147,7 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 
 	if (!docman->priv->shutingdown)
 	{
-		if ((page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman))) == -1)
+		if ((page_num = gtk_notebook_get_current_page (docman->priv->notebook)) == -1)
 			anjuta_docman_set_current_document (docman, NULL);
 		else
 		{
@@ -1040,9 +1202,9 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 	/* list order matches pages in book, initially at least */
 	docman->priv->pages = g_list_prepend (docman->priv->pages, (gpointer)page);
 
-	gtk_notebook_prepend_page_menu (GTK_NOTEBOOK (docman), page->widget,
+	gtk_notebook_prepend_page_menu (docman->priv->notebook, page->widget,
 									page->box, page->menu_box);
-	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget,
+	gtk_notebook_set_tab_reorderable (docman->priv->notebook, page->widget,
 									 TRUE);
 
 	g_signal_connect (G_OBJECT (doc), "update-save-ui",
@@ -1052,9 +1214,15 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 	g_object_ref (doc);
 
+	/* Add document to combo */
+	anjuta_docman_add_document_to_combo (docman, doc, file);
+
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 	anjuta_docman_update_documents_menu (docman);
+
+	gtk_widget_set_sensitive (GTK_WIDGET (docman->priv->combo_box), TRUE);
+
 	g_signal_emit_by_name (docman, "document-added", doc);
 }
 
@@ -1062,6 +1230,7 @@ void
 anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 {
 	AnjutaDocmanPage *page;
+	GtkTreeIter iter;
 
 	if (!doc)
 		doc = anjuta_docman_get_current_document (docman);
@@ -1074,11 +1243,20 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 	{
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		if (!g_list_length (docman->priv->pages))
-				g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
+		{
+			/* No documents => set the box containing combo and close button to insensitive */
+			gtk_widget_set_sensitive (GTK_WIDGET (docman->priv->combo_box), FALSE);
+
+			g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
+		}
 		g_free (page);
 	}
 	gtk_widget_destroy(GTK_WIDGET(doc));
 	anjuta_docman_update_documents_menu(docman);
+
+	/* Remove document from combo model */
+	if (anjuta_docman_get_iter_for_document (docman, doc, &iter))
+		gtk_list_store_remove (docman->priv->combo_model, &iter);
 }
 
 void
@@ -1135,7 +1313,7 @@ anjuta_docman_get_nth_page (AnjutaDocman *docman, gint page_num)
 	GtkWidget *widget;
 	GList *node;
 
-	widget = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman), page_num);
+	widget = gtk_notebook_get_nth_page (docman->priv->notebook, page_num);
 	node = docman->priv->pages;
 	while (node)
 	{
@@ -1155,7 +1333,7 @@ static AnjutaDocmanPage*
 anjuta_docman_get_current_page (AnjutaDocman* docman)
 {
 	AnjutaDocmanPage* page = anjuta_docman_get_nth_page (docman,
-														 gtk_notebook_get_current_page(GTK_NOTEBOOK(docman)));
+														 gtk_notebook_get_current_page(docman->priv->notebook));
 	return page;
 }
 
@@ -1184,6 +1362,7 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		if (page)
 		{
 			gint page_num;
+			GtkTreeIter iter;
 
 			if (defdoc != NULL)
 			{
@@ -1208,15 +1387,19 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 				if (page->mime_icon)
 					gtk_widget_set_sensitive (page->mime_icon, TRUE);
 			}
-			page_num = gtk_notebook_page_num (GTK_NOTEBOOK (docman),
+			page_num = gtk_notebook_page_num (docman->priv->notebook,
 											  page->widget);
-			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), page_num);
+			gtk_notebook_set_current_page (docman->priv->notebook, page_num);
 
 			if (g_settings_get_boolean (docman->priv->settings,
 			                            EDITOR_TABS_ORDERING))
 				anjuta_docman_order_tabs (docman);
 
 			anjuta_docman_grab_text_focus (docman);
+
+			/* set active document in combo box */
+			if (anjuta_docman_get_iter_for_document(docman, page->doc, &iter))
+				gtk_combo_box_set_active_iter (docman->priv->combo, &iter);
 		}
 	}
 	else /* doc == NULL */
@@ -1389,11 +1572,11 @@ anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc)
 		if (page && page->doc == doc)
 		{
 			gint curindx;
-			curindx = gtk_notebook_page_num (GTK_NOTEBOOK (docman), page->widget);
+			curindx = gtk_notebook_page_num (docman->priv->notebook, page->widget);
 			if (curindx != -1)
 			{
-				if (curindx != gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
-					gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), curindx);
+				if (curindx != gtk_notebook_get_current_page (docman->priv->notebook))
+					gtk_notebook_set_current_page (docman->priv->notebook, curindx);
 				/* Make sure current page is visible */
 				anjuta_docman_grab_text_focus (docman);
 			}
@@ -1586,7 +1769,7 @@ anjuta_docman_order_tabs (AnjutaDocman *docman)
 	order_struct *tab_labels;
 	GtkNotebook *notebook;
 
-	notebook = GTK_NOTEBOOK (docman);
+	notebook = docman->priv->notebook;
 
 	num_pages = gtk_notebook_get_n_pages (notebook);
 	if (num_pages < 2)
@@ -1718,5 +1901,78 @@ anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman)
 	return wids;
 }
 
-ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_NOTEBOOK);
+static gboolean
+next_page (AnjutaDocman *docman, gboolean forward)
+{
+	gint pages_nb, cur_page, next_page;
+
+	if ((cur_page = gtk_notebook_get_current_page (docman->priv->notebook)) == -1)
+		return FALSE;
+
+	pages_nb = gtk_notebook_get_n_pages (docman->priv->notebook);
+
+	if (forward)
+		next_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
+	else
+		next_page = cur_page ? cur_page - 1 : pages_nb -1;
+
+	gtk_notebook_set_current_page (docman->priv->notebook, next_page);
+	return TRUE;
+}
+
+gboolean
+anjuta_docman_next_page (AnjutaDocman *docman)
+{
+	return next_page (docman, TRUE);
+}
+
+gboolean
+anjuta_docman_previous_page (AnjutaDocman *docman)
+{
+	return next_page (docman, FALSE);
+}
+
+gboolean
+anjuta_docman_set_page (AnjutaDocman *docman, gint page)
+{
+	if (gtk_notebook_get_n_pages (docman->priv->notebook) < (page - 1))
+		return FALSE;
+
+	gtk_notebook_set_current_page (docman->priv->notebook, page);
+	return TRUE;
+}
+
+void
+anjuta_docman_set_open_documents_mode (AnjutaDocman *docman,
+									   AnjutaDocmanOpenDocumentsMode mode)
+{
+	switch (mode)
+	{
+		case ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_TABS:
+			gtk_notebook_set_show_tabs (docman->priv->notebook, TRUE);
+			gtk_widget_hide (GTK_WIDGET (docman->priv->combo_box));
+			break;
+
+		case ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_COMBO:
+			gtk_notebook_set_show_tabs (docman->priv->notebook, FALSE);
+			gtk_widget_show (GTK_WIDGET (docman->priv->combo_box));
+			break;
+
+		case ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_NONE:
+			gtk_notebook_set_show_tabs (docman->priv->notebook, FALSE);
+			gtk_widget_hide (GTK_WIDGET (docman->priv->combo_box));
+			break;
+
+		default:
+			g_assert_not_reached ();
+	}
+}
+
+void
+anjuta_docman_set_tab_pos (AnjutaDocman *docman, GtkPositionType pos)
+{
+	gtk_notebook_set_tab_pos (docman->priv->notebook, pos);
+}
+
+ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_GRID);
 ANJUTA_TYPE_END;

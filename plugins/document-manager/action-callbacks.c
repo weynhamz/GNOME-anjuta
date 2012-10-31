@@ -951,16 +951,8 @@ on_next_document (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	GtkNotebook* notebook = GTK_NOTEBOOK (docman);
-	gint cur_page = gtk_notebook_get_current_page(notebook);
-	if (cur_page <
-		gtk_notebook_get_n_pages(notebook) - 1)
-		cur_page++;
-	else
-		cur_page = 0;
 
-	gtk_notebook_set_current_page (notebook,
-								   cur_page);
+	anjuta_docman_next_page (docman);
 }
 
 void
@@ -970,15 +962,8 @@ on_previous_document (GtkAction *action, gpointer user_data)
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	GtkNotebook* notebook = GTK_NOTEBOOK (docman);
-	gint cur_page = gtk_notebook_get_current_page(notebook);
-	if (cur_page > 0)
-		cur_page--;
-	else
-		cur_page = -1; /* last_page */
 
-	gtk_notebook_set_current_page (notebook,
-								   cur_page);
+	anjuta_docman_previous_page (docman);
 }
 
 void

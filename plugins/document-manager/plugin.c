@@ -1230,6 +1230,54 @@ on_editor_lang_changed (IAnjutaEditor* editor,
 	                        ANJUTA_PLUGIN(plugin));
 }
 
+#define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
+#define EDITOR_TABS_POS            "docman-tabs-pos"
+#define EDITOR_SHOW_DROP_DOWN      "docman-show-drop-down"
+#define EDITOR_TABS_HIDE           "docman-tabs-hide"
+#define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
+#define AUTOSAVE_TIMER             "docman-autosave-timer"
+#define SAVE_AUTOMATIC             "docman-automatic-save"
+
+static void
+docman_plugin_set_tab_pos (DocmanPlugin *ep)
+{
+
+	if (g_settings_get_boolean (ep->settings, EDITOR_SHOW_DROP_DOWN))
+	{
+		anjuta_docman_set_open_documents_mode (ANJUTA_DOCMAN (ep->docman),
+											   ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_COMBO);
+	}
+	else if (g_settings_get_boolean (ep->settings, EDITOR_TABS_HIDE))
+	{
+		anjuta_docman_set_open_documents_mode (ANJUTA_DOCMAN (ep->docman),
+											   ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_NONE);
+	}
+	else
+	{
+		gchar *tab_pos;
+		GtkPositionType pos;
+
+		anjuta_docman_set_open_documents_mode (ANJUTA_DOCMAN (ep->docman),
+											   ANJUTA_DOCMAN_OPEN_DOCUMENTS_MODE_TABS);
+		tab_pos = g_settings_get_string (ep->settings, EDITOR_TABS_POS);
+
+		pos = GTK_POS_TOP;
+		if (tab_pos)
+		{
+			if (strcasecmp (tab_pos, "top") == 0)
+				pos = GTK_POS_TOP;
+			else if (strcasecmp (tab_pos, "left") == 0)
+				pos = GTK_POS_LEFT;
+			else if (strcasecmp (tab_pos, "right") == 0)
+				pos = GTK_POS_RIGHT;
+			else if (strcasecmp (tab_pos, "bottom") == 0)
+				pos = GTK_POS_BOTTOM;
+			g_free (tab_pos);
+		}
+		anjuta_docman_set_tab_pos (ANJUTA_DOCMAN (ep->docman), pos);
+	}
+}
+
 static void
 on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 				   AnjutaPlugin *plugin)
@@ -1293,14 +1341,18 @@ on_window_key_press_event (AnjutaShell *shell,
 		return FALSE;
 
 	switch (global_keymap[i].id) {
+
 	case ID_NEXTBUFFER:
 	case ID_PREVBUFFER:
 	{
-		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
-		gint pages_nb;
-		gint cur_page;
+		gboolean res;
 
-		if ((cur_page = gtk_notebook_get_current_page (notebook)) == -1);
+		if (global_keymap[i].id == ID_NEXTBUFFER)
+			res = anjuta_docman_next_page (ANJUTA_DOCMAN(plugin->docman));
+		else
+			res = anjuta_docman_previous_page (ANJUTA_DOCMAN(plugin->docman));
+
+		if (!res)
 			return FALSE;
 
 		if (!plugin->g_tabbing)
@@ -1308,27 +1360,16 @@ on_window_key_press_event (AnjutaShell *shell,
 			plugin->g_tabbing = TRUE;
 		}
 
-		pages_nb = gtk_notebook_get_n_pages (notebook);
-
-		if (global_keymap[i].id == ID_NEXTBUFFER)
-			cur_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
-		else
-			cur_page = cur_page ? cur_page - 1 : pages_nb -1;
-
-		gtk_notebook_set_current_page (notebook, cur_page);
-
 		break;
 	}
 	default:
 		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
 		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
 		{
-			GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
 			gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
-			if (gtk_notebook_get_n_pages (notebook) == 0);
+			if (!anjuta_docman_set_page (ANJUTA_DOCMAN(plugin->docman), page_req))
 				return FALSE;
-			gtk_notebook_set_current_page(notebook, page_req);
 		}
 		else
 			return FALSE;
@@ -1340,13 +1381,6 @@ on_window_key_press_event (AnjutaShell *shell,
 
 	return TRUE;
 }
-
-#define EDITOR_TABS_RECENT_FIRST   "docman-tabs-recent-first"
-#define EDITOR_TABS_POS            "docman-tabs-pos"
-#define EDITOR_TABS_HIDE           "docman-tabs-hide"
-#define EDITOR_TABS_ORDERING       "docman-tabs-ordering"
-#define AUTOSAVE_TIMER             "docman-autosave-timer"
-#define SAVE_AUTOMATIC             "docman-automatic-save"
 
 static gboolean
 on_window_key_release_event (AnjutaShell *shell,
@@ -1484,38 +1518,6 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 }
 
 static void
-docman_plugin_set_tab_pos (DocmanPlugin *ep)
-{
-	if (g_settings_get_boolean (ep->settings, EDITOR_TABS_HIDE))
-	{
-		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), FALSE);
-	}
-	else
-	{
-		gchar *tab_pos;
-		GtkPositionType pos;
-
-		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (ep->docman), TRUE);
-		tab_pos = g_settings_get_string (ep->settings, EDITOR_TABS_POS);
-
-		pos = GTK_POS_TOP;
-		if (tab_pos)
-		{
-			if (strcasecmp (tab_pos, "top") == 0)
-				pos = GTK_POS_TOP;
-			else if (strcasecmp (tab_pos, "left") == 0)
-				pos = GTK_POS_LEFT;
-			else if (strcasecmp (tab_pos, "right") == 0)
-				pos = GTK_POS_RIGHT;
-			else if (strcasecmp (tab_pos, "bottom") == 0)
-				pos = GTK_POS_BOTTOM;
-			g_free (tab_pos);
-		}
-		gtk_notebook_set_tab_pos (GTK_NOTEBOOK (ep->docman), pos);
-	}
-}
-
-static void
 on_notify_prefs (AnjutaPreferences* prefs,
                  const gchar* key, gpointer user_data)
 {
@@ -1633,6 +1635,8 @@ prefs_init (DocmanPlugin *ep)
 {
 	docman_plugin_set_tab_pos (ep);
 
+	g_signal_connect (ep->settings, "changed::" EDITOR_SHOW_DROP_DOWN,
+	                  G_CALLBACK (on_notify_prefs), ep);
 	g_signal_connect (ep->settings, "changed::" EDITOR_TABS_HIDE,
 	                  G_CALLBACK (on_notify_prefs), ep);
 	g_signal_connect (ep->settings, "changed::" EDITOR_TABS_POS,
@@ -2131,6 +2135,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GError* error = NULL;
 	GtkBuilder* bxml = gtk_builder_new ();
 	DocmanPlugin* doc_plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
+	GObject *show_tabs_radio, *tabs_settings_box;
 
 	/* Add preferences */
 	if (!gtk_builder_add_from_file (bxml, PREFS_BUILDER, &error))
@@ -2138,6 +2143,10 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		g_warning ("Couldn't load builder file: %s", error->message);
 		g_error_free (error);
 	}
+
+	show_tabs_radio = gtk_builder_get_object (bxml, "show-tabs-radio");
+	tabs_settings_box = gtk_builder_get_object (bxml, "tabs-settings-box");
+	g_object_bind_property (show_tabs_radio, "active", tabs_settings_box, "sensitive", 0);
 
 	anjuta_preferences_add_from_builder (prefs, bxml,
 	                                     doc_plugin->settings,
