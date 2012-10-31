@@ -28,10 +28,7 @@ struct _DocmanPlugin{
 	gint project_watch_id;
 	gchar* project_name;
 	gchar* project_path;
-	
-	/*! state flag for Ctrl-TAB */
-	gboolean g_tabbing;
-	
+
 	/* Autosave timer ID */
 	gint autosave_id;
 	gboolean autosave_on;

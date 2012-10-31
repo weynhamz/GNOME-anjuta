@@ -115,9 +115,7 @@ enum {
 };
 
 enum {
-	ID_NEXTBUFFER = 1, /* Note: the value mustn't be 0 ! */
-	ID_PREVBUFFER,
-	ID_FIRSTBUFFER
+	ID_FIRSTBUFFER = 1, /* Note: the value mustn't be 0 ! */
 };
 
 typedef struct {
@@ -127,14 +125,6 @@ typedef struct {
 } ShortcutMapping;
 
 static ShortcutMapping global_keymap[] = {
-/* FIXME: HIG requires that Ctrl+Tab be used to transfer focus in multiline
-   text entries. So we can't use the following ctrl+tabbing. Is there other
-   sensible keys that can be used for them?
-*/
-/*
-	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
-	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
-*/
 	{ m__M, GDK_KEY_1, ID_FIRSTBUFFER },
 	{ m__M, GDK_KEY_2, ID_FIRSTBUFFER + 1},
 	{ m__M, GDK_KEY_3, ID_FIRSTBUFFER + 2},
@@ -1340,76 +1330,22 @@ on_window_key_press_event (AnjutaShell *shell,
 	if (!global_keymap[i].id)
 		return FALSE;
 
-	switch (global_keymap[i].id) {
-
-	case ID_NEXTBUFFER:
-	case ID_PREVBUFFER:
+	if (global_keymap[i].id >= ID_FIRSTBUFFER &&
+			    global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
 	{
-		gboolean res;
+		gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
-		if (global_keymap[i].id == ID_NEXTBUFFER)
-			res = anjuta_docman_next_page (ANJUTA_DOCMAN(plugin->docman));
-		else
-			res = anjuta_docman_previous_page (ANJUTA_DOCMAN(plugin->docman));
-
-		if (!res)
-			return FALSE;
-
-		if (!plugin->g_tabbing)
-		{
-			plugin->g_tabbing = TRUE;
-		}
-
-		break;
-	}
-	default:
-		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
-		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
-		{
-			gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
-
-			if (!anjuta_docman_set_page (ANJUTA_DOCMAN(plugin->docman), page_req))
-				return FALSE;
-		}
-		else
+		if (!anjuta_docman_set_page (ANJUTA_DOCMAN(plugin->docman), page_req))
 			return FALSE;
 	}
+	else
+		return FALSE;
 
 	/* Note: No reason for a shortcut to do more than one thing a time */
 	g_signal_stop_emission_by_name (G_OBJECT (ANJUTA_PLUGIN(plugin)->shell),
 									"key-press-event");
 
 	return TRUE;
-}
-
-static gboolean
-on_window_key_release_event (AnjutaShell *shell,
-							 GdkEventKey *event,
-							DocmanPlugin *plugin)
-{
-	g_return_val_if_fail (event != NULL, FALSE);
-
-	if (plugin->g_tabbing && ((event->keyval == GDK_KEY_Control_L) ||
-		(event->keyval == GDK_KEY_Control_R)))
-	{
-		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
-		GtkWidget *widget;
-		gint cur_page;
-		plugin->g_tabbing = FALSE;
-
-		if (g_settings_get_boolean (plugin->settings,
-		                            EDITOR_TABS_RECENT_FIRST))
-		{
-			/*
-			TTimo: move the current notebook page to first position
-			that maintains Ctrl-TABing on a list of most recently edited files
-			*/
-			cur_page = gtk_notebook_get_current_page (notebook);
-			widget = gtk_notebook_get_nth_page (notebook, cur_page);
-			gtk_notebook_reorder_child (notebook, widget, 0);
-		}
-	}
-	return FALSE;
 }
 
 static void
@@ -1677,8 +1613,6 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_document_changed), plugin);
 	g_signal_connect (G_OBJECT (plugin->shell), "key-press-event",
 					  G_CALLBACK (on_window_key_press_event), plugin);
-	g_signal_connect (G_OBJECT (plugin->shell), "key-release-event",
-					  G_CALLBACK (on_window_key_release_event), plugin);
 
 	if (!initialized)
 	{
@@ -1799,9 +1733,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_window_key_press_event),
 										  plugin);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-										  G_CALLBACK (on_window_key_release_event),
-										  plugin);
 
 	on_document_changed (ANJUTA_DOCMAN (eplugin->docman), NULL, plugin);
 
@@ -1852,7 +1783,6 @@ docman_plugin_instance_init (GObject *obj)
 {
 	DocmanPlugin *plugin = ANJUTA_PLUGIN_DOCMAN (obj);
 	plugin->uiid = 0;
-	plugin->g_tabbing = FALSE;
 	plugin->notify_ids = NULL;
 	plugin->support_plugins = NULL;
 	plugin->settings = g_settings_new (PREF_SCHEMA);
