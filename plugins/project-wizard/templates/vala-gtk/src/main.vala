@@ -21,7 +21,7 @@ public class Main : Object
 	 * or installing
 	 */
 	//const string UI_FILE = Config.PACKAGE_DATA_DIR + "/" + "[+NameHLower+].ui";
-	const string UI_FILE = "src/[+NameHLower+].ui";
+	const string UI_FILE = "src/ui/[+NameHLower+].ui";
 
 	/* ANJUTA: Widgets declaration for [+NameHLower+].ui - DO NOT REMOVE */
 [+ENDIF+]
