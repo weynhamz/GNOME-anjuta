@@ -1172,21 +1172,18 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 		if (uri)
 		{
-			if (!anjuta_util_is_project_file (uri))
-			{
-				gchar *fragment = NULL;
-				GFile* file = anjuta_session_get_file_from_relative_uri (session, uri, &fragment);
-				GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
+			gchar *fragment = NULL;
+			GFile* file = anjuta_session_get_file_from_relative_uri (session, uri, &fragment);
+			GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  file, FALSE, NULL);
-				if (fragment != NULL)
+			if (fragment != NULL)
+			{
+				if (IANJUTA_IS_DOCUMENT_MANAGER (loader))
 				{
-					if (IANJUTA_IS_DOCUMENT_MANAGER (loader))
-					{
-						ianjuta_document_manager_goto_file_line (IANJUTA_DOCUMENT_MANAGER (loader), file, atoi(fragment), NULL);
-					}
+					ianjuta_document_manager_goto_file_line (IANJUTA_DOCUMENT_MANAGER (loader), file, atoi(fragment), NULL);
 				}
-				g_object_unref (file);
 			}
+			g_object_unref (file);
 		}
 		g_free (uri);
 	}
