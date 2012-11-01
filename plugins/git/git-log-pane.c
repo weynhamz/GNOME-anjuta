@@ -504,7 +504,7 @@ ref_icon_cell_function (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
 	if (g_hash_table_lookup_extended (self->priv->refs, sha, NULL, NULL))
 		g_object_set (renderer, "stock-id", GTK_STOCK_INFO, NULL);
 	else
-		g_object_set (renderer, "stock-id", "", NULL);
+		g_object_set (renderer, "stock-id", NULL, NULL);
 	
 	g_free (sha);
 }

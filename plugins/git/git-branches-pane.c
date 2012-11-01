@@ -187,7 +187,7 @@ active_icon_data_func (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
 	if (active)
 		g_object_set (renderer, "stock-id", GTK_STOCK_APPLY, NULL);
 	else
-		g_object_set (renderer, "stock-id", "", NULL);
+		g_object_set (renderer, "stock-id", NULL, NULL);
 }
 
 static void
