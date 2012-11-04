@@ -42,6 +42,11 @@
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
 
+#define ANJUTA_GEOMETRY_HINT "-g="
+#define ANJUTA_NO_SPLASH_HINT "-s"
+#define ANJUTA_NO_SESSION_HINT "-n"
+#define ANJUTA_NO_FILES_HINT "-f"
+
 G_DEFINE_TYPE (AnjutaApplication, anjuta_application, GTK_TYPE_APPLICATION)
 
 static gchar *system_restore_session = NULL;
@@ -49,6 +54,9 @@ static gchar *system_restore_session = NULL;
 struct _AnjutaApplicationPrivate {
 	gboolean no_splash;
 	gboolean proper_shutdown;
+	gboolean no_files;
+	gboolean no_session;
+	gchar *geometry;
 };
 
 static gboolean
@@ -194,6 +202,64 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	g_free (session_dir);
 }
 
+/* Create hint string.
+ * Pass command line options to primary instance if needed */
+static gchar *
+create_anjuta_application_hint (const gchar *geometry,
+                                gboolean no_splash,
+                                gboolean no_session,
+                                gboolean no_files)
+{
+	GString *hint;
+
+	hint = g_string_new (NULL);
+	if (geometry != NULL)
+	{
+		g_string_append (hint, ANJUTA_GEOMETRY_HINT);
+		g_string_append (hint, geometry);
+	}
+	if (no_splash) g_string_append (hint,ANJUTA_NO_SPLASH_HINT);
+	if (no_session) g_string_append (hint,ANJUTA_NO_SESSION_HINT);
+	if (no_files) g_string_append (hint,ANJUTA_NO_FILES_HINT);
+	g_string_append_c(hint, '-');
+
+	return g_string_free (hint, FALSE);
+}
+
+/* Parse hint string to set flag in primary application */
+static void
+anjuta_application_parse_hint (AnjutaApplication *app,
+                               const gchar* hint)
+{
+	const gchar *geometry;
+
+	g_free (app->priv->geometry);
+	app->priv->geometry = NULL;
+	geometry = strstr(hint, ANJUTA_GEOMETRY_HINT);
+	if (geometry != NULL)
+	{
+		const gchar *end = strstr(geometry + 1, "-");
+
+		if (end != NULL)
+		{
+			geometry += strlen (ANJUTA_GEOMETRY_HINT);
+			app->priv->geometry = g_strndup (geometry, end - geometry);
+		}
+	}
+	app->priv->no_splash = strstr(hint, ANJUTA_NO_SPLASH_HINT "-") != NULL ? TRUE : FALSE;
+	app->priv->no_session = strstr(hint, ANJUTA_NO_SESSION_HINT "-") != NULL ? TRUE : FALSE;
+	app->priv->no_files = strstr(hint, ANJUTA_NO_FILES_HINT "-") != NULL ? TRUE : FALSE;
+}
+
+static void
+anjuta_application_reset_hint (AnjutaApplication *app)
+{
+	g_free (app->priv->geometry);
+	app->priv->geometry = NULL;
+	app->priv->no_splash = FALSE;
+	app->priv->no_session = FALSE;
+	app->priv->no_files = FALSE;
+}
 
 
 /* GApplication implementation
@@ -270,6 +336,7 @@ anjuta_application_local_command_line (GApplication *application,
 	gint argc = 0;
 	gchar **argv = NULL;
 	GError *error = NULL;
+	gchar *hint = NULL;
 	GPtrArray *files;
 
 	context = g_option_context_new (_("- Integrated Development Environment"));
@@ -321,9 +388,14 @@ anjuta_application_local_command_line (GApplication *application,
 		}
 	}
 
-	g_application_open (application, (GFile **)files->pdata, files->len, NULL);
+	/* Create hint string */
+	hint = create_anjuta_application_hint (geometry, no_splash, no_session, no_files);
+
+	/* Open files */
+	g_application_open (application, (GFile **)files->pdata, files->len, hint);
 	g_ptr_array_foreach (files, (GFunc)g_object_unref, NULL);
 	g_ptr_array_free (files, TRUE);
+	g_free (hint);
 
 	return TRUE;
 }
@@ -339,14 +411,36 @@ anjuta_application_open (GApplication *application,
 	IAnjutaFileLoader* loader = NULL;
 	gint i;
 
+	anjuta_application_parse_hint (ANJUTA_APPLICATION (application), hint);
+
 	windows = gtk_application_get_windows (GTK_APPLICATION (application));
 	if (windows == NULL)
 	{
-		win = ANJUTA_SHELL (anjuta_application_create_window (ANJUTA_APPLICATION (application)));
+		if (n_files == 0)
+		{
+			win = ANJUTA_SHELL (anjuta_application_create_window (ANJUTA_APPLICATION (application)));
+		}
+		else
+		{
+			gboolean no_files = ANJUTA_APPLICATION (application)->priv->no_files;
+			ANJUTA_APPLICATION (application)->priv->no_files = TRUE;
+			win = ANJUTA_SHELL (anjuta_application_create_window (ANJUTA_APPLICATION (application)));
+			ANJUTA_APPLICATION (application)->priv->no_files = no_files;
+		}
 	}
 	else
 	{
-		win = ANJUTA_SHELL (windows->data);
+		if (n_files == 0)
+		{
+			gboolean no_files = ANJUTA_APPLICATION (application)->priv->no_files;
+			ANJUTA_APPLICATION (application)->priv->no_files = TRUE;
+			win = ANJUTA_SHELL (anjuta_application_create_window (ANJUTA_APPLICATION (application)));
+			ANJUTA_APPLICATION (application)->priv->no_files = no_files;
+		}
+		else
+		{
+			win = ANJUTA_SHELL (windows->data);
+		}
 	}
 
 	if (win != NULL)
@@ -360,6 +454,8 @@ anjuta_application_open (GApplication *application,
 	{
 		ianjuta_file_loader_load(loader, files[i], FALSE, NULL);
 	}
+
+	anjuta_application_reset_hint (ANJUTA_APPLICATION (application));
 }
 
 
@@ -370,7 +466,14 @@ anjuta_application_open (GApplication *application,
 static void
 anjuta_application_finalize (GObject *object)
 {
-  G_OBJECT_CLASS (anjuta_application_parent_class)->finalize (object);
+	AnjutaApplication *app = ANJUTA_APPLICATION (object);
+
+	if (app->priv->geometry != NULL)
+	{
+		g_free (app->priv->geometry);
+		app->priv->geometry = NULL;
+	}
+	G_OBJECT_CLASS (anjuta_application_parent_class)->finalize (object);
 }
 
 static void
@@ -380,7 +483,10 @@ anjuta_application_init (AnjutaApplication *application)
 	                                                 ANJUTA_TYPE_APPLICATION,
 	                                                 AnjutaApplicationPrivate);
 	application->priv->proper_shutdown = FALSE;
+	application->priv->no_files = FALSE;
+	application->priv->no_session = FALSE;
 	application->priv->no_splash = FALSE;
+	application->priv->geometry = NULL;
 }
 
 static void
@@ -417,6 +523,24 @@ gboolean
 anjuta_application_get_proper_shutdown (AnjutaApplication *app)
 {
 	return app->priv->proper_shutdown;
+}
+
+gboolean
+anjuta_application_get_no_files (AnjutaApplication *app)
+{
+	return app->priv->no_files;
+}
+
+gboolean
+anjuta_application_get_no_session (AnjutaApplication *app)
+{
+	return app->priv->no_session;
+}
+
+const gchar *
+anjuta_application_get_geometry (AnjutaApplication *app)
+{
+	return app->priv->geometry;
 }
 
 AnjutaWindow*

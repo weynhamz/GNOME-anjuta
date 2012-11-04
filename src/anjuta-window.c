@@ -55,6 +55,9 @@
 #define TOOLBAR_VISIBLE "toolbar-visible"
 #define TOOLBAR_STYLE "toolbar-style"
 
+#define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
+#define ANJUTA_SESSION_SKIP_LAST_FILES "session-skip-last-files"
+
 static void anjuta_window_layout_load (AnjutaWindow *win,
 									const gchar *layout_filename,
 									const gchar *name);

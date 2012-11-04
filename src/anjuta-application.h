@@ -51,6 +51,9 @@ GType anjuta_application_get_type (void);
 AnjutaApplication *anjuta_application_new (void);
 
 gboolean anjuta_application_get_proper_shutdown (AnjutaApplication *app);
+gboolean anjuta_application_get_no_files (AnjutaApplication *app);
+gboolean anjuta_application_get_no_session (AnjutaApplication *app);
+const gchar *anjuta_application_get_geometry (AnjutaApplication *app);
 
 AnjutaWindow* anjuta_application_create_window (AnjutaApplication *app);
 
