@@ -490,6 +490,20 @@ void anjuta_shell_unmaximize (AnjutaShell *shell,
 }
 
 /**
+ * anjuta_shell_create_window:
+ * @shell: A #AnjutaShell interface
+ * @error: Error propagation object.
+ * 
+ * Create a new main window in the same process.
+ */
+AnjutaShell*
+anjuta_shell_create_window (AnjutaShell  *shell,
+                         GError		   **error)
+{
+	return ANJUTA_SHELL_GET_IFACE (shell)->create_window (shell, error);
+}
+
+/**
  * anjuta_shell_add_value:
  * @shell: A #AnjutaShell interface
  * @name: Name of the value

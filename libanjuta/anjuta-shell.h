@@ -140,6 +140,8 @@ struct _AnjutaShellIface {
 	GObject* (*get_object)    (AnjutaShell  *shell,
 							   const char   *iface_name,
 							   GError       **error);
+	AnjutaShell * (*create_window) (AnjutaShell *shell,
+	                            GError      **error);
 };
 
 GQuark anjuta_shell_error_quark     (void);
@@ -207,6 +209,8 @@ void anjuta_shell_maximize_widget   (AnjutaShell *shell,
                                      GError      **error);
 void anjuta_shell_unmaximize        (AnjutaShell *shell,
                                      GError      **error);
+AnjutaShell* anjuta_shell_create_window (AnjutaShell* shell,
+                                      GError **error);
 void   anjuta_shell_add_value       (AnjutaShell     *shell,
 									 const char      *name,
 									 const GValue    *value,

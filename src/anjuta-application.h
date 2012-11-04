@@ -52,4 +52,6 @@ AnjutaApplication *anjuta_application_new (void);
 
 gboolean anjuta_application_get_proper_shutdown (AnjutaApplication *app);
 
+AnjutaWindow* anjuta_application_create_window (AnjutaApplication *app);
+
 #endif

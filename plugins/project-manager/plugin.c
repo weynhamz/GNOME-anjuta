@@ -2343,13 +2343,12 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	/* If there is already a project loaded, load in separate anjuta window */
 	if (plugin->project_root_uri)
 	{
-		gchar *uri = g_file_get_uri (file);
-		gchar *quoted_uri = g_shell_quote (uri);
-		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", quoted_uri, NULL);
-		g_free (quoted_uri);
-		anjuta_util_execute_shell (NULL, cmd);
-		g_free (cmd);
-		g_free (uri);
+		AnjutaShell *shell;
+		IAnjutaFileLoader* loader;
+		
+		shell = anjuta_shell_create_window (ANJUTA_PLUGIN (ifile)->shell, NULL);
+		loader = anjuta_shell_get_interface(shell, IAnjutaFileLoader, NULL);
+		ianjuta_file_loader_load(loader, file, FALSE, NULL);
 
 		return;
 	}

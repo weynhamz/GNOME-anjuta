@@ -43,6 +43,7 @@
 
 #include "anjuta-window.h"
 #include "anjuta-actions.h"
+#include "anjuta-application.h"
 #include "about.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.xml"
@@ -256,6 +257,22 @@ anjuta_window_unmaximize (AnjutaShell *shell,
 	win->maximized = FALSE;
 }
 
+static AnjutaShell *
+anjuta_window_create_window (AnjutaShell *shell,
+                          GError **error)
+{
+	AnjutaWindow *win = NULL;
+	AnjutaApplication *app;
+
+	/* AnjutaWindow assertions */
+	g_return_val_if_fail (ANJUTA_IS_WINDOW (shell), NULL);
+
+	app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (shell)));
+	win = anjuta_application_create_window (ANJUTA_APPLICATION (app));
+	
+	return ANJUTA_SHELL (win);
+}
+
 static void
 on_toolbar_style_changed (GSettings* settings,
                           const gchar* key,
@@ -419,6 +436,35 @@ static void
 on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, AnjutaWindow *win)
 {
+	if (phase == ANJUTA_SESSION_PHASE_START)
+	{
+		AnjutaApplication *app;
+	
+		app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (win)));	
+		if (app != NULL)
+		{
+			if (anjuta_application_get_no_session (app) ||
+			    g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST))
+			{
+				/* Clear session */
+				anjuta_session_clear (session);
+			}
+			else if (anjuta_application_get_no_files (app)  ||
+			    g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST_FILES))
+			{
+				/* Clear files from session */
+				anjuta_session_set_string_list (session, "File Loader",
+				                                "Files", NULL);
+			}
+			if (anjuta_application_get_geometry (app))
+			{
+				/* Set new geometry */
+				anjuta_session_set_string (session, "Anjuta", "Geometry",
+				                           anjuta_application_get_geometry (app));
+			}
+		}
+	}
+		
 	/* We load layout at last so that all plugins would have loaded by now */
 	if (phase == ANJUTA_SESSION_PHASE_LAST)
 	{
@@ -447,7 +493,12 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		{
 			gtk_window_maximize (GTK_WINDOW (shell));
 		}
-
+		else
+		{
+			gtk_window_unmaximize (GTK_WINDOW (shell));
+		}
+		gtk_widget_show (GTK_WIDGET (win));
+	
 		/* Restore layout */
 		layout_file = g_build_filename (anjuta_session_get_session_directory (session),
 										"dock-layout.xml", NULL);
@@ -1379,6 +1430,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->show_dockable_widget = anjuta_window_show_dockable_widget;
 	iface->maximize_widget = anjuta_window_maximize_widget;
 	iface->unmaximize = anjuta_window_unmaximize;
+	iface->create_window = anjuta_window_create_window;
 	iface->add_value = anjuta_window_add_value;
 	iface->get_value = anjuta_window_get_value;
 	iface->remove_value = anjuta_window_remove_value;
