@@ -20,11 +20,15 @@
 
 /**
  * SECTION:anjuta-session
- * @short_description: Program session
+ * @short_description: Store local user settings
  * @see_also:
  * @stability: Unstable
  * @include: libanjuta/anjuta-session.h
  *
+ * A anjuta session contains local user settings, by example the list of files
+ * open in one project. These settings are stored in
+ * a .ini-like config file in a directory named session. Other libraries can
+ * store their own settings in another format in the same directory.
  */
 
 #include <stdlib.h>
