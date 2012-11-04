@@ -43,22 +43,15 @@
 
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
+
+G_DEFINE_TYPE (AnjutaApplication, anjuta_application, GTK_TYPE_APPLICATION)
+
 static gchar *system_restore_session = NULL;
 
 struct _AnjutaApplicationPrivate {
+	gboolean no_splash;
 	gboolean proper_shutdown;
 };
-
-static gboolean
-show_version_cb (const char *option_name,
-				const char *value,
-				gpointer data,
-				GError **error)
-{
-	g_print ("%s\n", PACKAGE_STRING);
-
-	return TRUE;
-}
 
 static gboolean
 on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
@@ -140,14 +133,6 @@ on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
 }
 
 static void
-on_anjuta_destroy (GtkWidget * w, gpointer data)
-{
-	DEBUG_PRINT ("%s", "AnjutaWindow destroy event");
-
-	gtk_widget_hide (w);
-}
-
-static void
 on_profile_scoped (AnjutaProfileManager *profile_manager,
 				   AnjutaProfile *profile, AnjutaWindow *win)
 {
@@ -225,7 +210,6 @@ anjuta_application_create_window (AnjutaApplication *app,
 	GFile *session_profile;
 	gchar *remembered_plugins;
 	gchar *profile_name = NULL;
-	gchar *im_file = NULL;
 	GError *error = NULL;
 
 	/* Initialize application */
@@ -233,25 +217,28 @@ anjuta_application_create_window (AnjutaApplication *app,
 	status = anjuta_shell_get_status (ANJUTA_SHELL (win), NULL);
 	anjuta_status_progress_add_ticks (status, 1);
 
-	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
-
 	gtk_window_set_role (GTK_WINDOW (win), "anjuta-app");
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_window_set_default_icon_name ("anjuta");
 	gtk_window_set_auto_startup_notification(FALSE);
 
-	if (im_file)
+	if (app->priv->no_splash)
 	{
-		anjuta_status_set_splash (status, im_file, 100);
-		g_free (im_file);
+		anjuta_status_disable_splash (status, TRUE);
 	}
-	if (no_splash)
-		anjuta_status_disable_splash (status, no_splash);
+	else
+	{
+		gchar *im_file = NULL;
+		im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
+		if (im_file)
+		{
+			anjuta_status_set_splash (status, im_file, 100);
+			g_free (im_file);
+		}
+	}
 
 	g_signal_connect (G_OBJECT (win), "delete_event",
 					  G_CALLBACK (on_anjuta_delete_event), app);
-	g_signal_connect (G_OBJECT (win), "destroy",
-					  G_CALLBACK (on_anjuta_destroy), NULL);
 
 	/* Setup application framework */
 	plugin_manager  = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (win),
@@ -399,34 +386,24 @@ anjuta_application_create_window (AnjutaApplication *app,
 /* GApplication implementation
  *---------------------------------------------------------------------------*/
 
-static void
-free_files (GFile** files, gint n_files)
-{
-	gint i;
-	for (i = 0; i < n_files; i++)
-	{
-		g_object_unref (files[i]);
-	}
-	g_free (files);
-}
-
 static gboolean
 anjuta_application_local_command_line (GApplication *application,
                                        gchar ***arguments,
                                        gint *exit_status)
 {
 	/* Command line options */
-	gboolean no_splash = 0;
-	gboolean no_client = 0;
-	gboolean no_session = 0;
-	gboolean no_files = 0;
-	gchar *anjuta_geometry = NULL;
-	gchar **anjuta_filenames = NULL;
+	gboolean no_splash = FALSE;
+	gboolean no_client = FALSE;
+	gboolean no_session = FALSE;
+	gboolean no_files = FALSE;
+	gboolean version = FALSE;
+	gchar *geometry = NULL;
+	gchar **filenames = NULL;
 
 	const GOptionEntry anjuta_options[] = {
 		{
 			"geometry", 'g', 0, G_OPTION_ARG_STRING,
-			&anjuta_geometry,
+			&geometry,
 			N_("Specify the size and location of the main window"),
 			/* This is the format you can specify the size andposition
 		 	 * of the window on command line */
@@ -463,14 +440,14 @@ anjuta_application_local_command_line (GApplication *application,
 			NULL
 		},
 		{
-			"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-			&show_version_cb,
-			("Display program version"),
+			"version", 'v', 0, G_OPTION_ARG_NONE,
+			&version,
+			N_("Display program version"),
 			NULL
 		},
 		{
 			G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY,
-			&anjuta_filenames,
+			&filenames,
 			NULL,
 			NULL
 		},
@@ -480,12 +457,11 @@ anjuta_application_local_command_line (GApplication *application,
 	gint argc = 0;
 	gchar **argv = NULL;
 	GError *error = NULL;
-	GFile** files = NULL;
-	gint n_files = 0;
+	GPtrArray *files;
 
-	context = g_option_context_new (_("- Integrated Development Environment"));	
+	context = g_option_context_new (_("- Integrated Development Environment"));
 #ifdef ENABLE_NLS
-	g_option_context_add_main_entries (context, anjuta_options, GETTEXT_PACKAGE);	
+	g_option_context_add_main_entries (context, anjuta_options, GETTEXT_PACKAGE);
 #else
 	g_option_context_add_main_entries (context, anjuta_options, NULL);
 #endif
@@ -496,54 +472,60 @@ anjuta_application_local_command_line (GApplication *application,
 	argc = g_strv_length (argv);
 	if (!g_option_context_parse (context, &argc, &argv, &error))
 	{
-		g_debug ("Option parsing failed: %s", error->message);
+		g_printerr ("Could not parse arguments: %s\n", error->message);
 		g_error_free (error);
 		g_option_context_free (context);
 
 		*exit_status = EXIT_FAILURE;
 		return TRUE;
 	}
+	*exit_status = EXIT_SUCCESS;
+	g_option_context_free (context);
 
-	/* Convert all file names to URI */
-	/* So an already existing instance of Anjuta having another current
-	 * directory can still open the files */
-	if (anjuta_filenames)
+
+	/* Display version */
+	if (version)
 	{
-		files = g_new0 (GFile*, 1);
+		g_print ("%s\n", PACKAGE_STRING);
+		return TRUE;
+	}
+
+	/* Register application */
+	if (no_client) g_application_set_flags (application, G_APPLICATION_NON_UNIQUE | g_application_get_flags (application));
+	g_application_register (G_APPLICATION (application), NULL, NULL);
+
+	/* Convert all file names to GFile, so an already existing instance of
+	 * Anjuta having another current directory can still open the files */
+	files = g_ptr_array_new ();
+	if (filenames)
+	{
 		gchar** filename;
-		for (filename = anjuta_filenames; *filename != NULL; filename++)
+
+		for (filename = filenames; *filename != NULL; filename++)
 		{
 			GFile* file = g_file_new_for_commandline_arg(*filename);
-			files = g_realloc (files, (n_files + 1) * sizeof (GFile*));
-			files[n_files++] = file;
+			if (file != NULL) g_ptr_array_add (files, file);
 		}
 	}
 
-	if (no_client) g_application_set_flags (application, G_APPLICATION_NON_UNIQUE);
-	g_application_register (G_APPLICATION (application), NULL, NULL);
-
 	if (g_application_get_is_remote (application))
-	{	
+	{
 		if (files)
 		{
-			g_application_open (application, files, n_files, "");
-			free_files (files, n_files);
+			g_application_open (application, (GFile **)files->pdata, files->len, "");
 		}
 	}
 	else
 	{
 		AnjutaWindow *win = anjuta_application_create_window (ANJUTA_APPLICATION (application),
-		                                                      files, n_files,
+		                                                      (GFile **)files->pdata, files->len,
 		                                                      no_splash, no_session, no_files,
-		                                                      anjuta_geometry);
+		                                                      geometry);
 		gtk_window_set_application (GTK_WINDOW (win), GTK_APPLICATION (application));
 		gtk_widget_show (GTK_WIDGET (win));
-
-		free_files (files, n_files);
 	}
-
-
-	g_option_context_free (context);
+	g_ptr_array_foreach (files, (GFunc)g_object_unref, NULL);
+	g_ptr_array_free (files, TRUE);
 
 	return TRUE;
 }
@@ -562,28 +544,17 @@ anjuta_application_open (GApplication *application,
 
 	if (!loader)
 		return;
- 
+
 	for (i = 0; i < n_files; i++)
 	{
 		ianjuta_file_loader_load(loader, files[i], FALSE, NULL);
 	}
 }
 
-static void
-anjuta_application_activate (GApplication *application)
-{
-	/* Show first window */
-	GList* windows = gtk_application_get_windows (GTK_APPLICATION (application));
-
-	gtk_window_present (GTK_WINDOW (g_list_last (windows)->data));
-}
-
 
 
 /* GObject implementation
  *---------------------------------------------------------------------------*/
-
-G_DEFINE_TYPE (AnjutaApplication, anjuta_application, GTK_TYPE_APPLICATION)
 
 static void
 anjuta_application_finalize (GObject *object)
@@ -598,6 +569,7 @@ anjuta_application_init (AnjutaApplication *application)
 	                                                 ANJUTA_TYPE_APPLICATION,
 	                                                 AnjutaApplicationPrivate);
 	application->priv->proper_shutdown = FALSE;
+	application->priv->no_splash = FALSE;
 }
 
 static void
@@ -609,7 +581,6 @@ anjuta_application_class_init (AnjutaApplicationClass *klass)
 	object_class->finalize = anjuta_application_finalize;
 
 	app_class->open = anjuta_application_open;
-	app_class->activate = anjuta_application_activate;
 	app_class->local_command_line = anjuta_application_local_command_line;
 
 	g_type_class_add_private (klass, sizeof (AnjutaApplicationPrivate));
