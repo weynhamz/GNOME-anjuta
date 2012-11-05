@@ -223,8 +223,8 @@ indent_python_plugin_activate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	python_plugin->action_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupPythonAssist",
-											_("Python Assistance"),
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupPythonIndent",
+											_("Python Indentation"),
 											actions,
 											G_N_ELEMENTS (actions),
 											GETTEXT_PACKAGE, TRUE,
