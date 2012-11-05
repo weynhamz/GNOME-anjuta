@@ -7,5 +7,5 @@ Interfaces=IAnjutaLanguageSupport,IAnjutaIndenter
 UserActivatable=no
 
 [Language Support]
-Languages=C,C++,Java,Vala
-MimeTypes=text/x-c,text/x-java-source,text/x-vala
+Languages=C,C++,Java,Vala,JavaScript
+MimeTypes=text/x-c,text/x-java-source,text/x-vala,application/javascript

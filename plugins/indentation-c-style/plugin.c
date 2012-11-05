@@ -350,7 +350,8 @@ install_support (IndentCPlugin *lang_plugin)
         (g_str_equal (lang_plugin->current_language, "C")
         || g_str_equal (lang_plugin->current_language, "C++")
         || g_str_equal (lang_plugin->current_language, "Vala")
-        || g_str_equal (lang_plugin->current_language, "Java")))
+        || g_str_equal (lang_plugin->current_language, "Java")
+        || g_str_equal (lang_plugin->current_language, "JavaScript")))
     {
         g_signal_connect (lang_plugin->current_editor,
                           "char-added",
@@ -380,7 +381,8 @@ uninstall_support (IndentCPlugin *lang_plugin)
         (g_str_equal (lang_plugin->current_language, "C")
         || g_str_equal (lang_plugin->current_language, "C++")
         || g_str_equal (lang_plugin->current_language, "Vala")
-        || g_str_equal (lang_plugin->current_language, "Java")))
+        || g_str_equal (lang_plugin->current_language, "Java")
+        || g_str_equal (lang_plugin->current_language, "JavaScript")))
     {
         g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
                                     G_CALLBACK (cpp_java_indentation_char_added),
