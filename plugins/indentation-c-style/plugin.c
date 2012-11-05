@@ -502,8 +502,8 @@ indent_c_plugin_activate_plugin (AnjutaPlugin *plugin)
 
     ui = anjuta_shell_get_ui (plugin->shell, NULL);
     lang_plugin->action_group =
-        anjuta_ui_add_action_group_entries (ui, "ActionGroupCppJavaAssist",
-                                            _("C++/Java Assistance"),
+        anjuta_ui_add_action_group_entries (ui, "ActionGroupCIndent",
+                                            _("C Indentation"),
                                             actions,
                                             G_N_ELEMENTS (actions),
                                             GETTEXT_PACKAGE, TRUE,
@@ -533,6 +533,7 @@ indent_c_plugin_deactivate_plugin (AnjutaPlugin *plugin)
                                 TRUE);
 
     ui = anjuta_shell_get_ui (plugin->shell, NULL);
+    anjuta_ui_remove_action_group (ui, lang_plugin->action_group);
     anjuta_ui_unmerge (ui, lang_plugin->uiid);
 
     lang_plugin->uiid = 0;
