@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-spaces-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
     Copyright (C) 2000 Naba Kumar
@@ -385,7 +385,7 @@ uninstall_support (IndentCPlugin *lang_plugin)
         g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
                                     G_CALLBACK (cpp_java_indentation_char_added),
                                     lang_plugin);
-		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+        g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
                                     G_CALLBACK (cpp_java_indentation_changed),
                                     lang_plugin);
     }
