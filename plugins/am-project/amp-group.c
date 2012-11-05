@@ -346,7 +346,7 @@ on_group_monitor_changed (GFileMonitor *monitor,
 	}
 }
 
-void
+static void
 amp_group_node_update_preset_variable (AmpGroupNode *group)
 {
 	gchar *path;

@@ -539,6 +539,36 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
 }
 
 static void
+pm_project_resize_properties_dialog (PropertiesTable *table)
+{
+	gint border_width, maximum_width, maximum_height;
+	GtkRequisition dialog, head, viewport, scrolledwindow_minimum, vscrollbar_minimum;
+	GtkWidget *vscrollbar = gtk_scrolled_window_get_vscrollbar (table->scrolledwindow);
+
+	gtk_widget_get_preferred_size (table->dialog, NULL, &dialog);
+	gtk_widget_get_preferred_size (table->head, NULL, &head);
+	gtk_widget_get_preferred_size (table->viewport, NULL, &viewport);
+	gtk_widget_get_preferred_size (table->scrolledwindow, &scrolledwindow_minimum, NULL);
+	gtk_widget_get_preferred_size (vscrollbar, &vscrollbar_minimum, NULL);
+
+	//auxiliary variables
+	border_width = dialog.width - head.width;
+	maximum_width = gdk_screen_width() * 3/4;
+	maximum_height = gdk_screen_height() * 3/4;
+
+	gint height = dialog.height - scrolledwindow_minimum.height + viewport.height;
+	gint width = (head.width > viewport.width) ? dialog.width : viewport.width + vscrollbar_minimum.width + border_width;
+
+	if (height > maximum_height)
+		height = maximum_height;
+
+	if (width > maximum_width)
+		width = maximum_width;
+
+	gtk_window_resize (GTK_WINDOW (table->dialog), width, height);
+}
+
+static void
 update_properties (PropertiesTable *table)
 {
 	GFile *file;
@@ -888,36 +918,6 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	gtk_widget_show (table->dialog);
 
 	return table->dialog;
-}
-
-void
-pm_project_resize_properties_dialog (PropertiesTable *table)
-{
-	gint border_width, maximum_width, maximum_height;
-	GtkRequisition dialog, head, viewport, scrolledwindow_minimum, vscrollbar_minimum;
-	GtkWidget *vscrollbar = gtk_scrolled_window_get_vscrollbar (table->scrolledwindow);
-
-	gtk_widget_get_preferred_size (table->dialog, NULL, &dialog);
-	gtk_widget_get_preferred_size (table->head, NULL, &head);
-	gtk_widget_get_preferred_size (table->viewport, NULL, &viewport);
-	gtk_widget_get_preferred_size (table->scrolledwindow, &scrolledwindow_minimum, NULL);
-	gtk_widget_get_preferred_size (vscrollbar, &vscrollbar_minimum, NULL);
-
-	//auxiliary variables
-	border_width = dialog.width - head.width;
-	maximum_width = gdk_screen_width() * 3/4;
-	maximum_height = gdk_screen_height() * 3/4;
-
-	gint height = dialog.height - scrolledwindow_minimum.height + viewport.height;
-	gint width = (head.width > viewport.width) ? dialog.width : viewport.width + vscrollbar_minimum.width + border_width;
-
-	if (height > maximum_height)
-		height = maximum_height;
-
-	if (width > maximum_width)
-		width = maximum_width;
-
-	gtk_window_resize (GTK_WINDOW (table->dialog), width, height);
 }
 
 /* Properties dialog

@@ -1383,7 +1383,7 @@ anjuta_token_foreach_content (AnjutaToken *token, AnjutaTokenForeachFunc func, g
 	return;
 }
 
-void
+static void
 anjuta_token_foreach_container (AnjutaToken *token, AnjutaTokenForeachFunc func, gpointer user_data)
 {
 	if (token != NULL)
