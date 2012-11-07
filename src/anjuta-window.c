@@ -951,6 +951,9 @@ anjuta_window_layout_load (AnjutaWindow *win, const gchar *layout_filename,
 
 	if (!gdl_dock_layout_load_layout (win->layout_manager, name))
 		g_warning ("Loading layout failed!!");
+
+	/* Layout loaded from file are not maximized */
+	win->maximized = FALSE;
 }
 
 void
