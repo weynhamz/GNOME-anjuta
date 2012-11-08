@@ -246,9 +246,13 @@ void
 anjuta_status_pop (AnjutaStatus *status)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
-	
-	gtk_statusbar_pop (GTK_STATUSBAR (status->priv->status_bar),
-					   status->priv->push_message);
+
+	/* This can be called on a time out when the status object is destroyed */
+	if (status->priv->status_bar != NULL)
+	{
+		gtk_statusbar_pop (GTK_STATUSBAR (status->priv->status_bar),
+						   status->priv->push_message);
+	}
 
 	status->priv->push_values = g_list_remove_link (status->priv->push_values,
 													status->priv->push_values);
@@ -607,6 +611,8 @@ static gboolean
 anjuta_status_timeout (AnjutaStatus *status)
 {
 	anjuta_status_pop (status);
+	g_object_unref (status);
+
 	return FALSE;
 }
 
@@ -620,7 +626,7 @@ anjuta_status (AnjutaStatus *status, const gchar *mesg, gint timeout)
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (mesg != NULL);
 	anjuta_status_push (status, "%s", mesg);
-	g_timeout_add_seconds (timeout, (void*) anjuta_status_timeout, status);
+	g_timeout_add_seconds (timeout, (void*) anjuta_status_timeout, g_object_ref (status));
 }
 
 void
