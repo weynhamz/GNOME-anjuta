@@ -229,19 +229,7 @@ anjuta_plugin_dispose (GObject *object)
 	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
 	
 	if (plugin->priv->watches) {
-		GList *l;
-
-		for (l = plugin->priv->watches; l != NULL; l = l->next) {
-			Watch *watch = (Watch *)l->data;
-
-			if (watch->removed && watch->need_remove) {
-				watch->removed (plugin, 
-						watch->name, 
-						watch->user_data);
-			}
-			
-			destroy_watch (watch);
-		}
+		g_list_foreach (plugin->priv->watches, (GFunc)destroy_watch, NULL);
 		g_list_free (plugin->priv->watches);
 		plugin->priv->watches = NULL;
 	}

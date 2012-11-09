@@ -2221,26 +2221,32 @@ anjuta_plugin_manager_init (AnjutaPluginManager *object)
 															g_free, NULL);
 }
 
+static gboolean
+on_foreach_remove_unref (gpointer k, gpointer v, gpointer d)
+{
+	g_object_unref (G_OBJECT (v));
+	return TRUE;
+}
+
 static void
-anjuta_plugin_manager_finalize (GObject *object)
+anjuta_plugin_manager_dispose (GObject *object)
 {
 	AnjutaPluginManagerPriv *priv;
 	priv = ANJUTA_PLUGIN_MANAGER (object)->priv;
 	if (priv->available_plugins)
 	{
-		/* anjuta_plugin_manager_unload_all_plugins (ANJUTA_PLUGIN_MANAGER (object)); */
 		g_list_foreach (priv->available_plugins, (GFunc)g_object_unref, NULL);
 		g_list_free (priv->available_plugins);
 		priv->available_plugins = NULL;
 	}
 	if (priv->activated_plugins)
 	{
-		g_hash_table_destroy (priv->activated_plugins);
+		g_hash_table_foreach_remove (priv->activated_plugins, on_foreach_remove_unref, NULL);
 		priv->activated_plugins = NULL;
 	}
 	if (priv->plugins_cache)
 	{
-		g_hash_table_destroy (priv->plugins_cache);
+		g_hash_table_foreach_remove (priv->plugins_cache, on_foreach_remove_unref, NULL);
 		priv->plugins_cache = NULL;
 	}
 	if (priv->plugins_by_name)
@@ -2271,7 +2277,7 @@ anjuta_plugin_manager_finalize (GObject *object)
 		anjuta_c_plugin_factory = NULL;
 	}
 #endif
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -2347,7 +2353,7 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
 
-	object_class->finalize = anjuta_plugin_manager_finalize;
+	object_class->dispose = anjuta_plugin_manager_dispose;
 	object_class->set_property = anjuta_plugin_manager_set_property;
 	object_class->get_property = anjuta_plugin_manager_get_property;
 
