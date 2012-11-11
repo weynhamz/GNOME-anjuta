@@ -118,13 +118,13 @@ run_jhbuild_env (GError** error)
     if (!g_spawn_sync(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL,
                       &standard_output, &standard_error, &exit_status, &err))
     {
-        g_propagate_prefixed_error (error, err, "Failed to run \"jhbuild run");
+        g_propagate_prefixed_error (error, err, _("Failed to run \"jhbuild run\""));
         return NULL;
     }
 
     if (WIFEXITED(exit_status) && WEXITSTATUS(exit_status) != 0)
     {
-        g_set_error(error, JHBUILD_PLUGIN_ERROR, 0, "Failed to run \"jhbuild run\" (%s)", standard_error);
+        g_set_error(error, JHBUILD_PLUGIN_ERROR, 0, _("Failed to run \"jhbuild run\" (%s)"), standard_error);
         g_free(standard_error);
         g_free(standard_output);
         return NULL;
@@ -169,7 +169,7 @@ jhbuild_plugin_get_jhbuild_info(JHBuildPlugin* self, GError** error)
 
     if (!self->prefix)
     {
-        g_set_error_literal (error, ANJUTA_SHELL_ERROR, 0, "Could not find the JHBuild install prefix.");
+        g_set_error_literal (error, ANJUTA_SHELL_ERROR, 0,_( "Could not find the JHBuild install prefix."));
         g_strfreev(env_variables);
         return FALSE;
     }
@@ -177,8 +177,8 @@ jhbuild_plugin_get_jhbuild_info(JHBuildPlugin* self, GError** error)
     if (!self->libdir)
     {
         g_set_error_literal (error, JHBUILD_PLUGIN_ERROR, 0,
-                             "Could not find the JHBuild library directory. "
-                             "You need JHBuild from 2012-11-06 or later.");
+                             _("Could not find the JHBuild library directory. "
+                               "You need JHBuild from 2012-11-06 or later."));
         return FALSE;
     }
 
@@ -195,7 +195,7 @@ jhbuild_plugin_activate(AnjutaPlugin* plugin)
     if (!jhbuild_plugin_get_jhbuild_info(self, &err))
     {
         anjuta_util_dialog_error(GTK_WINDOW(self->shell),
-            "Failed to activate the JHBuild Plugin: %s", err->message);
+            _("Failed to activate the JHBuild Plugin: %s"), err->message);
         g_error_free (err);
         return FALSE;
     }
