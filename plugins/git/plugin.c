@@ -719,10 +719,12 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	anjuta_dock_set_command_bar (ANJUTA_DOCK (git_plugin->dock), 
 	                             ANJUTA_COMMAND_BAR (git_plugin->command_bar));
 
+	gtk_widget_show_all (git_plugin->command_bar_window);
 	anjuta_shell_add_widget (plugin->shell, git_plugin->command_bar_window, 
 	                         "GitCommandBar", _("Git Tasks"), "git-tasks",
 	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 
+	gtk_widget_show_all (git_plugin->dock_window);
 	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
 	                         _("Git"), "git-plugin", ANJUTA_SHELL_PLACEMENT_CENTER,
 	                         NULL);

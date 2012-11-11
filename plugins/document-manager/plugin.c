@@ -1663,6 +1663,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	ui = dplugin->ui;
 	docman = anjuta_docman_new (dplugin);
+	gtk_widget_show (docman);
 	dplugin->docman = docman;
 
 	ANJUTA_DOCMAN(docman)->shell = anjuta_plugin_get_shell(plugin);

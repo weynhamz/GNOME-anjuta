@@ -1227,7 +1227,7 @@ anjuta_window_setup_widget (AnjutaWindow* win,
 	g_signal_connect_after (G_OBJECT (widget), "destroy",
 					  G_CALLBACK (on_widget_destroy), win);
 
-	gtk_widget_show_all (item);
+	gtk_widget_show (item);
 }
 
 
