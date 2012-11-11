@@ -155,7 +155,7 @@ build_program_set_command (BuildProgram *prog, const gchar *command)
 		*arg = new_arg;
 	}
 
-	return TRUE;
+	return ok;
 }
 
 const gchar *
