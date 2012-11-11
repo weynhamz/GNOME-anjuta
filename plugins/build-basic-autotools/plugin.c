@@ -858,6 +858,29 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		{
 			mid_str = g_build_filename (build_context_get_dir (context, "default"),
 										dummy_fn, NULL);
+
+			/* If the file does not exist, try to replace the build directory by
+			 * the source directory. This is needed by the Vala compiler which
+			 * does not output absolute paths. */
+			if (!g_file_test (mid_str,G_FILE_TEST_IS_REGULAR))
+			{
+				GFile *file = g_file_new_for_path (mid_str);
+
+				if ((p->project_build_dir != NULL) && g_file_has_prefix (file, p->project_build_dir))
+				{
+					/* Try using the source directory */
+					gchar *relative;
+
+					relative = g_file_get_relative_path (p->project_build_dir, file);
+					g_object_unref (file);
+					file = g_file_get_child (p->project_root_dir, relative);
+					g_free (relative);
+
+					g_free (mid_str);
+					mid_str = g_file_get_path (file);
+				}
+				g_object_unref (file);
+			}
 		}
 		DEBUG_PRINT ("mid_str: %s", mid_str);
 
