@@ -2,17 +2,17 @@
 /*
   * mainmenu_callbacks.c
   * Copyright (C) 2003  Naba Kumar  <naba@gnome.org>
-  * 
+  *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
   * the Free Software Foundation; either version 2 of the License, or
   * (at your option) any later version.
-  * 
+  *
   * This program is distributed in the hope that it will be useful,
   * but WITHOUT ANY WARRANTY; without even the implied warranty of
   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   * GNU General Public License for more details.
-  * 
+  *
   * You should have received a copy of the GNU General Public License
   * along with this program; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -47,7 +47,7 @@ on_exit1_activate (GtkAction * action, AnjutaWindow *win)
 
 	event->any.window = g_object_ref (gtk_widget_get_window (GTK_WIDGET(win)));
 	event->any.send_event = TRUE;
-  
+
 	gtk_main_do_event (event);
 	gdk_event_free (event);
 }
@@ -98,25 +98,25 @@ on_set_preferences1_activate (GtkAction * action, AnjutaWindow *win)
 {
 
 	GtkWidget *preferences_dialog;
-	
+
 	if (anjuta_preferences_is_dialog_created (win->preferences))
 	{
 		gtk_window_present (GTK_WINDOW (anjuta_preferences_get_dialog (win->preferences)));
 		return;
 	}
 	preferences_dialog = anjuta_preferences_get_dialog (win->preferences);
-	
+
 	/* Install main application preferences */
 	anjuta_window_install_preferences (win);
-	
+
 	g_signal_connect_swapped (G_OBJECT (preferences_dialog),
 					  		  "response",
 					  		  G_CALLBACK (gtk_widget_destroy),
-					  		  preferences_dialog); 
-	
+					  		  preferences_dialog);
+
 	gtk_window_set_transient_for (GTK_WINDOW (preferences_dialog),
 								  GTK_WINDOW (win));
-								  
+
 	gtk_widget_show (preferences_dialog);
 }
 
@@ -152,7 +152,7 @@ on_url_faqs_activate (GtkAction * action, gpointer user_data)
 
 void
 on_about_activate (GtkAction * action, AnjutaWindow *win)
-{	
+{
 	GtkWidget *about_dlg = about_box_new (GTK_WINDOW (win));
 
 	g_signal_connect_swapped(about_dlg, "response",

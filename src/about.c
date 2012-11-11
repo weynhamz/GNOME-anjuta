@@ -31,7 +31,7 @@
 #define LICENSE_FILE PACKAGE_DOC_DIR "/COPYING"
 
 #define ANJUTA_PIXMAP_LOGO			"anjuta_logo.png"
-#define ABOUT_AUTHORS				"AUTHORS"	
+#define ABOUT_AUTHORS				"AUTHORS"
 #define MAX_CAR 256
 #define MAX_CREDIT 500
 
@@ -46,7 +46,7 @@ about_read_line(FILE *fp)
 	static gchar tpn[MAX_CAR];
 	char *pt;
 	char c;
-	
+
 	pt = tpn;
 	while( ((c=getc(fp))!='\n') && (c!=EOF) && ((pt-tpn)<MAX_CAR) )
 		*(pt++)=c;
@@ -54,7 +54,7 @@ about_read_line(FILE *fp)
 	if ( c!=EOF)
 		return tpn;
 	else
-		return NULL;	
+		return NULL;
 }
 
 static gchar*
@@ -69,8 +69,8 @@ about_read_developers(FILE *fp, gchar *line, gint *index, const gchar **tab)
 		line = g_strchomp(line);
 	}
 	while (!g_str_has_suffix(line, ":") );
-	
-	return line;	
+
+	return line;
 }
 
 static gchar*
@@ -85,8 +85,8 @@ read_documenters(FILE *fp, gchar *line, gint *index, const gchar **tab)
 		line = g_strchomp(line);
 	}
 	while ( !g_str_has_suffix(line, ":") );
-	
-	return line;	
+
+	return line;
 }
 
 static gchar*
@@ -94,12 +94,12 @@ read_translators(FILE *fp, gchar *line)
 {
 	gboolean found = FALSE;
 	gchar *env_lang = getenv("LANG");
-	
+
 	do
 	{
 		if ( !(line = about_read_line(fp)))
 			return NULL;
-		
+
 		line = g_strchug(line);
 		if (!found && g_str_has_prefix(line, env_lang) )
 		{
@@ -112,11 +112,11 @@ read_translators(FILE *fp, gchar *line)
 		line = g_strchomp(line);
 	}
 	while ( !g_str_has_suffix(line, ":") );
-	
-	return line;	
+
+	return line;
 }
 
-static void 
+static void
 about_read_file(void)
 {
 	FILE *fp;
@@ -125,7 +125,7 @@ about_read_file(void)
 	gint i_doc = 0;
 
 	fp = fopen(PACKAGE_DATA_DIR"/"ABOUT_AUTHORS, "r");
-	
+
 	g_return_if_fail (fp != NULL);
 	line = about_read_line(fp);
 	do
@@ -158,7 +158,7 @@ static void
 about_free_credit(void)
 {
 	gint i = 0;
-	
+
 	gchar** ptr = (gchar**) authors;
 	for(i=0; ptr[i]; i++)
 		g_free (ptr[i]);
@@ -176,11 +176,11 @@ about_box_new (GtkWindow *parent)
 	GdkPixbuf *pix;
 	gchar* license = NULL;
 	GError* error = NULL;
-	
+
 	/*  Parse AUTHORS file  */
 	about_read_file();
 
-	
+
 	if (!g_file_get_contents (LICENSE_FILE,
 	                          &license,
 	                          NULL,
@@ -191,25 +191,25 @@ about_box_new (GtkWindow *parent)
 		            error->message);
 		g_error_free (error);
 	}
-	
+
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO,
 									NULL);
-	
+
 	dialog = gtk_about_dialog_new();
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
 	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 
 	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog),
 		_("Copyright (c) Naba Kumar"));
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
 		_("Integrated Development Environment"));
-	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
+	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog),
 		license);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.anjuta.org");
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
-	
+
 	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors);
 	gtk_about_dialog_set_documenters(GTK_ABOUT_DIALOG(dialog), documenters);
 	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), translators);
@@ -246,7 +246,7 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaShell *shell)
 	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 										  "Authors", &authors);
 	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-										  "License", &license);	
+										  "License", &license);
 	if (icon)
 	{
 		gchar *path = g_build_filename (PACKAGE_PIXMAPS_DIR, icon, NULL);
@@ -260,22 +260,22 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaShell *shell)
 	dialog = gtk_about_dialog_new();
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(shell));
 	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-	
+
 	gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), name);
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
 	if (license)
-		gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+		gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog),
 		                               license);
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),d);
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
-	
+
 	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog),
 								 (const gchar **)authors_v);
-	
+
 	gtk_widget_show (dialog);
 
 	g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), NULL);
-	
+
 	g_object_unref (pix);
 	g_strfreev (authors_v);
 	g_free (name);
@@ -290,14 +290,14 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 {
 	GtkWidget *submenu;
 	GList *plugin_descs, *node;
-	
+
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 	g_return_if_fail (GTK_IS_MENU_ITEM (menuitem));
-	
+
 	submenu = gtk_menu_new ();
 	gtk_widget_show (submenu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
-	
+
 	plugin_descs =
 		anjuta_plugin_manager_query (anjuta_shell_get_plugin_manager (shell, NULL),
 									 NULL, NULL, NULL, NULL);

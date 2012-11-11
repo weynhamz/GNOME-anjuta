@@ -48,15 +48,15 @@ main (int argc, char *argv[])
 #endif
 
 	g_set_application_name (_("Anjuta"));
-	
+
 	anjuta = anjuta_application_new ();
-	
+
 	status = g_application_run (G_APPLICATION (anjuta), argc, argv);
-	
+
 	if (anjuta_application_get_proper_shutdown (anjuta))
 	{
 		g_object_unref (anjuta);
-		
+
 		/* xmlCleanupParser must be called only one time in the application */
 		xmlCleanupParser ();
 	}

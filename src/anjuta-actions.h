@@ -2,19 +2,19 @@
 /*
  * anjuta.c
  * Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free 
+ * under the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA 
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 #include "action-callbacks.h"
@@ -28,7 +28,7 @@ static GtkActionEntry menu_entries_file[] = {
 
 static GtkActionEntry menu_entries_edit[] = {
   { "ActionMenuEdit", NULL, N_("_Edit")},
-  { "ActionEditPreferences", GTK_STOCK_PROPERTIES, 
+  { "ActionEditPreferences", GTK_STOCK_PROPERTIES,
 	N_("_Preferences"), NULL,
 	N_("Do you prefer coffee to tea? Check it out."),
     G_CALLBACK (on_set_preferences1_activate)},
@@ -36,7 +36,7 @@ static GtkActionEntry menu_entries_edit[] = {
 
 static GtkActionEntry menu_entries_view[] = {
   { "ActionMenuView", NULL, N_("_View")},
-  { "ActionViewResetLayout", NULL, 
+  { "ActionViewResetLayout", NULL,
 	N_("_Reset Dock Layout"), NULL,
 	N_("Reset the widgets docking layout to default"),
     G_CALLBACK (on_reset_layout_activate)}
@@ -51,7 +51,7 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
     N_("_Lock Dock Layout"), NULL,
     N_("Lock the current dock layout so that widgets cannot be moved"),
 	G_CALLBACK (on_layout_lock_toggle)},
-  { "ActionViewToolbar", NULL, 
+  { "ActionViewToolbar", NULL,
 	N_("_Toolbar"), NULL,
     N_("Show or hide the toolbar"),
     G_CALLBACK (on_toolbar_view_toggled)}
