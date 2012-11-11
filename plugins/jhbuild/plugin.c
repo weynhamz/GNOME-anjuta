@@ -147,8 +147,7 @@ jhbuild_plugin_get_jhbuild_info(JHBuildPlugin* self, GError** error)
     env_variables = g_strsplit(output, "\n", 0);
     g_free(output);
 
-
-    /* First scan for JHBUILD_PREFIX */
+    /* Scan for JHBUILD_PREFIX and JHBUILD_LIBDIR */
     for (variable = env_variables; *variable; ++variable)
     {
         if (g_str_has_prefix (*variable, "JHBUILD_PREFIX="))
@@ -158,8 +157,16 @@ jhbuild_plugin_get_jhbuild_info(JHBuildPlugin* self, GError** error)
             value = *variable + strlen("JHBUILD_PREFIX=");
             self->prefix = g_strdup(value);
         }
+        else if (g_str_has_prefix (*variable, "JHBUILD_LIBDIR="))
+        {
+            const char* value;
+
+            value = *variable + strlen("JHBUILD_LIBDIR=");
+            self->libdir = g_strdup(value);
+        }
     }
-    
+    g_strfreev(env_variables);
+
     if (!self->prefix)
     {
         g_set_error_literal (error, ANJUTA_SHELL_ERROR, 0, "Could not find the JHBuild install prefix.");
@@ -167,37 +174,11 @@ jhbuild_plugin_get_jhbuild_info(JHBuildPlugin* self, GError** error)
         return FALSE;
     }
 
-    /* Then we scan for LD_LIBRARY_PATH to extract libdir from there. */
-    for (variable = env_variables; *variable; ++variable)
-    {
-        if (g_str_has_prefix (*variable, "LD_LIBRARY_PATH="))
-        {
-            const char* value;
-            char **values, **iter;
-            
-            value = *variable + strlen("LD_LIBRARY_PATH=");
-            if (!value)
-                break;
-
-            values = g_strsplit(value, ";", -1);
-            for (iter = values; *iter; ++iter)
-            {
-                if (g_str_has_prefix (*iter, self->prefix))
-                {
-                    self->libdir = g_strdup(*iter);
-                    break;
-                }
-            }
-            g_strfreev(values);
-            break;
-        }
-    }
-
-    g_strfreev(env_variables);
-
     if (!self->libdir)
     {
-        g_set_error_literal (error, JHBUILD_PLUGIN_ERROR, 0, "Could not find the JHBuild library directory.");
+        g_set_error_literal (error, JHBUILD_PLUGIN_ERROR, 0,
+                             "Could not find the JHBuild library directory. "
+                             "You need JHBuild from 2012-11-06 or later.");
         return FALSE;
     }
 
