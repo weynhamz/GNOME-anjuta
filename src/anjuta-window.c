@@ -272,7 +272,7 @@ anjuta_window_create_window (AnjutaShell *shell,
 
 	app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (shell)));
 	win = anjuta_application_create_window (ANJUTA_APPLICATION (app));
-	
+
 	return ANJUTA_SHELL (win);
 }
 
@@ -442,8 +442,8 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	if (phase == ANJUTA_SESSION_PHASE_START)
 	{
 		AnjutaApplication *app;
-	
-		app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (win)));	
+
+		app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (win)));
 		if (app != NULL)
 		{
 			if (anjuta_application_get_no_session (app) ||
@@ -467,7 +467,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 			}
 		}
 	}
-		
+
 	/* We load layout at last so that all plugins would have loaded by now */
 	if (phase == ANJUTA_SESSION_PHASE_LAST)
 	{
@@ -501,7 +501,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 			gtk_window_unmaximize (GTK_WINDOW (shell));
 		}
 		gtk_widget_show (GTK_WIDGET (win));
-	
+
 		/* Restore layout */
 		layout_file = g_build_filename (anjuta_session_get_session_directory (session),
 										"dock-layout.xml", NULL);
@@ -590,7 +590,6 @@ anjuta_window_finalize (GObject *widget)
 static void
 anjuta_window_instance_init (AnjutaWindow *win)
 {
-	gint merge_id;
 	GtkWidget *menubar, *about_menu;
 	GtkWidget *view_menu, *hbox;
 	GtkWidget *main_box;
@@ -610,7 +609,7 @@ anjuta_window_instance_init (AnjutaWindow *win)
 	/*
 	 * Main box
 	 */
-	main_box = gtk_vbox_new (FALSE, 0);
+	main_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_container_add (GTK_CONTAINER (win), main_box);
 	gtk_widget_show (main_box);
 
@@ -631,17 +630,17 @@ anjuta_window_instance_init (AnjutaWindow *win)
 	g_object_add_weak_pointer (G_OBJECT (win->status), (gpointer)&win->status);
 
 	/* configure dock */
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_show (hbox);
 	win->dock = gdl_dock_new ();
 	gtk_widget_show (win->dock);
 	gtk_box_pack_end(GTK_BOX (hbox), win->dock, TRUE, TRUE, 0);
 
-	dockbar = gdl_dock_bar_new (GDL_DOCK(win->dock));
+	dockbar = gdl_dock_bar_new (G_OBJECT (win->dock));
 	gtk_widget_show (dockbar);
 	gtk_box_pack_start(GTK_BOX (hbox), dockbar, FALSE, FALSE, 0);
 
-	win->layout_manager = gdl_dock_layout_new (GDL_DOCK (win->dock));
+	win->layout_manager = gdl_dock_layout_new (G_OBJECT (win->dock));
 	g_signal_connect (win->layout_manager, "notify::dirty",
 					  G_CALLBACK (on_layout_dirty_notify), win);
 	g_signal_connect (gdl_dock_layout_get_master (win->layout_manager), "notify::locked",
@@ -701,7 +700,7 @@ anjuta_window_instance_init (AnjutaWindow *win)
 										GETTEXT_PACKAGE, TRUE, win);
 
 	/* Merge UI */
-	merge_id = anjuta_ui_merge (win->ui, UI_FILE);
+	anjuta_ui_merge (win->ui, UI_FILE);
 
 	/* Adding accels group */
 	gtk_window_add_accel_group (GTK_WINDOW (win),

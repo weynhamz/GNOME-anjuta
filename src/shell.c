@@ -146,7 +146,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	shell->values = g_hash_table_new (g_str_hash, g_str_equal);
 	shell->widgets = g_hash_table_new (g_str_hash, g_str_equal);
 
-	shell->box = gtk_vbox_new (FALSE, 0);
+	shell->box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_widget_show (shell->box);
 	gtk_container_add (GTK_CONTAINER (shell), shell->box);
 
@@ -433,11 +433,9 @@ static void
 anjuta_test_shell_class_init (AnjutaTestShellClass *class)
 {
 	GObjectClass *object_class;
-	GtkWidgetClass *widget_class;
 
 	parent_class = g_type_class_peek_parent (class);
 	object_class = (GObjectClass*) class;
-	widget_class = (GtkWidgetClass*) class;
 	object_class->dispose = anjuta_test_shell_dispose;
 	object_class->finalize = anjuta_test_shell_finalize;
 }
