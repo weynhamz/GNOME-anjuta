@@ -53,14 +53,14 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	GList *exec_targets;
 	IAnjutaProjectManager *pm;
 	gboolean success = FALSE;
-	
+
 	if (plugin->project_root_dir)
 	{
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaProjectManager, NULL);
 		g_return_val_if_fail (pm != NULL, FALSE);
 		exec_targets =
-		ianjuta_project_manager_get_targets (pm, 
+		ianjuta_project_manager_get_targets (pm,
 							ANJUTA_PROJECT_TARGET | ANJUTA_PROJECT_EXECUTABLE,
                             NULL);
 		if (!exec_targets)
@@ -85,7 +85,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	    "program_arguments", &arguments_entry,
 	    NULL);
 	g_object_unref (bxml);
-	
+
 	gtk_window_set_transient_for (GTK_WINDOW (dlg),
 								  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (use_terminal_check),
@@ -93,7 +93,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	if (plugin->program_args)
 		gtk_entry_set_text (GTK_ENTRY (arguments_entry),
 							plugin->program_args);
-	
+
 	if (g_list_length (exec_targets) > 0)
 	{
 		/* Populate treeview */
@@ -112,19 +112,19 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
             gchar *uri;
 
 			rel_path = g_file_get_relative_path (plugin->project_root_dir, (GFile *)node->data);
-			
+
             uri = g_file_get_uri ((GFile *)node->data);
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, 0, rel_path, 1,
 								uri, -1);
-      
+
       if (plugin->last_exec_uri && g_str_equal (plugin->last_exec_uri, uri))
-      { 
+      {
 				GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
         gtk_tree_selection_select_iter (selection, &iter);
 
 				gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (treeview), path, NULL, FALSE, 0, 0);
-				
+
 				gtk_tree_path_free (path);
         g_free (plugin->last_exec_uri);
         plugin->last_exec_uri = NULL;
@@ -136,7 +136,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 			node = g_list_next (node);
 		}
 		g_list_free (exec_targets);
-		
+
 		column = gtk_tree_view_column_new ();
 		gtk_tree_view_column_set_sizing (column,
 										 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -148,7 +148,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 											0);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview), column);
-                   
+
     if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
     {
       gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
@@ -160,7 +160,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		gtk_widget_hide (treeview_frame);
 		gtk_window_set_default_size (GTK_WINDOW (dlg), 400, -1);
 	}
-	
+
 	/* Run dialog */
 	gtk_dialog_set_default_response (GTK_DIALOG(dlg), GTK_RESPONSE_OK);
   response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -169,7 +169,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		GtkTreeSelection *sel;
 		GtkTreeModel *model;
 		gchar *target = NULL;
-		
+
 		if (exec_targets)
 		{
 			sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
@@ -201,7 +201,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		}
 	}
 	gtk_widget_destroy (dlg);
-	
+
 	return success;
 }
 
@@ -214,7 +214,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	g_return_if_fail (pre_select_uri != NULL ||
 					  plugin->project_root_dir != NULL ||
 					  plugin->current_editor_file != NULL);
-	
+
 	error_condition = FALSE;
 	if (pre_select_uri)
 	{
@@ -245,7 +245,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			else
 			{
 				gchar *ext;
-				
+
 				target = g_file_get_path (plugin->current_editor_file);
 				ext = strrchr (target, '.');
 				if (ext)
@@ -260,7 +260,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			}
 		}
 	}
-	
+
 	/* Doing some checks before actualing starting */
 	if (!error_condition)
 	{
@@ -271,10 +271,10 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			plugin->program_args = g_strdup (args);
 		}
 		plugin->run_in_terminal = run_in_terminal;
-		
+
 		/* Check if target is local */
 		gchar *local_uri;
-		
+
 		local_uri = anjuta_util_get_local_path_from_uri (target);
 		if (local_uri == NULL)
 		{
@@ -289,7 +289,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			target = local_uri;
 		}
 	}
-	
+
 	if (!error_condition &&
 		g_file_test (target, G_FILE_TEST_EXISTS) == FALSE)
 	{
@@ -297,7 +297,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Program '%s' does not exist"), target);
 	}
-	
+
 	if (!error_condition &&
 		g_file_test (target, G_FILE_TEST_IS_EXECUTABLE) == FALSE)
 	{
@@ -306,7 +306,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 								  _("Program '%s' does not have execution permission"),
 								  target);
 	}
-	
+
 	if (!error_condition &&
 		plugin->project_root_dir == NULL &&
 		pre_select_uri == NULL)
@@ -316,10 +316,10 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		gint s_re, e_re;
 		struct stat s_stat, e_stat;
 		IAnjutaEditor *te;
-		
+
 		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "current_editor",
 						  G_TYPE_OBJECT, &te, NULL);
-		
+
 		filename = anjuta_util_get_local_path_from_uri (target);
 		prog = NULL;
 		prog = g_strdup (filename);
@@ -330,7 +330,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		e_re = stat (prog, &e_stat);
 		g_free (prog);
 		g_free (filename);
-		
+
 		if ((e_re != 0) || (s_re != 0))
 		{
 			error_condition = TRUE;
@@ -346,15 +346,15 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 			/* But continue execution */
 		}
 	}
-	
+
 	if (error_condition)
 	{
 		g_free (target);
 		g_free (args);
 		return;
 	}
-	
-	
+
+
 	if (args && strlen (args) > 0)
 		cmd = g_strconcat (target, " ", args, NULL);
 	else
@@ -365,12 +365,12 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	if (run_in_terminal)
 	{
 		IAnjutaTerminal *term;
-		
+
 		term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										   IAnjutaTerminal, NULL);
 		if (term)
 		{
-			
+
 
 			if (plugin->commands[IANJUTA_BUILDABLE_COMMAND_EXECUTE])
 			{
@@ -386,7 +386,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				if (launcher_path != NULL)
 				{
 					gchar* oldcmd = cmd;
-				
+
 					cmd = g_strconcat ("anjuta-launcher ", oldcmd, NULL);
 
 					g_free (oldcmd);
@@ -396,7 +396,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				{
 					DEBUG_PRINT("%s", "Missing anjuta-launcher");
 				}
-				
+
 			}
 
 			ianjuta_terminal_execute_command (term, dir, cmd, NULL, NULL);
@@ -410,7 +410,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 	{
 		anjuta_util_execute_shell (dir, cmd);
 	}
-	
+
 	g_free (dir);
 	g_free (cmd);
 	g_free (target);

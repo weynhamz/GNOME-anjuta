@@ -82,15 +82,15 @@ build_escape_string (const char *unescaped)
 {
  	static const gchar hex[16] = "0123456789ABCDEF";
 	GString *esc;
-	
+
  	g_return_val_if_fail (unescaped != NULL, NULL);
 
-	esc = g_string_sized_new (strlen (unescaped) + 16);	
-  
+	esc = g_string_sized_new (strlen (unescaped) + 16);
+
 	for (; *unescaped != '\0'; unescaped++)
 	{
 		guchar c = *unescaped;
-		
+
 		if (g_ascii_isalnum (c) || (c == '_') || (c == '-') || (c == '.'))
 		{
 			g_string_append_c (esc, c);
@@ -102,7 +102,7 @@ build_escape_string (const char *unescaped)
 	  		g_string_append_c (esc, hex[c & 0xf]);
 		}
 	}
-	
+
 	return g_string_free (esc, FALSE);
 }
 
@@ -111,10 +111,10 @@ build_unescape_string (const gchar *escaped)
 {
 	gchar *unesc;
 	gchar *end;
-  
+
  	if (escaped == NULL)
 		return NULL;
-  
+
 	unesc = g_new (gchar, strlen (escaped) + 1);
 	end = unesc;
 
@@ -132,7 +132,7 @@ build_unescape_string (const gchar *escaped)
 		}
 	}
 	*end = '\0';
-	
+
 	return unesc;
 }
 
@@ -143,11 +143,11 @@ static void
 build_configuration_list_free_list (BuildConfigurationList *list)
 {
 	BuildConfiguration *cfg;
-	
+
 	for (cfg = list->cfg; cfg != NULL;)
 	{
 		BuildConfiguration *next = cfg->next;
-		
+
 		if (cfg->args) g_free (cfg->args);
 		g_list_foreach (cfg->env, (GFunc)g_free, NULL);
 		g_list_free (cfg->env);
@@ -156,19 +156,19 @@ build_configuration_list_free_list (BuildConfigurationList *list)
 		g_free (cfg);
 		cfg = next;
 	}
-	list->cfg = NULL;	
+	list->cfg = NULL;
 }
 
 static BuildConfiguration *
 build_configuration_list_untranslated_get (BuildConfigurationList *list, const gchar *name)
 {
 	BuildConfiguration *cfg;
-		
+
 	for (cfg = build_configuration_list_get_first (list); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		if (strcmp (cfg->name, name) == 0) return cfg;
 	}
-	
+
 	return NULL;
 }
 
@@ -191,12 +191,12 @@ BuildConfiguration *
 build_configuration_list_get (BuildConfigurationList *list, const gchar *name)
 {
 	BuildConfiguration *cfg;
-		
+
 	for (cfg = build_configuration_list_get_first (list); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		if (strcmp (cfg->name, name) == 0) return cfg;
 	}
-	
+
 	return NULL;
 }
 
@@ -211,13 +211,13 @@ build_configuration_list_get_position (BuildConfigurationList *list, BuildConfig
 {
 	BuildConfiguration *node;
 	gint position = 0;
-	
+
 	for (node = build_configuration_list_get_first (list); node != NULL; node = node->next)
 	{
 		if (node == cfg) return position;
 		position++;
 	}
-	
+
 	return -1;
 }
 
@@ -228,7 +228,7 @@ build_configuration_list_select (BuildConfigurationList *list, const gchar *name
 
 	if (name != NULL) cfg = build_configuration_list_get (list, name);
 	list->selected = cfg;
-	
+
 	return list->selected;
 }
 
@@ -239,7 +239,7 @@ build_configuration_list_create (BuildConfigurationList *list, const gchar *name
 	BuildConfiguration *prev;
 
 	if (name == NULL) return NULL;
-	
+
 	cfg = build_configuration_list_get (list, name);
 	if (cfg == NULL)
 	{
@@ -256,43 +256,43 @@ build_configuration_list_create (BuildConfigurationList *list, const gchar *name
 		}
 	}
 	list->selected = cfg;
-	
+
 	return list->selected;
 }
 
-void 
+void
 build_configuration_list_from_string_list (BuildConfigurationList *list, GList *str_list)
 {
 	GList *node;
 	BuildConfiguration *prev = NULL;
 	const DefaultBuildConfiguration *dcfg;
-	
+
 	build_configuration_list_free_list (list);
-	
+
 	/* Read all configurations from list */
 	for (node = str_list; node != NULL; node = g_list_next(node))
 	{
 		BuildConfiguration *cfg = g_new0 (BuildConfiguration, 1);
 		gchar *str = (gchar *)node->data;
 		gchar *end;
-		
+
 		cfg->translate = *str == '1';
 		str += 2;
 		end = strchr (str, ':');
 		if (end != NULL)
 		{
 			gchar *name;
-			
+
 			*end = '\0';
 			name = build_unescape_string (str);
 			cfg->name = name;
 			str = end + 1;
-			
+
 			cfg->build_uri = *str == '\0' ? NULL : g_strdup (str);
-			
+
 			cfg->args = NULL;
 			cfg->env = NULL;
-			
+
 			cfg->next = NULL;
 			cfg->prev = prev;
 			if (prev == NULL)
@@ -310,12 +310,12 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 			g_free (cfg);
 		}
 	}
-	
+
 	/* Add default entry if missing */
 	for (dcfg = default_config; dcfg->name != NULL; dcfg++)
 	{
 		BuildConfiguration *cfg;
-		
+
 		cfg = build_configuration_list_untranslated_get (list, dcfg->name);
 		if (cfg == NULL)
 		{
@@ -352,20 +352,20 @@ build_configuration_list_from_string_list (BuildConfigurationList *list, GList *
 			}
 			cfg->env = g_list_reverse (cfg->env);
 		}
-	}	
+	}
 }
 
-GList * 
+GList *
 build_configuration_list_to_string_list (BuildConfigurationList *list)
 {
 	GList *str_list = NULL;
 	BuildConfiguration *cfg;
-	
+
 	for (cfg = build_configuration_list_get_first (list); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		gchar *esc_name = build_escape_string (cfg->name);
 		str_list = g_list_prepend (str_list, g_strdup_printf("%c:%s:%s", cfg->translate ? '1' : '0', esc_name, cfg->build_uri == NULL ? "" : cfg->build_uri));
-		g_free (esc_name);							   
+		g_free (esc_name);
 	}
 	str_list = g_list_reverse (str_list);
 
@@ -394,18 +394,18 @@ build_configuration_get_name (BuildConfiguration *cfg)
 	return cfg->name;
 }
 
-gboolean 
+gboolean
 build_configuration_list_set_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg, const gchar *build_uri)
 {
 	GFile *root;
 	GFile *build;
 	gchar *rel_uri;
 	gboolean ok;
-	
+
 	g_free (cfg->build_uri);
 	root = g_file_new_for_uri (list->project_root_uri);
 	build = g_file_new_for_uri (build_uri);
-	
+
 	rel_uri = g_file_get_relative_path (root, build);
 	/* rel_uri could be NULL if root == build */
 	cfg->build_uri = rel_uri;
@@ -424,15 +424,15 @@ build_configuration_list_get_build_uri (BuildConfigurationList *list, BuildConfi
 		GFile *root;
 		GFile *build;
 		gchar *uri;
-	
+
 		root = g_file_new_for_uri (list->project_root_uri);
 		build = g_file_resolve_relative_path (root, cfg->build_uri);
-	
+
 		uri = g_file_get_uri (build);
-	
+
 		g_object_unref (root);
 		g_object_unref (build);
-		
+
 		return uri;
 	}
 	else
@@ -480,7 +480,7 @@ build_configuration_set_variable (BuildConfiguration *cfg, const gchar *var)
 	{
 		len = equal - var;
 	}
-	
+
 	/* Check if variable already exist */
 	for (item = cfg->env; item != NULL; item = g_list_next (item))
 	{
@@ -510,7 +510,7 @@ build_configuration_list_free (BuildConfigurationList *list)
 	g_free (list->project_root_uri);
 
 	build_configuration_list_free_list (list);
-	
+
 	g_free (list);
 }
 
@@ -518,8 +518,8 @@ BuildConfigurationList*
 build_configuration_list_new (void)
 {
 	BuildConfigurationList *list;
-	
+
 	list = g_new0 (BuildConfigurationList, 1);
-	
+
 	return list;
 }

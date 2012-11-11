@@ -43,7 +43,7 @@ typedef struct _BasicAutotoolsPluginClass BasicAutotoolsPluginClass;
 
 struct _BasicAutotoolsPlugin{
 	AnjutaPlugin parent;
-	
+
 	/* Build contexts pool */
 	GList *contexts_pool;
 
@@ -53,7 +53,7 @@ struct _BasicAutotoolsPlugin{
 	gint project_root_watch_id;
 	gint project_build_watch_id;
 	gint editor_watch_id;
-	
+
 	/* Watched values */
 	GFile *fm_current_file;
 	GFile *pm_current_file;
@@ -61,24 +61,24 @@ struct _BasicAutotoolsPlugin{
 	GFile *project_root_dir;
 	GFile *project_build_dir;
 	IAnjutaEditor *current_editor;
-	
+
 	/* UI */
 	gint build_merge_id;
 	GtkActionGroup *build_action_group;
 	GtkActionGroup *build_popup_action_group;
 	GtkWidget *configuration_menu;
-	
+
 	/* commands overrides */
 	gchar *commands[IANJUTA_BUILDABLE_N_COMMANDS];
-	
+
 	/* Build parameters */
 	BuildConfigurationList *configurations;
-	
+
 	/* Execution parameters */
 	gchar *program_args;
 	gboolean run_in_terminal;
 	gchar *last_exec_uri;
-	
+
 	/* Editors that have been created so far */
 	GHashTable *editors_created;
 

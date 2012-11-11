@@ -52,7 +52,7 @@ build_strv_insert_before (gchar ***pstrv, gint pos)
 {
 	gsize count;
 	gchar **strv = *pstrv;
-	
+
 	if (strv == NULL)
 	{
 		/* First argument, allocate memory */
@@ -63,7 +63,7 @@ build_strv_insert_before (gchar ***pstrv, gint pos)
 	else
 	{
 		gchar **new_strv;
-		
+
 		/* Increase array */
 		count = g_strv_length (strv);
 
@@ -77,10 +77,10 @@ build_strv_insert_before (gchar ***pstrv, gint pos)
 		strv = new_strv;
 		count++;
 	}
-	
+
 	strv[count] = NULL;
 	*pstrv = strv;
-	
+
 	return &strv[pos];
 }
 
@@ -88,20 +88,20 @@ static gboolean
 build_strv_remove (gchar **strv, gint pos)
 {
 	gsize count = g_strv_length (strv);
-	
+
 	g_return_val_if_fail (pos >= 0, FALSE);
 
 	if (pos >= count)
 	{
 		/* Argument does not exist */
-		
+
 		return FALSE;
 	}
 	else
 	{
 		g_free (strv[pos]);
 		memcpy (&strv[pos], &strv[pos + 1], sizeof(gchar *) * (count - pos));
-		
+
 		return TRUE;
 	}
 }
@@ -117,7 +117,7 @@ build_program_find_env (BuildProgram *prog, const gchar *name)
 		gint i;
 		gchar **envp = prog->envp;
 		gsize len = strlen (name);
-		
+
 		/* Look for an already existing variable */
 		for (i = 0; envp[i] != NULL; i++)
 		{
@@ -127,7 +127,7 @@ build_program_find_env (BuildProgram *prog, const gchar *name)
 			}
 		}
 	}
-	
+
 	return -1;
 }
 
@@ -139,22 +139,22 @@ build_program_set_command (BuildProgram *prog, const gchar *command)
 {
 	gboolean ok;
 	gchar **arg;
-	
+
 	g_return_val_if_fail (prog != NULL, FALSE);
 
 	if (prog->argv) g_strfreev (prog->argv);
-	
+
 	/* Store args and environment variables as string array */
 	ok = g_shell_parse_argv (command, NULL, &prog->argv, NULL) ? TRUE : FALSE;
 	for (arg = prog->argv; *arg != NULL; arg++)
 	{
 		gchar *new_arg;
-		
+
 		new_arg = anjuta_util_shell_expand (*arg);
 		g_free (*arg);
 		*arg = new_arg;
 	}
-	
+
 	return TRUE;
 }
 
@@ -162,11 +162,11 @@ const gchar *
 build_program_get_basename (BuildProgram *prog)
 {
 	const gchar *base;
-	
+
 	if ((prog->argv == NULL) || (prog->argv[0] == NULL)) return NULL;
 
 	base = strrchr (prog->argv[0], G_DIR_SEPARATOR);
-	
+
 	return base == NULL ? prog->argv[0] : base;
 }
 
@@ -175,7 +175,7 @@ void
 build_program_set_working_directory (BuildProgram *prog, GFile *directory)
 {
 	g_free (prog->work_dir);
-	
+
 	prog->work_dir = g_file_get_path (directory);
 }
 
@@ -184,10 +184,10 @@ gboolean
 build_program_insert_arg (BuildProgram *prog, gint pos, const gchar *arg)
 {
 	gchar **parg;
-	
+
 	parg = build_strv_insert_before (&prog->argv, pos);
 	*parg = anjuta_util_shell_expand (arg);
-	
+
 	return TRUE;
 }
 
@@ -203,7 +203,7 @@ build_program_replace_arg (BuildProgram *prog, gint pos, const gchar *arg)
 		g_free (prog->argv[pos]);
 		prog->argv[pos] = anjuta_util_shell_expand (arg);
 	}
-	
+
 	return TRUE;
 }
 
@@ -237,7 +237,7 @@ build_program_add_env_list (BuildProgram *prog, GList *vars)
 		{
 			value = NULL;
 		}
-		
+
 		ok = ok && build_program_add_env (prog, name, value);
 		g_free (name);
 	}
@@ -251,7 +251,7 @@ build_program_add_env (BuildProgram *prog, const gchar *name, const gchar *value
 {
 	gint found = build_program_find_env (prog, name);
 	gchar *name_and_value = g_strconcat (name, "=", value, NULL);
-	
+
 	if (found == -1)
 	{
 		/* Append variable */
@@ -261,7 +261,7 @@ build_program_add_env (BuildProgram *prog, const gchar *name, const gchar *value
 	{
 		g_free (prog->envp[found]);
 		prog->envp[found] = name_and_value;
-	}		
+	}
 	return TRUE;
 }
 
@@ -285,9 +285,9 @@ build_program_override (BuildProgram *prog, IAnjutaEnvironment *env)
 {
 	gboolean ok;
 	GError* error = NULL;
-	
+
 	if (env == NULL) return TRUE;
-	
+
 	ok = ianjuta_environment_override (env, &prog->work_dir, &prog->argv, &prog->envp, &error);
 	if (!ok && error)
 	{
@@ -304,7 +304,7 @@ build_program_override (BuildProgram *prog, IAnjutaEnvironment *env)
 		g_error_free (error);
 	}
 	return ok;
-}	
+}
 
 void
 build_program_set_callback (BuildProgram *prog, IAnjutaBuilderCallback callback, gpointer user_data)
@@ -326,17 +326,17 @@ void build_program_callback (BuildProgram *prog, GObject *sender, IAnjutaBuilder
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
-BuildProgram* 
+BuildProgram*
 build_program_new (void)
 {
 	BuildProgram *prog ;
-	
+
 	prog = g_new0 (BuildProgram, 1);
-	
+
 	return prog;
 }
 
-BuildProgram* 
+BuildProgram*
 build_program_new_with_command (GFile *directory, const gchar *command,...)
 {
 	BuildProgram *prog;
@@ -354,9 +354,9 @@ build_program_new_with_command (GFile *directory, const gchar *command,...)
 	va_start (args, command);
 	full_command = g_strdup_vprintf (command, args);
 	va_end (args);
-	build_program_set_command (prog, full_command);	
+	build_program_set_command (prog, full_command);
 	g_free (full_command);
-	
+
 	return prog;
 }
 
@@ -366,13 +366,13 @@ build_program_free (BuildProgram *prog)
 	if (prog->callback != NULL)
 	{
 		GError *err;
-		
+
 		/* Emit command-finished signal abort */
 		err = g_error_new_literal (ianjuta_builder_error_quark (),
 								   IANJUTA_BUILDER_ABORTED,
 								   _("Command aborted"));
 		prog->callback (NULL, NULL, err, prog->user_data);
-		g_error_free (err);		
+		g_error_free (err);
 	}
 	g_free (prog->work_dir);
 	if (prog->argv) g_strfreev (prog->argv);

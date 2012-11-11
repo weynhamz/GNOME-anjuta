@@ -17,7 +17,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
- 
+
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
@@ -33,7 +33,7 @@ struct _BuildProgram
 	gchar *work_dir;
 	gchar **argv;
 	gchar **envp;
-	
+
 	IAnjutaBuilderCallback callback;
 	gpointer user_data;
 };
@@ -58,6 +58,6 @@ gboolean build_program_remove_env (BuildProgram *proc, const gchar *name);
 gboolean build_program_override (BuildProgram *proc, IAnjutaEnvironment *env);
 
 void build_program_set_callback (BuildProgram *proc, IAnjutaBuilderCallback callback, gpointer user_data);
-void build_program_callback (BuildProgram *proc, GObject *sender, IAnjutaBuilderHandle handle, GError *err); 
+void build_program_callback (BuildProgram *proc, GObject *sender, IAnjutaBuilderHandle handle, GError *err);
 
 #endif /* PROGRAM_H */

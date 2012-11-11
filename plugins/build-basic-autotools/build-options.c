@@ -52,16 +52,16 @@ typedef struct _BuildConfigureDialog BuildConfigureDialog;
 struct _BuildConfigureDialog
 {
  	GtkWidget *win;
-	
+
 	GtkWidget *combo;
 	GtkWidget *autogen;
 	GtkWidget *build_dir_chooser;
 	GtkWidget *args;
 	GtkWidget *env_editor;
 	GtkWidget *ok;
-	
+
 	BuildConfigurationList *config_list;
-	
+
 	const gchar *project_uri;
 };
 
@@ -77,7 +77,7 @@ struct _BuildMissingDirectory
 /* Create directory at run time for GtkFileChooserButton
  *---------------------------------------------------------------------------*/
 
-/* Create a directories, including parents if necessary, return 
+/* Create a directories, including parents if necessary, return
  * */
 
 static GFile*
@@ -88,7 +88,7 @@ build_make_directories (GFile *file,
 	GError *path_error = NULL;
 	GList *children = NULL;
 	GFile *parent;
-	
+
 	parent = g_file_get_parent(file);
 
 	for (;;)
@@ -120,10 +120,10 @@ build_make_directories (GFile *file,
 		{
 			g_object_unref (parent);
 			g_propagate_error (error, path_error);
-			
+
 			return NULL;
 		}
-	}				
+	}
 }
 
 static GQuark
@@ -133,7 +133,7 @@ build_gtk_file_chooser_create_directory_get_quark (void)
 
   if (quark == 0)
     quark = g_quark_from_static_string ("gtk-file-chooser-create-directory");
-  
+
   return quark;
 }
 
@@ -144,7 +144,7 @@ on_build_missing_directory_destroyed (BuildMissingDirectory* dir)
 	/* Remove previously created directories */
 	GFile* created_dir;
 	GFile* existing_dir;
-		
+
 	created_dir = g_file_new_for_uri (dir->uri);
 	dir->uri[dir->exist] = '\0';
 	existing_dir = g_file_new_for_uri (dir->uri);
@@ -152,7 +152,7 @@ on_build_missing_directory_destroyed (BuildMissingDirectory* dir)
 	for (;!g_file_equal (created_dir, existing_dir);)
 	{
 		GFile *parent_dir;
-			
+
 		if (!g_file_delete (created_dir, NULL, NULL)) break;
 		parent_dir = g_file_get_parent (created_dir);
 		g_object_unref (created_dir);
@@ -171,7 +171,7 @@ build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar 
 	GFile *dir;
 	GError *error = NULL;
 	GFile *parent;
-	
+
 	dir = g_file_new_for_uri (uri);
 	parent = build_make_directories (dir, NULL, &error);
 	if (parent != NULL)
@@ -182,25 +182,25 @@ build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar 
 
 		len = strlen (uri);
 		dir = (BuildMissingDirectory *)g_new (char, sizeof (BuildMissingDirectory) + len);
-		
+
 		memcpy (dir->uri, uri, len + 1);
 		last = g_file_get_uri (parent);
 		dir->exist = strlen (last);
-		
+
 		g_object_set_qdata_full (G_OBJECT (chooser),
 								 GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK,
 								 dir,
-								 (GDestroyNotify)on_build_missing_directory_destroyed);		
+								 (GDestroyNotify)on_build_missing_directory_destroyed);
 	}
 	else
 	{
-		g_object_set_qdata (G_OBJECT (chooser), 
+		g_object_set_qdata (G_OBJECT (chooser),
 							GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK,
 							NULL);
 		g_error_free (error);
 	}
 	g_object_unref (dir);
-	
+
 	return gtk_file_chooser_set_current_folder_uri (chooser, uri);
 }
 
@@ -210,12 +210,12 @@ build_gtk_file_chooser_keep_folder (GtkFileChooser *chooser, const char *uri)
 {
 	BuildMissingDirectory* dir;
 
-	dir = g_object_steal_qdata (G_OBJECT (chooser), GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK);	
+	dir = g_object_steal_qdata (G_OBJECT (chooser), GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK);
 	if (dir != NULL)
 	{
 		GFile *created_dir;
 		GFile *needed_dir;
-	
+
 		needed_dir = g_file_new_for_uri (uri);
 		created_dir = g_file_new_for_uri (dir->uri);
 		if (!g_file_equal (created_dir, needed_dir))
@@ -245,14 +245,14 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 
 	if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (dlg->combo), &iter))
 	{
-		gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (dlg->combo)), &iter, 1, &name, -1);			
+		gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (dlg->combo)), &iter, 1, &name, -1);
 	}
 	else
 	{
 		GtkWidget* entry = gtk_bin_get_child (GTK_BIN (dlg->combo));
 		name = g_strdup(gtk_entry_get_text (GTK_ENTRY (entry)));
 	}
-	
+
 	if (*name == '\0')
 	{
 		/* Configuration name is mandatory disable Ok button */
@@ -262,19 +262,19 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	{
 		BuildConfiguration *cfg;
 		gchar *uri;
-		
+
 		gtk_widget_set_sensitive (dlg->ok, TRUE);
-	
+
 		cfg = build_configuration_list_select (dlg->config_list, name);
-		
+
 		if (cfg != NULL)
 		{
 			const gchar *args;
 			GList *item;
 
-			args = build_configuration_get_args (cfg); 
+			args = build_configuration_get_args (cfg);
 			gtk_entry_set_text (GTK_ENTRY (dlg->args), args == NULL ? "" : args);
-		
+
 			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
 			build_gtk_file_chooser_create_and_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
 			g_free (uri);
@@ -289,7 +289,7 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	g_free (name);
 }
 
-static void 
+static void
 fill_dialog (BuildConfigureDialog *dlg)
 {
 	GtkListStore* store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_STRING);
@@ -297,11 +297,11 @@ fill_dialog (BuildConfigureDialog *dlg)
 
 	gtk_combo_box_set_model (GTK_COMBO_BOX(dlg->combo), GTK_TREE_MODEL(store));
 	gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (dlg->combo), 0);
-	
+
 	for (cfg = build_configuration_list_get_first (dlg->config_list); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
 		GtkTreeIter iter;
-		
+
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter, 0, build_configuration_get_translated_name (cfg), 1, build_configuration_get_name (cfg), -1);
 	}
@@ -320,7 +320,7 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 	BuildConfigureDialog dlg;
 	BuildConfiguration *cfg = NULL;
 	gint response;
-	
+
 	/* Get all dialog widgets */
 	bxml = anjuta_util_builder_new (BUILDER_FILE, NULL);
 	if (bxml == NULL) return FALSE;
@@ -334,17 +334,17 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 	    OK_BUTTON, &dlg.ok,
 	    NULL);
 	g_object_unref (bxml);
-	
+
 	dlg.config_list = config_list;
 	dlg.project_uri = project_root_uri;
 
-	/* Set run autogen option */	
+	/* Set run autogen option */
 	if (*run_autogen) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dlg.autogen), TRUE);
 
 	g_signal_connect (dlg.combo, "changed", G_CALLBACK (on_select_configuration), &dlg);
-	
+
 	fill_dialog(&dlg);
-	
+
 	response = gtk_dialog_run (GTK_DIALOG (dlg.win));
 
 	if (response == GTK_RESPONSE_OK)
@@ -356,10 +356,10 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		gchar **mod_var;
 
 		*run_autogen = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dlg.autogen));
-		
+
 		if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (dlg.combo), &iter))
 		{
-			gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (dlg.combo)), &iter, 1, &name, -1);			
+			gtk_tree_model_get (gtk_combo_box_get_model (GTK_COMBO_BOX (dlg.combo)), &iter, 1, &name, -1);
 		}
 		else
 		{
@@ -368,10 +368,10 @@ build_dialog_configure (GtkWindow* parent, const gchar *project_root_uri, BuildC
 		}
 		cfg = build_configuration_list_create (config_list, name);
 		g_free (name);
-		
+
 		args = gtk_entry_get_text (GTK_ENTRY (dlg.args));
 		build_configuration_set_args (cfg, args);
-		
+
 		uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg.build_dir_chooser));
 		build_configuration_list_set_build_uri (dlg.config_list, cfg, uri);
 		build_gtk_file_chooser_keep_folder (GTK_FILE_CHOOSER (dlg.build_dir_chooser), uri);
