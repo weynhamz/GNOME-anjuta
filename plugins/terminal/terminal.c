@@ -55,15 +55,13 @@
 #define GCONF_SILENT_BELL         "silent_bell"
 #define GCONF_USE_SYSTEM_FONT     "use_system_font"
 #define GCONF_WORD_CHARS          "word_chars"
-#define GCONF_LOGIN_SHELL         "login_shell"
-#define GCONF_UPDATE_RECORDS      "update_records"
+#define GCONF_PTY_FLAGS           "pty_flags"
 
 #define PREF_SCHEMA                           "org.gnome.anjuta.terminal"
 #define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal-default-profile"
 #define PREFS_TERMINAL_PROFILE                "terminal-profile"
 
 #include <vte/vte.h>
-#include <vte/reaper.h>
 #include <pwd.h>
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -94,8 +92,7 @@ struct _TerminalPlugin{
 	gboolean   widget_added_to_shell;
 	GSettings *settings;
 	guint root_watch_id;
-	gboolean lastlog;
-	gboolean update_records;
+	gboolean pty_flags;
 #if OLD_VTE == 1
 	gboolean first_time_realization;
 #endif
@@ -107,6 +104,7 @@ struct _TerminalPluginClass{
 
 static gpointer parent_class;
 
+#if 0
 static const gchar*
 get_profile_key (const gchar *profile, const gchar *key)
 {
@@ -118,10 +116,12 @@ get_profile_key (const gchar *profile, const gchar *key)
 	snprintf (buffer, 1024, "%s/%s/%s", GCONF_PROFILE_PREFIX, profile, key);
 	return buffer;
 }
+#endif
 
 static void
 terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin *term_plugin)
 {
+#if 0
 	char *text;
 	int value;
 	gboolean setting;
@@ -132,7 +132,6 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 
 	g_return_if_fail (settings != NULL);
 
-#if 0
 	/* Update the currently available list of terminal profiles */
 	setting = g_settings_get_boolean (settings,
 	                                  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
@@ -238,8 +237,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 
 	/* vte_terminal is not working depending on update_records setting at least
 	 * on FreeBSD */
-	term_plugin->lastlog = GET_PROFILE_BOOL (GCONF_LOGIN_SHELL);
-	term_plugin->update_records = GET_PROFILE_BOOL_DEFAULT (GCONF_UPDATE_RECORDS, TRUE);
+	term_plugin->pty_flags = GET_PROFILE_INT_DEFAULT (GCONF_PTY_FLAGS,VTE_PTY_DEFAULT);
 
 	g_free (profile);
 	g_object_unref (client);
@@ -291,8 +289,9 @@ use_default_profile_cb (GtkToggleButton *button,
 }
 
 static void
-terminal_child_exited_cb (VteReaper *reaper, GPid pid, gint status, TerminalPlugin *term_plugin)
+terminal_child_exited_cb (GPid pid, gint status, gpointer user_data)
 {
+	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (user_data);
 	if (term_plugin->child_pid == pid)
 	{
 		gboolean focus;
@@ -309,6 +308,7 @@ terminal_child_exited_cb (VteReaper *reaper, GPid pid, gint status, TerminalPlug
 	}
 
 	g_signal_emit_by_name(term_plugin, "child-exited", pid, status);
+	g_spawn_close_pid (pid);
 }
 
 static pid_t
@@ -319,7 +319,7 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	GList *args_list, *args_list_ptr;
 	gchar *dir;
 	VteTerminal *term;
-	pid_t pid;
+	GPid pid;
 
 	g_return_val_if_fail (command != NULL, 0);
 
@@ -347,18 +347,15 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	vte_terminal_reset (term, TRUE, TRUE);
 */
 
-	pid = vte_terminal_fork_command (term, args[0], args,
-										environment, dir,
-										term_plugin->lastlog,
-										term_plugin->update_records,
-										term_plugin->update_records);
-
-	/* vte_terminal_form_command return -1 if there is an error */
-	if (pid > 0)
+	if (vte_terminal_fork_command_full (term, term_plugin->pty_flags,
+	                                    dir, args, environment,
+	                                    G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL,
+	                                    &pid, NULL))
 	{
 		gboolean focus;
 
 		term_plugin->child_pid = pid;
+		g_child_watch_add (pid, terminal_child_exited_cb, term_plugin);
 
 		/* Display terminal widget */
 		focus = gtk_widget_is_focus (term_plugin->shell);
@@ -382,36 +379,25 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 }
 
 static void
-init_shell (TerminalPlugin *term_plugin, const char *uri)
+init_shell (TerminalPlugin *term_plugin, const char *path)
 {
-	struct passwd *pw;
-	const char *shell;
-	const char *dir;
+	gchar *shell[2] = {0, 0};
 	static gboolean first_time = TRUE;
 	VteTerminal *term = VTE_TERMINAL (term_plugin->shell);
 
-
-	pw = getpwuid (getuid ());
-	if (pw) {
-		shell = pw->pw_shell;
-		dir = pw->pw_dir;
-	} else {
-		shell = "/bin/sh";
-		dir = "/";
-	}
-
-	if (uri)
-		dir = uri;
+	shell[0] = vte_get_user_shell ();
+	if (shell[0] == NULL) shell[0] = g_strdup("/bin/sh");
 
 	if (!first_time)
 		vte_terminal_reset (term, FALSE, TRUE);
 	else
 		first_time = FALSE;
 
-	vte_terminal_fork_command (term, shell, NULL, NULL, dir,
-								term_plugin->lastlog,
-								term_plugin->update_records,
-								term_plugin->update_records);
+	vte_terminal_fork_command_full (term, term_plugin->pty_flags,
+	                                path, shell, NULL,
+	                                0, NULL, NULL,
+	                                NULL, NULL);
+	g_free (shell[0]);
 }
 
 static gboolean
@@ -654,10 +640,10 @@ create_box (GtkWidget *term)
 {
 	GtkWidget *sb, *hbox;
 
-	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (vte_terminal_get_adjustment (VTE_TERMINAL (term))));
+	sb = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, GTK_ADJUSTMENT (vte_terminal_get_adjustment (VTE_TERMINAL (term))));
 	gtk_widget_set_can_focus (sb, FALSE);
 
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
 
@@ -694,9 +680,6 @@ terminal_create (TerminalPlugin *term_plugin)
 	gtk_widget_show_all (frame);
 
 	term_plugin->frame = frame;
-
-	g_signal_connect (vte_reaper_get(), "child-exited",
-					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
 
 	init_shell (term_plugin, NULL);
 }
@@ -790,9 +773,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_object_unref (term_plugin->shell_box);
 	g_object_unref (term_plugin->term_box);
 
-	g_signal_handlers_disconnect_by_func (vte_reaper_get (), terminal_child_exited_cb,
-										  term_plugin);
-
 	/* remove watch */
 	anjuta_plugin_remove_watch (plugin, term_plugin->root_watch_id, FALSE);
 
@@ -834,8 +814,7 @@ terminal_plugin_instance_init (GObject *obj)
 	term_plugin->pref_profile_combo = NULL;
 	term_plugin->uiid = 0;
 	term_plugin->action_group = NULL;
-	term_plugin->lastlog = FALSE;
-	term_plugin->update_records = TRUE;
+	term_plugin->pty_flags = VTE_PTY_DEFAULT;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
 #endif
@@ -861,15 +840,9 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 						   gchar **environment, GError **error)
 {
 	TerminalPlugin *plugin;
-	const gchar *dir;
 	pid_t pid;
 
 	plugin = ANJUTA_PLUGIN_TERMINAL (terminal);
-
-	if (directory == NULL || strlen (directory) <= 0)
-		dir = NULL;
-	else
-		dir = directory;
 
 	pid = terminal_execute (plugin, directory, command, environment);
 	if (pid <= 0)
@@ -886,6 +859,7 @@ iterminal_iface_init(IAnjutaTerminalIface *iface)
 	iface->execute_command = iterminal_execute_command;
 }
 
+#if 0
 static void
 on_add_string_in_store (gpointer data, gpointer user_data)
 {
@@ -921,12 +895,12 @@ on_pref_profile_changed (GtkComboBox* combo, TerminalPlugin* term_plugin)
 	                       text);
 	g_free (text);
 }
+#endif
 
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GError* error = NULL;
-	GSList *profiles;
 
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
@@ -947,6 +921,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal-default-profile"));
 
 #if 0
+	GSList *profiles;
+
 	/* FIXME: Update to GSettings */
 	/* Update the currently available list of terminal profiles */
 	client = gconf_client_get_default ();
