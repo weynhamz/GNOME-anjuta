@@ -81,10 +81,10 @@ typedef struct _TerminalPluginClass TerminalPluginClass;
 
 struct _TerminalPlugin{
 	AnjutaPlugin parent;
-	
+
 	gint uiid;
-	GtkActionGroup *action_group;	
-	
+	GtkActionGroup *action_group;
+
 	GPid child_pid;
 	GtkWidget *shell, *term;
 	GtkWidget *shell_box, *term_box;
@@ -112,9 +112,9 @@ get_profile_key (const gchar *profile, const gchar *key)
 {
 	/* A resonably safe buffer */
 	static gchar buffer[1024];
-	
+
 	g_return_val_if_fail (profile != NULL && key != NULL, NULL);
-	
+
 	snprintf (buffer, 1024, "%s/%s/%s", GCONF_PROFILE_PREFIX, profile, key);
 	return buffer;
 }
@@ -129,7 +129,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	GdkColor* foreground;
 	GdkColor* background;
 	gchar *profile;
-	
+
 	g_return_if_fail (settings != NULL);
 
 #if 0
@@ -147,10 +147,10 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 		/* Otherwise use the user selected profile */
 		text = g_settings_get_string (settings, PREFS_TERMINAL_PROFILE);
 	}
-	if (!text || (*text == '\0')) 
+	if (!text || (*text == '\0'))
 			text = g_strdup ("Default");
 	profile = text;
-	
+
 	vte_terminal_set_mouse_autohide (term, TRUE);
 
 	/* Set terminal font either using the desktop wide font or g-t one. */
@@ -165,9 +165,9 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	if (text)
 		vte_terminal_set_font_from_string (term, text);
 	g_free (text);
-	
+
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
-	vte_terminal_set_cursor_blink_mode ((term), 
+	vte_terminal_set_cursor_blink_mode ((term),
 	                                    setting ? VTE_CURSOR_BLINK_ON : VTE_CURSOR_BLINK_OFF);
 	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
 	vte_terminal_set_audible_bell (term, !setting);
@@ -181,7 +181,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	if (text)
 		vte_terminal_set_word_chars (term, text);
 	g_free (text);
-	
+
 	text = GET_PROFILE_STRING (GCONF_BACKSPACE_BINDING);
 	if (text)
 	{
@@ -240,7 +240,7 @@ terminal_set_preferences (VteTerminal *term, GSettings* settings, TerminalPlugin
 	 * on FreeBSD */
 	term_plugin->lastlog = GET_PROFILE_BOOL (GCONF_LOGIN_SHELL);
 	term_plugin->update_records = GET_PROFILE_BOOL_DEFAULT (GCONF_UPDATE_RECORDS, TRUE);
-	
+
 	g_free (profile);
 	g_object_unref (client);
 #endif
@@ -320,9 +320,9 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	gchar *dir;
 	VteTerminal *term;
 	pid_t pid;
-	
+
 	g_return_val_if_fail (command != NULL, 0);
-	
+
 	/* Prepare command args */
 	args_list = anjuta_util_parse_args_from_string (command);
 	args = g_new (char*, g_list_length (args_list) + 1);
@@ -335,18 +335,18 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 		args_ptr++;
 	}
 	*args_ptr = NULL;
-	
+
 	if (directory == NULL)
 		dir = g_path_get_dirname (args[0]);
 	else
 		dir = g_strdup (directory);
-	
+
 	term = VTE_TERMINAL (term_plugin->term);
-	
+
 /*
 	vte_terminal_reset (term, TRUE, TRUE);
 */
-	
+
 	pid = vte_terminal_fork_command (term, args[0], args,
 										environment, dir,
 										term_plugin->lastlog,
@@ -389,8 +389,8 @@ init_shell (TerminalPlugin *term_plugin, const char *uri)
 	const char *dir;
 	static gboolean first_time = TRUE;
 	VteTerminal *term = VTE_TERMINAL (term_plugin->shell);
-	
-	
+
+
 	pw = getpwuid (getuid ());
 	if (pw) {
 		shell = pw->pw_shell;
@@ -399,15 +399,15 @@ init_shell (TerminalPlugin *term_plugin, const char *uri)
 		shell = "/bin/sh";
 		dir = "/";
 	}
-	
+
 	if (uri)
 		dir = uri;
-	
+
 	if (!first_time)
 		vte_terminal_reset (term, FALSE, TRUE);
 	else
 		first_time = FALSE;
-	
+
 	vte_terminal_fork_command (term, shell, NULL, NULL, dir,
 								term_plugin->lastlog,
 								term_plugin->update_records,
@@ -416,7 +416,7 @@ init_shell (TerminalPlugin *term_plugin, const char *uri)
 
 static gboolean
 terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
-				   TerminalPlugin *term) 
+				   TerminalPlugin *term)
 {
 	gtk_widget_grab_focus (widget);
 	return FALSE;
@@ -428,7 +428,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 {
 	if (event->type != GDK_KEY_PRESS)
 		return FALSE;
-	
+
 	/* ctrl-d */
 	if ((event->keyval == GDK_KEY_d || event->keyval == GDK_KEY_D) &&
 		(event->state & GDK_CONTROL_MASK))
@@ -445,7 +445,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 
 static gboolean
 terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
-				   TerminalPlugin *term) 
+				   TerminalPlugin *term)
 {
 	if (event->button == 3)
 	{
@@ -457,11 +457,11 @@ terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
 		popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupTerminal"));
 		action = gtk_action_group_get_action (term->action_group, "ActionCopyFromTerminal");
 		gtk_action_set_sensitive (action,vte_terminal_get_has_selection(VTE_TERMINAL(widget)));
-		
+
 		gtk_menu_popup (popup, NULL, NULL, NULL, NULL,
 						event->button, event->time);
 	}
-	
+
 	return FALSE;
 }
 
@@ -470,7 +470,7 @@ terminal_click_cb (GtkWidget *widget, GdkEventButton *event,
  * The problem has been traced in vte where its style-set handler does not
  * adequately check if the widget is realized, resulting in a crash when
  * style-set occurs in an unrealized vte widget.
- * 
+ *
  * This work around blocks all style-set signal emissions when the vte
  * widget is unrealized. -Naba
  */
@@ -478,7 +478,7 @@ static void
 terminal_realize_cb (GtkWidget *term, TerminalPlugin *plugin)
 {
 	gint count;
-	
+
 	if (plugin->first_time_realization)
 	{
 		/* First time realize does not have the signals blocked */
@@ -514,12 +514,12 @@ static void
 on_terminal_copy_cb (GtkAction * action, TerminalPlugin *term_plugin)
 {
 	VteTerminal *term;
-	
+
 	if (term_plugin->child_pid)
 		term = VTE_TERMINAL (term_plugin->term);
 	else
 		term = VTE_TERMINAL (term_plugin->shell);
-	
+
 	if (vte_terminal_get_has_selection(term))
 		vte_terminal_copy_clipboard(term);
 }
@@ -528,12 +528,12 @@ static void
 on_terminal_paste_cb (GtkAction * action, TerminalPlugin *term_plugin)
 {
 	VteTerminal *term;
-	
+
 	if (term_plugin->child_pid)
 		term = VTE_TERMINAL (term_plugin->term);
 	else
 		term = VTE_TERMINAL (term_plugin->shell);
-	
+
 	vte_terminal_paste_clipboard(term);
 }
 
@@ -542,15 +542,15 @@ on_terminal_command_cb (GtkAction * action, TerminalPlugin *term_plugin)
 {
 	VteTerminal *term;
 	gchar c;
-	
+
 	if (term_plugin->child_pid)
 		term = VTE_TERMINAL (term_plugin->term);
 	else
 		term = VTE_TERMINAL (term_plugin->shell);
-	
+
 	/* this only works for control + letter */
 	c = gtk_action_get_name (action) [strlen (gtk_action_get_name (action)) - 1] - 64;
-	
+
 	vte_terminal_feed_child (term, &c, 1);
 }
 
@@ -604,20 +604,20 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 {
 	TerminalPlugin *term_plugin;
 	const gchar *root_uri;
-	
+
 	term_plugin = (TerminalPlugin *)plugin;
-	
+
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
 		GFile *file;
 		char *path;
-		
+
 		file = g_file_new_for_uri (root_uri);
 		path = g_file_get_path (file);
-		
+
 		init_shell (term_plugin, path);
-		
+
 		g_object_unref (file);
 		g_free (path);
 	}
@@ -627,25 +627,25 @@ static GtkWidget *
 create_terminal (TerminalPlugin *term_plugin)
 {
 	GtkWidget *term;
-	
+
 	/* Create new terminal. */
 	term = vte_terminal_new ();
 	gtk_widget_set_size_request (GTK_WIDGET (term), 10, 10);
 	vte_terminal_set_size (VTE_TERMINAL (term), 50, 1);
-	
+
 	g_signal_connect (G_OBJECT (term), "focus-in-event",
 					  G_CALLBACK (terminal_focus_cb), term_plugin);
-	
+
 	g_signal_connect (G_OBJECT (term), "button-press-event",
 					  G_CALLBACK (terminal_click_cb), term_plugin);
-	
+
 #if OLD_VTE == 1
 	g_signal_connect (G_OBJECT (term), "realize",
 					  G_CALLBACK (terminal_realize_cb), term_plugin);
 	g_signal_connect (G_OBJECT (term), "unrealize",
 					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
 #endif
-	
+
 	return term;
 }
 
@@ -653,51 +653,51 @@ static GtkWidget *
 create_box (GtkWidget *term)
 {
 	GtkWidget *sb, *hbox;
-	
+
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (vte_terminal_get_adjustment (VTE_TERMINAL (term))));
 	gtk_widget_set_can_focus (sb, FALSE);
 
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
-	
+
 	g_object_ref_sink (hbox);
-	
+
 	return hbox;
-}	
-	
+}
+
 static void
 terminal_create (TerminalPlugin *term_plugin)
 {
 	GtkWidget *frame;
-	
+
 	g_return_if_fail(term_plugin != NULL);
 
 	term_plugin->child_pid = 0;
-	
+
 	/* Create the terminals. */
 	term_plugin->shell = create_terminal (term_plugin);
 	term_plugin->shell_box = create_box (term_plugin->shell);
-	
+
 	term_plugin->term = create_terminal (term_plugin);
 	term_plugin->term_box = create_box (term_plugin->term);
-	
+
 	/* key-press handler for ctrl-d "kill" */
 	g_signal_connect (G_OBJECT (term_plugin->term), "key-press-event",
 					  G_CALLBACK (terminal_keypress_cb), term_plugin);
-	
+
 	frame = gtk_frame_new (NULL);
 	gtk_widget_show (frame);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 
 	gtk_container_add (GTK_CONTAINER (frame), term_plugin->shell_box);
 	gtk_widget_show_all (frame);
-	
+
 	term_plugin->frame = frame;
-	
+
 	g_signal_connect (vte_reaper_get(), "child-exited",
 					  G_CALLBACK (terminal_child_exited_cb), term_plugin);
-	
+
 	init_shell (term_plugin, NULL);
 }
 
@@ -721,9 +721,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	TerminalPlugin *term_plugin;
 	static gboolean initialized = FALSE;
 	AnjutaUI *ui;
-	
+
 	DEBUG_PRINT ("%s", "TerminalPlugin: Activating Terminal plugin ...");
-	
+
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
 	term_plugin->widget_added_to_shell = FALSE;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -734,17 +734,17 @@ activate_plugin (AnjutaPlugin *plugin)
 										G_N_ELEMENTS (actions_terminal),
 										GETTEXT_PACKAGE, TRUE, term_plugin);
 	term_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
+
 	terminal_create (term_plugin);
-	
+
 	if (!initialized)
 	{
 		register_stock_icons (plugin);
 	}
-	
+
 	/* Setup prefs callbacks */
 	prefs_init (term_plugin);
-	
+
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, term_plugin->frame,
 							 "AnjutaTerminal", _("Terminal"),
@@ -758,13 +758,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	 * not realized, a few vte functions are not working. Another
 	 * possibility could be to call this when the widget is realized */
 	preferences_changed (term_plugin->settings, term_plugin);
-	
+
 	/* set up project directory watch */
 	term_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
 														  IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 														  on_project_root_added,
 														  0, NULL);
-	
+
 	return TRUE;
 }
 
@@ -772,12 +772,12 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	TerminalPlugin *term_plugin;
-	AnjutaUI *ui;	
-	
+	AnjutaUI *ui;
+
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_unmerge (ui, term_plugin->uiid);	
+	anjuta_ui_unmerge (ui, term_plugin->uiid);
 	if (term_plugin->action_group)
 	{
 		anjuta_ui_remove_action_group (ui, term_plugin->action_group);
@@ -786,22 +786,22 @@ deactivate_plugin (AnjutaPlugin *plugin)
 
 	/* terminal plugin widgets are destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
-	
+
 	g_object_unref (term_plugin->shell_box);
 	g_object_unref (term_plugin->term_box);
-	
+
 	g_signal_handlers_disconnect_by_func (vte_reaper_get (), terminal_child_exited_cb,
 										  term_plugin);
-	
+
 	/* remove watch */
 	anjuta_plugin_remove_watch (plugin, term_plugin->root_watch_id, FALSE);
-	
+
 	term_plugin->child_pid = 0;
-	
+
 #if OLD_VTE == 1
 	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->term),
 			 G_CALLBACK (terminal_unrealize_cb), term_plugin);
-	
+
 	term_plugin->first_time_realization = TRUE;
 #endif
 
@@ -814,7 +814,7 @@ terminal_plugin_dispose (GObject *obj)
 	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (obj);
 
 	g_object_unref (term_plugin->settings);
-	
+
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -828,7 +828,7 @@ static void
 terminal_plugin_instance_init (GObject *obj)
 {
 	TerminalPlugin *term_plugin = ANJUTA_PLUGIN_TERMINAL (obj);
-	
+
 	term_plugin->settings = g_settings_new (PREF_SCHEMA);
 	term_plugin->child_pid = 0;
 	term_plugin->pref_profile_combo = NULL;
@@ -842,7 +842,7 @@ terminal_plugin_instance_init (GObject *obj)
 }
 
 static void
-terminal_plugin_class_init (GObjectClass *klass) 
+terminal_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -863,9 +863,9 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 	TerminalPlugin *plugin;
 	const gchar *dir;
 	pid_t pid;
-	
+
 	plugin = ANJUTA_PLUGIN_TERMINAL (terminal);
-	
+
 	if (directory == NULL || strlen (directory) <= 0)
 		dir = NULL;
 	else
@@ -876,8 +876,8 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 	{
 		g_set_error (error, G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED, _("Unable to execute command"));
 	}
-	
-	return pid; 
+
+	return pid;
 }
 
 static void
@@ -891,7 +891,7 @@ on_add_string_in_store (gpointer data, gpointer user_data)
 {
 	GtkListStore* model = (GtkListStore *)user_data;
 	GtkTreeIter iter;
-	
+
 	gtk_list_store_append (model, &iter);
 	gtk_list_store_set (model, &iter, 0, (const gchar *)data, -1);
 }
@@ -899,8 +899,8 @@ on_add_string_in_store (gpointer data, gpointer user_data)
 static void
 on_concat_string (gpointer data, gpointer user_data)
 {
-	GString* str = (GString *)user_data;	
-	
+	GString* str = (GString *)user_data;
+
 	if (str->len != 0)
 		g_string_append_c (str, ',');
 	g_string_append (str, data);
@@ -912,7 +912,7 @@ on_pref_profile_changed (GtkComboBox* combo, TerminalPlugin* term_plugin)
 	GtkTreeModel* model = gtk_combo_box_get_model (combo);
 	GtkTreeIter iter;
 	gchar* text;
-	
+
 	gtk_combo_box_get_active_iter (combo,
 	                               &iter);
 	gtk_tree_model_get (model, &iter, 0, &text, -1);
@@ -927,7 +927,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 {
 	GError* error = NULL;
 	GSList *profiles;
-	
+
 	/* Create the terminal preferences page */
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
 	GtkBuilder *bxml = gtk_builder_new ();
@@ -942,7 +942,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	anjuta_preferences_add_from_builder (anjuta_preferences_default (), bxml,
 	                                     term_plugin->settings,
 	                                     "Terminal", _("Terminal"), ICON_FILE);
-	
+
 	term_plugin->pref_profile_combo = GTK_WIDGET (gtk_builder_get_object (bxml, "profile_list_combo"));
 	term_plugin->pref_default_button = GTK_WIDGET (gtk_builder_get_object (bxml, "preferences_toggle:bool:1:0:terminal-default-profile"));
 
@@ -956,22 +956,22 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	{
 		GtkListStore *store;
 		GString *default_value = g_string_new (NULL);
-		
+
 		store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (term_plugin->pref_profile_combo)));
-		
+
 		gtk_list_store_clear (store);
 		g_slist_foreach (profiles, on_add_string_in_store, store);
-		g_slist_foreach (profiles, on_concat_string, default_value);		
+		g_slist_foreach (profiles, on_concat_string, default_value);
 		g_slist_foreach (profiles, (GFunc)g_free, NULL);
 		g_slist_free (profiles);
-		
+
 		g_signal_connect (term_plugin->pref_profile_combo, "changed",
 		                  G_CALLBACK (on_pref_profile_changed), term_plugin);
-		
+
 		use_default_profile_cb (GTK_TOGGLE_BUTTON (term_plugin->pref_default_button), term_plugin);
 		g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
 						  G_CALLBACK (use_default_profile_cb), term_plugin);
-		
+
 		g_string_free (default_value, TRUE);
 	}
 	else
@@ -982,7 +982,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		gtk_widget_set_sensitive (term_plugin->pref_profile_combo, FALSE);
 		gtk_widget_set_sensitive (term_plugin->pref_default_button, FALSE);
 	}
-	
+
 	g_object_unref (bxml);
 }
 
@@ -1000,7 +1000,7 @@ static void
 ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 {
 	iface->merge = ipreferences_merge;
-	iface->unmerge = ipreferences_unmerge;	
+	iface->unmerge = ipreferences_unmerge;
 }
 
 ANJUTA_PLUGIN_BEGIN (TerminalPlugin, terminal_plugin);
