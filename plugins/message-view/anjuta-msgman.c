@@ -57,7 +57,7 @@ guint msgman_signal[LAST_SIGNAL];
 typedef struct _AnjutaMsgmanPage AnjutaMsgmanPage;
 
 static void
-on_msgman_close_page (GtkButton* button, 
+on_msgman_close_page (GtkButton* button,
 									AnjutaMsgman *msgman)
 {
 	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
@@ -65,10 +65,10 @@ on_msgman_close_page (GtkButton* button,
 	anjuta_msgman_remove_view (msgman, view);
 }
 
-static void 
+static void
 on_msgman_close_all(GtkMenuItem* item, AnjutaMsgman* msgman)
 {
-	
+
 	anjuta_msgman_remove_all_views(msgman);
 }
 
@@ -77,15 +77,15 @@ create_tab_popup_menu(AnjutaMsgman* msgman)
 {
 	GtkWidget* menu;
 	GtkWidget* item_close_all;
-	
+
 	menu = gtk_menu_new();
-	
+
 	item_close_all = gtk_menu_item_new_with_label(_("Close all message tabs"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item_close_all);
 	g_signal_connect(G_OBJECT(item_close_all), "activate", G_CALLBACK(on_msgman_close_all),
 					 msgman);
 	gtk_widget_show_all(menu);
-	
+
 	gtk_menu_attach_to_widget(GTK_MENU(menu), GTK_WIDGET(msgman), NULL);
 	return menu;
 }
@@ -104,7 +104,7 @@ on_tab_button_press_event(GtkWidget* widget, GdkEventButton* event, AnjutaMsgman
 	{
 		if (event->button == 3)
 		{
-				gtk_menu_popup(GTK_MENU(msgman->priv->tab_popup), NULL, NULL, NULL, NULL, 
+				gtk_menu_popup(GTK_MENU(msgman->priv->tab_popup), NULL, NULL, NULL, NULL,
 							   event->button, event->time);
 			return TRUE;
 		}
@@ -119,12 +119,12 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	AnjutaMsgmanPage *page;
 	int h, w;
 	GtkWidget* box;
-	
+
 	g_return_val_if_fail (view != NULL, NULL);
 
 	page = g_new0 (AnjutaMsgmanPage, 1);
 	page->widget = GTK_WIDGET (view);
-	
+
 	page->label = gtk_label_new (name);
 	gtk_misc_set_alignment (GTK_MISC(page->label), 0.0, 0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(page->label), PANGO_ELLIPSIZE_END);
@@ -148,17 +148,17 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->close_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE,
 												GTK_ICON_SIZE_MENU);
 	gtk_widget_set_size_request(page->close_icon, w, h);
-	
+
 	page->close_button = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(page->close_button), page->close_icon);
-	gtk_widget_set_size_request (page->close_button, w, h);	
+	gtk_widget_set_size_request (page->close_button, w, h);
 	gtk_button_set_focus_on_click (GTK_BUTTON (page->close_button), FALSE);
 	gtk_button_set_relief(GTK_BUTTON(page->close_button), GTK_RELIEF_NONE);
 	/* This style is created int the document-manager which we simply
 	 * assume is loaded before this plugin
      */
 	gtk_widget_set_name (page->close_button, "anjuta-tab-close-button");
-		
+
 	g_object_set_data (G_OBJECT (page->close_button), "message_view", page->widget);
 	g_signal_connect (page->close_button, "clicked",
 						G_CALLBACK(on_msgman_close_page),
@@ -168,9 +168,9 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->box = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), box, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
-	
+
 	gtk_widget_show_all (page->box);
-	
+
 	return page;
 }
 
@@ -227,10 +227,10 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
 	msgman->priv->tabber = anjuta_tabber_new (GTK_NOTEBOOK (msgman));
 	msgman->priv->button_group = NULL;
-	
-	g_signal_connect(msgman, "popup-menu", 
+
+	g_signal_connect(msgman, "popup-menu",
                        G_CALLBACK(on_msgman_popup_menu), msgman);
-    g_signal_connect(msgman, "button-press-event", 
+    g_signal_connect(msgman, "button-press-event",
                        G_CALLBACK(on_tab_button_press_event), msgman);
 }
 
@@ -250,7 +250,7 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	GtkNotebookClass *notebook_class = GTK_NOTEBOOK_CLASS (klass);
-	
+
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->finalize = anjuta_msgman_finalize;
 	gobject_class->dispose = anjuta_msgman_dispose;
@@ -260,7 +260,7 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 	/**
 	 * AnjutaMsgMan::view-changed:
 	 * @msgman: #AnjutaMsgMan
-	 * 
+	 *
 	 * Emitted when the current view changes
 	 */
 
@@ -270,14 +270,14 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 	                                            G_STRUCT_OFFSET (AnjutaMsgmanClass, view_changed),
 	                                            NULL, NULL,
 	                                            g_cclosure_marshal_VOID__VOID,
-	                                            G_TYPE_NONE, 
+	                                            G_TYPE_NONE,
 	                                            0);
 }
 
 static void
 set_message_tab(GSettings* settings, GtkNotebook *msgman)
 {
-	gchar *tab_pos; 
+	gchar *tab_pos;
 	GtkPositionType pos;
 
 	tab_pos = g_settings_get_string (settings, MESSAGES_TABS_POS);
@@ -350,7 +350,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	gtk_widget_show_all (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap, msgman);
-	
+
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
 
@@ -359,7 +359,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	g_signal_emit_by_name (msgman, "view-changed");
 
 	anjuta_tabber_add_tab (ANJUTA_TABBER(msgman->priv->tabber), page->box);
-	
+
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
 }
@@ -398,7 +398,7 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 {
 	GList *views, *node;
 	AnjutaMsgmanPage *page;
-	
+
 	views = NULL;
 	node = msgman->priv->views;
 	while (node)
@@ -413,12 +413,12 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 		gtk_widget_destroy (GTK_WIDGET (node->data));
 		node = g_list_next (node);
 	}
-	
+
 	g_list_free (msgman->priv->views);
 	g_list_free (views);
 
 	g_signal_emit_by_name (msgman, "view-changed");
-	
+
 	msgman->priv->views = NULL;
 }
 
@@ -484,12 +484,12 @@ anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 							  const gchar *title)
 {
 	AnjutaMsgmanPage *page;
-	
+
 	g_return_if_fail (title != NULL);
-	
+
 	page = anjuta_msgman_page_from_widget (msgman, view);
 	g_return_if_fail (page != NULL);
-	
+
 	gtk_label_set_text (GTK_LABEL (page->label), title);
 }
 
@@ -498,12 +498,12 @@ anjuta_msgman_set_view_icon (AnjutaMsgman *msgman, MessageView *view,
 							  GdkPixbufAnimation *icon)
 {
 	AnjutaMsgmanPage *page;
-	
+
 	g_return_if_fail (icon != NULL);
-	
+
 	page = anjuta_msgman_page_from_widget (msgman, view);
 	g_return_if_fail (page != NULL);
-	
+
 	gtk_image_set_from_animation (GTK_IMAGE (page->pixmap), icon);
 }
 
@@ -512,12 +512,12 @@ anjuta_msgman_set_view_icon_from_stock (AnjutaMsgman *msgman, MessageView *view,
 							  const gchar *icon)
 {
 	AnjutaMsgmanPage *page;
-	
+
 	g_return_if_fail (icon != NULL);
-	
+
 	page = anjuta_msgman_page_from_widget (msgman, view);
 	g_return_if_fail (page != NULL);
-	
+
 	gtk_image_set_from_stock (GTK_IMAGE (page->pixmap), icon,
 							  GTK_ICON_SIZE_MENU);
 }
@@ -526,11 +526,11 @@ gboolean
 anjuta_msgman_serialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
 {
 	GList *node;
-	
+
 	if (!anjuta_serializer_write_int (serializer, "views",
 									  g_list_length (msgman->priv->views)))
 		return FALSE;
-	
+
 	node = msgman->priv->views;
 	while (node)
 	{
@@ -546,10 +546,10 @@ gboolean
 anjuta_msgman_deserialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
 {
 	gint views, i;
-	
+
 	if (!anjuta_serializer_read_int (serializer, "views", &views))
 		return FALSE;
-	
+
 	for (i = 0; i < views; i++)
 	{
 		gchar *label, *pixmap;

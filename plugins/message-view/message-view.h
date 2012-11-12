@@ -14,7 +14,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
- 
+
 #ifndef MESSAGE_VIEW_H
 #define MESSAGE_VIEW_H
 
@@ -49,7 +49,7 @@ typedef struct _MessageViewPrivate MessageViewPrivate;
 struct _MessageView
 {
 	GtkBox parent;
-		
+
 	/* private */
 	MessageViewPrivate* privat;
 };
@@ -57,14 +57,14 @@ struct _MessageView
 struct _MessageViewClass
 {
 	GtkBoxClass parent;
-};	
+};
 
 typedef enum
 {
 	MESSAGE_VIEW_SHOW_NORMAL = 1 << 0,
 	MESSAGE_VIEW_SHOW_INFO = 1 << 1,
 	MESSAGE_VIEW_SHOW_WARNING = 1 << 2,
-	MESSAGE_VIEW_SHOW_ERROR = 1 << 3,	
+	MESSAGE_VIEW_SHOW_ERROR = 1 << 3,
 } MessageViewFlags;
 
 /* Note: MessageView implements IAnjutaMessageView interface */
