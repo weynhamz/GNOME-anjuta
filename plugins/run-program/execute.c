@@ -588,7 +588,7 @@ run_free_all_children (RunProgramPlugin *plugin)
 	/* Remove terminal child-exited handle */
 	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaTerminal, NULL);
-	g_signal_handlers_disconnect_by_func (term, on_child_terminated, plugin);
+	if (term != NULL) g_signal_handlers_disconnect_by_func (term, on_child_terminated, plugin);
 	plugin->child_exited_connection = 0;
 
 	/* Remove all child-exited source */
