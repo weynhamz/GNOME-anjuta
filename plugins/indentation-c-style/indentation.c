@@ -132,29 +132,42 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
 
-	/* Find the line which contains the left brace matching last right brace on current line */
-
-	do
+	while (ianjuta_iterable_previous (line_end, NULL))
 	{
-		while (ianjuta_iterable_previous (line_end, NULL))
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (line_end), 0, NULL);
+		if (ch == ')')
+			right_braces++;
+		if (ch == '(')
+			left_braces++;
+		if (iter_is_newline (line_end, ch))
 		{
-			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (line_end), 0, NULL);
-			if (ch == ')')
-				right_braces++;
-			if (ch == '(')
-				left_braces++;
-			if (iter_is_newline (line_end, ch))
-			{
-				break;
-			}
+			break;
 		}
-		if (right_braces != left_braces)
+	}
+
+	/* Find the line which contains the left brace matching last right brace on current line */
+	if (right_braces > 0)
+	{
+		while (right_braces >= left_braces && line_num >= 0)
 		{
-			line_num --;
+			line_num--;
 			g_object_unref (line_end);
 			line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+
+			while (ianjuta_iterable_previous (line_end, NULL))
+			{
+				ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (line_end), 0, NULL);
+				if (ch == ')')
+					right_braces++;
+				if (ch == '(')
+					left_braces++;
+				if (iter_is_newline (line_end, ch))
+				{
+					break;
+				}
+			}
 		}
-	} while (right_braces != left_braces && line_num >= 0);
+	}
 
 	g_object_unref (line_end);
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
