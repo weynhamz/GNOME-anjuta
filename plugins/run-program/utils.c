@@ -50,7 +50,7 @@ run_plugin_gtk_tree_model_find_string (GtkTreeModel *model, GtkTreeIter *parent,
 	{
 		valid = gtk_tree_model_get_iter_first (model, iter);
 	}
-	else 
+	else
 	{
 		valid = gtk_tree_model_iter_children (model, iter, parent);
 	}
@@ -58,16 +58,16 @@ run_plugin_gtk_tree_model_find_string (GtkTreeModel *model, GtkTreeIter *parent,
 	while (valid)
 	{
 		gchar *mvalue;
-		
+
 		gtk_tree_model_get (model, iter, col, &mvalue, -1);
 		found = (mvalue != NULL) && (strcmp (mvalue, value) == 0);
 		g_free (mvalue);
-		if (found) break;						   
+		if (found) break;
 
 		if (gtk_tree_model_iter_has_child (model, iter))
 		{
 			GtkTreeIter citer;
-			
+
 			found = run_plugin_gtk_tree_model_find_string (model, iter,
 														   &citer, col, value);
 			if (found)

@@ -46,23 +46,23 @@ typedef struct _RunProgramChild RunProgramChild;
 struct _RunProgramPlugin
 {
 	AnjutaPlugin parent;
-	
+
 	/* Menu item */
 	gint uiid;
 	GtkActionGroup *action_group;
-	
+
 	/* Save data */
 	gboolean run_in_terminal;
 	gchar **environment_vars;
 	GList *recent_target;
 	GList *recent_dirs;
-	GList *recent_args;	
-	
+	GList *recent_args;
+
 	/* Child watches */
 	GList *child;
 	guint child_exited_connection;
-	
-	/* Build data */	
+
+	/* Build data */
 	gchar *build_uri;
 	gpointer build_handle;
 };
