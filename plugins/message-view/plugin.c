@@ -395,6 +395,7 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 
 		create_toggle_buttons (ANJUTA_PLUGIN_MESSAGE_VIEW(plugin), hbox);
 
+		gtk_widget_show_all (msgman);
 		anjuta_shell_add_widget_custom (shell, msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon", hbox,
