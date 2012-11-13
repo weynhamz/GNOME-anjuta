@@ -37,6 +37,7 @@
 #define PREF_INDENT_BRACE_SIZE "indent-brace-size"
 #define PREF_INDENT_PARANTHESE_LINEUP "indent-paranthese-lineup"
 #define PREF_INDENT_PARANTHESE_SIZE "indent-paranthese-size"
+#define PREF_INDENT_PARANTHESE_ONLY_SPACES "indent-paranthese-only-spaces"
 #define PREF_BRACE_AUTOCOMPLETION "brace-autocompletion"
 #define PREF_COMMENT_LEADING_ASTERISK "multiline-leading-asterisk"
 
@@ -211,29 +212,41 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 }
 
 static gchar *
-get_line_indentation_string (IAnjutaEditor *editor, gint spaces, gint line_indent_spaces)
+get_line_indentation_string (IndentCPlugin *plugin, IAnjutaEditor *editor, gint indentation, gint paranthesis_indentation)
 {
 	gint i;
 	gchar *indent_string;
 
-	if ((spaces + line_indent_spaces) <= 0)
+	if ((indentation + paranthesis_indentation) <= 0)
 		return NULL;
 
 	if (USE_SPACES_FOR_INDENTATION)
 	{
-		indent_string = g_new0 (gchar, spaces + line_indent_spaces + 1);
-		for (i = 0; i < (spaces + line_indent_spaces); i++)
+		indent_string = g_new0 (gchar, indentation + paranthesis_indentation + 1);
+		for (i = 0; i < (indentation + paranthesis_indentation); i++)
 			indent_string[i] = ' ';
 	}
 	else
 	{
-		gint num_tabs = spaces / TAB_SIZE;
-		gint num_spaces = spaces % TAB_SIZE;
-		indent_string = g_new0 (gchar, num_tabs + num_spaces + line_indent_spaces + 1);
+		gint num_tabs, num_spaces;
+
+		if (g_settings_get_boolean (plugin->settings, PREF_INDENT_PARANTHESE_ONLY_SPACES))
+		{
+			num_tabs = indentation / TAB_SIZE;
+			num_spaces = indentation % TAB_SIZE;
+		}
+		else
+		{
+			num_tabs = (indentation + paranthesis_indentation) / TAB_SIZE;
+			num_spaces = (indentation + paranthesis_indentation) % TAB_SIZE;
+			paranthesis_indentation = 0;
+		}
+
+		indent_string = g_new0 (gchar, num_tabs + num_spaces + paranthesis_indentation + 1);
 
 		for (i = 0; i < num_tabs; i++)
 			indent_string[i] = '\t';
-		for (; i < num_tabs + (num_spaces + line_indent_spaces); i++)
+		for (; i < num_tabs + (num_spaces + paranthesis_indentation); i++)
 			indent_string[i] = ' ';
 	}
 	return indent_string;
@@ -437,7 +450,7 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 }
 
 static gint
-set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gint line_indent_spaces)
+set_line_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor, gint line_num, gint indentation, gint paranthesis_indentation)
 {
 	IAnjutaIterable *line_begin, *line_end, *indent_position;
 	IAnjutaIterable *current_pos;
@@ -483,9 +496,9 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 	//DEBUG_PRINT ("carat offset is = %d", carat_offset);
 
 	/* Set new indentation */
-	if ((indentation + line_indent_spaces) > 0)
+	if ((indentation + paranthesis_indentation) > 0)
 	{
-		indent_string = get_line_indentation_string (editor, indentation, line_indent_spaces);
+		indent_string = get_line_indentation_string (plugin, editor, indentation, paranthesis_indentation);
 		nchars = indent_string ? g_utf8_strlen (indent_string, -1) : 0;
 
 		/* Only indent if there is something to indent with */
@@ -522,7 +535,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation, gi
 	/* If indentation == 0, we really didn't enter the previous code block,
 	 * but we may need to clear existing indentation.
 	 */
-	if ((indentation + line_indent_spaces) == 0)
+	if ((indentation + paranthesis_indentation) == 0)
 	{
 		/* Get existing indentation */
 		if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
@@ -586,7 +599,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 						   IAnjutaEditor *editor,
 						   gint line_num,
 						   gint *incomplete_statement,
-						   gint *line_indent_spaces,
+						   gint *paranthesis_indentation,
 						   gboolean *colon_indent)
 {
 	IAnjutaIterable *iter;
@@ -604,7 +617,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 	IAnjutaIterable  *line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
 
 	*incomplete_statement = -1;
-	*line_indent_spaces = 0;
+	*paranthesis_indentation = 0;
 
 	if (line_num <= 1)
 		return 0;
@@ -870,9 +883,9 @@ get_line_indentation_base (IndentCPlugin *plugin,
 					if (dummy_ch == '\t')
 						line_indent += TAB_SIZE;
 					else
-						(*line_indent_spaces)++;
+						(*paranthesis_indentation)++;
 				}
-				(*line_indent_spaces)++;
+				(*paranthesis_indentation)++;
 				line_indent += extra_indent;
 			}
 			else
@@ -882,7 +895,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 				line_indent = get_line_indentation (editor, line_for_indent);
 				line_indent += extra_indent;
 
-				(*line_indent_spaces) += g_settings_get_int (plugin->settings,
+				(*paranthesis_indentation) += g_settings_get_int (plugin->settings,
 				                                             PREF_INDENT_PARANTHESE_SIZE);
 			}
 
@@ -1047,7 +1060,7 @@ spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end
 
 static gint
 get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
-						   gint line, gint *line_indent_spaces)
+						   gint line, gint *paranthesis_indentation)
 {
 	IAnjutaIterable *iter;
 	IAnjutaIterable *end_iter;
@@ -1060,7 +1073,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 	/* be sure to set a default if we're in the first line otherwise
 	 * the pointer'll be left hanging with no value.
 	 */
-	*line_indent_spaces = 0;
+	*paranthesis_indentation = 0;
 
 	if (line == 1) /* First line */
 	{
@@ -1073,7 +1086,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 
 		if (spaces_only (editor, begin, end))
 		{
-			set_line_indentation (editor, line -1, 0, 0);
+			set_line_indentation (plugin, editor, line -1, 0, 0);
 		}
 		g_object_unref (begin);
 		g_object_unref (end);
@@ -1089,7 +1102,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 	{
 		line_indent = get_line_indentation_base (plugin, editor, line,
 												 &incomplete_statement,
-												 line_indent_spaces,
+												 paranthesis_indentation,
 												 &colon_indent);
 	}
 
@@ -1172,7 +1185,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 		else if (ch == '#')
 		{
 			line_indent = 0;
-			*line_indent_spaces = 0;
+			*paranthesis_indentation = 0;
 		}
 		else if (!isspace (ch))
 		{
@@ -1265,13 +1278,13 @@ cpp_java_indentation_char_added (IAnjutaEditor *editor,
 		{
 			gint insert_line;
 			gint line_indent;
-			gint line_indent_spaces;
+			gint paranthesis_indentation;
 
 			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 
 			insert_line = ianjuta_editor_get_lineno (editor, NULL);
-			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &line_indent_spaces);
-			set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
+			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &paranthesis_indentation);
+			set_line_indentation (plugin, editor, insert_line, line_indent, paranthesis_indentation);
 			ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		}
 	}
@@ -1448,12 +1461,12 @@ cpp_auto_indentation (IAnjutaEditor *editor,
 
 	for (insert_line = line_start; insert_line <= line_end; insert_line++)
 	{
-		gint line_indent_spaces = 0;
+		gint paranthesis_indentation = 0;
 		line_indent = get_line_auto_indentation (lang_plugin, editor,
 		                                         insert_line,
-		                                         &line_indent_spaces);
+		                                         &paranthesis_indentation);
 		/* DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent); */
-		set_line_indentation (editor, insert_line, line_indent, line_indent_spaces);
+		set_line_indentation (lang_plugin, editor, insert_line, line_indent, paranthesis_indentation);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }

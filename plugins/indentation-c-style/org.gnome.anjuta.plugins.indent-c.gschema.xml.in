@@ -24,6 +24,9 @@
 		<key name="indent-paranthese-size" type="i">
 			<default>4</default>
 		</key>
+		<key name="indent-paranthese-only-spaces" type="b">
+			<default>true</default>
+		</key>
 		<key type="b" name="brace-autocompletion">
 			<default>false</default>
 		</key>
