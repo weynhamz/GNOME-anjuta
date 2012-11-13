@@ -55,17 +55,17 @@ struct _AnjutaPmProject
 	GObject parent_instance;
 
 	AnjutaPlugin *plugin;
-	
+
 	IAnjutaProject *project;
 
 	AnjutaProjectNode *root;
-	
+
 	guint incomplete_node;
 
 	gboolean loaded;
 
 	gint node_capabilities;
-	
+
 	/* project properties dialog */
 	GtkWidget *properties_dialog;
 };

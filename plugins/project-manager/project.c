@@ -54,7 +54,7 @@ on_pm_project_load_incomplete (AnjutaProjectNode *node, AnjutaPmProject *project
 
 	/* Get capabilities for all existing node */
 	project->node_capabilities |= state;
-	
+
 	if ((state & ANJUTA_PROJECT_INCOMPLETE) && !(state & ANJUTA_PROJECT_LOADING))
 	{
 		//g_message ("incomplete node %s", anjuta_project_node_get_name (node));
@@ -77,7 +77,7 @@ pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 		{
 			project->incomplete_node = 0;
 		}
-		
+
 		// Check for incompletely loaded object and load them
 		if (anjuta_project_node_get_state (node) & ANJUTA_PROJECT_INCOMPLETE)
 		{
@@ -94,7 +94,7 @@ pm_command_load_complete (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 	//g_message ("pm_command_load_complete %d is loaded %d", complete, ianjuta_project_is_loaded (project->project, NULL));
 	g_signal_emit (G_OBJECT (project), signals[LOADED], 0, node, complete, error);
 
-	
+
 	return TRUE;
 }
 
@@ -120,7 +120,7 @@ on_node_changed (IAnjutaProject *sender, AnjutaProjectNode *node, GError *error,
  *---------------------------------------------------------------------------*/
 
 
-gboolean 
+gboolean
 anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 {
 	AnjutaPluginManager *plugin_manager;
@@ -128,7 +128,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	IAnjutaProjectBackend *backend;
 	gint found = 0;
 	GValue value = {0, };
-	
+
 	g_return_val_if_fail (file != NULL, FALSE);
 
 	DEBUG_PRINT ("loading gbf backend…\n");
@@ -137,7 +137,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	if (!anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaProjectBackend"))
 	{
 		GList *descs = NULL;
-		
+
 		descs = anjuta_plugin_manager_query (plugin_manager,
 											 "Anjuta Plugin",
 											 "Interfaces",
@@ -149,7 +149,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 			gchar *location = NULL;
 			IAnjutaProjectBackend *plugin;
 			gint backend_val;
-				
+
 			backend_desc = (AnjutaPluginDescription *)desc->data;
 			anjuta_plugin_description_get_string (backend_desc, "Anjuta Plugin", "Location", &location);
 			plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
@@ -173,22 +173,22 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 
 		g_object_ref (backend);
 	}
-	
+
 	if (!backend)
 	{
 		/* FIXME: Set err */
 		g_warning ("no backend available for this project\n");
-		
+
 		return FALSE;
 	}
-	
+
 	DEBUG_PRINT ("%s", "Creating new gbf project\n");
 	project->project = ianjuta_project_backend_new_project (backend, file, NULL);
 	if (!project->project)
 	{
 		/* FIXME: Set err */
 		g_warning ("project creation failed\n");
-		
+
 		return FALSE;
 	}
 
@@ -204,7 +204,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 						"node-changed",
 						G_CALLBACK (on_node_changed),
 						project);
-	
+
 	project->root = ianjuta_project_get_root (project->project, NULL);
 
 	/* Export project root shell variable */
@@ -220,13 +220,13 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 							&value, NULL);
 	g_value_unset(&value);
-	
+
 	ianjuta_project_load_node (project->project, project->root, NULL);
-	
+
 	return TRUE;
 }
 
-gboolean 
+gboolean
 anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 {
 	/* Remove value from Anjuta shell */
@@ -239,7 +239,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 	project->root = NULL;
 	project->loaded = FALSE;
 	project->node_capabilities = 0;
-	
+
 	/* Remove project properties dialogs */
 	if (project->properties_dialog != NULL) gtk_widget_destroy (project->properties_dialog);
 	project->properties_dialog = NULL;
@@ -250,7 +250,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 gboolean
 anjuta_pm_project_refresh (AnjutaPmProject *project, GError **error)
 {
-	return ianjuta_project_load_node (project->project, project->root, error);	
+	return ianjuta_project_load_node (project->project, project->root, error);
 }
 
 gint
@@ -291,7 +291,7 @@ anjuta_pm_project_get_capabilities (AnjutaPmProject *project)
 
 	/* Make sure that at least one node can do it */
 	caps &= project->node_capabilities;
-	
+
 	return caps;
 }
 
@@ -299,7 +299,7 @@ const GList *
 anjuta_pm_project_get_node_info (AnjutaPmProject *project)
 {
 	g_return_val_if_fail (project->project != NULL, NULL);
-	
+
 	return ianjuta_project_get_node_info (project->project, NULL);
 }
 
@@ -317,9 +317,9 @@ anjuta_pm_project_get_packages (AnjutaPmProject *project)
 	GList *packages;
 
 	g_return_val_if_fail (project != NULL, NULL);
-	
+
 	all = g_hash_table_new (g_str_hash, g_str_equal);
-	
+
 	for (module = anjuta_project_node_first_child (project->root); module != NULL; module = anjuta_project_node_next_sibling (module))
 	{
 		if (anjuta_project_node_get_node_type(module) == ANJUTA_PROJECT_MODULE)
@@ -335,10 +335,10 @@ anjuta_pm_project_get_packages (AnjutaPmProject *project)
 			}
 		}
 	}
-	
+
 	packages = g_hash_table_get_keys (all);
 	g_hash_table_destroy (all);
-	
+
 	return packages;
 }
 
@@ -346,9 +346,9 @@ AnjutaProjectNode *
 anjuta_pm_project_add_group (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, GError **error)
 {
 	AnjutaProjectNode *node;
-	
+
 	g_return_val_if_fail (project->project != NULL, NULL);
-	
+
 	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_GROUP, NULL, name, error);
 
 	return node;
@@ -358,7 +358,7 @@ AnjutaProjectNode *
 anjuta_pm_project_add_target (AnjutaPmProject *project, AnjutaProjectNode *parent, AnjutaProjectNode *sibling, const gchar *name, AnjutaProjectNodeType type, GError **error)
 {
 	AnjutaProjectNode *node;
-	
+
 	g_return_val_if_fail (project->project != NULL, NULL);
 
 	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_TARGET | type, NULL, name, error);
@@ -381,7 +381,7 @@ anjuta_pm_project_add_source (AnjutaPmProject *project, AnjutaProjectNode *paren
 		g_free (scheme);
 		file = g_file_new_for_uri (name);
 	}
-	
+
 	node = ianjuta_project_add_node_before (project->project, parent, sibling, ANJUTA_PROJECT_SOURCE, file, file == NULL ? name : NULL, error);
 
 	return node;
@@ -409,7 +409,7 @@ static gboolean
 find_module (AnjutaProjectNode *node, gpointer data)
 {
 	gboolean found = FALSE;
-	
+
 	if (anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_MODULE)
 	{
 		const gchar *name = anjuta_project_node_get_name (node);
@@ -457,7 +457,7 @@ static void
 anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	
+
 	object_class->finalize = anjuta_pm_project_finalize;
 
 
@@ -473,7 +473,7 @@ anjuta_pm_project_class_init (AnjutaPmProjectClass *klass)
 	 The plugin should probably get the GFile from the
 	 AnjutaProjectNode object and then use a function
 	 in project-view.c to create the corresponding shortcut*/
-	
+
 	signals[LOADED] = g_signal_new ("loaded",
 		G_OBJECT_CLASS_TYPE (object_class),
 		G_SIGNAL_RUN_LAST,

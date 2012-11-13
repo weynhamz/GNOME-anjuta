@@ -2345,7 +2345,7 @@ ifile_open (IAnjutaFile *ifile, GFile* file, GError **e)
 	{
 		AnjutaShell *shell;
 		IAnjutaFileLoader* loader;
-		
+
 		shell = anjuta_shell_create_window (ANJUTA_PLUGIN (ifile)->shell, NULL);
 		loader = anjuta_shell_get_interface(shell, IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load(loader, file, FALSE, NULL);

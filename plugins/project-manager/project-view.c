@@ -332,7 +332,7 @@ row_activated (GtkTreeView       *tree_view,
 				gtk_tree_view_collapse_row (tree_view, path);
 			}
 			break;
-		default:	
+		default:
 			g_signal_emit (G_OBJECT (tree_view),
 			               signals [NODE_SELECTED], 0,
 			               node);

@@ -1,5 +1,5 @@
 /*  -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*-
- * 
+ *
  * Copyright (C) 2003 Gustavo Giráldez
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,8 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1301, USA. 
- * 
+ * Boston, MA 02110-1301, USA.
+ *
  * Author: Gustavo Giráldez <gustavo.giraldez@gmx.net>
  */
 
@@ -34,7 +34,7 @@ GList * gbf_project_util_node_all (AnjutaProjectNode *parent,
                                         AnjutaProjectNodeType type);
 
 GList * gbf_project_util_replace_by_file (GList* list);
-				    
+
 G_END_DECLS
 
 #endif /* __PROJECT_UTIL_H__ */
