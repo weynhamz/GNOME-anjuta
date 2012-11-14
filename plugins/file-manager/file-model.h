@@ -71,7 +71,7 @@ struct _FileModel
 GType
 file_model_get_type (void) G_GNUC_CONST;
 FileModel*
-file_model_new (GtkTreeView* tree_view, const gchar* base_uri);
+file_model_new (GtkTreeView* tree_view, GFile *base_path);
 
 void 
 file_model_refresh (FileModel* model);

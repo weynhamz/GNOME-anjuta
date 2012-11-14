@@ -47,7 +47,7 @@ const gchar* BINARY_SUFFIX[] =
 enum
 {
 	PROP_0,
-	PROP_BASE_URI,
+	PROP_BASE_PATH,
 	PROP_FILTER_BINARY,
 	PROP_FILTER_HIDDEN,
 	PROP_FILTER_BACKUP,
@@ -59,7 +59,7 @@ typedef struct _FileModelAsyncData FileModelAsyncData;
 
 struct _FileModelPrivate
 {
-	gchar* base_uri;
+	GFile *base_path;
 	gboolean filter_binary;
 	gboolean filter_hidden;
 	gboolean filter_backup;
@@ -607,7 +607,12 @@ file_model_init (FileModel *object)
 
 static void
 file_model_finalize (GObject *object)
-{		
+{
+	FileModel *model = FILE_MODEL(object);
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
+
+	g_clear_object (&priv->base_path);
+
 	G_OBJECT_CLASS (file_model_parent_class)->finalize (object);
 }
 
@@ -616,17 +621,15 @@ file_model_set_property (GObject *object, guint prop_id, const GValue *value, GP
 {
 	g_return_if_fail (FILE_IS_MODEL (object));
 	FileModel* model = FILE_MODEL(object);
-	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
 	
 	switch (prop_id)
 	{
-	case PROP_BASE_URI:
-		g_free (priv->base_uri);
-		priv->base_uri = g_value_dup_string (value);
-		if (!priv->base_uri || !strlen (priv->base_uri))
-		{
-			priv->base_uri = g_strdup("file:///");
-		}
+	case PROP_BASE_PATH:
+		g_clear_object (&priv->base_path);
+		priv->base_path = g_value_dup_object (value);
+		if (!priv->base_path)
+			priv->base_path = g_file_new_for_uri ("file:///");
 		break;
 	case PROP_FILTER_BINARY:
 		priv->filter_binary = g_value_get_boolean (value);
@@ -656,8 +659,8 @@ file_model_get_property (GObject *object, guint prop_id, GValue *value, GParamSp
 	
 	switch (prop_id)
 	{
-	case PROP_BASE_URI:
-		g_value_set_string (value, priv->base_uri);
+	case PROP_BASE_PATH:
+		g_value_set_object (value, priv->base_path);
 		break;
 	case PROP_FILTER_BINARY:
 		g_value_set_boolean (value, priv->filter_binary);
@@ -687,12 +690,12 @@ file_model_class_init (FileModelClass *klass)
 	g_type_class_add_private (object_class, sizeof(FileModelPrivate));
 	
 	g_object_class_install_property (object_class,
-	                                 PROP_BASE_URI,
-	                                 g_param_spec_string ("base_uri",
-	                                                      "Base uri",
-	                                                      "Base uri",
-	                                                      "NULL",
-	                                                      G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	                                 PROP_BASE_PATH,
+									 g_param_spec_object ("base-path",
+														  _("Base Path"),
+														  _("GFile representing the top-most path displayed"),
+														  G_TYPE_FILE,
+														  G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
 	g_object_class_install_property (object_class,
 									 PROP_FILTER_BINARY,
 									 g_param_spec_boolean ("filter_binary",
@@ -728,10 +731,10 @@ file_model_class_init (FileModelClass *klass)
 }
 
 FileModel*
-file_model_new (GtkTreeView* tree_view, const gchar* base_uri)
+file_model_new (GtkTreeView* tree_view, GFile* base_path)
 {
 	GObject* model =
-		g_object_new (FILE_TYPE_MODEL, "base_uri", base_uri, NULL);
+		g_object_new (FILE_TYPE_MODEL, "base-path", base_path, NULL);
 	GType types[N_COLUMNS] = {GDK_TYPE_PIXBUF, G_TYPE_STRING,
 		G_TYPE_STRING, G_TYPE_UINT, G_TYPE_OBJECT,
 		G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_BOOLEAN};
@@ -755,22 +758,18 @@ file_model_refresh (FileModel* model)
 {
 	GtkTreeStore* store = GTK_TREE_STORE (model);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
-	GFile* base;
 	GFileInfo* base_info;
 	
 	gtk_tree_store_clear (store);
 	
-	base = g_file_new_for_uri (priv->base_uri);
-	base_info = g_file_query_info (base, "standard::*",
-								  G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	base_info = g_file_query_info (priv->base_path, "standard::*",
+								   G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	
 	if (!base_info)
-		goto out;
+		return;
  	
- 	file_model_add_file (model, NULL, base, base_info);
+ 	file_model_add_file (model, NULL, priv->base_path, base_info);
 	g_object_unref (base_info);
-out:
-	g_object_unref (base);
 }
 
 GFile*

@@ -80,18 +80,17 @@ static GtkActionEntry popup_actions[] =
 static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
-	GFile *file;	
 	gchar* path = g_settings_get_string (file_manager->settings, PREF_ROOT);
 		
 	if (path)
 	{
-		file = g_file_new_for_path (path);
-		char *uri = g_file_get_uri (file);
-		if (uri)
-			g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
+		GFile *base_path;
+
+		base_path = g_file_new_for_path (path);
+		g_object_set (G_OBJECT (file_manager->fv), "base-path", base_path, NULL);
+		g_object_unref (base_path);
+
 		file_manager->have_project = FALSE;
-		g_free (uri);
-		g_object_unref (file);
 	}
 	g_free(path);
 }
@@ -180,7 +179,12 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
-		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
+		GFile *base_path;
+
+		base_path = g_file_new_for_uri (root_uri);
+		g_object_set (G_OBJECT(file_manager->fv), "base-path", base_path, NULL);
+		g_object_unref (base_path);
+		
 		file_model_set_ivcs (file_model, get_vcs_plugin (file_manager,
 														 root_uri));
 		
@@ -426,7 +430,9 @@ ifile_manager_set_root (IAnjutaFileManager *ifile_manager, const gchar *root,
 						GError **err)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) ifile_manager;
-	g_object_set (G_OBJECT(file_manager->fv), "base_uri", root, NULL);
+	GFile *base_path = g_file_new_for_uri (root);
+	g_object_set (G_OBJECT(file_manager->fv), "base-path", base_path, NULL);
+	g_object_unref (base_path);
 }
 
 static void

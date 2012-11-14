@@ -98,7 +98,7 @@ get_status_string(AnjutaVcsStatus status)
 
 enum
 {
-	PROP_BASE_URI = 1,
+	PROP_BASE_PATH = 1,
 	PROP_END
 };
 
@@ -689,13 +689,11 @@ file_view_get_property (GObject *object, guint prop_id, GValue *value,
 						GParamSpec *pspec)
 {
 	AnjutaFileViewPrivate *priv = ANJUTA_FILE_VIEW_GET_PRIVATE (object);
-	gchar* uri;
 	
 	switch (prop_id)
 	{
-		case PROP_BASE_URI:
-			g_object_get (G_OBJECT(priv->model), "base_uri", &uri, NULL);
-			g_value_set_string (value, uri);
+		case PROP_BASE_PATH:
+			g_object_get_property (G_OBJECT(priv->model), "base-path", value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -711,9 +709,8 @@ file_view_set_property (GObject *object, guint prop_id, const GValue *value,
 
 	switch (prop_id)
 	{
-		case PROP_BASE_URI:
-			g_object_set (G_OBJECT (priv->model), "base_uri", g_value_get_string (value),
-						  NULL);
+		case PROP_BASE_PATH:
+			g_object_set_property (G_OBJECT (priv->model), "base-path", value);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -745,14 +742,12 @@ file_view_class_init (AnjutaFileViewClass *klass)
 	object_class->get_property = file_view_get_property;
 	
 	g_object_class_install_property (object_class,
-									 PROP_BASE_URI,
-									 g_param_spec_string ("base_uri",
-														  _("Base URI"),
-														  _("URI of the top-most path displayed"),
-														  NULL,
-														  G_PARAM_READABLE |
-														  G_PARAM_WRITABLE |
-														  G_PARAM_CONSTRUCT));
+									 PROP_BASE_PATH,
+									 g_param_spec_object ("base-path",
+														  _("Base Path"),
+														  _("GFile representing the top-most path displayed"),
+														  G_TYPE_FILE,
+														  G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
 	g_signal_new ("file-open",
 				  ANJUTA_TYPE_FILE_VIEW,
 				  G_SIGNAL_RUN_LAST,
