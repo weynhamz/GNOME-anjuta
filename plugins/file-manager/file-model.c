@@ -401,7 +401,7 @@ on_file_model_changed (GFileMonitor* monitor,
 				found = TRUE;
 				break;
 			}
-			g_object_unref (model_file);
+			g_clear_object (&model_file);
 		}
 		while (gtk_tree_model_iter_next (GTK_TREE_MODEL(model), &file_iter));
 	}
