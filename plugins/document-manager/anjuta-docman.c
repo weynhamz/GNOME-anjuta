@@ -36,6 +36,7 @@
 #include "file_history.h"
 #include "plugin.h"
 #include "action-callbacks.h"
+#include "search-box.h"
 
 #define MENU_PLACEHOLDER "/MenuMain/PlaceHolderDocumentsMenus/Documents/PlaceholderDocuments"
 
@@ -87,6 +88,7 @@ struct _AnjutaDocmanPage {
 	GtkWidget *label;
 	GtkWidget *menu_label;	/* notebook page-switch menu-label */
 	gboolean is_current;
+	guint doc_widget_key_press_id;
 };
 
 static guint docman_signals[LAST_SIGNAL] = { 0 };
@@ -386,6 +388,23 @@ anjuta_docman_update_documents_menu (AnjutaDocman* docman)
 	}
 	anjuta_docman_update_documents_menu_status (docman);
 	priv->documents_merge_id = id;
+}
+
+static gboolean
+on_doc_widget_key_press_event (GtkWidget *widget,
+                               GdkEventKey *event,
+                               AnjutaDocman *docman)
+{
+	AnjutaDocmanPage *page;
+
+	page = anjuta_docman_get_current_page (docman);
+	if (widget == page->widget && event->keyval == GDK_KEY_Escape)
+	{
+		search_box_hide (SEARCH_BOX (docman->priv->plugin->search_box));
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 static void
@@ -702,6 +721,10 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (box), "event",
 	                  G_CALLBACK (on_notebook_tab_double_click),
 	                  docman);
+
+	page->doc_widget_key_press_id =
+		g_signal_connect (G_OBJECT (doc), "key-press-event",
+		                  G_CALLBACK (on_doc_widget_key_press_event), docman);
 
 	page->widget = GTK_WIDGET (doc);	/* this is the notebook-page child widget */
 	page->doc = doc;
@@ -1301,6 +1324,9 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 
 			g_signal_emit (G_OBJECT (docman), docman_signals[DOC_CHANGED], 0, NULL);
 		}
+
+		g_signal_handler_disconnect (doc, page->doc_widget_key_press_id);
+
 		g_free (page);
 	}
 	gtk_widget_destroy(GTK_WIDGET(doc));

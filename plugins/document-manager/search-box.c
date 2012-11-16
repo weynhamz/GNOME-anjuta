@@ -89,7 +89,7 @@ G_DEFINE_TYPE (SearchBox, search_box, GTK_TYPE_HBOX);
 static void
 on_search_box_hide (GtkWidget* button, SearchBox* search_box)
 {
-	gtk_widget_hide (GTK_WIDGET (search_box));
+	search_box_hide (search_box);
 }
 
 static void
@@ -186,13 +186,7 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 		}
 		case GDK_KEY_Escape:
 		{
-			gtk_widget_hide (GTK_WIDGET (search_box));
-			search_box_set_entry_color (search_box, TRUE);
-			if (search_box->priv->current_editor)
-			{
-				ianjuta_document_grab_focus (IANJUTA_DOCUMENT (search_box->priv->current_editor), 
-											 NULL);
-			}
+			search_box_hide (search_box);
 		}
 		default:
 		{
@@ -1148,6 +1142,18 @@ void
 search_box_grab_line_focus (SearchBox* search_box)
 {
 	gtk_widget_grab_focus (search_box->priv->goto_entry);
+}
+
+void
+search_box_hide (SearchBox* search_box)
+{
+	gtk_widget_hide (GTK_WIDGET (search_box));
+	search_box_set_entry_color (search_box, TRUE);
+	if (search_box->priv->current_editor)
+	{
+		ianjuta_document_grab_focus (IANJUTA_DOCUMENT (search_box->priv->current_editor),
+		                             NULL);
+	}
 }
 
 void
