@@ -1055,9 +1055,10 @@ search_box_init (SearchBox *search_box)
 	gtk_container_set_focus_chain (GTK_CONTAINER (search_box->priv->grid),
 	                               focus_chain);
 	g_list_free (focus_chain);
-	
+
+	/* Show all children but keep the top box hidden. */
 	gtk_widget_show_all (GTK_WIDGET (search_box));
-	
+	gtk_widget_hide (GTK_WIDGET (search_box));
 }
 
 static void

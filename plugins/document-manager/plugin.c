@@ -1661,6 +1661,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	dplugin->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_widget_show (dplugin->vbox);
 	gtk_box_pack_start (GTK_BOX(dplugin->vbox), docman, TRUE, TRUE, 0);
+
+	/* Create the default searchbox instance. */
+	dplugin->search_box = search_box_new (ANJUTA_DOCMAN (docman));
+	gtk_box_pack_end (GTK_BOX (dplugin->vbox), dplugin->search_box, FALSE, FALSE, 0);
+
 	anjuta_shell_add_widget_full (plugin->shell, dplugin->vbox,
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon",
@@ -1670,10 +1675,6 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	ui_give_shorter_names (plugin);
 	update_document_ui (plugin, NULL);
-
-	/* Create the default searchbox instance, but don't yet put it into
-	   dplugin->vbox, to prevent the box being displayed at session start */
-	dplugin->search_box = search_box_new (ANJUTA_DOCMAN (docman));
 	
 	/* Setup popup menu */
 	popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
@@ -1738,7 +1739,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 
 	/* Widget is removed from the container when destroyed */
 	gtk_widget_destroy (eplugin->docman);
-	gtk_widget_destroy (eplugin->search_box);	/* the default searchbox instance may still be unparented */
 	g_object_unref (eplugin->bookmarks);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;

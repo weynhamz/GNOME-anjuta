@@ -705,11 +705,6 @@ on_goto_line_no1_activate (GtkAction *action, gpointer user_data)
 
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
-	if (!gtk_widget_get_parent (plugin->search_box))
-	{
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
-	}
-
 	gtk_widget_show (plugin->search_box);
 	search_box_grab_line_focus (SEARCH_BOX (plugin->search_box));
 }
@@ -779,8 +774,6 @@ on_show_search (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
 	search_box_fill_search_focus (SEARCH_BOX (search_box), FALSE);
 	gtk_widget_show (search_box);
@@ -795,11 +788,8 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
+	gtk_widget_show (search_box);
 	search_box_incremental_search (SEARCH_BOX (search_box), TRUE, TRUE);
 }
 
@@ -812,11 +802,8 @@ on_search_previous (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
+	gtk_widget_show (search_box);
 	search_box_incremental_search (SEARCH_BOX (search_box), FALSE, TRUE);
 }
 
@@ -829,8 +816,6 @@ on_search_and_replace (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
 	search_box_fill_search_focus (SEARCH_BOX (search_box), TRUE);
 	gtk_widget_show (search_box);
@@ -847,12 +832,8 @@ on_search_popup_case_sensitive_toggle (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
-
+	gtk_widget_show (search_box);
 	search_box_toggle_case_sensitive (SEARCH_BOX (search_box), case_sensitive_status);
 }
 
@@ -866,12 +847,8 @@ on_search_popup_highlight_toggle (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
-
+	gtk_widget_show (search_box);
 	search_box_toggle_highlight (SEARCH_BOX (search_box), highlight_status);
 }
 
@@ -884,12 +861,8 @@ on_search_popup_clear_highlight (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
-
+	gtk_widget_show (search_box);
 	search_box_clear_highlight (SEARCH_BOX (search_box));
 }
 
@@ -903,12 +876,8 @@ on_search_popup_regex_search (GtkAction *action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 
 	search_box = plugin->search_box;
-	if (!gtk_widget_get_parent (search_box))
-		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
 
-	if (!gtk_widget_get_visible (search_box))
-		gtk_widget_show (search_box);
-
+	gtk_widget_show (search_box);
 	search_box_toggle_regex (SEARCH_BOX (search_box), regex_active);
 }
 
