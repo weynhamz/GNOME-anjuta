@@ -485,11 +485,8 @@ static void
 on_close_button_clicked (GtkButton *close_button, gpointer user_data)
 {
 	AnjutaDocman *docman = user_data;
-	IAnjutaDocument *current_document;
 
-	current_document = anjuta_docman_get_current_document (docman);
-	if (current_document)
-		anjuta_docman_remove_document (docman, current_document);
+	on_close_file_activate (NULL, docman->priv->plugin);
 }
 
 static GdkPixbuf*
