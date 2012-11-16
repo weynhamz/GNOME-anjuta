@@ -142,15 +142,29 @@ combo_sort_func (GtkTreeModel *model,
 	return result;
 }
 
-static void
-anjuta_docman_add_document_to_combo (AnjutaDocman    *docman,
-                                     IAnjutaDocument *doc,
-                                     GFile           *file)
+static gchar*
+anjuta_docman_get_combo_filename (AnjutaDocman *docman,
+                                  IAnjutaDocument *doc,
+                                  GFile *file)
 {
-	GtkTreeIter iter;
+	gchar *dirty_char, *read_only, *filename;
 
-	gtk_list_store_append (docman->priv->combo_model, &iter);
-	gtk_list_store_set (docman->priv->combo_model, &iter, 0, doc, -1);
+	if (!ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (doc), NULL))
+	{
+		dirty_char = "";
+	}
+	else
+	{
+		dirty_char = "*";
+	}
+	if (ianjuta_file_savable_is_read_only (IANJUTA_FILE_SAVABLE (doc), NULL))
+	{
+		read_only = _(" [read-only]");
+	}
+	else
+	{
+		read_only = "";
+	}
 
 	if (file)
 	{
@@ -163,21 +177,39 @@ anjuta_docman_add_document_to_combo (AnjutaDocman    *docman,
 			if (*name == G_DIR_SEPARATOR)
 				name++;
 
-			gtk_list_store_set (docman->priv->combo_model, &iter,
-			                    1, name, -1);
+			filename = g_strconcat (name, dirty_char, read_only, NULL);
 		}
 		else
 		{
 			gchar *parsename = g_file_get_parse_name (file);
-			gtk_list_store_set (docman->priv->combo_model, &iter, 1, parsename, -1);
+			filename = g_strconcat (parsename, dirty_char, read_only, NULL);
 			g_free (parsename);
 		}
 
 		g_free (path);
 	}
 	else
-		gtk_list_store_set (docman->priv->combo_model, &iter,
-		                    1, ianjuta_document_get_filename (doc, NULL), -1);
+		filename = g_strconcat (ianjuta_document_get_filename (doc, NULL),
+		                        dirty_char, read_only, NULL);
+
+	return filename;
+}
+
+static void
+anjuta_docman_add_document_to_combo (AnjutaDocman    *docman,
+                                     IAnjutaDocument *doc,
+                                     GFile           *file)
+{
+	GtkTreeIter iter;
+	gchar *filename;
+
+	filename = anjuta_docman_get_combo_filename (docman, doc, file);
+
+	gtk_list_store_append (docman->priv->combo_model, &iter);
+	gtk_list_store_set (docman->priv->combo_model, &iter, 0, doc,
+	                    1, filename, -1);
+
+	g_free (filename);
 }
 
 static gboolean
@@ -203,6 +235,25 @@ anjuta_docman_get_iter_for_document (AnjutaDocman *docman,
 	}
 
 	return FALSE;
+}
+
+static void
+anjuta_docman_update_combo_label (AnjutaDocman *docman,
+                                  IAnjutaDocument *doc)
+{
+	GtkTreeIter iter;
+	GFile *file = NULL;
+	gchar *filename;
+
+	if (!anjuta_docman_get_iter_for_document (docman, doc, &iter))
+		return;
+
+	if (IANJUTA_IS_FILE (doc))
+		file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+
+	filename = anjuta_docman_get_combo_filename (docman, doc, file);
+	gtk_list_store_set (docman->priv->combo_model, &iter, 1, filename, -1);
+	g_free (filename);
 }
 
 static void
@@ -1121,9 +1172,13 @@ on_notebook_switch_page (GtkNotebook *notebook,
 
 static void
 on_document_update_save_ui (IAnjutaDocument *doc,
-						AnjutaDocman *docman)
+                            AnjutaDocman *docman)
 {
+	if (!doc)
+		return;
+
 	anjuta_docman_update_page_label (docman, doc);
+	anjuta_docman_update_combo_label (docman, doc);
 }
 
 static void
@@ -1593,9 +1648,6 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, IAnjutaDocument *doc)
 	gchar* dirty_char;
 	gchar* read_only;
 	gchar* label;
-
-	if (doc == NULL)
-		return;
 
 	page = anjuta_docman_get_page_for_document (docman, doc);
 	if (!page || page->label == NULL || page->menu_label == NULL)
