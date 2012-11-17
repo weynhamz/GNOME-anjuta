@@ -1958,11 +1958,7 @@ sdb_engine_init (SymbolDBEngine * object)
 					## /* name:'isfilescope' type:gint */, \
 					## /* name:'signature' type:gchararray */, \
 					## /* name:'returntype' type:gchararray */, \
-	    			CASE ## /* name:'scopedefinitionid' type:gint */ \
-	    				WHEN -1 THEN (SELECT scope_id FROM scope \
-	    							  WHERE scope_name = ## /* name:'scope' type:gchararray */ \
-	    							  LIMIT 1) \
-	    				ELSE ## /* name:'scopedefinitionid' type:gint */ END, \
+	    			## /* name:'scopedefinitionid' type:gint */, \
 					## /* name:'scopeid' type:gint */, \
 					## /* name:'typetype' type:gchararray */, \
 	    			## /* name:'typename' type:gchararray */, \
@@ -1987,7 +1983,7 @@ sdb_engine_init (SymbolDBEngine * object)
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_SCOPE_ID,
-	 	"UPDATE symbol SET scope_id = (SELECT scope_definition_id FROM symbol WHERE \
+	 	"UPDATE OR IGNORE symbol SET scope_id = (SELECT scope_definition_id FROM symbol WHERE \
 	    	type_type = ## /* name:'tokenname' type:gchararray */ AND \
 	    	type_name = ## /* name:'objectname' type:gchararray */ LIMIT 1) \
 	 	 WHERE symbol_id = ## /* name:'symbolid' type:gint */");
@@ -4637,15 +4633,6 @@ sdb_engine_add_new_symbol_case_2_3 (SymbolDBEngine *dbe,
 
 	SDB_PARAM_SET_STRING(param, type_name);
 
-	if ((param = gda_set_get_holder ((GdaSet*)plist, "scope")) == NULL)
-	{
-		g_warning ("param scope is NULL from pquery!");
-		return;
-	}
-
-	/* scope is to be considered the tag name */
-	SDB_PARAM_SET_STRING(param, name);
-	
 	*plist_ptr = (GdaSet*)plist;
 	*stmt_ptr = (GdaStatement*)stmt;
 }
