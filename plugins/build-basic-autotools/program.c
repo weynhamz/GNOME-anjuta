@@ -121,7 +121,7 @@ build_program_find_env (BuildProgram *prog, const gchar *name)
 		/* Look for an already existing variable */
 		for (i = 0; envp[i] != NULL; i++)
 		{
-			if ((envp[i][len] == '=') && (strncmp (envp[i], name, len) == 0))
+			if ((strncmp (envp[i], name, len) == 0) && (envp[i][len] == '='))
 			{
 				return i;
 			}
