@@ -315,19 +315,18 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 					suggestions = g_list_prepend (suggestions, tag);
 				}
 				else
-					g_free (tag);
+					anjuta_language_proposal_data_free (tag);
 			}
 			g_match_info_free (match_info);
 		}
 
 		g_regex_unref (regex);
-		
-		assist->priv->completion_cache = g_completion_new (completion_function);
-		g_completion_add_items (assist->priv->completion_cache, suggestions);
-		
 		g_strfreev (completions);
 		g_string_free (assist->priv->rope_cache, TRUE);
 		assist->priv->rope_cache = NULL;
+		
+		assist->priv->completion_cache = g_completion_new (completion_function);
+		g_completion_add_items (assist->priv->completion_cache, suggestions);
 		g_list_free (suggestions);
 
 		/* Show autocompletion */
