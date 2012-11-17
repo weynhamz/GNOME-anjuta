@@ -598,8 +598,9 @@ static void
 attach_process_update (AttachProcess * ap)
 {
 	gchar *tmp, *tmp1, *cmd;
-	gint ch_pid;
 	gchar *shell;
+	gchar *argv[4];
+	GError *err = NULL;
 	GtkTreeStore *store;
 	gboolean result;
 
@@ -618,20 +619,20 @@ attach_process_update (AttachProcess * ap)
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
 #endif
 	shell = anjuta_util_user_shell ();
-	ch_pid = fork ();
-	if (ch_pid == 0)
+	argv[0] = shell;
+	argv[1] = "-c";
+	argv[2] = cmd;
+	argv[3] = NULL;
+	if (!g_spawn_sync (NULL, argv, NULL, 0, NULL, NULL, NULL, NULL, NULL, &err))
 	{
-		execlp (shell, shell, "-c", cmd, NULL);
-	}
-	if (ch_pid < 0)
-	{
-		anjuta_util_dialog_error_system (NULL, errno,
-										 _("Unable to execute: %s."), cmd);
+		anjuta_util_dialog_error (NULL, _("Unable to execute: \"%s\". "
+		                                  "The returned error was: \"%s\"."), cmd, err->message);
+		g_error_free (err);
 		g_free (tmp);
 		g_free (cmd);
 		return;
 	}
-	waitpid (ch_pid, NULL, 0);
+
 	g_free (cmd);
 
 	result = g_file_get_contents (tmp, &tmp1, NULL, NULL);
