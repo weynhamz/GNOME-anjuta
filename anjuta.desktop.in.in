@@ -2,6 +2,7 @@
 _Name=Anjuta
 _GenericName=Integrated Development Environment
 _Comment=Develop software in an integrated development environment
+_Keywords=IDE;development;programming;
 Exec=anjuta
 Icon=anjuta
 Terminal=false
