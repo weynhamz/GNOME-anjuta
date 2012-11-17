@@ -97,10 +97,6 @@ static void
 anjuta_entry_icon_release (GtkEntry *entry, GtkEntryIconPosition icon_pos,
                            GdkEvent *event, gpointer user_data)
 {
-	AnjutaEntry *self;
-
-	self = ANJUTA_ENTRY (entry);
-
 	if (icon_pos == GTK_ENTRY_ICON_SECONDARY)
 		gtk_entry_set_text (entry, "");
 }

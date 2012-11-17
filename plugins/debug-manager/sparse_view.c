@@ -263,7 +263,7 @@ dma_sparse_view_goto_activate (GtkWidget   *menu_item,
 		gtk_widget_show (frame);
 		gtk_container_add (GTK_CONTAINER (view->priv->goto_window), frame);
 	
-		vbox = gtk_vbox_new (FALSE, 0);
+		vbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 		gtk_widget_show (vbox);
 		gtk_container_add (GTK_CONTAINER (frame), vbox);
 		gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
@@ -1259,7 +1259,7 @@ dma_sparse_view_new_with_buffer (DmaSparseBuffer *buffer)
 	view = g_object_new (DMA_SPARSE_VIEW_TYPE, NULL);
 	g_assert (view != NULL);
 
-	dma_sparse_view_set_sparse_buffer (view, buffer);
+	dma_sparse_view_set_sparse_buffer (DMA_SPARSE_VIEW(view), buffer);
 	dma_sparse_buffer_get_iterator_at_address (buffer, &(DMA_SPARSE_VIEW (view))->priv->start, 0);
 
 	return view;

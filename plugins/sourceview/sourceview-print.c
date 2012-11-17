@@ -117,7 +117,8 @@ create_custom_widget (GtkPrintOperation* operation,
 		gtk_check_button_new_with_label (_("Footer"));
 	GtkWidget* toggle_highlight =
 		gtk_check_button_new_with_label (_("Highlight source code"));
-	GtkWidget* vbox = gtk_vbox_new (TRUE, 5);
+	GtkWidget* vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
+	gtk_box_set_homogeneous (GTK_BOX(vbox), TRUE);
 
 	g_settings_bind (sv->priv->settings, PRINT_LINEWRAP,
 	                 toggle_linewrap, "active", G_SETTINGS_BIND_DEFAULT);

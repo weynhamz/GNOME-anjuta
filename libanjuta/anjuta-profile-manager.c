@@ -510,11 +510,8 @@ anjuta_profile_manager_queue_profile (AnjutaProfileManager *profile_manager,
 gboolean
 anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
 							 AnjutaProfile *profile, GError **error)
-{
-	AnjutaProfileManagerPriv *priv;
-	
+{	
 	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), FALSE);
-	priv = profile_manager->priv;
 	
 	/* Emit profile push signal */
 	g_signal_emit_by_name (profile_manager, "profile-pushed",

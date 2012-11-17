@@ -1376,7 +1376,7 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 	{	
 		GFile *gfile;
 		gchar *filename;
-		gchar *db_path;
+		const gchar *db_path;
 
 		gfile = node->data;
 		if (!gfile)

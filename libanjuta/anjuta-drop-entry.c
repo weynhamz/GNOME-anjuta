@@ -53,10 +53,6 @@ anjuta_drop_entry_init (AnjutaDropEntry *self)
 static void
 anjuta_drop_entry_finalize (GObject *object)
 {
-	AnjutaDropEntry *self;
-
-	self = ANJUTA_DROP_ENTRY (object);
-
 	G_OBJECT_CLASS (anjuta_drop_entry_parent_class)->finalize (object);
 }
 

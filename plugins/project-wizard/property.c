@@ -499,7 +499,7 @@ npw_property_create_widget (NPWProperty* prop)
 
 			// Use an entry box and a browse button as GtkFileChooserButton
 			// allow to select only existing file
-			widget = gtk_hbox_new (FALSE, 3);
+			widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
 
 			entry = gtk_entry_new ();
 			if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);

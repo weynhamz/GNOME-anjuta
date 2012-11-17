@@ -542,7 +542,7 @@ anjuta_environment_editor_init (AnjutaEnvironmentEditor *editor)
 	/* Create all needed widgets */
 	expander = gtk_expander_new (_("Environment Variables:"));
 	gtk_container_add (GTK_CONTAINER (editor), expander);
-	hbox = gtk_hbox_new (FALSE, 6);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 	gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
 	gtk_container_add (GTK_CONTAINER (expander), hbox);
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
@@ -554,7 +554,7 @@ anjuta_environment_editor_init (AnjutaEnvironmentEditor *editor)
 	gtk_container_add (GTK_CONTAINER (scrolled), treeview);
 	editor->treeview = GTK_TREE_VIEW (treeview);
 
-	vbutton = gtk_vbutton_box_new ();
+	vbutton = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (vbutton), GTK_BUTTONBOX_START);
 	gtk_box_set_spacing (GTK_BOX (vbutton), 6);
 	gtk_box_pack_start (GTK_BOX (hbox), vbutton, FALSE, FALSE, 0);
@@ -723,7 +723,7 @@ anjuta_environment_editor_get_all_variables (AnjutaEnvironmentEditor *editor)
 	GtkTreeIter iter;
 	
 	all_var = g_new (gchar *, gtk_tree_model_iter_n_children (editor->model, NULL) + 1);
-	var = all_var;
+	var = *all_var;
 	
 	for (valid = gtk_tree_model_get_iter_first (editor->model, &iter); valid; valid = gtk_tree_model_iter_next (editor->model, &iter))
 	{
@@ -737,13 +737,13 @@ anjuta_environment_editor_get_all_variables (AnjutaEnvironmentEditor *editor)
 							ENV_COLOR_COLUMN, &color,
 							-1);
 		
-		*var = g_strconcat(name, "=", value, NULL);
+		var = g_strconcat(name, "=", value, NULL);
 		var++;
 		g_free (name);
 		g_free (value);
 		g_free (color);
 	}
-	*var = NULL;
+	var = NULL;
 
 	return all_var;
 }

@@ -120,7 +120,7 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 			gchar *uri;
 			GIcon* icon;
 
-			button_box = gtk_hbox_new (FALSE, 5);
+			button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 			button = gtk_button_new ();
 			gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
 			gtk_widget_set_halign (button, GTK_ALIGN_START);

@@ -72,7 +72,6 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaFileWizardPlugin *w_plugin;
-	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("%s", "AnjutaFileWizardPlugin: Activating File wizard plugin ...");
 	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
@@ -84,7 +83,6 @@ activate_plugin (AnjutaPlugin *plugin)
 													   project_root_added,
 													   project_root_removed,
 													   NULL);
-	initialized = TRUE;
 	return TRUE;
 }
 

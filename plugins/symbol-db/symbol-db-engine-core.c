@@ -1476,7 +1476,7 @@ static gint sdb_sort_files_list (gconstpointer file1, gconstpointer file2)
  */
 static gboolean
 sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
-						 const GPtrArray *real_files_list, gboolean symbols_update,
+						 GPtrArray *real_files_list, gboolean symbols_update,
                          gint scan_id)
 {
 	SymbolDBEnginePriv *priv;

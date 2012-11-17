@@ -300,7 +300,7 @@ snippets_manager_activate (AnjutaPlugin * plugin)
 	snippets_browser_load (snippets_manager_plugin->snippets_browser,
 	                       snippets_manager_plugin->snippets_db,
 	                       snippets_manager_plugin->snippets_interaction);
-	gtk_widget_show_all (snippets_manager_plugin->snippets_browser);
+	gtk_widget_show_all (GTK_WIDGET (snippets_manager_plugin->snippets_browser));
 	anjuta_shell_add_widget_custom (plugin->shell,
 	                         GTK_WIDGET (snippets_manager_plugin->snippets_browser),
 	                         "snippets_browser",

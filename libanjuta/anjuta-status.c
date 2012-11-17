@@ -310,7 +310,7 @@ anjuta_status_busy_push (AnjutaStatus *status)
 	if (status->priv->widgets)
 		g_hash_table_foreach (status->priv->widgets,
 							  foreach_widget_set_cursor, cursor);
-	gdk_cursor_unref (cursor);
+	g_object_unref (cursor);
 	gdk_flush ();
 	g_signal_emit_by_name (G_OBJECT (status), "busy", TRUE);
 }

@@ -764,7 +764,6 @@ foreach_node_save (AnjutaProjectNode *node,
 	gint state = anjuta_project_node_get_state (node);
 	AnjutaProjectNode *parent;
 	GError *err = NULL;
-	gboolean ret;
 
 
 	if (state & ANJUTA_PROJECT_MODIFIED)
@@ -805,7 +804,7 @@ foreach_node_save (AnjutaProjectNode *node,
 		{
 		case ANJUTA_PROJECT_GROUP:
 		case ANJUTA_PROJECT_SOURCE:
-			ret = g_file_trash (anjuta_project_node_get_file (node), NULL, &err);
+			g_file_trash (anjuta_project_node_get_file (node), NULL, &err);
 			if (err != NULL)
 			{
 				g_warning ("trashing file failed with %s", err->message);

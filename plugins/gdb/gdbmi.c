@@ -419,7 +419,7 @@ gdbmi_value_parse_real (gchar **ptr)
 				error = TRUE;
 				break;
 			}
-			if (gdbmi_value_get_name == NULL)
+			if (gdbmi_value_get_name(val) == NULL)
 			{
 				g_warning ("Parse error: Hash element has no name => '%s'",
 						   *ptr);

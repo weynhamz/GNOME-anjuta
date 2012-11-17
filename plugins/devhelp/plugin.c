@@ -341,7 +341,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	                            FALSE);
 
 	/* Tabs in grip */
-	devhelp->tab_hbox = gtk_hbox_new (FALSE, 1);	
+	devhelp->tab_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);	
 
 	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
 	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_SEARCH,
@@ -375,7 +375,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	/*
 	 * Forward/back buttons
 	 */
-	devhelp->custom_label = gtk_hbox_new (FALSE, 1);
+	devhelp->custom_label = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
 	gtk_widget_show (devhelp->custom_label);
 
 	gtk_box_pack_start (GTK_BOX (devhelp->custom_label), 

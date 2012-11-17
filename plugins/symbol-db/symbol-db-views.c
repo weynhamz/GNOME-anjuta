@@ -240,7 +240,7 @@ symbol_db_view_new (SymbolViewType view_type,
 		g_signal_connect (entry, "changed",
 		                  G_CALLBACK (on_search_entry_changed), model);
 		gtk_widget_show (entry);
-		vbox = gtk_vbox_new (FALSE, 3);
+		vbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
 		gtk_widget_show (vbox);
 		gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
 		gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);

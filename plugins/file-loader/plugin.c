@@ -274,7 +274,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	                                             message);
 	g_free (message);
 
-	hbox = gtk_hbox_new (FALSE, 5);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
 			    hbox, FALSE, FALSE, 5);
 	label = gtk_label_new (_("Open with:"));
@@ -1172,7 +1172,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 		if (uri)
 		{
-			gchar *fragment = NULL;
+			const gchar *fragment = NULL;
 			GFile* file = anjuta_session_get_file_from_relative_uri (session, uri, &fragment);
 			GObject *loader = ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  file, FALSE, NULL);

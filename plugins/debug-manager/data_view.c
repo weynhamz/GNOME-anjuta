@@ -269,7 +269,7 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 		gtk_widget_show (frame);
 		gtk_container_add (GTK_CONTAINER (view->goto_window), frame);
 	
-		vbox = gtk_vbox_new (FALSE, 0);
+		vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 		gtk_widget_show (vbox);
 		gtk_container_add (GTK_CONTAINER (frame), vbox);
 		gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
@@ -624,7 +624,7 @@ dma_data_view_create_widget (DmaDataView *view)
 	
 	gtk_widget_push_composite_child ();
 	
-	wid = gtk_vscrollbar_new (view->buffer_range);
+	wid = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, view->buffer_range);
 	g_object_ref (wid);
 	view->range = wid;
 	gtk_widget_set_parent (wid, GTK_WIDGET (view));

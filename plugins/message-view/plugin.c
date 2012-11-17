@@ -349,7 +349,7 @@ static void
 create_toggle_buttons (MessageViewPlugin* plugin,
                        GtkWidget* hbox)
 {
-	GtkWidget* filter_buttons_box = gtk_hbox_new (FALSE, 0);
+	GtkWidget* filter_buttons_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
 	plugin->normal = create_mini_button (plugin, "message-manager-plugin-icon");
 	plugin->info = create_mini_button (plugin, GTK_STOCK_INFO);
@@ -382,7 +382,7 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
 	if (ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->widget_shown == FALSE)
 	{
-		GtkWidget* hbox = gtk_hbox_new (FALSE, 0);
+		GtkWidget* hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 		GtkWidget* label = gtk_label_new (_("Messages"));
 		GtkWidget* image = gtk_image_new_from_stock ("message-manager-plugin-icon",
 		                                            GTK_ICON_SIZE_MENU);

@@ -128,7 +128,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->label = gtk_label_new (name);
 	gtk_misc_set_alignment (GTK_MISC(page->label), 0.0, 0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(page->label), PANGO_ELLIPSIZE_END);
-	box = gtk_hbox_new (FALSE, 0);
+	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_set_spacing (GTK_BOX (box), 5);
 	if (pixmap  && strlen(pixmap))
 	{
@@ -165,7 +165,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 						msgman);
 
 
-	page->box = gtk_hbox_new (FALSE, 0);
+	page->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), box, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
 

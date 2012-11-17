@@ -59,7 +59,8 @@ git_repository_selector_init (GitRepositorySelector *self)
 
 	/* Mode selector buttons. Allows the user to use a selected remote or 
 	 * enter a URL. */
-	button_hbox = gtk_hbox_new (TRUE, 0);
+	button_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_set_homogeneous (GTK_BOX(button_hbox), TRUE);
 
 	/* Remote toggle button */
 	self->priv->remote_toggle = gtk_radio_button_new_with_label (NULL, 
@@ -94,7 +95,7 @@ git_repository_selector_init (GitRepositorySelector *self)
 	gtk_box_pack_start (GTK_BOX (self), button_hbox, FALSE, FALSE, 0);
 
 	/* Selected remote label */
-	remote_hbox = gtk_hbox_new (FALSE, 2);
+	remote_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 
 	label = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label), _("<b>Selected Remote:</b>"));

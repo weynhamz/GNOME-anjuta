@@ -971,7 +971,7 @@ check_and_warn_missing (NPWDruid *druid)
 		 "this project are missing. Please make sure they are "
 		 "installed properly before generating the project.\n"));
 
-		hbox = gtk_hbox_new (FALSE, 0);
+		hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 		gtk_widget_show (hbox);
 
 #ifdef ENABLE_PACKAGEKIT

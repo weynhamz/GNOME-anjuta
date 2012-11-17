@@ -116,7 +116,7 @@ anjuta_command_bar_add_action_group (AnjutaCommandBar *self,
 	GtkWidget *frame;
 	GtkWidget *frame_vbox;
 
-	vbox = gtk_vbox_new (FALSE, 2);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
 
 	g_hash_table_insert (self->priv->widgets, (gchar *) group_name, 
 	                     vbox);
@@ -177,7 +177,7 @@ anjuta_command_bar_add_action_group (AnjutaCommandBar *self,
 
 			g_free (frame_label_text);
 			
-			frame_vbox = gtk_vbox_new (TRUE, 2);
+			frame_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
 
 			g_object_set (G_OBJECT (frame), "shadow-type", GTK_SHADOW_NONE, 
 			              NULL);

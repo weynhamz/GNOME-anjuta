@@ -562,7 +562,7 @@ create_password_dialog (const gchar* prompt)
 
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 							"anjuta");
-	hbox = gtk_hbox_new (FALSE, 10);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
 	gtk_widget_show (hbox);
 	gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG(dialog))), hbox);
 	
@@ -571,9 +571,9 @@ create_password_dialog (const gchar* prompt)
 	gtk_box_pack_start (GTK_BOX(hbox), icon, TRUE, TRUE, 0);
 	
 	if (strlen (prompt) < 20) {
-		box = gtk_hbox_new (FALSE, 5);
+		box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	} else {
-		box = gtk_vbox_new (FALSE, 5);
+		box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
 	}
 	gtk_widget_show (box);
 	gtk_box_pack_start (GTK_BOX (hbox), box, TRUE, TRUE, 0);

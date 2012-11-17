@@ -113,7 +113,7 @@ signal_editor_signal_activated_cb (GladeSignalEditor* seditor,
 	IAnjutaEditor* current_editor;
     GladeWidget *gwidget = glade_signal_editor_get_widget (seditor);
     GladeProject *project = glade_widget_get_project (gwidget);
-    gchar *path = glade_project_get_path (project);
+    const gchar *path = glade_project_get_path (project);
 	
     IAnjutaDocumentManager *docman;
     IAnjutaDocument *doc;
@@ -387,9 +387,9 @@ add_glade_member (GladeWidget		 *widget,
 	IAnjutaEditor* current_editor;
 	IAnjutaDocumentManager *docman;
 	GladeProject *project = glade_widget_get_project (widget);
-	gchar *path = glade_project_get_path (project);
-	gchar *widget_name = glade_widget_get_name (widget);
-	gchar *widget_typename = G_OBJECT_TYPE_NAME (glade_widget_get_object(widget));
+	const gchar *path = glade_project_get_path (project);
+	const gchar *widget_name = glade_widget_get_name (widget);
+	const gchar *widget_typename = G_OBJECT_TYPE_NAME (glade_widget_get_object(widget));
 	IAnjutaDocument *doc;
 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
@@ -656,7 +656,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv->editor = GTK_WIDGET(glade_editor_new());
 
 	priv->palette = glade_palette_new();
-	priv->palette_box = gtk_vbox_new (FALSE, 5);
+	priv->palette_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	priv->selector_toggle = create_selector_tool_button ();
 	priv->resize_toggle = create_drag_resize_tool_button ();
 	button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);

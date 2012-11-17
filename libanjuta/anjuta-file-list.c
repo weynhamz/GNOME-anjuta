@@ -358,7 +358,7 @@ anjuta_file_list_init (AnjutaFileList *self)
 	self->priv->copy_button = gtk_button_new_from_stock (GTK_STOCK_COPY);
 	self->priv->remove_button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
 
-	button_box = gtk_hbutton_box_new ();
+	button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	clear_button = gtk_button_new_from_stock (GTK_STOCK_CLEAR);
 
