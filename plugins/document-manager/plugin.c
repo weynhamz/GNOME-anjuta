@@ -623,6 +623,10 @@ update_document_ui_disable_all (AnjutaPlugin *plugin)
 	{
 		for (j = 0; j < action_groups[i].size; j++)
 		{
+			/* Never disable find in files. */
+			if (!strcmp (action_groups[i].group[j].name, "ActionEditFindFiles"))
+				continue;
+
 			action = anjuta_ui_get_action (ui, action_groups[i].name,
 										   action_groups[i].group[j].name);
 			if (action_groups[i].group[j].callback)
