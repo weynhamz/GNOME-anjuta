@@ -561,18 +561,25 @@ anjuta_util_install_files (const gchar * const names)
 gboolean
 anjuta_util_package_is_installed (const gchar * package, gboolean show)
 {
-	gboolean installed = FALSE;
-	int status;
+	const gchar* const argv[] = { "pkg-config", "--exists", package, NULL };
 	int exit_status;
-	pid_t pid;
+	GError *err = NULL;
 
-	if ((pid = fork()) == 0)
-		execlp ("pkg-config", "pkg-config", "--exists", package, NULL);
+	if (!g_spawn_sync (NULL, (gchar**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL,
+	                   NULL, NULL, NULL, &exit_status, &err))
+	{
+		if (show)
+		{
+			anjuta_util_dialog_error (NULL,
+			                          _("Failed to run \"%s\". "
+			                            "The returned error was: \"%s\"."),
+									  "pkg-config --exists", err->message);
+		}
+		g_error_free (err);
+	}
 
-	waitpid (pid, &status, 0);
-	exit_status = WEXITSTATUS (status);
-	installed = (exit_status == 0) ? TRUE : FALSE;
-	if (installed)
+
+	if (WIFEXITED (exit_status) && WEXITSTATUS (exit_status) == 0)
 		return TRUE;
 
 	if (show)
