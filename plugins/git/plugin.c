@@ -875,9 +875,6 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, git_plugin->editor_watch_id,
 								TRUE);
 
-	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
-	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
-
 	g_signal_handlers_disconnect_by_func (G_OBJECT (git_plugin->dock_window),
 	                                      G_CALLBACK (on_dock_window_mapped),
 	                                      plugin);
@@ -889,6 +886,9 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 	                                      G_CALLBACK (on_shell_exiting),
 	                                      git_plugin);
+	
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
 
 	g_object_unref (git_plugin->local_branch_list_command);
 	g_object_unref (git_plugin->remote_branch_list_command);
