@@ -35,9 +35,9 @@
 #include "indentation.h"
 
 #define PREF_INDENT_BRACE_SIZE "indent-brace-size"
-#define PREF_INDENT_PARANTHESE_LINEUP "indent-paranthese-lineup"
-#define PREF_INDENT_PARANTHESE_SIZE "indent-paranthese-size"
-#define PREF_INDENT_PARANTHESE_ONLY_SPACES "indent-paranthese-only-spaces"
+#define PREF_INDENT_PARENTHESIS_LINEUP "indent-parenthesis-lineup"
+#define PREF_INDENT_PARENTHESIS_SIZE "indent-parenthesis-size"
+#define PREF_INDENT_PARENTHESIS_ONLY_SPACES "indent-parenthesis-only-spaces"
 #define PREF_BRACE_AUTOCOMPLETION "brace-autocompletion"
 #define PREF_COMMENT_LEADING_ASTERISK "multiline-leading-asterisk"
 
@@ -212,41 +212,41 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 }
 
 static gchar *
-get_line_indentation_string (IndentCPlugin *plugin, IAnjutaEditor *editor, gint indentation, gint paranthesis_indentation)
+get_line_indentation_string (IndentCPlugin *plugin, IAnjutaEditor *editor, gint indentation, gint parenthesis_indentation)
 {
 	gint i;
 	gchar *indent_string;
 
-	if ((indentation + paranthesis_indentation) <= 0)
+	if ((indentation + parenthesis_indentation) <= 0)
 		return NULL;
 
 	if (USE_SPACES_FOR_INDENTATION)
 	{
-		indent_string = g_new0 (gchar, indentation + paranthesis_indentation + 1);
-		for (i = 0; i < (indentation + paranthesis_indentation); i++)
+		indent_string = g_new0 (gchar, indentation + parenthesis_indentation + 1);
+		for (i = 0; i < (indentation + parenthesis_indentation); i++)
 			indent_string[i] = ' ';
 	}
 	else
 	{
 		gint num_tabs, num_spaces;
 
-		if (g_settings_get_boolean (plugin->settings, PREF_INDENT_PARANTHESE_ONLY_SPACES))
+		if (g_settings_get_boolean (plugin->settings, PREF_INDENT_PARENTHESIS_ONLY_SPACES))
 		{
 			num_tabs = indentation / TAB_SIZE;
 			num_spaces = indentation % TAB_SIZE;
 		}
 		else
 		{
-			num_tabs = (indentation + paranthesis_indentation) / TAB_SIZE;
-			num_spaces = (indentation + paranthesis_indentation) % TAB_SIZE;
-			paranthesis_indentation = 0;
+			num_tabs = (indentation + parenthesis_indentation) / TAB_SIZE;
+			num_spaces = (indentation + parenthesis_indentation) % TAB_SIZE;
+			parenthesis_indentation = 0;
 		}
 
-		indent_string = g_new0 (gchar, num_tabs + num_spaces + paranthesis_indentation + 1);
+		indent_string = g_new0 (gchar, num_tabs + num_spaces + parenthesis_indentation + 1);
 
 		for (i = 0; i < num_tabs; i++)
 			indent_string[i] = '\t';
-		for (; i < num_tabs + (num_spaces + paranthesis_indentation); i++)
+		for (; i < num_tabs + (num_spaces + parenthesis_indentation); i++)
 			indent_string[i] = ' ';
 	}
 	return indent_string;
@@ -450,7 +450,7 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 }
 
 static gint
-set_line_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor, gint line_num, gint indentation, gint paranthesis_indentation)
+set_line_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor, gint line_num, gint indentation, gint parenthesis_indentation)
 {
 	IAnjutaIterable *line_begin, *line_end, *indent_position;
 	IAnjutaIterable *current_pos;
@@ -496,9 +496,9 @@ set_line_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor, gint line_nu
 	//DEBUG_PRINT ("carat offset is = %d", carat_offset);
 
 	/* Set new indentation */
-	if ((indentation + paranthesis_indentation) > 0)
+	if ((indentation + parenthesis_indentation) > 0)
 	{
-		indent_string = get_line_indentation_string (plugin, editor, indentation, paranthesis_indentation);
+		indent_string = get_line_indentation_string (plugin, editor, indentation, parenthesis_indentation);
 		nchars = indent_string ? g_utf8_strlen (indent_string, -1) : 0;
 
 		/* Only indent if there is something to indent with */
@@ -535,7 +535,7 @@ set_line_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor, gint line_nu
 	/* If indentation == 0, we really didn't enter the previous code block,
 	 * but we may need to clear existing indentation.
 	 */
-	if ((indentation + paranthesis_indentation) == 0)
+	if ((indentation + parenthesis_indentation) == 0)
 	{
 		/* Get existing indentation */
 		if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
@@ -599,7 +599,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 						   IAnjutaEditor *editor,
 						   gint line_num,
 						   gint *incomplete_statement,
-						   gint *paranthesis_indentation,
+						   gint *parenthesis_indentation,
 						   gboolean *colon_indent)
 {
 	IAnjutaIterable *iter;
@@ -617,7 +617,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 	IAnjutaIterable  *line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
 
 	*incomplete_statement = -1;
-	*paranthesis_indentation = 0;
+	*parenthesis_indentation = 0;
 
 	if (line_num <= 1)
 		return 0;
@@ -869,7 +869,7 @@ get_line_indentation_base (IndentCPlugin *plugin,
 		{
 			line_indent = 0;
 			if (g_settings_get_boolean (plugin->settings,
-			                            PREF_INDENT_PARANTHESE_LINEUP))
+			                            PREF_INDENT_PARENTHESIS_LINEUP))
 			{
 				while (ianjuta_iterable_previous (iter, NULL))
 				{
@@ -883,9 +883,9 @@ get_line_indentation_base (IndentCPlugin *plugin,
 					if (dummy_ch == '\t')
 						line_indent += TAB_SIZE;
 					else
-						(*paranthesis_indentation)++;
+						(*parenthesis_indentation)++;
 				}
-				(*paranthesis_indentation)++;
+				(*parenthesis_indentation)++;
 				line_indent += extra_indent;
 			}
 			else
@@ -895,8 +895,8 @@ get_line_indentation_base (IndentCPlugin *plugin,
 				line_indent = get_line_indentation (editor, line_for_indent);
 				line_indent += extra_indent;
 
-				(*paranthesis_indentation) += g_settings_get_int (plugin->settings,
-				                                             PREF_INDENT_PARANTHESE_SIZE);
+				(*parenthesis_indentation) += g_settings_get_int (plugin->settings,
+				                                             PREF_INDENT_PARENTHESIS_SIZE);
 			}
 
 			/* Although statement is incomplete at this point, we don't
@@ -1060,7 +1060,7 @@ spaces_only (IAnjutaEditor* editor, IAnjutaIterable* begin, IAnjutaIterable* end
 
 static gint
 get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
-						   gint line, gint *paranthesis_indentation)
+						   gint line, gint *parenthesis_indentation)
 {
 	IAnjutaIterable *iter;
 	IAnjutaIterable *end_iter;
@@ -1073,7 +1073,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 	/* be sure to set a default if we're in the first line otherwise
 	 * the pointer'll be left hanging with no value.
 	 */
-	*paranthesis_indentation = 0;
+	*parenthesis_indentation = 0;
 
 	if (line == 1) /* First line */
 	{
@@ -1102,7 +1102,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 	{
 		line_indent = get_line_indentation_base (plugin, editor, line,
 												 &incomplete_statement,
-												 paranthesis_indentation,
+												 parenthesis_indentation,
 												 &colon_indent);
 	}
 
@@ -1185,7 +1185,7 @@ get_line_auto_indentation (IndentCPlugin *plugin, IAnjutaEditor *editor,
 		else if (ch == '#')
 		{
 			line_indent = 0;
-			*paranthesis_indentation = 0;
+			*parenthesis_indentation = 0;
 		}
 		else if (!isspace (ch))
 		{
@@ -1278,13 +1278,13 @@ cpp_java_indentation_char_added (IAnjutaEditor *editor,
 		{
 			gint insert_line;
 			gint line_indent;
-			gint paranthesis_indentation;
+			gint parenthesis_indentation;
 
 			ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 
 			insert_line = ianjuta_editor_get_lineno (editor, NULL);
-			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &paranthesis_indentation);
-			set_line_indentation (plugin, editor, insert_line, line_indent, paranthesis_indentation);
+			line_indent = get_line_auto_indentation (plugin, editor, insert_line, &parenthesis_indentation);
+			set_line_indentation (plugin, editor, insert_line, line_indent, parenthesis_indentation);
 			ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		}
 	}
@@ -1461,12 +1461,12 @@ cpp_auto_indentation (IAnjutaEditor *editor,
 
 	for (insert_line = line_start; insert_line <= line_end; insert_line++)
 	{
-		gint paranthesis_indentation = 0;
+		gint parenthesis_indentation = 0;
 		line_indent = get_line_auto_indentation (lang_plugin, editor,
 		                                         insert_line,
-		                                         &paranthesis_indentation);
+		                                         &parenthesis_indentation);
 		/* DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent); */
-		set_line_indentation (lang_plugin, editor, insert_line, line_indent, paranthesis_indentation);
+		set_line_indentation (lang_plugin, editor, insert_line, line_indent, parenthesis_indentation);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }

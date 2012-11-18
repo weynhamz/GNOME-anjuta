@@ -15,16 +15,16 @@
 		<key name="indent-brace-size" type="i">
 			<default>0</default>
 		</key>
-		<key name="indent-paranthese-lineup" type="b">
+		<key name="indent-parenthesis-lineup" type="b">
 			<default>true</default>
 		</key>
-		<key name="indent-paranthese-indent" type="b">
+		<key name="indent-parenthesis-indent" type="b">
 			<default>false</default>
 		</key>
-		<key name="indent-paranthese-size" type="i">
+		<key name="indent-parenthesis-size" type="i">
 			<default>4</default>
 		</key>
-		<key name="indent-paranthese-only-spaces" type="b">
+		<key name="indent-parenthesis-only-spaces" type="b">
 			<default>true</default>
 		</key>
 		<key type="b" name="brace-autocompletion">
