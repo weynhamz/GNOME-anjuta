@@ -228,7 +228,7 @@ on_autocomplete_output (AnjutaLauncher *launcher,
 	PythonAssist* assist = PYTHON_ASSIST (user_data);
 	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
 	{
-		printf ("chars from script: %s", chars);
+		DEBUG_PRINT ("chars from script: %s", chars);
 		if (assist->priv->rope_cache)
 		{
 			g_string_append (assist->priv->rope_cache, chars);
@@ -280,10 +280,11 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 			if (g_match_info_matches (match_info) && 
 			    g_match_info_get_match_count (match_info) == 6)
 			{
+				gchar* name = g_match_info_fetch (match_info, 1);
 				gchar* type = g_match_info_fetch (match_info, 3); 
 				gchar* location = g_match_info_fetch (match_info, 4); 
 				gchar* info = g_match_info_fetch (match_info, 5); 
-				tag = anjuta_language_proposal_data_new (g_match_info_fetch (match_info, 1));
+				tag = anjuta_language_proposal_data_new (name);
 
 				/* info will be set to "_" if there is no relevant info */
 				tag->info = NULL; 
@@ -322,13 +323,14 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 
 		g_regex_unref (regex);
 		g_strfreev (completions);
+
 		g_string_free (assist->priv->rope_cache, TRUE);
 		assist->priv->rope_cache = NULL;
-		
+
 		assist->priv->completion_cache = g_completion_new (completion_function);
 		g_completion_add_items (assist->priv->completion_cache, suggestions);
 		g_list_free (suggestions);
-
+		
 		/* Show autocompletion */
 		python_assist_update_autocomplete (assist);
 	}

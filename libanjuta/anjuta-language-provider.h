@@ -30,8 +30,7 @@
 
 G_BEGIN_DECLS
 
-#define ANJUTA_TYPE_LANGUAGE_PROPOSAL_DATA             (anjuta_language_proposal_data_get_type ())
-#define ANJUTA_LANGUAGE_PROPOSAL_DATA(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LANGUAGE_PROPOSAL_DATA, AnjutaLanguageProposalData))
+#define ANJUTA_LANGUAGE_PROPOSAL_DATA(obj)             (AnjutaLanguageProposalData*)((obj))
 
 typedef struct _AnjutaLanguageProposalData AnjutaLanguageProposalData;
 
