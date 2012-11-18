@@ -1044,14 +1044,16 @@ on_debug_tree_changed (gpointer data, gpointer user_data)
 	if (var->name != NULL)
 	{
 		/* Search corresponding variable in one tree */
-		GList *tree;
+		GList *list;
 		
-		for (tree = g_list_first (gTreeList); tree != NULL; tree = g_list_next (tree))
+		for (list = g_list_first (gTreeList); list != NULL; list = g_list_next (list))
 		{
+			DebugTree *tree = (DebugTree *)list->data;
+
 			GtkTreeIter iter;
 			GtkTreeModel *model;
 			
-			model =  GTK_TREE_MODEL (tree->data);
+			model = debug_tree_get_model (tree);
 			
 			if (debug_tree_find_name (model, &iter, var->name))
 			{
@@ -1169,9 +1171,13 @@ on_debug_tree_update_all (const GList *change, gpointer user_data, GError* err)
 	// Update all tree models
 	for (list = g_list_first (gTreeList); list != NULL; list = g_list_next (list))
 	{
-		GtkTreeModel* model = GTK_TREE_MODEL (list->data);
+		DebugTree* tree = (DebugTree*)list->data;
+
+		GtkTreeModel* model;
 		GtkTreeIter iter;
 		gboolean valid;
+
+		model = debug_tree_get_model (tree);
 
 		// Update this tree
 		for (valid = gtk_tree_model_get_iter_first (model, &iter);
@@ -1505,14 +1511,17 @@ debug_tree_dump_iter (GtkTreeModel *model, GtkTreeIter *iter, guint indent)
 void
 debug_tree_dump (void)
 {
-	GList *tree;
+	GList *list;
 	
-	for (tree = g_list_first (gTreeList); tree != NULL; tree = g_list_next (tree))
+	for (list = g_list_first (gTreeList); list != NULL; list = g_list_next (list))
 	{
-		GtkTreeModel *model = (GtkTreeModel *)tree->data;
+		DebugTree* tree = (DebugTree*)list->data;
+
+		GtkTreeModel* model;
 		GtkTreeIter iter;
 		gboolean valid;
 
+		model = debug_tree_get_model (tree);
 		g_message ("Tree model %p   MCEDU", model);
 		for (valid = gtk_tree_model_get_iter_first (model, &iter);
 			valid;
@@ -1531,15 +1540,13 @@ DebugTree *
 debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view)
 {
 	DebugTree *tree = g_new0 (DebugTree, 1);
-	GtkTreeModel *model;	
 
 	tree->plugin = plugin;
 	tree->view = debug_tree_create(tree, view);
 	tree->auto_expand = FALSE;
 
-	/* Add this model in list */
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
-	gTreeList = g_list_prepend (gTreeList, model);
+	/* Add this tree in list */
+	gTreeList = g_list_prepend (gTreeList, tree);
 	
 	/* Connect signal */
     g_signal_connect(GTK_TREE_VIEW (tree->view), "row_expanded", G_CALLBACK (on_treeview_row_expanded), tree);
@@ -1560,15 +1567,12 @@ debug_tree_new (AnjutaPlugin* plugin)
 void
 debug_tree_free (DebugTree * tree)
 {
-	GtkTreeModel *model;
-	
 	g_return_if_fail (tree);
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	debug_tree_remove_all (tree);
 
 	/* Remove from list */
-	gTreeList = g_list_remove (gTreeList, model);
+	gTreeList = g_list_remove (gTreeList, tree);
 	
 	g_signal_handlers_disconnect_by_func (GTK_TREE_VIEW (tree->view),
 				  G_CALLBACK (on_treeview_row_expanded), tree);
