@@ -522,10 +522,10 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	DEBUG_PRINT ("%s", "Project added");
 
-
 	g_free (doc_plugin->project_name);
 	g_free (doc_plugin->project_path);
 	doc_plugin->project_name = NULL;
+	doc_plugin->project_path = NULL;
 
 	if (doc_plugin->search_files)
 		search_files_update_project (SEARCH_FILES(doc_plugin->search_files));
@@ -544,6 +544,8 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 			update_title (doc_plugin);
 		}
 		g_object_unref (file);
+
+		anjuta_docman_project_path_updated (ANJUTA_DOCMAN (doc_plugin->docman));
 	}
 }
 
@@ -558,13 +560,15 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	DEBUG_PRINT ("%s", "Project removed");
 
 	g_free (doc_plugin->project_name);
+	g_free (doc_plugin->project_path);
 	doc_plugin->project_name = NULL;
+	doc_plugin->project_path = NULL;
 
 	if (doc_plugin->search_files)
 		search_files_update_project (SEARCH_FILES(doc_plugin->search_files));
 
-	
 	update_title(doc_plugin);
+	anjuta_docman_project_path_updated (ANJUTA_DOCMAN (doc_plugin->docman));
 }
 
 static void

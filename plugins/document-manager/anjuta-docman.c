@@ -198,6 +198,34 @@ anjuta_docman_get_combo_filename (AnjutaDocman *docman,
 }
 
 static void
+anjuta_docman_update_combo_filenames (AnjutaDocman *docman)
+{
+	gboolean valid;
+	GtkTreeIter iter;
+
+	for (valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (docman->priv->combo_model), &iter);
+	     valid;
+	     valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (docman->priv->combo_model), &iter))
+	{
+		IAnjutaDocument *doc;
+		GFile *file;
+		gchar *filename;
+
+		gtk_tree_model_get (GTK_TREE_MODEL (docman->priv->combo_model), &iter, 0, &doc, -1);
+		if (IANJUTA_IS_FILE (doc))
+			file = ianjuta_file_get_file (IANJUTA_FILE (doc), NULL);
+
+		filename = anjuta_docman_get_combo_filename (docman, doc, file);
+		gtk_list_store_set (docman->priv->combo_model, &iter, 1, filename, -1);
+
+		g_object_unref (doc);
+		if (file)
+			g_object_unref (file);
+		g_free (filename);
+	}
+}
+
+static void
 anjuta_docman_add_document_to_combo (AnjutaDocman    *docman,
                                      IAnjutaDocument *doc,
                                      GFile           *file)
@@ -2047,6 +2075,11 @@ void
 anjuta_docman_set_tab_pos (AnjutaDocman *docman, GtkPositionType pos)
 {
 	gtk_notebook_set_tab_pos (docman->priv->notebook, pos);
+}
+
+void anjuta_docman_project_path_updated (AnjutaDocman *docman)
+{
+	anjuta_docman_update_combo_filenames (docman);
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_GRID);

@@ -116,6 +116,7 @@ gboolean anjuta_docman_next_page (AnjutaDocman *docman);
 gboolean anjuta_docman_previous_page (AnjutaDocman *docman);
 gboolean anjuta_docman_set_page (AnjutaDocman *docman, gint page);
 
+void anjuta_docman_project_path_updated (AnjutaDocman *docman);
 
 typedef enum
 {
