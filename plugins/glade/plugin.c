@@ -656,7 +656,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv->editor = GTK_WIDGET(glade_editor_new());
 
 	priv->palette = glade_palette_new();
-	priv->palette_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
+	priv->palette_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
 	priv->selector_toggle = create_selector_tool_button ();
 	priv->resize_toggle = create_drag_resize_tool_button ();
 	button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
@@ -673,6 +673,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	                    priv->palette,
 	                    TRUE, TRUE, 0);
 
+	gtk_widget_show_all (priv->palette_box);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->selector_toggle),
 	                              TRUE);
