@@ -608,6 +608,8 @@ sdb_query_async_run (gpointer data)
 	queue = priv->async_result_queue;
 	g_async_queue_push (queue, sdb_query_execute_real (query));
 	g_async_queue_unref (queue);
+
+	g_object_unref (query);
 	return 0;
 }
 
@@ -711,7 +713,8 @@ sdb_query_execute (SymbolDBQuery *query)
 				query->priv->async_poll_id =
 					g_idle_add (on_sdb_query_async_poll, query);
 			}
-			g_thread_create (sdb_query_async_run, query, FALSE, NULL);
+			g_thread_new ("SymbolDBQuery Thread", sdb_query_async_run,
+			              g_object_ref (query));
 			return NULL;
 		case IANJUTA_SYMBOL_QUERY_MODE_QUEUED:
 			query->priv->query_queued = TRUE;
