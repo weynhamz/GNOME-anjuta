@@ -48,7 +48,7 @@ plugin_LTLIBRARIES = libanjuta-language-vala.la
 # Plugin sources
 libanjuta_language_vala_la_VALASOURCES = config.vapi locator.vala plugin.vala provider.vala report.vala
 nodist_libanjuta_language_vala_la_SOURCES = $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
-CLEANFILES += $(nodist_libanjuta_language_vala_la_SOURCES) libanjuta_language_vala_la_vala.stamp
+CLEANFILES += *.c libanjuta_language_vala_la_vala.stamp
 
 locator.c plugin.c provider.c report.c: libanjuta_language_vala_la_vala.stamp
 	@true
@@ -79,7 +79,8 @@ EXTRA_DIST = \
 	$(gsettings_in_file) \
 	$(libanjuta_language_vala_la_VALASOURCES) \
 	libanjuta-3.0.deps \
-	libanjuta-3.0.vapi
+	libanjuta-3.0.vapi \
+    config.vapi
 
 CLEANFILES += \
   $(gsettings_SCHEMAS)
