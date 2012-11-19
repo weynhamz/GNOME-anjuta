@@ -570,12 +570,8 @@ create_selector_tool_button ()
 {
   GtkWidget *button;
   GtkWidget *image;
-  gchar *image_path;
 
-  image_path =
-      g_build_filename (glade_app_get_pixmaps_dir (), "selector.png", NULL);
-  image = gtk_image_new_from_file (image_path);
-  g_free (image_path);
+  image = gtk_image_new_from_stock ("glade-selector", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
   button = gtk_toggle_button_new ();
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
@@ -596,12 +592,8 @@ create_drag_resize_tool_button ()
 {
   GtkWidget *button;
   GtkWidget *image;
-  gchar *image_path;
 
-  image_path =
-      g_build_filename (glade_app_get_pixmaps_dir (), "drag-resize.png", NULL);
-  image = gtk_image_new_from_file (image_path);
-  g_free (image_path);
+  image = gtk_image_new_from_stock ("glade-drag-resize", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
   button = gtk_toggle_button_new ();
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
