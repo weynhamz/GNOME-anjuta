@@ -1,3 +1,59 @@
+Anjuta 3.7.2 (November 19, 2012) -- James Liggett
+
+Arnel A. Borja (1):
+      indentation-c-style: Fix "parenthesis" typos
+
+Carl-Anton Ingmarsson (31):
+      indentation-c-style: be more picky when completing braces.
+      indentation-c-style: remove java_indentation() method
+      indentation-c-style: When removing opening bracket also remove the closing one.
+      sourceview: don't emit change events after doing an undo
+      indentation-c-style: Change plugin.c modeline to spaces
+      indentation-c-style: Enable the plugin for JavaScript source files.
+      indentation-c-style: Rename action group to "C Indentation" and remove it on deactivation.
+      indentation-python-style: Rename action group to "Python Indentation".
+      Fix compile errors regarding undeclared functions.
+      document-manager: Fix various compile warnings.
+      anjuta-window: Don't call gtk_widget_show_all when setting up widget.
+      document-manager: Support showing open documents in a combobox.
+      document-manager: Remove obsolete code for tabbing between documents.
+      indentation-c-style: Update preferences UI file to gtk+-3
+      indentation-c-style: Fix modeline in plugin.c
+      indentation-c-style: Fix get_line_indentation().
+      indentation-c-style: Add option whether paranthesis alignment should only use spaces.
+      file-manager: Fix invalid unref of NULL pointer.
+      document-manager: use on_close_file_activate() when closing file using combo close button.
+      document-manager: Show dirty character "*" and "[read-only]" in combo filename.
+      document-manager: Add search_box to document manager box directly.
+      document-manager: hide search box when pressing escape inside the document widget.
+      libanjuta: use g_spawn_sync instead of fork() and waitpid()
+      debug-manager: use g_spawn_sync() instead of fork() and waitpid()
+      document-manager: Never disable "find in files" action.
+      git: Fix assertion when running g_signal_handlers_disconnect on already destroyed widget.
+      git: Fix assertion when running g_hash_table_unref() on a NULL pointer.
+      debug-manager: Fix accessing of invalid tree models.
+      document-manager: Update combo filenames when the project changes.
+      glade: Fix the palette not being shown.
+      glade: Fix the images in the palette toggles used for choosing the edit mode.
+
+Christian Kirbach (1):
+      Updated German manual translation
+
+James Liggett (2):
+      language-support-cpp-java: Remove org.gnome.anjuta.plugins.cpp.gschema.valid from git
+      language-support-vala: Don't clean config.vapi
+
+Johannes Schmid (4):
+      project-wizard: Fix vala ui path (bgo#Bug 686718 - wrong path of gui file of gtk-vala-application)
+      python: Fix crash during auto-indentation
+      various: Fixed compile warnings and a real bug in the gdbmi plugin
+      python: Fix bgo#687646 - Auto-completion causes a segfault in Anjuta 3.6.1
+
+Sébastien Granjoux (25):
+      git: Fix bgo 687145 - Critical warning when switching git pane
+      libanjuta: Improve documentation of AnjutaSession
+      anjuta: Allow to abort loading of a session
+
 Anjuta 3.7.1 (October 29, 2012) -- James Liggett
 
 Carl-Anton Ingmarsson (2):
