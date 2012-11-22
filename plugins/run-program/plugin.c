@@ -389,8 +389,6 @@ run_plugin_finalize (GObject *obj)
 	g_list_free (self->recent_target);
 	g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
 	g_list_free (self->recent_args);
-	g_list_foreach (self->recent_args, (GFunc)g_free, NULL);
-	g_list_free (self->recent_args);
 	g_list_foreach (self->recent_dirs, (GFunc)g_object_unref, NULL);
 	g_list_free (self->recent_dirs);
 	g_strfreev (self->environment_vars);
