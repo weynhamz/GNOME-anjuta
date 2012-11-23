@@ -2556,8 +2556,11 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
+
+	AnjutaUI *ui;
+	GHashTableIter iter;
+	gpointer editor;
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
@@ -2581,6 +2584,16 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_action_group);
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_popup_action_group);
+
+	/* Disconnect editor signal handlers and clear the editors hash table. */
+	g_hash_table_iter_init (&iter, ba_plugin->editors_created);
+	while (g_hash_table_iter_next (&iter, &editor, NULL))
+	{
+		g_signal_handlers_disconnect_by_func (editor, on_editor_changed, plugin);
+		g_signal_handlers_disconnect_by_func (editor, on_editor_destroy, plugin);
+	}
+	g_hash_table_remove_all (ba_plugin->editors_created);
+
 	return TRUE;
 }
 
