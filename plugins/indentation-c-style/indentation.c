@@ -149,7 +149,7 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 	/* Find the line which contains the left brace matching last right brace on current line */
 	if (right_braces > 0)
 	{
-		while (right_braces >= left_braces && line_num >= 0)
+		while (right_braces > left_braces && line_num >= 0)
 		{
 			line_num--;
 			g_object_unref (line_end);
