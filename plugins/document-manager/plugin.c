@@ -1743,6 +1743,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (on_window_key_press_event),
 										  plugin);
 
+	/* Remove autosave timeout if one is scheduled. */
+	if (eplugin->autosave_on)
+	{
+		g_source_remove (eplugin->autosave_id);
+		eplugin->autosave_on = FALSE;
+	}
+
 	on_document_changed (ANJUTA_DOCMAN (eplugin->docman), NULL, plugin);
 
 	/* Widget is removed from the container when destroyed */
