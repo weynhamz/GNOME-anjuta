@@ -1021,7 +1021,7 @@ anjuta_docman_dispose (GObject *obj)
 		/* Destroy all page data (more than just the notebook-page-widgets) */
 		GList *pages;
 
-		g_signal_handlers_disconnect_by_func (G_OBJECT (docman),
+		g_signal_handlers_disconnect_by_func (G_OBJECT (docman->priv->notebook),
 											 (gpointer) on_notebook_switch_page,
 											 (gpointer) docman);
 		pages = docman->priv->pages; /*work with copy so var can be NULL'ed ASAP*/
