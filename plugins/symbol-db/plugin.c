@@ -2324,7 +2324,12 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (pm),
 	    		G_CALLBACK (on_project_loaded), plugin);
-	
+
+	if (sdb_plugin->buf_update_timeout_id)
+	{
+		g_source_remove (sdb_plugin->buf_update_timeout_id);
+		sdb_plugin->buf_update_timeout_id = 0;
+	}
 	if (sdb_plugin->update_timer)
 	{
 		g_timer_destroy (sdb_plugin->update_timer);
