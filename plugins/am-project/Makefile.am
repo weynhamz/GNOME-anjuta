@@ -26,6 +26,9 @@ AM_CPPFLAGS = 					\
 	$(LIBANJUTA_CFLAGS) \
 	-DG_LOG_DOMAIN=\"am-project\"
 
+# flex(1) output fails this check, so disable it
+CFLAGS += -Wno-error=missing-prototypes
+
 plugin_LTLIBRARIES = \
 	libam-project.la
 
