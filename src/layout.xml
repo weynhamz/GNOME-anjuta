@@ -39,8 +39,8 @@
 					<item name="AnjutaMessageView" orientation="horizontal" locked="no"/>
 					<item name="AnjutaDebuggerStack" orientation="horizontal" locked="no"/>
 					<item name="AnjutaDebuggerLocals" orientation="horizontal" locked="no"/>
-					<item name="AnjutaDebuggerWatch" orientation="horizontal" locked="no"/>
-					<item name="AnjutaDebuggerBreakpoints" orientation="horizontal" locked="no"/>
+					<item name="AnjutaDebuggerWatch" orientation="horizontal" locked="no" closed="yes"/>
+					<item name="AnjutaDebuggerBreakpoints" orientation="horizontal" locked="no" closed="yes"/>
 				</notebook>
 			</paned>
 		</dock>
