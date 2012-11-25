@@ -119,6 +119,7 @@ struct _NPWDruid
 	NPWPageParser* parser;
 	GList* header_list;
 	NPWHeader* header;
+	gboolean no_selection;
 	AnjutaAutogen* gen;
 	gboolean busy;
 };
@@ -133,6 +134,23 @@ enum {
 
 /* Helper functon
  *---------------------------------------------------------------------------*/
+
+/* Druid GUI functions
+ *---------------------------------------------------------------------------*/
+
+static void
+npw_druid_set_busy (NPWDruid *druid, gboolean busy_state)
+{
+	if (druid->busy == busy_state)
+		return;
+
+	/* Set busy state */
+	if (busy_state)
+		anjuta_status_busy_push (anjuta_shell_get_status (ANJUTA_PLUGIN (druid->plugin)->shell, NULL));
+	else
+		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN (druid->plugin)->shell, NULL));
+	druid->busy = busy_state;
+}
 
 /* Create error page
  *---------------------------------------------------------------------------*/
@@ -382,7 +400,7 @@ cb_druid_insert_project_page (gpointer value, gpointer user_data)
 
 /* Fill project selection page */
 static gboolean
-npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
+npw_druid_fill_selection_page (NPWDruid* druid, GFile *templates)
 {
 	gchar* dir;
 	const gchar * const * sys_dir;
@@ -395,17 +413,30 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	/* Create list of projects */
 	druid->header_list = npw_header_list_new ();
 
-	if (directory != NULL)
+	if (templates != NULL)
 	{
-		/* Read project template only in specified directory,
-		 * other directories can still be used to get included
-		 * files */
-		npw_header_list_readdir (&druid->header_list, directory);
-		anjuta_autogen_set_library_path (druid->gen, directory);
+		if (g_file_query_file_type (templates, 0, NULL) == G_FILE_TYPE_DIRECTORY)
+		{
+			/* Read project template only in specified directory,
+		 	 * other directories can still be used to get included
+		 	 * files */
+			gchar *directory = g_file_get_path (templates);
+			
+			npw_header_list_readdir (&druid->header_list, directory);
+			anjuta_autogen_set_library_path (druid->gen, directory);
+			g_free (directory);
+		}
+		else
+		{
+			/* templates is a file, so read only it as a project template */
+			gchar *filename = g_file_get_path (templates);
+			npw_header_list_read (&druid->header_list, filename);
+			g_free (filename);
+		}
 	}
 
 	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
-	if (directory == NULL)
+	if (templates == NULL)
 	{
 		/* Read project template in user directory,
 		 * normally ~/.local/share/anjuta/project,
@@ -418,7 +449,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
 	{
 		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
-		if (directory == NULL)
+		if (templates == NULL)
 		{
 			/* Read project template in system directory */
 			npw_header_list_readdir (&druid->header_list, dir);
@@ -427,23 +458,31 @@ npw_druid_fill_selection_page (NPWDruid* druid, const gchar *directory)
 		g_free (dir);
 	}
 
-	if (directory == NULL)
+	if (templates == NULL)
 	{
 		/* Read anjuta installation directory */
 		npw_header_list_readdir (&druid->header_list, PROJECT_WIZARD_DIRECTORY);
 	}
 	anjuta_autogen_set_library_path (druid->gen, PROJECT_WIZARD_DIRECTORY);
 
-	if (g_list_length (druid->header_list) == 0)
+	switch (g_list_length (druid->header_list))
 	{
+	case 0:
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (druid->plugin)->shell),_("Unable to find any project template in %s"), PROJECT_WIZARD_DIRECTORY);
 		return FALSE;
+	case 1:
+		druid->header = (NPWHeader *)((GList *)druid->header_list->data)->data;
+		druid->no_selection = TRUE;
+		gtk_container_remove (GTK_CONTAINER (druid->window), druid->project_page);
+		gtk_assistant_insert_page (GTK_ASSISTANT (druid->window), druid->progress_page, 0);
+		npw_druid_set_busy (druid, FALSE);
+		break;
+	default:
+		/* Add all necessary notebook page */
+		druid->no_selection = FALSE;
+		g_list_foreach (druid->header_list, cb_druid_insert_project_page, druid);
+		gtk_widget_show_all (GTK_WIDGET (druid->project_book));
 	}
-
-	/* Add all necessary notebook page */
-	g_list_foreach (druid->header_list, cb_druid_insert_project_page, druid);
-
-	gtk_widget_show_all (GTK_WIDGET (druid->project_book));
 
 	return TRUE;
 }
@@ -569,7 +608,7 @@ npw_druid_add_new_page (NPWDruid* druid)
 
 	/* Get page in cache */
 	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window));
-	page = g_queue_peek_nth (druid->page_list, current);
+	page = g_queue_peek_nth (druid->page_list, current - (druid->no_selection ? 0 : 1) + 1);
 
 	if (page == NULL)
 	{
@@ -641,7 +680,7 @@ npw_druid_remove_following_page (NPWDruid* druid)
 
 		gtk_container_remove (GTK_CONTAINER (druid->window), widget);
 
-		page = g_queue_pop_nth (druid->page_list, current - 1);
+		page = g_queue_pop_nth (druid->page_list, current  - (druid->no_selection ? 0 : 1));
 		if (page != NULL) npw_page_free (page);
 	}
 }
@@ -752,7 +791,7 @@ npw_druid_save_valid_values (NPWDruid* druid)
 	NPWSaveValidPropertyData data;
 	gboolean ok = TRUE;
 
-	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window)) - 2;
+	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window))  - (druid->no_selection ? 0 : 1) - 1;
 	page = g_queue_peek_nth (druid->page_list, current);
 	data.modified = FALSE;
 	data.parent = GTK_WINDOW (druid->window);
@@ -787,23 +826,6 @@ npw_druid_save_valid_values (NPWDruid* druid)
 	g_string_free (data.warning, TRUE);
 
 	return ok;
-}
-
-/* Druid GUI functions
- *---------------------------------------------------------------------------*/
-
-static void
-npw_druid_set_busy (NPWDruid *druid, gboolean busy_state)
-{
-	if (druid->busy == busy_state)
-		return;
-
-	/* Set busy state */
-	if (busy_state)
-		anjuta_status_busy_push (anjuta_shell_get_status (ANJUTA_PLUGIN (druid->plugin)->shell, NULL));
-	else
-		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN (druid->plugin)->shell, NULL));
-	druid->busy = busy_state;
 }
 
 /* Druid call backs
@@ -843,14 +865,14 @@ on_druid_get_new_page (AnjutaAutogen* gen, gpointer data)
 	NPWPage* page;
 
 	current = gtk_assistant_get_current_page (GTK_ASSISTANT (druid->window));
-	page = g_queue_peek_nth (druid->page_list, current - 1);
+	page = g_queue_peek_nth (druid->page_list, current - (druid->no_selection ? 0 : 1));
 
 	if (npw_page_get_name (page) == NULL)
 	{
 		/* no page, display finish page */
 		npw_druid_fill_summary_page (druid);
 
-		page = g_queue_pop_nth (druid->page_list, current - 1);
+		page = g_queue_pop_nth (druid->page_list, current - (druid->no_selection ? 0 : 1));
 		if (page != NULL) npw_page_free (page);
 		gtk_container_remove (GTK_CONTAINER (druid->window), gtk_assistant_get_nth_page (GTK_ASSISTANT (druid->window), current + 1));
 		gtk_assistant_set_current_page (GTK_ASSISTANT (druid->window), current + 1);
@@ -1021,6 +1043,7 @@ on_druid_real_prepare (GtkAssistant* assistant, GtkWidget *page, NPWDruid* druid
 			gtk_container_remove (GTK_CONTAINER (assistant), druid->error_page);
 			previous--;
 		}
+		if (druid->no_selection) previous++;
 
 		/* Generate the next page */
 		if (previous == PROJECT_PAGE_INDEX)
@@ -1136,7 +1159,7 @@ on_druid_finish (GtkAssistant* assistant, NPWDruid* druid)
 }
 
 static GtkWidget*
-npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
+npw_druid_create_assistant (NPWDruid* druid, GFile *templates)
 {
 	AnjutaShell *shell;
 	GtkBuilder *builder;
@@ -1172,8 +1195,6 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 	                                 PROPERTY_PAGE, &property_page,
 	                                 NULL);
 	druid->window = GTK_WINDOW (assistant);
-	g_object_ref (druid->error_page);
-	g_object_ref (druid->progress_page);
 	gtk_window_set_transient_for (GTK_WINDOW (assistant), GTK_WINDOW (shell));
 	g_object_unref (builder);
 
@@ -1186,9 +1207,15 @@ npw_druid_create_assistant (NPWDruid* druid, const gchar *directory)
 
 	/* Remove property page, will be created later as needed */
 	gtk_container_remove (GTK_CONTAINER (assistant), property_page);
+	/* Remove error page, could be needed later so keep a ref */
+	g_object_ref (druid->error_page);
+	gtk_container_remove (GTK_CONTAINER (assistant), druid->error_page);
+	/* Remove progress page, could be needed later so keep a ref */
+	g_object_ref (druid->progress_page);
+	gtk_container_remove (GTK_CONTAINER (assistant), druid->progress_page);
 
 	/* Setup project selection page */
-	if (!npw_druid_fill_selection_page (druid, directory))
+	if (!npw_druid_fill_selection_page (druid, templates))
 	{
 		return NULL;
 	}
@@ -1248,7 +1275,7 @@ npw_druid_add_default_property (NPWDruid* druid)
  *---------------------------------------------------------------------------*/
 
 NPWDruid*
-npw_druid_new (NPWPlugin* plugin, const gchar *directory)
+npw_druid_new (NPWPlugin* plugin, GFile *templates)
 {
 	NPWDruid* druid;
 
@@ -1263,13 +1290,14 @@ npw_druid_new (NPWPlugin* plugin, const gchar *directory)
 	druid->plugin = plugin;
 	druid->project_file = NULL;
 	druid->busy = FALSE;
+	druid->no_selection = FALSE;
 	druid->page_list = g_queue_new ();
 	druid->values = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_free);
 	druid->gen = anjuta_autogen_new ();
-	druid->plugin = plugin;
+	plugin->druid = druid;
 	druid->error_extra_widget = NULL;
 
-	if (npw_druid_create_assistant (druid, directory) == NULL)
+	if (npw_druid_create_assistant (druid, templates) == NULL)
 	{
 		npw_druid_free (druid);
 

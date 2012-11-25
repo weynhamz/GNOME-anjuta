@@ -24,11 +24,12 @@
 #define ICON_FILE "anjuta-project-wizard-plugin-48.png"
 
 #include <glib.h>
+#include <gio/gio.h>
 
 struct _NPWPlugin;
 typedef struct _NPWDruid NPWDruid;
 
-NPWDruid* npw_druid_new (struct _NPWPlugin* plugin, const gchar *directory);
+NPWDruid* npw_druid_new (struct _NPWPlugin* plugin, GFile *templates);
 void npw_druid_free (NPWDruid* druid);
 
 void npw_druid_show (NPWDruid* druid);

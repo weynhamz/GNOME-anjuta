@@ -30,7 +30,7 @@
 
 gboolean npw_header_list_readdir (GList** this, const gchar* pathname);
 
-gboolean npw_header_list_read (GList** this, const gchar* filename);
+NPWHeader *npw_header_list_read (GList** this, const gchar* filename);
 
 
 typedef struct _NPWPageParser NPWPageParser;

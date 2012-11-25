@@ -580,24 +580,25 @@ npw_header_parser_end_parse (NPWHeaderParser* parser, GError** error)
 	return g_markup_parse_context_end_parse (parser->ctx, error);
 }*/
 
-gboolean
+NPWHeader *
 npw_header_list_read (GList** list, const gchar* filename)
 {
 	gchar* content;
 	gsize len;
 	NPWHeaderParser* parser;
 	NPWHeader* header;
+	NPWHeader *found;
 	GError* err = NULL;
 
-	g_return_val_if_fail (list != NULL, FALSE);
-	g_return_val_if_fail (filename != NULL, FALSE);
+	g_return_val_if_fail (list != NULL, NULL);
+	g_return_val_if_fail (filename != NULL, NULL);
 
 	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
  		g_warning ("%s", err->message);
 		g_error_free (err);
 
-		return FALSE;
+		return NULL;
 	}
 
 	parser = npw_header_parser_new (list, filename);
@@ -616,7 +617,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 		g_warning ("Missing project wizard block in %s", filename);
 		npw_header_free (header);
 		
-		return FALSE;
+		return NULL;
 	}
 	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
 	{
@@ -625,17 +626,23 @@ npw_header_list_read (GList** list, const gchar* filename)
 		g_error_free (err);
 		npw_header_free (header);
 
-		return FALSE;
+		return NULL;
 	}
 	g_error_free (err);
 	
 	/* Add header to list if template does not already exist*/
-	if (npw_header_list_find_header (*list, header) == NULL)
+	found = npw_header_list_find_header (*list, header);
+	if (found == NULL)
 	{
 		*list = npw_header_list_insert_header (*list, header);
 	}
+	else
+	{
+		npw_header_free (header);
+		header = found;
+	}
 	
-	return TRUE;	
+	return header;	
 }
 
 

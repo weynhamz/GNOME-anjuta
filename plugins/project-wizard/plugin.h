@@ -52,6 +52,6 @@ IAnjutaMessageView* npw_plugin_create_view (NPWPlugin* plugin);
 void npw_plugin_append_view (NPWPlugin* plugin, const gchar* text);
 void npw_plugin_print_view (NPWPlugin* plugin, IAnjutaMessageViewType type, const gchar* summary, const gchar* details);
 
-gboolean npw_plugin_show_wizard (NPWPlugin *plugin, const gchar *template_dir);
+gboolean npw_plugin_show_wizard (NPWPlugin *plugin, GFile *project_template);
 
 #endif

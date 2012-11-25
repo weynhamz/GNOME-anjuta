@@ -52,11 +52,7 @@ npw_open_project_template (GFile *destination, GFile *tarfile, gpointer data, GE
 	else
 	{
 		/* Show the project wizard dialog, loading only the new projects */
-		gchar *path;
-		
-		path = g_file_get_path (destination);
-		npw_plugin_show_wizard (plugin, path);
-		g_free (path);
+		npw_plugin_show_wizard (plugin, destination);
 	}
 }
 
@@ -118,7 +114,7 @@ npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWT
 /* Display the project wizard selection dialog using only templates in the 
  * specified directory if non NULL */
 gboolean
-npw_plugin_show_wizard (NPWPlugin *plugin, const gchar *directory)
+npw_plugin_show_wizard (NPWPlugin *plugin, GFile *project)
 {
 	if (plugin->install != NULL)
 	{
@@ -127,7 +123,7 @@ npw_plugin_show_wizard (NPWPlugin *plugin, const gchar *directory)
 	else if (plugin->druid == NULL)
 	{
 		/* Create a new project wizard druid */
-		npw_druid_new (plugin, directory);
+		npw_druid_new (plugin, project);
 	}
 
 	if (plugin->druid != NULL)
@@ -135,6 +131,7 @@ npw_plugin_show_wizard (NPWPlugin *plugin, const gchar *directory)
 		/* New project wizard druid is waiting for user inputs */
 		npw_druid_show (plugin->druid);
 	}
+
 
 	return TRUE;
 }
@@ -229,8 +226,21 @@ static void
 ifile_open (IAnjutaFile *ifile, GFile* file, GError **error)
 {
 	NPWPlugin *plugin = ANJUTA_PLUGIN_NPW (ifile);
+	GFileInfo *info;
 
-	npw_install_project_template_with_callback (plugin, file, npw_open_project_template, error);
+	info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, 0, NULL, NULL);
+	if (info != NULL)
+	{
+		if (strcmp(g_file_info_get_content_type (info), "application/x-anjuta-project-template") == 0)
+		{
+			npw_plugin_show_wizard (plugin, file);
+		}
+		else
+		{
+			npw_install_project_template_with_callback (plugin, file, npw_open_project_template, error);
+		}
+		g_object_unref (info);
+	}
 }
 
 static GFile*
