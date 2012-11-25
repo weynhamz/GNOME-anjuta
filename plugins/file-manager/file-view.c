@@ -724,6 +724,10 @@ file_view_set_property (GObject *object, guint prop_id, const GValue *value,
 static void
 file_view_finalize (GObject *object)
 {
+	AnjutaFileViewPrivate *priv = ANJUTA_FILE_VIEW_GET_PRIVATE (object);
+
+	g_object_unref (priv->model);
+
 	G_OBJECT_CLASS (file_view_parent_class)->finalize (object);
 }
 
