@@ -953,14 +953,15 @@ populate_plugin_model (AnjutaPluginManager *plugin_manager,
 					   gboolean show_all)
 {
 	AnjutaPluginManagerPriv *priv;
-	GList *l;
+	GList *sorted_plugins, *l;
 	
 	priv = plugin_manager->priv;
 	gtk_list_store_clear (store);
+
+	sorted_plugins = g_list_copy (priv->available_plugins);
+	sorted_plugins = g_list_sort (sorted_plugins, sort_plugins);
 	
-	priv->available_plugins = g_list_sort (priv->available_plugins, sort_plugins);
-	
-	for (l = priv->available_plugins; l != NULL; l = l->next)
+	for (l = sorted_plugins; l != NULL; l = l->next)
 	{
 		AnjutaPluginHandle *plugin = l->data;
 		
@@ -1008,6 +1009,8 @@ populate_plugin_model (AnjutaPluginManager *plugin_manager,
 			}
 		}
 	}
+
+	g_list_free (sorted_plugins);
 }
 
 static GtkWidget *
