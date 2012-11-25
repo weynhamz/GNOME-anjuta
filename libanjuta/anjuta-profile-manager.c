@@ -119,20 +119,14 @@ anjuta_profile_manager_init (AnjutaProfileManager *object)
 static void
 anjuta_profile_manager_finalize (GObject *object)
 {
-	AnjutaProfileManagerPriv *priv;
-	priv = ANJUTA_PROFILE_MANAGER (object)->priv;
+	AnjutaProfileManagerPriv *priv = ANJUTA_PROFILE_MANAGER (object)->priv;
+
 	if (priv->profiles)
-	{
-		g_list_foreach (priv->profiles, (GFunc)g_object_unref, NULL);
-		g_list_free (priv->profiles);
-		priv->profiles = NULL;
-	}
+		g_list_free_full (priv->profiles, g_object_unref);
+
 	if (priv->profiles_queue)
-	{
-		g_list_foreach (priv->profiles_queue, (GFunc)g_object_unref, NULL);
-		g_list_free (priv->profiles_queue);
-		priv->profiles_queue = NULL;
-	}
+		g_list_free_full (priv->profiles_queue, g_object_unref);
+
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -512,7 +506,7 @@ anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
 							 AnjutaProfile *profile, GError **error)
 {	
 	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), FALSE);
-	
+
 	/* Emit profile push signal */
 	g_signal_emit_by_name (profile_manager, "profile-pushed",
 						   profile);
@@ -541,10 +535,10 @@ anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 {
 	AnjutaProfileManagerPriv *priv;
 	AnjutaProfile *profile;
+
 	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), FALSE);
-	
 	priv = profile_manager->priv;
-	
+
 	/* First check in the queue */
 	if (priv->profiles_queue)
 	{
@@ -587,9 +581,7 @@ anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 		}
 		g_object_unref (profile);
 	}
-	
-	g_warning ("No profiles in the stack. Can not pop out any profile: %s",
-			   profile_name);
+
 	return FALSE;
 }
 
@@ -607,6 +599,7 @@ anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager)
 {
 	AnjutaProfileManagerPriv *priv;
 	g_return_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager));
+
 	priv = profile_manager->priv;
 	priv->freeze_count++;
 }
@@ -628,8 +621,9 @@ anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 {
 	AnjutaProfileManagerPriv *priv;
 	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), FALSE);
+
 	priv = profile_manager->priv;
-	
+
 	if (priv->freeze_count > 0)
 		priv->freeze_count--;
 	
@@ -668,10 +662,53 @@ AnjutaProfile*
 anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager)
 {
 	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), NULL);
+
 	if (profile_manager->priv->profiles_queue)
 		return ANJUTA_PROFILE (profile_manager->priv->profiles_queue->data);
 	else if (profile_manager->priv->profiles)
 		return ANJUTA_PROFILE (profile_manager->priv->profiles->data);
 	else
 		return NULL;
+}
+
+/**
+ * anjuta_profile_manager_close:
+ * @profile_manager: A #AnjutaProfileManager object.
+ *
+ * Close the #AnjutaProfileManager causing "profile-descoped" to be emitted and
+ * all queued and previous profiles to be released. This function is to be used
+ * when destroying an Anjuta instance.
+ */
+void
+anjuta_profile_manager_close (AnjutaProfileManager *profile_manager)
+{
+	AnjutaProfileManagerPriv *priv;
+
+	g_return_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager));
+
+	priv = profile_manager->priv;
+
+	g_signal_handlers_disconnect_by_func (priv->plugin_manager,
+	                                      on_plugin_activated, profile_manager);
+	g_signal_handlers_disconnect_by_func (priv->plugin_manager,
+	                                      on_plugin_deactivated, profile_manager);
+
+	if (priv->profiles)
+	{
+		AnjutaProfile *profile = ANJUTA_PROFILE (priv->profiles->data);
+
+		/* Emit "profile-descoped" so that other parts of anjuta can store
+		 * information about the currently loaded profile. */
+		g_signal_emit_by_name (profile_manager, "profile-descoped",
+		                       profile);
+
+		g_list_free_full (priv->profiles, g_object_unref);
+		priv->profiles = NULL;
+	}
+
+	if (priv->profiles_queue)
+	{
+		g_list_free_full (priv->profiles, g_object_unref);
+		priv->profiles_queue = NULL;
+	}
 }

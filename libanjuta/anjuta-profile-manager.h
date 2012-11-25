@@ -76,6 +76,8 @@ gboolean anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 									 GError **error);
 AnjutaProfile* anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager);
 
+void anjuta_profile_manager_close (AnjutaProfileManager *profile_manager);
+
 G_END_DECLS
 
 #endif /* _ANJUTA_PROFILE_MANAGER_H_ */
