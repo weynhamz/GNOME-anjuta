@@ -616,7 +616,6 @@ npw_druid_add_new_page (NPWDruid* druid)
 		GtkBuilder *builder;
 		GtkWidget *widget;
 		GtkAssistantPageType type;
-		GdkPixbuf *pixbuf;
 		GtkWidget *table;
 		GtkAssistant *assistant;
 
@@ -635,16 +634,9 @@ npw_druid_add_new_page (NPWDruid* druid)
 		table = GTK_WIDGET (gtk_builder_get_object (builder, PROPERTY_TABLE));
 
 		type = gtk_assistant_get_page_type (assistant, widget);
-		pixbuf = gtk_assistant_get_page_header_image (assistant, widget);
-		if (pixbuf) g_object_ref (pixbuf);
 		gtk_container_remove (GTK_CONTAINER (assistant), widget);
 		gtk_assistant_insert_page (GTK_ASSISTANT (druid->window), widget, current + 1);
 		gtk_assistant_set_page_type (GTK_ASSISTANT (druid->window), widget, type);
-		if (pixbuf != NULL)
-		{
-			gtk_assistant_set_page_header_image (GTK_ASSISTANT (druid->window), widget, pixbuf);
-			g_object_ref (pixbuf);
-		}
 		gtk_assistant_set_page_complete (GTK_ASSISTANT (druid->window), widget, TRUE);
 		gtk_widget_destroy (GTK_WIDGET (assistant));
 
@@ -1238,12 +1230,9 @@ static void
 npw_druid_add_default_property (NPWDruid* druid)
 {
 	gchar* s;
-	AnjutaPreferences* pref;
 	GSettings *settings;
 	gboolean flag;
 	gint i;
-
-	pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (druid->plugin)->shell, NULL);
 
 	/* Add default base project directory */
 	g_hash_table_insert (druid->values, g_strdup (ANJUTA_PROJECT_DIRECTORY_PROPERTY), g_strdup (g_get_home_dir()));
