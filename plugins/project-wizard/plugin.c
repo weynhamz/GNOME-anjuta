@@ -42,11 +42,11 @@ static void
 npw_open_project_template (GFile *destination, GFile *tarfile, gpointer data, GError *error)
 {
 	NPWPlugin *plugin = (NPWPlugin *)data;
-	
+
 	if (error != NULL)
 	{
 		gchar *tarname = g_file_get_path (tarfile);
-		
+
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),_("Unable to extract project template %s: %s"), tarname, error->message);
 	}
 	else
@@ -66,7 +66,7 @@ npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWT
 	GFile *dest;
 	gboolean ok;
 	GError *err = NULL;
-	
+
 	/* Check if tarfile exist */
 	stream = g_file_read (file, NULL, error);
 	if (stream == NULL)
@@ -74,12 +74,12 @@ npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWT
 		return FALSE;
 	}
 	g_input_stream_close (G_INPUT_STREAM (stream), NULL, NULL);
-	
+
 	/* Get name without extension */
 	name = g_file_get_basename (file);
 	ext = strchr (name, '.');
 	if (ext != NULL) *ext = '\0';
-	
+
 	/* Create a directory for template */
 	path = g_build_filename (g_get_user_data_dir (), "anjuta", "project", name, NULL);
 	g_free (name);
@@ -97,21 +97,21 @@ npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWT
 		else
 		{
 			g_object_unref (dest);
-			
+
 			return FALSE;
 		}
 	}
-	
+
 	ok = npw_tar_extract (dest, file, callback, plugin, error);
 	g_object_unref (dest);
-	
+
 	return ok;
 }
 
 /* Public functions
  *---------------------------------------------------------------------------*/
 
-/* Display the project wizard selection dialog using only templates in the 
+/* Display the project wizard selection dialog using only templates in the
  * specified directory if non NULL */
 gboolean
 npw_plugin_show_wizard (NPWPlugin *plugin, GFile *project)
@@ -192,7 +192,7 @@ npw_plugin_deactivate (AnjutaPlugin *plugin)
 }
 
 static void
-npw_plugin_class_init (GObjectClass *klass) 
+npw_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -255,7 +255,7 @@ ifile_iface_init(IAnjutaFileIface *iface)
 	iface->open = ifile_open;
 	iface->get_file = ifile_get_file;
 }
- 
+
 ANJUTA_PLUGIN_BEGIN (NPWPlugin, npw_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_ADD_INTERFACE (iwizard, IANJUTA_TYPE_WIZARD);
@@ -273,7 +273,7 @@ on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
 	npw_plugin_print_view (plugin, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "");
 }
 
-IAnjutaMessageView* 
+IAnjutaMessageView*
 npw_plugin_create_view (NPWPlugin* plugin)
 {
 	if (plugin->view == NULL)

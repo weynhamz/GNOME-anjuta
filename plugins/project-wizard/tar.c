@@ -45,7 +45,7 @@ struct _NPWTarPacket
 	GFile *tarfile;
 	GFile *destination;
 };
- 
+
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
@@ -59,7 +59,7 @@ npw_tar_packet_free (NPWTarPacket *pack)
 	if (pack->destination) g_object_unref (pack->destination);
 	g_free (pack);
 }
- 
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -76,19 +76,19 @@ on_tar_listed (GPid pid,
 		GList *list;
 		GString *line;
 		GIOStatus status;
-	
+
 		list = NULL;
 		line = g_string_new (NULL);
 		output = g_io_channel_unix_new (pack->stdout);
 		do
 		{
 			gsize terminator;
-		
+
 			status = g_io_channel_read_line_string (output, line, &terminator, NULL);
 			if (status == G_IO_STATUS_NORMAL)
 			{
 				g_string_truncate (line, terminator);
-				
+
 				list = g_list_prepend (list, g_strdup (line->str));
 				continue;
 			}
@@ -97,16 +97,16 @@ on_tar_listed (GPid pid,
 		g_io_channel_shutdown (output, TRUE, NULL);
 		g_io_channel_unref (output);
 		g_string_free (line, TRUE);
-		
+
 		list = g_list_reverse (list);
 		((NPWTarListFunc)pack->callback) (pack->tarfile, list, pack->data, NULL);
-		
+
 		g_list_foreach (list, (GFunc)g_free, NULL);
 		g_list_free (list);
 	}
 
 	g_spawn_close_pid(pid);
-} 
+}
 
 static void
 on_tar_completed (GPid pid,
@@ -123,7 +123,7 @@ on_tar_completed (GPid pid,
 			GIOChannel *stderr;
 			gchar *message;
 			gsize length;
-			
+
 			stderr = g_io_channel_unix_new (pack->stderr);
 			g_io_channel_read_to_end (stderr, &message, &length, &error);
 			if (error != NULL)
@@ -133,14 +133,14 @@ on_tar_completed (GPid pid,
 			g_io_channel_shutdown (stderr, TRUE, NULL);
 			g_io_channel_unref (stderr);
 		}
-			
+
 		((NPWTarCompleteFunc)pack->callback) (pack->destination, pack->tarfile, pack->data, error);
 		g_clear_error (&error);
 	}
 
 	g_spawn_close_pid(pid);
 }
- 
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -153,7 +153,7 @@ npw_tar_list (GFile *tarfile, NPWTarListFunc list, gpointer data, GError **error
 	GPid pid;
 	gboolean ok;
 	NPWTarPacket *pack;
-	
+
 	/* Use gtar if available */
 	prog = g_find_program_in_path ("gtar");
 	filename = g_file_get_path (tarfile);
@@ -164,7 +164,7 @@ npw_tar_list (GFile *tarfile, NPWTarListFunc list, gpointer data, GError **error
 	pack->callback = (gpointer)list;
 	pack->data = data;
 	pack->tarfile = g_object_ref (tarfile);
-	ok = g_spawn_async_with_pipes (NULL, argv, NULL, 
+	ok = g_spawn_async_with_pipes (NULL, argv, NULL,
 				G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
 				NULL, NULL,
 				&pid,
@@ -172,18 +172,18 @@ npw_tar_list (GFile *tarfile, NPWTarListFunc list, gpointer data, GError **error
 				&pack->stdout,
 				NULL,
 				error);
-	
+
 	if (ok)
 	{
 		g_child_watch_add_full (G_PRIORITY_HIGH_IDLE, pid, on_tar_listed, pack, (GDestroyNotify)npw_tar_packet_free);
 	}
-	
+
 	g_free (filename);
 	g_free (prog);
-	
+
 	return ok;
 }
-  
+
 gboolean
 npw_tar_extract (GFile *destination, GFile *tarfile, NPWTarCompleteFunc complete, gpointer data, GError **error)
 {
@@ -194,7 +194,7 @@ npw_tar_extract (GFile *destination, GFile *tarfile, NPWTarCompleteFunc complete
 	GPid pid;
 	gboolean ok;
 	NPWTarPacket *pack;
-	
+
 	/* Use gtar if available */
 	prog = g_find_program_in_path ("gtar");
 	dirname = g_file_get_path (destination);
@@ -208,7 +208,7 @@ npw_tar_extract (GFile *destination, GFile *tarfile, NPWTarCompleteFunc complete
 	pack->data = data;
 	pack->tarfile = g_object_ref (tarfile);
 	pack->destination = g_object_ref (destination);
-	ok = g_spawn_async_with_pipes (NULL, argv, NULL, 
+	ok = g_spawn_async_with_pipes (NULL, argv, NULL,
 				G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH,
 				NULL, NULL,
 				&pid,
@@ -216,16 +216,16 @@ npw_tar_extract (GFile *destination, GFile *tarfile, NPWTarCompleteFunc complete
 				NULL,
 				&pack->stderr,
 				error);
-	
+
 	if (ok)
 	{
 		g_child_watch_add_full (G_PRIORITY_HIGH_IDLE, pid, on_tar_completed, pack, (GDestroyNotify)npw_tar_packet_free);
 	}
-	
+
 	g_free (filename);
 	g_free (dirname);
 	g_free (prog);
-	
+
 	return ok;
 }
 

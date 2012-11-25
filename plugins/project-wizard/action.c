@@ -42,8 +42,8 @@ npw_action_new_file (const gchar *file)
 {
 	NPWAction* action;
 
-	g_return_val_if_fail (file != NULL, NULL);	
-	
+	g_return_val_if_fail (file != NULL, NULL);
+
 	action = g_slice_new (NPWAction);
 	action->type = NPW_OPEN_ACTION;
 	action->command = g_strdup (file);
@@ -56,8 +56,8 @@ npw_action_new_command (const gchar *command)
 {
 	NPWAction* action;
 
-	g_return_val_if_fail (command != NULL, NULL);	
-	
+	g_return_val_if_fail (command != NULL, NULL);
+
 	action = g_slice_new (NPWAction);
 	action->type = NPW_RUN_ACTION;
 	action->command = g_strdup (command);

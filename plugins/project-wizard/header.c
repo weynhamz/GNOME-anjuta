@@ -67,7 +67,7 @@ void
 npw_header_free (NPWHeader* self)
 {
 	if (self == NULL) return;
-	
+
 	g_free (self->name);
 	g_free (self->description);
 	g_free (self->iconfile);
@@ -169,7 +169,7 @@ npw_header_add_required_program (NPWHeader* self, const gchar* program)
 	self->required_programs =
 		g_list_prepend (self->required_programs,
 						g_strdup (program));
-	
+
 }
 
 void
@@ -223,7 +223,7 @@ npw_header_list_new (void)
 	GList* list;
 
 	list = NULL;
-	
+
 	return list;
 }
 
@@ -267,13 +267,13 @@ npw_header_list_insert_header (GList *list, NPWHeader *header)
 {
 	GList *node;
 	GList *template_list;
-	
+
 	for (node = g_list_first (list); node != NULL; node = g_list_next (node))
 	{
 		NPWHeader* first;
 		gint res;
-		
-		template_list = (GList *)node->data;	
+
+		template_list = (GList *)node->data;
 		first = (NPWHeader *)template_list->data;
 		res = g_ascii_strcasecmp (npw_header_get_category (first), npw_header_get_category (header));
 		if (res == 0)
@@ -297,19 +297,19 @@ npw_header_list_find_header (GList *list, NPWHeader *header)
 {
 	GList *node;
 	GList *template_list;
-	
+
 	for (node = g_list_first (list); node != NULL; node = g_list_next (node))
 	{
 		NPWHeader* first;
 		gint res;
-		
-		template_list = (GList *)node->data;	
+
+		template_list = (GList *)node->data;
 		first = (NPWHeader *)template_list->data;
 		res = g_ascii_strcasecmp (npw_header_get_category (first), npw_header_get_category (header));
 		if (res == 0)
 		{
 			GList *find;
-			
+
 			find = g_list_find_custom (template_list, header, (GCompareFunc) compare_header_name);
 			if (find != NULL)
 			{

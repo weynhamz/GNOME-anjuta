@@ -58,7 +58,7 @@ npw_file_new_file (const gchar *destination, const gchar *source)
 	file->destination = g_strdup (destination);
 	file->source = g_strdup (source);
 	file->attribute = 0;
-	
+
 	return file;
 }
 

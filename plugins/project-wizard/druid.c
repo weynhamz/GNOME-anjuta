@@ -421,7 +421,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, GFile *templates)
 		 	 * other directories can still be used to get included
 		 	 * files */
 			gchar *directory = g_file_get_path (templates);
-			
+
 			npw_header_list_readdir (&druid->header_list, directory);
 			anjuta_autogen_set_library_path (druid->gen, directory);
 			g_free (directory);

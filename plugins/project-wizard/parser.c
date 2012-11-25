@@ -18,7 +18,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* 
+/*
  * All functions for parsing wizard template (.wiz) files
  *
  *---------------------------------------------------------------------------*/
@@ -218,7 +218,7 @@ parse_tag (const char* name)
 			return (NPWTag)mapping->id;
 		}
 	}
-	
+
 	return NPW_UNKNOW_TAG;
 }
 
@@ -234,7 +234,7 @@ parse_attribute (const char* name)
 			return (NPWAttribute)mapping->id;
 		}
 	}
-	
+
 	return NPW_UNKNOW_ATTRIBUTE;
 }
 
@@ -293,7 +293,7 @@ get_tag_language (const gchar** attributes,
 					const gchar** values)
 {
 	const gchar *lang = NULL;
-	
+
 	while (*attributes != NULL)
 	{
 		if (parse_attribute (*attributes) == NPW_XML_LANG_ATTRIBUTE)
@@ -303,12 +303,12 @@ get_tag_language (const gchar** attributes,
 		attributes++;
 		values++;
 	}
-	
+
 	if (lang != NULL)
 	{
 		const gchar* const *local;
 		gint id = G_MAXINT;
-		
+
 		for (local = g_get_language_names (); *local != NULL; local++)
 		{
 			id--;
@@ -317,7 +317,7 @@ get_tag_language (const gchar** attributes,
 				return id;
 			}
 		}
-		
+
 		return -1;
 	}
 	else
@@ -366,7 +366,7 @@ parse_header_start (GMarkupParseContext* context,
 	{
 		/* Not inside an unknown element */
 		tag = parse_tag (name);
-		
+
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
@@ -435,7 +435,7 @@ parse_header_end (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWHeaderParser* parser = (NPWHeaderParser*)data;
-	
+
 	if (parser->unknown > 0)
 	{
 		/* Pop unknown element */
@@ -461,8 +461,8 @@ parse_header_end (GMarkupParseContext* context,
 
 			/* error should be available to stop parsing */
 			g_return_if_fail (error != NULL);
-		
-			/* Send an error */	
+
+			/* Send an error */
 			*error = g_error_new_literal (parser_error_quark (), NPW_STOP_PARSING, "");
 		}
 	}
@@ -606,7 +606,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 	npw_header_parser_parse (parser, content, len, &err);
 	header = parser->header;
 	/* Parse only a part of the file, so need to call parser_end_parse */
-	
+
 	npw_header_parser_free (parser);
 	g_free (content);
 
@@ -616,7 +616,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 		 *  generated at the end of the project wizard block */
 		g_warning ("Missing project wizard block in %s", filename);
 		npw_header_free (header);
-		
+
 		return NULL;
 	}
 	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
@@ -629,7 +629,7 @@ npw_header_list_read (GList** list, const gchar* filename)
 		return NULL;
 	}
 	g_error_free (err);
-	
+
 	/* Add header to list if template does not already exist*/
 	found = npw_header_list_find_header (*list, header);
 	if (found == NULL)
@@ -641,8 +641,8 @@ npw_header_list_read (GList** list, const gchar* filename)
 		npw_header_free (header);
 		header = found;
 	}
-	
-	return header;	
+
+	return header;
 }
 
 
@@ -689,12 +689,12 @@ get_page_name (const gchar** attributes,
 }
 
 static gboolean
-parse_page (NPWPageParser* parser, 
+parse_page (NPWPageParser* parser,
 	const gchar** attributes,
 	const gchar** values)
 {
 	const gchar *name;
-	
+
 	/* Check page name to avoid duplicated page due to translated version */
 	name = get_page_name (attributes, values);
 	if (name == NULL) return FALSE;
@@ -711,7 +711,7 @@ parse_page (NPWPageParser* parser,
 	if (parser->count == -1)
 	{
 		gint lang;
-		
+
 		lang = get_tag_language (attributes, values);
 
 		if (npw_page_set_language (parser->page, lang))
@@ -740,7 +740,7 @@ parse_page (NPWPageParser* parser,
 				values++;
 			}
 		}
-		
+
 		return TRUE;
 	}
 	else
@@ -800,7 +800,7 @@ parse_property (NPWPageParser* parser,
 			break;
 		case NPW_SUMMARY_ATTRIBUTE:
 			npw_property_set_summary_option (parser->property, parse_boolean_string (*values));
-			break;		
+			break;
 		case NPW_MANDATORY_ATTRIBUTE:
 			npw_property_set_mandatory_option (parser->property, parse_boolean_string (*values));
 			break;
@@ -818,7 +818,7 @@ parse_property (NPWPageParser* parser,
 		}
 		attributes++;
 		values++;
-	}	
+	}
 	parser->property = npw_page_add_property (parser->page, parser->property);
 
 	return TRUE;
@@ -832,9 +832,9 @@ parse_item (NPWPageParser* parser,
 	const gchar* label = NULL;
 	const gchar* name = NULL;
 	gint lang;
-	
+
 	lang = get_tag_language (attributes, values);
-	
+
 	while (*attributes != NULL)
 	{
 		switch (parse_attribute (*attributes))
@@ -884,7 +884,7 @@ parse_page_start (GMarkupParseContext* context,
 	{
 		/* Not inside an unknown element */
 		tag = parse_tag (name);
-		
+
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
@@ -934,7 +934,7 @@ parse_page_start (GMarkupParseContext* context,
 			break;
 		}
 	}
-	
+
 	/* Push element */
 	if (known)
 	{
@@ -956,7 +956,7 @@ parse_page_end (GMarkupParseContext* context,
 	GError** error)
 {
 	NPWPageParser* parser = (NPWPageParser*)data;
-	
+
 	if (parser->unknown > 0)
 	{
 		/* Pop unknown element */
@@ -1002,7 +1002,7 @@ npw_page_parser_new (NPWPage* page, const gchar* filename, gint count)
 	parser->previous = NULL;
 	parser->page = page;
 	parser->property = NULL;
-	
+
 	parser->ctx = g_markup_parse_context_new (&page_markup_parser, 0, parser, NULL);
 	g_assert (parser->ctx != NULL);
 
@@ -1069,7 +1069,7 @@ npw_page_read (NPWPage* page, const gchar* filename, gint count)
 		return FALSE;
 	}
 
-	return TRUE;	
+	return TRUE;
 }
 
 
@@ -1127,7 +1127,7 @@ concat_directory (const gchar* path1, const gchar* path2)
 			if ((ptr[1] == G_DIR_SEPARATOR) || (ptr[1] == '\0')) return NULL;
 		}
 		ptr = ptr + 1;
-	}	
+	}
 
 	if ((*path1 == '\0') || (strcmp (path1, ".") == 0) || g_path_is_absolute (path2))
 	{
@@ -1198,7 +1198,7 @@ parse_directory (NPWFileListParser* parser, NPWFileTag* child, const gchar** att
 
 		return;
 	}
-		
+
 	path = concat_directory (child->source, source);
 	if (path == NULL)
 	{
@@ -1212,12 +1212,12 @@ parse_directory (NPWFileListParser* parser, NPWFileTag* child, const gchar** att
 		g_free (child->source);
 		child->source = g_strdup (path);
 	}
-	else if (path != child->source) 
+	else if (path != child->source)
 	{
 		g_free (child->source);
 		child->source = path;
 	}
-		
+
 
 	path = concat_directory (child->destination, destination);
 	if (path == NULL)
@@ -1232,12 +1232,12 @@ parse_directory (NPWFileListParser* parser, NPWFileTag* child, const gchar** att
 		g_free (child->destination);
 		child->destination = g_strdup (path);
 	}
-	else if (path != child->destination) 
+	else if (path != child->destination)
 	{
 		g_free (child->destination);
 		child->destination = path;
 	}
-}	
+}
 
 static void
 parse_file (NPWFileListParser* parser, NPWFileTag* child, const gchar** attributes, const gchar** values)
@@ -1483,7 +1483,7 @@ npw_file_list_parser_new (const gchar* filename)
 	/* Use .wiz file path as base source directory */
 	root->source = g_path_get_dirname (filename);
 	g_queue_push_head (parser->tag, root);
-	
+
 	parser->list = NULL;
 
 	parser->ctx = g_markup_parse_context_new (&file_markup_parser, 0, parser, NULL);
@@ -1496,7 +1496,7 @@ void
 npw_file_list_parser_free (NPWFileListParser* parser)
 {
 	g_return_if_fail (parser != NULL);
-	
+
 	g_markup_parse_context_free (parser->ctx);
 	DEBUG_PRINT("parser free");
 	g_queue_foreach (parser->tag, (GFunc)npw_file_tag_free, NULL);
@@ -1515,15 +1515,15 @@ GList *
 npw_file_list_parser_end_parse (NPWFileListParser* parser, GError** error)
 {
 	GList *list = NULL;
-	
+
 	if (g_markup_parse_context_end_parse (parser->ctx, error))
 	{
 		/* Reverse file list */
 		parser->list = g_list_reverse (parser->list);
-		
+
 		list = parser->list;
 	}
-	
+
 	return list;
 }
 
@@ -1670,7 +1670,7 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 			break;
 		}
 	}
-	
+
 	/* Push element */
 	if (known)
 	{
@@ -1689,7 +1689,7 @@ static void
 parse_action_end (GMarkupParseContext* context, const gchar* name, gpointer data, GError** error)
 {
 	NPWActionListParser* parser = (NPWActionListParser*)data;
-	
+
 	if (parser->unknown > 0)
 	{
 		/* Pop unknown element */
@@ -1719,7 +1719,7 @@ NPWActionListParser*
 npw_action_list_parser_new (void)
 {
 	NPWActionListParser* parser;
-	
+
 	parser = g_new (NPWActionListParser, 1);
 
 	parser->type = NPW_ACTION_PARSER;
@@ -1749,7 +1749,7 @@ gboolean
 npw_action_list_parser_parse (NPWActionListParser* parser, const gchar* text, gssize len, GError** error)
 {
 	GError* err = NULL;
-	
+
 	g_markup_parse_context_parse (parser->ctx, text, len, &err);
 	if (err != NULL)
 	{
@@ -1763,14 +1763,14 @@ GList*
 npw_action_list_parser_end_parse (NPWActionListParser* parser, GError** error)
 {
 	GList *list = NULL;
-	
+
 	if (g_markup_parse_context_end_parse (parser->ctx, error))
 	{
 		/* Reverse file list */
 		parser->list = g_list_reverse (parser->list);
-		
+
 		list = parser->list;
 	}
-	
+
 	return list;
 }
