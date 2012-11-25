@@ -797,5 +797,10 @@ file_model_set_ivcs (FileModel* model, IAnjutaVcs *ivcs)
 {
 	FileModelPrivate *priv = FILE_MODEL_GET_PRIVATE (model);
 
+	if (priv->ivcs)
+		g_object_remove_weak_pointer (G_OBJECT (priv->ivcs), &priv->ivcs);
+
 	priv->ivcs = ivcs;
+	if (priv->ivcs)
+		g_object_add_weak_pointer (G_OBJECT (priv->ivcs), &priv->ivcs);
 }
