@@ -632,7 +632,7 @@ should_unload (GHashTable *activated_plugins, AnjutaPluginHandle *plugin_to_unlo
 		return TRUE;
 	
 	gboolean dependent = 
-		GPOINTER_TO_INT (g_hash_table_lookup (anjuta_plugin_handle_get_dependents (plugin),
+		GPOINTER_TO_INT (g_hash_table_lookup (anjuta_plugin_handle_get_dependents (plugin_to_unload),
 											  plugin));
 	return dependent;
 }
