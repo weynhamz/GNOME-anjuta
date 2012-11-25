@@ -497,9 +497,8 @@ on_plugin_activated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 	priv = plugin_manager->priv;
 
 	g_hash_table_insert (priv->activated_plugins, plugin,
-						 G_OBJECT (plugin_object));
-	if (g_hash_table_lookup (priv->plugins_cache, plugin))
-		g_hash_table_remove (priv->plugins_cache, plugin);
+						 g_object_ref (plugin_object));
+	g_hash_table_remove (priv->plugins_cache, plugin);
 	
 	g_signal_emit_by_name (plugin_manager, "plugin-activated",
 						   anjuta_plugin_handle_get_description (plugin),
@@ -519,7 +518,7 @@ on_plugin_deactivated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 	
 	priv = plugin_manager->priv;
 	
-	g_hash_table_insert (priv->plugins_cache, plugin, G_OBJECT (plugin_object));
+	g_hash_table_insert (priv->plugins_cache, plugin, g_object_ref (plugin_object));
 	g_hash_table_remove (priv->activated_plugins, plugin);
 	
 	g_signal_emit_by_name (plugin_manager, "plugin-deactivated",
@@ -557,12 +556,6 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	return plugin;
 }
 
-static gboolean
-g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
-{
-	return TRUE;
-}
-
 void
 anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 {
@@ -576,8 +569,7 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 		if (g_hash_table_size (priv->activated_plugins) > 0)
 		{
 			GList *node;
-			node = priv->available_plugins;
-			while (node)
+			for (node = priv->available_plugins; node; node = g_list_next (node))
 			{
 				AnjutaPluginHandle *selected_plugin = node->data;
 				if (g_hash_table_lookup (priv->activated_plugins, selected_plugin))
@@ -587,33 +579,20 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 								 anjuta_plugin_handle_get_id (selected_plugin));
 					*/
 				}
-				node = g_list_next (node);
 			}
-			g_hash_table_foreach_remove (priv->activated_plugins,
-										 g_hashtable_foreach_true, NULL);
+			g_hash_table_remove_all (priv->activated_plugins);
 		}
 		if (g_hash_table_size (priv->plugins_cache) > 0)
 		{
 			GList *node;
-			node = priv->available_plugins;
-			while (node)
+
+			for (node = priv->available_plugins; node; node = g_list_next (node))
 			{
-				GObject *plugin_obj;
 				AnjutaPluginHandle *selected_plugin = node->data;
-				
-				plugin_obj = g_hash_table_lookup (priv->plugins_cache,
-												  selected_plugin);
-				if (plugin_obj)
-				{
-					/* DEBUG_PRINT ("Destroying plugin: %s",
-								 anjuta_plugin_handle_get_id (selected_plugin));
-					*/
-					g_object_unref (plugin_obj);
-				}
-				node = g_list_next (node);
+
+				g_hash_table_remove (priv->plugins_cache, selected_plugin);
 			}
-			g_hash_table_foreach_remove (priv->plugins_cache,
-										 g_hashtable_foreach_true, NULL);
+			g_hash_table_remove_all (priv->plugins_cache);
 		}
 		priv->available_plugins = g_list_reverse (priv->available_plugins);
 	}
@@ -746,7 +725,9 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				AnjutaPlugin *plugin_obj;
 				GError *error = NULL;
 				plugin_obj = g_hash_table_lookup (priv->plugins_cache, plugin);
-				if (!plugin_obj)
+				if (plugin_obj)
+					g_object_ref (plugin_obj);
+				else
 				{
 					plugin_obj = activate_plugin (plugin_manager, plugin,
 												  &error);
@@ -755,6 +736,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				if (plugin_obj)
 				{
 					anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_obj));
+					g_object_unref (plugin_obj);
 				}
 				else
 				{
@@ -2215,20 +2197,13 @@ anjuta_plugin_manager_init (AnjutaPluginManager *object)
 											   (GDestroyNotify) g_list_free);
 	object->priv->plugins_by_description = g_hash_table_new (g_direct_hash,
 														   g_direct_equal);
-	object->priv->activated_plugins = g_hash_table_new (g_direct_hash,
-													  g_direct_equal);
-	object->priv->plugins_cache = g_hash_table_new (g_direct_hash,
-												  g_direct_equal);
+	object->priv->activated_plugins = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+	                                                         NULL, g_object_unref);
+	object->priv->plugins_cache = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+	                                                     NULL, g_object_unref);
 	object->priv->remember_plugins = g_hash_table_new_full (g_str_hash,
 															g_str_equal,
 															g_free, NULL);
-}
-
-static gboolean
-on_foreach_remove_unref (gpointer k, gpointer v, gpointer d)
-{
-	g_object_unref (G_OBJECT (v));
-	return TRUE;
 }
 
 static void
@@ -2236,6 +2211,7 @@ anjuta_plugin_manager_dispose (GObject *object)
 {
 	AnjutaPluginManagerPriv *priv;
 	priv = ANJUTA_PLUGIN_MANAGER (object)->priv;
+
 	if (priv->available_plugins)
 	{
 		g_list_foreach (priv->available_plugins, (GFunc)g_object_unref, NULL);
@@ -2244,12 +2220,12 @@ anjuta_plugin_manager_dispose (GObject *object)
 	}
 	if (priv->activated_plugins)
 	{
-		g_hash_table_foreach_remove (priv->activated_plugins, on_foreach_remove_unref, NULL);
+		g_hash_table_destroy (priv->activated_plugins);
 		priv->activated_plugins = NULL;
 	}
 	if (priv->plugins_cache)
 	{
-		g_hash_table_foreach_remove (priv->plugins_cache, on_foreach_remove_unref, NULL);
+		g_hash_table_destroy (priv->plugins_cache);
 		priv->plugins_cache = NULL;
 	}
 	if (priv->plugins_by_name)
@@ -2628,12 +2604,6 @@ anjuta_plugin_manager_get_remembered_plugins (AnjutaPluginManager *plugin_manage
 	return g_string_free (write_buffer, FALSE);
 }
 
-static gboolean
-on_foreach_remove_true (gpointer k, gpointer v, gpointer d)
-{
-	return TRUE;
-}
-
 /**
  * anjuta_plugin_manager_set_remembered_plugins:
  * @plugin_manager: A #AnjutaPluginManager object
@@ -2663,9 +2633,8 @@ anjuta_plugin_manager_set_remembered_plugins (AnjutaPluginManager *plugin_manage
 	g_return_if_fail (remembered_plugins != NULL);
 	
 	priv = plugin_manager->priv;
-	
-	g_hash_table_foreach_remove (priv->remember_plugins,
-								 on_foreach_remove_true, NULL);
+
+	g_hash_table_remove_all (priv->remember_plugins);
 	
 	strv_lines = g_strsplit (remembered_plugins, ";", -1);
 	line_idx = strv_lines;
