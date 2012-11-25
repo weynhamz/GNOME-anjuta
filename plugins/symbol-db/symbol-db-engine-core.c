@@ -612,7 +612,9 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 										 gchar * param_key3,
 										 GValue * value3,
 										 gchar * param_key4,
-										 GValue * value4)
+										 GValue * value4,
+										 gchar * param_key5,
+										 GValue * value5)
 {
 	const GdaSet *plist;
 	const GdaStatement *stmt;
@@ -671,7 +673,17 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	}
 
 	gda_holder_set_value (param, value4, NULL);	
-			
+
+	/* ...and the fifth one */
+	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key5)) == NULL)
+	{
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+		           "param is NULL from pquery!");
+		return -1;
+	}
+
+	gda_holder_set_value (param, value5, NULL);
+
 	/* execute the query with parameters just set */
 	data_model = gda_connection_statement_execute_select (priv->db_connection, 
 														  (GdaStatement*)stmt, 
@@ -1985,7 +1997,9 @@ sdb_engine_init (SymbolDBEngine * object)
 	    	file_defined_id =  ## /* name:'filedefid' type:gint */ AND \
 	    	type_type = ## /* name:'typetype' type:gchararray */ AND \
 	    	type_name = ## /* name:'typename' type:gchararray */ AND \
-	    	update_flag = 0 LIMIT 1");
+	    	update_flag = 0 \
+		  ORDER BY abs(file_position - ## /* name:'fileposition' type:gint */) \
+		  LIMIT 1");
 	
 	STATIC_QUERY_POPULATE_INIT_NODE(sdbe->priv->static_query_list, 
 	 								PREP_QUERY_UPDATE_SYMBOL_ALL,
@@ -4777,7 +4791,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 	gint kind_id = 0;
 	gint access_kind_id = 0;
 	gint implementation_kind_id = 0;
-	GValue v1 = {0}, v2 = {0}, v3 = {0}, v4 = {0};
+	GValue v1 = {0}, v2 = {0}, v3 = {0}, v4 = {0}, v5 = {0};
 	gboolean sym_was_updated = FALSE;
 	gboolean update_flag;
 	gchar *type_regex;;
@@ -4879,6 +4893,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		SDB_GVALUE_SET_INT(v2, file_defined_id);
 		SDB_GVALUE_SET_STATIC_STRING(v3, type_type);
 		SDB_GVALUE_SET_STATIC_STRING(v4, type_name);
+		SDB_GVALUE_SET_INT(v5, file_position);
 		
 		/* 
 		 * We cannot live without this select because we must know whether a similar 
@@ -4890,7 +4905,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 							  "symname", &v1,
 							  "filedefid", &v2,
 							  "typetype", &v3,
-		    				  "typename", &v4);
+		    				  "typename", &v4,
+							  "fileposition", &v5);
 	}
 	
 	/* ok then, parse the symbol id value */
