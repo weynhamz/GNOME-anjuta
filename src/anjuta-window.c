@@ -546,8 +546,17 @@ anjuta_window_dispose (GObject *widget)
 		g_hash_table_destroy (win->values);
 		win->values = NULL;
 	}
-
+	if (win->ui) {
+		g_object_unref (win->ui);
+		win->ui = NULL;
+	}
 	if (win->layout_manager) {
+		/* Disconnect signal handlers so we don't get any signals after we're
+		 * disposed. */
+		g_signal_handlers_disconnect_by_func (win->layout_manager, on_layout_dirty_notify,
+		                                      win);
+		g_signal_handlers_disconnect_by_func (gdl_dock_layout_get_master (win->layout_manager),
+		                                      on_layout_locked_notify, win);
 		g_object_unref (win->layout_manager);
 		win->layout_manager = NULL;
 	}
@@ -581,7 +590,6 @@ anjuta_window_finalize (GObject *widget)
 
 	win = ANJUTA_WINDOW (widget);
 
-	gtk_widget_destroy (GTK_WIDGET (win->ui));
 	gtk_widget_destroy (GTK_WIDGET (win->preferences));
 
 	G_OBJECT_CLASS (parent_class)->finalize (widget);
