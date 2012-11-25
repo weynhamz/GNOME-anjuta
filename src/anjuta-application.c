@@ -62,10 +62,11 @@ struct _AnjutaApplicationPrivate {
 static gboolean
 on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
 {
-	AnjutaApplication *app = ANJUTA_APPLICATION (user_data);
+	AnjutaApplication *app = user_data;
+	AnjutaApplicationPrivate *priv = app->priv;
+
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
-	AnjutaProfile *current_profile;
 	AnjutaSavePrompt *save_prompt;
 	gchar *remembered_plugins;
 
@@ -101,6 +102,8 @@ on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
 				break;
 		}
 	}
+	gtk_widget_destroy (GTK_WIDGET (save_prompt));
+
 	/* Wait for files to be really saved (asyncronous operation) */
 	if (win->save_count > 0)
 	{
@@ -111,29 +114,24 @@ on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
 		}
 	}
 
-	/* If current active profile is "user", save current session as
-	 * default session
-	 */
-	current_profile = anjuta_profile_manager_get_current (profile_manager);
-	if (strcmp (anjuta_profile_get_name (current_profile), "user") == 0)
-	{
-		gchar *session_dir;
-		session_dir = USER_SESSION_PATH_NEW;
-		anjuta_shell_session_save (ANJUTA_SHELL (win), session_dir, NULL);
-		g_free (session_dir);
-	}
-
 	anjuta_shell_notify_exit (ANJUTA_SHELL (win), NULL);
 
-	gtk_widget_destroy (GTK_WIDGET (save_prompt));
+	/* Close the profile manager which will emit "profile-descoped" and release
+	 * all previous profiles. */
+	anjuta_profile_manager_close (profile_manager);
 
-	/* Shutdown */
-	if (anjuta_application_get_proper_shutdown (app))
+	/* If this is the last window we can just quit the application and skip
+	 * deactivating plugins and other cleanup. */
+	if (!priv->proper_shutdown &&
+	    g_list_length (gtk_application_get_windows (GTK_APPLICATION (app))) == 1)
 	{
-		gtk_widget_hide (GTK_WIDGET (win));
-		anjuta_plugin_manager_unload_all_plugins
-			(anjuta_shell_get_plugin_manager (ANJUTA_SHELL (win), NULL));
+		g_application_quit (G_APPLICATION (app));
+		return TRUE;
 	}
+
+	/* Hide the window while unloading all the plugins. */
+	gtk_widget_hide (GTK_WIDGET (win));
+	anjuta_plugin_manager_unload_all_plugins (plugin_manager);
 
 	return FALSE;
 }
