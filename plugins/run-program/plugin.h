@@ -22,6 +22,7 @@
 #define _PLUGIN_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-terminal.h>
 
 /* Anjuta Shell value set by this plugin */
 
@@ -65,6 +66,9 @@ struct _RunProgramPlugin
 	/* Build data */
 	gchar *build_uri;
 	gpointer build_handle;
+
+	/* IAnjutaTerminal object */
+	IAnjutaTerminal *terminal;
 };
 
 void run_plugin_update_shell_value (RunProgramPlugin *plugin);

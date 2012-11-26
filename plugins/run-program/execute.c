@@ -138,11 +138,8 @@ run_plugin_child_free (RunProgramPlugin *plugin, GPid pid)
 				plugin->child_exited_connection--;
 				if (plugin->child_exited_connection == 0)
 				{
-					IAnjutaTerminal *term;
-
-					term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-													   IAnjutaTerminal, NULL);
-					g_signal_handlers_disconnect_by_func (term, on_child_terminated, plugin);
+					if (plugin->terminal)
+						g_signal_handlers_disconnect_by_func (plugin->terminal, on_child_terminated, plugin);
 				}
 			}
 			else if (((RunProgramChild *)child->data)->source)
@@ -309,6 +306,10 @@ execute_with_terminal (RunProgramPlugin *plugin,
 		pid = ianjuta_terminal_execute_command (term, dir, new_cmd, env, NULL);
 
 		g_free (new_cmd);
+
+		plugin->terminal = term;
+		g_object_add_weak_pointer (G_OBJECT (plugin->terminal),
+		                           (void **)&plugin->terminal);
 	}
 
 	if (pid > 0)
@@ -583,12 +584,10 @@ void
 run_free_all_children (RunProgramPlugin *plugin)
 {
 	GList *child;
-	IAnjutaTerminal *term;
 
 	/* Remove terminal child-exited handle */
-	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										IAnjutaTerminal, NULL);
-	if (term != NULL) g_signal_handlers_disconnect_by_func (term, on_child_terminated, plugin);
+	if (plugin->terminal != NULL)
+		g_signal_handlers_disconnect_by_func (plugin->terminal, on_child_terminated, plugin);
 	plugin->child_exited_connection = 0;
 
 	/* Remove all child-exited source */

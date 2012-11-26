@@ -364,6 +364,7 @@ run_plugin_instance_init (GObject *obj)
 	self->child = NULL;
 
 	self->build_uri = NULL;
+	self->terminal = NULL;
 }
 
 /* dispose is used to unref object created with instance_init */
