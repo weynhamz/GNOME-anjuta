@@ -204,8 +204,8 @@ anjuta_file_drop_entry_class_init (AnjutaFileDropEntryClass *klass)
 	                                 g_param_spec_string ("relative-path",
 	                                                      "relative-path",
 	                                                      _("Path that dropped files should be relative to"),
-	                                                      "",
-	                                                      0));
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 GtkWidget *
