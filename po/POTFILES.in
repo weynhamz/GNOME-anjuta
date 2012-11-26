@@ -153,6 +153,7 @@ plugins/git/git-unstage-pane.c
 plugins/git/plugin.c
 plugins/glade/anjuta-design-document.c
 [type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
+[type: gettext/glade]plugins/glade/anjuta-glade.ui
 plugins/glade/plugin.c
 [type: gettext/glade]plugins/indentation-c-style/anjuta-indentation-c-style.ui
 plugins/indentation-c-style/plugin.c

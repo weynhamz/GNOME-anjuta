@@ -2,6 +2,10 @@ SUBDIRS = images
 
 if HAVE_PLUGIN_GLADE
 
+# Plugin glade file
+glade_gladedir = $(anjuta_glade_dir)
+glade_glade_DATA = anjuta-glade.ui
+
 # Plugin UI file
 glade_uidir = $(anjuta_ui_dir)
 glade_ui_DATA = anjuta-glade.xml
@@ -43,5 +47,6 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(glade_plugin_DATA) \
 	$(glade_ui_DATA) \
+	$(glade_glade_DATA) \
 	$(glade_pixmaps_DATA)
 

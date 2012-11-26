@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">glade-align-edit</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">glade-selector</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">glade-drag-resize</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">glade-margin-edit</property>
+    <property name="icon-size">3</property>
+  </object>
+  <object class="GtkBox" id="button_box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="spacing">5</property>
+    <child>
+      <object class="GtkRadioButton" id="selector_toggle">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip_markup" translatable="yes">Select widgets in the workspace</property>
+        <property name="tooltip_text" translatable="yes">Select widgets in the workspace</property>
+        <property name="image">image1</property>
+        <property name="xalign">0.5</property>
+        <property name="active">True</property>
+        <property name="draw_indicator">False</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkRadioButton" id="resize_toggle">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="has_tooltip">True</property>
+        <property name="tooltip_markup" translatable="yes">Drag and resize widgets in the workspace</property>
+        <property name="tooltip_text" translatable="yes">Drag and resize widgets in the workspace</property>
+        <property name="image">image2</property>
+        <property name="xalign">0</property>
+        <property name="active">True</property>
+        <property name="draw_indicator">False</property>
+        <property name="group">selector_toggle</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkRadioButton" id="margin_toggle">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes">Edit widget margins</property>
+        <property name="image">image3</property>
+        <property name="xalign">0</property>
+        <property name="active">True</property>
+        <property name="draw_indicator">False</property>
+        <property name="group">selector_toggle</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkRadioButton" id="align_toggle">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="tooltip_text" translatable="yes">Edit widget alignment</property>
+        <property name="image">image4</property>
+        <property name="xalign">0</property>
+        <property name="active">True</property>
+        <property name="draw_indicator">False</property>
+        <property name="group">selector_toggle</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+  </object>
+</interface>

@@ -30,6 +30,7 @@
 #include "anjuta-design-document.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-glade.xml"
+#define BUIDER_FILE PACKAGE_DATA_DIR"/glade/anjuta-glade.ui"
 
 static gpointer parent_class;
 
@@ -54,6 +55,8 @@ struct _GladePluginPriv
 
 	GtkWidget *selector_toggle;
 	GtkWidget *resize_toggle;
+	GtkWidget *margin_toggle;
+	GtkWidget *align_toggle;
 
 	/* File count, disable plugin when NULL */
 	guint file_count;
@@ -433,7 +436,7 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 }
 
 static void
-on_selector_button_toggled (GtkToggleToolButton * button, GladePlugin *plugin)
+on_selector_button_toggled (GtkToggleButton * button, GladePlugin *plugin)
 {
 	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
 
@@ -442,8 +445,6 @@ on_selector_button_toggled (GtkToggleToolButton * button, GladePlugin *plugin)
 		glade_project_set_add_item (active_project, NULL);
 		glade_project_set_pointer_mode (active_project, GLADE_POINTER_SELECT);
 	}
-	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), TRUE);
 }
 
 static void
@@ -454,9 +455,25 @@ on_drag_resize_button_toggled (GtkToggleToolButton *button,
 
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle)))
 		glade_project_set_pointer_mode (active_project, GLADE_POINTER_DRAG_RESIZE);
-	else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), TRUE);
 
+}
+
+static void
+on_margin_button_toggled (GtkToggleButton * button, GladePlugin *plugin)
+{
+	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->margin_toggle)))
+		glade_project_set_pointer_mode (active_project, GLADE_POINTER_MARGIN_EDIT);
+}
+
+static void
+on_align_button_toggled (GtkToggleButton * button, GladePlugin *plugin)
+{
+	GladeProject *active_project = glade_inspector_get_project(GLADE_INSPECTOR (plugin->priv->inspector));
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->align_toggle)))
+		glade_project_set_pointer_mode (active_project, GLADE_POINTER_ALIGN_EDIT);
 }
 
 static void
@@ -483,20 +500,29 @@ on_pointer_mode_changed (GladeProject *project,
 	g_signal_handlers_block_by_func (plugin->priv->resize_toggle,
 	                                 on_drag_resize_button_toggled, plugin);
 
-	if (glade_project_get_pointer_mode (project) == GLADE_POINTER_SELECT)
+	switch (glade_project_get_pointer_mode (project))
 	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), TRUE);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), FALSE);
-	}
-	else if (glade_project_get_pointer_mode (project) == GLADE_POINTER_DRAG_RESIZE)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), TRUE);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
-	                              }
-	else
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), FALSE);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
+		case GLADE_POINTER_SELECT:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), TRUE);
+			break;
+
+		case GLADE_POINTER_DRAG_RESIZE:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), TRUE);
+			break;
+
+		case GLADE_POINTER_MARGIN_EDIT:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->margin_toggle), TRUE);
+			break;
+
+		case GLADE_POINTER_ALIGN_EDIT:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->align_toggle), TRUE);
+			break;
+
+		default:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->resize_toggle), FALSE);
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->selector_toggle), FALSE);
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->margin_toggle), FALSE);
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plugin->priv->align_toggle), FALSE);
 	}
 
 	g_signal_handlers_unblock_by_func (plugin->priv->selector_toggle,
@@ -565,50 +591,6 @@ glade_plugin_load_progress (GladeProject *project,
 	g_free (project_name);
 }
 
-static GtkWidget *
-create_selector_tool_button ()
-{
-  GtkWidget *button;
-  GtkWidget *image;
-
-  image = gtk_image_new_from_stock ("glade-selector", GTK_ICON_SIZE_LARGE_TOOLBAR);
-
-  button = gtk_toggle_button_new ();
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-
-  gtk_button_set_image (GTK_BUTTON (button), image);
-
-  gtk_widget_set_tooltip_text (button,
-                               _("Select widgets in the workspace"));
-
-  gtk_widget_show (button);
-  gtk_widget_show (image);
-
-  return button;
-}
-
-static GtkWidget *
-create_drag_resize_tool_button ()
-{
-  GtkWidget *button;
-  GtkWidget *image;
-
-  image = gtk_image_new_from_stock ("glade-drag-resize", GTK_ICON_SIZE_LARGE_TOOLBAR);
-
-  button = gtk_toggle_button_new ();
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-
-  gtk_button_set_image (GTK_BUTTON (button), image);
-
-  gtk_widget_set_tooltip_text (button,
-                               _("Drag and resize widgets in the workspace"));
-
-  gtk_widget_show (button);
-  gtk_widget_show (image);
-
-  return button;
-}
-
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -616,6 +598,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	GladePluginPriv *priv;
 	AnjutaStatus* status;
 	GtkWidget* button_box;
+	GtkBuilder* builder;
+	GError* err = NULL;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
 
@@ -649,33 +633,40 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	priv->palette = glade_palette_new();
 	priv->palette_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
-	priv->selector_toggle = create_selector_tool_button ();
-	priv->resize_toggle = create_drag_resize_tool_button ();
-	button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start (GTK_BOX (button_box),
-	                    priv->selector_toggle,
-	                    FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (button_box),
-	                    priv->resize_toggle,
-	                    FALSE, FALSE, 0);
+
+	/* Create and add the glade pointer mode toggles. */
+	builder = gtk_builder_new ();
+	if (!gtk_builder_add_from_file (builder, BUIDER_FILE, &err))
+	{
+		g_warning ("Couldn't load builder file: %s", err->message);
+		g_error_free (err);
+		return FALSE;
+	}
+	button_box = GTK_WIDGET (gtk_builder_get_object (builder, "button_box"));
+	priv->selector_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "selector_toggle"));
+	priv->resize_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "resize_toggle"));
+	priv->margin_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "margin_toggle"));
+	priv->align_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "align_toggle"));
+
 	gtk_box_pack_start (GTK_BOX (priv->palette_box),
 	                    button_box,
 	                    FALSE, FALSE, 0);
+	g_object_unref (builder);
+
+
 	gtk_box_pack_start (GTK_BOX (priv->palette_box),
 	                    priv->palette,
 	                    TRUE, TRUE, 0);
-
 	gtk_widget_show_all (priv->palette_box);
-
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->selector_toggle),
-	                              TRUE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->resize_toggle),
-	                              FALSE);
 
 	g_signal_connect (G_OBJECT (priv->selector_toggle), "toggled",
                     G_CALLBACK (on_selector_button_toggled), plugin);
 	g_signal_connect (G_OBJECT (priv->resize_toggle), "toggled",
                     G_CALLBACK (on_drag_resize_button_toggled), plugin);
+	g_signal_connect (G_OBJECT (priv->margin_toggle), "toggled",
+                    G_CALLBACK (on_margin_button_toggled), plugin);
+	g_signal_connect (G_OBJECT (priv->align_toggle), "toggled",
+                    G_CALLBACK (on_align_button_toggled), plugin);
 
 
 	glade_palette_set_show_selector_button (GLADE_PALETTE (priv->palette),
