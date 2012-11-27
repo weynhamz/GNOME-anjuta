@@ -60,9 +60,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
-/* AnjutaPreferences is a singleton */
-static AnjutaPreferences* default_preferences = NULL;
-
 struct _AnjutaPreferencesPriv
 {
 	GtkWidget           *prefs_dialog;
@@ -575,30 +572,12 @@ anjuta_preferences_new (AnjutaPluginManager *plugin_manager, const gchar *common
 {
 	AnjutaPreferences *pr;
 
-	if (!default_preferences)
-	{
-		pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
-		pr->priv->plugin_manager = g_object_ref (plugin_manager);
-		pr->priv->common_schema_id = g_strdup (common_schema_id);
-		pr->priv->common_gsettings = g_hash_table_new_full (g_str_hash, g_str_equal,
-		                                                    g_free,
-		                                                    (GDestroyNotify) g_object_unref);
-		default_preferences = pr;
-		return pr;
-	}
-	else
-		return default_preferences;
+	pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
+	pr->priv->plugin_manager = g_object_ref (plugin_manager);
+	pr->priv->common_schema_id = g_strdup (common_schema_id);
+	pr->priv->common_gsettings = g_hash_table_new_full (g_str_hash, g_str_equal,
+	                                                    g_free,
+	                                                    (GDestroyNotify) g_object_unref);
+	return pr;
 
-}
-
-/**
- * anjuta_preferences_default:
- *
- * Get the default instace of anjuta preferences
- *
- * Return value: A #AnjutaPreferences object.
- */
-AnjutaPreferences *anjuta_preferences_default ()
-{
-	return default_preferences;
 }

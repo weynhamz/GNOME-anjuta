@@ -258,7 +258,7 @@ ipreferences_merge(IAnjutaPreferences* obj, AnjutaPreferences* prefs, GError** e
 
 	atp_tool_dialog_show (&atp_plugin->dialog, bxml);
 
-	anjuta_preferences_add_from_builder (anjuta_preferences_default (), bxml,
+	anjuta_preferences_add_from_builder (prefs, bxml,
 	                                     atp_plugin->settings,
 	                                     "Tools", _("Tools"), ICON_FILE);
 	g_object_unref (bxml);

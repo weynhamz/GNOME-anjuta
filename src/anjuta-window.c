@@ -550,6 +550,11 @@ anjuta_window_dispose (GObject *widget)
 		g_object_unref (win->ui);
 		win->ui = NULL;
 	}
+	if (win->preferences)
+	{
+		g_object_unref (win->preferences);
+		win->preferences = NULL;
+	}
 	if (win->layout_manager) {
 		/* Disconnect signal handlers so we don't get any signals after we're
 		 * disposed. */
@@ -579,20 +584,6 @@ anjuta_window_dispose (GObject *widget)
 	}
 
 	G_OBJECT_CLASS (parent_class)->dispose (widget);
-}
-
-static void
-anjuta_window_finalize (GObject *widget)
-{
-	AnjutaWindow *win;
-
-	g_return_if_fail (ANJUTA_IS_WINDOW (widget));
-
-	win = ANJUTA_WINDOW (widget);
-
-	gtk_widget_destroy (GTK_WIDGET (win->preferences));
-
-	G_OBJECT_CLASS (parent_class)->finalize (widget);
 }
 
 static void
@@ -834,7 +825,6 @@ anjuta_window_class_init (AnjutaWindowClass *class)
 	object_class = (GObjectClass*) class;
 	widget_class = (GtkWidgetClass*) class;
 
-	object_class->finalize = anjuta_window_finalize;
 	object_class->dispose = anjuta_window_dispose;
 
 	widget_class->key_press_event = anjuta_window_key_press_event;

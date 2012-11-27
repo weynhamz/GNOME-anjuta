@@ -913,7 +913,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	}
 
 
-	anjuta_preferences_add_from_builder (anjuta_preferences_default (), bxml,
+	anjuta_preferences_add_from_builder (prefs, bxml,
 	                                     term_plugin->settings,
 	                                     "Terminal", _("Terminal"), ICON_FILE);
 
