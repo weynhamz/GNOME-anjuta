@@ -1372,7 +1372,7 @@ msgstr "Nastavit projekt"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:2
 msgid "Regenerate project"
-msgstr "Regenerovat projekt"
+msgstr "Přegenerovat projekt"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:3
 msgid "Configuration:"
