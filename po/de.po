@@ -11,7 +11,7 @@
 #
 # Display... != Zeigt...an (Bitte aufpassen, ist hier besonders wichtig!)
 # Auf Unterschied achten: show/display == zeigen/anzeigen
-# Plugins == Komponenten! (Ja, im Gegensatz zur Standard-Übersetzung macht hier Komponenten viel mehr Sinn!
+# Plugins == Komponenten! (Ja, im Gegensatz zur Standard-Übersetzung ergibt hier Komponenten viel mehr Sinn!
 # repository      = (Software)bestand
 # to stage        = bereitstellen
 # to revert       = zurücknehmen
@@ -21,6 +21,9 @@
 # unstaged files  =
 # stack           = Stapel
 # stacktrace      = stacktrace
+# build	          = erstellen
+# compile         = kompilieren
+# tag             = tag
 #
 # Jens Georg <mail@jensgeorg>, 2001.
 # Hendrik Richter <hendrikr@gnome.org>, 2005, 2007, 2009.
@@ -36,8 +39,8 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-07-30 14:37+0000\n"
-"PO-Revision-Date: 2012-09-23 14:49+0100\n"
+"POT-Creation-Date: 2012-11-18 14:16+0000\n"
+"PO-Revision-Date: 2012-11-18 13:45+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: \n"
@@ -161,11 +164,11 @@ msgstr "Westlich"
 #: ../libanjuta/anjuta-encodings.c:153 ../libanjuta/anjuta-encodings.c:225
 #: ../libanjuta/anjuta-encodings.c:262
 msgid "Central European"
-msgstr "Mitteleuropa"
+msgstr "Mitteleuropäisch"
 
 #: ../libanjuta/anjuta-encodings.c:155
 msgid "South European"
-msgstr "Südeuropa"
+msgstr "Südeuropäisch"
 
 #: ../libanjuta/anjuta-encodings.c:157 ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:276
@@ -389,7 +392,7 @@ msgstr "Verfügbare Komponenten"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
 msgid "Preferred plugins"
-msgstr "Bevorzugte Komponente"
+msgstr "Bevorzugte Komponenten"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid "Only show user activatable plugins"
@@ -583,7 +586,8 @@ msgid_plural ""
 msgstr[0] ""
 "Es gibt %d geändertes Objekt. Soll es vor dem Schließen gespeichert werden?"
 msgstr[1] ""
-"Es gibt %d geänderte Objekte. Sollen sie vor dem Schließen gespeichert werden?"
+"Es gibt %d geänderte Objekte. Sollen sie vor dem Schließen gespeichert "
+"werden?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -626,8 +630,8 @@ msgstr "System: "
 #: ../libanjuta/anjuta-utils.c:504
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
-"installing missing packages. Please install \"packagekit-gnome\" package from "
-"your distribution, or install the missing packages manually."
+"installing missing packages. Please install \"packagekit-gnome\" package "
+"from your distribution, or install the missing packages manually."
 msgstr ""
 "PackageKit scheint nicht installiert zu sein. PackageKit ist nötig, um "
 "benötigte Pakete installieren zu können. Bitte installieren Sie das Paket "
@@ -645,7 +649,7 @@ msgid ""
 "The \"%s\" package is not installed.\n"
 "Please install it."
 msgstr ""
-"»%s« ist auf ihrem Rechner nicht installiert.\n"
+"»%s« ist auf Ihrem Rechner nicht installiert.\n"
 "Bitte installieren Sie es."
 
 #: ../libanjuta/anjuta-utils.c:599
@@ -654,15 +658,15 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
-"»%s« ist auf ihrem Rechner nicht installiert.\n"
+"»%s« ist auf Ihrem Rechner nicht installiert.\n"
 "Bitte installieren Sie es."
 
 #. Try xterm
 #: ../libanjuta/anjuta-utils.c:1170
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
-"Es konnte kein Terminal gefunden werden. »xterm« wird verwendet, auch wenn es "
-"vielleicht nicht funktioniert"
+"Es konnte kein Terminal gefunden werden. »xterm« wird verwendet, auch wenn "
+"es vielleicht nicht funktioniert"
 
 # -- sigh, i think shell == prompt in German --
 #: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
@@ -812,7 +816,7 @@ msgstr "Man-Dokumentation"
 
 #: ../plugins/am-project/am-project.c:196
 msgid "Info Documentation"
-msgstr "Info-Informationen"
+msgstr "Info-Dokumentation"
 
 #: ../plugins/am-project/am-project.c:204
 msgid "Miscellaneous Data"
@@ -896,8 +900,8 @@ msgstr "Adresse für Fehlerbericht:"
 
 #: ../plugins/am-project/am-properties.c:70
 msgid ""
-"An email address or a link to a web page where the user can report bug. It is "
-"optional."
+"An email address or a link to a web page where the user can report bug. It "
+"is optional."
 msgstr ""
 "Eine E-Mail-Adresse oder eine Webseite, wo der Benutzer Fehler melden kann, "
 "optional."
@@ -908,8 +912,8 @@ msgstr "Paketname:"
 
 #: ../plugins/am-project/am-properties.c:79
 msgid ""
-"Package name, it can contains only alphanumerics and underscore characters.It "
-"is generated from the project name if not provided."
+"Package name, it can contains only alphanumerics and underscore characters."
+"It is generated from the project name if not provided."
 msgstr ""
 "Paketname, der nur alphanumerische Zeichen und Unterstriche enthalten darf. "
 "Wenn nicht angegeben, wird der Paketname aus dem Projektnamen erstellt."
@@ -930,8 +934,8 @@ msgstr "Libtool-Unterstützung:"
 #: ../plugins/am-project/am-properties.c:98
 msgid "Add support to compile shared and static libraries with libtool."
 msgstr ""
-"Fügt Unterstützung für das Erstellen von gemeinsam verwendeten und statischen "
-"Bibliotheken mit libtool hinzu"
+"Fügt Unterstützung für das Erstellen von gemeinsam verwendeten und "
+"statischen Bibliotheken mit libtool hinzu"
 
 #: ../plugins/am-project/am-properties.c:104
 #: ../plugins/am-project/am-properties.c:211
@@ -988,7 +992,8 @@ msgstr "Flags für C++ Compiler:"
 #: ../plugins/am-project/am-properties.c:134
 #: ../plugins/am-project/am-properties.c:241
 msgid "Common additional C++ compiler flags for all targets in this group."
-msgstr "Übliche zusätzliche C++ Compiler-Flags für alle Ziele in dieser Gruppe."
+msgstr ""
+"Übliche zusätzliche C++ Compiler-Flags für alle Ziele in dieser Gruppe."
 
 #: ../plugins/am-project/am-properties.c:140
 #: ../plugins/am-project/am-properties.c:247
@@ -1067,8 +1072,8 @@ msgid ""
 "Common additional Lex or Flex lexical analyser generator flags for all "
 "targets in this group."
 msgstr ""
-"Übliche zusätzliche Generator-Flags für die lexikalische Analyse mit Lex oder "
-"Flex für alle Ziele in dieser Gruppe."
+"Übliche zusätzliche Generator-Flags für die lexikalische Analyse mit Lex "
+"oder Flex für alle Ziele in dieser Gruppe."
 
 #: ../plugins/am-project/am-properties.c:185
 #: ../plugins/am-project/am-properties.c:292
@@ -1134,7 +1139,8 @@ msgstr "Installationsordner:"
 #: ../plugins/am-project/am-properties.c:1075
 #: ../plugins/am-project/am-properties.c:1150
 msgid ""
-"It has to be a standard directory or a custom one defined in group properties."
+"It has to be a standard directory or a custom one defined in group "
+"properties."
 msgstr ""
 "Es muss ein Standard-Ordner oder ein angepasster sein, der in den "
 "Gruppeneigenschaften definiert wird."
@@ -1218,7 +1224,8 @@ msgstr "Zusätzliche Objective C-Compiler-Flags für dieses Ziel."
 #: ../plugins/am-project/am-properties.c:604
 #: ../plugins/am-project/am-properties.c:779
 #: ../plugins/am-project/am-properties.c:955
-msgid "Additional Lex or Flex lexical analyser generator flags for this target."
+msgid ""
+"Additional Lex or Flex lexical analyser generator flags for this target."
 msgstr ""
 "Zusätzliche Generator-Flags für die lexikalische Analyse mit Lex oder Flex "
 "für dieses Ziel."
@@ -1308,8 +1315,8 @@ msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
 msgstr ""
-"Das Zielnicht mit einem optionalen Präfix umbenennen. Wird zur Vermeidung des "
-"Überschreibens von Systemprogrammen verwendet."
+"Das Ziel nicht mit einem optionalen Präfix umbenennen. Wird zur Vermeidung "
+"des Überschreibens von Systemprogrammen verwendet."
 
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
@@ -1327,9 +1334,9 @@ msgstr "Zielpfad beibehalten:"
 #: ../plugins/am-project/am-properties.c:1123
 #: ../plugins/am-project/am-properties.c:1195
 msgid ""
-"Keep relative target path for installing it. By example if you have a program "
-"subdir/app installed in bin directory it will be installed in bin/subdir/app "
-"not in bin/app."
+"Keep relative target path for installing it. By example if you have a "
+"program subdir/app installed in bin directory it will be installed in bin/"
+"subdir/app not in bin/app."
 msgstr ""
 "Relativen Installationspfad beibehalten. Wenn beispielsweise ein Programm im "
 "bin-Ordner als subdir/app installieren lassen, dann wird es als bin/subdir/"
@@ -1347,8 +1354,8 @@ msgstr "Abschnitt im Handbuch:"
 
 #: ../plugins/am-project/am-properties.c:1049
 msgid ""
-"Section where are installed the man pages. Valid section names are the digits "
-"‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
+"Section where are installed the man pages. Valid section names are the "
+"digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
 "Bereich, in dem die UNIX-Handbuchseiten installiert werde. Gültig sind "
 "Ziffern von 0 bis 9 und die Buchstaben »l« und »n«."
@@ -1459,7 +1466,7 @@ msgstr "Bei Fehlern fortfahren"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Translate messages"
-msgstr "Nachricht übersetzen"
+msgstr "Nachrichten übersetzen"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Highlight build warnings and errors in editor"
@@ -1496,19 +1503,20 @@ msgstr "Befehl wurde vom Benutzer widerrufen"
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
-"»%s« kann nicht übersetzt werden: Es ist keine Übersetzungsregel für diesen "
-"Dateitypen definiert."
+"»%s« kann nicht kompiliert werden: Es ist keine Kompilierungsregel für "
+"diesen Dateitypen definiert."
 
 #: ../plugins/build-basic-autotools/build.c:1043
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
-"Projekt kann nicht konfiguriert werden: Das Skript zum Konfigurieren fehlt in "
-"»%s«."
+"Projekt kann nicht konfiguriert werden: Das Skript zum Konfigurieren fehlt "
+"in »%s«."
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:742
-#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1 ../src/preferences.ui.h:15
+#: ../plugins/terminal/anjuta-terminal-plugin.ui.h:1
+#: ../src/preferences.ui.h:15
 msgid "Default"
 msgstr "Vorgabe"
 
@@ -1575,9 +1583,9 @@ msgstr "Verwendeter Befehl, der zum Installieren von Dateien berechtigt"
 msgid ""
 "The command has to contain \"%s\" or \"%q\". This will be replaced by the "
 "command used to install the files, by example \"make install\". %s is "
-"replaced by the command without any change while %q is replaced by the quoted "
-"command. You can use %% to get a \"%\" character. A typical value is \"sudo %s"
-"\" or \"su -c %q\"."
+"replaced by the command without any change while %q is replaced by the "
+"quoted command. You can use %% to get a \"%\" character. A typical value is "
+"\"sudo %s\" or \"su -c %q\"."
 msgstr ""
 "Der Befehl muss »%s« oder »%q« enthalten. Dies wird durch den Befehl zum "
 "Installieren von Dateien ersetzt, zum Beispiel »make install«. %s wird ohne "
@@ -1626,26 +1634,28 @@ msgstr "Verlasse: %s"
 #. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:824 ../plugins/tools/execute.c:330
+#: ../plugins/build-basic-autotools/plugin.c:824
+#: ../plugins/tools/execute.c:330
 msgid "warning:"
 msgstr "Warnung:"
 
 #: ../plugins/build-basic-autotools/plugin.c:825
 msgid "warning:-old"
-msgstr "Warnung: -alt"
+msgstr "Warnung: -old"
 
 #. The translations should match that of 'gcc' program.
 #. * The second string with -old should be used for an older
 #. * version of 'gcc' if necessary. If you update one string,
 #. * move the first one to translate the -old string and then
 #. * replace the first string only.
-#: ../plugins/build-basic-autotools/plugin.c:836 ../plugins/tools/execute.c:335
+#: ../plugins/build-basic-autotools/plugin.c:836
+#: ../plugins/tools/execute.c:335
 msgid "error:"
 msgstr "Fehler:"
 
 #: ../plugins/build-basic-autotools/plugin.c:837
 msgid "error:-old"
-msgstr "Fehler: -alt"
+msgstr "Fehler: -old"
 
 #: ../plugins/build-basic-autotools/plugin.c:954
 #, c-format
@@ -1686,7 +1696,7 @@ msgstr "Erfolgreich abgeschlossen\n"
 #: ../plugins/build-basic-autotools/plugin.c:1097
 #, c-format
 msgid "Build %d: %s"
-msgstr "Erstelle %d: %s"
+msgstr "%d wird erstellt: %s"
 
 #: ../plugins/build-basic-autotools/plugin.c:1665
 #: ../plugins/build-basic-autotools/plugin.c:1751
@@ -1700,11 +1710,11 @@ msgstr "_Erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1669
 msgid "_Build Project"
-msgstr "Projekt _übersetzen"
+msgstr "Projekt _erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1670
 msgid "Build whole project"
-msgstr "Übersetzt das gesamte Projekt"
+msgstr "Erstellt das gesamte Projekt"
 
 #: ../plugins/build-basic-autotools/plugin.c:1675
 msgid "_Install Project"
@@ -1712,7 +1722,7 @@ msgstr "Projekt _installieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1676
 msgid "Install whole project"
-msgstr "Projekt installieren"
+msgstr "Gesamtes Projekt installieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1681
 msgid "_Check Project"
@@ -1732,7 +1742,7 @@ msgstr "Gesamtes Projekt bereinigen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "C_onfigure Project…"
-msgstr "Projekt _konfigurieren"
+msgstr "Projekt _konfigurieren …"
 
 #: ../plugins/build-basic-autotools/plugin.c:1694
 msgid "Configure project"
@@ -1740,19 +1750,19 @@ msgstr "Projekt konfigurieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Build _Tarball"
-msgstr "A_rchiv erstellen"
+msgstr "Ta_rball erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1700
 msgid "Build project tarball distribution"
-msgstr "Distributionspaket erstellen"
+msgstr "Distributionspaket (Tarball) erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "_Build Module"
-msgstr "_Module übersetzen"
+msgstr "_Modul erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1706
 msgid "Build module associated with current file"
-msgstr "Der aktuellen Datei zugehöriges Modul übersetzen"
+msgstr "Der aktuellen Datei zugehöriges Modul erstellen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "_Install Module"
@@ -1784,7 +1794,7 @@ msgstr "Datei _übersetzen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1730
 msgid "Compile current editor file"
-msgstr "Die aktuelle Quelldatei übersetzen"
+msgstr "Die aktuelle Quelldatei kompilieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Select Configuration"
@@ -1799,7 +1809,8 @@ msgid "Remove Configuration"
 msgstr "Konfiguration entfernen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1742
-msgid "Clean project (distclean) and remove configuration directory if possible"
+msgid ""
+"Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Projekt bereinigen (distclean) und nach Möglichkeit den Konfigurationsordner "
 "entfernen"
@@ -1807,7 +1818,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/plugin.c:1755
 #: ../plugins/build-basic-autotools/plugin.c:1783
 msgid "_Compile"
-msgstr "_Übersetzen"
+msgstr "_Kompilieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1756
 #: ../plugins/build-basic-autotools/plugin.c:1784
@@ -1829,7 +1840,7 @@ msgstr "_Installieren"
 #: ../plugins/build-basic-autotools/plugin.c:1768
 #: ../plugins/build-basic-autotools/plugin.c:1796
 msgid "Install module"
-msgstr "Module installieren"
+msgstr "Modul installieren"
 
 #: ../plugins/build-basic-autotools/plugin.c:1773
 #: ../plugins/build-basic-autotools/plugin.c:1807
@@ -1857,7 +1868,7 @@ msgstr "Befehl _widerrufen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1814
 msgid "Cancel build command"
-msgstr "Übersetzungsbefehl widerrufen"
+msgstr "Erstellungsbefehl widerrufen"
 
 #: ../plugins/build-basic-autotools/plugin.c:1871
 #, c-format
@@ -1877,22 +1888,22 @@ msgstr "_Bereinigen (%s)"
 #: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile (%s)"
-msgstr "Übe_rsetzen (%s)"
+msgstr "Kompilie_ren (%s)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1893
 #, c-format
 msgid "Co_mpile"
-msgstr "Übe_rsetzen"
+msgstr "Kompilie_ren"
 
 #: ../plugins/build-basic-autotools/plugin.c:2487
 msgid "Build commands"
-msgstr "Übersetzungsbefehle"
+msgstr "Erstellungsbefehle"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
 #: ../plugins/build-basic-autotools/plugin.c:2496
 msgid "Build popup commands"
-msgstr "Kontextmenü der Übersetzungsbefehle"
+msgstr "Kontextmenü der Erstellungsbefehle"
 
 #: ../plugins/build-basic-autotools/plugin.c:2915
 #: ../plugins/build-basic-autotools/plugin.c:2923
@@ -1960,7 +1971,7 @@ msgstr "Basis-Klasse:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:9
 msgid "Base Class Inheritance:"
-msgstr "Basis-Klassen-Vererbung"
+msgstr "Basis-Klassen-Vererbung:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:10
 msgid "Class Options:"
@@ -2093,7 +2104,7 @@ msgstr "Zum Projektziel hinzufügen:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:42
 msgid "Add to Repository"
-msgstr "Zum Archiv hinzufügen"
+msgstr "Zum Softwarebestand hinzufügen"
 
 #: ../plugins/class-gen/generator.c:133
 #, c-format
@@ -2110,15 +2121,16 @@ msgstr "Autogen-Vorlage, die für die Implementierungsdatei benutzt wird"
 
 #: ../plugins/class-gen/generator.c:313 ../plugins/class-gen/generator.c:321
 msgid "File to which the processed template will be written"
-msgstr "Datei in welche die verarbeitete Vorlage geschrieben werden soll"
+msgstr "Datei, in welche die verarbeitete Vorlage geschrieben werden soll"
 
 #: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
 msgid ""
-"Could not find autogen version 5; please install the autogen package. You can "
-"get it from http://autogen.sourceforge.net."
+"Could not find autogen version 5; please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net."
 msgstr ""
 "»autogen« in Version 5 konnte nicht gefunden werden. Bitte installieren Sie "
-"das autogen-Paket, welches unter http://autogen.sourceforge.net verfügbar ist."
+"das autogen-Paket, welches unter http://autogen.sourceforge.net verfügbar "
+"ist."
 
 #: ../plugins/class-gen/plugin.c:261 ../plugins/class-gen/plugin.c:472
 #, c-format
@@ -2151,7 +2163,8 @@ msgstr "Typ"
 #: ../plugins/class-gen/window.c:720 ../plugins/class-gen/window.c:730
 #: ../plugins/class-gen/window.c:752 ../plugins/class-gen/window.c:762
 #: ../plugins/class-gen/window.c:778 ../plugins/class-gen/window.c:804
-#: ../plugins/class-gen/window.c:826 ../plugins/debug-manager/stack_trace.c:871
+#: ../plugins/class-gen/window.c:826
+#: ../plugins/debug-manager/stack_trace.c:871
 msgid "Arguments"
 msgstr "Argumente"
 
@@ -2226,7 +2239,7 @@ msgstr "Extern (rsh)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:5
 msgid "Password server (pserver)"
-msgstr "Password-Server (pserver)"
+msgstr "Passwort-Server (pserver)"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:6
 msgid "CVS Preferences"
@@ -2338,7 +2351,7 @@ msgstr "Leere Ordner löschen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:30
 msgid "Create new directories"
-msgstr "Neuen Ordner erstellen"
+msgstr "Neue Ordner erstellen"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:31
 msgid "Reset sticky tags"
@@ -2715,7 +2728,7 @@ msgstr "Speicher"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:25
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr "Ein Hexadezimal-Adresse eingeben oder eine in den Daten auswählen"
+msgstr "Eine Hexadezimal-Adresse eingeben oder eine in den Daten auswählen"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:26
 msgid "Inspect"
@@ -2731,7 +2744,8 @@ msgid "Shared libraries"
 msgstr "Gemeinsam verwendete Bibliotheken"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:29
-#: ../plugins/debug-manager/plugin.c:947 ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:1039
 msgid "Kernel Signals"
 msgstr "Kernelsignale"
 
@@ -2834,8 +2848,8 @@ msgid ""
 "source code corresponding to the instructions, so some commands can perform "
 "in a strange way, especially steps."
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Sind Sie sicher, dass ein Programm ohne "
-"Fehlerdiagnose-Konfiguration diagnostiziert werden soll?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Sind Sie sicher, dass ein Programm "
+"ohne Fehlerdiagnose-Konfiguration diagnostiziert werden soll?</span>\n"
 "\n"
 "Bei eingeschalteten Optimierungen kann das Programm zur Fehlerdiagnose nicht "
 "immer den Quellcode zu den Anweisungen zuordnen. Einige Befehle können sich "
@@ -3021,8 +3035,8 @@ msgstr "Lokale Variablen"
 #: ../plugins/debug-manager/org.gnome.anjuta.plugins.debug-manager.gschema.xml.in.h:1
 msgid "Do not display warning if not using a Debug configuration"
 msgstr ""
-"Keine Warnung anzeigen, wenn keine Konfiguration zur Fehlerdiagnose verwendet "
-"wird"
+"Keine Warnung anzeigen, wenn keine Konfiguration zur Fehlerdiagnose "
+"verwendet wird"
 
 #: ../plugins/debug-manager/plugin.c:337
 msgid "Debugger Log"
@@ -3038,13 +3052,15 @@ msgstr "Geladen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:453 ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:453
+#: ../plugins/debug-manager/plugin.c:1051
 msgid "Pa_use Program"
 msgstr "Programm a_nhalten"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:454 ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:454
+#: ../plugins/debug-manager/plugin.c:1053
 msgid "Pauses the execution of the program"
 msgstr "Ausführung des Programms anhalten"
 
@@ -3080,7 +3096,7 @@ msgstr "Fehlerdiagnose wurde mit Fehler %d beendet: %s\n"
 #: ../plugins/debug-manager/plugin.c:573
 #, c-format
 msgid "Program has received signal: %s\n"
-msgstr "Programm empfing %s Signal\n"
+msgstr "Programm empfing %s-Signal\n"
 
 # --
 #. Action name
@@ -3135,29 +3151,35 @@ msgstr "Zusätzliche Ordner mit Quelldateien hinzufügen"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:923 ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Debugger Command…"
 msgstr "Fehlerdiagnose-Befehl …"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:925 ../plugins/debug-manager/plugin.c:1017
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Custom debugger command"
 msgstr "Benutzerdefinierter Fehlerdiagnose-Befehl"
 
-#: ../plugins/debug-manager/plugin.c:931 ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:939 ../plugins/debug-manager/plugin.c:1031
+#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Shared Libraries"
 msgstr "Gemeinsam verwendete Bibliotheken"
 
-#: ../plugins/debug-manager/plugin.c:941 ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Show shared library mappings"
 msgstr "Zuordnungen der gemeinsam verwendeten Bibliotheken anzeigen"
 
-#: ../plugins/debug-manager/plugin.c:949 ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Show kernel signals"
 msgstr "Kernelsignale anzeigen"
 
@@ -3195,19 +3217,19 @@ msgstr "Einzelner Schritt aus der Funktion"
 
 #: ../plugins/debug-manager/plugin.c:999
 msgid "_Run to Cursor"
-msgstr "Bis zum Cursor ausfüh_ren"
+msgstr "Bis zur Eingabemarke ausfüh_ren"
 
 #: ../plugins/debug-manager/plugin.c:1001
 msgid "Run to the cursor"
-msgstr "Bis zum Cursor ausführen"
+msgstr "Bis zur Eingabemarke ausführen"
 
 #: ../plugins/debug-manager/plugin.c:1007
 msgid "_Run from Cursor"
-msgstr "Vom Cursor ausfüh_ren"
+msgstr "Von der Eingabemarke ausfüh_ren"
 
 #: ../plugins/debug-manager/plugin.c:1009
 msgid "Run from the cursor"
-msgstr "Vom Cursor an ausführen"
+msgstr "Von der Eingabemarke an ausführen"
 
 #: ../plugins/debug-manager/plugin.c:1093
 #: ../plugins/debug-manager/plugin.c:1099
@@ -3266,7 +3288,7 @@ msgstr "Stopp"
 
 #: ../plugins/debug-manager/signals.c:298
 msgid "Print"
-msgstr "Drucken"
+msgstr "Ausgabe"
 
 #: ../plugins/debug-manager/signals.c:299
 msgid "Pass"
@@ -3466,7 +3488,7 @@ msgstr "API-Hilfe"
 
 #: ../plugins/devhelp/anjuta-devhelp.plugin.in.h:2
 msgid "Devhelp Plugin for Anjuta."
-msgstr "Devhelp-Komponente für Anjuta"
+msgstr "Devhelp-Komponente für Anjuta."
 
 #: ../plugins/devhelp/plugin.c:204
 msgid "Search Help:"
@@ -4015,7 +4037,7 @@ msgid "Search using regular expressions"
 msgstr "Mit Hilfe eines regulären Ausdrucks suchen"
 
 #: ../plugins/document-manager/plugin.c:305
-#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-c-style/plugin.c:457
 #: ../plugins/indentation-python-style/plugin.c:200
 #: ../plugins/language-support-cpp-java/plugin.c:1073
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
@@ -4328,8 +4350,8 @@ msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 msgstr ""
-"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende fortgesetzt, "
-"es wurde aber keine Übereinstimmung gefunden."
+"Die Suche nach »%s« wurde abgeschlossen und wird ab Dokumentende "
+"fortgesetzt, es wurde aber keine Übereinstimmung gefunden."
 
 #: ../plugins/document-manager/search-box.c:922
 msgid "Use the context menu of the \"Find\" icon for more search options"
@@ -4385,7 +4407,8 @@ msgstr "Es konnten keine Begriffe gefunden werden"
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
 msgstr ""
-"Es konnte keine zuletzt verwendete Quelle mit der Adresse »%s« gefunden werden"
+"Es konnte keine zuletzt verwendete Quelle mit der Adresse »%s« gefunden "
+"werden"
 
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
 #: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
@@ -4448,8 +4471,8 @@ msgid ""
 msgstr ""
 "<b>»%s« kann nicht geöffnet werden</b>.\n"
 "\n"
-"Es ist keine Komponente, Vorgabeaktion oder ein Programm eingestellt, das zur "
-"Verwendung dieses Dateityps vorgesehen ist.\n"
+"Es ist keine Komponente, Vorgabeaktion oder ein Programm eingestellt, das "
+"zur Verarbeitung dieses Dateityps vorgesehen ist.\n"
 "\n"
 "MIME-Typ: %s.\n"
 "\n"
@@ -4938,12 +4961,12 @@ msgstr "Terminal zur Fehlerdiagnose kann nicht gestartet werden."
 #: ../plugins/gdb/preferences.c:128
 #, c-format
 msgid ""
-"The register function hasn't been found automatically in the following pretty "
-"printer files:\n"
+"The register function hasn't been found automatically in the following "
+"pretty printer files:\n"
 "%s\n"
 "You need to fill yourself the register function columns before enabling the "
-"rows. Most of the time the register function name contains the word \"register"
-"\"."
+"rows. Most of the time the register function name contains the word "
+"\"register\"."
 msgstr ""
 "Die Registerfunktion wurde nicht automatisch in den folgenden "
 "Quellcodeformatierer-Dateien gefunden:\n"
@@ -4995,7 +5018,7 @@ msgstr "Anzuwendende Mailbox-Dateien:"
 msgid "Add signed off by line"
 msgstr "Gegenzeichnung hinzufügen"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:770
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
 msgid "Branches"
 msgstr "Zweige"
 
@@ -5049,8 +5072,8 @@ msgstr "Zweigname:"
 #: ../plugins/git/anjuta-git.ui.h:22
 msgid "Repository head; Drop or type a different revision here"
 msgstr ""
-"Kopf der Revision; Legen Sie hier eine Revision ab oder geben Sie eine andere "
-"ein"
+"Kopf der Revision; Legen Sie hier eine Revision ab oder geben Sie eine "
+"andere ein"
 
 #: ../plugins/git/anjuta-git.ui.h:23
 #: ../plugins/subversion/subversion-log-dialog.c:151
@@ -5059,7 +5082,8 @@ msgstr "Revision"
 
 #: ../plugins/git/anjuta-git.ui.h:24
 msgid "Check out the branch after it is created"
-msgstr "Eine Arbeitskopie des Zweiges erstellen, nachdem er angelegt worden ist"
+msgstr ""
+"Eine Arbeitskopie des Zweiges erstellen, nachdem er angelegt worden ist"
 
 #: ../plugins/git/anjuta-git.ui.h:26
 msgid "Tag name:"
@@ -5071,7 +5095,7 @@ msgstr "Diesen Tag signieren"
 
 #: ../plugins/git/anjuta-git.ui.h:28
 msgid "Annotate this tag:"
-msgstr "Diese Marke kommentieren:"
+msgstr "Diesen Tag kommentieren:"
 
 #: ../plugins/git/anjuta-git.ui.h:29
 msgid "Branches must be fully merged"
@@ -5291,8 +5315,8 @@ msgstr "Bitte geben Sie eine Revision ein."
 msgid "Cherry Pick"
 msgstr "Handverlesen"
 
-#: ../plugins/git/git-commit-pane.c:124 ../plugins/git/git-create-tag-pane.c:79
-#: ../plugins/git/git-merge-pane.c:70
+#: ../plugins/git/git-commit-pane.c:124
+#: ../plugins/git/git-create-tag-pane.c:79 ../plugins/git/git-merge-pane.c:70
 msgid "Please enter a log message."
 msgstr "Bitte geben Sie eine Protokollmeldung an."
 
@@ -5368,7 +5392,7 @@ msgid "Merge"
 msgstr "Zusammenführen"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:700
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
 msgid "Git"
 msgstr "Git"
 
@@ -5386,7 +5410,7 @@ msgstr "Serie von Patchen erstellen"
 
 #: ../plugins/git/git.plugin.in.h:2
 msgid "Git version control"
-msgstr "Versionskontrolle von Git"
+msgstr "Git-Versionskontrollsystem"
 
 #: ../plugins/git/git-pull-pane.c:66 ../plugins/git/git-push-pane.c:94
 msgid "Please enter a URL."
@@ -5592,8 +5616,8 @@ msgstr "Rebase gegen gewählte Gegenstelle ausführen"
 #: ../plugins/git/plugin.c:271
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
-"Eine Umstellungsoperation relativ zum ausgewählten entfernten Softwarebestand "
-"vornehmen"
+"Eine Umstellungsoperation relativ zum ausgewählten entfernten "
+"Softwarebestand vornehmen"
 
 #: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
 msgid "Continue"
@@ -5643,7 +5667,8 @@ msgstr "Gesicherte Änderungen wieder in die Arbeitskopie einbringen"
 #: ../plugins/git/plugin.c:330
 msgid "Apply stash and restore index"
 msgstr ""
-"Gesicherte Änderungen auf die Arbeitskopie anwenden und Index wiederherstellen"
+"Gesicherte Änderungen auf die Arbeitskopie anwenden und Index "
+"wiederherstellen"
 
 #: ../plugins/git/plugin.c:331
 msgid "Apply stashed changes back into the working tree and the index"
@@ -5743,7 +5768,8 @@ msgid "Skip the current patch in the series"
 msgstr "Den aktuellen Patch der Serie überspringen"
 
 #: ../plugins/git/plugin.c:463
-msgid "Stop applying the patch series and return the tree to its previous state"
+msgid ""
+"Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 "Das Anwenden der Patch-Serie abbrechen und die Arbeitskopie in den "
 "vorhergehenden Zustand bringen"
@@ -5752,27 +5778,27 @@ msgstr ""
 msgid "Branch"
 msgstr "Zweig"
 
-#: ../plugins/git/plugin.c:696
+#: ../plugins/git/plugin.c:723
 msgid "Git Tasks"
 msgstr "Git-Aufgaben"
 
-#: ../plugins/git/plugin.c:758
+#: ../plugins/git/plugin.c:793
 msgid "Status"
 msgstr "Status"
 
-#: ../plugins/git/plugin.c:764
+#: ../plugins/git/plugin.c:799
 msgid "Log"
 msgstr "Protokoll"
 
-#: ../plugins/git/plugin.c:775
+#: ../plugins/git/plugin.c:810
 msgid "Tags"
-msgstr "Marken"
+msgstr "Tags"
 
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:817
 msgid "Remotes"
 msgstr "Entfernt"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:823
 msgid "Stash"
 msgstr "Sichern"
 
@@ -5878,25 +5904,25 @@ msgid "Parenthesis indentation"
 msgstr "Eingerückte Klammern"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-c-style/plugin.c:463
 #: ../plugins/indentation-python-style/plugin.c:206
 msgid "Auto-Indent"
 msgstr "Automatisch einrücken"
 
-#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-c-style/plugin.c:464
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Aktuelle Zeile oder Auswahl den Einrückungseinstellungen entsprechend "
 "automatisch einrücken"
 
-#: ../plugins/indentation-c-style/plugin.c:510
+#: ../plugins/indentation-c-style/plugin.c:504
 #: ../plugins/language-support-cpp-java/plugin.c:1126
 msgid "C++/Java Assistance"
 msgstr "C++/Java-Bearbeitungshilfen"
 
-#: ../plugins/indentation-c-style/plugin.c:607
-#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-c-style/plugin.c:601
+#: ../plugins/indentation-c-style/plugin.c:610
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -5911,7 +5937,8 @@ msgstr "Adaptives Einrücken einschalten"
 msgid "Python Assistance"
 msgstr "Projekt-Assistent"
 
-#: ../plugins/js-debugger/debugger-js.c:548 ../plugins/js-debugger/plugin.c:142
+#: ../plugins/js-debugger/debugger-js.c:548
+#: ../plugins/js-debugger/plugin.c:142
 msgid "Error: cant bind port"
 msgstr "Fehler: Port kann nicht belegt werden"
 
@@ -6110,7 +6137,7 @@ msgstr "Diese Meldung nicht erneut anzeigen"
 
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:792
+#: ../plugins/language-support-python/python-assist.c:793
 msgid "Python"
 msgstr "Python"
 
@@ -6420,7 +6447,8 @@ msgstr "Ein bereits existierendes Autotools-Projekt in Anjuta importieren"
 msgid "Project from Existing Sources"
 msgstr "Projekt aus vorhandenen Quellen"
 
-#: ../plugins/project-import/plugin.c:79 ../plugins/project-import/plugin.c:183
+#: ../plugins/project-import/plugin.c:79
+#: ../plugins/project-import/plugin.c:183
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Die Datei »%s« existiert bereits. Soll sie überschrieben werden?"
@@ -6450,8 +6478,8 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr ""
 "Es konnte kein passendes Projekt-Backend für den angegebenen Ordner gefunden "
-"werden (%s). Bitte wählen Sie einen anderen Ordner aus oder aktualisieren Sie "
-"auf eine neuere Version von Anjuta."
+"werden (%s). Bitte wählen Sie einen anderen Ordner aus oder aktualisieren "
+"Sie auf eine neuere Version von Anjuta."
 
 #: ../plugins/project-import/plugin.c:368
 #: ../plugins/project-import/plugin.c:424
@@ -6509,7 +6537,7 @@ msgstr "Ziel:"
 
 #: ../plugins/project-import/project-import.ui.h:5
 msgid "Import from version control system"
-msgstr "Aus Versionskontrolle importieren"
+msgstr "Aus Versionskontrollsystem importieren"
 
 #: ../plugins/project-import/project-import.ui.h:6
 msgid "Import options"
@@ -7075,10 +7103,11 @@ msgstr ""
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
-"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix it."
+"\"#$:%%+,.=@^_`~\". In addition you cannot have a leading dash. Please fix "
+"it."
 msgstr ""
-"Das Feld »%s« darf nur Buchstaben, Ziffern und Zeichen aus der Menge »#$:%%+,."
-"=@^_`~« enthalten. Zusätzlich darf es keinen voranstehenden Spiegelstrich "
+"Das Feld »%s« darf nur Buchstaben, Ziffern und Zeichen aus der Menge »#$:%%"
+"+,.=@^_`~« enthalten. Zusätzlich darf es keinen voranstehenden Spiegelstrich "
 "geben. Bitte korrigieren Sie dies."
 
 #: ../plugins/project-wizard/druid.c:699
@@ -7168,16 +7197,17 @@ msgstr "Fehlende Pakete installieren"
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
-"packages are contained in special packages that your distribution provides to "
-"allow development of projects based on them. They usually end with a \"-dev\" "
-"or \"-devel\" suffix in package names and can be found by searching in your "
-"Application Manager."
+"packages are contained in special packages that your distribution provides "
+"to allow development of projects based on them. They usually end with a \"-"
+"dev\" or \"-devel\" suffix in package names and can be found by searching in "
+"your Application Manager."
 msgstr ""
 "Die fehlenden Programme sind normalerweise Teil einiger Distributionspakete "
 "und können in Ihrer Paketverwaltung gesucht werden. Ähnlich sind die "
-"Entwicklungspakete in speziellen Paketen enthalten, die Ihre Distribution zur "
-"Entwicklung zur Verfügung stellt. Diese erhalten üblicherweise den Zusatz »-"
-"dev« oder »-devel« und können über Ihre Anwendungsverwaltung gesucht werden."
+"Entwicklungspakete in speziellen Paketen enthalten, die Ihre Distribution "
+"zur Entwicklung zur Verfügung stellt. Diese erhalten üblicherweise den "
+"Zusatz »-dev« oder »-devel« und können über Ihre Anwendungsverwaltung "
+"gesucht werden."
 
 #: ../plugins/project-wizard/druid.c:999
 msgid "Missing components"
@@ -7693,8 +7723,8 @@ msgstr "Unterstützung für gemeinsam verwendete Bibliotheken hinzufügen:"
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:18
 msgid "Adds support for building shared libraries in your project"
 msgstr ""
-"Fügt Unterstützung für das Erstellen von gemeinsamen Bibliotheken zum Projekt "
-"hinzu"
+"Fügt Unterstützung für das Erstellen von gemeinsamen Bibliotheken zum "
+"Projekt hinzu"
 
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:15
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:17
@@ -7731,8 +7761,8 @@ msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
-"Fügt Unterstützung für Internationalisierung zum Projekt hinzu, so dass es in "
-"verschiedene Sprachen übersetzt werden kann"
+"Fügt Unterstützung für Internationalisierung zum Projekt hinzu, so dass es "
+"in verschiedene Sprachen übersetzt werden kann"
 
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 msgid "Django Project"
@@ -7748,14 +7778,14 @@ msgstr "Django-Projektinformationen"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:1
 msgid "Generic gcj compiled java"
-msgstr "Generisches mit gcj übersetztes Java"
+msgstr "Generisches mit gcj kompiliertes Java"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:2
 msgid ""
 "A generic natively compiled java project using the GNU Java Compiler (gcj)"
 msgstr ""
-"Ein generisches und nativ durch den GNU Java Compiler (gcj) übersetztes Java-"
-"Projekt"
+"Ein generisches und nativ durch den GNU Java Compiler (gcj) kompiliertes "
+"Java-Projekt"
 
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:7
 #: ../plugins/project-wizard/templates/java.wiz.in.h:7
@@ -7795,8 +7825,8 @@ msgid ""
 "Uuid is a globally-unique identifier for your extension.\n"
 "This should be in the format of an email address (foo.bar@extensions.example."
 "com), but\n"
-"need not be an actual email address, though it's a good idea to base the uuid "
-"on your\n"
+"need not be an actual email address, though it's a good idea to base the "
+"uuid on your\n"
 "email address."
 msgstr ""
 "Die UUID ist ein global eindeutiger Name für Ihre Erweiterung.\n"
@@ -7827,7 +7857,7 @@ msgstr "GTK+ (Anwendung)"
 # Klingt noch etwas seltsam,wäre aber OK.
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:2
 msgid "Full features Gtk+ Application with file handling"
-msgstr "Vollwertige Gtk+-Anwendung mit Dateihandhabung"
+msgstr "Vollwertige Gtk+-Anwendung mit Dateiverarbeitung"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:19
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:17
@@ -8303,7 +8333,8 @@ msgstr ""
 
 #: ../plugins/snippets-manager/snippets-editor.c:50
 msgid ""
-"<b>Error:</b> The trigger key can only contain alphanumeric characters and _ !"
+"<b>Error:</b> The trigger key can only contain alphanumeric characters and "
+"_ !"
 msgstr ""
 "<b>Fehler:</b> Der Auslöserschlüssel darf nur alphanumerische Zeichen und _ "
 "enthalten!"
@@ -8432,7 +8463,7 @@ msgstr "Breite des Tabulators in Leerzeichen:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
 msgid "Indentation size in spaces:"
-msgstr "Einrückungweite in Leerzeichen"
+msgstr "Einrückungweite in Leerzeichen:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:4
 msgid "Indentation and auto-format options"
@@ -8500,55 +8531,55 @@ msgstr "Farbschema:"
 msgid "Font"
 msgstr "Schrift"
 
-#: ../plugins/sourceview/plugin.c:113
+#: ../plugins/sourceview/plugin.c:112
 msgid "_Line Number Margin"
 msgstr "Rand für _Zeilennummern"
 
-#: ../plugins/sourceview/plugin.c:114
+#: ../plugins/sourceview/plugin.c:113
 msgid "Show/Hide line numbers"
 msgstr "Zeilennummern zeigen/verbergen"
 
-#: ../plugins/sourceview/plugin.c:116
+#: ../plugins/sourceview/plugin.c:115
 msgid "_Marker Margin"
 msgstr "_Markierungsrand"
 
-#: ../plugins/sourceview/plugin.c:117
+#: ../plugins/sourceview/plugin.c:116
 msgid "Show/Hide marker margin"
 msgstr "Markierungsrand zeigen/verbergen"
 
-#: ../plugins/sourceview/plugin.c:119
+#: ../plugins/sourceview/plugin.c:118
 msgid "_White Space"
 msgstr "_Leerzeichen"
 
-#: ../plugins/sourceview/plugin.c:120
+#: ../plugins/sourceview/plugin.c:119
 msgid "Show/Hide white spaces"
 msgstr "Leerzeichen zeigen/verbergen"
 
-#: ../plugins/sourceview/plugin.c:122
+#: ../plugins/sourceview/plugin.c:121
 msgid "_Line End Characters"
 msgstr "_Zeilenendzeichen"
 
-#: ../plugins/sourceview/plugin.c:123
+#: ../plugins/sourceview/plugin.c:122
 msgid "Show/Hide line end characters"
 msgstr "Zeilenende zeigen/verbergen"
 
-#: ../plugins/sourceview/plugin.c:125
+#: ../plugins/sourceview/plugin.c:124
 msgid "Line _Wrapping"
 msgstr "Zeilen_umbruch"
 
-#: ../plugins/sourceview/plugin.c:126
+#: ../plugins/sourceview/plugin.c:125
 msgid "Enable/disable line wrapping"
 msgstr "Zeilenumbruch aktivieren/deaktivieren"
 
-#: ../plugins/sourceview/plugin.c:175
+#: ../plugins/sourceview/plugin.c:174
 msgid "Editor view settings"
 msgstr "Editor-Ansichtsoptionen"
 
-#: ../plugins/sourceview/plugin.c:365 ../plugins/sourceview/plugin.c:406
+#: ../plugins/sourceview/plugin.c:364 ../plugins/sourceview/plugin.c:405
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView Editor"
 
-#: ../plugins/sourceview/sourceview.c:569
+#: ../plugins/sourceview/sourceview.c:565
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8557,7 +8588,7 @@ msgstr ""
 "Die Datei »%s« auf der Festplatte ist aktueller als der aktuelle Puffer.\n"
 "Soll die Datei neu geladen werden?"
 
-#: ../plugins/sourceview/sourceview.c:601
+#: ../plugins/sourceview/sourceview.c:597
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8567,18 +8598,18 @@ msgstr ""
 "Soll die Datei geschlossen werden?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:634
+#: ../plugins/sourceview/sourceview.c:630
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht geöffnet werden: %s"
 
-#: ../plugins/sourceview/sourceview.c:688
+#: ../plugins/sourceview/sourceview.c:684
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Die Datei »%s« ist nur lesbar! Soll Sie trotzdem bearbeitet werden?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:750
+#: ../plugins/sourceview/sourceview.c:746
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Datei %s konnte nicht gespeichert werden: %s"
@@ -8759,11 +8790,11 @@ msgstr "Änderungen einspielen"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:32
 msgid "Previous Commit Messages:"
-msgstr "Vorherige Einspielmeldung:"
+msgstr "Vorherige Einspielmeldungen:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:33
 msgid "Use previous message"
-msgstr "Vorherige Nachricht verwenden"
+msgstr "Vorherige Meldung verwenden"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:35
 msgid "Select Files to Commit:"
@@ -8783,7 +8814,7 @@ msgstr "Vergleich zum Vorherigen"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:41
 msgid "Diff Selected Revisions"
-msgstr "Gewählte Versionen vergleichen"
+msgstr "Gewählte Revisionen vergleichen"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:42
 msgid "View Selected Revision"
@@ -8823,7 +8854,7 @@ msgstr "Pfad der Arbeitskopie:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:53
 msgid "Branch/Tag URL:"
-msgstr "<b>Zweig-/Tag-Adresse:</b>"
+msgstr "Zweig-/Tag-Adresse:"
 
 #: ../plugins/subversion/anjuta-subversion.ui.h:54
 msgid "Merge changes into working copy"
@@ -9678,7 +9709,8 @@ msgstr ""
 
 #: ../plugins/tools/variable.c:102
 msgid "Selected file extension in the project manager plugin"
-msgstr "Erweiterung der gewählten Datei in der Komponente zur Projektverwaltung"
+msgstr ""
+"Erweiterung der gewählten Datei in der Komponente zur Projektverwaltung"
 
 #: ../plugins/tools/variable.c:103
 msgid "Currently edited file name"
@@ -9766,7 +9798,6 @@ msgstr ""
 "Das momentane Layout der Docks sperren, so dass Widgets nicht mehr bewegt "
 "werden können"
 
-# --
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
 msgstr "_Werkzeugleiste"
@@ -9966,4 +9997,3 @@ msgstr "Nur Symbole"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Nur Text"
-
