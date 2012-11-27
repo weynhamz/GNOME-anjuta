@@ -572,12 +572,14 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 			for (node = priv->available_plugins; node; node = g_list_next (node))
 			{
 				AnjutaPluginHandle *selected_plugin = node->data;
-				if (g_hash_table_lookup (priv->activated_plugins, selected_plugin))
+				AnjutaPlugin *plugin;
+
+				plugin = g_hash_table_lookup (priv->activated_plugins, selected_plugin);
+				if (plugin)
 				{
-					plugin_set_update (plugin_manager, selected_plugin, FALSE);
-					/* DEBUG_PRINT ("Unloading plugin: %s",
-								 anjuta_plugin_handle_get_id (selected_plugin));
-					*/
+					DEBUG_PRINT ("Deactivating plugin: %s",
+					             anjuta_plugin_handle_get_id (selected_plugin));
+					anjuta_plugin_deactivate (plugin);
 				}
 			}
 			g_hash_table_remove_all (priv->activated_plugins);
