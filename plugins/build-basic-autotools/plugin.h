@@ -54,6 +54,9 @@ struct _BasicAutotoolsPlugin{
 	gint project_build_watch_id;
 	gint editor_watch_id;
 
+	/* GSource ids */
+	guint update_indicators_idle;
+
 	/* Watched values */
 	GFile *fm_current_file;
 	GFile *pm_current_file;

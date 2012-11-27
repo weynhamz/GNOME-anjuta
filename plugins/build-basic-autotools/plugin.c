@@ -450,7 +450,7 @@ build_context_reset (BuildContext *context)
 }
 
 static void
-build_regex_load ()
+build_regex_load (void)
 {
 	FILE *fp;
 
@@ -520,7 +520,7 @@ build_regex_init_message (MessagePattern *patterns)
 }
 
 static void
-build_regex_init ()
+build_regex_init (void)
 {
 	GList *node;
 	GError *error = NULL;
@@ -2378,6 +2378,8 @@ on_update_indicators_idle (gpointer data)
 			node = g_list_next (node);
 		}
 	}
+
+	ba_plugin->update_indicators_idle = 0;
 	return FALSE;
 }
 
@@ -2444,7 +2446,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	ba_plugin->current_editor_file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
 	update_module_ui (ba_plugin);
 
-	g_idle_add (on_update_indicators_idle, plugin);
+	ba_plugin->update_indicators_idle = g_idle_add (on_update_indicators_idle, plugin);
 }
 
 static void
@@ -2577,6 +2579,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_root_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_build_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->editor_watch_id, TRUE);
+
+	/* Remove scheduled idle handler. */
+	if (ba_plugin->update_indicators_idle)
+		g_source_remove (ba_plugin->update_indicators_idle);
 
 	/* Remove UI */
 	anjuta_ui_unmerge (ui, ba_plugin->build_merge_id);
