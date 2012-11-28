@@ -648,7 +648,7 @@ amp_am_scanner_parse_token (AmpAmScanner *scanner, AnjutaToken *root, AnjutaToke
 			while (evaluated);
 
 			/* The remaining variables have dependencies loop, evaluate them in order */
-			if (variables != NULL) g_warning ("Dependencies loop in variables");
+			if (variables != NULL) DEBUG_PRINT ("Dependencies loop in variables");
 			for (var =variables; var != NULL; var = g_list_next (var))
 			{
 				AmpVariableDepend *depend = (AmpVariableDepend *)var->data;
