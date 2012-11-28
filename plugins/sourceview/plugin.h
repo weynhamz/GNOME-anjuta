@@ -42,6 +42,7 @@ struct _SourceviewPlugin{
 	AnjutaPlugin parent;
 
 	GtkWidget* combo_styles;
+	GtkWidget* font_button;
 	GtkWidget* check_font;
 	GSettings* settings;
 	GtkActionGroup *group;

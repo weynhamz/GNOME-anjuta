@@ -51,8 +51,6 @@
 
 static gpointer parent_class;
 
-static GtkBuilder* builder = NULL;
-
 static void
 on_editor_linenos_activate (GtkAction *action, gpointer user_data)
 {
@@ -153,11 +151,9 @@ ui_states_init (SourceviewPlugin* plugin, AnjutaUI *ui)
 
 
 static void
-on_font_check_toggled(GtkToggleButton* button, GtkBuilder* builder)
+on_font_check_toggled(GtkToggleButton* button, SourceviewPlugin* plugin)
 {
-	GtkWidget* font_button;
-	font_button = GTK_WIDGET (gtk_builder_get_object (builder, FONT_BUTTON));
-	gtk_widget_set_sensitive(font_button, !gtk_toggle_button_get_active(button));
+	gtk_widget_set_sensitive(plugin->font_button, !gtk_toggle_button_get_active(button));
 }
 
 static gboolean
@@ -350,6 +346,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkCellRenderer* renderer_desc = gtk_cell_renderer_text_new ();
 	GtkTreeIter* iter = NULL;
 	GError* error = NULL;
+	GtkBuilder *builder;
+
 	builder = gtk_builder_new ();
 	if (!gtk_builder_add_from_file(builder, PREFS_GLADE, &error))
 	{
@@ -364,11 +362,12 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	                                     _("GtkSourceView Editor"),
 	                                     ICON_FILE);
 
+	plugin->font_button = GTK_WIDGET (gtk_builder_get_object (builder, FONT_BUTTON));
 	plugin->check_font = GTK_WIDGET (gtk_builder_get_object (builder,
 	                                                         FONT_USE_THEME_BUTTON));
 	g_signal_connect(G_OBJECT(plugin->check_font), "toggled",
 	                 G_CALLBACK(on_font_check_toggled), builder);
-	on_font_check_toggled (GTK_TOGGLE_BUTTON (plugin->check_font), builder);
+	on_font_check_toggled (GTK_TOGGLE_BUTTON (plugin->check_font), plugin);
 
 	/* Init styles combo */
 	plugin->combo_styles = GTK_WIDGET (gtk_builder_get_object (builder, COMBO_STYLES));
@@ -391,6 +390,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 									   iter);
 		gtk_tree_iter_free (iter);
 	}
+
+	g_object_unref (builder);
 }
 
 static void
@@ -398,13 +399,11 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 {
 	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (ipref);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_font),
-		G_CALLBACK(on_font_check_toggled), builder);
+		G_CALLBACK(on_font_check_toggled), plugin);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->combo_styles),
-		G_CALLBACK(on_style_changed), builder);
+		G_CALLBACK(on_style_changed), plugin);
 
 	anjuta_preferences_remove_page(prefs, _("GtkSourceView Editor"));
-	g_object_unref(builder);
-	builder = NULL;
 }
 
 static void
