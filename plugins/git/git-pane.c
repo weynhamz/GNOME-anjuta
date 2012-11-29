@@ -217,12 +217,12 @@ message_dialog (GtkMessageType message_type, const gchar *message, Git *plugin)
 	dialog = gtk_dialog_new_with_buttons (dialog_title,
 	                                      GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 	                                      GTK_DIALOG_DESTROY_WITH_PARENT,
-	                                      NULL);
+	                                      NULL, NULL);
 
 	close_button = gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
 	                                      GTK_RESPONSE_CLOSE);
 	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-	hbox = gtk_hbox_new (FALSE, 2);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	text_view = gtk_text_view_new ();
 	text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));

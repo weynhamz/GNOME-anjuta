@@ -125,7 +125,6 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	GError *error = NULL;
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;
-	GtkWidget *revision_entry;
 	GtkWidget *annotate_check;
 	GtkWidget *log_view;
 	
@@ -145,8 +144,6 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	                                                "ok_button"));
 	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
 	                                                    "cancel_button"));
-	revision_entry = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                     "revision_entry"));
 	annotate_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "annotate_check"));
 	log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,

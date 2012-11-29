@@ -36,20 +36,12 @@ git_init_command_init (GitInitCommand *self)
 static void
 git_init_command_finalize (GObject *object)
 {
-	GitInitCommand *self;
-	
-	self = GIT_INIT_COMMAND (object);
-	
 	G_OBJECT_CLASS (git_init_command_parent_class)->finalize (object);
 }
 
 static guint
 git_init_command_run (AnjutaCommand *command)
-{	
-	GitInitCommand *self;
-	
-	self = GIT_INIT_COMMAND (command);
-	
+{
 	git_command_add_arg (GIT_COMMAND (command), "init");
 	
 	return 0;

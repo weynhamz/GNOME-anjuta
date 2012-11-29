@@ -72,10 +72,6 @@ git_stash_list_command_finalize (GObject *object)
 static guint
 git_stash_list_command_run (AnjutaCommand *command)
 {
-	GitStashListCommand *self;
-	
-	self = GIT_STASH_LIST_COMMAND (command);
-	
 	git_command_add_arg (GIT_COMMAND (command), "stash");
 	git_command_add_arg (GIT_COMMAND (command), "list");
 	return 0;

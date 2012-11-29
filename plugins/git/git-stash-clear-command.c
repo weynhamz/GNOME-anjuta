@@ -36,20 +36,12 @@ git_stash_clear_command_init (GitStashClearCommand *self)
 static void
 git_stash_clear_command_finalize (GObject *object)
 {
-	GitStashClearCommand *self;
-	
-	self = GIT_STASH_CLEAR_COMMAND (object);
-	
 	G_OBJECT_CLASS (git_stash_clear_command_parent_class)->finalize (object);
 }
 
 static guint
 git_stash_clear_command_run (AnjutaCommand *command)
-{	
-	GitStashClearCommand *self;
-	
-	self = GIT_STASH_CLEAR_COMMAND (command);
-	
+{
 	git_command_add_arg (GIT_COMMAND (command), "stash");
 	git_command_add_arg (GIT_COMMAND (command), "clear");
 	

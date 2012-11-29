@@ -33,7 +33,6 @@ on_ok_button_clicked (GtkButton *button, GitResetPane *self)
 	AnjutaEntry *revision_entry;
 	GtkToggleButton *mixed_radio;
 	GtkToggleButton *soft_radio;
-	GtkToggleButton *hard_radio;
 	const gchar *revision;
 	GitResetTreeMode mode;
 	GitResetTreeCommand *reset_command;
@@ -45,9 +44,7 @@ on_ok_button_clicked (GtkButton *button, GitResetPane *self)
 	                                                         "mixed_radio"));
 	soft_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                        "soft_radio"));
-	hard_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                        "hard_radio"));
-	
+
 	revision = anjuta_entry_get_text (revision_entry);
 
 	if (g_utf8_strlen (revision, -1) == 0)

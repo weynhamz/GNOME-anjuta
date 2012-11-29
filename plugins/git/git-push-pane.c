@@ -380,15 +380,12 @@ AnjutaDockPane *
 git_push_pane_new (Git *plugin)
 {
 	GitPushPane *self;
-	GtkLabel *selected_remote_label;
 	GtkListStore *push_branch_model;
 	GtkListStore *push_tag_model;
 	GitBranchListCommand *branch_list_command;
 	GitTagListCommand *tag_list_command;
 
 	self = g_object_new (GIT_TYPE_PUSH_PANE, "plugin", plugin, NULL);
-	selected_remote_label = GTK_LABEL (gtk_builder_get_object (self->priv->builder,
-	                                                           "selected_remote_label"));
 	push_branch_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
 	                                                            "push_branch_model"));
 	push_tag_model = GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,

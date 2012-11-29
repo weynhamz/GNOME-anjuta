@@ -353,12 +353,9 @@ static void
 git_status_pane_clear (GitStatusPane *self)
 {
 	GtkTreeStore *status_model;
-	GtkTreeView *status_view;
 
 	status_model = GTK_TREE_STORE (gtk_builder_get_object (self->priv->builder,	
 	                                                       "status_model"));
-	status_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                     "status_view"));
 
 	/* Clear any existing model data and create the placeholders */
 	gtk_tree_store_clear (status_model);
@@ -551,10 +548,8 @@ git_status_pane_finalize (GObject *object)
 static void
 git_status_pane_refresh (AnjutaDockPane *pane)
 {
-	GitStatusPane *self;
 	Git *plugin;
 
-	self = GIT_STATUS_PANE (pane);
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (pane));
 
 	anjuta_command_start (ANJUTA_COMMAND (plugin->commit_status_command));

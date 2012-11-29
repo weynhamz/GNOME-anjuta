@@ -42,10 +42,6 @@ git_bisect_reset_command_finalize (GObject *object)
 static guint
 git_bisect_reset_command_run (AnjutaCommand *command)
 {
-	GitBisectResetCommand *self;
-	
-	self = GIT_BISECT_RESET_COMMAND (command);
-	
 	git_command_add_arg (GIT_COMMAND (command), "bisect");
 	git_command_add_arg (GIT_COMMAND (command), "reset");
 	

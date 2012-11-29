@@ -846,10 +846,8 @@ static gboolean
 git_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	Git *git_plugin;
-	AnjutaStatus *status;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
-	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	DEBUG_PRINT ("%s", "Git: Dectivating Git plugin.\n");
 	
