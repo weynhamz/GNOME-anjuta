@@ -114,8 +114,6 @@ on_anjuta_delete_event (AnjutaWindow *win, GdkEvent *event, gpointer user_data)
 		}
 	}
 
-	anjuta_shell_notify_exit (ANJUTA_SHELL (win), NULL);
-
 	/* Close the profile manager which will emit "profile-descoped" and release
 	 * all previous profiles. */
 	anjuta_profile_manager_close (profile_manager);

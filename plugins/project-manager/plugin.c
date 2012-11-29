@@ -206,16 +206,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	g_list_free (list);
 }
 
-static void
-on_shell_exiting (AnjutaShell *shell, ProjectManagerPlugin *plugin)
-{
-	if (plugin->project_file)
-	{
-		/* Also make sure we save the project session also */
-		project_manager_save_session (plugin);
-	}
-}
-
 static gboolean
 on_close_project_idle (gpointer plugin)
 {
@@ -1648,8 +1638,6 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_save), plugin);
 	g_signal_connect (G_OBJECT (plugin->shell), "load_session",
 					  G_CALLBACK (on_session_load), plugin);
-	g_signal_connect (G_OBJECT (plugin->shell), "exiting",
-					  G_CALLBACK (on_shell_exiting), plugin);
 	profile_manager = anjuta_shell_get_profile_manager (plugin->shell, NULL);
 
 	/* Connect to profile scoping */
@@ -1685,9 +1673,6 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 										  plugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_load),
-										  plugin);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-										  G_CALLBACK (on_shell_exiting),
 										  plugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (profile_manager),
 										  G_CALLBACK (on_profile_descoped),
