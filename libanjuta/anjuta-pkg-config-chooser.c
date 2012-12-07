@@ -133,9 +133,10 @@ on_listall_exit (AnjutaLauncher * launcher, int child_pid,
 	chooser->priv->scanning = FALSE;
 
 	anjuta_pkg_config_chooser_set_active_packages (chooser, chooser->priv->selected_cache);
-	g_list_foreach (chooser->priv->selected_cache, (GFunc) g_free, NULL);
-	
-	g_object_unref (launcher);
+	g_list_free_full (chooser->priv->selected_cache, g_free);
+	chooser->priv->selected_cache = NULL;
+
+	g_clear_object (&chooser->priv->launcher);
 }
 
 static void
@@ -243,6 +244,16 @@ anjuta_pkg_config_chooser_init (AnjutaPkgConfigChooser *chooser)
 static void
 anjuta_pkg_config_chooser_finalize (GObject *object)
 {
+	AnjutaPkgConfigChooser *chooser = ANJUTA_PKG_CONFIG_CHOOSER (object);
+
+	g_object_unref (chooser->priv->model);
+	g_object_unref (chooser->priv->filter_model);
+	g_object_unref (chooser->priv->sort_model);
+
+	if (chooser->priv->launcher)
+		g_object_unref (chooser->priv->launcher);
+
+	g_list_free_full (chooser->priv->selected_cache, g_free);
 
 	G_OBJECT_CLASS (anjuta_pkg_config_chooser_parent_class)->finalize (object);
 }
