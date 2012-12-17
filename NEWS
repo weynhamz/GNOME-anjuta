@@ -1,3 +1,56 @@
+Anjuta 3.7.3 (December 17, 2012) -- James Liggett
+
+B.Prathibha (1):
+      Added keywords in desktop file.
+
+Carl-Anton Ingmarsson (26):
+      symbol-db: Keep a reference to the SymbolDBQuery when running it in a thread.
+      indentation-c-style: Fix logic error from e27cade3ec1ce883182ff1b99637d781ae6b128c
+      symbol-db: Use a vertical box for the search view.
+      document-manager: Fix disconnection of GtkNotebook "switch-page" signal.
+      anjuta-plugin-handle: Use g_hash_table_remove_all instead of g_hash_table_foreach_remove.
+      file-manager: Keep a weak reference to the IAnjutaVcs object in FileModel.
+      plugin-manager: Fix dependents checking on wrong object in should_unload().
+      file-manager: Unref the FileModel reference when the FileView gets finalized.
+      run-program: Keep a weak reference to the IAnjutaTerminal we run the program in.
+      plugin-manager: Don't destroy available_plugins order in populate_plugin_model().
+      anjuta: Fix destruction of the AnjutaUI instance.
+      libanjuta: Set "relative-path" property of AnjutaFileDropEntry as readwrite.
+      glade: Add toggle buttons for margin and align editing.
+      anjuta: Fix destruction of AnjutaPreferences instance.
+      sourceview: Don't store the builder for the preferences in a global variable.
+      am-project: Change the "Dependencies loop in variables" warning to a debug print.
+      plugin-manager: Clean up memory management.
+      plugin-manager: Directly use anjuta_plugin_deactivate in unload_all_plugins().
+      profile-manager: Add new close() function.
+      anjuta: unload all plugins before closing a window.
+      anjuta: Remove "exiting" signal from AnjutaShell.
+      symbol-db: Remove buffer update timeout when plugin gets deactivated.
+      document-manager: Remove autosave timeout when the plugin is deactivated.
+      build-basic-autotools: Disconnect all signals on editors when the plugin is deactivated.
+      build-basic-autotools: Remove idle for updating indicators when plugin is deactivated.
+      git: Fix compile warnings.
+
+Christian Kirbach (1):
+      Updated German help translation
+
+Marek Černocký (1):
+      Updated Czech translation
+
+Mario Blättermann (1):
+      [l10n] Updated German translation
+
+Ryan Lortie (1):
+      build: disable -Werror to workaround flex(1) issue
+
+Sébastien Granjoux (5):
+      run-program: Fix a crash when destroying the plugin
+      project-wizard: Allow to start a new project from the command line
+      project-wizard: Remove trailing spaces
+      project-wizard: Remove compilation warnings
+      project-wizard: 616728 - hide breakpoints and watches windows on new project
+
+
 Anjuta 3.7.2 (November 19, 2012) -- James Liggett
 
 Arnel A. Borja (1):
