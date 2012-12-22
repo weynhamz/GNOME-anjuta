@@ -174,7 +174,8 @@ atp_on_tool_delete (GtkButton *button, gpointer user_data)
 	tool = get_current_tool (this);
 	if ((tool != NULL) && (atp_user_tool_get_storage (tool) > ATP_TSTORE_GLOBAL))
 	{
-		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (this->dialog), _("Are you sure you want to delete the '%s' tool?"), atp_user_tool_get_name(tool)))
+		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (this->dialog), FALSE,
+		    _("Are you sure you want to delete the '%s' tool?"), atp_user_tool_get_name(tool)))
 		{
 			atp_user_tool_free (tool);
 			atp_tool_dialog_refresh (this, NULL);

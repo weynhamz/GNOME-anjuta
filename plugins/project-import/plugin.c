@@ -75,7 +75,7 @@ project_import_generate_file (AnjutaPluginDescription *backend, ProjectImportDia
 			if (error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
 			{
 				gchar *prjfile = g_file_get_parse_name (project_file);
-				if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog),
+				if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog), FALSE,
 						_("A file named \"%s\" already exists. "
 						  "Do you want to replace it?"), prjfile))
 				{
@@ -179,7 +179,7 @@ project_import_generate_file (AnjutaPluginDescription *backend, ProjectImportDia
 				if (stream == NULL && error->domain == G_IO_ERROR && error->code == G_IO_ERROR_EXISTS)
 				{
 					gchar *prjfile = g_file_get_parse_name (project_file);
-					if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog),
+					if (anjuta_util_dialog_boolean_question (GTK_WINDOW (import_dialog), FALSE,
 							_("A file named \"%s\" already exists. "
 							  "Do you want to replace it?"), prjfile))
 					{

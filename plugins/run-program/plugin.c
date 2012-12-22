@@ -227,7 +227,7 @@ on_run_program_activate (GtkAction* action, RunProgramPlugin* plugin)
 	{
        gchar *msg = _("The program is already running.\n"
                       	"Do you want to stop it before restarting a new instance?");
-		if (anjuta_util_dialog_boolean_question (GTK_WINDOW ( ANJUTA_PLUGIN (plugin)->shell), msg))
+		if (anjuta_util_dialog_boolean_question (GTK_WINDOW ( ANJUTA_PLUGIN (plugin)->shell), TRUE, msg))
 		{
 			run_plugin_kill_program (plugin, FALSE);
 		}

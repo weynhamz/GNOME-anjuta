@@ -2086,7 +2086,7 @@ debugger_is_connected (Debugger *debugger, const GDBMIValue *mi_results,
 		 * It is something like, "No such file or directory" */
 		msg = g_strdup_printf(_("Unable to connect to remote target, %s\nDo you want to try again?"),
 							  error->message);
-		retry = anjuta_util_dialog_boolean_question (debugger->priv->parent_win, msg);
+		retry = anjuta_util_dialog_boolean_question (debugger->priv->parent_win, FALSE, msg);
 		g_free (msg);
 		if (retry)
 		{

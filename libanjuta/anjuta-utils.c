@@ -381,7 +381,8 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 }
 
 gboolean
-anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
+anjuta_util_dialog_boolean_question (GtkWindow *parent, gboolean default_to_yes,
+									 const gchar *mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -406,6 +407,8 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_YES_NO, "%s", message);
+	if (default_to_yes)
+		gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
 	ret = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);

@@ -1390,7 +1390,7 @@ dma_quit_debugger (DmaStart* this)
         gchar *msg = _("The program is running.\n"
                       	"Do you still want to stop the debugger?");
 		
-		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (this->plugin->shell), msg)) return FALSE;
+		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (this->plugin->shell), FALSE, msg)) return FALSE;
 	}
 	
 	dma_queue_interrupt (this->debugger);

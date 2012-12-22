@@ -736,7 +736,7 @@ confirm_removal (ProjectManagerPlugin *plugin, GList *selected)
 	}
 
 	answer =
-		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
+		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin), FALSE,
 											 mesg->str, _("Confirm remove"));
 	g_string_free (mesg, TRUE);
 
