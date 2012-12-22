@@ -603,7 +603,7 @@ sdb_engine_get_tuple_id_by_unique_name (SymbolDBEngine * dbe, static_query_type 
 
 /* ### Thread note: this function inherits the mutex lock ### */
 static GNUC_INLINE gint
-sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe, 
+sdb_engine_get_tuple_id_by_unique_name5 (SymbolDBEngine * dbe, 
 										 static_query_type qtype,
 										 gchar * param_key1,
 										 GValue * value1,
@@ -637,7 +637,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key1)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: param is NULL "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name5: param is NULL "
 				   "from pquery!\n");
 		return -1;
 	}
@@ -647,7 +647,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	/* ...and the second one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key2)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name5: "
 				   "param is NULL from pquery!");
 		return -1;
 	}
@@ -657,7 +657,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	/* ...and the third one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key3)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name5: "
 				   "param is NULL from pquery!");
 		return -1;
 	}
@@ -667,7 +667,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	/* ...and the fourth one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key4)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name5: "
 				   "param is NULL from pquery!");
 		return -1;
 	}
@@ -677,7 +677,7 @@ sdb_engine_get_tuple_id_by_unique_name4 (SymbolDBEngine * dbe,
 	/* ...and the fifth one */
 	if ((param = gda_set_get_holder ((GdaSet*)plist, param_key5)) == NULL)
 	{
-		g_warning ("sdb_engine_get_tuple_id_by_unique_name4: "
+		g_warning ("sdb_engine_get_tuple_id_by_unique_name5: "
 		           "param is NULL from pquery!");
 		return -1;
 	}
@@ -4900,7 +4900,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, const tagEntry * tag_entry,
 		 * symbol was already present in the file or not. With this information we
 		 * can see if it's been updated or newly inserted 
 		 */
-		symbol_id = sdb_engine_get_tuple_id_by_unique_name4 (dbe,
+		symbol_id = sdb_engine_get_tuple_id_by_unique_name5 (dbe,
 							  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY_EXT,
 							  "symname", &v1,
 							  "filedefid", &v2,
