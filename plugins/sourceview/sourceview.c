@@ -887,6 +887,14 @@ sourceview_dispose(GObject *object)
 	}
 	if (cobj->priv->io)
 	{
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_file_changed, cobj);
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_file_deleted, cobj);
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_open_finish, cobj);
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_open_failed, cobj);
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_save_finish, cobj);
+		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_save_failed, cobj);
+		
+		sourceview_io_cancel (cobj->priv->io);
 		g_clear_object (&cobj->priv->io);
 	}
 

@@ -408,41 +408,41 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	gsize current_bytes = 0;
 	GError* err = NULL;
 
-	current_bytes = g_input_stream_read_finish (input_stream, result, &err);
+	if (!g_cancellable_set_error_if_cancelled (sio->cancel, &err))
+		current_bytes = g_input_stream_read_finish (input_stream, result, &err);
 	if (err)
 	{
 		g_signal_emit_by_name (sio, "open-failed", err);
 		g_error_free (err);
-		g_object_unref (input_stream);
-		g_free (sio->read_buffer);
-		sio->read_buffer = NULL;
-		sio->bytes_read = 0;
-		return;
-	}
-
-	sio->bytes_read += current_bytes;
-	if (current_bytes != 0)
-	{
-		sio->read_buffer = g_realloc (sio->read_buffer, sio->bytes_read + READ_SIZE);
-		g_input_stream_read_async (G_INPUT_STREAM (input_stream),
-								   sio->read_buffer + sio->bytes_read,
-								   READ_SIZE,
-								   G_PRIORITY_LOW,
-								   sio->cancel,
-								   on_read_finished,
-								   sio);
-		return;
 	}
 	else
 	{
-		if (append_buffer (sio, sio->bytes_read))
-			g_signal_emit_by_name (sio, "open-finished");
-		sio->bytes_read = 0;
-		g_object_unref (input_stream);
-		setup_monitor (sio);
-		g_free (sio->read_buffer);
-		sio->read_buffer = NULL;
+		sio->bytes_read += current_bytes;
+		if (current_bytes != 0)
+		{
+			sio->read_buffer = g_realloc (sio->read_buffer, sio->bytes_read + READ_SIZE);
+			g_input_stream_read_async (G_INPUT_STREAM (input_stream),
+									   sio->read_buffer + sio->bytes_read,
+									   READ_SIZE,
+									   G_PRIORITY_LOW,
+									   sio->cancel,
+									   on_read_finished,
+									   sio);
+			return;
+		}
+		else
+		{
+			if (append_buffer (sio, sio->bytes_read))
+				g_signal_emit_by_name (sio, "open-finished");
+			setup_monitor (sio);
+		}
 	}
+
+	g_object_unref (input_stream);
+	g_free (sio->read_buffer);
+	sio->read_buffer = NULL;
+	sio->bytes_read = 0;
+	g_object_unref (sio);
 }
 
 void
@@ -473,7 +473,7 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 							   G_PRIORITY_LOW,
 							   sio->cancel,
 							   on_read_finished,
-							   sio);
+							   g_object_ref (sio));
 }
 
 GFile*
