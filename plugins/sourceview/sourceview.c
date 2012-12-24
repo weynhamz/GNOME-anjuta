@@ -1060,7 +1060,6 @@ ieditor_set_tab_size (IAnjutaEditor *editor, gint tabsize, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), tabsize);
-	gtk_source_view_set_indent_width (GTK_SOURCE_VIEW (sv->priv->view), tabsize);
 }
 
 static gboolean
@@ -1086,6 +1085,19 @@ ieditor_set_auto_indent (IAnjutaEditor *editor, gboolean auto_indent, GError **e
 									auto_indent);
 }
 
+static gint
+ieditor_get_indent_size (IAnjutaEditor *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	return gtk_source_view_get_indent_width (GTK_SOURCE_VIEW (sv->priv->view));
+}
+
+static void
+ieditor_set_indent_size (IAnjutaEditor *editor, gint indentsize, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	gtk_source_view_set_indent_width (GTK_SOURCE_VIEW (sv->priv->view), indentsize);
+}
 
 /* Scroll to line */
 static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
@@ -1426,7 +1438,9 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->set_tabsize = ieditor_set_tab_size;
 	iface->get_use_spaces = ieditor_get_use_spaces;
 	iface->set_use_spaces = ieditor_set_use_spaces;
-    iface->set_auto_indent = ieditor_set_auto_indent;
+	iface->set_auto_indent = ieditor_set_auto_indent;
+	iface->get_indentsize = ieditor_get_indent_size;
+	iface->set_indentsize = ieditor_set_indent_size;
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;

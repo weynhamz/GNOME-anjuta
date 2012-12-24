@@ -1458,6 +1458,28 @@ interface IAnjutaEditor
 	void set_auto_indent (gboolean auto_indent);
 
 	/**
+	 * ianjuta_editor_get_indentsize:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Returns the indentation size in spaces currently used by the
+	 * editor.
+	 *
+	 * Returns: indentation size in number of spaces
+	 */
+	gint   get_indentsize ();
+
+	/**
+	 * ianjuta_editor_set_indentsize:
+	 * @obj: Self
+	 * @tabsize: Indentation size in spaces
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets the indentation size of the editor.
+	 */
+	void   set_indentsize (gint indentsize);
+
+	/**
 	 * ianjuta_editor_erase_range:
 	 * @obj: Self
 	 * @position_start: Start position of chars to erase.

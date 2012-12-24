@@ -82,6 +82,8 @@ set_indentation_param_emacs (IndentCPlugin* plugin, const gchar *param,
     else if (strcasecmp (param, "c-basic-offset") == 0)
     {
         plugin->param_statement_indentation = atoi (value);
+        ianjuta_editor_set_indentsize (IANJUTA_EDITOR (plugin->current_editor),
+                                       plugin->param_statement_indentation, NULL);
     }
     else if (strcasecmp (param, "tab-width") == 0)
     {
@@ -116,6 +118,8 @@ set_indentation_param_vim (IndentCPlugin* plugin, const gchar *param,
              g_str_equal (param, "sw"))
     {
         plugin->param_statement_indentation = atoi (value);
+        ianjuta_editor_set_indentsize (IANJUTA_EDITOR (plugin->current_editor),
+                                       plugin->param_statement_indentation, NULL);
     }
     else if (g_str_equal (param, "softtabstop") ||
              g_str_equal (param, "sts") ||
