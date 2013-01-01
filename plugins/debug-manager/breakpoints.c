@@ -220,6 +220,8 @@ breakpoint_item_unref (BreakpointItem *bi)
 		bi->editor = NULL;
 	}
 
+	g_clear_object(&bi->file);
+
 	g_free ((char *)bi->bp.file);
 	bi->bp.file = NULL;
 	g_free ((char *)bi->bp.function);
@@ -1048,6 +1050,8 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 			g_object_add_weak_pointer (G_OBJECT (ed), (gpointer)&bi->editor);
 			breakpoints_dbase_connect_to_editor (bd, ed);
 		}
+		if (file)
+			g_object_unref (file);
 	}
 
 	if (bd->debugger != NULL)
