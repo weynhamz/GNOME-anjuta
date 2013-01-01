@@ -898,10 +898,7 @@ sourceview_dispose(GObject *object)
 		g_clear_object (&cobj->priv->io);
 	}
 
-	if (cobj->priv->tooltip_cell)
-	{
-		g_clear_object (&cobj->priv->tooltip_cell);
-	}
+	g_clear_object (&cobj->priv->tooltip_cell);
 
 	sourceview_prefs_destroy(cobj);
 	

@@ -341,16 +341,7 @@ sourceview_prefs_init(Sourceview* sv)
 
 void sourceview_prefs_destroy(Sourceview* sv)
 {
-	if (sv->priv->settings)
-	{
-		g_clear_object(&sv->priv->settings);
-	}
-	if (sv->priv->msgman_settings)
-	{
-		g_clear_object (&sv->priv->msgman_settings);
-	}
-	if (sv->priv->editor_settings)
-	{
-		g_clear_object (&sv->priv->editor_settings);
-	}
+	g_clear_object (&sv->priv->settings);
+	g_clear_object (&sv->priv->msgman_settings);
+	g_clear_object (&sv->priv->editor_settings);
 }
