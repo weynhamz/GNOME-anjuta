@@ -126,6 +126,7 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	AnjutaPluginManager *plugin_manager;
 	GList *desc;
 	IAnjutaProjectBackend *backend;
+	AnjutaPluginDescription *backend_desc;
 	gint found = 0;
 	GValue value = {0, };
 
@@ -145,7 +146,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 											 NULL);
 		backend = NULL;
 		for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
-			AnjutaPluginDescription *backend_desc;
 			gchar *location = NULL;
 			IAnjutaProjectBackend *plugin;
 			gint backend_val;
@@ -191,6 +191,8 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 
 		return FALSE;
 	}
+	backend_desc = anjuta_plugin_manager_get_plugin_description (plugin_manager, G_OBJECT(backend));
+	if (backend_desc) anjuta_plugin_description_get_locale_string (backend_desc, "Anjuta Plugin", "Name", &project->backend);
 
 	g_signal_connect (G_OBJECT (project->project),
 						"file-changed",
@@ -236,6 +238,7 @@ anjuta_pm_project_unload (AnjutaPmProject *project, GError **error)
 
 	if (project->project) g_object_unref (project->project);
 	project->project = NULL;
+	project->backend = NULL;
 	project->root = NULL;
 	project->loaded = FALSE;
 	project->node_capabilities = 0;
@@ -397,6 +400,12 @@ gboolean
 anjuta_pm_project_is_open (AnjutaPmProject *project)
 {
 	return project->project != NULL;
+}
+
+const gchar *
+anjuta_pm_project_get_backend_name (AnjutaPmProject *project)
+{
+	return project->backend;
 }
 
 IAnjutaProject *

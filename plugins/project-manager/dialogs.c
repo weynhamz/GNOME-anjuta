@@ -649,6 +649,13 @@ update_properties (PropertiesTable *table)
 		add_label (_("Name:"), anjuta_project_node_get_name (table->node), table->head, &head_pos);
 	}
 
+	/* Display project backend if the root node is selected */
+	if ((anjuta_project_node_get_node_type (table->node) == ANJUTA_PROJECT_ROOT) ||
+		((anjuta_project_node_get_full_type (table->node) & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_ROOT_GROUP))
+	{
+		add_label (_("Backend:"), anjuta_pm_project_get_backend_name (table->project), table->main, &main_pos);
+	}
+
 	/* Display node type only if several types are possible */
 	node_info = NULL;
 	single = TRUE;

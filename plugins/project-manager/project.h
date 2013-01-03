@@ -57,6 +57,7 @@ struct _AnjutaPmProject
 	AnjutaPlugin *plugin;
 
 	IAnjutaProject *project;
+	const gchar *backend;
 
 	AnjutaProjectNode *root;
 
@@ -93,6 +94,7 @@ gboolean anjuta_pm_project_remove_data (AnjutaPmProject *project, GbfTreeData *d
 
 
 gboolean anjuta_pm_project_is_open (AnjutaPmProject *project);
+const gchar *anjuta_pm_project_get_backend_name (AnjutaPmProject *project);
 
 IAnjutaProject *anjuta_pm_project_get_project (AnjutaPmProject *project);
 GbfProjectModel *anjuta_pm_project_get_model (AnjutaPmProject *project);

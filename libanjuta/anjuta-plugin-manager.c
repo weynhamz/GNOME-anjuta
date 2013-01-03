@@ -2186,6 +2186,36 @@ anjuta_plugin_manager_select_and_activate (AnjutaPluginManager *plugin_manager,
 	return NULL;
 }
 
+/*
+ * anjuta_plugin_manager_get_plugin_description:
+ * @plugin_manager: #AnjutaPluginManager object
+ * @plugin: #AnjutaPlugin object
+ *
+ * Get the description corresponding to the plugin or %NULL if the plugin is not
+ * activated.
+ *
+ * Returns: A #AnjutaPluginDescription or %NULL.
+ */
+AnjutaPluginDescription*
+anjuta_plugin_manager_get_plugin_description (AnjutaPluginManager *plugin_manager,
+											  GObject *plugin)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, plugin_manager->priv->activated_plugins);
+	while (g_hash_table_iter_next (&iter, &key, &value))
+	{
+		if (G_OBJECT(value) == plugin)
+		{
+			return anjuta_plugin_handle_get_description (ANJUTA_PLUGIN_HANDLE (key));
+		}
+	}
+
+	return NULL;
+}
+
+
 /* Plugin manager */
 
 static void
