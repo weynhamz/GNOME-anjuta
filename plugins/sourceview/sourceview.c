@@ -112,7 +112,21 @@ typedef struct
 	gint handle;
 	gint line;
 	const gchar* category;
+	gchar* tooltip;
 } MarkerReload;
+
+static MarkerReload*
+marker_reload_new (void)
+{
+	return g_slice_new0 (MarkerReload);
+}
+
+static void
+marker_reload_free (MarkerReload* mark)
+{
+	g_free (mark->tooltip);
+	g_slice_free (MarkerReload, mark);
+}
 
 /* HIGHLIGHTED TAGS */
 
@@ -468,7 +482,7 @@ sourceview_reload_save_markers (Sourceview* sv)
 
 	do
 	{
-		MarkerReload* reload = g_new0(MarkerReload, 1);
+		MarkerReload* reload = marker_reload_new ();
 
 		gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (sv->priv->document),
 		                                  iter, GTK_TEXT_MARK (source_mark));
@@ -477,12 +491,35 @@ sourceview_reload_save_markers (Sourceview* sv)
 
 		sscanf (gtk_text_mark_get_name (GTK_TEXT_MARK (source_mark)),
 		        MARK_NAME "%d", &reload->handle);
+		sv->priv->tooltip = g_strdup (g_object_get_data (G_OBJECT (source_mark),
+														 MARKER_TOOLTIP_DATA));
+			
 		sv->priv->reload_marks = g_slist_append (sv->priv->reload_marks, reload);
 	}
 	while ((source_mark = gtk_source_mark_next (source_mark, NULL)));
 
 	gtk_source_buffer_remove_source_marks (GTK_SOURCE_BUFFER (sv->priv->document), &begin, &end, NULL);
 	gtk_text_iter_free (iter);
+}
+
+static void
+sourceview_add_mark (Sourceview* sv, gint handle, gint line,
+                     const gchar* category, const gchar* tooltip)
+{
+	GtkTextIter iter;
+	gchar* name;
+	GtkSourceMark* source_mark;
+
+	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
+									 &iter, line);
+
+	name = CREATE_MARK_NAME (handle);
+	source_mark = gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(sv->priv->document),
+													   name, category, &iter);
+
+	g_object_set_data_full (G_OBJECT (source_mark), MARKER_TOOLTIP_DATA,
+							g_strdup (tooltip), (GDestroyNotify)g_free);
+	g_free (name);
 }
 
 static void
@@ -493,16 +530,11 @@ sourceview_reload_restore_markers (Sourceview* sv)
 	     cur_mark = g_slist_next (cur_mark))
 	{
 		MarkerReload* mark = cur_mark->data;
-		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (sv->priv->document),
-		                                  &iter,
-		                                  mark->line);
-		gtk_source_buffer_create_source_mark (GTK_SOURCE_BUFFER (sv->priv->document),
-		                                      CREATE_MARK_NAME (mark->handle),
-		                                      mark->category, &iter);
+
+		sourceview_add_mark (sv, mark->handle, mark->line, mark->category,
+							 mark->tooltip);
 	}
-	g_slist_foreach (sv->priv->reload_marks, (GFunc)g_free, NULL);
-	g_slist_free (sv->priv->reload_marks);
+	g_slist_free_full (sv->priv->reload_marks, (GDestroyNotify)marker_reload_free);
 	sv->priv->reload_marks = NULL;
 }
 
@@ -871,15 +903,12 @@ static void
 sourceview_dispose(GObject *object)
 {
 	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
-	GSList* node;
 
-	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
+	if (cobj->priv->reload_marks)
 	{
-		g_source_remove (GPOINTER_TO_UINT (node->data));
+		g_slist_free_full (cobj->priv->reload_marks, (GDestroyNotify)marker_reload_free);
+		g_slist_free (cobj->priv->reload_marks);
 	}
-	g_slist_free (cobj->priv->idle_sources);
-	cobj->priv->idle_sources = NULL;	
-
 	if (cobj->priv->assist_tip)
 	{
 		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
@@ -1849,60 +1878,11 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 	iface->to_lower = iconvert_to_lower;
 }
 
-typedef struct
-{
-	IAnjutaMarkableMarker marker;
-	gint location;
-	gint handle;
-	guint source;
-	gchar* tooltip;
-	Sourceview* sv;
-} SVMark;
-
-static gboolean mark_real (gpointer data)
-{
-	SVMark* svmark = data;
-	Sourceview* sv = svmark->sv;
-	GtkTextIter iter;
-	GtkSourceMark* source_mark;
-	const gchar* category;
-	gint location = svmark->location;
-	gint marker_count = svmark->handle;
-	gchar* tooltip = svmark->tooltip;
-	IAnjutaMarkableMarker marker = svmark->marker;
-	gchar* name;
-
-	if (sv->priv->loading)
-	{
-		/* Wait until loading is finished */
-		return TRUE;
-	}
-
-	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, LOCATION_TO_LINE (location));
-
-	category = marker_types[marker];
-	name = CREATE_MARK_NAME (marker_count);
-
-
-	source_mark = gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(sv->priv->document),
-												name, category, &iter);
-	g_object_set_data_full (G_OBJECT (source_mark), MARKER_TOOLTIP_DATA, tooltip,
-	                        (GDestroyNotify) g_free);
-
-	g_source_remove (svmark->source);
-
-	g_free (name);
-	g_slice_free (SVMark, svmark);
-	return FALSE;
-}
-
 static gint
 imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
            const gchar* tooltip, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	SVMark* svmark = g_slice_new0 (SVMark);
 
 	if (location <= 0)
 	{
@@ -1915,15 +1895,20 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 
 	marker_count++;
 
-	svmark->sv = sv;
-	svmark->location = location;
-	svmark->handle = marker_count;
-	svmark->marker = marker;
-	svmark->tooltip = tooltip ? g_strdup (tooltip) : NULL;
-	svmark->source = g_idle_add (mark_real, svmark);
+	if (sv->priv->loading)
+	{
+		MarkerReload* mark = marker_reload_new ();
 
-	sv->priv->idle_sources = g_slist_prepend (sv->priv->idle_sources,
-											  GUINT_TO_POINTER (svmark->source));
+		mark->handle = marker_count;
+		mark->line = LOCATION_TO_LINE(location);
+		mark->category = marker_types[marker];
+		mark->tooltip = g_strdup (tooltip);
+
+		sv->priv->reload_marks = g_slist_prepend (sv->priv->reload_marks, mark);
+	}
+	else
+		sourceview_add_mark (sv, marker_count, LOCATION_TO_LINE(location), marker_types[marker],
+							 tooltip);
 
 	return marker_count;
 }

@@ -61,9 +61,6 @@ struct SourceviewPrivate {
 	gboolean loading;
 	gint goto_line;
 
-	/* Idle marking */
-	GSList* idle_sources;
-
 	/* Assist */
 	AssistTip* assist_tip;
 
