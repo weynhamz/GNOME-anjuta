@@ -546,11 +546,6 @@ on_reload_dialog_response (GtkWidget *message_area, gint res, Sourceview *sv)
 	{
 		GFile* file = sourceview_io_get_file (sv->priv->io);
 
-		/* Save marks and position */
-		sv->priv->goto_line =
-			LOCATION_TO_LINE(ianjuta_editor_get_lineno (IANJUTA_EDITOR(sv), NULL));
-		sourceview_reload_save_markers (sv);
-
 		ianjuta_file_open(IANJUTA_FILE(sv),
 						  file, NULL);
 		g_object_unref (file);
@@ -983,6 +978,18 @@ static void
 ifile_open (IAnjutaFile* ifile, GFile* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
+
+	GFile *previous_file;
+
+	previous_file = sourceview_io_get_file (sv->priv->io);
+	if (previous_file && g_file_equal (file, previous_file))
+	{
+		/* This is a reload so save marks and position */
+		sv->priv->goto_line =
+			LOCATION_TO_LINE(ianjuta_editor_get_lineno (IANJUTA_EDITOR(sv), NULL));
+		sourceview_reload_save_markers (sv);
+	}
+
 	/* Hold a reference here to avoid a destroyed editor */
 	g_object_ref(G_OBJECT(sv));
 	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(sv->priv->document),
