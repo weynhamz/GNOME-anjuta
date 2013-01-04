@@ -702,7 +702,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="signoff_check">
-                    <property name="label" translatable="yes">Append signed-of- by line</property>
+                    <property name="label" translatable="yes">Append signed-off-by line</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
