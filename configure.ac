@@ -848,6 +848,7 @@ plugins/parser-cxx/Makefile
 plugins/parser-cxx/cxxparser/Makefile
 plugins/python-loader/Makefile
 plugins/jhbuild/Makefile
+plugins/quick-open/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

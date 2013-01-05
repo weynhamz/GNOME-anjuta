@@ -33,6 +33,7 @@ SUBDIRS = . \
 	project-manager \
 	project-wizard \
 	python-loader \
+	quick-open \
 	run-program \
 	snippets-manager \
 	sourceview \

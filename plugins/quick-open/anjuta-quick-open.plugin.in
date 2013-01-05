@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+_Name=Quick Open
+_Description=Quickly open project files.
+Location=anjuta-quick-open:QuickOpenPlugin
+Icon=anjuta-quick-open-48.png
