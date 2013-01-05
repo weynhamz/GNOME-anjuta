@@ -22,6 +22,13 @@
 
   <terms>
     <item>
+      <title><gui>Backend</gui></title>
+      <p>This the project backend used by the project: Autotools.
+      Another backend can be selected by clicking on this button. It can be
+      useful if the current backend has some troubles to parse your project
+      files.</p>
+    </item>
+    <item>
       <title><gui>Name</gui></title>
       <p>The name of your project. It can contains space.</p>
     </item>

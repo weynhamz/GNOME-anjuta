@@ -23,6 +23,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-project.h>
+#include <libanjuta/anjuta-plugin-description.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include "project-model.h"
 #include "project-view.h"
@@ -84,6 +85,7 @@ struct _ProjectManagerPluginClass{
 };
 
 GtkWindow* get_plugin_parent_window (ProjectManagerPlugin *plugin);
+gboolean change_project_backend (ProjectManagerPlugin *plugin, AnjutaPluginDescription *backend);
 
 
 #endif

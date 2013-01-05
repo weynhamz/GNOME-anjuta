@@ -29,6 +29,7 @@
 #include <libanjuta/interfaces/ianjuta-project-backend.h>
 #include <libanjuta/interfaces/ianjuta-project.h>
 #include <libanjuta/anjuta-profile-manager.h>
+#include <libanjuta/anjuta-profile.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-project.h>
@@ -377,6 +378,84 @@ get_plugin_parent_window (ProjectManagerPlugin *plugin)
 	return win;
 }
 
+gboolean
+change_project_backend (ProjectManagerPlugin *plugin, AnjutaPluginDescription *backend)
+{
+	gchar *content;
+	gsize length;
+	GError *error = NULL;
+
+	if (g_file_load_contents (plugin->project_file, NULL, &content, &length, NULL, &error))
+	{
+		GString *buffer;
+		const gchar *pos;
+		const gchar *start_plugin;
+		const gchar *end_plugin;
+		gssize len;
+
+		buffer = g_string_new_len (content, length);
+		pos = buffer->str;
+		len = buffer->len;
+		for (;;)
+		{
+			start_plugin = g_strstr_len (pos, len, "<plugin ");
+			if (start_plugin == NULL) break;
+				
+			end_plugin = g_strstr_len (start_plugin, len - (start_plugin - pos), "</plugin>");
+			if (end_plugin == NULL) break;
+				
+			if (g_strstr_len (start_plugin, end_plugin - start_plugin, "\"IAnjutaProjectBackend\"") != NULL) break;
+
+			pos = end_plugin + 9;
+			len -= (end_plugin + 9 - pos);
+		}
+
+		if ((start_plugin == NULL) || (end_plugin == NULL))
+		{
+			g_set_error (&error, ianjuta_project_backend_error_quark(),0, "Unable to find backend plugin");
+		}
+		else
+		{
+			/* Replace plugin implementing IAnjutaProjectBackend with the right one */
+			GString *str;
+			GFileOutputStream *stream;
+			gchar *name = NULL;
+			gchar *plugin_id = NULL;
+
+			anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Name", &name);
+			anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &plugin_id);
+
+			str = g_string_new (NULL);
+			g_string_printf (str, "<plugin name= \"%s\"\n"
+			                      "            mandatory=\"yes\">\n"
+			                      "         <require group=\"Anjuta Plugin\"\n"
+			                      "                  attribute=\"Location\"\n"
+			                      "                  value=\"%s\"/>\n"
+			                      "         <require group=\"Anjuta Plugin\"\n"
+			                      "                  attribute=\"Interfaces\"\n"
+			                      "                  value=\"IAnjutaProjectBackend\"/>\n"
+			                      "    ", name, plugin_id);
+
+			g_string_erase (buffer, start_plugin - buffer->str, end_plugin - start_plugin);
+			g_string_insert_len (buffer, start_plugin - buffer->str, str->str, str->len);
+
+			g_string_free (str, TRUE);
+
+			stream = g_file_replace (plugin->project_file, NULL, FALSE, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &error);
+			if (stream != NULL)
+			{
+				gsize written;
+
+				g_output_stream_write_all (G_OUTPUT_STREAM (stream), buffer->str, buffer->len, &written, NULL, &error);
+				g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
+			}
+		}
+		g_string_free (buffer, TRUE);
+		g_free (content);
+	}
+
+	return error == NULL;
+}
 
 /* GUI callbacks
  *---------------------------------------------------------------------------*/

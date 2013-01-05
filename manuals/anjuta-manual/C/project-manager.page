@@ -4,6 +4,7 @@
 
   <info xmlns:facet="http://projectmallard.org/facet/1.0/">
     <facet:tag key="all-pages" value="whatever"/> <!--Include page in index-->
+    <link type="seealso" xref="project-manager-root"/>
     <desc>
       Project manager.
     </desc>
@@ -23,6 +24,12 @@
     <app>Anjuta</app> supports several already existing project formats
     through plugin backends. The main one is the autotools format commonly
     used on Linux.
+  </p>
+
+  <p>
+    The project backend to use is choosen when creating or importing a new
+    project in <app>Anjuta</app>. It is displayed in the properties of the
+    project root node and can be changed at any time.
   </p>
 
   <p>

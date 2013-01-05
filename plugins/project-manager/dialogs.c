@@ -36,6 +36,7 @@
 #include <libanjuta/anjuta-pkg-config-chooser.h>
 #include <libanjuta/anjuta-tree-combo.h>
 #include <libanjuta/interfaces/ianjuta-project-chooser.h>
+#include <libanjuta/interfaces/ianjuta-project-backend.h>
 
 #define ICON_SIZE 16
 
@@ -55,6 +56,7 @@
 typedef struct _PropertiesTable
 {
 	AnjutaPmProject *project;
+	AnjutaPluginDescription *new_backend;
 	GtkWidget *dialog;
 	GtkWidget *table;
 	GtkWidget *head;
@@ -539,6 +541,31 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
 }
 
 static void
+add_button (const gchar *display_name, const gchar *value, GCallback on_clicked, PropertiesTable *properties, GtkWidget *table, gint *position)
+{
+	GtkWidget *label;
+	GtkWidget *button;
+
+	label = gtk_label_new (display_name);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_widget_show (label);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
+			  GTK_FILL, GTK_FILL, 5, 3);
+
+	button = gtk_button_new_with_label (value);
+	gtk_button_set_alignment (GTK_BUTTON (button), 0, 0.5);
+	gtk_widget_show (button);
+	gtk_table_attach (GTK_TABLE (table), button, 1, 2, *position, *position+1,
+			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
+	if (on_clicked != NULL)
+	{
+		g_signal_connect (G_OBJECT (button), "clicked", on_clicked, properties);
+	}
+
+	*position = *position + 1;
+}
+
+static void
 pm_project_resize_properties_dialog (PropertiesTable *table)
 {
 	gint border_width, maximum_width, maximum_height;
@@ -566,6 +593,78 @@ pm_project_resize_properties_dialog (PropertiesTable *table)
 		width = maximum_width;
 
 	gtk_window_resize (GTK_WINDOW (table->dialog), width, height);
+}
+
+static void
+on_change_project_backend (GtkButton *button,
+                           gpointer user_data)
+{
+	PropertiesTable *table = (PropertiesTable *)user_data;
+	AnjutaPluginManager *plugin_manager;
+	GList *descs = NULL;
+	GList *desc;
+	AnjutaPluginDescription *backend;
+
+	/* Search for all valid project backend */
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(table->project->plugin)->shell, NULL);
+	descs = anjuta_plugin_manager_query (plugin_manager,
+										 "Anjuta Plugin",
+										 "Interfaces",
+										 "IAnjutaProjectBackend",
+										 NULL);	
+	for (desc = g_list_first (descs); desc != NULL;) {
+		IAnjutaProjectBackend *plugin;
+		gchar *location = NULL;
+		GList *next;
+		
+		backend = (AnjutaPluginDescription *)desc->data;
+		anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
+		plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
+		g_free (location);
+
+		next = g_list_next (desc);
+		
+		/* Probe the project directory to find if the backend can handle it */
+		if (ianjuta_project_backend_probe (plugin, anjuta_project_node_get_file (table->node), NULL) <= 0)
+		{
+			/* Remove invalid backend */
+			descs = g_list_delete_link (descs, desc);
+		}
+
+		desc = next;
+	}
+
+	if (descs != NULL)
+	{
+		/* Move the current backend at the beginning of the list */
+		backend = anjuta_pm_project_get_backend (table->project);
+		for (desc = g_list_first (descs); desc != NULL; desc = g_list_next (desc)) {
+			if (desc->data == backend)
+			{
+				descs = g_list_remove_link (descs, desc);
+				descs = g_list_concat (desc, descs);
+				break;
+			}
+		}
+		     
+		/* Several backend are possible, ask the user to select one */
+		gchar* message = g_strdup_printf (_("Please select a project backend to use."));
+		
+		backend = anjuta_plugin_manager_select (plugin_manager,
+		    _("Open With"),
+		    message,
+		    descs);
+		g_free (message);
+		g_list_free (descs);
+
+		if (backend != NULL)
+		{
+			const gchar *name;
+			anjuta_plugin_description_get_locale_string (backend, "Anjuta Plugin", "Name", &name);
+			gtk_button_set_label (button, name);
+			table->new_backend = backend;
+		}
+	}
 }
 
 static void
@@ -634,6 +733,22 @@ update_properties (PropertiesTable *table)
 	g_list_free (table->properties);
 	table->properties = NULL;
 
+	/* Display project backend if the root node is selected */
+	if ((anjuta_project_node_get_node_type (table->node) == ANJUTA_PROJECT_ROOT) ||
+		((anjuta_project_node_get_full_type (table->node) & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_ROOT_GROUP))
+	{
+		AnjutaPluginDescription *backend;
+
+		backend = anjuta_pm_project_get_backend (table->project);
+		if (backend)
+		{
+			const gchar *name;
+			
+			anjuta_plugin_description_get_locale_string (backend, "Anjuta Plugin", "Name", &name);
+			add_button (_("Backend:"), name, on_change_project_backend, table, table->head, &head_pos);
+		}
+	}
+
 	/* Update node name */
 	file = anjuta_project_node_get_file (table->node);
 	if (file != NULL)
@@ -647,13 +762,6 @@ update_properties (PropertiesTable *table)
 	else
 	{
 		add_label (_("Name:"), anjuta_project_node_get_name (table->node), table->head, &head_pos);
-	}
-
-	/* Display project backend if the root node is selected */
-	if ((anjuta_project_node_get_node_type (table->node) == ANJUTA_PROJECT_ROOT) ||
-		((anjuta_project_node_get_full_type (table->node) & ANJUTA_PROJECT_ID_MASK) == ANJUTA_PROJECT_ROOT_GROUP))
-	{
-		add_label (_("Backend:"), anjuta_pm_project_get_backend_name (table->project), table->main, &main_pos);
 	}
 
 	/* Display node type only if several types are possible */
@@ -814,6 +922,29 @@ on_properties_dialog_response (GtkWidget *dialog,
 				break;
 			}
 		}
+
+		/* Update backend if needed */
+		if ((table->new_backend != NULL) && (table->new_backend != anjuta_pm_project_get_backend (table->project)))
+		{
+			GFile *root;
+			AnjutaStatus *status;
+			gchar *path;
+
+			change_project_backend (ANJUTA_PLUGIN_PROJECT_MANAGER (table->project->plugin), table->new_backend);
+			
+			root = g_object_ref (anjuta_project_node_get_file (table->node));
+			path = g_file_get_path (root);
+			
+			status = anjuta_shell_get_status (table->project->plugin->shell, NULL);
+			anjuta_status_progress_add_ticks (status, 1);
+			anjuta_status_push (status, _("Reloading project: %s"), path);
+			g_free (path);
+			anjuta_status_busy_push (status);
+			ANJUTA_PLUGIN_PROJECT_MANAGER (table->project->plugin)->busy = TRUE;
+			anjuta_pm_project_unload (table->project, NULL);
+			anjuta_pm_project_load_with_backend (table->project, root, table->new_backend, NULL);
+			g_object_unref (root);
+		}
 	}
 	else if (id == GTK_RESPONSE_HELP)
 	{
@@ -882,6 +1013,7 @@ pm_project_create_properties_dialog (AnjutaPmProject *project, GtkWindow *parent
 	table->data = data;
 	table->node = gbf_tree_data_get_node (data);
 	table->project = project;
+	table->new_backend = NULL;
 	anjuta_util_builder_get_objects (bxml,
 	                                "property_dialog", &table->dialog,
 									"properties", &table->table,

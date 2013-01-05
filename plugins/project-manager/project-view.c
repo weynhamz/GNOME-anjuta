@@ -1422,21 +1422,17 @@ on_node_loaded (AnjutaPmProject *sender, AnjutaProjectNode *node, gboolean compl
 				else
 				{
 					GbfTreeData *data;
+					GbfTreeData *new_data;
 
+					/* Replace with new node */
 					gtk_tree_model_get (GTK_TREE_MODEL (view->model), &iter,
 						GBF_PROJECT_MODEL_COLUMN_DATA, &data,
 						-1);
-					if (data->type == GBF_TREE_NODE_UNKNOWN)
-					{
-						/* Replace with real node */
-						GbfTreeData *new_data;
-
-						new_data = gbf_tree_data_new_node (node);
-						gtk_tree_store_set (GTK_TREE_STORE (view->model), &iter,
-									GBF_PROJECT_MODEL_COLUMN_DATA, new_data,
-									-1);
-						gbf_tree_data_free (data);
-					}
+					new_data = gbf_tree_data_new_node (node);
+					gtk_tree_store_set (GTK_TREE_STORE (view->model), &iter,
+								GBF_PROJECT_MODEL_COLUMN_DATA, new_data,
+								-1);
+					gbf_tree_data_free (data);
 					gbf_project_view_update_tree (view, node, &iter);
 				}
 

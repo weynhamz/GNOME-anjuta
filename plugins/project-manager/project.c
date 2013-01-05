@@ -119,6 +119,64 @@ on_node_changed (IAnjutaProject *sender, AnjutaProjectNode *node, GError *error,
 /* Public functions
  *---------------------------------------------------------------------------*/
 
+gboolean
+anjuta_pm_project_load_with_backend (AnjutaPmProject *project, GFile *file, AnjutaPluginDescription *backend, GError **error)
+{
+	AnjutaPluginManager *plugin_manager;
+	gchar *location = NULL;
+	IAnjutaProjectBackend *plugin;
+	GValue value = {0, };
+
+	anjuta_plugin_description_get_string (backend, "Anjuta Plugin", "Location", &location);
+	plugin_manager = anjuta_shell_get_plugin_manager (project->plugin->shell, NULL);
+	plugin = (IAnjutaProjectBackend *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, location);
+	g_free (location);
+
+	
+	DEBUG_PRINT ("%s", "Creating new gbf project\n");
+	project->project = ianjuta_project_backend_new_project (plugin, file, NULL);
+	if (!project->project)
+	{
+		/* FIXME: Set err */
+		g_warning ("project creation failed\n");
+
+		return FALSE;
+	}
+	project->backend =backend;
+
+	g_signal_connect (G_OBJECT (project->project),
+						"file-changed",
+						G_CALLBACK (on_file_changed),
+						project);
+	g_signal_connect (G_OBJECT (project->project),
+						"node-loaded",
+						G_CALLBACK (on_node_loaded),
+						project);
+	g_signal_connect (G_OBJECT (project->project),
+						"node-changed",
+						G_CALLBACK (on_node_changed),
+						project);
+
+	/* Export project root shell variable */
+	g_value_init (&value, G_TYPE_OBJECT);
+	g_value_set_object (&value, project->project);
+	anjuta_shell_add_value (project->plugin->shell,
+	                        IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
+	                        &value, NULL);
+	g_value_unset(&value);
+	g_value_init (&value, G_TYPE_STRING);
+	g_value_set_string (&value, ANJUTA_PLUGIN_PROJECT_MANAGER (project->plugin)->project_root_uri);
+	anjuta_shell_add_value (project->plugin->shell,
+							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
+							&value, NULL);
+	g_value_unset(&value);
+
+	project->root = ianjuta_project_get_root (project->project, NULL);
+	ianjuta_project_load_node (project->project, project->root, NULL);
+
+	return TRUE;
+}
+
 
 gboolean
 anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
@@ -128,7 +186,6 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 	IAnjutaProjectBackend *backend;
 	AnjutaPluginDescription *backend_desc;
 	gint found = 0;
-	GValue value = {0, };
 
 	g_return_val_if_fail (file != NULL, FALSE);
 
@@ -181,51 +238,10 @@ anjuta_pm_project_load (AnjutaPmProject *project, GFile *file, GError **error)
 
 		return FALSE;
 	}
-
-	DEBUG_PRINT ("%s", "Creating new gbf project\n");
-	project->project = ianjuta_project_backend_new_project (backend, file, NULL);
-	if (!project->project)
-	{
-		/* FIXME: Set err */
-		g_warning ("project creation failed\n");
-
-		return FALSE;
-	}
+	
 	backend_desc = anjuta_plugin_manager_get_plugin_description (plugin_manager, G_OBJECT(backend));
-	if (backend_desc) anjuta_plugin_description_get_locale_string (backend_desc, "Anjuta Plugin", "Name", &project->backend);
 
-	g_signal_connect (G_OBJECT (project->project),
-						"file-changed",
-						G_CALLBACK (on_file_changed),
-						project);
-	g_signal_connect (G_OBJECT (project->project),
-						"node-loaded",
-						G_CALLBACK (on_node_loaded),
-						project);
-	g_signal_connect (G_OBJECT (project->project),
-						"node-changed",
-						G_CALLBACK (on_node_changed),
-						project);
-
-	project->root = ianjuta_project_get_root (project->project, NULL);
-
-	/* Export project root shell variable */
-	g_value_init (&value, G_TYPE_OBJECT);
-	g_value_set_object (&value, project->project);
-	anjuta_shell_add_value (project->plugin->shell,
-	                        IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT,
-	                        &value, NULL);
-	g_value_unset(&value);
-	g_value_init (&value, G_TYPE_STRING);
-	g_value_set_string (&value, ANJUTA_PLUGIN_PROJECT_MANAGER (project->plugin)->project_root_uri);
-	anjuta_shell_add_value (project->plugin->shell,
-							IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
-							&value, NULL);
-	g_value_unset(&value);
-
-	ianjuta_project_load_node (project->project, project->root, NULL);
-
-	return TRUE;
+	return anjuta_pm_project_load_with_backend (project, file, backend_desc, error);
 }
 
 gboolean
@@ -399,11 +415,11 @@ anjuta_pm_project_remove (AnjutaPmProject *project, AnjutaProjectNode *node, GEr
 gboolean
 anjuta_pm_project_is_open (AnjutaPmProject *project)
 {
-	return project->project != NULL;
+	return (project->project != NULL) && (project->root != NULL);
 }
 
-const gchar *
-anjuta_pm_project_get_backend_name (AnjutaPmProject *project)
+AnjutaPluginDescription *
+anjuta_pm_project_get_backend (AnjutaPmProject *project)
 {
 	return project->backend;
 }

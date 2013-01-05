@@ -165,9 +165,12 @@ project_import_generate_file (AnjutaPluginDescription *backend, ProjectImportDia
 				str = g_string_new (NULL);
 				g_string_printf (str, "<plugin name= \"%s\"\n"
 				                 "            mandatory=\"yes\">\n"
-				             	 "         <require group=\"Anjuta Plugin\"\n"
+				                 "         <require group=\"Anjuta Plugin\"\n"
 				                 "                  attribute=\"Location\"\n"
 				                 "                  value=\"%s\"/>\n"
+				                 "         <require group=\"Anjuta Plugin\"\n"
+				                 "                  attribute=\"Interfaces\"\n"
+				                 "                  value=\"IAnjutaProjectBackend\"/>\n"
 				                 "    ", name, plugin_id);
 					
 				g_string_erase (buffer, plugin - buffer->str, end_plugin - plugin);
