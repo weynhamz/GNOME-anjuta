@@ -53,6 +53,7 @@ struct _AnjutaDocmanClass {
 	/* Signals */
 	void (*document_added) (IAnjutaDocument *document);
 	void (*document_changed) (IAnjutaDocument *new_document);
+	void (*document_removed) (IAnjutaDocument *document);
 };
 
 GType anjuta_docman_get_type (void);

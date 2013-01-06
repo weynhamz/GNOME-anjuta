@@ -1277,6 +1277,14 @@ docman_plugin_set_tab_pos (DocmanPlugin *ep)
 }
 
 static void
+on_document_removed (AnjutaDocman *docman, IAnjutaDocument *doc,
+					 AnjutaPlugin *plugin)
+{
+	/* Emit document-removed signal */
+	g_signal_emit_by_name (plugin, "document-removed", doc);
+}
+
+static void
 on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 				   AnjutaPlugin *plugin)
 {
@@ -1319,6 +1327,9 @@ on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 									   highlight_submenu);
 		}
 	}
+
+	/* Emit document-added signal */
+	g_signal_emit_by_name (docman_plugin, "document-added", doc);
 }
 
 static gboolean
@@ -1617,6 +1628,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	ANJUTA_DOCMAN(docman)->shell = anjuta_plugin_get_shell(plugin);
 	g_signal_connect (G_OBJECT (docman), "document-added",
 					  G_CALLBACK (on_document_added), plugin);
+	g_signal_connect (G_OBJECT (docman), "document-removed",
+					  G_CALLBACK (on_document_removed), plugin);
 	g_signal_connect (G_OBJECT (docman), "document-changed",
 					  G_CALLBACK (on_document_changed), plugin);
 	g_signal_connect (G_OBJECT (plugin->shell), "key-press-event",

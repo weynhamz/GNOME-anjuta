@@ -46,6 +46,7 @@ enum
 {
 	DOC_ADDED,
 	DOC_CHANGED,
+	DOC_REMOVED,
 	LAST_SIGNAL
 };
 
@@ -1158,6 +1159,16 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 			G_TYPE_NONE,
 			1,
 			G_TYPE_OBJECT);
+	docman_signals [DOC_REMOVED] =
+		g_signal_new ("document-removed",
+			ANJUTA_TYPE_DOCMAN,
+			G_SIGNAL_RUN_LAST,
+			G_STRUCT_OFFSET (AnjutaDocmanClass, document_removed),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__OBJECT,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_OBJECT);
 
 	}
 }
@@ -1357,6 +1368,11 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 
 		g_free (page);
 	}
+
+	/* Emit document-removed */
+	g_signal_emit(docman, docman_signals[DOC_REMOVED], 0, doc);
+	
+
 	gtk_widget_destroy(GTK_WIDGET(doc));
 	anjuta_docman_update_documents_menu(docman);
 
