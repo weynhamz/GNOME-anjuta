@@ -113,9 +113,6 @@ struct _BreakpointsDBase
 	/* Menu action */
 	GtkActionGroup *debugger_group;
 	GtkActionGroup *permanent_group;
-
-	/* Editor watch id */
-	guint editor_watch;
 };
 
 
@@ -643,24 +640,14 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 }
 
 static void
-on_added_current_editor (AnjutaPlugin *plugin, const char *name,
-							const GValue *value, gpointer user_data)
+on_document_added (IAnjutaDocumentManager* docman, IAnjutaDocument* doc,
+				   gpointer user_data)
 {
 	BreakpointsDBase *bd = (BreakpointsDBase *)user_data;
-	GObject *editor;
 
-	editor = g_value_get_object (value);
-
-    /* Restore breakpoints */
-	if (IANJUTA_IS_EDITOR (editor))
-		breakpoints_dbase_set_all_in_editor (bd, IANJUTA_EDITOR (editor));
-}
-
-static void
-on_removed_current_editor (AnjutaPlugin *plugin,
-							  const char *name, gpointer data)
-{
-	/* Nothing do to here */
+	/* Restore breakpoints */
+	if (IANJUTA_IS_EDITOR (doc))
+		breakpoints_dbase_set_all_in_editor (bd, IANJUTA_EDITOR(doc));
 }
 
 /* Private functions
@@ -2073,6 +2060,7 @@ BreakpointsDBase *
 breakpoints_dbase_new (DebugManagerPlugin *plugin)
 {
 	BreakpointsDBase *bd;
+	IAnjutaDocumentManager* docman;
 
 	bd = g_new0 (BreakpointsDBase, 1);
 
@@ -2092,11 +2080,11 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 	g_signal_connect_swapped (bd->plugin, "debugger-started", G_CALLBACK (on_debugger_started), bd);
 	g_signal_connect_swapped (bd->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), bd);
 
-	bd->editor_watch =
-		anjuta_plugin_add_watch (ANJUTA_PLUGIN(bd->plugin), IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
-								 on_added_current_editor,
-								 on_removed_current_editor, bd);
-
+	/* Connect to IAnjutaDocumentManager::document-added */
+	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
+										IAnjutaDocumentManager, NULL);
+	g_return_val_if_fail(docman, NULL);
+	g_signal_connect(docman, "document-added", G_CALLBACK(on_document_added), bd);
 
 	return bd;
 }
@@ -2104,14 +2092,22 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 void
 breakpoints_dbase_destroy (BreakpointsDBase * bd)
 {
+	IAnjutaDocumentManager* docman;
+
 	g_return_if_fail (bd != NULL);
 
 	/* Disconnect all signal */
 	g_signal_handlers_disconnect_matched (ANJUTA_PLUGIN(bd->plugin)->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, bd);
 	g_signal_handlers_disconnect_matched (bd->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, bd);
 	breakpoints_dbase_disconnect_from_editors (bd);
-	anjuta_plugin_remove_watch (ANJUTA_PLUGIN(bd->plugin), bd->editor_watch, FALSE);
 
+	/* Disconnect IAnjutaDocumentManager::document-added */
+	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(bd->plugin)->shell,
+										IAnjutaDocumentManager, NULL);
+	if (docman)
+		g_signal_handlers_disconnect_by_func(docman, on_document_added, bd); 
+
+	
 	/* This is necessary to clear the editor of breakpoint markers */
 	breakpoints_dbase_remove_all (bd);
 
