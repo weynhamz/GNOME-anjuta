@@ -1068,7 +1068,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 
 	docman->priv->combo_model = gtk_list_store_new (2, G_TYPE_OBJECT, G_TYPE_STRING);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
-	                                      GTK_SORT_DESCENDING);
+	                                      GTK_SORT_ASCENDING);
 	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
 	                                 combo_sort_func, docman, NULL);
 
