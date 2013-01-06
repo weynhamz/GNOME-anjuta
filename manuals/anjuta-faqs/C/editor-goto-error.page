@@ -1,0 +1,33 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      xmlns:if="http://projectmallard.org/experimental/if/"
+      type="topic"
+      id="editor-goto-error">
+
+  <info>
+    <link type="guide" xref="index#faq-editor"/>
+
+    <desc>Double click on the message.</desc>
+    
+    <revision pkgversion="0.1" version="0.1" date="2010-12-02" status="stub"/>
+    <credit type="author">
+      <name>Sébastien Granjoux</name>
+      <email>seb.sfo@free.fr</email>
+    </credit>
+  </info>
+
+  <title>How to jump to the line causing a build error or warning?</title>
+
+  <p>Normally errors reported by the compiler are highlighted in the message window pane.
+  Double clicking on an error should open the corresponding file, if necessary, and move
+  the view to the right position.</p>
+
+  <note style="bug">
+    <p>It can fail if <app>Anjuta</app> is not able to parse the output of the build
+    program. This is much more common if the output is translated. So, as a work around,
+    you can uncheck the option <gui>Translate messages</gui> in the preferences of the
+    build plugin. The errors and warnings of the compiler will not be translated but
+    you should be able to jump to the faulty line as explained above.</p>
+  </note>
+
+</page>

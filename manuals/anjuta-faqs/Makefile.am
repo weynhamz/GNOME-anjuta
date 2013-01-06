@@ -4,6 +4,7 @@ HELP_ID = anjuta-faqs
 
 HELP_FILES = \
 	index.page \
+	editor-goto-error.page \
 	editor-maximize.page \
 	editor-scintilla.page \
 	general-bugs.page \
