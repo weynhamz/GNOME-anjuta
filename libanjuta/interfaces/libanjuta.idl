@@ -2824,6 +2824,27 @@ interface IAnjutaDocumentManager
 	}
 
 	/**
+	* IAnjutaDocumentManager::document-added:
+	* @obj: Self
+	* @doc: The #IAnjutaDocument that was added.
+	* @err: Error propagation and reporting.
+	*
+	* Emitted when a document was added to the document manager.
+	*/
+	void ::document_added (IAnjutaDocument* doc);
+
+	/**
+	* IAnjutaDocumentManager::document-removed:
+	* @obj: Self
+	* @doc: The #IAnjutaDocument that was removed.
+	* @err: Error propagation and reporting.
+	*
+	* Emitted when a document was removed from the document manager.
+	*/
+	void ::document_removed (IAnjutaDocument* doc);
+
+
+	/**
 	 * ianjuta_document_manager_get_file:
 	 * @obj: Self
 	 * @filename: short filename

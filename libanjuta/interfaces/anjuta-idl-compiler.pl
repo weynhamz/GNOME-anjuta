@@ -142,6 +142,11 @@ my $type_map = {
 		"gtype" => "G_TYPE_OBJECT",
 		"type" => "IANJUTA_TYPE_ITERABLE",
 		"fail_return" => "NULL"
+	},
+	"IAnjutaDocument*" => {
+		"gtype" => "G_TYPE_OBJECT",
+		"type" => "IANJUTA_TYPE_DOCUMENT",
+		"fail_return" => "NULL"
 	}
 };
 
