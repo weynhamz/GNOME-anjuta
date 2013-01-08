@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-01 21:19+0000\n"
-"PO-Revision-Date: 2012-12-31 03:54+0900\n"
+"POT-Creation-Date: 2013-01-06 18:29+0000\n"
+"PO-Revision-Date: 2013-01-07 18:27+0900\n"
 "Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -259,7 +259,7 @@ msgstr "環境変数の一覧:"
 #: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
 #: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
-#: ../plugins/project-manager/dialogs.c:481
+#: ../plugins/project-manager/dialogs.c:483
 #: ../plugins/snippets-manager/plugin.c:763
 #: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
@@ -270,7 +270,7 @@ msgstr "名前"
 #: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
 #: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:489 ../plugins/tools/editor.c:476
+#: ../plugins/project-manager/dialogs.c:491 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "値"
 
@@ -319,7 +319,7 @@ msgstr "コマンドを起動できません: \"%s\""
 msgid "execvp failed"
 msgstr "execvp(3) に失敗しました"
 
-#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2396
 msgid "Anjuta Shell"
 msgstr "Anjuta シェル"
 
@@ -392,45 +392,45 @@ msgstr "<b>有効にするプラグインを選択してください</b>"
 msgid "Remember this selection"
 msgstr "この選択内容を記憶する"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2347
+#: ../libanjuta/anjuta-plugin-manager.c:2377
 msgid "Profiles"
 msgstr "プロファイル"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2348
+#: ../libanjuta/anjuta-plugin-manager.c:2378
 msgid "Current stack of profiles"
 msgstr "プロファイルの現在のスタック"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2353
+#: ../libanjuta/anjuta-plugin-manager.c:2383
 msgid "Available plugins"
 msgstr "利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2354
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Currently available plugins found in plugin paths"
 msgstr "プラグインフォルダーの中にある現在利用できるプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2360
+#: ../libanjuta/anjuta-plugin-manager.c:2390
 msgid "Activated plugins"
 msgstr "利用中のプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2361
+#: ../libanjuta/anjuta-plugin-manager.c:2391
 msgid "Currently activated plugins"
 msgstr "現在、利用中のプラグイン"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2367
+#: ../libanjuta/anjuta-plugin-manager.c:2397
 msgid "Anjuta shell for which the plugins are made"
 msgstr "プラグインが作られた対象の Anjuta シェル"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2375
+#: ../libanjuta/anjuta-plugin-manager.c:2405
 msgid "Anjuta Status"
 msgstr "Anjuta の状態"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2376
+#: ../libanjuta/anjuta-plugin-manager.c:2406
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "プラグインの読み込みや読み込み解除で使用する Anjuta の状態"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2536
+#: ../libanjuta/anjuta-plugin-manager.c:2566
 msgid "Loading:"
 msgstr "読み込み中:"
 
@@ -788,7 +788,7 @@ msgstr "プロジェクトマネジャーのための新しい autotools バッ�
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:649
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:764
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -2001,7 +2001,7 @@ msgstr "実装"
 #: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
 #: ../plugins/class-gen/window.c:812
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
@@ -2498,7 +2498,7 @@ msgid "_Attach"
 msgstr "アタッチ(_A)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/debug-manager/breakpoints.c:2035
+#: ../plugins/debug-manager/breakpoints.c:2026
 msgid "Breakpoints"
 msgstr "ブレークポイント"
 
@@ -2543,7 +2543,7 @@ msgid "Breakpoint properties"
 msgstr "ブレークポイントのプロパティ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Location"
 msgstr "場所"
 
@@ -2691,147 +2691,147 @@ msgstr ""
 msgid "Do not show again"
 msgstr "二度と表示しない"
 
-#: ../plugins/debug-manager/breakpoints.c:1726
+#: ../plugins/debug-manager/breakpoints.c:1717
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "本当にすべてのブレークポイントを削除してもよろしいですか?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1814
 msgid "_Breakpoints"
 msgstr "ブレークポイント(_B)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1831
+#: ../plugins/debug-manager/breakpoints.c:1822
 msgid "Toggle Breakpoint"
 msgstr "ブレークポイントの ON/OFF"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1833
+#: ../plugins/debug-manager/breakpoints.c:1824
 msgid "Toggle breakpoint at the current location"
 msgstr "この場所のブレークポイントの ON/OFF を切り替えます"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Add Breakpoint…"
 msgstr "ブレークポイント追加…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1832
 msgid "Add a breakpoint"
 msgstr "ブレークポイントを追加します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1847
+#: ../plugins/debug-manager/breakpoints.c:1838
 msgid "Remove Breakpoint"
 msgstr "ブレークポイントの削除"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1840
 msgid "Remove a breakpoint"
 msgstr "ブレークポイントを削除します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Edit Breakpoint"
 msgstr "ブレークポイントの編集"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1848
 msgid "Edit breakpoint properties"
 msgstr "ブレークポイントのプロパティを編集します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1863
-#: ../plugins/debug-manager/breakpoints.c:1934
+#: ../plugins/debug-manager/breakpoints.c:1854
+#: ../plugins/debug-manager/breakpoints.c:1925
 msgid "Enable Breakpoint"
 msgstr "ブレークポイントを有効にする"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1865
-#: ../plugins/debug-manager/breakpoints.c:1935
+#: ../plugins/debug-manager/breakpoints.c:1856
+#: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable a breakpoint"
 msgstr "ブレークポイントを有効にします"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1871
+#: ../plugins/debug-manager/breakpoints.c:1862
 msgid "Disable All Breakpoints"
 msgstr "全ブレークポイントを無効にする"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1864
 msgid "Deactivate all breakpoints"
 msgstr "すべてのブレークポイントを一時的に無効にします"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1879
+#: ../plugins/debug-manager/breakpoints.c:1870
 msgid "R_emove All Breakpoints"
 msgstr "すべてのブレークポイントの削除(_E)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1881
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Remove all breakpoints"
 msgstr "すべてのブレークポイントを削除します"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1890
+#: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Jump to Breakpoint"
 msgstr "ブレークポイントへジャンプ"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1883
 msgid "Jump to breakpoint location"
 msgstr "ブレークポイントがある場所へジャンプします"
 
-#: ../plugins/debug-manager/breakpoints.c:1929
+#: ../plugins/debug-manager/breakpoints.c:1920
 msgid "Disable Breakpoint"
 msgstr "ブレークポイントの無効"
 
-#: ../plugins/debug-manager/breakpoints.c:1930
+#: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable a breakpoint"
 msgstr "ブレークポイントを無効にします"
 
 #. This enable an user defined command
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Enabled"
 msgstr "有効"
 
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/stack_trace.c:859
 msgid "Address"
 msgstr "アドレス"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Condition"
 msgstr "条件"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Pass count"
 msgstr "通過する回数"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "State"
 msgstr "状態"
 
-#: ../plugins/debug-manager/breakpoints.c:2012
-#: ../plugins/debug-manager/breakpoints.c:2018
+#: ../plugins/debug-manager/breakpoints.c:2003
+#: ../plugins/debug-manager/breakpoints.c:2009
 msgid "Breakpoint operations"
 msgstr "ブレークポイントの操作"
 
@@ -3426,34 +3426,34 @@ msgstr "名前の変更"
 msgid "Remove"
 msgstr "削除"
 
-#: ../plugins/document-manager/anjuta-docman.c:164
+#: ../plugins/document-manager/anjuta-docman.c:165
 #, fuzzy
 #| msgid "[read-only]"
 msgid " [read-only]"
 msgstr "[読み込み専用]"
 
-#: ../plugins/document-manager/anjuta-docman.c:660
-#: ../plugins/document-manager/anjuta-docman.c:1100
+#: ../plugins/document-manager/anjuta-docman.c:661
+#: ../plugins/document-manager/anjuta-docman.c:1101
 msgid "Close file"
 msgstr "ファイルを閉じる"
 
-#: ../plugins/document-manager/anjuta-docman.c:708
-#: ../plugins/project-manager/dialogs.c:644
+#: ../plugins/document-manager/anjuta-docman.c:709
+#: ../plugins/project-manager/dialogs.c:759
 msgid "Path:"
 msgstr "パス名:"
 
-#: ../plugins/document-manager/anjuta-docman.c:832
+#: ../plugins/document-manager/anjuta-docman.c:833
 #: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
 #: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
 msgid "Open file"
 msgstr "ファイルを開きます"
 
-#: ../plugins/document-manager/anjuta-docman.c:851
+#: ../plugins/document-manager/anjuta-docman.c:852
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "別名で保存"
 
-#: ../plugins/document-manager/anjuta-docman.c:932
+#: ../plugins/document-manager/anjuta-docman.c:933
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3462,11 +3462,11 @@ msgstr ""
 "'%s' というファイルは既に存在しています。\n"
 "本当に上書きしてもよろしいですか?"
 
-#: ../plugins/document-manager/anjuta-docman.c:941
+#: ../plugins/document-manager/anjuta-docman.c:942
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1720
+#: ../plugins/document-manager/anjuta-docman.c:1736
 msgid "[read-only]"
 msgstr "[読み込み専用]"
 
@@ -4106,9 +4106,9 @@ msgstr "簡易検索"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:418
-#: ../plugins/document-manager/plugin.c:1678
-#: ../plugins/document-manager/plugin.c:2098
-#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:1691
+#: ../plugins/document-manager/plugin.c:2111
+#: ../plugins/document-manager/plugin.c:2120
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -4146,12 +4146,12 @@ msgid "Mode"
 msgstr "モード"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1516
+#: ../plugins/document-manager/plugin.c:1527
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s の自動保存に失敗しました"
 
-#: ../plugins/document-manager/plugin.c:1530
+#: ../plugins/document-manager/plugin.c:1541
 msgid "Autosave completed"
 msgstr "自動保存が完了しました"
 
@@ -4524,7 +4524,7 @@ msgstr ""
 "拡張子は種類に応じて自動的に付与されます。"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:671
+#: ../plugins/project-manager/dialogs.c:786
 msgid "Type:"
 msgstr "種類:"
 
@@ -4844,7 +4844,7 @@ msgid "Show source revision in log message"
 msgstr "ログメッセージのソースのリビジョンを表示する"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-msgid "Append signed-of- by line"
+msgid "Append signed-off-by line"
 msgstr "Signed-off-by 行を追加する"
 
 #: ../plugins/git/anjuta-git.ui.h:15
@@ -6251,32 +6251,33 @@ msgid "Project from Existing Sources"
 msgstr "既存のソースからのインポート"
 
 #: ../plugins/project-import/plugin.c:79
-#: ../plugins/project-import/plugin.c:183
+#: ../plugins/project-import/plugin.c:186
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "\"%s\" という名前のファイルが既に存在します。上書きしてもよろしいですか?"
 
-#: ../plugins/project-import/plugin.c:218
+#: ../plugins/project-import/plugin.c:221
 #, c-format
 msgid "A file named \"%s\" cannot be written: %s. Check if you have write access to the project directory."
 msgstr "\"%s\" という名前のファイルに書き込めません: %s プロジェクトのフォルダーに対する書き込み権限を確認してみてください。"
 
-#: ../plugins/project-import/plugin.c:282
+#: ../plugins/project-import/plugin.c:285
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "%s を開くためのプロジェクトバックエンドを選択してください"
 
-#: ../plugins/project-import/plugin.c:287
+#: ../plugins/project-import/plugin.c:290
+#: ../plugins/project-manager/dialogs.c:654
 msgid "Open With"
 msgstr "次で開く"
 
-#: ../plugins/project-import/plugin.c:302
+#: ../plugins/project-import/plugin.c:305
 #, c-format
 msgid "Could not find a valid project backend for the given directory (%s). Please select a different directory, or try upgrading to a newer version of Anjuta."
 msgstr "指定したフォルダー (%s) に妥当なプロジェクトバックエンドが見つかりませんでした。別のフォルダーを選択するか、Anjuta のより新しいバージョンにアップグレードしてみてください。"
 
-#: ../plugins/project-import/plugin.c:368
-#: ../plugins/project-import/plugin.c:424
+#: ../plugins/project-import/plugin.c:371
+#: ../plugins/project-import/plugin.c:427
 #, c-format
 msgid "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "与えられた URI \"%s\" をチェックアウトできませんでした。エラーメッセージ: \"%s\""
@@ -6349,102 +6350,121 @@ msgstr "Anjuta プロジェクトを管理するプラグインです"
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:332
+#: ../plugins/project-manager/dialogs.c:334
 msgid "Select sources…"
 msgstr "ソースの選択…"
 
-#: ../plugins/project-manager/dialogs.c:407
+#: ../plugins/project-manager/dialogs.c:409
 msgid " This property is not modifiable."
 msgstr " このプロパティは修正可能ではありません。"
 
-#: ../plugins/project-manager/dialogs.c:593
-#: ../plugins/project-manager/dialogs.c:598
-#: ../plugins/project-manager/plugin.c:917
+#. Several backend are possible, ask the user to select one
+#: ../plugins/project-manager/dialogs.c:651
+#, fuzzy, c-format
+#| msgid "Please select a project backend to open %s."
+msgid "Please select a project backend to use."
+msgstr "%s を開くためのプロジェクトバックエンドを選択してください"
+
+#: ../plugins/project-manager/dialogs.c:692
+#: ../plugins/project-manager/dialogs.c:697
+#: ../plugins/project-manager/plugin.c:996
 msgid "Project properties"
 msgstr "プロジェクトのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:602
+#: ../plugins/project-manager/dialogs.c:701
 msgid "Folder properties"
 msgstr "フォルダーのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:606
+#: ../plugins/project-manager/dialogs.c:705
 msgid "Target properties"
 msgstr "ターゲットのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:609
+#: ../plugins/project-manager/dialogs.c:708
 msgid "Source properties"
 msgstr "ソースのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:612
+#: ../plugins/project-manager/dialogs.c:711
 msgid "Module properties"
 msgstr "モジュールのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:615
+#: ../plugins/project-manager/dialogs.c:714
 msgid "Package properties"
 msgstr "パッケージのプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:618
+#: ../plugins/project-manager/dialogs.c:717
 msgid "Unknown properties"
 msgstr "不明のプロパティ"
 
-#: ../plugins/project-manager/dialogs.c:1050
-#: ../plugins/project-manager/dialogs.c:1061
+#: ../plugins/project-manager/dialogs.c:748
+#, fuzzy
+#| msgid "Backward"
+msgid "Backend:"
+msgstr "現在の場所から後方へ"
+
+#: ../plugins/project-manager/dialogs.c:940
+#, fuzzy, c-format
+#| msgid "Loading project: %s"
+msgid "Reloading project: %s"
+msgstr "プロジェクトの読み込み中: %s"
+
+#: ../plugins/project-manager/dialogs.c:1189
+#: ../plugins/project-manager/dialogs.c:1200
 msgid "Cannot add group"
 msgstr "グループを追加できません"
 
-#: ../plugins/project-manager/dialogs.c:1062
+#: ../plugins/project-manager/dialogs.c:1201
 msgid "No parent group selected"
 msgstr "親グループが選択されていません"
 
-#: ../plugins/project-manager/dialogs.c:1222
-#: ../plugins/project-manager/dialogs.c:1234
-#: ../plugins/project-manager/dialogs.c:1419
-#: ../plugins/project-manager/dialogs.c:1429
+#: ../plugins/project-manager/dialogs.c:1361
+#: ../plugins/project-manager/dialogs.c:1373
+#: ../plugins/project-manager/dialogs.c:1558
+#: ../plugins/project-manager/dialogs.c:1568
 msgid "Cannot add source files"
 msgstr "ソースファイルを追加できません"
 
-#: ../plugins/project-manager/dialogs.c:1235
-#: ../plugins/project-manager/dialogs.c:1430
+#: ../plugins/project-manager/dialogs.c:1374
+#: ../plugins/project-manager/dialogs.c:1569
 msgid "The selected node cannot contain source files."
 msgstr "選択されたノードにソースファイルが含まれていません。"
 
-#: ../plugins/project-manager/dialogs.c:1616
-#: ../plugins/project-manager/dialogs.c:1627
+#: ../plugins/project-manager/dialogs.c:1755
+#: ../plugins/project-manager/dialogs.c:1766
 msgid "Cannot add target"
 msgstr "ターゲットを追加できません"
 
-#: ../plugins/project-manager/dialogs.c:1628
+#: ../plugins/project-manager/dialogs.c:1767
 msgid "No group selected"
 msgstr "グループが選択されていません"
 
-#: ../plugins/project-manager/dialogs.c:1791
-#: ../plugins/project-manager/dialogs.c:1802
+#: ../plugins/project-manager/dialogs.c:1930
+#: ../plugins/project-manager/dialogs.c:1941
 msgid "Cannot add modules"
 msgstr "モジュールが追加できません"
 
-#: ../plugins/project-manager/dialogs.c:1803
+#: ../plugins/project-manager/dialogs.c:1942
 msgid "No target has been selected"
 msgstr "ターゲットが選択されていません"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:2009
+#: ../plugins/project-manager/dialogs.c:2148
 msgid "Missing module name"
 msgstr "モジュール名がありません"
 
-#: ../plugins/project-manager/dialogs.c:2071
+#: ../plugins/project-manager/dialogs.c:2210
 msgid "Cannot add packages"
 msgstr "パッケージが追加できません"
 
-#: ../plugins/project-manager/plugin.c:394
+#: ../plugins/project-manager/plugin.c:473
 msgid "Refreshing symbol tree…"
 msgstr "シンボル参照ツリーを更新しています…"
 
-#: ../plugins/project-manager/plugin.c:401
+#: ../plugins/project-manager/plugin.c:480
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "プロジェクトの更新に失敗しました: %s"
 
-#: ../plugins/project-manager/plugin.c:670
+#: ../plugins/project-manager/plugin.c:749
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6452,7 +6472,7 @@ msgstr ""
 "本当に次のグループをプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:673
+#: ../plugins/project-manager/plugin.c:752
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6460,7 +6480,7 @@ msgstr ""
 "本当に次のターゲットをプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:676
+#: ../plugins/project-manager/plugin.c:755
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6468,7 +6488,7 @@ msgstr ""
 "本当に次のソースファイルをプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:679
+#: ../plugins/project-manager/plugin.c:758
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6476,7 +6496,7 @@ msgstr ""
 "本当に次のパッケージをプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:682
+#: ../plugins/project-manager/plugin.c:761
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6484,7 +6504,7 @@ msgstr ""
 "本当に次のモジュールをプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:685
+#: ../plugins/project-manager/plugin.c:764
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6492,57 +6512,57 @@ msgstr ""
 "本当に次の項目をプロジェクトから削除してもよろしいですか?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:702
+#: ../plugins/project-manager/plugin.c:781
 #, c-format
 msgid "Group: %s\n"
 msgstr "グループ: %s\n"
 
-#: ../plugins/project-manager/plugin.c:705
+#: ../plugins/project-manager/plugin.c:784
 #, c-format
 msgid "Target: %s\n"
 msgstr "ターゲット: %s\n"
 
-#: ../plugins/project-manager/plugin.c:708
+#: ../plugins/project-manager/plugin.c:787
 #, c-format
 msgid "Source: %s\n"
 msgstr "ソース: %s\n"
 
-#: ../plugins/project-manager/plugin.c:711
+#: ../plugins/project-manager/plugin.c:790
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "ショートカット: %s\n"
 
-#: ../plugins/project-manager/plugin.c:714
+#: ../plugins/project-manager/plugin.c:793
 #, c-format
 msgid "Module: %s\n"
 msgstr "モジュール: %s\n"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:796
 #, c-format
 msgid "Package: %s\n"
 msgstr "パッケージ: %s\n"
 
-#: ../plugins/project-manager/plugin.c:729
+#: ../plugins/project-manager/plugin.c:808
 msgid "The group will be deleted from the file system."
 msgstr "そのグループはファイルシステムから削除されます。"
 
-#: ../plugins/project-manager/plugin.c:731
+#: ../plugins/project-manager/plugin.c:810
 msgid "The group will not be deleted from the file system."
 msgstr "このグループはファイルシステムから削除されません。"
 
-#: ../plugins/project-manager/plugin.c:733
+#: ../plugins/project-manager/plugin.c:812
 msgid "The source file will be deleted from the file system."
 msgstr "そのソースはファイルシステムから削除されます。"
 
-#: ../plugins/project-manager/plugin.c:735
+#: ../plugins/project-manager/plugin.c:814
 msgid "The source file will not be deleted from the file system."
 msgstr "このソースはファイルシステムから削除されません。"
 
-#: ../plugins/project-manager/plugin.c:740
+#: ../plugins/project-manager/plugin.c:819
 msgid "Confirm remove"
 msgstr "削除の確認"
 
-#: ../plugins/project-manager/plugin.c:786
+#: ../plugins/project-manager/plugin.c:865
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6551,165 +6571,165 @@ msgstr ""
 "'%s' を削除できません:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:852
+#: ../plugins/project-manager/plugin.c:931
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "%s の URI 情報を取得できませんでした: %s"
 
-#: ../plugins/project-manager/plugin.c:888
+#: ../plugins/project-manager/plugin.c:967
 msgid "_Project"
 msgstr "プロジェクト(_P)"
 
-#: ../plugins/project-manager/plugin.c:892
+#: ../plugins/project-manager/plugin.c:971
 msgid "New _Folder…"
 msgstr "新規フォルダー(_F)"
 
-#: ../plugins/project-manager/plugin.c:892
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:1010
 msgid "Add a new folder to the project"
 msgstr "プロジェクトに新しいフォルダーを追加します"
 
-#: ../plugins/project-manager/plugin.c:897
+#: ../plugins/project-manager/plugin.c:976
 msgid "New _Target…"
 msgstr "新規ターゲット(_T)…"
 
-#: ../plugins/project-manager/plugin.c:897
-#: ../plugins/project-manager/plugin.c:936
+#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:1015
 msgid "Add a new target to the project"
 msgstr "新規ターゲットをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:902
+#: ../plugins/project-manager/plugin.c:981
 msgid "Add _Source File…"
 msgstr "ソースの追加(_S)…"
 
-#: ../plugins/project-manager/plugin.c:902
-#: ../plugins/project-manager/plugin.c:941
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:1020
+#: ../plugins/project-manager/plugin.c:1035
 msgid "Add a source file to a target"
 msgstr "ソースファイルをターゲットに追加します"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:986
 msgid "Add _Library…"
 msgstr "ライブラリの追加(_L)…"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:986
 msgid "Add a module to a target"
 msgstr "モジュールをターゲットに追加します"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:991
 msgid "New _Library…"
 msgstr "新規ライブラリ(_L)…"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:991
 msgid "Add a new package to the project"
 msgstr "新規パッケージをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:917
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:996
+#: ../plugins/project-manager/plugin.c:1040
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:1001
 msgid "Close Pro_ject"
 msgstr "プロジェクトを閉じる(_J)"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:1001
 msgid "Close project"
 msgstr "プロジェクトを閉じます"
 
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:1010
 msgid "New _Folder"
 msgstr "新規フォルダー(_F)"
 
-#: ../plugins/project-manager/plugin.c:936
+#: ../plugins/project-manager/plugin.c:1015
 msgid "New _Target"
 msgstr "新規ターゲット(_T)"
 
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:1020
 msgid "Add _Source File"
 msgstr "ソースの追加(_S)"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:1025
 msgid "Add _Library"
 msgstr "ライブラリの追加(_L)"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:1025
 msgid "Add a library to a target"
 msgstr "ライブラリをターゲットに追加します"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:1030
 msgid "New _Library"
 msgstr "新規ライブラリ(_L)"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:1030
 msgid "Add a new library to the project"
 msgstr "新規ライブラリをプロジェクトに追加します"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:1035
 msgid "_Add to Project"
 msgstr "プロジェクトに追加(_A)"
 
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:1040
 msgid "Properties of group/target/source"
 msgstr "グループ/ターゲット/ソースのプロパティ"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:1045
 msgid "Re_move"
 msgstr "削除(_M)"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:1045
 msgid "Remove from project"
 msgstr "プロジェクトから削除します"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:1050
 msgid "_Sort"
 msgstr "並べ替え(_S)"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:1050
 msgid "Sort shortcuts"
 msgstr "ショートカットを並べ替えます"
 
-#: ../plugins/project-manager/plugin.c:1309
+#: ../plugins/project-manager/plugin.c:1388
 #, c-format
 msgid "Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
 msgstr "プロジェクトの解析に失敗しました (とりあえずプロジェクトは開きますが、プロジェクト表示はしません) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1319
+#: ../plugins/project-manager/plugin.c:1398
 msgid "Update project view…"
 msgstr "プロジェクト表示の更新…"
 
-#: ../plugins/project-manager/plugin.c:1324
-#: ../plugins/project-manager/plugin.c:1446
-#: ../plugins/project-manager/plugin.c:1614
+#: ../plugins/project-manager/plugin.c:1403
+#: ../plugins/project-manager/plugin.c:1525
+#: ../plugins/project-manager/plugin.c:1693
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 #: ../plugins/symbol-db/plugin.c:2135
 msgid "Project"
 msgstr "プロジェクト"
 
-#: ../plugins/project-manager/plugin.c:1362
+#: ../plugins/project-manager/plugin.c:1441
 #, c-format
 msgid "Loading project: %s"
 msgstr "プロジェクトの読み込み中: %s"
 
-#: ../plugins/project-manager/plugin.c:1526
+#: ../plugins/project-manager/plugin.c:1605
 #, c-format
 msgid "Error closing project: %s"
 msgstr "プロジェクトを閉じる際にエラー: %s"
 
-#: ../plugins/project-manager/plugin.c:1593
+#: ../plugins/project-manager/plugin.c:1672
 msgid "Project manager actions"
 msgstr "プロジェクトマネージャーの操作"
 
-#: ../plugins/project-manager/plugin.c:1601
+#: ../plugins/project-manager/plugin.c:1680
 msgid "Project manager popup actions"
 msgstr "プロジェクトマネージャーのポップアップ"
 
-#: ../plugins/project-manager/plugin.c:2425
+#: ../plugins/project-manager/plugin.c:2504
 msgid "Initializing Project…"
 msgstr "プロジェクトの初期化中…"
 
-#: ../plugins/project-manager/plugin.c:2428
+#: ../plugins/project-manager/plugin.c:2507
 msgid "Project Loaded"
 msgstr "ロードされたプロジェクト"
 
@@ -8260,7 +8280,7 @@ msgstr "エディターの表示設定"
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView エディター"
 
-#: ../plugins/sourceview/sourceview.c:565
+#: ../plugins/sourceview/sourceview.c:592
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8269,7 +8289,7 @@ msgstr ""
 "ディスク上のファイル '%s' は現在バッファーよりも内容が新しいようです。\n"
 "そのファイルをもう一度読み込んでみますか？"
 
-#: ../plugins/sourceview/sourceview.c:597
+#: ../plugins/sourceview/sourceview.c:624
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8279,18 +8299,18 @@ msgstr ""
 "閉じてもよいですか?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:630
+#: ../plugins/sourceview/sourceview.c:657
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s を開けませんでした: %s"
 
-#: ../plugins/sourceview/sourceview.c:684
+#: ../plugins/sourceview/sourceview.c:711
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "ファイル \"%s\" は読み取り専用です！ それでも編集しますか？"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:746
+#: ../plugins/sourceview/sourceview.c:773
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "%s を保存できませんでした: %s"
@@ -10656,9 +10676,6 @@ msgstr "テキストのみ"
 #, fuzzy
 #~ msgid "Actions"
 #~ msgstr "処理"
-
-#~ msgid "Backward"
-#~ msgstr "現在の場所から後方へ"
 
 #~ msgid "Basic Search & Replace"
 #~ msgstr "基本的な検索と置換を行う"
