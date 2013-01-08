@@ -340,7 +340,7 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 		{
 			/* Value doesn't contain a newline */
 			fprintf (stderr, "\"%.*s\"",
-				length,
+				(int)length,
 		    	string);
 		}
 		else
@@ -348,7 +348,7 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 			/* Value contains a newline, take care of indentation */
 			newline++;
 			fprintf (stderr, "\"%.*s",
-	    		newline - string,
+	    		(int)(newline - string),
 		    	string);
 			for (;;)
 			{
@@ -361,12 +361,12 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 				newline++;
 				fprintf (stderr, "%*s  %.*s",
 				    indent, "",
-					newline - string,
+					(int)(newline - string),
 	    			string);
 			}
 			fprintf (stderr, "%*s  %.*s\"",
 				    indent, "",
-					length,
+					(int)length,
 	    			string);
 		}
 	}
@@ -1538,14 +1538,6 @@ anjuta_token_foreach_post_order (AnjutaToken *token, AnjutaTokenForeachFunc func
 
 /* Token evaluation
  *---------------------------------------------------------------------------*/
-
-static void
-evaluate_raw_token (AnjutaToken *token, gpointer user_data)
-{
-	GString *value = (GString *)user_data;
-
-	anjuta_token_evaluate_token (token, value, TRUE);
-}
 
 static void
 evaluate_token (AnjutaToken *token, gpointer user_data)
