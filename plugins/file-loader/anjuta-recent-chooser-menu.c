@@ -391,9 +391,8 @@ _gtk_recent_chooser_get_items (GtkRecentChooser  *chooser,
       
       l = clamp->next;
       clamp->next = NULL;
-    
-      g_list_foreach (l, (GFunc) gtk_recent_info_unref, NULL);
-      g_list_free (l);
+
+      g_list_free_full (l, (GDestroyNotify)gtk_recent_info_unref);
     }
 
   return items;
@@ -1197,9 +1196,6 @@ check_and_return:
 
   if (pdata->loaded_items == pdata->n_items)
     {
-      g_list_foreach (pdata->items, (GFunc) gtk_recent_info_unref, NULL);
-      g_list_free (pdata->items);
-
       priv->populate_id = 0;
 
       retval = FALSE;
@@ -1215,17 +1211,18 @@ idle_populate_clean_up (gpointer data)
 {
   MenuPopulateData *pdata = data;
 
-  if (pdata->menu->priv->populate_id == 0)
-    {
+    if (!pdata->displayed_items)
       /* show the placeholder in case no item survived
        * the filtering process in the idle loop
        */
-      if (!pdata->displayed_items)
         gtk_widget_show (pdata->placeholder);
-      g_object_unref (pdata->placeholder);
 
-      g_slice_free (MenuPopulateData, data);
-    }
+    g_object_unref (pdata->placeholder);
+
+    if (pdata->items)
+        g_list_free_full(pdata->items, (GDestroyNotify)gtk_recent_info_unref);
+
+    g_slice_free (MenuPopulateData, data);
 }
 
 static void
@@ -1256,7 +1253,7 @@ anjuta_recent_chooser_menu_populate (AnjutaRecentChooserMenu *menu)
   priv->populate_id = gdk_threads_add_idle_full (G_PRIORITY_HIGH_IDLE + 30,
   					         idle_populate_func,
 					         pdata,
-                                                 idle_populate_clean_up);
+					         idle_populate_clean_up);
 }
 
 /* bounce activate signal from the recent menu item widget 
