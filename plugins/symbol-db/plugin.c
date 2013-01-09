@@ -1410,7 +1410,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 			                      filename);
 		g_object_unref (gfile);
 	}	
-	
+
+	g_list_free(prj_elements_list);
 
 	/* some files may have added/removed editing Makefile.am while
 	 * Anjuta was offline. Check this case too.
