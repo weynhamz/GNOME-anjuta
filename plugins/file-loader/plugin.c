@@ -46,7 +46,8 @@ static gpointer parent_class;
 static int
 sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
 {
-	gchar* name1, *name2;
+	gchar* name1 = NULL, *name2 = NULL;
+	gint ret;
 	AnjutaPluginDescription* desc1 = (AnjutaPluginDescription*) wizard1;
 	AnjutaPluginDescription* desc2 = (AnjutaPluginDescription*) wizard2;
 
@@ -59,10 +60,15 @@ sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
 			anjuta_plugin_description_get_locale_string (desc2, "Anjuta Plugin",
 														 "Name", &name2)))
 	{
-		return strcmp(name1, name2);
+		ret = strcmp(name1, name2);
 	}
 	else
-		return 0;
+		ret = 0;
+
+	g_free(name1);
+	g_free(name2);
+
+	return ret;
 }
 
 /* The add argument is here to remember that recent menu items should be removed
