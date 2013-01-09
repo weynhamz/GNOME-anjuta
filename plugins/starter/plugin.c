@@ -99,15 +99,15 @@ static void
 build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 {
 	GtkRecentManager *manager;
-	GList *list;
+	GList *items, *list;
 	gint i = 0;
 	
 	manager = gtk_recent_manager_get_default ();
 
-	list = gtk_recent_manager_get_items (manager);
-	
-	list = g_list_reverse (list);
+	items = gtk_recent_manager_get_items (manager);
+	items = g_list_reverse (items);
 
+	list = items;
 	while (i < RECENT_LIMIT && list != NULL)
 	{
 		if (strcmp (gtk_recent_info_get_mime_type (list->data), "application/x-anjuta") == 0)
@@ -178,8 +178,7 @@ build_recent_projects (GtkWidget *box, StarterPlugin* plugin)
 		list = g_list_next (list);
 	}
 
-	g_list_foreach (list, (GFunc)gtk_recent_info_unref, NULL);
-	g_list_free (list);
+	g_list_free_full(items, (GDestroyNotify)gtk_recent_info_unref);
 }
 
 static GtkWidget*
