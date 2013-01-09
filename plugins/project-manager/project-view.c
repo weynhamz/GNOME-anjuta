@@ -1053,6 +1053,8 @@ gbf_project_view_update_tree (GbfProjectView *view, AnjutaProjectNode *parent, G
 		gbf_project_model_add_node (view->model, node->data, iter, 0);
 	}
 
+	g_list_free (nodes);
+
 	/* Expand parent, needed if the parent hasn't any children when it was created */
 	if (iter != NULL)
 	{
