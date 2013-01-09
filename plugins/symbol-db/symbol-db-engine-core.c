@@ -5489,16 +5489,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 
 		/* build abs path. */
 		file_name = g_value_get_string (value);
-		if (priv->project_directory != NULL)
-		{
-			file_abs_path = g_build_filename (priv->project_directory,
-			                                  file_name, NULL);
-		}
-
-		gfile = g_file_new_for_path (file_abs_path);
-		if (gfile == NULL)
+		if (!file_name)
 			continue;
 
+		file_abs_path = g_build_filename (priv->project_directory,
+		    file_name, NULL);
+
+		gfile = g_file_new_for_path (file_abs_path);
 		gfile_is = g_file_read (gfile, NULL, NULL);
 		/* retrieve data/time info */
 		if (gfile_is == NULL)
@@ -5551,10 +5548,13 @@ symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe,
 		{
 			g_ptr_array_add (files_to_scan, file_abs_path);
 		}
+		else
+		{
+			g_free (file_abs_path);
+		}
 		
 		g_object_unref (gfile_info);
 		g_object_unref (gfile);
-		/* no need to free file_abs_path, it's been added to files_to_scan */
 	}
 	
 	if (data_model)
