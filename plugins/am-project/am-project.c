@@ -373,6 +373,7 @@ canonicalize_automake_variable (const gchar *name)
 gboolean
 split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **primary)
 {
+	gboolean res = FALSE;
 	GRegex *regex;
 	GMatchInfo *match_info;
 	gint start_pos;
@@ -387,7 +388,8 @@ split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **prima
 	                     G_REGEX_MATCH_ANCHORED,
 	                     NULL);
 
-	if (!g_regex_match (regex, name, G_REGEX_MATCH_ANCHORED, &match_info)) return FALSE;
+	if (!g_regex_match (regex, name, G_REGEX_MATCH_ANCHORED, &match_info))
+		goto out;
 
 	if (flags)
 	{
@@ -447,9 +449,13 @@ split_automake_variable (gchar *name, gint *flags, gchar **module, gchar **prima
 		}
 	}
 
+	res = TRUE;
+
+out:
+	g_match_info_unref (match_info);
 	g_regex_unref (regex);
 
-	return TRUE;
+	return res;
 }
 
 static gchar*
