@@ -807,8 +807,8 @@ symbol_db_system_parse_aborted_package (SymbolDBSystem *sdbs,
 	es_data->cflags = NULL;
 	es_data->package_name = g_strdup (_("Resuming glb scan."));
 	es_data->special_abort_scan = TRUE;
-	es_data->files_to_scan_array = files_to_scan_array;
-	es_data->languages_array = languages_array;
+	es_data->files_to_scan_array = g_ptr_array_ref (files_to_scan_array);
+	es_data->languages_array = g_ptr_array_ref (languages_array);
 		
 		
 	DEBUG_PRINT ("SYSTEM ABORT PARSING.....");

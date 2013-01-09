@@ -1125,8 +1125,8 @@ do_import_system_sources_after_abort (SymbolDBPlugin *sdb_plugin,
 										NULL);
 	
 	/* create array of languages */
-	languages_array = g_ptr_array_new ();
-	to_scan_array = g_ptr_array_new ();
+	languages_array = g_ptr_array_new_with_free_func (g_free);
+	to_scan_array = g_ptr_array_new_with_free_func (g_free);
 	
 	if (!lang_manager)
 	{
@@ -1197,10 +1197,10 @@ do_import_system_sources_after_abort (SymbolDBPlugin *sdb_plugin,
 	symbol_db_system_parse_aborted_package (sdb_plugin->sdbs, 
 									 to_scan_array,
 									 languages_array);
-#endif	
-	/* no need to free the GPtrArray, Huston. They'll be auto-destroyed in that
-	 * function 
-	 */
+#endif
+
+	g_ptr_array_unref(to_scan_array);
+	g_ptr_array_unref(languages_array);
 }
 
 /* we assume that sources_array has already unique elements */
