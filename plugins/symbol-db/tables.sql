@@ -45,7 +45,7 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      access_kind_id integer REFERENCES sym_access (sym_access_id),
                      implementation_kind_id integer REFERENCES sym_implementation (sym_impl_id),
                      update_flag integer default 0,
-                     unique (name, file_defined_id, file_position)
+                     unique (name, file_defined_id, file_position, update_flag)
                      );
 
 DROP TABLE IF EXISTS sym_kind;
