@@ -398,7 +398,6 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 	while (node)
 	{
 		AnjutaPluginDescription *desc;
-		GObject *plugin_object;
 		gchar *plugin_id = NULL;
 		
 		desc = (AnjutaPluginDescription *)node->data;
@@ -408,14 +407,8 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 		
 		/* DEBUG_PRINT ("Profile: deactivating %s", plugin_id); */
 		
-		plugin_object =
-			anjuta_plugin_manager_get_plugin_by_id (priv->plugin_manager,
-													plugin_id);
-		g_assert (plugin_object != NULL);
-		
-		anjuta_plugin_manager_unload_plugin (priv->plugin_manager,
-											 plugin_object);
-		g_free (plugin_id);
+		anjuta_plugin_manager_unload_plugin_by_id (priv->plugin_manager,
+		                                           plugin_id);
 		node = g_list_next (node);
 	}
 	

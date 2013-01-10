@@ -115,12 +115,12 @@ static AnjutaCPluginFactory *anjuta_plugin_factory = NULL;
 static GObjectClass* parent_class = NULL;
 static guint plugin_manager_signals[LAST_SIGNAL] = { 0 };
 
-static GHashTable* plugin_set_update (AnjutaPluginManager *plugin_manager,
-									  AnjutaPluginHandle* selected_plugin,
-									  gboolean load);
+static void plugin_set_update (AnjutaPluginManager *plugin_manager,
+                               AnjutaPluginHandle* selected_plugin,
+                               gboolean load);
 
 static IAnjutaPluginFactory* get_plugin_factory (AnjutaPluginManager *plugin_manager,
-								  const gchar *language, GError **error);
+                                                 const gchar *language, GError **error);
 
 GQuark 
 anjuta_plugin_manager_error_quark (void)
@@ -536,7 +536,7 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	const gchar *language;
 	
 	priv = plugin_manager->priv;
-	
+
 	language = anjuta_plugin_handle_get_language (handle);
 	
 	factory = get_plugin_factory (plugin_manager, language, error);
@@ -556,6 +556,13 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	return plugin;
 }
 
+/**
+ * anjuta_plugin_manager_unload_all_plugins:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * 
+ * Unload all plugins. Do not take care of the dependencies because all plugins
+ * are unloaded anyway.
+ */
 void
 anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 {
@@ -565,11 +572,10 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 	if (g_hash_table_size (priv->activated_plugins) > 0 ||
 		g_hash_table_size (priv->plugins_cache) > 0)
 	{
-		priv->available_plugins = g_list_reverse (priv->available_plugins);
 		if (g_hash_table_size (priv->activated_plugins) > 0)
 		{
 			GList *node;
-			for (node = priv->available_plugins; node; node = g_list_next (node))
+			for (node = g_list_last (priv->available_plugins); node; node = g_list_previous (node))
 			{
 				AnjutaPluginHandle *selected_plugin = node->data;
 				AnjutaPlugin *plugin;
@@ -588,7 +594,7 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 		{
 			GList *node;
 
-			for (node = priv->available_plugins; node; node = g_list_next (node))
+			for (node = g_list_last (priv->available_plugins); node; node = g_list_previous (node))
 			{
 				AnjutaPluginHandle *selected_plugin = node->data;
 
@@ -596,10 +602,11 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 			}
 			g_hash_table_remove_all (priv->plugins_cache);
 		}
-		priv->available_plugins = g_list_reverse (priv->available_plugins);
 	}
 }
 
+/* Return true if plugin should be unloaded when plugin_to_unloaded is unloaded.
+ * It can be because plugin is or need plugin_to_unload. */
 static gboolean 
 should_unload (GHashTable *activated_plugins, AnjutaPluginHandle *plugin_to_unload,
 			   AnjutaPluginHandle *plugin)
@@ -618,6 +625,8 @@ should_unload (GHashTable *activated_plugins, AnjutaPluginHandle *plugin_to_unlo
 	return dependent;
 }
 
+/* Return true if plugin should be loaded when plugin_to_loaded is loaded.
+ * It can be because plugin_to_load is or need plugin. */
 static gboolean 
 should_load (GHashTable *activated_plugins, AnjutaPluginHandle *plugin_to_load,
 			 AnjutaPluginHandle *plugin)
@@ -666,48 +675,37 @@ update_enabled (GtkTreeModel *model, GHashTable *activated_plugins)
 	}
 }
 
-static GHashTable*
+static void
 plugin_set_update (AnjutaPluginManager *plugin_manager,
 				 AnjutaPluginHandle* selected_plugin,
 				 gboolean load)
 {
 	AnjutaPluginManagerPriv *priv;
-	GObject *plugin_obj;
+	gboolean loaded;
 	GList *l;
 	
 	priv = plugin_manager->priv;
-	plugin_obj = g_hash_table_lookup (priv->activated_plugins, selected_plugin);
-	
-	if (plugin_obj && load)
-	{
-		g_warning ("Trying to install already installed plugin '%s'",
-				   anjuta_plugin_handle_get_name (selected_plugin));
-		return priv->activated_plugins;
-	}
-	if (!plugin_obj && !load)
-	{
-		g_warning ("Trying to uninstall a not installed plugin '%s'",
-				   anjuta_plugin_handle_get_name (selected_plugin));
-		return priv->activated_plugins;
-	}
+
+	/* Plugins can be loaded or unloaded implicitely because they need or are
+	 * needed by another plugin so it is possible that we try to load or unload
+	 * respectively an already loaded or already unloaded plugin. */
+	loaded = g_hash_table_lookup (priv->activated_plugins, selected_plugin) != NULL;
+	if ((load && loaded) || (!load && !loaded)) return;
 	
 	if (priv->status)
 		anjuta_status_busy_push (priv->status);
 	
 	if (!load)
 	{
-		/* reverse priv->available_plugins when unloading, so that plugins are
-		 * unloaded in the right order */
-		priv->available_plugins = g_list_reverse (priv->available_plugins);
-
-		for (l = priv->available_plugins; l != NULL; l = l->next)
+		/* visit priv->available_plugins in reverse order when unloading, so
+		 * that plugins are unloaded in the right order */
+		for (l = g_list_last(priv->available_plugins); l != NULL; l = l->prev)
 		{
 			AnjutaPluginHandle *plugin = l->data;
 			if (should_unload (priv->activated_plugins, selected_plugin, plugin))
 			{
-				/* FIXME: Unload the class and sharedlib if possible */
-				AnjutaPlugin *anjuta_plugin = ANJUTA_PLUGIN (plugin_obj);
-				if (!anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_plugin)))
+				AnjutaPlugin *plugin_obj = ANJUTA_PLUGIN (g_hash_table_lookup (priv->activated_plugins, plugin));
+				if (!anjuta_plugin_deactivate (plugin_obj))
 				{
 					anjuta_util_dialog_info (GTK_WINDOW (priv->shell),
 								 dgettext (GETTEXT_PACKAGE, "Plugin '%s' does not want to be deactivated"),
@@ -715,7 +713,6 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				}
 			}
 		}
-		priv->available_plugins = g_list_reverse (priv->available_plugins);
 	}
 	else
 	{
@@ -760,7 +757,8 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 	}
 	if (priv->status)
 		anjuta_status_busy_pop (priv->status);
-	return priv->activated_plugins;
+
+	return;
 }
 
 static void
@@ -1517,6 +1515,17 @@ anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 	return NULL;
 }
 
+/**
+ * anjuta_plugin_manager_get_plugin_by_id:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * @plugin_id: The plugin id
+ * 
+ * Searches the currently available plugins to find the one with the
+ * specified identifier. If the plugin is not yet loaded, it will be loaded
+ * and activated.
+ *
+ * Return value: The plugin object (subclass of #AnjutaPlugin)
+ */
 GObject *
 anjuta_plugin_manager_get_plugin_by_id (AnjutaPluginManager *plugin_manager,
 										const gchar *plugin_id)
@@ -1588,6 +1597,17 @@ anjuta_plugin_manager_get_active_plugin_objects (AnjutaPluginManager *plugin_man
 	return g_list_reverse (active_plugins);
 }
 
+/**
+ * anjuta_plugin_manager_unload_plugin_by_id:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * @plugin_id: The plugin identifier
+ * 
+ * Unload the plugin corresponding to the given identifier. If the plugin is
+ * already unloaded, nothing will be done.
+ *
+ * Return value: %TRUE is the plugin is unloaded. %FALSE if a corresponding 
+ * plugin does not exist or if the plugin cannot be unloaded. 
+ */
 gboolean
 anjuta_plugin_manager_unload_plugin_by_id (AnjutaPluginManager *plugin_manager,
 										   const gchar *plugin_id)
@@ -1597,7 +1617,7 @@ anjuta_plugin_manager_unload_plugin_by_id (AnjutaPluginManager *plugin_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), FALSE);
 	g_return_val_if_fail (plugin_id != NULL, FALSE);
-	
+
 	priv = plugin_manager->priv;
 	
 	plugin = g_hash_table_lookup (priv->plugins_by_name, plugin_id);
@@ -1626,6 +1646,16 @@ find_plugin_for_object (gpointer key, gpointer value, gpointer data)
 	return FALSE;
 }
 
+/**
+ * anjuta_plugin_manager_unload_plugin:
+ * @plugin_manager: A #AnjutaPluginManager object
+ * @plugin_object: A #AnjutaPlugin object
+ * 
+ * Unload the corresponding plugin. The plugin has to be loaded. 
+ *
+ * Return value: %TRUE if the plugin has been unloaded. %FALSE if the plugin is
+ * already or cannot be unloaded. 
+ */
 gboolean
 anjuta_plugin_manager_unload_plugin (AnjutaPluginManager *plugin_manager,
 									 GObject *plugin_object)
