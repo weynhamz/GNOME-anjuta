@@ -480,7 +480,7 @@ snippets_db_dispose (GObject* obj)
 	DEBUG_PRINT ("%s", "Disposing SnippetsDB …");
 
 	/* Assertions */
-	g_return_if_fail (ANJUTA_IS_SNIPPETS_DB (snippets_db));
+	g_return_if_fail (ANJUTA_IS_SNIPPETS_DB (obj));
 	snippets_db = ANJUTA_SNIPPETS_DB (obj);
 	g_return_if_fail (snippets_db->priv != NULL);
 	
