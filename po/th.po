@@ -1,16 +1,16 @@
 # Thai translation of anjuta.
-# Copyright (C) 2008-2012 Free Software Foundation, Inc.
+# Copyright (C) 2008-2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2008-2010.
-# Akom Chotiphantawanon <knight2000@gmail.com>, 2008-2012.
+# Akom Chotiphantawanon <knight2000@gmail.com>, 2008-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-09-20 02:53+0000\n"
-"PO-Revision-Date: 2012-09-20 13:30+0700\n"
+"POT-Creation-Date: 2013-01-11 16:41+0000\n"
+"PO-Revision-Date: 2013-01-12 14:02+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
+#: ../anjuta.desktop.in.in.h:1 ../src/main.c:50
 msgid "Anjuta"
 msgstr "แอนจูตา"
 
@@ -30,6 +30,10 @@ msgstr "ชุดเครื่องมือพัฒนาเบ็ดเส
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "พัฒนาซอฟต์แวร์ด้วยชุดเครื่องมือพัฒนาเบ็ดเสร็จ"
+
+#: ../anjuta.desktop.in.in.h:4
+msgid "IDE;development;programming;"
+msgstr "IDE;พัฒนา;เขียนโปรแกรม;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
@@ -235,17 +239,16 @@ msgstr "ไทย"
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
-#: ../libanjuta/anjuta-entry.c:241
+#: ../libanjuta/anjuta-entry.c:237
 msgid "Help text"
 msgstr "ข้อความวิธีใช้"
 
-#: ../libanjuta/anjuta-entry.c:242
+#: ../libanjuta/anjuta-entry.c:238
 msgid "Text to show the user what to enter into the entry"
 msgstr "ข้อความที่จะแสดงบอกผู้ใช้ว่าจะให้กรอกอะไรลงในช่องข้อความ"
 
 #. Create all needed widgets
 #: ../libanjuta/anjuta-environment-editor.c:543
-#: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Environment Variables:"
 msgstr "ตัวแปรสภาพแวดล้อม:"
 
@@ -256,9 +259,8 @@ msgstr "ตัวแปรสภาพแวดล้อม:"
 #: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
 #: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
-#: ../plugins/project-manager/dialogs.c:481
-#: ../plugins/run-program/parameters.c:754
-#: ../plugins/snippets-manager/plugin.c:762
+#: ../plugins/project-manager/dialogs.c:483
+#: ../plugins/snippets-manager/plugin.c:763
 #: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
@@ -268,8 +270,7 @@ msgstr "ชื่อ"
 #: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
 #: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:489
-#: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
+#: ../plugins/project-manager/dialogs.c:491 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "ค่า"
 
@@ -318,20 +319,20 @@ msgstr "ไม่สามารถเรียกคำสั่ง: \"%s\""
 msgid "execvp failed"
 msgstr "execvp ล้มเหลว"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2426
 msgid "Anjuta Shell"
 msgstr "เชลล์แอนจูตา"
 
-#: ../libanjuta/anjuta-plugin.c:332
+#: ../libanjuta/anjuta-plugin.c:320
 msgid "Anjuta shell that will contain the plugin"
 msgstr "เชลล์แอนจูตาที่จะบรรจุปลั๊กอิน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:732
+#: ../libanjuta/anjuta-plugin-manager.c:711
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "ปลั๊กอิน '%s' ไม่ต้องการปิดการทำงาน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:763
+#: ../libanjuta/anjuta-plugin-manager.c:744
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -343,24 +344,24 @@ msgstr ""
 "ตามปกติแล้วหมายถึงการติดตั้งของคุณไม่สมบูรณ์ ข้อผิดพลาดที่เป็นสาเหตุคือ:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:900
+#: ../libanjuta/anjuta-plugin-manager.c:882
 msgid "Load"
 msgstr "โหลด"
 
-#: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:2002
+#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Available Plugins"
 msgstr "ปลั๊กอินที่มีอยู่"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:992
 msgid "Preferred plugins"
 msgstr "ปลั๊กอินที่เลือกใช้"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1171
+#: ../libanjuta/anjuta-plugin-manager.c:1156
 msgid "Only show user activatable plugins"
 msgstr "แสดงเฉพาะปลั๊กอินที่ผู้ใช้เรียกใช้ได้เท่านั้น"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1211
+#: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -369,73 +370,73 @@ msgstr ""
 "ปลั๊กอินเหล่านี้เป็นปลั๊กอินที่คุณเลือกไว้ตอนที่แอนจูตาถามให้เลือกปลั๊กอินที่เหมาะสม ถ้าลบปลั๊กอินที่นี่ "
 "แอนจูตาก็จะถามคุณอีกเพื่อให้เลือกปลั๊กอินอื่น"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1237
+#: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
 msgstr "ล้างการเลือกปลั๊กอิน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1371
-#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1356
+#: ../libanjuta/anjuta-plugin-manager.c:1507 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "เลือกปลั๊กอิน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1372
+#: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "กรุณาเลือกปลั๊กอินที่จะเปิดใช้งาน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1386
+#: ../libanjuta/anjuta-plugin-manager.c:1371
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "ไม่มีปลั๊กอินที่สามารถโหลดปลั๊กอินอื่นใน %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1523
+#: ../libanjuta/anjuta-plugin-manager.c:1508
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>กรุณาเลือกปลั๊กอินที่จะเปิดใช้งาน</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2029
+#: ../libanjuta/anjuta-plugin-manager.c:2046
 msgid "Remember this selection"
 msgstr "จำการเลือกนี้"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2360
+#: ../libanjuta/anjuta-plugin-manager.c:2407
 msgid "Profiles"
 msgstr "โพรไฟล์"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2361
+#: ../libanjuta/anjuta-plugin-manager.c:2408
 msgid "Current stack of profiles"
 msgstr "สแต็กเก็บชุดโพรไฟล์ปัจจุบัน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2413
 msgid "Available plugins"
 msgstr "ปลั๊กอินที่มีอยู่"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2367
+#: ../libanjuta/anjuta-plugin-manager.c:2414
 msgid "Currently available plugins found in plugin paths"
 msgstr "ปลั๊กอินที่มีอยู่ในแหล่งปลั๊กอิน"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2373
+#: ../libanjuta/anjuta-plugin-manager.c:2420
 msgid "Activated plugins"
 msgstr "ปลั๊กอินที่ทำงานอยู่"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2374
+#: ../libanjuta/anjuta-plugin-manager.c:2421
 msgid "Currently activated plugins"
 msgstr "ปลั๊กอินปัจจุบันที่ทำงานอยู่"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2380
+#: ../libanjuta/anjuta-plugin-manager.c:2427
 msgid "Anjuta shell for which the plugins are made"
 msgstr "เชลล์แอนจูตาที่ปลั๊กอินนี้ทำงานด้วย"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2388
+#: ../libanjuta/anjuta-plugin-manager.c:2435
 msgid "Anjuta Status"
 msgstr "สถานะแอนจูตา"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2389
+#: ../libanjuta/anjuta-plugin-manager.c:2436
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "สถานะแอนจูตาที่จะใช้ในการโหลดและถอนปลั๊กอินออก"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2549
+#: ../libanjuta/anjuta-plugin-manager.c:2596
 msgid "Loading:"
 msgstr "กำลังโหลด:"
 
@@ -446,7 +447,7 @@ msgstr "ประเภท"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:979
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "ทั่วไป"
@@ -524,7 +525,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "ถ้าคุณยังไม่บันทึก สิ่งที่คุณเปลี่ยนแปลงจะสูญหายทั้งหมด"
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:589
+#: ../plugins/document-manager/plugin.c:583
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "บันทึก"
@@ -548,15 +549,15 @@ msgstr[0] "มี %d รายการที่ยังไม่ได้บ�
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "มีรายการที่ไม่ได้บันทึกการเปลี่ยนแปลง จะบันทึกการเปลี่ยแปลงก่อนปิดหรือไม่?"
 
-#: ../libanjuta/anjuta-tree-combo.c:1079
+#: ../libanjuta/anjuta-tree-combo.c:1092
 msgid "<Invalid>"
 msgstr "<ไม่ถูกต้อง>"
 
-#: ../libanjuta/anjuta-tree-combo.c:1196
+#: ../libanjuta/anjuta-tree-combo.c:1209
 msgid "ComboBox model"
 msgstr "โมเดล ComboBox"
 
-#: ../libanjuta/anjuta-tree-combo.c:1197
+#: ../libanjuta/anjuta-tree-combo.c:1210
 msgid "The model for the combo box"
 msgstr "โมเดลสำหรับกล่องคอมโบ"
 
@@ -581,7 +582,7 @@ msgstr "ปุ่มลัด"
 msgid "System:"
 msgstr "ระบบ:"
 
-#: ../libanjuta/anjuta-utils.c:504
+#: ../libanjuta/anjuta-utils.c:507
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
@@ -590,12 +591,17 @@ msgstr ""
 "ดูเหมือนว่าคุณยังไม่ได้ติดตั้ง PackageKit ซึ่งจำเป็นสำหรับการติดตั้งแพกเกจที่ขาดไป "
 "กรุณาติดตั้งแพกเกจ \"packagekit-gnome \" จากชุดแจกจ่ายของคุณ หรือติดตั้งแพกเกจที่ขาดเอง"
 
-#: ../libanjuta/anjuta-utils.c:513
+#: ../libanjuta/anjuta-utils.c:516
 #, c-format
 msgid "Installation failed: %s"
 msgstr "การติดตั้งล้มเหลว: %s"
 
-#: ../libanjuta/anjuta-utils.c:581
+#: ../libanjuta/anjuta-utils.c:577
+#, c-format
+msgid "Failed to run \"%s\". The returned error was: \"%s\"."
+msgstr "เรียกทำงาน \"%s\" ไม่สำเร็จ ข้อผิดพลาดที่ส่งกลับมาคือ: \"%s\""
+
+#: ../libanjuta/anjuta-utils.c:591
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -604,7 +610,7 @@ msgstr ""
 "แพกเกจ \"%s\" ยังไม่ได้ติดตั้ง\n"
 "กรุณาติดตั้งด้วย"
 
-#: ../libanjuta/anjuta-utils.c:599
+#: ../libanjuta/anjuta-utils.c:609
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -614,19 +620,19 @@ msgstr ""
 "กรุณาติดตั้ง"
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1170
+#: ../libanjuta/anjuta-utils.c:1180
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "หาเทอร์มินัลไม่พบ จะใช้ xterm แม้ว่ามันอาจจะทำงานไม่สมบูรณ์"
 
-#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
-#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
+#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
+#: ../libanjuta/anjuta-utils.c:1246 ../libanjuta/anjuta-utils.c:1250
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "ไม่สามารถเรียกคำสั่ง: %s (โดยใช้เชลล์ %s)\n"
 
 # msgid "Unable to build user interface for New File"
 # c-format
-#: ../libanjuta/anjuta-utils.c:2351
+#: ../libanjuta/anjuta-utils.c:2361
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "ไม่สามารถโหลดแฟ้มส่วนติดต่อผู้ใช้: %s"
@@ -686,20 +692,20 @@ msgstr "ไม่พบวิดเจ็ต: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "ไม่พบแฟ้ม pixmap ของโปรแกรม: %s"
 
-#: ../plugins/am-project/amp-group.c:622
+#: ../plugins/am-project/amp-group.c:627
 msgid "Please specify group name"
 msgstr "กรุณาระบุชื่อกลุ่ม"
 
-#: ../plugins/am-project/amp-group.c:636
+#: ../plugins/am-project/amp-group.c:641
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr "ชื่อกลุ่มสามารถใช้ตัวอักษร ตัวเลข หรืออักขระ \"#$:%+,-.=@^_`~/\" ได้เท่านั้น"
 
-#: ../plugins/am-project/amp-group.c:660
-#: ../plugins/am-project/am-project.c:1698
-#: ../plugins/am-project/am-project.c:1791
+#: ../plugins/am-project/amp-group.c:665
+#: ../plugins/am-project/am-project.c:1679
+#: ../plugins/am-project/am-project.c:1772
 #: ../plugins/dir-project/dir-project.c:723
-#: ../plugins/dir-project/dir-project.c:857
+#: ../plugins/dir-project/dir-project.c:856
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -712,13 +718,13 @@ msgid "Root"
 msgstr "ราก"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/dir-project/dir-project.c:867
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "กลุ่ม"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:872
+#: ../plugins/dir-project/dir-project.c:871
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "ซอร์ส"
@@ -781,11 +787,11 @@ msgstr "มอดูล"
 msgid "Package"
 msgstr "แพกเกจ"
 
-#: ../plugins/am-project/am-project.c:1728
+#: ../plugins/am-project/am-project.c:1709
 msgid "Unable to parse project file"
 msgstr "ไม่สามารถแจงแฟ้มโครงการ"
 
-#: ../plugins/am-project/am-project.c:1739
+#: ../plugins/am-project/am-project.c:1720
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "โครงการไม่มีอยู่หรือพาธไม่ถูกต้อง"
@@ -800,7 +806,7 @@ msgstr "แบ็กเอนด์ Autotools ใหม่สำหรับเ�
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:619
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:764
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -1287,28 +1293,28 @@ msgstr ""
 msgid "Source file must be a regular file, not a directory"
 msgstr "แฟ้มซอร์สจะต้องเป็นแฟ้มปกติ ไม่ใช่ไดเรกทอรี"
 
-#: ../plugins/am-project/amp-target.c:342
+#: ../plugins/am-project/amp-target.c:359
 msgid "Target parent is not a valid group"
 msgstr "สิ่งที่ครอบเป้าหมายอยู่ไม่ใช่กลุ่มที่ใช้ได้"
 
-#: ../plugins/am-project/amp-target.c:352
+#: ../plugins/am-project/amp-target.c:369
 msgid "Please specify target name"
 msgstr "กรุณาระบุชื่อเป้าหมาย"
 
-#: ../plugins/am-project/amp-target.c:366
+#: ../plugins/am-project/amp-target.c:383
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr "ชื่อเป้าหมายสามารถใช้ตัวอักษร, ตัวเลข, '_', '-', '/' หรือ '.' ได้เท่านั้น"
 
-#: ../plugins/am-project/amp-target.c:381
+#: ../plugins/am-project/amp-target.c:398
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "เป้าหมายที่เป็นไลบรารีใช้ร่วมจะต้องมีชื่อในรูป 'libxxx.la'"
 
-#: ../plugins/am-project/amp-target.c:390
+#: ../plugins/am-project/amp-target.c:407
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "เป้าหมายที่เป็นไลบรารีสแตติกจะต้องมีชื่อในรูป 'libxxx.a'"
 
-#: ../plugins/am-project/amp-target.c:398
+#: ../plugins/am-project/amp-target.c:415
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "เป้าหมายที่เป็นมอดูลจะต้องมีชื่อในรูป 'xxx.la'"
 
@@ -1403,25 +1409,24 @@ msgstr "ติดตั้งในฐานะผู้ดูแลระบบ
 msgid "Install"
 msgstr "ติดตั้ง"
 
-#. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:526
+#: ../plugins/build-basic-autotools/build.c:527
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
 msgstr "ก่อนใช้การตั้งค่าใหม่นี้ ต้องลบค่าปริยายก่อน ยืนยันที่จะทำเช่นนั้นหรือไม่?"
 
-#: ../plugins/build-basic-autotools/build.c:531
-#: ../plugins/build-basic-autotools/plugin.c:964
+#: ../plugins/build-basic-autotools/build.c:532
+#: ../plugins/build-basic-autotools/plugin.c:987
 #, c-format
 msgid "Command canceled by user"
 msgstr "คำสั่งถูกยกเลิกโดยผู้ใช้"
 
-#: ../plugins/build-basic-autotools/build.c:881
+#: ../plugins/build-basic-autotools/build.c:882
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr "ไม่สามารถคอมไพล์ \"%s\": ไม่ได้กำหนดกฎคอมไพล์ไว้สำหรับแฟ้มชนิดนี้"
 
-#: ../plugins/build-basic-autotools/build.c:1043
+#: ../plugins/build-basic-autotools/build.c:1044
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "ไม่สามารถตั้งค่าโครงการ: ขาดสคริปต์ตั้งค่าใน %s"
@@ -1568,253 +1573,253 @@ msgstr "ข้อผิดพลาด:"
 msgid "error:-old"
 msgstr "error:"
 
-#: ../plugins/build-basic-autotools/plugin.c:954
+#: ../plugins/build-basic-autotools/plugin.c:977
 #, c-format
 msgid "Command exited with status %d"
 msgstr "คำสั่งจบการทำงานด้วยสถานะ %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:969
+#: ../plugins/build-basic-autotools/plugin.c:992
 #, c-format
 msgid "Command aborted by user"
 msgstr "คำสั่งถูกเลิกทำโดยผู้ใช้"
 
-#: ../plugins/build-basic-autotools/plugin.c:974
+#: ../plugins/build-basic-autotools/plugin.c:997
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "คำสั่งถูกทำให้หยุดโดยสัญญาณ %d"
 
-#: ../plugins/build-basic-autotools/plugin.c:982
+#: ../plugins/build-basic-autotools/plugin.c:1005
 msgid "Command terminated for an unknown reason"
 msgstr "คำสั่งถูกทำให้หยุดโดยไม่ทราบเหตุผล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1000
+#: ../plugins/build-basic-autotools/plugin.c:1023
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "เวลาที่ใช้ทั้งหมด: %lu วินาที\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1007
+#: ../plugins/build-basic-autotools/plugin.c:1030
 msgid "Completed unsuccessfully\n"
 msgstr "ไม่สำเร็จ\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1015
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "สำเร็จ\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1097
+#: ../plugins/build-basic-autotools/plugin.c:1120
 #, c-format
 msgid "Build %d: %s"
 msgstr "การประกอบสร้าง %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1665
-#: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1779
-#: ../plugins/build-basic-autotools/plugin.c:1789
-#: ../plugins/build-basic-autotools/plugin.c:1871
+#: ../plugins/build-basic-autotools/plugin.c:1688
+#: ../plugins/build-basic-autotools/plugin.c:1774
+#: ../plugins/build-basic-autotools/plugin.c:1784
+#: ../plugins/build-basic-autotools/plugin.c:1802
+#: ../plugins/build-basic-autotools/plugin.c:1812
+#: ../plugins/build-basic-autotools/plugin.c:1894
 #, c-format
 msgid "_Build"
 msgstr "ประกอบ_สร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1692
 msgid "_Build Project"
 msgstr "ประกอบ_สร้างโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1670
+#: ../plugins/build-basic-autotools/plugin.c:1693
 msgid "Build whole project"
 msgstr "ประกอบสร้างทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1698
 msgid "_Install Project"
 msgstr "_ติดตั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1676
+#: ../plugins/build-basic-autotools/plugin.c:1699
 msgid "Install whole project"
 msgstr "ติดตั้งทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
+#: ../plugins/build-basic-autotools/plugin.c:1704
 msgid "_Check Project"
 msgstr "_ตรวจสอบโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1682
+#: ../plugins/build-basic-autotools/plugin.c:1705
 msgid "Check whole project"
 msgstr "ตรวจสอบทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1710
 msgid "_Clean Project"
 msgstr "เ_ก็บกวาดโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1688
+#: ../plugins/build-basic-autotools/plugin.c:1711
 msgid "Clean whole project"
 msgstr "เก็บกวาดทั้งโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1716
 msgid "C_onfigure Project…"
 msgstr "_ตั้งค่าโครงการ…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1694
+#: ../plugins/build-basic-autotools/plugin.c:1717
 msgid "Configure project"
 msgstr "ตั้งค่าโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1722
 msgid "Build _Tarball"
 msgstr "ประกอบสร้างแฟ้ม_ทาร์"
 
-#: ../plugins/build-basic-autotools/plugin.c:1700
+#: ../plugins/build-basic-autotools/plugin.c:1723
 msgid "Build project tarball distribution"
 msgstr "ประกอบสร้างแฟ้มทาร์แจกจ่ายของโครงการ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1728
 msgid "_Build Module"
 msgstr "ประกอบ_สร้างมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1706
+#: ../plugins/build-basic-autotools/plugin.c:1729
 msgid "Build module associated with current file"
 msgstr "ประกอบสร้างมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1734
 msgid "_Install Module"
 msgstr "_ติดตั้งมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1712
+#: ../plugins/build-basic-autotools/plugin.c:1735
 msgid "Install module associated with current file"
 msgstr "ติดตั้งมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1740
 msgid "_Check Module"
 msgstr "_ตรวจสอบมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
+#: ../plugins/build-basic-autotools/plugin.c:1741
 msgid "Check module associated with current file"
 msgstr "ตรวจสอบมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1746
 msgid "_Clean Module"
 msgstr "เ_ก็บกวาดมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
+#: ../plugins/build-basic-autotools/plugin.c:1747
 msgid "Clean module associated with current file"
 msgstr "เก็บกวาดมอดูลที่เกี่ยวกับแฟ้มปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1752
 msgid "Co_mpile File"
 msgstr "คอ_มไพล์แฟ้ม"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
+#: ../plugins/build-basic-autotools/plugin.c:1753
 msgid "Compile current editor file"
 msgstr "คอมไพล์แฟ้มปัจจุบันที่เปิดอยู่ในเครื่องมือแก้ไขข้อความ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1758
 msgid "Select Configuration"
 msgstr "เลือกค่าตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
+#: ../plugins/build-basic-autotools/plugin.c:1759
 msgid "Select current configuration"
 msgstr "เลือกค่าตั้งปัจจุบัน"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1764
 msgid "Remove Configuration"
 msgstr "ลบค่าตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1742
+#: ../plugins/build-basic-autotools/plugin.c:1765
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "ล้างโครงการ (distclean) และลบไดเรกทอรีค่าตั้ง ถ้าเป็นไปเป็นได้"
 
-#: ../plugins/build-basic-autotools/plugin.c:1755
-#: ../plugins/build-basic-autotools/plugin.c:1783
+#: ../plugins/build-basic-autotools/plugin.c:1778
+#: ../plugins/build-basic-autotools/plugin.c:1806
 msgid "_Compile"
 msgstr "_คอมไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:1756
-#: ../plugins/build-basic-autotools/plugin.c:1784
+#: ../plugins/build-basic-autotools/plugin.c:1779
+#: ../plugins/build-basic-autotools/plugin.c:1807
 msgid "Compile file"
 msgstr "คอมไพล์แฟ้ม"
 
-#: ../plugins/build-basic-autotools/plugin.c:1762
-#: ../plugins/build-basic-autotools/plugin.c:1790
+#: ../plugins/build-basic-autotools/plugin.c:1785
+#: ../plugins/build-basic-autotools/plugin.c:1813
 msgid "Build module"
 msgstr "ประกอบสร้างมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
-#: ../plugins/build-basic-autotools/plugin.c:1878
+#: ../plugins/build-basic-autotools/plugin.c:1790
+#: ../plugins/build-basic-autotools/plugin.c:1818
+#: ../plugins/build-basic-autotools/plugin.c:1901
 #, c-format
 msgid "_Install"
 msgstr "_ติดตั้ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1768
-#: ../plugins/build-basic-autotools/plugin.c:1796
+#: ../plugins/build-basic-autotools/plugin.c:1791
+#: ../plugins/build-basic-autotools/plugin.c:1819
 msgid "Install module"
 msgstr "ติดตั้งมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
-#: ../plugins/build-basic-autotools/plugin.c:1885
+#: ../plugins/build-basic-autotools/plugin.c:1796
+#: ../plugins/build-basic-autotools/plugin.c:1830
+#: ../plugins/build-basic-autotools/plugin.c:1908
 #, c-format
 msgid "_Clean"
 msgstr "เ_ก็บกวาด"
 
-#: ../plugins/build-basic-autotools/plugin.c:1774
-#: ../plugins/build-basic-autotools/plugin.c:1808
+#: ../plugins/build-basic-autotools/plugin.c:1797
+#: ../plugins/build-basic-autotools/plugin.c:1831
 msgid "Clean module"
 msgstr "เก็บกวาดมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
+#: ../plugins/build-basic-autotools/plugin.c:1824
 msgid "_Check"
 msgstr "_ตรวจสอบ"
 
-#: ../plugins/build-basic-autotools/plugin.c:1802
+#: ../plugins/build-basic-autotools/plugin.c:1825
 msgid "Check module"
 msgstr "ตรวจสอบมอดูล"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1836
 msgid "_Cancel command"
 msgstr "_ยกเลิกคำสั่ง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1814
+#: ../plugins/build-basic-autotools/plugin.c:1837
 msgid "Cancel build command"
 msgstr "ยกเลิกคำสั่งประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:1871
+#: ../plugins/build-basic-autotools/plugin.c:1894
 #, c-format
 msgid "_Build (%s)"
 msgstr "ประกอบ_สร้าง (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1878
+#: ../plugins/build-basic-autotools/plugin.c:1901
 #, c-format
 msgid "_Install (%s)"
 msgstr "_ติดตั้ง (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1885
+#: ../plugins/build-basic-autotools/plugin.c:1908
 #, c-format
 msgid "_Clean (%s)"
 msgstr "เ_ก็บกวาด (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1893
+#: ../plugins/build-basic-autotools/plugin.c:1916
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "คอ_มไพล์ (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1893
+#: ../plugins/build-basic-autotools/plugin.c:1916
 #, c-format
 msgid "Co_mpile"
 msgstr "คอ_มไพล์"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2512
 msgid "Build commands"
 msgstr "คำสั่งประกอบสร้าง"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2521
 msgid "Build popup commands"
 msgstr "คำสั่งผุดขึ้นสำหรับประกอบสร้าง"
 
-#: ../plugins/build-basic-autotools/plugin.c:2915
-#: ../plugins/build-basic-autotools/plugin.c:2923
+#: ../plugins/build-basic-autotools/plugin.c:2957
+#: ../plugins/build-basic-autotools/plugin.c:2965
 msgid "Build Autotools"
 msgstr "เครื่องมืออัตโนมัติสำหรับประกอบสร้าง"
 
@@ -2031,7 +2036,7 @@ msgstr "แม่แบบ autogen ที่ใช้สำหรับแฟ้
 msgid "File to which the processed template will be written"
 msgstr "แฟ้มที่จะเขียนเป็นผลลัพธ์ของการประมวลผลแม่แบบ"
 
-#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1274
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2061,7 +2066,7 @@ msgstr "เนื้อหา"
 #: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
 #: ../plugins/class-gen/window.c:812
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
@@ -2101,7 +2106,7 @@ msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1016
+#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1014
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
@@ -2134,7 +2139,7 @@ msgid "Patch-Style diff"
 msgstr "diff แบบแพตช์"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2172
+#: ../plugins/symbol-db/plugin.c:2173
 msgid "Local"
 msgstr "เฉพาะที่"
 
@@ -2561,7 +2566,7 @@ msgid "_Attach"
 msgstr "แ_นบ"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/debug-manager/breakpoints.c:2035
+#: ../plugins/debug-manager/breakpoints.c:2026
 msgid "Breakpoints"
 msgstr "จุดพัก"
 
@@ -2606,7 +2611,7 @@ msgid "Breakpoint properties"
 msgstr "คุณสมบัติจุดพัก"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Location"
 msgstr "ตำแหน่ง"
 
@@ -2759,147 +2764,147 @@ msgstr ""
 msgid "Do not show again"
 msgstr "ไม่ต้องแสดงอีก"
 
-#: ../plugins/debug-manager/breakpoints.c:1726
+#: ../plugins/debug-manager/breakpoints.c:1717
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "ยืนยันว่าต้องการลบจุดพักทั้งหมดหรือไม่?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1814
 msgid "_Breakpoints"
 msgstr "จุด_พัก"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1831
+#: ../plugins/debug-manager/breakpoints.c:1822
 msgid "Toggle Breakpoint"
 msgstr "เปิด/ปิดจุดพัก"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1833
+#: ../plugins/debug-manager/breakpoints.c:1824
 msgid "Toggle breakpoint at the current location"
 msgstr "เปิด/ปิดจุดพักที่ตำแหน่งปัจจุบัน"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Add Breakpoint…"
 msgstr "เพิ่มจุดพัก…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1832
 msgid "Add a breakpoint"
 msgstr "เพิ่มจุดพัก"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1847
+#: ../plugins/debug-manager/breakpoints.c:1838
 msgid "Remove Breakpoint"
 msgstr "ลบจุดพัก"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1840
 msgid "Remove a breakpoint"
 msgstr "ลบจุดพัก"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Edit Breakpoint"
 msgstr "แก้ไขจุดพัก"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1848
 msgid "Edit breakpoint properties"
 msgstr "แก้ไขคุณสมบัติจุดพัก"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1863
-#: ../plugins/debug-manager/breakpoints.c:1934
+#: ../plugins/debug-manager/breakpoints.c:1854
+#: ../plugins/debug-manager/breakpoints.c:1925
 msgid "Enable Breakpoint"
 msgstr "เปิดใช้งานจุดพัก"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1865
-#: ../plugins/debug-manager/breakpoints.c:1935
+#: ../plugins/debug-manager/breakpoints.c:1856
+#: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable a breakpoint"
 msgstr "เปิดใช้งานจุดพัก"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1871
+#: ../plugins/debug-manager/breakpoints.c:1862
 msgid "Disable All Breakpoints"
 msgstr "ปิดการใช้งานจุดพักทั้งหมด"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1864
 msgid "Deactivate all breakpoints"
 msgstr "ปิดการทำงานจุดพักทั้งหมด"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1879
+#: ../plugins/debug-manager/breakpoints.c:1870
 msgid "R_emove All Breakpoints"
 msgstr "_ลบจุดพักทั้งหมด"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1881
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Remove all breakpoints"
 msgstr "ลบจุดพักทั้งหมด"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1890
+#: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Jump to Breakpoint"
 msgstr "กระโดดไปที่จุดพัก"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1883
 msgid "Jump to breakpoint location"
 msgstr "กระโดดไปที่ตำแหน่งจุดพัก"
 
-#: ../plugins/debug-manager/breakpoints.c:1929
+#: ../plugins/debug-manager/breakpoints.c:1920
 msgid "Disable Breakpoint"
 msgstr "ปิดการใช้งานจุดพัก"
 
-#: ../plugins/debug-manager/breakpoints.c:1930
+#: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable a breakpoint"
 msgstr "หยุดทำงานจุดพัก"
 
 #. This enable an user defined command
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Enabled"
 msgstr "เปิดใช้งาน"
 
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/stack_trace.c:859
 msgid "Address"
 msgstr "แอดเดรส"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Condition"
 msgstr "เงื่อนไข"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Pass count"
 msgstr "จำนวนครั้งที่ผ่าน"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "State"
 msgstr "สถานะ"
 
-#: ../plugins/debug-manager/breakpoints.c:2012
-#: ../plugins/debug-manager/breakpoints.c:2018
+#: ../plugins/debug-manager/breakpoints.c:2003
+#: ../plugins/debug-manager/breakpoints.c:2009
 msgid "Breakpoint operations"
 msgstr "การกระทำเกี่ยวกับจุดพัก"
 
@@ -2918,7 +2923,7 @@ msgid "Disassembly"
 msgstr "ถอดแยกภาษาแอสเซมบลี"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:180
 msgid "Information"
 msgstr "ข้อมูล"
 
@@ -3252,13 +3257,13 @@ msgstr "เฟรม"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
-#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "แฟ้ม"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:932
 msgid "Line"
 msgstr "บรรทัด"
 
@@ -3290,36 +3295,36 @@ msgstr "เวลา"
 msgid "Command"
 msgstr "คำสั่ง"
 
-#: ../plugins/debug-manager/start.c:629
+#: ../plugins/debug-manager/start.c:628
 #, c-format
-msgid "Unable to execute: %s."
-msgstr "ไม่สามารถเรียกทำงาน: %s"
+msgid "Unable to execute: \"%s\". The returned error was: \"%s\"."
+msgstr "ไม่สามารถเรียกทำงาน: \"%s\" ข้อผิดพลาดที่ส่งกลับมาคือ: \"%s\""
 
-#: ../plugins/debug-manager/start.c:643
+#: ../plugins/debug-manager/start.c:644
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "ไม่สามารถเปิดแฟ้ม: %s\n"
 
-#: ../plugins/debug-manager/start.c:969
+#: ../plugins/debug-manager/start.c:970
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "ไม่สามารถเปิด %s ไม่สามารถเริ่มโปรแกรมดีบั๊กได้"
 
-#: ../plugins/debug-manager/start.c:979
+#: ../plugins/debug-manager/start.c:980
 #, c-format
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr "ไม่สามารถตรวจหาชนิด MIME ของ %s ได้ ไม่สามารถเริ่มโปรแกรมดีบั๊ก"
 
-#: ../plugins/debug-manager/start.c:1340
+#: ../plugins/debug-manager/start.c:1341
 msgid "Path"
 msgstr "พาธ"
 
-#: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1390
 msgid ""
-"The program is running.\n"
+"The program is already running.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
-"โปรแกรมกำลังทำงาน\n"
+"โปรแกรมได้เริ่มทำงานไปแล้ว\n"
 "คุณยังต้องการหยุดโปรแกรมดีบั๊กหรือไม่?"
 
 #. Action name
@@ -3384,7 +3389,7 @@ msgstr "ปลั๊กอิน Devhelp สำหรับแอนจูตา
 msgid "Search Help:"
 msgstr "ค้นวิธีใช้:"
 
-#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
+#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:234
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "ไ_ปยัง"
@@ -3425,8 +3430,8 @@ msgstr "เบราว์เซอร์ API"
 msgid "Contents"
 msgstr "เนื้อหา"
 
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
-#: ../plugins/symbol-db/plugin.c:2192
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2141
+#: ../plugins/symbol-db/plugin.c:2193
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -3441,8 +3446,8 @@ msgstr "API"
 msgid "Missing name"
 msgstr "ขาดชื่อ"
 
-#: ../plugins/dir-project/dir-project.c:990
-#: ../plugins/dir-project/dir-project.c:1000
+#: ../plugins/dir-project/dir-project.c:989
+#: ../plugins/dir-project/dir-project.c:999
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3482,7 +3487,7 @@ msgstr "ลบที่คั่นหน้า"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
-#: ../plugins/document-manager/plugin.c:429
+#: ../plugins/document-manager/plugin.c:419
 msgid "Bookmarks"
 msgstr "ที่คั่นหน้า"
 
@@ -3496,27 +3501,32 @@ msgstr "เปลี่ยนชื่อ"
 msgid "Remove"
 msgstr "ลบ"
 
-#: ../plugins/document-manager/anjuta-docman.c:454
+#: ../plugins/document-manager/anjuta-docman.c:165
+msgid " [read-only]"
+msgstr " [อ่านอย่างเดียว]"
+
+#: ../plugins/document-manager/anjuta-docman.c:661
+#: ../plugins/document-manager/anjuta-docman.c:1101
 msgid "Close file"
 msgstr "ปิดแฟ้ม"
 
-#: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:614
+#: ../plugins/document-manager/anjuta-docman.c:709
+#: ../plugins/project-manager/dialogs.c:759
 msgid "Path:"
 msgstr "พาธ:"
 
-#: ../plugins/document-manager/anjuta-docman.c:622
-#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
+#: ../plugins/document-manager/anjuta-docman.c:833
+#: ../plugins/file-loader/plugin.c:597 ../plugins/file-loader/plugin.c:900
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open file"
 msgstr "เปิดแฟ้ม"
 
-#: ../plugins/document-manager/anjuta-docman.c:641
+#: ../plugins/document-manager/anjuta-docman.c:852
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "บันทึกแฟ้มเป็น"
 
-#: ../plugins/document-manager/anjuta-docman.c:722
+#: ../plugins/document-manager/anjuta-docman.c:933
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3525,17 +3535,17 @@ msgstr ""
 "มีแฟ้ม '%s' อยู่ก่อนแล้ว\n"
 "คุณต้องการบันทึกทับหรือไม่?"
 
-#: ../plugins/document-manager/anjuta-docman.c:731
+#: ../plugins/document-manager/anjuta-docman.c:942
 msgid "_Replace"
 msgstr "แ_ทนที่"
 
-#: ../plugins/document-manager/anjuta-docman.c:1445
+#: ../plugins/document-manager/anjuta-docman.c:1736
 msgid "[read-only]"
 msgstr "[อ่านอย่างเดียว]"
 
 #. Document manager plugin
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:286
+#: ../plugins/file-loader/plugin.c:292
 msgid "Document Manager"
 msgstr "เครื่องมือจัดการเอกสาร"
 
@@ -3588,199 +3598,207 @@ msgid "Sorted in alphabetical order"
 msgstr "เรียงตามตัวอักษร"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:12
-msgid "Do not show tabs"
-msgstr "ไม่แสดงแท็บ"
-
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:13
 msgid "Position:"
 msgstr "ตำแหน่ง:"
 
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:13
+msgid "Show tabs"
+msgstr "แสดงแท็บ"
+
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
-msgid "Editor tabs"
-msgstr "แท็บในเครื่องมือแก้ไข"
+msgid "Show drop-down list"
+msgstr "แสดงรายชื่อดึงลง"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
+msgid "Do not show open documents"
+msgstr "ไม่แสดงเอกสารที่เปิดอยู่"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
+msgid "Open documents"
+msgstr "เอกสารที่เปิดอยู่"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
 msgid "Case sensitive"
 msgstr "ตัวพิมพ์ใหญ่-เล็กตรงกัน"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:18
 msgid "Regular expression"
 msgstr "นิพจน์เรกิวลาร์"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:19
 msgid "Replace All"
 msgstr "แทนที่ทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:152
+#: ../plugins/document-manager/plugin.c:142
 msgid "_Save"
 msgstr "_บันทึก"
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:143
 msgid "Save current file"
 msgstr "บันทึกแฟ้มปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:154
+#: ../plugins/document-manager/plugin.c:144
 msgid "Save _As…"
 msgstr "บันทึกเป็_น…"
 
-#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/document-manager/plugin.c:145
 msgid "Save the current file with a different name"
 msgstr "บันทึกแฟ้มปัจจุบันเป็นชื่ออื่น"
 
-#: ../plugins/document-manager/plugin.c:157
+#: ../plugins/document-manager/plugin.c:147
 msgid "Save A_ll"
 msgstr "บันทึก_ทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:158
+#: ../plugins/document-manager/plugin.c:148
 msgid "Save all currently open files, except new files"
 msgstr "บันทึกแฟ้มที่เปิดอยู่ทั้งหมด ยกเว้นแฟ้มใหม่"
 
-#: ../plugins/document-manager/plugin.c:160
+#: ../plugins/document-manager/plugin.c:150
 msgid "_Close File"
 msgstr "ปิ_ดแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:161
+#: ../plugins/document-manager/plugin.c:151
 msgid "Close current file"
 msgstr "ปิดแฟ้มปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:163
+#: ../plugins/document-manager/plugin.c:153
 msgid "Close All"
 msgstr "ปิดทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:164
+#: ../plugins/document-manager/plugin.c:154
 msgid "Close all files"
 msgstr "ปิดแฟ้มทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:166
+#: ../plugins/document-manager/plugin.c:156
 msgid "Close Others"
 msgstr "ปิดแฟ้มอื่น"
 
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:157
 msgid "Close other documents"
 msgstr "ปิดเอกสารอื่นๆ"
 
-#: ../plugins/document-manager/plugin.c:169
+#: ../plugins/document-manager/plugin.c:159
 msgid "Reload F_ile"
 msgstr "เ_รียกแฟ้มใหม่"
 
-#: ../plugins/document-manager/plugin.c:170
+#: ../plugins/document-manager/plugin.c:160
 msgid "Reload current file"
 msgstr "เรียกอ่านแฟ้มปัจจุบันใหม่"
 
-#: ../plugins/document-manager/plugin.c:172
+#: ../plugins/document-manager/plugin.c:162
 msgid "Recent _Files"
 msgstr "แฟ้ม_ล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:176
+#: ../plugins/document-manager/plugin.c:166
 msgid "_Print…"
 msgstr "_พิมพ์…"
 
-#: ../plugins/document-manager/plugin.c:177
+#: ../plugins/document-manager/plugin.c:167
 msgid "Print the current file"
 msgstr "พิมพ์แฟ้มปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:184
+#: ../plugins/document-manager/plugin.c:174
 msgid "_Print Preview"
 msgstr "_ตัวอย่างก่อนพิมพ์"
 
-#: ../plugins/document-manager/plugin.c:185
+#: ../plugins/document-manager/plugin.c:175
 msgid "Preview the current file in print format"
 msgstr "แสดงตัวอย่างแฟ้มปัจจุบันก่อนพิมพ์"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:180
 msgid "_Transform"
 msgstr "แ_ปลง"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:191
+#: ../plugins/document-manager/plugin.c:181
 msgid "_Make Selection Uppercase"
 msgstr "แปลงส่วนที่เลือกเป็นตัวพิมพ์ใ_หญ่"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:182
 msgid "Make the selected text uppercase"
 msgstr "แปลงข้อความที่เลือกให้เป็นตัวพิมพ์ใหญ่"
 
-#: ../plugins/document-manager/plugin.c:194
+#: ../plugins/document-manager/plugin.c:184
 msgid "Make Selection Lowercase"
 msgstr "แปลงส่วนที่เลือกเป็นตัวพิมพ์เ_ล็ก"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:185
 msgid "Make the selected text lowercase"
 msgstr "แปลงข้อความที่เลือกให้เป็นตัวพิมพ์เล็ก"
 
-#: ../plugins/document-manager/plugin.c:197
+#: ../plugins/document-manager/plugin.c:187
 msgid "Convert EOL to CRLF"
 msgstr "แปลง EOL เป็น CRLF"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:188
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "แปลงอักขระปิดบรรทัดเป็น EOL ของ DOS (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:200
+#: ../plugins/document-manager/plugin.c:190
 msgid "Convert EOL to LF"
 msgstr "แปลง EOL เป็น LF"
 
-#: ../plugins/document-manager/plugin.c:201
+#: ../plugins/document-manager/plugin.c:191
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "แปลงอักขระปิดบรรทัดเป็น EOL ของยูนิกซ์ (LF)"
 
-#: ../plugins/document-manager/plugin.c:203
+#: ../plugins/document-manager/plugin.c:193
 msgid "Convert EOL to CR"
 msgstr "แปลง EOL เป็น CR"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:194
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "แปลงอักขระปิดบรรทัดเป็น EOL ของ MacOS (CR)"
 
-#: ../plugins/document-manager/plugin.c:206
+#: ../plugins/document-manager/plugin.c:196
 msgid "Convert EOL to Majority EOL"
 msgstr "แปลง EOL ตาม EOL ส่วนใหญ่"
 
-#: ../plugins/document-manager/plugin.c:207
+#: ../plugins/document-manager/plugin.c:197
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr "แปลงอักขระปิดบรรทัดเป็น EOL ส่วนใหญ่ที่พบในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:212
+#: ../plugins/document-manager/plugin.c:202
 msgid "_Select"
 msgstr "เ_ลือก"
 
-#: ../plugins/document-manager/plugin.c:214
+#: ../plugins/document-manager/plugin.c:204
 msgid "Select _All"
 msgstr "เลือก_ทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:215
+#: ../plugins/document-manager/plugin.c:205
 msgid "Select all text in the editor"
 msgstr "เลือกข้อความทั้งหมดในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:217
+#: ../plugins/document-manager/plugin.c:207
 msgid "Select _Code Block"
 msgstr "เลือก_บล็อคโค้ด"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:208
 msgid "Select the current code block"
 msgstr "เลือกบล็อคโค้ดปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:223
+#: ../plugins/document-manager/plugin.c:213
 msgid "Co_mment"
 msgstr "_หมายเหตุ"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
-#: ../plugins/document-manager/plugin.c:226
+#: ../plugins/document-manager/plugin.c:216
 msgid "_Block Comment/Uncomment"
 msgstr "ทำ/เลิกทำ หมายเหตุแบบ_บล็อค"
 
-#: ../plugins/document-manager/plugin.c:227
+#: ../plugins/document-manager/plugin.c:217
 msgid "Block comment the selected text"
 msgstr "ทำข้อความที่เลือกให้เป็นหมายเหตุแบบบล็อค"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
-#: ../plugins/document-manager/plugin.c:231
+#: ../plugins/document-manager/plugin.c:221
 msgid "Bo_x Comment/Uncomment"
 msgstr "ทำ/เลิกทำ หมายเหตุแบบ_กล่อง"
 
-#: ../plugins/document-manager/plugin.c:232
+#: ../plugins/document-manager/plugin.c:222
 msgid "Box comment the selected text"
 msgstr "ทำข้อความที่เลือกให้เป็นหมายเหตุแบบกล่อง"
 
@@ -3788,140 +3806,140 @@ msgstr "ทำข้อความที่เลือกให้เป็น
 #. characters -- has start and end comment code) and comments any code from
 #. arbitrary start position to arbitrary end position (can be in middle of
 #. lines).
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:228
 msgid "_Stream Comment/Uncomment"
 msgstr "ทำ/เลิกทำ หมายเหตุใน_กระแสความ"
 
-#: ../plugins/document-manager/plugin.c:239
+#: ../plugins/document-manager/plugin.c:229
 msgid "Stream comment the selected text"
 msgstr "ทำข้อความที่เลือกให้เป็นหมายเหตุในกระแสความ"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:245
+#: ../plugins/document-manager/plugin.c:235
 msgid "_Line Number…"
 msgstr "เ_ลขบรรทัด…"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:236
 msgid "Go to a particular line in the editor"
 msgstr "ไปยังบรรทัดที่เจาะจงในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:238
 msgid "Matching _Brace"
 msgstr "_วงเล็บที่เข้าคู่"
 
-#: ../plugins/document-manager/plugin.c:249
+#: ../plugins/document-manager/plugin.c:239
 msgid "Go to the matching brace in the editor"
 msgstr "ไปยังวงเล็บที่เข้าคู่กันในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:241
 msgid "_Start of Block"
 msgstr "_ต้นบล็อค"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:242
 msgid "Go to the start of the current block"
 msgstr "ไปยังต้นบล็อคปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:244
 msgid "_End of Block"
 msgstr "_ท้ายบล็อค"
 
-#: ../plugins/document-manager/plugin.c:255
+#: ../plugins/document-manager/plugin.c:245
 msgid "Go to the end of the current block"
 msgstr "ไปยังท้ายบล็อคปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:247
 msgid "Previous _History"
 msgstr "ประวัติ_ก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:258
+#: ../plugins/document-manager/plugin.c:248
 msgid "Go to previous history"
 msgstr "ไปยังประวัติก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:260
+#: ../plugins/document-manager/plugin.c:250
 msgid "Next Histor_y"
 msgstr "ประวัติ_ถัดไป"
 
-#: ../plugins/document-manager/plugin.c:261
+#: ../plugins/document-manager/plugin.c:251
 msgid "Go to next history"
 msgstr "ไปยังประวัติถัดไป"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:256
 msgid "_Search"
 msgstr "_ค้นหา"
 
-#: ../plugins/document-manager/plugin.c:267
+#: ../plugins/document-manager/plugin.c:257
 msgid "_Quick Search"
 msgstr "ค้นหาอย่างเ_ร็ว"
 
-#: ../plugins/document-manager/plugin.c:268
+#: ../plugins/document-manager/plugin.c:258
 msgid "Quick editor embedded search"
 msgstr "การค้นหาอย่างเร็วแบบฝังในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:270
+#: ../plugins/document-manager/plugin.c:260
 msgid "Find _Next"
 msgstr "หา_ถัดไป"
 
-#: ../plugins/document-manager/plugin.c:271
+#: ../plugins/document-manager/plugin.c:261
 msgid "Search for next appearance of term."
 msgstr "ค้นหาคำเดิมต่อไป"
 
-#: ../plugins/document-manager/plugin.c:273
+#: ../plugins/document-manager/plugin.c:263
 msgid "Find and R_eplace…"
 msgstr "หาและแ_ทนที่…"
 
-#: ../plugins/document-manager/plugin.c:274
+#: ../plugins/document-manager/plugin.c:264
 msgid "Search and replace"
 msgstr "ค้นหาและแทนที่"
 
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:266
 msgid "Find _Previous"
 msgstr "หา_ก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:278
+#: ../plugins/document-manager/plugin.c:268
 msgid "Repeat the last Find command"
 msgstr "ทำซ้ำคำสั่งหาล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:280
+#: ../plugins/document-manager/plugin.c:270
 msgid "Clear Highlight"
 msgstr "ล้างการเน้น"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:271
 msgid "Clear all highlighted text"
 msgstr "ล้างการเน้นข้อความทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:273
 msgid "Find in Files"
 msgstr "หาในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:274
 msgid "Search in project files"
 msgstr "ค้นหาในแฟ้มโครงการ"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:280
 msgid "Case Sensitive"
 msgstr "ตัวพิมพ์ใหญ่-เล็กตรงกัน"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:281
 msgid "Match case in search results."
 msgstr "ค้นหาข้อความโดยตัวพิมพ์ใหญ่-เล็กตรงกัน"
 
-#: ../plugins/document-manager/plugin.c:294
+#: ../plugins/document-manager/plugin.c:284
 msgid "Highlight All"
 msgstr "เน้นทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:285
 msgid "Highlight all occurrences"
 msgstr "เน้นข้อความที่พบทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:288
 msgid "Regular Expression"
 msgstr "นิพจน์เรกิวลาร์"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:289
 msgid "Search using regular expressions"
 msgstr "ค้นหาโดยใช้นิพจน์เรกิวลาร์"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:295
 #: ../plugins/indentation-c-style/plugin.c:463
 #: ../plugins/indentation-python-style/plugin.c:200
 #: ../plugins/language-support-cpp-java/plugin.c:1073
@@ -3930,313 +3948,313 @@ msgid "_Edit"
 msgstr "แ_ก้ไข"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:306
+#: ../plugins/document-manager/plugin.c:296
 msgid "_Editor"
 msgstr "เครื่องมือแ_ก้ไข"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:303
 msgid "_Add Editor View"
 msgstr "เ_พิ่มมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:304
 msgid "Add one more view of current document"
 msgstr "เพิ่มมุมมองของเอกสารปัจจุบันอีกหนึ่งมุมมอง"
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:306
 msgid "_Remove Editor View"
 msgstr "_ลบมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:307
 msgid "Remove current view of the document"
 msgstr "ลบมุมมองปัจจุบันของเอกสาร"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:309
 msgid "U_ndo"
 msgstr "เรี_ยกคืน"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:310
 msgid "Undo the last action"
 msgstr "เรียกคืนปฏิบัติการล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:312
 msgid "_Redo"
 msgstr "_ทำซ้ำ"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:313
 msgid "Redo the last undone action"
 msgstr "ทำซ้ำปฏิบัติการที่เรียกคืนล่าสุด"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:315
 msgid "C_ut"
 msgstr "_ตัด"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:316
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "ตัดข้อความที่เลือกจากเครื่องมือแก้ไขไปยังคลิปบอร์ด"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:328 ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:318 ../plugins/terminal/terminal.c:547
 msgid "_Copy"
 msgstr "_คัดลอก"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:319
 msgid "Copy the selected text to the clipboard"
 msgstr "คัดลอกข้อความที่เลือกไปยังคลิปบอร์ด"
 
-#: ../plugins/document-manager/plugin.c:331 ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:321 ../plugins/terminal/terminal.c:555
 msgid "_Paste"
 msgstr "_แปะ"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:322
 msgid "Paste the content of clipboard at the current position"
 msgstr "แปะเนื้อหาของคลิปบอร์ด ณ ตำแหน่งปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:340
+#: ../plugins/document-manager/plugin.c:330
 msgid "_Clear"
 msgstr "_ล้าง"
 
-#: ../plugins/document-manager/plugin.c:341
+#: ../plugins/document-manager/plugin.c:331
 msgid "Delete the selected text from the editor"
 msgstr "ลบข้อความที่เลือกออกจากเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:334
 msgid "_Auto-Complete"
 msgstr "เ_ติมเต็มคำอัตโนมัติ"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:335
 msgid "Auto-complete the current word"
 msgstr "เติมเต็มคำปัจจุบันโดยอัตโนมัติ"
 
-#: ../plugins/document-manager/plugin.c:351
+#: ../plugins/document-manager/plugin.c:341
 msgid "Zoom In"
 msgstr "แสดงขยาย"
 
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:342
 msgid "Zoom in: Increase font size"
 msgstr "แสดงขยาย: เพิ่มขนาดตัวอักษร"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:344
 msgid "Zoom Out"
 msgstr "แสดงย่อ"
 
-#: ../plugins/document-manager/plugin.c:355
+#: ../plugins/document-manager/plugin.c:345
 msgid "Zoom out: Decrease font size"
 msgstr "แสดงย่อ: ลดขนาดตัวอักษร"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:350
 msgid "_Highlight Mode"
 msgstr "โหมดเ_น้น"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:354
 msgid "_Close All Folds"
 msgstr "ปิ_ดทุกพับ"
 
-#: ../plugins/document-manager/plugin.c:365
+#: ../plugins/document-manager/plugin.c:355
 msgid "Close all code folds in the editor"
 msgstr "ปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:357
 msgid "_Open All Folds"
 msgstr "_เปิดทุกพับ"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:358
 msgid "Open all code folds in the editor"
 msgstr "เปิดโค้ดที่พับทั้งหมดในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:360
 msgid "_Toggle Current Fold"
 msgstr "_เปิด/ปิดการพับปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:361
 msgid "Toggle current code fold in the editor"
 msgstr "เปิด/ปิดโค้ดที่พับปัจจุบันในเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:366
 msgid "_Documents"
 msgstr "เ_อกสาร"
 
-#: ../plugins/document-manager/plugin.c:377
+#: ../plugins/document-manager/plugin.c:367
 msgid "Previous Document"
 msgstr "เอกสารก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:368
 msgid "Switch to previous document"
 msgstr "ย้ายไปเอกสารก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:370
 msgid "Next Document"
 msgstr "เอกสารถัดไป"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:371
 msgid "Switch to next document"
 msgstr "ย้ายไปเอกสารถัดไป"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:376
 msgid "Bookmar_k"
 msgstr "_ที่คั่นหน้า"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:377
 msgid "_Toggle Bookmark"
 msgstr "_เปิด/ปิดการคั่นหน้า"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:378
 msgid "Toggle bookmark at the current line position"
 msgstr "เปิด/ปิดการคั่นหน้าที่ตำแหน่งบรรทัดปัจจุบัน"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Previous Bookmark"
 msgstr "ที่คั่นหน้า_ก่อนหน้า"
 
-#: ../plugins/document-manager/plugin.c:391
+#: ../plugins/document-manager/plugin.c:381
 msgid "Jump to the previous bookmark in the file"
 msgstr "กระโดดไปที่คั่นหน้าก่อนหน้าในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:393
+#: ../plugins/document-manager/plugin.c:383
 msgid "_Next Bookmark"
 msgstr "ที่คั่นหน้า_ถัดไป"
 
-#: ../plugins/document-manager/plugin.c:394
+#: ../plugins/document-manager/plugin.c:384
 msgid "Jump to the next bookmark in the file"
 msgstr "กระโดดไปที่คั่นหน้าถัดไปในแฟ้ม"
 
-#: ../plugins/document-manager/plugin.c:396
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Clear All Bookmarks"
 msgstr "_ลบที่คั่นหน้าทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:397
+#: ../plugins/document-manager/plugin.c:387
 msgid "Clear bookmarks"
 msgstr "ลบที่คั่นหน้าทั้งหมด"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:406
 msgid "Editor file operations"
 msgstr "การกระทำเกี่ยวกับแฟ้มของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor print operations"
 msgstr "การกระทำเกี่ยวกับการพิมพ์ของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor text transformation"
 msgstr "การแปลงข้อความของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor text selection"
 msgstr "การเลือกข้อความของเครื่องมือแก้ไข"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor code commenting"
 msgstr "การแสดงคำอธิบายโค้ดของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor navigations"
 msgstr "การท่องดูของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor edit operations"
 msgstr "การกระทำเกี่ยวกับการแก้ไขของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:424
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor zoom operations"
 msgstr "การทำงานแสดงย่อ-ขยายของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:425
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor syntax highlighting styles"
 msgstr "รูปแบบการเน้นไวยากรณ์ของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:426
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor text formating"
 msgstr "การจัดรูปแบบข้อความของเครื่องมือแก้ไข"
 
-#: ../plugins/document-manager/plugin.c:427
+#: ../plugins/document-manager/plugin.c:417
 msgid "Simple searching"
 msgstr "การค้นหาแบบง่าย"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
-#: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1731
-#: ../plugins/document-manager/plugin.c:2150
-#: ../plugins/document-manager/plugin.c:2159
+#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:1691
+#: ../plugins/document-manager/plugin.c:2111
+#: ../plugins/document-manager/plugin.c:2120
 msgid "Documents"
 msgstr "เอกสาร"
 
-#: ../plugins/document-manager/plugin.c:434
+#: ../plugins/document-manager/plugin.c:424
 msgid "Toggle search options"
 msgstr "เปิด/ปิดตัวเลือกของการค้นหา"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:587
 msgid "Reload"
 msgstr "เรียกใหม่"
 
-#: ../plugins/document-manager/plugin.c:599
+#: ../plugins/document-manager/plugin.c:593
 msgid "Go to"
 msgstr "ไปยัง"
 
-#: ../plugins/document-manager/plugin.c:919
+#: ../plugins/document-manager/plugin.c:917
 msgid "OVR"
 msgstr "ทับ"
 
-#: ../plugins/document-manager/plugin.c:923
+#: ../plugins/document-manager/plugin.c:921
 msgid "INS"
 msgstr "แทรก"
 
-#: ../plugins/document-manager/plugin.c:929
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:930
 msgid "Zoom"
 msgstr "แสดงย่อ-ขยาย"
 
-#: ../plugins/document-manager/plugin.c:935
+#: ../plugins/document-manager/plugin.c:933
 msgid "Col"
 msgstr "คอลัมน์"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:934
 msgid "Mode"
 msgstr "โหมด"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1573
+#: ../plugins/document-manager/plugin.c:1527
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "บันทึก %s โดยอัตโนมัติไม่สำเร็จ"
 
-#: ../plugins/document-manager/plugin.c:1587
+#: ../plugins/document-manager/plugin.c:1541
 msgid "Autosave completed"
 msgstr "บันทึกอัตโนมัติเรียบร้อย"
 
-#: ../plugins/document-manager/search-box.c:561
+#: ../plugins/document-manager/search-box.c:555
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม"
 
-#: ../plugins/document-manager/search-box.c:566
+#: ../plugins/document-manager/search-box.c:560
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "การค้นหา \"%s\" ชนต้นแฟ้ม และเริ่มหาต่อจากท้ายแฟ้ม"
 
-#: ../plugins/document-manager/search-box.c:575
+#: ../plugins/document-manager/search-box.c:569
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
 msgstr "การค้นหา \"%s\" ชนท้ายแฟ้ม และเริ่มหาต่อจากต้นแฟ้ม แต่ไม่พบข้อความที่ตรง"
 
-#: ../plugins/document-manager/search-box.c:580
+#: ../plugins/document-manager/search-box.c:574
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
 "match was found."
 msgstr "การค้นหา \"%s\" ชนต้นแฟ้ม และเริ่มหาต่อจากท้ายแฟ้ม แต่ไม่พบข้อความที่ตรง"
 
-#: ../plugins/document-manager/search-box.c:922
+#: ../plugins/document-manager/search-box.c:916
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr "ใช้เมนูคลิกขวาของไอคอน \"หา\" หากต้องการตัวเลือกเพิ่มเติมของการค้นหา"
 
-#: ../plugins/document-manager/search-box.c:986
+#: ../plugins/document-manager/search-box.c:980
 msgid "Replace"
 msgstr "แทนที่"
 
-#: ../plugins/document-manager/search-box.c:991
+#: ../plugins/document-manager/search-box.c:985
 msgid "Replace all"
 msgstr "แทนที่ทั้งหมด"
 
@@ -4254,7 +4272,7 @@ msgid "Find in files"
 msgstr "หาในแฟ้ม"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
+#: ../plugins/file-loader/plugin.c:1241 ../plugins/file-loader/plugin.c:1247
 msgid "File Loader"
 msgstr "เครื่องมือโหลดแฟ้ม"
 
@@ -4272,29 +4290,29 @@ msgstr "เครื่องมือโหลดแฟ้มสำหรับ
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:521
 msgid "No items found"
 msgstr "ไม่พบรายการ"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:669
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:725
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
 msgstr "ไม่พบการใช้ทรัพยากรล่าสุดกับ URI  \"%s\""
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:749
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:757
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
 msgstr "ฟังก์ชันนี้ยังไม่ทำสำหรับวิดเจ็ตของคลาส '%s'"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:936
 #: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "เปิด '%s'"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:966
 msgid "Unknown item"
 msgstr "รายการไม่ทราบชื่อ"
 
@@ -4303,7 +4321,7 @@ msgstr "รายการไม่ทราบชื่อ"
 #. * the %s is the name of the item. Please keep the _ in front
 #. * of the number to give these menu items a mnemonic.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:978
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:977
 #, c-format
 msgctxt "recent menu label"
 msgid "_%d. %s"
@@ -4312,13 +4330,13 @@ msgstr "_%d. %s"
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:983
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:982
 #, c-format
 msgctxt "recent menu label"
 msgid "%d. %s"
 msgstr "%d. %s"
 
-#: ../plugins/file-loader/plugin.c:116
+#: ../plugins/file-loader/plugin.c:122
 #, c-format
 msgid ""
 "Cannot open \"%s\".\n"
@@ -4329,7 +4347,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:257
+#: ../plugins/file-loader/plugin.c:263
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4349,136 +4367,136 @@ msgstr ""
 "\n"
 "คุณอาจจะลองเปิดแฟ้มดังกล่าวได้ โดยใช้ปลั๊กอินหรือโปรแกรมต่อไปนี้"
 
-#: ../plugins/file-loader/plugin.c:280
+#: ../plugins/file-loader/plugin.c:286
 msgid "Open with:"
 msgstr "เปิดด้วย:"
 
-#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
-#: ../plugins/run-program/parameters.c:310
+#: ../plugins/file-loader/plugin.c:503 ../plugins/patch/patch-plugin.c:122
+#: ../plugins/run-program/parameters.c:188
 msgid "All files"
 msgstr "ทุกแฟ้ม"
 
-#: ../plugins/file-loader/plugin.c:502
+#: ../plugins/file-loader/plugin.c:508
 msgid "Anjuta Projects"
 msgstr "โครงการแอนจูตา"
 
-#: ../plugins/file-loader/plugin.c:508
+#: ../plugins/file-loader/plugin.c:514
 msgid "C/C++ source files"
 msgstr "แฟ้มซอร์ส C/C++"
 
-#: ../plugins/file-loader/plugin.c:520
+#: ../plugins/file-loader/plugin.c:526
 msgid "C# source files"
 msgstr "แฟ้มซอร์ส C#"
 
-#: ../plugins/file-loader/plugin.c:526
+#: ../plugins/file-loader/plugin.c:532
 msgid "Java source files"
 msgstr "แฟ้มซอร์ส Java"
 
-#: ../plugins/file-loader/plugin.c:532
+#: ../plugins/file-loader/plugin.c:538
 msgid "Pascal source files"
 msgstr "แฟ้มซอร์ส Pascal"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:543
 msgid "PHP source files"
 msgstr "แฟ้มซอร์ส PHP"
 
-#: ../plugins/file-loader/plugin.c:544
+#: ../plugins/file-loader/plugin.c:550
 msgid "Perl source files"
 msgstr "แฟ้มซอร์ส Perl"
 
-#: ../plugins/file-loader/plugin.c:550
+#: ../plugins/file-loader/plugin.c:556
 msgid "Python source files"
 msgstr "แฟ้มซอร์ส Python"
 
-#: ../plugins/file-loader/plugin.c:555
+#: ../plugins/file-loader/plugin.c:561
 msgid "Hypertext markup files"
 msgstr "แฟ้ม HTML"
 
-#: ../plugins/file-loader/plugin.c:564
+#: ../plugins/file-loader/plugin.c:570
 msgid "Shell script files"
 msgstr "แฟ้มสคริปต์เชลล์"
 
-#: ../plugins/file-loader/plugin.c:569
+#: ../plugins/file-loader/plugin.c:575
 msgid "Makefiles"
 msgstr "Makefile"
 
-#: ../plugins/file-loader/plugin.c:575
+#: ../plugins/file-loader/plugin.c:581
 msgid "Lua files"
 msgstr "แฟ้ม Lua"
 
-#: ../plugins/file-loader/plugin.c:580
+#: ../plugins/file-loader/plugin.c:586
 msgid "Diff files"
 msgstr "แฟ้ม Diff"
 
-#: ../plugins/file-loader/plugin.c:823
+#: ../plugins/file-loader/plugin.c:829
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "เรียกใช้งานปลั๊กอินไม่สำเร็จ: %s"
 
-#: ../plugins/file-loader/plugin.c:884
+#: ../plugins/file-loader/plugin.c:890
 msgid "_New"
 msgstr "ใ_หม่"
 
-#: ../plugins/file-loader/plugin.c:886
+#: ../plugins/file-loader/plugin.c:892
 msgid "New empty file"
 msgstr "สร้างแฟ้มเปล่าแฟ้มใหม่"
 
-#: ../plugins/file-loader/plugin.c:892
+#: ../plugins/file-loader/plugin.c:898
 msgid "_Open…"
 msgstr "_เปิด…"
 
-#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:909 ../plugins/file-loader/plugin.c:922
 msgid "_Open"
 msgstr "_เปิด"
 
-#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:916 ../plugins/file-loader/plugin.c:929
 msgid "Open _With"
 msgstr "เปิด_ด้วย"
 
-#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:917 ../plugins/file-loader/plugin.c:930
 msgid "Open with"
 msgstr "เปิดด้วย"
 
-#: ../plugins/file-loader/plugin.c:1248
+#: ../plugins/file-loader/plugin.c:1251
 msgid "New"
 msgstr "ใหม่"
 
-#: ../plugins/file-loader/plugin.c:1249
+#: ../plugins/file-loader/plugin.c:1252
 msgid "New file, project and project components."
 msgstr "สร้างแฟ้ม โครงการ และส่วนประกอบโครงการชิ้นใหม่"
 
-#: ../plugins/file-loader/plugin.c:1256 ../plugins/file-loader/plugin.c:1296
+#: ../plugins/file-loader/plugin.c:1259 ../plugins/file-loader/plugin.c:1299
 msgid "Open"
 msgstr "เปิด"
 
-#: ../plugins/file-loader/plugin.c:1260
+#: ../plugins/file-loader/plugin.c:1263
 msgid "Open _Recent"
 msgstr "เปิด_ล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1298
+#: ../plugins/file-loader/plugin.c:1264 ../plugins/file-loader/plugin.c:1301
 msgid "Open recent file"
 msgstr "เปิดแฟ้มล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1267
+#: ../plugins/file-loader/plugin.c:1270
 msgid "Open recent files"
 msgstr "เปิดแฟ้มล่าสุด"
 
-#: ../plugins/file-loader/plugin.c:1297
+#: ../plugins/file-loader/plugin.c:1300
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: ../plugins/file-loader/plugin.c:1411 ../plugins/file-loader/plugin.c:1413
+#: ../plugins/file-loader/plugin.c:1414 ../plugins/file-loader/plugin.c:1416
 #, c-format
 msgid "File not found"
 msgstr "ไม่พบแฟ้ม"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1432
+#: ../plugins/file-loader/plugin.c:1435
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "กรุณาเลือกปลั๊กอินที่จะใช้เปิด <b>%s</b>"
 
-#: ../plugins/file-loader/plugin.c:1436
+#: ../plugins/file-loader/plugin.c:1439
 msgid "<b>Open With</b>"
 msgstr "<b>เปิดด้วย</b>"
 
@@ -4501,7 +4519,7 @@ msgstr "เลือกไดเรกทอรีที่จะแสดงถ
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2184
+#: ../plugins/symbol-db/plugin.c:2185
 msgid "Global"
 msgstr "ส่วนกลาง"
 
@@ -4529,11 +4547,11 @@ msgstr "ตัวกรอง"
 msgid "Loading..."
 msgstr "กำลังโหลด..."
 
-#: ../plugins/file-manager/file-view.c:746
+#: ../plugins/file-manager/file-view.c:750
 msgid "Base URI"
 msgstr "URI ตั้งต้น"
 
-#: ../plugins/file-manager/file-view.c:747
+#: ../plugins/file-manager/file-view.c:751
 msgid "URI of the top-most path displayed"
 msgstr "URI ของพาธระดับบนสุดที่แสดง"
 
@@ -4578,7 +4596,7 @@ msgstr ""
 "นามสกุลจะถูกเติมตามชนิดของแฟ้ม"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:641
+#: ../plugins/project-manager/dialogs.c:786
 msgid "Type:"
 msgstr "ชนิด:"
 
@@ -4740,6 +4758,14 @@ msgstr ""
 "โปรแกรมถูกแนบอยู่\n"
 "คุณต้องการหยุดโปรแกรมดีบั๊กหรือไม่?"
 
+#: ../plugins/gdb/debugger.c:1929
+msgid ""
+"The program is running.\n"
+"Do you still want to stop the debugger?"
+msgstr ""
+"โปรแกรมกำลังทำงาน\n"
+"คุณยังต้องการหยุดโปรแกรมดีบั๊กหรือไม่?"
+
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
 #: ../plugins/gdb/debugger.c:2087
@@ -4879,7 +4905,7 @@ msgstr "แฟ้มกล่องจดหมายที่จะใช้:"
 msgid "Add signed off by line"
 msgstr "เพิ่มบรรทัดเซ็นกำกับโดย"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:794
 msgid "Branches"
 msgstr "แขนง"
 
@@ -4900,7 +4926,7 @@ msgid "Show source revision in log message"
 msgstr "แสดงเลขรุ่นของซอร์สในข้อความปูม"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-msgid "Append signed-of- by line"
+msgid "Append signed-off-by line"
 msgstr "เพิ่มบรรทัด signed-off-by"
 
 #: ../plugins/git/anjuta-git.ui.h:15
@@ -5188,7 +5214,7 @@ msgstr "กรุณาป้อนชื่อแขนง"
 msgid "Please enter a tag name."
 msgstr "กรุณาป้อนชื่อแท็ก"
 
-#: ../plugins/git/git-create-tag-pane.c:218
+#: ../plugins/git/git-create-tag-pane.c:215
 msgid "Create Tag"
 msgstr "สร้างแท็ก"
 
@@ -5240,7 +5266,7 @@ msgid "Merge"
 msgstr "ผสาน"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:716
 msgid "Git"
 msgstr "Git"
 
@@ -5268,7 +5294,7 @@ msgstr "กรุณาป้อน URL"
 msgid "Pull"
 msgstr "Pull"
 
-#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:435 ../plugins/git/plugin.c:238
 msgid "Push"
 msgstr "Push"
 
@@ -5280,19 +5306,19 @@ msgstr "ไม่ได้เลือกแม่ข่ายไว้"
 msgid "Remove Files"
 msgstr "ลบแฟ้ม"
 
-#: ../plugins/git/git-repository-selector.c:66
+#: ../plugins/git/git-repository-selector.c:67
 msgid "Remote"
 msgstr "แม่ข่าย"
 
-#: ../plugins/git/git-repository-selector.c:81
+#: ../plugins/git/git-repository-selector.c:82
 msgid "URL"
 msgstr "URL"
 
-#: ../plugins/git/git-repository-selector.c:100
+#: ../plugins/git/git-repository-selector.c:101
 msgid "<b>Selected Remote:</b>"
 msgstr "<b>แม่ข่ายที่เลือก:</b>"
 
-#: ../plugins/git/git-repository-selector.c:199
+#: ../plugins/git/git-repository-selector.c:200
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
@@ -5300,7 +5326,7 @@ msgstr ""
 "ไม่ได้เลือกแม่ข่ายไว้ จะใช้ origin โดยปริยาย\n"
 "หากต้องการ push ไปยังแม่ข่ายอื่น กรุณาเลือกแม่ข่ายจากรายชื่อแม่ข่ายข้างบนนี้"
 
-#: ../plugins/git/git-reset-pane.c:167
+#: ../plugins/git/git-reset-pane.c:164
 msgid "Reset"
 msgstr "ล้างค่า"
 
@@ -5320,11 +5346,11 @@ msgstr "ย้อนคืน"
 msgid "Stash Uncommitted Changes"
 msgstr "Stash การเปลี่ยนแปลงที่ยังไม่ commit"
 
-#: ../plugins/git/git-status-pane.c:368
+#: ../plugins/git/git-status-pane.c:365
 msgid "Changes to be committed"
 msgstr "การเปลี่ยนแปลงที่จะ commit"
 
-#: ../plugins/git/git-status-pane.c:377
+#: ../plugins/git/git-status-pane.c:374
 msgid "Changed but not updated"
 msgstr "เปลี่ยนแปลงแต่ยังไม่ปรับข้อมูล"
 
@@ -5615,27 +5641,27 @@ msgstr "หยุดการปรับแก้ด้วยชุดลำด
 msgid "Branch"
 msgstr "แขนง"
 
-#: ../plugins/git/plugin.c:723
+#: ../plugins/git/plugin.c:711
 msgid "Git Tasks"
 msgstr "คำสั่ง Git"
 
-#: ../plugins/git/plugin.c:793
+#: ../plugins/git/plugin.c:782
 msgid "Status"
 msgstr "สถานะ"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:788
 msgid "Log"
 msgstr "ปูม"
 
-#: ../plugins/git/plugin.c:810
+#: ../plugins/git/plugin.c:799
 msgid "Tags"
 msgstr "แท็ก"
 
-#: ../plugins/git/plugin.c:817
+#: ../plugins/git/plugin.c:806
 msgid "Remotes"
 msgstr "แม่ข่าย"
 
-#: ../plugins/git/plugin.c:823
+#: ../plugins/git/plugin.c:812
 msgid "Stash"
 msgstr "Stash"
 
@@ -5664,37 +5690,45 @@ msgstr "ปลั๊กอิน Glade สำหรับแอนจูตา"
 msgid "User interface file"
 msgstr "แฟ้มส่วนติดต่อผู้ใช้"
 
-#: ../plugins/glade/plugin.c:586
+#: ../plugins/glade/anjuta-glade.ui.h:1
 msgid "Select widgets in the workspace"
 msgstr "เลือกวิดเจ็ตในพื้นที่ทำงาน"
 
-#: ../plugins/glade/plugin.c:612
+#: ../plugins/glade/anjuta-glade.ui.h:2
 msgid "Drag and resize widgets in the workspace"
 msgstr "ลากและปรับขนาดวิดเจ็ตในพื้นที่ทำงาน"
 
-#: ../plugins/glade/plugin.c:638
+#: ../plugins/glade/anjuta-glade.ui.h:3
+msgid "Edit widget margins"
+msgstr "แก้ไขระยะขอบของวิดเจ็ต"
+
+#: ../plugins/glade/anjuta-glade.ui.h:4
+msgid "Edit widget alignment"
+msgstr "แก้ไขการจัดเรียงของวิดเจ็ต"
+
+#: ../plugins/glade/plugin.c:614
 msgid "Loading Glade…"
 msgstr "กำลังโหลด Glade…"
 
-#: ../plugins/glade/plugin.c:714
+#: ../plugins/glade/plugin.c:698
 msgid "Widgets"
 msgstr "วิดเจ็ต"
 
-#: ../plugins/glade/plugin.c:719
+#: ../plugins/glade/plugin.c:703
 msgid "Palette"
 msgstr "กล่องเครื่องมือ"
 
-#: ../plugins/glade/plugin.c:841
+#: ../plugins/glade/plugin.c:825
 #, c-format
 msgid "Not local file: %s"
 msgstr "ไม่ใช่แฟ้มในเครื่อง: %s"
 
-#: ../plugins/glade/plugin.c:887
+#: ../plugins/glade/plugin.c:871
 #, c-format
 msgid "Could not open %s"
 msgstr "เปิด %s ไม่ได้"
 
-#: ../plugins/glade/plugin.c:930
+#: ../plugins/glade/plugin.c:914
 msgid "Could not create a new glade project."
 msgstr "สร้างโครงการ glade โครงการใหม่ไม่ได้"
 
@@ -5739,6 +5773,10 @@ msgid "Indent:"
 msgstr "ร่นย่อหน้า:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
+msgid "Use spaces for parenthesis indentation"
+msgstr "ใช้ช่องว่างสำหรับการร่นย่อหน้าวงเล็บ"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:11
 msgid "Parenthesis indentation"
 msgstr "การร่นย่อหน้าวงเล็บ"
 
@@ -5754,12 +5792,11 @@ msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "ร่นบรรทัดปัจจุบันหรือข้อความที่เลือกอยู่โดยอัตโนมัติ ขึ้นอยู่กับค่าตั้งการร่นย่อหน้า"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#: ../plugins/language-support-cpp-java/plugin.c:1126
-msgid "C++/Java Assistance"
-msgstr "เครื่องมือช่วย C++/Java"
+msgid "C Indentation"
+msgstr "การร่นย่อหน้าของ C"
 
-#: ../plugins/indentation-c-style/plugin.c:607
-#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-c-style/plugin.c:608
+#: ../plugins/indentation-c-style/plugin.c:617
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -5770,9 +5807,16 @@ msgid "Enable adaptive indentation"
 msgstr "เปิดใช้งานการร่นย่อหน้าแบบปรับตัวอัตโนมัติ"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#: ../plugins/language-support-python/plugin.c:428
-msgid "Python Assistance"
-msgstr "เครื่องมือช่วยสร้างโครงการไพธอน"
+msgid "Python Indentation"
+msgstr "การร่นย่อหน้าของไพธอน"
+
+#: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
+msgid "JHBuild"
+msgstr "JHBuild"
+
+#: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:2
+msgid "Build and run programs inside the JHBuild environment"
+msgstr "ประกอบสร้างและเรียกทำงานโปรแกรมภายในสภาพแวดล้อมของ JHBuild"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5839,6 +5883,10 @@ msgstr "สลับ .h/.c"
 #: ../plugins/language-support-cpp-java/plugin.c:1086
 msgid "Swap C header and source files"
 msgstr "สลับแฟ้มส่วนหัวกับซอร์สภาษา C"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1126
+msgid "C++/Java Assistance"
+msgstr "เครื่องมือช่วย C++/Java"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1345
 #: ../plugins/language-support-cpp-java/plugin.c:1374
@@ -5967,9 +6015,13 @@ msgstr ""
 msgid "Do not show that warning again"
 msgstr "ไม่ต้องแสดงคำเตือนนั้นอีก"
 
+#: ../plugins/language-support-python/plugin.c:428
+msgid "Python Assistance"
+msgstr "เครื่องมือช่วยสร้างโครงการไพธอน"
+
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:792
+#: ../plugins/language-support-python/python-assist.c:793
 msgid "Python"
 msgstr "ไพธอน"
 
@@ -6061,8 +6113,8 @@ msgid "Icon"
 msgstr "ไอคอน"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
-#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:400
+#: ../plugins/message-view/plugin.c:519 ../plugins/message-view/plugin.c:530
 msgid "Messages"
 msgstr "ข้อความ"
 
@@ -6272,12 +6324,12 @@ msgid "Project from Existing Sources"
 msgstr "โครงการจากซอร์สที่มีอยู่แล้ว"
 
 #: ../plugins/project-import/plugin.c:79
-#: ../plugins/project-import/plugin.c:183
+#: ../plugins/project-import/plugin.c:186
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "มีแฟ้มชื่อ \"%s\" อยู่แล้ว ต้องการแทนที่หรือไม่?"
 
-#: ../plugins/project-import/plugin.c:218
+#: ../plugins/project-import/plugin.c:221
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6286,16 +6338,17 @@ msgstr ""
 "แฟ้มชื่อ \"%s\" ไม่สามารถเขียนทับได้: %s  "
 "กรุณาตรวจสอบว่าคุณมีสิทธิ์เขียนในไดเรกทอรีโครงการหรือไม่"
 
-#: ../plugins/project-import/plugin.c:282
+#: ../plugins/project-import/plugin.c:285
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "กรุณาเลือกแบ็กเอนด์โครงการที่จะใช้เปิด %s"
 
-#: ../plugins/project-import/plugin.c:287
+#: ../plugins/project-import/plugin.c:290
+#: ../plugins/project-manager/dialogs.c:654
 msgid "Open With"
 msgstr "เปิดด้วย"
 
-#: ../plugins/project-import/plugin.c:302
+#: ../plugins/project-import/plugin.c:305
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6304,8 +6357,8 @@ msgstr ""
 "ไม่สามารถหาแบ็กเอนด์โครงการที่ถูกต้องสำหรับไดเรกทอรีที่ให้มา (%s) กรุณาเลือกไดเรกทอรีอื่น "
 "หรือลองปรับรุ่นแอนจูตาเป็นรุ่นใหม่"
 
-#: ../plugins/project-import/plugin.c:368
-#: ../plugins/project-import/plugin.c:424
+#: ../plugins/project-import/plugin.c:371
+#: ../plugins/project-import/plugin.c:427
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
@@ -6379,102 +6432,117 @@ msgstr "ปลั๊กอินเครื่องมือจัดการ
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:332
+#: ../plugins/project-manager/dialogs.c:334
 msgid "Select sources…"
 msgstr "เลือกซอร์ส…"
 
-#: ../plugins/project-manager/dialogs.c:407
+#: ../plugins/project-manager/dialogs.c:409
 msgid " This property is not modifiable."
 msgstr "คุณสมบัตินี้ไม่สามารถเปลี่ยนแปลงได้"
 
-#: ../plugins/project-manager/dialogs.c:563
-#: ../plugins/project-manager/dialogs.c:568
-#: ../plugins/project-manager/plugin.c:927
+#. Several backend are possible, ask the user to select one
+#: ../plugins/project-manager/dialogs.c:651
+#, c-format
+msgid "Please select a project backend to use."
+msgstr "กรุณาเลือกแบ็กเอนด์โครงการที่จะใช้"
+
+#: ../plugins/project-manager/dialogs.c:692
+#: ../plugins/project-manager/dialogs.c:697
+#: ../plugins/project-manager/plugin.c:996
 msgid "Project properties"
 msgstr "คุณสมบัติโครงการ"
 
-#: ../plugins/project-manager/dialogs.c:572
+#: ../plugins/project-manager/dialogs.c:701
 msgid "Folder properties"
 msgstr "คุณสมบัติโฟลเดอร์"
 
-#: ../plugins/project-manager/dialogs.c:576
+#: ../plugins/project-manager/dialogs.c:705
 msgid "Target properties"
 msgstr "คุณสมบัติเป้าหมาย"
 
-#: ../plugins/project-manager/dialogs.c:579
+#: ../plugins/project-manager/dialogs.c:708
 msgid "Source properties"
 msgstr "คุณสมบัติซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:582
+#: ../plugins/project-manager/dialogs.c:711
 msgid "Module properties"
 msgstr "คุณสมบัติมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:585
+#: ../plugins/project-manager/dialogs.c:714
 msgid "Package properties"
 msgstr "คุณสมบัติแพกเกจ"
 
-#: ../plugins/project-manager/dialogs.c:588
+#: ../plugins/project-manager/dialogs.c:717
 msgid "Unknown properties"
 msgstr "คุณสมบัติไม่ทราบชนิด"
 
-#: ../plugins/project-manager/dialogs.c:1050
-#: ../plugins/project-manager/dialogs.c:1061
+#: ../plugins/project-manager/dialogs.c:748
+msgid "Backend:"
+msgstr "แบ็กเอนด์:"
+
+#: ../plugins/project-manager/dialogs.c:940
+#, c-format
+msgid "Reloading project: %s"
+msgstr "กำลังโหลดโครงการ %s ซ้ำ"
+
+#: ../plugins/project-manager/dialogs.c:1189
+#: ../plugins/project-manager/dialogs.c:1200
 msgid "Cannot add group"
 msgstr "ไม่สามารถเพิ่มกลุ่ม"
 
-#: ../plugins/project-manager/dialogs.c:1062
+#: ../plugins/project-manager/dialogs.c:1201
 msgid "No parent group selected"
 msgstr "ไม่ได้เลือกกลุ่มแม่ไว้"
 
-#: ../plugins/project-manager/dialogs.c:1222
-#: ../plugins/project-manager/dialogs.c:1234
-#: ../plugins/project-manager/dialogs.c:1419
-#: ../plugins/project-manager/dialogs.c:1429
+#: ../plugins/project-manager/dialogs.c:1361
+#: ../plugins/project-manager/dialogs.c:1373
+#: ../plugins/project-manager/dialogs.c:1558
+#: ../plugins/project-manager/dialogs.c:1568
 msgid "Cannot add source files"
 msgstr "ไม่สามารถเพิ่มแฟ้มซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:1235
-#: ../plugins/project-manager/dialogs.c:1430
+#: ../plugins/project-manager/dialogs.c:1374
+#: ../plugins/project-manager/dialogs.c:1569
 msgid "The selected node cannot contain source files."
 msgstr "โหนดที่เลือกไม่สามารถบรรจุแฟ้มซอร์ส"
 
-#: ../plugins/project-manager/dialogs.c:1616
-#: ../plugins/project-manager/dialogs.c:1627
+#: ../plugins/project-manager/dialogs.c:1755
+#: ../plugins/project-manager/dialogs.c:1766
 msgid "Cannot add target"
 msgstr "ไม่สามารถเพิ่มเป้าหมาย"
 
-#: ../plugins/project-manager/dialogs.c:1628
+#: ../plugins/project-manager/dialogs.c:1767
 msgid "No group selected"
 msgstr "ไม่มีการเลือกกลุ่ม"
 
-#: ../plugins/project-manager/dialogs.c:1791
-#: ../plugins/project-manager/dialogs.c:1802
+#: ../plugins/project-manager/dialogs.c:1930
+#: ../plugins/project-manager/dialogs.c:1941
 msgid "Cannot add modules"
 msgstr "ไม่สามารถเพิ่มมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:1803
+#: ../plugins/project-manager/dialogs.c:1942
 msgid "No target has been selected"
 msgstr "ไม่มีการเลือกเป้าหมาย"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:2009
+#: ../plugins/project-manager/dialogs.c:2148
 msgid "Missing module name"
 msgstr "ขาดชื่อของมอดูล"
 
-#: ../plugins/project-manager/dialogs.c:2071
+#: ../plugins/project-manager/dialogs.c:2210
 msgid "Cannot add packages"
 msgstr "ไม่สามารถเพิ่มแพกเกจ"
 
-#: ../plugins/project-manager/plugin.c:404
+#: ../plugins/project-manager/plugin.c:473
 msgid "Refreshing symbol tree…"
 msgstr "เรียกข้อมูลของ tree สัญลักษณ์ใหม่…"
 
-#: ../plugins/project-manager/plugin.c:411
+#: ../plugins/project-manager/plugin.c:480
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "ปรับข้อมูลโครงการไม่สำเร็จ: %s"
 
-#: ../plugins/project-manager/plugin.c:680
+#: ../plugins/project-manager/plugin.c:749
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6482,7 +6550,7 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบกลุ่มต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:683
+#: ../plugins/project-manager/plugin.c:752
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6490,7 +6558,7 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบเป้าหมายต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:686
+#: ../plugins/project-manager/plugin.c:755
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6498,7 +6566,7 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบแฟ้มซอร์สต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:689
+#: ../plugins/project-manager/plugin.c:758
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6506,7 +6574,7 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบแพกเกจต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:692
+#: ../plugins/project-manager/plugin.c:761
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6514,7 +6582,7 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบมอดูลต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:695
+#: ../plugins/project-manager/plugin.c:764
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6522,57 +6590,57 @@ msgstr ""
 "ยืนยันหรือไม่ว่าต้องการลบองค์ประกอบต่อไปนี้ออกจากโครงการ?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:712
+#: ../plugins/project-manager/plugin.c:781
 #, c-format
 msgid "Group: %s\n"
 msgstr "กลุ่ม: %s\n"
 
-#: ../plugins/project-manager/plugin.c:715
+#: ../plugins/project-manager/plugin.c:784
 #, c-format
 msgid "Target: %s\n"
 msgstr "เป้าหมาย: %s\n"
 
-#: ../plugins/project-manager/plugin.c:718
+#: ../plugins/project-manager/plugin.c:787
 #, c-format
 msgid "Source: %s\n"
 msgstr "ซอร์ส: %s\n"
 
-#: ../plugins/project-manager/plugin.c:721
+#: ../plugins/project-manager/plugin.c:790
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "จุดลัด: %s\n"
 
-#: ../plugins/project-manager/plugin.c:724
+#: ../plugins/project-manager/plugin.c:793
 #, c-format
 msgid "Module: %s\n"
 msgstr "มอดูล: %s\n"
 
-#: ../plugins/project-manager/plugin.c:727
+#: ../plugins/project-manager/plugin.c:796
 #, c-format
 msgid "Package: %s\n"
 msgstr "แพกเกจ: %s\n"
 
-#: ../plugins/project-manager/plugin.c:739
+#: ../plugins/project-manager/plugin.c:808
 msgid "The group will be deleted from the file system."
 msgstr "กลุ่มนี้จะถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:741
+#: ../plugins/project-manager/plugin.c:810
 msgid "The group will not be deleted from the file system."
 msgstr "กลุ่มนี้จะไม่ถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:743
+#: ../plugins/project-manager/plugin.c:812
 msgid "The source file will be deleted from the file system."
 msgstr "แฟ้มซอร์สจะถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:745
+#: ../plugins/project-manager/plugin.c:814
 msgid "The source file will not be deleted from the file system."
 msgstr "แฟ้มซอร์สจะไม่ถูกลบออกจากระบบแฟ้ม"
 
-#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:819
 msgid "Confirm remove"
 msgstr "ยืนยันการลบ"
 
-#: ../plugins/project-manager/plugin.c:796
+#: ../plugins/project-manager/plugin.c:865
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6581,167 +6649,167 @@ msgstr ""
 "ไม่สามารถลบ '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:931
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "ไม่สามารถดึงข้อมูล URI ของ %s: %s"
 
-#: ../plugins/project-manager/plugin.c:898
+#: ../plugins/project-manager/plugin.c:967
 msgid "_Project"
 msgstr "โ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:902
+#: ../plugins/project-manager/plugin.c:971
 msgid "New _Folder…"
 msgstr "โ_ฟลเดอร์ใหม่…"
 
-#: ../plugins/project-manager/plugin.c:902
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:1010
 msgid "Add a new folder to the project"
 msgstr "เพิ่มโฟลเดอร์ใหม่เข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:976
 msgid "New _Target…"
 msgstr "เ_ป้าหมายใหม่…"
 
-#: ../plugins/project-manager/plugin.c:907
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:1015
 msgid "Add a new target to the project"
 msgstr "เพิ่มเป้าหมายใหม่เข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:981
 msgid "Add _Source File…"
 msgstr "เพิ่มแฟ้มซอร์_ส…"
 
-#: ../plugins/project-manager/plugin.c:912
-#: ../plugins/project-manager/plugin.c:951
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:1020
+#: ../plugins/project-manager/plugin.c:1035
 msgid "Add a source file to a target"
 msgstr "เพิ่มแฟ้มซอร์สเข้าในเป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:986
 msgid "Add _Library…"
 msgstr "เพิ่มไ_ลบรารี…"
 
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:986
 msgid "Add a module to a target"
 msgstr "เพิ่มมอดูลเข้าในเป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:991
 msgid "New _Library…"
 msgstr "ไ_ลบรารีใหม่…"
 
-#: ../plugins/project-manager/plugin.c:922
+#: ../plugins/project-manager/plugin.c:991
 msgid "Add a new package to the project"
 msgstr "เพิ่มแพกเกจใหม่เข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:927
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:996
+#: ../plugins/project-manager/plugin.c:1040
 msgid "_Properties"
 msgstr "คุณ_สมบัติ"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:1001
 msgid "Close Pro_ject"
 msgstr "ปิดโ_ครงการ"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:1001
 msgid "Close project"
 msgstr "ปิดโครงการ"
 
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:1010
 msgid "New _Folder"
 msgstr "โ_ฟลเดอร์ใหม่"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:1015
 msgid "New _Target"
 msgstr "เ_ป้าหมายใหม่"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:1020
 msgid "Add _Source File"
 msgstr "เพิ่มแฟ้มซอร์_ส"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:1025
 msgid "Add _Library"
 msgstr "เพิ่มไ_ลบรารี"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:1025
 msgid "Add a library to a target"
 msgstr "เพิ่มไลบรารีเข้าในเป้าหมาย"
 
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:1030
 msgid "New _Library"
 msgstr "ไ_ลบรารีใหม่"
 
-#: ../plugins/project-manager/plugin.c:961
+#: ../plugins/project-manager/plugin.c:1030
 msgid "Add a new library to the project"
 msgstr "เพิ่มไลบรารีใหม่เข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:1035
 msgid "_Add to Project"
 msgstr "เ_พิ่มเข้าในโครงการ"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:1040
 msgid "Properties of group/target/source"
 msgstr "คุณสมบัติของกลุ่ม/เป้าหมาย/ซอร์ส"
 
-#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:1045
 msgid "Re_move"
 msgstr "เ_อาออก"
 
-#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:1045
 msgid "Remove from project"
 msgstr "ลบออกจากโครงการ"
 
-#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:1050
 msgid "_Sort"
 msgstr "เ_รียงลำดับ"
 
-#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:1050
 msgid "Sort shortcuts"
 msgstr "เรียงลำดับปุ่มลัด"
 
-#: ../plugins/project-manager/plugin.c:1319
+#: ../plugins/project-manager/plugin.c:1388
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr "แจงโครงการไม่สำเร็จ (โครงการถูกเปิดอยู่ แต่จะไม่แสดงโครงการ) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1329
+#: ../plugins/project-manager/plugin.c:1398
 msgid "Update project view…"
 msgstr "ปรับข้อมูลมุมมองของโครงการ…"
 
-#: ../plugins/project-manager/plugin.c:1334
-#: ../plugins/project-manager/plugin.c:1456
-#: ../plugins/project-manager/plugin.c:1624
+#: ../plugins/project-manager/plugin.c:1403
+#: ../plugins/project-manager/plugin.c:1525
+#: ../plugins/project-manager/plugin.c:1693
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2135
+#: ../plugins/symbol-db/plugin.c:2136
 msgid "Project"
 msgstr "โครงการ"
 
-#: ../plugins/project-manager/plugin.c:1372
+#: ../plugins/project-manager/plugin.c:1441
 #, c-format
 msgid "Loading project: %s"
 msgstr "กำลังโหลดโครงการ: %s"
 
-#: ../plugins/project-manager/plugin.c:1536
+#: ../plugins/project-manager/plugin.c:1605
 #, c-format
 msgid "Error closing project: %s"
 msgstr "เกิดข้อผิดพลาดขณะปิดโครงการ: %s"
 
-#: ../plugins/project-manager/plugin.c:1603
+#: ../plugins/project-manager/plugin.c:1672
 msgid "Project manager actions"
 msgstr "การกระทำของเครื่องมือจัดการโครงการ"
 
-#: ../plugins/project-manager/plugin.c:1611
+#: ../plugins/project-manager/plugin.c:1680
 msgid "Project manager popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของเครื่องมือจัดการโครงการ"
 
-#: ../plugins/project-manager/plugin.c:2441
+#: ../plugins/project-manager/plugin.c:2504
 msgid "Initializing Project…"
 msgstr "กำลังตั้งค่าเริ่มต้นโครงการ…"
 
-#: ../plugins/project-manager/plugin.c:2444
+#: ../plugins/project-manager/plugin.c:2507
 msgid "Project Loaded"
 msgstr "โหลดโครงการแล้ว"
 
@@ -6867,7 +6935,7 @@ msgid "Select a project type"
 msgstr "เลือกชนิดโครงการ"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:174
+#: ../plugins/project-wizard/druid.c:192
 msgid "Error"
 msgstr "ข้อผิดพลาด"
 
@@ -6879,31 +6947,31 @@ msgstr "รายละเอียด"
 msgid "Summary"
 msgstr "สรุป"
 
-#: ../plugins/project-wizard/druid.c:166 ../plugins/project-wizard/druid.c:170
+#: ../plugins/project-wizard/druid.c:184 ../plugins/project-wizard/druid.c:188
 msgid "Warning"
 msgstr "คำเตือน"
 
-#: ../plugins/project-wizard/druid.c:177
+#: ../plugins/project-wizard/druid.c:195
 msgid "Message"
 msgstr "ข้อความ"
 
-#: ../plugins/project-wizard/druid.c:258
+#: ../plugins/project-wizard/druid.c:276
 msgid "Confirm the following information:"
 msgstr "ยืนยันข้อมูลต่อไปนี้:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:262
+#: ../plugins/project-wizard/druid.c:280
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "ชนิดโครงการ: %s\n"
 
-#: ../plugins/project-wizard/druid.c:439
+#: ../plugins/project-wizard/druid.c:471
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "ไม่พบแม่แบบโครงการใดใน %s"
 
-#: ../plugins/project-wizard/druid.c:679
+#: ../plugins/project-wizard/druid.c:710
 #, c-format
 msgid ""
 "\n"
@@ -6912,7 +6980,7 @@ msgstr ""
 "\n"
 "ข้อมูล \"%s\" เป็นข้อมูลจำเป็น กรุณากรอกข้อมูลด้วย"
 
-#: ../plugins/project-wizard/druid.c:694
+#: ../plugins/project-wizard/druid.c:725
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
@@ -6922,7 +6990,7 @@ msgstr ""
 "ช่องข้อมูล \"%s\" ใช้ได้เพียงตัวอักษร ตัวเลข หรืออักขระ \"#$:%%+,.=@^_`~\" เท่านั้น "
 "และไม่สามารถใช้เครื่องหมายขีดนำหน้าได้ กรุณาแก้ไข"
 
-#: ../plugins/project-wizard/druid.c:699
+#: ../plugins/project-wizard/druid.c:730
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits, the following characters \"#"
@@ -6932,7 +7000,7 @@ msgstr ""
 "ช่องข้อมูล \"%s\" ใช้ได้เพียงตัวอักษร ตัวเลข อักขระ \"#$:%%+,.=@^_`~\" "
 "หรือเครื่องหมายแบ่งไดเรกทอรีเท่านั้น และไม่สามารถใช้เครื่องหมายขีดนำหน้าได้ กรุณาแก้ไข"
 
-#: ../plugins/project-wizard/druid.c:704
+#: ../plugins/project-wizard/druid.c:735
 #, c-format
 msgid ""
 "Field \"%s\" must contains only ASCII printable characters, no accentuated "
@@ -6941,12 +7009,12 @@ msgstr ""
 "ช่องข้อมูล \"%s\" ใช้ได้เพียงอักขระ ASCII ที่แสดงผลได้เท่านั้น "
 "ไม่สามารถใช้อักขระที่มีเครื่องหมายกำกับเสียงได้ เป็นต้น กรุณาแก้ไข"
 
-#: ../plugins/project-wizard/druid.c:709
+#: ../plugins/project-wizard/druid.c:740
 #, c-format
 msgid "Unknown error."
 msgstr "ข้อผิดพลาดไม่ทราบสาเหตุ"
 
-#: ../plugins/project-wizard/druid.c:736
+#: ../plugins/project-wizard/druid.c:767
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -6955,20 +7023,20 @@ msgstr ""
 "ไดเรกทอรี \"%s\" ไม่ว่าง การสร้างโครงการอาจไม่สำเร็จถ้าเขียนบางแฟ้มไม่ได้ "
 "คุณต้องการทำต่อไปหรือไม่?"
 
-#: ../plugins/project-wizard/druid.c:738
+#: ../plugins/project-wizard/druid.c:769
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "แฟ้ม \"%s\" มีอยู่แล้ว ต้องการเขียนทับหรือไม่?"
 
-#: ../plugins/project-wizard/druid.c:771
+#: ../plugins/project-wizard/druid.c:802
 msgid "Invalid entry"
 msgstr "การกรอกข้อมูลไม่ถูกต้อง"
 
-#: ../plugins/project-wizard/druid.c:781
+#: ../plugins/project-wizard/druid.c:812
 msgid "Dubious entry"
 msgstr "การกรอกข้อมูลน่าสงสัย"
 
-#: ../plugins/project-wizard/druid.c:950
+#: ../plugins/project-wizard/druid.c:964
 #, c-format
 msgid ""
 "\n"
@@ -6977,7 +7045,7 @@ msgstr ""
 "\n"
 "ขาดโปรแกรม: %s"
 
-#: ../plugins/project-wizard/druid.c:961
+#: ../plugins/project-wizard/druid.c:975
 #, c-format
 msgid ""
 "\n"
@@ -6986,7 +7054,7 @@ msgstr ""
 "\n"
 "ขาดแพกเกจ: %s"
 
-#: ../plugins/project-wizard/druid.c:970
+#: ../plugins/project-wizard/druid.c:984
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -6995,14 +7063,14 @@ msgstr ""
 "โปรแกรมหรือแพกเกจสำหรับการพัฒนาบางอย่างที่ต้องใช้ในการประกอบสร้างโครงการนี้ขาดหายไป "
 "กรุณาแน่ใจว่าได้ติดตั้งสิ่งดังกล่าวแล้วอย่างถูกต้อง ก่อนที่จะสร้างโครงการ\n"
 
-#: ../plugins/project-wizard/druid.c:979
+#: ../plugins/project-wizard/druid.c:993
 msgid "Install missing packages"
 msgstr "ติดตั้งแพกเกจที่ขาด"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:991
+#: ../plugins/project-wizard/druid.c:1005
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7016,7 +7084,7 @@ msgstr ""
 "เพื่อการพัฒนาโครงการที่ใช้แพกเกจเหล่านั้น แพกเกจดังกล่าวมักมีชื่อลงท้ายด้วย \"-dev\" หรือ \"-"
 "devel\" และสามารถค้นหาได้ในเครื่องมือจัดการโปรแกรมของคุณ"
 
-#: ../plugins/project-wizard/druid.c:999
+#: ../plugins/project-wizard/druid.c:1013
 msgid "Missing components"
 msgstr "ขาดองค์ประกอบ"
 
@@ -7060,7 +7128,7 @@ msgstr "กำลังเรียกทำงาน: %s"
 msgid "Unable to extract project template %s: %s"
 msgstr "ไม่สามารถแตกแม่แบบโครงการ %s: %s"
 
-#: ../plugins/project-wizard/plugin.c:276
+#: ../plugins/project-wizard/plugin.c:286
 msgid "New Project Assistant"
 msgstr "เครื่องมือช่วยสร้างโครงการใหม่"
 
@@ -7951,7 +8019,7 @@ msgstr "เลือกไดเรกทอรีทำงาน"
 msgid "Program directory '%s' is not local"
 msgstr "ไดเรกทอรีโปรแกรม '%s' ไม่ได้อยู่ในเครื่องนี้"
 
-#: ../plugins/run-program/parameters.c:302
+#: ../plugins/run-program/parameters.c:180
 msgid "Load Target to run"
 msgstr "โหลดเป้าหมายที่จะเรียกทำงาน"
 
@@ -7994,8 +8062,8 @@ msgid "Run operations"
 msgstr "การกระทำเกี่ยวกับการเรียกทำงาน"
 
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
-#: ../plugins/snippets-manager/plugin.c:941
-#: ../plugins/snippets-manager/plugin.c:978
+#: ../plugins/snippets-manager/plugin.c:942
+#: ../plugins/snippets-manager/plugin.c:979
 #: ../plugins/snippets-manager/snippets-provider.c:754
 msgid "Code Snippets"
 msgstr "โค้ดสั้น"
@@ -8005,7 +8073,7 @@ msgid "Allows insertion of snippets into the editor."
 msgstr "ช่วยแทรกข้อความสั้นในเครื่องมือแก้ไข"
 
 #: ../plugins/snippets-manager/plugin.c:62
-#: ../plugins/snippets-manager/plugin.c:306
+#: ../plugins/snippets-manager/plugin.c:307
 #: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "ข้อความสั้น"
@@ -8052,19 +8120,19 @@ msgstr "_ส่งออกข้อความสั้น …"
 msgid "Export snippets from the database"
 msgstr "ส่งออกข้อความสั้นจากฐานข้อมูล"
 
-#: ../plugins/snippets-manager/plugin.c:331
+#: ../plugins/snippets-manager/plugin.c:332
 msgid "Snippets Manager actions"
 msgstr "การกระทำของเครื่องมือจัดการข้อความสั้น"
 
-#: ../plugins/snippets-manager/plugin.c:778
+#: ../plugins/snippets-manager/plugin.c:779
 msgid "Command?"
 msgstr "คำสั่ง?"
 
-#: ../plugins/snippets-manager/plugin.c:794
+#: ../plugins/snippets-manager/plugin.c:795
 msgid "Variable text"
 msgstr "ข้อความตัวแปร"
 
-#: ../plugins/snippets-manager/plugin.c:812
+#: ../plugins/snippets-manager/plugin.c:813
 #: ../plugins/snippets-manager/snippets-editor.c:40
 msgid "Instant value"
 msgstr "ค่าตัวอย่าง"
@@ -8284,7 +8352,7 @@ msgid "Right margin position in characters"
 msgstr "ตำแหน่งขอบขวาเป็นจำนวนตัวอักษร"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
-#: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
+#: ../src/anjuta-window.c:687 ../src/anjuta-window.c:692
 msgid "View"
 msgstr "มุมมอง"
 
@@ -8308,55 +8376,55 @@ msgstr "ชุดสี:"
 msgid "Font"
 msgstr "แบบอักษร"
 
-#: ../plugins/sourceview/plugin.c:112
+#: ../plugins/sourceview/plugin.c:110
 msgid "_Line Number Margin"
 msgstr "ขอบแสดงเลข_บรรทัด"
 
-#: ../plugins/sourceview/plugin.c:113
+#: ../plugins/sourceview/plugin.c:111
 msgid "Show/Hide line numbers"
 msgstr "แสดง/ซ่อน เลขบรรทัด"
 
-#: ../plugins/sourceview/plugin.c:115
+#: ../plugins/sourceview/plugin.c:113
 msgid "_Marker Margin"
 msgstr "ขอบเ_ครื่องหมาย"
 
-#: ../plugins/sourceview/plugin.c:116
+#: ../plugins/sourceview/plugin.c:114
 msgid "Show/Hide marker margin"
 msgstr "แสดง/ซ่อน ขอบสำหรับทำเครื่องหมาย"
 
-#: ../plugins/sourceview/plugin.c:118
+#: ../plugins/sourceview/plugin.c:116
 msgid "_White Space"
 msgstr "_ช่องว่าง"
 
-#: ../plugins/sourceview/plugin.c:119
+#: ../plugins/sourceview/plugin.c:117
 msgid "Show/Hide white spaces"
 msgstr "แสดง/ซ่อน ช่องว่าง"
 
-#: ../plugins/sourceview/plugin.c:121
+#: ../plugins/sourceview/plugin.c:119
 msgid "_Line End Characters"
 msgstr "_อักขระปิดบรรทัด"
 
-#: ../plugins/sourceview/plugin.c:122
+#: ../plugins/sourceview/plugin.c:120
 msgid "Show/Hide line end characters"
 msgstr "แสดง/ซ่อน อักขระปิดบรรทัด"
 
-#: ../plugins/sourceview/plugin.c:124
+#: ../plugins/sourceview/plugin.c:122
 msgid "Line _Wrapping"
 msgstr "การ_ตัดบรรทัด"
 
-#: ../plugins/sourceview/plugin.c:125
+#: ../plugins/sourceview/plugin.c:123
 msgid "Enable/disable line wrapping"
 msgstr "เปิด/ปิดการตัดบรรทัด"
 
-#: ../plugins/sourceview/plugin.c:174
+#: ../plugins/sourceview/plugin.c:170
 msgid "Editor view settings"
 msgstr "ค่าตั้งมุมมองของเครื่องมือแก้ไข"
 
-#: ../plugins/sourceview/plugin.c:364 ../plugins/sourceview/plugin.c:405
+#: ../plugins/sourceview/plugin.c:362 ../plugins/sourceview/plugin.c:406
 msgid "GtkSourceView Editor"
 msgstr "เครื่องมือแก้ไข GtkSourceView"
 
-#: ../plugins/sourceview/sourceview.c:565
+#: ../plugins/sourceview/sourceview.c:592
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8365,7 +8433,7 @@ msgstr ""
 "แฟ้ม \"%s\" ในดิสก์ใหม่กว่าบัฟเฟอร์ปัจจุบัน\n"
 "คุณต้องการเรียกอ่านใหม่หรือไม่?"
 
-#: ../plugins/sourceview/sourceview.c:597
+#: ../plugins/sourceview/sourceview.c:624
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8375,18 +8443,18 @@ msgstr ""
 "คุณต้องการปิดแฟ้มหรือไม่?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:630
+#: ../plugins/sourceview/sourceview.c:657
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "ไม่สามารถเปิด %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:684
+#: ../plugins/sourceview/sourceview.c:711
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "แฟ้ม \"%s\" อ่านอย่างได้เดียว! ยืนยันที่จะแก้ไขหรือไม่?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:746
+#: ../plugins/sourceview/sourceview.c:773
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "ไม่สามารถบันทึก %s: %s"
@@ -8441,7 +8509,7 @@ msgstr "เครื่องมือเรียกทำงาน"
 msgid "Welcome page with most common actions."
 msgstr "หน้าต้อนรับพร้อมการกระทำทั่วไป"
 
-#: ../plugins/starter/plugin.c:286
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "เริ่ม"
 
@@ -9094,23 +9162,23 @@ msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
 msgstr[0] "สแกนแล้ว %d จาก %d แฟ้ม"
 
-#: ../plugins/symbol-db/plugin.c:1740
+#: ../plugins/symbol-db/plugin.c:1741
 msgid "Populating symbol database…"
 msgstr "กำลังเติมข้อมูลฐานข้อมูลสัญลักษณ์…"
 
-#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
+#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
 msgid "Symbols"
 msgstr "สัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2214
+#: ../plugins/symbol-db/plugin.c:2215
 msgid "SymbolDb popup actions"
 msgstr "การกระทำในเมนูผุดขึ้นของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2222
+#: ../plugins/symbol-db/plugin.c:2223
 msgid "SymbolDb menu actions"
 msgstr "การกระทำในเมนูของฐานข้อมูลสัญลักษณ์"
 
-#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
+#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "ฐานข้อมูลสัญลักษณ์"
@@ -9128,8 +9196,8 @@ msgid "Symbol"
 msgstr "สัญลักษณ์"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
-#: ../plugins/terminal/terminal.c:750 ../plugins/terminal/terminal.c:944
-#: ../plugins/terminal/terminal.c:995
+#: ../plugins/terminal/terminal.c:733 ../plugins/terminal/terminal.c:918
+#: ../plugins/terminal/terminal.c:971
 msgid "Terminal"
 msgstr "เทอร์มินัล"
 
@@ -9149,23 +9217,23 @@ msgstr "ใช้โพรไฟล์เทอร์มินัลของ GN
 msgid "Terminal options"
 msgstr "ตัวเลือกสำหรับเทอร์มินัล"
 
-#: ../plugins/terminal/terminal.c:578
+#: ../plugins/terminal/terminal.c:564
 msgid "Ctrl-C"
 msgstr "Ctrl-C"
 
-#: ../plugins/terminal/terminal.c:586
+#: ../plugins/terminal/terminal.c:572
 msgid "Ctrl-X"
 msgstr "Ctrl-X"
 
-#: ../plugins/terminal/terminal.c:594
+#: ../plugins/terminal/terminal.c:580
 msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
-#: ../plugins/terminal/terminal.c:732
+#: ../plugins/terminal/terminal.c:715
 msgid "terminal operations"
 msgstr "การกระทำเกี่ยวกับเทอร์มินัล"
 
-#: ../plugins/terminal/terminal.c:877
+#: ../plugins/terminal/terminal.c:850
 #, c-format
 msgid "Unable to execute command"
 msgstr "ไม่สามารถเรียกคำสั่งทำงาน"
@@ -9235,12 +9303,12 @@ msgstr "แก้ไขคำสั่งในแบบสคริปต์ใ
 msgid "Variable list"
 msgstr "รายชื่อตัวแปร"
 
-#: ../plugins/tools/dialog.c:177
+#: ../plugins/tools/dialog.c:178
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "ยืนยันว่าต้องการลบเครื่องมือ '%s' หรือไม่?"
 
-#: ../plugins/tools/dialog.c:343
+#: ../plugins/tools/dialog.c:344
 msgid "Tool"
 msgstr "เครื่องมือ"
 
@@ -9272,17 +9340,17 @@ msgstr "คุณต้องกำหนดคำสั่งเครื่อ
 msgid "A tool with the same name already exists!"
 msgstr "มีเครื่องมือชื่อเดียวกันอยู่ก่อนแล้ว!"
 
-#: ../plugins/tools/editor.c:826
+#: ../plugins/tools/editor.c:827
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
 msgstr "ปุ่มลัดนี้ถูกใช้ไปแล้วโดยองค์ประกอบอื่นในแอนจูตา คุณยังต้องการเก็บไว้หรือไม่?"
 
-#: ../plugins/tools/editor.c:910
+#: ../plugins/tools/editor.c:911
 msgid "Unable to edit script"
 msgstr "ไม่สามารถแก้ไขสคริปต์"
 
-#: ../plugins/tools/editor.c:1046
+#: ../plugins/tools/editor.c:1047
 msgid "New accelerator…"
 msgstr "คีย์ด่วนใหม่…"
 
@@ -9626,64 +9694,68 @@ msgstr "เกี่ยวกับปลั๊กอินภาย_นอก"
 msgid "About third-party Anjuta plugins"
 msgstr "เกี่ยวกับปลั๊กอิน third party ของแอนจูตา"
 
-#: ../src/anjuta-app.c:630
-msgid "Edit"
-msgstr "แก้ไข"
-
-#: ../src/anjuta-app.c:643
-msgid "Help"
-msgstr "วิธีใช้"
-
-#: ../src/anjuta-app.c:935
-msgid "Installed plugins"
-msgstr "ปลั๊กอินที่ติดตั้งไว้"
-
-#: ../src/anjuta-app.c:939
-msgid "Shortcuts"
-msgstr "ปุ่มลัด"
-
-#: ../src/anjuta-app.c:1011
-#, c-format
-msgid "Value doesn't exist"
-msgstr "ค่าที่ไม่มีอยู่"
-
-#: ../src/anjuta.c:443
-msgid "Loaded Session…"
-msgstr "โหลดวาระแล้ว…"
-
-#: ../src/main.c:67
+#: ../src/anjuta-application.c:282
 msgid "Specify the size and location of the main window"
 msgstr "ระบุขนาดและตำแหน่งของหน้าต่างหลัก"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:70
+#: ../src/anjuta-application.c:285
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/main.c:75
+#: ../src/anjuta-application.c:290
 msgid "Do not show the splash screen"
 msgstr "ไม่แสดงรูปไตเติล"
 
-#: ../src/main.c:81
+#: ../src/anjuta-application.c:296
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "เปิดหน้าต่างใหม่ และไม่เปิดแฟ้มในหน้าต่างเดิมที่มีอยู่"
 
-#: ../src/main.c:87
+#: ../src/anjuta-application.c:302
 msgid "Do not open last session on startup"
 msgstr "ไม่ต้องเปิดวาระล่าสุดในการเริ่มทำงาน"
 
-#: ../src/main.c:93
+#: ../src/anjuta-application.c:308
 msgid "Do not open last project and files on startup"
 msgstr "ไม่ต้องเปิดโครงการและแฟ้มล่าสุดขณะเริ่มทำงาน"
 
-#: ../src/main.c:99
+#: ../src/anjuta-application.c:314
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr "ปิดแอนจูตาให้เรียบร้อย พร้อมปล่อยคืนทรัพยากรทั้งหมด (สำหรับการดีบั๊ก)"
 
-#: ../src/main.c:138
+#: ../src/anjuta-application.c:320
+msgid "Display program version"
+msgstr "แสดงรุ่นของโปรแกรม"
+
+#: ../src/anjuta-application.c:338
 msgid "- Integrated Development Environment"
 msgstr "- ชุดเครื่องมือพัฒนาเบ็ดเสร็จ"
+
+#: ../src/anjuta-application.c:653
+msgid "Loaded Session…"
+msgstr "โหลดวาระแล้ว…"
+
+#: ../src/anjuta-window.c:683
+msgid "Edit"
+msgstr "แก้ไข"
+
+#: ../src/anjuta-window.c:696
+msgid "Help"
+msgstr "วิธีใช้"
+
+#: ../src/anjuta-window.c:990
+msgid "Installed plugins"
+msgstr "ปลั๊กอินที่ติดตั้งไว้"
+
+#: ../src/anjuta-window.c:994
+msgid "Shortcuts"
+msgstr "ปุ่มลัด"
+
+#: ../src/anjuta-window.c:1066
+#, c-format
+msgid "Value doesn't exist"
+msgstr "ค่าที่ไม่มีอยู่"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
 msgid "Use tabulation for indentation"
@@ -9754,6 +9826,15 @@ msgstr "ไอคอนเท่านั้น"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "ข้อความเท่านั้น"
+
+#~ msgid "Unable to execute: %s."
+#~ msgstr "ไม่สามารถเรียกทำงาน: %s"
+
+#~ msgid "Do not show tabs"
+#~ msgstr "ไม่แสดงแท็บ"
+
+#~ msgid "Editor tabs"
+#~ msgstr "แท็บในเครื่องมือแก้ไข"
 
 #~ msgid "Failed to write autogen definition file"
 #~ msgstr "เขียนแฟ้มข้อกำหนดของ autogen ไม่สำเร็จ"
@@ -10121,9 +10202,6 @@ msgstr "ข้อความเท่านั้น"
 
 #~ msgid "Actions"
 #~ msgstr "การกระทำ"
-
-#~ msgid "Backward"
-#~ msgstr "ถอยหลัง"
 
 #~ msgid "Choose Directories:"
 #~ msgstr "เลือกไดเรกทอรี:"
