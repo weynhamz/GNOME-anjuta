@@ -91,6 +91,11 @@ struct _GitLogPanePriv
 	gint spin_timer_id;
 	GtkListStore *log_loading_model;
 	GtkTreeIter spinner_iter;
+
+	/* Commands */
+	GitBranchListCommand *branch_list_command;
+	GitLogMessageCommand *log_message_command;
+	GitLogCommand        *log_command;
 };
 
 G_DEFINE_TYPE (GitLogPane, git_log_pane, GIT_TYPE_PANE);
@@ -148,6 +153,8 @@ on_branch_list_command_finished (AnjutaCommand *command,
 		                         self->priv->active_branch_path);
 		gtk_combo_box_set_active_iter (branch_combo, &iter);
 	}
+
+	g_clear_object (&self->priv->branch_list_command);
 }
 
 static void
@@ -320,7 +327,7 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 							 GTK_TREE_MODEL (self->priv->log_model));
 	g_object_unref (self->priv->log_model);
 	
-	g_object_unref (command);
+	g_clear_object (&self->priv->log_command);
 }
 
 static void
@@ -328,22 +335,25 @@ refresh_log (GitLogPane *self)
 {
 	Git *plugin;
 	GtkTreeViewColumn *graph_column;
-	GitLogCommand *log_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	graph_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
 	                                                             "graph_column"));
-	
+
+	/* Unref the previous command if it's still running. */
+	if (self->priv->log_command)
+		g_object_unref (self->priv->log_command);
+
 	/* We don't support filters for now */
-	log_command = git_log_command_new (plugin->project_root_directory,
-	                                   self->priv->selected_branch,
-	                                   self->priv->path,
-	                                   NULL,
-	                                   NULL,
-	                                   NULL,
-	                                   NULL,
-	                                   NULL,
-	                                   NULL);
+	self->priv->log_command = git_log_command_new (plugin->project_root_directory,
+	                                               self->priv->selected_branch,
+	                                               self->priv->path,
+	                                               NULL,
+	                                               NULL,
+	                                               NULL,
+	                                               NULL,
+	                                               NULL,
+	                                               NULL);
 
 	/* Hide the graph column if we're looking at the log of a path. The graph
 	 * won't be correct in this case. */
@@ -352,7 +362,7 @@ refresh_log (GitLogPane *self)
 	else
 		gtk_tree_view_column_set_visible (graph_column, TRUE);
 
-	g_signal_connect (G_OBJECT (log_command), "command-finished",
+	g_signal_connect (G_OBJECT (self->priv->log_command), "command-finished",
 	                  G_CALLBACK (on_log_command_finished),
 	                  self);
 
@@ -361,7 +371,7 @@ refresh_log (GitLogPane *self)
 	/* Show the loading spinner */
 	git_log_pane_set_view_mode (self, LOG_VIEW_LOADING);
 
-	anjuta_command_start (ANJUTA_COMMAND (log_command));
+	anjuta_command_start (ANJUTA_COMMAND (self->priv->log_command));
 }
 
 static void
@@ -369,7 +379,6 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
                          GitLogPane *self)
 {
 	Git *plugin;
-	GitBranchListCommand *branch_list_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 
@@ -378,27 +387,28 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 
 	self->priv->refs = git_ref_command_get_refs (GIT_REF_COMMAND (command));
 
+	/* Unref the previous command if it's still running. */
+	if (self->priv->branch_list_command)
+		g_object_unref (self->priv->branch_list_command);
+	
 	/* Refresh the branch display after the refs get updated */
-	branch_list_command = git_branch_list_command_new (plugin->project_root_directory,
-	                                                   GIT_BRANCH_TYPE_ALL);
+	self->priv->branch_list_command =
+		git_branch_list_command_new (plugin->project_root_directory,
+		                             GIT_BRANCH_TYPE_ALL);
 
-	g_signal_connect (G_OBJECT (branch_list_command), "command-started",
+	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "command-started",
 	                  G_CALLBACK (on_branch_list_command_started),
 	                  self);
 
-	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
+	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "command-finished",
 	                  G_CALLBACK (on_branch_list_command_finished),
 	                  self);
 
-	g_signal_connect (G_OBJECT (branch_list_command), "command-finished",
-	                  G_CALLBACK (g_object_unref),
-	                  NULL);
-
-	g_signal_connect (G_OBJECT (branch_list_command), "data-arrived",
+	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "data-arrived",
 	                  G_CALLBACK (on_branch_list_command_data_arrived),
 	                  self);
 
-	anjuta_command_start (ANJUTA_COMMAND (branch_list_command));
+	anjuta_command_start (ANJUTA_COMMAND (self->priv->branch_list_command));
 }
 
 static void
@@ -621,7 +631,8 @@ on_log_message_command_finished (AnjutaCommand *command, guint return_code,
 	gtk_text_buffer_set_text (buffer, log_message, strlen (log_message));
 	
 	g_free (log_message);
-	g_object_unref (command);
+
+	g_clear_object(&self->priv->log_message_command);
 }
 
 static gboolean
@@ -635,7 +646,6 @@ on_log_view_row_selected (GtkTreeSelection *selection,
 	GtkTreeIter iter;
 	GitRevision *revision;
 	gchar *sha;
-	GitLogMessageCommand *log_message_command;
 	
 	if (!path_currently_selected)
 	{
@@ -644,18 +654,22 @@ on_log_view_row_selected (GtkTreeSelection *selection,
 		gtk_tree_model_get_iter (model, &iter, path);
 		gtk_tree_model_get (model, &iter, LOG_COL_REVISION, &revision, -1);
 		sha = git_revision_get_sha (revision);
-		
-		log_message_command = git_log_message_command_new (plugin->project_root_directory,
-														   sha);
+
+		/* Unref the previous command if it's still running. */
+		if (self->priv->log_message_command)
+			g_object_unref (self->priv->log_message_command);
+
+		self->priv->log_message_command =
+			git_log_message_command_new (plugin->project_root_directory, sha);
 		
 		g_free (sha);
 		g_object_unref (revision);
 		
-		g_signal_connect (G_OBJECT (log_message_command), "command-finished",
+		g_signal_connect (G_OBJECT (self->priv->log_message_command), "command-finished",
 						  G_CALLBACK (on_log_message_command_finished),
 						  self);
 		
-		anjuta_command_start (ANJUTA_COMMAND (log_message_command));
+		anjuta_command_start (ANJUTA_COMMAND (self->priv->log_message_command));
 	}
 	
 	return TRUE;
@@ -986,8 +1000,22 @@ static void
 git_log_pane_finalize (GObject *object)
 {
 	GitLogPane *self;
+	Git *plugin;
 
 	self = GIT_LOG_PANE (object);
+
+	/* Disconnect signal handler from ref_command. */
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->ref_command),
+	                                      on_ref_command_finished, self);
+
+	g_clear_object (&self->priv->branch_list_command);
+	g_clear_object (&self->priv->log_message_command);
+	g_clear_object (&self->priv->log_command);
+
+	/* Remove spin timer source. */
+	if (self->priv->spin_timer_id > 0)
+		g_source_remove (self->priv->spin_timer_id);
 
 	g_object_unref (self->priv->builder);
 	g_free (self->priv->path);
