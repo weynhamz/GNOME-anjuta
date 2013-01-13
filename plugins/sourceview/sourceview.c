@@ -2382,6 +2382,7 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
 			}
 			gtk_source_completion_context_add_proposals (prov->context, GTK_SOURCE_COMPLETION_PROVIDER(prov),
 			                                             items, finished);
+			g_list_free_full (items, g_object_unref);
 			break;
 		}
 	}
