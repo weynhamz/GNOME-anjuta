@@ -1,3 +1,77 @@
+Anjuta 3.7.4 (January 14, 2013) -- James Liggett
+
+Akom Chotiphantawanon (1):
+      Updated Thai translation
+
+Alexander Shopov (1):
+      Updated Bulgarian translation
+
+Arnel A. Borja (1):
+      symbol-db: Fix "parenthesis" typos
+
+Carl-Anton Ingmarsson (28):
+      symbol-db: When updating a symbol try to update the closest one.
+      run-program: Default to Yes in "The program is already running" dialog.
+      sourceview: keep ref on SourceViewIO during call to input_stream_read_async().
+      symbol-db: rename sdb_engine_get_tuple_id_by_unique_name4()...
+      sourceview: Don't check if objects are not NULL before calling g_clear_object().
+      sourceview: Add marks to an unloaded document the same way we reload marks.
+      sourceview: Detect that a ifile_open() is a reload and save marks and position.
+      libanjuta: Add "document-[added|removed]" signals to IAnjutaDocumentManager.
+      document-manager: Emit "document-[added|removed]" signals.
+      debug-manager: use IAnjutaDocumentManager::document-added to add breakpoints to editor.
+      debug-manager: Fix two leaks of GFile objects.
+      document-manager: sort files in document combo in ascending order.
+      libanjuta: Fix IAnjutaFile::opened signal documentation.
+      am-project: Fix leak of GMatchInfo in split_automake_variable().
+      starter: Fix leak of GtkRecentInfo.
+      symbol-db: Fix leaks of two GPtrArrays in do_import_system_sources_after_abort()
+      file-loader: Fix leak of GtkRecentInfos in the RecentChooserMenu.
+      symbol-db: Fix leak of file_abs_path in symbol_db_engine_update_project_symbols().
+      project-manager: Fix leak of the nodes GList in gbf_project_view_update_tree().
+      symbol-db: Fix leak of prj_elements_list in do_check_offline_files_changed()
+      file-loader: Fix leak of plugin names in sort_wizards()
+      debug-manager: Default to Yes in "The program is running" dialog.
+      snippets-manager: Fix faulty assertion in snippets_db_dispose().
+      libanjuta: Actually free stuff in AnjutaPkgConfigChooser::finalize.
+      symbol-db: Add update_flag to the symbol unique constraint.
+      file-manager: Fix compile warning.
+      git: Fix destruction of GitLogPane.
+      sourceview: Fix leak of list of GtkSourceCompletionItem.
+
+Daniel Mustieles (2):
+      Updated Spanish translation
+      Updated Spanish translation
+
+Dimitris Spingos (1):
+      Updated Greek translation
+
+Fran Diéguez (2):
+      Updated Galician translations
+      Updated Galician translations
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+OKANO Takayoshi (2):
+      [l10n] Update Japanese translation
+      [l10n] Update Japanese translation
+
+Okano Takayoshi (1):
+      git: bgo#691044 - typo in git-cherry-pick menu
+
+Piotr Drąg (1):
+      Updated Polish translation
+
+Sébastien Granjoux (6):
+      libanjuta: Allow to set indentation and tab size separately
+      project-manager: Display current project backend
+      project-manager: Allow to change project backend
+      faq: Add some information about jumping to an error position
+      libanjuta: Fix a few compiler warnings
+      libanjuta: Clean up and bug fix in plugin manager
+
+
 Anjuta 3.7.3 (December 17, 2012) -- James Liggett
 
 B.Prathibha (1):
