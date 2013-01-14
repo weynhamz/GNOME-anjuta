@@ -36,11 +36,13 @@
 #define ANJUTA_REMEMBERED_PLUGINS "remembered-plugins"
 #define USER_SESSION_PATH_NEW (anjuta_util_get_user_cache_file_path ("session/", NULL))
 
+#define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
+#define ANJUTA_SESSION_SKIP_LAST_FILES "session-skip-last-files"
+
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define USER_PROFILE_NAME "user"
 
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
-
 
 #define ANJUTA_GEOMETRY_HINT "-g="
 #define ANJUTA_NO_SPLASH_HINT "-s"
@@ -48,8 +50,6 @@
 #define ANJUTA_NO_FILES_HINT "-f"
 
 G_DEFINE_TYPE (AnjutaApplication, anjuta_application, GTK_TYPE_APPLICATION)
-
-static gchar *system_restore_session = NULL;
 
 struct _AnjutaApplicationPrivate {
 	gboolean no_splash;
@@ -140,6 +140,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 {
 	gchar *session_dir;
 	static gboolean first_time = TRUE;
+	AnjutaSession *session;
 
 	DEBUG_PRINT ("Profile scoped: %s", anjuta_profile_get_name (profile));
 	if (strcmp (anjuta_profile_get_name (profile), USER_PROFILE_NAME) != 0)
@@ -148,30 +149,32 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	DEBUG_PRINT ("%s", "User profile loaded; Restoring user session");
 
 	/* If profile scoped to "user", restore user session */
-	if (system_restore_session)
-	{
-		session_dir = system_restore_session;
-		system_restore_session = NULL;
-	}
-	else
-	{
-		session_dir = USER_SESSION_PATH_NEW;
-	}
+	session_dir = USER_SESSION_PATH_NEW;
 
+	session = anjuta_session_new (session_dir);
 	if (first_time)
 	{
+		if (g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST))
+		{
+			/* Clear session */
+			anjuta_session_clear (session);
+		}
+		else if (g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST_FILES))
+		{
+			/* Clear files from session */
+			anjuta_session_set_string_list (session, "File Loader",
+			                                "Files", NULL);
+		}
 		first_time = FALSE;
 	}
 	else
 	{
 		/* Clear the files list since we don't want to load them later */
-		AnjutaSession *session;
-		session = anjuta_session_new (session_dir);
 		anjuta_session_set_string_list (session, "File Loader",
-										"Files", NULL);
-		anjuta_session_sync (session);
-		g_object_unref (session);
+		                                "Files", NULL);
 	}
+	anjuta_session_sync (session);
+	g_object_unref (session);
 
 	/* Restore session */
 	anjuta_shell_session_load (ANJUTA_SHELL (win), session_dir, NULL);

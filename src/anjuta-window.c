@@ -55,9 +55,6 @@
 #define TOOLBAR_VISIBLE "toolbar-visible"
 #define TOOLBAR_STYLE "toolbar-style"
 
-#define ANJUTA_SESSION_SKIP_LAST "session-skip-last"
-#define ANJUTA_SESSION_SKIP_LAST_FILES "session-skip-last-files"
-
 static void anjuta_window_layout_load (AnjutaWindow *win,
 									const gchar *layout_filename,
 									const gchar *name);
@@ -446,14 +443,12 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		app = ANJUTA_APPLICATION (gtk_window_get_application (GTK_WINDOW (win)));
 		if (app != NULL)
 		{
-			if (anjuta_application_get_no_session (app) ||
-			    g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST))
+			if (anjuta_application_get_no_session (app))
 			{
 				/* Clear session */
 				anjuta_session_clear (session);
 			}
-			else if (anjuta_application_get_no_files (app)  ||
-			    g_settings_get_boolean (win->settings, ANJUTA_SESSION_SKIP_LAST_FILES))
+			else if (anjuta_application_get_no_files (app))
 			{
 				/* Clear files from session */
 				anjuta_session_set_string_list (session, "File Loader",
