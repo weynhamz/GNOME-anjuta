@@ -54,6 +54,19 @@ vcs_entry_changed (GtkEditable *editable, gpointer user_data)
 
 	if (gtk_entry_get_text_length (GTK_ENTRY (editable)))
 	{
+		GFile *file;
+		gchar *basename;
+		
+		/* Automatically set project name */
+		file = g_file_new_for_uri (gtk_entry_get_text (GTK_ENTRY (editable)));
+		basename = g_file_get_basename (file);
+		g_object_unref (file);
+		if (basename != NULL)
+		{
+			gtk_entry_set_text (priv->name_entry, basename);
+			g_free (basename);
+		}
+
 		if (gtk_entry_get_text_length (priv->name_entry))
 		{
 			gtk_widget_set_sensitive (priv->import_button, TRUE);

@@ -488,8 +488,6 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	AnjutaProjectImportPlugin *iplugin;
-	iplugin = ANJUTA_PLUGIN_PROJECT_IMPORT (plugin);
 	return TRUE;
 }
 
@@ -502,8 +500,6 @@ dispose (GObject *obj)
 static void
 finalize (GObject *obj)
 {
-	AnjutaProjectImportPlugin *import_plugin = (AnjutaProjectImportPlugin *)obj;
-
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
