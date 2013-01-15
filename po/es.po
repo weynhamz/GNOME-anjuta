@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-06 11:16+0000\n"
-"PO-Revision-Date: 2013-01-08 14:17+0100\n"
+"POT-Creation-Date: 2013-01-10 17:26+0000\n"
+"PO-Revision-Date: 2013-01-15 12:36+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -729,8 +729,8 @@ msgstr ""
 "caracteres «#$:%+,-.=@^_`~/»"
 
 #: ../plugins/am-project/amp-group.c:665
-#: ../plugins/am-project/am-project.c:1673
-#: ../plugins/am-project/am-project.c:1766
+#: ../plugins/am-project/am-project.c:1679
+#: ../plugins/am-project/am-project.c:1772
 #: ../plugins/dir-project/dir-project.c:723
 #: ../plugins/dir-project/dir-project.c:856
 #: ../plugins/mk-project/mk-project.c:723
@@ -814,11 +814,11 @@ msgstr "Módulo"
 msgid "Package"
 msgstr "Paquete"
 
-#: ../plugins/am-project/am-project.c:1703
+#: ../plugins/am-project/am-project.c:1709
 msgid "Unable to parse project file"
 msgstr "No se pudo analizar el archivo de proyecto"
 
-#: ../plugins/am-project/am-project.c:1714
+#: ../plugins/am-project/am-project.c:1720
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "El proyecto no existe o tiene una ruta no válida"
@@ -2136,7 +2136,7 @@ msgstr "Implementación"
 #: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
 #: ../plugins/class-gen/window.c:812
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
@@ -2209,7 +2209,7 @@ msgid "Patch-Style diff"
 msgstr "Diff estilo patch"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2172
+#: ../plugins/symbol-db/plugin.c:2173
 msgid "Local"
 msgstr "Local"
 
@@ -2638,7 +2638,7 @@ msgid "_Attach"
 msgstr "_Acoplar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/debug-manager/breakpoints.c:2035
+#: ../plugins/debug-manager/breakpoints.c:2026
 msgid "Breakpoints"
 msgstr "Puntos de parada"
 
@@ -2683,7 +2683,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Location"
 msgstr "Ubicación"
 
@@ -2837,147 +2837,147 @@ msgstr ""
 msgid "Do not show again"
 msgstr "No mostrar de nuevo"
 
-#: ../plugins/debug-manager/breakpoints.c:1726
+#: ../plugins/debug-manager/breakpoints.c:1717
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer eliminar todos los puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1814
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1831
+#: ../plugins/debug-manager/breakpoints.c:1822
 msgid "Toggle Breakpoint"
 msgstr "Conmutar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1833
+#: ../plugins/debug-manager/breakpoints.c:1824
 msgid "Toggle breakpoint at the current location"
 msgstr "Activar un punto de parada en la posición actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Add Breakpoint…"
 msgstr "Añadir punto de parada…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1832
 msgid "Add a breakpoint"
 msgstr "Añadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1847
+#: ../plugins/debug-manager/breakpoints.c:1838
 msgid "Remove Breakpoint"
 msgstr "Quitar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1840
 msgid "Remove a breakpoint"
 msgstr "Quitar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Edit Breakpoint"
 msgstr "Editar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1848
 msgid "Edit breakpoint properties"
 msgstr "Editar las propiedades de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1863
-#: ../plugins/debug-manager/breakpoints.c:1934
+#: ../plugins/debug-manager/breakpoints.c:1854
+#: ../plugins/debug-manager/breakpoints.c:1925
 msgid "Enable Breakpoint"
 msgstr "Activar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1865
-#: ../plugins/debug-manager/breakpoints.c:1935
+#: ../plugins/debug-manager/breakpoints.c:1856
+#: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1871
+#: ../plugins/debug-manager/breakpoints.c:1862
 msgid "Disable All Breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1864
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1879
+#: ../plugins/debug-manager/breakpoints.c:1870
 msgid "R_emove All Breakpoints"
 msgstr "_Quitar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1881
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Remove all breakpoints"
 msgstr "Quitar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1890
+#: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Jump to Breakpoint"
 msgstr "Saltar a punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1883
 msgid "Jump to breakpoint location"
 msgstr "Saltar a la ubicación de un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1929
+#: ../plugins/debug-manager/breakpoints.c:1920
 msgid "Disable Breakpoint"
 msgstr "Desactivar el punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1930
+#: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable a breakpoint"
 msgstr "Desactivar un punto de parada"
 
 #. This enable an user defined command
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Enabled"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/stack_trace.c:859
 msgid "Address"
 msgstr "Dirección"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Pass count"
 msgstr "Conteo de pasadas"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:2012
-#: ../plugins/debug-manager/breakpoints.c:2018
+#: ../plugins/debug-manager/breakpoints.c:2003
+#: ../plugins/debug-manager/breakpoints.c:2009
 msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
 
@@ -3334,7 +3334,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "Archivo"
@@ -3397,12 +3397,15 @@ msgstr ""
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1390 ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1390
+#| msgid ""
+#| "The program is running.\n"
+#| "Do you still want to stop the debugger?"
 msgid ""
-"The program is running.\n"
+"The program is already running.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
-"El programa se está ejecutando.\n"
+"El programa ya está en ejecución.\n"
 "¿Aún quiere parar el depurador?"
 
 #. Action name
@@ -3508,8 +3511,8 @@ msgstr "Examinador API"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
-#: ../plugins/symbol-db/plugin.c:2192
+#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2141
+#: ../plugins/symbol-db/plugin.c:2193
 msgid "Search"
 msgstr "Buscar"
 
@@ -3581,32 +3584,32 @@ msgstr "Renombrar"
 msgid "Remove"
 msgstr "Quitar"
 
-#: ../plugins/document-manager/anjuta-docman.c:164
+#: ../plugins/document-manager/anjuta-docman.c:165
 msgid " [read-only]"
 msgstr " [sólo-lectura]"
 
-#: ../plugins/document-manager/anjuta-docman.c:660
-#: ../plugins/document-manager/anjuta-docman.c:1100
+#: ../plugins/document-manager/anjuta-docman.c:661
+#: ../plugins/document-manager/anjuta-docman.c:1101
 msgid "Close file"
 msgstr "Cerrar archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:708
+#: ../plugins/document-manager/anjuta-docman.c:709
 #: ../plugins/project-manager/dialogs.c:759
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/document-manager/anjuta-docman.c:832
-#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
+#: ../plugins/document-manager/anjuta-docman.c:833
+#: ../plugins/file-loader/plugin.c:597 ../plugins/file-loader/plugin.c:900
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:851
+#: ../plugins/document-manager/anjuta-docman.c:852
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:932
+#: ../plugins/document-manager/anjuta-docman.c:933
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3615,17 +3618,17 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Quiere sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:941
+#: ../plugins/document-manager/anjuta-docman.c:942
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/document-manager/anjuta-docman.c:1720
+#: ../plugins/document-manager/anjuta-docman.c:1736
 msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
 #. Document manager plugin
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:286
+#: ../plugins/file-loader/plugin.c:292
 msgid "Document Manager"
 msgstr "Administrador de documentación"
 
@@ -4254,9 +4257,9 @@ msgstr "Busqueda simple"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:418
-#: ../plugins/document-manager/plugin.c:1678
-#: ../plugins/document-manager/plugin.c:2098
-#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:1691
+#: ../plugins/document-manager/plugin.c:2111
+#: ../plugins/document-manager/plugin.c:2120
 msgid "Documents"
 msgstr "Documentos"
 
@@ -4294,12 +4297,12 @@ msgid "Mode"
 msgstr "Modo"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1516
+#: ../plugins/document-manager/plugin.c:1527
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para el archivo %s"
 
-#: ../plugins/document-manager/plugin.c:1530
+#: ../plugins/document-manager/plugin.c:1541
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -4358,7 +4361,7 @@ msgid "Find in files"
 msgstr "Buscar en archivos"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:1235 ../plugins/file-loader/plugin.c:1241
+#: ../plugins/file-loader/plugin.c:1241 ../plugins/file-loader/plugin.c:1247
 msgid "File Loader"
 msgstr "Cargador de archivos"
 
@@ -4376,29 +4379,29 @@ msgstr "Cargador de archivos para cargar diferentes archivos"
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:521
 msgid "No items found"
 msgstr "No se encontraron elementos"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:669
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:725
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
 msgstr "No se ha encontrado el recurso reciente con URI «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:749
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:757
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
 msgstr "Esta función no está implementada para los widgets de la clase «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:936
 #: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "Abrir «%s»"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:966
 msgid "Unknown item"
 msgstr "Elementos desconocido"
 
@@ -4407,7 +4410,7 @@ msgstr "Elementos desconocido"
 #. * the %s is the name of the item. Please keep the _ in front
 #. * of the number to give these menu items a mnemonic.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:978
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:977
 #, c-format
 msgctxt "recent menu label"
 msgid "_%d. %s"
@@ -4416,13 +4419,13 @@ msgstr "_%d. %s"
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:983
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:982
 #, c-format
 msgctxt "recent menu label"
 msgid "%d. %s"
 msgstr "%d. %s"
 
-#: ../plugins/file-loader/plugin.c:116
+#: ../plugins/file-loader/plugin.c:122
 #, c-format
 msgid ""
 "Cannot open \"%s\".\n"
@@ -4433,7 +4436,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:257
+#: ../plugins/file-loader/plugin.c:263
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4454,136 +4457,136 @@ msgstr ""
 "\n"
 "Quizá quiera intentar abrirlo con los siguientes complementos o aplicaciones."
 
-#: ../plugins/file-loader/plugin.c:280
+#: ../plugins/file-loader/plugin.c:286
 msgid "Open with:"
 msgstr "Abrir con:"
 
-#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:503 ../plugins/patch/patch-plugin.c:122
 #: ../plugins/run-program/parameters.c:188
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/file-loader/plugin.c:502
+#: ../plugins/file-loader/plugin.c:508
 msgid "Anjuta Projects"
 msgstr "Proyectos de Anjuta"
 
-#: ../plugins/file-loader/plugin.c:508
+#: ../plugins/file-loader/plugin.c:514
 msgid "C/C++ source files"
 msgstr "Archivos de código fuente C/C++"
 
-#: ../plugins/file-loader/plugin.c:520
+#: ../plugins/file-loader/plugin.c:526
 msgid "C# source files"
 msgstr "Archivos de código fuente C#"
 
-#: ../plugins/file-loader/plugin.c:526
+#: ../plugins/file-loader/plugin.c:532
 msgid "Java source files"
 msgstr "Archivos de código fuente Java"
 
-#: ../plugins/file-loader/plugin.c:532
+#: ../plugins/file-loader/plugin.c:538
 msgid "Pascal source files"
 msgstr "Archivos de código fuente Pascal"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:543
 msgid "PHP source files"
 msgstr "Archivos de código fuente PHP"
 
-#: ../plugins/file-loader/plugin.c:544
+#: ../plugins/file-loader/plugin.c:550
 msgid "Perl source files"
 msgstr "Archivos de código fuente Perl"
 
-#: ../plugins/file-loader/plugin.c:550
+#: ../plugins/file-loader/plugin.c:556
 msgid "Python source files"
 msgstr "Archivos de código fuente Python"
 
-#: ../plugins/file-loader/plugin.c:555
+#: ../plugins/file-loader/plugin.c:561
 msgid "Hypertext markup files"
 msgstr "Archivos de marcado de hipertexto"
 
-#: ../plugins/file-loader/plugin.c:564
+#: ../plugins/file-loader/plugin.c:570
 msgid "Shell script files"
 msgstr "Archivos script de shell"
 
-#: ../plugins/file-loader/plugin.c:569
+#: ../plugins/file-loader/plugin.c:575
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: ../plugins/file-loader/plugin.c:575
+#: ../plugins/file-loader/plugin.c:581
 msgid "Lua files"
 msgstr "Archivos lua"
 
-#: ../plugins/file-loader/plugin.c:580
+#: ../plugins/file-loader/plugin.c:586
 msgid "Diff files"
 msgstr "Archivos diff"
 
-#: ../plugins/file-loader/plugin.c:823
+#: ../plugins/file-loader/plugin.c:829
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Falló al activar el complemento: %s"
 
-#: ../plugins/file-loader/plugin.c:884
+#: ../plugins/file-loader/plugin.c:890
 msgid "_New"
 msgstr "_Nuevo"
 
-#: ../plugins/file-loader/plugin.c:886
+#: ../plugins/file-loader/plugin.c:892
 msgid "New empty file"
 msgstr "Archivo vacío nuevo"
 
-#: ../plugins/file-loader/plugin.c:892
+#: ../plugins/file-loader/plugin.c:898
 msgid "_Open…"
 msgstr "_Abrir…"
 
-#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:909 ../plugins/file-loader/plugin.c:922
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:916 ../plugins/file-loader/plugin.c:929
 msgid "Open _With"
 msgstr "Abrir c_on"
 
-#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:917 ../plugins/file-loader/plugin.c:930
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1245
+#: ../plugins/file-loader/plugin.c:1251
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/file-loader/plugin.c:1246
+#: ../plugins/file-loader/plugin.c:1252
 msgid "New file, project and project components."
 msgstr "Archivo proyecto o componentes de proyectos nuevos."
 
-#: ../plugins/file-loader/plugin.c:1253 ../plugins/file-loader/plugin.c:1293
+#: ../plugins/file-loader/plugin.c:1259 ../plugins/file-loader/plugin.c:1299
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1257
+#: ../plugins/file-loader/plugin.c:1263
 msgid "Open _Recent"
 msgstr "Abrir _recientes"
 
-#: ../plugins/file-loader/plugin.c:1258 ../plugins/file-loader/plugin.c:1295
+#: ../plugins/file-loader/plugin.c:1264 ../plugins/file-loader/plugin.c:1301
 msgid "Open recent file"
 msgstr "Abrir archivo reciente"
 
-#: ../plugins/file-loader/plugin.c:1264
+#: ../plugins/file-loader/plugin.c:1270
 msgid "Open recent files"
 msgstr "Abrir archivos recientes"
 
-#: ../plugins/file-loader/plugin.c:1294
+#: ../plugins/file-loader/plugin.c:1300
 msgid "Open a file"
 msgstr "Abrir un archivo"
 
-#: ../plugins/file-loader/plugin.c:1408 ../plugins/file-loader/plugin.c:1410
+#: ../plugins/file-loader/plugin.c:1414 ../plugins/file-loader/plugin.c:1416
 #, c-format
 msgid "File not found"
 msgstr "No se encontró el archivo"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1429
+#: ../plugins/file-loader/plugin.c:1435
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "Seleccione un complemento para abrir. <b>%s</b>."
 
-#: ../plugins/file-loader/plugin.c:1433
+#: ../plugins/file-loader/plugin.c:1439
 msgid "<b>Open With</b>"
 msgstr "<b>Abrir con</b>"
 
@@ -4606,7 +4609,7 @@ msgstr "Elegir la carpeta que mostrar si no hay ningún proyecto abierto"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2184
+#: ../plugins/symbol-db/plugin.c:2185
 msgid "Global"
 msgstr "Global"
 
@@ -4846,6 +4849,14 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
+#: ../plugins/gdb/debugger.c:1929
+msgid ""
+"The program is running.\n"
+"Do you still want to stop the debugger?"
+msgstr ""
+"El programa se está ejecutando.\n"
+"¿Aún quiere parar el depurador?"
+
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
 #: ../plugins/gdb/debugger.c:2087
@@ -5010,7 +5021,6 @@ msgid "Show source revision in log message"
 msgstr "Mostrar la revisión de los fuentes en el mensaje de log"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "Append signed-of- by line"
 msgid "Append signed-off-by line"
 msgstr "Añadir la línea «firmado por»"
 
@@ -6549,7 +6559,6 @@ msgstr "Esta propiedad no es modificable."
 #. Several backend are possible, ask the user to select one
 #: ../plugins/project-manager/dialogs.c:651
 #, c-format
-#| msgid "Please select a project backend to open %s."
 msgid "Please select a project backend to use."
 msgstr "Seleccione un «backend» de proyecto que usar."
 
@@ -6584,13 +6593,11 @@ msgid "Unknown properties"
 msgstr "Propiedades desconocidas"
 
 #: ../plugins/project-manager/dialogs.c:748
-#| msgid "Backward"
 msgid "Backend:"
 msgstr "Backend:"
 
 #: ../plugins/project-manager/dialogs.c:940
 #, c-format
-#| msgid "Loading project: %s"
 msgid "Reloading project: %s"
 msgstr "Recargando proyecto: %s"
 
@@ -6894,7 +6901,7 @@ msgstr "Actualizar vista del proyecto…"
 #: ../plugins/project-manager/plugin.c:1693
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2135
+#: ../plugins/symbol-db/plugin.c:2136
 msgid "Project"
 msgstr "Proyecto"
 
@@ -8651,7 +8658,7 @@ msgstr "Iniciado"
 msgid "Welcome page with most common actions."
 msgstr "Página de bienvenida con las acciones más comunes."
 
-#: ../plugins/starter/plugin.c:286
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "Iniciar"
 
@@ -9309,23 +9316,23 @@ msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d archivo analizado de %d"
 msgstr[1] "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1740
+#: ../plugins/symbol-db/plugin.c:1741
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
+#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2214
+#: ../plugins/symbol-db/plugin.c:2215
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2222
+#: ../plugins/symbol-db/plugin.c:2223
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2540 ../plugins/symbol-db/plugin.c:2558
+#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
