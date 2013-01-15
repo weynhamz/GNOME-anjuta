@@ -1,13 +1,13 @@
 # translation of anjuta.help.master.po to Español
 # Fco. Javier f. Serrador <fserrador@gmail,com>, 2011.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.#, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2012-09-12 09:20+0000\n"
-"PO-Revision-Date: 2012-09-12 11:02+0200\n"
+"POT-Creation-Date: 2013-01-06 11:20+0000\n"
+"PO-Revision-Date: 2013-01-15 14:10+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -562,7 +562,7 @@ msgstr "«Backend» del proyecto de autotools."
 #: C/project-manager-module-remove.page:14(credit/name)
 #: C/project-manager-package-add.page:15(credit/name)
 #: C/project-manager-package-remove.page:13(credit/name)
-#: C/project-manager.page:11(credit/name)
+#: C/project-manager.page:12(credit/name)
 #: C/project-manager-root.page:16(credit/name)
 #: C/project-manager-source-add.page:13(credit/name)
 #: C/project-manager-source.page:16(credit/name)
@@ -599,7 +599,7 @@ msgstr "Sébastien Granjoux"
 #: C/project-manager-module-remove.page:18(credit/name)
 #: C/project-manager-package-add.page:19(credit/name)
 #: C/project-manager-package-remove.page:17(credit/name)
-#: C/project-manager.page:15(credit/name)
+#: C/project-manager.page:16(credit/name)
 #: C/project-manager-source-add.page:17(credit/name)
 #: C/project-manager-source-remove.page:17(credit/name)
 #: C/project-manager-target-add.page:17(credit/name)
@@ -824,26 +824,41 @@ msgid "These are the properties of the root item."
 msgstr "Estas son las propiedades del elemento raíz."
 
 #: C/autotools-project-root-edit.page:25(item/title)
+#| msgid "<gui>Name</gui>"
+msgid "<gui>Backend</gui>"
+msgstr "<gui>Backend</gui>"
+
+#: C/autotools-project-root-edit.page:26(item/p)
+msgid ""
+"This the project backend used by the project: Autotools. Another backend can "
+"be selected by clicking on this button. It can be useful if the current "
+"backend has some troubles to parse your project files."
+msgstr ""
+"Esto es el «backend» del proyecto: Autotools. Se puede seleccionar otro "
+"«backend» pulsando en este botón. Esto puede ser útil si el «backend» actual "
+"tiene problemas para analizar sus archivos de proyectos."
+
+#: C/autotools-project-root-edit.page:32(item/title)
 msgid "<gui>Name</gui>"
 msgstr "<gui>Nombre</gui>"
 
-#: C/autotools-project-root-edit.page:26(item/p)
+#: C/autotools-project-root-edit.page:33(item/p)
 msgid "The name of your project. It can contains space."
 msgstr "El nombre del proyecto. Puede contener espacios."
 
-#: C/autotools-project-root-edit.page:29(item/title)
+#: C/autotools-project-root-edit.page:36(item/title)
 msgid "<gui>Version</gui>"
 msgstr "<gui>Versión</gui>"
 
-#: C/autotools-project-root-edit.page:30(item/p)
+#: C/autotools-project-root-edit.page:37(item/p)
 msgid "This is the project version."
 msgstr "Esto es la versión del proyecto"
 
-#: C/autotools-project-root-edit.page:33(item/title)
+#: C/autotools-project-root-edit.page:40(item/title)
 msgid "<gui>Bug report URL</gui>"
 msgstr "<gui>URL de informe de errores</gui>"
 
-#: C/autotools-project-root-edit.page:34(item/p)
+#: C/autotools-project-root-edit.page:41(item/p)
 msgid ""
 "This is an URL allowing to send bug report, by example an email address or a "
 "link to a bug tracker. It is optional."
@@ -852,11 +867,11 @@ msgstr ""
 "dirección de correo-e o un enlace a un sistema de seguimiento de informes de "
 "error. Es opcional."
 
-#: C/autotools-project-root-edit.page:38(item/title)
+#: C/autotools-project-root-edit.page:45(item/title)
 msgid "<gui>Package name</gui>"
 msgstr "<gui>Nombre del paquete</gui>"
 
-#: C/autotools-project-root-edit.page:39(item/p)
+#: C/autotools-project-root-edit.page:46(item/p)
 msgid ""
 "This is the name of distribution package, it shouldn't contain spaces. It is "
 "optional."
@@ -864,15 +879,15 @@ msgstr ""
 "Esto es el nombre del paquete de la distribución, no debe contener espacios. "
 "Es opcional."
 
-#: C/autotools-project-root-edit.page:43(item/title)
+#: C/autotools-project-root-edit.page:50(item/title)
 msgid "<gui>URL</gui>"
 msgstr "<gui>URL</gui>"
 
-#: C/autotools-project-root-edit.page:44(item/p)
+#: C/autotools-project-root-edit.page:51(item/p)
 msgid "This is the home page of the project. It is optional."
 msgstr "Esta es la página principal del proyecto. Es opcional"
 
-#: C/autotools-project-root-edit.page:48(page/p)
+#: C/autotools-project-root-edit.page:55(page/p)
 msgid ""
 "In addition, the root item works as a folder and has all its properties. See "
 "<link xref=\"autotools-project-folder-edit\"/> to see the list."
@@ -1122,8 +1137,8 @@ msgid ""
 "It uses the Libtool package. Its name must start with 'lib' and has the '."
 "la' extension."
 msgstr ""
-"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la "
-"extensión «.la»."
+"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la extensión "
+"«.la»."
 
 #: C/autotools-project-target-type.page:31(item/title)
 msgid "Module (Libtool)"
@@ -1164,8 +1179,8 @@ msgid ""
 "It uses the Libtool package. Its name must start with 'lib' and has the '.a' "
 "extension."
 msgstr ""
-"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la "
-"extensión «.a»."
+"Usa el paquete Libtool. Su nombre debe empezar por «lib» y tiene la extensión "
+"«.a»."
 
 #: C/autotools-project-target-type.page:46(item/title)
 msgid "Program"
@@ -1394,8 +1409,8 @@ msgid ""
 "Project</gui></guiseq> to delete all project built files,"
 msgstr ""
 "Desde el <gui>menú principal</gui>, seleccione <guiseq><gui>Construir</"
-"gui><gui>Limpiar proyecto</gui></guiseq> para eliminar todos los archivos del "
-"proyecto."
+"gui><gui>Limpiar proyecto</gui></guiseq> para eliminar todos los archivos "
+"del proyecto."
 
 #: C/autotools-build-clean.page:50(item/p)
 msgid ""
@@ -1542,11 +1557,10 @@ msgstr ""
 "Puede tener varias configuraciones, cada una con sus opciones y su carpeta "
 "de construcción; esta caja de texto le permite ponerles un nombre. "
 "Generalmente tendrá ya definida una configuración «predeterminada», una "
-"opción «de depuración» que hace que los programas sean más fáciles de "
-"depurar (manteniendo variables intermedias y ordenando el código) y una "
-"opción «optimizada» que genera programas más rápidos pero que aumenta el "
-"tiempo de construcción. Puede definir configuraciones personalizadas "
-"adicionales."
+"opción «de depuración» que hace que los programas sean más fáciles de depurar "
+"(manteniendo variables intermedias y ordenando el código) y una opción "
+"«optimizada» que genera programas más rápidos pero que aumenta el tiempo de "
+"construcción. Puede definir configuraciones personalizadas adicionales."
 
 #: C/autotools-build-configure-dialog.page:49(item/title)
 msgid "<gui>Build Directory</gui>"
@@ -1907,10 +1921,9 @@ msgid ""
 "without needing a makefile. You can compile a C program from a single source "
 "file without a makefile nor a project."
 msgstr ""
-"«make» viene con las reglas predeterminadas, permitiéndolo compilar y "
-"enlazar un programa en C sin necesitar un archivo «makefile». Puede compilar "
-"un programa en C desde un único archivo de fuentes, sin «makefile» ni "
-"proyecto."
+"«make» viene con las reglas predeterminadas, permitiéndolo compilar y enlazar "
+"un programa en C sin necesitar un archivo «makefile». Puede compilar un "
+"programa en C desde un único archivo de fuentes, sin «makefile» ni proyecto."
 
 #: C/autotools-build-preferences-dialog.page:10(info/desc)
 msgid "Autotools build preferences dialog."
@@ -3928,13 +3941,13 @@ msgid ""
 "are the source files. The target of one rule can be a dependency of another "
 "one, allowing several rules to be chained in order to make a final target."
 msgstr ""
-"«makefile» es probablemente el método más común de construir software en "
-"todo tipo de plataformas. Un «makefile» contiene una lista de reglas "
-"describiendo qué comandos se deben ejecutar para poder generar un objetivo "
-"de una lista de dependencias. Al construir un programa, el objetivo es un "
-"archivo objeto y las dependencias son los archivos de fuentes. El objetivo "
-"de una regla puede ser una dependencia de otra, permitiendo encadenar varias "
-"reglas para poder crear un objetivo final."
+"«makefile» es probablemente el método más común de construir software en todo "
+"tipo de plataformas. Un «makefile» contiene una lista de reglas describiendo "
+"qué comandos se deben ejecutar para poder generar un objetivo de una lista "
+"de dependencias. Al construir un programa, el objetivo es un archivo objeto "
+"y las dependencias son los archivos de fuentes. El objetivo de una regla "
+"puede ser una dependencia de otra, permitiendo encadenar varias reglas para "
+"poder crear un objetivo final."
 
 #: C/makefile-project-backend.page:33(page/p)
 msgid ""
@@ -4549,15 +4562,15 @@ msgstr ""
 "Confirme que quiere quitar el paquete. Este paquete se quitará del archivo "
 "del proyecto."
 
-#: C/project-manager.page:7(info/desc)
+#: C/project-manager.page:8(info/desc)
 msgid "Project manager."
 msgstr "Gestor de proyectos."
 
-#: C/project-manager.page:20(page/title)
+#: C/project-manager.page:21(page/title)
 msgid "Project manager plugin"
 msgstr "Complemento del gestor de proyectos"
 
-#: C/project-manager.page:22(page/p)
+#: C/project-manager.page:23(page/p)
 msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
@@ -4566,7 +4579,17 @@ msgstr ""
 "través de complementos de «backends». El principal es el formato «autotools» "
 "ampliamente usado en GNU/Linux."
 
-#: C/project-manager.page:28(page/p)
+#: C/project-manager.page:29(page/p)
+msgid ""
+"The project backend to use is choosen when creating or importing a new "
+"project in <app>Anjuta</app>. It is displayed in the properties of the "
+"project root node and can be changed at any time."
+msgstr ""
+"El «backend» del proyecto que usar cuando se crea o se importa un proyecto "
+"nuevo en <app>Anjuta</app>. Se muestra en las propiedades del nodo raíz del "
+"proyecto y se puede cambiar en cualquier momento."
+
+#: C/project-manager.page:35(page/p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but "
 "some functions might be disabled."
@@ -4575,7 +4598,7 @@ msgstr ""
 "pero algunas funciones pueden estar desactivadas."
 
 # Backend =?
-#: C/project-manager.page:34(section/title)
+#: C/project-manager.page:41(section/title)
 msgid "Project Backend Plugin"
 msgstr "Complemento de «backend» del proyecto"
 
@@ -5294,8 +5317,8 @@ msgstr "Ventanas y diálogos"
 #~ "It is typically used to represent a program, with all its source files as "
 #~ "its children."
 #~ msgstr ""
-#~ "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos "
-#~ "en sus proyectos sin editar el archivo del proyecto. Un objetivo agrupa "
+#~ "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos en "
+#~ "sus proyectos sin editar el archivo del proyecto. Un objetivo agrupa "
 #~ "archivos en un conjunto. Generalmente se usa para representar un programa "
 #~ "con todos sus archivos de fuentes como sus hijos."
 
@@ -5347,8 +5370,8 @@ msgstr "Ventanas y diálogos"
 #~ "If the project backend supports it, you can add or remove files in your "
 #~ "project without editing the project file."
 #~ msgstr ""
-#~ "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos "
-#~ "en sus proyectos sin editar el archivo del proyecto."
+#~ "Si el «backend» del proyecto lo soporta, puede añador o quitar archivos en "
+#~ "sus proyectos sin editar el archivo del proyecto."
 
 #~ msgid ""
 #~ "The target allows you to group files, and has a type which defines how "
