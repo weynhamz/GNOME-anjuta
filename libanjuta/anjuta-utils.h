@@ -140,6 +140,7 @@ gchar*		anjuta_util_str_middle_truncate			(const gchar *string,
 gboolean	anjuta_util_is_project_file				(const gchar *filename);
 gboolean	anjuta_util_is_template_file			(const gchar *filename);
 gchar*		anjuta_util_get_file_mime_type			(GFile *file);
+gchar*		anjuta_util_get_file_info_mime_type		(GFileInfo *info);
 gchar*		anjuta_util_get_local_path_from_uri		(const gchar *uri);
 
 void		anjuta_util_help_display				(GtkWidget   *parent,

@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
@@ -546,31 +547,93 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 static void
 ifile_open (IAnjutaFile *ifile, GFile* file, GError **err)
 {
-	gchar *ext, *project_name;
-	GFile *dir;
-	ProjectImportDialog* pi;
 	AnjutaProjectImportPlugin* plugin = ANJUTA_PLUGIN_PROJECT_IMPORT (ifile);
-	gchar* uri = g_file_get_uri (file);
-	AnjutaPluginManager *plugin_manager;
-	
-	g_return_if_fail (uri != NULL && strlen (uri) > 0);
-	
-	dir = g_file_get_parent (file);
-	project_name = g_path_get_basename (uri);
-	ext = strrchr (project_name, '.');
-	if (ext)
-		*ext = '\0';
+	gchar *mime_type;
 
-	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	
-	pi = project_import_dialog_new (plugin_manager, project_name, dir);
-	g_signal_connect (pi, "response", G_CALLBACK (import_dialog_response), plugin);
+	g_return_if_fail (G_IS_FILE (file));
 
-	gtk_widget_show (GTK_WIDGET (pi));
+	mime_type = anjuta_util_get_file_mime_type (file);
+	if (g_strcmp0 (mime_type,"application/x-anjuta-old") == 0)
+	{
+		/* Automatically import old Anjuta project */
+		gchar *ext, *project_name;
+		GFile *dir;
+		ProjectImportDialog* pi;
+		AnjutaPluginManager *plugin_manager;
+		
+		dir = g_file_get_parent (file);
+		project_name = g_file_get_basename (file);
+		ext = strrchr (project_name, '.');
+		if (ext)
+			*ext = '\0';
+
+		plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	
-	g_object_unref (dir);
-	g_free (project_name);
-	g_free (uri);
+		pi = project_import_dialog_new (plugin_manager, project_name, dir);
+		g_signal_connect (pi, "response", G_CALLBACK (import_dialog_response), plugin);
+
+		gtk_widget_show (GTK_WIDGET (pi));
+	
+		g_object_unref (dir);
+		g_free (project_name);
+	}
+	else if (g_strcmp0 (mime_type,"inode/directory") == 0)
+	{
+		GFileEnumerator *dir;
+
+		dir = g_file_enumerate_children (file,
+		                                 G_FILE_ATTRIBUTE_STANDARD_NAME "," G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+		                                 G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+		                                 NULL,
+		                                 NULL);
+		if (dir)
+		{
+			/* Look for anjuta project file in the directory */
+			GFileInfo *info;
+
+			for (info = g_file_enumerator_next_file (dir, NULL, NULL); info != NULL; info = g_file_enumerator_next_file (dir, NULL, NULL))
+			{
+				gchar *mime_type = anjuta_util_get_file_info_mime_type (info);
+				
+				if (g_strcmp0 (mime_type, "application/x-anjuta") == 0)
+				{
+					/* Open the first anjuta project file */
+					IAnjutaFileLoader *loader;
+
+					loader = anjuta_shell_get_interface(ANJUTA_PLUGIN (plugin)->shell, IAnjutaFileLoader, NULL);
+					if (loader != NULL)
+					{
+						GFile* project_file = g_file_get_child (file, g_file_info_get_name(info));
+						ianjuta_file_loader_load(loader, project_file, FALSE, NULL);
+						g_object_unref (project_file);
+					}
+					g_free (mime_type);
+					g_object_unref (info);
+					break;
+				}
+				g_free (mime_type);
+				g_object_unref (info);
+			}
+			if (info == NULL)
+			{
+				/* Else import the directory */
+				ProjectImportDialog* pi;
+				AnjutaPluginManager *plugin_manager;
+				gchar *basename;
+
+				plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
+
+				basename = g_file_get_basename (file);
+				pi = project_import_dialog_new (plugin_manager, basename, file);
+				g_free (basename);
+				g_signal_connect (pi, "response", G_CALLBACK (import_dialog_response), plugin);
+
+				gtk_widget_show (GTK_WIDGET (pi));
+			}
+			g_object_unref (dir);
+		}
+	}
+	g_free (mime_type);
 }
 
 static GFile*

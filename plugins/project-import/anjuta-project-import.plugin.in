@@ -7,7 +7,7 @@ UserActivatable=no
 Interfaces=IAnjutaWizard,IAnjutaFile
 
 [File Loader]
-SupportedMimeTypes=application/x-anjuta-old
+SupportedMimeTypes=application/x-anjuta-old,inode/directory
 
 [Wizard]
 _Title=Project from Existing Sources

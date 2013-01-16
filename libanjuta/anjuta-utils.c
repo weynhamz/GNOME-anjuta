@@ -1545,6 +1545,58 @@ anjuta_util_is_template_file (const gchar *filename)
 }
 
 /**
+ * anjuta_util_get_file_info_mine_type:
+ * @info: the file information object
+ *
+ * Return the mime type corresponding to a file infor object.
+ *
+ * Returns: The mime type as a newly allocated string that must be freed with
+ * g_free() or %NULL if the mime type cannot be found.
+ */
+gchar *
+anjuta_util_get_file_info_mime_type (GFileInfo *info)
+{
+	gchar *mime_type = NULL;
+	const gchar *extension;
+	const gchar *name;
+
+	g_return_val_if_fail (info != NULL, NULL);
+
+
+	/* If Anjuta is not installed in system gnome prefix, the mime types
+	 * may not have been correctly registed. In that case, we use the
+ 	 * following mime detection
+ 	 */
+	name = g_file_info_get_name (info);
+	extension = strrchr(name, '.');
+	if ((extension != NULL) && (extension != name))
+	{
+		const static struct {gchar *extension; gchar *type;} anjuta_types[] = {
+								{"anjuta", "application/x-anjuta"},
+								{"prj", "application/x-anjuta-old"},
+								{NULL, NULL}};
+		gint i;
+
+		for (i = 0; anjuta_types[i].extension != NULL; i++)
+		{
+			if (strcmp(extension + 1, anjuta_types[i].extension) == 0)
+			{
+				mime_type = g_strdup (anjuta_types[i].type);
+				break;
+			}
+		}
+	}
+
+	/* Use mime database if it is not an Anjuta type */
+	if (mime_type == NULL)
+	{
+		mime_type = g_content_type_get_mime_type (g_file_info_get_content_type(info));
+	}
+
+	return mime_type;
+}
+
+/**
  * anjuta_util_get_file_mine_type:
  * @file: the file
  *
@@ -1563,47 +1615,15 @@ anjuta_util_get_file_mime_type (GFile *file)
 
 	/* Get file information, check that the file exist at the same time */
 	info = g_file_query_info (file,
-										  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-										  G_FILE_QUERY_INFO_NONE,
-										  NULL,
-										  NULL);
+	                          G_FILE_ATTRIBUTE_STANDARD_NAME ","
+	                          G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+	                          G_FILE_QUERY_INFO_NONE,
+	                          NULL,
+	                          NULL);
 
 	if (info != NULL)
 	{
-		const gchar *extension;
-		gchar *name;
-
-		/* If Anjuta is not installed in system gnome prefix, the mime types
-		 * may not have been correctly registed. In that case, we use the
-	 	 * following mime detection
-	 	 */
-		name = g_file_get_basename (file);
-		extension = strrchr(name, '.');
-		if (extension != NULL)
-		{
-			const static struct {gchar *extension; gchar *type;} anjuta_types[] = {
-									{"anjuta", "application/x-anjuta"},
-									{"prj", "application/x-anjuta-old"},
-									{NULL, NULL}};
-			gint i;
-
-			for (i = 0; anjuta_types[i].extension != NULL; i++)
-			{
-				if (strcmp(extension + 1, anjuta_types[i].extension) == 0)
-				{
-					mime_type = g_strdup (anjuta_types[i].type);
-					break;
-				}
-			}
-		}
-		g_free (name);
-
-		/* Use mime database if it is not an Anjuta type */
-		if (mime_type == NULL)
-		{
-			mime_type = g_content_type_get_mime_type (g_file_info_get_content_type(info));
-		}
-
+		mime_type = anjuta_util_get_file_info_mime_type (info);
 		g_object_unref (info);
 	}
 
