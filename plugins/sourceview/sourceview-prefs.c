@@ -24,7 +24,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
 #define REGISTER_NOTIFY(settings, key, func) \
-	g_signal_connect (settings, "changed::" key, G_CALLBACK(func), sv);
+	g_signal_connect_object (settings, "changed::" key, G_CALLBACK(func), sv, 0);
 
 #define ANJUTA_PREF_SCHEMA_PREFIX "org.gnome.anjuta."
 #define PREF_SCHEMA "org.gnome.anjuta.plugins.sourceview"
