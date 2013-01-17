@@ -217,10 +217,6 @@ anjuta_window_maximize_widget (AnjutaShell *shell,
 		if (value == NULL)
 			continue;
 
-		/* If it's the widget requesting maximization then continue */
-		if(!g_strcmp0((gchar*)key, widget_name))
-			continue;
-
 		/* Widget assertions */
 		widget = GTK_WIDGET (value);
 		if(!GTK_IS_WIDGET (widget))
@@ -231,8 +227,17 @@ anjuta_window_maximize_widget (AnjutaShell *shell,
 		if(dock_item == NULL || !GDL_IS_DOCK_ITEM (dock_item))
 			continue;
 
-		/* Hide the item */
-		gdl_dock_item_hide_item (GDL_DOCK_ITEM (dock_item));
+		if(!g_strcmp0((gchar*)key, widget_name))
+		{
+			/* If it's the widget requesting maximization then make sure the 
+			 * widget is visible*/
+			gdl_dock_item_show_item (GDL_DOCK_ITEM (dock_item));
+		}
+		else
+		{
+			/* Hide the other item */
+			gdl_dock_item_hide_item (GDL_DOCK_ITEM (dock_item));
+		}
 	}
 }
 
