@@ -194,7 +194,7 @@ create_starter_widget (StarterPlugin* plugin)
 	                                    "/org/gnome/anjuta/ui/starter.ui",
 	                                    &error))
 	{
-		DEBUG_PRINT ("Could load starter ui!", error->message);
+		DEBUG_PRINT ("Could load starter ui! %s", error->message);
 		g_error_free (error);
 		return NULL;
 	}
