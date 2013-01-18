@@ -91,11 +91,6 @@ js_support_plugin_deactivate (AnjutaPlugin *plugin)
 static void
 js_support_plugin_finalize (GObject *obj)
 {
-	JSLang *self = (JSLang*)obj;
-
-	g_object_unref (self->symbol);
-	self->symbol = NULL;
-
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
@@ -106,8 +101,7 @@ js_support_plugin_dispose (GObject *obj)
 
 	g_assert (self != NULL);
 
-	g_object_unref (self->symbol);
-	self->symbol = NULL;
+	g_clear_object (&self->symbol);
 
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
