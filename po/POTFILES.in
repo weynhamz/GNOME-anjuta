@@ -236,6 +236,9 @@ plugins/project-wizard/property.c
 [type: gettext/xml]plugins/project-wizard/templates/xlib-dock.wiz.in
 [type: gettext/xml]plugins/project-wizard/templates/xlib.wiz.in
 [type: gettext/ini]plugins/python-loader/anjuta-python-loader.plugin.in
+[type: gettext/glade]plugins/quick-open/anjuta-quick-open.ui
+plugins/quick-open/plugin.c
+plugins/quick-open/quick-open-dialog.c
 [type: gettext/ini]plugins/run-program/anjuta-run-program.plugin.in
 [type: gettext/glade]plugins/run-program/anjuta-run-program.ui
 plugins/run-program/execute.c
