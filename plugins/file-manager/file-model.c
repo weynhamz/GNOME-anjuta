@@ -54,6 +54,14 @@ enum
 	PROP_FILTER_UNVERSIONED
 };
 
+enum
+{
+	SIGNAL_DIRECTORY_EXPANDED,
+	SIGNAL_LAST
+};
+
+guint signals [SIGNAL_LAST];
+
 typedef struct _FileModelPrivate FileModelPrivate;
 typedef struct _FileModelAsyncData FileModelAsyncData;
 
@@ -521,6 +529,9 @@ on_row_expanded_async (GObject* source_object,
 
 	file_model_add_watch (model, path);
 	file_model_get_vcs_status (model, &real_iter, dir);
+
+	g_signal_emit (model, signals[SIGNAL_DIRECTORY_EXPANDED], 0, &real_iter, path);
+
 	gtk_tree_path_free (path);
 	gtk_tree_row_reference_free (ref);
 	g_object_unref(files);
@@ -727,6 +738,13 @@ file_model_class_init (FileModelClass *klass)
 														   "file_unversioned",
 														   TRUE,
 														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+
+	signals[SIGNAL_DIRECTORY_EXPANDED] =
+		g_signal_new ("directory-expanded",
+					  G_TYPE_FROM_CLASS (object_class),
+					  G_SIGNAL_RUN_FIRST,
+					  0, NULL, NULL, NULL,
+					  G_TYPE_NONE, 2, GTK_TYPE_TREE_ITER, GTK_TYPE_TREE_PATH);
 	
 }
 

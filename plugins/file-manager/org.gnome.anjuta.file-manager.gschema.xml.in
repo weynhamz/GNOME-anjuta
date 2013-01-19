@@ -15,5 +15,8 @@
 		<key name="filemanager-filter-unversioned" type="b">
 			<default>false</default>
 		</key>
+		<key name="filemanager-select-current-document" type="b">
+			<default>false</default>
+		</key>
 	</schema>
 </schemalist>

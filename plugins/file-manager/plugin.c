@@ -32,6 +32,9 @@
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.xml"
@@ -45,6 +48,7 @@
 #define PREF_FILTER_HIDDEN "filemanager-filter-hidden"
 #define PREF_FILTER_BACKUP "filemanager-filter-backup"
 #define PREF_FILTER_UNVERSIONED "filemanager-filter-unversioned"
+#define PREF_SELECT_CURRENT_DOCUMENT "filemanager-select-current-document"
 
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (prefs, \
@@ -160,6 +164,32 @@ get_vcs_plugin(AnjutaFileManager* file_manager, const gchar* root_uri)
 		}
 	}
 	return ivcs;
+}
+
+static void
+current_document_added (AnjutaPlugin *plugin, const gchar *name,
+						const GValue *value, gpointer user_data)
+{
+	AnjutaFileManager* file_manager = (AnjutaFileManager*) plugin;
+	IAnjutaDocument *current_document;
+
+	if (!g_settings_get_boolean (file_manager->settings, PREF_SELECT_CURRENT_DOCUMENT))
+		return;
+
+	current_document = g_value_get_object (value);
+
+	if (IANJUTA_IS_FILE (current_document))
+	{
+		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (current_document), NULL);
+		ianjuta_file_manager_set_selected (IANJUTA_FILE_MANAGER (plugin), file, NULL);
+		g_object_unref (file);
+	}
+}
+
+static void
+current_document_removed (AnjutaPlugin *plugin, const gchar *name,
+						  gpointer user_data)
+{
 }
 
 static void
@@ -347,6 +377,10 @@ file_manager_activate (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI,
 								 project_root_added,
 								 project_root_removed, NULL);
+
+	file_manager->current_document_watch_id =
+		anjuta_plugin_add_watch (plugin, IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT,
+								 current_document_added, current_document_removed, NULL);
 	
 
 	g_signal_connect (file_manager->settings, "changed::" PREF_ROOT, 
@@ -376,6 +410,7 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	anjuta_plugin_remove_watch (plugin, file_manager->root_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, file_manager->current_document_watch_id, FALSE);
 	anjuta_ui_remove_action_group (ui, ((AnjutaFileManager*)plugin)->action_group);
 	anjuta_ui_unmerge (ui, ((AnjutaFileManager*)plugin)->uiid);
 	
@@ -436,10 +471,12 @@ ifile_manager_set_root (IAnjutaFileManager *ifile_manager, const gchar *root,
 }
 
 static void
-ifile_manager_set_selected (IAnjutaFileManager *file_manager,
+ifile_manager_set_selected (IAnjutaFileManager *ifile_manager,
 							GFile* selected, GError **err)
 {
-	/* TODO */
+	AnjutaFileManager* file_manager = (AnjutaFileManager*) ifile_manager;
+
+	file_view_set_selected (file_manager->fv, selected);
 }
 
 static GFile*

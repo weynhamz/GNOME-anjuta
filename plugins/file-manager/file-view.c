@@ -47,6 +47,8 @@ struct _AnjutaFileViewPrivate
 	
 	GList* saved_paths;
 	GtkTreeRowReference* current_selection;
+
+	GFile* pending_selected_file;
 };
 
 GtkTargetEntry uri_targets[] =
@@ -147,6 +149,129 @@ file_view_get_selected (AnjutaFileView* view)
 	}
 	else
 		return NULL;
+}
+
+static void
+file_view_select_iter (AnjutaFileView* view, GtkTreeIter iter)
+{
+	GtkTreeModelSort* model_sort;
+	GtkTreeIter sort_iter;
+	GtkTreeSelection* selection;
+	GtkTreePath* path;
+
+	model_sort = GTK_TREE_MODEL_SORT (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+	gtk_tree_model_sort_convert_child_iter_to_iter (model_sort, &sort_iter, &iter);
+	path = gtk_tree_model_get_path (GTK_TREE_MODEL (model_sort), &sort_iter);
+
+	gtk_tree_selection_select_iter (selection, &sort_iter);
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (view), path, NULL, TRUE, 0.5, 0.0);
+}
+
+static void
+file_view_select_from_iter (AnjutaFileView* view, GtkTreeIter iter)
+{
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+
+	GtkTreeModelSort* model_sort;
+	gboolean valid;
+	GtkTreeIter sort_iter;
+	GFile* file;
+
+	model_sort = GTK_TREE_MODEL_SORT (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+
+	do
+	{
+		gboolean is_dummy, is_dir;
+
+		gtk_tree_model_get (GTK_TREE_MODEL (priv->model), &iter,
+							COLUMN_FILE, &file, COLUMN_DUMMY, &is_dummy,
+							COLUMN_IS_DIR, &is_dir, -1);
+
+		if (is_dummy)
+			break;
+
+		if (g_file_equal (priv->pending_selected_file, file))
+		{
+			file_view_select_iter (view, iter);
+			break;
+		}
+
+		else if (g_file_has_prefix (priv->pending_selected_file, file))
+		{
+			if (is_dir)
+			{
+				GtkTreePath *path = NULL;
+
+				gtk_tree_model_sort_convert_child_iter_to_iter (model_sort, &sort_iter, &iter);
+				path = gtk_tree_model_get_path (GTK_TREE_MODEL (model_sort), &sort_iter);
+
+				if (gtk_tree_view_row_expanded (GTK_TREE_VIEW (view), path))
+				{
+					GtkTreeIter parent = iter;
+					valid = gtk_tree_model_iter_children (GTK_TREE_MODEL (priv->model), &iter, &parent);
+					gtk_tree_path_free (path);
+				}
+				else
+				{
+					gtk_tree_view_expand_row (GTK_TREE_VIEW (view), path, FALSE);
+					gtk_tree_path_free (path);
+					break;
+				}
+			}
+			else
+			{
+				file_view_select_iter (view, iter);
+				break;
+			}
+		}
+		else
+			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->model), &iter);
+
+		g_clear_object (&file);
+
+	} while (valid);
+
+	if (file)
+		g_object_unref (file);
+}
+
+static void
+file_view_directory_expanded (FileModel* model, GtkTreeIter* iter, GtkTreePath* path,
+							  gpointer user_data)
+{
+	AnjutaFileView* view = user_data;
+	AnjutaFileViewPrivate *priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+
+	if (priv->pending_selected_file)
+	{
+		GFile *dir;
+
+		gtk_tree_model_get (GTK_TREE_MODEL (priv->model), iter,
+							COLUMN_FILE, &dir, -1);
+
+		if (g_file_has_prefix (priv->pending_selected_file, dir))
+			file_view_select_from_iter (view, *iter);
+
+		g_object_unref (dir);
+	}
+}
+
+void
+file_view_set_selected (AnjutaFileView* view, GFile *selected)
+{
+	AnjutaFileViewPrivate *priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	
+	GtkTreeIter iter;
+	gboolean valid;
+
+	g_clear_object (&priv->pending_selected_file);
+	priv->pending_selected_file = g_object_ref (selected);
+
+	valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->model), &iter);
+	if (valid)
+		file_view_select_from_iter (view, iter);
 }
 
 static void
@@ -438,6 +563,11 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 		g_signal_emit_by_name (G_OBJECT (view), "current-file-changed",
 							   NULL, NULL);
 	}
+
+	/* The pending selection is now either done or if the user changed the
+	 * selection before it was finished we cancel it. */
+	g_clear_object (&priv->pending_selected_file);
+
 	DEBUG_PRINT ("%s", "selection_changed");
 }
 
@@ -648,7 +778,10 @@ file_view_init (AnjutaFileView *object)
 	priv->current_selection = NULL;
 	
 	priv->model = file_model_new (GTK_TREE_VIEW(object), NULL);
-	sort_model = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(priv->model));									  
+	g_signal_connect_object (priv->model, "directory-expanded",
+							 G_CALLBACK (file_view_directory_expanded), object, 0);
+
+	sort_model = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(priv->model));
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(object), sort_model);
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE(sort_model),

@@ -51,6 +51,8 @@ struct _AnjutaFileManager {
 	gint uiid;
 	GtkActionGroup *action_group;
 	GSettings* settings;
+
+	guint current_document_watch_id;
 };
 
 struct _AnjutaFileManagerClass {

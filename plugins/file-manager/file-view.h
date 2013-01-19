@@ -74,6 +74,9 @@ GFile*
 file_view_get_selected (AnjutaFileView* view);
 
 void
+file_view_set_selected (AnjutaFileView* view, GFile *selected);
+
+void
 file_view_refresh (AnjutaFileView* view);
 
 void 
