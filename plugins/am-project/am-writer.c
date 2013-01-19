@@ -1702,7 +1702,7 @@ gboolean amp_project_update_am_property (AmpProject *project, AnjutaProjectNode 
 
 				for (arg = anjuta_token_first_word (args); arg != NULL;)
 				{
-					gchar *arg_value = anjuta_token_evaluate (arg);
+					gchar *arg_value = anjuta_token_evaluate_name (arg);
 
 					while (isspace (*value)) value++;
 
