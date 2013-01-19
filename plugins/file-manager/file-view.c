@@ -814,7 +814,10 @@ file_view_init (AnjutaFileView *object)
 	                                        GDK_BUTTON1_MASK,
 	                                        uri_targets,
 	                                        1,
-	                                        GDK_ACTION_MOVE);                                    
+	                                        GDK_ACTION_MOVE);
+
+	/* Typeahead search */
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (object), COLUMN_FILENAME);
 }
 
 static void
@@ -940,9 +943,9 @@ file_view_refresh_vcs (AnjutaFileView* view)
 GtkWidget*
 file_view_new (void)
 {
-	return g_object_new (ANJUTA_TYPE_FILE_VIEW, 
+	return g_object_new (ANJUTA_TYPE_FILE_VIEW,
 	                     "headers-visible", FALSE,
 	                     "has-tooltip", TRUE,
-	                     "enable-search", FALSE,
+	                     "enable-search", TRUE,
 	                     NULL);
 }
