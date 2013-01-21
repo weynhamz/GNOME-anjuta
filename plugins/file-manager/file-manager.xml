@@ -7,4 +7,9 @@
 		<separator/>
 		<menuitem name="PopupFileManagerRename" action="ActionPopupFileManagerRename"/>
 	</popup>
+	<popup name="PopupDocumentManager">
+		<separator name="FileManagerSeparator1"/>
+		<menuitem name="PopupShowInFileManager" action="ActionPopupShowInFileManager" />
+		<separator name="FileManagerSeparator2"/>
+	</popup>
 </ui>

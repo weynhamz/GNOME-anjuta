@@ -67,8 +67,34 @@ struct _ScrollPosition
 };
 
 static void
+on_show_in_file_manager (GtkAction* action, AnjutaFileManager* file_manager)
+{
+	IAnjutaDocumentManager* docman;
+	IAnjutaDocument* document;
+	GFile* file;
+
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (file_manager)->shell,
+										 IAnjutaDocumentManager, NULL);
+	g_return_if_fail (docman);
+
+	document = ianjuta_document_manager_get_current_document (docman, NULL);
+	if (!IANJUTA_IS_FILE (document))
+		return;
+
+	file = ianjuta_file_get_file (IANJUTA_FILE (document), NULL);
+	if (!file)
+		return;
+
+	file_view_set_selected (file_manager->fv, file);
+	g_object_unref (file);
+
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (file_manager)->shell,
+								 file_manager->sw, NULL);
+}
+
+static void
 on_file_manager_rename (GtkAction* action, AnjutaFileManager* file_manager)
-{	
+{
 	file_view_rename (file_manager->fv);
 }
 
@@ -78,6 +104,11 @@ static GtkActionEntry popup_actions[] =
 		"ActionPopupFileManagerRename", NULL,
 		N_("_Rename"), NULL, N_("Rename file or directory"),
 		G_CALLBACK (on_file_manager_rename)
+	},
+	{
+		"ActionPopupShowInFileManager", NULL,
+		N_("_Show in File manager"), NULL, N_("Show in File manager"),
+		G_CALLBACK (on_show_in_file_manager)
 	}
 };
 
@@ -338,7 +369,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 	file_manager->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupFileManager",
 											_("File manager popup actions"),
-											popup_actions, 1,
+											popup_actions, G_N_ELEMENTS (popup_actions),
 											GETTEXT_PACKAGE, FALSE,
 											plugin);
 	
