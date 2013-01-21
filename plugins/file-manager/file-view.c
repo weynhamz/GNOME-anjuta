@@ -784,6 +784,9 @@ file_view_init (AnjutaFileView *object)
 	sort_model = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(priv->model));
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW(object), sort_model);
+	/* set_model takes a reference so we can release the reference we got when
+	 * the sort_model was created. */
+	g_object_unref (sort_model);
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE(sort_model),
 											 file_view_sort_model,
 											 NULL,
