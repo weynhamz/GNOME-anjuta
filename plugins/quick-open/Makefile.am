@@ -14,8 +14,8 @@ quick_open_pixmaps_DATA = anjuta-quick-open-48.png
 plugin_in_files = anjuta-quick-open.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(anjuta_plugin_dir)
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+quick_open_plugindir = $(anjuta_plugin_dir)
+quick_open_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-quick-open.la
@@ -38,10 +38,10 @@ libanjuta_quick_open_la_SOURCES = \
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(anjuta_pixmaps_DATA) \
-	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA) \
-	$(anjuta_glade_DATA) \
+	$(quick_open_plugin_DATA) \
+	$(quick_open_ui_DATA) \
+	$(quick_open_pixmaps_DATA) \
+	$(quick_open_glade_DATA) \
 	$(schema_in_files)
 
 -include $(top_srcdir)/git.mk
