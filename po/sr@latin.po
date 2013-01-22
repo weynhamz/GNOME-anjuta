@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
 "&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-10 17:26+0000\n"
-"PO-Revision-Date: 2013-01-18 09:41+0200\n"
+"POT-Creation-Date: 2013-01-21 20:29+0000\n"
+"PO-Revision-Date: 2013-01-22 19:51+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -325,7 +325,7 @@ msgstr "Ne mogu da izvršim naredbu: „%s“"
 msgid "execvp failed"
 msgstr "execvp nije uspeo"
 
-#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2396
+#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2426
 msgid "Anjuta Shell"
 msgstr "Anjutina školjka"
 
@@ -333,12 +333,12 @@ msgstr "Anjutina školjka"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjutina školjka koja će sadržati priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:713
+#: ../libanjuta/anjuta-plugin-manager.c:711
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "Dodatak „%s“ ne želi da bude prekinut"
 
-#: ../libanjuta/anjuta-plugin-manager.c:747
+#: ../libanjuta/anjuta-plugin-manager.c:744
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -350,24 +350,24 @@ msgstr ""
 "Ovo obično znači da je instalacija loša. Program je ispisao sledeću grešku:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:884
+#: ../libanjuta/anjuta-plugin-manager.c:882
 msgid "Load"
 msgstr "Učitaj"
 
-#: ../libanjuta/anjuta-plugin-manager.c:907
-#: ../libanjuta/anjuta-plugin-manager.c:1989
+#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Available Plugins"
 msgstr "Dostupni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1023 ../src/anjuta-window.c:992
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:992
 msgid "Preferred plugins"
 msgstr "Poželjni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1158
+#: ../libanjuta/anjuta-plugin-manager.c:1156
 msgid "Only show user activatable plugins"
 msgstr "Prikazuj samo priključke koje korisnik može da pokrene"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1198
+#: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -377,73 +377,73 @@ msgstr ""
 "od više mogućih priključaka. Ako uklonite poželjni priključak, Anjuta će vas "
 "ponovo pitati da odaberete drugi priključak."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1224
+#: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
 msgstr "Zaboravi označeni priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1358
-#: ../libanjuta/anjuta-plugin-manager.c:1509 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1356
+#: ../libanjuta/anjuta-plugin-manager.c:1507 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Odaberite priključak"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1359
+#: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Odaberite priključak za pokretanje"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1373
+#: ../libanjuta/anjuta-plugin-manager.c:1371
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "Nijedan priključak nije u mogućnosti da učita ostale priključke u %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1510
+#: ../libanjuta/anjuta-plugin-manager.c:1508
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Odaberite priključak za pokretanje</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2016
+#: ../libanjuta/anjuta-plugin-manager.c:2046
 msgid "Remember this selection"
 msgstr "Zapamti ovaj izbor"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2377
+#: ../libanjuta/anjuta-plugin-manager.c:2407
 msgid "Profiles"
 msgstr "Profili"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2408
 msgid "Current stack of profiles"
 msgstr "Trenutni stek profila"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2383
+#: ../libanjuta/anjuta-plugin-manager.c:2413
 msgid "Available plugins"
 msgstr "Dostupni dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2414
 msgid "Currently available plugins found in plugin paths"
 msgstr "Dostupni dodaci iz podešenih putanja"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2390
+#: ../libanjuta/anjuta-plugin-manager.c:2420
 msgid "Activated plugins"
 msgstr "Pokrenuti dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2391
+#: ../libanjuta/anjuta-plugin-manager.c:2421
 msgid "Currently activated plugins"
 msgstr "Trenutno pokrenuti dodaci"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2397
+#: ../libanjuta/anjuta-plugin-manager.c:2427
 msgid "Anjuta shell for which the plugins are made"
 msgstr "Anjutina školjka za koju su dodaci pravljeni"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2405
+#: ../libanjuta/anjuta-plugin-manager.c:2435
 msgid "Anjuta Status"
 msgstr "Stanje Anjute"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2406
+#: ../libanjuta/anjuta-plugin-manager.c:2436
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Stanje Anjute koje se koristi za učitavanje i uklanjanje priključaka"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2566
+#: ../libanjuta/anjuta-plugin-manager.c:2596
 msgid "Loading:"
 msgstr "Učitavam:"
 
@@ -647,53 +647,53 @@ msgstr "Ne mogu da nađem terminal; koristim xterm, čak iako možda ne radi"
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Ne mogu da izvršim naredbu: %s (koristim školjku %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2361
+#: ../libanjuta/anjuta-utils.c:2381
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Ne mogu da učitam datoteku grafičkog sučelja: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "Izmenjen"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "Dodat"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "Obrisan"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "Sukobljen"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "Dopunjen"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "Zaključan"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "Nedostaje"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "Neverzionisan"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "Zanemaren"
 
@@ -3363,9 +3363,6 @@ msgid "Path"
 msgstr "Putanja"
 
 #: ../plugins/debug-manager/start.c:1390
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you still want to stop the debugger?"
 msgid ""
 "The program is already running.\n"
 "Do you still want to stop the debugger?"
@@ -3550,7 +3547,6 @@ msgid "Remove"
 msgstr "Ukloni"
 
 #: ../plugins/document-manager/anjuta-docman.c:165
-#| msgid "[read-only]"
 msgid " [read-only]"
 msgstr " [samo-čitanje]"
 
@@ -3651,7 +3647,6 @@ msgid "Position:"
 msgstr "Položaj:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:13
-#| msgid "_Show Status"
 msgid "Show tabs"
 msgstr "Prikaži jezičke"
 
@@ -3660,12 +3655,10 @@ msgid "Show drop-down list"
 msgstr "Prikaži padajući spisak"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#| msgid "Close other documents"
 msgid "Do not show open documents"
 msgstr "Ne prikazuj otvorene dokumente"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Documents"
 msgid "Open documents"
 msgstr "Otvori dokumente"
 
@@ -4319,7 +4312,7 @@ msgid "Replace all"
 msgstr "Zameni sve"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:662
+#: ../plugins/file-manager/file-view.c:798
 msgid "Filename"
 msgstr "Naziv datoteke"
 
@@ -4559,10 +4552,10 @@ msgstr "Izaberite priključak za otvaranje <b>%s</b>."
 
 #: ../plugins/file-loader/plugin.c:1439
 msgid "<b>Open With</b>"
-msgstr "<b>Otvori sa</b>"
+msgstr "<b>Otvori pomoću</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:512 ../plugins/file-manager/plugin.c:521
 msgid "File Manager"
 msgstr "Upravnik datoteka"
 
@@ -4576,59 +4569,68 @@ msgstr "Koreni direktorijum ako nijedan projekat nije otvoren:"
 
 #: ../plugins/file-manager/file-manager.ui.h:2
 msgid "Choose Directory to show if no project is open"
-msgstr "Izaberite fasciklu za prikaz ako nijedan projekat nije otvoren"
+msgstr "Izaberi fasciklu za prikaz ako nijedan projekat nije otvoren"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
+#| msgid "Auto-complete the current word"
+msgid "Automatically select the current document"
+msgstr "Sam izaberi tekući dokument"
+
+#: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
 #: ../plugins/symbol-db/plugin.c:2185
 msgid "Global"
 msgstr "Opšte"
 
-#: ../plugins/file-manager/file-manager.ui.h:4
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "Ne prikazuj binarne datoteke (.o, .la, itd.)"
 
-#: ../plugins/file-manager/file-manager.ui.h:5
+#: ../plugins/file-manager/file-manager.ui.h:6
 msgid "Do not show hidden files"
 msgstr "Ne prikazuj skrivene datoteke"
 
-#: ../plugins/file-manager/file-manager.ui.h:6
+#: ../plugins/file-manager/file-manager.ui.h:7
 msgid "Do not show backup files"
 msgstr "Ne prikazuj datoteke arhive"
 
-#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Do not show unversioned files"
 msgstr "Ne prikazuj neverzionisane datoteke"
 
-#: ../plugins/file-manager/file-manager.ui.h:8
+#: ../plugins/file-manager/file-manager.ui.h:9
 msgid "Filter"
 msgstr "Propusnik"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Učitavam..."
 
-#: ../plugins/file-manager/file-view.c:750
-msgid "Base URI"
-msgstr "Osnovna adresa"
+#: ../plugins/file-manager/file-model.c:706
+#: ../plugins/file-manager/file-view.c:886
+#| msgid "Path"
+msgid "Base Path"
+msgstr "Putanja osnove"
 
-#: ../plugins/file-manager/file-view.c:751
-msgid "URI of the top-most path displayed"
-msgstr "Adresa najviše prikazane putanje"
+#: ../plugins/file-manager/file-model.c:707
+#: ../plugins/file-manager/file-view.c:887
+#| msgid "URI of the top-most path displayed"
+msgid "GFile representing the top-most path displayed"
+msgstr "Gdatoteka koja predstavlja najvišu prikazanu putanju"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:79
 msgid "_Rename"
 msgstr "_Preimenuj"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:79
 msgid "Rename file or directory"
 msgstr "Promenite naziv datoteke ili fascikle"
 
-#: ../plugins/file-manager/plugin.c:306
+#: ../plugins/file-manager/plugin.c:340
 msgid "File manager popup actions"
 msgstr "Iskačuće akcije upravnika datoteka"
 
-#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:373 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Datoteke"
 
@@ -4989,7 +4991,6 @@ msgid "Show source revision in log message"
 msgstr "Prikaži izvornu reviziju u poruci dnevnika"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "Append signed-of- by line"
 msgid "Append signed-off-by line"
 msgstr "Priloži liniju sa potpisom"
 
@@ -5318,17 +5319,17 @@ msgstr "Nije izabrana revizija"
 msgid "Stash %i.diff"
 msgstr "Štek %i.diff"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Grana:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:589
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Oznaka:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:594
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Udaljeno:</b> %s"
@@ -5770,7 +5771,6 @@ msgid "Drag and resize widgets in the workspace"
 msgstr "Ubaci i promeni veličinu elemenata u radnom prostoru"
 
 #: ../plugins/glade/anjuta-glade.ui.h:3
-#| msgid "Show right margin"
 msgid "Edit widget margins"
 msgstr "Uređuje margine elementa"
 
@@ -5845,7 +5845,6 @@ msgid "Indent:"
 msgstr "Uvuci:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
-#| msgid "Parenthesis indentation"
 msgid "Use spaces for parenthesis indentation"
 msgstr "Koristi razmake za uvlačenje zagrade"
 
@@ -5865,7 +5864,6 @@ msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Sam uvuci tekući red ili izbor zasnovan na podešavanjima uvlačenja"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#| msgid "Indentation"
 msgid "C Indentation"
 msgstr "C-ovo uvlačenje"
 
@@ -5881,12 +5879,10 @@ msgid "Enable adaptive indentation"
 msgstr "Uključi prilagodljivo uvlačenje"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#| msgid "Indentation"
 msgid "Python Indentation"
 msgstr "Pitonovo uvlačenje"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
-#| msgid "Build"
 msgid "JHBuild"
 msgstr "JH graditelj"
 
@@ -6059,9 +6055,9 @@ msgstr "Dodatak podrške JS"
 msgid "JavaScript Support Plugin"
 msgstr "Dodatak podrške Java skripte"
 
-#: ../plugins/language-support-js/plugin.c:370
-#: ../plugins/language-support-js/plugin.c:383
-#: ../plugins/language-support-js/plugin.c:417
+#: ../plugins/language-support-js/plugin.c:364
+#: ../plugins/language-support-js/plugin.c:377
+#: ../plugins/language-support-js/plugin.c:411
 msgid "JavaScript"
 msgstr "Java skript"
 
@@ -6414,13 +6410,13 @@ msgstr "Uvezite postojeći projekat samoalata u Anjutu"
 msgid "Project from Existing Sources"
 msgstr "Projekat iz postojećih izvora"
 
-#: ../plugins/project-import/plugin.c:79
-#: ../plugins/project-import/plugin.c:186
+#: ../plugins/project-import/plugin.c:80
+#: ../plugins/project-import/plugin.c:187
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Datoteka „%s“ već postoji. Da li želite da je zamenite?"
 
-#: ../plugins/project-import/plugin.c:221
+#: ../plugins/project-import/plugin.c:222
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6429,17 +6425,17 @@ msgstr ""
 "Ne mogu da upišem u datoteku „%s“: %s. Proverite da li imate dozvolu za "
 "pisanje u direktorijum projekta."
 
-#: ../plugins/project-import/plugin.c:285
+#: ../plugins/project-import/plugin.c:286
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "Molim izaberite pozadinca projekta da otvorite %s."
 
-#: ../plugins/project-import/plugin.c:290
+#: ../plugins/project-import/plugin.c:291
 #: ../plugins/project-manager/dialogs.c:654
 msgid "Open With"
 msgstr "Otvori programom"
 
-#: ../plugins/project-import/plugin.c:305
+#: ../plugins/project-import/plugin.c:306
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6449,34 +6445,30 @@ msgstr ""
 "(%s). Molim izaberite drugi direktorijum, ili pokušajte da nadogradite na "
 "novije izdanje Anjute."
 
-#: ../plugins/project-import/plugin.c:371
-#: ../plugins/project-import/plugin.c:427
+#: ../plugins/project-import/plugin.c:372
+#: ../plugins/project-import/plugin.c:428
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr "Ne mogu da izdvojim prosleđenu adresu „%s“. Vraćena greška je: „%s“"
 
-#: ../plugins/project-import/project-import-dialog.c:292
+#: ../plugins/project-import/project-import-dialog.c:305
 msgid "Import project"
 msgstr "Uvezi projekat"
 
-#: ../plugins/project-import/project-import-dialog.c:296
+#: ../plugins/project-import/project-import-dialog.c:309
 msgid "Import"
 msgstr "Uvezi"
 
 #: ../plugins/project-import/project-import.ui.h:1
-msgid "Project name"
-msgstr "Naziv projekta"
-
-#: ../plugins/project-import/project-import.ui.h:2
 msgid "Import from folder"
 msgstr "Uvezi iz fascikle"
 
-#: ../plugins/project-import/project-import.ui.h:3
+#: ../plugins/project-import/project-import.ui.h:2
 msgid "Location:"
 msgstr "Mesto:"
 
-#: ../plugins/project-import/project-import.ui.h:4
+#: ../plugins/project-import/project-import.ui.h:3
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:7
@@ -6501,13 +6493,17 @@ msgstr "Mesto:"
 msgid "Destination:"
 msgstr "Odredište:"
 
-#: ../plugins/project-import/project-import.ui.h:5
+#: ../plugins/project-import/project-import.ui.h:4
 msgid "Import from version control system"
 msgstr "Uvezi iz sistema kontrole verzija"
 
-#: ../plugins/project-import/project-import.ui.h:6
+#: ../plugins/project-import/project-import.ui.h:5
 msgid "Import options"
 msgstr "Opcije uvoza"
+
+#: ../plugins/project-import/project-import.ui.h:6
+msgid "Project name"
+msgstr "Naziv projekta"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
@@ -6535,7 +6531,6 @@ msgstr " Ovo svojstvo se ne može izmeniti."
 #. Several backend are possible, ask the user to select one
 #: ../plugins/project-manager/dialogs.c:651
 #, c-format
-#| msgid "Please select a project backend to open %s."
 msgid "Please select a project backend to use."
 msgstr "Molim izaberite pozadinca projekta za korišćenje."
 
@@ -6575,7 +6570,6 @@ msgstr "Pozadinac:"
 
 #: ../plugins/project-manager/dialogs.c:940
 #, c-format
-#| msgid "Loading project: %s"
 msgid "Reloading project: %s"
 msgstr "Ponovo učitavam projekat: %s"
 
@@ -8098,6 +8092,30 @@ msgstr "Učitavač Pitona"
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
 msgid "Allows loading Anjuta plugins written in Python"
 msgstr "Omogućava učitavanje priključaka Anjute pisanih u Pitonu"
+
+#: ../plugins/quick-open/anjuta-quick-open.ui.h:1
+#| msgid "Loading..."
+msgid "Loading files..."
+msgstr "Učitavam datoteke..."
+
+#: ../plugins/quick-open/plugin.c:221
+#| msgid "_Quick Search"
+msgid "Quick open"
+msgstr "Otvori brzo"
+
+#: ../plugins/quick-open/plugin.c:223
+msgid "Quickly open a file in the current project."
+msgstr "Otvorite brzo datoteku u tekućem projektu."
+
+#: ../plugins/quick-open/plugin.c:243
+#| msgid "Run operations"
+msgid "Quick open operations"
+msgstr "Radnje brzog otvaranja"
+
+#: ../plugins/quick-open/quick-open-dialog.c:773
+#| msgid "_Quick Search"
+msgid "Quick Open"
+msgstr "Otvori brzo"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9822,46 +9840,46 @@ msgstr "O _spoljnim priključcima"
 msgid "About third-party Anjuta plugins"
 msgstr "O dodacima trećih lica za Anjutu"
 
-#: ../src/anjuta-application.c:282
+#: ../src/anjuta-application.c:285
 msgid "Specify the size and location of the main window"
 msgstr "Određuje geometriju osnovnog prozora"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/anjuta-application.c:285
+#: ../src/anjuta-application.c:288
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "ŠIRINAxVISINA+VODPOZ+USPPOZ"
 
-#: ../src/anjuta-application.c:290
+#: ../src/anjuta-application.c:293
 msgid "Do not show the splash screen"
 msgstr "Ne prikazuje uvodnu sliku"
 
-#: ../src/anjuta-application.c:296
+#: ../src/anjuta-application.c:299
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "Pokreće novi primerak i ne otvara datoteku u postojećem primerku"
 
-#: ../src/anjuta-application.c:302
+#: ../src/anjuta-application.c:305
 msgid "Do not open last session on startup"
 msgstr "Neće otvoriti poslednju sesiju pri pokretanju"
 
-#: ../src/anjuta-application.c:308
+#: ../src/anjuta-application.c:311
 msgid "Do not open last project and files on startup"
 msgstr "Neće otvoriti poslednji projekat i datoteke pri pokretanju"
 
-#: ../src/anjuta-application.c:314
+#: ../src/anjuta-application.c:317
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr ""
 "Isključuje Anjutu propisno, oslobađajući sve resurse (za ispravljanje grešaka)"
 
-#: ../src/anjuta-application.c:320
+#: ../src/anjuta-application.c:323
 msgid "Display program version"
 msgstr "Prikazuje izdanje programa"
 
-#: ../src/anjuta-application.c:338
+#: ../src/anjuta-application.c:341
 msgid "- Integrated Development Environment"
 msgstr "— Integrisano razvojno okruženje"
 
-#: ../src/anjuta-application.c:653
+#: ../src/anjuta-application.c:656
 msgid "Loaded Session…"
 msgstr "Učitana sesija…"
 
