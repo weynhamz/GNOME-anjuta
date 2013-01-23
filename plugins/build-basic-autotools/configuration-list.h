@@ -22,6 +22,7 @@
 #define CONFIGURATION_LIST_H
 
 #include <glib.h>
+#include <gio/gio.h>
 
 typedef struct _BuildConfiguration BuildConfiguration;
 typedef struct _BuildConfigurationList BuildConfigurationList;
@@ -44,7 +45,7 @@ void build_configuration_list_set_project_uri (BuildConfigurationList *list, con
 const gchar *build_configuration_get_translated_name (BuildConfiguration *cfg);
 const gchar *build_configuration_get_name (BuildConfiguration *cfg);
 gboolean build_configuration_list_set_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg, const gchar *build_uri);
-gchar *build_configuration_list_get_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg);
+GFile *build_configuration_list_get_build_file (BuildConfigurationList *list, BuildConfiguration *cfg);
 const gchar *build_configuration_get_relative_build_uri (BuildConfiguration *cfg);
 void build_configuration_set_args (BuildConfiguration *cfg, const gchar *args);
 const gchar *build_configuration_get_args (BuildConfiguration *cfg);

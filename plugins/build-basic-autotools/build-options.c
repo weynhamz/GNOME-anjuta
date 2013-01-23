@@ -69,8 +69,8 @@ typedef struct _BuildMissingDirectory BuildMissingDirectory;
 
 struct _BuildMissingDirectory
 {
-	gsize exist;
-	gchar uri[1];
+	GFile *exist;
+	GFile *created;
 };
 
 
@@ -139,17 +139,12 @@ build_gtk_file_chooser_create_directory_get_quark (void)
 
 /* Remove created directory */
 static void
-on_build_missing_directory_destroyed (BuildMissingDirectory* dir)
+on_build_missing_directory_destroyed (BuildMissingDirectory* pack)
 {
 	/* Remove previously created directories */
 	GFile* created_dir;
-	GFile* existing_dir;
 
-	created_dir = g_file_new_for_uri (dir->uri);
-	dir->uri[dir->exist] = '\0';
-	existing_dir = g_file_new_for_uri (dir->uri);
-
-	for (;!g_file_equal (created_dir, existing_dir);)
+	for (created_dir = pack->created; !g_file_equal (created_dir, pack->exist);)
 	{
 		GFile *parent_dir;
 
@@ -159,37 +154,30 @@ on_build_missing_directory_destroyed (BuildMissingDirectory* dir)
 		created_dir = parent_dir;
 	}
 	g_object_unref (created_dir);
-	g_object_unref (existing_dir);
-	g_free (dir);
+	g_object_unref (pack->exist);
+	g_free (pack);
 }
 
 /* If the folder is missing created it before setting it */
 
 static gboolean
-build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar *uri)
+build_gtk_file_chooser_create_and_set_file (GtkFileChooser *chooser, GFile *dir)
 {
-	GFile *dir;
 	GError *error = NULL;
 	GFile *parent;
 
-	dir = g_file_new_for_uri (uri);
 	parent = build_make_directories (dir, NULL, &error);
 	if (parent != NULL)
 	{
-		BuildMissingDirectory* dir;
-		gchar *last;
-		gsize len;
+		BuildMissingDirectory* pack;
 
-		len = strlen (uri);
-		dir = (BuildMissingDirectory *)g_new (char, sizeof (BuildMissingDirectory) + len);
-
-		memcpy (dir->uri, uri, len + 1);
-		last = g_file_get_uri (parent);
-		dir->exist = strlen (last);
+		pack = g_new (BuildMissingDirectory, 1);
+		pack->exist = parent;
+		pack->created = g_object_ref (dir);
 
 		g_object_set_qdata_full (G_OBJECT (chooser),
 								 GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK,
-								 dir,
+								 pack,
 								 (GDestroyNotify)on_build_missing_directory_destroyed);
 	}
 	else
@@ -199,35 +187,33 @@ build_gtk_file_chooser_create_and_set_uri (GtkFileChooser *chooser, const gchar 
 							NULL);
 		g_error_free (error);
 	}
-	g_object_unref (dir);
 
-	return gtk_file_chooser_set_current_folder_uri (chooser, uri);
+	return gtk_file_chooser_set_file (chooser, dir, NULL);
 }
 
 /* Do not delete the automatically created folder */
 static void
 build_gtk_file_chooser_keep_folder (GtkFileChooser *chooser, const char *uri)
 {
-	BuildMissingDirectory* dir;
+	BuildMissingDirectory* pack;
 
-	dir = g_object_steal_qdata (G_OBJECT (chooser), GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK);
-	if (dir != NULL)
+	pack = g_object_steal_qdata (G_OBJECT (chooser), GTK_FILE_CHOOSER_CREATE_DIRECTORY_QUARK);
+	if (pack != NULL)
 	{
-		GFile *created_dir;
 		GFile *needed_dir;
 
 		needed_dir = g_file_new_for_uri (uri);
-		created_dir = g_file_new_for_uri (dir->uri);
-		if (!g_file_equal (created_dir, needed_dir))
+		if (!g_file_equal (pack->created, needed_dir))
 		{
 			/* Need to delete created directory */
-			on_build_missing_directory_destroyed (dir);
+			on_build_missing_directory_destroyed (pack);
 		}
 		else
 		{
-			g_free (dir);
+			g_object_unref (pack->exist);
+			g_object_unref (pack->created);
+			g_free (pack);
 		}
-		g_object_unref (created_dir);
 		g_object_unref (needed_dir);
 	}
 }
@@ -261,7 +247,6 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 	else
 	{
 		BuildConfiguration *cfg;
-		gchar *uri;
 
 		gtk_widget_set_sensitive (dlg->ok, TRUE);
 
@@ -271,13 +256,14 @@ on_select_configuration (GtkComboBox *widget, gpointer user_data)
 		{
 			const gchar *args;
 			GList *item;
+			GFile *file;
 
 			args = build_configuration_get_args (cfg);
 			gtk_entry_set_text (GTK_ENTRY (dlg->args), args == NULL ? "" : args);
 
-			uri = build_configuration_list_get_build_uri (dlg->config_list, cfg);
-			build_gtk_file_chooser_create_and_set_uri (GTK_FILE_CHOOSER (dlg->build_dir_chooser), uri);
-			g_free (uri);
+			file = build_configuration_list_get_build_file (dlg->config_list, cfg);
+			build_gtk_file_chooser_create_and_set_file (GTK_FILE_CHOOSER (dlg->build_dir_chooser), file);
+			g_object_unref (file);
 
 			anjuta_environment_editor_reset (ANJUTA_ENVIRONMENT_EDITOR (dlg->env_editor));
 			for (item = build_configuration_get_variables (cfg); item != NULL; item = g_list_next (item))

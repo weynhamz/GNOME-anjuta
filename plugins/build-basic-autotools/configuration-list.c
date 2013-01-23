@@ -416,29 +416,21 @@ build_configuration_list_set_build_uri (BuildConfigurationList *list, BuildConfi
 	return ok;
 }
 
-gchar *
-build_configuration_list_get_build_uri (BuildConfigurationList *list, BuildConfiguration *cfg)
+GFile*
+build_configuration_list_get_build_file (BuildConfigurationList *list, BuildConfiguration *cfg)
 {
+	GFile *build;
+
+	build = g_file_new_for_uri (list->project_root_uri);
 	if ((list->project_root_uri != NULL) && (cfg->build_uri != NULL))
 	{
 		GFile *root;
-		GFile *build;
-		gchar *uri;
-
-		root = g_file_new_for_uri (list->project_root_uri);
+		root = build;
 		build = g_file_resolve_relative_path (root, cfg->build_uri);
-
-		uri = g_file_get_uri (build);
-
 		g_object_unref (root);
-		g_object_unref (build);
+	}
 
-		return uri;
-	}
-	else
-	{
-		return g_strdup (list->project_root_uri);
-	}
+	return build;
 }
 
 const gchar *

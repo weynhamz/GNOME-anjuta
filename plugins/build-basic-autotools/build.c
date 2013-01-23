@@ -900,15 +900,18 @@ build_project_configured (GObject *sender,
 		BuildContext *context = (BuildContext *)handle;
 		BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin *)(context == NULL ? (void *)sender : (void *)build_context_get_plugin (context));
 		GValue *value;
+		GFile *file;
 		gchar *uri;
 
 		/* FIXME: check if build directory correspond, configuration could have changed */
 		value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_STRING);
 
-		uri = build_configuration_list_get_build_uri (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
+		file = build_configuration_list_get_build_file (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
+		uri = g_file_get_uri (file);
 		g_value_set_string (value, uri);
 		g_free (uri);
+		g_object_unref (file);
 
 		anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);
 
@@ -1130,13 +1133,10 @@ build_configure_dialog (BasicAutotoolsPlugin *plugin, BuildFunc func, GFile *fil
 	{
 		BuildConfiguration *config;
 		GFile *build_file;
-		gchar *build_uri;
 		const gchar *args;
 
 		config = build_configuration_list_get_selected (plugin->configurations);
-		build_uri = build_configuration_list_get_build_uri (plugin->configurations, config);
-		build_file = g_file_new_for_uri (build_uri);
-		g_free (build_uri);
+		build_file = build_configuration_list_get_build_file (plugin->configurations, config);
 
 		args = build_configuration_get_args (config);
 
@@ -1201,22 +1201,18 @@ build_get_uri_configuration (BasicAutotoolsPlugin *plugin, const gchar *uri)
 {
 	BuildConfiguration *cfg;
 	BuildConfiguration *uri_cfg = NULL;
-	gsize uri_len = 0;
+	GFile *file = g_file_new_for_uri (uri);
 
 	/* Check all configurations as other configuration directories are
 	 * normally child of default configuration directory */
 	for (cfg = build_configuration_list_get_first (plugin->configurations); cfg != NULL; cfg = build_configuration_next (cfg))
 	{
-		const gchar *root = build_configuration_list_get_build_uri  (plugin->configurations, cfg);
-		gsize len = root != NULL ? strlen (root) : 0;
+		GFile *root = build_configuration_list_get_build_file  (plugin->configurations, cfg);
 
-		if ((len > uri_len) && (strncmp (uri, root, len) == 0))
-		{
-			uri_cfg = cfg;
-			uri_len = len;
-		}
+		if ((root != NULL) && g_file_has_prefix (file, root)) uri_cfg = cfg;
 	}
+	g_object_unref (file);
 
-	return uri_len == 0 ? NULL : build_configuration_get_name (uri_cfg);
+	return uri_cfg != NULL ? build_configuration_get_name (uri_cfg) : NULL;
 }
 
