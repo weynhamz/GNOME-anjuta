@@ -34,8 +34,11 @@
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
-#include <devhelp/devhelp.h>
+#ifdef HAVE_WEBKIT2
+#include <webkit2/webkit2.h>
+#else
 #include <webkit/webkit.h>
+#endif
 
 #define ONLINE_API_DOCS "http://library.gnome.org/devel"
 
@@ -84,10 +87,14 @@ devhelp_tree_link_selected_cb (GObject       *ignored, DhLink *link,
 	gchar *uri;
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->view_sw, NULL);
+								 widget->present_widget, NULL);
 
 	uri = dh_link_get_uri (link);
+#ifdef HAVE_WEBKIT2
+	webkit_web_view_load_uri (WEBKIT_WEB_VIEW (widget->view), uri);
+#else
 	webkit_web_view_open (WEBKIT_WEB_VIEW (widget->view), uri);
+#endif
 	g_free (uri);
 	
 	anjuta_devhelp_check_history (widget);
@@ -100,10 +107,14 @@ devhelp_search_link_selected_cb (GObject  *ignored, DhLink *link,
 	gchar *uri;
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->view_sw, NULL);
+								 widget->present_widget, NULL);
 
 	uri = dh_link_get_uri (link);
+#ifdef HAVE_WEBKIT2
+	webkit_web_view_load_uri (WEBKIT_WEB_VIEW (widget->view), uri);
+#else
 	webkit_web_view_open (WEBKIT_WEB_VIEW (widget->view), uri);
+#endif
 	g_free (uri);
 	
 	anjuta_devhelp_check_history (widget);
@@ -113,7 +124,7 @@ static void
 on_go_back_clicked (GtkWidget *widget, AnjutaDevhelp *plugin)
 {
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 plugin->view_sw, NULL);
+								 plugin->present_widget, NULL);
 
 	webkit_web_view_go_back (WEBKIT_WEB_VIEW (plugin->view));
 	
@@ -124,7 +135,7 @@ static void
 on_go_forward_clicked (GtkWidget *widget, AnjutaDevhelp *plugin)
 {
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 plugin->view_sw, NULL);
+								 plugin->present_widget, NULL);
 
 	webkit_web_view_go_forward (WEBKIT_WEB_VIEW (plugin->view));
 	
@@ -135,9 +146,14 @@ static void
 on_online_clicked (GtkWidget* widget, AnjutaDevhelp* plugin)
 {
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 plugin->view_sw, NULL);
-	webkit_web_view_open (WEBKIT_WEB_VIEW(plugin->view),
+								 plugin->present_widget, NULL);
+#ifdef HAVE_WEBKIT2
+	webkit_web_view_load_uri (WEBKIT_WEB_VIEW (plugin->view),
+							  ONLINE_API_DOCS);
+#else
+	webkit_web_view_open (WEBKIT_WEB_VIEW (plugin->view),
 						  ONLINE_API_DOCS);
+#endif
 	anjuta_devhelp_check_history (plugin);
 }
 
@@ -295,11 +311,23 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
+
+#ifdef HAVE_WEBKIT2
+static void on_load_changed (WebKitWebView* web_view,
+							 WebKitLoadEvent load_event, gpointer user_data)
+{
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP(user_data);
+
+	if (load_event == WEBKIT_LOAD_FINISHED)
+		anjuta_devhelp_check_history(devhelp);
+}
+#else
 static void on_load_finished (GObject* view, GObject* frame, gpointer user_data)
 {
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP(user_data);
 	anjuta_devhelp_check_history(devhelp);
 }
+#endif
 
 #endif
 
@@ -449,10 +477,17 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_widget_show (devhelp->view);
 	
 	// TODO: Show some good start page
+#ifdef HAVE_WEBKIT2
+	webkit_web_view_load_uri (WEBKIT_WEB_VIEW (devhelp->view), "about:blank");
+	g_signal_connect(G_OBJECT (devhelp->view), "load-changed",
+					 G_CALLBACK (on_load_changed), devhelp);
+
+	devhelp->present_widget = devhelp->view;
+#else
 	webkit_web_view_open (WEBKIT_WEB_VIEW (devhelp->view), "about:blank");
 	g_signal_connect(G_OBJECT (devhelp->view), "load-finished", 
 					 G_CALLBACK (on_load_finished), devhelp);
-	
+
 	devhelp->view_sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (devhelp->view_sw),
 									GTK_POLICY_AUTOMATIC,
@@ -461,16 +496,20 @@ devhelp_activate (AnjutaPlugin *plugin)
 	gtk_widget_show (devhelp->view_sw);
 	gtk_container_add (GTK_CONTAINER (devhelp->view_sw), devhelp->view);
 
+	devhelp->present_widget = devhelp->view_sw;
+#endif
+
+	/* This is the window that show the html help text */
+	anjuta_shell_add_widget_custom (plugin->shell, devhelp->present_widget,
+							 "AnjutaDevhelpDisplay", _("API"),
+							 ANJUTA_STOCK_DEVHELP_VIEW, devhelp->custom_label,
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+
 	anjuta_shell_add_widget_custom (plugin->shell, devhelp->control_notebook,
 	                                "AnjutaDevhelpIndex", _("API Browser"), ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                devhelp->tab_hbox,
 	                                ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	/* This is the window that show the html help text */
-	anjuta_shell_add_widget_custom (plugin->shell, devhelp->view_sw,
-							 "AnjutaDevhelpDisplay", _("API"),
-							 ANJUTA_STOCK_DEVHELP_VIEW, devhelp->custom_label,
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
-								 
+
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
 	/* Add watches */
@@ -498,7 +537,7 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
 	/* Remove widgets */
-	anjuta_shell_remove_widget(plugin->shell, devhelp->view_sw, NULL);
+	anjuta_shell_remove_widget(plugin->shell, devhelp->present_widget, NULL);
 	anjuta_shell_remove_widget(plugin->shell, devhelp->control_notebook, NULL);	
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */

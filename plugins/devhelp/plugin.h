@@ -48,9 +48,11 @@ struct _AnjutaDevhelp{
 	
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	DhBookManager  *book_manager;
-#endif /* DISABLE_EMBEDDED_DEVHELP */
 	GtkWidget      *view;
+#ifndef HAVE_WEBKIT2
 	GtkWidget      *view_sw;
+#endif /* HAVE_WEBKIT2 */
+	GtkWidget      *present_widget;
 	GtkWidget      *control_notebook; 
 	GtkWidget      *tab_hbox;
 	GtkWidget      *custom_label;
@@ -61,7 +63,8 @@ struct _AnjutaDevhelp{
 	GtkWidget      *online;
 
 	GtkWidget      *tabber;
-	
+#endif /* DISABLE_EMBEDDED_DEVHELP */
+
 	IAnjutaEditor	*editor;
 	guint editor_watch_id;
 	

@@ -198,6 +198,13 @@ else
 				])
 fi
 
+if test "x$devhelp_enabled" = "xyes"; then
+	case "$PLUGIN_DEVHELP_LIBS" in
+		*webkit2gtk-3.0*)
+			AC_DEFINE([HAVE_WEBKIT2], [1], [Defined if devhelp is built against webkitgtk2])
+			;;
+		esac
+fi
 AM_CONDITIONAL(HAVE_PLUGIN_DEVHELP, [test x$devhelp_enabled = xyes])
 
 dnl Check for Glade3
