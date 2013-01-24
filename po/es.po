@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-10 17:26+0000\n"
-"PO-Revision-Date: 2013-01-15 12:36+0100\n"
+"POT-Creation-Date: 2013-01-23 09:07+0000\n"
+"PO-Revision-Date: 2013-01-24 16:38+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -331,7 +331,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2396
+#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2426
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -339,12 +339,12 @@ msgstr "Shell de Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "El shell de Anjuta que contendrá el complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:713
+#: ../libanjuta/anjuta-plugin-manager.c:711
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "El complemento «%s» no quiere ser desactivado"
 
-#: ../libanjuta/anjuta-plugin-manager.c:747
+#: ../libanjuta/anjuta-plugin-manager.c:744
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -357,24 +357,24 @@ msgstr ""
 "error que ha llevado a esto es:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:884
+#: ../libanjuta/anjuta-plugin-manager.c:882
 msgid "Load"
 msgstr "Carga"
 
-#: ../libanjuta/anjuta-plugin-manager.c:907
-#: ../libanjuta/anjuta-plugin-manager.c:1989
+#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1023 ../src/anjuta-window.c:992
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:992
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1158
+#: ../libanjuta/anjuta-plugin-manager.c:1156
 msgid "Only show user activatable plugins"
 msgstr "Mostrar sólo los complementos activables por el usuario"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1198
+#: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -385,75 +385,75 @@ msgstr ""
 "preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
 "diferente."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1224
+#: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
 msgstr "Olvidar el complemento seleccionado"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1358
-#: ../libanjuta/anjuta-plugin-manager.c:1509 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1356
+#: ../libanjuta/anjuta-plugin-manager.c:1507 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1359
+#: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "Seleccionar un complemento para activar"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1373
+#: ../libanjuta/anjuta-plugin-manager.c:1371
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1510
+#: ../libanjuta/anjuta-plugin-manager.c:1508
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>Seleccionar un complemento para activar</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2016
+#: ../libanjuta/anjuta-plugin-manager.c:2046
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2377
+#: ../libanjuta/anjuta-plugin-manager.c:2407
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2378
+#: ../libanjuta/anjuta-plugin-manager.c:2408
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2383
+#: ../libanjuta/anjuta-plugin-manager.c:2413
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2384
+#: ../libanjuta/anjuta-plugin-manager.c:2414
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2390
+#: ../libanjuta/anjuta-plugin-manager.c:2420
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2391
+#: ../libanjuta/anjuta-plugin-manager.c:2421
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2397
+#: ../libanjuta/anjuta-plugin-manager.c:2427
 msgid "Anjuta shell for which the plugins are made"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2405
+#: ../libanjuta/anjuta-plugin-manager.c:2435
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2406
+#: ../libanjuta/anjuta-plugin-manager.c:2436
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2566
+#: ../libanjuta/anjuta-plugin-manager.c:2596
 msgid "Loading:"
 msgstr "Cargando:"
 
@@ -657,53 +657,53 @@ msgstr ""
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2361
+#: ../libanjuta/anjuta-utils.c:2381
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "No se pudo cargar el archivo de interfaz de usuario: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "Modificado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "Añadido"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "Eliminado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "En conflicto"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "Actualizado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "Bloqueado"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "Faltante"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "Sin versión"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "Ignorado"
 
@@ -3398,9 +3398,6 @@ msgid "Path"
 msgstr "Ruta"
 
 #: ../plugins/debug-manager/start.c:1390
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you still want to stop the debugger?"
 msgid ""
 "The program is already running.\n"
 "Do you still want to stop the debugger?"
@@ -4348,7 +4345,7 @@ msgid "Replace all"
 msgstr "Reemplazar todo"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:662
+#: ../plugins/file-manager/file-view.c:798
 msgid "Filename"
 msgstr "Nombre de archivo"
 
@@ -4591,7 +4588,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>Abrir con</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:543 ../plugins/file-manager/plugin.c:552
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -4608,56 +4605,75 @@ msgid "Choose Directory to show if no project is open"
 msgstr "Elegir la carpeta que mostrar si no hay ningún proyecto abierto"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
+#| msgid "Auto-complete the current word"
+msgid "Automatically select the current document"
+msgstr "Seleccionar automáticamente el documento actual"
+
+#: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
 #: ../plugins/symbol-db/plugin.c:2185
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/file-manager/file-manager.ui.h:4
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "No mostrar los archivos binarios (.o, .la, etc.)"
 
-#: ../plugins/file-manager/file-manager.ui.h:5
+#: ../plugins/file-manager/file-manager.ui.h:6
 msgid "Do not show hidden files"
 msgstr "No mostrar los archivos ocultos"
 
-#: ../plugins/file-manager/file-manager.ui.h:6
+#: ../plugins/file-manager/file-manager.ui.h:7
 msgid "Do not show backup files"
 msgstr "No mostrar los archivos de respaldo"
 
-#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Do not show unversioned files"
 msgstr "No mostrar los archivos sin versión"
 
-#: ../plugins/file-manager/file-manager.ui.h:8
+#: ../plugins/file-manager/file-manager.ui.h:9
 msgid "Filter"
 msgstr "Filtro"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:750
-msgid "Base URI"
-msgstr "URI base"
+#: ../plugins/file-manager/file-model.c:706
+#: ../plugins/file-manager/file-view.c:886
+#| msgid "Path"
+msgid "Base Path"
+msgstr "Ruta base"
 
-#: ../plugins/file-manager/file-view.c:751
-msgid "URI of the top-most path displayed"
-msgstr "URI de la ruta superior mostrada"
+#: ../plugins/file-manager/file-model.c:707
+#: ../plugins/file-manager/file-view.c:887
+#| msgid "URI of the top-most path displayed"
+msgid "GFile representing the top-most path displayed"
+msgstr "GFile que representa las rutas más mostradas"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "_Rename"
 msgstr "_Renombrar"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "Rename file or directory"
 msgstr "Renombrar el archivo o carpeta"
 
-#: ../plugins/file-manager/plugin.c:306
+#: ../plugins/file-manager/plugin.c:110
+#| msgid "File Manager"
+msgid "_Show in File manager"
+msgstr "_Mostrar en el gestor de archivos"
+
+#: ../plugins/file-manager/plugin.c:110
+#| msgid "File Manager"
+msgid "Show in File manager"
+msgstr "Mostrar en el gestor de archivos"
+
+#: ../plugins/file-manager/plugin.c:371
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:404 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Archivos"
 
@@ -5345,17 +5361,17 @@ msgstr "No se seleccionó ninguna revisión"
 msgid "Stash %i.diff"
 msgstr "Guardar («stash») %i.diff"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:584
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Rama:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:589
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Etiqueta:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:594
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Remoto:</b> %s"
@@ -6091,9 +6107,9 @@ msgstr "Complemento de soporte para JS"
 msgid "JavaScript Support Plugin"
 msgstr "Complemento de soporte para JavaScript"
 
-#: ../plugins/language-support-js/plugin.c:370
-#: ../plugins/language-support-js/plugin.c:383
-#: ../plugins/language-support-js/plugin.c:417
+#: ../plugins/language-support-js/plugin.c:364
+#: ../plugins/language-support-js/plugin.c:377
+#: ../plugins/language-support-js/plugin.c:411
 msgid "JavaScript"
 msgstr "JavaScript"
 
@@ -6437,13 +6453,13 @@ msgstr "Importar un proyecto de autotools existente en Anjuta"
 msgid "Project from Existing Sources"
 msgstr "Proyecto desde fuentes existentes"
 
-#: ../plugins/project-import/plugin.c:79
-#: ../plugins/project-import/plugin.c:186
+#: ../plugins/project-import/plugin.c:80
+#: ../plugins/project-import/plugin.c:187
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
-#: ../plugins/project-import/plugin.c:221
+#: ../plugins/project-import/plugin.c:222
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6452,17 +6468,17 @@ msgstr ""
 "No se puede escribir el archivo de nombre «%s»: %s. Compruebe si tiene acceso "
 "de escritura a la carpeta del proyecto."
 
-#: ../plugins/project-import/plugin.c:285
+#: ../plugins/project-import/plugin.c:286
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "Seleccione un «backend» de proyecto para abrir %s."
 
-#: ../plugins/project-import/plugin.c:290
+#: ../plugins/project-import/plugin.c:291
 #: ../plugins/project-manager/dialogs.c:654
 msgid "Open With"
 msgstr "Abrir con"
 
-#: ../plugins/project-import/plugin.c:305
+#: ../plugins/project-import/plugin.c:306
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6472,35 +6488,31 @@ msgstr ""
 "s). Seleccione una carpeta diferente, o intente actualizar a una versión más "
 "moderna de Anjuta."
 
-#: ../plugins/project-import/plugin.c:371
-#: ../plugins/project-import/plugin.c:427
+#: ../plugins/project-import/plugin.c:372
+#: ../plugins/project-import/plugin.c:428
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
 msgstr ""
 "No se pudo descargar el URI proporcionado «%s». El error devuelto fue: «%s»"
 
-#: ../plugins/project-import/project-import-dialog.c:292
+#: ../plugins/project-import/project-import-dialog.c:305
 msgid "Import project"
 msgstr "Importar proyecto"
 
-#: ../plugins/project-import/project-import-dialog.c:296
+#: ../plugins/project-import/project-import-dialog.c:309
 msgid "Import"
 msgstr "Importar"
 
 #: ../plugins/project-import/project-import.ui.h:1
-msgid "Project name"
-msgstr "Nombre del proyecto"
-
-#: ../plugins/project-import/project-import.ui.h:2
 msgid "Import from folder"
 msgstr "Importar desde una carpeta"
 
-#: ../plugins/project-import/project-import.ui.h:3
+#: ../plugins/project-import/project-import.ui.h:2
 msgid "Location:"
 msgstr "Ubicación:"
 
-#: ../plugins/project-import/project-import.ui.h:4
+#: ../plugins/project-import/project-import.ui.h:3
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:7
@@ -6525,13 +6537,17 @@ msgstr "Ubicación:"
 msgid "Destination:"
 msgstr "Destino:"
 
-#: ../plugins/project-import/project-import.ui.h:5
+#: ../plugins/project-import/project-import.ui.h:4
 msgid "Import from version control system"
 msgstr "Importar desde un sistema de control de versiones"
 
-#: ../plugins/project-import/project-import.ui.h:6
+#: ../plugins/project-import/project-import.ui.h:5
 msgid "Import options"
 msgstr "Opciones de importación"
+
+#: ../plugins/project-import/project-import.ui.h:6
+msgid "Project name"
+msgstr "Nombre del proyecto"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
@@ -8126,6 +8142,30 @@ msgstr "Cargador Python"
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:2
 msgid "Allows loading Anjuta plugins written in Python"
 msgstr "Permite a Anjuta cargar complementos escritos en Python"
+
+#: ../plugins/quick-open/anjuta-quick-open.ui.h:1
+#| msgid "Loading file..."
+msgid "Loading files..."
+msgstr "Cargando archivos…"
+
+#: ../plugins/quick-open/plugin.c:221
+#| msgid "_Quick Search"
+msgid "Quick open"
+msgstr "Apertura rápida"
+
+#: ../plugins/quick-open/plugin.c:223
+msgid "Quickly open a file in the current project."
+msgstr "Apertura rápida de un archivo en el proyecto actual."
+
+#: ../plugins/quick-open/plugin.c:243
+#| msgid "Run operations"
+msgid "Quick open operations"
+msgstr "Operaciones de apertura rápida"
+
+#: ../plugins/quick-open/quick-open-dialog.c:773
+#| msgid "_Quick Search"
+msgid "Quick Open"
+msgstr "Apertura rápida"
 
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
@@ -9870,46 +9910,46 @@ msgstr "Acerca de los com_plementos de Anjuta"
 msgid "About third-party Anjuta plugins"
 msgstr "Acerca de los complementos de terceros"
 
-#: ../src/anjuta-application.c:282
+#: ../src/anjuta-application.c:285
 msgid "Specify the size and location of the main window"
 msgstr "Especificar el tamaño y ubicación de la ventana principal"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/anjuta-application.c:285
+#: ../src/anjuta-application.c:288
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/anjuta-application.c:290
+#: ../src/anjuta-application.c:293
 msgid "Do not show the splash screen"
 msgstr "No mostrar la pantalla de inicio"
 
-#: ../src/anjuta-application.c:296
+#: ../src/anjuta-application.c:299
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "Iniciar una instancia nueva y no abrir el archivo en la existente"
 
-#: ../src/anjuta-application.c:302
+#: ../src/anjuta-application.c:305
 msgid "Do not open last session on startup"
 msgstr "No abrir la última sesión al iniciar"
 
-#: ../src/anjuta-application.c:308
+#: ../src/anjuta-application.c:311
 msgid "Do not open last project and files on startup"
 msgstr "No abrir el último proyecto y los archivos al iniciar"
 
-#: ../src/anjuta-application.c:314
+#: ../src/anjuta-application.c:317
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
 msgstr ""
 "Detener Anjuta apropiadamente liberando todos los recursos (para depuración)"
 
-#: ../src/anjuta-application.c:320
+#: ../src/anjuta-application.c:323
 msgid "Display program version"
 msgstr "Mostrar la versión del programa"
 
-#: ../src/anjuta-application.c:338
+#: ../src/anjuta-application.c:341
 msgid "- Integrated Development Environment"
 msgstr "- Entorno Integrado de Desarrollo"
 
-#: ../src/anjuta-application.c:653
+#: ../src/anjuta-application.c:656
 msgid "Loaded Session…"
 msgstr "Sesión cargada…"
 
@@ -10003,6 +10043,9 @@ msgstr "Sólo iconos"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Sólo texto"
+
+#~ msgid "Base URI"
+#~ msgstr "URI base"
 
 #~ msgid "Unable to execute: %s."
 #~ msgstr "No se puede ejecutar: %s."
@@ -12833,9 +12876,6 @@ msgstr "Sólo texto"
 #~ "archivo no está soportada. Verifique que la codificación del archivo esté "
 #~ "soportada por la lista de codificaciones. Si no, añádala desde las "
 #~ "preferencias."
-
-#~ msgid "Loading file..."
-#~ msgstr "Cargando archivo…"
 
 #~ msgid ""
 #~ "Could not load file: %s\n"
