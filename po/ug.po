@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-19 03:35+0000\n"
-"PO-Revision-Date: 2011-05-09 16:24+0600\n"
-"Last-Translator: Sahran <sahran.ug@gmail.com>\n"
+"POT-Creation-Date: 2013-01-23 09:07+0000\n"
+"PO-Revision-Date: 2013-01-26 11:43+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -42,13 +42,11 @@ msgstr "Autogen ئالدىراش"
 
 #: ../libanjuta/anjuta-autogen.c:251
 #, c-format
-#| msgid "Could not find application pixmap file: %s"
 msgid "Could not write definition file \"%s\": %s"
 msgstr "ئېنىقلىما ھۆججەت «%s» غا يازغىلى بولمىدى: %s"
 
 #: ../libanjuta/anjuta-autogen.c:585
 #, c-format
-#| msgid "Could not open %s: %s"
 msgid "Could not open file \"%s\": %s"
 msgstr "ھۆججەت «%s» نى ئاچالمىدى: %s"
 
@@ -630,47 +628,47 @@ msgid "Unable to load user interface file: %s"
 msgstr "كۆرۈنمە يۈزى ھۆججىتىنى ئوقۇغىلى بولمىدى:%s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "ئۆزگەرتىلدى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "قوشۇلدى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "ئۆچۈرۈلدى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "توقۇنۇشتى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "ئەڭ يېڭى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "قۇلۇپلانغان"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "يوقالغان"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "نەشرسىز"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "پەرۋا قىلمىدى"
 
@@ -689,8 +687,6 @@ msgid "Please specify group name"
 msgstr "گۇرۇپپا ئاتىنى بەلگىلەڭ"
 
 #: ../plugins/am-project/amp-group.c:641
-#| msgid ""
-#| "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~\" characters"
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr "گۇرۇپپا ئاتىدا پەقەت ھەرپ، سان ياكى  \"#$:%+,-.=@^_`~\" لار بولۇشى كېرەك"
@@ -1620,12 +1616,10 @@ msgid "Install whole project"
 msgstr "بارلىق قۇرۇلۇشنى ئورنىتىدۇ"
 
 #: ../plugins/build-basic-autotools/plugin.c:1704
-#| msgid "_Clean Project"
 msgid "_Check Project"
 msgstr "قۇرۇلۇش تەكشۈر(_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1705
-#| msgid "Clean whole project"
 msgid "Check whole project"
 msgstr "بارلىق قۇرۇلۇشنى تەكشۈرىدۇ"
 
@@ -1670,12 +1664,10 @@ msgid "Install module associated with current file"
 msgstr "نۆۋەتتىكى ھۆججەت بىلەن مۇناسىۋەتلىك بۆلەكنى ئورنىتىدۇ"
 
 #: ../plugins/build-basic-autotools/plugin.c:1740
-#| msgid "_Clean Module"
 msgid "_Check Module"
 msgstr "بۆلەك تەكشۈر(_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1741
-#| msgid "Clean module associated with current file"
 msgid "Check module associated with current file"
 msgstr "نۆۋەتتىكى ھۆججەت بىلەن مۇناسىۋەتلىك بۆلەكنى تەكشۈرىدۇ"
 
@@ -1752,12 +1744,10 @@ msgid "Clean module"
 msgstr "بۆلەكنى تازىلايدۇ"
 
 #: ../plugins/build-basic-autotools/plugin.c:1824
-#| msgid "Check out"
 msgid "_Check"
 msgstr "تەكشۈر(_C)"
 
 #: ../plugins/build-basic-autotools/plugin.c:1825
-#| msgid "Check out"
 msgid "Check module"
 msgstr "بۆلەك تەكشۈرۈش"
 
@@ -3297,9 +3287,6 @@ msgid "Path"
 msgstr "يول"
 
 #: ../plugins/debug-manager/start.c:1390
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you still want to stop the debugger?"
 msgid ""
 "The program is already running.\n"
 "Do you still want to stop the debugger?"
@@ -3434,7 +3421,6 @@ msgid "Project doesn't allow to set properties"
 msgstr "قۇرۇلۇش مەۋجۇت ئەمەس"
 
 #: ../plugins/dir-project/dir-project.plugin.in.h:1
-#| msgid "_Directory name:"
 msgid "Directory backend"
 msgstr "مۇندەرىجە ئارقا ئۇچى"
 
@@ -3481,7 +3467,6 @@ msgid "Remove"
 msgstr "چىقىرىۋەت"
 
 #: ../plugins/document-manager/anjuta-docman.c:165
-#| msgid "[read-only]"
 msgid " [read-only]"
 msgstr " [ئوقۇشقىلا بولىدۇ]"
 
@@ -3581,7 +3566,6 @@ msgid "Position:"
 msgstr "ئورنى:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:13
-#| msgid "_Show Status"
 msgid "Show tabs"
 msgstr "بەتكۈچ كۆرسەت"
 
@@ -3590,12 +3574,10 @@ msgid "Show drop-down list"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#| msgid "Close other documents"
 msgid "Do not show open documents"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Documents"
 msgid "Open documents"
 msgstr "ئېچىلغان پۈتۈكلەر"
 
@@ -4241,7 +4223,7 @@ msgid "Replace all"
 msgstr "ھەممىنى ئالماشتۇر"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:662
+#: ../plugins/file-manager/file-view.c:798
 msgid "Filename"
 msgstr "ھۆججەت ئاتى"
 
@@ -4481,7 +4463,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>ئاچىدىغان پروگرامما</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:543 ../plugins/file-manager/plugin.c:552
 msgid "File Manager"
 msgstr "ھۆججەت باشقۇرغۇ"
 
@@ -4498,56 +4480,75 @@ msgid "Choose Directory to show if no project is open"
 msgstr "ئاچىدىغان قورۇلۇش قالمىغاندا كۆرۈنىدىغان مۇندەرىجىنى تاللاڭ"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
+#| msgid "Auto-complete the current word"
+msgid "Automatically select the current document"
+msgstr "نۆۋەتتىكى پۈتۈكنى ئاپتوماتىك تاللىسۇن"
+
+#: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
 #: ../plugins/symbol-db/plugin.c:2185
 msgid "Global"
-msgstr "ئومۇمىيەت"
+msgstr "ئومۇمىي دائىرىلىك"
 
-#: ../plugins/file-manager/file-manager.ui.h:4
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "ئىككىلىك ھۆججەت (.o,.la. قاتارلىقلار)لەرنى كۆرسەتمە"
 
-#: ../plugins/file-manager/file-manager.ui.h:5
+#: ../plugins/file-manager/file-manager.ui.h:6
 msgid "Do not show hidden files"
 msgstr "يوشۇرۇن ھۆججەتلەرنى كۆرسەتمە"
 
-#: ../plugins/file-manager/file-manager.ui.h:6
+#: ../plugins/file-manager/file-manager.ui.h:7
 msgid "Do not show backup files"
 msgstr "زاپاس ھۆججەتلەرنى كۆرسەتمە"
 
-#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Do not show unversioned files"
 msgstr "نەشرسىز ھۆججەتلەرنى كۆرسەتمە"
 
-#: ../plugins/file-manager/file-manager.ui.h:8
+#: ../plugins/file-manager/file-manager.ui.h:9
 msgid "Filter"
 msgstr "سۈزگۈچ"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "ئوقۇۋاتىدۇ…"
 
-#: ../plugins/file-manager/file-view.c:750
-msgid "Base URI"
-msgstr "ئاساسىي URI"
+#: ../plugins/file-manager/file-model.c:706
+#: ../plugins/file-manager/file-view.c:886
+#| msgid "Path"
+msgid "Base Path"
+msgstr "ئاساسىي يولى"
 
-#: ../plugins/file-manager/file-view.c:751
-msgid "URI of the top-most path displayed"
-msgstr "قىسقۇچ كۆرسەتكەندە ئىشلىتىلىدىغان ئەڭ ئۇستىدىكى URI"
+#: ../plugins/file-manager/file-model.c:707
+#: ../plugins/file-manager/file-view.c:887
+#| msgid "URI of the top-most path displayed"
+msgid "GFile representing the top-most path displayed"
+msgstr ""
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "_Rename"
 msgstr "ئات ئۆزگەرت(_R)"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "Rename file or directory"
 msgstr "ھۆججەت ياكى قىسقۇچ ئاتىنى ئۆزگەرتىدۇ"
 
-#: ../plugins/file-manager/plugin.c:306
+#: ../plugins/file-manager/plugin.c:110
+#| msgid "File Manager"
+msgid "_Show in File manager"
+msgstr "ھۆججەت باشقۇرغۇدا كۆرسەت(_S)"
+
+#: ../plugins/file-manager/plugin.c:110
+#| msgid "File Manager"
+msgid "Show in File manager"
+msgstr "ھۆججەت باشقۇرغۇدا كۆرسىتىش"
+
+#: ../plugins/file-manager/plugin.c:371
 msgid "File manager popup actions"
 msgstr "ھۆججەت باشقۇرغۇنىڭ قاڭقىش مەشغۇلاتى"
 
-#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:404 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "ھۆججەتلەر"
 
@@ -4898,9 +4899,8 @@ msgid "Show source revision in log message"
 msgstr "خاتىرە ئۇچۇرىدا مەنبەنىڭ تۈزىتىلمىسىنى كۆرسەت"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "Append signed-of- by line"
 msgid "Append signed-off-by line"
-msgstr ""
+msgstr "signed-off-by قۇرىنى قوش"
 
 #: ../plugins/git/anjuta-git.ui.h:15
 #: ../plugins/subversion/anjuta-subversion.ui.h:11
@@ -5668,7 +5668,6 @@ msgid "Drag and resize widgets in the workspace"
 msgstr "خىزمەت بوشلۇقىدىكى ۋىجېتلارنى سۆرەپ چوڭلۇقنى ئۆزگەرتىدۇ"
 
 #: ../plugins/glade/anjuta-glade.ui.h:3
-#| msgid "Show right margin"
 msgid "Edit widget margins"
 msgstr "كىچىك ئەپ گىرۋەكلىرىنى تەھرىرلەيدۇ"
 
@@ -5743,9 +5742,8 @@ msgid "Indent:"
 msgstr "تارتىلىش:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
-#| msgid "Parenthesis indentation"
 msgid "Use spaces for parenthesis indentation"
-msgstr ""
+msgstr " "
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:11
 msgid "Parenthesis indentation"
@@ -5763,15 +5761,13 @@ msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "تارايتىش تەڭشىكىگە ئاساسەن نۆۋەتتىكى ياكى تاللانغان قۇرنى ئۆزلۈكىدىن تارايتىدۇ"
 
 #: ../plugins/indentation-c-style/plugin.c:510
-#| msgid "Smart Indentation"
 msgid "C Indentation"
-msgstr ""
+msgstr "C تارتىلىشى"
 
 #: ../plugins/indentation-c-style/plugin.c:608
 #: ../plugins/indentation-c-style/plugin.c:617
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
-#| msgid "Smart Indentation"
 msgid "Indentation"
 msgstr "تارتىلىش"
 
@@ -5780,18 +5776,16 @@ msgid "Enable adaptive indentation"
 msgstr "ماسلىشىشچان تارتىلىشنى ئىشلەت"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#| msgid "Smart Indentation"
 msgid "Python Indentation"
-msgstr ""
+msgstr "Python تارتىلىشى"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
-#| msgid "Build"
 msgid "JHBuild"
 msgstr "JHBuild"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:2
 msgid "Build and run programs inside the JHBuild environment"
-msgstr ""
+msgstr "پروگراممىلارنى JHBuild مۇھىتىدا ھاسىللاپ ئىجرا قىلىدۇ"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5921,7 +5915,6 @@ msgid "Highlight missed semicolon"
 msgstr "چۈشۈپ قالغان چېكىتلىك پەشنى يورۇت"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:9
-#| msgid "Highlight All"
 msgid "Highlights"
 msgstr "يورۇت"
 
@@ -5935,17 +5928,14 @@ msgid "JS Find dirs"
 msgstr "JS ئىزدەش مۇندەرىجىسى"
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:12
-#| msgid "Gir repository's directory:   "
 msgid "Gir repository's directory: "
 msgstr "Gir خەزىنىسىنىڭ مۇندەرىجىسى: "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:13
-#| msgid "Gjs repository's directory:   "
 msgid "Gjs repository's directory: "
 msgstr "Gjs خەزىنىسىنىڭ مۇندەرىجىسى: "
 
 #: ../plugins/language-support-js/anjuta-language-javascript.ui.h:14
-#| msgid "Min character for completion "
 msgid "Min character for completion: "
 msgstr "تاماملايدىغان ئەڭ كىچىك ھەرپ-بەلگە: "
 
@@ -6002,13 +5992,10 @@ msgid "Python"
 msgstr "Python"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:1
-#| msgid "JS Support Plugin"
 msgid "Vala support Plugin"
 msgstr "Vala قوللاش قىستۇرمىسى"
 
 #: ../plugins/language-support-vala/anjuta-vala.plugin.in.h:2
-#| msgid ""
-#| "C++ and Java support plugin for code completion, auto-indentation, etc."
 msgid "Vala support plugin, adds code completion."
 msgstr "Vala قوللاش قىستۇرمىسى، كود تاماملاشنى قوشىدۇ."
 
@@ -6167,7 +6154,6 @@ msgid "Unable to parse make file"
 msgstr "قۇرۇش ھۆججىتىنى يېشەلمىدى"
 
 #: ../plugins/mk-project/mk-project.plugin.in.h:1
-#| msgid "Makefiles"
 msgid "Makefile backend"
 msgstr "Makefile ئارقا ئۇچى"
 
@@ -6418,7 +6404,6 @@ msgstr " بۇ خاسلىقنى ئۆزگەرتكىلى بولىدۇ."
 #. Several backend are possible, ask the user to select one
 #: ../plugins/project-manager/dialogs.c:651
 #, c-format
-#| msgid "Please select a project backend to open %s."
 msgid "Please select a project backend to use."
 msgstr "ئىشلىتىدىغان قۇرۇلۇش ئارقا ئۇچىنى تاللاڭ."
 
@@ -6458,7 +6443,6 @@ msgstr "ئارقا ئۇچ:"
 
 #: ../plugins/project-manager/dialogs.c:940
 #, c-format
-#| msgid "Loading project: %s"
 msgid "Reloading project: %s"
 msgstr "قۇرۇلۇشنى ئوقۇۋاتىدۇ: %s"
 
@@ -7641,20 +7625,21 @@ msgid ""
 "need not be an actual email address, though it's a good idea to base the "
 "uuid on your\n"
 "email address."
-msgstr ""
+msgstr "بۇ Uuid بولسا مەزكۇر كېڭەيتىلمىنىڭ دۇنيادىكى بىردىن-بىر كىملىكىدۇر.\n"
+"ئۇنىڭ پىچىمى ئېلخەت ئادرېسىنىڭ پىچىمى بىلەن ئوخشاش بولۇشى كېرەك(foo.bar@extensions.example.com دەك). بىراق رەسمىي ئىشلىتىلىۋاتقان ئېلخەت ئادرېسى بولمىسىمۇ بولۇۋېرىدۇ. ئادەتتە بۇنىڭ ئۈچۈن ئۆزىڭىزنىڭ  ئېلخەت ئادرېسىنى ئىشلەتسىڭىز ئەڭ ياخشى."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
 msgid "Extension URL"
-msgstr "كېڭەيتىلمە URL"
+msgstr "كېڭەيتىلمىنىڭ URL ى"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:22
 msgid "Gnome Shell Compatibility:"
-msgstr ""
+msgstr "Gnome Shell نىڭ ماسلىشىشچانلىقى:"
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:23
 msgid ""
 "Comma-separated list of gnome-shell version your plugin is compatible with"
-msgstr ""
+msgstr "مەزكۇر قىستۇرما ماس كېلىدىغان gnome-shell نىڭ نەشرىنىڭ پەش بىلەن ئايرىلغان تىزىمى"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:1
 msgid "GTK+ (Application)"
@@ -7921,7 +7906,6 @@ msgid "A generic Xlib project"
 msgstr "ئادەتتىكى Xlib قۇرۇلۇشى"
 
 #: ../plugins/python-loader/anjuta-python-loader.plugin.in.h:1
-#| msgid "Python Module"
 msgid "Python loader"
 msgstr "Python ئوقۇغۇچ"
 
@@ -7930,11 +7914,11 @@ msgid "Allows loading Anjuta plugins written in Python"
 msgstr "Python بىلەن يېزىلغان Anjuta قىستۇرمىسىنى ئوقۇشقا ئىجازەت"
 
 #: ../plugins/quick-open/anjuta-quick-open.ui.h:1
-msgid "<big><b>Loading files...</b></big>"
-msgstr "<big><b>ھۆججەتلەرنى ئوقۇۋاتىدۇ...</b></big>"
+#| msgid "Loading..."
+msgid "Loading files..."
+msgstr "ھۆججەتلەرنى ئوقۇۋاتىدۇ…"
 
 #: ../plugins/quick-open/plugin.c:221
-#| msgid "_Quick Search"
 msgid "Quick open"
 msgstr "تېز ئېچىش"
 
@@ -7943,12 +7927,10 @@ msgid "Quickly open a file in the current project."
 msgstr "نۆۋەتتىكى قۇرۇلۇش ئىچىدىكى بىر ھۆججەتنى تېز ئاچىدۇ."
 
 #: ../plugins/quick-open/plugin.c:243
-#| msgid "Run operations"
 msgid "Quick open operations"
 msgstr "تېز ئېچىش مەشغۇلاتى"
 
 #: ../plugins/quick-open/quick-open-dialog.c:773
-#| msgid "_Quick Search"
 msgid "Quick Open"
 msgstr "تېز ئېچىش"
 
@@ -8105,18 +8087,15 @@ msgstr "ھازىر قىممەت"
 
 #: ../plugins/snippets-manager/snippets-browser.c:193
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:1
-#| msgid "Add Snippet …"
 msgid "Add snippet"
 msgstr "پۇرۇچ قوش"
 
 #: ../plugins/snippets-manager/snippets-browser.c:199
 #: ../plugins/snippets-manager/snippets-manager-preferences.ui.h:2
-#| msgid "No remote selected"
 msgid "Remove selected snippet"
 msgstr "تاللانغان پۇرۇچنى ئۆچۈر"
 
 #: ../plugins/snippets-manager/snippets-browser.c:205
-#| msgid "Paste the content of clipboard at the current position"
 msgid "Insert snippet into editor at current cursor position"
 msgstr "تەھرىرلىگۈچتىكى نۆۋەتتىكى نۇر بەلگە ئورنىغا پۇرۇچ قىستۇر"
 
@@ -8272,7 +8251,6 @@ msgid "Tab size in spaces:"
 msgstr "Tab نىڭ بوشلۇق بىلەن ئىپادىلەنگەن چوڭلۇقى:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:3
-#| msgid "Brace indentation size in spaces:"
 msgid "Indentation size in spaces:"
 msgstr "تارتىلىش چوڭلۇقى(بوشلۇق بىلەن ئىپادىلەنگەن):"
 
@@ -9719,7 +9697,6 @@ msgid "Value doesn't exist"
 msgstr "قىممەت مەۋجۇت ئەمەس"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
-#| msgid "Use tabs for indentation"
 msgid "Use tabulation for indentation"
 msgstr "تارتىش ئۈچۈن بەتكۈچ بەلگىسى ئىشلەت"
 
@@ -9788,6 +9765,12 @@ msgstr "سىنبەلگىلەرلا"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "تېكىستلا"
+
+#~ msgid "Base URI"
+#~ msgstr "ئاساسىي URI"
+
+#~ msgid "<big><b>Loading files...</b></big>"
+#~ msgstr "<big><b>ھۆججەتلەرنى ئوقۇۋاتىدۇ...</b></big>"
 
 #~ msgid "Failed to write autogen definition file"
 #~ msgstr "autogen ئېنىقلىما ھۆججىتىگە يېزىش مەغلۇپ بولدى"
