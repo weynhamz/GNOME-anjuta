@@ -945,6 +945,9 @@ build_configure_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args
 	config = build_configuration_list_get_selected (plugin->configurations);
 	vars = build_configuration_get_variables (config);
 
+	// Make sure the build directory is here
+	g_file_make_directory_with_parents (dir, NULL, NULL);
+
 	root_path = g_file_get_path (plugin->project_root_dir);
 	quote = shell_quotef ("%s%s%s",
 		       	root_path,
@@ -1071,6 +1074,9 @@ build_generate_dir (BasicAutotoolsPlugin *plugin, GFile *dir, const gchar *args,
 
 	config = build_configuration_list_get_selected (plugin->configurations);
 	vars = build_configuration_get_variables (config);
+
+	// Make sure the build directory is here
+	g_file_make_directory_with_parents (dir, NULL, NULL);
 
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
