@@ -503,6 +503,7 @@ npw_property_create_widget (NPWProperty* prop)
 
 			entry = gtk_entry_new ();
 			if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
+			gtk_widget_set_hexpand (entry, TRUE);
 			gtk_container_add (GTK_CONTAINER (widget), entry);
 
 			button = gtk_button_new_from_stock (GTK_STOCK_OPEN);

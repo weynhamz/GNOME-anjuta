@@ -99,7 +99,7 @@ struct _NPWDruid
 	GtkNotebook* project_book;
 	GtkWidget *error_page;
 	GtkWidget *error_title;
-	GtkVBox *error_vbox;
+	GtkBox *error_vbox;
 	GtkWidget *error_extra_widget;
 	GtkImage *error_icon;
 	GtkLabel *error_message;
@@ -495,7 +495,7 @@ typedef struct _NPWDruidAddPropertyData
 {
 	NPWDruid* druid;
 	guint row;
-	GtkTable *table;
+	GtkGrid *table;
 	GtkWidget *first_entry;
 } NPWDruidAddPropertyData;
 
@@ -512,7 +512,6 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 	GtkWidget* entry;
 	NPWDruidAddPropertyData* data = (NPWDruidAddPropertyData *)user_data;
 	const gchar* description;
-	GtkAttachOptions attach = GTK_EXPAND|GTK_FILL;
 
 
 	entry = npw_property_create_widget (property);
@@ -531,27 +530,22 @@ cb_druid_add_property (NPWProperty* property, gpointer user_data)
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 		gtk_misc_set_padding (GTK_MISC (label), 6, 6);
 
+		gtk_widget_set_hexpand (entry, TRUE);
 		switch (npw_property_get_type (property))
 		{
 			case NPW_PACKAGE_PROPERTY:
-				gtk_table_resize (data->table, data->row + 2, 1);
-				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
-				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
-				gtk_table_attach (data->table, entry, 0, 1, data->row + 1, data->row + 2,
-				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL),
-				                  (GtkAttachOptions)(GTK_EXPAND|GTK_FILL), 0, 0);
+				gtk_widget_set_vexpand (entry, TRUE);
+				gtk_grid_attach (data->table, label, 0, data->row, 1, 1);
+				gtk_grid_attach (data->table, entry, 0, data->row + 1, 1, 1);
 				data->row += 2;
 				break;
 			case NPW_BOOLEAN_PROPERTY:
-				attach = 0;
-				/* Fall through */
+				gtk_widget_set_hexpand (entry, FALSE);
+				/* Fall through */	
 			default:
 				/* Add label and entry */
-				gtk_table_resize (data->table, data->row + 1, 2);
-				gtk_table_attach (data->table, label, 0, 1, data->row, data->row + 1,
-				                  (GtkAttachOptions)(GTK_FILL), 0, 0, 0);
-				gtk_table_attach (data->table, entry, 1, 2, data->row, data->row + 1,
-				                  (GtkAttachOptions)(attach), 0, 0, 0);
+				gtk_grid_attach (data->table, label, 0, data->row, 1, 1);
+				gtk_grid_attach (data->table, entry, 1, data->row, 1, 1);
 				data->row++;
 		}
 
@@ -584,7 +578,7 @@ npw_druid_fill_property_page (NPWDruid* druid, NPWPage* page)
 	/* Add new widget */
 	data.druid = druid;
 	data.row = 0;
-	data.table = GTK_TABLE (npw_page_get_widget (page));
+	data.table = GTK_GRID (npw_page_get_widget (page));
 	data.first_entry = NULL;
 	npw_page_foreach_property (page, (GFunc)cb_druid_add_property, &data);
 
