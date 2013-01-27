@@ -92,10 +92,12 @@ patch_show_gui (PatchPlugin *plugin)
 	table = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_table"));
 
 	plugin->file_chooser = gtk_file_chooser_button_new(_("File/Directory to patch"),
-																										 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	                                                   GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	gtk_widget_set_hexpand (GTK_WIDGET (plugin->file_chooser), TRUE);
 	
 	plugin->patch_chooser = gtk_file_chooser_button_new(_("Patch file"),
-																											GTK_FILE_CHOOSER_ACTION_OPEN);
+	                                                    GTK_FILE_CHOOSER_ACTION_OPEN);
+	gtk_widget_set_hexpand (GTK_WIDGET (plugin->patch_chooser), TRUE);
 	
 	if (uri)
 	{
@@ -122,9 +124,9 @@ patch_show_gui (PatchPlugin *plugin)
 	gtk_file_filter_set_name (filter, _("All files"));  
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (plugin->patch_chooser),
 															 filter);
-	
-	gtk_table_attach_defaults(GTK_TABLE(table), plugin->file_chooser, 1, 2, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(table), plugin->patch_chooser, 1, 2, 1, 2);
+
+	gtk_grid_attach (GTK_GRID (table), plugin->file_chooser, 1, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (table), plugin->patch_chooser, 1, 1, 1, 1);
 	
 	scale = GTK_WIDGET (gtk_builder_get_object (bxml, "patch_level_scale"));
 	adj = gtk_range_get_adjustment(GTK_RANGE(scale));
