@@ -1316,6 +1316,8 @@ npw_druid_free (NPWDruid* druid)
 	g_object_unref (G_OBJECT (druid->gen));
 	if (druid->parser != NULL) npw_page_parser_free (druid->parser);
 	npw_header_list_free (druid->header_list);
+	/* Destroy project notebook first to avoid a critical warning */
+	gtk_widget_destroy (GTK_WIDGET (druid->project_book));
 	gtk_widget_destroy (GTK_WIDGET (druid->window));
 	g_object_unref (druid->error_page);
 	g_object_unref (druid->progress_page);
