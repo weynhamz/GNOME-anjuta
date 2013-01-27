@@ -420,8 +420,7 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	}
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
-	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
-			  GTK_FILL, GTK_FILL, 5, 3);
+	gtk_grid_attach (GTK_GRID (table), label, 0, *position, 1, 1);
 
 	switch (prop->info->type)
 	{
@@ -511,9 +510,9 @@ add_entry (IAnjutaProject *project, AnjutaProjectNode *node, AnjutaProjectProper
 	}
 	g_free (tooltip);
 
+	gtk_widget_set_hexpand (entry, TRUE);
+	gtk_grid_attach (GTK_GRID (table), entry, 1, *position, 1, 1);
 	gtk_widget_show (entry);
-	gtk_table_attach (GTK_TABLE (table), entry, 1, 2, *position, *position+1,
-			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
 
 	*position = *position + 1;
 
@@ -528,14 +527,13 @@ add_label (const gchar *display_name, const gchar *value, GtkWidget *table, gint
 	label = gtk_label_new (display_name);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
-	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
-			  GTK_FILL, GTK_FILL, 5, 3);
+	gtk_grid_attach (GTK_GRID (table), label, 0, *position, 1, 1);
 
 	label = gtk_label_new (value);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
+	gtk_widget_set_hexpand (label, TRUE);
 	gtk_widget_show (label);
-	gtk_table_attach (GTK_TABLE (table), label, 1, 2, *position, *position+1,
-			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
+	gtk_grid_attach (GTK_GRID (table), label, 1, *position, 1, 1);
 
 	*position = *position + 1;
 }
@@ -549,14 +547,12 @@ add_button (const gchar *display_name, const gchar *value, GCallback on_clicked,
 	label = gtk_label_new (display_name);
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 	gtk_widget_show (label);
-	gtk_table_attach (GTK_TABLE (table), label, 0, 1, *position, *position+1,
-			  GTK_FILL, GTK_FILL, 5, 3);
+	gtk_grid_attach (GTK_GRID (table), label, 0, *position, 1, 1);
 
 	button = gtk_button_new_with_label (value);
 	gtk_button_set_alignment (GTK_BUTTON (button), 0, 0.5);
 	gtk_widget_show (button);
-	gtk_table_attach (GTK_TABLE (table), button, 1, 2, *position, *position+1,
-			  GTK_FILL | GTK_EXPAND, GTK_FILL, 5, 3);
+	gtk_grid_attach (GTK_GRID (table), button, 1, *position, 1, 1);
 	if (on_clicked != NULL)
 	{
 		g_signal_connect (G_OBJECT (button), "clicked", on_clicked, properties);
