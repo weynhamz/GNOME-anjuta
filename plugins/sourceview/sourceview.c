@@ -491,7 +491,7 @@ sourceview_reload_save_markers (Sourceview* sv)
 
 		sscanf (gtk_text_mark_get_name (GTK_TEXT_MARK (source_mark)),
 		        MARK_NAME "%d", &reload->handle);
-		sv->priv->tooltip = g_strdup (g_object_get_data (G_OBJECT (source_mark),
+		reload->tooltip = g_strdup (g_object_get_data (G_OBJECT (source_mark),
 														 MARKER_TOOLTIP_DATA));
 			
 		sv->priv->reload_marks = g_slist_append (sv->priv->reload_marks, reload);
