@@ -1127,16 +1127,11 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 static void
 anjuta_docman_class_init (AnjutaDocmanClass *klass)
 {
-	static gboolean initialized;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->finalize = anjuta_docman_finalize;
 	object_class->dispose = anjuta_docman_dispose;
-
-	if (!initialized)
-	{
-		initialized = TRUE;
 
 		/* Signals */
 	docman_signals [DOC_ADDED] =
@@ -1169,8 +1164,6 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 			G_TYPE_NONE,
 			1,
 			G_TYPE_OBJECT);
-
-	}
 }
 
 GtkWidget*
