@@ -12,4 +12,5 @@
 	<language id="8" name="Perl" strings="perl" mime-types="application/x-perl"/>
 	<language id="9" name="Makefile" strings="makefile" mime-types="text/x-makefile" />
 	<language id="10" name="ShellScript" strings="sh,shell" mime-types="application/x-sh" />
+	<language id="11" name="IDL" strings="idl" mime-types="text/x-idl" />
 </languages>
