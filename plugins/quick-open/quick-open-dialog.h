@@ -70,8 +70,6 @@ void   quick_open_dialog_add_project_files (QuickOpenDialog* self,
 void   quick_open_dialog_add_project_file  (QuickOpenDialog* self,
                                             GFile* file);
 
-void   quick_open_dialog_add_project_file  (QuickOpenDialog* self, GFile* file);
-
 GObject* quick_open_dialog_get_selected_object (QuickOpenDialog* self);
 
 G_END_DECLS
