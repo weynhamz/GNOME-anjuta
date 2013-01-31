@@ -199,7 +199,7 @@ on_goto_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box
 }
 
 static gboolean
-on_entry_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_box)
+on_search_box_key_pressed (GtkWidget* widget, GdkEventKey* event, SearchBox* search_box)
 {
 	switch (event->keyval)
 	{
@@ -917,8 +917,8 @@ search_box_init (SearchBox *search_box)
 	g_signal_connect_swapped (G_OBJECT (search_box->priv->search_entry), "activate", 
 	                          G_CALLBACK (search_box_forward_search),
 	                          search_box);
-	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "key-press-event",
-					  G_CALLBACK (on_entry_key_pressed),
+	g_signal_connect (G_OBJECT (search_box), "key-press-event",
+					  G_CALLBACK (on_search_box_key_pressed),
 					  search_box);
 	g_signal_connect (G_OBJECT (search_box->priv->search_entry), "changed",
 					  G_CALLBACK (on_search_box_entry_changed),
@@ -970,9 +970,6 @@ search_box_init (SearchBox *search_box)
 					  search_box);
 	/* Replace */
 	search_box->priv->replace_entry = gtk_entry_new();
-	g_signal_connect (G_OBJECT (search_box->priv->replace_entry), 
-					"key-press-event", G_CALLBACK (on_entry_key_pressed),
- 					search_box);
 	g_signal_connect (G_OBJECT (search_box->priv->replace_entry), "activate", 
 					  G_CALLBACK (on_replace_activated),
 					  search_box);
