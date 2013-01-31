@@ -133,7 +133,7 @@ assist_tip_get_coordinates(GtkWidget* view, int* x, int* y, GtkTextIter* iter, G
 	
 
 	/* Compute entry width/height */
-	gtk_widget_size_request(entry, &entry_req);
+	gtk_widget_get_preferred_size (entry, &entry_req, NULL);
 	
 	/* ensure that the tip is inside the text_view */
 	gdk_window_get_geometry (window, NULL, NULL, &view_width, NULL);
