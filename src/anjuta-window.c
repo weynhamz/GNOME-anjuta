@@ -718,6 +718,8 @@ anjuta_window_instance_init (AnjutaWindow *win)
 		gtk_widget_hide (win->toolbar);
 	gtk_style_context_add_class (gtk_widget_get_style_context (win->toolbar),
 	                             GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
+	gtk_toolbar_set_icon_size (GTK_TOOLBAR (win->toolbar),
+	                           GTK_ICON_SIZE_MENU);
 	gtk_box_pack_start (GTK_BOX (main_box), win->toolbar, FALSE, FALSE, 0);
 	action = gtk_ui_manager_get_action (GTK_UI_MANAGER (win->ui),
 										"/MenuMain/MenuView/Toolbar");
