@@ -39,10 +39,11 @@ enum
 
 	LAST_SIGNAL
 };
+static guint io_signals[LAST_SIGNAL] = { 0 };
 
 #define IO_ERROR_QUARK g_quark_from_string ("SourceviewIO-Error")
 
-static guint io_signals[LAST_SIGNAL] = { 0 };
+#define IO_PRIORITY G_PRIORITY_DEFAULT
 
 G_DEFINE_TYPE (SourceviewIO, sourceview_io, G_TYPE_OBJECT);
 
@@ -424,7 +425,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 			g_input_stream_read_async (G_INPUT_STREAM (input_stream),
 									   sio->read_buffer + sio->bytes_read,
 									   READ_SIZE,
-									   G_PRIORITY_LOW,
+									   IO_PRIORITY,
 									   sio->cancel,
 									   on_read_finished,
 									   sio);
@@ -470,7 +471,7 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 	g_input_stream_read_async (G_INPUT_STREAM (input_stream),
 							   sio->read_buffer,
 							   READ_SIZE,
-							   G_PRIORITY_LOW,
+							   IO_PRIORITY,
 							   sio->cancel,
 							   on_read_finished,
 							   g_object_ref (sio));
