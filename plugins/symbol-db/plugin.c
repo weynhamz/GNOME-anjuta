@@ -2116,7 +2116,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	sdb_plugin->dbv_notebook = gtk_notebook_new();
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (sdb_plugin->dbv_notebook), FALSE);
-	sdb_plugin->dbv_hbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+	sdb_plugin->dbv_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
 
 	label = gtk_label_new (_("Symbols"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0f, 0.5f);
