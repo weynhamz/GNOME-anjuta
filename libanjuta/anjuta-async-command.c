@@ -48,7 +48,7 @@
 
 struct _AnjutaAsyncCommandPriv
 {
-	GMutex *mutex;
+	GMutex mutex;
 	guint return_code;
 	gboolean complete;
 	gboolean new_data_arrived;
@@ -62,8 +62,8 @@ static void
 anjuta_async_command_init (AnjutaAsyncCommand *self)
 {
 	self->priv = g_new0 (AnjutaAsyncCommandPriv, 1);
-	
-	self->priv->mutex = g_mutex_new ();
+
+	g_mutex_init (&self->priv->mutex);
 }
 
 static void
@@ -73,7 +73,7 @@ anjuta_async_command_finalize (GObject *object)
 	
 	self = ANJUTA_ASYNC_COMMAND (object);
 	
-	g_mutex_free (self->priv->mutex);
+	g_mutex_clear (&self->priv->mutex);
 	g_idle_remove_by_data (self);
 	
 	g_free (self->priv);
@@ -89,10 +89,10 @@ anjuta_async_command_notification_poll (AnjutaCommand *command)
 	self = ANJUTA_ASYNC_COMMAND (command);
 	
 	if (self->priv->new_data_arrived &&
-		g_mutex_trylock (self->priv->mutex))
+		g_mutex_trylock (&self->priv->mutex))
 	{
 		g_signal_emit_by_name (command, "data-arrived");
-		g_mutex_unlock (self->priv->mutex);
+		g_mutex_unlock (&self->priv->mutex);
 		self->priv->new_data_arrived = FALSE;
 	}
 	
@@ -128,8 +128,8 @@ start_command (AnjutaCommand *command)
 {
 	g_idle_add ((GSourceFunc) anjuta_async_command_notification_poll, 
 				command);
-	g_thread_create ((GThreadFunc) anjuta_async_command_thread, 
-					 command, FALSE, NULL);
+	g_thread_new ("AnjutaCommand Thread",
+	              (GThreadFunc) anjuta_async_command_thread, command);
 }
 
 static void
@@ -223,7 +223,7 @@ anjuta_async_command_get_error_message (AnjutaCommand *command)
 void
 anjuta_async_command_lock (AnjutaAsyncCommand *self)
 {
-	g_mutex_lock (self->priv->mutex);
+	g_mutex_lock (&self->priv->mutex);
 }
 
 /**
@@ -235,5 +235,5 @@ anjuta_async_command_lock (AnjutaAsyncCommand *self)
 void
 anjuta_async_command_unlock (AnjutaAsyncCommand *self)
 {
-	g_mutex_unlock (self->priv->mutex);
+	g_mutex_unlock (&self->priv->mutex);
 }
