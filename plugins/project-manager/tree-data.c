@@ -151,7 +151,7 @@ gbf_tree_data_equal_file (GbfTreeData *data,  GbfTreeNodeType type, GFile *file)
 
 		if (node != NULL)
 		{
-			if ((type == ANJUTA_PROJECT_UNKNOWN) || (type == data->type))
+			if ((type == GBF_TREE_NODE_UNKNOWN) || (type == data->type))
 			{
 				GFile* node_file = anjuta_project_node_get_file (node);
 				if (node_file && g_file_equal (node_file, file))
@@ -256,7 +256,6 @@ GbfTreeData *
 gbf_tree_data_new_group (AnjutaProjectNode *group)
 {
 	GbfTreeData *data = g_slice_new0 (GbfTreeData);
-	GFileInfo *ginfo;
 
 	data->type = anjuta_project_node_parent(group) == NULL ? GBF_TREE_NODE_ROOT : GBF_TREE_NODE_GROUP;
 	data->node = group;

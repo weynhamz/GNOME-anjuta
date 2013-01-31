@@ -460,38 +460,6 @@ change_project_backend (ProjectManagerPlugin *plugin, AnjutaPluginDescription *b
 /* GUI callbacks
  *---------------------------------------------------------------------------*/
 
-static gboolean
-on_refresh_idle (gpointer user_data)
-{
-	ProjectManagerPlugin *plugin;
-	AnjutaStatus *status;
-	GError *err = NULL;
-
-	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (user_data);
-
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	anjuta_status_push (status, _("Refreshing symbol tree…"));
-	anjuta_status_busy_push (status);
-
-	anjuta_pm_project_refresh (plugin->project, &err);
-	if (err)
-	{
-		anjuta_util_dialog_error (get_plugin_parent_window (plugin),
-								  _("Failed to refresh project: %s"),
-								  err->message);
-		g_error_free (err);
-	}
-	anjuta_status_busy_pop (status);
-	anjuta_status_pop (status);
-	return FALSE;
-}
-
-static void
-on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
-{
-	g_idle_add (on_refresh_idle, plugin);
-}
-
 static void
 on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
@@ -634,6 +602,7 @@ on_popup_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
 	packages = anjuta_pm_project_new_package (plugin,
 										   get_plugin_parent_window (plugin),
 										   &selected_module, NULL);
+	g_list_free (packages);
 	update_operation_end (plugin, TRUE);
 }
 
@@ -657,14 +626,14 @@ static void
 on_popup_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
-	AnjutaProjectNode *new_group;
 
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (plugin->view, &selected_group);
 
-	new_group = anjuta_pm_project_new_group (plugin,
-										   get_plugin_parent_window (plugin),
-										   &selected_group, NULL);
+	anjuta_pm_project_new_group (plugin,
+	                             get_plugin_parent_window (plugin),
+	                             &selected_group, NULL);
+	
 	update_operation_end (plugin, TRUE);
 }
 
@@ -672,15 +641,14 @@ static void
 on_popup_new_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_group;
-	AnjutaProjectNode *new_target;
 
 	update_operation_begin (plugin);
 	gbf_project_view_get_first_selected (plugin->view, &selected_group);
 
-	new_target = anjuta_pm_project_new_target (plugin,
-											 get_plugin_parent_window (plugin),
-											 &selected_group, NULL);
-
+	anjuta_pm_project_new_target (plugin,
+	                              get_plugin_parent_window (plugin),
+	                              &selected_group, NULL);
+	
 	update_operation_end (plugin, TRUE);
 }
 
@@ -1948,16 +1916,6 @@ get_node_from_file (const AnjutaProjectNode *root, GFile *file)
 	return node;
 }
 
-static AnjutaProjectNodeType
-get_element_type (ProjectManagerPlugin *plugin, GFile *element)
-{
-	AnjutaProjectNode *node;
-
-	node = gbf_project_view_get_node_from_file (plugin->view, ANJUTA_PROJECT_UNKNOWN,  element);
-
-	return node == NULL ? ANJUTA_PROJECT_UNKNOWN : anjuta_project_node_get_node_type (node);
-}
-
 static GList*
 iproject_manager_get_children (IAnjutaProjectManager *project_manager,
 							   GFile *parent,
@@ -2148,7 +2106,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 
 	node = gbf_project_view_find_selected (plugin->view,
 										   ANJUTA_PROJECT_GROUP);
-	if (node && anjuta_project_node_get_node_type (node) == GBF_TREE_NODE_GROUP)
+	if (node && anjuta_project_node_get_node_type (node) == ANJUTA_PROJECT_GROUP)
 	{
 		return g_object_ref (anjuta_project_node_get_file (node));
 	}

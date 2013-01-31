@@ -566,7 +566,7 @@ pm_project_resize_properties_dialog (PropertiesTable *table)
 {
 	gint border_width, maximum_width, maximum_height;
 	GtkRequisition dialog, head, viewport, scrolledwindow_minimum, vscrollbar_minimum;
-	GtkWidget *vscrollbar = gtk_scrolled_window_get_vscrollbar (table->scrolledwindow);
+	GtkWidget *vscrollbar = gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (table->scrolledwindow));
 
 	gtk_widget_get_preferred_size (table->dialog, NULL, &dialog);
 	gtk_widget_get_preferred_size (table->head, NULL, &head);
@@ -655,9 +655,10 @@ on_change_project_backend (GtkButton *button,
 
 		if (backend != NULL)
 		{
-			const gchar *name;
+			gchar *name;
 			anjuta_plugin_description_get_locale_string (backend, "Anjuta Plugin", "Name", &name);
 			gtk_button_set_label (button, name);
+			g_free (name);
 			table->new_backend = backend;
 		}
 	}
@@ -738,10 +739,11 @@ update_properties (PropertiesTable *table)
 		backend = anjuta_pm_project_get_backend (table->project);
 		if (backend)
 		{
-			const gchar *name;
+			gchar *name;
 			
 			anjuta_plugin_description_get_locale_string (backend, "Anjuta Plugin", "Name", &name);
-			add_button (_("Backend:"), name, on_change_project_backend, table, table->head, &head_pos);
+			add_button (_("Backend:"), name, G_CALLBACK (on_change_project_backend), table, table->head, &head_pos);
+			g_free (name);
 		}
 	}
 
@@ -1175,7 +1177,7 @@ anjuta_pm_project_new_group (ProjectManagerPlugin *plugin, GtkWindow *parent, Gt
 				name = gtk_editable_get_chars (
 						GTK_EDITABLE (group_name_entry), 0, -1);
 
-				group = gbf_project_view_find_selected_state (GBF_PROJECT_VIEW (groups_view),
+				group = gbf_project_view_find_selected_state (GTK_TREE_VIEW (groups_view),
 				                                              ANJUTA_PROJECT_CAN_ADD_GROUP);
 				if (group)
 				{
@@ -1804,10 +1806,13 @@ static void
 on_new_library(GtkButton *button, gpointer user_data)
 {
 	ProjectManagerPlugin *plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (user_data);
-	anjuta_pm_project_new_package (plugin,
-	                               get_plugin_parent_window (plugin),
-	                               NULL,
-	                               NULL);
+	GList *packages;
+	
+	packages = anjuta_pm_project_new_package (plugin,
+	                                          get_plugin_parent_window (plugin),
+	                                          NULL,
+	                                          NULL);
+	g_list_free (packages);
 }
 
 GList*

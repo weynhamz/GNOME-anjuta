@@ -374,10 +374,6 @@ dispose (GObject *object)
 static void
 destroy (GtkWidget *object)
 {
-	GbfProjectView *tree;
-
-	tree = GBF_PROJECT_VIEW (object);
-
 	if (GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy)
 		(* GTK_WIDGET_CLASS (gbf_project_view_parent_class)->destroy) (object);
 }
@@ -719,7 +715,7 @@ gbf_project_view_find_selected_state (GtkTreeView *view,
 	g_return_val_if_fail (view != NULL, NULL);
 	g_return_val_if_fail (GBF_IS_PROJECT_VIEW (view), NULL);
 
-	data = gbf_project_view_get_first_selected (view, NULL);
+	data = gbf_project_view_get_first_selected (GBF_PROJECT_VIEW (view), NULL);
 	if (data != NULL)
 	{
 
