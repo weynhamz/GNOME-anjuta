@@ -674,6 +674,8 @@ quick_open_dialog_remove_document(QuickOpenDialog* self, IAnjutaDocument* docume
     if (!IANJUTA_IS_FILE(document))
         return;
 
+    priv->documents = g_slist_remove (priv->documents, document);
+
     file = ianjuta_file_get_file(IANJUTA_FILE(document), NULL);
     if (file)
     {
