@@ -1029,12 +1029,13 @@ anjuta_docman_dispose (GObject *obj)
 		docman->priv->pages = NULL;
 		for (node = pages; node != NULL; node = g_list_next (node))
 		{
+			AnjutaDocmanPage* page = node->data;
+
+			g_signal_emit(docman, docman_signals[DOC_REMOVED], 0, page->doc);
+
 			/* this also tries to destroy any notebook-page-widgets, in case
-			   they're not gone already
-		 CHECKME at shutdown do we need "destroy" signals in case other plugins
-		   hold refs on any page(s) or their contents ?
-			*/
-			anjuta_docman_page_destroy ((AnjutaDocmanPage *)node->data);
+			   they're not gone already. */
+			anjuta_docman_page_destroy (page);
 		}
 		g_list_free (pages);
 	}
