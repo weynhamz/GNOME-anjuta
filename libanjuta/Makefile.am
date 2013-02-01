@@ -132,7 +132,9 @@ libanjuta_3_la_SOURCES= \
 	anjuta-tree-combo.h \
 	anjuta-tree-combo.c \
 	anjuta-autogen.h \
-	anjuta-autogen.c
+	anjuta-autogen.c \
+	anjuta-completion.h \
+	anjuta-completion.c
 
 # Glade module
 if HAVE_PLUGIN_GLADE
