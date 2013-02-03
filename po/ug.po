@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
 "POT-Creation-Date: 2013-01-31 08:54+0000\n"
-"PO-Revision-Date: 2013-02-02 11:45+0900\n"
+"PO-Revision-Date: 2013-02-03 10:40+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
@@ -61,11 +61,11 @@ msgstr "سىزىدىغان تېكىست"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
 msgid "Pixbuf Object"
-msgstr "پىكىسباف(pixbuf) ئوبيېكتى"
+msgstr "پىكىسبۇف(pixbuf) ئوبيېكتى"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
 msgid "The pixbuf to render."
-msgstr "سىزىدىغان پىكىسباف(pixbuf)."
+msgstr "سىزىدىغان پىكىسبۇف(pixbuf)."
 
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
@@ -3576,11 +3576,11 @@ msgstr "بەتكۈچ كۆرسەت"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
 msgid "Show drop-down list"
-msgstr ""
+msgstr "تارتما-تىزىمنى كۆرسەت"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
 msgid "Do not show open documents"
-msgstr ""
+msgstr "ئوچۇق پۈتۈكلەرنى كۆرسەتمىسۇن"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
 msgid "Open documents"
@@ -4526,7 +4526,7 @@ msgstr "ئاساسىي يولى"
 #: ../plugins/file-manager/file-model.c:707
 #: ../plugins/file-manager/file-view.c:887
 msgid "GFile representing the top-most path displayed"
-msgstr ""
+msgstr "GFile بولسا كۆرسىتىلگەن ئەڭ يۇقىرىدىكى يولىنى ئىپادىلەيدۇ"
 
 #: ../plugins/file-manager/plugin.c:105
 msgid "_Rename"
