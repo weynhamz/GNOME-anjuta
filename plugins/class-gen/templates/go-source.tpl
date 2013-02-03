@@ -4,9 +4,9 @@
 /* [+INVOKE EMACS-MODELINE MODE="C" \+] */
 [+INVOKE START-INDENT\+]
 /*
- * [+ProjectName+][+IF (=(get "Headings") "1")+]
+ * [+SourceFile+][+IF (=(get "Headings") "1")+]
  * Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
- * 
+ *
 [+INVOKE LICENSE-DESCRIPTION PFX=" * " PROGRAM=(get "ProjectName") OWNER=(get "AuthorName") \+]
  */
 
