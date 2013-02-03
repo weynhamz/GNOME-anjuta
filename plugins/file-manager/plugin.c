@@ -203,18 +203,21 @@ current_document_added (AnjutaPlugin *plugin, const gchar *name,
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) plugin;
 	IAnjutaDocument *current_document;
+	GFile *file;
 
 	if (!g_settings_get_boolean (file_manager->settings, PREF_SELECT_CURRENT_DOCUMENT))
 		return;
 
 	current_document = g_value_get_object (value);
+	if (!IANJUTA_IS_FILE (current_document))
+		return;
 
-	if (IANJUTA_IS_FILE (current_document))
-	{
-		GFile *file = ianjuta_file_get_file (IANJUTA_FILE (current_document), NULL);
-		ianjuta_file_manager_set_selected (IANJUTA_FILE_MANAGER (plugin), file, NULL);
-		g_object_unref (file);
-	}
+	file = ianjuta_file_get_file (IANJUTA_FILE (current_document), NULL);
+	if (!file)
+		return;
+
+	ianjuta_file_manager_set_selected (IANJUTA_FILE_MANAGER (plugin), file, NULL);
+	g_object_unref (file);
 }
 
 static void
