@@ -47,7 +47,10 @@ struct _CgComboFlagsPrivate
 	GtkWidget* window;
 	GtkWidget* treeview;
 	GtkTreeViewColumn* column;
-	
+
+	GdkDevice* pointer_device;
+	GdkDevice* keyboard_device;
+
 	GSList* cells;
 
 	gboolean editing_started;
@@ -392,7 +395,7 @@ cg_combo_flags_get_position (CgComboFlags *combo,
 		*y += allocation.y;
 	}
 
-	gtk_widget_size_request (priv->window, &popup_req);
+	gtk_widget_get_preferred_size (priv->window, &popup_req, NULL);
 
 	*width = allocation.width;
 	if (popup_req.width > *width) *width = popup_req.width;
@@ -717,6 +720,7 @@ cg_combo_flags_popup_idle (gpointer data)
 	GtkWidget *toplevel;
 	GtkWidget *scrolled;
 	GdkWindow *window;
+	GdkDeviceManager* device_manager;
 	gint height, width, x, y;
 
 	combo = CG_COMBO_FLAGS (data);
@@ -797,14 +801,19 @@ cg_combo_flags_popup_idle (gpointer data)
 
 	window = gtk_widget_get_window (priv->window);
 
-	gdk_pointer_grab (window, TRUE,
-	                  GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-	                  GDK_POINTER_MOTION_MASK, 
-	                  NULL, NULL, GDK_CURRENT_TIME);
+	device_manager = gdk_display_get_device_manager (gdk_window_get_display (window));
+	priv->pointer_device = gdk_device_manager_get_client_pointer (device_manager);
+	priv->keyboard_device = gdk_device_get_associated_device (priv->pointer_device);
 
 	gtk_grab_add (priv->window);
 
-	gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
+	gdk_device_grab (priv->pointer_device, window, GDK_OWNERSHIP_NONE, TRUE,
+	                 GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK,
+	                 NULL, GDK_CURRENT_TIME);
+
+	gdk_device_grab (priv->keyboard_device, window, GDK_OWNERSHIP_NONE, TRUE,
+	                 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK,
+	                 NULL, GDK_CURRENT_TIME);
 	return FALSE;
 }
 
@@ -916,8 +925,8 @@ cg_combo_flags_popdown(CgComboFlags *combo)
 	if (priv->window != NULL)
 	{
 		gtk_grab_remove (priv->window);
-		gdk_pointer_ungrab (GDK_CURRENT_TIME);
-		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+		gdk_device_ungrab (priv->pointer_device, GDK_CURRENT_TIME);
+		gdk_device_ungrab (priv->keyboard_device, GDK_CURRENT_TIME);
 		gtk_widget_hide (priv->window);
 
 		g_object_unref (priv->column);

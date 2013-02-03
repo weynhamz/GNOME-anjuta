@@ -298,15 +298,15 @@ cg_window_set_heap_value (CgWindow *window,
 	{
 	case G_TYPE_STRING:
 		text = cg_window_fetch_string (window, id);
-		g_hash_table_insert (values, name, text);
+		g_hash_table_insert (values, (gchar*)name, text);
 		break;
 	case G_TYPE_INT:
 		int_value = cg_window_fetch_integer (window, id);
-		g_hash_table_insert (values, name, g_strdup_printf ("%d", int_value));
+		g_hash_table_insert (values, (gchar*)name, g_strdup_printf ("%d", int_value));
 		break;
 	case G_TYPE_BOOLEAN:
 		text = g_strdup (cg_window_fetch_boolean (window, id) ? "1" : "0");
-		g_hash_table_insert (values, name, text);
+		g_hash_table_insert (values, (gchar*)name, text);
 		break;
 	default:
 		break;
@@ -1171,12 +1171,10 @@ cg_window_set_property (GObject *object,
                         GParamSpec *pspec)
 {
 	CgWindow *window;
-	CgWindowPrivate *priv;
 
 	g_return_if_fail (CG_IS_WINDOW (object));
 
 	window = CG_WINDOW (object);
-	priv = CG_WINDOW_PRIVATE (window);
 
 	switch (prop_id)
 	{
@@ -1300,7 +1298,6 @@ cg_window_create_value_heap (CgWindow *window)
 
 	CgWindowPrivate *priv;
 	GHashTable *values;
-	GError *error;
 	gint license_index;
 
 	GtkNotebook *notebook;
@@ -1317,7 +1314,6 @@ cg_window_create_value_heap (CgWindow *window)
 	                                               "top_notebook"));
 
 	values = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)g_free);
-	error = NULL;
 
 	switch (gtk_notebook_get_current_page (notebook))
 	{
@@ -1615,18 +1611,12 @@ cg_window_set_add_to_repository (CgWindow *window,
 gboolean
 cg_window_get_add_to_project(CgWindow *window)
 {
-	CgWindowPrivate *priv;
-	priv = CG_WINDOW_PRIVATE (window);
-
 	return cg_window_fetch_boolean (window, "add_project");
 }
 
 gboolean
 cg_window_get_add_to_repository (CgWindow *window)
 {
-	CgWindowPrivate *priv;
-	priv = CG_WINDOW_PRIVATE (window);
-
 	return cg_window_fetch_boolean (window, "add_repository");
 }
 

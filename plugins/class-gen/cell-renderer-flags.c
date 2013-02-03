@@ -325,9 +325,8 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
                                       G_GNUC_UNUSED GdkEvent *event,
                                       G_GNUC_UNUSED GtkWidget *widget,
                                       const gchar *path,
-                                      G_GNUC_UNUSED GdkRectangle
-                                      *background_area,
-                                      G_GNUC_UNUSED GdkRectangle *cell_area,
+                                      G_GNUC_UNUSED const GdkRectangle *background_area,
+                                      G_GNUC_UNUSED const GdkRectangle *cell_area,
                                       G_GNUC_UNUSED GtkCellRendererState flags)
 {
 	CgCellRendererFlags *cell_flags;
