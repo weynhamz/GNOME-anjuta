@@ -1,16 +1,14 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "indent.tpl") \+]
+[+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 /* [+INVOKE EMACS-MODELINE MODE="C" \+] */
 [+INVOKE START-INDENT\+]
 /*
  * [+ProjectName+][+IF (=(get "Headings") "1")+]
  * Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
- * 
-[+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") " * ")+]
-[+ == "LGPL" +][+(lgpl (get "ProjectName") (get "AuthorName") " * ")+]
-[+ == "GPL"  +][+(gpl  (get "ProjectName")                    " * ")+]
-[+ESAC+] */
+ *
+[+INVOKE LICENSE-DESCRIPTION PFX=" * " PROGRAM=(get "ProjectName") OWNER=(get "AuthorName") \+]
+ */
 
 #ifndef _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_
 #define _[+ (string-upcase(string->c-name!(get "HeaderFile"))) +]_

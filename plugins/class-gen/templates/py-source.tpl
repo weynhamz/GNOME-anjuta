@@ -18,17 +18,14 @@
 ##  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 +]
 [+INCLUDE (string-append "indent.tpl") \+]
+[+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 [+INVOKE START-INDENT\+]
 # [+INVOKE EMACS-MODELINE MODE="Python" \+]
 #
 # [+ProjectName+][+IF (=(get "Headings") "1")+]
 # Copyright (C) [+(shell "date +%Y")+] [+AuthorName+] <[+AuthorEmail+]>[+ENDIF+]
 #
-[+CASE (get "License") +]
-[+ == "BSD"  +][+(bsd  (get "ProjectName") (get "AuthorName") "# ")+]
-[+ == "LGPL" +][+(lgpl (get "ProjectName") (get "AuthorName") "# ")+]
-[+ == "GPL"  +][+(gpl  (get "ProjectName")                    "# ")+]
-[+ESAC+]
+[+INVOKE LICENSE-DESCRIPTION PFX="# " PROGRAM=(get "ProjectName") OWNER=(get "AuthorName") \+]
 
 class [+ClassName+]([+IF (not (=(get "BaseClass") ""))+][+BaseClass+][+ENDIF+]):[+
 FOR Constvars +][+
