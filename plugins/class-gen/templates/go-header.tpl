@@ -26,7 +26,7 @@ G_BEGIN_DECLS
 
 typedef struct _[+ClassName+]Class [+ClassName+]Class;
 typedef struct _[+ClassName+] [+ClassName+];
-[+IF (not (=(get "PrivateVariableCount") "0"))+]typedef struct _[+ClassName+]Private [+ClassName+]Private;[+ENDIF+]
+typedef struct _[+ClassName+]Private [+ClassName+]Private;
 
 
 struct _[+ClassName+]Class
@@ -60,7 +60,7 @@ IF (not (=(get "PublicVariableCount") "0"))+]
 	ENDFOR+][+
 ENDIF+]
 
-[+IF (not (=(get "PrivateVariableCount") "0"))+]    [+ClassName+]Private *priv;[+ENDIF+] 
+	[+ClassName+]Private *priv;
 };
 
 GType [+FuncPrefix+]_get_type (void) G_GNUC_CONST;[+

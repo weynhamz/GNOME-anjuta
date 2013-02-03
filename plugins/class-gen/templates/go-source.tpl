@@ -10,8 +10,8 @@
 [+INVOKE LICENSE-DESCRIPTION PFX=" * " PROGRAM=(get "ProjectName") OWNER=(get "AuthorName") \+]
  */
 
-#include "[+HeaderFile+]"[+
-IF (not (=(get "PrivateVariableCount") "0"))+]
+#include "[+HeaderFile+]"
+
 struct _[+ClassName+]Private
 {[+
 	FOR Members +][+
@@ -24,10 +24,7 @@ struct _[+ClassName+]Private
 		ENDIF+][+
 	ENDFOR+]
 };
-
-#define [+TypePrefix+]_[+TypeSuffix+]_GET_PRIVATE(o)  (G_TYPE_INSTANCE_GET_PRIVATE ((o), [+TypePrefix+]_TYPE_[+TypeSuffix+], [+ClassName+]Private))[+
-
-ENDIF+][+IF (not (=(get "Properties[0].Name") ""))+]
+[+IF (not (=(get "Properties[0].Name") ""))+]
 
 enum
 {
@@ -72,7 +69,7 @@ G_DEFINE_TYPE ([+ClassName+], [+FuncPrefix+], [+BaseTypePrefix+]_TYPE_[+BaseType
 static void
 [+FuncPrefix+]_init ([+ClassName+] *[+FuncPrefix+])
 {
-[+IF (not (=(get "PrivateVariableCount") "0"))+]    [+ClassName+]Private *priv = [+TypePrefix+]_[+TypeSuffix+]_GET_PRIVATE([+FuncPrefix+]);[+ENDIF+]
+	[+FuncPrefix+]->priv = G_TYPE_INSTANCE_GET_PRIVATE ([+FuncPrefix+], [+TypePrefix+]_TYPE_[+TypeSuffix+], [+ClassName+]Private);
 
 	/* TODO: Add initialization code here */
 }
@@ -138,11 +135,8 @@ static void
 [+FuncPrefix+]_class_init ([+ClassName+]Class *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	[+BaseClass+]Class* parent_class = [+BaseTypePrefix+]_[+BaseTypeSuffix+]_CLASS (klass);[+
-IF (not (=(get "PrivateVariableCount") "0"))+]
 
-	g_type_class_add_private (klass, sizeof ([+ClassName+]Private));[+
-ENDIF+]
+	g_type_class_add_private (klass, sizeof ([+ClassName+]Private));
 
 	object_class->finalize = [+FuncPrefix+]_finalize;[+
 IF (not (=(get "Properties[0].Name") "")) +]
