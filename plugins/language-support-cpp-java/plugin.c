@@ -240,14 +240,20 @@ const gchar* HEADER_EXT[] =
 static GFile*
 language_support_get_header_file (IAnjutaEditor* editor)
 {
-    GFile *file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
-    GFile *parent = g_file_get_parent (file);
-    gchar *parent_uri = g_file_get_uri (parent);
-    gchar *basename = g_file_get_basename (file);
+    GFile *file, *parent;
+    gchar *parent_uri, *basename, *ext;
+    GFile *ret = NULL;
+
+    file = ianjuta_file_get_file (IANJUTA_FILE (editor), NULL);
+    if (!file)
+        return NULL;
+
+    parent = g_file_get_parent (file);
+    parent_uri = g_file_get_uri (parent);
+    basename = g_file_get_basename (file);
     g_object_unref (file);
     g_object_unref (parent);
-    gchar *ext = strstr (basename, ".");
-    GFile *ret = NULL;
+    ext = strstr (basename, ".");
 
     if (ext)
     {
@@ -881,13 +887,10 @@ on_swap_activate (GtkAction* action, gpointer data)
     if (!lang_plugin->current_editor || !docman)
         return;
 
-//    file = ianjuta_file_get_file (IANJUTA_FILE (lang_plugin->current_editor),
-//                                  NULL);
-
     file = language_support_get_header_file (
                                         IANJUTA_EDITOR (lang_plugin->current_editor));
 
-    if (g_file_query_exists (file, NULL))
+    if (file)
     {
         ianjuta_document_manager_goto_file_line (docman,
                                                  file,
