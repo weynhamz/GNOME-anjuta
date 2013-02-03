@@ -1,7 +1,7 @@
 
 SUBDIRS = minimal terminal cpp gtk gtkapplication anjuta-plugin \
 	gtkmm wxwin xlib xlib-dock gcj java pygtk \
-	python mkfile sdl library directory licenses m4 js_minimal \
+	python mkfile sdl library directory m4 js_minimal \
 	vala-gtk gnome-shell-extension
 
 template_in_files = \

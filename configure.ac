@@ -830,7 +830,6 @@ plugins/project-wizard/templates/xlib-dock/po/Makefile
 plugins/project-wizard/templates/sdl/Makefile
 plugins/project-wizard/templates/sdl/src/Makefile
 plugins/project-wizard/templates/sdl/po/Makefile
-plugins/project-wizard/templates/licenses/Makefile
 plugins/project-wizard/templates/library/Makefile
 plugins/project-wizard/templates/library/src/Makefile
 plugins/project-wizard/templates/library/po/Makefile
