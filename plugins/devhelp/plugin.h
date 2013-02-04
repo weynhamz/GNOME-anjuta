@@ -53,16 +53,12 @@ struct _AnjutaDevhelp{
 	GtkWidget      *view_sw;
 #endif /* HAVE_WEBKIT2 */
 	GtkWidget      *present_widget;
-	GtkWidget      *control_notebook; 
-	GtkWidget      *tab_hbox;
+	GtkWidget      *sidebar_header;
 	GtkWidget      *custom_label;
-	GtkWidget      *book_tree;
-	GtkWidget      *search;
+	GtkWidget      *sidebar;
 	GtkWidget      *go_back;
 	GtkWidget      *go_forward;
 	GtkWidget      *online;
-
-	GtkWidget      *tabber;
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
 	IAnjutaEditor	*editor;

@@ -81,27 +81,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
-devhelp_tree_link_selected_cb (GObject       *ignored, DhLink *link,
-							   AnjutaDevhelp *widget)
-{
-	gchar *uri;
-	
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->present_widget, NULL);
-
-	uri = dh_link_get_uri (link);
-#ifdef HAVE_WEBKIT2
-	webkit_web_view_load_uri (WEBKIT_WEB_VIEW (widget->view), uri);
-#else
-	webkit_web_view_open (WEBKIT_WEB_VIEW (widget->view), uri);
-#endif
-	g_free (uri);
-	
-	anjuta_devhelp_check_history (widget);
-}
-
-static void
-devhelp_search_link_selected_cb (GObject  *ignored, DhLink *link,
+devhelp_sidebar_link_selected_cb (GObject  *ignored, DhLink *link,
 								 AnjutaDevhelp *widget)
 {
 	gchar *uri;
@@ -159,10 +139,9 @@ on_online_clicked (GtkWidget* widget, AnjutaDevhelp* plugin)
 
 static gboolean
 api_reference_idle (AnjutaDevhelp* plugin)
-{	
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 0);
+{
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 plugin->control_notebook, NULL);
+								 plugin->sidebar, NULL);
 	return FALSE;
 }
 
@@ -340,7 +319,6 @@ devhelp_activate (AnjutaPlugin *plugin)
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	static gboolean init = FALSE;
 	GtkWidget *label;
-	GtkWidget *books_sw;
 	
 	if (!init)
 	{
@@ -364,41 +342,19 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
-	devhelp->control_notebook = gtk_notebook_new ();
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (devhelp->control_notebook),
-	                            FALSE);
-
 	/* Tabs in grip */
-	devhelp->tab_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);	
+	devhelp->sidebar_header = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
 
-	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
+	gtk_box_pack_start (GTK_BOX (devhelp->sidebar_header),
 	                    gtk_image_new_from_stock (ANJUTA_STOCK_DEVHELP_SEARCH,
 	                                              GTK_ICON_SIZE_MENU),
 	                    FALSE, FALSE, 0);
 	label = gtk_label_new (_("API Browser"));
-	devhelp->tabber = anjuta_tabber_new (GTK_NOTEBOOK(devhelp->control_notebook));
-	
-	
-	gtk_box_pack_start (GTK_BOX (devhelp->tab_hbox),
+	gtk_box_pack_start (GTK_BOX (devhelp->sidebar_header),
 	                    label,
 	                    FALSE, FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (devhelp->tab_hbox),
-	                    devhelp->tabber,
-	                    TRUE, TRUE, 5);
 
-	label = gtk_label_new (_("Contents"));
-	gtk_label_set_ellipsize (GTK_LABEL (label),
-	                         PANGO_ELLIPSIZE_END);
-	anjuta_tabber_add_tab (ANJUTA_TABBER (devhelp->tabber),
-	                       label);
-	
-	label = gtk_label_new (_("Search"));
-	gtk_label_set_ellipsize (GTK_LABEL (label),
-	                         PANGO_ELLIPSIZE_END);
-	anjuta_tabber_add_tab (ANJUTA_TABBER (devhelp->tabber),
-	                       label);
-	
-	gtk_widget_show_all (devhelp->tab_hbox);
+	gtk_widget_show_all (devhelp->sidebar_header);
 
 	/*
 	 * Forward/back buttons
@@ -442,35 +398,14 @@ devhelp_activate (AnjutaPlugin *plugin)
 	/*
 	 * Notebook
 	 */
-	books_sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (books_sw),
-									GTK_POLICY_NEVER,
-									GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (books_sw),
-									     GTK_SHADOW_NONE);
-	gtk_container_set_border_width (GTK_CONTAINER (books_sw), 2);
-
-	devhelp->book_tree = dh_book_tree_new (devhelp->book_manager);
-
-	devhelp->search = dh_search_new (devhelp->book_manager);
-	gtk_widget_set_size_request (devhelp->search, 0, 0);
+	devhelp->sidebar = dh_sidebar_new (devhelp->book_manager);
 	
-	g_signal_connect (devhelp->book_tree,
+	g_signal_connect (devhelp->sidebar,
 					  "link-selected",
-					  G_CALLBACK (devhelp_tree_link_selected_cb),
+					  G_CALLBACK (devhelp_sidebar_link_selected_cb),
 					  devhelp);
-	g_signal_connect (devhelp->search,
-					  "link-selected",
-					  G_CALLBACK (devhelp_search_link_selected_cb),
-					  devhelp);
-	
-	gtk_container_add (GTK_CONTAINER (books_sw), devhelp->book_tree);
-	gtk_notebook_append_page (GTK_NOTEBOOK (devhelp->control_notebook), books_sw,
-							 NULL);
-	gtk_notebook_append_page (GTK_NOTEBOOK (devhelp->control_notebook), devhelp->search,
-							  NULL);
-	
-	gtk_widget_show_all (devhelp->control_notebook);
+
+	gtk_widget_show_all (devhelp->sidebar);
 	
 	/* View */
 	devhelp->view = webkit_web_view_new ();
@@ -505,9 +440,9 @@ devhelp_activate (AnjutaPlugin *plugin)
 							 ANJUTA_STOCK_DEVHELP_VIEW, devhelp->custom_label,
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 
-	anjuta_shell_add_widget_custom (plugin->shell, devhelp->control_notebook,
+	anjuta_shell_add_widget_custom (plugin->shell, devhelp->sidebar,
 	                                "AnjutaDevhelpIndex", _("API Browser"), ANJUTA_STOCK_DEVHELP_SEARCH,
-	                                devhelp->tab_hbox,
+	                                devhelp->sidebar_header,
 	                                ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
@@ -538,7 +473,7 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 
 	/* Remove widgets */
 	anjuta_shell_remove_widget(plugin->shell, devhelp->present_widget, NULL);
-	anjuta_shell_remove_widget(plugin->shell, devhelp->control_notebook, NULL);	
+	anjuta_shell_remove_widget(plugin->shell, devhelp->sidebar, NULL);
 
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 	
@@ -630,10 +565,9 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	plugin = ANJUTA_PLUGIN_DEVHELP (help);
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 plugin->control_notebook, NULL);
+								 plugin->sidebar, NULL);
 	
-	dh_search_set_search_string (DH_SEARCH (plugin->search), query, NULL);
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 1);
+	dh_sidebar_set_search_string (DH_SIDEBAR (plugin->sidebar), query);
 }
 
 #else /* DISABLE_EMBEDDED_DEVHELP */
