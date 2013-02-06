@@ -570,13 +570,10 @@ draw (GtkWidget *widget, cairo_t *cr)
 			}
 			gtk_tree_view_get_background_area (
 				tree_view, root, gtk_tree_view_get_column (tree_view, 0), &rect);
-			gtk_paint_hline (gtk_widget_get_style (widget),
-					 cr,
-					 gtk_widget_get_state (widget),
-					 widget,
-					 "",
-					 rect.x, rect.x + rect.width,
-					 rect.y);
+			gtk_render_line (gtk_widget_get_style_context (widget),
+			                 cr,
+			                 rect.x, rect.y,
+			                 rect.x + rect.width, rect.y);
 			gtk_tree_path_free (root);
 		}
 	}
