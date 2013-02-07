@@ -290,6 +290,7 @@
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">2</property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                       </object>
