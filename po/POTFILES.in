@@ -160,6 +160,7 @@ plugins/indentation-c-style/plugin.c
 [type: gettext/glade]plugins/indentation-python-style/anjuta-indentation-python-style.ui
 plugins/indentation-python-style/plugin.c
 [type: gettext/ini]plugins/jhbuild/anjuta-jhbuild.plugin.in
+plugins/jhbuild/plugin.c
 plugins/js-debugger/debugger-js.c
 [type: gettext/ini]plugins/js-debugger/js_debugger.plugin.in
 plugins/js-debugger/plugin.c
