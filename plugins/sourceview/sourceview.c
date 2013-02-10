@@ -992,9 +992,13 @@ ifile_open (IAnjutaFile* ifile, GFile* file, GError** e)
 
 	/* Hold a reference here to avoid a destroyed editor */
 	g_object_ref(G_OBJECT(sv));
+
+	gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (sv->priv->document));
 	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(sv->priv->document),
 							  "",
 							  0);
+	gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (sv->priv->document));
+
 	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view),
 								FALSE);
 	sv->priv->loading = TRUE;
