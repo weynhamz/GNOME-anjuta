@@ -14,7 +14,6 @@
 				<separator name="separator2"/>
 				<menuitem name="NewTarget" action="ActionProjectNewTarget" />
 				<menuitem name="NewFolder" action="ActionProjectNewFolder" />
-				<menuitem name="NewLibrary" action="ActionProjectNewLibrary" />
 				<separator name="separator1"/>
 				<menuitem name="Properties" action="ActionProjectProperties"/>
 		</menu>
@@ -29,7 +28,6 @@
 		<separator name="separator1"/>
 		<menuitem name="NewTarget" action="ActionPopupProjectNewTarget"/>
 		<menuitem name="NewFolder" action="ActionPopupProjectNewFolder"/>
-		<menuitem name="NewLibrary" action="ActionPopupProjectNewLibrary"/>
 		<separator name="separator2"/>
 		<menuitem name="Remove" action="ActionPopupProjectRemove"/>
 		<separator name="separator3"/>

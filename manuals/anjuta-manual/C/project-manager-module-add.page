@@ -20,11 +20,13 @@
     </credit>
   </info>
 
-  <title>Add a Module</title>
+  <title>Add packaged libraries</title>
 
-  <p>Packages cannot be added directly to a target. You need to put them
-  into a module first and add this module to the target. See
-  <link xref="project-manager-module-new"/> to know how to do create a module.</p>
+  <p>On Linux, most libraries are distributed with additional data stored
+  in a <app>pkg-config</app> file. This file contains information like
+  the other libraries needed, the C compiler and the linker flags needed
+  to use that library. This file, the header files and the library files
+  themselves is called a package.</p>
 
   <steps>
     <item>
@@ -36,12 +38,27 @@
       <gui>Add Library...</gui></guiseq>.</p>
     </item>
     <item>
-      <p>You need to select the target where you want to add the module
-      in the <gui>target button</gui> above, and select the module that
-      you want to add in the <gui>module view</gui> below. If you
+      <p>You need to select the target where you want to add the library
+      in the <gui>target button</gui> above.</p>
+    </item>
+    <item>
+      <p>A library cannot be added directly to a target. You can add only
+      a module displayed in the <gui>module view</gui> below. If you
       select a library inside a module, the parent module will be added.</p>
+    </item>
+    <item>
+      <p>If the library you want is not displayed in the <gui>module view</gui>,
+      you need to add it as a module first. Click on the button
+      <gui>New Library</gui> and follow the explanation
+      <link xref="project-manager-module-new">here</link>.</p>
+      <note style="tip">
+        <p>After creating a new module, you have to wait a few seconds while
+        the project files are reloaded to see the new module in the list.</p>
+      </note>
+    </item>
+    <item>
       <p>When you are done, click on the <gui>Add</gui> button to add the
-      module.</p>
+      selected module to the target.</p>
     </item>
   </steps>
 

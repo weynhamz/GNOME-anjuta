@@ -55,7 +55,6 @@ HELP_FILES = \
 	project-manager-module-add.page \
 	project-manager-module-new.page \
 	project-manager-module-remove.page \
-	project-manager-package-add.page \
 	project-manager-package-remove.page \
 	project-manager.page \
 	project-manager-root.page \

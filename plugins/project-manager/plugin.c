@@ -493,23 +493,6 @@ on_new_group (GtkAction *action, ProjectManagerPlugin *plugin)
 }
 
 static void
-on_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
-{
-	GtkTreeIter selected_module;
-	GList *new_module;
-	GbfTreeData *data;
-
-	update_operation_begin (plugin);
-	data = gbf_project_view_get_first_selected (plugin->view, &selected_module);
-
-	new_module = anjuta_pm_project_new_package (plugin,
-										   get_plugin_parent_window (plugin),
-										   data == NULL ? NULL : &selected_module, NULL);
-	g_list_free (new_module);
-	update_operation_end (plugin, TRUE);
-}
-
-static void
 on_add_module (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GtkTreeIter selected_target;
@@ -588,22 +571,6 @@ static void
 on_popup_sort_shortcuts (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	gbf_project_view_sort_shortcuts (plugin->view);
-}
-
-static void
-on_popup_new_package (GtkAction *action, ProjectManagerPlugin *plugin)
-{
-	GtkTreeIter selected_module;
-	GList *packages;
-
-	update_operation_begin (plugin);
-	gbf_project_view_get_first_selected (plugin->view, &selected_module);
-
-	packages = anjuta_pm_project_new_package (plugin,
-										   get_plugin_parent_window (plugin),
-										   &selected_module, NULL);
-	g_list_free (packages);
-	update_operation_end (plugin, TRUE);
 }
 
 static void
@@ -955,11 +922,6 @@ static GtkActionEntry pm_actions[] =
 		G_CALLBACK (on_add_module)
 	},
 	{
-		"ActionProjectNewLibrary", GTK_STOCK_ADD,
-		N_("New _Library…"), NULL, N_("Add a new package to the project"),
-		G_CALLBACK (on_new_package)
-	},
-	{
 		"ActionProjectProperties", GTK_STOCK_PROPERTIES,
 		N_("_Properties"), NULL, N_("Project properties"),
 		G_CALLBACK (on_properties)
@@ -992,11 +954,6 @@ static GtkActionEntry popup_actions[] =
 		"ActionPopupProjectAddLibrary", GTK_STOCK_ADD,
 		N_("Add _Library"), NULL, N_("Add a library to a target"),
 		G_CALLBACK (on_popup_add_module)
-	},
-	{
-		"ActionPopupProjectNewLibrary", GTK_STOCK_ADD,
-		N_("New _Library"), NULL, N_("Add a new library to the project"),
-		G_CALLBACK (on_popup_new_package)
 	},
 	{
 		"ActionPopupProjectAddToProject", GTK_STOCK_ADD,
@@ -1137,9 +1094,6 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddLibrary");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_MODULE), NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-								   "ActionPopupProjectNewLibrary");
-	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_ADD_PACKAGE), NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectRemove");
 	g_object_set (G_OBJECT (action), "sensitive", INT_TO_GBOOLEAN (state & ANJUTA_PROJECT_CAN_REMOVE), NULL);
