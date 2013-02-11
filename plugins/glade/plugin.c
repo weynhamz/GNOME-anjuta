@@ -42,7 +42,8 @@ struct _GladePluginPriv
 	gint uiid;
 	GtkActionGroup *action_group;
 	GladeApp  *app;
-
+	GladeProject *project;
+		
 	GtkWidget *inspector;
 	GtkWidget *palette;
 	GtkWidget *editor;
@@ -87,17 +88,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	if (ANJUTA_IS_DESIGN_DOCUMENT(editor))
 	{
 		AnjutaDesignDocument* view = ANJUTA_DESIGN_DOCUMENT(editor);
-		GladeProject* project = glade_design_view_get_project(GLADE_DESIGN_VIEW(view));
+		priv->project = glade_design_view_get_project(GLADE_DESIGN_VIEW(view));
 		if (!view->is_project_added)
 		{
-			glade_app_add_project (project);
-			g_signal_connect (G_OBJECT (project), "notify::pointer-mode",
+			glade_app_add_project (priv->project);
+			g_signal_connect (G_OBJECT (priv->project), "notify::pointer-mode",
 			                  G_CALLBACK (on_pointer_mode_changed), glade_plugin);
 			view->is_project_added = TRUE;
 		}
 		/* Change view components */
-		glade_palette_set_project (GLADE_PALETTE (priv->palette), project);
-		glade_inspector_set_project (GLADE_INSPECTOR (priv->inspector), project);
+		glade_palette_set_project (GLADE_PALETTE (priv->palette), priv->project);
+		glade_inspector_set_project (GLADE_INSPECTOR (priv->inspector), priv->project);
 	}
 }
 
@@ -105,7 +106,10 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
                               const char *name, gpointer data)
 {
-
+	GladePlugin* glade_plugin = ANJUTA_PLUGIN_GLADE(plugin);
+	GladePluginPriv* priv = glade_plugin->priv;
+	
+	priv->project = NULL;
 }
 
 static void
@@ -591,6 +595,27 @@ glade_plugin_load_progress (GladeProject *project,
 	g_free (project_name);
 }
 
+static void
+on_glade_show_properties_dialog (GtkAction* action, GladePlugin* plugin)
+{
+	GladePluginPriv* priv = plugin->priv;
+
+	if (priv->project != NULL)
+		glade_project_properties (priv->project);
+}
+
+static GtkActionEntry actions_glade[] =
+{
+	{
+		"ActionGladePropertiesDialog",
+		GTK_STOCK_PROPERTIES,
+		N_("Glade Properties…"),
+		NULL,
+		N_("Switch between library versions and check deprecations"),
+		G_CALLBACK (on_glade_show_properties_dialog)
+	}
+};
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -599,6 +624,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaStatus* status;
 	GtkWidget* button_box;
 	GtkBuilder* builder;
+	AnjutaUI *ui;
 	GError* err = NULL;
 
 	DEBUG_PRINT ("%s", "GladePlugin: Activating Glade plugin…");
@@ -618,6 +644,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	{
 		priv->app = glade_app_new ();
 	}
+	priv->project = NULL;
 
 	glade_app_set_window (GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
 
@@ -692,6 +719,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_widget_show (priv->editor);
 	gtk_widget_show (priv->inspector);
 
+	/* Add UI */
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	priv->action_group =
+		anjuta_ui_add_action_group_entries (ui,
+		                                    "ActionGroupGlade", _("Glade designer operations"),
+		                                    actions_glade, G_N_ELEMENTS (actions_glade),
+		                                    GETTEXT_PACKAGE, TRUE, plugin);
+	priv->uiid = anjuta_ui_merge (ui, UI_FILE);
+
 	/* Add widgets */
 	anjuta_shell_add_widget (anjuta_plugin_get_shell (ANJUTA_PLUGIN (plugin)),
 	                         priv->paned,
@@ -720,6 +756,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GladePluginPriv *priv;
+	AnjutaUI *ui;
 
 	priv = ANJUTA_PLUGIN_GLADE (plugin)->priv;
 
@@ -750,6 +787,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_remove_widget (anjuta_plugin_get_shell (plugin),
 	                            priv->paned,
 	                            NULL);
+
+	/* Remove UI*/
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_unmerge (ui, priv->uiid);
+	anjuta_ui_remove_action_group (ui, priv->action_group);
 
 	priv->uiid = 0;
 	priv->action_group = NULL;
