@@ -25,7 +25,6 @@
 
 #define READ_SIZE 4096
 #define RATE_LIMIT 5000 /* Use a big rate limit to avoid duplicates */
-#define TIMEOUT 5
 
 enum
 {
@@ -66,12 +65,11 @@ sourceview_io_finalize (GObject *object)
 	SourceviewIO* sio = SOURCEVIEW_IO(object);
 	if (sio->file)
 		g_object_unref (sio->file);
+	g_free (sio->etag);
 	g_free(sio->filename);
 	g_free(sio->read_buffer);
 	g_free(sio->write_buffer);
 	g_object_unref (sio->cancel);
-	if (sio->monitor_idle > 0)
-		g_source_remove (sio->monitor_idle);
 	if (sio->monitor)
 		g_object_unref (sio->monitor);
 
@@ -165,8 +163,24 @@ static void on_file_changed (GFileMonitor* monitor,
 	{
 		case G_FILE_MONITOR_EVENT_CREATED:
 		case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
-			g_signal_emit_by_name (sio, "changed");
+		{
+			GFileInfo* info;
+			const gchar* etag;
+
+			info = g_file_query_info (file, G_FILE_ATTRIBUTE_ETAG_VALUE,
+			                          G_FILE_QUERY_INFO_NONE, NULL, NULL);
+			if (!info)
+				break;
+
+			etag = g_file_info_get_etag (info);
+
+			/* Only emit "changed" if the etag has changed. */
+			if (g_strcmp0 (sio->etag, etag))
+				g_signal_emit_by_name (sio, "changed");
+
+			g_object_unref (info);
 			break;
+		}
 		case G_FILE_MONITOR_EVENT_DELETED:
 			g_signal_emit_by_name (sio, "deleted");
 			break;
@@ -175,43 +189,34 @@ static void on_file_changed (GFileMonitor* monitor,
 	}
 }
 
-static gboolean
-setup_monitor_idle(gpointer data)
-{
-	SourceviewIO* sio = SOURCEVIEW_IO(data);
-	sio->monitor_idle = 0;
-	if (sio->monitor != NULL)
-		g_object_unref (sio->monitor);
-	sio->monitor = g_file_monitor_file (sio->file,
-										G_FILE_MONITOR_NONE,
-										NULL,
-										NULL);
-	if (sio->monitor)
-	{
-		g_signal_connect (sio->monitor, "changed",
-						  G_CALLBACK(on_file_changed), sio);
-		g_file_monitor_set_rate_limit (sio->monitor, RATE_LIMIT);
-	}
-	return FALSE;
-}
-
 static void
 setup_monitor(SourceviewIO* sio)
 {
-	if (sio->monitor_idle > 0)
-		g_source_remove (sio->monitor_idle);
-
-	sio->monitor_idle = g_timeout_add_seconds (TIMEOUT,
-											   setup_monitor_idle,
-											   sio);
+	if (sio->monitor != NULL)
+		g_object_unref (sio->monitor);
+	sio->monitor = g_file_monitor_file (sio->file,
+	                                    G_FILE_MONITOR_NONE,
+	                                    NULL,
+	                                    NULL);
+	if (sio->monitor)
+	{
+		g_signal_connect (sio->monitor, "changed",
+		                  G_CALLBACK(on_file_changed), sio);
+		g_file_monitor_set_rate_limit (sio->monitor, RATE_LIMIT);
+	}
 }
 
 static void
-cancel_monitor (SourceviewIO* sio)
+sourceview_io_unset_current_file (SourceviewIO* sio)
 {
-	if (sio->monitor != NULL)
-		g_object_unref (sio->monitor);
-	sio->monitor = NULL;
+	g_clear_object (&sio->file);
+	g_clear_object (&sio->monitor);
+
+	g_free (sio->etag);
+	sio->etag = NULL;
+
+	g_free (sio->filename);
+	sio->filename = NULL;
 }
 
 static void
@@ -241,9 +246,11 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	GError* err = NULL;
+
+	g_free (sio->etag);
 	g_file_replace_contents_finish (G_FILE (file),
 	                                result,
-	                                NULL,
+	                                &sio->etag,
 	                                &err);
 	g_free (sio->write_buffer);
 	sio->write_buffer = NULL;
@@ -255,7 +262,8 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 	else
 	{
 		set_display_name (sio);
-		setup_monitor (sio);
+		if (!sio->monitor)
+			setup_monitor (sio);
 		g_signal_emit_by_name (sio, "save-finished");
 	}
 	g_object_unref (sio);
@@ -286,7 +294,12 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 
 	g_return_if_fail (file != NULL);
 
-	cancel_monitor (sio);
+	if (sio->file != file)
+	{
+		sourceview_io_unset_current_file (sio);
+
+		sio->file = g_object_ref (file);
+	}
 
 	backup = g_settings_get_boolean (sio->sv->priv->settings,
 	                                 "backup");
@@ -327,13 +340,6 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	                               sio);
 	anjuta_shell_saving_push (shell);
 
-	if (sio->file != file)
-	{
-		if (sio->file)
-			g_object_unref (sio->file);
-		sio->file = file;
-		g_object_ref (file);
-	}
 	g_object_ref (sio);
 }
 
@@ -433,9 +439,26 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 		}
 		else
 		{
-			if (append_buffer (sio, sio->bytes_read))
-				g_signal_emit_by_name (sio, "open-finished");
-			setup_monitor (sio);
+			GFileInfo* info;
+
+			info = g_file_input_stream_query_info (G_FILE_INPUT_STREAM (input_stream),
+			                                       G_FILE_ATTRIBUTE_ETAG_VALUE,
+			                                       NULL, &err);
+			if (!info)
+			{
+				g_signal_emit_by_name (sio, "open-failed", err);
+				g_error_free (err);
+			}
+			else
+			{
+				g_free (sio->etag);
+				sio->etag = g_strdup (g_file_info_get_etag (info));
+				g_object_unref (info);
+
+				if (append_buffer (sio, sio->bytes_read))
+					g_signal_emit_by_name (sio, "open-finished");
+				setup_monitor (sio);
+			}
 		}
 	}
 
@@ -454,11 +477,13 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 
 	g_return_if_fail (file != NULL);
 
-	if (sio->file)
-		g_object_unref (sio->file);
-	sio->file = file;
-	g_object_ref (sio->file);
-	set_display_name(sio);
+	if (sio->file != file)
+	{
+		sourceview_io_unset_current_file (sio);
+
+		sio->file = g_object_ref (file);
+		set_display_name(sio);
+	}
 
 	input_stream = g_file_read (file, NULL, &err);
 	if (!input_stream)

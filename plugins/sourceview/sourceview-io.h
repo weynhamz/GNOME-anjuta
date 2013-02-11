@@ -55,13 +55,13 @@ struct _SourceviewIO
 	GObject parent_instance;
 
 	GFile* file;
+	gchar* etag;
 	gchar* filename;
 	Sourceview* sv;
 	gchar* write_buffer;
 	gchar* read_buffer;
 	GCancellable* cancel;
 	GFileMonitor* monitor;
-	guint monitor_idle;
 	gssize bytes_read;
 
 	const AnjutaEncoding* last_encoding;
