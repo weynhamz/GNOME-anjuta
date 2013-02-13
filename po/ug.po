@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-31 08:54+0000\n"
-"PO-Revision-Date: 2013-02-03 10:40+0900\n"
+"POT-Creation-Date: 2013-02-12 20:10+0000\n"
+"PO-Revision-Date: 2013-02-13 19:47+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
@@ -34,7 +34,7 @@ msgstr "يۈرۈشلەشتۈرۈلگەن يۇمشاق دېتال ئىجادىي�
 
 #: ../anjuta.desktop.in.in.h:4
 msgid "IDE;development;programming;"
-msgstr "IDE;development;programming;ئىجادىيەت؛پروگرامما ئىشلەش؛"
+msgstr "IDE;development;programming;ئىجادىيەت;پروگرامما ئىشلەش;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
@@ -353,7 +353,7 @@ msgstr "يۈك"
 msgid "Available Plugins"
 msgstr "ئىشلىتىشكە بولىدىغان قىستۇرمىلار"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:992
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:994
 msgid "Preferred plugins"
 msgstr "ئامراق قىستۇرمىلار"
 
@@ -445,7 +445,7 @@ msgstr "كاتېگورىيە"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:979
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:981
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "ئادەتتىكى"
@@ -1412,7 +1412,6 @@ msgid "Cannot configure project: Missing configure script in %s."
 msgstr "قۇرۇلۇشنى سەپلىگىلى بولمىدى: %s دىكى سەپلەش قوليازمىسى(script) يوق تۇرىدۇ."
 
 #: ../plugins/build-basic-autotools/build-options.c:80
-#| msgid "Selected directory in the project manager plugin"
 msgid "Select a build directory inside the project directory"
 msgstr "قۇرۇلۇش مۇندەرىجىسى ئىچىدىن ھاسىللاش مۇندەرىجىسىنى تاللاڭ"
 
@@ -2096,7 +2095,7 @@ msgstr "Getter"
 msgid "Setter"
 msgstr "Setter"
 
-#: ../plugins/class-gen/window.c:1234
+#: ../plugins/class-gen/window.c:1232
 msgid "XML description of the user interface"
 msgstr "ئىشلەتكۈچى كۆرۈنمە يۈزىنىڭ XML ئارقىلىق ئىپادىلىنىشى"
 
@@ -3356,57 +3355,48 @@ msgstr "API دىن ياردەم"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Devhelp نىڭ Anjuta قىستۇرمىسى"
 
-#: ../plugins/devhelp/plugin.c:204
+#: ../plugins/devhelp/plugin.c:199
 msgid "Search Help:"
 msgstr "ياردەم ئۇچۇرى ئىزدەش:"
 
-#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:234
+#: ../plugins/devhelp/plugin.c:220 ../plugins/document-manager/plugin.c:234
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "يۆتكەل(_G)"
 
-#: ../plugins/devhelp/plugin.c:234
+#: ../plugins/devhelp/plugin.c:229
 msgid "_API Reference"
 msgstr "API دىن پايدىلان(_A)"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:231
 msgid "Browse API Pages"
 msgstr "API بېتىگە كۆز يۈگۈرتىدۇ"
 
-#: ../plugins/devhelp/plugin.c:246
+#: ../plugins/devhelp/plugin.c:241
 msgid "_Context Help"
 msgstr "كونتېكىست ياردىمى(_C)"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:243
 msgid "Search help for the current word in the editor"
 msgstr "نۆۋەتتە تەھرىرلىگۈچتە ئىشلىتىلىۋاتقان سۆز ئۈچۈن ياردەم ئۇچۇرى ئىزدەيدۇ"
 
-#: ../plugins/devhelp/plugin.c:258
+#: ../plugins/devhelp/plugin.c:253
 msgid "_Search Help"
 msgstr "ياردەم ئۇچۇرى ئىزدە(_S)"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:255
 msgid "Search for a term in help"
 msgstr "ياردەم ئۇچۇرىدىن ئاتالغۇ ئىزدەيدۇ"
 
-#: ../plugins/devhelp/plugin.c:331
+#: ../plugins/devhelp/plugin.c:337
 msgid "Help operations"
 msgstr "ياردەم مەشغۇلاتلىرى"
 
-#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
+#: ../plugins/devhelp/plugin.c:352 ../plugins/devhelp/plugin.c:444
 msgid "API Browser"
 msgstr "API كۆرگۈ"
 
-#: ../plugins/devhelp/plugin.c:361
-msgid "Contents"
-msgstr "مەزمۇنلار"
-
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2141
-#: ../plugins/symbol-db/plugin.c:2193
-msgid "Search"
-msgstr "ئىزدە"
-
-#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:369 ../plugins/devhelp/plugin.c:439
 msgid "API"
 msgstr "API"
 
@@ -3476,7 +3466,7 @@ msgid " [read-only]"
 msgstr " [ئوقۇشقىلا بولىدۇ]"
 
 #: ../plugins/document-manager/anjuta-docman.c:661
-#: ../plugins/document-manager/anjuta-docman.c:1101
+#: ../plugins/document-manager/anjuta-docman.c:1102
 msgid "Close file"
 msgstr "ھۆججەتنى تاقا"
 
@@ -3508,7 +3498,7 @@ msgstr "ھۆججەت ‹%s› مەۋجۇت.\n"
 msgid "_Replace"
 msgstr "ئالماشتۇر(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1729
+#: ../plugins/document-manager/anjuta-docman.c:1730
 msgid "[read-only]"
 msgstr "[ئوقۇشقىلا بولىدۇ]"
 
@@ -3909,9 +3899,9 @@ msgid "Search using regular expressions"
 msgstr "مۇنتىزىم ئىپادە ئىشلىتىپ ئىزدەش"
 
 #: ../plugins/document-manager/plugin.c:295
-#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-c-style/plugin.c:465
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "تەھرىر(_E)"
@@ -4219,11 +4209,11 @@ msgstr "«%s» نى ئىزدەش ئاخىرلاشقاندا، باشتىن قا�
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr "قوشۇمچە ئىزدەش تاللانمىلىرىنى ئىشلىتىش ئۈچۈن «ئىزدە» سىنبەلگىسىنىڭ مەزمۇن تىزىملىكىنى ئىشلىتىڭ"
 
-#: ../plugins/document-manager/search-box.c:980
+#: ../plugins/document-manager/search-box.c:977
 msgid "Replace"
 msgstr "ئالماشتۇر"
 
-#: ../plugins/document-manager/search-box.c:985
+#: ../plugins/document-manager/search-box.c:982
 msgid "Replace all"
 msgstr "ھەممىنى ئالماشتۇر"
 
@@ -4468,7 +4458,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>ئاچىدىغان پروگرامما</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:543 ../plugins/file-manager/plugin.c:552
+#: ../plugins/file-manager/plugin.c:546 ../plugins/file-manager/plugin.c:555
 msgid "File Manager"
 msgstr "ھۆججەت باشقۇرغۇ"
 
@@ -4544,11 +4534,11 @@ msgstr "ھۆججەت باشقۇرغۇدا كۆرسەت(_S)"
 msgid "Show in File manager"
 msgstr "ھۆججەت باشقۇرغۇدا كۆرسىتىش"
 
-#: ../plugins/file-manager/plugin.c:371
+#: ../plugins/file-manager/plugin.c:374
 msgid "File manager popup actions"
 msgstr "ھۆججەت باشقۇرغۇنىڭ قاڭقىش مەشغۇلاتى"
 
-#: ../plugins/file-manager/plugin.c:404 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "ھۆججەتلەر"
 
@@ -5675,29 +5665,43 @@ msgstr "كىچىك ئەپ گىرۋەكلىرىنى تەھرىرلەيدۇ"
 msgid "Edit widget alignment"
 msgstr "كىچىك ئەپلەرنىڭ توغرىلىنىشىنى تەھرىرلەيدۇ"
 
+#: ../plugins/glade/plugin.c:612
+#| msgid "Folder properties"
+msgid "Glade Properties…"
+msgstr "Glade خاسلىقلىرى…"
+
 #: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr "ئامبار نەشرلىرىنى ئالماشتۇرىدۇ ۋە تاشلىۋېتىلگەنلەرنى(deprecations) تەكشۈرىدۇ"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "Glade نى ئوقۇۋاتىدۇ…"
 
-#: ../plugins/glade/plugin.c:698
+#: ../plugins/glade/plugin.c:726
+#| msgid "Debugger operations"
+msgid "Glade designer operations"
+msgstr "Glade لايىھىلىگۈچى مەشغۇلاتلىرى"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "ۋىجېتلار"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "رەڭ تاختىسى"
 
-#: ../plugins/glade/plugin.c:825
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "يەرلىك ھۆججەت ئەمەس: %s"
 
-#: ../plugins/glade/plugin.c:871
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "%s نى ئاچالمىدى"
 
-#: ../plugins/glade/plugin.c:914
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "يېڭى glade قۇرۇلۇشى قۇرالمىدى."
 
@@ -5750,22 +5754,22 @@ msgid "Parenthesis indentation"
 msgstr "تىرناقلارنىڭ تارتىلىشى"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-c-style/plugin.c:471
 #: ../plugins/indentation-python-style/plugin.c:206
 msgid "Auto-Indent"
 msgstr "ئاپتوماتىك تارايت"
 
-#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-c-style/plugin.c:472
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "تارايتىش تەڭشىكىگە ئاساسەن نۆۋەتتىكى ياكى تاللانغان قۇرنى ئۆزلۈكىدىن تارايتىدۇ"
 
-#: ../plugins/indentation-c-style/plugin.c:510
+#: ../plugins/indentation-c-style/plugin.c:512
 msgid "C Indentation"
 msgstr "C تارتىلىشى"
 
-#: ../plugins/indentation-c-style/plugin.c:608
-#: ../plugins/indentation-c-style/plugin.c:617
+#: ../plugins/indentation-c-style/plugin.c:610
+#: ../plugins/indentation-c-style/plugin.c:619
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -5786,6 +5790,32 @@ msgstr "JHBuild"
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:2
 msgid "Build and run programs inside the JHBuild environment"
 msgstr "پروگراممىلارنى JHBuild مۇھىتىدا ھاسىللاپ ئىجرا قىلىدۇ"
+
+#: ../plugins/jhbuild/plugin.c:121
+#| msgid "Failed to read file"
+msgid "Failed to run \"jhbuild run\""
+msgstr "«jhbuild run» نى ئىجرا قىلىش مەغلۇپ بولدى."
+
+#: ../plugins/jhbuild/plugin.c:127
+#, c-format
+msgid "Failed to run \"jhbuild run\" (%s)"
+msgstr "«jhbuild run» (%s) نى ئىجرا قىلىش مەغلۇپ بولدى."
+
+#: ../plugins/jhbuild/plugin.c:172
+msgid "Could not find the JHBuild install prefix."
+msgstr ""
+
+#: ../plugins/jhbuild/plugin.c:180
+msgid ""
+"Could not find the JHBuild library directory. You need JHBuild from "
+"2012-11-06 or later."
+msgstr "JHBuild ئامبار مۇندەرىجىسىنى تاپالمىدى. JHBuild نى 2012-11-06 ياكى ئۇنىڭدىن كېيىنكىسىدىن ھاسىللىشىڭىز كېرەك."
+
+#: ../plugins/jhbuild/plugin.c:198
+#, c-format
+#| msgid "Failed to activate plugin: %s"
+msgid "Failed to activate the JHBuild Plugin: %s"
+msgstr "JHBuild قىستۇرمىسىنى ئاكتىپلاش مەغلۇپ بولدى: %s"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5833,32 +5863,32 @@ msgstr "ئۆلچەملىك C فۇنكسىيە ئامبىرى ئۈچۈن API خە
 msgid "Load API tags for C++ standard template library"
 msgstr "ئۆلچەملىك C++  قېلىپ ئامبىرى ئۈچۈن API خەتكۈچلىرىنى ئوقۇسۇن"
 
-#: ../plugins/language-support-cpp-java/plugin.c:682
+#: ../plugins/language-support-cpp-java/plugin.c:688
 msgid "Code added for widget."
 msgstr "كىچىك ئەپكە قوشۇلغان كود."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1079
+#: ../plugins/language-support-cpp-java/plugin.c:1082
 msgid "Comment/Uncomment"
 msgstr "ئىزاھاتىنى بەلگىلەش/بىكار قىلىش"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1080
+#: ../plugins/language-support-cpp-java/plugin.c:1083
 msgid "Comment or uncomment current selection"
 msgstr "نۆۋەتتىكى تاللانغان مەزمۇننىڭ ئىزاھات بەلگىسىنى ئۆچۈرىدۇ ياكى ئىزاھات بەلگىسى قوشىدۇ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1085
+#: ../plugins/language-support-cpp-java/plugin.c:1088
 msgid "Swap .h/.c"
 msgstr "ئالماشتۇر(.h/.c)"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1086
+#: ../plugins/language-support-cpp-java/plugin.c:1089
 msgid "Swap C header and source files"
 msgstr "C قاش ھۆججىتى بىلەن مەنبە ھۆججىتىنى ئالماشتۇرىدۇ"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1126
+#: ../plugins/language-support-cpp-java/plugin.c:1129
 msgid "C++/Java Assistance"
 msgstr "C++/Java ياردىمى"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
-#: ../plugins/language-support-cpp-java/plugin.c:1374
+#: ../plugins/language-support-cpp-java/plugin.c:1348
+#: ../plugins/language-support-cpp-java/plugin.c:1377
 msgid "API Tags (C/C++)"
 msgstr "API خەتكۈچلىرى(C/C++)"
 
@@ -6409,7 +6439,7 @@ msgstr "ئىشلىتىدىغان قۇرۇلۇش ئارقا ئۇچىنى تالل
 
 #: ../plugins/project-manager/dialogs.c:689
 #: ../plugins/project-manager/dialogs.c:694
-#: ../plugins/project-manager/plugin.c:964
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "قۇرۇلۇش خاسلىقى"
 
@@ -6494,99 +6524,99 @@ msgstr "يوقالغان بۆلەك ئاتى"
 msgid "Cannot add packages"
 msgstr "بوغچىلارنى ئورناتقىلى بولمىدى"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:684
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى گۇرۇپپىنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:720
+#: ../plugins/project-manager/plugin.c:687
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى نىشاننى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:723
+#: ../plugins/project-manager/plugin.c:690
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى مەنبە ھۆججەتنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:726
+#: ../plugins/project-manager/plugin.c:693
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بوغچىنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:729
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى بۆلەكنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:732
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
 msgstr "ھازىرقى قۇرۇلۇشتىن تۆۋەندىكى ئېلېمېنتلارنى راستلا چىقىرىۋېتەمسىز؟\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid "Group: %s\n"
 msgstr "گۇرۇپپا: %s\n"
 
-#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:719
 #, c-format
 msgid "Target: %s\n"
 msgstr "نىشان:%s\n"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Source: %s\n"
 msgstr "مەنبە: %s\n"
 
-#: ../plugins/project-manager/plugin.c:758
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "تېزلەتمە: %s\n"
 
-#: ../plugins/project-manager/plugin.c:761
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Module: %s\n"
 msgstr "بۆلەك: %s\n"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Package: %s\n"
 msgstr "بوغچا: %s\n"
 
-#: ../plugins/project-manager/plugin.c:776
+#: ../plugins/project-manager/plugin.c:743
 msgid "The group will be deleted from the file system."
 msgstr "مەزكۇر گۇرۇپپا ھۆججەت سىستېمىسىدىن ئۆچۈرۈلىدۇ."
 
-#: ../plugins/project-manager/plugin.c:778
+#: ../plugins/project-manager/plugin.c:745
 msgid "The group will not be deleted from the file system."
 msgstr "مەزكۇر گۇرۇپپا ھۆججەت سىستېمىسىدىن ئۆچۈرۈلمەيدۇ."
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:747
 msgid "The source file will be deleted from the file system."
 msgstr "مەزكۇر مەنبە ھۆججەت سىستېمىسىدىن ئۆچۈرۈلىدۇ."
 
-#: ../plugins/project-manager/plugin.c:782
+#: ../plugins/project-manager/plugin.c:749
 msgid "The source file will not be deleted from the file system."
 msgstr "مەزكۇر مەنبە ھۆججەت سىستېمىسىدىن ئۆچۈرۈلمەيدۇ."
 
-#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:754
 msgid "Confirm remove"
 msgstr "چىقىرىۋېتىشنى جەزملەش"
 
-#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:800
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6594,167 +6624,151 @@ msgid ""
 msgstr "‹%s› چىقىرىۋېتىش مەغلۇپ بولدى:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:899
+#: ../plugins/project-manager/plugin.c:866
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "%s نىڭ URI ئۇچۇرىنى تېپىش مەغلۇپ بولدى: %s"
 
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:902
 msgid "_Project"
 msgstr "قۇرۇلۇش(_P)"
 
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Folder…"
 msgstr "يېڭى قىسقۇچ(_F)…"
 
-#: ../plugins/project-manager/plugin.c:939
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "قۇرۇلۇشقا يېڭى قىسقۇچ قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:911
 msgid "New _Target…"
 msgstr "يېڭى نىشان(_T)…"
 
-#: ../plugins/project-manager/plugin.c:944
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "قۇرۇلۇشقا يېڭى نىشان قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Source File…"
 msgstr "مەنبە ھۆججەت قوش (_S)..."
 
-#: ../plugins/project-manager/plugin.c:949
-#: ../plugins/project-manager/plugin.c:988
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:916
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a source file to a target"
 msgstr "قۇرۇلۇشقا يېڭى مەنبە ھۆججەت قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add _Library…"
 msgstr "ئامبار قوش(_L)..."
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a module to a target"
 msgstr "نىشانغا بىر بۆلەك قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:959
-msgid "New _Library…"
-msgstr "يېڭى ئامبار(_L)…"
-
-#: ../plugins/project-manager/plugin.c:959
-msgid "Add a new package to the project"
-msgstr "قۇرۇلۇشقا يېڭى بوغچا قوشىدۇ"
-
-#: ../plugins/project-manager/plugin.c:964
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Properties"
 msgstr "خاسلىق(_P)"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "قۇرۇلۇش يېپىش(_J)"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "قۇرۇلۇش يېپىش"
 
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "يېڭى مۇندەرىجە(_F)"
 
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "يېڭى نىشان(_T)"
 
-#: ../plugins/project-manager/plugin.c:988
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "مەنبە ھۆججەت قوش(_S)"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "ئامبار قوش(_L)"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "نىشانغا ئامبار قوشىدۇ"
 
-#: ../plugins/project-manager/plugin.c:998
-msgid "New _Library"
-msgstr "يېڭى ئامبار(_L)"
-
-#: ../plugins/project-manager/plugin.c:998
-msgid "Add a new library to the project"
-msgstr "قۇرۇلۇشقا يېڭى ئامبار قوشىدۇ"
-
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:960
 msgid "_Add to Project"
 msgstr "قۇرۇلۇشقا قوش(_A)"
 
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:965
 msgid "Properties of group/target/source"
 msgstr "گۇرۇپپا/نىشان/مەنبە خاسلىقى"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Re_move"
 msgstr "چىقىرىۋەت(_M)"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Remove from project"
 msgstr "قۇرۇلۇشتىن چىقىرىۋەت"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "_Sort"
 msgstr "تەرتىپلە(_S)"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "Sort shortcuts"
 msgstr "تېزلەتمىنى تەرتىپلەيدۇ"
 
-#: ../plugins/project-manager/plugin.c:1356
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr "قۇرۇلۇشنى تەھلىل قىلىش مەغلۇپ بولدى(قۇرۇلۇش ئوچۇق ئىكەن، بىراق قۇرۇلۇش كۆرۈنۈشى يوق ئىكەن)%s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1366
+#: ../plugins/project-manager/plugin.c:1320
 msgid "Update project view…"
 msgstr "قۇرۇلۇش كۆرۈنۈشىنى يېڭىلاش…"
 
-#: ../plugins/project-manager/plugin.c:1371
-#: ../plugins/project-manager/plugin.c:1493
-#: ../plugins/project-manager/plugin.c:1661
+#: ../plugins/project-manager/plugin.c:1325
+#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 #: ../plugins/symbol-db/plugin.c:2136
 msgid "Project"
 msgstr "قۇرۇلۇش"
 
-#: ../plugins/project-manager/plugin.c:1409
+#: ../plugins/project-manager/plugin.c:1363
 #, c-format
 msgid "Loading project: %s"
 msgstr "قۇرۇلۇشنى يۈكلەش: %s"
 
-#: ../plugins/project-manager/plugin.c:1573
+#: ../plugins/project-manager/plugin.c:1527
 #, c-format
 msgid "Error closing project: %s"
 msgstr "قۇرۇلۇشنى تاقاۋاتقاندا خاتالىق كۆرۈلدى: %s"
 
-#: ../plugins/project-manager/plugin.c:1640
+#: ../plugins/project-manager/plugin.c:1594
 msgid "Project manager actions"
 msgstr "قۇرۇلۇش باشقۇرغۇچىنىڭ مەشغۇلاتلىرى"
 
-#: ../plugins/project-manager/plugin.c:1648
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager popup actions"
 msgstr "قۇرۇلۇش باشقۇرغۇچنىڭ سەكرىمە مەشغۇلاتى"
 
-#: ../plugins/project-manager/plugin.c:2462
+#: ../plugins/project-manager/plugin.c:2416
 msgid "Initializing Project…"
 msgstr "قۇرۇلۇشنى دەسلەپلەشتۈرۈۋاتىدۇ…"
 
-#: ../plugins/project-manager/plugin.c:2465
+#: ../plugins/project-manager/plugin.c:2419
 msgid "Project Loaded"
 msgstr "قۇرۇلۇش يۈكلەندى"
 
@@ -7920,7 +7934,7 @@ msgstr "نۆۋەتتىكى قۇرۇلۇش ئىچىدىكى بىر ھۆججەتن
 msgid "Quick open operations"
 msgstr "تېز ئېچىش مەشغۇلاتى"
 
-#: ../plugins/quick-open/quick-open-dialog.c:773
+#: ../plugins/quick-open/quick-open-dialog.c:775
 msgid "Quick Open"
 msgstr "تېز ئېچىش"
 
@@ -8390,12 +8404,12 @@ msgstr "ھۆججەت «%s» ن ئوقۇشقىلا بولىدۇ! تەھرىرلە
 msgid "Could not save %s: %s"
 msgstr "%s نى ساقلىيالمىدى: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:271
+#: ../plugins/sourceview/sourceview-io.c:280
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "ھۆججەت ئاتى بەلگىلەنمىگەچكە ھۆججەتنى ساقلىيالمىدى"
 
-#: ../plugins/sourceview/sourceview-io.c:499
+#: ../plugins/sourceview/sourceview-io.c:525
 #, c-format
 msgid "New file %d"
 msgstr "يېڭى ھۆججەت %d"
@@ -9099,6 +9113,10 @@ msgstr "بەلگە ساندان تولدۇرۇۋاتىدۇ…"
 msgid "Symbols"
 msgstr "بەلگىلەر"
 
+#: ../plugins/symbol-db/plugin.c:2141 ../plugins/symbol-db/plugin.c:2193
+msgid "Search"
+msgstr "ئىزدە"
+
 #: ../plugins/symbol-db/plugin.c:2215
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb سەكرىمە مەشغۇلاتلىرى"
@@ -9673,15 +9691,15 @@ msgstr "تەھرىرلەش"
 msgid "Help"
 msgstr "ياردەم"
 
-#: ../src/anjuta-window.c:990
+#: ../src/anjuta-window.c:992
 msgid "Installed plugins"
 msgstr "ئورنىتىلغان قىستۇرمىلار"
 
-#: ../src/anjuta-window.c:994
+#: ../src/anjuta-window.c:996
 msgid "Shortcuts"
 msgstr "تېزلەتمىلەر"
 
-#: ../src/anjuta-window.c:1066
+#: ../src/anjuta-window.c:1068
 #, c-format
 msgid "Value doesn't exist"
 msgstr "قىممەت مەۋجۇت ئەمەس"
@@ -9755,6 +9773,21 @@ msgstr "سىنبەلگىلەرلا"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "تېكىستلا"
+
+#~ msgid "Contents"
+#~ msgstr "مەزمۇنلار"
+
+#~ msgid "New _Library…"
+#~ msgstr "يېڭى ئامبار(_L)…"
+
+#~ msgid "Add a new package to the project"
+#~ msgstr "قۇرۇلۇشقا يېڭى بوغچا قوشىدۇ"
+
+#~ msgid "New _Library"
+#~ msgstr "يېڭى ئامبار(_L)"
+
+#~ msgid "Add a new library to the project"
+#~ msgstr "قۇرۇلۇشقا يېڭى ئامبار قوشىدۇ"
 
 #~ msgid "Select a build directory"
 #~ msgstr "قۇرىدىغان مۇندەرىجىنى تاللاڭ"
@@ -10270,9 +10303,6 @@ msgstr "تېكىستلا"
 
 #~ msgid "No permission to read the file."
 #~ msgstr "ھۆججەتنى ئوقۇش ھوقۇقى يوق."
-
-#~ msgid "Failed to read file"
-#~ msgstr "ھۆججەت ئوقۇش مەغلۇپ بولدى"
 
 #~ msgid "Failed to parse XML structure"
 #~ msgstr "XML قۇرۇلمىسىنى تەھلىل قىلىش مەغلۇپ بولدى"
