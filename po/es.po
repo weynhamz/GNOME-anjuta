@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-02-10 15:22+0000\n"
-"PO-Revision-Date: 2013-02-11 13:47+0100\n"
+"POT-Creation-Date: 2013-02-12 20:10+0000\n"
+"PO-Revision-Date: 2013-02-14 14:41+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -5813,29 +5813,43 @@ msgstr "Editar los márgenes del widget"
 msgid "Edit widget alignment"
 msgstr "Editar la alineación del widget"
 
+#: ../plugins/glade/plugin.c:612
+#| msgid "Folder properties"
+msgid "Glade Properties…"
+msgstr "Propiedades de Glade…"
+
 #: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr ""
+"Cambiar entre las versiones de bibliotecas y comprobar las obsolescencias"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:698
+#: ../plugins/glade/plugin.c:726
+msgid "Glade designer operations"
+msgstr "Operaciones del diseñador de Glade"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:825
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s"
 
-#: ../plugins/glade/plugin.c:871
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:914
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5928,7 +5942,6 @@ msgid "Build and run programs inside the JHBuild environment"
 msgstr "Construir y ejecutar programas en el entorno de JHBuild"
 
 #: ../plugins/jhbuild/plugin.c:121
-#| msgid "Failed to read file"
 msgid "Failed to run \"jhbuild run\""
 msgstr "Falló al ejecutar «jhbuild run»"
 
@@ -5951,7 +5964,6 @@ msgstr ""
 
 #: ../plugins/jhbuild/plugin.c:198
 #, c-format
-#| msgid "Failed to activate plugin: %s"
 msgid "Failed to activate the JHBuild Plugin: %s"
 msgstr "Falló al activar el complemento de JHBuild: %s"
 
@@ -8635,14 +8647,14 @@ msgstr "El archivo «%s» es de sólo lectura. ¿Editarlo de todas formas?"
 msgid "Could not save %s: %s"
 msgstr "No se puede guardar %s: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:272
+#: ../plugins/sourceview/sourceview-io.c:280
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 "No se puede guardar el archivo porque el nombre de archivo aún no se ha "
 "especificado"
 
-#: ../plugins/sourceview/sourceview-io.c:500
+#: ../plugins/sourceview/sourceview-io.c:525
 #, c-format
 msgid "New file %d"
 msgstr "Archivo nuevo %d"
@@ -12031,10 +12043,6 @@ msgstr "Sólo texto"
 #~ msgid "Versioning…"
 #~ msgstr "Versionado…"
 
-#~ msgid "Switch between library versions and check deprecations"
-#~ msgstr ""
-#~ "Cambiar entre las versiones de bibliotecas y comprobar las obsolescencias"
-
 #~ msgid "Set as default resource target"
 #~ msgstr "Establecer como objetivo de recurso predeterminado"
 
@@ -12061,9 +12069,6 @@ msgstr "Sólo texto"
 
 #~ msgid "Delete the selection"
 #~ msgstr "Borrar la selección"
-
-#~ msgid "Glade designer operations"
-#~ msgstr "Operaciones del diseñador de Glade"
 
 #~ msgid "Go back in undo history"
 #~ msgstr "Ir atrás en el historial de deshacer"
