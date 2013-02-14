@@ -25,6 +25,7 @@
 
 #include <ctype.h>
 #include <string.h>
+#include <libanjuta/anjuta-completion.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-language-provider.h>
 #include <libanjuta/anjuta-utils.h>
@@ -74,7 +75,7 @@ struct _ParserCxxAssistPriv {
 	IAnjutaSymbolQuery *calltip_query_project;
 
 	/* Autocompletion */
-	GCompletion *completion_cache;
+	AnjutaCompletion* completion_cache;
 	gchar* pre_word;
 	gboolean member_completion;
 	gboolean autocompletion;
@@ -158,45 +159,41 @@ parser_cxx_assist_proposal_free (IAnjutaEditorAssistProposal* proposal)
 
 /**
  * anjuta_propsal_completion_func:
- * @data: an IAnjutaEditorAssistProposal
+ * @item: an IAnjutaEditorAssistProposal
  *
  * Returns: the name of the completion func
  */
-static gchar*
-anjuta_proposal_completion_func (gpointer data)
+static const gchar*
+anjuta_proposal_completion_func (const void* item)
 {
-	IAnjutaEditorAssistProposal* proposal = data;
+	const IAnjutaEditorAssistProposal* proposal = item;
 	AnjutaLanguageProposalData* prop_data = proposal->data;
 	
 	return prop_data->name;
 }
 
 /**
- * parser_cxx_assist_create_completion_from_symbols:
+ * parser_cxx_assist_add_completions_from_symbols:
+ * @assist: self
  * @symbols: Symbol iteration
  *
- * Create a list of IAnjutaEditorAssistProposals from a list of symbols
+ * Add completions to the completions cache from @symbols.
  *
- * Returns: a newly allocated GList of newly allocated proposals. Free
- * with cpp_java_assist_proposal_free()
  */
-static GList*
-parser_cxx_assist_create_completion_from_symbols (IAnjutaIterable* symbols)
+static void
+parser_cxx_assist_add_completions_from_symbols (ParserCxxAssist* assist,
+                                                IAnjutaIterable* symbols)
 {
-	GList* list = NULL;
-
 	if (!symbols)
-		return NULL;
+		return;
 	do
 	{
 		IAnjutaSymbol* symbol = IANJUTA_SYMBOL (symbols);
 		IAnjutaEditorAssistProposal* proposal = parser_cxx_assist_proposal_new (symbol);	
 
-		list = g_list_append (list, proposal);
+		anjuta_completion_add_item (assist->priv->completion_cache, proposal);
 	}
 	while (ianjuta_iterable_next (symbols, NULL));
-
-	return list;
 }
 
 /**
@@ -389,20 +386,6 @@ parser_cxx_assist_parse_expression (ParserCxxAssist* assist, IAnjutaIterable* it
 	return res;
 }
 
-/** 
- * parser_cxx_assist_create_completion_cache:
- * @assist: self
- *
- * Create a new completion_cache object
- */
-static void
-parser_cxx_assist_create_completion_cache (ParserCxxAssist* assist)
-{
-	g_assert (assist->priv->completion_cache == NULL);
-	assist->priv->completion_cache = 
-		g_completion_new (anjuta_proposal_completion_func);
-}
-
 /**
  * parser_cxx_assist_cancel_queries:
  * @assist: self
@@ -430,13 +413,7 @@ static void
 parser_cxx_assist_clear_completion_cache (ParserCxxAssist* assist)
 {
 	parser_cxx_assist_cancel_queries (assist);
-	if (assist->priv->completion_cache)
-	{	
-		g_list_foreach (assist->priv->completion_cache->items,
-		                        (GFunc) parser_cxx_assist_proposal_free, NULL);
-		g_completion_free (assist->priv->completion_cache);
-	}
-	assist->priv->completion_cache = NULL;
+	anjuta_completion_clear (assist->priv->completion_cache);
 	assist->priv->member_completion = FALSE;
 	assist->priv->autocompletion = FALSE;
 }
@@ -453,12 +430,13 @@ static void
 parser_cxx_assist_populate_real (ParserCxxAssist* assist, gboolean finished)
 {
 	g_assert (assist->priv->pre_word != NULL);
-	GList* proposals = g_completion_complete (assist->priv->completion_cache,
-	                                          assist->priv->pre_word,
-	                                          NULL);
+	GList* proposals = anjuta_completion_complete (assist->priv->completion_cache,
+	                                               assist->priv->pre_word,
+	                                               -1);
 	ianjuta_editor_assist_proposals (assist->priv->iassist,
 	                                 IANJUTA_PROVIDER(assist), proposals,
 	                                 assist->priv->pre_word, finished, NULL);
+	g_list_free (proposals);
 }
 
 /**
@@ -489,13 +467,9 @@ parser_cxx_assist_create_member_completion_cache (ParserCxxAssist* assist,
 		g_object_unref (symbol);
 		if (children)
 		{
-			GList* proposals =
-			        parser_cxx_assist_create_completion_from_symbols (children);
-			parser_cxx_assist_create_completion_cache (assist);
-			g_completion_add_items (assist->priv->completion_cache, proposals);
+			parser_cxx_assist_add_completions_from_symbols (assist, children);
 
 			parser_cxx_assist_populate_real (assist, TRUE);
-			g_list_free (proposals);
 			g_object_unref (children);
 			return start_iter;
 		}
@@ -517,9 +491,6 @@ static void
 on_symbol_search_complete (IAnjutaSymbolQuery *query, IAnjutaIterable* symbols,
 						   ParserCxxAssist* assist)
 {
-	GList* proposals;
-	proposals = parser_cxx_assist_create_completion_from_symbols (symbols);
-
 	if (query == assist->priv->ac_query_file)
 		assist->priv->async_file_id = 0;
 	else if (query == assist->priv->ac_query_project)
@@ -528,14 +499,14 @@ on_symbol_search_complete (IAnjutaSymbolQuery *query, IAnjutaIterable* symbols,
 		assist->priv->async_system_id = 0;
 	else
 		g_assert_not_reached ();
-	
-	g_completion_add_items (assist->priv->completion_cache, proposals);
+
+	parser_cxx_assist_add_completions_from_symbols (assist, symbols);
+
 	gboolean running = assist->priv->async_system_id
 	                       || assist->priv->async_file_id
 	                       || assist->priv->async_project_id;
 	if (!running)
 		parser_cxx_assist_populate_real (assist, TRUE);
-	g_list_free (proposals);
 }
 
 /**
@@ -565,8 +536,7 @@ parser_cxx_assist_create_autocompletion_cache (ParserCxxAssist* assist,
 	else
 	{
 		gchar *pattern = g_strconcat (pre_word, "%", NULL);
-		
-		parser_cxx_assist_create_completion_cache (assist);
+
 		parser_cxx_assist_update_pre_word (assist, pre_word);
 
 		if (IANJUTA_IS_FILE (assist->priv->iassist))
@@ -865,7 +835,6 @@ parser_cxx_assist_populate_completions (IAnjutaLanguageProvider* self,
 	/* Check if completion was in progress */
 	if (assist->priv->member_completion || assist->priv->autocompletion)
 	{
-		g_assert (assist->priv->completion_cache != NULL);
 		gchar* pre_word = anjuta_language_provider_get_pre_word (
 		                              assist->priv->lang_prov,
 		                              IANJUTA_EDITOR (assist->priv->iassist),
@@ -964,7 +933,13 @@ parser_cxx_assist_uninstall (ParserCxxAssist *assist)
 static void
 parser_cxx_assist_init (ParserCxxAssist *assist)
 {
-	assist->priv = g_new0 (ParserCxxAssistPriv, 1);
+	ParserCxxAssistPriv* priv;
+
+	assist->priv = priv = g_new0 (ParserCxxAssistPriv, 1);
+
+	priv->completion_cache = anjuta_completion_new (anjuta_proposal_completion_func);
+	anjuta_completion_set_item_destroy_func (priv->completion_cache,
+	                                         (GDestroyNotify)parser_cxx_assist_proposal_free);
 }
 
 static void
@@ -974,9 +949,11 @@ parser_cxx_assist_finalize (GObject *object)
 	ParserCxxAssistPriv* priv = assist->priv;
 	
 	parser_cxx_assist_uninstall (assist);
-	parser_cxx_assist_clear_completion_cache (assist);
 	parser_cxx_assist_clear_calltip_context (assist);
 
+
+	g_object_unref (priv->completion_cache);
+	g_free (priv->pre_word);
 
 	if (priv->calltip_query_file)
 		g_object_unref (priv->calltip_query_file);
