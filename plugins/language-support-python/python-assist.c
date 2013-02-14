@@ -26,6 +26,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <glib/gi18n.h>
+#include <libanjuta/anjuta-completion.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-language-provider.h>
 #include <libanjuta/anjuta-launcher.h>
@@ -77,7 +78,7 @@ struct _PythonAssistPriv {
 	const gchar* editor_filename;
 	
 	/* Autocompletion */
-	GCompletion *completion_cache;
+	AnjutaCompletion *completion_cache;
 	gchar *pre_word;
 	
 	gint cache_position;
@@ -90,8 +91,8 @@ struct _PythonAssistPriv {
 	GString* calltip_cache;
 };
 
-static gchar*
-completion_function (gpointer data)
+static const gchar*
+completion_function (const void* data)
 {
 	AnjutaLanguageProposalData * tag = ANJUTA_LANGUAGE_PROPOSAL_DATA(data);
 	return tag->name;
@@ -127,20 +128,11 @@ python_assist_cancel_queries (PythonAssist* assist)
 }
 
 static void 
-python_assist_destroy_completion_cache (PythonAssist *assist)
+python_assist_clear_completion_cache (PythonAssist *assist)
 {
 	python_assist_cancel_queries (assist);
-	if (assist->priv->completion_cache)
-	{
-		GList* items = assist->priv->completion_cache->items;
-		if (items)
-		{
-			g_list_foreach (items, (GFunc) python_assist_tag_destroy, NULL);
-			g_completion_clear_items (assist->priv->completion_cache);
-		}
-		g_completion_free (assist->priv->completion_cache);
-		assist->priv->completion_cache = NULL;
-	}
+	anjuta_completion_clear (assist->priv->completion_cache);
+
 	if (assist->priv->rope_cache)
 	{
 		g_string_free (assist->priv->rope_cache, TRUE);
@@ -165,7 +157,7 @@ static void
 python_assist_update_autocomplete (PythonAssist *assist)
 {
 	GList *node, *suggestions = NULL;
-	GList *completion_list = g_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, NULL);
+	GList *completion_list = anjuta_completion_complete (assist->priv->completion_cache, assist->priv->pre_word, -1);
 	
 	for (node = completion_list; node != NULL; node = g_list_next (node))
 	{
@@ -183,11 +175,13 @@ python_assist_update_autocomplete (PythonAssist *assist)
 		suggestions = g_list_prepend (suggestions, proposal);
 	}
 	suggestions = g_list_reverse (suggestions);
+
+	g_list_free (completion_list);
 	
 	ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (assist->priv->iassist),
 	                                 IANJUTA_PROVIDER(assist), suggestions,
 	                                 assist->priv->pre_word, TRUE, NULL);
-	
+
 	g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
 	g_list_free (suggestions);
 }
@@ -313,6 +307,8 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 				
 				if (!g_list_find_custom (suggestions, tag, completion_compare))
 				{
+					anjuta_completion_add_item (assist->priv->completion_cache,
+					                            tag);
 					suggestions = g_list_prepend (suggestions, tag);
 				}
 				else
@@ -327,10 +323,8 @@ on_autocomplete_finished (AnjutaLauncher* launcher,
 		g_string_free (assist->priv->rope_cache, TRUE);
 		assist->priv->rope_cache = NULL;
 
-		assist->priv->completion_cache = g_completion_new (completion_function);
-		g_completion_add_items (assist->priv->completion_cache, suggestions);
 		g_list_free (suggestions);
-		
+
 		/* Show autocompletion */
 		python_assist_update_autocomplete (assist);
 	}
@@ -653,7 +647,7 @@ python_assist_populate_completions (IAnjutaLanguageProvider* self,
 	else
 	{
 		DEBUG_PRINT ("Cancelling autocomplete");
-		python_assist_destroy_completion_cache (assist);
+		python_assist_clear_completion_cache (assist);
 	}
 
 	/* Autocompletion should not be triggered if we haven't started typing a word unless
@@ -725,7 +719,13 @@ python_assist_uninstall (PythonAssist *assist)
 static void
 python_assist_init (PythonAssist *assist)
 {
-	assist->priv = g_new0 (PythonAssistPriv, 1);
+	PythonAssistPriv* priv;
+
+	assist->priv = priv = g_new0 (PythonAssistPriv, 1);
+
+	priv->completion_cache = anjuta_completion_new (completion_function);
+	anjuta_completion_set_item_destroy_func (priv->completion_cache,
+	                                         (GDestroyNotify)python_assist_tag_destroy);
 }
 
 static void
@@ -733,9 +733,13 @@ python_assist_finalize (GObject *object)
 {
 	PythonAssist *assist = PYTHON_ASSIST (object);
 	python_assist_uninstall (assist);
-	python_assist_destroy_completion_cache (assist);
+	python_assist_clear_completion_cache (assist);
 	python_assist_clear_calltip_context (assist);
+
+	g_object_unref (assist->priv->completion_cache);
+
 	g_free (assist->priv);
+
 	G_OBJECT_CLASS (python_assist_parent_class)->finalize (object);
 }
 
