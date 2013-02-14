@@ -667,13 +667,11 @@ sdb_model_get_path (GtkTreeModel *tree_model,
 {
 	SymbolDBModelNode *node;
 	GtkTreePath* path;
-	SymbolDBModelPriv *priv;
 	gint offset;
 	
 	g_return_val_if_fail (sdb_model_iter_is_valid (tree_model, iter),
 	                      NULL);
 
-	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	path = gtk_tree_path_new ();
 
 	node = (SymbolDBModelNode*)iter->user_data;
@@ -694,7 +692,6 @@ sdb_model_get_value (GtkTreeModel *tree_model,
 {
 	SymbolDBModelPriv *priv;
 	SymbolDBModelNode *parent_node, *node;
-	SymbolDBModelPage *page;
 	gint offset;
 	
 	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
@@ -708,8 +705,8 @@ sdb_model_get_value (GtkTreeModel *tree_model,
 	offset = GPOINTER_TO_INT (iter->user_data2);
 
 	if (sdb_model_node_get_child (parent_node, offset) == NULL)
-		page = sdb_model_page_fault (SYMBOL_DB_MODEL (tree_model),
-		                             parent_node, offset);
+		sdb_model_page_fault (SYMBOL_DB_MODEL (tree_model),
+		                      parent_node, offset);
 	node = sdb_model_node_get_child (parent_node, offset);
 	g_value_init (value, priv->column_types[column]);
 
@@ -868,8 +865,7 @@ sdb_model_iter_nth_child (GtkTreeModel *tree_model,
                           gint n)
 {
 	SymbolDBModelNode *node;
-	SymbolDBModelPriv *priv;
-	                           
+
 	g_return_val_if_fail (SYMBOL_DB_IS_MODEL(tree_model), FALSE);
 	g_return_val_if_fail (iter != NULL, FALSE);
 	g_return_val_if_fail (n >= 0, FALSE);
@@ -877,7 +873,6 @@ sdb_model_iter_nth_child (GtkTreeModel *tree_model,
 	if (!sdb_model_iter_children (tree_model, iter, parent))
 		return FALSE;
 	
-	priv = SYMBOL_DB_MODEL (tree_model)->priv;
 	node = (SymbolDBModelNode*) (iter->user_data);
 
 	g_return_val_if_fail (n < node->n_children, FALSE);
@@ -917,12 +912,10 @@ static void
 sdb_model_iter_ref (GtkTreeModel *tree_model, GtkTreeIter  *iter)
 {
 	SymbolDBModelNode *parent_node;
-	gint child_offset;
-	
+
 	g_return_if_fail (sdb_model_iter_is_valid (tree_model, iter));
 
 	parent_node = (SymbolDBModelNode*) iter->user_data;
-	child_offset = GPOINTER_TO_INT (iter->user_data2);
 
 	sdb_model_node_ref_child (parent_node);
 }
@@ -1044,10 +1037,6 @@ sdb_model_update_node_children (SymbolDBModel *model,
                                 SymbolDBModelNode *node,
                                 gboolean emit_has_child)
 {
-	SymbolDBModelPriv *priv;
-
-	priv = model->priv;
-	
 	/* Delete all nodes */
 	if (node->n_children > 0)
 	{

@@ -97,7 +97,7 @@ get_select_statement_by_query_id (GdaConnection * cnc, GdaSet **plist)
 }
 
 static void 
-load_queue_values ()
+load_queue_values (void)
 {
 	gchar line[80];
 	values_queue = g_queue_new ();
@@ -114,7 +114,7 @@ load_queue_values ()
 }
 
 static void
-delete_previous_db ()
+delete_previous_db (void)
 {
 	GFile *file;
 
@@ -132,9 +132,6 @@ delete_previous_db ()
 int
 main (int argc, char *argv[])
 {
-	if ( !g_thread_supported() )
-		g_thread_init( NULL );
-
 	g_type_init();
 	gtk_init(&argc, &argv);
 	

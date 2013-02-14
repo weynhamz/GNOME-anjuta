@@ -157,8 +157,8 @@ struct _SymbolDBPluginClass {
 	AnjutaPluginClass parent_class;
 	
 	/* signals */
-	void (* project_import_end) 	();
-	void (* globals_import_end) 	();
+	void (* project_import_end) 	(void);
+	void (* globals_import_end) 	(void);
 	
 };
 

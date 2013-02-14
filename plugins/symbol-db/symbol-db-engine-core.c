@@ -1487,8 +1487,8 @@ static gint sdb_sort_files_list (gconstpointer file1, gconstpointer file2)
  *
  */
 static gboolean
-sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
-						 GPtrArray *real_files_list, gboolean symbols_update,
+sdb_engine_scan_files_1 (SymbolDBEngine * dbe, GPtrArray * files_list,
+                         GPtrArray *real_files_list, gboolean symbols_update,
                          gint scan_id)
 {
 	SymbolDBEnginePriv *priv;
@@ -1621,9 +1621,9 @@ on_scan_files_async_end (SymbolDBEngine *dbe, gint process_id, gpointer user_dat
 }
 
 static gboolean
-sdb_engine_scan_files_async (SymbolDBEngine * dbe, const GPtrArray * files_list,
-							const GPtrArray *real_files_list, gboolean symbols_update,
-                            gint scan_id)
+sdb_engine_scan_files_async (SymbolDBEngine * dbe, GPtrArray * files_list,
+                             GPtrArray *real_files_list, gboolean symbols_update,
+                             gint scan_id)
 {
 	SymbolDBEnginePriv *priv;
 	g_return_val_if_fail (files_list != NULL, FALSE);
@@ -1782,7 +1782,10 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->thread_pool = g_thread_pool_new (sdb_engine_ctags_output_thread,
 												 sdbe, THREADS_MAX_CONCURRENT,
 												 FALSE, NULL);
-	
+
+	/* initialize the sdb mutex */
+	g_mutex_init (&sdbe->priv->mutex);
+
 	/* some signals queues */
 	sdbe->priv->signals_aqueue = g_async_queue_new ();
 	sdbe->priv->updated_syms_id_aqueue = g_async_queue_new ();
@@ -2098,13 +2101,9 @@ sdb_engine_finalize (GObject * object)
 		g_list_free (priv->removed_launchers);
 		priv->removed_launchers = NULL;
 	}
-	
-	if (priv->mutex)
-	{
-		g_mutex_free (priv->mutex);
-		priv->mutex = NULL;
-	}
-	
+
+	g_mutex_clear (&priv->mutex);
+
 	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 
@@ -2380,7 +2379,6 @@ symbol_db_engine_new (const gchar * ctags_path)
 	sdbe = g_object_new (SYMBOL_TYPE_DB_ENGINE, NULL);
 	
 	priv = sdbe->priv;
-	priv->mutex = g_mutex_new ();
 	priv->anjuta_db_file = g_strdup (ANJUTA_DB_FILE);
 
 	/* set the mandatory ctags_path */

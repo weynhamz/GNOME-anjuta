@@ -100,8 +100,8 @@
 	gda_holder_set_value ((gda_param), &v, NULL); \
 	g_value_unset (&v);
 
-#define SDB_LOCK(priv) if (priv->mutex) g_mutex_lock (priv->mutex);
-#define SDB_UNLOCK(priv) if (priv->mutex) g_mutex_unlock (priv->mutex);
+#define SDB_LOCK(priv) g_mutex_lock (&priv->mutex);
+#define SDB_UNLOCK(priv) g_mutex_unlock (&priv->mutex);
 
 typedef enum
 {
@@ -196,7 +196,7 @@ struct _SymbolDBEnginePriv
 	gulong waiting_scan_handler;
 
 	/* Threads management */
-	GMutex* mutex;
+	GMutex mutex;
 	GAsyncQueue* signals_aqueue;
 	
 	GThreadPool *thread_pool;	

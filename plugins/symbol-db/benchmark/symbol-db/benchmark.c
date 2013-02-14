@@ -89,7 +89,6 @@ int main (int argc, char** argv)
 	main_loop = g_main_loop_new (NULL, FALSE);
 
 	gtk_init(&argc, &argv);
-  	g_thread_init (NULL);
 	gda_init ();
 	
 	if (argc != 2)

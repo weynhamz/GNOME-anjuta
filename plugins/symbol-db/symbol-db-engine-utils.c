@@ -97,15 +97,13 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
-	if (priv->mutex)
-		g_mutex_lock (priv->mutex);	
+	SDB_LOCK(priv);
 
 	if ((stmt = sdb_engine_get_statement_by_query_id (dbe,
 								 PREP_QUERY_GET_ALL_FROM_FILE_WHERE_NOT_IN_SYMBOLS))
 		== NULL)
 	{
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}
 
@@ -118,8 +116,7 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 	{
 		if (data_model != NULL)
 			g_object_unref (data_model);
-		if (priv->mutex)
-			g_mutex_unlock (priv->mutex);
+		SDB_UNLOCK(priv);
 		return NULL;
 	}	
 		
@@ -148,9 +145,8 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 	}
 
 	g_object_unref (data_model);
-	
-	if (priv->mutex)
-		g_mutex_unlock (priv->mutex);
+
+	SDB_UNLOCK(priv);
 	
 	return files_to_scan;
 }
@@ -163,7 +159,7 @@ symbol_db_util_get_files_with_zero_symbols (SymbolDBEngine *dbe)
 	g_free (pix_file);
 
 static void
-sdb_util_load_symbol_pixbufs ()
+sdb_util_load_symbol_pixbufs (void)
 {
 	gchar *pix_file;
 	

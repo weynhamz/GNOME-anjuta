@@ -51,10 +51,10 @@ struct _SymbolDBEngineClass
 	GObjectClass parent_class;
 	
 	/* signals */
-	void (* db_connected)           ();
-	void (* db_disconnected)        ();
+	void (* db_connected)           (void);
+	void (* db_disconnected)        (void);
 	void (* scan_begin)             (gint process_id);
-	void (* single_file_scan_end) 	();
+	void (* single_file_scan_end) 	(void);
 	void (* scan_end) 				(gint process_id);
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);

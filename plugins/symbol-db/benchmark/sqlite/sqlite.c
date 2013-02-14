@@ -23,7 +23,7 @@ create_table (sqlite3 *db)
 }
 
 static void
-delete_previous_db ()
+delete_previous_db (void)
 {
 	GFile *file;
 
@@ -54,7 +54,7 @@ open_connection (sqlite3 **db)
 }
 
 static void 
-load_queue_values ()
+load_queue_values (void)
 {
 	gchar line[80];
 	values_queue = g_queue_new ();
@@ -150,13 +150,8 @@ main(gint argc, gchar **argv)
 {
 	sqlite3 *db = NULL;
 
-
-	if ( !g_thread_supported() )
-		g_thread_init( NULL );
-
 	g_type_init();
 
-	
 	delete_previous_db ();
 
 	if (open_connection (&db) < 0)

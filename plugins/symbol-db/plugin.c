@@ -1406,8 +1406,8 @@ do_check_offline_files_changed (SymbolDBPlugin *sdb_plugin)
 		
 		if (db_path)
 			g_hash_table_replace (prj_elements_hash,
-			                      db_path,
-			                      filename);
+			                      (gchar *)db_path,
+			                      (gchar *)filename);
 		g_object_unref (gfile);
 	}	
 
@@ -1622,12 +1622,10 @@ static void
 on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
-	IAnjutaProjectManager *pm;
 	SymbolDBPlugin *sdb_plugin;
 	const gchar *root_uri;
 	gchar *root_dir;
 	GFile *gfile;
-	IAnjutaProject *project;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
@@ -1661,9 +1659,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	 * if the preferences says not to automatically scan the packages.
 	 */
 	gtk_widget_hide (sdb_plugin->progress_bar_system);
-	
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (sdb_plugin)->shell,
-									 IAnjutaProjectManager, NULL);
 
 
 	/*
@@ -1686,8 +1681,6 @@ on_project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				 name);
 		
 	g_object_unref (gfile);
-
-	project = ianjuta_project_manager_get_current_project (pm, NULL);
 
 	/* let the project be something like "." to avoid problems when renaming the 
 	 * project dir */

@@ -49,7 +49,7 @@ struct _SymbolDBSystemClass
 	GObjectClass parent_class;
 	
 	/* signals */
-	void (* single_file_scan_end) 	();
+	void (* single_file_scan_end) 	(void);
 	void (* scan_package_start) 	(guint num_files, const gchar *package);
 	void (* scan_package_end) 		(const gchar *package);
 };

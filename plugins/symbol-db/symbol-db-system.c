@@ -311,8 +311,6 @@ on_pkg_config_output (AnjutaLauncher * launcher,
 					AnjutaLauncherOutputType output_type,
 					const gchar * chars, gpointer user_data)
 {
-	SymbolDBSystem *sdbs;
-	SymbolDBSystemPriv *priv;
 	SingleScanData *ss_data;
 
 	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDERR)
@@ -322,8 +320,6 @@ on_pkg_config_output (AnjutaLauncher * launcher,
 	}
 	
 	ss_data = (SingleScanData *)user_data;
-	sdbs = ss_data->sdbs;
-	priv = sdbs->priv;
 
 	if (ss_data->contents != NULL) 
 	{
@@ -721,13 +717,10 @@ symbol_db_system_scan_package (SymbolDBSystem *sdbs,
 							  const gchar * package_name)
 {
 	SingleScanData *ss_data;
-	SymbolDBSystemPriv *priv;
 	
 	g_return_val_if_fail (sdbs != NULL, FALSE);
 	g_return_val_if_fail (package_name != NULL, FALSE);
 
-	priv = sdbs->priv;
-	
 	/* does is already exist on db? */
 	if (symbol_db_system_is_package_parsed (sdbs, package_name, "1.0") == TRUE)
 	{
@@ -764,12 +757,9 @@ symbol_db_system_is_package_parseable (SymbolDBSystem *sdbs,
 								   gpointer user_data)
 {
 	SingleScanData *ss_data;
-	SymbolDBSystemPriv *priv;
 	
 	g_return_if_fail (sdbs != NULL);
 	g_return_if_fail (package_name != NULL);
-
-	priv = sdbs->priv;
 
 	/* create the object to store in the queue */
 	ss_data = (SingleScanData*)g_new0 (SingleScanData, 1);
