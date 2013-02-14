@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2013-02-10 15:27+0000\n"
-"PO-Revision-Date: 2013-02-11 14:03+0100\n"
+"POT-Creation-Date: 2013-02-11 16:58+0000\n"
+"PO-Revision-Date: 2013-02-14 17:31+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -4319,7 +4319,6 @@ msgid "Add a set of libraries to a target."
 msgstr "Añadir un conjunto de bibliotecas a un objetivo."
 
 #: C/project-manager-module-add.page:23(page/title)
-#| msgid "Add or remove packaged libraries"
 msgid "Add packaged libraries"
 msgstr "Añadir bibliotecas empaquetadas"
 
@@ -4358,18 +4357,16 @@ msgstr ""
 "gui><gui>Añadir biblioteca...</gui></guiseq>"
 
 #: C/project-manager-module-add.page:41(item/p)
-#, fuzzy
 #| msgid ""
 #| "You can select another target in the top <gui>target chooser button</gui>."
 msgid ""
 "You need to select the target where you want to add the library in the "
 "<gui>target button</gui> above."
 msgstr ""
-"Puede seleccionar otro objetivo en la parte superior del <gui>botón selector "
-"de objetivos</gui>."
+"Debe seleccionar el objetivo al que quiere añadir la biblioteca en la parte "
+"superior del <gui>botón selector de objetivos</gui>."
 
 #: C/project-manager-module-add.page:45(item/p)
-#, fuzzy
 #| msgid ""
 #| "You need to select the target where you want to add the module in the "
 #| "<gui>target button</gui> above, and select the module that you want to "
@@ -4380,10 +4377,9 @@ msgid ""
 "displayed in the <gui>module view</gui> below. If you select a library "
 "inside a module, the parent module will be added."
 msgstr ""
-"Debe seleccionar el objetivo donde quiere añadir el módulo en el <gui>botón "
-"objetivo</gui> de encima y seleccionar el módulo que quiere añadir en la "
-"<gui>vista de módulo</gui> debajo. Si selecciona una biblioteca dentro de un "
-"módulo, se añadirá el módulo padre ."
+"No se puede añadir directamente una biblioteca a un objetivo. Sólo puede "
+"añadir un módulo mostrado en la <gui>vista de módulo</gui> debajo. Si "
+"selecciona una biblioteca dentro de un módulo, se añadirá el módulo padre."
 
 #: C/project-manager-module-add.page:50(item/p)
 msgid ""
@@ -4392,16 +4388,20 @@ msgid ""
 "and follow the explanation <link xref=\"project-manager-module-new\">here</"
 "link>."
 msgstr ""
+"Si la biblioteca que quiere no se muestra en la <gui>vista del módulo</gui>, "
+"debe añadirla primero al módulo. Pulse en el botón <gui>Biblioteca nueva</"
+"gui> y siga la explicación <link xref=\"project-manager-module-new\">aquí</"
+"link>."
 
 #: C/project-manager-module-add.page:55(note/p)
 msgid ""
 "After creating a new module, you have to wait a few seconds while the "
 "project files are reloaded to see the new module in the list."
 msgstr ""
+"Después de crear un módulo nuevo, tiene que esperar unos segundos mientras "
+"los archivos del proyecto se recargan para ver el módulo nuevo en la lista."
 
 #: C/project-manager-module-add.page:60(item/p)
-#| msgid ""
-#| "When you are done, click on the <gui>Add</gui> button to add the module."
 msgid ""
 "When you are done, click on the <gui>Add</gui> button to add the selected "
 "module to the target."
@@ -4410,7 +4410,6 @@ msgstr ""
 "módulo seleccionado al objetivo."
 
 #: C/project-manager-module-new.page:12(info/desc)
-#| msgid "Add a library in a module."
 msgid "Groups libraries in a module."
 msgstr "Agrupar bibliotecas en un módulo."
 
@@ -4419,9 +4418,6 @@ msgid "Add a Module"
 msgstr "Añadir un módulo"
 
 #: C/project-manager-module-new.page:27(page/p)
-#| msgid ""
-#| "A package cannot be added directly to your program; you first need to "
-#| "create a module for it, which is just a group of packages."
 msgid ""
 "Packages cannot be added directly to a program but have to be grouped in a "
 "module."
@@ -4430,7 +4426,6 @@ msgstr ""
 "pueden agrupar en un módulo."
 
 #: C/project-manager-module-new.page:32(item/p)
-#, fuzzy
 #| msgid ""
 #| "Select the program where you want to add the new library in the "
 #| "<gui>project view</gui>, click on the right mouse button to make the "
@@ -4440,15 +4435,11 @@ msgid ""
 "button to make the <gui>project context menu</gui> appear, and select "
 "<gui>Add Library</gui>."
 msgstr ""
-"Seleccione el programa donde quiere añadir la biblioteca nueva en la "
-"<gui>vista de proyecto</gui>, pulse el botón derecho del ratón para mostrar "
-"el <gui>menú contextual del proyecto</gui> y seleccione <gui>Añadir "
-"biblioteca</gui>."
+"Seleccione el programa en la <gui>vista de proyecto</gui>, pulse con el "
+"botón derecho del ratón para mostrar el <gui>menú contextual del proyecto</"
+"gui> y seleccione <gui>Añadir biblioteca</gui>."
 
 #: C/project-manager-module-new.page:39(item/p)
-#| msgid ""
-#| "In the <gui>Stack</gui> window, right-click and select <gui>Get stack "
-#| "trace</gui>."
 msgid ""
 "On the <gui>Add Library</gui> dialog, click on the <gui>New Library</gui> "
 "button."
@@ -4469,7 +4460,6 @@ msgid "If the library you want does not appear here:"
 msgstr "Si la biblioteca que quiere no aparece aquí:"
 
 #: C/project-manager-module-new.page:49(item/p)
-#, fuzzy
 #| msgid ""
 #| "If the library you want does not appear here, perhaps it is because it is "
 #| "not installed on your system. Launch the application you use to install "
@@ -4482,12 +4472,11 @@ msgid ""
 "need often has a \"dev\" or \"devel\" suffix and should include header files "
 "and a <app>pkg-config</app> file with a <file>.pc</file> extension."
 msgstr ""
-"Si la biblioteca que necesita no aparece aquí, quizá sea porque no está "
-"instalada en su sistema. Lance la aplicación que usa para instalar la nuevos "
-"programas y busque el nombre de la biblioteca. A menudo, el paquete que "
-"necesita tiene un sufijo «dev» o «devel» y debe incluir los archivos de "
-"cabecera y un archivo <app>pkg-config</app> con una extensión <file>.pc</"
-"file>."
+"Quizá no está instalada en su sistema. Lance la aplicación que usa para "
+"instalar la nuevos programas y busque el nombre de la biblioteca. A menudo, "
+"el paquete que necesita tiene un sufijo «dev» o «devel» y debe incluir los "
+"archivos de cabecera y un archivo <app>pkg-config</app> con una extensión "
+"<file>.pc</file>."
 
 #: C/project-manager-module-new.page:57(item/p)
 msgid ""
@@ -4495,13 +4484,11 @@ msgid ""
 "libraries not developped on Linux. See the chapter <link xref=\"project-"
 "manager-library-add\"/> explaining how to use them."
 msgstr ""
+"Es posible que la biblioteca no esté empaquetada, lo que sucede a menudo con "
+"bibliotecas no desarrolladas en Linux. Consulte el capítulo <link xref="
+"\"project-manager-library-add\"/> donde se explica cómo usarlas."
 
 #: C/project-manager-module-new.page:66(item/p)
-#| msgid ""
-#| "After selecting one library, a module name will be automatically "
-#| "generated but you can change it. When you are done, click on the "
-#| "<gui>Add</gui> button to create the new module with the selected "
-#| "libraries."
 msgid ""
 "After selecting one library, a module name will be automatically generated "
 "but you can change it. You can select an already existing module name to add "
@@ -4518,6 +4505,9 @@ msgid ""
 "module with the selected libraries. You need to add a new module to at least "
 "one target to really use it."
 msgstr ""
+"Cuando termine, pulse el botón <gui>Añadir</gui> para crear el módulo nuevo "
+"con las bibliotecas seleccionadas. Necesita añadir un módulo nuevo a al "
+"menos un objetivo para usarlo realmente."
 
 #: C/project-manager-module-remove.page:10(info/desc)
 msgid "Remove a set of libraries from a target."
