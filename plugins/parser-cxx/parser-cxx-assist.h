@@ -41,14 +41,7 @@ G_BEGIN_DECLS
 
 typedef struct _ParserCxxAssistClass ParserCxxAssistClass;
 typedef struct _ParserCxxAssist ParserCxxAssist;
-typedef struct _ParserCxxAssistContext ParserCxxAssistContext;
 typedef struct _ParserCxxAssistPriv ParserCxxAssistPriv;
-
-struct _ParserCxxAssistContext {
-	GCompletion* completion;
-	GList* tips;
-	gint position;
-};
 
 struct _ParserCxxAssistClass
 {
