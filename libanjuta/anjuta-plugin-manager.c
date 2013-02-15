@@ -1194,10 +1194,10 @@ anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_m
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 	
 	display_label = gtk_label_new (dgettext (GETTEXT_PACKAGE, "These are the plugins selected by you "
-									 "when Anjuta prompted to choose one of "
+									 "when you have been prompted to choose one of "
 									 "many suitable plugins. Removing the "
-									 "preferred plugin will let Anjuta prompt "
-									 "you again to choose different plugin."));
+									 "preferred plugin will let you "
+									 "choose a different plugin."));
 	gtk_label_set_line_wrap (GTK_LABEL (display_label), TRUE);
 	gtk_box_pack_start (GTK_BOX (vbox), display_label, FALSE, FALSE, 0);
 
