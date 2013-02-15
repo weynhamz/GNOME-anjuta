@@ -157,7 +157,7 @@ language_support_get_signal_parameter (const gchar* type_name, GList** names)
 	if (param_name && strlen (param_name))
 	{
 		param_string = g_string_new (param_name);
-		g_string_down (param_string);
+		g_string_ascii_down (param_string);
 	}
 	else
 	{

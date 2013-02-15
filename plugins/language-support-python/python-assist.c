@@ -437,7 +437,7 @@ on_calltip_finished (AnjutaLauncher* launcher,
 	{
 		GString* calltip_text = g_string_new (assist->priv->calltip_cache->str);
 		assist->priv->tips = g_list_prepend (NULL, calltip_text->str);
-		if (g_strncasecmp ("None", assist->priv->tips->data, 4))
+		if (g_ascii_strncasecmp ("None", assist->priv->tips->data, 4))
 		{
 			ianjuta_editor_tip_show (IANJUTA_EDITOR_TIP(assist->priv->itip),
 				                     assist->priv->tips,
