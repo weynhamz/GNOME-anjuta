@@ -41,14 +41,7 @@ G_BEGIN_DECLS
 
 typedef struct _PythonAssistClass PythonAssistClass;
 typedef struct _PythonAssist PythonAssist;
-typedef struct _PythonAssistContext PythonAssistContext;
 typedef struct _PythonAssistPriv PythonAssistPriv;
-
-struct _PythonAssistContext {
-	GCompletion* completion;
-	GList* tips;
-	gint position;
-};
 
 struct _PythonAssistClass
 {
