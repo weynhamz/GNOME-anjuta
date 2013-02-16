@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 00:09+0100\n"
-"PO-Revision-Date: 2013-02-03 00:10+0100\n"
+"POT-Creation-Date: 2013-02-16 20:38+0100\n"
+"PO-Revision-Date: 2013-02-16 20:39+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -375,13 +375,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr ""
-"Są to wtyczki wybrane przez użytkownika na prośbę programu Anjuta spośród "
-"wielu odpowiednich wtyczek. Usunięcie preferowanej wtyczki spowoduje "
-"wyświetlenie prośby o wybranie innej wtyczki."
+"Są to wtyczki wybrane przez użytkownika na prośbę programu spośród wielu "
+"odpowiednich wtyczek. Usunięcie preferowanej wtyczki spowoduje wyświetlenie "
+"prośby o wybranie innej wtyczki."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
@@ -1348,7 +1348,7 @@ msgid ""
 "digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’. "
 msgstr ""
 "Sekcja, w której są instalowane strony podręcznika. Prawidłowe nazwy sekcji "
-"to cyfry od \"0\" do \"9\" oraz litery \"l\" i \"n\"."
+"to cyfry od \"0\" do \"9\" oraz litery \"l\" i \"n\". "
 
 #: ../plugins/am-project/amp-source.c:97
 msgid "Source file must be a regular file, not a directory"
@@ -2193,7 +2193,7 @@ msgstr "Getter"
 msgid "Setter"
 msgstr "Setter"
 
-#: ../plugins/class-gen/window.c:1234
+#: ../plugins/class-gen/window.c:1232
 msgid "XML description of the user interface"
 msgstr "Opis XML interfejsu użytkownika"
 
@@ -2214,7 +2214,7 @@ msgid "Patch-Style diff"
 msgstr "Różnica łaty-stylu"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "Lokalne"
 
@@ -3341,7 +3341,7 @@ msgstr "Ramka"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "Plik"
@@ -3469,57 +3469,48 @@ msgstr "Pomoc API"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Wtyczka Devhelp dla programu Anjuta."
 
-#: ../plugins/devhelp/plugin.c:204
+#: ../plugins/devhelp/plugin.c:199
 msgid "Search Help:"
 msgstr "Wyszukiwanie w pomocy:"
 
-#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:234
+#: ../plugins/devhelp/plugin.c:220 ../plugins/document-manager/plugin.c:234
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Przejdź do"
 
-#: ../plugins/devhelp/plugin.c:234
+#: ../plugins/devhelp/plugin.c:229
 msgid "_API Reference"
 msgstr "Instrukcja _API"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:231
 msgid "Browse API Pages"
 msgstr "Przegląda strony API"
 
-#: ../plugins/devhelp/plugin.c:246
+#: ../plugins/devhelp/plugin.c:241
 msgid "_Context Help"
 msgstr "Pomoc _kontekstowa"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:243
 msgid "Search help for the current word in the editor"
 msgstr "Przeszukuje pomoc pod kątem wybranego słowa w edytorze"
 
-#: ../plugins/devhelp/plugin.c:258
+#: ../plugins/devhelp/plugin.c:253
 msgid "_Search Help"
 msgstr "_Znajdź w pomocy"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:255
 msgid "Search for a term in help"
 msgstr "Wyszukiwanie wyrażenia w pomocy"
 
-#: ../plugins/devhelp/plugin.c:331
+#: ../plugins/devhelp/plugin.c:337
 msgid "Help operations"
 msgstr "Działania pomocy"
 
-#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
+#: ../plugins/devhelp/plugin.c:352 ../plugins/devhelp/plugin.c:444
 msgid "API Browser"
 msgstr "Przeglądarka API"
 
-#: ../plugins/devhelp/plugin.c:361
-msgid "Contents"
-msgstr "Spis treści"
-
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2141
-#: ../plugins/symbol-db/plugin.c:2193
-msgid "Search"
-msgstr "Wyszukiwanie"
-
-#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:369 ../plugins/devhelp/plugin.c:439
 msgid "API"
 msgstr "API"
 
@@ -4030,7 +4021,7 @@ msgstr "Wyszukuje używając wyrażeń regularnych"
 #: ../plugins/document-manager/plugin.c:295
 #: ../plugins/indentation-c-style/plugin.c:465
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Edycja"
@@ -4281,7 +4272,7 @@ msgstr "Przejdź do"
 
 #: ../plugins/document-manager/plugin.c:917
 msgid "OVR"
-msgstr "NAD"
+msgstr "ZAS"
 
 #: ../plugins/document-manager/plugin.c:921
 msgid "INS"
@@ -4599,7 +4590,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>Otwórz za pomocą</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:543 ../plugins/file-manager/plugin.c:552
+#: ../plugins/file-manager/plugin.c:546 ../plugins/file-manager/plugin.c:555
 msgid "File Manager"
 msgstr "Menedżer plików"
 
@@ -4621,7 +4612,7 @@ msgstr "Automatyczny wybór bieżącego dokumentu"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "Globalne"
 
@@ -4675,11 +4666,11 @@ msgstr "_Wyświetlanie w menedżerze plików"
 msgid "Show in File manager"
 msgstr "Wyświetla w menedżerze plików"
 
-#: ../plugins/file-manager/plugin.c:371
+#: ../plugins/file-manager/plugin.c:374
 msgid "File manager popup actions"
 msgstr "Czynności wyskakujące menedżera plików"
 
-#: ../plugins/file-manager/plugin.c:404 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Pliki"
 
@@ -5833,29 +5824,41 @@ msgstr "Modyfikuje marginesy widżetów"
 msgid "Edit widget alignment"
 msgstr "Modyfikuje wyrównanie widżetów"
 
+#: ../plugins/glade/plugin.c:612
+msgid "Glade Properties…"
+msgstr "Właściwości programu Glade…"
+
 #: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr "Przełącza między wersjami bibliotek i sprawdza przestarzałe funkcje"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "Wczytywanie programu Glade…"
 
-#: ../plugins/glade/plugin.c:698
+#: ../plugins/glade/plugin.c:726
+msgid "Glade designer operations"
+msgstr "Działania narzędzia do projektowania interfejsów Glade"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "Widżety"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:825
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "Plik nie jest plikiem lokalnym: %s"
 
-#: ../plugins/glade/plugin.c:871
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "Nie można otworzyć %s"
 
-#: ../plugins/glade/plugin.c:914
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "Nie można utworzyć nowego projektu Glade."
 
@@ -5947,6 +5950,32 @@ msgstr "JHBuild"
 msgid "Build and run programs inside the JHBuild environment"
 msgstr "Buduje i uruchamia programy w środowisku JHBuild"
 
+#: ../plugins/jhbuild/plugin.c:121
+msgid "Failed to run \"jhbuild run\""
+msgstr "Wykonanie polecenia \"jhbuild run\" się nie powiodło"
+
+#: ../plugins/jhbuild/plugin.c:127
+#, c-format
+msgid "Failed to run \"jhbuild run\" (%s)"
+msgstr "Wykonanie polecenia \"jhbuild run\" się nie powiodło (%s)"
+
+#: ../plugins/jhbuild/plugin.c:172
+msgid "Could not find the JHBuild install prefix."
+msgstr "Nie można odnaleźć przedrostka instalacji JHBuild."
+
+#: ../plugins/jhbuild/plugin.c:180
+msgid ""
+"Could not find the JHBuild library directory. You need JHBuild from "
+"2012-11-06 or later."
+msgstr ""
+"Nie można odnaleźć katalogu bibliotek JHBuild. Wymagany jest JHBuild z dnia "
+"2012-11-06 lub późniejszy."
+
+#: ../plugins/jhbuild/plugin.c:198
+#, c-format
+msgid "Failed to activate the JHBuild Plugin: %s"
+msgstr "Aktywowanie wtyczki JHBuild się nie powiodło: %s"
+
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
 msgid "Error: cant bind port"
@@ -5995,32 +6024,32 @@ msgstr "Wczytywanie etykiet API dla standardowej biblioteki C"
 msgid "Load API tags for C++ standard template library"
 msgstr "Wczytywanie etykiet API dla standardowej biblioteki szablonów C++"
 
-#: ../plugins/language-support-cpp-java/plugin.c:682
+#: ../plugins/language-support-cpp-java/plugin.c:688
 msgid "Code added for widget."
 msgstr "Kod dodany dla widżetu."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1079
+#: ../plugins/language-support-cpp-java/plugin.c:1082
 msgid "Comment/Uncomment"
 msgstr "Skomentuj/odkomentuj"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1080
+#: ../plugins/language-support-cpp-java/plugin.c:1083
 msgid "Comment or uncomment current selection"
 msgstr "Komentuje lub odkomentowuje bieżące zaznaczenie"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1085
+#: ../plugins/language-support-cpp-java/plugin.c:1088
 msgid "Swap .h/.c"
 msgstr "Zamień .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1086
+#: ../plugins/language-support-cpp-java/plugin.c:1089
 msgid "Swap C header and source files"
 msgstr "Zamienia pliki nagłówków i pliki źródłowe języka C"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1126
+#: ../plugins/language-support-cpp-java/plugin.c:1129
 msgid "C++/Java Assistance"
 msgstr "Asystent języków C++/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
-#: ../plugins/language-support-cpp-java/plugin.c:1374
+#: ../plugins/language-support-cpp-java/plugin.c:1348
+#: ../plugins/language-support-cpp-java/plugin.c:1377
 msgid "API Tags (C/C++)"
 msgstr "Etykiety API (C/C++)"
 
@@ -6589,7 +6618,7 @@ msgstr "Proszę wybrać mechanizm projektu do użycia."
 
 #: ../plugins/project-manager/dialogs.c:689
 #: ../plugins/project-manager/dialogs.c:694
-#: ../plugins/project-manager/plugin.c:964
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "Właściwości projektu"
 
@@ -6674,7 +6703,7 @@ msgstr "Brak nazwy modułu"
 msgid "Cannot add packages"
 msgstr "Nie można dodać pakietów"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:684
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6682,7 +6711,7 @@ msgstr ""
 "Na pewno usunąć następującą grupę z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:720
+#: ../plugins/project-manager/plugin.c:687
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6690,7 +6719,7 @@ msgstr ""
 "Na pewno usunąć następujący obiekt docelowy z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:723
+#: ../plugins/project-manager/plugin.c:690
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6698,7 +6727,7 @@ msgstr ""
 "Na pewno usunąć następujący plik źródłowy z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:726
+#: ../plugins/project-manager/plugin.c:693
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6706,7 +6735,7 @@ msgstr ""
 "Na pewno usunąć następujący pakiet z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:729
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6714,7 +6743,7 @@ msgstr ""
 "Na pewno usunąć następujący moduł z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:732
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6722,57 +6751,57 @@ msgstr ""
 "Na pewno usunąć następujące elementy z projektu?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid "Group: %s\n"
 msgstr "Grupa: %s\n"
 
-#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:719
 #, c-format
 msgid "Target: %s\n"
 msgstr "Obiekt docelowy: %s\n"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Source: %s\n"
 msgstr "Źródło: %s\n"
 
-#: ../plugins/project-manager/plugin.c:758
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "Skrót: %s\n"
 
-#: ../plugins/project-manager/plugin.c:761
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Module: %s\n"
 msgstr "Moduł: %s\n"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Package: %s\n"
 msgstr "Pakiet: %s\n"
 
-#: ../plugins/project-manager/plugin.c:776
+#: ../plugins/project-manager/plugin.c:743
 msgid "The group will be deleted from the file system."
 msgstr "Grupa zostanie usunięta z systemu plików."
 
-#: ../plugins/project-manager/plugin.c:778
+#: ../plugins/project-manager/plugin.c:745
 msgid "The group will not be deleted from the file system."
 msgstr "Grupa nie zostanie usunięta z systemu plików."
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:747
 msgid "The source file will be deleted from the file system."
 msgstr "Plik źródłowy zostanie usunięty z systemu plików."
 
-#: ../plugins/project-manager/plugin.c:782
+#: ../plugins/project-manager/plugin.c:749
 msgid "The source file will not be deleted from the file system."
 msgstr "Plik źródłowy nie zostanie usunięty z systemu plików."
 
-#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:754
 msgid "Confirm remove"
 msgstr "Potwierdzenie usunięcia"
 
-#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:800
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6781,125 +6810,109 @@ msgstr ""
 "Usunięcie \"%s\" się nie powiodło:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:899
+#: ../plugins/project-manager/plugin.c:866
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Pobranie informacji o adresie URI %s się nie powiodło: %s"
 
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:902
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Folder…"
 msgstr "Nowy _katalog…"
 
-#: ../plugins/project-manager/plugin.c:939
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "Dodaje nowy katalog do projektu"
 
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:911
 msgid "New _Target…"
 msgstr "Nowy _obiekt docelowy…"
 
-#: ../plugins/project-manager/plugin.c:944
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "Dodaje nowy obiekt docelowy do projektu"
 
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Source File…"
 msgstr "Dodaj plik źró_dłowy…"
 
-#: ../plugins/project-manager/plugin.c:949
-#: ../plugins/project-manager/plugin.c:988
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:916
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a source file to a target"
 msgstr "Dodaje plik źródłowy do obiektu docelowego"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add _Library…"
 msgstr "Dodaj _bibliotekę…"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a module to a target"
 msgstr "Dodaje moduł do obiektu docelowego"
 
-#: ../plugins/project-manager/plugin.c:959
-msgid "New _Library…"
-msgstr "Nowa _biblioteka…"
-
-#: ../plugins/project-manager/plugin.c:959
-msgid "Add a new package to the project"
-msgstr "Dodaje nowy pakiet do projektu"
-
-#: ../plugins/project-manager/plugin.c:964
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Properties"
 msgstr "_Właściwości"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "Za_mknij projekt"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "Zamyka projekt"
 
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "Nowy _katalog"
 
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "Nowy _obiekt docelowy"
 
-#: ../plugins/project-manager/plugin.c:988
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "Dodaj plik źró_dłowy"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "Dodaj _bibliotekę"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "Dodaje bibliotekę do obiektu docelowego"
 
-#: ../plugins/project-manager/plugin.c:998
-msgid "New _Library"
-msgstr "Nowa _biblioteka"
-
-#: ../plugins/project-manager/plugin.c:998
-msgid "Add a new library to the project"
-msgstr "Dodaje nową bibliotekę do projektu"
-
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:960
 msgid "_Add to Project"
 msgstr "_Dodaj do projektu"
 
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:965
 msgid "Properties of group/target/source"
 msgstr "Właściwości grupy/obiektu docelowego/pliku źródłowego"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Re_move"
 msgstr "_Usuń"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Remove from project"
 msgstr "Usuwa z projektu"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "_Sort"
 msgstr "_Uporządkuj"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "Sort shortcuts"
 msgstr "Porządkuje skróty"
 
-#: ../plugins/project-manager/plugin.c:1356
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6908,42 +6921,42 @@ msgstr ""
 "Przetworzenie projektu się nie powiodło (projekt został otwarty, ale nie "
 "można korzystać z widoku projektu) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1366
+#: ../plugins/project-manager/plugin.c:1320
 msgid "Update project view…"
 msgstr "Zaktualizuj widok projektu…"
 
-#: ../plugins/project-manager/plugin.c:1371
-#: ../plugins/project-manager/plugin.c:1493
-#: ../plugins/project-manager/plugin.c:1661
+#: ../plugins/project-manager/plugin.c:1325
+#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "Projekt"
 
-#: ../plugins/project-manager/plugin.c:1409
+#: ../plugins/project-manager/plugin.c:1363
 #, c-format
 msgid "Loading project: %s"
 msgstr "Wczytywanie projektu: %s"
 
-#: ../plugins/project-manager/plugin.c:1573
+#: ../plugins/project-manager/plugin.c:1527
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Błąd podczas zamykania projektu: %s"
 
-#: ../plugins/project-manager/plugin.c:1640
+#: ../plugins/project-manager/plugin.c:1594
 msgid "Project manager actions"
 msgstr "Czynności menedżera projektu"
 
-#: ../plugins/project-manager/plugin.c:1648
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager popup actions"
 msgstr "Czynności wyskakujące menedżera projektów"
 
-#: ../plugins/project-manager/plugin.c:2462
+#: ../plugins/project-manager/plugin.c:2416
 msgid "Initializing Project…"
 msgstr "Inicjowanie projektu…"
 
-#: ../plugins/project-manager/plugin.c:2465
+#: ../plugins/project-manager/plugin.c:2419
 msgid "Project Loaded"
 msgstr "Wczytano projekt"
 
@@ -8639,12 +8652,12 @@ msgstr "Plik \"%s\" jest tylko do odczytu. Modyfikować mimo to?"
 msgid "Could not save %s: %s"
 msgstr "Nie można zapisać %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:272
+#: ../plugins/sourceview/sourceview-io.c:280
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Nie można zapisać pliku, ponieważ nie podano jego nazwy"
 
-#: ../plugins/sourceview/sourceview-io.c:500
+#: ../plugins/sourceview/sourceview-io.c:525
 #, c-format
 msgid "New file %d"
 msgstr "Nowy plik %d"
@@ -8715,7 +8728,7 @@ msgstr "Podręcznik użytkownika programu Anjuta"
 
 #: ../plugins/starter/starter.ui.h:6
 msgid "FAQ"
-msgstr "Najczęściej zadawane pytani"
+msgstr "Najczęściej zadawane pytania"
 
 #: ../plugins/starter/starter.ui.h:7
 msgid "Getting started:"
@@ -9348,23 +9361,27 @@ msgstr[0] "Przeskanowano %d plik z %d"
 msgstr[1] "Przeskanowano %d pliki z %d"
 msgstr[2] "Przeskanowano %d plików z %d"
 
-#: ../plugins/symbol-db/plugin.c:1741
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "Wypełnianie bazy danych symboli…"
 
-#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "Symbole"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
+msgid "Search"
+msgstr "Wyszukiwanie"
+
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "Czynności wyskakujące bazy danych symboli"
 
-#: ../plugins/symbol-db/plugin.c:2223
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "Czynności menu bazy danych symboli"
 
-#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Baza danych symboli"
@@ -9373,7 +9390,7 @@ msgstr "Baza danych symboli"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Wtyczka bazy danych symboli dla programu Anjuta."
 
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "Wznawianie skanowania glb."
 
