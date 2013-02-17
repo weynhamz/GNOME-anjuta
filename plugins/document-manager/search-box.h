@@ -74,6 +74,9 @@ void search_box_set_search_string (SearchBox* search_box, const gchar* search);
 const gchar* search_box_get_replace_string (SearchBox* search_box);
 void search_box_set_replace_string (SearchBox* search_box, const gchar* replace);
 
+void search_box_session_load (SearchBox* search_box, AnjutaSession* session);
+void search_box_session_save (SearchBox* search_box, AnjutaSession* session);
+
 G_END_DECLS
 
 #endif /* _SEARCH_BOX_H_ */

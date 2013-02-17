@@ -853,6 +853,11 @@ do_popup_menu (GtkWidget* widget, GdkEventButton *event, SearchBox* search_box)
 
 	if (!gtk_menu_get_attach_widget(GTK_MENU (search_box->priv->popup_menu)))
 		gtk_menu_attach_to_widget (GTK_MENU (search_box->priv->popup_menu), widget, NULL);
+
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->case_action), search_box->priv->case_sensitive);
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->regex_action), search_box->priv->regex_mode);
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(search_box->priv->highlight_action), search_box->priv->highlight_all);
+
 	gtk_menu_popup (GTK_MENU (search_box->priv->popup_menu), NULL, NULL, NULL, NULL,
                   button, event_time);
 
@@ -1197,4 +1202,24 @@ void search_box_set_replace_string (SearchBox* search_box, const gchar* replace)
 	g_return_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box));
 
 	gtk_entry_set_text (GTK_ENTRY (search_box->priv->replace_entry), replace);
+}
+
+void
+search_box_session_load (SearchBox* search_box, AnjutaSession* session)
+{
+	g_return_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box));
+
+	search_box->priv->case_sensitive = anjuta_session_get_int (session, "Search Box", "Case Sensitive") ? TRUE : FALSE;
+	search_box->priv->regex_mode = anjuta_session_get_int (session, "Search Box", "Regular Expression") ? TRUE : FALSE;
+	search_box->priv->highlight_all = anjuta_session_get_int (session, "Search Box", "Highlight Match") ? TRUE : FALSE;
+}
+
+void 
+search_box_session_save (SearchBox* search_box, AnjutaSession* session)
+{
+	g_return_if_fail (search_box != NULL && SEARCH_IS_BOX(search_box));
+
+	anjuta_session_set_int (session, "Search Box", "Case Sensitive", search_box->priv->case_sensitive ? 1 : 0);
+	anjuta_session_set_int (session, "Search Box", "Regular Expression", search_box->priv->regex_mode ? 1 : 0);
+	anjuta_session_set_int (session, "Search Box", "Highlight Match", search_box->priv->highlight_all ? 1 : 0);
 }

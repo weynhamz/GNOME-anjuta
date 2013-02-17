@@ -1376,6 +1376,9 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 	anjuta_bookmarks_session_load (ANJUTA_BOOKMARKS (plugin->bookmarks),
 								   session);
+	
+	search_box_session_load (SEARCH_BOX (plugin->search_box),
+	                         session);
 }
 
 static void
@@ -1424,6 +1427,8 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 
 	anjuta_bookmarks_session_save (ANJUTA_BOOKMARKS (plugin->bookmarks),
 								   session);
+
+	search_box_session_save (SEARCH_BOX (plugin->search_box), session);
 }
 
 static gboolean
