@@ -1,5 +1,7 @@
-noinst_PROGRAMS = anjuta-tabber-test \
-		anjuta-token-test 
+noinst_PROGRAMS = \
+		anjuta-completion-test \
+		anjuta-tabber-test \
+		anjuta-token-test
 
 # Include paths
 AM_CPPFLAGS = \
@@ -7,6 +9,10 @@ AM_CPPFLAGS = \
         $(DEPRECATED_FLAGS) \
         $(GDA_CFLAGS) \
         $(LIBANJUTA_CFLAGS)
+
+anjuta_completion_test_CFLAGS = $(LIBANJUTA_CFLAGS)
+anjuta_completion_test_LDADD = $(LIBANJUTA_LIBS)
+anjuta_completion_test_SOURCES = anjuta-completion-test.c
 
 anjuta_tabber_test_CFLAGS = $(LIBANJUTA_CFLAGS)
 anjuta_tabber_test_LDADD = $(LIBANJUTA_LIBS) $(ANJUTA_LIBS)
