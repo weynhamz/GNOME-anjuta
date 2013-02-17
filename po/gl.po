@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta-master-po-gl-1952\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-10 13:31+0100\n"
-"PO-Revision-Date: 2013-02-10 13:35+0200\n"
+"POT-Creation-Date: 2013-02-17 13:04+0100\n"
+"PO-Revision-Date: 2013-02-17 13:06+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -374,13 +374,13 @@ msgstr "Mostrar só os engadidos que o usuario pode activar"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr ""
-"Estes son os engadidos que vostede seleccionou cando Anjuta lle pediu que "
-"escollese un, entre varios que eran adecuados. Ao retirar o engadido "
-"preferido, Anjuta pediralle outra vez que escolla outro diferente."
+"Estes son os engadidos que vostede seleccionou cando se lle pediu que "
+"escollese un entre os que eran axeitados. Se retira o engadido preferido "
+"pediráselle outra vez que seleccione outro diferente."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
@@ -2209,7 +2209,7 @@ msgid "Patch-Style diff"
 msgstr "Diferencial de estilo parche"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "Local"
 
@@ -3334,7 +3334,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "Ficheiro"
@@ -4602,7 +4602,7 @@ msgstr "Seleccionar automaticamente o documento actual"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "Global"
 
@@ -5811,29 +5811,42 @@ msgstr "Editar marxes do widget"
 msgid "Edit widget alignment"
 msgstr "Editar aliñamento do widget"
 
+#: ../plugins/glade/plugin.c:612
+msgid "Glade Properties…"
+msgstr "Propiedades de Glade…"
+
 #: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr ""
+"Cambiar entre as versións de bibliotecas e a verificación de obsolescencias"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "Cargando Glade…"
 
-#: ../plugins/glade/plugin.c:698
+#: ../plugins/glade/plugin.c:726
+msgid "Glade designer operations"
+msgstr "Operacións de deseñador Glade"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:825
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "Non hai ningún ficheiro local: %s"
 
-#: ../plugins/glade/plugin.c:871
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "Non foi posíbel abrir %s"
 
-#: ../plugins/glade/plugin.c:914
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "Non foi posíbel crear un proxecto glade novo."
 
@@ -6592,7 +6605,7 @@ msgstr "Seleccione unha infraestrutura de proxecto para usar."
 
 #: ../plugins/project-manager/dialogs.c:689
 #: ../plugins/project-manager/dialogs.c:694
-#: ../plugins/project-manager/plugin.c:964
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "Propiedades do proxecto"
 
@@ -6677,7 +6690,7 @@ msgstr "Falta o nome do módulo"
 msgid "Cannot add packages"
 msgstr "Non é posíbel engadir paquetes"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:684
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6685,7 +6698,7 @@ msgstr ""
 "Desexa realmente retirar o seguinte grupo do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:720
+#: ../plugins/project-manager/plugin.c:687
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6693,7 +6706,7 @@ msgstr ""
 "Desexa realmente retirar o seguinte destino do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:723
+#: ../plugins/project-manager/plugin.c:690
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6701,7 +6714,7 @@ msgstr ""
 "Desexa realmente retirar o seguinte ficheiro fonte do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:726
+#: ../plugins/project-manager/plugin.c:693
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6709,7 +6722,7 @@ msgstr ""
 "Desexa realmente retirar o seguinte paquete do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:729
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6717,7 +6730,7 @@ msgstr ""
 "Desexa realmente retirar o seguinte módulo do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:732
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6725,57 +6738,57 @@ msgstr ""
 "Desexa realmente retirar os seguintes elementos do proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid "Group: %s\n"
 msgstr "Grupo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:719
 #, c-format
 msgid "Target: %s\n"
 msgstr "Destino: %s\n"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Source: %s\n"
 msgstr "Orixe: %s\n"
 
-#: ../plugins/project-manager/plugin.c:758
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "Atallo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:761
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Module: %s\n"
 msgstr "Módulo: %s\n"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Package: %s\n"
 msgstr "Paquete: %s\n"
 
-#: ../plugins/project-manager/plugin.c:776
+#: ../plugins/project-manager/plugin.c:743
 msgid "The group will be deleted from the file system."
 msgstr "O grupo eliminarase do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:778
+#: ../plugins/project-manager/plugin.c:745
 msgid "The group will not be deleted from the file system."
 msgstr "O grupo non se eliminará do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:747
 msgid "The source file will be deleted from the file system."
 msgstr "O ficheiro fonte eliminarase do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:782
+#: ../plugins/project-manager/plugin.c:749
 msgid "The source file will not be deleted from the file system."
 msgstr "O ficheiro fonte non se eliminará do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:754
 msgid "Confirm remove"
 msgstr "Confirmar a retirada"
 
-#: ../plugins/project-manager/plugin.c:833
+#: ../plugins/project-manager/plugin.c:800
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6784,125 +6797,109 @@ msgstr ""
 "Produciuse un erro ao retirar «%s»:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:899
+#: ../plugins/project-manager/plugin.c:866
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Produciuse un erro ao recuperar a información de URI de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:935
+#: ../plugins/project-manager/plugin.c:902
 msgid "_Project"
 msgstr "_Proxecto"
 
-#: ../plugins/project-manager/plugin.c:939
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Folder…"
 msgstr "Novo _cartafol…"
 
-#: ../plugins/project-manager/plugin.c:939
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "Engadir un novo cartafol ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:944
+#: ../plugins/project-manager/plugin.c:911
 msgid "New _Target…"
 msgstr "Novo _obxectivo…"
 
-#: ../plugins/project-manager/plugin.c:944
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "Engadir un obxectivo ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:949
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Source File…"
 msgstr "Engadir ficheiro _fonte…"
 
-#: ../plugins/project-manager/plugin.c:949
-#: ../plugins/project-manager/plugin.c:988
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:916
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a source file to a target"
 msgstr "Engadir un ficheiro fonte ao obxectivo"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add _Library…"
 msgstr "Engadir _biblioteca…"
 
-#: ../plugins/project-manager/plugin.c:954
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a module to a target"
 msgstr "Engadir un ficheiro fonte ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:959
-msgid "New _Library…"
-msgstr "Nova _biblioteca…"
-
-#: ../plugins/project-manager/plugin.c:959
-msgid "Add a new package to the project"
-msgstr "Engadir un novo paquete ao proxecto"
-
-#: ../plugins/project-manager/plugin.c:964
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "Pechar o p_roxecto"
 
-#: ../plugins/project-manager/plugin.c:969
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "Pechar o proxecto"
 
-#: ../plugins/project-manager/plugin.c:978
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "Novo _cartafol"
 
-#: ../plugins/project-manager/plugin.c:983
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "Novo _obxectivo"
 
-#: ../plugins/project-manager/plugin.c:988
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "Engadir o ficheiro _fonte"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "Engadir _biblioteca"
 
-#: ../plugins/project-manager/plugin.c:993
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "Engadir unha biblioteca ao obxectivo"
 
-#: ../plugins/project-manager/plugin.c:998
-msgid "New _Library"
-msgstr "Nova _biblioteca"
-
-#: ../plugins/project-manager/plugin.c:998
-msgid "Add a new library to the project"
-msgstr "Engadir unha nova biblioteca ao proxecto"
-
-#: ../plugins/project-manager/plugin.c:1003
+#: ../plugins/project-manager/plugin.c:960
 msgid "_Add to Project"
 msgstr "Engadir ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:1008
+#: ../plugins/project-manager/plugin.c:965
 msgid "Properties of group/target/source"
 msgstr "Propiedades do grupo/destino/fonte"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Re_move"
 msgstr "Re_tirar"
 
-#: ../plugins/project-manager/plugin.c:1013
+#: ../plugins/project-manager/plugin.c:970
 msgid "Remove from project"
 msgstr "Retirar do proxecto"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "_Sort"
 msgstr "_Ordenar"
 
-#: ../plugins/project-manager/plugin.c:1018
+#: ../plugins/project-manager/plugin.c:975
 msgid "Sort shortcuts"
 msgstr "Ordenar atallos"
 
-#: ../plugins/project-manager/plugin.c:1356
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6911,42 +6908,42 @@ msgstr ""
 "Produciuse un erro ao analizar o proxecto (o proxecto está aberto, mais non "
 "haberá ningunha visualización de proxecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1366
+#: ../plugins/project-manager/plugin.c:1320
 msgid "Update project view…"
 msgstr "Actualizar a visualización de proxecto…"
 
-#: ../plugins/project-manager/plugin.c:1371
-#: ../plugins/project-manager/plugin.c:1493
-#: ../plugins/project-manager/plugin.c:1661
+#: ../plugins/project-manager/plugin.c:1325
+#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "Proxecto"
 
-#: ../plugins/project-manager/plugin.c:1409
+#: ../plugins/project-manager/plugin.c:1363
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1573
+#: ../plugins/project-manager/plugin.c:1527
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Produciuse un erro ao pechar o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1640
+#: ../plugins/project-manager/plugin.c:1594
 msgid "Project manager actions"
 msgstr "Accións do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:1648
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager popup actions"
 msgstr "Accións en xanelas emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2462
+#: ../plugins/project-manager/plugin.c:2416
 msgid "Initializing Project…"
 msgstr "Inicializando o proxecto…"
 
-#: ../plugins/project-manager/plugin.c:2465
+#: ../plugins/project-manager/plugin.c:2419
 msgid "Project Loaded"
 msgstr "Proxecto cargado"
 
@@ -8646,14 +8643,14 @@ msgstr "O ficheiro «%s» é de só lectura! Quere editalo de todas as formas?"
 msgid "Could not save %s: %s"
 msgstr "Non foi posíbel gardar %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:272
+#: ../plugins/sourceview/sourceview-io.c:280
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr ""
 "Non foi posíbel gardar o ficheiro porque o nome de ficheiro non está "
 "especificado aínda"
 
-#: ../plugins/sourceview/sourceview-io.c:500
+#: ../plugins/sourceview/sourceview-io.c:525
 #, c-format
 msgid "New file %d"
 msgstr "Ficheiro novo %d"
@@ -9357,27 +9354,27 @@ msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d ficheiro analizado de %d"
 msgstr[1] "%d ficheiros analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1741
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "Poboar a base de datos con símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2141 ../plugins/symbol-db/plugin.c:2193
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "Accións en xanelas emerxentes de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2223
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "Accións do menú de SymbolDb"
 
-#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
@@ -9386,7 +9383,7 @@ msgstr "Base de datos de símbolos"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Engadido de base de datos de símbolos para o Anjuta."
 
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "Retomar a análise glb."
 
@@ -10040,6 +10037,18 @@ msgstr "Só iconas"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Só texto"
+
+#~ msgid "New _Library…"
+#~ msgstr "Nova _biblioteca…"
+
+#~ msgid "Add a new package to the project"
+#~ msgstr "Engadir un novo paquete ao proxecto"
+
+#~ msgid "New _Library"
+#~ msgstr "Nova _biblioteca"
+
+#~ msgid "Add a new library to the project"
+#~ msgstr "Engadir unha nova biblioteca ao proxecto"
 
 #~ msgid "Contents"
 #~ msgstr "Contidos"
@@ -12015,11 +12024,6 @@ msgstr "Só texto"
 #~ msgid "Versioning…"
 #~ msgstr "Asignación de versións..."
 
-#~ msgid "Switch between library versions and check deprecations"
-#~ msgstr ""
-#~ "Cambiar entre as versións de bibliotecas e a verificación de "
-#~ "obsolescencias"
-
 #~ msgid "Set as default resource target"
 #~ msgstr "Definir como o destino de recurso predefinido"
 
@@ -12046,9 +12050,6 @@ msgstr "Só texto"
 
 #~ msgid "Delete the selection"
 #~ msgstr "Eliminar a selección"
-
-#~ msgid "Glade designer operations"
-#~ msgstr "Operacións de deseñador Glade"
 
 #~ msgid "Go back in undo history"
 #~ msgstr "Ir cara a atrás no historial de desfacer"
