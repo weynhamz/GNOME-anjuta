@@ -323,16 +323,12 @@ static void
 on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 {
 	AnjutaMsgmanPage *page;
-	gint page_num;
 
 	page = anjuta_msgman_page_from_widget (msgman, view);
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (view),
 					  G_CALLBACK (on_message_view_destroy), msgman);
 
-	page_num =
-		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
-						       GTK_WIDGET (view));
 	msgman->priv->views = g_list_remove (msgman->priv->views, page);
 	anjuta_msgman_page_destroy (page);
 
@@ -460,12 +456,10 @@ void
 anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 {
 	g_return_if_fail (msgman != NULL);
-	AnjutaMsgmanPage *page;
 	gint page_num;
 
 	if (mv)
 	{
-		page = anjuta_msgman_page_from_widget (msgman, mv);
 		page_num =
 			gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
 					       GTK_WIDGET (mv));

@@ -178,7 +178,7 @@ message_deserialize (Message *message, AnjutaSerializer *serializer)
 }
 
 static GType
-message_get_type ()
+message_get_type (void)
 {
 	static GType type = 0;
 	if (!type)
