@@ -118,6 +118,17 @@ set_widget_sensitive (GtkToggleButton *button, GtkWidget *widget)
 }
 
 static void
+on_sign_check_toggled(GtkToggleButton *button, GtkToggleButton *annotate_check)
+{
+	gboolean active;
+
+	active = gtk_toggle_button_get_active (button);
+
+	gtk_toggle_button_set_active (annotate_check, active);
+	gtk_widget_set_sensitive (GTK_WIDGET (annotate_check), !active);
+}
+
+static void
 git_create_tag_pane_init (GitCreateTagPane *self)
 {
 	gchar *objects[] = {"create_tag_pane",
@@ -126,6 +137,7 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	GtkWidget *ok_button;
 	GtkWidget *cancel_button;
 	GtkWidget *annotate_check;
+	GtkWidget *sign_check;
 	GtkWidget *log_view;
 	
 
@@ -146,6 +158,8 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	                                                    "cancel_button"));
 	annotate_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "annotate_check"));
+	sign_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                 "sign_check"));
 	log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                               "log_view"));
 
@@ -160,6 +174,10 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 	g_signal_connect (G_OBJECT (annotate_check), "toggled",
 	                  G_CALLBACK (set_widget_sensitive),
 	                  log_view);
+
+	g_signal_connect (G_OBJECT (sign_check), "toggled",
+	              	  G_CALLBACK (on_sign_check_toggled),
+	                  annotate_check);
 }
 
 static void
