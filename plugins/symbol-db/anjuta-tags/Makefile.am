@@ -143,3 +143,5 @@ BUILT_SOURCES = ctags-visitor.c
 CLEANFILES = ctags-visitor.c ctags-vala.h
 endif
 
+
+-include $(top_srcdir)/git.mk

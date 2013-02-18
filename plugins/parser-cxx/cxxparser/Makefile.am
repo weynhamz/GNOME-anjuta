@@ -42,3 +42,5 @@ libcxxparser_la_SOURCES = \
 libcxxparser_la_LIBADD = $(LIBANJUTA_LIBS) \
 	$(GTHREAD_LIBS)
 libcxxparser_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
+-include $(top_srcdir)/git.mk

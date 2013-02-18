@@ -12,3 +12,5 @@ glade_pixmaps_DATA = \
 	
 EXTRA_DIST = \
 	$(glade_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

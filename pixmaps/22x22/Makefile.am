@@ -5,3 +5,5 @@ mimepngicondir = $(datadir)/icons/gnome/22x22/mimetypes
 mimepngicon_DATA = gnome-mime-application-x-anjuta.png
 
 EXTRA_DIST = $(icon_DATA) $(mimepngicon_DATA)
+
+-include $(top_srcdir)/git.mk

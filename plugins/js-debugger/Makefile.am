@@ -48,3 +48,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(js_debugger_plugin_DATA) \
 	$(js_debugger_pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

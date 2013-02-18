@@ -13,3 +13,5 @@ utest_CPPFLAGS = \
 
 utest_LDADD = \
 	$(LIBANJUTA_LIBS) 
+
+-include $(top_srcdir)/git.mk

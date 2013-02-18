@@ -64,3 +64,4 @@ EXTRA_DIST = \
 
 CLEANFILES = libanjuta-interfaces.h iface-built.stamp
 
+-include $(top_srcdir)/git.mk

@@ -60,3 +60,5 @@ clean-local:
 
 check-local: atconfig $(TESTSUITE)
 	$(SHELL) $(TESTSUITE) $(TESTSUITEFLAGS)
+
+-include $(top_srcdir)/git.mk

@@ -30,3 +30,4 @@ CLEANFILES = anjuta_token_test-anjuta-token.gcno \
              anjuta_token_test-anjuta-token-test.gcno \
              anjuta_token_test-anjuta-debug.gcno
 
+-include $(top_srcdir)/git.mk

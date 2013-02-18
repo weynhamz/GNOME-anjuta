@@ -50,3 +50,5 @@ EXTRA_DIST = \
 	$(glade_glade_DATA) \
 	$(glade_pixmaps_DATA)
 
+
+-include $(top_srcdir)/git.mk
