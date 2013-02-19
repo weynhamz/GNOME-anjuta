@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-02-12 20:10+0000\n"
-"PO-Revision-Date: 2013-02-14 14:41+0100\n"
+"POT-Creation-Date: 2013-02-15 21:20+0000\n"
+"PO-Revision-Date: 2013-02-19 12:22+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -375,15 +375,18 @@ msgid "Only show user activatable plugins"
 msgstr "Mostrar sólo los complementos activables por el usuario"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
+#| msgid ""
+#| "These are the plugins selected by you when Anjuta prompted to choose one "
+#| "of many suitable plugins. Removing the preferred plugin will let Anjuta "
+#| "prompt you again to choose different plugin."
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr ""
-"Estos son los complementos seleccionados cuando Anjuta le preguntó para "
-"elegir uno de los muchos complementos convenientes. Quitar el complemento "
-"preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
-"diferente."
+"Estos son los complementos seleccionados cuando se le preguntó para elegir "
+"uno de los muchos complementos convenientes. Quitar el complemento preferido "
+"le permitirá elegir un complemento diferente."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
@@ -2213,7 +2216,7 @@ msgid "Patch-Style diff"
 msgstr "Diff estilo patch"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "Local"
 
@@ -3338,7 +3341,7 @@ msgstr "Marco"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "Archivo"
@@ -4605,7 +4608,7 @@ msgstr "Seleccionar automáticamente el documento actual"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "Global"
 
@@ -5814,7 +5817,6 @@ msgid "Edit widget alignment"
 msgstr "Editar la alineación del widget"
 
 #: ../plugins/glade/plugin.c:612
-#| msgid "Folder properties"
 msgid "Glade Properties…"
 msgstr "Propiedades de Glade…"
 
@@ -6922,7 +6924,7 @@ msgstr "Actualizar vista del proyecto…"
 #: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "Proyecto"
 
@@ -9357,27 +9359,27 @@ msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d archivo analizado de %d"
 msgstr[1] "%d archivos analizados de %d"
 
-#: ../plugins/symbol-db/plugin.c:1741
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "Llenando la BB. DD. de símbolos…"
 
-#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2141 ../plugins/symbol-db/plugin.c:2193
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "Acciones emergentes de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2223
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "Acciones del menú de la BB DD de símbolos"
 
-#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Base de datos de símbolos"
@@ -9386,7 +9388,7 @@ msgstr "Base de datos de símbolos"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Complemento de base de datos de símbolos para Anjuta."
 
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "Resumiendo el análisis glb."
 
