@@ -64,13 +64,13 @@ git_log_command_init (GitLogCommand *self)
 
 	self->priv->data_command = git_log_data_command_new ();
 
-	g_signal_connect (G_OBJECT (self->priv->data_command), "data-arrived",
-	                  G_CALLBACK (on_data_command_data_arrived),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->data_command), "data-arrived",
+	                         G_CALLBACK (on_data_command_data_arrived),
+	                         self, 0);
 
-	g_signal_connect (G_OBJECT (self->priv->data_command), "command-finished",
-	                  G_CALLBACK (on_data_command_finished),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->data_command), "command-finished",
+	                         G_CALLBACK (on_data_command_finished),
+	                         self, 0);
 }
 
 static void
