@@ -1,3 +1,129 @@
+Anjuta 3.7.90 (February 18, 2013) -- James Liggett
+
+Anish A (1):
+      Updated Malayalam Localization
+
+Arnel A. Borja (1):
+      quick-open: Fix typo in distributed files
+
+Aurimas Černius (1):
+      Updated Lithuanian translation
+
+Carl-Anton Ingmarsson (43):
+      sourceview: connect settings notifications with g_signal_connect_object().
+      language-support-js: Fix g_object_unref() of NULL object.
+      Add new quick-open plugin.
+      file-manager: Use a GFile instead of an URI for the base path property.
+      file-manager: Add option for showing the currently edited file in the file manager.
+      file-manager: Enable typeahead search.
+      file-manager: Fix leak of GtkTreeModelSort.
+      file-manager: Add "Show in File manager" action to document popup.
+      document-manager: make the search files options span two cells of the top grid
+      document-manager: remove usage of unneeded initialized variable in class_init
+      symbol-db: fix symbols view label box to be horizontal
+      libanjuta: don't use deprecated functions in AnjutaAsyncCommand
+      sourceview: use gtk_widget_preferred_size instead of gtk_widget_size_request
+      sourceview: use G_PRIORITY_DEFAULT for IO
+      anjuta: reduce size of toolbar buttons to GTK_ICON_SIZE_MENU
+      indentation-c-style: enable the plugin for IDL files
+      quick-open: remove duplicate declaration
+      document-manager: connect to toplevel SearchBox keypress to handle closing
+      quick-open: remove doc from list in quick_open_dialog_remove_document()
+      document-manager: emit "document-removed" for open documents in dispose
+      language-support-cpp-java: change modeline of plugin.c
+      language-support-cpp-java: don't use deprecated g_string_down()
+      language-support-cp-java: fix crasher when swapping header/source
+      file-manager: don't try to select document which has no file yet
+      devhelp: Port to webkitgtk2
+      class-gen: fix compile warnings
+      project-wizard: move license templates to data/
+      class-gen: generate license the same way as project-wizard
+      class-gen: output filename instead of project name before copyright
+      class-gen: Always generate GObject private structure
+      build-basic-autotools: don't let build directory button expand
+      jhbuild: Extract libdir from newly added JHBUILD_LIBDIR environment variable.
+      jhbuild: Translate error messages.
+      sourceview: mark clearing of buffer as a not undoable action
+      sourceview: use etag to only emit "changed" when file was externally modified
+      symbol-db: fix compile warnings
+      libanjuta: Add new AnjutaCompletion object for prefix matching
+      libanjuta: Add basic tests for AnjutaCompletion
+      parser-cxx: use AnjutaCompletion instead of deprecated GCompletion
+      parser-cxx: remove unused ParserCxxAssistContext
+      python-assist: use AnjutaCompletion instead of GCompletion
+      python-assist: remove unused PythonAssistContext
+      python-assist: don't use deprecated functions
+
+Chao-Hsiung Liao (1):
+      Updated Traditional Chinese translation(Hong Kong and Taiwan)
+
+Daniel Mustieles (9):
+      Updated Spanish translation
+      Updated Spanish translation
+      Removed markup from UI file
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+      Updated Spanish translation
+
+Fran Diéguez (3):
+      Updated Galician translations
+      Updated Galician translations
+      Updated Galician translations
+
+Frédéric Péters (1):
+      devhelp: update to latest devhelp changes
+
+Gheyret Kenji (5):
+      Updated Uyghur translation
+      Updated Uyghur translation
+      Updated Uyghur translation
+      Updated Uyghur translation
+      Updated Uyghur translation
+
+James Liggett (1):
+      git: Always annotate signed tags
+
+Johannes Schmid (1):
+      sourceview: Fix wrong assignment when saving markers
+
+Kjartan Maraas (1):
+      Updated Norwegian bokmål translation
+
+Piotr Drąg (4):
+      Updated POTFILES.in
+      Updated Polish translation
+      Updated POTFILES.in
+      Updated Polish translation
+
+Sébastien Granjoux (19):
+      anjuta: bgo #688609 - Saved dock positions not applied when opening a project
+      project-import: Try to fill project name automatically in import project dialog
+      project-import: Open a directory with Anjuta
+      starter: Fix a warning
+      anjuta: Make sure the starter widget is visible on startup
+      am-project: Fix a crash when changing target properties
+      build-basic-autotools: Fix selection of build directory
+      build-basic-autotools: Use a GtkFileChooser dialog instead of a GtkFileChooserButton to select build directory
+      project-wizard: Remove a critical warning
+      project-wizard: Replace deprecated GtkTable by GtkGrid
+      project-manager: Replace deprecated GtkTable by GtkGrid
+      patch: Replace deprecated GtkTable by GtkGrid
+      project-manager: Fix several warnings
+      project-manager: Replace deprecated gtk_paint_hline
+      project-manager: Remove New Library menu item
+      glade: Add a menu item for glade properties dialog
+      libanjuta: bgo #693916 - Avoid the name Anjuta in libanjuta messages
+      document-manager: Save search box settings
+      libanjuta: Fix linking of anjuta-completion-test
+
+Мирослав Николић (3):
+      Updated Serbian translation
+      Updated Serbian translation
+      Updated Serbian translation
+
 Anjuta 3.7.4 (January 14, 2013) -- James Liggett
 
 Akom Chotiphantawanon (1):
