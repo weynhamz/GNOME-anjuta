@@ -362,9 +362,9 @@ refresh_log (GitLogPane *self)
 	else
 		gtk_tree_view_column_set_visible (graph_column, TRUE);
 
-	g_signal_connect (G_OBJECT (self->priv->log_command), "command-finished",
-	                  G_CALLBACK (on_log_command_finished),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->log_command), "command-finished",
+	                         G_CALLBACK (on_log_command_finished),
+	                         self, 0);
 
 	gtk_list_store_clear (self->priv->log_model);
 
@@ -396,17 +396,17 @@ on_ref_command_finished (AnjutaCommand *command, guint return_code,
 		git_branch_list_command_new (plugin->project_root_directory,
 		                             GIT_BRANCH_TYPE_ALL);
 
-	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "command-started",
-	                  G_CALLBACK (on_branch_list_command_started),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->branch_list_command), "command-started",
+	                         G_CALLBACK (on_branch_list_command_started),
+	                         self, 0);
 
-	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "command-finished",
-	                  G_CALLBACK (on_branch_list_command_finished),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->branch_list_command), "command-finished",
+	                         G_CALLBACK (on_branch_list_command_finished),
+	                         self, 0);
 
-	g_signal_connect (G_OBJECT (self->priv->branch_list_command), "data-arrived",
-	                  G_CALLBACK (on_branch_list_command_data_arrived),
-	                  self);
+	g_signal_connect_object (G_OBJECT (self->priv->branch_list_command), "data-arrived",
+	                         G_CALLBACK (on_branch_list_command_data_arrived),
+	                         self, 0);
 
 	anjuta_command_start (ANJUTA_COMMAND (self->priv->branch_list_command));
 }
@@ -665,9 +665,9 @@ on_log_view_row_selected (GtkTreeSelection *selection,
 		g_free (sha);
 		g_object_unref (revision);
 		
-		g_signal_connect (G_OBJECT (self->priv->log_message_command), "command-finished",
-						  G_CALLBACK (on_log_message_command_finished),
-						  self);
+		g_signal_connect_object (G_OBJECT (self->priv->log_message_command), "command-finished",
+		                         G_CALLBACK (on_log_message_command_finished),
+		                         self, 0);
 		
 		anjuta_command_start (ANJUTA_COMMAND (self->priv->log_message_command));
 	}
@@ -1064,9 +1064,9 @@ git_log_pane_new (Git *plugin)
 
 	self = g_object_new (GIT_TYPE_LOG_PANE, "plugin", plugin, NULL);
 
-	g_signal_connect (G_OBJECT (plugin->ref_command), "command-finished",
-	                  G_CALLBACK (on_ref_command_finished),
-	                  self);
+	g_signal_connect_object (G_OBJECT (plugin->ref_command), "command-finished",
+	                         G_CALLBACK (on_ref_command_finished),
+	                         self, 0);
 
 	return ANJUTA_DOCK_PANE (self);
 }
