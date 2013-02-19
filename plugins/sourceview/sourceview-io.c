@@ -246,11 +246,11 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
 	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	GError* err = NULL;
+	gchar* etag;
 
-	g_free (sio->etag);
 	g_file_replace_contents_finish (G_FILE (file),
 	                                result,
-	                                &sio->etag,
+	                                &etag,
 	                                &err);
 	g_free (sio->write_buffer);
 	sio->write_buffer = NULL;
@@ -264,6 +264,10 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 		set_display_name (sio);
 		if (!sio->monitor)
 			setup_monitor (sio);
+
+		g_free (sio->etag);
+		sio->etag = etag;
+
 		g_signal_emit_by_name (sio, "save-finished");
 	}
 	g_object_unref (sio);
