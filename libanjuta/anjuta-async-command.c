@@ -120,6 +120,8 @@ anjuta_async_command_thread (AnjutaCommand *command)
 	
 	return_code = ANJUTA_COMMAND_GET_CLASS (command)->run (command);
 	anjuta_command_notify_complete (command, return_code);
+
+	g_object_unref (command);
 	return NULL;
 }
 
@@ -129,7 +131,7 @@ start_command (AnjutaCommand *command)
 	g_idle_add ((GSourceFunc) anjuta_async_command_notification_poll, 
 				command);
 	g_thread_new ("AnjutaCommand Thread",
-	              (GThreadFunc) anjuta_async_command_thread, command);
+	              (GThreadFunc) anjuta_async_command_thread, g_object_ref (command));
 }
 
 static void
