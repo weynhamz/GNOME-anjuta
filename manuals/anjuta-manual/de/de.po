@@ -20,13 +20,13 @@
 #
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012.
 # Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010-2012.
+# Christian Kirbach <christian.kirbach@gmail.com>, 2010-2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta doc\n"
 "POT-Creation-Date: 2012-11-20 12:02+0000\n"
-"PO-Revision-Date: 2012-11-27 16:50+0100\n"
+"PO-Revision-Date: 2013-02-20 23:48+0100\n"
 "Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: \n"
@@ -35,7 +35,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -43,7 +44,7 @@ msgid "translator-credits"
 msgstr ""
 "Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2012\n"
 "Jonas Rebmann <jonas.rebmann@googlemail.com>, 2010\n"
-"Christian Kirbach <christian.kirbach@gmail.com>, 2010, 2011, 2012"
+"Christian Kirbach <christian.kirbach@gmail.com>, 2010, 2011, 2012, 2013"
 
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
@@ -3046,8 +3047,8 @@ msgid ""
 "in the toolbar."
 msgstr ""
 "Wählen Sie im <gui>Hauptmenü</gui> <guiseq><gui>Fehlerdiagnose</"
-"gui><gui>Hineinspringen</gui>, drücken Sie <key>F5</key> oder klicken Sie "
-"auf <gui>Hineinspringen</gui> in der Werkzeugleiste."
+"gui><gui>Hineinspringen</gui></guiseq>, drücken Sie <key>F5</key> oder "
+"klicken Sie auf <gui>Hineinspringen</gui> in der Werkzeugleiste."
 
 #: C/debug-step.page:40(section/p)
 msgid ""
