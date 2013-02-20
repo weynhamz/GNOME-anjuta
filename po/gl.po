@@ -39,7 +39,7 @@ msgstr "Desenvolver software nun ambiente de desenvolvemento integrado"
 
 #: ../anjuta.desktop.in.in.h:4
 msgid "IDE;development;programming;"
-msgstr "IDE;desenvolvemento;programación"
+msgstr "IDE;desenvolvemento;programación;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"

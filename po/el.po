@@ -46,7 +46,7 @@ msgstr "Ανάπτυξη λογισμικού σε ένα ολοκληρωμέν
 
 #: ../anjuta.desktop.in.in.h:4
 msgid "IDE;development;programming;"
-msgstr "IDE·ανάπτυξη·προγραμματισμός·"
+msgstr "IDE;ανάπτυξη;προγραμματισμός;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
