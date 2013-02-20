@@ -296,16 +296,10 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 		git_pane_report_errors (command, return_code,
 		                        ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self))));
 #endif
-		g_object_ref (self->priv->log_model);
-		gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), NULL);
 		g_object_unref (command);
 		
 		return;
 	}
-	
-	
-	g_object_ref (self->priv->log_model);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), NULL);
 	
 	queue = git_log_command_get_output_queue (GIT_LOG_COMMAND (command));
 	
@@ -334,15 +328,21 @@ static void
 refresh_log (GitLogPane *self)
 {
 	Git *plugin;
+	GtkTreeView *log_view;
 	GtkTreeViewColumn *graph_column;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	log_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                  "log_view"));
 	graph_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
 	                                                             "graph_column"));
 
 	/* Unref the previous command if it's still running. */
 	if (self->priv->log_command)
 		g_object_unref (self->priv->log_command);
+
+	g_object_ref (self->priv->log_model);
+	gtk_tree_view_set_model (log_view, NULL);
 
 	/* We don't support filters for now */
 	self->priv->log_command = git_log_command_new (plugin->project_root_directory,
