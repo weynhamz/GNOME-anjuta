@@ -254,6 +254,10 @@ set_display_name (SourceviewIO* sio)
 	g_object_unref (file_info);
 }
 
+/*
+ * This function may be called after the corresponding Sourceview (sio->sv)
+ * has been destroyed.
+ */
 static void
 on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 {
@@ -294,6 +298,9 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 void
 sourceview_io_save (SourceviewIO* sio)
 {
+	g_return_if_fail (SOURCEVIEW_IS_IO (sio));
+	g_return_if_fail (sio->sv != NULL);
+
 	if (!sio->file)
 	{
 		GError* error = NULL;
@@ -312,7 +319,9 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	gboolean backup = TRUE;
 	gsize len;
 
-	g_return_if_fail (file != NULL);
+	g_return_if_fail (SOURCEVIEW_IS_IO (sio));
+	g_return_if_fail (sio->sv != NULL);
+	g_return_if_fail (G_IS_FILE (file));
 
 	if (sio->file != file)
 	{
@@ -442,6 +451,13 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	}
 	else
 	{
+		/* Check that the parent Sourceview is still alive. */
+		if (sio->sv == NULL)
+		{
+			g_warning ("Sourceview was destroyed without canceling SourceviewIO open operation");
+			goto out;
+		}
+
 		sio->bytes_read += current_bytes;
 		if (current_bytes != 0)
 		{
@@ -480,6 +496,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 		}
 	}
 
+out:
 	g_object_unref (input_stream);
 	g_free (sio->read_buffer);
 	sio->read_buffer = NULL;
@@ -493,7 +510,9 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 	GFileInputStream* input_stream;
 	GError* err = NULL;
 
-	g_return_if_fail (file != NULL);
+	g_return_if_fail (SOURCEVIEW_IS_IO (sio));
+	g_return_if_fail (sio->sv != NULL);
+	g_return_if_fail (G_IS_FILE (file));
 
 	if (sio->file != file)
 	{
