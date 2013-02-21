@@ -296,9 +296,7 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 		git_pane_report_errors (command, return_code,
 		                        ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self))));
 #endif
-		g_object_unref (command);
-		
-		return;
+		goto out;
 	}
 	
 	queue = git_log_command_get_output_queue (GIT_LOG_COMMAND (command));
@@ -319,7 +317,8 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 										  0);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), 
 							 GTK_TREE_MODEL (self->priv->log_model));
-	
+
+out:
 	g_clear_object (&self->priv->log_command);
 }
 
