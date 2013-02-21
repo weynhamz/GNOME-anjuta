@@ -689,9 +689,6 @@ on_open_failed (SourceviewIO* io, GError* err, Sourceview* sv)
 	g_free (message);
 	sv->priv->loading = FALSE;
 	gtk_text_view_set_editable (GTK_TEXT_VIEW (sv->priv->view), TRUE);
-
-	/* Get rid of reference from ifile_open */
-	g_object_unref(G_OBJECT(sv));
 }
 
 static void
@@ -762,9 +759,6 @@ on_open_finish(SourceviewIO* io, Sourceview* sv)
 	g_signal_emit_by_name (sv, "language-changed", lang);
 
 	g_signal_emit_by_name (sv, "opened");
-	
-	/* Get rid of reference from ifile_open */
-	g_object_unref(G_OBJECT(sv));
 }
 
 static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
@@ -803,8 +797,6 @@ static void on_save_failed (SourceviewIO* sio, GError* err, Sourceview* sv)
 		gtk_dialog_run (GTK_DIALOG (dialog));
 	}
 	g_free (message);
-
-	g_object_unref (sv);
 }
 
 /* Called when document is saved completly */
@@ -821,7 +813,6 @@ static void on_save_finish(SourceviewIO* sio, Sourceview* sv)
 	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
-	g_object_unref (sv);
 }
 
 static void
@@ -1029,9 +1020,6 @@ ifile_open (IAnjutaFile* ifile, GFile* file, GError** e)
 		sourceview_reload_save_markers (sv);
 	}
 
-	/* Hold a reference here to avoid a destroyed editor */
-	g_object_ref(G_OBJECT(sv));
-
 	gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (sv->priv->document));
 	gtk_text_buffer_set_text (GTK_TEXT_BUFFER(sv->priv->document),
 							  "",
@@ -1061,7 +1049,6 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 
-	g_object_ref(G_OBJECT(sv));
 	sourceview_io_save (sv->priv->io);
 }
 
@@ -1071,7 +1058,6 @@ ifile_savable_save_as (IAnjutaFileSavable* ifile, GFile* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ifile);
 
-	g_object_ref(G_OBJECT(sv));
 	sourceview_io_save_as (sv->priv->io, file);
 }
 
