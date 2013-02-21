@@ -47,13 +47,23 @@ static guint io_signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE (SourceviewIO, sourceview_io, G_TYPE_OBJECT);
 
 static void
+on_sourceview_finalized (gpointer data, GObject* where_the_object_was)
+{
+	SourceviewIO* sio = SOURCEVIEW_IO (data);
+
+	sio->sv = NULL;
+	/* Cancel all open operations */
+	g_cancellable_cancel (sio->open_cancel);
+}
+
+static void
 sourceview_io_init (SourceviewIO *object)
 {
 	object->file = NULL;
 	object->filename = NULL;
 	object->read_buffer = NULL;
 	object->write_buffer = NULL;
-	object->cancel = g_cancellable_new();
+	object->open_cancel = g_cancellable_new();
 	object->monitor = NULL;
 	object->last_encoding = NULL;
 	object->bytes_read = 0;
@@ -63,13 +73,17 @@ static void
 sourceview_io_finalize (GObject *object)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(object);
+
+	if (sio->sv)
+		g_object_weak_unref (G_OBJECT (sio->sv), on_sourceview_finalized, sio);
+
 	if (sio->file)
 		g_object_unref (sio->file);
 	g_free (sio->etag);
 	g_free(sio->filename);
 	g_free(sio->read_buffer);
 	g_free(sio->write_buffer);
-	g_object_unref (sio->cancel);
+	g_object_unref (sio->open_cancel);
 	if (sio->monitor)
 		g_object_unref (sio->monitor);
 
@@ -334,14 +348,13 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 			return;
 		}
 	}
-	g_cancellable_reset (sio->cancel);
 	g_file_replace_contents_async (file,
 	                               sio->write_buffer,
 	                               len,
 	                               NULL,
 	                               backup,
 	                               G_FILE_CREATE_NONE,
-	                               sio->cancel,
+	                               NULL,
 	                               on_save_finished,
 	                               sio);
 	anjuta_shell_saving_push (sio->shell);
@@ -403,7 +416,6 @@ append_buffer (SourceviewIO* sio, gsize size)
 
 			g_signal_emit_by_name (sio, "open-failed", conv_error);
 			g_error_free (conv_error);
-			g_cancellable_cancel (sio->cancel);
 			return FALSE;
 		}
 		sio->last_encoding = enc;
@@ -421,7 +433,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 	gsize current_bytes = 0;
 	GError* err = NULL;
 
-	if (!g_cancellable_set_error_if_cancelled (sio->cancel, &err))
+	if (!g_cancellable_set_error_if_cancelled (sio->open_cancel, &err))
 		current_bytes = g_input_stream_read_finish (input_stream, result, &err);
 	if (err)
 	{
@@ -438,7 +450,7 @@ on_read_finished (GObject* input, GAsyncResult* result, gpointer data)
 									   sio->read_buffer + sio->bytes_read,
 									   READ_SIZE,
 									   IO_PRIORITY,
-									   sio->cancel,
+									   sio->open_cancel,
 									   on_read_finished,
 									   sio);
 			return;
@@ -503,7 +515,7 @@ sourceview_io_open (SourceviewIO* sio, GFile* file)
 							   sio->read_buffer,
 							   READ_SIZE,
 							   IO_PRIORITY,
-							   sio->cancel,
+							   sio->open_cancel,
 							   on_read_finished,
 							   g_object_ref (sio));
 }
@@ -514,12 +526,6 @@ sourceview_io_get_file (SourceviewIO* sio)
 	if (sio->file)
 		g_object_ref (sio->file);
 	return sio->file;
-}
-
-void
-sourceview_io_cancel (SourceviewIO* sio)
-{
-	g_cancellable_cancel (sio->cancel);
 }
 
 const gchar*
@@ -597,7 +603,7 @@ sourceview_io_new (Sourceview* sv)
 	sio = SOURCEVIEW_IO(g_object_new (SOURCEVIEW_TYPE_IO, NULL));
 
 	sio->sv = sv;
-	g_object_add_weak_pointer (G_OBJECT (sv), (gpointer*)&sio->sv);
+	g_object_weak_ref (G_OBJECT (sv), on_sourceview_finalized, sio);
 
 	/* Store a separate pointer to the shell since we want to have access
 	 * to it even though the parent Sourceview has been destroyed .*/

@@ -62,7 +62,7 @@ struct _SourceviewIO
 	gchar* filename;
 	gchar* write_buffer;
 	gchar* read_buffer;
-	GCancellable* cancel;
+	GCancellable* open_cancel;
 	GFileMonitor* monitor;
 	gssize bytes_read;
 
@@ -73,7 +73,6 @@ GType sourceview_io_get_type (void) G_GNUC_CONST;
 void sourceview_io_save (SourceviewIO* sio);
 void sourceview_io_save_as (SourceviewIO* sio, GFile* file);
 void sourceview_io_open (SourceviewIO* sio, GFile* file);
-void sourceview_io_cancel (SourceviewIO* sio);
 GFile* sourceview_io_get_file (SourceviewIO* sio);
 const gchar* sourceview_io_get_filename (SourceviewIO* sio);
 void sourceview_io_set_filename (SourceviewIO* sio, const gchar* filename);
