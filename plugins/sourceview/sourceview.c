@@ -78,6 +78,15 @@ static void sourceview_dispose(GObject *object);
 
 static GObjectClass *parent_class = NULL;
 
+enum
+{
+	PROP_O,
+	PROP_PLUGIN,
+	PROP_LAST
+};
+static GParamSpec* properties[PROP_LAST];
+
+
 static gboolean on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 										  gboolean keyboard_tip, GtkTooltip *tooltip,
 										  gpointer data);
@@ -824,63 +833,106 @@ sourceview_adjustment_changed(GtkAdjustment* ad, Sourceview* sv)
 }
 
 static void
+sourceview_set_property (GObject* object, guint property_id,
+                         const GValue* value, GParamSpec* pspec)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(object);
+
+	switch (property_id)
+	{
+		case PROP_PLUGIN:
+			sv->priv->plugin = g_value_get_object (value);
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
+	}
+}
+
+static void
+sourceview_constructed (GObject* object)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(object);
+
+	GtkAdjustment* v_adj;
+
+	DEBUG_PRINT("%s", "============ Creating new editor =============");
+
+	sv->priv->io = sourceview_io_new (sv);
+	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
+	g_signal_connect (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted), sv);
+	g_signal_connect (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
+	                  sv);
+	g_signal_connect (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
+	                  sv);
+	g_signal_connect (sv->priv->io, "save-finished", G_CALLBACK (on_save_finish),
+	                  sv);
+	g_signal_connect (sv->priv->io, "save-failed", G_CALLBACK (on_save_failed),
+	                  sv);
+
+	/* Create buffer */
+	sv->priv->document = gtk_source_buffer_new(NULL);
+
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed",
+	                       G_CALLBACK(on_document_modified_changed), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "mark-set",
+	                       G_CALLBACK(on_mark_set),sv);
+	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
+	                        G_CALLBACK(on_insert_text), sv);
+	g_signal_connect (G_OBJECT(sv->priv->document), "delete-range",
+	                  G_CALLBACK(on_delete_range), sv);
+	g_signal_connect_after (G_OBJECT(sv->priv->document), "delete-range",
+	                        G_CALLBACK(on_delete_range_after), sv);
+
+	g_signal_connect (G_OBJECT (sv->priv->document), "notify::cursor-position",
+	                  G_CALLBACK (on_cursor_position_changed), sv);
+
+	/* Create View instance */
+	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
+	/* The view doesn't take a reference on the buffer, we have to unref it */
+	g_object_unref (sv->priv->document);
+
+	g_signal_connect_after (G_OBJECT(sv->priv->view), "toggle-overwrite",
+	                        G_CALLBACK(on_overwrite_toggled), sv);
+	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
+	                  G_CALLBACK (on_sourceview_hover_over), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->view), "backspace",
+	                       G_CALLBACK(on_backspace),sv);
+
+	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
+
+	/* Apply Preferences */
+	sourceview_prefs_init(sv);
+
+	/* Create Markers */
+	sourceview_create_markers(sv);
+
+	/* Create Higlight Tag */
+	sourceview_create_highlight_indic(sv);
+
+	/* Add View */
+	sv->priv->window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_end (GTK_BOX (sv), sv->priv->window, TRUE, TRUE, 0);
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv->priv->window),
+	                                GTK_POLICY_AUTOMATIC,
+	                                GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(sv->priv->window), GTK_WIDGET(sv->priv->view));
+	gtk_widget_show_all(GTK_WIDGET(sv));
+	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv->priv->window));
+	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
+
+	g_signal_connect_after(G_OBJECT(sv->priv->view), "line-mark-activated",
+	                       G_CALLBACK(on_line_mark_activated), sv);
+}
+
+static void
 sourceview_instance_init(Sourceview* sv)
 
 {
 	sv->priv = G_TYPE_INSTANCE_GET_PRIVATE (sv,
 	                                        ANJUTA_TYPE_SOURCEVIEW,
 	                                        SourceviewPrivate);
-	sv->priv->io = sourceview_io_new (sv);
-	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
-	g_signal_connect (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted), sv);
-	g_signal_connect (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
-					  sv);
-	g_signal_connect (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
-					  sv);
-	g_signal_connect (sv->priv->io, "save-finished", G_CALLBACK (on_save_finish),
-					  sv);
-	g_signal_connect (sv->priv->io, "save-failed", G_CALLBACK (on_save_failed),
-					  sv);
-
-	/* Create buffer */
-	sv->priv->document = gtk_source_buffer_new(NULL);
-	
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed",
-					 G_CALLBACK(on_document_modified_changed), sv);
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "mark-set",
-					 G_CALLBACK(on_mark_set),sv);
-	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
-	                  G_CALLBACK(on_insert_text), sv);
-	g_signal_connect (G_OBJECT(sv->priv->document), "delete-range",
-	                  G_CALLBACK(on_delete_range), sv);
-	g_signal_connect_after (G_OBJECT(sv->priv->document), "delete-range",
-	                  G_CALLBACK(on_delete_range_after), sv);
-
-	g_signal_connect (G_OBJECT (sv->priv->document), "notify::cursor-position",
-	                  G_CALLBACK (on_cursor_position_changed), sv);
-	
-	/* Create View instance */
-	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
-	/* The view doesn't take a reference on the buffer, we have to unref it */
-	g_object_unref (sv->priv->document);
-	
-	g_signal_connect_after (G_OBJECT(sv->priv->view), "toggle-overwrite",
-					  G_CALLBACK(on_overwrite_toggled), sv);
-	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
-					  G_CALLBACK (on_sourceview_hover_over), sv);
-	g_signal_connect_after(G_OBJECT(sv->priv->view), "backspace",
-					 G_CALLBACK(on_backspace),sv);
-
-	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
-	
-	/* Apply Preferences */
-	sourceview_prefs_init(sv);
-	
-	/* Create Markers */
-	sourceview_create_markers(sv);
-	
-	/* Create Higlight Tag */
-	sourceview_create_highlight_indic(sv);
 }
 
 static void
@@ -889,9 +941,18 @@ sourceview_class_init(SourceviewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
 	parent_class = g_type_class_peek_parent(klass);
+
+	object_class->constructed = sourceview_constructed;
+	object_class->set_property = sourceview_set_property;
 	object_class->dispose = sourceview_dispose;
 
 	g_type_class_add_private (klass, sizeof (SourceviewPrivate));
+
+	properties[PROP_PLUGIN] =
+		g_param_spec_object ("plugin", "Plugin", "Plugin",
+		                     ANJUTA_TYPE_PLUGIN_SOURCEVIEW,
+		                     G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_properties (object_class, PROP_LAST, properties);
 }
 
 static void
@@ -935,23 +996,8 @@ the file will be loaded in the buffer */
 Sourceview *
 sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 {
-	GtkAdjustment* v_adj;
-
-	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
-
-	sv->priv->plugin = plugin;
-
-	/* Add View */
-	sv->priv->window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_end (GTK_BOX (sv), sv->priv->window, TRUE, TRUE, 0);
-
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv->priv->window),
-				      GTK_POLICY_AUTOMATIC,
-				      GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(sv->priv->window), GTK_WIDGET(sv->priv->view));
-	gtk_widget_show_all(GTK_WIDGET(sv));
-	v_adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sv->priv->window));
-	g_signal_connect (v_adj, "value-changed", G_CALLBACK (sourceview_adjustment_changed), sv);
+	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW,
+	                                                "plugin", plugin, NULL));
 
 	if (file != NULL)
 	{
@@ -960,13 +1006,7 @@ sourceview_new(GFile* file, const gchar* filename, AnjutaPlugin* plugin)
 	else if (filename != NULL && strlen(filename) > 0)
 		sourceview_io_set_filename (sv->priv->io, filename);
 
-	DEBUG_PRINT("%s", "============ Creating new editor =============");
-
 	g_signal_emit_by_name (G_OBJECT(sv), "update-ui");
-	g_signal_connect_after(G_OBJECT(sv->priv->view), "line-mark-activated",
-					 G_CALLBACK(on_line_mark_activated),
-					 G_OBJECT(sv)
-					 );
 
 	return sv;
 }
