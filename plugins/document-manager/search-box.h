@@ -62,7 +62,7 @@ void search_box_hide (SearchBox* search_box);
 void search_box_set_replace (SearchBox* object, gboolean replace);
 gboolean search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
                                         gboolean wrap);
-void search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward);
+void search_box_highlight_all (SearchBox * search_box);
 
 void search_box_clear_highlight (SearchBox * search_box);
 void search_box_toggle_highlight (SearchBox * search_box, gboolean status);

@@ -43,6 +43,9 @@
 #define LINE_ENTRY_WIDTH 7
 #define SEARCH_ENTRY_WIDTH 45
 
+/* Time spend to do search in the idle callback */
+#define CONTINUOUS_SEARCH_TIMEOUT 0.1
+
 struct _SearchBoxPrivate
 {
 	GtkWidget* grid;
@@ -74,8 +77,9 @@ struct _SearchBoxPrivate
 	gboolean highlight_all;	
 	gboolean regex_mode;
 	
-	gboolean highlight_complete;
-	
+	IAnjutaEditorCell *start_highlight;
+	IAnjutaEditorCell *end_highlight;
+	guint idle_id;
 };
 
 #ifdef GET_PRIVATE
@@ -104,6 +108,7 @@ on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc,
 	else
 	{
 		search_box->priv->current_editor = IANJUTA_EDITOR (doc);
+		if (search_box->priv->highlight_all) search_box_highlight_all (search_box);
 	}
 }
 
@@ -570,6 +575,77 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
 	return found;
 }
 
+static gboolean
+highlight_in_background (SearchBox *search_box)
+{
+	gboolean found = FALSE;
+	
+	GTimer *timer = g_timer_new();
+
+	if (search_box->priv->start_highlight != NULL)
+	{
+		const gchar* search_text = gtk_entry_get_text (GTK_ENTRY (search_box->priv->search_entry));
+
+		do
+		{
+			IAnjutaEditorCell* result_start;
+			IAnjutaEditorCell* result_end;
+
+			found = editor_search (search_box->priv->current_editor,
+			                       search_text,
+			                       search_box->priv->case_sensitive,
+			                       TRUE,
+			                       search_box->priv->regex_mode,
+			                       search_box->priv->start_highlight,
+			                       search_box->priv->end_highlight,
+			                       &result_start,
+			                       &result_end);
+			if (found)
+			{
+				ianjuta_indicable_set(IANJUTA_INDICABLE(search_box->priv->current_editor), 
+				                      IANJUTA_ITERABLE (result_start), 
+				                      IANJUTA_ITERABLE (result_end),
+				                      IANJUTA_INDICABLE_IMPORTANT, NULL);
+				g_object_unref (result_start);
+				g_object_unref (search_box->priv->start_highlight);
+				search_box->priv->start_highlight = result_end;
+			}
+		}
+		while (found && g_timer_elapsed(timer, NULL) < CONTINUOUS_SEARCH_TIMEOUT);
+		g_timer_destroy (timer);
+	}
+
+	if (!found)
+	{
+		search_box->priv->idle_id = 0;
+		g_clear_object (&search_box->priv->start_highlight);
+		g_clear_object (&search_box->priv->end_highlight);
+	}
+
+	return found;
+}
+
+void
+search_box_highlight_all (SearchBox *search_box)
+{
+	if (!search_box->priv->current_editor)
+		return;
+
+	ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);
+	if (search_box->priv->start_highlight != NULL) g_object_unref (search_box->priv->start_highlight);
+	if (search_box->priv->end_highlight != NULL) g_object_unref (search_box->priv->end_highlight);
+	search_box->priv->start_highlight = IANJUTA_EDITOR_CELL (ianjuta_editor_get_start_position (search_box->priv->current_editor, NULL));
+	search_box->priv->end_highlight = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (search_box->priv->current_editor, NULL));
+
+	if (search_box->priv->idle_id == 0)
+	{
+		search_box->priv->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,
+		                                            (GSourceFunc)highlight_in_background,
+		                                            search_box,
+		                                            NULL);
+	}
+}
+
 void 
 search_box_clear_highlight (SearchBox * search_box)
 {
@@ -577,7 +653,6 @@ search_box_clear_highlight (SearchBox * search_box)
 		return;
 
 	ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);	
-	search_box->priv->highlight_complete = FALSE;
 }
 
 void 
@@ -593,7 +668,12 @@ search_box_toggle_highlight (SearchBox * search_box, gboolean status)
 	if (!status)
 	{
 		ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);
-		search_box->priv->highlight_complete = FALSE;
+		g_clear_object (&search_box->priv->start_highlight);
+		g_clear_object (&search_box->priv->end_highlight);
+	}
+	else
+	{
+		search_box_highlight_all (search_box);
 	}
 }
 
@@ -606,7 +686,7 @@ search_box_toggle_case_sensitive (SearchBox * search_box, gboolean status)
 	                             status);
 	                               
 	search_box->priv->case_sensitive = status;
-	search_box_clear_highlight(search_box);
+	if (search_box->priv->highlight_all) search_box_highlight_all (search_box);
 }
 
 void
@@ -619,57 +699,7 @@ search_box_toggle_regex (SearchBox * search_box, gboolean status)
 	                             status);
 	
 	search_box->priv->regex_mode = status;
-	search_box_clear_highlight(search_box);
-
-}
-
-void
-search_box_search_highlight_all (SearchBox * search_box, gboolean search_forward)
-{
-	IAnjutaEditorCell * highlight_start;
-	IAnjutaEditorSelection * selection;
-	gboolean entry_found;
-	
-	highlight_start = NULL;
-	ianjuta_indicable_clear(IANJUTA_INDICABLE(search_box->priv->current_editor), NULL);
-
-	/* Search through editor and highlight instances of search_entry */
-	while ((entry_found = search_box_incremental_search (search_box, search_forward, TRUE)) == TRUE)
-	{
-		IAnjutaEditorCell * result_begin, * result_end;
-		selection = IANJUTA_EDITOR_SELECTION (search_box->priv->current_editor);
-
-		result_begin = 
-			IANJUTA_EDITOR_CELL (ianjuta_editor_selection_get_start (selection, NULL));	
-		result_end = 
-			IANJUTA_EDITOR_CELL (ianjuta_editor_selection_get_end (selection, NULL));
-
-		if (!highlight_start)
-		{
-			highlight_start = 
-				IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (result_begin), NULL));
-		} 
-		else if (ianjuta_iterable_compare (IANJUTA_ITERABLE (result_begin),
-											IANJUTA_ITERABLE (highlight_start), NULL) == 0)
-		{
-			g_object_unref (result_begin);
-			g_object_unref (result_end);
-			g_object_unref (highlight_start);
-			highlight_start = NULL;
-			break;
-		}
-
-		ianjuta_indicable_set(IANJUTA_INDICABLE(search_box->priv->current_editor), 
-								IANJUTA_ITERABLE (result_begin), 
-								IANJUTA_ITERABLE (result_end),
-								IANJUTA_INDICABLE_IMPORTANT, NULL);
-		g_object_unref (result_begin);
-		g_object_unref (result_end);
-	}
-	if (highlight_start)
-		g_object_unref (highlight_start);
-	search_box->priv->highlight_complete = TRUE;
-
+	if (search_box->priv->highlight_all) search_box_highlight_all (search_box);
 }
 
 static void
@@ -692,33 +722,20 @@ on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 			                              FALSE, NULL);
 		}
 	}
+
+	if (search_box->priv->highlight_all) search_box_highlight_all (search_box);
 }
 
 static void
 search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 {
-	if (search_box->priv->highlight_all && !search_box->priv->highlight_complete)
-	{
-		search_box_search_highlight_all (search_box, TRUE);
-	}
-	else
-	{
-		search_box_incremental_search (search_box, TRUE, TRUE);
-	}
-
+	search_box_incremental_search (search_box, TRUE, TRUE);
 }
 
 static void
 on_search_box_backward_search (GtkWidget * widget, SearchBox * search_box)
 {
-	if (search_box->priv->highlight_all && !search_box->priv->highlight_complete)
-	{
-		search_box_search_highlight_all (search_box, FALSE);
-	}
-	else
-	{
-		search_box_incremental_search (search_box, FALSE, TRUE);
-	}
+	search_box_incremental_search (search_box, FALSE, TRUE);
 }
 
 static gboolean
@@ -969,8 +986,12 @@ search_box_init (SearchBox *search_box)
 	search_box->priv->regex_mode = FALSE;
 	search_box->priv->highlight_all = FALSE;
 	search_box->priv->case_sensitive = FALSE;
-	search_box->priv->highlight_complete = FALSE;
 
+	/* Highlight iterator */
+	search_box->priv->start_highlight = NULL;
+	search_box->priv->end_highlight = NULL;
+	search_box->priv->idle_id = 0;
+	
 	/* Initialize search_box grid */
 	search_box->priv->grid = gtk_grid_new();
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (search_box->priv->grid), 
@@ -1036,6 +1057,11 @@ search_box_init (SearchBox *search_box)
 static void
 search_box_finalize (GObject *object)
 {
+	SearchBox *search_box = SEARCH_BOX (object);
+
+	if (search_box->priv->idle_id) g_source_remove (search_box->priv->idle_id);
+	if (search_box->priv->start_highlight) g_object_unref (search_box->priv->start_highlight);
+	if (search_box->priv->end_highlight) g_object_unref (search_box->priv->end_highlight);
 
 	G_OBJECT_CLASS (search_box_parent_class)->finalize (object);
 }
