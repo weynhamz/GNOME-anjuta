@@ -467,51 +467,57 @@ static void
 file_view_show_extended_data (AnjutaFileView* view, GtkTreeIter* iter)
 {
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+
 	GtkTreeModel* file_model = GTK_TREE_MODEL (priv->model);
+	gboolean is_dummy, is_dir;
 	GFile* file;
 	GFileInfo* file_info;
-	gboolean is_dir;
-		
-	gtk_tree_model_get (file_model, iter, COLUMN_IS_DIR, &is_dir, -1);
-	if (!is_dir)
+	time_t time;
+	gchar* display;
+	gchar time_str[128];
+	AnjutaVcsStatus status;
+
+	gtk_tree_model_get (file_model, iter, COLUMN_DUMMY, &is_dummy,
+	                    COLUMN_IS_DIR, &is_dir, -1);
+	if (is_dummy || is_dir)
+		return;
+
+
+	gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, 
+	                    COLUMN_STATUS, &status, -1);
+
+	file_info = g_file_query_info (file,
+	                               "standard::*,time::changed",
+	                               G_FILE_QUERY_INFO_NONE,
+	                               NULL, NULL);
+	g_object_unref (file);
+	if (!file_info)
+		return;
+
+	time = g_file_info_get_attribute_uint64(file_info, "time::changed");
+	strftime(time_str, 127, "%x %X", localtime(&time));
+	if (get_status_string(status))
 	{
-		gchar* display;
-		gchar time_str[128];
-		AnjutaVcsStatus status;
-		gtk_tree_model_get (file_model, iter, COLUMN_FILE, &file, 
-							COLUMN_STATUS, &status, -1);
-		time_t time;
-		
-		file_info = g_file_query_info (file,
-									   "standard::*,time::changed",
-									   G_FILE_QUERY_INFO_NONE,
-									   NULL, NULL);
-		time = g_file_info_get_attribute_uint64(file_info, "time::changed");
-		g_object_unref (file);
-		strftime(time_str, 127, "%x %X", localtime(&time));
-		if (get_status_string(status))
-		{
-			display = g_markup_printf_escaped("%s\n"
-											  "<small><tt>%s</tt></small>\n"
-											  "<small>%s</small>",
-											  g_file_info_get_display_name(file_info),
-											  time_str,
-											  get_status_string(status));
-		}
-		else
-		{
-			display = g_markup_printf_escaped("%s\n"
-											  "<small><tt>%s</tt></small>",
-											  g_file_info_get_display_name(file_info),
-											  time_str);
-		}
-		gtk_tree_store_set (GTK_TREE_STORE(file_model), iter,
-							COLUMN_DISPLAY, display,
-							-1);
-		
-		g_object_unref (file_info);
-		g_free(display);
+		display = g_markup_printf_escaped("%s\n"
+		                                  "<small><tt>%s</tt></small>\n"
+		                                  "<small>%s</small>",
+		                                  g_file_info_get_display_name(file_info),
+		                                  time_str,
+		                                  get_status_string(status));
 	}
+	else
+	{
+		display = g_markup_printf_escaped("%s\n"
+		                                  "<small><tt>%s</tt></small>",
+		                                  g_file_info_get_display_name(file_info),
+		                                  time_str);
+	}
+	gtk_tree_store_set (GTK_TREE_STORE(file_model), iter,
+	                    COLUMN_DISPLAY, display,
+	                    -1);
+
+	g_object_unref (file_info);
+	g_free(display);
 }
 
 static void
