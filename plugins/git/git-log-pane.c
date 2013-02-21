@@ -319,7 +319,6 @@ on_log_command_finished (AnjutaCommand *command, guint return_code,
 										  0);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (log_view), 
 							 GTK_TREE_MODEL (self->priv->log_model));
-	g_object_unref (self->priv->log_model);
 	
 	g_clear_object (&self->priv->log_command);
 }
@@ -341,7 +340,6 @@ refresh_log (GitLogPane *self)
 	if (self->priv->log_command)
 		g_object_unref (self->priv->log_command);
 
-	g_object_ref (self->priv->log_model);
 	gtk_tree_view_set_model (log_view, NULL);
 
 	/* We don't support filters for now */
@@ -1018,6 +1016,7 @@ git_log_pane_finalize (GObject *object)
 		g_source_remove (self->priv->spin_timer_id);
 
 	g_object_unref (self->priv->builder);
+	g_object_unref (self->priv->log_model);
 	g_free (self->priv->path);
 	g_hash_table_destroy (self->priv->branches_table);
 
