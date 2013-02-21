@@ -54,10 +54,12 @@ struct _SourceviewIO
 {
 	GObject parent_instance;
 
+	Sourceview* sv;
+	AnjutaShell* shell;
+
 	GFile* file;
 	gchar* etag;
 	gchar* filename;
-	Sourceview* sv;
 	gchar* write_buffer;
 	gchar* read_buffer;
 	GCancellable* cancel;

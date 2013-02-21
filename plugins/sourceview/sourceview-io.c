@@ -244,7 +244,7 @@ static void
 on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 {
 	SourceviewIO* sio = SOURCEVIEW_IO(data);
-	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
+	
 	GError* err = NULL;
 	gchar* etag;
 
@@ -270,8 +270,11 @@ on_save_finished (GObject* file, GAsyncResult* result, gpointer data)
 
 		g_signal_emit_by_name (sio, "save-finished");
 	}
+
+	if (sio->shell)
+		anjuta_shell_saving_pop (sio->shell);
+
 	g_object_unref (sio);
-	anjuta_shell_saving_pop (shell);
 }
 
 void
@@ -292,7 +295,6 @@ sourceview_io_save (SourceviewIO* sio)
 void
 sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 {
-	AnjutaShell* shell = ANJUTA_PLUGIN (sio->sv->priv->plugin)->shell;
 	gboolean backup = TRUE;
 	gsize len;
 
@@ -342,7 +344,7 @@ sourceview_io_save_as (SourceviewIO* sio, GFile* file)
 	                               sio->cancel,
 	                               on_save_finished,
 	                               sio);
-	anjuta_shell_saving_push (shell);
+	anjuta_shell_saving_push (sio->shell);
 
 	g_object_ref (sio);
 }
@@ -588,7 +590,19 @@ sourceview_io_get_read_only (SourceviewIO* sio)
 SourceviewIO*
 sourceview_io_new (Sourceview* sv)
 {
-	SourceviewIO* sio = SOURCEVIEW_IO(g_object_new (SOURCEVIEW_TYPE_IO, NULL));
+	SourceviewIO* sio;
+
+	g_return_val_if_fail (ANJUTA_IS_SOURCEVIEW(sv), NULL);
+
+	sio = SOURCEVIEW_IO(g_object_new (SOURCEVIEW_TYPE_IO, NULL));
+
 	sio->sv = sv;
+	g_object_add_weak_pointer (G_OBJECT (sv), (gpointer*)&sio->sv);
+
+	/* Store a separate pointer to the shell since we want to have access
+	 * to it even though the parent Sourceview has been destroyed .*/
+	sio->shell = ANJUTA_PLUGIN (sv->priv->plugin)->shell;
+	g_object_add_weak_pointer (G_OBJECT (sio->shell), (gpointer*)&sio->shell);
+
 	return sio;
 }
