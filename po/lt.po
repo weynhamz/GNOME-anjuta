@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-01-23 09:07+0000\n"
-"PO-Revision-Date: 2013-01-23 22:00+0200\n"
+"POT-Creation-Date: 2013-02-21 22:10+0000\n"
+"PO-Revision-Date: 2013-02-22 22:28+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -262,7 +262,7 @@ msgstr "Aplinkos kintamieji:"
 #: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
 #: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
-#: ../plugins/project-manager/dialogs.c:483
+#: ../plugins/project-manager/dialogs.c:482
 #: ../plugins/snippets-manager/plugin.c:763
 #: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
@@ -273,7 +273,7 @@ msgstr "Pavadinimas"
 #: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
 #: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:491 ../plugins/tools/editor.c:476
+#: ../plugins/project-manager/dialogs.c:490 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "Vertė"
 
@@ -357,7 +357,7 @@ msgstr "Įkelti"
 msgid "Available Plugins"
 msgstr "Prieinami įskiepiai"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:992
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:994
 msgid "Preferred plugins"
 msgstr "Pageidaujami įskiepiai"
 
@@ -366,10 +366,14 @@ msgid "Only show user activatable plugins"
 msgstr "Rodyti tik naudotojo aktyvuojamus įskiepius"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
+#| msgid ""
+#| "These are the plugins selected by you when Anjuta prompted to choose one "
+#| "of many suitable plugins. Removing the preferred plugin will let Anjuta "
+#| "prompt you again to choose different plugin."
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr ""
 "Šie įskiepiai buvo jūsų pasirinkti, kai Anjuta prašė pasirinkti vieną iš "
 "daugelio tinkamų. Pageidaujamo įskiepio pašalinimas leis Anjuta klausti vėl "
@@ -452,7 +456,7 @@ msgstr "Kategorija"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:979
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:981
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "Bendra"
@@ -818,7 +822,7 @@ msgstr "Nauja Autotools realizacija projektų tvarkyklei"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:764
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:762
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -1386,12 +1390,12 @@ msgid "Configure Options:"
 msgstr "Konfigūracijos parinktys:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:5
-msgid "Select a build directory"
-msgstr "Pasirinkite kūrimo katalogą"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
 msgid "Build Directory:"
 msgstr "Kūrimo katalogas:"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
+msgid "label"
+msgstr "etiketė"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 msgid "Select Program"
@@ -1468,11 +1472,16 @@ msgstr ""
 "Nepavyko sukompiliuoti „%s“: nėra šio tipo failui aprašytos kompiliavimo "
 "taisyklės."
 
-#: ../plugins/build-basic-autotools/build.c:1044
+#: ../plugins/build-basic-autotools/build.c:1050
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr ""
 "Nepavyko sukonfigūruoti projekto: kataloge %s trūksta configure scenarijaus."
+
+#: ../plugins/build-basic-autotools/build-options.c:80
+#| msgid "Selected directory in the project manager plugin"
+msgid "Select a build directory inside the project directory"
+msgstr "Pasirinkite kūrimo katalogą projekto katalogo viduje"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:742
@@ -1656,215 +1665,215 @@ msgstr "Sėkmingai baigta\n"
 msgid "Build %d: %s"
 msgstr "Kūrimas %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1688
-#: ../plugins/build-basic-autotools/plugin.c:1774
-#: ../plugins/build-basic-autotools/plugin.c:1784
-#: ../plugins/build-basic-autotools/plugin.c:1802
-#: ../plugins/build-basic-autotools/plugin.c:1812
-#: ../plugins/build-basic-autotools/plugin.c:1894
+#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1777
+#: ../plugins/build-basic-autotools/plugin.c:1787
+#: ../plugins/build-basic-autotools/plugin.c:1805
+#: ../plugins/build-basic-autotools/plugin.c:1815
+#: ../plugins/build-basic-autotools/plugin.c:1897
 #, c-format
 msgid "_Build"
 msgstr "Su_kurti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1692
+#: ../plugins/build-basic-autotools/plugin.c:1695
 msgid "_Build Project"
 msgstr "Su_kurti projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1696
 msgid "Build whole project"
 msgstr "Sukurti visą projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1698
+#: ../plugins/build-basic-autotools/plugin.c:1701
 msgid "_Install Project"
 msgstr "_Įdiegti projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1702
 msgid "Install whole project"
 msgstr "Įdiegti visą projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1704
+#: ../plugins/build-basic-autotools/plugin.c:1707
 msgid "_Check Project"
 msgstr "_Tikrinti projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1708
 msgid "Check whole project"
 msgstr "Tikrinti visą projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1710
+#: ../plugins/build-basic-autotools/plugin.c:1713
 msgid "_Clean Project"
 msgstr "Iš_valyti projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1714
 msgid "Clean whole project"
 msgstr "Išvalyti visą projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1716
+#: ../plugins/build-basic-autotools/plugin.c:1719
 msgid "C_onfigure Project…"
 msgstr "K_onfigūruoti projektą..."
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1720
 msgid "Configure project"
 msgstr "Konfigūruoti projektą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1722
+#: ../plugins/build-basic-autotools/plugin.c:1725
 msgid "Build _Tarball"
 msgstr "Sukurti _TAR paką"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1726
 msgid "Build project tarball distribution"
 msgstr "Sukurti projekto TAR paką"
 
-#: ../plugins/build-basic-autotools/plugin.c:1728
+#: ../plugins/build-basic-autotools/plugin.c:1731
 msgid "_Build Module"
 msgstr "Su_kurti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1732
 msgid "Build module associated with current file"
 msgstr "Sukurti modulį, susijusį su dabartiniu failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1734
+#: ../plugins/build-basic-autotools/plugin.c:1737
 msgid "_Install Module"
 msgstr "_Įdiegti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1738
 msgid "Install module associated with current file"
 msgstr "Įdiegti modulį, susijusį su dabartiniu failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1740
+#: ../plugins/build-basic-autotools/plugin.c:1743
 msgid "_Check Module"
 msgstr "_Tikrinti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1744
 msgid "Check module associated with current file"
 msgstr "Tikrinti modulį, susijusį su dabartiniu failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1746
+#: ../plugins/build-basic-autotools/plugin.c:1749
 msgid "_Clean Module"
 msgstr "Iš_valyti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1747
+#: ../plugins/build-basic-autotools/plugin.c:1750
 msgid "Clean module associated with current file"
 msgstr "Išvalyti modulį, susijusį su dabartiniu failu"
 
-#: ../plugins/build-basic-autotools/plugin.c:1752
+#: ../plugins/build-basic-autotools/plugin.c:1755
 msgid "Co_mpile File"
 msgstr "Ko_mpiliuoti failą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1753
+#: ../plugins/build-basic-autotools/plugin.c:1756
 msgid "Compile current editor file"
 msgstr "Kompiliuoti dabartinį redaktoriaus failą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1758
+#: ../plugins/build-basic-autotools/plugin.c:1761
 msgid "Select Configuration"
 msgstr "Pasirinkite konfigūraciją"
 
-#: ../plugins/build-basic-autotools/plugin.c:1759
+#: ../plugins/build-basic-autotools/plugin.c:1762
 msgid "Select current configuration"
 msgstr "Pasirinkite dabartinę konfigūraciją"
 
-#: ../plugins/build-basic-autotools/plugin.c:1764
+#: ../plugins/build-basic-autotools/plugin.c:1767
 msgid "Remove Configuration"
 msgstr "Pašalinti konfigūraciją"
 
-#: ../plugins/build-basic-autotools/plugin.c:1765
+#: ../plugins/build-basic-autotools/plugin.c:1768
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr ""
 "Išvalyti projektą (distclean) ir pašalinti konfigūracijos katalogą, jei "
 "įmanoma"
 
-#: ../plugins/build-basic-autotools/plugin.c:1778
-#: ../plugins/build-basic-autotools/plugin.c:1806
+#: ../plugins/build-basic-autotools/plugin.c:1781
+#: ../plugins/build-basic-autotools/plugin.c:1809
 msgid "_Compile"
 msgstr "_Kompiliuoti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1779
-#: ../plugins/build-basic-autotools/plugin.c:1807
+#: ../plugins/build-basic-autotools/plugin.c:1782
+#: ../plugins/build-basic-autotools/plugin.c:1810
 msgid "Compile file"
 msgstr "Kompiliuoti failą"
 
-#: ../plugins/build-basic-autotools/plugin.c:1785
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1788
+#: ../plugins/build-basic-autotools/plugin.c:1816
 msgid "Build module"
 msgstr "Sukurti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1790
-#: ../plugins/build-basic-autotools/plugin.c:1818
-#: ../plugins/build-basic-autotools/plugin.c:1901
+#: ../plugins/build-basic-autotools/plugin.c:1793
+#: ../plugins/build-basic-autotools/plugin.c:1821
+#: ../plugins/build-basic-autotools/plugin.c:1904
 #, c-format
 msgid "_Install"
 msgstr "_Įdiegti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1791
-#: ../plugins/build-basic-autotools/plugin.c:1819
+#: ../plugins/build-basic-autotools/plugin.c:1794
+#: ../plugins/build-basic-autotools/plugin.c:1822
 msgid "Install module"
 msgstr "Įdiegti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1796
-#: ../plugins/build-basic-autotools/plugin.c:1830
-#: ../plugins/build-basic-autotools/plugin.c:1908
+#: ../plugins/build-basic-autotools/plugin.c:1799
+#: ../plugins/build-basic-autotools/plugin.c:1833
+#: ../plugins/build-basic-autotools/plugin.c:1911
 #, c-format
 msgid "_Clean"
 msgstr "Iš_valyti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1797
-#: ../plugins/build-basic-autotools/plugin.c:1831
+#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1834
 msgid "Clean module"
 msgstr "Išvalyti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1824
+#: ../plugins/build-basic-autotools/plugin.c:1827
 msgid "_Check"
 msgstr "_Tikrinti"
 
-#: ../plugins/build-basic-autotools/plugin.c:1825
+#: ../plugins/build-basic-autotools/plugin.c:1828
 msgid "Check module"
 msgstr "Tikrinti modulį"
 
-#: ../plugins/build-basic-autotools/plugin.c:1836
+#: ../plugins/build-basic-autotools/plugin.c:1839
 msgid "_Cancel command"
 msgstr "_Atsisakyti komandos"
 
-#: ../plugins/build-basic-autotools/plugin.c:1837
+#: ../plugins/build-basic-autotools/plugin.c:1840
 msgid "Cancel build command"
 msgstr "Atsisakyti kūrimo komandos"
 
-#: ../plugins/build-basic-autotools/plugin.c:1894
+#: ../plugins/build-basic-autotools/plugin.c:1897
 #, c-format
 msgid "_Build (%s)"
 msgstr "Su_kurti  (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1901
+#: ../plugins/build-basic-autotools/plugin.c:1904
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Įdiegti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1908
+#: ../plugins/build-basic-autotools/plugin.c:1911
 #, c-format
 msgid "_Clean (%s)"
 msgstr "Iš_valyti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1916
+#: ../plugins/build-basic-autotools/plugin.c:1919
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Ko_mpiliuoti (%s)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1916
+#: ../plugins/build-basic-autotools/plugin.c:1919
 #, c-format
 msgid "Co_mpile"
 msgstr "Ko_mpiliuoti"
 
-#: ../plugins/build-basic-autotools/plugin.c:2512
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build commands"
 msgstr "Kūrimo komandos"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2521
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "Build popup commands"
 msgstr "Kūrimo iššokančio meniu komanods"
 
-#: ../plugins/build-basic-autotools/plugin.c:2957
-#: ../plugins/build-basic-autotools/plugin.c:2965
+#: ../plugins/build-basic-autotools/plugin.c:2960
+#: ../plugins/build-basic-autotools/plugin.c:2968
 msgid "Build Autotools"
 msgstr "Sukurti Autotools"
 
@@ -2081,7 +2090,7 @@ msgstr "Autogen šablonas, naudojamas realizacijos failui"
 msgid "File to which the processed template will be written"
 msgstr "Failas, į kurį bus rašomas apdorotas šablonas"
 
-#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1274
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1268
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2163,7 +2172,7 @@ msgstr "Gavėjas"
 msgid "Setter"
 msgstr "Keitėjas"
 
-#: ../plugins/class-gen/window.c:1234
+#: ../plugins/class-gen/window.c:1232
 msgid "XML description of the user interface"
 msgstr "Naudotojo sąsajos XML aprašas"
 
@@ -2184,7 +2193,7 @@ msgid "Patch-Style diff"
 msgstr "Patch stiliaus diff"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "Vietinis"
 
@@ -3305,7 +3314,7 @@ msgstr "Rėmas"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "Failas"
@@ -3368,9 +3377,6 @@ msgid "Path"
 msgstr "Kelias"
 
 #: ../plugins/debug-manager/start.c:1390
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you still want to stop the debugger?"
 msgid ""
 "The program is already running.\n"
 "Do you still want to stop the debugger?"
@@ -3436,57 +3442,48 @@ msgstr "API pagalba"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "Devhelp įskiepis Anjuta"
 
-#: ../plugins/devhelp/plugin.c:204
+#: ../plugins/devhelp/plugin.c:199
 msgid "Search Help:"
 msgstr "Ieškoti žinyne:"
 
-#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:234
+#: ../plugins/devhelp/plugin.c:220 ../plugins/document-manager/plugin.c:234
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "_Eiti į"
 
-#: ../plugins/devhelp/plugin.c:234
+#: ../plugins/devhelp/plugin.c:229
 msgid "_API Reference"
 msgstr "_API aprašymas"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:231
 msgid "Browse API Pages"
 msgstr "Naršyti API puslapius"
 
-#: ../plugins/devhelp/plugin.c:246
+#: ../plugins/devhelp/plugin.c:241
 msgid "_Context Help"
 msgstr "_Kontekstinė pagalba"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:243
 msgid "Search help for the current word in the editor"
 msgstr "Ieškoti pagalbos esamam žodžiui redaktoriuje"
 
-#: ../plugins/devhelp/plugin.c:258
+#: ../plugins/devhelp/plugin.c:253
 msgid "_Search Help"
 msgstr "_Ieškoti pagalbos"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:255
 msgid "Search for a term in help"
 msgstr "Ieškoti termino žinyne"
 
-#: ../plugins/devhelp/plugin.c:331
+#: ../plugins/devhelp/plugin.c:337
 msgid "Help operations"
 msgstr "Žinyno veiksmai"
 
-#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
+#: ../plugins/devhelp/plugin.c:352 ../plugins/devhelp/plugin.c:444
 msgid "API Browser"
 msgstr "API naršyklė"
 
-#: ../plugins/devhelp/plugin.c:361
-msgid "Contents"
-msgstr "Turinys"
-
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2141
-#: ../plugins/symbol-db/plugin.c:2193
-msgid "Search"
-msgstr "Ieškoti"
-
-#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:369 ../plugins/devhelp/plugin.c:439
 msgid "API"
 msgstr "API"
 
@@ -3555,17 +3552,16 @@ msgid "Remove"
 msgstr "Pašalinti"
 
 #: ../plugins/document-manager/anjuta-docman.c:165
-#| msgid "[read-only]"
 msgid " [read-only]"
 msgstr " [tik skaitymui]"
 
 #: ../plugins/document-manager/anjuta-docman.c:661
-#: ../plugins/document-manager/anjuta-docman.c:1101
+#: ../plugins/document-manager/anjuta-docman.c:1102
 msgid "Close file"
 msgstr "Užverti failą"
 
 #: ../plugins/document-manager/anjuta-docman.c:709
-#: ../plugins/project-manager/dialogs.c:759
+#: ../plugins/project-manager/dialogs.c:757
 msgid "Path:"
 msgstr "Kelias:"
 
@@ -3593,7 +3589,7 @@ msgstr ""
 msgid "_Replace"
 msgstr "Per_rašyti"
 
-#: ../plugins/document-manager/anjuta-docman.c:1736
+#: ../plugins/document-manager/anjuta-docman.c:1730
 msgid "[read-only]"
 msgstr "[tik skaitymui]"
 
@@ -3656,7 +3652,6 @@ msgid "Position:"
 msgstr "Padėtis:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:13
-#| msgid "_Show Status"
 msgid "Show tabs"
 msgstr "Rodyti korteles"
 
@@ -3665,12 +3660,10 @@ msgid "Show drop-down list"
 msgstr "Rodyti iškrentantį sąrašą"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#| msgid "Close other documents"
 msgid "Do not show open documents"
 msgstr "Nerodyti atvertų dokumentų"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Documents"
 msgid "Open documents"
 msgstr "Atverti dokumentai"
 
@@ -3997,9 +3990,9 @@ msgid "Search using regular expressions"
 msgstr "Ieškoti naudojant reguliarias išraiškas"
 
 #: ../plugins/document-manager/plugin.c:295
-#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/indentation-c-style/plugin.c:465
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Keisti"
@@ -4230,9 +4223,9 @@ msgstr "Paprasta paieška"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:418
-#: ../plugins/document-manager/plugin.c:1691
-#: ../plugins/document-manager/plugin.c:2111
-#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:1696
+#: ../plugins/document-manager/plugin.c:2116
+#: ../plugins/document-manager/plugin.c:2125
 msgid "Documents"
 msgstr "Dokumentai"
 
@@ -4270,12 +4263,12 @@ msgid "Mode"
 msgstr "Veiksena"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1527
+#: ../plugins/document-manager/plugin.c:1532
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Auto-įrašymas nepavyko failui %s"
 
-#: ../plugins/document-manager/plugin.c:1541
+#: ../plugins/document-manager/plugin.c:1546
 msgid "Autosave completed"
 msgstr "Auto-įrašymas nepavyko"
 
@@ -4307,17 +4300,17 @@ msgstr ""
 "„%s“ paieška pasiekė viršų ir buvo pratęsta nuo apačios, bet nerasta naujo "
 "atitikmens."
 
-#: ../plugins/document-manager/search-box.c:916
+#: ../plugins/document-manager/search-box.c:921
 msgid "Use the context menu of the \"Find\" icon for more search options"
 msgstr ""
 "Naudokite piktogramos „Rasti“ kontekstinį meniu, jei norite daugiau paieškos "
 "parinkčių"
 
-#: ../plugins/document-manager/search-box.c:980
+#: ../plugins/document-manager/search-box.c:982
 msgid "Replace"
 msgstr "Pakeisti"
 
-#: ../plugins/document-manager/search-box.c:985
+#: ../plugins/document-manager/search-box.c:987
 msgid "Replace all"
 msgstr "Pakeisti visus"
 
@@ -4435,7 +4428,7 @@ msgstr ""
 msgid "Open with:"
 msgstr "Atverti su:"
 
-#: ../plugins/file-loader/plugin.c:503 ../plugins/patch/patch-plugin.c:122
+#: ../plugins/file-loader/plugin.c:503 ../plugins/patch/patch-plugin.c:124
 #: ../plugins/run-program/parameters.c:188
 msgid "All files"
 msgstr "Visi failai"
@@ -4565,7 +4558,7 @@ msgid "<b>Open With</b>"
 msgstr "<b>Atverti su</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:543 ../plugins/file-manager/plugin.c:552
+#: ../plugins/file-manager/plugin.c:546 ../plugins/file-manager/plugin.c:555
 msgid "File Manager"
 msgstr "Failų tvarkyklė"
 
@@ -4582,13 +4575,12 @@ msgid "Choose Directory to show if no project is open"
 msgstr "Pasirinkite rodomą katalogą, jei nėra atverto projekto"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
-#| msgid "Auto-complete the current word"
 msgid "Automatically select the current document"
 msgstr "Automatiškai pažymėti esamą dokumentą"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "Visuotinis"
 
@@ -4618,13 +4610,11 @@ msgstr "Įkeliama..."
 
 #: ../plugins/file-manager/file-model.c:706
 #: ../plugins/file-manager/file-view.c:886
-#| msgid "Path"
 msgid "Base Path"
 msgstr "Bazinis kelias"
 
 #: ../plugins/file-manager/file-model.c:707
 #: ../plugins/file-manager/file-view.c:887
-#| msgid "URI of the top-most path displayed"
 msgid "GFile representing the top-most path displayed"
 msgstr "GFile, reprezentuojantis aukščiausią rodomą kelią"
 
@@ -4637,20 +4627,18 @@ msgid "Rename file or directory"
 msgstr "Pervadinti failą ar katalogą"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "_Show in File manager"
 msgstr "_Rodyti failų tvarkyklėje"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "Show in File manager"
 msgstr "Rodyti failų tvarkyklėje"
 
-#: ../plugins/file-manager/plugin.c:371
+#: ../plugins/file-manager/plugin.c:374
 msgid "File manager popup actions"
 msgstr "Failų tvarkyklės iššokančio meniu veiksmai"
 
-#: ../plugins/file-manager/plugin.c:404 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "Failai"
 
@@ -4679,7 +4667,7 @@ msgstr ""
 "Plėtinys bus pridėtas pagal tipą."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:786
+#: ../plugins/project-manager/dialogs.c:784
 msgid "Type:"
 msgstr "Tipas:"
 
@@ -5013,7 +5001,6 @@ msgid "Show source revision in log message"
 msgstr "Rodyti pradinio kodo modifikaciją žurnalo pranešime"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "Append signed-of- by line"
 msgid "Append signed-off-by line"
 msgstr "Pridėti pasirašymo eilutę"
 
@@ -5305,7 +5292,7 @@ msgstr "Įveskite šakos pavadinimą."
 msgid "Please enter a tag name."
 msgstr "Įveskite žymos pavadinimą."
 
-#: ../plugins/git/git-create-tag-pane.c:215
+#: ../plugins/git/git-create-tag-pane.c:233
 msgid "Create Tag"
 msgstr "Sukurti žymą"
 
@@ -5337,17 +5324,17 @@ msgstr "Nepasirinkta modifikacija"
 msgid "Stash %i.diff"
 msgstr "Atidėjimas %i.diff"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:581
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Šaka:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:589
+#: ../plugins/git/git-log-pane.c:586
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Žyma:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:594
+#: ../plugins/git/git-log-pane.c:591
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Nutolęs:</b> %s"
@@ -5788,7 +5775,6 @@ msgid "Drag and resize widgets in the workspace"
 msgstr "Tempti ir keisti elementų dydį darbalaukyje"
 
 #: ../plugins/glade/anjuta-glade.ui.h:3
-#| msgid "Show right margin"
 msgid "Edit widget margins"
 msgstr "Keisti elemento paraštes"
 
@@ -5796,29 +5782,43 @@ msgstr "Keisti elemento paraštes"
 msgid "Edit widget alignment"
 msgstr "Keisti elemento lygiuotę"
 
+#: ../plugins/glade/plugin.c:612
+#| msgid "Folder properties"
+msgid "Glade Properties…"
+msgstr "Glade savybės…"
+
 #: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr "Persijungti tarp bibliotekos versijų ir patikrinti pasenimus"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "Įkeliamas Glade..."
 
-#: ../plugins/glade/plugin.c:698
+#: ../plugins/glade/plugin.c:726
+#| msgid "Debugger operations"
+msgid "Glade designer operations"
+msgstr "Glade dizainerio veiksmai"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "Elementai"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "Paletė"
 
-#: ../plugins/glade/plugin.c:825
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ne vietinis failas: %s"
 
-#: ../plugins/glade/plugin.c:871
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "Nepavyko atverti %s"
 
-#: ../plugins/glade/plugin.c:914
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "Nepavyko sukurti naujo glade projekto."
 
@@ -5863,7 +5863,6 @@ msgid "Indent:"
 msgstr "Įtrauka:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
-#| msgid "Parenthesis indentation"
 msgid "Use spaces for parenthesis indentation"
 msgstr "Naudoti tarpus skliaustų įtraukai"
 
@@ -5872,24 +5871,23 @@ msgid "Parenthesis indentation"
 msgstr "Skliaustų įtrauka"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-c-style/plugin.c:471
 #: ../plugins/indentation-python-style/plugin.c:206
 msgid "Auto-Indent"
 msgstr "Auto-įtrauka"
 
-#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-c-style/plugin.c:472
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr ""
 "Automatiškai įtraukti dabartinę eilutę ar žymėjimą pagal įtraukos nustatymus"
 
-#: ../plugins/indentation-c-style/plugin.c:510
-#| msgid "Indentation"
+#: ../plugins/indentation-c-style/plugin.c:512
 msgid "C Indentation"
 msgstr "C įtrauka"
 
-#: ../plugins/indentation-c-style/plugin.c:608
-#: ../plugins/indentation-c-style/plugin.c:617
+#: ../plugins/indentation-c-style/plugin.c:610
+#: ../plugins/indentation-c-style/plugin.c:619
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -5900,18 +5898,43 @@ msgid "Enable adaptive indentation"
 msgstr "Įjungti adaptyvią įtrauką"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#| msgid "Indentation"
 msgid "Python Indentation"
 msgstr "Python įtrauka"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
-#| msgid "Build"
 msgid "JHBuild"
 msgstr "JHBuild"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:2
 msgid "Build and run programs inside the JHBuild environment"
 msgstr "Sukurti ir vykdyti programas JHBuild aplinkoje"
+
+#: ../plugins/jhbuild/plugin.c:121
+msgid "Failed to run \"jhbuild run\""
+msgstr "Nepavyko paleisti „jhbuild run“"
+
+#: ../plugins/jhbuild/plugin.c:127
+#, c-format
+msgid "Failed to run \"jhbuild run\" (%s)"
+msgstr "Nepavyko paleisti „jhbuild run“ (%s)"
+
+#: ../plugins/jhbuild/plugin.c:172
+msgid "Could not find the JHBuild install prefix."
+msgstr "Nepavyko rasti JHBuild įdiegties priešdėlio."
+
+#: ../plugins/jhbuild/plugin.c:180
+msgid ""
+"Could not find the JHBuild library directory. You need JHBuild from "
+"2012-11-06 or later."
+msgstr ""
+"Nepavyko rasti JHBuild bibliotekos katalogo. Jums reikia JHBuild 2012-11-06 "
+"ar vėlesnio."
+
+#: ../plugins/jhbuild/plugin.c:198
+#, c-format
+#| msgid "Failed to activate plugin: %s"
+msgid "Failed to activate the JHBuild Plugin: %s"
+msgstr "Nepavyko aktyvuoti JHBuild įskiepio: %s"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5959,32 +5982,32 @@ msgstr "Įkelti API žymas C standartinei bibliotekai"
 msgid "Load API tags for C++ standard template library"
 msgstr "Įkelti API žymas C++ standartinei šablonų bibliotekai"
 
-#: ../plugins/language-support-cpp-java/plugin.c:682
+#: ../plugins/language-support-cpp-java/plugin.c:688
 msgid "Code added for widget."
 msgstr "Elementui pridėtas kodas"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1079
+#: ../plugins/language-support-cpp-java/plugin.c:1082
 msgid "Comment/Uncomment"
 msgstr "Komentuoti/atkomentuoti"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1080
+#: ../plugins/language-support-cpp-java/plugin.c:1083
 msgid "Comment or uncomment current selection"
 msgstr "Komentuoti arba atkomentuoti dabartinį žymėjimą"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1085
+#: ../plugins/language-support-cpp-java/plugin.c:1088
 msgid "Swap .h/.c"
 msgstr "Persijungti tarp .h/.c"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1086
+#: ../plugins/language-support-cpp-java/plugin.c:1089
 msgid "Swap C header and source files"
 msgstr "Persijungti tarp C antraštinio ir pradinio kodo falų"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1126
+#: ../plugins/language-support-cpp-java/plugin.c:1129
 msgid "C++/Java Assistance"
 msgstr "C++/Java asistentas"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
-#: ../plugins/language-support-cpp-java/plugin.c:1374
+#: ../plugins/language-support-cpp-java/plugin.c:1348
+#: ../plugins/language-support-cpp-java/plugin.c:1377
 msgid "API Tags (C/C++)"
 msgstr "API žymos (C/C++)"
 
@@ -6117,7 +6140,7 @@ msgstr "Python asistentas"
 
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:793
+#: ../plugins/language-support-python/python-assist.c:797
 msgid "Python"
 msgstr "Python"
 
@@ -6319,7 +6342,7 @@ msgstr "Pridėti _paketą"
 msgid "Packages"
 msgstr "Paketai"
 
-#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1260
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -6335,40 +6358,40 @@ msgstr "Lopo failus ir katalogus"
 msgid "File/Directory to patch"
 msgstr "Failas/katalogas lopymui"
 
-#: ../plugins/patch/patch-plugin.c:97
+#: ../plugins/patch/patch-plugin.c:98
 msgid "Patch file"
 msgstr "Patch failas"
 
-#: ../plugins/patch/patch-plugin.c:117
+#: ../plugins/patch/patch-plugin.c:119
 msgid "Patches"
 msgstr "Pataisos"
 
-#: ../plugins/patch/patch-plugin.c:170
+#: ../plugins/patch/patch-plugin.c:172
 msgid "Please select the directory where the patch should be applied"
 msgstr "Pasirinkite katalogą, kur pataisa turi būti pritaikyta"
 
-#: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:1
+#: ../plugins/patch/patch-plugin.c:183 ../plugins/patch/patch-plugin.ui.h:1
 msgid "Patch"
 msgstr "Pataisa"
 
-#: ../plugins/patch/patch-plugin.c:198
+#: ../plugins/patch/patch-plugin.c:200
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Pritaikoma pataisa %s naudojant %s\n"
 
-#: ../plugins/patch/patch-plugin.c:210
+#: ../plugins/patch/patch-plugin.c:212
 msgid "Patching…\n"
 msgstr "Lopoma...\n"
 
-#: ../plugins/patch/patch-plugin.c:220
+#: ../plugins/patch/patch-plugin.c:222
 msgid "Patching…"
 msgstr "Lopoma..."
 
-#: ../plugins/patch/patch-plugin.c:225
+#: ../plugins/patch/patch-plugin.c:227
 msgid "There are unfinished jobs: please wait until they are finished."
 msgstr "Yra nebaigtų darbų: palaukite, kol jie bus baigti."
 
-#: ../plugins/patch/patch-plugin.c:267
+#: ../plugins/patch/patch-plugin.c:269
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6378,7 +6401,7 @@ msgstr ""
 "Peržiūrėkite klaidų pranešimus.\n"
 "Patikrinkite ir pašalinkite visus atmestus failus.\n"
 
-#: ../plugins/patch/patch-plugin.c:273
+#: ../plugins/patch/patch-plugin.c:275
 msgid "Patching complete"
 msgstr "Lopymas baigtas"
 
@@ -6448,7 +6471,7 @@ msgid "Please select a project backend to open %s."
 msgstr "Pasirinkite projekto realizaciją %s atverti."
 
 #: ../plugins/project-import/plugin.c:291
-#: ../plugins/project-manager/dialogs.c:654
+#: ../plugins/project-manager/dialogs.c:650
 msgid "Open With"
 msgstr "Atverti su"
 
@@ -6546,110 +6569,99 @@ msgid " This property is not modifiable."
 msgstr " Ši savybė nekeičiama."
 
 #. Several backend are possible, ask the user to select one
-#: ../plugins/project-manager/dialogs.c:651
+#: ../plugins/project-manager/dialogs.c:647
 #, c-format
-#| msgid "Please select a project backend to open %s."
 msgid "Please select a project backend to use."
 msgstr "Pasirinkite naudotiną projekto realizaciją"
 
-#: ../plugins/project-manager/dialogs.c:692
-#: ../plugins/project-manager/dialogs.c:697
-#: ../plugins/project-manager/plugin.c:996
+#: ../plugins/project-manager/dialogs.c:689
+#: ../plugins/project-manager/dialogs.c:694
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "Projekto savybės"
 
-#: ../plugins/project-manager/dialogs.c:701
+#: ../plugins/project-manager/dialogs.c:698
 msgid "Folder properties"
 msgstr "Aplanko savybės"
 
-#: ../plugins/project-manager/dialogs.c:705
+#: ../plugins/project-manager/dialogs.c:702
 msgid "Target properties"
 msgstr "Tikslo savybės"
 
-#: ../plugins/project-manager/dialogs.c:708
+#: ../plugins/project-manager/dialogs.c:705
 msgid "Source properties"
 msgstr "Pradinio kodo savybės"
 
-#: ../plugins/project-manager/dialogs.c:711
+#: ../plugins/project-manager/dialogs.c:708
 msgid "Module properties"
 msgstr "Modulio savybės"
 
-#: ../plugins/project-manager/dialogs.c:714
+#: ../plugins/project-manager/dialogs.c:711
 msgid "Package properties"
 msgstr "Paketo savybės"
 
-#: ../plugins/project-manager/dialogs.c:717
+#: ../plugins/project-manager/dialogs.c:714
 msgid "Unknown properties"
 msgstr "Nežinomos savybės"
 
-#: ../plugins/project-manager/dialogs.c:748
+#: ../plugins/project-manager/dialogs.c:745
 msgid "Backend:"
 msgstr "Realizacija:"
 
-#: ../plugins/project-manager/dialogs.c:940
+#: ../plugins/project-manager/dialogs.c:938
 #, c-format
-#| msgid "Loading project: %s"
 msgid "Reloading project: %s"
 msgstr "Įkeliamas projektas: %s"
 
-#: ../plugins/project-manager/dialogs.c:1189
-#: ../plugins/project-manager/dialogs.c:1200
+#: ../plugins/project-manager/dialogs.c:1187
+#: ../plugins/project-manager/dialogs.c:1198
 msgid "Cannot add group"
 msgstr "Nepavyko pridėti grupės"
 
-#: ../plugins/project-manager/dialogs.c:1201
+#: ../plugins/project-manager/dialogs.c:1199
 msgid "No parent group selected"
 msgstr "Nepasirinkta tėvinė grupė"
 
-#: ../plugins/project-manager/dialogs.c:1361
-#: ../plugins/project-manager/dialogs.c:1373
-#: ../plugins/project-manager/dialogs.c:1558
-#: ../plugins/project-manager/dialogs.c:1568
+#: ../plugins/project-manager/dialogs.c:1359
+#: ../plugins/project-manager/dialogs.c:1371
+#: ../plugins/project-manager/dialogs.c:1556
+#: ../plugins/project-manager/dialogs.c:1566
 msgid "Cannot add source files"
 msgstr "Nepavyko pridėti pradinio kodo failų"
 
-#: ../plugins/project-manager/dialogs.c:1374
-#: ../plugins/project-manager/dialogs.c:1569
+#: ../plugins/project-manager/dialogs.c:1372
+#: ../plugins/project-manager/dialogs.c:1567
 msgid "The selected node cannot contain source files."
 msgstr "Pasirinkta viršūnė negali turėti pradinio kodo failų."
 
-#: ../plugins/project-manager/dialogs.c:1755
-#: ../plugins/project-manager/dialogs.c:1766
+#: ../plugins/project-manager/dialogs.c:1753
+#: ../plugins/project-manager/dialogs.c:1764
 msgid "Cannot add target"
 msgstr "Nepavyko pridėti tikslo"
 
-#: ../plugins/project-manager/dialogs.c:1767
+#: ../plugins/project-manager/dialogs.c:1765
 msgid "No group selected"
 msgstr "Nepasirinkta grupė"
 
-#: ../plugins/project-manager/dialogs.c:1930
-#: ../plugins/project-manager/dialogs.c:1941
+#: ../plugins/project-manager/dialogs.c:1931
+#: ../plugins/project-manager/dialogs.c:1942
 msgid "Cannot add modules"
 msgstr "Nepavyko pridėti modulių"
 
-#: ../plugins/project-manager/dialogs.c:1942
+#: ../plugins/project-manager/dialogs.c:1943
 msgid "No target has been selected"
 msgstr "Nepasirinktas tikslas"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:2148
+#: ../plugins/project-manager/dialogs.c:2149
 msgid "Missing module name"
 msgstr "Trūksta modulio pavadinimo"
 
-#: ../plugins/project-manager/dialogs.c:2210
+#: ../plugins/project-manager/dialogs.c:2211
 msgid "Cannot add packages"
 msgstr "Nepavyko pridėti paketo"
 
-#: ../plugins/project-manager/plugin.c:473
-msgid "Refreshing symbol tree…"
-msgstr "Atnaujinamas simbolių medis..."
-
-#: ../plugins/project-manager/plugin.c:480
-#, c-format
-msgid "Failed to refresh project: %s"
-msgstr "Nepavyko atnaujinti projekto: %s"
-
-#: ../plugins/project-manager/plugin.c:749
+#: ../plugins/project-manager/plugin.c:684
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6657,7 +6669,7 @@ msgstr ""
 "Ar tikrai norite pašalinti šią grupę iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:687
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6665,7 +6677,7 @@ msgstr ""
 "Ar tikrai norite pašalinti šį tikslą iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:690
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6673,7 +6685,7 @@ msgstr ""
 "Ar tikrai norite pašalinti šį kodo failą iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:758
+#: ../plugins/project-manager/plugin.c:693
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6681,7 +6693,7 @@ msgstr ""
 "Ar tikrai norite pašalinti šį paketą iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:761
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6689,7 +6701,7 @@ msgstr ""
 "Ar tikrai norite pašalinti šį modulį iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:764
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6697,57 +6709,57 @@ msgstr ""
 "Ar tikrai norite pašalinti šiuos elementus iš projekto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:781
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid "Group: %s\n"
 msgstr "Grupė: %s\n"
 
-#: ../plugins/project-manager/plugin.c:784
+#: ../plugins/project-manager/plugin.c:719
 #, c-format
 msgid "Target: %s\n"
 msgstr "Tikslas: %s\n"
 
-#: ../plugins/project-manager/plugin.c:787
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Source: %s\n"
 msgstr "Pradinio kodo failas: %s\n"
 
-#: ../plugins/project-manager/plugin.c:790
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "Trumpinys: %s\n"
 
-#: ../plugins/project-manager/plugin.c:793
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Module: %s\n"
 msgstr "Modulis: %s\n"
 
-#: ../plugins/project-manager/plugin.c:796
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Package: %s\n"
 msgstr "Paketas: %s\n"
 
-#: ../plugins/project-manager/plugin.c:808
+#: ../plugins/project-manager/plugin.c:743
 msgid "The group will be deleted from the file system."
 msgstr "Grupė bus ištrinta iš failų sistemos."
 
-#: ../plugins/project-manager/plugin.c:810
+#: ../plugins/project-manager/plugin.c:745
 msgid "The group will not be deleted from the file system."
 msgstr "Grupė nebus ištrinta iš failų sistemos."
 
-#: ../plugins/project-manager/plugin.c:812
+#: ../plugins/project-manager/plugin.c:747
 msgid "The source file will be deleted from the file system."
 msgstr "Pradinio kodo failas bus ištrintas iš failų sistemos."
 
-#: ../plugins/project-manager/plugin.c:814
+#: ../plugins/project-manager/plugin.c:749
 msgid "The source file will not be deleted from the file system."
 msgstr "Pradinio kodo failas nebus ištrintas iš failų sistemos."
 
-#: ../plugins/project-manager/plugin.c:819
+#: ../plugins/project-manager/plugin.c:754
 msgid "Confirm remove"
 msgstr "Patvirtinti pašalinimą"
 
-#: ../plugins/project-manager/plugin.c:865
+#: ../plugins/project-manager/plugin.c:800
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6756,125 +6768,109 @@ msgstr ""
 "Nepavyko pašalinti „%s“:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:866
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "Nepavyko gauti %s URI informacijos: %s"
 
-#: ../plugins/project-manager/plugin.c:967
+#: ../plugins/project-manager/plugin.c:902
 msgid "_Project"
 msgstr "_Projektas"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Folder…"
 msgstr "Naujas _aplankas"
 
-#: ../plugins/project-manager/plugin.c:971
-#: ../plugins/project-manager/plugin.c:1010
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "Pridėti naują aplanką į projektą"
 
-#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:911
 msgid "New _Target…"
 msgstr "Nauja _tikslas..."
 
-#: ../plugins/project-manager/plugin.c:976
-#: ../plugins/project-manager/plugin.c:1015
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "Pridėti naują tikslą į projektą"
 
-#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Source File…"
 msgstr "Pridėti pradinio _kodo failą..."
 
-#: ../plugins/project-manager/plugin.c:981
-#: ../plugins/project-manager/plugin.c:1020
-#: ../plugins/project-manager/plugin.c:1035
+#: ../plugins/project-manager/plugin.c:916
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a source file to a target"
 msgstr "Pridėti pradinio kodo failą į tikslą"
 
-#: ../plugins/project-manager/plugin.c:986
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add _Library…"
 msgstr "Pridėti _biblioteką..."
 
-#: ../plugins/project-manager/plugin.c:986
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a module to a target"
 msgstr "Pridėti modulį į tikslą"
 
-#: ../plugins/project-manager/plugin.c:991
-msgid "New _Library…"
-msgstr "Nauja _biblioteka..."
-
-#: ../plugins/project-manager/plugin.c:991
-msgid "Add a new package to the project"
-msgstr "Pridėti naują paketą į projektą"
-
-#: ../plugins/project-manager/plugin.c:996
-#: ../plugins/project-manager/plugin.c:1040
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Properties"
 msgstr "_Savybės"
 
-#: ../plugins/project-manager/plugin.c:1001
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "Užverti pro_jektą"
 
-#: ../plugins/project-manager/plugin.c:1001
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "Užverti projektą"
 
-#: ../plugins/project-manager/plugin.c:1010
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "Naujas _aplankas"
 
-#: ../plugins/project-manager/plugin.c:1015
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "Naujas _tikslas"
 
-#: ../plugins/project-manager/plugin.c:1020
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "Pridėti pradinio _kodo failą"
 
-#: ../plugins/project-manager/plugin.c:1025
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "Pridėti _biblioteką"
 
-#: ../plugins/project-manager/plugin.c:1025
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "Pridėti biblioteką į tikslą"
 
-#: ../plugins/project-manager/plugin.c:1030
-msgid "New _Library"
-msgstr "Nauja _biblioteka"
-
-#: ../plugins/project-manager/plugin.c:1030
-msgid "Add a new library to the project"
-msgstr "Pridėti naują biblioteką į projektą"
-
-#: ../plugins/project-manager/plugin.c:1035
+#: ../plugins/project-manager/plugin.c:960
 msgid "_Add to Project"
 msgstr "_Pridėti projektą"
 
-#: ../plugins/project-manager/plugin.c:1040
+#: ../plugins/project-manager/plugin.c:965
 msgid "Properties of group/target/source"
 msgstr "Grupės/tikslo/pradinio kodo failo savybės"
 
-#: ../plugins/project-manager/plugin.c:1045
+#: ../plugins/project-manager/plugin.c:970
 msgid "Re_move"
 msgstr "Pa_šalinti"
 
-#: ../plugins/project-manager/plugin.c:1045
+#: ../plugins/project-manager/plugin.c:970
 msgid "Remove from project"
 msgstr "Pašalinti iš projekto"
 
-#: ../plugins/project-manager/plugin.c:1050
+#: ../plugins/project-manager/plugin.c:975
 msgid "_Sort"
 msgstr "_Rikiuoti"
 
-#: ../plugins/project-manager/plugin.c:1050
+#: ../plugins/project-manager/plugin.c:975
 msgid "Sort shortcuts"
 msgstr "Rikiuoti trumpinius"
 
-#: ../plugins/project-manager/plugin.c:1388
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6883,42 +6879,42 @@ msgstr ""
 "Nepavyko perskaityti projekto (projektas yra atvertas, bet nebus projekto "
 "rodinio) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1398
+#: ../plugins/project-manager/plugin.c:1320
 msgid "Update project view…"
 msgstr "Atnaujinti projekto rodinį..."
 
-#: ../plugins/project-manager/plugin.c:1403
-#: ../plugins/project-manager/plugin.c:1525
-#: ../plugins/project-manager/plugin.c:1693
+#: ../plugins/project-manager/plugin.c:1325
+#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "Projektas"
 
-#: ../plugins/project-manager/plugin.c:1441
+#: ../plugins/project-manager/plugin.c:1363
 #, c-format
 msgid "Loading project: %s"
 msgstr "Įkeliamas projektas: %s"
 
-#: ../plugins/project-manager/plugin.c:1605
+#: ../plugins/project-manager/plugin.c:1527
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Klaida užveriant projektą: %s"
 
-#: ../plugins/project-manager/plugin.c:1672
+#: ../plugins/project-manager/plugin.c:1594
 msgid "Project manager actions"
 msgstr "Projektų valdyklės veiksmai"
 
-#: ../plugins/project-manager/plugin.c:1680
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager popup actions"
 msgstr "Projektų valdyklės iššokančio meniu veiksmai"
 
-#: ../plugins/project-manager/plugin.c:2504
+#: ../plugins/project-manager/plugin.c:2416
 msgid "Initializing Project…"
 msgstr "Inicializuojamas projektas..."
 
-#: ../plugins/project-manager/plugin.c:2507
+#: ../plugins/project-manager/plugin.c:2419
 msgid "Project Loaded"
 msgstr "Projektas įkeltas"
 
@@ -7080,7 +7076,7 @@ msgstr "Projekto tipas: %s\n"
 msgid "Unable to find any project template in %s"
 msgstr "Nepavyksta rasti projekto šablono vietoje %s"
 
-#: ../plugins/project-wizard/druid.c:710
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
 msgid ""
 "\n"
@@ -7089,7 +7085,7 @@ msgstr ""
 "\n"
 "Laukas „%s“ yra privalomas. Užpildykite jį."
 
-#: ../plugins/project-wizard/druid.c:725
+#: ../plugins/project-wizard/druid.c:719
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
@@ -7099,7 +7095,7 @@ msgstr ""
 "Laukas „%s“ turi turėti tik raides, skaitmenis arba simbolius „#$:%%+,."
 "=@^_`~“. Be to, negali būti brūkšnio priekyje. Pataisykite."
 
-#: ../plugins/project-wizard/druid.c:730
+#: ../plugins/project-wizard/druid.c:724
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits, the following characters \"#"
@@ -7109,7 +7105,7 @@ msgstr ""
 "Laukas „%s“ turi turėti tik raides, skaitmenis ir simbolius „#$:%%+,.=@^_`~“ "
 "arba katalogų skirtukus. Be to, negali būti brūkšnio priekyje. Pataisykite."
 
-#: ../plugins/project-wizard/druid.c:735
+#: ../plugins/project-wizard/druid.c:729
 #, c-format
 msgid ""
 "Field \"%s\" must contains only ASCII printable characters, no accentuated "
@@ -7118,12 +7114,12 @@ msgstr ""
 "Laukas „%s“ turi turėti tik ASCII spausdinamus simbolius, jokių simbolių su "
 "diakritiniais ženklais ir pan. Pataisykite."
 
-#: ../plugins/project-wizard/druid.c:740
+#: ../plugins/project-wizard/druid.c:734
 #, c-format
 msgid "Unknown error."
 msgstr "Nežinoma klaida."
 
-#: ../plugins/project-wizard/druid.c:767
+#: ../plugins/project-wizard/druid.c:761
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -7132,20 +7128,20 @@ msgstr ""
 "Katalogas „%s“ nėra tuščias. Projekto sukūrimas gali nepavykti, jei kai "
 "kurie failai negalės būti įrašyti. Ar norite tęsti?"
 
-#: ../plugins/project-wizard/druid.c:769
+#: ../plugins/project-wizard/druid.c:763
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Failas „%s“ jau yra. Ar norite jį perrašyti?"
 
-#: ../plugins/project-wizard/druid.c:802
+#: ../plugins/project-wizard/druid.c:796
 msgid "Invalid entry"
 msgstr "Netinkama įvestis"
 
-#: ../plugins/project-wizard/druid.c:812
+#: ../plugins/project-wizard/druid.c:806
 msgid "Dubious entry"
 msgstr "Abejotina įvestis"
 
-#: ../plugins/project-wizard/druid.c:964
+#: ../plugins/project-wizard/druid.c:958
 #, c-format
 msgid ""
 "\n"
@@ -7154,7 +7150,7 @@ msgstr ""
 "\n"
 "Trūksta programų: %s."
 
-#: ../plugins/project-wizard/druid.c:975
+#: ../plugins/project-wizard/druid.c:969
 #, c-format
 msgid ""
 "\n"
@@ -7163,7 +7159,7 @@ msgstr ""
 "\n"
 "Trūksta paketų: %s."
 
-#: ../plugins/project-wizard/druid.c:984
+#: ../plugins/project-wizard/druid.c:978
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
@@ -7173,14 +7169,14 @@ msgstr ""
 "šio projekto sukūrimui. Įsitikinkite, kad jie yra tvarkingai įdiegti "
 "priešgeneruodami projektą.\n"
 
-#: ../plugins/project-wizard/druid.c:993
+#: ../plugins/project-wizard/druid.c:987
 msgid "Install missing packages"
 msgstr "Įdiegti trūkstamus paketus"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:1005
+#: ../plugins/project-wizard/druid.c:999
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7195,7 +7191,7 @@ msgstr ""
 "pateikia ir leidžia jų pagrindu kurti projektus. Jų pavadinimai dažniausiai "
 "baigiasi „-dev“ arba „-devel“ ir juos galima rasti programų tvarkyklėje."
 
-#: ../plugins/project-wizard/druid.c:1013
+#: ../plugins/project-wizard/druid.c:1007
 msgid "Missing components"
 msgstr "Trūkstami komponentai"
 
@@ -7256,16 +7252,16 @@ msgid "Select an Image File"
 msgstr "Pasirinkite paveikslėlio failą"
 
 #: ../plugins/project-wizard/property.c:457
-#: ../plugins/project-wizard/property.c:547 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:548 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "Pasirinkite piktogramą"
 
-#: ../plugins/project-wizard/property.c:517
+#: ../plugins/project-wizard/property.c:518
 msgid "Choose directory"
 msgstr "Pasirinkite katalogą"
 
-#: ../plugins/project-wizard/property.c:521
+#: ../plugins/project-wizard/property.c:522
 msgid "Choose file"
 msgstr "Pasirinkite failą"
 
@@ -8111,12 +8107,10 @@ msgid "Allows loading Anjuta plugins written in Python"
 msgstr "Leidžia įkelti Anjuta įskiepius, parašytus su Python"
 
 #: ../plugins/quick-open/anjuta-quick-open.ui.h:1
-#| msgid "Loading..."
 msgid "Loading files..."
 msgstr "Įkeliami failai..."
 
 #: ../plugins/quick-open/plugin.c:221
-#| msgid "_Quick Search"
 msgid "Quick open"
 msgstr "Greitas atvėrimas"
 
@@ -8125,12 +8119,10 @@ msgid "Quickly open a file in the current project."
 msgstr "Greitai atverti failą esamame projekte."
 
 #: ../plugins/quick-open/plugin.c:243
-#| msgid "Run operations"
 msgid "Quick open operations"
 msgstr "Greito atvėrimo veiksmai"
 
-#: ../plugins/quick-open/quick-open-dialog.c:773
-#| msgid "_Quick Search"
+#: ../plugins/quick-open/quick-open-dialog.c:775
 msgid "Quick Open"
 msgstr "Greitas atvėrimas"
 
@@ -8611,12 +8603,12 @@ msgstr "Failas „%s“ yra tik skaitymui! Vistiek redaguoti?"
 msgid "Could not save %s: %s"
 msgstr "Nepavyko įrašyti %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:271
+#: ../plugins/sourceview/sourceview-io.c:284
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Nepavyko įrašyti failo, nes failo pavadinimas dar nenurodytas"
 
-#: ../plugins/sourceview/sourceview-io.c:499
+#: ../plugins/sourceview/sourceview-io.c:529
 #, c-format
 msgid "New file %d"
 msgstr "Naujas failas %d"
@@ -9320,23 +9312,27 @@ msgstr[0] "Perskaitytas %d failas iš %d"
 msgstr[1] "Perskaityti %d failai iš %d"
 msgstr[2] "Perskaityta %d failų iš %d"
 
-#: ../plugins/symbol-db/plugin.c:1741
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "Kuriama simbolių duomenų bazė..."
 
-#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "Simboliai"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
+msgid "Search"
+msgstr "Ieškoti"
+
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "SymbolDB iššokančio meniu veiksmai"
 
-#: ../plugins/symbol-db/plugin.c:2223
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb meniu veiksmai"
 
-#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "Simbolių duomenų bazė"
@@ -9345,7 +9341,7 @@ msgstr "Simbolių duomenų bazė"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Simbolių duomenų bazės įskiepis Anjuta."
 
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "Tęsiamas glb skaitymas."
 
@@ -9906,15 +9902,15 @@ msgstr "Keisti"
 msgid "Help"
 msgstr "Žinynas"
 
-#: ../src/anjuta-window.c:990
+#: ../src/anjuta-window.c:992
 msgid "Installed plugins"
 msgstr "Įdiegti įskiepiai"
 
-#: ../src/anjuta-window.c:994
+#: ../src/anjuta-window.c:996
 msgid "Shortcuts"
 msgstr "Trumpiniai"
 
-#: ../src/anjuta-window.c:1066
+#: ../src/anjuta-window.c:1068
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Vertės nėra"
