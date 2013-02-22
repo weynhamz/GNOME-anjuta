@@ -60,7 +60,9 @@ void search_box_fill_search_focus (SearchBox* search_box, gboolean on_replace);
 void search_box_grab_line_focus (SearchBox* search_box);
 void search_box_hide (SearchBox* search_box);
 void search_box_set_replace (SearchBox* object, gboolean replace);
-gboolean search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
+gboolean search_box_incremental_search (SearchBox* search_box,
+                                        gboolean search_forward,
+                                        gboolean search_next,
                                         gboolean wrap);
 void search_box_highlight_all (SearchBox * search_box);
 

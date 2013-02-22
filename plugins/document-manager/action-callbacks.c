@@ -790,7 +790,7 @@ on_repeat_quicksearch (GtkAction *action, gpointer user_data)
 	search_box = plugin->search_box;
 
 	gtk_widget_show (search_box);
-	search_box_incremental_search (SEARCH_BOX (search_box), TRUE, TRUE);
+	search_box_incremental_search (SEARCH_BOX (search_box), TRUE, TRUE, TRUE);
 }
 
 void
@@ -804,7 +804,7 @@ on_search_previous (GtkAction *action, gpointer user_data)
 	search_box = plugin->search_box;
 
 	gtk_widget_show (search_box);
-	search_box_incremental_search (SEARCH_BOX (search_box), FALSE, TRUE);
+	search_box_incremental_search (SEARCH_BOX (search_box), FALSE, TRUE, TRUE);
 }
 
 void

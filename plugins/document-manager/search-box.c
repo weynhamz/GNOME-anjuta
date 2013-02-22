@@ -393,7 +393,9 @@ editor_search (IAnjutaEditor *editor,
 }
 
 gboolean
-search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
+search_box_incremental_search (SearchBox* search_box,
+                               gboolean search_forward,
+                               gboolean search_next,
                                gboolean wrap)
 {
 	IAnjutaIterable* real_start;
@@ -451,7 +453,7 @@ search_box_incremental_search (SearchBox* search_box, gboolean search_forward,
      * selection starts with a match, look for next match.
 	 */
 	if (ianjuta_editor_selection_has_selection (selection,
-	                                            NULL))
+	                                            NULL) && search_next)
 	{
 		gchar* selected_text =
 			ianjuta_editor_selection_get (selection, NULL);
@@ -709,7 +711,7 @@ on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 	{
 		GtkEntryBuffer* buffer = gtk_entry_get_buffer (GTK_ENTRY(widget));
 		if (gtk_entry_buffer_get_length (buffer))
-			search_box_incremental_search (search_box, TRUE, TRUE);
+			search_box_incremental_search (search_box, TRUE, FALSE, TRUE);
 		else
 		{
 			/* clear selection */
@@ -729,13 +731,13 @@ on_search_box_entry_changed (GtkWidget * widget, SearchBox * search_box)
 static void
 search_box_forward_search (SearchBox * search_box, GtkWidget* widget)
 {
-	search_box_incremental_search (search_box, TRUE, TRUE);
+	search_box_incremental_search (search_box, TRUE, TRUE, TRUE);
 }
 
 static void
 on_search_box_backward_search (GtkWidget * widget, SearchBox * search_box)
 {
-	search_box_incremental_search (search_box, FALSE, TRUE);
+	search_box_incremental_search (search_box, FALSE, TRUE, TRUE);
 }
 
 static gboolean
@@ -886,7 +888,7 @@ on_replace_all_activated (GtkWidget* widget, SearchBox* search_box)
 	
 	/* Replace all instances of search_entry with replace_entry text */
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (search_box->priv->current_editor), NULL);
-	while (search_box_incremental_search (search_box, TRUE, FALSE))
+	while (search_box_incremental_search (search_box, TRUE, TRUE, FALSE))
 	{
 		search_box_replace (search_box, widget, FALSE);
 	}

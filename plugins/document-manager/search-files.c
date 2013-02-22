@@ -537,7 +537,7 @@ search_files_editor_loaded (SearchFiles* sf, IAnjutaEditor* editor)
 	search_box_toggle_regex(sf->priv->search_box,
 	                        sf->priv->regex);
 	search_box_highlight_all(sf->priv->search_box);
-	search_box_incremental_search(sf->priv->search_box, TRUE, FALSE);
+	search_box_incremental_search(sf->priv->search_box, TRUE, TRUE, FALSE);
 
 	gtk_widget_show (GTK_WIDGET(sf->priv->search_box));
 }
