@@ -1059,8 +1059,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_file,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->calltip_query_file, "async-result",
-	                  G_CALLBACK (on_calltip_search_complete), assist);
+	g_signal_connect_object (assist->priv->calltip_query_file, "async-result",
+	                         G_CALLBACK (on_calltip_search_complete), assist, 0);
 	/* Calltip in project */
 	assist->priv->calltip_query_project =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
@@ -1080,8 +1080,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_project,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->calltip_query_project, "async-result",
-	                  G_CALLBACK (on_calltip_search_complete), assist);
+	g_signal_connect_object (assist->priv->calltip_query_project, "async-result",
+	                         G_CALLBACK (on_calltip_search_complete), assist, 0);
 	/* Calltip in system */
 	assist->priv->calltip_query_system =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
@@ -1101,8 +1101,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->calltip_query_system,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->calltip_query_system, "async-result",
-	                  G_CALLBACK (on_calltip_search_complete), assist);
+	g_signal_connect_object (assist->priv->calltip_query_system, "async-result",
+	                         G_CALLBACK (on_calltip_search_complete), assist, 0);
 
 	/* Create autocomplete queries */
 	/* AC in file */
@@ -1121,8 +1121,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_file,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->ac_query_file, "async-result",
-	                  G_CALLBACK (on_symbol_search_complete), assist);
+	g_signal_connect_object (assist->priv->ac_query_file, "async-result",
+	                         G_CALLBACK (on_symbol_search_complete), assist, 0);
 	/* AC in project */
 	assist->priv->ac_query_project =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
@@ -1139,8 +1139,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_project,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->ac_query_project, "async-result",
-	                  G_CALLBACK (on_symbol_search_complete), assist);
+	g_signal_connect_object (assist->priv->ac_query_project, "async-result",
+	                         G_CALLBACK (on_symbol_search_complete), assist, 0);
 	/* AC in system */
 	assist->priv->ac_query_system =
 		ianjuta_symbol_manager_create_query (isymbol_manager,
@@ -1157,8 +1157,8 @@ parser_cxx_assist_new (IAnjutaEditor *ieditor,
 	                                     NULL);
 	ianjuta_symbol_query_set_mode (assist->priv->ac_query_system,
 	                               IANJUTA_SYMBOL_QUERY_MODE_ASYNC, NULL);
-	g_signal_connect (assist->priv->ac_query_system, "async-result",
-	                  G_CALLBACK (on_symbol_search_complete), assist);
+	g_signal_connect_object (assist->priv->ac_query_system, "async-result",
+	                         G_CALLBACK (on_symbol_search_complete), assist, 0);
 
 	/* Members autocompletion */
 	assist->priv->query_members =
