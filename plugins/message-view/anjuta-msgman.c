@@ -221,8 +221,10 @@ anjuta_msgman_finalize (GObject *obj)
 static void
 anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 {
+	msgman->priv = G_TYPE_INSTANCE_GET_PRIVATE (msgman, ANJUTA_TYPE_MSGMAN,
+	                                            AnjutaMsgmanPriv);
+
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (msgman), TRUE);
-	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
 	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
 	msgman->priv->tabber = anjuta_tabber_new (GTK_NOTEBOOK (msgman));
@@ -256,6 +258,9 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 	gobject_class->dispose = anjuta_msgman_dispose;
 
 	notebook_class->switch_page = anjuta_msgman_switch_page;
+
+	g_type_class_add_private (klass, sizeof (AnjutaMsgmanPriv));
+
 
 	/**
 	 * AnjutaMsgMan::view-changed:
