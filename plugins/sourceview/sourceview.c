@@ -850,16 +850,18 @@ sourceview_constructed (GObject* object)
 	DEBUG_PRINT("%s", "============ Creating new editor =============");
 
 	sv->priv->io = sourceview_io_new (sv);
-	g_signal_connect (sv->priv->io, "changed", G_CALLBACK (on_file_changed), sv);
-	g_signal_connect (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted), sv);
-	g_signal_connect (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
-	                  sv);
-	g_signal_connect (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
-	                  sv);
-	g_signal_connect (sv->priv->io, "save-finished", G_CALLBACK (on_save_finish),
-	                  sv);
-	g_signal_connect (sv->priv->io, "save-failed", G_CALLBACK (on_save_failed),
-	                  sv);
+	g_signal_connect_object (sv->priv->io, "changed", G_CALLBACK (on_file_changed),
+	                         sv, 0);
+	g_signal_connect_object (sv->priv->io, "deleted", G_CALLBACK (on_file_deleted),
+	                         sv, 0);
+	g_signal_connect_object (sv->priv->io, "open-finished", G_CALLBACK (on_open_finish),
+	                         sv, 0);
+	g_signal_connect_object (sv->priv->io, "open-failed", G_CALLBACK (on_open_failed),
+	                         sv, 0);
+	g_signal_connect_object (sv->priv->io, "save-finished", G_CALLBACK (on_save_finish),
+	                         sv, 0);
+	g_signal_connect_object (sv->priv->io, "save-failed", G_CALLBACK (on_save_failed),
+	                         sv, 0);
 
 	/* Create buffer */
 	sv->priv->document = gtk_source_buffer_new(NULL);
@@ -961,18 +963,8 @@ sourceview_dispose(GObject *object)
 		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
 		cobj->priv->assist_tip = NULL;
 	}
-	if (cobj->priv->io)
-	{
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_file_changed, cobj);
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_file_deleted, cobj);
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_open_finish, cobj);
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_open_failed, cobj);
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_save_finish, cobj);
-		g_signal_handlers_disconnect_by_func (cobj->priv->io, on_save_failed, cobj);
 
-		g_clear_object (&cobj->priv->io);
-	}
-
+	g_clear_object (&cobj->priv->io);
 	g_clear_object (&cobj->priv->tooltip_cell);
 
 	sourceview_prefs_destroy(cobj);
