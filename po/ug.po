@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-02-12 20:10+0000\n"
-"PO-Revision-Date: 2013-02-13 19:47+0900\n"
+"POT-Creation-Date: 2013-02-24 08:28+0000\n"
+"PO-Revision-Date: 2013-02-25 18:42+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: \n"
@@ -61,11 +61,11 @@ msgstr "سىزىدىغان تېكىست"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:246
 msgid "Pixbuf Object"
-msgstr "پىكىسبۇف(pixbuf) ئوبيېكتى"
+msgstr "پىكىسباف(pixbuf) ئوبيېكتى"
 
 #: ../libanjuta/anjuta-cell-renderer-captioned-image.c:247
 msgid "The pixbuf to render."
-msgstr "سىزىدىغان پىكىسبۇف(pixbuf)."
+msgstr "سىزىدىغان پىكىسباف(pixbuf)."
 
 #: ../libanjuta/anjuta-c-module.c:212
 #, c-format
@@ -362,10 +362,14 @@ msgid "Only show user activatable plugins"
 msgstr "ئىشلەتكۈچى ئاكتىپلىيالايدىغان قىستۇرمىلارنىلا كۆرسىتىدۇ"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
+#| msgid ""
+#| "These are the plugins selected by you when Anjuta prompted to choose one "
+#| "of many suitable plugins. Removing the preferred plugin will let Anjuta "
+#| "prompt you again to choose different plugin."
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr "بۇلار، نۇرغۇنلىغان قىستۇرمىلار ئىچىدىن سىز تاللىغان قىستۇرمىلارنىڭ تىزىمىدۇر. بۇنىڭ ئىچىدىكى قىستۇرمىنى ئۆچۈرسە، باشقا قىستۇرمىلارنى يەنە قايتا تاللاشقا توغرا كېلىدۇ."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1222
@@ -630,7 +634,7 @@ msgstr "كۆرۈنمە يۈزى ھۆججىتىنى ئوقۇغىلى بولمىد
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
 #: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
-msgstr "ئۆزگەرتىلدى"
+msgstr "ئۆزگەرتىلگەن ۋاقتى"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
 #: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
@@ -1332,60 +1336,56 @@ msgid "Build Directory:"
 msgstr "قۇرۇش مۇندەرىجىسى:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
-msgid "label"
-msgstr "ئەن"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 msgid "Select Program"
 msgstr "پروگرامما تاللاش"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Arguments:"
 msgstr "ئەركىن ئۆزگەرگۈچى:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Run in terminal"
 msgstr "تېرمىنالدا ئىجرا قىل"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Select Program to run:"
 msgstr "ئىجرا قىلىدىغان پروگراممىنى تاللاڭ:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "sudo"
 msgstr "sudo"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "su -c"
 msgstr "su -c"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 msgid "Run several commands at a time:"
 msgstr "بىر قېتىمدا بىر قانچە بۇيرۇقنى ئىجرا قىلىدۇ:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
 msgid "Continue on errors"
 msgstr "خاتالىق بولسىمۇ داۋاملاشتۇر"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
 msgid "Translate messages"
 msgstr "تەرجىمە ئۇچۇرى"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Highlight build warnings and errors in editor"
 msgstr "تەھرىرلىگۈچتىكى قۇرۇش ئاگاھلاندۇرۇشىنى يورۇتۇپ كۆرسەت"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Build"
 msgstr "قۇرۇش"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Install as root:"
 msgstr "root ھوقۇقىدا ئورنات:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:19
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
 msgid "Install"
 msgstr "ئورنات"
 
@@ -2116,7 +2116,7 @@ msgid "Patch-Style diff"
 msgstr "ياماق-تۈرىنىڭ پەرقى"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2173
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "يەرلىك"
 
@@ -3228,7 +3228,7 @@ msgstr "كاندۇك"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2131
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
 #: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "ھۆججەت"
@@ -4132,9 +4132,9 @@ msgstr "ئاددىي ئىزدەش"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:418
-#: ../plugins/document-manager/plugin.c:1691
-#: ../plugins/document-manager/plugin.c:2111
-#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:1696
+#: ../plugins/document-manager/plugin.c:2116
+#: ../plugins/document-manager/plugin.c:2125
 msgid "Documents"
 msgstr "پۈتۈكلەر"
 
@@ -4172,33 +4172,33 @@ msgid "Mode"
 msgstr "ھالىتى"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1527
+#: ../plugins/document-manager/plugin.c:1532
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s نى ئۆزلۈكىدىن ساقلاش مەغلۇپ بولدى"
 
-#: ../plugins/document-manager/plugin.c:1541
+#: ../plugins/document-manager/plugin.c:1546
 msgid "Autosave completed"
 msgstr "ئۆزلۈكىدىن ساقلاش تاماملاندى"
 
-#: ../plugins/document-manager/search-box.c:555
+#: ../plugins/document-manager/search-box.c:533
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "«%s» نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى."
 
-#: ../plugins/document-manager/search-box.c:560
+#: ../plugins/document-manager/search-box.c:538
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "«%s» نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى."
 
-#: ../plugins/document-manager/search-box.c:569
+#: ../plugins/document-manager/search-box.c:548
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
 "match was found."
 msgstr "«%s» نى ئىزدەش ئاخىرلاشقاندا، باشتىن قايتا ئىزدىدى. بىراق ماس كېلىدىغان مەزمۇن تېپىلمىدى."
 
-#: ../plugins/document-manager/search-box.c:574
+#: ../plugins/document-manager/search-box.c:553
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -4218,7 +4218,7 @@ msgid "Replace all"
 msgstr "ھەممىنى ئالماشتۇر"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:798
+#: ../plugins/file-manager/file-view.c:804
 msgid "Filename"
 msgstr "ھۆججەت ئاتى"
 
@@ -4480,7 +4480,7 @@ msgstr "نۆۋەتتىكى پۈتۈكنى ئاپتوماتىك تاللىسۇن"
 
 #: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2185
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "ئومۇمىي دائىرىلىك"
 
@@ -4509,12 +4509,12 @@ msgid "Loading..."
 msgstr "ئوقۇۋاتىدۇ…"
 
 #: ../plugins/file-manager/file-model.c:706
-#: ../plugins/file-manager/file-view.c:886
+#: ../plugins/file-manager/file-view.c:892
 msgid "Base Path"
 msgstr "ئاساسىي يولى"
 
 #: ../plugins/file-manager/file-model.c:707
-#: ../plugins/file-manager/file-view.c:887
+#: ../plugins/file-manager/file-view.c:893
 msgid "GFile representing the top-most path displayed"
 msgstr "GFile بولسا كۆرسىتىلگەن ئەڭ يۇقىرىدىكى يولىنى ئىپادىلەيدۇ"
 
@@ -5177,7 +5177,7 @@ msgstr "تارماق ئاتىنى كىرگۈزۈڭ."
 msgid "Please enter a tag name."
 msgstr "خەتكۈش ئاتىنى كىرگۈزۈڭ."
 
-#: ../plugins/git/git-create-tag-pane.c:215
+#: ../plugins/git/git-create-tag-pane.c:233
 msgid "Create Tag"
 msgstr "خەتكۈش قۇرۇش"
 
@@ -5209,17 +5209,17 @@ msgstr "تۈزىتىلمە تاللانمىدى"
 msgid "Stash %i.diff"
 msgstr "ۋاقىتلىق ساقلاش %i.diff"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:581
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>تارماق:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:589
+#: ../plugins/git/git-log-pane.c:586
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>خەتكۈش:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:594
+#: ../plugins/git/git-log-pane.c:591
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>يىراق:</b> %s"
@@ -5666,7 +5666,6 @@ msgid "Edit widget alignment"
 msgstr "كىچىك ئەپلەرنىڭ توغرىلىنىشىنى تەھرىرلەيدۇ"
 
 #: ../plugins/glade/plugin.c:612
-#| msgid "Folder properties"
 msgid "Glade Properties…"
 msgstr "Glade خاسلىقلىرى…"
 
@@ -5679,7 +5678,6 @@ msgid "Loading Glade…"
 msgstr "Glade نى ئوقۇۋاتىدۇ…"
 
 #: ../plugins/glade/plugin.c:726
-#| msgid "Debugger operations"
 msgid "Glade designer operations"
 msgstr "Glade لايىھىلىگۈچى مەشغۇلاتلىرى"
 
@@ -5792,7 +5790,6 @@ msgid "Build and run programs inside the JHBuild environment"
 msgstr "پروگراممىلارنى JHBuild مۇھىتىدا ھاسىللاپ ئىجرا قىلىدۇ"
 
 #: ../plugins/jhbuild/plugin.c:121
-#| msgid "Failed to read file"
 msgid "Failed to run \"jhbuild run\""
 msgstr "«jhbuild run» نى ئىجرا قىلىش مەغلۇپ بولدى."
 
@@ -5813,7 +5810,6 @@ msgstr "JHBuild ئامبار مۇندەرىجىسىنى تاپالمىدى. JHBu
 
 #: ../plugins/jhbuild/plugin.c:198
 #, c-format
-#| msgid "Failed to activate plugin: %s"
 msgid "Failed to activate the JHBuild Plugin: %s"
 msgstr "JHBuild قىستۇرمىسىنى ئاكتىپلاش مەغلۇپ بولدى: %s"
 
@@ -6017,7 +6013,7 @@ msgstr "Python ياردىمى"
 
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:793
+#: ../plugins/language-support-python/python-assist.c:797
 msgid "Python"
 msgstr "Python"
 
@@ -6211,7 +6207,7 @@ msgstr "بوغچا قوش(_P)"
 msgid "Packages"
 msgstr "بوغچىلار"
 
-#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1260
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -6742,7 +6738,7 @@ msgstr "قۇرۇلۇش كۆرۈنۈشىنى يېڭىلاش…"
 #: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2136
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "قۇرۇلۇش"
 
@@ -8404,12 +8400,12 @@ msgstr "ھۆججەت «%s» ن ئوقۇشقىلا بولىدۇ! تەھرىرلە
 msgid "Could not save %s: %s"
 msgstr "%s نى ساقلىيالمىدى: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:280
+#: ../plugins/sourceview/sourceview-io.c:284
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "ھۆججەت ئاتى بەلگىلەنمىگەچكە ھۆججەتنى ساقلىيالمىدى"
 
-#: ../plugins/sourceview/sourceview-io.c:525
+#: ../plugins/sourceview/sourceview-io.c:529
 #, c-format
 msgid "New file %d"
 msgstr "يېڭى ھۆججەت %d"
@@ -9105,27 +9101,27 @@ msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
 msgstr[0] "%d دانە ھۆججەت تەكشۈرۈلدى(جەمئىي %d ھۆججەت)"
 
-#: ../plugins/symbol-db/plugin.c:1741
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "بەلگە ساندان تولدۇرۇۋاتىدۇ…"
 
-#: ../plugins/symbol-db/plugin.c:2121 ../plugins/symbol-db/plugin.c:2206
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "بەلگىلەر"
 
-#: ../plugins/symbol-db/plugin.c:2141 ../plugins/symbol-db/plugin.c:2193
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
 msgid "Search"
 msgstr "ئىزدە"
 
-#: ../plugins/symbol-db/plugin.c:2215
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb سەكرىمە مەشغۇلاتلىرى"
 
-#: ../plugins/symbol-db/plugin.c:2223
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb نىڭ تىزىملىك مەشغۇلاتلىرى"
 
-#: ../plugins/symbol-db/plugin.c:2541 ../plugins/symbol-db/plugin.c:2559
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "بەلگە ساندىنى"
@@ -9134,7 +9130,7 @@ msgstr "بەلگە ساندىنى"
 msgid "Symbol Database Plugin for Anjuta."
 msgstr "Anjuta نىڭ بەلگە ساندان قىستۇرمىسى"
 
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "glb تەكشۈرۈشنى داۋاملاشتۇرىدۇ."
 
@@ -9773,6 +9769,9 @@ msgstr "سىنبەلگىلەرلا"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "تېكىستلا"
+
+#~ msgid "label"
+#~ msgstr "ئەن"
 
 #~ msgid "Contents"
 #~ msgstr "مەزمۇنلار"
