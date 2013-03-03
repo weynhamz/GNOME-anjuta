@@ -1,26 +1,25 @@
 # Jennie Petoumenou <epetoumenou@gmail.com>, 2009.
-# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2012.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: packagename\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-11 20:07+0000\n"
-"PO-Revision-Date: 2012-09-12 13:01+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"POT-Creation-Date: 2013-02-21 22:11+0000\n"
+"PO-Revision-Date: 2013-03-03 10:53+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
-#| msgid "translator-credits"
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
-"Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2012\n"
+"Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2012, 2013\n"
 "Σίμος Ξενιτέλλης <simos@gnome.org>, 2009\n"
 "Τζένη Πετούμενου <epetoumenou@gmail.com>, 2009"
 
@@ -34,8 +33,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/index.page:23(media)
-#| msgid ""
-#| "@@image: 'figures/anjuta_logo.png'; md5=82636133d39ac4a688facd76954b8b29"
 msgctxt "_"
 msgid ""
 "external ref='figures/anjuta_logo.png' md5='82636133d39ac4a688facd76954b8b29'"
@@ -47,13 +44,11 @@ msgid "Help for Anjuta DevStudio."
 msgstr "Βοήθεια για το DevStudio του Anjuta."
 
 #: C/index.page:8(info/title)
-#| msgid "Anjuta"
 msgctxt "link"
 msgid "Anjuta"
 msgstr "Anjuta"
 
 #: C/index.page:9(info/title)
-#| msgid "Anjuta DevStudio"
 msgctxt "text"
 msgid "Anjuta DevStudio"
 msgstr "Anjuta DevStudio"
@@ -72,8 +67,8 @@ msgid ""
 "<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
 "\">Anjuta logo</media> Anjuta DevStudio"
 msgstr ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
-"\">λογότυπος Anjuta</media> Anjuta DevStudio"
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\">Λογότυπος "
+"Anjuta</media> Anjuta DevStudio"
 
 #: C/index.page:28(section/title)
 msgid "Project Management"
@@ -377,12 +372,10 @@ msgstr ""
 "στοιχεία που βοηθούν στη γρήγορη περιήγηση μέσα από τον πηγαίο κώδικα:"
 
 #: C/anjuta-code-symbols.page:43(item/p)
-#| msgid "Symbol definition"
 msgid "<gui>Symbol definition</gui>"
 msgstr "<gui>Ορισμός συμβόλου</gui>"
 
 #: C/anjuta-code-symbols.page:44(item/p)
-#| msgid "Symbol declaration"
 msgid "<gui>Symbol declaration</gui>"
 msgstr "<gui>Δήλωση συμβόλου</gui>"
 
@@ -563,11 +556,10 @@ msgstr "Οπισθοφυλακή έργου Autotools."
 #: C/project-manager-library.page:17(credit/name)
 #: C/project-manager-library-remove.page:14(credit/name)
 #: C/project-manager-module-add.page:14(credit/name)
-#: C/project-manager-module-new.page:15(credit/name)
+#: C/project-manager-module-new.page:16(credit/name)
 #: C/project-manager-module-remove.page:14(credit/name)
-#: C/project-manager-package-add.page:15(credit/name)
 #: C/project-manager-package-remove.page:13(credit/name)
-#: C/project-manager.page:11(credit/name)
+#: C/project-manager.page:12(credit/name)
 #: C/project-manager-root.page:16(credit/name)
 #: C/project-manager-source-add.page:13(credit/name)
 #: C/project-manager-source.page:16(credit/name)
@@ -600,11 +592,10 @@ msgstr "Sébastien Granjoux"
 #: C/project-manager-library-add.page:18(credit/name)
 #: C/project-manager-library-remove.page:18(credit/name)
 #: C/project-manager-module-add.page:18(credit/name)
-#: C/project-manager-module-new.page:19(credit/name)
+#: C/project-manager-module-new.page:20(credit/name)
 #: C/project-manager-module-remove.page:18(credit/name)
-#: C/project-manager-package-add.page:19(credit/name)
 #: C/project-manager-package-remove.page:17(credit/name)
-#: C/project-manager.page:15(credit/name)
+#: C/project-manager.page:16(credit/name)
 #: C/project-manager-source-add.page:17(credit/name)
 #: C/project-manager-source-remove.page:17(credit/name)
 #: C/project-manager-target-add.page:17(credit/name)
@@ -684,7 +675,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:25(item/title)
 #: C/autotools-project-target-edit.page:30(item/title)
-#| msgid "C compiler flags"
 msgid "<gui>C compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή C</gui>"
 
@@ -697,7 +687,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:30(item/title)
 #: C/autotools-project-target-edit.page:35(item/title)
-#| msgid "C preprocessor flags"
 msgid "<gui>C preprocessor flags</gui>"
 msgstr "<gui>Σημαίες προεπεξεργαστή C</gui>"
 
@@ -711,7 +700,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:36(item/title)
 #: C/autotools-project-target-edit.page:41(item/title)
-#| msgid "C++ compiler flags"
 msgid "<gui>C++ compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή C++</gui>"
 
@@ -725,7 +713,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:41(item/title)
 #: C/autotools-project-target-edit.page:58(item/title)
-#| msgid "Fortran compiler flags"
 msgid "<gui>Fortran compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Fortran</gui>"
 
@@ -737,7 +724,6 @@ msgstr ""
 "Οι σημαίες για πέρασμα στον Fortran 9x, εάν η τιμή ανά στόχο δεν ορίστηκε."
 
 #: C/autotools-project-folder-edit.page:46(item/title)
-#| msgid "Installation directories"
 msgid "<gui>Installation directories</gui>"
 msgstr "<gui>Κατάλογοι εγκατάστασης</gui>"
 
@@ -751,7 +737,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:51(item/title)
 #: C/autotools-project-target-edit.page:76(item/title)
-#| msgid "Java compiler flags"
 msgid "<gui>Java compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Java</gui>"
 
@@ -764,7 +749,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:56(item/title)
 #: C/autotools-project-target-edit.page:87(item/title)
-#| msgid "Lex/Flex compiler flags"
 msgid "<gui>Lex/Flex compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Lex/Flex</gui>"
 
@@ -778,7 +762,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:61(item/title)
 #: C/autotools-project-target-edit.page:100(item/title)
-#| msgid "Linker flags"
 msgid "<gui>Linker flags</gui>"
 msgstr "<gui>Σημαίες συνδέσμου</gui>"
 
@@ -789,7 +772,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:65(item/title)
 #: C/autotools-project-target-edit.page:111(item/title)
-#| msgid "Objective C compiler flags"
 msgid "<gui>Objective C compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Objective C</gui>"
 
@@ -803,7 +785,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:70(item/title)
 #: C/autotools-project-target-edit.page:117(item/title)
-#| msgid "Vala compiler flags"
 msgid "<gui>Vala compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Vala</gui>"
 
@@ -816,7 +797,6 @@ msgstr ""
 
 #: C/autotools-project-folder-edit.page:75(item/title)
 #: C/autotools-project-target-edit.page:123(item/title)
-#| msgid "Yacc/Bison compiler flags"
 msgid "<gui>Yacc/Bison compiler flags</gui>"
 msgstr "<gui>Σημαίες μεταγλωττιστή Yacc/Bison</gui>"
 
@@ -843,27 +823,42 @@ msgid "These are the properties of the root item."
 msgstr "Αυτές είναι οι ιδιότητες του στοιχείου υπερχρήστη."
 
 #: C/autotools-project-root-edit.page:25(item/title)
+#| msgid "<gui>Name</gui>"
+msgid "<gui>Backend</gui>"
+msgstr "<gui>Yποστήριξη</gui>"
+
+#: C/autotools-project-root-edit.page:26(item/p)
+msgid ""
+"This the project backend used by the project: Autotools. Another backend can "
+"be selected by clicking on this button. It can be useful if the current "
+"backend has some troubles to parse your project files."
+msgstr ""
+"Αυτό το έργο υποστηρίζεται από το έργο: Autotools. Μια άλλη υποστήριξη "
+"μπορεί να επιλεγεί πατώντας σε αυτό το κουμπί. Μπορεί να είναι χρήσιμο εάν η "
+"τρέχουσα υποστήριξη έχει κάποια προβλήματα να αναλύσει τα αρχεία του έργου "
+"σας."
+
+#: C/autotools-project-root-edit.page:32(item/title)
 msgid "<gui>Name</gui>"
 msgstr "<gui>Όνομα</gui>"
 
-#: C/autotools-project-root-edit.page:26(item/p)
+#: C/autotools-project-root-edit.page:33(item/p)
 msgid "The name of your project. It can contains space."
 msgstr "Το όνομα του έργου σας. Μπορεί να περιέχει κενό."
 
-#: C/autotools-project-root-edit.page:29(item/title)
+#: C/autotools-project-root-edit.page:36(item/title)
 msgid "<gui>Version</gui>"
 msgstr "<gui>Έκδοση</gui>"
 
-#: C/autotools-project-root-edit.page:30(item/p)
+#: C/autotools-project-root-edit.page:37(item/p)
 msgid "This is the project version."
 msgstr "Αυτή είναι η έκδοση του έργου."
 
-#: C/autotools-project-root-edit.page:33(item/title)
-#| msgid "Bug report URL"
+#: C/autotools-project-root-edit.page:40(item/title)
 msgid "<gui>Bug report URL</gui>"
 msgstr "<gui>URL αναφοράς σφάλματος</gui>"
 
-#: C/autotools-project-root-edit.page:34(item/p)
+#: C/autotools-project-root-edit.page:41(item/p)
 msgid ""
 "This is an URL allowing to send bug report, by example an email address or a "
 "link to a bug tracker. It is optional."
@@ -872,12 +867,11 @@ msgstr ""
 "παράδειγμα ηλεκτρονική διεύθυνση ή σύνδεσμος σε ανιχνευτή σφάλματος. Είναι "
 "προαιρετικός."
 
-#: C/autotools-project-root-edit.page:38(item/title)
-#| msgid "Package name"
+#: C/autotools-project-root-edit.page:45(item/title)
 msgid "<gui>Package name</gui>"
 msgstr "<gui>Όνομα πακέτου</gui>"
 
-#: C/autotools-project-root-edit.page:39(item/p)
+#: C/autotools-project-root-edit.page:46(item/p)
 msgid ""
 "This is the name of distribution package, it shouldn't contain spaces. It is "
 "optional."
@@ -885,15 +879,15 @@ msgstr ""
 "Αυτό είναι το όνομα του πακέτου διανομής, δεν πρέπει να περιέχει κενά. Είναι "
 "προαιρετικό."
 
-#: C/autotools-project-root-edit.page:43(item/title)
+#: C/autotools-project-root-edit.page:50(item/title)
 msgid "<gui>URL</gui>"
 msgstr "<gui>URL</gui>"
 
-#: C/autotools-project-root-edit.page:44(item/p)
+#: C/autotools-project-root-edit.page:51(item/p)
 msgid "This is the home page of the project. It is optional."
 msgstr "Αυτή είναι η αρχική σελίδα του έργου. Είναι προαιρετικό."
 
-#: C/autotools-project-root-edit.page:48(page/p)
+#: C/autotools-project-root-edit.page:55(page/p)
 msgid ""
 "In addition, the root item works as a folder and has all its properties. See "
 "<link xref=\"autotools-project-folder-edit\"/> to see the list."
@@ -920,7 +914,6 @@ msgstr ""
 "autotools. Μερικές από αυτές δεν είναι διαθέσιμες σε όλους τους στόχους."
 
 #: C/autotools-project-target-edit.page:25(item/title)
-#| msgid "Build for check only"
 msgid "<gui>Build for check only</gui>"
 msgstr "<gui>Κατασκευή μόνο για έλεγχο</gui>"
 
@@ -960,7 +953,6 @@ msgstr ""
 "ενδεχομένως ορίζεται στον γονικό φάκελο."
 
 #: C/autotools-project-target-edit.page:47(item/title)
-#| msgid "Do not install"
 msgid "<gui>Do not install</gui>"
 msgstr "<gui>Να μην εγκατασταθεί</gui>"
 
@@ -974,7 +966,6 @@ msgstr ""
 "από προγραμματιστές."
 
 #: C/autotools-project-target-edit.page:53(item/title)
-#| msgid "Do not use prefix"
 msgid "<gui>Do not use prefix</gui>"
 msgstr "<gui>Να μη χρησιμοποιηθεί πρόθεμα</gui>"
 
@@ -997,7 +988,6 @@ msgstr ""
 "ορίζεται στον γονικό φάκελο."
 
 #: C/autotools-project-target-edit.page:64(item/title)
-#| msgid "Include in distribution"
 msgid "<gui>Include in distribution</gui>"
 msgstr "<gui>Συμπερίληψη στη διανομή</gui>"
 
@@ -1006,7 +996,6 @@ msgid "If checked, include the target in the distribution package."
 msgstr "Εάν σημειωθεί, να περιλαμβάνεται ο στόχος στο πακέτο διανομής."
 
 #: C/autotools-project-target-edit.page:68(item/title)
-#| msgid "Installation directory"
 msgid "<gui>Installation directory</gui>"
 msgstr "<gui>Κατάλογος εγκατάστασης</gui>"
 
@@ -1034,7 +1023,6 @@ msgstr ""
 "στον γονικό φάκελο."
 
 #: C/autotools-project-target-edit.page:82(item/title)
-#| msgid "Keep target path"
 msgid "<gui>Keep target path</gui>"
 msgstr "<gui>Διατήρηση διαδρομής στόχου</gui>"
 
@@ -1057,7 +1045,6 @@ msgstr ""
 "ορίζεται στον γονικό φάκελο."
 
 #: C/autotools-project-target-edit.page:93(item/title)
-#| msgid "Libraries"
 msgid "<gui>Libraries</gui>"
 msgstr "<gui>Βιβλιοθήκες</gui>"
 
@@ -1081,7 +1068,6 @@ msgstr ""
 "υπερισχύει της τιμής που ενδεχομένως ορίζεται στον γονικό φάκελο."
 
 #: C/autotools-project-target-edit.page:105(item/title)
-#| msgid "Manual section"
 msgid "<gui>Manual section</gui>"
 msgstr "<gui>Ενότητα εγχειριδίου</gui>"
 
@@ -1323,35 +1309,26 @@ msgstr ""
 "χρόνου. Υπάρχουν πολλοί τρόποι για έναρξη κατασκευής."
 
 #: C/autotools-build-build.page:39(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build</"
-#| "gui></guiseq> or press <key>F7</key> to build all targets in the same "
-#| "directory as the currently opened file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build</"
 "gui></guiseq> or press <key>F7</key> to build all targets in the same "
 "directory as the currently opened file."
 msgstr ""
-"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>κατασκευή</gui> "
-"<gui>κατασκευή</gui></guiseq> ή πατήστε <key>F7</key> για κατασκευή όλων των "
+"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>Κατασκευή</gui> "
+"<gui>Κατασκευή</gui></guiseq> ή πατήστε <key>F7</key> για κατασκευή όλων των "
 "στόχων στον ίδιο κατάλογο όπως το τρέχον ανοιχτό αρχείο."
 
 #: C/autotools-build-build.page:48(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
-#| "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
-#| "keyseq> to build the complete project. All subdirectories are built "
-#| "recursively."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build "
 "Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
 "keyseq> to build the complete project. All subdirectories are built "
 "recursively."
 msgstr ""
-"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>κατασκευή</gui> "
-"<gui>κατασκευή έργου</gui></guiseq> ή πατήστε <keyseq><key>Shift</"
-"key><key>F7</key></keyseq> για κατασκευή όλου του έργου. Όλοι οι "
-"υποκατάλογοι κατασκευάζονται αναδρομικά."
+"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>Κατασκευή</gui> "
+"<gui>Κατασκευή έργου</gui></guiseq> ή πατήστε "
+"<keyseq><key>Shift</key><key>F7</key></keyseq> για κατασκευή όλου του έργου. "
+"Όλοι οι υποκατάλογοι κατασκευάζονται αναδρομικά."
 
 #: C/autotools-build-build.page:57(item/p)
 #: C/autotools-build-clean.page:45(item/p)
@@ -1417,10 +1394,6 @@ msgstr ""
 "τρόποι να το κάνετε"
 
 #: C/autotools-build-clean.page:28(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean</"
-#| "gui></guiseq> to delete all files built in the same directory as the "
-#| "current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Clean</"
 "gui></guiseq> to delete all files built in the same directory as the current "
@@ -1431,9 +1404,6 @@ msgstr ""
 "κατάλογο όπως το τρέχον κατασκευασμένο αρχείο."
 
 #: C/autotools-build-clean.page:37(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Clean "
-#| "Project</gui></guiseq> to delete all project built files,"
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Clean "
 "Project</gui></guiseq> to delete all project built files,"
@@ -1489,10 +1459,6 @@ msgstr ""
 "την τροποποίησή του για έλεγχο σφαλμάτων. Υπάρχουν πολλοί τρόποι για αυτό."
 
 #: C/autotools-build-compile.page:30(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Compile</gui></guiseq> or press <key>F9</key> to compile the "
-#| "current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Compile</"
 "gui></guiseq> or press <key>F9</key> to compile the current edited file."
@@ -1558,7 +1524,6 @@ msgstr ""
 "ρυθμίσεων του έργου."
 
 #: C/autotools-build-configure-dialog.page:29(item/title)
-#| msgid "Regenerate Project"
 msgid "<gui>Regenerate Project</gui>"
 msgstr "<gui>Αναδημιουργία έργου</gui>"
 
@@ -1573,7 +1538,6 @@ msgstr ""
 "απαιτείται έτσι μπορείτε να το αφήσετε στην τρέχουσα κατάστασή του."
 
 #: C/autotools-build-configure-dialog.page:37(item/title)
-#| msgid "Configuration"
 msgid "<gui>Configuration</gui>"
 msgstr "<gui>Διαμόρφωση</gui>"
 
@@ -1595,7 +1559,6 @@ msgstr ""
 "Μπορείτε να ορίσετε πρόσθετες προσαρμοσμένες ρυθμίσεις."
 
 #: C/autotools-build-configure-dialog.page:49(item/title)
-#| msgid "Build Directory"
 msgid "<gui>Build Directory</gui>"
 msgstr "<gui>Κατάλογος κατασκευής</gui>"
 
@@ -1632,7 +1595,6 @@ msgstr ""
 "επαναμεταγλωττιστεί σε κάθε αλλαγή της διαμόρφωσης."
 
 #: C/autotools-build-configure-dialog.page:72(item/title)
-#| msgid "Configure Options"
 msgid "<gui>Configure Options</gui>"
 msgstr "<gui>Επιλογές διαμόρφωσης</gui>"
 
@@ -1687,9 +1649,6 @@ msgid "Configure the project"
 msgstr "Ρύθμιση του έργου"
 
 #: C/autotools-build-configure.page:34(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Configure Project...</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> "
 "<gui>Configure Project...</gui></guiseq>."
@@ -1726,9 +1685,6 @@ msgid "Change the configuration"
 msgstr "Αλλαγή ρύθμισης"
 
 #: C/autotools-build-configure.page:64(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Select "
-#| "Configuration</gui><gui>Another configuration</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Select "
 "Configuration</gui><gui>Another configuration</gui></guiseq>."
@@ -1757,9 +1713,6 @@ msgstr ""
 "Χρειάζεται η νέα ρύθμιση του έργου σας και η κατασκευή του κατόπιν."
 
 #: C/autotools-build-configure.page:88(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Remove "
-#| "Configuration</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Remove "
 "Configuration</gui></guiseq>."
@@ -1789,15 +1742,12 @@ msgstr ""
 "<cmd>make install</cmd>."
 
 #: C/autotools-build-distribute.page:30(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui><gui>Build "
-#| "Tarball</gui></guiseq> to create a source distribution package."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build "
 "Tarball</gui></guiseq> to create a source distribution package."
 msgstr ""
-"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>κατασκευή</gui> "
-"<gui>κατασκευή Tarball</gui></guiseq> για να δημιουργήσετε ένα πηγαίο πακέτο "
+"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>Κατασκευή</gui> "
+"<gui>Κατασκευή Tarball</gui></guiseq> για να δημιουργήσετε ένα πηγαίο πακέτο "
 "διανομής."
 
 #: C/autotools-build-install.page:11(info/desc)
@@ -1829,10 +1779,6 @@ msgid "There are several possibilities to install targets or a project."
 msgstr "Υπάρχουν πολλές δυνατότητες για εγκατάσταση στόχων ή έργου."
 
 #: C/autotools-build-install.page:33(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Install</gui></guiseq> to install all files in the same "
-#| "directory as the current edited file."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Install</"
 "gui></guiseq> to install all files in the same directory as the current "
@@ -1843,9 +1789,6 @@ msgstr ""
 "κατάλογο όπως το τρέχον επεξεργασμένο αρχείο."
 
 #: C/autotools-build-install.page:42(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Build</"
-#| "gui><gui>Install Project</gui></guiseq> to install all project files,"
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Install "
 "Project</gui></guiseq> to install all project files,"
@@ -1938,7 +1881,6 @@ msgid "Use to build all targets in a directory."
 msgstr "Χρησιμεύει στη κατασκευή όλων των στόχων σε κατάλογο."
 
 #: C/autotools-build-plugin.page:40(item/title)
-#| msgid "make install"
 msgid "<cmd>make install</cmd>"
 msgstr "<cmd>make install</cmd>"
 
@@ -1947,7 +1889,6 @@ msgid "Use to install all targets in a directory."
 msgstr "Χρησιμεύει στην εγκατάσταση όλων των στόχων σε κατάλογο."
 
 #: C/autotools-build-plugin.page:44(item/title)
-#| msgid "make clean"
 msgid "<cmd>make clean</cmd>"
 msgstr "<cmd>make clean</cmd>"
 
@@ -1956,7 +1897,6 @@ msgid "Use to delete all file built in a directory."
 msgstr "Χρησιμεύει στη διαγραφή όλων των κατασκευασμένων αρχείων σε κατάλογο."
 
 #: C/autotools-build-plugin.page:48(item/title)
-#| msgid "make dist"
 msgid "<cmd>make dist</cmd>"
 msgstr "<cmd>make dist</cmd>"
 
@@ -1990,7 +1930,6 @@ msgid "The dialog allows you to set global options for building files."
 msgstr "Ο διάλογος επιτρέπει τον ορισμό γενικών επιλογών κατασκευής αρχείων."
 
 #: C/autotools-build-preferences-dialog.page:27(item/title)
-#| msgid "Run several commands at a time"
 msgid "<gui>Run several commands at a time</gui>"
 msgstr "<gui>Ταυτόχρονη εκτέλεση πολλαπλών εντολών</gui>"
 
@@ -2006,7 +1945,6 @@ msgstr ""
 "το πλαίσιο ελέγχου."
 
 #: C/autotools-build-preferences-dialog.page:33(item/title)
-#| msgid "Continue on errors"
 msgid "<gui>Continue on errors</gui>"
 msgstr "<gui>Συνέχεια στα λάθη</gui>"
 
@@ -2022,7 +1960,6 @@ msgstr ""
 "συμπεριφοράς."
 
 #: C/autotools-build-preferences-dialog.page:39(item/title)
-#| msgid "Translate messages"
 msgid "<gui>Translate messages</gui>"
 msgstr "<gui>Μετάφραση μηνυμάτων</gui>"
 
@@ -2044,7 +1981,6 @@ msgstr ""
 "μετάφρασης."
 
 #: C/autotools-build-preferences-dialog.page:48(item/title)
-#| msgid "Highlight build warnings and errors in editor"
 msgid "<gui>Highlight build warnings and errors in editor</gui>"
 msgstr ""
 "<gui>Επισήμανση προειδοποιήσεων και σφαλμάτων κατασκευής επεξεργαστή</gui>"
@@ -2060,7 +1996,6 @@ msgstr ""
 "επεξεργαστή."
 
 #: C/autotools-build-preferences-dialog.page:54(item/title)
-#| msgid "Install as root"
 msgid "<gui>Install as root</gui>"
 msgstr "<gui>Εγκατάσταση ως υπερχρήστης</gui>"
 
@@ -2105,7 +2040,6 @@ msgid "<var>file_name</var>:<var>line_number</var>"
 msgstr "<var>ονομα_αρχειου</var>:<var>αριθμος_γραμμης</var>"
 
 #: C/debug-breakpoint-dialog.page:34(item/p)
-#| msgid "function_name"
 msgid "<var>function_name</var>"
 msgstr "<var>όνομα_συνάρτησης</var>"
 
@@ -2114,7 +2048,6 @@ msgid "<var>file_name</var>:<var>function_name</var>"
 msgstr "<var>ονομα_αρχειου</var>:<var>ονομα_συναρτησης</var>"
 
 #: C/debug-breakpoint-dialog.page:39(item/title)
-#| msgid "Condition"
 msgid "<gui>Condition</gui>"
 msgstr "<gui>Συνθήκη</gui>"
 
@@ -2140,7 +2073,6 @@ msgstr ""
 "Εάν αφήσετε αυτό το πεδίο κενό η συνθήκη θεωρείται πάντοτε <code>TRUE</code>."
 
 #: C/debug-breakpoint-dialog.page:49(item/title)
-#| msgid "Pass Count"
 msgid "<gui>Pass Count</gui>"
 msgstr "<gui>Αριθμός περασμάτων</gui>"
 
@@ -2187,10 +2119,6 @@ msgid "Listing breakpoints"
 msgstr "Λίστα σημείων διακοπής"
 
 #: C/debug-breakpoint.page:32(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-#| "gui><gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> "
-#| "window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
 "<gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> window."
@@ -2394,10 +2322,6 @@ msgid "Setting breakpoints"
 msgstr "Ορισμός σημείων διακοπής"
 
 #: C/debug-breakpoint.page:94(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
-#| "Breakpoint...</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
-#| "window and select <gui>Add Breakpoint...</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Add "
 "Breakpoint...</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
@@ -2432,10 +2356,6 @@ msgstr ""
 "αφαιρεθεί."
 
 #: C/debug-breakpoint.page:114(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Toggle "
-#| "Breakpoint</gui></guiseq> or right click in the <gui>Editor</gui> window "
-#| "and select <gui>Toggle Breakpoint</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Toggle "
 "Breakpoint</gui></guiseq> or right click in the <gui>Editor</gui> window and "
@@ -2512,10 +2432,6 @@ msgid "To remove all breakpoints:"
 msgstr "Για αφαίρεση όλων των σημείων διακοπής:"
 
 #: C/debug-breakpoint.page:173(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Remove "
-#| "All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</"
-#| "gui> window and select <gui>Remove All Breakpoints</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Remove "
 "All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
@@ -2555,11 +2471,6 @@ msgid "You can disable all breakpoints using:"
 msgstr "Μπορείτε να απενεργοποιήσετε όλα τα σημεία διακοπής χρησιμοποιώντας:"
 
 #: C/debug-breakpoint.page:201(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
-#| "gui><gui>Disable All Breakpoints</gui></guiseq> or right-click in the "
-#| "<gui>Breakpoint</gui> window and select <gui>Disable All Breakpoints</"
-#| "gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Disable "
 "All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
@@ -2585,9 +2496,6 @@ msgid "View CPU registers"
 msgstr "Προβολή καταχωριστών CPU"
 
 #: C/debug-cpu.page:29(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-#| "gui><gui>Registers</gui></guiseq> to open the <gui>Register</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
 "<gui>Registers</gui></guiseq> to open the <gui>Register</gui> window."
@@ -2611,9 +2519,6 @@ msgid "View memory"
 msgstr "Προβολή μνήμης"
 
 #: C/debug-cpu.page:46(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Memory</"
-#| "gui></guiseq> to open the <gui>Memory</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Memory</"
 "gui></guiseq> to open the <gui>Memory</gui> window."
@@ -2650,10 +2555,6 @@ msgid "View Disassembly"
 msgstr "Προβολή αποσυμβολομετάφρασης"
 
 #: C/debug-cpu.page:69(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-#| "gui><gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> "
-#| "window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
 "<gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> window."
@@ -2670,7 +2571,7 @@ msgid ""
 msgstr ""
 "Η πρώτη στήλη περιέχει τις διευθύνσεις σε δεκαεξαδική μορφή. Στη δεύτερη "
 "στήλη, μπορεί να έχετε μια ετικέτα που ξεκινάει στην αρχή της γραμμής και "
-"τελειώνει σε άνω κάτω τελεία (:) ή μία εντολή συμβολομεταφραστή με εσοχές "
+"τελειώνει σε διπλή τελεία (:) ή μία εντολή συμβολομεταφραστή με εσοχές "
 "αποτελούμενες από 4 χαρακτήρες διαστημάτων."
 
 #: C/debug-cpu.page:79(section/p)
@@ -2695,9 +2596,6 @@ msgstr ""
 "Μπορείτε να στείλετε μια προσαρμοσμένη εντολή στον αποσφαλματωτή όπως αυτή:"
 
 #: C/debug-custom.page:28(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
-#| "gui><gui>Debugger Command</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Debugger "
 "Command</gui></guiseq>."
@@ -2768,10 +2666,6 @@ msgstr ""
 "αλλάζετε την τιμή μιας μεταβλητής."
 
 #: C/debug-expression.page:33(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
-#| "gui><gui>Inspect/Evaluate...</gui></guiseq> or right click in the "
-#| "<gui>Editor</gui> window and select <gui>Inspect/Evaluate...</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Inspect/"
 "Evaluate...</gui></guiseq> or right click in the <gui>Editor</gui> window "
@@ -2810,9 +2704,6 @@ msgid "View shared libraries"
 msgstr "Προβολή κοινόχρηστων βιβλιοθηκών"
 
 #: C/debug-information.page:32(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-#| "gui><gui>Shared Libraries</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Info</"
 "gui><gui>Shared Libraries</gui></guiseq>."
@@ -2835,9 +2726,6 @@ msgid "View signals"
 msgstr "Προβολή σημάτων"
 
 #: C/debug-information.page:48(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Info</"
-#| "gui><gui>Kernel signals</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Info</"
 "gui><gui>Kernel signals</gui></guiseq>."
@@ -2919,9 +2807,6 @@ msgid "Listing local variables"
 msgstr "Λίστα τοπικών μεταβλητών"
 
 #: C/debug-local.page:36(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Locals</"
-#| "gui></guiseq> to open the <gui>Locals</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Locals</"
 "gui></guiseq> to open the <gui>Locals</gui> window."
@@ -2990,7 +2875,6 @@ msgstr ""
 "προς το παρόν εκτελούμενης διεργασίας."
 
 #: C/debug-process-dialog.page:28(item/title)
-#| msgid "Hide paths"
 msgid "<gui>Hide paths</gui>"
 msgstr "<gui>Απόκρυψη διαδρομών</gui>"
 
@@ -2999,7 +2883,6 @@ msgid "This hides command paths in the process list if checked."
 msgstr "Αυτό κρύβει την εντολή διαδρομές στη λίστα διεργασίας εάν σημειωθεί."
 
 #: C/debug-process-dialog.page:32(item/title)
-#| msgid "Hide process parameters"
 msgid "<gui>Hide process parameters</gui>"
 msgstr "<gui>Απόκρυψη παραμέτρων διεργασίας</gui>"
 
@@ -3010,7 +2893,6 @@ msgstr ""
 "σημειωθεί."
 
 #: C/debug-process-dialog.page:36(item/title)
-#| msgid "Display process tree"
 msgid "<gui>Display process tree</gui>"
 msgstr "<gui>Εμφάνιση δέντρου διεργασίας</gui>"
 
@@ -3046,10 +2928,6 @@ msgstr ""
 "εξής:"
 
 #: C/debug-run.page:35(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
-#| "Program</gui></guiseq> or press <keyseq><key>Shift</key><key>F12</key></"
-#| "keyseq>"
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
 "Program</gui></guiseq> or press <keyseq><key>Shift</key><key>F12</key></"
@@ -3087,10 +2965,6 @@ msgstr ""
 "Ο αποσφαλματωτής μπορεί να χρησιμοποιηθεί σε μια ήδη εκτελούμενη εφαρμογή."
 
 #: C/debug-run.page:58(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
-#| "Process...</gui></guiseq> to get a dialog listing all currently running "
-#| "processes."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
 "Process...</gui></guiseq> to get a dialog listing all currently running "
@@ -3124,9 +2998,6 @@ msgstr ""
 "που εκτελείται σε άλλον υπολογιστή συνδεμένο μέσα από TCP ή σειριακή σύνδεση."
 
 #: C/debug-run.page:78(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Debug "
-#| "Remote...</gui></guiseq>"
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
 "Remote...</gui></guiseq>"
@@ -3177,9 +3048,6 @@ msgstr ""
 "αυτό:"
 
 #: C/debug-run.page:106(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Stop "
-#| "Debugger</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Stop "
 "Debugger</gui></guiseq>."
@@ -3224,9 +3092,6 @@ msgstr ""
 "μεταβλητές."
 
 #: C/debug-stack.page:38(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</gui><gui>Stack</"
-#| "gui></guiseq> to open the <gui>Stack</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Stack</"
 "gui></guiseq> to open the <gui>Stack</gui> window."
@@ -3388,10 +3253,6 @@ msgid "Step in"
 msgstr "Βήμα μέσα"
 
 #: C/debug-step.page:34(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
-#| "In</gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</"
-#| "gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step In</"
 "gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</gui> icon "
@@ -3429,10 +3290,6 @@ msgid "Step over"
 msgstr "Βήμα από πάνω"
 
 #: C/debug-step.page:59(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
-#| "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step "
-#| "Over</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step "
 "Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step Over</"
@@ -3467,10 +3324,6 @@ msgid "Step out"
 msgstr "Βήμα έξω"
 
 #: C/debug-step.page:82(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Step "
-#| "Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></"
-#| "keyseq> or click on the <gui>Step Out</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step "
 "Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> "
@@ -3493,10 +3346,6 @@ msgid "Run and continue"
 msgstr "Εκτέλεση και συνέχιση"
 
 #: C/debug-step.page:98(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run/"
-#| "Continue</gui></guiseq> or press <key>F4</key> or click on the "
-#| "<gui>Continue</gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Run/"
 "Continue</gui></guiseq> or press <key>F4</key> or click on the "
@@ -3519,10 +3368,6 @@ msgid "Run To"
 msgstr "Εκτέλεση ως"
 
 #: C/debug-step.page:113(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Run to "
-#| "Cursor</gui></guiseq> or press <key>F8</key> or click on the <gui>Run to</"
-#| "gui> icon in the toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Run to "
 "Cursor</gui></guiseq> or press <key>F8</key> or click on the <gui>Run to</"
@@ -3547,10 +3392,6 @@ msgid "Stopping the Program"
 msgstr "Διακοπή προγράμματος"
 
 #: C/debug-step.page:129(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Pause "
-#| "Program</gui></guiseq> or click on the <gui>Pause</gui> icon in the "
-#| "toolbar."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Pause "
 "Program</gui></guiseq> or click on the <gui>Pause</gui> icon in the toolbar."
@@ -3682,9 +3523,6 @@ msgid "List watched expressions"
 msgstr "Λίστα εποπτευόμενων εκφράσεων"
 
 #: C/debug-watch.page:34(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>View</"
-#| "gui><gui>Watches</gui></guiseq> to open the <gui>Watches</gui> window."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Watches</"
 "gui></guiseq> to open the <gui>Watches</gui> window."
@@ -3772,10 +3610,6 @@ msgid "To add an expression to the watch list:"
 msgstr "Προσθήκη έκφρασης στη λίστα εποπτείας:"
 
 #: C/debug-watch.page:103(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui><gui>Add "
-#| "Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click "
-#| "and select <gui>Add Watch...</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Add "
 "Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
@@ -3800,10 +3634,6 @@ msgstr ""
 "αυτό:"
 
 #: C/debug-watch.page:118(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Debug</"
-#| "gui><gui>Inspect/Evaluate</gui></guiseq> or right click in the "
-#| "<gui>Editor</gui> window and select <gui>Inspect/Evaluate</gui>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Inspect/"
 "Evaluate</gui></guiseq> or right click in the <gui>Editor</gui> window and "
@@ -3921,9 +3751,6 @@ msgstr "Ευρετήριο"
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/introduction.page:53(media)
-#| msgid ""
-#| "@@image: 'figures/anjuta-in-action.png'; "
-#| "md5=a31f1c85a4a14032fcd30ab6f6d6b3c0"
 msgctxt "_"
 msgid ""
 "external ref='figures/anjuta-in-action.png' "
@@ -4049,7 +3876,6 @@ msgid "Anjuta support only the following variables."
 msgstr "Το Anjuta υποστηρίζει μόνο τις επόμενες μεταβλητές."
 
 #: C/language-support-cpp-modelines-emacs.page:34(item/title)
-#| msgid "indent-tabs-mode"
 msgid "<code>indent-tabs-mode</code>"
 msgstr "<code>κατάσταση στηλοθετών εσοχής</code>"
 
@@ -4071,7 +3897,6 @@ msgid "Number of space characters corresponding to one tabulation character."
 msgstr "Αριθμός χαρακτήρων κενού που αντιστοιχούν σε χαρακτήρα στηλοθέτη."
 
 #: C/language-support-cpp-modelines-emacs.page:43(item/title)
-#| msgid "c-basic-offset"
 msgid "<code>c-basic-offset</code>"
 msgstr "<code>βασική αντιστάθμιση c</code>"
 
@@ -4114,7 +3939,6 @@ msgstr ""
 "/* vim: set noet ts=4 sw=4: */"
 
 #: C/language-support-cpp-modelines-vim.page:34(item/title)
-#| msgid "noexpandtab"
 msgid "<code>expandtab</code>"
 msgstr "<code>expandtab</code>"
 
@@ -4127,7 +3951,6 @@ msgid "Use spaces for indentation."
 msgstr "Χρήση κενών για εσοχές."
 
 #: C/language-support-cpp-modelines-vim.page:39(item/title)
-#| msgid "noexpandtab"
 msgid "<code>noexpandtab</code>"
 msgstr "<code>noexpandtab</code>"
 
@@ -4140,7 +3963,6 @@ msgid "Use tabulation for indentation."
 msgstr "Χρήση στηλοθετών για εσοχές."
 
 #: C/language-support-cpp-modelines-vim.page:44(item/title)
-#| msgid "softtabstop"
 msgid "<code>softtabstop</code>"
 msgstr "<code>softtabstop</code>"
 
@@ -4157,7 +3979,6 @@ msgid "<code>ts</code>"
 msgstr "<code>ts</code>"
 
 #: C/language-support-cpp-modelines-vim.page:51(item/title)
-#| msgid "shiftwidth"
 msgid "<code>shiftwidth</code>"
 msgstr "<code>shiftwidth</code>"
 
@@ -4252,11 +4073,6 @@ msgstr ""
 "κανένα αρχείο έργου."
 
 #: C/project-import.page:38(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
-#| "gui><gui>Project from Existing Sources</gui></guiseq> or <gui>Project "
-#| "from Existing Sources</gui> from the drop-down list of the <gui>New</gui> "
-#| "button in the <gui>top tool bar</gui> to start the project wizard."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>File</gui> <gui>New</"
 "gui><gui>Project from Existing Sources</gui></guiseq> or <gui>Project from "
@@ -4341,9 +4157,6 @@ msgstr ""
 "ομάδας</gui>."
 
 #: C/project-manager-folder-add.page:29(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Group</gui></guiseq>."
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
 "Group</gui></guiseq>."
@@ -4456,11 +4269,6 @@ msgstr ""
 
 #: C/project-manager-library-add.page:41(item/p)
 #: C/project-manager-library-add.page:65(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Properties</gui></guiseq>. By default, it edits the properties "
-#| "of the currently selected item in the project view. You can select a "
-#| "different item in the drop-down list button."
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> "
 "<gui>Properties</gui></guiseq>. By default, it edits the properties of the "
@@ -4575,70 +4383,11 @@ msgid "Add a set of libraries to a target."
 msgstr "Προσθήκη συνόλου βιβλιοθηκών σε στόχο."
 
 #: C/project-manager-module-add.page:23(page/title)
-msgid "Add a Module"
-msgstr "Προσθήκη αρθρώματος"
+#| msgid "Manage Libraries"
+msgid "Add packaged libraries"
+msgstr "Προσθήκη συσκευασμένων βιβλιοθηκών"
 
 #: C/project-manager-module-add.page:25(page/p)
-msgid ""
-"Packages cannot be added directly to a target. You need to put them into a "
-"module first and add this module to the target. See <link xref=\"project-"
-"manager-module-new\"/> to know how to do create a module."
-msgstr ""
-"Τα πακέτα δεν μπορούν να προστεθούν άμεσα σε στόχο. Πρέπει να τα βάλετε "
-"πρώτα σε ένα άρθρωμα και να προσθέσετε αυτό το άρθρωμα στον στόχο. Δείτε "
-"<link xref=\"project-manager-module-new\"/> για να μάθετε πώς να "
-"δημιουργήσετε ένα άρθρωμα."
-
-#: C/project-manager-module-add.page:31(item/p)
-msgid ""
-"Select the program where you want to add the new library in the <gui>project "
-"view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear and select <gui>Add Library</gui>."
-msgstr ""
-"Επιλέξτε το επιθυμητό πρόγραμμα για προσθήκη της νέας βιβλιοθήκης στην "
-"<gui>προβολή έργου</gui>, κλικ στο δεξί πλήκτρο του ποντικιού για την "
-"εμφάνιση του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε <gui>προσθήκη "
-"βιβλιοθήκης</gui>."
-
-#: C/project-manager-module-add.page:35(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Library...</gui></guiseq>."
-msgid ""
-"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
-"Library...</gui></guiseq>."
-msgstr ""
-"Ή από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>έργο</gui> "
-"<gui>προσθήκη βιβλιοθήκης...</gui></guiseq>."
-
-#: C/project-manager-module-add.page:39(item/p)
-msgid ""
-"You need to select the target where you want to add the module in the "
-"<gui>target button</gui> above, and select the module that you want to add "
-"in the <gui>module view</gui> below. If you select a library inside a "
-"module, the parent module will be added."
-msgstr ""
-"Πρέπει να επιλέξετε τον επιθυμητό στόχο για προσθήκη του αρθρώματος στο πάνω "
-"<gui>κουμπί στόχου</gui> και επιλέξτε το άρθρωμα που θέλετε να προσθέσετε "
-"στην παρακάτω <gui>προβολή αρθρώματος</gui>. Εάν επιλέξετε μια βιβλιοθήκη "
-"μέσα στο άρθρωμα, το γονικό άρθρωμα θα προστεθεί."
-
-#: C/project-manager-module-add.page:43(item/p)
-msgid ""
-"When you are done, click on the <gui>Add</gui> button to add the module."
-msgstr ""
-"Όταν τελειώσετε, κλικ στο κουμπί <gui>προσθήκη</gui> για να προσθέσετε το "
-"άρθρωμα."
-
-#: C/project-manager-module-new.page:11(info/desc)
-msgid "Create a set of libraries."
-msgstr "Δημιουργία συνόλου βιβλιοθηκών."
-
-#: C/project-manager-module-new.page:24(page/title)
-msgid "Create a Module"
-msgstr "Δημιουργία αρθρώματος"
-
-#: C/project-manager-module-new.page:26(page/p)
 msgid ""
 "On Linux, most libraries are distributed with additional data stored in a "
 "<app>pkg-config</app> file. This file contains information like the other "
@@ -4652,51 +4401,129 @@ msgstr ""
 "τις απαιτούμενες σημαίες σύνδεσης για αυτή τη βιβλιοθήκη. Αυτό το αρχείο, τα "
 "αρχεία κεφαλίδας και τα αρχεία βιβλιοθήκης τα ίδια λέγονται πακέτο."
 
-#: C/project-manager-module-new.page:32(page/p)
-msgid ""
-"<app>Anjuta</app> provides an simple interface to use such library. If the "
-"library you need is not one of these, check the <link xref=\"project-manager-"
-"library-add\">Add non-packaged libraries</link> page."
-msgstr ""
-"Το <app>Anjuta</app> παρέχει μια απλή διεπαφή για χρήση τέτοιας βιβλιοθήκης. "
-"Εάν η απαιτούμενη βιβλιοθήκη δεν είναι μία από αυτές, σημειώστε τη σελίδα "
-"<link xref=\"project-manager-library-add\">προσθήκη μη πακεταρισμένων "
-"βιβλιοθηκών</link>."
-
-#: C/project-manager-module-new.page:37(page/p)
-msgid ""
-"A package cannot be added directly to your program; you first need to create "
-"a module for it, which is just a group of packages."
-msgstr ""
-"Ένα πακέτο δεν μπορεί να προστεθεί άμεσα στο πρόγραμμά σας· χρειάζεται να "
-"δημιουργήσετε πρώτα ένα άρθρωμα για αυτό, που είναι απλά μια ομάδα πακέτων."
-
-#: C/project-manager-module-new.page:42(item/p)
+#: C/project-manager-module-add.page:33(item/p)
 msgid ""
 "Select the program where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear, and select <gui>Add Library</gui>. Then click on the "
-"<gui>New Library</gui> button on this dialog."
+"menu</gui> appear and select <gui>Add Library</gui>."
 msgstr ""
-"Επιλέξτε το επιθυμητό πρόγραμμα για προσθήκη στη νέα βιβλιοθήκη στην "
+"Επιλέξτε το επιθυμητό πρόγραμμα για προσθήκη της νέας βιβλιοθήκης στην "
 "<gui>προβολή έργου</gui>, κλικ στο δεξί πλήκτρο του ποντικιού για την "
 "εμφάνιση του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε <gui>προσθήκη "
-"βιβλιοθήκης</gui>. Έπειτα κλικ στο κουμπί <gui>νέα βιβλιοθήκη</gui> σε αυτό "
-"το διάλογο."
+"βιβλιοθήκης</gui>."
 
-#: C/project-manager-module-new.page:48(item/p)
-#: C/project-manager-package-add.page:33(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>New Library...</gui></guiseq>."
+#: C/project-manager-module-add.page:37(item/p)
+#: C/project-manager-module-new.page:35(item/p)
 msgid ""
-"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>New "
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
 "Library...</gui></guiseq>."
 msgstr ""
-"Ή από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>έργο</gui> <gui>νέα "
-"βιβλιοθήκη...</gui></guiseq>."
+"Ή από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>έργο</gui> "
+"<gui>προσθήκη βιβλιοθήκης...</gui></guiseq>."
 
-#: C/project-manager-module-new.page:52(item/p)
+#: C/project-manager-module-add.page:41(item/p)
+#| msgid ""
+#| "You can select another target in the top <gui>target chooser button</gui>."
+msgid ""
+"You need to select the target where you want to add the library in the "
+"<gui>target button</gui> above."
+msgstr ""
+"Μπορείτε να επιλέξτε τον προορισμό όπου θέλετε να προσθέσετε τη βιβλιοθήκη "
+"στο παραπάνω <gui>κουμπί προορισμού</gui>."
+
+#: C/project-manager-module-add.page:45(item/p)
+#| msgid ""
+#| "You need to select the target where you want to add the module in the "
+#| "<gui>target button</gui> above, and select the module that you want to "
+#| "add in the <gui>module view</gui> below. If you select a library inside a "
+#| "module, the parent module will be added."
+msgid ""
+"A library cannot be added directly to a target. You can add only a module "
+"displayed in the <gui>module view</gui> below. If you select a library "
+"inside a module, the parent module will be added."
+msgstr ""
+"Μια βιβλιοθήκη δεν μπορεί να προστεθεί άμεσα σε έναν προορισμό. Μπορείτε να "
+"πρόσθετε μόνο ένα εμφανιζόμενο άρθρωμα στην παρακάτω <gui>προβολή "
+"αρθρώματος</gui>. Εάν επιλέξετε μια βιβλιοθήκη μέσα στο άρθρωμα, το γονικό "
+"άρθρωμα θα προστεθεί."
+
+#: C/project-manager-module-add.page:50(item/p)
+msgid ""
+"If the library you want is not displayed in the <gui>module view</gui>, you "
+"need to add it as a module first. Click on the button <gui>New Library</gui> "
+"and follow the explanation <link xref=\"project-manager-module-new\">here</"
+"link>."
+msgstr ""
+"Εάν η βιβλιοθήκη που θέλετε δεν εμφανίζεται στην <gui>προβολή "
+"αρθρώματος</gui>, χρειάζεται να την προσθέσετε ως άρθρωμα πρώτα. Πατήστε στο "
+"κουμπί <gui>Νέα βιβλιοθήκη</gui> και ακολουθήστε την εξήγηση <link xref"
+"=\"project-manager-module-new\">εδώ</link>."
+
+#: C/project-manager-module-add.page:55(note/p)
+msgid ""
+"After creating a new module, you have to wait a few seconds while the "
+"project files are reloaded to see the new module in the list."
+msgstr ""
+"Μετά τη δημιουργία νέου αρθρώματος, πρέπει να περιμένετε λίγα δευτερόλεπτα, "
+"ενώ τα αρχεία του έργου ξαναφορτώνονται για να δείτε το νέο άρθρωμα στη "
+"λίστα."
+
+#: C/project-manager-module-add.page:60(item/p)
+#| msgid ""
+#| "When you are done, click on the <gui>Add</gui> button to add the module."
+msgid ""
+"When you are done, click on the <gui>Add</gui> button to add the selected "
+"module to the target."
+msgstr ""
+"Όταν τελειώσετε, πατήστε στο κουμπί <gui>Προσθήκη</gui> για να προσθέσετε το "
+"επιλεγμένο άρθρωμα στον προορισμό."
+
+#: C/project-manager-module-new.page:12(info/desc)
+#| msgid "Add a library in a module."
+msgid "Groups libraries in a module."
+msgstr "Ομάδες βιβλιοθηκών στο άρθρωμα."
+
+#: C/project-manager-module-new.page:25(page/title)
+msgid "Add a Module"
+msgstr "Προσθήκη αρθρώματος"
+
+#: C/project-manager-module-new.page:27(page/p)
+#| msgid ""
+#| "A package cannot be added directly to your program; you first need to "
+#| "create a module for it, which is just a group of packages."
+msgid ""
+"Packages cannot be added directly to a program but have to be grouped in a "
+"module."
+msgstr ""
+"Τα πακέτα δεν μπορούν να προστεθούν άμεσα σε ένα πρόγραμμα αλλά χρειάζεται "
+"να ομαδοποιηθούν σε ένα άρθρωμα."
+
+#: C/project-manager-module-new.page:32(item/p)
+#| msgid ""
+#| "Select the program where you want to add the new library in the "
+#| "<gui>project view</gui>, click on the right mouse button to make the "
+#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
+msgid ""
+"Select a program in the <gui>project view</gui>, click on the right mouse "
+"button to make the <gui>project context menu</gui> appear, and select "
+"<gui>Add Library</gui>."
+msgstr ""
+"Επιλέξτε ένα πρόγραμμα στην <gui>προβολή έργου</gui>, πατήστε το δεξί "
+"πλήκτρο του ποντικιού για την εμφάνιση του <gui>μενού περιεχομένου "
+"έργου</gui> και επιλέξτε <gui>Προσθήκη βιβλιοθήκης</gui>."
+
+#: C/project-manager-module-new.page:39(item/p)
+#| msgid ""
+#| "In the <gui>Stack</gui> window, right-click and select <gui>Get stack "
+#| "trace</gui>."
+msgid ""
+"On the <gui>Add Library</gui> dialog, click on the <gui>New Library</gui> "
+"button."
+msgstr ""
+"Στον διάλογο <gui>Προσθήκη βιβλιοθήκης</gui>, πατήστε στο κουμπί <gui>Νέα "
+"βιβλιοθήκη</gui>."
+
+#: C/project-manager-module-new.page:43(item/p)
 msgid ""
 "You will get a list of all the packaged libraries installed on your system. "
 "You can check one or more libraries."
@@ -4704,39 +4531,65 @@ msgstr ""
 "Θα πάρετε μια λίστα όλων των εγκατεστημένων πακεταρισμένων βιβλιοθηκών στο "
 "σύστημά σας. Μπορείτε να σημειώσετε μία ή περισσότερες βιβλιοθήκες."
 
-#: C/project-manager-module-new.page:55(note/p)
-msgid ""
-"If the library you want does not appear here, perhaps it is because it is "
-"not installed on your system. Launch the application you use to install new "
-"programs and search for the library name. The package you need often has a "
-"\"dev\" or \"devel\" suffix and should include header files and a <app>pkg-"
-"config</app> file with a <file>.pc</file> extension."
-msgstr ""
-"Εάν η επιθυμητή βιβλιοθήκη δεν εμφανίζεται εδώ, ίσως να μην είναι "
-"εγκατεστημένη στο σύστημά σας. Εκκινήστε την επιθυμητή εφαρμογή εγκατάστασης "
-"νέων προγραμμάτων και αναζητήστε το όνομα της βιβλιοθήκης. Το απαιτούμενο "
-"πακέτο έχει συχνά το επίθεμα \"dev\" ή \"devel\" και πρέπει να περιέχει "
-"αρχεία κεφαλίδας και ένα αρχείο <app>pkg-config</app> με μια επέκταση <file>."
-"pc</file>."
+#: C/project-manager-module-new.page:46(note/p)
+msgid "If the library you want does not appear here:"
+msgstr "Εάν η βιβλιοθήκη που θέλετε δεν εμφανίζεται εδώ:"
 
-#: C/project-manager-module-new.page:63(item/p)
+#: C/project-manager-module-new.page:49(item/p)
+#| msgid ""
+#| "If the library you want does not appear here, perhaps it is because it is "
+#| "not installed on your system. Launch the application you use to install "
+#| "new programs and search for the library name. The package you need often "
+#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
+#| "<app>pkg-config</app> file with a <file>.pc</file> extension."
+msgid ""
+"Perhaps it is not installed on your system. Launch the application you use "
+"to install new programs and search for the library name. The package you "
+"need often has a \"dev\" or \"devel\" suffix and should include header files "
+"and a <app>pkg-config</app> file with a <file>.pc</file> extension."
+msgstr ""
+"Ίσως δεν είναι εγκατεστημένη στο σύστημά σας. Ξεκινήστε την εφαρμογή που "
+"χρησιμοποιείτε για να εγκαταστήσετε νέα προγράμματα και αναζητήστε το όνομα "
+"της βιβλιοθήκης. Το απαιτούμενο πακέτο έχει συχνά το επίθεμα \"dev\" ή \"devel\" "
+"και πρέπει να περιέχει αρχεία κεφαλίδας και ένα αρχείο <app>pkg-"
+"config</app> με μια επέκταση <file>.pc</file>."
+
+#: C/project-manager-module-new.page:57(item/p)
+msgid ""
+"It could be that the library is not packaged, it is often the case for "
+"libraries not developped on Linux. See the chapter <link xref=\"project-"
+"manager-library-add\"/> explaining how to use them."
+msgstr ""
+"Μπορεί η βιβλιοθήκη να μην είναι συσκευασμένη, είναι συχνό για βιβλιοθήκες "
+"που δεν αναπτύχθηκαν σε Λίνουξ. Δείτε το κεφάλαιο <link xref=\"project-"
+"manager-library-add\"/> που εξηγεί πώς να τις χρησιμοποιήσετε."
+
+#: C/project-manager-module-new.page:66(item/p)
+#| msgid ""
+#| "After selecting one library, a module name will be automatically "
+#| "generated but you can change it. When you are done, click on the "
+#| "<gui>Add</gui> button to create the new module with the selected "
+#| "libraries."
 msgid ""
 "After selecting one library, a module name will be automatically generated "
-"but you can change it. When you are done, click on the <gui>Add</gui> button "
-"to create the new module with the selected libraries."
+"but you can change it. You can select an already existing module name to add "
+"a new library to it and to all targets already using it."
 msgstr ""
 "Μετά την επιλογή μιας βιβλιοθήκης, ένα όνομα αρθρώματος θα δημιουργηθεί "
-"αυτόματα, αλλά μπορείτε να το αλλάξετε. Όταν τελειώσετε, κλικ στο κουμπί "
-"<gui>προσθήκη</gui> για δημιουργία του νέου αρθρώματος με τις επιλεγμένες "
-"βιβλιοθήκες."
+"αυτόματα, αλλά μπορείτε να το αλλάξετε. Μπορείτε να επιλέξετε ένα ήδη "
+"υπάρχον όνομα αρθρώματος για να προσθέσετε μια νέα βιβλιοθήκη σε αυτό και σε "
+"όλους τους προορισμούς που το χρησιμοποιούν ήδη."
 
-#: C/project-manager-module-new.page:69(item/p)
+#: C/project-manager-module-new.page:72(item/p)
 msgid ""
-"Read the <link xref=\"project-manager-module-add\">next page</link> to find "
-"out how to add this new module to your target."
+"When you are done, click on the <gui>Add</gui> button to create the new "
+"module with the selected libraries. You need to add a new module to at least "
+"one target to really use it."
 msgstr ""
-"Διαβάστε το <link xref=\"project-manager-module-add\">επόμενη σελίδα</link> "
-"για να βρείτε πώς να προσθέσετε αυτό το νέο άρθρωμα στον στόχο σας."
+"Όταν τελειώσετε, πατήστε στο κουμπί <gui>Προσθήκη</gui> για τη δημιουργία "
+"του νέου αρθρώματος με τις επιλεγμένες βιβλιοθήκες. Χρειάζεται να προσθέσετε "
+"ένα νέο άρθρωμα σε τουλάχιστον έναν προορισμό για να το χρησιμοποιήσετε "
+"πραγματικά."
 
 #: C/project-manager-module-remove.page:10(info/desc)
 msgid "Remove a set of libraries from a target."
@@ -4760,44 +4613,6 @@ msgstr ""
 msgid "Confirm the removal. This library will be removed from the target."
 msgstr ""
 "Επιβεβαιώστε την αφαίρεση. Αυτή η βιβλιοθήκη θα αφαιρεθεί από το στόχο."
-
-#: C/project-manager-package-add.page:11(info/desc)
-msgid "Add a library in a module."
-msgstr "Προσθήκη βιβλιοθήκης στο άρθρωμα."
-
-#: C/project-manager-package-add.page:24(page/title)
-msgid "Add a Package"
-msgstr "Προσθήκη πακέτου"
-
-#: C/project-manager-package-add.page:28(item/p)
-msgid ""
-"Select the module where you want to add the new library in the <gui>project "
-"view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear and select <gui>New Library</gui>."
-msgstr ""
-"Επιλέξτε το επιθυμητό άρθρωμα για προσθήκη της νέας βιβλιοθήκης στην "
-"<gui>προβολή έργου</gui>, κλικ στο δεξί πλήκτρο του ποντικιού για την "
-"εμφάνιση του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε <gui>νέα "
-"βιβλιοθήκη</gui>."
-
-#: C/project-manager-package-add.page:37(item/p)
-msgid ""
-"In the list of all packaged libraries, check the additional libraries "
-"wanted. Check that expected module name is selected in the bottom text box. "
-"Then click on the <gui>Add</gui> button to update the module."
-msgstr ""
-"Στη λίστα όλων των πακεταρισμένων βιβλιοθηκών, ελέγξτε τις πρόσθετες "
-"επιθυμητές βιβλιοθήκες. Ελέγξτε ότι το αναμενόμενο όνομα αρθρώματος "
-"επιλέχτηκε στο πλαίσιο κειμένου πυθμένα. Έπειτα κλικ στο κουμπί "
-"<gui>προσθήκη</gui> για ενημέρωση του αρθρώματος."
-
-#: C/project-manager-package-add.page:43(item/p)
-msgid ""
-"Read the <link xref=\"project-manager-module-add\">next page</link> to find "
-"out how to add the module to your target."
-msgstr ""
-"Διαβάστε το <link xref=\"project-manager-module-add\">επόμενη σελίδα</link> "
-"για να βρείτε πώς να προσθέσετε το άρθρωμα στον στόχο σας."
 
 #: C/project-manager-package-remove.page:9(info/desc)
 msgid "Remove a library from a module."
@@ -4823,15 +4638,15 @@ msgid ""
 msgstr ""
 "Επιβεβαιώστε την αφαίρεση. Αυτό το πακέτο θα αφαιρεθεί από το αρχείο έργου."
 
-#: C/project-manager.page:7(info/desc)
+#: C/project-manager.page:8(info/desc)
 msgid "Project manager."
 msgstr "Διαχειριστής έργου."
 
-#: C/project-manager.page:20(page/title)
+#: C/project-manager.page:21(page/title)
 msgid "Project manager plugin"
 msgstr "Πρόσθετο διαχειριστή έργου"
 
-#: C/project-manager.page:22(page/p)
+#: C/project-manager.page:23(page/p)
 msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
@@ -4840,7 +4655,17 @@ msgstr ""
 "οπισθοφυλακών προσθέτου. Ο κύριος τύπος είναι η μορφή autotools κοινή στο "
 "Linux."
 
-#: C/project-manager.page:28(page/p)
+#: C/project-manager.page:29(page/p)
+msgid ""
+"The project backend to use is choosen when creating or importing a new "
+"project in <app>Anjuta</app>. It is displayed in the properties of the "
+"project root node and can be changed at any time."
+msgstr ""
+"Η υποστήριξη του έργου που χρησιμοποιείται επιλέγεται κατά τη δημιουργία ή "
+"εισαγωγή ενός νέου έργου στο <app>Anjuta</app>. Εμφανίζεται στις ιδιότητες "
+"του ριζικού κόμβου του έργου και μπορεί να αλλαχθεί οποτεδήποτε."
+
+#: C/project-manager.page:35(page/p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but "
 "some functions might be disabled."
@@ -4848,7 +4673,7 @@ msgstr ""
 "Με οποιαδήποτε την υποκείμενη οπισθοφυλακή, η γραφική διεπαφή είναι η ίδια "
 "αλλά μερικές λειτουργίες ίσως είναι ανενεργές."
 
-#: C/project-manager.page:34(section/title)
+#: C/project-manager.page:41(section/title)
 msgid "Project Backend Plugin"
 msgstr "Πρόσθετο οπισθοφυλακής έργου"
 
@@ -4881,9 +4706,6 @@ msgstr ""
 "αρχείου</gui>."
 
 #: C/project-manager-source-add.page:31(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>Add Source File...</gui></guiseq>"
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
 "Source File...</gui></guiseq>"
@@ -4995,9 +4817,6 @@ msgstr ""
 "του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε <gui>νέος στόχος</gui>."
 
 #: C/project-manager-target-add.page:34(item/p)
-#| msgid ""
-#| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
-#| "gui><gui>New Target...</gui></guiseq>."
 msgid ""
 "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>New "
 "Target...</gui></guiseq>."
@@ -5218,9 +5037,6 @@ msgstr ""
 "ποικίλες πληροφορίες, όπως τον τύπο του έργου, το όνομά του και άλλα."
 
 #: C/project-wizard-create.page:32(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>File</gui><gui>New</"
-#| "gui><gui>Project</gui></guiseq>."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>File</gui> <gui>New</"
 "gui><gui>Project</gui></guiseq>."
@@ -5365,7 +5181,6 @@ msgstr ""
 "<gui>περιήγηση</gui> να επιλέξετε οποιοδήποτε άλλο πρόγραμμα."
 
 #: C/run-parameters-dialog.page:34(item/title)
-#| msgid "Arguments"
 msgid "<gui>Arguments</gui>"
 msgstr "<gui>Ορίσματα</gui>"
 
@@ -5379,7 +5194,6 @@ msgstr ""
 "ορισμάτων."
 
 #: C/run-parameters-dialog.page:40(item/title)
-#| msgid "Working Directory"
 msgid "<gui>Working Directory</gui>"
 msgstr "<gui>Κατάλογος εργασίας</gui>"
 
@@ -5391,7 +5205,6 @@ msgstr ""
 "τρέξει."
 
 #: C/run-parameters-dialog.page:45(item/title)
-#| msgid "Environment Variables"
 msgid "<gui>Environment Variables</gui>"
 msgstr "<gui>Μεταβλητές περιβάλλοντος</gui>"
 
@@ -5438,7 +5251,6 @@ msgstr ""
 "εμφανίζεται μαύρη."
 
 #: C/run-parameters-dialog.page:60(item/title)
-#| msgid "Run in Terminal"
 msgid "<gui>Run in Terminal</gui>"
 msgstr "<gui>Εκτέλεση σε τερματικό</gui>"
 
@@ -5470,15 +5282,12 @@ msgstr ""
 "την ενημερότητα και το κατασκευάζει εάν χρειάζεται."
 
 #: C/run-run.page:31(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Run</"
-#| "gui></guiseq> or press <key>F3</key> to execute the current program."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Run</gui></"
 "guiseq> or press <key>F3</key> to execute the current program."
 msgstr ""
-"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>εκτέλεση</gui> "
-"<gui>εκτέλεση</gui></guiseq> ή πατήστε <key>F3</key> για εκτέλεση του "
+"Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>Εκτέλεση</gui> "
+"<gui>Εκτέλεση</gui></guiseq> ή πατήστε <key>F3</key> για εκτέλεση του "
 "τρέχοντος προγράμματος."
 
 #: C/run-run.page:37(page/p)
@@ -5491,9 +5300,6 @@ msgstr ""
 "περισσότερες πληροφορίες."
 
 #: C/run-run.page:42(item/p)
-#| msgid ""
-#| "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui><gui>Program "
-#| "Parameters...</gui></guiseq> to display the dialog."
 msgid ""
 "From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Program "
 "Parameters...</gui></guiseq> to display the dialog."
@@ -5518,6 +5324,91 @@ msgstr "Όλα τα παράθυρα και οι διάλογοι."
 #: C/widget-index.page:16(page/title)
 msgid "Windows and dialogs"
 msgstr "Παράθυρα και διάλογοι"
+
+#~ msgid ""
+#~ "Packages cannot be added directly to a target. You need to put them into "
+#~ "a module first and add this module to the target. See <link xref="
+#~ "\"project-manager-module-new\"/> to know how to do create a module."
+#~ msgstr ""
+#~ "Τα πακέτα δεν μπορούν να προστεθούν άμεσα σε στόχο. Πρέπει να τα βάλετε "
+#~ "πρώτα σε ένα άρθρωμα και να προσθέσετε αυτό το άρθρωμα στον στόχο. Δείτε "
+#~ "<link xref=\"project-manager-module-new\"/> για να μάθετε πώς να "
+#~ "δημιουργήσετε ένα άρθρωμα."
+
+#~ msgid "Create a set of libraries."
+#~ msgstr "Δημιουργία συνόλου βιβλιοθηκών."
+
+#~ msgid "Create a Module"
+#~ msgstr "Δημιουργία αρθρώματος"
+
+#~ msgid ""
+#~ "<app>Anjuta</app> provides an simple interface to use such library. If "
+#~ "the library you need is not one of these, check the <link xref=\"project-"
+#~ "manager-library-add\">Add non-packaged libraries</link> page."
+#~ msgstr ""
+#~ "Το <app>Anjuta</app> παρέχει μια απλή διεπαφή για χρήση τέτοιας "
+#~ "βιβλιοθήκης. Εάν η απαιτούμενη βιβλιοθήκη δεν είναι μία από αυτές, "
+#~ "σημειώστε τη σελίδα <link xref=\"project-manager-library-add\">προσθήκη "
+#~ "μη πακεταρισμένων βιβλιοθηκών</link>."
+
+#~ msgid ""
+#~ "Select the program where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear, and select <gui>Add Library</"
+#~ "gui>. Then click on the <gui>New Library</gui> button on this dialog."
+#~ msgstr ""
+#~ "Επιλέξτε το επιθυμητό πρόγραμμα για προσθήκη στη νέα βιβλιοθήκη στην "
+#~ "<gui>προβολή έργου</gui>, κλικ στο δεξί πλήκτρο του ποντικιού για την "
+#~ "εμφάνιση του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε "
+#~ "<gui>προσθήκη βιβλιοθήκης</gui>. Έπειτα κλικ στο κουμπί <gui>νέα "
+#~ "βιβλιοθήκη</gui> σε αυτό το διάλογο."
+
+#~| msgid ""
+#~| "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</"
+#~| "gui><gui>New Library...</gui></guiseq>."
+#~ msgid ""
+#~ "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> "
+#~ "<gui>New Library...</gui></guiseq>."
+#~ msgstr ""
+#~ "Ή από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>έργο</gui> "
+#~ "<gui>νέα βιβλιοθήκη...</gui></guiseq>."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add this new module to your target."
+#~ msgstr ""
+#~ "Διαβάστε το <link xref=\"project-manager-module-add\">επόμενη σελίδα</"
+#~ "link> για να βρείτε πώς να προσθέσετε αυτό το νέο άρθρωμα στον στόχο σας."
+
+#~ msgid "Add a Package"
+#~ msgstr "Προσθήκη πακέτου"
+
+#~ msgid ""
+#~ "Select the module where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear and select <gui>New Library</gui>."
+#~ msgstr ""
+#~ "Επιλέξτε το επιθυμητό άρθρωμα για προσθήκη της νέας βιβλιοθήκης στην "
+#~ "<gui>προβολή έργου</gui>, κλικ στο δεξί πλήκτρο του ποντικιού για την "
+#~ "εμφάνιση του <gui>μενού περιεχομένου έργου</gui> και επιλέξτε <gui>νέα "
+#~ "βιβλιοθήκη</gui>."
+
+#~ msgid ""
+#~ "In the list of all packaged libraries, check the additional libraries "
+#~ "wanted. Check that expected module name is selected in the bottom text "
+#~ "box. Then click on the <gui>Add</gui> button to update the module."
+#~ msgstr ""
+#~ "Στη λίστα όλων των πακεταρισμένων βιβλιοθηκών, ελέγξτε τις πρόσθετες "
+#~ "επιθυμητές βιβλιοθήκες. Ελέγξτε ότι το αναμενόμενο όνομα αρθρώματος "
+#~ "επιλέχτηκε στο πλαίσιο κειμένου πυθμένα. Έπειτα κλικ στο κουμπί "
+#~ "<gui>προσθήκη</gui> για ενημέρωση του αρθρώματος."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add the module to your target."
+#~ msgstr ""
+#~ "Διαβάστε το <link xref=\"project-manager-module-add\">επόμενη σελίδα</"
+#~ "link> για να βρείτε πώς να προσθέσετε το άρθρωμα στον στόχο σας."
 
 #~ msgid "seb.sfo@free.fr"
 #~ msgstr "seb.sfo@free.fr"
