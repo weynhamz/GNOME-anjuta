@@ -287,6 +287,12 @@ Dialogs and Windows should be build using libglade. They should be HIG compliant
 - All dialogs should be closable by 'ESC'
 - All dialogs should have default action.
 
+Glade catalog:
+Several Anjuta plugins, including the Subversion and Git plugins, among others,
+use custom widgets with a Glade catalog. To be able to edit glade files for these
+plugins, pass --enable-glade-catalog to configure to make sure that the glade
+catalog is installed. libgladeui development files must be installed.
+
 5) Property/Config management:
 ------------------------------
 

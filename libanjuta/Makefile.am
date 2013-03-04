@@ -137,12 +137,9 @@ libanjuta_3_la_SOURCES= \
 	anjuta-completion.c
 
 # Glade module
-if HAVE_PLUGIN_GLADE
+if ENABLE_GLADE_CATALOG
 
-# For now install in our own prefix
-# gladeanjutadir = @GLADE_PLUGINS_PATH@
-
-gladeanjutadir = $(libdir)/glade/modules
+gladeanjutadir = @GLADE_PLUGINS_PATH@
 
 gladeanjuta_LTLIBRARIES = libgladeanjuta.la
 libgladeanjuta_la_SOURCES = anjuta-glade-catalog.c
@@ -151,10 +148,8 @@ libgladeanjuta_la_LIBADD = \
 	libanjuta-3.la \
 	$(GLADE_LIBS)
 
-# For now install in our own prefix
-# catalogdir = @GLADE_CATALOG_PATH@
+catalogdir = @GLADE_CATALOG_PATH@
 
-catalogdir = $(datadir)/glade/catalogs
 catalog_DATA = anjuta-glade.xml
 
 endif

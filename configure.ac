@@ -234,6 +234,35 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$gladeui_found = xyes])
 
+dnl Glade catalog
+dnl ---------------------
+
+AC_ARG_ENABLE(glade-catalog,
+  AS_HELP_STRING([--enable-glade-catalog], [Enable glade catalog. Glade UI libraries must be installed]),
+  [ user_enabled_glade_catalog=1 ],
+  [ user_enabled_glade_catalog=0 ])
+
+glade_catalog_enabled="no"
+
+AC_MSG_CHECKING(if glade catalog is enabled)
+if test "$gladeui_found" = "yes"; then
+  if test "$user_enabled_glade_catalog" = 1; then
+    AC_MSG_RESULT(yes)
+    glade_catalog_enabled="yes"
+    GLADE_CATALOG_PATH=`pkg-config --variable=catalogdir gladeui-2.0`
+    GLADE_PLUGINS_PATH=`pkg-config --variable=moduledir gladeui-2.0`
+
+    AC_SUBST(GLADE_CATALOG_PATH)
+    AC_SUBST(GLADE_PLUGINS_PATH)
+  else
+    AC_MSG_RESULT(no) 
+  fi
+else
+  AC_MSG_RESULT(no)
+fi
+
+AM_CONDITIONAL(ENABLE_GLADE_CATALOG, [test x$glade_catalog_enabled = xyes])
+
 dnl Check for gtksourceview
 dnl -------------------------------------------------------------
 PKG_CHECK_MODULES(SOURCEVIEW,
@@ -359,13 +388,6 @@ GLIB_GENMARSHAL="`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`"
 AC_SUBST(GLIB_GENMARSHAL)
 GLIB_MKENUMS="`$PKG_CONFIG --variable=glib_mkenums glib-2.0`"
 AC_SUBST(GLIB_MKENUMS)
-
-dnl Set up Glade 3 catlog information
-dnl ---------------------
-GLADE_PLUGINS_PATH="`$PKG_CONFIG --variable=moduledir gladeui-1.0`"
-AC_SUBST(GLADE_PLUGINS_PATH)
-GLADE_CATALOG_PATH="`$PKG_CONFIG --variable=catalogdir gladeui-1.0`"
-AC_SUBST(GLADE_CATALOG_PATH)
 
 dnl ***************************************************************************
 dnl Internatinalization
