@@ -274,14 +274,14 @@ documentation in libanjuta.
 ----------------------------------------------
 
 Anjuta uses GtkUIManager for creating it's UI. Libanjuta does provide
-some wrapper functions in anjuta-ui.h. Take a look at the *.ui files in the 
+some wrapper functions in anjuta-ui.h. Take a look at the *.xml files in the 
 plugins, the Plugin docs in the reference and read the GtkUIManager docs for
 details.
 
 4) Dialogs and Windows:
 -----------------------
 
-Dialogs and Windows should be build using libglade. They should be HIG compliant
+Dialogs and Windows should be build using GtkBuilder. They should be HIG compliant
 (http://developer.gnome.org/projects/gup/hig/)
 
 - All dialogs should be closable by 'ESC'
