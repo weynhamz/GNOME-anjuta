@@ -27,39 +27,39 @@ struct _GitCreateTagPanePriv
 G_DEFINE_TYPE (GitCreateTagPane, git_create_tag_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
+on_ok_action_activated (GtkAction *action, GitCreateTagPane *self)
 {
 	Git *plugin;
-	GtkEntry *name_entry;
-	AnjutaEntry *revision_entry;
-	GtkToggleButton *force_check;
+	GtkEntry *tag_name_entry;
+	AnjutaEntry *tag_revision_entry;
+	GtkToggleAction *force_action;
 	GtkToggleButton *sign_check;
 	GtkToggleButton *annotate_check;
-	AnjutaColumnTextView *log_view;
+	AnjutaColumnTextView *tag_log_view;
 	gchar *name;
 	const gchar *revision;
 	gchar *log;
 	GitTagCreateCommand *create_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                "name_entry"));
-	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
-	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                         "force_check"));
+	tag_name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                            		"tag_name_entry"));
+	tag_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   		   "tag_revision_entry"));
+	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                         "force_action"));
 	sign_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                        "sign_check"));
 	annotate_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                            "annotate_check"));
-	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                            "log_view"));
-	name = gtk_editable_get_chars (GTK_EDITABLE (name_entry), 0, -1);
-	revision = anjuta_entry_get_text (revision_entry);
+	tag_log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                        	    "tag_log_view"));
+	name = gtk_editable_get_chars (GTK_EDITABLE (tag_name_entry), 0, -1);
+	revision = anjuta_entry_get_text (tag_revision_entry);
 	log = NULL;
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-	                           GTK_WIDGET (name_entry), name,
+	                           GTK_WIDGET (tag_name_entry), name,
 	                           _("Please enter a tag name.")))
 	{
 		g_free (name);
@@ -72,10 +72,10 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 
 	if (gtk_toggle_button_get_active (annotate_check))
 	{
-		log = anjuta_column_text_view_get_text (log_view);
+		log = anjuta_column_text_view_get_text (tag_log_view);
 
 		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-		                           GTK_WIDGET (log_view), log,
+		                           GTK_WIDGET (tag_log_view), log,
 		                           _("Please enter a log message.")))
 		{
 			g_free (name);
@@ -90,7 +90,7 @@ on_ok_button_clicked (GtkButton *button, GitCreateTagPane *self)
 	                                             revision,
 	                                             log,
 	                                             gtk_toggle_button_get_active (sign_check),
-	                                             gtk_toggle_button_get_active (force_check));
+	                                             gtk_toggle_action_get_active (force_action));
 
 	g_signal_connect (G_OBJECT (create_command), "command-finished",
 	                  G_CALLBACK (git_pane_report_errors),
@@ -132,13 +132,16 @@ static void
 git_create_tag_pane_init (GitCreateTagPane *self)
 {
 	gchar *objects[] = {"create_tag_pane",
+						"ok_action",
+						"cancel_action",
+						"force_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 	GtkWidget *annotate_check;
 	GtkWidget *sign_check;
-	GtkWidget *log_view;
+	GtkWidget *tag_log_view;
 	
 
 	self->priv = g_new0 (GitCreateTagPanePriv, 1);
@@ -152,28 +155,28 @@ git_create_tag_pane_init (GitCreateTagPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder, 
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder, 
+	                                                    "cancel_action"));
 	annotate_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "annotate_check"));
 	sign_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                 "sign_check"));
-	log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                               "log_view"));
+	tag_log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                                   "tag_log_view"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 
 	g_signal_connect (G_OBJECT (annotate_check), "toggled",
 	                  G_CALLBACK (set_widget_sensitive),
-	                  log_view);
+	                  tag_log_view);
 
 	g_signal_connect (G_OBJECT (sign_check), "toggled",
 	              	  G_CALLBACK (on_sign_check_toggled),

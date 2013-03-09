@@ -27,32 +27,32 @@ struct _GitMergePanePriv
 G_DEFINE_TYPE (GitMergePane, git_merge_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitMergePane *self)
+on_ok_action_activated (GtkAction *action, GitMergePane *self)
 {
 	Git *plugin;
-	GtkEditable *revision_entry;
-	GtkToggleButton *do_not_commit_check;
-	GtkToggleButton *squash_check;
+	GtkEditable *merge_revision_entry;
+	GtkToggleAction *no_commit_action;
+	GtkToggleAction *squash_action;
 	GtkToggleButton *use_custom_log_check;
 	gchar *revision;
 	gchar *log;
-	AnjutaColumnTextView *log_view;
+	AnjutaColumnTextView *merge_log_view;
 	GitMergeCommand *merge_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	revision_entry = GTK_EDITABLE (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
-	do_not_commit_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder, 
-	                                                                 "do_not_commit_check"));
-	squash_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                          "squash_check"));
+	merge_revision_entry = GTK_EDITABLE (gtk_builder_get_object (self->priv->builder,
+	                                                   			 "merge_revision_entry"));
+	no_commit_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder, 
+	                                                              "no_commit_action"));
+	squash_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                           "squash_action"));
 	use_custom_log_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                  "use_custom_log_check"));
-	revision = gtk_editable_get_chars (revision_entry, 0, -1);
+	revision = gtk_editable_get_chars (merge_revision_entry, 0, -1);
 	log = NULL;
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-	                           GTK_WIDGET (revision_entry), revision,
+	                           GTK_WIDGET (merge_revision_entry), revision,
 	                           _("Please enter a revision.")))
 	{
 		g_free (revision);
@@ -61,12 +61,12 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 
 	if (gtk_toggle_button_get_active (use_custom_log_check))
 	{
-		log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-		                                                            "log_view"));
-		log = anjuta_column_text_view_get_text (log_view);
+		merge_log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+		                                                        		  "merge_log_view"));
+		log = anjuta_column_text_view_get_text (merge_log_view);
 
 		if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-		                           GTK_WIDGET (log_view), log,
+		                           GTK_WIDGET (merge_log_view), log,
 		                           _("Please enter a log message.")))
 		{
 			g_free (revision);
@@ -77,8 +77,8 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 
 	merge_command = git_merge_command_new (plugin->project_root_directory, 
 	                                       revision, log,
-	                                       gtk_toggle_button_get_active (do_not_commit_check),
-	                                       gtk_toggle_button_get_active (squash_check));
+	                                       gtk_toggle_action_get_active (no_commit_action),
+	                                       gtk_toggle_action_get_active (squash_action));
 
 	g_free (revision);
 	g_free (log);
@@ -106,24 +106,28 @@ on_ok_button_clicked (GtkButton *button, GitMergePane *self)
 static void
 on_use_custom_log_check_toggled (GtkToggleButton *button, GitMergePane *self)
 {
-	GtkWidget *log_view;
+	GtkWidget *merge_log_view;
 	gboolean active;
 
-	log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                               "log_view"));
+	merge_log_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+	                                               "merge_log_view"));
 	active = gtk_toggle_button_get_active (button);
 
-	gtk_widget_set_sensitive (log_view, active);
+	gtk_widget_set_sensitive (merge_log_view, active);
 }
 
 static void
 git_merge_pane_init (GitMergePane *self)
 {
 	gchar *objects[] = {"merge_pane",
+						"ok_action",
+						"cancel_action",
+						"no_commit_action",
+						"squash_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 	GtkWidget *use_custom_log_check;
 
 	self->priv = g_new0 (GitMergePanePriv, 1);
@@ -137,18 +141,18 @@ git_merge_pane_init (GitMergePane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
 	use_custom_log_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                           "use_custom_log_check"));
+	                                                       	   "use_custom_log_check"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 

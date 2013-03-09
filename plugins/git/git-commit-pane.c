@@ -30,7 +30,7 @@ static void
 on_amend_check_toggled (GtkToggleButton *button, GitCommitPane *self)
 {
 	Git *plugin;
-	AnjutaColumnTextView *log_view;
+	AnjutaColumnTextView *commit_log_view;
 	GtkTextBuffer *log_text_buffer;
 	gchar *commit_message_path;
 	GIOChannel *io_channel;
@@ -38,9 +38,9 @@ on_amend_check_toggled (GtkToggleButton *button, GitCommitPane *self)
 	GtkTextIter end_iter;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                            "log_view"));
-	log_text_buffer = anjuta_column_text_view_get_buffer (log_view);
+	commit_log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                        		   "commit_log_view"));
+	log_text_buffer = anjuta_column_text_view_get_buffer (commit_log_view);
 
 	/* Make sure to clear any pre-existing text */
 	gtk_text_buffer_set_text (log_text_buffer, "", 0);
@@ -91,10 +91,10 @@ on_use_custom_author_info_check_toggled (GtkToggleButton *button,
 }
 
 static void
-on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
+on_ok_action_activated (GtkAction *action, GitCommitPane *self)
 {
 	Git *plugin;
-	AnjutaColumnTextView *log_view;
+	AnjutaColumnTextView *commit_log_view;
 	GtkToggleButton *amend_check;
 	GtkToggleButton *failed_merge_check;
 	GtkToggleButton *use_custom_author_info_check;
@@ -107,20 +107,20 @@ on_ok_button_clicked (GtkButton *button, GitCommitPane *self)
 	GitCommitCommand *commit_command;
 	
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE(self)));
-	log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
-	                                                            "log_view"));
+	commit_log_view = ANJUTA_COLUMN_TEXT_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                        		   "commit_log_view"));
 	amend_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                         "amend_check"));
 	failed_merge_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                "failed_merge_check"));
 	use_custom_author_info_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                          "use_custom_author_info_check"));
-	log = anjuta_column_text_view_get_text (log_view);
+	log = anjuta_column_text_view_get_text (commit_log_view);
 	author_name = NULL;
 	author_email = NULL;
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-							   GTK_WIDGET (log_view), log,
+							   GTK_WIDGET (commit_log_view), log,
 	                           _("Please enter a log message.")))
 	{
 		g_free (log);
@@ -199,12 +199,14 @@ static void
 git_commit_pane_init (GitCommitPane *self)
 {
 	gchar *objects[] = {"commit_pane",
+						"ok_action",
+						"cancel_action",
 						NULL};
 	GError *error = NULL;
 	GtkWidget *amend_check;
 	GtkWidget *use_custom_author_info_check;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitCommitPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -221,10 +223,10 @@ git_commit_pane_init (GitCommitPane *self)
 	                                                  "amend_check"));
 	use_custom_author_info_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                                   "use_custom_author_info_check"));
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
 
 	g_signal_connect (G_OBJECT (amend_check), "toggled",
 	                  G_CALLBACK (on_amend_check_toggled),
@@ -234,11 +236,11 @@ git_commit_pane_init (GitCommitPane *self)
 	                  G_CALLBACK (on_use_custom_author_info_check_toggled),
 	                  self);
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 	

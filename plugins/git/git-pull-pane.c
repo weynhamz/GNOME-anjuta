@@ -28,15 +28,15 @@ struct _GitPullPanePriv
 G_DEFINE_TYPE (GitPullPane, git_pull_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitPullPane *self)
+on_ok_action_activated (GtkAction *action, GitPullPane *self)
 {
 	Git *plugin;
 	GtkToggleButton *rebase_check;
-	GtkToggleButton *no_commit_check;
-	GtkToggleButton *squash_check;
+	GtkToggleAction *no_commit_action;
+	GtkToggleAction *squash_action;
 	GtkToggleButton *append_fetch_data_check;
 	GtkToggleButton *fast_forward_commit_check;
-	GtkToggleButton *force_check;
+	GtkToggleAction *force_action;
 	GtkToggleButton *no_follow_tags_check;
 	gchar *repository;
 	GitPullCommand *pull_command;
@@ -44,16 +44,16 @@ on_ok_button_clicked (GtkButton *button, GitPullPane *self)
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	rebase_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                          "rebase_check"));
-	no_commit_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                             "no_commit_check"));
-	squash_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                          "squash_check"));
+	no_commit_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                             "no_commit_action"));
+	squash_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                           "squash_action"));
 	append_fetch_data_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                     "append_fetch_data_check"));
 	fast_forward_commit_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                         "fast_forward_commit_check"));
-	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                         "force_check"));
+	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                          "force_action"));
 	no_follow_tags_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                                  "no_follow_tags_check"));
 
@@ -72,11 +72,11 @@ on_ok_button_clicked (GtkButton *button, GitPullPane *self)
 	pull_command = git_pull_command_new (plugin->project_root_directory,
 	                                     repository,
 	                                     gtk_toggle_button_get_active (rebase_check),
-	                                     gtk_toggle_button_get_active (no_commit_check),
-	                                     gtk_toggle_button_get_active (squash_check),
+	                                     gtk_toggle_action_get_active (no_commit_action),
+	                                     gtk_toggle_action_get_active (squash_action),
 	                                     gtk_toggle_button_get_active (append_fetch_data_check),
 	                                     gtk_toggle_button_get_active (fast_forward_commit_check),
-	                                     gtk_toggle_button_get_active (force_check),
+	                                     gtk_toggle_action_get_active (force_action),
 	                                     gtk_toggle_button_get_active (no_follow_tags_check));
 
 	g_free (repository);
@@ -120,15 +120,19 @@ static void
 git_pull_pane_init (GitPullPane *self)
 {
 	gchar *objects[] = {"pull_pane",
+						"ok_action",
+						"cancel_action",
+						"force_action",
+						"squash_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	GtkContainer *repository_alignment;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
+	GtkContainer *pull_repository_alignment;
 
 	self->priv = g_new0 (GitPullPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
-	
+
 	if (!gtk_builder_add_objects_from_file (self->priv->builder, BUILDER_FILE, 
 	                                        objects, 
 	                                        &error))
@@ -137,21 +141,21 @@ git_pull_pane_init (GitPullPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
-	repository_alignment = GTK_CONTAINER (gtk_builder_get_object (self->priv->builder,
-	                                                              "repository_alignment"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
+	pull_repository_alignment = GTK_CONTAINER (gtk_builder_get_object (self->priv->builder,
+	                                                                   "pull_repository_alignment"));
 	self->priv->repository_selector = git_repository_selector_new ();
 
-	gtk_container_add (repository_alignment, self->priv->repository_selector);
+	gtk_container_add (pull_repository_alignment, self->priv->repository_selector);
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

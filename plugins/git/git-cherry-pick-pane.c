@@ -27,29 +27,29 @@ struct _GitCherryPickPanePriv
 G_DEFINE_TYPE (GitCherryPickPane, git_cherry_pick_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitCherryPickPane *self)
+on_ok_action_activated (GtkAction *action, GitCherryPickPane *self)
 {
 	Git *plugin;
-	AnjutaEntry *revision_entry;
-	GtkToggleButton *no_commit_check;
+	AnjutaEntry *cherry_pick_revision_entry;
+	GtkToggleAction *no_commit_action;
 	GtkToggleButton *show_source_check;
-	GtkToggleButton *signoff_check;
+	GtkToggleAction *signoff_action;
 	gchar *revision;
 	GitCherryPickCommand *cherry_pick_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
-	no_commit_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                             "no_commit_check"));
+	cherry_pick_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   				   "revision_entry"));
+	no_commit_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                              "no_commit_action"));
 	show_source_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                               "show_source_check"));
-	signoff_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                           "signoff_check"));
-	revision = anjuta_entry_dup_text (revision_entry);
+	signoff_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                           "signoff_action"));
+	revision = anjuta_entry_dup_text (cherry_pick_revision_entry);
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-	                           GTK_WIDGET (revision_entry), revision,
+	                           GTK_WIDGET (cherry_pick_revision_entry), revision,
 	                           _("Please enter a revision.")))
 	{
 		g_free (revision);
@@ -58,9 +58,9 @@ on_ok_button_clicked (GtkButton *button, GitCherryPickPane *self)
 	
 	cherry_pick_command = git_cherry_pick_command_new (plugin->project_root_directory,
 	                                        		   revision,
-	                                                   gtk_toggle_button_get_active (no_commit_check),
+	                                                   gtk_toggle_action_get_active (no_commit_action),
 	                                                   gtk_toggle_button_get_active (show_source_check),
-	                                                   gtk_toggle_button_get_active (signoff_check));
+	                                                   gtk_toggle_action_get_active (signoff_action));
 
 	git_pane_create_message_view (plugin);
 
@@ -89,11 +89,14 @@ static void
 git_cherry_pick_pane_init (GitCherryPickPane *self)
 {
 	gchar *objects[] = {"cherry_pick_pane",
+						"ok_action",
+						"cancel_action",
+						"signoff_action",
+						"no_commit_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitCherryPickPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -106,16 +109,16 @@ git_cherry_pick_pane_init (GitCherryPickPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
-	
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
+
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

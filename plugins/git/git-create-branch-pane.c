@@ -27,27 +27,27 @@ struct _GitCreateBranchPanePriv
 G_DEFINE_TYPE (GitCreateBranchPane, git_create_branch_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
+on_ok_action_activated (GtkAction *action, GitCreateBranchPane *self)
 {
 	Git *plugin;
-	GtkEntry *name_entry;
-	AnjutaEntry *revision_entry;
+	GtkEntry *branch_name_entry;
+	AnjutaEntry *branch_revision_entry;
 	GtkToggleButton *checkout_check;
 	gchar *name;
 	const gchar *revision;
 	GitBranchCreateCommand *create_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                "name_entry"));
-	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
+	branch_name_entry = GTK_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                            		   "branch_name_entry"));
+	branch_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   			  "branch_revision_entry"));
 	checkout_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                            "checkout_check"));
-	name = gtk_editable_get_chars (GTK_EDITABLE (name_entry), 0, -1);
+	name = gtk_editable_get_chars (GTK_EDITABLE (branch_name_entry), 0, -1);
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-	                           GTK_WIDGET (name_entry), name,
+	                           GTK_WIDGET (branch_name_entry), name,
 	                           _("Please enter a branch name.")))
 	{
 		g_free (name);
@@ -55,7 +55,7 @@ on_ok_button_clicked (GtkButton *button, GitCreateBranchPane *self)
 		return;
 	}
 
-	revision = anjuta_entry_get_text (revision_entry);
+	revision = anjuta_entry_get_text (branch_revision_entry);
 
 	if (g_utf8_strlen (revision, -1) == 0)
 		revision = NULL;
@@ -86,10 +86,12 @@ static void
 git_create_branch_pane_init (GitCreateBranchPane *self)
 {
 	gchar *objects[] = {"create_branch_pane",
+						"ok_action",
+						"cancel_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitCreateBranchPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -102,16 +104,16 @@ git_create_branch_pane_init (GitCreateBranchPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

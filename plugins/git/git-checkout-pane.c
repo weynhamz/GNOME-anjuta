@@ -27,22 +27,22 @@ struct _GitCheckoutPanePriv
 G_DEFINE_TYPE (GitCheckoutPane, git_checkout_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitCheckoutPane *self)
+on_ok_action_activated (GtkAction *action, GitCheckoutPane *self)
 {
 	Git *plugin;
-	GtkToggleButton *force_check;
+	GtkToggleAction *force_action;
 	GList *paths;
 	GitCheckoutFilesCommand *checkout_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                         "force_check"));
+	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                          "force_action"));
 
 	paths = git_status_pane_get_selected_not_updated_items (GIT_STATUS_PANE (plugin->status_pane),
 	                                                        ANJUTA_VCS_STATUS_ALL);
 	checkout_command = git_checkout_files_command_new (plugin->project_root_directory,
 	                                                   paths,
-	                                                   gtk_toggle_button_get_active (force_check));
+	                                                   gtk_toggle_action_get_active (force_action));
 
 	anjuta_util_glist_strings_free (paths);
 
@@ -64,10 +64,13 @@ static void
 git_checkout_pane_init (GitCheckoutPane *self)
 {
 	gchar *objects[] = {"checkout_pane",
+						"ok_action",
+						"cancel_action",
+						"force_action",
 						NULL};
 	GError *error = NULL;
-	GtkButton *ok_button;
-	GtkButton *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitCheckoutPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -80,16 +83,16 @@ git_checkout_pane_init (GitCheckoutPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_BUTTON (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

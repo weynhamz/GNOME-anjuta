@@ -27,24 +27,24 @@ struct _GitPatchSeriesPanePriv
 G_DEFINE_TYPE (GitPatchSeriesPane, git_patch_series_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitPatchSeriesPane *self)
+on_ok_action_activated (GtkAction *action, GitPatchSeriesPane *self)
 {
 	Git *plugin;
-	AnjutaEntry *revision_entry;
+	AnjutaEntry *patch_series_revision_entry;
 	GtkFileChooser *folder_chooser_button;
-	GtkToggleButton *signoff_check;
+	GtkToggleAction *signoff_action;
 	const gchar *revision;
 	gchar *output_path;
 	GitFormatPatchCommand *format_patch_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
+	patch_series_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   					"revision_entry"));
 	folder_chooser_button = GTK_FILE_CHOOSER (gtk_builder_get_object (self->priv->builder,
 	                                                                  "folder_chooser_button"));
-	signoff_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                           "signoff_check"));
-	revision = anjuta_entry_get_text (revision_entry);
+	signoff_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                            "signoff_action"));
+	revision = anjuta_entry_get_text (patch_series_revision_entry);
 
 	if (g_utf8_strlen (revision, -1) == 0)
 		revision = "origin";
@@ -54,7 +54,7 @@ on_ok_button_clicked (GtkButton *button, GitPatchSeriesPane *self)
 	format_patch_command = git_format_patch_command_new (plugin->project_root_directory,
 	                                                     output_path,
 	                                                     revision,
-	                                                     gtk_toggle_button_get_active (signoff_check));
+	                                                     gtk_toggle_action_get_active (signoff_action));
 	
 	git_pane_create_message_view (plugin);
 
@@ -83,11 +83,13 @@ static void
 git_patch_series_pane_init (GitPatchSeriesPane *self)
 {
 	gchar *objects[] = {"patch_series_pane",
+						"ok_action",
+						"cancel_action",
+						"signoff_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitPatchSeriesPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -100,16 +102,16 @@ git_patch_series_pane_init (GitPatchSeriesPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
-	
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
+
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

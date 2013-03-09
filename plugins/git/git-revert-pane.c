@@ -27,7 +27,7 @@ struct _GitRevertPanePriv
 G_DEFINE_TYPE (GitRevertPane, git_revert_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitRevertPane *self)
+on_ok_action_activated (GtkAction *action, GitRevertPane *self)
 {
 	Git *plugin;
 	AnjutaEntry *commit_entry;
@@ -78,11 +78,12 @@ static void
 git_revert_pane_init (GitRevertPane *self)
 {
 	gchar *objects[] = {"revert_pane",
+						"ok_action",
+						"cancel_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitRevertPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -95,16 +96,16 @@ git_revert_pane_init (GitRevertPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
-	
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
+
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

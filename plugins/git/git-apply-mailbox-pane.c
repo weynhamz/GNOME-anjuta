@@ -27,24 +27,24 @@ struct _GitApplyMailboxPanePriv
 G_DEFINE_TYPE (GitApplyMailboxPane, git_apply_mailbox_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitApplyMailboxPane *self)
+on_ok_action_activated (GtkAction *action, GitApplyMailboxPane *self)
 {
 	Git *plugin;
 	AnjutaFileList *mailbox_list;
-	GtkToggleButton *signoff_check;
+	GtkToggleAction *signoff_action;
 	GList *paths;
 	GitApplyMailboxCommand *apply_mailbox_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	mailbox_list = ANJUTA_FILE_LIST (gtk_builder_get_object (self->priv->builder,
 	                                                         "mailbox_list"));
-	signoff_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                           "signoff_check"));
+	signoff_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                           "signoff_action"));
 	paths = anjuta_file_list_get_paths (mailbox_list);
 
 	apply_mailbox_command = git_apply_mailbox_command_new (plugin->project_root_directory,
 	                                                       paths,
-	                                                       gtk_toggle_button_get_active (signoff_check));
+	                                                       gtk_toggle_action_get_active (signoff_action));
 
 	git_pane_create_message_view (plugin);
 
@@ -73,11 +73,13 @@ static void
 git_apply_mailbox_pane_init (GitApplyMailboxPane *self)
 {
 	gchar *objects[] = {"apply_mailbox_pane",
+						"ok_action",
+						"cancel_action",
+						"signoff_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitApplyMailboxPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -90,16 +92,16 @@ git_apply_mailbox_pane_init (GitApplyMailboxPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
-	
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
+
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

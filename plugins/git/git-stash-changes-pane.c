@@ -27,7 +27,7 @@ struct _GitStashChangesPanePriv
 G_DEFINE_TYPE (GitStashChangesPane, git_stash_changes_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitStashChangesPane *self)
+on_ok_action_activated (GtkAction *action, GitStashChangesPane *self)
 {
 	Git *plugin;
 	AnjutaColumnTextView *message_view;
@@ -75,10 +75,12 @@ static void
 git_stash_changes_pane_init (GitStashChangesPane *self)
 {
 	gchar *objects[] = {"stash_changes_pane",
+						"ok_action",
+						"cancel_action",
 						NULL};
 	GError *error = NULL;
-	GtkButton *ok_button;
-	GtkButton *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitStashChangesPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -91,16 +93,16 @@ git_stash_changes_pane_init (GitStashChangesPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_BUTTON (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

@@ -54,14 +54,14 @@ get_selected_items (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter,
 }
 
 static void
-on_ok_button_clicked (GtkButton *button, GitPushPane *self)
+on_ok_action_activated (GtkAction *action, GitPushPane *self)
 {
 	Git *plugin;
 	GtkTreeModel *push_branch_model;
 	GtkTreeModel *push_tag_model;
 	GtkToggleButton *push_all_tags_check;
 	GtkToggleButton *push_all_check;
-	GtkToggleButton *force_check;
+	GtkToggleAction *force_action;
 	GList *selected_items;
 	gboolean push_all_tags;
 	gboolean push_all;
@@ -77,8 +77,8 @@ on_ok_button_clicked (GtkButton *button, GitPushPane *self)
 	                                                                 "push_all_tags_check"));
 	push_all_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                            "push_all_check"));
-	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                         "force_check"));
+	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                         "force_action"));
 	selected_items = NULL;
 	push_all_tags = gtk_toggle_button_get_active (push_all_tags_check);
 	push_all = gtk_toggle_button_get_active (push_all_check);
@@ -118,7 +118,7 @@ on_ok_button_clicked (GtkButton *button, GitPushPane *self)
 	push_command = git_push_command_new (plugin->project_root_directory, 
 	                                     repository, selected_items,
 	                                     push_all, push_all_tags,
-	                                     gtk_toggle_button_get_active (force_check));
+	                                     gtk_toggle_action_get_active (force_action));
 
 	g_free (repository);
 	anjuta_util_glist_strings_free (selected_items);
@@ -240,11 +240,14 @@ git_push_pane_init (GitPushPane *self)
 	gchar *objects[] = {"push_pane",
 						"push_branch_model",
 						"push_tag_model",
+						"ok_action",
+						"cancel_action",
+						"force_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
-	GtkContainer *repository_alignment;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
+	GtkContainer *push_repository_alignment;
 	GtkWidget *branches_view;
 	GtkWidget *tags_view;
 	GtkTreeModel *push_branch_model;
@@ -265,12 +268,12 @@ git_push_pane_init (GitPushPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
-	repository_alignment = GTK_CONTAINER (gtk_builder_get_object (self->priv->builder,
-	                                                              "repository_alignment"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                    "cancel_action"));
+	push_repository_alignment = GTK_CONTAINER (gtk_builder_get_object (self->priv->builder,
+	                                                                   "push_repository_alignment"));
 	self->priv->repository_selector = git_repository_selector_new ();
 	branches_view = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                    "branches_view"));
@@ -289,13 +292,13 @@ git_push_pane_init (GitPushPane *self)
 	push_all_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                     "push_all_check"));
 
-	gtk_container_add (repository_alignment, self->priv->repository_selector);
+	gtk_container_add (push_repository_alignment, self->priv->repository_selector);
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 

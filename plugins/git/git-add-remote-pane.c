@@ -27,7 +27,7 @@ struct _GitAddRemotePanePriv
 G_DEFINE_TYPE (GitAddRemotePane, git_add_remote_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitAddRemotePane *self)
+on_ok_action_activated (GtkAction *action, GitAddRemotePane *self)
 {
 	Git *plugin;
 	GtkEntry *name_entry;
@@ -96,10 +96,12 @@ static void
 git_add_remote_pane_init (GitAddRemotePane *self)
 {
 	gchar *objects[] = {"add_remote_pane",
+						"ok_action",
+						"cancel_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitAddRemotePanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -112,16 +114,16 @@ git_add_remote_pane_init (GitAddRemotePane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, 
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }

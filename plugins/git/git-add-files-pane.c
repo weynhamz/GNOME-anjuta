@@ -27,23 +27,23 @@ struct _GitAddFilesPanePriv
 G_DEFINE_TYPE (GitAddFilesPane, git_add_files_pane, GIT_TYPE_PANE);
 
 static void
-on_ok_button_clicked (GtkButton *button, GitAddFilesPane *self)
+on_ok_action_activated (GtkAction *action, GitAddFilesPane *self)
 {
 	Git *plugin;
-	AnjutaFileList *file_list;
-	GtkToggleButton *force_check;
+	AnjutaFileList *add_file_list;
+	GtkToggleAction *force_action;
 	GList *paths;
 	GitAddCommand *add_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	file_list = ANJUTA_FILE_LIST (gtk_builder_get_object (self->priv->builder,
-	                                                      "file_list"));
-	force_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                         "force_check"));
-	paths = anjuta_file_list_get_paths (file_list);
+	add_file_list = ANJUTA_FILE_LIST (gtk_builder_get_object (self->priv->builder,
+	                                                  		  "add_file_list"));
+	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                          "force_action"));
+	paths = anjuta_file_list_get_paths (add_file_list);
 	add_command = git_add_command_new_list (plugin->project_root_directory,
 	                                        paths,
-	                                        gtk_toggle_button_get_active (force_check));
+	                                        gtk_toggle_action_get_active (force_action));
 
 	anjuta_util_glist_strings_free (paths);
 
@@ -65,10 +65,13 @@ static void
 git_add_files_pane_init (GitAddFilesPane *self)
 {
 	gchar *objects[] = {"add_pane",
+						"ok_action",
+						"cancel_action",
+						"force_action",
 						NULL};
 	GError *error = NULL;
-	GtkWidget *ok_button;
-	GtkWidget *cancel_button;
+	GtkAction *ok_action;
+	GtkAction *cancel_action;
 
 	self->priv = g_new0 (GitAddFilesPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -81,16 +84,16 @@ git_add_files_pane_init (GitAddFilesPane *self)
 		g_error_free (error);
 	}
 
-	ok_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                "ok_button"));
-	cancel_button = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-	                                                    "cancel_button"));
+	ok_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "ok_action"));
+	cancel_action = GTK_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                "cancel_action"));
 
-	g_signal_connect (G_OBJECT (ok_button), "clicked",
-	                  G_CALLBACK (on_ok_button_clicked),
+	g_signal_connect (G_OBJECT (ok_action), "activate",
+	                  G_CALLBACK (on_ok_action_activated),
 	                  self);
 
-	g_signal_connect_swapped (G_OBJECT (cancel_button), "clicked",
+	g_signal_connect_swapped (G_OBJECT (cancel_action), "activate",
 	                          G_CALLBACK (git_pane_remove_from_dock),
 	                          self);
 }
