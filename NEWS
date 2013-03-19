@@ -1,3 +1,79 @@
+Anjuta 3.7.92 (March 19, 2013) -- James Liggett
+
+Ask H. Larsen (1):
+      Updated Danish translation
+
+Aurimas Černius (1):
+      Updated Lithuanian translation
+
+Balázs Úr (1):
+      Updated Hungarian translation
+
+Carl-Anton Ingmarsson (16):
+      sourceview: only update stored etag if save was succesful
+      libanjuta: keep a ref on the AnjutaAsyncCommand when its thread is run
+      git: use g_signal_connect_object() in GitLogCommand
+      git: use g_signal_connect_object() to connect to commands in GitLogPane
+      git: fix up memory management of log model
+      git: properly unset the log command in the case the command failed
+      file-manager: make file_view_show_extended_data() more robust
+      parser-cxx: use g_signal_connect_object() to connect to query signals
+      message-view: use g_type_class_add_private() to add private struct
+      sourceview: move all construction of Sourceview into constructed
+      sourceview: keep a separate reference to AnjutaShell in SourceviewIO
+      sourceview: only cancel open operations when closing editor
+      sourceview: add checks to SourceviewIO that the parent Sourceview is alive
+      sourceview: don't take extra refs during open/save
+      sourceview: use g_signal_connect_object() to connect to io signals
+      symbol-db: don't allow or set null scope_definition_id and scope_id.
+
+Christian Kirbach (2):
+      Updated German translation (fixed mismatched tags)
+      Updated German translation
+
+Daniel Mustieles (1):
+      Updated Spanish translation
+
+Dimitris Spingos (2):
+      Updated Greek translation
+      Updated Greek translation
+
+Duarte Loreto (1):
+      Updated Portuguese translation and converted to New Spelling (Novo AO)
+
+Enrico Nicoletto (1):
+      Updated Brazilian Portuguese translation
+
+Gheyret Kenji (1):
+      Updated Uyghur translation
+
+James Liggett (3):
+      git: Unset the log model view before refreshing the log
+      Make the glade catalog an optional feature
+      Update the HACKING file
+
+Kalev Lember (1):
+      Fix desktop file syntax errors
+
+Marek Černocký (2):
+      Fixed needlessly marked label for translation
+      Updated Czech translation
+
+Mario Blättermann (2):
+      [l10n] Updated German translation
+      [l10n] Updated German doc translation
+
+Matej Urbančič (1):
+      Updated Slovenian translation
+
+Sébastien Granjoux (3):
+      document-manager: Move common code in a function
+      document-manager: Highlight search text in background
+      document-manager: Allow to search starting from the current position
+
+Victor Ibragimov (1):
+      [l10n] Added Tadjik translation
+
 Anjuta 3.7.90 (February 18, 2013) -- James Liggett
 
 Anish A (1):
