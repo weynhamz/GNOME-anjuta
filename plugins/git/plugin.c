@@ -648,26 +648,10 @@ git_register_stock_icons (AnjutaPlugin *plugin)
 		END_REGISTER_ICON
 }
 
-static void
-on_dock_window_mapped (GtkWidget *dock_window, Git *plugin)
-{
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                             plugin->command_bar_window, NULL);
-}
-
-static void
-on_dock_window_unmapped (GtkWidget *dock_window, Git *plugin)
-{
-	anjuta_shell_hide_dockable_widget (ANJUTA_PLUGIN (plugin)->shell,
-	                                   plugin->command_bar_window, NULL);
-}
-
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
 	Git *git_plugin;
-	GtkWidget *command_bar_viewport;
-	GtkWidget *dock_viewport;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
@@ -678,51 +662,19 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	/* Command bar and dock */
 	git_plugin->command_bar = anjuta_command_bar_new ();
 	git_plugin->dock = anjuta_dock_new ();
-	command_bar_viewport = gtk_viewport_new (NULL, NULL);
-	dock_viewport = gtk_viewport_new (NULL, NULL);
-	git_plugin->command_bar_window = gtk_scrolled_window_new (NULL, NULL);
-	git_plugin->dock_window = gtk_scrolled_window_new (NULL, NULL);
 
-	gtk_container_add (GTK_CONTAINER (command_bar_viewport), 
-	                   git_plugin->command_bar);
-	gtk_container_add (GTK_CONTAINER (dock_viewport), git_plugin->dock);
-	gtk_container_add (GTK_CONTAINER (git_plugin->command_bar_window), 
-	                   command_bar_viewport);
-	gtk_container_add (GTK_CONTAINER (git_plugin->dock_window), dock_viewport);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (git_plugin->command_bar_window), 
-	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (git_plugin->dock_window),
-	                                GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (git_plugin->command_bar_window),
-	                                     GTK_SHADOW_NONE);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (git_plugin->dock_window),
-	                                     GTK_SHADOW_NONE);
-	gtk_viewport_set_shadow_type (GTK_VIEWPORT (command_bar_viewport), 
-	                              GTK_SHADOW_NONE);
-	gtk_viewport_set_shadow_type (GTK_VIEWPORT (dock_viewport), 
-	                              GTK_SHADOW_NONE);
+	git_plugin->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
+	gtk_box_pack_start (GTK_BOX (git_plugin->box), git_plugin->dock, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (git_plugin->box), git_plugin->command_bar, FALSE, FALSE, 0);
 	
 
 	anjuta_dock_set_command_bar (ANJUTA_DOCK (git_plugin->dock), 
 	                             ANJUTA_COMMAND_BAR (git_plugin->command_bar));
 
-	gtk_widget_show_all (git_plugin->command_bar_window);
-	anjuta_shell_add_widget (plugin->shell, git_plugin->command_bar_window, 
-	                         "GitCommandBar", _("Git Tasks"), "git-tasks",
-	                         ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-
-	gtk_widget_show_all (git_plugin->dock_window);
-	anjuta_shell_add_widget (plugin->shell, git_plugin->dock_window, "GitDock", 
+	gtk_widget_show_all (git_plugin->box);
+	anjuta_shell_add_widget (plugin->shell, git_plugin->box, "GitDock", 
 	                         _("Git"), "git-plugin", ANJUTA_SHELL_PLACEMENT_CENTER,
 	                         NULL);
-
-	g_signal_connect (G_OBJECT (git_plugin->dock_window), "map",
-	                  G_CALLBACK (on_dock_window_mapped),
-	                  git_plugin);
-
-	g_signal_connect (G_OBJECT (git_plugin->dock_window), "unmap",
-	                  G_CALLBACK (on_dock_window_unmapped),
-	                  git_plugin);
 
 	/* Create the branch list commands. There are two commands because some 
 	 * views need to be able to tell the difference between local and 
@@ -856,16 +808,7 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, git_plugin->editor_watch_id,
 								TRUE);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (git_plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_mapped),
-	                                      plugin);
-
-	g_signal_handlers_disconnect_by_func (G_OBJECT (git_plugin->dock_window),
-	                                      G_CALLBACK (on_dock_window_unmapped),
-	                                      plugin);
-
-	anjuta_shell_remove_widget (plugin->shell, git_plugin->command_bar_window, NULL);
-	anjuta_shell_remove_widget (plugin->shell, git_plugin->dock_window, NULL);
+	anjuta_shell_remove_widget (plugin->shell, git_plugin->box, NULL);
 
 	g_object_unref (git_plugin->local_branch_list_command);
 	g_object_unref (git_plugin->remote_branch_list_command);

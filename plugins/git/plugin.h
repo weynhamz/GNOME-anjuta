@@ -65,8 +65,7 @@ struct _Git
 
 	GtkWidget *command_bar;
 	GtkWidget *dock;
-	GtkWidget *command_bar_window;
-	GtkWidget *dock_window;
+	GtkWidget *box;
 
 	/* Dock panes */
 	AnjutaDockPane *status_pane;
