@@ -1,21 +1,21 @@
 SUBDIRS = images
 
+plugin_in_files = anjuta-glade.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
 if HAVE_PLUGIN_GLADE
 
 # Plugin glade file
 glade_gladedir = $(anjuta_glade_dir)
-glade_glade_DATA = anjuta-glade.ui
+dist_glade_glade_DATA = anjuta-glade.ui
 
 # Plugin UI file
 glade_uidir = $(anjuta_ui_dir)
-glade_ui_DATA = anjuta-glade.xml
+dist_glade_ui_DATA = anjuta-glade.xml
 
 # Plugin description file
-plugin_in_files = anjuta-glade.plugin.in
-%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
 glade_plugindir = $(anjuta_plugin_dir)
-glade_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_glade_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
@@ -44,11 +44,7 @@ libanjuta_glade_la_LIBADD = \
 endif
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(glade_plugin_DATA) \
-	$(glade_ui_DATA) \
-	$(glade_glade_DATA) \
-	$(glade_pixmaps_DATA)
+	$(plugin_in_files)
 
 
 -include $(top_srcdir)/git.mk
