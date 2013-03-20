@@ -5,15 +5,15 @@
 # Seongchong Park <lostinu@kaist.ac.kr>, 2004
 #           by Takeshi Aihana <aihana@gnome.gr.jp>, 2001-2003.
 # Namhyung Kim <namhyung@gmail.com>, 2007
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012.
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2012-09-16 11:41+0000\n"
-"PO-Revision-Date: 2012-08-28 18:08+0900\n"
+"POT-Creation-Date: 2013-03-19 23:20+0000\n"
+"PO-Revision-Date: 2013-03-20 16:41+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -21,8 +21,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.5\n"
 
-#: ../anjuta.desktop.in.in.h:1 ../src/main.c:181
+#: ../anjuta.desktop.in.in.h:1 ../src/main.c:50
 msgid "Anjuta"
 msgstr "안주타"
 
@@ -33,6 +34,10 @@ msgstr "통합 개발 환경"
 #: ../anjuta.desktop.in.in.h:3
 msgid "Develop software in an integrated development environment"
 msgstr "통합 개발 환경에서 프로그램을 개발하세요"
+
+#: ../anjuta.desktop.in.in.h:4
+msgid "IDE;development;programming;"
+msgstr "IDE;통합 개발 환경;development;개발;programming;프로그래밍;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
@@ -238,17 +243,16 @@ msgstr "타이어"
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: ../libanjuta/anjuta-entry.c:241
+#: ../libanjuta/anjuta-entry.c:237
 msgid "Help text"
 msgstr "도움말 본문"
 
-#: ../libanjuta/anjuta-entry.c:242
+#: ../libanjuta/anjuta-entry.c:238
 msgid "Text to show the user what to enter into the entry"
 msgstr "항목에 무엇을 입력해야 할 지 사용자에게 보여줄 본문입니다"
 
 #. Create all needed widgets
 #: ../libanjuta/anjuta-environment-editor.c:543
-#: ../plugins/run-program/anjuta-run-program.ui.h:7
 msgid "Environment Variables:"
 msgstr "환경 변수:"
 
@@ -259,9 +263,8 @@ msgstr "환경 변수:"
 #: ../plugins/class-gen/window.c:777 ../plugins/class-gen/window.c:785
 #: ../plugins/class-gen/window.c:793 ../plugins/class-gen/window.c:803
 #: ../plugins/class-gen/window.c:813 ../plugins/class-gen/window.c:825
-#: ../plugins/project-manager/dialogs.c:481
-#: ../plugins/run-program/parameters.c:754
-#: ../plugins/snippets-manager/plugin.c:762
+#: ../plugins/project-manager/dialogs.c:482
+#: ../plugins/snippets-manager/plugin.c:763
 #: ../plugins/snippets-manager/snippets-browser.c:533
 #: ../plugins/snippets-manager/snippets-editor.c:37
 msgid "Name"
@@ -271,8 +274,7 @@ msgstr "이름"
 #: ../plugins/class-gen/window.c:770 ../plugins/class-gen/window.c:786
 #: ../plugins/class-gen/window.c:817 ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/debug-manager/registers.c:469
-#: ../plugins/project-manager/dialogs.c:489
-#: ../plugins/run-program/parameters.c:763 ../plugins/tools/editor.c:476
+#: ../plugins/project-manager/dialogs.c:490 ../plugins/tools/editor.c:476
 msgid "Value"
 msgstr "값"
 
@@ -321,20 +323,20 @@ msgstr "\"%s\" 명령을 실행할 수 없습니다."
 msgid "execvp failed"
 msgstr "execvp 실패"
 
-#: ../libanjuta/anjuta-plugin.c:331 ../libanjuta/anjuta-plugin-manager.c:2379
+#: ../libanjuta/anjuta-plugin.c:319 ../libanjuta/anjuta-plugin-manager.c:2426
 msgid "Anjuta Shell"
 msgstr "안주타 쉘"
 
-#: ../libanjuta/anjuta-plugin.c:332
+#: ../libanjuta/anjuta-plugin.c:320
 msgid "Anjuta shell that will contain the plugin"
 msgstr "플러그인을 포함할 안주타 쉘"
 
-#: ../libanjuta/anjuta-plugin-manager.c:732
+#: ../libanjuta/anjuta-plugin-manager.c:711
 #, c-format
 msgid "Plugin '%s' does not want to be deactivated"
 msgstr "'%s' 플러그인을 비활성화 하려 하지 않습니다"
 
-#: ../libanjuta/anjuta-plugin-manager.c:763
+#: ../libanjuta/anjuta-plugin-manager.c:744
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -347,100 +349,99 @@ msgstr ""
 "같습니다:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:900
+#: ../libanjuta/anjuta-plugin-manager.c:882
 msgid "Load"
 msgstr "불러오기"
 
-#: ../libanjuta/anjuta-plugin-manager.c:923
-#: ../libanjuta/anjuta-plugin-manager.c:2002
+#: ../libanjuta/anjuta-plugin-manager.c:905
+#: ../libanjuta/anjuta-plugin-manager.c:2019
 msgid "Available Plugins"
 msgstr "사용 가능한 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1036 ../src/anjuta-app.c:937
+#: ../libanjuta/anjuta-plugin-manager.c:1021 ../src/anjuta-window.c:994
 msgid "Preferred plugins"
 msgstr "선호하는 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1171
+#: ../libanjuta/anjuta-plugin-manager.c:1156
 msgid "Only show user activatable plugins"
 msgstr "사용자가 활성화할 수 있는 플러그인만 표시"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1211
+#: ../libanjuta/anjuta-plugin-manager.c:1196
 msgid ""
-"These are the plugins selected by you when Anjuta prompted to choose one of "
-"many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
-"you again to choose different plugin."
+"These are the plugins selected by you when you have been prompted to choose "
+"one of many suitable plugins. Removing the preferred plugin will let you "
+"choose a different plugin."
 msgstr ""
-"안주타가 수 많은 적절한 플러그인들 가운데 한가지를 선택하라고 했을 때 여러분"
-"이 선택한 플러그인입니다. 이를 선호하는 플러그인에서 제거하면, 안주타가 다른 "
-"플러그인을 선택할 수 있도록 다시 물어볼 것입니다."
+"수많은 적당한 플러그인 중 여러분이 선택한 플러그인입니다. 적당한 플러그인을 "
+"제거하면 다른 플러그인을 선택하게끔 합니다."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1237
+#: ../libanjuta/anjuta-plugin-manager.c:1222
 msgid "Forget selected plugin"
 msgstr "선택한 플러그인 잊기"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1371
-#: ../libanjuta/anjuta-plugin-manager.c:1522 ../libanjuta/anjuta-profile.c:507
+#: ../libanjuta/anjuta-plugin-manager.c:1356
+#: ../libanjuta/anjuta-plugin-manager.c:1507 ../libanjuta/anjuta-profile.c:507
 #: ../plugins/debug-manager/queue.c:529
 msgid "Select a plugin"
 msgstr "플러그인 선택"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1372
+#: ../libanjuta/anjuta-plugin-manager.c:1357
 #: ../plugins/debug-manager/queue.c:530
 msgid "Please select a plugin to activate"
 msgstr "활성화 할 플러그인을 선택하세요"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1386
+#: ../libanjuta/anjuta-plugin-manager.c:1371
 #, c-format
 msgid "No plugin is able to load other plugins in %s"
 msgstr "%s 내에서 다른 플러그인을 불러올 수 있는 플러그인이 없습니다"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1523
+#: ../libanjuta/anjuta-plugin-manager.c:1508
 msgid "<b>Please select a plugin to activate</b>"
 msgstr "<b>활성화 할 플러그인을 선택하세요</b>"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2029
+#: ../libanjuta/anjuta-plugin-manager.c:2046
 msgid "Remember this selection"
 msgstr "이 선택을 기억"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2360
+#: ../libanjuta/anjuta-plugin-manager.c:2407
 msgid "Profiles"
 msgstr "프로파일"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2361
+#: ../libanjuta/anjuta-plugin-manager.c:2408
 msgid "Current stack of profiles"
 msgstr "프로파일의 현재 스택"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2366
+#: ../libanjuta/anjuta-plugin-manager.c:2413
 msgid "Available plugins"
 msgstr "사용 가능한 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2367
+#: ../libanjuta/anjuta-plugin-manager.c:2414
 msgid "Currently available plugins found in plugin paths"
 msgstr "플러그인 경로에서 검색한 현재 사용 가능한 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2373
+#: ../libanjuta/anjuta-plugin-manager.c:2420
 msgid "Activated plugins"
 msgstr "활성화된 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2374
+#: ../libanjuta/anjuta-plugin-manager.c:2421
 msgid "Currently activated plugins"
 msgstr "현재 활성화된 플러그인"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2380
+#: ../libanjuta/anjuta-plugin-manager.c:2427
 msgid "Anjuta shell for which the plugins are made"
 msgstr "플러그인을 만들기 위한 안주타 쉘"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2388
+#: ../libanjuta/anjuta-plugin-manager.c:2435
 msgid "Anjuta Status"
 msgstr "안주타 상태"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2389
+#: ../libanjuta/anjuta-plugin-manager.c:2436
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "플러그인 불러오기/해제시 사용할 안주타 상태"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-plugin-manager.c:2549
+#: ../libanjuta/anjuta-plugin-manager.c:2596
 msgid "Loading:"
 msgstr "불러오는 중:"
 
@@ -451,7 +452,7 @@ msgstr "분류"
 #. FIXME: Make the general page first
 #: ../libanjuta/anjuta-preferences-dialog.c:139
 #: ../libanjuta/anjuta-preferences-dialog.c:142
-#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-app.c:924
+#: ../plugins/mk-project/mk-project.ui.h:3 ../src/anjuta-window.c:981
 #: ../src/preferences.ui.h:9
 msgid "General"
 msgstr "일반"
@@ -529,7 +530,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "저장하지 않으면, 바뀐 내용은 전부 잃게 됩니다."
 
 #: ../libanjuta/anjuta-save-prompt.c:189
-#: ../plugins/document-manager/plugin.c:589
+#: ../plugins/document-manager/plugin.c:583
 #: ../plugins/snippets-manager/snippets-editor.ui.h:23
 msgid "Save"
 msgstr "저장"
@@ -548,21 +549,21 @@ msgid "There is %d item with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d items with unsaved changes. Save changes before closing?"
 msgstr[0] ""
-"%d개의 저장하지 않고 바뀐 내용이 있습니다. 닫기 전에 저장하시겠습니까?"
+"저장하지 않고 바꾼 내용 %d개가 있습니다. 닫기 전에 저장하시겠습니까?"
 
 #: ../libanjuta/anjuta-save-prompt.c:305
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "바뀐 내용이 있는 항목이 있습니다. 닫기 전에 저장하시겠습니까?"
 
-#: ../libanjuta/anjuta-tree-combo.c:1079
+#: ../libanjuta/anjuta-tree-combo.c:1092
 msgid "<Invalid>"
 msgstr "<잘못됨>"
 
-#: ../libanjuta/anjuta-tree-combo.c:1196
+#: ../libanjuta/anjuta-tree-combo.c:1209
 msgid "ComboBox model"
 msgstr "콤보 상자 모델"
 
-#: ../libanjuta/anjuta-tree-combo.c:1197
+#: ../libanjuta/anjuta-tree-combo.c:1210
 msgid "The model for the combo box"
 msgstr "콤보 상자에 대한 모델"
 
@@ -587,7 +588,7 @@ msgstr "바로 가기"
 msgid "System:"
 msgstr "시스템:"
 
-#: ../libanjuta/anjuta-utils.c:504
+#: ../libanjuta/anjuta-utils.c:507
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
@@ -595,14 +596,19 @@ msgid ""
 msgstr ""
 "PackageKit을 설치하지 않은 것 같습니다. 빠진 패키지를 설치하려면 PackageKit"
 "이 필요합니다. 여러분의 배포판에서 \"packagekit-gnome\" 패키지를 설치하시거"
-"나 빠진 패키지를 직접 설치해주시기 바랍니다."
+"나 빠진 패키지를 직접 설치하십시오."
 
-#: ../libanjuta/anjuta-utils.c:513
+#: ../libanjuta/anjuta-utils.c:516
 #, c-format
 msgid "Installation failed: %s"
 msgstr "설치 실패: %s"
 
-#: ../libanjuta/anjuta-utils.c:581
+#: ../libanjuta/anjuta-utils.c:577
+#, c-format
+msgid "Failed to run \"%s\". The returned error was: \"%s\"."
+msgstr "\"%s\" 실행에 실패했습니다. 반환한 오류는 다음과 같습니다: \"%s\"."
+
+#: ../libanjuta/anjuta-utils.c:591
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -611,7 +617,7 @@ msgstr ""
 "\"%s\" 패키지를 설치하지 않았습니다.\n"
 "설치하여 주십시오."
 
-#: ../libanjuta/anjuta-utils.c:599
+#: ../libanjuta/anjuta-utils.c:609
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -621,63 +627,63 @@ msgstr ""
 "설치 후, 안주타를 다시 시작하세요."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1170
+#: ../libanjuta/anjuta-utils.c:1180
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr "터미널을 찾을 수 없습니다; 동작하지 않는다면 xterm을 사용합니다"
 
-#: ../libanjuta/anjuta-utils.c:1205 ../libanjuta/anjuta-utils.c:1209
-#: ../libanjuta/anjuta-utils.c:1236 ../libanjuta/anjuta-utils.c:1240
+#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
+#: ../libanjuta/anjuta-utils.c:1246 ../libanjuta/anjuta-utils.c:1250
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "%s 명령을 실행할 수 없습니다. (%s 쉘 사용)\n"
 
-#: ../libanjuta/anjuta-utils.c:2351
+#: ../libanjuta/anjuta-utils.c:2381
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "사용자 인터페이스 파일을 불러올 수 없습니다: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:75 ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
 msgid "Modified"
 msgstr "수정함"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
 msgid "Added"
 msgstr "추가함"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:170
 msgid "Deleted"
 msgstr "지움"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:173
 msgid "Conflicted"
 msgstr "충돌"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:177
 msgid "Up-to-date"
 msgstr "최신"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:181
 msgid "Locked"
 msgstr "잠김"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:184
 msgid "Missing"
 msgstr "빠짐"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:187
 msgid "Unversioned"
 msgstr "버전 없음"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:191
 msgid "Ignored"
 msgstr "무시함"
 
@@ -691,22 +697,22 @@ msgstr "위젯을 찾을 수 없습니다: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "응용프로그램 pixmap 파일을 찾을 수 없습니다: %s"
 
-#: ../plugins/am-project/amp-group.c:622
+#: ../plugins/am-project/amp-group.c:627
 msgid "Please specify group name"
 msgstr "그룹 이름을 지정하여 주십시오"
 
-#: ../plugins/am-project/amp-group.c:636
+#: ../plugins/am-project/amp-group.c:641
 msgid ""
 "Group name can only contain alphanumeric or \"#$:%+,-.=@^_`~/\" characters"
 msgstr ""
 "그룹 이름에는 알파벳, 숫자 또는 \"#$:%+,-.=@^_`~/\" 문자만을 포함할 수 있습니"
 "다"
 
-#: ../plugins/am-project/amp-group.c:660
-#: ../plugins/am-project/am-project.c:1698
-#: ../plugins/am-project/am-project.c:1791
+#: ../plugins/am-project/amp-group.c:665
+#: ../plugins/am-project/am-project.c:1679
+#: ../plugins/am-project/am-project.c:1772
 #: ../plugins/dir-project/dir-project.c:723
-#: ../plugins/dir-project/dir-project.c:857
+#: ../plugins/dir-project/dir-project.c:856
 #: ../plugins/mk-project/mk-project.c:723
 #: ../plugins/mk-project/mk-project.c:800
 #: ../plugins/mk-project/mk-project.c:874
@@ -719,13 +725,13 @@ msgid "Root"
 msgstr "루트"
 
 #: ../plugins/am-project/am-project.c:98
-#: ../plugins/dir-project/dir-project.c:868
+#: ../plugins/dir-project/dir-project.c:867
 #: ../plugins/mk-project/mk-project.c:66
 msgid "Group"
 msgstr "그룹"
 
 #: ../plugins/am-project/am-project.c:106
-#: ../plugins/dir-project/dir-project.c:872
+#: ../plugins/dir-project/dir-project.c:871
 #: ../plugins/mk-project/mk-project.c:71
 msgid "Source"
 msgstr "소스"
@@ -788,11 +794,11 @@ msgstr "모듈"
 msgid "Package"
 msgstr "패키지"
 
-#: ../plugins/am-project/am-project.c:1728
+#: ../plugins/am-project/am-project.c:1709
 msgid "Unable to parse project file"
 msgstr "프로젝트 파일을 해석할 수 없습니다"
 
-#: ../plugins/am-project/am-project.c:1739
+#: ../plugins/am-project/am-project.c:1720
 #, c-format
 msgid "Project doesn't exist or has an invalid path"
 msgstr "프로젝트가 존재하지 않거나 잘못된 경로를 포함했습니다"
@@ -807,7 +813,7 @@ msgstr "프로젝트 관리자에 대한 새로운 Autotools 백엔드입니다"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:619
+#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:762
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -854,8 +860,8 @@ msgid ""
 "An email address or a link to a web page where the user can report bug. It "
 "is optional."
 msgstr ""
-"사용자가 버그를 보고할 수 있는 이메일 주소나 웹페이지 링크입니다. 선택적입니"
-"다."
+"사용자가 버그를 보고할 수 있는 전자메일 주소나 웹페이지 링크입니다. 선택적입"
+"니다."
 
 #: ../plugins/am-project/am-properties.c:76
 msgid "Package name:"
@@ -1251,8 +1257,8 @@ msgid ""
 "Do not rename the target with an optional prefix, used to avoid overwritting "
 "system program. "
 msgstr ""
-"시스템 프로그램을 덮어쓰는 것을 방지하기 위해, 선택적 접두어를 사용하여 타겟"
-"의 이름을 바꾸지 않습니다."
+"시스템 프로그램을 덮어쓰는 것을 방지하려면, 선택적 접두어를 사용하여 타겟의 "
+"이름을 바꾸지 않습니다."
 
 #: ../plugins/am-project/am-properties.c:483
 #: ../plugins/am-project/am-properties.c:658
@@ -1274,9 +1280,9 @@ msgid ""
 "program subdir/app installed in bin directory it will be installed in bin/"
 "subdir/app not in bin/app."
 msgstr ""
-"이 프로젝트를 설치하기 위해 상대 타겟 경로를 유지합니다. 예를 들어 subdir/"
-"app 프로그램을 bin 디렉터리에 설치했다면, bin/app이 아니라 bin/subdir/app에 "
-"설치합니다."
+"이 프로젝트를 설치하려면 상대 타겟 경로를 유지합니다. 예를 들어 subdir/app 프"
+"로그램을 bin 디렉터리에 설치했다면, bin/app이 아니라 bin/subdir/app에 설치합"
+"니다."
 
 #: ../plugins/am-project/am-properties.c:529
 #: ../plugins/am-project/am-properties.c:704
@@ -1300,29 +1306,29 @@ msgstr ""
 msgid "Source file must be a regular file, not a directory"
 msgstr "소스 파일은 디렉터리가 아닌 일반 파일이어야 합니다"
 
-#: ../plugins/am-project/amp-target.c:342
+#: ../plugins/am-project/amp-target.c:359
 msgid "Target parent is not a valid group"
 msgstr "상위 타겟은 유효한 그룹이 아닙니다"
 
-#: ../plugins/am-project/amp-target.c:352
+#: ../plugins/am-project/amp-target.c:369
 msgid "Please specify target name"
 msgstr "타겟 이름을 지정하여 주십시오"
 
-#: ../plugins/am-project/amp-target.c:366
+#: ../plugins/am-project/amp-target.c:383
 msgid ""
 "Target name can only contain alphanumeric, '_', '-', '/' or '.' characters"
 msgstr ""
 "타겟 이름은 영문자, 숫자, '_', '-', '/' 또는 '.' 문자만 포함할 수 있습니다"
 
-#: ../plugins/am-project/amp-target.c:381
+#: ../plugins/am-project/amp-target.c:398
 msgid "Shared library target name must be of the form 'libxxx.la'"
 msgstr "공유 라이브러리 대상 이름은 'libxxx.la'여야 합니다"
 
-#: ../plugins/am-project/amp-target.c:390
+#: ../plugins/am-project/amp-target.c:407
 msgid "Static library target name must be of the form 'libxxx.a'"
 msgstr "정적 라이브러리 대상 이름은 'libxxx.a'여야 합니다"
 
-#: ../plugins/am-project/amp-target.c:398
+#: ../plugins/am-project/amp-target.c:415
 msgid "Module target name must be of the form 'xxx.la'"
 msgstr "모듈 대상 이름은 'xxx.la' 모양새를 갖추고 있어야 합니다"
 
@@ -1356,69 +1362,64 @@ msgid "Configure Options:"
 msgstr "옵션 설정:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:5
-msgid "Select a build directory"
-msgstr "빌드 디렉터리 선택"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
 msgid "Build Directory:"
 msgstr "빌드 디렉터리:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
 msgid "Select Program"
 msgstr "프로그램 선택"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Arguments:"
 msgstr "인자:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Run in terminal"
 msgstr "터미널에서 실행"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Select Program to run:"
 msgstr "실행할 프로그램 선택:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "sudo"
 msgstr "sudo"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "su -c"
 msgstr "su -c"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 msgid "Run several commands at a time:"
 msgstr "한번에 명령어 실행:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
 msgid "Continue on errors"
 msgstr "오류를 건너뛰고 계속"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
 msgid "Translate messages"
 msgstr "메시지 번역"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Highlight build warnings and errors in editor"
 msgstr "편집기에서 빌드 경고와 오류 강조"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Build"
 msgstr "빌드"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Install as root:"
 msgstr "root로 설치:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:19
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
 msgid "Install"
 msgstr "설치"
 
-#. Need to run make clean before
-#: ../plugins/build-basic-autotools/build.c:526
+#: ../plugins/build-basic-autotools/build.c:527
 msgid ""
 "Before using this new configuration, the default one needs to be removed. Do "
 "you want to do that ?"
@@ -1426,23 +1427,27 @@ msgstr ""
 "새 설정을 사용하기 전에, 기본적으로 이전 것은 지워야 합니다. 이렇게 하시겠습"
 "니까?"
 
-#: ../plugins/build-basic-autotools/build.c:531
-#: ../plugins/build-basic-autotools/plugin.c:964
+#: ../plugins/build-basic-autotools/build.c:532
+#: ../plugins/build-basic-autotools/plugin.c:987
 #, c-format
 msgid "Command canceled by user"
 msgstr "사용자가 명령을 취소했습니다"
 
-#: ../plugins/build-basic-autotools/build.c:881
+#: ../plugins/build-basic-autotools/build.c:882
 #, c-format
 msgid "Cannot compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 "\"%s\"(을)를 컴파일할 수 없음: 이 파일 형식에 대해 정의한 컴파일 규칙이 없습"
 "니다."
 
-#: ../plugins/build-basic-autotools/build.c:1043
+#: ../plugins/build-basic-autotools/build.c:1050
 #, c-format
 msgid "Cannot configure project: Missing configure script in %s."
 msgstr "프로젝트를 설정할 수 없습니다: %s에 configure 스크립트가 빠졌습니다."
+
+#: ../plugins/build-basic-autotools/build-options.c:80
+msgid "Select a build directory inside the project directory"
+msgstr "프로젝트 디렉터리의 빌드 디렉터리를 선택하십시오"
 
 #: ../plugins/build-basic-autotools/configuration-list.c:70
 #: ../plugins/class-gen/window.c:742
@@ -1518,9 +1523,9 @@ msgid ""
 "\"sudo %s\" or \"su -c %q\"."
 msgstr ""
 "명령에 \"%s\" 또는 \"%q\"을(를) 포함했습니다. \"make install\"과 같은 파일을 "
-"설치할 때 사용할 명령으로 바뀔 것입니다. %q은(는) 따옴표로 둘러싼 명령으로 바"
-"꾸는데 반해 %s은(는) 그 어떤 내용도 바꾸지 않은 명령으로 바꿉니다. \"%\" 문자"
-"를 얻으려 %%를 사용할 수 있습니다. 보통 값은 \"sudo %s\" 또는 \"su -c %q\"이"
+"설치할 때 사용할 명령으로 바뀝니다. %q은(는) 따옴표로 둘러싼 명령으로 바꾸는"
+"데 반해 %s은(는) 그 어떤 내용도 바꾸지 않은 명령으로 바꿉니다. \"%\" 문자를 "
+"얻으려 %%를 사용할 수 있습니다. 보통 값은 \"sudo %s\" 또는 \"su -c %q\"이"
 "(가) 됩니다."
 
 #. The translations should match that of 'make' program. Both strings uses
@@ -1587,253 +1592,253 @@ msgstr "오류:"
 msgid "error:-old"
 msgstr "오류:-오래됨"
 
-#: ../plugins/build-basic-autotools/plugin.c:954
+#: ../plugins/build-basic-autotools/plugin.c:977
 #, c-format
 msgid "Command exited with status %d"
 msgstr "상태 %d(으)로 명령을 끝냈습니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:969
+#: ../plugins/build-basic-autotools/plugin.c:992
 #, c-format
 msgid "Command aborted by user"
 msgstr "사용자가 명령을 중단했습니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:974
+#: ../plugins/build-basic-autotools/plugin.c:997
 #, c-format
 msgid "Command terminated with signal %d"
 msgstr "시그널 %d(으)로 명령을 중지했습니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:982
+#: ../plugins/build-basic-autotools/plugin.c:1005
 msgid "Command terminated for an unknown reason"
 msgstr "알 수 없는 이유로 명령을 중지했습니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1000
+#: ../plugins/build-basic-autotools/plugin.c:1023
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "소요시간: %lu 초\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1007
+#: ../plugins/build-basic-autotools/plugin.c:1030
 msgid "Completed unsuccessfully\n"
 msgstr "비성공적으로 완료했습니다\n"
 
-#: ../plugins/build-basic-autotools/plugin.c:1015
+#: ../plugins/build-basic-autotools/plugin.c:1038
 #: ../plugins/tools/execute.c:516
 msgid "Completed successfully\n"
 msgstr "성공적으로 완료했습니다\n"
 
 #. Translators: the first number is the number of the build attemp,
 #. the string is the directory where the build takes place
-#: ../plugins/build-basic-autotools/plugin.c:1097
+#: ../plugins/build-basic-autotools/plugin.c:1120
 #, c-format
 msgid "Build %d: %s"
 msgstr "빌드 %d: %s"
 
-#: ../plugins/build-basic-autotools/plugin.c:1665
-#: ../plugins/build-basic-autotools/plugin.c:1751
-#: ../plugins/build-basic-autotools/plugin.c:1761
-#: ../plugins/build-basic-autotools/plugin.c:1779
-#: ../plugins/build-basic-autotools/plugin.c:1789
-#: ../plugins/build-basic-autotools/plugin.c:1871
+#: ../plugins/build-basic-autotools/plugin.c:1691
+#: ../plugins/build-basic-autotools/plugin.c:1777
+#: ../plugins/build-basic-autotools/plugin.c:1787
+#: ../plugins/build-basic-autotools/plugin.c:1805
+#: ../plugins/build-basic-autotools/plugin.c:1815
+#: ../plugins/build-basic-autotools/plugin.c:1897
 #, c-format
 msgid "_Build"
 msgstr "빌드(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1669
+#: ../plugins/build-basic-autotools/plugin.c:1695
 msgid "_Build Project"
 msgstr "프로젝트 빌드(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1670
+#: ../plugins/build-basic-autotools/plugin.c:1696
 msgid "Build whole project"
 msgstr "전체 프로젝트 빌드"
 
-#: ../plugins/build-basic-autotools/plugin.c:1675
+#: ../plugins/build-basic-autotools/plugin.c:1701
 msgid "_Install Project"
 msgstr "프로젝트 설치(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1676
+#: ../plugins/build-basic-autotools/plugin.c:1702
 msgid "Install whole project"
 msgstr "전체 프로젝트 설치"
 
-#: ../plugins/build-basic-autotools/plugin.c:1681
+#: ../plugins/build-basic-autotools/plugin.c:1707
 msgid "_Check Project"
 msgstr "프로젝트 점검(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1682
+#: ../plugins/build-basic-autotools/plugin.c:1708
 msgid "Check whole project"
 msgstr "전체 프로젝트 점검"
 
-#: ../plugins/build-basic-autotools/plugin.c:1687
+#: ../plugins/build-basic-autotools/plugin.c:1713
 msgid "_Clean Project"
 msgstr "프로젝트 정리(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1688
+#: ../plugins/build-basic-autotools/plugin.c:1714
 msgid "Clean whole project"
 msgstr "전체 프로젝트 정리"
 
-#: ../plugins/build-basic-autotools/plugin.c:1693
+#: ../plugins/build-basic-autotools/plugin.c:1719
 msgid "C_onfigure Project…"
 msgstr "프로젝트 설정(_O)…"
 
-#: ../plugins/build-basic-autotools/plugin.c:1694
+#: ../plugins/build-basic-autotools/plugin.c:1720
 msgid "Configure project"
 msgstr "configure 프로그램을 통해 프로젝트를 설정합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1699
+#: ../plugins/build-basic-autotools/plugin.c:1725
 msgid "Build _Tarball"
 msgstr "타르볼 빌드(_T)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1700
+#: ../plugins/build-basic-autotools/plugin.c:1726
 msgid "Build project tarball distribution"
 msgstr "프로젝트 타르볼 배포판을 빌드합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1705
+#: ../plugins/build-basic-autotools/plugin.c:1731
 msgid "_Build Module"
 msgstr "모듈 빌드(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1706
+#: ../plugins/build-basic-autotools/plugin.c:1732
 msgid "Build module associated with current file"
 msgstr "현재 파일과 연관된 모듈을 빌드합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1711
+#: ../plugins/build-basic-autotools/plugin.c:1737
 msgid "_Install Module"
 msgstr "모듈 설치(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1712
+#: ../plugins/build-basic-autotools/plugin.c:1738
 msgid "Install module associated with current file"
 msgstr "현재 파일과 연관된 모듈을 설치합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1717
+#: ../plugins/build-basic-autotools/plugin.c:1743
 msgid "_Check Module"
 msgstr "모듈 점검(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1718
+#: ../plugins/build-basic-autotools/plugin.c:1744
 msgid "Check module associated with current file"
 msgstr "현재 파일과 연관된 모듈을 점검합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1723
+#: ../plugins/build-basic-autotools/plugin.c:1749
 msgid "_Clean Module"
 msgstr "모듈 정리(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1724
+#: ../plugins/build-basic-autotools/plugin.c:1750
 msgid "Clean module associated with current file"
 msgstr "현재 파일과 연관된 모듈을 정리"
 
-#: ../plugins/build-basic-autotools/plugin.c:1729
+#: ../plugins/build-basic-autotools/plugin.c:1755
 msgid "Co_mpile File"
 msgstr "컴파일(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1730
+#: ../plugins/build-basic-autotools/plugin.c:1756
 msgid "Compile current editor file"
 msgstr "현재 편집기 내의 파일을 컴파일합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1735
+#: ../plugins/build-basic-autotools/plugin.c:1761
 msgid "Select Configuration"
 msgstr "설정 선택"
 
-#: ../plugins/build-basic-autotools/plugin.c:1736
+#: ../plugins/build-basic-autotools/plugin.c:1762
 msgid "Select current configuration"
 msgstr "현재 설정 선택"
 
-#: ../plugins/build-basic-autotools/plugin.c:1741
+#: ../plugins/build-basic-autotools/plugin.c:1767
 msgid "Remove Configuration"
 msgstr "설정 제거"
 
-#: ../plugins/build-basic-autotools/plugin.c:1742
+#: ../plugins/build-basic-autotools/plugin.c:1768
 msgid ""
 "Clean project (distclean) and remove configuration directory if possible"
 msgstr "프로젝트를 정리(distclean)하고 가능하다면 설정 디렉터리를 제거합니다"
 
-#: ../plugins/build-basic-autotools/plugin.c:1755
-#: ../plugins/build-basic-autotools/plugin.c:1783
+#: ../plugins/build-basic-autotools/plugin.c:1781
+#: ../plugins/build-basic-autotools/plugin.c:1809
 msgid "_Compile"
 msgstr "컴파일(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1756
-#: ../plugins/build-basic-autotools/plugin.c:1784
+#: ../plugins/build-basic-autotools/plugin.c:1782
+#: ../plugins/build-basic-autotools/plugin.c:1810
 msgid "Compile file"
 msgstr "파일 컴파일"
 
-#: ../plugins/build-basic-autotools/plugin.c:1762
-#: ../plugins/build-basic-autotools/plugin.c:1790
+#: ../plugins/build-basic-autotools/plugin.c:1788
+#: ../plugins/build-basic-autotools/plugin.c:1816
 msgid "Build module"
 msgstr "모듈 빌드"
 
-#: ../plugins/build-basic-autotools/plugin.c:1767
-#: ../plugins/build-basic-autotools/plugin.c:1795
-#: ../plugins/build-basic-autotools/plugin.c:1878
+#: ../plugins/build-basic-autotools/plugin.c:1793
+#: ../plugins/build-basic-autotools/plugin.c:1821
+#: ../plugins/build-basic-autotools/plugin.c:1904
 #, c-format
 msgid "_Install"
 msgstr "설치(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1768
-#: ../plugins/build-basic-autotools/plugin.c:1796
+#: ../plugins/build-basic-autotools/plugin.c:1794
+#: ../plugins/build-basic-autotools/plugin.c:1822
 msgid "Install module"
 msgstr "모듈 설치"
 
-#: ../plugins/build-basic-autotools/plugin.c:1773
-#: ../plugins/build-basic-autotools/plugin.c:1807
-#: ../plugins/build-basic-autotools/plugin.c:1885
+#: ../plugins/build-basic-autotools/plugin.c:1799
+#: ../plugins/build-basic-autotools/plugin.c:1833
+#: ../plugins/build-basic-autotools/plugin.c:1911
 #, c-format
 msgid "_Clean"
 msgstr "정리(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1774
-#: ../plugins/build-basic-autotools/plugin.c:1808
+#: ../plugins/build-basic-autotools/plugin.c:1800
+#: ../plugins/build-basic-autotools/plugin.c:1834
 msgid "Clean module"
 msgstr "모듈 정리"
 
-#: ../plugins/build-basic-autotools/plugin.c:1801
+#: ../plugins/build-basic-autotools/plugin.c:1827
 msgid "_Check"
 msgstr "점검(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1802
+#: ../plugins/build-basic-autotools/plugin.c:1828
 msgid "Check module"
 msgstr "모듈 점검"
 
-#: ../plugins/build-basic-autotools/plugin.c:1813
+#: ../plugins/build-basic-autotools/plugin.c:1839
 msgid "_Cancel command"
 msgstr "명령 취소(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1814
+#: ../plugins/build-basic-autotools/plugin.c:1840
 msgid "Cancel build command"
 msgstr "빌드 명령 취소"
 
-#: ../plugins/build-basic-autotools/plugin.c:1871
+#: ../plugins/build-basic-autotools/plugin.c:1897
 #, c-format
 msgid "_Build (%s)"
 msgstr "%s 빌드(_B)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1878
+#: ../plugins/build-basic-autotools/plugin.c:1904
 #, c-format
 msgid "_Install (%s)"
 msgstr "%s 설치(_I)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1885
+#: ../plugins/build-basic-autotools/plugin.c:1911
 #, c-format
 msgid "_Clean (%s)"
 msgstr "%s 정리(_C)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1893
+#: ../plugins/build-basic-autotools/plugin.c:1919
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "%s 컴파일(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:1893
+#: ../plugins/build-basic-autotools/plugin.c:1919
 #, c-format
 msgid "Co_mpile"
 msgstr "컴파일(_M)"
 
-#: ../plugins/build-basic-autotools/plugin.c:2487
+#: ../plugins/build-basic-autotools/plugin.c:2515
 msgid "Build commands"
 msgstr "빌드 명령"
 
 #. Translators: This is a group of build
 #. * commands which appears in pop up menus
-#: ../plugins/build-basic-autotools/plugin.c:2496
+#: ../plugins/build-basic-autotools/plugin.c:2524
 msgid "Build popup commands"
 msgstr "빌드 팝업 명령"
 
-#: ../plugins/build-basic-autotools/plugin.c:2915
-#: ../plugins/build-basic-autotools/plugin.c:2923
+#: ../plugins/build-basic-autotools/plugin.c:2960
+#: ../plugins/build-basic-autotools/plugin.c:2968
 msgid "Build Autotools"
 msgstr "Autotools 빌드"
 
@@ -2007,7 +2012,7 @@ msgstr "Vala 클래스"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:36
 msgid "Author Email Address:"
-msgstr "작성자 이메일 주소:"
+msgstr "작성자 전자메일 주소:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.ui.h:37
 msgid "Author Name:"
@@ -2050,7 +2055,7 @@ msgstr "구현 파일에 사용할 Autogen 서식"
 msgid "File to which the processed template will be written"
 msgstr "처리한 서식을 쓸 파일"
 
-#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1258
+#: ../plugins/class-gen/plugin.c:107 ../plugins/project-wizard/druid.c:1268
 msgid ""
 "Could not find autogen version 5; please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net."
@@ -2080,7 +2085,7 @@ msgstr "구현"
 #: ../plugins/class-gen/window.c:718 ../plugins/class-gen/window.c:728
 #: ../plugins/class-gen/window.c:750 ../plugins/class-gen/window.c:802
 #: ../plugins/class-gen/window.c:812
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/debug_tree.c:128
 #: ../plugins/snippets-manager/snippets-editor.c:38
 msgid "Type"
@@ -2120,7 +2125,7 @@ msgid "Marshaller"
 msgstr "Marshaller"
 
 #. Automatic highlight menu
-#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1016
+#: ../plugins/class-gen/window.c:814 ../plugins/document-manager/plugin.c:1014
 msgid "Automatic"
 msgstr "자동"
 
@@ -2132,7 +2137,7 @@ msgstr "게터"
 msgid "Setter"
 msgstr "세터"
 
-#: ../plugins/class-gen/window.c:1234
+#: ../plugins/class-gen/window.c:1232
 msgid "XML description of the user interface"
 msgstr "사용자 인터페이스의 XML 설명"
 
@@ -2153,7 +2158,7 @@ msgid "Patch-Style diff"
 msgstr "패치 방식 diff"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:3
-#: ../plugins/symbol-db/plugin.c:2172
+#: ../plugins/symbol-db/plugin.c:2166
 msgid "Local"
 msgstr "지역"
 
@@ -2222,8 +2227,8 @@ msgid ""
 msgstr ""
 "<b>참고해 주십시오: </b>\n"
 "\n"
-"확인을 누르면 해당 파일을 디스크와 CVS에서 지울 것입니다. 물론 CVS 커밋을 사"
-"용하기 전까지는 CVS에서 제거하지는 않을 것입니다 <b>이점 유념해 주십시오!</b>"
+"확인을 누르면 해당 파일을 디스크와 CVS에서 지웁니다. 물론 CVS 커밋을 사용하"
+"기 전까지는 CVS에서 제거하지는 않습니다 <b>이점 유념해 주십시오!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:20
 msgid "CVS: Commit file/directory"
@@ -2580,7 +2585,7 @@ msgid "_Attach"
 msgstr "붙이기(_A)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:8
-#: ../plugins/debug-manager/breakpoints.c:2035
+#: ../plugins/debug-manager/breakpoints.c:2026
 msgid "Breakpoints"
 msgstr "중단점"
 
@@ -2625,7 +2630,7 @@ msgid "Breakpoint properties"
 msgstr "중단점 속성"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.ui.h:19
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 msgid "Location"
 msgstr "위치"
 
@@ -2778,147 +2783,147 @@ msgstr ""
 msgid "Do not show again"
 msgstr "다시 보지 않음"
 
-#: ../plugins/debug-manager/breakpoints.c:1726
+#: ../plugins/debug-manager/breakpoints.c:1717
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "정말 모든 중단점을 지우시겠습니까?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1823
+#: ../plugins/debug-manager/breakpoints.c:1814
 msgid "_Breakpoints"
 msgstr "중단점(_B)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1831
+#: ../plugins/debug-manager/breakpoints.c:1822
 msgid "Toggle Breakpoint"
 msgstr "중단점 설정/해제"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1833
+#: ../plugins/debug-manager/breakpoints.c:1824
 msgid "Toggle breakpoint at the current location"
 msgstr "현재 위치에 중단점 설정/해제합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1830
 msgid "Add Breakpoint…"
 msgstr "중단점 추가…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1841
+#: ../plugins/debug-manager/breakpoints.c:1832
 msgid "Add a breakpoint"
 msgstr "중단점을 추가합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1847
+#: ../plugins/debug-manager/breakpoints.c:1838
 msgid "Remove Breakpoint"
 msgstr "중단점 제거"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1840
 msgid "Remove a breakpoint"
 msgstr "중단점을 제거합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1855
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Edit Breakpoint"
 msgstr "중단점 편집"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1857
+#: ../plugins/debug-manager/breakpoints.c:1848
 msgid "Edit breakpoint properties"
 msgstr "중단점 속성을 편집합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1863
-#: ../plugins/debug-manager/breakpoints.c:1934
+#: ../plugins/debug-manager/breakpoints.c:1854
+#: ../plugins/debug-manager/breakpoints.c:1925
 msgid "Enable Breakpoint"
 msgstr "중단점 활성화"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1865
-#: ../plugins/debug-manager/breakpoints.c:1935
+#: ../plugins/debug-manager/breakpoints.c:1856
+#: ../plugins/debug-manager/breakpoints.c:1926
 msgid "Enable a breakpoint"
 msgstr "중단점을 사용하도록 활성합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1871
+#: ../plugins/debug-manager/breakpoints.c:1862
 msgid "Disable All Breakpoints"
 msgstr "모든 중단점 비활성화"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1873
+#: ../plugins/debug-manager/breakpoints.c:1864
 msgid "Deactivate all breakpoints"
 msgstr "모든 중단점을 사용하지 않도록 비활성화합니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1879
+#: ../plugins/debug-manager/breakpoints.c:1870
 msgid "R_emove All Breakpoints"
 msgstr "모든 중단점 제거(_E)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1881
+#: ../plugins/debug-manager/breakpoints.c:1872
 msgid "Remove all breakpoints"
 msgstr "모든 중단점을 지웁니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1890
+#: ../plugins/debug-manager/breakpoints.c:1881
 msgid "Jump to Breakpoint"
 msgstr "중단점까지 점프"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1892
+#: ../plugins/debug-manager/breakpoints.c:1883
 msgid "Jump to breakpoint location"
 msgstr "중단점 위치까지 점프합니다"
 
-#: ../plugins/debug-manager/breakpoints.c:1929
+#: ../plugins/debug-manager/breakpoints.c:1920
 msgid "Disable Breakpoint"
 msgstr "중단점 비활성화"
 
-#: ../plugins/debug-manager/breakpoints.c:1930
+#: ../plugins/debug-manager/breakpoints.c:1921
 msgid "Disable a breakpoint"
 msgstr "중단점을 비활성화 합니다"
 
 #. This enable an user defined command
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/tools/anjuta-tools.ui.h:5
 msgid "Enabled"
 msgstr "활성"
 
-#: ../plugins/debug-manager/breakpoints.c:1962
+#: ../plugins/debug-manager/breakpoints.c:1953
 #: ../plugins/debug-manager/stack_trace.c:859
 msgid "Address"
 msgstr "주소"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Condition"
 msgstr "조건"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "Pass count"
 msgstr "통과 횟수"
 
-#: ../plugins/debug-manager/breakpoints.c:1963
+#: ../plugins/debug-manager/breakpoints.c:1954
 msgid "State"
 msgstr "상태"
 
-#: ../plugins/debug-manager/breakpoints.c:2012
-#: ../plugins/debug-manager/breakpoints.c:2018
+#: ../plugins/debug-manager/breakpoints.c:2003
+#: ../plugins/debug-manager/breakpoints.c:2009
 msgid "Breakpoint operations"
 msgstr "중단점 작업"
 
@@ -2937,7 +2942,7 @@ msgid "Disassembly"
 msgstr "Disassembly"
 
 #: ../plugins/debug-manager/info.c:52 ../plugins/debug-manager/info.c:101
-#: ../plugins/project-wizard/druid.c:162
+#: ../plugins/project-wizard/druid.c:180
 msgid "Information"
 msgstr "정보"
 
@@ -3271,13 +3276,13 @@ msgstr "프레임"
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:823
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2130
-#: ../plugins/tools/tool.c:100 ../src/anjuta-app.c:626
+#: ../plugins/gdb/preferences.c:363 ../plugins/symbol-db/plugin.c:2124
+#: ../plugins/tools/tool.c:100 ../src/anjuta-window.c:679
 msgid "File"
 msgstr "파일"
 
 #: ../plugins/debug-manager/stack_trace.c:834
-#: ../plugins/document-manager/plugin.c:934
+#: ../plugins/document-manager/plugin.c:932
 msgid "Line"
 msgstr "행"
 
@@ -3309,37 +3314,38 @@ msgstr "시각"
 msgid "Command"
 msgstr "명령"
 
-#: ../plugins/debug-manager/start.c:629
+#: ../plugins/debug-manager/start.c:628
 #, c-format
-msgid "Unable to execute: %s."
-msgstr "실행할 수 없습니다: %s."
+msgid "Unable to execute: \"%s\". The returned error was: \"%s\"."
+msgstr ""
+"다음을 실행할 수 없습니다: \"%s\". 반환한 오류는 다음과 같습니다: \"%s\"."
 
-#: ../plugins/debug-manager/start.c:643
+#: ../plugins/debug-manager/start.c:644
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "파일을 열 수 없습니다: %s\n"
 
-#: ../plugins/debug-manager/start.c:969
+#: ../plugins/debug-manager/start.c:970
 #, c-format
 msgid "Unable to open %s. Debugger cannot start."
 msgstr "%s을(를) 열 수 없습니다. 디버거를 시작할 수 없습니다."
 
-#: ../plugins/debug-manager/start.c:979
+#: ../plugins/debug-manager/start.c:980
 #, c-format
 msgid "Unable to detect MIME type of %s. Debugger cannot start."
 msgstr "%s의 MIME 형식을 감지할 수 없습니다. 디버거를 시작할 수 없습니다."
 
-#: ../plugins/debug-manager/start.c:1340
+#: ../plugins/debug-manager/start.c:1341
 msgid "Path"
 msgstr "경로"
 
-#: ../plugins/debug-manager/start.c:1389 ../plugins/gdb/debugger.c:1929
+#: ../plugins/debug-manager/start.c:1390
 msgid ""
-"The program is running.\n"
+"The program is already running.\n"
 "Do you still want to stop the debugger?"
 msgstr ""
 "프로그랭이 실행중입니다.\n"
-"여전히 디버거를 중단하길 원하십니까?"
+"그래도 디버거를 중단하시겠습니까?"
 
 #. Action name
 #. Stock icon, if any
@@ -3399,57 +3405,48 @@ msgstr "API 도움말"
 msgid "Devhelp Plugin for Anjuta."
 msgstr "안주타 개발자 도움말(Devhelp) 플러그인."
 
-#: ../plugins/devhelp/plugin.c:204
+#: ../plugins/devhelp/plugin.c:199
 msgid "Search Help:"
 msgstr "도움말 찾아보기:"
 
-#: ../plugins/devhelp/plugin.c:225 ../plugins/document-manager/plugin.c:244
+#: ../plugins/devhelp/plugin.c:220 ../plugins/document-manager/plugin.c:234
 #: ../plugins/message-view/plugin.c:77 ../plugins/symbol-db/plugin.c:327
 msgid "_Go to"
 msgstr "이동(_G)"
 
-#: ../plugins/devhelp/plugin.c:234
+#: ../plugins/devhelp/plugin.c:229
 msgid "_API Reference"
 msgstr "API 참조(_A)"
 
-#: ../plugins/devhelp/plugin.c:236
+#: ../plugins/devhelp/plugin.c:231
 msgid "Browse API Pages"
 msgstr "API 페이지를 찾아봅니다"
 
-#: ../plugins/devhelp/plugin.c:246
+#: ../plugins/devhelp/plugin.c:241
 msgid "_Context Help"
 msgstr "컨텍스트 도움말(_C)"
 
-#: ../plugins/devhelp/plugin.c:248
+#: ../plugins/devhelp/plugin.c:243
 msgid "Search help for the current word in the editor"
 msgstr "편집기 내 현재 단어에 대한 도움말을 찾습니다"
 
-#: ../plugins/devhelp/plugin.c:258
+#: ../plugins/devhelp/plugin.c:253
 msgid "_Search Help"
 msgstr "도움말 검색(_S)"
 
-#: ../plugins/devhelp/plugin.c:260
+#: ../plugins/devhelp/plugin.c:255
 msgid "Search for a term in help"
 msgstr "도움말 내에서 용어를 검색합니다"
 
-#: ../plugins/devhelp/plugin.c:331
+#: ../plugins/devhelp/plugin.c:337
 msgid "Help operations"
 msgstr "도움말 작업"
 
-#: ../plugins/devhelp/plugin.c:350 ../plugins/devhelp/plugin.c:465
+#: ../plugins/devhelp/plugin.c:352 ../plugins/devhelp/plugin.c:444
 msgid "API Browser"
 msgstr "API 탐색기"
 
-#: ../plugins/devhelp/plugin.c:361
-msgid "Contents"
-msgstr "내용"
-
-#: ../plugins/devhelp/plugin.c:367 ../plugins/symbol-db/plugin.c:2140
-#: ../plugins/symbol-db/plugin.c:2192
-msgid "Search"
-msgstr "검색"
-
-#: ../plugins/devhelp/plugin.c:385 ../plugins/devhelp/plugin.c:470
+#: ../plugins/devhelp/plugin.c:369 ../plugins/devhelp/plugin.c:439
 msgid "API"
 msgstr "API"
 
@@ -3460,8 +3457,8 @@ msgstr "API"
 msgid "Missing name"
 msgstr "이름이 빠져 있음"
 
-#: ../plugins/dir-project/dir-project.c:990
-#: ../plugins/dir-project/dir-project.c:1000
+#: ../plugins/dir-project/dir-project.c:989
+#: ../plugins/dir-project/dir-project.c:999
 #: ../plugins/mk-project/mk-project.c:1022
 #: ../plugins/mk-project/mk-project.c:1032
 #, c-format
@@ -3503,7 +3500,7 @@ msgstr "책갈피 제거"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:354
 #: ../plugins/document-manager/anjuta-bookmarks.c:414
-#: ../plugins/document-manager/plugin.c:429
+#: ../plugins/document-manager/plugin.c:419
 msgid "Bookmarks"
 msgstr "책갈피"
 
@@ -3517,27 +3514,32 @@ msgstr "이름 바꾸기"
 msgid "Remove"
 msgstr "제거"
 
-#: ../plugins/document-manager/anjuta-docman.c:454
+#: ../plugins/document-manager/anjuta-docman.c:165
+msgid " [read-only]"
+msgstr "[읽기 전용]"
+
+#: ../plugins/document-manager/anjuta-docman.c:661
+#: ../plugins/document-manager/anjuta-docman.c:1102
 msgid "Close file"
 msgstr "파일 닫기"
 
-#: ../plugins/document-manager/anjuta-docman.c:502
-#: ../plugins/project-manager/dialogs.c:614
+#: ../plugins/document-manager/anjuta-docman.c:709
+#: ../plugins/project-manager/dialogs.c:757
 msgid "Path:"
 msgstr "경로:"
 
-#: ../plugins/document-manager/anjuta-docman.c:622
-#: ../plugins/file-loader/plugin.c:591 ../plugins/file-loader/plugin.c:894
-#: ../plugins/file-loader/plugin.c:904 ../plugins/file-loader/plugin.c:917
+#: ../plugins/document-manager/anjuta-docman.c:833
+#: ../plugins/file-loader/plugin.c:597 ../plugins/file-loader/plugin.c:900
+#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open file"
 msgstr "파일 열기"
 
-#: ../plugins/document-manager/anjuta-docman.c:641
+#: ../plugins/document-manager/anjuta-docman.c:852
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "다른 이름으로 저장"
 
-#: ../plugins/document-manager/anjuta-docman.c:722
+#: ../plugins/document-manager/anjuta-docman.c:933
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3546,17 +3548,17 @@ msgstr ""
 "'%s' 파일이 이미 존재합니다.\n"
 "현재 파일로 이 파일을 덮어쓰시겠습니까?"
 
-#: ../plugins/document-manager/anjuta-docman.c:731
+#: ../plugins/document-manager/anjuta-docman.c:942
 msgid "_Replace"
 msgstr "바꾸기(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1445
+#: ../plugins/document-manager/anjuta-docman.c:1730
 msgid "[read-only]"
 msgstr "[읽기 전용]"
 
 #. Document manager plugin
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:286
+#: ../plugins/file-loader/plugin.c:292
 msgid "Document Manager"
 msgstr "문서 관리자"
 
@@ -3609,199 +3611,207 @@ msgid "Sorted in alphabetical order"
 msgstr "알파벳 순으로 정렬"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:12
-msgid "Do not show tabs"
-msgstr "탭 표시 안함"
-
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:13
 msgid "Position:"
 msgstr "위치:"
 
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:13
+msgid "Show tabs"
+msgstr "탭 표시"
+
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:14
-msgid "Editor tabs"
-msgstr "편집기 탭"
+msgid "Show drop-down list"
+msgstr "드롭다운 목록 표시"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
+msgid "Do not show open documents"
+msgstr "열린 문서 보이지 않음"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
+msgid "Open documents"
+msgstr "문서 열기"
+
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
 msgid "Case sensitive"
 msgstr "대소문자 구별"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:16
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:18
 msgid "Regular expression"
 msgstr "정규 표현식"
 
-#: ../plugins/document-manager/anjuta-document-manager.ui.h:17
+#: ../plugins/document-manager/anjuta-document-manager.ui.h:19
 msgid "Replace All"
 msgstr "모두 바꾸기"
 
-#: ../plugins/document-manager/plugin.c:152
+#: ../plugins/document-manager/plugin.c:142
 msgid "_Save"
 msgstr "저장(_S)"
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:143
 msgid "Save current file"
 msgstr "현재 파일을 저장합니다"
 
-#: ../plugins/document-manager/plugin.c:154
+#: ../plugins/document-manager/plugin.c:144
 msgid "Save _As…"
 msgstr "다른 이름으로 저장(_A)…"
 
-#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/document-manager/plugin.c:145
 msgid "Save the current file with a different name"
 msgstr "현재 파일을 다른 이름으로 저장합니다"
 
-#: ../plugins/document-manager/plugin.c:157
+#: ../plugins/document-manager/plugin.c:147
 msgid "Save A_ll"
 msgstr "모두 저장(_L)"
 
-#: ../plugins/document-manager/plugin.c:158
+#: ../plugins/document-manager/plugin.c:148
 msgid "Save all currently open files, except new files"
 msgstr "새 파일을 제외하고 현재 열린 모든 파일을 저장합니다"
 
-#: ../plugins/document-manager/plugin.c:160
+#: ../plugins/document-manager/plugin.c:150
 msgid "_Close File"
 msgstr "파일 닫기(_C)"
 
-#: ../plugins/document-manager/plugin.c:161
+#: ../plugins/document-manager/plugin.c:151
 msgid "Close current file"
 msgstr "현재 파일을 닫습니다"
 
-#: ../plugins/document-manager/plugin.c:163
+#: ../plugins/document-manager/plugin.c:153
 msgid "Close All"
 msgstr "모두 닫기"
 
-#: ../plugins/document-manager/plugin.c:164
+#: ../plugins/document-manager/plugin.c:154
 msgid "Close all files"
 msgstr "모든 파일을 닫습니다"
 
-#: ../plugins/document-manager/plugin.c:166
+#: ../plugins/document-manager/plugin.c:156
 msgid "Close Others"
 msgstr "다른 요소 닫기"
 
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:157
 msgid "Close other documents"
 msgstr "다른 문서 닫기"
 
-#: ../plugins/document-manager/plugin.c:169
+#: ../plugins/document-manager/plugin.c:159
 msgid "Reload F_ile"
 msgstr "파일 다시 읽기(_I)"
 
-#: ../plugins/document-manager/plugin.c:170
+#: ../plugins/document-manager/plugin.c:160
 msgid "Reload current file"
 msgstr "현재 파일을 다시 읽습니다"
 
-#: ../plugins/document-manager/plugin.c:172
+#: ../plugins/document-manager/plugin.c:162
 msgid "Recent _Files"
 msgstr "최근 파일(_F)"
 
-#: ../plugins/document-manager/plugin.c:176
+#: ../plugins/document-manager/plugin.c:166
 msgid "_Print…"
 msgstr "인쇄(_P)…"
 
-#: ../plugins/document-manager/plugin.c:177
+#: ../plugins/document-manager/plugin.c:167
 msgid "Print the current file"
 msgstr "현재 파일을 출력합니다"
 
-#: ../plugins/document-manager/plugin.c:184
+#: ../plugins/document-manager/plugin.c:174
 msgid "_Print Preview"
 msgstr "인쇄 미리 보기(_P)"
 
-#: ../plugins/document-manager/plugin.c:185
+#: ../plugins/document-manager/plugin.c:175
 msgid "Preview the current file in print format"
 msgstr "현재 파일을 인쇄 형식의 미리 보기로 보여줍니다"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:180
 msgid "_Transform"
 msgstr "변환(_T)"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:191
+#: ../plugins/document-manager/plugin.c:181
 msgid "_Make Selection Uppercase"
 msgstr "선택영역를 대문자로 변환(_M)"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:182
 msgid "Make the selected text uppercase"
 msgstr "선택한 텍스트를 대문자로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:194
+#: ../plugins/document-manager/plugin.c:184
 msgid "Make Selection Lowercase"
 msgstr "선택영역을 소문자로 변환"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:185
 msgid "Make the selected text lowercase"
 msgstr "선택한 텍스트를 소문자로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:197
+#: ../plugins/document-manager/plugin.c:187
 msgid "Convert EOL to CRLF"
 msgstr "개행문자를 CR/LF로 변환"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:188
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "개행문자를 도스 EOL(CR/LF)로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:200
+#: ../plugins/document-manager/plugin.c:190
 msgid "Convert EOL to LF"
 msgstr "개행문자를 LF로 변환"
 
-#: ../plugins/document-manager/plugin.c:201
+#: ../plugins/document-manager/plugin.c:191
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "개행문자를 유닉스 EOL(LF) 문자로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:203
+#: ../plugins/document-manager/plugin.c:193
 msgid "Convert EOL to CR"
 msgstr "개행문자를 CR로 변환"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:194
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "개행문자를 맥 OS EOL(CR)로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:206
+#: ../plugins/document-manager/plugin.c:196
 msgid "Convert EOL to Majority EOL"
 msgstr "개행문자를 주로 사용한 것으로 변환"
 
-#: ../plugins/document-manager/plugin.c:207
+#: ../plugins/document-manager/plugin.c:197
 msgid "Convert End Of Line characters to the most common EOL found in the file"
 msgstr "개행문자를 파일에서 가장 많이 사용하는 개행문자로 변환합니다"
 
-#: ../plugins/document-manager/plugin.c:212
+#: ../plugins/document-manager/plugin.c:202
 msgid "_Select"
 msgstr "선택(_S)"
 
-#: ../plugins/document-manager/plugin.c:214
+#: ../plugins/document-manager/plugin.c:204
 msgid "Select _All"
 msgstr "모두 선택(_A)"
 
-#: ../plugins/document-manager/plugin.c:215
+#: ../plugins/document-manager/plugin.c:205
 msgid "Select all text in the editor"
 msgstr "편집기 내의 모든 텍스트를 선택합니다"
 
-#: ../plugins/document-manager/plugin.c:217
+#: ../plugins/document-manager/plugin.c:207
 msgid "Select _Code Block"
 msgstr "코드 블럭 선택(_C)"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:208
 msgid "Select the current code block"
 msgstr "현재 코드 블럭을 선택합니다"
 
-#: ../plugins/document-manager/plugin.c:223
+#: ../plugins/document-manager/plugin.c:213
 msgid "Co_mment"
 msgstr "주석(_M)"
 
 #. Block comment: Uses line-comment (comment that affects only single line
 #. such as '//' or '#') and comments a block of lines.
-#: ../plugins/document-manager/plugin.c:226
+#: ../plugins/document-manager/plugin.c:216
 msgid "_Block Comment/Uncomment"
 msgstr "블록 주석처리/주석해제(_B)"
 
-#: ../plugins/document-manager/plugin.c:227
+#: ../plugins/document-manager/plugin.c:217
 msgid "Block comment the selected text"
 msgstr "선택한 텍스트 블록을 주석처리합니다"
 
 #. Box comment: Uses stream-comment to comment a block of lines, usually with
 #. some decorations, to give an appearance of box.
-#: ../plugins/document-manager/plugin.c:231
+#: ../plugins/document-manager/plugin.c:221
 msgid "Bo_x Comment/Uncomment"
 msgstr "상자영역 주석처리/주석해제(_X)"
 
-#: ../plugins/document-manager/plugin.c:232
+#: ../plugins/document-manager/plugin.c:222
 msgid "Box comment the selected text"
 msgstr "선택한 텍스트 상자영역을 주석처리합니다"
 
@@ -3809,433 +3819,433 @@ msgstr "선택한 텍스트 상자영역을 주석처리합니다"
 #. characters -- has start and end comment code) and comments any code from
 #. arbitrary start position to arbitrary end position (can be in middle of
 #. lines).
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:228
 msgid "_Stream Comment/Uncomment"
 msgstr "스트림 주석처리/주석해제(_S)"
 
-#: ../plugins/document-manager/plugin.c:239
+#: ../plugins/document-manager/plugin.c:229
 msgid "Stream comment the selected text"
 msgstr "선택한 텍스트 스트림을 주석처리합니다"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:245
+#: ../plugins/document-manager/plugin.c:235
 msgid "_Line Number…"
 msgstr "줄 번호(_L)…"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:236
 msgid "Go to a particular line in the editor"
 msgstr "편집기 내의 특정 행으로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:238
 msgid "Matching _Brace"
 msgstr "일치하는 괄호(_B)"
 
-#: ../plugins/document-manager/plugin.c:249
+#: ../plugins/document-manager/plugin.c:239
 msgid "Go to the matching brace in the editor"
 msgstr "편집기 내에서 일치하는 괄호로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:241
 msgid "_Start of Block"
 msgstr "블록의 처음(_S)"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:242
 msgid "Go to the start of the current block"
 msgstr "현재 블록의 시작위치로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:244
 msgid "_End of Block"
 msgstr "블록 끝(_E)"
 
-#: ../plugins/document-manager/plugin.c:255
+#: ../plugins/document-manager/plugin.c:245
 msgid "Go to the end of the current block"
 msgstr "현재 블록의 끝으로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:247
 msgid "Previous _History"
 msgstr "이전 기록(_H)"
 
-#: ../plugins/document-manager/plugin.c:258
+#: ../plugins/document-manager/plugin.c:248
 msgid "Go to previous history"
 msgstr "이전 기록으로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:260
+#: ../plugins/document-manager/plugin.c:250
 msgid "Next Histor_y"
 msgstr "다음 기록(_Y)"
 
-#: ../plugins/document-manager/plugin.c:261
+#: ../plugins/document-manager/plugin.c:251
 msgid "Go to next history"
 msgstr "다음 기록으로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:256
 msgid "_Search"
 msgstr "검색(_S)"
 
-#: ../plugins/document-manager/plugin.c:267
+#: ../plugins/document-manager/plugin.c:257
 msgid "_Quick Search"
 msgstr "빠른 검색(_Q)"
 
-#: ../plugins/document-manager/plugin.c:268
+#: ../plugins/document-manager/plugin.c:258
 msgid "Quick editor embedded search"
 msgstr "편집기에 포함한 빠른 검색기입니다"
 
-#: ../plugins/document-manager/plugin.c:270
+#: ../plugins/document-manager/plugin.c:260
 msgid "Find _Next"
 msgstr "다음 찾기(_N)"
 
-#: ../plugins/document-manager/plugin.c:271
+#: ../plugins/document-manager/plugin.c:261
 msgid "Search for next appearance of term."
 msgstr "다음에 나타나는 단어를 검색합니다."
 
-#: ../plugins/document-manager/plugin.c:273
+#: ../plugins/document-manager/plugin.c:263
 msgid "Find and R_eplace…"
 msgstr "찾아 바꾸기(_E)…"
 
-#: ../plugins/document-manager/plugin.c:274
+#: ../plugins/document-manager/plugin.c:264
 msgid "Search and replace"
 msgstr "검색하고 바꿉니다"
 
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:266
 msgid "Find _Previous"
 msgstr "이전 찾기(_P)"
 
-#: ../plugins/document-manager/plugin.c:278
+#: ../plugins/document-manager/plugin.c:268
 msgid "Repeat the last Find command"
 msgstr "최근 찾기 명령을 다시 반복합니다"
 
-#: ../plugins/document-manager/plugin.c:280
+#: ../plugins/document-manager/plugin.c:270
 msgid "Clear Highlight"
 msgstr "강조 지우기"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:271
 msgid "Clear all highlighted text"
 msgstr "모든 강조한 텍스트를 지웁니다"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:273
 msgid "Find in Files"
 msgstr "파일에서 찾기…"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:274
 msgid "Search in project files"
 msgstr "프로젝트 파일에서 검색합니다"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:280
 msgid "Case Sensitive"
 msgstr "대소문자 구별"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:281
 msgid "Match case in search results."
 msgstr "검색 결과의 일치 조건입니다."
 
-#: ../plugins/document-manager/plugin.c:294
+#: ../plugins/document-manager/plugin.c:284
 msgid "Highlight All"
 msgstr "모두 강조"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:285
 msgid "Highlight all occurrences"
 msgstr "모든 일치 내용을 강조합니다"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:288
 msgid "Regular Expression"
 msgstr "정규식"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:289
 msgid "Search using regular expressions"
 msgstr "정규 표현식으로 검색합니다"
 
-#: ../plugins/document-manager/plugin.c:305
-#: ../plugins/indentation-c-style/plugin.c:463
+#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/indentation-c-style/plugin.c:465
 #: ../plugins/indentation-python-style/plugin.c:200
-#: ../plugins/language-support-cpp-java/plugin.c:1073
+#: ../plugins/language-support-cpp-java/plugin.c:1076
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "편집(_E)"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:306
+#: ../plugins/document-manager/plugin.c:296
 msgid "_Editor"
 msgstr "편집기(_E)"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:303
 msgid "_Add Editor View"
 msgstr "편집기 보기 추가(_A)"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:304
 msgid "Add one more view of current document"
 msgstr "현재 문서의 보기를 추가합니다"
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:306
 msgid "_Remove Editor View"
 msgstr "편집기 보기 제거(_R)"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:307
 msgid "Remove current view of the document"
 msgstr "현재 문서의 보기를 지웁니다"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:309
 msgid "U_ndo"
 msgstr "실행 취소(_N)"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:310
 msgid "Undo the last action"
 msgstr "마지막 수행한 동작을 취소합니다"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:312
 msgid "_Redo"
 msgstr "다시 실행(_R)"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:313
 msgid "Redo the last undone action"
 msgstr "마지막으로 취소한 동작을 다시 실행합니다"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:315
 msgid "C_ut"
 msgstr "잘라내기(_U)"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:316
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "편집기에서 선택한 텍스트를 클립보드로 잘라냅니다"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/document-manager/plugin.c:328 ../plugins/terminal/terminal.c:561
+#: ../plugins/document-manager/plugin.c:318 ../plugins/terminal/terminal.c:547
 msgid "_Copy"
 msgstr "복사(_C)"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:319
 msgid "Copy the selected text to the clipboard"
 msgstr "선택한 텍스트를 클립보드로 복사합니다"
 
-#: ../plugins/document-manager/plugin.c:331 ../plugins/terminal/terminal.c:569
+#: ../plugins/document-manager/plugin.c:321 ../plugins/terminal/terminal.c:555
 msgid "_Paste"
 msgstr "붙여넣기(_P)"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:322
 msgid "Paste the content of clipboard at the current position"
 msgstr "클립보드의 내용을 현재 위치에 붙여넣습니다"
 
-#: ../plugins/document-manager/plugin.c:340
+#: ../plugins/document-manager/plugin.c:330
 msgid "_Clear"
 msgstr "지우기(_C)"
 
-#: ../plugins/document-manager/plugin.c:341
+#: ../plugins/document-manager/plugin.c:331
 msgid "Delete the selected text from the editor"
 msgstr "선택한 텍스트를 편집기로부터 지웁니다"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:334
 msgid "_Auto-Complete"
 msgstr "자동 완성(_A)"
 
-#: ../plugins/document-manager/plugin.c:345
+#: ../plugins/document-manager/plugin.c:335
 msgid "Auto-complete the current word"
 msgstr "현재 단어를 자동으로 완성합니다"
 
-#: ../plugins/document-manager/plugin.c:351
+#: ../plugins/document-manager/plugin.c:341
 msgid "Zoom In"
 msgstr "확대"
 
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:342
 msgid "Zoom in: Increase font size"
 msgstr "확대: 글꼴 크기를 증가시킵니다"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:344
 msgid "Zoom Out"
 msgstr "축소"
 
-#: ../plugins/document-manager/plugin.c:355
+#: ../plugins/document-manager/plugin.c:345
 msgid "Zoom out: Decrease font size"
 msgstr "축소: 글꼴 크기를 감소시킵니다"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:350
 msgid "_Highlight Mode"
 msgstr "강조 스타일(_H)"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:354
 msgid "_Close All Folds"
 msgstr "모든 폴더 닫기(_C)"
 
-#: ../plugins/document-manager/plugin.c:365
+#: ../plugins/document-manager/plugin.c:355
 msgid "Close all code folds in the editor"
 msgstr "편집기 내의 모든 코드 폴더를 닫습니다"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:357
 msgid "_Open All Folds"
 msgstr "모든 폴더 열기(_O)"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:358
 msgid "Open all code folds in the editor"
 msgstr "편집기 내의 모든 코드 폴더를 엽니다"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:360
 msgid "_Toggle Current Fold"
 msgstr "현재 폴더 열기/닫기(_T)"
 
-#: ../plugins/document-manager/plugin.c:371
+#: ../plugins/document-manager/plugin.c:361
 msgid "Toggle current code fold in the editor"
 msgstr "편집기 내 현재 코드를 펼치거나 접습니다"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:366
 msgid "_Documents"
 msgstr "문서(_D)"
 
-#: ../plugins/document-manager/plugin.c:377
+#: ../plugins/document-manager/plugin.c:367
 msgid "Previous Document"
 msgstr "이전 문서"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:368
 msgid "Switch to previous document"
 msgstr "이전 문서로 전환합니다"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:370
 msgid "Next Document"
 msgstr "다음 문서"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:371
 msgid "Switch to next document"
 msgstr "다음 문서로 전환합니다"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:376
 msgid "Bookmar_k"
 msgstr "책갈피(_K)"
 
-#: ../plugins/document-manager/plugin.c:387
+#: ../plugins/document-manager/plugin.c:377
 msgid "_Toggle Bookmark"
 msgstr "책갈피 설정/해제(_T)"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:378
 msgid "Toggle bookmark at the current line position"
 msgstr "현재 줄 위치에서 책갈피 설정/해제합니다"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:380
 msgid "_Previous Bookmark"
 msgstr "이전 책갈피(_P)"
 
-#: ../plugins/document-manager/plugin.c:391
+#: ../plugins/document-manager/plugin.c:381
 msgid "Jump to the previous bookmark in the file"
 msgstr "파일 내 이전 책갈피로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:393
+#: ../plugins/document-manager/plugin.c:383
 msgid "_Next Bookmark"
 msgstr "다음 책갈피(_N)"
 
-#: ../plugins/document-manager/plugin.c:394
+#: ../plugins/document-manager/plugin.c:384
 msgid "Jump to the next bookmark in the file"
 msgstr "파일 내 다음 책갈피로 이동합니다"
 
-#: ../plugins/document-manager/plugin.c:396
+#: ../plugins/document-manager/plugin.c:386
 msgid "_Clear All Bookmarks"
 msgstr "모든 책갈피 지우기(_C)"
 
-#: ../plugins/document-manager/plugin.c:397
+#: ../plugins/document-manager/plugin.c:387
 msgid "Clear bookmarks"
 msgstr "책갈피를 지웁니다"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:406
 msgid "Editor file operations"
 msgstr "편집기 파일 작업"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor print operations"
 msgstr "편집기 인쇄 작업"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor text transformation"
 msgstr "편집기 텍스트 변환"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor text selection"
 msgstr "편집기 텍스트 선택"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:421
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor code commenting"
 msgstr "편집기 코드 주석처리"
 
-#: ../plugins/document-manager/plugin.c:422
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor navigations"
 msgstr "편집기 탐색"
 
-#: ../plugins/document-manager/plugin.c:423
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor edit operations"
 msgstr "편집기 편집 작업"
 
-#: ../plugins/document-manager/plugin.c:424
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor zoom operations"
 msgstr "편집기 확대 작업"
 
-#: ../plugins/document-manager/plugin.c:425
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor syntax highlighting styles"
 msgstr "편집기 문법 강조 스타일"
 
-#: ../plugins/document-manager/plugin.c:426
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor text formating"
 msgstr "편집기 텍스트 서식"
 
-#: ../plugins/document-manager/plugin.c:427
+#: ../plugins/document-manager/plugin.c:417
 msgid "Simple searching"
 msgstr "단순 검색"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
-#: ../plugins/document-manager/plugin.c:428
-#: ../plugins/document-manager/plugin.c:1731
-#: ../plugins/document-manager/plugin.c:2150
-#: ../plugins/document-manager/plugin.c:2159
+#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:1696
+#: ../plugins/document-manager/plugin.c:2116
+#: ../plugins/document-manager/plugin.c:2125
 msgid "Documents"
 msgstr "문서"
 
-#: ../plugins/document-manager/plugin.c:434
+#: ../plugins/document-manager/plugin.c:424
 msgid "Toggle search options"
 msgstr "검색 옵션 전환"
 
-#: ../plugins/document-manager/plugin.c:593
+#: ../plugins/document-manager/plugin.c:587
 msgid "Reload"
 msgstr "다시 읽기"
 
-#: ../plugins/document-manager/plugin.c:599
+#: ../plugins/document-manager/plugin.c:593
 msgid "Go to"
 msgstr "이동"
 
-#: ../plugins/document-manager/plugin.c:919
+#: ../plugins/document-manager/plugin.c:917
 msgid "OVR"
 msgstr "OVR"
 
-#: ../plugins/document-manager/plugin.c:923
+#: ../plugins/document-manager/plugin.c:921
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:929
-#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:930
 msgid "Zoom"
 msgstr "확대"
 
-#: ../plugins/document-manager/plugin.c:935
+#: ../plugins/document-manager/plugin.c:933
 msgid "Col"
 msgstr "열"
 
-#: ../plugins/document-manager/plugin.c:936
+#: ../plugins/document-manager/plugin.c:934
 msgid "Mode"
 msgstr "모드"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1573
+#: ../plugins/document-manager/plugin.c:1532
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "%s에 대한 자동저장에 실패했습니다"
 
-#: ../plugins/document-manager/plugin.c:1587
+#: ../plugins/document-manager/plugin.c:1546
 msgid "Autosave completed"
 msgstr "자동완성 완료"
 
-#: ../plugins/document-manager/search-box.c:561
+#: ../plugins/document-manager/search-box.c:533
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr "\"%s\" 검색 과정이 마지막에 도달하였고 꼭대기에서 계속합니다."
 
-#: ../plugins/document-manager/search-box.c:566
+#: ../plugins/document-manager/search-box.c:538
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr "\"%s\" 검색 과정이 꼭대기에 도달하였고 바닥에서 계속합니다."
 
-#: ../plugins/document-manager/search-box.c:575
+#: ../plugins/document-manager/search-box.c:548
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -4244,7 +4254,7 @@ msgstr ""
 "\"%s\" 검색 과정이 마지막에 도달하였고 꼭대기에서 계속 했지만 새로운 일치 요"
 "소가 없습니다."
 
-#: ../plugins/document-manager/search-box.c:580
+#: ../plugins/document-manager/search-box.c:553
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -4253,20 +4263,20 @@ msgstr ""
 "\"%s\" 검색 과정이 꼭대기에 도달하였고 바닥에서 계속 했지만 새로운 일치 요소"
 "가 없습니다."
 
-#: ../plugins/document-manager/search-box.c:922
+#: ../plugins/document-manager/search-box.c:916
 msgid "Use the context menu of the \"Find\" icon for more search options"
-msgstr "더 많은 검색 옵션을 사용하기 위해 상황 메뉴에서 \"찾기\" 아이콘 사용"
+msgstr "더 많은 검색 옵션을 사용하려면 상황 메뉴에서 \"찾기\" 아이콘 사용"
 
-#: ../plugins/document-manager/search-box.c:986
+#: ../plugins/document-manager/search-box.c:977
 msgid "Replace"
 msgstr "바꾸기"
 
-#: ../plugins/document-manager/search-box.c:991
+#: ../plugins/document-manager/search-box.c:982
 msgid "Replace all"
 msgstr "모두 바꾸기"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:662
+#: ../plugins/file-manager/file-view.c:804
 msgid "Filename"
 msgstr "파일 이름"
 
@@ -4279,13 +4289,13 @@ msgid "Find in files"
 msgstr "파일에서 찾기"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
-#: ../plugins/file-loader/plugin.c:1238 ../plugins/file-loader/plugin.c:1244
+#: ../plugins/file-loader/plugin.c:1241 ../plugins/file-loader/plugin.c:1247
 msgid "File Loader"
 msgstr "파일 로더"
 
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:2
 msgid "File loader to load different files"
-msgstr "다른 파일들을 불러올 파일 로더입니다"
+msgstr "다른 파일을 불러올 파일 로더입니다"
 
 #. we create a placeholder menuitem, to be used in case
 #. * the menu is empty. this placeholder will stay around
@@ -4297,29 +4307,29 @@ msgstr "다른 파일들을 불러올 파일 로더입니다"
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:522
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:521
 msgid "No items found"
 msgstr "항목을 찾을 수 없음"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:670
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:726
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:669
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:725
 #, c-format
 msgid "No recently used resource found with URI \"%s\""
 msgstr "\"%s\" URI에서 최근 사용한 자원이 없습니다"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:750
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:758
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:749
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:757
 #, c-format
 msgid "This function is not implemented for widgets of class '%s'"
 msgstr "'%s' 클래스의 위젯에 대한 이 함수를 구현하지 않았습니다"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:937
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:936
 #: ../plugins/starter/plugin.c:166
 #, c-format
 msgid "Open '%s'"
 msgstr "'%s' 열기"
 
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:967
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:966
 msgid "Unknown item"
 msgstr "알 수 없는 항목"
 
@@ -4328,7 +4338,7 @@ msgstr "알 수 없는 항목"
 #. * the %s is the name of the item. Please keep the _ in front
 #. * of the number to give these menu items a mnemonic.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:978
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:977
 #, c-format
 msgctxt "recent menu label"
 msgid "_%d. %s"
@@ -4337,13 +4347,13 @@ msgstr "_%d. %s"
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
 #.
-#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:983
+#: ../plugins/file-loader/anjuta-recent-chooser-menu.c:982
 #, c-format
 msgctxt "recent menu label"
 msgid "%d. %s"
 msgstr "%d. %s"
 
-#: ../plugins/file-loader/plugin.c:116
+#: ../plugins/file-loader/plugin.c:122
 #, c-format
 msgid ""
 "Cannot open \"%s\".\n"
@@ -4354,7 +4364,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../plugins/file-loader/plugin.c:257
+#: ../plugins/file-loader/plugin.c:263
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4375,141 +4385,141 @@ msgstr ""
 "\n"
 "다음 플러그인 또는 프로그램으로 이를 열어보도록 할 수 있습니다."
 
-#: ../plugins/file-loader/plugin.c:280
+#: ../plugins/file-loader/plugin.c:286
 msgid "Open with:"
 msgstr "다른 프로그램으로 열기:"
 
-#: ../plugins/file-loader/plugin.c:497 ../plugins/patch/patch-plugin.c:122
-#: ../plugins/run-program/parameters.c:310
+#: ../plugins/file-loader/plugin.c:503 ../plugins/patch/patch-plugin.c:124
+#: ../plugins/run-program/parameters.c:188
 msgid "All files"
 msgstr "모든 파일"
 
-#: ../plugins/file-loader/plugin.c:502
+#: ../plugins/file-loader/plugin.c:508
 msgid "Anjuta Projects"
 msgstr "안주타 프로젝트"
 
-#: ../plugins/file-loader/plugin.c:508
+#: ../plugins/file-loader/plugin.c:514
 msgid "C/C++ source files"
 msgstr "C/C++ 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:520
+#: ../plugins/file-loader/plugin.c:526
 msgid "C# source files"
 msgstr "C# 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:526
+#: ../plugins/file-loader/plugin.c:532
 msgid "Java source files"
 msgstr "자바 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:532
+#: ../plugins/file-loader/plugin.c:538
 msgid "Pascal source files"
 msgstr "파스칼 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:543
 msgid "PHP source files"
 msgstr "PHP 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:544
+#: ../plugins/file-loader/plugin.c:550
 msgid "Perl source files"
 msgstr "펄 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:550
+#: ../plugins/file-loader/plugin.c:556
 msgid "Python source files"
 msgstr "파이선 소스 파일"
 
-#: ../plugins/file-loader/plugin.c:555
+#: ../plugins/file-loader/plugin.c:561
 msgid "Hypertext markup files"
 msgstr "하이퍼텍스트 마크업 파일"
 
-#: ../plugins/file-loader/plugin.c:564
+#: ../plugins/file-loader/plugin.c:570
 msgid "Shell script files"
 msgstr "쉘 스크립트 파일"
 
-#: ../plugins/file-loader/plugin.c:569
+#: ../plugins/file-loader/plugin.c:575
 msgid "Makefiles"
 msgstr "Makefile"
 
-#: ../plugins/file-loader/plugin.c:575
+#: ../plugins/file-loader/plugin.c:581
 msgid "Lua files"
 msgstr "루아 파일"
 
-#: ../plugins/file-loader/plugin.c:580
+#: ../plugins/file-loader/plugin.c:586
 msgid "Diff files"
 msgstr "diff 파일"
 
-#: ../plugins/file-loader/plugin.c:823
+#: ../plugins/file-loader/plugin.c:829
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "플러그인 %s을(를) 시작할 수 없습니다"
 
-#: ../plugins/file-loader/plugin.c:884
+#: ../plugins/file-loader/plugin.c:890
 msgid "_New"
 msgstr "새 파일(_N)"
 
-#: ../plugins/file-loader/plugin.c:886
+#: ../plugins/file-loader/plugin.c:892
 msgid "New empty file"
 msgstr "새 파일을 만듭니다"
 
-#: ../plugins/file-loader/plugin.c:892
+#: ../plugins/file-loader/plugin.c:898
 msgid "_Open…"
 msgstr "열기(_O)…"
 
-#: ../plugins/file-loader/plugin.c:903 ../plugins/file-loader/plugin.c:916
+#: ../plugins/file-loader/plugin.c:909 ../plugins/file-loader/plugin.c:922
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
+#: ../plugins/file-loader/plugin.c:916 ../plugins/file-loader/plugin.c:929
 msgid "Open _With"
 msgstr "다른 프로그램으로 열기(_W)"
 
-#: ../plugins/file-loader/plugin.c:911 ../plugins/file-loader/plugin.c:924
+#: ../plugins/file-loader/plugin.c:917 ../plugins/file-loader/plugin.c:930
 msgid "Open with"
 msgstr "다른 프로그램으로 열기"
 
-#: ../plugins/file-loader/plugin.c:1248
+#: ../plugins/file-loader/plugin.c:1251
 msgid "New"
 msgstr "새로 만들기"
 
-#: ../plugins/file-loader/plugin.c:1249
+#: ../plugins/file-loader/plugin.c:1252
 msgid "New file, project and project components."
 msgstr "새 파일, 프로젝트, 프로젝트 구성 요소."
 
-#: ../plugins/file-loader/plugin.c:1256 ../plugins/file-loader/plugin.c:1296
+#: ../plugins/file-loader/plugin.c:1259 ../plugins/file-loader/plugin.c:1299
 msgid "Open"
 msgstr "열기"
 
-#: ../plugins/file-loader/plugin.c:1260
+#: ../plugins/file-loader/plugin.c:1263
 msgid "Open _Recent"
 msgstr "최근 파일 열기(_R)"
 
-#: ../plugins/file-loader/plugin.c:1261 ../plugins/file-loader/plugin.c:1298
+#: ../plugins/file-loader/plugin.c:1264 ../plugins/file-loader/plugin.c:1301
 msgid "Open recent file"
 msgstr "최근에 사용한 파일 열기"
 
-#: ../plugins/file-loader/plugin.c:1267
+#: ../plugins/file-loader/plugin.c:1270
 msgid "Open recent files"
 msgstr "최근에 사용한 파일 열기"
 
-#: ../plugins/file-loader/plugin.c:1297
+#: ../plugins/file-loader/plugin.c:1300
 msgid "Open a file"
 msgstr "파일을 엽니다"
 
-#: ../plugins/file-loader/plugin.c:1411 ../plugins/file-loader/plugin.c:1413
+#: ../plugins/file-loader/plugin.c:1414 ../plugins/file-loader/plugin.c:1416
 #, c-format
 msgid "File not found"
 msgstr "파알이 없습니다"
 
 #. %s is name of file that will be opened
-#: ../plugins/file-loader/plugin.c:1432
+#: ../plugins/file-loader/plugin.c:1435
 #, c-format
 msgid "Please select a plugin to open <b>%s</b>."
 msgstr "<b>%s</b>을(를) 열기 위한 플러그인을 선택하여 주십시오."
 
-#: ../plugins/file-loader/plugin.c:1436
+#: ../plugins/file-loader/plugin.c:1439
 msgid "<b>Open With</b>"
 msgstr "<b>다른 프로그램으로 열기</b>"
 
 #: ../plugins/file-manager/file-manager.plugin.in.h:1
-#: ../plugins/file-manager/plugin.c:469 ../plugins/file-manager/plugin.c:478
+#: ../plugins/file-manager/plugin.c:546 ../plugins/file-manager/plugin.c:555
 msgid "File Manager"
 msgstr "파일 관리자"
 
@@ -4526,56 +4536,70 @@ msgid "Choose Directory to show if no project is open"
 msgstr "아무 프로젝트로 열리지 않았을 때 보여줄 디렉터리 선택"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
+msgid "Automatically select the current document"
+msgstr "현재 문서를 자동으로 선택"
+
+#: ../plugins/file-manager/file-manager.ui.h:4
 #: ../plugins/symbol-db/anjuta-symbol-db.ui.h:5
-#: ../plugins/symbol-db/plugin.c:2184
+#: ../plugins/symbol-db/plugin.c:2178
 msgid "Global"
 msgstr "전역"
 
-#: ../plugins/file-manager/file-manager.ui.h:4
+#: ../plugins/file-manager/file-manager.ui.h:5
 msgid "Do not show binary files (.o, .la, etc.)"
 msgstr "이진 파일 표시안함 (.o, .la, etc.)"
 
-#: ../plugins/file-manager/file-manager.ui.h:5
+#: ../plugins/file-manager/file-manager.ui.h:6
 msgid "Do not show hidden files"
 msgstr "숨김 파일 표시안함"
 
-#: ../plugins/file-manager/file-manager.ui.h:6
+#: ../plugins/file-manager/file-manager.ui.h:7
 msgid "Do not show backup files"
 msgstr "백업 파일 표시안함"
 
-#: ../plugins/file-manager/file-manager.ui.h:7
+#: ../plugins/file-manager/file-manager.ui.h:8
 msgid "Do not show unversioned files"
 msgstr "버전이 없는 파일은 보여주지 않기"
 
-#: ../plugins/file-manager/file-manager.ui.h:8
+#: ../plugins/file-manager/file-manager.ui.h:9
 msgid "Filter"
 msgstr "검색 조건"
 
-#: ../plugins/file-manager/file-model.c:120 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: ../plugins/file-manager/file-view.c:746
-msgid "Base URI"
-msgstr "기본 URI"
+#: ../plugins/file-manager/file-model.c:706
+#: ../plugins/file-manager/file-view.c:892
+msgid "Base Path"
+msgstr "기본 경로"
 
-#: ../plugins/file-manager/file-view.c:747
-msgid "URI of the top-most path displayed"
-msgstr "표시할 최상위 경로의 URI"
+#: ../plugins/file-manager/file-model.c:707
+#: ../plugins/file-manager/file-view.c:893
+msgid "GFile representing the top-most path displayed"
+msgstr "표시할 최상위 경로를 나타내는 GFile"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "_Rename"
 msgstr "이름 바꾸기(_R)"
 
-#: ../plugins/file-manager/plugin.c:75
+#: ../plugins/file-manager/plugin.c:105
 msgid "Rename file or directory"
 msgstr "파일 또는 디렉터리 이름 바꾸기"
 
-#: ../plugins/file-manager/plugin.c:306
+#: ../plugins/file-manager/plugin.c:110
+msgid "_Show in File manager"
+msgstr "파일 관리자에서 표시(_S)"
+
+#: ../plugins/file-manager/plugin.c:110
+msgid "Show in File manager"
+msgstr "파일 관리자에 표시합니다"
+
+#: ../plugins/file-manager/plugin.c:374
 msgid "File manager popup actions"
 msgstr "파일 관리자 팝업 동작"
 
-#: ../plugins/file-manager/plugin.c:339 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
 msgid "Files"
 msgstr "파일"
 
@@ -4601,10 +4625,10 @@ msgid ""
 "The extension will be added according to the type."
 msgstr ""
 "파일 이름을 입력하세요.\n"
-"형식에 따라 확장자가 더해질 것입니다."
+"형식에 따라 확장자가 추가됩니다."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:6
-#: ../plugins/project-manager/dialogs.c:641
+#: ../plugins/project-manager/dialogs.c:784
 msgid "Type:"
 msgstr "형식:"
 
@@ -4766,6 +4790,14 @@ msgstr ""
 "프로그랭이 실행중입니다.\n"
 "여전히 디버거를 중단하길 원하십니까?"
 
+#: ../plugins/gdb/debugger.c:1929
+msgid ""
+"The program is running.\n"
+"Do you still want to stop the debugger?"
+msgstr ""
+"프로그랭이 실행중입니다.\n"
+"여전히 디버거를 중단하길 원하십니까?"
+
 #. The %s argument is an error message returned by gdb.
 #. * It is something like, "No such file or directory"
 #: ../plugins/gdb/debugger.c:2087
@@ -4837,8 +4869,8 @@ msgstr "프로세스에 시그널 보내는 중 오류."
 msgid ""
 "Failed to create FIFO file named %s. The program will run without a terminal."
 msgstr ""
-"%s 이름을 가진 FIFO 파일 만들기에 실패했습니다. 터미널 없이 프로그램을 실행"
-"할 것입니다."
+"%s 이름을 가진 FIFO 파일 만들기에 실패했습니다. 터미널 없이 프로그램을 실행합"
+"니다."
 
 #: ../plugins/gdb/plugin.c:204
 msgid "Cannot start terminal for debugging."
@@ -4907,7 +4939,7 @@ msgstr "적용할 Mailbox 파일:"
 msgid "Add signed off by line"
 msgstr "서명 정보를 줄 단위로 추가"
 
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:805
+#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:794
 msgid "Branches"
 msgstr "브랜치"
 
@@ -4928,7 +4960,7 @@ msgid "Show source revision in log message"
 msgstr "로그 메시지에 소스 리비전 보이기"
 
 #: ../plugins/git/anjuta-git.ui.h:14
-msgid "Append signed-of- by line"
+msgid "Append signed-off-by line"
 msgstr "서명 정보를 줄 단위로 덧붙이기"
 
 #: ../plugins/git/anjuta-git.ui.h:15
@@ -4950,7 +4982,7 @@ msgstr "사용자 정의 작성자 정보 사용:"
 
 #: ../plugins/git/anjuta-git.ui.h:20
 msgid "E-mail:"
-msgstr "이메일:"
+msgstr "전자메일:"
 
 #: ../plugins/git/anjuta-git.ui.h:21
 msgid "Branch name:"
@@ -5205,7 +5237,7 @@ msgstr "커밋 작성자 이름을 입력해 주십시오."
 
 #: ../plugins/git/git-commit-pane.c:149
 msgid "Please enter the commit author's e-mail address."
-msgstr "커밋 작성자의 이메일 주소를 입력하여 주십시오."
+msgstr "커밋 작성자의 전자메일 주소를 입력하여 주십시오."
 
 #: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
 msgid "Commit"
@@ -5219,7 +5251,7 @@ msgstr "브랜치 이름을 입력하여 주십시오."
 msgid "Please enter a tag name."
 msgstr "태그 이름을 입력하여 주십시오."
 
-#: ../plugins/git/git-create-tag-pane.c:218
+#: ../plugins/git/git-create-tag-pane.c:233
 msgid "Create Tag"
 msgstr "태그 만들기"
 
@@ -5251,17 +5283,17 @@ msgstr "선택한 리비전이 없습니다"
 msgid "Stash %i.diff"
 msgstr "%I.diff 숨기기"
 
-#: ../plugins/git/git-log-pane.c:574
+#: ../plugins/git/git-log-pane.c:581
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>브랜치:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:579
+#: ../plugins/git/git-log-pane.c:586
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>태그:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:591
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>remote:</b> %s"
@@ -5271,7 +5303,7 @@ msgid "Merge"
 msgstr "합치기"
 
 #: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:727
+#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:716
 msgid "Git"
 msgstr "git"
 
@@ -5299,7 +5331,7 @@ msgstr "URL을 입력해 주십시오."
 msgid "Pull"
 msgstr "풀"
 
-#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:435 ../plugins/git/plugin.c:238
 msgid "Push"
 msgstr "푸쉬"
 
@@ -5311,19 +5343,19 @@ msgstr "선택한 remote가 없습니다"
 msgid "Remove Files"
 msgstr "파일 제거"
 
-#: ../plugins/git/git-repository-selector.c:66
+#: ../plugins/git/git-repository-selector.c:67
 msgid "Remote"
 msgstr "remote"
 
-#: ../plugins/git/git-repository-selector.c:81
+#: ../plugins/git/git-repository-selector.c:82
 msgid "URL"
 msgstr "URL"
 
-#: ../plugins/git/git-repository-selector.c:100
+#: ../plugins/git/git-repository-selector.c:101
 msgid "<b>Selected Remote:</b>"
 msgstr "<b>선택한 remote:</b>"
 
-#: ../plugins/git/git-repository-selector.c:199
+#: ../plugins/git/git-repository-selector.c:200
 msgid ""
 "No remote selected; using origin by default.\n"
 "To push to a different remote, select one from the Remotes list above."
@@ -5331,7 +5363,7 @@ msgstr ""
 "선택한 remote가 없니다. 기본적으로 origin을 사용합니다.\n"
 "다른 remote를 푸쉬하려면, 다음 remote 목록에서 하나를 선택하십시오."
 
-#: ../plugins/git/git-reset-pane.c:167
+#: ../plugins/git/git-reset-pane.c:164
 msgid "Reset"
 msgstr "재설정"
 
@@ -5351,11 +5383,11 @@ msgstr "되돌림"
 msgid "Stash Uncommitted Changes"
 msgstr "커밋하지 않은 바뀐 내용 숨기기"
 
-#: ../plugins/git/git-status-pane.c:368
+#: ../plugins/git/git-status-pane.c:365
 msgid "Changes to be committed"
 msgstr "커밋할 바뀐 내용"
 
-#: ../plugins/git/git-status-pane.c:377
+#: ../plugins/git/git-status-pane.c:374
 msgid "Changed but not updated"
 msgstr "바뀌었지만 업데이트 하지 않음"
 
@@ -5645,27 +5677,27 @@ msgstr "패치 묶음 적용을 중단하고 이전 상태의 트리로 돌아�
 msgid "Branch"
 msgstr "브랜치"
 
-#: ../plugins/git/plugin.c:723
+#: ../plugins/git/plugin.c:711
 msgid "Git Tasks"
 msgstr "git 작업"
 
-#: ../plugins/git/plugin.c:793
+#: ../plugins/git/plugin.c:782
 msgid "Status"
 msgstr "상태"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:788
 msgid "Log"
 msgstr "로그"
 
-#: ../plugins/git/plugin.c:810
+#: ../plugins/git/plugin.c:799
 msgid "Tags"
 msgstr "태그"
 
-#: ../plugins/git/plugin.c:817
+#: ../plugins/git/plugin.c:806
 msgid "Remotes"
 msgstr "remote"
 
-#: ../plugins/git/plugin.c:823
+#: ../plugins/git/plugin.c:812
 msgid "Stash"
 msgstr "숨기기"
 
@@ -5692,37 +5724,57 @@ msgstr "안주타 글레이드 플러그인입니다."
 msgid "User interface file"
 msgstr "사용자 인터페이스 파일"
 
-#: ../plugins/glade/plugin.c:586
+#: ../plugins/glade/anjuta-glade.ui.h:1
 msgid "Select widgets in the workspace"
 msgstr "작업 공간의 위젯을 선택하십시오"
 
-#: ../plugins/glade/plugin.c:612
+#: ../plugins/glade/anjuta-glade.ui.h:2
 msgid "Drag and resize widgets in the workspace"
 msgstr "작업 공간에서 위젯을 끌어 크기 조절합니다"
 
-#: ../plugins/glade/plugin.c:638
+#: ../plugins/glade/anjuta-glade.ui.h:3
+msgid "Edit widget margins"
+msgstr "위젯 여백 편집"
+
+#: ../plugins/glade/anjuta-glade.ui.h:4
+msgid "Edit widget alignment"
+msgstr "위젯 정렬 편집"
+
+#: ../plugins/glade/plugin.c:612
+msgid "Glade Properties…"
+msgstr "글레이드 속성…"
+
+#: ../plugins/glade/plugin.c:614
+msgid "Switch between library versions and check deprecations"
+msgstr "라이브러리 버전과 오래된 요소 확인간 전환"
+
+#: ../plugins/glade/plugin.c:640
 msgid "Loading Glade…"
 msgstr "글레이드 불러오는 중…"
 
-#: ../plugins/glade/plugin.c:714
+#: ../plugins/glade/plugin.c:726
+msgid "Glade designer operations"
+msgstr "글레이드 디자이너 동작"
+
+#: ../plugins/glade/plugin.c:734
 msgid "Widgets"
 msgstr "위젯"
 
-#: ../plugins/glade/plugin.c:719
+#: ../plugins/glade/plugin.c:739
 msgid "Palette"
 msgstr "색상표"
 
-#: ../plugins/glade/plugin.c:841
+#: ../plugins/glade/plugin.c:867
 #, c-format
 msgid "Not local file: %s"
 msgstr "로컬 파일이 아닙니다: %s"
 
-#: ../plugins/glade/plugin.c:887
+#: ../plugins/glade/plugin.c:913
 #, c-format
 msgid "Could not open %s"
 msgstr "%s(을)를 열 수 없습니다"
 
-#: ../plugins/glade/plugin.c:930
+#: ../plugins/glade/plugin.c:956
 msgid "Could not create a new glade project."
 msgstr "새 글레이드 프로젝트를 만들 수 없습니다."
 
@@ -5767,27 +5819,30 @@ msgid "Indent:"
 msgstr "들여쓰기:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
+msgid "Use spaces for parenthesis indentation"
+msgstr "괄호에 대한 공백 들여쓰기 사용"
+
+#: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:11
 msgid "Parenthesis indentation"
 msgstr "괄호 들여쓰기"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/indentation-c-style/plugin.c:469
+#: ../plugins/indentation-c-style/plugin.c:471
 #: ../plugins/indentation-python-style/plugin.c:206
 msgid "Auto-Indent"
 msgstr "자동 들여쓰기"
 
-#: ../plugins/indentation-c-style/plugin.c:470
+#: ../plugins/indentation-c-style/plugin.c:472
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "들여쓰기 설정에 따라 현재 줄 혹은 선택 영역 자동 들여쓰기"
 
-#: ../plugins/indentation-c-style/plugin.c:510
-#: ../plugins/language-support-cpp-java/plugin.c:1126
-msgid "C++/Java Assistance"
-msgstr "C++/자바 도우미"
+#: ../plugins/indentation-c-style/plugin.c:512
+msgid "C Indentation"
+msgstr "C 들여쓰기"
 
-#: ../plugins/indentation-c-style/plugin.c:607
-#: ../plugins/indentation-c-style/plugin.c:616
+#: ../plugins/indentation-c-style/plugin.c:610
+#: ../plugins/indentation-c-style/plugin.c:619
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -5798,9 +5853,42 @@ msgid "Enable adaptive indentation"
 msgstr "적응형 들여쓰기 사용"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#: ../plugins/language-support-python/plugin.c:428
-msgid "Python Assistance"
-msgstr "파이선 도우미"
+msgid "Python Indentation"
+msgstr "파이선 들여쓰기"
+
+#: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
+msgid "JHBuild"
+msgstr "JHBuild"
+
+#: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:2
+msgid "Build and run programs inside the JHBuild environment"
+msgstr "JHBuild 환경에서 프로그램 빌드하고 실행"
+
+#: ../plugins/jhbuild/plugin.c:121
+msgid "Failed to run \"jhbuild run\""
+msgstr "\"jhbuild run\"을 실행하는데 실패했습니다"
+
+#: ../plugins/jhbuild/plugin.c:127
+#, c-format
+msgid "Failed to run \"jhbuild run\" (%s)"
+msgstr "\"jhbuild run\"을 실행하는데 실패했습니다 (%s)"
+
+#: ../plugins/jhbuild/plugin.c:172
+msgid "Could not find the JHBuild install prefix."
+msgstr "JHBuild 설치 경로를 찾을 수 없습니다."
+
+#: ../plugins/jhbuild/plugin.c:180
+msgid ""
+"Could not find the JHBuild library directory. You need JHBuild from "
+"2012-11-06 or later."
+msgstr ""
+"JHBuild 라이브러리 디렉터리를 찾을 수 없습니다. 2012년 11월 6일 이후의 "
+"JHBuild가 필요합니다."
+
+#: ../plugins/jhbuild/plugin.c:198
+#, c-format
+msgid "Failed to activate the JHBuild Plugin: %s"
+msgstr "JHBuild 플러그인을 시작할 수 없습니다: %s"
 
 #: ../plugins/js-debugger/debugger-js.c:548
 #: ../plugins/js-debugger/plugin.c:142
@@ -5848,28 +5936,32 @@ msgstr "C 표준 라이브러리에 대한 API 태그 불러오기"
 msgid "Load API tags for C++ standard template library"
 msgstr "C++ 표준 서식 라이브러리에 대한 API 태그 불러오기"
 
-#: ../plugins/language-support-cpp-java/plugin.c:682
+#: ../plugins/language-support-cpp-java/plugin.c:688
 msgid "Code added for widget."
 msgstr "위젯에 대한 코드를 추가했습니다."
 
-#: ../plugins/language-support-cpp-java/plugin.c:1079
+#: ../plugins/language-support-cpp-java/plugin.c:1082
 msgid "Comment/Uncomment"
 msgstr "주석 처리/해제"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1080
+#: ../plugins/language-support-cpp-java/plugin.c:1083
 msgid "Comment or uncomment current selection"
 msgstr "현재 선택을 주석 처리/해제"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1085
+#: ../plugins/language-support-cpp-java/plugin.c:1088
 msgid "Swap .h/.c"
 msgstr ".h/.c 교환"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1086
+#: ../plugins/language-support-cpp-java/plugin.c:1089
 msgid "Swap C header and source files"
 msgstr "C 헤더 파일과 소스 파일을 맞바꿉니다"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
-#: ../plugins/language-support-cpp-java/plugin.c:1374
+#: ../plugins/language-support-cpp-java/plugin.c:1129
+msgid "C++/Java Assistance"
+msgstr "C++/자바 도우미"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1348
+#: ../plugins/language-support-cpp-java/plugin.c:1377
 msgid "API Tags (C/C++)"
 msgstr "API 태그(C/C++)"
 
@@ -5963,9 +6055,9 @@ msgstr "JS 지원 플러그인"
 msgid "JavaScript Support Plugin"
 msgstr "자바스크립트 지원 플러그인"
 
-#: ../plugins/language-support-js/plugin.c:370
-#: ../plugins/language-support-js/plugin.c:383
-#: ../plugins/language-support-js/plugin.c:417
+#: ../plugins/language-support-js/plugin.c:364
+#: ../plugins/language-support-js/plugin.c:377
+#: ../plugins/language-support-js/plugin.c:411
 msgid "JavaScript"
 msgstr "자바스크립트"
 
@@ -5996,9 +6088,13 @@ msgstr ""
 msgid "Do not show that warning again"
 msgstr "다음부터 경고를 보이지 않음"
 
+#: ../plugins/language-support-python/plugin.c:428
+msgid "Python Assistance"
+msgstr "파이선 도우미"
+
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:792
+#: ../plugins/language-support-python/python-assist.c:797
 msgid "Python"
 msgstr "파이선"
 
@@ -6090,8 +6186,8 @@ msgid "Icon"
 msgstr "아이콘"
 
 #: ../plugins/message-view/message-view.c:511
-#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:399
-#: ../plugins/message-view/plugin.c:518 ../plugins/message-view/plugin.c:529
+#: ../plugins/message-view/plugin.c:386 ../plugins/message-view/plugin.c:400
+#: ../plugins/message-view/plugin.c:519 ../plugins/message-view/plugin.c:530
 msgid "Messages"
 msgstr "메시지"
 
@@ -6140,25 +6236,25 @@ msgstr "다음/이전 메시지"
 #, c-format
 msgid "%d Message"
 msgid_plural "%d Messages"
-msgstr[0] "%d개의 메시지"
+msgstr[0] "메시지 %d개"
 
 #: ../plugins/message-view/plugin.c:277
 #, c-format
 msgid "%d Info"
 msgid_plural "%d Infos"
-msgstr[0] "%d개의 정보"
+msgstr[0] "정보 %d개"
 
 #: ../plugins/message-view/plugin.c:286
 #, c-format
 msgid "%d Warning"
 msgid_plural "%d Warnings"
-msgstr[0] "%d개의 경고"
+msgstr[0] "경고 %d개"
 
 #: ../plugins/message-view/plugin.c:295
 #, c-format
 msgid "%d Error"
 msgid_plural "%d Errors"
-msgstr[0] "%d개의 오류"
+msgstr[0] "오류 %d개"
 
 #: ../plugins/mk-project/mk-project.c:505
 msgid "Unable to parse make file"
@@ -6192,7 +6288,7 @@ msgstr "패키지 추가(_P)"
 msgid "Packages"
 msgstr "패키지"
 
-#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1260
 msgid "C/C++"
 msgstr "C/C++"
 
@@ -6208,40 +6304,40 @@ msgstr "파일 및 디렉터리를 패치합니다."
 msgid "File/Directory to patch"
 msgstr "패치할 파일/디렉터리"
 
-#: ../plugins/patch/patch-plugin.c:97
+#: ../plugins/patch/patch-plugin.c:98
 msgid "Patch file"
 msgstr "패치 파일"
 
-#: ../plugins/patch/patch-plugin.c:117
+#: ../plugins/patch/patch-plugin.c:119
 msgid "Patches"
 msgstr "패치"
 
-#: ../plugins/patch/patch-plugin.c:170
+#: ../plugins/patch/patch-plugin.c:172
 msgid "Please select the directory where the patch should be applied"
 msgstr "패치를 적용할 디렉터리를 선택하세요"
 
-#: ../plugins/patch/patch-plugin.c:181 ../plugins/patch/patch-plugin.ui.h:1
+#: ../plugins/patch/patch-plugin.c:183 ../plugins/patch/patch-plugin.ui.h:1
 msgid "Patch"
 msgstr "패치"
 
-#: ../plugins/patch/patch-plugin.c:198
+#: ../plugins/patch/patch-plugin.c:200
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "%s을(를) %s을(를) 사용하여 패치\n"
 
-#: ../plugins/patch/patch-plugin.c:210
+#: ../plugins/patch/patch-plugin.c:212
 msgid "Patching…\n"
 msgstr "패치 진행중…\n"
 
-#: ../plugins/patch/patch-plugin.c:220
+#: ../plugins/patch/patch-plugin.c:222
 msgid "Patching…"
 msgstr "패치 진행중…"
 
-#: ../plugins/patch/patch-plugin.c:225
+#: ../plugins/patch/patch-plugin.c:227
 msgid "There are unfinished jobs: please wait until they are finished."
 msgstr "끝나지 않은 작업이 있습니다: 끝날 때까지 기다려 주십시오."
 
-#: ../plugins/patch/patch-plugin.c:267
+#: ../plugins/patch/patch-plugin.c:269
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -6251,7 +6347,7 @@ msgstr ""
 "실패 메시지를 참조하세요.\n"
 "거부된 파일을 조사한 후 지우십시오.\n"
 
-#: ../plugins/patch/patch-plugin.c:273
+#: ../plugins/patch/patch-plugin.c:275
 msgid "Patching complete"
 msgstr "패치 완료"
 
@@ -6300,13 +6396,13 @@ msgstr "기존 autotools 프로젝트를 안주타로 가져오기"
 msgid "Project from Existing Sources"
 msgstr "기존 소스를 프로젝트로"
 
-#: ../plugins/project-import/plugin.c:79
-#: ../plugins/project-import/plugin.c:183
+#: ../plugins/project-import/plugin.c:80
+#: ../plugins/project-import/plugin.c:187
 #, c-format
 msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "\"%s\" 파일이 이미 존재합니다. 바꾸시겠습니까?"
 
-#: ../plugins/project-import/plugin.c:218
+#: ../plugins/project-import/plugin.c:222
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s. Check if you have write access to "
@@ -6315,16 +6411,17 @@ msgstr ""
 "\"%s\" 파일을 쓸 수 없습니다: %s. 프로젝트 디렉터리에 쓰기 권한을 가지고 있는"
 "지 확인해 보십시오."
 
-#: ../plugins/project-import/plugin.c:282
+#: ../plugins/project-import/plugin.c:286
 #, c-format
 msgid "Please select a project backend to open %s."
 msgstr "%s을(를) 열기 위한 프로젝트 백엔드를 선택하여 주십시오."
 
-#: ../plugins/project-import/plugin.c:287
+#: ../plugins/project-import/plugin.c:291
+#: ../plugins/project-manager/dialogs.c:650
 msgid "Open With"
 msgstr "다른 프로그램으로 열기"
 
-#: ../plugins/project-import/plugin.c:302
+#: ../plugins/project-import/plugin.c:306
 #, c-format
 msgid ""
 "Could not find a valid project backend for the given directory (%s). Please "
@@ -6333,8 +6430,8 @@ msgstr ""
 "주어진 디렉터리(%s)에서 올바른 프로젝트 백엔드를 찾을 수 없습니다. 다른 디렉"
 "터리를 선택하거나 새 버전의 안주타로 업그레이드 해보십시오."
 
-#: ../plugins/project-import/plugin.c:368
-#: ../plugins/project-import/plugin.c:424
+#: ../plugins/project-import/plugin.c:372
+#: ../plugins/project-import/plugin.c:428
 #, c-format
 msgid ""
 "Couldn't check out the supplied URI \"%s\". The error returned was: \"%s\""
@@ -6342,27 +6439,23 @@ msgstr ""
 "저장한 \"%s\" URI를 체크아웃 할 수 없습니다. 반환한 오류는 다음과 같습니다: "
 "\"%s\""
 
-#: ../plugins/project-import/project-import-dialog.c:292
+#: ../plugins/project-import/project-import-dialog.c:305
 msgid "Import project"
 msgstr "프로젝트 가져오기"
 
-#: ../plugins/project-import/project-import-dialog.c:296
+#: ../plugins/project-import/project-import-dialog.c:309
 msgid "Import"
 msgstr "가져오기"
 
 #: ../plugins/project-import/project-import.ui.h:1
-msgid "Project name"
-msgstr "프로젝트 이름"
-
-#: ../plugins/project-import/project-import.ui.h:2
 msgid "Import from folder"
 msgstr "폴더에서 가져오기"
 
-#: ../plugins/project-import/project-import.ui.h:3
+#: ../plugins/project-import/project-import.ui.h:2
 msgid "Location:"
 msgstr "위치:"
 
-#: ../plugins/project-import/project-import.ui.h:4
+#: ../plugins/project-import/project-import.ui.h:3
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:12
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:12
 #: ../plugins/project-wizard/templates/django.wiz.in.h:7
@@ -6387,13 +6480,17 @@ msgstr "위치:"
 msgid "Destination:"
 msgstr "대상:"
 
-#: ../plugins/project-import/project-import.ui.h:5
+#: ../plugins/project-import/project-import.ui.h:4
 msgid "Import from version control system"
 msgstr "버전 관리 시스템에서 가져오기"
 
-#: ../plugins/project-import/project-import.ui.h:6
+#: ../plugins/project-import/project-import.ui.h:5
 msgid "Import options"
 msgstr "옵션 가져오기"
+
+#: ../plugins/project-import/project-import.ui.h:6
+msgid "Project name"
+msgstr "프로젝트 이름"
 
 #: ../plugins/project-manager/anjuta-project-manager.plugin.in.h:1
 msgid "Project Manager"
@@ -6410,102 +6507,108 @@ msgstr "안주타 프로젝트 관리자 플러그인."
 #. }
 #. else
 #. uri = g_strdup("");
-#: ../plugins/project-manager/dialogs.c:332
+#: ../plugins/project-manager/dialogs.c:334
 msgid "Select sources…"
 msgstr "소스 선택…"
 
-#: ../plugins/project-manager/dialogs.c:407
+#: ../plugins/project-manager/dialogs.c:409
 msgid " This property is not modifiable."
 msgstr "이 속성은 편집할 수 없습니다."
 
-#: ../plugins/project-manager/dialogs.c:563
-#: ../plugins/project-manager/dialogs.c:568
-#: ../plugins/project-manager/plugin.c:927
+#. Several backend are possible, ask the user to select one
+#: ../plugins/project-manager/dialogs.c:647
+#, c-format
+msgid "Please select a project backend to use."
+msgstr "사용할 프로젝트 백엔드를 선택하십시오."
+
+#: ../plugins/project-manager/dialogs.c:689
+#: ../plugins/project-manager/dialogs.c:694
+#: ../plugins/project-manager/plugin.c:926
 msgid "Project properties"
 msgstr "프로젝트 속성"
 
-#: ../plugins/project-manager/dialogs.c:572
+#: ../plugins/project-manager/dialogs.c:698
 msgid "Folder properties"
 msgstr "폴더 속성"
 
-#: ../plugins/project-manager/dialogs.c:576
+#: ../plugins/project-manager/dialogs.c:702
 msgid "Target properties"
 msgstr "대상 속성"
 
-#: ../plugins/project-manager/dialogs.c:579
+#: ../plugins/project-manager/dialogs.c:705
 msgid "Source properties"
 msgstr "소스 속성"
 
-#: ../plugins/project-manager/dialogs.c:582
+#: ../plugins/project-manager/dialogs.c:708
 msgid "Module properties"
 msgstr "모듈 속성"
 
-#: ../plugins/project-manager/dialogs.c:585
+#: ../plugins/project-manager/dialogs.c:711
 msgid "Package properties"
 msgstr "패키지 속성"
 
-#: ../plugins/project-manager/dialogs.c:588
+#: ../plugins/project-manager/dialogs.c:714
 msgid "Unknown properties"
 msgstr "알 수 없는 속성"
 
-#: ../plugins/project-manager/dialogs.c:1050
-#: ../plugins/project-manager/dialogs.c:1061
+#: ../plugins/project-manager/dialogs.c:745
+msgid "Backend:"
+msgstr "백엔드:"
+
+#: ../plugins/project-manager/dialogs.c:938
+#, c-format
+msgid "Reloading project: %s"
+msgstr "프로젝트 다시 불러오는중: %s"
+
+#: ../plugins/project-manager/dialogs.c:1187
+#: ../plugins/project-manager/dialogs.c:1198
 msgid "Cannot add group"
 msgstr "그룹을 추가하할 수 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1062
+#: ../plugins/project-manager/dialogs.c:1199
 msgid "No parent group selected"
 msgstr "선택한 상위 그룹이 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1222
-#: ../plugins/project-manager/dialogs.c:1234
-#: ../plugins/project-manager/dialogs.c:1419
-#: ../plugins/project-manager/dialogs.c:1429
+#: ../plugins/project-manager/dialogs.c:1359
+#: ../plugins/project-manager/dialogs.c:1371
+#: ../plugins/project-manager/dialogs.c:1556
+#: ../plugins/project-manager/dialogs.c:1566
 msgid "Cannot add source files"
 msgstr "소스 파일을 추가할 수 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1235
-#: ../plugins/project-manager/dialogs.c:1430
+#: ../plugins/project-manager/dialogs.c:1372
+#: ../plugins/project-manager/dialogs.c:1567
 msgid "The selected node cannot contain source files."
 msgstr "선택한 노드에 소스 파일을 포함할 수 없습니다."
 
-#: ../plugins/project-manager/dialogs.c:1616
-#: ../plugins/project-manager/dialogs.c:1627
+#: ../plugins/project-manager/dialogs.c:1753
+#: ../plugins/project-manager/dialogs.c:1764
 msgid "Cannot add target"
 msgstr "타겟을 추가할 수 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1628
+#: ../plugins/project-manager/dialogs.c:1765
 msgid "No group selected"
 msgstr "선택한 그룹이 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1791
-#: ../plugins/project-manager/dialogs.c:1802
+#: ../plugins/project-manager/dialogs.c:1931
+#: ../plugins/project-manager/dialogs.c:1942
 msgid "Cannot add modules"
 msgstr "모듈을 추가할 수 없습니다"
 
-#: ../plugins/project-manager/dialogs.c:1803
+#: ../plugins/project-manager/dialogs.c:1943
 msgid "No target has been selected"
 msgstr "선택한 타겟이 없습니다"
 
 #. Missing module name
-#: ../plugins/project-manager/dialogs.c:2009
+#: ../plugins/project-manager/dialogs.c:2149
 msgid "Missing module name"
 msgstr "모듈 이름이 빠졌습니다"
 
-#: ../plugins/project-manager/dialogs.c:2071
+#: ../plugins/project-manager/dialogs.c:2211
 msgid "Cannot add packages"
 msgstr "패키지를 추가할 수 없습니다"
 
-#: ../plugins/project-manager/plugin.c:404
-msgid "Refreshing symbol tree…"
-msgstr "심볼 트리 가져오는 중…"
-
-#: ../plugins/project-manager/plugin.c:411
-#, c-format
-msgid "Failed to refresh project: %s"
-msgstr "프로젝트를 업데이트할 수 없습니다: %s"
-
-#: ../plugins/project-manager/plugin.c:680
+#: ../plugins/project-manager/plugin.c:684
 msgid ""
 "Are you sure you want to remove the following group from the project?\n"
 "\n"
@@ -6513,7 +6616,7 @@ msgstr ""
 "프로젝트로부터 다음 그룹을 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:683
+#: ../plugins/project-manager/plugin.c:687
 msgid ""
 "Are you sure you want to remove the following target from the project?\n"
 "\n"
@@ -6521,7 +6624,7 @@ msgstr ""
 "프로젝트로부터 다음 타겟을 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:686
+#: ../plugins/project-manager/plugin.c:690
 msgid ""
 "Are you sure you want to remove the following source file from the project?\n"
 "\n"
@@ -6529,7 +6632,7 @@ msgstr ""
 "프로젝트로부터 다음 소스 파일을 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:689
+#: ../plugins/project-manager/plugin.c:693
 msgid ""
 "Are you sure you want to remove the following package from the project?\n"
 "\n"
@@ -6537,7 +6640,7 @@ msgstr ""
 "프로젝트로부터 다음 패키지를 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:692
+#: ../plugins/project-manager/plugin.c:696
 msgid ""
 "Are you sure you want to remove the following module from the project?\n"
 "\n"
@@ -6545,7 +6648,7 @@ msgstr ""
 "프로젝트로부터 다음 모듈을 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:695
+#: ../plugins/project-manager/plugin.c:699
 msgid ""
 "Are you sure you want to remove the following elements from the project?\n"
 "\n"
@@ -6553,57 +6656,57 @@ msgstr ""
 "프로젝트로부터 다음 요소를 정말 제거하시겠습니까?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:712
+#: ../plugins/project-manager/plugin.c:716
 #, c-format
 msgid "Group: %s\n"
 msgstr "그룹: %s\n"
 
-#: ../plugins/project-manager/plugin.c:715
+#: ../plugins/project-manager/plugin.c:719
 #, c-format
 msgid "Target: %s\n"
 msgstr "타겟: %s\n"
 
-#: ../plugins/project-manager/plugin.c:718
+#: ../plugins/project-manager/plugin.c:722
 #, c-format
 msgid "Source: %s\n"
 msgstr "소스: %s\n"
 
-#: ../plugins/project-manager/plugin.c:721
+#: ../plugins/project-manager/plugin.c:725
 #, c-format
 msgid "Shortcut: %s\n"
 msgstr "바로 가기: %s\n"
 
-#: ../plugins/project-manager/plugin.c:724
+#: ../plugins/project-manager/plugin.c:728
 #, c-format
 msgid "Module: %s\n"
 msgstr "모듈: %s\n"
 
-#: ../plugins/project-manager/plugin.c:727
+#: ../plugins/project-manager/plugin.c:731
 #, c-format
 msgid "Package: %s\n"
 msgstr "패키지: %s\n"
 
-#: ../plugins/project-manager/plugin.c:739
-msgid "The group will be deleted from the file system."
-msgstr "그룹을 파일 시스템에서 삭제할 것입니다."
-
-#: ../plugins/project-manager/plugin.c:741
-msgid "The group will not be deleted from the file system."
-msgstr "그룹을 파일 시스템에서 삭제하지 않을 것입니다."
-
 #: ../plugins/project-manager/plugin.c:743
-msgid "The source file will be deleted from the file system."
-msgstr "소스 파일을 파일 시스템에서 삭제할 것입니다."
+msgid "The group will be deleted from the file system."
+msgstr "그룹을 파일 시스템에서 삭제합니다."
 
 #: ../plugins/project-manager/plugin.c:745
-msgid "The source file will not be deleted from the file system."
-msgstr "소스 파일을 파일 시스템에서 삭제하지 않을 것입니다."
+msgid "The group will not be deleted from the file system."
+msgstr "그룹을 파일 시스템에서 삭제하지 않습니다."
 
-#: ../plugins/project-manager/plugin.c:750
+#: ../plugins/project-manager/plugin.c:747
+msgid "The source file will be deleted from the file system."
+msgstr "소스 파일을 파일 시스템에서 삭제합니다."
+
+#: ../plugins/project-manager/plugin.c:749
+msgid "The source file will not be deleted from the file system."
+msgstr "소스 파일을 파일 시스템에서 삭제하지 않습니다."
+
+#: ../plugins/project-manager/plugin.c:754
 msgid "Confirm remove"
 msgstr "제거 확인"
 
-#: ../plugins/project-manager/plugin.c:796
+#: ../plugins/project-manager/plugin.c:800
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6612,125 +6715,109 @@ msgstr ""
 "'%s' 제거에 실패했습니다:\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:862
+#: ../plugins/project-manager/plugin.c:866
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
 msgstr "%s의 URI 정보를 가져올 수 없습니다: %s"
 
-#: ../plugins/project-manager/plugin.c:898
+#: ../plugins/project-manager/plugin.c:902
 msgid "_Project"
 msgstr "프로젝트(_P)"
 
-#: ../plugins/project-manager/plugin.c:902
+#: ../plugins/project-manager/plugin.c:906
 msgid "New _Folder…"
 msgstr "새 폴더(_F)…"
 
-#: ../plugins/project-manager/plugin.c:902
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:906
+#: ../plugins/project-manager/plugin.c:940
 msgid "Add a new folder to the project"
 msgstr "프로젝트에 새 폴더를 추가합니다"
 
-#: ../plugins/project-manager/plugin.c:907
+#: ../plugins/project-manager/plugin.c:911
 msgid "New _Target…"
 msgstr "새 타겟(_T)…"
 
-#: ../plugins/project-manager/plugin.c:907
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:911
+#: ../plugins/project-manager/plugin.c:945
 msgid "Add a new target to the project"
 msgstr "프로젝트에 새 타겟을 추가합니다"
 
-#: ../plugins/project-manager/plugin.c:912
+#: ../plugins/project-manager/plugin.c:916
 msgid "Add _Source File…"
 msgstr "소스 파일 추가(_S)…"
 
-#: ../plugins/project-manager/plugin.c:912
-#: ../plugins/project-manager/plugin.c:951
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:916
+#: ../plugins/project-manager/plugin.c:950
+#: ../plugins/project-manager/plugin.c:960
 msgid "Add a source file to a target"
 msgstr "타겟에 소스 파일을 추가합니다"
 
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add _Library…"
 msgstr "라이브러리 추가(_L)…"
 
-#: ../plugins/project-manager/plugin.c:917
+#: ../plugins/project-manager/plugin.c:921
 msgid "Add a module to a target"
 msgstr "타겟에 모듈을 추가합니다"
 
-#: ../plugins/project-manager/plugin.c:922
-msgid "New _Library…"
-msgstr "새 라이브러리(_L)…"
-
-#: ../plugins/project-manager/plugin.c:922
-msgid "Add a new package to the project"
-msgstr "프로젝트에 새 패키지를 추가합니다"
-
-#: ../plugins/project-manager/plugin.c:927
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:926
+#: ../plugins/project-manager/plugin.c:965
 msgid "_Properties"
 msgstr "속성(_P)"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close Pro_ject"
 msgstr "프로젝트 닫기(_J)"
 
-#: ../plugins/project-manager/plugin.c:932
+#: ../plugins/project-manager/plugin.c:931
 msgid "Close project"
 msgstr "프로젝트를 닫습니다"
 
-#: ../plugins/project-manager/plugin.c:941
+#: ../plugins/project-manager/plugin.c:940
 msgid "New _Folder"
 msgstr "새 폴더(_F)"
 
-#: ../plugins/project-manager/plugin.c:946
+#: ../plugins/project-manager/plugin.c:945
 msgid "New _Target"
 msgstr "새 타겟(_T)"
 
-#: ../plugins/project-manager/plugin.c:951
+#: ../plugins/project-manager/plugin.c:950
 msgid "Add _Source File"
 msgstr "소스 파일 추가(_S)"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add _Library"
 msgstr "라이브러리 추가(_L)"
 
-#: ../plugins/project-manager/plugin.c:956
+#: ../plugins/project-manager/plugin.c:955
 msgid "Add a library to a target"
 msgstr "타겟에 라이브러리 추가"
 
-#: ../plugins/project-manager/plugin.c:961
-msgid "New _Library"
-msgstr "새 라이브러리(_L)"
-
-#: ../plugins/project-manager/plugin.c:961
-msgid "Add a new library to the project"
-msgstr "프로젝트에 새 라이브러리를 추가합니다"
-
-#: ../plugins/project-manager/plugin.c:966
+#: ../plugins/project-manager/plugin.c:960
 msgid "_Add to Project"
 msgstr "프로젝트에 추가(_A)"
 
-#: ../plugins/project-manager/plugin.c:971
+#: ../plugins/project-manager/plugin.c:965
 msgid "Properties of group/target/source"
 msgstr "그룹/대상/소스 속성"
 
-#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:970
 msgid "Re_move"
 msgstr "제거(_M)"
 
-#: ../plugins/project-manager/plugin.c:976
+#: ../plugins/project-manager/plugin.c:970
 msgid "Remove from project"
 msgstr "프로젝트에서 제거합니다"
 
-#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:975
 msgid "_Sort"
 msgstr "정렬(_S)"
 
-#: ../plugins/project-manager/plugin.c:981
+#: ../plugins/project-manager/plugin.c:975
 msgid "Sort shortcuts"
 msgstr "바로 가기를 정렬합니다"
 
-#: ../plugins/project-manager/plugin.c:1319
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6739,42 +6826,42 @@ msgstr ""
 "프로젝트를 분석할 수 없습니다(프로젝트을 열었지만, 프로젝트 보기가 존재하지 "
 "않습니다) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1329
+#: ../plugins/project-manager/plugin.c:1320
 msgid "Update project view…"
 msgstr "프로젝트 보기 업데이트…"
 
-#: ../plugins/project-manager/plugin.c:1334
-#: ../plugins/project-manager/plugin.c:1456
-#: ../plugins/project-manager/plugin.c:1624
+#: ../plugins/project-manager/plugin.c:1325
+#: ../plugins/project-manager/plugin.c:1447
+#: ../plugins/project-manager/plugin.c:1615
 #: ../plugins/project-manager/project-model.c:184
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-#: ../plugins/symbol-db/plugin.c:2135
+#: ../plugins/symbol-db/plugin.c:2129
 msgid "Project"
 msgstr "프로젝트"
 
-#: ../plugins/project-manager/plugin.c:1372
+#: ../plugins/project-manager/plugin.c:1363
 #, c-format
 msgid "Loading project: %s"
 msgstr "프로젝트 불러오는 중: %s"
 
-#: ../plugins/project-manager/plugin.c:1536
+#: ../plugins/project-manager/plugin.c:1527
 #, c-format
 msgid "Error closing project: %s"
 msgstr "프로젝트 닫는 중 오류: %s"
 
-#: ../plugins/project-manager/plugin.c:1603
+#: ../plugins/project-manager/plugin.c:1594
 msgid "Project manager actions"
 msgstr "프로젝트 관리자 동작"
 
-#: ../plugins/project-manager/plugin.c:1611
+#: ../plugins/project-manager/plugin.c:1602
 msgid "Project manager popup actions"
 msgstr "프로젝트 관리자 팝업 동작"
 
-#: ../plugins/project-manager/plugin.c:2441
+#: ../plugins/project-manager/plugin.c:2416
 msgid "Initializing Project…"
 msgstr "프로젝트 초기화 중…"
 
-#: ../plugins/project-manager/plugin.c:2444
+#: ../plugins/project-manager/plugin.c:2419
 msgid "Project Loaded"
 msgstr "프로젝트를 불러왔습니다"
 
@@ -6900,7 +6987,7 @@ msgid "Select a project type"
 msgstr "프로젝트 형식 선택"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.ui.h:2
-#: ../plugins/project-wizard/druid.c:174
+#: ../plugins/project-wizard/druid.c:192
 msgid "Error"
 msgstr "오류"
 
@@ -6912,31 +6999,31 @@ msgstr "자세히"
 msgid "Summary"
 msgstr "요약"
 
-#: ../plugins/project-wizard/druid.c:166 ../plugins/project-wizard/druid.c:170
+#: ../plugins/project-wizard/druid.c:184 ../plugins/project-wizard/druid.c:188
 msgid "Warning"
 msgstr "경고"
 
-#: ../plugins/project-wizard/druid.c:177
+#: ../plugins/project-wizard/druid.c:195
 msgid "Message"
 msgstr "메시지"
 
-#: ../plugins/project-wizard/druid.c:258
+#: ../plugins/project-wizard/druid.c:276
 msgid "Confirm the following information:"
 msgstr "다음 정보를 확인하세요:"
 
 #. The project type is translated too, it is something like
 #. * generic, GNOME applet, Makefile project...
-#: ../plugins/project-wizard/druid.c:262
+#: ../plugins/project-wizard/druid.c:280
 #, c-format
 msgid "Project Type: %s\n"
 msgstr "프로젝트 형식: %s\n"
 
-#: ../plugins/project-wizard/druid.c:439
+#: ../plugins/project-wizard/druid.c:471
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "%s 내에서 프로젝트 서식을 찾을 수 없습니다"
 
-#: ../plugins/project-wizard/druid.c:679
+#: ../plugins/project-wizard/druid.c:704
 #, c-format
 msgid ""
 "\n"
@@ -6945,7 +7032,7 @@ msgstr ""
 "\n"
 "\"%s\" 항목은 필수 항목입니다. 반드시 입력하여 주십시오."
 
-#: ../plugins/project-wizard/druid.c:694
+#: ../plugins/project-wizard/druid.c:719
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits or the following characters "
@@ -6955,7 +7042,7 @@ msgstr ""
 "\"%s\" 필드에는 문자, 숫자 또는 다음 문자\"#$:%%+,.=@^_`~\"만 포함해야 합니"
 "다. 게다가 앞에 빼기 기호를 붙일 수 없습니다. 수정해 주십시오."
 
-#: ../plugins/project-wizard/druid.c:699
+#: ../plugins/project-wizard/druid.c:724
 #, c-format
 msgid ""
 "Field \"%s\" must contains only letters, digits, the following characters \"#"
@@ -6966,7 +7053,7 @@ msgstr ""
 "만 포함해야 합니다. 게다가 앞에 빼기 기호를 붙일 수 없습니다. 수정해 주십시"
 "오."
 
-#: ../plugins/project-wizard/druid.c:704
+#: ../plugins/project-wizard/druid.c:729
 #, c-format
 msgid ""
 "Field \"%s\" must contains only ASCII printable characters, no accentuated "
@@ -6975,12 +7062,12 @@ msgstr ""
 "\"%s\" 필드에는 출력가능한 ASCII 문자만 포함하며, 예를 들어 발음기호를 표시"
 "한 문자 같은 경우는 안됩니다. 수정해 주십시오."
 
-#: ../plugins/project-wizard/druid.c:709
+#: ../plugins/project-wizard/druid.c:734
 #, c-format
 msgid "Unknown error."
 msgstr "알 수 없는 오류입니다."
 
-#: ../plugins/project-wizard/druid.c:736
+#: ../plugins/project-wizard/druid.c:761
 #, c-format
 msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
@@ -6989,20 +7076,20 @@ msgstr ""
 "\"%s\" 디렉터리가 비어있지 않습니다. 몇몇 파일을 쓸 수 없는 경우 프로젝트 생"
 "성이 실패할 수 있습니다. 계속 진행하시겠습니까?"
 
-#: ../plugins/project-wizard/druid.c:738
+#: ../plugins/project-wizard/druid.c:763
 #, c-format
 msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "\"%s\" 파일이 이미 존재합니다. 덮어쓰시겠습니까?"
 
-#: ../plugins/project-wizard/druid.c:771
+#: ../plugins/project-wizard/druid.c:796
 msgid "Invalid entry"
 msgstr "잘못된 항목"
 
-#: ../plugins/project-wizard/druid.c:781
+#: ../plugins/project-wizard/druid.c:806
 msgid "Dubious entry"
 msgstr "의심스런 항목"
 
-#: ../plugins/project-wizard/druid.c:950
+#: ../plugins/project-wizard/druid.c:958
 #, c-format
 msgid ""
 "\n"
@@ -7011,7 +7098,7 @@ msgstr ""
 "\n"
 "프로그램 빠짐: %s."
 
-#: ../plugins/project-wizard/druid.c:961
+#: ../plugins/project-wizard/druid.c:969
 #, c-format
 msgid ""
 "\n"
@@ -7020,23 +7107,23 @@ msgstr ""
 "\n"
 "패키지 빠짐: %s"
 
-#: ../plugins/project-wizard/druid.c:970
+#: ../plugins/project-wizard/druid.c:978
 msgid ""
 "Some important programs or development packages required to build this "
 "project are missing. Please make sure they are installed properly before "
 "generating the project.\n"
 msgstr ""
 "이 프로젝트를 빌드하기 위한 일부 중요한 프로그램이나 개발 패키지가 빠져있습니"
-"다. 프로젝트를 생성하기 전에 적절하게 설치했는지 확인해주시기 바랍니다.\n"
+"다. 프로젝트를 생성하기 전에 적절하게 설치했는지 확인하십시오.\n"
 
-#: ../plugins/project-wizard/druid.c:979
+#: ../plugins/project-wizard/druid.c:987
 msgid "Install missing packages"
 msgstr "빠진 패키지 설치"
 
 #. Translators: Application Manager is the program used to install
 #. * new application like apt on Ubuntu, yum on Fedora, zypper on
 #. * OpenSuSE and emerge on Gentoo
-#: ../plugins/project-wizard/druid.c:991
+#: ../plugins/project-wizard/druid.c:999
 msgid ""
 "The missing programs are usually part of some distribution packages and can "
 "be searched for in your Application Manager. Similarly, the development "
@@ -7046,12 +7133,12 @@ msgid ""
 "your Application Manager."
 msgstr ""
 "빠진 프로그램은 보통 배포판 패키지의 일부이며 프로그램 관리자에서 검색할 수 "
-"있습니다. 마찬가지로 개발 패키지 역시 이들을 기반으로 한 프로젝트를 개발할 "
-"수 있게 배포판에서 제공하는 특별한 패키지 안에 들어있습니다. 보통 패키지 이름"
-"에서 \"-dev\" 또는 \"-devel\" 접미어로 끝나며 프로그램 관리자에서 검색해서 찾"
+"있습니다. 마찬가지로 개발 패키지 역시 이들 기반으로 한 프로젝트를 개발할 수 "
+"있게 배포판에서 제공하는 특별한 패키지 안에 들어있습니다. 보통 패키지 이름에"
+"서 \"-dev\" 또는 \"-devel\" 접미어로 끝나며 프로그램 관리자에서 검색해서 찾"
 "을 수 있습니다."
 
-#: ../plugins/project-wizard/druid.c:999
+#: ../plugins/project-wizard/druid.c:1007
 msgid "Missing components"
 msgstr "구성요소 빠짐"
 
@@ -7095,7 +7182,7 @@ msgstr "실행: %s"
 msgid "Unable to extract project template %s: %s"
 msgstr "%s 프로젝트 서식을 추출할 수 없습니다: %s"
 
-#: ../plugins/project-wizard/plugin.c:276
+#: ../plugins/project-wizard/plugin.c:286
 msgid "New Project Assistant"
 msgstr "새 프로젝트 도우미"
 
@@ -7112,16 +7199,16 @@ msgid "Select an Image File"
 msgstr "이미지 파일 선택"
 
 #: ../plugins/project-wizard/property.c:457
-#: ../plugins/project-wizard/property.c:547 ../plugins/tools/editor.c:558
+#: ../plugins/project-wizard/property.c:548 ../plugins/tools/editor.c:558
 #: ../plugins/tools/editor.c:705
 msgid "Choose Icon"
 msgstr "아이콘 선택"
 
-#: ../plugins/project-wizard/property.c:517
+#: ../plugins/project-wizard/property.c:518
 msgid "Choose directory"
 msgstr "디렉터리 선택"
 
-#: ../plugins/project-wizard/property.c:521
+#: ../plugins/project-wizard/property.c:522
 msgid "Choose file"
 msgstr "파일 선택"
 
@@ -7250,7 +7337,7 @@ msgstr "작성자:"
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:8
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:8
 msgid "Email address:"
-msgstr "이메일 주소:"
+msgstr "전자메일 주소:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:10
 #: ../plugins/project-wizard/templates/cpp.wiz.in.h:10
@@ -7663,9 +7750,9 @@ msgid ""
 "email address."
 msgstr ""
 "UUID는 확장을 위한 전역 고유 식별자 입니다.\n"
-"이메일 주소 형식(foo.bar@extensions.example.com)이어야 하지만\n"
-"여러분의 이메일 주소에 UUID를 기반으로 두는 것이 좋은 생각일진 몰라도\n"
-"실제 이메일 주소일 필요는 없습니다."
+"전자메일 주소 형식(foo.bar@extensions.example.com)이어야 하지만\n"
+"여러분의 전자메일 주소에 UUID를 기반으로 두는 것이 좋은 생각일진 몰라도\n"
+"실제 전자메일 주소일 필요는 없습니다."
 
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:21
 msgid "Extension URL"
@@ -7703,7 +7790,7 @@ msgstr "gtk-doc 시스템 추가:"
 #: ../plugins/project-wizard/templates/python.wiz.in.h:16
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
-"gtk-doc은 GObject에서 파생된 클래스들의 API 문서를 컴파일하기 위해 사용합니다"
+"gtk-doc은 GObject에서 파생된 클래스의 API 문서를 컴파일 하려면 사용합니다"
 
 #: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:21
@@ -7739,9 +7826,9 @@ msgid ""
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
-"프로젝트에서 필요로 하는 패키지의 이름을 입력하십시오. 여기에는 해당 패키지"
-"의 버전 정보도 지정할 수 있습니다. 예: 'libgnomeui-2.0' 또는 'libgnomeui-2.0 "
-">= 2.2.0'"
+"프로젝트에서 필요한 패키지의 이름을 입력하십시오. 여기에는 해당 패키지의 버"
+"전 정보도 지정할 수 있습니다. 예: 'libgnomeui-2.0' 또는 'libgnomeui-2.0 >= "
+"2.2.0'"
 
 #: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:1
 msgid "GTKmm (Simple)"
@@ -7958,6 +8045,26 @@ msgstr "파이선 로더"
 msgid "Allows loading Anjuta plugins written in Python"
 msgstr "파이선으로 작성한 안주타 플러그인 불러오기를 허용합니다"
 
+#: ../plugins/quick-open/anjuta-quick-open.ui.h:1
+msgid "Loading files..."
+msgstr "파일 불러오는중..."
+
+#: ../plugins/quick-open/plugin.c:221
+msgid "Quick open"
+msgstr "빨리 열기"
+
+#: ../plugins/quick-open/plugin.c:223
+msgid "Quickly open a file in the current project."
+msgstr "현재 프로젝트에서 파일을 빨리 엽니다."
+
+#: ../plugins/quick-open/plugin.c:243
+msgid "Quick open operations"
+msgstr "빨리 열기 동작"
+
+#: ../plugins/quick-open/quick-open-dialog.c:775
+msgid "Quick Open"
+msgstr "빨리 열기"
+
 #: ../plugins/run-program/anjuta-run-program.plugin.in.h:1
 msgid "Run Program"
 msgstr "프로그램 실행"
@@ -7992,7 +8099,7 @@ msgstr "작업 디렉터리 선택"
 msgid "Program directory '%s' is not local"
 msgstr "'%s' 프로그램 디렉터리는 지역에 없습니다"
 
-#: ../plugins/run-program/parameters.c:302
+#: ../plugins/run-program/parameters.c:180
 msgid "Load Target to run"
 msgstr "실행할 타겟 볼러오기"
 
@@ -8035,8 +8142,8 @@ msgid "Run operations"
 msgstr "실행 동작"
 
 #: ../plugins/snippets-manager/anjuta-snippets-manager.plugin.in.h:1
-#: ../plugins/snippets-manager/plugin.c:941
-#: ../plugins/snippets-manager/plugin.c:978
+#: ../plugins/snippets-manager/plugin.c:942
+#: ../plugins/snippets-manager/plugin.c:979
 #: ../plugins/snippets-manager/snippets-provider.c:754
 msgid "Code Snippets"
 msgstr "코드 단편"
@@ -8046,7 +8153,7 @@ msgid "Allows insertion of snippets into the editor."
 msgstr "편집기에 코드 단편을 넣을 수 있게 합니다."
 
 #: ../plugins/snippets-manager/plugin.c:62
-#: ../plugins/snippets-manager/plugin.c:306
+#: ../plugins/snippets-manager/plugin.c:307
 #: ../plugins/snippets-manager/snippets-browser.c:214
 msgid "Snippets"
 msgstr "단편"
@@ -8093,19 +8200,19 @@ msgstr "단편 내보내기(_E) …"
 msgid "Export snippets from the database"
 msgstr "데이터베이스로부터 단편 내보내기"
 
-#: ../plugins/snippets-manager/plugin.c:331
+#: ../plugins/snippets-manager/plugin.c:332
 msgid "Snippets Manager actions"
 msgstr "단편 관리자 동작"
 
-#: ../plugins/snippets-manager/plugin.c:778
+#: ../plugins/snippets-manager/plugin.c:779
 msgid "Command?"
 msgstr "명령?"
 
-#: ../plugins/snippets-manager/plugin.c:794
+#: ../plugins/snippets-manager/plugin.c:795
 msgid "Variable text"
 msgstr "변수 텍스트"
 
-#: ../plugins/snippets-manager/plugin.c:812
+#: ../plugins/snippets-manager/plugin.c:813
 #: ../plugins/snippets-manager/snippets-editor.c:40
 msgid "Instant value"
 msgstr "인스턴트 값"
@@ -8225,8 +8332,8 @@ msgid ""
 "Keywords are used for better searching of the snippets. They should be "
 "relevant to the snippet content. Type them separated by a single space."
 msgstr ""
-"키워드는 단편을 좀 더 잘 검색하기 위해 사용합니다. 키워드는 단편 내용과 관계"
-"가 있어야 합니다. 키워드는 단일 공백으로 구분합니다."
+"키워드는 단편을 좀 더 잘 검색하려면 사용합니다. 키워드는 단편 내용과 관계가 "
+"있어야 합니다. 키워드는 단일 공백으로 구분합니다."
 
 #: ../plugins/snippets-manager/snippets-editor.ui.h:15
 msgid "Snippet Properties"
@@ -8322,10 +8429,10 @@ msgstr "오른쪽 여백 보이기"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:14
 msgid "Right margin position in characters"
-msgstr "문자들의 오른쪽 여백 위치"
+msgstr "문자의 오른쪽 여백 위치"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:15
-#: ../src/anjuta-app.c:634 ../src/anjuta-app.c:639
+#: ../src/anjuta-window.c:687 ../src/anjuta-window.c:692
 msgid "View"
 msgstr "보기"
 
@@ -8349,55 +8456,55 @@ msgstr "색상 표:"
 msgid "Font"
 msgstr "글꼴"
 
-#: ../plugins/sourceview/plugin.c:112
+#: ../plugins/sourceview/plugin.c:110
 msgid "_Line Number Margin"
 msgstr "줄 번호 영역(_L)"
 
-#: ../plugins/sourceview/plugin.c:113
+#: ../plugins/sourceview/plugin.c:111
 msgid "Show/Hide line numbers"
 msgstr "줄 번호 보이기/숨기기"
 
-#: ../plugins/sourceview/plugin.c:115
+#: ../plugins/sourceview/plugin.c:113
 msgid "_Marker Margin"
 msgstr "표시 여백(_M)"
 
-#: ../plugins/sourceview/plugin.c:116
+#: ../plugins/sourceview/plugin.c:114
 msgid "Show/Hide marker margin"
 msgstr "표시 여백 보이기/숨기기"
 
-#: ../plugins/sourceview/plugin.c:118
+#: ../plugins/sourceview/plugin.c:116
 msgid "_White Space"
 msgstr "공백문자(_W)"
 
-#: ../plugins/sourceview/plugin.c:119
+#: ../plugins/sourceview/plugin.c:117
 msgid "Show/Hide white spaces"
 msgstr "공백문자 보이기/숨기기"
 
-#: ../plugins/sourceview/plugin.c:121
+#: ../plugins/sourceview/plugin.c:119
 msgid "_Line End Characters"
 msgstr "개행문자(_L)"
 
-#: ../plugins/sourceview/plugin.c:122
+#: ../plugins/sourceview/plugin.c:120
 msgid "Show/Hide line end characters"
 msgstr "개행문자 보이기/숨기기"
 
-#: ../plugins/sourceview/plugin.c:124
+#: ../plugins/sourceview/plugin.c:122
 msgid "Line _Wrapping"
 msgstr "자동 줄 바꿈(_W)"
 
-#: ../plugins/sourceview/plugin.c:125
+#: ../plugins/sourceview/plugin.c:123
 msgid "Enable/disable line wrapping"
 msgstr "자동 줄 바꿈 활성화/비활성화"
 
-#: ../plugins/sourceview/plugin.c:174
+#: ../plugins/sourceview/plugin.c:170
 msgid "Editor view settings"
 msgstr "편집기 보기 설정"
 
-#: ../plugins/sourceview/plugin.c:364 ../plugins/sourceview/plugin.c:405
+#: ../plugins/sourceview/plugin.c:362 ../plugins/sourceview/plugin.c:406
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView 편집기"
 
-#: ../plugins/sourceview/sourceview.c:565
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8406,7 +8513,7 @@ msgstr ""
 "디스크에 있는 '%s' 파일이 현재 버퍼보다 더 최신입니다.\n"
 "이 파일을 다시 불러오시겠습니까?"
 
-#: ../plugins/sourceview/sourceview.c:597
+#: ../plugins/sourceview/sourceview.c:633
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8414,28 +8521,28 @@ msgid ""
 msgstr "\"%s\" 파일이 디스크에서 지워졌습니다. 닫으시겠습니까?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:630
+#: ../plugins/sourceview/sourceview.c:666
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s을(를) 열 수 없습니다: %s"
 
-#: ../plugins/sourceview/sourceview.c:684
+#: ../plugins/sourceview/sourceview.c:717
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "\"%s\" 파일은 읽기 전용입니다! 그래도 편집하시겠습니까?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:746
+#: ../plugins/sourceview/sourceview.c:776
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "%s을(를) 저장할 수 없습니다: %s."
 
-#: ../plugins/sourceview/sourceview-io.c:271
+#: ../plugins/sourceview/sourceview-io.c:308
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "파일 이름을 지정하지 않아 파일을 저장할 수 없습니다"
 
-#: ../plugins/sourceview/sourceview-io.c:499
+#: ../plugins/sourceview/sourceview-io.c:556
 #, c-format
 msgid "New file %d"
 msgstr "새 파일 %d"
@@ -8480,7 +8587,7 @@ msgstr "시작 주체"
 msgid "Welcome page with most common actions."
 msgstr "가장 일반적인 동작을 취하는 환영 페이지입니다."
 
-#: ../plugins/starter/plugin.c:286
+#: ../plugins/starter/plugin.c:285
 msgid "Start"
 msgstr "시작"
 
@@ -9121,7 +9228,7 @@ msgstr "%s: 상속관계 생성중…"
 #, c-format
 msgid "%s: %d file scanned out of %d"
 msgid_plural "%s: %d files scanned out of %d"
-msgstr[0] "%1$s: %3$d개의 파일이 아닌 %2$d개의 파일을 검색했습니다"
+msgstr[0] "%1$s: 파일 %3$d개 중 %2$d개를 검색했습니다"
 
 #: ../plugins/symbol-db/plugin.c:1073
 #, c-format
@@ -9132,25 +9239,29 @@ msgstr "상속관계 생성중…"
 #, c-format
 msgid "%d file scanned out of %d"
 msgid_plural "%d files scanned out of %d"
-msgstr[0] "%2$d개의 파일이 아닌 %1$d개의 파일을 검색했습니다"
+msgstr[0] "파일 %2$d개 중 %1$d개를 검색했습니다"
 
-#: ../plugins/symbol-db/plugin.c:1740
+#: ../plugins/symbol-db/plugin.c:1734
 msgid "Populating symbol database…"
 msgstr "심볼 데이터베이스 이동중…"
 
-#: ../plugins/symbol-db/plugin.c:2120 ../plugins/symbol-db/plugin.c:2205
+#: ../plugins/symbol-db/plugin.c:2114 ../plugins/symbol-db/plugin.c:2199
 msgid "Symbols"
 msgstr "심볼"
 
-#: ../plugins/symbol-db/plugin.c:2214
+#: ../plugins/symbol-db/plugin.c:2134 ../plugins/symbol-db/plugin.c:2186
+msgid "Search"
+msgstr "검색"
+
+#: ../plugins/symbol-db/plugin.c:2208
 msgid "SymbolDb popup actions"
 msgstr "SymbolDb 팝업 동작"
 
-#: ../plugins/symbol-db/plugin.c:2222
+#: ../plugins/symbol-db/plugin.c:2216
 msgid "SymbolDb menu actions"
 msgstr "SymbolDb 메뉴 동작"
 
-#: ../plugins/symbol-db/plugin.c:2535 ../plugins/symbol-db/plugin.c:2553
+#: ../plugins/symbol-db/plugin.c:2534 ../plugins/symbol-db/plugin.c:2552
 #: ../plugins/symbol-db/symbol-db.plugin.in.h:1
 msgid "Symbol Database"
 msgstr "심볼 데이터베이스"
@@ -9160,7 +9271,7 @@ msgid "Symbol Database Plugin for Anjuta."
 msgstr "안주타 심볼 데이터베이스 플러그인입니다."
 
 # XXX: 의미를 알 수 없음.
-#: ../plugins/symbol-db/symbol-db-system.c:808
+#: ../plugins/symbol-db/symbol-db-system.c:798
 msgid "Resuming glb scan."
 msgstr "glb 검색을 재개합니다."
 
@@ -9169,8 +9280,8 @@ msgid "Symbol"
 msgstr "심볼"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
-#: ../plugins/terminal/terminal.c:750 ../plugins/terminal/terminal.c:944
-#: ../plugins/terminal/terminal.c:995
+#: ../plugins/terminal/terminal.c:733 ../plugins/terminal/terminal.c:918
+#: ../plugins/terminal/terminal.c:971
 msgid "Terminal"
 msgstr "터미널"
 
@@ -9190,23 +9301,23 @@ msgstr "그놈 터미널 프로파일 사용:"
 msgid "Terminal options"
 msgstr "터미널 옵션"
 
-#: ../plugins/terminal/terminal.c:578
+#: ../plugins/terminal/terminal.c:564
 msgid "Ctrl-C"
 msgstr "Ctrl-C"
 
-#: ../plugins/terminal/terminal.c:586
+#: ../plugins/terminal/terminal.c:572
 msgid "Ctrl-X"
 msgstr "Ctrl-X"
 
-#: ../plugins/terminal/terminal.c:594
+#: ../plugins/terminal/terminal.c:580
 msgid "Ctrl-Z"
 msgstr "Ctrl-Z"
 
-#: ../plugins/terminal/terminal.c:732
+#: ../plugins/terminal/terminal.c:715
 msgid "terminal operations"
 msgstr "터미널 동작"
 
-#: ../plugins/terminal/terminal.c:877
+#: ../plugins/terminal/terminal.c:850
 #, c-format
 msgid "Unable to execute command"
 msgstr "실행할 수 없습니다"
@@ -9276,12 +9387,12 @@ msgstr "닫을 때 안주타의 명령을 스크립트처럼 편집"
 msgid "Variable list"
 msgstr "변수 목록:"
 
-#: ../plugins/tools/dialog.c:177
+#: ../plugins/tools/dialog.c:178
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "'%s' 도구를 정말로 제거하시겠습니까？"
 
-#: ../plugins/tools/dialog.c:343
+#: ../plugins/tools/dialog.c:344
 msgid "Tool"
 msgstr "도구"
 
@@ -9313,7 +9424,7 @@ msgstr "도구 명령이 주어져야합니다!"
 msgid "A tool with the same name already exists!"
 msgstr "같은 이름을 가진 도구가 이미 존재합니다!"
 
-#: ../plugins/tools/editor.c:826
+#: ../plugins/tools/editor.c:827
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
@@ -9321,11 +9432,11 @@ msgstr ""
 "해당 바로 가기는 이미 안주타의 다른 요소에서 사용하고 있습니다. 유지하시겠습"
 "니까?"
 
-#: ../plugins/tools/editor.c:910
+#: ../plugins/tools/editor.c:911
 msgid "Unable to edit script"
 msgstr "스크립트를 편집할 수 없습니다"
 
-#: ../plugins/tools/editor.c:1046
+#: ../plugins/tools/editor.c:1047
 msgid "New accelerator…"
 msgstr "새 가속기…"
 
@@ -9390,7 +9501,7 @@ msgstr "외부 도구를 불러오던 중 오류"
 #: ../plugins/tools/fileop.c:703
 #, c-format
 msgid "Unable to open %s for writing"
-msgstr "%s을(를) 쓰기 위해 열 수 없습니다"
+msgstr "%s을(를) 쓰려면 열 수 없습니다"
 
 #: ../plugins/tools/plugin.c:187
 msgid "Tool operations"
@@ -9559,11 +9670,11 @@ msgstr "파일(_F)"
 
 #: ../src/anjuta-actions.h:24
 msgid "_Quit"
-msgstr "나가기(_Q)"
+msgstr "끝내기(_Q)"
 
 #: ../src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
-msgstr "안주타 IDE 나가기"
+msgstr "안주타 IDE를 끝냅니다"
 
 #: ../src/anjuta-actions.h:32
 msgid "_Preferences"
@@ -9583,7 +9694,7 @@ msgstr "독 배치 초기화(_R)"
 
 #: ../src/anjuta-actions.h:41
 msgid "Reset the widgets docking layout to default"
-msgstr "위젯의 도킹 배치를 기본값으로 되돌립니다"
+msgstr "위젯의 독 배치를 기본값으로 되돌립니다"
 
 #: ../src/anjuta-actions.h:47
 msgid "_Full Screen"
@@ -9591,7 +9702,7 @@ msgstr "전체 화면(_F)"
 
 #: ../src/anjuta-actions.h:48
 msgid "Toggle fullscreen mode"
-msgstr "전체 화면 모드 ON/OFF"
+msgstr "전체 화면 모드 전환"
 
 #: ../src/anjuta-actions.h:51
 msgid "_Lock Dock Layout"
@@ -9599,7 +9710,7 @@ msgstr "독 배치 잠금(_L)"
 
 #: ../src/anjuta-actions.h:52
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr "위젯을 움직일 수 없도록 현재 도킹 레이아웃을 잠굽니다"
+msgstr "위젯을 움직일 수 없도록 현재 도킹 레이아웃을 잠급니다"
 
 #: ../src/anjuta-actions.h:55
 msgid "_Toolbar"
@@ -9669,64 +9780,68 @@ msgstr "외부 플러그인 정보(_P)"
 msgid "About third-party Anjuta plugins"
 msgstr "서드 파티 안주타 플러그인 정보"
 
-#: ../src/anjuta-app.c:630
-msgid "Edit"
-msgstr "편집"
-
-#: ../src/anjuta-app.c:643
-msgid "Help"
-msgstr "도움말"
-
-#: ../src/anjuta-app.c:935
-msgid "Installed plugins"
-msgstr "설치한 플러그인"
-
-#: ../src/anjuta-app.c:939
-msgid "Shortcuts"
-msgstr "바로 가기"
-
-#: ../src/anjuta-app.c:1011
-#, c-format
-msgid "Value doesn't exist"
-msgstr "값이 존재하지 않습니다"
-
-#: ../src/anjuta.c:443
-msgid "Loaded Session…"
-msgstr "불러온 세션…"
-
-#: ../src/main.c:67
+#: ../src/anjuta-application.c:285
 msgid "Specify the size and location of the main window"
 msgstr "메인 창의 크기와 위치를 지정해 주십시오"
 
 #. This is the format you can specify the size andposition
 #. * of the window on command line
-#: ../src/main.c:70
+#: ../src/anjuta-application.c:288
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/main.c:75
+#: ../src/anjuta-application.c:293
 msgid "Do not show the splash screen"
 msgstr "스플래시 화면 보지 않기"
 
-#: ../src/main.c:81
+#: ../src/anjuta-application.c:299
 msgid "Start a new instance and do not open the file in an existing instance"
 msgstr "새 인스턴스를 시작하고 기존 인스턴스에 파일을 열지 않기"
 
-#: ../src/main.c:87
+#: ../src/anjuta-application.c:305
 msgid "Do not open last session on startup"
 msgstr "시작시 이전 세션 열지 않음"
 
-#: ../src/main.c:93
+#: ../src/anjuta-application.c:311
 msgid "Do not open last project and files on startup"
 msgstr "시작시 이전 프로젝트와 파일 열지 않음"
 
-#: ../src/main.c:99
+#: ../src/anjuta-application.c:317
 msgid "Shut down Anjuta properly, releasing all resources (for debugging)"
-msgstr "모든 자원을 해제하기 위해 안주타 속성을 해제(디버깅용)"
+msgstr "모든 자원을 해제하려면 안주타 속성을 해제(디버깅용)"
 
-#: ../src/main.c:138
+#: ../src/anjuta-application.c:323
+msgid "Display program version"
+msgstr "프로그램 버전을 표시합니다"
+
+#: ../src/anjuta-application.c:341
 msgid "- Integrated Development Environment"
 msgstr "- 통합 개발 환경"
+
+#: ../src/anjuta-application.c:656
+msgid "Loaded Session…"
+msgstr "불러온 세션…"
+
+#: ../src/anjuta-window.c:683
+msgid "Edit"
+msgstr "편집"
+
+#: ../src/anjuta-window.c:696
+msgid "Help"
+msgstr "도움말"
+
+#: ../src/anjuta-window.c:992
+msgid "Installed plugins"
+msgstr "설치한 플러그인"
+
+#: ../src/anjuta-window.c:996
+msgid "Shortcuts"
+msgstr "바로 가기"
+
+#: ../src/anjuta-window.c:1068
+#, c-format
+msgid "Value doesn't exist"
+msgstr "값이 존재하지 않습니다"
 
 #: ../src/org.gnome.anjuta.gschema.xml.in.h:1
 msgid "Use tabulation for indentation"
@@ -9797,3 +9912,39 @@ msgstr "아이콘만"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "텍스트만"
+
+#~ msgid "Select a build directory"
+#~ msgstr "빌드 디렉터리 선택"
+
+#~ msgid "Unable to execute: %s."
+#~ msgstr "실행할 수 없습니다: %s."
+
+#~ msgid "Contents"
+#~ msgstr "내용"
+
+#~ msgid "Do not show tabs"
+#~ msgstr "탭 표시 안함"
+
+#~ msgid "Editor tabs"
+#~ msgstr "편집기 탭"
+
+#~ msgid "Base URI"
+#~ msgstr "기본 URI"
+
+#~ msgid "Refreshing symbol tree…"
+#~ msgstr "심볼 트리 가져오는 중…"
+
+#~ msgid "Failed to refresh project: %s"
+#~ msgstr "프로젝트를 업데이트할 수 없습니다: %s"
+
+#~ msgid "New _Library…"
+#~ msgstr "새 라이브러리(_L)…"
+
+#~ msgid "Add a new package to the project"
+#~ msgstr "프로젝트에 새 패키지를 추가합니다"
+
+#~ msgid "New _Library"
+#~ msgstr "새 라이브러리(_L)"
+
+#~ msgid "Add a new library to the project"
+#~ msgstr "프로젝트에 새 라이브러리를 추가합니다"
