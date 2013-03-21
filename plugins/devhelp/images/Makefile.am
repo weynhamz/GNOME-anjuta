@@ -1,6 +1,6 @@
 # Plugin Icon file
 devhelp_pixmapsdir = $(anjuta_image_dir)
-devhelp_pixmaps_DATA = \
+dist_devhelp_pixmaps_DATA = \
 	anjuta-devhelp-plugin.svg \
 	anjuta-devhelp-plugin-48.png \
 	anjuta-devhelp-search.svg \
@@ -12,7 +12,4 @@ devhelp_pixmaps_DATA = \
 	anjuta-devhelp-view-24.png \
 	anjuta-devhelp-view-16.png
 	
-EXTRA_DIST = \
-	$(devhelp_pixmaps_DATA)
-
 -include $(top_srcdir)/git.mk
