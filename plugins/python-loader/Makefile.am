@@ -1,13 +1,13 @@
+# Plugin description file
+plugin_in_files = anjuta-python-loader.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
 if HAVE_PYTHON
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 
-# Plugin description file
-plugin_in_files = anjuta-python-loader.plugin.in
-%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -49,8 +49,7 @@ libanjuta_python_loader_la_LIBADD = \
 endif # HAVE_PYTHON
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(plugin_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk
 
