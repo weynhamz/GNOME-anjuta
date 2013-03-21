@@ -1,9 +1,9 @@
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2012.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-09-29 16:04+0000\n"
-"PO-Revision-Date: 2012-10-08 06:55+0200\n"
+"POT-Creation-Date: 2013-02-21 22:11+0000\n"
+"PO-Revision-Date: 2013-03-22 00:07+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Kelemen Gábor <kelemeng at gnome dot hu>, 2012."
+msgstr "Kelemen Gábor <kelemeng at gnome dot hu>, 2012, 2013."
 
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
@@ -544,11 +544,10 @@ msgstr "Autotools projekt háttérprogram."
 #: C/project-manager-library.page:17(credit/name)
 #: C/project-manager-library-remove.page:14(credit/name)
 #: C/project-manager-module-add.page:14(credit/name)
-#: C/project-manager-module-new.page:15(credit/name)
+#: C/project-manager-module-new.page:16(credit/name)
 #: C/project-manager-module-remove.page:14(credit/name)
-#: C/project-manager-package-add.page:15(credit/name)
 #: C/project-manager-package-remove.page:13(credit/name)
-#: C/project-manager.page:11(credit/name)
+#: C/project-manager.page:12(credit/name)
 #: C/project-manager-root.page:16(credit/name)
 #: C/project-manager-source-add.page:13(credit/name)
 #: C/project-manager-source.page:16(credit/name)
@@ -581,11 +580,10 @@ msgstr "Sébastien Granjoux"
 #: C/project-manager-library-add.page:18(credit/name)
 #: C/project-manager-library-remove.page:18(credit/name)
 #: C/project-manager-module-add.page:18(credit/name)
-#: C/project-manager-module-new.page:19(credit/name)
+#: C/project-manager-module-new.page:20(credit/name)
 #: C/project-manager-module-remove.page:18(credit/name)
-#: C/project-manager-package-add.page:19(credit/name)
 #: C/project-manager-package-remove.page:17(credit/name)
-#: C/project-manager.page:15(credit/name)
+#: C/project-manager.page:16(credit/name)
 #: C/project-manager-source-add.page:17(credit/name)
 #: C/project-manager-source-remove.page:17(credit/name)
 #: C/project-manager-target-add.page:17(credit/name)
@@ -624,7 +622,7 @@ msgstr ""
 "Fejlesztőként jellemzően egy kicsit bonyolultabb a használata. Azonban az "
 "<app>Anjuta</app> alapértelmezett háttérprogramja, amely szolgáltatásaival "
 "egyszerűbbé teszi a használatát. A projektmenedzser összes szolgáltatása "
-"bekapcsolásra kerülnek a használatakor. Egy projektet karban lehet tartani "
+"bekapcsolásra kerül a használatakor. Egy projektet karban lehet tartani "
 "úgy az Autotools háttérprogram használatával, hogy egyetlen sort is írna a "
 "<file>configure.ac</file> vagy bármely <file>Makefile.am</file> fájlba."
 
@@ -800,26 +798,41 @@ msgid "These are the properties of the root item."
 msgstr "Ezek a gyökérelem tulajdonságai."
 
 #: C/autotools-project-root-edit.page:25(item/title)
+#| msgid "<gui>Name</gui>"
+msgid "<gui>Backend</gui>"
+msgstr "<gui>Háttérprogram</gui>"
+
+#: C/autotools-project-root-edit.page:26(item/p)
+msgid ""
+"This the project backend used by the project: Autotools. Another backend can "
+"be selected by clicking on this button. It can be useful if the current "
+"backend has some troubles to parse your project files."
+msgstr ""
+"Ez a projekt által használt projekt háttérprogram: az Autotools. A gombra "
+"kattintva másik háttérprogram választható. Ez hasznos lehet, ha a jelenlegi "
+"háttérprogramnak problémát okoz a projektfájlok feldolgozása."
+
+#: C/autotools-project-root-edit.page:32(item/title)
 msgid "<gui>Name</gui>"
 msgstr "<gui>Név</gui>"
 
-#: C/autotools-project-root-edit.page:26(item/p)
+#: C/autotools-project-root-edit.page:33(item/p)
 msgid "The name of your project. It can contains space."
 msgstr "A projekt neve. Tartalmazhat szóközöket."
 
-#: C/autotools-project-root-edit.page:29(item/title)
+#: C/autotools-project-root-edit.page:36(item/title)
 msgid "<gui>Version</gui>"
 msgstr "<gui>Verzió</gui>"
 
-#: C/autotools-project-root-edit.page:30(item/p)
+#: C/autotools-project-root-edit.page:37(item/p)
 msgid "This is the project version."
 msgstr "A projekt verziószáma."
 
-#: C/autotools-project-root-edit.page:33(item/title)
+#: C/autotools-project-root-edit.page:40(item/title)
 msgid "<gui>Bug report URL</gui>"
 msgstr "<gui>Hibajelentési URL</gui>"
 
-#: C/autotools-project-root-edit.page:34(item/p)
+#: C/autotools-project-root-edit.page:41(item/p)
 msgid ""
 "This is an URL allowing to send bug report, by example an email address or a "
 "link to a bug tracker. It is optional."
@@ -827,25 +840,25 @@ msgstr ""
 "Ez az URL lehetővé teszi hibajelentés küldését, például egy e-mail cím vagy "
 "a hibakövetőre mutató hivatkozás. Elhagyható."
 
-#: C/autotools-project-root-edit.page:38(item/title)
+#: C/autotools-project-root-edit.page:45(item/title)
 msgid "<gui>Package name</gui>"
 msgstr "<gui>Csomag neve</gui>"
 
-#: C/autotools-project-root-edit.page:39(item/p)
+#: C/autotools-project-root-edit.page:46(item/p)
 msgid ""
 "This is the name of distribution package, it shouldn't contain spaces. It is "
 "optional."
 msgstr "A disztribúciós csomag neve, nem tartalmazhat szóközt. Elhagyható."
 
-#: C/autotools-project-root-edit.page:43(item/title)
+#: C/autotools-project-root-edit.page:50(item/title)
 msgid "<gui>URL</gui>"
 msgstr "<gui>URL</gui>"
 
-#: C/autotools-project-root-edit.page:44(item/p)
+#: C/autotools-project-root-edit.page:51(item/p)
 msgid "This is the home page of the project. It is optional."
 msgstr "A projekt honlapja. Elhagyható."
 
-#: C/autotools-project-root-edit.page:48(page/p)
+#: C/autotools-project-root-edit.page:55(page/p)
 msgid ""
 "In addition, the root item works as a folder and has all its properties. See "
 "<link xref=\"autotools-project-folder-edit\"/> to see the list."
@@ -887,7 +900,8 @@ msgid ""
 "The flags to pass to the C compiler when compiling target source files. This "
 "value overrides the one eventually defined in the parent folder."
 msgstr ""
-"A C fordítónak a cél forrásfájljai fordításakor átadandó jelzők. Ez az érték "
+"A C fordítónak a cél forrásfájljainak fordításakor átadandó jelzők. Ez az "
+"érték "
 "felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:36(item/p)
@@ -903,7 +917,7 @@ msgid ""
 "The flags to pass to the C++ compiler flags when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
-"A C++ fordítónak a cél forrásfájljai fordításakor átadandó jelzők. Ez az "
+"A C++ fordítónak a cél forrásfájljainak fordításakor átadandó jelzők. Ez az "
 "érték felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:47(item/title)
@@ -937,7 +951,8 @@ msgid ""
 "The flags to pass to the Fortran 9x compiler when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
-"A Fortran 9x fordítónak a cél forrásfájljai fordításakor átadandó jelzők. Ez "
+"A Fortran 9x fordítónak a cél forrásfájljainak fordításakor átadandó jelzők. "
+"Ez "
 "az érték felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:64(item/title)
@@ -971,7 +986,7 @@ msgid ""
 "The flags to pass to the Java compiler when compiling target source files. "
 "This value overrides the one eventually defined in the parent folder."
 msgstr ""
-"A Java fordítónak a cél forrásfájljai fordításakor átadandó jelzők. Ez az "
+"A Java fordítónak a cél forrásfájljainak fordításakor átadandó jelzők. Ez az "
 "érték felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:82(item/title)
@@ -1028,14 +1043,15 @@ msgid ""
 "are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’."
 msgstr ""
 "Azon kézikönyvszakasz megadása, amelyhez a kézikönyvoldal hozzáadandó. Az "
-"érvényes szakasznevek a számok 0-9 közt, és az „l” és „n” betűk."
+"érvényes szakasznevek a számok 0-9 között, és az „l” és „n” betűk."
 
 #: C/autotools-project-target-edit.page:112(item/p)
 msgid ""
 "The flags to pass to the Objective C compiler when compiling target source "
 "files. This value overrides the one eventually defined in the parent folder."
 msgstr ""
-"Az Objective C fordítónak a cél forrásfájljai fordításakor átadandó jelzők. "
+"Az Objective C fordítónak a cél forrásfájljainak fordításakor átadandó "
+"jelzők. "
 "Ez az érték felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:118(item/p)
@@ -1043,7 +1059,7 @@ msgid ""
 "The flags to pass to the Vala compiler when compiling target source files. "
 "This value overrides the one eventually defined in the parent folder."
 msgstr ""
-"A Vala fordítónak a cél forrásfájljai fordításakor átadandó jelzők. Ez az "
+"A Vala fordítónak a cél forrásfájljainak fordításakor átadandó jelzők. Ez az "
 "érték felülbírálja a szülőmappában definiáltat."
 
 #: C/autotools-project-target-edit.page:124(item/p)
@@ -4195,7 +4211,7 @@ msgstr "Programkönyvtárak kezelése"
 
 #: C/project-manager-library-remove.page:10(info/desc)
 msgid "Remove a custom library from a target."
-msgstr "Egyéni programkönyvtár eltávolítása célból."
+msgstr "Egyéni programkönyvtár eltávolítása a célból."
 
 #: C/project-manager-library-remove.page:23(page/title)
 msgid "Remove a Custom Library"
@@ -4227,67 +4243,11 @@ msgid "Add a set of libraries to a target."
 msgstr "Programkönyvtárak halmazának hozzáadása egy célhoz."
 
 #: C/project-manager-module-add.page:23(page/title)
-msgid "Add a Module"
-msgstr "Modul hozzáadása"
+#| msgid "Manage Libraries"
+msgid "Add packaged libraries"
+msgstr "Csomagolt programkönyvtárak hozzáadása"
 
 #: C/project-manager-module-add.page:25(page/p)
-msgid ""
-"Packages cannot be added directly to a target. You need to put them into a "
-"module first and add this module to the target. See <link xref=\"project-"
-"manager-module-new\"/> to know how to do create a module."
-msgstr ""
-"A csomagok nem adhatók hozzá közvetlenül egy célhoz. Ezeket előbb el kell "
-"helyeznie egy modulba, és ezt a modult kell hozzáadnia a célhoz. A modul "
-"létrehozásával kapcsolatban nézze meg az <link xref=\"project-manager-module-"
-"new\"/> oldalt."
-
-#: C/project-manager-module-add.page:31(item/p)
-msgid ""
-"Select the program where you want to add the new library in the <gui>project "
-"view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear and select <gui>Add Library</gui>."
-msgstr ""
-"Válassza ki a <gui>projektnézetben</gui> a programot, amelybe az új "
-"programkönyvtárat fel kívánja venni, kattintson a jobb egérgombbal a "
-"<gui>helyi menü</gui> megjelenítéséhez, és válassza ki a "
-"<gui>Programkönyvtár hozzáadása</gui> menüpontot."
-
-#: C/project-manager-module-add.page:35(item/p)
-msgid ""
-"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
-"Library...</gui></guiseq>."
-msgstr ""
-"Vagy a <gui>főmenüből</gui> válassza a <guiseq><gui>Projekt</"
-"gui><gui>Programkönyvtár hozzáadása</gui></guiseq> menüpontot."
-
-#: C/project-manager-module-add.page:39(item/p)
-msgid ""
-"You need to select the target where you want to add the module in the "
-"<gui>target button</gui> above, and select the module that you want to add "
-"in the <gui>module view</gui> below. If you select a library inside a "
-"module, the parent module will be added."
-msgstr ""
-"A fenti <gui>cél gombbal</gui> ki kell választania azt a célt, amelyhez a "
-"modult hozzá szeretné adni, ezután válassza ki a hozzáadni kívánt modult a "
-"lenti <gui>modulnézetben</gui>. Ha egy modulon belüli programkönyvtárat "
-"választ ki, akkor a szülő modul lesz hozzáadva."
-
-#: C/project-manager-module-add.page:43(item/p)
-msgid ""
-"When you are done, click on the <gui>Add</gui> button to add the module."
-msgstr ""
-"Ha befejezte, akkor nyomja meg a <gui>Hozzáadás</gui> gombot a modul "
-"hozzáadásához."
-
-#: C/project-manager-module-new.page:11(info/desc)
-msgid "Create a set of libraries."
-msgstr "Programkönyvtárak halmazának létrehozása."
-
-#: C/project-manager-module-new.page:24(page/title)
-msgid "Create a Module"
-msgstr "Modul létrehozása"
-
-#: C/project-manager-module-new.page:26(page/p)
 msgid ""
 "On Linux, most libraries are distributed with additional data stored in a "
 "<app>pkg-config</app> file. This file contains information like the other "
@@ -4302,48 +4262,128 @@ msgstr ""
 "a fájlt, a fejlécfájlokat és a programkönyvtár fájljait együtt csomagnak "
 "nevezzük."
 
-#: C/project-manager-module-new.page:32(page/p)
-msgid ""
-"<app>Anjuta</app> provides an simple interface to use such library. If the "
-"library you need is not one of these, check the <link xref=\"project-manager-"
-"library-add\">Add non-packaged libraries</link> page."
-msgstr ""
-"Az <app>Anjuta</app> egy egyszerű felületet biztosít az ilyen "
-"programkönyvtárak használatához. Ha az éppen szükséges programkönyvtár nem "
-"ilyen, akkor nézze meg a <link xref=\"project-manager-library-add\">Nem "
-"csomagolt programkönyvtárak használata</link> oldalt."
-
-#: C/project-manager-module-new.page:37(page/p)
-msgid ""
-"A package cannot be added directly to your program; you first need to create "
-"a module for it, which is just a group of packages."
-msgstr ""
-"Csomagokat nem adhat közvetlenül a programjához; ehhez először létre kell "
-"hoznia egy modult, amely csak csomagok csoportja."
-
-#: C/project-manager-module-new.page:42(item/p)
+#: C/project-manager-module-add.page:33(item/p)
 msgid ""
 "Select the program where you want to add the new library in the <gui>project "
 "view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear, and select <gui>Add Library</gui>. Then click on the "
-"<gui>New Library</gui> button on this dialog."
+"menu</gui> appear and select <gui>Add Library</gui>."
 msgstr ""
 "Válassza ki a <gui>projektnézetben</gui> a programot, amelybe az új "
 "programkönyvtárat fel kívánja venni, kattintson a jobb egérgombbal a "
-"<gui>helyi menü</gui> megjelenítéséhez, majd válassza a <gui>Programkönyvtár "
-"hozzáadása</gui> menüpontot, végül válassza ki az ablak <gui>Új "
-"programkönyvtár</gui> menüpontját."
+"<gui>helyi menü</gui> megjelenítéséhez, és válassza ki a "
+"<gui>Programkönyvtár hozzáadása</gui> menüpontot."
 
-#: C/project-manager-module-new.page:48(item/p)
-#: C/project-manager-package-add.page:33(item/p)
+#: C/project-manager-module-add.page:37(item/p)
+#: C/project-manager-module-new.page:35(item/p)
 msgid ""
-"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>New "
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
 "Library...</gui></guiseq>."
 msgstr ""
-"Vagy a <gui>főmenüből</gui> válassza a <guiseq><gui>Projekt</gui><gui>Új "
-"programkönyvtár</gui></guiseq> menüpontot."
+"Vagy a <gui>főmenüből</gui> válassza a <guiseq><gui>Projekt</"
+"gui><gui>Programkönyvtár hozzáadása</gui></guiseq> menüpontot."
 
-#: C/project-manager-module-new.page:52(item/p)
+#: C/project-manager-module-add.page:41(item/p)
+#| msgid ""
+#| "You can select another target in the top <gui>target chooser button</gui>."
+msgid ""
+"You need to select the target where you want to add the library in the "
+"<gui>target button</gui> above."
+msgstr ""
+"A felső <gui>célválasztó gombbal</gui> kiválaszthatja a programkönyvtár "
+"hozzáadásához használandó célt."
+
+#: C/project-manager-module-add.page:45(item/p)
+#| msgid ""
+#| "You need to select the target where you want to add the module in the "
+#| "<gui>target button</gui> above, and select the module that you want to "
+#| "add in the <gui>module view</gui> below. If you select a library inside a "
+#| "module, the parent module will be added."
+msgid ""
+"A library cannot be added directly to a target. You can add only a module "
+"displayed in the <gui>module view</gui> below. If you select a library "
+"inside a module, the parent module will be added."
+msgstr ""
+"A célhoz nem adható hozzá közvetlenül programkönyvtár. Csak a lenti <gui>"
+"modulnézetben</gui> megjelenített modult adhat hozzá. Ha egy modulon belüli "
+"programkönyvtárat választ ki, akkor a szülő modul lesz hozzáadva."
+
+#: C/project-manager-module-add.page:50(item/p)
+msgid ""
+"If the library you want is not displayed in the <gui>module view</gui>, you "
+"need to add it as a module first. Click on the button <gui>New Library</gui> "
+"and follow the explanation <link xref=\"project-manager-module-new\">here</"
+"link>."
+msgstr ""
+"Ha a kívánt programkönyvtár nem jelenik meg a <gui>modulnézetben</gui>, akkor "
+"előbb fel kell vennie modulként. Kattintson az <gui>Új programkönyvtár</gui> "
+"gombra, és kövesse a <link xref=\"project-manager-module-new\">következő<"
+"/link> leírást."
+
+#: C/project-manager-module-add.page:55(note/p)
+msgid ""
+"After creating a new module, you have to wait a few seconds while the "
+"project files are reloaded to see the new module in the list."
+msgstr ""
+"Az új modul létrehozása után várjon pár másodpercet a projektfájlok "
+"újratöltéséig az új modul megjelenésére a listában."
+
+#: C/project-manager-module-add.page:60(item/p)
+#| msgid ""
+#| "When you are done, click on the <gui>Add</gui> button to add the module."
+msgid ""
+"When you are done, click on the <gui>Add</gui> button to add the selected "
+"module to the target."
+msgstr ""
+"Ha befejezte, akkor nyomja meg a <gui>Hozzáadás</gui> gombot a kijelölt modul "
+"hozzáadásához a célhoz."
+
+#: C/project-manager-module-new.page:12(info/desc)
+#| msgid "Add a library in a module."
+msgid "Groups libraries in a module."
+msgstr "Programkönyvtárak egy modulba csoportosítása."
+
+#: C/project-manager-module-new.page:25(page/title)
+msgid "Add a Module"
+msgstr "Modul hozzáadása"
+
+#: C/project-manager-module-new.page:27(page/p)
+#| msgid ""
+#| "A package cannot be added directly to your program; you first need to "
+#| "create a module for it, which is just a group of packages."
+msgid ""
+"Packages cannot be added directly to a program but have to be grouped in a "
+"module."
+msgstr ""
+"Csomagokat nem adhat közvetlenül a programjához; ehhez először egy modulba "
+"kell csoportosítania azokat."
+
+#: C/project-manager-module-new.page:32(item/p)
+#| msgid ""
+#| "Select the program where you want to add the new library in the "
+#| "<gui>project view</gui>, click on the right mouse button to make the "
+#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
+msgid ""
+"Select a program in the <gui>project view</gui>, click on the right mouse "
+"button to make the <gui>project context menu</gui> appear, and select "
+"<gui>Add Library</gui>."
+msgstr ""
+"Válassza ki a <gui>projektnézetben</gui> a programot, kattintson a jobb "
+"egérgombbal a "
+"<gui>projekt helyi menüjének</gui> megjelenítéséhez, és válassza ki a "
+"<gui>Programkönyvtár hozzáadása</gui> menüpontot."
+
+#: C/project-manager-module-new.page:39(item/p)
+#| msgid ""
+#| "In the <gui>Stack</gui> window, right-click and select <gui>Get stack "
+#| "trace</gui>."
+msgid ""
+"On the <gui>Add Library</gui> dialog, click on the <gui>New Library</gui> "
+"button."
+msgstr ""
+"A <gui>Programkönyvtár hozzáadása</gui> ablakban kattintson az <gui>Új "
+"programkönyvtár</gui> gombra."
+
+#: C/project-manager-module-new.page:43(item/p)
 msgid ""
 "You will get a list of all the packaged libraries installed on your system. "
 "You can check one or more libraries."
@@ -4351,41 +4391,67 @@ msgstr ""
 "Megjelenik a rendszerre telepített csomagolt programkönyvtárak listája. "
 "Ebben több programkönyvtárat is bejelölhet."
 
-#: C/project-manager-module-new.page:55(note/p)
+#: C/project-manager-module-new.page:46(note/p)
+msgid "If the library you want does not appear here:"
+msgstr "Ha a kívánt programkönyvtár nem jelenik meg itt:"
+
+#: C/project-manager-module-new.page:49(item/p)
+#| msgid ""
+#| "If the library you want does not appear here, perhaps it is because it is "
+#| "not installed on your system. Launch the application you use to install "
+#| "new programs and search for the library name. The package you need often "
+#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
+#| "<app>pkg-config</app> file with a <file>.pc</file> extension."
 msgid ""
-"If the library you want does not appear here, perhaps it is because it is "
-"not installed on your system. Launch the application you use to install new "
-"programs and search for the library name. The package you need often has a "
-"\"dev\" or \"devel\" suffix and should include header files and a <app>pkg-"
-"config</app> file with a <file>.pc</file> extension."
+"Perhaps it is not installed on your system. Launch the application you use "
+"to install new programs and search for the library name. The package you "
+"need often has a \"dev\" or \"devel\" suffix and should include header files "
+"and a <app>pkg-config</app> file with a <file>.pc</file> extension."
 msgstr ""
-"Ha a kívánt programkönyvtár nem jelenik meg itt, akkor talán nincs telepítve "
-"a rendszerére. Indítsa el az új programok telepítésére használt alkalmazást, "
+"Talán nincs telepítve a rendszerére. Indítsa el az új programok telepítésére "
+"használt alkalmazást, "
 "és keressen rá a programkönyvtár nevére. A szükséges csomag gyakran „dev” "
 "vagy „devel” utótaggal rendelkezik, és tartalmazza a fejlécfájlokat, "
 "valamint a <file>.pc</file> kiterjesztésű <app>pkg-config</app> fájlt."
 
-#: C/project-manager-module-new.page:63(item/p)
+#: C/project-manager-module-new.page:57(item/p)
+msgid ""
+"It could be that the library is not packaged, it is often the case for "
+"libraries not developped on Linux. See the chapter <link xref=\"project-"
+"manager-library-add\"/> explaining how to use them."
+msgstr ""
+"Előfordulhat, hogy a programkönyvtár nincs becsomagolva, ez gyakran fennáll a "
+"nem Linuxon fejlesztett programkönyvtárak esetén. A használatukkal "
+"kapcsolatban lásd a <link xref=\"project-manager-library-add\"/> fejezetet."
+
+#: C/project-manager-module-new.page:66(item/p)
+#| msgid ""
+#| "After selecting one library, a module name will be automatically "
+#| "generated but you can change it. When you are done, click on the "
+#| "<gui>Add</gui> button to create the new module with the selected "
+#| "libraries."
 msgid ""
 "After selecting one library, a module name will be automatically generated "
-"but you can change it. When you are done, click on the <gui>Add</gui> button "
-"to create the new module with the selected libraries."
+"but you can change it. You can select an already existing module name to add "
+"a new library to it and to all targets already using it."
 msgstr ""
 "Egy programkönyvtár kiválasztása után automatikusan előállításra kerül egy "
-"modulnév, de ez módosítható. Amikor kész van, kattintson a <gui>Hozzáadás</"
-"gui> gombra az új modul létrehozásához a kiválasztott programkönyvtárakkal."
+"modulnév, de ez módosítható. Kiválaszthat egy meglévő modulnevet az új "
+"programkönyvtár és az azt már használó összes cél hozzáadásához."
 
-#: C/project-manager-module-new.page:69(item/p)
+#: C/project-manager-module-new.page:72(item/p)
 msgid ""
-"Read the <link xref=\"project-manager-module-add\">next page</link> to find "
-"out how to add this new module to your target."
+"When you are done, click on the <gui>Add</gui> button to create the new "
+"module with the selected libraries. You need to add a new module to at least "
+"one target to really use it."
 msgstr ""
-"Az új modul célhoz adásával kapcsolatos információkért olvassa el a <link "
-"xref=\"project-manager-module-add\">következő oldalt</link>."
+"Amikor kész van, kattintson a <gui>Hozzáadás</gui> gombra az új modul "
+"létrehozásához a kiválasztott programkönyvtárakkal. Egy új modult legalább "
+"egy célhoz hozzá kell adnia a tényleges használatához."
 
 #: C/project-manager-module-remove.page:10(info/desc)
 msgid "Remove a set of libraries from a target."
-msgstr "Programkönyvtárak halmazának eltávolítása a célról."
+msgstr "Programkönyvtárak halmazának eltávolítása a célból."
 
 #: C/project-manager-module-remove.page:23(page/title)
 msgid "Remove a Module"
@@ -4404,45 +4470,7 @@ msgstr ""
 #: C/project-manager-module-remove.page:33(item/p)
 msgid "Confirm the removal. This library will be removed from the target."
 msgstr ""
-"Erősítse meg az eltávolítást. A programkönyvtár eltávolításra kerül a célról."
-
-#: C/project-manager-package-add.page:11(info/desc)
-msgid "Add a library in a module."
-msgstr "Programkönyvtár modulhoz adása."
-
-#: C/project-manager-package-add.page:24(page/title)
-msgid "Add a Package"
-msgstr "Csomag hozzáadása"
-
-#: C/project-manager-package-add.page:28(item/p)
-msgid ""
-"Select the module where you want to add the new library in the <gui>project "
-"view</gui>, click on the right mouse button to make the <gui>project context "
-"menu</gui> appear and select <gui>New Library</gui>."
-msgstr ""
-"Válassza ki a <gui>projektnézetben</gui> a modult, amelybe az új "
-"programkönyvtárat fel kívánja venni, kattintson a jobb egérgombbal a "
-"<gui>helyi menü</gui> megjelenítéséhez, és válassza ki az <gui>Új "
-"programkönyvtár</gui> menüpontot."
-
-#: C/project-manager-package-add.page:37(item/p)
-msgid ""
-"In the list of all packaged libraries, check the additional libraries "
-"wanted. Check that expected module name is selected in the bottom text box. "
-"Then click on the <gui>Add</gui> button to update the module."
-msgstr ""
-"Az összes becsomagolt programkönyvtár listájából válassza ki a további "
-"kívánt programkönyvtárakat. Ellenőrizze, hogy a várt modulnév van-e "
-"kiválasztva a lenti szövegmezőben. Ezután nyomja meg a <gui>Hozzáadás</gui> "
-"gombot a modul frissítéséhez."
-
-#: C/project-manager-package-add.page:43(item/p)
-msgid ""
-"Read the <link xref=\"project-manager-module-add\">next page</link> to find "
-"out how to add the module to your target."
-msgstr ""
-"A modul célhoz adásával kapcsolatos információkért olvassa el a <link xref="
-"\"project-manager-module-add\">következő oldalt</link>."
+"Erősítse meg az eltávolítást. A programkönyvtár eltávolításra kerül a célból."
 
 #: C/project-manager-package-remove.page:9(info/desc)
 msgid "Remove a library from a module."
@@ -4468,15 +4496,15 @@ msgid ""
 msgstr ""
 "Erősítse meg az eltávolítást. A csomag eltávolításra kerül a projektfájlból."
 
-#: C/project-manager.page:7(info/desc)
+#: C/project-manager.page:8(info/desc)
 msgid "Project manager."
 msgstr "Projektkezelő."
 
-#: C/project-manager.page:20(page/title)
+#: C/project-manager.page:21(page/title)
 msgid "Project manager plugin"
 msgstr "Projektkezelő bővítmény"
 
-#: C/project-manager.page:22(page/p)
+#: C/project-manager.page:23(page/p)
 msgid ""
 "<app>Anjuta</app> supports several already existing project formats through "
 "plugin backends. The main one is the autotools format commonly used on Linux."
@@ -4485,7 +4513,17 @@ msgstr ""
 "projekt formátumát támogatja. A legfontosabb a Linuxon elterjed autotools "
 "formátum."
 
-#: C/project-manager.page:28(page/p)
+#: C/project-manager.page:29(page/p)
+msgid ""
+"The project backend to use is choosen when creating or importing a new "
+"project in <app>Anjuta</app>. It is displayed in the properties of the "
+"project root node and can be changed at any time."
+msgstr ""
+"A használandó projekt háttérprogram egy új projekt létrehozásakor vagy <app>"
+"Anjutaba</app> importálásakor kerül kiválasztásra. Ez a projekt gyökér "
+"csomópontjának tulajdonságai között jelenik meg, és bármikor módosítható."
+
+#: C/project-manager.page:35(page/p)
 msgid ""
 "Whatever the underlying backend, the graphical interface is the same but "
 "some functions might be disabled."
@@ -4493,7 +4531,7 @@ msgstr ""
 "A háttérprogramtól függetlenül a grafikus felület ugyanaz, de néhány funkció "
 "ki lehet kapcsolva."
 
-#: C/project-manager.page:34(section/title)
+#: C/project-manager.page:41(section/title)
 msgid "Project Backend Plugin"
 msgstr "Projektháttér-bővítmény"
 
@@ -4654,8 +4692,8 @@ msgid ""
 "possible, see at the bottom."
 msgstr ""
 "Adjon meg egy célnevet, és válassza ki a céltípust a lenti legördülő "
-"mezőben. A projekt háttérprogramjától függően különböző céltípusok érhetők "
-"el, lásd alább."
+"listában. A projekt háttérprogramjától függően különböző céltípusok érhetők "
+"el, részletekért lásd az oldal alján lévő témát."
 
 #: C/project-manager-target-add.page:45(note/p)
 msgid ""
@@ -4919,7 +4957,7 @@ msgstr ""
 "Az összes információs oldal kitöltése után egy összegző oldalra jut, amely "
 "felsorolja a projekttel kapcsolatos főbb információkat. Ekkor még semmi "
 "sincs a lemezre írva. Kattintson az <gui>Alkalmaz</gui> gombra a projekt "
-"mentéséhez, és az <app>Anjuta</app>-ban való megnyitásához."
+"mentéséhez, és az <app>Anjutaban</app> való megnyitásához."
 
 #: C/project-wizard-create.page:85(note/p)
 msgid ""
@@ -5131,6 +5169,88 @@ msgstr "Minden ablak és párbeszédablak."
 #: C/widget-index.page:16(page/title)
 msgid "Windows and dialogs"
 msgstr "Ablakok és párbeszédablakok"
+
+#~ msgid ""
+#~ "Packages cannot be added directly to a target. You need to put them into "
+#~ "a module first and add this module to the target. See <link xref="
+#~ "\"project-manager-module-new\"/> to know how to do create a module."
+#~ msgstr ""
+#~ "A csomagok nem adhatók hozzá közvetlenül egy célhoz. Ezeket előbb el kell "
+#~ "helyeznie egy modulba, és ezt a modult kell hozzáadnia a célhoz. A modul "
+#~ "létrehozásával kapcsolatban nézze meg az <link xref=\"project-manager-"
+#~ "module-new\"/> oldalt."
+
+#~ msgid "Create a set of libraries."
+#~ msgstr "Programkönyvtárak halmazának létrehozása."
+
+#~ msgid "Create a Module"
+#~ msgstr "Modul létrehozása"
+
+#~ msgid ""
+#~ "<app>Anjuta</app> provides an simple interface to use such library. If "
+#~ "the library you need is not one of these, check the <link xref=\"project-"
+#~ "manager-library-add\">Add non-packaged libraries</link> page."
+#~ msgstr ""
+#~ "Az <app>Anjuta</app> egy egyszerű felületet biztosít az ilyen "
+#~ "programkönyvtárak használatához. Ha az éppen szükséges programkönyvtár "
+#~ "nem ilyen, akkor nézze meg a <link xref=\"project-manager-library-add"
+#~ "\">Nem csomagolt programkönyvtárak használata</link> oldalt."
+
+#~ msgid ""
+#~ "Select the program where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear, and select <gui>Add Library</"
+#~ "gui>. Then click on the <gui>New Library</gui> button on this dialog."
+#~ msgstr ""
+#~ "Válassza ki a <gui>projektnézetben</gui> a programot, amelybe az új "
+#~ "programkönyvtárat fel kívánja venni, kattintson a jobb egérgombbal a "
+#~ "<gui>helyi menü</gui> megjelenítéséhez, majd válassza a "
+#~ "<gui>Programkönyvtár hozzáadása</gui> menüpontot, végül válassza ki az "
+#~ "ablak <gui>Új programkönyvtár</gui> menüpontját."
+
+#~ msgid ""
+#~ "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> "
+#~ "<gui>New Library...</gui></guiseq>."
+#~ msgstr ""
+#~ "Vagy a <gui>főmenüből</gui> válassza a <guiseq><gui>Projekt</gui><gui>Új "
+#~ "programkönyvtár</gui></guiseq> menüpontot."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add this new module to your target."
+#~ msgstr ""
+#~ "Az új modul célhoz adásával kapcsolatos információkért olvassa el a <link "
+#~ "xref=\"project-manager-module-add\">következő oldalt</link>."
+
+#~ msgid "Add a Package"
+#~ msgstr "Csomag hozzáadása"
+
+#~ msgid ""
+#~ "Select the module where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear and select <gui>New Library</gui>."
+#~ msgstr ""
+#~ "Válassza ki a <gui>projektnézetben</gui> a modult, amelybe az új "
+#~ "programkönyvtárat fel kívánja venni, kattintson a jobb egérgombbal a "
+#~ "<gui>helyi menü</gui> megjelenítéséhez, és válassza ki az <gui>Új "
+#~ "programkönyvtár</gui> menüpontot."
+
+#~ msgid ""
+#~ "In the list of all packaged libraries, check the additional libraries "
+#~ "wanted. Check that expected module name is selected in the bottom text "
+#~ "box. Then click on the <gui>Add</gui> button to update the module."
+#~ msgstr ""
+#~ "Az összes becsomagolt programkönyvtár listájából válassza ki a további "
+#~ "kívánt programkönyvtárakat. Ellenőrizze, hogy a várt modulnév van-e "
+#~ "kiválasztva a lenti szövegmezőben. Ezután nyomja meg a <gui>Hozzáadás</"
+#~ "gui> gombot a modul frissítéséhez."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add the module to your target."
+#~ msgstr ""
+#~ "A modul célhoz adásával kapcsolatos információkért olvassa el a <link "
+#~ "xref=\"project-manager-module-add\">következő oldalt</link>."
 
 #~ msgid "seb.sfo@free.fr"
 #~ msgstr "seb.sfo@free.fr"
