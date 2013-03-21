@@ -1,22 +1,24 @@
 CLEANFILES = 
 
-if ENABLE_VALA
-
-#Plugin glade file
-vala_gladedir = $(anjuta_glade_dir)
-vala_glade_DATA = anjuta-vala.ui
-
-# Plugin Icon file
-vala_pixmapsdir = $(anjuta_image_dir)
-vala_pixmaps_DATA = anjuta-vala.png
-
 # Plugin description file
 plugin_in_files = anjuta-vala.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
+libanjuta_language_vala_la_VALASOURCES = config.vapi locator.vala plugin.vala provider.vala report.vala
+
+if ENABLE_VALA
+
+#Plugin glade file
+vala_gladedir = $(anjuta_glade_dir)
+dist_vala_glade_DATA = anjuta-vala.ui
+
+# Plugin Icon file
+vala_pixmapsdir = $(anjuta_image_dir)
+dist_vala_pixmaps_DATA = anjuta-vala.png
+
 # Where to install the plugin
 vala_plugindir = $(anjuta_plugin_dir)
-vala_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_vala_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -46,7 +48,6 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-language-vala.la
 
 # Plugin sources
-libanjuta_language_vala_la_VALASOURCES = config.vapi locator.vala plugin.vala provider.vala report.vala
 nodist_libanjuta_language_vala_la_SOURCES = $(libanjuta_language_vala_la_VALASOURCES:.vala=.c)
 CLEANFILES += *.c libanjuta_language_vala_la_vala.stamp
 
@@ -73,14 +74,10 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(vala_plugin_DATA) \
-	$(vala_pixmaps_DATA) \
-	$(vala_glade_DATA) \
 	$(gsettings_in_file) \
 	$(libanjuta_language_vala_la_VALASOURCES) \
 	libanjuta-3.0.deps \
-	libanjuta-3.0.vapi \
-    config.vapi
+	libanjuta-3.0.vapi
 
 CLEANFILES += \
   $(gsettings_SCHEMAS)
