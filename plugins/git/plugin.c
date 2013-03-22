@@ -57,6 +57,8 @@
 #include "git-patch-series-pane.h"
 #include "git-apply-mailbox-pane.h"
 
+#define SETTINGS_SCHEMA "org.gnome.anjuta.plugins.git"
+
 AnjutaCommandBarEntry branch_entries[] =
 {
 	{
@@ -648,16 +650,29 @@ git_register_stock_icons (AnjutaPlugin *plugin)
 		END_REGISTER_ICON
 }
 
+static void
+on_git_tasks_button_toggled (GtkToggleButton *button, GtkWidget *dock)
+{
+	gtk_widget_set_visible (dock, gtk_toggle_button_get_active (button));
+}
+
 static gboolean
 git_activate_plugin (AnjutaPlugin *plugin)
 {
 	Git *git_plugin;
+	GtkBuilder *builder;
+	gchar *objects[] = {"grip_box",
+						NULL};
+	GtkWidget *git_tasks_button;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 
 	git_register_stock_icons (plugin);
+
+	builder = gtk_builder_new ();
+	gtk_builder_add_objects_from_file (builder, BUILDER_FILE, objects, NULL);
 	
 	/* Command bar and dock */
 	git_plugin->command_bar = anjuta_command_bar_new ();
@@ -671,11 +686,24 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	anjuta_dock_set_command_bar (ANJUTA_DOCK (git_plugin->dock), 
 	                             ANJUTA_COMMAND_BAR (git_plugin->command_bar));
 
-	gtk_widget_show_all (git_plugin->box);
-	anjuta_shell_add_widget (plugin->shell, git_plugin->box, "GitDock", 
-	                         _("Git"), "git-plugin", ANJUTA_SHELL_PLACEMENT_CENTER,
-	                         NULL);
+	gtk_widget_show (git_plugin->box);
+	gtk_widget_show (git_plugin->dock);
+	anjuta_shell_add_widget_custom (plugin->shell, git_plugin->box, "GitDock", 
+	                     			_("Git"), "git-plugin", 
+	                                GTK_WIDGET (gtk_builder_get_object (builder, "grip_box")), 
+	                                ANJUTA_SHELL_PLACEMENT_CENTER,
+	                     			NULL);
+	git_tasks_button = GTK_WIDGET (gtk_builder_get_object (builder, 
+	                                                       "git_tasks_button"));
 
+	g_signal_connect (G_OBJECT (git_tasks_button), "toggled",
+	                  G_CALLBACK (on_git_tasks_button_toggled),
+	                  git_plugin->command_bar);
+
+	g_settings_bind (git_plugin->settings, "show-command-bar", 
+	                 git_tasks_button, "active", G_SETTINGS_BIND_DEFAULT);
+
+	
 	/* Create the branch list commands. There are two commands because some 
 	 * views need to be able to tell the difference between local and 
 	 * remote branches */
@@ -840,7 +868,16 @@ git_finalize (GObject *obj)
 static void
 git_dispose (GObject *obj)
 {
-	/* Disposition codes */
+	Git *git_plugin;
+
+	git_plugin = ANJUTA_PLUGIN_GIT (obj);
+
+	if (git_plugin->settings)
+	{
+		g_clear_object (&git_plugin->settings);
+		git_plugin->settings = NULL;
+	}
+	
 	G_OBJECT_CLASS (parent_class)->dispose (obj);
 }
 
@@ -850,6 +887,8 @@ git_instance_init (GObject *obj)
 	Git *plugin = ANJUTA_PLUGIN_GIT (obj);
 
 	plugin->command_queue = anjuta_command_queue_new (ANJUTA_COMMAND_QUEUE_EXECUTE_AUTOMATIC);
+	plugin->settings = g_settings_new (SETTINGS_SCHEMA);
+
 }
 
 static void

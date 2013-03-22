@@ -233,9 +233,17 @@ libanjuta_git_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_git_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 
+gsettings_in_file = org.gnome.anjuta.plugins.git.gschema.xml.in
+gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
+
 EXTRA_DIST = \
 	$(git_glade_DATA) \
 	$(git_plugin_DATA) \
-	$(plugin_in_files)
+	$(plugin_in_files) \
+    $(gsettings_in_file)
+
+CLEANFILES = $(gsettings_SCHEMAS)
 
 -include $(top_srcdir)/git.mk
