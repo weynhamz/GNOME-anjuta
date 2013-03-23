@@ -4,13 +4,12 @@
 
 SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 
-[+NameCLower+]docdir = ${prefix}/doc/[+NameHLower+]
-[+NameCLower+]doc_DATA = \
-	README\
-	COPYING\
-	AUTHORS\
-	ChangeLog\
-	INSTALL\
+dist_doc_DATA = \
+	README \
+	COPYING \
+	AUTHORS \
+	ChangeLog \
+	INSTALL \
 	NEWS
 
 [+IF (=(get "HaveI18n") "1") +]
@@ -18,17 +17,15 @@ INTLTOOL_FILES = intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in
 
-EXTRA_DIST = $([+NameCLower+]doc_DATA) \
+EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \
 	po/.intltool-merge-cache
-[+ELSE+]
-EXTRA_DIST = $([+NameCLower+]doc_DATA)
 [+ENDIF+]
 
 # Remove doc directory on uninstall
 uninstall-local:
-	-rm -r $([+NameCLower+]docdir)
+	-rm -r $(docdir)
