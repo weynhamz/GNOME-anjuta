@@ -205,6 +205,22 @@ AnjutaCommandBarEntry status_entries[] =
 		N_("Mark selected conflicted files as resolved"),
 		GTK_STOCK_PREFERENCES,
 		G_CALLBACK (on_resolve_conflicts_button_clicked)
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_FRAME,
+		NULL,
+		N_("Stash"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		ANJUTA_COMMAND_BAR_ENTRY_BUTTON,
+		"StashChanges",
+		N_("Stash uncommitted changes"),
+		N_("Save uncommitted changes without committing them"),
+		GTK_STOCK_SAVE,
+		G_CALLBACK (on_stash_changes_button_clicked)
 	}
 };
 
