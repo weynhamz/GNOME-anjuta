@@ -3,21 +3,21 @@ if BUILD_SVN
 
 # Plugin glade file
 subversion_gladedir = $(anjuta_glade_dir)
-subversion_glade_DATA = anjuta-subversion.ui
+dist_subversion_glade_DATA = anjuta-subversion.ui
 
 subversion_pixmapsdir = $(anjuta_image_dir)
-subversion_pixmaps_DATA = \
+dist_subversion_pixmaps_DATA = \
 	anjuta-subversion-plugin.svg \
 	anjuta-subversion-plugin-48.png
 
 subversion_uidir = $(anjuta_ui_dir)
-subversion_ui_DATA = anjuta-subversion.xml
+dist_subversion_ui_DATA = anjuta-subversion.xml
 
 plugin_in_files = anjuta-subversion.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 subversion_plugindir = $(anjuta_plugin_dir)
-subversion_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_subversion_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
@@ -103,10 +103,6 @@ libanjuta_subversion_la_SOURCES = \
 endif
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(subversion_plugin_DATA) \
-	$(subversion_ui_DATA) \
-	$(subversion_glade_DATA) \
-	$(subversion_pixmaps_DATA) 
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk
