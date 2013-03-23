@@ -171,7 +171,7 @@ git_tags_pane_init (GitTagsPane *self)
 						NULL};
 	GError *error = NULL;
 	GtkTreeView *tags_view;
-	GtkCellRenderer *selected_renderer;
+	GtkCellRenderer *tags_selected_renderer;
 	
 	self->priv = g_new0 (GitTagsPanePriv, 1);
 	self->priv->builder = gtk_builder_new ();
@@ -190,8 +190,8 @@ git_tags_pane_init (GitTagsPane *self)
 	self->priv->tags_list_model = 
 		GTK_LIST_STORE (gtk_builder_get_object (self->priv->builder,
 		                                        "tags_list_model"));
-	selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
-	                                                               "selected_renderer"));
+	tags_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
+	                                                                    "tags_selected_renderer"));
 
 	/* DND */
 	gtk_tree_view_enable_model_drag_source (tags_view,
@@ -204,7 +204,7 @@ git_tags_pane_init (GitTagsPane *self)
 	                  G_CALLBACK (on_tags_list_view_drag_data_get),
 	                  NULL);
 
-	g_signal_connect (G_OBJECT (selected_renderer), "toggled",
+	g_signal_connect (G_OBJECT (tags_selected_renderer), "toggled",
 	                  G_CALLBACK (on_selected_renderer_toggled),
 	                  self);
 }

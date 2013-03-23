@@ -253,7 +253,7 @@ git_push_pane_init (GitPushPane *self)
 	GtkTreeModel *push_branch_model;
 	GtkTreeModel *push_tag_model;
 	GtkCellRenderer *branches_selected_renderer;
-	GtkCellRenderer *tags_selected_renderer;
+	GtkCellRenderer *push_tags_selected_renderer;
 	GtkWidget *push_all_tags_check;
 	GtkWidget *push_all_check;;
 
@@ -285,8 +285,8 @@ git_push_pane_init (GitPushPane *self)
 	                                                        "push_tag_model"));
 	branches_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
 	                                                                        "branches_selected_renderer"));
-	tags_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
-	                                                                     "tags_selected_renderer"));
+	push_tags_selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
+	                                                                 	     "push_tags_selected_renderer"));
 	push_all_tags_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
 	                                                          "push_all_tags_check"));
 	push_all_check = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
@@ -306,7 +306,7 @@ git_push_pane_init (GitPushPane *self)
 	                  G_CALLBACK (on_selected_renderer_toggled),
 	                  push_branch_model);
 
-	g_signal_connect (G_OBJECT (tags_selected_renderer), "toggled",
+	g_signal_connect (G_OBJECT (push_tags_selected_renderer), "toggled",
 	                  G_CALLBACK (on_selected_renderer_toggled),
 	                  push_tag_model);
 

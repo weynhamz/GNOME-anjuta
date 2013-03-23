@@ -324,6 +324,18 @@
       </packing>
     </child>
   </object>
+  <object class="GtkListStore" id="branches_list_model">
+    <columns>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name active -->
+      <column type="gboolean"/>
+      <!-- column-name remote -->
+      <column type="gboolean"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkVBox" id="apply_mailbox_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -452,18 +464,6 @@
         <property name="position">2</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="branches_list_model">
-    <columns>
-      <!-- column-name selected -->
-      <column type="gboolean"/>
-      <!-- column-name active -->
-      <column type="gboolean"/>
-      <!-- column-name remote -->
-      <column type="gboolean"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkVBox" id="branches_pane">
     <property name="visible">True</property>
@@ -2604,14 +2604,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="push_tag_model">
-    <columns>
-      <!-- column-name selected -->
-      <column type="gboolean"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkVBox" id="push_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -2752,7 +2744,7 @@
                           <object class="GtkTreeViewColumn" id="treeviewcolumn6">
                             <property name="title">column</property>
                             <child>
-                              <object class="GtkCellRendererToggle" id="tags_selected_renderer"/>
+                              <object class="GtkCellRendererToggle" id="push_tags_selected_renderer"/>
                               <attributes>
                                 <attribute name="active">0</attribute>
                               </attributes>
@@ -2923,6 +2915,14 @@
         <property name="position">3</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="push_tag_model">
+    <columns>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkListStore" id="remotes_list_model">
     <columns>
@@ -3825,7 +3825,7 @@
                       <object class="GtkTreeViewColumn" id="treeviewcolumn10">
                         <property name="title">column</property>
                         <child>
-                          <object class="GtkCellRendererToggle" id="selected_renderer1"/>
+                          <object class="GtkCellRendererToggle" id="tags_selected_renderer"/>
                           <attributes>
                             <attribute name="active">0</attribute>
                           </attributes>
