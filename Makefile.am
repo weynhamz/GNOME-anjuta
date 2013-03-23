@@ -8,8 +8,7 @@ SUBDIRS = \
 	pixmaps scripts data \
 	doc libanjuta plugins src manuals mime launcher po
 
-anjutadocdir = $(docdir)
-anjutadoc_DATA = \
+dist_doc_DATA = \
 	MAINTAINERS\
 	README\
 	COPYING\
@@ -35,8 +34,7 @@ EXTRA_DIST = \
 	setup-gettext \
 	intltool-extract.in\
 	intltool-merge.in\
-	intltool-update.in\
-	$(anjutadoc_DATA)
+	intltool-update.in
 
 gnomerelease:
 	scp *.tar.bz2 master.gnome.org:
