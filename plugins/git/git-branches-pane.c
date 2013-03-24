@@ -264,6 +264,38 @@ selected_branches_table_foreach (gchar *name, gpointer value,
 }
 
 static void
+on_branches_view_row_activated (GtkTreeView *branches_view, GtkTreePath *path,
+                                GtkTreeViewColumn *column, GitBranchesPane *self)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *branch;
+	Git *plugin;
+	GitBranchCheckoutCommand *checkout_command;
+	
+	model = gtk_tree_view_get_model (branches_view);
+	gtk_tree_model_get_iter (model, &iter, path);
+
+	gtk_tree_model_get (model, &iter, COL_NAME, &branch, -1);
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	checkout_command = git_branch_checkout_command_new (plugin->project_root_directory,
+	                                                    branch);
+
+	g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+	                  G_CALLBACK (git_pane_report_errors),
+	                  plugin);
+
+	g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+	                  G_CALLBACK (g_object_unref), 
+	                  NULL);
+
+	g_free (branch);
+
+	anjuta_command_start (ANJUTA_COMMAND (checkout_command));
+}
+
+static void
 git_branches_pane_init (GitBranchesPane *self)
 {
 	gchar *objects[] = {"branches_pane",
@@ -332,6 +364,11 @@ git_branches_pane_init (GitBranchesPane *self)
 
 	g_signal_connect (G_OBJECT (branch_selected_renderer), "toggled",
 	                  G_CALLBACK (on_branch_selected_renderer_toggled),
+	                  self);
+
+	/* Switch branches on double-click */
+	g_signal_connect (G_OBJECT (branches_view), "row-activated",
+	                  G_CALLBACK (on_branches_view_row_activated),
 	                  self);
 }
 

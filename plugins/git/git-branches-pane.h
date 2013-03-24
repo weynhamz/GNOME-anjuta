@@ -22,6 +22,7 @@
 
 #include <glib-object.h>
 #include "git-pane.h"
+#include "git-branch-checkout-command.h"
 
 G_BEGIN_DECLS
 
