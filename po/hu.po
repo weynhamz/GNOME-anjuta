@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-02-24 08:28+0000\n"
-"PO-Revision-Date: 2013-03-16 21:38+0100\n"
+"POT-Creation-Date: 2013-03-25 20:27+0000\n"
+"PO-Revision-Date: 2013-03-26 00:16+0100\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -369,10 +369,6 @@ msgid "Only show user activatable plugins"
 msgstr "Csak a felhasználó által aktiválható bővítmények mutatása"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
-#| msgid ""
-#| "These are the plugins selected by you when Anjuta prompted to choose one "
-#| "of many suitable plugins. Removing the preferred plugin will let Anjuta "
-#| "prompt you again to choose different plugin."
 msgid ""
 "These are the plugins selected by you when you have been prompted to choose "
 "one of many suitable plugins. Removing the preferred plugin will let you "
@@ -828,7 +824,7 @@ msgstr "Új Autotools háttérprogram a projektkezelőhöz"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:762
+#: ../plugins/git/anjuta-git.ui.h:21 ../plugins/project-manager/dialogs.c:762
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -891,7 +887,7 @@ msgstr ""
 "Csomagnév, csak alfanumerikus és aláhúzás karaktert tartalmazhat. A "
 "projektnévből kerül előállításra, ha nincs megadva."
 
-#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:10
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
 msgid "URL:"
 msgstr "URL:"
@@ -1466,7 +1462,6 @@ msgstr ""
 "Nem konfigurálható a projekt: a configure parancsfájl hiányzik innen: %s."
 
 #: ../plugins/build-basic-autotools/build-options.c:80
-#| msgid "Selected directory in the project manager plugin"
 msgid "Select a build directory inside the project directory"
 msgstr "Válassza ki a fordítási könyvtárat a projektkönyvtáron belül"
 
@@ -2272,7 +2267,7 @@ msgid "Log message:"
 msgstr "Naplóüzenet:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:62
 #: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Revision:"
 msgstr "Revízió:"
@@ -2283,7 +2278,7 @@ msgid "Do not act recursively"
 msgstr "Ne működjön rekurzívan"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
-#: ../plugins/git/anjuta-git.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:8
 #: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Options:"
 msgstr "Beállítások:"
@@ -2356,7 +2351,7 @@ msgstr "Válassza ki a fájlt/könyvtárt a napló lekéréséhez:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
@@ -3367,9 +3362,6 @@ msgid "Path"
 msgstr "Útvonal"
 
 #: ../plugins/debug-manager/start.c:1390
-#| msgid ""
-#| "The program is running.\n"
-#| "Do you still want to stop the debugger?"
 msgid ""
 "The program is already running.\n"
 "Do you still want to stop the debugger?"
@@ -3539,13 +3531,12 @@ msgid "Rename"
 msgstr "Átnevezés"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:363
-#: ../plugins/git/plugin.c:178
+#: ../plugins/git/plugin.c:180
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Remove"
 msgstr "Eltávolítás"
 
 #: ../plugins/document-manager/anjuta-docman.c:165
-#| msgid "[read-only]"
 msgid " [read-only]"
 msgstr " [csak olvasható]"
 
@@ -3646,7 +3637,6 @@ msgid "Position:"
 msgstr "Pozíció:"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:13
-#| msgid "_Show Status"
 msgid "Show tabs"
 msgstr "Lapok megjelenítése"
 
@@ -3655,12 +3645,10 @@ msgid "Show drop-down list"
 msgstr "Legördülő lista megjelenítése"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:15
-#| msgid "Close other documents"
 msgid "Do not show open documents"
 msgstr "Ne jelenítse meg a dokumentumok megnyitását"
 
 #: ../plugins/document-manager/anjuta-document-manager.ui.h:16
-#| msgid "Documents"
 msgid "Open documents"
 msgstr "Dokumentumok megnyitása"
 
@@ -4572,7 +4560,6 @@ msgid "Choose Directory to show if no project is open"
 msgstr "Válassza ki a megjelenítendő könyvtárat, ha nincs projekt megnyitva"
 
 #: ../plugins/file-manager/file-manager.ui.h:3
-#| msgid "Auto-complete the current word"
 msgid "Automatically select the current document"
 msgstr "A jelenlegi dokumentum automatikus kiválasztása"
 
@@ -4602,19 +4589,17 @@ msgstr "Ne mutassa a verziózatlan fájlokat"
 msgid "Filter"
 msgstr "Szűrő"
 
-#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:34
 msgid "Loading..."
 msgstr "Betöltés…"
 
 #: ../plugins/file-manager/file-model.c:706
 #: ../plugins/file-manager/file-view.c:892
-#| msgid "Path"
 msgid "Base Path"
 msgstr "Alap útvonal"
 
 #: ../plugins/file-manager/file-model.c:707
 #: ../plugins/file-manager/file-view.c:893
-#| msgid "URI of the top-most path displayed"
 msgid "GFile representing the top-most path displayed"
 msgstr "A GFile ábrázolja a legfelső megjelenített útvonalat"
 
@@ -4627,12 +4612,10 @@ msgid "Rename file or directory"
 msgstr "Fájl/könyvtár átnevezése"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "_Show in File manager"
 msgstr "_Megjelenítés a fájlkezelőben"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "Show in File manager"
 msgstr "Megjelenítés a fájlkezelőben"
 
@@ -4640,7 +4623,7 @@ msgstr "Megjelenítés a fájlkezelőben"
 msgid "File manager popup actions"
 msgstr "Fájlkezelő felbukkanó műveletek"
 
-#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:164
 msgid "Files"
 msgstr "Fájlok"
 
@@ -4960,261 +4943,260 @@ msgid "Gdb Debugger"
 msgstr "Gdb hibakereső"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-msgid "Add Files:"
-msgstr "Fájlok hozzáadása:"
+msgid "Cancel"
+msgstr "Mégse"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Force"
 msgstr "Kényszerítés"
 
-#: ../plugins/git/anjuta-git.ui.h:4
-msgid "Remote name:"
-msgstr "Távoli ágnév:"
-
-#: ../plugins/git/anjuta-git.ui.h:6
-msgid "Fetch remote branches after creation"
-msgstr "Távoli ágak lekérése létrehozás után"
-
-#: ../plugins/git/anjuta-git.ui.h:7
-msgid "Mailbox files to apply:"
-msgstr "Alkalmazandó postafiókfájlok:"
-
-#: ../plugins/git/anjuta-git.ui.h:8
-msgid "Add signed off by line"
-msgstr "„signed-off-by” sor hozzáadása"
-
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:794
-msgid "Branches"
-msgstr "Ágak"
-
-#: ../plugins/git/anjuta-git.ui.h:10
-msgid "Drop or enter revision here"
-msgstr "Ejtsen ide vagy írjon be egy revíziót"
-
-#: ../plugins/git/anjuta-git.ui.h:11
-msgid "Commit to cherry pick:"
-msgstr "Mazsolázandó változat:"
-
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:3
 msgid "Do not commit"
 msgstr "Ne véglegesítse"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:4
+msgid "OK"
+msgstr "OK"
+
+#: ../plugins/git/anjuta-git.ui.h:5
+msgid "Add signed off by line"
+msgstr "„signed-off-by” sor hozzáadása"
+
+#: ../plugins/git/anjuta-git.ui.h:6
+msgid "Squash"
+msgstr "Squash"
+
+#: ../plugins/git/anjuta-git.ui.h:7
+msgid "Add Files:"
+msgstr "Fájlok hozzáadása:"
+
+#: ../plugins/git/anjuta-git.ui.h:9
+msgid "Remote name:"
+msgstr "Távoli ágnév:"
+
+#: ../plugins/git/anjuta-git.ui.h:11
+msgid "Fetch remote branches after creation"
+msgstr "Távoli ágak lekérése létrehozás után"
+
+#: ../plugins/git/anjuta-git.ui.h:12
+msgid "Mailbox files to apply:"
+msgstr "Alkalmazandó postafiókfájlok:"
+
+#: ../plugins/git/anjuta-git.ui.h:13 ../plugins/git/plugin.c:790
+msgid "Branches"
+msgstr "Ágak"
+
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Commit to cherry pick:"
+msgstr "Mazsolázandó változat:"
+
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Show source revision in log message"
 msgstr "Forrásrevízió megjelenítése naplóüzenetben"
 
-#: ../plugins/git/anjuta-git.ui.h:14
-#| msgid "Append signed-of- by line"
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Append signed-off-by line"
 msgstr "„signed-off-by” sor hozzáfűzése"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:17
 #: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Log Message:"
 msgstr "Naplóüzenet:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Amend the previous commit"
 msgstr "Előző változat javítása"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "This commit concludes a failed merge (use -i)"
 msgstr ""
 "Ez a változat egy meghiúsult egyesítést zár le (használja a -i kapcsolót)"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Use custom author information:"
 msgstr "Egyéni szerzőinformációk használata:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:22
 msgid "E-mail:"
 msgstr "E-mail:"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Branch name:"
 msgstr "Ág neve:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Repository head; Drop or type a different revision here"
 msgstr "Tároló feje; ejtsen ide vagy írjon be másik revíziót"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:25
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Revízió"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Check out the branch after it is created"
 msgstr "Az ág lekérése a létrehozása után"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:28
 msgid "Tag name:"
 msgstr "Címke neve:"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Sign this tag"
 msgstr "Ezen címke aláírása"
 
 # fixme
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Annotate this tag:"
 msgstr "Ezen címke története:"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Branches must be fully merged"
 msgstr "Az ágakat teljesen egyesíteni kell"
 
-#: ../plugins/git/anjuta-git.ui.h:31
-msgid ""
-"Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr ""
-"Teljes projekt; Ejtsen ide egy fájlt, vagy írjon be egy útvonalat fájl- vagy "
-"mappanapló megjelenítéséhez"
+#: ../plugins/git/anjuta-git.ui.h:32 ../plugins/git/git-pane.c:77
+#: ../plugins/git/git-pane.c:82 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:708
+msgid "Git"
+msgstr "Git"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:33
+#| msgid "Git Tasks"
+msgid "Tasks"
+msgstr "Feladatok"
+
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Teljes projekt; Ejtsen ide egy fájlt fájl- vagy mappanapló megjelenítéséhez"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "View the Log for File/Folder:"
 msgstr "Fájl/mappa naplójának megjelenítése:"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Branch:"
 msgstr "Ág:"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Graph"
 msgstr "Grafikon"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:39
 #: ../plugins/subversion/subversion-log-dialog.c:160
 msgid "Short Log"
 msgstr "Rövid napló"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:40
 #: ../plugins/subversion/subversion-log-dialog.c:132
 msgid "Author"
 msgstr "Szerző"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:41
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Dátum"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "page 1"
 msgstr "1. oldal"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "page 2"
 msgstr "2. oldal"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:44
 #: ../plugins/subversion/anjuta-subversion.ui.h:39
 msgid "Changes:"
 msgstr "Módosítások:"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Revision to merge with:"
 msgstr "Egyesítés ezzel a revízióval:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
-msgid "Squash"
-msgstr "Squash"
-
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Use a custom log message:"
 msgstr "Egyéni naplóüzenet használata:"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
 msgstr "Tároló eredete; ejtsen ide vagy írjon be másik revíziót"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Generate patches relative to:"
 msgstr "Foltok létrehozása ehhez képest:"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Folder to create patches in:"
 msgstr "A foltok létrehozása ezen könyvtárban:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Repository to pull from:"
 msgstr "A pullhoz használandó tároló:"
 
-#: ../plugins/git/anjuta-git.ui.h:49 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:51 ../plugins/git/plugin.c:280
 msgid "Rebase"
 msgstr "Rebase"
 
 # fixme
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Append fetch data"
 msgstr "Lekért adatok hozzáfűzése"
 
 # fixme
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:53
 msgid "Commit on fast-forward merges"
 msgstr "Véglegesítés gyors egyesítésekkor"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Do not follow tags"
 msgstr "Ne kövesse a címkéket"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Repository to push to:"
 msgstr "A pushhoz használandó tároló:"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Branches:"
 msgstr "Ágak:"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Tags:"
 msgstr "Címkék:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Push all tags"
 msgstr "Minden címke beküldése"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Push all branches and tags"
 msgstr "Minden ág és címke beküldése"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Remote Repositories:"
 msgstr "Távoli tárolók:"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Remove Files:"
 msgstr "Fájlok eltávolítása:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
-msgid "Previous commit; Drop or enter a different revision here"
-msgstr "Előző változat; ejtsen ide vagy írjon be másik revíziót"
-
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Mixed"
 msgstr "Vegyes"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Soft"
 msgstr "Puha"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Hard"
 msgstr "Merev"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Mode:"
 msgstr "Mód:"
-
-#: ../plugins/git/anjuta-git.ui.h:66
-msgid "Drop or type a revision here"
-msgstr "Ejtsen ide vagy írjon be egy revíziót"
 
 #: ../plugins/git/anjuta-git.ui.h:67
 msgid "Commit to revert:"
@@ -5236,7 +5218,7 @@ msgstr "Félretett változtatások:"
 msgid "Repository Status:"
 msgstr "Tároló állapota:"
 
-#: ../plugins/git/git-add-files-pane.c:157
+#: ../plugins/git/git-add-files-pane.c:160
 msgid "Add Files"
 msgstr "Fájlok hozzáadása"
 
@@ -5248,11 +5230,11 @@ msgstr "Adja meg egy távoli ág nevét."
 msgid "Please enter a URL"
 msgstr "Adjon meg egy URL-címet"
 
-#: ../plugins/git/git-add-remote-pane.c:180
+#: ../plugins/git/git-add-remote-pane.c:182
 msgid "Add Remote"
 msgstr "Távoli ág hozzáadása"
 
-#: ../plugins/git/git-apply-mailbox-pane.c:157
+#: ../plugins/git/git-apply-mailbox-pane.c:159
 msgid "Apply Mailbox Files"
 msgstr "Postafiókfájlok alkalmazása"
 
@@ -5262,7 +5244,7 @@ msgstr "Postafiókfájlok alkalmazása"
 msgid "No stash selected."
 msgstr "Nincs kijelölve félretett változat."
 
-#: ../plugins/git/git-checkout-pane.c:147
+#: ../plugins/git/git-checkout-pane.c:150
 msgid "Check Out Files"
 msgstr "Fájlok lekérése"
 
@@ -5273,7 +5255,7 @@ msgid "Please enter a revision."
 msgstr "Adjon meg egy változatot."
 
 # FIXME: jobb ötlet? :)
-#: ../plugins/git/git-cherry-pick-pane.c:173
+#: ../plugins/git/git-cherry-pick-pane.c:176
 msgid "Cherry Pick"
 msgstr "Mazsolázás"
 
@@ -5290,7 +5272,7 @@ msgstr "Adja meg a változat szerzőjének nevét"
 msgid "Please enter the commit author's e-mail address."
 msgstr "Adja meg a változat szerzőjének e-mail címét."
 
-#: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:299 ../plugins/git/plugin.c:148
 msgid "Commit"
 msgstr "Véglegesítés"
 
@@ -5302,7 +5284,7 @@ msgstr "Adja meg az ág nevét."
 msgid "Please enter a tag name."
 msgstr "Adjon meg egy címkenevet."
 
-#: ../plugins/git/git-create-tag-pane.c:233
+#: ../plugins/git/git-create-tag-pane.c:236
 msgid "Create Tag"
 msgstr "Címke létrehozása"
 
@@ -5349,14 +5331,9 @@ msgstr "<b>Címke:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Távoli:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:214 ../plugins/git/plugin.c:99
 msgid "Merge"
 msgstr "Egyesítés"
-
-#: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:716
-msgid "Git"
-msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
 msgid "Git Error"
@@ -5366,7 +5343,7 @@ msgstr "Git hiba"
 msgid "Git Warning"
 msgstr "Git figyelmeztetés"
 
-#: ../plugins/git/git-patch-series-pane.c:167
+#: ../plugins/git/git-patch-series-pane.c:169
 msgid "Generate Patch Series"
 msgstr "Foltsorozat létrehozása"
 
@@ -5378,11 +5355,11 @@ msgstr "Git verziókövetés"
 msgid "Please enter a URL."
 msgstr "Adjon meg egy URL-címet."
 
-#: ../plugins/git/git-pull-pane.c:238 ../plugins/git/plugin.c:246
+#: ../plugins/git/git-pull-pane.c:242 ../plugins/git/plugin.c:264
 msgid "Pull"
 msgstr "Pull"
 
-#: ../plugins/git/git-push-pane.c:435 ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:256
 msgid "Push"
 msgstr "Push"
 
@@ -5390,7 +5367,7 @@ msgstr "Push"
 msgid "No remote selected"
 msgstr "Nincs kijelölve távoli ág"
 
-#: ../plugins/git/git-remove-files-pane.c:157
+#: ../plugins/git/git-remove-files-pane.c:160
 msgid "Remove Files"
 msgstr "Fájlok eltávolítása"
 
@@ -5414,7 +5391,7 @@ msgstr ""
 "Nincs kijelölve távoli ág, az eredet használata alapértelmezésben.\n"
 "Eltérő távoli ágba való pushhoz válasszon egyet a fenti Távoli ágak listából."
 
-#: ../plugins/git/git-reset-pane.c:164
+#: ../plugins/git/git-reset-pane.c:165
 msgid "Reset"
 msgstr "Visszaállítás"
 
@@ -5426,11 +5403,11 @@ msgstr "Nincsenek kijelölve ütköző fájlok."
 msgid "Please enter a commit."
 msgstr "Adjon meg egy változatot."
 
-#: ../plugins/git/git-revert-pane.c:162
+#: ../plugins/git/git-revert-pane.c:163
 msgid "Revert"
 msgstr "Visszavonás"
 
-#: ../plugins/git/git-stash-changes-pane.c:158
+#: ../plugins/git/git-stash-changes-pane.c:160
 msgid "Stash Uncommitted Changes"
 msgstr "Nem véglegesített változtatások félretétele"
 
@@ -5446,314 +5423,310 @@ msgstr "Változott, de nem frissült"
 msgid "No staged files selected."
 msgstr "Nincsenek kiválasztva sorba állított fájlok."
 
-#: ../plugins/git/plugin.c:65
+#: ../plugins/git/plugin.c:67
 msgid "Branch tools"
 msgstr "Ágeszközök"
 
-#: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:75 ../plugins/git/plugin.c:76
 msgid "Create a branch"
 msgstr "Ág létrehozása"
 
-#: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:83 ../plugins/git/plugin.c:84
 msgid "Delete branches"
 msgstr "Ágak törlése"
 
-#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
+#: ../plugins/git/plugin.c:91 ../plugins/git/plugin.c:92
 msgid "Switch to the selected branch"
 msgstr "Váltás a kiválasztott ágra"
 
-#: ../plugins/git/plugin.c:98
+#: ../plugins/git/plugin.c:100
 msgid "Merge a revision into the current branch"
 msgstr "Változat egyesítése a jelenlegi ágba"
 
-#: ../plugins/git/plugin.c:109
+#: ../plugins/git/plugin.c:111
 msgid "Tag tools"
 msgstr "Címkeeszközök"
 
-#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
+#: ../plugins/git/plugin.c:119 ../plugins/git/plugin.c:120
 msgid "Create a tag"
 msgstr "Címke létrehozása"
 
-#: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:128
 msgid "Delete selected tags"
 msgstr "Kiválasztott címkék törlése"
 
-#: ../plugins/git/plugin.c:138
+#: ../plugins/git/plugin.c:140
 msgid "Changes"
 msgstr "Változtatások"
 
-#: ../plugins/git/plugin.c:147
+#: ../plugins/git/plugin.c:149
 msgid "Commit changes"
 msgstr "Változtatások véglegesítése"
 
-#: ../plugins/git/plugin.c:154
+#: ../plugins/git/plugin.c:156
 msgid "Diff uncommitted changes"
 msgstr "Nem véglegesített változtatások diffelése"
 
-#: ../plugins/git/plugin.c:155
+#: ../plugins/git/plugin.c:157
 msgid "Show a diff of uncommitted changes in an editor"
 msgstr "Nem véglegesített változtatások megjelenítése szerkesztőben"
 
-#: ../plugins/git/plugin.c:170
+#: ../plugins/git/plugin.c:172
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: ../plugins/git/plugin.c:171
+#: ../plugins/git/plugin.c:173
 msgid "Add files to the index"
 msgstr "Fájlok hozzáadása az indexhez"
 
-#: ../plugins/git/plugin.c:179
+#: ../plugins/git/plugin.c:181
 msgid "Remove files from the repository"
 msgstr "Fájlok eltávolítása a tárolóból"
 
-#: ../plugins/git/plugin.c:186
+#: ../plugins/git/plugin.c:188
 msgid "Check out"
 msgstr "Lekérés"
 
-#: ../plugins/git/plugin.c:187
+#: ../plugins/git/plugin.c:189
 msgid "Revert changes in unstaged files"
 msgstr "Sorba nem állított fájlok változtatásainak visszavonása"
 
-#: ../plugins/git/plugin.c:194
+#: ../plugins/git/plugin.c:196
 msgid "Unstage"
 msgstr "Sorba állítás törlése"
 
-#: ../plugins/git/plugin.c:195
+#: ../plugins/git/plugin.c:197
 msgid "Remove staged files from the index"
 msgstr "Sorba állított fájlok eltávolítása az indexből"
 
-#: ../plugins/git/plugin.c:202
+#: ../plugins/git/plugin.c:204
 msgid "Resolve conflicts"
 msgstr "Ütközések megoldása"
 
-#: ../plugins/git/plugin.c:203
+#: ../plugins/git/plugin.c:205
 msgid "Mark selected conflicted files as resolved"
 msgstr "Kijelölt ütköző fájlok megjelölése megoldottként"
 
-#: ../plugins/git/plugin.c:214
-msgid "Remote repository tools"
-msgstr "Távoli tároló eszközei"
+#: ../plugins/git/plugin.c:212 ../plugins/git/plugin.c:808
+msgid "Stash"
+msgstr "Félretétel"
 
-#: ../plugins/git/plugin.c:222
-msgid "Add a remote"
-msgstr "Távoli ág hozzáadása"
-
-#: ../plugins/git/plugin.c:223
-msgid "Add a remote repository"
-msgstr "Távoli tároló hozzáadása"
-
-#: ../plugins/git/plugin.c:230
-msgid "Delete selected remote"
-msgstr "Kiválasztott távoli ág törlése"
-
-#: ../plugins/git/plugin.c:231
-msgid "Delete a remote"
-msgstr "Távoli ág törlése"
-
-#: ../plugins/git/plugin.c:239
-msgid "Push changes to a remote repository"
-msgstr "Változtatások elküldése távoli tárolóba"
-
-#: ../plugins/git/plugin.c:247
-msgid "Pull changes from a remote repository"
-msgstr "Változtatások lekérése távoli tárolóból"
-
-#: ../plugins/git/plugin.c:254
-msgid "Fetch"
-msgstr "Letöltés"
-
-#: ../plugins/git/plugin.c:255
-msgid "Fetch changes from remote repositories"
-msgstr "Változtatások letöltése távoli tárolókból"
-
-#: ../plugins/git/plugin.c:270
-msgid "Rebase against selected remote"
-msgstr "Rebase a kijelölt távoli ághoz"
-
-#: ../plugins/git/plugin.c:271
-msgid "Start a rebase operation relative to the selected remote repository"
-msgstr "Rebase művelet indítása a kijelölt távoli tárolóhoz képest"
-
-#: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
-msgid "Continue"
-msgstr "Folytatás"
-
-#: ../plugins/git/plugin.c:279
-msgid "Continue a rebase with resolved conflicts"
-msgstr "Rebase folytatása megoldott ütközésekkel"
-
-#: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-msgid "Skip"
-msgstr "Kihagyás"
-
-#: ../plugins/git/plugin.c:287
-msgid "Skip the current revision"
-msgstr "Az aktuális revízió kihagyása"
-
-#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-msgid "Abort"
-msgstr "Megszakítás"
-
-#: ../plugins/git/plugin.c:295
-msgid "Abort the rebase and return the repository to its previous state"
-msgstr "A rebase megszakítása, és a tároló visszaállítása az előző állapotba"
-
-#: ../plugins/git/plugin.c:306
-msgid "Stash tools"
-msgstr "Félretett változatok eszközei"
-
-#: ../plugins/git/plugin.c:314
+#: ../plugins/git/plugin.c:220 ../plugins/git/plugin.c:332
 msgid "Stash uncommitted changes"
 msgstr "Nem véglegesített változtatások félretétele"
 
-#: ../plugins/git/plugin.c:315
+#: ../plugins/git/plugin.c:221 ../plugins/git/plugin.c:333
 msgid "Save uncommitted changes without committing them"
 msgstr "Nem véglegesített változtatások mentése a véglegesítésük nélkül"
 
-#: ../plugins/git/plugin.c:322
+#: ../plugins/git/plugin.c:232
+msgid "Remote repository tools"
+msgstr "Távoli tároló eszközei"
+
+#: ../plugins/git/plugin.c:240
+msgid "Add a remote"
+msgstr "Távoli ág hozzáadása"
+
+#: ../plugins/git/plugin.c:241
+msgid "Add a remote repository"
+msgstr "Távoli tároló hozzáadása"
+
+#: ../plugins/git/plugin.c:248
+msgid "Delete selected remote"
+msgstr "Kiválasztott távoli ág törlése"
+
+#: ../plugins/git/plugin.c:249
+msgid "Delete a remote"
+msgstr "Távoli ág törlése"
+
+#: ../plugins/git/plugin.c:257
+msgid "Push changes to a remote repository"
+msgstr "Változtatások elküldése távoli tárolóba"
+
+#: ../plugins/git/plugin.c:265
+msgid "Pull changes from a remote repository"
+msgstr "Változtatások lekérése távoli tárolóból"
+
+#: ../plugins/git/plugin.c:272
+msgid "Fetch"
+msgstr "Letöltés"
+
+#: ../plugins/git/plugin.c:273
+msgid "Fetch changes from remote repositories"
+msgstr "Változtatások letöltése távoli tárolókból"
+
+#: ../plugins/git/plugin.c:288
+msgid "Rebase against selected remote"
+msgstr "Rebase a kijelölt távoli ághoz"
+
+#: ../plugins/git/plugin.c:289
+msgid "Start a rebase operation relative to the selected remote repository"
+msgstr "Rebase művelet indítása a kijelölt távoli tárolóhoz képest"
+
+#: ../plugins/git/plugin.c:296 ../plugins/git/plugin.c:464
+msgid "Continue"
+msgstr "Folytatás"
+
+#: ../plugins/git/plugin.c:297
+msgid "Continue a rebase with resolved conflicts"
+msgstr "Rebase folytatása megoldott ütközésekkel"
+
+#: ../plugins/git/plugin.c:304 ../plugins/git/plugin.c:472
+msgid "Skip"
+msgstr "Kihagyás"
+
+#: ../plugins/git/plugin.c:305
+msgid "Skip the current revision"
+msgstr "Az aktuális revízió kihagyása"
+
+#: ../plugins/git/plugin.c:312 ../plugins/git/plugin.c:480
+msgid "Abort"
+msgstr "Megszakítás"
+
+#: ../plugins/git/plugin.c:313
+msgid "Abort the rebase and return the repository to its previous state"
+msgstr "A rebase megszakítása, és a tároló visszaállítása az előző állapotba"
+
+#: ../plugins/git/plugin.c:324
+msgid "Stash tools"
+msgstr "Félretett változatok eszközei"
+
+#: ../plugins/git/plugin.c:340
 msgid "Apply selected stash"
 msgstr "Kijelölt félretett változat alkalmazása"
 
-#: ../plugins/git/plugin.c:323
+#: ../plugins/git/plugin.c:341
 msgid "Apply stashed changes back into the working tree"
 msgstr "Félretett változtatások alkalmazása az aktív fára"
 
-#: ../plugins/git/plugin.c:330
+#: ../plugins/git/plugin.c:348
 msgid "Apply stash and restore index"
 msgstr "Félretett változtatások alkalmazása és index visszaállítása"
 
-#: ../plugins/git/plugin.c:331
+#: ../plugins/git/plugin.c:349
 msgid "Apply stashed changes back into the working tree and the index"
 msgstr "Félretett változtatások alkalmazása az aktív fára és az indexre"
 
-#: ../plugins/git/plugin.c:338
+#: ../plugins/git/plugin.c:356
 msgid "Diff selected stash"
 msgstr "Kijelölt félretett változat diffelése"
 
-#: ../plugins/git/plugin.c:339
+#: ../plugins/git/plugin.c:357
 msgid "Show a diff of the selected stash"
 msgstr "A kijelölt félretett változat diffjének megjelenítése"
 
-#: ../plugins/git/plugin.c:346
+#: ../plugins/git/plugin.c:364
 msgid "Drop selected stash"
 msgstr "Kijelölt félretett változat eldobása"
 
-#: ../plugins/git/plugin.c:347
+#: ../plugins/git/plugin.c:365
 msgid "Delete the selected stash"
 msgstr "A kijelölt félretett változat törlése"
 
-#: ../plugins/git/plugin.c:354
+#: ../plugins/git/plugin.c:372
 msgid "Clear all stashes"
 msgstr "Minden félretett változat törlése"
 
-#: ../plugins/git/plugin.c:355
+#: ../plugins/git/plugin.c:373
 msgid "Delete all stashes in this repository"
 msgstr "Minden félretett változat törlése a tárolóban"
 
-#: ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:384
 msgid "Revision tools"
 msgstr "Revízió eszközei"
 
-#: ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:392
 msgid "Show commit diff"
 msgstr "Változat diff megjelenítése"
 
-#: ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:393
 msgid "Show a diff of the selected revision"
 msgstr "A kijelölt revízió diffjének megjelenítése"
 
 # FIXME: jobb ötlet? :)
-#: ../plugins/git/plugin.c:382
+#: ../plugins/git/plugin.c:400
 msgid "Cherry pick"
 msgstr "Mazsolázás"
 
-#: ../plugins/git/plugin.c:383
+#: ../plugins/git/plugin.c:401
 msgid "Merge an individual commit from another branch"
 msgstr "Adott változat egyesítése másik ágból"
 
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:408
 msgid "Reset/Revert"
 msgstr "Visszaállítás/visszavonás"
 
-#: ../plugins/git/plugin.c:398
+#: ../plugins/git/plugin.c:416
 msgid "Reset tree"
 msgstr "Fa visszaállítása"
 
-#: ../plugins/git/plugin.c:399
+#: ../plugins/git/plugin.c:417
 msgid "Reset tree to a previous revision"
 msgstr "Fa visszaállítása egy korábbi revízióra"
 
-#: ../plugins/git/plugin.c:406
+#: ../plugins/git/plugin.c:424
 msgid "Revert commit"
 msgstr "Változat visszavonása"
 
-#: ../plugins/git/plugin.c:407
+#: ../plugins/git/plugin.c:425
 msgid "Revert a commit"
 msgstr "Egy változat visszavonása"
 
-#: ../plugins/git/plugin.c:414
+#: ../plugins/git/plugin.c:432
 msgid "Patch series"
 msgstr "Foltsorozatok"
 
-#: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
+#: ../plugins/git/plugin.c:440 ../plugins/git/plugin.c:441
 msgid "Generate a patch series"
 msgstr "Foltsorozat létrehozása"
 
-#: ../plugins/git/plugin.c:430
+#: ../plugins/git/plugin.c:448
 msgid "Mailbox files"
 msgstr "Postafiókfájlok"
 
-#: ../plugins/git/plugin.c:438
+#: ../plugins/git/plugin.c:456
 msgid "Apply mailbox files"
 msgstr "Postafiókfájlok alkalmazása"
 
-#: ../plugins/git/plugin.c:439
+#: ../plugins/git/plugin.c:457
 msgid "Apply patches from mailbox files"
 msgstr "Foltok alkalmazása postafiókfájlokból"
 
-#: ../plugins/git/plugin.c:447
+#: ../plugins/git/plugin.c:465
 msgid "Continue applying patches with resolved conflicts"
 msgstr "Foltok alkalmazásának folytatása az ütközések megoldása után"
 
-#: ../plugins/git/plugin.c:455
+#: ../plugins/git/plugin.c:473
 msgid "Skip the current patch in the series"
 msgstr "A sorozat jelenlegi foltjának kihagyása"
 
-#: ../plugins/git/plugin.c:463
+#: ../plugins/git/plugin.c:481
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr ""
 "A sorozat alkalmazásának megszakítása, és a tároló visszaállítása az előző "
 "állapotba"
 
-#: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
+#: ../plugins/git/plugin.c:572 ../plugins/git/plugin.c:645
 msgid "Branch"
 msgstr "Ág"
 
-#: ../plugins/git/plugin.c:711
-msgid "Git Tasks"
-msgstr "Git feladatok"
-
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:778
 msgid "Status"
 msgstr "Állapot"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:784
 msgid "Log"
 msgstr "Napló"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:795
 msgid "Tags"
 msgstr "Címkék"
 
-#: ../plugins/git/plugin.c:806
+#: ../plugins/git/plugin.c:802
 msgid "Remotes"
 msgstr "Távoli ágak"
-
-#: ../plugins/git/plugin.c:812
-msgid "Stash"
-msgstr "Félretétel"
 
 #: ../plugins/glade/anjuta-design-document.c:170
 #: ../plugins/glade/anjuta-design-document.c:201
@@ -5787,7 +5760,6 @@ msgid "Drag and resize widgets in the workspace"
 msgstr "Felületi elemek átméretezése húzással a munkaterületen"
 
 #: ../plugins/glade/anjuta-glade.ui.h:3
-#| msgid "Show right margin"
 msgid "Edit widget margins"
 msgstr "Felületi elem margóinak szerkesztése"
 
@@ -5796,7 +5768,6 @@ msgid "Edit widget alignment"
 msgstr "Felületi elem elrendezésének szerkesztése"
 
 #: ../plugins/glade/plugin.c:612
-#| msgid "Folder properties"
 msgid "Glade Properties…"
 msgstr "Glade tulajdonságai…"
 
@@ -5809,7 +5780,6 @@ msgid "Loading Glade…"
 msgstr "Glade betöltése…"
 
 #: ../plugins/glade/plugin.c:726
-#| msgid "Debugger operations"
 msgid "Glade designer operations"
 msgstr "Glade tervezőműveletek"
 
@@ -5877,7 +5847,6 @@ msgid "Indent:"
 msgstr "Behúzás:"
 
 #: ../plugins/indentation-c-style/anjuta-indentation-c-style.ui.h:10
-#| msgid "Parenthesis indentation"
 msgid "Use spaces for parenthesis indentation"
 msgstr "Szóközök használata a zárójelek behúzásához"
 
@@ -5899,7 +5868,6 @@ msgstr ""
 "alapján"
 
 #: ../plugins/indentation-c-style/plugin.c:512
-#| msgid "Indentation"
 msgid "C Indentation"
 msgstr "C behúzás"
 
@@ -5915,12 +5883,10 @@ msgid "Enable adaptive indentation"
 msgstr "Adaptív behúzás engedélyezése"
 
 #: ../plugins/indentation-python-style/plugin.c:227
-#| msgid "Indentation"
 msgid "Python Indentation"
 msgstr "Python behúzás"
 
 #: ../plugins/jhbuild/anjuta-jhbuild.plugin.in.h:1
-#| msgid "Build"
 msgid "JHBuild"
 msgstr "JHBuild"
 
@@ -5951,7 +5917,6 @@ msgstr ""
 
 #: ../plugins/jhbuild/plugin.c:198
 #, c-format
-#| msgid "Failed to activate plugin: %s"
 msgid "Failed to activate the JHBuild Plugin: %s"
 msgstr "A JHBuild bővítmény aktiválása sikertelen: %s"
 
@@ -6588,7 +6553,6 @@ msgstr "Ez a tulajdonság nem módosítható"
 #. Several backend are possible, ask the user to select one
 #: ../plugins/project-manager/dialogs.c:647
 #, c-format
-#| msgid "Please select a project backend to open %s."
 msgid "Please select a project backend to use."
 msgstr "Válasszon egy projekt-háttérprogramot a használathoz."
 
@@ -6628,7 +6592,6 @@ msgstr "Háttérprogram:"
 
 #: ../plugins/project-manager/dialogs.c:938
 #, c-format
-#| msgid "Loading project: %s"
 msgid "Reloading project: %s"
 msgstr "Projekt újratöltése: %s"
 
@@ -8126,12 +8089,10 @@ msgid "Allows loading Anjuta plugins written in Python"
 msgstr "Pythonban írt Anjuta bővítmények betöltése"
 
 #: ../plugins/quick-open/anjuta-quick-open.ui.h:1
-#| msgid "Loading..."
 msgid "Loading files..."
 msgstr "Fájlok betöltése…"
 
 #: ../plugins/quick-open/plugin.c:221
-#| msgid "_Quick Search"
 msgid "Quick open"
 msgstr "Gyors megnyitás"
 
@@ -8140,12 +8101,10 @@ msgid "Quickly open a file in the current project."
 msgstr "Fájl gyors megnyitása a jelenlegi projektben."
 
 #: ../plugins/quick-open/plugin.c:243
-#| msgid "Run operations"
 msgid "Quick open operations"
 msgstr "Műveletek gyors megnyitása"
 
 #: ../plugins/quick-open/quick-open-dialog.c:775
-#| msgid "_Quick Search"
 msgid "Quick Open"
 msgstr "Gyors megnyitás"
 
@@ -8591,7 +8550,7 @@ msgstr "Szerkesztő nézetbeállításai"
 msgid "GtkSourceView Editor"
 msgstr "GtkSourceView szerkesztő"
 
-#: ../plugins/sourceview/sourceview.c:592
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8600,7 +8559,7 @@ msgstr ""
 "A fájl („%s”) a lemezen frissebb, mint a jelenlegi pufferben.\n"
 "Újra kívánja tölteni?"
 
-#: ../plugins/sourceview/sourceview.c:624
+#: ../plugins/sourceview/sourceview.c:633
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8610,28 +8569,28 @@ msgstr ""
 "Be kívánja zárni?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:657
+#: ../plugins/sourceview/sourceview.c:666
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "%s nem nyitható meg: %s"
 
-#: ../plugins/sourceview/sourceview.c:711
+#: ../plugins/sourceview/sourceview.c:717
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "A fájl („%s”) csak olvasható! Mindenképp szerkeszti?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:773
+#: ../plugins/sourceview/sourceview.c:776
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "%s nem menthető: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:284
+#: ../plugins/sourceview/sourceview-io.c:308
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "A fájl nem menthető, mivel még nem adott meg fájlnevet"
 
-#: ../plugins/sourceview/sourceview-io.c:529
+#: ../plugins/sourceview/sourceview-io.c:556
 #, c-format
 msgid "New file %d"
 msgstr "%d. új fájl"
@@ -10010,6 +9969,22 @@ msgstr "Csak ikonok"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Csak szöveg"
+
+#~ msgid "Drop or enter revision here"
+#~ msgstr "Ejtsen ide vagy írjon be egy revíziót"
+
+#~ msgid ""
+#~ "Whole project; Drop a file here or type a path to view a file or folder "
+#~ "log"
+#~ msgstr ""
+#~ "Teljes projekt; Ejtsen ide egy fájlt, vagy írjon be egy útvonalat fájl- "
+#~ "vagy mappanapló megjelenítéséhez"
+
+#~ msgid "Previous commit; Drop or enter a different revision here"
+#~ msgstr "Előző változat; ejtsen ide vagy írjon be másik revíziót"
+
+#~ msgid "Drop or type a revision here"
+#~ msgstr "Ejtsen ide vagy írjon be egy revíziót"
 
 #~ msgid "Select a build directory"
 #~ msgstr "Összeállítási könyvtár kiválasztása"
