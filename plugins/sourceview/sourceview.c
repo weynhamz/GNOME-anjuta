@@ -1177,8 +1177,8 @@ static void ieditor_goto_position(IAnjutaEditor *editor, IAnjutaIterable* icell,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	sourceview_cell_get_iter (cell, &iter);
 	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (sv->priv->document), &iter);
-	gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (sv->priv->view),
-								  &iter, 0, FALSE, 0, 0);
+	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (sv->priv->view),
+	                                    gtk_text_buffer_get_insert (sv->priv->document));
 }
 
 /* Return a newly allocated pointer containing the whole text */

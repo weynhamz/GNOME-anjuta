@@ -95,12 +95,8 @@ scroll_to_cursor_real (AnjutaView *view)
 	GtkTextBuffer* buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	g_return_val_if_fail (buffer != NULL, FALSE);
 
-	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
-				      gtk_text_buffer_get_insert (buffer),
-				      0.25,
-				      FALSE,
-				      0.0,
-				      0.0);
+	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (view),
+	                                    gtk_text_buffer_get_insert (buffer));
 	
 	view->priv->scroll_idle = 0;
 	return FALSE;
@@ -453,12 +449,8 @@ anjuta_view_cut_clipboard (AnjutaView *view)
   				       clipboard,
 				       TRUE);
   	
-	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
-				      gtk_text_buffer_get_insert (buffer),
-				      ANJUTA_VIEW_SCROLL_MARGIN,
-				      FALSE,
-				      0.0,
-				      0.0);
+	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (view),
+	                                    gtk_text_buffer_get_insert (buffer));
 }
 
 void
@@ -476,8 +468,6 @@ anjuta_view_copy_clipboard (AnjutaView *view)
 					      GDK_SELECTION_CLIPBOARD);
 
   	gtk_text_buffer_copy_clipboard (buffer, clipboard);
-
-	/* on copy do not scroll, we are already on screen */
 }
 
 void
@@ -494,18 +484,13 @@ anjuta_view_paste_clipboard (AnjutaView *view)
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (view),
 					      GDK_SELECTION_CLIPBOARD);
 
-	/* FIXME: what is default editability of a buffer? */
   	gtk_text_buffer_paste_clipboard (buffer,
 					 clipboard,
 					 NULL,
 					 TRUE);
 
-	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
-				      gtk_text_buffer_get_insert (buffer),
-				      ANJUTA_VIEW_SCROLL_MARGIN,
-				      FALSE,
-				      0.0,
-				      0.0);
+	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (view),
+	                                    gtk_text_buffer_get_insert (buffer));
 }
 
 void
