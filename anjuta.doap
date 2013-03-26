@@ -37,4 +37,10 @@
       <gnome:userid>seb</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>James Liggett</foaf:name>
+      <gnome:userid>jrliggett</gnome:userid>
+    </foaf:Person>
+  </maintainer>
 </Project>
