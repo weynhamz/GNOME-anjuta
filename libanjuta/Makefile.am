@@ -274,7 +274,7 @@ anjuta_introspection_sources = $(libanjuta_3_la_SOURCES)
 ianjuta_introspection_sources = $(libanjuta_source_files) $(libanjuta_header_files)
 
 Anjuta-3.0.gir: libanjuta-3.la
-Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0
+Anjuta_3_0_gir_INCLUDES = GObject-2.0 Gtk-3.0 Gdl-3
 Anjuta_3_0_gir_CFLAGS = $(ANJUTA_CFLAGS) $(XML_CFLAGS) $(GDL_CFLAGS) -I$(top_srcdir)
 Anjuta_3_0_gir_LIBS = libanjuta-3.la
 Anjuta_3_0_gir_FILES = $(anjuta_introspection_sources)
