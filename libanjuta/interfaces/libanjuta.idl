@@ -2197,7 +2197,8 @@ interface IAnjutaEditor
 	{
 	  #include <libanjuta/interfaces/ianjuta-iterable.h>
 
-	  /* IAnjutaEditorHover::hover-over:
+		/**
+		 * IAnjutaEditorHover::hover-over:
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse is over
 		 *
@@ -2206,7 +2207,7 @@ interface IAnjutaEditor
 		 */
 		void ::hover_over (IAnjutaIterable* position);
 
-	  /* IAnjutaEditorHover::hover-leave
+		/**
 		 * IAnjutaEditorHover::hover-leave:
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse was over
@@ -2239,7 +2240,8 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorLanguage
 	{
-	  /* IAnjutaEditorLanguage::language-changed:
+		/**
+		 * IAnjutaEditorLanguage::language-changed:
 		 * @obj: self
 		 * @language: new language
 		 *
