@@ -631,8 +631,8 @@ anjuta_plugin_description_new_from_string (char *data, GError **error)
  * Converts the description detains into string format, usually for
  * saving it in a file.
  *
- * Return value: The string representation of the description. The
- * returned values must be freed after use.
+ * Return value: (transfer full) (allow-none): The string representation of the description.
+ * The returned values must be freed after use.
  */
 char *
 anjuta_plugin_description_to_string (AnjutaPluginDescription *df)
@@ -743,7 +743,7 @@ lookup_line (AnjutaPluginDescription        *df,
  * @section_name: Name of the section.
  * @keyname: Name of the key.
  * @locale: The locale for which the value is to be retrieved.
- * @val: Pointer to the variable to store the string value.
+ * @val: (out) (transfer full) (allow-none): Pointer to the variable to store the string value.
  *
  * Retrieves the value of a key (in the given section) for the given locale.
  * The value returned in @val must be freed after use.

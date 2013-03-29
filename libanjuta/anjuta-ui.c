@@ -1009,7 +1009,7 @@ anjuta_ui_new (void)
  * @ui: A #AnjutaUI object.
  * @action_group_name: Untranslated name of the action group.
  * @action_group_label: Translated label of the action group.
- * @entries: An array of action entries.
+ * @entries: (array length=num_entries): An array of action entries.
  * @num_entries: Number of elements in the action entries array.
  * @can_customize: If true the actions are customizable by user.
  * @translation_domain: The translation domain used to translated the entries.
@@ -1028,7 +1028,8 @@ anjuta_ui_new (void)
  * @action_group_label is used as the display name for the action group in
  * UI manager dialog where action shortcuts are configured.
  * 
- * Return value: A #GtkActionGroup object holding all the action objects.
+ * Return value: (transfer none): A #GtkActionGroup object holding all the
+ * action objects.
  */
 GtkActionGroup*
 anjuta_ui_add_action_group_entries (AnjutaUI *ui,
@@ -1062,7 +1063,7 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
  * @ui: A #AnjutaUI object.
  * @action_group_name: Untranslated name of the action group.
  * @action_group_label: Translated label of the action group.
- * @entries: An array of action entries.
+ * @entries: (array length=num_entries): An array of action entries.
  * @num_entries: Number of elements in the action entries array.
  * @translation_domain: The translation domain used to translated the entries.
  * It is usually the GETTEXT_PACKAGE macro in a project.
@@ -1072,7 +1073,8 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
  * This is similar to anjuta_ui_add_action_group_entries(), except that
  * it adds #GtkToggleAction objects after creating them from the @entries.
  * 
- * Return value: A #GtkActionGroup object holding all the action objects.
+ * Return value: (transfer none): A #GtkActionGroup object holding all the
+ * action objects.
  */
 GtkActionGroup*
 anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
@@ -1105,7 +1107,7 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
  * @ui: A #AnjutaUI object.
  * @action_group_name: Untranslated name of the action group.
  * @action_group_label: Translated label of the action group.
- * @action_group: #GtkActionGroup object to add.
+ * @action_group: (transfer full): #GtkActionGroup object to add.
  * 
  * This is similar to anjuta_ui_add_action_group_entries(), except that
  * it adds #GtkActionGroup object @action_group directly. All actions in this
@@ -1212,7 +1214,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
  * Note that it will be only sucessully returned if the group has been added
  * using methods in #AnjutaUI.
  *
- * Returns: A #GtkAction object
+ * Returns: (transfer none): A #GtkAction object
  */
 GtkAction*
 anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
@@ -1355,7 +1357,7 @@ anjuta_ui_unmerge (AnjutaUI *ui, gint id)
  *
  * Returns the #GtkAccelGroup object associated with this UI manager.
  *
- * Returns: A #GtkAccelGroup object.
+ * Returns: (transfer none): A #GtkAccelGroup object.
  */
 GtkAccelGroup*
 anjuta_ui_get_accel_group (AnjutaUI *ui)
@@ -1371,7 +1373,7 @@ anjuta_ui_get_accel_group (AnjutaUI *ui)
  * Creates an accel editor widget and returns it. It should be added to
  * container and displayed to users.
  *
- * Returns: a #GtkWidget containing the editor.
+ * Returns: (transfer none): a #GtkWidget containing the editor.
  */
 GtkWidget *
 anjuta_ui_get_accel_editor (AnjutaUI *ui)
@@ -1471,7 +1473,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
  * this icon factory. Read the documentation for #GtkIconFactory on how to 
  * use it.
  *
- * Return value: The #GtkIconFactory object used by it
+ * Return value: (transfer none): The #GtkIconFactory object used by it
  */
 GtkIconFactory*
 anjuta_ui_get_icon_factory (AnjutaUI *ui)

@@ -259,7 +259,7 @@ anjuta_token_stream_read (AnjutaTokenStream *stream, gchar *buffer, gsize max_si
  *
  * Return the root token for the output stream.
  *
- * Return value: The output root token.
+ * Return value: (transfer none): The output root token.
  */
 AnjutaToken*
 anjuta_token_stream_get_root (AnjutaTokenStream *stream)
@@ -275,7 +275,7 @@ anjuta_token_stream_get_root (AnjutaTokenStream *stream)
  *
  * Return the current directory.
  *
- * Return value: The current directory.
+ * Return value: (transfer none): The current directory.
  */
 GFile*
 anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
@@ -292,7 +292,7 @@ anjuta_token_stream_get_current_directory (AnjutaTokenStream *stream)
  *
  * Return the current file.
  *
- * Return value: The current file.
+ * Return value: (transfer none): The current file.
  */
 GFile*
 anjuta_token_stream_get_current_file (AnjutaTokenStream *stream)
@@ -307,8 +307,8 @@ anjuta_token_stream_get_current_file (AnjutaTokenStream *stream)
 
 /**
  * anjuta_token_stream_push:
- * @parent: a parent #AnjutaTokenStream object or NULL.
- * @root: a token or NULL
+ * @parent: (allow-none): a parent #AnjutaTokenStream object or %NULL.
+ * @root: (allow-none): a token or %NULL
  * @content: a token list.
  * @file: (allow-none): a #GFile of the file.
  *
@@ -362,7 +362,7 @@ anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaTo
  *
  * Destroy the stream object and return the parent stream if it exists.
  *
- * Return value: The parent stream or NULL if there is no parent.
+ * Return value: (transfer none) (allow-none): The parent stream or %NULL if there is no parent.
  */
 AnjutaTokenStream *
 anjuta_token_stream_pop (AnjutaTokenStream *stream)
@@ -385,7 +385,8 @@ anjuta_token_stream_pop (AnjutaTokenStream *stream)
  *
  * Return the parent stream
  *
- * Return value: The parent stream or NULL if there is no parent.
+ * Return value: (transfer none) (allow-none): The parent stream or %NULL if
+ * there is no parent.
  */
 AnjutaTokenStream *
 anjuta_token_stream_get_parent (AnjutaTokenStream *stream)

@@ -583,7 +583,7 @@ anjuta_plugin_is_active (AnjutaPlugin *plugin)
  * anjuta_plugin_get_shell:
  * @plugin: a #AnjutaPlugin
  * 
- * Returns: The #AnjutaShell object associated with this plugin
+ * Returns: (transfer none): The #AnjutaShell object associated with this plugin
  */
 AnjutaShell *
 anjuta_plugin_get_shell (AnjutaPlugin* plugin)

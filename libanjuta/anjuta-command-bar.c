@@ -92,7 +92,7 @@ anjuta_command_bar_new (void)
  * anjuta_command_bar_add_action_group:
  * @self: An AnjutaCommandBar
  * @group_name: A unique name for this group of entries
- * @entries: A list of entries to add
+ * @entries: (array length=num_entries): A list of entries to add
  * @num_entries: The number of items pointed to by entries
  * @user_data: User data to pass to the entry callback
  * 

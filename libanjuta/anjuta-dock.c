@@ -144,7 +144,8 @@ anjuta_dock_new (void)
  * @stock_icon: Stock icon to display in this pane's grip
  * @placement: A #GdlDockPlacement value indicating where the pane should be
  *			   placed
- * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
+ * @entries: (allow-none) (array length=num_entries): #AnjutaCommandBar entries
+ *			 for this pane. Can be %NULL
  * @num_entries: The number of entries pointed to by entries, or 0.
  * @user_data: User data to pass to the entry callback
  *
@@ -184,7 +185,8 @@ anjuta_dock_add_pane (AnjutaDock *self, const gchar *pane_name,
  *		  the pane object.
  * @placement: A #GdlDockPlacement value indicating where the pane should be
  *			   placed
- * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
+ * @entries: (allow-none) (array length=num_entries): #AnjutaCommandBar entries
+ *			 for this pane. Can be %NULL
  * @num_entries: The number of entries pointed to by entries, or 0.
  * @user_data: User data to pass to the entry callback
  * @behavior: Any combination of #GdlDockItemBehavior flags
@@ -258,7 +260,8 @@ anjuta_dock_add_pane_full (AnjutaDock *self, const gchar *pane_name,
  * @stock_icon: Stock icon to display in this pane's grip
  * @placement: A #GdlDockPlacement value indicating where the pane should be
  *			   placed
- * @entries: #AnjutaCommandBar entries for this pane. Can be %NULL
+ * @entries: (allow-none) (array length=num_entries): #AnjutaCommandBar entries
+ *			 for this pane. Can be %NULL
  * @num_entries: The number of entries pointed to by entries, or 0.
  * @user_data: User data to pass to the entry callback
  *
@@ -407,7 +410,8 @@ anjuta_dock_set_command_bar (AnjutaDock *self, AnjutaCommandBar *command_bar)
  * anjuta_dock_get_command_bar:
  * @self: An AnjutaDock
  *
- * Returns: the #AnjutaCommandBar associated with this dock or %NULL.
+ * Returns: (transfer none) (allow-none): the #AnjutaCommandBar associated with
+ * this dock or %NULL.
  */
 AnjutaCommandBar *
 anjuta_dock_get_command_bar (AnjutaDock *self)

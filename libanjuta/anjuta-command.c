@@ -347,8 +347,8 @@ anjuta_command_set_error_message (AnjutaCommand *self, const gchar *error_messag
  * normally used from a ::command-finished handler to report errors to the user
  * when a command finishes. 
  *
- * Return value: Error message string that must be freed when no longer needed.
- * If no error is set, return %NULL.
+ * Return value: (transfer full) (allow-none): Error message string that must
+ * be freed when no longer needed. If no error is set, return %NULL.
  */
 gchar *
 anjuta_command_get_error_message (AnjutaCommand *self)

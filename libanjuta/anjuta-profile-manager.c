@@ -649,7 +649,8 @@ anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
  * 
  * Return the current profile.
  *
- * Return value: a #AnjutaProfile object or NULL if the profile stack is empty.
+ * Return value: (transfer none) (allow-none): a #AnjutaProfile object or %NULL
+ * if the profile stack is empty.
  */
 AnjutaProfile*
 anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager)

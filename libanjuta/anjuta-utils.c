@@ -843,7 +843,7 @@ has_valid_scheme (const char *uri)
  * Create a new file corresponding to arg, unlike g_file_new_for_commandline_arg,
  * keeps symbolic links in path name.
  *
- * Returns: A new GFile object
+ * Returns: (transfer full): A new GFile object
  */
 GFile *
 anjuta_util_file_new_for_commandline_arg (const gchar *arg)
@@ -1123,9 +1123,9 @@ anjuta_util_user_shell (void)
  *
  * Retrieves the user's preferred terminal.
  *
- * Returns: A newly allocated strings list. The first argument is the terminal
- * program name. The following are the arguments needed to execute
- * a command. The list has to be freed with g_strfreev
+ * Returns: (transfer full): A newly allocated strings list. The first argument
+ * is the terminal program name. The following are the arguments needed to
+ * execute a command. The list has to be freed with g_strfreev
  */
 /* copied from deprecated gnome_execute_terminal in libgnome */
 gchar **
@@ -1558,8 +1558,8 @@ anjuta_util_is_template_file (const gchar *filename)
  *
  * Return the mime type corresponding to a file infor object.
  *
- * Returns: The mime type as a newly allocated string that must be freed with
- * g_free() or %NULL if the mime type cannot be found.
+ * Returns: (transfer full) (allow-none): The mime type as a newly allocated
+ * string that must be freed with g_free() or %NULL if the mime type cannot be found.
  */
 gchar *
 anjuta_util_get_file_info_mime_type (GFileInfo *info)
@@ -1610,8 +1610,9 @@ anjuta_util_get_file_info_mime_type (GFileInfo *info)
  *
  * Check if a file exists and return its mime type.
  *
- * Returns: NULL if the corresponding file doesn't exist or the mime type as a newly
- * allocated string that must be freed with g_free().
+ * Returns: (transfer full) (allow-none): %NULL if the corresponding file doesn't
+ * exist or the mime type as a newly allocated string that must be freed with
+ * g_free().
  */
 gchar *
 anjuta_util_get_file_mime_type (GFile *file)
@@ -2048,7 +2049,7 @@ anjuta_util_replace_home_dir_with_tilde (const gchar *uri)
  *
  * Expand environment variables $(var_name) and tilde (~) in the input string.
  *
- * Returns: a newly-allocated string that must be freed with g_free().
+ * Returns: (transfer full): a newly-allocated string that must be freed with g_free().
  */
 gchar*
 anjuta_util_shell_expand (const gchar *string)

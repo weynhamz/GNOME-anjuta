@@ -295,7 +295,8 @@ anjuta_language_provider_get_calltip_context (AnjutaLanguageProvider* lang_prov,
  *
  * Search for the current typed word
  *
- * Returns: The current word (needs to be freed) or NULL if no word was found
+ * Returns: (transfer full) (allow-none): The current word (needs to be freed)
+ * or %NULL if no word was found
  */
 gchar*
 anjuta_language_provider_get_pre_word (AnjutaLanguageProvider* lang_prov,
@@ -628,7 +629,7 @@ anjuta_language_proposal_data_free (AnjutaLanguageProposalData *data)
  * anjuta_language_proposal_data_new:
  * @name: Name of the object
  * 
- * Returns: Creates a new AnjutaLanguageProposalData object
+ * Returns: (transfer full): Creates a new AnjutaLanguageProposalData object
  */
 AnjutaLanguageProposalData*
 anjuta_language_proposal_data_new (gchar* name)

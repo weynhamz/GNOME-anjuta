@@ -3325,7 +3325,7 @@ interface IAnjutaTerminal
 	* @obj: Self
 	* @directory: Working directory
 	* @command: Command executed followed by arguments
-	* @environment: List of additional environment variables
+	* @environment: (array zero-terminated=1): List of additional environment variables
 	* @err: Error propagation and reporting.
 	*
 	* Run the command in a terminal, setting the working directory

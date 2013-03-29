@@ -2224,7 +2224,7 @@ anjuta_plugin_manager_select_and_activate (AnjutaPluginManager *plugin_manager,
  * Get the description corresponding to the plugin or %NULL if the plugin is not
  * activated.
  *
- * Returns: A #AnjutaPluginDescription or %NULL.
+ * Returns: (transfer none) (allow-none): A #AnjutaPluginDescription or %NULL.
  */
 AnjutaPluginDescription*
 anjuta_plugin_manager_get_plugin_description (AnjutaPluginManager *plugin_manager,
@@ -2649,7 +2649,8 @@ on_collect (gpointer key, gpointer value, gpointer user_data)
  * The list format is returned as a string with the format detailed in 
  * anjuta_plugin_manager_set_remembered_plugins().
  *
- * Return value: a newly-allocated string that must be freed with g_free().
+ * Return value: (transfer full): a newly-allocated string that must be freed
+ * with g_free().
  */
 
 gchar*

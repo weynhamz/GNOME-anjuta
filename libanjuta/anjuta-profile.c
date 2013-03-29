@@ -788,7 +788,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
  * 
  * Return a string in xml format containing the list of saved plugins.
  *
- * Return value: a newly-allocated string that must be freed with g_free().
+ * Return value: (transfer full): a newly-allocated string that must be freed with g_free().
  */
 static gchar*
 anjuta_profile_to_xml (AnjutaProfile *profile)

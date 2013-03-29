@@ -269,9 +269,9 @@ anjuta_entry_get_text (AnjutaEntry *self)
  * anjuta_entry_dup_text:
  * @self: An AnjutaEntry
  *
- * Returns: A copy of the contents of the entry. If the entry is empty, the
- * returned string will be empty. The returned string must be freed when no
- * longer needed. 
+ * Returns: (transfer full): A copy of the contents of the entry. If the entry
+ * is empty, the returned string will be empty. The returned string must be
+ * freed when no longer needed.
  */
 gchar *
 anjuta_entry_dup_text (AnjutaEntry *self)

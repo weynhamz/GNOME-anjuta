@@ -468,7 +468,7 @@ anjuta_session_get_string_list (AnjutaSession *session,
  * It is useful to keep only relative file paths in a session file to be able
  * to copy the whole project without breaking references.
  *
- * Returns: A string that has to be freed with g_free().
+ * Returns: (transfer full): A string that has to be freed with g_free().
  */
 gchar *
 anjuta_session_get_relative_uri_from_file (AnjutaSession *session,
@@ -535,7 +535,7 @@ anjuta_session_get_relative_uri_from_file (AnjutaSession *session,
  * anjuta_session_get_file_from_relative_uri:
  * @session: an #AnjutaSession object
  * @uri: a relative URI from a key
- * @fragment: fragment part of the URI if existing, cal be NULL
+ * @fragment: (allow-none): fragment part of the URI if existing, can be %NULL
  *
  * Return a GFile corresponding to the URI and and optional fragment,
  * normally read from a session key.
@@ -545,7 +545,7 @@ anjuta_session_get_relative_uri_from_file (AnjutaSession *session,
  * It is useful to keep only relative file paths in a session file to be able
  * to copy the whole project without breaking references.
  *
- * Returns: A new GFile that has to be freed with g_object_unref().
+ * Returns: (transfer full): A new GFile that has to be freed with g_object_unref().
  */
 GFile*
 anjuta_session_get_file_from_relative_uri (AnjutaSession *session,

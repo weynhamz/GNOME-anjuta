@@ -790,7 +790,7 @@ anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,
  *
  * Retrieves the #AnjutaStatus object associated with the shell.
  *
- * Return value: The #AnjutaStatus object.
+ * Return value: (transfer none): The #AnjutaStatus object.
  */
 AnjutaStatus*
 anjuta_shell_get_status (AnjutaShell *shell, GError **error)
@@ -808,7 +808,7 @@ anjuta_shell_get_status (AnjutaShell *shell, GError **error)
  *
  * Retrieves the #AnjutaUI object associated with the shell.
  *
- * Return value: The #AnjutaUI object.
+ * Return value: (transfer none): The #AnjutaUI object.
  */
 AnjutaUI*
 anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
@@ -826,7 +826,7 @@ anjuta_shell_get_ui (AnjutaShell *shell, GError **error)
  *
  * Retrieves the #AnjutaPreferences object associated with the shell.
  *
- * Return value: The #AnjutaPreferences object.
+ * Return value: (transfer none): The #AnjutaPreferences object.
  */
 AnjutaPreferences*
 anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
@@ -844,7 +844,7 @@ anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
  *
  * Retrieves the #AnjutaPluginManager object associated with the shell.
  *
- * Return value: The #AnjutaPluginManager object.
+ * Return value: (transfer none): The #AnjutaPluginManager object.
  */
 AnjutaPluginManager*
 anjuta_shell_get_plugin_manager (AnjutaShell *shell, GError **error)
@@ -862,7 +862,7 @@ anjuta_shell_get_plugin_manager (AnjutaShell *shell, GError **error)
  *
  * Retrieves the #AnjutaProfileManager object associated with the shell.
  *
- * Return value: The #AnjutaProfileManager object.
+ * Return value: (transfer none): The #AnjutaProfileManager object.
  */
 AnjutaProfileManager*
 anjuta_shell_get_profile_manager (AnjutaShell *shell, GError **error)
