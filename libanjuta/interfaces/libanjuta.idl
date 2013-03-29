@@ -6560,7 +6560,7 @@ interface IAnjutaPrint
 	void print();
 
 	/**
-	* ianjuta_print_print:
+	* ianjuta_print_print_preview:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	*

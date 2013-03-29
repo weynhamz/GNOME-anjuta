@@ -524,7 +524,7 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
 }
 
 /**
- * anjuta_tabber_get_widget_coordintes
+ * anjuta_tabber_get_widget_coordinates:
  * @widget: widget for the coordinates
  * @event: event to get coordinates from
  * @x: return location for x coordinate

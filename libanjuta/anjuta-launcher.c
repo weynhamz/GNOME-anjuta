@@ -389,7 +389,7 @@ anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 }
 
 /**
- * anjuta_launcher_send_stdin:
+ * anjuta_launcher_send_stdin_eof:
  * @launcher: a #AnjutaLancher object.
  * 
  * Sends a EOF to Standard input of the process currently being executed.

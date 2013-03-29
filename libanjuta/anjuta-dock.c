@@ -364,7 +364,7 @@ anjuta_dock_hide_pane (AnjutaDock *self, AnjutaDockPane *pane)
 }
 
 /**
- * anjuta_dock_show_pane:
+ * anjuta_dock_present_pane:
  * @self: An AnjutaDock
  * @pane: Pane to present
  * 

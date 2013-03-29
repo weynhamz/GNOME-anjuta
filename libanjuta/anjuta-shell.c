@@ -888,7 +888,7 @@ void anjuta_shell_saving_push	    (AnjutaShell* shell)
 }
 
 /**
- * anjuta_shell_saving_push:
+ * anjuta_shell_saving_pop:
  * @shell: A #AnjutaShell interface
  *
  * Decrease the count of files that need to be saved 
