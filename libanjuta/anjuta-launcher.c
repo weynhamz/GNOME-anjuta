@@ -321,11 +321,11 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	/**
 	 * AnjutaLauncher::busy:
  	 * @launcher: a #AnjutaLancher object.
-	 * @busy: TRUE is a child is currently running
+	 * @busy: %TRUE is a child is currently running
 	 * 
 	 * Emitted when a child starts after a call to one execute function
-	 * (busy is TRUE) or when a child exits and all i/o channels are
-	 * closed (busy is FALSE).
+	 * (busy is %TRUE) or when a child exits and all i/o channels are
+	 * closed (busy is %FALSE).
 	 **/
 	launcher_signals[BUSY_SIGNAL] =
 		g_signal_new ("busy",
@@ -355,7 +355,7 @@ anjuta_launcher_init (AnjutaLauncher * obj)
  *
  * Tells if the laucher is currently executing any command.
  *
- * Return value: TRUE if launcher is busy, otherwisee FALSE.
+ * Return value: %TRUE if launcher is busy, otherwise %FALSE.
  */
 gboolean
 anjuta_launcher_is_busy (AnjutaLauncher *launcher)
@@ -1247,7 +1247,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, const gchar *dir, gchar *const a
 /**
  * anjuta_launcher_execute_v:
  * @launcher: a #AnjutaLancher object.
- * @dir: Working directory or NULL.
+ * @dir: Working directory or %NULL.
  * @argv: Command args.
  * @envp: Additional environment variable.
  * @callback: The callback for delivering output from the process.
@@ -1256,7 +1256,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, const gchar *dir, gchar *const a
  * The first of the @args is the command itself. The rest are sent to the
  * as it's arguments. This function works similar to anjuta_launcher_execute().
  * 
- * Return value: TRUE if successfully launched, otherwise FALSE.
+ * Return value: %TRUE if successfully launched, otherwise %FALSE.
  */
 gboolean
 anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const dir,
@@ -1301,7 +1301,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const dir,
  * it. Please note that not all formats of the password are recognized. Those
  * with the standard 'assword:' substring in the prompt should work well.
  * 
- * Return value: TRUE if successfully launched, otherwise FALSE.
+ * Return value: %TRUE if successfully launched, otherwise %FALSE.
  */
 gboolean
 anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,

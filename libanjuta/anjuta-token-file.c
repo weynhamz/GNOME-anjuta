@@ -251,7 +251,7 @@ anjuta_token_file_remove_token (AnjutaTokenFile *file, AnjutaToken *token)
  * Update the file with all changed token starting from @token. The function can
  * return an error if the token is not in the file.
  * 
- * Return value: TRUE is the update is done without error.
+ * Return value: %TRUE is the update is done without error.
  */
 gboolean
 anjuta_token_file_update (AnjutaTokenFile *file, AnjutaToken *token)

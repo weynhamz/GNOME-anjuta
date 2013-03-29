@@ -592,11 +592,11 @@ anjuta_shell_add_valist (AnjutaShell *shell,
  * @shell: A #AnjutaShell interface
  * @first_name: First value name
  * @first_type: First value type
- * @...: First value, Second value name, Second value type .... NULL
+ * @...: First value, Second value name, Second value type .... %NULL
  * 
- * Adds a list of values in the shell. The list should be NULL terminated
+ * Adds a list of values in the shell. The list should be %NULL terminated
  * and should be in the order - name1, type1, value1, name2, type2, value2,
- * ..., NULL. "value_added" signal will be emitted for each of the value.
+ * ..., %NULL. "value_added" signal will be emitted for each of the value.
  */
 void
 anjuta_shell_add (AnjutaShell  *shell,
@@ -702,11 +702,11 @@ anjuta_shell_get_valist (AnjutaShell *shell,
  * @shell: A #AnjutaShell interface
  * @first_name: First value name
  * @first_type: First value type
- * @...: First value holder, Second value name, Second value type .... NULL
+ * @...: First value holder, Second value name, Second value type .... %NULL
  * 
- * Gets a list of values in the shell. The list should be NULL terminated
+ * Gets a list of values in the shell. The list should be %NULL terminated
  * and should be in the order - name1, type1, value1, name2, type2, value2,
- * ..., NULL.
+ * ..., %NULL.
  */
 void
 anjuta_shell_get (AnjutaShell  *shell,
@@ -770,7 +770,8 @@ anjuta_shell_remove_value (AnjutaShell *shell,
  * Notice that this function takes the interface name string as string, unlike
  * anjuta_plugins_get_interface() which takes the type directly.
  *
- * Return value: (transfer none): A plugin object implementing the primary interface or NULL.
+ * Return value: (transfer none): A plugin object implementing the primary
+ * interface or %NULL.
  */
 GObject*
 anjuta_shell_get_object (AnjutaShell *shell, const gchar *iface_name,

@@ -108,11 +108,11 @@ anjuta_util_from_file_to_file (GInputStream *istream,
  * anjuta_util_copy_file:
  * @src: the file where copy
  * @dest: the path to copy the @src
- * @show_error: TRUE to show a dialog error
+ * @show_error: %TRUE to show a dialog error
  *
  * Copies @src to @dest and shows a dialog error in case is needed.
  *
- * Returns: TRUE if there was an error copying the file.
+ * Returns: %TRUE if there was an error copying the file.
  */
 gboolean
 anjuta_util_copy_file (const gchar * src, const gchar * dest, gboolean show_error)
@@ -1520,12 +1520,12 @@ gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
  * anjuta_util_is_project_file:
  * @filename: the file name
  *
- * Return TRUE if the file is an anjuta project file. It is implemented by
+ * Return %TRUE if the file is an anjuta project file. It is implemented by
  * checking only the file extension. So it does not check the existence
  * of the file. But it is working on an URI if it does not containt a
  * fragment.
  *
- * Returns: TRUE if the file is a project file, else FALSE
+ * Returns: %TRUE if the file is a project file, else %FALSE
  */
 gboolean
 anjuta_util_is_project_file (const gchar *filename)
@@ -1538,12 +1538,12 @@ anjuta_util_is_project_file (const gchar *filename)
  * anjuta_util_is_template_file:
  * @filename: the file name
  *
- * Return TRUE if the file is an template project file. It is implemented by
+ * Return %TRUE if the file is an template project file. It is implemented by
  * checking only the file extension. So it does not check the existence
  * of the file. But it is working on an URI if it does not containt a
  * fragment.
  *
- * Returns: TRUE if the file is a template file, else FALSE
+ * Returns: %TRUE if the file is a template file, else %FALSE
  */
 gboolean
 anjuta_util_is_template_file (const gchar *filename)
@@ -2364,10 +2364,10 @@ anjuta_util_convert_gfile_list_to_relative_path_list (GList *list,
 /**
  * anjuta_util_builder_new:
  * @filename: Builder file name to open
- * @error: Optional error object, if NULL display a dialog if the file is missing
+ * @error: Optional error object, if %NULL display a dialog if the file is missing
  *
  * Create a new GtkBuilder object and load the file in it. Display an error
- * if the file is missing. Use a dialog if error is NULL, just a warning
+ * if the file is missing. Use a dialog if error is %NULL, just a warning
  * if the error can be reported.
   *
  * Returns: The new GtkBuilder object
@@ -2411,13 +2411,13 @@ anjuta_util_builder_new (const gchar *filename, GError **error)
  * @builder: Builder object
  * @first_widget: Name of first widget to get
  * ...: Address to store the first widget pointer, followed optionally by
- *		more name/pointer pairs, followed by NULL
+ *		more name/pointer pairs, followed by %NULL
  *
  * Create a new GtkBuilder object and load the file in it. Display an error
- * if the file is missing. Use a dialog if error is NULL, just a warning
+ * if the file is missing. Use a dialog if error is %NULL, just a warning
  * if the error can be reported.
   *
- * Returns: TRUE is everything works as expected.
+ * Returns: %TRUE is everything works as expected.
  */
 gboolean
 anjuta_util_builder_get_objects (GtkBuilder *builder, const gchar *first_widget,...)
@@ -2499,7 +2499,7 @@ anjuta_util_get_user_mail()
  *
  * Clones the contents of source GPtrArray into a new allocated GPtrArray.
  *
- * Return a new allocated GPtrArray with strings g_strdup (), NULL on error.
+ * Return a new allocated GPtrArray with strings g_strdup (), %NULL on error.
  * The returned array has set g_free as GDestroyNotity function, so that user
  * should only care to g_ptr_array_unref () without freeing the strings.
  */

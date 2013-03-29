@@ -331,7 +331,7 @@ anjuta_token_style_format (AnjutaTokenStyle *style, AnjutaToken *list)
  * Get the first word of the list. A word is an item in the list which is not
  * a space or a separator.
  *
- * Return value: A #AnjutaToken representing the first word or NULL.
+ * Return value: A #AnjutaToken representing the first word or %NULL.
  */
 AnjutaToken *
 anjuta_token_first_word (AnjutaToken *list)

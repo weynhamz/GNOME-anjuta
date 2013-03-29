@@ -530,7 +530,7 @@ anjuta_tabber_draw (GtkWidget* widget, cairo_t* cr)
  * @x: return location for x coordinate
  * @y: return location for y coordinate
  *
- * Returns: TRUE if coordinates were set, FALSE otherwise
+ * Returns: %TRUE if coordinates were set, %FALSE otherwise
  */
 static gboolean
 anjuta_tabber_get_widget_coordinates (GtkWidget *widget,

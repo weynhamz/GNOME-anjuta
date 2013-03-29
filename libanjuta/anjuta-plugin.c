@@ -105,7 +105,7 @@
  * 		<para>
  * 			Query the shell for a plugin implemeting the primary interface
  * 			using anjuta_shell_get_interface(). It will return an
- * 			implemetation of the interface (or NULL if not found).
+ * 			implemetation of the interface (or %NULL if not found).
  * 			Do not save this object for longer use, because the implementor
  * 			plugin can change anytime and a different plugin implementing
  * 			the same primary interface may be activated.
@@ -513,7 +513,7 @@ anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  * If the plugin implements IAnjutaPreferences, it is prompted to install
  * it's preferences.
  *
- * Return value: TRUE if sucessfully activated, FALSE otherwise.
+ * Return value: %TRUE if sucessfully activated, %FALSE otherwise.
  */
 gboolean
 anjuta_plugin_activate (AnjutaPlugin *plugin)
@@ -543,7 +543,7 @@ anjuta_plugin_activate (AnjutaPlugin *plugin)
  * should derive their classes from this virtual class and implement this
  * method.
  *
- * Return value: TRUE if sucessfully activated, FALSE otherwise.
+ * Return value: %TRUE if sucessfully activated, %FALSE otherwise.
  */
 gboolean
 anjuta_plugin_deactivate (AnjutaPlugin *plugin)
@@ -569,9 +569,9 @@ anjuta_plugin_deactivate (AnjutaPlugin *plugin)
  * anjuta_plugin_is_active:
  * @plugin: a #AnjutaPlugin derived class object.
  *
- * Returns TRUE if the plugin has been activated.
+ * Returns %TRUE if the plugin has been activated.
  *
- * Return value: TRUE if activated, FALSE otherwise.
+ * Return value: %TRUE if activated, %FALSE otherwise.
  */
 gboolean
 anjuta_plugin_is_active (AnjutaPlugin *plugin)

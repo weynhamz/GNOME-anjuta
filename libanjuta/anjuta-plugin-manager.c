@@ -1404,7 +1404,7 @@ on_is_active_plugins_foreach (gpointer key, gpointer data, gpointer user_data)
  * Searches if a currently loaded plugins implements
  * the given interface.
  *
- * Return value: True is the plugin is currently loaded.
+ * Return value: %TRUE is the plugin is currently loaded.
  */
 
 gboolean
@@ -1442,10 +1442,10 @@ anjuta_plugin_manager_is_active_plugin (AnjutaPluginManager *plugin_manager,
  * </programlisting>
  * Notice that this function takes the interface name string as string, unlike
  * anjuta_plugins_get_interface() which takes the type directly.
- * If no plugin implementing this interface can be found, returns NULL.
+ * If no plugin implementing this interface can be found, returns %NULL.
  *
  * Return value: The plugin object (subclass of #AnjutaPlugin) which implements
- * the given interface or NULL. See #AnjutaPlugin for more detail on interfaces
+ * the given interface or %NULL. See #AnjutaPlugin for more detail on interfaces
  * implemented by plugins.
  */
 GObject *

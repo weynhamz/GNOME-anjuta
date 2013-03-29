@@ -137,7 +137,7 @@ update_file_property (GtkWidget* widget, gpointer user_data)
  * The widget needs to fulfill the properties described in
  * #anjuta_preferences_add_page documentation.
  *
- * Return value: TRUE if sucessful.
+ * Return value: %TRUE if sucessful.
  */
 gboolean
 anjuta_preferences_register_property (AnjutaPreferences *pr,

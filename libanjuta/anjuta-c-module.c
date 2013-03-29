@@ -195,7 +195,7 @@ anjuta_c_module_init (AnjutaCModule *module)
  *
  * Receives the error that occured when the module was loaded
  *
- * Returns: TRUE if there was an Error, FALSE otherwise
+ * Returns: %TRUE if there was an Error, %FALSE otherwise
  */
 gboolean
 anjuta_c_module_get_last_error (AnjutaCModule *module, GError** err)

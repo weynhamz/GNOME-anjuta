@@ -111,7 +111,7 @@ anjuta_language_provider_class_init (AnjutaLanguageProviderClass *klass)
  * @iter: (type GObject): Iter to start searching at
  *
  * Returns: (type GObject): The position of the brace, if the next non-whitespace character is a
- * opening brace, NULL otherwise
+ * opening brace, %NULL otherwise
  */
 static IAnjutaIterable*
 anjuta_language_provider_find_next_brace (IAnjutaIterable* iter)
@@ -135,8 +135,8 @@ anjuta_language_provider_find_next_brace (IAnjutaIterable* iter)
  * anjuta_language_provider_find_whitespace:
  * @iter: (type GObject): Iter to start searching at
  *
- * Returns: TRUE if the next character is a whitespace character,
- * FALSE otherwise
+ * Returns: %TRUE if the next character is a whitespace character,
+ * %FALSE otherwise
  */
 static gboolean
 anjuta_language_provider_find_whitespace (IAnjutaIterable* iter)
@@ -246,7 +246,7 @@ anjuta_language_provider_get_scope_context (IAnjutaEditor* editor,
  *
  * Searches for a calltip context
  *
- * Returns: name of the method to show a calltip for or NULL
+ * Returns: name of the method to show a calltip for or %NULL
  */
 gchar*
 anjuta_language_provider_get_calltip_context (AnjutaLanguageProvider* lang_prov,
@@ -352,7 +352,7 @@ anjuta_language_provider_get_pre_word (AnjutaLanguageProvider* lang_prov,
  * Creates a calltip if there is something to show a tip for
  * Calltips are queried async
  *
- * Returns: TRUE if a calltips was queried, FALSE otherwise
+ * Returns: %TRUE if a calltips was queried, %FALSE otherwise
  */
 static gboolean
 anjuta_language_provider_calltip (AnjutaLanguageProvider* lang_prov,

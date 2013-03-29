@@ -748,7 +748,7 @@ lookup_line (AnjutaPluginDescription        *df,
  * Retrieves the value of a key (in the given section) for the given locale.
  * The value returned in @val must be freed after use.
  *
- * Return value: TRUE if sucessful, otherwise FALSE.
+ * Return value: %TRUE if sucessful, otherwise %FALSE.
  */
 gboolean
 anjuta_plugin_description_get_raw (AnjutaPluginDescription *df,
@@ -813,8 +813,8 @@ anjuta_plugin_description_foreach_section (AnjutaPluginDescription *df,
  * @user_data: User data to pass to @func.
  *
  * Calls @func for each of the keys in the given section. @include_localized,
- * if set to TRUE will make it call @func for the localized keys also, otherwise
- * only one call is made for the key in current locale.
+ * if set to %TRUE will make it call @func for the localized keys also,
+ * otherwise only one call is made for the key in current locale.
  */
 void
 anjuta_plugin_description_foreach_key (AnjutaPluginDescription *df,
@@ -884,7 +884,7 @@ calculate_locale (AnjutaPluginDescription   *df)
  * 
  * Returns the value of key in the given section in current locale.
  *
- * Return value: TRUE if sucessful, otherwise FALSE.
+ * Return value: %TRUE if sucessful, otherwise %FALSE.
  */
 gboolean
 anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
@@ -925,7 +925,7 @@ anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
  * 
  * Returns the value of key in the given section.
  *
- * Return value: TRUE if sucessful, otherwise FALSE.
+ * Return value: %TRUE if sucessful, otherwise %FALSE.
  */
 gboolean
 anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
@@ -945,7 +945,7 @@ anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
  * 
  * Returns the value of key as integer in the given section.
  *
- * Return value: TRUE if sucessful, otherwise FALSE.
+ * Return value: %TRUE if sucessful, otherwise %FALSE.
  */
 gboolean
 anjuta_plugin_description_get_integer (AnjutaPluginDescription   *df,
@@ -979,7 +979,7 @@ anjuta_plugin_description_get_integer (AnjutaPluginDescription   *df,
  * 
  * Returns the value of key as boolean in the given section.
  *
- * Return value: TRUE if sucessful, otherwise FALSE.
+ * Return value: %TRUE if sucessful, otherwise %FALSE.
  */
 gboolean
 anjuta_plugin_description_get_boolean (AnjutaPluginDescription   *df,

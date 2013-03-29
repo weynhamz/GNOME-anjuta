@@ -492,7 +492,7 @@ anjuta_profile_manager_queue_profile (AnjutaProfileManager *profile_manager,
  * manager is not frozen, this new profile will be loaded immediatly and
  * become the current profile.
  *
- * Return value: TRUE on success, FALSE otherwise.
+ * Return value: %TRUE on success, %FALSE otherwise.
  */
 gboolean
 anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
@@ -520,7 +520,7 @@ anjuta_profile_manager_push (AnjutaProfileManager *profile_manager,
  * If the manager is frozen, the current profile or the last pushed profile
  * can be removed.
  *
- * Return value: TRUE on success, FALSE otherwise.
+ * Return value: %TRUE on success, %FALSE otherwise.
  */
 gboolean
 anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
@@ -606,7 +606,7 @@ anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager)
  * anjuta_profile_manager_freeze(). It will load a new profile if one has been
  * added while the manager was frozen.
  *
- * Return value: TRUE on success, FALSE otherwise.
+ * Return value: %TRUE on success, %FALSE otherwise.
  */
 gboolean
 anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,

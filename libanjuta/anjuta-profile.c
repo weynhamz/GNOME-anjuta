@@ -452,7 +452,7 @@ anjuta_profile_remove_plugin (AnjutaProfile *profile,
  * 
  * Check if a plugin is included in the profile plugin list.
  *
- * Return value: TRUE if the plugin is included in the list.
+ * Return value: %TRUE if the plugin is included in the list.
  */
 gboolean
 anjuta_profile_has_plugin (AnjutaProfile *profile,
@@ -725,12 +725,12 @@ anjuta_profile_read_plugins_from_xml (AnjutaProfile *profile,
  * anjuta_profile_add_plugins_from_xml:
  * @profile: a #AnjutaProfile object.
  * @profile_xml_file: xml file containing plugin list.
- * @exclude_from_sync: TRUE if these plugins shouldn't be saved in user session.
+ * @exclude_from_sync: %TRUE if these plugins shouldn't be saved in user session.
  * @error: error propagation and reporting.
  * 
  * Add all plugins inscribed in the xml file into the profile plugin list.
  *
- * Return value: TRUE on success, FALSE otherwise.
+ * Return value: %TRUE on success, %FALSE otherwise.
  */
 gboolean
 anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
@@ -882,7 +882,7 @@ anjuta_profile_set_sync_file (AnjutaProfile *profile, GFile *sync_file)
  * 
  * Save the current plugins list in the xml file set with anjuta_profile_set_sync_file().
  *
- * Return value: TRUE on success, FALSE otherwise.
+ * Return value: %TRUE on success, %FALSE otherwise.
  */
 gboolean
 anjuta_profile_sync (AnjutaProfile *profile, GError **error)

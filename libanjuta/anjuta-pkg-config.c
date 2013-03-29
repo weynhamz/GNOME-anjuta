@@ -152,7 +152,7 @@ anjuta_pkg_config_ignore_package (const gchar* name)
  * 
  * This does sync io, call from a thread if necessary
  * 
- * Returns: (transfer full) the version of the package or NULL
+ * Returns: (transfer full) the version of the package or %NULL
  */
 gchar* anjuta_pkg_config_get_version (const gchar* package)
 {
