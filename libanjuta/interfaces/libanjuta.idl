@@ -1472,7 +1472,7 @@ interface IAnjutaEditor
 	/**
 	 * ianjuta_editor_set_indentsize:
 	 * @obj: Self
-	 * @tabsize: Indentation size in spaces
+	 * @indentsize: Indentation size in spaces
 	 * @err: Error propagation and reporting
 	 *
 	 * Sets the indentation size of the editor.
@@ -3498,7 +3498,7 @@ interface IAnjutaProject
 	 *
 	 * Return value: (allow-none) (transfer none): The new property of NULL if the property cannot be set
 	 */
-	AnjutaProjectProperty *set_property (AnjutaProjectNode *parent, const gchar *id, const gchar *name, const gchar *value);
+	AnjutaProjectProperty *set_property (AnjutaProjectNode *node, const gchar *id, const gchar *name, const gchar *value);
 
 	/**
 	 * ianjuta_project_remove_property:
@@ -3579,7 +3579,7 @@ interface IAnjutaProjectBackend
 	/**
 	 * ianjuta_project_backend_probe:
 	 * @obj: Self
-	 * @file: (transfer none): Project file or directory
+	 * @directory: (transfer none): Project file or directory
 	 * @err: Error propagation and reporting
 	 *
 	 * Check if the directory contains a project supported by this
@@ -4167,7 +4167,7 @@ interface IAnjutaDebugger
 	 * IAnjutaDebuggerCallback:
 	 * @data: data
 	 * @user_data: user data passed to the function
-	 * @error: error
+	 * @err: error
 	 *
 	 * This callback function is used only by #ianjuta_debugger_callback with a
 	 * NULL data.
@@ -4178,7 +4178,7 @@ interface IAnjutaDebugger
 	 * IAnjutaDebuggerGListCallback:
 	 * @list: (element-type any): list of data
 	 * @user_data: user data passed to the function
-	 * @error: error
+	 * @err: error
 	 *
 	 * This callback function is used by several debugger functions. Depending on
 	 * the function, the kind of elements in the list is different. It is a string
@@ -4189,9 +4189,9 @@ interface IAnjutaDebugger
 
 	/**
 	 * IAnjutaDebuggerGCharCallback:
-	 * @data: string
+	 * @value: string
 	 * @user_data: user data
-	 * @error: error
+	 * @err: error
 	 *
 	 * This callback function is used by several debugger functions. The data is
 	 * a string
@@ -4200,9 +4200,9 @@ interface IAnjutaDebugger
 
 	/**
 	 * IAnjutaDebuggerOutputCallback:
-	 * @data: Self
+	 * @type: kind of output
+	 * @output: string
 	 * @user_data: user data
-	 * @error: error
 	 *
 	 * This callback function is used only by #ianjuta_debugger_callback with a
 	 * NULL data.
@@ -4584,7 +4584,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, otherwise FALSE.
 	*/
-	gboolean print (const gchar *variable, GCharCallback callback, gpointer user_data);
+	gboolean print (const gchar *name, GCharCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_local:
@@ -4977,7 +4977,7 @@ interface IAnjutaDebugger
 		 * IAnjutaDebuggerBreakpointCallback:
 		 * @data: a #IAnjutaBreakpointItem object
 		 * @user_data: user data passed to the function
-		 * @error: error
+		 * @err: error
 		 *
 		 * This callback function is used to return a #IAnjutaBreakpointItem.
 		 */
@@ -5174,7 +5174,7 @@ interface IAnjutaDebugger
 		 * IAnjutaDebuggerVariableCallback:
 		 * @data: a #IAnjutaDebuggerVariableObject object
 		 * @user_data: user data passed to the function
-		 * @error: error
+		 * @err: error
 		 *
 		 * This callback function is used to return a #IAnjutaDebuggerVariableObject.
 		 */
@@ -5379,7 +5379,7 @@ interface IAnjutaDebugger
 		 * IAnjutaDebuggerMemoryCallback:
 		 * @data: a #IAnjutaDebuggerMemoryBlock object
 		 * @user_data: user data passed to the function
-		 * @error: error
+		 * @err: error
 		 *
 		 * This callback function is used to return a #IAnjutaDebuggerMemoryBlock.
 		 */
@@ -5447,7 +5447,7 @@ interface IAnjutaDebugger
 		 * IAnjutaDebuggerInstructionCallback:
 		 * @data: a #IAnjutaDebuggerInstructionDisassembly object
 		 * @user_data: user data passed to the function
-		 * @error: error
+		 * @err: error
 		 *
 		 * This callback function is used to return a #IAnjutaDebuggerInstructionDisassembly.
 		 */
@@ -6265,7 +6265,7 @@ interface IAnjutaSymbolQuery
 	 * symbols satisfying the given symbol types are selected, otherwise
 	 * they are excluded.
 	 */
-	void set_filters (IAnjutaSymbolType filters, gboolean includes_types);
+	void set_filters (IAnjutaSymbolType filters, gboolean include_types);
 
 	/**
 	 * ianjuta_symbol_query_set_file_scope:
@@ -6400,7 +6400,7 @@ interface IAnjutaSymbolQuery
 	 *
 	 * Executes #IANJUTA_SYMBOL_QUERY_SEARCH_ID query.
 	 */
-	IAnjutaIterable* search_id (gint symbol_id);
+	IAnjutaIterable* search_id (gint symbol);
 
 	/**
 	 * ianjuta_symbol_query_search_scope:
@@ -6799,7 +6799,7 @@ interface IAnjutaIndenter
 	 * @obj: Self
 	 * @start: Start of the area to indent
 	 * @end: End of the area to indent
-	 * @error: Error propagation
+	 * @err: Error propagation
 	 *
 	 * Indent the area between @start and @end according to the indentation rules
 	 * of the programming language. Usually implemented by language support plugins.

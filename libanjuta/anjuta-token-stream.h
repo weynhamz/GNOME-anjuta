@@ -28,7 +28,7 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaTokenStream AnjutaTokenStream;
 
-AnjutaTokenStream *anjuta_token_stream_push (AnjutaTokenStream *stream, AnjutaToken *root, AnjutaToken *content, GFile *filename);
+AnjutaTokenStream *anjuta_token_stream_push (AnjutaTokenStream *parent, AnjutaToken *root, AnjutaToken *content, GFile *file);
 AnjutaTokenStream *anjuta_token_stream_pop (AnjutaTokenStream *stream);
 AnjutaTokenStream *anjuta_token_stream_get_parent (AnjutaTokenStream *stream);
 

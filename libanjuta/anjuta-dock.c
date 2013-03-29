@@ -322,7 +322,7 @@ anjuta_dock_remove_pane (AnjutaDock *self, AnjutaDockPane *pane)
 /**
  * anjuta_dock_show_pane:
  * @self: An AnjutaDock
- * @pane_name: Name of the pane to show
+ * @pane: Name of the pane to show
  *
  * Makes the given pane visible
  */

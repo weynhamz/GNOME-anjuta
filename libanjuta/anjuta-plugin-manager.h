@@ -84,7 +84,7 @@ GObject* anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 GObject* anjuta_plugin_manager_get_plugin_by_id (AnjutaPluginManager *plugin_manager,
 												 const gchar *plugin_id);
 gboolean anjuta_plugin_manager_unload_plugin (AnjutaPluginManager *plugin_manager,
-											  GObject *plugin);
+											  GObject *plugin_object);
 gboolean anjuta_plugin_manager_unload_plugin_by_id (AnjutaPluginManager *plugin_manager,
 													const gchar *plugin_id);
 GList* anjuta_plugin_manager_get_active_plugins (AnjutaPluginManager *plugin_manager);

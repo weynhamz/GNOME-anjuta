@@ -77,13 +77,13 @@ struct _AnjutaShellIface {
 	void (*save_prompt)  (AnjutaShell *shell, AnjutaSavePrompt *save_prompt);
 	
 	/* Virtual Table */
-	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
-	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **err);
-	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **err);
+	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **error);
+	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **error);
+	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **error);
 	AnjutaPluginManager* (*get_plugin_manager) (AnjutaShell *shell,
-												GError **err);
+												GError **error);
 	AnjutaProfileManager* (*get_profile_manager) (AnjutaShell *shell,
-												  GError **err);
+												  GError **error);
 	
 	void (*add_widget_full)   (AnjutaShell  *shell,
 							   GtkWidget    *widget,
