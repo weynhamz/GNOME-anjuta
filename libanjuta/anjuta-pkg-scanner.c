@@ -223,17 +223,36 @@ anjuta_pkg_scanner_new (const gchar* package, const gchar* version)
 	return ANJUTA_COMMAND (object);
 }
 
+/*
+ * anjuta_pkg_scanner_get_files:
+ * @scanner: PkgScanner object
+ *
+ * Returns: Name of the package to scan.
+ */
 const gchar* 
 anjuta_pkg_scanner_get_package (AnjutaPkgScanner* scanner)
 {
 	return scanner->priv->package;
 }
+
+/*
+ * anjuta_pkg_scanner_get_files:
+ * @scanner: PkgScanner object
+ *
+ * Returns: Version of the package to scan.
+ */
 const gchar* 
 anjuta_pkg_scanner_get_version (AnjutaPkgScanner* scanner)
 {
 	return scanner->priv->version;
 }
 
+/*
+ * anjuta_pkg_scanner_get_files:
+ * @scanner: PkgScanner object
+ *
+ * Returns: (element-type GFile*): List of files to scan.
+ */
 GList*
 anjuta_pkg_scanner_get_files (AnjutaPkgScanner* scanner)
 {

@@ -310,6 +310,7 @@ anjuta_token_stream_get_current_file (AnjutaTokenStream *stream)
  * @parent: a parent #AnjutaTokenStream object or NULL.
  * @root: a token or NULL
  * @content: a token list.
+ * @file: (allow-none): a #GFile of the file.
  *
  * Create a new stream from a list of tokens. If a parent stream is passed,
  * the new stream keep a link on it, so we can return it when the new stream

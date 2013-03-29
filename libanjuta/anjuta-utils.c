@@ -1336,6 +1336,15 @@ anjuta_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint lim
 	return FALSE;
 }
 
+/**
+ * anjuta_util_parse_args_from_string:
+ * @string: arguments
+ *
+ * Parse arguments from a string to a GList.
+ *
+ * Returns: (element-type utf8) (transfer full): A newly allocated GList of
+ * strings.
+ */
 GList*
 anjuta_util_parse_args_from_string (const gchar* string)
 {
