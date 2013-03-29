@@ -674,7 +674,7 @@ interface IAnjutaBuilder
 	typedef void (*Callback) (GObject *sender, IAnjutaBuilderHandle command, GError* err, gpointer user_data);
 
 	/**
-	* IANJUTA_BUILDER_ROOT_URI
+	* IANJUTA_BUILDER_ROOT_URI:
 	*
 	* Build directory uri. It is the same than the project_root_uri for
 	* in source build.
@@ -682,21 +682,21 @@ interface IAnjutaBuilder
 	#define ROOT_URI		"build_root_uri"
 
 	/**
-	* IANJUTA_BUILDER_CONFIGURATION_DEBUG
+	* IANJUTA_BUILDER_CONFIGURATION_DEBUG:
 	*
 	* Name of debugging configutation.
 	*/
 	#define CONFIGURATION_DEBUG	"Debug"
 
 	/**
-	* IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED
+	* IANJUTA_BUILDER_CONFIGURATION_OPTIMIZED:
 	*
 	* Name of optimized configutation.
 	*/
 	#define CONFIGURATION_OPTIMIZED	"Optimized"
 
 	/**
-	* IANJUTA_BUILDER_CONFIGURATION_PROFILING
+	* IANJUTA_BUILDER_CONFIGURATION_PROFILING:
 	*
 	* Name of profiling configutation.
 	*/
@@ -1264,28 +1264,28 @@ interface IAnjutaEditor
 	#include <libanjuta/interfaces/ianjuta-iterable.h>
 
 	/**
-	* IANJUTA_EDITOR_PREF_SCHEMA
+	* IANJUTA_EDITOR_PREF_SCHEMA:
 	*
 	* Schema id used to store common editor settings. 
 	*/
 	#define PREF_SCHEMA	"editor"
 
 	/**
-	* IANJUTA_EDITOR_USE_TABS_KEY
+	* IANJUTA_EDITOR_USE_TABS_KEY:
 	*
 	* Boolean key, true is tabs has to be used for indenting.
 	*/
 	#define USE_TABS_KEY	"use-tabs"
 
 	/**
-	* IANJUTA_EDITOR_TAB_WIDTH_KEY
+	* IANJUTA_EDITOR_TAB_WIDTH_KEY:
 	*
 	* Integer key, defines the size of a tabulation in spaces.
 	*/
 	#define TAB_WIDTH_KEY	"tab-width"
 
 	/**
-	* IANJUTA_EDITOR_INDENT_WIDTH_KEY
+	* IANJUTA_EDITOR_INDENT_WIDTH_KEY:
 	*
 	* Integer key, defines the number a space for one indentation step.
 	*/
@@ -2083,7 +2083,7 @@ interface IAnjutaEditor
 		void show (List<const gchar*> tips, IAnjutaIterable *position);
 
 		/**
-		 * ianjuta_editor_tip_cancel
+		 * ianjuta_editor_tip_cancel:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -2125,7 +2125,7 @@ interface IAnjutaEditor
      }
 
     /**
-	 * IAnjutaEditorAssist::cancelled
+	 * IAnjutaEditorAssist::cancelled:
 	 * @obj: Self
 	 *
 	 * This signal is emitted when the autocompletion is cancelled due to various
@@ -2135,7 +2135,7 @@ interface IAnjutaEditor
 	 void   ::cancelled ();
 
      /*
-      * ianjuta_editor_assist_add
+      * ianjuta_editor_assist_add:
       * @obj: self
       * @provider: a IAnjutaProvider
       * @err: Error handling
@@ -2145,7 +2145,7 @@ interface IAnjutaEditor
       void add(IAnjutaProvider* provider);
 
      /*
-      * ianjuta_editor_assist_remove
+      * ianjuta_editor_assist_remove:
       * @obj: self
       * @provider: a IAnjutaProvider
       * @err: Error handling
@@ -2155,7 +2155,7 @@ interface IAnjutaEditor
       void remove(IAnjutaProvider* provider);
 
      /*
-      * ianjuta_editor_assist_invoke
+      * ianjuta_editor_assist_invoke:
       * @obj: self
       * @provider: a IAnjutaProvider (can be NULL to use all providers)
       * @err: Error handling
@@ -2207,6 +2207,7 @@ interface IAnjutaEditor
 		void ::hover_over (IAnjutaIterable* position);
 
 	  /* IAnjutaEditorHover::hover-leave
+		 * IAnjutaEditorHover::hover-leave:
 		 * @obj: self
 		 * @position: IAnjutaEditorCell specifying the position the mouse was over
 		 *
@@ -2503,7 +2504,8 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorGladeSignal
 	{
-		/* IAnjutaEditorGladeSignal::drop-possible
+		/**
+		 * IAnjutaEditorGladeSignal::drop-possible:
 		 * @obj: self
 		 * @iter: a IAnjutaIterable of the position where drop would happen
 		 *
@@ -2513,7 +2515,8 @@ interface IAnjutaEditor
 		 */
 		gboolean ::drop_possible (IAnjutaIterable* iterator);
 
-		/* IAnjutaEditorGladeSignal::drop
+		/**
+		 * IAnjutaEditorGladeSignal::drop:
 		 * @obj: self
 		 * @iter: a IAnjutaIterable of the position where drop happens
 		 * @signal_data: Signal data in form "widget:signal:handler", e.g.
@@ -2707,35 +2710,35 @@ interface IAnjutaProvider
 		#include "ianjuta-symbol.h"
 		
 		/**
-		 * IANJUTA_LANGUAGE_PROVIDER_PREF_CALLTIP_ENABLE
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_CALLTIP_ENABLE:
 		 *
 		 * Boolean key, true is calltips has to be shown.
 		 */
 		 #define PREF_CALLTIP_ENABLE                      "calltip-enable"
 		 
 		/**
-		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_ENABLE
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_ENABLE:
 		 *
 		 * Boolean key, true is code completion is enable.
 		 */
 		 #define PREF_AUTOCOMPLETE_ENABLE                 "completion-enable"
 		 
 		/**
-		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC:
 		 *
 		 * Boolean key, true is adding a space after function call autocompletion
 		 */
 		 #define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC       "completion-space-after-func"
 		 
 		/**
-		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC:
 		 *
 		 * Boolean key, true is adding '(' after function call autocompletion
 		 */
 		 #define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC       "completion-brace-after-func"
 		 
 		/**
-		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_CLOSEBRACE_AFTER_FUNC
+		 * IANJUTA_LANGUAGE_PROVIDER_PREF_AUTOCOMPLETE_CLOSEBRACE_AFTER_FUNC:
 		 *
 		 * Boolean key, true is adding ')' after function call autocompletion
 		 */
@@ -2812,7 +2815,7 @@ interface IAnjutaDocumentManager
 	#include <gio/gio.h>
 
 	/**
-	* IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT
+	* IANJUTA_DOCUMENT_MANAGER_CURRENT_DOCUMENT:
 	*
 	* Anjuta shell value set by document manager to the current document
 	*/
@@ -3246,7 +3249,7 @@ interface IAnjutaFileManager
 	#include <gio/gio.h>
 
 	/**
-	* IANJUTA_FILE_MANAGER_SELECTED_FILE
+	* IANJUTA_FILE_MANAGER_SELECTED_FILE:
 	*
 	* Anjuta shell value set by file manager to the selected file.
 	*/
@@ -3602,14 +3605,14 @@ interface IAnjutaProjectManager
 	#include <libanjuta/interfaces/ianjuta-project.h>
 
 	/**
-	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI
+	* IANJUTA_PROJECT_MANAGER_PROJECT_ROOT_URI:
 	*
 	* Anjuta shell value set by project manager to the project root uri.
 	*/
 	#define PROJECT_ROOT_URI	"project_root_uri"
 
 	/**
-	* IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT
+	* IANJUTA_PROJECT_MANAGER_CURRENT_PROJECT:
 	*
 	* Anjuta shell value set by project manager to the current project object
 	* which implement #IAnjutaProject interface.
@@ -3617,7 +3620,7 @@ interface IAnjutaProjectManager
 	#define CURRENT_PROJECT	"project_manager_current_project"
 
 	/**
-	* IANJUTA_PROJECT_MANAGER_CURRENT_URI
+	* IANJUTA_PROJECT_MANAGER_CURRENT_URI:
 	*
 	* Anjuta shell value set by project manager to the current uri.
 	*/
@@ -5750,7 +5753,7 @@ interface IAnjutaVcs
 	}
 
 	/**
-	 * IAnjutaVcsStatus
+	 * IAnjutaVcsStatus:
 	 * @obj: Self
  	 *
  	 * This signal is emited when the git pull command is finished, and refreshes the tree of files with the new pulled files without the need to
@@ -6790,7 +6793,7 @@ interface IAnjutaIndenter
   #include <libanjuta/interfaces/ianjuta-iterable.h>
 
 	/**
-	 * ianjuta_indenter_indent
+	 * ianjuta_indenter_indent:
 	 * @obj: Self
 	 * @start: Start of the area to indent
 	 * @end: End of the area to indent

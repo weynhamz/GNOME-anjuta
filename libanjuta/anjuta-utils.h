@@ -218,7 +218,7 @@ prefix##_get_type (void)                                  \
                                        &type_info, 0);
 
 /**
- * ANJUTA_TYPE_END
+ * ANJUTA_TYPE_END:
  *
  * Ends a declaration that began with ANJUTA_TYPE_BEGIN
  */

@@ -255,7 +255,7 @@ anjuta_entry_new (void)
  * anjuta_entry_get_text:
  * @self: An AnjutaEntry
  *
- * Returns the contents of the entry. If the entry is empty, the help text will
+ * Returns: The contents of the entry. If the entry is empty, the help text will
  * be displayed and an empty string will be returned.
  */
 const gchar *
@@ -269,7 +269,7 @@ anjuta_entry_get_text (AnjutaEntry *self)
  * anjuta_entry_dup_text:
  * @self: An AnjutaEntry
  *
- * Returns a copy of the contents of the entry. If the entry is empty, the 
+ * Returns: A copy of the contents of the entry. If the entry is empty, the
  * returned string will be empty. The returned string must be freed when no
  * longer needed. 
  */
@@ -301,7 +301,7 @@ anjuta_entry_set_text (AnjutaEntry *self, const gchar *text)
  * anjuta_entry_is_showing_help_text:
  * @self: An AnjutaEntry
  * 
- * Returns whether the entry is showing its help text. In practice, if this
+ * Returns: Whether the entry is showing its help text. In practice, if this
  * method returns %TRUE, it means that the user has not entered anything.
  */
 gboolean

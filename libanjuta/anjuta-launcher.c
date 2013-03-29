@@ -295,7 +295,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	/**
-	 * AnjutaLauncher::child-exited
+	 * AnjutaLauncher::child-exited:
  	 * @launcher: a #AnjutaLancher object.
 	 * @child_pid: process ID of the child
 	 * @status: status as returned by waitpid function
@@ -319,7 +319,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 					G_TYPE_INT, G_TYPE_ULONG);
 	
 	/**
-	 * AnjutaLauncher::busy
+	 * AnjutaLauncher::busy:
  	 * @launcher: a #AnjutaLancher object.
 	 * @busy: TRUE is a child is currently running
 	 * 

@@ -179,7 +179,7 @@ anjuta_language_provider_is_character (gchar ch, const gchar* characters)
 }
 
 /**
- * anjuta_language_provider_get_scope_context
+ * anjuta_language_provider_get_scope_context:
  * @editor: (type GObject): current editor
  * @iter: Current cursor position
  * @scope_context_ch: language-specific context characters

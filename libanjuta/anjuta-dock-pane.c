@@ -143,7 +143,7 @@ anjuta_dock_pane_class_init (AnjutaDockPaneClass *klass)
 	                                 param_spec);
 
 	/** 
-	 * AnjutaDockPane::single-selection-changed
+	 * AnjutaDockPane::single-selection-changed:
 	 * @pane: An AnjutaDockPane
 	 *
 	 * This signal is emitted by pane subclasses to notify clients that
@@ -162,7 +162,7 @@ anjuta_dock_pane_class_init (AnjutaDockPaneClass *klass)
 		              0);
 
 	/**
-	 * AnjutaDockPane::multiple-selection-changed
+	 * AnjutaDockPane::multiple-selection-changed:
 	 * @pane: An AnjutaDockPane
 	 *
 	 * This signal is emitted by pane subclasses to notify clients that the set
@@ -203,7 +203,7 @@ anjuta_dock_pane_refresh (AnjutaDockPane *self)
  * anjuta_dock_pane_get_widget:
  * @self: An AnjutaDockPane
  *
- * Returns the widget associated with the given pane. The returned widget is 
+ * Returns: The widget associated with the given pane. The returned widget is
  * owned by the pane and should not be destroyed or modified.
  */
 GtkWidget *
@@ -217,7 +217,7 @@ anjuta_dock_pane_get_widget (AnjutaDockPane *self)
  * anjuta_dock_pane_get_plugin:
  * @self: An AnjutaDockPane
  *
- * Returns the plugin object associated with this pane. 
+ * Returns: The plugin object associated with this pane.
  */
 AnjutaPlugin *
 anjuta_dock_pane_get_plugin (AnjutaDockPane *self)

@@ -256,7 +256,7 @@ anjuta_command_bar_show_action_group (AnjutaCommandBar *self,
  * @self An AnjutaCommandBar
  * @group_name: The name of the action group
  *
- * Returns the #GtkActionGroup with the given @group_name
+ * Returns: The #GtkActionGroup with the given @group_name
  */
 GtkActionGroup *
 anjuta_command_bar_get_action_group (AnjutaCommandBar *self,
