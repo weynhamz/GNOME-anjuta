@@ -273,7 +273,7 @@ anjuta_completion_set_filter_func (AnjutaCompletion* self,
 /**
  * anjuta_completion_set_item_destroy_func:
  * @self: a #AnjutaCompletion
- * @item_destroy_func: (allow none): the function to be called on
+ * @item_destroy_func: (allow-none): the function to be called on
  * the added items when the #AnjutaCompletion object is destroyed.
  */
 void
