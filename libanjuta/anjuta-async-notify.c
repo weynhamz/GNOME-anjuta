@@ -115,7 +115,6 @@ anjuta_async_notify_new (void)
 
 /**
  * anjuta_async_notify_get_error:
- *
  * @self: An #AnjutaAsyncNotify object
  * @error: Return location for the error set by the called interface to which 
  *		   this object was passed. If no error is set, @error is set to NULL.

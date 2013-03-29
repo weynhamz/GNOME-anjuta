@@ -838,7 +838,6 @@ has_valid_scheme (const char *uri)
 
 /**
  * anjuta_util_file_new_for_commandline_arg:
- *
  * @arg: URI or relative or absolute file path
  *
  * Create a new file corresponding to arg, unlike g_file_new_for_commandline_arg,
