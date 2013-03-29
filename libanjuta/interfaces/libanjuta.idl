@@ -1326,7 +1326,7 @@ interface IAnjutaEditor
 	void   ::glade_member_add (gchar *widget_typename, gchar *widget_name, gchar *filename);
 
 	/**
-	 * IAnjutaEditor::glade-member-add:
+	 * IAnjutaEditor::glade-callback-add:
 	 * @widget_typename: Name of the type of the widget.
 	 * @signal_name: Name of the signal.
 	 * @handler_name: Name of the signal handler.
