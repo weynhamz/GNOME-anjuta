@@ -39,7 +39,7 @@ on_ok_action_activated (GtkAction *action, GitPatchSeriesPane *self)
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	patch_series_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                   					"revision_entry"));
+	                                                   					"patch_series_revision_entry"));
 	folder_chooser_button = GTK_FILE_CHOOSER (gtk_builder_get_object (self->priv->builder,
 	                                                                  "folder_chooser_button"));
 	signoff_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
