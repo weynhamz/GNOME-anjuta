@@ -18,6 +18,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef __ANJUTA_DEBUG__
+#define __ANJUTA_DEBUG__
+
 /**
  * SECTION:anjuta-debug
  * @title: Debugging
@@ -38,9 +41,6 @@
  *</programlisting>
  * will display debug messages from Gtk, Anjuta and gdb plugin only.
  */
-
-#ifndef __ANJUTA_DEBUG__
-#define __ANJUTA_DEBUG__
 
 /**
  * DEBUG_PRINT:
