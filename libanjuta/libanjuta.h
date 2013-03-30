@@ -55,5 +55,24 @@
 #include <libanjuta/anjuta-dock.h>
 #include <libanjuta/anjuta-dock-pane.h>
 #include <libanjuta/anjuta-token.h>
+#include <libanjuta/anjuta-autogen.h>
+#include <libanjuta/anjuta-cell-renderer-captioned-image.h>
+#include <libanjuta/anjuta-column-text-view.h>
+#include <libanjuta/anjuta-completion.h>
+#include <libanjuta/anjuta-drop-entry.h>
+#include <libanjuta/anjuta-entry.h>
+#include <libanjuta/anjuta-environment-editor.h>
+#include <libanjuta/anjuta-file-drop-entry.h>
+#include <libanjuta/anjuta-file-list.h>
+#include <libanjuta/anjuta-language-provider.h>
+#include <libanjuta/anjuta-pkg-config.h>
+#include <libanjuta/anjuta-pkg-config-chooser.h>
+#include <libanjuta/anjuta-pkg-scanner.h>
+#include <libanjuta/anjuta-tabber.h>
+#include <libanjuta/anjuta-token-file.h>
+#include <libanjuta/anjuta-token-list.h>
+#include <libanjuta/anjuta-token-stream.h>
+#include <libanjuta/anjuta-tree-combo.h>
+#include <libanjuta/anjuta-vcs-status.h>
 
 #endif

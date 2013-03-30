@@ -202,7 +202,15 @@ libanjuta_include = \
 	anjuta-file-drop-entry.h \
 	anjuta-entry.h \
 	anjuta-token.h \
-	anjuta-pkg-config-chooser.h
+	anjuta-autogen.h \
+	anjuta-cell-renderer-captioned-image.h \
+	anjuta-completion.h \
+	anjuta-environment-editor.h \
+	anjuta-language-provider.h \
+	anjuta-token-file.h \
+	anjuta-token-list.h \
+	anjuta-token-stream.h \
+	anjuta-tree-combo.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
