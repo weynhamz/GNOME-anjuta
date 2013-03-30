@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta"
 "&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-02-15 21:20+0000\n"
-"PO-Revision-Date: 2013-02-18 11:02+0200\n"
+"POT-Creation-Date: 2013-03-25 20:27+0000\n"
+"PO-Revision-Date: 2013-03-30 05:57+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -368,10 +368,6 @@ msgid "Only show user activatable plugins"
 msgstr "Приказуј само прикључке које корисник може да покрене"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1196
-#| msgid ""
-#| "These are the plugins selected by you when Anjuta prompted to choose one "
-#| "of many suitable plugins. Removing the preferred plugin will let Anjuta "
-#| "prompt you again to choose different plugin."
 msgid ""
 "These are the plugins selected by you when you have been prompted to choose "
 "one of many suitable plugins. Removing the preferred plugin will let you "
@@ -826,7 +822,7 @@ msgstr "Нови позадинац самоалата за управника �
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:762
+#: ../plugins/git/anjuta-git.ui.h:21 ../plugins/project-manager/dialogs.c:762
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -890,7 +886,7 @@ msgstr ""
 "Назив пакета, може да садржи само слова и бројеве и подвлаку. Ствара се из "
 "назива пројекта ако није обезбеђено."
 
-#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:10
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
 msgid "URL:"
 msgstr "Адреса:"
@@ -1383,60 +1379,56 @@ msgid "Build Directory:"
 msgstr "Директоријум градње:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:6
-msgid "label"
-msgstr "натпис"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 msgid "Select Program"
 msgstr "Одабери програм"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:7
 #: ../plugins/run-program/anjuta-run-program.ui.h:3
 msgid "Arguments:"
 msgstr "Аргументи:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:8
 #: ../plugins/tools/anjuta-tools.ui.h:7
 msgid "Run in terminal"
 msgstr "Покрени у терминалу"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:9
 msgid "Select Program to run:"
 msgstr "Одабери програм за покретање:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:10
 msgid "sudo"
 msgstr "sudo"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:11
 msgid "su -c"
 msgstr "su -c"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:12
 msgid "Run several commands at a time:"
 msgstr "Покрени више наредби одједном:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:13
 msgid "Continue on errors"
 msgstr "Настави код грешака"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:14
 msgid "Translate messages"
 msgstr "Преведи поруке"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:15
 msgid "Highlight build warnings and errors in editor"
 msgstr "Подвуци упозорења изградње и грешака у уређивачу"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:16
 msgid "Build"
 msgstr "Изгради"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:17
 msgid "Install as root:"
 msgstr "Инсталирај као администратор:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:19
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui.h:18
 msgid "Install"
 msgstr "Инсталирај"
 
@@ -1467,7 +1459,6 @@ msgid "Cannot configure project: Missing configure script in %s."
 msgstr "Не могу да подесим пројекат: Недостаје скрипта за подешавање у %s."
 
 #: ../plugins/build-basic-autotools/build-options.c:80
-#| msgid "Selected directory in the project manager plugin"
 msgid "Select a build directory inside the project directory"
 msgstr "Изаберите директоријум изградње унутар директоријума пројекта"
 
@@ -2272,7 +2263,7 @@ msgid "Log message:"
 msgstr "Порука дневника:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:62
 #: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Revision:"
 msgstr "Ревизија:"
@@ -2283,7 +2274,7 @@ msgid "Do not act recursively"
 msgstr "Не ради рекурзивно"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
-#: ../plugins/git/anjuta-git.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:8
 #: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Options:"
 msgstr "Могућности:"
@@ -2356,7 +2347,7 @@ msgstr "Одабери датотеку или директоријум за к�
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
@@ -3541,7 +3532,7 @@ msgid "Rename"
 msgstr "Преименуј"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:363
-#: ../plugins/git/plugin.c:178
+#: ../plugins/git/plugin.c:180
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Remove"
 msgstr "Уклони"
@@ -4220,9 +4211,9 @@ msgstr "Проста претрага"
 
 #. DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (ipref);
 #: ../plugins/document-manager/plugin.c:418
-#: ../plugins/document-manager/plugin.c:1691
-#: ../plugins/document-manager/plugin.c:2111
-#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:1696
+#: ../plugins/document-manager/plugin.c:2116
+#: ../plugins/document-manager/plugin.c:2125
 msgid "Documents"
 msgstr "Документи"
 
@@ -4260,28 +4251,28 @@ msgid "Mode"
 msgstr "Режим"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1527
+#: ../plugins/document-manager/plugin.c:1532
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Није успело самоснимање за %s"
 
-#: ../plugins/document-manager/plugin.c:1541
+#: ../plugins/document-manager/plugin.c:1546
 msgid "Autosave completed"
 msgstr "Самоснимање је завршено"
 
-#: ../plugins/document-manager/search-box.c:555
+#: ../plugins/document-manager/search-box.c:533
 #, c-format
 msgid "Search for \"%s\" reached the end and was continued at the top."
 msgstr ""
 "Претрага за „%s“ је стигла до краја документа и настављена је од почетка."
 
-#: ../plugins/document-manager/search-box.c:560
+#: ../plugins/document-manager/search-box.c:538
 #, c-format
 msgid "Search for \"%s\" reached top and was continued at the bottom."
 msgstr ""
 "Претрага за „%s“ је стигла до краја документа и настављена је од почетка."
 
-#: ../plugins/document-manager/search-box.c:569
+#: ../plugins/document-manager/search-box.c:548
 #, c-format
 msgid ""
 "Search for \"%s\" reached the end and was continued at the top but no new "
@@ -4290,7 +4281,7 @@ msgstr ""
 "Претрага за „%s“ је стигла до краја документа и настављена је од почетка али "
 "ништа није нађено."
 
-#: ../plugins/document-manager/search-box.c:574
+#: ../plugins/document-manager/search-box.c:553
 #, c-format
 msgid ""
 "Search for \"%s\" reached top and was continued at the bottom but no new "
@@ -4312,7 +4303,7 @@ msgid "Replace all"
 msgstr "Замени све"
 
 #: ../plugins/document-manager/search-files.c:616
-#: ../plugins/file-manager/file-view.c:798
+#: ../plugins/file-manager/file-view.c:804
 msgid "Filename"
 msgstr "Назив датотеке"
 
@@ -4602,17 +4593,17 @@ msgstr "Не приказуј неверзионисане датотеке"
 msgid "Filter"
 msgstr "Пропусник"
 
-#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:34
 msgid "Loading..."
 msgstr "Учитавам..."
 
 #: ../plugins/file-manager/file-model.c:706
-#: ../plugins/file-manager/file-view.c:886
+#: ../plugins/file-manager/file-view.c:892
 msgid "Base Path"
 msgstr "Путања основе"
 
 #: ../plugins/file-manager/file-model.c:707
-#: ../plugins/file-manager/file-view.c:887
+#: ../plugins/file-manager/file-view.c:893
 msgid "GFile representing the top-most path displayed"
 msgstr "Гдатотека која представља највишу приказану путању"
 
@@ -4625,12 +4616,10 @@ msgid "Rename file or directory"
 msgstr "Промените назив датотеке или фасцикле"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "_Show in File manager"
 msgstr "_Прикажи у управнику датотека"
 
 #: ../plugins/file-manager/plugin.c:110
-#| msgid "File Manager"
 msgid "Show in File manager"
 msgstr "Прикажите у управнику датотека"
 
@@ -4638,7 +4627,7 @@ msgstr "Прикажите у управнику датотека"
 msgid "File manager popup actions"
 msgstr "Искачуће акције управника датотека"
 
-#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:164
 msgid "Files"
 msgstr "Датотеке"
 
@@ -4954,257 +4943,257 @@ msgid "Gdb Debugger"
 msgstr "Гдб исправљач грешака"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-msgid "Add Files:"
-msgstr "Додај датотеке:"
+msgid "Cancel"
+msgstr "Откажи"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Force"
 msgstr "Приморај"
 
-#: ../plugins/git/anjuta-git.ui.h:4
-msgid "Remote name:"
-msgstr "Удаљени назив:"
-
-#: ../plugins/git/anjuta-git.ui.h:6
-msgid "Fetch remote branches after creation"
-msgstr "Добави удаљене гране после стварања"
-
-#: ../plugins/git/anjuta-git.ui.h:7
-msgid "Mailbox files to apply:"
-msgstr "Датотеке сандучета за примену:"
-
-#: ../plugins/git/anjuta-git.ui.h:8
-msgid "Add signed off by line"
-msgstr "Додај линију са потписом"
-
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:794
-msgid "Branches"
-msgstr "Гране"
-
-#: ../plugins/git/anjuta-git.ui.h:10
-msgid "Drop or enter revision here"
-msgstr "Убаците или унесите ревизију овде"
-
-#: ../plugins/git/anjuta-git.ui.h:11
-msgid "Commit to cherry pick:"
-msgstr "Предаја за пробирање:"
-
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:3
 msgid "Do not commit"
 msgstr "Немој предати"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:4
+msgid "OK"
+msgstr "У реду"
+
+#: ../plugins/git/anjuta-git.ui.h:5
+msgid "Add signed off by line"
+msgstr "Додај линију са потписом"
+
+#: ../plugins/git/anjuta-git.ui.h:6
+msgid "Squash"
+msgstr "Сабиј"
+
+#: ../plugins/git/anjuta-git.ui.h:7
+msgid "Add Files:"
+msgstr "Додај датотеке:"
+
+#: ../plugins/git/anjuta-git.ui.h:9
+msgid "Remote name:"
+msgstr "Удаљени назив:"
+
+#: ../plugins/git/anjuta-git.ui.h:11
+msgid "Fetch remote branches after creation"
+msgstr "Добави удаљене гране после стварања"
+
+#: ../plugins/git/anjuta-git.ui.h:12
+msgid "Mailbox files to apply:"
+msgstr "Датотеке сандучета за примену:"
+
+#: ../plugins/git/anjuta-git.ui.h:13 ../plugins/git/plugin.c:790
+msgid "Branches"
+msgstr "Гране"
+
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Commit to cherry pick:"
+msgstr "Предаја за пробирање:"
+
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Show source revision in log message"
 msgstr "Прикажи изворну ревизију у поруци дневника"
 
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Append signed-off-by line"
 msgstr "Приложи линију са потписом"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:17
 #: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Log Message:"
 msgstr "Порука дневника:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Amend the previous commit"
 msgstr "Допуни претходну предају"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Овом предајом се прави неуспело стапање (користите -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Use custom author information:"
 msgstr "Користи произвољне податке о аутору:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:22
 msgid "E-mail:"
 msgstr "Ел. пошта:"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Branch name:"
 msgstr "Назив гране:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Repository head; Drop or type a different revision here"
 msgstr "Глава ризнице; Убаците или упишите другачију ревизију овде"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:25
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Ревизија"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Check out the branch after it is created"
 msgstr "Издвој грану након што је направљена"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:28
 msgid "Tag name:"
 msgstr "Назив ознаке:"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Sign this tag"
 msgstr "Потпиши ову ознаку"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Annotate this tag:"
 msgstr "Прибележи ову ознаку:"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Branches must be fully merged"
 msgstr "Гране морају у потпуности бити стопљене"
 
-#: ../plugins/git/anjuta-git.ui.h:31
-msgid ""
-"Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr ""
-"Читав пројекат; Убаците датотеку овде или упишите путању да прегледате "
-"датотеку или фасциклу дневника"
+#: ../plugins/git/anjuta-git.ui.h:32 ../plugins/git/git-pane.c:77
+#: ../plugins/git/git-pane.c:82 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:708
+msgid "Git"
+msgstr "Гит"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:33
+#| msgid "Git Tasks"
+msgid "Tasks"
+msgstr "Задаци"
+
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Читав пројекат; Убаците датотеку овде да прегледате датотеку или фасциклу "
 "дневника"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "View the Log for File/Folder:"
 msgstr "Преглед дневника за датотеку/фасциклу:"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Branch:"
 msgstr "Грана:"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Graph"
 msgstr "График"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:39
 #: ../plugins/subversion/subversion-log-dialog.c:160
 msgid "Short Log"
 msgstr "Кратак дневник"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:40
 #: ../plugins/subversion/subversion-log-dialog.c:132
 msgid "Author"
 msgstr "Аутор"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:41
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Датум"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "page 1"
 msgstr "страна 1"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "page 2"
 msgstr "страна 2"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:44
 #: ../plugins/subversion/anjuta-subversion.ui.h:39
 msgid "Changes:"
 msgstr "Измене:"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Revision to merge with:"
 msgstr "Ревизија са којом стопити:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
-msgid "Squash"
-msgstr "Сабиј"
-
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Use a custom log message:"
 msgstr "Користи произвољну поруку дневника:"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
 msgstr "Порекло ризнице; Убаците или упишите другачију ревизију овде"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Generate patches relative to:"
 msgstr "Генериши закрпе у односу на:"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Folder to create patches in:"
 msgstr "Фасцикла за прављење закрпа:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Repository to pull from:"
 msgstr "Ризница из које повући:"
 
-#: ../plugins/git/anjuta-git.ui.h:49 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:51 ../plugins/git/plugin.c:280
 msgid "Rebase"
 msgstr "Прекалеми"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Append fetch data"
 msgstr "Допуни довученим подацима"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:53
 msgid "Commit on fast-forward merges"
 msgstr "Предај на брзопремотавајућа стапања"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Do not follow tags"
 msgstr "Немој пратити ознаке"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Repository to push to:"
 msgstr "Ризница у коју погурати:"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Branches:"
 msgstr "Гране:"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Tags:"
 msgstr "Ознаке:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Push all tags"
 msgstr "Погурај све ознаке"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Push all branches and tags"
 msgstr "Погурај све гране и ознаке"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Remote Repositories:"
 msgstr "Удаљене ризнице:"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Remove Files:"
 msgstr "Уклони датотеке:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
-msgid "Previous commit; Drop or enter a different revision here"
-msgstr "Претходна предаја; Убаците или унесите другачију ревизију овде"
-
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Mixed"
 msgstr "Мешано"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Soft"
 msgstr "Меко"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Hard"
 msgstr "Чврсто"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Mode:"
 msgstr "Режим:"
-
-#: ../plugins/git/anjuta-git.ui.h:66
-msgid "Drop or type a revision here"
-msgstr "Убаците или упишите ревизију овде"
 
 #: ../plugins/git/anjuta-git.ui.h:67
 msgid "Commit to revert:"
@@ -5226,7 +5215,7 @@ msgstr "Уштекане измене:"
 msgid "Repository Status:"
 msgstr "Стање ризнице:"
 
-#: ../plugins/git/git-add-files-pane.c:157
+#: ../plugins/git/git-add-files-pane.c:160
 msgid "Add Files"
 msgstr "Додај датотеке"
 
@@ -5238,11 +5227,11 @@ msgstr "Унесите удаљени назив."
 msgid "Please enter a URL"
 msgstr "Унесите адресу"
 
-#: ../plugins/git/git-add-remote-pane.c:180
+#: ../plugins/git/git-add-remote-pane.c:182
 msgid "Add Remote"
 msgstr "Додај удаљено"
 
-#: ../plugins/git/git-apply-mailbox-pane.c:157
+#: ../plugins/git/git-apply-mailbox-pane.c:159
 msgid "Apply Mailbox Files"
 msgstr "Примени датотеке сандучета"
 
@@ -5253,7 +5242,7 @@ msgstr "Примени датотеке сандучета"
 msgid "No stash selected."
 msgstr "Није изабран штек."
 
-#: ../plugins/git/git-checkout-pane.c:147
+#: ../plugins/git/git-checkout-pane.c:150
 msgid "Check Out Files"
 msgstr "Издвој датотеке"
 
@@ -5263,7 +5252,7 @@ msgstr "Издвој датотеке"
 msgid "Please enter a revision."
 msgstr "Унесите ревизију."
 
-#: ../plugins/git/git-cherry-pick-pane.c:173
+#: ../plugins/git/git-cherry-pick-pane.c:176
 msgid "Cherry Pick"
 msgstr "Пробирање"
 
@@ -5280,7 +5269,7 @@ msgstr "Унесите име аутора предаје"
 msgid "Please enter the commit author's e-mail address."
 msgstr "Унесите адресу ел. поште аутора предаје."
 
-#: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:299 ../plugins/git/plugin.c:148
 msgid "Commit"
 msgstr "Предај"
 
@@ -5292,7 +5281,7 @@ msgstr "Унесите назив гране."
 msgid "Please enter a tag name."
 msgstr "Унесите назив ознаке."
 
-#: ../plugins/git/git-create-tag-pane.c:215
+#: ../plugins/git/git-create-tag-pane.c:236
 msgid "Create Tag"
 msgstr "Направи ознаку"
 
@@ -5327,29 +5316,24 @@ msgstr "Није изабрана ревизија"
 msgid "Stash %i.diff"
 msgstr "Штек %i.diff"
 
-#: ../plugins/git/git-log-pane.c:584
+#: ../plugins/git/git-log-pane.c:581
 #, c-format
 msgid "<b>Branch:</b> %s"
 msgstr "<b>Грана:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:589
+#: ../plugins/git/git-log-pane.c:586
 #, c-format
 msgid "<b>Tag:</b> %s"
 msgstr "<b>Ознака:</b> %s"
 
-#: ../plugins/git/git-log-pane.c:594
+#: ../plugins/git/git-log-pane.c:591
 #, c-format
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Удаљено:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:214 ../plugins/git/plugin.c:99
 msgid "Merge"
 msgstr "Стопи"
-
-#: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:716
-msgid "Git"
-msgstr "Гит"
 
 #: ../plugins/git/git-pane.c:204
 msgid "Git Error"
@@ -5359,7 +5343,7 @@ msgstr "Грешка Гита"
 msgid "Git Warning"
 msgstr "Упозорење Гита"
 
-#: ../plugins/git/git-patch-series-pane.c:167
+#: ../plugins/git/git-patch-series-pane.c:169
 msgid "Generate Patch Series"
 msgstr "Направи низ закрпа"
 
@@ -5371,11 +5355,11 @@ msgstr "Контрола Гит верзија"
 msgid "Please enter a URL."
 msgstr "Унесите адресу."
 
-#: ../plugins/git/git-pull-pane.c:238 ../plugins/git/plugin.c:246
+#: ../plugins/git/git-pull-pane.c:242 ../plugins/git/plugin.c:264
 msgid "Pull"
 msgstr "Повуци"
 
-#: ../plugins/git/git-push-pane.c:435 ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:256
 msgid "Push"
 msgstr "Погурај"
 
@@ -5384,7 +5368,7 @@ msgstr "Погурај"
 msgid "No remote selected"
 msgstr "Није изабрано удаљено"
 
-#: ../plugins/git/git-remove-files-pane.c:157
+#: ../plugins/git/git-remove-files-pane.c:160
 msgid "Remove Files"
 msgstr "Уклони датотеке"
 
@@ -5408,7 +5392,7 @@ msgstr ""
 "Није изабрано удаљено; користим родно по основи.\n"
 "Да погурате у другачије удаљено, изаберите једно из списка Удаљених."
 
-#: ../plugins/git/git-reset-pane.c:164
+#: ../plugins/git/git-reset-pane.c:165
 msgid "Reset"
 msgstr "Врати"
 
@@ -5420,11 +5404,11 @@ msgstr "Нису изабране сукобљене датотеке."
 msgid "Please enter a commit."
 msgstr "Унесите предају."
 
-#: ../plugins/git/git-revert-pane.c:162
+#: ../plugins/git/git-revert-pane.c:163
 msgid "Revert"
 msgstr "Поврати"
 
-#: ../plugins/git/git-stash-changes-pane.c:158
+#: ../plugins/git/git-stash-changes-pane.c:160
 msgid "Stash Uncommitted Changes"
 msgstr "Уштекај непредате измене"
 
@@ -5441,311 +5425,307 @@ msgstr "Измењено али није ажурирано"
 msgid "No staged files selected."
 msgstr "Нису изабране уштекане датотеке."
 
-#: ../plugins/git/plugin.c:65
+#: ../plugins/git/plugin.c:67
 msgid "Branch tools"
 msgstr "Алати гране"
 
-#: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:75 ../plugins/git/plugin.c:76
 msgid "Create a branch"
 msgstr "Направи грану"
 
-#: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:83 ../plugins/git/plugin.c:84
 msgid "Delete branches"
 msgstr "Обриши гране"
 
-#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
+#: ../plugins/git/plugin.c:91 ../plugins/git/plugin.c:92
 msgid "Switch to the selected branch"
 msgstr "Пребаци се на изабрану грану"
 
-#: ../plugins/git/plugin.c:98
+#: ../plugins/git/plugin.c:100
 msgid "Merge a revision into the current branch"
 msgstr "Стопи ревизију у тренутну грану"
 
-#: ../plugins/git/plugin.c:109
+#: ../plugins/git/plugin.c:111
 msgid "Tag tools"
 msgstr "Алати ознаке"
 
-#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
+#: ../plugins/git/plugin.c:119 ../plugins/git/plugin.c:120
 msgid "Create a tag"
 msgstr "Направи ознаку"
 
-#: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:128
 msgid "Delete selected tags"
 msgstr "Обриши изабране ознаке"
 
-#: ../plugins/git/plugin.c:138
+#: ../plugins/git/plugin.c:140
 msgid "Changes"
 msgstr "Измене"
 
-#: ../plugins/git/plugin.c:147
+#: ../plugins/git/plugin.c:149
 msgid "Commit changes"
 msgstr "Предај измене"
 
-#: ../plugins/git/plugin.c:154
+#: ../plugins/git/plugin.c:156
 msgid "Diff uncommitted changes"
 msgstr "Упореди непредате измене"
 
-#: ../plugins/git/plugin.c:155
+#: ../plugins/git/plugin.c:157
 msgid "Show a diff of uncommitted changes in an editor"
 msgstr "Приказује разлике непредатих измена у уређивачу"
 
-#: ../plugins/git/plugin.c:170
+#: ../plugins/git/plugin.c:172
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Add"
 msgstr "Додај"
 
-#: ../plugins/git/plugin.c:171
+#: ../plugins/git/plugin.c:173
 msgid "Add files to the index"
 msgstr "Додаје датотеке у индекс"
 
-#: ../plugins/git/plugin.c:179
+#: ../plugins/git/plugin.c:181
 msgid "Remove files from the repository"
 msgstr "Уклања датотеке из ризнице"
 
-#: ../plugins/git/plugin.c:186
+#: ../plugins/git/plugin.c:188
 msgid "Check out"
 msgstr "Издвој"
 
-#: ../plugins/git/plugin.c:187
+#: ../plugins/git/plugin.c:189
 msgid "Revert changes in unstaged files"
 msgstr "Врати измене у неуштеканим датотекама"
 
-#: ../plugins/git/plugin.c:194
+#: ../plugins/git/plugin.c:196
 msgid "Unstage"
 msgstr "Одштекај"
 
-#: ../plugins/git/plugin.c:195
+#: ../plugins/git/plugin.c:197
 msgid "Remove staged files from the index"
 msgstr "Уклони уштекане датотеке из индекса"
 
-#: ../plugins/git/plugin.c:202
+#: ../plugins/git/plugin.c:204
 msgid "Resolve conflicts"
 msgstr "Разреши сукобе"
 
-#: ../plugins/git/plugin.c:203
+#: ../plugins/git/plugin.c:205
 msgid "Mark selected conflicted files as resolved"
 msgstr "Означава изабране сукобљене датотеке као решене"
 
-#: ../plugins/git/plugin.c:214
-msgid "Remote repository tools"
-msgstr "Алати удаљене ризнице"
+#: ../plugins/git/plugin.c:212 ../plugins/git/plugin.c:808
+msgid "Stash"
+msgstr "Штек"
 
-#: ../plugins/git/plugin.c:222
-msgid "Add a remote"
-msgstr "Додајe удаљену грану"
-
-#: ../plugins/git/plugin.c:223
-msgid "Add a remote repository"
-msgstr "Додајте удаљену ризницу"
-
-#: ../plugins/git/plugin.c:230
-msgid "Delete selected remote"
-msgstr "Обриши изабране удаљене"
-
-#: ../plugins/git/plugin.c:231
-msgid "Delete a remote"
-msgstr "Брише удаљену грану"
-
-#: ../plugins/git/plugin.c:239
-msgid "Push changes to a remote repository"
-msgstr "Гура измене у удаљену ризницу"
-
-#: ../plugins/git/plugin.c:247
-msgid "Pull changes from a remote repository"
-msgstr "Вуче измене из удаљене ризнице"
-
-#: ../plugins/git/plugin.c:254
-msgid "Fetch"
-msgstr "Добави"
-
-#: ../plugins/git/plugin.c:255
-msgid "Fetch changes from remote repositories"
-msgstr "Добавите измене из удаљене ризнице"
-
-#: ../plugins/git/plugin.c:270
-msgid "Rebase against selected remote"
-msgstr "Прекалеми наспрам изабраног удаљеног"
-
-#: ../plugins/git/plugin.c:271
-msgid "Start a rebase operation relative to the selected remote repository"
-msgstr "Започиње операцију прекалемљавања у односу на изабрану удаљену ризницу"
-
-#: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
-msgid "Continue"
-msgstr "Настави"
-
-#: ../plugins/git/plugin.c:279
-msgid "Continue a rebase with resolved conflicts"
-msgstr "Настави прекалемљавање са решеним сукобима"
-
-#: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
-msgid "Skip"
-msgstr "Прескочи"
-
-#: ../plugins/git/plugin.c:287
-msgid "Skip the current revision"
-msgstr "Прескочите тренутну ревизију"
-
-#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
-msgid "Abort"
-msgstr "Прекини"
-
-#: ../plugins/git/plugin.c:295
-msgid "Abort the rebase and return the repository to its previous state"
-msgstr "Обуставља прекалемљавање и враћа ризницу у њено претходно стање"
-
-#: ../plugins/git/plugin.c:306
-msgid "Stash tools"
-msgstr "Алати штека"
-
-#: ../plugins/git/plugin.c:314
+#: ../plugins/git/plugin.c:220 ../plugins/git/plugin.c:332
 msgid "Stash uncommitted changes"
 msgstr "Уштекај непредате измене"
 
-#: ../plugins/git/plugin.c:315
+#: ../plugins/git/plugin.c:221 ../plugins/git/plugin.c:333
 msgid "Save uncommitted changes without committing them"
 msgstr "Чува непредате измене без њиховог предавања"
 
-#: ../plugins/git/plugin.c:322
+#: ../plugins/git/plugin.c:232
+msgid "Remote repository tools"
+msgstr "Алати удаљене ризнице"
+
+#: ../plugins/git/plugin.c:240
+msgid "Add a remote"
+msgstr "Додајe удаљену грану"
+
+#: ../plugins/git/plugin.c:241
+msgid "Add a remote repository"
+msgstr "Додајте удаљену ризницу"
+
+#: ../plugins/git/plugin.c:248
+msgid "Delete selected remote"
+msgstr "Обриши изабране удаљене"
+
+#: ../plugins/git/plugin.c:249
+msgid "Delete a remote"
+msgstr "Брише удаљену грану"
+
+#: ../plugins/git/plugin.c:257
+msgid "Push changes to a remote repository"
+msgstr "Гура измене у удаљену ризницу"
+
+#: ../plugins/git/plugin.c:265
+msgid "Pull changes from a remote repository"
+msgstr "Вуче измене из удаљене ризнице"
+
+#: ../plugins/git/plugin.c:272
+msgid "Fetch"
+msgstr "Добави"
+
+#: ../plugins/git/plugin.c:273
+msgid "Fetch changes from remote repositories"
+msgstr "Добавите измене из удаљене ризнице"
+
+#: ../plugins/git/plugin.c:288
+msgid "Rebase against selected remote"
+msgstr "Прекалеми наспрам изабраног удаљеног"
+
+#: ../plugins/git/plugin.c:289
+msgid "Start a rebase operation relative to the selected remote repository"
+msgstr "Започиње операцију прекалемљавања у односу на изабрану удаљену ризницу"
+
+#: ../plugins/git/plugin.c:296 ../plugins/git/plugin.c:464
+msgid "Continue"
+msgstr "Настави"
+
+#: ../plugins/git/plugin.c:297
+msgid "Continue a rebase with resolved conflicts"
+msgstr "Настави прекалемљавање са решеним сукобима"
+
+#: ../plugins/git/plugin.c:304 ../plugins/git/plugin.c:472
+msgid "Skip"
+msgstr "Прескочи"
+
+#: ../plugins/git/plugin.c:305
+msgid "Skip the current revision"
+msgstr "Прескочите тренутну ревизију"
+
+#: ../plugins/git/plugin.c:312 ../plugins/git/plugin.c:480
+msgid "Abort"
+msgstr "Прекини"
+
+#: ../plugins/git/plugin.c:313
+msgid "Abort the rebase and return the repository to its previous state"
+msgstr "Обуставља прекалемљавање и враћа ризницу у њено претходно стање"
+
+#: ../plugins/git/plugin.c:324
+msgid "Stash tools"
+msgstr "Алати штека"
+
+#: ../plugins/git/plugin.c:340
 msgid "Apply selected stash"
 msgstr "Примени означени штек"
 
-#: ../plugins/git/plugin.c:323
+#: ../plugins/git/plugin.c:341
 msgid "Apply stashed changes back into the working tree"
 msgstr "Примењује уштекане измене назад на радно стабло"
 
-#: ../plugins/git/plugin.c:330
+#: ../plugins/git/plugin.c:348
 msgid "Apply stash and restore index"
 msgstr "Примењује штек и враћа индекс"
 
-#: ../plugins/git/plugin.c:331
+#: ../plugins/git/plugin.c:349
 msgid "Apply stashed changes back into the working tree and the index"
 msgstr "Примењује уштекане измене назад на радно стабло и на индекс"
 
-#: ../plugins/git/plugin.c:338
+#: ../plugins/git/plugin.c:356
 msgid "Diff selected stash"
 msgstr "Упореди означени штек"
 
-#: ../plugins/git/plugin.c:339
+#: ../plugins/git/plugin.c:357
 msgid "Show a diff of the selected stash"
 msgstr "Приказује разлике означеног штека"
 
-#: ../plugins/git/plugin.c:346
+#: ../plugins/git/plugin.c:364
 msgid "Drop selected stash"
 msgstr "Одбаци означени штек"
 
-#: ../plugins/git/plugin.c:347
+#: ../plugins/git/plugin.c:365
 msgid "Delete the selected stash"
 msgstr "Обриши означени штек"
 
-#: ../plugins/git/plugin.c:354
+#: ../plugins/git/plugin.c:372
 msgid "Clear all stashes"
 msgstr "Очисти све штекове"
 
-#: ../plugins/git/plugin.c:355
+#: ../plugins/git/plugin.c:373
 msgid "Delete all stashes in this repository"
 msgstr "Брише све штекове у овој ризници"
 
-#: ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:384
 msgid "Revision tools"
 msgstr "Алати ревизије"
 
-#: ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:392
 msgid "Show commit diff"
 msgstr "Прикажи разлике предаје"
 
-#: ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:393
 msgid "Show a diff of the selected revision"
 msgstr "Приказује разлике изабране ревизије"
 
-#: ../plugins/git/plugin.c:382
+#: ../plugins/git/plugin.c:400
 msgid "Cherry pick"
 msgstr "Пробирање"
 
-#: ../plugins/git/plugin.c:383
+#: ../plugins/git/plugin.c:401
 msgid "Merge an individual commit from another branch"
 msgstr "Стапа засебну предају из друге гране"
 
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:408
 msgid "Reset/Revert"
 msgstr "Врати/поврати"
 
-#: ../plugins/git/plugin.c:398
+#: ../plugins/git/plugin.c:416
 msgid "Reset tree"
 msgstr "Врати стабло"
 
-#: ../plugins/git/plugin.c:399
+#: ../plugins/git/plugin.c:417
 msgid "Reset tree to a previous revision"
 msgstr "Врати стабло на претходну ревизију"
 
-#: ../plugins/git/plugin.c:406
+#: ../plugins/git/plugin.c:424
 msgid "Revert commit"
 msgstr "Поврати предају"
 
-#: ../plugins/git/plugin.c:407
+#: ../plugins/git/plugin.c:425
 msgid "Revert a commit"
 msgstr "Врши повраћај предаје"
 
-#: ../plugins/git/plugin.c:414
+#: ../plugins/git/plugin.c:432
 msgid "Patch series"
 msgstr "Закрпе"
 
-#: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
+#: ../plugins/git/plugin.c:440 ../plugins/git/plugin.c:441
 msgid "Generate a patch series"
 msgstr "Направи низ закрпа"
 
-#: ../plugins/git/plugin.c:430
+#: ../plugins/git/plugin.c:448
 msgid "Mailbox files"
 msgstr "Датотеке сандучета"
 
-#: ../plugins/git/plugin.c:438
+#: ../plugins/git/plugin.c:456
 msgid "Apply mailbox files"
 msgstr "Примени датотеке сандучета"
 
-#: ../plugins/git/plugin.c:439
+#: ../plugins/git/plugin.c:457
 msgid "Apply patches from mailbox files"
 msgstr "Примени закрпе из датотека сандучета"
 
-#: ../plugins/git/plugin.c:447
+#: ../plugins/git/plugin.c:465
 msgid "Continue applying patches with resolved conflicts"
 msgstr "Наставља са применом закрпа са решеним сукобима"
 
-#: ../plugins/git/plugin.c:455
+#: ../plugins/git/plugin.c:473
 msgid "Skip the current patch in the series"
 msgstr "Прескаче тренутну закрпу у низу"
 
-#: ../plugins/git/plugin.c:463
+#: ../plugins/git/plugin.c:481
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr "Зауставља примену низа закрпа и враћа стабло у његово претходно стање"
 
-#: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
+#: ../plugins/git/plugin.c:572 ../plugins/git/plugin.c:645
 msgid "Branch"
 msgstr "Грана"
 
-#: ../plugins/git/plugin.c:711
-msgid "Git Tasks"
-msgstr "Задаци гита"
-
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:778
 msgid "Status"
 msgstr "Стање"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:784
 msgid "Log"
 msgstr "Дневник"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:795
 msgid "Tags"
 msgstr "Ознаке"
 
-#: ../plugins/git/plugin.c:806
+#: ../plugins/git/plugin.c:802
 msgid "Remotes"
 msgstr "Удаљено"
-
-#: ../plugins/git/plugin.c:812
-msgid "Stash"
-msgstr "Штек"
 
 #: ../plugins/glade/anjuta-design-document.c:170
 #: ../plugins/glade/anjuta-design-document.c:201
@@ -5787,7 +5767,6 @@ msgid "Edit widget alignment"
 msgstr "Уређује поравнање елемента"
 
 #: ../plugins/glade/plugin.c:612
-#| msgid "Folder properties"
 msgid "Glade Properties…"
 msgstr "Својства Глејда…"
 
@@ -5800,7 +5779,6 @@ msgid "Loading Glade…"
 msgstr "Учитавам Глејд…"
 
 #: ../plugins/glade/plugin.c:726
-#| msgid "Debugger operations"
 msgid "Glade designer operations"
 msgstr "Радње дизајнера Глејда"
 
@@ -5935,7 +5913,6 @@ msgstr ""
 
 #: ../plugins/jhbuild/plugin.c:198
 #, c-format
-#| msgid "Failed to activate plugin: %s"
 msgid "Failed to activate the JHBuild Plugin: %s"
 msgstr "Нисам успео да покренем прикључак ЈХ градитеља: %s"
 
@@ -6142,7 +6119,7 @@ msgstr "Помоћ Питона"
 
 #: ../plugins/language-support-python/plugin.c:561
 #: ../plugins/language-support-python/plugin.c:574
-#: ../plugins/language-support-python/python-assist.c:793
+#: ../plugins/language-support-python/python-assist.c:797
 msgid "Python"
 msgstr "Питон"
 
@@ -6351,7 +6328,7 @@ msgstr "Додај _пакет"
 msgid "Packages"
 msgstr "Пакети"
 
-#: ../plugins/parser-cxx/parser-cxx-assist.c:1283
+#: ../plugins/parser-cxx/parser-cxx-assist.c:1260
 msgid "C/C++"
 msgstr "Ц/Ц++"
 
@@ -8577,7 +8554,7 @@ msgstr "Подешавања прегледа уређивача"
 msgid "GtkSourceView Editor"
 msgstr "Уређивач приказа Гтк извора"
 
-#: ../plugins/sourceview/sourceview.c:592
+#: ../plugins/sourceview/sourceview.c:601
 #, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than the current buffer.\n"
@@ -8586,7 +8563,7 @@ msgstr ""
 "Датотека „%s“ на диску је новија од тренутне у приручној меморији.\n"
 "Да ли желите да је поново учитате?"
 
-#: ../plugins/sourceview/sourceview.c:624
+#: ../plugins/sourceview/sourceview.c:633
 #, c-format
 msgid ""
 "The file \"%s\" has been deleted on the disk.\n"
@@ -8596,28 +8573,28 @@ msgstr ""
 "Да ли желите да је затворите?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:657
+#: ../plugins/sourceview/sourceview.c:666
 #, c-format
 msgid "Could not open %s: %s"
 msgstr "Не могу да отворим: %s: %s"
 
-#: ../plugins/sourceview/sourceview.c:711
+#: ../plugins/sourceview/sourceview.c:717
 #, c-format
 msgid "The file \"%s\" is read-only! Edit anyway?"
 msgstr "Датотека „%s“ је само за читање! Ипак желите да је уредите?"
 
 #. Could not open <filename>: <error message>
-#: ../plugins/sourceview/sourceview.c:773
+#: ../plugins/sourceview/sourceview.c:776
 #, c-format
 msgid "Could not save %s: %s"
 msgstr "Не могу да сачувам: %s: %s"
 
-#: ../plugins/sourceview/sourceview-io.c:280
+#: ../plugins/sourceview/sourceview-io.c:308
 #, c-format
 msgid "Could not save file because filename not yet specified"
 msgstr "Не могу да сачувам датотеку јер назив датотеке није одређен"
 
-#: ../plugins/sourceview/sourceview-io.c:525
+#: ../plugins/sourceview/sourceview-io.c:556
 #, c-format
 msgid "New file %d"
 msgstr "Нова датотека %d"
