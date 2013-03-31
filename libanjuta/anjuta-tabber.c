@@ -19,6 +19,15 @@
 
 #include "anjuta-tabber.h"
 
+/**
+ * SECTION:anjuta-tabber
+ * @title: AnjutaTabber
+ * @short_description: Tab widget
+ * @see_also:
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-tabber.h
+ */
+
 struct _AnjutaTabberPriv
 {
 	GtkNotebook* notebook;
