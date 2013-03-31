@@ -49,7 +49,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR "/project"
+#define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR "/templates"
 
 /* Default property name useable in wizard file
  *---------------------------------------------------------------------------*/
@@ -435,11 +435,11 @@ npw_druid_fill_selection_page (NPWDruid* druid, GFile *templates)
 		}
 	}
 
-	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "project", NULL);
+	dir = g_build_filename (g_get_user_data_dir (), "anjuta", "templates", NULL);
 	if (templates == NULL)
 	{
 		/* Read project template in user directory,
-		 * normally ~/.local/share/anjuta/project,
+		 * normally ~/.local/share/anjuta/templates,
 	 	* the first template read override the others */
 		npw_header_list_readdir (&druid->header_list, dir);
 	}
@@ -448,7 +448,7 @@ npw_druid_fill_selection_page (NPWDruid* druid, GFile *templates)
 
 	for (sys_dir = g_get_system_data_dirs (); *sys_dir != NULL; sys_dir++)
 	{
-		dir = g_build_filename (*sys_dir, "anjuta", "project", NULL);
+		dir = g_build_filename (*sys_dir, "anjuta", "templates", NULL);
 		if (templates == NULL)
 		{
 			/* Read project template in system directory */

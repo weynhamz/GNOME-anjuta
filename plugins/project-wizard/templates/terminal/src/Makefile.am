@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/terminal/src
+wizard_filesdir = $(anjuta_data_dir)/templates/terminal/src
 wizard_files_DATA = main.c Makefile.am.tpl
 	
 EXTRA_DIST = $(wizard_files_DATA)

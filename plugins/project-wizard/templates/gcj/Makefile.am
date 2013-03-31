@@ -1,7 +1,7 @@
 
 SUBDIRS = src 
 
-wizard_filesdir = $(anjuta_data_dir)/project/gcj
+wizard_filesdir = $(anjuta_data_dir)/templates/gcj
 wizard_files_DATA = \
         configure.ac.tpl
 

@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/pygtk/po
+wizard_filesdir = $(anjuta_data_dir)/templates/pygtk/po
 wizard_files_DATA = POTFILES.in
 EXTRA_DIST = $(wizard_files_DATA)
 

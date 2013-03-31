@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/vala-gtk/src
+wizard_filesdir = $(anjuta_data_dir)/templates/vala-gtk/src
 wizard_files_DATA = main.vala Makefile.am.tpl project.ui config.vapi
 EXTRA_DIST = $(wizard_files_DATA)
 

@@ -1,7 +1,7 @@
 
 SUBDIRS = src po
 
-wizard_filesdir = $(anjuta_data_dir)/project/java
+wizard_filesdir = $(anjuta_data_dir)/templates/java
 wizard_files_DATA = \
         configure.ac.tpl \
 	project.anjuta

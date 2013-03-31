@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/anjuta-plugin/src
+wizard_filesdir = $(anjuta_data_dir)/templates/anjuta-plugin/src
 wizard_files_DATA = \
 	Makefile.am.tpl \
 	plugin.c \

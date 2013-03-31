@@ -1,7 +1,7 @@
 
 SUBDIRS = src po
 
-wizard_filesdir = $(anjuta_data_dir)/project/terminal
+wizard_filesdir = $(anjuta_data_dir)/templates/terminal
 wizard_files_DATA = \
 	AUTHORS \
 	ChangeLog \

@@ -1,5 +1,5 @@
 
-wizard_filesdir = $(anjuta_data_dir)/project/directory
+wizard_filesdir = $(anjuta_data_dir)/templates/directory
 wizard_files_DATA = \
 	project.anjuta
 

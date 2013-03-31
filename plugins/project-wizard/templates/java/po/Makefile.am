@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/java/po
+wizard_filesdir = $(anjuta_data_dir)/templates/java/po
 wizard_files_DATA = POTFILES.in
 EXTRA_DIST = $(wizard_files_DATA)
 

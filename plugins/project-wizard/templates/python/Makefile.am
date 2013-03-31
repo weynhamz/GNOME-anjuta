@@ -1,7 +1,7 @@
 
 SUBDIRS = src po
 
-wizard_filesdir = $(anjuta_data_dir)/project/python
+wizard_filesdir = $(anjuta_data_dir)/templates/python
 wizard_files_DATA = \
         configure.ac.tpl \
 	project.anjuta

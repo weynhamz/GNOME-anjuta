@@ -1,5 +1,5 @@
 
-wizard_filesdir = $(anjuta_data_dir)/project/minimal
+wizard_filesdir = $(anjuta_data_dir)/templates/minimal
 wizard_files_DATA = \
 	autogen.sh \
 	configure.ac.tpl \

@@ -28,7 +28,7 @@ template_in_files = \
 	gnome-shell-extension.wiz.in \
 	licenses.tpl.in
 
-wizard_filesdir = $(anjuta_data_dir)/project
+wizard_filesdir = $(anjuta_data_dir)/templates
 wizard_files_DATA = \
 	terminal-logo.png \
 	cpp-logo.png \

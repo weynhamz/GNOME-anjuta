@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/m4
+wizard_filesdir = $(anjuta_data_dir)/templates/m4
 
 wizard_files_DATA = \
 	as-ac-expand.m4 \

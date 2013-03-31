@@ -15,12 +15,12 @@
 			The template files <emphasis>look like</emphasis>
 			xml documents and have normally the extension
 			<filename>.wiz</filename>. All templates and others
-			related files are installed by default in <filename>$anjuta_install_dir/share/anjuta/project</filename>. But the project wizard looks
-			for templates in the sub directory <filename>anjuta/project</filename> of
+			related files are installed by default in <filename>$anjuta_install_dir/share/anjuta/templates</filename>. But the project wizard looks
+			for templates in the sub directory <filename>anjuta/templates</filename> of
 			all user data directories as defined by
 			<ulink type="http" url="http://www.freedesktop.org/Standards/basedir-spec">XDG Base Directory Specification</ulink> too. It is possible to
 			override a Anjuta project template by an user one put, 
-			by example, in <filename>~/.local/share/anjuta/project</filename>.
+			by example, in <filename>~/.local/share/anjuta/templates</filename>.
 		</para>
 		<para> The template file is divided in four parts:
 			an header block, one or more page blocks, a content block
@@ -530,7 +530,7 @@
 		</para>
 		<para>
 			With Anjuta version 2.30 or below, the user has to decompress this archive
-			in a directory named <filename>anjuta/project</filename> in the data
+			in a directory named <filename>anjuta/templates</filename> in the data
 			directory defined according to 
 			<ulink type="http" url="http://www.freedesktop.org/Standards/basedir-spec">XDG Base Directory Specification</ulink>.
 			With Anjuta version 2.31 or greater, if you name your archive with the

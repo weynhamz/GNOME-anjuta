@@ -81,7 +81,7 @@ npw_install_project_template_with_callback (NPWPlugin *plugin, GFile *file, NPWT
 	if (ext != NULL) *ext = '\0';
 
 	/* Create a directory for template */
-	path = g_build_filename (g_get_user_data_dir (), "anjuta", "project", name, NULL);
+	path = g_build_filename (g_get_user_data_dir (), "anjuta", "templates", name, NULL);
 	g_free (name);
 	dest = g_file_new_for_path (path);
 	g_free (path);

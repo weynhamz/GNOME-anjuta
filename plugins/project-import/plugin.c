@@ -35,9 +35,9 @@
 
 #define ICON_FILE "anjuta-project-import-plugin-48.png"
 
-#define AM_PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
-#define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/project/mkfile/project.anjuta"
-#define DIRECTORY_PROJECT_FILE PACKAGE_DATA_DIR"/project/directory/project.anjuta"
+#define AM_PROJECT_FILE PACKAGE_DATA_DIR"/templates/terminal/project.anjuta"
+#define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/templates/mkfile/project.anjuta"
+#define DIRECTORY_PROJECT_FILE PACKAGE_DATA_DIR"/templates/directory/project.anjuta"
 
 static gpointer parent_class;
 

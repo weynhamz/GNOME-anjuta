@@ -1,6 +1,6 @@
 SUBDIRS = src
 
-wizard_filesdir = $(anjuta_data_dir)/project/vala-gtk
+wizard_filesdir = $(anjuta_data_dir)/templates/vala-gtk
 wizard_files_DATA = \
 	configure.ac.tpl
 

@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/js_minimal/src
+wizard_filesdir = $(anjuta_data_dir)/templates/js_minimal/src
 wizard_files_DATA = main.js Makefile.am.tpl
 EXTRA_DIST = $(wizard_files_DATA)
 

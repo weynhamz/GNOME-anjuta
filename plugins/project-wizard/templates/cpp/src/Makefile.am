@@ -1,4 +1,4 @@
-wizard_filesdir = $(anjuta_data_dir)/project/cpp/src
+wizard_filesdir = $(anjuta_data_dir)/templates/cpp/src
 wizard_files_DATA = main.cc Makefile.am.tpl 
 	
 EXTRA_DIST = $(wizard_files_DATA)

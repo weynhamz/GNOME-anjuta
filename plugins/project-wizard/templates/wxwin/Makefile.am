@@ -1,7 +1,7 @@
 
 SUBDIRS = src po
 
-wizard_filesdir = $(anjuta_data_dir)/project/wxwin
+wizard_filesdir = $(anjuta_data_dir)/templates/wxwin
 wizard_files_DATA = \
 	configure.ac.tpl
 

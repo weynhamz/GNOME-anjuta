@@ -1,7 +1,7 @@
 
 SUBDIRS = src po
 
-wizard_filesdir = $(anjuta_data_dir)/project/mkfile
+wizard_filesdir = $(anjuta_data_dir)/templates/mkfile
 wizard_files_DATA = \
 	project.anjuta
 
