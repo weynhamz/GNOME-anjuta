@@ -1,0 +1,4432 @@
+# Catalan translation for anjuta.
+# Copyright (C) 2012 anjuta's COPYRIGHT HOLDER
+# This file is distributed under the same license as the anjuta package.
+# Jaume Planas <jplanas@itberga.com>, 2011.
+# Gil Forcada <gilforcada@guifi.net>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: anjuta master\n"
+"POT-Creation-Date: 2013-02-10 15:27+0000\n"
+"PO-Revision-Date: 2013-01-19 23:23+0100\n"
+"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bits\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr ""
+"Jaume Planas <jplanas@itberga.com>, 2011\n"
+"Gil Forcada <gilforcada@guifi.net>, 2013"
+
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#.
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/index.page:23(media)
+msgctxt "_"
+msgid ""
+"external ref='figures/anjuta_logo.png' md5='82636133d39ac4a688facd76954b8b29'"
+msgstr ""
+"external ref='figures/anjuta_logo.png' md5='82636133d39ac4a688facd76954b8b29'"
+
+#: C/index.page:7(info/desc)
+msgid "Help for Anjuta DevStudio."
+msgstr "Ajuda de l'estudi de desenvolupament Anjuta."
+
+#: C/index.page:8(info/title)
+msgctxt "link"
+msgid "Anjuta"
+msgstr "Anjuta"
+
+#: C/index.page:9(info/title)
+msgctxt "text"
+msgid "Anjuta DevStudio"
+msgstr "Estudi de desenvolupament Anjuta"
+
+#: C/index.page:13(credit/name) C/anjuta-code-assist.page:13(credit/name)
+#: C/anjuta-code-help.page:14(credit/name)
+#: C/anjuta-code-indentation.page:14(credit/name)
+#: C/anjuta-code-symbols.page:13(credit/name)
+#: C/anjuta-glade-signals.page:10(credit/name)
+#: C/anjuta-glade-start.page:10(credit/name)
+msgid "Johannes Schmid"
+msgstr "Johannes Schmid"
+
+#: C/index.page:22(page/title)
+msgid ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
+"\">Anjuta logo</media> Anjuta DevStudio"
+msgstr ""
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
+"\">Logotip de l'Anjuta</media> Estudi de desenvolupament Anjuta"
+
+#: C/index.page:28(section/title)
+msgid "Project Management"
+msgstr "Gestió de projectes"
+
+#: C/index.page:32(section/title)
+msgid "Coding and code navigation"
+msgstr "Programació i navegació pel codi"
+
+#: C/index.page:36(section/title)
+msgid "Building Project"
+msgstr "Construcció de projectes"
+
+#: C/index.page:40(section/title)
+msgid "Debugging Program"
+msgstr "Depuració del programa"
+
+#: C/index.page:44(section/title)
+msgid "User interface editor"
+msgstr "Editor d'interfícies d'usuari"
+
+#: C/index.page:48(section/title)
+msgid "Reference"
+msgstr "Referència"
+
+#: C/anjuta-code-assist.page:9(info/desc)
+msgid "Configure and use the integrated editor features"
+msgstr ""
+
+#: C/anjuta-code-assist.page:18(page/title)
+msgid "Autocompletion and calltips"
+msgstr ""
+
+#: C/anjuta-code-assist.page:21(section/title)
+msgid "Autocompletion"
+msgstr ""
+
+#: C/anjuta-code-assist.page:22(section/p)
+msgid ""
+"Autocompletion automatically suggests functions and other code symbols after "
+"you start typing by trying to match existing symbols with the first "
+"characters typed. It will popup a drop-down menu where you can select a "
+"match by using the <key>Enter</key> key. Normally this happens automaticly "
+"after you typed the third (non-whitespace) character but you can also force "
+"it by using the <guiseq><gui>Edit</gui><gui>Auto-Complete</gui></guiseq> "
+"menu item."
+msgstr ""
+
+#: C/anjuta-code-assist.page:31(note/p)
+msgid ""
+"Anjuta supports autocompletion for code written in C/C++, Vala, Javascript "
+"and Python. Note that autocompletion can only work if anjuta knows about the "
+"symbols used. If you are using C/C++ libraries that are not configured using "
+"<cmd>pkg-config</cmd> and/or not added to the project configuration, anjuta "
+"won't be able to find those symbols and autocompletion might not work."
+msgstr ""
+
+#: C/anjuta-code-assist.page:38(note/p)
+msgid ""
+"In addition some syntax might be too complex for the integrated parser and "
+"it might not be able to detect which completion is required"
+msgstr ""
+
+#: C/anjuta-code-assist.page:44(section/title)
+msgid "Effective coding using calltips"
+msgstr ""
+
+#: C/anjuta-code-assist.page:46(section/p)
+msgid ""
+"As it is usually quite hard to remember the signature of every method or "
+"function used in a project, the editor will automatically display a small "
+"tooltip whenever you type '(' after a function name and show you the "
+"signature."
+msgstr ""
+
+#: C/anjuta-code-help.page:9(info/desc)
+msgid "Quickly find the information you need in the API documentation"
+msgstr ""
+
+#: C/anjuta-code-help.page:19(page/title)
+msgid "Using the API reference"
+msgstr ""
+
+#: C/anjuta-code-help.page:22(section/title)
+msgid "Browsing the API reference"
+msgstr ""
+
+#: C/anjuta-code-help.page:24(section/p)
+msgid ""
+"For a quick access to the API reference of libraries, anjuta features an "
+"integrated API browser. If not already done it can be activated in the "
+"preferences (<guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>) in "
+"<guiseq><gui>General</gui><gui>Plugins</gui></guiseq> by choosing the "
+"<app>DevHelp</app> plugin."
+msgstr ""
+
+#: C/anjuta-code-help.page:30(section/p)
+msgid ""
+"The API reference has two windows, one for searching for a specific symbol "
+"and the browser for viewing the help documents."
+msgstr ""
+
+#: C/anjuta-code-help.page:36(section/title)
+msgid "Jump to the API reference using shortcuts in the editor"
+msgstr ""
+
+#: C/anjuta-code-help.page:38(section/p)
+msgid ""
+"In case you are unsure how a specific function used in existing code works, "
+"simply place the cursor on the function name and use <keyseq><key>Shift</"
+"key><key>F1</key></keyseq> (or <guiseq><gui>Help</gui><gui>Context-Help</"
+"gui></guiseq>) to jump to the documentation."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:9(info/desc)
+msgid "Configure and use automatic indentation for a consistent coding style"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:19(page/title)
+msgid "Auto-indentation"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:22(section/title)
+msgid "Configuring and using auto-indentation"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:25(section/title)
+msgid "Manual configuration"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:27(section/p)
+msgid ""
+"Automatic indentation is configured in the preferences (<guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>) in the tab corresponding to the used "
+"programming language. The indentation width for several types of statements "
+"can be set there."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:32(section/p)
+msgid ""
+"The big disadvantage of manually configuring indentation is that all "
+"developers working on a project must use the same settings or it will result "
+"if different styles used in the same files. For a better solution, see the "
+"next section."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:38(note/p)
+msgid ""
+"Unless explicitely changed in the preferences the indentation settings found "
+"in the Modeline of a file will be used instead of the configured settings to "
+"keep the file consistent."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:45(section/title)
+msgid "Modelines"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:47(section/p)
+msgid ""
+"Modelines are used to help editors to automatically detect the indentation "
+"mode which should be used for a particular file. They are especially useful "
+"if many developers work on the same project and use different environments."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:51(section/p)
+msgid ""
+"Anjuta supports modelines in the two formats used by <app>Vim</app> and "
+"<app>Emacs</app>."
+msgstr ""
+
+#: C/anjuta-code-indentation.page:59(section/title)
+msgid "Indenting blocks of code"
+msgstr ""
+
+#: C/anjuta-code-indentation.page:61(section/p)
+msgid ""
+"Normally new lines are approprietely indented automatically but you can "
+"indent existing lines or all selected code with the <guiseq><gui>Edit</"
+"gui><gui>Auto-Indent</gui></guiseq> menu item."
+msgstr ""
+
+#: C/anjuta-code-symbols.page:9(info/desc)
+msgid "Efficient ways to nagivate through source code"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:18(page/title)
+msgid "Code navigation using the symbol browser"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:21(section/title)
+msgid "Using the symbol browser"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:22(section/p)
+msgid ""
+"The symbol browser allows you to get an overview over the symbols used in "
+"your project. Symbols refers to variables, functions/methods and classes "
+"here and the exact definition depends on the programming language used."
+msgstr ""
+
+#: C/anjuta-code-symbols.page:26(section/p)
+msgid "The symbol browser has three tabs:"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:28(item/p)
+msgid "<gui>File</gui> shows the symbols of the current file in the editor"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:29(item/p)
+msgid "<gui>Project</gui> shows all symbols of the project"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:30(item/p)
+msgid ""
+"<gui>Search</gui> lets you search the symbols in the project (use "
+"<keyseq><key>Ctrl</key><key>L</key></keyseq> to jump directly to the search "
+"box)"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:34(section/p)
+msgid "Double click on jumps to the definition of the symbol in the editor."
+msgstr ""
+
+#: C/anjuta-code-symbols.page:38(section/title)
+msgid "Navigating in the editor"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:39(section/p)
+msgid ""
+"In the <gui>Goto</gui> popup-menu of the editor there two items that help "
+"you to quickly navigate through the source code:"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:43(item/p)
+msgid "<gui>Symbol definition</gui>"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:44(item/p)
+msgid "<gui>Symbol declaration</gui>"
+msgstr ""
+
+#: C/anjuta-code-symbols.page:47(section/p)
+msgid ""
+"If you want to go back to the position in the editor where you used the "
+"shown items in the <gui>Goto</gui> menu you can use the <gui>Previous "
+"history</gui> (and <gui>Next history</gui>) items in the same menu."
+msgstr ""
+
+#: C/anjuta-glade-signals.page:15(page/title)
+msgid "Autoconnecting signals"
+msgstr ""
+
+#: C/anjuta-glade-signals.page:18(section/title)
+msgid "Add signals to the signal editor"
+msgstr ""
+
+#: C/anjuta-glade-signals.page:22(section/title)
+msgid "Create the signal handler"
+msgstr ""
+
+#: C/anjuta-glade-signals.page:25(section/title)
+msgid "C"
+msgstr ""
+
+#: C/anjuta-glade-signals.page:29(section/title)
+msgid "Python"
+msgstr ""
+
+#: C/anjuta-glade-signals.page:33(section/title)
+msgid "Vala"
+msgstr ""
+
+#: C/anjuta-glade-start.page:15(page/title)
+msgid "Getting started with the user interface editor"
+msgstr ""
+
+#: C/anjuta-glade-start.page:18(section/title)
+msgid "Start the user-interface editor"
+msgstr ""
+
+#: C/anjuta-glade-start.page:21(section/title)
+msgid "Create a new user-interface file"
+msgstr ""
+
+#: C/anjuta-glade-start.page:25(section/title)
+msgid "Open an existing user-interface file"
+msgstr ""
+
+#: C/anjuta-glade-start.page:31(section/title)
+msgid "Add widgets"
+msgstr ""
+
+#: C/anjuta-glade-start.page:34(section/title)
+msgid "Organize widgets in containers"
+msgstr ""
+
+#: C/anjuta-glade-start.page:38(section/title)
+msgid "Common widgets and what they are used for"
+msgstr ""
+
+#: C/anjuta-glade-start.page:44(section/title)
+msgid "Add widget properties"
+msgstr ""
+
+#: C/anjuta-glade-start.page:48(section/title)
+msgid "Generating code for widgets"
+msgstr ""
+
+#: C/anjuta-glade-start.page:51(section/title)
+#: C/introduction.page:7(info/title) C/introduction.page:12(page/title)
+msgid "Introduction"
+msgstr ""
+
+#: C/anjuta-glade-start.page:52(section/p)
+msgid ""
+"In a GUI program, sometimes, some widgets are only important for generating "
+"events (eg: static buttons) while other ones are needed to get or show data "
+"to the user (eg: a text entry). In this later case, some code has to be "
+"generated so that these widgets can be accessed at runtime. With the glade "
+"plug-in, <app>Anjuta</app> is able to automatically generate such code."
+msgstr ""
+
+#: C/anjuta-glade-start.page:62(section/title)
+msgid "Automatic generation"
+msgstr ""
+
+#: C/anjuta-glade-start.page:63(section/p)
+msgid ""
+"To automatically generate code for a widget, some conditions must be met: "
+"the glade plug-in must be running and the source file that will hold the "
+"code must be opened. To make sure that the glade plug-in is running, it is "
+"enough to open the <file>.ui</file> file that holds the UI for the current "
+"project. By default, the file that will hold the code for the widgets is the "
+"same one where callbacks will be created (eg: <file>application.c</file>). "
+"Both files can easily be found in the project file list and are "
+"automatically created by the project template."
+msgstr ""
+
+#: C/anjuta-glade-start.page:73(section/p)
+msgid ""
+"Once the glade plug-in is running and the file that will hold the code is "
+"being viewed, simply double click a widget in the glade inspector. The file "
+"being viewed will then be scanned for some marker comments (/* ANJUTA: "
+"Widgets declaration for application.ui - DO NOT REMOVE */ and /* ANJUTA: "
+"Widgets initialization for application.ui - DO NOT REMOVE */) and, if found, "
+"code will be added right after such comments. So, for this feature to work "
+"correctly, it is important not to modify such marker comments."
+msgstr ""
+
+#: C/autotools-project-backend.page:8(info/desc)
+msgid "Autotools project backend."
+msgstr ""
+
+#: C/autotools-project-backend.page:12(credit/name)
+#: C/autotools-project-folder-edit.page:13(credit/name)
+#: C/autotools-project-root-edit.page:14(credit/name)
+#: C/autotools-project-target-edit.page:13(credit/name)
+#: C/autotools-project-target-type.page:12(credit/name)
+#: C/autotools-build-build.page:15(credit/name)
+#: C/autotools-build-clean.page:15(credit/name)
+#: C/autotools-build-compile.page:15(credit/name)
+#: C/autotools-build-configure-dialog.page:15(credit/name)
+#: C/autotools-build-configure.page:15(credit/name)
+#: C/autotools-build-distribute.page:15(credit/name)
+#: C/autotools-build-install.page:15(credit/name)
+#: C/autotools-build-plugin.page:12(credit/name)
+#: C/autotools-build-preferences-dialog.page:14(credit/name)
+#: C/debug-breakpoint-dialog.page:14(credit/name)
+#: C/debug-breakpoint.page:13(credit/name) C/debug-cpu.page:13(credit/name)
+#: C/debug-custom.page:13(credit/name) C/debug-data.page:13(credit/name)
+#: C/debug-execute.page:13(credit/name)
+#: C/debug-expression.page:13(credit/name)
+#: C/debug-information.page:13(credit/name) C/debug-local.page:13(credit/name)
+#: C/debug-process-dialog.page:13(credit/name)
+#: C/debug-run.page:15(credit/name) C/debug-stack.page:13(credit/name)
+#: C/debug-step.page:13(credit/name) C/debug-tips.page:13(credit/name)
+#: C/debug-watch.page:13(credit/name)
+#: C/directory-project-backend.page:12(credit/name)
+#: C/language-support-cpp-modelines-emacs.page:13(credit/name)
+#: C/language-support-cpp-modelines-vim.page:13(credit/name)
+#: C/makefile-project-backend.page:12(credit/name)
+#: C/project-import.page:15(credit/name)
+#: C/project-manager-folder-add.page:13(credit/name)
+#: C/project-manager-folder.page:15(credit/name)
+#: C/project-manager-folder-remove.page:13(credit/name)
+#: C/project-manager-library-add.page:14(credit/name)
+#: C/project-manager-library.page:17(credit/name)
+#: C/project-manager-library-remove.page:14(credit/name)
+#: C/project-manager-module-add.page:14(credit/name)
+#: C/project-manager-module-new.page:16(credit/name)
+#: C/project-manager-module-remove.page:14(credit/name)
+#: C/project-manager-package-remove.page:13(credit/name)
+#: C/project-manager.page:12(credit/name)
+#: C/project-manager-root.page:16(credit/name)
+#: C/project-manager-source-add.page:13(credit/name)
+#: C/project-manager-source.page:16(credit/name)
+#: C/project-manager-source-remove.page:13(credit/name)
+#: C/project-manager-target-add.page:13(credit/name)
+#: C/project-manager-target.page:16(credit/name)
+#: C/project-manager-target-remove.page:13(credit/name)
+#: C/project-manager-treeview.page:12(credit/name)
+#: C/project-wizard-create.page:14(credit/name)
+#: C/project-wizard-template.page:13(credit/name)
+#: C/run-parameters-dialog.page:15(credit/name) C/run-run.page:15(credit/name)
+#: C/widget-index.page:11(credit/name)
+msgid "Sébastien Granjoux"
+msgstr ""
+
+#: C/autotools-project-backend.page:16(credit/name)
+#: C/autotools-build-build.page:19(credit/name)
+#: C/debug-breakpoint-dialog.page:18(credit/name)
+#: C/debug-breakpoint.page:17(credit/name) C/debug-cpu.page:17(credit/name)
+#: C/debug-custom.page:17(credit/name) C/debug-expression.page:17(credit/name)
+#: C/debug-information.page:17(credit/name) C/debug-local.page:17(credit/name)
+#: C/debug-process-dialog.page:17(credit/name)
+#: C/debug-run.page:19(credit/name) C/debug-stack.page:17(credit/name)
+#: C/debug-step.page:17(credit/name) C/debug-tips.page:17(credit/name)
+#: C/debug-watch.page:17(credit/name)
+#: C/directory-project-backend.page:16(credit/name)
+#: C/full-index.page:11(credit/name)
+#: C/makefile-project-backend.page:16(credit/name)
+#: C/project-import.page:19(credit/name)
+#: C/project-manager-library-add.page:18(credit/name)
+#: C/project-manager-library-remove.page:18(credit/name)
+#: C/project-manager-module-add.page:18(credit/name)
+#: C/project-manager-module-new.page:20(credit/name)
+#: C/project-manager-module-remove.page:18(credit/name)
+#: C/project-manager-package-remove.page:17(credit/name)
+#: C/project-manager.page:16(credit/name)
+#: C/project-manager-source-add.page:17(credit/name)
+#: C/project-manager-source-remove.page:17(credit/name)
+#: C/project-manager-target-add.page:17(credit/name)
+#: C/project-manager-target-remove.page:17(credit/name)
+#: C/project-wizard-create.page:18(credit/name)
+#: C/project-wizard-template.page:17(credit/name)
+#: C/run-run.page:19(credit/name)
+msgid "Philip Chimento"
+msgstr ""
+
+#: C/autotools-project-backend.page:21(page/title)
+msgid "GNU Autotools project backend plugin"
+msgstr "Connector de rerefons de projecte de GNU Autotools"
+
+#: C/autotools-project-backend.page:23(page/p)
+msgid ""
+"This is the most common project format on Linux. It has been designed to "
+"distribute source code packages on a wide range of Unix-like systems. If you "
+"have ever installed a program using <cmd>configure</cmd>, <cmd>make</cmd> "
+"and <cmd>make install</cmd>, you probably have already used it as a user."
+msgstr ""
+
+#: C/autotools-project-backend.page:31(page/p)
+msgid ""
+"It is typically a bit more difficult to use as a developer. However, it is "
+"the default backend for <app>Anjuta</app>, which has features that make it "
+"easier to use. All the project manager's features are enabled when using it. "
+"You should be able to maintain a project using the Autotools backend without "
+"writing a line in <file>configure.ac</file> or any <file>Makefile.am</file> "
+"files."
+msgstr ""
+
+#: C/autotools-project-backend.page:41(note/p)
+msgid ""
+"Autotools files give more information than a makefile, but the backend does "
+"not support all the possible tricks. If you find a project that cannot be "
+"read correctly, filing a <link href=\"https://bugzilla.gnome.org/browse.cgi?"
+"product=anjuta\">bug report</link> will be appreciated. In the meantime, as "
+"a workaround, you can use the directory project backend instead. It is much "
+"more limited but should find all source files."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:9(info/desc)
+msgid "Edit autotools folder properties."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:18(page/title)
+msgid "Edit an Autotools Folder"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:20(page/p)
+msgid ""
+"These properties allows you to define common properties for all targets "
+"belonging to this folder."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:25(item/title)
+#: C/autotools-project-target-edit.page:30(item/title)
+msgid "<gui>C compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:26(item/p)
+msgid ""
+"The flags to pass to the C compiler if a per target value is not defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:30(item/title)
+#: C/autotools-project-target-edit.page:35(item/title)
+msgid "<gui>C preprocessor flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:31(item/p)
+msgid ""
+"These flags are passed to every compilation that invokes the C preprocessor. "
+"This value is ignored if these flags are defined for the target."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:36(item/title)
+#: C/autotools-project-target-edit.page:41(item/title)
+msgid "<gui>C++ compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:37(item/p)
+msgid ""
+"The flags to pass to the C++ compiler flags if a per target value is not "
+"defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:41(item/title)
+#: C/autotools-project-target-edit.page:58(item/title)
+msgid "<gui>Fortran compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:42(item/p)
+msgid ""
+"The flags to pass to the Fortran 9x compiler if a per target value is not "
+"defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:46(item/title)
+msgid "<gui>Installation directories</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:47(item/p)
+msgid ""
+"This defines installation directories. It is needed if you want to install "
+"files in custom directories."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:51(item/title)
+#: C/autotools-project-target-edit.page:76(item/title)
+msgid "<gui>Java compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:52(item/p)
+msgid ""
+"The flags to pass to the Java compiler if a per target value is not defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:56(item/title)
+#: C/autotools-project-target-edit.page:87(item/title)
+msgid "<gui>Lex/Flex compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:57(item/p)
+msgid ""
+"The flags to pass to the scanner generator Lex or Flex if a per target value "
+"is not defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:61(item/title)
+#: C/autotools-project-target-edit.page:100(item/title)
+msgid "<gui>Linker flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:62(item/p)
+msgid "The flags to pass to the linker if a per target value is not defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:65(item/title)
+#: C/autotools-project-target-edit.page:111(item/title)
+msgid "<gui>Objective C compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:66(item/p)
+msgid ""
+"The flags to pass to the Objective C compiler if a per target value is not "
+"defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:70(item/title)
+#: C/autotools-project-target-edit.page:117(item/title)
+msgid "<gui>Vala compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:71(item/p)
+msgid ""
+"The flags to pass to the Vala compiler if a per target value is not defined."
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:75(item/title)
+#: C/autotools-project-target-edit.page:123(item/title)
+msgid "<gui>Yacc/Bison compiler flags</gui>"
+msgstr ""
+
+#: C/autotools-project-folder-edit.page:76(item/p)
+msgid ""
+"The flags to pass to the parser generator Bison or Yacc if a per target "
+"value is not defined."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:10(info/desc)
+msgid "Edit autotools project properties."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:19(page/title)
+msgid "Edit Autotools Project Properties"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:21(page/p)
+msgid "These are the properties of the root item."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:25(item/title)
+msgid "<gui>Backend</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:26(item/p)
+msgid ""
+"This the project backend used by the project: Autotools. Another backend can "
+"be selected by clicking on this button. It can be useful if the current "
+"backend has some troubles to parse your project files."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:32(item/title)
+msgid "<gui>Name</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:33(item/p)
+msgid "The name of your project. It can contains space."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:36(item/title)
+msgid "<gui>Version</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:37(item/p)
+msgid "This is the project version."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:40(item/title)
+msgid "<gui>Bug report URL</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:41(item/p)
+msgid ""
+"This is an URL allowing to send bug report, by example an email address or a "
+"link to a bug tracker. It is optional."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:45(item/title)
+msgid "<gui>Package name</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:46(item/p)
+msgid ""
+"This is the name of distribution package, it shouldn't contain spaces. It is "
+"optional."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:50(item/title)
+msgid "<gui>URL</gui>"
+msgstr ""
+
+#: C/autotools-project-root-edit.page:51(item/p)
+msgid "This is the home page of the project. It is optional."
+msgstr ""
+
+#: C/autotools-project-root-edit.page:55(page/p)
+msgid ""
+"In addition, the root item works as a folder and has all its properties. See "
+"<link xref=\"autotools-project-folder-edit\"/> to see the list."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:9(info/desc)
+msgid "Edit autotools target properties."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:18(page/title)
+msgid "Edit an Autotools Target"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:20(page/p)
+msgid ""
+"Here is a list of all target properties used in autotools project. Some of "
+"them are not available on all targets."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:25(item/title)
+msgid "<gui>Build for check only</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:26(item/p)
+msgid ""
+"If checked, this target is not installed and has to be built only when "
+"running checks."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:31(item/p)
+msgid ""
+"The flags to pass to the C compiler when compiling target source files. This "
+"value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:36(item/p)
+msgid ""
+"These flags are passed to every compilation that invokes the C preprocessor. "
+"This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:42(item/p)
+msgid ""
+"The flags to pass to the C++ compiler flags when compiling target source "
+"files. This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:47(item/title)
+msgid "<gui>Do not install</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:48(item/p)
+msgid ""
+"If checked, this target is not installed. It can be used for utilities used "
+"to build other target or programs used only by developers."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:53(item/title)
+msgid "<gui>Do not use prefix</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:54(item/p)
+msgid ""
+"If checked, do not add prefix to manual page and executable. Such prefix are "
+"used to provide alternative of system tools."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:59(item/p)
+msgid ""
+"The flags to pass to the Fortran 9x compiler when compiling target source "
+"files. This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:64(item/title)
+msgid "<gui>Include in distribution</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:65(item/p)
+msgid "If checked, include the target in the distribution package."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:68(item/title)
+msgid "<gui>Installation directory</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:69(item/p)
+msgid ""
+"It defines where the target is installed. It is not directly the directory "
+"where the files are installed but the name of one of the standard directory "
+"variable (bindir, sbindir, libdir, libexecdir, datadir, pkgdatadir, "
+"pkglibexecdir, includedir, mandir, infodir, docdir) or a custom variable "
+"defined in the folder properties."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:77(item/p)
+msgid ""
+"The flags to pass to the Java compiler when compiling target source files. "
+"This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:82(item/title)
+msgid "<gui>Keep target path</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:83(item/p)
+msgid ""
+"If checked, keep the hierarchy of the project directory when installing "
+"files."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:88(item/p)
+msgid ""
+"The flags to pass to the scanner generator Lex or Flex when generating "
+"target source files. This value overrides the one eventually defined in the "
+"parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:93(item/title)
+msgid "<gui>Libraries</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:94(item/p)
+msgid ""
+"Specify additional libraries used by the target. Useful for adding non "
+"package libraries. See <link xref=\"project-manager-library\">Add non-"
+"packaged libraries</link> page for more details."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:101(item/p)
+msgid ""
+"The flags to pass to the linker when linking the target. This value "
+"overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:105(item/title)
+msgid "<gui>Manual section</gui>"
+msgstr ""
+
+#: C/autotools-project-target-edit.page:106(item/p)
+msgid ""
+"Specify the section of the manual where to add man page. Valid section name "
+"are the digits ‘0’ through ‘9’, and the letters ‘l’ and ‘n’."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:112(item/p)
+msgid ""
+"The flags to pass to the Objective C compiler when compiling target source "
+"files. This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:118(item/p)
+msgid ""
+"The flags to pass to the Vala compiler when compiling target source files. "
+"This value overrides the one eventually defined in the parent folder."
+msgstr ""
+
+#: C/autotools-project-target-edit.page:124(item/p)
+msgid ""
+"The flags to pass to the parser generator Bison or Yacc when generating "
+"target source files. This value overrides the one eventually defined in the "
+"parent folder."
+msgstr ""
+
+#: C/autotools-project-target-type.page:8(info/desc)
+msgid "Autotools target type."
+msgstr ""
+
+#: C/autotools-project-target-type.page:17(page/title)
+msgid "Autotools project type"
+msgstr ""
+
+#: C/autotools-project-target-type.page:19(page/p)
+msgid "There are different types of target available."
+msgstr ""
+
+#: C/autotools-project-target-type.page:23(item/title)
+msgid "Shared Library (Libtool)"
+msgstr ""
+
+#: C/autotools-project-target-type.page:24(item/p)
+msgid ""
+"It represents a library shared by several programs which is linked at run "
+"time. It is the most common kind of libraries on Linux. It is called dynamic "
+"link library on Windows."
+msgstr ""
+
+#: C/autotools-project-target-type.page:27(item/p)
+msgid ""
+"It uses the Libtool package. Its name must start with 'lib' and has the '."
+"la' extension."
+msgstr ""
+
+#: C/autotools-project-target-type.page:31(item/title)
+msgid "Module (Libtool)"
+msgstr ""
+
+#: C/autotools-project-target-type.page:32(item/p)
+msgid ""
+"It represents a library, often named a plugin, linked at run time "
+"explicitely by the program itself. It is used to only load the code "
+"corresponding to the used features."
+msgstr ""
+
+#: C/autotools-project-target-type.page:35(item/p)
+msgid ""
+"It uses the Libtool package. Its name does not need the 'lib' prefix but "
+"must have the '.la' extension."
+msgstr ""
+
+#: C/autotools-project-target-type.page:39(item/title)
+msgid "Static Library (Libtool)"
+msgstr ""
+
+#: C/autotools-project-target-type.page:40(item/p)
+msgid ""
+"It represents a library linked with the program at compile time. Only the "
+"function used are kept inside the generated executable."
+msgstr ""
+
+#: C/autotools-project-target-type.page:42(item/p)
+msgid ""
+"It uses the Libtool package. Its name must start with 'lib' and has the '.a' "
+"extension."
+msgstr ""
+
+#: C/autotools-project-target-type.page:46(item/title)
+msgid "Program"
+msgstr ""
+
+#: C/autotools-project-target-type.page:47(item/p)
+msgid ""
+"It represents compiled program by example from C souces files. All children "
+"represent the source files compiled to generate the program."
+msgstr ""
+
+#: C/autotools-project-target-type.page:52(item/title)
+msgid "Python module"
+msgstr ""
+
+#: C/autotools-project-target-type.page:53(item/p)
+msgid "It represents a program written in Python."
+msgstr ""
+
+#: C/autotools-project-target-type.page:56(item/title)
+msgid "Java module"
+msgstr ""
+
+#: C/autotools-project-target-type.page:57(item/p)
+msgid "It represents a progran written in Java."
+msgstr ""
+
+#: C/autotools-project-target-type.page:60(item/title)
+msgid "LISP module"
+msgstr ""
+
+#: C/autotools-project-target-type.page:61(item/p)
+msgid "It represents a progran written in LISP."
+msgstr ""
+
+#: C/autotools-project-target-type.page:64(item/title)
+msgid "Header files"
+msgstr "Fitxers de capçalera"
+
+#: C/autotools-project-target-type.page:65(item/p)
+msgid ""
+"This target allows you to group header files and define where they have to "
+"be installed."
+msgstr ""
+
+#: C/autotools-project-target-type.page:69(item/title)
+msgid "Man documentation"
+msgstr ""
+
+#: C/autotools-project-target-type.page:70(item/p)
+msgid "It groups man pages needed by the project."
+msgstr ""
+
+#: C/autotools-project-target-type.page:73(item/title)
+msgid "Info documentation"
+msgstr ""
+
+#: C/autotools-project-target-type.page:74(item/p)
+msgid "It groups info page needed by the project."
+msgstr ""
+
+#: C/autotools-project-target-type.page:77(item/title)
+msgid "Miscellaneous Data"
+msgstr ""
+
+#: C/autotools-project-target-type.page:78(item/p)
+msgid ""
+"It groups data files which needed by the project like pictures, ui "
+"description, settings files..."
+msgstr ""
+
+#: C/autotools-project-target-type.page:82(item/title)
+msgid "Script"
+msgstr ""
+
+#: C/autotools-project-target-type.page:83(item/p)
+msgid ""
+"It represents program those are scripts. Those scripts are only installed in "
+"the specified directory. If scripts are generated additional rules are "
+"needed."
+msgstr ""
+
+#: C/autotools-build-build.page:11(info/desc)
+msgid "Build targets or project."
+msgstr ""
+
+#: C/autotools-build-build.page:24(page/title)
+msgid "Build targets"
+msgstr ""
+
+#: C/autotools-build-build.page:25(page/p)
+msgid ""
+"A target is a file created from source files. Typically, it is a program or "
+"a library, but it could also be documentation if the documentation needs "
+"processing, for example."
+msgstr ""
+
+#: C/autotools-build-build.page:30(page/p)
+msgid ""
+"The build command compiles all needed source files, and possibly links them "
+"with some other files, like libraries, in order to create the target. If "
+"some source files are already compiled and haven't been modified, they are "
+"not be recompiled, in order to save time. There are several ways to trigger "
+"a build."
+msgstr ""
+
+#: C/autotools-build-build.page:39(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build</"
+"gui></guiseq> or press <key>F7</key> to build all targets in the same "
+"directory as the currently opened file."
+msgstr ""
+
+#: C/autotools-build-build.page:48(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build "
+"Project</gui></guiseq> or press <keyseq><key>Shift</key><key>F7</key></"
+"keyseq> to build the complete project. All subdirectories are built "
+"recursively."
+msgstr ""
+
+#: C/autotools-build-build.page:57(item/p)
+#: C/autotools-build-clean.page:45(item/p)
+#: C/autotools-build-install.page:50(item/p)
+msgid "From the <gui>file manager pane</gui>, select a file or a directory."
+msgstr ""
+
+#: C/autotools-build-build.page:62(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></guiseq> to "
+"build all targets in the directory currently selected or the parent "
+"directory of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-build.page:72(item/p)
+#: C/autotools-build-clean.page:60(item/p)
+#: C/autotools-build-install.page:65(item/p)
+msgid ""
+"From the <gui>project manager pane</gui>, select a source file or a target."
+msgstr ""
+
+#: C/autotools-build-build.page:77(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appear and select <guiseq><gui>Build</gui><gui>Build</gui></"
+"guiseq> to build all targets in the directory containing the currently "
+"selected file or target."
+msgstr ""
+
+#: C/autotools-build-clean.page:11(info/desc)
+msgid "Remove built files."
+msgstr ""
+
+#: C/autotools-build-clean.page:20(page/title)
+msgid "Clean targets"
+msgstr ""
+
+#: C/autotools-build-clean.page:22(page/p)
+msgid ""
+"It can be useful to delete all files created by the build process. For "
+"example, if all dependencies are not taken into account and a modified file "
+"does not trigger a recompiling as it should, deleting all files will fix "
+"this. There are several ways to do this"
+msgstr ""
+
+#: C/autotools-build-clean.page:28(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Clean</"
+"gui></guiseq> to delete all files built in the same directory as the current "
+"edited file."
+msgstr ""
+"Per suprimir tots els fitxers construïts en el mateix directori del fitxer "
+"actual, trieu <guiseq><gui>Munta</gui><gui>Neteja</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/autotools-build-clean.page:37(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Clean "
+"Project</gui></guiseq> to delete all project built files,"
+msgstr ""
+"Per suprimir tots els fitxers construïts del projecte, trieu "
+"<guiseq><gui>Munta</gui><gui>Neteja el projecte</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/autotools-build-clean.page:50(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></guiseq> to "
+"delete all files built in the directory currently selected or the parent "
+"directory of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-clean.page:65(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Clean</gui></"
+"guiseq> to delete all built files in the directory containing the currently "
+"selected file or target."
+msgstr ""
+
+#: C/autotools-build-compile.page:11(info/desc)
+msgid "Compile files."
+msgstr ""
+
+#: C/autotools-build-compile.page:20(page/title)
+msgid "Compile files"
+msgstr ""
+
+#: C/autotools-build-compile.page:22(page/p)
+msgid ""
+"Most programming languages allow you to compile an individual source file. "
+"It reads the file, checks for errors and convert into an intermediate object "
+"file. Most errors happens in this step, so it is useful to compile a file "
+"after modifying it to check for errors. There are several ways to do it."
+msgstr ""
+
+#: C/autotools-build-compile.page:30(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Compile</"
+"gui></guiseq> or press <key>F9</key> to compile the current edited file."
+msgstr ""
+"Per compilar el fitxer actual, trieu <guiseq><gui>Munta</gui><gui>Compila</"
+"gui></guiseq> en el <gui>menú principal</gui> o premeu <key>F9</key>."
+
+#: C/autotools-build-compile.page:39(item/p)
+msgid "From the <gui>file manager pane</gui>, select a file."
+msgstr ""
+
+#: C/autotools-build-compile.page:44(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></guiseq> "
+"to compile the file currently selected in the <gui>file manager pane</gui>."
+msgstr ""
+
+#: C/autotools-build-compile.page:53(item/p)
+msgid "From the <gui>project manager pane</gui>, select a source file."
+msgstr ""
+
+#: C/autotools-build-compile.page:58(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Compile</gui></"
+"guiseq> to compile the file currently selected in the <gui>project manager "
+"pane</gui>."
+msgstr ""
+
+#: C/autotools-build-compile.page:66(note/p)
+msgid ""
+"You do not need to save your file before compiling it, it will be done "
+"automatically by <app>Anjuta</app> if needed."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:11(info/desc)
+msgid "Autotools configure dialog"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:20(page/title)
+msgid "Autotools Configure Dialog"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:22(page/p)
+msgid ""
+"The <gui>Configure</gui> dialog allows you to set the following options and "
+"configure the project."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:29(item/title)
+msgid "<gui>Regenerate Project</gui>"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:30(item/p)
+msgid ""
+"If checked, the project will be completely regenerated, else only the "
+"configure step is done. <app>Anjuta</app> automatically checks this check "
+"box when needed so you can leave it in its current state."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:37(item/title)
+msgid "<gui>Configuration</gui>"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:38(item/p)
+msgid ""
+"You can have several configurations having their own options and build "
+"directory, this text box allows to name them. Typically you have already "
+"defined a Default configuration, a Debug configuration making programs "
+"easier to debug (keeping intermediate variables and code ordering) and an "
+"Optimized configuration generating faster programs but increasing build "
+"time. You can define additional custom configurations."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:49(item/title)
+msgid "<gui>Build Directory</gui>"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:50(item/p)
+msgid ""
+"Select here the build directory. It can be the project directory or a "
+"subdirectory. This is particularly useful when switching between different "
+"configurations to avoid rebuilding the whole project."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:56(note/p)
+msgid ""
+"With autotools, you cannot have one configuration using a different "
+"directory if you already have one configuration using the project directory. "
+"You need to remove it first."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:63(note/p)
+msgid ""
+"Some autotools project cannot be built outside the project directory. You "
+"can still use different configurations but they all have to use the project "
+"directory and everything will be recompiled on each change of the "
+"configuration."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:72(item/title)
+msgid "<gui>Configure Options</gui>"
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:73(item/p)
+msgid ""
+"This text box list all command line arguments used by the configure step. "
+"All arguments are separated by spaces and must be quoted if they contains a "
+"space. Each configuration fills this text box with default values that you "
+"can modify."
+msgstr ""
+
+#: C/autotools-build-configure-dialog.page:80(note/p)
+msgid ""
+"Each autotools project supports a common list of arguments but can have "
+"specify arguments. You can have a list of all accepted arguments by running "
+"<cmd>configure --help</cmd> on the command line. You need to have configured "
+"your project at least one time to have the <cmd>configure</cmd> script."
+msgstr ""
+
+#: C/autotools-build-configure.page:11(info/desc)
+msgid "Configure an autotools project and manage configurations."
+msgstr ""
+
+#: C/autotools-build-configure.page:20(page/title)
+msgid "Configure a project"
+msgstr "Configuració d'un projecte"
+
+#: C/autotools-build-configure.page:22(page/p)
+msgid ""
+"Before compiling and building files, an autotools project has to be "
+"configured. This step is needed to set global options, to check that all "
+"required libraries and programs are installed on your system and to generate "
+"appropriate build scripts."
+msgstr ""
+
+#: C/autotools-build-configure.page:30(section/title)
+msgid "Configure the project"
+msgstr "Configureu el projecte"
+
+#: C/autotools-build-configure.page:34(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> "
+"<gui>Configure Project...</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Munta</gui> <gui>Configura el projecte...</gui></guiseq> "
+"en el <gui>menú principal</gui>."
+
+#: C/autotools-build-configure.page:40(item/p)
+msgid ""
+"Keep the default configuration, select a new configuration or create a new "
+"one. You can inspect and modify all configuration options. See <link xref="
+"\"autotools-build-configure-dialog\"/> for more information."
+msgstr ""
+
+#: C/autotools-build-configure.page:47(item/p)
+msgid "Click on <gui>Execute</gui> to configure the project."
+msgstr ""
+
+#: C/autotools-build-configure.page:53(section/p)
+msgid ""
+"The configuration could fail if some libraries or programs are not installed "
+"or do not have the right version. The error message tell you what is missing."
+msgstr ""
+
+#: C/autotools-build-configure.page:60(section/title)
+msgid "Change the configuration"
+msgstr ""
+
+#: C/autotools-build-configure.page:64(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Select "
+"Configuration</gui><gui>Another configuration</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Munta</gui><gui>Selecciona la configuració</gui><gui>Una "
+"altra configuració</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/autotools-build-configure.page:71(section/p)
+msgid ""
+"If the project has not been already configured, it will be automatically "
+"configured before building any file."
+msgstr ""
+
+#: C/autotools-build-configure.page:79(section/title)
+msgid "Remove configuration"
+msgstr ""
+
+#: C/autotools-build-configure.page:81(section/p)
+msgid ""
+"It is a like cleaning the project but it removes even more files. You need "
+"to re-configure your project to build it afterward."
+msgstr ""
+
+#: C/autotools-build-configure.page:88(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Remove "
+"Configuration</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Munta</gui> <gui>Suprimeix la configuració</gui></guiseq> "
+"en el <gui>menú principal</gui>."
+
+#: C/autotools-build-distribute.page:11(info/desc)
+msgid "Create a distribution package."
+msgstr ""
+
+#: C/autotools-build-distribute.page:20(page/title)
+msgid "Create a distribution package"
+msgstr ""
+
+#: C/autotools-build-distribute.page:22(page/p)
+msgid ""
+"The standard way to distribute a autotools project is as a compressed tar "
+"archive containing all source files. The user will have to decompress it, "
+"then compile and install it on his system using the command sequence "
+"<cmd>configure</cmd>, <cmd>make</cmd> and <cmd>make install</cmd>."
+msgstr ""
+
+#: C/autotools-build-distribute.page:30(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Build "
+"Tarball</gui></guiseq> to create a source distribution package."
+msgstr ""
+"Per crear un paquet de distribució de codi, trieu <guiseq><gui>Munta</gui> "
+"<gui>Munta un fitxer tar</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/autotools-build-install.page:11(info/desc)
+msgid "Install targets or project."
+msgstr ""
+
+#: C/autotools-build-install.page:20(page/title)
+msgid "Install targets"
+msgstr ""
+
+#: C/autotools-build-install.page:22(page/p)
+msgid ""
+"Unless your project is very simple, it needs some data files like user "
+"interface description files. These files are typically copied in standard "
+"directories and read from there. It means that you cannot run your program "
+"from the build directory. You need to install it in order to copy all these "
+"files in the final place, by example in a subdirectory of <file>/usr/local</"
+"file>."
+msgstr ""
+
+#: C/autotools-build-install.page:29(page/p)
+msgid "There are several possibilities to install targets or a project."
+msgstr ""
+
+#: C/autotools-build-install.page:33(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Install</"
+"gui></guiseq> to install all files in the same directory as the current "
+"edited file."
+msgstr ""
+"Per instal·lar tots els fitxers del mateix directori del fitxer actual, "
+"trieu <guiseq><gui>Munta</gui><gui>Instal·la</gui></guiseq> en el <gui>menú "
+"principal</gui>."
+
+#: C/autotools-build-install.page:42(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Build</gui> <gui>Install "
+"Project</gui></guiseq> to install all project files,"
+msgstr ""
+"Per instal·lar tots els fitxers del projecte, trieu <guiseq><gui>Munta</"
+"gui><gui>Instal·la el projecte</gui></guiseq> en el <gui>menú principal</"
+"gui>."
+
+#: C/autotools-build-install.page:55(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>file manager context menu</"
+"gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></guiseq> "
+"to install all files in the directory currently selected or the parent "
+"directory of the currently selected file."
+msgstr ""
+
+#: C/autotools-build-install.page:70(item/p)
+msgid ""
+"Click on the right mouse button to make the <gui>project manager context "
+"menu</gui> appears and select <guiseq><gui>Build</gui><gui>Install</gui></"
+"guiseq> to install all files in the directory containing the currently "
+"selected file or target."
+msgstr ""
+
+#: C/autotools-build-install.page:79(note/p)
+msgid ""
+"If you install the program in a system directory, you can have to use "
+"<cmd>su</cmd> or <cmd>sudo</cmd> to have enough right. See <link xref="
+"\"autotools-build-preferences-dialog\"/> for more information."
+msgstr ""
+
+#: C/autotools-build-plugin.page:8(info/desc)
+#: C/autotools-build-plugin.page:17(page/title)
+msgid "Autotools build plugin"
+msgstr ""
+
+#: C/autotools-build-plugin.page:19(page/p)
+msgid ""
+"This plugin is targeted at autotools projects but as they use make it is "
+"useful for other kind of projects using make."
+msgstr ""
+
+#: C/autotools-build-plugin.page:25(section/title)
+msgid "Make command used"
+msgstr ""
+
+#: C/autotools-build-plugin.page:26(section/p)
+msgid ""
+"Here is a list of the targets used by the plugin. They are implemented in "
+"all autotools projects but you need to implement them if you use a custom "
+"makefile."
+msgstr ""
+
+#: C/autotools-build-plugin.page:31(item/title)
+msgid "<cmd>make <var>object_file_name</var></cmd>"
+msgstr ""
+
+#: C/autotools-build-plugin.page:32(item/p)
+msgid ""
+"Use to compile an source file. The object file name is found by replacing "
+"the source file extension with the corresponding object extension."
+msgstr ""
+
+#: C/autotools-build-plugin.page:36(item/title)
+msgid "<cmd>make</cmd>"
+msgstr ""
+
+#: C/autotools-build-plugin.page:37(item/p)
+msgid "Use to build all targets in a directory."
+msgstr ""
+
+#: C/autotools-build-plugin.page:40(item/title)
+msgid "<cmd>make install</cmd>"
+msgstr ""
+
+#: C/autotools-build-plugin.page:41(item/p)
+msgid "Use to install all targets in a directory."
+msgstr ""
+
+#: C/autotools-build-plugin.page:44(item/title)
+msgid "<cmd>make clean</cmd>"
+msgstr ""
+
+#: C/autotools-build-plugin.page:45(item/p)
+msgid "Use to delete all file built in a directory."
+msgstr ""
+
+#: C/autotools-build-plugin.page:48(item/title)
+msgid "<cmd>make dist</cmd>"
+msgstr ""
+
+#: C/autotools-build-plugin.page:49(item/p)
+msgid ""
+"Use to build a distributation package, called only in the project directory."
+msgstr ""
+
+#: C/autotools-build-plugin.page:54(note/p)
+msgid ""
+"As make comes with default rules allowing it to compile and link a C program "
+"without needing a makefile. You can compile a C program from a single source "
+"file without a makefile nor a project."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:10(info/desc)
+msgid "Autotools build preferences dialog."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:19(page/title)
+msgid "Autotools Build Preferences Dialog"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:21(page/p)
+msgid "The dialog allows you to set global options for building files."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:27(item/title)
+msgid "<gui>Run several commands at a time</gui>"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:28(item/p)
+msgid ""
+"<app>make</app> is able to run several compilations at the same time. It "
+"decreases build time when having a multi-core processor but could trigger "
+"some issues so this can be enabled or disabled with this check box."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:33(item/title)
+msgid "<gui>Continue on errors</gui>"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:34(item/p)
+msgid ""
+"By default <app>make</app> stops as soon as it gets an error, it can be "
+"faster to continue and get errors for all files in one step. You have to "
+"check this check box to get this behavior."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:39(item/title)
+msgid "<gui>Translate messages</gui>"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:40(item/p)
+msgid ""
+"By default errors and warnings message are translated. It has two drawbacks "
+"though. In order to recognize errors and warnings the translation of "
+"<app>Anjuta</app> and the compiler should perfectly match. Moreover, it is "
+"often more difficult to find help on the internet when searching translated "
+"messages as they are much less common. Unchecking this check box allows to "
+"disable translation."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:48(item/title)
+msgid "<gui>Highlight build warnings and errors in editor</gui>"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:49(item/p)
+msgid ""
+"Errors and warnings during the build are displayed and highlighted in the "
+"message window. By checking this option, they are highlighted in the editor "
+"too."
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:54(item/title)
+msgid "<gui>Install as root</gui>"
+msgstr ""
+
+#: C/autotools-build-preferences-dialog.page:55(item/p)
+msgid ""
+"Installing a program needs to copy files into system directories which are "
+"often not writable by users. If this check box is checked, you can choose to "
+"use <cmd>sudo</cmd> or <cmd>su</cmd> before installing the files to acquire "
+"enough right to do it."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:10(info/desc)
+msgid "Used to create or edit a breakpoint"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:23(page/title)
+msgid "Breakpoint Dialog"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:27(item/title)
+msgid "<gui>Location</gui>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:28(item/p)
+msgid ""
+"This is the position of the breakpoint. For an existing breakpoint, you "
+"cannot change this. You can set a breakpoint at a certain line number, or at "
+"the beginning of a function. Use one of the following formats:"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:33(item/p)
+msgid "<var>file_name</var>:<var>line_number</var>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:34(item/p)
+msgid "<var>function_name</var>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:35(item/p)
+msgid "<var>file_name</var>:<var>function_name</var>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:39(item/title)
+msgid "<gui>Condition</gui>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:40(item/p)
+msgid ""
+"The break condition is an expression which should evaluate to a boolean "
+"value <code>TRUE</code> (1) or <code>FALSE</code> (0). Every time the "
+"breakpoint is encountered during your program's execution, the break "
+"condition will be evaluated. The debugger will break the execution only if "
+"the result of the evaluation is <code>TRUE</code>."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:45(item/p)
+msgid ""
+"If you leave this field blank the condition is always considered <code>TRUE</"
+"code>."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:49(item/title)
+msgid "<gui>Pass Count</gui>"
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:50(item/p)
+msgid ""
+"The debugger can also skip the breakpoint a certain number of times before "
+"breaking. If the pass count is not zero, then the debugger will have to "
+"encounter the breakpoint this number of times before breaking."
+msgstr ""
+
+#: C/debug-breakpoint-dialog.page:53(item/p)
+msgid ""
+"The pass count has a higher priority than the condition. Only when the pass "
+"count has been reached will the debugger evaluate the condition if it is "
+"present and break the program's execution."
+msgstr ""
+
+#: C/debug-breakpoint.page:9(info/desc)
+msgid "Managing breakpoints."
+msgstr ""
+
+#: C/debug-breakpoint.page:22(page/title)
+msgid "Breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:24(page/p)
+msgid ""
+"Breakpoints are used to stop the execution of the program at a particular "
+"point so that the state of the program can be examined at those locations."
+msgstr ""
+
+#: C/debug-breakpoint.page:28(section/title)
+msgid "Listing breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:32(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
+"<gui>Breakpoints</gui></guiseq> to open the <gui>Breakpoint</gui> window."
+msgstr ""
+"Per obrir la finestra de <gui>Punts de ruptura</gui>, trieu "
+"<guiseq><gui>Visualitza</gui><gui>Punts de ruptura</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/debug-breakpoint.page:38(section/p)
+msgid "This view has the following columns:"
+msgstr ""
+
+#: C/debug-breakpoint.page:42(item/title)
+msgid "Location"
+msgstr ""
+
+#: C/debug-breakpoint.page:43(item/p)
+msgid ""
+"This is the position of the breakpoint in the source file. When the "
+"breakpoint is set by the debugger, you can get additional information such "
+"as the function containing the breakpoint."
+msgstr ""
+
+#: C/debug-breakpoint.page:48(item/title) C/debug-stack.page:79(item/title)
+msgid "Address"
+msgstr ""
+
+#: C/debug-breakpoint.page:49(item/p)
+msgid ""
+"This field is filled with the address of the breakpoint when it is set by "
+"the debugger."
+msgstr ""
+
+#: C/debug-breakpoint.page:53(item/title) C/debug-local.page:55(item/title)
+#: C/debug-watch.page:53(item/title)
+msgid "Type"
+msgstr ""
+
+#: C/debug-breakpoint.page:54(item/p)
+msgid ""
+"This always displays <gui>breakpoint</gui>. It will be used in a future "
+"release supporting different kinds of breakpoints."
+msgstr ""
+
+#: C/debug-breakpoint.page:58(item/title)
+msgid "Condition"
+msgstr ""
+
+#: C/debug-breakpoint.page:59(item/p)
+msgid ""
+"This is the breakpoint condition. It is empty if no condition is defined."
+msgstr ""
+
+#: C/debug-breakpoint.page:63(item/title)
+msgid "Pass count"
+msgstr ""
+
+#: C/debug-breakpoint.page:64(item/p)
+msgid ""
+"When the debugger is not running, this column displays the pass count of the "
+"breakpoint, or zero if it is not defined."
+msgstr ""
+
+#: C/debug-breakpoint.page:66(item/p)
+msgid ""
+"When the debugger is running, if the pass count is zero, this column "
+"displays the number of times this breakpoint has been triggered. If the pass "
+"count is not zero, both numbers are displayed. The pass count is the second "
+"number."
+msgstr ""
+
+#: C/debug-breakpoint.page:72(item/title)
+msgid "State"
+msgstr ""
+
+#: C/debug-breakpoint.page:73(item/p)
+msgid "This is the state of the breakpoint. It may be"
+msgstr ""
+
+#: C/debug-breakpoint.page:75(item/title)
+msgid "Pending:"
+msgstr ""
+
+#: C/debug-breakpoint.page:75(item/p)
+msgid "the breakpoint is not set in your program."
+msgstr ""
+
+#: C/debug-breakpoint.page:76(item/title)
+msgid "Permanent:"
+msgstr ""
+
+#: C/debug-breakpoint.page:76(item/p)
+msgid "the breakpoint is set (its id number is displayed in parentheses)."
+msgstr ""
+
+#: C/debug-breakpoint.page:77(item/title)
+msgid "Temporary:"
+msgstr ""
+
+#: C/debug-breakpoint.page:77(item/p)
+msgid "the breakpoint is set but will be deleted if reached."
+msgstr ""
+
+#: C/debug-breakpoint.page:83(note/p)
+msgid ""
+"All breakpoints are kept across Anjuta sessions even if they correspond to a "
+"non-existing locations, for example in a source file of a shared library not "
+"loaded yet. In this case their states are set as pending."
+msgstr ""
+
+#: C/debug-breakpoint.page:90(section/title)
+msgid "Setting breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:94(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Add "
+"Breakpoint...</gui></guiseq> or right click in the <gui>Breakpoint</gui> "
+"window and select <gui>Add Breakpoint...</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui><gui>Afegeix un punt de ruptura...</gui></"
+"guiseq> en el <gui>menú principal</gui> o feu clic amb el botó secundari a "
+"la finestra <gui>Punts de ruptura</gui> i trieu <gui>Afegeix un punt de "
+"ruptura...</gui>."
+
+#: C/debug-breakpoint.page:100(item/p)
+msgid ""
+"Fill in the <gui>Location</gui>, which is the position of the breakpoint, "
+"and the other fields if desired. If a file is currently opened in the "
+"editor, the <gui>Location</gui> defaults to the current line. See <link xref="
+"\"debug-breakpoint-dialog\"/> for more information."
+msgstr ""
+
+#: C/debug-breakpoint.page:108(section/p)
+msgid ""
+"Another solution is to use the toggle breakpoint function. If there is no "
+"breakpoint on the current line, it will add one. Otherwise, it will remove "
+"it."
+msgstr ""
+
+#: C/debug-breakpoint.page:114(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Toggle "
+"Breakpoint</gui></guiseq> or right click in the <gui>Editor</gui> window and "
+"select <gui>Toggle Breakpoint</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Commuta el punt de ruptura</gui></"
+"guiseq> en el <gui>menú principal</gui> o feu clic amb el botó secundari a "
+"la finestra de l'<gui>Editor</gui> i trieu <gui>Commuta el punt de ruptura</"
+"gui>."
+
+#: C/debug-breakpoint.page:125(section/title)
+msgid "Editing breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:127(section/p)
+msgid ""
+"You can't change the location of a breakpoint; create a new breakpoint "
+"instead. However, you can change the break condition or the pass count. To "
+"edit a breakpoint:"
+msgstr ""
+
+#: C/debug-breakpoint.page:133(item/p) C/debug-breakpoint.page:160(item/p)
+msgid "Select a breakpoint in the <gui>Breakpoint</gui> window."
+msgstr ""
+
+#: C/debug-breakpoint.page:136(item/p)
+msgid ""
+"Right click in the <gui>Breakpoint</gui> window and select <gui>Edit "
+"Breakpoint...</gui>."
+msgstr ""
+
+#: C/debug-breakpoint.page:141(item/p)
+msgid ""
+"Change the <gui>Condition</gui> or <gui>Pass Count</gui> fields and click on "
+"<gui>OK</gui> when you are done. See <link xref=\"debug-breakpoint-dialog\"/"
+"> for more information."
+msgstr ""
+
+#: C/debug-breakpoint.page:151(section/title)
+msgid "Removing breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:153(section/p)
+msgid ""
+"You can remove a breakpoint using the toggle breakpoint function described "
+"above. However, if you want to remove more than one breakpoint or the "
+"breakpoint is in a different file than the one you are editing, you can use "
+"the breakpoint window:"
+msgstr ""
+
+#: C/debug-breakpoint.page:163(item/p)
+msgid ""
+"Right click in the <gui>Breakpoint</gui> window and select <gui>Remove "
+"Breakpoint</gui>."
+msgstr ""
+
+#: C/debug-breakpoint.page:169(section/p)
+msgid "To remove all breakpoints:"
+msgstr ""
+
+#: C/debug-breakpoint.page:173(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Remove "
+"All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
+"window and select <gui>Remove All Breakpoints</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Suprimeix tots els punts de ruptura</"
+"gui></guiseq> en el <gui>menú principal</gui> o feu clic amb el botó "
+"secundari a la finestra <gui>Punts de ruptura</gui> i trieu <gui>Suprimeix "
+"tots els punts de ruptura</gui>."
+
+#: C/debug-breakpoint.page:184(section/title)
+msgid "Enabling and disabling breakpoints"
+msgstr ""
+
+#: C/debug-breakpoint.page:186(section/p)
+msgid ""
+"Sometimes you might want to disable a breakpoint temporarily instead of "
+"deleting it altogether. To disable or re-enable a breakpoint:"
+msgstr ""
+
+#: C/debug-breakpoint.page:191(item/p)
+msgid ""
+"Click on the <gui>Enable</gui> checkmark in the <gui>Breakpoint</gui> window "
+"or right click in the <gui>Breakpoint</gui> window and select <gui>Enable "
+"Breakpoint</gui> or <gui>Disable Breakpoint</gui>."
+msgstr ""
+
+#: C/debug-breakpoint.page:197(section/p)
+msgid "You can disable all breakpoints using:"
+msgstr ""
+
+#: C/debug-breakpoint.page:201(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Disable "
+"All Breakpoints</gui></guiseq> or right-click in the <gui>Breakpoint</gui> "
+"window and select <gui>Disable All Breakpoints</gui>."
+msgstr ""
+
+#: C/debug-cpu.page:9(info/desc)
+msgid "Examine CPU information."
+msgstr ""
+
+#: C/debug-cpu.page:22(page/title)
+msgid "CPU"
+msgstr ""
+
+#: C/debug-cpu.page:25(section/title)
+msgid "View CPU registers"
+msgstr ""
+
+#: C/debug-cpu.page:29(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
+"<gui>Registers</gui></guiseq> to open the <gui>Register</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Registre</gui>, trieu <guiseq><gui>Visualitza</"
+"gui> <gui>Registres</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-cpu.page:35(section/p)
+msgid ""
+"Registers whose values have changed since the last stop are in red. It is "
+"possible to change the value of any register by clicking in the value column "
+"and entering a new value."
+msgstr ""
+
+#: C/debug-cpu.page:42(section/title)
+msgid "View memory"
+msgstr ""
+
+#: C/debug-cpu.page:46(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Memory</"
+"gui></guiseq> to open the <gui>Memory</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Memòria</gui>, trieu <guiseq><gui>Visualitza</"
+"gui> <gui>Memòria</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-cpu.page:52(section/p)
+msgid ""
+"The first column displays memory addresses in hexadecimal, the second "
+"displays memory contents in hexadecimal and the last column shows memory "
+"contents in ASCII."
+msgstr ""
+
+#: C/debug-cpu.page:55(section/p) C/debug-cpu.page:82(section/p)
+msgid ""
+"The addressing space of even a 32-bit microprocessor is very large (4 "
+"gigabytes), so it is very difficult to go to a particular address with the "
+"scrollbar. But you can click the right mouse button and select <gui>Go to "
+"address</gui> to get a small edit box where you can enter an address in "
+"hexadecimal."
+msgstr ""
+
+#: C/debug-cpu.page:64(section/title)
+msgid "View Disassembly"
+msgstr ""
+
+#: C/debug-cpu.page:69(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> "
+"<gui>Disassembly</gui></guiseq> to open the <gui>Disassembly</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Desassemblador</gui>, trieu "
+"<guiseq><gui>Visualitza</gui> <gui>Desassemblador</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/debug-cpu.page:75(section/p)
+msgid ""
+"The first column displays addresses in hexadecimal. In the second column, "
+"you can have a label starting at the beginning of the line and ending with a "
+"colon or a assembly-language instruction indented by 4 space characters."
+msgstr ""
+
+#: C/debug-cpu.page:79(section/p)
+msgid ""
+"The position in the disassembly window will be changed to the program "
+"counter value when the program is stopped."
+msgstr ""
+
+#: C/debug-custom.page:9(info/desc)
+msgid "Use custom debugger command."
+msgstr ""
+
+#: C/debug-custom.page:22(page/title)
+msgid "Custom command"
+msgstr ""
+
+#: C/debug-custom.page:24(page/p)
+msgid "You can send a custom command to the debugger like this:"
+msgstr ""
+
+#: C/debug-custom.page:28(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Debugger "
+"Command</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Ordre del depurador</gui></guiseq> en "
+"el <gui>menú principal</gui>."
+
+#: C/debug-custom.page:32(item/p)
+msgid "Enter your command."
+msgstr ""
+
+#: C/debug-custom.page:36(page/p)
+msgid ""
+"The output of the command is displayed in the message window used by the "
+"debugger."
+msgstr ""
+
+#: C/debug-custom.page:40(note/p)
+msgid ""
+"The command is sent directly to the debugger without performing any checks. "
+"For example, if you set a breakpoint like this, it will not appear in the "
+"<gui>Breakpoint</gui> window. It is better to avoid using this command "
+"unless you know exactly what you are doing."
+msgstr ""
+
+#: C/debug-data.page:9(info/desc)
+msgid "Examine program Data."
+msgstr ""
+
+#: C/debug-data.page:18(page/title)
+msgid "Examine data"
+msgstr ""
+
+#: C/debug-execute.page:9(info/desc)
+msgid "Control program execution."
+msgstr ""
+
+#: C/debug-execute.page:18(page/title)
+msgid "Control execution"
+msgstr ""
+
+#: C/debug-expression.page:9(info/desc)
+msgid "Evaluate expressions and modify variables."
+msgstr ""
+
+#: C/debug-expression.page:22(page/title)
+msgid "Examine expressions"
+msgstr ""
+
+#: C/debug-expression.page:25(section/title)
+msgid "Inspect an expression and modify a variable"
+msgstr ""
+
+#: C/debug-expression.page:27(section/p)
+msgid ""
+"While you are debugging a program, you can find out the value of an "
+"expression or variable while the program is paused. It is also sometimes "
+"useful to change the value of a variable."
+msgstr ""
+
+#: C/debug-expression.page:33(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Inspect/"
+"Evaluate...</gui></guiseq> or right click in the <gui>Editor</gui> window "
+"and select <gui>Inspect/Evaluate...</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Inspecciona/avalua...</gui></guiseq> en "
+"el <gui>menú principal</gui> o feu clic amb el botó secundari a la finestra "
+"de l'<gui>Editor</gui> i trieu <gui>Inspecciona/avalua...</gui>."
+
+#: C/debug-expression.page:38(item/p)
+msgid ""
+"If the expression is a variable name, you can change its value by clicking "
+"on the <gui>Value</gui> column and entering a new value."
+msgstr ""
+
+#: C/debug-information.page:9(info/desc)
+msgid "Examine additional program information."
+msgstr ""
+
+#: C/debug-information.page:22(page/title)
+msgid "Miscellaneous information"
+msgstr ""
+
+#: C/debug-information.page:24(page/p)
+msgid ""
+"The debugger can tell you various information about the program while it is "
+"running."
+msgstr ""
+
+#: C/debug-information.page:28(section/title)
+msgid "View shared libraries"
+msgstr ""
+
+#: C/debug-information.page:32(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Info</"
+"gui><gui>Shared Libraries</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Informació</gui><gui>Biblioteques "
+"compartides</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-information.page:37(section/p)
+msgid ""
+"This opens a window which will list all shared libraries the program has "
+"loaded and their locations in memory. It also shows whether each library's "
+"symbol table is loaded or not."
+msgstr ""
+
+#: C/debug-information.page:44(section/title)
+msgid "View signals"
+msgstr ""
+
+#: C/debug-information.page:48(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Info</"
+"gui><gui>Kernel signals</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Informació</gui><gui>Senyals del nucli</"
+"gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-information.page:53(section/p)
+msgid ""
+"This lists all available signals with a small description and three columns "
+"to specify what to do when a signal is received:"
+msgstr ""
+
+#: C/debug-information.page:58(item/title)
+msgid "Stop"
+msgstr ""
+
+#: C/debug-information.page:59(item/p)
+msgid ""
+"The debugger stops the program execution when the program receives this "
+"signal."
+msgstr ""
+
+#: C/debug-information.page:63(item/title)
+msgid "Print"
+msgstr ""
+
+#: C/debug-information.page:64(item/p)
+msgid "The debugger displays the received signal."
+msgstr ""
+
+#: C/debug-information.page:67(item/title)
+msgid "Pass"
+msgstr ""
+
+#: C/debug-information.page:68(item/p)
+msgid "The debugger passes the signal to the program."
+msgstr ""
+
+#: C/debug-information.page:73(note/p)
+msgid ""
+"The context menu that is displayed when you click the right mouse button has "
+"all its items disabled because the corresponding functions are not "
+"implemented yet."
+msgstr ""
+
+#: C/debug-local.page:9(info/desc)
+msgid "Examine local variables."
+msgstr ""
+
+#: C/debug-local.page:22(page/title)
+msgid "Local variables"
+msgstr ""
+
+#: C/debug-local.page:24(page/p)
+msgid ""
+"Local variables of the current frame (the current function in which the "
+"program control is present) are displayed in the <gui>Locals</gui> window. "
+"During execution of the program (e.g. during single stepping), local "
+"variables will be updated. If any variable value was changed in the last "
+"debugging step, its value will be highlighted in red. Variables are "
+"presented in a tree form for easy view."
+msgstr ""
+
+#: C/debug-local.page:32(section/title)
+msgid "Listing local variables"
+msgstr ""
+
+#: C/debug-local.page:36(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Locals</"
+"gui></guiseq> to open the <gui>Locals</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Locals</gui>, trieu <guiseq><gui>Visualitza</gui> "
+"<gui>Locals</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-local.page:42(section/p)
+msgid ""
+"All local variables are displayed in a tree view with children used to "
+"represent structure or array members."
+msgstr ""
+
+#: C/debug-local.page:47(item/title) C/debug-watch.page:45(item/title)
+msgid "Variable"
+msgstr ""
+
+#: C/debug-local.page:48(item/p)
+msgid "The name of the variable."
+msgstr ""
+
+#: C/debug-local.page:51(item/title) C/debug-watch.page:49(item/title)
+msgid "Value"
+msgstr ""
+
+#: C/debug-local.page:52(item/p)
+msgid "The variable value."
+msgstr ""
+
+#: C/debug-local.page:56(item/p)
+msgid "The type of the variable."
+msgstr ""
+
+#: C/debug-local.page:62(section/title) C/debug-watch.page:153(section/title)
+msgid "Changing the value of a variable"
+msgstr ""
+
+#: C/debug-local.page:66(item/p)
+msgid ""
+"In the <gui>Locals</gui> window, select the variable you want to edit and "
+"double click in the <gui>Value</gui> column."
+msgstr ""
+
+#: C/debug-local.page:70(item/p)
+msgid "Type the new value."
+msgstr ""
+
+#: C/debug-process-dialog.page:9(info/desc)
+msgid "Attach to process dialog"
+msgstr ""
+
+#: C/debug-process-dialog.page:22(page/title)
+msgid "Attach to Process Dialog"
+msgstr ""
+
+#: C/debug-process-dialog.page:24(page/p)
+msgid ""
+"The <gui>Attach to process</gui> dialog allows you to select a currently "
+"running process."
+msgstr ""
+
+#: C/debug-process-dialog.page:28(item/title)
+msgid "<gui>Hide paths</gui>"
+msgstr ""
+
+#: C/debug-process-dialog.page:29(item/p)
+msgid "This hides command paths in the process list if checked."
+msgstr ""
+
+#: C/debug-process-dialog.page:32(item/title)
+msgid "<gui>Hide process parameters</gui>"
+msgstr ""
+
+#: C/debug-process-dialog.page:33(item/p)
+msgid "This hides the command line arguments in the process list if checked."
+msgstr ""
+
+#: C/debug-process-dialog.page:36(item/title)
+msgid "<gui>Display process tree</gui>"
+msgstr ""
+
+#: C/debug-process-dialog.page:37(item/p)
+msgid ""
+"If unchecked, the processes are displayed in a list. If checked, the "
+"processes are displayed in a tree."
+msgstr ""
+
+#: C/debug-run.page:11(info/desc)
+msgid "Start a program with the debugger."
+msgstr ""
+
+#: C/debug-run.page:24(page/title)
+msgid "Debug a program"
+msgstr ""
+
+#: C/debug-run.page:27(section/title)
+msgid "Start a program in the debugger"
+msgstr ""
+
+#: C/debug-run.page:29(section/p)
+msgid ""
+"The current program is defined in the <gui>Program Parameters</gui> dialog. "
+"See <link xref=\"run-parameters-dialog\"/> for more information. This "
+"program can be started in the debugger like this:"
+msgstr ""
+
+#: C/debug-run.page:35(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
+"Program</gui></guiseq> or press <keyseq><key>Shift</key><key>F12</key></"
+"keyseq>"
+msgstr ""
+"Trieu <guiseq><gui>Executa</gui> <gui>Depura el programa</gui></guiseq> en "
+"el <gui>menú principal</gui> o premeu <keyseq><key>Majúscules</key><key>F12</"
+"key></keyseq>"
+
+#: C/debug-run.page:41(note/p)
+msgid ""
+"A program can be more difficult to debug if it is highly optimized or if "
+"debugging information is missing. Whether optimization and debugging "
+"information are enabled, is defined in the configure step. Normally, there "
+"is a Debug configuration available, that turns off optimization and includes "
+"all debugging information. Anjuta displays a warning if this configuration "
+"is not used. See <link xref=\"autotools-build-configure\"/> for more "
+"information."
+msgstr ""
+
+#: C/debug-run.page:52(section/title)
+msgid "Debug an already running application"
+msgstr ""
+
+#: C/debug-run.page:54(section/p)
+msgid "The debugger can be used on an already running application."
+msgstr ""
+
+#: C/debug-run.page:58(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
+"Process...</gui></guiseq> to get a dialog listing all currently running "
+"processes."
+msgstr ""
+"Per obtenir un diàleg on es mostrin tots els processos que s'estan "
+"executant, trieu <guiseq><gui>Executa</gui> <gui>Depura el procés...</gui></"
+"guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-run.page:63(item/p)
+msgid ""
+"Select a process in the <gui>Attach to process</gui> dialog and click on "
+"<gui>Attach</gui> to start the debugger on this process. See <link xref="
+"\"debug-process-dialog\"/> for more details."
+msgstr ""
+
+#: C/debug-run.page:71(section/title)
+msgid "Debug a remote application"
+msgstr ""
+
+#: C/debug-run.page:73(section/p)
+msgid ""
+"The debugger can be used to debug an application running on another computer "
+"connected through a TCP or serial connection."
+msgstr ""
+
+#: C/debug-run.page:78(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Debug "
+"Remote...</gui></guiseq>"
+msgstr ""
+"Trieu <guiseq><gui>Executa</gui> <gui>Depura remot...</gui></guiseq> en el "
+"<gui>menú principal</gui>"
+
+#: C/debug-run.page:82(item/p)
+msgid ""
+"Select the type of the connection to the remote application, <gui>Serial "
+"Line Connection</gui> or <gui>TCP/IP Connection</gui>."
+msgstr ""
+
+#: C/debug-run.page:86(item/p)
+msgid ""
+"For a TCP connection, fill in the <gui>Address</gui> and <gui>Port</gui> "
+"fields."
+msgstr ""
+
+#: C/debug-run.page:88(item/p)
+msgid ""
+"For a serial connection, fill in the text box below with the serial device "
+"name, for example <cmd>/dev/ttyb</cmd>."
+msgstr ""
+
+#: C/debug-run.page:92(item/p)
+msgid ""
+"Click on <gui>Connect</gui> to start the debugger and connect to the remote "
+"target."
+msgstr ""
+
+#: C/debug-run.page:100(section/title)
+msgid "Stop the debugger"
+msgstr ""
+
+#: C/debug-run.page:102(section/p)
+msgid "The debugger and the program can be stopped at any time like this:"
+msgstr ""
+
+#: C/debug-run.page:106(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Stop "
+"Debugger</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Executa</gui> <gui>Atura el depurador</gui></guiseq> en "
+"el <gui>menú principal</gui>."
+
+#: C/debug-stack.page:9(info/desc)
+msgid "Examine the stack."
+msgstr ""
+
+#: C/debug-stack.page:22(page/title)
+msgid "Stack"
+msgstr ""
+
+#: C/debug-stack.page:25(section/title)
+msgid "List stack frames"
+msgstr ""
+
+#: C/debug-stack.page:27(section/p)
+msgid ""
+"A stack frame is the area of the stack associated to each function call. It "
+"lists all functions and their arguments in the sequence they were called. "
+"Each stack frame is numbered starting from 0 for the current function. You "
+"can only view the stack frames while the debugger is running."
+msgstr ""
+
+#: C/debug-stack.page:32(section/p)
+msgid ""
+"Moreover, a program can be composed of several threads. Each thread is "
+"executed independently and has its own registers, stack and local variables, "
+"but shares all global variables."
+msgstr ""
+
+#: C/debug-stack.page:38(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Stack</"
+"gui></guiseq> to open the <gui>Stack</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Pila</gui>, trieu <guiseq><gui>Visualitza</gui> "
+"<gui>Pila</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-stack.page:44(section/p)
+msgid ""
+"The stacks are displayed in a tree view having their corresponding thread as "
+"parent and displaying the following information:"
+msgstr ""
+
+#: C/debug-stack.page:49(item/title)
+msgid "Active"
+msgstr ""
+
+#: C/debug-stack.page:50(item/p)
+msgid ""
+"This contains a yellow arrow to represent the active stack frame. By default "
+"it is frame 0, the current function. All evaluations and local variables are "
+"relative to this active frame. You can change the active stack frame to "
+"examine local variables in other functions."
+msgstr ""
+
+#: C/debug-stack.page:56(item/title)
+msgid "Thread"
+msgstr ""
+
+#: C/debug-stack.page:57(item/p)
+msgid "This is a number corresponding to each thread."
+msgstr ""
+
+#: C/debug-stack.page:60(item/title)
+msgid "Frame"
+msgstr ""
+
+#: C/debug-stack.page:61(item/p)
+msgid ""
+"This is the frame number starting from 0 for the current function. The first "
+"function of your program, for example <code>main()</code> in a C program, "
+"has the highest number."
+msgstr ""
+
+#: C/debug-stack.page:66(item/title)
+msgid "File"
+msgstr ""
+
+#: C/debug-stack.page:67(item/p)
+msgid ""
+"The name of the file containing the function corresponding to this frame."
+msgstr ""
+
+#: C/debug-stack.page:71(item/title)
+msgid "Line"
+msgstr ""
+
+#: C/debug-stack.page:72(item/p)
+msgid "The line number of the function corresponding to this frame."
+msgstr ""
+
+#: C/debug-stack.page:75(item/title)
+msgid "Function"
+msgstr ""
+
+#: C/debug-stack.page:76(item/p)
+msgid "The name of the function corresponding to this frame."
+msgstr ""
+
+#: C/debug-stack.page:80(item/p)
+msgid "The address of the function corresponding to this frame."
+msgstr ""
+
+#: C/debug-stack.page:83(item/title)
+msgid "Arguments"
+msgstr ""
+
+#: C/debug-stack.page:84(item/p)
+msgid "The function arguments."
+msgstr ""
+
+#: C/debug-stack.page:92(section/title)
+msgid "Change the current stack frame or thread"
+msgstr ""
+
+#: C/debug-stack.page:96(item/p) C/debug-stack.page:116(item/p)
+msgid "In the <gui>Stack</gui> window, select the frame you want."
+msgstr ""
+
+#: C/debug-stack.page:99(item/p)
+msgid "Right-click and select <gui>Set current frame</gui>."
+msgstr ""
+
+#: C/debug-stack.page:103(section/p)
+msgid ""
+"Clicking on a stack frame in the same thread changes only the stack frame, "
+"allowing to see other local variables. But doing it in another thread will "
+"change both the stack frame and the thread. The register values will be "
+"different and the debugger will restart in the selected thread."
+msgstr ""
+
+#: C/debug-stack.page:112(section/title)
+msgid "View the current function"
+msgstr ""
+
+#: C/debug-stack.page:119(item/p)
+msgid "Double-click, or right-click and select <gui>View Source</gui>."
+msgstr ""
+
+#: C/debug-stack.page:126(section/title)
+msgid "Get a stack trace"
+msgstr ""
+
+#: C/debug-stack.page:130(item/p)
+msgid ""
+"In the <gui>Stack</gui> window, right-click and select <gui>Get stack trace</"
+"gui>."
+msgstr ""
+
+#: C/debug-step.page:9(info/desc)
+msgid "Stopping and continuing."
+msgstr ""
+
+#: C/debug-step.page:22(page/title)
+msgid "Stop and step"
+msgstr ""
+
+#: C/debug-step.page:24(page/p)
+msgid ""
+"Like a video editing session, the program can be executed in slow motion "
+"with the ability to go forward, pause, stop, and so on. This is essential "
+"for tracking program behavior. You cannot go backward yet, though."
+msgstr ""
+
+#: C/debug-step.page:30(section/title)
+msgid "Step in"
+msgstr ""
+
+#: C/debug-step.page:34(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step In</"
+"gui></guiseq> or press <key>F5</key> or click on the <gui>Step In</gui> icon "
+"in the toolbar."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Avança un pas</gui></guiseq> en el "
+"<gui>menú principal</gui>, premeu <key>F5</key> o feu clic a la icona "
+"<gui>Avança un pas</gui> de la barra d'eines."
+
+#: C/debug-step.page:40(section/p)
+msgid ""
+"Single stepping executes only one statement of the program (from the place "
+"where it has stopped) and then returns control. If the statement that is "
+"executed contains one function, the debugger tries to step inside the "
+"functions (in the sequence in which the functions are executed). Once the "
+"statement is executed and control is passed back, you can study your "
+"program's state."
+msgstr ""
+
+#: C/debug-step.page:48(note/p)
+msgid ""
+"If the <gui>Disassembly window</gui> has the focus when this command is "
+"selected, it executes only one assembler instruction."
+msgstr ""
+
+#: C/debug-step.page:55(section/title)
+msgid "Step over"
+msgstr ""
+
+#: C/debug-step.page:59(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step "
+"Over</gui></guiseq> or press <key>F6</key> or click on the <gui>Step Over</"
+"gui> icon in the toolbar."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Avança al final</gui></guiseq> en el "
+"<gui>menú principal</gui>, premeu <key>F6</key> o feu clic a la icona "
+"<gui>Avança al final</gui> de la barra d'eines."
+
+#: C/debug-step.page:65(section/p)
+msgid ""
+"Stepping over is similar to stepping except that it does not stop inside any "
+"function in the statement being executed."
+msgstr ""
+
+#: C/debug-step.page:69(note/p)
+msgid ""
+"If the <gui>Disassembly window</gui> has the focus when this command is "
+"selected, it executes only one assembler instruction, except if that "
+"instruction is a call to a subroutine, in which case the program stops when "
+"the subroutine is completed."
+msgstr ""
+
+#: C/debug-step.page:78(section/title)
+msgid "Step out"
+msgstr ""
+
+#: C/debug-step.page:82(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Step "
+"Out</gui></guiseq> or press <keyseq><key>Shift</key><key>F5</key></keyseq> "
+"or click on the <gui>Step Out</gui> icon in the toolbar."
+msgstr ""
+
+#: C/debug-step.page:88(section/p)
+msgid ""
+"Stepping out executes the current function until it returns to the calling "
+"function."
+msgstr ""
+
+#: C/debug-step.page:94(section/title)
+msgid "Run and continue"
+msgstr ""
+
+#: C/debug-step.page:98(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Run/"
+"Continue</gui></guiseq> or press <key>F4</key> or click on the "
+"<gui>Continue</gui> icon in the toolbar."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Executa/continua</gui></guiseq> en el "
+"<gui>menú principal</gui>, premeu <key>F4</key> o feu clic a la icona "
+"<gui>Continua</gui> de la barra d'eines."
+
+#: C/debug-step.page:104(section/p)
+msgid ""
+"This command restarts the program and lets it run until a breakpoint is "
+"encountered or the program exits."
+msgstr ""
+
+#: C/debug-step.page:109(section/title)
+msgid "Run To"
+msgstr "Avança fins"
+
+#: C/debug-step.page:113(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Run to "
+"Cursor</gui></guiseq> or press <key>F8</key> or click on the <gui>Run to</"
+"gui> icon in the toolbar."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Executa fins al cursor</gui></guiseq> "
+"en el <gui>menú principal</gui>, premeu <key>F8</key> o feu clic a la icona "
+"<gui>Executa fins</gui> de la barra d'eines."
+
+#: C/debug-step.page:119(section/p)
+msgid ""
+"This restarts the program and lets it run until the line or the address (if "
+"the <gui>Disassembly window</gui> has the focus) at the cursor is reached."
+msgstr ""
+
+#: C/debug-step.page:125(section/title)
+msgid "Stopping the Program"
+msgstr ""
+
+#: C/debug-step.page:129(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Pause "
+"Program</gui></guiseq> or click on the <gui>Pause</gui> icon in the toolbar."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Fes una pausa al programa</gui></"
+"guiseq> en el <gui>menú principal</gui> o feu clic a la icona <gui>Fes una "
+"pausa</gui> de la barra d'eines."
+
+#: C/debug-step.page:135(section/p)
+msgid ""
+"This interrupts the program and returns control to the debugger, allowing "
+"you to perform debugging tasks, like inspecting data or adding breakpoints."
+msgstr ""
+
+#: C/debug-tips.page:9(info/desc)
+msgid "Debugging tips and tricks."
+msgstr ""
+
+#: C/debug-tips.page:22(page/title)
+msgid "Debugging tips"
+msgstr ""
+
+#: C/debug-tips.page:25(section/title)
+msgid "Fixing GLib/GTK+ critical errors"
+msgstr ""
+
+#: C/debug-tips.page:27(section/p)
+msgid ""
+"Sometimes it can be difficult to track down where GLib critical errors are "
+"occurring, since they do not stop the program. You can set the program to "
+"stop as soon as it gets a GLib critical error, by setting the environment "
+"variable <sys>G_DEBUG</sys> to the value <sys>fatal_criticals</sys>."
+msgstr ""
+
+#: C/debug-tips.page:35(item/p)
+msgid ""
+"Open the <link xref=\"run-parameters-dialog\"/> by selecting "
+"<guiseq><gui>Run</gui><gui>Program Parameters...</gui></guiseq> from the "
+"main menu."
+msgstr ""
+
+#: C/debug-tips.page:40(item/p)
+msgid ""
+"Click the plus sign next to <gui>Environment Variables</gui> to expand the "
+"list of environment variables."
+msgstr ""
+
+#: C/debug-tips.page:44(item/p)
+msgid "Click <gui>New</gui> to add a new entry to the list."
+msgstr ""
+
+#: C/debug-tips.page:47(item/p)
+msgid ""
+"Fill in <gui>Name</gui> with <input>G_DEBUG</input> and <gui>Value</gui> "
+"with <input>fatal_criticals</input>."
+msgstr ""
+
+#: C/debug-tips.page:51(item/p)
+msgid "Click <gui>Apply</gui> to confirm the changes."
+msgstr ""
+
+#: C/debug-tips.page:54(item/p)
+msgid ""
+"Run the program with the debugger by selecting <guiseq><gui>Run</"
+"gui><gui>Debug Program</gui></guiseq> from the main menu."
+msgstr ""
+
+#: C/debug-tips.page:58(item/p)
+msgid "Use the program until the critical error occurs."
+msgstr ""
+
+#: C/debug-tips.page:61(item/p)
+msgid ""
+"When the debugger stops your program, look at the <link xref=\"debug-stack\"/"
+"> to check where this error comes from."
+msgstr ""
+
+#: C/debug-tips.page:66(section/p)
+msgid ""
+"The top function with frame number 0 is in GLib, so you have to look down in "
+"the stack. Typically the error originates from the topmost function that "
+"belongs to your program."
+msgstr ""
+
+#: C/debug-watch.page:9(info/desc)
+msgid "Monitor expressions and variables."
+msgstr ""
+
+#: C/debug-watch.page:22(page/title)
+msgid "Watch expressions"
+msgstr ""
+
+#: C/debug-watch.page:24(page/p)
+msgid ""
+"Watch expressions, or watches for short, are expressions that the debugger "
+"evaluates and prints the result of every time the program is stopped; for "
+"example, after every <link xref=\"debug-step\">single-step</link> through "
+"the program."
+msgstr ""
+
+#: C/debug-watch.page:30(section/title)
+msgid "List watched expressions"
+msgstr ""
+
+#: C/debug-watch.page:34(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>View</gui> <gui>Watches</"
+"gui></guiseq> to open the <gui>Watches</gui> window."
+msgstr ""
+"Per obrir la finestra <gui>Seguiments</gui>, trieu <guiseq><gui>Visualitza</"
+"gui> <gui>Seguiments</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/debug-watch.page:40(section/p)
+msgid ""
+"Like local variables, all watch expressions are displayed in a tree with "
+"children used to represent structure or array members."
+msgstr ""
+
+#: C/debug-watch.page:46(item/p)
+msgid "The name of the variable or the expression."
+msgstr ""
+
+#: C/debug-watch.page:50(item/p)
+msgid "The variable or expression value."
+msgstr ""
+
+#: C/debug-watch.page:54(item/p)
+msgid "The type of the variable or of the expression result."
+msgstr ""
+
+#: C/debug-watch.page:60(section/title)
+msgid "Update watches"
+msgstr ""
+
+#: C/debug-watch.page:62(section/p)
+msgid ""
+"Watch expressions can be updated automatically as soon as the program is "
+"stopped or on user request."
+msgstr ""
+
+#: C/debug-watch.page:65(section/p)
+msgid "To set a watch expression to update automatically:"
+msgstr ""
+
+#: C/debug-watch.page:69(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, select the watch you want to update "
+"automatically. Right-click and check that <gui>Automatic Update</gui> if "
+"checked. If not, select it."
+msgstr ""
+
+#: C/debug-watch.page:75(section/p)
+msgid "To update a watch expression manually:"
+msgstr ""
+
+#: C/debug-watch.page:79(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, right click and select <gui>Update Watch</"
+"gui> to update the selected watch."
+msgstr ""
+
+#: C/debug-watch.page:84(section/p)
+msgid "To update all watch expressions manually at once:"
+msgstr ""
+
+#: C/debug-watch.page:88(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, right click and select <gui>Update all</"
+"gui> to update all watches at the same time."
+msgstr ""
+
+#: C/debug-watch.page:97(section/title)
+msgid "Add a watch on an expression"
+msgstr ""
+
+#: C/debug-watch.page:99(section/p)
+msgid "To add an expression to the watch list:"
+msgstr ""
+
+#: C/debug-watch.page:103(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Add "
+"Watch...</gui></guiseq> or in the <gui>Watches</gui> window, right-click and "
+"select <gui>Add Watch...</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Afegeix un seguiment...</gui></guiseq> "
+"en el <gui>menú principal</gui> o feu clic amb el botó secundari a la "
+"finestra <gui>Seguiments</gui> i trieu <gui>Afegeix un seguiment...</gui>."
+
+#: C/debug-watch.page:108(item/p)
+msgid ""
+"Enter the expression to watch. Check <gui>Automatic Update</gui> if you want "
+"the expression to be evaluated each time the program is stopped."
+msgstr ""
+
+#: C/debug-watch.page:114(section/p)
+msgid "An expression can be evaluated and then added as a watch like this:"
+msgstr ""
+
+#: C/debug-watch.page:118(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Debug</gui> <gui>Inspect/"
+"Evaluate</gui></guiseq> or right click in the <gui>Editor</gui> window and "
+"select <gui>Inspect/Evaluate</gui>."
+msgstr ""
+"Trieu <guiseq><gui>Depura</gui> <gui>Inspecciona/avalua</gui></guiseq> en el "
+"<gui>menú principal</gui> o feu clic amb el botó secundari a la finestra de "
+"l'<gui>Editor</gui> i trieu <gui>Inspecciona/avalua</gui>."
+
+#: C/debug-watch.page:123(item/p)
+msgid ""
+"Click on <gui>Add</gui> button to add this expression to the watches list."
+msgstr ""
+
+#: C/debug-watch.page:131(section/title)
+msgid "Remove a watch"
+msgstr "Supressió d'un seguiment"
+
+#: C/debug-watch.page:133(section/p)
+msgid "You can remove an expression from the watches list."
+msgstr ""
+
+#: C/debug-watch.page:137(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, select the watch you want to remove, then "
+"right-click and select <gui>Remove Watch</gui>."
+msgstr ""
+
+#: C/debug-watch.page:142(section/p)
+msgid "All watches can be removed at the same time."
+msgstr ""
+
+#: C/debug-watch.page:146(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, right-click and select <gui>Remove all</"
+"gui>."
+msgstr ""
+
+#: C/debug-watch.page:155(section/p)
+msgid ""
+"If a watch expression corresponds to a variable, you can change its value."
+msgstr ""
+
+#: C/debug-watch.page:160(item/p)
+msgid ""
+"In the <gui>Watches</gui> window, select the variable you want to edit and "
+"double click in the <gui>Value</gui> column."
+msgstr ""
+
+#: C/debug-watch.page:164(item/p)
+msgid "Enter the new value."
+msgstr ""
+
+#: C/directory-project-backend.page:8(info/desc)
+msgid "Directory project backend."
+msgstr ""
+
+#: C/directory-project-backend.page:21(page/title)
+msgid "Directory project backend plugin"
+msgstr ""
+
+#: C/directory-project-backend.page:23(page/p)
+msgid ""
+"This is the simplest project backend. There is no project file. It works "
+"like a file viewer, considering all files matching typical source extensions "
+"(for example <file>.c</file>, <file>.py</file>) to be source files. "
+"Directories are kept in order to group source files but there is no target."
+msgstr ""
+
+#: C/directory-project-backend.page:32(page/p)
+msgid ""
+"This backend is a useful workaround if your project does not have a "
+"corresponding backend in <app>Anjuta</app> or if the appropriate backend "
+"does not fully support your project."
+msgstr ""
+
+#: C/directory-project-backend.page:38(page/p)
+msgid ""
+"It is not possible to add or change anything with a project using this "
+"backend. But if you create a source file in the project directory, with the "
+"right extension, it will be added automatically."
+msgstr ""
+
+#: C/full-index.page:8(info/desc)
+msgid "All help topics."
+msgstr ""
+
+#: C/full-index.page:16(page/title)
+msgid "Index"
+msgstr ""
+
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/introduction.page:53(media)
+msgctxt "_"
+msgid ""
+"external ref='figures/anjuta-in-action.png' "
+"md5='a31f1c85a4a14032fcd30ab6f6d6b3c0'"
+msgstr ""
+
+#: C/introduction.page:8(info/desc)
+msgid "Introduction to <app>Anjuta</app> Integrated Development Environment"
+msgstr ""
+
+#: C/introduction.page:14(page/p)
+msgid ""
+"<app>Anjuta</app> is a versatile Integrated Development Environment (IDE) "
+"for the GNOME desktop. It features a number of advanced programming "
+"facilities including project management, application wizards, interactive "
+"debugging, integrated Glade UI designer, integrated Devhelp API help, class "
+"generator, powerful source editor, symbols browsing, Git support, C/C++, "
+"Python and Vala support and more."
+msgstr ""
+
+#: C/introduction.page:23(page/p)
+msgid ""
+"<app>Anjuta</app> has a flexible and advanced docking system that allows you "
+"to lay out all the views in whatever way you like. You can drag and drop the "
+"views using drag bars and rearrange the layout."
+msgstr ""
+
+#: C/introduction.page:29(page/p)
+msgid ""
+"<app>Anjuta</app> has been designed to be simple to operate yet powerful "
+"enough to fulfill all your programming needs. We have added many new "
+"features to <app>Anjuta</app> over the course of its development. Our focus "
+"is on delivering power and usability at the same time and making your "
+"software development enjoyable without overloading your senses. We intend to "
+"continue improving and stabilizing <app>Anjuta</app> to give you the best "
+"IDE experience possible."
+msgstr ""
+
+#: C/introduction.page:39(page/p)
+msgid ""
+"We hope you will have a good time using <app>Anjuta</app>. If not, please "
+"help us make it better by reporting bugs and suggestions - this will help to "
+"improve the software, as well as helping the open source community."
+msgstr ""
+
+#: C/introduction.page:45(page/p)
+msgid ""
+"The following screenshot illustrates some of the things you will find in "
+"<app>Anjuta</app>."
+msgstr ""
+
+#: C/introduction.page:51(figure/title)
+msgid "<app>Anjuta</app> in action"
+msgstr ""
+
+#: C/introduction.page:52(figure/desc) C/introduction.page:54(media/p)
+msgid "<app>Anjuta</app> main window"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:9(info/desc)
+msgid "Supported Emacs modelines features."
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:18(page/title)
+msgid "Emacs modelines"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:20(page/p)
+msgid ""
+"Such modeline is a comment in the first line of the file, composed by a list "
+"of variable names followed by <code>:</code> and a value, separated by "
+"<code>;</code> and surrounded by <code>-*-</code>."
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:24(page/p)
+msgid "A typical <app>Emacs</app> modeline looks like this:"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:26(page/code)
+#, no-wrap
+msgid ""
+"\n"
+"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
+"  "
+msgstr ""
+"\n"
+"/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
+"  "
+
+#: C/language-support-cpp-modelines-emacs.page:30(page/p)
+#: C/language-support-cpp-modelines-vim.page:30(page/p)
+msgid "Anjuta support only the following variables."
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:34(item/title)
+msgid "<code>indent-tabs-mode</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:35(item/p)
+msgid ""
+"Set to <code>t</code> to use tabulation for indentation or <code>nil</code> "
+"to use spaces."
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:39(item/title)
+msgid "<code>tab-width</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:40(item/p)
+#: C/language-support-cpp-modelines-vim.page:48(item/p)
+msgid "Number of space characters corresponding to one tabulation character."
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:43(item/title)
+msgid "<code>c-basic-offset</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-emacs.page:44(item/p)
+#: C/language-support-cpp-modelines-vim.page:53(item/p)
+msgid "Number of space characters used to indent C code."
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:9(info/desc)
+msgid "Supported Vim modelines features."
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:18(page/title)
+msgid "Vim modelines"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:20(page/p)
+msgid ""
+"This modeline is a comment in the first line of the file which has to start "
+"with <code>vim:</code> followed by at least one space and a list of variable "
+"names with an optional value after <code>=</code> separated by space or "
+"<code>:</code>."
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:25(page/p)
+msgid "A typical <app>Vim</app> modeline looks like this:"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:27(page/code)
+#, no-wrap
+msgid ""
+"\n"
+"/* vim: set noet ts=4 sw=4: */"
+msgstr ""
+"\n"
+"/* vim: set noet ts=4 sw=4: */"
+
+#: C/language-support-cpp-modelines-vim.page:34(item/title)
+msgid "<code>expandtab</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:35(item/title)
+msgid "<code>et</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:36(item/p)
+msgid "Use spaces for indentation."
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:39(item/title)
+msgid "<code>noexpandtab</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:40(item/title)
+msgid "<code>noet</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:41(item/p)
+msgid "Use tabulation for indentation."
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:44(item/title)
+msgid "<code>softtabstop</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:45(item/title)
+msgid "<code>sts</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:46(item/title)
+msgid "<code>tabstop</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:47(item/title)
+msgid "<code>ts</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:51(item/title)
+msgid "<code>shiftwidth</code>"
+msgstr ""
+
+#: C/language-support-cpp-modelines-vim.page:52(item/title)
+msgid "<code>sw</code>"
+msgstr ""
+
+#: C/makefile-project-backend.page:8(info/desc)
+msgid "Makefile project backend."
+msgstr ""
+
+#: C/makefile-project-backend.page:21(page/title)
+msgid "Makefile project backend plugin"
+msgstr "Connector de rerefons de projecte de Makefile"
+
+#: C/makefile-project-backend.page:23(page/p)
+msgid ""
+"A makefile is probably the most common way to build software on all kinds of "
+"platforms. A makefile contains a list or rules describing which commands "
+"have to be run in order to generate a target from a list of dependencies. "
+"When building a program, the target is an object file and the dependencies "
+"are the source files. The target of one rule can be a dependency of another "
+"one, allowing several rules to be chained in order to make a final target."
+msgstr ""
+
+#: C/makefile-project-backend.page:33(page/p)
+msgid ""
+"It is a low-level, general tool, making it difficult to find all source "
+"files and targets of a project. So <app>Anjuta</app> has limited support for "
+"makefiles, reading only one makefile in the top project directory and "
+"extracting source files and targets."
+msgstr ""
+
+#: C/makefile-project-backend.page:42(note/p)
+msgid ""
+"If the project backend is not able to find all the source files, you can try "
+"to use the directory backend instead. It does not recognize any targets but "
+"should get all source files."
+msgstr ""
+
+#: C/makefile-project-backend.page:49(page/p)
+msgid ""
+"Changing properties, or adding or removing targets and source files are "
+"disabled with this backend, as automatically editing the makefile is not "
+"implemented. It has to be changed by hand using the text editor. When the "
+"makefile is saved, it is automatically reloaded though."
+msgstr ""
+
+#: C/project-import.page:11(info/desc)
+msgid "Import an existing project."
+msgstr ""
+
+#: C/project-import.page:24(page/title)
+msgid "Import a Project"
+msgstr "Importació d'un projecte"
+
+#: C/project-import.page:26(page/p)
+msgid ""
+"<app>Anjuta</app> does not have its own project format. It loads projects "
+"using already existing formats, like makefile or autotools, and does not "
+"require that other developers use it. Anjuta's own settings are stored in a "
+"file with the <file>.anjuta</file> extension and a hidden directory created "
+"in the project directory. To use a project in <app>Anjuta</app> and create "
+"these settings files, you will need to import the project. This will not "
+"modify any project files."
+msgstr ""
+
+#: C/project-import.page:38(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>File</gui> <gui>New</"
+"gui><gui>Project from Existing Sources</gui></guiseq> or <gui>Project from "
+"Existing Sources</gui> from the drop-down list of the <gui>New</gui> button "
+"in the <gui>top tool bar</gui> to start the project wizard."
+msgstr ""
+
+#: C/project-import.page:47(item/p)
+msgid ""
+"Select <gui>Import from folder</gui> if the project is already present on "
+"your computer, then select the project directory."
+msgstr ""
+
+#: C/project-import.page:51(item/p)
+msgid ""
+"Or Select <gui>Import from version control system</gui> if the project needs "
+"to be checked out from a server. Then select the version control system, the "
+"server address and the destination directory on your computer."
+msgstr ""
+
+#: C/project-import.page:59(item/p)
+msgid ""
+"After selecting an existing project, the <gui>Project name</gui> text box "
+"should be filled with the name of the project's directory, but you can "
+"change it. When it's done, click on the <gui>Import</gui> button to download "
+"the project if needed and create the files needed by <app>Anjuta</app>."
+msgstr ""
+
+#: C/project-import.page:68(item/p)
+msgid ""
+"<app>Anjuta</app> tries to automatically find the project backend used by "
+"your project. But if several backends are possible, you will get a dialog "
+"asking you to choose a project backend plugin. Read the project backend "
+"description to find out which one to choose."
+msgstr ""
+
+#: C/project-manager-folder-add.page:9(info/desc)
+msgid "Add a folder to a project."
+msgstr "Afegir un directori a un projecte."
+
+#: C/project-manager-folder-add.page:18(page/title)
+msgid "Add a Folder"
+msgstr ""
+
+#: C/project-manager-folder-add.page:20(page/p)
+msgid ""
+"A folder allows you to group several target allowing to set common "
+"properties for all of them. It often corresponds to a directory."
+msgstr ""
+
+#: C/project-manager-folder-add.page:25(item/p)
+msgid ""
+"Select the group or the project where you want to add the new group in the "
+"<gui>project view</gui>, click on the right mouse button to make the "
+"<gui>project context menu</gui> appear and select <gui>Add Group</gui>."
+msgstr ""
+"Trieu el grup o el projecte on voleu afegir-hi el grup nou a la <gui>vista "
+"de projecte</gui>, feu clic amb el botó secundari perquè es mostri el "
+"<gui>menú contextual del projecte</gui> i trieu <gui>Afegeix un grup</gui>."
+
+#: C/project-manager-folder-add.page:29(item/p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
+"Group</gui></guiseq>."
+msgstr ""
+"O trieu <guiseq><gui>Projecte</gui><gui>Afegeix un grup</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/project-manager-folder-add.page:33(item/p)
+msgid "Enter a new group name."
+msgstr ""
+
+#: C/project-manager-folder-add.page:35(note/p)
+msgid ""
+"Groups names are typically restricted to letters, digits and the underscore, "
+"so it's safer to avoid other characters."
+msgstr ""
+
+#: C/project-manager-folder-add.page:40(item/p)
+msgid "You can select another group in the bottom <gui>group tree view</gui>."
+msgstr ""
+"Podeu triar un altre grup al final de la <gui>vista d'arbre de grups</gui>."
+
+#: C/project-manager-folder-add.page:43(item/p)
+msgid ""
+"When you have chosen the parent and enter the name, click on the <gui>Add</"
+"gui> button to add the group to your project."
+msgstr ""
+"Per afegir el grup al projecte feu clic al botó <gui>Afegeix</gui>, després "
+"de seleccionar el pare i introduir-ne el nom."
+
+#: C/project-manager-folder.page:11(info/desc)
+msgid "Add, edit or remove folders from a project."
+msgstr "Afegir, editar o suprimir carpetes d'un projecte."
+
+#: C/project-manager-folder.page:20(page/title)
+msgid "Manage Folders"
+msgstr "Gestió de carpetes"
+
+#: C/project-manager-folder-remove.page:9(info/desc)
+msgid "Remove folders from a project."
+msgstr "Supressió de carpetes d'un projecte."
+
+#: C/project-manager-folder-remove.page:18(page/title)
+msgid "Remove Folder"
+msgstr "Supressió d'una carpeta"
+
+#: C/project-manager-folder-remove.page:22(item/p)
+msgid ""
+"Select the folder you want to remove in the <gui>project view</gui>, click "
+"on the right mouse button to make the <gui>project context menu</gui> appear "
+"and select <gui>Remove</gui>."
+msgstr ""
+"Trieu la carpeta que voleu suprimir a la <gui>vista de projecte</gui>, feu-"
+"hi clic amb el botó secundari perquè es mostri el <gui>menú contextual del "
+"projecte</gui> i trieu <gui>Suprimeix</gui>."
+
+#: C/project-manager-folder-remove.page:28(item/p)
+msgid ""
+"Confirm the removal. This will only remove the folder from the project files "
+"without removing any files or directories from your disk."
+msgstr ""
+"Confirmeu la supressió. Només s'esborrarà la carpeta dels fitxers del "
+"projecte sense suprimir cap fitxer o directori del disc."
+
+#: C/project-manager-library-add.page:10(info/desc)
+msgid "Add a custom library to a target."
+msgstr "Afegir una biblioteca no empaquetada a un objectiu."
+
+#: C/project-manager-library-add.page:23(page/title)
+msgid "Add a Custom Library"
+msgstr ""
+
+#: C/project-manager-library-add.page:25(page/p)
+msgid ""
+"It is easier to use a packaged library, which is common on Linux, so check "
+"if it is the case <link xref=\"project-manager-module-new\">here</link>. But "
+"else you can still use the library as explained below."
+msgstr ""
+
+#: C/project-manager-library-add.page:29(page/p)
+msgid ""
+"In order to use a library in C, you need to tell the compiler where the "
+"header files are, and tell the linker where to find the needed libraries. "
+"The issue is that your program will not compile on another computer if the "
+"header and the libraries are elsewhere."
+msgstr ""
+"Per poder utilitzar una biblioteca a C, el compilador ha de saber on es "
+"troben els fitxers de capçalera i l'enllaçador on es troben les biblioteques "
+"necessàries. El problema és que el programa no es compilarà en un altre "
+"ordinador si les capçaleres i les biblioteques són a un altre lloc."
+
+#: C/project-manager-library-add.page:36(item/p)
+msgid ""
+"Select the directory containing the program where you want to add the "
+"library in the <gui>project view</gui>, click on the right mouse button to "
+"make the <gui>project context menu</gui> appear and select <gui>Properties</"
+"gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu el directori (que conté el "
+"programa) on voleu afegir la biblioteca, feu clic al botó secundari perquè "
+"es mostri el <gui>menú contextual del projecte</gui> i trieu "
+"<gui>Propietats</gui>."
+
+#: C/project-manager-library-add.page:41(item/p)
+#: C/project-manager-library-add.page:65(item/p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> "
+"<gui>Properties</gui></guiseq>. By default, it edits the properties of the "
+"currently selected item in the project view. You can select a different item "
+"in the drop-down list button."
+msgstr ""
+"O trieu <guiseq><gui>Projecte</gui><gui>Propietats</gui></guiseq> en el "
+"<gui>menú principal</gui>. Per defecte s'editen les propietats de l'element "
+"seleccionat actualment a la vista de projecte. Podeu seleccionar un altre "
+"element al botó de llista desplegable."
+
+#: C/project-manager-library-add.page:47(item/p)
+msgid ""
+"If the header files are installed in a standard location (<file>/usr/"
+"include</file>) you don't have to set this. If not, you need to add <input>-"
+"I<var>include_path</var></input> in the <gui>C preprocessor flags</gui> "
+"property if you are using <app>gcc</app> as your compiler. You can add "
+"several paths separated with spaces. These options will be used for all "
+"targets inside this directory."
+msgstr ""
+"Si els fitxers de capçalera són instal·lats a una ubicació estàndard (<file>/"
+"usr/include</file>) no cal que ho definiu. En cas contrari i si utilitzeu el "
+"<app>gcc</app> com a compilador, heu d'afegir <input>-I<var>camí_inclusió</"
+"var></input> a la propietat <gui>Indicadors del preprocessador de C</gui>. "
+"Podeu afegir diversos camins separats per espais. S'utilitzaran aquestes "
+"opcions en tots els objectius dins d'aquest directori."
+
+#: C/project-manager-library-add.page:55(item/p)
+msgid ""
+"You might have to expand the <gui>More options</gui> button to see this. "
+"Click on the <gui>Apply</gui> button when you are done."
+msgstr ""
+"Potser haureu de desplegar el botó <gui>Més opcions</gui> per veure-ho. Feu "
+"clic al botó <gui>Aplica</gui> quan acabeu."
+
+#: C/project-manager-library-add.page:59(item/p)
+msgid ""
+"Next, you need to add the library to a target. Select the target where you "
+"want to add the library in the <gui>project view</gui>, click on the right "
+"mouse button to make the <gui>project context menu</gui> appear and select "
+"<gui>Properties</gui>."
+msgstr ""
+"Tot seguit, heu d'afegir la biblioteca a un objectiu. A la <gui>vista de "
+"projecte</gui>, trieu l'objectiu on voleu afegir la biblioteca, feu clic al "
+"botó secundari del ratolí perquè es mostri el <gui>menú contextual del "
+"projecte</gui> i trieu <gui>Propietats</gui>."
+
+#: C/project-manager-library-add.page:71(item/p)
+msgid ""
+"You need to set the <gui>Linker flags</gui> property, adding <input>-"
+"l<var>library_name</var></input> if your compiler is <app>gcc</app>. "
+"<var>library_name</var> is the name of the library file without the "
+"<file>lib</file> prefix and without the <file>.a</file> or <file>.so</file> "
+"extension."
+msgstr ""
+"Heu de definir la propietat <gui>Indicadors de l'enllaçador</gui>; si el "
+"compilador és el <app>gcc</app>, afegiu <input>-l<var>nom_biblioteca</var></"
+"input>. <var>nom_biblioteca</var> és el nom del fitxer de biblioteca sense "
+"el prefix <file>lib</file> i sense l'extensió <file>.a</file> o <file>.so</"
+"file>."
+
+#: C/project-manager-library-add.page:77(item/p)
+msgid ""
+"If the library is in not in a standard directory, <app>gcc</app> can look in "
+"additional directories with the option <input>-L<var>library_path</var></"
+"input>."
+msgstr ""
+"Si la biblioteca no és a un directori estàndard, el <app>gcc</app> pot "
+"cercar a més directoris si especifiqueu l'opció <input>-"
+"L<var>camí_biblioteca</var></input>."
+
+#: C/project-manager-library.page:13(info/desc)
+msgid "Add or remove libraries to project targets."
+msgstr "Afegiu o suprimiu biblioteques a objectius d'un projecte."
+
+#: C/project-manager-library.page:22(page/title)
+msgid "Manage Libraries"
+msgstr ""
+
+#: C/project-manager-library-remove.page:10(info/desc)
+msgid "Remove a custom library from a target."
+msgstr "Suprimiu una biblioteca no empaquetada d'un objectiu."
+
+#: C/project-manager-library-remove.page:23(page/title)
+msgid "Remove a Custom Library"
+msgstr ""
+
+#: C/project-manager-library-remove.page:27(item/p)
+msgid ""
+"Select the target that has the library you want to remove in the "
+"<gui>project view</gui>, click on the right mouse button to make the "
+"<gui>project context menu</gui> appear and select <gui>Properties</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu l'objectiu que té la biblioteca que "
+"voleu suprimir, feu clic amb el botó secundari del ratolí perquè es mostri "
+"el <gui>menú contextual del projecte</gui> i trieu <gui>Propietats</gui>. "
+
+#: C/project-manager-library-remove.page:33(item/p)
+msgid ""
+"Remove the library from the <gui>C preprocessor flags</gui> and <gui>Linker "
+"flags</gui> properties. Click on the <gui>Apply</gui> button to write the "
+"changes to the project files."
+msgstr ""
+"Suprimiu la biblioteca de les propietats <gui>Indicadors del preprocessador "
+"de C</gui> i <gui>Indicadors de l'enllaçador</gui>. Feu clic al botó "
+"<gui>Aplica</gui> per escriure els canvis als fitxers del projecte."
+
+#: C/project-manager-module-add.page:10(info/desc)
+msgid "Add a set of libraries to a target."
+msgstr "Afegiu con conjunt de biblioteques a un objectiu."
+
+#: C/project-manager-module-add.page:23(page/title)
+msgid "Add packaged libraries"
+msgstr ""
+
+#: C/project-manager-module-add.page:25(page/p)
+msgid ""
+"On Linux, most libraries are distributed with additional data stored in a "
+"<app>pkg-config</app> file. This file contains information like the other "
+"libraries needed, the C compiler and the linker flags needed to use that "
+"library. This file, the header files and the library files themselves is "
+"called a package."
+msgstr ""
+
+#: C/project-manager-module-add.page:33(item/p)
+msgid ""
+"Select the program where you want to add the new library in the <gui>project "
+"view</gui>, click on the right mouse button to make the <gui>project context "
+"menu</gui> appear and select <gui>Add Library</gui>."
+msgstr ""
+"Trieu el programa on voleu afegir-hi la biblioteca nova a la <gui>vista de "
+"projecte</gui>, feu clic al botó secundari del ratolí perquè es mostri el "
+"<gui>menú contextual del projecte</gui> i trieu <gui>Afegeix una biblioteca</"
+"gui>."
+
+#: C/project-manager-module-add.page:37(item/p)
+#: C/project-manager-module-new.page:35(item/p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
+"Library...</gui></guiseq>."
+msgstr ""
+"O en el <gui>menú principal</gui>, trieu <guiseq><gui>Projecte</"
+"gui><gui>Biblioteca nova...</gui></guiseq>."
+
+#: C/project-manager-module-add.page:41(item/p)
+#, fuzzy
+#| msgid ""
+#| "You can select another target in the top <gui>target chooser button</gui>."
+msgid ""
+"You need to select the target where you want to add the library in the "
+"<gui>target button</gui> above."
+msgstr ""
+"Al <gui>botó de selecció d'objectius</gui> podeu seleccionar un altre "
+"objectiu."
+
+#: C/project-manager-module-add.page:45(item/p)
+msgid ""
+"A library cannot be added directly to a target. You can add only a module "
+"displayed in the <gui>module view</gui> below. If you select a library "
+"inside a module, the parent module will be added."
+msgstr ""
+
+#: C/project-manager-module-add.page:50(item/p)
+msgid ""
+"If the library you want is not displayed in the <gui>module view</gui>, you "
+"need to add it as a module first. Click on the button <gui>New Library</gui> "
+"and follow the explanation <link xref=\"project-manager-module-new\">here</"
+"link>."
+msgstr ""
+
+#: C/project-manager-module-add.page:55(note/p)
+msgid ""
+"After creating a new module, you have to wait a few seconds while the "
+"project files are reloaded to see the new module in the list."
+msgstr ""
+
+#: C/project-manager-module-add.page:60(item/p)
+#, fuzzy
+#| msgid ""
+#| "When you are done, click on the <gui>Add</gui> button to add the module."
+msgid ""
+"When you are done, click on the <gui>Add</gui> button to add the selected "
+"module to the target."
+msgstr ""
+"Quan hàgiu acabat, feu clic al botó <gui>Afegeix</gui> per afegir el mòdul."
+
+#: C/project-manager-module-new.page:12(info/desc)
+#, fuzzy
+#| msgid "Add a library in a module."
+msgid "Groups libraries in a module."
+msgstr "Afegiu una biblioteca en un mòdul."
+
+#: C/project-manager-module-new.page:25(page/title)
+msgid "Add a Module"
+msgstr ""
+
+#: C/project-manager-module-new.page:27(page/p)
+#, fuzzy
+#| msgid ""
+#| "A package cannot be added directly to your program; you first need to "
+#| "create a module for it, which is just a group of packages."
+msgid ""
+"Packages cannot be added directly to a program but have to be grouped in a "
+"module."
+msgstr ""
+"No podeu afegir un paquet directament al vostre programa; primer heu de "
+"crear-li un mòdul, que només és un grup de paquets."
+
+#: C/project-manager-module-new.page:32(item/p)
+#, fuzzy
+#| msgid ""
+#| "Select the program where you want to add the new library in the "
+#| "<gui>project view</gui>, click on the right mouse button to make the "
+#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
+msgid ""
+"Select a program in the <gui>project view</gui>, click on the right mouse "
+"button to make the <gui>project context menu</gui> appear, and select "
+"<gui>Add Library</gui>."
+msgstr ""
+"Trieu el programa on voleu afegir-hi la biblioteca nova a la <gui>vista de "
+"projecte</gui>, feu clic al botó secundari del ratolí perquè es mostri el "
+"<gui>menú contextual del projecte</gui> i trieu <gui>Afegeix una biblioteca</"
+"gui>."
+
+#: C/project-manager-module-new.page:39(item/p)
+msgid ""
+"On the <gui>Add Library</gui> dialog, click on the <gui>New Library</gui> "
+"button."
+msgstr ""
+
+#: C/project-manager-module-new.page:43(item/p)
+msgid ""
+"You will get a list of all the packaged libraries installed on your system. "
+"You can check one or more libraries."
+msgstr ""
+"Obtindreu una llista de totes les biblioteques empaquetades del sistema, "
+"Podeu marcar les biblioteques que necessiteu."
+
+#: C/project-manager-module-new.page:46(note/p)
+msgid "If the library you want does not appear here:"
+msgstr ""
+
+#: C/project-manager-module-new.page:49(item/p)
+#, fuzzy
+#| msgid ""
+#| "If the library you want does not appear here, perhaps it is because it is "
+#| "not installed on your system. Launch the application you use to install "
+#| "new programs and search for the library name. The package you need often "
+#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
+#| "<app>pkg-config</app> file with a <file>.pc</file> extension."
+msgid ""
+"Perhaps it is not installed on your system. Launch the application you use "
+"to install new programs and search for the library name. The package you "
+"need often has a \"dev\" or \"devel\" suffix and should include header files "
+"and a <app>pkg-config</app> file with a <file>.pc</file> extension."
+msgstr ""
+"Si la biblioteca que voleu no és a la llista, potser es perquè no està "
+"instal·lada al sistema. Executeu l'aplicació que utilitzeu per instal·lar "
+"programes nous i cerqueu el nom de la biblioteca. El paquet que necessiteu "
+"sovint tenen el sufix «dev» o «devel» i han d'incloure fitxers de capçalera "
+"i un fitxer <app>pkg-config</app> amb una extensió <file>.pc</file>."
+
+#: C/project-manager-module-new.page:57(item/p)
+msgid ""
+"It could be that the library is not packaged, it is often the case for "
+"libraries not developped on Linux. See the chapter <link xref=\"project-"
+"manager-library-add\"/> explaining how to use them."
+msgstr ""
+
+#: C/project-manager-module-new.page:66(item/p)
+#, fuzzy
+#| msgid ""
+#| "After selecting one library, a module name will be automatically "
+#| "generated but you can change it. When you are done, click on the "
+#| "<gui>Add</gui> button to create the new module with the selected "
+#| "libraries."
+msgid ""
+"After selecting one library, a module name will be automatically generated "
+"but you can change it. You can select an already existing module name to add "
+"a new library to it and to all targets already using it."
+msgstr ""
+"Després d'haver triat una biblioteca, es generarà automàticament un nom pel "
+"mòdul, però que el podeu canviar. Quan hàgiu acabat, feu clic al botó "
+"<gui>Afegeix</gui> per crear el mòdul nou amb les biblioteques triades."
+
+#: C/project-manager-module-new.page:72(item/p)
+msgid ""
+"When you are done, click on the <gui>Add</gui> button to create the new "
+"module with the selected libraries. You need to add a new module to at least "
+"one target to really use it."
+msgstr ""
+
+#: C/project-manager-module-remove.page:10(info/desc)
+msgid "Remove a set of libraries from a target."
+msgstr "Suprimiu un conjunt de biblioteques d'un objectiu."
+
+#: C/project-manager-module-remove.page:23(page/title)
+msgid "Remove a Module"
+msgstr "Suprimir un mòdul"
+
+#: C/project-manager-module-remove.page:27(item/p)
+msgid ""
+"Select the library you want to remove in the <gui>project view</gui>, click "
+"on the right mouse button to make the <gui>project context menu</gui> "
+"appear, and select <gui>Remove</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu la biblioteca que voleu suprimir, "
+"feu clic amb el botó secundari del ratolí perquè es mostri el <gui>menú "
+"contextual del projecte</gui> i trieu <gui>Suprimeix</gui>."
+
+#: C/project-manager-module-remove.page:33(item/p)
+msgid "Confirm the removal. This library will be removed from the target."
+msgstr "Confirmeu la supressió. És suprimirà la biblioteca de l'objectiu."
+
+#: C/project-manager-package-remove.page:9(info/desc)
+msgid "Remove a library from a module."
+msgstr "Suprimiu una biblioteca d'un mòdul."
+
+#: C/project-manager-package-remove.page:22(page/title)
+msgid "Remove a Package"
+msgstr "Suprimir un paquet"
+
+#: C/project-manager-package-remove.page:26(item/p)
+msgid ""
+"Select the package you want to remove in the <gui>project view</gui> , click "
+"on the right mouse button to make the <gui>project context menu</gui> appear "
+"and select <gui>Remove</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu el paquet que voleu suprimir, feu "
+"clic amb el botó secundari del ratolí perquè es mostri el <gui>menú "
+"contextual del projecte</gui> i trieu <gui>Suprimeix</gui>."
+
+#: C/project-manager-package-remove.page:32(item/p)
+msgid ""
+"Confirm the removal. This package will be removed from the project file."
+msgstr "Confirmeu la supressió. Es suprimirà el paquet del fitxer de projecte."
+
+#: C/project-manager.page:8(info/desc)
+msgid "Project manager."
+msgstr "Gestor de projectes."
+
+#: C/project-manager.page:21(page/title)
+msgid "Project manager plugin"
+msgstr "Connector del gestor de projectes"
+
+#: C/project-manager.page:23(page/p)
+msgid ""
+"<app>Anjuta</app> supports several already existing project formats through "
+"plugin backends. The main one is the autotools format commonly used on Linux."
+msgstr ""
+"L'<app>Anjuta</app> permet diversos formats de projecte ja existents "
+"mitjançant els rerefons de connectors. El principal és el format autotools "
+"que s'utilitza habitualment a Linux."
+
+#: C/project-manager.page:29(page/p)
+msgid ""
+"The project backend to use is choosen when creating or importing a new "
+"project in <app>Anjuta</app>. It is displayed in the properties of the "
+"project root node and can be changed at any time."
+msgstr ""
+
+#: C/project-manager.page:35(page/p)
+msgid ""
+"Whatever the underlying backend, the graphical interface is the same but "
+"some functions might be disabled."
+msgstr ""
+"Sigui quin sigui el rerefons que s'utilitzi, la interfície gràfica és la "
+"mateixa però podria tenir certes funcions inhabilitades."
+
+#: C/project-manager.page:41(section/title)
+msgid "Project Backend Plugin"
+msgstr "Connector de rerefons de projecte"
+
+#: C/project-manager-root.page:12(info/desc)
+msgid "Edit project properties."
+msgstr ""
+
+#: C/project-manager-root.page:21(page/title)
+msgid "Edit a Project"
+msgstr "Edició d'un projecte"
+
+#: C/project-manager-source-add.page:9(info/desc)
+msgid "Add existing files to a project."
+msgstr "Afegiu fitxers existents a un projecte."
+
+#: C/project-manager-source-add.page:22(page/title)
+msgid "Add Files"
+msgstr "Afegiu fitxers"
+
+#: C/project-manager-source-add.page:26(item/p)
+msgid ""
+"Select the target where you want to add the new source files in the "
+"<gui>project view</gui>, click on the right mouse button to make the "
+"<gui>project context menu</gui> appear and select <gui>Add Source File</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu l'objectiu on voleu afegir un "
+"fitxer de codi nou, feu clic amb el botó secundari del ratolí perquè es "
+"mostri el <gui>menú contextual del projecte</gui> i trieu <gui>Afegeix un "
+"fitxer de codi</gui>."
+
+#: C/project-manager-source-add.page:31(item/p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>Add "
+"Source File...</gui></guiseq>"
+msgstr ""
+"O trieu <guiseq><gui>Projecte</gui><gui>Afegeix un fitxer de codi...</gui></"
+"guiseq> en el <gui>menú principal</gui>"
+
+#: C/project-manager-source-add.page:35(item/p)
+msgid ""
+"You can select another target in the top <gui>target chooser button</gui>."
+msgstr ""
+"Al <gui>botó de selecció d'objectius</gui> podeu seleccionar un altre "
+"objectiu."
+
+#: C/project-manager-source-add.page:39(item/p)
+msgid ""
+"In the file chooser below, select the files you want to add. Then click on "
+"the <gui>Add</gui> button to add those files to your project. You can select "
+"several files at the same time keeping <key>Ctrl</key> key pressed or using "
+"the <key>Shift</key> to select a range of files."
+msgstr ""
+
+#: C/project-manager-source-add.page:48(note/p)
+msgid ""
+"You can add files in sub-directories of the project. Most project formats "
+"require the files to be under the project directory. Added source files "
+"outside the project directory are automatically copied inside to fulfill "
+"this requirement."
+msgstr ""
+"Podeu afegir fitxers als subdirectoris del projecte. La majoria de formats "
+"de projecte requereixen que els fitxers estiguin dins del directori del "
+"projecte. Es copiaran automàticament els fitxers que estiguin fora del "
+"directori del projecte per complir amb aquest requeriment."
+
+#: C/project-manager-source.page:12(info/desc)
+msgid "Add or remove files from a project."
+msgstr "Afegiu o suprimiu fitxers d'un projecte."
+
+#: C/project-manager-source.page:21(page/title)
+msgid "Manage Files"
+msgstr ""
+
+#: C/project-manager-source-remove.page:9(info/desc)
+msgid "Remove files from a project."
+msgstr "Suprimiu fitxers d'un projecte."
+
+#: C/project-manager-source-remove.page:22(page/title)
+msgid "Remove Files"
+msgstr "Suprimiu fitxers"
+
+#: C/project-manager-source-remove.page:26(item/p)
+msgid ""
+"Select the file you want to remove in the <gui>project view</gui>, click on "
+"the right mouse button to make the <gui>project context menu</gui> appear "
+"and select <gui>Remove</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu el fitxer que voleu suprimir, feu "
+"clic amb el botó secundari del ratolí perquè es mostri el <gui>menú "
+"contextual del projecte</gui> i trieu <gui>Suprimeix</gui>."
+
+#: C/project-manager-source-remove.page:32(item/p)
+msgid ""
+"Confirm the removal. The file will only be removed from the project, not "
+"from your disk."
+msgstr ""
+"Confirmeu la supressió. Només es suprimirà el fitxer en el projecte, "
+"continuarà estant al disc dur."
+
+#: C/project-manager-source-remove.page:38(note/p)
+msgid ""
+"You can select several files at the same time by keeping the <key>Ctrl</key> "
+"key pressed or select a range using the <key>Shift</key> key."
+msgstr ""
+
+#: C/project-manager-target-add.page:9(info/desc)
+msgid "Add a target to a project."
+msgstr "Afegiu un objectiu a un projecte."
+
+#: C/project-manager-target-add.page:22(page/title)
+msgid "Add a Target"
+msgstr ""
+
+#: C/project-manager-target-add.page:24(page/p)
+msgid ""
+"A target groups files together and defines their use. It is used to "
+"represent a program, with all its source files as its children or only group "
+"data files those should be installed at the same place."
+msgstr ""
+
+#: C/project-manager-target-add.page:30(item/p)
+msgid ""
+"Select the directory where you want to add the new target in the "
+"<gui>project view</gui>, click on the right mouse button to make the "
+"<gui>project context menu</gui> appear and select <gui>New Target</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu el directori on voleu afegir-hi "
+"l'objectiu nou, feu clic amb el botó secundari del ratolí perquè es mostri "
+"el <gui>menú contextual del projecte</gui> i trieu <gui>Objectiu nou</gui>."
+
+#: C/project-manager-target-add.page:34(item/p)
+msgid ""
+"Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> <gui>New "
+"Target...</gui></guiseq>."
+msgstr ""
+"O trieu <guiseq><gui>Projecte</gui><gui>Objectiu nou...</gui></guiseq> en el "
+"<gui>menú principal</gui>."
+
+#: C/project-manager-target-add.page:38(item/p)
+msgid ""
+"You can select another directory in the bottom <gui>directory tree view</"
+"gui>."
+msgstr "A la <gui>vista d'arbre de directoris</gui> podeu triar-ne un altre."
+
+#: C/project-manager-target-add.page:40(item/p)
+msgid ""
+"Enter a target name and select the type of the target in the drop-down list "
+"below. Depending on your project backend, various types of target are "
+"possible, see at the bottom."
+msgstr ""
+
+#: C/project-manager-target-add.page:45(note/p)
+msgid ""
+"Target names are typically restricted to letters, digits and the underscore, "
+"so it's safer to avoid other characters."
+msgstr ""
+
+#: C/project-manager-target-add.page:50(item/p)
+msgid ""
+"When you have chosen the target name, type and parent, click on the "
+"<gui>Add</gui> button to create this new target."
+msgstr ""
+"Quan hàgiu triat el nom, el tipus i el pare de l'objectiu, feu clic al botó "
+"<gui>Afegeix</gui> per afegir-lo."
+
+#: C/project-manager-target.page:12(info/desc)
+msgid "Add, edit or remove targets from a project."
+msgstr "Afegiu, editeu o suprimiu objectius d'un projecte."
+
+#: C/project-manager-target.page:21(page/title)
+msgid "Manage Targets"
+msgstr "Gestió d'objectius"
+
+#: C/project-manager-target-remove.page:9(info/desc)
+msgid "Remove a target from a project."
+msgstr "Suprimiu un objectiu d'un projecte."
+
+#: C/project-manager-target-remove.page:22(page/title)
+msgid "Remove a Target"
+msgstr "Suprimiu un objectiu"
+
+#: C/project-manager-target-remove.page:26(item/p)
+msgid ""
+"Select the target you want to remove in the <gui>project view</gui>, click "
+"on the right mouse button to make the <gui>project context menu</gui> appear "
+"and select <gui>Remove</gui>."
+msgstr ""
+"A la <gui>vista de projecte</gui>, trieu l'objectiu que voleu suprimir, feu "
+"clic amb el botó secundari del ratolí perquè es mostri el <gui>menú "
+"contextual del projecte</gui> i trieu <gui>Suprimeix</gui>."
+
+#: C/project-manager-target-remove.page:32(item/p)
+msgid ""
+"Confirm the removal. The target and all its properties will be removed from "
+"the project file. All its files stay untouched on your hard disk."
+msgstr ""
+"Confirmeu la supressió. Es suprimirà l'objectiu i totes les seves propietats "
+"del fitxer de projecte. Els fitxers del disc dur no canviaran."
+
+#: C/project-manager-treeview.page:8(info/desc)
+msgid "Display project's content."
+msgstr ""
+
+#: C/project-manager-treeview.page:17(page/title)
+msgid "View a Project"
+msgstr "Visualització d'un projecte"
+
+#: C/project-manager-treeview.page:19(page/p)
+msgid ""
+"A project is represented by a tree, the root item corresponds to the project "
+"while children represent programs, libraries, directories and source files. "
+"Each item can have properties allowing to set more details like project "
+"version, compiler flags or installation directories. These item are divided "
+"in several categories, depending on the backend not all are available:"
+msgstr ""
+
+#: C/project-manager-treeview.page:28(item/title)
+msgid "Root"
+msgstr ""
+
+#: C/project-manager-treeview.page:29(item/p)
+msgid ""
+"There is only one node of this kind. It represents the project itself. It is "
+"the place where you can set project wide properties like the project name or "
+"the project version."
+msgstr ""
+
+#: C/project-manager-treeview.page:34(item/title)
+msgid "Module"
+msgstr ""
+
+#: C/project-manager-treeview.page:35(item/p)
+msgid ""
+"This is a set of packages used in autotools project. They appear as children "
+"of the root node to represent all modules defined and as children of each "
+"target using them. For more details, see <link xref=\"project-manager-module-"
+"new\"/>."
+msgstr ""
+
+#: C/project-manager-treeview.page:41(item/title)
+msgid "Package"
+msgstr ""
+
+#: C/project-manager-treeview.page:42(item/p)
+msgid ""
+"This is a packaged library used in autotools project. They appear as "
+"children of each module. For more details, see <link xref=\"project-manager-"
+"library\"/>."
+msgstr ""
+
+#: C/project-manager-treeview.page:47(item/title)
+msgid "Folder"
+msgstr ""
+
+#: C/project-manager-treeview.page:48(item/p)
+msgid ""
+"This is used to group targets allowing to set common properties. They are "
+"often implemented by sub directories. For more details, see <link xref="
+"\"project-manager-folder\"/>."
+msgstr ""
+
+#: C/project-manager-treeview.page:53(item/title)
+msgid "Target"
+msgstr ""
+
+#: C/project-manager-treeview.page:54(item/p)
+msgid ""
+"It groups files and define how they are used. There are several kinds of "
+"targets, by example program, library or data, corresponding to different use "
+"of the child files. They often represent generated project files like "
+"compiled programs or libraries. For more details see <link xref=\"project-"
+"manager-target\"/>."
+msgstr ""
+
+#: C/project-manager-treeview.page:61(note/p)
+msgid ""
+"You can drag and drop targets at the beginning of the project tree view to "
+"create a shortcut allowing to access them more easily. By default all "
+"program targets are already put here."
+msgstr ""
+
+#: C/project-manager-treeview.page:68(item/title)
+msgid "Source"
+msgstr ""
+
+#: C/project-manager-treeview.page:69(item/p)
+msgid ""
+"Each source file is represented by a item in the project view. The use of "
+"each file depends on its parent target. All children of a program target are "
+"compiled to generate it. While children of a data target are only copied to "
+"a directory when the project is installed. For more details see <link xref="
+"\"project-manager-source\"/>."
+msgstr ""
+
+#: C/project-wizard-create.page:10(info/desc)
+msgid "Create a new project from scratch."
+msgstr "Creació d'un projecte nou des de zero."
+
+#: C/project-wizard-create.page:23(page/title)
+msgid "Create a Project"
+msgstr "Creació d'un projecte"
+
+#: C/project-wizard-create.page:25(page/p)
+msgid ""
+"New projects are created from templates. <app>Anjuta</app> will ask you for "
+"various information, like the type of the project, its name and more."
+msgstr ""
+"Els projectes nous es creen a partir de plantilles. L'<app>Anjuta</app> us "
+"demanarà alguna informació, com el tipus de projecte, el seu nom, etc."
+
+#: C/project-wizard-create.page:32(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>File</gui> <gui>New</"
+"gui><gui>Project</gui></guiseq>."
+msgstr ""
+"Trieu <guiseq><gui>Fitxer</gui><gui>Nou</gui><gui>Projecte</gui></guiseq> en "
+"el <gui>menú principal</gui>."
+
+#: C/project-wizard-create.page:36(item/p)
+msgid ""
+"Or from the drop-down list of the <gui>New</gui> button in the <gui>top tool "
+"bar</gui>, select <gui>Project</gui> to start the project wizard."
+msgstr ""
+"O a la llista desplegable del botó <gui>Nou</gui> de la <gui>barra d'eines "
+"superior</gui>, trieu <gui>Projecte</gui> per iniciar l'auxiliar de "
+"projectes."
+
+#: C/project-wizard-create.page:44(item/p)
+msgid ""
+"Select the icon representing the type of the project you want to create and "
+"click on <gui>Forward</gui>."
+msgstr ""
+"Trieu la icona que representa el tipus de projecte que voleu crear i feu "
+"clic a <gui>Continua</gui>."
+
+#: C/project-wizard-create.page:49(note/p)
+msgid ""
+"Leave the mouse over a project icon for a second and a small pop-up message "
+"will appear showing more information about this type of project."
+msgstr ""
+"Deixeu el ratolí sobre d'una icona de projecte un moment perquè aparegui un "
+"missatge emergent que mostrarà més informació sobre el tipus de projecte."
+
+#: C/project-wizard-create.page:57(item/p)
+msgid ""
+"Depending on the selected project type, you will have to enter different "
+"information. When you are done, click on <gui>Forward</gui>."
+msgstr ""
+"Segons el tipus de projecte triat, haureu d'introduir un tipus d'informació "
+"o una altra. Quan hàgiu acabat, feu clic a <gui>Continua</gui>."
+
+#: C/project-wizard-create.page:61(item/p)
+msgid ""
+"All informations are grouped in pages, typically you will have to fill two "
+"or three pages. You can go back at any time using the button <gui>Back</gui>."
+msgstr ""
+"Totes les dades s'agrupen en pàgines, normalment haureu d'emplenar dues o "
+"tres pàgines. Podeu tornar enrere en qualsevol moment utilitzant el botó "
+"<gui>Vés enrere</gui>."
+
+#: C/project-wizard-create.page:67(note/p)
+msgid ""
+"Keep the mouse over the button or typing area for a second to get a small "
+"pop-up message with more details about the corresponding setting."
+msgstr ""
+"Mantingueu el ratolí sobre del botó o de l'àrea d'escriptura un moment "
+"perquè es mostri un petit missatge emergent amb més informació sobre el "
+"paràmetre corresponent."
+
+#: C/project-wizard-create.page:75(item/p)
+msgid ""
+"After filling out all the information pages, you will get a summary page "
+"listing the main information about your project. Nothing has been written to "
+"your disk yet at this point. Click on <gui>Apply</gui> to save the project "
+"and open it in <app>Anjuta</app>."
+msgstr ""
+"Després d'emplenar totes les pàgines de dades, obtindreu una pàgina de resum "
+"on es mostra la informació principal sobre el projecte. Encara no s'ha "
+"escrit res al disc. Feu clic a <gui>Aplica</gui> per desar el projecte i "
+"obrir-lo a l'<app>Anjuta</app>."
+
+#: C/project-wizard-create.page:85(note/p)
+msgid ""
+"Each project type corresponds to a template. <app>Anjuta</app> already "
+"includes several templates but you can add custom ones and even write your "
+"own."
+msgstr ""
+"Cada tipus de project correspon a una plantilla. L'<app>Anjuta</app> ja "
+"inclou diverses plantilles, però podeu afegir-ne de personalitzades o "
+"escriure les vostres."
+
+#: C/project-wizard-template.page:9(info/desc)
+msgid "Project wizard template."
+msgstr "Plantilla de l'auxiliar de projectes."
+
+#: C/project-wizard-template.page:22(page/title)
+msgid "Project wizard template"
+msgstr "Plantilla de l'auxiliar de projectes"
+
+#: C/project-wizard-template.page:24(page/p)
+msgid ""
+"A project template is composed of a bunch of files which can be processed by "
+"a powerful template processing engine called <app>autogen</app>. A project "
+"template file has a <file>.wiz</file> extension, and describes all the "
+"project properties and files needed."
+msgstr ""
+"Una plantilla de projecte està formada per tota una sèrie de fitxers que es "
+"poden processar mitjançant un motor potent de processament de plantilles "
+"anomenat <app>autogen</app>. Els fitxers de plantilla de projecte tenen "
+"l'extensió <file>.wiz</file> i descriuen totes les propietats i els fitxers "
+"necessaris del projecte."
+
+#: C/project-wizard-template.page:31(page/p)
+msgid ""
+"This <file>.wiz</file> file looks like a XML file and is documented <link "
+"href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
+"html\">here</link>."
+msgstr ""
+"Els fitxers <file>.wiz</file> són en un format XML que està documentat <link "
+"href=\"http://library.gnome.org/devel/libanjuta/stable/project-wizard-format."
+"html\">aquí</link>."
+
+#: C/run-parameters-dialog.page:11(info/desc)
+msgid "Run parameters dialog"
+msgstr ""
+
+#: C/run-parameters-dialog.page:20(page/title)
+msgid "Run Parameters Dialog"
+msgstr ""
+
+#: C/run-parameters-dialog.page:22(page/p)
+msgid ""
+"The <gui>run parameter</gui> dialog allows you to define the current program "
+"and several parameters."
+msgstr ""
+
+#: C/run-parameters-dialog.page:27(item/title)
+msgid "<gui>Program</gui>"
+msgstr ""
+
+#: C/run-parameters-dialog.page:28(item/p)
+msgid ""
+"This is the program that will be executed if you run a program with or "
+"without the debugger. The drop-down list allows you to select programs "
+"created by the current project, but you can click on the <gui>Browse</gui> "
+"button to choose any other program."
+msgstr ""
+
+#: C/run-parameters-dialog.page:34(item/title)
+msgid "<gui>Arguments</gui>"
+msgstr ""
+
+#: C/run-parameters-dialog.page:35(item/p)
+msgid ""
+"These are the command line arguments used by your program. The drop-down "
+"list keeps an history of the last arguments used."
+msgstr ""
+
+#: C/run-parameters-dialog.page:40(item/title)
+msgid "<gui>Working Directory</gui>"
+msgstr ""
+
+#: C/run-parameters-dialog.page:41(item/p)
+msgid ""
+"The working directory is the current directory when your program will be run."
+msgstr ""
+
+#: C/run-parameters-dialog.page:45(item/title)
+msgid "<gui>Environment Variables</gui>"
+msgstr ""
+
+#: C/run-parameters-dialog.page:46(item/p)
+msgid ""
+"You can click on the drop-down section, to display all environment variables "
+"that will be accessible by your program. By default, it includes all the "
+"current environment variables, they are displayed in light gray."
+msgstr ""
+
+#: C/run-parameters-dialog.page:50(item/p)
+msgid ""
+"You can click on the <gui>New</gui> button to add a new environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:52(item/p)
+msgid ""
+"You can click on the <gui>Edit</gui> button to change the value of the "
+"selected environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:54(item/p)
+msgid ""
+"You can click on the <gui>Delete</gui> button to remove the selected "
+"environment variable."
+msgstr ""
+
+#: C/run-parameters-dialog.page:56(item/p)
+msgid ""
+"When a variable has not the same value as in the current environment, it is "
+"displayed in black."
+msgstr ""
+
+#: C/run-parameters-dialog.page:60(item/title)
+msgid "<gui>Run in Terminal</gui>"
+msgstr ""
+
+#: C/run-parameters-dialog.page:61(item/p)
+msgid ""
+"This has to be checked to run the program in a terminal allowing you to "
+"provide inputs and see its outputs using the standard Unix streams. It is "
+"not necessary for programs having a graphical interface."
+msgstr ""
+
+#: C/run-run.page:11(info/desc)
+msgid "Start a program without the debugger."
+msgstr ""
+
+#: C/run-run.page:24(page/title)
+msgid "Run a program"
+msgstr ""
+
+#: C/run-run.page:26(page/p)
+msgid ""
+"If <app>Anjuta</app> is used to start a program it checks that it is up to "
+"date and builds it if needed."
+msgstr ""
+
+#: C/run-run.page:31(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Run</gui></"
+"guiseq> or press <key>F3</key> to execute the current program."
+msgstr ""
+"Per executar el programa actual, trieu <guiseq><gui>Executa</gui> "
+"<gui>Executa</gui></guiseq> en el <gui>menú principal</gui> o premeu "
+"<key>F3</key>."
+
+#: C/run-run.page:37(page/p)
+msgid ""
+"The current program and several parameters can be set on the <gui>parameter</"
+"gui> dialog. See <link xref=\"run-parameters-dialog\"/> for more information."
+msgstr ""
+
+#: C/run-run.page:42(item/p)
+msgid ""
+"From the <gui>main menu</gui>, select <guiseq><gui>Run</gui> <gui>Program "
+"Parameters...</gui></guiseq> to display the dialog."
+msgstr ""
+"Per mostrar el diàleg trieu <guiseq><gui>Executa</gui> <gui>Paràmetres del "
+"programa...</gui></guiseq> en el <gui>menú principal</gui>."
+
+#: C/run-run.page:49(note/p)
+msgid ""
+"If your program needs data files, you probably have to install it at least "
+"one time before running it. See <link xref=\"autotools-build-install\"/> for "
+"more information."
+msgstr ""
+
+#: C/widget-index.page:8(info/desc)
+msgid "All windows and dialogs."
+msgstr "Totes les finestres i els diàlegs."
+
+#: C/widget-index.page:16(page/title)
+msgid "Windows and dialogs"
+msgstr "Finestres i diàlegs"
+
+#~ msgid "Create a Module"
+#~ msgstr "Crea un mòdul"
+
+#~ msgid ""
+#~ "<app>Anjuta</app> provides an simple interface to use such library. If "
+#~ "the library you need is not one of these, check the <link xref=\"project-"
+#~ "manager-library-add\">Add non-packaged libraries</link> page."
+#~ msgstr ""
+#~ "L'<app>Anjuta</app> proporciona una interfície que facilita l'ús "
+#~ "d'aquesta biblioteca. Si la biblioteca que necessiteu no és una "
+#~ "d'aquestes, consulteu la pàgina <link xref=\"project-manager-library-add"
+#~ "\">Afegiu biblioteques no empaquetades</link>."
+
+#~ msgid ""
+#~ "Select the program where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear, and select <gui>Add Library</"
+#~ "gui>. Then click on the <gui>New Library</gui> button on this dialog."
+#~ msgstr ""
+#~ "Trieu el programa on voleu afegir-hi la biblioteca nova a la <gui>vista "
+#~ "de projecte</gui>, feu clic amb el botó secundari del ratolí perquè es "
+#~ "mostri el <gui>menú contextual del projecte</gui> i trieu <gui>Afegeix "
+#~ "una biblioteca</gui>. Seguidament feu clic al botó <gui>Biblioteca nova</"
+#~ "gui> del diàleg."
+
+#~ msgid ""
+#~ "Or from the <gui>main menu</gui>, select <guiseq><gui>Project</gui> "
+#~ "<gui>New Library...</gui></guiseq>."
+#~ msgstr ""
+#~ "O trieu <guiseq><gui>Projecte</gui><gui>Biblioteca nova...</gui></guiseq> "
+#~ "en el <gui>menú principal</gui>."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add this new module to your target."
+#~ msgstr ""
+#~ "Llegiu la <link xref=\"project-manager-module-add\">pàgina següent</link> "
+#~ "per esbrinar com s'afegeix aquest mòdul nou al vostre objectiu."
+
+#~ msgid ""
+#~ "Select the module where you want to add the new library in the "
+#~ "<gui>project view</gui>, click on the right mouse button to make the "
+#~ "<gui>project context menu</gui> appear and select <gui>New Library</gui>."
+#~ msgstr ""
+#~ "Trieu el mòdul on voleu afegir la biblioteca nova a la <gui>vista de "
+#~ "projecte</gui>, feu clic amb el botó secundari del ratolí perquè es "
+#~ "mostri el <gui>menú contextual del projecte</gui> i trieu <gui>Biblioteca "
+#~ "nova</gui>."
+
+#~ msgid ""
+#~ "In the list of all packaged libraries, check the additional libraries "
+#~ "wanted. Check that expected module name is selected in the bottom text "
+#~ "box. Then click on the <gui>Add</gui> button to update the module."
+#~ msgstr ""
+#~ "Marqueu les biblioteques que desitgeu a la llista de totes les "
+#~ "biblioteques empaquetades. Comproveu que al quadre de text inferior s'ha "
+#~ "seleccionat el nom del mòdul esperat. Feu clic en el botó <gui>Afegeix</"
+#~ "gui> per actualitzar el mòdul."
+
+#~ msgid ""
+#~ "Read the <link xref=\"project-manager-module-add\">next page</link> to "
+#~ "find out how to add the module to your target."
+#~ msgstr ""
+#~ "Llegiu la <link xref=\"project-manager-module-add\">pàgina següent</link> "
+#~ "per esbrinar com s'afegeix el mòdul al vostre objectiu."
