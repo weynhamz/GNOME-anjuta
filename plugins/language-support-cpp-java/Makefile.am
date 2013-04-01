@@ -1,14 +1,14 @@
 # Plugin glade file
 cpp_java_gladedir = $(anjuta_glade_dir)
-cpp_java_glade_DATA = anjuta-language-cpp-java.ui
+dist_cpp_java_glade_DATA = anjuta-language-cpp-java.ui
 
 # Plugin UI file
 cpp_java_uidir = $(anjuta_ui_dir)
-cpp_java_ui_DATA = anjuta-language-support-cpp-java.xml
+dist_cpp_java_ui_DATA = anjuta-language-support-cpp-java.xml
 
 # Plugin Icon file
 cpp_java_pixmapsdir = $(anjuta_image_dir)
-cpp_java_pixmaps_DATA = \
+dist_cpp_java_pixmaps_DATA = \
  	anjuta-language-cpp-java-plugin.png \
 	anjuta-indent-auto-16.png \
 	anjuta-indent-auto-24.png
@@ -18,7 +18,7 @@ plugin_in_files = anjuta-language-cpp-java.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 cpp_java_plugindir = $(anjuta_plugin_dir)
-cpp_java_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_cpp_java_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -63,10 +63,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(cpp_java_plugin_DATA) \
-	$(cpp_java_ui_DATA) \
-	$(cpp_java_pixmaps_DATA) \
-	$(cpp_java_glade_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

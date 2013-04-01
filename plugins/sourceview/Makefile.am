@@ -1,14 +1,14 @@
 # Plugin glade file
 sourceview_xmldir = $(anjuta_glade_dir)
-sourceview_xml_DATA = anjuta-editor-sourceview.ui
+dist_sourceview_xml_DATA = anjuta-editor-sourceview.ui
 
 # Plugin UI file
 sourceview_uidir = $(anjuta_ui_dir)
-sourceview_ui_DATA = anjuta-sourceview.xml
+dist_sourceview_ui_DATA = anjuta-sourceview.xml
 
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
-sourceview_pixmaps_DATA = \
+dist_sourceview_pixmaps_DATA = \
 	anjuta-editor-sourceview-plugin-48.png \
 	anjuta-linemark-16.png \
 	anjuta-pcmark-16.png \
@@ -22,7 +22,7 @@ plugin_in_files = sourceview.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 sourceview_plugindir = $(anjuta_plugin_dir)
-sourceview_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_sourceview_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
@@ -89,10 +89,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 EXTRA_DIST = \
 	anjuta-marshal.list \
 	$(plugin_in_files) \
-	$(sourceview_plugin_DATA) \
-	$(sourceview_ui_DATA) \
-	$(sourceview_pixmaps_DATA) \
-	$(sourceview_xml_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

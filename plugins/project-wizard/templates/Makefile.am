@@ -29,7 +29,7 @@ template_in_files = \
 	licenses.tpl.in
 
 wizard_filesdir = $(anjuta_data_dir)/templates
-wizard_files_DATA = \
+dist_wizard_files_DATA = \
 	terminal-logo.png \
 	cpp-logo.png \
 	django-logo.png \
@@ -57,6 +57,6 @@ wizard_files_DATA = \
 	rm $@_
 	
 
-EXTRA_DIST = $(wizard_files_DATA) $(template_in_files)
+EXTRA_DIST = $(template_in_files)
 
 -include $(top_srcdir)/git.mk

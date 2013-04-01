@@ -2,11 +2,11 @@ SUBDIRS = cxxparser
 
 # Plugin glade file
 parser_cxx_gladedir = $(anjuta_glade_dir)
-parser_cxx_glade_DATA = anjuta-parser-cxx.ui
+dist_parser_cxx_glade_DATA = anjuta-parser-cxx.ui
 
 # Plugin Icon file
 parser_cxx_pixmapsdir = $(anjuta_image_dir)
-parser_cxx_pixmaps_DATA = \
+dist_parser_cxx_pixmaps_DATA = \
 	anjuta-parser-cxx-plugin.png
 
 # Plugin description file
@@ -14,7 +14,7 @@ plugin_in_files = anjuta-parser-cxx.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 parser_cxx_plugindir = $(anjuta_plugin_dir)
-parser_cxx_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_parser_cxx_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -62,9 +62,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(parser_cxx_plugin_DATA) \
-	$(parser_cxx_pixmaps_DATA) \
-	$(parser_cxx_glade_DATA) \
 	$(gsettings_in_file)
 
 CLEANFILES = \

@@ -1,7 +1,7 @@
 ## File created by the gnome-build tools
 
 imagesdir = $(anjuta_image_dir)
-images_DATA = \
+dist_images_DATA = \
 	anjuta-attach-16.png \
 	anjuta-attach-24.png \
 	anjuta-step-into-16.png \
@@ -32,7 +32,5 @@ images_DATA = \
 	anjuta-memory-16.png \
 	anjuta-memory-24.png \
 	anjuta-memory.svg
-
-EXTRA_DIST = $(images_DATA)
 
 -include $(top_srcdir)/git.mk

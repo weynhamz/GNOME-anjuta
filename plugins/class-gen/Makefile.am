@@ -1,6 +1,6 @@
 # Plugin glade file
 clsgen_gladedir = $(anjuta_glade_dir)
-clsgen_glade_DATA = anjuta-class-gen-plugin.ui
+dist_clsgen_glade_DATA = anjuta-class-gen-plugin.ui
 
 # Templates
 SUBDIRS = templates
@@ -12,12 +12,12 @@ plugin_in_files = anjuta-class-gen.plugin.in
 
 # Plugin pixmaps
 clsgen_pixmapsdir = $(anjuta_image_dir)
-clsgen_pixmaps_DATA = \
+dist_clsgen_pixmaps_DATA = \
 	anjuta-class-gen-plugin.svg \
 	anjuta-class-gen-plugin-48.png
 
 clsgen_plugindir = $(anjuta_plugin_dir)
-clsgen_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_clsgen_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-class-gen.la
@@ -53,9 +53,6 @@ libanjuta_class_gen_la_SOURCES= \
 	window.h
 	
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(clsgen_pixmaps_DATA) \
-	$(clsgen_glade_DATA) \
-	$(clsgen_plugin_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

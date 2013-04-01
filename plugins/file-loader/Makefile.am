@@ -1,10 +1,10 @@
 # Plugin UI file
 loader_uidir = $(anjuta_ui_dir)
-loader_ui_DATA =  anjuta-loader-plugin.ui
+dist_loader_ui_DATA = anjuta-loader-plugin.ui
 
 # Plugin Icon file
 loader_pixmapsdir = $(anjuta_image_dir)
-loader_pixmaps_DATA = \
+dist_loader_pixmaps_DATA = \
 	anjuta-loader-plugin.svg \
 	anjuta-loader-plugin-48.png
 
@@ -13,7 +13,7 @@ plugin_in_files = anjuta-loader.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 loader_plugindir = $(anjuta_plugin_dir)
-loader_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_loader_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
@@ -45,9 +45,6 @@ libanjuta_loader_la_LIBADD = \
 # Plugin dependencies
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(loader_plugin_DATA) \
-	$(loader_ui_DATA) \
-	$(loader_pixmaps_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

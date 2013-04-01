@@ -1,5 +1,4 @@
 wizard_filesdir = $(anjuta_data_dir)/templates/wxwin/src
-wizard_files_DATA = main.cc Makefile.am.tpl
-EXTRA_DIST = $(wizard_files_DATA)
+dist_wizard_files_DATA = main.cc Makefile.am.tpl
 
 -include $(top_srcdir)/git.mk

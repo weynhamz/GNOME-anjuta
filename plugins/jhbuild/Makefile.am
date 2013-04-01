@@ -1,6 +1,6 @@
 # Plugin Icon file
 jhbuild_pixmapsdir = $(anjuta_image_dir)
-jhbuild_pixmaps_DATA = \
+dist_jhbuild_pixmaps_DATA = \
  	anjuta-jhbuild-plugin-48.png
 
 # Plugin description file
@@ -8,7 +8,7 @@ plugin_in_files = anjuta-jhbuild.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 jhbuild_plugindir = $(anjuta_plugin_dir)
-jhbuild_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_jhbuild_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -41,8 +41,6 @@ libanjuta_jhbuild_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(jhbuild_plugin_DATA) \
-	$(jhbuild_pixmaps_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

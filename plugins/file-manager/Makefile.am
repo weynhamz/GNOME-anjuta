@@ -1,14 +1,14 @@
 # Plugin glade file
 file_manager_gladedir = $(anjuta_glade_dir)
-file_manager_glade_DATA = file-manager.ui
+dist_file_manager_glade_DATA = file-manager.ui
 
 # Plugin UI file
 file_manager_uidir = $(anjuta_ui_dir)
-file_manager_ui_DATA =  file-manager.xml
+dist_file_manager_ui_DATA = file-manager.xml
 
 # Plugin Icon file
 file_manager_pixmapsdir = $(anjuta_image_dir)
-file_manager_pixmaps_DATA = \
+dist_file_manager_pixmaps_DATA = \
 	anjuta-file-manager-plugin.svg \
 	anjuta-file-manager-plugin-48.png \
 	anjuta-file-manager-plugin-16.png \
@@ -25,7 +25,7 @@ plugin_in_files = file-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 file_manager_plugindir = $(anjuta_plugin_dir)
-file_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_file_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
@@ -80,10 +80,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(file_manager_plugin_DATA) \
-	$(file_manager_ui_DATA) \
-	$(file_manager_pixmaps_DATA) \
-	$(file_manager_glade_DATA) \
 	file-view-marshal.list \
         $(gsettings_in_file)
 

@@ -2,14 +2,14 @@ SUBDIRS = images
 
 # Plugin glade file
 git_gladedir = $(anjuta_glade_dir)
-git_glade_DATA = anjuta-git.ui
+dist_git_glade_DATA = anjuta-git.ui
 
 # Plugin description file
 plugin_in_files = git.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 git_plugindir = $(anjuta_plugin_dir)
-git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin) 
+dist_git_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -239,10 +239,8 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @GSETTINGS_RULES@
 
 EXTRA_DIST = \
-	$(git_glade_DATA) \
-	$(git_plugin_DATA) \
 	$(plugin_in_files) \
-    $(gsettings_in_file)
+	$(gsettings_in_file)
 
 CLEANFILES = $(gsettings_SCHEMAS)
 

@@ -1,13 +1,13 @@
 # Plugin Icon file
 js_debugger_pixmapsdir = $(anjuta_image_dir)
-js_debugger_pixmaps_DATA = js_debugger.png
+dist_js_debugger_pixmaps_DATA = js_debugger.png
 
 # Plugin description file
 plugin_in_files = js_debugger.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 js_debugger_plugindir = $(anjuta_plugin_dir)
-js_debugger_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_js_debugger_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -45,8 +45,6 @@ libjs_debugger_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(js_debugger_plugin_DATA) \
-	$(js_debugger_pixmaps_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

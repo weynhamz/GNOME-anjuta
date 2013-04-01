@@ -150,7 +150,7 @@ libgladeanjuta_la_LIBADD = \
 
 catalogdir = @GLADE_CATALOG_PATH@
 
-catalog_DATA = anjuta-glade.xml
+dist_catalog_DATA = anjuta-glade.xml
 
 endif
 
@@ -262,10 +262,8 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libanjuta-3.0.pc
 
 EXTRA_DIST = \
-	$(libanjutainclude_HEADERS) \
 	libanjuta-3.0.pc.in \
-	anjuta-marshal.list \
-	$(catalog_DATA)
+	anjuta-marshal.list
 
 DISTCLEANFILES = \
   anjuta-enum-types.h \

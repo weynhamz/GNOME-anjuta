@@ -3,17 +3,17 @@ SUBDIRS = templates
 
 # Plugin glade file
 wizard_gladedir = $(anjuta_glade_dir)
-wizard_glade_DATA = anjuta-project-wizard.ui \
+dist_wizard_glade_DATA = anjuta-project-wizard.ui \
 	applogo.png \
 	appwizard.png
 
 # Plugin UI file
 wizard_uidir = $(anjuta_ui_dir)
-wizard_ui_DATA =  
+dist_wizard_ui_DATA =
 
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)
-wizard_pixmaps_DATA = \
+dist_wizard_pixmaps_DATA = \
 	anjuta-project-wizard-plugin.svg \
 	anjuta-project-wizard-plugin-48.png
 
@@ -22,7 +22,7 @@ plugin_in_files = anjuta-project-wizard.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 wizard_plugindir = $(anjuta_plugin_dir)
-wizard_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_wizard_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-project-wizard.la
@@ -61,11 +61,7 @@ libanjuta_project_wizard_la_SOURCES= \
 	tar.h
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(wizard_pixmaps_DATA) \
-	$(wizard_plugin_DATA) \
-	$(wizard_glade_DATA) \
-	$(wizard_ui_DATA)
+	$(plugin_in_files)
 
 ## templates_dir = $(datadir)/anjuta/projects
 ## 

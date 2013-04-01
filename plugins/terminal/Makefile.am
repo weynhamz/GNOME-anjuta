@@ -1,14 +1,14 @@
 # Plugin glade file
 terminal_gladedir = $(anjuta_glade_dir)
-terminal_glade_DATA = anjuta-terminal-plugin.ui
+dist_terminal_glade_DATA = anjuta-terminal-plugin.ui
 
 # Plugin ui file
 terminal_uidir = $(anjuta_ui_dir)
-terminal_ui_DATA = anjuta-terminal-plugin.xml
+dist_terminal_ui_DATA = anjuta-terminal-plugin.xml
 
 # Plugin Icon file
 terminal_pixmapsdir = $(anjuta_image_dir)
-terminal_pixmaps_DATA = \
+dist_terminal_pixmaps_DATA = \
 	anjuta-terminal-plugin.svg \
 	anjuta-terminal-plugin-48.png
 
@@ -17,7 +17,7 @@ plugin_in_files = anjuta-terminal.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 terminal_plugindir = $(anjuta_plugin_dir)
-terminal_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_terminal_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS = \
@@ -49,10 +49,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(terminal_plugin_DATA) \
-	$(terminal_pixmaps_DATA) \
-	$(terminal_ui_DATA) \
-	$(terminal_glade_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

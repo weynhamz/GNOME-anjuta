@@ -1,19 +1,19 @@
 SUBDIRS = . anjuta-tags images benchmark
 
 symbol_db_datadir = $(anjuta_data_dir)
-symbol_db_data_DATA = tables.sql
+dist_symbol_db_data_DATA = tables.sql
 
 # Plugin UI file
 symbol_db_uidir = $(anjuta_ui_dir)
-symbol_db_ui_DATA = anjuta-symbol-db-plugin.xml
+dist_symbol_db_ui_DATA = anjuta-symbol-db-plugin.xml
 
 # Plugin Glade file
 symbol_db_gladedir = $(anjuta_glade_dir)
-symbol_db_glade_DATA =  anjuta-symbol-db.ui
+dist_symbol_db_glade_DATA =  anjuta-symbol-db.ui
 
 # Plugin Icon file
 symbol_db_pixmapsdir = $(anjuta_image_dir)
-symbol_db_pixmaps_DATA = \
+dist_symbol_db_pixmaps_DATA = \
 	anjuta-symbol-db-plugin.svg \
 	anjuta-symbol-db-plugin-48.png \
 	anjuta-symbol-db-plugin-16.png
@@ -23,7 +23,7 @@ plugin_in_files = symbol-db.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 symbol_db_plugindir = $(anjuta_plugin_dir)
-symbol_db_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_symbol_db_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -109,11 +109,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(symbol_db_plugin_DATA) \
-	$(symbol_db_glade_DATA) \
-	$(symbol_db_pixmaps_DATA) \
-	$(symbol_db_data_DATA) \
-	$(symbol_db_ui_DATA) \
 	symbol-db-marshal.list \
         $(gsettings_in_file)
 

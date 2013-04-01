@@ -1,15 +1,15 @@
 
 # Plugin glade file
 build_gladedir = $(anjuta_glade_dir)
-build_glade_DATA = anjuta-build-basic-autotools-plugin.ui
+dist_build_glade_DATA = anjuta-build-basic-autotools-plugin.ui
 
 # Plugin UI file
 build_uidir = $(anjuta_ui_dir)
-build_ui_DATA = anjuta-build-basic-autotools-plugin.xml
+dist_build_ui_DATA = anjuta-build-basic-autotools-plugin.xml
 
 # Plugin Icon file
 build_pixmapsdir = $(anjuta_image_dir)
-build_pixmaps_DATA = \
+dist_build_pixmaps_DATA = \
 	anjuta-build-basic-autotools-plugin-48.png \
 	anjuta-build-basic-autotools-plugin.svg \
 	anjuta-build-16.png \
@@ -20,11 +20,11 @@ plugin_in_files = anjuta-build-basic-autotools.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 build_plugindir = $(anjuta_plugin_dir)
-build_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_build_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Plugin data files
 build_datadir = $(anjuta_data_dir)/build
-build_data_DATA = automake-c.filters
+dist_build_data_DATA = automake-c.filters
 
 # Include paths
 AM_CPPFLAGS = \
@@ -67,11 +67,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(build_plugin_DATA) \
-	$(build_ui_DATA) \
-	$(build_pixmaps_DATA) \
-	$(build_glade_DATA) \
-	$(build_data_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

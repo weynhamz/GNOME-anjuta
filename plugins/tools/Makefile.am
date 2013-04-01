@@ -1,15 +1,15 @@
 
 # Plugin glade file
 tools_gladedir = $(anjuta_glade_dir)
-tools_glade_DATA = anjuta-tools.ui
+dist_tools_glade_DATA = anjuta-tools.ui
 
 # Plugin UI file
 tools_uidir = $(anjuta_ui_dir)
-tools_ui_DATA = anjuta-tools.xml
+dist_tools_ui_DATA = anjuta-tools.xml
 
 # Plugin pixmaps
 tools_pixmapsdir = $(anjuta_image_dir)
-tools_pixmaps_DATA = \
+dist_tools_pixmaps_DATA = \
 	anjuta-tools-plugin.svg \
 	anjuta-tools-plugin-48.png
 
@@ -18,7 +18,7 @@ plugin_in_files = anjuta-tools.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 tools_plugindir = $(anjuta_plugin_dir)
-tools_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_tools_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-tools.la
@@ -56,10 +56,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(tools_pixmaps_DATA) \
-	$(tools_plugin_DATA) \
-	$(tools_glade_DATA) \
-	$(tools_ui_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

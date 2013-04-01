@@ -1,9 +1,9 @@
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-debug-manager.ui
+dist_anjuta_glade_DATA = anjuta-debug-manager.ui
 
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA =  anjuta-debug-manager.xml
+dist_anjuta_ui_DATA =  anjuta-debug-manager.xml
 
 gsettings_in_files = org.gnome.anjuta.plugins.debug-manager.gschema.xml.in
 gsettings_SCHEMAS = $(gsettings_in_files:.xml.in=.xml)
@@ -14,7 +14,7 @@ plugin_in_files = anjuta-debug-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 anjuta_plugindir = $(anjuta_plugin_dir)
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
@@ -91,10 +91,7 @@ libanjuta_debug_manager_la_SOURCES = \
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(anjuta_plugin_DATA) \
 	$(schema_in_files) \
-	$(anjuta_ui_DATA) \
-	$(anjuta_glade_DATA) \
 	$(gsettings_in_files) \
 	anjuta-marshal.list
 

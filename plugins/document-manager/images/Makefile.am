@@ -1,5 +1,5 @@
 document_manager_pixmapsdir = $(anjuta_image_dir)
-document_manager_pixmaps_DATA = \
+dist_document_manager_pixmaps_DATA = \
         anjuta-document-manager-plugin.svg \
         anjuta-document-manager-plugin-48.png \
         preferences-editor.png \
@@ -43,8 +43,6 @@ document_manager_pixmaps_DATA = \
 	      anjuta-complete-24.png \
 	      anjuta-complete-auto-16.png \
 	      anjuta-complete-auto-24.png
-
-EXTRA_DIST = $(document_manager_pixmaps_DATA)
 
 
 -include $(top_srcdir)/git.mk

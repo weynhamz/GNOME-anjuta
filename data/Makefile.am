@@ -9,10 +9,8 @@ SUBDIRS = templates
 anjuta_datadir = $(anjuta_data_dir)
 anjuta_profiledir = $(anjuta_data_dir)/profiles
 
-anjuta_data_DATA = welcome.txt
+dist_anjuta_data_DATA = welcome.txt
 
-anjuta_profile_DATA = default.profile
-
-EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_profile_DATA)
+dist_anjuta_profile_DATA = default.profile
 
 -include $(top_srcdir)/git.mk

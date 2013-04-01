@@ -1,14 +1,14 @@
 # Plugin UI file
 project_uidir = $(anjuta_ui_dir)
-project_ui_DATA = anjuta-project-manager.xml
+dist_project_ui_DATA = anjuta-project-manager.xml
 
 # Plugin glade file
 project_gladedir = $(anjuta_glade_dir)
-project_glade_DATA = pm_dialogs.ui
+dist_project_glade_DATA = pm_dialogs.ui
 
 # Plugin Icon file
 project_pixmapsdir = $(anjuta_image_dir)
-project_pixmaps_DATA = \
+dist_project_pixmaps_DATA = \
 	anjuta-project-manager-plugin.svg \
 	anjuta-project-manager-plugin-48.png \
 	anjuta-project-manager-plugin-16.png \
@@ -20,7 +20,7 @@ plugin_in_files = anjuta-project-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 project_plugindir = $(anjuta_plugin_dir)
-project_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_project_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Additional marshaller
 project-marshal.h: project-marshal.list
@@ -79,10 +79,6 @@ libanjuta_project_manager_la_LIBADD = \
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(project_plugin_DATA) \
-	$(project_ui_DATA) \
-	$(project_pixmaps_DATA) \
-	$(project_glade_DATA) \
 	project-marshal.list
 
 DISTCLEANFILES = \

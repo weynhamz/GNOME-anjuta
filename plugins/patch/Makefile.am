@@ -1,14 +1,14 @@
 # Plugin UI file
 patch_uidir = $(anjuta_ui_dir)
-patch_ui_DATA = anjuta-patch.xml
+dist_patch_ui_DATA = anjuta-patch.xml
 
 # Plugin glade file
 patch_gladedir = $(anjuta_glade_dir)
-patch_glade_DATA = patch-plugin.ui
+dist_patch_glade_DATA = patch-plugin.ui
 
 # Plugin Icon file
 patch_pixmapsdir = $(anjuta_image_dir)
-patch_pixmaps_DATA = \
+dist_patch_pixmaps_DATA = \
 	anjuta-patch-plugin.svg \
 	anjuta-patch-plugin-48.png
 
@@ -18,7 +18,7 @@ plugin_in_files = anjuta-patch.plugin.in
 
 
 patch_plugindir = $(anjuta_plugin_dir)
-patch_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_patch_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 AM_CPPFLAGS= \
@@ -46,10 +46,6 @@ libanjuta_patch_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(patch_plugin_DATA) \
-	$(patch_ui_DATA) \
-	$(patch_pixmaps_DATA) \
-	$(patch_glade_DATA)
+	$(plugin_in_files)
 
 -include $(top_srcdir)/git.mk

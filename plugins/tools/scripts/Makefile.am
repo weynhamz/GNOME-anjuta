@@ -2,15 +2,13 @@
 
 
 toolsdir = $(anjuta_data_dir)/tools
-tools_SCRIPTS = \
+dist_tools_SCRIPTS = \
 	prepare-changelog.pl \
 	find-fixmes.pl \
 	translation-status.pl
-tools_DATA = tools-2.xml
+dist_tools_DATA = tools-2.xml
 
 EXTRA_DIST = \
-	$(tools_SCRIPTS) \
-	$(tools_DATA) \
 	tools-2.xml.in
 
 # from the autoconf manual

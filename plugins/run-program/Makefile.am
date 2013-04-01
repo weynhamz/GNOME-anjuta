@@ -1,14 +1,14 @@
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-run-program.ui
+dist_anjuta_glade_DATA = anjuta-run-program.ui
 
 # Plugin UI file
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA =  anjuta-run-program.xml
+dist_anjuta_ui_DATA = anjuta-run-program.xml
 
 # Plugin Icon file
 anjuta_pixmapsdir = $(anjuta_image_dir)
-anjuta_pixmaps_DATA = \
+dist_anjuta_pixmaps_DATA = \
         anjuta-run-program-48.png
 
 gsettings_in_file = org.gnome.anjuta.plugins.run.gschema.xml.in
@@ -21,7 +21,7 @@ plugin_in_files = anjuta-run-program.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 anjuta_plugindir = $(anjuta_plugin_dir)
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-run-program.la
@@ -48,10 +48,6 @@ libanjuta_run_program_la_SOURCES = \
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(anjuta_pixmaps_DATA) \
-	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA) \
-	$(anjuta_glade_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

@@ -2,18 +2,18 @@ SUBDIRS = images
 
 # Plugin glade file
 document_manager_gladedir = $(anjuta_glade_dir)
-document_manager_glade_DATA = anjuta-document-manager.ui
+dist_document_manager_glade_DATA = anjuta-document-manager.ui
 
 # Plugin UI file
 document_manager_uidir = $(anjuta_ui_dir)
-document_manager_ui_DATA = anjuta-document-manager.xml
+dist_document_manager_ui_DATA = anjuta-document-manager.xml
 
 # Plugin file
 plugin_in_files = anjuta-document-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 document_manager_plugindir = $(anjuta_plugin_dir)
-document_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_document_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-document-manager.la
@@ -60,11 +60,7 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @GSETTINGS_RULES@
 
 EXTRA_DIST = \
-	$(document_manager_pixmaps_DATA) \
 	$(plugin_in_files) \
-	$(document_manager_plugin_DATA) \
-	$(document_manager_ui_DATA) \
-	$(document_manager_glade_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

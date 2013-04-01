@@ -3,7 +3,7 @@ plugin_in_files = anjuta-starter.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 starter_plugindir = $(anjuta_plugin_dir)
-starter_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_starter_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-starter.la
@@ -39,8 +39,6 @@ CLEANFILES = \
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(starter_plugin_DATA) \
-	$(starter_pixmaps_DATA) \
 	starter.gresource.xml \
 	starter.ui
 

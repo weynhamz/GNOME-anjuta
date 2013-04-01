@@ -1,25 +1,25 @@
 # Plugin UI file
 plugin_uidir = $(anjuta_ui_dir)
-plugin_ui_DATA = 
+dist_plugin_ui_DATA =
 
 # Plugin glade file
 plugin_gladedir = $(anjuta_glade_dir)
-plugin_glade_DATA =
+dist_plugin_glade_DATA =
 
 # Plugin data file
 plugin_datadir = $(anjuta_data_dir)
-plugin_data_DATA = sources.list
+dist_plugin_data_DATA = sources.list
 
 # Plugin icon file
 plugin_pixmapsdir = $(anjuta_image_dir)
-plugin_pixmaps_DATA = dir-project-plugin-48.png
+dist_plugin_pixmaps_DATA = dir-project-plugin-48.png
 
 # Plugin description file
 plugin_in_files = dir-project.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 plugindir = $(anjuta_plugin_dir)
-plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS = 					\
 	$(WARN_CFLAGS) \
@@ -47,12 +47,7 @@ libdir_project_la_LIBADD = \
 
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
-	$(plugin_DATA) \
-	$(plugin_ui_DATA) \
-	$(plugin_pixmaps_DATA) \
-	$(plugin_glade_DATA) \
-	$(plugin_data_DATA)
+	$(plugin_in_files)
 
 DISTCLEANFILES = \
 	$(plugin_DATA)

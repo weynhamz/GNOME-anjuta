@@ -1,17 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = preferences.ui
+dist_anjuta_glade_DATA = preferences.ui
 
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA = anjuta.xml
+dist_anjuta_ui_DATA = anjuta.xml
 
 anjuta_layoutdir = $(anjuta_data_dir)
-anjuta_layout_DATA = layout.xml
+dist_anjuta_layout_DATA = layout.xml
 
 anjuta_pixmapsdir = $(anjuta_image_dir)
-
-anjuta_pixmaps_DATA = \
+dist_anjuta_pixmaps_DATA = \
 	anjuta-preferences-general.svg \
 	anjuta-preferences-general-48.png
 
@@ -66,11 +65,7 @@ anjuta_shell_LDADD =  \
 	$(GDL_LIBS)
 
 EXTRA_DIST = \
-	$(anjuta_ui_DATA) \
 	anjuta-shell.ui \
-	$(anjuta_layout_DATA) \
-	$(anjuta_glade_DATA) \
-	$(anjuta_pixmaps_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

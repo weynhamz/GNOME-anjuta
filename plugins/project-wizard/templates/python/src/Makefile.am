@@ -1,5 +1,4 @@
 wizard_filesdir = $(anjuta_data_dir)/templates/python/src
-wizard_files_DATA = main.py Makefile.am.tpl
-EXTRA_DIST = $(wizard_files_DATA)
+dist_wizard_files_DATA = main.py Makefile.am.tpl
 
 -include $(top_srcdir)/git.mk

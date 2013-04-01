@@ -15,7 +15,7 @@ update-icon-cache:
 
 anjuta_pixmapsdir = $(anjuta_image_dir)
 
-anjuta_pixmaps_DATA = \
+dist_anjuta_pixmaps_DATA = \
 	madeinanjuta.xcf \
 	anjuta_logo.png \
 	anjuta_splash.png \
@@ -25,15 +25,10 @@ anjuta_pixmaps_DATA = \
 	start-with-import.png 
 
 anjuta_glade_pixmapsdir = $(anjuta_glade_dir)
-anjuta_glade_pixmaps_DATA = \
+dist_anjuta_glade_pixmaps_DATA = \
 	start-with-wizard.png \
 	start-with-import.png \
 	start-with-open.png
-
-EXTRA_DIST = $(anjuta_pixmaps_DATA) \
-						$(anjuta_glade_pixmaps_DATA) \
-						$(icon_DATA) \
-						$(svgicon_DATA)
 
 
 -include $(top_srcdir)/git.mk

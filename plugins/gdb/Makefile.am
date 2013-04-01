@@ -1,16 +1,16 @@
 # Plugin UI file
 gdb_uidir = $(anjuta_ui_dir)
-gdb_ui_DATA =
+dist_gdb_ui_DATA =
 
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
-anjuta_glade_DATA = anjuta-gdb.ui
+dist_anjuta_glade_DATA = anjuta-gdb.ui
 
 anjuta_datadir = $(anjuta_data_dir)
-anjuta_data_DATA = gdb.init
+dist_anjuta_data_DATA = gdb.init
 
 plugin_pixmapsdir = $(anjuta_image_dir)
-plugin_pixmaps_DATA = \
+dist_plugin_pixmaps_DATA = \
 	anjuta-gdb.plugin.png \
 	pointer.png
 
@@ -18,7 +18,7 @@ plugin_in_files = anjuta-gdb.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 anjuta_plugindir = $(anjuta_plugin_dir)
-anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
@@ -58,12 +58,7 @@ gdbmi_test_LDADD = $(GTK_LIBS) $(LIBANJUTA_LIBS) $(XML_LIBS) $(ANJUTA_LIBS)
 gdbmi_test_CFLAGS = $(AM_CFLAGS)
 
 EXTRA_DIST = \
-	$(plugin_pixmaps_DATA) \
-	$(plugin_in_files) \
-	$(anjuta_plugin_DATA) \
-	$(gdb_ui_DATA) \
-	$(anjuta_glade_DATA) \
-	$(anjuta_data_DATA)
+	$(plugin_in_files)
 
 SUBDIRS = \
 	images 

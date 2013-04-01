@@ -1,14 +1,14 @@
 # Plugin glade file
 indent_c_gladedir = $(anjuta_glade_dir)
-indent_c_glade_DATA = anjuta-indentation-c-style.ui
+dist_indent_c_glade_DATA = anjuta-indentation-c-style.ui
 
 # Plugin UI file
 indent_c_uidir = $(anjuta_ui_dir)
-indent_c_ui_DATA = anjuta-indentation-c-style.xml
+dist_indent_c_ui_DATA = anjuta-indentation-c-style.xml
 
 # Plugin Icon file
 indent_c_pixmapsdir = $(anjuta_image_dir)
-indent_c_pixmaps_DATA = \
+dist_indent_c_pixmaps_DATA = \
  	anjuta-indentation-c-style-plugin.png \
 	anjuta-indentation-c-style-auto-16.png \
 	anjuta-indentation-c-style-auto-24.png
@@ -18,7 +18,7 @@ plugin_in_files = anjuta-indentation-c-style.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 indent_c_plugindir = $(anjuta_plugin_dir)
-indent_c_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_indent_c_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -59,10 +59,6 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(indent_c_plugin_DATA) \
-	$(indent_c_ui_DATA) \
-	$(indent_c_pixmaps_DATA) \
-	$(indent_c_glade_DATA) \
         $(gsettings_in_file)
 
 CLEANFILES = \

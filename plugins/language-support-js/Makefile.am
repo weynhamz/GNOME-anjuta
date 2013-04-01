@@ -3,21 +3,21 @@
 #SUBDIRS = unit_test
 
 js_support_plugin_gladedir = $(anjuta_glade_dir)
-js_support_plugin_glade_DATA = anjuta-language-javascript.ui
+dist_js_support_plugin_glade_DATA = anjuta-language-javascript.ui
 
 js_support_plugin_uidir = $(anjuta_ui_dir)
-js_support_plugin_ui_DATA = anjuta-language-javascript.xml
+dist_js_support_plugin_ui_DATA = anjuta-language-javascript.xml
 
 # Plugin Icon file
 js_support_plugin_pixmapsdir = $(anjuta_image_dir)
-js_support_plugin_pixmaps_DATA = js_support_plugin.png
+dist_js_support_plugin_pixmaps_DATA = js_support_plugin.png
 
 # Plugin description file
 plugin_in_files = js-support-plugin.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 js_support_plugin_plugindir = $(anjuta_plugin_dir)
-js_support_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_js_support_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -71,11 +71,7 @@ gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
 @GSETTINGS_RULES@
 
 EXTRA_DIST = \
-	$(plugin_in_files)\
-	$(js_support_plugin_plugin_DATA)\
-	$(js_support_plugin_glade_DATA)\
-	$(js_support_plugin_ui_DATA)\
-	$(js_support_plugin_pixmaps_DATA) \
+	$(plugin_in_files) \
         $(gsettings_in_file)
 
 CLEANFILES = \

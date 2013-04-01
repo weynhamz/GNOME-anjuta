@@ -1,18 +1,18 @@
 # Plugin Icon file
 language_manager_pixmapsdir = $(anjuta_image_dir)
-language_manager_pixmaps_DATA = \
+dist_language_manager_pixmaps_DATA = \
 	anjuta-language-manager-plugin.svg \
 	anjuta-language-manager-plugin-48.png
 
 language_manager_xmldir = $(anjuta_data_dir)
-language_manager_xml_DATA = languages.xml
+dist_language_manager_xml_DATA = languages.xml
 
 # Plugin description file
 plugin_in_files = language-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 language_manager_plugindir = $(anjuta_plugin_dir)
-language_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+dist_language_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # NOTE :
 # The naming convention is very intentional
@@ -45,9 +45,6 @@ liblanguage_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
-	$(language_manager_plugin_DATA) \
-	$(langauge_manager_xml_DATA) \
-	$(language_manager_pixmaps_DATA) \
 	languages.xml
 
 
