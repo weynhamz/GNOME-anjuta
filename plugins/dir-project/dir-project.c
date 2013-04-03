@@ -906,6 +906,9 @@ find_not_loaded_node (gpointer key, gpointer value, gpointer user_data)
 static gboolean
 dir_project_is_loaded (DirProject *project)
 {
+	if (project->groups == NULL)
+		return FALSE;
+
 	return g_hash_table_find (project->groups, find_not_loaded_node, NULL) == NULL;
 }
 
