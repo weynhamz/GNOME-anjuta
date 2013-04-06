@@ -258,25 +258,27 @@ anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
 void
 anjuta_res_help_search (const gchar * word)
 {
+	GError *error = NULL;
+	gchar **argv = g_new0 (gchar *, 4);
+
+	argv[0] = g_strdup ("devhelp");
+
 	if(word)
 	{
+		argv[1] = g_strdup ("-s");
+		argv[2] = g_strdup (word);
+
 		fprintf(stderr, "Word is %s\n", word);
-		if(fork()==0)
-		{
-			execlp("devhelp", "devhelp", "-s", word, NULL);
-			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
-			_exit(1);
-		}
 	}
-	else
+
+	if (g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH,
+	                   NULL, NULL, NULL, &error))
 	{
-		if(fork()==0)
-		{
-			execlp("devhelp", "devhelp", NULL);
-			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
-			_exit(1);
-		}
+		g_warning (_("Cannot execute command \"%s\": %s"), "devhelp", error->message);
+		g_error_free (error);
 	}
+
+	g_strfreev (argv);
 }
 
 void
