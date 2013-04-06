@@ -45,15 +45,19 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef G_OS_WIN32
-#include <pwd.h>
-#endif
 
 #include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
+
+#ifndef G_OS_WIN32
+#include <pwd.h>
+#else
+#define WIN32_MEAN_AND_LEAN
+#include <windows.h>
+#endif
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
@@ -761,7 +765,8 @@ anjuta_util_get_real_path (const gchar *path)
 	if (path != NULL)
 	{
 		gchar *result;
-#ifdef PATH_MAX
+#ifndef G_OS_WIN32
+#  ifdef PATH_MAX
 		gchar buf[PATH_MAX+1];
 
 		result = realpath (path, buf);
@@ -770,7 +775,7 @@ anjuta_util_get_real_path (const gchar *path)
 			*(buf + PATH_MAX) = '\0'; /* ensure a terminator */
 			return g_strdup (buf);
 		}
-#else
+#  else
 		char *buf;
 		/* the string returned by realpath should be cleaned with
 		   free(), not g_free() */
@@ -781,6 +786,32 @@ anjuta_util_get_real_path (const gchar *path)
 			free (buf);
 			return result;
 		}
+#  endif
+#else
+		char dummy;
+		int rc, len;
+
+		/* Get length of path */
+		rc = GetFullPathName (path, 1, &dummy, NULL);
+		if (rc == 0)
+		{
+			/* Weird failure */
+			return g_strdup (path);
+		}
+
+		len = rc + 1;
+		result = g_malloc (len);
+
+		/* Get the real path */
+		rc = GetFullPathName (path, len, result, NULL);
+		if (rc == 0 || rc > len)
+		{
+			/* Another weird failure */
+			g_free (result);
+			return g_strdup (path);
+		}
+
+		return result;
 #endif
 	}
 	return NULL;
