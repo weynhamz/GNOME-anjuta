@@ -1131,9 +1131,6 @@ anjuta_util_user_shell (void)
 gchar **
 anjuta_util_user_terminal (void)
 {
-/* FIXME: GSettings */
-#if 0
-	GConfClient *client;
 	gchar *terminal = NULL;
 	gchar **argv = NULL;
 	static const gchar *terms[] = {
@@ -1147,22 +1144,22 @@ anjuta_util_user_terminal (void)
 		NULL
 	};
 	const gchar **term;
+	GSettingsSchema *schema;
 
-	client = gconf_client_get_default ();
-	terminal = gconf_client_get_string (client, "/desktop/gnome/applications/terminal/exec", NULL);
-	g_object_unref (client);
+	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (),
+	                                          "org.gnome.desktop.default-applications.terminal",
+	                                          TRUE);
 
-	if (terminal)
+	if (schema)
 	{
-		gchar *command_line;
-		gchar *exec_flag;
+		GSettings *settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
 
-		exec_flag = gconf_client_get_string (client, "/desktop/gnome/applications/terminal/exec_arg", NULL);
-		command_line = g_strconcat (terminal, " ", exec_flag, NULL);
+		argv = g_new0 (gchar *, 3);
+		argv[0] = g_settings_get_string (settings, "exec");
+		argv[1] = g_settings_get_string (settings, "exec-arg");
 
-		g_shell_parse_argv (command_line, NULL, &argv, NULL);
-		g_free (terminal);
-		g_free (exec_flag);
+		g_settings_schema_unref (schema);
+		g_object_unref (settings);
 
 		return argv;
 	}
@@ -1187,10 +1184,6 @@ anjuta_util_user_terminal (void)
 	argv[1] = g_strdup (term == &terms[2] ? "-x" : "-e");
 
 	return argv;
-#else
-	g_warning ("anjuta_util_user_terminal: Not implemented");
-	return NULL;
-#endif
 }
 
 pid_t
