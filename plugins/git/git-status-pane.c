@@ -43,6 +43,17 @@ typedef struct
 	GList *list;
 } StatusSelectionData;
 
+/* DND drag targets */
+static GtkTargetEntry drag_target_targets[] =
+{
+	{
+		"text/uri-list",
+		0,
+		0
+	}
+};
+
+
 struct _GitStatusPanePriv
 {
 	GtkBuilder *builder;
@@ -446,12 +457,93 @@ on_clear_button_clicked (GtkButton *button, GitStatusPane *self)
 }
 
 static void
+on_status_view_drag_data_received (GtkWidget *widget,
+                            	   GdkDragContext *context, gint x, gint y,
+                                   GtkSelectionData *data, guint target_type,
+                                   guint time, GitStatusPane *self)
+{
+	Git *plugin;
+	gboolean success;
+	gchar **uri_list;
+	int i;
+	GFile *file;
+	gchar *path;
+	GList *paths;
+	GitAddCommand *add_command;
+
+	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
+	success = FALSE;
+	path = NULL;
+	paths = NULL;
+
+	if ((data != NULL) && 
+	    (gtk_selection_data_get_length (data) >= 0))
+	{
+		if (target_type == 0)
+		{
+			uri_list = gtk_selection_data_get_uris (data);
+
+			for (i = 0; uri_list[i]; i++)
+			{
+				file = g_file_new_for_uri (uri_list[i]);
+				path = g_file_get_path (file);
+
+				if (path && !g_file_test (path, G_FILE_TEST_IS_DIR))
+				{
+					paths = g_list_append (paths, 
+					                       g_strdup (path +
+					                                 strlen (plugin->project_root_directory) + 1));
+				}
+
+				g_free (path);
+				g_object_unref (file);
+			}
+
+
+			add_command = git_add_command_new_list (plugin->project_root_directory,
+			                                        paths, FALSE);
+
+			g_signal_connect (G_OBJECT (add_command), "command-finished",
+			                  G_CALLBACK (g_object_unref),
+			                  NULL);
+
+			anjuta_command_start (ANJUTA_COMMAND (add_command));
+			success = TRUE;
+
+			anjuta_util_glist_strings_free (paths);
+			g_strfreev (uri_list);
+		}
+	}
+
+	/* Do not delete source data */
+	gtk_drag_finish (context, success, FALSE, time);
+}
+
+static gboolean
+on_status_view_drag_drop (GtkWidget *widget, GdkDragContext *context, 
+                   		  gint x, gint y, guint time,
+                   		  GitStatusPane *self)
+{
+	GdkAtom target_type;
+
+	target_type = gtk_drag_dest_find_target (widget, context, NULL);
+
+	if (target_type != GDK_NONE)
+		gtk_drag_get_data (widget, context, target_type, time);
+	else
+		gtk_drag_finish (context, FALSE, FALSE, time);
+
+	return TRUE;
+}
+
+static void
 git_status_pane_init (GitStatusPane *self)
 {
 	gchar *objects[] = {"status_pane",
 						"status_model",
 						NULL};
 	GError *error = NULL;
+	GtkTreeView *status_view;
 	GtkTreeViewColumn *status_column;
 	GtkCellRenderer *selected_renderer;
 	GtkCellRenderer *status_icon_renderer;
@@ -480,6 +572,8 @@ git_status_pane_init (GitStatusPane *self)
 		g_error_free (error);
 	}
 
+	status_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                     "status_view"));
 	status_column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (self->priv->builder,
 	                                                              "status_column"));
 	selected_renderer = GTK_CELL_RENDERER (gtk_builder_get_object (self->priv->builder,
@@ -527,6 +621,21 @@ git_status_pane_init (GitStatusPane *self)
 
 	g_signal_connect (G_OBJECT (clear_button), "clicked",
 	                  G_CALLBACK (on_clear_button_clicked),
+	                  self);
+
+	/* DND */
+	gtk_drag_dest_set (GTK_WIDGET (status_view), 
+	                   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT, 
+	                   drag_target_targets,
+	                   G_N_ELEMENTS (drag_target_targets), 
+	                   GDK_ACTION_COPY | GDK_ACTION_MOVE);
+	
+	g_signal_connect (G_OBJECT (status_view), "drag-drop",
+	                  G_CALLBACK (on_status_view_drag_drop),
+	                  self);
+
+	g_signal_connect (G_OBJECT (status_view), "drag-data-received",
+	                  G_CALLBACK (on_status_view_drag_data_received),
 	                  self);
 }
 

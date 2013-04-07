@@ -23,6 +23,7 @@
 #include <glib-object.h>
 #include "git-pane.h"
 #include "git-status-command.h"
+#include "git-add-command.h"
 
 G_BEGIN_DECLS
 
