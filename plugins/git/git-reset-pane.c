@@ -30,7 +30,7 @@ static void
 on_ok_action_activated (GtkAction *action, GitResetPane *self)
 {
 	Git *plugin;
-	AnjutaEntry *revision_entry;
+	AnjutaEntry *reset_revision_entry;
 	GtkToggleButton *mixed_radio;
 	GtkToggleButton *soft_radio;
 	const gchar *revision;
@@ -38,14 +38,14 @@ on_ok_action_activated (GtkAction *action, GitResetPane *self)
 	GitResetTreeCommand *reset_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                       "revision_entry"));
+	reset_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                   			 "reset_revision_entry"));
 	mixed_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                         "mixed_radio"));
 	soft_radio = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
 	                                                        "soft_radio"));
 
-	revision = anjuta_entry_get_text (revision_entry);
+	revision = anjuta_entry_get_text (reset_revision_entry);
 
 	if (g_utf8_strlen (revision, -1) == 0)
 		revision = GIT_RESET_TREE_PREVIOUS;

@@ -324,18 +324,6 @@
       </packing>
     </child>
   </object>
-  <object class="GtkListStore" id="branches_list_model">
-    <columns>
-      <!-- column-name selected -->
-      <column type="gboolean"/>
-      <!-- column-name active -->
-      <column type="gboolean"/>
-      <!-- column-name remote -->
-      <column type="gboolean"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkVBox" id="apply_mailbox_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -464,6 +452,18 @@
         <property name="position">2</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="branches_list_model">
+    <columns>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name active -->
+      <column type="gboolean"/>
+      <!-- column-name remote -->
+      <column type="gboolean"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkVBox" id="branches_pane">
     <property name="visible">True</property>
@@ -2604,6 +2604,14 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="push_tag_model">
+    <columns>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkVBox" id="push_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -2915,14 +2923,6 @@
         <property name="position">3</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkListStore" id="push_tag_model">
-    <columns>
-      <!-- column-name selected -->
-      <column type="gboolean"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkListStore" id="remotes_list_model">
     <columns>
@@ -3310,7 +3310,7 @@
             <property name="can_focus">False</property>
             <property name="left_padding">12</property>
             <child>
-              <object class="AnjutaDropEntry" id="commit_entry">
+              <object class="AnjutaDropEntry" id="revert_commit_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">•</property>

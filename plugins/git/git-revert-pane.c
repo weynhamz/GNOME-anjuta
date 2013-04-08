@@ -30,21 +30,21 @@ static void
 on_ok_action_activated (GtkAction *action, GitRevertPane *self)
 {
 	Git *plugin;
-	AnjutaEntry *commit_entry;
-	GtkToggleButton *no_commit_check;
+	AnjutaEntry *revert_commit_entry;
+	GtkToggleAction *no_commit_action;
 	gchar *commit;
 	GitRevertCommand *revert_command;
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
-	commit_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                     "commit_entry"));
-	no_commit_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
-	                                                             "no_commit_check"));
+	revert_commit_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
+	                                                 			"revert_commit_entry"));
+	no_commit_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
+	                                                              "no_commit_action"));
 
-	commit = anjuta_entry_dup_text (commit_entry);
+	commit = anjuta_entry_dup_text (revert_commit_entry);
 
 	if (!git_pane_check_input (GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell),
-	                           GTK_WIDGET (commit_entry), commit,
+	                           GTK_WIDGET (revert_commit_entry), commit,
 	                           _("Please enter a commit.")))
 	{
 		g_free (commit);
@@ -54,7 +54,7 @@ on_ok_action_activated (GtkAction *action, GitRevertPane *self)
 
 	revert_command = git_revert_command_new (plugin->project_root_directory,
 	                                         commit,
-	                                         gtk_toggle_button_get_active (no_commit_check));
+	                                         gtk_toggle_action_get_active (no_commit_action));
 
 	g_signal_connect (G_OBJECT (revert_command), "command-finished",
 	                  G_CALLBACK (git_pane_report_errors),
