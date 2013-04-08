@@ -22,6 +22,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-close-button.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -82,13 +83,11 @@ struct _AnjutaDocmanPage {
 	GtkWidget *widget;	/* notebook-page widget */
 	GtkWidget *box;		/* notebook-tab-label parent widget */
 	GtkWidget *menu_box; /* notebook-tab-menu parent widget */
-	GtkWidget *close_image;
 	GtkWidget *close_button;
 	GtkWidget *mime_icon;
 	GtkWidget *menu_icon;
 	GtkWidget *label;
 	GtkWidget *menu_label;	/* notebook page-switch menu-label */
-	gboolean is_current;
 	guint doc_widget_key_press_id;
 };
 
@@ -464,25 +463,6 @@ on_notebook_page_close_button_click (GtkButton* button,
 		on_close_file_activate (NULL, docman->priv->plugin);
 }
 
-static void
-on_notebook_page_close_button_enter (GtkButton *button,
-									 AnjutaDocmanPage *page)
-{
-	g_return_if_fail (page != NULL);
-
-	gtk_widget_set_sensitive (page->close_image, TRUE);
-}
-
-static void
-on_notebook_page_close_button_leave (GtkButton* button,
-									 AnjutaDocmanPage *page)
-{
-	g_return_if_fail (page != NULL);
-
-	if (! page->is_current)
-		gtk_widget_set_sensitive (page->close_image,FALSE);
-}
-
 /* for managing deferred tab re-arrangement */
 static gboolean
 on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* docman)
@@ -634,30 +614,16 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 						 GFile* file, AnjutaDocmanPage *page)
 {
 	GtkWidget *close_button;
-	GtkWidget *close_pixmap;
 	GtkWidget *label, *menu_label;
 	GtkWidget *box, *menu_box;
 	GtkWidget *event_hbox;
 	GtkWidget *event_box;
-	gint h, w;
-	GdkColor color;
 	const gchar *filename;
 	gchar *ruri;
 
 	g_return_if_fail (IANJUTA_IS_DOCUMENT (doc));
 
-	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
-
-	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-	gtk_widget_show (close_pixmap);
-
-	/* setup close button, zero out {x,y} thickness to get smallest possible size */
-	close_button = gtk_button_new();
-	gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
-	gtk_container_add(GTK_CONTAINER(close_button), close_pixmap);
-	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
-
-	gtk_widget_set_size_request (close_button, w, h);
+	close_button = anjuta_close_button_new ();
 	gtk_widget_set_tooltip_text (close_button, _("Close file"));
 
 	filename = ianjuta_document_get_filename (doc, NULL);
@@ -669,17 +635,6 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_misc_set_alignment (GTK_MISC (menu_label), 0.0, 0.5);
 	gtk_widget_show (menu_label);
 	menu_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
-
-	color.red = 0;
-	color.green = 0;
-	color.blue = 0;
-
-	gtk_widget_modify_fg (close_button, GTK_STATE_NORMAL, &color);
-	gtk_widget_modify_fg (close_button, GTK_STATE_INSENSITIVE, &color);
-	gtk_widget_modify_fg (close_button, GTK_STATE_ACTIVE, &color);
-	gtk_widget_modify_fg (close_button, GTK_STATE_PRELIGHT, &color);
-	gtk_widget_modify_fg (close_button, GTK_STATE_SELECTED, &color);
-	gtk_widget_show(close_button);
 
 	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 	/* create our layout/event boxes */
@@ -735,12 +690,6 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (close_button), "clicked",
 					  G_CALLBACK (on_notebook_page_close_button_click),
 					  docman);
-	g_signal_connect (G_OBJECT (close_button), "enter",
-					  G_CALLBACK (on_notebook_page_close_button_enter),
-					  page);
-	g_signal_connect (G_OBJECT (close_button), "leave",
-					  G_CALLBACK (on_notebook_page_close_button_leave),
-					  page);
 	g_signal_connect (G_OBJECT (box), "button-press-event",
 					  G_CALLBACK (on_notebook_tab_btnpress),
 					  docman);
@@ -758,7 +707,6 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	page->widget = GTK_WIDGET (doc);	/* this is the notebook-page child widget */
 	page->doc = doc;
 	page->box = box;
-	page->close_image = close_pixmap;
 	page->close_button = close_button;
 	page->label = label;
 	page->menu_box = menu_box;
@@ -1098,8 +1046,8 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_widget_show (close_image);
 
 	close_button = gtk_button_new ();
-	gtk_widget_show (close_button);
-	gtk_widget_set_tooltip_text (close_button, _("Close file"));
+ 	gtk_widget_show (close_button);
+ 	gtk_widget_set_tooltip_text (close_button, _("Close file"));
 	gtk_container_add (GTK_CONTAINER (close_button), close_image);
 	gtk_widget_set_vexpand (close_button, FALSE);
 	gtk_box_pack_start (GTK_BOX (docman->priv->combo_box), close_button,
@@ -1469,9 +1417,6 @@ void
 anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 {
 	AnjutaDocmanPage *page;
-	IAnjutaDocument *defdoc;
-
-	defdoc = anjuta_docman_get_current_document(docman);
 
 	if (doc != NULL)
 	{
@@ -1482,29 +1427,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			gint page_num;
 			GtkTreeIter iter;
 
-			if (defdoc != NULL)
-			{
-				AnjutaDocmanPage *oldpage;
-				oldpage = anjuta_docman_get_page_for_document (docman, defdoc);
-				if (oldpage)
-				{
-					oldpage->is_current = FALSE;
-					if (oldpage->close_button != NULL)
-					{
-						gtk_widget_set_sensitive (oldpage->close_image, FALSE);
-						if (oldpage->mime_icon)
-							gtk_widget_set_sensitive (oldpage->mime_icon, FALSE);
-					}
-				}
-			}
-
-			page->is_current = TRUE;
-			if (page->close_button != NULL)
-			{
-				gtk_widget_set_sensitive (page->close_image, TRUE);
-				if (page->mime_icon)
-					gtk_widget_set_sensitive (page->mime_icon, TRUE);
-			}
 			page_num = gtk_notebook_page_num (docman->priv->notebook,
 											  page->widget);
 			gtk_notebook_set_current_page (docman->priv->notebook, page_num);
@@ -1518,23 +1440,6 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 			/* set active document in combo box */
 			if (anjuta_docman_get_iter_for_document(docman, page->doc, &iter))
 				gtk_combo_box_set_active_iter (docman->priv->combo, &iter);
-		}
-	}
-	else /* doc == NULL */
-	{
-		if (defdoc != NULL)
-		{
-			page = anjuta_docman_get_current_page (docman);
-			if (page)
-			{
-				page->is_current = FALSE;
-				if (page->close_button != NULL)
-				{
-					gtk_widget_set_sensitive (page->close_image, FALSE);
-					if (page->mime_icon)
-						gtk_widget_set_sensitive (page->mime_icon, FALSE);
-				}
-			}
 		}
 	}
 }
