@@ -74,5 +74,6 @@
 #include <libanjuta/anjuta-token-stream.h>
 #include <libanjuta/anjuta-tree-combo.h>
 #include <libanjuta/anjuta-vcs-status.h>
+#include <libanjuta/anjuta-close-button.h>
 
 #endif
