@@ -26,9 +26,21 @@ static struct _Private
 
 static struct Private* priv = NULL;
 
-/* For testing propose use the local (not installed) ui file */
-/* #define UI_FILE PACKAGE_DATA_DIR"/ui/[+NameHLower+].ui" */
+/* For testing purpose, define TEST to use the local (not installed) ui file */
+#define TEST
+#ifdef TEST
 #define UI_FILE "src/[+NameHLower+].ui"
+#else
+[+IF (=(get "HaveWindowsSupport") "1")\+]
+#ifdef G_OS_WIN32
+#define UI_FILE ui_file
+#else
+[+ENDIF\+]
+#define UI_FILE PACKAGE_DATA_DIR"/ui/[+NameHLower+].ui"
+[+IF (=(get "HaveWindowsSupport") "1")\+]
+#endif
+[+ENDIF\+]
+#endif
 #define TOP_WINDOW "window"
 
 /* Signal handlers */
@@ -46,6 +58,13 @@ destroy (GtkWidget *widget, gpointer data)
 static GtkWidget*
 create_window (void)
 {
+[+IF (=(get "HaveWindowsSupport") "1")\+]
+#if !defined(TEST) && defined(G_OS_WIN32)
+	gchar *prefix = g_win32_get_package_installation_directory_of_module (NULL);
+	gchar *datadir = g_build_filename (prefix, "share", PACKAGE, NULL);
+	gchar *ui_file = g_build_filename (datadir, "ui", "[+NameHLower+].ui", NULL);
+#endif
+[+ENDIF\+]
 	GtkWidget *window;
 	GtkBuilder *builder;
 	GError* error = NULL;
@@ -74,10 +93,18 @@ create_window (void)
 	/* ANJUTA: Widgets initialization for [+NameHLower+].ui - DO NOT REMOVE */
 
 	g_object_unref (builder);
+
+[+IF (=(get "HaveWindowsSupport") "1")+]
+#if !defined(TEST) && defined(G_OS_WIN32)
+	g_free (prefix);
+	g_free (datadir);
+	g_free (ui_file);
+#endif
+[+ENDIF\+]
 	
 	return window;
-}
-[+ELSE+]
+}[+
+ELSE+]
 static GtkWidget*
 create_window (void)
 {
@@ -90,21 +117,36 @@ create_window (void)
 	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
 	
 	return window;
-}
-[+ENDIF+]
+}[+
+ENDIF+]
 
 int
 main (int argc, char *argv[])
 {
  	GtkWidget *window;
 
-[+IF (=(get "HaveI18n") "1")+]
+[+IF (=(get "HaveI18n") "1")+][+
+IF (=(get "HaveWindowsSupport") "1")+]
+#ifdef G_OS_WIN32
+	gchar *prefix = g_win32_get_package_installation_directory_of_module (NULL);
+	gchar *localedir = g_build_filename (prefix, "share", "locale", NULL);
+#endif[+
+ENDIF+]
+
 #ifdef ENABLE_NLS
+[+IF (=(get "HaveWindowsSupport") "1")+]
+# ifndef G_OS_WIN32
 	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+# else
+	bindtextdomain (GETTEXT_PACKAGE, localedir);
+# endif[+
+ELSE+]
+	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);[+
+ENDIF+]
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
-#endif
-[+ENDIF+]
+#endif[+
+ENDIF+]
 	
 	gtk_init (&argc, &argv);
 
@@ -112,9 +154,19 @@ main (int argc, char *argv[])
 	gtk_widget_show (window);
 
 	gtk_main ();
+
 [+IF (=(get "HaveBuilderUI") "1")+]
-	g_free (priv);
-[+ENDIF+]
+	g_free (priv);[+
+ENDIF+]
+[+IF (=(get "HaveI18n") "1")+][+
+IF (=(get "HaveWindowsSupport") "1")+]
+#ifdef G_OS_WIN32
+	g_free (prefix);
+	g_free (localedir);
+#endif[+
+ENDIF+][+
+ENDIF+]
+
 	return 0;
 }
 [+INVOKE END-INDENT\+]

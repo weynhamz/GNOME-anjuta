@@ -27,6 +27,12 @@ bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
+[+IF (=(get "HaveWindowsSupport") "1")+]
+if NATIVE_WIN32
+[+NameCLower+]_LDFLAGS += -mwindows
+endif
+[+ENDIF+]
+
 [+IF (=(get "HaveBuilderUI") "1")+]
 EXTRA_DIST = $(ui_DATA)
 

@@ -32,6 +32,7 @@
 		<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
 		<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 		<property type="boolean" name="HaveBuilderUI" _label="Use GtkBuilder for user interface:" _description="Use GtkBuilder to create the user-interface in a graphical way and load it from xml files at runtime" default="1"/>
+		<property type="boolean" name="HaveWindowsSupport" _label="Add Windows support:" _description="Adds support for building on Windows platforms" default="0"/>
 	</page>
 	
 	[+IF (=(get "HavePackageExtra") "1")+]

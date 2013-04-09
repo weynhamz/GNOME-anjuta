@@ -26,10 +26,26 @@ bin_PROGRAMS = [+NameHLower+]
 [+NameCLower+]_VALAFLAGS = [+IF (not (= (get "PackageModule2") ""))+] --pkg [+(string-substitute (get "PackageModule2") " " " --pkg ")+] [+ENDIF+] \
 	--pkg gtk+-3.0
 
+[+IF (=(get "HaveWindowsSupport") "1")+]
+[+NameCLower+]_LDFLAGS =[+
+ELSE+]
 [+NameCLower+]_LDFLAGS = \
-	-Wl,--export-dynamic
+	-Wl,--export-dynamic[+
+ENDIF+]
 
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
+
+[+IF (=(get "HaveWindowsSupport") "1")+]
+if PLATFORM_WIN32
+[+NameCLower+]_LDFLAGS += -Wl,--export-all-symbols
+else
+[+NameCLower+]_LDFLAGS += -Wl,--export-dynamic
+endif
+
+if NATIVE_WIN32
+[+NameCLower+]_LDFLAGS += -mwindows
+endif[+
+ENDIF+]
 
 [+IF (=(get "HaveBuilderUI") "1")+]
 EXTRA_DIST = $(ui_DATA)

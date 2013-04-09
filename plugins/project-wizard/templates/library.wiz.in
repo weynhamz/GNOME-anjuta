@@ -33,6 +33,7 @@
 		<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
 		<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 		<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
+		<property type="boolean" name="HaveWindowsSupport" _label="Add Windows support:" _description="Adds support for building on Windows platforms" default="0"/>
 	</page>
 	
 [+IF (=(get "HavePackage") "1")+]

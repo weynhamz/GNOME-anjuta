@@ -37,6 +37,16 @@ lib_LTLIBRARIES = [+(prefix_if_missing "NameHLower" "lib")+].la
 
 [+(prefix_if_missing "NameCLower" "lib")+]_la_LIBADD = [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
 
+[+IF (=(get "HaveWindowsSupport") "1")+]
+if PLATFORM_WIN32
+[+(prefix_if_missing "NameCLower" "lib")+]_la_LDFLAGS += -no-undefined
+endif
+
+if NATIVE_WIN32
+[+(prefix_if_missing "NameCLower" "lib")+]_la_LDFLAGS += -export-dynamic
+endif[+
+ENDIF+]
+
 include_HEADERS = \
 	[+NameHLower+].h
 

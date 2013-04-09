@@ -22,3 +22,8 @@ bin_PROGRAMS = [+NameHLower+]
 
 [+NameCLower+]_LDADD = [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
 
+[+IF (=(get "HaveWindowsSupport") "1")+]
+if NATIVE_WIN32
+[+NameCLower+]_LDFLAGS += -mwindows
+endif[+
+ENDIF+]
