@@ -1065,7 +1065,8 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	GtkCellRenderer *cell;
 	GtkWidget *close_image, *close_button;
 
-	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
+	docman->priv = G_TYPE_INSTANCE_GET_PRIVATE (docman, ANJUTA_TYPE_DOCMAN,
+	                                            AnjutaDocmanPriv);
 
 	docman->priv->combo_model = gtk_list_store_new (2, G_TYPE_OBJECT, G_TYPE_STRING);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
@@ -1133,7 +1134,9 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 	object_class->finalize = anjuta_docman_finalize;
 	object_class->dispose = anjuta_docman_dispose;
 
-		/* Signals */
+	g_type_class_add_private (klass, sizeof(AnjutaDocmanPriv));
+
+	/* Signals */
 	docman_signals [DOC_ADDED] =
 		g_signal_new ("document-added",
 			ANJUTA_TYPE_DOCMAN,
