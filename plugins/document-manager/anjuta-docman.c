@@ -1073,8 +1073,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (docman->priv->combo_model), 1,
 	                                 combo_sort_func, docman, NULL);
 
-	docman->priv->combo_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-	g_object_set (G_OBJECT (docman->priv->combo_box), "margin", 6, NULL);
+	docman->priv->combo_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_widget_set_sensitive (GTK_WIDGET (docman->priv->combo_box), FALSE);
 	gtk_grid_attach (GTK_GRID (docman), GTK_WIDGET (docman->priv->combo_box),
 	                 0, 0, 1, 1);
