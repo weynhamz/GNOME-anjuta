@@ -1114,7 +1114,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_notebook_set_show_tabs (docman->priv->notebook, FALSE);
 	g_object_set (docman->priv->notebook, "expand", TRUE, NULL);
 	gtk_grid_attach (GTK_GRID (docman), GTK_WIDGET (docman->priv->notebook),
-	                 0, 1, 2, 1);
+	                 0, 1, 1, 1);
 
 	gtk_notebook_popup_enable (docman->priv->notebook);
 	gtk_notebook_set_scrollable (docman->priv->notebook, TRUE);
