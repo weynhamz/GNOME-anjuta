@@ -34,7 +34,7 @@ typedef struct _AnFileHistory
 
 static AnFileHistory *s_history = NULL;
 
-static void an_file_history_init()
+static void an_file_history_init (void)
 {
 	s_history = g_new(AnFileHistory, 1);
 	s_history->items = NULL;
