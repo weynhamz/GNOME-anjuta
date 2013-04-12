@@ -716,8 +716,6 @@ anjuta_tabber_realize (GtkWidget *widget)
 	tabber->priv->event_window = gdk_window_new (gtk_widget_get_parent_window (widget), 
 	                                             &attributes, GDK_WA_X | GDK_WA_Y);
 	gdk_window_set_user_data (tabber->priv->event_window, tabber);
-
-	gtk_widget_style_attach (widget);
 }
 
 static void
