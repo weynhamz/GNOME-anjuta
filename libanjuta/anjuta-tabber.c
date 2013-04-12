@@ -460,9 +460,9 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			gtk_style_context_get_padding (context, state, &tab_padding);
 			gtk_style_context_restore (context);
 
-			if (child == g_list_first (tabber->priv->children))
+			if (child->prev == NULL)
 				begin_tab += tab_overlap;
-			if (child == g_list_last (tabber->priv->children))
+			if (child->next == NULL)
 				end_tab += tab_overlap;
 			
 			gtk_widget_get_preferred_width (child_widget, &minimal,
