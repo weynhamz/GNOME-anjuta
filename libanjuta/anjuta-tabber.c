@@ -59,6 +59,8 @@ anjuta_tabber_init (AnjutaTabber *object)
 	AnjutaTabber* tabber = ANJUTA_TABBER (object);
 	AnjutaTabberPriv* priv;
 
+	GtkStyleContext* context;
+
 	tabber->priv = ANJUTA_TABBER_GET_PRIVATE (tabber);
 	priv = tabber->priv;
 
@@ -69,6 +71,10 @@ anjuta_tabber_init (AnjutaTabber *object)
 	priv->tab_vborder = 2;
 
 	gtk_widget_set_has_window (GTK_WIDGET(tabber), FALSE);
+
+	context = gtk_widget_get_style_context (GTK_WIDGET (tabber));
+	gtk_style_context_add_class (context, GTK_STYLE_CLASS_NOTEBOOK);
+	gtk_style_context_add_class (context, GTK_STYLE_CLASS_TOP);
 }
 
 /**
@@ -723,6 +729,38 @@ anjuta_tabber_forall (GtkContainer* container,
     }
 }
 
+static GtkWidgetPath*
+anjuta_tabber_get_path_for_child (GtkContainer* container,
+                                  GtkWidget* widget)
+{
+	AnjutaTabber* tabber = ANJUTA_TABBER (container);
+
+	GtkWidgetPath* path;
+	GList* child;
+	gint nth;
+	gboolean is_last;
+	gint tabber_pos;
+
+	path = GTK_CONTAINER_CLASS (anjuta_tabber_parent_class)->get_path_for_child (container, widget);
+
+	for (child = tabber->priv->children, nth = 1; child; child = child->next, nth++)
+	{
+		if (child->data == widget)
+		{
+			is_last = (child->next == NULL);
+			break;
+		}
+	}
+
+	if (!child)
+		return path;
+
+	tabber_pos = gtk_widget_path_length (path) - 2;
+	gtk_widget_path_iter_add_region (path, tabber_pos, GTK_STYLE_REGION_TAB,
+	                                 anjuta_tabber_get_region_flags (nth, is_last));
+	return path;
+}
+
 static void
 anjuta_tabber_class_init (AnjutaTabberClass *klass)
 {
@@ -748,6 +786,7 @@ anjuta_tabber_class_init (AnjutaTabberClass *klass)
 	container_class->add = anjuta_tabber_add;
 	container_class->remove = anjuta_tabber_remove;
 	container_class->forall = anjuta_tabber_forall;
+	container_class->get_path_for_child = anjuta_tabber_get_path_for_child;
 	
 	g_object_class_install_property (object_class,
 	                                 PROP_NOTEBOOK,
