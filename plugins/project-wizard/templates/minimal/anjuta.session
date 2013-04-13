@@ -1,2 +1,13 @@
+[+ autogen5 template +]
 [Build]
+Configuration list=1:Default:%%%1:Debug:Debug%%%1:Profiling:Profiling%%%1:Optimized:Optimized%%%1:MinGW32:MinGW32
+ Selected Configuration=Debug
+BuildArgs/Default=--enable-maintainer-mode
+BuildArgs/Debug=--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'
+BuildArgs/Profiling=--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'
+BuildArgs/Optimized=--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'
+[+IF (=(get "HaveWindowsSupport") "1")\+]
+BuildArgs/MinGW32=--enable-maintainer-mode --host=i686-w64-mingw32 'PKG_CONFIG_PATH=/usr/i686-w64-mingw32/lib/pkgconfig:/usr/i686-w64-mingw32/share/pkgconfig:/usr/i686-w64-mingw32/sys-root/mingw/lib/pkgconfig:/usr/i686-w64-mingw32/sys-root/mingw/share/pkgconfig'
+[+ENDIF\+]
+
 Selected Configuration=Debug
