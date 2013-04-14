@@ -1635,16 +1635,6 @@
       </packing>
     </child>
   </object>
-  <object class="GtkListStore" id="log_branch_combo_model">
-    <columns>
-      <!-- column-name active -->
-      <column type="gboolean"/>
-      <!-- column-name active-icon -->
-      <column type="gchararray"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="log_loading_model">
     <columns>
       <!-- column-name spin -->
@@ -1658,6 +1648,16 @@
         <col id="1" translatable="yes">Loading...</col>
       </row>
     </data>
+  </object>
+  <object class="GtkListStore" id="log_branch_combo_model">
+    <columns>
+      <!-- column-name active -->
+      <column type="gboolean"/>
+      <!-- column-name active-icon -->
+      <column type="gchararray"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkVBox" id="log_pane">
     <property name="visible">True</property>
@@ -1686,7 +1686,6 @@
                       <object class="AnjutaEntry" id="path_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="editable">False</property>
                         <property name="invisible_char">•</property>
                         <property name="text" translatable="yes">Whole project; Drop a file here to view a file or folder log</property>
                         <property name="help_text" translatable="yes">Whole project; Drop a file here to view a file or folder log</property>
