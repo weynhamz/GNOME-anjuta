@@ -137,7 +137,13 @@ NAME          [^ \t\n\r:#=$"'`&@\\]*
 
 .NOTPARALLEL                { RETURN (_NOTPARALLEL); }
 
-{NAME}                      { RETURN (NAME);}
+ifeq                        { RETURN (IFEQ); }
+
+else                        { RETURN (ELSE); }
+
+endif                       { RETURN (ENDIF); }
+
+{NAME}                      { RETURN (NAME); }
 
 .                           { RETURN (CHARACTER); }
 

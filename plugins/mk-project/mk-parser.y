@@ -62,6 +62,9 @@
 %token  _SILENT
 %token  _EXPORT_ALL_VARIABLES
 %token  _NOTPARALLEL
+%token	IFEQ
+%token	ELSE
+%token	ENDIF
 
 %defines
 
@@ -177,6 +180,7 @@ statement:
     end_of_line
     | space end_of_line
     | definition end_of_line
+    | conditional end_of_line
     | rule  command_list {
         anjuta_token_merge_children ($1, $2);
         mkp_scanner_add_rule (scanner, $1);
@@ -243,6 +247,12 @@ command_list:
         anjuta_token_merge ($1, $4);
     }
 	;
+
+conditional:
+    IFEQ value
+    | ELSE
+    | ENDIF
+    ;	
 
 
 /* Lists
@@ -503,6 +513,9 @@ word_token:
     | _SILENT
     | _EXPORT_ALL_VARIABLES
     | _NOTPARALLEL
+    | IFEQ
+    | ELSE
+    | ENDIF
     ;
 		
 space_token:
