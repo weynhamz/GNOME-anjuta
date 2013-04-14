@@ -20,10 +20,11 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-tabber.h>
-
+#include <libanjuta/anjuta-close-button.h>
 #include <libanjuta/resources.h>
-#include "anjuta-msgman.h"
+
 #include "message-view.h"
+#include "anjuta-msgman.h"
 
 struct _AnjutaMsgmanPriv
 {
@@ -43,7 +44,6 @@ struct _AnjutaMsgmanPage
 	GtkWidget *label;
 	GtkWidget *box;
 	GtkWidget *close_button;
-	GtkWidget *close_icon;
 };
 
 enum
@@ -117,7 +117,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 			const gchar * pixmap, AnjutaMsgman * msgman)
 {
 	AnjutaMsgmanPage *page;
-	int h, w;
 	GtkWidget* box;
 
 	g_return_val_if_fail (view != NULL, NULL);
@@ -144,20 +143,8 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 		gtk_box_pack_start (GTK_BOX (box), page->pixmap, FALSE, FALSE, 0);
 	}
 	gtk_box_pack_start (GTK_BOX (box), page->label, TRUE, TRUE, 0);
-	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
-	page->close_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE,
-												GTK_ICON_SIZE_MENU);
-	gtk_widget_set_size_request(page->close_icon, w, h);
 
-	page->close_button = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(page->close_button), page->close_icon);
-	gtk_widget_set_size_request (page->close_button, w, h);
-	gtk_button_set_focus_on_click (GTK_BUTTON (page->close_button), FALSE);
-	gtk_button_set_relief(GTK_BUTTON(page->close_button), GTK_RELIEF_NONE);
-	/* This style is created int the document-manager which we simply
-	 * assume is loaded before this plugin
-     */
-	gtk_widget_set_name (page->close_button, "anjuta-tab-close-button");
+	page->close_button = anjuta_close_button_new ();
 
 	g_object_set_data (G_OBJECT (page->close_button), "message_view", page->widget);
 	g_signal_connect (page->close_button, "clicked",
