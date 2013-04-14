@@ -445,7 +445,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
 			GtkStateFlags state;
-			GtkBorder tab_padding;
+			GtkBorder tab_padding, active_padding;
 			GtkAllocation child_alloc;
 			gint natural;
 			gint minimal;
@@ -456,6 +456,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			gtk_style_context_save (context);
 			anjuta_tabber_setup_style_context (tabber, context, child, &state, NULL);
 			gtk_style_context_get_padding (context, state, &tab_padding);
+			gtk_style_context_get_padding (context, state | GTK_STATE_ACTIVE, &active_padding);
 			gtk_style_context_restore (context);
 
 			if (child->prev == NULL)
@@ -470,15 +471,21 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			{
 				child_alloc.width = natural;
 			}
-			else
+	 		else
 			{
 				if (natural < child_equal)
 					child_alloc.width = natural;
 				else
 					child_alloc.width = child_equal;
 			}
+			/* The active pad is by definition at least the same height
+			 * as the inactive one. Therefore we always use the padding of the
+			 * active tab to calculate the height and y position of the child.
+			 */
 			child_alloc.height = allocation->height - 2 * focus_space
-				- tab_padding.top - tab_padding.bottom;
+				- active_padding.top - active_padding.bottom;
+			child_alloc.y = allocation->y + focus_space + active_padding.top;
+
 			switch (gtk_widget_get_direction (widget))
 			{
 				case GTK_TEXT_DIR_RTL:
@@ -492,7 +499,6 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 					x = child_alloc.x + child_alloc.width + focus_space
 						+ tab_padding.right + end_tab;
 			}
-			child_alloc.y = allocation->y + focus_space + tab_padding.top;
 
 			gtk_widget_size_allocate (GTK_WIDGET (child->data), &child_alloc);
 		}
