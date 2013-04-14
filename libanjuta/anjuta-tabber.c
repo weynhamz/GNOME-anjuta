@@ -167,18 +167,19 @@ anjuta_tabber_get_property (GObject *object, guint prop_id, GValue *value, GPara
 }
 
 static GtkRegionFlags
-anjuta_tabber_get_region_flags (gint page_num, gboolean is_last)
+anjuta_tabber_get_region_flags (AnjutaTabber* tabber, gint page_num)
 {
 	GtkRegionFlags flags = 0;
-	if ((page_num) % 2 == 0)
+
+	if ((page_num + 1) % 2 == 0)
 		flags |= GTK_REGION_EVEN;
 	else
 		flags |= GTK_REGION_ODD;
 
-	if (page_num == 0)
+	if (page_num == 1)
 		flags |= GTK_REGION_FIRST;
 
-	if (is_last)
+	if (page_num == (g_list_length (tabber->priv->children) - 1))
 		flags |= GTK_REGION_LAST;
 	
 	return flags;
@@ -189,21 +190,18 @@ anjuta_tabber_setup_style_context (AnjutaTabber* tabber, GtkStyleContext* contex
                                    GList* child, GtkStateFlags* state_flags,
                                    GtkRegionFlags* region_flags)
 {
-	gint position;
-	gboolean last, current;
+	gint page_num;
+	gboolean current;
 	GtkRegionFlags region;
 	GtkStateFlags state;
 
-	position = g_list_position (tabber->priv->children, child);
-	last = (child->next == NULL);
-	current = position == tabber->priv->active_page;
+	page_num = g_list_position (tabber->priv->children, child);
+	current = page_num == tabber->priv->active_page;
 
-	region = anjuta_tabber_get_region_flags (position + 1, last);
+	region = anjuta_tabber_get_region_flags (tabber, page_num);
 
 	gtk_style_context_add_region (context, GTK_STYLE_REGION_TAB, region);
 
-	if (current)
-		gtk_style_context_set_state (context, GTK_STATE_FLAG_ACTIVE);
 	if (gtk_widget_get_direction (GTK_WIDGET (tabber)) == GTK_TEXT_DIR_LTR)
 		gtk_style_context_set_junction_sides (context,
 		                                      GTK_JUNCTION_CORNER_TOPLEFT);
@@ -811,28 +809,18 @@ anjuta_tabber_get_path_for_child (GtkContainer* container,
 	AnjutaTabber* tabber = ANJUTA_TABBER (container);
 
 	GtkWidgetPath* path;
-	GList* child;
-	gint nth;
-	gboolean is_last;
+	gint page_num;;
 	gint tabber_pos;
 
 	path = GTK_CONTAINER_CLASS (anjuta_tabber_parent_class)->get_path_for_child (container, widget);
 
-	for (child = tabber->priv->children, nth = 1; child; child = child->next, nth++)
-	{
-		if (child->data == widget)
-		{
-			is_last = (child->next == NULL);
-			break;
-		}
-	}
-
-	if (!child)
+	page_num = g_list_index (tabber->priv->children, widget);
+	if (page_num == -1)
 		return path;
 
 	tabber_pos = gtk_widget_path_length (path) - 2;
 	gtk_widget_path_iter_add_region (path, tabber_pos, GTK_STYLE_REGION_TAB,
-	                                 anjuta_tabber_get_region_flags (nth, is_last));
+	                                 anjuta_tabber_get_region_flags (tabber, page_num));
 	return path;
 }
 
