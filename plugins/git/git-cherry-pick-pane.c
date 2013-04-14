@@ -39,7 +39,7 @@ on_ok_action_activated (GtkAction *action, GitCherryPickPane *self)
 
 	plugin = ANJUTA_PLUGIN_GIT (anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self)));
 	cherry_pick_revision_entry = ANJUTA_ENTRY (gtk_builder_get_object (self->priv->builder,
-	                                                   				   "revision_entry"));
+	                                                   				   "cherry_pick_revision_entry"));
 	no_commit_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
 	                                                              "no_commit_action"));
 	show_source_check = GTK_TOGGLE_BUTTON (gtk_builder_get_object (self->priv->builder,
