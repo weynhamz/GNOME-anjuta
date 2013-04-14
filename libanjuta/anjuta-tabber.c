@@ -574,10 +574,10 @@ anjuta_tabber_draw_tab (AnjutaTabber* tabber, cairo_t* cr, GList* child)
 		gtk_widget_get_allocation (tab, &allocation);
 
 		gtk_render_focus (context, cr,
-		                  allocation.x - focus_width,
-		                  allocation.y - focus_width,
-		                  allocation.width + 2 * focus_width,
-		                  allocation.height + 2 * focus_width);
+		                  allocation.x - focus_space,
+		                  allocation.y - focus_space,
+		                  allocation.width + 2 * focus_space,
+		                  allocation.height + 2 * focus_space);
 	}
 	
 	gtk_style_context_restore (context);
