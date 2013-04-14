@@ -266,9 +266,9 @@ anjuta_tabber_get_preferred_width (GtkWidget* widget,
 
 		xpadding =  2 * (focus_width + focus_pad) + tab_padding.left + tab_padding.right;
 		
-		if (child == g_list_first (tabber->priv->children))
+		if (child->prev == NULL)
 			extra_space += tab_overlap;
-		if (child == g_list_last (tabber->priv->children))
+		if (child->next == NULL)
 			extra_space += tab_overlap;
 		
 		gtk_widget_get_preferred_width (GTK_WIDGET (child->data), &child_min, &child_preferred);
