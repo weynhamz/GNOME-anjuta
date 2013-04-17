@@ -36,7 +36,7 @@ msgstr ""
 
 #: ../anjuta.desktop.in.in.h:4
 msgid "IDE;development;programming;"
-msgstr "IDE;development;programming;pengembangan;pemrograman"
+msgstr "IDE;development;programming;pengembangan;pemrograman;"
 
 #: ../libanjuta/anjuta-autogen.c:239
 msgid "Autogen is busy"
