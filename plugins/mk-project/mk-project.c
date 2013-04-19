@@ -667,6 +667,8 @@ mkp_project_get_variable_token (MkpProject *project, AnjutaToken *variable)
 
 	length = anjuta_token_get_length (variable);
 	string = anjuta_token_get_string (variable);
+	if ((length == 0) || (string == NULL)) return NULL;
+
 	if (string[1] == '(')
 	{
 		name = g_strndup (string + 2, length - 3);
