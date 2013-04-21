@@ -532,7 +532,7 @@ anjuta_language_provider_activate (AnjutaLanguageProvider* lang_prov,
  * @cursor: (type GObject): the text iter where the provider should be populated
  *
  * Show completion for the context at position @iter. The provider should
- * call ianjuta_editor_assist_proposals here to add proposals to the list.
+ * call anjuta_language_provider_proposals here to add proposals to the list.
  */
 void
 anjuta_language_provider_populate (AnjutaLanguageProvider* lang_prov,
@@ -584,6 +584,39 @@ anjuta_language_provider_populate (AnjutaLanguageProvider* lang_prov,
 		lang_prov->priv->start_iter = NULL;
 	}
 	anjuta_language_provider_none (lang_prov, iprov);
+}
+
+/**
+ * anjuta_language_provider_proposals:
+ * @lang_prov: Self
+ * @iprov: (type GObject): IAnjutaProvider object
+ * @proposals: (element-type IAnjutaEditorAssistProposal): a list of IAnjutaProposals
+ * @pre_word: the word before the cursor
+ * @finished: whether is was the last call in an async operation
+ *
+ * Add the list of proposals for the current population. You can add
+ * proposals async as long as the last call sets finished to TRUE. That
+ * is usually called by the IAnjutaLanguageProvider after it was triggered by
+ * ianjuta_language_provider_populate_completions()
+ */
+void
+anjuta_language_provider_proposals (AnjutaLanguageProvider* lang_prov,
+                                    IAnjutaProvider* iprov,
+                                    GList* proposals,
+                                    const gchar* pre_word,
+                                    gboolean finished)
+{
+	/* Hide if the only suggestion is exactly the typed word */
+	if (pre_word && proposals && g_list_length (proposals) == 1)
+	{
+		IAnjutaEditorAssistProposal* proposal = proposals->data;
+		AnjutaLanguageProposalData* data = proposal->data;
+		if (g_str_equal (pre_word, data->name))
+			proposals = NULL;
+	}
+
+	ianjuta_editor_assist_proposals (lang_prov->priv->iassist, iprov, proposals,
+	                                 pre_word, finished, NULL);
 }
 
 /**

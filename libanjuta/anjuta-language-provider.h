@@ -107,6 +107,13 @@ void
 anjuta_language_provider_populate				(AnjutaLanguageProvider* lang_prov,
                                                  IAnjutaProvider* iprov,
                                                  IAnjutaIterable* cursor);
+void
+anjuta_language_provider_proposals              (AnjutaLanguageProvider* lang_prov,
+                                                 IAnjutaProvider* iprov,
+                                                 GList* proposals,
+                                                 const gchar* pre_word,
+                                                 gboolean finished);
+
 
 IAnjutaIterable*
 anjuta_language_provider_get_start_iter			(AnjutaLanguageProvider* lang_prov);
