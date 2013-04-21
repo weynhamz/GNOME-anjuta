@@ -177,10 +177,10 @@ python_assist_update_autocomplete (PythonAssist *assist)
 	suggestions = g_list_reverse (suggestions);
 
 	g_list_free (completion_list);
-	
-	ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (assist->priv->iassist),
-	                                 IANJUTA_PROVIDER(assist), suggestions,
-	                                 assist->priv->pre_word, TRUE, NULL);
+
+	anjuta_language_provider_proposals (assist->priv->lang_prov,
+	                                    IANJUTA_PROVIDER(assist), suggestions,
+	                                    assist->priv->pre_word, TRUE);
 
 	g_list_foreach (suggestions, (GFunc) free_proposal, NULL);
 	g_list_free (suggestions);
