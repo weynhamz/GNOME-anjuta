@@ -136,7 +136,9 @@ libanjuta_3_la_SOURCES= \
 	anjuta-completion.h \
 	anjuta-completion.c \
 	anjuta-close-button.c \
-	anjuta-close-button.h
+	anjuta-close-button.h \
+	anjuta-modeline.c \
+	anjuta-modeline.h
 
 # Glade module
 if ENABLE_GLADE_CATALOG
@@ -213,7 +215,8 @@ libanjuta_include = \
 	anjuta-token-list.h \
 	anjuta-token-stream.h \
 	anjuta-tree-combo.h \
-	anjuta-close-button.h
+	anjuta-close-button.h \
+	anjuta-modeline.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \

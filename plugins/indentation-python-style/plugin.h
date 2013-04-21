@@ -59,9 +59,6 @@ struct _IndentPythonPlugin{
 	gint editor_watch_id;
 	
 	/* Adaptive indentation parameters */
-	gint param_tab_size;
-	gint param_use_spaces;
-	gint param_statement_indentation;
 	gint param_brace_indentation;
 	gint param_case_indentation;
 	gint param_label_indentation;

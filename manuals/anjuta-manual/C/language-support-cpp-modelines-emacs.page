@@ -17,7 +17,8 @@
 
   <title>Emacs modelines</title>
 
-  <p>Such modeline is a comment in the first line of the file, composed by
+  <p>Such modeline is a comment in the first line of the file or the second
+  one if the first contains a shebang (#!). It is composed by
   a list of variable names followed by <code>:</code> and a value,
   separated by <code>;</code> and surrounded by <code>-*-</code>.</p>
 
@@ -27,7 +28,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
   </code>
 
-  <p>Anjuta support only the following variables.</p>
+  <p>Anjuta supports only the following variables.</p>
 
   <terms>
     <item>

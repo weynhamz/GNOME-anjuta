@@ -17,8 +17,8 @@
 
   <title>Vim modelines</title>
 
-  <p>This modeline is a comment in the first line of the file which
-  has to start with <code>vim:</code> followed by at least one space and
+  <p>This modeline is a line in the 5 first of the 5 last of the
+  file containing <code>vim:</code> followed by at least one space and
   a list of variable names with an optional value after <code>=</code>
   separated by space or <code>:</code>.</p>
   

@@ -43,11 +43,7 @@
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 #define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
-
-#define INDENT_SIZE \
-	(plugin->param_statement_indentation >= 0? \
-		plugin->param_statement_indentation : \
-		g_settings_get_int (plugin->editor_settings, IANJUTA_EDITOR_INDENT_WIDTH_KEY))
+#define INDENT_SIZE (ianjuta_editor_get_indentsize (editor, NULL));
 
 #define BRACE_INDENT \
 	(plugin->param_brace_indentation >= 0? \

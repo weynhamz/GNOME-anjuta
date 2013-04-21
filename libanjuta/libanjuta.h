@@ -75,5 +75,6 @@
 #include <libanjuta/anjuta-tree-combo.h>
 #include <libanjuta/anjuta-vcs-status.h>
 #include <libanjuta/anjuta-close-button.h>
+#include <libanjuta/anjuta-modeline.h>
 
 #endif

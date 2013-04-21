@@ -23,7 +23,8 @@
 #include <stdlib.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
-#include "libanjuta/anjuta-utils.h"
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-modeline.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -59,273 +60,24 @@
 
 static gpointer parent_class;
 
-static void
-set_indentation_param_emacs (IndentCPlugin* plugin, const gchar *param,
-                       const gchar *value)
-{
-    //DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
-    if (strcasecmp (param, "indent-tabs-mode") == 0)
-    {
-        if (strcasecmp (value, "t") == 0)
-        {
-            plugin->param_use_spaces = 0;
-            ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-                                           FALSE, NULL);
-        }
-        else if (strcasecmp (value, "nil") == 0)
-        {
-            plugin->param_use_spaces = 1;
-            ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-                                           TRUE, NULL);
-        }
-    }
-    else if (strcasecmp (param, "c-basic-offset") == 0)
-    {
-        plugin->param_statement_indentation = atoi (value);
-        ianjuta_editor_set_indentsize (IANJUTA_EDITOR (plugin->current_editor),
-                                       plugin->param_statement_indentation, NULL);
-    }
-    else if (strcasecmp (param, "tab-width") == 0)
-    {
-        plugin->param_tab_size = atoi (value);
-        ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
-                                    plugin->param_tab_size, NULL);
-    }
-}
 
-static void
-set_indentation_param_vim (IndentCPlugin* plugin, const gchar *param,
-                       const gchar *value)
-{
-    //DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
-    if (g_str_equal (param, "expandtab") ||
-        g_str_equal (param, "et"))
-    {
-            plugin->param_use_spaces = 1;
-            ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-                                           TRUE, NULL);
-    }
-    else if (g_str_equal (param, "noexpandtab") ||
-             g_str_equal (param, "noet"))
-    {
-          plugin->param_use_spaces = 0;
-            ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
-                                           FALSE, NULL);
-    }
-    if (!value)
-        return;
-    else if (g_str_equal (param, "shiftwidth") ||
-             g_str_equal (param, "sw"))
-    {
-        plugin->param_statement_indentation = atoi (value);
-        ianjuta_editor_set_indentsize (IANJUTA_EDITOR (plugin->current_editor),
-                                       plugin->param_statement_indentation, NULL);
-    }
-    else if (g_str_equal (param, "softtabstop") ||
-             g_str_equal (param, "sts") ||
-             g_str_equal (param, "tabstop") ||
-             g_str_equal (param, "ts"))
-    {
-        plugin->param_tab_size = atoi (value);
-        ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
-                                    plugin->param_tab_size, NULL);
-    }
-}
-
-static void
-parse_mode_line_emacs (IndentCPlugin *plugin, const gchar *modeline)
-{
-    gchar **strv, **ptr;
-
-    strv = g_strsplit (modeline, ";", -1);
-    ptr = strv;
-    while (*ptr)
-    {
-        gchar **keyval;
-        keyval = g_strsplit (*ptr, ":", 2);
-        if (keyval[0] && keyval[1])
-        {
-            g_strstrip (keyval[0]);
-            g_strstrip (keyval[1]);
-            set_indentation_param_emacs (plugin, g_strchug (keyval[0]),
-                                   g_strchug (keyval[1]));
-        }
-        g_strfreev (keyval);
-        ptr++;
-    }
-    g_strfreev (strv);
-}
-
-static void
-parse_mode_line_vim (IndentCPlugin *plugin, const gchar *modeline)
-{
-    gchar **strv, **ptr;
-
-    strv = g_strsplit_set (modeline, " \t:", -1);
-    ptr = strv;
-    while (*ptr)
-    {
-        gchar **keyval;
-        keyval = g_strsplit (*ptr, "=", 2);
-        if (keyval[0])
-        {
-            g_strstrip (keyval[0]);
-            if (keyval[1])
-            {
-                g_strstrip (keyval[1]);
-                set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                           g_strchug (keyval[1]));
-            }
-            else
-                set_indentation_param_vim (plugin, g_strchug (keyval[0]),
-                                           NULL);
-        }
-        g_strfreev (keyval);
-        ptr++;
-    }
-    g_strfreev (strv);
-}
-
-static gchar *
-extract_mode_line (const gchar *comment_text, gboolean* vim)
-{
-    /* Search for emacs-like modelines */
-    gchar *begin_modeline, *end_modeline;
-    begin_modeline = strstr (comment_text, "-*-");
-    if (begin_modeline)
-    {
-        begin_modeline += 3;
-        end_modeline = strstr (begin_modeline, "-*-");
-        if (end_modeline)
-        {
-          *vim = FALSE;
-                return g_strndup (begin_modeline, end_modeline - begin_modeline);
-        }
-    }
-    /* Search for vim-like modelines */
-    begin_modeline = strstr (comment_text, "vim:");
-    if (begin_modeline)
-    {
-        begin_modeline += strlen ("vim:");
-        end_modeline = strstr (begin_modeline, "*/");
-        /* Check for escape characters */
-        while (end_modeline)
-        {
-             if (!g_str_equal ((end_modeline - 1), "\\"))
-                break;
-            end_modeline++;
-            end_modeline = strstr (end_modeline, "*/");
-        }
-        if (end_modeline)
-        {
-            gchar* vim_modeline = g_strndup (begin_modeline, end_modeline - begin_modeline);
-            *vim = TRUE;
-            return vim_modeline;
-        }
-    }
-    return NULL;
-}
-
-#define MINI_BUFFER_SIZE 3
 static void
 initialize_indentation_params (IndentCPlugin *plugin)
 {
-    IAnjutaIterable *iter;
-    GString *comment_text;
-    gboolean comment_begun = FALSE;
-    gboolean line_comment = FALSE;
-    gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
-
     plugin->smart_indentation = g_settings_get_boolean (plugin->settings, PREF_INDENT_AUTOMATIC);
     /* Disable editor intern auto-indent if smart indentation is enabled */
     ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(plugin->current_editor),
                                     !plugin->smart_indentation, NULL);
 
     /* Initialize indentation parameters */
-    plugin->param_tab_size = -1;
-    plugin->param_statement_indentation = -1;
     plugin->param_brace_indentation = -1;
     plugin->param_case_indentation = -1;
     plugin->param_label_indentation = -1;
-    plugin->param_use_spaces = -1;
 
     if (g_settings_get_boolean (plugin->settings,
                                 PREF_INDENT_MODELINE))
     {
-        /* Find the first comment text in the buffer */
-        comment_text = g_string_new (NULL);
-        iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
-                                                  NULL);
-        do
-        {
-            gboolean shift_buffer = TRUE;
-            gint i;
-            gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
-                                                     0, NULL);
-
-            for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-            {
-                if (mini_buffer[i] == '\0')
-                {
-                    mini_buffer[i] = ch;
-                    shift_buffer = FALSE;
-                    break;
-                }
-            }
-            if (shift_buffer == TRUE)
-            {
-                /* Shift buffer and add */
-                for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
-                    mini_buffer [i] = mini_buffer[i+1];
-                mini_buffer[i] = ch;
-            }
-
-            if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
-            {
-                comment_begun = TRUE;
-                /* Reset buffer */
-                mini_buffer[0] = mini_buffer[1] = '\0';
-            }
-            else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
-            {
-                comment_begun = TRUE;
-                line_comment = TRUE;
-            }
-            else if (!comment_begun && mini_buffer[1] != '\0')
-            {
-                /* The buffer doesn't begin with a comment */
-                break;
-            }
-            else if (comment_begun)
-            {
-                if ((line_comment && ch == '\n') ||
-                    (!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
-                {
-                    break;
-                }
-            }
-            if (comment_begun)
-                g_string_append_c (comment_text, ch);
-        }
-        while (ianjuta_iterable_next (iter, NULL));
-
-        /* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
-        if (comment_text->len > 0)
-        {
-            /* First comment found */
-            gboolean vim;
-            gchar *modeline = extract_mode_line (comment_text->str, &vim);
-            if (modeline)
-            {
-                if (!vim)
-                    parse_mode_line_emacs (plugin, modeline);
-                else
-                    parse_mode_line_vim (plugin, modeline);
-                g_free (modeline);
-            }
-        }
-        g_string_free (comment_text, TRUE);
-        g_object_unref (iter);
+        anjuta_apply_modeline (IANJUTA_EDITOR (plugin->current_editor));
     }
 }
 
