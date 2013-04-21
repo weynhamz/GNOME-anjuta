@@ -997,13 +997,10 @@ anjuta_docman_finalize (GObject *obj)
 
 	DEBUG_PRINT ("%s", "Finalising AnjutaDocman object");
 	docman = ANJUTA_DOCMAN (obj);
-	if (docman->priv)
-	{
-		if (docman->priv->fileselection)
-			gtk_widget_destroy (docman->priv->fileselection);
-		g_free (docman->priv);
-		docman->priv = NULL;
-	}
+
+	if (docman->priv->fileselection)
+		gtk_widget_destroy (docman->priv->fileselection);
+
 	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
