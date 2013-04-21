@@ -849,7 +849,7 @@ engine_parser_init (IAnjutaSymbolManager * manager)
 }
 
 void
-engine_parser_deinit ()
+engine_parser_deinit (void)
 {
 	EngineParser::getInstance ()->unsetSymbolManager ();
 }

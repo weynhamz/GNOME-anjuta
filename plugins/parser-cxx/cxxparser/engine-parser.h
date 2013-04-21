@@ -28,7 +28,7 @@ extern "C" {
 
 void engine_parser_init (IAnjutaSymbolManager * manager);
 
-void engine_parser_deinit ();
+void engine_parser_deinit (void);
 	
 /**
  * The function parse the C++ statement, try to get the type of objects to be
