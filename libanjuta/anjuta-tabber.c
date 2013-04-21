@@ -409,7 +409,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		}
 
 		/* Check if we have enough space for all widgets natural size */
-		child_equal = real_width / n_children - total_space;
+		child_equal = (real_width - total_space) / n_children;
 
 		if (child_equal < 0)
 			return;
