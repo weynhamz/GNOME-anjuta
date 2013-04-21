@@ -392,8 +392,10 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 		gint real_width = allocation->width;
 
 		/* Calculate the total space that is used for padding/overlap */
-		total_space = 2 * tab_overlap + n_children * 2 * focus_space +
-			(n_children - 1) * 2 * tab_space;
+		total_space = 2 * tab_curvature
+			+ 2 * tab_space * (n_children - 1)
+			+  2 * focus_space * n_children;
+
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkStateFlags state;
@@ -415,29 +417,21 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			return;
 
 		/* Calculate the total width of the tabs */
-		total_width = 2 * tab_overlap + n_children * 2 * focus_space +
-			(n_children - 1) * 2 * tab_space;
+		total_width = total_space;
 		for (child = tabber->priv->children; child != NULL; child = g_list_next (child))
 		{
 			GtkWidget* child_widget = GTK_WIDGET (child->data);
-			GtkStateFlags state;
-			GtkBorder tab_padding;
 			gint natural;
-
-			/* Get the padding of the tab */
-			gtk_style_context_save (context);
-			anjuta_tabber_setup_style_context (tabber, context, child, &state, NULL);
-			gtk_style_context_get_padding (context, state, &tab_padding);
-			gtk_style_context_restore (context);
 
 			gtk_widget_get_preferred_width (child_widget, NULL,
 			                                &natural);
 
-			total_width += natural + tab_padding.left + tab_padding.right;
+			total_width += natural;
 
 			if (natural < child_equal)
 				extra_space += child_equal - natural;
 		}
+
 		use_natural = (total_width <= real_width);
 		child_equal += extra_space / n_children;
 		
@@ -460,9 +454,9 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 			gtk_style_context_restore (context);
 
 			if (child->prev == NULL)
-				begin_tab += tab_overlap;
+				begin_tab = tab_curvature;
 			if (child->next == NULL)
-				end_tab += tab_overlap;
+				end_tab = tab_curvature;
 			
 			gtk_widget_get_preferred_width (child_widget, &minimal,
 				                            &natural);
@@ -500,7 +494,7 @@ anjuta_tabber_size_allocate(GtkWidget* widget, GtkAllocation* allocation)
 						+ tab_padding.right + end_tab;
 			}
 
-			gtk_widget_size_allocate (GTK_WIDGET (child->data), &child_alloc);
+			gtk_widget_size_allocate (child_widget, &child_alloc);
 		}
 	}
 }
