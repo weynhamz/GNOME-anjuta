@@ -433,9 +433,9 @@ parser_cxx_assist_populate_real (ParserCxxAssist* assist, gboolean finished)
 	GList* proposals = anjuta_completion_complete (assist->priv->completion_cache,
 	                                               assist->priv->pre_word,
 	                                               -1);
-	ianjuta_editor_assist_proposals (assist->priv->iassist,
-	                                 IANJUTA_PROVIDER(assist), proposals,
-	                                 assist->priv->pre_word, finished, NULL);
+	anjuta_language_provider_proposals (assist->priv->lang_prov,
+	                                    IANJUTA_PROVIDER(assist), proposals,
+	                                    assist->priv->pre_word, finished);
 	g_list_free (proposals);
 }
 
