@@ -117,7 +117,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 			const gchar * pixmap, AnjutaMsgman * msgman)
 {
 	AnjutaMsgmanPage *page;
-	GtkWidget* box;
 
 	g_return_val_if_fail (view != NULL, NULL);
 
@@ -125,10 +124,9 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->widget = GTK_WIDGET (view);
 
 	page->label = gtk_label_new (name);
-	gtk_misc_set_alignment (GTK_MISC(page->label), 0.0, 0.5);
 	gtk_label_set_ellipsize (GTK_LABEL(page->label), PANGO_ELLIPSIZE_END);
-	box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_set_spacing (GTK_BOX (box), 5);
+	page->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_set_spacing (GTK_BOX (page->box), 5);
 	if (pixmap  && strlen(pixmap))
 	{
 		GtkStockItem unused;
@@ -140,9 +138,9 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 		{
 			page->pixmap = anjuta_res_get_image_sized (pixmap, 16, 16);
 		}
-		gtk_box_pack_start (GTK_BOX (box), page->pixmap, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (page->box), page->pixmap, FALSE, FALSE, 0);
 	}
-	gtk_box_pack_start (GTK_BOX (box), page->label, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (page->box), page->label, TRUE, TRUE, 0);
 
 	page->close_button = anjuta_close_button_new ();
 
@@ -151,9 +149,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 						G_CALLBACK(on_msgman_close_page),
 						msgman);
 
-
-	page->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_pack_start (GTK_BOX(page->box), box, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(page->box), page->close_button, FALSE, FALSE, 0);
 
 	gtk_widget_show_all (page->box);
