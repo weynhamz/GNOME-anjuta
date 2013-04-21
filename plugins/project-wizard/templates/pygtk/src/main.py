@@ -1,9 +1,9 @@
 [+ autogen5 template +]
 [+INCLUDE (string-append "licenses/" (get "License") ".tpl") \+]
 [+INCLUDE (string-append "indent.tpl") \+]
-# [+INVOKE EMACS-MODELINE MODE="Python" \+]
-[+INVOKE START-INDENT\+]
 #!/usr/bin/python
+# [+INVOKE EMACS-MODELINE MODE="Python; coding: utf-8" +]
+[+INVOKE START-INDENT\+]
 #
 # main.py
 # Copyright (C) [+(shell "date +%Y")+] [+Author+] <[+Email+]>
