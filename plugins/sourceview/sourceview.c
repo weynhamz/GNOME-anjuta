@@ -2355,15 +2355,6 @@ iassist_proposals(IAnjutaEditorAssist* iassist,
                   gboolean finished,
                   GError** e)
 {
-	/* Hide if the only suggetions is exactly the typed word */
-	if (pre_word && proposals && g_list_length (proposals) == 1)
-	{
-		IAnjutaEditorAssistProposal* proposal = proposals->data;
-		AnjutaLanguageProposalData* data = proposal->data;
-		if (g_str_equal (pre_word, data->name))
-			proposals = NULL;
-	}
-	
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	GtkSourceCompletion* completion = gtk_source_view_get_completion(GTK_SOURCE_VIEW(sv->priv->view));
 	GList* node;
