@@ -544,13 +544,13 @@ ilanguage_provider_populate (IAnjutaLanguageProvider* obj,
 			proposal->data = prop_data;
 			nsuggest = g_list_prepend (nsuggest, proposal);
 		}
-		ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (plugin->current_editor),
-		                                 IANJUTA_PROVIDER(obj), nsuggest, NULL, TRUE, NULL);
+		anjuta_language_provider_proposals (plugin->lang_prov, IANJUTA_PROVIDER(obj),
+		                                    nsuggest, NULL, TRUE);
 		g_list_free (nsuggest);
 		return start_iter;
 	}
-	ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (plugin->current_editor),
-	                                 IANJUTA_PROVIDER(obj), NULL, NULL, TRUE, NULL);
+	anjuta_language_provider_proposals (plugin->lang_prov, IANJUTA_PROVIDER(obj),
+	                                    NULL, NULL, TRUE);
 	
 	return start_iter;
 }
