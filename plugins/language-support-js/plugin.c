@@ -490,8 +490,9 @@ ilanguage_provider_populate (IAnjutaLanguageProvider* obj,
 
 	if (strlen (str) < g_settings_get_int (plugin->prefs, MIN_CODECOMPLETE))
 	{
-		ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (plugin->current_editor),
-										 IANJUTA_PROVIDER(obj), NULL, NULL, TRUE, NULL);
+		anjuta_language_provider_proposals (plugin->lang_prov, IANJUTA_PROVIDER(obj),
+		                                    NULL, NULL, TRUE);
+
 		/* Highlight missed semicolon */
 		code_completion_get_list (plugin, file, NULL, depth);
 		return start_iter;
