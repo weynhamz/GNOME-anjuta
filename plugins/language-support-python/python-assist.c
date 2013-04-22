@@ -394,10 +394,10 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 	g_free (ropecommand);
 
 	assist->priv->cache_position = offset;
-	
-	ianjuta_editor_assist_proposals (IANJUTA_EDITOR_ASSIST (assist->priv->iassist),
-	                                 IANJUTA_PROVIDER (assist), NULL,
-	                                 NULL, FALSE, NULL);
+
+	anjuta_language_provider_proposals (assist->priv->lang_prov,
+	                                    IANJUTA_PROVIDER(assist), NULL,
+	                                    NULL, FALSE);
 	
 	return TRUE;
 }
