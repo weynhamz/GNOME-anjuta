@@ -985,6 +985,25 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	object_class->get_property = sdb_query_get_property;
 
 	g_object_class_install_property (object_class,
+	                                 PROP_DB_ENGINE_SYSTEM,
+	                                 g_param_spec_object ("db-engine-system",
+	                                                      "System DB Engine",
+	                                                      "The System SymbolDBEngine",
+	                                                      SYMBOL_TYPE_DB_ENGINE,
+	                                                      G_PARAM_READABLE |
+	                                                      G_PARAM_WRITABLE |
+	                                                      G_PARAM_CONSTRUCT_ONLY));
+	g_object_class_install_property (object_class,
+	                                 PROP_DB_ENGINE_PROJECT,
+	                                 g_param_spec_object ("db-engine-project",
+	                                                      "Project DB Engine",
+	                                                      "The Project SymbolDBEngine",
+	                                                      SYMBOL_TYPE_DB_ENGINE,
+	                                                      G_PARAM_READABLE |
+	                                                      G_PARAM_WRITABLE |
+	                                                      G_PARAM_CONSTRUCT_ONLY));
+
+	g_object_class_install_property (object_class,
 	                                 PROP_QUERY_NAME,
 	                                 g_param_spec_enum ("query-name",
 	                                                    "Query name",
@@ -1074,24 +1093,7 @@ sdb_query_class_init (SymbolDBQueryClass *klass)
 	                                                    IANJUTA_SYMBOL_FIELD_END,
 	                                                    G_PARAM_READABLE |
 	                                                    G_PARAM_WRITABLE));	
-	g_object_class_install_property (object_class,
-	                                 PROP_DB_ENGINE_SYSTEM,
-	                                 g_param_spec_object ("db-engine-system",
-	                                                      "System DB Engine",
-	                                                      "The System SymbolDBEngine",
-	                                                      SYMBOL_TYPE_DB_ENGINE,
-	                                                      G_PARAM_READABLE |
-	                                                      G_PARAM_WRITABLE |
-	                                                      G_PARAM_CONSTRUCT_ONLY));
-	g_object_class_install_property (object_class,
-	                                 PROP_DB_ENGINE_PROJECT,
-	                                 g_param_spec_object ("db-engine-project",
-	                                                      "Project DB Engine",
-	                                                      "The Project SymbolDBEngine",
-	                                                      SYMBOL_TYPE_DB_ENGINE,
-	                                                      G_PARAM_READABLE |
-	                                                      G_PARAM_WRITABLE |
-	                                                      G_PARAM_CONSTRUCT_ONLY));
+
 	g_object_class_install_property (object_class,
 	                                 PROP_DB_ENGINE_SELECTED,
 	                                 g_param_spec_object ("db-engine-selected",
