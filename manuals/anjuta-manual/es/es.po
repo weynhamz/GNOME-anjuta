@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.master\n"
-"POT-Creation-Date: 2013-02-11 16:58+0000\n"
-"PO-Revision-Date: 2013-02-14 17:31+0100\n"
+"POT-Creation-Date: 2013-04-21 09:14+0000\n"
+"PO-Revision-Date: 2013-04-24 18:17+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -3781,20 +3781,25 @@ msgid "Emacs modelines"
 msgstr "Líneas de modo Emacs"
 
 #: C/language-support-cpp-modelines-emacs.page:20(page/p)
+#| msgid ""
+#| "Such modeline is a comment in the first line of the file, composed by a "
+#| "list of variable names followed by <code>:</code> and a value, separated "
+#| "by <code>;</code> and surrounded by <code>-*-</code>."
 msgid ""
-"Such modeline is a comment in the first line of the file, composed by a list "
-"of variable names followed by <code>:</code> and a value, separated by "
-"<code>;</code> and surrounded by <code>-*-</code>."
+"Such modeline is a comment in the first line of the file or the second one "
+"if the first contains a shebang (#!). It is composed by a list of variable "
+"names followed by <code>:</code> and a value, separated by <code>;</code> "
+"and surrounded by <code>-*-</code>."
 msgstr ""
 "Esta línea de modo es un comentario en la primera línea del archivo, "
 "compuesta por una lista de nombres de variables seguida de<code>:</code> y "
-"un valor, separado por <code>;</code> y rodeado po <code>-*-</code>."
+"un valor, separado por <code>;</code> y rodeado por <code>-*-</code>."
 
-#: C/language-support-cpp-modelines-emacs.page:24(page/p)
+#: C/language-support-cpp-modelines-emacs.page:25(page/p)
 msgid "A typical <app>Emacs</app> modeline looks like this:"
 msgstr "Una línea de modo de <app>Emacs</app> típica se parece a esto:"
 
-#: C/language-support-cpp-modelines-emacs.page:26(page/code)
+#: C/language-support-cpp-modelines-emacs.page:27(page/code)
 #, no-wrap
 msgid ""
 "\n"
@@ -3805,16 +3810,16 @@ msgstr ""
 "/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */\n"
 "  "
 
-#: C/language-support-cpp-modelines-emacs.page:30(page/p)
-#: C/language-support-cpp-modelines-vim.page:30(page/p)
-msgid "Anjuta support only the following variables."
+#: C/language-support-cpp-modelines-emacs.page:31(page/p)
+#| msgid "Anjuta support only the following variables."
+msgid "Anjuta supports only the following variables."
 msgstr "Anjuta sólo soporta las siguientes variables."
 
-#: C/language-support-cpp-modelines-emacs.page:34(item/title)
+#: C/language-support-cpp-modelines-emacs.page:35(item/title)
 msgid "<code>indent-tabs-mode</code>"
 msgstr "<code>indent-tabs-mode</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:35(item/p)
+#: C/language-support-cpp-modelines-emacs.page:36(item/p)
 msgid ""
 "Set to <code>t</code> to use tabulation for indentation or <code>nil</code> "
 "to use spaces."
@@ -3822,20 +3827,20 @@ msgstr ""
 "Establecer a <code>t</code> para usar tabuladores para el sangrado o "
 "<code>nil</code> para usar espacios."
 
-#: C/language-support-cpp-modelines-emacs.page:39(item/title)
+#: C/language-support-cpp-modelines-emacs.page:40(item/title)
 msgid "<code>tab-width</code>"
 msgstr "<code>tab-width</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:40(item/p)
+#: C/language-support-cpp-modelines-emacs.page:41(item/p)
 #: C/language-support-cpp-modelines-vim.page:48(item/p)
 msgid "Number of space characters corresponding to one tabulation character."
 msgstr "Número de espacios correspondientes a un carácter de tabulación."
 
-#: C/language-support-cpp-modelines-emacs.page:43(item/title)
+#: C/language-support-cpp-modelines-emacs.page:44(item/title)
 msgid "<code>c-basic-offset</code>"
 msgstr "<code>c-basic-offset</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:44(item/p)
+#: C/language-support-cpp-modelines-emacs.page:45(item/p)
 #: C/language-support-cpp-modelines-vim.page:53(item/p)
 msgid "Number of space characters used to indent C code."
 msgstr "Número de espacios usados para sangrar código en C."
@@ -3849,14 +3854,19 @@ msgid "Vim modelines"
 msgstr "Líneas de modo Vim"
 
 #: C/language-support-cpp-modelines-vim.page:20(page/p)
+#| msgid ""
+#| "This modeline is a comment in the first line of the file which has to "
+#| "start with <code>vim:</code> followed by at least one space and a list of "
+#| "variable names with an optional value after <code>=</code> separated by "
+#| "space or <code>:</code>."
 msgid ""
-"This modeline is a comment in the first line of the file which has to start "
-"with <code>vim:</code> followed by at least one space and a list of variable "
+"This modeline is a line in the 5 first of the 5 last of the file containing "
+"<code>vim:</code> followed by at least one space and a list of variable "
 "names with an optional value after <code>=</code> separated by space or "
 "<code>:</code>."
 msgstr ""
-"Esta línea de modo es un comentario en la primera línea del archivo que "
-"tiene que empezar por <code>vim:</code> seguido de al menos un espacio y una "
+"Esta línea de modo es una línea en las 5 primeras de las 5 últimas del "
+"archivo que contiene <code>vim:</code> seguido de al menos un espacio y una "
 "lista de nombres de variables con un valor opcional después de <code>=</"
 "code> separados por <code>:</code> o por un espacio."
 
@@ -3872,6 +3882,10 @@ msgid ""
 msgstr ""
 "\n"
 "/* vim: set noet ts=4 sw=4: */"
+
+#: C/language-support-cpp-modelines-vim.page:30(page/p)
+msgid "Anjuta support only the following variables."
+msgstr "Anjuta sólo soporta las siguientes variables."
 
 #: C/language-support-cpp-modelines-vim.page:34(item/title)
 msgid "<code>expandtab</code>"
@@ -4357,8 +4371,6 @@ msgstr ""
 "gui><gui>Añadir biblioteca...</gui></guiseq>"
 
 #: C/project-manager-module-add.page:41(item/p)
-#| msgid ""
-#| "You can select another target in the top <gui>target chooser button</gui>."
 msgid ""
 "You need to select the target where you want to add the library in the "
 "<gui>target button</gui> above."
@@ -4367,11 +4379,6 @@ msgstr ""
 "superior del <gui>botón selector de objetivos</gui>."
 
 #: C/project-manager-module-add.page:45(item/p)
-#| msgid ""
-#| "You need to select the target where you want to add the module in the "
-#| "<gui>target button</gui> above, and select the module that you want to "
-#| "add in the <gui>module view</gui> below. If you select a library inside a "
-#| "module, the parent module will be added."
 msgid ""
 "A library cannot be added directly to a target. You can add only a module "
 "displayed in the <gui>module view</gui> below. If you select a library "
@@ -4426,10 +4433,6 @@ msgstr ""
 "pueden agrupar en un módulo."
 
 #: C/project-manager-module-new.page:32(item/p)
-#| msgid ""
-#| "Select the program where you want to add the new library in the "
-#| "<gui>project view</gui>, click on the right mouse button to make the "
-#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
 msgid ""
 "Select a program in the <gui>project view</gui>, click on the right mouse "
 "button to make the <gui>project context menu</gui> appear, and select "
@@ -4460,12 +4463,6 @@ msgid "If the library you want does not appear here:"
 msgstr "Si la biblioteca que quiere no aparece aquí:"
 
 #: C/project-manager-module-new.page:49(item/p)
-#| msgid ""
-#| "If the library you want does not appear here, perhaps it is because it is "
-#| "not installed on your system. Launch the application you use to install "
-#| "new programs and search for the library name. The package you need often "
-#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
-#| "<app>pkg-config</app> file with a <file>.pc</file> extension."
 msgid ""
 "Perhaps it is not installed on your system. Launch the application you use "
 "to install new programs and search for the library name. The package you "
