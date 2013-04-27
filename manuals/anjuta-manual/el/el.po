@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: packagename\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-21 22:11+0000\n"
-"PO-Revision-Date: 2013-03-03 10:53+0300\n"
+"POT-Creation-Date: 2013-04-21 09:14+0000\n"
+"PO-Revision-Date: 2013-04-27 05:34+0300\n"
 "Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
 "Language-Team: team@gnome.gr\n"
 "Language: el\n"
@@ -67,8 +67,8 @@ msgid ""
 "<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
 "\">Anjuta logo</media> Anjuta DevStudio"
 msgstr ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png\">Λογότυπος "
-"Anjuta</media> Anjuta DevStudio"
+"<media type=\"image\" mime=\"image/png\" src=\"figures/anjuta_logo.png"
+"\">Λογότυπος Anjuta</media> Anjuta DevStudio"
 
 #: C/index.page:28(section/title)
 msgid "Project Management"
@@ -823,7 +823,6 @@ msgid "These are the properties of the root item."
 msgstr "Αυτές είναι οι ιδιότητες του στοιχείου υπερχρήστη."
 
 #: C/autotools-project-root-edit.page:25(item/title)
-#| msgid "<gui>Name</gui>"
 msgid "<gui>Backend</gui>"
 msgstr "<gui>Yποστήριξη</gui>"
 
@@ -1326,9 +1325,9 @@ msgid ""
 "recursively."
 msgstr ""
 "Από το <gui>κύριο μενού</gui>, επιλέξτε <guiseq><gui>Κατασκευή</gui> "
-"<gui>Κατασκευή έργου</gui></guiseq> ή πατήστε "
-"<keyseq><key>Shift</key><key>F7</key></keyseq> για κατασκευή όλου του έργου. "
-"Όλοι οι υποκατάλογοι κατασκευάζονται αναδρομικά."
+"<gui>Κατασκευή έργου</gui></guiseq> ή πατήστε <keyseq><key>Shift</"
+"key><key>F7</key></keyseq> για κατασκευή όλου του έργου. Όλοι οι "
+"υποκατάλογοι κατασκευάζονται αναδρομικά."
 
 #: C/autotools-build-build.page:57(item/p)
 #: C/autotools-build-clean.page:45(item/p)
@@ -3845,21 +3844,26 @@ msgid "Emacs modelines"
 msgstr "Γραμμές κατάστασης Emacs"
 
 #: C/language-support-cpp-modelines-emacs.page:20(page/p)
+#| msgid ""
+#| "Such modeline is a comment in the first line of the file, composed by a "
+#| "list of variable names followed by <code>:</code> and a value, separated "
+#| "by <code>;</code> and surrounded by <code>-*-</code>."
 msgid ""
-"Such modeline is a comment in the first line of the file, composed by a list "
-"of variable names followed by <code>:</code> and a value, separated by "
-"<code>;</code> and surrounded by <code>-*-</code>."
+"Such modeline is a comment in the first line of the file or the second one "
+"if the first contains a shebang (#!). It is composed by a list of variable "
+"names followed by <code>:</code> and a value, separated by <code>;</code> "
+"and surrounded by <code>-*-</code>."
 msgstr ""
-"Τέτοια γραμμή κατάστασης είναι ένα σχόλιο στην πρώτη γραμμή του αρχείου, "
-"συνιστώμενη από μια λίστα ονομάτων μεταβλητών που ακολουθείται από <code>:</"
-"code> και μια τιμή που χωρίζεται από <code>;</code> και περιβάλλεται από "
-"<code>-*-</code>."
+"Τέτοια γραμμή κατάστασης είναι ένα σχόλιο στην πρώτη γραμμή του αρχείου, ή "
+"στη δεύτερη εν η πρώτη περιέχει το (#!). Αποτελείται από μια λίστα ονομάτων "
+"μεταβλητών που ακολουθείται από <code>:</code> και μια τιμή που χωρίζεται "
+"από <code>;</code> και περιβάλλεται από <code>-*-</code>."
 
-#: C/language-support-cpp-modelines-emacs.page:24(page/p)
+#: C/language-support-cpp-modelines-emacs.page:25(page/p)
 msgid "A typical <app>Emacs</app> modeline looks like this:"
 msgstr "Μια τυπική γραμμή κατάστασης του <app>Emacs</app> δείχνει όπως αυτό:"
 
-#: C/language-support-cpp-modelines-emacs.page:26(page/code)
+#: C/language-support-cpp-modelines-emacs.page:27(page/code)
 #, no-wrap
 msgid ""
 "\n"
@@ -3870,16 +3874,16 @@ msgstr ""
 "/* -*- Mode: C· indent-tabs-mode: t· c-basic-offset: 4· tab-width: 4 -*- */\n"
 "  "
 
-#: C/language-support-cpp-modelines-emacs.page:30(page/p)
-#: C/language-support-cpp-modelines-vim.page:30(page/p)
-msgid "Anjuta support only the following variables."
+#: C/language-support-cpp-modelines-emacs.page:31(page/p)
+#| msgid "Anjuta support only the following variables."
+msgid "Anjuta supports only the following variables."
 msgstr "Το Anjuta υποστηρίζει μόνο τις επόμενες μεταβλητές."
 
-#: C/language-support-cpp-modelines-emacs.page:34(item/title)
+#: C/language-support-cpp-modelines-emacs.page:35(item/title)
 msgid "<code>indent-tabs-mode</code>"
 msgstr "<code>κατάσταση στηλοθετών εσοχής</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:35(item/p)
+#: C/language-support-cpp-modelines-emacs.page:36(item/p)
 msgid ""
 "Set to <code>t</code> to use tabulation for indentation or <code>nil</code> "
 "to use spaces."
@@ -3887,20 +3891,20 @@ msgstr ""
 "Ορισμός σε <code>t</code> για χρήση στηλοθέτη για εσοχή ή <code>nil</code> "
 "για χρήση κενών."
 
-#: C/language-support-cpp-modelines-emacs.page:39(item/title)
+#: C/language-support-cpp-modelines-emacs.page:40(item/title)
 msgid "<code>tab-width</code>"
 msgstr "<code>tab-width</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:40(item/p)
+#: C/language-support-cpp-modelines-emacs.page:41(item/p)
 #: C/language-support-cpp-modelines-vim.page:48(item/p)
 msgid "Number of space characters corresponding to one tabulation character."
 msgstr "Αριθμός χαρακτήρων κενού που αντιστοιχούν σε χαρακτήρα στηλοθέτη."
 
-#: C/language-support-cpp-modelines-emacs.page:43(item/title)
+#: C/language-support-cpp-modelines-emacs.page:44(item/title)
 msgid "<code>c-basic-offset</code>"
 msgstr "<code>βασική αντιστάθμιση c</code>"
 
-#: C/language-support-cpp-modelines-emacs.page:44(item/p)
+#: C/language-support-cpp-modelines-emacs.page:45(item/p)
 #: C/language-support-cpp-modelines-vim.page:53(item/p)
 msgid "Number of space characters used to indent C code."
 msgstr "Αριθμός χαρακτήρων κενού που χρησιμοποιούνται για εσοχή κώδικα C."
@@ -3914,16 +3918,21 @@ msgid "Vim modelines"
 msgstr "Γραμμές κατάστασης του Vim"
 
 #: C/language-support-cpp-modelines-vim.page:20(page/p)
+#| msgid ""
+#| "This modeline is a comment in the first line of the file which has to "
+#| "start with <code>vim:</code> followed by at least one space and a list of "
+#| "variable names with an optional value after <code>=</code> separated by "
+#| "space or <code>:</code>."
 msgid ""
-"This modeline is a comment in the first line of the file which has to start "
-"with <code>vim:</code> followed by at least one space and a list of variable "
+"This modeline is a line in the 5 first of the 5 last of the file containing "
+"<code>vim:</code> followed by at least one space and a list of variable "
 "names with an optional value after <code>=</code> separated by space or "
 "<code>:</code>."
 msgstr ""
-"Αυτή η γραμμή κατάστασης είναι ένα σχόλιο στην πρώτη γραμμή του αρχείου που "
-"πρέπει να ξεκινά με <code>vim:</code> ακολουθούμενο από τουλάχιστον ένα κενό "
-"και μια λίστα μεταβλητών ονομάτων με προαιρετική τιμή μετά <code>=</code> "
-"χωριζόμενη με κενό ή <code>:</code>."
+"Αυτή η γραμμή κατάστασης είναι μια γραμμή στις 5 πρώτες των τελευταίων 5 του "
+"αρχείου που περιέχει <code>vim:</code> ακολουθούμενο από τουλάχιστον ένα "
+"κενό και μια λίστα ονομάτων μεταβλητών με μια προαιρετική τιμή μετά από "
+"<code>=</code> χωριζόμενη με κενό ή <code>:</code>."
 
 #: C/language-support-cpp-modelines-vim.page:25(page/p)
 msgid "A typical <app>Vim</app> modeline looks like this:"
@@ -3937,6 +3946,10 @@ msgid ""
 msgstr ""
 "\n"
 "/* vim: set noet ts=4 sw=4: */"
+
+#: C/language-support-cpp-modelines-vim.page:30(page/p)
+msgid "Anjuta support only the following variables."
+msgstr "Το Anjuta υποστηρίζει μόνο τις επόμενες μεταβλητές."
 
 #: C/language-support-cpp-modelines-vim.page:34(item/title)
 msgid "<code>expandtab</code>"
@@ -4383,7 +4396,6 @@ msgid "Add a set of libraries to a target."
 msgstr "Προσθήκη συνόλου βιβλιοθηκών σε στόχο."
 
 #: C/project-manager-module-add.page:23(page/title)
-#| msgid "Manage Libraries"
 msgid "Add packaged libraries"
 msgstr "Προσθήκη συσκευασμένων βιβλιοθηκών"
 
@@ -4422,8 +4434,6 @@ msgstr ""
 "<gui>προσθήκη βιβλιοθήκης...</gui></guiseq>."
 
 #: C/project-manager-module-add.page:41(item/p)
-#| msgid ""
-#| "You can select another target in the top <gui>target chooser button</gui>."
 msgid ""
 "You need to select the target where you want to add the library in the "
 "<gui>target button</gui> above."
@@ -4432,11 +4442,6 @@ msgstr ""
 "στο παραπάνω <gui>κουμπί προορισμού</gui>."
 
 #: C/project-manager-module-add.page:45(item/p)
-#| msgid ""
-#| "You need to select the target where you want to add the module in the "
-#| "<gui>target button</gui> above, and select the module that you want to "
-#| "add in the <gui>module view</gui> below. If you select a library inside a "
-#| "module, the parent module will be added."
 msgid ""
 "A library cannot be added directly to a target. You can add only a module "
 "displayed in the <gui>module view</gui> below. If you select a library "
@@ -4454,10 +4459,10 @@ msgid ""
 "and follow the explanation <link xref=\"project-manager-module-new\">here</"
 "link>."
 msgstr ""
-"Εάν η βιβλιοθήκη που θέλετε δεν εμφανίζεται στην <gui>προβολή "
-"αρθρώματος</gui>, χρειάζεται να την προσθέσετε ως άρθρωμα πρώτα. Πατήστε στο "
-"κουμπί <gui>Νέα βιβλιοθήκη</gui> και ακολουθήστε την εξήγηση <link xref"
-"=\"project-manager-module-new\">εδώ</link>."
+"Εάν η βιβλιοθήκη που θέλετε δεν εμφανίζεται στην <gui>προβολή αρθρώματος</"
+"gui>, χρειάζεται να την προσθέσετε ως άρθρωμα πρώτα. Πατήστε στο κουμπί "
+"<gui>Νέα βιβλιοθήκη</gui> και ακολουθήστε την εξήγηση <link xref=\"project-"
+"manager-module-new\">εδώ</link>."
 
 #: C/project-manager-module-add.page:55(note/p)
 msgid ""
@@ -4469,8 +4474,6 @@ msgstr ""
 "λίστα."
 
 #: C/project-manager-module-add.page:60(item/p)
-#| msgid ""
-#| "When you are done, click on the <gui>Add</gui> button to add the module."
 msgid ""
 "When you are done, click on the <gui>Add</gui> button to add the selected "
 "module to the target."
@@ -4479,7 +4482,6 @@ msgstr ""
 "επιλεγμένο άρθρωμα στον προορισμό."
 
 #: C/project-manager-module-new.page:12(info/desc)
-#| msgid "Add a library in a module."
 msgid "Groups libraries in a module."
 msgstr "Ομάδες βιβλιοθηκών στο άρθρωμα."
 
@@ -4488,9 +4490,6 @@ msgid "Add a Module"
 msgstr "Προσθήκη αρθρώματος"
 
 #: C/project-manager-module-new.page:27(page/p)
-#| msgid ""
-#| "A package cannot be added directly to your program; you first need to "
-#| "create a module for it, which is just a group of packages."
 msgid ""
 "Packages cannot be added directly to a program but have to be grouped in a "
 "module."
@@ -4499,23 +4498,16 @@ msgstr ""
 "να ομαδοποιηθούν σε ένα άρθρωμα."
 
 #: C/project-manager-module-new.page:32(item/p)
-#| msgid ""
-#| "Select the program where you want to add the new library in the "
-#| "<gui>project view</gui>, click on the right mouse button to make the "
-#| "<gui>project context menu</gui> appear and select <gui>Add Library</gui>."
 msgid ""
 "Select a program in the <gui>project view</gui>, click on the right mouse "
 "button to make the <gui>project context menu</gui> appear, and select "
 "<gui>Add Library</gui>."
 msgstr ""
 "Επιλέξτε ένα πρόγραμμα στην <gui>προβολή έργου</gui>, πατήστε το δεξί "
-"πλήκτρο του ποντικιού για την εμφάνιση του <gui>μενού περιεχομένου "
-"έργου</gui> και επιλέξτε <gui>Προσθήκη βιβλιοθήκης</gui>."
+"πλήκτρο του ποντικιού για την εμφάνιση του <gui>μενού περιεχομένου έργου</"
+"gui> και επιλέξτε <gui>Προσθήκη βιβλιοθήκης</gui>."
 
 #: C/project-manager-module-new.page:39(item/p)
-#| msgid ""
-#| "In the <gui>Stack</gui> window, right-click and select <gui>Get stack "
-#| "trace</gui>."
 msgid ""
 "On the <gui>Add Library</gui> dialog, click on the <gui>New Library</gui> "
 "button."
@@ -4536,12 +4528,6 @@ msgid "If the library you want does not appear here:"
 msgstr "Εάν η βιβλιοθήκη που θέλετε δεν εμφανίζεται εδώ:"
 
 #: C/project-manager-module-new.page:49(item/p)
-#| msgid ""
-#| "If the library you want does not appear here, perhaps it is because it is "
-#| "not installed on your system. Launch the application you use to install "
-#| "new programs and search for the library name. The package you need often "
-#| "has a \"dev\" or \"devel\" suffix and should include header files and a "
-#| "<app>pkg-config</app> file with a <file>.pc</file> extension."
 msgid ""
 "Perhaps it is not installed on your system. Launch the application you use "
 "to install new programs and search for the library name. The package you "
@@ -4550,8 +4536,8 @@ msgid ""
 msgstr ""
 "Ίσως δεν είναι εγκατεστημένη στο σύστημά σας. Ξεκινήστε την εφαρμογή που "
 "χρησιμοποιείτε για να εγκαταστήσετε νέα προγράμματα και αναζητήστε το όνομα "
-"της βιβλιοθήκης. Το απαιτούμενο πακέτο έχει συχνά το επίθεμα \"dev\" ή \"devel\" "
-"και πρέπει να περιέχει αρχεία κεφαλίδας και ένα αρχείο <app>pkg-"
+"της βιβλιοθήκης. Το απαιτούμενο πακέτο έχει συχνά το επίθεμα \"dev\" ή "
+"\"devel\" και πρέπει να περιέχει αρχεία κεφαλίδας και ένα αρχείο <app>pkg-"
 "config</app> με μια επέκταση <file>.pc</file>."
 
 #: C/project-manager-module-new.page:57(item/p)
@@ -4565,11 +4551,6 @@ msgstr ""
 "manager-library-add\"/> που εξηγεί πώς να τις χρησιμοποιήσετε."
 
 #: C/project-manager-module-new.page:66(item/p)
-#| msgid ""
-#| "After selecting one library, a module name will be automatically "
-#| "generated but you can change it. When you are done, click on the "
-#| "<gui>Add</gui> button to create the new module with the selected "
-#| "libraries."
 msgid ""
 "After selecting one library, a module name will be automatically generated "
 "but you can change it. You can select an already existing module name to add "
