@@ -329,7 +329,7 @@ anjuta_token_show (AnjutaToken *token, gint indent, gchar parent)
 	if (string == NULL)
 	{
 		/* Value doesn't contain a newline */
-		fprintf (stderr, "(%lu)", length);
+		fprintf (stderr, "(%" G_GSIZE_FORMAT ")", length);
 	}
 	else
 	{
