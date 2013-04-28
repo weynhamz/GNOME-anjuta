@@ -40,7 +40,6 @@
 #include <sys/types.h>
 #include <sys/fcntl.h>
 #include <sys/termios.h>
-#include <sys/wait.h>
 #include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -586,7 +585,7 @@ anjuta_util_package_is_installed (const gchar * package, gboolean show)
 	}
 
 
-	if (WIFEXITED (exit_status) && WEXITSTATUS (exit_status) == 0)
+	if (g_spawn_check_exit_status (exit_status, NULL))
 		return TRUE;
 
 	if (show)
@@ -1217,62 +1216,100 @@ anjuta_util_user_terminal (void)
 	return argv;
 }
 
-pid_t
+static void
+close_pid (GPid pid,
+           gint status,
+           gpointer user_data)
+{
+	g_spawn_close_pid (pid);
+}
+
+GPid
 anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 {
-	pid_t pid;
-	gchar *shell;
+	GPid pid;
+	gchar **argv;
+	GError *error = NULL;
 
 	g_return_val_if_fail (command != NULL, -1);
 
-	shell = anjuta_util_user_shell ();
-	pid = fork();
-	if (pid == 0)
+	argv = g_new0 (gchar *, 4);
+
+	argv[0] = anjuta_util_user_shell ();
+#ifndef G_OS_WIN32
+	argv[1] = g_strdup ("-c");
+#else
+	argv[2] = g_strdup ("/C");
+#endif
+	argv[3] = g_strdup (command);
+
+	if (dir)
+		anjuta_util_create_dir (dir);
+
+	if (!g_spawn_async (dir, argv, NULL,
+	                    G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+	                    NULL, NULL, &pid, &error))
 	{
-		if(dir)
-		{
-			anjuta_util_create_dir (dir);
-			chdir (dir);
-		}
-		execlp (shell, shell, "-c", command, NULL);
-		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
-		_exit(1);
+		g_warning (_("Cannot execute command: %s (using shell %s): %s\n"),
+		           command, argv[0], error->message);
+		pid = 0;
 	}
-	if (pid < 0)
-		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
-	g_free (shell);
+
+	g_child_watch_add (pid, close_pid, NULL);
+
+	g_strfreev (argv);
 
 	// Anjuta will take care of child exit automatically.
 	return pid;
 }
 
-pid_t
+GPid
 anjuta_util_execute_terminal_shell (const gchar *dir, const gchar *command)
 {
-	pid_t pid;
+	GPid pid;
 	gchar *shell;
 	gchar **term_argv;
+	gchar **argv;
+	gint i;
+	GError *error = NULL;
 
 	g_return_val_if_fail (command != NULL, -1);
 
 	shell = anjuta_util_user_shell ();
 	term_argv = anjuta_util_user_terminal ();
-	pid = fork();
-	if (pid == 0)
+	argv = g_new0 (gchar *, g_strv_length (term_argv) + 4);
+
+	i = 0;
+	if (term_argv)
 	{
-		if(dir)
-		{
-			anjuta_util_create_dir (dir);
-			chdir (dir);
-		}
-		execlp (term_argv[0], term_argv[0], term_argv[1], shell, "-c", command, NULL);
-		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
-		_exit(1);
+		for (; term_argv [i]; i++)
+			argv[i] = term_argv[i];
 	}
-	if (pid < 0)
-		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
-	g_free (shell);
-	g_strfreev (term_argv);
+
+	argv[i++] = shell;
+#ifndef G_OS_WIN32
+	argv[i++] = g_strdup ("-c");
+#else
+	argv[i++] = g_strdup ("/C");
+#endif
+	argv[i++] = g_strdup (command);
+
+	if (dir)
+		anjuta_util_create_dir (dir);
+
+	if (!g_spawn_async (dir, argv, NULL,
+	                    G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+	                    NULL, NULL, &pid, &error))
+	{
+		g_warning (_("Cannot execute command: %s (using shell %s): %s\n"),
+		           command, shell, error->message);
+		pid = 0;
+	}
+
+	g_child_watch_add (pid, close_pid, NULL);
+
+	g_strfreev (argv);
+	g_free (term_argv);
 
 	// Anjuta will take care of child exit automatically.
 	return pid;

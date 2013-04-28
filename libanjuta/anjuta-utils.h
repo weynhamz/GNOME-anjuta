@@ -122,8 +122,8 @@ GList *		anjuta_util_update_string_list			(GList *p_list,
 gboolean	anjuta_util_create_dir					(const gchar * d);
 gchar *		anjuta_util_user_shell					(void);
 gchar **	anjuta_util_user_terminal				(void);
-pid_t		anjuta_util_execute_shell				(const gchar *dir, const gchar *command);
-pid_t		anjuta_util_execute_terminal_shell		(const gchar *dir, const gchar *command);
+GPid		anjuta_util_execute_shell				(const gchar *dir, const gchar *command);
+GPid		anjuta_util_execute_terminal_shell		(const gchar *dir, const gchar *command);
 
 gchar*		anjuta_util_escape_quotes				(const gchar* str);
 
