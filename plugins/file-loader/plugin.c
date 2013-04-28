@@ -130,6 +130,7 @@ get_available_plugins_for_mime (AnjutaPlugin* plugin,
 {
 	AnjutaPluginManager *plugin_manager;
 	GList *plugin_descs = NULL;
+	gchar *content_type;
 
 	g_return_val_if_fail (mime_type != NULL, NULL);
 
@@ -146,6 +147,7 @@ get_available_plugins_for_mime (AnjutaPlugin* plugin,
 												NULL);
 
 	/* Check for plugins supporting one supertype */
+	content_type = g_content_type_from_mime_type (mime_type);
 	if (plugin_descs == NULL)
 	{
 		GList *node;
@@ -172,20 +174,22 @@ get_available_plugins_for_mime (AnjutaPlugin* plugin,
 
 					for (mime = split_value; *mime != NULL; mime++)
 					{
-						/* The following line is working on unix only where
-						 * content and mime type are the same. Normally the
-						 * mime type has to be converted to a content type.
-						 * But it is a recent (glib 2.18) function, I think we can
-						 * wait a bit to fix this */
-						if (g_content_type_is_a (mime_type, *mime))
+						gchar *supertype = g_content_type_from_mime_type (*mime);
+
+						if (g_content_type_is_a (content_type, supertype))
 						{
 							gchar *loc;
 							anjuta_plugin_description_get_string ((AnjutaPluginDescription *)node->data,
 													  "Anjuta Plugin", "Location", &loc);
 
 							plugin_descs = g_list_prepend (plugin_descs, node->data);
+
+							g_free (supertype);
+
 							break;
 						}
+
+						g_free (supertype);
 					}
 				}
 				g_strfreev (split_value);
@@ -194,6 +198,7 @@ get_available_plugins_for_mime (AnjutaPlugin* plugin,
 		g_list_free (loader_descs);
 		plugin_descs = g_list_reverse (plugin_descs);
 	}
+	g_free (content_type);
 
 	return plugin_descs;
 }
