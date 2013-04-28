@@ -1,3 +1,19 @@
+# Plugin description file
+plugin_in_files = anjuta-terminal.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
+gsettings_in_file = org.gnome.anjuta.terminal.gschema.xml.in
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
+
+# Include paths
+AM_CPPFLAGS = \
+	$(WARN_CFLAGS) \
+	$(DEPRECATED_FLAGS) \
+	$(PLUGIN_TERMINAL_CFLAGS) \
+	$(LIBANJUTA_CFLAGS)
+
+if HAVE_PLUGIN_TERMINAL
 # Plugin glade file
 terminal_gladedir = $(anjuta_glade_dir)
 dist_terminal_glade_DATA = anjuta-terminal-plugin.ui
@@ -12,20 +28,6 @@ dist_terminal_pixmaps_DATA = \
 	anjuta-terminal-plugin.svg \
 	anjuta-terminal-plugin-48.png
 
-# Plugin description file
-plugin_in_files = anjuta-terminal.plugin.in
-%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-terminal_plugindir = $(anjuta_plugin_dir)
-dist_terminal_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
-
-# Include paths
-AM_CPPFLAGS = \
-	$(WARN_CFLAGS) \
-	$(DEPRECATED_FLAGS) \
-	$(VTE_CFLAGS) \
-	$(LIBANJUTA_CFLAGS)
-
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 
@@ -39,13 +41,14 @@ libanjuta_terminal_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_terminal_la_LIBADD = \
-	$(VTE_LIBS) \
+	$(PLUGIN_TERMINAL_LIBS) \
 	$(LIBANJUTA_LIBS)
-	
-gsettings_in_file = org.gnome.anjuta.terminal.gschema.xml.in
+
+terminal_plugindir = $(anjuta_plugin_dir)
+dist_terminal_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+
 gsettings_SCHEMAS = $(gsettings_in_file:.xml.in=.xml)
-@INTLTOOL_XML_NOMERGE_RULE@
-@GSETTINGS_RULES@
+endif
 
 EXTRA_DIST = \
 	$(plugin_in_files) \
