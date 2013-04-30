@@ -1,3 +1,136 @@
+Anjuta 3.9.1 (April 30, 2013) -- James Liggett
+
+Arnel A. Borja (27):
+      libanjuta: bgo #696984 - Include Gdl-3 when introspecting Anjuta-3.0
+      libanjuta: bgo #696984 - Documentation comment of section anjuta-debug should be inside after inclusion guard
+      libanjuta: bgo #696984 - Remove extra empty lines in documentation comments
+      libanjuta: bgo #696984 - Add missing commas in documentation comments
+      libanjuta: bgo #696984 - Fix missing double asterisk in documentation comments
+      libanjuta: bgo #696984 - Fix function name typos in documentation comments
+      libanjuta: bgo #696984 - Fix function argument name typos in documentation comments
+      libanjuta: bgo #696984 - Fix a signal name typo in documentation comments
+      libanjuta: bgo #696984 - Fix allow-none annotation typo in a documentation comments
+      libanjuta: bgo #696984 - Add some missing documentation comment
+      libanjuta: bgo #696984 - Update some annotations in documentation comments
+      libanjuta: bgo #696984 - Add missing % in constants NULL, TRUE and FALSE in documentation comments
+      libanjuta: bgo #696984 - Add anjuta-tabber section stub
+      libanjuta: bgo #696984 - Remove unused file anjuta-token-style.h
+      libanjuta: bgo #696984 - Update libanjuta.h header
+      project-wizard: bgo #696990 - Require package libanjuta-3.0 in anjuta-plugin template
+      bgo #696023 - Use dist_ prefix in Makefiles
+      devhelp: bgo #696023 - Use dist_ prefix instead of EXTRA_DIST
+      glade: bgo #696023 - Use dist_ prefix instead of EXTRA_DIST
+      language-support-vala: bgo #696023 - Use dist_ prefix instead of EXTRA_DIST
+      python-loader: bgo #696023 - Use dist_ prefix instead of EXTRA_DIST
+      subversion: bgo #696023 - Use dist_ prefix instead of EXTRA_DIST
+      libanjuta: bgo #697030 - Add close button widget
+      document-manager: bgo #697030 - Replace close button in tabs with AnjutaCloseButton
+      project-wizard: bgo #688611 - Make templates Windows portable
+      Use dist_doc_DATA for documentation text files
+      project-wizard: Use dist_doc_DATA for documentation text files
+
+Balázs Úr (1):
+      Updated Hungarian translation
+
+Carl-Anton Ingmarsson (28):
+      dir-project: check for NULL groups in dir_project_is_loaded()
+      document-manager: pack notebook with width 1
+      document-manager: remove margin around the document combo box
+      document-manager: don't allocate AnjutaDocmanPriv ourselves
+      document-manager: fix compile warning
+      anjuta-tabber: implement gtk_container_get_path_for_child()
+      anjuta-tabber: rework size allocation
+      anjuta-tabber: remove call to gtk_widget_style_attach()
+      anjuta-tabber: don't iterate list to check if node is first/last
+      message-view: Use AnjutaCloseButton in tabs
+      anjuta-tabber: fix calculation of region flags
+      anjuta-tabber: don't iterate list to check if node is first/last
+      anjuta-tabber: take focus-padding into account when rendering focus
+      anjuta-tabber: Always use the padding of an active tab in y-direction size allocation
+      document-manager: don't free AnjutaDocmanPriv ourselves
+      anjuta-tabber: remove the total padding from total width
+      anjuta-tabber: use tab_curvature for left/right space of first/last tab
+      message-view: use a single box for the tab widget
+      parser-cxx: fix compilation warning
+      anjuta_language_provider: add proposals() function
+      sourceview: remove filtering of single proposals matching pre_word
+      parser-cxx: use anjuta_language_provider_proposals()
+      language-support-python: use anjuta_language_provider_proposals()
+      language-support-js: use anjuta_language_provider_proposals()
+      language-support-js: replace one more use of ianjuta_editor_assist_proposals()
+      language-support-python: replace one more use of ianjuta_editor_assist_proposals()
+      symbol-db-query: change order of property installation in SymbolDBQuery
+      dir-project: fix compile error
+
+Christian Kirbach (1):
+      Updated German help translation
+
+Daniel Mustieles (2):
+      Updated Spanish translation
+      Updated Spanish translation
+
+Dimitris Spingos (2):
+      Updated Greek translation
+      Updated Greek translation
+
+Dirgita (1):
+      Updated Indonesian translation
+
+Gabor Kelemen (1):
+      Fix errors in the Hungarian translation
+
+James Liggett (16):
+      Post-release version bump
+      git: Use actions for recurring items in the glade file
+      git: Pack the dock and the command bar together
+      git: Fix more names in the glade file
+      git: Use a toggle button to show and hide the command bar
+      git: More glade file name fixes
+      git: Add a stash button to the Status command bar
+      git: Implement branch switching by double-click
+      Update doap file
+      git: Fix widget names
+      git: Implement adding files by dragging them onto the status view
+      git: Widget name fixes
+      git: Log path entry should be editable
+      git: Widget name fixes
+      libanjuta/manuals: Update documentation sections
+      Revert "git: Log path entry should be editable"
+
+Jaume Planas (1):
+      [l10n] Add Catalan translation
+
+Johannes Schmid (2):
+      Updated AUTHORS file
+      sourceview: bgo#680770 - Don't scroll undo position to center if line already visible
+
+Juan Pablo Ugarte (1):
+      mk-project: Prevent a crash
+
+Marek Černocký (1):
+      Updated Czech translation
+
+Milo Casagrande (2):
+      [l10n] Updated Italian translation.
+      [l10n] Updated Italian translation.
+
+Richard Hughes (1):
+      Fixed Indonesian translation
+
+Sébastien Granjoux (6):
+      project-wizard: bgo#696672 - Creating new project using wizard fails due to license files missing
+      project wizard: bgo #688611 - Add Windows configuration
+      mk-project: Ignore conditional directives in makefile
+      git: Fix setting of a custom author in the commit pane
+      libanjuta: Improve editor modeline support
+      project-wizard: bgo #698011 - Cannot run anything
+
+Yuri Myasoedov (1):
+      Updated Russian translation
+
+Мирослав Николић (1):
+      Updated Serbian translation
+
 Anjuta 3.8.0 (March 24, 2013) -- James Liggett
 
 This is a new stable version of Anjuta and all users should update to this
