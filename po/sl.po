@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-03-06 08:43+0000\n"
-"PO-Revision-Date: 2013-03-07 17:14+0100\n"
+"POT-Creation-Date: 2013-04-30 22:36+0000\n"
+"PO-Revision-Date: 2013-05-01 20:10+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -573,19 +573,19 @@ msgstr "Model spustnega polja"
 msgid "The model for the combo box"
 msgstr "Model spustnega polja"
 
-#: ../libanjuta/anjuta-ui.c:1393
+#: ../libanjuta/anjuta-ui.c:1395
 msgid "Action"
 msgstr "Dejanje"
 
-#: ../libanjuta/anjuta-ui.c:1414
+#: ../libanjuta/anjuta-ui.c:1416
 msgid "Visible"
 msgstr "Vidno"
 
-#: ../libanjuta/anjuta-ui.c:1427
+#: ../libanjuta/anjuta-ui.c:1429
 msgid "Sensitive"
 msgstr "Občutljivo"
 
-#: ../libanjuta/anjuta-ui.c:1435
+#: ../libanjuta/anjuta-ui.c:1437
 msgid "Shortcut"
 msgstr "Bližnjica"
 
@@ -633,64 +633,64 @@ msgstr ""
 "Namestite ga."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1180
+#: ../libanjuta/anjuta-utils.c:1179
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 "Ni mogoče najti konzole; uporabljen bo xterm, čeprav morda ne bo deloval"
 
-#: ../libanjuta/anjuta-utils.c:1215 ../libanjuta/anjuta-utils.c:1219
-#: ../libanjuta/anjuta-utils.c:1246 ../libanjuta/anjuta-utils.c:1250
+#: ../libanjuta/anjuta-utils.c:1214 ../libanjuta/anjuta-utils.c:1218
+#: ../libanjuta/anjuta-utils.c:1245 ../libanjuta/anjuta-utils.c:1249
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Ni mogoče izvesti ukaza: %s (uporaba lupine %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:2381
+#: ../libanjuta/anjuta-utils.c:2390
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "Ni mogoče naložiti datoteke uporabniškega vmesnika: %s"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:92
-#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:164
+#: ../plugins/file-manager/file-view.c:77 ../plugins/git/git-status-pane.c:175
 msgid "Modified"
 msgstr "Spremenjeno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:95
-#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:167
+#: ../plugins/file-manager/file-view.c:81 ../plugins/git/git-status-pane.c:178
 msgid "Added"
 msgstr "Dodano"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:98
-#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:170
+#: ../plugins/file-manager/file-view.c:79 ../plugins/git/git-status-pane.c:181
 msgid "Deleted"
 msgstr "Izbrisano"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:101
-#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:173
+#: ../plugins/file-manager/file-view.c:83 ../plugins/git/git-status-pane.c:184
 msgid "Conflicted"
 msgstr "V sporu"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:105
-#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:177
+#: ../plugins/file-manager/file-view.c:85 ../plugins/git/git-status-pane.c:188
 msgid "Up-to-date"
 msgstr "Posodobljeno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:109
-#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:181
+#: ../plugins/file-manager/file-view.c:87 ../plugins/git/git-status-pane.c:192
 msgid "Locked"
 msgstr "Zaklenjeno"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:112
-#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:184
+#: ../plugins/file-manager/file-view.c:89 ../plugins/git/git-status-pane.c:195
 msgid "Missing"
 msgstr "Manjkajoče"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:115
-#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:187
+#: ../plugins/file-manager/file-view.c:91 ../plugins/git/git-status-pane.c:198
 msgid "Unversioned"
 msgstr "Brez določene različice"
 
 #: ../libanjuta/anjuta-vcs-status-tree-view.c:119
-#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:191
+#: ../plugins/file-manager/file-view.c:93 ../plugins/git/git-status-pane.c:202
 msgid "Ignored"
 msgstr "Prezrto"
 
@@ -719,9 +719,9 @@ msgstr ""
 #: ../plugins/am-project/am-project.c:1772
 #: ../plugins/dir-project/dir-project.c:723
 #: ../plugins/dir-project/dir-project.c:856
-#: ../plugins/mk-project/mk-project.c:723
-#: ../plugins/mk-project/mk-project.c:800
-#: ../plugins/mk-project/mk-project.c:874
+#: ../plugins/mk-project/mk-project.c:725
+#: ../plugins/mk-project/mk-project.c:802
+#: ../plugins/mk-project/mk-project.c:876
 #, c-format
 msgid "Project doesn't exist or invalid path"
 msgstr "Projekt ne obstaja ali pa ni veljavna pot"
@@ -819,7 +819,7 @@ msgstr "Nov ozadnji program Autotools za upravljanje s projekti"
 
 #: ../plugins/am-project/am-properties.c:49
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:5
-#: ../plugins/git/anjuta-git.ui.h:19 ../plugins/project-manager/dialogs.c:762
+#: ../plugins/git/anjuta-git.ui.h:21 ../plugins/project-manager/dialogs.c:762
 #: ../plugins/snippets-manager/snippets-export-dialog.ui.h:2
 #: ../plugins/tools/anjuta-tools.ui.h:3
 msgid "Name:"
@@ -883,7 +883,7 @@ msgstr ""
 "Ime paketa lahko vsebuje le črke, številke in vezaj. Ime je samodejno "
 "določeno iz imena projekta, če ni navedeno drugače."
 
-#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:5
+#: ../plugins/am-project/am-properties.c:86 ../plugins/git/anjuta-git.ui.h:10
 #: ../plugins/project-wizard/templates/gnome-shell-extension.wiz.in.h:20
 msgid "URL:"
 msgstr "Naslov URL:"
@@ -2275,7 +2275,7 @@ msgid "Log message:"
 msgstr "Dnevniško sporočilo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:24
-#: ../plugins/git/anjuta-git.ui.h:61
+#: ../plugins/git/anjuta-git.ui.h:62
 #: ../plugins/subversion/anjuta-subversion.ui.h:50
 msgid "Revision:"
 msgstr "Predelava:"
@@ -2286,7 +2286,7 @@ msgid "Do not act recursively"
 msgstr "Ne deluj po celotni drevesni zgradbi"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:26
-#: ../plugins/git/anjuta-git.ui.h:3
+#: ../plugins/git/anjuta-git.ui.h:8
 #: ../plugins/subversion/anjuta-subversion.ui.h:8
 msgid "Options:"
 msgstr "Možnosti:"
@@ -2359,7 +2359,7 @@ msgstr "Izbor dnevnika datoteke ali mape:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.ui.h:43
 #: ../plugins/file-wizard/anjuta-file-wizard.ui.h:7
-#: ../plugins/git/anjuta-git.ui.h:25
+#: ../plugins/git/anjuta-git.ui.h:27
 #: ../plugins/sourceview/anjuta-editor-sourceview.ui.h:9
 #: ../plugins/subversion/anjuta-subversion.ui.h:34
 msgid "Options"
@@ -3488,10 +3488,10 @@ msgstr "API"
 msgid "Missing name"
 msgstr "Manjka ime"
 
-#: ../plugins/dir-project/dir-project.c:989
-#: ../plugins/dir-project/dir-project.c:999
-#: ../plugins/mk-project/mk-project.c:1022
-#: ../plugins/mk-project/mk-project.c:1032
+#: ../plugins/dir-project/dir-project.c:992
+#: ../plugins/dir-project/dir-project.c:1002
+#: ../plugins/mk-project/mk-project.c:1024
+#: ../plugins/mk-project/mk-project.c:1034
 #, c-format
 msgid "Project doesn't allow to set properties"
 msgstr "Projekt ne dovoli nastavitve lastnosti"
@@ -3540,37 +3540,37 @@ msgid "Rename"
 msgstr "Preimenuj"
 
 #: ../plugins/document-manager/anjuta-bookmarks.c:363
-#: ../plugins/git/plugin.c:178
+#: ../plugins/git/plugin.c:180
 #: ../plugins/snippets-manager/snippets-editor.ui.h:19
 msgid "Remove"
 msgstr "Odstrani"
 
-#: ../plugins/document-manager/anjuta-docman.c:165
+#: ../plugins/document-manager/anjuta-docman.c:164
 msgid " [read-only]"
 msgstr " [samo za branje]"
 
-#: ../plugins/document-manager/anjuta-docman.c:661
-#: ../plugins/document-manager/anjuta-docman.c:1102
+#: ../plugins/document-manager/anjuta-docman.c:627
+#: ../plugins/document-manager/anjuta-docman.c:1047
 msgid "Close file"
 msgstr "Zapri datoteko"
 
-#: ../plugins/document-manager/anjuta-docman.c:709
+#: ../plugins/document-manager/anjuta-docman.c:664
 #: ../plugins/project-manager/dialogs.c:757
 msgid "Path:"
 msgstr "Pot:"
 
-#: ../plugins/document-manager/anjuta-docman.c:833
+#: ../plugins/document-manager/anjuta-docman.c:781
 #: ../plugins/file-loader/plugin.c:597 ../plugins/file-loader/plugin.c:900
 #: ../plugins/file-loader/plugin.c:910 ../plugins/file-loader/plugin.c:923
 msgid "Open file"
 msgstr "Odpri datoteko"
 
-#: ../plugins/document-manager/anjuta-docman.c:852
+#: ../plugins/document-manager/anjuta-docman.c:800
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "Shrani datoteko kot"
 
-#: ../plugins/document-manager/anjuta-docman.c:933
+#: ../plugins/document-manager/anjuta-docman.c:881
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3579,11 +3579,11 @@ msgstr ""
 "Datoteka '%s' že obstaja.\n"
 "Ali jo želite prepisati z datoteko, ki jo shranjujete?"
 
-#: ../plugins/document-manager/anjuta-docman.c:942
+#: ../plugins/document-manager/anjuta-docman.c:890
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: ../plugins/document-manager/anjuta-docman.c:1730
+#: ../plugins/document-manager/anjuta-docman.c:1634
 msgid "[read-only]"
 msgstr "[samo za branje]"
 
@@ -3985,7 +3985,7 @@ msgid "Search using regular expressions"
 msgstr "Iskanje s pomočjo logičnih izrazov"
 
 #: ../plugins/document-manager/plugin.c:295
-#: ../plugins/indentation-c-style/plugin.c:465
+#: ../plugins/indentation-c-style/plugin.c:217
 #: ../plugins/indentation-python-style/plugin.c:200
 #: ../plugins/language-support-cpp-java/plugin.c:1076
 #: ../plugins/language-support-python/plugin.c:377 ../src/anjuta-actions.h:30
@@ -4601,7 +4601,7 @@ msgstr "Ne pokaži datotek brez zapisane različice"
 msgid "Filter"
 msgstr "Filter"
 
-#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:30
+#: ../plugins/file-manager/file-model.c:128 ../plugins/git/anjuta-git.ui.h:34
 msgid "Loading..."
 msgstr "Nalaganje ..."
 
@@ -4635,7 +4635,7 @@ msgstr "Pokaži v upravljalniku datotek"
 msgid "File manager popup actions"
 msgstr "Pojavna okna upravljalnika datotek"
 
-#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:162
+#: ../plugins/file-manager/plugin.c:407 ../plugins/git/plugin.c:164
 msgid "Files"
 msgstr "Datoteke"
 
@@ -4954,257 +4954,255 @@ msgid "Gdb Debugger"
 msgstr "Razhroščevalnik Gdb"
 
 #: ../plugins/git/anjuta-git.ui.h:1
-msgid "Add Files:"
-msgstr "Dodaj datoteke:"
+msgid "Cancel"
+msgstr "Prekliči"
 
 #: ../plugins/git/anjuta-git.ui.h:2
 #: ../plugins/subversion/anjuta-subversion.ui.h:6
 msgid "Force"
 msgstr "Vsili"
 
-#: ../plugins/git/anjuta-git.ui.h:4
-msgid "Remote name:"
-msgstr "Ime oddaljene naprave"
-
-#: ../plugins/git/anjuta-git.ui.h:6
-msgid "Fetch remote branches after creation"
-msgstr "Prenesi z združevanjem veje po ustvarjanju"
-
-#: ../plugins/git/anjuta-git.ui.h:7
-msgid "Mailbox files to apply:"
-msgstr "Datoteke poštnega predala za uveljavitev:"
-
-#: ../plugins/git/anjuta-git.ui.h:8
-msgid "Add signed off by line"
-msgstr "Dodaj odpis po vrsticah"
-
-#: ../plugins/git/anjuta-git.ui.h:9 ../plugins/git/plugin.c:794
-msgid "Branches"
-msgstr "Veje"
-
-#: ../plugins/git/anjuta-git.ui.h:10
-msgid "Drop or enter revision here"
-msgstr "Spustite ali vnesite podatke objave na to mesto"
-
-#: ../plugins/git/anjuta-git.ui.h:11
-msgid "Commit to cherry pick:"
-msgstr "Uveljavi z odbiro:"
-
-#: ../plugins/git/anjuta-git.ui.h:12
+#: ../plugins/git/anjuta-git.ui.h:3
 msgid "Do not commit"
 msgstr "Ne uveljavi"
 
-#: ../plugins/git/anjuta-git.ui.h:13
+#: ../plugins/git/anjuta-git.ui.h:4
+msgid "OK"
+msgstr "V redu"
+
+#: ../plugins/git/anjuta-git.ui.h:5
+msgid "Add signed off by line"
+msgstr "Dodaj odpis po vrsticah"
+
+#: ../plugins/git/anjuta-git.ui.h:6
+msgid "Squash"
+msgstr "Squash"
+
+#: ../plugins/git/anjuta-git.ui.h:7
+msgid "Add Files:"
+msgstr "Dodaj datoteke:"
+
+#: ../plugins/git/anjuta-git.ui.h:9
+msgid "Remote name:"
+msgstr "Ime oddaljene naprave"
+
+#: ../plugins/git/anjuta-git.ui.h:11
+msgid "Fetch remote branches after creation"
+msgstr "Prenesi z združevanjem veje po ustvarjanju"
+
+#: ../plugins/git/anjuta-git.ui.h:12
+msgid "Mailbox files to apply:"
+msgstr "Datoteke poštnega predala za uveljavitev:"
+
+#: ../plugins/git/anjuta-git.ui.h:13 ../plugins/git/plugin.c:790
+msgid "Branches"
+msgstr "Veje"
+
+#: ../plugins/git/anjuta-git.ui.h:14
+msgid "Commit to cherry pick:"
+msgstr "Uveljavi z odbiro:"
+
+#: ../plugins/git/anjuta-git.ui.h:15
 msgid "Show source revision in log message"
 msgstr "Pokaži izvor predelane različice med dnevniškimi sporočili"
 
-#: ../plugins/git/anjuta-git.ui.h:14
+#: ../plugins/git/anjuta-git.ui.h:16
 msgid "Append signed-off-by line"
 msgstr "Pripni odpis po vrstici"
 
-#: ../plugins/git/anjuta-git.ui.h:15
+#: ../plugins/git/anjuta-git.ui.h:17
 #: ../plugins/subversion/anjuta-subversion.ui.h:11
 msgid "Log Message:"
 msgstr "Dnevniško sporočilo:"
 
-#: ../plugins/git/anjuta-git.ui.h:16
+#: ../plugins/git/anjuta-git.ui.h:18
 msgid "Amend the previous commit"
 msgstr "Izboljšava predhodne uveljavitve"
 
-#: ../plugins/git/anjuta-git.ui.h:17
+#: ../plugins/git/anjuta-git.ui.h:19
 msgid "This commit concludes a failed merge (use -i)"
 msgstr "Uveljavitev vključuje tudi neuspešno združevanje (uporabite -i)"
 
-#: ../plugins/git/anjuta-git.ui.h:18
+#: ../plugins/git/anjuta-git.ui.h:20
 msgid "Use custom author information:"
 msgstr "Uporabi podrobnosti avtorja po meri:"
 
-#: ../plugins/git/anjuta-git.ui.h:20
+#: ../plugins/git/anjuta-git.ui.h:22
 msgid "E-mail:"
 msgstr "Elektronska pošta:"
 
-#: ../plugins/git/anjuta-git.ui.h:21
+#: ../plugins/git/anjuta-git.ui.h:23
 msgid "Branch name:"
 msgstr "Ime veje:"
 
-#: ../plugins/git/anjuta-git.ui.h:22
+#: ../plugins/git/anjuta-git.ui.h:24
 msgid "Repository head; Drop or type a different revision here"
 msgstr "Glava skladišča; spustite ali vpišite podatke druge objave na to mesto"
 
-#: ../plugins/git/anjuta-git.ui.h:23
+#: ../plugins/git/anjuta-git.ui.h:25
 #: ../plugins/subversion/subversion-log-dialog.c:151
 msgid "Revision"
 msgstr "Predelava"
 
-#: ../plugins/git/anjuta-git.ui.h:24
+#: ../plugins/git/anjuta-git.ui.h:26
 msgid "Check out the branch after it is created"
 msgstr "Odjavi vejo po ustvarjanju"
 
-#: ../plugins/git/anjuta-git.ui.h:26
+#: ../plugins/git/anjuta-git.ui.h:28
 msgid "Tag name:"
 msgstr "Ime oznake:"
 
-#: ../plugins/git/anjuta-git.ui.h:27
+#: ../plugins/git/anjuta-git.ui.h:29
 msgid "Sign this tag"
 msgstr "Podpiši oznako"
 
-#: ../plugins/git/anjuta-git.ui.h:28
+#: ../plugins/git/anjuta-git.ui.h:30
 msgid "Annotate this tag:"
 msgstr "Zabeleži to oznako:"
 
-#: ../plugins/git/anjuta-git.ui.h:29
+#: ../plugins/git/anjuta-git.ui.h:31
 msgid "Branches must be fully merged"
 msgstr "Veje morajo biti popolnoma združene"
 
-#: ../plugins/git/anjuta-git.ui.h:31
-msgid ""
-"Whole project; Drop a file here or type a path to view a file or folder log"
-msgstr ""
-"Celoten projekt, spustite datoteko tukaj ali vpišite pot za ogled dnevnika "
-"datoteke ali mape"
+#: ../plugins/git/anjuta-git.ui.h:32 ../plugins/git/git-pane.c:77
+#: ../plugins/git/git-pane.c:82 ../plugins/git/git.plugin.in.h:1
+#: ../plugins/git/plugin.c:708
+msgid "Git"
+msgstr "Git"
 
-#: ../plugins/git/anjuta-git.ui.h:32
+#: ../plugins/git/anjuta-git.ui.h:33
+msgid "Tasks"
+msgstr "Naloge"
+
+#: ../plugins/git/anjuta-git.ui.h:35
 msgid "Whole project; Drop a file here to view a file or folder log"
 msgstr ""
 "Celoten projekt, spustite datoteko tukaj za ogled dnevnika datoteke ali mape"
 
-#: ../plugins/git/anjuta-git.ui.h:33
+#: ../plugins/git/anjuta-git.ui.h:36
 #: ../plugins/subversion/anjuta-subversion.ui.h:38
 msgid "View the Log for File/Folder:"
 msgstr "Pregled dnevnika za datoteke ali mape:"
 
-#: ../plugins/git/anjuta-git.ui.h:34
+#: ../plugins/git/anjuta-git.ui.h:37
 msgid "Branch:"
 msgstr "Veja:"
 
-#: ../plugins/git/anjuta-git.ui.h:35
+#: ../plugins/git/anjuta-git.ui.h:38
 msgid "Graph"
 msgstr "Graf"
 
-#: ../plugins/git/anjuta-git.ui.h:36
+#: ../plugins/git/anjuta-git.ui.h:39
 #: ../plugins/subversion/subversion-log-dialog.c:160
 msgid "Short Log"
 msgstr "Kratko beleženje"
 
-#: ../plugins/git/anjuta-git.ui.h:37
+#: ../plugins/git/anjuta-git.ui.h:40
 #: ../plugins/subversion/subversion-log-dialog.c:132
 msgid "Author"
 msgstr "Avtor"
 
-#: ../plugins/git/anjuta-git.ui.h:38
+#: ../plugins/git/anjuta-git.ui.h:41
 #: ../plugins/subversion/subversion-log-dialog.c:141
 msgid "Date"
 msgstr "Datum"
 
-#: ../plugins/git/anjuta-git.ui.h:39
+#: ../plugins/git/anjuta-git.ui.h:42
 msgid "page 1"
 msgstr "stran 1"
 
-#: ../plugins/git/anjuta-git.ui.h:40
+#: ../plugins/git/anjuta-git.ui.h:43
 msgid "page 2"
 msgstr "stran 2"
 
-#: ../plugins/git/anjuta-git.ui.h:41
+#: ../plugins/git/anjuta-git.ui.h:44
 #: ../plugins/subversion/anjuta-subversion.ui.h:39
 msgid "Changes:"
 msgstr "Spremembe:"
 
-#: ../plugins/git/anjuta-git.ui.h:42
+#: ../plugins/git/anjuta-git.ui.h:45
 msgid "Revision to merge with:"
 msgstr "Predelava za združevanje:"
 
-#: ../plugins/git/anjuta-git.ui.h:43
-msgid "Squash"
-msgstr "Squash"
-
-#: ../plugins/git/anjuta-git.ui.h:44
+#: ../plugins/git/anjuta-git.ui.h:46
 msgid "Use a custom log message:"
 msgstr "Uporabi sporočilo dnevnika po meri:"
 
-#: ../plugins/git/anjuta-git.ui.h:45
+#: ../plugins/git/anjuta-git.ui.h:47
 msgid "Repository origin; Drop or type a different revision here"
 msgstr "Vir skladišča; spustite ali vpišite podatke druge objave na to mesto"
 
-#: ../plugins/git/anjuta-git.ui.h:46
+#: ../plugins/git/anjuta-git.ui.h:48
 msgid "Generate patches relative to:"
 msgstr "Ustvari popravke povezane z:"
 
-#: ../plugins/git/anjuta-git.ui.h:47
+#: ../plugins/git/anjuta-git.ui.h:49
 msgid "Folder to create patches in:"
 msgstr "Mapa za ustvarjanje popravkov:"
 
-#: ../plugins/git/anjuta-git.ui.h:48
+#: ../plugins/git/anjuta-git.ui.h:50
 msgid "Repository to pull from:"
 msgstr "Skladišče za sprejemanje:"
 
-#: ../plugins/git/anjuta-git.ui.h:49 ../plugins/git/plugin.c:262
+#: ../plugins/git/anjuta-git.ui.h:51 ../plugins/git/plugin.c:280
 msgid "Rebase"
 msgstr "Postavi izhodišče"
 
-#: ../plugins/git/anjuta-git.ui.h:50
+#: ../plugins/git/anjuta-git.ui.h:52
 msgid "Append fetch data"
 msgstr "Pripni prenesene podatke"
 
-#: ../plugins/git/anjuta-git.ui.h:51
+#: ../plugins/git/anjuta-git.ui.h:53
 msgid "Commit on fast-forward merges"
 msgstr "Uveljavi s hitrim združevanjem"
 
-#: ../plugins/git/anjuta-git.ui.h:52
+#: ../plugins/git/anjuta-git.ui.h:54
 msgid "Do not follow tags"
 msgstr "Ne sledi oznakam"
 
-#: ../plugins/git/anjuta-git.ui.h:53
+#: ../plugins/git/anjuta-git.ui.h:55
 msgid "Repository to push to:"
 msgstr "Skladišče za objavo:"
 
-#: ../plugins/git/anjuta-git.ui.h:54
+#: ../plugins/git/anjuta-git.ui.h:56
 msgid "Branches:"
 msgstr "Veje:"
 
-#: ../plugins/git/anjuta-git.ui.h:55
+#: ../plugins/git/anjuta-git.ui.h:57
 msgid "Tags:"
 msgstr "Oznake:"
 
-#: ../plugins/git/anjuta-git.ui.h:56
+#: ../plugins/git/anjuta-git.ui.h:58
 msgid "Push all tags"
 msgstr "Objavi vse oznake"
 
-#: ../plugins/git/anjuta-git.ui.h:57
+#: ../plugins/git/anjuta-git.ui.h:59
 msgid "Push all branches and tags"
 msgstr "Objavi vse veje in oznake"
 
-#: ../plugins/git/anjuta-git.ui.h:58
+#: ../plugins/git/anjuta-git.ui.h:60
 msgid "Remote Repositories:"
 msgstr "Oddaljena skladišča:"
 
-#: ../plugins/git/anjuta-git.ui.h:59
+#: ../plugins/git/anjuta-git.ui.h:61
 msgid "Remove Files:"
 msgstr "Odstrani datoteke:"
 
-#: ../plugins/git/anjuta-git.ui.h:60
-msgid "Previous commit; Drop or enter a different revision here"
-msgstr ""
-"Predhodna uveljavitev; spustite ali vnesite podatke druge objave na to mesto"
-
-#: ../plugins/git/anjuta-git.ui.h:62
+#: ../plugins/git/anjuta-git.ui.h:63
 msgid "Mixed"
 msgstr "Mešano"
 
-#: ../plugins/git/anjuta-git.ui.h:63
+#: ../plugins/git/anjuta-git.ui.h:64
 msgid "Soft"
 msgstr "Mehko"
 
-#: ../plugins/git/anjuta-git.ui.h:64
+#: ../plugins/git/anjuta-git.ui.h:65
 msgid "Hard"
 msgstr "Zahtevno"
 
-#: ../plugins/git/anjuta-git.ui.h:65
+#: ../plugins/git/anjuta-git.ui.h:66
 msgid "Mode:"
 msgstr "Način:"
-
-#: ../plugins/git/anjuta-git.ui.h:66
-msgid "Drop or type a revision here"
-msgstr "Spustite ali vpišite podatke objave na to mesto"
 
 #: ../plugins/git/anjuta-git.ui.h:67
 msgid "Commit to revert:"
@@ -5226,7 +5224,7 @@ msgstr "Spremembe zaloge:"
 msgid "Repository Status:"
 msgstr "Stanje skladišča"
 
-#: ../plugins/git/git-add-files-pane.c:157
+#: ../plugins/git/git-add-files-pane.c:160
 msgid "Add Files"
 msgstr "Dodaj datoteke"
 
@@ -5238,11 +5236,11 @@ msgstr "Vnesite ime oddaljenega mesta."
 msgid "Please enter a URL"
 msgstr "Vnesite naslov URL."
 
-#: ../plugins/git/git-add-remote-pane.c:180
+#: ../plugins/git/git-add-remote-pane.c:182
 msgid "Add Remote"
 msgstr "Dodaj oddaljeno mesto"
 
-#: ../plugins/git/git-apply-mailbox-pane.c:157
+#: ../plugins/git/git-apply-mailbox-pane.c:159
 msgid "Apply Mailbox Files"
 msgstr "Uporabi datoteke poštnega predala"
 
@@ -5252,7 +5250,7 @@ msgstr "Uporabi datoteke poštnega predala"
 msgid "No stash selected."
 msgstr "Ni izbrane zaloge."
 
-#: ../plugins/git/git-checkout-pane.c:147
+#: ../plugins/git/git-checkout-pane.c:150
 msgid "Check Out Files"
 msgstr "Odjavi datoteke"
 
@@ -5262,7 +5260,7 @@ msgstr "Odjavi datoteke"
 msgid "Please enter a revision."
 msgstr "Vnesite predelavo."
 
-#: ../plugins/git/git-cherry-pick-pane.c:173
+#: ../plugins/git/git-cherry-pick-pane.c:176
 msgid "Cherry Pick"
 msgstr "Odbiranje"
 
@@ -5279,7 +5277,7 @@ msgstr "Vnesite ime avtorja uveljavitve."
 msgid "Please enter the commit author's e-mail address."
 msgstr "Vnesite elektronski naslov avtorja uveljavitve."
 
-#: ../plugins/git/git-commit-pane.c:297 ../plugins/git/plugin.c:146
+#: ../plugins/git/git-commit-pane.c:299 ../plugins/git/plugin.c:148
 msgid "Commit"
 msgstr "Uveljavi"
 
@@ -5291,7 +5289,7 @@ msgstr "Vnesite ime veje."
 msgid "Please enter a tag name."
 msgstr "Vnesite ime oznake."
 
-#: ../plugins/git/git-create-tag-pane.c:233
+#: ../plugins/git/git-create-tag-pane.c:236
 msgid "Create Tag"
 msgstr "Ustvari oznako"
 
@@ -5338,14 +5336,9 @@ msgstr "<b>Oznaka:</b> %s"
 msgid "<b>Remote:</b> %s"
 msgstr "<b>Oddaljeno:</b> %s"
 
-#: ../plugins/git/git-merge-pane.c:210 ../plugins/git/plugin.c:97
+#: ../plugins/git/git-merge-pane.c:214 ../plugins/git/plugin.c:99
 msgid "Merge"
 msgstr "Združi"
-
-#: ../plugins/git/git-pane.c:77 ../plugins/git/git-pane.c:82
-#: ../plugins/git/git.plugin.in.h:1 ../plugins/git/plugin.c:716
-msgid "Git"
-msgstr "Git"
 
 #: ../plugins/git/git-pane.c:204
 msgid "Git Error"
@@ -5355,7 +5348,7 @@ msgstr "Napaka Git"
 msgid "Git Warning"
 msgstr "Opozorilo Git"
 
-#: ../plugins/git/git-patch-series-pane.c:167
+#: ../plugins/git/git-patch-series-pane.c:169
 msgid "Generate Patch Series"
 msgstr "Ustvari nize popravkov"
 
@@ -5367,11 +5360,11 @@ msgstr "Nadzor različic Git"
 msgid "Please enter a URL."
 msgstr "Vnesite naslov URL."
 
-#: ../plugins/git/git-pull-pane.c:238 ../plugins/git/plugin.c:246
+#: ../plugins/git/git-pull-pane.c:242 ../plugins/git/plugin.c:264
 msgid "Pull"
 msgstr "Sprejmi"
 
-#: ../plugins/git/git-push-pane.c:435 ../plugins/git/plugin.c:238
+#: ../plugins/git/git-push-pane.c:438 ../plugins/git/plugin.c:256
 msgid "Push"
 msgstr "Objavi"
 
@@ -5379,7 +5372,7 @@ msgstr "Objavi"
 msgid "No remote selected"
 msgstr "Ni izbranega oddaljenega mesta"
 
-#: ../plugins/git/git-remove-files-pane.c:157
+#: ../plugins/git/git-remove-files-pane.c:160
 msgid "Remove Files"
 msgstr "Odstrani datoteke"
 
@@ -5404,7 +5397,7 @@ msgstr ""
 "Za objavo na drugo oddaljeno vejo, jo izberite s seznama oddaljenih vej "
 "zgoraj."
 
-#: ../plugins/git/git-reset-pane.c:164
+#: ../plugins/git/git-reset-pane.c:165
 msgid "Reset"
 msgstr "Ponastavi"
 
@@ -5416,19 +5409,19 @@ msgstr "Ni izbranih datotek v sporu."
 msgid "Please enter a commit."
 msgstr "Vnesite uveljavitev."
 
-#: ../plugins/git/git-revert-pane.c:162
+#: ../plugins/git/git-revert-pane.c:163
 msgid "Revert"
 msgstr "Povrni"
 
-#: ../plugins/git/git-stash-changes-pane.c:158
+#: ../plugins/git/git-stash-changes-pane.c:160
 msgid "Stash Uncommitted Changes"
 msgstr "Založi neuveljavljene spremembe"
 
-#: ../plugins/git/git-status-pane.c:365
+#: ../plugins/git/git-status-pane.c:376
 msgid "Changes to be committed"
 msgstr "Spremembe pripravljene za uveljavitev"
 
-#: ../plugins/git/git-status-pane.c:374
+#: ../plugins/git/git-status-pane.c:385
 msgid "Changed but not updated"
 msgstr "Spremenjeno, vendar ne posodobljeno"
 
@@ -5436,313 +5429,309 @@ msgstr "Spremenjeno, vendar ne posodobljeno"
 msgid "No staged files selected."
 msgstr "Ni izbranih datoteke v pripravljenosti."
 
-#: ../plugins/git/plugin.c:65
+#: ../plugins/git/plugin.c:67
 msgid "Branch tools"
 msgstr "Orodja za delo z vejami"
 
-#: ../plugins/git/plugin.c:73 ../plugins/git/plugin.c:74
+#: ../plugins/git/plugin.c:75 ../plugins/git/plugin.c:76
 msgid "Create a branch"
 msgstr "Ustvari vejo"
 
-#: ../plugins/git/plugin.c:81 ../plugins/git/plugin.c:82
+#: ../plugins/git/plugin.c:83 ../plugins/git/plugin.c:84
 msgid "Delete branches"
 msgstr "Izbriši veje"
 
-#: ../plugins/git/plugin.c:89 ../plugins/git/plugin.c:90
+#: ../plugins/git/plugin.c:91 ../plugins/git/plugin.c:92
 msgid "Switch to the selected branch"
 msgstr "Preklopi na izbrano vejo"
 
-#: ../plugins/git/plugin.c:98
+#: ../plugins/git/plugin.c:100
 msgid "Merge a revision into the current branch"
 msgstr "Združi uveljavitve v trenutno vejo"
 
-#: ../plugins/git/plugin.c:109
+#: ../plugins/git/plugin.c:111
 msgid "Tag tools"
 msgstr "Orodja označevanja"
 
-#: ../plugins/git/plugin.c:117 ../plugins/git/plugin.c:118
+#: ../plugins/git/plugin.c:119 ../plugins/git/plugin.c:120
 msgid "Create a tag"
 msgstr "Ustvari oznako"
 
-#: ../plugins/git/plugin.c:125 ../plugins/git/plugin.c:126
+#: ../plugins/git/plugin.c:127 ../plugins/git/plugin.c:128
 msgid "Delete selected tags"
 msgstr "Izbriši izbrane onake"
 
-#: ../plugins/git/plugin.c:138
+#: ../plugins/git/plugin.c:140
 msgid "Changes"
 msgstr "Spremembe"
 
-#: ../plugins/git/plugin.c:147
+#: ../plugins/git/plugin.c:149
 msgid "Commit changes"
 msgstr "Uveljavi spremembe"
 
-#: ../plugins/git/plugin.c:154
+#: ../plugins/git/plugin.c:156
 msgid "Diff uncommitted changes"
 msgstr "Primerjaj neuveljavljene spremembe"
 
-#: ../plugins/git/plugin.c:155
+#: ../plugins/git/plugin.c:157
 msgid "Show a diff of uncommitted changes in an editor"
 msgstr "Pokaži razlike neuveljavljenih sprememb"
 
-#: ../plugins/git/plugin.c:170
+#: ../plugins/git/plugin.c:172
 #: ../plugins/snippets-manager/snippets-editor.ui.h:18
 msgid "Add"
 msgstr "Dodaj"
 
-#: ../plugins/git/plugin.c:171
+#: ../plugins/git/plugin.c:173
 msgid "Add files to the index"
 msgstr "Dodaj datoteke v kazalo"
 
-#: ../plugins/git/plugin.c:179
+#: ../plugins/git/plugin.c:181
 msgid "Remove files from the repository"
 msgstr "Odstrani datoteke iz skladišča"
 
-#: ../plugins/git/plugin.c:186
+#: ../plugins/git/plugin.c:188
 msgid "Check out"
 msgstr "Odjavi datoteke"
 
-#: ../plugins/git/plugin.c:187
+#: ../plugins/git/plugin.c:189
 msgid "Revert changes in unstaged files"
 msgstr "Povrni spremembe med datotekami počiščenimi pripravljenosti"
 
-#: ../plugins/git/plugin.c:194
+#: ../plugins/git/plugin.c:196
 msgid "Unstage"
 msgstr "Počisti pripravljenost"
 
-#: ../plugins/git/plugin.c:195
+#: ../plugins/git/plugin.c:197
 msgid "Remove staged files from the index"
 msgstr "Odstrani datoteke v pripravljenosti iz določila uveljavitve"
 
-#: ../plugins/git/plugin.c:202
+#: ../plugins/git/plugin.c:204
 msgid "Resolve conflicts"
 msgstr "Razreši spore"
 
-#: ../plugins/git/plugin.c:203
+#: ../plugins/git/plugin.c:205
 msgid "Mark selected conflicted files as resolved"
 msgstr "Označi izbrane datoteke v sporu kot razrešene"
 
-#: ../plugins/git/plugin.c:214
+#: ../plugins/git/plugin.c:212 ../plugins/git/plugin.c:808
+msgid "Stash"
+msgstr "Zaloga"
+
+#: ../plugins/git/plugin.c:220 ../plugins/git/plugin.c:332
+msgid "Stash uncommitted changes"
+msgstr "Založi neuveljavljene spremembe"
+
+#: ../plugins/git/plugin.c:221 ../plugins/git/plugin.c:333
+msgid "Save uncommitted changes without committing them"
+msgstr "Shrani neuveljavljene spremembe brez uveljavitve v skladišče"
+
+#: ../plugins/git/plugin.c:232
 msgid "Remote repository tools"
 msgstr "Orodja oddaljenega skladišča"
 
-#: ../plugins/git/plugin.c:222
+#: ../plugins/git/plugin.c:240
 msgid "Add a remote"
 msgstr "Dodaj oddaljeno mesto"
 
-#: ../plugins/git/plugin.c:223
+#: ../plugins/git/plugin.c:241
 msgid "Add a remote repository"
 msgstr "Dodaj oddaljeno skladišče"
 
-#: ../plugins/git/plugin.c:230
+#: ../plugins/git/plugin.c:248
 msgid "Delete selected remote"
 msgstr "Izbriši izbrano oddaljeno mesto"
 
-#: ../plugins/git/plugin.c:231
+#: ../plugins/git/plugin.c:249
 msgid "Delete a remote"
 msgstr "Izbriši oddaljeno mesto"
 
-#: ../plugins/git/plugin.c:239
+#: ../plugins/git/plugin.c:257
 msgid "Push changes to a remote repository"
 msgstr "Objavi spremembe v oddaljeno skladišče"
 
-#: ../plugins/git/plugin.c:247
+#: ../plugins/git/plugin.c:265
 msgid "Pull changes from a remote repository"
 msgstr "Sprejmi spremembe iz oddaljenega odložišča"
 
-#: ../plugins/git/plugin.c:254
+#: ../plugins/git/plugin.c:272
 msgid "Fetch"
 msgstr "Pridobi"
 
-#: ../plugins/git/plugin.c:255
+#: ../plugins/git/plugin.c:273
 msgid "Fetch changes from remote repositories"
 msgstr "Pridobivanje sprememb iz oddaljenih skladišč"
 
-#: ../plugins/git/plugin.c:270
+#: ../plugins/git/plugin.c:288
 msgid "Rebase against selected remote"
 msgstr "Postavi izhodišče glede na izbran oddaljen vir"
 
-#: ../plugins/git/plugin.c:271
+#: ../plugins/git/plugin.c:289
 msgid "Start a rebase operation relative to the selected remote repository"
 msgstr ""
 "Začni opravilo postavljanja izhodišča relativno na izbrano oddaljeno "
 "odložišče"
 
-#: ../plugins/git/plugin.c:278 ../plugins/git/plugin.c:446
+#: ../plugins/git/plugin.c:296 ../plugins/git/plugin.c:464
 msgid "Continue"
 msgstr "Nadaljuj"
 
-#: ../plugins/git/plugin.c:279
+#: ../plugins/git/plugin.c:297
 msgid "Continue a rebase with resolved conflicts"
 msgstr "Nadaljuj s postavljanjem izhodišča z razrešenimi spori"
 
-#: ../plugins/git/plugin.c:286 ../plugins/git/plugin.c:454
+#: ../plugins/git/plugin.c:304 ../plugins/git/plugin.c:472
 msgid "Skip"
 msgstr "Preskoči"
 
-#: ../plugins/git/plugin.c:287
+#: ../plugins/git/plugin.c:305
 msgid "Skip the current revision"
 msgstr "Preskoči trenutni popravek"
 
-#: ../plugins/git/plugin.c:294 ../plugins/git/plugin.c:462
+#: ../plugins/git/plugin.c:312 ../plugins/git/plugin.c:480
 msgid "Abort"
 msgstr "Prekini"
 
-#: ../plugins/git/plugin.c:295
+#: ../plugins/git/plugin.c:313
 msgid "Abort the rebase and return the repository to its previous state"
 msgstr "Prekini postavljanje izhodišča in postavi skladišče v prvotno stanje"
 
-#: ../plugins/git/plugin.c:306
+#: ../plugins/git/plugin.c:324
 msgid "Stash tools"
 msgstr "Orodja zaloge"
 
-#: ../plugins/git/plugin.c:314
-msgid "Stash uncommitted changes"
-msgstr "Založi neuveljavljene spremembe"
-
-#: ../plugins/git/plugin.c:315
-msgid "Save uncommitted changes without committing them"
-msgstr "Shrani neuveljavljene spremembe brez uveljavitve v skladišče"
-
-#: ../plugins/git/plugin.c:322
+#: ../plugins/git/plugin.c:340
 msgid "Apply selected stash"
 msgstr "Uveljavi izbrano zaloge."
 
-#: ../plugins/git/plugin.c:323
+#: ../plugins/git/plugin.c:341
 msgid "Apply stashed changes back into the working tree"
 msgstr "Uporabi založene spremembe nazaj v delovno različici"
 
-#: ../plugins/git/plugin.c:330
+#: ../plugins/git/plugin.c:348
 msgid "Apply stash and restore index"
 msgstr "Uporabi zalogo in obnovi kazalo"
 
-#: ../plugins/git/plugin.c:331
+#: ../plugins/git/plugin.c:349
 msgid "Apply stashed changes back into the working tree and the index"
 msgstr "Uveljavi založene spremembe nazaj v delovno drevo in kazalo"
 
-#: ../plugins/git/plugin.c:338
+#: ../plugins/git/plugin.c:356
 msgid "Diff selected stash"
 msgstr "Primerjaj izbrano zalogo"
 
-#: ../plugins/git/plugin.c:339
+#: ../plugins/git/plugin.c:357
 msgid "Show a diff of the selected stash"
 msgstr "Pokaži primerjavo izbrane zaloge"
 
-#: ../plugins/git/plugin.c:346
+#: ../plugins/git/plugin.c:364
 msgid "Drop selected stash"
 msgstr "Sprosti izbrano zalogo"
 
-#: ../plugins/git/plugin.c:347
+#: ../plugins/git/plugin.c:365
 msgid "Delete the selected stash"
 msgstr "Izbriši izbrano zalogo"
 
-#: ../plugins/git/plugin.c:354
+#: ../plugins/git/plugin.c:372
 msgid "Clear all stashes"
 msgstr "Počisti vse zaloge"
 
-#: ../plugins/git/plugin.c:355
+#: ../plugins/git/plugin.c:373
 msgid "Delete all stashes in this repository"
 msgstr "Izbriši vse zaloge v tem skladišču"
 
-#: ../plugins/git/plugin.c:366
+#: ../plugins/git/plugin.c:384
 msgid "Revision tools"
 msgstr "Orodja predelav"
 
-#: ../plugins/git/plugin.c:374
+#: ../plugins/git/plugin.c:392
 msgid "Show commit diff"
 msgstr "Pokaži primerjave uveljavitve"
 
-#: ../plugins/git/plugin.c:375
+#: ../plugins/git/plugin.c:393
 msgid "Show a diff of the selected revision"
 msgstr "Pokaži primerjavo za izbrano predelavo"
 
-#: ../plugins/git/plugin.c:382
+#: ../plugins/git/plugin.c:400
 msgid "Cherry pick"
 msgstr "Odbiranje"
 
-#: ../plugins/git/plugin.c:383
+#: ../plugins/git/plugin.c:401
 msgid "Merge an individual commit from another branch"
 msgstr "Združi posamezno uveljavitev iz druge veje"
 
-#: ../plugins/git/plugin.c:390
+#: ../plugins/git/plugin.c:408
 msgid "Reset/Revert"
 msgstr "Počisti/Povrni"
 
-#: ../plugins/git/plugin.c:398
+#: ../plugins/git/plugin.c:416
 msgid "Reset tree"
 msgstr "Počisti drevo"
 
-#: ../plugins/git/plugin.c:399
+#: ../plugins/git/plugin.c:417
 msgid "Reset tree to a previous revision"
 msgstr "Počisti drevo na predhodno predelavo"
 
-#: ../plugins/git/plugin.c:406
+#: ../plugins/git/plugin.c:424
 msgid "Revert commit"
 msgstr "Povrni uveljavitev"
 
-#: ../plugins/git/plugin.c:407
+#: ../plugins/git/plugin.c:425
 msgid "Revert a commit"
 msgstr "Povrni uveljavitev"
 
-#: ../plugins/git/plugin.c:414
+#: ../plugins/git/plugin.c:432
 msgid "Patch series"
 msgstr "Niz popravkov"
 
-#: ../plugins/git/plugin.c:422 ../plugins/git/plugin.c:423
+#: ../plugins/git/plugin.c:440 ../plugins/git/plugin.c:441
 msgid "Generate a patch series"
 msgstr "Ustvari nize popravkov"
 
-#: ../plugins/git/plugin.c:430
+#: ../plugins/git/plugin.c:448
 msgid "Mailbox files"
 msgstr "Datoteke poštnega predala"
 
-#: ../plugins/git/plugin.c:438
+#: ../plugins/git/plugin.c:456
 msgid "Apply mailbox files"
 msgstr "Uporabi datoteke poštnega predala"
 
-#: ../plugins/git/plugin.c:439
+#: ../plugins/git/plugin.c:457
 msgid "Apply patches from mailbox files"
 msgstr "Uporabi popravke iz datotek poštnega predala"
 
-#: ../plugins/git/plugin.c:447
+#: ../plugins/git/plugin.c:465
 msgid "Continue applying patches with resolved conflicts"
 msgstr "Nadaljuj z uveljavitvijo nizov popravkov z razrešenimi spori"
 
-#: ../plugins/git/plugin.c:455
+#: ../plugins/git/plugin.c:473
 msgid "Skip the current patch in the series"
 msgstr "Preskoči trenutni popravek v nizu"
 
-#: ../plugins/git/plugin.c:463
+#: ../plugins/git/plugin.c:481
 msgid ""
 "Stop applying the patch series and return the tree to its previous state"
 msgstr "Zaustavi uveljavitev nizov popravkov in povrni drevo v prvotno stanje"
 
-#: ../plugins/git/plugin.c:554 ../plugins/git/plugin.c:627
+#: ../plugins/git/plugin.c:572 ../plugins/git/plugin.c:645
 msgid "Branch"
 msgstr "Veja"
 
-#: ../plugins/git/plugin.c:711
-msgid "Git Tasks"
-msgstr "Opravila Git"
-
-#: ../plugins/git/plugin.c:782
+#: ../plugins/git/plugin.c:778
 msgid "Status"
 msgstr "Stanje"
 
-#: ../plugins/git/plugin.c:788
+#: ../plugins/git/plugin.c:784
 msgid "Log"
 msgstr "Dnevnik"
 
-#: ../plugins/git/plugin.c:799
+#: ../plugins/git/plugin.c:795
 msgid "Tags"
 msgstr "Oznake"
 
-#: ../plugins/git/plugin.c:806
+#: ../plugins/git/plugin.c:802
 msgid "Remotes"
 msgstr "Oddaljena mesta"
-
-#: ../plugins/git/plugin.c:812
-msgid "Stash"
-msgstr "Zaloga"
 
 #: ../plugins/glade/anjuta-design-document.c:170
 #: ../plugins/glade/anjuta-design-document.c:201
@@ -5872,22 +5861,22 @@ msgid "Parenthesis indentation"
 msgstr "Zamikanje oklepajev"
 
 #. ANJUTA_STOCK_AUTOINDENT,
-#: ../plugins/indentation-c-style/plugin.c:471
+#: ../plugins/indentation-c-style/plugin.c:223
 #: ../plugins/indentation-python-style/plugin.c:206
 msgid "Auto-Indent"
 msgstr "Samodejno zamikanje"
 
-#: ../plugins/indentation-c-style/plugin.c:472
+#: ../plugins/indentation-c-style/plugin.c:224
 #: ../plugins/indentation-python-style/plugin.c:207
 msgid "Auto-indent current line or selection based on indentation settings"
 msgstr "Samodejno zamakni trenutno vrstico na osnovi nastavitev zamikanja"
 
-#: ../plugins/indentation-c-style/plugin.c:512
+#: ../plugins/indentation-c-style/plugin.c:264
 msgid "C Indentation"
 msgstr "Zamikanje C"
 
-#: ../plugins/indentation-c-style/plugin.c:610
-#: ../plugins/indentation-c-style/plugin.c:619
+#: ../plugins/indentation-c-style/plugin.c:362
+#: ../plugins/indentation-c-style/plugin.c:371
 #: ../plugins/indentation-python-style/plugin.c:328
 #: ../plugins/indentation-python-style/plugin.c:337
 msgid "Indentation"
@@ -7539,18 +7528,18 @@ msgid "Use pkg-config to add library support from other packages"
 msgstr "Uporabi pkg-config za dodajanje knjižnične podpore drugih paketov"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:29
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:19
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:21
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:21
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:23
-#: ../plugins/project-wizard/templates/library.wiz.in.h:24
+#: ../plugins/project-wizard/templates/library.wiz.in.h:26
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:19
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:19
 #: ../plugins/project-wizard/templates/python.wiz.in.h:21
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:19
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:21
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:21
@@ -7580,15 +7569,15 @@ msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr "Doda podporo C++ projektu, da je mogoče izgraditi tudi C++ datoteke"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:32
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:22
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:22
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:26
 #: ../plugins/project-wizard/templates/java.wiz.in.h:24
-#: ../plugins/project-wizard/templates/library.wiz.in.h:25
+#: ../plugins/project-wizard/templates/library.wiz.in.h:27
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:20
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:20
 #: ../plugins/project-wizard/templates/python.wiz.in.h:22
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:22
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:20
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:22
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:22
@@ -7596,15 +7585,15 @@ msgid "Required Packages:"
 msgstr "Zahtevani paketi:"
 
 #: ../plugins/project-wizard/templates/anjuta-plugin.wiz.in.h:33
-#: ../plugins/project-wizard/templates/cpp.wiz.in.h:21
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:23
 #: ../plugins/project-wizard/templates/gcj.wiz.in.h:23
-#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:27
 #: ../plugins/project-wizard/templates/java.wiz.in.h:25
-#: ../plugins/project-wizard/templates/library.wiz.in.h:26
+#: ../plugins/project-wizard/templates/library.wiz.in.h:28
 #: ../plugins/project-wizard/templates/minimal.wiz.in.h:21
 #: ../plugins/project-wizard/templates/pygtk.wiz.in.h:21
 #: ../plugins/project-wizard/templates/python.wiz.in.h:23
-#: ../plugins/project-wizard/templates/terminal.wiz.in.h:21
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:23
 #: ../plugins/project-wizard/templates/wxwin.wiz.in.h:21
 #: ../plugins/project-wizard/templates/xlib-dock.wiz.in.h:23
 #: ../plugins/project-wizard/templates/xlib.wiz.in.h:23
@@ -7742,6 +7731,26 @@ msgstr ""
 "Doda podporo za mednarodno jezikovno prilagoditev (i18n), da bo mogoče "
 "projekt prevesti v druge jezike."
 
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:19
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:25
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:23
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:25
+#: ../plugins/project-wizard/templates/library.wiz.in.h:24
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:19
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:19
+msgid "Add Windows support:"
+msgstr "Dodaj podporo za okolje Windows:"
+
+#: ../plugins/project-wizard/templates/cpp.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
+#: ../plugins/project-wizard/templates/gtkmm.wiz.in.h:24
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
+#: ../plugins/project-wizard/templates/library.wiz.in.h:25
+#: ../plugins/project-wizard/templates/terminal.wiz.in.h:20
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
+msgid "Adds support for building on Windows platforms"
+msgstr "Doda podporo za izgradnjo na okolju WIndows"
+
 #: ../plugins/project-wizard/templates/django.wiz.in.h:1
 msgid "Django Project"
 msgstr "Django projekt"
@@ -7873,15 +7882,15 @@ msgstr ""
 "Uporabite GtkBuilder za ustvarjanje grafičnega uporabniškega vmesnika in za "
 "nalaganje preko datotek xml med delovanjem."
 
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:26
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:26
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:20
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:28
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:28
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:22
 msgid "Require Package:"
 msgstr "Zahtevani paketi:"
 
-#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:27
-#: ../plugins/project-wizard/templates/gtk.wiz.in.h:27
-#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:21
+#: ../plugins/project-wizard/templates/gtkapplication.wiz.in.h:29
+#: ../plugins/project-wizard/templates/gtk.wiz.in.h:29
+#: ../plugins/project-wizard/templates/vala-gtk.wiz.in.h:23
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -9987,6 +9996,24 @@ msgstr "Le ikone"
 #: ../src/preferences.ui.h:19
 msgid "Text only"
 msgstr "Le besedilo"
+
+#~ msgid "Drop or enter revision here"
+#~ msgstr "Spustite ali vnesite podatke objave na to mesto"
+
+#~ msgid ""
+#~ "Whole project; Drop a file here or type a path to view a file or folder "
+#~ "log"
+#~ msgstr ""
+#~ "Celoten projekt, spustite datoteko tukaj ali vpišite pot za ogled "
+#~ "dnevnika datoteke ali mape"
+
+#~ msgid "Previous commit; Drop or enter a different revision here"
+#~ msgstr ""
+#~ "Predhodna uveljavitev; spustite ali vnesite podatke druge objave na to "
+#~ "mesto"
+
+#~ msgid "Drop or type a revision here"
+#~ msgstr "Spustite ali vpišite podatke objave na to mesto"
 
 #~ msgid "Select a build directory"
 #~ msgstr "Izbor mape za izgradnjo"
