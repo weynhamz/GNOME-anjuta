@@ -24,5 +24,6 @@
 #include "git-status-pane.h"
 
 void on_unstage_button_clicked (GtkAction *action, Git *plugin);
+void on_git_status_unstage_activated (GtkAction *action, Git *plugin);
 
 #endif

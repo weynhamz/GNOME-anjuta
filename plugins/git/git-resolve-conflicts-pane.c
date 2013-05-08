@@ -25,8 +25,8 @@ on_resolve_conflicts_button_clicked (GtkAction *action, Git *plugin)
 	GList *paths;
 	GitAddCommand *add_command;
 
-	paths = git_status_pane_get_all_selected_items (GIT_STATUS_PANE (plugin->status_pane),
-	                                                ANJUTA_VCS_STATUS_CONFLICTED);
+	paths = git_status_pane_get_all_checked_items (GIT_STATUS_PANE (plugin->status_pane),
+	                                               ANJUTA_VCS_STATUS_CONFLICTED);
 
 	if (paths)
 	{

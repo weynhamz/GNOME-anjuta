@@ -53,6 +53,7 @@ struct _GitCheckoutPane
 GType git_checkout_pane_get_type (void) G_GNUC_CONST;
 AnjutaDockPane *git_checkout_pane_new (Git *plugin);
 void on_checkout_button_clicked (GtkAction *action, Git *plugin);
+void on_git_status_checkout_activated (GtkAction *action, Git *plugin);
 
 G_END_DECLS
 

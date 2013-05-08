@@ -3680,6 +3680,7 @@
                   <object class="GtkTreeView" id="status_view">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
                     <property name="model">status_model</property>
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>

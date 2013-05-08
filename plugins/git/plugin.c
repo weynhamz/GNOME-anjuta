@@ -58,6 +58,7 @@
 #include "git-apply-mailbox-pane.h"
 
 #define SETTINGS_SCHEMA "org.gnome.anjuta.plugins.git"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-git.xml"
 
 AnjutaCommandBarEntry branch_entries[] =
 {
@@ -484,6 +485,26 @@ static AnjutaCommandBarEntry log_entries[] =
 	}
 };
 
+static GtkActionEntry status_menu_entries[] = 
+{
+	{
+		"GitStatusCheckOut",
+		NULL,
+		N_("Check out"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_git_status_checkout_activated)
+	},
+	{
+		"GitStatusUnstage",
+		NULL,
+		N_("Unstage"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_git_status_unstage_activated)
+	}
+};
+
 static gpointer parent_class;
 
 static void
@@ -680,6 +701,7 @@ git_activate_plugin (AnjutaPlugin *plugin)
 	gchar *objects[] = {"grip_box",
 						NULL};
 	GtkWidget *git_tasks_button;
+	AnjutaUI *ui;
 	
 	DEBUG_PRINT ("%s", "Git: Activating Git plugin …");
 	
@@ -718,6 +740,16 @@ git_activate_plugin (AnjutaPlugin *plugin)
 
 	g_settings_bind (git_plugin->settings, "show-command-bar", 
 	                 git_tasks_button, "active", G_SETTINGS_BIND_DEFAULT);
+
+	/* Pop up menus */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+
+	git_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	git_plugin->status_menu_group = anjuta_ui_add_action_group_entries (ui, "GitStatusPopup", 
+	                                                                    _("Status popup menu"), 
+	                                                                    status_menu_entries, 
+	                                                                    G_N_ELEMENTS (status_menu_entries), 
+	                                                                    GETTEXT_PACKAGE, FALSE, plugin);
 
 	
 	/* Create the branch list commands. There are two commands because some 
@@ -842,6 +874,7 @@ static gboolean
 git_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	Git *git_plugin;
+	AnjutaUI *ui;
 	
 	git_plugin = ANJUTA_PLUGIN_GIT (plugin);
 	
@@ -853,6 +886,10 @@ git_deactivate_plugin (AnjutaPlugin *plugin)
 								TRUE);
 
 	anjuta_shell_remove_widget (plugin->shell, git_plugin->box, NULL);
+
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_remove_action_group (ui, git_plugin->status_menu_group);
+	anjuta_ui_unmerge (ui, git_plugin->uiid);
 
 	g_object_unref (git_plugin->local_branch_list_command);
 	g_object_unref (git_plugin->remote_branch_list_command);

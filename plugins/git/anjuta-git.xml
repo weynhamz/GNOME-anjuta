@@ -1,0 +1,10 @@
+<!--*- xml -*-->
+<ui>
+    <popup name="GitStatusNotUpdatedPopup">
+        <menuitem name="Check out" action="GitStatusCheckOut" />  
+    </popup>
+
+    <popup name="GitStatusCommitPopup">
+        <menuitem name="Unstage" action="GitStatusUnstage" />    
+    </popup>
+</ui>

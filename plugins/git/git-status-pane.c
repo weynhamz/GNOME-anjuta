@@ -536,6 +536,58 @@ on_status_view_drag_drop (GtkWidget *widget, GdkDragContext *context,
 	return TRUE;
 }
 
+static gboolean
+on_status_view_button_press_event (GtkWidget *widget, GdkEvent *event,
+                                   GitStatusPane *self)
+{
+	GdkEventButton *button_event;
+	AnjutaPlugin *plugin;
+	AnjutaUI *ui;
+	GtkTreeView *status_view;
+	GtkTreeSelection *selection;
+	GtkTreeModel *status_model;
+	GtkTreeIter iter;
+	StatusType status_type;
+	GtkMenu *menu;
+
+	button_event = (GdkEventButton *) event;
+	menu = NULL;
+	
+	if (button_event->type == GDK_BUTTON_PRESS && button_event->button == 3)
+	{
+		plugin = anjuta_dock_pane_get_plugin (ANJUTA_DOCK_PANE (self));
+		ui = anjuta_shell_get_ui (plugin->shell, NULL);
+		status_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+		                                                     "status_view"));
+		selection = gtk_tree_view_get_selection (status_view);
+
+		if (gtk_tree_selection_get_selected (selection, &status_model, &iter))
+		{
+			gtk_tree_model_get (status_model, &iter, COL_TYPE, &status_type, 
+			                    -1);
+
+			if (status_type == STATUS_TYPE_COMMIT)
+			{
+				menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+				                              			    "/GitStatusCommitPopup"));
+			}
+			else if (status_type == STATUS_TYPE_NOT_UPDATED)
+			{
+				menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
+				                              				"/GitStatusNotUpdatedPopup"));
+			}
+
+			if (menu)
+			{
+				gtk_menu_popup (menu, NULL, NULL, NULL, NULL, button_event->button, 
+				                button_event->time);
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 static void
 git_status_pane_init (GitStatusPane *self)
 {
@@ -637,6 +689,11 @@ git_status_pane_init (GitStatusPane *self)
 	g_signal_connect (G_OBJECT (status_view), "drag-data-received",
 	                  G_CALLBACK (on_status_view_drag_data_received),
 	                  self);
+
+	/* Popup menus */
+	g_signal_connect (G_OBJECT (status_view), "button-press-event",
+	                  G_CALLBACK (on_status_view_button_press_event),
+	                  self);
 }
 
 static void
@@ -731,8 +788,8 @@ selected_items_table_foreach (gchar *path, gpointer status,
 }
 
 GList *
-git_status_pane_get_selected_commit_items (GitStatusPane *self,
-                                           AnjutaVcsStatus status_codes)
+git_status_pane_get_checked_commit_items (GitStatusPane *self,
+                                          AnjutaVcsStatus status_codes)
 {
 	StatusSelectionData data;
 
@@ -747,8 +804,8 @@ git_status_pane_get_selected_commit_items (GitStatusPane *self,
 }
 
 GList *
-git_status_pane_get_selected_not_updated_items (GitStatusPane *self,
-                                                AnjutaVcsStatus status_codes)
+git_status_pane_get_checked_not_updated_items (GitStatusPane *self,
+                                               AnjutaVcsStatus status_codes)
 {
 	StatusSelectionData data;
 
@@ -763,8 +820,8 @@ git_status_pane_get_selected_not_updated_items (GitStatusPane *self,
 }
 
 GList *
-git_status_pane_get_all_selected_items (GitStatusPane *self,
-                                        AnjutaVcsStatus status_codes)
+git_status_pane_get_all_checked_items (GitStatusPane *self,
+                                       AnjutaVcsStatus status_codes)
 {
 	StatusSelectionData data;
 
@@ -780,4 +837,42 @@ git_status_pane_get_all_selected_items (GitStatusPane *self,
 	                      &data);
 
 	return data.list;
+}
+
+static gchar *
+git_status_pane_get_selected_path (GitStatusPane *self, StatusType type)
+{
+	gchar *path;
+	GtkTreeView *status_view;
+	GtkTreeSelection *selection;
+	GtkTreeModel *status_model;
+	GtkTreeIter iter;
+	StatusType selected_type;
+
+	path = NULL;
+	status_view = GTK_TREE_VIEW (gtk_builder_get_object (self->priv->builder,
+	                                                     "status_view"));
+	selection = gtk_tree_view_get_selection (status_view);
+
+	if (gtk_tree_selection_get_selected (selection, &status_model, &iter))
+	{
+		gtk_tree_model_get (status_model, &iter, COL_TYPE, &selected_type, -1);
+
+		if (type == selected_type)
+			gtk_tree_model_get (status_model, &iter, COL_PATH, &path, -1);
+	}
+
+	return path;
+}
+
+gchar *
+git_status_pane_get_selected_commit_path (GitStatusPane *self)
+{
+	return git_status_pane_get_selected_path (self, STATUS_TYPE_COMMIT);
+}
+
+gchar *
+git_status_pane_get_selected_not_updated_path (GitStatusPane *self)
+{
+	return git_status_pane_get_selected_path (self, STATUS_TYPE_NOT_UPDATED);
 }

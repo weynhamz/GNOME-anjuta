@@ -25,8 +25,8 @@ on_unstage_button_clicked (GtkAction *action, Git *plugin)
 	GList *paths;
 	GitResetFilesCommand *reset_command;
 
-	paths = git_status_pane_get_selected_commit_items (GIT_STATUS_PANE (plugin->status_pane),
-	                                                   ANJUTA_VCS_STATUS_ALL);
+	paths = git_status_pane_get_checked_commit_items (GIT_STATUS_PANE (plugin->status_pane),
+	                                                  ANJUTA_VCS_STATUS_ALL);
 
 	if (paths)
 	{
@@ -49,5 +49,36 @@ on_unstage_button_clicked (GtkAction *action, Git *plugin)
 	}
 	else
 		anjuta_util_dialog_error (NULL, _("No staged files selected."));
+}
+
+void
+on_git_status_unstage_activated (GtkAction *action, Git *plugin)
+{
+	gchar *path;
+	GList *paths;
+	GitResetFilesCommand *reset_command;
+
+	path = git_status_pane_get_selected_commit_path (GIT_STATUS_PANE (plugin->status_pane));
+
+	if (path)
+	{
+		paths = g_list_append (NULL, path);
+
+		reset_command = git_reset_files_command_new (plugin->project_root_directory,
+		                                             GIT_RESET_FILES_HEAD,
+		                                             paths);
+
+		g_signal_connect (G_OBJECT (reset_command), "command-finished",
+		                  G_CALLBACK (git_pane_report_errors),
+		                  plugin);
+
+		g_signal_connect (G_OBJECT (reset_command), "command-finished",
+		                  G_CALLBACK (g_object_unref),
+		                  NULL);
+
+		anjuta_util_glist_strings_free (paths);
+
+		anjuta_command_start (ANJUTA_COMMAND (reset_command));
+	}
 }
  

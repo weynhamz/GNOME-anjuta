@@ -38,8 +38,8 @@ on_ok_action_activated (GtkAction *action, GitCheckoutPane *self)
 	force_action = GTK_TOGGLE_ACTION (gtk_builder_get_object (self->priv->builder,
 	                                                          "force_action"));
 
-	paths = git_status_pane_get_selected_not_updated_items (GIT_STATUS_PANE (plugin->status_pane),
-	                                                        ANJUTA_VCS_STATUS_ALL);
+	paths = git_status_pane_get_checked_not_updated_items (GIT_STATUS_PANE (plugin->status_pane),
+	                                                       ANJUTA_VCS_STATUS_ALL);
 	checkout_command = git_checkout_files_command_new (plugin->project_root_directory,
 	                                                   paths,
 	                                                   gtk_toggle_action_get_active (force_action));
@@ -149,4 +149,34 @@ on_checkout_button_clicked (GtkAction *action, Git *plugin)
 	anjuta_dock_replace_command_pane (ANJUTA_DOCK (plugin->dock), "Checkout",
 	                                  _("Check Out Files"), NULL, checkout_pane,
 	                                  GDL_DOCK_BOTTOM, NULL, 0, NULL);
+}
+
+void
+on_git_status_checkout_activated (GtkAction *action, Git *plugin)
+{
+	gchar *path;
+	GList *paths;
+	GitCheckoutFilesCommand *checkout_command;
+
+	path = git_status_pane_get_selected_not_updated_path (GIT_STATUS_PANE (plugin->status_pane));
+
+	if (path)
+	{
+		paths = g_list_append (NULL, path);
+
+		checkout_command = git_checkout_files_command_new (plugin->project_root_directory,
+		                                                   paths, FALSE);
+
+		g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+		                  G_CALLBACK (git_pane_report_errors),
+		                  plugin);
+
+		g_signal_connect (G_OBJECT (checkout_command), "command-finished",
+		                  G_CALLBACK (g_object_unref),
+		                  NULL);
+
+		anjuta_util_glist_strings_free (paths);
+
+		anjuta_command_start (ANJUTA_COMMAND (checkout_command));
+	}
 }

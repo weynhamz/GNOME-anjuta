@@ -4,6 +4,10 @@ SUBDIRS = images
 git_gladedir = $(anjuta_glade_dir)
 dist_git_glade_DATA = anjuta-git.ui
 
+# Plugin UI file
+git_uidir = $(anjuta_ui_dir)
+dist_git_ui_DATA = anjuta-git.xml
+
 # Plugin description file
 plugin_in_files = git.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache

@@ -156,8 +156,8 @@ on_ok_action_activated (GtkAction *action, GitCommitPane *self)
 		}
 	}
 
-	selected_paths = git_status_pane_get_all_selected_items (GIT_STATUS_PANE (plugin->status_pane),
-	                                                         ANJUTA_VCS_STATUS_ALL);
+	selected_paths = git_status_pane_get_all_checked_items (GIT_STATUS_PANE (plugin->status_pane),
+	                                                        ANJUTA_VCS_STATUS_ALL);
 
 	commit_command = git_commit_command_new (plugin->project_root_directory,
 	                                         gtk_toggle_button_get_active (amend_check),
