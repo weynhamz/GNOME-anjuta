@@ -463,12 +463,118 @@ on_notebook_page_close_button_click (GtkButton* button,
 		on_close_file_activate (NULL, docman->priv->plugin);
 }
 
+static void
+on_close_other_file_activate_from_popup (GtkWidget* widget, IAnjutaDocument *doc)
+{
+    GtkWidget *parent;
+    AnjutaDocman *docman;
+
+    parent = gtk_widget_get_parent (widget);
+    docman = ANJUTA_DOCMAN (gtk_menu_get_attach_widget (GTK_MENU (parent)));
+
+    anjuta_docman_set_current_document (docman, doc);
+    on_close_other_file_activate (NULL, docman->priv->plugin);
+}
+
+static void
+on_tab_popup_clicked (GtkWidget* widget, IAnjutaDocument *doc)
+{
+    GtkWidget *parent;
+    AnjutaDocman *docman;
+
+    parent = gtk_widget_get_parent (widget);
+    docman = ANJUTA_DOCMAN (gtk_menu_get_attach_widget (GTK_MENU (parent)));
+
+    anjuta_docman_set_current_document (docman, doc);
+}
+
+static gboolean
+on_idle_gtk_widget_destroy (gpointer user_data)
+{
+    gtk_widget_destroy (GTK_WIDGET (user_data));
+    return FALSE;
+}
+
+static void
+on_menu_deactivate (GtkMenuShell *menushell,
+                    gpointer      user_data)
+{
+    g_idle_add (on_idle_gtk_widget_destroy, menushell);
+}
+
+static GtkMenu*
+anjuta_docman_create_tab_popup (GtkWidget *wid, AnjutaDocman *docman)
+{
+	IAnjutaDocument *doc = NULL;
+	GtkWidget *menu, *menuitem;
+	gint n, i;
+	GList *node;
+
+	/* generate a menu that contains all the open tabs and a 'Close Others' option '*/
+
+	menu = gtk_menu_new ();
+	g_signal_connect (menu, "deactivate", G_CALLBACK (on_menu_deactivate),
+					  NULL);
+	gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET (docman), NULL);
+
+	/* figure out which tab was clicked, pass it to on_close_other_file_activate_from_popup */
+	for (n = 0, node = docman->priv->pages; node != NULL; node = g_list_next (node), n++)
+	{
+		AnjutaDocmanPage *page;
+		page = (AnjutaDocmanPage *) node->data;
+
+		if (page->box == wid)
+		{
+			doc = page->doc;
+			break;
+		}
+	}
+
+	menuitem = gtk_menu_item_new_with_label (_("Close Others"));
+	g_signal_connect (G_OBJECT (menuitem), "activate", G_CALLBACK
+                      (on_close_other_file_activate_from_popup), doc);
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+	gtk_widget_show (menuitem);
+
+	menuitem = gtk_separator_menu_item_new();
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+	gtk_widget_show (menuitem);
+
+	n = gtk_notebook_get_n_pages (docman->priv->notebook);
+
+	for(i = 0; i < n; i++)
+	{
+		AnjutaDocmanPage *page;
+		const gchar *tab_name;
+
+		page = anjuta_docman_get_nth_page (docman, i);
+		tab_name = gtk_label_get_label (GTK_LABEL (page->label));
+
+		menuitem = gtk_menu_item_new_with_label(tab_name);
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(on_tab_popup_clicked), page->doc);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+		gtk_widget_show (menuitem);
+	}
+
+	return GTK_MENU (menu);
+}
+
 /* for managing deferred tab re-arrangement */
+
 static gboolean
 on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* docman)
 {
 	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
 		docman->priv->tab_pressed = TRUE;
+
+	if (event->type == GDK_BUTTON_PRESS && event->button == 3)
+	{
+		GtkMenu *popup_menu;
+
+		popup_menu = anjuta_docman_create_tab_popup (wid, docman);
+		if(popup_menu)
+			gtk_menu_popup (popup_menu, NULL, NULL, NULL, NULL, event->button, event->time);
+	}
 
 	return FALSE;
 }
@@ -1061,7 +1167,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_grid_attach (GTK_GRID (docman), GTK_WIDGET (docman->priv->notebook),
 	                 0, 1, 1, 1);
 
-	gtk_notebook_popup_enable (docman->priv->notebook);
+	gtk_notebook_popup_disable (docman->priv->notebook);
 	gtk_notebook_set_scrollable (docman->priv->notebook, TRUE);
 	g_signal_connect (G_OBJECT (docman->priv->notebook), "switch-page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
