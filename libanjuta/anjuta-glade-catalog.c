@@ -9,3 +9,8 @@
 #include <libanjuta/anjuta-environment-editor.h>
 #include <libanjuta/anjuta-tree-combo.h>
 
+/* Link to at least one function of libanjuta to keep it as a dependency */
+static void anjuta_glade_unused (void)
+{
+	anjuta_file_list_new();
+}
