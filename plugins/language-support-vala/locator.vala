@@ -25,13 +25,8 @@ public class BlockLocator : Vala.CodeVisitor {
 			this.column = column;
 		}
 		public bool inside (Vala.SourceReference src) {
-#if VALA_0_18
 			var begin = Location (src.begin.line, src.begin.column);
 			var end = Location (src.end.line, src.end.column);
-#else
-			var begin = Location (src.first_line, src.first_column);
-			var end = Location (src.last_line, src.last_column);
-#endif
 
 			return begin.before (this) && this.before(end);
 		}
@@ -60,13 +55,8 @@ public class BlockLocator : Vala.CodeVisitor {
 		if (!location.inside (s.source_reference))
 			return false;
 
-#if VALA_0_18
 		var begin = Location (s.source_reference.begin.line, s.source_reference.begin.column);
 		var end = Location (s.source_reference.end.line, s.source_reference.end.column);
-#else
-		var begin = Location (s.source_reference.first_line, s.source_reference.first_column);
-		var end = Location (s.source_reference.last_line, s.source_reference.last_column);
-#endif
 
 		if (innermost == null || (innermost_begin.before(begin) && end.before(innermost_end))) {
 				innermost = s;

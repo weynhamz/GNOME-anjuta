@@ -69,11 +69,7 @@ public class ValaProvider : Object, IAnjuta.Provider {
 		var proposals = new GLib.List<IAnjuta.EditorAssistProposal?>();
 		foreach (var symbol in syms) {
 			if (symbol is Vala.LocalVariable
-#if VALA_0_18
 			    && symbol.source_reference.begin.line > editor.get_lineno())
-#else
-			    && symbol.source_reference.first_line > editor.get_lineno())
-#endif
 				continue;
 
 			var prop = IAnjuta.EditorAssistProposal();

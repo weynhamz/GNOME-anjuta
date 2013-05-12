@@ -41,30 +41,17 @@ public class AnjutaReport : Vala.Report {
 			if (e.source.file.filename.has_suffix (((IAnjuta.Document)editor).get_filename ())) {
 				if (ind != null) {
 					/* begin_iter should be one cell before to select the first character */
-#if VALA_0_18
 					var begin_iter = editor.get_line_begin_position (e.source.begin.line);
 					for (var i = 1; i < e.source.begin.column; i++)
 						begin_iter.next ();
 					var end_iter = editor.get_line_begin_position (e.source.end.line);
 					for (var i = 0; i < e.source.end.column; i++)
 						end_iter.next ();
-#else
-					var begin_iter = editor.get_line_begin_position (e.source.first_line);
-					for (var i = 1; i < e.source.first_column; i++)
-						begin_iter.next ();
-					var end_iter = editor.get_line_begin_position (e.source.last_line);
-					for (var i = 0; i < e.source.last_column; i++)
-						end_iter.next ();
-#endif
 					ind.set(begin_iter, end_iter, e.error ? IAnjuta.IndicableIndicator.CRITICAL :
 					                                        IAnjuta.IndicableIndicator.WARNING);
 				}
 				if (editor is IAnjuta.Markable) {
-#if VALA_0_18
 					mark.mark(e.source.begin.line, IAnjuta.MarkableMarker.MESSAGE, e.message);
-#else
-					mark.mark(e.source.first_line, IAnjuta.MarkableMarker.MESSAGE, e.message);
-#endif
 				}
 			}
 
