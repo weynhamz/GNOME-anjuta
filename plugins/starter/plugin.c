@@ -273,10 +273,8 @@ on_value_removed (AnjutaPlugin *plugin, const gchar *name,
 	                                                        IAnjutaProjectManager,
 	                                                        NULL);
 	
-	if (!ianjuta_document_manager_get_doc_widgets (docman,
-	                                               NULL) &&
-	    !ianjuta_project_manager_get_current_project (pm, 
-	                                                  NULL))
+	if (!(docman && ianjuta_document_manager_get_doc_widgets (docman, NULL)) &&
+	    !(pm && ianjuta_project_manager_get_current_project (pm, NULL)))
 	{
 		DEBUG_PRINT ("Showing starter");
 		splugin->starter = create_starter_widget (splugin);
