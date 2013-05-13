@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anjuta.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=anjuta&keywords=I18N+L10N&component=core application\n"
-"POT-Creation-Date: 2013-05-08 23:02+0000\n"
-"PO-Revision-Date: 2013-05-09 13:54+0200\n"
+"POT-Creation-Date: 2013-05-12 14:30+0000\n"
+"PO-Revision-Date: 2013-05-13 12:25+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -321,8 +321,7 @@ msgstr "Mostrar un botón «Añadir»"
 msgid "[Pp]assword.*:"
 msgstr "[Cc]ontraseña.*:"
 
-#: ../libanjuta/anjuta-launcher.c:1165 ../libanjuta/resources.c:267
-#: ../libanjuta/resources.c:276 ../plugins/gdb/utilities.c:282
+#: ../libanjuta/anjuta-launcher.c:1165 ../plugins/gdb/utilities.c:282
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
@@ -601,11 +600,11 @@ msgid "Shortcut"
 msgstr "Combinación de teclas"
 
 #. Avoid space in translated string
-#: ../libanjuta/anjuta-utils.c:362
+#: ../libanjuta/anjuta-utils.c:361
 msgid "System:"
 msgstr "Sistema:"
 
-#: ../libanjuta/anjuta-utils.c:511
+#: ../libanjuta/anjuta-utils.c:510
 msgid ""
 "You do not seem to have PackageKit installed. PackageKit is required for "
 "installing missing packages. Please install \"packagekit-gnome\" package "
@@ -615,17 +614,17 @@ msgstr ""
 "instalar los paquetes que faltan. Instale el paquete «packagekit-gnome» para "
 "su distribución o instale manualmente los paquetes que faltan."
 
-#: ../libanjuta/anjuta-utils.c:520
+#: ../libanjuta/anjuta-utils.c:519
 #, c-format
 msgid "Installation failed: %s"
 msgstr "Falló la instalación: %s"
 
-#: ../libanjuta/anjuta-utils.c:581
+#: ../libanjuta/anjuta-utils.c:580
 #, c-format
 msgid "Failed to run \"%s\". The returned error was: \"%s\"."
 msgstr "Falló al ejecutar «%s». El error devuelto fue: «%s»."
 
-#: ../libanjuta/anjuta-utils.c:595
+#: ../libanjuta/anjuta-utils.c:594
 #, c-format
 msgid ""
 "The \"%s\" package is not installed.\n"
@@ -634,7 +633,7 @@ msgstr ""
 "El paquete «%s» no está instalado.\n"
 "Instálelo."
 
-#: ../libanjuta/anjuta-utils.c:613
+#: ../libanjuta/anjuta-utils.c:612
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -644,19 +643,19 @@ msgstr ""
 "Instálela."
 
 #. Try xterm
-#: ../libanjuta/anjuta-utils.c:1207
+#: ../libanjuta/anjuta-utils.c:1206
 msgid "Cannot find a terminal; using xterm, even if it may not work"
 msgstr ""
 "No se puede encontrar una terminal, usando xterm, aunque puede que no "
 "funcione"
 
-#: ../libanjuta/anjuta-utils.c:1238 ../libanjuta/anjuta-utils.c:1242
-#: ../libanjuta/anjuta-utils.c:1269 ../libanjuta/anjuta-utils.c:1273
+#: ../libanjuta/anjuta-utils.c:1253 ../libanjuta/anjuta-utils.c:1304
 #, c-format
-msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
+#| msgid "Cannot execute command: %s (using shell %s)\n"
+msgid "Cannot execute command: %s (using shell %s): %s\n"
+msgstr "No se puede ejecutar el comando: %s (usando shell %s): %s\n"
 
-#: ../libanjuta/anjuta-utils.c:2414
+#: ../libanjuta/anjuta-utils.c:2451
 #, c-format
 msgid "Unable to load user interface file: %s"
 msgstr "No se pudo cargar el archivo de interfaz de usuario: %s"
@@ -715,6 +714,12 @@ msgstr "Widget no encontrado: %s"
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "No se puede encontrar el pixmap de la aplicación: %s"
+
+#: ../libanjuta/resources.c:277
+#, c-format
+#| msgid "Cannot execute command: \"%s\""
+msgid "Cannot execute command \"%s\": %s"
+msgstr "No se puede ejecutar el comando: \"%s\": %s"
 
 #: ../plugins/am-project/amp-group.c:627
 msgid "Please specify group name"
@@ -3575,28 +3580,33 @@ msgstr "Quitar"
 msgid " [read-only]"
 msgstr " [sólo-lectura]"
 
-#: ../plugins/document-manager/anjuta-docman.c:627
-#: ../plugins/document-manager/anjuta-docman.c:1047
+#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/plugin.c:156
+msgid "Close Others"
+msgstr "Cerrar otros"
+
+#: ../plugins/document-manager/anjuta-docman.c:733
+#: ../plugins/document-manager/anjuta-docman.c:1153
 msgid "Close file"
 msgstr "Cerrar archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:664
+#: ../plugins/document-manager/anjuta-docman.c:770
 #: ../plugins/project-manager/dialogs.c:757
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/document-manager/anjuta-docman.c:781
+#: ../plugins/document-manager/anjuta-docman.c:887
 #: ../plugins/file-loader/plugin.c:602 ../plugins/file-loader/plugin.c:905
 #: ../plugins/file-loader/plugin.c:915 ../plugins/file-loader/plugin.c:928
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:800
+#: ../plugins/document-manager/anjuta-docman.c:906
 #: ../plugins/message-view/message-view.c:100
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:881
+#: ../plugins/document-manager/anjuta-docman.c:987
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -3605,11 +3615,11 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Quiere sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:890
+#: ../plugins/document-manager/anjuta-docman.c:996
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/document-manager/anjuta-docman.c:1634
+#: ../plugins/document-manager/anjuta-docman.c:1740
 msgid "[read-only]"
 msgstr "[sólo-lectura]"
 
@@ -3738,10 +3748,6 @@ msgstr "Cerrar todos"
 #: ../plugins/document-manager/plugin.c:154
 msgid "Close all files"
 msgstr "Cierra todos los archivos"
-
-#: ../plugins/document-manager/plugin.c:156
-msgid "Close Others"
-msgstr "Cerrar otros"
 
 #: ../plugins/document-manager/plugin.c:157
 msgid "Close other documents"
