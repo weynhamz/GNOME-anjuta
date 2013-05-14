@@ -1061,8 +1061,6 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 	priv->valid_func = NULL;
 	priv->valid_destroy = NULL;
 
-	gtk_widget_push_composite_child ();
-
 	gtk_widget_set_halign (GTK_WIDGET (combo), GTK_ALIGN_FILL);
 	gtk_widget_show (GTK_WIDGET (combo));
 
@@ -1109,8 +1107,6 @@ anjuta_tree_combo_box_init (AnjutaTreeComboBox *combo)
 	arrow = gtk_arrow_new (GTK_ARROW_DOWN,GTK_SHADOW_NONE);
 	gtk_box_pack_start (GTK_BOX (box), arrow, FALSE, FALSE, 0);
 	gtk_widget_show (arrow);
-
-	gtk_widget_pop_composite_child ();
 
 	gtk_widget_show_all (GTK_WIDGET (combo));
 
