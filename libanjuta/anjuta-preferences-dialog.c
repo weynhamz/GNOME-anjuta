@@ -161,7 +161,7 @@ anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 
 	gtk_container_set_border_width (GTK_CONTAINER(dlg), 6);
 
-	hbox = g_object_new(GTK_TYPE_HBOX,
+	hbox = g_object_new(GTK_TYPE_BOX,
 	                    "border-width", 6,
 	                    "spacing", 6,
 	                    "visible", TRUE,
