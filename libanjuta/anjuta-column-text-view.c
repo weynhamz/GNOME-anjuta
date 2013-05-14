@@ -25,7 +25,7 @@ struct _AnjutaColumnTextViewPriv
 	GtkWidget *column_label;
 };
 
-G_DEFINE_TYPE (AnjutaColumnTextView, anjuta_column_text_view, GTK_TYPE_VBOX);
+G_DEFINE_TYPE (AnjutaColumnTextView, anjuta_column_text_view, GTK_TYPE_BOX);
 
 static void
 set_text_view_column_label (GtkTextBuffer *buffer, 
@@ -49,6 +49,10 @@ anjuta_column_text_view_init (AnjutaColumnTextView *self)
 {
 	GtkWidget *scrolled_window;
 	GtkTextBuffer *text_buffer;
+
+	/* Set properties */
+	g_object_set (G_OBJECT (self), "orientation", GTK_ORIENTATION_VERTICAL,
+	              NULL);
 
 	self->priv = g_new0 (AnjutaColumnTextViewPriv, 1);
 
