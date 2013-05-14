@@ -660,5 +660,5 @@ anjuta_status_set_title (AnjutaStatus *status, const gchar *title)
 	}
 }
 
-ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GTK_TYPE_HBOX);
+ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GTK_TYPE_BOX);
 ANJUTA_TYPE_END;
