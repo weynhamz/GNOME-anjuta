@@ -27,8 +27,10 @@
 #include "execute.h"
 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-builder.h>
+#include <libanjuta/interfaces/ianjuta-environment.h>
 
 #include <signal.h>
 
@@ -231,14 +233,18 @@ on_child_terminated_signal (IAnjutaTerminal *term, GPid pid, gint status, gpoint
 
 static GPid
 execute_with_terminal (RunProgramPlugin *plugin,
-					   const gchar *dir, const gchar *cmd, gchar **env)
+					   const gchar *dir, const gchar *cmd, const gchar * const *env)
 {
+	gchar *new_cmd;
+	gchar *new_dir;
+	gchar **new_env;
+	gchar *launcher_path;
+	AnjutaPluginManager *plugin_manager;
 	IAnjutaTerminal *term;
 	GPid pid = 0;
-	gchar* launcher_path = g_find_program_in_path("anjuta-launcher");
-	gchar *new_cmd;
 	RunProgramChild *child;
 
+	launcher_path = g_find_program_in_path("anjuta-launcher");
 	if (launcher_path != NULL)
 	{
 		new_cmd = g_strconcat ("anjuta-launcher ", cmd, NULL);
@@ -248,6 +254,30 @@ execute_with_terminal (RunProgramPlugin *plugin,
 	{
 		DEBUG_PRINT("%s", "Missing anjuta-launcher");
 		new_cmd = g_strdup (cmd);
+	}
+
+	/* Need to copy dir and env since IAnjutaEnvironment may change them. */
+	new_dir = g_strdup (dir);
+	new_env = g_strdupv ((gchar**)env);
+
+	/* Let IAnjutaEnvironment override the command */
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaEnvironment"))
+	{
+		gchar **argv;
+
+		if (g_shell_parse_argv (new_cmd, NULL, &argv, NULL))
+		{
+			IAnjutaEnvironment *aenv;
+
+			aenv = IANJUTA_ENVIRONMENT (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
+			                                                     "IAnjutaEnvironment", NULL));
+
+			ianjuta_environment_override (aenv, &new_dir, &argv, &new_env, NULL);
+			g_free (new_cmd);
+			new_cmd = g_strjoinv (" ", argv);
+			g_strfreev (argv);
+		}
 	}
 
 	child = g_new0 (RunProgramChild, 1);
@@ -261,17 +291,16 @@ execute_with_terminal (RunProgramPlugin *plugin,
 		/* Use gnome terminal or another user defined one */
 		GSettings* settings = g_settings_new (PREF_SCHEMA);
 		gchar *term_cmd;
-		gchar **argv;
+		gchar **term_argv;
 
 		term_cmd = g_settings_get_string (settings, PREF_TERMINAL_COMMAND);
 		g_object_unref (settings);
-		if (g_shell_parse_argv (term_cmd, NULL, &argv, NULL))
+		if (g_shell_parse_argv (term_cmd, NULL, &term_argv, NULL))
 		{
 			gchar **arg;
-			gchar **new_env;
 
 			/* Replace %s by command */
-			for (arg = argv; *arg != NULL; arg++)
+			for (arg = term_argv; *arg != NULL; arg++)
 			{
 				if (strcmp(*arg, "%s") == 0)
 				{
@@ -280,16 +309,13 @@ execute_with_terminal (RunProgramPlugin *plugin,
 				}
 			}
 
-			/* Create environment variable array with new user variable */
-			new_env = merge_environment_variable (env);
-
-			if (g_spawn_async (dir, argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-								NULL, NULL, &pid, NULL))
+			if (g_spawn_async (new_dir, term_argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+			                   NULL, NULL, &pid, NULL))
 			{
 				child->source = g_child_watch_add (pid, on_child_terminated, plugin);
 			}
 
-			g_strfreev (argv);
+			g_strfreev (term_argv);
 		}
 		g_free (term_cmd);
 	}
@@ -303,7 +329,7 @@ execute_with_terminal (RunProgramPlugin *plugin,
 		plugin->child_exited_connection++;
 		child->use_signal = TRUE;
 
-		pid = ianjuta_terminal_execute_command (term, dir, new_cmd, env, NULL);
+		pid = ianjuta_terminal_execute_command (term, new_dir, new_cmd, new_env, NULL);
 
 		g_free (new_cmd);
 
@@ -322,34 +348,50 @@ execute_with_terminal (RunProgramPlugin *plugin,
 		pid = 0;
 	}
 
+	g_free (new_dir);
+	g_strfreev (new_env);
+
 	return pid;
 }
 
 static GPid
 execute_without_terminal (RunProgramPlugin *plugin,
-					   const gchar *dir, gchar *cmd, gchar **env)
+                          const gchar *dir, const gchar *cmd,
+                          const gchar * const *env)
 {
-	char *user_shell;
-	char * argv[4];
+	gchar **argv;
+	gchar *new_dir;
+	gchar **new_env;
+	AnjutaPluginManager *plugin_manager;
 	GPid pid;
 	RunProgramChild *child;
-	gchar **new_env;
-
-	/* Create environment variable array with new user variable */
-	new_env = merge_environment_variable (env);
 
 	/* Run user program using in a shell */
-	user_shell = anjuta_util_user_shell ();
-	argv[0] = user_shell;
-	argv[1] = "-c";
-	argv[2] = cmd;
+	argv = g_new (gchar *, 4);
+	argv[0] = anjuta_util_user_shell ();
+	argv[1] = g_strdup ("-c");
+	argv[2] = g_strdup (cmd);
 	argv[3] = NULL;
+
+	/* Need to copy dir and env since IAnjutaEnvironment may change them. */
+	new_dir = g_strdup (dir);
+	new_env = g_strdupv ((gchar**)env);
+
+	/* Let IAnjutaEnvironment override the command */
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (anjuta_plugin_manager_is_active_plugin (plugin_manager, "IAnjutaEnvironment"))
+	{
+		IAnjutaEnvironment *aenv = IANJUTA_ENVIRONMENT (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
+		                                                                         "IAnjutaEnvironment", NULL));
+
+		ianjuta_environment_override (aenv, &new_dir, &argv, &new_env, NULL);
+	}
 
 	child = g_new0 (RunProgramChild, 1);
 	plugin->child = g_list_prepend (plugin->child, child);
 
-	if (g_spawn_async_with_pipes (dir, argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-									NULL, NULL, &pid, NULL, NULL, NULL, NULL))
+	if (g_spawn_async_with_pipes (new_dir, argv, new_env, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+	                              NULL, NULL, &pid, NULL, NULL, NULL, NULL))
 	{
 		child->pid = pid;
 		child->source = g_child_watch_add (pid, on_child_terminated, plugin);
@@ -360,7 +402,8 @@ execute_without_terminal (RunProgramPlugin *plugin,
 		pid = 0;
 	}
 
-	g_free (user_shell);
+	g_free (new_dir);
+	g_strfreev (argv);
 	g_strfreev (new_env);
 
 	return pid;
@@ -374,9 +417,9 @@ run_program (RunProgramPlugin *plugin)
 	gchar *dir = NULL;
 	gchar *dir_uri = NULL;
 	gchar *args = NULL;
-	gchar **env = NULL;
+	gchar **env = NULL, **merged_env = NULL;
 	gchar *cmd;
-	gboolean run_in_terminal = 0;
+	gboolean run_in_terminal = FALSE;
 	GPid pid;
 
 	target = get_local_executable (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
@@ -438,17 +481,24 @@ run_program (RunProgramPlugin *plugin)
 		g_free (olddir);
 	}
 #endif
+
+	/* Create environment variable array with new user variable */
+	merged_env = merge_environment_variable (env);
+
 	if (run_in_terminal)
 	{
-		pid = execute_with_terminal (plugin, dir, cmd, env);
+		pid = execute_with_terminal (plugin, dir, cmd,
+		                             (const gchar * const*)merged_env);
 		if (!pid)
 		{
-			pid = execute_without_terminal (plugin, dir, cmd, env);
+			pid = execute_without_terminal (plugin, dir, cmd,
+			                                (const gchar * const*)merged_env);
 		}
 	}
 	else
 	{
-		pid = execute_without_terminal (plugin, dir, cmd, env);
+		pid = execute_without_terminal (plugin, dir, cmd,
+		                                (const gchar * const*)merged_env);
 	}
 
 	if (pid == 0)
@@ -459,8 +509,9 @@ run_program (RunProgramPlugin *plugin)
 	run_plugin_update_menu_sensitivity (plugin);
 
 	g_free (dir);
-	g_strfreev (env);
 	g_free (cmd);
+	g_strfreev (env);
+	g_strfreev (merged_env);
 
 	return TRUE;
 }
