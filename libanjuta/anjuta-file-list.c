@@ -58,7 +58,7 @@ struct _AnjutaFileListPriv
 	GtkTreeIter placeholder;
 };
 
-G_DEFINE_TYPE (AnjutaFileList, anjuta_file_list, GTK_TYPE_VBOX);
+G_DEFINE_TYPE (AnjutaFileList, anjuta_file_list, GTK_TYPE_BOX);
 
 static void
 anjuta_file_list_append_placeholder (AnjutaFileList *self)
@@ -79,24 +79,30 @@ path_cell_data_func (GtkTreeViewColumn *column, GtkCellRenderer *renderer,
                      GtkTreeView *list_view)
 {
 	gchar *path;
-	GtkStyle *style;
+	GtkStyleContext *context;
 
 	gtk_tree_model_get (model, iter, COL_PATH, &path, -1);
-	style = gtk_widget_get_style (GTK_WIDGET (list_view));
+	context = gtk_widget_get_style_context (GTK_WIDGET (list_view));
 
 	/* NULL path means this is the placeholder */
 	if (path)
 	{
+		GdkRGBA fg_color;
+
+		gtk_style_context_get_color (context, GTK_STATE_NORMAL, &fg_color);
 		g_object_set (G_OBJECT (renderer), 
-					  "foreground-gdk", &(style->text[GTK_STATE_NORMAL]),
+		              "foreground-rgba", &fg_color,
 		              "style", PANGO_STYLE_NORMAL,
 		              "text", path, 
 		              NULL);
 	}
 	else
 	{
+		GdkRGBA fg_color;
+
+		gtk_style_context_get_color (context, GTK_STATE_INSENSITIVE, &fg_color);
 		g_object_set (G_OBJECT (renderer), 
-		              "foreground-gdk", &(style->text[GTK_STATE_INSENSITIVE]),
+		              "foreground-rgba", &fg_color,
 		              "style", PANGO_STYLE_ITALIC,
 		              "text", _("Drop a file or enter a path here"), 
 		              NULL);
@@ -350,6 +356,10 @@ anjuta_file_list_init (AnjutaFileList *self)
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
+
+
+	/* Set properties */
+	g_object_set (self, "orientation", GTK_ORIENTATION_VERTICAL, NULL);
 
 	self->priv = g_new0 (AnjutaFileListPriv, 1);
 	self->priv->list_view = gtk_tree_view_new ();
