@@ -35,18 +35,21 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaEntryClass AnjutaEntryClass;
 typedef struct _AnjutaEntry AnjutaEntry;
-typedef struct _AnjutaEntryPriv AnjutaEntryPriv;
+typedef struct _AnjutaEntryPrivate AnjutaEntryPrivate;
+typedef struct _AnjutaEntryClassPrivate AnjutaEntryClassPrivate;
 
 struct _AnjutaEntryClass
 {
 	GtkEntryClass parent_class;
+
+	AnjutaEntryClassPrivate *priv;
 };
 
 struct _AnjutaEntry
 {
 	GtkEntry parent_instance;
 
-	AnjutaEntryPriv *priv;
+	AnjutaEntryPrivate *priv;
 };
 
 GType anjuta_entry_get_type (void) G_GNUC_CONST;

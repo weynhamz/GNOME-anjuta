@@ -45,20 +45,26 @@ typedef enum
 	ANJUTA_ENTRY_HELP
 } AnjutaEntryMode;
 
-struct _AnjutaEntryPriv
+struct _AnjutaEntryClassPrivate
+{
+	GtkCssProvider *css;
+};
+
+struct _AnjutaEntryPrivate
 {
 	gboolean showing_help_text;
 	gchar *help_text;
 };
 
-G_DEFINE_TYPE (AnjutaEntry, anjuta_entry, GTK_TYPE_ENTRY);
+G_DEFINE_TYPE_WITH_CODE (AnjutaEntry, anjuta_entry, GTK_TYPE_ENTRY,
+                         g_type_add_class_private (g_define_type_id, sizeof (AnjutaEntryClassPrivate)))
 
 static void
 anjuta_entry_set_mode (AnjutaEntry *self, AnjutaEntryMode mode)
 {
-	GtkStyle *style;
+	GtkStyleContext *context;
 
-	style = gtk_widget_get_style (GTK_WIDGET (self));
+	context = gtk_widget_get_style_context (GTK_WIDGET (self));
 
 	switch (mode)
 	{
@@ -67,7 +73,8 @@ anjuta_entry_set_mode (AnjutaEntry *self, AnjutaEntryMode mode)
 			if (self->priv->showing_help_text)
 				gtk_entry_set_text (GTK_ENTRY (self), "");
 
-			gtk_widget_modify_text (GTK_WIDGET (self), GTK_STATE_NORMAL, NULL);
+			gtk_style_context_add_class (context, "anjuta-entry-mode-normal");
+			gtk_style_context_remove_class (context, "anjuta-entry-mode-help");
 
 			self->priv->showing_help_text = FALSE;
 
@@ -78,9 +85,8 @@ anjuta_entry_set_mode (AnjutaEntry *self, AnjutaEntryMode mode)
 			else
 				gtk_entry_set_text (GTK_ENTRY (self), "");
 
-			gtk_widget_modify_text (GTK_WIDGET (self),
-			                        GTK_STATE_NORMAL,
-			                        &(style->text[GTK_STATE_INSENSITIVE]));
+			gtk_style_context_add_class (context, "anjuta-entry-mode-help");
+			gtk_style_context_remove_class (context, "anjuta-entry-mode-normal");
 
 			self->priv->showing_help_text = TRUE;
 
@@ -104,8 +110,17 @@ anjuta_entry_icon_release (GtkEntry *entry, GtkEntryIconPosition icon_pos,
 static void
 anjuta_entry_init (AnjutaEntry *self)
 {
-	self->priv = g_new0 (AnjutaEntryPriv, 1);
+	GtkStyleContext *context;
 
+	self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ANJUTA_TYPE_ENTRY,
+	                                          AnjutaEntryPrivate);
+
+	/* Setup styling */
+	context = gtk_widget_get_style_context (GTK_WIDGET (self));
+	gtk_style_context_add_provider (context,
+	                                GTK_STYLE_PROVIDER (ANJUTA_ENTRY_GET_CLASS (self)->priv->css),
+	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	
 	gtk_entry_set_icon_from_stock (GTK_ENTRY (self), GTK_ENTRY_ICON_SECONDARY,
 	                               GTK_STOCK_CLEAR);
 	gtk_entry_set_icon_activatable (GTK_ENTRY (self), GTK_ENTRY_ICON_SECONDARY,
@@ -126,7 +141,6 @@ anjuta_entry_finalize (GObject *object)
 	self = ANJUTA_ENTRY (object);
 
 	g_free (self->priv->help_text);
-	g_free (self->priv);
 
 	G_OBJECT_CLASS (anjuta_entry_parent_class)->finalize (object);
 }
@@ -219,11 +233,18 @@ anjuta_entry_class_init (AnjutaEntryClass *klass)
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+	static const gchar entry_style[] =
+		"AnjutaEntry.anjuta-entry-mode-help {\n"
+		"color: @insensitive_fg_color;\n"
+		"}";
+
 	object_class->finalize = anjuta_entry_finalize;
 	object_class->set_property = anjuta_entry_set_property;
 	object_class->get_property = anjuta_entry_get_property;
 	widget_class->focus_in_event = anjuta_entry_focus_in_event;
 	widget_class->focus_out_event = anjuta_entry_focus_out_event;
+
+	g_type_class_add_private (klass, sizeof(AnjutaEntryPrivate));
 
 	/**
 	 * AnjutaEntry::help-text:
@@ -238,6 +259,12 @@ anjuta_entry_class_init (AnjutaEntryClass *klass)
 	                                                      _("Text to show the user what to enter into the entry"),
 	                                                      "",
 	                                                      G_PARAM_READABLE | G_PARAM_WRITABLE));
+
+
+	klass->priv = G_TYPE_CLASS_GET_PRIVATE (klass, ANJUTA_TYPE_ENTRY, AnjutaEntryClassPrivate);
+
+	klass->priv->css = gtk_css_provider_new ();
+	gtk_css_provider_load_from_data (klass->priv->css, entry_style, -1, NULL);
 }
 
 /**
