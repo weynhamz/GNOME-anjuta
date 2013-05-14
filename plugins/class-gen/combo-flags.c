@@ -73,9 +73,16 @@ enum {
 	SELECTED,
 	LAST_SIGNAL
 };
-
-static GtkBoxClass* parent_class = NULL;
 static guint combo_flags_signals[LAST_SIGNAL];
+
+static void cg_combo_flags_cell_layout_init (GtkCellLayoutIface *iface);
+static void cg_combo_flags_cell_editable_init (GtkCellEditableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (CgComboFlags, cg_combo_flags, GTK_TYPE_BOX,
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_CELL_LAYOUT,
+                                                cg_combo_flags_cell_layout_init)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_CELL_EDITABLE,
+                                                cg_combo_flags_cell_editable_init));
 
 static CgComboFlagsCellInfo *
 cg_combo_flags_get_cell_info (CgComboFlags *combo,
@@ -599,7 +606,7 @@ cg_combo_flags_finalize (GObject *object)
 	if (priv->window != NULL)
 		cg_combo_flags_popdown (combo_flags);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (cg_combo_flags_parent_class)->finalize (object);
 }
 
 static void
@@ -664,7 +671,6 @@ static void
 cg_combo_flags_class_init (CgComboFlagsClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (CgComboFlagsPrivate));
 
@@ -841,54 +847,6 @@ cg_combo_flags_selection_type_get_type (void)
 		};
 
 		our_type = g_enum_register_static("CgComboFlagsSelectionType", values);
-	}
-
-	return our_type;
-}
-
-GType
-cg_combo_flags_get_type (void)
-{
-	static GType our_type = 0;
-
-	if(our_type == 0)
-	{
-		static const GTypeInfo our_info =
-		{
-			sizeof (CgComboFlagsClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) cg_combo_flags_class_init,
-			NULL,
-			NULL,
-			sizeof (CgComboFlags),
-			0,
-			(GInstanceInitFunc) cg_combo_flags_init,
-			NULL
-		};
-
-		static const GInterfaceInfo cell_layout_info =
-		{
-			(GInterfaceInitFunc) cg_combo_flags_cell_layout_init,
-			NULL,
-			NULL
-		};
-		
-		static const GInterfaceInfo cell_editable_info =
-		{
-			(GInterfaceInitFunc) cg_combo_flags_cell_editable_init,
-			NULL,
-			NULL
-		};
-
-		our_type = g_type_register_static(GTK_TYPE_HBOX, "CgComboFlags",
-		                                  &our_info, 0);
-
-		g_type_add_interface_static (our_type, GTK_TYPE_CELL_LAYOUT,
-		                             &cell_layout_info);
-
-		g_type_add_interface_static (our_type, GTK_TYPE_CELL_EDITABLE,
-		                             &cell_editable_info);
 	}
 
 	return our_type;
