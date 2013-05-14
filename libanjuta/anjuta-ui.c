@@ -470,8 +470,7 @@ fill_action_data (GtkTreeModel *model, GtkTreeIter *iter, GtkAction *action, Gtk
 	{
 		GtkWidget *dummy = gtk_label_new ("Dummy");
 		g_object_ref_sink(G_OBJECT(dummy));
-		pixbuf = gtk_widget_render_icon (dummy, icon,
-										 GTK_ICON_SIZE_MENU, NULL);
+		pixbuf = gtk_widget_render_icon_pixbuf (dummy, icon, GTK_ICON_SIZE_MENU);
 	}
 	gtk_tree_store_set (GTK_TREE_STORE (model), iter,
 						COLUMN_PIXBUF, pixbuf,
