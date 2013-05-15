@@ -304,7 +304,6 @@ static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
-	AnjutaUI *ui;
 	GFile* file;
 	GObject *editor;
 	
@@ -314,7 +313,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		return;
 	
 	CVSPlugin *cvs_plugin = ANJUTA_PLUGIN_CVS (plugin);
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (cvs_plugin->current_editor_filename)
 		g_free (cvs_plugin->current_editor_filename);

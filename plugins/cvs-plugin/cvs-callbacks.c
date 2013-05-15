@@ -292,8 +292,7 @@ on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 		GtkWidget* norecurse;
 		GtkWidget* revisionentry;
 		GtkWidget* diff_type;
-		GtkWidget* unified_diff;
-		
+
 		GtkWidget* fileentry = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_filename"));
 		const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		
@@ -303,7 +302,6 @@ on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 		norecurse = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_norecurse"));
 		
 		diff_type = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_diff_type"));
-		unified_diff = GTK_WIDGET(gtk_builder_get_object(data->bxml, "cvs_unified"));
 		diff_type_nr = gtk_combo_box_get_active(GTK_COMBO_BOX(diff_type));
 		if (diff_type_nr == DIFF_PATCH)
 		{
