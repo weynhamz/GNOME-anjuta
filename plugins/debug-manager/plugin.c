@@ -388,13 +388,10 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 static void
 dma_plugin_debugger_started (DebugManagerPlugin *this)
 {
-	AnjutaUI *ui;
 	GtkAction *action;
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_debugger_started");
-
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 
 	/* Update ui */
 	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerStop");
@@ -415,13 +412,11 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 static void
 dma_plugin_program_loaded (DebugManagerPlugin *this)
 {
-	AnjutaUI *ui;
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_loaded");
 
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
@@ -437,13 +432,11 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 static void
 dma_plugin_program_running (DebugManagerPlugin *this)
 {
-	AnjutaUI *ui;
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_running");
 
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
@@ -464,13 +457,11 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 static void
 dma_plugin_program_stopped (DebugManagerPlugin *this)
 {
-	AnjutaUI *ui;
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_broken");
 
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
@@ -498,13 +489,11 @@ dma_plugin_program_moved (DebugManagerPlugin *this, guint pid, guint tid, gulong
 static void
 dma_plugin_program_unload (DebugManagerPlugin *this)
 {
-	AnjutaUI *ui;
 	AnjutaStatus* status;
 
 	DEBUG_PRINT ("%s", "DMA: dma_plugin_program_unload");
 
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_visible (this->start_group, TRUE);
 	gtk_action_group_set_sensitive (this->start_group, TRUE);
 	gtk_action_group_set_visible (this->loaded_group, TRUE);
@@ -523,7 +512,6 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 static void
 dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 {
-	AnjutaUI *ui;
 	GtkAction *action;
 	AnjutaStatus* state;
 
@@ -532,7 +520,6 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 	dma_plugin_program_unload (self);
 
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (self)->shell, NULL);
 	gtk_action_group_set_visible (self->start_group, TRUE);
 	gtk_action_group_set_sensitive (self->start_group, TRUE);
 	action = gtk_action_group_get_action (self->start_group, "ActionDebuggerStop");

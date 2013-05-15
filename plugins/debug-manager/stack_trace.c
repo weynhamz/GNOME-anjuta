@@ -266,7 +266,6 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 	StackPacket *packet = (StackPacket *)user_data;
 	StackTrace *self;
 	guint thread;
-	gboolean scroll;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
@@ -278,7 +277,6 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 
 	self = packet->self;
 	thread = packet->thread;
-	scroll = packet->scroll;
 	if (packet->unblock) g_signal_handler_unblock (self->plugin, self->changed_handler);
 	g_slice_free (StackPacket, packet);
 

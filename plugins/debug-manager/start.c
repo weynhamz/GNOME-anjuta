@@ -297,7 +297,7 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
  *---------------------------------------------------------------------------*/
 
 static AttachProcess *
-attach_process_new ()
+attach_process_new (void)
 {
 	AttachProcess *ap;
 	ap = g_new0 (AttachProcess, 1);
@@ -861,7 +861,8 @@ show_check_debug_dialog (DmaStart *this)
 	    	DO_NOT_SHOW_CHECK, &do_not_show,
 		    NULL);
 		g_object_unref (bxml);
-	
+
+		gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
 	
 		if (gtk_toggle_button_get_active	(do_not_show))
@@ -1123,8 +1124,6 @@ show_remote_dialog (DmaStart *this)
 	GtkWidget *serial_container;
 	gint res;
 
-	parent = GTK_WINDOW (this->plugin->shell);
-
 	/* Fetch out the widget we care about for now */
 	bxml = anjuta_util_builder_new (GLADE_FILE, NULL);
 	if (!bxml) return FALSE;
@@ -1139,6 +1138,9 @@ show_remote_dialog (DmaStart *this)
 	    SERIAL_CONTAINER, &serial_container,
 	    NULL);
 	g_object_unref (bxml);
+
+	parent = GTK_WINDOW (this->plugin->shell);
+	gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
 
 	/* Connect signals */	
 	g_signal_connect (G_OBJECT (tcpip_radio), "toggled", G_CALLBACK (on_radio_toggled), tcpip_container);
