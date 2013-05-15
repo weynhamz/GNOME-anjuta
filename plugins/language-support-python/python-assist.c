@@ -341,6 +341,7 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 	gchar *ropecommand;
 	GString *builder_file_paths = g_string_new("");
 	GList *project_files_list, *node;
+	gchar *python_content_type;
 
 	gchar *source = ianjuta_editor_get_text_all (editor, NULL);
 	gchar *tmp_file;
@@ -366,15 +367,28 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 	project_files_list = ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (manager), 
 								   ANJUTA_PROJECT_SOURCE, 
 								   NULL);
+	python_content_type = g_content_type_from_mime_type ("text/x-python");
 	for (node = project_files_list; node != NULL; node = g_list_next (node))
 	{
-		gchar *file_path = g_file_get_path (node->data);
-		builder_file_paths = g_string_append (builder_file_paths, FILE_LIST_DELIMITER);
-		builder_file_paths = g_string_append (builder_file_paths, file_path);
-		g_free (file_path);
+		gchar *filename, *content_type;
+
+		filename = g_file_get_basename (node->data);
+		content_type = g_content_type_guess (filename, NULL, 0, NULL);
+		
+		if (g_content_type_equals (content_type, python_content_type))
+		{
+			gchar *file_path = g_file_get_path (node->data);
+			builder_file_paths = g_string_append (builder_file_paths, FILE_LIST_DELIMITER);
+			builder_file_paths = g_string_append (builder_file_paths, file_path);
+			g_free (file_path);
+		}
+
+		g_free (filename);
+		g_free (content_type);
 		g_object_unref (node->data);
 	}
 	g_list_free (project_files_list);
+	g_free (python_content_type);
 	
 	ropecommand = g_strdup_printf("%s %s -o autocomplete -p \"%s\" -r \"%s\" -s \"%s\" -f %d -b \"%s\"", 
 	                              interpreter_path, AUTOCOMPLETE_SCRIPT, project, 
@@ -395,10 +409,6 @@ python_assist_create_word_completion_cache (PythonAssist *assist, IAnjutaIterabl
 
 	assist->priv->cache_position = offset;
 
-	anjuta_language_provider_proposals (assist->priv->lang_prov,
-	                                    IANJUTA_PROVIDER(assist), NULL,
-	                                    NULL, FALSE);
-	
 	return TRUE;
 }
 
