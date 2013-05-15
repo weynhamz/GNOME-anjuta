@@ -38,7 +38,6 @@ typedef struct _DmaDataViewClass DmaDataViewClass;
 GType dma_data_view_get_type (void);
 
 GtkWidget *dma_data_view_new_with_buffer (DmaDataBuffer *buffer);
-void dma_data_view_free (DmaDataView *this);
 
 void dma_data_view_goto_address (DmaDataView *view, const void *address);
 void dma_data_view_refresh (DmaDataView *view);

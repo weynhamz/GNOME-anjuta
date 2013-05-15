@@ -78,6 +78,11 @@ struct _DmaDataViewClass
 	GtkCssProvider *css;
 };
 
+enum {
+  PROP_0, PROP_BUFFER, N_PROPERTIES
+};
+static GParamSpec *properties[N_PROPERTIES] = { NULL, };
+
 G_DEFINE_TYPE (DmaDataView, dma_data_view, GTK_TYPE_CONTAINER);
 
 /* Helper functions
@@ -593,77 +598,6 @@ dma_data_view_draw (GtkWidget *widget,
 }
 
 static void
-dma_data_view_create_widget (DmaDataView *view)
-{
-	GtkWidget* wid;
-
-	wid = GTK_WIDGET (view);
-
-	gtk_widget_set_has_window (wid, FALSE);
-	gtk_widget_set_can_focus (wid, TRUE);
-	gtk_widget_set_redraw_on_allocate (wid, FALSE); 	
-	
-	view->char_by_byte = 2;
-	view->bytes_by_line = 16;
-	view->line_by_page = 16;
-	
-	view->hadjustment = NULL;
-	view->vadjustment = NULL;
-
-	view->goto_window = NULL;
-	view->goto_entry = NULL;
-
-	view->buffer_range = GTK_ADJUSTMENT (gtk_adjustment_new (0,
-											 dma_data_buffer_get_lower (view->buffer),
-											 dma_data_buffer_get_upper (view->buffer)
-											 ,1,4,4));
-	g_signal_connect (view->buffer_range, "value_changed",
-                        G_CALLBACK (dma_data_view_value_changed), view);
-
-	wid = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, view->buffer_range);
-	g_object_ref (wid);
-	view->range = wid;
-	gtk_widget_set_parent (wid, GTK_WIDGET (view));
-	gtk_widget_show (wid);
-
-	wid = dma_chunk_view_new ();
-	g_object_ref (wid);
-	gtk_widget_set_parent (wid, GTK_WIDGET (view));
-	gtk_widget_set_size_request (wid, -1, 0);
-	gtk_widget_show (wid);
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
-	view->ascii = wid;
-	view->ascii_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
-	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
-	g_signal_connect (wid, "populate_popup",
-                        G_CALLBACK (dma_data_view_populate_popup), view);
-	
-	wid = dma_chunk_view_new ();
-	g_object_ref (wid);
-	gtk_widget_set_parent (wid, GTK_WIDGET (view));
-	gtk_widget_set_size_request (wid, -1, 0);
-	gtk_widget_show (wid);
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
-	view->data = wid;
-	view->data_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
-	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
-	g_signal_connect (wid, "populate_popup",
-                        G_CALLBACK (dma_data_view_populate_popup), view);
-
-	wid = dma_chunk_view_new ();
-	g_object_ref (wid);
-	gtk_widget_set_parent (wid, GTK_WIDGET (view));
-	gtk_widget_set_size_request (wid, -1, 0);
-	gtk_widget_show (wid);
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
-	view->address = wid;
-	view->adr_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
-	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
-	g_signal_connect (wid, "populate_popup",
-                        G_CALLBACK (dma_data_view_populate_popup), view);
-}
-
-static void
 dma_data_view_changed_notify (DmaDataBuffer* buffer, gulong lower, gulong upper, DmaDataView *view)
 {
 	if ((upper >= view->start) && (lower < (view->start + view->line_by_page * view->bytes_by_line)))
@@ -862,6 +796,117 @@ dma_data_view_finalize (GObject *object)
 }
 
 static void
+dma_data_view_constructed (GObject *object)
+{
+	DmaDataView *view = DMA_DATA_VIEW (object);
+	GtkWidget* wid;
+
+	g_signal_connect (G_OBJECT (view->buffer), 
+	                  "changed_notify", 
+	                  G_CALLBACK (dma_data_view_changed_notify), 
+	                  view);
+
+	wid = GTK_WIDGET (view);
+
+	gtk_widget_set_has_window (wid, FALSE);
+	gtk_widget_set_can_focus (wid, TRUE);
+	gtk_widget_set_redraw_on_allocate (wid, FALSE); 	
+	
+	view->char_by_byte = 2;
+	view->bytes_by_line = 16;
+	view->line_by_page = 16;
+	
+	view->hadjustment = NULL;
+	view->vadjustment = NULL;
+
+	view->goto_window = NULL;
+	view->goto_entry = NULL;
+
+	view->buffer_range = GTK_ADJUSTMENT (gtk_adjustment_new (0,
+											 dma_data_buffer_get_lower (view->buffer),
+											 dma_data_buffer_get_upper (view->buffer)
+											 ,1,4,4));
+	g_signal_connect (view->buffer_range, "value_changed",
+                        G_CALLBACK (dma_data_view_value_changed), view);
+
+	wid = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, view->buffer_range);
+	g_object_ref (wid);
+	view->range = wid;
+	gtk_widget_set_parent (wid, GTK_WIDGET (view));
+	gtk_widget_show (wid);
+
+	wid = dma_chunk_view_new ();
+	g_object_ref (wid);
+	gtk_widget_set_parent (wid, GTK_WIDGET (view));
+	gtk_widget_set_size_request (wid, -1, 0);
+	gtk_widget_show (wid);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
+	view->ascii = wid;
+	view->ascii_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
+	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
+	g_signal_connect (wid, "populate_popup",
+                        G_CALLBACK (dma_data_view_populate_popup), view);
+	
+	wid = dma_chunk_view_new ();
+	g_object_ref (wid);
+	gtk_widget_set_parent (wid, GTK_WIDGET (view));
+	gtk_widget_set_size_request (wid, -1, 0);
+	gtk_widget_show (wid);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
+	view->data = wid;
+	view->data_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
+	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
+	g_signal_connect (wid, "populate_popup",
+                        G_CALLBACK (dma_data_view_populate_popup), view);
+
+	wid = dma_chunk_view_new ();
+	g_object_ref (wid);
+	gtk_widget_set_parent (wid, GTK_WIDGET (view));
+	gtk_widget_set_size_request (wid, -1, 0);
+	gtk_widget_show (wid);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (wid), FALSE);
+	view->address = wid;
+	view->adr_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (wid));
+	dma_chunk_view_set_scroll_adjustment (DMA_CHUNK_VIEW (wid), view->buffer_range);
+	g_signal_connect (wid, "populate_popup",
+                        G_CALLBACK (dma_data_view_populate_popup), view);
+}
+
+static void
+dma_data_view_set_property (GObject *object, guint prop_id,
+                            const GValue *value, GParamSpec *pspec)
+{
+	DmaDataView *view = DMA_DATA_VIEW (object);
+
+	switch (prop_id)
+	{
+		case PROP_BUFFER:
+			view->buffer = g_value_dup_object (value);
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
+
+static void
+dma_data_view_get_property (GObject *object, guint prop_id,
+                            GValue *value, GParamSpec *pspec)
+{
+	DmaDataView *view = DMA_DATA_VIEW (object);
+
+	switch (prop_id)
+	{
+		case PROP_BUFFER:
+			g_value_set_object (value, view->buffer);
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
+
+static void
 dma_data_view_init (DmaDataView *view)
 {
 	GtkStyleContext *context;
@@ -893,6 +938,9 @@ dma_data_view_class_init (DmaDataViewClass * klass)
 	widget_class = GTK_WIDGET_CLASS (klass);
 	container_class = GTK_CONTAINER_CLASS (klass);
 
+	gobject_class->set_property = dma_data_view_set_property;
+	gobject_class->get_property = dma_data_view_get_property;
+	gobject_class->constructed = dma_data_view_constructed;
 	gobject_class->dispose = dma_data_view_dispose;
 	gobject_class->finalize = dma_data_view_finalize;
 
@@ -904,6 +952,12 @@ dma_data_view_class_init (DmaDataViewClass * klass)
 	
 	container_class->forall = dma_data_view_forall;
 	container_class->child_type = dma_data_view_child_type;
+
+	properties[PROP_BUFFER] =
+		g_param_spec_object ("buffer", "Buffer", "Buffer",
+		                     DMA_DATA_BUFFER_TYPE,
+		                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+	g_object_class_install_properties (gobject_class, N_PROPERTIES, properties);
 
 	klass->css = gtk_css_provider_new ();
 	gtk_css_provider_load_from_data (klass->css, data_view_style, -1, NULL);
@@ -917,25 +971,6 @@ dma_data_view_new_with_buffer (DmaDataBuffer* buffer)
 {
 	DmaDataView *view;
 
-	view = g_object_new (DMA_DATA_VIEW_TYPE, NULL);
-	g_assert (view != NULL);
-
-	view->buffer = buffer;
-	g_object_ref (buffer);
-	
-	g_signal_connect (G_OBJECT (buffer), 
-			  "changed_notify", 
-			  G_CALLBACK (dma_data_view_changed_notify), 
-			  view);
-	
-	dma_data_view_create_widget (view);
-	
+	view = g_object_new (DMA_DATA_VIEW_TYPE, "buffer", buffer, NULL);
 	return GTK_WIDGET (view);
 }
-	
-void
-dma_data_view_free (DmaDataView *view)
-{
-	g_object_unref (view);
-}
-
