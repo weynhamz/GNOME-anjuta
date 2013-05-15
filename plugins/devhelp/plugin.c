@@ -588,8 +588,7 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
 	gchar *cmd[4];
 	gchar *display;
-	gboolean retval;
-	
+
 	if (!anjuta_util_prog_is_installed ("devhelp", TRUE))
 	{
 		return;
@@ -610,14 +609,14 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 
 	display = gdk_screen_make_display_name (gdk_screen_get_default ());
 
-	retval = g_spawn_async (NULL, /* working directory */
-				cmd,
-				NULL, /* envp */
-				G_SPAWN_SEARCH_PATH,
-				set_environment,
-				&display,
-				NULL,
-				NULL);
+	g_spawn_async (NULL, /* working directory */
+	               cmd,
+	               NULL, /* envp */
+	               G_SPAWN_SEARCH_PATH,
+	               set_environment,
+	               &display,
+	               NULL,
+	               NULL);
 
 	g_free (display);
 }
