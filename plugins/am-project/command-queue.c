@@ -169,13 +169,14 @@ pm_command_queue_thread_main_loop (PmCommandQueue *queue)
  *---------------------------------------------------------------------------*/
 
 static gboolean
-pm_command_queue_start_thread (PmCommandQueue *queue, GError **error)
+pm_command_queue_start_thread (PmCommandQueue *queue)
 {
 	queue->done_queue = g_async_queue_new ();
 	queue->work_queue = g_async_queue_new ();
 	queue->job_queue = g_queue_new ();
 
-	queue->worker = g_thread_create ((GThreadFunc) pm_command_queue_thread_main_loop, queue, TRUE, error);
+	queue->worker = g_thread_new ("am-project-worker",
+	                              (GThreadFunc) pm_command_queue_thread_main_loop, queue);
 
 	if (queue->worker == NULL) {
 		g_async_queue_unref (queue->work_queue);
@@ -390,7 +391,7 @@ pm_command_queue_new (void)
 	queue->stopping = FALSE;
 	queue->busy = 0;
 
-	pm_command_queue_start_thread (queue, NULL);
+	pm_command_queue_start_thread (queue);
 	
 	return queue;
 }
