@@ -845,7 +845,8 @@ create_disassemble_gui (DmaDisassemble *self)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (self->window),
 									 GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (self->window), GTK_WIDGET (dataview));
-	
+
+	gtk_widget_show_all (self->window);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (self->plugin)->shell,
 							 self->window,
                              "AnjutaDebuggerDisassemble", _("Disassembly"),

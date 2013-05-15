@@ -174,7 +174,8 @@ create_memory_gui (DmaMemory *mem)
 	
 	dataview = dma_data_view_new_with_buffer (mem->buffer);
 	mem->window = dataview;
-	
+
+	gtk_widget_show_all (mem->window);
 	anjuta_shell_add_widget (mem->plugin->shell,
 							 mem->window,
                              "AnjutaDebuggerMemory", _("Memory"),
