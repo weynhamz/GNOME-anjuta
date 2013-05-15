@@ -50,6 +50,7 @@ struct _DmaMemory
 	DmaDebuggerQueue *debugger;
 	AnjutaPlugin *plugin;
 	GtkWidget *window;
+	DmaDataView *dataview;
 	DmaDataBuffer *buffer;
 	GtkWidget *menu;
 };
@@ -118,7 +119,7 @@ static void
 dma_memory_update (DmaMemory *mem)
 {
 	dma_data_buffer_invalidate(mem->buffer);
-	dma_data_view_refresh(DMA_DATA_VIEW (mem->window));
+	dma_data_view_refresh(mem->dataview);
 }
 
 static void
@@ -140,10 +141,11 @@ destroy_memory_gui (DmaMemory *mem)
 	{
 		gtk_widget_destroy (mem->window);
 		mem->window = NULL;
+		mem->dataview = NULL;
 		dma_data_buffer_remove_all_page (mem->buffer);
 	}
 	
-	/* Remove buffer */		
+	/* Remove buffer */
 	if (mem->buffer != NULL)
 	{	
 		g_object_unref (mem->buffer);
@@ -164,16 +166,18 @@ on_debugger_stopped (DmaMemory *mem)
 static gboolean
 create_memory_gui (DmaMemory *mem)
 {
-	GtkWidget *dataview;
-
 	g_return_val_if_fail (mem->buffer == NULL, FALSE);
 	g_return_val_if_fail (mem->window == NULL, FALSE);
 	
 	mem->buffer = dma_data_buffer_new (0x0000, 0xFFFFFFFFU, read_memory_block, NULL, mem);
 	if (mem->buffer == NULL) return FALSE;
 	
-	dataview = dma_data_view_new_with_buffer (mem->buffer);
-	mem->window = dataview;
+	mem->dataview = (DmaDataView*)dma_data_view_new_with_buffer (mem->buffer);
+
+	mem->window = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (mem->window), GTK_SHADOW_IN);
+	gtk_container_add (GTK_CONTAINER (mem->window),
+	                   GTK_WIDGET (mem->dataview));
 
 	gtk_widget_show_all (mem->window);
 	anjuta_shell_add_widget (mem->plugin->shell,
