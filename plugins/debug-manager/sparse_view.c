@@ -67,6 +67,7 @@
 
 enum {
 	PROP_0,
+	PROP_BUFFER,
 	PROP_SHOW_LINE_NUMBERS,
 	PROP_SHOW_LINE_MARKERS,
 };
@@ -652,7 +653,6 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 			  				  cairo_t *cr)
 {
 	GtkTextView *text_view;
-	GdkWindow *win;
 	PangoLayout *layout;
 	gint y1, y2;
 	gint y, height;
@@ -675,9 +675,6 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 
 		return;
 	}
-	
-	win = gtk_text_view_get_window (text_view,
-	                                GTK_TEXT_WINDOW_LEFT);	
 
 	
 	/* FIXME */
@@ -763,15 +760,8 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 			g_snprintf (str, sizeof (str),"0x%0*lX", margin_length, (long unsigned int)address);
 			pango_layout_set_markup (layout, str, -1);
 
-			gtk_paint_layout (gtk_widget_get_style (GTK_WIDGET (view)),
-					  cr,
-					  gtk_widget_get_state (GTK_WIDGET (view)),
-					  FALSE,
-					  GTK_WIDGET (view),
-					  NULL,
-					  text_width + 2, 
-					  pos,
-					  layout);
+			gtk_render_layout (gtk_widget_get_style_context (GTK_WIDGET (view)),
+			                   cr, text_width + 2, pos, layout);
 		}
 
 		/* Display marker */
@@ -898,7 +888,12 @@ dma_sparse_view_notify_vadjustment (DmaSparseView *view,
 void
 dma_sparse_view_set_sparse_buffer (DmaSparseView *view, DmaSparseBuffer *buffer)
 {
-	view->priv->buffer = buffer;
+	g_return_if_fail (DMA_IS_SPARSE_VIEW (view));
+	g_return_if_fail (DMA_IS_SPARSE_BUFFER (buffer));
+
+	g_clear_object (&view->priv->buffer);
+	view->priv->buffer = g_object_ref (buffer);
+
 	if (view->priv->vadjustment != NULL)
 	{
 		gtk_adjustment_set_upper (view->priv->vadjustment, dma_sparse_buffer_get_upper (view->priv->buffer));
@@ -1088,6 +1083,9 @@ dma_sparse_view_set_property (GObject *object,guint prop_id, const GValue *value
     
 	switch (prop_id)
 	{
+		case PROP_BUFFER:
+			dma_sparse_view_set_sparse_buffer (view, g_value_get_object (value));
+			break;
 		case PROP_SHOW_LINE_NUMBERS:
 			dma_sparse_view_set_show_line_numbers (view, g_value_get_boolean (value));
 			break;
@@ -1111,6 +1109,9 @@ dma_sparse_view_get_property (GObject *object, guint prop_id, GValue *value, GPa
     
 	switch (prop_id)
 	{
+		case PROP_BUFFER:
+			g_value_set_object (value, view->priv->buffer);
+			break;
 		case PROP_SHOW_LINE_NUMBERS:
 			g_value_set_boolean (value, dma_sparse_view_get_show_line_numbers (view));
 			break;
@@ -1131,13 +1132,10 @@ dma_sparse_view_get_property (GObject *object, guint prop_id, GValue *value, GPa
 static void
 dma_sparse_view_dispose (GObject *object)
 {
-	DmaSparseView *view;
+	DmaSparseView *view = DMA_SPARSE_VIEW (object);
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (DMA_IS_SPARSE_VIEW (object));
-	
-	view = DMA_SPARSE_VIEW (object);
-	
+	g_clear_object (&view->priv->buffer);
+
 	G_OBJECT_CLASS (dma_sparse_view_parent_class)->dispose (object);
 }
 
@@ -1157,8 +1155,6 @@ dma_sparse_view_finalize (GObject *object)
 	
 	dma_sparse_view_free_marker (view);
 
-	g_free (view->priv);
-
 	G_OBJECT_CLASS (dma_sparse_view_parent_class)->finalize (object);
 }
 
@@ -1170,7 +1166,8 @@ dma_sparse_view_init (DmaSparseView *view)
 {
 	PangoFontDescription *font_desc;
 	
-	view->priv = g_new0 (DmaSparseViewPrivate, 1);	
+	view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, DMA_SPARSE_VIEW_TYPE,
+	                                          DmaSparseViewPrivate);
 	
 	view->priv->buffer = NULL;
 
@@ -1198,7 +1195,7 @@ dma_sparse_view_init (DmaSparseView *view)
 								      MIN_NUMBER_WINDOW_WIDTH);
 	
 	font_desc = pango_font_description_from_string ("Monospace 10");
-	gtk_widget_modify_font (GTK_WIDGET (view), font_desc);
+	gtk_widget_override_font (GTK_WIDGET (view), font_desc);
 	pango_font_description_free (font_desc);
 	
 	dma_sparse_view_initialize_marker (view);
@@ -1230,7 +1227,17 @@ dma_sparse_view_class_init (DmaSparseViewClass * klass)
 	widget_class->draw = dma_sparse_view_draw;	
 	
 	text_view_class->move_cursor = dma_sparse_view_move_cursor;
-	
+
+	g_type_class_add_private (klass, sizeof (DmaSparseViewPrivate));
+
+	g_object_class_install_property (gobject_class,
+					 PROP_BUFFER,
+					 g_param_spec_object ("buffer",
+							       "Buffer",
+							       "The DmaSparseBuffer that is displayed",
+					               DMA_SPARSE_BUFFER_TYPE,
+							       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
 	g_object_class_install_property (gobject_class,
 					 PROP_SHOW_LINE_NUMBERS,
 					 g_param_spec_boolean ("show_line_numbers",
@@ -1245,7 +1252,7 @@ dma_sparse_view_class_init (DmaSparseViewClass * klass)
 							       _("Show Line Markers"),
 							       _("Whether to display line marker pixbufs"),
 							       FALSE,
-							       G_PARAM_READWRITE));	
+							       G_PARAM_READWRITE));
 }
 
 /* Creation and Destruction
@@ -1256,18 +1263,8 @@ dma_sparse_view_new_with_buffer (DmaSparseBuffer *buffer)
 {
 	GtkWidget *view;
 
-	view = g_object_new (DMA_SPARSE_VIEW_TYPE, NULL);
+	view = g_object_new (DMA_SPARSE_VIEW_TYPE, "buffer", buffer, NULL);
 	g_assert (view != NULL);
-
-	dma_sparse_view_set_sparse_buffer (DMA_SPARSE_VIEW(view), buffer);
-	dma_sparse_buffer_get_iterator_at_address (buffer, &(DMA_SPARSE_VIEW (view))->priv->start, 0);
 
 	return view;
 }
-	
-void
-dma_sparse_view_free (DmaSparseView *view)
-{
-	g_object_unref (view);
-}
-

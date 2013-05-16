@@ -682,13 +682,9 @@ dma_disassembly_view_instance_init (DmaSparseView *view)
 static void
 dma_disassembly_view_class_init (DmaDisassemblyViewClass *klass)
 {
-	DmaSparseViewClass* view_class;
-	
 	g_return_if_fail (klass != NULL);
-	
+
 	parent_class = (DmaSparseViewClass*) g_type_class_peek_parent (klass);
-	
-	view_class = DMA_SPARSE_VIEW_CLASS (klass);
 }
 
 static GType
@@ -725,13 +721,11 @@ dma_disassembly_view_new_with_buffer (DmaDebuggerQueue *debugger, DmaSparseBuffe
 {
 	DmaDisassemblyView *view;
 
-	view = g_object_new (DMA_DISASSEMBLY_VIEW_TYPE, NULL);
+	view = g_object_new (DMA_DISASSEMBLY_VIEW_TYPE, "buffer", buffer, NULL);
 	g_assert (view != NULL);
 
 	view->debugger = debugger;
-	
-	dma_sparse_view_set_sparse_buffer (DMA_SPARSE_VIEW(view), buffer);	
-		
+
 	return view;
 }
 	

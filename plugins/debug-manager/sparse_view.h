@@ -57,7 +57,6 @@ struct _DmaSparseViewClass
 GType dma_sparse_view_get_type (void);
 
 GtkWidget *dma_sparse_view_new_with_buffer (DmaSparseBuffer *buffer);
-void dma_sparse_view_free (DmaSparseView *view);
 
 void dma_sparse_view_set_show_line_numbers (DmaSparseView *view, gboolean show);
 gboolean dma_sparse_view_get_show_line_numbers (DmaSparseView *view);
