@@ -899,26 +899,32 @@ build_project_configured (GObject *sender,
 	{
 		BuildContext *context = (BuildContext *)handle;
 		BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin *)(context == NULL ? (void *)sender : (void *)build_context_get_plugin (context));
-		GValue *value;
 		GFile *file;
-		gchar *uri;
 
 		/* FIXME: check if build directory correspond, configuration could have changed */
-		value = g_new0 (GValue, 1);
-		g_value_init (value, G_TYPE_STRING);
 
 		file = build_configuration_list_get_build_file (plugin->configurations, build_configuration_list_get_selected (plugin->configurations));
-		uri = g_file_get_uri (file);
-		g_value_set_string (value, uri);
-		g_free (uri);
-		g_object_unref (file);
+		if (file)
+		{
+			GValue value = G_VALUE_INIT;
+			gchar *uri;
 
-		anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, value, NULL);
+			uri = g_file_get_uri (file);
+			g_value_init (&value, G_TYPE_STRING);
+			g_value_set_string (&value, uri);
+			g_free (uri);
+			g_object_unref (file);
+			
+			anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, &value, NULL);
+			g_value_unset (&value);
+
+			/* Call build function if necessary */
+			if ((pack) && (pack->func != NULL)) pack->func (plugin, pack->file, pack->callback, pack->user_data, NULL);
+		}
+		else
+			anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell, IANJUTA_BUILDER_ROOT_URI, NULL);
 
 		build_update_configuration_menu (plugin);
-
-		/* Call build function if necessary */
-		if ((pack) && (pack->func != NULL)) pack->func (plugin, pack->file, pack->callback, pack->user_data, NULL);
 	}
 
 	if (pack)

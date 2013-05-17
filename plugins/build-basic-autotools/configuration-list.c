@@ -421,8 +421,11 @@ build_configuration_list_get_build_file (BuildConfigurationList *list, BuildConf
 {
 	GFile *build;
 
+	if (!list->project_root_uri)
+		return NULL;
+
 	build = g_file_new_for_uri (list->project_root_uri);
-	if ((list->project_root_uri != NULL) && (cfg->build_uri != NULL))
+	if (cfg->build_uri != NULL)
 	{
 		GFile *root;
 		root = build;
