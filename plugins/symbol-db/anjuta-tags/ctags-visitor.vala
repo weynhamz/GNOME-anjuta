@@ -132,7 +132,8 @@ public class CTagsVisitor : CodeVisitor {
 		ret.append (")");
 		return ret.str;
 	}
-	static void scope (Symbol s, string[] scope) {
+	static string[] scope (Symbol s) {
+		string scope[2];
 		var par = s.parent_symbol;
 		if (par != null && par.name != null) {
 			if (par is Class)
@@ -142,9 +143,10 @@ public class CTagsVisitor : CodeVisitor {
 			else if (par is Interface)
 				scope[0] = "interface";
 			else
-				return;
+				return scope;
 			scope[1] = par.name;
 		}
+		return scope;
 	}
 	/*static void print_tag(CTagsEntry en) {
 		stdout.printf("%s: %s at %d\n", en.name, en.kind_name, en.line_number);
@@ -164,7 +166,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.access = get_access (cl);
 		entry.implementation = implementation(cl);
 		entry.inheritance = to_string(cl.get_base_types(), ",");
-		scope (cl, entry.scope);
+		entry.scope = scope (cl);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -177,7 +179,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "struct";
 		entry.kind = 's';
 		entry.access = get_access (st);
-		scope (st, entry.scope);
+		entry.scope = scope (st);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -192,7 +194,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'i';
 		entry.access = get_access (iface);
 		entry.inheritance = to_string(iface.get_prerequisites());
-		scope (iface, entry.scope);
+		entry.scope = scope (iface);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -207,7 +209,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "enum";
 		entry.kind = 'e';
 		entry.access = get_access (en);
-		scope (en, entry.scope);
+		entry.scope = scope (en);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -221,7 +223,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "errordomain";
 		entry.kind = 'E';
 		entry.access = get_access (edomain);
-		scope (edomain, entry.scope);
+		entry.scope = scope (edomain);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -236,7 +238,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "enumvalue";
 		entry.kind = 'v';
 		entry.access = get_access (ev);
-		scope (ev, entry.scope);
+		entry.scope = scope (ev);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -249,7 +251,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "errorcode";
 		entry.kind = 'r';
 		entry.access = get_access (ecode);
-		scope (ecode, entry.scope);
+		entry.scope = scope (ecode);
 
 		taglist.append(entry);
 //		print_tag(entry);
@@ -263,7 +265,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "delegate";
 		entry.kind = 'd';
 		entry.access = get_access (d);
-		scope (d, entry.scope);
+		entry.scope = scope (d);
 		entry.returntype = d.return_type.to_qualified_string();
 		entry.signature = signature(d.get_parameters());
 
@@ -279,7 +281,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'S';
 		entry.access = get_access (sig);
 		entry.implementation = implementation(sig);
-		scope (sig, entry.scope);
+		entry.scope = scope (sig);
 		entry.returntype = sig.return_type.to_qualified_string();
 		entry.signature = signature(sig.get_parameters());
 
@@ -294,7 +296,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "field";
 		entry.kind = 'f';
 		entry.access = get_access (f);
-		scope (f, entry.scope);
+		entry.scope = scope (f);
 		entry.typeref = f.variable_type.to_qualified_string();
 
 		taglist.append(entry);
@@ -308,7 +310,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind_name = "field";
 		entry.kind = 'f';
 		entry.access = get_access (c);
-		scope (c, entry.scope);
+		entry.scope = scope (c);
 		entry.typeref = c.type_reference.to_qualified_string();
   
 		taglist.append(entry);
@@ -323,7 +325,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'p';
 		entry.access = get_access (prop);
 		entry.implementation = implementation(prop);
-		scope (prop, entry.scope);
+		entry.scope = scope (prop);
 		entry.typeref = prop.property_type.to_qualified_string();
 
 		taglist.append(entry);
@@ -339,7 +341,7 @@ public class CTagsVisitor : CodeVisitor {
 		entry.kind = 'm';
 		entry.access = get_access (m);
 		entry.implementation = implementation(m);
-		scope (m, entry.scope);
+		entry.scope = scope (m);
 		entry.returntype = m.return_type.to_qualified_string();
 		entry.signature = signature(m.get_parameters());
 
