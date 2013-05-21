@@ -268,7 +268,7 @@ dir_pattern_new (const gchar *pattern, gboolean reverse)
 			{
 				ptr++;
 			} while  (*ptr == '?');
-			g_string_append_printf (regex, "(.{%ld})", ptr - next);
+			g_string_append_printf (regex, "(.{%ld})", (long int) (ptr - next));
 		}
 		else if (*ptr == '\\')
 		{
