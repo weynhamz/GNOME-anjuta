@@ -84,11 +84,11 @@ on_commit_diff_button_clicked (GtkAction *action, Git *plugin)
 						  G_CALLBACK (git_pane_send_raw_output_to_editor),
 						  editor);
 		
-		g_signal_connect (G_OBJECT (diff_command), "command_finished",
+		g_signal_connect (G_OBJECT (diff_command), "command-finished",
 						  G_CALLBACK (git_pane_report_errors),
 						  plugin);
 
-		g_signal_connect (G_OBJECT (diff_command), "command_finished",
+		g_signal_connect (G_OBJECT (diff_command), "command-finished",
 						  G_CALLBACK (g_object_unref),
 						  NULL);
 
