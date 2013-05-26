@@ -484,6 +484,7 @@ create_cpu_registers_gui (CpuRegisters *self)
 	gtk_container_add (GTK_CONTAINER (self->window), GTK_WIDGET (self->treeview));
 	g_signal_connect(self->window, "map", (GCallback) on_map, self);
 
+	gtk_widget_show_all (self->window);
 	anjuta_shell_add_widget (self->plugin->shell,
 							 self->window,
                              "AnjutaDebuggerRegisters", _("Registers"),
