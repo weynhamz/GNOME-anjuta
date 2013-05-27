@@ -1441,7 +1441,7 @@ iloader_load (IAnjutaFileLoader *loader, GFile* file,
 										 basename);
 		plugin =
 			anjuta_plugin_manager_select_and_activate (plugin_manager,
-													   _("<b>Open With</b>"),
+													   _("Open With"),
 													   message,
 													   plugin_descs);
 		g_free (basename);

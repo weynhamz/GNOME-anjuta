@@ -8,7 +8,7 @@ Dependencies=anjuta-project-manager:ProjectManagerPlugin
 UserActivatable=no
 
 [File Loader]
-SupportedMimeTypes=application/x-glade,application/x-designer
+SupportedMimeTypes=application/x-glade,application/x-designer,application/x-gtk-builder
 
 [Wizard]
 _Title=User interface file

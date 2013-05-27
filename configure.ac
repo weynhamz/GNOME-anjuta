@@ -37,13 +37,15 @@ GTHREAD_REQUIRED=2.22.0
 GDK_PIXBUF_REQUIRED=2.0.0
 GDA4_REQUIRED=4.2.0
 GDA5_REQUIRED=5.0.0
-VTE_REQUIRED=0.27.6
 LIBXML_REQUIRED=2.4.23
 GDL_REQUIRED=3.5.5
 LIBWNCK_REQUIRED=2.12
 
 dnl GtkSourceView
 GTKSOURCEVIEW_REQUIRED=3.0.0
+
+dnl Terminal
+VTE_REQUIRED=0.27.6
 
 dnl Devhelp
 LIBDEVHELP_REQUIRED=3.7.4
@@ -161,9 +163,6 @@ PKG_CHECK_MODULES([GDA],
    [libgda-5.0 >= $GDA5_REQUIRED],,
    [PKG_CHECK_MODULES([GDA],
       [libgda-4.0 >= $GDA4_REQUIRED])])
-	
-PKG_CHECK_MODULES([VTE],
-   [vte-2.90 >= $VTE_REQUIRED])
 
 dnl Check for autogen
 dnl -----------------
@@ -172,6 +171,32 @@ if test x$AUTOGEN_PATH = xno; then
    AC_MSG_WARN([Couldn't find autogen. You will be able to build anjuta without autogen \
                 but several things won't work. You can get it from http://autogen.sourceforge.net/])
 fi
+
+dnl Check for Terminal
+dnl ---------------------
+
+AC_ARG_ENABLE(plugin-terminal,
+  AS_HELP_STRING([--disable-plugin-terminal],[Disable terminal plugin support in Anjuta.]),
+  [ if test "$enableval" = "no"; then
+       user_disabled_terminal=1
+    fi ],
+  [ user_disabled_terminal=0 ] )
+
+AC_MSG_CHECKING(if terminal plugin is disabled)
+if test "$user_disabled_terminal" = 1; then
+	AC_MSG_RESULT(yes)
+	terminal_enabled="no"
+else
+	AC_MSG_RESULT(no)
+	PKG_CHECK_MODULES(PLUGIN_TERMINAL, [vte-2.90 >= $VTE_REQUIRED],
+	    [
+		terminal_enabled=yes
+	    ], [
+		terminal_enabled=no
+	    ])
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_TERMINAL, [test x$terminal_enabled = xyes])
 
 dnl Check for Devhelp
 dnl -----------------
@@ -915,6 +940,14 @@ else
        echo "Building devhelp plugin: ...............................NO"
        echo "        Requires libdevhelp-3.0 (>= $LIBDEVHELP_REQUIRED)"
 fi
+
+if [ test x$terminal_enabled = xyes ]; then
+       echo "Building terminal plugin: ..............................YES"
+else
+       echo "Building terminal plugin: ..............................NO"
+       echo "        Requires vte-2.90 (>= $VTE_REQUIRED)"
+fi
+
 if [ test x$enable_vala = xyes ]; then
         echo "Building Vala support: .................................YES"
 else
